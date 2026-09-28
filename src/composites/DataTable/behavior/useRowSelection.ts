@@ -14,7 +14,7 @@ const isToggleClick = (event: MouseEvent<HTMLElement>) => event.ctrlKey || event
 
 const isGridKey = (event: KeyboardEvent<HTMLElement>) => {
   const { target, currentTarget } = event;
-  return target === currentTarget || (target instanceof Element && target.closest(SELECT_CELL_SELECTOR) !== null);
+  return target === currentTarget || ((target as Partial<Element>).closest?.(SELECT_CELL_SELECTOR) ?? null) !== null;
 };
 
 const useRowSelection = <T,>(input: UseRowSelectionInput<T>): RowSelectionBinding | null => {

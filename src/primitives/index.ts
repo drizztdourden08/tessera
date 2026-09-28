@@ -36,6 +36,7 @@ export { TabBar, type TabItem } from './TabBar';
 export { Floating } from './Floating';
 export type { FloatingLength, FloatingPlacement, FloatingProps } from './Floating';
 export { Portal, useAnchorTracking, dropPanelPositionFor } from './Portal';
+export { PortalDocumentContext } from './dom/portal-document-context';
 export type {
   DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult,
 } from './Portal';

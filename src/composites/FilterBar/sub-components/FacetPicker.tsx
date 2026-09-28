@@ -14,7 +14,7 @@ const FacetPicker = ({ facet }: FacetPickerProps) => {
   const { position: pos } = useAnchorTracking({
     active: menu.open,
     anchorRef: menu.anchorRef,
-    compute: (rect) => ({ top: rect.bottom, right: window.innerWidth - rect.right }),
+    compute: (rect, view) => ({ top: rect.bottom, right: view.innerWidth - rect.right }),
     onOutOfView: menu.close,
   });
 

@@ -3,12 +3,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { dropPanelPositionFor, useAnchorTracking, useDismissListeners } from '../../Portal';
 import { FIELD_GAP, MIN_PANEL_WIDTH, ROOM_FOR_DROP_DOWN } from './useTagPopup.constants';
 
-const tagPanelPositionFor = (rect: DOMRect) =>
+const tagPanelPositionFor = (rect: DOMRect, view: Window) =>
   dropPanelPositionFor(rect, {
     roomForDropDown: ROOM_FOR_DROP_DOWN,
     gap: FIELD_GAP,
     minPanelWidth: MIN_PANEL_WIDTH,
-  });
+  }, view);
 
 const useTagPopup = (disabled: boolean) => {
   const [open, setOpen] = useState(false);

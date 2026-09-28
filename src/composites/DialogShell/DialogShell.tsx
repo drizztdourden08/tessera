@@ -2,6 +2,7 @@
 import { useEffect, useId, useRef } from 'react';
 import { Portal } from '../../primitives/Portal';
 import { Box } from '../../primitives/Box';
+import { ownerDocumentOf } from '../../primitives/dom/owner-document';
 import { WindowHeader } from '../WindowHeader';
 import './DialogShell.css';
 import { type DialogShellProps } from './DialogShell.type';
@@ -10,6 +11,7 @@ const DialogShell = (props: DialogShellProps) => {
   const { open, onClose, title, headerExtra, actions, className = '', dismissable = true, initialFocusRef, children } = props;
 
   const titleId = useId();
+  const dialogRef = useRef<HTMLElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
@@ -18,8 +20,9 @@ const DialogShell = (props: DialogShellProps) => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') { e.preventDefault(); onCloseRef.current(); }
     };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
+    const doc = ownerDocumentOf(dialogRef.current);
+    doc.addEventListener('keydown', handler);
+    return () => doc.removeEventListener('keydown', handler);
   }, [open, dismissable]);
 
   useEffect(() => {
@@ -29,14 +32,16 @@ const DialogShell = (props: DialogShellProps) => {
       e.preventDefault();
       e.stopPropagation();
     };
-    document.addEventListener('keydown', swallow, true);
-    return () => document.removeEventListener('keydown', swallow, true);
+    const doc = ownerDocumentOf(dialogRef.current);
+    doc.addEventListener('keydown', swallow, true);
+    return () => doc.removeEventListener('keydown', swallow, true);
   }, [open, dismissable]);
 
   useEffect(() => {
     if (!open) return;
-    const active = document.activeElement;
-    if (!active || active === document.body) {
+    const doc = ownerDocumentOf(dialogRef.current);
+    const active = doc.activeElement;
+    if (!active || active === doc.body) {
       initialFocusRef?.current?.focus();
     }
   }, [open, initialFocusRef]);
@@ -47,6 +52,7 @@ const DialogShell = (props: DialogShellProps) => {
     <Portal layer="modal">
       <Box className="dialog-backdrop" onClick={dismissable ? onClose : undefined}>
         <Box
+          ref={dialogRef}
           className={`dialog${className ? ` ${className}` : ''}`}
           role="dialog"
           aria-modal="true"

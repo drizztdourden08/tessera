@@ -5,6 +5,7 @@ import { Floating } from '../../../primitives/Floating';
 import { Glyph } from '../../../primitives/Glyph';
 import { Pressable } from '../../../primitives/Pressable';
 import { Text } from '../../../primitives/Text';
+import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { SUB_PANEL_WIDTH } from './FieldPicker.constants';
 import type { FieldPickerNodeProps, PanelPosition } from './FieldPickerNode.type';
 import '../../../theme/field-picker.css';
@@ -17,7 +18,7 @@ const FieldPickerNode = (props: FieldPickerNodeProps) => {
   const handleEnter = (): void => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
-    const overflows = rect.right + SUB_PANEL_WIDTH > window.innerWidth;
+    const overflows = rect.right + SUB_PANEL_WIDTH > ownerWindowOf(ref.current).innerWidth;
     setPosition({ top: rect.top, left: overflows ? rect.left - SUB_PANEL_WIDTH : rect.right });
   };
 

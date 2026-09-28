@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useRef, useCallback } from 'react';
+import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import type { DragPosition } from './useWidgetDrag.type';
 
 const useWidgetDrag = (
@@ -14,6 +15,7 @@ const useWidgetDrag = (
       if (e.button !== 0) return;
       e.preventDefault();
       dragging.current = true;
+      const view = ownerWindowOf(e.currentTarget);
       offset.current = { x: e.clientX - pos.x, y: e.clientY - pos.y };
 
       const onMouseMove = (ev: MouseEvent) => {
@@ -22,11 +24,11 @@ const useWidgetDrag = (
       };
       const onMouseUp = () => {
         dragging.current = false;
-        window.removeEventListener('mousemove', onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
+        view.removeEventListener('mousemove', onMouseMove);
+        view.removeEventListener('mouseup', onMouseUp);
       };
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
+      view.addEventListener('mousemove', onMouseMove);
+      view.addEventListener('mouseup', onMouseUp);
     },
     [pos.x, pos.y, onMove],
   );

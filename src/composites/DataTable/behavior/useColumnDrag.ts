@@ -3,11 +3,12 @@ import { useCallback, useState } from 'react';
 import { DRAG_MIME } from './useColumnDrag.constants';
 import type { DragEvent } from 'react';
 import type { ColumnDragBinding, ColumnDragStart } from '../DataTable.type';
+import { isHTMLElement } from '../../../primitives/dom/is-html-element';
 
 const grabPoint = (ghost: HTMLElement): { x: number; y: number } => {
   const head = ghost.firstElementChild;
   const centred = ghost.offsetHeight / 2;
-  const y = head instanceof HTMLElement ? head.offsetTop + head.offsetHeight / 2 : centred;
+  const y = isHTMLElement(head) ? head.offsetTop + head.offsetHeight / 2 : centred;
   return { x: ghost.offsetWidth / 2, y };
 };
 

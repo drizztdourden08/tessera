@@ -4,7 +4,7 @@ import type { RefObject } from 'react';
 interface UseAnchorTrackingParams<T> {
   active: boolean;
   anchorRef: RefObject<HTMLElement | null>;
-  compute: (rect: DOMRect) => T;
+  compute: (rect: DOMRect, view: Window) => T;
   onOutOfView?: () => void;
 }
 

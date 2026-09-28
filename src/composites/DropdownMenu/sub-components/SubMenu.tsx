@@ -6,11 +6,12 @@ import { Glyph } from '../../../primitives/Glyph';
 import { Text } from '../../../primitives/Text';
 import { SUB_MENU_PADDING, SUB_MENU_WIDTH, SUB_ROW_HEIGHT } from '../DropdownMenu.constants';
 import { MenuItemButton } from './MenuItemButton';
+import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import type { PanelPosition, SubMenuProps } from './SubMenu.type';
 
-const panelPositionFor = (rect: DOMRect, rows: number): PanelPosition => ({
-  top: Math.min(rect.top, window.innerHeight - (rows * SUB_ROW_HEIGHT + SUB_MENU_PADDING)),
-  left: rect.right + SUB_MENU_WIDTH > window.innerWidth ? rect.left - SUB_MENU_WIDTH : rect.right,
+const panelPositionFor = (rect: DOMRect, view: Window, rows: number): PanelPosition => ({
+  top: Math.min(rect.top, view.innerHeight - (rows * SUB_ROW_HEIGHT + SUB_MENU_PADDING)),
+  left: rect.right + SUB_MENU_WIDTH > view.innerWidth ? rect.left - SUB_MENU_WIDTH : rect.right,
 });
 
 const SubMenu = (props: SubMenuProps) => {
@@ -21,7 +22,7 @@ const SubMenu = (props: SubMenuProps) => {
 
   const handleEnter = (): void => {
     const rect = ref.current?.getBoundingClientRect();
-    if (rect) setPosition(panelPositionFor(rect, children.length));
+    if (rect) setPosition(panelPositionFor(rect, ownerWindowOf(ref.current), children.length));
   };
 
   return (

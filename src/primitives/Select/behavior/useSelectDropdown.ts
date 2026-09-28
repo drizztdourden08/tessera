@@ -7,12 +7,12 @@ import { useSelectKeyDown } from './useSelectKeyDown';
 import { MIN_PANEL_WIDTH, ROOM_FOR_DROP_DOWN, TRIGGER_GAP } from './useSelectDropdown.constants';
 import type { UseSelectDropdownParams } from './useSelectDropdown.type';
 
-const selectPositionFor = (rect: DOMRect) =>
+const selectPositionFor = (rect: DOMRect, view: Window) =>
   dropPanelPositionFor(rect, {
     roomForDropDown: ROOM_FOR_DROP_DOWN,
     gap: TRIGGER_GAP,
     minPanelWidth: MIN_PANEL_WIDTH,
-  });
+  }, view);
 
 const useSelectDropdown = (params: UseSelectDropdownParams) => {
   const { disabled, searchable, allOptions, onChange } = params;

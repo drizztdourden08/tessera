@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useEffect } from 'react';
+import { ownerDocumentOf } from '../../dom/owner-document';
 import type { UseDismissListenersParams } from './useDismissListeners.type';
 
 const useDismissListeners = (params: UseDismissListenersParams): void => {
@@ -14,8 +15,9 @@ const useDismissListeners = (params: UseDismissListenersParams): void => {
       ) return;
       onClose();
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    const doc = ownerDocumentOf(triggerRef.current ?? contentRef.current);
+    doc.addEventListener('mousedown', handler);
+    return () => doc.removeEventListener('mousedown', handler);
   }, [open, onClose, contentRef, triggerRef]);
 
   useEffect(() => {
@@ -26,9 +28,10 @@ const useDismissListeners = (params: UseDismissListenersParams): void => {
         onClose();
       }
     };
-    document.addEventListener('keydown', handler, true);
-    return () => document.removeEventListener('keydown', handler, true);
-  }, [open, onClose]);
+    const doc = ownerDocumentOf(triggerRef.current ?? contentRef.current);
+    doc.addEventListener('keydown', handler, true);
+    return () => doc.removeEventListener('keydown', handler, true);
+  }, [open, onClose, contentRef, triggerRef]);
 };
 
 export { useDismissListeners };

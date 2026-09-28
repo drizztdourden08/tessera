@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect } from 'react';
 import type { RefObject } from 'react';
+import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
 import { ARM_DELAY_MS } from './useSettingsDismiss.constants';
 
 const useSettingsDismiss = (
@@ -19,20 +20,22 @@ const useSettingsDismiss = (
       if (anchorRef.current?.contains(target)) return;
       onClose();
     };
-    document.addEventListener('pointerdown', handler, true);
+    const doc = ownerDocumentOf(anchorRef.current ?? panelRef.current);
+    doc.addEventListener('pointerdown', handler, true);
     return () => {
       clearTimeout(armTimer);
-      document.removeEventListener('pointerdown', handler, true);
+      doc.removeEventListener('pointerdown', handler, true);
     };
-  }, [onClose, anchorRef]);
+  }, [onClose, anchorRef, panelRef]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
-  }, [onClose]);
+    const doc = ownerDocumentOf(anchorRef.current ?? panelRef.current);
+    doc.addEventListener('keydown', handler);
+    return () => doc.removeEventListener('keydown', handler);
+  }, [onClose, anchorRef, panelRef]);
 };
 
 export { useSettingsDismiss };

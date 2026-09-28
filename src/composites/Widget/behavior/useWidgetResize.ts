@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useRef, useCallback } from 'react';
+import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { MIN_HEIGHT, MIN_WIDTH } from './useWidgetResize.constants';
 import type { Edge, Size } from './useWidgetResize.type';
 
@@ -16,6 +17,7 @@ const useWidgetResize = (
       e.preventDefault();
       e.stopPropagation();
       resizing.current = true;
+      const view = ownerWindowOf(e.currentTarget);
       startRef.current = {
         mx: e.clientX,
         my: e.clientY,
@@ -47,12 +49,12 @@ const useWidgetResize = (
 
       const onMouseUp = () => {
         resizing.current = false;
-        window.removeEventListener('mousemove', onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
+        view.removeEventListener('mousemove', onMouseMove);
+        view.removeEventListener('mouseup', onMouseUp);
       };
 
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
+      view.addEventListener('mousemove', onMouseMove);
+      view.addEventListener('mouseup', onMouseUp);
     },
     [size.width, size.height, pos.x, pos.y, onResize],
   );

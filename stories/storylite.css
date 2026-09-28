@@ -20,6 +20,13 @@ body {
   align-items: flex-start;
 }
 
+.story-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
 .story-list {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);

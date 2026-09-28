@@ -9,7 +9,7 @@ const intersect = (a: Bounds, b: Bounds): Bounds => ({
   left: Math.max(a.left, b.left),
 });
 
-const visibleBoundsOf = (ancestors: readonly Element[]): Bounds =>
-  ancestors.reduce<Bounds>((acc, el) => intersect(acc, el.getBoundingClientRect()), viewportBounds());
+const visibleBoundsOf = (ancestors: readonly Element[], view: Window): Bounds =>
+  ancestors.reduce<Bounds>((acc, el) => intersect(acc, el.getBoundingClientRect()), viewportBounds(view));
 
 export { visibleBoundsOf };

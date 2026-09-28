@@ -9,9 +9,9 @@ import type { FloatingPlacement } from '../../primitives/Floating';
 import type { DropdownMenuProps, MenuAlign, MenuSide } from './DropdownMenu.type';
 import '../../theme/dropdown-menu.css';
 
-const placementOf = (rect: DOMRect, side: MenuSide, align: MenuAlign): FloatingPlacement => ({
-  ...(side === 'below' ? { top: rect.bottom } : { bottom: window.innerHeight - rect.top }),
-  ...(align === 'start' ? { left: rect.left } : { right: window.innerWidth - rect.right }),
+const placementOf = (rect: DOMRect, view: Window, side: MenuSide, align: MenuAlign): FloatingPlacement => ({
+  ...(side === 'below' ? { top: rect.bottom } : { bottom: view.innerHeight - rect.top }),
+  ...(align === 'start' ? { left: rect.left } : { right: view.innerWidth - rect.right }),
 });
 
 const DropdownMenu = (props: DropdownMenuProps) => {
@@ -21,7 +21,7 @@ const DropdownMenu = (props: DropdownMenuProps) => {
   const { position: pos } = useAnchorTracking({
     active: Boolean(anchorRef),
     anchorRef: anchorRef ?? detached,
-    compute: (rect) => placementOf(rect, side, align),
+    compute: (rect, view) => placementOf(rect, view, side, align),
   });
 
   const menu = (

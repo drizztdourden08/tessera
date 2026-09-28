@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useRef, useState } from 'react';
+import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
 import { MENU_SELECTOR } from './use-menu-open.constants';
 import type { MenuOpenBinding } from './use-menu-open.type';
 
@@ -12,11 +13,12 @@ const useMenuOpen = <T extends HTMLElement>(): MenuOpenBinding<T> => {
     const handleMouseDown = (event: MouseEvent): void => {
       const target = event.target as Node;
       if (anchorRef.current?.contains(target)) return;
-      if (target instanceof Element && target.closest(MENU_SELECTOR)) return;
+      if ((target as Partial<Element>).closest?.(MENU_SELECTOR)) return;
       setOpen(false);
     };
-    document.addEventListener('mousedown', handleMouseDown);
-    return () => document.removeEventListener('mousedown', handleMouseDown);
+    const doc = ownerDocumentOf(anchorRef.current);
+    doc.addEventListener('mousedown', handleMouseDown);
+    return () => doc.removeEventListener('mousedown', handleMouseDown);
   }, [open]);
 
   return {

@@ -7,6 +7,7 @@ import { tabIndexForKey } from './behavior/tab-index-for-key';
 import { useTabStripOverflow } from './behavior/useTabStripOverflow';
 import type { TabBarProps } from './TabBar.type';
 import type { KeyboardEvent } from 'react';
+import { isHTMLElement } from '../dom/is-html-element';
 
 const pagerClass = (enabled: boolean): string =>
   `tab-bar__pager${enabled ? '' : ' tab-bar__pager--idle'}`;
@@ -22,7 +23,7 @@ const TabBar = (props: TabBarProps) => {
     const target = tabs[next];
     if (target) onTabChange(target.id);
     const sibling = event.currentTarget.parentElement?.children[next];
-    if (!(sibling instanceof HTMLElement)) return;
+    if (!isHTMLElement(sibling)) return;
     sibling.focus({ preventScroll: true });
     strip.revealTab(sibling);
   };

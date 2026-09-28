@@ -34,13 +34,15 @@ const Playground = {
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <Box className="story-column">
+    <Box className="story-list">
       {SIZES.map((size) => (
-        <Box key={size} className="story-row">
+        <Box key={size} className="story-list__item">
           <Text className="story-label">{size}</Text>
-          {GLYPHS.map((glyph) => (
-            <EmojiIcon key={glyph} glyph={glyph} size={size} />
-          ))}
+          <Box className="story-inline">
+            {GLYPHS.map((glyph) => (
+              <EmojiIcon key={glyph} glyph={glyph} size={size} />
+            ))}
+          </Box>
         </Box>
       ))}
     </Box>

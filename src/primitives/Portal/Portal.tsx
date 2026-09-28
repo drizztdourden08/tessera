@@ -1,31 +1,31 @@
 /* @layer renderer-components @kind component */
-import { useLayoutEffect, useRef } from 'react';
+import { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { PortalDocumentContext } from '../dom/portal-document-context';
 import type { PortalLayer, PortalProps } from './Portal.type';
 import { LAYERS } from './Portal.constants';
 import { useInBrowser } from './behavior/useInBrowser';
 
-
-const getPortalRoot = (): HTMLElement => {
-  let root = document.getElementById('portal-root');
+const getPortalRoot = (doc: Document): HTMLElement => {
+  let root = doc.getElementById('portal-root');
   if (!root) {
-    root = document.createElement('div');
+    root = doc.createElement('div');
     root.id = 'portal-root';
     root.style.position = 'fixed';
     root.style.inset = '0';
     root.style.pointerEvents = 'none';
     root.style.zIndex = '9000';
-    document.body.appendChild(root);
+    doc.body.appendChild(root);
   }
   return root;
 };
 
-const getLayerContainer = (layer: PortalLayer): HTMLElement => {
-  const root = getPortalRoot();
+const getLayerContainer = (doc: Document, layer: PortalLayer): HTMLElement => {
+  const root = getPortalRoot(doc);
   const id = `portal-layer-${layer}`;
-  let el = document.getElementById(id);
+  let el = doc.getElementById(id);
   if (!el) {
-    el = document.createElement('div');
+    el = doc.createElement('div');
     el.id = id;
     el.style.position = 'absolute';
     el.style.inset = '0';
@@ -36,19 +36,24 @@ const getLayerContainer = (layer: PortalLayer): HTMLElement => {
   return el;
 };
 
-const Portal = (props: PortalProps): React.ReactPortal | null => {
+const Portal = (props: PortalProps) => {
   const { layer, children } = props;
-  const containerRef = useRef<HTMLElement | null>(null);
+  const provided = useContext(PortalDocumentContext);
+  const anchorRef = useRef<HTMLTemplateElement>(null);
+  const [anchorDoc, setAnchorDoc] = useState<Document | null>(null);
   const inBrowser = useInBrowser();
 
   useLayoutEffect(() => {
-    containerRef.current = getLayerContainer(layer);
-  }, [layer]);
+    setAnchorDoc(anchorRef.current?.ownerDocument ?? null);
+  }, []);
 
-  if (!inBrowser) return null;
-  containerRef.current ??= getLayerContainer(layer);
-
-  return createPortal(children, containerRef.current);
+  const doc = inBrowser ? anchorDoc ?? provided ?? document : null;
+  return (
+    <>
+      <template ref={anchorRef} />
+      {doc && createPortal(children, getLayerContainer(doc, layer))}
+    </>
+  );
 };
 
 export {

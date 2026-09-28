@@ -11,14 +11,14 @@ import { WidgetPositionRow } from './WidgetPositionRow';
 import { ANCHOR_GAP, EDGE_MARGIN, ORIGIN, PANEL_HEIGHT, PANEL_WIDTH } from './WidgetSettings.constants';
 import type { WidgetSettingsProps } from './WidgetSettings.type';
 
-const panelPositionFor = (rect: DOMRect): { top: number; left: number } => {
+const panelPositionFor = (rect: DOMRect, view: Window): { top: number; left: number } => {
   let top = rect.bottom + ANCHOR_GAP;
   let left = rect.right - PANEL_WIDTH;
   if (left < EDGE_MARGIN) left = EDGE_MARGIN;
-  if (left + PANEL_WIDTH > window.innerWidth - EDGE_MARGIN) {
-    left = window.innerWidth - PANEL_WIDTH - EDGE_MARGIN;
+  if (left + PANEL_WIDTH > view.innerWidth - EDGE_MARGIN) {
+    left = view.innerWidth - PANEL_WIDTH - EDGE_MARGIN;
   }
-  if (top + PANEL_HEIGHT > window.innerHeight - EDGE_MARGIN) {
+  if (top + PANEL_HEIGHT > view.innerHeight - EDGE_MARGIN) {
     top = rect.top - PANEL_HEIGHT - ANCHOR_GAP;
   }
   return { top, left };

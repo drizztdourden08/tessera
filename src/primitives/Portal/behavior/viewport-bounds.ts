@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind util */
 import type { Bounds } from './anchor-position.type';
 
-const viewportBounds = (): Bounds => ({
+const viewportBounds = (view: Window = window): Bounds => ({
   top: 0,
-  right: window.innerWidth,
-  bottom: window.innerHeight,
+  right: view.innerWidth,
+  bottom: view.innerHeight,
   left: 0,
 });
 

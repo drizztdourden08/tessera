@@ -4,6 +4,7 @@ import { clippingAncestorsOf } from './anchor-position';
 import { overlaps } from './overlaps';
 import { visibleBoundsOf } from './visible-bounds-of';
 import { observeAnchorMovement } from './observe-anchor-movement';
+import { ownerWindowOf } from '../../dom/owner-window';
 import type { UseAnchorTrackingParams, UseAnchorTrackingResult } from './useAnchorTracking.type';
 
 const useAnchorTracking = <T>(params: UseAnchorTrackingParams<T>): UseAnchorTrackingResult<T> => {
@@ -21,11 +22,12 @@ const useAnchorTracking = <T>(params: UseAnchorTrackingParams<T>): UseAnchorTrac
     const anchor = anchorRef.current;
     if (!anchor) return;
     const rect = anchor.getBoundingClientRect();
-    if (dismissWhenHidden && !overlaps(rect, visibleBoundsOf(clipsRef.current))) {
+    const view = ownerWindowOf(anchor);
+    if (dismissWhenHidden && !overlaps(rect, visibleBoundsOf(clipsRef.current, view))) {
       outOfViewRef.current?.();
       return;
     }
-    setPosition(computeRef.current(rect));
+    setPosition(computeRef.current(rect, view));
   }, [anchorRef]);
 
   const reposition = useCallback(() => measure(false), [measure]);
@@ -42,11 +44,11 @@ const useAnchorTracking = <T>(params: UseAnchorTrackingParams<T>): UseAnchorTrac
 
   useEffect(() => {
     if (!active) return undefined;
-    return observeAnchorMovement(window, {
+    return observeAnchorMovement(ownerWindowOf(anchorRef.current), {
       onScroll: () => measure(true),
       onResize: () => measure(false),
     });
-  }, [active, measure]);
+  }, [active, anchorRef, measure]);
 
   return { position, reposition };
 };
