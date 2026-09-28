@@ -1,0 +1,67 @@
+<!-- @layer docs @kind doc -->
+# Tessera
+
+The design system shared by Relic of the Past, Brock and Archipelia: tokens, primitives, composites and the headless data engine. Compounds and views stay in each app.
+
+## Using it
+
+```ts
+import '@drizztdourden08/tessera/tokens.css';   // once, first
+import './theme.css';                            // the app's palette, after it
+import { Button } from '@drizztdourden08/tessera/primitives';
+import { DataTable } from '@drizztdourden08/tessera/composites';
+```
+
+The colour pickers and the field kits have their own paths, `@drizztdourden08/tessera/color-picker`, `/color-picker-popover` and `/field-kits`, so an app that never uses them never loads them.
+
+An app's `theme.css` sets the palette seeds, unlayered, so they beat every Tessera layer:
+
+```css
+:root { --p-primary: #7c4dff; --p-secondary: #ece6ff; --p-tertiary: #3b2a7a; --p-on-primary: #fff; --p-on-secondary: #3b2a7a; --p-on-tertiary: #fff; }
+```
+
+Every accent role (`--c-primary-bright`, `-dim`, `-soft`, `--c-selected`, the secondary set) derives from those seeds; any one of them can still be pinned. Neutrals are dark by default; `data-theme="light"` on any element flips them for that subtree. `data-palette` on an element re-derives the accents there.
+
+The package ships TypeScript and CSS source: its consumers are Vite apps, which compile it like their own code. That also means a sibling checkout can stand in for the installed package with one Vite alias while editing both.
+
+## Status
+
+| Phase | State |
+|---|---|
+| 1. Copy out of relic-of-the-past, lint green | done |
+| 2. Semantic token layer: `--p-*` seeds, `ds.base` / `ds.palette` / `ds.semantic` layers, role-named colours, light theme | done |
+| 3. App couplings cut: generic Widget, view-state session store and storage provider, configurable id pattern | done |
+| 4. Storylite gallery: 225 stories for every component, palette and theme switch, contrast story passing in all six combinations | done |
+| 5. Package: exports map, `npm pack` checked, a Vite app built against the tarball | done; publishing to GitHub Packages waits for the repo |
+
+`MIGRATION.md` lists every change relic-of-the-past applies when it becomes a consumer. `BACKLOG.md` lists the component issues found while writing the stories, fixed and open.
+
+## Layout
+
+```
+src/
+  tokens/       CSS custom properties, single entry index.css
+  primitives/   tier 1, presentational
+  composites/   tier 2, presentational
+  data/         headless schema, table, filter and view-state engine
+stories/        Storylite gallery, one file per component
+brand/          the logo and why it looks the way it does
+docs/           the standards this repo follows
+```
+
+## Commands
+
+```
+pnpm install
+pnpm storylite   the gallery on http://localhost:3993
+pnpm lint        tsc, eslint, stylelint
+pnpm lint:md
+```
+
+Rules: `docs/coding-standards.md` and `docs/design-system.md`.
+
+## The gallery
+
+- **Menu.** One folder per tier and group, like `Primitives · Inputs`, in the order of `.storylite/catalogue.constants.ts`. The home page shows the interactive logo and how to find your way; it does not repeat the menu.
+- **Adding a component.** Add its entry to the catalogue, write `stories/<tier>/<Name>.stories.tsx` with the title `<Tier> · <Group>/<Name>`, and put its controls (`args`, `argTypes`) on the stories whose render reads them, never on the file's `meta`: a control on `meta` shows up, dead, on every story in the file.
+- **Looks.** The logo buttons at the top of the menu redraw every story as Tessera's own greys, Relic of the Past or Archipelia. There is no light and dark switch: each look is shown on its dark ground.

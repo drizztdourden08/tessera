@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.data-table-story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  height: 26rem;
+  max-width: 64rem;
+}

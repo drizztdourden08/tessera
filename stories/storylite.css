@@ -1,0 +1,55 @@
+/* @layer stories @kind style */
+html,
+body {
+  height: auto;
+  min-height: 100%;
+  overflow: auto;
+  user-select: text;
+}
+
+body {
+  padding: var(--space-lg);
+  background: var(--c-bg) !important;
+  color: var(--c-text);
+}
+
+.story-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+
+.story-list {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-md) var(--space-lg);
+}
+
+.story-list__item {
+  display: contents;
+}
+
+.story-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 44rem;
+}
+
+.story-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.story-frame {
+  position: relative;
+  min-height: 20rem;
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}

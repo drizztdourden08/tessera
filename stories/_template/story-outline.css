@@ -1,0 +1,6 @@
+/* @layer stories @kind style */
+.story-outline {
+  padding: var(--space-sm);
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+}

@@ -1,0 +1,54 @@
+/* @layer renderer-design-system @kind style */
+@layer ds.palette {
+  :root, [data-palette], [data-theme] {
+    --p-primary-50: color-mix(in oklab, var(--p-primary) 8%, var(--p-pure-white));
+    --p-primary-100: color-mix(in oklab, var(--p-primary) 14%, var(--p-pure-white));
+    --p-primary-200: color-mix(in oklab, var(--p-primary) 28%, var(--p-pure-white));
+    --p-primary-300: color-mix(in oklab, var(--p-primary) 45%, var(--p-pure-white));
+    --p-primary-400: color-mix(in oklab, var(--p-primary) 76%, var(--p-pure-white));
+    --p-primary-500: var(--p-primary);
+    --p-primary-600: color-mix(in oklab, var(--p-primary) 88%, var(--p-pure-black));
+    --p-primary-700: color-mix(in oklab, var(--p-primary) 66%, var(--p-pure-black));
+    --p-primary-800: color-mix(in oklab, var(--p-primary) 52%, var(--p-pure-black));
+    --p-primary-850: color-mix(in oklab, var(--p-primary) 40%, var(--p-pure-black));
+    --p-primary-900: color-mix(in oklab, var(--p-primary) 30%, var(--p-pure-black));
+    --p-primary-950: color-mix(in oklab, var(--p-primary) 17%, var(--p-pure-black));
+    --p-secondary-50: color-mix(in oklab, var(--p-secondary) 8%, var(--p-pure-white));
+    --p-secondary-100: color-mix(in oklab, var(--p-secondary) 14%, var(--p-pure-white));
+    --p-secondary-200: color-mix(in oklab, var(--p-secondary) 28%, var(--p-pure-white));
+    --p-secondary-300: color-mix(in oklab, var(--p-secondary) 45%, var(--p-pure-white));
+    --p-secondary-400: color-mix(in oklab, var(--p-secondary) 76%, var(--p-pure-white));
+    --p-secondary-500: var(--p-secondary);
+    --p-secondary-600: color-mix(in oklab, var(--p-secondary) 88%, var(--p-pure-black));
+    --p-secondary-700: color-mix(in oklab, var(--p-secondary) 66%, var(--p-pure-black));
+    --p-secondary-800: color-mix(in oklab, var(--p-secondary) 52%, var(--p-pure-black));
+    --p-secondary-850: color-mix(in oklab, var(--p-secondary) 40%, var(--p-pure-black));
+    --p-secondary-900: color-mix(in oklab, var(--p-secondary) 30%, var(--p-pure-black));
+    --p-secondary-950: color-mix(in oklab, var(--p-secondary) 17%, var(--p-pure-black));
+    --p-tertiary-50: color-mix(in oklab, var(--p-tertiary) 8%, var(--p-pure-white));
+    --p-tertiary-100: color-mix(in oklab, var(--p-tertiary) 14%, var(--p-pure-white));
+    --p-tertiary-200: color-mix(in oklab, var(--p-tertiary) 28%, var(--p-pure-white));
+    --p-tertiary-300: color-mix(in oklab, var(--p-tertiary) 45%, var(--p-pure-white));
+    --p-tertiary-400: color-mix(in oklab, var(--p-tertiary) 76%, var(--p-pure-white));
+    --p-tertiary-500: var(--p-tertiary);
+    --p-tertiary-600: color-mix(in oklab, var(--p-tertiary) 88%, var(--p-pure-black));
+    --p-tertiary-700: color-mix(in oklab, var(--p-tertiary) 66%, var(--p-pure-black));
+    --p-tertiary-800: color-mix(in oklab, var(--p-tertiary) 52%, var(--p-pure-black));
+    --p-tertiary-850: color-mix(in oklab, var(--p-tertiary) 40%, var(--p-pure-black));
+    --p-tertiary-900: color-mix(in oklab, var(--p-tertiary) 30%, var(--p-pure-black));
+    --p-tertiary-950: color-mix(in oklab, var(--p-tertiary) 17%, var(--p-pure-black));
+    --p-grey-0: color-mix(in oklab, var(--p-pure-white) 100%, var(--p-pure-black));
+    --p-grey-50: color-mix(in oklab, var(--p-pure-white) 96%, var(--p-pure-black));
+    --p-grey-100: color-mix(in oklab, var(--p-pure-white) 90%, var(--p-pure-black));
+    --p-grey-200: color-mix(in oklab, var(--p-pure-white) 80%, var(--p-pure-black));
+    --p-grey-300: color-mix(in oklab, var(--p-pure-white) 68%, var(--p-pure-black));
+    --p-grey-400: color-mix(in oklab, var(--p-pure-white) 54%, var(--p-pure-black));
+    --p-grey-500: color-mix(in oklab, var(--p-pure-white) 42%, var(--p-pure-black));
+    --p-grey-600: color-mix(in oklab, var(--p-pure-white) 32%, var(--p-pure-black));
+    --p-grey-700: color-mix(in oklab, var(--p-pure-white) 23%, var(--p-pure-black));
+    --p-grey-800: color-mix(in oklab, var(--p-pure-white) 15%, var(--p-pure-black));
+    --p-grey-900: color-mix(in oklab, var(--p-pure-white) 9%, var(--p-pure-black));
+    --p-grey-950: color-mix(in oklab, var(--p-pure-white) 5%, var(--p-pure-black));
+    --p-grey-1000: color-mix(in oklab, var(--p-pure-white) 0%, var(--p-pure-black));
+  }
+}

@@ -1,0 +1,39 @@
+/* @layer renderer-design-system @kind style */
+
+@layer ds.base {
+:root {
+  --size-1:    1px;
+  --size-2:    2px;
+  --size-4:    4px;
+  --size-6:    6px;
+  --size-8:    8px;
+  --size-10:   10px;
+  --size-12:   12px;
+  --size-14:   14px;
+  --size-16:   16px;
+  --size-20:   20px;
+  --size-24:   24px;
+  --size-28:   28px;
+  --size-32:   32px;
+  --size-40:   40px;
+  --size-48:   48px;
+  --size-56:   56px;
+  --size-64:   64px;
+  --size-80:   80px;
+  --size-96:   96px;
+  --size-128:  128px;
+  --size-160:  160px;
+  --size-192:  192px;
+  --size-224:  224px;
+  --size-256:  256px;
+  --size-288:  288px;
+  --size-320:  320px;
+  --size-384:  384px;
+  --size-448:  448px;
+  --size-512:  512px;
+  --size-640:  640px;
+  --size-768:  768px;
+  --size-896:  896px;
+  --size-1024: 1024px;
+}
+}

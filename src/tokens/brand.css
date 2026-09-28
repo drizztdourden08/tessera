@@ -1,0 +1,17 @@
+/* @layer renderer-design-system @kind style */
+
+@layer ds.semantic {
+:root {
+  --brand-discord: #5865f2;
+  --brand-discord-hover: #4752c4;
+  --brand-discord-ink: #fff;
+  --brand-github: #24292f;
+  --brand-github-hover: #32383f;
+  --brand-github-edge: #3d444d;
+  --brand-github-ink: #fff;
+  --brand-google: #131314;
+  --brand-google-hover: #1f1f20;
+  --brand-google-edge: #8e918f;
+  --brand-google-ink: #e3e3e3;
+}
+}

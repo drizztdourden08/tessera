@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind style */
+.settings-shell {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  gap: var(--space-md);
+  padding: 0 var(--space-md) var(--space-md);
+}
+
+.settings-shell__content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: var(--pad-page);
+}
+
+@media (width <= 640px) {
+  .settings-shell {
+    gap: 0;
+  }
+
+  .settings-shell .side-nav {
+    display: none;
+  }
+}

@@ -1,0 +1,42 @@
+/* @layer renderer-components @kind style */
+.btn {
+  gap: var(--space-sm);
+  text-align: left;
+}
+
+.btn--md {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-base);
+}
+
+.btn--sm {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--text-sm);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn__icon {
+  flex-shrink: 0;
+  font-size: var(--text-lg);
+  width: var(--size-20);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:disabled .btn__icon {
+  animation: btn-spin 1s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn--sm .btn__icon {
+  width: auto;
+  font-size: inherit;
+}

@@ -1,0 +1,33 @@
+/* @layer stories @kind style */
+.arg-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+}
+
+.arg-controls__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arg-controls__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--size-224), 1fr));
+  gap: var(--space-md) var(--space-lg);
+  align-items: start;
+}
+
+.arg-controls__name {
+  font-family: var(--font-mono);
+}
+
+.controlled-story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}

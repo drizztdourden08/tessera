@@ -1,0 +1,13 @@
+/* @layer renderer-design-system @kind style */
+
+@layer ds.semantic {
+:root {
+  --space-2xs:  var(--size-2);
+  --space-xs:   var(--size-4);
+  --space-sm:   var(--size-8);
+  --space-md:   var(--size-12);
+  --space-lg:   var(--size-16);
+  --space-xl:   var(--size-24);
+  --space-2xl:  var(--size-32);
+}
+}

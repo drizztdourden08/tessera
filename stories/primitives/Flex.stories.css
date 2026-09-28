@@ -1,0 +1,25 @@
+/* @layer stories @kind style */
+
+.flex-demo {
+  min-height: 8rem;
+  padding: var(--space-sm);
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+}
+
+.flex-demo--short {
+  min-height: 0;
+}
+
+.flex-demo__item {
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-size: var(--text-sm);
+}
+
+.flex-demo__item--tall {
+  padding-block: var(--space-lg);
+}

@@ -1,0 +1,9 @@
+/* @layer stories @kind style */
+
+.spacer-demo__block {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-dim);
+  color: var(--c-primary-bright);
+  font-size: var(--text-sm);
+}

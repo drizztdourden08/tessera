@@ -1,0 +1,117 @@
+/* @layer stories @kind story */
+import { useState } from 'react';
+import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { Box, PositionInput, Text } from '../../src/primitives';
+import type { PositionAxis, PositionValue } from '../../src/primitives';
+import { overviewStory } from '../_template/overview-story';
+
+type PositionInputArgs = {
+  label: string;
+  xMax: number;
+  yMax: number;
+  step: number;
+  disabled: boolean;
+};
+
+const ARGS: Partial<PositionInputArgs> = { label: 'Spawn tile', xMax: 63, yMax: 63, step: 1, disabled: false };
+
+const ARG_TYPES: StoryLiteArgTypes<PositionInputArgs> = {
+    label: { control: 'text' },
+    xMax: { control: 'number' },
+    yMax: { control: 'number' },
+    step: { control: 'number' },
+    disabled: { control: 'boolean' },
+  };
+
+const meta = {
+  title: 'Primitives · Inputs/PositionInput',
+  parameters: { renderer: 'react' },
+} satisfies StoryLiteMeta<PositionInputArgs>;
+
+type StatefulPositionProps = {
+  initial: PositionValue;
+  x?: PositionAxis;
+  y?: PositionAxis;
+  label?: string;
+  disabled?: boolean;
+};
+
+const StatefulPosition = (props: StatefulPositionProps) => {
+  const { initial, x, y, label, disabled } = props;
+  const [value, setValue] = useState(initial);
+  return (
+    <Box className="story-column">
+      <PositionInput value={value} onChange={setValue} x={x} y={y} label={label} disabled={disabled} />
+      <Text className="story-label">
+        Value: x {value.x}, y {value.y}
+      </Text>
+    </Box>
+  );
+};
+
+const PlaygroundDemo = (props: PositionInputArgs) => {
+  const { label, xMax, yMax, step, disabled } = props;
+  return (
+    <StatefulPosition
+      initial={{ x: 12, y: 30 }}
+      x={{ min: 0, max: xMax, step }}
+      y={{ min: 0, max: yMax, step }}
+      label={label}
+      disabled={disabled}
+    />
+  );
+};
+
+const Playground = {
+  name: 'Playground',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <PlaygroundDemo {...args} />,
+} satisfies StoryLiteStoryDefinition<PositionInputArgs>;
+
+const States = {
+  name: 'States',
+  render: () => (
+    <Box className="story-column">
+      <StatefulPosition initial={{ x: 0, y: 0 }} label="Open axes, no bounds" />
+      <StatefulPosition
+        initial={{ x: 256, y: 224 }}
+        x={{ min: 0, max: 511, step: 8 }}
+        y={{ min: 0, max: 447, step: 8 }}
+        label="Pixel position, snapped to 8"
+      />
+      <StatefulPosition
+        initial={{ x: 3, y: 5 }}
+        x={{ min: 1, max: 8, label: 'Col' }}
+        y={{ min: 1, max: 8, label: 'Row' }}
+        label="Custom axis captions"
+      />
+      <StatefulPosition initial={{ x: 0.5, y: 0.25 }} x={{ min: 0, max: 1, step: 0.05 }} y={{ min: 0, max: 1, step: 0.05 }} label="Fractional anchor" />
+      <StatefulPosition initial={{ x: 12, y: 30 }} label="Disabled" disabled />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<PositionInputArgs>;
+
+const CODE = `import { useState } from 'react';
+import { PositionInput } from '@drizztdourden08/tessera';
+
+const [spawn, setSpawn] = useState({ x: 12, y: 30 });
+
+<PositionInput
+  label="Spawn tile"
+  value={spawn}
+  onChange={setSpawn}
+  x={{ min: 0, max: 63 }}
+  y={{ min: 0, max: 63 }}
+/>`;
+
+const Overview = overviewStory({
+  component: 'PositionInput',
+  description: 'An x and y pair edited as one control, for a tile, a pixel position or an anchor point. Each axis takes its own min, max, step and caption, and an axis given nothing is open at both ends. onChange only ever fires with a valid pair: never NaN, never outside the bounds given.',
+  playground: Playground,
+  variants: [States],
+  code: CODE,
+});
+
+export default meta;
+export { Overview, Playground, States };

@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind component */
+import './ProgressBar.css';
+import type { ProgressBarProps } from './ProgressBar.type';
+
+const pct = (value: number, max: number): string =>
+  (max > 0 ? `${Math.max(0, Math.min(100, (value / max) * 100))}%` : '0%');
+
+const ProgressBar = (props: ProgressBarProps) => {
+  const { value, max = 100, variant = 'primary', secondaryValue, secondaryVariant, live = false, className = '' } = props;
+  return (
+    <div
+      className={`progress-bar${className ? ` ${className}` : ''}`}
+      data-variant={variant}
+      data-live={live ? 'yes' : undefined}
+      data-secondary-variant={secondaryVariant}
+    >
+      {secondaryValue != null && (
+        <div className="progress-bar__fill progress-bar__fill--secondary" style={{ width: pct(secondaryValue, max) }} />
+      )}
+      <div className="progress-bar__fill" style={{ width: pct(value, max) }} />
+    </div>
+  );
+};
+
+export { ProgressBar };

@@ -1,0 +1,85 @@
+/* @layer renderer-components @kind style */
+.emphasis {
+  display: inline;
+}
+
+.emphasis--stable {
+  display: inline-grid;
+  vertical-align: bottom;
+}
+
+.emphasis--stable > .emphasis__ghost,
+.emphasis--stable > .emphasis__layer {
+  grid-area: 1 / 1;
+}
+
+.emphasis--anchor-left > .emphasis__layer {
+  justify-self: start;
+}
+
+.emphasis--anchor-center > .emphasis__layer {
+  justify-self: center;
+}
+
+.emphasis--anchor-right > .emphasis__layer {
+  justify-self: end;
+}
+
+.emphasis__ghost {
+  font-weight: var(--emphasis-to);
+  visibility: hidden;
+}
+
+.emphasis__text,
+.emphasis__letter {
+  font-weight: var(--emphasis-from);
+  transition: font-weight var(--emphasis-duration) var(--ease-standard) var(--emphasis-delay, 0ms);
+}
+
+.emphasis__letter {
+  display: inline;
+}
+
+.emphasis--hover:hover :is(.emphasis__text, .emphasis__letter),
+.emphasis--hover:focus-within :is(.emphasis__text, .emphasis__letter),
+[data-emphasis-scope]:hover .emphasis--hover :is(.emphasis__text, .emphasis__letter),
+[data-emphasis-scope]:focus-visible .emphasis--hover :is(.emphasis__text, .emphasis__letter),
+.emphasis--on :is(.emphasis__text, .emphasis__letter) {
+  font-weight: var(--emphasis-to);
+}
+
+.emphasis--pulse :is(.emphasis__text, .emphasis__letter) {
+  animation: emphasis-swell var(--emphasis-duration) var(--ease-standard) var(--emphasis-delay, 0ms) 1 both;
+}
+
+.emphasis--loop :is(.emphasis__text, .emphasis__letter) {
+  animation: emphasis-swell var(--emphasis-duration) var(--ease-standard) var(--emphasis-delay, 0ms) infinite both;
+}
+
+.emphasis__sr {
+  position: absolute;
+  inline-size: var(--size-1);
+  block-size: var(--size-1);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes emphasis-swell {
+  0%,
+  100% {
+    font-weight: var(--emphasis-from);
+  }
+
+  50% {
+    font-weight: var(--emphasis-to);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emphasis__text,
+  .emphasis__letter {
+    transition: none;
+    animation: none;
+  }
+}

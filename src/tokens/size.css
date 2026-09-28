@@ -1,0 +1,29 @@
+/* @layer renderer-design-system @kind style */
+
+@layer ds.semantic {
+:root {
+  --titlebar-height: var(--size-40);
+  --scrollbar-size: var(--size-6);
+  --brand-mark-sm: var(--size-16);
+  --brand-mark-md: var(--size-24);
+  --brand-mark-lg: var(--size-48);
+  --brand-mark-xl: var(--size-128);
+  --pixel-wordmark-sm: calc(29 * var(--size-1));
+  --pixel-wordmark-md: calc(58 * var(--size-1));
+  --pixel-wordmark-lg: calc(87 * var(--size-1));
+  --control-h-sm: var(--size-28);
+  --dropzone-inline-w: var(--size-288);
+  --table-select-w: var(--size-28);
+  --open-entry-width: var(--size-128);
+  --filter-clause-width: var(--size-192);
+  --badge-d-xs: var(--size-20);
+  --sort-caret-width: var(--size-8);
+  --menu-trigger-width: var(--size-20);
+  --avatar-d: var(--size-40);
+  --section-nav-w: var(--size-56);
+  --section-nav-w-open: var(--size-224);
+  --section-nav-item-h: var(--size-40);
+  --section-nav-toggle-d: var(--size-24);
+
+}
+}

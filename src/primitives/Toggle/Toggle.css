@@ -1,0 +1,95 @@
+/* @layer renderer-components @kind style */
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.toggle__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+  flex: 1;
+}
+
+.toggle__label {
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--c-text);
+  line-height: var(--leading-tight);
+}
+
+.toggle__description {
+  font-size: var(--text-sm);
+  color: var(--c-text-dim);
+  line-height: var(--leading-normal);
+}
+
+.toggle__link {
+  display: inline-flex;
+  margin-left: var(--space-xs);
+  color: var(--c-primary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+.toggle__link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.toggle__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.toggle__track {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--size-40);
+  height: var(--size-20);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  transition: background var(--transition-normal), border-color var(--transition-normal);
+}
+
+.toggle__input:checked + .toggle__track {
+  background: var(--c-primary);
+  border-color: var(--c-primary-bright);
+}
+
+.toggle__input:focus-visible + .toggle__track {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-2);
+}
+
+.toggle__thumb {
+  position: absolute;
+  top: var(--size-2);
+  left: var(--size-2);
+  width: var(--size-14);
+  height: var(--size-14);
+  border-radius: var(--radius-round);
+  background: var(--c-text-dim);
+  transition: transform var(--transition-normal), background var(--transition-normal);
+}
+
+.toggle__input:checked + .toggle__track .toggle__thumb {
+  transform: translateX(var(--size-20));
+  background: var(--c-bg);
+}

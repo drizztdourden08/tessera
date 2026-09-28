@@ -1,0 +1,95 @@
+/* @layer renderer-components @kind style */
+.tessera-logo__detail {
+  position: absolute;
+  top: 50%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+  inline-size: 52%;
+  max-block-size: 100%;
+  overflow: auto;
+  padding: 1.1em 1.3em;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-xl);
+  background: var(--c-surface);
+  color: var(--c-text);
+  transform: translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--duration-slow), visibility 0s var(--duration-slow);
+}
+
+.tessera-logo__detail[data-side="left"] { left: 1%; }
+.tessera-logo__detail[data-side="right"] { right: 1%; }
+
+.tessera-logo__detail[data-open] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--duration-slow) var(--duration-normal), visibility 0s;
+}
+
+.tessera-logo__detail-head {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+
+}
+.tessera-logo__detail-head .brand-mark { --brand-mark-size: 3em; }
+
+.tessera-logo__detail-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+}
+.tessera-logo__detail-title .pixel-wordmark { --pixel-wordmark-size: 1.5em; }
+
+.tessera-logo__detail-title em {
+  font-style: normal;
+  font-size: smaller;
+  color: var(--c-text-muted);
+}
+
+.tessera-logo__detail-head .tessera-logo__mascot {
+  --brand-mark-size: 3.2em;
+
+  margin-inline-start: auto;
+}
+
+.tessera-logo__detail p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.tessera-logo__detail dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35em 1em;
+  margin: 0;
+  font-size: smaller;
+}
+
+.tessera-logo__detail dt {
+  padding-block-start: 0.2em;
+  color: var(--c-text-muted);
+  font-size: smaller;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+.tessera-logo__detail dd { margin: 0; }
+
+@container (width < 34rem) {
+  .tessera-logo__detail {
+    position: static;
+    display: none;
+    inline-size: auto;
+    margin-block-start: var(--space-md);
+    transform: none;
+  }
+  .tessera-logo__detail[data-open] { display: flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tessera-logo__detail { transition: none; }
+}

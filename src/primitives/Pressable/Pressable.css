@@ -1,0 +1,17 @@
+/* @layer renderer-components @kind style */
+:where(.pressable) {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+:where(.pressable):disabled {
+  cursor: default;
+}

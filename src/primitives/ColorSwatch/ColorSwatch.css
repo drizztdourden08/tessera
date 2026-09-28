@@ -1,0 +1,48 @@
+/* @layer renderer-components @kind style */
+.color-swatch {
+  position: relative;
+  width: var(--swatch-size, var(--size-28));
+  height: var(--swatch-size, var(--size-28));
+  padding: 0;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.color-swatch:hover {
+  border-color: var(--c-border-strong);
+}
+
+.color-swatch--selected {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-1);
+}
+
+.color-swatch--edited::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--size-2);
+  top: var(--size-1);
+  height: var(--size-2);
+  background: var(--c-primary);
+}
+
+.color-swatch--transparent {
+  background-image:
+    linear-gradient(45deg, var(--c-border) 25%, transparent 25% 75%, var(--c-border) 75%),
+    linear-gradient(45deg, var(--c-border) 25%, transparent 25% 75%, var(--c-border) 75%);
+  background-size: var(--size-8) var(--size-8);
+  background-position: 0 0, var(--size-4) var(--size-4);
+}
+
+.color-swatch__caption {
+  font-size: var(--text-xs);
+  line-height: 1;
+  padding-bottom: var(--space-2xs);
+  color: var(--c-text);
+  text-shadow: 0 0 var(--size-2) var(--c-scrim), 0 0 var(--size-2) var(--c-scrim);
+  pointer-events: none;
+}

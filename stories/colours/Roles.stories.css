@@ -1,0 +1,64 @@
+/* @layer stories @kind style */
+.story-column.role-page {
+  max-width: none;
+  gap: var(--space-lg);
+}
+
+.role-group {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  align-items: start;
+  gap: var(--space-md);
+}
+
+.role-group__title {
+  padding-block-start: var(--space-sm);
+}
+
+.role-group__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: var(--space-sm);
+}
+
+.role-card {
+  overflow: hidden;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+}
+
+.role-card__fill {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-block-size: 4.5rem;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.role-card__fill--black {
+  color: var(--p-pure-black);
+}
+
+.role-card__fill--white {
+  color: var(--p-pure-white);
+}
+
+.role-card__name {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semi);
+}
+
+.role-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  opacity: 0.8;
+  overflow-wrap: anywhere;
+}
+
+@media (width <= 640px) {
+  .role-group {
+    grid-template-columns: 1fr;
+  }
+}

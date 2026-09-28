@@ -1,0 +1,34 @@
+/* @layer renderer-components @kind style */
+.spacer { flex: 1 1 auto; }
+
+.spacer[data-size] { flex: 0 0 auto; }
+
+.spacer[data-size='xs'] {
+  width: var(--space-xs);
+  height: var(--space-xs);
+}
+
+.spacer[data-size='sm'] {
+  width: var(--space-sm);
+  height: var(--space-sm);
+}
+
+.spacer[data-size='md'] {
+  width: var(--space-md);
+  height: var(--space-md);
+}
+
+.spacer[data-size='lg'] {
+  width: var(--space-lg);
+  height: var(--space-lg);
+}
+
+.spacer[data-size='xl'] {
+  width: var(--space-xl);
+  height: var(--space-xl);
+}
+
+.spacer[data-size='2xl'] {
+  width: var(--space-2xl);
+  height: var(--space-2xl);
+}

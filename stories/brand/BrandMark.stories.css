@@ -1,0 +1,16 @@
+/* @layer stories @kind style */
+.brand-family {
+  display: grid;
+  gap: var(--space-md);
+  max-width: 48rem;
+}
+
+.brand-family__card {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.brand-family__mascot {
+  padding-inline-start: var(--space-lg);
+  border-inline-start: 1px solid var(--c-hairline);
+}

@@ -1,0 +1,20 @@
+/* @layer stories @kind style */
+.drawer-story__frame {
+  min-height: 28rem;
+  transform: translateZ(0);
+}
+
+.drawer-story__page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
+
+.drawer-story__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  overflow-y: auto;
+}

@@ -1,0 +1,15 @@
+/* @layer stories @kind style */
+
+.canvas-demo {
+  display: block;
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  background: var(--c-surface);
+}
+
+.canvas-demo--pixel {
+  width: 12rem;
+  height: 12rem;
+  image-rendering: pixelated;
+}

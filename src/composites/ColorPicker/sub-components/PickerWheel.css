@@ -1,0 +1,21 @@
+/* @layer renderer-components @kind style */
+.picker-wheel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.picker-wheel__saturation {
+  position: relative;
+  height: var(--size-128);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.picker-wheel__hue,
+.picker-wheel__alpha {
+  position: relative;
+  height: var(--size-12);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}

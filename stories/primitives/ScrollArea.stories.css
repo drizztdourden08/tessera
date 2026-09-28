@@ -1,0 +1,33 @@
+/* @layer stories @kind style */
+
+.scroll-demo {
+  max-height: 14rem;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+}
+
+.scroll-demo__entry {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: var(--border-width-thin) solid var(--c-hairline);
+}
+
+.scroll-demo__strip {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  width: max-content;
+}
+
+.scroll-demo__card {
+  width: 9rem;
+  padding: var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-panel);
+}
+
+.scroll-demo__pane {
+  flex: 1 1 0;
+  min-width: 0;
+}

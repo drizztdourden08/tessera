@@ -1,0 +1,34 @@
+/* @layer renderer-components @kind style */
+.data-table__resize {
+  position: absolute;
+  top: 0;
+  right: calc(-1 * var(--space-sm));
+  bottom: 0;
+  width: var(--space-sm);
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.data-table__resize::after {
+  content: '';
+  position: absolute;
+  top: var(--space-xs);
+  left: 50%;
+  bottom: var(--space-xs);
+  width: var(--border-width-thick);
+  background: var(--c-border);
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+.data-table__resize:hover::after {
+  background: var(--c-primary-dim);
+}
+
+.data-table__resize--active::after {
+  background: var(--c-primary-bright);
+}
+
+.data-table__header-cell--dragging .data-table__resize::after,
+.data-table__header-cell--vacated .data-table__resize::after {
+  background: transparent;
+}

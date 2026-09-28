@@ -1,0 +1,29 @@
+/* @layer renderer-components @kind style */
+@font-face {
+  font-family: 'ALttP Dialogue';
+  src: url('./alttp-ext.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  --font-game: 'ALttP Dialogue', var(--font-mono);
+}
+
+.game-text {
+  font-family: var(--font-game);
+  color: var(--game-ink);
+  -webkit-text-stroke: 1px var(--game-stroke);
+  paint-order: stroke fill;
+  text-shadow:
+    1px 0 0 var(--game-stroke),
+    -1px 0 0 var(--game-stroke),
+    0 1px 0 var(--game-stroke),
+    0 -1px 0 var(--game-stroke);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-synthesis: none;
+  letter-spacing: 0;
+  line-height: var(--leading-normal);
+}

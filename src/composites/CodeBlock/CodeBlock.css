@@ -1,0 +1,49 @@
+/* @layer renderer-components @kind style */
+.code-block {
+  overflow-x: auto;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-sunken);
+}
+
+.code-block__pre {
+  margin: 0;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.code-block__code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+}
+
+.code-block__line {
+  display: block;
+}
+
+.code-block__line--changed {
+  background: var(--c-secondary-soft);
+  box-shadow: inset var(--border-width-thick) 0 0 0 var(--c-secondary-bright);
+}
+
+.code-block--copyable { position: relative; }
+
+.code-block__copy {
+  position: absolute;
+  inset-block-start: var(--space-xs);
+  inset-inline-end: var(--space-xs);
+}
+
+.code-block__number {
+  display: inline-block;
+  min-inline-size: 3ch;
+  margin-inline-end: var(--space-md);
+  padding-inline-end: var(--space-sm);
+  border-inline-end: var(--border-width-thin) solid var(--c-hairline);
+  color: var(--c-text-muted);
+  text-align: end;
+  user-select: none;
+}

@@ -1,0 +1,35 @@
+/* @layer renderer-components @kind component */
+import { Glyph } from '../../Icon';
+import type { SelectItemProps } from '../Select.type';
+
+const SelectItem = (props: SelectItemProps) => {
+  const { option, selected, highlighted, idx, onSelect, renderOption } = props;
+
+  const cls = [
+    'select-item',
+    selected && 'select-item--selected',
+    highlighted && 'select-item--highlighted',
+  ].filter(Boolean).join(' ');
+
+  return (
+    <div
+      className={cls}
+      data-idx={idx}
+      role="option"
+      aria-selected={selected}
+      onClick={() => onSelect(option.value)}
+    >
+      <span className="select-item__check">{selected && <Glyph name="check" />}</span>
+      {renderOption ? (
+        renderOption(option, selected)
+      ) : (
+        <>
+          <span className="select-item__label">{option.label}</span>
+          {option.description && <span className="select-item__description">{option.description}</span>}
+        </>
+      )}
+    </div>
+  );
+};
+
+export { SelectItem };

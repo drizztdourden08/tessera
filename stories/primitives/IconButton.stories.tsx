@@ -1,0 +1,138 @@
+/* @layer stories @kind story */
+import { useState } from 'react';
+import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { Box, Flex, Icon, IconButton, Text } from '../../src/primitives';
+import type { IconName } from '../../src/primitives';
+import type { IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
+import { overviewStory } from '../_template/overview-story';
+import { axis, VariantGrid } from '../_template/VariantGrid';
+
+type GlyphName = 'close' | 'plus' | 'pin' | 'mute' | 'overflow';
+
+type IconButtonArgs = {
+  label: string;
+  glyph: GlyphName;
+  variant: IconButtonVariant;
+  size: 'sm' | 'md';
+  active: boolean;
+  disabled: boolean;
+};
+
+const VARIANTS: readonly IconButtonVariant[] = ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'info', 'success', 'ghost'];
+
+const GLYPHS: Record<GlyphName, IconName> = {
+  close: 'x',
+  plus: 'plus',
+  pin: 'pin',
+  mute: 'volume-x',
+  overflow: 'ellipsis',
+};
+
+const LABELS: Record<GlyphName, string> = {
+  close: 'Close panel',
+  plus: 'Add player',
+  pin: 'Pin tracker',
+  mute: 'Mute audio',
+  overflow: 'More actions',
+};
+
+const glyph = (name: GlyphName, size: 'sm' | 'md') => (
+  <Icon name={GLYPHS[name]} size={size === 'sm' ? 12 : 16} />
+);
+
+const ARGS: Partial<IconButtonArgs> = { label: 'Close panel', glyph: 'close', variant: 'ghost', size: 'sm', active: false, disabled: false };
+
+const ARG_TYPES: StoryLiteArgTypes<IconButtonArgs> = {
+    label: { control: 'text', description: 'Accessible name, read by screen readers.' },
+    glyph: { control: 'select', options: Object.keys(GLYPHS) as GlyphName[] },
+    variant: { control: 'select', options: [...VARIANTS] },
+    size: { control: 'select', options: ['sm', 'md'] },
+    active: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+  };
+
+const meta = {
+  title: 'Primitives · Actions/IconButton',
+  parameters: { renderer: 'react' },
+} satisfies StoryLiteMeta<IconButtonArgs>;
+
+const Playground = {
+  name: 'Playground',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <IconButton
+      label={args.label}
+      variant={args.variant}
+      size={args.size}
+      active={args.active}
+      disabled={args.disabled}
+    >
+      {glyph(args.glyph, args.size)}
+    </IconButton>
+  ),
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
+const STATES = ['md', 'sm', 'active', 'disabled'] as const;
+
+const AllVariants = {
+  name: 'All variants',
+  render: () => (
+    <VariantGrid
+      rows={axis(VARIANTS)}
+      columns={axis(STATES)}
+      cell={(variant, state) => {
+        const size = state === 'sm' ? 'sm' : 'md';
+        return (
+          <IconButton
+            label={`${LABELS.plus}, ${variant}`}
+            title={variant}
+            variant={variant}
+            size={size}
+            active={state === 'active'}
+            disabled={state === 'disabled'}
+          >
+            {glyph('plus', size)}
+          </IconButton>
+        );
+      }}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
+const ToolbarDemo = () => {
+  const [pinned, setPinned] = useState(true);
+  const [muted, setMuted] = useState(false);
+
+  return (
+    <Box className="story-column">
+      <Flex gap="xs" align="center">
+        <Text variant="title">Item tracker</Text>
+        <IconButton label={LABELS.pin} active={pinned} onClick={() => setPinned((value) => !value)}>
+          {glyph('pin', 'sm')}
+        </IconButton>
+        <IconButton label={LABELS.mute} active={muted} onClick={() => setMuted((value) => !value)}>
+          {glyph('mute', 'sm')}
+        </IconButton>
+        <IconButton label={LABELS.overflow}>{glyph('overflow', 'sm')}</IconButton>
+        <IconButton label={LABELS.close}>{glyph('close', 'sm')}</IconButton>
+      </Flex>
+      <Text variant="caption">{`Pinned: ${pinned ? 'yes' : 'no'}. Audio: ${muted ? 'muted' : 'on'}.`}</Text>
+    </Box>
+  );
+};
+
+const Toolbar = {
+  name: 'Toggle toolbar',
+  render: () => <ToolbarDemo />,
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
+const Overview = overviewStory({
+  component: 'IconButton',
+  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, two sizes, and an active state that marks a toggle as on and announces it as pressed.',
+  playground: Playground,
+  variants: [AllVariants],
+});
+
+export default meta;
+export { AllVariants, Overview, Playground, Toolbar };

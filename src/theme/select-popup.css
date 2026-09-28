@@ -1,0 +1,39 @@
+/* @layer renderer-components @kind style */
+.select-content,
+.tag-input__panel {
+  position: fixed;
+  z-index: var(--z-popover);
+  min-width: var(--size-192);
+  max-height: var(--size-288);
+  padding: var(--space-xs) 0;
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2);
+  pointer-events: auto;
+}
+
+.select-content[data-drop-up='true'],
+.tag-input__panel[data-drop-up='true'] {
+  transform: translateY(-100%);
+}
+
+.select-item,
+.tag-input__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-sm);
+  color: var(--c-text-dim);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.select-item:hover,
+.select-item--highlighted,
+.tag-input__option:hover,
+.tag-input__option--highlighted {
+  background: var(--c-hover);
+  color: var(--c-text);
+}

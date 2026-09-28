@@ -1,0 +1,106 @@
+/* @layer renderer-components @kind style */
+.dropdown-menu {
+  position: fixed;
+  min-width: var(--size-160);
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) 0;
+  box-shadow: var(--shadow-dropdown);
+  z-index: var(--z-modal);
+  animation: dropdown-in 0.12s ease-out;
+  pointer-events: auto;
+}
+
+.dropdown-menu--sub {
+  min-width: var(--size-160);
+  animation: dropdown-sub-in 0.1s ease-out;
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--size-4)));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dropdown-sub-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--size-4)));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-xs) var(--space-md);
+  background: none;
+  border: none;
+  color: var(--c-text-dim);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition-fast);
+  white-space: nowrap;
+}
+
+.dropdown__item:hover:not(:disabled) {
+  background: var(--c-selected);
+  color: var(--c-primary-bright);
+}
+
+.dropdown__item:disabled {
+  color: var(--c-text-faint);
+  cursor: default;
+}
+
+.dropdown__item--parent {
+  cursor: default;
+}
+
+.dropdown__icon {
+  width: var(--size-16);
+  text-align: center;
+  font-size: var(--text-sm);
+  flex-shrink: 0;
+}
+
+.dropdown__label {
+  flex: 1;
+}
+
+.dropdown__chevron {
+  margin-left: auto;
+  font-size: var(--text-base);
+  color: var(--c-text-faint);
+}
+
+.dropdown__check {
+  margin-left: auto;
+  padding-left: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--c-primary-bright);
+}
+
+.dropdown__separator {
+  height: var(--border-width-thin);
+  background: var(--c-border);
+  margin: var(--space-xs) var(--space-sm);
+}
+
+.dropdown__submenu-trigger {
+  position: relative;
+}

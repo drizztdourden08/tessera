@@ -1,0 +1,26 @@
+/* @layer stories @kind style */
+.app-icon-files__tree {
+  overflow-x: auto;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--c-sunken);
+  color: var(--c-text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.app-icon-files__row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-md);
+}
+
+.app-icon-files__icon {
+  image-rendering: auto;
+}
+
+.app-icon-files__icon--256 { inline-size: var(--size-128); }
+.app-icon-files__icon--128 { inline-size: var(--size-96); }
+.app-icon-files__icon--64 { inline-size: var(--size-64); }
+.app-icon-files__icon--32 { inline-size: var(--size-32); }
+.app-icon-files__icon--16 { inline-size: var(--size-16); }

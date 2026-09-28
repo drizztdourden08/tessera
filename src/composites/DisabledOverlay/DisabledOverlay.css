@@ -1,0 +1,40 @@
+/* @layer renderer-components @kind style */
+
+.disabled-overlay {
+  position: relative;
+  isolation: isolate;
+}
+
+.disabled-overlay__content {
+  pointer-events: none;
+  user-select: none;
+}
+
+.disabled-overlay__scrim {
+  position: absolute;
+  inset: calc(-1 * var(--size-10));
+  z-index: var(--z-backdrop);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  text-align: center;
+  background: var(--c-secondary-scrim);
+  backdrop-filter: blur(var(--blur));
+  border: var(--border-width-thin) solid var(--c-secondary-bright);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.disabled-overlay--contained .disabled-overlay__scrim {
+  inset: var(--space-xs);
+}
+
+.disabled-overlay__message {
+  color: var(--c-text);
+  font-weight: var(--weight-semi);
+  font-size: var(--text-sm);
+  text-shadow: var(--shadow-1);
+}

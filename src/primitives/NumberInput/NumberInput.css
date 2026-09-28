@@ -1,0 +1,62 @@
+/* @layer renderer-components @kind style */
+.number-input {
+  width: 100%;
+}
+
+.number-input--auto {
+  width: auto;
+}
+
+.number-input--auto .number-input__field {
+  flex: 0 0 auto;
+  width: calc((var(--number-input-columns) * 1ch) + (var(--space-md) * 2) + 0.75ch);
+}
+
+.number-input__field {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  appearance: textfield;
+}
+
+.number-input__field::-webkit-outer-spin-button,
+.number-input__field::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.number-input__field::placeholder {
+  color: var(--c-text-muted);
+}
+
+.number-input__spin {
+  display: flex;
+  flex-direction: column;
+  border-left: var(--border-width-thin) solid var(--c-border);
+}
+
+.number-input__btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-sm);
+  background: transparent;
+  border: none;
+  color: var(--c-text-dim);
+  cursor: pointer;
+  transition: color var(--transition-normal), background var(--transition-normal);
+}
+
+.number-input__btn + .number-input__btn {
+  border-top: var(--border-width-thin) solid var(--c-border);
+}
+
+.number-input__btn:hover {
+  color: var(--c-text);
+  background: var(--c-hover);
+}
+
+.number-input__btn:disabled {
+  cursor: default;
+  opacity: 0.4;
+}

@@ -1,0 +1,8 @@
+/* @layer renderer-components @kind style */
+.dialog__message {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--c-text-dim);
+  line-height: var(--leading-normal);
+  margin-bottom: var(--space-lg);
+}

@@ -1,0 +1,53 @@
+/* @layer stories @kind style */
+.widget-dock-frame {
+  contain: layout;
+  width: 100vw;
+  height: 100vh;
+  margin: calc(-1 * var(--space-lg));
+  background: var(--c-bg);
+}
+
+.widget-dock-frame__titlebar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: var(--titlebar-height);
+  padding: 0 var(--space-md);
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+  background: var(--c-surface);
+}
+
+.widget-dock-frame__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-xl);
+  color: var(--c-text-dim);
+}
+
+.widget-story__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  overflow: auto;
+}
+
+.widget-story__player,
+.widget-story__hint {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding-bottom: var(--space-sm);
+  border-bottom: var(--border-width-thin) solid var(--c-hairline);
+}
+
+.widget-story__console {
+  height: 100%;
+  padding: var(--space-sm);
+}
+
+.widget-story__mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}

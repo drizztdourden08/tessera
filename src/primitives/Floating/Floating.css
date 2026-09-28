@@ -1,0 +1,5 @@
+/* @layer renderer-components @kind style */
+.floating {
+  position: fixed;
+  pointer-events: auto;
+}

@@ -1,0 +1,41 @@
+/* @layer stories @kind style */
+.portal-demo__panel {
+  position: absolute;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: var(--border-width-thin) solid var(--c-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--c-panel);
+  box-shadow: var(--shadow-2);
+}
+
+.portal-demo__panel--up {
+  transform: translateY(-100%);
+}
+
+.portal-demo__panel--corner {
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  width: 18rem;
+}
+
+.portal-demo__scroller {
+  max-height: 12rem;
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+}
+
+.portal-demo__track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+}
+
+.portal-demo__filler {
+  color: var(--c-text-muted);
+  font-size: var(--text-sm);
+}

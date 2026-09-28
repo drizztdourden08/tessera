@@ -1,0 +1,5 @@
+/* @layer renderer-components @kind style */
+.range-input {
+  accent-color: var(--c-primary);
+  cursor: pointer;
+}

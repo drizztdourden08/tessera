@@ -1,0 +1,15 @@
+/* @layer renderer-components @kind types */
+interface ToggleProps {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label?: string;
+  description?: string;
+  disabled?: boolean;
+  id?: string;
+  link?: string;
+  'aria-label'?: string;
+}
+
+export type {
+  ToggleProps,
+};

@@ -1,0 +1,14 @@
+/* @layer stories @kind style */
+.split-pane-story__frame {
+  height: 24rem;
+  padding: var(--space-md);
+}
+
+.split-pane-story__pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-sm);
+}

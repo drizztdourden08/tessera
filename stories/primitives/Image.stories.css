@@ -1,0 +1,24 @@
+/* @layer stories @kind style */
+
+.image-demo {
+  display: block;
+  width: 20rem;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--c-border);
+}
+
+.image-demo__fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) dashed var(--c-border);
+  background: var(--c-sunken);
+  color: var(--c-text-muted);
+  font-size: var(--text-sm);
+}

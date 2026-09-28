@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+/* stylelint-disable brock/no-token-override -- an app look sets the palette seeds, the way an app's theme.css does */
+[data-palette="archipelia"] {
+  --p-primary: #7c4dff;
+  --p-secondary: #ece6ff;
+  --p-tertiary: #a79fc8;
+  --p-white: #ece8ff;
+  --p-black: #0d0b14;
+  --p-on-primary: var(--p-pure-white);
+  --p-on-secondary: #3b2a7a;
+  --p-on-tertiary: var(--p-black);
+}

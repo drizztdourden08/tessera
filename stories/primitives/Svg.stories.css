@@ -1,0 +1,47 @@
+/* @layer stories @kind style */
+
+.svg-demo {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  background: var(--c-surface);
+}
+
+.svg-demo__grid {
+  stroke: var(--c-hairline);
+  stroke-width: 1;
+}
+
+.svg-demo__line {
+  fill: none;
+  stroke: var(--c-primary);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.svg-demo__area {
+  fill: var(--c-primary-dim);
+}
+
+.svg-demo__point {
+  fill: var(--c-primary-bright);
+}
+
+.svg-demo__label {
+  fill: var(--c-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.svg-demo__shape {
+  fill: var(--c-secondary-dim);
+  stroke: var(--c-secondary);
+  stroke-width: 2;
+}
+
+.svg-demo--swatch {
+  width: 6rem;
+}

@@ -1,0 +1,27 @@
+/* @layer renderer-components @kind style */
+.spinner {
+  border-radius: var(--radius-round);
+  border: var(--border-width-thick) solid var(--c-hover);
+  border-top-color: var(--c-primary);
+  animation: spinner-rotate 0.7s linear infinite;
+}
+
+.spinner[data-size='sm'] {
+  width: var(--size-12);
+  height: var(--size-12);
+}
+
+.spinner[data-size='md'] {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.spinner[data-size='lg'] {
+  width: var(--size-28);
+  height: var(--size-28);
+  border-width: var(--size-4);
+}
+
+@keyframes spinner-rotate {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,24 @@
+/* @layer renderer-components @kind style */
+.toggle-group__track {
+  gap: var(--border-width-thin);
+}
+
+.toggle-group__btn {
+  transition: color var(--transition-normal), background var(--transition-normal),
+    border-color var(--transition-normal);
+  border: var(--border-width-thin) solid transparent;
+}
+
+.toggle-group__btn:hover:not(:disabled) {
+  color: var(--c-text);
+}
+
+.toggle-group__btn--active {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary);
+}
+
+.toggle-group__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

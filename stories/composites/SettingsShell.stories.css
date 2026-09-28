@@ -1,0 +1,7 @@
+/* @layer stories @kind style */
+.settings-shell-story__frame {
+  display: flex;
+  flex-direction: column;
+  height: 32rem;
+  padding-top: var(--space-md);
+}

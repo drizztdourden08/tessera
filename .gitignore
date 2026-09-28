@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Tooling caches and reports
+.vite/
+coverage/
+storylite-static/
+
+# Local editor state
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Storylite static build
+dist-storylite/

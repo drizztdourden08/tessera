@@ -1,0 +1,70 @@
+/* @layer stories @kind story */
+import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { Box, Center, Flex, Text } from '../../src/primitives';
+import type { SpaceToken } from '../../src/primitives';
+import { overviewStory } from '../_template/overview-story';
+import './Center.stories.css';
+
+type CenterArgs = {
+  direction: 'row' | 'column';
+  gap: SpaceToken;
+  message: string;
+};
+
+const PLAYERS = [
+  { initials: 'AR', name: 'Aria', game: 'Lost Woods run' },
+  { initials: 'BR', name: 'Brom', game: 'Desert run' },
+  { initials: 'CA', name: 'Cadence', game: 'Mountain run' },
+];
+
+const ARGS: Partial<CenterArgs> = { direction: 'column', gap: 'sm', message: 'Waiting for the host to start the session' };
+
+const ARG_TYPES: StoryLiteArgTypes<CenterArgs> = {
+    direction: { control: 'select', options: ['row', 'column'] },
+    gap: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
+    message: { control: 'text' },
+  };
+
+const meta = {
+  title: 'Primitives · Layout/Center',
+  parameters: { renderer: 'react' },
+} satisfies StoryLiteMeta<CenterArgs>;
+
+const Playground = {
+  name: 'Playground',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <Center className="center-demo" direction={args.direction} gap={args.gap}>
+      <Text variant="title">Lobby</Text>
+      <Text variant="subtitle">{args.message}</Text>
+    </Center>
+  ),
+} satisfies StoryLiteStoryDefinition<CenterArgs>;
+
+const InlineAvatars = {
+  name: 'Inline avatars',
+  render: () => (
+    <Box className="story-column">
+      {PLAYERS.map((player) => (
+        <Flex key={player.name} gap="sm" align="center">
+          <Center inline className="center-demo__avatar">{player.initials}</Center>
+          <Box>
+            <Text as="div">{player.name}</Text>
+            <Text variant="caption">{player.game}</Text>
+          </Box>
+        </Flex>
+      ))}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<CenterArgs>;
+
+const Overview = overviewStory({
+  component: 'Center',
+  description: 'Puts its children in the middle on both axes: a waiting message in an empty pane, initials in an avatar. It is a Flex preset with align and justify fixed to center, so direction, gap, wrap, inline and the as prop still apply. Inline makes it sit in a line of text, sized to its content.',
+  playground: Playground,
+  variants: [InlineAvatars],
+});
+
+export default meta;
+export { InlineAvatars, Overview, Playground };

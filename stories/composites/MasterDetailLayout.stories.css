@@ -1,0 +1,7 @@
+/* @layer stories @kind style */
+.master-detail-story__frame {
+  display: flex;
+  flex-direction: column;
+  height: 26rem;
+  padding: var(--space-md) 0;
+}

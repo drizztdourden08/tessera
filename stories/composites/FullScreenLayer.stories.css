@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+
+.full-screen-layer-story__frame {
+  min-height: 34rem;
+}
+
+.full-screen-layer-story__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  overflow-y: auto;
+}

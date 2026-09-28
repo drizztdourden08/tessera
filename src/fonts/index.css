@@ -1,0 +1,4 @@
+/* @layer renderer-design-system @kind style */
+@import url('./inter/inter.css');
+@import url('./chakra-petch/chakra-petch.css');
+@import url('./game/game-font.css');

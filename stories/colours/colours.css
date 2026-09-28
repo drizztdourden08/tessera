@@ -1,0 +1,119 @@
+/* @layer stories @kind style */
+.story-column.colour-section {
+  max-width: 72rem;
+}
+
+.main-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: var(--space-lg);
+}
+
+.main-swatch {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-xl);
+  background: var(--c-surface);
+}
+
+.main-swatch__chip {
+  display: flex;
+  align-items: flex-end;
+  block-size: 10rem;
+  padding: var(--space-md) var(--space-lg);
+}
+
+.main-swatch__ink {
+  color: inherit;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+}
+
+.main-swatch__label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+}
+
+.main-swatch__name {
+  color: var(--c-text);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semi);
+}
+
+.main-swatch__value,
+.main-swatch__token {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.main-swatch__value {
+  color: var(--c-text);
+}
+
+.main-swatch__token {
+  color: var(--c-text-muted);
+}
+
+.main-swatch__use {
+  margin-block-start: var(--space-xs);
+  color: var(--c-text-dim);
+  font-size: var(--text-sm);
+}
+
+.palette {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.palette__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+}
+
+.palette__token {
+  color: var(--c-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.palette__steps {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.palette-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.palette-step__chip {
+  block-size: 4rem;
+  border: var(--border-width-thin) solid var(--c-hairline);
+  border-radius: var(--radius-md);
+}
+
+.palette-step--seed .palette-step__chip {
+  outline: var(--border-width-thick) solid var(--c-text);
+  outline-offset: var(--size-2);
+}
+
+.palette-step__name {
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.palette-step__value {
+  color: var(--c-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  overflow-wrap: anywhere;
+}

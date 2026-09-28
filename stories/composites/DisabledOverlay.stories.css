@@ -1,0 +1,18 @@
+/* @layer stories @kind style */
+.disabled-overlay-story__pad {
+  padding: var(--space-lg);
+}
+
+.disabled-overlay-story__scroller {
+  max-height: 14rem;
+  overflow-y: auto;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+}
+
+.disabled-overlay-story__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}

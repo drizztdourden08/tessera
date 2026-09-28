@@ -1,0 +1,13 @@
+/* @layer renderer-components @kind style */
+.pixel-wordmark {
+  display: inline-block;
+  flex: none;
+  inline-size: auto;
+  block-size: var(--pixel-wordmark-size);
+  max-inline-size: 100%;
+  vertical-align: middle;
+}
+
+.pixel-wordmark--sm { --pixel-wordmark-size: var(--pixel-wordmark-sm); }
+.pixel-wordmark--md { --pixel-wordmark-size: var(--pixel-wordmark-md); }
+.pixel-wordmark--lg { --pixel-wordmark-size: var(--pixel-wordmark-lg); }

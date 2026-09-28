@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind style */
+.icon-btn {
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.icon-btn--sm {
+  width: var(--control-h-sm);
+  height: var(--control-h-sm);
+  font-size: var(--text-sm);
+}
+
+.icon-btn--md {
+  width: var(--size-32);
+  height: var(--size-32);
+  font-size: var(--text-base);
+}
+
+.icon-btn--ghost.icon-btn--active,
+.icon-btn--ghost.icon-btn--active:hover:not(:disabled) {
+  background: none;
+  border-color: var(--c-primary);
+  color: var(--c-primary-bright);
+}

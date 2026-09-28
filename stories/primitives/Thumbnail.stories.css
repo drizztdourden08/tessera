@@ -1,0 +1,30 @@
+/* @layer stories @kind style */
+
+.thumb-demo--sm {
+  width: 4rem;
+  height: 2.25rem;
+}
+
+.thumb-demo--md {
+  width: 8rem;
+  height: 4.5rem;
+}
+
+.thumb-demo--lg {
+  width: 16rem;
+  height: 9rem;
+  border-radius: var(--radius-md);
+}
+
+.thumb-demo__placeholder {
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.thumb-demo__slot {
+  padding: var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+}

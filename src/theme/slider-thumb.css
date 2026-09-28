@@ -1,0 +1,16 @@
+/* @layer renderer-components @kind style */
+.slider__input::-webkit-slider-thumb,
+.range-slider__input::-webkit-slider-thumb {
+  appearance: none;
+  border-radius: var(--radius-round);
+  background: var(--c-primary-bright);
+  border: var(--border-width-thick) solid var(--c-bg);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.slider__input::-webkit-slider-thumb:hover,
+.range-slider__input::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}

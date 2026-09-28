@@ -1,0 +1,13 @@
+/* @layer renderer-components @kind style */
+.brand-mark {
+  display: inline-block;
+  flex: none;
+  inline-size: var(--brand-mark-size);
+  block-size: var(--brand-mark-size);
+  vertical-align: middle;
+}
+
+.brand-mark--sm { --brand-mark-size: var(--brand-mark-sm); }
+.brand-mark--md { --brand-mark-size: var(--brand-mark-md); }
+.brand-mark--lg { --brand-mark-size: var(--brand-mark-lg); }
+.brand-mark--xl { --brand-mark-size: var(--brand-mark-xl); }

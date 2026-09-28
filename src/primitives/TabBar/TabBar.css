@@ -1,0 +1,80 @@
+/* @layer renderer-components @kind style */
+.tab-bar {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+}
+
+.tab-bar__strip {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  min-width: 0;
+  overflow: auto hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.tab-bar__strip::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-bar__pager {
+  flex: none;
+  align-self: center;
+}
+
+.tab-bar__pager--idle {
+  visibility: hidden;
+}
+
+.tab-bar__tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-bottom: var(--border-width-thick) solid transparent;
+  background: transparent;
+  color: var(--c-text-dim);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: color var(--transition-normal), border-color var(--transition-normal);
+  white-space: nowrap;
+}
+
+.tab-bar__tab:hover {
+  color: var(--c-text);
+}
+
+.tab-bar__tab--active {
+  color: var(--c-primary-bright);
+  border-bottom-color: var(--c-primary);
+}
+
+.tab-bar__icon {
+  font-size: var(--text-base);
+}
+
+.tab-bar__label {
+  line-height: var(--leading-tight);
+}
+
+.tab-bar__badge {
+  padding: 0 var(--space-2xs);
+  border-radius: var(--radius-sm);
+  background: var(--c-hover);
+  color: var(--c-text-dim);
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-bar__strip {
+    scroll-behavior: auto;
+  }
+}

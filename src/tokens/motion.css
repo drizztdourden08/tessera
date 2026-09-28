@@ -1,0 +1,18 @@
+/* @layer renderer-design-system @kind style */
+
+@layer ds.semantic {
+:root {
+  --duration-fast:   0.1s;
+  --duration-normal: 0.15s;
+  --duration-slow:   0.26s;
+  --duration-drawer: 0.38s;
+  --duration-twinkle: 3.5s;
+  --duration-float:   1.6s;
+  --duration-glow-drift: 2.6s;
+  --duration-mascot-hop: 2.4s;
+  --ease-standard:    ease;
+  --ease-emphasized:  cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast:   0.1s ease;
+  --transition-normal: 0.15s ease;
+}
+}

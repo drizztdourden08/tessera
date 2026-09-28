@@ -1,0 +1,8 @@
+/* @layer renderer-components @kind style */
+.confirm-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-2xs);
+  min-width: var(--size-56);
+}

@@ -1,0 +1,52 @@
+/* @layer renderer-components @kind component */
+import { Box } from '../../../primitives/Box';
+import { Flex } from '../../../primitives/Flex';
+import { Select } from '../../../primitives/Select';
+import { Text } from '../../../primitives/Text';
+import { ListItemControls } from '../../field-kits/sub-components/ListItemControls';
+import { keyOf } from '../behavior/keyOf';
+import { rebaseField } from '../behavior/rebaseField';
+import { detectUnionBranch } from '../behavior/union-branch';
+import { EditorRow } from './EditorRow';
+import { NO_BRANCH } from './VariantArrayItem.constants';
+import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
+import type { VariantArrayItemProps } from './VariantArrayItem.type';
+
+const branchOptions = (branches: readonly FieldDescriptor[]) =>
+  branches.map((branch) => ({ value: keyOf(branch), label: branch.label }));
+
+const VariantArrayItem = (props: VariantArrayItemProps) => {
+  const { element, address, list, index, branches, binding, depth, onWrite, onBranch } = props;
+  const rebased = rebaseField(element, element.path, address);
+  const branch = detectUnionBranch(rebased, list[index]);
+  const shape = branch.status === 'resolved' ? branch.fields[0] : undefined;
+  const currentKey = shape ? keyOf(shape) : '';
+
+  return (
+    <Box className="record-editor__array-item">
+      <Flex className="record-editor__array-item-head" gap="xs" align="center">
+        <Text as="span" className="record-editor__array-index">{`#${index + 1}`}</Text>
+        <Select
+          size="sm"
+          value={currentKey}
+          placeholder="Shape..."
+          disabled={binding.disabled}
+          options={branchOptions(branches)}
+          onChange={(next) => onBranch(index, next)}
+        />
+        <ListItemControls list={list} index={index} disabled={binding.disabled} onChange={onWrite} />
+      </Flex>
+      {branch.status === 'resolved'
+        ? (
+          <Box className="record-editor__nested">
+            {branch.fields.map((child) => (
+              <EditorRow key={child.path} field={child} binding={binding} depth={depth + 1} />
+            ))}
+          </Box>
+        )
+        : <Text className="record-editor__note">{NO_BRANCH}</Text>}
+    </Box>
+  );
+};
+
+export { VariantArrayItem };

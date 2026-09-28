@@ -1,0 +1,163 @@
+/* @layer renderer-design-system @kind style */
+@layer ds.semantic {
+  :root, [data-theme], [data-palette] {
+    color-scheme: dark;
+
+    --c-lift:          var(--p-pure-white);
+    --c-bg:            var(--p-pure-black);
+    --c-surface:       var(--p-tertiary-900);
+    --c-sunken:        var(--p-tertiary-950);
+    --c-layer:         var(--p-black);
+    --c-glass:         color-mix(in srgb, var(--c-layer) 92%, transparent);
+    --c-panel:         color-mix(in srgb, var(--c-surface) 55%, transparent);
+    --c-inset:         color-mix(in srgb, var(--c-sunken) 45%, transparent);
+    --c-hairline:      color-mix(in srgb, var(--p-pure-white) 6%, transparent);
+    --c-border:        var(--p-tertiary-850);
+    --c-border-strong: var(--p-tertiary-800);
+    --c-hover:         color-mix(in srgb, var(--p-pure-white) 5%, transparent);
+    --c-text:          var(--p-tertiary-100);
+    --c-text-dim:      var(--p-tertiary-500);
+    --c-text-muted:    var(--p-tertiary-600);
+    --c-text-faint:    var(--p-tertiary-800);
+    --c-danger:        var(--p-danger);
+    --c-danger-dim:    color-mix(in oklab, var(--p-danger) 16%, var(--c-surface));
+    --c-danger-soft:   color-mix(in srgb, var(--p-danger) 14%, transparent);
+    --c-danger-bright: color-mix(in oklch, var(--p-danger), var(--c-lift) 22%);
+    --c-on-danger:     var(--p-pure-black);
+    --c-warning:        var(--p-warning);
+    --c-warning-dim:    color-mix(in oklab, var(--p-warning) 16%, var(--c-surface));
+    --c-warning-soft:   color-mix(in srgb, var(--p-warning) 14%, transparent);
+    --c-warning-bright: color-mix(in oklch, var(--p-warning), var(--c-lift) 22%);
+    --c-on-warning:     var(--p-pure-black);
+    --c-info:        var(--p-info);
+    --c-info-dim:    color-mix(in oklab, var(--p-info) 16%, var(--c-surface));
+    --c-info-soft:   color-mix(in srgb, var(--p-info) 14%, transparent);
+    --c-info-bright: color-mix(in oklch, var(--p-info), var(--c-lift) 22%);
+    --c-on-info:     var(--p-pure-black);
+    --c-success:        var(--p-success);
+    --c-success-dim:    color-mix(in oklab, var(--p-success) 16%, var(--c-surface));
+    --c-success-soft:   color-mix(in srgb, var(--p-success) 14%, transparent);
+    --c-success-bright: color-mix(in oklch, var(--p-success), var(--c-lift) 22%);
+    --c-on-success:     var(--p-pure-black);
+    --c-tag-rose:      var(--p-tag-rose);
+    --c-tag-rose-soft: color-mix(in srgb, var(--p-tag-rose) 16%, transparent);
+    --c-tag-rose-dim:  color-mix(in oklab, var(--p-tag-rose) 16%, var(--c-surface));
+    --c-tag-orange:      var(--p-tag-orange);
+    --c-tag-orange-soft: color-mix(in srgb, var(--p-tag-orange) 16%, transparent);
+    --c-tag-orange-dim:  color-mix(in oklab, var(--p-tag-orange) 16%, var(--c-surface));
+    --c-tag-amber:      var(--p-tag-amber);
+    --c-tag-amber-soft: color-mix(in srgb, var(--p-tag-amber) 16%, transparent);
+    --c-tag-amber-dim:  color-mix(in oklab, var(--p-tag-amber) 16%, var(--c-surface));
+    --c-tag-lime:      var(--p-tag-lime);
+    --c-tag-lime-soft: color-mix(in srgb, var(--p-tag-lime) 16%, transparent);
+    --c-tag-lime-dim:  color-mix(in oklab, var(--p-tag-lime) 16%, var(--c-surface));
+    --c-tag-green:      var(--p-tag-green);
+    --c-tag-green-soft: color-mix(in srgb, var(--p-tag-green) 16%, transparent);
+    --c-tag-green-dim:  color-mix(in oklab, var(--p-tag-green) 16%, var(--c-surface));
+    --c-tag-teal:      var(--p-tag-teal);
+    --c-tag-teal-soft: color-mix(in srgb, var(--p-tag-teal) 16%, transparent);
+    --c-tag-teal-dim:  color-mix(in oklab, var(--p-tag-teal) 16%, var(--c-surface));
+    --c-tag-cyan:      var(--p-tag-cyan);
+    --c-tag-cyan-soft: color-mix(in srgb, var(--p-tag-cyan) 16%, transparent);
+    --c-tag-cyan-dim:  color-mix(in oklab, var(--p-tag-cyan) 16%, var(--c-surface));
+    --c-tag-blue:      var(--p-tag-blue);
+    --c-tag-blue-soft: color-mix(in srgb, var(--p-tag-blue) 16%, transparent);
+    --c-tag-blue-dim:  color-mix(in oklab, var(--p-tag-blue) 16%, var(--c-surface));
+    --c-tag-violet:      var(--p-tag-violet);
+    --c-tag-violet-soft: color-mix(in srgb, var(--p-tag-violet) 16%, transparent);
+    --c-tag-violet-dim:  color-mix(in oklab, var(--p-tag-violet) 16%, var(--c-surface));
+    --c-tag-pink:      var(--p-tag-pink);
+    --c-tag-pink-soft: color-mix(in srgb, var(--p-tag-pink) 16%, transparent);
+    --c-tag-pink-dim:  color-mix(in oklab, var(--p-tag-pink) 16%, var(--c-surface));
+    --shadow-1:        0 var(--size-2) var(--size-8) color-mix(in srgb, var(--p-pure-black) 40%, transparent);
+    --shadow-2:        0 var(--size-8) var(--size-24) color-mix(in srgb, var(--p-pure-black) 50%, transparent);
+    --shadow-3:        0 var(--size-16) var(--size-40) color-mix(in srgb, var(--p-pure-black) 60%, transparent);
+    --c-scrim:         color-mix(in srgb, var(--p-pure-black) 60%, transparent);
+    --c-scrim-game:    color-mix(in srgb, var(--p-pure-black) 35%, transparent);
+  }
+
+  [data-theme="light"],
+  [data-theme="light"] [data-palette] {
+    color-scheme: light;
+
+    --c-lift:          var(--p-pure-black);
+    --c-bg:            var(--p-white);
+    --c-surface:       var(--p-pure-white);
+    --c-sunken:        var(--p-tertiary-100);
+    --c-layer:         var(--p-white);
+    --c-glass:         color-mix(in srgb, var(--c-bg) 94%, transparent);
+    --c-panel:         color-mix(in srgb, var(--p-pure-white) 72%, transparent);
+    --c-inset:         color-mix(in srgb, var(--p-pure-black) 4%, transparent);
+    --c-hairline:      color-mix(in srgb, var(--p-pure-black) 8%, transparent);
+    --c-border:        var(--p-tertiary-200);
+    --c-border-strong: var(--p-tertiary-300);
+    --c-hover:         color-mix(in srgb, var(--p-pure-black) 5%, transparent);
+    --c-text:          var(--p-tertiary-900);
+    --c-text-dim:      var(--p-tertiary-800);
+    --c-text-muted:    var(--p-tertiary-700);
+    --c-text-faint:    var(--p-tertiary-400);
+    --c-danger:        var(--p-danger);
+    --c-danger-dim:    color-mix(in oklab, var(--p-danger) 14%, var(--c-surface));
+    --c-danger-soft:   color-mix(in srgb, var(--p-danger) 14%, transparent);
+    --c-danger-bright: color-mix(in oklch, var(--p-danger), var(--c-lift) 22%);
+    --c-on-danger:     var(--p-pure-white);
+    --c-warning:        var(--p-warning);
+    --c-warning-dim:    color-mix(in oklab, var(--p-warning) 14%, var(--c-surface));
+    --c-warning-soft:   color-mix(in srgb, var(--p-warning) 14%, transparent);
+    --c-warning-bright: color-mix(in oklch, var(--p-warning), var(--c-lift) 22%);
+    --c-on-warning:     var(--p-pure-white);
+    --c-info:        var(--p-info);
+    --c-info-dim:    color-mix(in oklab, var(--p-info) 14%, var(--c-surface));
+    --c-info-soft:   color-mix(in srgb, var(--p-info) 14%, transparent);
+    --c-info-bright: color-mix(in oklch, var(--p-info), var(--c-lift) 22%);
+    --c-on-info:     var(--p-pure-white);
+    --c-success:        var(--p-success);
+    --c-success-dim:    color-mix(in oklab, var(--p-success) 14%, var(--c-surface));
+    --c-success-soft:   color-mix(in srgb, var(--p-success) 14%, transparent);
+    --c-success-bright: color-mix(in oklch, var(--p-success), var(--c-lift) 22%);
+    --c-on-success:     var(--p-pure-white);
+    --shadow-1:        0 var(--size-1) var(--size-4) color-mix(in srgb, var(--p-black) 12%, transparent);
+    --shadow-2:        0 var(--size-6) var(--size-20) color-mix(in srgb, var(--p-black) 14%, transparent);
+    --shadow-3:        0 var(--size-14) var(--size-40) color-mix(in srgb, var(--p-black) 18%, transparent);
+    --c-scrim:         color-mix(in srgb, var(--p-black) 40%, transparent);
+    --c-scrim-game:    color-mix(in srgb, var(--p-black) 20%, transparent);
+  }
+
+  /* stylelint-disable-next-line no-duplicate-selectors -- the accent roles re-derive in every palette and theme subtree */
+  :root, [data-palette], [data-theme] {
+    --c-primary:        var(--p-primary);
+    --c-primary-bright: color-mix(in oklch, var(--p-primary), var(--c-lift) 22%);
+    --c-primary-dim:    color-mix(in oklch, var(--p-primary) 18%, var(--c-bg));
+    --c-primary-soft:   color-mix(in srgb, var(--p-primary) 14%, transparent);
+    --c-on-primary:     var(--p-on-primary);
+    --c-selected:       color-mix(in srgb, var(--p-primary) 12%, transparent);
+    --c-secondary:        var(--p-secondary);
+    --c-secondary-bright: color-mix(in oklch, var(--p-secondary), var(--c-lift) 22%);
+    --c-secondary-dim:    color-mix(in oklch, var(--p-secondary) 18%, var(--c-bg));
+    --c-secondary-soft:   color-mix(in srgb, var(--p-secondary) 14%, transparent);
+    --c-secondary-scrim:  color-mix(in srgb, var(--p-secondary) 16%, transparent);
+    --c-on-secondary:     var(--p-on-secondary);
+    --c-tertiary:        var(--p-tertiary);
+    --c-tertiary-bright: color-mix(in oklch, var(--p-tertiary), var(--c-lift) 22%);
+    --c-tertiary-dim:    color-mix(in oklch, var(--p-tertiary) 18%, var(--c-bg));
+    --c-tertiary-soft:   color-mix(in srgb, var(--p-tertiary) 14%, transparent);
+    --c-on-tertiary:     var(--p-on-tertiary);
+  }
+
+  :root {
+    --blur:            var(--size-8);
+    --dialog-w-sm: var(--size-384);
+    --dialog-w-md: var(--size-640);
+    --panel-w-sm:  var(--size-224);
+    --panel-w-md:  var(--size-288);
+    --panel-w-lg:  var(--size-384);
+    --widget-w-min: var(--size-256);
+    --bp-narrow:  var(--size-640);
+    --bp-compact: var(--size-768);
+    --pad-page:   clamp(var(--space-sm), 2.5vw, var(--space-2xl));
+    --sai-top:    0;
+    --sai-right:  0;
+    --sai-bottom: 0;
+    --sai-left:   0;
+  }
+}

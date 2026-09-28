@@ -1,0 +1,14 @@
+/* @layer renderer-components @kind style */
+.divider { flex-shrink: 0; }
+
+.divider--horizontal {
+  width: 100%;
+  height: var(--border-width-thin);
+  background: var(--c-border);
+}
+
+.divider--vertical {
+  align-self: stretch;
+  width: var(--border-width-thin);
+  background: var(--c-border);
+}

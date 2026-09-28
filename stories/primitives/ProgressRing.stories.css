@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.progress-ring-story--sm {
+  width: var(--space-lg);
+}
+
+.progress-ring-story--md {
+  width: var(--space-2xl);
+}
+
+.progress-ring-story--lg {
+  width: calc(var(--space-2xl) * 2);
+}

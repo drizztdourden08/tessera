@@ -1,0 +1,127 @@
+/* @layer renderer-components @kind style */
+.btn,
+.icon-btn {
+  display: flex;
+  align-items: center;
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  color: var(--c-text-dim);
+  cursor: pointer;
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.btn--primary,
+.icon-btn--primary {
+  --tone: var(--c-primary);
+  --tone-dim: var(--c-primary-dim);
+  --tone-bright: var(--c-primary-bright);
+  --tone-ink: var(--c-on-primary);
+}
+
+.btn--secondary,
+.icon-btn--secondary {
+  --tone: var(--c-secondary);
+  --tone-dim: var(--c-secondary-dim);
+  --tone-bright: var(--c-secondary-bright);
+  --tone-ink: var(--c-on-secondary);
+}
+
+.btn--tertiary,
+.icon-btn--tertiary {
+  --tone: var(--c-tertiary);
+  --tone-dim: var(--c-tertiary-dim);
+  --tone-bright: var(--c-tertiary-bright);
+  --tone-ink: var(--c-on-tertiary);
+}
+
+.btn--danger,
+.icon-btn--danger {
+  --tone: var(--c-danger);
+  --tone-dim: var(--c-danger-dim);
+  --tone-bright: var(--c-danger-bright);
+  --tone-ink: var(--c-on-danger);
+}
+
+.btn--warning,
+.icon-btn--warning {
+  --tone: var(--c-warning);
+  --tone-dim: var(--c-warning-dim);
+  --tone-bright: var(--c-warning-bright);
+  --tone-ink: var(--c-on-warning);
+}
+
+.btn--info,
+.icon-btn--info {
+  --tone: var(--c-info);
+  --tone-dim: var(--c-info-dim);
+  --tone-bright: var(--c-info-bright);
+  --tone-ink: var(--c-on-info);
+}
+
+.btn--success,
+.icon-btn--success {
+  --tone: var(--c-success);
+  --tone-dim: var(--c-success-dim);
+  --tone-bright: var(--c-success-bright);
+  --tone-ink: var(--c-on-success);
+}
+
+.btn--toned,
+.icon-btn--toned {
+  background: var(--tone-dim);
+  border-color: var(--tone);
+  color: var(--tone-bright);
+}
+
+.btn--toned:hover:not(:disabled),
+.icon-btn--toned:hover:not(:disabled) {
+  background: var(--tone);
+  color: var(--tone-ink);
+}
+
+.btn--toned:hover:not(:disabled) {
+  border-color: var(--tone-bright);
+}
+
+.btn--ghost,
+.icon-btn--ghost {
+  background: none;
+  border-color: transparent;
+}
+
+.btn--ghost {
+  color: var(--c-text-dim);
+}
+
+.icon-btn--ghost {
+  color: var(--c-text-muted);
+}
+
+.btn--ghost:hover:not(:disabled),
+.icon-btn--ghost:hover:not(:disabled) {
+  background: var(--c-hover);
+  color: var(--c-text);
+}
+
+.btn:disabled,
+.icon-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.btn--active,
+.icon-btn--active {
+  background: var(--c-selected);
+  border-color: var(--c-primary);
+  color: var(--c-primary-bright);
+}
+
+.btn--active:hover:not(:disabled),
+.icon-btn--active:hover:not(:disabled) {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary-bright);
+  color: var(--c-primary-bright);
+}

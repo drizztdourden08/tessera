@@ -1,0 +1,85 @@
+/* @layer renderer-components @kind style */
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-xl) var(--space-lg);
+  border: var(--border-width-thick) dashed var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-bg);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: center;
+}
+
+.dropzone:hover {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+}
+
+.dropzone--active {
+  border-color: var(--c-primary-bright);
+  background: var(--c-primary-soft);
+  border-style: solid;
+}
+
+.dropzone--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.dropzone__icon {
+  font-size: var(--text-2xl);
+  opacity: 0.6;
+}
+
+.dropzone__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--c-text);
+}
+
+.dropzone__hint {
+  font-size: var(--text-xs);
+  color: var(--c-text-muted);
+}
+
+.dropzone.dropzone--inline {
+  flex-direction: row;
+  flex-shrink: 1;
+  align-self: stretch;
+  gap: var(--space-sm);
+  width: var(--dropzone-inline-w);
+  min-width: max-content;
+  min-height: var(--control-h-sm);
+  padding: 0 var(--space-md);
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+}
+
+.dropzone--inline .dropzone__icon {
+  display: inline-flex;
+  font-size: var(--text-lg);
+}
+
+.dropzone--inline .dropzone__label {
+  font-size: var(--text-sm);
+}
+
+.dropzone--inline:focus-visible {
+  outline: var(--border-width-thin) solid var(--c-primary-bright);
+  outline-offset: var(--border-width-thin);
+}
+
+@media (width <= 768px) {
+  .dropzone {
+    gap: var(--space-xs);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .dropzone__icon {
+    font-size: var(--text-xl);
+  }
+}

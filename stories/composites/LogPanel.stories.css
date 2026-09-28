@@ -1,0 +1,37 @@
+/* @layer stories @kind style */
+.log-panel-story {
+  display: flex;
+  flex-direction: column;
+  height: 24rem;
+  max-width: 52rem;
+}
+
+.server-log {
+  --log-gutter-w: 8ch;
+  --log-tag-w: 6ch;
+}
+
+.server-log .log-panel__tag--join {
+  color: var(--c-info);
+}
+
+.server-log .log-panel__tag--item {
+  color: var(--c-secondary-bright);
+}
+
+.server-log .log-panel__tag--hint {
+  color: var(--c-primary-bright);
+}
+
+.server-log .log-panel__tag--chat {
+  color: var(--c-text-dim);
+}
+
+.server-log .log-panel__tag--goal {
+  color: var(--c-tag-violet);
+}
+
+.server-log .log-panel__tag--error,
+.server-log .log-panel__msg--error {
+  color: var(--c-danger);
+}

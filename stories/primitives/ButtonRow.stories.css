@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+
+.button-row-demo--narrow {
+  max-width: 14rem;
+}

@@ -1,0 +1,8 @@
+/* @layer renderer-design-system @kind style */
+
+@layer ds.semantic {
+:root {
+  --border-width-thin:  var(--size-1);
+  --border-width-thick: var(--size-2);
+}
+}

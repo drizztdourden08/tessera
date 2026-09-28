@@ -1,0 +1,21 @@
+/* @layer renderer-components @kind style */
+.segmented__indicator {
+  position: absolute;
+  top: var(--space-2xs);
+  left: var(--space-2xs);
+  height: calc(100% - var(--space-xs));
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-soft);
+  border: var(--border-width-thin) solid var(--c-primary);
+  transition: transform var(--transition-normal);
+  pointer-events: none;
+}
+
+.segmented__btn {
+  border: none;
+  transition: color var(--transition-normal);
+}
+
+.segmented__btn:hover {
+  color: var(--c-text);
+}

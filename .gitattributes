@@ -1,0 +1,26 @@
+# Binary files
+*.wasm binary
+*.dat binary
+*.sfc binary
+*.smc binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+
+# Keep line endings consistent
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+# Git hooks must stay LF (CRLF breaks the #!/bin/sh shebang) and executable
+.githooks/** text eol=lf
+# Shell scripts + udev rules ship to Linux, where CRLF breaks the shebang / parsing
+*.sh text eol=lf
+*.rules text eol=lf

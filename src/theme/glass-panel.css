@@ -1,0 +1,7 @@
+/* @layer renderer-components @kind style */
+.glass-panel {
+  background: var(--c-panel);
+  backdrop-filter: blur(var(--blur));
+  border: var(--border-width-thin) solid var(--c-hairline);
+  border-radius: var(--radius-lg);
+}

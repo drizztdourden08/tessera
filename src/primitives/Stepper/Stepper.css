@@ -1,0 +1,34 @@
+/* @layer renderer-components @kind style */
+.stepper__field {
+  width: var(--size-40);
+  text-align: center;
+  padding: var(--space-xs) 0;
+}
+
+.stepper__btn {
+  flex: none;
+  width: var(--size-24);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--c-text-dim);
+  font-size: var(--text-lg);
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.stepper__btn:first-child {
+  border-right: var(--border-width-thin) solid var(--c-border);
+}
+
+.stepper__btn:last-child {
+  border-left: var(--border-width-thin) solid var(--c-border);
+}
+
+.stepper__btn:hover {
+  background: var(--c-hover);
+  color: var(--c-text);
+}

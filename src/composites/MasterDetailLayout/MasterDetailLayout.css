@@ -1,0 +1,36 @@
+/* @layer renderer-components @kind style */
+.master-detail {
+  display: grid;
+  grid-template-columns: var(--size-320) 1fr;
+  gap: var(--space-lg);
+  flex: 1;
+  min-height: 0;
+  padding: 0 var(--space-sm);
+  overflow: hidden;
+}
+
+.master-detail__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.master-detail__detail {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 0;
+  background: var(--c-hover);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.master-detail__detail--empty {
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text-faint);
+  font-size: var(--text-sm);
+}

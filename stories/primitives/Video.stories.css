@@ -1,0 +1,11 @@
+/* @layer stories @kind style */
+
+.video-demo {
+  display: block;
+  width: 24rem;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  background: var(--c-sunken);
+}

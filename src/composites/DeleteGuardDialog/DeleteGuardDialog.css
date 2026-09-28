@@ -1,0 +1,12 @@
+/* @layer renderer-components @kind style */
+.delete-guard-dialog__hits {
+  margin-top: var(--space-sm);
+  max-block-size: var(--size-320);
+  overflow-y: auto;
+}
+
+.delete-guard-dialog__error {
+  margin: 0;
+  color: var(--c-danger);
+  font-size: var(--text-sm);
+}

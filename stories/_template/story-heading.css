@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.story-heading {
+  color: var(--c-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semi);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}

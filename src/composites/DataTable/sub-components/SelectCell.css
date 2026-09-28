@@ -1,0 +1,17 @@
+/* @layer renderer-components @kind style */
+.data-table--selectable .data-table__header,
+.data-table--selectable .data-table__row {
+  grid-template-columns: var(--table-select-w) var(--dt-tracks);
+}
+
+.data-table__select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  cursor: default;
+}
+
+.data-table--selectable .data-table__scroll:focus {
+  outline: none;
+}

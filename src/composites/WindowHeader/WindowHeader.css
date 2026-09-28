@@ -1,0 +1,50 @@
+/* @layer renderer-components @kind style */
+
+.window-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.window-header__titles {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-lg);
+}
+
+.window-header__subtitle {
+  min-width: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semi);
+  color: var(--c-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.window-header__title {
+  flex-shrink: 0;
+  max-width: 100%;
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semi);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--c-primary-bright);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.window-header__extra {
+  flex-shrink: 0;
+}
+
+.window-header .window-header__close {
+  flex-shrink: 0;
+  font-size: var(--text-xl);
+  line-height: 1;
+  color: var(--c-text-dim);
+}

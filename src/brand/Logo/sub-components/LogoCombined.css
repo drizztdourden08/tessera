@@ -1,0 +1,11 @@
+/* @layer renderer-components @kind style */
+.logo-combined {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.logo-combined--stacked {
+  flex-direction: column;
+  gap: var(--space-xs);
+}

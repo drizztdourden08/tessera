@@ -1,0 +1,67 @@
+/* @layer stories @kind story */
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { Box, Text } from '../../src/primitives';
+import { FONTS, PANGRAM } from './type-lists';
+import { TypeTable } from './TypeTable';
+import './faces.css';
+
+const TITLE_WEIGHTS = [400, 500, 600, 700] as const;
+const ADDED_GAME_GLYPHS = '# $ % & * + / ; = @ [ \\ ] ^ _ ` { } ~';
+
+const meta = {
+  title: 'Typography/Fonts',
+  parameters: { renderer: 'react' },
+} satisfies StoryLiteMeta;
+
+const Fonts = {
+  name: 'Fonts',
+  render: () => (
+    <Box className="story-column type-section">
+      <Text className="story-label">The font stacks, src/tokens/typography.css. Every face ships in src/fonts, so nothing is fetched from the network.</Text>
+      <TypeTable entries={FONTS} property="fontFamily" specimen={PANGRAM} />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition;
+
+const TitleFace = {
+  name: 'Title face',
+  render: () => (
+    <Box className="story-column type-section">
+      <Text className="story-label">Chakra Petch, --font-title. Cut corners and square counters for titles and headings, in four weights with italics.</Text>
+      <Box className="title-face">
+        <Text className="title-face__display">Archipelia</Text>
+        <Text className="title-face__heading">Session setup</Text>
+        <Text className="title-face__caps">Hyrule Castle 112 / 216</Text>
+        <Box className="story-list title-face__weights">
+          {TITLE_WEIGHTS.map((weight) => (
+            <Box key={weight} className="story-list__item">
+              <Text className="variable-type__caption">{weight}</Text>
+              <Text className="title-face__heading" weight={weight}>
+                Multiworld <Text weight={weight} italic>Multiworld</Text>
+              </Text>
+            </Box>
+          ))}
+        </Box>
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition;
+
+const GameFace = {
+  name: 'Game face',
+  render: () => (
+    <Box className="story-column type-section">
+      <Text className="story-label">
+        --font-game, the dialogue face modified for Relic of the Past: the 19 symbols on the second line were added on the face's own pixel grid. Shown at 16 and 32 pixels, whole multiples of its design size.
+      </Text>
+      <Box className="game-face">
+        <Text className="game-face__line">It's dangerous to go alone!</Text>
+        <Text className="game-face__line">{ADDED_GAME_GLYPHS}</Text>
+        <Text className="game-face__line game-face__line--small">Take this. 100% of 216 checks @ Hyrule [Castle] + 3 keys = done; ~5 min</Text>
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition;
+
+export default meta;
+export { Fonts, GameFace, TitleFace };

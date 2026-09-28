@@ -1,0 +1,63 @@
+/* @layer renderer-components @kind style */
+.select,
+.select-trigger,
+.text-input,
+.textarea {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  color: var(--c-text);
+  transition: border-color var(--transition-normal);
+}
+
+.select,
+.text-input,
+.textarea {
+  font-size: var(--text-base);
+  outline: none;
+}
+
+.select:focus,
+.text-input:focus,
+.textarea:focus {
+  border-color: var(--c-primary);
+}
+
+.text-input::placeholder,
+.textarea::placeholder {
+  color: var(--c-text-muted);
+}
+
+.number-input,
+.stepper {
+  display: inline-flex;
+  align-items: stretch;
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-normal);
+}
+
+.number-input:focus-within,
+.stepper:focus-within {
+  border-color: var(--c-primary);
+}
+
+.number-input--disabled,
+.stepper--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.number-input__field,
+.stepper__field {
+  min-width: 0;
+  background: transparent;
+  border: none;
+  color: var(--c-text);
+  font-size: var(--text-base);
+  outline: none;
+}

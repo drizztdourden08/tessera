@@ -1,0 +1,32 @@
+/* @layer renderer-components @kind style */
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: var(--size-6);
+  border-radius: var(--radius-sm);
+  background: var(--c-hover);
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width var(--transition-normal);
+}
+
+.progress-bar[data-live='yes'] .progress-bar__fill { transition: none; }
+
+.progress-bar[data-variant='primary'] .progress-bar__fill { background: var(--c-primary); }
+.progress-bar[data-variant='secondary'] .progress-bar__fill { background: var(--c-secondary); }
+.progress-bar[data-variant='danger'] .progress-bar__fill { background: var(--c-danger); }
+
+.progress-bar__fill--secondary {
+  opacity: var(--opacity-faint);
+}
+
+.progress-bar[data-secondary-variant] .progress-bar__fill--secondary { opacity: 1; }
+.progress-bar[data-secondary-variant='primary'] .progress-bar__fill--secondary { background: var(--c-primary); }
+.progress-bar[data-secondary-variant='secondary'] .progress-bar__fill--secondary { background: var(--c-secondary); }
+.progress-bar[data-secondary-variant='danger'] .progress-bar__fill--secondary { background: var(--c-danger); }

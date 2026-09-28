@@ -1,0 +1,17 @@
+/* @layer stories @kind style */
+
+.grid-demo__tile {
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+  min-width: 0;
+}
+
+.grid-demo__name {
+  color: var(--c-text);
+  font-size: var(--text-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
