@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'BlockQuote',
-  short: 'Blockquote',
   element: Text.Blockquote,
   description: 'A quotation set as its own block, behind a rule in the primary colour. It takes cite for the source.',
   text: 'It is dangerous to go alone. Take this.',

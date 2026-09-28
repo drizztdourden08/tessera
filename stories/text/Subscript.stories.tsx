@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Subscript',
-  short: 'Sub',
   element: Text.Sub,
   description: 'Text set below the baseline at a smaller size, for formulas and indices.',
   text: '2',

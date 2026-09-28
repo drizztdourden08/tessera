@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'RubyText',
-  short: 'Rt',
   element: Text.Rt,
   description: 'The reading drawn above the base text inside a Ruby, one size step smaller and dimmed.',
   text: 'ゆうしゃ',

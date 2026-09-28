@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Bold',
-  short: 'B',
   element: Text.B,
   description: 'Draws attention to words without adding importance: key terms in a summary, item names in a list. Use Strong when the words matter more.',
   text: 'Pegasus Boots',

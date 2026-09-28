@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'BidiIsolate',
-  short: 'Bdi',
   element: Text.Bdi,
   description: 'Isolates text whose direction is unknown, such as a player name that may be written right to left, so it cannot reorder the sentence around it.',
   text: 'مريم',

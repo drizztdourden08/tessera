@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Paragraph',
-  short: 'P',
   element: Text.P,
   description: 'A paragraph of running text in Inter at the body size. Use it for any block of prose. It sets its own line height and adds no outer margin, so the layout around it owns the spacing.',
   text: 'Wren sent the Hookshot to Tavi, and the seed moved on.',

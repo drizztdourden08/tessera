@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Code',
-  short: 'Code',
   element: Text.Code,
   description: 'A short fragment of code inside a sentence, in the mono face on a sunken tint. Use Preformatted, or the CodeBlock composite, for more than a line.',
   text: 'hints: true',

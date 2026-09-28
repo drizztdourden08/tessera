@@ -38,7 +38,11 @@
 }
 
 .text-el--del {
-  color: var(--c-text-dim);
+  color: var(--c-danger);
+}
+
+.text-el--ins {
+  color: var(--c-success);
 }
 
 .text-el--mark {

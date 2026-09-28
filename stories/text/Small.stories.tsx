@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Small',
-  short: 'Small',
   element: Text.Small,
   description: 'Side comments and small print: a caveat, a licence line, a note beside a value. It draws one size step smaller.',
   text: 'generated 21:04',

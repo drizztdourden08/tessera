@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Underline',
-  short: 'U',
   element: Text.U,
   description: 'An annotation with no spoken meaning, such as a word marked as misspelt. Avoid it for plain emphasis, where it reads like a link.',
   text: 'Hyrlue',

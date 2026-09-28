@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Quote',
-  short: 'Q',
   element: Text.Q,
   description: 'A short quotation inside a sentence. The browser adds the quote marks for the page language, and cite can point at the source.',
   text: 'take this',

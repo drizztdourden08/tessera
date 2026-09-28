@@ -24,7 +24,7 @@ const All = {
 
 const Overview = overviewStory({
   component: 'Text elements',
-  description: 'Every HTML text element as a Tessera component, reachable three ways: on the Text namespace by full name or short name (Text.Paragraph, Text.P), or imported on its own (Paragraph, P). Each takes the typesetting props of Text, weight, italic, optical size and OpenType features, and the native attributes of its tag.',
+  description: 'Every HTML text element as a Tessera component, reachable three ways: on the Text namespace by full name or short name (Text.Paragraph, Text.P), or imported on its own (Paragraph, P). Each takes the native attributes of its tag and only the look its use needs: free text takes weight, italic, optical size and features; numbers take features; a tone appears only where colour carries meaning.',
   variants: [All],
 });
 

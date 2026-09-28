@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Sample',
-  short: 'Samp',
   element: Text.Samp,
   description: 'Output from a program quoted in a sentence: a message, a log line, a status.',
   text: 'Connected to room 38281',

@@ -11,7 +11,9 @@ interface TextLook extends Typesetting {
   tone?: TextTone;
 }
 
-type TextElementOwnProps<T extends TextTag> = Omit<ComponentPropsWithRef<T>, keyof TextLook> & TextLook;
+type TextElementNativeProps<T extends TextTag> = Omit<ComponentPropsWithRef<T>, keyof TextLook>;
+
+type TextElementOwnProps<T extends TextTag> = TextElementNativeProps<T> & TextLook;
 
 type TextElementProps<T extends TextTag> = TextElementOwnProps<T> & { as: T };
 
@@ -20,4 +22,4 @@ interface AnyTextElementProps extends HTMLAttributes<HTMLElement>, TextLook {
   ref?: Ref<HTMLElement>;
 }
 
-export type { AnyTextElementProps, TextElementOwnProps, TextElementProps, TextLook, TextTag, TextTone };
+export type { AnyTextElementProps, TextElementNativeProps, TextElementOwnProps, TextElementProps, TextLook, TextTag, TextTone };

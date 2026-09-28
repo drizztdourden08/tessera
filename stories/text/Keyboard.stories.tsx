@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Keyboard',
-  short: 'Kbd',
   element: Text.Kbd,
   description: 'A key or a key combination the user presses, drawn as a keycap. Put one per key for a combination.',
   text: 'Ctrl',

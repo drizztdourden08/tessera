@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Span',
-  short: 'Span',
   element: Text.Span,
   description: 'A plain inline run of text with no meaning of its own, for styling or typesetting a few words inside a sentence.',
   text: 'moved on',

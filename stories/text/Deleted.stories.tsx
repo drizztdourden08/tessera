@@ -10,9 +10,8 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Deleted',
-  short: 'Del',
   element: Text.Del,
-  description: 'Text removed in an edit, dimmed and struck through. It takes cite and dateTime to say where and when the change happened, and pairs with Inserted.',
+  description: 'Text removed in an edit, struck through in the danger colour, as in a diff. It takes cite and dateTime to say where and when the change happened, and pairs with Inserted.',
   text: 'all dungeons',
   attributes: { dateTime: '2026-09-28' },
   context: <Text.P>Goal: <Text.Del dateTime="2026-09-28">all dungeons</Text.Del> <Text.Ins dateTime="2026-09-28">Ganon only</Text.Ins></Text.P>,

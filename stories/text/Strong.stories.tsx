@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Strong',
-  short: 'Strong',
   element: Text.Strong,
   description: 'Text of strong importance, such as a warning inside a sentence. It draws in the bold weight, and screen readers may stress it.',
   text: 'Do not close the game',

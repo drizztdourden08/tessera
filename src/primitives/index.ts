@@ -5,12 +5,8 @@ export { Text, type TextProps, type TextVariant } from './Text';
 export { featureSettings, typesettingStyle, TYPE_FEATURE_GROUPS, TYPE_FEATURES } from './Text';
 export type { OpticalSize, Typesetting, TypeFeature, TypeFeatureGroup, TypeFeatureInfo } from './Text';
 export * from './text-elements';
-export { TEXT_TONES, TextElement } from './TextElement';
-export type { TextElementOwnProps, TextElementProps, TextLook, TextTag, TextTone } from './TextElement';
-export {
-  H1, H2, H3, H4, H5, H6, HEADING_LEVELS, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Title,
-} from './Title';
-export type { HeadingComponent, HeadingElementProps, HeadingLevel, HeadingProps } from './Title';
+export * from './TextElement';
+export * from './Title';
 export { Flex, type FlexProps, type SpaceToken, type FlexAlign, type FlexJustify } from './Flex';
 export { Stack, type StackProps } from './Stack';
 export { Grid, type GridProps } from './Grid';

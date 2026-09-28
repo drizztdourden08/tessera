@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Superscript',
-  short: 'Sup',
   element: Text.Sup,
   description: 'Text raised above the baseline at a smaller size, for exponents, ordinals and note marks.',
   text: 'rd',

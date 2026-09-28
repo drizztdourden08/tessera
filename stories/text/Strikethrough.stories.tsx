@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Strikethrough',
-  short: 'S',
   element: Text.S,
   description: 'Text that is no longer accurate or relevant, left visible on purpose, like a finished task or an old setting. Use Deleted for a record of an edit.',
   text: 'off',

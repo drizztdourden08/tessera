@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Preformatted',
-  short: 'Pre',
   element: Text.Pre,
   description: 'A block whose spaces and line breaks stay as written, in the mono face on a sunken panel. It scrolls sideways when a line runs long.',
   text: 'item      player  location',

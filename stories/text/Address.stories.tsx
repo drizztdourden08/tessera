@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Address',
-  short: 'Address',
   element: Text.Address,
   description: 'Contact details for the page or the section around it: a person, a server, a place.',
   text: 'Room host: Wren',

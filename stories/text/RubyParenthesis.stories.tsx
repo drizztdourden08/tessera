@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'RubyParenthesis',
-  short: 'Rp',
   element: Text.Rp,
   description: 'Fallback parentheses around a reading, shown only where the browser cannot draw ruby.',
   text: '(',

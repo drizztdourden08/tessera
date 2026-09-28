@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Definition',
-  short: 'Dfn',
   element: Text.Dfn,
   description: 'The term being defined, at the point where it is defined. Pair it with the definition in the same sentence.',
   text: 'check',

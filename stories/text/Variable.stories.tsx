@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Variable',
-  short: 'Var',
   element: Text.Var,
   description: 'A variable in a formula or in prose about code, set in italic.',
   text: 'n',

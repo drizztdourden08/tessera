@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Time',
-  short: 'Time',
   element: Text.Time,
   description: 'A date or a time. dateTime carries the machine readable value, so the visible text can say it in any form.',
   text: 'tonight at 21:04',

@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'BidiOverride',
-  short: 'Bdo',
   element: Text.Bdo,
   description: 'Forces the direction of its text with dir, left to right or right to left, whatever the characters are.',
   text: 'Hookshot',

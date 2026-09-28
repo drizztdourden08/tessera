@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Italic',
-  short: 'I',
   element: Text.I,
   description: 'Text in an alternate voice: a title, a foreign phrase, a thought. It draws in the true italic of Inter. Use Emphasis when the stress changes the meaning.',
   text: 'ice palace below',

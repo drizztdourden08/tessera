@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Abbreviation',
-  short: 'Abbr',
   element: Text.Abbr,
   description: 'An abbreviation or acronym, underlined with dots. Its title holds the full form, shown on hover.',
   text: 'AP',

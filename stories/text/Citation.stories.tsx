@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Citation',
-  short: 'Cite',
   element: Text.Cite,
   description: 'The title of a creative work: a game, a book, a song. It draws in italic.',
   text: 'A Link to the Past',

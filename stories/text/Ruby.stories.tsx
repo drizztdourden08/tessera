@@ -10,7 +10,6 @@ const meta = {
 
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Ruby',
-  short: 'Ruby',
   element: Text.Ruby,
   description: 'Base text with a small reading above it, as in East Asian pronunciation guides. It holds RubyText and RubyParenthesis.',
   text: '勇者',
