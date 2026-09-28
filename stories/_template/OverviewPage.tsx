@@ -27,6 +27,7 @@ const OverviewPage = (props: OverviewPageProps) => {
         <Text as="h1" className="overview__name">{name}</Text>
         <Text as="p" className="overview__description">{description}</Text>
       </Box>
+      {variants.length > 0 && (
       <Box as="section" className="overview__section">
         <Text as="h2" className="overview__heading">Variants</Text>
         {variants.map((variant) => (
@@ -36,6 +37,7 @@ const OverviewPage = (props: OverviewPageProps) => {
           </Box>
         ))}
       </Box>
+      )}
       {playground !== null && <OverviewPlayground {...playground} />}
       {playground === null && code !== null && (
       <Box as="section" className="overview__section">

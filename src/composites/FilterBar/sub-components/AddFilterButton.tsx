@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
 import { Floating } from '../../../primitives/Floating';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import { Portal, useAnchorTracking } from '../../../primitives/Portal';
 import { toSchemaIndex } from '../../../data/schema/build-schema';
 import { createClauseForField } from '../behavior/filter-clause-defaults';

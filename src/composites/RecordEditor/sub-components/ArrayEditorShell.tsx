@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
-import { countLabel } from '../../field-kits/countLabel';
+import { countLabel } from '../../field-kits/count-label';
 import { AddItemButton } from '../../field-kits/sub-components/AddItemButton';
 import { ADD } from './ArrayEditorShell.constants';
 import type { ArrayEditorShellProps } from './ArrayEditorShell.type';

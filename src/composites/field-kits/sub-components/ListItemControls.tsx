@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
 import { IconButton } from '../../../primitives/IconButton';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import { moved } from '../moved';
-import { removedAt } from '../removedAt';
+import { removedAt } from '../removed-at';
 import { RemoveItemButton } from './RemoveItemButton';
 import type { ListItemControlsProps } from './ListItemControls.type';
 

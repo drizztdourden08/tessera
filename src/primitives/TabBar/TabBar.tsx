@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import '../../theme/focus-ring.css';
 import './TabBar.css';
-import { Glyph } from '../Icon';
+import { Glyph } from '../Glyph';
 import { IconButton } from '../IconButton';
 import { tabIndexForKey } from './behavior/tab-index-for-key';
 import { useTabStripOverflow } from './behavior/useTabStripOverflow';

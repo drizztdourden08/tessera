@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../../Icon';
+import { Glyph } from '../../Glyph';
 import type { SelectTriggerProps } from './SelectTrigger.type';
 
 const SelectTrigger = (props: SelectTriggerProps) => {

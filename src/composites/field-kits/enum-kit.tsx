@@ -6,7 +6,7 @@ import { Text } from '../../primitives/Text';
 import { isNullish } from './coerce';
 import { ABSENT } from './enum-kit.constants';
 import { registerFieldKit } from './registry';
-import { toText } from './toText';
+import { toText } from './to-text';
 import { EnumEditorControl } from './sub-components/EnumEditorControl';
 import { EnumMultiSelect } from './sub-components/EnumMultiSelect';
 import type { FieldTypeStrategy, FilterControlProps } from './registry.type';

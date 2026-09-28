@@ -5,7 +5,7 @@ import * as sortOps from '../sort-ops';
 import { deriveRows } from '../derive-rows';
 import { useColumnActions } from '../useColumnActions';
 import type { SortEntry, TableState } from '../types';
-import { initialState } from './initialState';
+import { initialState } from './initial-state';
 import type { DataTableState, UseDataTableInput } from './useDataTable.type';
 
 const useDataTable = <T>({ rows, schema, initial, initialGroupBy }: UseDataTableInput<T>): DataTableState<T> => {

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import './DropZone.css';
-import { Glyph } from '../Icon';
+import { Glyph } from '../Glyph';
 import type { DropZoneProps } from './DropZone.type';
 import { acceptAttribute } from './behavior/accept-list';
 import { dropZoneClass } from './behavior/drop-zone-class';

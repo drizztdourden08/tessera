@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { measuredFitWidths } from './measure-column';
-import { sameFallback } from './sameFallback';
+import { sameFallback } from './same-fallback';
 import { MEASURE_DELAY_MS } from './useMeasuredFallback.constants';
 import type { GrowFallback } from './overflow-probe.type';
 import type { TableColumn } from '../../../data/table/types';

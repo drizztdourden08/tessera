@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { ScaleRow } from './scale-row';
 import type { Specimen } from './scale-row';
@@ -55,5 +56,13 @@ const AllScales = {
   render: (args) => <ScaleSections {...args} />,
 } satisfies StoryLiteStoryDefinition<ScalesArgs>;
 
+const Overview = overviewStory({
+  component: 'Scales',
+  description: 'The remaining scales: shadows, z-index layers, durations, easings and transitions. Values are read from the rendered page, and pointing at a motion track plays it. Pick one section to focus on it.',
+  playground: AllScales,
+  code: false,
+  variants: [],
+});
+
 export default meta;
-export { AllScales };
+export { AllScales, Overview };

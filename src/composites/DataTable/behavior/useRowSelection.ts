@@ -2,9 +2,9 @@
 import { useMemo, useRef } from 'react';
 import { ghostRowSample } from './ghost-row-sample';
 import { toggledId } from './row-selection-math';
-import { rangeBetween } from './rangeBetween';
-import { allStateOf } from './allStateOf';
-import { checkAllOf } from './checkAllOf';
+import { rangeBetween } from './range-between';
+import { allStateOf } from './all-state-of';
+import { checkAllOf } from './check-all-of';
 import { EMPTY, SELECT_CELL_SELECTOR } from './useRowSelection.constants';
 import type { KeyboardEvent, MouseEvent } from 'react';
 import type { RowSelectionBinding } from '../DataTable.type';

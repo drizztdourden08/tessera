@@ -2,8 +2,8 @@
 import { NumberInput } from '../../../primitives/NumberInput';
 import { Select } from '../../../primitives/Select';
 import { TextInput } from '../../../primitives/TextInput';
-import { toNumber } from '../toNumber';
-import { toText } from '../toText';
+import { toNumber } from '../to-number';
+import { toText } from '../to-text';
 import type { ElementValueInputProps } from './ElementValueInput.type';
 
 const ElementValueInput = (props: ElementValueInputProps) => {

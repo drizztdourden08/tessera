@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { EDGE_EPSILON } from './strip-geometry.constants';
-import { isOverflowing } from './isOverflowing';
-import { maxScrollOf } from './maxScrollOf';
+import { isOverflowing } from './is-overflowing';
+import { maxScrollOf } from './max-scroll-of';
 import type { StripMetrics } from './strip-geometry.type';
 import type { WheelGesture } from './wheel-scroll-delta.type';
 

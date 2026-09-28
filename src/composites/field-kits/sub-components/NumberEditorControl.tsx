@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { NumberInput } from '../../../primitives/NumberInput';
-import { inputValue } from '../inputValue';
+import { inputValue } from '../input-value';
 import type { EditorControlProps } from '../registry.type';
 
 const NumberEditorControl = (props: EditorControlProps) => {

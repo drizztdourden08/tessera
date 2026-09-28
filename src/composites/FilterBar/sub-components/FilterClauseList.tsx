@@ -2,9 +2,9 @@
 import { useCallback, useMemo } from 'react';
 import { toSchemaIndex } from '../../../data/schema/build-schema';
 import { addClause } from '../behavior/clause-list';
-import { removeClause } from '../behavior/removeClause';
-import { updateClauseById } from '../behavior/updateClauseById';
-import { valueForOperatorChange } from '../behavior/valueForOperatorChange';
+import { removeClause } from '../behavior/remove-clause';
+import { updateClauseById } from '../behavior/update-clause-by-id';
+import { valueForOperatorChange } from '../behavior/value-for-operator-change';
 import { AddFilterButton } from './AddFilterButton';
 import { FilterClauseCard } from './FilterClauseCard';
 import type { FilterClause } from '../../../data/filter/clause';

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import { Pressable } from '../../../primitives/Pressable';
 import { Text } from '../../../primitives/Text';
 import type { WidgetTitlebarProps } from './WidgetTitlebar.type';

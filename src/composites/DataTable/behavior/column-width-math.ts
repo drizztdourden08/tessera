@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { clampWidth } from './clampWidth';
+import { clampWidth } from './clamp-width';
 import { FIT_PADDING } from './column-width-math.constants';
 import type { ColumnWidth } from './column-width-math.type';
 

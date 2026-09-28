@@ -2,7 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { Checkbox } from '../../../primitives/Checkbox';
 import { Flex } from '../../../primitives/Flex';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import { IconButton } from '../../../primitives/IconButton';
 import { Text } from '../../../primitives/Text';
 import { findOperator } from '../../../data/filter/operators';

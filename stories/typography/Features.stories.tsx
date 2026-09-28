@@ -2,6 +2,7 @@
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Text, TYPE_FEATURE_GROUPS } from '../../src/primitives';
 import type { TypeFeature } from '../../src/primitives';
+import { overviewStory } from '../_template/overview-story';
 import { FeatureTable } from './FeatureTable';
 import './variable-type.css';
 
@@ -45,14 +46,17 @@ const Playground = {
   argTypes: ARG_TYPES,
   render: (args) => {
     const features = PLAYABLE.filter((feature) => args[feature]);
-    return (
-      <Box className="story-column type-section">
-        <Text className="variable-type__size-32" features={features}>{args.text}</Text>
-        <Text className="variable-type__caption">{features.length ? `features={[${features.map((f) => `'${f}'`).join(', ')}]}` : 'No features on'}</Text>
-      </Box>
-    );
+    return <Text className="variable-type__size-32" features={features}>{args.text}</Text>;
   },
 } satisfies StoryLiteStoryDefinition<FeatureArgs>;
 
+const Overview = overviewStory({
+  component: 'OpenType features',
+  importName: 'Text',
+  description: 'Inter ships 36 OpenType features: tabular and slashed numbers, fractions, case forms, alternate letters, circled and boxed digits and more. Text turns them on by name through its features prop, and typesettingStyle builds the same style for any element.',
+  playground: Playground,
+  variants: [Gallery],
+});
+
 export default meta;
-export { Gallery, Playground };
+export { Gallery, Overview, Playground };

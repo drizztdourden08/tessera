@@ -3,7 +3,7 @@ import { useSyncExternalStore } from 'react';
 import { DEFAULT_SESSION_VIEW } from '../session-view';
 import type { SessionView } from '../session-view';
 import type { ViewKey } from '../snapshot';
-import { getSessionView } from './getSessionView';
+import { getSessionView } from './get-session-view';
 import { listeners } from './listeners';
 
 const subscribe = (listener: () => void): (() => void) => {

@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { clippingAncestorsOf } from './anchor-position';
 import { overlaps } from './overlaps';
-import { visibleBoundsOf } from './visibleBoundsOf';
+import { visibleBoundsOf } from './visible-bounds-of';
 import { observeAnchorMovement } from './observe-anchor-movement';
 import type { UseAnchorTrackingParams, UseAnchorTrackingResult } from './useAnchorTracking.type';
 

@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { fitAllWidths } from './column-width-math';
 import { naturalContentWidth } from './measure-natural-width';
-import { naturalContentWidths } from './naturalContentWidths';
+import { naturalContentWidths } from './natural-content-widths';
 import { CELL_ATTR, HEAD_ATTR, LABEL_ATTR } from './measure-column.constants';
 import type { ColumnWidth } from './column-width-math.type';
 

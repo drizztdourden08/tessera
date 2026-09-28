@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Floating } from '../../../primitives/Floating';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import { Pressable } from '../../../primitives/Pressable';
 import { Text } from '../../../primitives/Text';
 import { SUB_PANEL_WIDTH } from './FieldPicker.constants';

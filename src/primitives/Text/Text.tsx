@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import './Text.css';
-import { typesettingStyle } from './typesetting/text-style';
+import { typesettingStyle } from './behavior/text-style';
 import type { TextProps } from './Text.type';
 
 const Text = (props: TextProps) => {

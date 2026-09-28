@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind logic */
 import { isNullish } from './coerce';
-import { scalarText } from './scalarText';
-import { summarizeList } from './summarizeList';
+import { scalarText } from './scalar-text';
+import { summarizeList } from './summarize-list';
 import { ENTRY_COUNT, ENTRY_MAX } from './summary.constants';
-import { toText } from './toText';
+import { toText } from './to-text';
 import { truncate } from './truncate';
 
 const summarizeEntries = (value: unknown, limit: number = ENTRY_COUNT): string => {

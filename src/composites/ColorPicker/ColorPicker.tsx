@@ -4,7 +4,7 @@ import { Box } from '../../primitives/Box';
 import { Text } from '../../primitives/Text';
 import { Button } from '../../primitives/Button';
 import { ColorSwatch } from '../../primitives/ColorSwatch';
-import { FieldControlBoundary } from '../../primitives/Field';
+import { FieldControlBoundary } from '../../primitives/FieldControlBoundary';
 import { PickerWheel } from './sub-components/PickerWheel';
 import { ColorFields } from './sub-components/ColorFields';
 import { ColorMeta } from './sub-components/ColorMeta';

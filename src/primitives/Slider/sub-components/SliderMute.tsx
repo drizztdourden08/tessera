@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../../Icon';
+import { Glyph } from '../../Glyph';
 import type { SliderMuteProps } from './SliderMute.type';
 
 const SliderMute = (props: SliderMuteProps) => {

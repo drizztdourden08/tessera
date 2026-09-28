@@ -3,7 +3,7 @@ export { buildSchema, createSchemaIndex, toSchemaIndex } from './schema/build-sc
 export type { SchemaIndex, SchemaLike } from './schema/build-schema';
 export { MAX_DEPTH } from './schema/derive-fields.constants';
 export { deriveSchema } from './schema/derive-fields';
-export { labelFor } from './schema/labelFor';
+export { labelFor } from './schema/label-for';
 export type { DeriveContext } from './schema/derive-fields.type';
 export type {
   CollectionSource, FieldDescriptor, FieldGroup, FieldKind, NumberFormat, SchemaConfig,
@@ -28,10 +28,10 @@ export {
   renameColumn, reorderColumn, resizeColumn, setDisplayField,
 } from './table/column-ops';
 export { deriveRows } from './table/derive-rows';
-export { effectiveSort } from './table/effectiveSort';
+export { effectiveSort } from './table/effective-sort';
 export type { DeriveRowsInput, DerivedRows } from './table/derive-rows.type';
 export { groupRows } from './table/group-rows';
-export { flattenGroups } from './table/flattenGroups';
+export { flattenGroups } from './table/flatten-groups';
 export type { GroupKeyFor } from './table/group-rows.type';
 export { findSort, removeSort, setSingleSort, setSortDir, sortRows } from './table/sort-ops';
 export type { ValueCompare } from './table/sort-ops';

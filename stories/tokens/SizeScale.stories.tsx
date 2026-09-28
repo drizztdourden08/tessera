@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { SCALE } from './dimension-lists';
 import { TokenTable } from './token-table';
@@ -19,5 +20,11 @@ const Scale = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Size scale',
+  description: 'The one size scale, src/tokens/scale.css. Spacing, radius, type, borders, shadows, fixed sizes and breakpoints are all steps of it, and nothing sits in between.',
+  variants: [Scale],
+});
+
 export default meta;
-export { Scale };
+export { Overview, Scale };

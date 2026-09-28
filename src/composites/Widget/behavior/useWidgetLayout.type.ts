@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { WidgetDefinition, WidgetLayout } from '../Widget.type';
-import type { WidgetPersistenceIO } from './widgetStore.type';
+import type { WidgetPersistenceIO } from './widget-store.type';
 
 interface StartupOverride {
   fresh: boolean;

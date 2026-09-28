@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
-import { FieldControlBoundary } from '../../../primitives/Field';
+import { FieldControlBoundary } from '../../../primitives/FieldControlBoundary';
 import { Flex } from '../../../primitives/Flex';
 import { NumberInput } from '../../../primitives/NumberInput';
 import { Text } from '../../../primitives/Text';
-import { toNumber } from '../toNumber';
-import { toPair } from '../toPair';
+import { toNumber } from '../to-number';
+import { toPair } from '../to-pair';
 import type { NumberRangeProps } from './NumberRange.type';
 import '../../../theme/field-kits.css';
 

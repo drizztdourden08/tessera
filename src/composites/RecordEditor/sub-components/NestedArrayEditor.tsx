@@ -1,11 +1,11 @@
 /* @layer renderer-components @kind component */
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
-import { toList } from '../../field-kits/toList';
-import { countLabel } from '../../field-kits/countLabel';
+import { toList } from '../../field-kits/to-list';
+import { countLabel } from '../../field-kits/count-label';
 import { resolveFieldKit } from '../../field-kits';
 import { replacedAt } from '../../field-kits/list-edits';
-import { removedAt } from '../../field-kits/removedAt';
+import { removedAt } from '../../field-kits/removed-at';
 import { AddItemButton } from '../../field-kits/sub-components/AddItemButton';
 import { ADD_INNER, ADD_OUTER } from './NestedArrayEditor.constants';
 import { NestedArrayGroup } from './NestedArrayGroup';

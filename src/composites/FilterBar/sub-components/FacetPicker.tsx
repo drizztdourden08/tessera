@@ -2,7 +2,7 @@
 import { Button } from '../../../primitives/Button';
 import { Checkbox } from '../../../primitives/Checkbox';
 import { Floating } from '../../../primitives/Floating';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import { Portal, useAnchorTracking } from '../../../primitives/Portal';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
 import type { FacetPickerProps } from './FacetPicker.type';

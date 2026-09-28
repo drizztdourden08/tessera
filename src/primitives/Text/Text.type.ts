@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ElementType, HTMLAttributes, ReactNode } from 'react';
-import type { Typesetting } from './typesetting/text-style.type';
+import type { Typesetting } from './behavior/text-style.type';
 
 type TextVariant = 'body' | 'label' | 'title' | 'subtitle' | 'caption';
 

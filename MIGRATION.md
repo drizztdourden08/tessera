@@ -115,3 +115,13 @@ The dark neutrals keep rotp's exact values, so with these pins every screen stay
 - Weight tokens cover the whole axis: `--weight-thin`, `-extralight`, `-light`, `-normal`, `-medium`, `-semi`, `-bold`, `-extrabold`, `-black`. `--opsz-text` and `--opsz-display` name the two ends of the optical size axis; the reset sets `font-optical-sizing: auto`.
 - `Text` takes `weight` (any number from 100 to 900), `italic`, `opticalSize` (`'auto'`, `'text'`, `'display'` or a number) and `features`, a list of named OpenType features such as `'tabularNumbers'`, `'slashedZero'`, `'disambiguation'` or `'singleStoryA'`. `TYPE_FEATURES` lists them all with the font's own labels, and `typesettingStyle` builds the same style for any element.
 - New composite `Emphasis` animates a word along the weight axis: on hover (its own, or an ancestor marked `data-emphasis-scope`), while `active`, once per `pulseKey`, or in a loop, whole or letter by letter with `stagger`. `anchor` (`left`, `center` by default, `right`) sets where the word grows from inside its reserved width and where a wave starts; `order` runs the wave out from the anchor, in a seeded `random` order (`seed`), or in a custom list of letter positions. It reserves the heavy width by default and holds still under reduced motion.
+
+## 16. Icons, logos and file names
+
+- `Icon` is now the Iconify icon, drawn offline from bundled data. Pass `name` (one of `ICONS`: 117 Lucide icons in app, interface and status groups) or `icon` (any `@iconify` icon object), plus `size`, `rotate` (0, 90, 180 or 270), `flip`, `inline` and `label`. Without a `label` it is hidden from screen readers.
+- The old path-drawn `Icon` is `PathIcon`, with the same props (`paths`, `circles`, `viewBox`). Code that passes `paths` to `Icon` renames it to `PathIcon`, or moves to a `name`.
+- `Icon.Brand` draws a brand mark (`tessera`, `rotp`, `archipelia`, `brock`, `rotp-mascot`) with the same props as `Icon`. `tone="mono"` draws it in the current colour.
+- The brand entry adds `Logo`: `<Logo brand="rotp" />` is the mark, `<Logo.Wordmark brand="rotp" />` the wordmark, and `<Logo.Combined brand="rotp" direction="stacked" />` both together, `stacked` or `inline`.
+- Every app's icon files ship under `brand/<app>/icon/` (svg, ico, PNG sizes 16 to 1024, maskable, Android layers) and `brand/<app>/splash/`. `pnpm icons` rebuilds them from the brand marks.
+- Shared control looks (button and field surfaces, select popups, focus ring, glass panel and others) live in `src/theme/`, loaded by the components that use them.
+- Logic files are kebab-case and named after what they export (`to-text.ts` exports `toText`); hooks stay `useThing.ts`. Deep imports into `src/` paths changed with this; the package entries did not.

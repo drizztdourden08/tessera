@@ -2,8 +2,8 @@
 import { useCallback, useState } from 'react';
 import { SETTLED } from './draft-rules.constants';
 import { displayValue } from './draft-rules';
-import { resolveTyped } from './resolveTyped';
-import { settleDraft } from './settleDraft';
+import { resolveTyped } from './resolve-typed';
+import { settleDraft } from './settle-draft';
 import type { KeyboardEvent } from 'react';
 import type { AxisDraftParams } from './useAxisDraft.type';
 

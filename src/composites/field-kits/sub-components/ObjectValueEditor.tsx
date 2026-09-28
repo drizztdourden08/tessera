@@ -2,8 +2,8 @@
 import { Field } from '../../../primitives/Field';
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
-import { keyOf } from '../keyOf';
-import { resolveFieldKit } from '../resolveFieldKit';
+import { keyOf } from '../key-of';
+import { resolveFieldKit } from '../resolve-field-kit';
 import { EMPTY } from './ObjectValueEditor.constants';
 import type { EditorControlProps } from '../registry.type';
 

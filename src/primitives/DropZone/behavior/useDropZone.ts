@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useRef, useState } from 'react';
 import type { ChangeEvent, DragEvent, KeyboardEvent } from 'react';
-import { filterFiles } from './filterFiles';
+import { filterFiles } from './filter-files';
 import type { DropZoneBehavior } from './useDropZone.type';
 
 const stop = (e: DragEvent) => {

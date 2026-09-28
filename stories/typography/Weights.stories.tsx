@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Text } from '../../src/primitives';
+import { overviewStory } from '../_template/overview-story';
 import { SPECIMEN, WEIGHTS } from './type-lists';
 import { TypeTable } from './TypeTable';
 import { WeightRamp } from './WeightRamp';
@@ -48,12 +49,17 @@ const Playground = {
   args: { weight: 537, italic: false, text: 'Wren sent the Hookshot to Tavi' },
   argTypes: ARG_TYPES,
   render: (args) => (
-    <Box className="story-column type-section">
-      <Text className="variable-type__display" weight={args.weight} italic={args.italic}>{args.text}</Text>
-      <Text className="variable-type__caption">{`font-weight: ${args.weight}`}</Text>
-    </Box>
+    <Text className="variable-type__display" weight={args.weight} italic={args.italic}>{args.text}</Text>
   ),
 } satisfies StoryLiteStoryDefinition<WeightArgs>;
 
+const Overview = overviewStory({
+  component: 'Weights',
+  importName: 'Text',
+  description: 'Inter is a variable font, so weight is a continuous axis from 100 to 900. Nine tokens name the usual stops, from --weight-thin to --weight-black, and Text takes any whole number in between through its weight prop. Emphasis animates along the same axis.',
+  playground: Playground,
+  variants: [Tokens, Continuous],
+});
+
 export default meta;
-export { Continuous, Playground, Tokens };
+export { Continuous, Overview, Playground, Tokens };

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { TextInput } from '../../../primitives/TextInput';
-import { toText } from '../toText';
+import { toText } from '../to-text';
 import type { EditorControlProps } from '../registry.type';
 
 const StringEditorControl = (props: EditorControlProps) => {

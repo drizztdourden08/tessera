@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { rebaseField } from './rebaseField';
+import { rebaseField } from './rebase-field';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 
 const elementFields = (

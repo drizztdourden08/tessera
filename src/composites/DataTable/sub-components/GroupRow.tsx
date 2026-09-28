@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
 import { Badge } from '../../../primitives/Badge';
 import { Box } from '../../../primitives/Box';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import { Pressable } from '../../../primitives/Pressable';
 import { Text } from '../../../primitives/Text';
-import { groupKeyContent } from '../behavior/groupKeyContent';
+import { groupKeyContent } from '../behavior/group-key-content';
 import { INDENT_STEP } from './GroupRow.constants';
 import type { CSSProperties } from 'react';
 import type { GroupRowProps } from './GroupRow.type';

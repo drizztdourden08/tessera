@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { WidgetBounds, WidgetDefinition, WidgetDisabledState, WidgetLayout, WidgetState } from '../Widget.type';
-import type { ExclusiveInsets } from '../behavior/computeDockedStyles.type';
+import type { ExclusiveInsets } from '../behavior/compute-docked-styles.type';
 
 interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   definitions: readonly D[];

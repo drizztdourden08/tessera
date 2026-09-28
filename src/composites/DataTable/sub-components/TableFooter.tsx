@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Text } from '../../../primitives/Text';
-import { summaryLine } from '../behavior/summaryLine';
+import { summaryLine } from '../behavior/summary-line';
 import { TableOptionsMenu } from './TableOptionsMenu';
 import { DEFAULT_COUNT_LABEL } from './TableFooter.constants';
 import type { TableFooterProps } from './TableFooter.type';

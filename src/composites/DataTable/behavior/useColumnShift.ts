@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect } from 'react';
 import { CELL_ATTR, HEAD_ATTR } from './measure-column.constants';
-import { renderedHeaderWidth } from './renderedHeaderWidth';
+import { renderedHeaderWidth } from './rendered-header-width';
 import { ROOT_SELECTOR } from './useColumnShift.constants';
 import type { UseColumnShiftInput } from './useColumnShift.type';
 

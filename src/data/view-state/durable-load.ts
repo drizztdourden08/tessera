@@ -4,7 +4,7 @@ import type { TableColumn } from '../table/types';
 import type { FilterClause } from '../filter/clause';
 import { prune } from './prune';
 import type { ViewSnapshot } from './snapshot';
-import { emptySnapshotFor } from './emptySnapshotFor';
+import { emptySnapshotFor } from './empty-snapshot-for';
 import type { DurableLoadParams } from './durable-load.type';
 
 const dedupeClauseIds = (clauses: readonly FilterClause[]): readonly FilterClause[] => {

@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
-export { getPath } from './getPath';
-export { setPath } from './setPath';
+export { getPath } from './get-path';
+export { setPath } from './set-path';

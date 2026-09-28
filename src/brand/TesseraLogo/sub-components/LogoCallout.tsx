@@ -4,8 +4,8 @@ import { Pressable } from '../../../primitives/Pressable';
 import { BrandMark } from '../../BrandMark';
 import { BrandWordmark } from '../../BrandWordmark';
 import { BRAND_FAMILY } from '../../family.constants';
-import { pctX } from '../behavior/pctX';
-import { pctY } from '../behavior/pctY';
+import { pctX } from '../behavior/pct-x';
+import { pctY } from '../behavior/pct-y';
 import { CALLOUT_EDGE } from '../TesseraLogo.constants';
 import type { LogoCalloutProps } from './LogoCallout.type';
 

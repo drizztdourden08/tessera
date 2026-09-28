@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind logic */
 import { useCallback, useEffect, useState } from 'react';
 import { beginDurableLoad } from '../durable-load';
-import { createLoadGuard } from '../createLoadGuard';
-import { emptySnapshotFor } from '../emptySnapshotFor';
+import { createLoadGuard } from '../create-load-guard';
+import { emptySnapshotFor } from '../empty-snapshot-for';
 import { DEFAULT_SESSION_VIEW } from '../session-view';
 import type { SessionView } from '../session-view';
 import { setSessionView as setStoredSession, useSessionView } from '../session-view-store';

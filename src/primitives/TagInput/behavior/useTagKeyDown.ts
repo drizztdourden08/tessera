@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useCallback } from 'react';
 import type { KeyboardEvent } from 'react';
-import { removeLast } from './removeLast';
+import { removeLast } from './remove-last';
 import type { UseTagKeyDownParams } from './useTagKeyDown.type';
 
 const useTagKeyDown = (params: UseTagKeyDownParams) => {

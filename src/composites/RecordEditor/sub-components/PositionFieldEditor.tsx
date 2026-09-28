@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { PositionInput } from '../../../primitives/PositionInput';
-import { toNumber } from '../../field-kits/toNumber';
+import { toNumber } from '../../field-kits/to-number';
 import { ORIGIN } from './PositionFieldEditor.constants';
 import type { PositionAxis } from '../../../primitives/PositionInput';
 import type { NumberBounds } from '../../field-kits/registry.type';

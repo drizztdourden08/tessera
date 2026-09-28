@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { SIZE_GROUPS } from './dimension-lists';
 import { TokenTable } from './token-table';
@@ -25,5 +26,11 @@ const Values = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Sizes',
+  description: 'Fixed dimensions: the widths, heights and diameters a component holds whatever its content, each a step of the size scale.',
+  variants: [Values],
+});
+
 export default meta;
-export { Values };
+export { Overview, Values };

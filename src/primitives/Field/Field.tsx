@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useId, useMemo } from 'react';
-import { FieldControlContext } from './FieldControlContext';
+import { FieldControlContext } from '../field-control/field-control-context';
 import { FieldNote } from './sub-components/FieldNote';
 import './Field.css';
 import type { FieldProps } from './Field.type';

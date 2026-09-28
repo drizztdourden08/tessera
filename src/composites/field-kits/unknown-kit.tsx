@@ -5,10 +5,10 @@ import { registerComparator, registerGroupKey } from '../../data/table/strategy-
 import { Text } from '../../primitives/Text';
 import { isNullish } from './coerce';
 import { nullsLast } from './compare';
-import { naturalTextCompare } from './naturalTextCompare';
+import { naturalTextCompare } from './natural-text-compare';
 import { registerFieldKit } from './registry';
-import { testExistence } from './testExistence';
-import { toJson } from './toJson';
+import { testExistence } from './test-existence';
+import { toJson } from './to-json';
 import { truncate } from './truncate';
 import { ABSENT } from './unknown-kit.constants';
 import type { EditorControlProps, FieldTypeStrategy } from './registry.type';

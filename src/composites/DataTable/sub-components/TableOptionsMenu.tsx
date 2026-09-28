@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Pressable } from '../../../primitives/Pressable';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import { DropdownMenu } from '../../DropdownMenu';
 import { useMenuOpen } from '../../field-kits/behavior/useMenuOpen';
 import { buildTableMenuItems } from '../behavior/table-menu-items';

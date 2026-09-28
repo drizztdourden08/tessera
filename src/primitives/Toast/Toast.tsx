@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useState, useEffect, useCallback } from 'react';
-import { Glyph } from '../Icon';
+import { Glyph } from '../Glyph';
 import type { ToastProps } from './Toast.type';
 import './Toast.css';
 

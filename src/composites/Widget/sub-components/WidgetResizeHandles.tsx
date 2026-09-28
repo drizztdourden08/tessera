@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { getDockedResizeEdge } from '../behavior/getDockedResizeEdge';
+import { getDockedResizeEdge } from '../behavior/get-docked-resize-edge';
 import { FLOATING_EDGES } from './WidgetResizeHandles.constants';
 import type { WidgetResizeHandlesProps } from './WidgetResizeHandles.type';
 

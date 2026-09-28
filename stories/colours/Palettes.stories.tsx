@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { PALETTES } from './colour-lists';
 import type { Palette } from './colour-lists';
@@ -48,5 +49,11 @@ const Palettes = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Palettes',
+  description: 'The three accents as twelve steps each, palest to deepest with the accent itself at 500, then the greys from pure white to pure black. Paler steps mix toward pure white and deeper ones toward pure black. src/tokens/ramps.css.',
+  variants: [Palettes],
+});
+
 export default meta;
-export { Palettes };
+export { Overview, Palettes };

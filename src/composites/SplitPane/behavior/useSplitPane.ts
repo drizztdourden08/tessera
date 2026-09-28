@@ -2,7 +2,7 @@
 import { useCallback, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent, KeyboardEvent as ReactKeyboardEvent } from 'react';
 import type { CollapsedSide } from '../SplitPane.type';
-import { startShareOf } from './startShareOf';
+import { startShareOf } from './start-share-of';
 import { KEY_STEP } from './useSplitPane.constants';
 
 const clamp = (value: number): number => Math.min(1, Math.max(0, value));

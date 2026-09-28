@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { spacingFor } from './dimension-lists';
 import { TokenTable } from './token-table';
@@ -19,5 +20,11 @@ const Values = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Padding',
+  description: 'The space inside an element, between its edge and its content. Padding takes a step of the one spacing scale, src/tokens/space.css, never a raw length.',
+  variants: [Values],
+});
+
 export default meta;
-export { Values };
+export { Overview, Values };

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { columnDragShift } from './column-drag-shift';
-import { dropEdgeAt } from './dropEdgeAt';
+import { dropEdgeAt } from './drop-edge-at';
 import { useColumnShift } from './useColumnShift';
 import type { HeaderDragState, UseHeaderDragInput } from './useHeaderDrag.type';
 

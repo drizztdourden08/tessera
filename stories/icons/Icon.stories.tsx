@@ -3,9 +3,9 @@ import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from 
 import swordsIcon from '@iconify-icons/lucide/swords';
 import { Box, Icon, ICONS, Text } from '../../src/primitives';
 import type { IconFlip, IconName, IconRotation } from '../../src/primitives';
-import { APP_ICONS } from '../../src/primitives/Icon/icons-app.constants';
-import { STATUS_ICONS } from '../../src/primitives/Icon/icons-status.constants';
-import { INTERFACE_ICONS } from '../../src/primitives/Icon/icons-ui.constants';
+import { APP_ICONS } from '../../src/primitives/icon-sets/app.constants';
+import { STATUS_ICONS } from '../../src/primitives/icon-sets/status.constants';
+import { INTERFACE_ICONS } from '../../src/primitives/icon-sets/interface.constants';
 import { overviewStory } from '../_template/overview-story';
 import { IconGallery } from './IconGallery';
 import './icons.stories.css';

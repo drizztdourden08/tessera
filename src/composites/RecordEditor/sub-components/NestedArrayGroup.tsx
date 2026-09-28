@@ -2,10 +2,10 @@
 import { Box } from '../../../primitives/Box';
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
-import { countLabel } from '../../field-kits/countLabel';
-import { blankFor } from '../../field-kits/blankFor';
+import { countLabel } from '../../field-kits/count-label';
+import { blankFor } from '../../field-kits/blank-for';
 import { replacedAt } from '../../field-kits/list-edits';
-import { removedAt } from '../../field-kits/removedAt';
+import { removedAt } from '../../field-kits/removed-at';
 import { AddItemButton } from '../../field-kits/sub-components/AddItemButton';
 import { RemoveItemButton } from '../../field-kits/sub-components/RemoveItemButton';
 import type { NestedArrayGroupProps } from './NestedArrayGroup.type';

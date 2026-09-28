@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useRef, useState } from 'react';
-import { widthFromDrag } from './widthFromDrag';
+import { widthFromDrag } from './width-from-drag';
 import type { PointerEvent } from 'react';
 import type { ColumnResizeBinding } from '../DataTable.type';
 import type { DragState, UseColumnResizeInput } from './useColumnResize.type';

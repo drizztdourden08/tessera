@@ -49,7 +49,8 @@ export { namespacedTag, TagInput } from './TagInput';
 export type { TagAdvice, TagInputProps, TagValidationResult, TagValidator } from './TagInput';
 export { StatusBadge } from './StatusBadge';
 export type { ScreenStatus, StatusBadgeProps } from './StatusBadge';
-export { Field, FieldControlBoundary, useFieldControl } from './Field';
+export { Field, useFieldControl } from './Field';
+export { FieldControlBoundary } from './FieldControlBoundary';
 export type { FieldProps } from './Field';
 export { NumberInput } from './NumberInput';
 export type { NumberInputProps } from './NumberInput';
@@ -83,9 +84,11 @@ export { Image } from './Image';
 export type { ImageProps } from './Image';
 export { Video } from './Video';
 export type { VideoProps } from './Video';
-export { Glyph, GLYPHS, Icon, ICONS } from './Icon';
+export { Icon, ICONS } from './Icon';
+export { Glyph, GLYPHS } from './Glyph';
+export type { GlyphName, GlyphProps } from './Glyph';
 export type {
-  BrandIconName, BrandIconProps, BrandIconTone, GlyphName, GlyphProps, IconFlip, IconName, IconProps, IconRotation,
+  BrandIconName, BrandIconProps, BrandIconTone, IconFlip, IconName, IconProps, IconRotation,
 } from './Icon';
 export { PathIcon } from './PathIcon';
 export type { PathIconCircle, PathIconProps } from './PathIcon';

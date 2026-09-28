@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { MAIN_SWATCHES, SWATCH_GROUPS } from './colour-lists';
 import type { MainSwatch } from './colour-lists';
@@ -47,5 +48,11 @@ const Swatches = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Swatches',
+  description: 'The only place a colour value is written, src/tokens/palette.css: the three accents, the whites and blacks, the urgency colours and ten tag colours. Every palette and role is derived from these, and they follow the look picked at the top of the menu.',
+  variants: [Swatches],
+});
+
 export default meta;
-export { Swatches };
+export { Overview, Swatches };

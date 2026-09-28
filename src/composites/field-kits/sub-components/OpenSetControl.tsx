@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind component */
 import { useState } from 'react';
 import { Button } from '../../../primitives/Button';
-import { FieldControlBoundary } from '../../../primitives/Field';
+import { FieldControlBoundary } from '../../../primitives/FieldControlBoundary';
 import { Flex } from '../../../primitives/Flex';
-import { committedValue } from '../committedValue';
+import { committedValue } from '../committed-value';
 import { TOGGLE } from './OpenSetControl.constants';
 import { OpenSetEntry } from './OpenSetEntry';
 import type { OpenSetControlProps } from './OpenSetControl.type';

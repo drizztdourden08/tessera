@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { SegmentedControl } from '../../../primitives/SegmentedControl';
 import { Select } from '../../../primitives/Select';
 import { withCurrentValue } from '../open-set';
-import { toText } from '../toText';
+import { toText } from '../to-text';
 import { SEGMENT_MAX, TAG_MAX } from './EnumEditorControl.constants';
 import { EnumTagSelect } from './EnumTagSelect';
 import { OpenSetControl } from './OpenSetControl';

@@ -10,10 +10,11 @@ type StoryContext<A extends StoryLiteArgs> = Parameters<NonNullable<Story<A>['re
 
 interface OverviewParams<A extends StoryLiteArgs> {
   component: string;
+  importName?: string;
   description: string;
   variants: readonly Story<A>[];
   playground?: Story<A>;
-  code?: string;
+  code?: string | false;
 }
 
 const PACKAGE = '@drizztdourden08/tessera';
@@ -27,11 +28,13 @@ const draw = <A extends StoryLiteArgs>(story: Story<A>, args: StoryLiteArgs, con
   story.render?.({ ...(story.args ?? {}), ...args } as A, context) as ReactNode;
 
 const overviewStory = <A extends StoryLiteArgs>(params: OverviewParams<A>): Story<A> => {
-  const { component, description, variants, playground, code } = params;
+  const { component, importName = component, description, variants, playground, code } = params;
   const defaults: StoryLiteArgs = { ...(playground?.args ?? {}) };
+  const fixedCode = typeof code === 'string' ? code : null;
+  const snippet = code === false ? null : (node: ReactNode) => fixedCode ?? snippetFor(importName, node);
   return {
     name: 'Overview',
-    source: () => code ?? (playground ? snippetFor(component, draw(playground, defaults, undefined as never)) : null),
+    source: () => (snippet && playground ? snippet(draw(playground, defaults, undefined as never)) : fixedCode),
     render: (_args, context) => (
       <OverviewPage
         name={component}
@@ -41,9 +44,9 @@ const overviewStory = <A extends StoryLiteArgs>(params: OverviewParams<A>): Stor
           argTypes: playground.argTypes ?? {},
           defaults,
           draw: (args) => draw(playground, args, context),
-          snippet: (node) => code ?? snippetFor(component, node),
+          snippet,
         } : null}
-        code={code ?? null}
+        code={fixedCode}
       />
     ),
   };

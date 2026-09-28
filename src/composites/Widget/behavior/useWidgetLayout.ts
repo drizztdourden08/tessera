@@ -1,14 +1,14 @@
 /* @layer renderer-components @kind hook */
 import { useState, useCallback, useEffect, useRef } from 'react';
 import type { WidgetDefinition, WidgetLayout, WidgetState } from '../Widget.type';
-import { createDefaultWidgetState } from './createDefaultWidgetState';
-import { getWidgetDefinition } from './getWidgetDefinition';
-import { loadLayoutForProfile } from './loadLayoutForProfile';
-import { loadLayoutLocal } from './loadLayoutLocal';
-import { saveLayoutForProfile } from './saveLayoutForProfile';
-import { saveLayoutLocal } from './saveLayoutLocal';
-import { startingLayout } from './startingLayout';
-import { updateWidget } from './updateWidget';
+import { createDefaultWidgetState } from './create-default-widget-state';
+import { getWidgetDefinition } from './get-widget-definition';
+import { loadLayoutForProfile } from './load-layout-for-profile';
+import { loadLayoutLocal } from './load-layout-local';
+import { saveLayoutForProfile } from './save-layout-for-profile';
+import { saveLayoutLocal } from './save-layout-local';
+import { startingLayout } from './starting-layout';
+import { updateWidget } from './update-widget';
 import type { UseWidgetLayoutParams } from './useWidgetLayout.type';
 
 const applyStartupWidgets = (layout: WidgetLayout, ids: string[], definitions: readonly WidgetDefinition[]): WidgetLayout => {

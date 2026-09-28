@@ -10,7 +10,7 @@ interface OverviewPlaygroundProps {
   argTypes: Readonly<Record<string, StoryLiteArgType | undefined>>;
   defaults: StoryLiteArgs;
   draw: (args: StoryLiteArgs) => ReactNode;
-  snippet: (node: ReactNode) => string;
+  snippet: ((node: ReactNode) => string) | null;
 }
 
 const OverviewPlayground = (props: OverviewPlaygroundProps) => {
@@ -24,10 +24,12 @@ const OverviewPlayground = (props: OverviewPlaygroundProps) => {
         <Box className="overview__showcase overview__showcase--stage">{live}</Box>
         <ArgControls argTypes={argTypes} args={args} onChange={setArg} onReset={reset} />
       </Box>
+      {snippet !== null && (
       <Box as="section" className="overview__section">
         <Text as="h2" className="overview__heading">Code</Text>
         <CodeBlock code={snippet(live)} language="tsx" showLineNumbers copyable />
       </Box>
+      )}
     </>
   );
 };

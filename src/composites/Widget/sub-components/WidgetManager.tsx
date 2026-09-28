@@ -5,9 +5,9 @@ import { DisabledOverlay } from '../../DisabledOverlay';
 import type { WidgetDefinition } from '../Widget.type';
 import { Widget } from '../Widget';
 import { TITLEBAR_HEIGHT } from '../Widget.constants';
-import { computeDockedStyles } from '../behavior/computeDockedStyles';
-import { getWidgetDefinition } from '../behavior/getWidgetDefinition';
-import { isWidgetActive } from '../behavior/isWidgetActive';
+import { computeDockedStyles } from '../behavior/compute-docked-styles';
+import { getWidgetDefinition } from '../behavior/get-widget-definition';
+import { isWidgetActive } from '../behavior/is-widget-active';
 import { NO_FORCED_IDS } from './WidgetManager.constants';
 import type { WidgetManagerProps } from './WidgetManager.type';
 

@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { createClause } from '../../../data/filter/clause';
 import { defaultOperatorFor, findOperator } from '../../../data/filter/operators';
-import { defaultValueForArity } from './defaultValueForArity';
+import { defaultValueForArity } from './default-value-for-arity';
 import type { FilterClause } from '../../../data/filter/clause';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 

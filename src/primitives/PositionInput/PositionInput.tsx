@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import './PositionInput.css';
 import { useCallback } from 'react';
-import { FieldControlBoundary } from '../Field/FieldControlBoundary';
+import { FieldControlBoundary } from '../FieldControlBoundary/FieldControlBoundary';
 import { AxisField } from './sub-components/AxisField';
 import type { PositionInputProps } from './PositionInput.type';
 import { DEFAULT_X_LABEL, DEFAULT_Y_LABEL, OPEN_AXIS } from './PositionInput.constants';

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { TextInput } from '../../../primitives/TextInput';
-import { toText } from '../toText';
+import { toText } from '../to-text';
 import type { IdInputProps } from './IdInput.type';
 
 const IdInput = (props: IdInputProps) => {

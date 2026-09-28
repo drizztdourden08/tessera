@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Badge, Box, Text } from '../../src/primitives';
 import { CONTRAST_PAIRS } from '../tokens/token-lists';
 import type { ContrastPair } from '../tokens/token-lists';
@@ -72,5 +73,13 @@ const Pairs = {
   render: (args) => <ContrastTable {...args} />,
 } satisfies StoryLiteStoryDefinition<ContrastArgs>;
 
+const Overview = overviewStory({
+  component: 'Contrast',
+  description: 'Every text and surface pair the roles produce, with its contrast ratio computed from the colours the page paints, per WCAG 2.1. Change the sample or the thresholds, or switch the palette or theme, to measure again.',
+  playground: Pairs,
+  code: false,
+  variants: [],
+});
+
 export default meta;
-export { Pairs };
+export { Overview, Pairs };

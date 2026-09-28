@@ -5,7 +5,7 @@ import { Text } from '../../../primitives/Text';
 import { TextInput } from '../../../primitives/TextInput';
 import { ChannelInput } from './ChannelInput';
 import { hexToRgb } from '../behavior/color-math';
-import { rgbToHex } from '../behavior/rgbToHex';
+import { rgbToHex } from '../behavior/rgb-to-hex';
 import type { Channel, ColorFieldsProps } from './ColorFields.type';
 
 const ColorFields = (props: ColorFieldsProps) => {

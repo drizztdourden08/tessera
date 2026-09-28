@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import '../../theme/field-surface.css';
 import './Stepper.css';
-import { Glyph } from '../Icon';
+import { Glyph } from '../Glyph';
 import type { StepperProps } from './Stepper.type';
 
 const clampValue = (v: number, min?: number, max?: number): number => {

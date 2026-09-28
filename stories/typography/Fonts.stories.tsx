@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Text } from '../../src/primitives';
+import { overviewStory } from '../_template/overview-story';
 import { FONTS, PANGRAM } from './type-lists';
 import { TypeTable } from './TypeTable';
 import './faces.css';
@@ -63,5 +64,11 @@ const GameFace = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Fonts',
+  description: 'Every face Tessera sets text in, all shipped in src/fonts so nothing is fetched from the network. Inter (--font-sans) sets running text and controls, Chakra Petch (--font-title) sets titles and headings, and --font-mono and --font-game cover code and the game\'s dialogue face.',
+  variants: [Fonts, TitleFace, GameFace],
+});
+
 export default meta;
-export { Fonts, GameFace, TitleFace };
+export { Fonts, GameFace, Overview, TitleFace };

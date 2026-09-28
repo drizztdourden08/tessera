@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useMemo, useState } from 'react';
 import { namespacedTag, TagInput } from '../../../primitives/TagInput';
-import { toList } from '../../field-kits/toList';
-import { toText } from '../../field-kits/toText';
+import { toList } from '../../field-kits/to-list';
+import { toText } from '../../field-kits/to-text';
 import { buildTagKeyMap } from '../behavior/tag-key-map';
-import { isReferencedTagList } from '../behavior/isReferencedTagList';
+import { isReferencedTagList } from '../behavior/is-referenced-tag-list';
 import { NO_OPTIONS, NO_SUGGESTIONS, PLACEHOLDER } from './TagArrayEditor.constants';
 import type { TagArrayEditorProps } from '../RecordEditor.type';
 import '../../../theme/record-editor.css';

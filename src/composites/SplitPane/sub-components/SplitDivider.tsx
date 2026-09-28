@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box, Text } from '../../../primitives';
-import { hiddenLabelOf } from '../behavior/hiddenLabelOf';
+import { hiddenLabelOf } from '../behavior/hidden-label-of';
 import type { SplitDividerProps } from './SplitDivider.type';
 import '../../../theme/focus-ring.css';
 

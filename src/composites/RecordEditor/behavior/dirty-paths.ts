@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
 import { getPath } from '../../../data/schema/path';
-import { toJson } from '../../field-kits/toJson';
+import { toJson } from '../../field-kits/to-json';
 
 const hasPathChanged = (original: unknown, working: unknown, path: string): boolean => {
   const before = getPath(original, path);

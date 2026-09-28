@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { keyOf } from './keyOf';
+import { keyOf } from './key-of';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 import type { UnionBranch, UnionBranchStatus } from './union-branch.type';
 

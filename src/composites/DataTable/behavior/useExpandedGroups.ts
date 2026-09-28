@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { collectGroupUids } from './collectGroupUids';
+import { collectGroupUids } from './collect-group-uids';
 import type { ExpandedGroups, UseExpandedGroupsInput } from './useExpandedGroups.type';
 
 const sameMembers = (a: readonly string[], b: ReadonlySet<string>): boolean =>

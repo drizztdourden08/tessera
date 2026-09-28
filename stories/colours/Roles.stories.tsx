@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { COLOUR_GROUPS } from '../tokens/token-lists';
 import { RoleCard } from './RoleCard';
@@ -30,5 +31,11 @@ const Roles = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Roles',
+  description: 'The colours components use: surfaces, text, borders, accents and states, each read from the swatches and palettes. Every card shows the colour the page paints right now and what it is made from.',
+  variants: [Roles],
+});
+
 export default meta;
-export { Roles };
+export { Overview, Roles };

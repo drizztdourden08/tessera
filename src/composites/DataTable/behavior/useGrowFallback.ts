@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useRef } from 'react';
-import { renderedHeaderWidth } from './renderedHeaderWidth';
+import { renderedHeaderWidth } from './rendered-header-width';
 import { isOverflowing } from './overflow-probe';
 import { useMeasuredFallback } from './useMeasuredFallback';
 import type { RefObject } from 'react';

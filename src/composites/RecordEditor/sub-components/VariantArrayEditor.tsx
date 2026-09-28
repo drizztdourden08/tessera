@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
-import { toList } from '../../field-kits/toList';
+import { toList } from '../../field-kits/to-list';
 import { blankValue } from '../../field-kits/blank-value';
 import { replacedAt } from '../../field-kits/list-edits';
-import { keyOf } from '../behavior/keyOf';
+import { keyOf } from '../behavior/key-of';
 import { ArrayEditorShell } from './ArrayEditorShell';
 import { VariantArrayItem } from './VariantArrayItem';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';

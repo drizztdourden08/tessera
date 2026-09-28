@@ -2,9 +2,9 @@
 import { Svg, SvgGroup, SvgRect } from '../../primitives/Svg';
 import { BrandPaths } from '../BrandPaths';
 import { BRAND_FAMILY } from '../family.constants';
-import { markLabelProps } from './behavior/markLabelProps';
-import { parseViewBox } from './behavior/parseViewBox';
-import { pickMarkArt } from './behavior/pickMarkArt';
+import { markLabelProps } from './behavior/mark-label-props';
+import { parseViewBox } from './behavior/parse-view-box';
+import { pickMarkArt } from './behavior/pick-mark-art';
 import { TILE_SCALE } from './BrandMark.constants';
 import type { BrandMarkProps } from './BrandMark.type';
 import './BrandMark.css';

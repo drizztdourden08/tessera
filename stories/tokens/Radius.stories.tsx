@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { RADIUS } from './dimension-lists';
 import { TokenTable } from './token-table';
@@ -19,5 +20,11 @@ const Values = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Radius',
+  description: 'Corner rounding. Every rounded corner takes a step of this one scale, src/tokens/radius.css.',
+  variants: [Values],
+});
+
 export default meta;
-export { Values };
+export { Overview, Values };

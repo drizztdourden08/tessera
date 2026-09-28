@@ -4,7 +4,7 @@ import { getPath } from '../schema/path';
 import { groupRows } from './group-rows';
 import { sortRows } from './sort-ops';
 import { getComparator, getGroupKey } from './strategy-registry';
-import { effectiveSort } from './effectiveSort';
+import { effectiveSort } from './effective-sort';
 import type { DeriveRowsInput, DerivedRows } from './derive-rows.type';
 
 const kindAt = (schema: SchemaIndex, path: string) => schema.byPath(path)?.kind ?? 'unknown';

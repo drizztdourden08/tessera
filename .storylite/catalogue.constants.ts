@@ -46,13 +46,12 @@ const CATALOGUE: readonly CatalogueTier[] = [
   },
   {
     tier: 'Icons',
-    intro: 'One icon system for every app: a named Lucide set through @iconify, the brand marks as icons, and each app\'s icon files.',
+    intro: 'One icon system for every app: a named Lucide set through @iconify, and the brand marks as icons.',
     groups: [{
       group: '',
       entries: [
         { name: 'Icon', summary: 'A named icon, or any @iconify icon, with size, rotation, flip and a label.' },
         { name: 'Brand icons', summary: 'Every brand mark as an icon, in colour or one colour: Icon.Brand.' },
-        { name: 'App icon files', summary: 'Each app\'s icon, PNG sizes, Android layers and splash, shipped under brand/.' },
         { name: 'Glyph', summary: 'The small stroke glyphs the components draw.' },
         { name: 'PathIcon', summary: 'An SVG from your own path data, for a one-off shape.' },
         { name: 'EmojiIcon', summary: 'An emoji at a fixed size and baseline.' },

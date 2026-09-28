@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { operatorsFor } from '../../../data/filter/operators';
-import { glyphForOperatorIcon } from '../sub-components/operator-icon-glyphs';
-import { supportsCaseModifier } from './supportsCaseModifier';
+import { glyphForOperatorIcon } from './operator-icon-glyphs';
+import { supportsCaseModifier } from './supports-case-modifier';
 import { MATCH_CASE_ICON, MATCH_CASE_KEY, MATCH_CASE_LABEL } from './operator-menu-items.constants';
 import type { MenuEntry } from '../../DropdownMenu';
 import type { OperatorMenuInput } from './operator-menu-items.type';

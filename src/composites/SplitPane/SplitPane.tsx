@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives';
-import { startShareOf } from './behavior/startShareOf';
+import { startShareOf } from './behavior/start-share-of';
 import { useSplitPane } from './behavior/useSplitPane';
 import { SplitDivider } from './sub-components/SplitDivider';
 import { DEFAULT_RATIO, DEFAULT_SNAP } from './SplitPane.constants';

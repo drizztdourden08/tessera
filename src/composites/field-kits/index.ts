@@ -10,8 +10,8 @@ import './union-kit';
 import './unknown-kit';
 
 export { registerFieldKit } from './registry';
-export { registeredKitKinds } from './registeredKitKinds';
-export { resolveFieldKit } from './resolveFieldKit';
+export { registeredKitKinds } from './registered-kit-kinds';
+export { resolveFieldKit } from './resolve-field-kit';
 export type {
   CellRenderOptions, EditorControlProps, FieldTypeStrategy, FilterControlProps,
   IdRefOption, IdRefOptionResolver, NumberBounds,

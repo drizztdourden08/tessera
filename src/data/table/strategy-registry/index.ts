@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind barrel */
-export { clearFieldStrategies } from './clearFieldStrategies';
-export { fallbackComparator } from './fallbackComparator';
-export { fallbackGroupKey } from './fallbackGroupKey';
-export { getComparator } from './getComparator';
-export { getGroupKey } from './getGroupKey';
-export { registerComparator } from './registerComparator';
-export { registerGroupKey } from './registerGroupKey';
+export { clearFieldStrategies } from './clear-field-strategies';
+export { fallbackComparator } from './fallback-comparator';
+export { fallbackGroupKey } from './fallback-group-key';
+export { getComparator } from './get-comparator';
+export { getGroupKey } from './get-group-key';
+export { registerComparator } from './register-comparator';
+export { registerGroupKey } from './register-group-key';
 export type { Comparator, GroupKeyFn } from './strategy-registry.type';

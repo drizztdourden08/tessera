@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
 import { Svg, SvgPath } from '../../primitives/Svg';
-import { buildPixelWordmark } from './build/buildPixelWordmark';
+import { buildPixelWordmark } from './behavior/build-pixel-wordmark';
 import type { PixelWordmarkProps } from './PixelWordmark.type';
 import './PixelWordmark.css';
 

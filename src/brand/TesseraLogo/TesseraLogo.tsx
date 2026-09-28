@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import type { BrandApp } from '../brand.type';
-import { tileSpots } from './behavior/tileSpots';
+import { tileSpots } from './behavior/tile-spots';
 import { useTesseraLogoPick } from './behavior/useTesseraLogoPick';
 import { LogoArt } from './sub-components/LogoArt';
 import { LogoCallout } from './sub-components/LogoCallout';

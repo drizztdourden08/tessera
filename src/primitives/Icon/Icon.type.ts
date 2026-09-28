@@ -2,7 +2,7 @@
 import type { SVGProps } from 'react';
 import type { IconifyIcon } from '@iconify/types';
 import type { BrandApp } from '../../brand/brand.type';
-import type { ICONS } from './icons.constants';
+import type { ICONS } from './Icon.constants';
 
 type IconName = keyof typeof ICONS;
 

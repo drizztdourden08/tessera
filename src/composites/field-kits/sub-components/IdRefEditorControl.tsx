@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { toText } from '../toText';
+import { toText } from '../to-text';
 import { IdInput } from './IdInput';
 import { NO_OPTIONS } from './IdRefEditorControl.constants';
 import { IdRefSelect } from './IdRefSelect';

@@ -2,7 +2,7 @@
 import type { FieldDescriptor } from './field-descriptor';
 import { enumOptions, idTargetKind, inferKind, isPlainObject } from './infer-kind';
 import { MAX_DEPTH } from './derive-fields.constants';
-import { labelFor } from './labelFor';
+import { labelFor } from './label-for';
 import type { DeriveContext, FieldSample } from './derive-fields.type';
 
 const keysInOrder = (samples: readonly unknown[]): readonly string[] => {

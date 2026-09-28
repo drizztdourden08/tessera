@@ -3,7 +3,7 @@ import type { KeyboardEvent, ReactNode } from 'react';
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
 import { Text } from '../../primitives/Text';
-import { rowClassName } from './behavior/rowClassName';
+import { rowClassName } from './behavior/row-class-name';
 import './ListItemRow.css';
 import type { ListItemRowProps } from './ListItemRow.type';
 

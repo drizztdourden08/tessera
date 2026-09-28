@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { IconButton } from '../../../primitives/IconButton';
-import { Glyph } from '../../../primitives/Icon';
+import { Glyph } from '../../../primitives/Glyph';
 import type { RemoveItemButtonProps } from './RemoveItemButton.type';
 
 const RemoveItemButton = ({ disabled, onRemove }: RemoveItemButtonProps) => (

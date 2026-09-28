@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Badge } from '../../Badge';
-import { Glyph } from '../../Icon';
+import { Glyph } from '../../Glyph';
 import { IconButton } from '../../IconButton';
 import type { TagChipProps } from '../TagInput.type';
 

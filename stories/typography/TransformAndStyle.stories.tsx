@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Text } from '../../src/primitives';
+import { overviewStory } from '../_template/overview-story';
 import { CASES, LEADING, SPECIMEN, TRACKING } from './type-lists';
 import { TypeTable } from './TypeTable';
 
@@ -44,5 +45,11 @@ const TransformAndStyle = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Transform and style',
+  description: 'How text is cased, spaced and led: the case and style treatments with what each is for, the letter-spacing tokens, and the line-height tokens for dense lists up to long reading.',
+  variants: [TransformAndStyle],
+});
+
 export default meta;
-export { TransformAndStyle };
+export { Overview, TransformAndStyle };

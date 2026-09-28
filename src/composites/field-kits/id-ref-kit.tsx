@@ -6,7 +6,7 @@ import { isEmptyValue } from './emptiness';
 import { ABSENT } from './id-ref-kit.constants';
 import { formatIdRefDisplay } from './id-ref-format';
 import { registerTextKit } from './register-text-kit';
-import { toText } from './toText';
+import { toText } from './to-text';
 import { IdInput } from './sub-components/IdInput';
 import { IdRefEditorControl } from './sub-components/IdRefEditorControl';
 import type { CellRenderOptions, FieldTypeStrategy, FilterControlProps } from './registry.type';

@@ -5,7 +5,7 @@ import { Text } from '../../primitives/Text';
 import { TextInput } from '../../primitives/TextInput';
 import { isEmptyValue } from './emptiness';
 import { registerTextKit } from './register-text-kit';
-import { toText } from './toText';
+import { toText } from './to-text';
 import { StringEditorControl } from './sub-components/StringEditorControl';
 import type { FieldTypeStrategy, FilterControlProps } from './registry.type';
 import type { FilterTestOptions } from '../../data/filter/tester-registry';

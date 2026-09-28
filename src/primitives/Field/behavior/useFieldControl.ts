@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useContext } from 'react';
-import { FieldControlContext } from '../FieldControlContext';
-import type { FieldControl } from '../field-control.type';
+import { FieldControlContext } from '../../field-control/field-control-context';
+import type { FieldControl } from '../../field-control/field-control.type';
 
 const useFieldControl = (ownId?: string, ownDescribedBy?: string): FieldControl => {
   const field = useContext(FieldControlContext);

@@ -2,7 +2,7 @@
 import { Badge } from '../../../primitives/Badge';
 import { Flex } from '../../../primitives/Flex';
 import { formatIdRefDisplay } from '../id-ref-format';
-import { toText } from '../toText';
+import { toText } from '../to-text';
 import type { IdRefBadgeListProps } from './IdRefBadgeList.type';
 
 const IdRefBadgeList = (props: IdRefBadgeListProps) => {

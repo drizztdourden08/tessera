@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { keyOf } from '../../field-kits/keyOf';
+import { keyOf } from '../../field-kits/key-of';
 import { TAGS_KEY } from './tag-field.constants';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 

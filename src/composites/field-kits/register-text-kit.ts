@@ -2,7 +2,7 @@
 import { registerFieldTester } from '../../data/filter/tester-registry';
 import { registerComparator } from '../../data/table/strategy-registry';
 import { nullsLast } from './compare';
-import { naturalTextCompare } from './naturalTextCompare';
+import { naturalTextCompare } from './natural-text-compare';
 import { registerFieldKit } from './registry';
 import type { FieldTester } from '../../data/filter/tester-registry';
 import type { FieldTypeStrategy } from './registry.type';

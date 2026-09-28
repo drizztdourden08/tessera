@@ -2,7 +2,7 @@
 import './Toggle.css';
 import { useId } from 'react';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
-import { Glyph } from '../Icon';
+import { Glyph } from '../Glyph';
 import type { ToggleProps } from './Toggle.type';
 
 const Toggle = (props: ToggleProps) => {

@@ -2,8 +2,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { NO_OVERFLOW } from './strip-geometry.constants';
 import { edgesForMetrics } from './strip-geometry';
-import { pageDeltaFor } from './pageDeltaFor';
-import { sameEdges } from './sameEdges';
+import { pageDeltaFor } from './page-delta-for';
+import { sameEdges } from './same-edges';
 import { wheelScrollDelta } from './wheel-scroll-delta';
 import type { StripEdges, StripMetrics } from './strip-geometry.type';
 

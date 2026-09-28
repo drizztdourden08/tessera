@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Text } from '../../src/primitives';
+import { overviewStory } from '../_template/overview-story';
 import { SIZES, SPECIMEN } from './type-lists';
 import { TypeTable } from './TypeTable';
 
@@ -19,5 +20,11 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Overview = overviewStory({
+  component: 'Sizes',
+  description: 'The type sizes, from --text-xs to the display steps, each a step of the size scale in src/tokens/typography.css. Text variants and component styles pick from these, so a size never comes from a raw pixel value.',
+  variants: [Sizes],
+});
+
 export default meta;
-export { Sizes };
+export { Overview, Sizes };

@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { MAX_BLANK_DEPTH } from './blank-value.constants';
-import { blankFor } from './blankFor';
-import { keyOf } from './keyOf';
+import { blankFor } from './blank-for';
+import { keyOf } from './key-of';
 import type { FieldDescriptor } from '../../data/schema/field-descriptor';
 
 const blankValue = (field: FieldDescriptor, depth = 0): unknown => {

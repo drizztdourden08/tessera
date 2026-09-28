@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind barrel */
-export { clearSessionView } from './clearSessionView';
-export { getSessionView } from './getSessionView';
-export { setSessionView } from './setSessionView';
+export { clearSessionView } from './clear-session-view';
+export { getSessionView } from './get-session-view';
+export { setSessionView } from './set-session-view';
 export { useSessionView } from './useSessionView';
