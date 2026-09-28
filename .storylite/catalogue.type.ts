@@ -10,7 +10,7 @@ interface CatalogueGroup {
 }
 
 interface CatalogueTier {
-  tier: 'Brand' | 'Colours' | 'Typography' | 'Icons' | 'Tokens' | 'Primitives' | 'Composites' | 'Data';
+  tier: 'Brand' | 'Colours' | 'Typography' | 'Text' | 'Icons' | 'Tokens' | 'Primitives' | 'Composites' | 'Data';
   intro: string;
   groups: readonly CatalogueGroup[];
 }

@@ -1,0 +1,120 @@
+/* @layer renderer-components @kind style */
+.text-el--p,
+.text-el--blockquote,
+.text-el--address,
+.text-el--pre {
+  margin: 0;
+  color: var(--c-text);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+.text-el--strong,
+.text-el--b {
+  font-weight: var(--weight-bold);
+}
+
+.text-el--em,
+.text-el--i,
+.text-el--cite,
+.text-el--dfn,
+.text-el--var {
+  font-style: italic;
+}
+
+.text-el--dfn {
+  font-weight: var(--weight-semi);
+}
+
+.text-el--u,
+.text-el--ins {
+  text-decoration: underline;
+  text-underline-offset: var(--size-2);
+}
+
+.text-el--s,
+.text-el--del {
+  text-decoration: line-through;
+}
+
+.text-el--del {
+  color: var(--c-text-dim);
+}
+
+.text-el--mark {
+  padding-inline: var(--space-2xs);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-soft);
+  color: inherit;
+}
+
+.text-el--small {
+  font-size: var(--text-sm);
+}
+
+.text-el--sub,
+.text-el--sup {
+  font-size: var(--text-xs);
+  line-height: 0;
+}
+
+.text-el--sub {
+  vertical-align: sub;
+}
+
+.text-el--sup {
+  vertical-align: super;
+}
+
+.text-el--code,
+.text-el--kbd,
+.text-el--samp,
+.text-el--pre {
+  font-family: var(--font-mono);
+}
+
+.text-el--code,
+.text-el--samp {
+  padding-inline: var(--space-2xs);
+  border-radius: var(--radius-sm);
+  background: var(--c-sunken);
+  font-size: var(--text-sm);
+}
+
+.text-el--kbd {
+  padding-inline: var(--space-2xs);
+  border: var(--border-width-thin) solid var(--c-border-strong);
+  border-bottom-width: var(--border-width-thick);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  font-size: var(--text-sm);
+}
+
+.text-el--abbr {
+  text-decoration: underline dotted;
+  text-underline-offset: var(--size-2);
+  cursor: help;
+}
+
+.text-el--blockquote {
+  padding-inline-start: var(--space-md);
+  border-inline-start: var(--border-width-thick) solid var(--c-primary);
+  color: var(--c-text-dim);
+}
+
+.text-el--pre {
+  padding: var(--space-md);
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  background: var(--c-sunken);
+  white-space: pre;
+}
+
+.text-el--address {
+  font-style: normal;
+}
+
+.text-el--rt {
+  font-size: var(--text-xs);
+  color: var(--c-text-dim);
+}

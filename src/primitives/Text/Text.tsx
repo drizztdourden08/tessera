@@ -1,9 +1,10 @@
 /* @layer renderer-components @kind component */
 import './Text.css';
+import { TEXT_MEMBERS } from '../text-elements/text-elements.constants';
 import { typesettingStyle } from './behavior/text-style';
 import type { TextProps } from './Text.type';
 
-const Text = (props: TextProps) => {
+const TextBase = (props: TextProps) => {
   const { as: Tag = 'span', variant, className = '', weight, italic, opticalSize, features, style, children, ...rest } = props;
   const typeset = typesettingStyle({ weight, italic, opticalSize, features });
   return (
@@ -16,5 +17,7 @@ const Text = (props: TextProps) => {
     </Tag>
   );
 };
+
+const Text = Object.assign(TextBase, TEXT_MEMBERS);
 
 export { Text };

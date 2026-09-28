@@ -1,0 +1,36 @@
+/* @layer renderer-components @kind style */
+.title {
+  margin: 0;
+  color: var(--c-text);
+  font-family: var(--font-title);
+  font-weight: var(--weight-semi);
+  line-height: var(--leading-tight);
+  text-wrap: balance;
+}
+
+.title--1 {
+  font-size: var(--text-display);
+  font-weight: var(--weight-bold);
+}
+
+.title--2 {
+  font-size: var(--size-32);
+}
+
+.title--3 {
+  font-size: var(--text-2xl);
+}
+
+.title--4 {
+  font-size: var(--text-xl);
+}
+
+.title--5 {
+  font-size: var(--text-lg);
+}
+
+.title--6 {
+  font-size: var(--text-base);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}

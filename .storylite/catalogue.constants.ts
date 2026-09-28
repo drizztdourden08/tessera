@@ -1,6 +1,7 @@
 /* @layer root-config @kind data */
 import { COMPOSITES_TIER } from './catalogue-composites.constants';
 import { PRIMITIVES_TIER } from './catalogue-primitives.constants';
+import { TEXT_TIER } from './catalogue-text.constants';
 import type { CatalogueTier } from './catalogue.type';
 
 const CATALOGUE: readonly CatalogueTier[] = [
@@ -44,6 +45,7 @@ const CATALOGUE: readonly CatalogueTier[] = [
       ],
     }],
   },
+  TEXT_TIER,
   {
     tier: 'Icons',
     intro: 'One icon system for every app: a named Lucide set through @iconify, and the brand marks as icons.',
