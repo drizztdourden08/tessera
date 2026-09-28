@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useRef, useState } from 'react';
-import { MENU_SELECTOR } from './useMenuOpen.constants';
-import type { MenuOpenBinding } from './useMenuOpen.type';
+import { MENU_SELECTOR } from './use-menu-open.constants';
+import type { MenuOpenBinding } from './use-menu-open.type';
 
 const useMenuOpen = <T extends HTMLElement>(): MenuOpenBinding<T> => {
   const anchorRef = useRef<T>(null);

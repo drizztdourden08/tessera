@@ -27,6 +27,7 @@
   "files": [
     "src",
     "brand",
+    "fonts",
     "README.md",
     "MIGRATION.md",
     "RENAMES.json"
@@ -34,11 +35,11 @@
   "sideEffects": [
     "**/*.css",
     "**/index.ts",
-    "**/field-kits/*-kit.tsx"
+    "**/field-kits/*Kit.tsx"
   ],
   "scripts": {
     "typecheck": "tsc --noEmit && tsc --noEmit -p .storylite",
-    "lint": "pnpm typecheck && eslint . && stylelint \"src/**/*.css\" \"stories/**/*.css\" && brock prose && knip && jscpd",
+    "lint": "pnpm typecheck && eslint . && stylelint \"src/**/*.css\" \"fonts/**/*.css\" \"stories/**/*.css\" && brock prose && knip && jscpd",
     "lint:md": "markdownlint-cli2",
     "test": "vitest run",
     "storylite": "storylite dev --port 3993",

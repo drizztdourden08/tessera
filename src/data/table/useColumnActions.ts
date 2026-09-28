@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import * as columnOps from './column-ops';
 import type { ColumnMove, TableColumn, TableState } from './types';
-import type { ColumnActions, Columns } from './useColumnActions.type';
+import type { ColumnActions, Columns } from './use-column-actions.type';
 
 const useColumnActions = (
   setState: Dispatch<SetStateAction<TableState>>,

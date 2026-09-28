@@ -4,7 +4,7 @@ import { registerFieldTester } from '../../data/filter/tester-registry';
 import { Badge } from '../../primitives/Badge';
 import { Text } from '../../primitives/Text';
 import { isNullish } from './coerce';
-import { ABSENT } from './enum-kit.constants';
+import { ABSENT } from './EnumKit.constants';
 import { registerFieldKit } from './registry';
 import { toText } from './to-text';
 import { EnumEditorControl } from './sub-components/EnumEditorControl';

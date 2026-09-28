@@ -2,4 +2,4 @@
 export { defaultColumns } from './default-columns';
 export { initialState } from './initial-state';
 export { useDataTable } from './useDataTable';
-export type { DataTableState, UseDataTableInput } from './useDataTable.type';
+export type { DataTableState, UseDataTableInput } from './use-data-table.type';

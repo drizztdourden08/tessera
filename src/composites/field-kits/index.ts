@@ -1,13 +1,13 @@
 /* @layer renderer-components @kind barrel */
-import './string-kit';
-import './number-kit';
-import './boolean-kit';
-import './enum-kit';
-import './id-ref-kit';
-import './array-kit';
-import './object-kit';
-import './union-kit';
-import './unknown-kit';
+import './StringKit';
+import './NumberKit';
+import './BooleanKit';
+import './EnumKit';
+import './IdRefKit';
+import './ArrayKit';
+import './ObjectKit';
+import './UnionKit';
+import './UnknownKit';
 
 export { registerFieldKit } from './registry';
 export { registeredKitKinds } from './registered-kit-kinds';

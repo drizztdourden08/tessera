@@ -10,7 +10,7 @@ import { registerFieldKit } from './registry';
 import { testExistence } from './test-existence';
 import { toJson } from './to-json';
 import { truncate } from './truncate';
-import { ABSENT } from './unknown-kit.constants';
+import { ABSENT } from './UnknownKit.constants';
 import type { EditorControlProps, FieldTypeStrategy } from './registry.type';
 import '../../theme/field-kits.css';
 

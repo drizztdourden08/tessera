@@ -8,7 +8,7 @@ import type { SessionView } from '../session-view';
 import { setSessionView as setStoredSession, useSessionView } from '../session-view-store';
 import type { ViewSnapshot } from '../snapshot';
 import { useViewStorage } from '../view-storage';
-import type { UseViewStateParams, UseViewStateResult } from './useViewState.type';
+import type { UseViewStateParams, UseViewStateResult } from './use-view-state.type';
 
 const useViewState = (params: UseViewStateParams): UseViewStateResult => {
   const { key, schema, fallbackColumns, fallbackGroupBy, storage: storageOverride } = params;

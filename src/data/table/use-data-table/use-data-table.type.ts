@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { FieldDescriptor } from '../../schema/field-descriptor';
-import type { ColumnActions } from '../useColumnActions.type';
+import type { ColumnActions } from '../use-column-actions.type';
 import type { GroupedRow, SortEntry, TableColumn, TableState } from '../types';
 
 interface UseDataTableInput<T> {

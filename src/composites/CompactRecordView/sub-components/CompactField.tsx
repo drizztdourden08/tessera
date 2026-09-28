@@ -2,7 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { Text } from '../../../primitives/Text';
 import { resolveFieldKit } from '../../field-kits';
-import { unknownKit } from '../../field-kits/unknown-kit';
+import { unknownKit } from '../../field-kits/UnknownKit';
 import { detectUnionBranch, isIdentityField, markedPaths } from '../../RecordEditor';
 import { getPath } from '../../../data/schema/path';
 import { DiffBracket } from './DiffBracket';

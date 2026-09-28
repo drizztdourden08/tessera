@@ -7,7 +7,7 @@ import { Text } from '../../primitives/Text';
 import { Toggle } from '../../primitives/Toggle';
 import { isNullish } from './coerce';
 import { nullsLast } from './compare';
-import { ABSENT, NO, YES } from './boolean-kit.constants';
+import { ABSENT, NO, YES } from './BooleanKit.constants';
 import { registerFieldKit } from './registry';
 import type { EditorControlProps, FieldTypeStrategy } from './registry.type';
 import '../../theme/field-kits.css';

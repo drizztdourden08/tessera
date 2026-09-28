@@ -4,7 +4,7 @@ import { registerFieldTester } from '../../data/filter/tester-registry';
 import { registerComparator, registerGroupKey } from '../../data/table/strategy-registry';
 import { NumberInput } from '../../primitives/NumberInput';
 import { Text } from '../../primitives/Text';
-import { LENGTH_OPS } from './array-kit.constants';
+import { LENGTH_OPS } from './ArrayKit.constants';
 import { isNullish } from './coerce';
 import { nullsLast } from './compare';
 import { countLabel } from './count-label';

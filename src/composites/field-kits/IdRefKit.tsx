@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { findOperator } from '../../data/filter/operators';
 import { Text } from '../../primitives/Text';
 import { isEmptyValue } from './emptiness';
-import { ABSENT } from './id-ref-kit.constants';
+import { ABSENT } from './IdRefKit.constants';
 import { formatIdRefDisplay } from './id-ref-format';
 import { registerTextKit } from './register-text-kit';
 import { toText } from './to-text';

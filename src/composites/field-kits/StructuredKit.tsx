@@ -7,7 +7,7 @@ import { isNullish } from './coerce';
 import { nullsLast } from './compare';
 import { naturalTextCompare } from './natural-text-compare';
 import { registerFieldKit } from './registry';
-import { ABSENT } from './structured-kit.constants';
+import { ABSENT } from './StructuredKit.constants';
 import { summarizeEntries } from './summary';
 import { testExistence } from './test-existence';
 import { toJson } from './to-json';

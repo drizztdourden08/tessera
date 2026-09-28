@@ -18,7 +18,7 @@ const Fonts = {
   name: 'Fonts',
   render: () => (
     <Box className="story-column type-section">
-      <Text className="story-label">The font stacks, src/tokens/typography.css. Every face ships in src/fonts, so nothing is fetched from the network.</Text>
+      <Text className="story-label">The font stacks, src/tokens/typography.css. Every face ships in fonts/, so nothing is fetched from the network.</Text>
       <TypeTable entries={FONTS} property="fontFamily" specimen={PANGRAM} />
     </Box>
   ),
@@ -66,7 +66,7 @@ const GameFace = {
 
 const Overview = overviewStory({
   component: 'Fonts',
-  description: 'Every face Tessera sets text in, all shipped in src/fonts so nothing is fetched from the network. Inter (--font-sans) sets running text and controls, Chakra Petch (--font-title) sets titles and headings, and --font-mono and --font-game cover code and the game\'s dialogue face.',
+  description: 'Every face Tessera sets text in, all shipped in fonts/ so nothing is fetched from the network. Inter (--font-sans) sets running text and controls, Chakra Petch (--font-title) sets titles and headings, and --font-mono and --font-game cover code and the game\'s dialogue face.',
   variants: [Fonts, TitleFace, GameFace],
 });
 

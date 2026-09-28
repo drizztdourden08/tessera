@@ -6,7 +6,7 @@ import { NumberInput } from '../../primitives/NumberInput';
 import { Text } from '../../primitives/Text';
 import { nullsLast } from './compare';
 import { inputValue } from './input-value';
-import { HEX_WIDTH } from './number-kit.constants';
+import { HEX_WIDTH } from './NumberKit.constants';
 import { registerFieldKit } from './registry';
 import { toNumber } from './to-number';
 import { toPair } from './to-pair';
