@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.keyboard-story {
+  max-inline-size: 100%;
+  overflow-x: auto;
+}

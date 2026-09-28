@@ -62,6 +62,8 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
         { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
         { name: 'PixelWordmark', summary: 'A wordmark set in the pixel alphabet from a text and four colours.' },
+        { name: 'KeyboardLayout', summary: 'A full keyboard drawn from data, with keys lit or pressed.' },
+        { name: 'ShortcutTour', summary: 'A camera that walks a keyboard through a shortcut, key by key.' },
       ],
     },
     {

@@ -1,27 +1,29 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, MOUSE_SPECS, SHORTCUT_LEGENDS, Shortcut, Text } from '../../src/primitives';
-import type { MouseButton, ShortcutKey, ShortcutKeys, ShortcutLegend } from '../../src/primitives';
+import { Box, CAP_WIDTHS, SHORTCUT_LEGENDS, Shortcut, Text } from '../../src/primitives';
+import type { CapWidth, MouseButton, ShortcutKey, ShortcutLegend } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import {
+  ANIMATED_ROWS, CAP_WIDTH_ROWS, COMBINATION_ROWS, KEYS_AND_MOUSE_ROWS, MOUSE_BUTTONS, PRINTABLE_KEYS,
+} from './_samples/shortcut-samples';
+import type { ShortcutRow } from './_samples/shortcut-samples';
+import { ShortcutLegendTable } from './_samples/ShortcutLegendTable';
+import { ShortcutRows } from './_samples/ShortcutRows';
 
 type ShortcutArgs = {
   keys: string;
   mouse: MouseButton | 'none';
   legend: ShortcutLegend;
+  width: CapWidth | 'natural';
+  animate: boolean;
 };
-
-type ShortcutRow = {
-  keys?: ShortcutKeys;
-  mouse?: MouseButton;
-  legend?: ShortcutLegend;
-};
-
-const MOUSE_BUTTONS = Object.keys(MOUSE_SPECS) as MouseButton[];
 
 const ARG_TYPES: StoryLiteArgTypes<ShortcutArgs> = {
   keys: { control: 'text', description: 'Key names, comma separated. More than one makes a combination.' },
   mouse: { control: 'select', options: ['none', ...MOUSE_BUTTONS], description: 'One mouse button, placed after the keys.' },
-  legend: { control: 'select', options: [...SHORTCUT_LEGENDS], description: 'The printed word or the key symbol.' },
+  legend: { control: 'select', options: [...SHORTCUT_LEGENDS], description: 'The printed word, the key symbol or the plain arrow. A key without it falls back to its label.' },
+  width: { control: 'select', options: ['natural', ...CAP_WIDTHS], description: 'The cap width. Natural keeps each key at its own width.' },
+  animate: { control: 'boolean', description: 'Presses and releases in a loop.' },
 };
 
 const meta = {
@@ -32,71 +34,58 @@ const meta = {
 const keyList = (text: string): ShortcutKey[] =>
   text.split(',').map((part) => part.trim()).filter(Boolean) as ShortcutKey[];
 
-const rowLabel = (row: ShortcutRow): string => {
-  const { keys = [], mouse } = row;
-  const names = [...(typeof keys === 'string' ? [keys] : keys), ...(mouse ? [`mouse ${mouse}`] : [])];
-  return names.join(' + ');
-};
-
-const ShortcutRows = (props: { rows: readonly ShortcutRow[] }) => {
-  const { rows } = props;
-  return (
-    <Box className="story-list">
-      {rows.map((row) => (
-        <Box key={rowLabel(row)} className="story-list__item">
-          <Text className="story-label">{rowLabel(row)}</Text>
-          <Box>{row.mouse ? <Shortcut keys={row.keys} mouse={row.mouse} legend={row.legend} /> : <Shortcut keys={row.keys ?? []} legend={row.legend} />}</Box>
-        </Box>
-      ))}
-    </Box>
-  );
-};
-
 const rowsStory = (name: string, rows: readonly ShortcutRow[]) => ({
   name,
   render: () => <ShortcutRows rows={rows} />,
 }) satisfies StoryLiteStoryDefinition<ShortcutArgs>;
 
-const withLegend = (legend: ShortcutLegend, keys: readonly ShortcutKey[]): ShortcutRow[] => keys.map((key) => ({ keys: key, legend }));
-
-const LEGEND_KEYS: readonly ShortcutKey[] = ['ctrl', 'alt', 'shift', 'cmd', 'enter', 'tab', 'backspace', 'delete', 'capslock', 'esc', 'home', 'end', 'pageup'];
-
 const Playground = {
   name: 'Playground',
-  args: { keys: 'ctrl, shift', mouse: 'left', legend: 'label' },
+  args: { keys: 'ctrl, shift', mouse: 'left', legend: 'label', width: 'natural', animate: false },
   argTypes: ARG_TYPES,
-  render: (args) => (args.mouse === 'none'
-    ? <Shortcut keys={keyList(args.keys)} legend={args.legend} />
-    : <Shortcut keys={keyList(args.keys)} mouse={args.mouse} legend={args.legend} />),
+  render: (args) => {
+    const look = { legend: args.legend, width: args.width === 'natural' ? undefined : args.width, animate: args.animate || undefined };
+    return args.mouse === 'none'
+      ? <Shortcut keys={keyList(args.keys)} {...look} />
+      : <Shortcut keys={keyList(args.keys)} mouse={args.mouse} {...look} />;
+  },
 } satisfies StoryLiteStoryDefinition<ShortcutArgs>;
 
-const Labels = rowsStory('Key labels', [...withLegend('label', LEGEND_KEYS), { keys: 'A' }, { keys: '7' }, { keys: '/' }, { keys: 'F12' }]);
+const Legends = {
+  name: 'Legends',
+  render: () => (
+    <Box className="story-column">
+      <Text variant="subtitle">Normal caps</Text>
+      <ShortcutLegendTable width="normal" />
+      <Text variant="subtitle">Wide caps</Text>
+      <ShortcutLegendTable width="wide" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ShortcutArgs>;
 
-const Symbols = rowsStory('Key symbols', withLegend('symbol', LEGEND_KEYS));
+const CapWidths = rowsStory('Cap widths', CAP_WIDTH_ROWS);
 
-const WideKeys = rowsStory('Wide keys', [
-  ...withLegend('label', ['shift', 'enter', 'backspace', 'tab', 'capslock', 'space']),
+const PrintableKeys = {
+  name: 'Letters, digits, punctuation and F keys',
+  render: () => (
+    <Box className="story-inline">
+      {PRINTABLE_KEYS.map((key) => <Shortcut key={key} keys={key} />)}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ShortcutArgs>;
+
+const Arrows = rowsStory('Arrows and page keys', [
+  { keys: 'up' }, { keys: 'down' }, { keys: 'left' }, { keys: 'right' },
+  { keys: 'pageup' }, { keys: 'pagedown' }, { keys: 'esc' }, { keys: 'win' }, { keys: 'space' },
 ]);
 
-const Arrows = rowsStory('Arrows', [{ keys: 'up' }, { keys: 'down' }, { keys: 'left' }, { keys: 'right' }]);
-
-const Combinations = rowsStory('Combinations', [
-  { keys: ['ctrl', 'S'] },
-  { keys: ['ctrl', 'shift', 'P'] },
-  { keys: ['ctrl', 'alt', 'delete'] },
-  { keys: ['cmd', 'shift', 'P'], legend: 'symbol' },
-  { keys: ['ctrl', 'option', 'cmd', 'space'], legend: 'symbol' },
-]);
+const Combinations = rowsStory('Combinations', COMBINATION_ROWS);
 
 const MouseButtons = rowsStory('Mouse buttons', MOUSE_BUTTONS.map((mouse) => ({ mouse })));
 
-const KeysAndMouse = rowsStory('Keys with a mouse button', [
-  { keys: 'ctrl', mouse: 'left' },
-  { keys: 'shift', mouse: 'wheel-down' },
-  { keys: ['ctrl', 'alt'], mouse: 'right' },
-  { keys: 'shift', mouse: 'back' },
-  { keys: 'cmd', mouse: 'left', legend: 'symbol' },
-]);
+const KeysAndMouse = rowsStory('Keys with a mouse button', KEYS_AND_MOUSE_ROWS);
+
+const Animated = rowsStory('Animated', ANIMATED_ROWS);
 
 const InSentence = {
   name: 'In a sentence',
@@ -112,10 +101,13 @@ const InSentence = {
 const Overview = overviewStory({
   component: 'Shortcut (Sc)',
   importName: 'Shortcut',
-  description: 'A key, a key combination or a mouse button, drawn as keycaps. Pass keys a key name, or an array for a combination. Pass mouse one mouse button. Keys come first, then the mouse button, and the component places a plus between them. Letters, digits, punctuation and F1 to F24 work as they are. Wide keys are drawn wider, and arrows and Command always show their symbol. Legend picks the printed word or the key symbol for the other keys. The mouse icons come from Phosphor, and each mouse button sits in a cap the size of a key. Screen readers hear the key name, and selecting the text around a shortcut leaves the keycaps out.',
+  description: 'A key, a key combination or a mouse button. Pass keys a key name, or an array for a combination, and mouse one mouse button. Keys come first, then the mouse button, with a plus between them. Letters, digits, punctuation and F1 to F24 work as they are. Legend picks what a key shows: its label, its symbol or its plain arrow, and a key without that legend shows its label. Width sets the cap to normal or wide; by default each key keeps its own width. A mouse button has no cap: the mouse is drawn in the text colour and the pressed part in the primary colour. Animate presses and releases in a loop, all together in a combination. Screen readers hear the key name, and selecting the text around a shortcut leaves the keycaps out. The mouse and key icons come from Phosphor.',
   playground: Playground,
-  variants: [Labels, Symbols, WideKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, InSentence],
+  variants: [Legends, CapWidths, PrintableKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, Animated, InSentence],
 });
 
 export default meta;
-export { Arrows, Combinations, InSentence, KeysAndMouse, Labels, MouseButtons, Overview, Playground, Symbols, WideKeys };
+export {
+  Animated, Arrows, CapWidths, Combinations, InSentence, KeysAndMouse, Legends, MouseButtons, Overview, Playground,
+  PrintableKeys,
+};

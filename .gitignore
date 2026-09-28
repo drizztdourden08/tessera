@@ -17,3 +17,6 @@ storylite-static/
 
 # Storylite static build
 dist-storylite/
+
+# Local Claude Code session config
+.claude/

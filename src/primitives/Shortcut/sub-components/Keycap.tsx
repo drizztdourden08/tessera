@@ -11,7 +11,7 @@ const Keycap = (props: KeycapProps) => {
   const classes = ['shortcut__cap', `shortcut__cap--${width}`, glyph ? 'shortcut__cap--icon' : ''].filter(Boolean).join(' ');
   return (
     <kbd className={classes}>
-      {glyph ? <Icon icon={glyph.icon} flip={glyph.flip} className="shortcut__symbol" /> : null}
+      {glyph ? <Icon icon={glyph.icon} flip={glyph.flip} className={glyph.long ? 'shortcut__symbol shortcut__symbol--long' : 'shortcut__symbol'} /> : null}
       {label ? <span aria-hidden={spoken || undefined}>{label}</span> : null}
       {spoken ? <span className="shortcut__spoken">{name}</span> : null}
     </kbd>

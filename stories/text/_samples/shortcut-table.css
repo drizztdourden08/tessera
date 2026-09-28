@@ -1,0 +1,29 @@
+/* @layer stories @kind style */
+.shortcut-table-wrap {
+  overflow-x: auto;
+}
+
+.shortcut-table {
+  border-collapse: collapse;
+}
+
+.shortcut-table th {
+  padding: var(--space-xs) var(--space-lg) var(--space-xs) 0;
+  border-bottom: var(--border-width-thin) solid var(--c-border-strong);
+  color: var(--c-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-align: start;
+  text-transform: uppercase;
+}
+
+.shortcut-table td {
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) 0;
+  border-bottom: var(--border-width-thin) solid var(--c-hairline);
+}
+
+.shortcut-table__key {
+  color: var(--c-text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}

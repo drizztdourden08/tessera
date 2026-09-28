@@ -1,0 +1,58 @@
+/* @layer renderer-components @kind style */
+.shortcut-tour {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.shortcut-tour__world {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2xl);
+  opacity: 0;
+  transform-origin: 0 0;
+  transition:
+    transform calc(var(--duration-drawer) * 2 / var(--shortcut-tour-speed, 1)) var(--ease-emphasized),
+    opacity var(--duration-slow) var(--ease-standard);
+}
+
+.shortcut-tour__world--ready {
+  opacity: 1;
+}
+
+.shortcut-tour__mouse {
+  display: flex;
+  align-self: center;
+  color: var(--c-text);
+}
+
+.shortcut-tour__mouse .shortcut__mouse,
+.shortcut-tour__mouse .shortcut__mouse-icon {
+  inline-size: var(--size-96);
+  block-size: var(--size-96);
+}
+
+.shortcut-tour__mouse .shortcut__press {
+  fill: var(--c-text);
+  transition: fill var(--duration-normal) var(--ease-standard);
+}
+
+.shortcut-tour__mouse--pressed .shortcut__press {
+  fill: var(--c-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shortcut-tour__world,
+  .shortcut-tour__mouse .shortcut__press {
+    transition: none;
+  }
+}

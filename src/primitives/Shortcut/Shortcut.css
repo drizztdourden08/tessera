@@ -55,10 +55,27 @@
   block-size: var(--size-14);
 }
 
-.shortcut__mouse {
-  flex: none;
+.shortcut__symbol--long {
   inline-size: var(--size-16);
-  block-size: var(--size-16);
+  block-size: calc(var(--size-16) * 2 / 3);
+}
+
+.shortcut__mouse {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
+}
+
+.shortcut__mouse-icon {
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
+}
+
+.shortcut__press {
+  fill: var(--c-primary);
 }
 
 .shortcut__spoken {
@@ -67,4 +84,74 @@
   block-size: var(--size-1);
   overflow: hidden;
   clip-path: inset(50%);
+}
+
+.shortcut--animate .shortcut__cap {
+  animation: shortcut-press var(--duration-float) var(--ease-standard) infinite;
+}
+
+.shortcut--animate .shortcut__press {
+  animation: shortcut-light var(--duration-float) var(--ease-standard) infinite;
+}
+
+@keyframes shortcut-press {
+  0%,
+  50%,
+  81%,
+  100% {
+    transform: none;
+    border-color: var(--c-border-strong);
+    color: var(--c-text);
+    box-shadow:
+      0 var(--border-width-thin) 0 var(--c-border-strong),
+      inset 0 calc(var(--border-width-thick) * -1) 0 var(--c-border),
+      inset 0 var(--border-width-thin) 0 var(--c-hairline);
+  }
+
+  56%,
+  75% {
+    transform: translateY(var(--border-width-thin));
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+    box-shadow:
+      0 0 0 var(--c-border-strong),
+      inset 0 calc(var(--border-width-thin) * -1) 0 var(--c-primary),
+      inset 0 var(--border-width-thin) 0 var(--c-hairline);
+  }
+}
+
+@keyframes shortcut-light {
+  0%,
+  50%,
+  81%,
+  100% {
+    fill: var(--c-text);
+  }
+
+  56%,
+  75% {
+    fill: var(--c-primary);
+  }
+}
+
+@keyframes shortcut-tint {
+  0%,
+  50%,
+  81%,
+  100% {
+    border-color: var(--c-border-strong);
+    color: var(--c-text);
+  }
+
+  56%,
+  75% {
+    border-color: var(--c-primary);
+    color: var(--c-primary);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shortcut--animate .shortcut__cap {
+    animation-name: shortcut-tint;
+  }
 }

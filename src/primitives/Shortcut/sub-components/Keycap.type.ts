@@ -10,6 +10,7 @@ interface KeycapProps {
 interface KeySymbolSpec {
   icon: IconifyIcon;
   flip?: IconFlip;
+  long?: boolean;
 }
 
 export type { KeycapProps, KeySymbolSpec };

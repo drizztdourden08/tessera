@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.shortcut-tour-story {
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+}
