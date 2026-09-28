@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "Tessera design system: tokens, primitives, composites and the headless data engine shared by Relic of the Past, Brock and Archipelia.",
   "type": "module",
-  "private": true,
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drizztdourden08/tessera.git"
+  },
   "engines": {
     "node": ">=24"
   },
@@ -47,6 +50,7 @@
     "storylite:build": "storylite build",
     "structure": "brock structure --check",
     "prose": "brock prose",
+    "changeset": "changeset",
     "deadcode": "knip",
     "duplicates": "jscpd",
     "icons": "node scripts/app-icons/build-app-icons.mjs"
@@ -63,6 +67,7 @@
     "react-color": "^2.19.3"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.1",
     "@drizztdourden08/brock-build": "link:X:/brock/packages/build",
     "@drizztdourden08/brock-lint-config": "link:X:/brock/packages/lint-config",
     "@resvg/resvg-js": "^2.6.2",
