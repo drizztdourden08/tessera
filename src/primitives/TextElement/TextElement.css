@@ -44,7 +44,7 @@
 .text-el--mark {
   padding-inline: var(--space-2xs);
   border-radius: var(--radius-sm);
-  background: var(--c-primary-soft);
+  background: var(--tone-soft, var(--c-primary-soft));
   color: inherit;
 }
 
@@ -98,7 +98,7 @@
 
 .text-el--blockquote {
   padding-inline-start: var(--space-md);
-  border-inline-start: var(--border-width-thick) solid var(--c-primary);
+  border-inline-start: var(--border-width-thick) solid var(--tone-ink, var(--c-primary));
   color: var(--c-text-dim);
 }
 
@@ -117,4 +117,55 @@
 .text-el--rt {
   font-size: var(--text-xs);
   color: var(--c-text-dim);
+}
+
+.text-el--tone-dim {
+  --tone-ink: var(--c-text-dim);
+}
+
+.text-el--tone-muted {
+  --tone-ink: var(--c-text-muted);
+}
+
+.text-el--tone-primary {
+  --tone-ink: var(--c-primary);
+  --tone-soft: var(--c-primary-soft);
+}
+
+.text-el--tone-secondary {
+  --tone-ink: var(--c-secondary);
+  --tone-soft: var(--c-secondary-soft);
+}
+
+.text-el--tone-tertiary {
+  --tone-ink: var(--c-tertiary);
+  --tone-soft: var(--c-tertiary-soft);
+}
+
+.text-el--tone-success {
+  --tone-ink: var(--c-success);
+  --tone-soft: var(--c-success-soft);
+}
+
+.text-el--tone-warning {
+  --tone-ink: var(--c-warning);
+  --tone-soft: var(--c-warning-soft);
+}
+
+.text-el--tone-danger {
+  --tone-ink: var(--c-danger);
+  --tone-soft: var(--c-danger-soft);
+}
+
+.text-el--tone-info {
+  --tone-ink: var(--c-info);
+  --tone-soft: var(--c-info-soft);
+}
+
+.text-el--toned {
+  color: var(--tone-ink);
+}
+
+.text-el--toned.text-el--mark {
+  color: inherit;
 }

@@ -68,8 +68,8 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
-    "@drizztdourden08/brock-build": "link:X:/brock/packages/build",
-    "@drizztdourden08/brock-lint-config": "link:X:/brock/packages/lint-config",
+    "@drizztdourden08/brock-build": "^0.1.0",
+    "@drizztdourden08/brock-lint-config": "^0.1.0",
     "@resvg/resvg-js": "^2.6.2",
     "@storylite/renderer-react": "^1.6.0",
     "@storylite/storylite": "^1.6.0",

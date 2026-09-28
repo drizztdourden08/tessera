@@ -5,10 +5,11 @@ import type { AnyTextElementProps, TextElementProps, TextTag } from './TextEleme
 import './TextElement.css';
 
 const AnyTextElement = (props: AnyTextElementProps) => {
-  const { as, className, weight, italic, opticalSize, features, style, ...rest } = props;
+  const { as, tone, className, weight, italic, opticalSize, features, style, ...rest } = props;
   const Tag = as as ElementType;
   const typeset = typesettingStyle({ weight, italic, opticalSize, features });
-  const classes = ['text-el', `text-el--${as}`, className].filter(Boolean).join(' ');
+  const toned = tone ? ['text-el--toned', `text-el--tone-${tone}`] : [];
+  const classes = ['text-el', `text-el--${as}`, ...toned, className].filter(Boolean).join(' ');
   return <Tag className={classes} style={typeset ? { ...typeset, ...style } : style} {...rest} />;
 };
 

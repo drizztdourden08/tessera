@@ -1,11 +1,17 @@
 /* @layer renderer-components @kind style */
 .title {
   margin: 0;
-  color: var(--c-text);
   font-family: var(--font-title);
   font-weight: var(--weight-semi);
   line-height: var(--leading-tight);
   text-wrap: balance;
+}
+
+.title--1,
+.title--2,
+.title--3 {
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
 }
 
 .title--1 {
@@ -31,6 +37,4 @@
 
 .title--6 {
   font-size: var(--text-base);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
 }

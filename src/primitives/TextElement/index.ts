@@ -1,3 +1,4 @@
 /* @layer renderer-components @kind barrel */
 export { TextElement } from './TextElement';
-export type { TextElementOwnProps, TextElementProps, TextTag } from './TextElement.type';
+export { TEXT_TONES } from './TextElement.constants';
+export type { TextElementOwnProps, TextElementProps, TextLook, TextTag, TextTone } from './TextElement.type';

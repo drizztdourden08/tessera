@@ -130,5 +130,6 @@ The dark neutrals keep rotp's exact values, so with these pins every screen stay
 
 - Every HTML text element is a component, by full name and by short name: `Paragraph` and `P`, `Bold` and `B`, `Strikethrough` and `S`, `Highlight` and `Mark`, `Keyboard` and `Kbd`, and the rest. Each is also on the `Text` namespace (`Text.Paragraph`, `Text.P`). The `<em>` element imports as `Em`, because `Emphasis` stays the weight animation composite; `Text.Emphasis` and `Text.Em` both work.
 - Each element takes the typesetting props of `Text` (weight, italic, optical size, OpenType features) and the native attributes of its tag, such as `cite` on `Q`, `dateTime` on `Time` and `title` on `Abbr`. `TextElement` renders any tag with the same props.
-- `Title` is a heading in the title face with a `level` from 1 to 6. `Title.H1` to `Title.H6` and `Title.Heading1` to `Title.Heading6` are the same headings by name, and `H1` or `Heading1` import on their own.
+- Every text element and heading takes a `tone`: `dim`, `muted`, `primary`, `secondary`, `tertiary`, `success`, `warning`, `danger` or `info`. A Highlight takes the soft tint of its tone, and a block quote its rule.
+- `Title` is a heading in the title face with a `level` from 1 to 6; H1 to H3 are set in capitals. `Title.H1` to `Title.H6` and `Title.Heading1` to `Title.Heading6` are the same headings by name, and `H1` or `Heading1` import on their own.
 - `Portal` renders into the document it lives in. An app that renders Tessera into an iframe or a second window can pass that document through `PortalDocumentContext`.

@@ -2,12 +2,14 @@
 import { createElement } from 'react';
 import type { ComponentType, ReactNode } from 'react';
 import type { StoryLiteArgTypes, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { TYPE_FEATURES } from '../../src/primitives';
-import type { OpticalSize, TypeFeature } from '../../src/primitives';
+import { TEXT_TONES, TYPE_FEATURES } from '../../src/primitives';
+import type { OpticalSize, TextTone, TypeFeature } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { tonesStory } from './tones-story';
 
 type TextElementArgs = {
   text: string;
+  tone: TextTone | 'none';
   weight: number;
   italic: boolean;
   opticalSize: 'auto' | 'text' | 'display';
@@ -26,6 +28,7 @@ interface TextElementStoriesParams {
 
 const BASE_ARG_TYPES: StoryLiteArgTypes<TextElementArgs> = {
   text: { control: 'text' },
+  tone: { control: 'select', options: ['none', ...TEXT_TONES], description: 'A colour from the theme roles.' },
   weight: { control: 'number', description: 'Any whole number from 100 to 900.' },
   italic: { control: 'boolean' },
   opticalSize: { control: 'select', options: ['auto', 'text', 'display'] },
@@ -41,14 +44,15 @@ const textElementStories = (params: TextElementStoriesParams) => {
   const attributeNames = Object.keys(attributes);
   const Playground = {
     name: 'Playground',
-    args: { text, weight: 400, italic: false, opticalSize: 'auto', features: '', ...attributes },
+    args: { text, tone: 'none', weight: 400, italic: false, opticalSize: 'auto', features: '', ...attributes },
     argTypes: { ...BASE_ARG_TYPES, ...Object.fromEntries(attributeNames.map((key) => [key, { control: 'text' }])) },
     render: (args) => {
-      const { text: content, weight, italic, opticalSize, features, ...rest } = args;
+      const { text: content, tone, weight, italic, opticalSize, features, ...rest } = args;
       const own = Object.fromEntries(attributeNames.map((key) => [key, rest[key]]));
       const featureNames = featureList(features);
       return createElement(Element, {
         ...own,
+        tone: tone === 'none' ? undefined : tone,
         weight: weight === 400 ? undefined : weight,
         italic: italic || undefined,
         opticalSize: opticalSize === 'auto' ? undefined : opticalSize as OpticalSize,
@@ -57,7 +61,8 @@ const textElementStories = (params: TextElementStoriesParams) => {
     },
   } satisfies StoryLiteStoryDefinition<TextElementArgs>;
   const InContext = { name: 'In context', render: () => context } satisfies StoryLiteStoryDefinition<TextElementArgs>;
-  const Overview = overviewStory({ component: name === short ? name : `${name} (${short})`, importName: short, description, playground: Playground, variants: [InContext] });
+  const Tones = tonesStory(Element, text, attributes);
+  const Overview = overviewStory({ component: name === short ? name : `${name} (${short})`, importName: short, description, playground: Playground, variants: [InContext, Tones] });
   return { InContext, Overview, Playground };
 };
 
