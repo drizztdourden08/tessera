@@ -14,6 +14,9 @@ const TEXT_TIER: CatalogueTier = {
         name: spec.name,
         summary: spec.name === spec.short ? `The <${spec.tag}> element.` : `The <${spec.tag}> element, also ${spec.short}.`,
       })),
+      { name: 'Keyboard', summary: 'Keycaps for a key, a shortcut or a mouse button, also Kbd.' },
+      { name: 'Quote', summary: 'A quotation that follows where it sits, also Q: small marks in a sentence, a floating mark on its own.' },
+      { name: 'CodeBlock', summary: 'Highlighted code in a panel, with line marks, numbers and a copy button.' },
     ],
   }],
 };

@@ -3,8 +3,7 @@ import { Fragment } from 'react';
 import type { ReactNode } from 'react';
 import { buildSchema, getPath, useDataTable } from '../../../src/data';
 import type { GroupedRow, TableColumn } from '../../../src/data';
-import { CodeBlock } from '../../../src/composites';
-import { Box, Button, Pressable, Text } from '../../../src/primitives';
+import { Box, Button, CodeBlock, Pressable, Text } from '../../../src/primitives';
 import { LOCATIONS, LOCATION_CONFIG } from './data-locations';
 import type { LocationRow } from './data-locations';
 

@@ -58,7 +58,6 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Content',
       entries: [
         { name: 'LogPanel', summary: 'A live log with kinds, search and paging.' },
-        { name: 'CodeBlock', summary: 'Highlighted code with line marks.' },
         { name: 'Emphasis', summary: 'Animates a word along the weight axis.' },
         { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
         { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },

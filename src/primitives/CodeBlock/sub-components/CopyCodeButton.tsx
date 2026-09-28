@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useEffect, useState } from 'react';
-import { PathIcon } from '../../../primitives/PathIcon';
-import { IconButton } from '../../../primitives/IconButton';
+import { PathIcon } from '../../PathIcon';
+import { IconButton } from '../../IconButton';
 import { COPY_PATHS, DONE_MS, DONE_PATHS } from './CopyCodeButton.constants';
 import type { CopyCodeButtonProps } from './CopyCodeButton.type';
 

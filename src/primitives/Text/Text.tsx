@@ -1,6 +1,9 @@
 /* @layer renderer-components @kind component */
 import './Text.css';
 import { TEXT_MEMBERS } from '../text-elements/text-elements.constants';
+import { CodeBlock } from '../CodeBlock';
+import { Quote } from '../Quote';
+import { Keyboard } from '../Keyboard';
 import { typesettingStyle } from './behavior/text-style';
 import type { TextProps } from './Text.type';
 
@@ -18,6 +21,6 @@ const TextBase = (props: TextProps) => {
   );
 };
 
-const Text = Object.assign(TextBase, TEXT_MEMBERS);
+const Text = Object.assign(TextBase, TEXT_MEMBERS, { CodeBlock, Quote, Q: Quote, Keyboard, Kbd: Keyboard });
 
 export { Text };

@@ -1,8 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { CodeBlock } from '../../src/composites';
-import type { CodeBlockLanguage } from '../../src/composites';
-import { Box, Text } from '../../src/primitives';
+import { Box, CodeBlock, Text } from '../../src/primitives';
+import type { CodeBlockLanguage } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { JSON_SAMPLE, TS_SAMPLE } from './_samples/data-code';
 
@@ -39,7 +38,7 @@ const ARG_TYPES: StoryLiteArgTypes<CodeBlockArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Content/CodeBlock',
+  title: 'Text/CodeBlock',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<CodeBlockArgs>;
 

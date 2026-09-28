@@ -12,12 +12,13 @@ import { markSvg } from './mark-svg';
 import { menuOrder } from './menu';
 import { componentPages } from './story-index';
 import { ssrBundle } from './ssr-bundle';
+import { strictPort } from './strict-port';
 import { windowsFsPaths } from './windows-fs-paths';
 import { wordmarkSvg } from './wordmark-svg';
 
 export default defineConfig({
   stories: ['./stories/**/*.stories.tsx'],
-  vitePlugins: [windowsFsPaths(), ssrBundle()],
+  vitePlugins: [windowsFsPaths(), ssrBundle(), strictPort()],
   css: [
     './src/tokens/index.css',
     './stories/themes/rotp.css',

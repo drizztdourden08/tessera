@@ -53,7 +53,7 @@ docs/           the standards this repo follows
 
 ```
 pnpm install
-pnpm storylite   the gallery on http://localhost:3993
+pnpm storylite   the gallery on http://localhost:4400
 pnpm lint        tsc, eslint, stylelint
 pnpm lint:md
 ```

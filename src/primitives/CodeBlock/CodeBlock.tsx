@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Highlight } from 'prism-react-renderer';
-import { Box } from '../../primitives/Box';
+import { Box } from '../Box';
 import { CODE_THEME } from './CodeBlock.constants';
 import { CopyCodeButton } from './sub-components/CopyCodeButton';
 import './CodeBlock.css';

@@ -1,8 +1,7 @@
 /* @layer stories @kind component */
 import type { ReactNode } from 'react';
 import type { StoryLiteArgs, StoryLiteArgType } from '@storylite/storylite';
-import { CodeBlock } from '../../src/composites';
-import { Box, Text } from '../../src/primitives';
+import { Box, CodeBlock, Text } from '../../src/primitives';
 import { ArgControls } from './controls/ArgControls';
 import { useStoryArgs } from './controls/useStoryArgs';
 

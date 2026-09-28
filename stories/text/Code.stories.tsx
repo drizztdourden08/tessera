@@ -11,7 +11,7 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Code',
   element: Text.Code,
-  description: 'A short fragment of code inside a sentence, in the mono face on a sunken tint. Use Preformatted, or the CodeBlock composite, for more than a line.',
+  description: 'A short fragment of code inside a sentence, in the mono face on a raised tint with a hairline border. Use Preformatted, or CodeBlock, for more than a line.',
   text: 'hints: true',
   context: <Text.P>Set <Text.Code>hints: true</Text.Code> in the preset.</Text.P>,
 });

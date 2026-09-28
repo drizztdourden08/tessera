@@ -1,0 +1,57 @@
+/* @layer renderer-components @kind style */
+.quote--inline {
+  quotes: none;
+}
+
+.quote__text {
+  font-style: italic;
+}
+
+.quote__mark {
+  display: inline-block;
+  aspect-ratio: 21 / 16;
+  color: var(--c-primary);
+}
+
+.quote--inline .quote__mark {
+  block-size: 1ex;
+  inline-size: auto;
+  vertical-align: calc(1cap - 1ex);
+}
+
+.quote--inline .quote__mark--open {
+  margin-inline-end: var(--space-2xs);
+}
+
+.quote--inline .quote__mark--close {
+  margin-inline-start: var(--space-2xs);
+}
+
+.quote--block {
+  margin: 0;
+  padding: 0;
+  color: var(--c-text);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+.quote--single .quote__mark {
+  block-size: 1cap;
+  inline-size: auto;
+  margin-inline-end: var(--space-sm);
+  vertical-align: baseline;
+}
+
+.quote--multiline::after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+.quote--multiline .quote__mark {
+  float: inline-start;
+  block-size: calc(2lh - var(--space-xs));
+  inline-size: auto;
+  margin-block-start: var(--space-2xs);
+  margin-inline-end: var(--space-md);
+}

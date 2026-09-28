@@ -14,6 +14,7 @@ interface TextElementStoriesParams {
   text: string;
   attributes?: Readonly<Record<string, string>>;
   context: ReactNode;
+  variants?: readonly StoryLiteStoryDefinition[];
 }
 
 type LookArg = { value: unknown; argType: StoryLiteArgType };
@@ -46,7 +47,7 @@ const lookProps = (looks: readonly string[], args: StoryLiteArgs): Record<string
 };
 
 const textElementStories = (params: TextElementStoriesParams) => {
-  const { name, element, description, text, attributes = {}, context } = params;
+  const { name, element, description, text, attributes = {}, context, variants: extra = [] } = params;
   const spec = TEXT_ELEMENT_SPECS.find((entry) => entry.name === name) ?? TEXT_ELEMENT_SPECS[0];
   const Element = element as ComponentType<Record<string, unknown>>;
   const attributeNames = Object.keys(attributes);
@@ -67,7 +68,7 @@ const textElementStories = (params: TextElementStoriesParams) => {
     }, String(args.text)),
   } satisfies StoryLiteStoryDefinition;
   const InContext = { name: 'In context', render: () => context } satisfies StoryLiteStoryDefinition;
-  const variants = tones.length ? [InContext, tonesStory(Element, text, tones, attributes)] : [InContext];
+  const variants = tones.length ? [InContext, ...extra, tonesStory(Element, text, tones, attributes)] : [InContext, ...extra];
   const Overview = overviewStory({ component: name === spec.short ? name : `${name} (${spec.short})`, importName: spec.short, description, playground: Playground, variants });
   return { InContext, Overview, Playground };
 };

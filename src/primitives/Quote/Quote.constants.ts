@@ -1,0 +1,15 @@
+/* @layer renderer-components @kind constants */
+const QUOTE_MARK_VIEWBOX = '0 0 21 16';
+
+const QUOTE_MARK_PATHS = [
+  'M5 0.5A4.5 4.5 0 0 1 9.5 5C9.5 10 7 13.5 2 15.5L1.2 14C3.8 12.6 5 11.2 5 9.5A4.5 4.5 0 0 1 5 0.5Z',
+  'M16 0.5A4.5 4.5 0 0 1 20.5 5C20.5 10 18 13.5 13 15.5L12.2 14C14.8 12.6 16 11.2 16 9.5A4.5 4.5 0 0 1 16 0.5Z',
+] as const;
+
+const QUOTE_MARK_TURN = 'rotate(180 10.5 8)';
+
+const SPACE_TO_FONT_SIZE = 0.35;
+
+const SUBPIXEL_SLACK = 1;
+
+export { QUOTE_MARK_PATHS, QUOTE_MARK_TURN, QUOTE_MARK_VIEWBOX, SPACE_TO_FONT_SIZE, SUBPIXEL_SLACK };

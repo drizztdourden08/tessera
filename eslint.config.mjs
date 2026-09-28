@@ -22,7 +22,7 @@ export default brockEslint({
     { files: ['src/composites/SplitPane/SplitPane.tsx'], why: 'the split share is dragged by the user' },
     { files: ['src/composites/DataTable/DataTable.tsx'], why: 'column widths are sized and resized per table' },
     { files: ['src/composites/DataTable/sub-components/GroupRow.tsx'], why: 'a group row indents by its depth' },
-    { files: ['src/composites/CodeBlock/CodeBlock.tsx'], why: 'the highlighter returns each line and token style' },
+    { files: ['src/primitives/CodeBlock/CodeBlock.tsx'], why: 'the highlighter returns each line and token style' },
     { files: ['src/composites/PixelWordmark/PixelWordmark.tsx'], why: 'the aspect ratio comes from the laid out letters' },
     { files: ['src/composites/SearchSpark/SearchSpark.tsx'], why: 'the size prop scales the glyph' },
     { files: ['src/composites/Emphasis/**'], why: 'the weights, timing and each letter delay are set per instance' },

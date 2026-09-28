@@ -33,15 +33,11 @@ const I = TEXT_MEMBERS.I;
 const Ins = TEXT_MEMBERS.Ins;
 const Inserted = TEXT_MEMBERS.Inserted;
 const Italic = TEXT_MEMBERS.Italic;
-const Kbd = TEXT_MEMBERS.Kbd;
-const Keyboard = TEXT_MEMBERS.Keyboard;
 const Mark = TEXT_MEMBERS.Mark;
 const P = TEXT_MEMBERS.P;
 const Paragraph = TEXT_MEMBERS.Paragraph;
 const Pre = TEXT_MEMBERS.Pre;
 const Preformatted = TEXT_MEMBERS.Preformatted;
-const Q = TEXT_MEMBERS.Q;
-const Quote = TEXT_MEMBERS.Quote;
 const Rp = TEXT_MEMBERS.Rp;
 const Rt = TEXT_MEMBERS.Rt;
 const Ruby = TEXT_MEMBERS.Ruby;
@@ -67,7 +63,7 @@ const Variable = TEXT_MEMBERS.Variable;
 export {
   Abbr, Abbreviation, Address, B, Bdi, Bdo, BidiIsolate, BidiOverride, BlockQuote, Blockquote, Bold,
   Citation, Cite, Code, Data, Definition, Del, Deleted, Dfn, Em, Highlight, I, Ins, Inserted, Italic,
-  Kbd, Keyboard, Mark, P, Paragraph, Pre, Preformatted, Q, Quote, Rp, Rt, Ruby, RubyParenthesis,
+  Mark, P, Paragraph, Pre, Preformatted, Rp, Rt, Ruby, RubyParenthesis,
   RubyText, S, Samp, Sample, Small, Span, Strikethrough, Strong, Sub, Subscript, Sup, Superscript,
   TEXT_MEMBERS, Time, U, Underline, Var, Variable,
 };

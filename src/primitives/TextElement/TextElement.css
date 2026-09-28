@@ -48,7 +48,8 @@
 .text-el--mark {
   padding-inline: var(--space-2xs);
   border-radius: var(--radius-sm);
-  background: var(--tone-soft, var(--c-primary-soft));
+  background: color-mix(in srgb, var(--tone-ink, var(--c-primary)) 34%, transparent);
+  box-shadow: inset 0 calc(-1 * var(--border-width-thin)) 0 color-mix(in srgb, var(--tone-ink, var(--c-primary)) 70%, transparent);
   color: inherit;
 }
 
@@ -71,7 +72,6 @@
 }
 
 .text-el--code,
-.text-el--kbd,
 .text-el--samp,
 .text-el--pre {
   font-family: var(--font-mono);
@@ -80,17 +80,10 @@
 .text-el--code,
 .text-el--samp {
   padding-inline: var(--space-2xs);
+  border: var(--border-width-thin) solid color-mix(in srgb, var(--c-lift) 18%, transparent);
   border-radius: var(--radius-sm);
-  background: var(--c-sunken);
-  font-size: var(--text-sm);
-}
-
-.text-el--kbd {
-  padding-inline: var(--space-2xs);
-  border: var(--border-width-thin) solid var(--c-border-strong);
-  border-bottom-width: var(--border-width-thick);
-  border-radius: var(--radius-sm);
-  background: var(--c-surface);
+  background: color-mix(in srgb, var(--c-lift) 10%, transparent);
+  color: color-mix(in oklab, var(--c-text), var(--c-lift) 35%);
   font-size: var(--text-sm);
 }
 
@@ -133,37 +126,30 @@
 
 .text-el--tone-primary {
   --tone-ink: var(--c-primary);
-  --tone-soft: var(--c-primary-soft);
 }
 
 .text-el--tone-secondary {
   --tone-ink: var(--c-secondary);
-  --tone-soft: var(--c-secondary-soft);
 }
 
 .text-el--tone-tertiary {
   --tone-ink: var(--c-tertiary);
-  --tone-soft: var(--c-tertiary-soft);
 }
 
 .text-el--tone-success {
   --tone-ink: var(--c-success);
-  --tone-soft: var(--c-success-soft);
 }
 
 .text-el--tone-warning {
   --tone-ink: var(--c-warning);
-  --tone-soft: var(--c-warning-soft);
 }
 
 .text-el--tone-danger {
   --tone-ink: var(--c-danger);
-  --tone-soft: var(--c-danger-soft);
 }
 
 .text-el--tone-info {
   --tone-ink: var(--c-info);
-  --tone-soft: var(--c-info-soft);
 }
 
 .text-el--toned {
@@ -172,4 +158,8 @@
 
 .text-el--toned.text-el--mark {
   color: inherit;
+}
+
+.text-el--toned.text-el--blockquote {
+  color: var(--c-text-dim);
 }

@@ -11,7 +11,7 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Highlight',
   element: Text.Mark,
-  description: 'Text marked for reference, like a search match, on a soft tint of the primary colour.',
+  description: 'Text marked for reference, like a search match, on a clear tint of the primary colour with an underline in the same ink.',
   text: 'Hook',
   context: <Text.P>Results for hook: the <Text.Mark>Hook</Text.Mark>shot sits in the swamp palace.</Text.P>,
 });

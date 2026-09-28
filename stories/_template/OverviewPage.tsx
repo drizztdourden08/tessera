@@ -1,6 +1,5 @@
 /* @layer stories @kind component */
-import { CodeBlock } from '../../src/composites';
-import { Box, Text } from '../../src/primitives';
+import { Box, CodeBlock, Text } from '../../src/primitives';
 import { OverviewPlayground } from './OverviewPlayground';
 import type { OverviewPlaygroundProps } from './OverviewPlayground';
 import type { ReactNode } from 'react';

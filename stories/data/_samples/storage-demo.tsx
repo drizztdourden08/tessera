@@ -1,9 +1,9 @@
 /* @layer stories @kind component */
 import { useMemo, useState } from 'react';
-import { CodeBlock, DataTable } from '../../../src/composites';
+import { DataTable } from '../../../src/composites';
 import { ViewStorageProvider, buildSchema } from '../../../src/data';
 import type { ViewKey, ViewSnapshot, ViewStorage } from '../../../src/data';
-import { Box, Button, Text } from '../../../src/primitives';
+import { Box, Button, CodeBlock, Text } from '../../../src/primitives';
 import { LOCATIONS, LOCATION_CONFIG } from './data-locations';
 import type { LocationRow } from './data-locations';
 

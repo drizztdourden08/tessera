@@ -4,11 +4,12 @@ import { ACCENT_TONES, QUIET_TONES, STATUS_TONES, TEXT_TONES } from '../TextElem
 const FREE_TEXT = ['weight', 'italic', 'opticalSize', 'features'] as const;
 const NUMBERS = ['features'] as const;
 const NONE = [] as const;
+const PRIMARY = ['primary'] as const;
 const MARKED = [...ACCENT_TONES, ...STATUS_TONES] as const;
 const IMPORTANT = ['primary', ...STATUS_TONES] as const;
 
 const TEXT_ELEMENT_SPECS = [
-  { name: 'Paragraph', short: 'P', tag: 'p', looks: FREE_TEXT, tones: TEXT_TONES },
+  { name: 'Paragraph', short: 'P', tag: 'p', looks: FREE_TEXT, tones: QUIET_TONES },
   { name: 'Span', short: 'Span', tag: 'span', looks: FREE_TEXT, tones: TEXT_TONES },
   { name: 'Strong', short: 'Strong', tag: 'strong', looks: NONE, tones: IMPORTANT },
   { name: 'Emphasis', short: 'Em', tag: 'em', looks: NONE, tones: NONE },
@@ -23,12 +24,10 @@ const TEXT_ELEMENT_SPECS = [
   { name: 'Subscript', short: 'Sub', tag: 'sub', looks: NONE, tones: NONE },
   { name: 'Superscript', short: 'Sup', tag: 'sup', looks: NONE, tones: NONE },
   { name: 'Code', short: 'Code', tag: 'code', looks: NONE, tones: NONE },
-  { name: 'Keyboard', short: 'Kbd', tag: 'kbd', looks: NONE, tones: NONE },
   { name: 'Sample', short: 'Samp', tag: 'samp', looks: NONE, tones: STATUS_TONES },
   { name: 'Variable', short: 'Var', tag: 'var', looks: NONE, tones: NONE },
   { name: 'Abbreviation', short: 'Abbr', tag: 'abbr', looks: NONE, tones: NONE },
-  { name: 'Citation', short: 'Cite', tag: 'cite', looks: NONE, tones: NONE },
-  { name: 'Quote', short: 'Q', tag: 'q', looks: NONE, tones: NONE },
+  { name: 'Citation', short: 'Cite', tag: 'cite', looks: NONE, tones: PRIMARY },
   { name: 'BlockQuote', short: 'Blockquote', tag: 'blockquote', looks: NONE, tones: MARKED },
   { name: 'Definition', short: 'Dfn', tag: 'dfn', looks: NONE, tones: NONE },
   { name: 'Time', short: 'Time', tag: 'time', looks: NUMBERS, tones: QUIET_TONES },

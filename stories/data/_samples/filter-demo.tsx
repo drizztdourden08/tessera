@@ -2,9 +2,8 @@
 import { useMemo } from 'react';
 import { buildSchema, compile, compileTextSearch, createClause } from '../../../src/data';
 import type { FilterClause } from '../../../src/data';
-import { CodeBlock } from '../../../src/composites';
 import '../../../src/composites/field-kits';
-import { Box, Text } from '../../../src/primitives';
+import { Box, CodeBlock, Text } from '../../../src/primitives';
 import { LOCATIONS, LOCATION_CONFIG } from './data-locations';
 
 type FilterDemoProps = {

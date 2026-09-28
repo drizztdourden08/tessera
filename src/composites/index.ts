@@ -1,10 +1,8 @@
 /* @layer renderer-components @kind barrel */
-export { CodeBlock } from './CodeBlock';
 export { PixelWordmark, buildPixelWordmark, PIXEL_FONT } from './PixelWordmark';
 export type {
   PixelGlyph, PixelWordmarkArt, PixelWordmarkColors, PixelWordmarkPath, PixelWordmarkProps, PixelWordmarkSize,
 } from './PixelWordmark';
-export type { CodeBlockLanguage, CodeBlockProps } from './CodeBlock';
 export { DataTable, FieldPicker } from './DataTable';
 export type {
   ColumnActions, ColumnDragBinding, DataTableProps, FieldPickerProps, IdRefDefaultResolver, IdRefDisplayResolver,
