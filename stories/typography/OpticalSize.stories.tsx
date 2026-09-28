@@ -36,7 +36,7 @@ const meta = {
 const OpticalSizes = {
   name: 'Optical size',
   render: () => (
-    <Box className="story-column type-section">
+    <Box className="story-column">
       <Text className="story-label">
         Inter's second axis. Small text gets looser spacing and sturdier details, display text gets tighter and finer. With auto, the browser picks it from the font size.
       </Text>
@@ -59,7 +59,7 @@ const OpticalSizes = {
 const Italic = {
   name: 'Italic',
   render: () => (
-    <Box className="story-column type-section">
+    <Box className="story-column">
       <Text className="story-label">A true italic, drawn as its own face with the same two axes, not a slanted roman.</Text>
       <Box className="variable-type__grid variable-type__grid--pair">
         <Text className="variable-type__head">Weight</Text>

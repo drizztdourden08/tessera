@@ -32,9 +32,9 @@ const meta = {
 const Swatches = {
   name: 'Swatches',
   render: () => (
-    <Box className="story-column colour-section">
+    <Box className="story-column">
       <Text className="story-label">
-        The only place a colour value is written (src/tokens/palette.css): the three accents, the whites and blacks, the urgency colours and ten tag colours. Only the three accents have palettes. Every palette and role is derived from these. They follow the look picked at the top of the menu.
+        The only place a colour value is written: the three accents, the whites and blacks, the urgency colours and ten tag colours. Only the three accents have palettes. Every palette and role is derived from these. They follow the look picked at the top of the menu.
       </Text>
       {SWATCH_GROUPS.map((group) => (
         <Box key={group} className="story-column">
@@ -50,7 +50,7 @@ const Swatches = {
 
 const Overview = overviewStory({
   component: 'Swatches',
-  description: 'The only place a colour value is written, src/tokens/palette.css: the three accents, the whites and blacks, the urgency colours and ten tag colours. Every palette and role is derived from these, and they follow the look picked at the top of the menu.',
+  description: 'The only place a colour value is written: the three accents, the whites and blacks, the urgency colours and ten tag colours. Every palette and role is derived from these, and they follow the look picked at the top of the menu.',
   variants: [Swatches],
 });
 

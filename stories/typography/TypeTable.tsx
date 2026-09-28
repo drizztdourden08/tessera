@@ -21,7 +21,6 @@ const Row = ({ entry, property, specimen }: { entry: TypeEntry; property: TypePr
       <Box as="td"><Text className="type-table__name">{entry.token}</Text></Box>
       <Box as="td"><Text className="type-table__value">{declared}</Text></Box>
       <Box as="td"><Text className={`type-table__specimen type-table__specimen--${property}`} style={style}>{specimen}</Text></Box>
-      <Box as="td"><Text className="type-table__use">{entry.use}</Text></Box>
     </Box>
   );
 };
@@ -36,7 +35,6 @@ const TypeTable = (props: TypeTableProps) => {
             <Box as="th">Token</Box>
             <Box as="th">Value</Box>
             <Box as="th">Specimen</Box>
-            <Box as="th">For</Box>
           </Box>
         </Box>
         <Box as="tbody">{entries.map((entry) => <Row key={entry.token} entry={entry} property={property} specimen={specimen} />)}</Box>

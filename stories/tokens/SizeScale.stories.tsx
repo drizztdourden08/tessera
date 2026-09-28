@@ -14,7 +14,7 @@ const Scale = {
   name: 'Size scale',
   render: () => (
     <Box className="story-column">
-      <Text className="story-label">The one size scale, src/tokens/scale.css. Spacing, radius, type, borders, shadows, fixed sizes and breakpoints are all steps of it, and nothing in between.</Text>
+      <Text className="story-label">The one size scale. Spacing, radius, type, borders, shadows, fixed sizes and breakpoints are all steps of it, and nothing in between.</Text>
       <TokenTable entries={SCALE} specimen="size" showStep={false} />
     </Box>
   ),
@@ -22,7 +22,7 @@ const Scale = {
 
 const Overview = overviewStory({
   component: 'Size scale',
-  description: 'The one size scale, src/tokens/scale.css. Spacing, radius, type, borders, shadows, fixed sizes and breakpoints are all steps of it, and nothing sits in between.',
+  description: 'The one size scale. Spacing, radius, type, borders, shadows, fixed sizes and breakpoints are all steps of it, and nothing sits in between.',
   variants: [Scale],
 });
 

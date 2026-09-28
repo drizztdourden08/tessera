@@ -1,6 +1,5 @@
 /* @layer stories @kind style */
 .story-column.role-page {
-  max-width: none;
   gap: var(--space-lg);
 }
 

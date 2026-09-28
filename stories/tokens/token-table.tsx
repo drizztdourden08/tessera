@@ -8,7 +8,6 @@ type TableSpecimen = 'size' | 'margin' | 'padding' | 'gap' | 'radius';
 
 interface TokenEntry {
   token: string;
-  use: string;
 }
 
 interface TokenTableProps {
@@ -49,7 +48,6 @@ const Row = ({ entry, specimen, showStep }: { entry: TokenEntry; specimen: Table
       <Box as="td"><Text className="token-table__value">{declared}</Text></Box>
       {showStep && <Box as="td"><Text className="token-table__value">{stepOf(declared)}</Text></Box>}
       <Box as="td"><Sample token={entry.token} specimen={specimen} /></Box>
-      <Box as="td"><Text>{entry.use}</Text></Box>
     </Box>
   );
 };
@@ -65,7 +63,6 @@ const TokenTable = (props: TokenTableProps) => {
             <Box as="th">Value</Box>
             {showStep && <Box as="th">Scale step</Box>}
             <Box as="th">Sample</Box>
-            <Box as="th">For</Box>
           </Box>
         </Box>
         <Box as="tbody">{entries.map((entry) => <Row key={entry.token} entry={entry} specimen={specimen} showStep={showStep} />)}</Box>

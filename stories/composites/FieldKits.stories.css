@@ -4,7 +4,6 @@
   grid-template-columns: max-content minmax(14rem, 22rem) minmax(10rem, 1fr);
   gap: var(--space-md) var(--space-lg);
   align-items: center;
-  max-width: 56rem;
 }
 
 .field-kits-story__row {

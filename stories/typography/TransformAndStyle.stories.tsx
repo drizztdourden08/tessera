@@ -15,7 +15,7 @@ const meta = {
 const TransformAndStyle = {
   name: 'Transform and style',
   render: () => (
-    <Box className="story-column type-section">
+    <Box className="story-column">
       <Text variant="subtitle">Case and style</Text>
       <Box className="type-table-wrap">
         <Box as="table" className="type-table">
@@ -23,7 +23,6 @@ const TransformAndStyle = {
             <Box as="tr">
               <Box as="th">Style</Box>
               <Box as="th">Specimen</Box>
-              <Box as="th">For</Box>
             </Box>
           </Box>
           <Box as="tbody">
@@ -31,7 +30,6 @@ const TransformAndStyle = {
               <Box as="tr" key={entry.label}>
                 <Box as="td"><Text className="type-table__name">{entry.label}</Text></Box>
                 <Box as="td"><Text className="type-table__specimen" style={entry.style}>{SPECIMEN}</Text></Box>
-                <Box as="td"><Text className="type-table__use">{entry.use}</Text></Box>
               </Box>
             ))}
           </Box>

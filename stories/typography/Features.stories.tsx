@@ -31,7 +31,7 @@ const meta = {
 const Gallery = {
   name: 'Gallery',
   render: () => (
-    <Box className="story-column type-section">
+    <Box className="story-column">
       <Text className="story-label">
         Every feature Inter ships, named as the font names it. Turn one on with the features prop on Text: {'<Text features={[\'slashedZero\']}>'}.
       </Text>

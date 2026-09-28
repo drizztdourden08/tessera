@@ -18,7 +18,6 @@ const Values = {
       {SIZE_GROUPS.map((group) => (
         <Box key={group.title} className="scale-section">
           <Text variant="subtitle">{group.title}</Text>
-          <Text className="story-label">{`src/tokens/${group.file}`}</Text>
           <TokenTable entries={group.entries} specimen="size" />
         </Box>
       ))}

@@ -13,8 +13,8 @@ const meta = {
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <Box className="story-column type-section">
-      <Text className="story-label">The type sizes, smallest to biggest. Each one is a step of the size scale. src/tokens/typography.css.</Text>
+    <Box className="story-column">
+      <Text className="story-label">The type sizes, smallest to biggest. Each one is a step of the size scale.</Text>
       <TypeTable entries={SIZES} property="fontSize" specimen={SPECIMEN} />
     </Box>
   ),
@@ -22,7 +22,7 @@ const Sizes = {
 
 const Overview = overviewStory({
   component: 'Sizes',
-  description: 'The type sizes, from --text-xs to the display steps, each a step of the size scale in src/tokens/typography.css. Text variants and component styles pick from these, so a size never comes from a raw pixel value.',
+  description: 'The type sizes, from --text-xs to the display steps, each a step of the size scale. Text variants and component styles pick from these, so a size never comes from a raw pixel value.',
   variants: [Sizes],
 });
 

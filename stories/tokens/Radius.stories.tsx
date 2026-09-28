@@ -14,7 +14,7 @@ const Values = {
   name: 'Radius',
   render: () => (
     <Box className="story-column">
-      <Text className="story-label">Every rounded corner takes a step of this one scale, src/tokens/radius.css.</Text>
+      <Text className="story-label">Every rounded corner takes a step of this one scale.</Text>
       <TokenTable entries={RADIUS} specimen="radius" />
     </Box>
   ),
@@ -22,7 +22,7 @@ const Values = {
 
 const Overview = overviewStory({
   component: 'Radius',
-  description: 'Corner rounding. Every rounded corner takes a step of this one scale, src/tokens/radius.css.',
+  description: 'Corner rounding. Every rounded corner takes a step of this one scale.',
   variants: [Values],
 });
 

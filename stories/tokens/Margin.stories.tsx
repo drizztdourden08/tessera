@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
-import { spacingFor } from './dimension-lists';
+import { SPACING } from './dimension-lists';
 import { TokenTable } from './token-table';
 
 const meta = {
@@ -14,15 +14,15 @@ const Values = {
   name: 'Margin',
   render: () => (
     <Box className="story-column">
-      <Text className="story-label">Margin takes a step of the one spacing scale, src/tokens/space.css, never a raw length.</Text>
-      <TokenTable entries={spacingFor('margin')} specimen="margin" />
+      <Text className="story-label">Margin takes a step of the one spacing scale, never a raw length.</Text>
+      <TokenTable entries={SPACING} specimen="margin" />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition;
 
 const Overview = overviewStory({
   component: 'Margin',
-  description: 'The space outside an element. Margin takes a step of the one spacing scale, src/tokens/space.css, never a raw length.',
+  description: 'The space outside an element. Margin takes a step of the one spacing scale, never a raw length.',
   variants: [Values],
 });
 

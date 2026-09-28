@@ -17,8 +17,8 @@ const meta = {
 const Fonts = {
   name: 'Fonts',
   render: () => (
-    <Box className="story-column type-section">
-      <Text className="story-label">The font stacks, src/tokens/typography.css. Every face ships in fonts/, so nothing is fetched from the network.</Text>
+    <Box className="story-column">
+      <Text className="story-label">The font stacks. Every face ships with Tessera, so nothing is fetched from the network.</Text>
       <TypeTable entries={FONTS} property="fontFamily" specimen={PANGRAM} />
     </Box>
   ),
@@ -27,7 +27,7 @@ const Fonts = {
 const TitleFace = {
   name: 'Title face',
   render: () => (
-    <Box className="story-column type-section">
+    <Box className="story-column">
       <Text className="story-label">Chakra Petch, --font-title. Cut corners and square counters for titles and headings, in four weights with italics.</Text>
       <Box className="title-face">
         <Text className="title-face__display">Archipelia</Text>
@@ -51,7 +51,7 @@ const TitleFace = {
 const GameFace = {
   name: 'Game face',
   render: () => (
-    <Box className="story-column type-section">
+    <Box className="story-column">
       <Text className="story-label">
         --font-game, the dialogue face modified for Relic of the Past: the 19 symbols on the second line were added on the face's own pixel grid. Shown at 16 and 32 pixels, whole multiples of its design size.
       </Text>
@@ -66,7 +66,7 @@ const GameFace = {
 
 const Overview = overviewStory({
   component: 'Fonts',
-  description: 'Every face Tessera sets text in, all shipped in fonts/ so nothing is fetched from the network. Inter (--font-sans) sets running text and controls, Chakra Petch (--font-title) sets titles and headings, and --font-mono and --font-game cover code and the game\'s dialogue face.',
+  description: 'Every face Tessera sets text in, all shipped with Tessera so nothing is fetched from the network. Inter (--font-sans) sets running text and controls, Chakra Petch (--font-title) sets titles and headings, and --font-mono and --font-game cover code and the game\'s dialogue face.',
   variants: [Fonts, TitleFace, GameFace],
 });
 

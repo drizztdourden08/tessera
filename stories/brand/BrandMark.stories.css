@@ -2,7 +2,6 @@
 .brand-family {
   display: grid;
   gap: var(--space-md);
-  max-width: 48rem;
 }
 
 .brand-family__card {

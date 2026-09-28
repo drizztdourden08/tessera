@@ -1,7 +1,4 @@
 /* @layer stories @kind style */
-.story-column.type-section {
-  max-width: 72rem;
-}
 
 .type-table-wrap {
   overflow-x: auto;
@@ -57,7 +54,3 @@
   font-size: var(--text-base);
 }
 
-.type-table__use {
-  color: var(--c-text-dim);
-  font-size: var(--text-sm);
-}

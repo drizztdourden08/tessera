@@ -1,7 +1,4 @@
 /* @layer stories @kind style */
-.story-column.colour-section {
-  max-width: 72rem;
-}
 
 .main-swatches {
   display: grid;

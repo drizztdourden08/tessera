@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   height: 24rem;
-  max-width: 52rem;
 }
 
 .server-log {

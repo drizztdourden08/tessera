@@ -27,7 +27,7 @@ const meta = {
 const Tokens = {
   name: 'Tokens',
   render: () => (
-    <Box className="story-column type-section">
+    <Box className="story-column">
       <Text className="story-label">Nine named weights. Inter is variable, so these are stops on a continuous axis, not separate files.</Text>
       <TypeTable entries={WEIGHTS} property="fontWeight" specimen={SPECIMEN} />
     </Box>
@@ -37,7 +37,7 @@ const Tokens = {
 const Continuous = {
   name: 'Continuous',
   render: () => (
-    <Box className="story-column type-section">
+    <Box className="story-column">
       <Text className="story-label">Every 50 units from 100 to 900, one per line. Any value in between works too, which is what Emphasis animates through.</Text>
       <WeightRamp from={100} to={900} step={50} word="Hookshot" />
     </Box>

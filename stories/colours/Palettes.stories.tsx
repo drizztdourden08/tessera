@@ -40,9 +40,9 @@ const meta = {
 const Palettes = {
   name: 'Palettes',
   render: () => (
-    <Box className="story-column colour-section">
+    <Box className="story-column">
       <Text className="story-label">
-        The three main colours as twelve steps each, palest to deepest, with the colour at 500: paler steps mix toward pure white, deeper ones toward pure black. Then the greys from pure white to pure black. src/tokens/ramps.css.
+        The three main colours as twelve steps each, palest to deepest, with the colour at 500: paler steps mix toward pure white, deeper ones toward pure black. Then the greys from pure white to pure black.
       </Text>
       {PALETTES.map((palette) => <PaletteRow key={palette.prefix} palette={palette} />)}
     </Box>
@@ -51,7 +51,7 @@ const Palettes = {
 
 const Overview = overviewStory({
   component: 'Palettes',
-  description: 'The three accents as twelve steps each, palest to deepest with the accent itself at 500, then the greys from pure white to pure black. Paler steps mix toward pure white and deeper ones toward pure black. src/tokens/ramps.css.',
+  description: 'The three accents as twelve steps each, palest to deepest with the accent itself at 500, then the greys from pure white to pure black. Paler steps mix toward pure white and deeper ones toward pure black.',
   variants: [Palettes],
 });
 

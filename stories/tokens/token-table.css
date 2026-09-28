@@ -1,7 +1,6 @@
 /* @layer stories @kind style */
 .token-table-wrap {
   overflow-x: auto;
-  max-inline-size: 60rem;
 }
 
 .token-table {
