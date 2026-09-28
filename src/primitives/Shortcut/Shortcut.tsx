@@ -1,0 +1,27 @@
+/* @layer renderer-components @kind component */
+import { Fragment } from 'react';
+import type { ReactNode } from 'react';
+import { keyFace } from './behavior/key-face';
+import { Keycap } from './sub-components/Keycap';
+import { MouseCap } from './sub-components/MouseCap';
+import type { ShortcutKey, ShortcutProps } from './Shortcut.type';
+import './Shortcut.css';
+
+const Shortcut = (props: ShortcutProps) => {
+  const { keys = [], mouse, legend = 'label', className, ...rest } = props;
+  const list: readonly ShortcutKey[] = typeof keys === 'string' ? [keys] : keys;
+  const caps: ReactNode[] = list.map((key) => <Keycap face={keyFace(key, legend)} />);
+  if (mouse) caps.push(<MouseCap button={mouse} />);
+  return (
+    <kbd className={className ? `shortcut ${className}` : 'shortcut'} {...rest}>
+      {caps.map((cap, index) => (
+        <Fragment key={index}>
+          {index > 0 ? <span className="shortcut__joiner">+</span> : null}
+          {cap}
+        </Fragment>
+      ))}
+    </kbd>
+  );
+};
+
+export { Shortcut };

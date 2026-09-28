@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind style */
-.keyboard {
+.shortcut {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
@@ -11,17 +11,17 @@
   font-weight: var(--weight-medium);
   line-height: 1;
   white-space: nowrap;
+  user-select: none;
 }
 
-.keyboard__joiner {
+.shortcut__joiner {
   color: var(--c-text-muted);
 }
 
-.keyboard__key {
+.shortcut__cap {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2xs);
   box-sizing: border-box;
   min-inline-size: var(--size-20);
   block-size: var(--size-20);
@@ -34,31 +34,34 @@
     inset 0 calc(var(--border-width-thick) * -1) 0 var(--c-border),
     0 var(--border-width-thin) 0 var(--c-border-strong);
   font: inherit;
+  user-select: none;
 }
 
-.keyboard__key--wide {
+.shortcut__cap--icon {
+  padding-inline: 0;
+}
+
+.shortcut__cap--wide {
   min-inline-size: var(--size-40);
 }
 
-.keyboard__key--space {
+.shortcut__cap--space {
   min-inline-size: var(--size-80);
 }
 
-.keyboard__key--mouse {
-  padding-inline: var(--space-2xs);
-}
-
-.keyboard__glyph {
+.shortcut__symbol {
   flex: none;
-  inline-size: auto;
-  block-size: var(--size-12);
-}
-
-.keyboard__key--mouse .keyboard__glyph {
+  inline-size: var(--size-14);
   block-size: var(--size-14);
 }
 
-.keyboard__spoken {
+.shortcut__mouse {
+  flex: none;
+  inline-size: var(--size-16);
+  block-size: var(--size-16);
+}
+
+.shortcut__spoken {
   position: absolute;
   inline-size: var(--size-1);
   block-size: var(--size-1);

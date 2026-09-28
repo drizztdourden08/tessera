@@ -62,6 +62,7 @@
   },
   "dependencies": {
     "@iconify-icons/lucide": "^1.2.136",
+    "@iconify-icons/ph": "^2.0.0",
     "@iconify/react": "^6.0.2",
     "@iconify/types": "^2.0.0",
     "prism-react-renderer": "^2.4.1",

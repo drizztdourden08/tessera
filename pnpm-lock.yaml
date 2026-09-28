@@ -11,6 +11,9 @@ importers:
       '@iconify-icons/lucide':
         specifier: ^1.2.136
         version: 1.2.136
+      '@iconify-icons/ph':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@iconify/react':
         specifier: ^6.0.2
         version: 6.0.2(react@19.3.0)
@@ -592,6 +595,9 @@ packages:
 
   '@iconify-icons/lucide@1.2.136':
     resolution: {integrity: sha512-g4ZLG+MioyIGnt7x+4AIxY4Dh+vEvRx+wrdi92gd5MzM/zpXWLi727/fiYnU+Qqqq05LFWq7IlCc0OSKXBBv2w==}
+
+  '@iconify-icons/ph@2.0.0':
+    resolution: {integrity: sha512-X2bxpVWpMUayUHTIZl5Ue4xk/2JWtyafCLPVXA4i0P0lUk75A4in7rdv4ZfjV2U67mK8yf/L7tRPPlG57pgW8Q==}
 
   '@iconify/react@6.0.2':
     resolution: {integrity: sha512-SMmC2sactfpJD427WJEDN6PMyznTFMhByK9yLW0gOTtnjzzbsi/Ke/XqsumsavFPwNiXs8jSiYeZTmLCLwO+Fg==}
@@ -4052,6 +4058,10 @@ snapshots:
   '@humanwhocodes/retry@0.4.3': {}
 
   '@iconify-icons/lucide@1.2.136':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-icons/ph@2.0.0':
     dependencies:
       '@iconify/types': 2.0.0
 

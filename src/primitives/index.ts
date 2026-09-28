@@ -8,7 +8,7 @@ export * from './text-elements';
 export * from './TextElement';
 export * from './Title';
 export { Quote, Quote as Q, type QuoteProps } from './Quote';
-export * from './Keyboard';
+export * from './Shortcut';
 export { CodeBlock } from './CodeBlock';
 export type { CodeBlockLanguage, CodeBlockProps } from './CodeBlock';
 export { Flex, type FlexProps, type SpaceToken, type FlexAlign, type FlexJustify } from './Flex';

@@ -65,3 +65,8 @@ Rules: `docs/coding-standards.md` and `docs/design-system.md`.
 - **Menu.** One folder per tier and group, like `Primitives · Inputs`, in the order of `.storylite/catalogue.constants.ts`. The home page shows the interactive logo and how to find your way; it does not repeat the menu.
 - **Adding a component.** Add its entry to the catalogue, write `stories/<tier>/<Name>.stories.tsx` with the title `<Tier> · <Group>/<Name>`, and put its controls (`args`, `argTypes`) on the stories whose render reads them, never on the file's `meta`: a control on `meta` shows up, dead, on every story in the file.
 - **Looks.** The logo buttons at the top of the menu redraw every story as Tessera's own greys, Relic of the Past or Archipelia. There is no light and dark switch: each look is shown on its dark ground.
+
+## Credits
+
+- Icons from [Lucide](https://lucide.dev) (ISC licence) and [Phosphor Icons](https://phosphoricons.com) (MIT licence, copyright Phosphor Icons). The Shortcut mouse buttons for the wheel tilt, wheel scroll arrows and side buttons are built from Phosphor's own shapes.
+- Fonts: Inter and Chakra Petch under the SIL Open Font License, and the game dialogue face under CC BY 3.0; each licence ships beside its font.

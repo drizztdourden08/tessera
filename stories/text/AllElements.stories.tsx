@@ -19,8 +19,8 @@ const All = {
         </Box>
       ))}
       <Box className="story-list__item">
-        <Text className="story-label">Text.Keyboard · Text.Kbd</Text>
-        <Box><Text.Kbd keys={['ctrl', 'S']} /></Box>
+        <Text className="story-label">Text.Shortcut · Text.Sc</Text>
+        <Box><Text.Sc keys="ctrl" mouse="left" /></Box>
       </Box>
       <Box className="story-list__item">
         <Text className="story-label">Text.Quote · Text.Q</Text>
