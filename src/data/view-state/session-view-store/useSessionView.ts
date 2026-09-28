@@ -11,7 +11,9 @@ const subscribe = (listener: () => void): (() => void) => {
   return () => { listeners.delete(listener); };
 };
 
-const useSessionView = (key: ViewKey | undefined): SessionView =>
-  useSyncExternalStore(subscribe, () => (key ? getSessionView(key) : DEFAULT_SESSION_VIEW));
+const useSessionView = (key: ViewKey | undefined): SessionView => {
+  const snapshot = () => (key ? getSessionView(key) : DEFAULT_SESSION_VIEW);
+  return useSyncExternalStore(subscribe, snapshot, snapshot);
+};
 
 export { useSessionView };

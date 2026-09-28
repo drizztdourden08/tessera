@@ -3,6 +3,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { PortalLayer, PortalProps } from './Portal.type';
 import { LAYERS } from './Portal.constants';
+import { useInBrowser } from './behavior/useInBrowser';
 
 
 const getPortalRoot = (): HTMLElement => {
@@ -38,11 +39,13 @@ const getLayerContainer = (layer: PortalLayer): HTMLElement => {
 const Portal = (props: PortalProps): React.ReactPortal | null => {
   const { layer, children } = props;
   const containerRef = useRef<HTMLElement | null>(null);
+  const inBrowser = useInBrowser();
 
   useLayoutEffect(() => {
     containerRef.current = getLayerContainer(layer);
   }, [layer]);
 
+  if (!inBrowser) return null;
   containerRef.current ??= getLayerContainer(layer);
 
   return createPortal(children, containerRef.current);

@@ -1,5 +1,5 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { ErrorBoundary } from '../../src/composites';
 import { Box, Button, StatRow, Text } from '../../src/primitives';
@@ -13,8 +13,11 @@ type BoundaryArgs = {
 
 type PresetSummaryProps = { fail: boolean; errorMessage: string };
 
+const subscribeNever = () => () => undefined;
+
 const PresetSummary = ({ fail, errorMessage }: PresetSummaryProps) => {
-  if (fail) throw new Error(errorMessage);
+  const inBrowser = useSyncExternalStore(subscribeNever, () => true, () => false);
+  if (fail && inBrowser) throw new Error(errorMessage);
   return (
     <Box className="story-column">
       <StatRow label="Preset" value="Casual" />

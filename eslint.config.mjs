@@ -11,6 +11,7 @@ const TOKEN_STORIES = [
 const SAMPLE_STORIES = ['stories/composites/_samples/data-widget-dock.tsx', 'stories/data/_samples/table-demo.tsx'];
 
 export default brockEslint({
+  ignores: ['dist-storylite/**'],
   primitivesGlobs: ['src/primitives/**/*.tsx'],
   defaultExportGlobs: ['.storylite/config.ts'],
   glyphContent: [

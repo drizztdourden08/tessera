@@ -28,6 +28,7 @@
     "src",
     "brand",
     "fonts",
+    "types",
     "README.md",
     "MIGRATION.md",
     "RENAMES.json"
