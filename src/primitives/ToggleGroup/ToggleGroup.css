@@ -13,6 +13,16 @@
   transition: color var(--transition-normal), background var(--transition-normal);
 }
 
+.toggle-group__btn:first-child {
+  border-start-start-radius: calc(var(--radius-md) - var(--border-width-thin));
+  border-end-start-radius: calc(var(--radius-md) - var(--border-width-thin));
+}
+
+.toggle-group__btn:last-child {
+  border-start-end-radius: calc(var(--radius-md) - var(--border-width-thin));
+  border-end-end-radius: calc(var(--radius-md) - var(--border-width-thin));
+}
+
 .toggle-group__btn + .toggle-group__btn {
   border-inline-start: var(--border-width-thin) solid var(--c-border);
 }
@@ -24,11 +34,30 @@
 
 .toggle-group__btn--active,
 .toggle-group__btn--active:hover:not(:disabled) {
+  z-index: var(--z-sticky);
   background: var(--c-primary-soft);
   color: var(--c-primary-bright);
 }
 
+.toggle-group__btn--active::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline: calc(-1 * var(--border-width-thin));
+  border: var(--border-width-thin) solid var(--c-primary);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.toggle-group__btn--active:first-child::after {
+  inset-inline-start: 0;
+}
+
+.toggle-group__btn--active:last-child::after {
+  inset-inline-end: 0;
+}
+
 .toggle-group__btn:disabled {
-  opacity: 0.4;
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
