@@ -1,9 +1,12 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Button, ButtonGroup, Icon, IconButton, Stack, Text } from '../../src/primitives';
+import { Box, Button, ButtonGroup, Icon, IconButton } from '../../src/primitives';
 import type { ButtonGroupOrientation, ButtonSize, ButtonVariant } from '../../src/primitives';
 import { LabelledRows } from '../_template/LabelledRows';
 import { overviewStory } from '../_template/overview-story';
+import { forceAttributes } from '../_template/states/force-attributes';
+import type { StateEntry, StateProps } from '../_template/states/states.type';
+import { BUTTON_STATES } from './_samples/button-states';
 
 type ButtonGroupArgs = {
   variant: ButtonVariant;
@@ -114,38 +117,40 @@ const Vertical = {
   ),
 } satisfies StoryLiteStoryDefinition<ButtonGroupArgs>;
 
-const WithDisabled = {
-  name: 'Mixed, with a disabled button',
+const Mixed = {
+  name: 'Mixed variants',
   render: () => (
-    <Stack gap="md">
-      <Text className="story-label">disabled in the middle</Text>
-      <ButtonGroup aria-label="Save state">
-        <Button variant="tertiary">Save</Button>
-        <Button variant="tertiary" disabled>Load</Button>
-        <Button variant="tertiary">Reset</Button>
-      </ButtonGroup>
-      <Text className="story-label">mixed variants</Text>
-      <ButtonGroup aria-label="Changes">
-        <Button variant="primary">Apply</Button>
-        <Button variant="tertiary">Preview</Button>
-        <Button variant="danger" disabled>Discard</Button>
-      </ButtonGroup>
-      <Text className="story-label">one pressed</Text>
-      <ButtonGroup aria-label="Overlays">
-        <Button variant="ghost" active>Grid</Button>
-        <Button variant="ghost">Labels</Button>
-        <Button variant="ghost">Doors</Button>
-      </ButtonGroup>
-    </Stack>
+    <ButtonGroup aria-label="Changes">
+      <Button variant="primary">Apply</Button>
+      <Button variant="tertiary">Preview</Button>
+      <Button variant="danger">Discard</Button>
+    </ButtonGroup>
   ),
 } satisfies StoryLiteStoryDefinition<ButtonGroupArgs>;
 
+const renderState = (middle: StateProps, pseudo?: StateEntry['pseudo']) => (
+  <ButtonGroup aria-label="Save state">
+    <Button variant="tertiary">Save</Button>
+    <Button variant="tertiary" {...forceAttributes(pseudo)} {...middle}>Load</Button>
+    <Button variant="tertiary">Reset</Button>
+  </ButtonGroup>
+);
+
+const middleState = (entry: StateEntry): StateEntry => ({
+  name: entry.name,
+  render: () => renderState(entry.props ?? {}, entry.pseudo),
+});
+
 const Overview = overviewStory({
   component: 'ButtonGroup',
-  description: 'Buttons joined into one control, for a few independent actions that belong together: save, load and reset, or undo and redo. It takes Button and IconButton children with no gap between them. Neighbours share one border and only the outer corners keep the button radius. A hovered, pressed or focused button rises above its neighbours, so its border and focus ring stay whole. Each button keeps its own variant, size and disabled state, and a ghost button gains a border inside a group. Orientation stacks the buttons in a column. Give the group an aria-label: it renders a group, and screen readers announce the label with the buttons. For one choice out of several, use SegmentedControl; for independent on and off settings, use ToggleGroup; for spaced buttons, use ButtonRow.',
+  description: 'Buttons joined into one control, for a few independent actions that belong together: save, load and reset, or undo and redo. It takes Button and IconButton children with no gap between them. Neighbours share one border and only the outer corners keep the button radius. A hovered, pressed or focused button rises above its neighbours, so its border and focus ring stay whole; the States show it on the middle button. Each button keeps its own variant, size and disabled state, and a ghost button gains a border inside a group. Orientation stacks the buttons in a column. Give the group an aria-label: it renders a group, and screen readers announce the label with the buttons. For one choice out of several, use SegmentedControl; for independent on and off settings, use ToggleGroup; for spaced buttons, use ButtonRow.',
   playground: Playground,
-  variants: [AllVariants, Sizes, WithIcons, Vertical, WithDisabled],
+  variants: [AllVariants, Sizes, WithIcons, Vertical, Mixed],
+  states: {
+    render: (props) => renderState(props),
+    list: BUTTON_STATES.map(middleState),
+  },
 });
 
 export default meta;
-export { AllVariants, Overview, Playground, Sizes, Vertical, WithDisabled, WithIcons };
+export { AllVariants, Mixed, Overview, Playground, Sizes, Vertical, WithIcons };

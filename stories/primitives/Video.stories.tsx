@@ -2,6 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Text, Video } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { LiveCanvasVideo } from './_samples/LiveCanvasVideo';
 import { TheaterPage } from './_samples/TheaterPage';
 import { VIDEO_CLIP, VIDEO_POSTER } from './_samples/video-clip';
@@ -62,26 +64,6 @@ const Playground = {
   )),
 } satisfies StoryLiteStoryDefinition<VideoArgs>;
 
-const WithPoster = {
-  name: 'With a poster',
-  render: () => (
-    <Box className="story-column">
-      <Text variant="subtitle">The poster and a large play button stand in until the first play.</Text>
-      <Video className="video-demo" src={VIDEO_CLIP} poster={VIDEO_POSTER} playsInline />
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<VideoArgs>;
-
-const PlayingMutedLoop = {
-  name: 'Playing, muted, on a loop',
-  render: () => (
-    <Box className="story-column">
-      <Text variant="subtitle">Starts on its own without sound. The bar fades after a moment and comes back on pointer move or focus.</Text>
-      <Video className="video-demo" src={VIDEO_CLIP} autoPlay muted loop playsInline label="Looping clip" />
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<VideoArgs>;
-
 const LiveStream = {
   name: 'Live stream',
   render: () => (
@@ -102,16 +84,6 @@ const TheaterMode = {
   ),
 } satisfies StoryLiteStoryDefinition<VideoArgs>;
 
-const BrokenSource = {
-  name: 'Broken source',
-  render: () => (
-    <Box className="story-column">
-      <Text variant="subtitle">A source that cannot be read shows the error message in place of the controls.</Text>
-      <Video className="video-demo" src={BROKEN_SOURCE} errorMessage="This replay could not be loaded." />
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<VideoArgs>;
-
 const NoControls = {
   name: 'No controls',
   render: () => (
@@ -122,15 +94,28 @@ const NoControls = {
   ),
 } satisfies StoryLiteStoryDefinition<VideoArgs>;
 
+const renderState = (props: StateProps) => (
+  <Video className="video-demo" src={VIDEO_CLIP} poster={VIDEO_POSTER} playsInline label="Replay" {...props} />
+);
+
 const Overview = overviewStory({
   component: 'Video',
-  description: 'A video player in the Tessera look, for replays, clips and live streams. It takes every native video attribute and a ref, and draws its own control bar in place of the browser one: play and pause, a seek bar with the buffered part and a time preview, the time, volume, playback speed, picture in picture, theater mode and full screen. Space or K plays and pauses, the arrows skip five seconds, M mutes, T toggles theater mode and F goes full screen. Theater mode works on its own, or a page can own it through theater and onTheaterChange. It shows a spinner while it waits for data and a message when the source fails. Set controls to false for a bare framed video.',
+  description: 'A video player in the Tessera look, for replays, clips and live streams. It takes every native video attribute and a ref, and draws its own control bar in place of the browser one: play and pause, a seek bar with the buffered part and a time preview, the time, volume, playback speed, picture in picture, theater mode and full screen. Space or K plays and pauses, the arrows skip five seconds, M mutes, T toggles theater mode and F goes full screen. Theater mode works on its own, or a page can own it through theater and onTheaterChange. A large play button sits over the poster until the first play, and the bar fades while the video plays and the pointer rests. It shows a spinner while it waits for data and a message when the source fails. Set controls to false for a bare framed video.',
   playground: Playground,
-  variants: [WithPoster, PlayingMutedLoop, TheaterMode, LiveStream, BrokenSource, NoControls],
+  variants: [TheaterMode, LiveStream, NoControls],
+  states: {
+    render: renderState,
+    list: [
+      { ...STATE.idle, name: 'Not started' },
+      { name: 'Playing', props: { poster: undefined, autoPlay: true, muted: true, loop: true } },
+      { name: 'Theater', props: { defaultTheater: true } },
+      { ...STATE.error, props: { src: BROKEN_SOURCE, poster: undefined, errorMessage: 'This replay could not be loaded.' } },
+    ],
+  },
   code: `import { Video } from '@drizztdourden08/tessera';
 
 <Video src={replayUrl} poster={posterUrl} label="Boss fight replay" playsInline />`,
 });
 
 export default meta;
-export { BrokenSource, LiveStream, NoControls, Overview, Playground, PlayingMutedLoop, TheaterMode, WithPoster };
+export { LiveStream, NoControls, Overview, Playground, TheaterMode };

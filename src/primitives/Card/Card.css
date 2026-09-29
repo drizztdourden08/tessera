@@ -17,6 +17,11 @@
   border-color: var(--c-primary);
 }
 
+.card--interactive:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thin);
+}
+
 .card--danger {
   border-color: var(--c-danger);
   background: var(--c-danger-dim);

@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { ConfirmIconButton, ListItemRow } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS } from './_samples/sessions';
 import type { SampleSession } from './_samples/sessions';
@@ -16,16 +18,6 @@ type ConfirmArgs = {
 };
 
 const trash = <Icon name={NAV_ICONS.trash} size={14} />;
-
-const CountingDemo = (props: ConfirmArgs) => {
-  const [count, setCount] = useState(0);
-  return (
-    <Box className="story-row">
-      <ConfirmIconButton {...props} icon={trash} onConfirm={() => setCount(count + 1)} />
-      <Text className="story-label">Confirmed {count} times</Text>
-    </Box>
-  );
-};
 
 const RowsDemo = (props: ConfirmArgs) => {
   const [rows, setRows] = useState<readonly SampleSession[]>(SESSIONS);
@@ -81,22 +73,6 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<ConfirmArgs>;
 
-const AllVariants = {
-  name: 'All variants',
-  render: () => (
-    <Box className="story-row">
-      <Box className="story-column">
-        <Text className="story-label">Resting</Text>
-        <CountingDemo label="Remove session" confirmLabel="Yes, remove it" cancelLabel="Keep it" disabled={false} />
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">Disabled</Text>
-        <CountingDemo label="Cannot remove a running session" confirmLabel="Yes, remove it" cancelLabel="Keep it" disabled />
-      </Box>
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<ConfirmArgs>;
-
 const InListRows = {
   name: 'In list rows',
   args: ARGS,
@@ -104,19 +80,24 @@ const InListRows = {
   render: (args) => <RowsDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<ConfirmArgs>;
 
-const Disabled = {
-  name: 'Disabled',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => <CountingDemo {...args} label="Cannot remove a running session" disabled />,
-} satisfies StoryLiteStoryDefinition<ConfirmArgs>;
+const renderState = (props: StateProps) => (
+  <ConfirmIconButton label="Remove session" confirmLabel="Yes, remove it" cancelLabel="Keep it" icon={trash} onConfirm={() => undefined} {...props} />
+);
 
 const Overview = overviewStory({
   component: 'ConfirmIconButton',
-  description: 'An icon action that asks before it runs. Reach for it on a row action that cannot be undone, such as removing an entry, where a dialog over the page would be too much. At rest it is one glyph; pressing it swaps in a red cancel and a green confirm, with focus on cancel. Escape backs out, and disabling it drops a pending question.',
+  description: 'An icon action that asks before it runs. Reach for it on a row action that cannot be undone, such as removing an entry, where a dialog over the page would be too much. At rest it is one glyph; pressing it swaps in a red cancel and a green confirm, with focus on cancel. Escape backs out, and disabling it drops a pending question. defaultArmed opens it on the question.',
   playground: Playground,
-  variants: [AllVariants],
+  variants: [InListRows],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { name: 'Armed', props: { defaultArmed: true } },
+      { ...STATE.disabled, props: { disabled: true, label: 'Cannot remove a running session' } },
+    ],
+  },
 });
 
 export default meta;
-export { AllVariants, Disabled, InListRows, Overview, Playground };
+export { InListRows, Overview, Playground };

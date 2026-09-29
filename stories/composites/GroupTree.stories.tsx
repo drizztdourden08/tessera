@@ -5,6 +5,8 @@ import { GroupTree, ListItemRow } from '../../src/composites';
 import type { TreeNode } from '../../src/composites';
 import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { EMPTY_TREE, FLAT_TREE, SERVER_TREE } from './_samples/sessions';
 import type { SamplePlayer } from './_samples/sessions';
 
@@ -86,24 +88,38 @@ const Flat = {
   render: (args) => <TreeDemo {...args} root={FLAT_TREE} />,
 } satisfies StoryLiteStoryDefinition<TreeArgs>;
 
-const Empty = {
-  name: 'Empty',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => <TreeDemo {...args} root={EMPTY_TREE} />,
-} satisfies StoryLiteStoryDefinition<TreeArgs>;
-
 const Controlled = {
   name: 'Controlled expansion',
   render: () => <ControlledDemo />,
 } satisfies StoryLiteStoryDefinition<TreeArgs>;
 
+const STATE_TREE: TreeNode<SamplePlayer> = { ...SERVER_TREE, children: SERVER_TREE.children.slice(1) };
+
+const renderState = (props: StateProps) => (
+  <GroupTree
+    root={props.empty === true ? EMPTY_TREE : STATE_TREE}
+    renderItems={renderPlayers}
+    expandToDepth={props.open === true ? 1 : 0}
+    emptyLabel="No players in this session yet."
+  />
+);
+
 const Overview = overviewStory({
   component: 'GroupTree',
   description: 'A tree of collapsible sections, nested to any depth, whose leaves the caller draws. Reach for it to group a long list, such as players by server and then by session. The tree owns the nesting, the section headers and which sections are open; renderItems draws the leaves, and a root with no children renders its items flat. expandToDepth opens the top levels on mount, expandedKeys with onToggleKey hands expansion to the caller, and an empty tree shows emptyLabel.',
   playground: Playground,
-  variants: [FullyExpanded, Flat, Empty],
+  variants: [FullyExpanded, Flat],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.group-tree__header' },
+      { ...STATE.focus, target: '.group-tree__header' },
+      { name: 'Empty', props: { empty: true } },
+      { ...STATE.open, name: 'Expanded' },
+    ],
+  },
 });
 
 export default meta;
-export { Controlled, Empty, Flat, FullyExpanded, Overview, Playground };
+export { Controlled, Flat, FullyExpanded, Overview, Playground };

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Stepper, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type StepperArgs = {
   min: number;
@@ -46,24 +48,40 @@ const Playground = {
   render: (args) => <StatefulStepper initial={4} caption="Players in the session" {...args} />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
-const States = {
-  name: 'States',
+const Values = {
+  name: 'Values',
   render: () => (
     <Box className="story-column">
       <StatefulStepper initial={1} min={1} max={20} caption="At the minimum" />
       <StatefulStepper initial={20} min={1} max={20} caption="At the maximum" />
       <StatefulStepper initial={25} min={0} max={100} step={5} caption="Steps of five, hint cost percent" />
       <StatefulStepper initial={Number.NaN} min={0} max={999} caption="Empty field" />
-      <StatefulStepper initial={8} min={1} max={20} caption="Disabled" disabled />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const Players = (props: { disabled?: boolean }) => {
+  const { disabled } = props;
+  const [value, setValue] = useState(4);
+  return <Stepper value={value} onChange={setValue} min={1} max={20} disabled={disabled} ariaLabel="Players in the session" />;
+};
+
+const renderState = (props: StateProps) => <Players disabled={props.disabled === true} />;
 
 const Overview = overviewStory({
   component: 'Stepper',
   description: 'A number field with a minus and a plus button on either side. Use it for small counts and amounts, such as players in a session or a percentage in steps of five. The buttons move the value by step and stop at min and max, and the field takes typed digits. An empty field reports NaN, and the whole control can be disabled.',
   playground: Playground,
-  variants: [States],
+  variants: [Values],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      STATE.hover,
+      { ...STATE.focus, target: '.stepper__field' },
+      STATE.disabled,
+    ],
+  },
   code: `import { useState } from 'react';
 import { Stepper } from '@drizztdourden08/tessera';
 
@@ -73,4 +91,4 @@ const [players, setPlayers] = useState(4);
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Overview, Playground, Values };

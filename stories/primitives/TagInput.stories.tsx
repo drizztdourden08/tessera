@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, namespacedTag, TagInput } from '../../src/primitives';
 import type { TagValidator } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { ValueReadout } from '../_template/ValueReadout';
 
 type TagInputArgs = {
@@ -88,8 +90,8 @@ const Playground = {
   render: (args) => <StatefulTags initial={['game:a-link-to-the-past', 'mode:open']} {...args} />,
 } satisfies StoryLiteStoryDefinition<TagInputArgs>;
 
-const States = {
-  name: 'States',
+const Validation = {
+  name: 'Validation',
   render: () => (
     <Box className="story-column">
       <StatefulTags initial={[]} label="Empty, any tag accepted" />
@@ -97,17 +99,46 @@ const States = {
       <StatefulTags initial={['game:super-metroid', 'speedrun']} label="namespacedTag: one tag flagged, still kept" namespaced />
       <StatefulTags initial={['mode:keysanity']} label="Enforced: a new tag must read namespace:value" namespaced enforce />
       <StatefulTags initial={['game:pokemon-red']} label="Custom check: lowercase only" validate={lowercaseOnly} />
-      <StatefulTags initial={['game:ocarina-of-time']} label="Server refused the last new tag" createError="That tag already exists under another name." />
-      <StatefulTags initial={['game:a-link-to-the-past', 'mode:swordless']} label="Disabled" disabled />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<TagInputArgs>;
 
+type SessionGamesProps = { initial: readonly string[]; open: boolean; createError?: string; disabled: boolean };
+
+const SessionGames = (props: SessionGamesProps) => {
+  const { initial, open, createError, disabled } = props;
+  const [value, setValue] = useState(initial);
+  return <TagInput value={value} onChange={setValue} suggestions={GAME_TAGS} validate={namespacedTag} createError={createError} defaultOpen={open} inline={open} disabled={disabled} />;
+};
+
+const FILLED: readonly string[] = ['game:a-link-to-the-past', 'mode:open'];
+
+const renderState = (props: StateProps) => (
+  <SessionGames
+    initial={props.filled === true ? FILLED : []}
+    open={props.open === true}
+    createError={typeof props.createError === 'string' ? props.createError : undefined}
+    disabled={props.disabled === true}
+  />
+);
+
 const Overview = overviewStory({
   component: 'TagInput',
-  description: 'A text field that collects a list of tags as chips, for labels such as games or modes on a record. Typing filters the suggestions first, and a value that is not there yet can still be added. Any tag is accepted unless validate passes a check: namespacedTag asks for namespace:value, and a tag that fails gets a hint but is kept, unless enforce is on, which refuses it. createError shows a refusal from the server.',
+  description: 'A text field that collects a list of tags as chips, for labels such as games or modes on a record. Typing filters the suggestions first, and a value that is not there yet can still be added. Any tag is accepted unless validate passes a check: namespacedTag asks for namespace:value, and a tag that fails gets a hint but is kept, unless enforce is on, which refuses it. createError shows a refusal from the server and draws the error look. defaultOpen starts with the suggestions open, and inline draws them right under the field, not as a floating panel.',
   playground: Playground,
-  variants: [States],
+  variants: [Validation],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.tag-input__field' },
+      { ...STATE.focus, target: '.tag-input__entry' },
+      { name: 'Filled', props: { filled: true } },
+      { ...STATE.open, pseudo: 'focus-visible', target: '.tag-input__entry', props: { open: true, filled: true } },
+      { ...STATE.error, props: { filled: true, createError: 'That tag already exists under another name.' } },
+      { ...STATE.disabled, props: { filled: true, disabled: true } },
+    ],
+  },
   code: `import { useState } from 'react';
 import { TagInput } from '@drizztdourden08/tessera';
 
@@ -122,4 +153,4 @@ const [tags, setTags] = useState<readonly string[]>(['mode:open']);
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Overview, Playground, Validation };

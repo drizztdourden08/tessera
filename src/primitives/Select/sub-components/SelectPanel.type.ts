@@ -5,6 +5,7 @@ import type { SelectGroup, SelectOption, SelectProps } from '../Select.type';
 interface SelectPanelProps {
   dropdown: SelectDropdown;
   searchable: boolean;
+  inline: boolean;
   value: string;
   groups?: SelectGroup[];
   allOptions: SelectOption[];

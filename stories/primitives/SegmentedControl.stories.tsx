@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, Glyph, SegmentedControl, Text } from '../../src/primitives';
 import type { SegmentOption } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type SegmentedControlArgs = {
   label: string;
@@ -75,18 +77,26 @@ const Playground = {
   render: (args) => <StatefulSegments<Scale> initial="2x" options={SCALES} {...args} />,
 } satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
 
-const States = {
-  name: 'States',
+const Kinds = {
+  name: 'Kinds',
   render: () => (
     <Box className="story-column">
-      <StatefulSegments<Scale> initial="1x" options={SCALES} label="Default" />
-      <StatefulSegments<Scale> initial="2x" options={WITH_LOCKED} label="One option disabled" />
-      <StatefulSegments<Scale> initial="fit" options={SCALES} label="Whole control disabled" disabled />
+      <StatefulSegments<Scale> initial="1x" options={SCALES} label="Text labels" />
       <StatefulSegments<Scale> initial="2x" options={SCALES} label="Deselectable" description="Click the active segment to clear it." deselectable />
       <StatefulSegments<Align> initial="center" options={ALIGN_ICONS} label="Icon labels with titles" />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
+
+const WindowScale = (props: { options: SegmentOption<Scale>[]; disabled: boolean }) => {
+  const { options, disabled } = props;
+  const [value, setValue] = useState<Scale>('2x');
+  return <SegmentedControl<Scale> value={value} options={options} onChange={setValue} disabled={disabled} />;
+};
+
+const renderState = (props: StateProps) => (
+  <WindowScale options={props.optionDisabled === true ? WITH_LOCKED : SCALES} disabled={props.disabled === true} />
+);
 
 const CODE = `import { useState } from 'react';
 import { SegmentedControl } from '@drizztdourden08/tessera';
@@ -108,9 +118,19 @@ const Overview = overviewStory({
   component: 'SegmentedControl',
   description: 'A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one. Reach for it for short settings where every choice fits on one line, like a scale or an alignment. Options can be text, or an icon with a title; one option or the whole control can be disabled, and onDeselect lets a second click on the active segment clear the value.',
   playground: Playground,
-  variants: [States],
+  variants: [Kinds],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.segmented__btn' },
+      { ...STATE.focus, target: '.segmented__btn' },
+      { name: 'One option disabled', props: { optionDisabled: true } },
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Kinds, Overview, Playground };

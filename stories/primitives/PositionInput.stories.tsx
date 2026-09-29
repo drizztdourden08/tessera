@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, PositionInput, Text } from '../../src/primitives';
 import type { PositionAxis, PositionValue } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type PositionInputArgs = {
   label: string;
@@ -69,8 +71,8 @@ const Playground = {
   render: (args) => <PlaygroundDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<PositionInputArgs>;
 
-const States = {
-  name: 'States',
+const Axes = {
+  name: 'Axes',
   render: () => (
     <Box className="story-column">
       <StatefulPosition initial={{ x: 0, y: 0 }} label="Open axes, no bounds" />
@@ -87,10 +89,17 @@ const States = {
         label="Custom axis captions"
       />
       <StatefulPosition initial={{ x: 0.5, y: 0.25 }} x={{ min: 0, max: 1, step: 0.05 }} y={{ min: 0, max: 1, step: 0.05 }} label="Fractional anchor" />
-      <StatefulPosition initial={{ x: 12, y: 30 }} label="Disabled" disabled />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<PositionInputArgs>;
+
+const SpawnTile = (props: { disabled: boolean }) => {
+  const { disabled } = props;
+  const [value, setValue] = useState({ x: 12, y: 30 });
+  return <PositionInput value={value} onChange={setValue} x={{ min: 0, max: 63 }} y={{ min: 0, max: 63 }} label="Spawn tile" disabled={disabled} />;
+};
+
+const renderState = (props: StateProps) => <SpawnTile disabled={props.disabled === true} />;
 
 const CODE = `import { useState } from 'react';
 import { PositionInput } from '@drizztdourden08/tessera';
@@ -109,9 +118,17 @@ const Overview = overviewStory({
   component: 'PositionInput',
   description: 'An x and y pair edited as one control, for a tile, a pixel position or an anchor point. Each axis takes its own min, max, step and caption, and an axis given nothing is open at both ends. onChange only ever fires with a valid pair: never NaN, never outside the bounds given.',
   playground: Playground,
-  variants: [States],
+  variants: [Axes],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.focus, target: '.number-input__field' },
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Axes, Overview, Playground };

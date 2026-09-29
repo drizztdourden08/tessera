@@ -55,9 +55,9 @@
   transition: border-color var(--transition-normal), background var(--transition-normal);
 }
 
-.radio-group__option:hover {
-  border-color: var(--c-border);
-  background: var(--c-surface);
+.radio-group__option:hover:not(.radio-group__option--active) {
+  border-color: var(--c-border-strong);
+  background: var(--c-hover);
 }
 
 .radio-group__option--active {

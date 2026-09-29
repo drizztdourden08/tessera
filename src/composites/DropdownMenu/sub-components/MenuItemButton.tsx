@@ -9,7 +9,7 @@ const MenuItemButton = (props: MenuItemButtonProps) => {
 
   return (
     <Pressable
-      className="dropdown__item"
+      className="dropdown__item focus-ring-inset"
       onClick={item.onClick}
       disabled={item.disabled}
     >

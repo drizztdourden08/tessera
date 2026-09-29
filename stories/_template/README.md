@@ -32,6 +32,7 @@ const Overview = overviewStory({
 - `pseudo`: an interaction state the gallery forces: `hover`, `focus`, `focus-visible`, `focus-within` or `active`, or a list of them.
 - `props`: real props merged into `render`, for states the component draws from its props.
 - `render`: an override for a row that needs more around the component, such as a Field that shows the error message.
+- `target`: a selector for the one element that takes the forced state, such as `.side-nav__item` for one nav item. Without it, the component's root element takes it.
 
 ### Ready-made entries
 
@@ -63,6 +64,8 @@ When the component names a prop differently, or the row needs a value to look ri
 
 ### How forcing works
 
-The States section rewrites the preview stylesheets once, then again each time a sheet is added or replaced. Every selector with `:hover`, `:focus`, `:focus-visible`, `:focus-within` or `:active` also matches inside an element whose `data-force-state` attribute lists that state. The rewrite keeps each selector's specificity, so a forced state wins or loses against other rules exactly as the real one does.
+The States section rewrites the preview stylesheets once, then again each time a sheet is added or replaced. Every selector with `:hover`, `:focus`, `:focus-visible`, `:focus-within` or `:active` also matches an element whose `data-force-state` attribute lists that state. The rewrite keeps each selector's specificity, so a forced state wins or loses against other rules exactly as the real one does.
 
-Everything inside a forced row counts as being in that state. Wrap one component per row, since a row holding a whole list would show every item hovered at once. Styles set from script on real pointer or focus events do not follow, since only stylesheet rules are rewritten.
+Each row marks one element, the way a real pointer or keyboard would: the component's root, or the element `target` names. The forced state then follows browser rules. Hover and active also hold on that element's ancestors, as a real hover does, and focus holds on the element with focus-within on its ancestors. Children never take the state, so a button inside a hovered row stays idle.
+
+To mark an element from the entry's own `render`, spread `forceAttributes` from `states/force-attributes.ts` on it: `<Button {...forceAttributes('hover')}>Load</Button>`. The element must pass unknown props through. Styles set from script on real pointer or focus events do not follow, since only stylesheet rules are rewritten.

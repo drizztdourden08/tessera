@@ -1,9 +1,10 @@
 /* @layer stories @kind logic */
-import { FORCE_ATTRIBUTE, FORCEABLE_PSEUDO } from './states.constants';
+import { FORCE_ATTRIBUTE, FORCEABLE_PSEUDO, HELD_BY_ANCESTORS } from './states.constants';
 
 const forcedMatch = (pseudo: string): string => {
-  const container = `[${FORCE_ATTRIBUTE}~="${pseudo.slice(1)}"]`;
-  return `:is(${pseudo}, ${container}, ${container} *)`;
+  const name = pseudo.slice(1);
+  const marked = `[${FORCE_ATTRIBUTE}~="${name}"]`;
+  return HELD_BY_ANCESTORS.includes(name) ? `:is(${pseudo}, ${marked}, :has(${marked}))` : `:is(${pseudo}, ${marked})`;
 };
 
 const forceSelector = (selector: string): string =>

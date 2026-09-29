@@ -5,6 +5,7 @@ interface SelectTriggerProps {
   dropdown: SelectDropdown;
   className: string;
   disabled: boolean;
+  invalid: boolean;
   selectedLabel?: string;
   placeholder: string;
   id?: string;

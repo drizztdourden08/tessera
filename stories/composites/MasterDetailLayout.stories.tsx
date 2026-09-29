@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { ListItemRow, MasterDetailLayout } from '../../src/composites';
 import { Badge, Box, EmptyState, Icon, StatRow, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS, STATUS_LABEL } from './_samples/sessions';
 import type { SampleSession } from './_samples/sessions';
@@ -73,12 +75,9 @@ const Playground = {
   render: (args) => <LayoutDemo key={String(args.startSelected)} {...args} />,
 } satisfies StoryLiteStoryDefinition<MasterDetailArgs>;
 
-const NothingSelected = {
-  name: 'Nothing selected',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => <LayoutDemo {...args} startSelected={false} />,
-} satisfies StoryLiteStoryDefinition<MasterDetailArgs>;
+const renderState = (props: StateProps) => (
+  <LayoutDemo startSelected={props.empty !== true} emptyMessage="Pick a session to see its details." />
+);
 
 const CODE = `import { EmptyState, ListItemRow, MasterDetailLayout } from '@drizztdourden08/tessera';
 
@@ -97,9 +96,16 @@ const Overview = overviewStory({
   component: 'MasterDetailLayout',
   description: 'A two-column layout: a scrolling list on the left and a detail panel on the right. Reach for it when the user picks one record from a list and reads or edits it beside the list. It is layout only: the caller fills both columns and owns the selection. detailEmpty centres the detail panel for a placeholder when nothing is picked.',
   playground: Playground,
-  variants: [NothingSelected],
+  variants: [],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { name: 'Nothing selected', props: { empty: true } },
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { NothingSelected, Overview, Playground };
+export { Overview, Playground };

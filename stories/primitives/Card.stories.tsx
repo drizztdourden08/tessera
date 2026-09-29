@@ -4,6 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Badge, Box, Button, ButtonRow, Card, Flex, Stack, Text } from '../../src/primitives';
 import type { CardProps } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
 
 type CardVariant = NonNullable<CardProps['variant']>;
 
@@ -106,11 +107,28 @@ const Interactive = {
   render: () => <SessionPickerDemo />,
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
+const renderState = () => (
+  <Card variant="interactive" tabIndex={0}>
+    <Stack gap="xs">
+      <Text variant="title">{SAMPLES.interactive.title}</Text>
+      <Text variant="subtitle">{SAMPLES.interactive.body}</Text>
+    </Stack>
+  </Card>
+);
+
 const Overview = overviewStory({
   component: 'Card',
-  description: 'A bordered surface that groups related content: a summary, a list entry, a settings block. Default is the plain panel. Interactive is for a card clicked as a whole: it shows a pointer and lights its border on hover. Danger frames a destructive choice in the danger colour. It sets no inner layout, so a Stack or Flex inside arranges the content, and every div prop, click handlers included, passes through.',
+  description: 'A bordered surface that groups related content: a summary, a list entry, a settings block. Default is the plain panel. Interactive is for a card clicked as a whole: it shows a pointer, lights its border on hover and draws a focus ring when it takes keyboard focus, so give it a tabIndex and a role when it acts as a button. Danger frames a destructive choice in the danger colour. It sets no inner layout, so a Stack or Flex inside arranges the content, and every div prop, click handlers included, passes through.',
   playground: Playground,
   variants: [AllVariants],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      STATE.hover,
+      STATE.focus,
+    ],
+  },
 });
 
 export default meta;

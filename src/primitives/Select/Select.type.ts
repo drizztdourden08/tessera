@@ -19,7 +19,10 @@ interface SelectProps {
   groups?: SelectGroup[];
   placeholder?: string;
   disabled?: boolean;
+  invalid?: boolean;
   searchable?: boolean;
+  defaultOpen?: boolean;
+  inline?: boolean;
   size?: 'md' | 'sm';
   className?: string;
   renderOption?: (option: SelectOption, isSelected: boolean) => ReactNode;

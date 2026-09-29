@@ -2,8 +2,11 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { RecordEditor } from '../../src/composites';
+import type { SchemaConfig } from '../../src/data';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { PLAYERS, PLAYER_CONFIG, PLAYER_SCHEMA } from './_samples/data-players';
 import type { PlayerRow } from './_samples/data-players';
 import {
@@ -83,14 +86,22 @@ const Playground = {
   render: (args) => <EditorDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<RecordEditorArgs>;
 
-const ReadOnly = {
-  name: 'Read only',
-  render: () => (
-    <Box className="story-column">
-      <RecordEditor record={PLAYERS[4]} schema={PLAYER_SCHEMA} config={PLAYER_CONFIG} />
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<RecordEditorArgs>;
+const STATE_PATHS: string[] = ['status', 'checked', 'total'];
+const STATE_SCHEMA = PLAYER_SCHEMA.filter((field) => STATE_PATHS.includes(field.path));
+const STATE_CONFIG: SchemaConfig = { groups: [{ id: 'progress', label: 'Progress', paths: STATE_PATHS }] };
+const CHANGED_ELSEWHERE: readonly string[] = ['checked'];
+const saveNothing = () => Promise.resolve();
+
+const renderState = (props: StateProps) => (
+  <RecordEditor
+    record={PLAYERS[0]}
+    schema={STATE_SCHEMA}
+    config={STATE_CONFIG}
+    onSave={props.readOnly === true ? undefined : saveNothing}
+    disabled={props.disabled === true}
+    changedPaths={props.changed === true ? CHANGED_ELSEWHERE : undefined}
+  />
+);
 
 const CODE = `import { RecordEditor } from '@drizztdourden08/tessera';
 
@@ -105,9 +116,18 @@ const Overview = overviewStory({
   component: 'RecordEditor',
   description: 'A form built from a schema for one record, with the layout worked out from the fields. Reach for it to edit or inspect any record the app stores, such as a player slot. With onSave it tracks edits, marks dirty fields and offers Save and Revert, and a failed save shows its error; without onSave every control renders disabled and there is no footer. Given the lookups, it also marks fields another source changed, lists what still points at the record, and turns reference fields into searchable pickers.',
   playground: Playground,
-  variants: [ReadOnly],
+  variants: [],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { name: 'Changed elsewhere', props: { changed: true } },
+      STATE.readOnly,
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, ReadOnly };
+export { Overview, Playground };

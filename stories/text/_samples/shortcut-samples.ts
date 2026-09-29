@@ -60,18 +60,8 @@ const ANIMATED_ROWS: readonly ShortcutRow[] = [
   { keys: ['shift', 'alt'], mouse: 'right', legend: 'symbol', animate: true },
 ];
 
-const STATE_ROWS: readonly ShortcutRow[] = [
-  { keys: ['ctrl', 'S'], state: 'idle' },
-  { keys: ['ctrl', 'S'], state: 'lit' },
-  { keys: ['ctrl', 'S'], state: 'pressed' },
-  { mouse: 'left', state: 'idle' },
-  { mouse: 'left', state: 'lit' },
-  { mouse: 'left', state: 'pressed' },
-  { keys: 'ctrl', mouse: 'right', state: 'pressed' },
-];
-
 export {
   ANIMATED_ROWS, CAP_WIDTH_ROWS, COMBINATION_ROWS, KEYS_AND_MOUSE_ROWS, legendsOf, MOUSE_BUTTONS,
-  MULTI_LEGEND_KEYS, PRINTABLE_KEYS, STATE_ROWS,
+  MULTI_LEGEND_KEYS, PRINTABLE_KEYS,
 };
 export type { ShortcutRow };

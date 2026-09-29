@@ -28,6 +28,8 @@ interface TagInputProps {
   disabled?: boolean;
   label?: string;
   maxSuggestions?: number;
+  defaultOpen?: boolean;
+  inline?: boolean;
   className?: string;
   id?: string;
 }
@@ -47,6 +49,7 @@ interface TagSuggestionPanelProps {
   suggestions: readonly string[];
   highlightIdx: number;
   createText: string | null;
+  inline: boolean;
   onPick: (tag: string) => void;
 }
 

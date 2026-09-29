@@ -68,6 +68,10 @@
   transition: background var(--transition-normal), border-color var(--transition-normal);
 }
 
+.toggle:hover .toggle__input:not(:checked) + .toggle__track {
+  border-color: var(--c-border-strong);
+}
+
 .toggle__input:checked + .toggle__track {
   background: var(--c-primary);
   border-color: var(--c-primary-bright);

@@ -5,6 +5,8 @@ import { HeaderTabs, WindowHeader } from '../../src/composites';
 import type { HeaderTabItem } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import type { StateProps } from '../_template/states/states.type';
+import { navItemStates } from './_samples/nav-states';
 import { SESSION_TABS } from './_samples/nav';
 
 type HeaderTabsArgs = {
@@ -76,6 +78,12 @@ const InWindowHeader = {
   render: (args) => <InHeaderDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<HeaderTabsArgs>;
 
+const STATE_TABS: readonly HeaderTabItem[] = [{ id: 'players', label: 'Players', badge: 8 }];
+
+const renderState = (props: StateProps) => (
+  <HeaderTabs items={STATE_TABS} activeId={props.selected === true ? 'players' : ''} onSelect={() => undefined} ariaLabel="Session sections" />
+);
+
 const CODE = `import { HeaderTabs } from '@drizztdourden08/tessera';
 
 const [active, setActive] = useState('players');
@@ -95,6 +103,10 @@ const Overview = overviewStory({
   description: 'The strip of pill tabs a page header carries beside its title, with the active pill in gold. Reach for it to jump between the sections of a page or to switch between views of the same data. Each tab can carry a count badge, and the strip wraps onto more lines when the header is narrow. It holds no state: the host passes the active id and handles the pick.',
   playground: Playground,
   variants: [ViewSwitch, InWindowHeader],
+  states: {
+    render: renderState,
+    list: navItemStates('.header-tabs__tab'),
+  },
   code: CODE,
 });
 

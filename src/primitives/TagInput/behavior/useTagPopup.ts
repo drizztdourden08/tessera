@@ -10,8 +10,8 @@ const tagPanelPositionFor = (rect: DOMRect, view: Window) =>
     minPanelWidth: MIN_PANEL_WIDTH,
   }, view);
 
-const useTagPopup = (disabled: boolean) => {
-  const [open, setOpen] = useState(false);
+const useTagPopup = (disabled: boolean, defaultOpen: boolean, inline: boolean) => {
+  const [open, setOpen] = useState(defaultOpen);
   const anchorRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -22,7 +22,7 @@ const useTagPopup = (disabled: boolean) => {
   const handleClose = useCallback(() => setOpen(false), []);
 
   const { position } = useAnchorTracking({
-    active: open,
+    active: open && !inline,
     anchorRef,
     compute: tagPanelPositionFor,
     onOutOfView: handleClose,

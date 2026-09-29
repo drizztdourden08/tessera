@@ -1,9 +1,11 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, RadioGroup } from '../../src/primitives';
 import type { RadioOption } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { ValueReadout } from '../_template/ValueReadout';
 
 type Direction = 'horizontal' | 'vertical';
@@ -67,19 +69,27 @@ const Playground = {
   render: (args) => <StatefulRadio name="radio-playground" {...args} />,
 } satisfies StoryLiteStoryDefinition<RadioGroupArgs>;
 
-const States = {
-  name: 'States',
+const Layouts = {
+  name: 'Layouts',
   render: () => (
     <Box className="story-column">
       <StatefulRadio name="radio-horizontal" options={SHORT} label="Horizontal" direction="horizontal" />
       <StatefulRadio name="radio-vertical" label="Vertical, with option descriptions" direction="vertical" />
-      <StatefulRadio name="radio-disabled" options={SHORT} label="Disabled" direction="horizontal" disabled />
       <StatefulRadio name="radio-bare" options={SHORT} direction="horizontal" />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<RadioGroupArgs>;
 
-const CODE = `import { useState } from 'react';
+const DifficultyPick = (props: { disabled: boolean }) => {
+  const { disabled } = props;
+  const name = useId();
+  const [value, setValue] = useState<Difficulty>('normal');
+  return <RadioGroup name={name} value={value} options={SHORT} onChange={setValue} direction="horizontal" disabled={disabled} />;
+};
+
+const renderState = (props: StateProps) => <DifficultyPick disabled={props.disabled === true} />;
+
+const CODE = `import { useId, useState } from 'react';
 import { RadioGroup } from '@drizztdourden08/tessera';
 
 const [difficulty, setDifficulty] = useState('normal');
@@ -100,9 +110,18 @@ const Overview = overviewStory({
   component: 'RadioGroup',
   description: 'A set of options where exactly one is picked, all of them in view. Reach for it when there are few choices and each may need its own line of description. It lays out horizontally or vertically, takes a group label and description, and can be disabled as a whole.',
   playground: Playground,
-  variants: [States],
+  variants: [Layouts],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.radio-group__option' },
+      { ...STATE.focus, target: '.radio-group__option--active .radio-group__input' },
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Layouts, Overview, Playground };

@@ -23,6 +23,7 @@ interface DropdownMenuProps {
   anchorRef?: RefObject<HTMLElement | null>;
   side?: MenuSide;
   align?: MenuAlign;
+  inline?: boolean;
 }
 
 export type { DropdownMenuProps, MenuAlign, MenuEntry, MenuItem, MenuSide };

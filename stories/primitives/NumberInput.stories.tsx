@@ -1,8 +1,10 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, NumberInput, Text } from '../../src/primitives';
+import { Box, Field, NumberInput, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type NumberInputArgs = {
   min: number;
@@ -58,8 +60,8 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<NumberInputArgs>;
 
-const States = {
-  name: 'States',
+const Sizing = {
+  name: 'Sizing',
   render: () => (
     <Box className="story-column">
       <Text className="story-label">sized to max 100</Text>
@@ -70,11 +72,25 @@ const States = {
       <StatefulNumber initial={1.5} min={0.25} max={10} step={0.25} sizeToContent />
       <Text className="story-label">fills the row</Text>
       <StatefulNumber initial={3} min={1} max={8} />
-      <Text className="story-label">disabled</Text>
-      <StatefulNumber initial={50} min={0} max={100} disabled sizeToContent />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<NumberInputArgs>;
+
+const HintCost = (props: { initial: number; disabled?: boolean }) => {
+  const { initial, disabled } = props;
+  const [value, setValue] = useState(initial);
+  return (
+    <NumberInput value={Number.isNaN(value) ? '' : value} min={0} max={100} step={5} sizeToContent disabled={disabled} onChange={setValue} />
+  );
+};
+
+const renderState = (props: StateProps) => <HintCost initial={25} disabled={props.disabled === true} />;
+
+const renderError = () => (
+  <Field error="The cost tops out at 100.">
+    <HintCost initial={150} />
+  </Field>
+);
 
 const CODE = `import { useState } from 'react';
 import { NumberInput } from '@drizztdourden08/tessera';
@@ -85,11 +101,21 @@ const [cost, setCost] = useState(25);
 
 const Overview = overviewStory({
   component: 'NumberInput',
-  description: 'A number field with its own step up and step down buttons. Use it for a count, a cost or a speed, where typing a value and nudging it both make sense. The buttons move by step and stop at min and max, onChange hands back a number (NaN when the field is cleared), and sizeToContent narrows the field to the widest value max allows.',
+  description: 'A number field with its own step up and step down buttons. Use it for a count, a cost or a speed, where typing a value and nudging it both make sense. The buttons move by step and stop at min and max, onChange hands back a number (NaN when the field is cleared), sizeToContent narrows the field to the widest value max allows, and invalid, or a Field with an error, draws the error look.',
   playground: Playground,
-  variants: [States],
+  variants: [Sizing],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      STATE.hover,
+      { ...STATE.focus, target: '.number-input__field' },
+      { ...STATE.error, render: renderError },
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Overview, Playground, Sizing };

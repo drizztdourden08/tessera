@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, Button, Image } from '../../src/primitives';
 import { LabelledRows } from '../_template/LabelledRows';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import './Image.stories.css';
 
 type Picture = 'valley' | 'dusk' | 'broken' | 'on its way' | 'none';
@@ -85,31 +87,9 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<ImageArgs>;
 
-const STATES = ['loaded', 'loading', 'broken', 'no source'] as const;
-
-const STATE_SOURCES: Record<(typeof STATES)[number], string | undefined> = {
-  loaded: DUSK_URI,
-  loading: undefined,
-  broken: BROKEN_URI,
-  'no source': undefined,
-};
-
-const States = {
-  name: 'Loaded, loading, broken and empty',
-  render: () => (
-    <LabelledRows
-      items={STATES}
-      render={(state) => (
-        <Image
-          className="image-demo"
-          src={STATE_SOURCES[state]}
-          pending={state === 'loading'}
-          alt="Screenshot of the ridge at dusk"
-        />
-      )}
-    />
-  ),
-} satisfies StoryLiteStoryDefinition<ImageArgs>;
+const renderState = (props: StateProps) => (
+  <Image className="image-demo" src={DUSK_URI} alt="Screenshot of the ridge at dusk" {...props} />
+);
 
 const Arrival = () => {
   const [arrived, setArrived] = useState(false);
@@ -179,8 +159,17 @@ const Overview = overviewStory({
   component: 'Image',
   description: 'The image element of the design system, with every img attribute passed through. It holds the box the picture will take, from width and height, an aspect ratio, or 16 / 9 by default, so the layout never jumps. While the source loads it draws a picture outline that pulses, and a source that fails shows the same outline in the danger colour with a cross. A fallback node replaces the outline when the source fails or is missing. pending marks a source that is still on its way.',
   playground: Playground,
-  variants: [States, SlowSource, WithFallback, Sizes],
+  variants: [SlowSource, WithFallback, Sizes],
+  states: {
+    render: renderState,
+    list: [
+      { name: 'Loaded' },
+      { name: 'Empty', props: { src: undefined } },
+      { ...STATE.loading, props: { src: undefined, pending: true } },
+      { ...STATE.error, name: 'Broken', props: { src: BROKEN_URI } },
+    ],
+  },
 });
 
 export default meta;
-export { Overview, Playground, Sizes, SlowSource, States, WithFallback };
+export { Overview, Playground, Sizes, SlowSource, WithFallback };

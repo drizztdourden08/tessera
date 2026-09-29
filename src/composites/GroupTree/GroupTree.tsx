@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { Box } from '../../primitives';
 import { GroupSection } from './sub-components/GroupSection';
 import type { GroupTreeProps } from './GroupTree.type';
+import '../../theme/focus-ring.css';
 import './GroupTree.css';
 
 const GroupTree = <T,>(props: GroupTreeProps<T>) => {

@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { ErrorBoundary } from '../../src/composites';
 import { Box, Button, StatRow, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type BoundaryArgs = {
   label: string;
@@ -79,17 +81,6 @@ const Recoverable = {
   render: (args) => <RecoverDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<BoundaryArgs>;
 
-const Healthy = {
-  name: 'Healthy children',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => (
-    <ErrorBoundary label={args.label}>
-      <PresetSummary fail={false} errorMessage={args.errorMessage} />
-    </ErrorBoundary>
-  ),
-} satisfies StoryLiteStoryDefinition<BoundaryArgs>;
-
 const DefaultLabel = {
   name: 'Default label',
   args: ARGS,
@@ -101,12 +92,25 @@ const DefaultLabel = {
   ),
 } satisfies StoryLiteStoryDefinition<BoundaryArgs>;
 
+const renderState = (props: StateProps) => (
+  <ErrorBoundary label={ARGS.label}>
+    <PresetSummary fail={props.invalid === true} errorMessage={ARGS.errorMessage ?? ''} />
+  </ErrorBoundary>
+);
+
 const Overview = overviewStory({
   component: 'ErrorBoundary',
   description: 'A fence around a section that might throw while it renders. Wrap any part of a page that reads data it does not control, so one broken section never takes the page down with it. Healthy children render untouched; a thrown error shows as an inline notice in their place, with a headline, the error message and an optional action. A changed reset key drops the error and renders the children again.',
   playground: Playground,
-  variants: [Healthy, DefaultLabel],
+  variants: [DefaultLabel],
+  states: {
+    render: renderState,
+    list: [
+      { ...STATE.idle, name: 'Healthy' },
+      STATE.error,
+    ],
+  },
 });
 
 export default meta;
-export { DefaultLabel, Healthy, Overview, Playground, Recoverable };
+export { DefaultLabel, Overview, Playground, Recoverable };

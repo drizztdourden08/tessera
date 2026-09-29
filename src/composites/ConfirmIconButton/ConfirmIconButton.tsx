@@ -20,8 +20,9 @@ const strokeIcon = (path: string) => (
 );
 
 const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
-  const { icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, className = '' } = props;
-  const [armed, setArmed] = useState(false);
+  const { icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, defaultArmed = false, className = '' } = props;
+  const [armed, setArmed] = useState(defaultArmed && !disabled);
+  const [asked, setAsked] = useState(false);
 
   useEffect(() => {
     if (disabled) setArmed(false);
@@ -32,6 +33,11 @@ const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
     onConfirm();
   }, [onConfirm]);
 
+  const handleArm = useCallback(() => {
+    setAsked(true);
+    setArmed(true);
+  }, []);
+
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (event.key !== 'Escape') return;
     event.stopPropagation();
@@ -41,14 +47,14 @@ const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   return (
     <Box className={`confirm-icon-btn ${className}`} onKeyDown={handleKeyDown}>
       {!armed && (
-        <IconButton label={label} title={label} disabled={disabled} onClick={() => setArmed(true)}>
+        <IconButton label={label} title={label} disabled={disabled} onClick={handleArm}>
           {icon}
         </IconButton>
       )}
       {armed && (
         <>
           <IconButton
-            autoFocus
+            autoFocus={asked}
             variant="danger"
             label={cancelLabel}
             title={cancelLabel}

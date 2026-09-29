@@ -4,6 +4,8 @@ import { ListItemRow, SplitPane } from '../../src/composites';
 import type { CollapsedSide } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { ITEM_LOG, PLAYERS } from './_samples/sessions';
 import './SplitPane.stories.css';
 
@@ -72,19 +74,24 @@ const Playground = {
   render: (args) => <SplitDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<SplitArgs>;
 
-const StartCollapsed = {
-  name: 'Start pane collapsed',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => <SplitDemo {...args} defaultCollapsed="start" />,
-} satisfies StoryLiteStoryDefinition<SplitArgs>;
-
 const EvenSplit = {
   name: 'Even split',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <SplitDemo {...args} defaultRatio={0.5} />,
 } satisfies StoryLiteStoryDefinition<SplitArgs>;
+
+const renderState = (props: StateProps) => (
+  <Box className="story-frame split-pane-story__state">
+    <SplitPane
+      start={<Text className="story-label">Players</Text>}
+      end={<Text className="story-label">Item log</Text>}
+      startLabel="players"
+      endLabel="item log"
+      defaultCollapsed={props.collapsed === true ? 'start' : 'none'}
+    />
+  </Box>
+);
 
 const CODE = `import { SplitPane } from '@drizztdourden08/tessera';
 
@@ -100,9 +107,19 @@ const Overview = overviewStory({
   component: 'SplitPane',
   description: 'Two panes side by side with a divider the user drags to resize them. Reach for it when two views share a width and either may need the room, such as a player list beside an item log. Dragging a pane below the snap point hides it and leaves a labelled rail that brings it back on a click or a drag; the divider also takes the arrow keys, and a double-click resets it. It fills the height of its parent, so the parent needs one.',
   playground: Playground,
-  variants: [StartCollapsed, EvenSplit],
+  variants: [EvenSplit],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.split-pane__divider' },
+      { ...STATE.focus, target: '.split-pane__divider' },
+      { ...STATE.active, name: 'Dragging', target: '.split-pane__divider' },
+      { name: 'Collapsed', props: { collapsed: true } },
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { EvenSplit, Overview, Playground, StartCollapsed };
+export { EvenSplit, Overview, Playground };

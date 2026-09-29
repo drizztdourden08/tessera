@@ -9,7 +9,7 @@ const GroupTitle = (props: GroupTitleProps) => {
   if (id === undefined) return <Text className="side-nav__group-title">{title}</Text>;
   return (
     <Pressable
-      className={`side-nav__group-title side-nav__group-title--action${id === activeId ? ' side-nav__group-title--active' : ''}`}
+      className={`side-nav__group-title side-nav__group-title--action focus-ring-inset${id === activeId ? ' side-nav__group-title--active' : ''}`}
       onClick={() => onSelect(id)}
     >
       {title}

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Slider } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { ValueReadout } from '../_template/ValueReadout';
 
 type SliderArgs = {
@@ -74,19 +76,25 @@ const Playground = {
   render: (args) => <StatefulSlider initial={25} format={percent} {...args} />,
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
-const States = {
-  name: 'States',
+const Kinds = {
+  name: 'Kinds',
   render: () => (
     <Box className="story-column">
       <StatefulSlider initial={40} label="Hint cost" format={percent} step={5} />
       <StatefulSlider initial={80} label="Music volume" description="Click the speaker to mute." format={percent} withMute />
-      <StatefulSlider initial={0} label="Sound effects, muted" format={percent} withMute />
       <StatefulSlider initial={3} min={1} max={8} label="Hearts at start" showValue={false} />
-      <StatefulSlider initial={60} label="Disabled" format={percent} disabled />
       <StatefulSlider initial={50} />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
+
+const MusicVolume = (props: { initial: number; disabled: boolean }) => {
+  const { initial, disabled } = props;
+  const [value, setValue] = useState(initial);
+  return <Slider value={value} min={0} max={100} onChange={setValue} label="Music volume" formatValue={percent} mute={value === 0} disabled={disabled} />;
+};
+
+const renderState = (props: StateProps) => <MusicVolume initial={props.muted === true ? 0 : 60} disabled={props.disabled === true} />;
 
 const CODE = `import { useState } from 'react';
 import { Slider } from '@drizztdourden08/tessera';
@@ -107,9 +115,19 @@ const Overview = overviewStory({
   component: 'Slider',
   description: 'A labelled single-value slider with its current value written beside the track. Use it for a setting on a scale, like a volume or a cost. formatValue sets how the value is written, showValue hides it, and passing mute adds a speaker button that drops the value to zero and brings it back.',
   playground: Playground,
-  variants: [States],
+  variants: [Kinds],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.slider__input' },
+      { ...STATE.focus, target: '.slider__input' },
+      { name: 'Muted', props: { muted: true } },
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Kinds, Overview, Playground };

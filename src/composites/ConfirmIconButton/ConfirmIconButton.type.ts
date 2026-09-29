@@ -8,6 +8,7 @@ interface ConfirmIconButtonProps {
   cancelLabel: string;
   onConfirm: () => void;
   disabled?: boolean;
+  defaultArmed?: boolean;
   className?: string;
 }
 

@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, ToggleGroup } from '../../src/primitives';
 import type { ToggleOption } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { ValueReadout } from '../_template/ValueReadout';
 
 type ToggleGroupArgs = {
@@ -64,24 +66,47 @@ const Playground = {
   render: (args) => <StatefulGroup initial={['grid', 'sprites']} {...args} />,
 } satisfies StoryLiteStoryDefinition<ToggleGroupArgs>;
 
-const States = {
-  name: 'States',
+const Header = {
+  name: 'Label and description',
   render: () => (
     <Box className="story-column">
-      <StatefulGroup initial={[]} label="Nothing picked" />
-      <StatefulGroup initial={['grid', 'collision', 'sprites', 'doors']} label="Everything picked" />
-      <StatefulGroup initial={['grid']} options={WITH_LOCKED} label="One option disabled" />
-      <StatefulGroup initial={['collision']} disabled label="Whole group disabled" />
-      <StatefulGroup initial={['sprites']} />
+      <StatefulGroup initial={['grid']} label="Map overlays" description="Pick any number of layers to draw." />
+      <StatefulGroup initial={['grid']} label="Map overlays" />
+      <StatefulGroup initial={['grid']} />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<ToggleGroupArgs>;
+
+const Overlays = (props: { initial: Overlay[]; options: ToggleOption<Overlay>[]; disabled: boolean }) => {
+  const { initial, options, disabled } = props;
+  const [value, setValue] = useState<Overlay[]>(initial);
+  return <ToggleGroup value={value} options={options} onChange={setValue} disabled={disabled} />;
+};
+
+const renderState = (props: StateProps) => (
+  <Overlays
+    initial={props.selected === true ? ['grid', 'sprites'] : []}
+    options={props.optionDisabled === true ? WITH_LOCKED : OVERLAYS}
+    disabled={props.disabled === true}
+  />
+);
 
 const Overview = overviewStory({
   component: 'ToggleGroup',
   description: 'A row of joined buttons, each one switched on or off by itself, for choosing any number of options from a short list. Map overlays and filters are the usual fit. The group can carry a label and a description above the row. Single options can be disabled, or the whole group at once.',
   playground: Playground,
-  variants: [States],
+  variants: [Header],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.toggle-group__btn' },
+      { ...STATE.focus, target: '.toggle-group__btn' },
+      STATE.selected,
+      { name: 'One option disabled', props: { optionDisabled: true } },
+      STATE.disabled,
+    ],
+  },
   code: `import { useState } from 'react';
 import { ToggleGroup } from '@drizztdourden08/tessera';
 
@@ -97,4 +122,4 @@ const [overlays, setOverlays] = useState(['grid']);
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Header, Overview, Playground };

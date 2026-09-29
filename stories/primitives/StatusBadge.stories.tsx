@@ -4,6 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, Card, Flex, Stack, StatusBadge, Text } from '../../src/primitives';
 import type { ScreenStatus } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
 import { axis, VariantGrid } from '../_template/VariantGrid';
 
 type StatusChoice = 'unsaved' | NonNullable<ScreenStatus>;
@@ -97,9 +98,16 @@ const Cycling = {
 
 const Overview = overviewStory({
   component: 'StatusBadge',
-  description: 'A small pill that names where a record stands: unsaved, draft, mapped or verified. Use it beside an item in a list or a header so its progress reads at a glance. Each status has its own colour and a default label, and the caller can pass its own labels. Set interactive with onChange and a click moves the badge to the next status in the cycle.',
+  description: 'A small pill that names where a record stands: unsaved, draft, mapped or verified. Use it beside an item in a list or a header so its progress reads at a glance. Each status has its own colour and a default label, and the caller can pass its own labels. Set interactive with onChange and a click moves the badge to the next status in the cycle. An interactive badge fades a little on hover.',
   playground: Playground,
   variants: [AllStatuses],
+  states: {
+    render: () => <StatusBadge status="draft" interactive />,
+    list: [
+      STATE.idle,
+      STATE.hover,
+    ],
+  },
 });
 
 export default meta;

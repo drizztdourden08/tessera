@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, TagPicker } from '../../src/primitives';
 import type { TagPickerGroup } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { ValueReadout } from '../_template/ValueReadout';
 
 type TagPickerArgs = {
@@ -77,23 +79,42 @@ const Playground = {
   render: (args) => <StatefulPicker initial={['alttp', 'sm']} groups={GAME_GROUPS} {...args} />,
 } satisfies StoryLiteStoryDefinition<TagPickerArgs>;
 
-const States = {
-  name: 'States',
+const Layouts = {
+  name: 'Layouts',
   render: () => (
     <Box className="story-column">
       <StatefulPicker initial={[]} groups={GAME_GROUPS} label="Grouped, nothing picked" />
       <StatefulPicker initial={['ganon', 'dungeons']} groups={GOALS} label="One flat set, several picks" />
       <StatefulPicker initial={['triforce']} groups={GOALS} label="Single pick" single />
-      <StatefulPicker initial={['oot']} groups={GAME_GROUPS} label="Disabled" disabled />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<TagPickerArgs>;
+
+const Goals = (props: { initial: string[]; disabled: boolean }) => {
+  const { initial, disabled } = props;
+  const [value, setValue] = useState(initial);
+  return <TagPicker value={value} groups={GOALS} onChange={setValue} disabled={disabled} />;
+};
+
+const renderState = (props: StateProps) => (
+  <Goals initial={props.selected === true ? ['ganon', 'dungeons'] : []} disabled={props.disabled === true} />
+);
 
 const Overview = overviewStory({
   component: 'TagPicker',
   description: 'A set of chips to switch on and off, for picking from a short, known list of options. Options can sit in labelled groups, or in one flat set with no heading. Each click adds or removes a value, and single turns the chips into radios that hold at most one pick. The value is an array either way, and the whole picker can be disabled.',
   playground: Playground,
-  variants: [States],
+  variants: [Layouts],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.tag-picker__tag' },
+      { ...STATE.focus, target: '.tag-picker__tag' },
+      STATE.selected,
+      { ...STATE.disabled, props: { selected: true, disabled: true } },
+    ],
+  },
   code: `import { useState } from 'react';
 import { TagPicker } from '@drizztdourden08/tessera';
 
@@ -111,4 +132,4 @@ const [goals, setGoals] = useState(['ganon']);
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Layouts, Overview, Playground };

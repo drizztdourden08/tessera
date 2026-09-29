@@ -5,3 +5,7 @@
   gap: var(--space-sm);
   height: 26rem;
 }
+
+.data-table-story--state {
+  height: 9rem;
+}

@@ -4,7 +4,7 @@ import type { SelectTriggerProps } from './SelectTrigger.type';
 
 const SelectTrigger = (props: SelectTriggerProps) => {
   const {
-    dropdown, className, disabled, selectedLabel, placeholder, id, ariaLabel, ariaLabelledBy, ariaDescribedBy,
+    dropdown, className, disabled, invalid, selectedLabel, placeholder, id, ariaLabel, ariaLabelledBy, ariaDescribedBy,
   } = props;
 
   return (
@@ -19,6 +19,7 @@ const SelectTrigger = (props: SelectTriggerProps) => {
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       aria-describedby={ariaDescribedBy}
+      aria-invalid={invalid ? true : undefined}
       aria-haspopup="listbox"
       aria-expanded={dropdown.open}
     >

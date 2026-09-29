@@ -6,6 +6,7 @@ import { TextInput } from '../../primitives/TextInput';
 import { GroupTitle } from './sub-components/GroupTitle';
 import type { SideNavProps } from './SideNav.type';
 import '../../theme/glass-panel.css';
+import '../../theme/focus-ring.css';
 import './SideNav.css';
 
 const SideNav = (props: SideNavProps) => {
@@ -39,7 +40,7 @@ const SideNav = (props: SideNavProps) => {
             {group.items.map(item => (
               <Pressable
                 key={item.id}
-                className={`side-nav__item${item.id === activeId ? ' side-nav__item--active' : ''}`}
+                className={`side-nav__item focus-ring-inset${item.id === activeId ? ' side-nav__item--active' : ''}`}
                 onClick={() => onSelect(item.id)}
               >
                 {item.icon && <Box as="span" className="side-nav__icon">{item.icon}</Box>}

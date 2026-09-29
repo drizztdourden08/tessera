@@ -12,6 +12,13 @@
   pointer-events: auto;
 }
 
+.dropdown-menu.dropdown-menu--inline {
+  position: relative;
+  z-index: auto;
+  display: inline-block;
+  animation: none;
+}
+
 .dropdown-menu--sub {
   min-width: var(--size-160);
   animation: dropdown-sub-in 0.1s ease-out;

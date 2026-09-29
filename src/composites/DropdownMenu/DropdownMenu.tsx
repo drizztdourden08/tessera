@@ -7,6 +7,7 @@ import { MenuItemButton } from './sub-components/MenuItemButton';
 import { SubMenu } from './sub-components/SubMenu';
 import type { FloatingPlacement } from '../../primitives/Floating';
 import type { DropdownMenuProps, MenuAlign, MenuSide } from './DropdownMenu.type';
+import '../../theme/focus-ring.css';
 import '../../theme/dropdown-menu.css';
 
 const placementOf = (rect: DOMRect, view: Window, side: MenuSide, align: MenuAlign): FloatingPlacement => ({
@@ -15,17 +16,17 @@ const placementOf = (rect: DOMRect, view: Window, side: MenuSide, align: MenuAli
 });
 
 const DropdownMenu = (props: DropdownMenuProps) => {
-  const { items, anchorRef, side = 'below', align = 'start' } = props;
+  const { items, anchorRef, side = 'below', align = 'start', inline = false } = props;
   const detached = useRef<HTMLElement>(null);
 
   const { position: pos } = useAnchorTracking({
-    active: Boolean(anchorRef),
+    active: Boolean(anchorRef) && !inline,
     anchorRef: anchorRef ?? detached,
     compute: (rect, view) => placementOf(rect, view, side, align),
   });
 
   const menu = (
-    <Floating className="dropdown-menu" placement={pos}>
+    <Floating className={`dropdown-menu${inline ? ' dropdown-menu--inline' : ''}`} placement={inline ? null : pos}>
       {items.map((item, i) => {
         if (item === 'separator') {
           return <Box key={`sep-${i}`} className="dropdown__separator" />;
@@ -38,6 +39,7 @@ const DropdownMenu = (props: DropdownMenuProps) => {
     </Floating>
   );
 
+  if (inline) return menu;
   return <Portal layer="overlay">{menu}</Portal>;
 };
 

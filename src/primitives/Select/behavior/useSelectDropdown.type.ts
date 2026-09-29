@@ -7,6 +7,8 @@ interface UseSelectDropdownParams {
   searchable: boolean;
   allOptions: SelectOption[];
   onChange: (value: string) => void;
+  defaultOpen?: boolean;
+  inline?: boolean;
 }
 
 type SelectDropdown = ReturnType<typeof useSelectDropdown>;

@@ -6,43 +6,29 @@ import { PathIcon } from '../PathIcon';
 import type { CSSProperties } from 'react';
 import type { NumberInputProps } from './NumberInput.type';
 import { CHEVRON_DOWN, CHEVRON_UP } from './NumberInput.constants';
-
-const toNum = (v: unknown): number | undefined => {
-  const n = Number(v);
-  return v === undefined || v === '' || Number.isNaN(n) ? undefined : n;
-};
+import { digitColumns } from './behavior/digit-columns';
+import { toNumber } from './behavior/to-number';
 
 const NumberInput = (props: NumberInputProps) => {
   const {
     onChange, className = '', value, min, max, step, disabled = false, sizeToContent = false,
-    id, 'aria-describedby': ownDescribedBy, ...rest
+    invalid, id, 'aria-describedby': ownDescribedBy, ...rest
   } = props;
   const control = useFieldControl(id, ownDescribedBy);
+  const isInvalid = invalid ?? control.invalid ?? false;
 
   const stepBy = (dir: 1 | -1): void => {
-    const stepN = toNum(step) ?? 1;
-    const minN = toNum(min);
-    const maxN = toNum(max);
-    const cur = toNum(value) ?? minN ?? 0;
+    const stepN = toNumber(step) ?? 1;
+    const minN = toNumber(min);
+    const maxN = toNumber(max);
+    const cur = toNumber(value) ?? minN ?? 0;
     let next = cur + dir * stepN;
     if (minN !== undefined && next < minN) next = minN;
     if (maxN !== undefined && next > maxN) next = maxN;
     onChange?.(Number(next.toFixed(6)));
   };
 
-  const digitColumns = (): number | undefined => {
-    if (!sizeToContent) return undefined;
-    const maxNum = toNum(max);
-    if (maxNum === undefined) return undefined;
-    const whole = Math.max(1, Math.abs(maxNum).toString().length);
-    const stepN = toNum(step);
-    const places = stepN !== undefined && !Number.isInteger(stepN)
-      ? (String(stepN).split('.')[1]?.length ?? 1)
-      : 0;
-    return whole + (places > 0 ? places + 1 : 0);
-  };
-
-  const columns = digitColumns();
+  const columns = digitColumns(sizeToContent, max, step);
   const sizingVars = columns === undefined
     ? undefined
     : ({ '--number-input-columns': String(columns) } as CSSProperties);
@@ -63,6 +49,7 @@ const NumberInput = (props: NumberInputProps) => {
         onChange={(e) => onChange?.(e.target.valueAsNumber)}
         id={control.id}
         aria-describedby={control.describedBy}
+        aria-invalid={isInvalid ? true : undefined}
         {...rest}
       />
       <div className="number-input__spin">

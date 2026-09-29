@@ -3,6 +3,8 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, RangeSlider, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type RangeSliderArgs = {
   step: number;
@@ -64,18 +66,25 @@ const Playground = {
   render: (args) => <StatefulRange stops={SPEEDS} initial={[2, 5]} caption="Turbo speed range" {...args} />,
 } satisfies StoryLiteStoryDefinition<RangeSliderArgs>;
 
-const States = {
-  name: 'States',
+const Stops = {
+  name: 'Stops',
   render: () => (
     <Box className="story-column">
       <StatefulRange stops={SPEEDS} initial={[0, 10]} caption="Full range" labelEvery={2} />
       <StatefulRange stops={SPEEDS} initial={[4, 4]} caption="Both thumbs on one stop" labelEvery={2} />
       <StatefulRange stops={PRICES} initial={[4, 12]} caption="Hint cost window, labels every 5 stops" labelEvery={5} step={2} />
       <StatefulRange stops={DUNGEONS} initial={[1, 6]} caption="Dungeons in the pool" />
-      <StatefulRange stops={SPEEDS} initial={[2, 7]} caption="Disabled" labelEvery={2} disabled />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<RangeSliderArgs>;
+
+const TurboRange = (props: { disabled: boolean }) => {
+  const { disabled } = props;
+  const [value, setValue] = useState<[number, number]>([2, 7]);
+  return <RangeSlider stops={SPEEDS} value={value} onChange={setValue} labelEvery={2} disabled={disabled} ariaLabel="Turbo speed range" />;
+};
+
+const renderState = (props: StateProps) => <TurboRange disabled={props.disabled === true} />;
 
 const CODE = `import { useState } from 'react';
 import { RangeSlider } from '@drizztdourden08/tessera';
@@ -89,9 +98,18 @@ const Overview = overviewStory({
   component: 'RangeSlider',
   description: 'A two-thumb slider that picks a range over a list of named stops, such as speeds or price points. The low thumb can never pass the high one. It is built from two native range inputs, so arrows, Home, End and screen readers work; step sets a coarser keyboard stride, and labelEvery thins out the tick labels.',
   playground: Playground,
-  variants: [States],
+  variants: [Stops],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.range-slider__input' },
+      { ...STATE.focus, target: '.range-slider__input' },
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Overview, Playground, Stops };

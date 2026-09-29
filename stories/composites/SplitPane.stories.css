@@ -4,6 +4,12 @@
   padding: var(--space-md);
 }
 
+.story-frame.split-pane-story__state {
+  height: 6rem;
+  min-height: 0;
+  padding: var(--space-sm);
+}
+
 .split-pane-story__pane {
   display: flex;
   flex-direction: column;

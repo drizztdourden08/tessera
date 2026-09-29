@@ -16,7 +16,7 @@ const GroupSection = <T,>(props: GroupSectionProps<T>) => {
 
   return (
     <Box className={`group-tree__group group-tree__group--depth-${Math.min(depth, MAX_DEPTH_CLASS)}`}>
-      <Pressable className="group-tree__header" onClick={toggle}>
+      <Pressable className="group-tree__header focus-ring-inset" onClick={toggle} aria-expanded={expanded}>
         <Text className="group-tree__chevron"><Glyph name={expanded ? 'chevronDown' : 'chevronRight'} /></Text>
         <Text className="group-tree__name">{node.label}</Text>
         {node.meta !== undefined && <Text className="group-tree__meta">{node.meta}</Text>}

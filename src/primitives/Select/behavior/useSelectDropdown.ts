@@ -15,9 +15,9 @@ const selectPositionFor = (rect: DOMRect, view: Window) =>
   }, view);
 
 const useSelectDropdown = (params: UseSelectDropdownParams) => {
-  const { disabled, searchable, allOptions, onChange } = params;
+  const { disabled, searchable, allOptions, onChange, defaultOpen, inline } = params;
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen === true);
   const [search, setSearch] = useState('');
   const [highlightIdx, setHighlightIdx] = useState(-1);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -44,7 +44,7 @@ const useSelectDropdown = (params: UseSelectDropdownParams) => {
   }, [handleDismiss]);
 
   const { position: pos } = useAnchorTracking({
-    active: open,
+    active: open && inline !== true,
     anchorRef: triggerRef,
     compute: selectPositionFor,
     onOutOfView: handleDismiss,

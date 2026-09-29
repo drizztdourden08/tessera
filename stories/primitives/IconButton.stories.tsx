@@ -5,6 +5,10 @@ import { Box, Flex, Icon, IconButton, Text } from '../../src/primitives';
 import type { IconName } from '../../src/primitives';
 import type { IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
 import { overviewStory } from '../_template/overview-story';
+import { forceAttributes } from '../_template/states/force-attributes';
+import type { StateEntry, StateProps } from '../_template/states/states.type';
+import { BUTTON_STATES } from './_samples/button-states';
+import { markedStates } from './_samples/marked-states';
 import { axis, VariantGrid } from '../_template/VariantGrid';
 
 type GlyphName = 'close' | 'plus' | 'pin' | 'mute' | 'overflow';
@@ -73,32 +77,34 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
-const STATES = ['md', 'sm', 'active', 'disabled'] as const;
+const SIZES = ['md', 'sm'] as const;
+
+const STATE_VARIANTS: readonly IconButtonVariant[] = ['primary', 'tertiary', 'danger', 'ghost'];
 
 const AllVariants = {
   name: 'All variants',
   render: () => (
     <VariantGrid
       rows={axis(VARIANTS)}
-      columns={axis(STATES)}
-      cell={(variant, state) => {
-        const size = state === 'sm' ? 'sm' : 'md';
-        return (
-          <IconButton
-            label={`${LABELS.plus}, ${variant}`}
-            title={variant}
-            variant={variant}
-            size={size}
-            active={state === 'active'}
-            disabled={state === 'disabled'}
-          >
-            {glyph('plus', size)}
-          </IconButton>
-        );
-      }}
+      columns={axis(SIZES)}
+      cell={(variant, size) => (
+        <IconButton label={`${LABELS.plus}, ${variant}`} title={variant} variant={variant} size={size}>
+          {glyph('plus', size)}
+        </IconButton>
+      )}
     />
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
+const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
+  <Flex gap="sm" align="center">
+    {STATE_VARIANTS.map((variant) => (
+      <IconButton key={variant} label={`${LABELS.pin}, ${variant}`} variant={variant} size="md" {...forceAttributes(pseudo)} {...props}>
+        {glyph('pin', 'md')}
+      </IconButton>
+    ))}
+  </Flex>
+);
 
 const ToolbarDemo = () => {
   const [pinned, setPinned] = useState(true);
@@ -129,9 +135,10 @@ const Toolbar = {
 
 const Overview = overviewStory({
   component: 'IconButton',
-  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, two sizes, and an active state that marks a toggle as on and announces it as pressed.',
+  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, and two sizes. It shares the Button focus ring and pressed fill, and active marks a toggle as on and announces it as pressed.',
   playground: Playground,
   variants: [AllVariants],
+  states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;

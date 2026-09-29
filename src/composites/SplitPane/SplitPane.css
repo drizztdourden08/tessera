@@ -15,7 +15,7 @@
 }
 
 .split-pane__pane--hidden {
-  display: none;
+  visibility: hidden;
 }
 
 .split-pane__divider {
@@ -41,6 +41,7 @@
   transition: background var(--transition-normal);
 }
 
+.split-pane__divider:active .split-pane__grip,
 .split-pane--dragging .split-pane__grip {
   background: var(--c-primary-bright);
 }
@@ -98,5 +99,6 @@
   .split-pane__pane--hidden {
     display: flex;
     flex: 1;
+    visibility: visible;
   }
 }

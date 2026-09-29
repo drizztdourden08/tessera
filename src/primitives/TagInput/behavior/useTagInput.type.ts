@@ -11,6 +11,8 @@ interface UseTagInputParams {
   validate?: TagValidator;
   enforce?: boolean;
   createError?: string | null;
+  defaultOpen?: boolean;
+  inline?: boolean;
 }
 
 type TagInputState = ReturnType<typeof useTagInput>;

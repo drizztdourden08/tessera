@@ -4,13 +4,14 @@ import { Pressable } from '../../../primitives/Pressable';
 import { PathIcon } from '../../../primitives/PathIcon';
 import { CHEVRON_RIGHT, GLYPH_BOX } from '../SectionNav.constants';
 import type { SectionNavItemProps } from './SectionNavItem.type';
+import '../../../theme/focus-ring.css';
 import './SectionNavItem.css';
 
 const SectionNavItem = (props: SectionNavItemProps) => {
   const { item, active, onSelect } = props;
   return (
     <Pressable
-      className={`section-nav__item${active ? ' section-nav__item--active' : ''}`}
+      className={`section-nav__item focus-ring-inset${active ? ' section-nav__item--active' : ''}`}
       onClick={() => onSelect(item.id)}
       title={item.label}
       aria-label={item.label}

@@ -5,6 +5,9 @@ import { SectionNav } from '../../src/composites';
 import type { SectionNavConfig, SectionNavItem } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
+import { navItemStates } from './_samples/nav-states';
 import { NAV_ICONS } from './_samples/nav';
 import type { NavIcon } from './_samples/nav';
 import './SectionNav.stories.css';
@@ -93,6 +96,17 @@ const GroupsOnly = {
   render: (args) => <NavDemo {...args} withSearch={false} withHome={false} />,
 } satisfies StoryLiteStoryDefinition<SectionNavArgs>;
 
+const STATE_CONFIG: SectionNavConfig = { groups: [{ id: 'play', label: 'Play', items: [item('sessions', 'Sessions', 'sessions')] }] };
+
+const renderState = (props: StateProps) => (
+  <SectionNav
+    config={STATE_CONFIG}
+    activeId={props.selected === true ? 'sessions' : ''}
+    onSelect={() => undefined}
+    defaultOpen={props.open === true}
+  />
+);
+
 const CODE = `import { SectionNav } from '@drizztdourden08/tessera';
 
 const [active, setActive] = useState('sessions');
@@ -110,6 +124,13 @@ const Overview = overviewStory({
   description: 'The side nav of a window with several sections: a column of gold line icons, collapsed by default, which a chevron on its edge opens to show group and item labels. Reach for it for the top-level sections of a window, such as a data manager. It can pin a Home item above the groups and hold a search field that grows when the nav opens; the host owns the query and shows the results. On narrow screens the open panel floats over the content, so the page does not reflow.',
   playground: Playground,
   variants: [OpenWithSearch, GroupsOnly],
+  states: {
+    render: renderState,
+    list: [
+      ...navItemStates('.section-nav__item'),
+      STATE.open,
+    ],
+  },
   code: CODE,
 });
 

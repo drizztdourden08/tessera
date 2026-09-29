@@ -2,6 +2,7 @@
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
 import type { FloatingSwitchProps } from './FloatingSwitch.type';
+import '../../theme/focus-ring.css';
 import './FloatingSwitch.css';
 
 const FloatingSwitch = (props: FloatingSwitchProps) => {
@@ -13,7 +14,7 @@ const FloatingSwitch = (props: FloatingSwitchProps) => {
         return (
           <Pressable
             key={item.id}
-            className={`floating-switch__item${active ? ' floating-switch__item--active' : ''}`}
+            className={`floating-switch__item focus-ring-inset${active ? ' floating-switch__item--active' : ''}`}
             onClick={() => { if (!active) onSelect(item.id); }}
             disabled={item.disabled}
             aria-current={active ? 'page' : undefined}

@@ -4,6 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, Glyph, TabBar, Text } from '../../src/primitives';
 import type { TabItem } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type TabBarArgs = {
   iconOnly: boolean;
@@ -65,8 +67,8 @@ const Playground = {
   render: (args) => <PlaygroundDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<TabBarArgs>;
 
-const States = {
-  name: 'States',
+const Layouts = {
+  name: 'Layouts',
   render: () => (
     <Box className="story-column">
       <Text className="story-label">labels only</Text>
@@ -81,11 +83,28 @@ const States = {
   ),
 } satisfies StoryLiteStoryDefinition<TabBarArgs>;
 
+const STATE_TAB: TabItem = { id: 'audio', label: 'Audio', icon: <Glyph name="volume" />, badge: 2 };
+
+const ignoreTabChange = (): void => undefined;
+
+const renderState = (props: StateProps) => (
+  <TabBar tabs={[STATE_TAB]} activeTab={props.selected === true ? STATE_TAB.id : ''} onTabChange={ignoreTabChange} />
+);
+
 const Overview = overviewStory({
   component: 'TabBar',
-  description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page. Each tab has a label and can carry an icon and a count badge. iconOnly hides the labels and keeps each one as the tab title. When the tabs run out of room the strip scrolls sideways, with pager buttons at each end, and the arrow keys, Home and End move the selection.',
+  description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page. Each tab has a label and can carry an icon and a count badge. iconOnly hides the labels and keeps each one as the tab title. When the tabs run out of room the strip scrolls sideways, with pager buttons at each end, and the arrow keys, Home and End move the selection. A hovered tab brightens its label, the focused tab draws a ring inside its edges and the selected tab is underlined in the primary colour.',
   playground: Playground,
-  variants: [States],
+  variants: [Layouts],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.tab-bar__tab' },
+      { ...STATE.focus, target: '.tab-bar__tab' },
+      STATE.selected,
+    ],
+  },
   code: `import { useState } from 'react';
 import { TabBar } from '@drizztdourden08/tessera';
 
@@ -101,4 +120,4 @@ const [active, setActive] = useState('general');
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Layouts, Overview, Playground };

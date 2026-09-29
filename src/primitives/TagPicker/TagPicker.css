@@ -49,7 +49,12 @@
 
 .tag-picker__tag:hover:not(:disabled) {
   color: var(--c-text);
-  border-color: var(--c-border);
+  border-color: var(--c-border-strong);
+}
+
+.tag-picker__tag:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-1);
 }
 
 .tag-picker__tag--active {

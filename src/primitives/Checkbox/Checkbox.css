@@ -18,7 +18,17 @@
   cursor: inherit;
 }
 
+.checkbox__input:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-2);
+}
+
 .checkbox__label {
   font-size: var(--text-sm);
   color: var(--c-text-dim);
+  transition: color var(--transition-fast);
+}
+
+.checkbox:hover:not(.checkbox--disabled) .checkbox__label {
+  color: var(--c-text);
 }

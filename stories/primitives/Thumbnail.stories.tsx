@@ -3,6 +3,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, Flex, Stack, Text, Thumbnail } from '../../src/primitives';
 import { LabelledRows } from '../_template/LabelledRows';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import './Thumbnail.stories.css';
 
 type ThumbSize = 'sm' | 'md' | 'lg';
@@ -82,33 +84,9 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
 
-const STATES = ['loaded', 'loading', 'broken', 'empty', 'empty, with a placeholder node'] as const;
-
-const STATE_SOURCES: Record<(typeof STATES)[number], string | null> = {
-  loaded: RUINS_URI,
-  loading: null,
-  broken: BROKEN_URI,
-  empty: null,
-  'empty, with a placeholder node': null,
-};
-
-const States = {
-  name: 'Loaded, loading, broken and empty',
-  render: () => (
-    <LabelledRows
-      items={STATES}
-      render={(state) => (
-        <Thumbnail
-          className="thumb-demo--md"
-          src={STATE_SOURCES[state]}
-          pending={state === 'loading'}
-          alt="Eastern ruins"
-          placeholder={state === 'empty, with a placeholder node' ? placeholderNode('Empty') : undefined}
-        />
-      )}
-    />
-  ),
-} satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
+const renderState = (props: StateProps) => (
+  <Thumbnail className="thumb-demo--md" src={RUINS_URI} alt="Eastern ruins" {...props} />
+);
 
 const SIZES: readonly ThumbSize[] = ['sm', 'md', 'lg'];
 
@@ -153,8 +131,18 @@ const Overview = overviewStory({
   component: 'Thumbnail',
   description: 'A fixed frame that shows a small image, such as a save slot screenshot or a room preview. The caller sets the frame size with a class, and the image fills it. It draws through Image, so a loading source shows the pulsing picture outline and a source that fails shows the outline in the danger colour with a cross, sized to the frame. With no src it draws the placeholder node, or the plain outline, so an empty slot keeps its shape in a list.',
   playground: Playground,
-  variants: [States, Sizes, BrokenSizes, SaveSlots],
+  variants: [Sizes, BrokenSizes, SaveSlots],
+  states: {
+    render: renderState,
+    list: [
+      { name: 'Loaded' },
+      { name: 'Empty', props: { src: null } },
+      { name: 'Empty, with a placeholder', props: { src: null, placeholder: placeholderNode('Empty') } },
+      { ...STATE.loading, props: { src: null, pending: true } },
+      { ...STATE.error, name: 'Broken', props: { src: BROKEN_URI } },
+    ],
+  },
 });
 
 export default meta;
-export { BrokenSizes, Overview, Playground, SaveSlots, Sizes, States };
+export { BrokenSizes, Overview, Playground, SaveSlots, Sizes };

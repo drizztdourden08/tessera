@@ -106,9 +106,15 @@
   color: var(--c-text);
 }
 
+.btn:focus-visible,
+.icon-btn:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thin);
+}
+
 .btn:disabled,
 .icon-btn:disabled {
-  opacity: 0.4;
+  opacity: var(--opacity-disabled);
   cursor: default;
 }
 
@@ -124,4 +130,17 @@
   background: var(--c-primary-soft);
   border-color: var(--c-primary-bright);
   color: var(--c-primary-bright);
+}
+
+.btn--toned:active:not(:disabled),
+.icon-btn--toned:active:not(:disabled) {
+  background: color-mix(in oklab, var(--tone), var(--c-bg) 22%);
+  border-color: var(--tone);
+  color: var(--tone-ink);
+}
+
+.btn--ghost:active:not(:disabled),
+.icon-btn--ghost:active:not(:disabled) {
+  background: color-mix(in srgb, var(--c-lift) 12%, transparent);
+  color: var(--c-text);
 }

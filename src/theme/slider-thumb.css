@@ -10,7 +10,7 @@
   transition: transform var(--transition-fast);
 }
 
-.slider__input::-webkit-slider-thumb:hover,
-.range-slider__input::-webkit-slider-thumb:hover {
+.slider__input:hover::-webkit-slider-thumb,
+.range-slider__input:hover::-webkit-slider-thumb {
   transform: scale(1.15);
 }

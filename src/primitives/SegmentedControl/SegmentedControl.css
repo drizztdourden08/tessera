@@ -19,3 +19,8 @@
 .segmented__btn:hover {
   color: var(--c-text);
 }
+
+.segmented__btn:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}

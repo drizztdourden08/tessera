@@ -2,6 +2,7 @@
 import { useId } from 'react';
 import { useTagInput } from './behavior/useTagInput';
 import { adviseTag } from './behavior/tag-convention';
+import { tagInputClass } from './behavior/tag-input-class';
 import { TagChip } from './sub-components/TagChip';
 import { TagEntry } from './sub-components/TagEntry';
 import { TagHint } from './sub-components/TagHint';
@@ -13,7 +14,7 @@ import './TagInput.css';
 const TagInput = (props: TagInputProps) => {
   const {
     value, onChange, suggestions, validate, enforce, createError,
-    placeholder = 'Add a tag...', disabled = false, label, maxSuggestions, className = '', id,
+    placeholder = 'Add a tag...', disabled = false, label, maxSuggestions, defaultOpen, inline, className = '', id,
   } = props;
 
   const generatedId = useId();
@@ -22,11 +23,11 @@ const TagInput = (props: TagInputProps) => {
   const optionId = (idx: number) => `${fieldId}-opt-${idx}`;
 
   const tags = useTagInput({
-    value, onChange, suggestions, maxSuggestions, disabled, validate, enforce, createError,
+    value, onChange, suggestions, maxSuggestions, disabled, validate, enforce, createError, defaultOpen, inline,
   });
   const { popup } = tags;
 
-  const rootCls = ['tag-input', disabled && 'tag-input--disabled', className].filter(Boolean).join(' ');
+  const rootCls = tagInputClass({ disabled, invalid: tags.blocked || tags.createError != null, className });
 
   return (
     <div className={rootCls}>
@@ -68,6 +69,7 @@ const TagInput = (props: TagInputProps) => {
           suggestions={tags.filtered}
           highlightIdx={tags.highlightIdx}
           createText={tags.createText}
+          inline={inline === true}
           onPick={tags.commit}
         />
       )}

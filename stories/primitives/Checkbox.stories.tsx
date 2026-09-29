@@ -3,7 +3,8 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Checkbox, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { axis, VariantGrid } from '../_template/VariantGrid';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type CheckboxArgs = {
   label: string;
@@ -72,35 +73,25 @@ const Playground = {
   render: (args) => <StatefulCheckbox initial {...args} />,
 } satisfies StoryLiteStoryDefinition<CheckboxArgs>;
 
-const VALUES = ['unchecked', 'checked', 'indeterminate'] as const;
-const FORMS = ['enabled', 'disabled', 'no label'] as const;
-
-const LiveCheckbox = (props: { value: (typeof VALUES)[number]; form: (typeof FORMS)[number] }) => {
-  const { value, form } = props;
-  const [checked, setChecked] = useState(value === 'checked');
-  const bare = form === 'no label';
-  return (
-    <Checkbox
-      checked={checked}
-      onChange={setChecked}
-      indeterminate={value === 'indeterminate'}
-      disabled={form === 'disabled'}
-      label={bare ? undefined : 'Show hints'}
-      ariaLabel={bare ? 'Show hints' : undefined}
-    />
-  );
-};
-
-const States = {
-  name: 'States',
+const Labels = {
+  name: 'Labels',
   render: () => (
-    <VariantGrid
-      rows={axis(VALUES)}
-      columns={axis(FORMS)}
-      cell={(value, form) => <LiveCheckbox value={value} form={form} />}
-    />
+    <Box className="story-column">
+      <StatefulCheckbox initial label="Show hints on the map" />
+      <StatefulCheckbox initial ariaLabel="Show hints on the map" />
+    </Box>
   ),
 } satisfies StoryLiteStoryDefinition<CheckboxArgs>;
+
+const HintsOption = (props: { initial: boolean; indeterminate?: boolean; disabled?: boolean }) => {
+  const { initial, indeterminate, disabled } = props;
+  const [checked, setChecked] = useState(initial);
+  return <Checkbox checked={checked} onChange={setChecked} indeterminate={indeterminate} disabled={disabled} label="Show hints on the map" />;
+};
+
+const renderState = (props: StateProps) => (
+  <HintsOption initial={props.checked === true} indeterminate={props.indeterminate === true} disabled={props.disabled === true} />
+);
 
 const SelectAll = {
   name: 'Select all (mixed state)',
@@ -119,9 +110,20 @@ const Overview = overviewStory({
   component: 'Checkbox',
   description: 'A box for one on or off choice in a list or a form, with its label beside it. It is controlled: checked comes in and onChange hands back the new value. Indeterminate draws the mixed state for a box that stands for a partly checked set, disabled dims it, and ariaLabel names a box whose label is drawn somewhere else.',
   playground: Playground,
-  variants: [States],
+  variants: [Labels],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      STATE.hover,
+      { ...STATE.focus, target: '.checkbox__input' },
+      STATE.checked,
+      { name: 'Indeterminate', props: { indeterminate: true } },
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, SelectAll, States };
+export { Labels, Overview, Playground, SelectAll };

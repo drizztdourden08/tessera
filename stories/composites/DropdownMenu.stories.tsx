@@ -5,6 +5,8 @@ import { DropdownMenu } from '../../src/composites';
 import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { axis, VariantGrid } from '../_template/VariantGrid';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { INITIAL_OPEN, buildViewMenu } from './_samples/data-menu';
 
 type MenuSide = 'below' | 'above';
@@ -101,6 +103,10 @@ const AllVariants = {
   ),
 } satisfies StoryLiteStoryDefinition<DropdownArgs>;
 
+const renderState = (props: StateProps) => (
+  <DropdownMenu inline items={[{ key: 'players', label: 'Players', checked: props.checked === true, disabled: props.disabled === true }]} />
+);
+
 const CODE = `import { DropdownMenu } from '@drizztdourden08/tessera';
 
 const anchorRef = useRef<HTMLButtonElement>(null);
@@ -121,9 +127,19 @@ const anchorRef = useRef<HTMLButtonElement>(null);
 
 const Overview = overviewStory({
   component: 'DropdownMenu',
-  description: 'A menu that hangs off the button that opened it. Reach for it for a toolbar or window menu: toggles, picks and submenus under one trigger. Items can carry an icon, a description, a check mark or a disabled state, with separators between groups and submenus for nested items. It opens below or above its anchor, lined up with either edge, and follows the anchor as the page scrolls, while the caller owns opening and closing it.',
+  description: 'A menu that hangs off the button that opened it. Reach for it for a toolbar or window menu: toggles, picks and submenus under one trigger. Items can carry an icon, a description, a check mark or a disabled state, with separators between groups and submenus for nested items. It opens below or above its anchor, lined up with either edge, and follows the anchor as the page scrolls, while the caller owns opening and closing it. inline draws it in place, without the floating layer, for a menu that sits inside a panel.',
   playground: Playground,
   variants: [AllVariants],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.dropdown__item' },
+      { ...STATE.focus, target: '.dropdown__item' },
+      STATE.checked,
+      STATE.disabled,
+    ],
+  },
   code: CODE,
 });
 

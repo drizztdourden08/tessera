@@ -12,6 +12,7 @@ interface StateEntry {
   pseudo?: PseudoState | readonly PseudoState[];
   props?: StateProps;
   render?: StateRender;
+  target?: string;
 }
 
 interface OverviewStates {
@@ -21,4 +22,4 @@ interface OverviewStates {
 
 type StateKey = 'idle' | 'hover' | 'focus' | 'active' | 'selected' | 'checked' | 'open' | 'readOnly' | 'loading' | 'error' | 'disabled';
 
-export type { OverviewStates, PseudoState, StateEntry, StateKey, StateProps };
+export type { OverviewStates, PseudoState, StateEntry, StateKey, StateProps, StateRender };

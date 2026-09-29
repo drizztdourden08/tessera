@@ -12,8 +12,13 @@
   justify-content: center;
 }
 
-.color-swatch:hover {
+.color-swatch:hover:not(:disabled) {
   border-color: var(--c-border-strong);
+}
+
+.color-swatch:focus-visible {
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 var(--border-width-thick) var(--c-primary-soft);
 }
 
 .color-swatch--selected {
@@ -36,6 +41,11 @@
     linear-gradient(45deg, var(--c-border) 25%, transparent 25% 75%, var(--c-border) 75%);
   background-size: var(--size-8) var(--size-8);
   background-position: 0 0, var(--size-4) var(--size-4);
+}
+
+.color-swatch:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
 }
 
 .color-swatch__caption {

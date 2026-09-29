@@ -15,13 +15,8 @@
   gap: var(--space-sm);
 }
 
-.select-trigger:hover {
-  border-color: var(--c-border-strong);
-}
-
 .select-trigger:focus {
   outline: none;
-  border-color: var(--c-primary);
 }
 
 .select-trigger--open {
@@ -29,7 +24,7 @@
 }
 
 .select-trigger--disabled {
-  opacity: 0.5;
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
 
@@ -59,6 +54,13 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.select-content.select-content--inline {
+  position: relative;
+  z-index: auto;
+  width: 100%;
+  margin-top: var(--space-xs);
 }
 
 .select-content__list {

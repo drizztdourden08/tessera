@@ -4,7 +4,9 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { ListItemRow } from '../../src/composites';
 import { Badge, Box, Button, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { axis, VariantGrid } from '../_template/VariantGrid';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
+import { LabelledRows } from '../_template/LabelledRows';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS, STATUS_LABEL } from './_samples/sessions';
 
@@ -70,20 +72,17 @@ const Playground = {
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
 const FORMS = ['name only', 'icon and meta', 'with action'] as const;
-const STATES = ['default', 'selected'] as const;
 
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <VariantGrid
-      rows={axis(FORMS)}
-      columns={axis(STATES)}
-      cell={(form, state) => (
+    <LabelledRows
+      items={FORMS}
+      render={(form) => (
         <ListItemRow
           name="Friday async"
           meta={form === 'name only' ? undefined : '8 players, eu-west-2'}
           icon={form === 'name only' ? undefined : sessionIcon}
-          selected={state === 'selected'}
           action={form === 'with action' ? <Button size="sm" variant="secondary">Join</Button> : undefined}
         />
       )}
@@ -113,11 +112,31 @@ const RichContent = {
   ),
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
+const renderState = (props: StateProps) => (
+  <ListItemRow
+    name="Friday async"
+    meta="8 players, eu-west-2"
+    icon={sessionIcon}
+    action={<Button size="sm" variant="secondary">Join</Button>}
+    onClick={() => undefined}
+    {...props}
+  />
+);
+
 const Overview = overviewStory({
   component: 'ListItemRow',
   description: 'One row of a list: an optional icon, a name, a line of meta under it, and an action slot on the right that shows on hover. Reach for it for lists of records the user picks from, such as sessions or players. It takes a selected state, plus click and double-click handlers for selecting and opening. The name and meta take any content, such as a status badge.',
   playground: Playground,
   variants: [AllVariants],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      STATE.hover,
+      { ...STATE.focus, target: '.list-item-row__main' },
+      STATE.selected,
+    ],
+  },
 });
 
 export default meta;

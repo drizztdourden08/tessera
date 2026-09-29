@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { DataTable } from '../../src/composites';
 import { MEMORY_VIEW_STORAGE } from '../../src/data';
+import type { TableColumn, ViewStorage } from '../../src/data';
 import { Box, Text } from '../../src/primitives';
 import { PLAYERS, PLAYER_SCHEMA } from './_samples/data-players';
 import type { PlayerRow } from './_samples/data-players';
@@ -11,6 +12,8 @@ import {
 } from './_samples/data-hints';
 import type { HintRow } from './_samples/data-hints';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import './DataTable.stories.css';
 
 type GroupChoice = 'none' | 'game' | 'status';
@@ -29,7 +32,7 @@ const NO_ROWS: readonly PlayerRow[] = [];
 const playerId = (player: PlayerRow): string => player.id;
 const hintId = (hint: HintRow): string => hint.id;
 
-const PlayersDemo = ({ selectable, groupBy, persistLayout }: DataTableArgs) => {
+const PlayersDemo = ({ selectable, groupBy, persistLayout, emptyMessage }: DataTableArgs) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<ReadonlySet<string>>(new Set());
   const fallbackGroupBy = groupBy === 'none' ? undefined : [groupBy];
@@ -52,6 +55,7 @@ const PlayersDemo = ({ selectable, groupBy, persistLayout }: DataTableArgs) => {
         onSelectionChange={setSelectedIds}
         selectable={selectable}
         countLabel={PLAYER_COUNT}
+        emptyMessage={emptyMessage}
         resolveIdRefDefault={resolveSlotDefault}
       />
     </Box>
@@ -106,23 +110,6 @@ const References = {
   render: () => <HintsDemo />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
-const Empty = {
-  name: 'Empty',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => (
-    <Box className="data-table-story">
-      <DataTable
-        rows={NO_ROWS}
-        schema={PLAYER_SCHEMA}
-        getRowId={playerId}
-        countLabel={PLAYER_COUNT}
-        emptyMessage={args.emptyMessage}
-      />
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<DataTableArgs>;
-
 const AllVariants = {
   name: 'All variants',
   render: () => (
@@ -131,13 +118,33 @@ const AllVariants = {
       <PlayersDemo selectable={false} groupBy="game" persistLayout={false} emptyMessage="" />
       <Text className="story-label">Selectable</Text>
       <PlayersDemo selectable groupBy="none" persistLayout={false} emptyMessage="" />
-      <Text className="story-label">Empty</Text>
-      <Box className="data-table-story">
-        <DataTable rows={NO_ROWS} schema={PLAYER_SCHEMA} getRowId={playerId} countLabel={PLAYER_COUNT} emptyMessage="No players have joined this session yet." />
-      </Box>
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const STATE_ROWS = PLAYERS.slice(0, 1);
+const STATE_COLUMNS: readonly TableColumn[] = [{ path: 'name' }, { path: 'game' }, { path: 'status' }];
+
+const SORTED_STORAGE: ViewStorage = {
+  load: () => Promise.resolve({ v: 1, columns: STATE_COLUMNS, sort: [{ path: 'name', dir: 'asc' }], groupBy: [], filters: [] }),
+  save: () => undefined,
+};
+
+const renderState = (props: StateProps) => (
+  <Box className="data-table-story data-table-story--state">
+    <DataTable
+      rows={props.empty === true ? NO_ROWS : STATE_ROWS}
+      schema={PLAYER_SCHEMA}
+      getRowId={playerId}
+      fallbackColumns={STATE_COLUMNS}
+      viewKey={props.sorted === true ? 'stories:players-sorted' : undefined}
+      viewStorage={props.sorted === true ? SORTED_STORAGE : undefined}
+      selectedId={props.selected === true ? STATE_ROWS[0]?.id : null}
+      countLabel={PLAYER_COUNT}
+      emptyMessage="No players have joined this session yet."
+    />
+  </Box>
+);
 
 const CODE = `import { DataTable } from '@drizztdourden08/tessera';
 
@@ -157,8 +164,18 @@ const Overview = overviewStory({
   description: 'A table of records whose columns come from a schema. Use it for any collection a user browses, sorts and picks from. Its column menus sort, group, rename, resize, fit and remove columns, columns reorder by drag, and a view key keeps that layout between visits. It can add a checkbox column for picking many rows with Ctrl, Shift and Escape, and show a reference by a chosen field of its target.',
   playground: Players,
   variants: [AllVariants],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { ...STATE.hover, target: '.data-table__row' },
+      { name: 'Empty', props: { empty: true } },
+      STATE.selected,
+      { name: 'Sorted', props: { sorted: true } },
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { AllVariants, Empty, Overview, Players, References };
+export { AllVariants, Overview, Players, References };

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Text, Toggle } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type ToggleArgs = {
   label: string;
@@ -55,12 +57,11 @@ const Playground = {
   render: (args) => <StatefulToggle initial {...args} />,
 } satisfies StoryLiteStoryDefinition<ToggleArgs>;
 
-const States = {
-  name: 'States',
+const Labels = {
+  name: 'Label and description',
   render: () => (
     <Box className="story-column">
-      <StatefulToggle initial={false} label="Off" />
-      <StatefulToggle initial label="On" />
+      <StatefulToggle initial label="Music" />
       <StatefulToggle initial label="Music" description="Play the soundtrack during gameplay." />
       <StatefulToggle
         initial={false}
@@ -68,21 +69,34 @@ const States = {
         description="Replace the soundtrack with a CD-quality pack."
         link="https://example.com/msu"
       />
-      <StatefulToggle initial={false} disabled label="Disabled, off" description="Available once a ROM is loaded." />
-      <StatefulToggle initial disabled label="Disabled, on" />
-      <Box className="story-row">
-        <Text className="story-label">no label</Text>
-        <StatefulToggle initial />
-      </Box>
+      <StatefulToggle initial />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<ToggleArgs>;
+
+const AutoSave = (props: { initial: boolean; disabled?: boolean }) => {
+  const { initial, disabled } = props;
+  const [checked, setChecked] = useState(initial);
+  return <Toggle checked={checked} onChange={setChecked} disabled={disabled} label="Auto-save" description="Write a save state every time you enter a new room." />;
+};
+
+const renderState = (props: StateProps) => <AutoSave initial={props.checked === true} disabled={props.disabled === true} />;
 
 const Overview = overviewStory({
   component: 'Toggle',
   description: 'An on and off switch for a setting that takes effect at once, such as auto-save or music. It can carry a label and a line of description, and a link that opens a page about the setting in a new tab. The whole row is one label, so a click anywhere on it flips the switch. It can be disabled in either position.',
   playground: Playground,
-  variants: [States],
+  variants: [Labels],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      STATE.hover,
+      { ...STATE.focus, target: '.toggle__input' },
+      STATE.checked,
+      STATE.disabled,
+    ],
+  },
   code: `import { useState } from 'react';
 import { Toggle } from '@drizztdourden08/tessera';
 
@@ -97,4 +111,4 @@ const [autoSave, setAutoSave] = useState(true);
 });
 
 export default meta;
-export { Overview, Playground, States };
+export { Labels, Overview, Playground };

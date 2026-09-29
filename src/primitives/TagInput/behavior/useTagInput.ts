@@ -16,13 +16,13 @@ import type { UseTagInputParams } from './useTagInput.type';
 const useTagInput = (params: UseTagInputParams) => {
   const {
     value, onChange, suggestions = NO_SUGGESTIONS, maxSuggestions = DEFAULT_MAX_SUGGESTIONS,
-    disabled, validate, enforce = false, createError,
+    disabled, validate, enforce = false, createError, defaultOpen, inline,
   } = params;
 
   const [query, setQuery] = useState('');
   const [highlightIdx, setHighlightIdx] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
-  const popup = useTagPopup(disabled);
+  const popup = useTagPopup(disabled, defaultOpen === true, inline === true);
 
   const [visibleCreateError, setVisibleCreateError] = useState<string | null>(createError ?? null);
   useEffect(() => setVisibleCreateError(createError ?? null), [createError]);

@@ -5,7 +5,9 @@ const FORCE_ATTRIBUTE = 'data-force-state';
 
 const FORCEABLE_PSEUDO = /(?<![:\\])(:(?:hover|focus-visible|focus-within|focus|active))(?![\w-])/g;
 
-const FORCED_WITH: Readonly<Record<PseudoState, readonly PseudoState[]>> = {
+const HELD_BY_ANCESTORS: readonly string[] = ['hover', 'active', 'focus-within'];
+
+const FORCED_WITH:Readonly<Record<PseudoState, readonly PseudoState[]>> = {
   hover: ['hover'],
   focus: ['focus', 'focus-within'],
   'focus-visible': ['focus', 'focus-visible', 'focus-within'],
@@ -27,4 +29,4 @@ const STATE: Readonly<Record<StateKey, StateEntry>> = {
   disabled: { name: 'Disabled', props: { disabled: true } },
 };
 
-export { FORCE_ATTRIBUTE, FORCEABLE_PSEUDO, FORCED_WITH, STATE };
+export { FORCE_ATTRIBUTE, FORCEABLE_PSEUDO, FORCED_WITH, HELD_BY_ANCESTORS, STATE };

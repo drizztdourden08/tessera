@@ -5,6 +5,8 @@ import { SideNav } from '../../src/composites';
 import type { SideNavGroup } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import type { StateProps } from '../_template/states/states.type';
+import { navItemStates } from './_samples/nav-states';
 import { NAV_ICONS, SETTINGS_GROUPS, TARGET_GROUPS } from './_samples/nav';
 import type { NavIcon } from './_samples/nav';
 
@@ -112,6 +114,12 @@ const ControlledSearch = {
   render: (args) => <ControlledDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<SideNavArgs>;
 
+const STATE_GROUPS: SideNavGroup[] = [{ items: [{ id: 'general', label: 'General', icon: <Icon name={NAV_ICONS.settings} /> }] }];
+
+const renderState = (props: StateProps) => (
+  <SideNav groups={STATE_GROUPS} activeId={props.selected === true ? 'general' : ''} onSelect={() => undefined} />
+);
+
 const CODE = `import { SideNav } from '@drizztdourden08/tessera';
 
 const [active, setActive] = useState('general');
@@ -131,6 +139,10 @@ const Overview = overviewStory({
   description: 'A grouped list of places to go, with the active item in gold, an optional header and an optional filter box. Reach for it for the left column of a settings page, or any list of places grouped under titles. Items can carry icons, and a group heading with an id becomes a target of its own. By default the filter narrows items by label; pass query and onQueryChange and the host owns the search and filters the groups itself.',
   playground: Playground,
   variants: [WithIcons, HeadingTargets],
+  states: {
+    render: renderState,
+    list: navItemStates('.side-nav__item'),
+  },
   code: CODE,
 });
 

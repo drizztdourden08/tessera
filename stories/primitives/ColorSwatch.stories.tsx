@@ -3,6 +3,8 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, ColorSwatch, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 
 type ColorSwatchArgs = {
   hex: string;
@@ -21,14 +23,6 @@ const TUNIC_ROW: readonly string[] = [
 ];
 
 const EDITED_SLOTS = new Set([5, 6]);
-
-const SWATCH_STATES = [
-  { label: 'plain', flags: {} },
-  { label: 'selected', flags: { selected: true } },
-  { label: 'edited', flags: { edited: true } },
-  { label: 'transparent', flags: { transparent: true } },
-  { label: 'disabled', flags: { disabled: true } },
-] as const;
 
 const ARGS: Partial<ColorSwatchArgs> = { hex: TUNIC_GREEN, caption: '5', selected: false, edited: false, transparent: false, disabled: false };
 
@@ -88,19 +82,23 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
 
-const States = {
-  name: 'States',
+const Fills = {
+  name: 'Fills',
   render: () => (
     <Box className="story-row">
-      {SWATCH_STATES.map(({ label, flags }) => (
-        <Box key={label} className="story-column">
-          <Text className="story-label">{label}</Text>
-          <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label={label} {...flags} />
-        </Box>
-      ))}
+      <Box className="story-column">
+        <Text className="story-label">colour</Text>
+        <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label="Palette slot 5" />
+      </Box>
+      <Box className="story-column">
+        <Text className="story-label">transparent</Text>
+        <ColorSwatch color={TUNIC_GREEN} caption="0" transparent aria-label="Palette slot 0" />
+      </Box>
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
+
+const renderState = (props: StateProps) => <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label="Palette slot 5" {...props} />;
 
 const Palette = {
   name: 'Palette row',
@@ -111,8 +109,19 @@ const Overview = overviewStory({
   component: 'ColorSwatch',
   description: 'One colour drawn as a button, for picking a slot in a palette or a colour from a set. A small caption inside it, usually the palette index, labels the slot. Selected draws a ring, edited marks a value changed from its original, transparent swaps the fill for a checkerboard, and every button prop, onClick and disabled included, passes through.',
   playground: Playground,
-  variants: [States],
+  variants: [Fills],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      STATE.hover,
+      STATE.focus,
+      STATE.selected,
+      { name: 'Edited', props: { edited: true } },
+      STATE.disabled,
+    ],
+  },
 });
 
 export default meta;
-export { Overview, Palette, Playground, States };
+export { Fills, Overview, Palette, Playground };

@@ -5,6 +5,10 @@
   height: 24rem;
 }
 
+.log-panel-story--state {
+  height: 9rem;
+}
+
 .server-log {
   --log-gutter-w: 8ch;
   --log-tag-w: 6ch;
