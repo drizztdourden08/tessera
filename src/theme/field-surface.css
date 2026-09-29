@@ -9,7 +9,7 @@
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
   color: var(--c-text);
-  transition: border-color var(--transition-normal);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .select,
@@ -23,6 +23,31 @@
 .text-input:focus,
 .textarea:focus {
   border-color: var(--c-primary);
+}
+
+.text-input:hover:not(:disabled, :focus, [readonly], [aria-invalid='true']) {
+  border-color: color-mix(in oklab, var(--c-border-strong), var(--c-text-muted));
+}
+
+.text-input:focus {
+  box-shadow: 0 0 0 var(--border-width-thick) var(--c-primary-soft);
+}
+
+.text-input[readonly] {
+  background: var(--c-sunken);
+}
+
+.text-input[aria-invalid='true'] {
+  border-color: var(--c-danger);
+}
+
+.text-input[aria-invalid='true']:focus {
+  box-shadow: 0 0 0 var(--border-width-thick) var(--c-danger-soft);
+}
+
+.text-input:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
 }
 
 .text-input::placeholder,

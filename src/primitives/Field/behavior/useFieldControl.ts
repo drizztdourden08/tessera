@@ -6,7 +6,7 @@ import type { FieldControl } from '../../field-control/field-control.type';
 const useFieldControl = (ownId?: string, ownDescribedBy?: string): FieldControl => {
   const field = useContext(FieldControlContext);
   const describedBy = [ownDescribedBy, field.describedBy].filter(Boolean).join(' ');
-  return { id: ownId ?? field.id, describedBy: describedBy || undefined };
+  return { id: ownId ?? field.id, describedBy: describedBy || undefined, invalid: field.invalid };
 };
 
 export { useFieldControl };

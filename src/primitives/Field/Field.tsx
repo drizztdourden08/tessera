@@ -11,9 +11,10 @@ const Field = (props: FieldProps) => {
   const controlId = htmlFor ?? `field-${autoId}`;
   const noteId = `${controlId}-note`;
   const note = error ?? hint;
+  const invalid = error != null;
   const control = useMemo(
-    () => ({ id: controlId, describedBy: note != null ? noteId : undefined }),
-    [controlId, noteId, note],
+    () => ({ id: controlId, describedBy: note != null ? noteId : undefined, invalid }),
+    [controlId, noteId, note, invalid],
   );
 
   return (

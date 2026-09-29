@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import type { StoryLiteArgs, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { elementToJsx } from './element-to-jsx';
 import { OverviewPage } from './OverviewPage';
+import type { OverviewStates } from './states/states.type';
 
 type Story<A extends StoryLiteArgs> = StoryLiteStoryDefinition<A>;
 type StoryContext<A extends StoryLiteArgs> = Parameters<NonNullable<Story<A>['render']>>[1];
@@ -13,6 +14,7 @@ interface OverviewParams<A extends StoryLiteArgs> {
   importName?: string;
   description: string;
   variants: readonly Story<A>[];
+  states?: OverviewStates;
   playground?: Story<A>;
   code?: string | false;
 }
@@ -28,7 +30,7 @@ const draw = <A extends StoryLiteArgs>(story: Story<A>, args: StoryLiteArgs, con
   story.render?.({ ...(story.args ?? {}), ...args } as A, context) as ReactNode;
 
 const overviewStory = <A extends StoryLiteArgs>(params: OverviewParams<A>): Story<A> => {
-  const { component, importName = component, description, variants, playground, code } = params;
+  const { component, importName = component, description, variants, states, playground, code } = params;
   const defaults: StoryLiteArgs = { ...(playground?.args ?? {}) };
   const fixedCode = typeof code === 'string' ? code : null;
   const snippet = code === false ? null : (node: ReactNode) => fixedCode ?? snippetFor(importName, node);
@@ -40,6 +42,7 @@ const overviewStory = <A extends StoryLiteArgs>(params: OverviewParams<A>): Stor
         name={component}
         description={description}
         variants={variants.map((story) => ({ title: story.name ?? '', node: draw(story, defaults, context) }))}
+        states={states ?? null}
         playground={playground ? {
           argTypes: playground.argTypes ?? {},
           defaults,

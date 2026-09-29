@@ -1,6 +1,8 @@
 /* @layer stories @kind component */
 import { Box, CodeBlock, Text } from '../../src/primitives';
 import { OverviewPlayground } from './OverviewPlayground';
+import { StatesSection } from './states/StatesSection';
+import type { OverviewStates } from './states/states.type';
 import type { OverviewPlaygroundProps } from './OverviewPlayground';
 import type { ReactNode } from 'react';
 import './overview.css';
@@ -14,12 +16,13 @@ interface OverviewPageProps {
   name: string;
   description: string;
   variants: readonly OverviewVariant[];
+  states: OverviewStates | null;
   playground: OverviewPlaygroundProps | null;
   code: string | null;
 }
 
 const OverviewPage = (props: OverviewPageProps) => {
-  const { name, description, variants, playground, code } = props;
+  const { name, description, variants, states, playground, code } = props;
   return (
     <Box className="overview">
       <Box as="header" className="overview__head">
@@ -37,6 +40,7 @@ const OverviewPage = (props: OverviewPageProps) => {
         ))}
       </Box>
       )}
+      {states !== null && <StatesSection {...states} />}
       {playground !== null && <OverviewPlayground {...playground} />}
       {playground === null && code !== null && (
       <Box as="section" className="overview__section">
