@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useState } from 'react';
 import { ownerDocumentOf } from '../../dom/owner-document';
-import { FULLSCREEN_EVENTS } from '../Video.constants';
+import { FULLSCREEN_EVENTS, FULLSCREEN_GRACE_MS } from '../Video.constants';
 import type { FullscreenMode } from '../Video.type';
 import { fullscreenApi } from './fullscreen-api';
 
@@ -33,7 +33,7 @@ const useFullscreen = (frame: HTMLElement | null): FullscreenMode => {
     if (filled) setFilled(false);
     else if (fullscreenApi.elementOf(doc) === frame) fullscreenApi.exit(doc).catch(() => setNative(false));
     else if (!fullscreenApi.enabledIn(doc)) setFilled(true);
-    else fullscreenApi.request(frame).catch(() => setFilled(true));
+    else fullscreenApi.requestWithin(frame, FULLSCREEN_GRACE_MS).catch(() => setFilled(true));
   }, [frame, filled]);
 
   return { active: native || filled, supported: frame !== null, filled, toggle };

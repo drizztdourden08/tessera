@@ -38,6 +38,8 @@ const MEDIA_EVENTS = [
 
 const FULLSCREEN_EVENTS = ['fullscreenchange', 'webkitfullscreenchange'] as const;
 
+const FULLSCREEN_GRACE_MS = 700;
+
 const PIP_EVENTS = ['enterpictureinpicture', 'leavepictureinpicture'] as const;
 
 const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5, 2] as const;
@@ -83,6 +85,7 @@ const DEFAULT_ERROR_MESSAGE = 'This video could not be loaded.';
 export {
   DEFAULT_ERROR_MESSAGE,
   FULLSCREEN_EVENTS,
+  FULLSCREEN_GRACE_MS,
   IDLE_MS,
   INITIAL_MEDIA,
   KEY_SHORTCUTS,

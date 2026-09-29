@@ -14,11 +14,20 @@ const request = async (element: HTMLElement): Promise<void> => {
   prefixed.call(element);
 };
 
+const requestWithin = (element: HTMLElement, graceMs: number): Promise<void> => new Promise((resolve, reject) => {
+  const view = element.ownerDocument.defaultView;
+  const timer = view?.setTimeout(() => reject(new Error('Full screen did not start')), graceMs);
+  request(element).then(
+    () => { view?.clearTimeout(timer); resolve(); },
+    (error: unknown) => { view?.clearTimeout(timer); reject(error instanceof Error ? error : new Error(String(error))); },
+  );
+});
+
 const exit = async (doc: Document): Promise<void> => {
   if (typeof doc.exitFullscreen === 'function') return doc.exitFullscreen();
   (doc as PrefixedDocument).webkitExitFullscreen?.call(doc);
 };
 
-const fullscreenApi = { elementOf, enabledIn, request, exit };
+const fullscreenApi = { elementOf, enabledIn, request, requestWithin, exit };
 
 export { fullscreenApi };
