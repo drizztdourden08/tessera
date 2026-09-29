@@ -1,14 +1,19 @@
 /* @layer stories @kind story */
+import { useEffect, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Image, Text } from '../../src/primitives';
+import { Box, Button, Image } from '../../src/primitives';
+import { LabelledRows } from '../_template/LabelledRows';
 import { overviewStory } from '../_template/overview-story';
 import './Image.stories.css';
 
-type Picture = 'valley' | 'dusk' | 'broken';
+type Picture = 'valley' | 'dusk' | 'broken' | 'on its way' | 'none';
+type Ratio = 'from the image' | '16 / 9' | '4 / 3' | '1 / 1';
 
 type ImageArgs = {
   picture: Picture;
   alt: string;
+  ratio: Ratio;
+  placeholder: 'auto' | 'none';
   withFallback: boolean;
 };
 
@@ -23,21 +28,38 @@ const sceneUri = (sky: string, ground: string, label: string) =>
   )}`;
 
 const BROKEN_URI = 'data:image/png;base64,bm90LWFuLWltYWdl';
+const VALLEY_URI = sceneUri('#7fb3d5', '#3d7a4a', 'Valley, 14:02');
+const DUSK_URI = sceneUri('#5b4a7a', '#2e3b4e', 'Ridge, 19:40');
+const ARRIVAL_MS = 2500;
 
-const SOURCES: Record<Picture, string> = {
-  valley: sceneUri('#7fb3d5', '#3d7a4a', 'Valley, 14:02'),
-  dusk: sceneUri('#5b4a7a', '#2e3b4e', 'Ridge, 19:40'),
+const SOURCES: Record<Picture, string | undefined> = {
+  valley: VALLEY_URI,
+  dusk: DUSK_URI,
   broken: BROKEN_URI,
+  'on its way': undefined,
+  none: undefined,
 };
 
 const fallbackNode = <Box className="image-demo__fallback">Screenshot unavailable</Box>;
 
-const ARGS: Partial<ImageArgs> = { picture: 'valley', alt: 'Screenshot of the valley at midday', withFallback: true };
+const ARGS: Partial<ImageArgs> = {
+  picture: 'valley',
+  alt: 'Screenshot of the valley at midday',
+  ratio: 'from the image',
+  placeholder: 'auto',
+  withFallback: false,
+};
 
 const ARG_TYPES: StoryLiteArgTypes<ImageArgs> = {
-    picture: { control: 'select', options: ['valley', 'dusk', 'broken'] },
+    picture: {
+      control: 'select',
+      options: ['valley', 'dusk', 'broken', 'on its way', 'none'],
+      description: 'A source that fails, one still on its way (pending, never arrives), or none at all.',
+    },
     alt: { control: 'text' },
-    withFallback: { control: 'boolean', description: 'Placeholder drawn when the source fails.' },
+    ratio: { control: 'select', options: ['from the image', '16 / 9', '4 / 3', '1 / 1'], description: 'The box the picture takes before it loads.' },
+    placeholder: { control: 'select', options: ['auto', 'none'], description: 'Draw the picture outline while loading and when broken.' },
+    withFallback: { control: 'boolean', description: 'Custom node drawn when the source fails or is missing.' },
   };
 
 const meta = {
@@ -54,38 +76,111 @@ const Playground = {
       key={`${args.picture}-${String(args.withFallback)}`}
       className="image-demo"
       src={SOURCES[args.picture]}
+      pending={args.picture === 'on its way'}
       alt={args.alt}
+      aspectRatio={args.ratio === 'from the image' ? undefined : args.ratio}
+      placeholder={args.placeholder}
       fallback={args.withFallback ? fallbackNode : undefined}
     />
   ),
 } satisfies StoryLiteStoryDefinition<ImageArgs>;
 
-const LoadFailure = {
-  name: 'Load failure',
+const STATES = ['loaded', 'loading', 'broken', 'no source'] as const;
+
+const STATE_SOURCES: Record<(typeof STATES)[number], string | undefined> = {
+  loaded: DUSK_URI,
+  loading: undefined,
+  broken: BROKEN_URI,
+  'no source': undefined,
+};
+
+const States = {
+  name: 'Loaded, loading, broken and empty',
   render: () => (
-    <Box className="story-row">
-      <Box className="story-column">
-        <Text className="story-label">loads</Text>
-        <Image className="image-demo" src={SOURCES.dusk} alt="Screenshot of the ridge at dusk" />
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">fails, with fallback</Text>
-        <Image className="image-demo" src={BROKEN_URI} alt="Missing screenshot" fallback={fallbackNode} />
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">fails, no fallback</Text>
-        <Image className="image-demo" src={BROKEN_URI} alt="Missing screenshot" />
+    <LabelledRows
+      items={STATES}
+      render={(state) => (
+        <Image
+          className="image-demo"
+          src={STATE_SOURCES[state]}
+          pending={state === 'loading'}
+          alt="Screenshot of the ridge at dusk"
+        />
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ImageArgs>;
+
+const Arrival = () => {
+  const [arrived, setArrived] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setArrived(true), ARRIVAL_MS);
+    return () => clearTimeout(timer);
+  }, []);
+  return <Image className="image-demo" src={arrived ? VALLEY_URI : undefined} pending alt="Screenshot of the valley at midday" />;
+};
+
+const SlowArrival = () => {
+  const [round, setRound] = useState(0);
+  return (
+    <Box className="story-column">
+      <Arrival key={round} />
+      <Box>
+        <Button size="sm" variant="secondary" onClick={() => setRound((value) => value + 1)}>Load again</Button>
       </Box>
     </Box>
+  );
+};
+
+const SlowSource = {
+  name: 'A source that arrives after a pause',
+  render: () => <SlowArrival />,
+} satisfies StoryLiteStoryDefinition<ImageArgs>;
+
+const FALLBACKS = ['source fails', 'no source'] as const;
+
+const WithFallback = {
+  name: 'A fallback node',
+  render: () => (
+    <LabelledRows
+      items={FALLBACKS}
+      render={(item) => (
+        <Image
+          className="image-demo"
+          src={item === 'source fails' ? BROKEN_URI : undefined}
+          alt="Missing screenshot"
+          fallback={fallbackNode}
+        />
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ImageArgs>;
+
+const SIZES = ['16 / 9 by default', 'aspect ratio 4 / 3', 'aspect ratio 1 / 1', 'width 240 and height 100'] as const;
+
+const SIZE_PROPS: Record<(typeof SIZES)[number], { aspectRatio?: string; width?: number; height?: number }> = {
+  '16 / 9 by default': {},
+  'aspect ratio 4 / 3': { aspectRatio: '4 / 3' },
+  'aspect ratio 1 / 1': { aspectRatio: '1 / 1' },
+  'width 240 and height 100': { width: 240, height: 100 },
+};
+
+const Sizes = {
+  name: 'Sizes, the box held while loading',
+  render: () => (
+    <LabelledRows
+      items={SIZES}
+      render={(size) => <Image className="image-demo" pending alt="Screenshot on its way" {...SIZE_PROPS[size]} />}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<ImageArgs>;
 
 const Overview = overviewStory({
   component: 'Image',
-  description: 'The image element of the design system, with every img attribute passed through. Give it a fallback and a source that fails to load is replaced by that placeholder, not the browser\'s broken-image glyph. The failure is remembered per source, so a new src gets a fresh attempt.',
+  description: 'The image element of the design system, with every img attribute passed through. It holds the box the picture will take, from width and height, an aspect ratio, or 16 / 9 by default, so the layout never jumps. While the source loads it draws a picture outline that pulses, and a source that fails shows the same outline in the danger colour with a cross. A fallback node replaces the outline when the source fails or is missing. pending marks a source that is still on its way.',
   playground: Playground,
-  variants: [LoadFailure],
+  variants: [States, SlowSource, WithFallback, Sizes],
 });
 
 export default meta;
-export { LoadFailure, Overview, Playground };
+export { Overview, Playground, Sizes, SlowSource, States, WithFallback };

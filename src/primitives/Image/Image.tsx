@@ -1,20 +1,25 @@
 /* @layer renderer-components @kind component */
-import { useState } from 'react';
-import type { SyntheticEvent } from 'react';
+import { frameStyleOf } from './behavior/frame-style-of';
+import { useImageStatus } from './behavior/useImageStatus';
+import { ImageCover } from './sub-components/ImageCover';
 import type { ImageProps } from './Image.type';
+import './Image.css';
 
 const Image = (props: ImageProps) => {
-  const { alt = '', fallback, onError, src, ...rest } = props;
-  const [failedSrc, setFailedSrc] = useState<string | undefined>(undefined);
+  const { alt = '', aspectRatio, className, fallback, onError, onLoad, pending = false, placeholder = 'auto', style, ...rest } = props;
+  const { src, srcSet, width, height } = rest;
+  const { imgRef, hasSource, status, naturalRatio, handleLoad, handleError } = useImageStatus({ src, srcSet, pending, onLoad, onError });
+  const frameClass = ['image', `image--${status}`, className].filter(Boolean).join(' ');
+  const frameLabel = status === 'empty' && alt ? { role: 'img', 'aria-label': alt } : {};
 
-  if (fallback !== undefined && src !== undefined && failedSrc === src) return <>{fallback}</>;
-
-  const handleError = (event: SyntheticEvent<HTMLImageElement>) => {
-    if (fallback !== undefined) setFailedSrc(src);
-    onError?.(event);
-  };
-
-  return <img alt={alt} src={src} onError={handleError} {...rest} />;
+  return (
+    <span className={frameClass} style={frameStyleOf({ aspectRatio, width, height, naturalRatio, style })} {...frameLabel}>
+      {hasSource ? (
+        <img ref={imgRef} className="image__img" alt={alt} onLoad={handleLoad} onError={handleError} {...rest} />
+      ) : null}
+      {status === 'loaded' ? null : <ImageCover status={status} fallback={fallback} placeholder={placeholder} />}
+    </span>
+  );
 };
 
 export { Image };

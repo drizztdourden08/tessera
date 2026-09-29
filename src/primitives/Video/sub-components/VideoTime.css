@@ -1,0 +1,12 @@
+/* @layer renderer-components @kind style */
+.video-time {
+  padding-inline: var(--space-xs);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--p-pure-white);
+}
+
+.video-time__total {
+  color: color-mix(in srgb, var(--p-pure-white) 65%, transparent);
+}

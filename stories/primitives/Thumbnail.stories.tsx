@@ -1,14 +1,15 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Flex, Stack, Text, Thumbnail } from '../../src/primitives';
+import { LabelledRows } from '../_template/LabelledRows';
 import { overviewStory } from '../_template/overview-story';
-import { axis, VariantGrid } from '../_template/VariantGrid';
 import './Thumbnail.stories.css';
 
 type ThumbSize = 'sm' | 'md' | 'lg';
+type Picture = 'cellar' | 'ruins' | 'broken' | 'on its way' | 'none';
 
 type ThumbnailArgs = {
-  hasImage: boolean;
+  picture: Picture;
   size: ThumbSize;
   alt: string;
   placeholder: string;
@@ -27,20 +28,35 @@ const roomUri = (floor: string, wall: string) =>
 
 const CELLAR_URI = roomUri('#6b6b7a', '#3a3a48');
 const RUINS_URI = roomUri('#8a7a5a', '#4a3f2e');
+const BROKEN_URI = 'data:image/png;base64,bm90LWFuLWltYWdl';
 
-const SLOTS: readonly { name: string; detail: string; src: string | null }[] = [
+const SOURCES: Record<Picture, string | null> = {
+  cellar: CELLAR_URI,
+  ruins: RUINS_URI,
+  broken: BROKEN_URI,
+  'on its way': null,
+  none: null,
+};
+
+const SLOTS: readonly { name: string; detail: string; src: string | null; pending?: boolean }[] = [
   { name: 'Slot 1', detail: 'Castle cellar, 2h 14m', src: CELLAR_URI },
   { name: 'Slot 2', detail: 'Eastern ruins, 3h 02m', src: RUINS_URI },
-  { name: 'Slot 3', detail: 'Empty', src: null },
+  { name: 'Slot 3', detail: 'Saving now', src: null, pending: true },
+  { name: 'Slot 4', detail: 'Screenshot missing', src: BROKEN_URI },
+  { name: 'Slot 5', detail: 'Empty', src: null },
 ];
 
-const ARGS: Partial<ThumbnailArgs> = { hasImage: true, size: 'lg', alt: 'Castle cellar', placeholder: 'No screenshot' };
+const ARGS: Partial<ThumbnailArgs> = { picture: 'cellar', size: 'lg', alt: 'Castle cellar', placeholder: 'No screenshot' };
 
 const ARG_TYPES: StoryLiteArgTypes<ThumbnailArgs> = {
-    hasImage: { control: 'boolean' },
+    picture: {
+      control: 'select',
+      options: ['cellar', 'ruins', 'broken', 'on its way', 'none'],
+      description: 'A source that fails, one still on its way (pending, never arrives), or none at all.',
+    },
     size: { control: 'select', options: ['sm', 'md', 'lg'], description: 'Frame size is set by the caller.' },
     alt: { control: 'text' },
-    placeholder: { control: 'text' },
+    placeholder: { control: 'text', description: 'Drawn in an empty frame, with no source.' },
   };
 
 const meta = {
@@ -56,29 +72,57 @@ const Playground = {
   argTypes: ARG_TYPES,
   render: (args) => (
     <Thumbnail
+      key={args.picture}
       className={`thumb-demo--${args.size}`}
-      src={args.hasImage ? CELLAR_URI : null}
+      src={SOURCES[args.picture]}
+      pending={args.picture === 'on its way'}
       alt={args.alt}
-      placeholder={placeholderNode(args.placeholder)}
+      placeholder={args.placeholder ? placeholderNode(args.placeholder) : undefined}
     />
   ),
 } satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
 
-const CONTENTS = ['image', 'empty'] as const;
+const STATES = ['loaded', 'loading', 'broken', 'empty', 'empty, with a placeholder node'] as const;
+
+const STATE_SOURCES: Record<(typeof STATES)[number], string | null> = {
+  loaded: RUINS_URI,
+  loading: null,
+  broken: BROKEN_URI,
+  empty: null,
+  'empty, with a placeholder node': null,
+};
+
+const States = {
+  name: 'Loaded, loading, broken and empty',
+  render: () => (
+    <LabelledRows
+      items={STATES}
+      render={(state) => (
+        <Thumbnail
+          className="thumb-demo--md"
+          src={STATE_SOURCES[state]}
+          pending={state === 'loading'}
+          alt="Eastern ruins"
+          placeholder={state === 'empty, with a placeholder node' ? placeholderNode('Empty') : undefined}
+        />
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
+
 const SIZES: readonly ThumbSize[] = ['sm', 'md', 'lg'];
 
 const Sizes = {
-  name: 'Sizes, with and without an image',
+  name: 'Sizes',
   render: () => (
-    <VariantGrid
-      rows={axis(CONTENTS)}
-      columns={axis(SIZES)}
-      cell={(content, size) => (
-        content === 'image'
-          ? <Thumbnail className={`thumb-demo--${size}`} src={RUINS_URI} alt="Eastern ruins" />
-          : <Thumbnail className={`thumb-demo--${size}`} placeholder={placeholderNode('Empty')} />
-      )}
-    />
+    <LabelledRows items={SIZES} render={(size) => <Thumbnail className={`thumb-demo--${size}`} src={RUINS_URI} alt="Eastern ruins" />} />
+  ),
+} satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
+
+const BrokenSizes = {
+  name: 'Broken, at every size',
+  render: () => (
+    <LabelledRows items={SIZES} render={(size) => <Thumbnail className={`thumb-demo--${size}`} src={BROKEN_URI} alt="Missing screenshot" />} />
   ),
 } satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
 
@@ -88,7 +132,13 @@ const SaveSlots = {
     <Stack gap="sm" className="story-column">
       {SLOTS.map((slot) => (
         <Flex key={slot.name} gap="md" align="center" className="thumb-demo__slot">
-          <Thumbnail className="thumb-demo--md" src={slot.src} alt={slot.detail} placeholder={placeholderNode('No screenshot')} />
+          <Thumbnail
+            className="thumb-demo--md"
+            src={slot.src}
+            pending={slot.pending}
+            alt={slot.detail}
+            placeholder={placeholderNode('No screenshot')}
+          />
           <Box>
             <Text as="div" variant="title">{slot.name}</Text>
             <Text variant="caption">{slot.detail}</Text>
@@ -101,10 +151,10 @@ const SaveSlots = {
 
 const Overview = overviewStory({
   component: 'Thumbnail',
-  description: 'A fixed frame that shows a small image, such as a save slot screenshot or a room preview. The caller sets the frame size with a class, and the image fills it. With no src it draws the placeholder node instead, so an empty slot keeps its shape in a list.',
+  description: 'A fixed frame that shows a small image, such as a save slot screenshot or a room preview. The caller sets the frame size with a class, and the image fills it. It draws through Image, so a loading source shows the pulsing picture outline and a source that fails shows the outline in the danger colour with a cross, sized to the frame. With no src it draws the placeholder node, or the plain outline, so an empty slot keeps its shape in a list.',
   playground: Playground,
-  variants: [Sizes],
+  variants: [States, Sizes, BrokenSizes, SaveSlots],
 });
 
 export default meta;
-export { Overview, Playground, SaveSlots, Sizes };
+export { BrokenSizes, Overview, Playground, SaveSlots, Sizes, States };

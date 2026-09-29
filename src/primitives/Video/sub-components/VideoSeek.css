@@ -1,0 +1,37 @@
+/* @layer renderer-components @kind style */
+.video-seek {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--size-16);
+}
+
+.video-seek:hover .video-seek__input:enabled {
+  height: var(--size-6);
+}
+
+.video-seek__input::-webkit-slider-thumb {
+  transform: scale(0);
+  transition: transform var(--transition-fast);
+}
+
+.video-seek:hover .video-seek__input:enabled::-webkit-slider-thumb,
+.video-seek__input:focus-visible::-webkit-slider-thumb {
+  transform: scale(1);
+}
+
+.video-seek__tip {
+  position: absolute;
+  inset-block-end: calc(100% + var(--space-2xs));
+  inset-inline-start: var(--video-hover);
+  transform: translateX(-50%);
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--p-pure-black) 85%, transparent);
+  color: var(--p-pure-white);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+}

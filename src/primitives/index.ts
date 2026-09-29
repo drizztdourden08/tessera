@@ -72,6 +72,8 @@ export { EmptyState } from './EmptyState';
 export type { EmptyStateProps } from './EmptyState';
 export { ButtonRow } from './ButtonRow';
 export type { ButtonRowProps } from './ButtonRow';
+export { ButtonGroup } from './ButtonGroup';
+export type { ButtonGroupOrientation, ButtonGroupProps } from './ButtonGroup';
 export { StatRow } from './StatRow';
 export type { StatRowProps } from './StatRow';
 export { TermList } from './TermList';

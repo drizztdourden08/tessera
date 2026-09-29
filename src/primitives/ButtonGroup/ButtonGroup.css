@@ -1,0 +1,66 @@
+/* @layer renderer-components @kind style */
+.btn-group {
+  display: inline-flex;
+  align-items: stretch;
+  isolation: isolate;
+}
+
+.btn-group--vertical {
+  flex-direction: column;
+}
+
+.btn-group > * {
+  position: relative;
+}
+
+.btn-group--horizontal > :not(:first-child) {
+  margin-inline-start: calc(-1 * var(--border-width-thin));
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.btn-group--horizontal > :not(:last-child) {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.btn-group--vertical > :not(:first-child) {
+  margin-block-start: calc(-1 * var(--border-width-thin));
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+}
+
+.btn-group--vertical > :not(:last-child) {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.btn-group > :is(.btn--ghost, .icon-btn--ghost):not(.btn--active, .icon-btn--active) {
+  border-color: var(--c-border);
+}
+
+.btn-group > :is(:hover:not(:disabled), [aria-pressed='true']) {
+  z-index: var(--z-base);
+}
+
+.btn-group > :focus-visible {
+  z-index: var(--z-sticky);
+}
+
+.btn-group--horizontal > .icon-btn {
+  height: auto;
+}
+
+.btn-group--vertical > .icon-btn {
+  width: auto;
+}
+
+.btn-group > .icon-btn--sm {
+  min-width: var(--control-h-sm);
+  min-height: var(--control-h-sm);
+}
+
+.btn-group > .icon-btn--md {
+  min-width: var(--size-32);
+  min-height: var(--size-32);
+}

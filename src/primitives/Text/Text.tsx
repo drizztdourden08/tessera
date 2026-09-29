@@ -21,6 +21,8 @@ const TextBase = (props: TextProps) => {
   );
 };
 
+TextBase.displayName = 'Text';
+
 const Text = Object.assign(TextBase, TEXT_MEMBERS, { CodeBlock, Quote, Q: Quote, Shortcut, Sc: Shortcut });
 
 export { Text };

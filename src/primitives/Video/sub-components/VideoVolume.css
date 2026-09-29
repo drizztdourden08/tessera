@@ -1,0 +1,24 @@
+/* @layer renderer-components @kind style */
+.video-volume {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.video-volume__input.range-input {
+  width: 0;
+  opacity: 0;
+  transition: width var(--transition-normal), opacity var(--transition-normal);
+}
+
+.video-volume:hover .video-volume__input,
+.video-volume:focus-within .video-volume__input {
+  width: var(--size-64);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-volume__input.range-input {
+    transition: none;
+  }
+}

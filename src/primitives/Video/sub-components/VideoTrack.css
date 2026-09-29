@@ -1,0 +1,48 @@
+/* @layer renderer-components @kind style */
+.video-track.range-input {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: var(--size-4);
+  margin: 0;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--c-primary) 0 var(--video-fill),
+    color-mix(in srgb, var(--p-pure-white) 40%, transparent) var(--video-fill) var(--video-buffer),
+    color-mix(in srgb, var(--p-pure-white) 20%, transparent) var(--video-buffer) 100%
+  );
+  cursor: pointer;
+  transition: height var(--transition-fast);
+}
+
+.video-track.range-input:disabled {
+  cursor: default;
+}
+
+.video-track.range-input:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-4);
+}
+
+.video-track::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--size-12);
+  height: var(--size-12);
+  border: none;
+  border-radius: var(--radius-round);
+  background: var(--c-primary-bright);
+  box-shadow: var(--shadow-1);
+}
+
+.video-track::-moz-range-thumb {
+  inline-size: var(--size-12);
+  block-size: var(--size-12);
+  background: var(--c-primary-bright);
+  border: none;
+  border-radius: var(--radius-round);
+}
+
+.video-track::-moz-range-track {
+  background: transparent;
+}

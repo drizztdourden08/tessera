@@ -24,16 +24,15 @@ const PRIMITIVES_TIER: CatalogueTier = {
     {
       group: 'Display',
       entries: [
-        { name: 'Text', summary: 'Body, label, title, subtitle and caption text.' },
         { name: 'SectionHeader', summary: 'A section title with an optional subtitle and action.' },
         { name: 'TermList', summary: 'Terms and their definitions, one per row.' },
         { name: 'StatRow', summary: 'A label and its value on one line.' },
         { name: 'Badge', summary: 'A short status word in a semantic colour.' },
         { name: 'StatusBadge', summary: 'A progress status (draft, review, done) as a chip.' },
         { name: 'EmptyState', summary: 'What to show when a list or panel has nothing yet.' },
-        { name: 'Image', summary: 'An image with a fallback when it cannot load.' },
-        { name: 'Thumbnail', summary: 'A small framed picture for lists and cards.' },
-        { name: 'Video', summary: 'A video element with sensible defaults.' },
+        { name: 'Image', summary: 'An image that holds its box, with loading and broken placeholders.' },
+        { name: 'Thumbnail', summary: 'A small framed picture for lists and cards, with the same placeholders.' },
+        { name: 'Video', summary: 'A video player with its own control bar, keys and error state.' },
         { name: 'Canvas', summary: 'A 2D drawing surface for charts and pixel art.' },
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
       ],
@@ -44,6 +43,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Button', summary: 'Primary, secondary, tertiary, ghost, danger, tile and bare.' },
         { name: 'IconButton', summary: 'A square button that holds only an icon.' },
         { name: 'ButtonRow', summary: 'A row of buttons with consistent spacing.' },
+        { name: 'ButtonGroup', summary: 'Buttons joined into one control, with shared borders.' },
       ],
     },
     {

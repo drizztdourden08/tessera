@@ -1,0 +1,30 @@
+/* @layer renderer-components @kind style */
+.video {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-md);
+  background: var(--p-pure-black);
+  color: var(--p-pure-white);
+  isolation: isolate;
+}
+
+.video:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thick);
+}
+
+.video[data-idle] {
+  cursor: none;
+}
+
+.video:fullscreen {
+  border-radius: 0;
+}
+
+.video__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: contain;
+}

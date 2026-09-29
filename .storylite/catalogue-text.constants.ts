@@ -8,6 +8,7 @@ const TEXT_TIER: CatalogueTier = {
   groups: [{
     group: '',
     entries: [
+      { name: 'Text', summary: 'The namespace for every text element, and plain text by variant.' },
       { name: 'All elements', summary: 'Every text element on one page.' },
       { name: 'Title', summary: 'H1 to H6 in the title face, built from one heading.' },
       ...TEXT_ELEMENT_SPECS.map((spec) => ({

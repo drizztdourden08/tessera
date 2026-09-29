@@ -37,6 +37,7 @@ import clockIcon from '@iconify-icons/lucide/clock';
 import zapIcon from '@iconify-icons/lucide/zap';
 import sunIcon from '@iconify-icons/lucide/sun';
 import moonIcon from '@iconify-icons/lucide/moon';
+import volume1Icon from '@iconify-icons/lucide/volume-1';
 import volume2Icon from '@iconify-icons/lucide/volume-2';
 import volumeXIcon from '@iconify-icons/lucide/volume-x';
 import monitorIcon from '@iconify-icons/lucide/monitor';
@@ -87,6 +88,7 @@ const STATUS_ICONS = {
   'zap': zapIcon,
   'sun': sunIcon,
   'moon': moonIcon,
+  'volume-1': volume1Icon,
   'volume-2': volume2Icon,
   'volume-x': volumeXIcon,
   'monitor': monitorIcon,
