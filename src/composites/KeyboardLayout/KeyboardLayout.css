@@ -11,10 +11,6 @@
   border-radius: var(--radius-lg);
   background: var(--c-sunken);
   box-shadow: inset 0 0 0 var(--border-width-thin) var(--c-border);
-  font-size: var(--text-xs);
-  font-family: var(--font-mono);
-  color: var(--c-text);
-  font-weight: var(--weight-medium);
   user-select: none;
 }
 
@@ -29,29 +25,6 @@
   padding: var(--space-2xs);
 }
 
-.keyboard-key .shortcut__cap {
-  flex: 1 1 auto;
-  min-inline-size: 0;
-  block-size: auto;
-  line-height: 1;
-  white-space: nowrap;
-  transition-property: border-color, color;
-  transition-duration: var(--duration-normal);
-  transition-timing-function: var(--ease-standard);
-}
-
-.keyboard-key--lit .shortcut__cap {
-  border-color: var(--c-primary);
-  color: var(--c-primary);
-}
-
-.keyboard-key--pressed .shortcut__cap {
-  animation: shortcut-press var(--duration-float) linear paused;
-  animation-delay: calc(var(--duration-float) * -0.65);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .keyboard-key .shortcut__cap {
-    transition: none;
-  }
+.keyboard-key .keyboard-key__cap {
+  font-size: var(--text-xs);
 }

@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind types */
 import type { ComponentPropsWithRef } from 'react';
-import type { CAP_WIDTHS, CHARACTER_KEYS, KEY_SPECS, LETTER_KEYS, SHORTCUT_LEGENDS } from './Shortcut.constants';
+import type {
+  CAP_WIDTHS, CHARACTER_KEYS, KEY_SPECS, LETTER_KEYS, SHORTCUT_LEGENDS, SHORTCUT_STATES,
+} from './Shortcut.constants';
 import type { KEY_SYMBOLS } from './sub-components/Keycap.constants';
 import type { MOUSE_SPECS } from './sub-components/MouseCap.constants';
 
@@ -23,6 +25,8 @@ type MouseButton = keyof typeof MOUSE_SPECS;
 type ShortcutLegend = (typeof SHORTCUT_LEGENDS)[number];
 
 type CapWidth = (typeof CAP_WIDTHS)[number];
+
+type ShortcutState = (typeof SHORTCUT_STATES)[number];
 
 type KeySymbolName = keyof typeof KEY_SYMBOLS;
 
@@ -47,6 +51,15 @@ interface ShortcutBaseProps extends Omit<ComponentPropsWithRef<'kbd'>, 'children
   legend?: ShortcutLegend;
   width?: CapWidth;
   animate?: boolean;
+  state?: ShortcutState;
+  fill?: boolean;
+}
+
+interface ShortcutClassParams {
+  animate: boolean;
+  state: ShortcutState | undefined;
+  fill: boolean;
+  className: string | undefined;
 }
 
 type ShortcutKeys = ShortcutKey | readonly ShortcutKey[];
@@ -56,6 +69,6 @@ type ShortcutInput = { keys: ShortcutKeys; mouse?: MouseButton } | { keys?: Shor
 type ShortcutProps = ShortcutBaseProps & ShortcutInput;
 
 export type {
-  CapWidth, FunctionKey, KeyFace, KeyName, KeySpec, MouseButton, PrintableKey, ShortcutKey, ShortcutKeys,
-  ShortcutLegend, ShortcutProps,
+  CapWidth, FunctionKey, KeyFace, KeyName, KeySpec, MouseButton, PrintableKey, ShortcutClassParams, ShortcutKey,
+  ShortcutKeys, ShortcutLegend, ShortcutProps, ShortcutState,
 };

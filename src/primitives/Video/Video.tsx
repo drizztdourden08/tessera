@@ -15,18 +15,27 @@ const Video = (props: VideoProps) => {
     style,
     ref,
     preload = 'metadata',
+    theater,
+    defaultTheater = false,
+    onTheaterChange,
     onClick,
     ...native
   } = props;
-  const player = useVideoPlayer({ ref, controls, onClick });
+  const player = useVideoPlayer({ ref, controls, className, onClick, theater, defaultTheater, onTheaterChange });
   const { media, actions } = player;
 
   return (
-    <div {...player.frame} className={`video ${className}`} style={style} aria-label={label}>
+    <div {...player.frame} style={style} aria-label={label}>
       <video className="video__media" preload={preload} {...native} {...player.video} controls={false} />
       <VideoOverlay media={media} controls={controls} errorMessage={errorMessage} onPlay={actions.togglePlay} />
       {player.interactive && (
-        <VideoBar media={media} actions={actions} fullscreen={player.fullscreen} pictureInPicture={player.pictureInPicture} />
+        <VideoBar
+          media={media}
+          actions={actions}
+          fullscreen={player.fullscreen}
+          pictureInPicture={player.pictureInPicture}
+          theater={player.theater}
+        />
       )}
     </div>
   );

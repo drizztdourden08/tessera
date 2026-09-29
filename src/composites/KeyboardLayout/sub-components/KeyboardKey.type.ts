@@ -1,9 +1,10 @@
 /* @layer renderer-components @kind types */
-import type { KeyState, PlacedKey } from '../KeyboardLayout.type';
+import type { ShortcutState } from '../../../primitives';
+import type { PlacedKey } from '../KeyboardLayout.type';
 
 interface KeyboardKeyProps {
   placed: PlacedKey;
-  state: KeyState;
+  state: ShortcutState;
 }
 
 export type { KeyboardKeyProps };

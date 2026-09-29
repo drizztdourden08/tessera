@@ -1,12 +1,13 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, CAP_WIDTHS, SHORTCUT_LEGENDS, Shortcut, Text } from '../../src/primitives';
-import type { CapWidth, MouseButton, ShortcutKey, ShortcutLegend } from '../../src/primitives';
+import { Box, CAP_WIDTHS, SHORTCUT_LEGENDS, SHORTCUT_STATES, Shortcut, Text } from '../../src/primitives';
+import type { CapWidth, MouseButton, ShortcutKey, ShortcutLegend, ShortcutState } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import {
-  ANIMATED_ROWS, CAP_WIDTH_ROWS, COMBINATION_ROWS, KEYS_AND_MOUSE_ROWS, MOUSE_BUTTONS, PRINTABLE_KEYS,
+  ANIMATED_ROWS, CAP_WIDTH_ROWS, COMBINATION_ROWS, KEYS_AND_MOUSE_ROWS, MOUSE_BUTTONS, PRINTABLE_KEYS, STATE_ROWS,
 } from './_samples/shortcut-samples';
 import type { ShortcutRow } from './_samples/shortcut-samples';
+import { ShortcutFillDemo } from './_samples/ShortcutFillDemo';
 import { ShortcutLegendTable } from './_samples/ShortcutLegendTable';
 import { ShortcutRows } from './_samples/ShortcutRows';
 
@@ -16,6 +17,8 @@ type ShortcutArgs = {
   legend: ShortcutLegend;
   width: CapWidth | 'natural';
   animate: boolean;
+  state: ShortcutState | 'none';
+  fill: boolean;
 };
 
 const ARG_TYPES: StoryLiteArgTypes<ShortcutArgs> = {
@@ -23,7 +26,9 @@ const ARG_TYPES: StoryLiteArgTypes<ShortcutArgs> = {
   mouse: { control: 'select', options: ['none', ...MOUSE_BUTTONS], description: 'One mouse button, placed after the keys.' },
   legend: { control: 'select', options: [...SHORTCUT_LEGENDS], description: 'The printed word, the key symbol or the plain arrow. A key without it falls back to its label.' },
   width: { control: 'select', options: ['natural', ...CAP_WIDTHS], description: 'The cap width. Natural keeps each key at its own width.' },
-  animate: { control: 'boolean', description: 'Presses and releases in a loop.' },
+  animate: { control: 'boolean', description: 'Presses and releases in a loop. It wins over state while it runs.' },
+  state: { control: 'select', options: ['none', ...SHORTCUT_STATES], description: 'Idle, lit in the primary colour, or pressed down.' },
+  fill: { control: 'boolean', description: 'Stretches the caps to fill their box, shown here in a fixed box.' },
 };
 
 const meta = {
@@ -41,13 +46,20 @@ const rowsStory = (name: string, rows: readonly ShortcutRow[]) => ({
 
 const Playground = {
   name: 'Playground',
-  args: { keys: 'ctrl, shift', mouse: 'left', legend: 'label', width: 'natural', animate: false },
+  args: { keys: 'ctrl, shift', mouse: 'left', legend: 'label', width: 'natural', animate: false, state: 'none', fill: false },
   argTypes: ARG_TYPES,
   render: (args) => {
-    const look = { legend: args.legend, width: args.width === 'natural' ? undefined : args.width, animate: args.animate || undefined };
-    return args.mouse === 'none'
+    const look = {
+      legend: args.legend,
+      width: args.width === 'natural' ? undefined : args.width,
+      animate: args.animate || undefined,
+      state: args.state === 'none' ? undefined : args.state,
+      fill: args.fill || undefined,
+    };
+    const shortcut = args.mouse === 'none'
       ? <Shortcut keys={keyList(args.keys)} {...look} />
       : <Shortcut keys={keyList(args.keys)} mouse={args.mouse} {...look} />;
+    return args.fill ? <Box className="shortcut-fill__stage">{shortcut}</Box> : shortcut;
   },
 } satisfies StoryLiteStoryDefinition<ShortcutArgs>;
 
@@ -87,6 +99,13 @@ const KeysAndMouse = rowsStory('Keys with a mouse button', KEYS_AND_MOUSE_ROWS);
 
 const Animated = rowsStory('Animated', ANIMATED_ROWS);
 
+const States = rowsStory('States', STATE_ROWS);
+
+const Filled = {
+  name: 'Filling a box',
+  render: () => <ShortcutFillDemo />,
+} satisfies StoryLiteStoryDefinition<ShortcutArgs>;
+
 const InSentence = {
   name: 'In a sentence',
   render: () => (
@@ -101,13 +120,15 @@ const InSentence = {
 const Overview = overviewStory({
   component: 'Shortcut (Sc)',
   importName: 'Shortcut',
-  description: 'A key, a key combination or a mouse button. Pass keys a key name, or an array for a combination, and mouse one mouse button. Keys come first, then the mouse button, with a plus between them. Letters, digits, punctuation and F1 to F24 work as they are. Legend picks what a key shows: its label, its symbol or its plain arrow, and a key without that legend shows its label. Width sets the cap to normal or wide; by default each key keeps its own width. A mouse button has no cap: the mouse is drawn in the text colour and the pressed part in the primary colour. Animate presses and releases in a loop, all together in a combination. Screen readers hear the key name, and selecting the text around a shortcut leaves the keycaps out. The mouse and key icons come from Phosphor.',
+  description: 'A key, a key combination or a mouse button. Pass keys a key name, or an array for a combination, and mouse one mouse button. Keys come first, then the mouse button, with a plus between them. Letters, digits, punctuation and F1 to F24 work as they are. Legend picks what a key shows: its label, its symbol or its plain arrow, and a key without that legend shows its label. Width sets the cap to normal or wide; by default each key keeps its own width. A mouse button has no cap: the mouse is drawn in the text colour and the pressed part in the primary colour. Animate presses and releases in a loop, all together in a combination. State holds one look instead: idle, lit in the primary colour, or pressed down, and a change of state eases between the two looks the loop uses. An idle mouse button draws its pressed part in the text colour. While animate runs it wins over state, and with reduced motion both keep the colour change and drop the movement. Fill stretches the caps to fill their box, which is how a keyboard sizes a key to its width in key units. Screen readers hear the key name, and selecting the text around a shortcut leaves the keycaps out. The mouse and key icons come from Phosphor.',
   playground: Playground,
-  variants: [Legends, CapWidths, PrintableKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, Animated, InSentence],
+  variants: [
+    Legends, CapWidths, PrintableKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, Animated, States, Filled, InSentence,
+  ],
 });
 
 export default meta;
 export {
-  Animated, Arrows, CapWidths, Combinations, InSentence, KeysAndMouse, Legends, MouseButtons, Overview, Playground,
-  PrintableKeys,
+  Animated, Arrows, CapWidths, Combinations, Filled, InSentence, KeysAndMouse, Legends, MouseButtons, Overview,
+  Playground, PrintableKeys, States,
 };

@@ -1,5 +1,41 @@
 /* @layer renderer-components @kind style */
+@property --shortcut-edge {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --shortcut-ink {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --shortcut-lip {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --shortcut-mark {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --shortcut-sink {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+
 .shortcut {
+  --shortcut-edge: var(--c-border-strong);
+  --shortcut-ink: var(--c-text);
+  --shortcut-lip: var(--c-border);
+  --shortcut-mark: var(--c-primary);
+  --shortcut-sink: var(--border-width-thin);
+
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
@@ -12,6 +48,32 @@
   line-height: 1;
   white-space: nowrap;
   user-select: none;
+  transition-property: --shortcut-edge, --shortcut-ink, --shortcut-lip, --shortcut-mark, --shortcut-sink;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.shortcut--idle {
+  --shortcut-mark: var(--c-text);
+}
+
+.shortcut--lit {
+  --shortcut-edge: var(--c-primary);
+  --shortcut-ink: var(--c-primary);
+}
+
+.shortcut--pressed {
+  --shortcut-edge: var(--c-primary);
+  --shortcut-ink: var(--c-primary);
+  --shortcut-lip: var(--c-primary);
+  --shortcut-sink: var(--border-width-thick);
+}
+
+.shortcut--fill {
+  display: flex;
+  inline-size: 100%;
+  block-size: 100%;
+  margin-block: 0;
 }
 
 .shortcut__joiner {
@@ -26,14 +88,16 @@
   min-inline-size: var(--size-20);
   block-size: var(--size-20);
   padding-inline: var(--space-xs);
-  border: var(--border-width-thin) solid var(--c-border-strong);
+  border: var(--border-width-thin) solid var(--shortcut-edge);
   border-radius: var(--radius-sm);
   background: linear-gradient(var(--c-surface), var(--c-sunken));
   box-shadow:
     inset 0 var(--border-width-thin) 0 var(--c-hairline),
-    inset 0 calc(var(--border-width-thick) * -1) 0 var(--c-border),
-    0 var(--border-width-thin) 0 var(--c-border-strong);
+    inset 0 calc(var(--shortcut-sink) - var(--border-width-thin) - var(--border-width-thick)) 0 var(--shortcut-lip),
+    0 calc(var(--border-width-thick) - var(--shortcut-sink)) 0 var(--c-border-strong);
+  color: var(--shortcut-ink);
   font: inherit;
+  translate: 0 calc(var(--shortcut-sink) - var(--border-width-thin));
   user-select: none;
 }
 
@@ -47,6 +111,13 @@
 
 .shortcut__cap--space {
   min-inline-size: var(--size-80);
+}
+
+.shortcut--fill .shortcut__cap,
+.shortcut--fill .shortcut__mouse {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  block-size: 100%;
 }
 
 .shortcut__symbol {
@@ -74,8 +145,13 @@
   block-size: var(--size-20);
 }
 
+.shortcut--fill .shortcut__mouse-icon {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
 .shortcut__press {
-  fill: var(--c-primary);
+  fill: var(--shortcut-mark);
 }
 
 .shortcut__spoken {
@@ -86,12 +162,8 @@
   clip-path: inset(50%);
 }
 
-.shortcut--animate .shortcut__cap {
+.shortcut--animate {
   animation: shortcut-press var(--duration-float) var(--ease-standard) infinite;
-}
-
-.shortcut--animate .shortcut__press {
-  animation: shortcut-light var(--duration-float) var(--ease-standard) infinite;
 }
 
 @keyframes shortcut-press {
@@ -99,38 +171,20 @@
   50%,
   81%,
   100% {
-    transform: none;
-    border-color: var(--c-border-strong);
-    color: var(--c-text);
-    box-shadow:
-      0 var(--border-width-thin) 0 var(--c-border-strong),
-      inset 0 calc(var(--border-width-thick) * -1) 0 var(--c-border),
-      inset 0 var(--border-width-thin) 0 var(--c-hairline);
+    --shortcut-sink: var(--border-width-thin);
+    --shortcut-mark: var(--c-text);
+    --shortcut-edge: var(--c-border-strong);
+    --shortcut-lip: var(--c-border);
+    --shortcut-ink: var(--c-text);
   }
 
   56%,
   75% {
-    transform: translateY(var(--border-width-thin));
-    border-color: var(--c-primary);
-    color: var(--c-primary);
-    box-shadow:
-      0 0 0 var(--c-border-strong),
-      inset 0 calc(var(--border-width-thin) * -1) 0 var(--c-primary),
-      inset 0 var(--border-width-thin) 0 var(--c-hairline);
-  }
-}
-
-@keyframes shortcut-light {
-  0%,
-  50%,
-  81%,
-  100% {
-    fill: var(--c-text);
-  }
-
-  56%,
-  75% {
-    fill: var(--c-primary);
+    --shortcut-sink: var(--border-width-thick);
+    --shortcut-mark: var(--c-primary);
+    --shortcut-lip: var(--c-primary);
+    --shortcut-edge: var(--c-primary);
+    --shortcut-ink: var(--c-primary);
   }
 }
 
@@ -139,19 +193,25 @@
   50%,
   81%,
   100% {
-    border-color: var(--c-border-strong);
-    color: var(--c-text);
+    --shortcut-ink: var(--c-text);
+    --shortcut-edge: var(--c-border-strong);
+    --shortcut-mark: var(--c-text);
   }
 
   56%,
   75% {
-    border-color: var(--c-primary);
-    color: var(--c-primary);
+    --shortcut-ink: var(--c-primary);
+    --shortcut-edge: var(--c-primary);
+    --shortcut-mark: var(--c-primary);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shortcut--animate .shortcut__cap {
+  .shortcut--animate {
     animation-name: shortcut-tint;
+  }
+
+  .shortcut--pressed {
+    --shortcut-sink: var(--border-width-thin);
   }
 }

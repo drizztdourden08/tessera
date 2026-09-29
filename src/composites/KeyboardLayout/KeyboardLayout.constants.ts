@@ -23,7 +23,7 @@ const FUNCTION_ROWS: readonly KeyRow[] = [
   },
   {
     zone: 'navigation', x: 15.25, y: 0,
-    slots: [{ id: 'printscreen' }, { id: 'scrolllock', legend: 'ScrLk', spoken: 'Scroll lock' }, { id: 'pause', legend: 'Pause' }],
+    slots: [{ id: 'printscreen' }, { id: 'scrolllock' }, { id: 'pause' }],
   },
 ];
 
@@ -50,7 +50,7 @@ const MAIN_ROWS: readonly KeyRow[] = [
       { id: 'ctrl-left', as: 'ctrl', w: 1.25 }, { id: 'win-left', as: 'win', also: ['cmd'], w: 1.25 },
       { id: 'alt-left', as: 'alt', also: ['option'], w: 1.25 }, { id: 'space', w: 6.25 },
       { id: 'alt-right', as: 'alt', also: ['option'], w: 1.25 }, { id: 'win-right', as: 'win', also: ['cmd'], w: 1.25 },
-      { id: 'menu', legend: 'Menu', w: 1.25 }, { id: 'ctrl-right', as: 'ctrl', w: 1.25 },
+      { id: 'menu', w: 1.25 }, { id: 'ctrl-right', as: 'ctrl', w: 1.25 },
     ],
   },
 ];
@@ -66,29 +66,29 @@ const NUMPAD_ROWS: readonly KeyRow[] = [
   {
     zone: 'numpad', x: 18.5, y: 1.5,
     slots: [
-      { id: 'numlock', legend: 'Num', spoken: 'Num lock' }, { id: 'numpad-divide', legend: '/' },
-      { id: 'numpad-times', legend: '*' }, { id: 'numpad-minus', legend: '-' },
+      { id: 'numlock' }, { id: 'numpad-divide', shows: '/' },
+      { id: 'numpad-times', shows: '*' }, { id: 'numpad-minus', shows: '-' },
     ],
   },
   {
     zone: 'numpad', x: 18.5, y: 2.5,
     slots: [
-      { id: 'numpad-7', legend: '7' }, { id: 'numpad-8', legend: '8' }, { id: 'numpad-9', legend: '9' },
-      { id: 'numpad-plus', legend: '+', h: 2 },
+      { id: 'numpad-7', shows: '7' }, { id: 'numpad-8', shows: '8' }, { id: 'numpad-9', shows: '9' },
+      { id: 'numpad-plus', shows: '+', h: 2 },
     ],
   },
   {
     zone: 'numpad', x: 18.5, y: 3.5,
-    slots: [{ id: 'numpad-4', legend: '4' }, { id: 'numpad-5', legend: '5' }, { id: 'numpad-6', legend: '6' }],
+    slots: [{ id: 'numpad-4', shows: '4' }, { id: 'numpad-5', shows: '5' }, { id: 'numpad-6', shows: '6' }],
   },
   {
     zone: 'numpad', x: 18.5, y: 4.5,
     slots: [
-      { id: 'numpad-1', legend: '1' }, { id: 'numpad-2', legend: '2' }, { id: 'numpad-3', legend: '3' },
-      { id: 'numpad-enter', legend: 'Enter', h: 2 },
+      { id: 'numpad-1', shows: '1' }, { id: 'numpad-2', shows: '2' }, { id: 'numpad-3', shows: '3' },
+      { id: 'numpad-enter', shows: 'enter', h: 2 },
     ],
   },
-  { zone: 'numpad', x: 18.5, y: 5.5, slots: [{ id: 'numpad-0', legend: '0', w: 2 }, { id: 'numpad-dot', legend: '.' }] },
+  { zone: 'numpad', x: 18.5, y: 5.5, slots: [{ id: 'numpad-0', shows: '0', w: 2 }, { id: 'numpad-dot', shows: '.' }] },
 ];
 
 const KEYBOARD_KEYS = buildLayout([...FUNCTION_ROWS, ...MAIN_ROWS, ...CLUSTER_ROWS, ...NUMPAD_ROWS]);

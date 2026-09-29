@@ -3,7 +3,7 @@ import { defineConfig } from '@storylite/storylite';
 import { appSwitcherScript } from './app-switcher';
 import { GALLERY_APPS } from './app-switcher.constants';
 import { componentPagesScript } from './component-pages';
-import { HOME_LOGO_MOUNT, LEAVE_MAXIMIZED, ROOT } from './config.constants';
+import { HOME_LOGO_MOUNT, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN, ROOT } from './config.constants';
 import { controlledReact } from './renderer/controlled-renderer';
 import { buildHome } from './home';
 import { HOME_CSS } from './home-css.constants';
@@ -27,7 +27,7 @@ export default defineConfig({
   ],
   renderers: [controlledReact()],
   home: buildHome(ROOT),
-  managerHead: (defaults) => [defaults, LEAVE_MAXIMIZED].join('\n'),
+  managerHead: (defaults) => [defaults, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN].join('\n'),
   managerBodyEnd: (defaults) => [defaults, appSwitcherScript(), componentPagesScript(componentPages(ROOT)), HOME_LOGO_MOUNT].join('\n'),
   storyId: (_path, suggestedId) => suggestedId.replace(/^stories-/, ''),
   storySort: { order: menuOrder() },

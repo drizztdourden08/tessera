@@ -1,10 +1,13 @@
 /* @layer renderer-components @kind util */
-import { MOUSE_SPECS } from '../../../primitives';
-import { keyFace } from '../../../primitives/Shortcut/behavior/key-face';
-import type { MouseButton, ShortcutKey } from '../../../primitives';
+import { KEY_SPECS, MOUSE_SPECS } from '../../../primitives';
+import type { KeyName, MouseButton, ShortcutKey } from '../../../primitives';
+
+const isKeyName = (key: string): key is KeyName => Object.hasOwn(KEY_SPECS, key);
+
+const spokenName = (key: ShortcutKey): string => (isKeyName(key) ? KEY_SPECS[key].name : key.toUpperCase());
 
 const tourLabel = (keys: readonly ShortcutKey[], mouse: MouseButton | undefined): string => {
-  const names = keys.map((key) => keyFace(key, 'label').name);
+  const names = keys.map(spokenName);
   return (mouse ? [...names, MOUSE_SPECS[mouse].name] : names).join(' + ');
 };
 

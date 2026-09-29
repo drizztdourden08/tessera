@@ -7,7 +7,7 @@ import type { UseVideoKeysParams } from './useVideoKeys.type';
 import { videoKeyAction } from './video-key-action';
 
 const useVideoKeys = (params: UseVideoKeysParams) => {
-  const { actions, toggleFullscreen, wake } = params;
+  const { actions, toggleFullscreen, toggleTheater, wake } = params;
 
   return useCallback((event: KeyboardEvent<HTMLElement>) => {
     wake();
@@ -21,9 +21,10 @@ const useVideoKeys = (params: UseVideoKeysParams) => {
       forward: () => actions.seekBy(SEEK_STEP),
       mute: actions.toggleMute,
       fullscreen: toggleFullscreen,
+      theater: toggleTheater,
     };
     handlers[action]();
-  }, [actions, toggleFullscreen, wake]);
+  }, [actions, toggleFullscreen, toggleTheater, wake]);
 };
 
 export { useVideoKeys };

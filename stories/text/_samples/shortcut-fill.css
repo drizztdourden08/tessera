@@ -1,0 +1,41 @@
+/* @layer stories @kind style */
+.shortcut-fill {
+  --shortcut-fill-unit: var(--size-40);
+}
+
+.shortcut-fill__slot {
+  display: flex;
+  block-size: var(--shortcut-fill-unit);
+}
+
+.shortcut-fill__slot--1 {
+  inline-size: var(--shortcut-fill-unit);
+}
+
+.shortcut-fill__slot--1-5 {
+  inline-size: calc(var(--shortcut-fill-unit) * 1.5);
+}
+
+.shortcut-fill__slot--2-25 {
+  inline-size: calc(var(--shortcut-fill-unit) * 2.25);
+}
+
+.shortcut-fill__slot--6-25 {
+  inline-size: calc(var(--shortcut-fill-unit) * 6.25);
+}
+
+.shortcut-fill__slot--tall {
+  inline-size: var(--shortcut-fill-unit);
+  block-size: calc(var(--shortcut-fill-unit) * 2);
+}
+
+.shortcut-fill__slot--mouse {
+  inline-size: var(--size-64);
+  block-size: var(--size-64);
+}
+
+.shortcut-fill__stage {
+  display: flex;
+  inline-size: var(--size-256);
+  block-size: var(--size-64);
+}

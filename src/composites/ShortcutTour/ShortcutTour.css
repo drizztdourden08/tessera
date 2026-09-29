@@ -32,27 +32,12 @@
 .shortcut-tour__mouse {
   display: flex;
   align-self: center;
-  color: var(--c-text);
-}
-
-.shortcut-tour__mouse .shortcut__mouse,
-.shortcut-tour__mouse .shortcut__mouse-icon {
   inline-size: var(--size-96);
   block-size: var(--size-96);
 }
 
-.shortcut-tour__mouse .shortcut__press {
-  fill: var(--c-text);
-  transition: fill var(--duration-normal) var(--ease-standard);
-}
-
-.shortcut-tour__mouse--pressed .shortcut__press {
-  fill: var(--c-primary);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .shortcut-tour__world,
-  .shortcut-tour__mouse .shortcut__press {
+  .shortcut-tour__world {
     transition: none;
   }
 }

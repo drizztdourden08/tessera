@@ -5,6 +5,9 @@ interface VideoProps extends Omit<ComponentPropsWithRef<'video'>, 'controls'> {
   controls?: boolean;
   label?: string;
   errorMessage?: ReactNode;
+  theater?: boolean;
+  defaultTheater?: boolean;
+  onTheaterChange?: (theater: boolean) => void;
 }
 
 interface MediaSnapshot {
@@ -36,11 +39,42 @@ interface ScreenMode {
   toggle: () => void;
 }
 
-type VideoKeyAction = 'toggle' | 'back' | 'forward' | 'mute' | 'fullscreen';
+interface FullscreenMode extends ScreenMode {
+  filled: boolean;
+}
+
+interface TheaterParams {
+  theater: boolean | undefined;
+  defaultTheater: boolean;
+  onTheaterChange: ((theater: boolean) => void) | undefined;
+}
+
+interface PrefixedDocument extends Document {
+  webkitFullscreenEnabled?: boolean;
+  webkitFullscreenElement?: Element | null;
+  webkitExitFullscreen?: () => void;
+}
+
+interface PrefixedElement extends HTMLElement {
+  webkitRequestFullscreen?: () => void;
+}
+
+type VideoKeyAction = 'toggle' | 'back' | 'forward' | 'mute' | 'fullscreen' | 'theater';
 
 interface VideoKeyBinding {
   action: VideoKeyAction;
   frameOnly: boolean;
 }
 
-export type { MediaSnapshot, ScreenMode, VideoActions, VideoKeyAction, VideoKeyBinding, VideoProps };
+export type {
+  FullscreenMode,
+  MediaSnapshot,
+  PrefixedDocument,
+  PrefixedElement,
+  ScreenMode,
+  TheaterParams,
+  VideoActions,
+  VideoKeyAction,
+  VideoKeyBinding,
+  VideoProps,
+};

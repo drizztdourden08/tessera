@@ -3,9 +3,9 @@ import { Box, Shortcut, Text } from '../../../src/primitives';
 import type { ShortcutRow } from './shortcut-samples';
 
 const rowLabel = (row: ShortcutRow): string => {
-  const { keys = [], mouse, legend, width } = row;
+  const { keys = [], mouse, legend, width, state } = row;
   const names = [...(typeof keys === 'string' ? [keys] : keys), ...(mouse ? [`mouse ${mouse}`] : [])];
-  const notes = [legend, width].filter(Boolean);
+  const notes = [legend, width, state].filter(Boolean);
   return notes.length ? `${names.join(' + ')} (${notes.join(', ')})` : names.join(' + ');
 };
 

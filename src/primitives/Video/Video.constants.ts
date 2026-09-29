@@ -36,6 +36,8 @@ const MEDIA_EVENTS = [
   'error',
 ] as const;
 
+const FULLSCREEN_EVENTS = ['fullscreenchange', 'webkitfullscreenchange'] as const;
+
 const PIP_EVENTS = ['enterpictureinpicture', 'leavepictureinpicture'] as const;
 
 const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5, 2] as const;
@@ -57,9 +59,10 @@ const VIDEO_KEYS: Readonly<Record<string, VideoKeyBinding>> = {
   arrowright: { action: 'forward', frameOnly: true },
   m: { action: 'mute', frameOnly: false },
   f: { action: 'fullscreen', frameOnly: false },
+  t: { action: 'theater', frameOnly: false },
 };
 
-const KEY_SHORTCUTS = 'Space K M F ArrowLeft ArrowRight';
+const KEY_SHORTCUTS = 'Space K M F T ArrowLeft ArrowRight';
 
 const SEEK_KEY_DELTAS: Readonly<Record<string, number>> = {
   ArrowLeft: -SEEK_STEP,
@@ -79,6 +82,7 @@ const DEFAULT_ERROR_MESSAGE = 'This video could not be loaded.';
 
 export {
   DEFAULT_ERROR_MESSAGE,
+  FULLSCREEN_EVENTS,
   IDLE_MS,
   INITIAL_MEDIA,
   KEY_SHORTCUTS,

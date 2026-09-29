@@ -6,6 +6,12 @@
   background: var(--p-pure-black);
   color: var(--p-pure-white);
   isolation: isolate;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.video:focus {
+  outline: none;
 }
 
 .video:focus-visible {
@@ -17,8 +23,29 @@
   cursor: none;
 }
 
-.video:fullscreen {
+.video.video--theater {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 21 / 9;
+  box-shadow:
+    0 0 0 var(--space-lg) color-mix(in srgb, var(--p-pure-black) 82%, transparent),
+    var(--shadow-3);
+}
+
+.video:fullscreen,
+.video[data-filled] {
   border-radius: 0;
+  box-shadow: none;
+}
+
+.video[data-filled] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-top);
+  width: auto;
+  height: auto;
+  max-width: none;
+  aspect-ratio: auto;
 }
 
 .video__media {

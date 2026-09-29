@@ -17,6 +17,7 @@ import downloadIcon from '@iconify-icons/lucide/download';
 import playIcon from '@iconify-icons/lucide/play';
 import pauseIcon from '@iconify-icons/lucide/pause';
 import pictureInPicture2Icon from '@iconify-icons/lucide/picture-in-picture-2';
+import rectangleHorizontalIcon from '@iconify-icons/lucide/rectangle-horizontal';
 import squareIcon from '@iconify-icons/lucide/square';
 import plusIcon from '@iconify-icons/lucide/plus';
 import pencilIcon from '@iconify-icons/lucide/pencil';
@@ -51,6 +52,7 @@ const APP_ICONS = {
   'play': playIcon,
   'pause': pauseIcon,
   'picture-in-picture-2': pictureInPicture2Icon,
+  'rectangle-horizontal': rectangleHorizontalIcon,
   'square': squareIcon,
   'plus': plusIcon,
   'pencil': pencilIcon,

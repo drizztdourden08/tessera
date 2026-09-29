@@ -1,11 +1,17 @@
 /* @layer renderer-components @kind types */
 import type { MediaSnapshot, ScreenMode, VideoActions } from '../Video.type';
 
-interface VideoBarProps {
-  media: MediaSnapshot;
-  actions: VideoActions;
+type TheaterMode = Pick<ScreenMode, 'active' | 'toggle'>;
+
+interface VideoScreenButtonsProps {
   fullscreen: ScreenMode;
   pictureInPicture: ScreenMode;
+  theater: TheaterMode;
 }
 
-export type { VideoBarProps };
+interface VideoBarProps extends VideoScreenButtonsProps {
+  media: MediaSnapshot;
+  actions: VideoActions;
+}
+
+export type { VideoBarProps, VideoScreenButtonsProps };

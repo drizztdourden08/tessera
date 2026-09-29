@@ -3,6 +3,8 @@ const SHORTCUT_LEGENDS = ['label', 'symbol', 'arrow'] as const;
 
 const CAP_WIDTHS = ['normal', 'wide'] as const;
 
+const SHORTCUT_STATES = ['idle', 'lit', 'pressed'] as const;
+
 const LETTER_KEYS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const CHARACTER_KEYS = '0123456789`~!@#$%^&*()-_=+[]{}\\|;:\'",.<>/?';
@@ -30,10 +32,14 @@ const KEY_SPECS = {
   pageup: { name: 'Page up', label: 'PgUp' },
   pagedown: { name: 'Page down', label: 'PgDn' },
   printscreen: { name: 'Print screen', label: 'PrtSc' },
+  scrolllock: { name: 'Scroll lock', label: 'ScrLk' },
+  pause: { name: 'Pause', label: 'Pause' },
+  numlock: { name: 'Num lock', label: 'Num' },
+  menu: { name: 'Menu', label: 'Menu' },
   up: { name: 'Up arrow', symbol: 'up' },
   down: { name: 'Down arrow', symbol: 'down' },
   left: { name: 'Left arrow', symbol: 'left' },
   right: { name: 'Right arrow', symbol: 'right' },
 } as const;
 
-export { CAP_WIDTHS, CHARACTER_KEYS, FUNCTION_KEY_COUNT, KEY_SPECS, LETTER_KEYS, SHORTCUT_LEGENDS };
+export { CAP_WIDTHS, CHARACTER_KEYS, FUNCTION_KEY_COUNT, KEY_SPECS, LETTER_KEYS, SHORTCUT_LEGENDS, SHORTCUT_STATES };

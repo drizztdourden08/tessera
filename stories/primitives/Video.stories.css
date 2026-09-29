@@ -5,3 +5,19 @@
   max-width: 100%;
   aspect-ratio: 16 / 9;
 }
+
+.video-theater-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 14rem;
+  gap: var(--space-xl);
+  align-items: start;
+  width: 100%;
+}
+
+.video-theater-page--theater {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.video-theater-page__player {
+  aspect-ratio: 16 / 9;
+}
