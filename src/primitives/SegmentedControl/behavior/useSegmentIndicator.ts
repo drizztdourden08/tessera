@@ -11,10 +11,14 @@ const useSegmentIndicator = (value: string, options: readonly unknown[]): Segmen
     const track = trackRef.current;
     if (!track) return;
     const activeBtn = track.querySelector<HTMLButtonElement>('[aria-checked="true"]');
-    if (!activeBtn) return;
+    if (!activeBtn) {
+      setIndicatorStyle((previous) => ({ ...previous, opacity: 0 }));
+      return;
+    }
     setIndicatorStyle({
       width: activeBtn.offsetWidth,
       transform: `translateX(${activeBtn.offsetLeft - 2}px)`,
+      opacity: 1,
     });
   }, []);
 

@@ -7,7 +7,7 @@
   border-radius: var(--radius-sm);
   background: var(--c-primary-soft);
   border: var(--border-width-thin) solid var(--c-primary);
-  transition: transform var(--transition-normal);
+  transition: transform var(--transition-normal), opacity var(--transition-fast);
   pointer-events: none;
 }
 
