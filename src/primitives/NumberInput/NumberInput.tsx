@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import '../../theme/field-surface.css';
 import './NumberInput.css';
+import { preventTextSelection } from '../dom/prevent-text-selection';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { PathIcon } from '../PathIcon';
 import type { CSSProperties } from 'react';
@@ -53,10 +54,10 @@ const NumberInput = (props: NumberInputProps) => {
         {...rest}
       />
       <div className="number-input__spin">
-        <button type="button" className="number-input__btn" tabIndex={-1} aria-label="Increment" disabled={disabled} onClick={() => stepBy(1)}>
+        <button type="button" className="number-input__btn" tabIndex={-1} aria-label="Increment" disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(1)}>
           <PathIcon size={12} paths={[CHEVRON_UP]} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
         </button>
-        <button type="button" className="number-input__btn" tabIndex={-1} aria-label="Decrement" disabled={disabled} onClick={() => stepBy(-1)}>
+        <button type="button" className="number-input__btn" tabIndex={-1} aria-label="Decrement" disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(-1)}>
           <PathIcon size={12} paths={[CHEVRON_DOWN]} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
         </button>
       </div>

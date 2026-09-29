@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import '../../theme/field-surface.css';
 import './Stepper.css';
+import { preventTextSelection } from '../dom/prevent-text-selection';
 import { Glyph } from '../Glyph';
 import type { StepperProps } from './Stepper.type';
 
@@ -26,7 +27,7 @@ const Stepper = (props: StepperProps) => {
 
   return (
     <div className={`stepper ${disabled ? 'stepper--disabled' : ''} ${className}`}>
-      <button type="button" className="stepper__btn" aria-label="Decrease" disabled={disabled} onClick={() => stepBy(-1)}><Glyph name="minus" /></button>
+      <button type="button" className="stepper__btn" aria-label="Decrease" disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(-1)}><Glyph name="minus" /></button>
       <input
         type="text"
         inputMode="numeric"
@@ -36,7 +37,7 @@ const Stepper = (props: StepperProps) => {
         value={Number.isNaN(value) ? '' : String(value)}
         onChange={(e) => handleType(e.target.value)}
       />
-      <button type="button" className="stepper__btn" aria-label="Increase" disabled={disabled} onClick={() => stepBy(1)}><Glyph name="plus" /></button>
+      <button type="button" className="stepper__btn" aria-label="Increase" disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(1)}><Glyph name="plus" /></button>
     </div>
   );
 };

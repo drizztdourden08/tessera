@@ -1,21 +1,31 @@
 /* @layer renderer-components @kind style */
 .toggle-group__track {
-  gap: var(--border-width-thin);
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .toggle-group__btn {
-  transition: color var(--transition-normal), background var(--transition-normal),
-    border-color var(--transition-normal);
-  border: var(--border-width-thin) solid transparent;
+  align-self: stretch;
+  padding: var(--space-sm) var(--space-md);
+  border: 0;
+  border-radius: 0;
+  transition: color var(--transition-normal), background var(--transition-normal);
+}
+
+.toggle-group__btn + .toggle-group__btn {
+  border-inline-start: var(--border-width-thin) solid var(--c-border);
 }
 
 .toggle-group__btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--c-lift) 6%, transparent);
   color: var(--c-text);
 }
 
-.toggle-group__btn--active {
+.toggle-group__btn--active,
+.toggle-group__btn--active:hover:not(:disabled) {
   background: var(--c-primary-soft);
-  border-color: var(--c-primary);
+  color: var(--c-primary-bright);
 }
 
 .toggle-group__btn:disabled {
