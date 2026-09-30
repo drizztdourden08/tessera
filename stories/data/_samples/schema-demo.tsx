@@ -15,7 +15,7 @@ const detailOf = (field: FieldDescriptor): string => {
   return '';
 };
 
-const COLUMNS = axis(['Label', 'Kind', 'Flags', 'Detail']);
+const COLUMNS = axis(['Label', 'Kind', 'Flags', 'Detail']).map((column) => ({ ...column, fill: column.key === 'Detail' }));
 
 const fieldCell = (field: FieldDescriptor, column: string) => {
   if (column === 'Label') return <Text>{field.label}</Text>;

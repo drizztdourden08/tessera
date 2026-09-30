@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import { Box, Button, Flex, Glyph, Text } from '../../../src/primitives';
 import type { ButtonSize } from '../../../src/primitives/Button/Button.type';
-import { axis, VariantGrid } from '../../_template/VariantGrid';
+import { axis } from '../../_template/axis';
+import { Demonstrator } from '../../_template/Demonstrator';
 import { SAVE_MS } from './button-loading.constants';
 
 type LoadingKind = 'label only' | 'with icon';
@@ -30,7 +31,7 @@ const SaveRow = () => {
 
 const ButtonLoading = () => (
   <Box className="story-column">
-    <VariantGrid
+    <Demonstrator
       rows={axis(KINDS)}
       columns={axis(SIZES)}
       cell={(kind, size) => (

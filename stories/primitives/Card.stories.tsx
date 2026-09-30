@@ -3,6 +3,8 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Button, ButtonRow, Card, Flex, Stack, Status, Text } from '../../src/primitives';
 import type { CardProps } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 
@@ -58,25 +60,24 @@ const Playground = {
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <Box className="story-column">
-      {VARIANTS.map((variant) => (
-        <Stack key={variant} gap="xs">
-          <Text className="story-label">{variant}</Text>
-          <Card variant={variant}>
-            <Stack gap="sm">
-              <Text variant="title">{SAMPLES[variant].title}</Text>
-              <Text variant="subtitle">{SAMPLES[variant].body}</Text>
-              {variant === 'danger' && (
-                <ButtonRow>
-                  <Button size="sm" variant="ghost">Cancel</Button>
-                  <Button size="sm" variant="danger">Delete profile</Button>
-                </ButtonRow>
-              )}
-            </Stack>
-          </Card>
-        </Stack>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={axis(VARIANTS)}
+      align="stretch"
+      cell={(variant) => (
+        <Card variant={variant}>
+          <Stack gap="sm">
+            <Text variant="title">{SAMPLES[variant].title}</Text>
+            <Text variant="subtitle">{SAMPLES[variant].body}</Text>
+            {variant === 'danger' && (
+              <ButtonRow>
+                <Button size="sm" variant="ghost">Cancel</Button>
+                <Button size="sm" variant="danger">Delete profile</Button>
+              </ButtonRow>
+            )}
+          </Stack>
+        </Card>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 

@@ -2,6 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Spinner, Text } from '../../src/primitives';
 import type { SpinnerSize } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type SpinnerArgs = {
@@ -33,14 +35,7 @@ const Playground = {
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <Box className="story-row">
-      {SIZES.map((size) => (
-        <Box key={size} className="story-row">
-          <Spinner size={size} />
-          <Text className="story-label">{size}</Text>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator columns={axis(SIZES)} cell={(_row, size) => <Spinner size={size} />} />
   ),
 } satisfies StoryLiteStoryDefinition<SpinnerArgs>;
 

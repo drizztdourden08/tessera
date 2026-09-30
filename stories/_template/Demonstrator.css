@@ -31,12 +31,15 @@
 
 .demonstrator__cell {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   min-inline-size: 0;
 }
 
 .demonstrator[data-align='start'] > .demonstrator__cell { justify-items: start; }
 .demonstrator[data-align='stretch'] > .demonstrator__cell { justify-items: stretch; }
+.demonstrator[data-valign='start'] > .demonstrator__cell { align-items: start; }
+.demonstrator[data-valign='end'] > .demonstrator__cell { align-items: end; }
 
 .demonstrator__slot { position: relative; }
 

@@ -27,17 +27,6 @@ body {
   gap: var(--space-sm);
 }
 
-.story-list {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  align-items: baseline;
-  gap: var(--space-md) var(--space-lg);
-}
-
-.story-list__item {
-  display: contents;
-}
-
 .story-column {
   display: flex;
   flex-direction: column;

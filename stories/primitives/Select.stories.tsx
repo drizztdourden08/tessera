@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, NativeSelect, Text } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { REGION_OPTIONS } from './_samples/picker-data';
 import { SELECT_CODE } from './_samples/picker-emoji';
@@ -90,12 +92,11 @@ const StatefulNativeSelect = (props: { disabled?: boolean }) => {
 const Native = {
   name: 'NativeSelect',
   render: () => (
-    <Box className="story-column">
-      <Text className="story-label">browser select, for forms and touch screens</Text>
-      <StatefulNativeSelect />
-      <Text className="story-label">disabled</Text>
-      <StatefulNativeSelect disabled />
-    </Box>
+    <Demonstrator
+      rows={axis(['browser select, for forms and touch screens', 'disabled'])}
+      align="stretch"
+      cell={(kind) => <StatefulNativeSelect disabled={kind === 'disabled'} />}
+    />
   ),
 } satisfies Story;
 

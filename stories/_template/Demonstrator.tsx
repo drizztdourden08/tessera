@@ -5,8 +5,7 @@ import { DEMONSTRATOR_LONE_AXIS } from './Demonstrator.constants';
 import type { DemonstratorAxis, DemonstratorBody, DemonstratorProps } from './Demonstrator.type';
 import './Demonstrator.css';
 
-const tracksFor = (labelled: boolean, count: number, fill: boolean): string =>
-  `${labelled ? 'max-content ' : ''}repeat(${count}, ${fill ? 'minmax(0, 1fr)' : 'max-content'})`;
+const trackFor = (fill: boolean): string => (fill ? 'minmax(0, 1fr)' : 'max-content');
 
 const ruled = (base: string, index: number): string => (index > 0 ? `${base} demonstrator__slot--ruled` : base);
 
@@ -28,7 +27,8 @@ const gridClass = (className: string | undefined): string => (className ? `demon
 
 const tracksOf = <R extends string, C extends string>(props: DemonstratorProps<R, C>): string => {
   const { rows, columns, fill = columns === undefined } = props;
-  return tracksFor(rows !== undefined, columns?.length ?? 1, fill);
+  const tracks = (columns ?? DEMONSTRATOR_LONE_AXIS).map((column) => trackFor(fill || column.fill === true));
+  return [...(rows ? ['max-content'] : []), ...tracks].join(' ');
 };
 
 const Demonstrator = <R extends string = never, C extends string = never>(props: DemonstratorProps<R, C>) => {
@@ -39,6 +39,7 @@ const Demonstrator = <R extends string = never, C extends string = never>(props:
     <Grid
       className={gridClass(props.className)}
       data-align={props.align ?? (columns ? 'center' : 'start')}
+      data-valign={props.valign ?? 'center'}
       style={{ gridTemplateColumns: tracksOf(props) }}
     >
       {columns && headRow(columns, labelled ? corner : null)}

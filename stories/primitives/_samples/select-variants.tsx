@@ -1,7 +1,9 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { Box, Button, ButtonRow, Select, Text } from '../../../src/primitives';
+import { Button, ButtonRow, Select } from '../../../src/primitives';
 import type { ListboxColumn } from '../../../src/primitives';
+import { axis } from '../../_template/axis';
+import { Demonstrator } from '../../_template/Demonstrator';
 import { ValueReadout } from '../../_template/ValueReadout';
 import { BuildDetails } from './BuildDetails';
 import { BuildLine } from './BuildLine';
@@ -61,12 +63,11 @@ const DetailsFull = () => <BuildPicker details full />;
 const DetailsCompact = () => <BuildPicker details compact />;
 
 const FullTrigger = () => (
-  <Box className="story-column">
-    <Text className="story-label">compact, the label only</Text>
-    <BuildPicker columns={STATUS_COLUMNS} />
-    <Text className="story-label">full, the same columns in the trigger</Text>
-    <BuildPicker columns={STATUS_COLUMNS} full />
-  </Box>
+  <Demonstrator
+    rows={axis(['compact, the label only', 'full, the same columns in the trigger'])}
+    align="stretch"
+    cell={(kind) => <BuildPicker columns={STATUS_COLUMNS} full={kind.startsWith('full')} />}
+  />
 );
 
 const Categories = () => {

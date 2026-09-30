@@ -22,11 +22,12 @@ import { Demonstrator } from '../_template/Demonstrator';
 It takes:
 
 - `rows`: the row labels, drawn down the left. Each entry is `{ key, label }`; `axis(keys)` builds them from a list of strings, using each key as its label.
-- `columns`: the column labels, drawn across the top, in the same shape.
+- `columns`: the column labels, drawn across the top, in the same shape. A column entry can add `fill: true` to take the width the other columns leave, for one long text column beside narrow ones.
 - `cell(row, column)`: draws one cell from the row key and the column key.
 - `corner`: an optional label for the top left cell, naming what the rows list.
-- `align`: where the content sits in its cell, `start`, `center` or `stretch`. It defaults to `center` when there are columns and to `start` for rows only.
-- `fill`: when true, the columns share the width instead of fitting their content. It defaults to true for rows only.
+- `align`: where the content sits across its cell, `start`, `center` or `stretch`. It defaults to `center` when there are columns and to `start` for rows only.
+- `valign`: where the content sits down its cell, `start`, `center` or `end`. It defaults to `center`; use `start` or `end` when cells of different heights should line up on an edge.
+- `fill`: when true, every column shares the width instead of fitting its content. It defaults to true for rows only.
 - `className`: an extra class on the grid, for a story that sets a custom property on it.
 
 Give it rows and columns for a grid, rows alone for a list of labelled rows, or columns alone for one labelled row. With rows only, `cell` gets the row key; with columns only, write `cell={(_row, column) => ...}`.

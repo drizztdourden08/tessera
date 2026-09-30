@@ -1,11 +1,12 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { overviewStory } from '../_template/overview-story';
-import { Box, Status, Text } from '../../src/primitives';
+import { Box, Text } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
+import type { DemonstratorAxis } from '../_template/Demonstrator.type';
 import { CONTRAST_PAIRS } from '../tokens/token-lists';
-import type { ContrastPair } from '../tokens/token-lists';
-import { useContrast } from '../tokens/use-contrast';
-import './Contrast.stories.css';
+import { ContrastCell } from './ContrastCell';
+import type { ContrastColumn } from './ContrastCell.type';
 
 type ContrastArgs = {
   sample: string;
@@ -13,45 +14,33 @@ type ContrastArgs = {
   largeThreshold: number;
 };
 
-const verdict = (ratio: number, threshold: number, label: string) => (
-  <Status tone={ratio >= threshold ? 'success' : 'danger'}>
-    {`${label} ${ratio >= threshold ? 'pass' : 'fail'}`}
-  </Status>
-);
+const columnsFor = (args: ContrastArgs): readonly DemonstratorAxis<ContrastColumn>[] => [
+  { key: 'sample', label: 'Sample' },
+  { key: 'ratio', label: 'Ratio' },
+  { key: 'text', label: `Text ${args.textThreshold}:1` },
+  { key: 'large', label: `Large ${args.largeThreshold}:1` },
+];
 
-const PairRow = ({ pair, args }: { pair: ContrastPair; args: ContrastArgs }) => {
-  const { ref, measured } = useContrast();
+const ContrastTable = (args: ContrastArgs) => {
+  const pairs = new Map(CONTRAST_PAIRS.map((pair) => [`${pair.text}/${pair.fill}`, pair]));
   return (
-    <Box className="contrast-row">
-      <Box ref={ref} className="contrast-sample" style={{ color: `var(${pair.text})`, background: `var(${pair.fill})` }}>
-        <Text>{args.sample}</Text>
-        {' '}
-        <Text className="contrast-sample__large">Aa</Text>
-      </Box>
-      <Box className="contrast-tokens">
-        <Text>{pair.text}</Text>
-        <Text>{`on ${pair.fill}`}</Text>
-      </Box>
-      <Text className="contrast-ratio">{measured ? `${measured.ratio.toFixed(2)}:1` : '...'}</Text>
-      {measured ? verdict(measured.ratio, args.textThreshold, 'Text') : <Text>...</Text>}
-      {measured ? verdict(measured.ratio, args.largeThreshold, 'Large') : <Text>...</Text>}
+    <Box className="story-column">
+      <Text className="story-label">
+        Ratios are computed from the colours the page paints, per WCAG 2.1. Switch the palette or theme to re-measure.
+      </Text>
+      <Demonstrator
+        corner="Pair"
+        rows={[...pairs].map(([key, pair]) => ({ key, label: `${pair.text} on ${pair.fill}` }))}
+        columns={columnsFor(args)}
+        cell={(key, column) => {
+          const pair = pairs.get(key);
+          const thresholds = { text: args.textThreshold, large: args.largeThreshold };
+          return pair ? <ContrastCell pair={pair} column={column} sample={args.sample} thresholds={thresholds} /> : null;
+        }}
+      />
     </Box>
   );
 };
-
-const ContrastTable = (args: ContrastArgs) => (
-  <Box className="story-column">
-    <Text className="story-label">
-      Ratios are computed from the colours the page paints, per WCAG 2.1. Switch the palette or theme to re-measure.
-    </Text>
-    <Box className="contrast-table">
-      {['Sample', 'Pair', 'Ratio', `Text ${args.textThreshold}:1`, `Large ${args.largeThreshold}:1`].map((head) => (
-        <Box as="span" key={head} className="story-label">{head}</Box>
-      ))}
-      {CONTRAST_PAIRS.map((pair) => <PairRow key={`${pair.text}/${pair.fill}`} pair={pair} args={args} />)}
-    </Box>
-  </Box>
-);
 
 const ARGS: Partial<ContrastArgs> = { sample: '14 of 386 checks', textThreshold: 4.5, largeThreshold: 3 };
 

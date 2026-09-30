@@ -3,8 +3,9 @@ import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from 
 import { BRAND_APPS, Logo } from '../../src/brand';
 import type { BrandApp, LogoWordmarkProps } from '../../src/brand';
 import { Flex } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import { labelledList } from './labelled-list';
 
 type WordmarkSize = NonNullable<LogoWordmarkProps['size']>;
 
@@ -34,16 +35,21 @@ const Playground = {
 
 const Wordmarks = {
   name: 'Wordmarks',
-  render: () => labelledList(BRAND_APPS, (brand) => <Logo.Wordmark brand={brand} size="md" />),
+  render: () => <Demonstrator rows={axis(BRAND_APPS)} cell={(brand) => <Logo.Wordmark brand={brand} size="md" />} />,
 } satisfies StoryLiteStoryDefinition<WordMarkArgs>;
 
 const Sizes = {
   name: 'Sizes',
-  render: () => labelledList(SIZES, (size) => (
-    <Flex gap="lg" align="center" wrap>
-      {BRAND_APPS.map((brand) => <Logo.Wordmark key={brand} brand={brand} size={size} title="" />)}
-    </Flex>
-  )),
+  render: () => (
+    <Demonstrator
+      rows={axis(SIZES)}
+      cell={(size) => (
+        <Flex gap="lg" align="center" wrap>
+          {BRAND_APPS.map((brand) => <Logo.Wordmark key={brand} brand={brand} size={size} title="" />)}
+        </Flex>
+      )}
+    />
+  ),
 } satisfies StoryLiteStoryDefinition<WordMarkArgs>;
 
 const Overview = overviewStory({

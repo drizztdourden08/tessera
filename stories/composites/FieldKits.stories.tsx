@@ -2,43 +2,45 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { registeredKitKinds, resolveFieldKit } from '../../src/composites/field-kits';
-import { Box, Text } from '../../src/primitives';
+import { Box } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { KIT_START, resolveKitOptions, sampleFieldFor } from './_samples/data-kits';
-import './FieldKits.stories.css';
 
 type FieldKitsArgs = {
   disabled: boolean;
 };
 
+const KIT_COLUMNS = [{ key: 'editor', label: 'Editor' }, { key: 'cell', label: 'Cell' }] as const;
+
 const KitTable = ({ disabled }: FieldKitsArgs) => {
   const [values, setValues] = useState<Record<string, unknown>>(KIT_START);
+  const kinds = registeredKitKinds().filter((kind) => resolveFieldKit(kind) && sampleFieldFor(kind));
   return (
-    <Box className="field-kits-story">
-      <Text className="story-label">Kind</Text>
-      <Text className="story-label">Editor</Text>
-      <Text className="story-label">Cell</Text>
-      {registeredKitKinds().map((kind) => {
+    <Demonstrator
+      corner="Kind"
+      rows={kinds.map((kind) => ({ key: kind, label: `${kind} (${sampleFieldFor(kind)?.label ?? ''})` }))}
+      columns={KIT_COLUMNS}
+      fill
+      align="stretch"
+      cell={(kind, column) => {
         const kit = resolveFieldKit(kind);
         const field = sampleFieldFor(kind);
         if (!kit || !field) return null;
         const value = values[field.path];
+        if (column === 'cell') return <Box>{kit.renderCell(value, field)}</Box>;
         const { EditorControl } = kit;
         return (
-          <Box key={kind} className="field-kits-story__row">
-            <Text className="story-label">{`${kind} (${field.label})`}</Text>
-            <EditorControl
-              field={field}
-              value={value}
-              disabled={disabled}
-              resolveIdRefOptions={resolveKitOptions}
-              onChange={(next) => setValues((prev) => ({ ...prev, [field.path]: next }))}
-            />
-            <Box>{kit.renderCell(value, field)}</Box>
-          </Box>
+          <EditorControl
+            field={field}
+            value={value}
+            disabled={disabled}
+            resolveIdRefOptions={resolveKitOptions}
+            onChange={(next) => setValues((prev) => ({ ...prev, [field.path]: next }))}
+          />
         );
-      })}
-    </Box>
+      }}
+    />
   );
 };
 

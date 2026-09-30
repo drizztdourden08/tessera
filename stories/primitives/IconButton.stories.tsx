@@ -9,7 +9,8 @@ import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
 import { BUTTON_STATES } from './_samples/button-states';
 import { markedStates } from './_samples/marked-states';
-import { axis, VariantGrid } from '../_template/VariantGrid';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 
 type GlyphName = 'close' | 'plus' | 'pin' | 'mute' | 'overflow' | 'bug';
 
@@ -96,7 +97,7 @@ const STATE_VARIANTS: readonly IconButtonVariant[] = ['primary', 'tertiary', 'da
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <VariantGrid
+    <Demonstrator
       rows={axis(VARIANTS)}
       columns={axis(SIZES)}
       cell={(variant, size) => (
@@ -122,7 +123,7 @@ const DangerTone = {
 const Loading = {
   name: 'Loading',
   render: () => (
-    <VariantGrid
+    <Demonstrator
       rows={axis(STATE_VARIANTS)}
       columns={axis(SIZES)}
       cell={(variant, size) => (

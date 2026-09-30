@@ -61,6 +61,7 @@ const Variants = {
       columns={axis(Object.keys(VARIANT_DEMOS))}
       fill
       align="stretch"
+      valign="start"
       cell={(_row, variant) => <Card>{VARIANT_DEMOS[variant]}</Card>}
     />
   ),

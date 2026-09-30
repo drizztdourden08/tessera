@@ -53,6 +53,7 @@ const GapScale = {
     <Demonstrator
       columns={axis(GAPS)}
       align="start"
+      valign="start"
       cell={(_row, gap) => (
         <Stack gap={gap}>
           {SETTINGS.slice(0, 3).map((setting) => (

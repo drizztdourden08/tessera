@@ -5,7 +5,6 @@ const TOKEN_STORIES = [
   'stories/colours/**',
   'stories/tokens/**',
   'stories/typography/**',
-  'stories/_template/VariantGrid.tsx',
 ];
 
 const DEMONSTRATOR = ['stories/_template/Demonstrator.tsx'];

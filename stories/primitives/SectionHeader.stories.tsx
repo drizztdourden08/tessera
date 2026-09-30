@@ -1,6 +1,9 @@
 /* @layer stories @kind story */
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Button, Card, SectionHeader, Stack, StatRow, Status, Text } from '../../src/primitives';
+import { Box, Button, Card, SectionHeader, Stack, StatRow, Status } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type SectionHeaderArgs = {
@@ -35,23 +38,23 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<SectionHeaderArgs>;
 
+const HEADERS: Readonly<Record<string, ReactNode>> = {
+  'title only': <SectionHeader title="Audio" />,
+  'title and subtitle': <SectionHeader title="Controller" subtitle="Applies to the active profile" />,
+  'with a count': <SectionHeader title="Players" action={<Status tone="success">4 online</Status>} />,
+  'with a button': (
+    <SectionHeader
+      title="Recent seeds"
+      subtitle="The last ten you played"
+      action={<Button size="sm" variant="ghost">Clear history</Button>}
+    />
+  ),
+};
+
 const Variants = {
   name: 'Variants',
   render: () => (
-    <Box className="story-column">
-      <Text className="story-label">title only</Text>
-      <SectionHeader title="Audio" />
-      <Text className="story-label">title and subtitle</Text>
-      <SectionHeader title="Controller" subtitle="Applies to the active profile" />
-      <Text className="story-label">with a count</Text>
-      <SectionHeader title="Players" action={<Status tone="success">4 online</Status>} />
-      <Text className="story-label">with a button</Text>
-      <SectionHeader
-        title="Recent seeds"
-        subtitle="The last ten you played"
-        action={<Button size="sm" variant="ghost">Clear history</Button>}
-      />
-    </Box>
+    <Demonstrator rows={axis(Object.keys(HEADERS))} align="stretch" cell={(kind) => HEADERS[kind]} />
   ),
 } satisfies StoryLiteStoryDefinition<SectionHeaderArgs>;
 

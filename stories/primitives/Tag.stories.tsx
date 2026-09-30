@@ -5,6 +5,8 @@ import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
 import type {
   TagCategoryColor, TagColor, TagLook, TagNormalColor, TagUrgencyColor, TagVariant,
 } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -68,14 +70,10 @@ const Playground = {
 const Variants = {
   name: 'Three variants, every colour',
   render: () => (
-    <Box className="story-column">
-      {(['normal', 'urgency', 'category'] as const).map((variant) => (
-        <Box key={variant} className="story-row">
-          <Text className="story-label">{variant}</Text>
-          <Flex gap="xs" wrap>{COLORS[variant].map((color) => <Tag key={color} {...lookOf(variant, color)}>{color}</Tag>)}</Flex>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={axis(['normal', 'urgency', 'category'] as const)}
+      cell={(variant) => <Flex gap="xs" wrap>{COLORS[variant].map((color) => <Tag key={color} {...lookOf(variant, color)}>{color}</Tag>)}</Flex>}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 

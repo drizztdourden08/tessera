@@ -3,9 +3,12 @@ import type { ReactNode } from 'react';
 
 type DemonstratorAlign = 'start' | 'center' | 'stretch';
 
+type DemonstratorValign = 'start' | 'center' | 'end';
+
 interface DemonstratorAxis<K extends string> {
   key: K;
   label: string;
+  fill?: boolean;
 }
 
 interface DemonstratorProps<R extends string, C extends string> {
@@ -14,6 +17,7 @@ interface DemonstratorProps<R extends string, C extends string> {
   cell: (row: R, column: C) => ReactNode;
   corner?: string;
   align?: DemonstratorAlign;
+  valign?: DemonstratorValign;
   fill?: boolean;
   className?: string;
 }

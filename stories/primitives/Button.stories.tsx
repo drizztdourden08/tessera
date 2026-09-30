@@ -8,7 +8,8 @@ import type { StateEntry, StateProps } from '../_template/states/states.type';
 import { ButtonLoading } from './_samples/button-loading';
 import { BUTTON_STATES } from './_samples/button-states';
 import { markedStates } from './_samples/marked-states';
-import { axis, VariantGrid } from '../_template/VariantGrid';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 
 type ButtonArgs = {
   label: string;
@@ -58,7 +59,7 @@ const STATE_BUTTONS: readonly { variant: ButtonVariant; label: string; withIcon?
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <VariantGrid
+    <Demonstrator
       rows={axis(VARIANTS)}
       columns={axis(SIZES)}
       cell={(variant, size) => <Button variant={variant} size={size}>Save changes</Button>}

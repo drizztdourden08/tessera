@@ -3,7 +3,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, Card, Flex, Stack, Status, Text } from '../../src/primitives';
 import type { StatusTone, StatusVariant } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { axis, VariantGrid } from '../_template/VariantGrid';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 
 type StatusArgs = {
   label: string;
@@ -62,7 +63,7 @@ const Playground = {
 const Tones = {
   name: 'Every tone and look',
   render: () => (
-    <VariantGrid
+    <Demonstrator
       rows={axis(TONES)}
       columns={axis(LOOKS)}
       cell={(tone, look) => (

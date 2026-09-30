@@ -11,6 +11,8 @@ import {
   HINTS, HINT_SCHEMA, resolveSlotDefault, resolveSlotField, resolveTargetFields,
 } from './_samples/data-hints';
 import type { HintRow } from './_samples/data-hints';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -113,12 +115,13 @@ const References = {
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <Box className="story-column">
-      <Text className="story-label">Grouped by game</Text>
-      <PlayersDemo selectable={false} groupBy="game" persistLayout={false} emptyMessage="" />
-      <Text className="story-label">Selectable</Text>
-      <PlayersDemo selectable groupBy="none" persistLayout={false} emptyMessage="" />
-    </Box>
+    <Demonstrator
+      rows={axis(['Grouped by game', 'Selectable'])}
+      align="stretch"
+      cell={(kind) => (kind === 'Selectable'
+        ? <PlayersDemo selectable groupBy="none" persistLayout={false} emptyMessage="" />
+        : <PlayersDemo selectable={false} groupBy="game" persistLayout={false} emptyMessage="" />)}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 

@@ -71,18 +71,3 @@
   justify-content: center;
   min-block-size: 8rem;
 }
-
-.variant-grid {
-  display: grid;
-  align-items: center;
-  gap: var(--space-md) var(--space-lg);
-}
-
-.variant-grid__head,
-.variant-grid__row {
-  color: var(--c-text-muted);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-}
-
-.variant-grid__head { padding-block-end: var(--space-xs); }

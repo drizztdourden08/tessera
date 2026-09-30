@@ -2,8 +2,9 @@
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { BRAND_APPS, Logo } from '../../src/brand';
 import type { BrandApp, BrandMarkSize, LogoDirection } from '../../src/brand';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import { labelledList } from './labelled-list';
 
 type CombinedArgs = {
   brand: BrandApp;
@@ -31,12 +32,12 @@ const Playground = {
 
 const Inline = {
   name: 'Inline',
-  render: () => labelledList(BRAND_APPS, (brand) => <Logo.Combined brand={brand} size="lg" />),
+  render: () => <Demonstrator rows={axis(BRAND_APPS)} cell={(brand) => <Logo.Combined brand={brand} size="lg" />} />,
 } satisfies StoryLiteStoryDefinition<CombinedArgs>;
 
 const Stacked = {
   name: 'Stacked',
-  render: () => labelledList(BRAND_APPS, (brand) => <Logo.Combined brand={brand} direction="stacked" size="xl" />),
+  render: () => <Demonstrator rows={axis(BRAND_APPS)} cell={(brand) => <Logo.Combined brand={brand} direction="stacked" size="xl" />} />,
 } satisfies StoryLiteStoryDefinition<CombinedArgs>;
 
 const Overview = overviewStory({

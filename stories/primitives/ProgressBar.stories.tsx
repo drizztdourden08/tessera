@@ -1,8 +1,11 @@
 /* @layer stories @kind story */
 import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Button, ProgressBar, Text } from '../../src/primitives';
 import type { ProgressVariant } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { LiveTrigger } from './_samples/LiveTrigger';
 
@@ -85,24 +88,22 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<ProgressBarArgs>;
 
+const BARS: Readonly<Record<string, ReactNode>> = {
+  ...Object.fromEntries(VARIANTS.map((variant) => [variant, <ProgressBar key={variant} value={60} variant={variant} />])),
+  'empty and full': (
+    <Box className="story-column">
+      <ProgressBar value={0} />
+      <ProgressBar value={100} />
+    </Box>
+  ),
+  'done over reachable, faded secondary': <ProgressBar value={30} secondaryValue={70} />,
+  'done over reachable, coloured secondary': <ProgressBar value={30} secondaryValue={70} secondaryVariant="secondary" />,
+};
+
 const Variants = {
   name: 'Variants',
   render: () => (
-    <Box className="story-column">
-      {VARIANTS.map((variant) => (
-        <Box key={variant} className="story-column">
-          <Text className="story-label">{variant}</Text>
-          <ProgressBar value={60} variant={variant} />
-        </Box>
-      ))}
-      <Text className="story-label">empty and full</Text>
-      <ProgressBar value={0} />
-      <ProgressBar value={100} />
-      <Text className="story-label">done over reachable, faded secondary</Text>
-      <ProgressBar value={30} secondaryValue={70} />
-      <Text className="story-label">done over reachable, coloured secondary</Text>
-      <ProgressBar value={30} secondaryValue={70} secondaryVariant="secondary" />
-    </Box>
+    <Demonstrator rows={axis(Object.keys(BARS))} align="stretch" cell={(row) => BARS[row]} />
   ),
 } satisfies StoryLiteStoryDefinition<ProgressBarArgs>;
 

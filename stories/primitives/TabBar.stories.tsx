@@ -1,8 +1,11 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Glyph, TabBar, Text } from '../../src/primitives';
 import type { TabItem } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -67,19 +70,17 @@ const Playground = {
   render: (args) => <PlaygroundDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<TabBarArgs>;
 
+const LAYOUTS: Readonly<Record<string, ReactNode>> = {
+  'labels only': <StatefulTabs tabs={SETTINGS_TABS.map(({ id, label }) => ({ id, label }))} />,
+  'icons, labels and badges': <StatefulTabs tabs={withBadges(SETTINGS_TABS)} />,
+  'icon only, labels move to the title': <StatefulTabs tabs={SETTINGS_TABS} iconOnly />,
+  'overflowing, scroll or use the pagers and arrow keys': <StatefulTabs tabs={DUNGEON_TABS} />,
+};
+
 const Layouts = {
   name: 'Layouts',
   render: () => (
-    <Box className="story-column">
-      <Text className="story-label">labels only</Text>
-      <StatefulTabs tabs={SETTINGS_TABS.map(({ id, label }) => ({ id, label }))} />
-      <Text className="story-label">icons, labels and badges</Text>
-      <StatefulTabs tabs={withBadges(SETTINGS_TABS)} />
-      <Text className="story-label">icon only, labels move to the title</Text>
-      <StatefulTabs tabs={SETTINGS_TABS} iconOnly />
-      <Text className="story-label">overflowing, scroll or use the pagers and arrow keys</Text>
-      <StatefulTabs tabs={DUNGEON_TABS} />
-    </Box>
+    <Demonstrator rows={axis(Object.keys(LAYOUTS))} align="stretch" cell={(layout) => LAYOUTS[layout]} />
   ),
 } satisfies StoryLiteStoryDefinition<TabBarArgs>;
 

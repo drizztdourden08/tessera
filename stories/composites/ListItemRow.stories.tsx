@@ -6,7 +6,8 @@ import { Box, Button, Icon, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
-import { LabelledRows } from '../_template/LabelledRows';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS, STATUS_LABEL } from './_samples/sessions';
 
@@ -79,9 +80,10 @@ const FORMS = ['name only', 'icon and meta', 'with aside', 'with action'] as con
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <LabelledRows
-      items={FORMS}
-      render={(form) => (
+    <Demonstrator
+      rows={axis(FORMS)}
+      align="stretch"
+      cell={(form) => (
         <ListItemRow
           name="Friday async"
           meta={form === 'name only' ? undefined : '8 players, eu-west-2'}

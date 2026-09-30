@@ -1,9 +1,11 @@
 /* @layer stories @kind story */
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Badge, Box, Flex, Icon, IconButton, Text } from '../../src/primitives';
+import { Badge, Flex, Icon, IconButton, Text } from '../../src/primitives';
 import type { BadgeAnchor, BadgeColor } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { axis, VariantGrid } from '../_template/VariantGrid';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 
 type BadgeArgs = {
   variant: 'inline' | 'number' | 'dot';
@@ -61,38 +63,41 @@ const Playground = {
   render: (args) => <PlaygroundBadge args={args} />,
 } satisfies StoryLiteStoryDefinition<BadgeArgs>;
 
+const SHAPES: Readonly<Record<string, ReactNode>> = {
+  'inline, after text': (
+    <Flex gap="md" align="center" wrap>
+      <Text>Hints <Badge variant="inline" value={3} /></Text>
+      <Text>Item log <Badge variant="inline" value={214} /></Text>
+      <Text>Saves <Badge variant="inline" value={1500} max={999} /></Text>
+    </Flex>
+  ),
+  'number, on its own': (
+    <Flex gap="md" align="center" wrap>
+      <Badge value={3} />
+      <Badge value="A" />
+      <Badge value={42} />
+      <Badge value={120} max={99} />
+    </Flex>
+  ),
+  'number and dot, anchored to an icon': (
+    <Flex gap="xl" align="center" wrap>
+      <Badge value={3}>{BELL}</Badge>
+      <Badge value={42}><Icon name="mail" size={20} /></Badge>
+      <Badge value={120} max={99}><Icon name="message-square" size={20} /></Badge>
+      <Badge variant="dot"><Icon name="users" size={20} /></Badge>
+    </Flex>
+  ),
+};
+
 const Shapes = {
   name: 'One character is a circle, more make a pill',
-  render: () => (
-    <Box className="story-column">
-      <Text className="story-label">inline, after text</Text>
-      <Flex gap="md" align="center" wrap>
-        <Text>Hints <Badge variant="inline" value={3} /></Text>
-        <Text>Item log <Badge variant="inline" value={214} /></Text>
-        <Text>Saves <Badge variant="inline" value={1500} max={999} /></Text>
-      </Flex>
-      <Text className="story-label">number, on its own</Text>
-      <Flex gap="md" align="center" wrap>
-        <Badge value={3} />
-        <Badge value="A" />
-        <Badge value={42} />
-        <Badge value={120} max={99} />
-      </Flex>
-      <Text className="story-label">number and dot, anchored to an icon</Text>
-      <Flex gap="xl" align="center" wrap>
-        <Badge value={3}>{BELL}</Badge>
-        <Badge value={42}><Icon name="mail" size={20} /></Badge>
-        <Badge value={120} max={99}><Icon name="message-square" size={20} /></Badge>
-        <Badge variant="dot"><Icon name="users" size={20} /></Badge>
-      </Flex>
-    </Box>
-  ),
+  render: () => <Demonstrator rows={axis(Object.keys(SHAPES))} cell={(shape) => SHAPES[shape]} />,
 } satisfies StoryLiteStoryDefinition<BadgeArgs>;
 
 const Colors = {
   name: 'Every colour',
   render: () => (
-    <VariantGrid
+    <Demonstrator
       rows={axis(COLORS)}
       columns={axis(LOOKS)}
       cell={(color, look) => {
@@ -107,7 +112,7 @@ const Colors = {
 const Anchors = {
   name: 'Anchors',
   render: () => (
-    <VariantGrid
+    <Demonstrator
       rows={axis(ANCHORS)}
       columns={axis(['number', 'dot', 'icon button'] as const)}
       cell={(anchor, look) => {
