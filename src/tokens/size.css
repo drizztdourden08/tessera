@@ -24,6 +24,18 @@
   --section-nav-w-open: var(--size-224);
   --section-nav-item-h: var(--size-40);
   --section-nav-toggle-d: var(--size-24);
+  --dock-grip-h: calc(18 * var(--size-1));
+  --dock-divider-bar: calc(3 * var(--size-1));
+  --widget-titlebar-h: calc(30 * var(--size-1));
+  --widget-btn-d: var(--size-20);
+  --widget-options-w: calc(272 * var(--size-1));
+  --widget-options-slider-w: calc(140 * var(--size-1));
+  --hero-h: calc(300 * var(--size-1));
+  --hero-intro-w: calc(200 * var(--size-1));
+  --hero-art-left: calc(232 * var(--size-1));
+  --hero-art-h: var(--size-256);
+  --hero-aside-w: calc(360 * var(--size-1));
+  --hero-fact-max-w: calc(220 * var(--size-1));
 
 }
 }

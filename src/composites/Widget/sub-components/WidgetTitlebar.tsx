@@ -1,23 +1,30 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Glyph } from '../../../primitives/Glyph';
-import { Pressable } from '../../../primitives/Pressable';
-import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
+import { OUT_HINT, TITLEBAR_HINT } from '../Widget.constants';
+import { WidgetActions } from './WidgetActions';
+import { WidgetTabChip } from './WidgetTabChip';
 import type { WidgetTitlebarProps } from './WidgetTitlebar.type';
 
 const WidgetTitlebar = (props: WidgetTitlebarProps) => {
-  const { label, gearRef, onMouseDown, onToggleSettings, onClose } = props;
+  const { id, tabs, activeId, paneKey, mode = 'in', onActivateTab } = props;
+  const label = tabs.find((tab) => tab.id === activeId)?.label ?? tabs[0]?.label ?? id;
+
   return (
-    <Box className="widget__titlebar" onMouseDown={onMouseDown}>
-      <Text className="widget__title">{label}</Text>
-      <Box className="widget__titlebar-actions">
-        <Pressable ref={gearRef} className="widget__btn" onClick={onToggleSettings} title="Settings">
-          <Glyph name="gear" />
-        </Pressable>
-        <Pressable className="widget__btn" onClick={onClose} title="Close">
-          <Glyph name="close" />
-        </Pressable>
-      </Box>
+    <Box
+      className="widget__titlebar"
+      data-drag-widget={activeId}
+      data-pane-key={paneKey ?? ''}
+      title={mode === 'out' ? OUT_HINT : TITLEBAR_HINT}
+    >
+      {tabs.length > 1 ? (
+        <Box className="widget__tabs">
+          {tabs.map((tab) => <WidgetTabChip key={tab.id} tab={tab} active={tab.id === activeId} onActivate={onActivateTab} />)}
+        </Box>
+      ) : (
+        <Span className="widget__title">{label}</Span>
+      )}
+      <WidgetActions {...props} />
     </Box>
   );
 };

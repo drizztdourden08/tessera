@@ -4,6 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, Button, ProgressBar, Text } from '../../src/primitives';
 import type { ProgressVariant } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { LiveTrigger } from './_samples/LiveTrigger';
 
 type SecondaryChoice = ProgressVariant | 'none';
 
@@ -110,12 +111,17 @@ const Loading = {
   render: () => <LoadingDemo />,
 } satisfies StoryLiteStoryDefinition<ProgressBarArgs>;
 
+const Trigger = {
+  name: 'A live reading under a StatRow',
+  render: () => <LiveTrigger />,
+} satisfies StoryLiteStoryDefinition<ProgressBarArgs>;
+
 const Overview = overviewStory({
   component: 'ProgressBar',
-  description: 'A thin bar that shows how much of a task or a total is done. It comes in primary, secondary and danger, and fills the width it is given. An optional second fill behind the main one shows a second amount, such as reachable against done, and live turns off the easing for a value that changes every frame.',
+  description: 'A thin bar that shows how much of a task or a total is done. It comes in primary, secondary and danger, and fills the width it is given. An optional second fill behind the main one shows a second amount, such as reachable against done, and live turns off the easing for a value that changes every frame. Under a StatRow with mono on, a live bar reads out an analog trigger or any other axis.',
   playground: Playground,
-  variants: [Variants],
+  variants: [Variants, Trigger],
 });
 
 export default meta;
-export { Loading, Overview, Playground, Variants };
+export { Loading, Overview, Playground, Trigger, Variants };

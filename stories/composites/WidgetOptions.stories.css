@@ -1,0 +1,6 @@
+/* @layer stories @kind style */
+.options-story {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}

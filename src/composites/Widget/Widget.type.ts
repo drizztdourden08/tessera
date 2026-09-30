@@ -1,33 +1,45 @@
 /* @layer renderer-components @kind types */
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import type { DockEdge, DockTree, WidgetId } from '../DockLayout';
 
-type SnapSide = 'left' | 'right' | 'top' | 'bottom';
-type WidgetMode = 'docked' | 'floating';
-type WidgetBounds = 'viewport' | 'container';
+type SnapSide = DockEdge;
 
 type WidgetVisibility = 'always' | 'context-only';
 
-interface WidgetState {
-  id: string;
-  mode: WidgetMode;
-  side: SnapSide;
-  order: number;
-  opacity: number;
-  visibility: WidgetVisibility;
-  visible: boolean;
+type WidgetPlacement = 'docked' | 'floating' | 'popped';
 
+type PinMode = 'off' | 'top' | 'with-app';
+
+interface WindowBounds {
   x: number;
   y: number;
   width: number;
   height: number;
-
-  dockedSize: number;
-
-  exclusive: boolean;
 }
 
-interface WidgetLayout {
-  widgets: WidgetState[];
+interface SnapLink {
+  to: WidgetId;
+  edge: DockEdge;
+}
+
+interface PoppedWidget {
+  id: WidgetId;
+  bounds?: WindowBounds;
+  pin?: PinMode;
+  snap?: boolean;
+  link?: SnapLink | null;
+}
+
+interface WidgetFrame {
+  opacity: number;
+  show: WidgetVisibility;
+}
+
+interface WidgetLayout extends DockTree {
+  v: 2;
+  popped: PoppedWidget[];
+  frame: Partial<Record<WidgetId, WidgetFrame>>;
+  poppedMemory?: Partial<Record<WidgetId, PoppedWidget>>;
 }
 
 interface WidgetDefinition {
@@ -38,6 +50,7 @@ interface WidgetDefinition {
   defaultDockedSize: number;
   defaultFloatingSize: { width: number; height: number };
   devOnly?: boolean;
+  popOut?: boolean;
 }
 
 interface WidgetDisabledState {
@@ -45,25 +58,32 @@ interface WidgetDisabledState {
   settingId: string;
 }
 
+interface WidgetTab {
+  id: WidgetId;
+  label: string;
+}
+
 interface WidgetProps {
-  state: WidgetState;
-  label?: string;
-  onChange: (patch: Partial<WidgetState>) => void;
+  id: WidgetId;
+  tabs: WidgetTab[];
+  activeId: WidgetId;
+  paneKey: string | null;
+  opacity: number;
+  onActivateTab: (id: WidgetId) => void;
+  onOpenOptions: (anchor: HTMLElement) => void;
   onClose: () => void;
   children: ReactNode;
-  settingsContent?: ReactNode;
-  dockedStyle?: CSSProperties;
-  exclusiveLabel?: string;
+  peek?: boolean;
+  optionsOpen?: boolean;
+  onPopOut?: () => void;
+  canPopOut?: boolean;
+  mode?: 'in' | 'out';
+  pin?: PinMode;
+  onTop?: boolean;
+  onPinChange?: (mode: PinMode) => void;
 }
 
 export type {
-  SnapSide,
-  WidgetBounds,
-  WidgetDefinition,
-  WidgetDisabledState,
-  WidgetLayout,
-  WidgetMode,
-  WidgetProps,
-  WidgetState,
-  WidgetVisibility
+  PinMode, PoppedWidget, SnapLink, SnapSide, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
+  WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WindowBounds,
 };

@@ -1,36 +1,38 @@
 /* @layer stories @kind component */
 import { useCallback, useState } from 'react';
-import { WidgetManager, useWidgetLayout } from '../../../src/composites';
+import { WidgetManager, isWidgetOpen, useWidgetLayout } from '../../../src/composites';
 import type { WidgetDefinition, WidgetDisabledState } from '../../../src/composites';
-import type { ExclusiveInsets } from '../../../src/composites/Widget';
 import { Box, Button, Text } from '../../../src/primitives';
 import { WIDGET_CONTENT } from './data-widget-panels';
 import { MEMORY_IO, PROFILE_ID, STORAGE_KEY, WIDGET_DEFINITIONS } from './data-widgets';
+import '../DockLayout.stories.css';
 
 type WidgetDockProps = {
   contextActive: boolean;
   disabledWidget: string;
   disabledMessage: string;
-  exclusiveLabel: string;
+  makeRoomHint: string;
 };
 
-const TOP_OFFSET = 38;
-
-const NO_FORCED_WIDGETS: string[] = [];
-const NO_INSETS: ExclusiveInsets = { left: 0, right: 0, top: 0, bottom: 0 };
-
 const WidgetDock = (props: WidgetDockProps) => {
-  const { contextActive, disabledWidget, disabledMessage, exclusiveLabel } = props;
-  const { layout, update, close, toggle } = useWidgetLayout({
+  const { contextActive, disabledWidget, disabledMessage, makeRoomHint } = props;
+  const { layout, setLayout, toggle } = useWidgetLayout({
     definitions: WIDGET_DEFINITIONS, profileId: PROFILE_ID, io: MEMORY_IO, storageKey: STORAGE_KEY,
   });
   const [notice, setNotice] = useState('');
-  const [insets, setInsets] = useState<ExclusiveInsets>(NO_INSETS);
 
   const resolveDisabled = useCallback(
     (definition: WidgetDefinition): WidgetDisabledState | null =>
       (definition.id === disabledWidget ? { message: disabledMessage, settingId: 'session.hintSharing' } : null),
     [disabledWidget, disabledMessage],
+  );
+
+  const main = (
+    <Box className="dock-story__main">
+      <Text>{contextActive ? 'Session running. Context-only widgets are shown.' : 'No session running. Players and Hints step aside.'}</Text>
+      <Text className="story-label">Drag a title bar to dock, tab or float. Hold Alt to peek.</Text>
+      {notice && <Text className="story-label">{notice}</Text>}
+    </Box>
   );
 
   return (
@@ -42,35 +44,27 @@ const WidgetDock = (props: WidgetDockProps) => {
             key={definition.id}
             size="sm"
             variant="tertiary"
-            active={layout.widgets.find((w) => w.id === definition.id)?.visible ?? false}
+            active={isWidgetOpen(layout, definition.id)}
             onClick={() => toggle(definition.id)}
           >
             {definition.label}
           </Button>
         ))}
       </Box>
-      <Box
-        className="widget-dock-frame__main"
-        style={{ paddingLeft: insets.left, paddingRight: insets.right, paddingBottom: insets.bottom }}
-      >
-        <Text>{contextActive ? 'Session running. Context-only widgets are shown.' : 'No session running. Players and Hints step aside.'}</Text>
-        {notice && <Text className="story-label">{notice}</Text>}
+      <Box className="widget-dock-frame__stage">
+        <WidgetManager
+          definitions={WIDGET_DEFINITIONS}
+          layout={layout}
+          onLayoutChange={setLayout}
+          contextActive={contextActive}
+          resolveDisabled={resolveDisabled}
+          onOpenSettings={(settingId) => setNotice(`Would open the setting ${settingId}`)}
+          makeRoomHint={makeRoomHint}
+          main={main}
+        >
+          {WIDGET_CONTENT}
+        </WidgetManager>
       </Box>
-      <WidgetManager
-        definitions={WIDGET_DEFINITIONS}
-        layout={layout}
-        contextActive={contextActive}
-        onUpdate={update}
-        onClose={close}
-        onInsetsChange={setInsets}
-        startupForcedWidgetIds={NO_FORCED_WIDGETS}
-        resolveDisabled={resolveDisabled}
-        onOpenSettings={(settingId) => setNotice(`Would open the setting ${settingId}`)}
-        topOffset={TOP_OFFSET}
-        exclusiveLabel={exclusiveLabel}
-      >
-        {WIDGET_CONTENT}
-      </WidgetManager>
     </Box>
   );
 };

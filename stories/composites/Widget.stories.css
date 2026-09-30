@@ -1,9 +1,10 @@
 /* @layer stories @kind style */
 .widget-dock-frame {
-  contain: layout;
-  width: 100vw;
-  height: 100vh;
-  margin: calc(-1 * var(--space-lg));
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 36rem;
+  padding: 0;
   background: var(--c-bg);
 }
 
@@ -15,14 +16,22 @@
   padding: 0 var(--space-md);
   border-bottom: var(--border-width-thin) solid var(--c-border);
   background: var(--c-surface);
+  flex-shrink: 0;
 }
 
-.widget-dock-frame__main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-xl);
-  color: var(--c-text-dim);
+.widget-dock-frame__stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.widget-story__box {
+  width: 20rem;
+  height: 17.5rem;
+}
+
+.widget-story__box--peek {
+  height: auto;
 }
 
 .widget-story__list {

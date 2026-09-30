@@ -237,6 +237,18 @@
   --section-nav-w-open: 224px;
   --section-nav-item-h: 40px;
   --section-nav-toggle-d: 24px;
+  --dock-grip-h: calc(18 * 1px);
+  --dock-divider-bar: calc(3 * 1px);
+  --widget-titlebar-h: calc(30 * 1px);
+  --widget-btn-d: 20px;
+  --widget-options-w: calc(272 * 1px);
+  --widget-options-slider-w: calc(140 * 1px);
+  --hero-h: calc(300 * 1px);
+  --hero-intro-w: calc(200 * 1px);
+  --hero-art-left: calc(232 * 1px);
+  --hero-art-h: 256px;
+  --hero-aside-w: calc(360 * 1px);
+  --hero-fact-max-w: calc(220 * 1px);
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;

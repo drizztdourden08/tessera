@@ -78,8 +78,24 @@ const COMPOSITES_TIER: CatalogueTier = {
       ],
     },
     {
+      group: 'Input devices',
+      entries: [
+        { name: 'CalibrationPanel', summary: 'One calibration step: instruction, live readout, content, cancel and next.' },
+        { name: 'PressedGrid', summary: 'A grid of buttons that light up while held.' },
+        { name: 'StickPlot', summary: 'Where an analog stick points, with dead zones and calibration marks.' },
+      ],
+    },
+    {
       group: 'Widgets',
-      entries: [{ name: 'Widget', summary: 'Dockable, floating panels around the main content.' }],
+      entries: [
+        { name: 'DockLayout', summary: 'Tiles widget panes around a main view, with drag, drop and resize.' },
+        { name: 'Widget', summary: 'The frame of a tool panel: title bar, tabs, pop out, options, close.' },
+        { name: 'WidgetOptions', summary: 'Options for one widget: placement, make room, opacity, show and its own rows.' },
+      ],
+    },
+    {
+      group: 'Screens',
+      entries: [{ name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' }],
     },
   ],
 };

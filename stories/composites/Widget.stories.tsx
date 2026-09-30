@@ -1,65 +1,103 @@
 /* @layer stories @kind story */
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Widget, createDefaultLayout } from '../../src/composites';
-import type { WidgetState } from '../../src/composites';
+import { Widget } from '../../src/composites';
+import type { PinMode, WidgetTab } from '../../src/composites';
 import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
 import { WidgetDock } from './_samples/data-widget-dock';
 import { WIDGET_CONTENT } from './_samples/data-widget-panels';
-import { WIDGET_DEFINITIONS } from './_samples/data-widgets';
 import './Widget.stories.css';
 
 type WidgetArgs = {
+  tabbed: boolean;
+  mode: 'in' | 'out';
+  peek: boolean;
+  opacity: number;
+  canPopOut: boolean;
   contextActive: boolean;
   disabledWidget: string;
   disabledMessage: string;
-  exclusiveLabel: string;
+  makeRoomHint: string;
 };
 
-const HINTS_DEFAULT = createDefaultLayout(WIDGET_DEFINITIONS).widgets.find((w) => w.id === 'hints');
+const TABS: WidgetTab[] = [{ id: 'hints', label: 'Hints' }, { id: 'players', label: 'Players' }];
 
-const SingleWidget = ({ exclusiveLabel }: WidgetArgs) => {
-  const [state, setState] = useState<WidgetState | undefined>(
-    HINTS_DEFAULT && { ...HINTS_DEFAULT, visible: true, mode: 'floating', x: 60, y: 40 },
-  );
-  const onChange = useCallback((patch: Partial<WidgetState>) => setState((prev) => prev && { ...prev, ...patch }), []);
-  if (!state) return null;
+const FrameDemo = (props: WidgetArgs & { optionsOpen?: boolean }) => {
+  const { tabbed, mode, peek, opacity, canPopOut, optionsOpen = false } = props;
+  const [active, setActive] = useState('hints');
+  const [pin, setPin] = useState<PinMode>('off');
+  const [open, setOpen] = useState(optionsOpen);
+  const tabs = tabbed ? TABS : TABS.slice(0, 1);
   return (
-    <Box className="story-frame widget-dock-frame">
-      {state.visible && (
-        <Widget
-          state={state}
-          label="Hints"
-          onChange={onChange}
-          onClose={() => onChange({ visible: false })}
-          exclusiveLabel={exclusiveLabel}
-        >
-          {WIDGET_CONTENT.hints}
-        </Widget>
-      )}
+    <Box className={`widget-story__box${peek ? ' widget-story__box--peek' : ''}`}>
+      <Widget
+        id={active}
+        tabs={tabs}
+        activeId={tabbed ? active : 'hints'}
+        paneKey={mode === 'out' ? null : 'demo'}
+        opacity={opacity}
+        peek={peek}
+        optionsOpen={open}
+        mode={mode}
+        pin={pin}
+        onTop={pin !== 'off'}
+        onPinChange={setPin}
+        canPopOut={canPopOut}
+        onPopOut={() => undefined}
+        onActivateTab={setActive}
+        onOpenOptions={() => setOpen((v) => !v)}
+        onClose={() => undefined}
+      >
+        {tabbed && active === 'players' ? WIDGET_CONTENT.players : WIDGET_CONTENT.hints}
+      </Widget>
     </Box>
   );
 };
 
 const ARGS: Partial<WidgetArgs> = {
-    contextActive: true,
-    disabledWidget: 'hints',
-    disabledMessage: 'Hint sharing is off for this session.',
-    exclusiveLabel: 'Push the session view aside',
-  };
+  tabbed: false,
+  mode: 'in',
+  peek: false,
+  opacity: 0.92,
+  canPopOut: true,
+  contextActive: true,
+  disabledWidget: 'none',
+  disabledMessage: 'Hint sharing is off for this session.',
+  makeRoomHint: 'The session view shrinks to fit this widget',
+};
 
 const ARG_TYPES: StoryLiteArgTypes<WidgetArgs> = {
-    contextActive: { control: 'boolean', description: 'A session is running. Players and Hints are context-only.' },
-    disabledWidget: { control: 'select', options: ['none', 'players', 'log', 'hints', 'console'], description: 'Covered through resolveDisabled' },
-    disabledMessage: { control: 'text' },
-    exclusiveLabel: { control: 'text', description: 'Label of the exclusive checkbox in each widget\'s settings' },
-  };
+  tabbed: { control: 'boolean', description: 'The pane holds two widgets, shown as tab chips.' },
+  mode: { control: 'select', options: ['in', 'out'], description: 'out draws the frame as its own window: a pop in button and a pin.' },
+  peek: { control: 'boolean', description: 'Folded to its title strip.' },
+  opacity: { control: 'number', description: 'Frame opacity, 0 to 1. The content stays opaque; hover makes the frame solid.' },
+  canPopOut: { control: 'boolean' },
+  contextActive: { control: 'boolean', description: 'Dock only: a session is running. Players and Hints show only in context.' },
+  disabledWidget: { control: 'select', options: ['none', 'players', 'log', 'hints', 'console'], description: 'Dock only: covered through resolveDisabled' },
+  disabledMessage: { control: 'text' },
+  makeRoomHint: { control: 'text', description: 'Dock only: the hint under Make room in each widget\'s options' },
+};
 
 const meta = {
   title: 'Composites · Widgets/Widget',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<WidgetArgs>;
+
+const story = (name: string, patch: Partial<WidgetArgs>) => ({
+  name,
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <FrameDemo {...args} {...patch} />,
+} satisfies StoryLiteStoryDefinition<WidgetArgs>);
+
+const Playground = story('Playground', {});
+const Single = story('One widget', {});
+const Tabbed = story('Tabbed pane', { tabbed: true });
+const OwnWindow = story('Own window', { mode: 'out' });
+const Folded = story('Peek', { peek: true });
 
 const Dock = {
   name: 'Session dashboard dock',
@@ -68,36 +106,47 @@ const Dock = {
   render: (args) => <WidgetDock {...args} />,
 } satisfies StoryLiteStoryDefinition<WidgetArgs>;
 
-const Floating = {
-  name: 'Single floating widget',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => <SingleWidget {...args} />,
-} satisfies StoryLiteStoryDefinition<WidgetArgs>;
+const renderState = (props: StateProps) => (
+  <FrameDemo {...(ARGS as WidgetArgs)} tabbed peek={props.peek === true} optionsOpen={props.open === true} />
+);
 
-const CODE = `import { useState } from 'react';
-import { Widget, createDefaultWidgetState } from '@drizztdourden08/tessera';
-import type { WidgetDefinition, WidgetState } from '@drizztdourden08/tessera';
+const CODE = `import { Widget } from '@drizztdourden08/tessera';
 
-const HintsWidget = ({ definition }: { definition: WidgetDefinition }) => {
-  const [state, setState] = useState<WidgetState>(() => createDefaultWidgetState(definition));
-  const onChange = (patch: Partial<WidgetState>) => setState((prev) => ({ ...prev, ...patch }));
-  return (
-    <Widget state={state} label="Hints" onChange={onChange} onClose={() => onChange({ visible: false })}>
-      <HintList />
-    </Widget>
-  );
-};
+<Widget
+  id="hints"
+  tabs={[{ id: 'hints', label: 'Hints' }, { id: 'players', label: 'Players' }]}
+  activeId={active}
+  paneKey={pane.key}
+  opacity={0.92}
+  peek={peek}
+  optionsOpen={optionsOpen}
+  onActivateTab={(id) => onEdit({ type: 'activate-tab', key: pane.key, id })}
+  onOpenOptions={(anchor) => openOptions('hints', anchor)}
+  onPopOut={() => popOut('hints')}
+  onClose={() => close('hints')}
+>
+  <HintList />
+</Widget>
 
-// A dashboard of docked widgets goes through useWidgetLayout and WidgetManager,
-// which hand each docked widget its position and size.`;
+// A whole dock goes through WidgetManager, which draws a DockLayout of Widgets
+// and their options from a WidgetLayout, and hands every change to onLayoutChange.`;
 
 const Overview = overviewStory({
   component: 'Widget',
-  description: 'A movable panel for a tool that sits over the main view: a player list, a log, hints. It draws a title bar with a settings gear and a close button, and reports every move, resize and setting through onChange. Floating, it drags by its title bar and resizes from any edge; docked to a side, it resizes from its inner edge only. The frame takes the opacity setting and turns solid on hover, while the content always stays opaque.',
-  variants: [Floating, Dock],
+  description: 'The frame a tool panel wears, docked in a DockLayout pane, floating over the main view, or in its own window: a player list, a log, hints. The title bar is the drag handle; it shows the widget name, or one tab chip per widget when its pane holds several, then the pop out, options and close buttons. In its own window it shows a pop in button and a pin that steps through off, always on top and with the app. The frame takes the opacity setting and turns solid on hover, while the content stays opaque. Peek folds it to its title strip. The frame fills the box it is given; WidgetManager places a whole dock of them from a WidgetLayout and opens WidgetOptions from the gear.',
+  playground: Playground,
+  variants: [Single, Tabbed, OwnWindow, Folded, Dock],
+  states: {
+    render: renderState,
+    list: [
+      STATE.idle,
+      { name: 'Tab hover', pseudo: 'hover', target: '.widget__tab:not(.widget__tab--active)' },
+      { ...STATE.open, name: 'Options open' },
+      { name: 'Peek', props: { peek: true } },
+    ],
+  },
   code: CODE,
 });
 
 export default meta;
-export { Dock, Floating, Overview };
+export { Dock, Folded, OwnWindow, Overview, Playground, Single, Tabbed };

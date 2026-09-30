@@ -1,9 +1,7 @@
 /* @layer renderer-components @kind logic */
-import type { WidgetDefinition, WidgetLayout } from '../Widget.type';
-import { createDefaultWidgetState } from './create-default-widget-state';
+import { MAIN_NODE } from '../../DockLayout';
+import type { WidgetLayout } from '../Widget.type';
 
-const createDefaultLayout = (definitions: readonly WidgetDefinition[]): WidgetLayout => ({
-  widgets: definitions.map((def, i) => createDefaultWidgetState(def, i)),
-});
+const createDefaultLayout = (): WidgetLayout => ({ v: 2, dock: MAIN_NODE, floating: [], popped: [], frame: {} });
 
 export { createDefaultLayout };

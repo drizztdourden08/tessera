@@ -16,4 +16,6 @@ interface UseWidgetLayoutParams {
   preset?: WidgetLayout;
 }
 
-export type { StartupOverride, UseWidgetLayoutParams };
+type LayoutUpdater = (prev: WidgetLayout) => WidgetLayout;
+
+export type { LayoutUpdater, StartupOverride, UseWidgetLayoutParams };

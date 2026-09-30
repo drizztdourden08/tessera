@@ -1,12 +1,6 @@
 /* @layer renderer-components @kind types */
-import type { MouseEvent, RefObject } from 'react';
+import type { WidgetProps } from '../Widget.type';
 
-interface WidgetTitlebarProps {
-  label: string;
-  gearRef: RefObject<HTMLButtonElement | null>;
-  onMouseDown?: (e: MouseEvent) => void;
-  onToggleSettings: () => void;
-  onClose: () => void;
-}
+type WidgetTitlebarProps = Omit<WidgetProps, 'children' | 'opacity'>;
 
 export type { WidgetTitlebarProps };

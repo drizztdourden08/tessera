@@ -8,7 +8,7 @@ const TOKEN_STORIES = [
   'stories/_template/VariantGrid.tsx',
 ];
 
-const SAMPLE_STORIES = ['stories/composites/_samples/data-widget-dock.tsx', 'stories/data/_samples/table-demo.tsx'];
+const SAMPLE_STORIES = ['stories/data/_samples/table-demo.tsx'];
 
 export default brockEslint({
   ignores: ['dist-storylite/**'],
@@ -19,7 +19,8 @@ export default brockEslint({
     { files: ['stories/primitives/_samples/picker-emoji.tsx'], why: 'the Select and Combobox samples map build states and categories to emoji' },
   ],
   inlineStyle: [
-    { files: ['src/composites/Widget/Widget.tsx'], why: 'a widget is placed where it was docked, dragged or resized' },
+    { files: ['src/composites/Widget/Widget.tsx'], why: 'the frame opacity is set per widget and turns solid on hover' },
+    { files: ['src/composites/DockLayout/sub-components/**'], why: 'panes, dividers, drop hints and floating widgets sit at rectangles computed from the layout tree and the pointer' },
     { files: ['src/composites/SplitPane/SplitPane.tsx'], why: 'the split share is dragged by the user' },
     { files: ['src/composites/DataTable/DataTable.tsx'], why: 'column widths are sized and resized per table' },
     { files: ['src/composites/DataTable/sub-components/GroupRow.tsx'], why: 'a group row indents by its depth' },
@@ -31,6 +32,6 @@ export default brockEslint({
     { files: ['src/composites/ShortcutTour/**'], why: 'the camera transform and the speed are computed per frame' },
     { files: ['src/brand/TesseraLogo/**'], why: 'each tile carries its app ink and each callout its computed place' },
     { files: TOKEN_STORIES, why: 'a token story draws the token or value it documents' },
-    { files: SAMPLE_STORIES, why: 'a sample passes live insets and depths through, as an app would' },
+    { files: SAMPLE_STORIES, why: 'a sample passes live depths through, as an app would' },
   ],
 });

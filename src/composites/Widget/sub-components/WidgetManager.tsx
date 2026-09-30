@@ -1,69 +1,81 @@
 /* @layer renderer-components @kind component */
-import { useMemo, useEffect } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Box } from '../../../primitives/Box';
-import { DisabledOverlay } from '../../DisabledOverlay';
+import { DockLayout, useDockKeys } from '../../DockLayout';
+import type { FloatingWidget, LayoutEdit, PaneNode, Rect, WidgetId } from '../../DockLayout';
+import { FALLBACK_FLOAT_SIZE } from '../Widget.constants';
 import type { WidgetDefinition } from '../Widget.type';
-import { Widget } from '../Widget';
-import { TITLEBAR_HEIGHT } from '../Widget.constants';
-import { computeDockedStyles } from '../behavior/compute-docked-styles';
-import { getWidgetDefinition } from '../behavior/get-widget-definition';
-import { isWidgetActive } from '../behavior/is-widget-active';
+import { applyEdit } from '../behavior/apply-edit';
+import { mainOrWindow } from '../behavior/main-or-window';
+import { removeEverywhere } from '../behavior/remove-everywhere';
+import { useDockApi } from '../behavior/useDockApi';
+import { visibleLayoutOf } from '../behavior/visible-layout-of';
+import type { WidgetOptionsTarget } from '../behavior/widget-dock.type';
 import { NO_FORCED_IDS } from './WidgetManager.constants';
+import { WidgetOptionsHost } from './WidgetOptionsHost';
+import { WidgetPane } from './WidgetPane';
 import type { WidgetManagerProps } from './WidgetManager.type';
 
 const WidgetManager = <D extends WidgetDefinition = WidgetDefinition>(props: WidgetManagerProps<D>) => {
-  const {
-    definitions, layout, contextActive, pageOpen = false, onUpdate, onClose, onInsetsChange, children,
-    settingsContent, developerToolsEnabled = false, startupForcedWidgetIds = NO_FORCED_IDS, resolveDisabled,
-    onOpenSettings, topOffset: topOffsetProp, bounds = 'viewport', exclusiveLabel,
-  } = props;
-  const topOffset = topOffsetProp ?? (bounds === 'container' ? 0 : TITLEBAR_HEIGHT);
-  const activeWidgets = useMemo(() => {
-    const ctx = { definitions, contextActive, pageOpen, developerToolsEnabled, forcedIds: startupForcedWidgetIds };
-    return layout.widgets.filter((w) => isWidgetActive(w, ctx));
-  },[layout.widgets, definitions, contextActive, pageOpen, developerToolsEnabled, startupForcedWidgetIds]);
+  const { definitions, layout, children, contextActive, pageOpen = false, developerToolsEnabled = false } = props;
+  const { startupForcedWidgetIds = NO_FORCED_IDS, onMainRect, onExternalDrop, settingsContent, className } = props;
+  const keys = useDockKeys();
+  const mainRef = useRef<Rect | null>(null);
+  const paneRects = useRef(new Map<WidgetId, Rect>());
+  const [options, setOptions] = useState<WidgetOptionsTarget | null>(null);
+  const api = useDockApi({ props, peek: props.peek ?? keys.peek, options, setOptions, mainRef });
 
-  const { styles: dockedStyles, exclusiveInsets } = useMemo(
-    () => computeDockedStyles(activeWidgets, topOffset, bounds),
-    [activeWidgets, topOffset, bounds],
-  );
+  const visible = useMemo(() => visibleLayoutOf(layout, {
+    definitions, contextActive, pageOpen, developerToolsEnabled, forcedIds: startupForcedWidgetIds, contentIds: Object.keys(children),
+  }), [layout, definitions, contextActive, pageOpen, developerToolsEnabled, startupForcedWidgetIds, children]);
 
-  const { left, right, top, bottom } = exclusiveInsets;
-  useEffect(() => {
-    onInsetsChange?.({ left, right, top, bottom });
-  }, [left, right, top, bottom, onInsetsChange]);
+  const handleMainRect = useCallback((rect: Rect | null) => {
+    mainRef.current = rect;
+    onMainRect?.(rect);
+  }, [onMainRect]);
+  const dropIn = useCallback((id: WidgetId, edit: LayoutEdit | null) => {
+    onExternalDrop?.(id, edit);
+    if (edit) api.change((prev) => applyEdit(removeEverywhere(prev, id), edit, mainOrWindow(mainRef.current)));
+  }, [onExternalDrop, api]);
+  const renderPane = useCallback((pane: PaneNode, rect: Rect) => {
+    for (const id of pane.widgets) paneRects.current.set(id, rect);
+    return <WidgetPane api={api} widgets={pane.widgets} activeId={pane.active} paneKey={pane.key} />;
+  }, [api]);
+  const renderFloating = useCallback((f: FloatingWidget) => <WidgetPane api={api} widgets={[f.id]} activeId={f.id} paneKey={null} />, [api]);
+  const sizeOf = useCallback((id: WidgetId) => api.definitionOf(id)?.defaultFloatingSize ?? FALLBACK_FLOAT_SIZE, [api]);
 
   return (
-    <Box className={`widget-manager${bounds === 'container' ? ' widget-manager--contained' : ''}`}>
-      {activeWidgets.map((w) => {
-        const content = children[w.id];
-        if (!content) return null;
-
-        const def = getWidgetDefinition(definitions, w.id);
-        const disabled = def && resolveDisabled ? resolveDisabled(def) : null;
-
-        return (
-          <Widget
-            key={w.id}
-            state={w}
-            label={def?.label}
-            onChange={(patch) => onUpdate(w.id, patch)}
-            onClose={() => onClose(w.id)}
-            dockedStyle={w.mode === 'docked' ? dockedStyles.get(w.id) : undefined}
-            settingsContent={settingsContent?.[w.id]}
-            exclusiveLabel={exclusiveLabel}
-          >
-            <DisabledOverlay
-              active={disabled != null}
-              message={disabled?.message}
-              contained
-              onOpenSettings={disabled && onOpenSettings ? () => onOpenSettings(disabled.settingId) : undefined}
-            >
-              {content}
-            </DisabledOverlay>
-          </Widget>
-        );
-      })}
+    <Box className={`widget-manager${className ? ` ${className}` : ''}`}>
+      <DockLayout
+        layout={visible}
+        main={props.main}
+        peek={api.peek}
+        modifiers={props.modifiers ?? keys.modifiers}
+        renderPane={renderPane}
+        renderFloating={renderFloating}
+        onMainRect={handleMainRect}
+        onEdit={api.apply}
+        onPopOut={api.popOut}
+        canPopOut={api.canPopOut}
+        labelOf={api.labelOf}
+        externalDrag={props.externalDrag}
+        onExternalDrop={dropIn}
+        sizeOf={sizeOf}
+        mainLabel={props.mainLabel}
+        gripLabel={props.gripLabel}
+      />
+      {options && (
+        <WidgetOptionsHost
+          api={api}
+          target={options}
+          paneRect={paneRects.current.get(options.id) ?? null}
+          mainRect={mainRef.current}
+          onClose={() => setOptions(null)}
+          settings={settingsContent?.[options.id]}
+          makeRoomHint={props.makeRoomHint}
+          contextLabel={props.contextLabel}
+        />
+      )}
     </Box>
   );
 };

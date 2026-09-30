@@ -1,0 +1,4 @@
+/* @layer stories @kind style */
+.calibration-panel-story {
+  max-inline-size: var(--size-384);
+}

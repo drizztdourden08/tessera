@@ -1,0 +1,4 @@
+/* @layer stories @kind style */
+.pressed-grid-story {
+  max-inline-size: var(--size-448);
+}

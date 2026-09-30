@@ -1,0 +1,30 @@
+/* @layer renderer-components @kind style */
+.pressed-grid {
+  grid-template-columns: repeat(auto-fill, minmax(var(--size-96), 1fr));
+}
+
+.pressed-grid__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-sunken);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.pressed-grid__cell[data-pressed] {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+}
+
+.pressed-grid__label {
+  overflow: hidden;
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

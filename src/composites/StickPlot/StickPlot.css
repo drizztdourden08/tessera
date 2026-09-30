@@ -1,0 +1,57 @@
+/* @layer renderer-components @kind style */
+.stick-plot__plot {
+  width: var(--size-96);
+  height: var(--size-96);
+}
+
+.stick-plot[data-size='lg'] .stick-plot__plot {
+  width: var(--size-160);
+  height: var(--size-160);
+}
+
+.stick-plot__ring {
+  fill: var(--c-sunken);
+  stroke: var(--c-border);
+  stroke-width: var(--border-width-thin);
+}
+
+.stick-plot__zone {
+  fill: color-mix(in srgb, var(--c-text-muted) 22%, transparent);
+}
+
+.stick-plot__zone--inner {
+  stroke: color-mix(in srgb, var(--c-text-muted) 60%, transparent);
+  stroke-width: var(--border-width-thin);
+}
+
+.stick-plot__axis {
+  stroke: var(--c-hairline);
+  stroke-width: var(--border-width-thin);
+}
+
+.stick-plot__range {
+  fill: none;
+  stroke: var(--c-info);
+  stroke-width: var(--border-width-thin);
+}
+
+.stick-plot__center {
+  fill: var(--c-info);
+}
+
+.stick-plot__dot {
+  fill: var(--c-primary);
+}
+
+.stick-plot__dot[data-resting] {
+  fill: var(--c-text-muted);
+}
+
+.stick-plot__label {
+  font-size: var(--text-sm);
+}
+
+.stick-plot__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}

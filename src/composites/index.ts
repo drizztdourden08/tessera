@@ -60,6 +60,12 @@ export { Emphasis } from './Emphasis';
 export type { EmphasisAnchor, EmphasisOrder, EmphasisProps, EmphasisTrigger } from './Emphasis';
 export { KeyboardLayout, KEYBOARD_SIZES } from './KeyboardLayout';
 export type { KeyboardLayoutProps, KeyboardSize, KeyboardTarget, KeyRect, KeyRects } from './KeyboardLayout';
+export { CalibrationPanel } from './CalibrationPanel';
+export type { CalibrationPanelAction, CalibrationPanelProps } from './CalibrationPanel';
+export { PressedGrid } from './PressedGrid';
+export type { PressedGridItem, PressedGridProps } from './PressedGrid';
+export { StickPlot } from './StickPlot';
+export type { StickPlotPoint, StickPlotProps, StickPlotRange, StickPlotSize } from './StickPlot';
 export { ShortcutTour } from './ShortcutTour';
 export type { ShortcutTourProps } from './ShortcutTour';
 export { SectionNav } from './SectionNav';
@@ -74,6 +80,8 @@ export { ReleaseNotesPanel } from './ReleaseNotesPanel';
 export type { ReleaseNotesPanelProps } from './ReleaseNotesPanel';
 export { AboutPanel } from './AboutPanel';
 export type { AboutPanelCopy, AboutPanelProps, AboutPanelRow } from './AboutPanel';
+export { Hero } from './Hero';
+export type { HeroArt, HeroFact, HeroFactRow, HeroProps } from './Hero';
 export { CommandPalette, CommandPaletteRow } from './CommandPalette';
 export type {
   CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle,
@@ -84,16 +92,25 @@ export { ErrorBoundary } from './ErrorBoundary';
 export type { ErrorBoundaryProps } from './ErrorBoundary';
 export type { DisabledOverlayProps } from './DisabledOverlay';
 export {
-  Widget, WidgetManager, WidgetSettings, useWidgetLayout, createDefaultLayout, createDefaultWidgetState, getDevOnlyWidgetIds,
-  getWidgetDefinition, getWidgetState, loadLayoutForProfile, loadLayoutLocal, saveLayoutForProfile, saveLayoutLocal,
-  startingLayout, updateWidget, computeDockedStyles, useWidgetDrag, useWidgetResize, getDockedResizeEdge,
-  DEFAULT_LAYOUT_STORAGE_KEY, TITLEBAR_HEIGHT,
+  Widget, WidgetManager, WidgetOptions, OptionRow, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,
+  migrateLayout, loadLayoutForProfile, loadLayoutLocal, saveLayoutForProfile, saveLayoutLocal, applyEdit, dockOnEdge, dockWidget,
+  dropFrame, edgeOf, floatInMain, floatWidget, frameOf, isWidgetOpen, moveMain, openStartupWidgets, openWidget, placementOf,
+  popOutWidget, removeEverywhere, resolveSplit, setFrame, setMakeRoom, setPopped, visibleLayoutOf, DEFAULT_LAYOUT_STORAGE_KEY,
 } from './Widget';
 export type {
-  WidgetState, WidgetLayout, WidgetDefinition, WidgetDisabledState, WidgetManagerProps,
-  WidgetPersistenceIO, WidgetVisibility, WidgetMode, WidgetBounds, SnapSide,
-  DockedLayoutResult, ExclusiveInsets, StartupOverride, UseWidgetLayoutParams,
+  FlatWidgetLayout, FlatWidgetState, OptionRowProps, PinMode, PoppedWidget, ResolvedSplit, SnapLink, SnapSide, StartupOverride,
+  UseWidgetLayoutParams, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetGates, WidgetLayout, WidgetManagerProps,
+  WidgetOptionsProps, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WindowBounds,
 } from './Widget';
+export {
+  DockLayout, EDGES, GAP, MAIN_NODE, STRIP, createPane, evenSplit, findLeaf, floatingRect, holdsMain, insertAt, layoutTree,
+  mainRectOf, paneOf, patchPane, placeFloating, removeLeaf, removeWidget, resizeSplit, swapPanes, toFloating, useDockKeys,
+  widgetsIn, wrapBeside,
+} from './DockLayout';
+export type {
+  DividerRect, DockEdge, DockKeys, DockLayoutProps, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget,
+  LaidOut, LayoutEdit, LayoutNode, LeafNode, LeafRect, MainNode, MainTarget, PaneNode, Rect, Size, SplitAxis, SplitNode, WidgetId,
+} from './DockLayout';
 export { FilterBar, FacetPicker } from './FilterBar';
 export type { FacetPickerProps, FilterBarProps, FilterFacet, FilterFacetOption } from './FilterBar';
 export { RecordEditor, ReferencedBy } from './RecordEditor';
