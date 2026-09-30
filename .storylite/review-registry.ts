@@ -25,9 +25,12 @@ const syncRegistry = (root: string, pages: readonly ReviewPage[]): ReviewRegistr
   const rank = (title: string): number => (order.includes(title) ? order.indexOf(title) : order.length);
   const sorted = [...pages].sort((a, b) => rank(a.title) - rank(b.title) || a.title.localeCompare(b.title));
   const next: ReviewRegistry = {};
-  for (const { title } of sorted) {
+  const today = new Date().toISOString().slice(0, 10);
+  for (const { title, hash } of sorted) {
     const [folder, page] = splitTitle(title);
-    next[folder] = { ...next[folder], [page]: entryOf(current, title) ?? { status: 'new' } };
+    const entry = entryOf(current, title) ?? { status: 'new' };
+    const stamped = entry.status !== 'new' && !entry.hash ? { ...entry, hash, at: today } : entry;
+    next[folder] = { ...next[folder], [page]: stamped };
   }
   return next;
 };
