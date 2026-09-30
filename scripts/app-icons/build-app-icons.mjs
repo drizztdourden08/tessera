@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Resvg } from '@resvg/resvg-js';
 import pngToIco from 'png-to-ico';
-import { APPS, ICO_SIZES, PNG_SIZES, SPLASH_GROUND, SPLASH_SIZE } from './app-icons.constants.mjs';
+import { APPS, ICO_SIZES, MARK_SIZES, PNG_SIZES, SPLASH_GROUND, SPLASH_SIZE } from './app-icons.constants.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CANVAS = 1024;
@@ -27,6 +27,7 @@ const canvas = (inner, size = CANVAS) =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${inner}</svg>`;
 
 const artFor = (app, mark) => ({
+  mark: canvas(placed(mark, 1)),
   icon: canvas(`<rect width="${CANVAS}" height="${CANVAS}" rx="${CANVAS * 0.2}" fill="${app.tile}"/>${placed(mark, 0.72)}`),
   maskable: canvas(`<rect width="${CANVAS}" height="${CANVAS}" fill="${app.tile}"/>${placed(mark, 0.6)}`),
   foreground: canvas(placed(mark, 0.56)),
@@ -50,6 +51,7 @@ const buildApp = async (app) => {
   write(join(out, 'icon', 'maskable-512.png'), png(art.maskable, 512));
   write(join(out, 'icon', 'android', 'icon-foreground.png'), png(art.foreground, CANVAS));
   write(join(out, 'icon', 'android', 'icon-background.png'), png(art.background, CANVAS));
+  for (const size of MARK_SIZES) write(join(out, 'mark', `mark-${size}.png`), png(art.mark, size));
   write(join(out, 'splash', 'splash.svg'), art.splash);
   write(join(out, 'splash', `splash-${SPLASH_SIZE}.png`), png(art.splash, SPLASH_SIZE));
   return app.id;

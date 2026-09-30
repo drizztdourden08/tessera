@@ -17,6 +17,13 @@ interface BrandMarkData {
   pixelArt?: boolean;
 }
 
+type BrandGradientStops = readonly [from: string, to: string] | readonly [from: string, via: string, to: string];
+
+interface BrandGradient {
+  angle: number;
+  stops: BrandGradientStops;
+}
+
 interface BrandWordmarkSpec {
   text: string;
   colors: PixelWordmarkColors;
@@ -34,6 +41,7 @@ interface BrandInfo {
   mark: BrandMarkData;
   mascot?: BrandMarkData;
   wordmark: BrandWordmarkSpec;
+  gradient: BrandGradient;
 }
 
-export type { BrandApp, BrandInfo, BrandMarkData, BrandMarkPath, BrandWordmarkSpec };
+export type { BrandApp, BrandGradient, BrandGradientStops, BrandInfo, BrandMarkData, BrandMarkPath, BrandWordmarkSpec };

@@ -13,3 +13,38 @@
   padding-inline-start: var(--space-lg);
   border-inline-start: 1px solid var(--c-hairline);
 }
+
+.brand-gradients {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(var(--size-288), 1fr));
+  gap: var(--space-md);
+}
+
+.brand-gradients__card {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.brand-gradient {
+  display: grid;
+  min-height: var(--size-192);
+  place-items: center;
+  border-radius: var(--radius-lg);
+}
+
+.brand-gradient--tessera {
+  background: var(--brand-tessera-gradient);
+}
+
+.brand-gradient--rotp {
+  background: var(--brand-rotp-gradient);
+}
+
+.brand-gradient--archipelia {
+  background: var(--brand-archipelia-gradient);
+}
+
+.brand-gradient--brock {
+  background: var(--brand-brock-gradient);
+}

@@ -8,4 +8,5 @@ export type { LogoCombinedProps, LogoDirection, LogoProps, LogoWordmarkProps } f
 export { TesseraLogo } from './TesseraLogo';
 export type { TesseraLogoProps } from './TesseraLogo';
 export { BRAND_APPS, BRAND_FAMILY } from './family.constants';
-export type { BrandApp, BrandInfo, BrandMarkData, BrandMarkPath, BrandWordmarkSpec } from './brand.type';
+export { brandGradientCss } from './brand-gradient-css';
+export type { BrandApp, BrandGradient, BrandGradientStops, BrandInfo, BrandMarkData, BrandMarkPath, BrandWordmarkSpec } from './brand.type';

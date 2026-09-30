@@ -18,6 +18,7 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
     placement: 'Every tile that is not coloured. Each is free for the next project.',
     mark: TESSERA_MARK,
     wordmark: { text: 'Tessera', colors: ['#f4f4f4', '#e2e2e2', '#c9c9c9', '#adadad'] },
+    gradient: { angle: 160, stops: ['#3d3d42', '#232327', '#0e0e12'] },
   },
   rotp: {
     id: 'rotp',
@@ -31,6 +32,7 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
     mark: ROTP_MARK,
     mascot: ROTP_MASCOT,
     wordmark: { text: 'RELIC of the PAST', colors: ['#ffe26e', '#ffd639', '#fcbb28', '#ffa200'] },
+    gradient: { angle: 160, stops: ['#3a2e14', '#1e1810', '#12100e'] },
   },
   archipelia: {
     id: 'archipelia',
@@ -43,6 +45,7 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
     placement: 'The middle of the stem, carried by everything below it.',
     mark: ARCHIPELIA_MARK,
     wordmark: { text: 'Archipelia', colors: ['#e2d8ff', '#c1a8ff', '#9d77ff', '#7c4dff'] },
+    gradient: { angle: 160, stops: ['#ece6ff', '#e2d8ff', '#c1a8ff'] },
   },
   brock: {
     id: 'brock',
@@ -55,6 +58,7 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
     placement: 'Low in the stem, because it is what the apps stand on.',
     mark: BROCK_MARK,
     wordmark: { text: 'Brock', colors: ['#ffb341', '#ff9416', '#f2760c', '#d65a04'] },
+    gradient: { angle: 160, stops: ['#ffc66e', '#ffb341', '#ff9416'] },
   },
 };
 

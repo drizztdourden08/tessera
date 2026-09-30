@@ -13,5 +13,9 @@
   --brand-google-hover: #1f1f20;
   --brand-google-edge: #8e918f;
   --brand-google-ink: #e3e3e3;
+  --brand-tessera-gradient: linear-gradient(160deg, #3d3d42, #232327, #0e0e12);
+  --brand-rotp-gradient: linear-gradient(160deg, #3a2e14, #1e1810, #12100e);
+  --brand-archipelia-gradient: linear-gradient(160deg, #ece6ff, #e2d8ff, #c1a8ff);
+  --brand-brock-gradient: linear-gradient(160deg, #ffc66e, #ffb341, #ff9416);
 }
 }

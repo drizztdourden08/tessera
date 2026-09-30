@@ -25,6 +25,8 @@
     "./color-picker-popover": "./src/composites/ColorPickerPopover/index.ts",
     "./field-kits": "./src/composites/field-kits/index.ts",
     "./tokens.css": "./src/tokens/index.css",
+    "./tokens.json": "./tokens.json",
+    "./splash-tokens.css": "./splash-tokens.css",
     "./brand/*": "./brand/*",
     "./package.json": "./package.json"
   },
@@ -35,7 +37,9 @@
     "types",
     "README.md",
     "MIGRATION.md",
-    "RENAMES.json"
+    "RENAMES.json",
+    "tokens.json",
+    "splash-tokens.css"
   ],
   "sideEffects": [
     "**/*.css",
@@ -54,7 +58,8 @@
     "changeset": "changeset",
     "deadcode": "knip",
     "duplicates": "jscpd",
-    "icons": "node scripts/app-icons/build-app-icons.mjs"
+    "icons": "node scripts/app-icons/build-app-icons.mjs",
+    "tokens": "node scripts/tokens/build-tokens.mjs"
   },
   "peerDependencies": {
     "react": "^19.0.0",

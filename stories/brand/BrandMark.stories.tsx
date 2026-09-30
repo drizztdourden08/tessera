@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Badge, Box, Card, Flex, Stack, Text } from '../../src/primitives';
-import { BRAND_APPS, BRAND_FAMILY, BrandMark, BrandWordmark } from '../../src/brand';
+import { BRAND_APPS, BRAND_FAMILY, BrandMark, BrandWordmark, brandGradientCss } from '../../src/brand';
 import type { BrandApp, BrandMarkSize, BrandMarkVariant } from '../../src/brand';
 import { overviewStory } from '../_template/overview-story';
 import { axis, VariantGrid } from '../_template/VariantGrid';
@@ -105,6 +105,26 @@ const Family = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Gradients = {
+  name: 'Gradients',
+  render: () => (
+    <Box className="brand-gradients">
+      {BRAND_APPS.map((app) => (
+        <Card key={app} className="brand-gradients__card">
+          <Box className={`brand-gradient brand-gradient--${app}`}>
+            <BrandMark app={app} size="xl" title="" />
+          </Box>
+          <Stack gap="xs">
+            <Text variant="title">{BRAND_FAMILY[app].name}</Text>
+            <Text variant="caption">{`--brand-${app}-gradient`}</Text>
+            <Text variant="caption">{brandGradientCss(BRAND_FAMILY[app].gradient)}</Text>
+          </Stack>
+        </Card>
+      ))}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition;
+
 const Overview = overviewStory({
   component: 'BrandMark',
   description: 'The mark of one app or package in the family, drawn inline from path data so it stays sharp at any size. Reach for it wherever an app names itself: a title bar, an about screen, a list of projects. It comes in four sizes, can sit on its app-icon tile, and draws the app\'s mascot when asked, falling back to the mark for an app without one.',
@@ -113,4 +133,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, Family, Overview, Playground };
+export { AllVariants, Family, Gradients, Overview, Playground };
