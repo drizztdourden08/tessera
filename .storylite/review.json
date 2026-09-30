@@ -7,10 +7,14 @@
       "status": "new"
     },
     "Logo": {
-      "status": "new"
+      "status": "seen",
+      "hash": "39ffaa74d65bfbbb",
+      "at": "2026-09-30"
     },
     "WordMark": {
-      "status": "new"
+      "status": "ok",
+      "hash": "4c35614c905a5fcf",
+      "at": "2026-09-30"
     },
     "Combined": {
       "status": "new"
@@ -546,6 +550,11 @@
   },
   "Primitives · Navigation": {
     "TabBar": {
+      "status": "new"
+    }
+  },
+  "Primitives · Setup": {
+    "TesseraProvider": {
       "status": "new"
     }
   },
