@@ -27,7 +27,7 @@ const StateRow = (props: StateRowProps) => {
   return (
     <Box className="story-list__item">
       <Text className="story-label">{entry.name}</Text>
-      <Box ref={hostRef}>{(entry.render ?? render)(entry.props ?? {})}</Box>
+      <Box ref={hostRef} inert>{(entry.render ?? render)(entry.props ?? {})}</Box>
     </Box>
   );
 };
