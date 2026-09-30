@@ -1,0 +1,46 @@
+/* @layer renderer-components @kind style */
+.settings-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.settings-group-list__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.settings-group-list__title {
+  margin: 0;
+  padding-bottom: var(--space-xs);
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+  color: var(--c-text);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semi);
+}
+
+.settings-group-list__heading {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-xs);
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+}
+
+.settings-group-list__heading .settings-group-list__title {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.settings-group-list__reset {
+  justify-content: flex-end;
+  opacity: var(--opacity-muted);
+  transition: opacity var(--transition-fast);
+}
+
+.settings-group-list__heading:hover .settings-group-list__reset,
+.settings-group-list__reset:focus-within {
+  opacity: 1;
+}

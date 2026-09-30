@@ -1,0 +1,13 @@
+/* @layer renderer-components @kind style */
+.profile-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: var(--size-640);
+  margin: 0 auto;
+}
+
+.profile-picker__list {
+  min-height: 0;
+}

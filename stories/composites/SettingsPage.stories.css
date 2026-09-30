@@ -1,0 +1,22 @@
+/* @layer stories @kind style */
+.settings-page-story__frame {
+  display: flex;
+  flex-direction: column;
+  height: 28rem;
+  padding: var(--space-md);
+}
+
+.settings-page-story__state {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 10rem;
+}
+
+.settings-page-story__backdrop {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 85% 40%, var(--c-primary-soft), transparent 45%),
+    linear-gradient(120deg, var(--c-secondary-dim), var(--c-primary-dim));
+}

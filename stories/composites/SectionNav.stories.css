@@ -14,3 +14,8 @@
   gap: var(--space-sm);
   padding: var(--space-md) var(--space-lg);
 }
+
+.section-nav-story__frame--rail {
+  gap: 0;
+  padding: 0;
+}

@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 import { Box, Button, Glyph, Text } from '../../primitives';
 import { useLogWindow } from './behavior/useLogWindow';
+import { LogLine } from './sub-components/LogLine';
 import { LogToolbar } from './sub-components/LogToolbar';
 import { OLDER_CHUNK } from './LogPanel.constants';
 import type { LogPanelProps } from './LogPanel.type';
@@ -15,6 +16,8 @@ const LogPanel = (props: LogPanelProps) => {
     rows, className, kinds, hidden, onToggleKind, search, onSearchChange,
     copyText, countLabel = 'entries', emptyLabel = 'No entries.', toolbarExtra,
   } = props;
+
+  const kindById = useMemo(() => new Map(kinds?.map((kind) => [kind.id, kind])), [kinds]);
 
   const shown = useMemo(() => {
     const query = search?.trim().toLowerCase();
@@ -51,18 +54,7 @@ const LogPanel = (props: LogPanelProps) => {
                 <Text className="log-panel__older-note">{hiddenOlder} earlier rows hidden</Text>
               </Box>
             )}
-            {shown.slice(first).map((row) => {
-              const level = row.indent ?? 0;
-              return (
-                <Box key={row.id} className="log-panel__row">
-                  <Text className="log-panel__gutter">{row.gutter}</Text>
-                  <Box className={`log-panel__content${level > 0 ? ` log-panel__content--lvl${level}` : ''}`}>
-                    <Text className={`log-panel__tag log-panel__tag--${row.kind}`}>{row.tag}</Text>
-                    <Text className={`log-panel__msg log-panel__msg--${row.kind}`}>{row.message}</Text>
-                  </Box>
-                </Box>
-              );
-            })}
+            {shown.slice(first).map((row) => <LogLine key={row.id} row={row} kind={kindById.get(row.kind)} />)}
           </Box>
           <Button variant="tertiary" size="sm" className="log-panel__to-bottom" icon={<Glyph name="arrowDown" />} onClick={jumpToBottom}>
             Newest

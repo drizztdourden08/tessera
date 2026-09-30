@@ -41,3 +41,20 @@
 .settings-section__content > * + * {
   border-top: var(--border-width-thin) solid var(--c-border);
 }
+
+.settings-section--inset .settings-section__content {
+  border-color: var(--c-hairline);
+  background: var(--c-inset);
+}
+
+.settings-section__content > .settings-section__run {
+  padding: 0;
+}
+
+.settings-section__run .settings-section__row {
+  padding: var(--space-md) var(--space-lg);
+}
+
+.settings-section__run .settings-section__row + .settings-section__row {
+  border-top: var(--border-width-thin) solid var(--c-border);
+}

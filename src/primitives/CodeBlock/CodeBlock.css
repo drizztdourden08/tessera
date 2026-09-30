@@ -47,3 +47,17 @@
   text-align: end;
   user-select: none;
 }
+
+.code-block--wrap .code-block__code {
+  width: auto;
+}
+
+.code-block--wrap .code-block__line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.code-block--capped .code-block__pre {
+  max-height: var(--size-192);
+  overflow: auto;
+}

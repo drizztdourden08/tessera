@@ -13,6 +13,7 @@ const SectionNavItem = (props: SectionNavItemProps) => {
     <Pressable
       className={`section-nav__item focus-ring-inset${active ? ' section-nav__item--active' : ''}`}
       onClick={() => onSelect(item.id)}
+      disabled={item.disabled}
       title={item.label}
       aria-label={item.label}
       aria-current={active ? 'page' : undefined}

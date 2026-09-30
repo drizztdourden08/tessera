@@ -3,13 +3,15 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { Box, CodeBlock, Text } from '../../src/primitives';
 import type { CodeBlockLanguage } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { JSON_SAMPLE, TS_SAMPLE } from './_samples/data-code';
+import { DIAGNOSTICS_SAMPLE, JSON_SAMPLE, TS_SAMPLE } from './_samples/data-code';
 
 type CodeBlockArgs = {
   language: CodeBlockLanguage;
   highlightedLines: string;
   showLineNumbers: boolean;
   copyable: boolean;
+  wrap: boolean;
+  capped: boolean;
 };
 
 const TSX_SAMPLE = `import { Button } from '@drizztdourden08/tessera';
@@ -18,7 +20,7 @@ const TSX_SAMPLE = `import { Button } from '@drizztdourden08/tessera';
   Save changes
 </Button>`;
 
-const SAMPLES: Record<CodeBlockLanguage, string> = { typescript: TS_SAMPLE, tsx: TSX_SAMPLE, json: JSON_SAMPLE };
+const SAMPLES: Record<CodeBlockLanguage, string> = { typescript: TS_SAMPLE, tsx: TSX_SAMPLE, json: JSON_SAMPLE, text: DIAGNOSTICS_SAMPLE };
 
 const parseLines = (text: string): number[] =>
   text.split(',').flatMap((part) => {
@@ -28,12 +30,16 @@ const parseLines = (text: string): number[] =>
     return Array.from({ length: Math.max(0, to - from + 1) }, (_, i) => from + i);
   });
 
-const ARGS: Partial<CodeBlockArgs> = { language: 'typescript', highlightedLines: '12-13', showLineNumbers: true, copyable: true };
+const ARGS: Partial<CodeBlockArgs> = {
+  language: 'typescript', highlightedLines: '12-13', showLineNumbers: true, copyable: true, wrap: false, capped: false,
+};
 
 const ARG_TYPES: StoryLiteArgTypes<CodeBlockArgs> = {
-    language: { control: 'select', options: ['typescript', 'tsx', 'json'] },
+    language: { control: 'select', options: ['typescript', 'tsx', 'json', 'text'] },
     showLineNumbers: { control: 'boolean' },
     copyable: { control: 'boolean' },
+    wrap: { control: 'boolean', description: 'Wraps long lines in place of scrolling sideways.' },
+    capped: { control: 'boolean', description: 'Stops growing at a fixed height and scrolls inside.' },
     highlightedLines: { control: 'text', description: 'Lines to mark as changed, for example 3, 5-7' },
   };
 
@@ -53,6 +59,8 @@ const Playground = {
       highlightedLines={parseLines(args.highlightedLines)}
       showLineNumbers={args.showLineNumbers}
       copyable={args.copyable}
+      wrap={args.wrap}
+      capped={args.capped}
     />
   ),
 } satisfies StoryLiteStoryDefinition<CodeBlockArgs>;
@@ -69,12 +77,17 @@ const SideBySide = {
   ),
 } satisfies StoryLiteStoryDefinition<CodeBlockArgs>;
 
+const Diagnostics = {
+  name: 'Plain text, wrapped and capped',
+  render: () => <CodeBlock code={DIAGNOSTICS_SAMPLE} language="text" wrap capped copyable />,
+} satisfies StoryLiteStoryDefinition<CodeBlockArgs>;
+
 const Overview = overviewStory({
   component: 'CodeBlock',
-  description: 'A panel of highlighted, monospaced code that scrolls sideways when a line runs long. Use it to show a snippet, a config file or a diff in docs and settings. It highlights TypeScript, TSX and JSON with colours from the theme, can mark changed lines, and can add a line-number gutter and a copy button.',
+  description: 'A panel of highlighted, monospaced code that scrolls sideways when a line runs long. Use it to show a snippet, a config file or a diff in docs and settings. It highlights TypeScript, TSX and JSON with colours from the theme, and shows plain text as it is, such as a debug report or diagnostics. It can mark changed lines, add a line-number gutter and a copy button, wrap long lines, and stop at a fixed height and scroll inside.',
   playground: Playground,
-  variants: [SideBySide],
+  variants: [SideBySide, Diagnostics],
 });
 
 export default meta;
-export { Overview, Playground, SideBySide };
+export { Diagnostics, Overview, Playground, SideBySide };

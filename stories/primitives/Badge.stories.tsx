@@ -9,6 +9,7 @@ type BadgeArgs = {
   label: string;
   variant: BadgeVariant;
   withIcon: boolean;
+  pulse: boolean;
 };
 
 const VARIANTS: readonly BadgeVariant[] = ['success', 'warning', 'danger', 'neutral'];
@@ -27,12 +28,13 @@ const PLAYERS: readonly { name: string; game: string; variant: BadgeVariant }[] 
   { name: 'Dov', game: 'Watching', variant: 'neutral' },
 ];
 
-const ARGS: Partial<BadgeArgs> = { label: 'Connected', variant: 'success', withIcon: false };
+const ARGS: Partial<BadgeArgs> = { label: 'Connected', variant: 'success', withIcon: false, pulse: false };
 
 const ARG_TYPES: StoryLiteArgTypes<BadgeArgs> = {
     label: { control: 'text' },
     variant: { control: 'select', options: [...VARIANTS] },
     withIcon: { control: 'boolean' },
+    pulse: { control: 'boolean', description: 'Fades in and out, to draw the eye to a status that is still changing.' },
   };
 
 const meta = {
@@ -45,7 +47,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <Badge variant={args.variant}>
+    <Badge variant={args.variant} pulse={args.pulse}>
       {args.withIcon && <Glyph name="check" />}
       {args.label}
     </Badge>
@@ -56,6 +58,13 @@ const AllVariants = {
   name: 'All variants',
   render: () => (
     <LabelledRows items={VARIANTS} render={(variant) => <Badge variant={variant}>{LABELS[variant]}</Badge>} />
+  ),
+} satisfies StoryLiteStoryDefinition<BadgeArgs>;
+
+const Pulsing = {
+  name: 'Pulsing',
+  render: () => (
+    <LabelledRows items={VARIANTS} render={(variant) => <Badge variant={variant} pulse>{LABELS[variant]}</Badge>} />
   ),
 } satisfies StoryLiteStoryDefinition<BadgeArgs>;
 
@@ -71,7 +80,7 @@ const PlayerList = {
                 <Text as="div">{player.name}</Text>
                 <Text variant="caption">{player.game}</Text>
               </Box>
-              <Badge variant={player.variant}>{LABELS[player.variant]}</Badge>
+              <Badge variant={player.variant} pulse={player.variant === 'warning'}>{LABELS[player.variant]}</Badge>
             </Flex>
           ))}
         </Stack>
@@ -82,10 +91,10 @@ const PlayerList = {
 
 const Overview = overviewStory({
   component: 'Badge',
-  description: 'A small pill that names a status next to a name or a row: connected, syncing, disconnected, watching. Four tones carry the meaning: success, warning, danger, and neutral, the default. It takes any content, so an icon can sit before the label, and extra classes give it a surface of its own.',
+  description: 'A small pill that names a status next to a name or a row: connected, syncing, disconnected, watching. Four tones carry the meaning: success, warning, danger, and neutral, the default. pulse fades it in and out, for a status that is still changing or wants a look, such as syncing or an update waiting. It takes any content, so an icon can sit before the label, and extra classes give it a surface of its own.',
   playground: Playground,
-  variants: [AllVariants],
+  variants: [AllVariants, Pulsing],
 });
 
 export default meta;
-export { AllVariants, Overview, Playground, PlayerList };
+export { AllVariants, Overview, Playground, PlayerList, Pulsing };

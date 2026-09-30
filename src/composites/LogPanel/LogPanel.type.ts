@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { TextTone } from '../../primitives/TextElement';
 
 interface LogRow {
   id: string;
@@ -13,6 +14,8 @@ interface LogRow {
 interface LogKindDef {
   id: string;
   label: string;
+  tone?: TextTone;
+  toneMessage?: boolean;
 }
 
 interface LogPanelProps {

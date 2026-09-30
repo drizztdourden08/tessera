@@ -14,7 +14,6 @@
 
 .badge--warning {
   color: var(--c-warning);
-  animation: badge-pulse 1.5s ease-in-out infinite;
 }
 
 .badge--danger {
@@ -26,11 +25,15 @@
   color: var(--c-text-muted);
 }
 
+.badge--pulse {
+  animation: badge-pulse 1.5s ease-in-out infinite;
+}
+
 @keyframes badge-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .badge--warning { animation: none; }
+  .badge--pulse { animation: none; }
 }

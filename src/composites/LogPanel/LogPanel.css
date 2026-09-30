@@ -110,17 +110,20 @@
   border-left: var(--border-width-thick) solid var(--c-hairline);
 }
 
+.log-panel__tag,
+.log-panel__msg {
+  font-size: var(--text-base);
+}
+
 .log-panel__tag {
   text-align: right;
   font-weight: var(--weight-semi);
   white-space: nowrap;
-  color: var(--c-text-muted);
 }
 
 .log-panel__msg {
   min-width: 0;
   overflow-wrap: anywhere;
-  color: var(--c-text);
 }
 
 .log-panel__toolbar {

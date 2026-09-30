@@ -68,6 +68,12 @@
   font-size: var(--text-xs);
 }
 
+.list-item-row__aside {
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
 .list-item-row__action {
   flex-shrink: 0;
   opacity: 0;

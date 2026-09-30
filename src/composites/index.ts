@@ -32,6 +32,21 @@ export type { SideNavItem, SideNavGroup, SideNavProps } from './SideNav';
 export { SettingsShell } from './SettingsShell';
 export type { SettingsShellProps } from './SettingsShell';
 export { SettingsSection } from './SettingsSection';
+export type {
+  SettingsSectionLock, SettingsSectionLockRenderer, SettingsSectionProps, SettingsSectionRow,
+} from './SettingsSection';
+export { SettingsGroupList } from './SettingsGroupList';
+export type { SettingsGroupListGroup, SettingsGroupListProps, SettingsGroupListSection } from './SettingsGroupList';
+export { SettingsPage } from './SettingsPage';
+export type { SettingsPageAnchor, SettingsPageProps, SettingsPageTabs } from './SettingsPage';
+export { NavLayout } from './NavLayout';
+export type { NavLayoutProps } from './NavLayout';
+export { SearchResults } from './SearchResults';
+export type { SearchResultsGroup, SearchResultsHit, SearchResultsJump, SearchResultsProps } from './SearchResults';
+export { ProfilePicker } from './ProfilePicker';
+export type { ProfilePickerItem, ProfilePickerProps } from './ProfilePicker';
+export { InlineCreateForm } from './InlineCreateForm';
+export type { InlineCreateFormProps } from './InlineCreateForm';
 export { Drawer } from './Drawer';
 export type { DrawerProps } from './Drawer';
 export { DropdownMenu } from './DropdownMenu';
@@ -48,9 +63,21 @@ export type { KeyboardLayoutProps, KeyboardSize, KeyboardTarget, KeyRect, KeyRec
 export { ShortcutTour } from './ShortcutTour';
 export type { ShortcutTourProps } from './ShortcutTour';
 export { SectionNav } from './SectionNav';
-export type { SectionNavConfig, SectionNavGroup, SectionNavItem, SectionNavProps, SectionNavSearch } from './SectionNav';
+export type {
+  SectionNavConfig, SectionNavGroup, SectionNavItem, SectionNavProps, SectionNavSearch, SectionNavVariant,
+} from './SectionNav';
 export { WindowHeader } from './WindowHeader';
 export type { WindowHeaderProps } from './WindowHeader';
+export { WindowTitleBar } from './WindowTitleBar';
+export type { WindowControlsState, WindowTitleBarInstance, WindowTitleBarProps } from './WindowTitleBar';
+export { ReleaseNotesPanel } from './ReleaseNotesPanel';
+export type { ReleaseNotesPanelProps } from './ReleaseNotesPanel';
+export { AboutPanel } from './AboutPanel';
+export type { AboutPanelCopy, AboutPanelProps, AboutPanelRow } from './AboutPanel';
+export { CommandPalette, CommandPaletteRow } from './CommandPalette';
+export type {
+  CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle,
+} from './CommandPalette';
 export { Overlay } from './Overlay';
 export { DisabledOverlay } from './DisabledOverlay';
 export { ErrorBoundary } from './ErrorBoundary';

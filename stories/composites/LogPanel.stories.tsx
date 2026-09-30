@@ -90,6 +90,7 @@ const renderState = (props: StateProps) => (
   <Box className="log-panel-story log-panel-story--state">
     <LogPanel
       rows={props.empty === true ? NO_ROWS : ONE_ROW}
+      kinds={LOG_KINDS}
       className="server-log"
       countLabel="lines"
       emptyLabel="The server has not said anything yet."
@@ -103,6 +104,10 @@ const [search, setSearch] = useState('');
 
 <LogPanel
   rows={rows}
+  kinds={[
+    { id: 'join', label: 'Joins', tone: 'info' },
+    { id: 'error', label: 'Errors', tone: 'danger', toneMessage: true },
+  ]}
   className="server-log"
   search={search}
   onSearchChange={setSearch}
@@ -112,7 +117,7 @@ const [search, setSearch] = useState('');
 
 const Overview = overviewStory({
   component: 'LogPanel',
-  description: 'A log view styled like a code editor: a gutter column, then a type tag and a message on each line, indented for nested lines. Reach for it for a running log, such as a server log or a simulation trace, and colour each type through a class of your own. The toolbar shows a line count, plus a type filter, a search box and a copy button when the caller wires them. Only the newest lines are mounted and older ones load on demand, so a long session stays fast.',
+  description: 'A log view styled like a code editor: a gutter column, then a type tag and a message on each line, indented for nested lines. Reach for it for a running log, such as a server log or a simulation trace, and give each type a tone: the tag takes the tone, and toneMessage colours the message too, as for errors. A colour outside the tones still works through a class of your own on the kind. The toolbar shows a line count, plus a type filter, a search box and a copy button when the caller wires them. Only the newest lines are mounted and older ones load on demand, so a long session stays fast.',
   playground: ServerLog,
   variants: [ServerLog],
   states: {

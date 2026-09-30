@@ -29,6 +29,8 @@ const GLYPHS = {
     'M5 6.8v2.4', 'M3.8 8h2.4', 'M11 7.5v.01', 'M12 8.7v.01',
   ],
   save: ['M2.5 2.5H11l2.5 2.5v8.5h-11z', 'M5 2.5V6h5V2.5', 'M5 13.5v-4h6v4'],
+  windowMaximize: ['M3.5 3.5h9v9h-9z'],
+  windowRestore: ['M3 5.5h7.5V13H3z', 'M5.5 5.5V3H13v7.5h-2.5'],
 } satisfies Record<string, string[]>;
 
 export { GLYPHS };

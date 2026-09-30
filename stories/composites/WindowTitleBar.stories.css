@@ -1,0 +1,21 @@
+/* @layer stories @kind style */
+.window-title-bar-story__frame {
+  display: flex;
+  flex-direction: column;
+  min-height: 12rem;
+  transform: translateZ(0);
+}
+
+.window-title-bar-story__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+}
+
+.window-title-bar-story__strip {
+  position: relative;
+  min-width: 48rem;
+  height: var(--titlebar-height);
+  border: var(--border-width-thin) dashed var(--c-border);
+}

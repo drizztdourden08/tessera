@@ -1,0 +1,18 @@
+/* @layer renderer-components @kind style */
+.inline-create-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-inset);
+}
+
+.inline-create-form__error {
+  font-size: var(--text-sm);
+}
+
+.inline-create-form__actions > * {
+  flex: 1;
+}

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Flex, Icon, IconButton, Text } from '../../src/primitives';
 import type { IconName } from '../../src/primitives';
-import type { IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
+import type { IconButtonTone, IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
@@ -11,12 +11,15 @@ import { BUTTON_STATES } from './_samples/button-states';
 import { markedStates } from './_samples/marked-states';
 import { axis, VariantGrid } from '../_template/VariantGrid';
 
-type GlyphName = 'close' | 'plus' | 'pin' | 'mute' | 'overflow';
+type GlyphName = 'close' | 'plus' | 'pin' | 'mute' | 'overflow' | 'bug';
+
+type ToneChoice = 'none' | IconButtonTone;
 
 type IconButtonArgs = {
   label: string;
   glyph: GlyphName;
   variant: IconButtonVariant;
+  tone: ToneChoice;
   size: 'sm' | 'md';
   active: boolean;
   disabled: boolean;
@@ -30,6 +33,7 @@ const GLYPHS: Record<GlyphName, IconName> = {
   pin: 'pin',
   mute: 'volume-x',
   overflow: 'ellipsis',
+  bug: 'bug',
 };
 
 const LABELS: Record<GlyphName, string> = {
@@ -38,18 +42,22 @@ const LABELS: Record<GlyphName, string> = {
   pin: 'Pin tracker',
   mute: 'Mute audio',
   overflow: 'More actions',
+  bug: 'Report a bug',
 };
 
 const glyph = (name: GlyphName, size: 'sm' | 'md') => (
   <Icon name={GLYPHS[name]} size={size === 'sm' ? 12 : 16} />
 );
 
-const ARGS: Partial<IconButtonArgs> = { label: 'Close panel', glyph: 'close', variant: 'ghost', size: 'sm', active: false, disabled: false };
+const ARGS: Partial<IconButtonArgs> = {
+  label: 'Close panel', glyph: 'close', variant: 'ghost', tone: 'none', size: 'sm', active: false, disabled: false,
+};
 
 const ARG_TYPES: StoryLiteArgTypes<IconButtonArgs> = {
     label: { control: 'text', description: 'Accessible name, read by screen readers.' },
     glyph: { control: 'select', options: Object.keys(GLYPHS) as GlyphName[] },
     variant: { control: 'select', options: [...VARIANTS] },
+    tone: { control: 'select', options: ['none', 'danger'], description: 'Draws a ghost button in a status colour with a soft glow.' },
     size: { control: 'select', options: ['sm', 'md'] },
     active: { control: 'boolean' },
     disabled: { control: 'boolean' },
@@ -68,6 +76,7 @@ const Playground = {
     <IconButton
       label={args.label}
       variant={args.variant}
+      tone={args.tone === 'none' ? undefined : args.tone}
       size={args.size}
       active={args.active}
       disabled={args.disabled}
@@ -96,6 +105,17 @@ const AllVariants = {
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
+const DangerTone = {
+  name: 'Danger tone',
+  render: () => (
+    <Flex gap="sm" align="center">
+      {SIZES.map((size) => (
+        <IconButton key={size} label={`${LABELS.bug}, ${size}`} tone="danger" size={size}>{glyph('bug', size)}</IconButton>
+      ))}
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
 const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   <Flex gap="sm" align="center">
     {STATE_VARIANTS.map((variant) => (
@@ -103,6 +123,9 @@ const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
         {glyph('pin', 'md')}
       </IconButton>
     ))}
+    <IconButton label={`${LABELS.bug}, danger tone`} tone="danger" size="md" {...forceAttributes(pseudo)} {...props}>
+      {glyph('bug', 'md')}
+    </IconButton>
   </Flex>
 );
 
@@ -135,11 +158,11 @@ const Toolbar = {
 
 const Overview = overviewStory({
   component: 'IconButton',
-  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, and two sizes. It shares the Button focus ring and pressed fill, and active marks a toggle as on and announces it as pressed.',
+  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, and two sizes. It shares the Button focus ring and pressed fill, and active marks a toggle as on and announces it as pressed. tone="danger" draws a ghost button in red with a soft red glow, for a report a bug button or a remove button, and fills red inside a danger ring on hover.',
   playground: Playground,
-  variants: [AllVariants],
+  variants: [AllVariants, DangerTone],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, Overview, Playground, Toolbar };
+export { AllVariants, DangerTone, Overview, Playground, Toolbar };

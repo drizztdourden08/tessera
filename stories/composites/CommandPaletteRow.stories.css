@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.command-palette-row-story {
+  width: 36rem;
+  max-width: 100%;
+}

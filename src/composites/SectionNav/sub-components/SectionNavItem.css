@@ -56,6 +56,12 @@
   opacity: 1;
 }
 
+.section-nav__item:disabled {
+  background: none;
+  opacity: var(--opacity-disabled);
+  cursor: default;
+}
+
 .section-nav__item--active,
 .section-nav__item--active:hover {
   border-color: var(--c-primary);
@@ -76,4 +82,16 @@
 
 .section-nav__item--active .section-nav__chevron {
   color: var(--c-primary);
+}
+
+.section-nav--rail .section-nav__chevron {
+  display: none;
+}
+
+.section-nav--rail .section-nav__item--active {
+  box-shadow: none;
+}
+
+.section-nav--rail .section-nav__item--active .section-nav__icon {
+  filter: none;
 }

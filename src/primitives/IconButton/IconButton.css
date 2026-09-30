@@ -23,3 +23,29 @@
   border-color: var(--c-primary);
   color: var(--c-primary-bright);
 }
+
+.icon-btn--tone-danger {
+  color: var(--c-danger);
+  filter: drop-shadow(0 0 var(--size-2) var(--c-danger-soft));
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast),
+              filter var(--transition-normal);
+}
+
+.icon-btn--tone-danger:hover:not(:disabled),
+.icon-btn--tone-danger:active:not(:disabled) {
+  border-color: var(--c-danger);
+  box-shadow: 0 0 0 var(--border-width-thin) var(--c-bg),
+              0 0 0 calc(var(--border-width-thin) + var(--border-width-thick)) var(--c-danger);
+  color: var(--c-bg);
+  filter: drop-shadow(0 0 var(--blur-glow) var(--c-danger-soft));
+}
+
+.icon-btn--tone-danger:hover:not(:disabled) {
+  background: var(--c-danger);
+}
+
+.icon-btn--tone-danger:active:not(:disabled) {
+  background: transparent;
+}

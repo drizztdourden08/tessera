@@ -45,7 +45,7 @@ const FilterClauseCard = (props: FilterClauseCardProps) => {
           </Box>
         )}
         <IconButton
-          variant="danger"
+          tone="danger"
           size="sm"
           className="filter-bar__remove"
           label={`Remove filter on ${field.label}`}

@@ -1,15 +1,18 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 
+type SectionNavVariant = 'panel' | 'rail';
+
 interface SectionNavItem {
   id: string;
   label: string;
   icon: ReactNode;
+  disabled?: boolean;
 }
 
 interface SectionNavGroup {
   id: string;
-  label: string;
+  label?: string;
   items: SectionNavItem[];
 }
 
@@ -31,7 +34,10 @@ interface SectionNavProps {
   onSelect: (id: string) => void;
   search?: SectionNavSearch;
   defaultOpen?: boolean;
+  variant?: SectionNavVariant;
+  collapsed?: boolean;
+  ariaLabel?: string;
   className?: string;
 }
 
-export type { SectionNavConfig, SectionNavGroup, SectionNavItem, SectionNavProps, SectionNavSearch };
+export type { SectionNavConfig, SectionNavGroup, SectionNavItem, SectionNavProps, SectionNavSearch, SectionNavVariant };

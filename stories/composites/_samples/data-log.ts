@@ -2,12 +2,12 @@
 import type { LogKindDef, LogRow } from '../../../src/composites';
 
 const LOG_KINDS: readonly LogKindDef[] = [
-  { id: 'join', label: 'Joins' },
-  { id: 'item', label: 'Item sends' },
-  { id: 'hint', label: 'Hints' },
-  { id: 'chat', label: 'Chat' },
+  { id: 'join', label: 'Joins', tone: 'info' },
+  { id: 'item', label: 'Item sends', tone: 'secondary' },
+  { id: 'hint', label: 'Hints', tone: 'primary' },
+  { id: 'chat', label: 'Chat', tone: 'dim' },
   { id: 'goal', label: 'Goals' },
-  { id: 'error', label: 'Errors' },
+  { id: 'error', label: 'Errors', tone: 'danger', toneMessage: true },
 ];
 
 type Line = [time: string, kind: string, message: string, indent?: number];

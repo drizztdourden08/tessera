@@ -7,6 +7,7 @@ interface ListItemRowProps {
   name: ReactNode;
   icon?: ReactNode;
   meta?: ReactNode;
+  aside?: ReactNode;
   action?: ReactNode;
   selected?: boolean;
   onClick?: () => void;

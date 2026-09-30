@@ -4,8 +4,11 @@ import './IconButton.css';
 import { type IconButtonProps } from './IconButton.type';
 
 const IconButton = (props: IconButtonProps) => {
-  const { variant = 'ghost', size = 'sm', active = false, label, children, className = '', ...rest } = props;
-  const cls = ['icon-btn', `icon-btn--${variant}`, variant !== 'ghost' && 'icon-btn--toned', `icon-btn--${size}`, active && 'icon-btn--active', className]
+  const { variant = 'ghost', tone, size = 'sm', active = false, label, children, className = '', ...rest } = props;
+  const cls = [
+    'icon-btn', `icon-btn--${variant}`, variant !== 'ghost' && 'icon-btn--toned', tone && `icon-btn--tone-${tone}`, `icon-btn--${size}`,
+    active && 'icon-btn--active', className,
+  ]
     .filter(Boolean)
     .join(' ');
 

@@ -2,7 +2,7 @@
 import { useMemo, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { SectionNav } from '../../src/composites';
-import type { SectionNavConfig, SectionNavItem } from '../../src/composites';
+import type { SectionNavConfig, SectionNavItem, SectionNavVariant } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -13,6 +13,8 @@ import type { NavIcon } from './_samples/nav';
 import './SectionNav.stories.css';
 
 type SectionNavArgs = {
+  variant: SectionNavVariant;
+  collapsed: boolean;
   defaultOpen: boolean;
   withSearch: boolean;
   withHome: boolean;
@@ -34,7 +36,7 @@ const GROUPS: SectionNavConfig['groups'] = [
 const ALL_ITEMS = [HOME, ...GROUPS.flatMap((g) => g.items)];
 
 const NavDemo = (props: SectionNavArgs) => {
-  const { defaultOpen, withSearch, withHome, searchPlaceholder } = props;
+  const { variant, collapsed, defaultOpen, withSearch, withHome, searchPlaceholder } = props;
   const [active, setActive] = useState('sessions');
   const [query, setQuery] = useState('');
   const config = useMemo<SectionNavConfig>(() => ({ home: withHome ? HOME : undefined, groups: GROUPS }), [withHome]);
@@ -45,6 +47,8 @@ const NavDemo = (props: SectionNavArgs) => {
     <Box className="story-frame section-nav-story__frame">
       <SectionNav
         key={String(defaultOpen)}
+        variant={variant}
+        collapsed={collapsed}
         config={config}
         activeId={active}
         onSelect={setActive}
@@ -61,9 +65,11 @@ const NavDemo = (props: SectionNavArgs) => {
   );
 };
 
-const ARGS: Partial<SectionNavArgs> = { defaultOpen: false, withSearch: true, withHome: true, searchPlaceholder: 'Search sessions and presets' };
+const ARGS: Partial<SectionNavArgs> = { variant: 'panel', collapsed: false, defaultOpen: false, withSearch: true, withHome: true, searchPlaceholder: 'Search sessions and presets' };
 
 const ARG_TYPES: StoryLiteArgTypes<SectionNavArgs> = {
+    variant: { control: 'select', options: ['panel', 'rail'] },
+    collapsed: { control: 'boolean' },
     defaultOpen: { control: 'boolean' },
     withSearch: { control: 'boolean' },
     withHome: { control: 'boolean' },
@@ -96,11 +102,45 @@ const GroupsOnly = {
   render: (args) => <NavDemo {...args} withSearch={false} withHome={false} />,
 } satisfies StoryLiteStoryDefinition<SectionNavArgs>;
 
-const STATE_CONFIG: SectionNavConfig = { groups: [{ id: 'play', label: 'Play', items: [item('sessions', 'Sessions', 'sessions')] }] };
+const RAIL_GROUPS: SectionNavConfig['groups'] = [
+  { id: 'main', items: [HOME, item('sessions', 'Sessions', 'sessions')] },
+  ...GROUPS.slice(1).map((group) => ({ ...group, items: group.items.map((entry) => ({ ...entry, disabled: entry.id === 'logs' })) })),
+];
+
+const RailDemo = (props: SectionNavArgs) => {
+  const { collapsed } = props;
+  const [active, setActive] = useState('home');
+  const current = ALL_ITEMS.find((i) => i.id === active);
+  return (
+    <Box className="story-frame section-nav-story__frame section-nav-story__frame--rail">
+      <SectionNav variant="rail" collapsed={collapsed} ariaLabel="Screens" config={{ groups: RAIL_GROUPS }} activeId={active} onSelect={setActive} />
+      <Box className="section-nav-story__pane">
+        <Text variant="title">{current?.label ?? active}</Text>
+        <Text>The rail sits flush on the window edge. The host sets collapsed to narrow it to icons; Item logs is disabled.</Text>
+      </Box>
+    </Box>
+  );
+};
+
+const Rail = {
+  name: 'Rail',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <RailDemo {...args} />,
+} satisfies StoryLiteStoryDefinition<SectionNavArgs>;
+
+const RailCollapsed = {
+  name: 'Rail, collapsed',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <RailDemo {...args} collapsed />,
+} satisfies StoryLiteStoryDefinition<SectionNavArgs>;
+
+const STATE_ITEMS = [item('sessions', 'Sessions', 'sessions')];
 
 const renderState = (props: StateProps) => (
   <SectionNav
-    config={STATE_CONFIG}
+    config={{ groups: [{ id: 'play', label: 'Play', items: STATE_ITEMS.map((entry) => ({ ...entry, disabled: props.disabled === true })) }] }}
     activeId={props.selected === true ? 'sessions' : ''}
     onSelect={() => undefined}
     defaultOpen={props.open === true}
@@ -121,18 +161,19 @@ const [query, setQuery] = useState('');
 
 const Overview = overviewStory({
   component: 'SectionNav',
-  description: 'The side nav of a window with several sections: a column of gold line icons, collapsed by default, which a chevron on its edge opens to show group and item labels. Reach for it for the top-level sections of a window, such as a data manager. It can pin a Home item above the groups and hold a search field that grows when the nav opens; the host owns the query and shows the results. On narrow screens the open panel floats over the content, so the page does not reflow.',
+  description: 'The side nav of a window with several sections: a column of gold line icons, collapsed by default, which a chevron on its edge opens to show group and item labels. Reach for it for the top-level sections of a window, such as a data manager. It can pin a Home item above the groups and hold a search field that grows when the nav opens; the host owns the query and shows the results. On narrow screens the open panel floats over the content, so the page does not reflow. The rail variant is the app-level screen list: it sits flush on the window edge on the surface fill, shows its labels unless the host collapses it, draws no toggle, and can hold disabled items and a group with no label.',
   playground: Playground,
-  variants: [OpenWithSearch, GroupsOnly],
+  variants: [OpenWithSearch, GroupsOnly, Rail, RailCollapsed],
   states: {
     render: renderState,
     list: [
       ...navItemStates('.section-nav__item'),
       STATE.open,
+      STATE.disabled,
     ],
   },
   code: CODE,
 });
 
 export default meta;
-export { GroupsOnly, OpenWithSearch, Overview, Playground };
+export { GroupsOnly, OpenWithSearch, Overview, Playground, Rail, RailCollapsed };

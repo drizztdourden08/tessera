@@ -13,6 +13,7 @@ import { SESSIONS, STATUS_LABEL } from './_samples/sessions';
 type RowArgs = {
   name: string;
   meta: string;
+  aside: string;
   withIcon: boolean;
   selected: boolean;
   withAction: boolean;
@@ -41,11 +42,12 @@ const SelectableList = () => {
   );
 };
 
-const ARGS: Partial<RowArgs> = { name: 'Friday async', meta: '8 players, eu-west-2', withIcon: true, selected: false, withAction: true };
+const ARGS: Partial<RowArgs> = { name: 'Friday async', meta: '8 players, eu-west-2', aside: '2 days ago', withIcon: true, selected: false, withAction: true };
 
 const ARG_TYPES: StoryLiteArgTypes<RowArgs> = {
     name: { control: 'text' },
     meta: { control: 'text' },
+    aside: { control: 'text' },
     withIcon: { control: 'boolean' },
     selected: { control: 'boolean' },
     withAction: { control: 'boolean' },
@@ -64,6 +66,7 @@ const Playground = {
     <ListItemRow
       name={args.name}
       meta={args.meta || undefined}
+      aside={args.aside || undefined}
       icon={args.withIcon ? sessionIcon : undefined}
       selected={args.selected}
       action={args.withAction ? <Button size="sm" variant="secondary">Join</Button> : undefined}
@@ -71,7 +74,7 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
-const FORMS = ['name only', 'icon and meta', 'with action'] as const;
+const FORMS = ['name only', 'icon and meta', 'with aside', 'with action'] as const;
 
 const AllVariants = {
   name: 'All variants',
@@ -83,6 +86,7 @@ const AllVariants = {
           name="Friday async"
           meta={form === 'name only' ? undefined : '8 players, eu-west-2'}
           icon={form === 'name only' ? undefined : sessionIcon}
+          aside={form === 'with aside' ? '2 days ago' : undefined}
           action={form === 'with action' ? <Button size="sm" variant="secondary">Join</Button> : undefined}
         />
       )}
@@ -125,7 +129,7 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'ListItemRow',
-  description: 'One row of a list: an optional icon, a name, a line of meta under it, and an action slot on the right that shows on hover. Reach for it for lists of records the user picks from, such as sessions or players. It takes a selected state, plus click and double-click handlers for selecting and opening. The name and meta take any content, such as a status badge.',
+  description: 'One row of a list: an optional icon, a name, a line of meta under it, a short aside such as a date at the right, and an action slot on the right that shows on hover. Reach for it for lists of records the user picks from, such as sessions or players. It takes a selected state, plus click and double-click handlers for selecting and opening. The name and meta take any content, such as a status badge.',
   playground: Playground,
   variants: [AllVariants],
   states: {

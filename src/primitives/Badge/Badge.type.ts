@@ -5,6 +5,7 @@ type BadgeVariant = 'success' | 'warning' | 'danger' | 'neutral';
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant;
+  pulse?: boolean;
   className?: string;
   children: ReactNode;
 }

@@ -3,10 +3,10 @@ import './Badge.css';
 import type { BadgeProps } from './Badge.type';
 
 const Badge = (props: BadgeProps) => {
-  const { variant = 'neutral', className = '', children, ...rest } = props;
+  const { variant = 'neutral', pulse = false, className = '', children, ...rest } = props;
 
   return (
-    <span className={`badge badge--${variant}${className ? ` ${className}` : ''}`} {...rest}>
+    <span className={`badge badge--${variant}${pulse ? ' badge--pulse' : ''}${className ? ` ${className}` : ''}`} {...rest}>
       {children}
     </span>
   );

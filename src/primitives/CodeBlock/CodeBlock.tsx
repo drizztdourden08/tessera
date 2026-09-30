@@ -1,17 +1,19 @@
 /* @layer renderer-components @kind component */
 import { Highlight } from 'prism-react-renderer';
 import { Box } from '../Box';
+import { codeBlockClass } from './behavior/code-block-class';
 import { CODE_THEME } from './CodeBlock.constants';
 import { CopyCodeButton } from './sub-components/CopyCodeButton';
 import './CodeBlock.css';
 import type { CodeBlockProps } from './CodeBlock.type';
 
 const CodeBlock = (props: CodeBlockProps) => {
-  const { code, language, className = '', highlightedLines, showLineNumbers = false, copyable = false } = props;
+  const {
+    code, language, className = '', highlightedLines, showLineNumbers = false, copyable = false, wrap = false, capped = false,
+  } = props;
   const highlighted = highlightedLines ? new Set(highlightedLines) : undefined;
   const text = code.trimEnd();
-  const cls = ['code-block', showLineNumbers && 'code-block--numbered', copyable && 'code-block--copyable', className]
-    .filter(Boolean).join(' ');
+  const cls = codeBlockClass({ showLineNumbers, copyable, wrap, capped, className });
   return (
     <Box className={cls}>
       {copyable && <CopyCodeButton code={text} />}

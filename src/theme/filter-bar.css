@@ -61,30 +61,11 @@
   right: calc(var(--badge-d-xs) / -2);
   width: var(--badge-d-xs);
   height: var(--badge-d-xs);
-  background: transparent;
-  border: var(--border-width-thin) solid transparent;
   border-radius: var(--radius-pill);
-  color: var(--c-danger);
   font-size: var(--text-base);
   font-weight: var(--weight-bold);
   opacity: 0;
   transition: opacity var(--transition-fast), border-color var(--transition-fast);
-}
-
-.filter-bar__clause .filter-bar__remove:hover:not(:disabled),
-.filter-bar__clause .filter-bar__remove:active:not(:disabled) {
-  border-color: var(--c-danger);
-  box-shadow: 0 0 0 var(--border-width-thin) var(--c-bg),
-              0 0 0 calc(var(--border-width-thin) + var(--border-width-thick)) var(--c-danger);
-  color: var(--c-bg);
-}
-
-.filter-bar__clause .filter-bar__remove:hover:not(:disabled) {
-  background: var(--c-danger);
-}
-
-.filter-bar__clause .filter-bar__remove:active:not(:disabled) {
-  background: transparent;
 }
 
 .filter-bar__clause:hover .filter-bar__remove,
