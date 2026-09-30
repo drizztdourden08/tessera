@@ -412,10 +412,14 @@
       "status": "new"
     },
     "Badge": {
-      "status": "new"
+      "status": "seen",
+      "hash": "83bef4cdc402cb6a",
+      "at": "2026-09-30"
     },
     "StatusBadge": {
-      "status": "new"
+      "status": "seen",
+      "hash": "3da16fd9e9442b12",
+      "at": "2026-09-30"
     },
     "EmptyState": {
       "status": "new"
@@ -438,7 +442,9 @@
   },
   "Primitives · Actions": {
     "Button": {
-      "status": "new"
+      "status": "seen",
+      "hash": "cb05916c075404c5",
+      "at": "2026-09-30"
     },
     "IconButton": {
       "status": "new"
@@ -497,10 +503,14 @@
       "status": "new"
     },
     "TagInput": {
-      "status": "new"
+      "status": "seen",
+      "hash": "352ba1c5951eb2bb",
+      "at": "2026-09-30"
     },
     "TagPicker": {
-      "status": "new"
+      "status": "seen",
+      "hash": "674fde4fb22222c5",
+      "at": "2026-09-30"
     },
     "ColorSwatch": {
       "status": "new"
@@ -514,7 +524,9 @@
   },
   "Primitives · Feedback": {
     "Spinner": {
-      "status": "new"
+      "status": "seen",
+      "hash": "3a874fc56b68e125",
+      "at": "2026-09-30"
     },
     "ProgressBar": {
       "status": "new"
