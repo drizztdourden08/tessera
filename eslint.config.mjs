@@ -30,7 +30,7 @@ export default brockEslint({
     { files: ['src/composites/Emphasis/**'], why: 'the weights, timing and each letter delay are set per instance' },
     { files: ['src/composites/KeyboardLayout/**'], why: 'each key is placed and sized from the layout data, in key units' },
     { files: ['src/composites/ShortcutTour/**'], why: 'the camera transform and the speed are computed per frame' },
-    { files: ['src/brand/TesseraLogo/**'], why: 'each tile carries its app ink and each callout its computed place' },
+    { files: ['src/brand/InteractiveTessera/**'], why: 'each tile carries its app ink and each callout its computed place' },
     { files: TOKEN_STORIES, why: 'a token story draws the token or value it documents' },
     { files: SAMPLE_STORIES, why: 'a sample passes live depths through, as an app would' },
   ],

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { BrandApp } from '../../brand.type';
-import type { TileSpot } from '../TesseraLogo.type';
+import type { TileSpot } from '../InteractiveTessera.type';
 
 interface LogoArtProps {
   spots: readonly TileSpot[];

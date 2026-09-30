@@ -10,7 +10,7 @@ const base = brockStylelint({
 });
 
 const logoScalesByEm = {
-  files: ['src/brand/TesseraLogo/**/*.css'],
+  files: ['src/brand/InteractiveTessera/**/*.css'],
   rules: {
     'unit-disallowed-list': [['px', 'rem'], { ignoreMediaFeatureNames: { rem: ['width', 'min-width', 'max-width'] } }],
     'declaration-property-value-disallowed-list': {

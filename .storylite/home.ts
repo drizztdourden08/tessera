@@ -18,7 +18,7 @@ const buildHome = (root: string): string => {
     '',
     `The design system shared by Relic of the Past, Brock and Archipelia. ${components} components, ${countStories(root)} stories.`,
     '',
-    '<div class="home-logo" data-tessera-logo></div>',
+    '<div class="home-logo" data-interactive-tessera></div>',
     '',
     BANNER,
     '',

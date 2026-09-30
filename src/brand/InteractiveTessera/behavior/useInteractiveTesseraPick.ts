@@ -2,7 +2,7 @@
 import { useCallback, useState } from 'react';
 import type { FocusEvent, KeyboardEvent, MouseEvent, PointerEvent } from 'react';
 import type { BrandApp } from '../../brand.type';
-import type { PickParams } from './useTesseraLogoPick.type';
+import type { PickParams } from './useInteractiveTesseraPick.type';
 
 const asElement = (target: EventTarget): Element | null =>
   typeof (target as Element).closest === 'function' ? (target as Element) : null;
@@ -13,9 +13,9 @@ const pickOf = (target: EventTarget): BrandApp | null => {
 };
 
 const isInCard = (target: EventTarget): boolean =>
-  asElement(target)?.closest('.tessera-logo__detail') != null;
+  asElement(target)?.closest('.interactive-tessera__detail') != null;
 
-const useTesseraLogoPick = (params: PickParams) => {
+const useInteractiveTesseraPick = (params: PickParams) => {
   const { selected, defaultSelected = null, onSelect } = params;
   const [own, setOwn] = useState<BrandApp | null>(defaultSelected);
   const [pointed, setPointed] = useState<BrandApp | null>(null);
@@ -34,7 +34,7 @@ const useTesseraLogoPick = (params: PickParams) => {
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') choose(null);
-    const onTile = asElement(e.target)?.matches('.tessera-logo__tile[data-pick]') ?? false;
+    const onTile = asElement(e.target)?.matches('.interactive-tessera__tile[data-pick]') ?? false;
     if (onTile && (e.key === 'Enter' || e.key === ' ')) {
       e.preventDefault();
       choose(pickOf(e.target));
@@ -60,4 +60,4 @@ const useTesseraLogoPick = (params: PickParams) => {
   };
 };
 
-export { useTesseraLogoPick };
+export { useInteractiveTesseraPick };

@@ -11,15 +11,17 @@ const CATALOGUE: readonly CatalogueTier[] = [
     groups: [{
       group: '',
       entries: [
-        { name: 'Logo', summary: 'An app\'s mark, wordmark, or both together, stacked or inline.' },
-        { name: 'TesseraLogo', summary: 'The mosaic T, interactive: pick a coloured tile to see its project. The home page shows it too.' },
-        { name: 'BrandMark', summary: 'Every family mark at each size, plain or as an app icon, with the mascot and wordmark where an app has them, and each brand gradient.' },
+        { name: 'Brand', summary: 'The family on one page: each app\'s mark at every size, its mascot, its wordmark and what it is.' },
+        { name: 'InteractiveTessera', summary: 'The mosaic T, interactive: pick a coloured tile to see its project. The home page shows it too.' },
+        { name: 'Logo', summary: 'An app\'s mark alone, at each size, plain or on its app-icon tile, or its mascot.' },
+        { name: 'WordMark', summary: 'An app\'s name in the pixel alphabet, in the brand\'s own colours.' },
+        { name: 'Combined', summary: 'Mark and wordmark together, inline for a header or stacked for a splash.' },
       ],
     }],
   },
   {
     tier: 'Colours',
-    intro: 'The colour system: the seeds, the palettes built from them, and the roles components use.',
+    intro: 'The colour system: the seeds, the palettes built from them, the roles components use, and each brand\'s gradient.',
     groups: [{
       group: '',
       entries: [
@@ -27,6 +29,7 @@ const CATALOGUE: readonly CatalogueTier[] = [
         { name: 'Palettes', summary: 'Each seed as eleven steps, and the grey scale.' },
         { name: 'Roles', summary: 'Every colour role with the value the page paints right now.' },
         { name: 'Contrast', summary: 'Text-on-fill pairs measured live, with a pass or fail per pair.' },
+        { name: 'Gradients', summary: 'Each brand\'s gradient behind its mark, with its token and CSS value.' },
       ],
     }],
   },

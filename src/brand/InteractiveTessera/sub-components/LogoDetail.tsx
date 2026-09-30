@@ -13,14 +13,14 @@ const LogoDetail = (props: LogoDetailProps) => {
   const { app, side } = spot;
   const b = BRAND_FAMILY[app];
   return (
-    <Box as="section" className="tessera-logo__detail" data-side={side} data-open={isOpen || undefined} aria-label={b.name} aria-hidden={!isOpen}>
-      <Box as="header" className="tessera-logo__detail-head">
+    <Box as="section" className="interactive-tessera__detail" data-side={side} data-open={isOpen || undefined} aria-label={b.name} aria-hidden={!isOpen}>
+      <Box as="header" className="interactive-tessera__detail-head">
         <BrandMark app={app} tile title="" />
-        <Box className="tessera-logo__detail-title">
+        <Box className="interactive-tessera__detail-title">
           <BrandWordmark app={app} />
           <Em>{b.kind}</Em>
         </Box>
-        {b.mascot && <BrandMark app={app} variant="mascot" className="tessera-logo__mascot" title={`${b.name} mascot`} />}
+        {b.mascot && <BrandMark app={app} variant="mascot" className="interactive-tessera__mascot" title={`${b.name} mascot`} />}
       </Box>
       <Paragraph>{b.summary}</Paragraph>
       <Box as="dl">

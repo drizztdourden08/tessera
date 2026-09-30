@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { TileSpot } from '../TesseraLogo.type';
+import type { TileSpot } from '../InteractiveTessera.type';
 
 interface LogoCalloutProps {
   spot: TileSpot;

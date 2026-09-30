@@ -12,7 +12,7 @@ import { BrandMark } from '@drizztdourden08/tessera/brand';
 <PixelWordmark text="Hello" colors={['#ffe26e', '#ffd639', '#fcbb28', '#ffa200']} />
 ```
 
-The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`) are the same marks for use outside code. Relic of the Past also has a mascot (`rotp-mascot.svg`, snapped to its 35 by 23 pixel grid). Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows them all in the **Brand / BrandMark** story.
+The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`) are the same marks for use outside code. Relic of the Past also has a mascot (`rotp-mascot.svg`, snapped to its 35 by 23 pixel grid). Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows the whole family on the **Brand / Brand** page, and each part on its own on the **Logo**, **WordMark** and **Combined** pages. The brand gradients are on **Colours / Gradients**.
 
 ## Brand gradients
 
@@ -29,7 +29,7 @@ Every brand folder also holds its mark without a tile as transparent PNGs, `bran
 
 ## The Tessera logo
 
-A capital T laid from mosaic tiles, the tesserae the name comes from. The interactive version is the `TesseraLogo` component, shown at the top of the gallery's home page and in the **Brand / TesseraLogo** story. Each coloured tile has its project's logo and name beside it; pointing at either makes the tile glow, and clicking one slides the T aside to show what the project is. A grey tile or the empty space puts it back.
+A capital T laid from mosaic tiles, the tesserae the name comes from. The interactive version is the `InteractiveTessera` component, shown at the top of the gallery's home page and on the **Brand / InteractiveTessera** page. Each coloured tile has its project's logo and name beside it; pointing at either makes the tile glow, and clicking one slides the T aside to show what the project is. A grey tile or the empty space puts it back.
 
 ### Why most tiles are grey
 

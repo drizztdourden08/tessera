@@ -1,0 +1,99 @@
+/* @layer renderer-components @kind style */
+.interactive-tessera {
+  container-type: inline-size;
+  inline-size: 100%;
+  max-inline-size: var(--size-1024);
+  margin-inline: auto;
+}
+
+.interactive-tessera__stage {
+  position: relative;
+  font-size: clamp(var(--text-sm), 1.9cqi, var(--text-lg));
+}
+
+.interactive-tessera__art {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.interactive-tessera__t { transition: transform var(--duration-drawer) var(--ease-emphasized); }
+.interactive-tessera[data-side="left"] .interactive-tessera__t { transform: translateX(var(--interactive-tessera-slide)); }
+.interactive-tessera[data-side="right"] .interactive-tessera__t { transform: translateX(calc(-1 * var(--interactive-tessera-slide))); }
+.interactive-tessera__tile { outline: none; }
+.interactive-tessera__tile[data-pick] { cursor: pointer; }
+
+.interactive-tessera__glow {
+  pointer-events: none;
+  opacity: 0;
+  stroke: var(--c-lift);
+  stroke-width: 5;
+  filter: drop-shadow(0 0 var(--size-4) var(--interactive-tessera-ink)) drop-shadow(0 0 var(--size-14) var(--interactive-tessera-ink));
+  transition: opacity var(--duration-slow);
+}
+
+.interactive-tessera__glow[data-lit] { opacity: 1; }
+
+.interactive-tessera__leads { transition: opacity var(--duration-slow); }
+
+.interactive-tessera__lead line {
+  stroke: var(--c-text-muted);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  transition: stroke var(--duration-normal);
+}
+
+.interactive-tessera__lead[data-lit] line { stroke: var(--interactive-tessera-ink); }
+
+.interactive-tessera__lead circle {
+  fill: var(--c-bg);
+  stroke: var(--c-text);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.interactive-tessera .interactive-tessera__callout {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.35em 0.65em;
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--radius-xl);
+  background: none;
+  color: var(--c-text);
+  font-size: larger;
+  font-weight: var(--weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity var(--duration-slow), border-color var(--duration-normal), background var(--duration-normal);
+}
+
+.interactive-tessera .interactive-tessera__callout:is(:hover, :focus-visible) {
+  border-color: var(--c-border);
+  background: var(--c-hover);
+  outline: 0;
+}
+
+.interactive-tessera__callout .brand-mark { --brand-mark-size: 1.9em; }
+.interactive-tessera__callout .pixel-wordmark { --pixel-wordmark-size: 1.05em; }
+
+.interactive-tessera[data-picked] .interactive-tessera__leads,
+.interactive-tessera[data-picked] .interactive-tessera__callout {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@container (width < 34rem) {
+  .interactive-tessera[data-side] .interactive-tessera__t { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive-tessera__t,
+  .interactive-tessera__glow,
+  .interactive-tessera__leads,
+  .interactive-tessera .interactive-tessera__callout { transition: none; }
+}

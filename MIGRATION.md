@@ -204,3 +204,9 @@ The widget layout is now one split tree around a main view, with widgets floatin
 - `DockLayout` is new. It takes `layout` (`dock` and `floating`), `renderPane`, `renderFloating`, `onEdit` and `labelOf`, and draws dividers, drop hints, a drag label and a grip on the main view. `useDockKeys` reports Alt peek and the Shift and Ctrl drag keys. The tree helpers (`layoutTree`, `mainRectOf`, `insertAt`, `removeWidget`, `resizeSplit` and the rest) are exported.
 - In rotp's stored layouts the main node was `{ kind: 'game', key: 'game' }` and `show` was `'game-only'`. Tessera names them `{ kind: 'main', key: 'main' }` and `'context-only'`; rotp maps them when it loads its layout.
 - `Hero` is new: the top of a home screen with `title`, `eyebrow`, `backdrop`, `art` (`src`, `alt`, `pixelated`), `actions`, `tools`, `facts` (rows of `StatRow` facts on glass), `aside` and `panel` (glass tiles the host fills) and `label`.
+
+## 22. TesseraLogo is now InteractiveTessera
+
+- `TesseraLogo` is renamed `InteractiveTessera`, and `TesseraLogoProps` is renamed `InteractiveTesseraProps`. The props are unchanged. There is no alias under the old name: change the import and the tag.
+- Its classes follow the new name: `.tessera-logo` and every `.tessera-logo__*` part are now `.interactive-tessera` and `.interactive-tessera__*`, and the custom properties `--tessera-logo-ink` and `--tessera-logo-slide` are now `--interactive-tessera-ink` and `--interactive-tessera-slide`. A host stylesheet that reached into the old classes renames them.
+- In the gallery, the Brand pages are now Brand (the whole family), InteractiveTessera, Logo (the mark alone), WordMark and Combined, and the brand gradients moved to Colours, Gradients. The `Logo`, `BrandMark` and `BrandWordmark` components are unchanged.

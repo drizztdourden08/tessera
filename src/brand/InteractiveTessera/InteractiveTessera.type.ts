@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { BrandApp } from '../brand.type';
 
-interface TesseraLogoProps {
+interface InteractiveTesseraProps {
   selected?: BrandApp | null;
   defaultSelected?: BrandApp | null;
   onSelect?: (app: BrandApp | null) => void;
@@ -21,4 +21,4 @@ interface TileSpot {
   side: Side;
 }
 
-export type { Point, Side, TesseraLogoProps, TileSpot };
+export type { Point, Side, InteractiveTesseraProps, TileSpot };

@@ -2,7 +2,7 @@
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { Root } from 'react-dom/client';
-import { TesseraLogo } from '../src/brand';
+import { InteractiveTessera } from '../src/brand';
 import type { CssRegistry } from './home-logo-mount.type';
 import '../src/tokens/size.css';
 import '../src/tokens/radius.css';
@@ -16,7 +16,7 @@ document.head.appendChild(style);
 
 const copyStyles = (): void => {
   const css = (registry?.toArray() ?? []).join('\n').replace(/:root\b/g, ':scope');
-  style.textContent = `@scope ([data-tessera-logo]) {\n${css}\n}`;
+  style.textContent = `@scope ([data-interactive-tessera]) {\n${css}\n}`;
 };
 
 const follow = (reg: CssRegistry): void => {
@@ -28,10 +28,10 @@ const follow = (reg: CssRegistry): void => {
 const roots = new Map<Element, Root>();
 
 const sync = (): void => {
-  document.querySelectorAll('[data-tessera-logo]').forEach((el) => {
+  document.querySelectorAll('[data-interactive-tessera]').forEach((el) => {
     if (roots.has(el)) return;
     const root = createRoot(el);
-    root.render(createElement(TesseraLogo));
+    root.render(createElement(InteractiveTessera));
     roots.set(el, root);
   });
   roots.forEach((root, el) => {

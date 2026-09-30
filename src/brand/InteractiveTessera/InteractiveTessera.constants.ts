@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { CSSProperties } from 'react';
-import type { Side } from './TesseraLogo.type';
+import type { Side } from './InteractiveTessera.type';
 
 const MARK = { x: 228, y: 226, size: 799 };
 const WING = 650;
@@ -11,7 +11,7 @@ const SLIDE = 520;
 
 const STAGE_STYLE = {
   aspectRatio: `${STAGE.width} / ${STAGE.height}`,
-  '--tessera-logo-slide': `${SLIDE}px`,
+  '--interactive-tessera-slide': `${SLIDE}px`,
 } as CSSProperties;
 
 export { BAR_BOTTOM, CALLOUT_EDGE, STAGE, STAGE_STYLE };

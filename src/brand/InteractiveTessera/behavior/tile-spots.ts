@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind logic */
 import { BRAND_FAMILY } from '../../family.constants';
 import type { BrandApp } from '../../brand.type';
-import { BAR_BOTTOM } from '../TesseraLogo.constants';
-import type { Point, TileSpot } from '../TesseraLogo.type';
+import { BAR_BOTTOM } from '../InteractiveTessera.constants';
+import type { Point, TileSpot } from '../InteractiveTessera.type';
 
 const pointsOf = (d: string): Point[] => {
   const n = (d.match(/-?\d+(\.\d+)?/g) ?? []).map(Number);
