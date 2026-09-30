@@ -3,12 +3,13 @@ import { useEffect, useMemo, useState } from 'react';
 import type { DockKeys } from './dock-hooks.type';
 import { isTyping } from './is-typing';
 
-const useDockKeys = (view: Window = window): DockKeys => {
+const useDockKeys = (view?: Window): DockKeys => {
   const [peek, setPeek] = useState(false);
   const [swap, setSwap] = useState(false);
   const [overlay, setOverlay] = useState(false);
 
   useEffect(() => {
+    const target = view ?? window;
     const hold = (key: string, held: boolean): void => {
       if (key === 'Alt') setPeek(held);
       if (key === 'Shift') setSwap(held);
@@ -23,13 +24,13 @@ const useDockKeys = (view: Window = window): DockKeys => {
       if (!e.repeat && !isTyping(e.target)) hold(e.key, true);
     };
     const onKeyUp = (e: KeyboardEvent): void => hold(e.key, false);
-    view.addEventListener('keydown', onKeyDown);
-    view.addEventListener('keyup', onKeyUp);
-    view.addEventListener('blur', release);
+    target.addEventListener('keydown', onKeyDown);
+    target.addEventListener('keyup', onKeyUp);
+    target.addEventListener('blur', release);
     return () => {
-      view.removeEventListener('keydown', onKeyDown);
-      view.removeEventListener('keyup', onKeyUp);
-      view.removeEventListener('blur', release);
+      target.removeEventListener('keydown', onKeyDown);
+      target.removeEventListener('keyup', onKeyUp);
+      target.removeEventListener('blur', release);
       release();
     };
   }, [view]);
