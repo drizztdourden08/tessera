@@ -61,9 +61,7 @@ const WidgetManager = <D extends WidgetDefinition = WidgetDefinition>(props: Wid
         externalDrag={props.externalDrag}
         onExternalDrop={dropIn}
         sizeOf={sizeOf}
-        mainLabel={props.mainLabel}
-        gripLabel={props.gripLabel}
-        mainGrip={props.mainGrip}
+        mainLabel={props.mainLabel} gripLabel={props.gripLabel} mainGrip={props.mainGrip}
       />
       {options && (
         <WidgetOptionsHost
