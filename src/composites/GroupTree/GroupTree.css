@@ -55,7 +55,6 @@
   width: var(--size-14);
   flex-shrink: 0;
   font-size: var(--text-xs);
-  color: var(--c-text-dim);
 }
 
 .group-tree__name {
@@ -71,5 +70,4 @@
   flex-shrink: 0;
   padding-left: var(--space-sm);
   font-size: var(--text-xs);
-  color: var(--c-text-dim);
 }

@@ -29,7 +29,7 @@ const RecordEditor = <T,>(props: RecordEditorProps<T>) => {
 
   return (
     <Box className="record-editor">
-      {groups.length === 0 && <Text className="record-editor__empty">{NO_FIELDS}</Text>}
+      {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{NO_FIELDS}</Text>}
       {groups.map((group) => (
         <EditorGroup key={group.id} group={group} binding={binding} depth={0} />
       ))}

@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
-import { Floating } from '../../../primitives/Floating';
+import { Anchored } from '../../../primitives/Anchored';
 import { Glyph } from '../../../primitives/Glyph';
-import { Portal, useAnchorTracking } from '../../../primitives/Portal';
+import { useAnchorTracking } from '../../../primitives/Portal';
 import { toSchemaIndex } from '../../../data/schema/build-schema';
 import { createClauseForField } from '../behavior/filter-clause-defaults';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
@@ -43,11 +43,9 @@ const AddFilterButton = (props: AddFilterButtonProps) => {
         <Glyph name="plus" /> Add filter
       </Button>
       {menu.open && (
-        <Portal layer="overlay">
-          <Floating className="filter-bar__add-picker" placement={pos}>
-            <FieldPicker schema={index.roots()} excludePaths={excludePaths} onPick={handlePick} />
-          </Floating>
-        </Portal>
+        <Anchored anchorRef={menu.anchorRef} layer="overlay" fallback={pos} className="filter-bar__add-picker">
+          <FieldPicker schema={index.roots()} excludePaths={excludePaths} onPick={handlePick} />
+        </Anchored>
       )}
     </>
   );

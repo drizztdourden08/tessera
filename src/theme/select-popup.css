@@ -12,7 +12,7 @@
   pointer-events: auto;
 }
 
-.tag-input__panel[data-drop-up='true'] {
+.tag-input__panel.anchored-fallback[data-drop-up='true'] {
   transform: translateY(-100%);
 }
 

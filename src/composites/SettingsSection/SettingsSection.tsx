@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
 import { Text } from '../../primitives/Text';
+import { Paragraph } from '../../primitives/text-elements';
 import './SettingsSection.css';
 import { type SettingsSectionProps } from './SettingsSection.type';
 
@@ -11,7 +12,7 @@ const SettingsSection = (props: SettingsSectionProps) => {
     <Box as="section" className="settings-section">
       <Box className="settings-section__header">
         <Text as="h3" className="settings-section__title">{title}</Text>
-        {description && <Text as="p" className="settings-section__desc">{description}</Text>}
+        {description && <Paragraph tone="muted" className="settings-section__desc">{description}</Paragraph>}
       </Box>
       <Box className="settings-section__content">
         {children}

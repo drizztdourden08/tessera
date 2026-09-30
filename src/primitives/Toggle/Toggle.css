@@ -29,8 +29,6 @@
 }
 
 .toggle__description {
-  font-size: var(--text-sm);
-  color: var(--c-text-dim);
   line-height: var(--leading-normal);
 }
 

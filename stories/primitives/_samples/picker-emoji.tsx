@@ -22,7 +22,7 @@ const STATUS_COLUMNS: readonly ListboxColumn<Build>[] = [
     field: 'name',
     rules: [{ when: { field: 'status', equals: 'failed' }, tone: 'danger' }],
   },
-  { field: 'status', id: 'status-word', tone: { done: 'success', running: 'info', failed: 'danger', queued: 'faint' }, inTrigger: false },
+  { field: 'status', id: 'status-word', tone: { done: 'success', running: 'info', failed: 'danger', queued: 'muted' }, inTrigger: false },
   {
     field: 'size',
     align: 'end',
@@ -36,7 +36,7 @@ const STATUS_COLUMNS: readonly ListboxColumn<Build>[] = [
 const GAME_COLUMNS: readonly ListboxColumn<Game>[] = [
   { field: 'title' },
   { field: 'platform', tone: 'muted' },
-  { field: 'year', align: 'end', tone: 'faint' },
+  { field: 'year', align: 'end', tone: 'dim' },
 ];
 
 const GAME_CATEGORIES: ListboxCategories = {

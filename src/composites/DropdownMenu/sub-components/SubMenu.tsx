@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useRef, useState } from 'react';
 import { Box } from '../../../primitives/Box';
-import { Floating } from '../../../primitives/Floating';
+import { Anchored } from '../../../primitives/Anchored';
 import { Glyph } from '../../../primitives/Glyph';
 import { Text } from '../../../primitives/Text';
 import { SUB_MENU_PADDING, SUB_MENU_WIDTH, SUB_ROW_HEIGHT } from '../DropdownMenu.constants';
@@ -38,13 +38,13 @@ const SubMenu = (props: SubMenuProps) => {
         <Text className="dropdown__chevron"><Glyph name="chevronRight" size={12} /></Text>
       </Box>
       {position && (
-        <Floating className="dropdown-menu dropdown-menu--sub" placement={position}>
+        <Anchored anchorRef={ref} placement="right-start" portal={false} fallback={position} className="dropdown-menu dropdown-menu--sub">
           {children.map((child) => (
             child.children
               ? <SubMenu key={child.key} item={child} />
               : <MenuItemButton key={child.key} item={child} />
           ))}
-        </Floating>
+        </Anchored>
       )}
     </Box>
   );

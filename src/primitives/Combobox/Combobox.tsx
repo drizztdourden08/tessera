@@ -9,6 +9,7 @@ import type { ComboboxProps } from './Combobox.type';
 import '../../theme/field-surface.css';
 import '../../theme/listbox.css';
 import '../../theme/listbox-drop.css';
+import '../../theme/tag-chip.css';
 import './Combobox.css';
 
 const Combobox = <T = string, F extends FieldOf<T> = never>(props: ComboboxProps<T, F>) => {

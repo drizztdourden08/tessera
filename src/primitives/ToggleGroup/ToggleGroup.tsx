@@ -2,6 +2,7 @@
 import '../../theme/focus-ring.css';
 import '../../theme/segment-group.css';
 import './ToggleGroup.css';
+import { Small, Span } from '../text-elements';
 import type { ToggleGroupProps } from './ToggleGroup.type';
 
 const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
@@ -19,8 +20,8 @@ const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
     <div className={`toggle-group ${disabled ? 'toggle-group--disabled' : ''}`}>
       {[label, description].some(Boolean) && (
         <div className="toggle-group__header">
-          {label && <span className="toggle-group__label">{label}</span>}
-          {description && <span className="toggle-group__description">{description}</span>}
+          {label && <Span className="toggle-group__label">{label}</Span>}
+          {description && <Small tone="dim" className="toggle-group__description">{description}</Small>}
         </div>
       )}
       <div className="toggle-group__track" role="group" aria-label={label}>

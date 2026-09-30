@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
-import { Box, Button, Text } from '../../primitives';
+import { Box, Button, Glyph, Text } from '../../primitives';
 import { useLogWindow } from './behavior/useLogWindow';
 import { LogToolbar } from './sub-components/LogToolbar';
 import { OLDER_CHUNK } from './LogPanel.constants';
@@ -45,8 +45,8 @@ const LogPanel = (props: LogPanelProps) => {
           <Box ref={scrollRef} className="log-panel__list" onScroll={handleScroll}>
             {hiddenOlder > 0 && (
               <Box className="log-panel__older">
-                <Button variant="tertiary" size="sm" onClick={loadOlder}>
-                  ↑ Load {Math.min(OLDER_CHUNK, hiddenOlder)} older
+                <Button variant="tertiary" size="sm" icon={<Glyph name="arrowUp" />} onClick={loadOlder}>
+                  Load {Math.min(OLDER_CHUNK, hiddenOlder)} older
                 </Button>
                 <Text className="log-panel__older-note">{hiddenOlder} earlier rows hidden</Text>
               </Box>
@@ -64,8 +64,8 @@ const LogPanel = (props: LogPanelProps) => {
               );
             })}
           </Box>
-          <Button variant="tertiary" size="sm" className="log-panel__to-bottom" onClick={jumpToBottom}>
-            ↓ Newest
+          <Button variant="tertiary" size="sm" className="log-panel__to-bottom" icon={<Glyph name="arrowDown" />} onClick={jumpToBottom}>
+            Newest
           </Button>
         </Box>
       )}

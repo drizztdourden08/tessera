@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
 import { Checkbox } from '../../../primitives/Checkbox';
-import { Floating } from '../../../primitives/Floating';
+import { Anchored } from '../../../primitives/Anchored';
 import { Glyph } from '../../../primitives/Glyph';
-import { Portal, useAnchorTracking } from '../../../primitives/Portal';
+import { useAnchorTracking } from '../../../primitives/Portal';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
 import type { FacetPickerProps } from './FacetPicker.type';
 import '../../../theme/filter-bar.css';
@@ -32,8 +32,7 @@ const FacetPicker = ({ facet }: FacetPickerProps) => {
         {facet.label} <Glyph name="chevronDown" />
       </Button>
       {menu.open && (
-        <Portal layer="overlay">
-          <Floating className="filter-bar__facet-panel" placement={pos}>
+        <Anchored anchorRef={menu.anchorRef} placement="bottom-end" layer="overlay" fallback={pos} className="filter-bar__facet-panel">
             {facet.options.map((option) => (
               <Checkbox
                 key={option.id}
@@ -43,8 +42,7 @@ const FacetPicker = ({ facet }: FacetPickerProps) => {
                 label={option.label}
               />
             ))}
-          </Floating>
-        </Portal>
+        </Anchored>
       )}
     </>
   );

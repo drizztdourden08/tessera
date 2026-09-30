@@ -21,7 +21,6 @@
 }
 
 .video-overlay__message {
-  margin: 0;
   max-width: var(--size-320);
   color: var(--p-pure-white);
   font-size: var(--text-sm);

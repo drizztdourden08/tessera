@@ -74,7 +74,6 @@
 .split-pane__rail-label {
   writing-mode: vertical-rl;
   font-size: var(--text-xs);
-  color: var(--c-text-dim);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
   white-space: nowrap;

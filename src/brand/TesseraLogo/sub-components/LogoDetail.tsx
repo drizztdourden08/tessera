@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Text } from '../../../primitives/Text';
+import { Em, Paragraph } from '../../../primitives/text-elements';
 import { BrandMark } from '../../BrandMark';
 import { BrandWordmark } from '../../BrandWordmark';
 import { BRAND_FAMILY } from '../../family.constants';
@@ -17,11 +18,11 @@ const LogoDetail = (props: LogoDetailProps) => {
         <BrandMark app={app} tile title="" />
         <Box className="tessera-logo__detail-title">
           <BrandWordmark app={app} />
-          <Text as="em">{b.kind}</Text>
+          <Em>{b.kind}</Em>
         </Box>
         {b.mascot && <BrandMark app={app} variant="mascot" className="tessera-logo__mascot" title={`${b.name} mascot`} />}
       </Box>
-      <Text as="p">{b.summary}</Text>
+      <Paragraph>{b.summary}</Paragraph>
       <Box as="dl">
         <Text as="dt">Its tile</Text>
         <Text as="dd">{b.placement}</Text>

@@ -25,7 +25,7 @@ const NestedArrayEditor = (props: ArrayFieldEditorProps) => {
 
   return (
     <Flex className="record-editor__array" direction="column" gap="sm">
-      {!rows.length && <Text className="record-editor__empty">{countLabel(0)}</Text>}
+      {!rows.length && <Text variant="caption" className="record-editor__empty">{countLabel(0)}</Text>}
       {rows.map((row, outerIndex) => (
         <NestedArrayGroup
           key={`${field.path}.${outerIndex}`}

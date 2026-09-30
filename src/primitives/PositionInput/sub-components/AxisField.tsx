@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { NumberInput } from '../../NumberInput';
+import { Span } from '../../text-elements';
 import { useAxisDraft } from '../behavior/useAxisDraft';
 import type { AxisFieldProps } from '../PositionInput.type';
 import { DEFAULT_STEP } from './AxisField.constants';
@@ -10,7 +11,7 @@ const AxisField = (props: AxisFieldProps) => {
 
   return (
     <label className="position-input__axis">
-      <span className="position-input__cap">{axisLabel}</span>
+      <Span tone="dim" className="position-input__cap">{axisLabel}</Span>
       <NumberInput
         className="position-input__field"
         value={fieldValue}

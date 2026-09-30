@@ -8,7 +8,6 @@
 
 .position-input__label {
   font-size: var(--text-xs);
-  color: var(--c-text-muted);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
 }
@@ -41,7 +40,6 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   line-height: var(--leading-tight);
-  color: var(--c-text-dim);
   text-transform: uppercase;
   cursor: default;
 }

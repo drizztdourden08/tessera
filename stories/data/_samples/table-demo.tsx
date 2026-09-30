@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import type { ReactNode } from 'react';
 import { buildSchema, getPath, useDataTable } from '../../../src/data';
 import type { GroupedRow, TableColumn } from '../../../src/data';
-import { Box, Button, CodeBlock, Pressable, Text } from '../../../src/primitives';
+import { Box, Button, CodeBlock, Glyph, Pressable, Text } from '../../../src/primitives';
 import { LOCATIONS, LOCATION_CONFIG } from './data-locations';
 import type { LocationRow } from './data-locations';
 
@@ -27,10 +27,9 @@ const renderNodes = (nodes: readonly GroupedRow<LocationRow>[]): ReactNode[] =>
     </Fragment>
   )));
 
-const arrow = (dir: 'asc' | 'desc' | undefined): string => {
-  if (dir === 'asc') return ' ↑';
-  if (dir === 'desc') return ' ↓';
-  return '';
+const arrow = (dir: 'asc' | 'desc' | undefined): ReactNode => {
+  if (dir === undefined) return null;
+  return <Glyph name={dir === 'asc' ? 'arrowUp' : 'arrowDown'} size={10} />;
 };
 
 const TableDemo = () => {
@@ -51,7 +50,7 @@ const TableDemo = () => {
       <Box className="engine-grid engine-grid--rows">
         {COLUMNS.map((column) => (
           <Pressable key={column.path} className="engine-grid__head" onClick={() => table.setSingleSort(column.path)}>
-            {`${column.path}${arrow(table.sort.find((s) => s.path === column.path)?.dir)}`}
+            {column.path} {arrow(table.sort.find((s) => s.path === column.path)?.dir)}
           </Pressable>
         ))}
         {renderNodes(table.groupedRows)}

@@ -13,7 +13,8 @@ const useSelectedDisplays = <T, V>(setup: ListboxSetup<T, V>): ListboxDisplay<T>
   return setup.selected.map((value) => {
     const key = setup.identityOfValue(value);
     const item = memory.current.get(key) ?? setup.itemOfValue(value);
-    return { key, item, label: item === undefined ? valueText(value) : setup.labelOf(item) };
+    const label = item === undefined ? valueText(value) : setup.labelOf(item);
+    return { key, item, label, tag: item === undefined ? label : setup.tagOf(item) };
   });
 };
 

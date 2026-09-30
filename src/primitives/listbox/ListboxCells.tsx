@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { columnCell } from './column-cell';
 import { columnId } from './column-id';
+import { Span } from '../text-elements';
 import { HighlightedText } from './HighlightedText';
 import type { ListboxCellsProps } from './listbox-view.type';
 
@@ -12,9 +13,9 @@ const ListboxCells = <T,>(props: ListboxCellsProps<T>) => {
         const cell = columnCell(column, context);
         const marked = highlight && typeof cell.content === 'string' && context.query !== '';
         return (
-          <span key={columnId(column, index)} className="listbox-cell" data-align={column.align} data-tone={cell.tone}>
+          <Span key={columnId(column, index)} className="listbox-cell" data-align={column.align} tone={cell.tone}>
             {marked ? <HighlightedText text={cell.text} query={context.query} /> : cell.content}
-          </span>
+          </Span>
         );
       })}
     </>

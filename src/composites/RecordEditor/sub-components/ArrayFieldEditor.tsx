@@ -47,7 +47,7 @@ const ArrayFieldEditor = (props: ArrayFieldEditorProps) => {
 
   return (
     <Flex className="record-editor__array" direction="column" gap="xs">
-      {!list.length && <Text className="record-editor__empty">{countLabel(0)}</Text>}
+      {!list.length && <Text variant="caption" className="record-editor__empty">{countLabel(0)}</Text>}
       {list.map((entry, index) => (
         <Flex key={`${field.path}.${index}`} className="record-editor__array-row" gap="xs" align="center">
           <ElementControl

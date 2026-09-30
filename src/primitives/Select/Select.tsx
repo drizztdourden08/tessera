@@ -9,6 +9,7 @@ import type { SelectProps } from './Select.type';
 import '../../theme/field-surface.css';
 import '../../theme/listbox.css';
 import '../../theme/listbox-drop.css';
+import '../../theme/tag-chip.css';
 import './Select.css';
 
 const Select = <T = string, F extends FieldOf<T> = never>(props: SelectProps<T, F>) => (

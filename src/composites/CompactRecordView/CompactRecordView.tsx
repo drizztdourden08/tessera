@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { Text } from '../../primitives/Text';
+import { Span } from '../../primitives/text-elements';
 import { layoutGroups } from '../RecordEditor';
 import { filterGroups } from './behavior/filter-groups';
 import { CompactField } from './sub-components/CompactField';
@@ -17,11 +18,11 @@ const CompactRecordView = <T,>(props: CompactRecordViewProps<T>) => {
 
   return (
     <Box className="compact-record-view">
-      {shown.length === 0 && <Text className="compact-record-view__empty">{NO_FIELDS}</Text>}
+      {shown.length === 0 && <Text variant="caption" className="compact-record-view__empty">{NO_FIELDS}</Text>}
       {shown.map((group) => (
         <Box key={group.id} className="compact-record-view__group">
           {showLabels && (
-            <Text className="compact-record-view__group-label">{group.label ?? group.id}</Text>
+            <Span tone="dim" className="compact-record-view__group-label">{group.label ?? group.id}</Span>
           )}
           {group.fields.map((field) => (
             <CompactField

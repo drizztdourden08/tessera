@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { defaultColumns } from './default-columns';
 import { itemReaders } from './item-readers';
+import { itemTag } from './item-tag';
 import { selectionLimits } from './selection-limits';
 import { valueBinding } from './value-binding';
 import type { FieldOf, ValueOf } from './listbox.type';
@@ -22,6 +23,7 @@ const listboxSetup = <T, F extends FieldOf<T>>(source: SetupSource<T, F>, emptyT
     itemComponent: source.itemComponent,
     valueComponent: source.valueComponent,
     valueDisplay: source.valueDisplay ?? 'label',
+    tagOf: (item) => itemTag(item, source.tagField, readers.labelOf(item)),
     loading: source.loading === true,
     emptyText: source.emptyText ?? emptyText,
   };

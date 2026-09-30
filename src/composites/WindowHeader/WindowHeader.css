@@ -44,7 +44,5 @@
 
 .window-header .window-header__close {
   flex-shrink: 0;
-  font-size: var(--text-xl);
-  line-height: 1;
   color: var(--c-text-dim);
 }

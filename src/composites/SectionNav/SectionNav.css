@@ -92,7 +92,6 @@
   font-weight: var(--weight-semi);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  color: var(--c-text-muted);
 }
 
 .section-nav--open .section-nav__group-label {

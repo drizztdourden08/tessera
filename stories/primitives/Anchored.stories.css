@@ -1,0 +1,51 @@
+/* @layer stories @kind style */
+.anchored-demo__stage {
+  padding: var(--space-2xl) 0;
+}
+
+.anchored-demo__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: var(--space-2xl) var(--space-lg);
+  padding-block: var(--space-2xl);
+}
+
+.anchored-demo__panel {
+  --anchored-gap: var(--space-xs);
+
+  max-width: 14rem;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-3);
+  font-size: var(--text-sm);
+  color: var(--c-text);
+  background: var(--c-raised, var(--c-surface));
+  outline: var(--border-width-thin) solid var(--c-primary-soft);
+}
+
+.anchored-demo__scroller {
+  max-height: 16rem;
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+}
+
+.anchored-demo__track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+}
+
+.anchored-demo__select {
+  max-width: 16rem;
+}
+
+.anchored-demo__filler,
+.anchored-demo__hint {
+  color: var(--c-text-muted);
+  font-size: var(--text-sm);
+}
+
+.anchored-demo__spacer {
+  height: 30rem;
+}

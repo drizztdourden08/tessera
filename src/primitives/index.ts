@@ -32,7 +32,7 @@ export type { DropZoneProps, DropZoneVariant } from './DropZone';
 export { TextInput } from './TextInput';
 export { Textarea } from './Textarea';
 export { Select, NativeSelect } from './Select';
-export type { SelectOption, SelectGroup, SelectItemsProps, SelectOptionsProps, SelectProps } from './Select';
+export type { MultiDisplay, SelectOption, SelectGroup, SelectItemsProps, SelectOptionsProps, SelectProps } from './Select';
 export { Combobox } from './Combobox';
 export type { ComboboxProps } from './Combobox';
 export type {
@@ -47,6 +47,8 @@ export { ToggleGroup } from './ToggleGroup';
 export type { ToggleOption, ToggleGroupProps } from './ToggleGroup';
 export { TabBar, type TabItem } from './TabBar';
 export { Floating } from './Floating';
+export { Anchored, useAnchorSupport } from './Anchored';
+export type { AnchoredPlacement, AnchoredProps } from './Anchored';
 export type { FloatingLength, FloatingPlacement, FloatingProps } from './Floating';
 export { Portal, useAnchorTracking, dropPanelPositionFor } from './Portal';
 export { PortalDocumentContext } from './dom/portal-document-context';

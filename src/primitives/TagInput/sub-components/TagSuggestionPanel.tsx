@@ -1,24 +1,20 @@
 /* @layer renderer-components @kind component */
-import { Portal } from '../../Portal';
+import { useRef } from 'react';
+import { Anchored } from '../../Anchored';
+import { Span } from '../../text-elements';
 import type { MouseEvent } from 'react';
 import type { TagSuggestionPanelProps } from '../TagInput.type';
 
 const keepFocus = (e: MouseEvent) => e.preventDefault();
 
 const TagSuggestionPanel = (props: TagSuggestionPanelProps) => {
-  const { listId, optionId, panelRef, pos, suggestions, highlightIdx, createText, inline, onPick } = props;
+  const { listId, optionId, panelRef, anchorRef, pos, suggestions, highlightIdx, createText, inline, onPick } = props;
+  const detached = useRef<HTMLElement>(null);
 
   const isEmpty = suggestions.length === 0 && createText === null;
 
-  const panel = (
-    <div
-      ref={panelRef}
-      id={listId}
-      role="listbox"
-      className={`tag-input__panel${inline ? ' tag-input__panel--inline' : ''}`}
-      data-drop-up={pos?.dropUp ? 'true' : undefined}
-      style={pos ? { top: pos.top, left: pos.left, width: pos.width } : undefined}
-    >
+  const rows = (
+    <>
       {suggestions.map((tag, idx) => (
         <div
           key={tag}
@@ -30,7 +26,7 @@ const TagSuggestionPanel = (props: TagSuggestionPanelProps) => {
           onMouseDown={keepFocus}
           onClick={() => onPick(tag)}
         >
-          {tag}
+          <Span>{tag}</Span>
         </div>
       ))}
 
@@ -42,16 +38,31 @@ const TagSuggestionPanel = (props: TagSuggestionPanelProps) => {
           onMouseDown={keepFocus}
           onClick={() => onPick(createText)}
         >
-          <span className="tag-input__create-verb">Create</span>
-          <span className="tag-input__create-value">{createText}</span>
+          <Span className="tag-input__create-verb">Create</Span>
+          <Span className="tag-input__create-value">{createText}</Span>
         </div>
       )}
 
-      {isEmpty && <div className="tag-input__empty">No matching tags</div>}
-    </div>
+      {isEmpty && <div className="tag-input__empty"><Span>No matching tags</Span></div>}
+    </>
   );
 
-  return inline ? panel : <Portal layer="popover">{panel}</Portal>;
+  if (inline) {
+    return <div ref={panelRef} id={listId} role="listbox" className="tag-input__panel tag-input__panel--inline">{rows}</div>;
+  }
+  return (
+    <Anchored
+      ref={panelRef}
+      anchorRef={anchorRef ?? detached}
+      id={listId}
+      role="listbox"
+      className="tag-input__panel"
+      data-drop-up={pos?.dropUp ? 'true' : undefined}
+      fallback={pos && { top: pos.top, left: pos.left, width: pos.width }}
+    >
+      {rows}
+    </Anchored>
+  );
 };
 
 export { TagSuggestionPanel };

@@ -68,7 +68,6 @@
   padding: 0 var(--space-2xs);
   border-radius: var(--radius-sm);
   background: var(--c-hover);
-  color: var(--c-text-dim);
   font-size: var(--text-xs);
   line-height: var(--leading-tight);
 }

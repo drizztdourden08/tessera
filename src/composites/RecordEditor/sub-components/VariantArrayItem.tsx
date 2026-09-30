@@ -3,6 +3,7 @@ import { Box } from '../../../primitives/Box';
 import { Flex } from '../../../primitives/Flex';
 import { Select } from '../../../primitives/Select';
 import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { ListItemControls } from '../../field-kits/sub-components/ListItemControls';
 import { keyOf } from '../behavior/key-of';
 import { rebaseField } from '../behavior/rebase-field';
@@ -25,7 +26,7 @@ const VariantArrayItem = (props: VariantArrayItemProps) => {
   return (
     <Box className="record-editor__array-item">
       <Flex className="record-editor__array-item-head" gap="xs" align="center">
-        <Text as="span" className="record-editor__array-index">{`#${index + 1}`}</Text>
+        <Span tone="muted" className="record-editor__array-index">{`#${index + 1}`}</Span>
         <Select
           size="sm"
           value={currentKey}
@@ -44,7 +45,7 @@ const VariantArrayItem = (props: VariantArrayItemProps) => {
             ))}
           </Box>
         )
-        : <Text className="record-editor__note">{NO_BRANCH}</Text>}
+        : <Text variant="caption" className="record-editor__note">{NO_BRANCH}</Text>}
     </Box>
   );
 };

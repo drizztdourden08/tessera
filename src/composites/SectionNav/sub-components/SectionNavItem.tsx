@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Pressable } from '../../../primitives/Pressable';
-import { PathIcon } from '../../../primitives/PathIcon';
-import { CHEVRON_RIGHT, GLYPH_BOX } from '../SectionNav.constants';
+import { Icon } from '../../../primitives/Icon';
+import { Span } from '../../../primitives/text-elements';
 import type { SectionNavItemProps } from './SectionNavItem.type';
 import '../../../theme/focus-ring.css';
 import './SectionNavItem.css';
@@ -18,8 +18,8 @@ const SectionNavItem = (props: SectionNavItemProps) => {
       aria-current={active ? 'page' : undefined}
     >
       <Box as="span" className="section-nav__icon" aria-hidden="true">{item.icon}</Box>
-      <Box as="span" className="section-nav__label">{item.label}</Box>
-      <PathIcon className="section-nav__chevron" paths={[CHEVRON_RIGHT]} viewBox={GLYPH_BOX} size={16} aria-hidden="true" />
+      <Span className="section-nav__label">{item.label}</Span>
+      <Icon name="chevron-right" className="section-nav__chevron" size={16} />
     </Pressable>
   );
 };

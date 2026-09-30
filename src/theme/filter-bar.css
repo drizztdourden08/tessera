@@ -140,15 +140,15 @@
   min-width: 0;
 }
 
-.filter-bar__group .filter-bar__control > *,
-.filter-bar__group .filter-bar__control > * > :first-child {
+.filter-bar__group .filter-bar__control > :not([popover]),
+.filter-bar__group .filter-bar__control > :not([popover]) > :first-child {
   flex: 1;
   min-width: 0;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.filter-bar__group .filter-bar__control > * {
+.filter-bar__group .filter-bar__control > :not([popover]) {
   height: 100%;
 }
 
@@ -156,7 +156,7 @@
   align-items: stretch;
 }
 
-.filter-bar__group .filter-bar__control > * > * {
+.filter-bar__group .filter-bar__control > :not([popover]) > * {
   min-width: 0;
 }
 

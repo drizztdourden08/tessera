@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useState } from 'react';
-import { Box, Glyph, Pressable, Text } from '../../../primitives';
+import { Box, Glyph, Pressable, Span, Text } from '../../../primitives';
 import { MAX_DEPTH_CLASS } from './GroupSection.constants';
 import type { GroupSectionProps } from './GroupSection.type';
 
@@ -17,9 +17,9 @@ const GroupSection = <T,>(props: GroupSectionProps<T>) => {
   return (
     <Box className={`group-tree__group group-tree__group--depth-${Math.min(depth, MAX_DEPTH_CLASS)}`}>
       <Pressable className="group-tree__header focus-ring-inset" onClick={toggle} aria-expanded={expanded}>
-        <Text className="group-tree__chevron"><Glyph name={expanded ? 'chevronDown' : 'chevronRight'} /></Text>
+        <Span tone="dim" className="group-tree__chevron"><Glyph name={expanded ? 'chevronDown' : 'chevronRight'} /></Span>
         <Text className="group-tree__name">{node.label}</Text>
-        {node.meta !== undefined && <Text className="group-tree__meta">{node.meta}</Text>}
+        {node.meta !== undefined && <Span tone="dim" className="group-tree__meta">{node.meta}</Span>}
       </Pressable>
       {expanded && (
         <Box className="group-tree__content">

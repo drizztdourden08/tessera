@@ -10,11 +10,6 @@
   width: var(--size-256);
 }
 
-.color-picker__title {
-  font-size: var(--text-sm);
-  color: var(--c-text-dim);
-}
-
 .color-picker__hex-row {
   display: flex;
   align-items: flex-start;
@@ -49,7 +44,6 @@
 .color-picker__field-label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--c-text-muted);
   letter-spacing: var(--tracking-caps);
 }
 
@@ -70,7 +64,6 @@
 .color-picker__hex-sigil {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  color: var(--c-text-muted);
   user-select: none;
   flex: none;
 }
@@ -115,16 +108,11 @@
   flex-wrap: wrap;
 }
 
-.color-picker__word {
+.color-picker__word,
+.color-picker__snap,
+.color-picker__original-hex {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--c-text-muted);
-}
-
-.color-picker__snap {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--c-warning);
 }
 
 .color-picker__original {
@@ -133,12 +121,6 @@
   gap: var(--space-xs);
 
   --swatch-size: var(--size-16);
-}
-
-.color-picker__original-hex {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--c-text-muted);
 }
 
 .color-picker__quick-assign-section {
@@ -172,7 +154,6 @@
   font-size: var(--text-xs);
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
-  color: var(--c-text-muted);
 }
 
 .color-picker__quick-swatches {

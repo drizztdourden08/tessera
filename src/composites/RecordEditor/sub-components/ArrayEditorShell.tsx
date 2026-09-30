@@ -11,7 +11,7 @@ const ArrayEditorShell = (props: ArrayEditorShellProps) => {
   const { isEmpty, disabled, onAdd, children } = props;
   return (
     <Flex className="record-editor__array" direction="column" gap="sm">
-      {isEmpty && <Text className="record-editor__empty">{countLabel(0)}</Text>}
+      {isEmpty && <Text variant="caption" className="record-editor__empty">{countLabel(0)}</Text>}
       {children}
       <AddItemButton label={ADD} disabled={disabled} onAdd={onAdd} />
     </Flex>

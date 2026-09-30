@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useState, useEffect, useCallback } from 'react';
 import { Glyph } from '../Glyph';
+import { Span } from '../text-elements';
 import type { ToastProps } from './Toast.type';
 import './Toast.css';
 
@@ -23,7 +24,7 @@ const Toast = (props: ToastProps) => {
 
   return (
     <div className={`toast toast--${variant} ${exiting ? 'toast--exiting' : ''}`}>
-      <span className="toast__message">{item.message}</span>
+      <Span className="toast__message">{item.message}</Span>
       <button type="button" className="toast__close" onClick={dismiss} aria-label="Dismiss">
         <Glyph name="close" />
       </button>

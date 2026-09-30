@@ -33,7 +33,7 @@ const ColorPicker = (props: ColorPickerProps) => {
   return (
     <FieldControlBoundary>
     <Box className="color-picker">
-      {title && <Text className="color-picker__title">{title}</Text>}
+      {title && <Text variant="subtitle" className="color-picker__title">{title}</Text>}
 
       <Box className="color-picker__wheel" onMouseDownCapture={beginDrag}>
         <PickerWheel color={seed} onChange={handleWheelChange} disableAlpha={disableAlpha} />

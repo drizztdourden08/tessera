@@ -1,10 +1,11 @@
 /* @layer renderer-components @kind component */
 import { Glyph } from '../../Glyph';
+import { IconButton } from '../../IconButton';
 import { ListboxValue } from '../../listbox/ListboxValue';
 import { Spinner } from '../../Spinner';
+import { TagChip } from '../../TagInput/sub-components/TagChip';
 import { comboboxClass } from '../behavior/combobox-class';
 import { fieldPress } from '../behavior/field-press';
-import { ComboboxChip } from './ComboboxChip';
 import { ComboboxInput } from './ComboboxInput';
 import type { ComboboxFieldProps } from './ComboboxField.type';
 
@@ -23,7 +24,14 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
       onMouseDown={(event) => fieldPress(event, box, field.disabled)}
     >
       {box.multi && displays.map((display, index) => (
-        <ComboboxChip key={display.key} label={display.label} removable={editable && displays.length > box.min} onRemove={() => box.removeAt(index)} />
+        <TagChip
+          key={display.key}
+          tag={display.tag}
+          name={display.label}
+          tone="primary"
+          disabled={!editable || displays.length <= box.min}
+          onRemove={() => box.removeAt(index)}
+        />
       ))}
       {box.showValue && (
         <span className="combobox__value" aria-hidden>
@@ -33,9 +41,9 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
       <ComboboxInput box={box} look={look} />
       {look.loading === true && <Spinner size="sm" className="combobox__spinner" />}
       {clearable && (
-        <button type="button" className="combobox__clear" tabIndex={-1} aria-label="Clear" onClick={box.clear}>
-          <Glyph name="close" size={14} />
-        </button>
+        <IconButton className="combobox__clear" variant="ghost" size="sm" type="button" label="Clear" tabIndex={-1} onClick={box.clear}>
+          <Glyph name="close" />
+        </IconButton>
       )}
       <span className="combobox__chevron" aria-hidden>
         <Glyph name="chevronDown" />

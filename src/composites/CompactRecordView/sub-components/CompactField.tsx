@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { resolveFieldKit } from '../../field-kits';
 import { unknownKit } from '../../field-kits/UnknownKit';
 import { detectUnionBranch, isIdentityField, markedPaths } from '../../RecordEditor';
@@ -49,9 +49,9 @@ const CompactField = (props: CompactFieldProps) => {
     const nestClass = `compact-record-view__nest${differsBelow ? ' compact-record-view__nest--differs' : ''}`;
     return (
       <Box className={nestClass}>
-        <Text as="span" className="compact-record-view__nest-label" title={field.path}>
+        <Span tone="dim" className="compact-record-view__nest-label" title={field.path}>
           {field.label}
-        </Text>
+        </Span>
         <Box className="compact-record-view__nested">
           {nested.map((child) => (
             <CompactField
@@ -73,9 +73,9 @@ const CompactField = (props: CompactFieldProps) => {
 
   return (
     <Box className={rowClass}>
-      <Text as="span" className="compact-record-view__label" title={field.path}>
+      <Span tone="dim" className="compact-record-view__label" title={field.path}>
         {field.label}
-      </Text>
+      </Span>
       <Box className="compact-record-view__value">
         {kitFor(field.kind).renderCell(value, field, {
           display: idRefDisplay(field, value, resolveIdRefDisplay),

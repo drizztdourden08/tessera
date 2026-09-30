@@ -17,8 +17,11 @@ interface SelectGroup {
   options: SelectOption[];
 }
 
+type MultiDisplay = 'count' | 'tags';
+
 interface SelectLookProps extends ListboxFieldProps {
   searchable?: boolean;
+  multiDisplay?: MultiDisplay;
 }
 
 interface SelectItemsProps<T, F extends FieldOf<T>> extends ListboxLook<T>, ListboxValueProps<T, F>, SelectLookProps {
@@ -45,6 +48,7 @@ type SelectProps<T = string, F extends FieldOf<T> = never> = SelectItemsProps<T,
 interface NativeSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {}
 
 export type {
+  MultiDisplay,
   NativeSelectProps,
   SelectGroup,
   SelectItemsProps,

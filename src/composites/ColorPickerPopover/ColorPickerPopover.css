@@ -3,3 +3,7 @@
   position: fixed;
   pointer-events: auto;
 }
+
+.color-picker-popover.anchored {
+  --anchored-gap: var(--size-6);
+}

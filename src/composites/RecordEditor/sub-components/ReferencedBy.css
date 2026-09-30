@@ -11,15 +11,6 @@
   border-top: var(--border-width-thin) solid var(--c-border);
 }
 
-.referenced-by__title {
-  margin: 0;
-}
-
-.referenced-by__empty {
-  color: var(--c-text-muted);
-  font-size: var(--text-xs);
-}
-
 .referenced-by__group {
   display: flex;
   flex-direction: column;

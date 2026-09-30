@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Fragment } from 'react';
+import { Mark } from '../text-elements';
 import { highlightParts } from './highlight-parts';
 import type { HighlightedTextProps } from './listbox-view.type';
 
@@ -8,7 +9,7 @@ const HighlightedText = (props: HighlightedTextProps) => {
   return (
     <>
       {highlightParts(text, query).map((part, index) => (part.match
-        ? <mark key={index} className="listbox-match">{part.text}</mark>
+        ? <Mark key={index}>{part.text}</Mark>
         : <Fragment key={index}>{part.text}</Fragment>))}
     </>
   );

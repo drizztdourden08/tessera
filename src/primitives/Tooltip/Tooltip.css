@@ -18,10 +18,14 @@
   white-space: nowrap;
 }
 
-.tooltip[data-placement='top'] {
+.tooltip.anchored {
+  --anchored-gap: var(--size-6);
+}
+
+.tooltip.anchored-fallback[data-placement='top'] {
   transform: translate(-50%, calc(-100% - var(--size-6)));
 }
 
-.tooltip[data-placement='bottom'] {
+.tooltip.anchored-fallback[data-placement='bottom'] {
   transform: translate(-50%, var(--size-6));
 }

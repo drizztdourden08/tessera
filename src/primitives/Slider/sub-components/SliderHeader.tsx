@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { Small, Span } from '../../text-elements';
 import type { SliderHeaderProps } from './SliderHeader.type';
 
 const SliderHeader = (props: SliderHeaderProps) => {
@@ -7,8 +8,8 @@ const SliderHeader = (props: SliderHeaderProps) => {
   return (
     <div className="slider__header">
       <span className="slider__text">
-        {label && <span className="slider__label">{label}</span>}
-        {description && <span className="slider__description">{description}</span>}
+        {label && <Span className="slider__label">{label}</Span>}
+        {description && <Small tone="dim" className="slider__description">{description}</Small>}
       </span>
     </div>
   );

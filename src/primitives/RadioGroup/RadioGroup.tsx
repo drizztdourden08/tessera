@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import './RadioGroup.css';
+import { Small, Span } from '../text-elements';
 import type { RadioGroupProps } from './RadioGroup.type';
 
 const RadioGroup = <T extends string = string>(props: RadioGroupProps<T>) => {
@@ -21,7 +22,7 @@ const RadioGroup = <T extends string = string>(props: RadioGroupProps<T>) => {
       {[label, description].some(Boolean) && (
         <div className="radio-group__header">
           {label && <legend className="radio-group__label">{label}</legend>}
-          {description && <span className="radio-group__description">{description}</span>}
+          {description && <Small tone="dim" className="radio-group__description">{description}</Small>}
         </div>
       )}
       <div className={`radio-group__options radio-group__options--${direction}`}>
@@ -41,9 +42,9 @@ const RadioGroup = <T extends string = string>(props: RadioGroupProps<T>) => {
             />
             <span className="radio-group__indicator" />
             <span className="radio-group__option-text">
-              <span className="radio-group__option-label">{opt.label}</span>
+              <Span className="radio-group__option-label">{opt.label}</Span>
               {opt.description && (
-                <span className="radio-group__option-desc">{opt.description}</span>
+                <Span tone="dim" className="radio-group__option-desc">{opt.description}</Span>
               )}
             </span>
           </label>

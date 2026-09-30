@@ -1,0 +1,56 @@
+/* @layer renderer-components @kind style */
+:where(.anchored) {
+  inset: auto;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  color: inherit;
+  background: none;
+  border: 0;
+}
+
+.anchored[popover] {
+  position: fixed;
+  position-anchor: var(--anchored-name);
+}
+
+.anchored[data-anchor-place^='bottom'] {
+  top: anchor(bottom);
+  margin-top: var(--anchored-gap, 0);
+}
+
+.anchored[data-anchor-place^='top'] {
+  bottom: anchor(top);
+  margin-bottom: var(--anchored-gap, 0);
+}
+
+.anchored[data-anchor-place$='-start'] {
+  left: anchor(left);
+}
+
+.anchored[data-anchor-place$='-end'] {
+  right: anchor(right);
+}
+
+.anchored[data-anchor-place$='-center'] {
+  justify-self: anchor-center;
+}
+
+.anchored[data-anchor-place='right-start'] {
+  top: anchor(top);
+  left: anchor(right);
+  margin-left: var(--anchored-gap, 0);
+}
+
+.anchored[data-flip] {
+  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+}
+
+.anchored[data-flip][data-anchor-place='right-start'] {
+  position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+}
+
+.anchored-fallback {
+  position: fixed;
+  pointer-events: auto;
+}

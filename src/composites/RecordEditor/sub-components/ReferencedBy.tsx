@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
 import { Text } from '../../../primitives/Text';
+import { Paragraph } from '../../../primitives/text-elements';
 import { EMPTY, TITLE } from './ReferencedBy.constants';
 import type { ReferencedByHit } from '../RecordEditor.type';
 import type { KindGroup, ReferencedByProps } from './ReferencedBy.type';
@@ -25,7 +26,7 @@ const ReferencedBy = (props: ReferencedByProps) => {
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(new Set());
 
   if (hits.length === 0) {
-    return <Text className="referenced-by__empty">{EMPTY}</Text>;
+    return <Text variant="caption" className="referenced-by__empty">{EMPTY}</Text>;
   }
 
   const toggle = (kind: string): void => {
@@ -38,7 +39,7 @@ const ReferencedBy = (props: ReferencedByProps) => {
 
   return (
     <Box className="referenced-by">
-      <Text as="p" className="referenced-by__title">{TITLE}</Text>
+      <Paragraph tone="dim" className="referenced-by__title">{TITLE}</Paragraph>
       {groupByKind(hits).map((group) => (
         <Box key={group.kind} className="referenced-by__group">
           <Button

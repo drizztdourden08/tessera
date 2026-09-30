@@ -3,10 +3,9 @@ import '../../theme/field-surface.css';
 import './NumberInput.css';
 import { preventTextSelection } from '../dom/prevent-text-selection';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
-import { PathIcon } from '../PathIcon';
+import { Glyph } from '../Glyph';
 import type { CSSProperties } from 'react';
 import type { NumberInputProps } from './NumberInput.type';
-import { CHEVRON_DOWN, CHEVRON_UP } from './NumberInput.constants';
 import { digitColumns } from './behavior/digit-columns';
 import { toNumber } from './behavior/to-number';
 
@@ -55,10 +54,10 @@ const NumberInput = (props: NumberInputProps) => {
       />
       <div className="number-input__spin">
         <button type="button" className="number-input__btn" tabIndex={-1} aria-label="Increment" disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(1)}>
-          <PathIcon size={12} paths={[CHEVRON_UP]} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+          <Glyph name="chevronUp" size={12} strokeWidth={2} />
         </button>
         <button type="button" className="number-input__btn" tabIndex={-1} aria-label="Decrement" disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(-1)}>
-          <PathIcon size={12} paths={[CHEVRON_DOWN]} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+          <Glyph name="chevronDown" size={12} strokeWidth={2} />
         </button>
       </div>
     </div>

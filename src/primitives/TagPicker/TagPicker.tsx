@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import './TagPicker.css';
+import { Span } from '../text-elements';
 import type { TagPickerProps } from './TagPicker.type';
 
 const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
@@ -17,10 +18,10 @@ const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
 
   return (
     <div className={`tag-picker ${disabled ? 'tag-picker--disabled' : ''}`}>
-      {label && <span className="tag-picker__label">{label}</span>}
+      {label && <Span className="tag-picker__label">{label}</Span>}
       {groups.map(group => (
         <div key={group.id} className="tag-picker__group">
-          {group.label && <span className="tag-picker__group-label">{group.label}</span>}
+          {group.label && <Span tone="dim" className="tag-picker__group-label">{group.label}</Span>}
           <div className="tag-picker__tags" role={single ? 'radiogroup' : undefined} aria-label={single ? label : undefined}>
             {group.options.map(opt => (
               <button

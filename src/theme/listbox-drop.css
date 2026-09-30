@@ -72,6 +72,18 @@
   pointer-events: auto;
 }
 
+.listbox-drop.anchored-fallback[data-attach='up'] {
+  transform: translateY(-100%);
+}
+
+.listbox-drop.anchored[data-attach='down'] {
+  margin-top: calc(-1 * var(--listbox-line));
+}
+
+.listbox-drop.anchored[data-attach='up'] {
+  margin-bottom: calc(-1 * var(--listbox-line));
+}
+
 .listbox-drop:not([data-placed]) {
   visibility: hidden;
 }
@@ -92,7 +104,6 @@
 .listbox-drop[data-attach='up'] {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  transform: translateY(-100%);
   clip-path: inset(calc(-1 * var(--listbox-reach)) calc(-1 * var(--listbox-reach)) 0);
 }
 

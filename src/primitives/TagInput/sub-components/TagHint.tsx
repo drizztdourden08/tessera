@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { Span } from '../../text-elements';
 import type { TagHintProps } from './TagHint.type';
 
 const TagHint = (props: TagHintProps) => {
@@ -7,9 +8,9 @@ const TagHint = (props: TagHintProps) => {
   if (message == null) return null;
   const danger = blocked || (advice.message == null && createError != null);
   return (
-    <span className="tag-input__hint" data-blocked={danger || undefined}>
+    <Span className="tag-input__hint" data-blocked={danger || undefined}>
       {message}
-    </span>
+    </Span>
   );
 };
 

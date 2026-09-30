@@ -2,6 +2,7 @@
 import './PositionInput.css';
 import { useCallback } from 'react';
 import { FieldControlBoundary } from '../FieldControlBoundary/FieldControlBoundary';
+import { Span } from '../text-elements';
 import { AxisField } from './sub-components/AxisField';
 import type { PositionInputProps } from './PositionInput.type';
 import { DEFAULT_X_LABEL, DEFAULT_Y_LABEL, OPEN_AXIS } from './PositionInput.constants';
@@ -20,7 +21,7 @@ const PositionInput = (props: PositionInputProps) => {
 
   return (
     <div className={classes} role="group" aria-label={label}>
-      {label != null && <span className="position-input__label">{label}</span>}
+      {label != null && <Span tone="muted" className="position-input__label">{label}</Span>}
       <div className="position-input__axes">
         <FieldControlBoundary>
           <AxisField

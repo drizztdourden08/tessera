@@ -3,6 +3,7 @@ import '../../theme/focus-ring.css';
 import './TabBar.css';
 import { Glyph } from '../Glyph';
 import { IconButton } from '../IconButton';
+import { Span } from '../text-elements';
 import { tabIndexForKey } from './behavior/tab-index-for-key';
 import { useTabStripOverflow } from './behavior/useTabStripOverflow';
 import type { TabBarProps } from './TabBar.type';
@@ -55,8 +56,8 @@ const TabBar = (props: TabBarProps) => {
             onKeyDown={(event) => handleKeyDown(event, index)}
           >
             {tab.icon && <span className="tab-bar__icon">{tab.icon}</span>}
-            {!iconOnly && <span className="tab-bar__label">{tab.label}</span>}
-            {tab.badge != null && <span className="tab-bar__badge">{tab.badge}</span>}
+            {!iconOnly && <Span className="tab-bar__label">{tab.label}</Span>}
+            {tab.badge != null && <Span tone="dim" className="tab-bar__badge">{tab.badge}</Span>}
           </button>
         ))}
       </div>

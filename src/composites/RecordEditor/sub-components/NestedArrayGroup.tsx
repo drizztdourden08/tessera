@@ -2,6 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { countLabel } from '../../field-kits/count-label';
 import { blankFor } from '../../field-kits/blank-for';
 import { replacedAt } from '../../field-kits/list-edits';
@@ -17,11 +18,11 @@ const NestedArrayGroup = (props: NestedArrayGroupProps) => {
   return (
     <Box className="record-editor__array-item">
       <Flex className="record-editor__array-item-head" gap="xs" align="center">
-        <Text as="span" className="record-editor__array-index">{`#${index + 1}`}</Text>
+        <Span tone="muted" className="record-editor__array-index">{`#${index + 1}`}</Span>
         <RemoveItemButton disabled={disabled} onRemove={onRemove} />
       </Flex>
       <Flex direction="column" gap="xs" className="record-editor__nested">
-        {!row.length && <Text className="record-editor__empty">{countLabel(0)}</Text>}
+        {!row.length && <Text variant="caption" className="record-editor__empty">{countLabel(0)}</Text>}
         {row.map((entry, innerIndex) => (
           <Flex key={`${address}.${innerIndex}`} gap="xs" align="center">
             <Control

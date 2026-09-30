@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
-import { Text } from '../../../primitives/Text';
+import { Paragraph } from '../../../primitives/text-elements';
 import { DELETE, REVERT, SAVE, SAVING } from './EditorFooter.constants';
 import type { EditorFooterProps } from './EditorFooter.type';
 
@@ -13,7 +13,7 @@ const EditorFooter = (props: EditorFooterProps) => {
   return (
     <Flex className="record-editor__footer" gap="sm" align="center" justify="end">
       {saveError != null && (
-        <Text as="p" className="record-editor__error">{saveError}</Text>
+        <Paragraph className="record-editor__error">{saveError}</Paragraph>
       )}
       {onDelete !== undefined && (
         <Button variant="danger" disabled={disabled} onClick={onDelete}>

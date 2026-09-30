@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useId, useMemo } from 'react';
 import { FieldControlContext } from '../field-control/field-control-context';
+import { Span } from '../text-elements';
 import { FieldNote } from './sub-components/FieldNote';
 import './Field.css';
 import type { FieldProps } from './Field.type';
@@ -23,7 +24,7 @@ const Field = (props: FieldProps) => {
       {label != null && (
         <label id={labelId} className="field__label" htmlFor={controlId}>
           {label}
-          {required && <span className="field__required">*</span>}
+          {required && <Span tone="danger" className="field__required">*</Span>}
         </label>
       )}
       <div className="field__control">

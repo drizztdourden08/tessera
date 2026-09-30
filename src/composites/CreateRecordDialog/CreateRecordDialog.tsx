@@ -3,6 +3,7 @@ import { useCallback, useMemo, useRef } from 'react';
 import { Box } from '../../primitives/Box';
 import { Button } from '../../primitives/Button';
 import { Text } from '../../primitives/Text';
+import { Paragraph } from '../../primitives/text-elements';
 import { getPath } from '../../data/schema/path';
 import { DialogShell } from '../DialogShell';
 import { EditorGroup, layoutGroups } from '../RecordEditor';
@@ -60,11 +61,11 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
   return (
     <DialogShell open={open} onClose={onCancel} title={title} actions={actions} initialFocusRef={createRef}>
       <Box className="create-record-dialog">
-        {groups.length === 0 && <Text className="record-editor__empty">{NO_FIELDS}</Text>}
+        {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{NO_FIELDS}</Text>}
         {groups.map((group) => (
           <EditorGroup key={group.id} group={group} binding={binding} depth={0} />
         ))}
-        {error != null && <Text as="p" className="create-record-dialog__error">{error}</Text>}
+        {error != null && <Paragraph className="create-record-dialog__error">{error}</Paragraph>}
       </Box>
     </DialogShell>
   );

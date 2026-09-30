@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useState, useEffect, useCallback } from 'react';
 import { Box } from '../../../primitives/Box';
-import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { TextInput } from '../../../primitives/TextInput';
 import type { ChannelInputProps } from './ChannelInput.type';
 
@@ -29,7 +29,7 @@ const ChannelInput = (props: ChannelInputProps) => {
         aria-label={label}
         onChange={(e) => handleChange(e.target.value)}
       />
-      <Text as="span" className="color-picker__field-label">{label}</Text>
+      <Span tone="muted" className="color-picker__field-label">{label}</Span>
     </Box>
   );
 };

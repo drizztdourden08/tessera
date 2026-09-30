@@ -93,6 +93,7 @@ interface ListboxValueProps<T> {
   displays: readonly ListboxDisplay<T>[];
   look: ValueLook<T>;
   placeholder: string;
+  tags?: boolean;
 }
 
 interface ListboxCountProps<T> {

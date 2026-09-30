@@ -19,6 +19,7 @@ interface ListboxSetup<T, V> extends ValueBinding<T, V> {
   renderItem?: (context: ItemContext<T>) => ReactNode;
   valueComponent?: ComponentType<ListboxItemProps<T>>;
   valueDisplay: ValueDisplay;
+  tagOf: (item: T) => ReactNode;
   loading: boolean;
   emptyText: ReactNode;
 }
@@ -61,6 +62,7 @@ interface ListboxCell {
 interface ListboxDisplay<T> {
   key: string;
   label: string;
+  tag: ReactNode;
   item: T | undefined;
 }
 

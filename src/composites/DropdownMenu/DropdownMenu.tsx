@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useRef } from 'react';
-import { Portal, useAnchorTracking } from '../../primitives/Portal';
+import { Anchored } from '../../primitives/Anchored';
+import { useAnchorTracking } from '../../primitives/Portal';
 import { Box } from '../../primitives/Box';
 import { Floating } from '../../primitives/Floating';
 import { MenuItemButton } from './sub-components/MenuItemButton';
@@ -25,22 +26,24 @@ const DropdownMenu = (props: DropdownMenuProps) => {
     compute: (rect, view) => placementOf(rect, view, side, align),
   });
 
-  const menu = (
-    <Floating className={`dropdown-menu${inline ? ' dropdown-menu--inline' : ''}`} placement={inline ? null : pos}>
-      {items.map((item, i) => {
-        if (item === 'separator') {
-          return <Box key={`sep-${i}`} className="dropdown__separator" />;
-        }
-        if (item.children) {
-          return <SubMenu key={item.key} item={item} />;
-        }
-        return <MenuItemButton key={item.key} item={item} />;
-      })}
-    </Floating>
-  );
+  const entries = items.map((item, i) => {
+    if (item === 'separator') return <Box key={`sep-${i}`} className="dropdown__separator" />;
+    if (item.children) return <SubMenu key={item.key} item={item} />;
+    return <MenuItemButton key={item.key} item={item} />;
+  });
 
-  if (inline) return menu;
-  return <Portal layer="overlay">{menu}</Portal>;
+  if (inline) return <Floating className="dropdown-menu dropdown-menu--inline">{entries}</Floating>;
+  return (
+    <Anchored
+      anchorRef={anchorRef ?? detached}
+      placement={`${side === 'below' ? 'bottom' : 'top'}-${align}`}
+      layer="overlay"
+      fallback={pos}
+      className="dropdown-menu"
+    >
+      {entries}
+    </Anchored>
+  );
 };
 
 export { DropdownMenu };

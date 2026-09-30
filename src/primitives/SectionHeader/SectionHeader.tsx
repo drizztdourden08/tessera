@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import './SectionHeader.css';
+import { Span } from '../text-elements';
 import type { SectionHeaderProps } from './SectionHeader.type';
 
 const SectionHeader = (props: SectionHeaderProps) => {
@@ -7,8 +8,8 @@ const SectionHeader = (props: SectionHeaderProps) => {
   return (
     <div className={`section-header${className ? ` ${className}` : ''}`}>
       <div className="section-header__text">
-        <div className="section-header__title">{title}</div>
-        {subtitle != null && <div className="section-header__subtitle">{subtitle}</div>}
+        <Span tone="dim" className="section-header__title">{title}</Span>
+        {subtitle != null && <Span tone="muted" className="section-header__subtitle">{subtitle}</Span>}
       </div>
       {action != null && <div className="section-header__action">{action}</div>}
     </div>

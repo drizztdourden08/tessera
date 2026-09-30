@@ -2,9 +2,8 @@
 import { useState } from 'react';
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
-import { PathIcon } from '../../primitives/PathIcon';
-import { Text } from '../../primitives/Text';
-import { CHEVRON_RIGHT, GLYPH_BOX } from './SectionNav.constants';
+import { Icon } from '../../primitives/Icon';
+import { Span } from '../../primitives/text-elements';
 import { SectionNavItem } from './sub-components/SectionNavItem';
 import { SectionNavTop } from './sub-components/SectionNavTop';
 import type { SectionNavProps } from './SectionNav.type';
@@ -23,7 +22,7 @@ const SectionNav = (props: SectionNavProps) => {
           aria-expanded={open}
           aria-label={open ? 'Collapse navigation' : 'Expand navigation'}
         >
-          <PathIcon paths={[CHEVRON_RIGHT]} viewBox={GLYPH_BOX} size={14} />
+          <Icon name="chevron-right" size={14} />
         </Pressable>
 
         <SectionNavTop
@@ -38,7 +37,7 @@ const SectionNav = (props: SectionNavProps) => {
         <Box className="section-nav__groups">
           {config.groups.map((group) => (
             <Box key={group.id} className="section-nav__group" role="group" aria-label={group.label}>
-              <Text as="span" className="section-nav__group-label">{group.label}</Text>
+              <Span tone="muted" className="section-nav__group-label">{group.label}</Span>
               {group.items.map((item) => (
                 <SectionNavItem key={item.id} item={item} active={item.id === activeId} onSelect={onSelect} />
               ))}

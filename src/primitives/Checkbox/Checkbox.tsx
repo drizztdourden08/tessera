@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useEffect, useRef } from 'react';
+import { Span } from '../text-elements';
 import './Checkbox.css';
 import type { CheckboxProps } from './Checkbox.type';
 
@@ -20,7 +21,7 @@ const Checkbox = (props: CheckboxProps) => {
         aria-label={ariaLabel}
         onChange={(e) => onChange(e.target.checked)}
       />
-      {label != null && <span className="checkbox__label">{label}</span>}
+      {label != null && <Span tone="dim" className="checkbox__label">{label}</Span>}
     </label>
   );
 };

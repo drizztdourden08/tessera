@@ -31,15 +31,9 @@
   color: var(--c-text);
 }
 
-.slider__description {
-  font-size: var(--text-sm);
-  color: var(--c-text-dim);
-}
-
 .slider__value {
   font-size: var(--text-sm);
   font-family: var(--font-mono);
-  color: var(--c-primary);
   flex-shrink: 0;
 }
 

@@ -1,12 +1,13 @@
 /* @layer renderer-components @kind component */
+import { Span } from '../../text-elements';
 import type { DropZoneHintsProps } from './DropZoneHints.type';
 
 const DropZoneHints = (props: DropZoneHintsProps) => {
   const { hint } = props;
   return (
     <>
-      {hint && <span className="dropzone__hint">{hint}</span>}
-      <span className="dropzone__hint" style={{ marginTop: '2px', opacity: 0.6 }}>or click to browse files</span>
+      {hint && <Span tone="muted" className="dropzone__hint">{hint}</Span>}
+      <Span tone="muted" className="dropzone__hint dropzone__hint--browse">or click to browse files</Span>
     </>
   );
 };

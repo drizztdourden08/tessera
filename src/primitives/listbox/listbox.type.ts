@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ComponentType, ReactNode } from 'react';
+import type { TextTone } from '../TextElement/TextElement.type';
 
 type FieldOf<T> = T extends object ? Extract<keyof T, string> : never;
 
@@ -9,7 +10,7 @@ type ItemField<T> = FieldOf<T> | (string & Record<never, never>);
 
 type ItemAccessor<T, R> = ItemField<T> | ((item: T) => R);
 
-type ListboxTone = 'default' | 'dim' | 'muted' | 'faint' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
+type ListboxTone = TextTone;
 
 type ColumnAlign = 'start' | 'center' | 'end';
 
@@ -88,6 +89,7 @@ interface ListboxLook<T> {
   itemComponent?: ComponentType<ListboxItemProps<T>>;
   valueComponent?: ComponentType<ListboxItemProps<T>>;
   valueDisplay?: ValueDisplay;
+  tagField?: ItemAccessor<T, ReactNode>;
 }
 
 interface ListboxFieldProps {

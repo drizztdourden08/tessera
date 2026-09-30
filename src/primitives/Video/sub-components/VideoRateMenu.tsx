@@ -5,6 +5,7 @@ import { IconButton } from '../../IconButton';
 import { rateLabel } from '../behavior/rate-label';
 import { useRateMenu } from '../behavior/useRateMenu';
 import { PLAYBACK_RATES } from '../Video.constants';
+import '../../../theme/focus-ring.css';
 import './VideoRateMenu.css';
 import type { VideoRateMenuProps } from './VideoRateMenu.type';
 
@@ -34,7 +35,7 @@ const VideoRateMenu = (props: VideoRateMenuProps) => {
               role="menuitemradio"
               aria-checked={value === rate}
               tabIndex={value === rate ? 0 : -1}
-              className="video-rate__item"
+              className="video-rate__item focus-ring-inset"
               onClick={() => choose(value)}
             >
               {rateLabel(value)}

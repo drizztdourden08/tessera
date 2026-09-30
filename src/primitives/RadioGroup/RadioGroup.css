@@ -25,11 +25,6 @@
   color: var(--c-text);
 }
 
-.radio-group__description {
-  font-size: var(--text-sm);
-  color: var(--c-text-dim);
-}
-
 .radio-group__options {
   display: flex;
   gap: var(--space-sm);
@@ -105,5 +100,4 @@
 
 .radio-group__option-desc {
   font-size: var(--text-xs);
-  color: var(--c-text-dim);
 }

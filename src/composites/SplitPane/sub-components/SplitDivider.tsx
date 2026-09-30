@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Box, Text } from '../../../primitives';
+import { Box, Glyph, Span } from '../../../primitives';
 import { hiddenLabelOf } from '../behavior/hidden-label-of';
 import type { SplitDividerProps } from './SplitDivider.type';
 import '../../../theme/focus-ring.css';
@@ -28,7 +28,7 @@ const SplitDivider = (props: SplitDividerProps) => {
       title={hidden !== null ? `Show ${hidden}` : 'Drag to resize · double-click to reset'}
     >
       {hidden !== null
-        ? <Text className="split-pane__rail-label">{collapsed === 'start' ? '›' : '‹'} {hidden}</Text>
+        ? <Span tone="dim" className="split-pane__rail-label"><Glyph name="chevronDown" size={10} /> {hidden}</Span>
         : <Box className="split-pane__grip" />}
     </Box>
   );

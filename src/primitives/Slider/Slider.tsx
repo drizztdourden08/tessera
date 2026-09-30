@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind data */
 import '../../theme/slider-thumb.css';
 import './Slider.css';
+import { Span } from '../text-elements';
 import type { SliderProps } from './Slider.type';
 import { useMuteToggle } from './behavior/useMuteToggle';
 import { SliderHeader } from './sub-components/SliderHeader';
@@ -42,7 +43,7 @@ const Slider = (props: SliderProps) => {
           disabled={disabled}
           style={{ '--slider-pct': `${pct}%` } as React.CSSProperties}
         />
-        {showValue && <span className="slider__value">{formatValue(value)}</span>}
+        {showValue && <Span tone="primary" className="slider__value">{formatValue(value)}</Span>}
       </div>
     </div>
   );

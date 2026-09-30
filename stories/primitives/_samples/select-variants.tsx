@@ -13,7 +13,7 @@ import type { Build, Game, Player } from './picker-data';
 const PLAYER_COLUMNS: readonly ListboxColumn<Player>[] = [
   { field: 'name' },
   { field: 'role', tone: 'muted' },
-  { field: 'online', map: { true: 'online', false: 'away' }, tone: { true: 'success', false: 'faint' }, align: 'end' },
+  { field: 'online', map: { true: 'online', false: 'away' }, tone: { true: 'success', false: 'muted' }, align: 'end' },
 ];
 
 const nameOf = (item: { name: string } | { title: string } | null): string => {

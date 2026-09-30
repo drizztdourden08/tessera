@@ -59,7 +59,7 @@
   border-bottom: var(--border-width-thin) solid var(--c-border);
 }
 
-.select-search__input {
+.text-input.select-search__input {
   width: 100%;
   padding: var(--space-xs) var(--space-sm);
   color: var(--c-text);
@@ -70,6 +70,6 @@
   outline: none;
 }
 
-.select-search__input:focus {
+.text-input.select-search__input:focus {
   border-color: var(--c-primary);
 }

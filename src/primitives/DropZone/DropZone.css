@@ -43,7 +43,11 @@
 
 .dropzone__hint {
   font-size: var(--text-xs);
-  color: var(--c-text-muted);
+}
+
+.dropzone__hint--browse {
+  margin-top: var(--size-2);
+  opacity: var(--opacity-muted);
 }
 
 .dropzone.dropzone--inline {

@@ -29,12 +29,6 @@
   color: var(--c-text);
 }
 
-.segmented__description,
-.toggle-group__description {
-  font-size: var(--text-sm);
-  color: var(--c-text-dim);
-}
-
 .segmented__track,
 .toggle-group__track {
   position: relative;

@@ -8,7 +8,6 @@
 }
 
 .stat-row__label {
-  color: var(--c-text-muted);
   white-space: nowrap;
 }
 

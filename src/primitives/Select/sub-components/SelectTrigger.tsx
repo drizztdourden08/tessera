@@ -34,7 +34,12 @@ const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
       onKeyDown={select.onKeyDown}
     >
       <span className="select-trigger__value">
-        <ListboxValue displays={select.displays} look={setup} placeholder={look.placeholder ?? DEFAULT_PLACEHOLDER} />
+        <ListboxValue
+          displays={select.displays}
+          look={setup}
+          placeholder={look.placeholder ?? DEFAULT_PLACEHOLDER}
+          tags={setup.max > 1 && look.multiDisplay === 'tags'}
+        />
       </span>
       <span className="select-trigger__chevron" aria-hidden>
         <Glyph name="chevronDown" />

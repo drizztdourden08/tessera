@@ -9,6 +9,7 @@ import { TagHint } from './sub-components/TagHint';
 import { TagSuggestionPanel } from './sub-components/TagSuggestionPanel';
 import type { TagInputProps } from './TagInput.type';
 import '../../theme/select-popup.css';
+import '../../theme/tag-chip.css';
 import './TagInput.css';
 
 const TagInput = (props: TagInputProps) => {
@@ -65,6 +66,7 @@ const TagInput = (props: TagInputProps) => {
           listId={listId}
           optionId={optionId}
           panelRef={popup.panelRef}
+          anchorRef={popup.anchorRef}
           pos={popup.pos}
           suggestions={tags.filtered}
           highlightIdx={tags.highlightIdx}

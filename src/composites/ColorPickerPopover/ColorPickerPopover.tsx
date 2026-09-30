@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Portal } from '../../primitives/Portal';
-import { Floating } from '../../primitives/Floating';
+import { Anchored } from '../../primitives/Anchored';
 import { ColorPicker } from '../ColorPicker';
 import { useColorPickerPopover } from './behavior/useColorPickerPopover';
 import './ColorPickerPopover.css';
@@ -13,11 +12,9 @@ const ColorPickerPopover = (props: ColorPickerPopoverProps) => {
   if (!open) return null;
 
   return (
-    <Portal layer="popover">
-      <Floating ref={panelRef} className="color-picker-popover" placement={position}>
-        <ColorPicker {...pickerProps} onClose={onClose} />
-      </Floating>
-    </Portal>
+    <Anchored ref={panelRef} anchorRef={anchorRef} fallback={position} className="color-picker-popover">
+      <ColorPicker {...pickerProps} onClose={onClose} />
+    </Anchored>
   );
 };
 

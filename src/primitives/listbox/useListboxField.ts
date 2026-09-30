@@ -18,7 +18,7 @@ const useListboxField = <T, V, E extends HTMLElement>(params: UseListboxFieldPar
     disabled: field.disabled,
     defaultOpen: look.defaultOpen,
     inline: look.inline,
-    contentKey: setup.items,
+    contentKey: `${setup.items.length}:${query}`,
     focusRef,
     onClose,
   });

@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { TextInput } from '../../TextInput';
 import type { SelectSearchProps } from './SelectSearch.type';
 
 const SelectSearch = <T,>(props: SelectSearchProps<T>) => {
@@ -8,8 +9,9 @@ const SelectSearch = <T,>(props: SelectSearchProps<T>) => {
 
   return (
     <div className="select-search">
-      <input
+      <TextInput
         ref={select.searchRef}
+        id={`${model.listId}-search`}
         className="select-search__input"
         type="text"
         placeholder="Search..."

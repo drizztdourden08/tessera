@@ -44,11 +44,6 @@
   cursor: pointer;
 }
 
-.video-rate__item:focus-visible {
-  outline: var(--border-width-thick) solid var(--c-primary);
-  outline-offset: calc(-1 * var(--border-width-thick));
-}
-
 .video-rate__item:hover,
 .video-rate__item:focus-visible {
   background: color-mix(in srgb, var(--p-pure-white) 12%, transparent);

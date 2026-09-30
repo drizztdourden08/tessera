@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
 import { useRef } from 'react';
-import { Portal, useAnchorTracking } from '../../../primitives/Portal';
+import { Anchored } from '../../../primitives/Anchored';
+import { useAnchorTracking } from '../../../primitives/Portal';
 import { Box } from '../../../primitives/Box';
-import { Floating } from '../../../primitives/Floating';
 import { Text } from '../../../primitives/Text';
 import { Checkbox } from '../../../primitives/Checkbox';
 import { Slider } from '../../../primitives/Slider';
@@ -38,13 +38,14 @@ const WidgetSettings = (props: WidgetSettingsProps) => {
   useSettingsDismiss(panelRef, anchorRef, onClose);
 
   return (
-    <Portal layer="popover">
-      <Floating
-        ref={panelRef}
-        className="widget-settings"
-        placement={pos ?? ORIGIN}
-        onMouseDown={(e) => e.stopPropagation()}
-      >
+    <Anchored
+      ref={panelRef}
+      anchorRef={anchorRef}
+      placement="bottom-end"
+      className="widget-settings"
+      fallback={pos ?? ORIGIN}
+      onMouseDown={(e) => e.stopPropagation()}
+    >
         <WidgetPositionRow widget={widget} onChange={onChange} onClose={onClose} />
 
         <Box className="widget-settings__row">
@@ -78,8 +79,7 @@ const WidgetSettings = (props: WidgetSettingsProps) => {
             {children}
           </>
         )}
-      </Floating>
-    </Portal>
+    </Anchored>
   );
 };
 

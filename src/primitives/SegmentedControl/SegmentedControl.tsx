@@ -2,6 +2,7 @@
 import '../../theme/focus-ring.css';
 import '../../theme/segment-group.css';
 import './SegmentedControl.css';
+import { Small, Span } from '../text-elements';
 import { resolveClick } from './behavior/resolve-click';
 import { useSegmentIndicator } from './behavior/useSegmentIndicator';
 import type { SegmentedControlProps } from './SegmentedControl.type';
@@ -23,8 +24,8 @@ const SegmentedControl = <T extends string = string>(props: SegmentedControlProp
     <div className={`segmented ${disabled ? 'segmented--disabled' : ''}`}>
       {[label, description].some(Boolean) && (
         <div className="segmented__header">
-          {label && <span className="segmented__label">{label}</span>}
-          {description && <span className="segmented__description">{description}</span>}
+          {label && <Span className="segmented__label">{label}</Span>}
+          {description && <Small tone="dim" className="segmented__description">{description}</Small>}
         </div>
       )}
       <div className="segmented__track" role="radiogroup" aria-label={label} ref={trackRef}>

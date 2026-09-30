@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { Text } from '../../primitives/Text';
+import { Paragraph } from '../../primitives/text-elements';
 import { Dialog } from '../Dialog';
 import { ReferencedBy } from '../RecordEditor';
 import { CONFIRM, TITLE } from './DeleteGuardDialog.constants';
@@ -24,7 +24,7 @@ const DeleteGuardDialog = (props: DeleteGuardDialogProps) => {
     >
       <Box className="delete-guard-dialog__hits">
         {error != null
-          ? <Text as="p" className="delete-guard-dialog__error">{error}</Text>
+          ? <Paragraph className="delete-guard-dialog__error">{error}</Paragraph>
           : <ReferencedBy hits={hits} />}
       </Box>
     </Dialog>

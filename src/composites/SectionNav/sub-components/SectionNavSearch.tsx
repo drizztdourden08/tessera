@@ -2,10 +2,10 @@
 import { useEffect, useRef } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Pressable } from '../../../primitives/Pressable';
-import { PathIcon } from '../../../primitives/PathIcon';
+import { Icon } from '../../../primitives/Icon';
 import { TextInput } from '../../../primitives/TextInput';
 import { SearchSpark } from '../../SearchSpark';
-import { CLEAR, GLYPH_BOX, SEARCH_MARK_SIZE } from '../SectionNav.constants';
+import { SEARCH_MARK_SIZE } from '../SectionNav.constants';
 import type { SectionNavSearchProps } from './SectionNavSearch.type';
 import './SectionNavSearch.css';
 
@@ -51,7 +51,7 @@ const SectionNavSearch = (props: SectionNavSearchProps) => {
       </Pressable>
       {open && search.value && (
         <Pressable className="section-nav__search-clear" onClick={() => search.onChange('')} aria-label="Clear search">
-          <PathIcon paths={[CLEAR]} viewBox={GLYPH_BOX} size={14} />
+          <Icon name="x" size={14} />
         </Pressable>
       )}
     </Box>

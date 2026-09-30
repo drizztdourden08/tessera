@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Flex } from '../../../primitives/Flex';
-import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { toList } from '../../field-kits/to-list';
 import { blankValue } from '../../field-kits/blank-value';
 import { ListItemControls } from '../../field-kits/sub-components/ListItemControls';
@@ -25,7 +25,7 @@ const ObjectArrayEditor = (props: ObjectArrayEditorProps) => {
       {list.map((_entry, index) => (
         <Box key={`${field.path}.${index}`} className="record-editor__array-item">
           <Flex className="record-editor__array-item-head" gap="xs" align="center">
-            <Text as="span" className="record-editor__array-index">{`#${index + 1}`}</Text>
+            <Span tone="muted" className="record-editor__array-index">{`#${index + 1}`}</Span>
             <ListItemControls list={list} index={index} disabled={disabled} onChange={write} />
           </Flex>
           <Box className="record-editor__nested">

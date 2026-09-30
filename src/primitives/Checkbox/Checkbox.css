@@ -25,7 +25,6 @@
 
 .checkbox__label {
   font-size: var(--text-sm);
-  color: var(--c-text-dim);
   transition: color var(--transition-fast);
 }
 

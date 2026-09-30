@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useRef, useState } from 'react';
 import { Box } from '../../../primitives/Box';
-import { Floating } from '../../../primitives/Floating';
+import { Anchored } from '../../../primitives/Anchored';
 import { Glyph } from '../../../primitives/Glyph';
 import { Pressable } from '../../../primitives/Pressable';
 import { Text } from '../../../primitives/Text';
@@ -43,11 +43,11 @@ const FieldPickerNode = (props: FieldPickerNodeProps) => {
         <Text className="dropdown__chevron"><Glyph name="chevronRight" /></Text>
       </Box>
       {position && (
-        <Floating className="dropdown-menu dropdown-menu--sub field-picker" placement={position}>
+        <Anchored anchorRef={ref} placement="right-start" portal={false} fallback={position} className="dropdown-menu dropdown-menu--sub field-picker">
           {node.children.map((child) => (
             <FieldPickerNode key={child.path} node={child} onPick={onPick} />
           ))}
-        </Floating>
+        </Anchored>
       )}
     </Box>
   );

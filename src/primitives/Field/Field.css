@@ -23,16 +23,10 @@
 }
 
 .field__required {
-  color: var(--c-danger);
   margin-left: var(--space-xs);
 }
 
-.field__hint {
-  font-size: var(--text-xs);
-  color: var(--c-text-muted);
-}
-
+.field__hint,
 .field__error {
   font-size: var(--text-xs);
-  color: var(--c-danger);
 }

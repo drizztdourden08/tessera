@@ -2,6 +2,7 @@
 import { Icon } from '../../Icon';
 import { IconButton } from '../../IconButton';
 import { Spinner } from '../../Spinner';
+import { Paragraph } from '../../text-elements';
 import './VideoOverlay.css';
 import type { VideoOverlayProps } from './VideoOverlay.type';
 
@@ -12,7 +13,7 @@ const VideoOverlay = (props: VideoOverlayProps) => {
     return (
       <div className="video-overlay video-overlay--error" role="alert">
         <Icon name="circle-alert" size={28} className="video-overlay__error-icon" />
-        <p className="video-overlay__message">{errorMessage}</p>
+        <Paragraph className="video-overlay__message">{errorMessage}</Paragraph>
       </div>
     );
   }

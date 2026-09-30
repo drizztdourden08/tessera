@@ -3,6 +3,10 @@
   max-width: var(--size-256);
 }
 
+.picker-tiny {
+  max-width: var(--size-128);
+}
+
 .build-details {
   display: flex;
   flex-direction: column;

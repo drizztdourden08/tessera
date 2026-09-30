@@ -1,23 +1,10 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useEffect, useState, type KeyboardEvent } from 'react';
 import { Box } from '../../primitives/Box';
-import { PathIcon } from '../../primitives/PathIcon';
+import { Glyph } from '../../primitives/Glyph';
 import { IconButton } from '../../primitives/IconButton';
 import './ConfirmIconButton.css';
-import { CANCEL_PATH, CONFIRM_PATH } from './ConfirmIconButton.constants';
 import { type ConfirmIconButtonProps } from './ConfirmIconButton.type';
-
-const strokeIcon = (path: string) => (
-  <PathIcon
-    size={13}
-    paths={[path]}
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={1.8}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  />
-);
 
 const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   const { icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, defaultArmed = false, className = '' } = props;
@@ -60,10 +47,10 @@ const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
             title={cancelLabel}
             onClick={() => setArmed(false)}
           >
-            {strokeIcon(CANCEL_PATH)}
+            <Glyph name="close" size={13} strokeWidth={1.8} />
           </IconButton>
           <IconButton variant="secondary" label={confirmLabel} title={confirmLabel} onClick={handleConfirm}>
-            {strokeIcon(CONFIRM_PATH)}
+            <Glyph name="check" size={13} strokeWidth={1.8} />
           </IconButton>
         </>
       )}

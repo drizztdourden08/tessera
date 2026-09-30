@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import './ColorSwatch.css';
+import { Span } from '../text-elements';
 import type { ColorSwatchProps } from './ColorSwatch.type';
 
 const ColorSwatch = (props: ColorSwatchProps) => {
@@ -14,7 +15,7 @@ const ColorSwatch = (props: ColorSwatchProps) => {
 
   return (
     <button type="button" className={classes} style={transparent ? undefined : { background: color }} {...rest}>
-      {caption !== undefined && <span className="color-swatch__caption">{caption}</span>}
+      {caption !== undefined && <Span className="color-swatch__caption">{caption}</Span>}
     </button>
   );
 };

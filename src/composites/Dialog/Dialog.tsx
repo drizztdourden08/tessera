@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useRef } from 'react';
 import { Button } from '../../primitives/Button';
-import { Text } from '../../primitives/Text';
+import { Paragraph } from '../../primitives/text-elements';
 import { DialogShell } from '../DialogShell';
 import './Dialog.css';
 import { type DialogProps } from './Dialog.type';
@@ -34,7 +34,7 @@ const Dialog = (props: DialogProps) => {
 
   return (
     <DialogShell open={open} onClose={onCancel} title={title} actions={actions} initialFocusRef={confirmRef}>
-      {message && <Text as="p" className="dialog__message">{message}</Text>}
+      {message && <Paragraph tone="dim" className="dialog__message">{message}</Paragraph>}
       {children}
     </DialogShell>
   );

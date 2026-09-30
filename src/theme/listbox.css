@@ -34,11 +34,10 @@
   border-bottom: var(--border-width-thin) solid var(--c-border);
 }
 
-.listbox-group + .listbox-group,
-.listbox-option + .listbox-group {
-  margin-top: var(--space-xs);
-  padding-top: var(--space-xs);
-  border-top: var(--border-width-thin) solid var(--c-border);
+.listbox-group__rule {
+  display: block;
+  grid-column: 1 / -1;
+  padding-block: var(--space-xs);
 }
 
 .listbox-group__header {
@@ -117,22 +116,6 @@
   text-align: end;
 }
 
-.listbox-cell[data-tone='dim'] { color: var(--c-text-dim); }
-.listbox-cell[data-tone='muted'] { color: var(--c-text-muted); }
-.listbox-cell[data-tone='faint'] { color: var(--c-text-faint); }
-.listbox-cell[data-tone='primary'] { color: var(--c-primary); }
-.listbox-cell[data-tone='success'] { color: var(--c-success); }
-.listbox-cell[data-tone='warning'] { color: var(--c-warning); }
-.listbox-cell[data-tone='danger'] { color: var(--c-danger); }
-.listbox-cell[data-tone='info'] { color: var(--c-info); }
-
-.listbox-match {
-  color: inherit;
-  background: var(--c-primary-soft);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 0 0 var(--border-width-thin) var(--c-primary-soft);
-}
-
 .listbox-status {
   display: flex;
   align-items: center;
@@ -150,10 +133,6 @@
   white-space: nowrap;
 }
 
-.listbox-value--placeholder {
-  color: var(--c-text-muted);
-}
-
 .listbox-value--row {
   display: grid;
   flex: 1;
@@ -165,6 +144,27 @@
 .listbox-value--custom {
   flex: 1;
   white-space: normal;
+}
+
+.listbox-tags {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-xs);
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.listbox-tags__measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: var(--space-xs);
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .listbox-value__names {

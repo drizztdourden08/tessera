@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { Select } from '../../../src/primitives';
-import type { ValueDisplay } from '../../../src/primitives';
+import type { MultiDisplay, ValueDisplay } from '../../../src/primitives';
 import { ValueReadout } from '../../_template/ValueReadout';
 import { BuildDetails } from './BuildDetails';
 import { BUILDS } from './picker-data';
@@ -15,6 +15,7 @@ type SelectArgs = {
   look: PickerLook;
   grouped: boolean;
   valueDisplay: ValueDisplay;
+  multiDisplay: MultiDisplay;
   min: number;
   max: number;
   searchable: boolean;

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useLayoutEffect, useRef, useState } from 'react';
-import { Portal } from '../Portal';
+import { Anchored } from '../Anchored';
 import './Tooltip.css';
 import type { TooltipProps } from './Tooltip.type';
 
@@ -24,12 +24,17 @@ const Tooltip = (props: TooltipProps) => {
       onMouseLeave={() => setOpen(false)}
     >
       {children}
-      {open && content != null && pos && (
-        <Portal layer="tooltip">
-          <div className="tooltip" data-placement={placement} style={{ left: pos.left, top: pos.top }}>
-            {content}
-          </div>
-        </Portal>
+      {open && content != null && (
+        <Anchored
+          anchorRef={anchorRef}
+          placement={placement === 'top' ? 'top-center' : 'bottom-center'}
+          layer="tooltip"
+          fallback={pos}
+          className="tooltip"
+          data-placement={placement}
+        >
+          {content}
+        </Anchored>
       )}
     </span>
   );

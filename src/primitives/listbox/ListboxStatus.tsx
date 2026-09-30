@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Spinner } from '../Spinner';
+import { Span } from '../text-elements';
 import type { ListboxStatusProps } from './listbox-view.type';
 
 const ListboxStatus = (props: ListboxStatusProps) => {
@@ -8,11 +9,11 @@ const ListboxStatus = (props: ListboxStatusProps) => {
     return (
       <div className="listbox-status">
         <Spinner size="sm" />
-        <span aria-hidden>Loading</span>
+        <Span aria-hidden>Loading</Span>
       </div>
     );
   }
-  return empty ? <div className="listbox-status">{emptyText}</div> : null;
+  return empty ? <div className="listbox-status"><Span>{emptyText}</Span></div> : null;
 };
 
 export { ListboxStatus };

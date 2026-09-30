@@ -3,6 +3,7 @@ import './Toggle.css';
 import { useId } from 'react';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { Glyph } from '../Glyph';
+import { Small, Span } from '../text-elements';
 import type { ToggleProps } from './Toggle.type';
 
 const Toggle = (props: ToggleProps) => {
@@ -15,9 +16,9 @@ const Toggle = (props: ToggleProps) => {
     <label className={`toggle ${disabled ? 'toggle--disabled' : ''}`} htmlFor={toggleId}>
       {[label, description].some(Boolean) && (
         <span className="toggle__text">
-          {label && <span className="toggle__label">{label}</span>}
+          {label && <Span className="toggle__label">{label}</Span>}
           {description && (
-            <span className="toggle__description">
+            <Small tone="dim" className="toggle__description">
               {description}
               {link && (
                 <a
@@ -31,7 +32,7 @@ const Toggle = (props: ToggleProps) => {
                   <Glyph name="external" size={12} />
                 </a>
               )}
-            </span>
+            </Small>
           )}
         </span>
       )}

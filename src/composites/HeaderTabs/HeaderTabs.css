@@ -34,7 +34,6 @@
 .header-tabs__badge {
   font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
-  color: var(--c-text-muted);
 }
 
 .header-tabs__tab--active .header-tabs__badge {
