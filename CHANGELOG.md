@@ -1,5 +1,19 @@
 # @drizztdourden08/tessera
 
+## 0.3.0
+
+### Minor Changes
+
+- f376c60: New composites: DockLayout tiles widget panes around a main view with drag, drop, tabs, resize and peek, and Hero draws the top of a home screen with a backdrop, art, facts and actions. Widget moves to the split tree layout: a frame with tabs, pop out, a pin for its own window, and the new WidgetOptions panel. WidgetManager now hosts a DockLayout of widgets from a version 2 WidgetLayout, and stored flat layouts migrate on load. This changes the Widget API; see MIGRATION.md.
+- f376c60: New input device composites from Brock's input tester. `CalibrationPanel` is the frame of one calibration step: a title, an instruction, a live monospace readout, the step content, then Cancel and one step action. `PressedGrid` is a grid of button cells that light up while their id is in `pressed`. `StickPlot` draws an analog stick position from plain `x` and `y`, with optional inner and outer dead zones, a measured `range`, a recorded `center` and a larger `lg` size. A trigger reading needs no new part: a `StatRow` with `mono` over a `ProgressBar` with `live`, as the ProgressBar gallery shows.
+- ef8000a: `TesseraLogo` is renamed `InteractiveTessera`, with `InteractiveTesseraProps`, and its classes and custom properties move from `tessera-logo` to `interactive-tessera`; see MIGRATION.md. The gallery's Brand section now has a Brand page for the whole family, InteractiveTessera, and Logo, WordMark and Combined pages for the mark, the wordmark and the two together, and the brand gradients have their own page under Colours.
+
+### Patch Changes
+
+- 4d246cc: WindowTitleBar draws its minimize, maximize, restore and close buttons at Brock's size again, with the filled 12 unit caption paths. ListItemRow takes `actionVisibility` (`hover` by default, or `always`), and ProfilePicker uses `always` so the delete button stays in view. ProfilePicker fits its content up to 640 px instead of filling the width. `Small` takes the status tones (success, warning, danger, info) on top of dim and muted, for short status lines.
+- 1dfaa6d: `useDockKeys` no longer reads `window` while rendering, so pages that render on the server, like the gallery build, work again.
+- 0422b2c: DockLayout and WidgetManager take `mainGrip`: `always` (the default), `dragging` to show the grip on the main view only while a widget is dragged, or `hidden` for an app whose main view never moves.
+
 ## 0.2.0
 
 ### Minor Changes
