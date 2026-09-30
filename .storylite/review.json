@@ -1,0 +1,312 @@
+{
+  "Colours/Contrast": {
+    "mark": "ok",
+    "hash": "33a6ccd4bfb53468",
+    "at": "2026-09-30"
+  },
+  "Colours/Palettes": {
+    "mark": "ok",
+    "hash": "9336cbe8ef7c0d84",
+    "at": "2026-09-30"
+  },
+  "Colours/Roles": {
+    "mark": "ok",
+    "hash": "b66fbe43f7ae1159",
+    "at": "2026-09-30"
+  },
+  "Colours/Swatches": {
+    "mark": "ok",
+    "hash": "716c32e1b3b549d2",
+    "at": "2026-09-30"
+  },
+  "Icons/Brand icons": {
+    "mark": "ok",
+    "hash": "903291e5ec96db81",
+    "at": "2026-09-30"
+  },
+  "Icons/EmojiIcon": {
+    "mark": "ok",
+    "hash": "cffe6b8fb9d3ec33",
+    "at": "2026-09-30"
+  },
+  "Icons/Glyph": {
+    "mark": "ok",
+    "hash": "7e883baa0ed2de68",
+    "at": "2026-09-30"
+  },
+  "Icons/Icon": {
+    "mark": "ok",
+    "hash": "2a1e844e19142ab5",
+    "at": "2026-09-30"
+  },
+  "Icons/PathIcon": {
+    "mark": "ok",
+    "hash": "a8dd362d19bd7188",
+    "at": "2026-09-30"
+  },
+  "Text/Abbreviation": {
+    "mark": "ok",
+    "hash": "4087d66b6aaff318",
+    "at": "2026-09-30"
+  },
+  "Text/Address": {
+    "mark": "ok",
+    "hash": "b4a86b68a676c2c7",
+    "at": "2026-09-30"
+  },
+  "Text/All elements": {
+    "mark": "ok",
+    "hash": "b333e077140f9c69",
+    "at": "2026-09-30"
+  },
+  "Text/BidiIsolate": {
+    "mark": "ok",
+    "hash": "b7680e47822fb24d",
+    "at": "2026-09-30"
+  },
+  "Text/BidiOverride": {
+    "mark": "ok",
+    "hash": "61c1acaa90002d54",
+    "at": "2026-09-30"
+  },
+  "Text/BlockQuote": {
+    "mark": "ok",
+    "hash": "9b064c78fb6da37d",
+    "at": "2026-09-30"
+  },
+  "Text/Bold": {
+    "mark": "ok",
+    "hash": "47a9451313aee596",
+    "at": "2026-09-30"
+  },
+  "Text/Citation": {
+    "mark": "ok",
+    "hash": "e15ddc38f4c5fe9a",
+    "at": "2026-09-30"
+  },
+  "Text/Code": {
+    "mark": "ok",
+    "hash": "1697b20158472773",
+    "at": "2026-09-30"
+  },
+  "Text/CodeBlock": {
+    "mark": "ok",
+    "hash": "e609e3325cdc34a5",
+    "at": "2026-09-30"
+  },
+  "Text/Data": {
+    "mark": "ok",
+    "hash": "a969cd2e1e911482",
+    "at": "2026-09-30"
+  },
+  "Text/Definition": {
+    "mark": "ok",
+    "hash": "c860d6cc047e0ebe",
+    "at": "2026-09-30"
+  },
+  "Text/Deleted": {
+    "mark": "ok",
+    "hash": "1e54d0c01c557853",
+    "at": "2026-09-30"
+  },
+  "Text/Emphasis": {
+    "mark": "ok",
+    "hash": "7fd7a77485abaa2f",
+    "at": "2026-09-30"
+  },
+  "Text/Highlight": {
+    "mark": "ok",
+    "hash": "f803869a6ad924ce",
+    "at": "2026-09-30"
+  },
+  "Text/Inserted": {
+    "mark": "ok",
+    "hash": "e058f6090c85e0e5",
+    "at": "2026-09-30"
+  },
+  "Text/Italic": {
+    "mark": "ok",
+    "hash": "f71ab9eb54f6e06f",
+    "at": "2026-09-30"
+  },
+  "Text/Paragraph": {
+    "mark": "ok",
+    "hash": "6e2b0bce46a37cd3",
+    "at": "2026-09-30"
+  },
+  "Text/Preformatted": {
+    "mark": "ok",
+    "hash": "a4c6a145377fd8c4",
+    "at": "2026-09-30"
+  },
+  "Text/Quote": {
+    "mark": "ok",
+    "hash": "b03e0cb0baaea726",
+    "at": "2026-09-30"
+  },
+  "Text/Ruby": {
+    "mark": "ok",
+    "hash": "9065faa36aaefc2a",
+    "at": "2026-09-30"
+  },
+  "Text/RubyParenthesis": {
+    "mark": "ok",
+    "hash": "341e8973bc3a8ae5",
+    "at": "2026-09-30"
+  },
+  "Text/RubyText": {
+    "mark": "ok",
+    "hash": "22d75fb364fae3e2",
+    "at": "2026-09-30"
+  },
+  "Text/Sample": {
+    "mark": "ok",
+    "hash": "0403e4531c643393",
+    "at": "2026-09-30"
+  },
+  "Text/Shortcut": {
+    "mark": "ok",
+    "hash": "4c7ef2329d13f5d3",
+    "at": "2026-09-30"
+  },
+  "Text/Small": {
+    "mark": "ok",
+    "hash": "bcba14a9692f18af",
+    "at": "2026-09-30"
+  },
+  "Text/Span": {
+    "mark": "ok",
+    "hash": "7ea372102e612f10",
+    "at": "2026-09-30"
+  },
+  "Text/Strikethrough": {
+    "mark": "ok",
+    "hash": "9a43240b4dbae1e7",
+    "at": "2026-09-30"
+  },
+  "Text/Strong": {
+    "mark": "ok",
+    "hash": "0a706be72d458013",
+    "at": "2026-09-30"
+  },
+  "Text/Subscript": {
+    "mark": "ok",
+    "hash": "02e8ce700887e7ee",
+    "at": "2026-09-30"
+  },
+  "Text/Superscript": {
+    "mark": "ok",
+    "hash": "623c33de909d8a0f",
+    "at": "2026-09-30"
+  },
+  "Text/Text": {
+    "mark": "ok",
+    "hash": "abca7e90eaf7c160",
+    "at": "2026-09-30"
+  },
+  "Text/Time": {
+    "mark": "ok",
+    "hash": "b543bda19d4019a4",
+    "at": "2026-09-30"
+  },
+  "Text/Title": {
+    "mark": "ok",
+    "hash": "d1e696d1a9d85426",
+    "at": "2026-09-30"
+  },
+  "Text/Underline": {
+    "mark": "ok",
+    "hash": "54b01aa2c4cda3fa",
+    "at": "2026-09-30"
+  },
+  "Text/Variable": {
+    "mark": "ok",
+    "hash": "73665f6e6f3f2ec3",
+    "at": "2026-09-30"
+  },
+  "Tokens/Durations": {
+    "mark": "ok",
+    "hash": "74b1d70acc591dac",
+    "at": "2026-09-30"
+  },
+  "Tokens/Easings": {
+    "mark": "ok",
+    "hash": "ddbf63af5b64ead6",
+    "at": "2026-09-30"
+  },
+  "Tokens/Gap": {
+    "mark": "ok",
+    "hash": "ff30171f110db673",
+    "at": "2026-09-30"
+  },
+  "Tokens/Margin": {
+    "mark": "ok",
+    "hash": "47181401ec204f1d",
+    "at": "2026-09-30"
+  },
+  "Tokens/Padding": {
+    "mark": "ok",
+    "hash": "9a894a17f213173e",
+    "at": "2026-09-30"
+  },
+  "Tokens/Radius": {
+    "mark": "ok",
+    "hash": "453fbb8860935f65",
+    "at": "2026-09-30"
+  },
+  "Tokens/Shadows": {
+    "mark": "ok",
+    "hash": "69bd2043ab5eeae9",
+    "at": "2026-09-30"
+  },
+  "Tokens/Size scale": {
+    "mark": "ok",
+    "hash": "c0287973155cca96",
+    "at": "2026-09-30"
+  },
+  "Tokens/Sizes": {
+    "mark": "ok",
+    "hash": "3592b49777b3d927",
+    "at": "2026-09-30"
+  },
+  "Tokens/Transitions": {
+    "mark": "ok",
+    "hash": "69994cd76552da77",
+    "at": "2026-09-30"
+  },
+  "Tokens/Z-index": {
+    "mark": "ok",
+    "hash": "5988fb99e0b91c9a",
+    "at": "2026-09-30"
+  },
+  "Typography/Fonts": {
+    "mark": "ok",
+    "hash": "61b488c2ccd5996a",
+    "at": "2026-09-30"
+  },
+  "Typography/OpenType features": {
+    "mark": "ok",
+    "hash": "6d61bfeb5da3b607",
+    "at": "2026-09-30"
+  },
+  "Typography/Optical size and italic": {
+    "mark": "ok",
+    "hash": "99780b10ff921fe5",
+    "at": "2026-09-30"
+  },
+  "Typography/Sizes": {
+    "mark": "ok",
+    "hash": "6852527cafebd03a",
+    "at": "2026-09-30"
+  },
+  "Typography/Transform and style": {
+    "mark": "ok",
+    "hash": "fb0ac662cfa46957",
+    "at": "2026-09-30"
+  },
+  "Typography/Weights": {
+    "mark": "ok",
+    "hash": "39d7c40f00741274",
+    "at": "2026-09-30"
+  }
+}

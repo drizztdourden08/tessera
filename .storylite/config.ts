@@ -10,6 +10,8 @@ import { HOME_CSS } from './home-css.constants';
 import { MANAGER_CSS } from './manager-css.constants';
 import { markSvg } from './mark-svg';
 import { menuOrder } from './menu';
+import { reviewPlugin } from './review-plugin';
+import { sidebarDecorScript } from './sidebar-decor';
 import { componentPages } from './story-index';
 import { ssrBundle } from './ssr-bundle';
 import { strictPort } from './strict-port';
@@ -18,7 +20,7 @@ import { wordmarkSvg } from './wordmark-svg';
 
 export default defineConfig({
   stories: ['./stories/**/*.stories.tsx'],
-  vitePlugins: [windowsFsPaths(), ssrBundle(), strictPort()],
+  vitePlugins: [windowsFsPaths(), ssrBundle(), strictPort(), reviewPlugin(ROOT)],
   css: [
     './src/tokens/index.css',
     './stories/themes/rotp.css',
@@ -28,7 +30,7 @@ export default defineConfig({
   renderers: [controlledReact()],
   home: buildHome(ROOT),
   managerHead: (defaults) => [defaults, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN].join('\n'),
-  managerBodyEnd: (defaults) => [defaults, appSwitcherScript(), componentPagesScript(componentPages(ROOT)), HOME_LOGO_MOUNT].join('\n'),
+  managerBodyEnd: (defaults) => [defaults, appSwitcherScript(), componentPagesScript(componentPages(ROOT)), sidebarDecorScript(ROOT), HOME_LOGO_MOUNT].join('\n'),
   storyId: (_path, suggestedId) => suggestedId.replace(/^stories-/, ''),
   storySort: { order: menuOrder() },
   ui: {

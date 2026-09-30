@@ -59,7 +59,8 @@
     "deadcode": "knip",
     "duplicates": "jscpd",
     "icons": "node scripts/app-icons/build-app-icons.mjs",
-    "tokens": "node scripts/tokens/build-tokens.mjs"
+    "tokens": "node scripts/tokens/build-tokens.mjs",
+    "review": "node scripts/review/review.mjs"
   },
   "peerDependencies": {
     "react": "^19.0.0",
