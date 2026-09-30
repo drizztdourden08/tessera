@@ -9,7 +9,7 @@ import './ListItemRow.css';
 import type { ListItemRowProps } from './ListItemRow.type';
 
 const ListItemRow = (props: ListItemRowProps) => {
-  const { name, icon, meta, aside, action, selected = false, onClick, onDoubleClick, role, className = '' } = props;
+  const { name, icon, meta, aside, action, actionVisibility = 'hover', selected = false, onClick, onDoubleClick, role, className = '' } = props;
   const interactive = onClick !== undefined || onDoubleClick !== undefined;
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -45,7 +45,7 @@ const ListItemRow = (props: ListItemRowProps) => {
           {body}
         </Pressable>
       ) : body}
-      {action != null && <Box className="list-item-row__action">{action}</Box>}
+      {action != null && <Box className={`list-item-row__action list-item-row__action--${actionVisibility}`}>{action}</Box>}
     </Box>
   );
 };

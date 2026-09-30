@@ -1,8 +1,11 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Glyph } from '../../../primitives/Glyph';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
+import { PathIcon } from '../../../primitives/PathIcon';
+import {
+  CAPTION_SIZE, CAPTION_VIEWBOX, CLOSE_PATHS, MAXIMIZE_PATHS, MINIMIZE_PATHS, RESTORE_PATHS,
+} from '../WindowTitleBar.constants';
 import type { WindowControlsProps } from './WindowControls.type';
 
 const WindowControls = (props: WindowControlsProps) => {
@@ -17,17 +20,17 @@ const WindowControls = (props: WindowControlsProps) => {
       )}
       {onMinimize && (
         <IconButton className="window-title-bar__control" label="Minimize" onClick={onMinimize}>
-          <Glyph name="minus" size={12} />
+          <PathIcon paths={MINIMIZE_PATHS} size={CAPTION_SIZE} viewBox={CAPTION_VIEWBOX} />
         </IconButton>
       )}
       {onMaximizeToggle && (
         <IconButton className="window-title-bar__control" label={maximized ? 'Restore' : 'Maximize'} onClick={onMaximizeToggle}>
-          <Glyph name={maximized ? 'windowRestore' : 'windowMaximize'} size={12} />
+          <PathIcon paths={maximized ? RESTORE_PATHS : MAXIMIZE_PATHS} size={CAPTION_SIZE} viewBox={CAPTION_VIEWBOX} />
         </IconButton>
       )}
       {onClose && (
         <IconButton className="window-title-bar__control window-title-bar__control--close" label="Close" onClick={onClose}>
-          <Glyph name="close" size={12} />
+          <PathIcon paths={CLOSE_PATHS} size={CAPTION_SIZE} viewBox={CAPTION_VIEWBOX} />
         </IconButton>
       )}
     </Box>

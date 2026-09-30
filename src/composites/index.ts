@@ -22,7 +22,7 @@ export type { HeaderTabItem, HeaderTabsProps } from './HeaderTabs';
 export { LogPanel } from './LogPanel';
 export type { LogKindDef, LogPanelProps, LogRow } from './LogPanel';
 export { ListItemRow } from './ListItemRow';
-export type { ListItemRowProps, ListItemRowRole } from './ListItemRow';
+export type { ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole } from './ListItemRow';
 export { MasterDetailLayout } from './MasterDetailLayout';
 export type { MasterDetailLayoutProps } from './MasterDetailLayout';
 export { SplitPane } from './SplitPane';

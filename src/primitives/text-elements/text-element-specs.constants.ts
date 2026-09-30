@@ -7,6 +7,7 @@ const NONE = [] as const;
 const PRIMARY = ['primary'] as const;
 const MARKED = [...ACCENT_TONES, ...STATUS_TONES] as const;
 const IMPORTANT = ['primary', ...STATUS_TONES] as const;
+const NOTE = [...QUIET_TONES, ...STATUS_TONES] as const;
 
 const TEXT_ELEMENT_SPECS = [
   { name: 'Paragraph', short: 'P', tag: 'p', looks: FREE_TEXT, tones: QUIET_TONES },
@@ -20,7 +21,7 @@ const TEXT_ELEMENT_SPECS = [
   { name: 'Deleted', short: 'Del', tag: 'del', looks: NONE, tones: NONE },
   { name: 'Inserted', short: 'Ins', tag: 'ins', looks: NONE, tones: NONE },
   { name: 'Highlight', short: 'Mark', tag: 'mark', looks: NONE, tones: MARKED },
-  { name: 'Small', short: 'Small', tag: 'small', looks: NONE, tones: QUIET_TONES },
+  { name: 'Small', short: 'Small', tag: 'small', looks: NONE, tones: NOTE },
   { name: 'Subscript', short: 'Sub', tag: 'sub', looks: NONE, tones: NONE },
   { name: 'Superscript', short: 'Sup', tag: 'sup', looks: NONE, tones: NONE },
   { name: 'Code', short: 'Code', tag: 'code', looks: NONE, tones: NONE },

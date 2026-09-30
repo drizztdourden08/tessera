@@ -3,12 +3,15 @@ import type { ReactNode } from 'react';
 
 type ListItemRowRole = 'listitem' | 'row';
 
+type ListItemRowActionVisibility = 'hover' | 'always';
+
 interface ListItemRowProps {
   name: ReactNode;
   icon?: ReactNode;
   meta?: ReactNode;
   aside?: ReactNode;
   action?: ReactNode;
+  actionVisibility?: ListItemRowActionVisibility;
   selected?: boolean;
   onClick?: () => void;
   onDoubleClick?: () => void;
@@ -16,4 +19,4 @@ interface ListItemRowProps {
   className?: string;
 }
 
-export type { ListItemRowProps, ListItemRowRole };
+export type { ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole };

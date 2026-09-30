@@ -28,6 +28,7 @@ const ProfilePickerRow = (props: ProfilePickerRowProps) => {
       selected={selected}
       onClick={() => onSelect(id)}
       action={remove}
+      actionVisibility="always"
     />
   );
 };
