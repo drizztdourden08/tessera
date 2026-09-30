@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind style */
 .scroll-area {
+  --scroll-fade: var(--size-16);
+
   scroll-behavior: smooth;
   overscroll-behavior: contain;
   scrollbar-width: thin;
@@ -16,6 +18,29 @@
 
 .scroll-area[data-axis='both'] {
   overflow: auto;
+}
+
+.scroll-area[data-fade~='top'] {
+  --scroll-fade-top: var(--scroll-fade);
+}
+
+.scroll-area[data-fade~='bottom'] {
+  --scroll-fade-bottom: var(--scroll-fade);
+}
+
+.scroll-area[data-fade~='left'] {
+  --scroll-fade-left: var(--scroll-fade);
+}
+
+.scroll-area[data-fade~='right'] {
+  --scroll-fade-right: var(--scroll-fade);
+}
+
+.scroll-area[data-fade] {
+  mask-image:
+    linear-gradient(to bottom, transparent, var(--c-bg) var(--scroll-fade-top, 0%), var(--c-bg) calc(100% - var(--scroll-fade-bottom, 0%)), transparent),
+    linear-gradient(to right, transparent, var(--c-bg) var(--scroll-fade-left, 0%), var(--c-bg) calc(100% - var(--scroll-fade-right, 0%)), transparent);
+  mask-composite: intersect;
 }
 
 .scroll-area::-webkit-scrollbar {

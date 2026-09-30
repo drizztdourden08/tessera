@@ -10,6 +10,7 @@ interface ScrollPosition {
 
 interface ScrollAreaProps extends Omit<ComponentPropsWithRef<'div'>, 'onScroll'> {
   axis?: ScrollAxis;
+  fade?: boolean;
   onScroll?: (position: ScrollPosition) => void;
   scrollTo?: Partial<ScrollPosition>;
 }
