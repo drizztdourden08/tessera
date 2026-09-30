@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { DragModifiers, ExternalDrag, LayoutEdit, Rect, WidgetId } from '../../DockLayout';
+import type { DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, WidgetId } from '../../DockLayout';
 import type { WidgetDefinition, WidgetDisabledState, WidgetLayout } from '../Widget.type';
 
 interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
@@ -24,6 +24,7 @@ interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   onExternalDrop?: (id: WidgetId, edit: LayoutEdit | null) => void;
   mainLabel?: string;
   gripLabel?: string;
+  mainGrip?: DockMainGrip;
   makeRoomHint?: string;
   contextLabel?: string;
   className?: string;

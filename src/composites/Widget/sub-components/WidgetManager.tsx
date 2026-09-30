@@ -63,6 +63,7 @@ const WidgetManager = <D extends WidgetDefinition = WidgetDefinition>(props: Wid
         sizeOf={sizeOf}
         mainLabel={props.mainLabel}
         gripLabel={props.gripLabel}
+        mainGrip={props.mainGrip}
       />
       {options && (
         <WidgetOptionsHost
