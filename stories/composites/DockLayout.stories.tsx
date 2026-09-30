@@ -3,6 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import type { DockMainGrip } from '../../src/composites';
 import { DockDemo } from './_samples/DockDemo';
 import './DockLayout.stories.css';
 
@@ -13,10 +14,11 @@ type DockArgs = {
   floating: boolean;
   mainLabel: string;
   gripLabel: string;
+  mainGrip: DockMainGrip;
 };
 
 const ARGS: Partial<DockArgs> = {
-  peek: false, swap: false, overlay: false, floating: true, mainLabel: 'Main view', gripLabel: 'Main',
+  peek: false, swap: false, overlay: false, floating: true, mainLabel: 'Main view', gripLabel: 'Main', mainGrip: 'always',
 };
 
 const ARG_TYPES: StoryLiteArgTypes<DockArgs> = {
@@ -26,6 +28,7 @@ const ARG_TYPES: StoryLiteArgTypes<DockArgs> = {
   floating: { control: 'boolean', description: 'Start with the Console floating over the main view.' },
   mainLabel: { control: 'text', description: 'Names the main view in the drag label.' },
   gripLabel: { control: 'text', description: 'The word on the grip at the top of the main view.' },
+  mainGrip: { control: 'select', options: ['always', 'dragging', 'hidden'], description: 'When the grip shows: always, only while a widget is dragged, or never, for an app whose main view never moves.' },
 };
 
 const meta = {

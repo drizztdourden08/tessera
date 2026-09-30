@@ -108,7 +108,7 @@ export {
   widgetsIn, wrapBeside,
 } from './DockLayout';
 export type {
-  DividerRect, DockEdge, DockKeys, DockLayoutProps, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget,
+  DividerRect, DockEdge, DockKeys, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget,
   LaidOut, LayoutEdit, LayoutNode, LeafNode, LeafRect, MainNode, MainTarget, PaneNode, Rect, Size, SplitAxis, SplitNode, WidgetId,
 } from './DockLayout';
 export { FilterBar, FacetPicker } from './FilterBar';

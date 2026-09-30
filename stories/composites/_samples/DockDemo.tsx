@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { DockLayout, applyEdit, removeEverywhere, useDockKeys } from '../../../src/composites';
-import type { FloatingWidget, LayoutEdit, PaneNode, Rect, WidgetId, WidgetLayout } from '../../../src/composites';
+import type { DockMainGrip, FloatingWidget, LayoutEdit, PaneNode, Rect, WidgetId, WidgetLayout } from '../../../src/composites';
 import { Box, Text } from '../../../src/primitives';
 import { dockDemoLayout } from './dock-demo-layouts';
 import { DOCK_LABELS, FALLBACK_MAIN } from './dock-demo.constants';
@@ -14,13 +14,14 @@ type DockDemoProps = {
   floating?: boolean;
   mainLabel?: string;
   gripLabel?: string;
+  mainGrip?: DockMainGrip;
   className?: string;
 };
 
 const labelOf = (id: WidgetId): string => DOCK_LABELS[id] ?? id;
 
 const DockDemo = (props: DockDemoProps) => {
-  const { peek = false, swap = false, overlay = false, floating = true, mainLabel, gripLabel, className = '' } = props;
+  const { peek = false, swap = false, overlay = false, floating = true, mainLabel, gripLabel, mainGrip, className = '' } = props;
   const [layout, setLayout] = useState<WidgetLayout>(() => dockDemoLayout(floating));
   const [notice, setNotice] = useState('Drag a title bar, a tab or the grip on top of the main view.');
   const keys = useDockKeys();
@@ -48,6 +49,7 @@ const DockDemo = (props: DockDemoProps) => {
         onMainRect={(rect) => { mainRef.current = rect; }}
         mainLabel={mainLabel}
         gripLabel={gripLabel}
+        mainGrip={mainGrip}
         main={(
           <Box className="dock-story__main">
             <Text className="story-label">Main view</Text>

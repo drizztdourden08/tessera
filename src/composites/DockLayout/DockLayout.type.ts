@@ -87,6 +87,8 @@ interface ExternalDrag {
   released: boolean;
 }
 
+type DockMainGrip = 'always' | 'dragging' | 'hidden';
+
 interface DockLayoutProps {
   layout: DockTree;
   renderPane: (pane: PaneNode, rect: Rect) => ReactNode;
@@ -104,10 +106,11 @@ interface DockLayoutProps {
   sizeOf?: (id: WidgetId) => Size;
   mainLabel?: string;
   gripLabel?: string;
+  mainGrip?: DockMainGrip;
   className?: string;
 }
 
 export type {
-  DockEdge, DockLayoutProps, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget, LayoutEdit,
+  DockEdge, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget, LayoutEdit,
   LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, Size, SplitAxis, SplitNode, WidgetId,
 };

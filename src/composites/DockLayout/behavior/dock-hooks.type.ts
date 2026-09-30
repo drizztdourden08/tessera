@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { RefObject } from 'react';
-import type { DockLayoutProps, DragModifiers, ExternalDrag, LayoutEdit, Rect, Size, WidgetId } from '../DockLayout.type';
+import type { DockLayoutProps, DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, Size, WidgetId } from '../DockLayout.type';
 import type { DragContext, DragSource, DragView } from './drag.type';
 import type { LaidOut } from './layout-tree.type';
 
@@ -55,6 +55,7 @@ interface DockSettings {
   externalDrag: ExternalDrag | null;
   mainLabel: string;
   gripLabel: string;
+  mainGrip: DockMainGrip;
 }
 
 interface DockKeys {

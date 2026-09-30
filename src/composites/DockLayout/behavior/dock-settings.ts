@@ -9,6 +9,7 @@ const dockSettings = (props: DockLayoutProps): DockSettings => ({
   externalDrag: props.externalDrag ?? null,
   mainLabel: props.mainLabel ?? DEFAULT_MAIN_LABEL,
   gripLabel: props.gripLabel ?? DEFAULT_GRIP_LABEL,
+  mainGrip: props.mainGrip ?? 'always',
 });
 
 export { dockSettings };

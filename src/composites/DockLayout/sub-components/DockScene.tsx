@@ -11,8 +11,9 @@ import type { DockSceneProps } from './DockScene.type';
 
 const DockScene = (props: DockSceneProps) => {
   const {
-    laid, mainRect, main, floating, drag, ownDrag, dragId, stageRef, onEdit, renderPane, renderFloating, mainLabel, gripLabel,
+    laid, mainRect, main, floating, drag, ownDrag, dragId, stageRef, onEdit, renderPane, renderFloating, mainLabel, gripLabel, mainGrip,
   } = props;
+  const showGrip = mainGrip === 'always' || (mainGrip === 'dragging' && drag !== null);
   return (
     <>
       {mainRect && main != null && <Box className="dock-layout__main" style={rectStyle(mainRect)}>{main}</Box>}
@@ -22,7 +23,7 @@ const DockScene = (props: DockSceneProps) => {
       ))}
       {mainRect && (
         <>
-          <MainGrip rect={mainRect} stageRef={stageRef} label={gripLabel} hint={`Drag to move the ${mainLabel.toLowerCase()}`} />
+          {showGrip && <MainGrip rect={mainRect} stageRef={stageRef} label={gripLabel} hint={`Drag to move the ${mainLabel.toLowerCase()}`} />}
           <DockFloating floating={floating} mainRect={mainRect} drag={drag} dragId={dragId} renderFloating={renderFloating} />
         </>
       )}
