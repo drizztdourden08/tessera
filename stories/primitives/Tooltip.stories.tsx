@@ -1,6 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Badge, Box, Button, Text, Tooltip } from '../../src/primitives';
+import { Box, Button, Status, Text, Tooltip } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
 type Placement = 'top' | 'bottom';
@@ -48,7 +48,7 @@ const Placements = {
           <Button variant="secondary">Bottom</Button>
         </Tooltip>
         <Tooltip content="Three players are connected">
-          <Badge>3 online</Badge>
+          <Status>3 online</Status>
         </Tooltip>
         <Tooltip content="Seed 48213, generated on this machine">
           <Text>Seed info</Text>

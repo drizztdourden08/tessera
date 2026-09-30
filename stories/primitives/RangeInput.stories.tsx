@@ -1,7 +1,10 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, RangeInput, Text } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -31,20 +34,17 @@ const StatefulRange = (props: { initial: number; caption: string } & Partial<Ran
   const { initial, caption, min = 0, max = 100, step = 1, disabled } = props;
   const [value, setValue] = useState(initial);
   return (
-    <Box className="story-column">
-      <Text className="story-label">{caption}</Text>
-      <Box className="story-row">
-        <RangeInput
-          value={value}
-          min={min}
-          max={max}
-          step={step}
-          disabled={disabled}
-          aria-label={caption}
-          onChange={(event) => setValue(Number(event.target.value))}
-        />
-        <Text className="story-label">{value}</Text>
-      </Box>
+    <Box className="story-row">
+      <RangeInput
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        disabled={disabled}
+        aria-label={caption}
+        onChange={(event) => setValue(Number(event.target.value))}
+      />
+      <Text className="story-label">{value}</Text>
     </Box>
   );
 };
@@ -65,16 +65,16 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<RangeInputArgs>;
 
+const VALUES: Readonly<Record<string, ReactNode>> = {
+  'At the minimum': <StatefulRange initial={0} caption="At the minimum" />,
+  Midway: <StatefulRange initial={50} caption="Midway" />,
+  'At the maximum': <StatefulRange initial={100} caption="At the maximum" />,
+  'Coarse steps, hearts at start': <StatefulRange initial={4} min={1} max={8} caption="Coarse steps, hearts at start" />,
+};
+
 const Values = {
   name: 'Values',
-  render: () => (
-    <Box className="story-column">
-      <StatefulRange initial={0} caption="At the minimum" />
-      <StatefulRange initial={50} caption="Midway" />
-      <StatefulRange initial={100} caption="At the maximum" />
-      <StatefulRange initial={4} min={1} max={8} caption="Coarse steps, hearts at start" />
-    </Box>
-  ),
+  render: () => <Demonstrator rows={axis(Object.keys(VALUES))} align="stretch" cell={(row) => VALUES[row]} />,
 } satisfies StoryLiteStoryDefinition<RangeInputArgs>;
 
 const renderState = (props: StateProps) => (

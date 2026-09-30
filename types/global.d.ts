@@ -15,3 +15,18 @@ declare module 'react-color/es/components/common/Hue' {
 declare module 'react-color/es/components/common/Alpha' {
   export { default } from 'react-color/lib/components/common/Alpha';
 }
+
+interface ImportMetaEnv {
+  readonly DEV?: boolean;
+}
+
+interface ImportMetaGlobOptions {
+  eager: true;
+  query?: string;
+  import?: string;
+}
+
+interface ImportMeta {
+  readonly env?: ImportMetaEnv;
+  readonly glob: <T>(pattern: string | readonly string[], options: ImportMetaGlobOptions) => Record<string, T>;
+}

@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Button, Image } from '../../src/primitives';
-import { LabelledRows } from '../_template/LabelledRows';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -122,9 +123,9 @@ const FALLBACKS = ['source fails', 'no source'] as const;
 const WithFallback = {
   name: 'A fallback node',
   render: () => (
-    <LabelledRows
-      items={FALLBACKS}
-      render={(item) => (
+    <Demonstrator
+      rows={axis(FALLBACKS)}
+      cell={(item) => (
         <Image
           className="image-demo"
           src={item === 'source fails' ? BROKEN_URI : undefined}
@@ -148,9 +149,9 @@ const SIZE_PROPS: Record<(typeof SIZES)[number], { aspectRatio?: string; width?:
 const Sizes = {
   name: 'Sizes, the box held while loading',
   render: () => (
-    <LabelledRows
-      items={SIZES}
-      render={(size) => <Image className="image-demo" pending alt="Screenshot on its way" {...SIZE_PROPS[size]} />}
+    <Demonstrator
+      rows={axis(SIZES)}
+      cell={(size) => <Image className="image-demo" pending alt="Screenshot on its way" {...SIZE_PROPS[size]} />}
     />
   ),
 } satisfies StoryLiteStoryDefinition<ImageArgs>;

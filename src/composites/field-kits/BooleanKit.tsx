@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 import { registerFieldTester } from '../../data/filter/tester-registry';
 import { registerComparator, registerGroupKey } from '../../data/table/strategy-registry';
-import { Badge } from '../../primitives/Badge';
+import { Status } from '../../primitives/Status';
 import { Text } from '../../primitives/Text';
 import { Toggle } from '../../primitives/Toggle';
 import { isNullish } from './coerce';
@@ -34,7 +34,7 @@ const EditorControl = (props: EditorControlProps) => {
 
 const renderCell = (value: unknown): ReactNode => {
   if (isNullish(value)) return <Text className="field-kit__muted">{ABSENT}</Text>;
-  return <Badge variant={value === true ? 'success' : 'neutral'}>{value === true ? YES : NO}</Badge>;
+  return <Status tone={value === true ? 'success' : 'neutral'}>{value === true ? YES : NO}</Status>;
 };
 
 const booleanKit: FieldTypeStrategy = { kind: 'boolean', FilterControl, EditorControl, renderCell };

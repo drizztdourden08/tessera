@@ -1,15 +1,15 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { LogPanel } from '../../../src/composites';
-import { Badge, Box, ProgressBar, Stack, Text, TextInput } from '../../../src/primitives';
-import type { BadgeVariant } from '../../../src/primitives/Badge/Badge.type';
+import { Box, ProgressBar, Stack, Status, Text, TextInput } from '../../../src/primitives';
+import type { StatusTone } from '../../../src/primitives';
 import { HINTS } from './data-hints';
 import { LOG_ROWS } from './data-log';
 import { PLAYERS, playerName } from './data-players';
 import '../LogPanel.stories.css';
 import type { PlayerStatus } from './data-players';
 
-const STATUS_BADGE: Record<PlayerStatus, BadgeVariant> = {
+const STATUS_TONE: Record<PlayerStatus, StatusTone> = {
   playing: 'success', idle: 'warning', goal: 'neutral', offline: 'danger',
 };
 
@@ -19,7 +19,7 @@ const PlayersPanel = () => (
       <Box key={player.id} className="widget-story__player">
         <Box className="story-row">
           <Text>{player.name}</Text>
-          <Badge variant={STATUS_BADGE[player.status]}>{player.status}</Badge>
+          <Status tone={STATUS_TONE[player.status]}>{player.status}</Status>
         </Box>
         <Text className="story-label">{player.game}</Text>
         <ProgressBar value={player.checked} max={player.total} />

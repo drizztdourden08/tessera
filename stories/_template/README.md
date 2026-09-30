@@ -3,6 +3,42 @@
 
 Helpers that every stories file builds its Overview page from. `overviewStory` draws the page: the description, the Variants, the States, the Playground and the Code.
 
+## Demonstrator
+
+Every layout that shows variants across rows, columns or both is a `Demonstrator`. A story never builds its own grid, table or list of labelled rows for this: one component draws them all, so every page spaces and rules its variants the same way.
+
+```tsx
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
+
+<Demonstrator
+  corner="Glyph"
+  rows={axis(NAMES)}
+  columns={axis(['12px', '16px', '24px'])}
+  cell={(name, size) => <PathIcon {...GLYPHS[name]} size={Number.parseInt(size, 10)} />}
+/>
+```
+
+It takes:
+
+- `rows`: the row labels, drawn down the left. Each entry is `{ key, label }`; `axis(keys)` builds them from a list of strings, using each key as its label.
+- `columns`: the column labels, drawn across the top, in the same shape.
+- `cell(row, column)`: draws one cell from the row key and the column key.
+- `corner`: an optional label for the top left cell, naming what the rows list.
+- `align`: where the content sits in its cell, `start`, `center` or `stretch`. It defaults to `center` when there are columns and to `start` for rows only.
+- `fill`: when true, the columns share the width instead of fitting their content. It defaults to true for rows only.
+- `className`: an extra class on the grid, for a story that sets a custom property on it.
+
+Give it rows and columns for a grid, rows alone for a list of labelled rows, or columns alone for one labelled row. With rows only, `cell` gets the row key; with columns only, write `cell={(_row, column) => ...}`.
+
+### The look
+
+- Row and column labels are centred both ways in their cells.
+- Each row label has a rule on its right edge, each column label a rule under it, and a rule runs between rows.
+- Cells sit a gap apart in both directions, and each rule stops at its own cell, so neighbouring rules break at every gap and never touch.
+
+`Demonstrator.css` holds the look. `--demonstrator-gap` sets the gap between cells and `--demonstrator-rule` the rules; both are declared once on `.demonstrator`, so changing either changes every story.
+
 ## States
 
 A state is how one component looks at a given moment: hovered, focused, disabled, in error. A variant is a different version of the component: a size, a tone, an icon or no icon. A state is not a variant. Keep variants in `variants` and list states in `states`, never the other way round.

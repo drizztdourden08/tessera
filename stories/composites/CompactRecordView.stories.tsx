@@ -4,6 +4,7 @@ import { CompactRecordView } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { PLAYERS, PLAYER_CONFIG, PLAYER_SCHEMA } from './_samples/data-players';
 import { HINTS, HINT_CONFIG, HINT_SCHEMA, resolveSlotDefault } from './_samples/data-hints';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './CompactRecordView.stories.css';
 
@@ -78,35 +79,34 @@ const Hint = {
   ),
 } satisfies StoryLiteStoryDefinition<CompactArgs>;
 
+const VARIANTS = [
+  { key: 'every', label: 'Every field' },
+  { key: 'progress', label: 'Progress only' },
+  { key: 'diffs', label: 'Live differences' },
+  { key: 'references', label: 'References resolved' },
+] as const;
+
+type VariantKey = (typeof VARIANTS)[number]['key'];
+
+const variantView = (key: VariantKey) => {
+  if (key === 'references') {
+    return <CompactRecordView record={HINTS[2]} schema={HINT_SCHEMA} config={HINT_CONFIG} resolveIdRefDisplay={resolveSlotDefault} />;
+  }
+  return (
+    <CompactRecordView
+      record={PLAYERS[0]}
+      schema={PLAYER_SCHEMA}
+      config={PLAYER_CONFIG}
+      groups={key === 'progress' ? GROUPS_BY_CHOICE['progress only'] : undefined}
+      diffs={key === 'diffs' ? LIVE_DIFFS : undefined}
+    />
+  );
+};
+
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <Box className="story-row">
-      <Box className="story-column">
-        <Text className="story-label">Every field</Text>
-        <Box className="compact-record-story">
-          <CompactRecordView record={PLAYERS[0]} schema={PLAYER_SCHEMA} config={PLAYER_CONFIG} />
-        </Box>
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">Progress only</Text>
-        <Box className="compact-record-story">
-          <CompactRecordView record={PLAYERS[0]} schema={PLAYER_SCHEMA} config={PLAYER_CONFIG} groups={GROUPS_BY_CHOICE['progress only']} />
-        </Box>
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">Live differences</Text>
-        <Box className="compact-record-story">
-          <CompactRecordView record={PLAYERS[0]} schema={PLAYER_SCHEMA} config={PLAYER_CONFIG} diffs={LIVE_DIFFS} />
-        </Box>
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">References resolved</Text>
-        <Box className="compact-record-story">
-          <CompactRecordView record={HINTS[2]} schema={HINT_SCHEMA} config={HINT_CONFIG} resolveIdRefDisplay={resolveSlotDefault} />
-        </Box>
-      </Box>
-    </Box>
+    <Demonstrator rows={VARIANTS} cell={(key) => <Box className="compact-record-story">{variantView(key)}</Box>} />
   ),
 } satisfies StoryLiteStoryDefinition<CompactArgs>;
 

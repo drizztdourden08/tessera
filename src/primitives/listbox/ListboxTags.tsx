@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useRef } from 'react';
-import { TagChip } from '../TagInput/sub-components/TagChip';
+import { Tag } from '../Tag';
 import { Tooltip } from '../Tooltip';
 import { ListboxCount } from './ListboxCount';
 import { ListboxNames } from './ListboxNames';
@@ -17,16 +17,16 @@ const ListboxTags = <T,>(props: ListboxCountProps<T>) => {
   return (
     <span ref={rowRef} className="listbox-tags">
       {fit === 0 ? <ListboxCount displays={displays} /> : displays.slice(0, fit).map((display) => (
-        <TagChip key={display.key} tag={display.tag} name={display.label} tone="primary" />
+        <Tag key={display.key} color="primary">{display.tag}</Tag>
       ))}
       {fit > 0 && hidden.length > 0 && (
         <Tooltip content={<ListboxNames displays={hidden} />} placement="bottom">
-          <TagChip tag={`+${hidden.length}`} tone="primary" />
+          <Tag color="primary">{`+${hidden.length}`}</Tag>
         </Tooltip>
       )}
       <span ref={measureRef} className="listbox-tags__measure" aria-hidden>
-        {displays.map((display) => <TagChip key={display.key} tag={display.tag} tone="primary" />)}
-        <TagChip tag={`+${displays.length}`} tone="primary" />
+        {displays.map((display) => <Tag key={display.key} color="primary">{display.tag}</Tag>)}
+        <Tag color="primary">{`+${displays.length}`}</Tag>
       </span>
     </span>
   );

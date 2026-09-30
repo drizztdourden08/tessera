@@ -18,7 +18,7 @@ const LogoCallout = (props: LogoCalloutProps) => {
     : { left: pctX(CALLOUT_EDGE.right), top: pctY(centre.y) };
   return (
     <Pressable className="interactive-tessera__callout" data-pick={app} data-lit={isLit || undefined} style={place} aria-label={name}>
-      <BrandMark app={app} tile title="" />
+      <BrandMark app={app} variant="app-icon" title="" />
       <BrandWordmark app={app} title="" />
     </Pressable>
   );

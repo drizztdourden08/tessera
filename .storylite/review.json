@@ -18,6 +18,9 @@
     },
     "Combined": {
       "status": "new"
+    },
+    "Mascot": {
+      "status": "new"
     }
   },
   "Colours": {
@@ -420,10 +423,11 @@
       "hash": "83bef4cdc402cb6a",
       "at": "2026-09-30"
     },
-    "StatusBadge": {
-      "status": "seen",
-      "hash": "3da16fd9e9442b12",
-      "at": "2026-09-30"
+    "Status": {
+      "status": "new"
+    },
+    "Tag": {
+      "status": "new"
     },
     "EmptyState": {
       "status": "new"

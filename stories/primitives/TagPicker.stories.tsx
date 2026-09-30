@@ -51,7 +51,7 @@ const ARGS: Partial<TagPickerArgs> = { label: 'Games in the multiworld', single:
 
 const ARG_TYPES: StoryLiteArgTypes<TagPickerArgs> = {
     label: { control: 'text' },
-    single: { control: 'boolean', description: 'One pick at a time, chips act as radios.' },
+    single: { control: 'boolean', description: 'One pick at a time, the tags act as radios.' },
     disabled: { control: 'boolean' },
   };
 
@@ -102,15 +102,15 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TagPicker',
-  description: 'A set of chips to switch on and off, for picking from a short, known list of options. Options can sit in labelled groups, or in one flat set with no heading. Each click adds or removes a value, and single turns the chips into radios that hold at most one pick. The value is an array either way, and the whole picker can be disabled.',
+  description: 'A set of Tags to switch on and off, for picking from a short, known list of options. Options can sit in labelled groups, or in one flat set with no heading. Each click adds or removes a value, and single turns the tags into radios that hold at most one pick. The value is an array either way, and the whole picker can be disabled.',
   playground: Playground,
   variants: [Layouts],
   states: {
     render: renderState,
     list: [
       STATE.idle,
-      { ...STATE.hover, target: '.tag-picker__tag' },
-      { ...STATE.focus, target: '.tag-picker__tag' },
+      { ...STATE.hover, target: '.tag-chip' },
+      { ...STATE.focus, target: '.tag-chip' },
       STATE.selected,
       { ...STATE.disabled, props: { selected: true, disabled: true } },
     ],

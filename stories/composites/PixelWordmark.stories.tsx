@@ -4,6 +4,7 @@ import { PixelWordmark } from '../../src/composites';
 import type { PixelWordmarkColors, PixelWordmarkSize } from '../../src/composites';
 import { BRAND_APPS, BRAND_FAMILY, BrandWordmark } from '../../src/brand';
 import { Stack, Text } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type PixelWordmarkArgs = {
@@ -48,15 +49,24 @@ const Playground = {
 
 const ALPHABET_UPPER = ['ABCDEFGHIJKLM', 'NOPQRSTUVWXYZ'];
 
+const CASES = [
+  { key: 'upper', label: 'Capitals' },
+  { key: 'lower', label: 'Lowercase' },
+] as const;
+
 const Alphabet = {
   name: 'Alphabet',
   render: () => (
-    <Stack gap="md">
-      <Text variant="label">Capitals</Text>
-      {ALPHABET_UPPER.map((line) => <PixelWordmark key={line} text={line} colors={GOLD} size="md" />)}
-      <Text variant="label">Lowercase</Text>
-      {ALPHABET_UPPER.map((line) => <PixelWordmark key={line} text={line.toLowerCase()} colors={GOLD} size="md" />)}
-    </Stack>
+    <Demonstrator
+      rows={CASES}
+      cell={(letterCase) => (
+        <Stack gap="md">
+          {ALPHABET_UPPER.map((line) => (
+            <PixelWordmark key={line} text={letterCase === 'upper' ? line : line.toLowerCase()} colors={GOLD} size="md" />
+          ))}
+        </Stack>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<PixelWordmarkArgs>;
 

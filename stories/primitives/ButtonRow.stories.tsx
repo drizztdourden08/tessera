@@ -1,7 +1,9 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Button, ButtonRow, Card, Stack, Text } from '../../src/primitives';
+import { Button, ButtonRow, Card, Stack, Text } from '../../src/primitives';
 import type { FlexJustify, SpaceToken } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import '../_template/story-outline.css';
 import './ButtonRow.stories.css';
@@ -40,42 +42,45 @@ const Playground = {
 const Alignments = {
   name: 'Alignments',
   render: () => (
-    <Box className="story-column">
-      {ALIGNS.map((align) => (
-        <Stack key={align} gap="xs">
-          <Text className="story-label">{align}</Text>
-          <ButtonRow align={align} className="story-outline">
-            <Button size="sm" variant="ghost">Back</Button>
-            <Button size="sm" variant="tertiary">Skip</Button>
-            <Button size="sm" variant="primary">Continue</Button>
-          </ButtonRow>
-        </Stack>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={axis(ALIGNS)}
+      align="stretch"
+      cell={(align) => (
+        <ButtonRow align={align} className="story-outline">
+          <Button size="sm" variant="ghost">Back</Button>
+          <Button size="sm" variant="tertiary">Skip</Button>
+          <Button size="sm" variant="primary">Continue</Button>
+        </ButtonRow>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<ButtonRowArgs>;
 
 const DialogFooter = {
   name: 'Dialog footer and wrapping',
   render: () => (
-    <Box className="story-column">
-      <Card>
-        <Stack gap="md">
-          <Text variant="title">Leave the session?</Text>
-          <Text variant="subtitle">Items you have not sent yet stay in your world until you reconnect.</Text>
-          <ButtonRow>
-            <Button variant="ghost">Stay</Button>
-            <Button variant="danger">Leave session</Button>
-          </ButtonRow>
-        </Stack>
-      </Card>
-      <Text className="story-label">narrow container, the row wraps</Text>
-      <ButtonRow className="story-outline button-row-demo--narrow">
-        <Button size="sm" variant="ghost">Export log</Button>
-        <Button size="sm" variant="tertiary">Copy seed</Button>
-        <Button size="sm" variant="primary">Start</Button>
-      </ButtonRow>
-    </Box>
+    <Demonstrator
+      rows={[{ key: 'card', label: 'dialog footer' }, { key: 'narrow', label: 'narrow container, the row wraps' }]}
+      align="stretch"
+      cell={(place) => (place === 'card' ? (
+        <Card>
+          <Stack gap="md">
+            <Text variant="title">Leave the session?</Text>
+            <Text variant="subtitle">Items you have not sent yet stay in your world until you reconnect.</Text>
+            <ButtonRow>
+              <Button variant="ghost">Stay</Button>
+              <Button variant="danger">Leave session</Button>
+            </ButtonRow>
+          </Stack>
+        </Card>
+      ) : (
+        <ButtonRow className="story-outline button-row-demo--narrow">
+          <Button size="sm" variant="ghost">Export log</Button>
+          <Button size="sm" variant="tertiary">Copy seed</Button>
+          <Button size="sm" variant="primary">Start</Button>
+        </ButtonRow>
+      ))}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<ButtonRowArgs>;
 

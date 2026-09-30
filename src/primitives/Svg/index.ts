@@ -7,3 +7,4 @@ export { SvgPath } from './sub-components/SvgPath';
 export { SvgText } from './sub-components/SvgText';
 export { SvgPolygon } from './sub-components/SvgPolygon';
 export { SvgGroup } from './sub-components/SvgGroup';
+export { SvgClipPath } from './sub-components/SvgClipPath';

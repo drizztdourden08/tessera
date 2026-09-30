@@ -30,12 +30,3 @@
   border-color: var(--c-primary);
   background: var(--c-primary-soft);
 }
-
-.header-tabs__badge {
-  font-size: var(--text-xs);
-  font-variant-numeric: tabular-nums;
-}
-
-.header-tabs__tab--active .header-tabs__badge {
-  color: var(--c-primary);
-}

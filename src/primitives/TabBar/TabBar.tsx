@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import '../../theme/focus-ring.css';
 import './TabBar.css';
+import { Badge } from '../Badge';
 import { Glyph } from '../Glyph';
 import { IconButton } from '../IconButton';
 import { Span } from '../text-elements';
@@ -57,7 +58,7 @@ const TabBar = (props: TabBarProps) => {
           >
             {tab.icon && <span className="tab-bar__icon">{tab.icon}</span>}
             {!iconOnly && <Span className="tab-bar__label">{tab.label}</Span>}
-            {tab.badge != null && <Span tone="dim" className="tab-bar__badge">{tab.badge}</Span>}
+            {tab.badge != null && <Badge variant="inline" color={activeTab === tab.id ? 'primary' : 'tame'} value={tab.badge} />}
           </button>
         ))}
       </div>

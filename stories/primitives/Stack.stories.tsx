@@ -1,7 +1,9 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Flex, Stack, StatRow, Text } from '../../src/primitives';
+import { Stack, StatRow, Text } from '../../src/primitives';
 import type { FlexAlign, SpaceToken } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type StackArgs = {
@@ -48,16 +50,17 @@ const Playground = {
 const GapScale = {
   name: 'Gap scale',
   render: () => (
-    <Flex gap="xl" wrap align="start">
-      {GAPS.map((gap) => (
-        <Stack key={gap} gap={gap}>
-          <Text className="story-label">{gap}</Text>
+    <Demonstrator
+      columns={axis(GAPS)}
+      align="start"
+      cell={(_row, gap) => (
+        <Stack gap={gap}>
           {SETTINGS.slice(0, 3).map((setting) => (
             <Text key={setting.label} variant="subtitle">{setting.label}</Text>
           ))}
         </Stack>
-      ))}
-    </Flex>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<StackArgs>;
 

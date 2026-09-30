@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import './TagPicker.css';
+import { Tag } from '../Tag';
 import { Span } from '../text-elements';
 import type { TagPickerProps } from './TagPicker.type';
 
@@ -24,18 +25,16 @@ const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
           {group.label && <Span tone="dim" className="tag-picker__group-label">{group.label}</Span>}
           <div className="tag-picker__tags" role={single ? 'radiogroup' : undefined} aria-label={single ? label : undefined}>
             {group.options.map(opt => (
-              <button
+              <Tag
                 key={opt.value}
-                type="button"
+                color="primary"
+                selected={value.includes(opt.value)}
                 role={single ? 'radio' : undefined}
-                aria-checked={single ? value.includes(opt.value) : undefined}
-                aria-pressed={single ? undefined : value.includes(opt.value)}
-                className={`tag-picker__tag ${value.includes(opt.value) ? 'tag-picker__tag--active' : ''}`}
-                onClick={() => toggle(opt.value)}
                 disabled={disabled}
+                onSelect={() => toggle(opt.value)}
               >
                 {opt.label}
-              </button>
+              </Tag>
             ))}
           </div>
         </div>

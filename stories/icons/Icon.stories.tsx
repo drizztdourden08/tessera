@@ -1,11 +1,12 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import swordsIcon from '@iconify-icons/lucide/swords';
-import { Box, Icon, ICONS, Text } from '../../src/primitives';
+import { Box, Icon, ICONS } from '../../src/primitives';
 import type { IconFlip, IconName, IconRotation } from '../../src/primitives';
 import { APP_ICONS } from '../../src/primitives/icon-sets/app.constants';
 import { STATUS_ICONS } from '../../src/primitives/icon-sets/status.constants';
 import { INTERFACE_ICONS } from '../../src/primitives/icon-sets/interface.constants';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { IconGallery } from './IconGallery';
 import './icons.stories.css';
@@ -23,6 +24,9 @@ type IconArgs = {
 };
 
 const NAMES = Object.keys(ICONS) as IconName[];
+const SIZES = [12, 16, 24, 32, 48] as const;
+const ROTATIONS: readonly IconRotation[] = [0, 90, 180, 270];
+const FLIPS: readonly IconFlip[] = ['horizontal', 'vertical', 'both'];
 const namesOf = (group: object): IconName[] => Object.keys(group) as IconName[];
 
 const ARG_TYPES: StoryLiteArgTypes<IconArgs> = {
@@ -70,25 +74,19 @@ const NamedSet = {
 const Transforms = {
   name: 'Size, rotation and flip',
   render: () => (
-    <Box className="story-list">
-      {[12, 16, 24, 32, 48].map((size) => (
-        <Box key={size} className="story-list__item">
-          <Text className="story-label">{`${size}px`}</Text>
-          <Icon name="compass" size={size} />
-        </Box>
-      ))}
-      {([0, 90, 180, 270] as const).map((rotate) => (
-        <Box key={rotate} className="story-list__item">
-          <Text className="story-label">{`rotate ${rotate}`}</Text>
-          <Icon name="arrow-right" size={24} rotate={rotate} />
-        </Box>
-      ))}
-      {(['horizontal', 'vertical', 'both'] as const).map((flip) => (
-        <Box key={flip} className="story-list__item">
-          <Text className="story-label">{`flip ${flip}`}</Text>
-          <Icon name="log-in" size={24} flip={flip} />
-        </Box>
-      ))}
+    <Box className="story-column">
+      <Demonstrator
+        columns={SIZES.map((size) => ({ key: String(size), label: `${size}px` }))}
+        cell={(_row, size) => <Icon name="compass" size={Number(size)} />}
+      />
+      <Demonstrator
+        columns={ROTATIONS.map((rotate) => ({ key: String(rotate), label: `rotate ${rotate}` }))}
+        cell={(_row, rotate) => <Icon name="arrow-right" size={24} rotate={Number(rotate) as IconRotation} />}
+      />
+      <Demonstrator
+        columns={FLIPS.map((flip) => ({ key: flip, label: `flip ${flip}` }))}
+        cell={(_row, flip) => <Icon name="log-in" size={24} flip={flip} />}
+      />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<IconArgs>;
@@ -96,12 +94,7 @@ const Transforms = {
 const AnyIcon = {
   name: 'Any @iconify icon',
   render: () => (
-    <Box className="story-list">
-      <Box className="story-list__item">
-        <Text className="story-label">icon=&#123;swordsIcon&#125;</Text>
-        <Icon icon={swordsIcon} size={32} label="Swords" />
-      </Box>
-    </Box>
+    <Demonstrator rows={[{ key: 'swords', label: 'icon={swordsIcon}' }]} cell={() => <Icon icon={swordsIcon} size={32} label="Swords" />} />
   ),
 } satisfies StoryLiteStoryDefinition<IconArgs>;
 

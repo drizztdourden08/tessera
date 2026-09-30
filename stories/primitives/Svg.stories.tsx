@@ -1,7 +1,9 @@
 /* @layer stories @kind story */
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Svg, SvgCircle, SvgGroup, SvgLine, SvgPath, SvgPolygon, SvgRect, SvgText, Text } from '../../src/primitives';
+import { Svg, SvgCircle, SvgGroup, SvgLine, SvgPath, SvgPolygon, SvgRect, SvgText } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './Svg.stories.css';
 
@@ -76,28 +78,26 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<SvgArgs>;
 
-const SWATCHES: readonly { name: string; shape: ReactNode }[] = [
-  { name: 'SvgRect', shape: <SvgRect className="svg-demo__shape" x={10} y={10} width={40} height={40} rx={4} /> },
-  { name: 'SvgCircle', shape: <SvgCircle className="svg-demo__shape" cx={30} cy={30} r={20} /> },
-  { name: 'SvgLine', shape: <SvgLine className="svg-demo__shape" x1={10} y1={50} x2={50} y2={10} /> },
-  { name: 'SvgPolygon', shape: <SvgPolygon className="svg-demo__shape" points="30,8 52,50 8,50" /> },
-  { name: 'SvgPath', shape: <SvgPath className="svg-demo__shape" d="M10 40 Q30 0 50 40 T50 50" /> },
-  { name: 'SvgText', shape: <SvgText className="svg-demo__label" x={30} y={34} textAnchor="middle">Aa 12</SvgText> },
-];
+const SWATCHES: Readonly<Record<string, ReactNode>> = {
+  SvgRect: <SvgRect className="svg-demo__shape" x={10} y={10} width={40} height={40} rx={4} />,
+  SvgCircle: <SvgCircle className="svg-demo__shape" cx={30} cy={30} r={20} />,
+  SvgLine: <SvgLine className="svg-demo__shape" x1={10} y1={50} x2={50} y2={10} />,
+  SvgPolygon: <SvgPolygon className="svg-demo__shape" points="30,8 52,50 8,50" />,
+  SvgPath: <SvgPath className="svg-demo__shape" d="M10 40 Q30 0 50 40 T50 50" />,
+  SvgText: <SvgText className="svg-demo__label" x={30} y={34} textAnchor="middle">Aa 12</SvgText>,
+};
 
 const Elements = {
   name: 'All elements',
   render: () => (
-    <Box className="story-row">
-      {SWATCHES.map((swatch) => (
-        <Box key={swatch.name} className="story-column">
-          <Svg className="svg-demo svg-demo--swatch" viewBox="0 0 60 60" aria-hidden="true">
-            <SvgGroup>{swatch.shape}</SvgGroup>
-          </Svg>
-          <Text className="story-label">{swatch.name}</Text>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      columns={axis(Object.keys(SWATCHES))}
+      cell={(_row, name) => (
+        <Svg className="svg-demo svg-demo--swatch" viewBox="0 0 60 60" aria-hidden="true">
+          <SvgGroup>{SWATCHES[name]}</SvgGroup>
+        </Svg>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<SvgArgs>;
 

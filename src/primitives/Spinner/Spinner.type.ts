@@ -1,7 +1,10 @@
 /* @layer renderer-components @kind types */
+type SpinnerSize = 'sm' | 'md' | 'lg';
+
 interface SpinnerProps {
-  size?: 'sm' | 'md' | 'lg';
+  size?: SpinnerSize;
+  label?: string;
   className?: string;
 }
 
-export type { SpinnerProps };
+export type { SpinnerProps, SpinnerSize };

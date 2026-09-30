@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Flex, Stack, Text, Thumbnail } from '../../src/primitives';
-import { LabelledRows } from '../_template/LabelledRows';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -93,14 +94,14 @@ const SIZES: readonly ThumbSize[] = ['sm', 'md', 'lg'];
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <LabelledRows items={SIZES} render={(size) => <Thumbnail className={`thumb-demo--${size}`} src={RUINS_URI} alt="Eastern ruins" />} />
+    <Demonstrator rows={axis(SIZES)} cell={(size) => <Thumbnail className={`thumb-demo--${size}`} src={RUINS_URI} alt="Eastern ruins" />} />
   ),
 } satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
 
 const BrokenSizes = {
   name: 'Broken, at every size',
   render: () => (
-    <LabelledRows items={SIZES} render={(size) => <Thumbnail className={`thumb-demo--${size}`} src={BROKEN_URI} alt="Missing screenshot" />} />
+    <Demonstrator rows={axis(SIZES)} cell={(size) => <Thumbnail className={`thumb-demo--${size}`} src={BROKEN_URI} alt="Missing screenshot" />} />
   ),
 } satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
 

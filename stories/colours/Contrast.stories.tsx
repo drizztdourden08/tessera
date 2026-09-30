@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { overviewStory } from '../_template/overview-story';
-import { Badge, Box, Text } from '../../src/primitives';
+import { Box, Status, Text } from '../../src/primitives';
 import { CONTRAST_PAIRS } from '../tokens/token-lists';
 import type { ContrastPair } from '../tokens/token-lists';
 import { useContrast } from '../tokens/use-contrast';
@@ -14,9 +14,9 @@ type ContrastArgs = {
 };
 
 const verdict = (ratio: number, threshold: number, label: string) => (
-  <Badge variant={ratio >= threshold ? 'success' : 'danger'}>
+  <Status tone={ratio >= threshold ? 'success' : 'danger'}>
     {`${label} ${ratio >= threshold ? 'pass' : 'fail'}`}
-  </Badge>
+  </Status>
 );
 
 const PairRow = ({ pair, args }: { pair: ContrastPair; args: ContrastArgs }) => {

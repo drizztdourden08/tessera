@@ -2,6 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Button, EmojiIcon, IconButton, Text } from '../../src/primitives';
 import type { EmojiIconSize } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type EmojiIconArgs = {
@@ -34,18 +36,16 @@ const Playground = {
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <Box className="story-list">
-      {SIZES.map((size) => (
-        <Box key={size} className="story-list__item">
-          <Text className="story-label">{size}</Text>
-          <Box className="story-inline">
-            {GLYPHS.map((glyph) => (
-              <EmojiIcon key={glyph} glyph={glyph} size={size} />
-            ))}
-          </Box>
+    <Demonstrator
+      rows={axis(SIZES)}
+      cell={(size) => (
+        <Box className="story-inline">
+          {GLYPHS.map((glyph) => (
+            <EmojiIcon key={glyph} glyph={glyph} size={size} />
+          ))}
         </Box>
-      ))}
-    </Box>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<EmojiIconArgs>;
 

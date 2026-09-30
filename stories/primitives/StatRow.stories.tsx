@@ -1,6 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Badge, Box, Card, Stack, StatRow, Text } from '../../src/primitives';
+import { Box, Card, Stack, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
 type StatRowArgs = {
@@ -40,7 +40,7 @@ const SessionDetails = {
           <StatRow label="Seed" value="48213-HOOK-VALE" mono />
           <StatRow label="Players" value="4 of 6" />
           <StatRow label="Checks" value="212 / 640" />
-          <StatRow label="Status" value={<Badge variant="success">Connected</Badge>} />
+          <StatRow label="Status" value={<Status tone="success">Connected</Status>} />
           <StatRow label="Room" value="0x0012" mono />
           <StatRow
             label="Goal"
@@ -54,7 +54,7 @@ const SessionDetails = {
 
 const Overview = overviewStory({
   component: 'StatRow',
-  description: 'One line of a readout: a label on the left and its value on the right. Stack a few of them in a card for session details, stats or settings at a glance. The value can be text or any node, such as a badge. Set mono for addresses, ids and coordinates, so the value draws in a monospace font.',
+  description: 'One line of a readout: a label on the left and its value on the right. Stack a few of them in a card for session details, stats or settings at a glance. The value can be text or any node, such as a Status. Set mono for addresses, ids and coordinates, so the value draws in a monospace font.',
   playground: Playground,
   variants: [SessionDetails],
 });

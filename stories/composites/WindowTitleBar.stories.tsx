@@ -4,7 +4,7 @@ import type { RefObject } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { DropdownMenu, WindowTitleBar } from '../../src/composites';
 import type { MenuEntry, WindowTitleBarProps } from '../../src/composites';
-import { Badge, Box, Icon, IconButton, Text } from '../../src/primitives';
+import { Box, Icon, IconButton, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -48,7 +48,7 @@ const TitleBarMenu = (props: { open: boolean; onToggle: () => void; anchorRef: R
 const SLOTS = (
   <>
     <IconButton tone="danger" size="sm" label="Report a bug"><Icon name="bug" size={14} /></IconButton>
-    <Badge variant="success" pulse>Update available</Badge>
+    <Status tone="success" pulse>Update available</Status>
   </>
 );
 
@@ -100,7 +100,7 @@ const ARGS: Partial<TitleBarArgs> = {
 const ARG_TYPES: StoryLiteArgTypes<TitleBarArgs> = {
   title: { control: 'text' },
   withLogo: { control: 'boolean' },
-  instanceName: { control: 'text', description: 'Names a second copy of the app, such as a dev build, in a badge.' },
+  instanceName: { control: 'text', description: 'Names a second copy of the app, such as a dev build, in a Status pill.' },
   withMenu: { control: 'boolean' },
   withSlots: { control: 'boolean' },
   concealed: { control: 'boolean' },
@@ -177,7 +177,7 @@ const CODE = `import { WindowTitleBar } from '@drizztdourden08/tessera';
   menuAnchorRef={menuRef}
   pinned={pinned}
   onPinToggle={togglePin}
-  left={<UpdateBadge />}
+  left={<UpdateStatus />}
   maximized={isMaximized}
   fullscreen={isFullscreen}
   onFullscreenToggle={win.toggleFullscreen}
@@ -189,7 +189,7 @@ const CODE = `import { WindowTitleBar } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'WindowTitleBar',
-  description: 'The title bar of a frameless desktop app window. The brand sits in the middle: the app logo on both sides of the title, and a badge naming a second instance, such as a dev build, with its own logo. The left end holds the menu trigger, a pin to keep the window on top and any slots the app adds; the right end holds the full screen, minimize, maximize and close buttons, each shown when its callback is set. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge; an open menu keeps it in view.',
+  description: 'The title bar of a frameless desktop app window. The brand sits in the middle: the app logo on both sides of the title, and a Status pill naming a second instance, such as a dev build, with its own logo. The left end holds the menu trigger, a pin to keep the window on top and any slots the app adds; the right end holds the full screen, minimize, maximize and close buttons, each shown when its callback is set. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge; an open menu keeps it in view.',
   playground: Playground,
   variants: [AppWindow, SecondInstance, Maximized, Concealed],
   states: {

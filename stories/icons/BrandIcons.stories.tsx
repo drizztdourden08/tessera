@@ -1,7 +1,9 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, Icon, Text } from '../../src/primitives';
+import { Icon } from '../../src/primitives';
 import type { BrandIconName, BrandIconTone, IconFlip, IconRotation } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './icons.stories.css';
 
@@ -15,6 +17,7 @@ type BrandIconArgs = {
 
 const BRANDS: readonly BrandIconName[] = ['tessera', 'rotp', 'rotp-mascot', 'archipelia', 'brock'];
 const SIZES = [16, 24, 48] as const;
+const TONES = ['colour', 'mono'] as const;
 
 const ARG_TYPES: StoryLiteArgTypes<BrandIconArgs> = {
   name: { control: 'select', options: [...BRANDS] },
@@ -41,17 +44,14 @@ const Playground = {
 const EveryBrand = {
   name: 'Every brand',
   render: () => (
-    <Box className="story-list">
-      {BRANDS.map((name) => (
-        <Box key={name} className="story-list__item">
-          <Text className="story-label">{name}</Text>
-          <Box className="icon-row">
-            {SIZES.map((size) => <Icon.Brand key={`c${size}`} name={name} size={size} />)}
-            {SIZES.map((size) => <Icon.Brand key={`m${size}`} name={name} size={size} tone="mono" />)}
-          </Box>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={axis(BRANDS)}
+      columns={TONES.flatMap((tone) => SIZES.map((size) => ({ key: `${tone} ${size}`, label: `${tone} ${size}` })))}
+      cell={(name, column) => {
+        const [tone, size] = column.split(' ');
+        return <Icon.Brand name={name} size={Number(size)} tone={tone === 'mono' ? 'mono' : undefined} />;
+      }}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<BrandIconArgs>;
 

@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind style */
 .spinner {
+  display: inline-block;
+  flex-shrink: 0;
   border-radius: var(--radius-round);
   border: var(--border-width-thick) solid var(--c-hover);
   border-top-color: var(--c-primary);
@@ -24,4 +26,16 @@
 
 @keyframes spinner-rotate {
   to { transform: rotate(360deg); }
+}
+
+@keyframes spinner-fade {
+  from { opacity: var(--opacity-faint); }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    border-color: var(--c-primary);
+    animation: spinner-fade var(--duration-float) var(--ease-standard) infinite alternate;
+  }
 }

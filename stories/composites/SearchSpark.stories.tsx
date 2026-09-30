@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { SearchSpark } from '../../src/composites';
-import { Box, Text } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type SearchSparkArgs = {
@@ -31,14 +31,10 @@ const Playground = {
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <Box className="story-row">
-      {SIZES.map((size) => (
-        <Box key={size} className="story-column">
-          <SearchSpark size={size} />
-          <Text className="story-label">{`${size}px`}</Text>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      columns={SIZES.map((size) => ({ key: String(size), label: `${size}px` }))}
+      cell={(_row, size) => <SearchSpark size={Number(size)} />}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<SearchSparkArgs>;
 

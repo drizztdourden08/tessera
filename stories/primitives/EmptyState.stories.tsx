@@ -1,7 +1,10 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Button, Card, EmptyState, Glyph, Grid, Text } from '../../src/primitives';
+import type { ReactNode } from 'react';
+import { Button, Card, EmptyState, Glyph } from '../../src/primitives';
 import type { GlyphName } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type EmptyStateArgs = {
@@ -19,6 +22,19 @@ const ARG_TYPES: StoryLiteArgTypes<EmptyStateArgs> = {
     glyph: { control: 'select', options: GLYPH_OPTIONS, description: 'Pick none to hide the icon.' },
     actionLabel: { control: 'text', description: 'Leave empty to hide the action.' },
   };
+
+const VARIANT_DEMOS: Record<string, ReactNode> = {
+  'message only': <EmptyState message="Nothing matches this filter." />,
+  'with icon': <EmptyState icon={<Glyph name="box" size={24} />} message="No rooms mapped in this dungeon." />,
+  'with icon and action': (
+    <EmptyState
+      icon={<Glyph name="gear" size={24} />}
+      message="No controller detected."
+      action={<Button size="sm" variant="primary">Scan again</Button>}
+    />
+  ),
+  'text icon': <EmptyState icon="0" message="No players have joined the session." />,
+};
 
 const meta = {
   title: 'Primitives · Display/EmptyState',
@@ -41,28 +57,12 @@ const Playground = {
 const Variants = {
   name: 'Variants',
   render: () => (
-    <Grid minColWidth={220} gap="md">
-      <Card>
-        <Text className="story-label">message only</Text>
-        <EmptyState message="Nothing matches this filter." />
-      </Card>
-      <Card>
-        <Text className="story-label">with icon</Text>
-        <EmptyState icon={<Glyph name="box" size={24} />} message="No rooms mapped in this dungeon." />
-      </Card>
-      <Card>
-        <Text className="story-label">with icon and action</Text>
-        <EmptyState
-          icon={<Glyph name="gear" size={24} />}
-          message="No controller detected."
-          action={<Button size="sm" variant="primary">Scan again</Button>}
-        />
-      </Card>
-      <Card>
-        <Text className="story-label">text icon</Text>
-        <EmptyState icon="0" message="No players have joined the session." />
-      </Card>
-    </Grid>
+    <Demonstrator
+      columns={axis(Object.keys(VARIANT_DEMOS))}
+      fill
+      align="stretch"
+      cell={(_row, variant) => <Card>{VARIANT_DEMOS[variant]}</Card>}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<EmptyStateArgs>;
 

@@ -46,7 +46,7 @@ const VARIANTS: readonly Story[] = [
   pickerVariant('Filtering', Filtering),
   pickerVariant('Columns and highlight', ColumnsHighlight),
   pickerVariant('Categories', CategoryList),
-  pickerVariant('Multi select, as chips', MultiChips),
+  pickerVariant('Multi select, as tags', MultiChips),
   pickerVariant('Custom filter', PrefixFilter),
   pickerVariant('Server search', ServerSearch),
   pickerVariant('Full item when not typing', FullItem),
@@ -72,7 +72,7 @@ const [game, setGame] = useState<Game | null>(null);
 
 const Overview = overviewStory({
   component: 'Combobox',
-  description: 'A text field that narrows a list as you type, built on the same list as Select: the same items, columns, categories, item component, min and max, and the same joined shape for the field and the list. By default it keeps the rows whose shown text holds the typed text, and marks that text in each row; filter replaces the test with your own. The arrow keys and Page Up and Page Down move, Enter picks and Escape closes. After a pick the field shows the label of the item. With valueDisplay full or a valueComponent, the picked item shows in full while the field is not being edited, and the one-line text comes back as soon as it takes focus. With max above 1 the picks show as chips before the text, and Backspace in an empty field removes the last one. onQueryChange hands each change of text to a server search: the list then shows what comes back, and loading draws a spinner meanwhile. min 0 adds a clear button.',
+  description: 'A text field that narrows a list as you type, built on the same list as Select: the same items, columns, categories, item component, min and max, and the same joined shape for the field and the list. By default it keeps the rows whose shown text holds the typed text, and marks that text in each row; filter replaces the test with your own. The arrow keys and Page Up and Page Down move, Enter picks and Escape closes. After a pick the field shows the label of the item. With valueDisplay full or a valueComponent, the picked item shows in full while the field is not being edited, and the one-line text comes back as soon as it takes focus. With max above 1 the picks show as Tags before the text, and Backspace in an empty field removes the last one. onQueryChange hands each change of text to a server search: the list then shows what comes back, and loading draws a spinner meanwhile. min 0 adds a clear button.',
   playground: Playground,
   variants: VARIANTS,
   states: pickerStates('combobox', { field: '.combobox', input: '.combobox__input' }),

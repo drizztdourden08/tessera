@@ -9,7 +9,6 @@ interface LogoProps {
   brand?: BrandApp;
   size?: BrandMarkSize;
   variant?: BrandMarkVariant;
-  tile?: boolean;
   title?: string;
   className?: string;
 }

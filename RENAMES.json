@@ -89,6 +89,9 @@
   "removedExports": {
     "WIDGET_DEFINITIONS": "moves to the app; pass it to WidgetManager and the layout helpers as `definitions`",
     "DISABLED_SETTING_MESSAGES": "moves to the app; DisabledOverlay takes `message`",
-    "resolveWidgetDisabledState": "moves to the app; WidgetManager takes `resolveDisabled`"
+    "resolveWidgetDisabledState": "moves to the app; WidgetManager takes `resolveDisabled`",
+    "StatusBadge": "merged into Status; pass tone, variant=\"pill\" and the label as children",
+    "ScreenStatus": "removed with StatusBadge; the app maps its own statuses to a Status tone and label",
+    "StatusBadgeProps": "replaced by StatusProps"
   }
 }

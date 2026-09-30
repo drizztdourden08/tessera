@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, CodeBlock, Text } from '../../src/primitives';
+import { CodeBlock } from '../../src/primitives';
 import type { CodeBlockLanguage } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { DIAGNOSTICS_SAMPLE, JSON_SAMPLE, TS_SAMPLE } from './_samples/data-code';
 
@@ -68,12 +69,13 @@ const Playground = {
 const SideBySide = {
   name: 'Both languages',
   render: () => (
-    <Box className="story-column">
-      <Text className="story-label">typescript</Text>
-      <CodeBlock code={TS_SAMPLE} language="typescript" />
-      <Text className="story-label">json, settings block changed</Text>
-      <CodeBlock code={JSON_SAMPLE} language="json" highlightedLines={[6, 7, 8, 9]} />
-    </Box>
+    <Demonstrator
+      rows={[{ key: 'typescript', label: 'typescript' }, { key: 'json', label: 'json, settings block changed' }]}
+      align="stretch"
+      cell={(language) => (language === 'json'
+        ? <CodeBlock code={JSON_SAMPLE} language="json" highlightedLines={[6, 7, 8, 9]} />
+        : <CodeBlock code={TS_SAMPLE} language="typescript" />)}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<CodeBlockArgs>;
 

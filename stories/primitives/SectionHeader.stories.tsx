@@ -1,6 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Badge, Box, Button, Card, SectionHeader, Stack, StatRow, Text } from '../../src/primitives';
+import { Box, Button, Card, SectionHeader, Stack, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
 type SectionHeaderArgs = {
@@ -44,7 +44,7 @@ const Variants = {
       <Text className="story-label">title and subtitle</Text>
       <SectionHeader title="Controller" subtitle="Applies to the active profile" />
       <Text className="story-label">with a count</Text>
-      <SectionHeader title="Players" action={<Badge variant="success">4 online</Badge>} />
+      <SectionHeader title="Players" action={<Status tone="success">4 online</Status>} />
       <Text className="story-label">with a button</Text>
       <SectionHeader
         title="Recent seeds"
@@ -77,7 +77,7 @@ const InAPanel = {
 
 const Overview = overviewStory({
   component: 'SectionHeader',
-  description: 'The heading row of a section or a panel: a title, an optional subtitle beneath it, and an optional action on the right. Reach for it at the top of a settings group, a list or a card. The action slot takes anything, most often a button, a badge or a count.',
+  description: 'The heading row of a section or a panel: a title, an optional subtitle beneath it, and an optional action on the right. Reach for it at the top of a settings group, a list or a card. The action slot takes anything, most often a button, a Status or a count.',
   playground: Playground,
   variants: [Variants],
 });

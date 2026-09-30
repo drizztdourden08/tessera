@@ -118,6 +118,12 @@
   cursor: default;
 }
 
+.btn--loading:disabled,
+.icon-btn--loading:disabled {
+  opacity: 1;
+  cursor: progress;
+}
+
 .btn--active,
 .icon-btn--active {
   background: var(--c-selected);

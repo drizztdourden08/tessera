@@ -3,6 +3,7 @@ import { useCallback, useRef, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Button, Text, Toast, ToastContainer } from '../../src/primitives';
 import type { ToastItem, ToastPosition, ToastVariant } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type ToastArgs = {
@@ -65,16 +66,15 @@ const EVERY_VARIANT: ToastItem[] = VARIANTS.map((variant) => ({ id: variant, var
 
 const VariantList = () => {
   const { toasts, dismiss } = useToastQueue(EVERY_VARIANT);
+  if (toasts.length === 0) {
+    return <Text className="story-label">All dismissed. Reload the story to bring them back.</Text>;
+  }
   return (
-    <Box className="story-column">
-      {toasts.map((item) => (
-        <Box key={item.id} className="story-column">
-          <Text className="story-label">{item.variant}</Text>
-          <Toast item={item} onDismiss={dismiss} />
-        </Box>
-      ))}
-      {toasts.length === 0 && <Text className="story-label">All dismissed. Reload the story to bring them back.</Text>}
-    </Box>
+    <Demonstrator
+      rows={toasts.map((item) => ({ key: item.id, label: item.variant ?? item.id }))}
+      align="stretch"
+      cell={(id) => toasts.filter((item) => item.id === id).map((item) => <Toast key={item.id} item={item} onDismiss={dismiss} />)}
+    />
   );
 };
 

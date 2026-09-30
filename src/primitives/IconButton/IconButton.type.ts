@@ -10,6 +10,7 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tone?: IconButtonTone;
   size?: 'sm' | 'md';
   active?: boolean;
+  loading?: boolean;
   label: string;
   children: ReactNode;
 }

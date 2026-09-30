@@ -2,7 +2,7 @@
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
 import { Paragraph } from '../../../primitives/text-elements';
-import { DELETE, REVERT, SAVE, SAVING } from './EditorFooter.constants';
+import { DELETE, REVERT, SAVE } from './EditorFooter.constants';
 import type { EditorFooterProps } from './EditorFooter.type';
 
 const EditorFooter = (props: EditorFooterProps) => {
@@ -25,8 +25,8 @@ const EditorFooter = (props: EditorFooterProps) => {
           <Button variant="tertiary" disabled={locked} onClick={onRevert}>
             {REVERT}
           </Button>
-          <Button variant="primary" disabled={locked} onClick={onSave}>
-            {saving ? SAVING : SAVE}
+          <Button variant="primary" disabled={!isDirty || disabled} loading={saving} onClick={onSave}>
+            {SAVE}
           </Button>
         </>
       )}

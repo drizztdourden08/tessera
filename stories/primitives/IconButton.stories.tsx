@@ -22,6 +22,7 @@ type IconButtonArgs = {
   tone: ToneChoice;
   size: 'sm' | 'md';
   active: boolean;
+  loading: boolean;
   disabled: boolean;
 };
 
@@ -50,7 +51,7 @@ const glyph = (name: GlyphName, size: 'sm' | 'md') => (
 );
 
 const ARGS: Partial<IconButtonArgs> = {
-  label: 'Close panel', glyph: 'close', variant: 'ghost', tone: 'none', size: 'sm', active: false, disabled: false,
+  label: 'Close panel', glyph: 'close', variant: 'ghost', tone: 'none', size: 'sm', active: false, loading: false, disabled: false,
 };
 
 const ARG_TYPES: StoryLiteArgTypes<IconButtonArgs> = {
@@ -60,6 +61,7 @@ const ARG_TYPES: StoryLiteArgTypes<IconButtonArgs> = {
     tone: { control: 'select', options: ['none', 'danger'], description: 'Draws a ghost button in a status colour with a soft glow.' },
     size: { control: 'select', options: ['sm', 'md'] },
     active: { control: 'boolean' },
+    loading: { control: 'boolean', description: 'Shows the spinner in place of the icon and disables the button.' },
     disabled: { control: 'boolean' },
   };
 
@@ -79,6 +81,7 @@ const Playground = {
       tone={args.tone === 'none' ? undefined : args.tone}
       size={args.size}
       active={args.active}
+      loading={args.loading}
       disabled={args.disabled}
     >
       {glyph(args.glyph, args.size)}
@@ -113,6 +116,19 @@ const DangerTone = {
         <IconButton key={size} label={`${LABELS.bug}, ${size}`} tone="danger" size={size}>{glyph('bug', size)}</IconButton>
       ))}
     </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
+const Loading = {
+  name: 'Loading',
+  render: () => (
+    <VariantGrid
+      rows={axis(STATE_VARIANTS)}
+      columns={axis(SIZES)}
+      cell={(variant, size) => (
+        <IconButton label={`${LABELS.plus}, ${variant}`} variant={variant} size={size} loading>{glyph('plus', size)}</IconButton>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
@@ -158,11 +174,11 @@ const Toolbar = {
 
 const Overview = overviewStory({
   component: 'IconButton',
-  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, and two sizes. It shares the Button focus ring and pressed fill, and active marks a toggle as on and announces it as pressed. tone="danger" draws a ghost button in red with a soft red glow, for a report a bug button or a remove button, and fills red inside a danger ring on hover.',
+  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, and two sizes. It shares the Button focus ring and pressed fill, and active marks a toggle as on and announces it as pressed. tone="danger" draws a ghost button in red with a soft red glow, for a report a bug button or a remove button, and fills red inside a danger ring on hover. loading swaps the icon for the Spinner, keeps the square, stops clicks and announces the button as busy.',
   playground: Playground,
-  variants: [AllVariants, DangerTone],
+  variants: [AllVariants, DangerTone, Loading],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, DangerTone, Overview, Playground, Toolbar };
+export { AllVariants, DangerTone, Loading, Overview, Playground, Toolbar };

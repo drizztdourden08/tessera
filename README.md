@@ -22,6 +22,14 @@ An app's `theme.css` sets the palette seeds, unlayered, so they beat every Tesse
 
 Every accent role (`--c-primary-bright`, `-dim`, `-soft`, `--c-selected`, the secondary set) derives from those seeds; any one of them can still be pinned. Neutrals are dark by default; `data-theme="light"` on any element flips them for that subtree. `data-palette` on an element re-derives the accents there.
 
+An app that draws some parts its own way hands them to `TesseraProvider` once, at the root. Today the part is the spinner: every Tessera `Spinner` below the provider, including the ones inside `Button`, `Select` and portaled dialogs, draws the app's component.
+
+```tsx
+const OVERRIDES: TesseraOverrides = { spinner: AppSpinner };
+
+<TesseraProvider overrides={OVERRIDES}><App /></TesseraProvider>
+```
+
 The package ships TypeScript and CSS source: its consumers are Vite apps, which compile it like their own code. That also means a sibling checkout can stand in for the installed package with one Vite alias while editing both.
 
 ## Status

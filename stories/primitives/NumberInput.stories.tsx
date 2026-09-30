@@ -1,7 +1,10 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Field, NumberInput, Text } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -60,20 +63,16 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<NumberInputArgs>;
 
+const SIZINGS: Readonly<Record<string, ReactNode>> = {
+  'sized to max 100': <StatefulNumber initial={25} min={0} max={100} step={5} sizeToContent />,
+  'sized to max 9999': <StatefulNumber initial={300} min={0} max={9999} sizeToContent />,
+  'fractional step, game speed': <StatefulNumber initial={1.5} min={0.25} max={10} step={0.25} sizeToContent />,
+  'fills the row': <StatefulNumber initial={3} min={1} max={8} />,
+};
+
 const Sizing = {
   name: 'Sizing',
-  render: () => (
-    <Box className="story-column">
-      <Text className="story-label">sized to max 100</Text>
-      <StatefulNumber initial={25} min={0} max={100} step={5} sizeToContent />
-      <Text className="story-label">sized to max 9999</Text>
-      <StatefulNumber initial={300} min={0} max={9999} sizeToContent />
-      <Text className="story-label">fractional step, game speed</Text>
-      <StatefulNumber initial={1.5} min={0.25} max={10} step={0.25} sizeToContent />
-      <Text className="story-label">fills the row</Text>
-      <StatefulNumber initial={3} min={1} max={8} />
-    </Box>
-  ),
+  render: () => <Demonstrator rows={axis(Object.keys(SIZINGS))} align="stretch" cell={(row) => SIZINGS[row]} />,
 } satisfies StoryLiteStoryDefinition<NumberInputArgs>;
 
 const HintCost = (props: { initial: number; disabled?: boolean }) => {

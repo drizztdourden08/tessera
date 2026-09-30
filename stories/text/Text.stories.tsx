@@ -2,7 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Stack, TEXT_ELEMENT_SPECS, Text } from '../../src/primitives';
 import type { TextVariant } from '../../src/primitives';
-import { LabelledRows } from '../_template/LabelledRows';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type TextVariantChoice = TextVariant | 'none';
@@ -90,29 +91,30 @@ const Passage = {
 const Members = {
   name: 'Every member',
   render: () => (
-    <Box className="story-list">
-      {MEMBERS.map((member) => (
-        <Box key={member.name} className="story-list__item">
-          <Text className="story-label">{member.renders}</Text>
+    <Demonstrator
+      rows={MEMBERS.map((member) => ({ key: member.name, label: member.renders }))}
+      cell={(name) => {
+        const short = MEMBERS.find((member) => member.name === name)?.short ?? name;
+        return (
           <Box className="story-inline">
-            <Text.Code>{`Text.${member.name}`}</Text.Code>
-            {member.short !== member.name && <Text.Code>{`Text.${member.short}`}</Text.Code>}
+            <Text.Code>{`Text.${name}`}</Text.Code>
+            {short !== name && <Text.Code>{`Text.${short}`}</Text.Code>}
           </Box>
-        </Box>
-      ))}
-    </Box>
+        );
+      }}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <LabelledRows items={VARIANTS} render={(variant) => <Text variant={variant}>{SAMPLES[variant]}</Text>}>
-      <Box className="story-row">
-        <Text className="story-label">none</Text>
-        <Text>Plain text with no variant inherits the base size and colour.</Text>
-      </Box>
-    </LabelledRows>
+    <Demonstrator
+      rows={axis<TextVariant | 'none'>([...VARIANTS, 'none'])}
+      cell={(variant) => (variant === 'none'
+        ? <Text>Plain text with no variant inherits the base size and colour.</Text>
+        : <Text variant={variant}>{SAMPLES[variant]}</Text>)}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 

@@ -64,16 +64,9 @@
   line-height: var(--leading-tight);
 }
 
-.tab-bar__badge {
-  padding: 0 var(--space-2xs);
-  border-radius: var(--radius-sm);
-  background: var(--c-hover);
-  font-size: var(--text-xs);
-  line-height: var(--leading-tight);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .tab-bar__strip {
     scroll-behavior: auto;
   }
+
 }

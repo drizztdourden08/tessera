@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode, RefObject } from 'react';
+import type { RefObject } from 'react';
 
 type TagValidationResult = boolean | string;
 
@@ -34,17 +34,6 @@ interface TagInputProps {
   id?: string;
 }
 
-type TagTone = 'neutral' | 'primary';
-
-interface TagChipProps {
-  tag: ReactNode;
-  name?: string;
-  advice?: TagAdvice;
-  tone?: TagTone;
-  disabled?: boolean;
-  onRemove?: () => void;
-}
-
 interface TagSuggestionPanelProps {
   listId: string;
   optionId: (idx: number) => string;
@@ -60,8 +49,6 @@ interface TagSuggestionPanelProps {
 
 export type {
   TagAdvice,
-  TagChipProps,
-  TagTone,
   TagInputProps,
   TagSuggestionPanelProps,
   TagValidationResult,

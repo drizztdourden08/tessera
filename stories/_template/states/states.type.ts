@@ -20,6 +20,11 @@ interface OverviewStates {
   list: readonly StateEntry[];
 }
 
+interface StateCellProps {
+  entry: StateEntry;
+  render: StateRender;
+}
+
 type StateKey = 'idle' | 'hover' | 'focus' | 'active' | 'selected' | 'checked' | 'open' | 'readOnly' | 'loading' | 'error' | 'disabled';
 
-export type { OverviewStates, PseudoState, StateEntry, StateKey, StateProps, StateRender };
+export type { OverviewStates, PseudoState, StateCellProps, StateEntry, StateKey, StateProps };

@@ -2,6 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Button, Flex, Spacer, Text } from '../../src/primitives';
 import type { SpaceToken } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import '../_template/story-outline.css';
 import './Spacer.stories.css';
@@ -43,17 +45,16 @@ const Playground = {
 const FixedSizes = {
   name: 'Fixed sizes',
   render: () => (
-    <Box className="story-column">
-      {SIZES.map((size) => (
-        <Flex key={size} align="center">
-          <Text className="story-label">{size}</Text>
-          <Spacer size="md" />
+    <Demonstrator
+      rows={axis(SIZES)}
+      cell={(size) => (
+        <Flex align="center">
           <Box className="spacer-demo__block">A</Box>
           <Spacer size={size} />
           <Box className="spacer-demo__block">B</Box>
         </Flex>
-      ))}
-    </Box>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<SpacerArgs>;
 

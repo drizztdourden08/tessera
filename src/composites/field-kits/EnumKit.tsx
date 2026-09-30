@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import type { ReactNode } from 'react';
 import { registerFieldTester } from '../../data/filter/tester-registry';
-import { Badge } from '../../primitives/Badge';
+import { Tag } from '../../primitives/Tag';
 import { Text } from '../../primitives/Text';
 import { isNullish } from './coerce';
 import { ABSENT } from './EnumKit.constants';
@@ -40,7 +40,7 @@ const FilterControl = (props: FilterControlProps) => {
 
 const renderCell = (value: unknown): ReactNode => {
   if (isNullish(value) || value === '') return <Text className="field-kit__muted">{ABSENT}</Text>;
-  return <Badge variant="neutral">{toText(value)}</Badge>;
+  return <Tag>{toText(value)}</Tag>;
 };
 
 const enumKit: FieldTypeStrategy = { kind: 'enum', FilterControl, EditorControl: EnumEditorControl, renderCell };

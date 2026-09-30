@@ -3,17 +3,17 @@ import { Svg, SvgGroup, SvgRect } from '../../primitives/Svg';
 import { BrandPaths } from '../BrandPaths';
 import { BRAND_FAMILY } from '../family.constants';
 import { markLabelProps } from './behavior/mark-label-props';
-import { parseViewBox } from './behavior/parse-view-box';
-import { pickMarkArt } from './behavior/pick-mark-art';
+import { squareBox } from './behavior/square-box';
 import { TILE_SCALE } from './BrandMark.constants';
 import type { BrandMarkProps } from './BrandMark.type';
 import './BrandMark.css';
 
 const BrandMark = (props: BrandMarkProps) => {
-  const { app, size = 'md', variant = 'mark', tile = false, title, className = '' } = props;
+  const { app, size = 'md', variant = 'mark', title, className = '' } = props;
   const brand = BRAND_FAMILY[app];
-  const { viewBox, paths, pixelArt } = pickMarkArt(brand, variant);
-  const { x, y, w, h } = parseViewBox(viewBox);
+  const { viewBox, paths, pixelArt } = brand.mark;
+  const tile = variant === 'app-icon' && brand.appIcon === 'tile';
+  const { x, y, w, h } = squareBox(viewBox);
   const cls = ['brand-mark', `brand-mark--${size}`, className].filter(Boolean).join(' ');
   const cx = x + w / 2;
   const cy = y + h / 2;
@@ -21,7 +21,7 @@ const BrandMark = (props: BrandMarkProps) => {
   return (
     <Svg
       className={cls}
-      viewBox={viewBox}
+      viewBox={`${x} ${y} ${w} ${h}`}
       {...markLabelProps(title ?? brand.name)}
       shapeRendering={pixelArt ? 'crispEdges' : undefined}
     >

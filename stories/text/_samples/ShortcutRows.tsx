@@ -1,5 +1,6 @@
 /* @layer stories @kind component */
-import { Box, Shortcut, Text } from '../../../src/primitives';
+import { Shortcut } from '../../../src/primitives';
+import { Demonstrator } from '../../_template/Demonstrator';
 import type { ShortcutRow } from './shortcut-samples';
 
 const rowLabel = (row: ShortcutRow): string => {
@@ -18,14 +19,13 @@ const RowShortcut = (props: { row: ShortcutRow }) => {
 const ShortcutRows = (props: { rows: readonly ShortcutRow[] }) => {
   const { rows } = props;
   return (
-    <Box className="story-list">
-      {rows.map((row) => (
-        <Box key={rowLabel(row)} className="story-list__item">
-          <Text className="story-label">{rowLabel(row)}</Text>
-          <Box><RowShortcut row={row} /></Box>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={rows.map((row) => ({ key: rowLabel(row), label: rowLabel(row) }))}
+      cell={(label) => {
+        const row = rows.find((entry) => rowLabel(entry) === label);
+        return row ? <RowShortcut row={row} /> : null;
+      }}
+    />
   );
 };
 

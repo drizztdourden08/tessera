@@ -2,6 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Flex, Text } from '../../src/primitives';
 import type { FlexAlign, FlexJustify, SpaceToken } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './Flex.stories.css';
 
@@ -61,52 +63,50 @@ const Playground = {
 const Justify = {
   name: 'Justify values',
   render: () => (
-    <Box className="story-column">
-      {JUSTIFIES.map((justify) => (
-        <Box key={justify} className="story-column">
-          <Text className="story-label">{justify}</Text>
-          <Flex className="flex-demo flex-demo--short" justify={justify} gap="sm">
-            {PLAYERS.slice(0, 3).map((player) => (
-              <Box key={player} className="flex-demo__item">{player}</Box>
-            ))}
-          </Flex>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={axis(JUSTIFIES)}
+      align="stretch"
+      cell={(justify) => (
+        <Flex className="flex-demo flex-demo--short" justify={justify} gap="sm">
+          {PLAYERS.slice(0, 3).map((player) => (
+            <Box key={player} className="flex-demo__item">{player}</Box>
+          ))}
+        </Flex>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<FlexArgs>;
 
 const Align = {
   name: 'Align values',
   render: () => (
-    <Box className="story-column">
-      {ALIGNS.map((align) => (
-        <Box key={align} className="story-column">
-          <Text className="story-label">{align}</Text>
-          <Flex className="flex-demo flex-demo--short" align={align} gap="sm">
-            <Box className="flex-demo__item flex-demo__item--tall">Room 0x12</Box>
-            <Box className="flex-demo__item">Chest</Box>
-            <Text variant="caption">3 of 5 checks</Text>
-          </Flex>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={axis(ALIGNS)}
+      align="stretch"
+      cell={(align) => (
+        <Flex className="flex-demo flex-demo--short" align={align} gap="sm">
+          <Box className="flex-demo__item flex-demo__item--tall">Room 0x12</Box>
+          <Box className="flex-demo__item">Chest</Box>
+          <Text variant="caption">3 of 5 checks</Text>
+        </Flex>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<FlexArgs>;
 
 const GapScale = {
   name: 'Gap scale',
   render: () => (
-    <Box className="story-column">
-      {GAPS.map((gap) => (
-        <Flex key={gap} gap={gap} align="center">
-          <Text className="story-label">{gap}</Text>
+    <Demonstrator
+      rows={axis(GAPS)}
+      cell={(gap) => (
+        <Flex gap={gap} align="center">
           {PLAYERS.slice(0, 4).map((player) => (
             <Box key={player} className="flex-demo__item">{player}</Box>
           ))}
         </Flex>
-      ))}
-    </Box>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<FlexArgs>;
 

@@ -17,6 +17,10 @@
   font-size: var(--text-base);
 }
 
+.icon-btn__spinner {
+  display: flex;
+}
+
 .icon-btn--ghost.icon-btn--active,
 .icon-btn--ghost.icon-btn--active:hover:not(:disabled) {
   background: none;

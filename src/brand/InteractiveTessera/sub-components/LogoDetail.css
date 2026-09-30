@@ -51,8 +51,7 @@
 }
 
 .interactive-tessera__detail-head .interactive-tessera__mascot {
-  --brand-mark-size: 3.2em;
-
+  block-size: 3.2em;
   margin-inline-start: auto;
 }
 

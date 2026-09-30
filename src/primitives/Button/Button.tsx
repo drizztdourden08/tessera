@@ -4,14 +4,25 @@ import '../../theme/button-surface.css';
 import './Button.css';
 import type { ButtonProps } from './Button.type';
 import { buttonClass } from './behavior/button-class';
+import { ButtonIcon } from './sub-components/ButtonIcon';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { variant = 'tertiary', size = 'md', fullWidth = false, active = false, icon, children, className = '', ...rest } = props;
-  const cls = buttonClass({ variant, size, fullWidth, active, className });
+  const {
+    variant = 'tertiary', size = 'md', fullWidth = false, active = false, loading = false, disabled,
+    icon, children, className = '', ...rest
+  } = props;
+  const cls = buttonClass({ variant, size, fullWidth, active, loading, className });
 
   return (
-    <button ref={ref} className={cls} aria-pressed={active || undefined} {...rest}>
-      {icon && <span className="btn__icon">{icon}</span>}
+    <button
+      ref={ref}
+      className={cls}
+      aria-pressed={active || undefined}
+      aria-busy={loading || undefined}
+      disabled={loading || disabled}
+      {...rest}
+    >
+      <ButtonIcon icon={icon} loading={loading} />
       {children}
     </button>
   );

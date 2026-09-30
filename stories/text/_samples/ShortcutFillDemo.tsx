@@ -1,5 +1,6 @@
 /* @layer stories @kind component */
-import { Box, Shortcut, Text } from '../../../src/primitives';
+import { Box, Shortcut } from '../../../src/primitives';
+import { Demonstrator } from '../../_template/Demonstrator';
 import type { MouseButton, ShortcutKey } from '../../../src/primitives';
 import './shortcut-fill.css';
 
@@ -15,16 +16,18 @@ const FILL_SAMPLES: readonly FillSample[] = [
 ];
 
 const ShortcutFillDemo = () => (
-  <Box className="story-list shortcut-fill">
-    {FILL_SAMPLES.map((sample) => (
-      <Box key={sample.label} className="story-list__item">
-        <Text className="story-label">{sample.label}</Text>
-        <Box className={`shortcut-fill__slot shortcut-fill__slot--${sample.slot}`}>
-          {sample.mouse ? <Shortcut mouse={sample.mouse} fill /> : <Shortcut keys={sample.keys ?? []} fill />}
+  <Demonstrator
+    className="shortcut-fill"
+    rows={FILL_SAMPLES.map((sample) => ({ key: sample.slot, label: sample.label }))}
+    cell={(slot) => {
+      const sample = FILL_SAMPLES.find((entry) => entry.slot === slot);
+      return (
+        <Box className={`shortcut-fill__slot shortcut-fill__slot--${slot}`}>
+          {sample?.mouse ? <Shortcut mouse={sample.mouse} fill /> : <Shortcut keys={sample?.keys ?? []} fill />}
         </Box>
-      </Box>
-    ))}
-  </Box>
+      );
+    }}
+  />
 );
 
 export { ShortcutFillDemo };

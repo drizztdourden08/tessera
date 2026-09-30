@@ -3,13 +3,12 @@ import { useId } from 'react';
 import { useTagInput } from './behavior/useTagInput';
 import { adviseTag } from './behavior/tag-convention';
 import { tagInputClass } from './behavior/tag-input-class';
-import { TagChip } from './sub-components/TagChip';
+import { TagInputTag } from './sub-components/TagInputTag';
 import { TagEntry } from './sub-components/TagEntry';
 import { TagHint } from './sub-components/TagHint';
 import { TagSuggestionPanel } from './sub-components/TagSuggestionPanel';
 import type { TagInputProps } from './TagInput.type';
 import '../../theme/select-popup.css';
-import '../../theme/tag-chip.css';
 import './TagInput.css';
 
 const TagInput = (props: TagInputProps) => {
@@ -40,7 +39,7 @@ const TagInput = (props: TagInputProps) => {
 
       <div ref={popup.anchorRef} className="tag-input__field">
         {value.map((tag, idx) => (
-          <TagChip
+          <TagInputTag
             key={tag}
             tag={tag}
             advice={adviseTag(tag, validate)}

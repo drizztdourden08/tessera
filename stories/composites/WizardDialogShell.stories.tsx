@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { WizardDialogShell } from '../../src/composites';
-import { Badge, Box, Button, Field, NumberInput, Select, TermList, Text, TextInput } from '../../src/primitives';
+import { Box, Button, Field, NumberInput, Select, Status, TermList, Text, TextInput } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { WIZARD_STEPS } from './_samples/dialogs';
 
@@ -80,7 +80,7 @@ const WizardDemo = (props: WizardArgs) => {
         open={open}
         onClose={close}
         title={title}
-        headerExtra={withHeaderExtra ? <Badge variant="neutral">Draft</Badge> : undefined}
+        headerExtra={withHeaderExtra ? <Status tone="neutral">Draft</Status> : undefined}
         steps={WIZARD_STEPS}
         activeStep={step}
         onStepChange={setStep}

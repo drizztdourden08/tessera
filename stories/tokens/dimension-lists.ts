@@ -1,5 +1,5 @@
 /* @layer stories @kind data */
-import type { TokenEntry } from './token-table';
+import type { TokenEntry } from './token-table.type';
 
 const SPACING: readonly TokenEntry[] = [
   { token: '--space-2xs' },

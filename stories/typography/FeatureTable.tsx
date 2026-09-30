@@ -1,43 +1,32 @@
 /* @layer stories @kind component */
+import type { ReactNode } from 'react';
 import { Box, Text, TYPE_FEATURES } from '../../src/primitives';
 import type { TypeFeature, TypeFeatureGroup } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
+import { FEATURE_COLUMNS, FEATURE_GROUP_TITLES } from './FeatureTable.constants';
+import type { FeatureTableProps } from './FeatureTable.type';
 import './variable-type.css';
-
-interface FeatureTableProps {
-  group: TypeFeatureGroup;
-}
-
-const GROUP_TITLES: Record<TypeFeatureGroup, string> = {
-  numerals: 'Numerals',
-  position: 'Position',
-  forms: 'Forms and ligatures',
-  stylistic: 'Stylistic sets',
-  character: 'Character variants',
-};
 
 const featuresIn = (group: TypeFeatureGroup): TypeFeature[] =>
   (Object.keys(TYPE_FEATURES) as TypeFeature[]).filter((feature) => TYPE_FEATURES[feature].group === group);
 
+const featureCell = (feature: TypeFeature, column: (typeof FEATURE_COLUMNS)[number]['key']): ReactNode => {
+  const { sample, tag } = TYPE_FEATURES[feature];
+  if (column === 'prop') return <Text className="variable-type__label">{feature}</Text>;
+  if (column === 'off') return <Text className="feature-table__sample" style={{ fontFeatureSettings: `'${tag}' 0` }}>{sample}</Text>;
+  return <Text className="feature-table__sample" features={[feature]}>{sample}</Text>;
+};
+
 const FeatureTable = ({ group }: FeatureTableProps) => (
   <Box className="feature-table">
-    <Text className="feature-table__title">{GROUP_TITLES[group]}</Text>
-    <Box className="feature-table__grid">
-      <Text className="variable-type__head">Feature</Text>
-      <Text className="variable-type__head">Prop</Text>
-      <Text className="variable-type__head">Off</Text>
-      <Text className="variable-type__head">On</Text>
-      {featuresIn(group).map((feature) => (
-        <Box key={feature} className="variable-type__row">
-          <Text className="feature-table__label">
-            {TYPE_FEATURES[feature].label}
-            <Text className="variable-type__caption">{` ${TYPE_FEATURES[feature].tag}`}</Text>
-          </Text>
-          <Text className="variable-type__label">{feature}</Text>
-          <Text className="feature-table__sample" style={{ fontFeatureSettings: `'${TYPE_FEATURES[feature].tag}' 0` }}>{TYPE_FEATURES[feature].sample}</Text>
-          <Text className="feature-table__sample" features={[feature]}>{TYPE_FEATURES[feature].sample}</Text>
-        </Box>
-      ))}
-    </Box>
+    <Text className="feature-table__title">{FEATURE_GROUP_TITLES[group]}</Text>
+    <Demonstrator
+      corner="Feature"
+      rows={featuresIn(group).map((feature) => ({ key: feature, label: `${TYPE_FEATURES[feature].label} ${TYPE_FEATURES[feature].tag}` }))}
+      columns={FEATURE_COLUMNS}
+      align="start"
+      cell={featureCell}
+    />
   </Box>
 );
 

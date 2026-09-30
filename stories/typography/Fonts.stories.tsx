@@ -1,6 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Text } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { FONTS, PANGRAM } from './type-lists';
 import { TypeTable } from './TypeTable';
@@ -33,16 +35,15 @@ const TitleFace = {
         <Text className="title-face__display">Archipelia</Text>
         <Text className="title-face__heading">Session setup</Text>
         <Text className="title-face__caps">Hyrule Castle 112 / 216</Text>
-        <Box className="story-list title-face__weights">
-          {TITLE_WEIGHTS.map((weight) => (
-            <Box key={weight} className="story-list__item">
-              <Text className="variable-type__caption">{weight}</Text>
-              <Text className="title-face__heading" weight={weight}>
-                Multiworld <Text weight={weight} italic>Multiworld</Text>
-              </Text>
-            </Box>
-          ))}
-        </Box>
+        <Demonstrator
+          className="title-face__weights"
+          rows={axis(TITLE_WEIGHTS.map(String))}
+          cell={(weight) => (
+            <Text className="title-face__heading" weight={Number(weight)}>
+              Multiworld <Text weight={Number(weight)} italic>Multiworld</Text>
+            </Text>
+          )}
+        />
       </Box>
     </Box>
   ),

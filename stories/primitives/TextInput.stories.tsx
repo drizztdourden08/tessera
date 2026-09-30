@@ -1,6 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Field, Text, TextInput } from '../../src/primitives';
+import { Field, TextInput } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -27,12 +29,14 @@ const ARG_TYPES: StoryLiteArgTypes<TextInputArgs> = {
     invalid: { control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
   };
 
-const TYPES: readonly { type: InputType; value: string }[] = [
-  { type: 'text', value: 'Link' },
-  { type: 'password', value: 'triforce' },
-  { type: 'email', value: 'link@hyrule.example' },
-  { type: 'search', value: 'Master Sword' },
-];
+const TYPES: readonly InputType[] = ['text', 'password', 'email', 'search'];
+
+const TYPE_VALUES: Record<InputType, string> = {
+  text: 'Link',
+  password: 'triforce',
+  email: 'link@hyrule.example',
+  search: 'Master Sword',
+};
 
 const meta = {
   title: 'Primitives · Inputs/TextInput',
@@ -59,14 +63,7 @@ const Playground = {
 const Types = {
   name: 'Types',
   render: () => (
-    <Box className="story-list">
-      {TYPES.map(({ type, value }) => (
-        <Box key={type} className="story-list__item">
-          <Text className="story-label">{type}</Text>
-          <TextInput type={type} defaultValue={value} />
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator rows={axis(TYPES)} align="stretch" cell={(type) => <TextInput type={type} defaultValue={TYPE_VALUES[type]} />} />
   ),
 } satisfies StoryLiteStoryDefinition<TextInputArgs>;
 

@@ -6,10 +6,6 @@
   font-size: var(--text-sm);
 }
 
-.engine-grid--schema {
-  grid-template-columns: repeat(5, max-content);
-}
-
 .engine-grid--rows {
   grid-template-columns: repeat(5, max-content);
 }

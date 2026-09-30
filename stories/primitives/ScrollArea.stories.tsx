@@ -1,8 +1,9 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Flex, ScrollArea, Text } from '../../src/primitives';
+import { Box, ScrollArea, Text } from '../../src/primitives';
 import type { ScrollAxis, ScrollPosition } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './ScrollArea.stories.css';
 
@@ -80,14 +81,11 @@ const axisContent = (axis: ScrollAxis) => {
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <Box className="story-column">
-      {AXES.map((axis) => (
-        <Box key={axis} className="story-column">
-          <Text className="story-label">{`axis ${axis}`}</Text>
-          <ScrollArea axis={axis} className="scroll-demo">{axisContent(axis)}</ScrollArea>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={AXES.map((axis) => ({ key: axis, label: `axis ${axis}` }))}
+      align="stretch"
+      cell={(axis) => <ScrollArea axis={axis} className="scroll-demo">{axisContent(axis)}</ScrollArea>}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<ScrollAreaArgs>;
 
@@ -112,26 +110,26 @@ const Horizontal = {
 const MirroredPanesDemo = () => {
   const [leftTarget, setLeftTarget] = useState<ScrollPosition | undefined>(undefined);
   const [rightTarget, setRightTarget] = useState<ScrollPosition | undefined>(undefined);
-  const panes = [
-    { title: 'Current', lines: configLines('old-'), target: leftTarget, onScroll: setRightTarget },
-    { title: 'Proposed', lines: configLines('new-'), target: rightTarget, onScroll: setLeftTarget },
-  ];
+  const panes = {
+    Current: { lines: configLines('old-'), target: leftTarget, onScroll: setRightTarget },
+    Proposed: { lines: configLines('new-'), target: rightTarget, onScroll: setLeftTarget },
+  };
 
   return (
-    <Flex gap="md">
-      {panes.map((pane) => (
-        <Box key={pane.title} className="scroll-demo__pane">
-          <Text className="story-label">{pane.title}</Text>
-          <ScrollArea className="scroll-demo" scrollTo={pane.target} onScroll={pane.onScroll}>
-            {pane.lines.map((line) => (
-              <Box key={line} className="scroll-demo__entry">
-                <Text variant="caption">{line}</Text>
-              </Box>
-            ))}
-          </ScrollArea>
-        </Box>
-      ))}
-    </Flex>
+    <Demonstrator
+      columns={[{ key: 'Current', label: 'Current' }, { key: 'Proposed', label: 'Proposed' }]}
+      fill
+      align="stretch"
+      cell={(_row, title) => (
+        <ScrollArea className="scroll-demo" scrollTo={panes[title].target} onScroll={panes[title].onScroll}>
+          {panes[title].lines.map((line) => (
+            <Box key={line} className="scroll-demo__entry">
+              <Text variant="caption">{line}</Text>
+            </Box>
+          ))}
+        </ScrollArea>
+      )}
+    />
   );
 };
 

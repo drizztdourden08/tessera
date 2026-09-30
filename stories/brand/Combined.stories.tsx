@@ -41,7 +41,7 @@ const Stacked = {
 
 const Overview = overviewStory({
   component: 'Combined',
-  description: 'An app\'s mark and wordmark together: Logo.Combined. Inline sets the name beside the mark, for a header or a title bar with room to spare. Stacked sets it under the mark, for a splash or an about page. The pair reads as one image named after the brand. It takes brand (tessera by default), a size for the mark that the wordmark follows, and the mark\'s tile and variant.',
+  description: 'An app\'s mark and wordmark together: Logo.Combined. Inline sets the name beside the mark, for a header or a title bar with room to spare. Stacked sets it under the mark, for a splash or an about page. The pair reads as one image named after the brand. It takes brand (tessera by default), a size for the mark that the wordmark follows, and the mark\'s variant, where app-icon draws the app icon.',
   playground: Playground,
   variants: [Inline, Stacked],
   code: `import { Logo } from '@drizztdourden08/tessera';

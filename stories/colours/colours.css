@@ -61,29 +61,6 @@
   font-size: var(--text-sm);
 }
 
-.palette {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.palette__head {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-md);
-}
-
-.palette__token {
-  color: var(--c-text-muted);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-}
-
-.palette__steps {
-  display: grid;
-  gap: var(--space-xs);
-}
-
 .palette-step {
   display: flex;
   flex-direction: column;

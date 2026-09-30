@@ -27,7 +27,7 @@ const GroupRow = (props: GroupRowProps) => {
       </Pressable>
       <Box className="data-table__group-total">
         {field && <Span tone="muted" className="data-table__group-field">{field.label}</Span>}
-        <Badge variant="neutral" className="data-table__group-count">{String(count)}</Badge>
+        <Badge variant="inline" color="primary" value={count} />
       </Box>
     </Box>
   );

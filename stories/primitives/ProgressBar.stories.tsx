@@ -60,7 +60,7 @@ const LoadingDemo = () => {
     <Box className="story-column">
       <ProgressBar value={value} />
       <Box className="story-row">
-        <Button size="sm" onClick={start} disabled={running}>
+        <Button size="sm" onClick={start} loading={running}>
           Extract assets
         </Button>
         <Text className="story-label">{value}%</Text>

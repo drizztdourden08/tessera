@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { DialogShell } from '../../src/composites';
-import { Badge, Box, Button, Spinner, StatRow, Text } from '../../src/primitives';
+import { Box, Button, Spinner, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
 type DialogShellArgs = {
@@ -51,7 +51,7 @@ const ShellDemo = (props: ShellDemoProps) => {
         title={title}
         dismissable={dismissable}
         actions={actions}
-        headerExtra={withHeaderExtra ? <Badge variant="success">Live</Badge> : undefined}
+        headerExtra={withHeaderExtra ? <Status tone="success">Live</Status> : undefined}
       >
         {waiting ? <Waiting /> : <SessionSummary />}
       </DialogShell>

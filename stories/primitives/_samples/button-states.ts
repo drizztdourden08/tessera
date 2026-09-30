@@ -8,6 +8,7 @@ const BUTTON_STATES: readonly StateEntry[] = [
   STATE.focus,
   STATE.active,
   { ...STATE.selected, name: 'Toggled on', props: { active: true } },
+  STATE.loading,
   STATE.disabled,
 ];
 

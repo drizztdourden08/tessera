@@ -1,0 +1,49 @@
+/* @layer stories @kind style */
+.demonstrator {
+  --demonstrator-gap: var(--space-xl);
+  --demonstrator-rule: var(--border-width-thin) solid var(--c-border);
+
+  gap: var(--demonstrator-gap);
+  justify-content: start;
+  align-items: stretch;
+}
+
+.demonstrator__label,
+.demonstrator__corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.demonstrator__label--row {
+  padding-inline: var(--space-sm);
+  border-inline-end: var(--demonstrator-rule);
+}
+
+.demonstrator__label--column,
+.demonstrator__corner { padding-block-end: var(--space-xs); }
+
+.demonstrator__label--column { border-block-end: var(--demonstrator-rule); }
+
+.demonstrator__cell {
+  display: grid;
+  place-items: center;
+  min-inline-size: 0;
+}
+
+.demonstrator[data-align='start'] > .demonstrator__cell { justify-items: start; }
+.demonstrator[data-align='stretch'] > .demonstrator__cell { justify-items: stretch; }
+
+.demonstrator__slot { position: relative; }
+
+.demonstrator__slot--ruled::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(var(--demonstrator-gap) / -2);
+  border-block-start: var(--demonstrator-rule);
+}

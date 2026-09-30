@@ -246,8 +246,3 @@
   font-size: var(--text-xs);
   text-transform: uppercase;
 }
-
-.badge.data-table__group-count {
-  color: var(--c-primary-bright);
-  font-weight: var(--weight-semi);
-}

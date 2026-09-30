@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { ListItemRow, MasterDetailLayout } from '../../src/composites';
-import { Badge, Box, EmptyState, Icon, StatRow, Text } from '../../src/primitives';
+import { Box, EmptyState, Icon, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -20,7 +20,7 @@ const SessionDetail = ({ session }: { session: SampleSession }) => (
   <Box className="story-column">
     <Box className="story-row">
       <Text variant="title">{session.name}</Text>
-      <Badge variant={session.status === 'running' ? 'success' : 'neutral'}>{STATUS_LABEL[session.status]}</Badge>
+      <Status tone={session.status === 'running' ? 'success' : 'neutral'}>{STATUS_LABEL[session.status]}</Status>
     </Box>
     <StatRow label="Session id" value={session.id} mono />
     <StatRow label="Host" value={session.host} />

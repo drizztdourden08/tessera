@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { DeleteGuardDialog } from '../../src/composites';
-import { Box, Button, Text } from '../../src/primitives';
+import { Box, Button } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { PRESET_HITS } from './_samples/dialogs';
 
@@ -62,19 +63,20 @@ const RefusedDelete = {
   render: (args) => <GuardDemo {...args} showError />,
 } satisfies StoryLiteStoryDefinition<DeleteGuardArgs>;
 
+const VARIANTS = [
+  { key: 'referenced', label: 'Still referenced' },
+  { key: 'refused', label: 'Delete refused' },
+] as const;
+
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <Box className="story-row">
-      <Box className="story-column">
-        <Text className="story-label">Still referenced</Text>
-        <GuardDemo subjectLabel={ARGS.subjectLabel ?? ''} error="" showError={false} />
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">Delete refused</Text>
-        <GuardDemo subjectLabel={ARGS.subjectLabel ?? ''} error={ARGS.error ?? ''} showError />
-      </Box>
-    </Box>
+    <Demonstrator
+      rows={VARIANTS}
+      cell={(key) => (
+        <GuardDemo subjectLabel={ARGS.subjectLabel ?? ''} error={key === 'refused' ? ARGS.error ?? '' : ''} showError={key === 'refused'} />
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<DeleteGuardArgs>;
 

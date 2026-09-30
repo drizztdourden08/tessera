@@ -8,12 +8,15 @@ const TOKEN_STORIES = [
   'stories/_template/VariantGrid.tsx',
 ];
 
+const DEMONSTRATOR = ['stories/_template/Demonstrator.tsx'];
+
 const SAMPLE_STORIES = ['stories/data/_samples/table-demo.tsx'];
 
 export default brockEslint({
   ignores: ['dist-storylite/**'],
   primitivesGlobs: ['src/primitives/**/*.tsx'],
   defaultExportGlobs: ['.storylite/config.ts'],
+  consoleGlobs: ['**/bin/**', '**/scripts/**', '**/tooling/**', '**/*.test.{ts,tsx,js,mjs}', 'src/primitives/dom/dev-warn.ts'],
   glyphContent: [
     { files: ['src/primitives/EmojiIcon/**', 'stories/icons/EmojiIcon.stories.tsx'], why: 'EmojiIcon is the primitive that draws an emoji' },
     { files: ['stories/primitives/_samples/picker-emoji.tsx'], why: 'the Select and Combobox samples map build states and categories to emoji' },
@@ -33,5 +36,6 @@ export default brockEslint({
     { files: ['src/brand/InteractiveTessera/**'], why: 'each tile carries its app ink and each callout its computed place' },
     { files: TOKEN_STORIES, why: 'a token story draws the token or value it documents' },
     { files: SAMPLE_STORIES, why: 'a sample passes live depths through, as an app would' },
+    { files: DEMONSTRATOR, why: 'the grid tracks follow the number of columns each story passes in' },
   ],
 });

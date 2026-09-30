@@ -26,8 +26,3 @@
   border-radius: var(--radius-sm);
   background: var(--c-panel);
 }
-
-.scroll-demo__pane {
-  flex: 1 1 0;
-  min-width: 0;
-}

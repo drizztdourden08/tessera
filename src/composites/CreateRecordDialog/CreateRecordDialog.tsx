@@ -9,7 +9,7 @@ import { DialogShell } from '../DialogShell';
 import { EditorGroup, layoutGroups } from '../RecordEditor';
 import { useCreateFormState } from './behavior/useCreateFormState';
 import type { EditorBinding } from '../RecordEditor';
-import { CANCEL, CREATE, CREATING, NO_FIELDS, NOT_DIRTY } from './CreateRecordDialog.constants';
+import { CANCEL, CREATE, NO_FIELDS, NOT_DIRTY } from './CreateRecordDialog.constants';
 import type { CreateRecordDialogProps } from './CreateRecordDialog.type';
 import './CreateRecordDialog.css';
 
@@ -52,8 +52,8 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
   const actions = (
     <>
       <Button variant="tertiary" onClick={onCancel}>{CANCEL}</Button>
-      <Button ref={createRef} variant="primary" disabled={!isComplete || saving} onClick={submit}>
-        {saving ? CREATING : CREATE}
+      <Button ref={createRef} variant="primary" disabled={!isComplete} loading={saving} onClick={submit}>
+        {CREATE}
       </Button>
     </>
   );

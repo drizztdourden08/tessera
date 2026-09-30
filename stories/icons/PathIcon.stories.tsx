@@ -1,9 +1,10 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, PathIcon, Text } from '../../src/primitives';
+import { Box, PathIcon } from '../../src/primitives';
 import type { PathIconProps } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { axis, VariantGrid } from '../_template/VariantGrid';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import './icons.stories.css';
 
 type GlyphName = 'plus' | 'minus' | 'close' | 'check' | 'chevron' | 'folder' | 'play' | 'overflow';
@@ -58,7 +59,7 @@ const SIZES = ['12px', '16px', '24px', '32px'] as const;
 const GlyphSet = {
   name: 'Glyph set and sizes',
   render: () => (
-    <VariantGrid
+    <Demonstrator
       rows={axis(NAMES)}
       columns={axis(SIZES)}
       cell={(name, size) => <PathIcon {...GLYPHS[name]} size={Number.parseInt(size, 10)} aria-hidden="true" />}
@@ -69,14 +70,14 @@ const GlyphSet = {
 const Tones = {
   name: 'Colour follows the text',
   render: () => (
-    <Box className="story-row">
-      {TONES.map((tone) => (
-        <Box key={tone} className={`icon-demo__cell ${toneClass(tone) ?? ''}`}>
+    <Demonstrator
+      columns={axis(TONES)}
+      cell={(_row, tone) => (
+        <Box className={toneClass(tone)}>
           <PathIcon {...GLYPHS.check} size={20} aria-hidden="true" />
-          <Text variant="caption">{tone}</Text>
         </Box>
-      ))}
-    </Box>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<IconArgs>;
 

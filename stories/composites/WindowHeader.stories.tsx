@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { WindowHeader } from '../../src/composites';
-import { Badge, Box, Button, Text } from '../../src/primitives';
+import { Box, Button, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
 type WindowHeaderArgs = {
@@ -14,7 +14,7 @@ type WindowHeaderArgs = {
 
 const HEADER_EXTRA = (
   <Box className="story-row">
-    <Badge variant="success">8 online</Badge>
+    <Status tone="success">8 online</Status>
     <Button size="sm" variant="secondary">Invite</Button>
   </Box>
 );
@@ -81,7 +81,7 @@ const WithControls = {
 
 const Overview = overviewStory({
   component: 'WindowHeader',
-  description: 'The title bar shared by windows and dialogs. The title sits on the left in gold capitals, an optional subtitle follows it in plain case, and extra content such as a badge or a button fills the space before the close button. The close button shows only when onClose is set.',
+  description: 'The title bar shared by windows and dialogs. The title sits on the left in gold capitals, an optional subtitle follows it in plain case, and extra content such as a Status or a button fills the space before the close button. The close button shows only when onClose is set.',
   playground: Playground,
   variants: [TitleOnly, WithControls],
 });

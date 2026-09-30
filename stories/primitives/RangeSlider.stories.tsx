@@ -1,7 +1,10 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, RangeSlider, Text } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -42,7 +45,6 @@ const StatefulRange = (props: StatefulRangeProps) => {
   const [value, setValue] = useState<[number, number]>(initial);
   return (
     <Box className="story-column">
-      <Text className="story-label">{caption}</Text>
       <RangeSlider
         stops={stops}
         value={value}
@@ -63,19 +65,26 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <StatefulRange stops={SPEEDS} initial={[2, 5]} caption="Turbo speed range" {...args} />,
+  render: (args) => (
+    <Box className="story-column">
+      <Text className="story-label">Turbo speed range</Text>
+      <StatefulRange stops={SPEEDS} initial={[2, 5]} caption="Turbo speed range" {...args} />
+    </Box>
+  ),
 } satisfies StoryLiteStoryDefinition<RangeSliderArgs>;
+
+const STOPS: Readonly<Record<string, ReactNode>> = {
+  'Full range': <StatefulRange stops={SPEEDS} initial={[0, 10]} caption="Full range" labelEvery={2} />,
+  'Both thumbs on one stop': <StatefulRange stops={SPEEDS} initial={[4, 4]} caption="Both thumbs on one stop" labelEvery={2} />,
+  'Hint cost window, labels every 5 stops': (
+    <StatefulRange stops={PRICES} initial={[4, 12]} caption="Hint cost window, labels every 5 stops" labelEvery={5} step={2} />
+  ),
+  'Dungeons in the pool': <StatefulRange stops={DUNGEONS} initial={[1, 6]} caption="Dungeons in the pool" />,
+};
 
 const Stops = {
   name: 'Stops',
-  render: () => (
-    <Box className="story-column">
-      <StatefulRange stops={SPEEDS} initial={[0, 10]} caption="Full range" labelEvery={2} />
-      <StatefulRange stops={SPEEDS} initial={[4, 4]} caption="Both thumbs on one stop" labelEvery={2} />
-      <StatefulRange stops={PRICES} initial={[4, 12]} caption="Hint cost window, labels every 5 stops" labelEvery={5} step={2} />
-      <StatefulRange stops={DUNGEONS} initial={[1, 6]} caption="Dungeons in the pool" />
-    </Box>
-  ),
+  render: () => <Demonstrator rows={axis(Object.keys(STOPS))} align="stretch" cell={(row) => STOPS[row]} />,
 } satisfies StoryLiteStoryDefinition<RangeSliderArgs>;
 
 const TurboRange = (props: { disabled: boolean }) => {

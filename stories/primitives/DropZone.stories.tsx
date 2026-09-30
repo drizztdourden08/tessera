@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, DropZone, Text } from '../../src/primitives';
 import type { DropZoneProps, DropZoneVariant } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
+import type { DemonstratorAxis } from '../_template/Demonstrator.type';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -34,6 +36,12 @@ const ARG_TYPES: StoryLiteArgTypes<DropZoneArgs> = {
     romsOnly: { control: 'boolean', description: 'Passes accept, so other files are dropped silently.' },
     disabled: { control: 'boolean' },
   };
+
+const KINDS: readonly DemonstratorAxis<'defaults' | 'roms' | 'inline'>[] = [
+  { key: 'defaults', label: 'block, defaults' },
+  { key: 'roms', label: 'block, ROMs only, custom glyph' },
+  { key: 'inline', label: 'inline, for a header row' },
+];
 
 const meta = {
   title: 'Primitives · Inputs/DropZone',
@@ -80,14 +88,15 @@ const Playground = {
 const Kinds = {
   name: 'Kinds',
   render: () => (
-    <Box className="story-column">
-      <Text className="story-label">block, defaults</Text>
-      <StatefulDropZone />
-      <Text className="story-label">block, ROMs only, custom glyph</Text>
-      <StatefulDropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" hint="A US or Japanese copy" icon={'\u{1F3AE}'} />
-      <Text className="story-label">inline, for a header row</Text>
-      <StatefulDropZone variant="inline" accept={['.json']} label="Import a session file" hint="A .json exported from another machine" />
-    </Box>
+    <Demonstrator
+      rows={KINDS}
+      align="stretch"
+      cell={(kind) => {
+        if (kind === 'roms') return <StatefulDropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" hint="A US or Japanese copy" icon={'\u{1F3AE}'} />;
+        if (kind === 'inline') return <StatefulDropZone variant="inline" accept={['.json']} label="Import a session file" hint="A .json exported from another machine" />;
+        return <StatefulDropZone />;
+      }}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<DropZoneArgs>;
 

@@ -4,6 +4,7 @@ import { Text } from '../../../primitives/Text';
 import { Em, Paragraph } from '../../../primitives/text-elements';
 import { BrandMark } from '../../BrandMark';
 import { BrandWordmark } from '../../BrandWordmark';
+import { Mascot } from '../../Mascot';
 import { BRAND_FAMILY } from '../../family.constants';
 import type { LogoDetailProps } from './LogoDetail.type';
 import './LogoDetail.css';
@@ -15,12 +16,12 @@ const LogoDetail = (props: LogoDetailProps) => {
   return (
     <Box as="section" className="interactive-tessera__detail" data-side={side} data-open={isOpen || undefined} aria-label={b.name} aria-hidden={!isOpen}>
       <Box as="header" className="interactive-tessera__detail-head">
-        <BrandMark app={app} tile title="" />
+        <BrandMark app={app} variant="app-icon" title="" />
         <Box className="interactive-tessera__detail-title">
           <BrandWordmark app={app} />
           <Em>{b.kind}</Em>
         </Box>
-        {b.mascot && <BrandMark app={app} variant="mascot" className="interactive-tessera__mascot" title={`${b.name} mascot`} />}
+        {b.mascot && <Mascot brand={app} className="interactive-tessera__mascot" title={`${b.mascot.name}, the ${b.name} mascot`} />}
       </Box>
       <Paragraph>{b.summary}</Paragraph>
       <Box as="dl">

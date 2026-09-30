@@ -13,9 +13,10 @@ const CATALOGUE: readonly CatalogueTier[] = [
       entries: [
         { name: 'Brand', summary: 'The family on one page: each app\'s mark at every size, its mascot, its wordmark and what it is.' },
         { name: 'InteractiveTessera', summary: 'The mosaic T, interactive: pick a coloured tile to see its project. The home page shows it too.' },
-        { name: 'Logo', summary: 'An app\'s mark alone, at each size, plain or on its app-icon tile, or its mascot.' },
+        { name: 'Logo', summary: 'An app\'s mark alone at each size, its app icon, and the PNG and .ico files built from it.' },
         { name: 'WordMark', summary: 'An app\'s name in the pixel alphabet, in the brand\'s own colours.' },
         { name: 'Combined', summary: 'Mark and wordmark together, inline for a header or stacked for a splash.' },
+        { name: 'Mascot', summary: 'An app\'s mascot built in code from its pieces, its variants and poses, and the assembly step by step.' },
       ],
     }],
   },

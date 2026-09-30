@@ -6,6 +6,7 @@ interface ButtonClassInput {
   size: ButtonSize;
   fullWidth: boolean;
   active: boolean;
+  loading: boolean;
   className: string;
 }
 

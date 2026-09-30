@@ -2,7 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Callout, Icon, IconButton } from '../../src/primitives';
 import type { CalloutTone, CalloutVariant } from '../../src/primitives';
-import { LabelledRows } from '../_template/LabelledRows';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type CalloutArgs = {
@@ -57,7 +58,7 @@ const Playground = {
 const Tones = {
   name: 'Box, every tone',
   render: () => (
-    <LabelledRows items={TONES} render={(tone) => <Callout tone={tone}>{`A ${tone} note for the reader.`}</Callout>} />
+    <Demonstrator rows={axis(TONES)} align="stretch" cell={(tone) => <Callout tone={tone}>{`A ${tone} note for the reader.`}</Callout>} />
   ),
 } satisfies StoryLiteStoryDefinition<CalloutArgs>;
 

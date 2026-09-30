@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Button, Divider, Flex, Stack, StatRow, Text } from '../../src/primitives';
+import { Button, Divider, Flex, Stack, StatRow, Text } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './Divider.stories.css';
 
@@ -40,25 +41,28 @@ const Playground = {
 const InContext = {
   name: 'Horizontal and vertical in context',
   render: () => (
-    <Box className="story-column">
-      <Text className="story-label">horizontal, between settings groups</Text>
-      <Stack className="divider-demo" gap="sm">
-        <StatRow label="Profile" value="Speedrun practice" />
-        <StatRow label="Controller" value="8BitDo SN30 Pro" />
-        <Divider />
-        <StatRow label="Audio output" value="Default device" />
-        <StatRow label="Volume" value="70%" />
-      </Stack>
-      <Text className="story-label">vertical, between toolbar groups</Text>
-      <Flex className="divider-demo divider-demo--toolbar" gap="sm" align="center">
-        <Button size="sm" variant="ghost">Load</Button>
-        <Button size="sm" variant="ghost">Save</Button>
-        <Divider orientation="vertical" />
-        <Button size="sm" variant="ghost">Reset</Button>
-        <Divider orientation="vertical" />
-        <Text variant="caption">Slot 3</Text>
-      </Flex>
-    </Box>
+    <Demonstrator
+      rows={[{ key: 'horizontal', label: 'horizontal, between settings groups' }, { key: 'vertical', label: 'vertical, between toolbar groups' }]}
+      align="stretch"
+      cell={(orientation) => (orientation === 'horizontal' ? (
+        <Stack className="divider-demo" gap="sm">
+          <StatRow label="Profile" value="Speedrun practice" />
+          <StatRow label="Controller" value="8BitDo SN30 Pro" />
+          <Divider />
+          <StatRow label="Audio output" value="Default device" />
+          <StatRow label="Volume" value="70%" />
+        </Stack>
+      ) : (
+        <Flex className="divider-demo divider-demo--toolbar" gap="sm" align="center">
+          <Button size="sm" variant="ghost">Load</Button>
+          <Button size="sm" variant="ghost">Save</Button>
+          <Divider orientation="vertical" />
+          <Button size="sm" variant="ghost">Reset</Button>
+          <Divider orientation="vertical" />
+          <Text variant="caption">Slot 3</Text>
+        </Flex>
+      ))}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<DividerArgs>;
 

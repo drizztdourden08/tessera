@@ -2,6 +2,9 @@
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Text } from '../../src/primitives';
 import type { OpticalSize } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
+import type { DemonstratorAxis } from '../_template/Demonstrator.type';
 import { overviewStory } from '../_template/overview-story';
 import './variable-type.css';
 
@@ -26,6 +29,7 @@ const OPTICAL: readonly { label: string; value: OpticalSize }[] = [
   { label: 'Display (opsz 32)', value: 'display' },
 ];
 const ITALIC_WEIGHTS = [300, 400, 600, 800] as const;
+const FACES: readonly DemonstratorAxis<'roman' | 'italic'>[] = [{ key: 'roman', label: 'Roman' }, { key: 'italic', label: 'Italic' }];
 const WORD = 'Hookshot 1920';
 
 const meta = {
@@ -40,18 +44,14 @@ const OpticalSizes = {
       <Text className="story-label">
         Inter's second axis. Small text gets looser spacing and sturdier details, display text gets tighter and finer. With auto, the browser picks it from the font size.
       </Text>
-      <Box className="variable-type__grid">
-        <Text className="variable-type__head">Size</Text>
-        {OPTICAL.map((column) => <Text key={column.label} className="variable-type__head">{column.label}</Text>)}
-        {SIZES.map((size) => (
-          <Box key={size} className="variable-type__row">
-            <Text className="variable-type__label">{`${size}px`}</Text>
-            {OPTICAL.map((column) => (
-              <Text key={column.label} className={`variable-type__size-${size}`} opticalSize={column.value}>{WORD}</Text>
-            ))}
-          </Box>
-        ))}
-      </Box>
+      <Demonstrator
+        corner="Size"
+        rows={SIZES.map((size) => ({ key: String(size), label: `${size}px` }))}
+        columns={OPTICAL.map((column) => ({ key: String(column.value), label: column.label }))}
+        align="start"
+        fill
+        cell={(size, optical) => <Text className={`variable-type__size-${size}`} opticalSize={OPTICAL.find((column) => String(column.value) === optical)?.value}>{WORD}</Text>}
+      />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition;
@@ -61,18 +61,13 @@ const Italic = {
   render: () => (
     <Box className="story-column">
       <Text className="story-label">A true italic, drawn as its own face with the same two axes, not a slanted roman.</Text>
-      <Box className="variable-type__grid variable-type__grid--pair">
-        <Text className="variable-type__head">Weight</Text>
-        <Text className="variable-type__head">Roman</Text>
-        <Text className="variable-type__head">Italic</Text>
-        {ITALIC_WEIGHTS.map((weight) => (
-          <Box key={weight} className="variable-type__row">
-            <Text className="variable-type__label">{weight}</Text>
-            <Text className="variable-type__size-32" weight={weight}>{WORD}</Text>
-            <Text className="variable-type__size-32" weight={weight} italic>{WORD}</Text>
-          </Box>
-        ))}
-      </Box>
+      <Demonstrator
+        corner="Weight"
+        rows={axis(ITALIC_WEIGHTS.map(String))}
+        columns={FACES}
+        align="start"
+        cell={(weight, face) => <Text className="variable-type__size-32" weight={Number(weight)} italic={face === 'italic'}>{WORD}</Text>}
+      />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition;

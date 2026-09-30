@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, HEADING_LEVELS, Text, TITLE_TONES, Title } from '../../src/primitives';
+import { HEADING_LEVELS, TITLE_TONES, Title } from '../../src/primitives';
 import type { HeadingLevel, TitleTone } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { tonesStory } from './tones-story';
 
@@ -40,17 +41,13 @@ const Playground = {
 const Levels = {
   name: 'Levels',
   render: () => (
-    <Box className="story-list">
-      {HEADING_LEVELS.map((level) => {
-        const Heading = Title[`H${level}`];
-        return (
-          <Box key={level} className="story-list__item">
-            <Text className="story-label">{`Title.H${level}`}</Text>
-            <Heading>Hyrule Castle</Heading>
-          </Box>
-        );
-      })}
-    </Box>
+    <Demonstrator
+      rows={HEADING_LEVELS.map((level) => ({ key: `H${level}` as const, label: `Title.H${level}` }))}
+      cell={(heading) => {
+        const Heading = Title[heading];
+        return <Heading>Hyrule Castle</Heading>;
+      }}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<TitleArgs>;
 

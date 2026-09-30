@@ -2,7 +2,8 @@
 import { createElement } from 'react';
 import type { ComponentType } from 'react';
 import type { StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, Text } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 
 const tonesStory = (
   element: unknown,
@@ -14,14 +15,7 @@ const tonesStory = (
   return {
     name: 'Tones',
     render: () => (
-      <Box className="story-list">
-        {tones.map((tone) => (
-          <Box key={tone} className="story-list__item">
-            <Text className="story-label">{tone}</Text>
-            <Box>{createElement(Element, { ...attributes, tone }, text)}</Box>
-          </Box>
-        ))}
-      </Box>
+      <Demonstrator rows={axis(tones)} cell={(tone) => createElement(Element, { ...attributes, tone }, text)} />
     ),
   } satisfies StoryLiteStoryDefinition;
 };

@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.token-value {
+  color: var(--c-text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

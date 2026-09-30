@@ -2,6 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Grid, Stack, Text } from '../../src/primitives';
 import type { SpaceToken } from '../../src/primitives';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './Grid.stories.css';
 
@@ -64,16 +65,15 @@ const Playground = {
 const FixedColumns = {
   name: 'Fixed columns',
   render: () => (
-    <Box className="story-column">
-      {[2, 3, 4].map((columns) => (
-        <Box key={columns} className="story-column">
-          <Text className="story-label">{`columns ${columns}`}</Text>
-          <Grid columns={columns} gap="sm">
-            <FileTiles count={columns * 2} />
-          </Grid>
-        </Box>
-      ))}
-    </Box>
+    <Demonstrator
+      rows={[2, 3, 4].map((columns) => ({ key: String(columns), label: `columns ${columns}` }))}
+      align="stretch"
+      cell={(columns) => (
+        <Grid columns={Number(columns)} gap="sm">
+          <FileTiles count={Number(columns) * 2} />
+        </Grid>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<GridArgs>;
 

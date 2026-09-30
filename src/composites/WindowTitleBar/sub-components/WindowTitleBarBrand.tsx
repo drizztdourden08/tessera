@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
-import { Badge } from '../../../primitives/Badge';
 import { Box } from '../../../primitives/Box';
 import { Image } from '../../../primitives/Image';
+import { Status } from '../../../primitives/Status';
 import { Span } from '../../../primitives/text-elements';
 import type { WindowTitleBarBrandProps } from './WindowTitleBarBrand.type';
 
@@ -14,7 +14,7 @@ const WindowTitleBarBrand = (props: WindowTitleBarBrandProps) => {
     <Box className="window-title-bar__brand">
       {mark}
       <Span tone="dim" className="window-title-bar__title">{title}</Span>
-      {instance && <Badge pulse={instance.pulse} className="window-title-bar__instance">{instance.name}</Badge>}
+      {instance && <Status tone="info" variant="pill" pulse={instance.pulse} className="window-title-bar__instance">{instance.name}</Status>}
       {mark}
     </Box>
   );

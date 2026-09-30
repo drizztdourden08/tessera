@@ -1,13 +1,4 @@
 /* @layer stories @kind style */
-.icon-demo__cell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
-  min-width: 4.5rem;
-  color: var(--c-text);
-}
-
 .icon-demo--primary { color: var(--c-primary); }
 .icon-demo--secondary { color: var(--c-secondary); }
 .icon-demo--warning { color: var(--c-warning); }
@@ -41,10 +32,4 @@
   color: var(--c-text-muted);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-}
-
-.icon-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
 }

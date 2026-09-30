@@ -15,6 +15,7 @@ Issues found in the components while writing their stories. Everything here came
 | Toast | close button had no `type="button"` | added |
 | ProgressBar | `max = 0` gave a `NaN%` width | reads as empty |
 | Badge | the warning pulse ignored reduced motion | stops under `prefers-reduced-motion` |
+| StatusBadge | interactive mode was a clickable span with no role, tab stop or keys | StatusBadge merged into the read-only `Status`; the click to cycle mode is gone |
 | barrels | Stepper, DropZone, Toast, Drawer, SettingsSection, `dropPanelPositionFor` and several prop types were not exported | exported |
 | DropdownMenu | a type re-export sat in the middle of the file | moved to the barrel |
 | several | stray byte-order marks after the header comment (27 files) | removed |
@@ -32,7 +33,6 @@ Issues found in the components while writing their stories. Everything here came
 | Toast | the exit `setTimeout` is not cleared on unmount |
 | Tooltip | measures its anchor once and does not follow scroll |
 | Card | emits `card--default` with no rule; the interactive variant has no role, tab stop or keys; hover repeats the base background |
-| StatusBadge | interactive mode is a clickable span with no role, tab stop or keys |
 | TermList | keyed by term, so duplicate terms collide |
 | Thumbnail | no load-error fallback, unlike Image |
 | Portal | creates DOM nodes during render and again in a layout effect; its layers are `pointer-events: none`, undocumented |

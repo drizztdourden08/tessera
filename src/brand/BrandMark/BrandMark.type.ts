@@ -3,13 +3,12 @@ import type { BrandApp } from '../brand.type';
 
 type BrandMarkSize = 'sm' | 'md' | 'lg' | 'xl';
 
-type BrandMarkVariant = 'mark' | 'mascot';
+type BrandMarkVariant = 'mark' | 'app-icon';
 
 interface BrandMarkProps {
   app: BrandApp;
   size?: BrandMarkSize;
   variant?: BrandMarkVariant;
-  tile?: boolean;
   title?: string;
   className?: string;
 }

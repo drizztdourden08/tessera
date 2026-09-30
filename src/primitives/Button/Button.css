@@ -28,12 +28,32 @@
   justify-content: center;
 }
 
-.btn:disabled .btn__icon {
-  animation: btn-spin 1s linear infinite;
+.btn--loading,
+.btn--loading .btn__icon {
+  position: relative;
 }
 
-@keyframes btn-spin {
-  to { transform: rotate(360deg); }
+.btn__glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+
+.btn__spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn--loading:has(> .btn__spinner) {
+  color: transparent;
+}
+
+.btn--loading > .btn__spinner {
+  color: var(--tone-bright, var(--c-text-dim));
 }
 
 .btn--sm .btn__icon {

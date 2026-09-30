@@ -1,0 +1,10 @@
+/* @layer stories @kind style */
+.mascot-breakdown + .mascot-breakdown {
+  padding-block-start: var(--space-xl);
+  border-block-start: var(--border-width-thin) solid var(--c-border);
+}
+
+.mascot-breakdown__frame {
+  background: var(--c-surface);
+  border-radius: var(--radius-sm);
+}

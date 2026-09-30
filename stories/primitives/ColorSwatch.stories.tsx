@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, ColorSwatch, Text } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -85,16 +87,12 @@ const Playground = {
 const Fills = {
   name: 'Fills',
   render: () => (
-    <Box className="story-row">
-      <Box className="story-column">
-        <Text className="story-label">colour</Text>
-        <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label="Palette slot 5" />
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">transparent</Text>
-        <ColorSwatch color={TUNIC_GREEN} caption="0" transparent aria-label="Palette slot 0" />
-      </Box>
-    </Box>
+    <Demonstrator
+      columns={axis(['colour', 'transparent'])}
+      cell={(_row, fill) => (fill === 'transparent'
+        ? <ColorSwatch color={TUNIC_GREEN} caption="0" transparent aria-label="Palette slot 0" />
+        : <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label="Palette slot 5" />)}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
 

@@ -124,7 +124,7 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TagInput',
-  description: 'A text field that collects a list of tags as chips, for labels such as games or modes on a record. Typing filters the suggestions first, and a value that is not there yet can still be added. Any tag is accepted unless validate passes a check: namespacedTag asks for namespace:value, and a tag that fails gets a hint but is kept, unless enforce is on, which refuses it. createError shows a refusal from the server and draws the error look. defaultOpen starts with the suggestions open, and inline draws them right under the field, not as a floating panel.',
+  description: 'A text field that collects a list of values as removable Tags, for labels such as games or modes on a record. Typing filters the suggestions first, and a value that is not there yet can still be added. Any tag is accepted unless validate passes a check: namespacedTag asks for namespace:value, and a tag that fails gets a hint but is kept, unless enforce is on, which refuses it. createError shows a refusal from the server and draws the error look. defaultOpen starts with the suggestions open, and inline draws them right under the field, not as a floating panel.',
   playground: Playground,
   variants: [Validation],
   states: {

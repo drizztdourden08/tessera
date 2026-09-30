@@ -1,7 +1,20 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, TEXT_ELEMENT_SPECS, Text, TextElement } from '../../src/primitives';
+import type { ReactNode } from 'react';
+import { TEXT_ELEMENT_SPECS, Text, TextElement } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+
+const ELEMENTS: readonly { label: string; node: ReactNode }[] = [
+  ...TEXT_ELEMENT_SPECS.map((spec) => ({
+    label: spec.name === spec.short ? `Text.${spec.name}` : `Text.${spec.name} · Text.${spec.short}`,
+    node: <TextElement as={spec.tag}>{spec.name}</TextElement>,
+  })),
+  { label: 'Text.Shortcut · Text.Sc', node: <Text.Sc keys="ctrl" mouse="left" /> },
+  { label: 'Text.Quote · Text.Q', node: <Text.Quote>It is dangerous to go alone.</Text.Quote> },
+  { label: 'Text.CodeBlock', node: <Text.CodeBlock code="const hero = 'Link';" language="typescript" /> },
+];
 
 const meta = {
   title: 'Text/All elements',
@@ -11,26 +24,7 @@ const meta = {
 const All = {
   name: 'All elements',
   render: () => (
-    <Box className="story-list">
-      {TEXT_ELEMENT_SPECS.map((spec) => (
-        <Box key={spec.tag} className="story-list__item">
-          <Text className="story-label">{spec.name === spec.short ? `Text.${spec.name}` : `Text.${spec.name} · Text.${spec.short}`}</Text>
-          <Box><TextElement as={spec.tag}>{spec.name}</TextElement></Box>
-        </Box>
-      ))}
-      <Box className="story-list__item">
-        <Text className="story-label">Text.Shortcut · Text.Sc</Text>
-        <Box><Text.Sc keys="ctrl" mouse="left" /></Box>
-      </Box>
-      <Box className="story-list__item">
-        <Text className="story-label">Text.Quote · Text.Q</Text>
-        <Box><Text.Quote>It is dangerous to go alone.</Text.Quote></Box>
-      </Box>
-      <Box className="story-list__item">
-        <Text className="story-label">Text.CodeBlock</Text>
-        <Box><Text.CodeBlock code="const hero = 'Link';" language="typescript" /></Box>
-      </Box>
-    </Box>
+    <Demonstrator rows={axis(ELEMENTS.map((entry) => entry.label))} cell={(label) => ELEMENTS.find((entry) => entry.label === label)?.node} />
   ),
 } satisfies StoryLiteStoryDefinition;
 

@@ -1,0 +1,10 @@
+/* @layer stories @kind style */
+.icon-ladder__rung {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-xs);
+}
+
+.icon-ladder__png {
+  background: repeating-conic-gradient(var(--c-surface) 0 25%, var(--c-bg) 0 50%) 0 0 / var(--space-sm) var(--space-sm);
+}

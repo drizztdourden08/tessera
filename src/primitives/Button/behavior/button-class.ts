@@ -2,7 +2,7 @@
 import type { ButtonClassInput } from './button-class.type';
 
 const buttonClass = (input: ButtonClassInput): string => {
-  const { variant, size, fullWidth, active, className } = input;
+  const { variant, size, fullWidth, active, loading, className } = input;
   return [
     'btn',
     `btn--${variant}`,
@@ -10,6 +10,7 @@ const buttonClass = (input: ButtonClassInput): string => {
     `btn--${size}`,
     fullWidth && 'btn--full',
     active && 'btn--active',
+    loading && 'btn--loading',
     className,
   ].filter(Boolean).join(' ');
 };

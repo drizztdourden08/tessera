@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
+import { Badge } from '../../primitives/Badge';
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
-import { Span } from '../../primitives/text-elements';
 import type { HeaderTabsProps } from './HeaderTabs.type';
 import '../../theme/focus-ring.css';
 import './HeaderTabs.css';
@@ -23,7 +23,7 @@ const HeaderTabs = (props: HeaderTabsProps) => {
             onClick={() => onSelect(item.id)}
           >
             {item.label}
-            {item.badge != null && <Span tone="muted" className="header-tabs__badge">{item.badge}</Span>}
+            {item.badge != null && <Badge variant="inline" color={active ? 'primary' : 'tame'} value={item.badge} />}
           </Pressable>
         );
       })}

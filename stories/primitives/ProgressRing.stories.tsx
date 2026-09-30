@@ -1,6 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, ProgressRing, Text } from '../../src/primitives';
+import { Box, ProgressRing } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './ProgressRing.stories.css';
 
@@ -47,34 +49,24 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<ProgressRingArgs>;
 
+const STEP_COLUMNS = [...STEPS.map((step) => ({ key: String(step), label: `${step * 100}%` })), { key: 'track', label: 'track only' }];
+
+const SIZE_COLUMNS = [...axis(SIZES), { key: 'thick', label: 'thick stroke' }];
+
 const ProgressAndSizes = {
   name: 'Progress and sizes',
   render: () => (
     <Box className="story-column">
-      <Box className="story-row">
-        {STEPS.map((step) => (
-          <Box key={step} className="story-column">
-            <ProgressRing className="progress-ring-story--md" progress={step} />
-            <Text className="story-label">{step * 100}%</Text>
-          </Box>
-        ))}
-        <Box className="story-column">
-          <ProgressRing className="progress-ring-story--md" />
-          <Text className="story-label">track only</Text>
-        </Box>
-      </Box>
-      <Box className="story-row">
-        {SIZES.map((size) => (
-          <Box key={size} className="story-column">
-            <ProgressRing className={`progress-ring-story--${size}`} progress={0.4} />
-            <Text className="story-label">{size}</Text>
-          </Box>
-        ))}
-        <Box className="story-column">
-          <ProgressRing className="progress-ring-story--lg" progress={0.4} strokeWidth={5} radius={13} />
-          <Text className="story-label">thick stroke</Text>
-        </Box>
-      </Box>
+      <Demonstrator
+        columns={STEP_COLUMNS}
+        cell={(_row, step) => <ProgressRing className="progress-ring-story--md" progress={step === 'track' ? undefined : Number(step)} />}
+      />
+      <Demonstrator
+        columns={SIZE_COLUMNS}
+        cell={(_row, size) => (size === 'thick'
+          ? <ProgressRing className="progress-ring-story--lg" progress={0.4} strokeWidth={5} radius={13} />
+          : <ProgressRing className={`progress-ring-story--${size}`} progress={0.4} />)}
+      />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<ProgressRingArgs>;

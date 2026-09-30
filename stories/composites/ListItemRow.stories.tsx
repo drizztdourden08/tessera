@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { ListItemRow } from '../../src/composites';
-import { Badge, Box, Button, Icon, Text } from '../../src/primitives';
+import { Box, Button, Icon, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -108,7 +108,7 @@ const RichContent = {
           key={s.id}
           icon={sessionIcon}
           name={s.name}
-          meta={<Badge variant={s.status === 'running' ? 'success' : 'neutral'}>{STATUS_LABEL[s.status]}</Badge>}
+          meta={<Status tone={s.status === 'running' ? 'success' : 'neutral'}>{STATUS_LABEL[s.status]}</Status>}
           action={<Button size="sm" variant="ghost">Details</Button>}
         />
       ))}
@@ -129,7 +129,7 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'ListItemRow',
-  description: 'One row of a list: an optional icon, a name, a line of meta under it, a short aside such as a date at the right, and an action slot on the right that shows on hover. Reach for it for lists of records the user picks from, such as sessions or players. It takes a selected state, plus click and double-click handlers for selecting and opening. The name and meta take any content, such as a status badge.',
+  description: 'One row of a list: an optional icon, a name, a line of meta under it, a short aside such as a date at the right, and an action slot on the right that shows on hover. Reach for it for lists of records the user picks from, such as sessions or players. It takes a selected state, plus click and double-click handlers for selecting and opening. The name and meta take any content, such as a Status.',
   playground: Playground,
   variants: [AllVariants],
   states: {

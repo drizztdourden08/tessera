@@ -2,34 +2,35 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { PALETTES } from './colour-lists';
 import type { Palette } from './colour-lists';
 import { useSwatchHex } from './use-swatch-hex';
 import './colours.css';
 
-const Step = ({ token, step, isSeed }: { token: string; step: number; isSeed: boolean }) => {
+const Step = ({ token, isSeed }: { token: string; isSeed: boolean }) => {
   const { ref, hex } = useSwatchHex<HTMLElement>();
   return (
     <Box className={`palette-step${isSeed ? ' palette-step--seed' : ''}`}>
       <Box ref={ref} className="palette-step__chip" style={{ background: `var(${token})` }} />
-      <Text className="palette-step__name">{isSeed ? `${step} seed` : step}</Text>
+      {isSeed && <Text className="palette-step__name">seed</Text>}
       <Text className="palette-step__value">{hex}</Text>
     </Box>
   );
 };
 
-const PaletteRow = ({ palette }: { palette: Palette }) => (
-  <Box className="palette">
-    <Box className="palette__head">
-      <Text variant="subtitle">{palette.name}</Text>
-      <Text className="palette__token">{`${palette.prefix}-*`}</Text>
-    </Box>
-    <Box className="palette__steps" style={{ gridTemplateColumns: `repeat(${palette.steps.length}, minmax(0, 1fr))` }}>
-      {palette.steps.map((step) => (
-        <Step key={step} token={`${palette.prefix}-${step}`} step={step} isSeed={step === palette.seed} />
-      ))}
-    </Box>
-  </Box>
+const PaletteGrid = ({ palettes }: { palettes: readonly Palette[] }) => (
+  <Demonstrator
+    rows={palettes.map((palette) => ({ key: palette.prefix, label: `${palette.name} ${palette.prefix}-*` }))}
+    columns={axis(palettes[0]?.steps.map(String) ?? [])}
+    fill
+    align="stretch"
+    cell={(prefix, step) => {
+      const palette = palettes.find((entry) => entry.prefix === prefix);
+      return <Step token={`${prefix}-${step}`} isSeed={palette?.seed === Number(step)} />;
+    }}
+  />
 );
 
 const meta = {
@@ -44,7 +45,8 @@ const Palettes = {
       <Text className="story-label">
         The three main colours as twelve steps each, palest to deepest, with the colour at 500: paler steps mix toward pure white, deeper ones toward pure black. Then the greys from pure white to pure black.
       </Text>
-      {PALETTES.map((palette) => <PaletteRow key={palette.prefix} palette={palette} />)}
+      <PaletteGrid palettes={PALETTES.filter((palette) => palette.seed !== null)} />
+      <PaletteGrid palettes={PALETTES.filter((palette) => palette.seed === null)} />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition;

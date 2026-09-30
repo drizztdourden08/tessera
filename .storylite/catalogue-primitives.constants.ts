@@ -28,8 +28,9 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'SectionHeader', summary: 'A section title with an optional subtitle and action.' },
         { name: 'TermList', summary: 'Terms and their definitions, one per row.' },
         { name: 'StatRow', summary: 'A label and its value on one line.' },
-        { name: 'Badge', summary: 'A short status word in a semantic colour.' },
-        { name: 'StatusBadge', summary: 'A progress status (draft, review, done) as a chip.' },
+        { name: 'Badge', summary: 'A count or a dot, after text or on the corner of an icon.' },
+        { name: 'Status', summary: 'A read-only word for the state something is in, as text or a pill.' },
+        { name: 'Tag', summary: 'A value that sorts an item into a group: removable, selectable or plain.' },
         { name: 'EmptyState', summary: 'What to show when a list or panel has nothing yet.' },
         { name: 'Image', summary: 'An image that holds its box, with loading and broken placeholders.' },
         { name: 'Thumbnail', summary: 'A small framed picture for lists and cards, with the same placeholders.' },
@@ -86,6 +87,10 @@ const PRIMITIVES_TIER: CatalogueTier = {
     {
       group: 'Navigation',
       entries: [{ name: 'TabBar', summary: 'Tabs that scroll when they overflow.' }],
+    },
+    {
+      group: 'Setup',
+      entries: [{ name: 'TesseraProvider', summary: 'Swaps Tessera parts, like the spinner, for ones the app brings, once at the root.' }],
     },
   ],
 };

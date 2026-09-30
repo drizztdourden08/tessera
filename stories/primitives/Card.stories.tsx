@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Badge, Box, Button, ButtonRow, Card, Flex, Stack, Text } from '../../src/primitives';
+import { Box, Button, ButtonRow, Card, Flex, Stack, Status, Text } from '../../src/primitives';
 import type { CardProps } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -93,7 +93,7 @@ const SessionPickerDemo = () => {
               <Text as="div">{session.name}</Text>
               <Text variant="caption">{`${session.players} players`}</Text>
             </Box>
-            <Badge variant={session.status === 'Running' ? 'success' : 'neutral'}>{session.status}</Badge>
+            <Status tone={session.status === 'Running' ? 'success' : 'neutral'}>{session.status}</Status>
           </Flex>
         </Card>
       ))}

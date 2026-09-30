@@ -4,7 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { DropdownMenu } from '../../src/composites';
 import { Box, Button, Glyph, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { axis, VariantGrid } from '../_template/VariantGrid';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { INITIAL_OPEN, buildViewMenu } from './_samples/data-menu';
@@ -95,7 +96,7 @@ const ALIGNS: readonly MenuAlign[] = ['start', 'end'];
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <VariantGrid
+    <Demonstrator
       rows={axis(SIDES)}
       columns={axis(ALIGNS)}
       cell={(side, align) => <PlacementDemo side={side} align={align} />}

@@ -3,6 +3,7 @@ const GROUP_ICONS: Record<string, string> = {
   'Brand': 'gem', 'Colours': 'palette', 'Typography': 'type', 'Text': 'pilcrow', 'Icons': 'shapes', 'Tokens': 'ruler',
   'Primitives · Layout': 'layout-grid', 'Primitives · Display': 'monitor', 'Primitives · Actions': 'mouse-pointer-click',
   'Primitives · Inputs': 'text-cursor-input', 'Primitives · Feedback': 'message-square-warning', 'Primitives · Navigation': 'compass',
+  'Primitives · Setup': 'wrench',
   'Composites · Dialogs': 'app-window', 'Composites · Navigation': 'signpost', 'Composites · Menus': 'menu',
   'Composites · Data views': 'table', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
@@ -11,7 +12,7 @@ const GROUP_ICONS: Record<string, string> = {
 const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Brand': {
     Brand: 'stamp', InteractiveTessera: 'grid-2x2',
-    Logo: 'badge-check', WordMark: 'signature', Combined: 'layers-2',
+    Logo: 'badge-check', WordMark: 'signature', Combined: 'layers-2', Mascot: 'bot',
   },
   'Colours': { Swatches: 'swatch-book', Palettes: 'paintbrush', Roles: 'tags', Contrast: 'contrast', Gradients: 'blend' },
   'Typography': {
@@ -40,7 +41,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Anchored: 'anchor', Floating: 'picture-in-picture-2',
   },
   'Primitives · Display': {
-    SectionHeader: 'heading-1', TermList: 'book-text', StatRow: 'chart-bar', Badge: 'badge', StatusBadge: 'badge-check',
+    SectionHeader: 'heading-1', TermList: 'book-text', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
     EmptyState: 'inbox', Image: 'image', Thumbnail: 'gallery-thumbnails', Video: 'video', Canvas: 'frame', Svg: 'vector-square',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group' },
@@ -56,6 +57,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Callout: 'megaphone',
   },
   'Primitives · Navigation': { TabBar: 'panels-top-left' },
+  'Primitives · Setup': { TesseraProvider: 'replace' },
   'Composites · Dialogs': {
     Dialog: 'app-window', DialogShell: 'app-window-mac', WizardDialogShell: 'wand-sparkles', CreateRecordDialog: 'file-plus',
     DeleteGuardDialog: 'shield-alert', ConfirmIconButton: 'circle-check', InlineCreateForm: 'square-pen', Overlay: 'layers-2',

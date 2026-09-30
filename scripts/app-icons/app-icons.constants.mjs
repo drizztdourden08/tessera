@@ -1,15 +1,19 @@
 /* @layer tooling-scripts @kind data */
-const APPS = [
-  { id: 'tessera', tile: '#ffffff' },
-  { id: 'rotp', tile: '#12100e' },
-  { id: 'archipelia', tile: '#ece6ff' },
-  { id: 'brock', tile: '#ffffff' },
-];
-
-const PNG_SIZES = [16, 24, 32, 48, 64, 128, 256, 512, 1024];
-const ICO_SIZES = [16, 24, 32, 48, 64, 128, 256];
-const MARK_SIZES = [16, 24, 32, 48, 64, 96, 128, 192, 256, 512, 1024];
+const CANVAS = 1024;
+const LARGE_ICON = 1024;
+const TILE_SCALE = 0.72;
+const TILE_RADIUS = 0.2;
+const MASKABLE_SIZE = 512;
+const MASKABLE_SCALE = 0.6;
+const FOREGROUND_SCALE = 0.56;
 const SPLASH_SIZE = 2732;
+const SPLASH_SCALE = 0.24;
 const SPLASH_GROUND = '#0e0e12';
+const PREVIEW_SIZE = 256;
+const WHOLE_PIXELS_FROM = 2;
+const OUTPUT_FOLDERS = ['icon', 'mark', 'mascot', 'splash'];
 
-export { APPS, ICO_SIZES, MARK_SIZES, PNG_SIZES, SPLASH_GROUND, SPLASH_SIZE };
+export {
+  CANVAS, FOREGROUND_SCALE, LARGE_ICON, MASKABLE_SCALE, MASKABLE_SIZE, OUTPUT_FOLDERS, PREVIEW_SIZE, SPLASH_GROUND,
+  SPLASH_SCALE, SPLASH_SIZE, TILE_RADIUS, TILE_SCALE, WHOLE_PIXELS_FROM,
+};

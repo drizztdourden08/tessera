@@ -64,12 +64,3 @@
   font-size: var(--text-lg);
   font-weight: var(--weight-semi);
 }
-
-.search-results__count-pill {
-  margin-left: var(--space-xs);
-  padding: 0 var(--space-xs);
-  border-radius: var(--radius-pill);
-  background: var(--c-primary-soft);
-  font-size: var(--text-xs);
-  font-variant-numeric: tabular-nums;
-}

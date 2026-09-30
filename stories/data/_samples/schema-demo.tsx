@@ -1,8 +1,10 @@
 /* @layer stories @kind component */
-import { Fragment, useMemo } from 'react';
+import { useMemo } from 'react';
 import { buildSchema, createSchemaIndex } from '../../../src/data';
 import type { FieldDescriptor } from '../../../src/data';
 import { Box, Text } from '../../../src/primitives';
+import { axis } from '../../_template/axis';
+import { Demonstrator } from '../../_template/Demonstrator';
 import { LOCATIONS, LOCATION_CONFIG } from './data-locations';
 
 const detailOf = (field: FieldDescriptor): string => {
@@ -13,26 +15,32 @@ const detailOf = (field: FieldDescriptor): string => {
   return '';
 };
 
+const COLUMNS = axis(['Label', 'Kind', 'Flags', 'Detail']);
+
+const fieldCell = (field: FieldDescriptor, column: string) => {
+  if (column === 'Label') return <Text>{field.label}</Text>;
+  if (column === 'Kind') return <Text className="engine-grid__mono">{field.kind}</Text>;
+  if (column === 'Flags') return <Text>{[field.optional && 'optional', field.hidden && 'hidden'].filter(Boolean).join(', ')}</Text>;
+  return <Text>{detailOf(field)}</Text>;
+};
+
 const SchemaDemo = ({ applyConfig }: { applyConfig: boolean }) => {
   const fields = useMemo(() => buildSchema(LOCATIONS, applyConfig ? LOCATION_CONFIG : undefined), [applyConfig]);
   const all = useMemo(() => createSchemaIndex(fields).all(), [fields]);
+  const byPath = new Map(all.map((field) => [field.path, field]));
   return (
     <Box className="story-column">
       <Text className="story-label">{`${all.length} fields derived from ${LOCATIONS.length} rows`}</Text>
-      <Box className="engine-grid engine-grid--schema">
-        {['Path', 'Label', 'Kind', 'Flags', 'Detail'].map((head) => (
-          <Text key={head} className="engine-grid__head">{head}</Text>
-        ))}
-        {all.map((field) => (
-          <Fragment key={field.path}>
-            <Text className="engine-grid__mono">{field.path}</Text>
-            <Text>{field.label}</Text>
-            <Text className="engine-grid__mono">{field.kind}</Text>
-            <Text>{[field.optional && 'optional', field.hidden && 'hidden'].filter(Boolean).join(', ')}</Text>
-            <Text>{detailOf(field)}</Text>
-          </Fragment>
-        ))}
-      </Box>
+      <Demonstrator
+        corner="Path"
+        rows={axis(all.map((field) => field.path))}
+        columns={COLUMNS}
+        align="start"
+        cell={(path, column) => {
+          const field = byPath.get(path);
+          return field ? fieldCell(field, column) : null;
+        }}
+      />
     </Box>
   );
 };

@@ -153,8 +153,12 @@
   align-items: center;
   gap: var(--space-xs);
   min-width: 0;
-  overflow: hidden;
+  overflow: clip visible;
   white-space: nowrap;
+}
+
+.listbox-tags:has(> .tag-chip) {
+  margin-block: calc(-1 * var(--size-1));
 }
 
 .listbox-tags__measure {

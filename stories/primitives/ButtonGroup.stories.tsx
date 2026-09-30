@@ -2,7 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Button, ButtonGroup, Icon, IconButton } from '../../src/primitives';
 import type { ButtonGroupOrientation, ButtonSize, ButtonVariant } from '../../src/primitives';
-import { LabelledRows } from '../_template/LabelledRows';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
@@ -49,9 +50,9 @@ const Playground = {
 const AllVariants = {
   name: 'All variants',
   render: () => (
-    <LabelledRows
-      items={VARIANTS}
-      render={(variant) => (
+    <Demonstrator
+      rows={axis(VARIANTS)}
+      cell={(variant) => (
         <ButtonGroup aria-label={`Save state, ${variant}`}>
           <Button variant={variant}>Save</Button>
           <Button variant={variant}>Load</Button>
@@ -65,9 +66,9 @@ const AllVariants = {
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <LabelledRows
-      items={SIZES}
-      render={(size) => (
+    <Demonstrator
+      rows={axis(SIZES)}
+      cell={(size) => (
         <ButtonGroup aria-label={`Map zoom, ${size}`}>
           <Button size={size} variant="secondary">Zoom out</Button>
           <Button size={size} variant="secondary">Fit</Button>

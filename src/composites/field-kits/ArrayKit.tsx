@@ -17,7 +17,7 @@ import { toNumber } from './to-number';
 import { toText } from './to-text';
 import { ArrayValueEditor } from './sub-components/ArrayValueEditor';
 import { ElementValueInput } from './sub-components/ElementValueInput';
-import { IdRefBadgeList } from './sub-components/IdRefBadgeList';
+import { IdRefTagList } from './sub-components/IdRefTagList';
 import type { CellRenderOptions, FieldTypeStrategy, FilterControlProps } from './registry.type';
 import type { FieldDescriptor } from '../../data/schema/field-descriptor';
 import '../../theme/field-kits.css';
@@ -78,7 +78,7 @@ const renderCell = (value: unknown, field: FieldDescriptor, options?: CellRender
   if (!list.length) return <Text className="field-kit__muted">{countLabel(0)}</Text>;
   if (field.of?.kind === 'idRef') {
     return (
-      <IdRefBadgeList
+      <IdRefTagList
         list={list}
         targetKind={field.of.targetKind}
         resolveIdRefDisplay={options?.resolveIdRefDisplay}

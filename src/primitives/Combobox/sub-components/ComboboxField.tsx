@@ -4,7 +4,7 @@ import { IconButton } from '../../IconButton';
 import { ListboxValue } from '../../listbox/ListboxValue';
 import { Spinner } from '../../Spinner';
 import { Span } from '../../text-elements';
-import { TagChip } from '../../TagInput/sub-components/TagChip';
+import { Tag } from '../../Tag';
 import { comboboxClass } from '../behavior/combobox-class';
 import { fieldPress } from '../behavior/field-press';
 import { ComboboxInput } from './ComboboxInput';
@@ -25,14 +25,15 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
       onMouseDown={(event) => fieldPress(event, box, field.disabled)}
     >
       {box.multi && displays.map((display, index) => (
-        <TagChip
+        <Tag
           key={display.key}
-          tag={display.tag}
+          color="primary"
           name={display.label}
-          tone="primary"
           disabled={!editable || displays.length <= box.min}
           onRemove={() => box.removeAt(index)}
-        />
+        >
+          {display.tag}
+        </Tag>
       ))}
       {box.showValue && (
         <Span className="combobox__value" aria-hidden>

@@ -1,8 +1,12 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Stepper, Text } from '../../src/primitives';
+import { Stepper } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { ValueReadout } from '../_template/ValueReadout';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 
@@ -31,13 +35,9 @@ const StatefulStepper = (props: { initial: number; caption: string } & Partial<S
   const { initial, caption, min, max, step, disabled } = props;
   const [value, setValue] = useState(initial);
   return (
-    <Box className="story-column">
-      <Text className="story-label">{caption}</Text>
-      <Box className="story-row">
-        <Stepper value={value} onChange={setValue} min={min} max={max} step={step} disabled={disabled} ariaLabel={caption} />
-        <Text className="story-label">Value: {Number.isNaN(value) ? '(empty)' : value}</Text>
-      </Box>
-    </Box>
+    <ValueReadout value={Number.isNaN(value) ? '(empty)' : value}>
+      <Stepper value={value} onChange={setValue} min={min} max={max} step={step} disabled={disabled} ariaLabel={caption} />
+    </ValueReadout>
   );
 };
 
@@ -45,19 +45,24 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <StatefulStepper initial={4} caption="Players in the session" {...args} />,
+  render: (args) => (
+    <Demonstrator
+      rows={axis(['Players in the session'])}
+      cell={(caption) => <StatefulStepper initial={4} caption={caption} {...args} />}
+    />
+  ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const VALUES: Readonly<Record<string, ReactNode>> = {
+  'At the minimum': <StatefulStepper initial={1} min={1} max={20} caption="At the minimum" />,
+  'At the maximum': <StatefulStepper initial={20} min={1} max={20} caption="At the maximum" />,
+  'Steps of five, hint cost percent': <StatefulStepper initial={25} min={0} max={100} step={5} caption="Steps of five, hint cost percent" />,
+  'Empty field': <StatefulStepper initial={Number.NaN} min={0} max={999} caption="Empty field" />,
+};
 
 const Values = {
   name: 'Values',
-  render: () => (
-    <Box className="story-column">
-      <StatefulStepper initial={1} min={1} max={20} caption="At the minimum" />
-      <StatefulStepper initial={20} min={1} max={20} caption="At the maximum" />
-      <StatefulStepper initial={25} min={0} max={100} step={5} caption="Steps of five, hint cost percent" />
-      <StatefulStepper initial={Number.NaN} min={0} max={999} caption="Empty field" />
-    </Box>
-  ),
+  render: () => <Demonstrator rows={axis(Object.keys(VALUES))} cell={(row) => VALUES[row]} />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
 const Players = (props: { disabled?: boolean }) => {
