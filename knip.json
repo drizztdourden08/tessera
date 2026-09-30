@@ -6,7 +6,12 @@
     "stories/**/*.stories.tsx",
     ".storylite/config.ts",
     ".storylite/home-logo-mount.ts",
-    ".storylite/renderer/controlled-client.ts"
+    ".storylite/renderer/controlled-client.ts",
+    ".storylite/review-colours.ts",
+    ".storylite/review-pages.ts",
+    ".storylite/review-registry.ts",
+    ".storylite/review-write.ts",
+    ".storylite/review-split-title.ts"
   ],
   "project": [
     "src/**/*.{ts,tsx}",

@@ -1,5 +1,5 @@
 /* @layer root-config @kind data */
-const SIDEBAR_BODY = `  var colours = {};
+const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {} };
   var queued = false;
   var text = function (el) { return el ? el.textContent.trim() : ''; };
   var setIcon = function (svg, key, body) {
@@ -7,18 +7,21 @@ const SIDEBAR_BODY = `  var colours = {};
     svg.innerHTML = body;
     svg.setAttribute('data-icon', key);
   };
+  var mark = function (row, colour) {
+    if (row && colour && row.getAttribute('data-review') !== colour) row.setAttribute('data-review', colour);
+  };
   var decorate = function () {
     queued = false;
     document.querySelectorAll('.story-group').forEach(function (group) {
       var toggle = group.querySelector('.story-group__toggle');
       var folder = text(toggle && toggle.querySelector(':scope > span'));
       setIcon(toggle && toggle.querySelector('.story-tree__type-icon'), folder, ICONS.groups[folder]);
+      mark(toggle, colours.groups[folder]);
       group.querySelectorAll('.story-component').forEach(function (page) {
         var pageToggle = page.querySelector('.story-component__toggle');
         var key = folder + '/' + text(pageToggle && pageToggle.querySelector(':scope > span'));
         setIcon(pageToggle && pageToggle.querySelector('.story-tree__type-icon'), key, ICONS.pages[key]);
-        var colour = colours[key];
-        if (colour && page.getAttribute('data-review') !== colour) page.setAttribute('data-review', colour);
+        mark(pageToggle, colours.pages[key]);
       });
     });
   };
@@ -29,8 +32,8 @@ const SIDEBAR_BODY = `  var colours = {};
   };
   var refresh = function () {
     fetch(ROUTE, { cache: 'no-store' })
-      .then(function (res) { return res.ok ? res.json() : {}; })
-      .then(function (next) { colours = next; schedule(); })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (next) { if (next && next.pages) { colours = next; schedule(); } })
       .catch(function () { /* a built gallery has no review route: no colours */ });
   };
   new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });

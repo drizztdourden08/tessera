@@ -36,11 +36,16 @@ button[aria-label="App"]:not(.toolbar-dropdown__item) { display: none; }
 .app-switch__button.active { opacity: 1; border-color: color-mix(in oklab, var(--sl-primary), transparent 45%); background: var(--sl-panel-subtle); }
 .app-switch__button svg { inline-size: 20px; block-size: 20px; }
 
-/* Review state per page (sidebar-decor.ts): red is not reviewed yet, yellow changed since
-   the owner last saw it, green approved. The colour is on the label only. */
-.story-component[data-review="red"] > h3 .story-component__toggle > span { color: #ef6a6a; }
-.story-component[data-review="yellow"] > h3 .story-component__toggle > span { color: #e6b84f; }
-.story-component[data-review="green"] > h3 .story-component__toggle > span { color: #6cc38a; }
+/* Review state (sidebar-decor.ts, from .storylite/review.json): a dot after the count.
+   Red is not reviewed yet, yellow changed since the owner last saw it, green approved.
+   A category takes its worst page. */
+[data-review] > small { display: inline-flex; align-items: center; gap: 6px; }
+[data-review] > small::after {
+  content: ""; inline-size: 7px; block-size: 7px; border-radius: 50%; flex: none; background: var(--review-dot);
+}
+[data-review="red"] { --review-dot: #ef6a6a; }
+[data-review="yellow"] { --review-dot: #e6b84f; }
+[data-review="green"] { --review-dot: #6cc38a; }
 
 /* A closed component whose story is open reads as the current row (component-pages.ts). */
 .story-component:has(.story-tree__branch--collapsed .story-link.active) > h3 .story-component__toggle {

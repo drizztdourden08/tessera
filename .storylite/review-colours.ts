@@ -1,18 +1,31 @@
 /* @layer root-config @kind logic */
-import { readLedger } from './review-ledger';
 import { reviewPages } from './review-pages';
-import type { ReviewColour } from './review.type';
+import { syncRegistry } from './review-registry';
+import { writeRegistry } from './review-write';
+import { REVIEW_RANK as RANK } from './review.constants';
+import type { ReviewColour, ReviewEntry, ReviewState } from './review.type';
 
-const reviewColours = (root: string): Record<string, ReviewColour> => {
-  const ledger = readLedger(root);
-  const colours: Record<string, ReviewColour> = {};
-  for (const page of reviewPages(root)) {
-    const entry = ledger[page.title];
-    if (!entry) colours[page.title] = 'red';
-    else if (entry.hash !== page.hash) colours[page.title] = 'yellow';
-    else colours[page.title] = entry.mark === 'ok' ? 'green' : 'red';
-  }
-  return colours;
+const pageColour = (entry: ReviewEntry | undefined, hash: string): ReviewColour => {
+  if (!entry || entry.status === 'new') return 'red';
+  if (entry.hash !== hash) return 'yellow';
+  return entry.status === 'ok' ? 'green' : 'red';
 };
 
-export { reviewColours };
+const reviewState = (root: string): ReviewState => {
+  const pages = reviewPages(root);
+  const registry = syncRegistry(root, pages);
+  writeRegistry(root, registry);
+  const hashes = new Map(pages.map((page) => [page.title, page.hash]));
+  const state: ReviewState = { pages: {}, groups: {} };
+  for (const [folder, entries] of Object.entries(registry)) {
+    for (const [name, entry] of Object.entries(entries)) {
+      const colour = pageColour(entry, hashes.get(`${folder}/${name}`) ?? '');
+      const group = state.groups[folder];
+      state.pages[`${folder}/${name}`] = colour;
+      state.groups[folder] = group && RANK[group] >= RANK[colour] ? group : colour;
+    }
+  }
+  return state;
+};
+
+export { reviewState };

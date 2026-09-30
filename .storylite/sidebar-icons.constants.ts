@@ -10,7 +10,7 @@ const GROUP_ICONS: Record<string, string> = {
 
 const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Brand': {
-    Brand: 'stamp', InteractiveTessera: 'grid-2x2', TesseraLogo: 'grid-2x2', BrandMark: 'stamp',
+    Brand: 'stamp', InteractiveTessera: 'grid-2x2',
     Logo: 'badge-check', WordMark: 'signature', Combined: 'layers-2',
   },
   'Colours': { Swatches: 'swatch-book', Palettes: 'paintbrush', Roles: 'tags', Contrast: 'contrast', Gradients: 'blend' },

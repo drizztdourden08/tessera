@@ -1,19 +1,24 @@
 /* @layer root-config @kind types */
-type ReviewMark = 'ok' | 'seen';
+type ReviewStatus = 'new' | 'seen' | 'ok';
 
 type ReviewColour = 'red' | 'yellow' | 'green';
 
 interface ReviewEntry {
-  mark: ReviewMark;
-  hash: string;
-  at: string;
+  status: ReviewStatus;
+  hash?: string;
+  at?: string;
 }
 
-type ReviewLedger = Record<string, ReviewEntry>;
+type ReviewRegistry = Record<string, Record<string, ReviewEntry>>;
 
 interface ReviewPage {
   title: string;
   hash: string;
 }
 
-export type { ReviewColour, ReviewLedger, ReviewPage };
+interface ReviewState {
+  pages: Record<string, ReviewColour>;
+  groups: Record<string, ReviewColour>;
+}
+
+export type { ReviewColour, ReviewEntry, ReviewPage, ReviewRegistry, ReviewState };

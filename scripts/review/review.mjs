@@ -1,34 +1,36 @@
 /* @layer tooling-scripts @kind entry */
-import fs from 'node:fs';
-import path from 'node:path';
 import { runnerImport } from 'vite';
 import { findPages } from './find-pages.mjs';
+import { printReview } from './print-review.mjs';
 
 const RUNNER = { configFile: false, logLevel: 'silent' };
 const USAGE = 'Usage: pnpm review ok|seen|clear <page>... | pnpm review list [red|yellow|green]';
+const STATUS = { ok: 'ok', seen: 'seen', clear: 'new' };
 
 const root = process.cwd();
 const [verb, ...names] = process.argv.slice(2);
 const load = async (file) => (await runnerImport(file, { ...RUNNER, root })).module;
 const { reviewPages } = await load('/.storylite/review-pages.ts');
-const { readLedger } = await load('/.storylite/review-ledger.ts');
-const { reviewColours } = await load('/.storylite/review-colours.ts');
-const { REVIEW_FILE } = await load('/.storylite/review.constants.ts');
+const { syncRegistry } = await load('/.storylite/review-registry.ts');
+const { writeRegistry } = await load('/.storylite/review-write.ts');
+const { splitTitle } = await load('/.storylite/review-split-title.ts');
+const { reviewState } = await load('/.storylite/review-colours.ts');
 
-if (verb === 'list') {
-  const colours = reviewColours(root);
-  for (const [title, colour] of Object.entries(colours)) if (!names[0] || names[0] === colour) console.log(`${colour.padEnd(6)} ${title}`);
-} else if (['ok', 'seen', 'clear'].includes(verb) && names.length > 0) {
-  const ledger = readLedger(root);
+const record = () => {
+  const pages = reviewPages(root);
+  const registry = syncRegistry(root, pages);
   const today = new Date().toISOString().slice(0, 10);
-  for (const page of findPages(reviewPages(root), names)) {
-    if (verb === 'clear') delete ledger[page.title];
-    else ledger[page.title] = { mark: verb, hash: page.hash, at: today };
+  for (const page of findPages(pages, names)) {
+    const [folder, name] = splitTitle(page.title);
+    registry[folder][name] = verb === 'clear' ? { status: 'new' } : { status: STATUS[verb], hash: page.hash, at: today };
     console.log(`${verb.padEnd(5)} ${page.title}`);
   }
-  const sorted = Object.fromEntries(Object.entries(ledger).sort(([a], [b]) => a.localeCompare(b)));
-  fs.writeFileSync(path.join(root, REVIEW_FILE), `${JSON.stringify(sorted, null, 2)}\n`);
-} else {
+  writeRegistry(root, registry);
+};
+
+if (verb === 'list') printReview(reviewState(root), names[0]);
+else if (verb in STATUS && names.length > 0) record();
+else {
   console.error(USAGE);
   process.exitCode = 1;
 }

@@ -1,372 +1,723 @@
 {
-  "Colours/Contrast": {
-    "mark": "ok",
-    "hash": "33a6ccd4bfb53468",
-    "at": "2026-09-30"
-  },
-  "Colours/Palettes": {
-    "mark": "ok",
-    "hash": "9336cbe8ef7c0d84",
-    "at": "2026-09-30"
-  },
-  "Colours/Roles": {
-    "mark": "ok",
-    "hash": "b66fbe43f7ae1159",
-    "at": "2026-09-30"
-  },
-  "Colours/Swatches": {
-    "mark": "ok",
-    "hash": "716c32e1b3b549d2",
-    "at": "2026-09-30"
-  },
-  "Icons/Brand icons": {
-    "mark": "ok",
-    "hash": "903291e5ec96db81",
-    "at": "2026-09-30"
-  },
-  "Icons/EmojiIcon": {
-    "mark": "ok",
-    "hash": "cffe6b8fb9d3ec33",
-    "at": "2026-09-30"
-  },
-  "Icons/Glyph": {
-    "mark": "ok",
-    "hash": "7e883baa0ed2de68",
-    "at": "2026-09-30"
-  },
-  "Icons/Icon": {
-    "mark": "ok",
-    "hash": "2a1e844e19142ab5",
-    "at": "2026-09-30"
-  },
-  "Icons/PathIcon": {
-    "mark": "ok",
-    "hash": "a8dd362d19bd7188",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Anchored": {
-    "mark": "ok",
-    "hash": "68429f1f43df4f95",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Box": {
-    "mark": "ok",
-    "hash": "bd976719940d7259",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Card": {
-    "mark": "ok",
-    "hash": "d6d3fd3badf473ad",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Center": {
-    "mark": "ok",
-    "hash": "a5664efb757547e9",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Divider": {
-    "mark": "ok",
-    "hash": "8f3690e25bde379d",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Flex": {
-    "mark": "ok",
-    "hash": "0d3103be5a9b293c",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Floating": {
-    "mark": "ok",
-    "hash": "dc1488cc51ed68c3",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Grid": {
-    "mark": "ok",
-    "hash": "8822f0121da262fb",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Portal": {
-    "mark": "ok",
-    "hash": "eda3936303c4c0e4",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/ScrollArea": {
-    "mark": "ok",
-    "hash": "23954b958ffa940b",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Spacer": {
-    "mark": "ok",
-    "hash": "1c232bbc6bb1416d",
-    "at": "2026-09-30"
-  },
-  "Primitives · Layout/Stack": {
-    "mark": "ok",
-    "hash": "279267ce95f3e37f",
-    "at": "2026-09-30"
-  },
-  "Text/Abbreviation": {
-    "mark": "ok",
-    "hash": "4087d66b6aaff318",
-    "at": "2026-09-30"
-  },
-  "Text/Address": {
-    "mark": "ok",
-    "hash": "b4a86b68a676c2c7",
-    "at": "2026-09-30"
-  },
-  "Text/All elements": {
-    "mark": "ok",
-    "hash": "b333e077140f9c69",
-    "at": "2026-09-30"
-  },
-  "Text/BidiIsolate": {
-    "mark": "ok",
-    "hash": "b7680e47822fb24d",
-    "at": "2026-09-30"
-  },
-  "Text/BidiOverride": {
-    "mark": "ok",
-    "hash": "61c1acaa90002d54",
-    "at": "2026-09-30"
-  },
-  "Text/BlockQuote": {
-    "mark": "ok",
-    "hash": "9b064c78fb6da37d",
-    "at": "2026-09-30"
-  },
-  "Text/Bold": {
-    "mark": "ok",
-    "hash": "47a9451313aee596",
-    "at": "2026-09-30"
-  },
-  "Text/Citation": {
-    "mark": "ok",
-    "hash": "e15ddc38f4c5fe9a",
-    "at": "2026-09-30"
-  },
-  "Text/Code": {
-    "mark": "ok",
-    "hash": "1697b20158472773",
-    "at": "2026-09-30"
-  },
-  "Text/CodeBlock": {
-    "mark": "ok",
-    "hash": "e609e3325cdc34a5",
-    "at": "2026-09-30"
-  },
-  "Text/Data": {
-    "mark": "ok",
-    "hash": "a969cd2e1e911482",
-    "at": "2026-09-30"
-  },
-  "Text/Definition": {
-    "mark": "ok",
-    "hash": "c860d6cc047e0ebe",
-    "at": "2026-09-30"
-  },
-  "Text/Deleted": {
-    "mark": "ok",
-    "hash": "1e54d0c01c557853",
-    "at": "2026-09-30"
-  },
-  "Text/Emphasis": {
-    "mark": "ok",
-    "hash": "7fd7a77485abaa2f",
-    "at": "2026-09-30"
-  },
-  "Text/Highlight": {
-    "mark": "ok",
-    "hash": "f803869a6ad924ce",
-    "at": "2026-09-30"
-  },
-  "Text/Inserted": {
-    "mark": "ok",
-    "hash": "e058f6090c85e0e5",
-    "at": "2026-09-30"
-  },
-  "Text/Italic": {
-    "mark": "ok",
-    "hash": "f71ab9eb54f6e06f",
-    "at": "2026-09-30"
-  },
-  "Text/Paragraph": {
-    "mark": "ok",
-    "hash": "6e2b0bce46a37cd3",
-    "at": "2026-09-30"
-  },
-  "Text/Preformatted": {
-    "mark": "ok",
-    "hash": "a4c6a145377fd8c4",
-    "at": "2026-09-30"
-  },
-  "Text/Quote": {
-    "mark": "ok",
-    "hash": "b03e0cb0baaea726",
-    "at": "2026-09-30"
-  },
-  "Text/Ruby": {
-    "mark": "ok",
-    "hash": "9065faa36aaefc2a",
-    "at": "2026-09-30"
-  },
-  "Text/RubyParenthesis": {
-    "mark": "ok",
-    "hash": "341e8973bc3a8ae5",
-    "at": "2026-09-30"
-  },
-  "Text/RubyText": {
-    "mark": "ok",
-    "hash": "22d75fb364fae3e2",
-    "at": "2026-09-30"
-  },
-  "Text/Sample": {
-    "mark": "ok",
-    "hash": "0403e4531c643393",
-    "at": "2026-09-30"
-  },
-  "Text/Shortcut": {
-    "mark": "ok",
-    "hash": "4c7ef2329d13f5d3",
-    "at": "2026-09-30"
-  },
-  "Text/Small": {
-    "mark": "ok",
-    "hash": "bcba14a9692f18af",
-    "at": "2026-09-30"
-  },
-  "Text/Span": {
-    "mark": "ok",
-    "hash": "7ea372102e612f10",
-    "at": "2026-09-30"
-  },
-  "Text/Strikethrough": {
-    "mark": "ok",
-    "hash": "9a43240b4dbae1e7",
-    "at": "2026-09-30"
-  },
-  "Text/Strong": {
-    "mark": "ok",
-    "hash": "0a706be72d458013",
-    "at": "2026-09-30"
-  },
-  "Text/Subscript": {
-    "mark": "ok",
-    "hash": "02e8ce700887e7ee",
-    "at": "2026-09-30"
-  },
-  "Text/Superscript": {
-    "mark": "ok",
-    "hash": "623c33de909d8a0f",
-    "at": "2026-09-30"
-  },
-  "Text/Text": {
-    "mark": "ok",
-    "hash": "abca7e90eaf7c160",
-    "at": "2026-09-30"
-  },
-  "Text/Time": {
-    "mark": "ok",
-    "hash": "b543bda19d4019a4",
-    "at": "2026-09-30"
-  },
-  "Text/Title": {
-    "mark": "ok",
-    "hash": "d1e696d1a9d85426",
-    "at": "2026-09-30"
-  },
-  "Text/Underline": {
-    "mark": "ok",
-    "hash": "54b01aa2c4cda3fa",
-    "at": "2026-09-30"
-  },
-  "Text/Variable": {
-    "mark": "ok",
-    "hash": "73665f6e6f3f2ec3",
-    "at": "2026-09-30"
-  },
-  "Tokens/Durations": {
-    "mark": "ok",
-    "hash": "74b1d70acc591dac",
-    "at": "2026-09-30"
-  },
-  "Tokens/Easings": {
-    "mark": "ok",
-    "hash": "ddbf63af5b64ead6",
-    "at": "2026-09-30"
-  },
-  "Tokens/Gap": {
-    "mark": "ok",
-    "hash": "ff30171f110db673",
-    "at": "2026-09-30"
-  },
-  "Tokens/Margin": {
-    "mark": "ok",
-    "hash": "47181401ec204f1d",
-    "at": "2026-09-30"
-  },
-  "Tokens/Padding": {
-    "mark": "ok",
-    "hash": "9a894a17f213173e",
-    "at": "2026-09-30"
-  },
-  "Tokens/Radius": {
-    "mark": "ok",
-    "hash": "453fbb8860935f65",
-    "at": "2026-09-30"
-  },
-  "Tokens/Shadows": {
-    "mark": "ok",
-    "hash": "69bd2043ab5eeae9",
-    "at": "2026-09-30"
-  },
-  "Tokens/Size scale": {
-    "mark": "ok",
-    "hash": "c0287973155cca96",
-    "at": "2026-09-30"
-  },
-  "Tokens/Sizes": {
-    "mark": "ok",
-    "hash": "3592b49777b3d927",
-    "at": "2026-09-30"
-  },
-  "Tokens/Transitions": {
-    "mark": "ok",
-    "hash": "69994cd76552da77",
-    "at": "2026-09-30"
-  },
-  "Tokens/Z-index": {
-    "mark": "ok",
-    "hash": "5988fb99e0b91c9a",
-    "at": "2026-09-30"
-  },
-  "Typography/Fonts": {
-    "mark": "ok",
-    "hash": "61b488c2ccd5996a",
-    "at": "2026-09-30"
-  },
-  "Typography/OpenType features": {
-    "mark": "ok",
-    "hash": "6d61bfeb5da3b607",
-    "at": "2026-09-30"
-  },
-  "Typography/Optical size and italic": {
-    "mark": "ok",
-    "hash": "99780b10ff921fe5",
-    "at": "2026-09-30"
-  },
-  "Typography/Sizes": {
-    "mark": "ok",
-    "hash": "6852527cafebd03a",
-    "at": "2026-09-30"
-  },
-  "Typography/Transform and style": {
-    "mark": "ok",
-    "hash": "fb0ac662cfa46957",
-    "at": "2026-09-30"
-  },
-  "Typography/Weights": {
-    "mark": "ok",
-    "hash": "39d7c40f00741274",
-    "at": "2026-09-30"
+  "Brand": {
+    "Brand": {
+      "status": "new"
+    },
+    "InteractiveTessera": {
+      "status": "new"
+    },
+    "Logo": {
+      "status": "new"
+    },
+    "WordMark": {
+      "status": "new"
+    },
+    "Combined": {
+      "status": "new"
+    }
+  },
+  "Colours": {
+    "Swatches": {
+      "status": "ok",
+      "hash": "716c32e1b3b549d2",
+      "at": "2026-09-30"
+    },
+    "Palettes": {
+      "status": "ok",
+      "hash": "9336cbe8ef7c0d84",
+      "at": "2026-09-30"
+    },
+    "Roles": {
+      "status": "ok",
+      "hash": "b66fbe43f7ae1159",
+      "at": "2026-09-30"
+    },
+    "Contrast": {
+      "status": "ok",
+      "hash": "33a6ccd4bfb53468",
+      "at": "2026-09-30"
+    },
+    "Gradients": {
+      "status": "new"
+    }
+  },
+  "Typography": {
+    "Fonts": {
+      "status": "ok",
+      "hash": "61b488c2ccd5996a",
+      "at": "2026-09-30"
+    },
+    "Weights": {
+      "status": "ok",
+      "hash": "39d7c40f00741274",
+      "at": "2026-09-30"
+    },
+    "Sizes": {
+      "status": "ok",
+      "hash": "6852527cafebd03a",
+      "at": "2026-09-30"
+    },
+    "Optical size and italic": {
+      "status": "ok",
+      "hash": "99780b10ff921fe5",
+      "at": "2026-09-30"
+    },
+    "OpenType features": {
+      "status": "ok",
+      "hash": "6d61bfeb5da3b607",
+      "at": "2026-09-30"
+    },
+    "Transform and style": {
+      "status": "ok",
+      "hash": "fb0ac662cfa46957",
+      "at": "2026-09-30"
+    }
+  },
+  "Text": {
+    "Text": {
+      "status": "ok",
+      "hash": "abca7e90eaf7c160",
+      "at": "2026-09-30"
+    },
+    "All elements": {
+      "status": "ok",
+      "hash": "b333e077140f9c69",
+      "at": "2026-09-30"
+    },
+    "Title": {
+      "status": "ok",
+      "hash": "d1e696d1a9d85426",
+      "at": "2026-09-30"
+    },
+    "Paragraph": {
+      "status": "ok",
+      "hash": "6e2b0bce46a37cd3",
+      "at": "2026-09-30"
+    },
+    "Span": {
+      "status": "ok",
+      "hash": "7ea372102e612f10",
+      "at": "2026-09-30"
+    },
+    "Strong": {
+      "status": "ok",
+      "hash": "0a706be72d458013",
+      "at": "2026-09-30"
+    },
+    "Emphasis": {
+      "status": "ok",
+      "hash": "7fd7a77485abaa2f",
+      "at": "2026-09-30"
+    },
+    "Bold": {
+      "status": "ok",
+      "hash": "47a9451313aee596",
+      "at": "2026-09-30"
+    },
+    "Italic": {
+      "status": "ok",
+      "hash": "f71ab9eb54f6e06f",
+      "at": "2026-09-30"
+    },
+    "Underline": {
+      "status": "ok",
+      "hash": "54b01aa2c4cda3fa",
+      "at": "2026-09-30"
+    },
+    "Strikethrough": {
+      "status": "ok",
+      "hash": "9a43240b4dbae1e7",
+      "at": "2026-09-30"
+    },
+    "Deleted": {
+      "status": "ok",
+      "hash": "1e54d0c01c557853",
+      "at": "2026-09-30"
+    },
+    "Inserted": {
+      "status": "ok",
+      "hash": "e058f6090c85e0e5",
+      "at": "2026-09-30"
+    },
+    "Highlight": {
+      "status": "ok",
+      "hash": "f803869a6ad924ce",
+      "at": "2026-09-30"
+    },
+    "Small": {
+      "status": "ok",
+      "hash": "bcba14a9692f18af",
+      "at": "2026-09-30"
+    },
+    "Subscript": {
+      "status": "ok",
+      "hash": "02e8ce700887e7ee",
+      "at": "2026-09-30"
+    },
+    "Superscript": {
+      "status": "ok",
+      "hash": "623c33de909d8a0f",
+      "at": "2026-09-30"
+    },
+    "Code": {
+      "status": "ok",
+      "hash": "1697b20158472773",
+      "at": "2026-09-30"
+    },
+    "Sample": {
+      "status": "ok",
+      "hash": "0403e4531c643393",
+      "at": "2026-09-30"
+    },
+    "Variable": {
+      "status": "ok",
+      "hash": "73665f6e6f3f2ec3",
+      "at": "2026-09-30"
+    },
+    "Abbreviation": {
+      "status": "ok",
+      "hash": "4087d66b6aaff318",
+      "at": "2026-09-30"
+    },
+    "Citation": {
+      "status": "ok",
+      "hash": "e15ddc38f4c5fe9a",
+      "at": "2026-09-30"
+    },
+    "BlockQuote": {
+      "status": "ok",
+      "hash": "9b064c78fb6da37d",
+      "at": "2026-09-30"
+    },
+    "Definition": {
+      "status": "ok",
+      "hash": "c860d6cc047e0ebe",
+      "at": "2026-09-30"
+    },
+    "Time": {
+      "status": "ok",
+      "hash": "b543bda19d4019a4",
+      "at": "2026-09-30"
+    },
+    "Data": {
+      "status": "ok",
+      "hash": "a969cd2e1e911482",
+      "at": "2026-09-30"
+    },
+    "Address": {
+      "status": "ok",
+      "hash": "b4a86b68a676c2c7",
+      "at": "2026-09-30"
+    },
+    "Preformatted": {
+      "status": "ok",
+      "hash": "a4c6a145377fd8c4",
+      "at": "2026-09-30"
+    },
+    "BidiIsolate": {
+      "status": "ok",
+      "hash": "b7680e47822fb24d",
+      "at": "2026-09-30"
+    },
+    "BidiOverride": {
+      "status": "ok",
+      "hash": "61c1acaa90002d54",
+      "at": "2026-09-30"
+    },
+    "Ruby": {
+      "status": "ok",
+      "hash": "9065faa36aaefc2a",
+      "at": "2026-09-30"
+    },
+    "RubyText": {
+      "status": "ok",
+      "hash": "22d75fb364fae3e2",
+      "at": "2026-09-30"
+    },
+    "RubyParenthesis": {
+      "status": "ok",
+      "hash": "341e8973bc3a8ae5",
+      "at": "2026-09-30"
+    },
+    "Shortcut": {
+      "status": "ok",
+      "hash": "4c7ef2329d13f5d3",
+      "at": "2026-09-30"
+    },
+    "Quote": {
+      "status": "ok",
+      "hash": "b03e0cb0baaea726",
+      "at": "2026-09-30"
+    },
+    "CodeBlock": {
+      "status": "ok",
+      "hash": "e609e3325cdc34a5",
+      "at": "2026-09-30"
+    }
+  },
+  "Icons": {
+    "Icon": {
+      "status": "ok",
+      "hash": "2a1e844e19142ab5",
+      "at": "2026-09-30"
+    },
+    "Brand icons": {
+      "status": "ok",
+      "hash": "903291e5ec96db81",
+      "at": "2026-09-30"
+    },
+    "Glyph": {
+      "status": "ok",
+      "hash": "7e883baa0ed2de68",
+      "at": "2026-09-30"
+    },
+    "PathIcon": {
+      "status": "ok",
+      "hash": "a8dd362d19bd7188",
+      "at": "2026-09-30"
+    },
+    "EmojiIcon": {
+      "status": "ok",
+      "hash": "cffe6b8fb9d3ec33",
+      "at": "2026-09-30"
+    }
+  },
+  "Tokens": {
+    "Size scale": {
+      "status": "ok",
+      "hash": "c0287973155cca96",
+      "at": "2026-09-30"
+    },
+    "Sizes": {
+      "status": "ok",
+      "hash": "3592b49777b3d927",
+      "at": "2026-09-30"
+    },
+    "Margin": {
+      "status": "ok",
+      "hash": "47181401ec204f1d",
+      "at": "2026-09-30"
+    },
+    "Padding": {
+      "status": "ok",
+      "hash": "9a894a17f213173e",
+      "at": "2026-09-30"
+    },
+    "Gap": {
+      "status": "ok",
+      "hash": "ff30171f110db673",
+      "at": "2026-09-30"
+    },
+    "Radius": {
+      "status": "ok",
+      "hash": "453fbb8860935f65",
+      "at": "2026-09-30"
+    },
+    "Shadows": {
+      "status": "ok",
+      "hash": "69bd2043ab5eeae9",
+      "at": "2026-09-30"
+    },
+    "Z-index": {
+      "status": "ok",
+      "hash": "5988fb99e0b91c9a",
+      "at": "2026-09-30"
+    },
+    "Durations": {
+      "status": "ok",
+      "hash": "74b1d70acc591dac",
+      "at": "2026-09-30"
+    },
+    "Easings": {
+      "status": "ok",
+      "hash": "ddbf63af5b64ead6",
+      "at": "2026-09-30"
+    },
+    "Transitions": {
+      "status": "ok",
+      "hash": "69994cd76552da77",
+      "at": "2026-09-30"
+    }
+  },
+  "Primitives · Layout": {
+    "Box": {
+      "status": "ok",
+      "hash": "bd976719940d7259",
+      "at": "2026-09-30"
+    },
+    "Flex": {
+      "status": "ok",
+      "hash": "0d3103be5a9b293c",
+      "at": "2026-09-30"
+    },
+    "Stack": {
+      "status": "ok",
+      "hash": "279267ce95f3e37f",
+      "at": "2026-09-30"
+    },
+    "Grid": {
+      "status": "ok",
+      "hash": "8822f0121da262fb",
+      "at": "2026-09-30"
+    },
+    "Center": {
+      "status": "ok",
+      "hash": "a5664efb757547e9",
+      "at": "2026-09-30"
+    },
+    "Spacer": {
+      "status": "ok",
+      "hash": "1c232bbc6bb1416d",
+      "at": "2026-09-30"
+    },
+    "Divider": {
+      "status": "ok",
+      "hash": "8f3690e25bde379d",
+      "at": "2026-09-30"
+    },
+    "Card": {
+      "status": "ok",
+      "hash": "d6d3fd3badf473ad",
+      "at": "2026-09-30"
+    },
+    "ScrollArea": {
+      "status": "ok",
+      "hash": "23954b958ffa940b",
+      "at": "2026-09-30"
+    },
+    "Portal": {
+      "status": "ok",
+      "hash": "eda3936303c4c0e4",
+      "at": "2026-09-30"
+    },
+    "Anchored": {
+      "status": "ok",
+      "hash": "68429f1f43df4f95",
+      "at": "2026-09-30"
+    },
+    "Floating": {
+      "status": "ok",
+      "hash": "dc1488cc51ed68c3",
+      "at": "2026-09-30"
+    }
+  },
+  "Primitives · Display": {
+    "SectionHeader": {
+      "status": "new"
+    },
+    "TermList": {
+      "status": "new"
+    },
+    "StatRow": {
+      "status": "new"
+    },
+    "Badge": {
+      "status": "new"
+    },
+    "StatusBadge": {
+      "status": "new"
+    },
+    "EmptyState": {
+      "status": "new"
+    },
+    "Image": {
+      "status": "new"
+    },
+    "Thumbnail": {
+      "status": "new"
+    },
+    "Video": {
+      "status": "new"
+    },
+    "Canvas": {
+      "status": "new"
+    },
+    "Svg": {
+      "status": "new"
+    }
+  },
+  "Primitives · Actions": {
+    "Button": {
+      "status": "new"
+    },
+    "IconButton": {
+      "status": "new"
+    },
+    "ButtonRow": {
+      "status": "new"
+    },
+    "ButtonGroup": {
+      "status": "new"
+    }
+  },
+  "Primitives · Inputs": {
+    "TextInput": {
+      "status": "new"
+    },
+    "Textarea": {
+      "status": "new"
+    },
+    "NumberInput": {
+      "status": "new"
+    },
+    "Stepper": {
+      "status": "new"
+    },
+    "Checkbox": {
+      "status": "new"
+    },
+    "Toggle": {
+      "status": "new"
+    },
+    "ToggleGroup": {
+      "status": "new"
+    },
+    "RadioGroup": {
+      "status": "new"
+    },
+    "SegmentedControl": {
+      "status": "new"
+    },
+    "Select": {
+      "status": "new"
+    },
+    "Combobox": {
+      "status": "new"
+    },
+    "Slider": {
+      "status": "new"
+    },
+    "RangeInput": {
+      "status": "new"
+    },
+    "RangeSlider": {
+      "status": "new"
+    },
+    "PositionInput": {
+      "status": "new"
+    },
+    "TagInput": {
+      "status": "new"
+    },
+    "TagPicker": {
+      "status": "new"
+    },
+    "ColorSwatch": {
+      "status": "new"
+    },
+    "DropZone": {
+      "status": "new"
+    },
+    "Field": {
+      "status": "new"
+    }
+  },
+  "Primitives · Feedback": {
+    "Spinner": {
+      "status": "new"
+    },
+    "ProgressBar": {
+      "status": "new"
+    },
+    "ProgressRing": {
+      "status": "new"
+    },
+    "Toast": {
+      "status": "new"
+    },
+    "Tooltip": {
+      "status": "new"
+    },
+    "Callout": {
+      "status": "new"
+    }
+  },
+  "Primitives · Navigation": {
+    "TabBar": {
+      "status": "new"
+    }
+  },
+  "Composites · Dialogs": {
+    "Dialog": {
+      "status": "new"
+    },
+    "DialogShell": {
+      "status": "new"
+    },
+    "WizardDialogShell": {
+      "status": "new"
+    },
+    "CreateRecordDialog": {
+      "status": "new"
+    },
+    "DeleteGuardDialog": {
+      "status": "new"
+    },
+    "ConfirmIconButton": {
+      "status": "new"
+    },
+    "InlineCreateForm": {
+      "status": "new"
+    },
+    "Overlay": {
+      "status": "new"
+    },
+    "Drawer": {
+      "status": "new"
+    },
+    "FullScreenLayer": {
+      "status": "new"
+    },
+    "DisabledOverlay": {
+      "status": "new"
+    },
+    "ErrorBoundary": {
+      "status": "new"
+    }
+  },
+  "Composites · Navigation": {
+    "SideNav": {
+      "status": "new"
+    },
+    "SectionNav": {
+      "status": "new"
+    },
+    "HeaderTabs": {
+      "status": "new"
+    },
+    "FloatingSwitch": {
+      "status": "new"
+    },
+    "SplitPane": {
+      "status": "new"
+    },
+    "MasterDetailLayout": {
+      "status": "new"
+    },
+    "GroupTree": {
+      "status": "new"
+    },
+    "ListItemRow": {
+      "status": "new"
+    },
+    "WindowHeader": {
+      "status": "new"
+    },
+    "WindowTitleBar": {
+      "status": "new"
+    },
+    "SettingsShell": {
+      "status": "new"
+    },
+    "SettingsSection": {
+      "status": "new"
+    },
+    "SettingsGroupList": {
+      "status": "new"
+    },
+    "SettingsPage": {
+      "status": "new"
+    },
+    "NavLayout": {
+      "status": "new"
+    },
+    "SearchResults": {
+      "status": "new"
+    },
+    "ProfilePicker": {
+      "status": "new"
+    }
+  },
+  "Composites · Menus": {
+    "DropdownMenu": {
+      "status": "new"
+    },
+    "SearchSpark": {
+      "status": "new"
+    },
+    "CommandPalette": {
+      "status": "new"
+    },
+    "CommandPaletteRow": {
+      "status": "new"
+    }
+  },
+  "Composites · Data views": {
+    "DataTable": {
+      "status": "new"
+    },
+    "FilterBar": {
+      "status": "new"
+    },
+    "RecordEditor": {
+      "status": "new"
+    },
+    "CompactRecordView": {
+      "status": "new"
+    },
+    "Field kits": {
+      "status": "new"
+    }
+  },
+  "Composites · Content": {
+    "LogPanel": {
+      "status": "new"
+    },
+    "AboutPanel": {
+      "status": "new"
+    },
+    "ReleaseNotesPanel": {
+      "status": "new"
+    },
+    "Emphasis": {
+      "status": "new"
+    },
+    "ColorPicker": {
+      "status": "new"
+    },
+    "ColorPickerPopover": {
+      "status": "new"
+    },
+    "PixelWordmark": {
+      "status": "new"
+    },
+    "KeyboardLayout": {
+      "status": "new"
+    },
+    "ShortcutTour": {
+      "status": "new"
+    }
+  },
+  "Composites · Input devices": {
+    "CalibrationPanel": {
+      "status": "new"
+    },
+    "PressedGrid": {
+      "status": "new"
+    },
+    "StickPlot": {
+      "status": "new"
+    }
+  },
+  "Composites · Widgets": {
+    "DockLayout": {
+      "status": "new"
+    },
+    "Widget": {
+      "status": "new"
+    },
+    "WidgetOptions": {
+      "status": "new"
+    }
+  },
+  "Composites · Screens": {
+    "Hero": {
+      "status": "new"
+    }
+  },
+  "Data": {
+    "Engine": {
+      "status": "new"
+    }
   }
 }
