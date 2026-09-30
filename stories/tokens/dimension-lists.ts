@@ -67,6 +67,28 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
     ],
   },
   {
+    title: 'Widgets and dock',
+    entries: [
+      { token: '--widget-titlebar-h' },
+      { token: '--widget-btn-d' },
+      { token: '--widget-options-w' },
+      { token: '--widget-options-slider-w' },
+      { token: '--dock-grip-h' },
+      { token: '--dock-divider-bar' },
+    ],
+  },
+  {
+    title: 'Hero',
+    entries: [
+      { token: '--hero-h' },
+      { token: '--hero-intro-w' },
+      { token: '--hero-art-left' },
+      { token: '--hero-art-h' },
+      { token: '--hero-aside-w' },
+      { token: '--hero-fact-max-w' },
+    ],
+  },
+  {
     title: 'Brand',
     entries: [
       { token: '--brand-mark-sm' },
