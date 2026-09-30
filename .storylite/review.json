@@ -44,6 +44,66 @@
     "hash": "a8dd362d19bd7188",
     "at": "2026-09-30"
   },
+  "Primitives · Layout/Anchored": {
+    "mark": "ok",
+    "hash": "68429f1f43df4f95",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Box": {
+    "mark": "ok",
+    "hash": "bd976719940d7259",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Card": {
+    "mark": "ok",
+    "hash": "d6d3fd3badf473ad",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Center": {
+    "mark": "ok",
+    "hash": "a5664efb757547e9",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Divider": {
+    "mark": "ok",
+    "hash": "8f3690e25bde379d",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Flex": {
+    "mark": "ok",
+    "hash": "0d3103be5a9b293c",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Floating": {
+    "mark": "ok",
+    "hash": "dc1488cc51ed68c3",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Grid": {
+    "mark": "ok",
+    "hash": "8822f0121da262fb",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Portal": {
+    "mark": "ok",
+    "hash": "eda3936303c4c0e4",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/ScrollArea": {
+    "mark": "ok",
+    "hash": "23954b958ffa940b",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Spacer": {
+    "mark": "ok",
+    "hash": "1c232bbc6bb1416d",
+    "at": "2026-09-30"
+  },
+  "Primitives · Layout/Stack": {
+    "mark": "ok",
+    "hash": "279267ce95f3e37f",
+    "at": "2026-09-30"
+  },
   "Text/Abbreviation": {
     "mark": "ok",
     "hash": "4087d66b6aaff318",
