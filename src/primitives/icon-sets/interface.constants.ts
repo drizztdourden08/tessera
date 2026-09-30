@@ -38,6 +38,15 @@ import eyeIcon from '@iconify-icons/lucide/eye';
 import eyeOffIcon from '@iconify-icons/lucide/eye-off';
 import lockIcon from '@iconify-icons/lucide/lock';
 import lockOpenIcon from '@iconify-icons/lucide/lock-open';
+import arrowLeftRightIcon from '@iconify-icons/lucide/arrow-left-right';
+import arrowLeftToLineIcon from '@iconify-icons/lucide/arrow-left-to-line';
+import arrowRightToLineIcon from '@iconify-icons/lucide/arrow-right-to-line';
+import groupIcon from '@iconify-icons/lucide/group';
+import ungroupIcon from '@iconify-icons/lucide/ungroup';
+import deleteIcon from '@iconify-icons/lucide/delete';
+import panelRightIcon from '@iconify-icons/lucide/panel-right';
+import panelTopIcon from '@iconify-icons/lucide/panel-top';
+import panelBottomIcon from '@iconify-icons/lucide/panel-bottom';
 
 const INTERFACE_ICONS = {
   'check': checkIcon,
@@ -79,6 +88,15 @@ const INTERFACE_ICONS = {
   'eye-off': eyeOffIcon,
   'lock': lockIcon,
   'lock-open': lockOpenIcon,
+  'arrow-left-right': arrowLeftRightIcon,
+  'arrow-left-to-line': arrowLeftToLineIcon,
+  'arrow-right-to-line': arrowRightToLineIcon,
+  'group': groupIcon,
+  'ungroup': ungroupIcon,
+  'delete': deleteIcon,
+  'panel-right': panelRightIcon,
+  'panel-top': panelTopIcon,
+  'panel-bottom': panelBottomIcon,
 } as const;
 
 export { INTERFACE_ICONS };

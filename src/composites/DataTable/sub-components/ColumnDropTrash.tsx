@@ -1,9 +1,8 @@
 /* @layer renderer-components @kind component */
 import { useState } from 'react';
 import { Box } from '../../../primitives/Box';
-import { PathIcon } from '../../../primitives/PathIcon';
-import { Text } from '../../../primitives/Text';
-import { TRASH_ICON_PATHS } from '../DataTable.constants';
+import { Icon } from '../../../primitives/Icon';
+import { Span } from '../../../primitives/text-elements';
 import type { DragEvent } from 'react';
 import type { ColumnDropTrashProps } from './ColumnDropTrash.type';
 
@@ -34,16 +33,8 @@ const ColumnDropTrash = (props: ColumnDropTrashProps) => {
       onDragLeave={() => setOver(false)}
       onDrop={handleDrop}
     >
-      <PathIcon
-        paths={TRASH_ICON_PATHS}
-        size={24}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <Text className="data-table__trash-label">{over ? 'Release to remove' : 'Drop to remove'}</Text>
+      <Icon name="trash-2" size={24} />
+      <Span className="data-table__trash-label">{over ? 'Release to remove' : 'Drop to remove'}</Span>
     </Box>
   );
 };

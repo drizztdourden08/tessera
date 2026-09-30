@@ -31,9 +31,7 @@
 }
 
 .select-trigger__chevron {
-  display: flex;
   flex-shrink: 0;
-  align-items: center;
   color: var(--c-text-muted);
   transition: transform var(--transition-fast);
 }

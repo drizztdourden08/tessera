@@ -3,7 +3,8 @@ import { useRef } from 'react';
 import { Anchored } from '../../../primitives/Anchored';
 import { useAnchorTracking } from '../../../primitives/Portal';
 import { Box } from '../../../primitives/Box';
-import { Text } from '../../../primitives/Text';
+import { Divider } from '../../../primitives/Divider';
+import { Span } from '../../../primitives/text-elements';
 import { Checkbox } from '../../../primitives/Checkbox';
 import { Slider } from '../../../primitives/Slider';
 import { useSettingsDismiss } from '../behavior/useSettingsDismiss';
@@ -49,7 +50,7 @@ const WidgetSettings = (props: WidgetSettingsProps) => {
         <WidgetPositionRow widget={widget} onChange={onChange} onClose={onClose} />
 
         <Box className="widget-settings__row">
-          <Text className="widget-settings__label">Opacity</Text>
+          <Span tone="dim" className="widget-settings__label">Opacity</Span>
           <Slider
             value={Math.round(widget.opacity * 100)}
             min={0}
@@ -63,7 +64,7 @@ const WidgetSettings = (props: WidgetSettingsProps) => {
 
         {widget.mode === 'docked' && (
           <Box className="widget-settings__row">
-            <Text className="widget-settings__label">Exclusive</Text>
+            <Span tone="dim" className="widget-settings__label">Exclusive</Span>
             <Checkbox
               className="widget-settings__toggle"
               checked={widget.exclusive}
@@ -75,7 +76,7 @@ const WidgetSettings = (props: WidgetSettingsProps) => {
 
         {children && (
           <>
-            <Box className="widget-settings__separator" />
+            <Divider className="widget-settings__separator" />
             {children}
           </>
         )}

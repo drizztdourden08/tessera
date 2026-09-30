@@ -3,6 +3,7 @@ import { Glyph } from '../../Glyph';
 import { IconButton } from '../../IconButton';
 import { ListboxValue } from '../../listbox/ListboxValue';
 import { Spinner } from '../../Spinner';
+import { Span } from '../../text-elements';
 import { TagChip } from '../../TagInput/sub-components/TagChip';
 import { comboboxClass } from '../behavior/combobox-class';
 import { fieldPress } from '../behavior/field-press';
@@ -34,9 +35,9 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
         />
       ))}
       {box.showValue && (
-        <span className="combobox__value" aria-hidden>
+        <Span className="combobox__value" aria-hidden>
           <ListboxValue displays={displays} look={box.valueLook} placeholder="" />
-        </span>
+        </Span>
       )}
       <ComboboxInput box={box} look={look} />
       {look.loading === true && <Spinner size="sm" className="combobox__spinner" />}
@@ -45,9 +46,7 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
           <Glyph name="close" />
         </IconButton>
       )}
-      <span className="combobox__chevron" aria-hidden>
-        <Glyph name="chevronDown" />
-      </span>
+      <Glyph name="chevronDown" className="combobox__chevron" />
     </div>
   );
 };

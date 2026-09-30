@@ -50,7 +50,6 @@
 .filter-bar__field-label {
   overflow: hidden;
   padding-right: var(--space-lg);
-  color: var(--c-text-dim);
   font-size: var(--text-xs);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -73,8 +72,7 @@
 }
 
 .filter-bar__clause .filter-bar__remove:hover:not(:disabled),
-.filter-bar__clause .filter-bar__remove:active:not(:disabled),
-.filter-bar__clause .filter-bar__remove:focus-visible:not(:disabled) {
+.filter-bar__clause .filter-bar__remove:active:not(:disabled) {
   border-color: var(--c-danger);
   box-shadow: 0 0 0 var(--border-width-thin) var(--c-bg),
               0 0 0 calc(var(--border-width-thin) + var(--border-width-thick)) var(--c-danger);
@@ -85,8 +83,7 @@
   background: var(--c-danger);
 }
 
-.filter-bar__clause .filter-bar__remove:active:not(:disabled),
-.filter-bar__clause .filter-bar__remove:focus-visible:not(:disabled) {
+.filter-bar__clause .filter-bar__remove:active:not(:disabled) {
   background: transparent;
 }
 

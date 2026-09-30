@@ -4,7 +4,7 @@ import { Box } from '../../../primitives/Box';
 import { Anchored } from '../../../primitives/Anchored';
 import { Glyph } from '../../../primitives/Glyph';
 import { Pressable } from '../../../primitives/Pressable';
-import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { SUB_PANEL_WIDTH } from './FieldPicker.constants';
 import type { FieldPickerNodeProps, PanelPosition } from './FieldPickerNode.type';
@@ -25,8 +25,8 @@ const FieldPickerNode = (props: FieldPickerNodeProps) => {
   if (node.pickable) {
     return (
       <Pressable className="dropdown__item" onClick={() => onPick(node.path)}>
-        <Text className="dropdown__label">{node.label}</Text>
-        <Text className="field-picker__kind">{node.kind}</Text>
+        <Span className="dropdown__label">{node.label}</Span>
+        <Span className="field-picker__kind">{node.kind}</Span>
       </Pressable>
     );
   }
@@ -39,8 +39,8 @@ const FieldPickerNode = (props: FieldPickerNodeProps) => {
       onMouseLeave={() => setPosition(null)}
     >
       <Box className="dropdown__item dropdown__item--parent">
-        <Text className="dropdown__label">{node.label}</Text>
-        <Text className="dropdown__chevron"><Glyph name="chevronRight" /></Text>
+        <Span className="dropdown__label">{node.label}</Span>
+        <Span className="dropdown__chevron"><Glyph name="chevronRight" /></Span>
       </Box>
       {position && (
         <Anchored anchorRef={ref} placement="right-start" portal={false} fallback={position} className="dropdown-menu dropdown-menu--sub field-picker">

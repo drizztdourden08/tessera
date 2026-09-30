@@ -2,6 +2,7 @@
 import { Glyph } from '../../Glyph';
 import { activeOptionId } from '../../listbox/active-option-id';
 import { ListboxValue } from '../../listbox/ListboxValue';
+import { Span } from '../../text-elements';
 import { triggerClass } from '../behavior/trigger-class';
 import { DEFAULT_PLACEHOLDER } from '../Select.constants';
 import type { SelectTriggerProps } from './SelectTrigger.type';
@@ -33,17 +34,15 @@ const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
       onClick={() => (open ? drop.close() : drop.show())}
       onKeyDown={select.onKeyDown}
     >
-      <span className="select-trigger__value">
+      <Span className="select-trigger__value">
         <ListboxValue
           displays={select.displays}
           look={setup}
           placeholder={look.placeholder ?? DEFAULT_PLACEHOLDER}
           tags={setup.max > 1 && look.multiDisplay === 'tags'}
         />
-      </span>
-      <span className="select-trigger__chevron" aria-hidden>
-        <Glyph name="chevronDown" />
-      </span>
+      </Span>
+      <Glyph name="chevronDown" className="select-trigger__chevron" />
     </button>
   );
 };

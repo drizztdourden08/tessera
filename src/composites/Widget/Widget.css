@@ -183,14 +183,11 @@
 .widget-settings__label {
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
-  color: var(--c-text-dim);
   min-width: var(--size-56);
   flex-shrink: 0;
 }
 
 .widget-settings__separator {
-  height: var(--size-1);
-  background: var(--c-border);
   margin: var(--space-xs) 0;
 }
 

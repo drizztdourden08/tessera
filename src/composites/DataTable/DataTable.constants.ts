@@ -50,16 +50,8 @@ const ABSENT_KEY_LABEL = '-';
 
 const GHOST_ROW_LIMIT = 6;
 
-const TRASH_ICON_PATHS: string[] = [
-  'M2.5 4.5h11',
-  'M6 4.5V3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1.5',
-  'M4.5 4.5l.6 9a1 1 0 0 0 1 .95h3.8a1 1 0 0 0 1-.95l.6-9',
-  'M6.75 7.5v4',
-  'M9.25 7.5v4',
-];
-
 const KEY_RENDERED_KINDS: readonly string[] = ['enum', 'idRef'];
 
 export {
-  ABSENT_KEY_LABEL, GHOST_ROW_LIMIT, KEY_RENDERED_KINDS, TRASH_ICON_PATHS, trackList, trackListWith,
+  ABSENT_KEY_LABEL, GHOST_ROW_LIMIT, KEY_RENDERED_KINDS, trackList, trackListWith,
 };

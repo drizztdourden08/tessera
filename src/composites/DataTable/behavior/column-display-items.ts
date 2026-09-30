@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind logic */
 import { ID_KEY, ID_LABEL, REFERENCE_KIND } from './column-display-items.constants';
+import { menuIcon } from './menu-icon';
 import type { MenuEntry, MenuItem } from '../../DropdownMenu';
 import type { ColumnDisplayInput } from './column-display-items.type';
 
@@ -26,7 +27,7 @@ const buildColumnDisplayItems = (input: ColumnDisplayInput): MenuEntry[] => {
     })),
   ];
 
-  return [{ key: 'display-as', icon: '⇄', label: 'Display as...', children }];
+  return [{ key: 'display-as', icon: menuIcon('arrow-left-right'), label: 'Display as...', children }];
 };
 
 export { buildColumnDisplayItems };

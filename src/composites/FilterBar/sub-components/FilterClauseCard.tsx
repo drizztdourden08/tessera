@@ -4,7 +4,7 @@ import { Checkbox } from '../../../primitives/Checkbox';
 import { Flex } from '../../../primitives/Flex';
 import { Glyph } from '../../../primitives/Glyph';
 import { IconButton } from '../../../primitives/IconButton';
-import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { findOperator } from '../../../data/filter/operators';
 import { resolveFieldKit } from '../../field-kits';
 import { OperatorMenu } from './OperatorMenu';
@@ -24,7 +24,7 @@ const FilterClauseCard = (props: FilterClauseCardProps) => {
 
   return (
     <Box className={clauseClass}>
-      <Text className="filter-bar__field-label" title={field.label}>{field.label}</Text>
+      <Span tone="dim" className="filter-bar__field-label" title={field.label}>{field.label}</Span>
       <Flex align="stretch" className={groupClass}>
         <Checkbox
           className="filter-bar__check"

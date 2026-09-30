@@ -3,6 +3,7 @@ import { buildColumnDisplayItems } from './column-display-items';
 import { buildColumnSortItems } from './column-sort-items';
 import { buildFieldMenuItems } from './field-menu-items';
 import { menuGlyph } from './menu-glyph';
+import { menuIcon } from './menu-icon';
 import type { MenuEntry } from '../../DropdownMenu';
 import type { ColumnMenuInput } from './column-menu-items.type';
 
@@ -36,12 +37,12 @@ const buildColumnMenuItems = (input: ColumnMenuInput): MenuEntry[] => {
     'separator',
     { key: 'move-left', icon: menuGlyph('chevronLeft'), label: 'Move left', disabled: isFirst, onClick: act(() => actions.onMove(path, 'left')) },
     { key: 'move-right', icon: menuGlyph('chevronRight'), label: 'Move right', disabled: isLast, onClick: act(() => actions.onMove(path, 'right')) },
-    { key: 'move-first', icon: '⇤', label: 'Move to first', disabled: isFirst, onClick: act(() => actions.onMove(path, 'first')) },
-    { key: 'move-last', icon: '⇥', label: 'Move to last', disabled: isLast, onClick: act(() => actions.onMove(path, 'last')) },
+    { key: 'move-first', icon: menuIcon('arrow-left-to-line'), label: 'Move to first', disabled: isFirst, onClick: act(() => actions.onMove(path, 'first')) },
+    { key: 'move-last', icon: menuIcon('arrow-right-to-line'), label: 'Move to last', disabled: isLast, onClick: act(() => actions.onMove(path, 'last')) },
     'separator',
     grouped
-      ? { key: 'ungroup', icon: '▤', label: 'Ungroup this column', onClick: act(() => actions.onUngroup(path)) }
-      : { key: 'group', icon: '▦', label: 'Group by this column', onClick: act(() => actions.onGroupBy(path)) },
+      ? { key: 'ungroup', icon: menuIcon('ungroup'), label: 'Ungroup this column', onClick: act(() => actions.onUngroup(path)) }
+      : { key: 'group', icon: menuIcon('group'), label: 'Group by this column', onClick: act(() => actions.onGroupBy(path)) },
     ...buildColumnSortItems({ path, sortDir, actions, act }),
     'separator',
     {
@@ -53,7 +54,7 @@ const buildColumnMenuItems = (input: ColumnMenuInput): MenuEntry[] => {
     },
     {
       key: 'expand',
-      icon: '⤢',
+      icon: menuIcon('maximize-2'),
       label: 'Expand to available space',
       disabled: grow === true,
       onClick: act(() => actions.onExpandToFill(path)),

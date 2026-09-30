@@ -4,6 +4,7 @@ import { Box } from '../../../primitives/Box';
 import { Glyph } from '../../../primitives/Glyph';
 import { Pressable } from '../../../primitives/Pressable';
 import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { groupKeyContent } from '../behavior/group-key-content';
 import { INDENT_STEP } from './GroupRow.constants';
 import type { CSSProperties } from 'react';
@@ -21,11 +22,11 @@ const GroupRow = (props: GroupRowProps) => {
         aria-expanded={expanded}
         onClick={onToggle}
       >
-        <Text className="data-table__chevron"><Glyph name={expanded ? 'chevronDown' : 'chevronRight'} /></Text>
+        <Span tone="dim" className="data-table__chevron"><Glyph name={expanded ? 'chevronDown' : 'chevronRight'} /></Span>
         <Text className="data-table__group-key">{groupKeyContent(groupKey, field, display)}</Text>
       </Pressable>
       <Box className="data-table__group-total">
-        {field && <Text className="data-table__group-field">{field.label}</Text>}
+        {field && <Span tone="muted" className="data-table__group-field">{field.label}</Span>}
         <Badge variant="neutral" className="data-table__group-count">{String(count)}</Badge>
       </Box>
     </Box>

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind logic */
 import { menuGlyph } from './menu-glyph';
+import { menuIcon } from './menu-icon';
 import { SORT_DIR_ICON, SORT_DIR_LABEL } from './column-sort-items.constants';
 import type { MenuEntry } from '../../DropdownMenu';
 import type { SortEntry } from '../../../data/table/types';
@@ -21,7 +22,7 @@ const buildColumnSortItems = (input: ColumnSortInput): MenuEntry[] => {
     directionEntry(input, sortDir === 'asc' ? 'desc' : 'asc'),
     {
       key: 'sort-remove',
-      icon: '⌫',
+      icon: menuIcon('delete'),
       label: `Remove sort on this column (${SORT_DIR_LABEL[sortDir]})`,
       onClick: act(() => actions.onRemoveSort(path)),
     },

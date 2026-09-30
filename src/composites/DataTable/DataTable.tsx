@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { Text } from '../../primitives/Text';
+import { EmptyState } from '../../primitives/EmptyState';
 import { useColumnActions } from './behavior/useColumnActions';
 import { useGridStyle } from './behavior/useGridStyle';
 import { useTableActions } from './behavior/useTableActions';
@@ -51,7 +51,7 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
           lead={selection && checkboxes ? <SelectAllCell selection={selection} /> : undefined}
         />
         <RowTree nodes={table.groupedRows} parentUid="" context={context} />
-        {rows.length === 0 && <Text className="data-table__empty">{emptyMessage}</Text>}
+        {rows.length === 0 && <EmptyState className="data-table__empty" message={emptyMessage} />}
       </Box>
       <ColumnDropTrash
         draggingPath={drag.draggingPath}

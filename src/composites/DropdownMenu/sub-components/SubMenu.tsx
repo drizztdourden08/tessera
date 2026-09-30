@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Anchored } from '../../../primitives/Anchored';
 import { Glyph } from '../../../primitives/Glyph';
-import { Text } from '../../../primitives/Text';
+import { Span } from '../../../primitives/text-elements';
 import { SUB_MENU_PADDING, SUB_MENU_WIDTH, SUB_ROW_HEIGHT } from '../DropdownMenu.constants';
 import { MenuItemButton } from './MenuItemButton';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
@@ -33,9 +33,9 @@ const SubMenu = (props: SubMenuProps) => {
       onMouseLeave={() => setPosition(null)}
     >
       <Box className="dropdown__item dropdown__item--parent">
-        {item.icon && <Text className="dropdown__icon">{item.icon}</Text>}
-        <Text className="dropdown__label">{item.label}</Text>
-        <Text className="dropdown__chevron"><Glyph name="chevronRight" size={12} /></Text>
+        {item.icon && <Span className="dropdown__icon">{item.icon}</Span>}
+        <Span className="dropdown__label">{item.label}</Span>
+        <Span className="dropdown__chevron"><Glyph name="chevronRight" size={12} /></Span>
       </Box>
       {position && (
         <Anchored anchorRef={ref} placement="right-start" portal={false} fallback={position} className="dropdown-menu dropdown-menu--sub">

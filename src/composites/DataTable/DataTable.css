@@ -128,8 +128,6 @@
 
 .data-table__drag-ghost-rest {
   padding-top: var(--space-xs);
-  color: var(--c-text-muted);
-  font-size: var(--text-xs);
 }
 
 .data-table__trash {
@@ -170,7 +168,6 @@
 
 .data-table__trash-label {
   font-size: var(--text-xs);
-  color: inherit;
 }
 
 .data-table__header-cell--trailing {
@@ -226,7 +223,6 @@
 }
 
 .data-table__chevron {
-  color: var(--c-text-dim);
   width: var(--size-16);
 }
 
@@ -247,7 +243,6 @@
 }
 
 .data-table__group-field {
-  color: var(--c-text-muted);
   font-size: var(--text-xs);
   text-transform: uppercase;
 }
@@ -255,11 +250,4 @@
 .badge.data-table__group-count {
   color: var(--c-primary-bright);
   font-weight: var(--weight-semi);
-}
-
-.data-table__empty {
-  display: block;
-  padding: var(--space-lg);
-  color: var(--c-text-muted);
-  text-align: center;
 }

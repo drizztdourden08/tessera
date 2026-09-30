@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { DropdownMenu } from '../../src/composites';
-import { Box, Button, Text } from '../../src/primitives';
+import { Box, Button, Glyph, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { axis, VariantGrid } from '../_template/VariantGrid';
 import { STATE } from '../_template/states/states.constants';
@@ -40,8 +40,8 @@ const MenuDemo = ({ side, align, closeOnPick }: DropdownArgs) => {
   return (
     <Box className="story-column">
       <Box className="story-row">
-        <Button ref={anchorRef} variant="secondary" active={menuOpen} onClick={() => setMenuOpen((v) => !v)}>
-          View ▾
+        <Button ref={anchorRef} variant="secondary" active={menuOpen} icon={<Glyph name="chevronDown" />} onClick={() => setMenuOpen((v) => !v)}>
+          View
         </Button>
         <Text className="story-label">{last}</Text>
       </Box>
@@ -61,8 +61,8 @@ const PlacementDemo = ({ side, align }: { side: MenuSide; align: MenuAlign }) =>
   });
   return (
     <>
-      <Button ref={anchorRef} variant="secondary" size="sm" active={menuOpen} onClick={() => setMenuOpen((v) => !v)}>
-        View ▾
+      <Button ref={anchorRef} variant="secondary" size="sm" active={menuOpen} icon={<Glyph name="chevronDown" />} onClick={() => setMenuOpen((v) => !v)}>
+        View
       </Button>
       {menuOpen && <DropdownMenu items={items} anchorRef={anchorRef} side={side} align={align} />}
     </>

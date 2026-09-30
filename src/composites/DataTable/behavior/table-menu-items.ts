@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { buildFieldMenuItems } from './field-menu-items';
 import { menuGlyph } from './menu-glyph';
+import { menuIcon } from './menu-icon';
 import type { MenuEntry } from '../../DropdownMenu';
 import type { TableMenuInput } from './table-menu-items.type';
 
@@ -24,14 +25,14 @@ const buildTableMenuItems = (input: TableMenuInput): MenuEntry[] => {
     'separator',
     {
       key: 'clear-sort',
-      icon: '⌫',
+      icon: menuIcon('delete'),
       label: 'Clear all sorting',
       disabled: !sortActive,
       onClick: act(actions.onClearSort),
     },
     {
       key: 'clear-group',
-      icon: '⌫',
+      icon: menuIcon('delete'),
       label: 'Clear all grouping',
       disabled: !groupActive,
       onClick: act(actions.onClearGroupBy),
@@ -43,7 +44,7 @@ const buildTableMenuItems = (input: TableMenuInput): MenuEntry[] => {
       label: 'Fit all to content',
       onClick: act(actions.onFitAllToContent),
     },
-    { key: 'reset', icon: '↺', label: 'Reset columns to defaults', onClick: act(actions.onResetColumns) },
+    { key: 'reset', icon: menuIcon('rotate-ccw'), label: 'Reset columns to defaults', onClick: act(actions.onResetColumns) },
   ];
 };
 

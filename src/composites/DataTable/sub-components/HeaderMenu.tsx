@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { Icon } from '../../../primitives/Icon';
 import { Pressable } from '../../../primitives/Pressable';
 import { ColumnMenu } from './ColumnMenu';
 import type { HeaderMenuProps } from './HeaderMenu.type';
@@ -19,7 +20,7 @@ const HeaderMenu = (props: HeaderMenuProps) => {
         aria-expanded={menu.open}
         onClick={menu.toggle}
       >
-        ⋯
+        <Icon name="ellipsis" />
       </Pressable>
       {menu.open && (
         <ColumnMenu
