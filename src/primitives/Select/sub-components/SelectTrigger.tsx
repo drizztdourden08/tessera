@@ -1,32 +1,44 @@
 /* @layer renderer-components @kind component */
 import { Glyph } from '../../Glyph';
+import { activeOptionId } from '../../listbox/active-option-id';
+import { ListboxValue } from '../../listbox/ListboxValue';
+import { triggerClass } from '../behavior/trigger-class';
+import { DEFAULT_PLACEHOLDER } from '../Select.constants';
 import type { SelectTriggerProps } from './SelectTrigger.type';
 
-const SelectTrigger = (props: SelectTriggerProps) => {
-  const {
-    dropdown, className, disabled, invalid, selectedLabel, placeholder, id, ariaLabel, ariaLabelledBy, ariaDescribedBy,
-  } = props;
+const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
+  const { select, setup, look } = props;
+  const { drop, model, control, field } = select;
+  const { open } = drop;
+  const full = setup.valueDisplay === 'full' || setup.valueComponent !== undefined;
 
   return (
     <button
-      ref={dropdown.triggerRef}
+      ref={drop.anchorRef}
       type="button"
-      className={className}
-      onClick={() => (dropdown.open ? dropdown.handleClose() : dropdown.handleOpen())}
-      onKeyDown={dropdown.handleKeyDown}
-      disabled={disabled}
-      id={id}
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledBy}
-      aria-describedby={ariaDescribedBy}
-      aria-invalid={invalid ? true : undefined}
+      role="combobox"
+      id={control.id}
+      className={triggerClass({ open, disabled: field.disabled, size: field.size, full, className: field.className })}
+      disabled={field.disabled}
+      aria-label={look['aria-label']}
+      aria-labelledby={look['aria-labelledby']}
+      aria-describedby={control.describedBy}
+      aria-invalid={field.invalid || undefined}
       aria-haspopup="listbox"
-      aria-expanded={dropdown.open}
+      aria-expanded={open}
+      aria-controls={open ? model.listId : undefined}
+      aria-activedescendant={activeOptionId(open && look.searchable !== true, model)}
+      data-drop={open ? drop.attach : undefined}
+      data-fillet={(open && drop.fillet) || undefined}
+      onClick={() => (open ? drop.close() : drop.show())}
+      onKeyDown={select.onKeyDown}
     >
-      <span className={`select-trigger__text ${selectedLabel === undefined ? 'select-trigger__placeholder' : ''}`}>
-        {selectedLabel ?? placeholder}
+      <span className="select-trigger__value">
+        <ListboxValue displays={select.displays} look={setup} placeholder={look.placeholder ?? DEFAULT_PLACEHOLDER} />
       </span>
-      <span className="select-trigger__chevron"><Glyph name="chevronDown" /></span>
+      <span className="select-trigger__chevron" aria-hidden>
+        <Glyph name="chevronDown" />
+      </span>
     </button>
   );
 };

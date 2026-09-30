@@ -9,9 +9,11 @@ const useDismissListeners = (params: UseDismissListenersParams): void => {
   useEffect(() => {
     if (!open) return;
     const handler = (e: MouseEvent) => {
+      const path = e.composedPath();
       if (
         contentRef.current?.contains(e.target as Node) ||
-        triggerRef.current?.contains(e.target as Node)
+        triggerRef.current?.contains(e.target as Node) ||
+        path.some((node) => node === contentRef.current || node === triggerRef.current)
       ) return;
       onClose();
     };

@@ -5,6 +5,7 @@ interface FieldControl {
   id?: string;
   describedBy?: string;
   invalid?: boolean;
+  labelId?: string;
 }
 
 interface FieldControlBoundaryProps {

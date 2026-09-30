@@ -1,0 +1,31 @@
+/* @layer stories @kind style */
+.picker-narrow {
+  max-width: var(--size-256);
+}
+
+.build-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-width: 0;
+  padding-block: var(--space-2xs);
+}
+
+.build-details__name,
+.build-line__name {
+  color: var(--c-text);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.build-details__meta,
+.build-line__branch {
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+}
+
+.build-details__notes {
+  color: var(--c-text-dim);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+}

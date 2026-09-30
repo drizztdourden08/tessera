@@ -1,0 +1,194 @@
+/* @layer renderer-components @kind style */
+.listbox-anchor,
+.listbox-drop {
+  --listbox-edge: var(--c-primary);
+  --listbox-halo: var(--c-primary-soft);
+  --listbox-line: var(--border-width-thin);
+  --listbox-ring: var(--border-width-thick);
+  --listbox-radius: var(--radius-md);
+  --listbox-reach: var(--size-48);
+  --listbox-soft: var(--size-1);
+}
+
+:is(.listbox-anchor.select-trigger--sm, .listbox-anchor.combobox--sm, .listbox-drop[data-size='sm']) {
+  --listbox-radius: var(--radius-sm);
+}
+
+.listbox-anchor[data-drop] {
+  border-color: var(--listbox-edge);
+  box-shadow: 0 0 0 var(--listbox-ring) var(--listbox-halo);
+}
+
+.listbox-anchor[data-drop]:is([aria-invalid='true'], :has([aria-invalid='true'])),
+.listbox-drop[data-invalid] {
+  --listbox-edge: var(--c-danger);
+  --listbox-halo: var(--c-danger-soft);
+}
+
+.listbox-anchor[data-drop='down'] {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  clip-path: inset(calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)) var(--listbox-line));
+}
+
+.listbox-anchor[data-drop='up'] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  clip-path: inset(var(--listbox-line) calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)));
+}
+
+.listbox-anchor[data-drop='down'][data-fillet] {
+  clip-path: polygon(
+    calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)),
+    calc(100% + var(--listbox-ring)) calc(-1 * var(--listbox-ring)),
+    calc(100% + var(--listbox-ring)) calc(100% - var(--listbox-line) - var(--listbox-radius)),
+    100% calc(100% - var(--listbox-line) - var(--listbox-radius)),
+    100% calc(100% - var(--listbox-line)),
+    calc(-1 * var(--listbox-ring)) calc(100% - var(--listbox-line))
+  );
+}
+
+.listbox-anchor[data-drop='up'][data-fillet] {
+  clip-path: polygon(
+    calc(-1 * var(--listbox-ring)) var(--listbox-line),
+    100% var(--listbox-line),
+    100% calc(var(--listbox-line) + var(--listbox-radius)),
+    calc(100% + var(--listbox-ring)) calc(var(--listbox-line) + var(--listbox-radius)),
+    calc(100% + var(--listbox-ring)) calc(100% + var(--listbox-ring)),
+    calc(-1 * var(--listbox-ring)) calc(100% + var(--listbox-ring))
+  );
+}
+
+.listbox-drop {
+  position: fixed;
+  z-index: var(--z-popover);
+  display: flex;
+  flex-direction: column;
+  max-height: var(--listbox-space, var(--size-288));
+  background: var(--c-surface);
+  border: var(--listbox-line) solid var(--listbox-edge);
+  border-radius: var(--listbox-radius);
+  box-shadow: 0 0 0 var(--listbox-ring) var(--listbox-halo), var(--shadow-2);
+  pointer-events: auto;
+}
+
+.listbox-drop:not([data-placed]) {
+  visibility: hidden;
+}
+
+.listbox-drop.listbox-drop--inline {
+  position: relative;
+  z-index: auto;
+  width: 100%;
+  margin-top: calc(-1 * var(--listbox-line));
+}
+
+.listbox-drop[data-attach='down'] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  clip-path: inset(0 calc(-1 * var(--listbox-reach)) calc(-1 * var(--listbox-reach)));
+}
+
+.listbox-drop[data-attach='up'] {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  transform: translateY(-100%);
+  clip-path: inset(calc(-1 * var(--listbox-reach)) calc(-1 * var(--listbox-reach)) 0);
+}
+
+.listbox-drop[data-attach='down'][data-fillet] {
+  border-top-right-radius: var(--listbox-radius);
+  clip-path: polygon(
+    calc(-1 * var(--listbox-reach)) 0,
+    calc(var(--listbox-attach) - var(--listbox-line)) 0,
+    calc(var(--listbox-attach) - var(--listbox-line)) calc(-1 * var(--listbox-radius)),
+    var(--listbox-attach) calc(-1 * var(--listbox-radius)),
+    var(--listbox-attach) calc(-1 * var(--listbox-reach)),
+    calc(100% + var(--listbox-reach)) calc(-1 * var(--listbox-reach)),
+    calc(100% + var(--listbox-reach)) calc(100% + var(--listbox-reach)),
+    calc(-1 * var(--listbox-reach)) calc(100% + var(--listbox-reach))
+  );
+}
+
+.listbox-drop[data-attach='up'][data-fillet] {
+  border-bottom-right-radius: var(--listbox-radius);
+  clip-path: polygon(
+    calc(-1 * var(--listbox-reach)) calc(-1 * var(--listbox-reach)),
+    calc(100% + var(--listbox-reach)) calc(-1 * var(--listbox-reach)),
+    calc(100% + var(--listbox-reach)) calc(100% + var(--listbox-reach)),
+    var(--listbox-attach) calc(100% + var(--listbox-reach)),
+    var(--listbox-attach) calc(100% + var(--listbox-radius)),
+    calc(var(--listbox-attach) - var(--listbox-line)) calc(100% + var(--listbox-radius)),
+    calc(var(--listbox-attach) - var(--listbox-line)) 100%,
+    calc(-1 * var(--listbox-reach)) 100%
+  );
+}
+
+.listbox-drop::before {
+  position: absolute;
+  right: calc(-1 * var(--listbox-line));
+  left: calc(-1 * var(--listbox-line));
+  height: var(--listbox-line);
+  background: linear-gradient(
+    to right,
+    var(--listbox-edge) var(--listbox-line),
+    var(--c-surface) var(--listbox-line),
+    var(--c-surface) calc(100% - var(--listbox-line)),
+    var(--listbox-edge) calc(100% - var(--listbox-line))
+  );
+  content: '';
+}
+
+.listbox-drop[data-attach='down']::before {
+  top: calc(-1 * var(--listbox-line));
+}
+
+.listbox-drop[data-attach='up']::before {
+  bottom: calc(-1 * var(--listbox-line));
+}
+
+.listbox-drop[data-fillet]::before {
+  right: auto;
+  width: calc(var(--listbox-attach) - var(--listbox-line));
+  background: linear-gradient(to right, var(--listbox-edge) var(--listbox-line), var(--c-surface) var(--listbox-line));
+}
+
+.listbox-drop[data-fillet]::after {
+  position: absolute;
+  left: calc(var(--listbox-attach) - 2 * var(--listbox-line));
+  width: calc(var(--listbox-radius) + var(--listbox-line));
+  height: calc(var(--listbox-radius) + var(--listbox-line));
+  pointer-events: none;
+  content: '';
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      transparent calc(var(--listbox-radius) - var(--listbox-soft) / 2),
+      var(--listbox-edge) calc(var(--listbox-radius) + var(--listbox-soft) / 2),
+      var(--listbox-edge) calc(var(--listbox-radius) + var(--listbox-line) - var(--listbox-soft) / 2),
+      var(--c-surface) calc(var(--listbox-radius) + var(--listbox-line) + var(--listbox-soft) / 2)
+    ),
+    radial-gradient(
+      circle at 100% 0,
+      transparent calc(var(--listbox-radius) - var(--listbox-ring) - var(--listbox-soft) / 2),
+      var(--listbox-halo) calc(var(--listbox-radius) - var(--listbox-ring) + var(--listbox-soft) / 2),
+      var(--listbox-halo) var(--listbox-radius),
+      transparent var(--listbox-radius)
+    ) top / 100% calc(var(--listbox-radius) - var(--listbox-ring)) no-repeat;
+}
+
+.listbox-drop[data-attach='down'][data-fillet]::after {
+  top: calc(-1 * (var(--listbox-radius) + var(--listbox-line)));
+}
+
+.listbox-drop[data-attach='up'][data-fillet]::after {
+  bottom: calc(-1 * (var(--listbox-radius) + var(--listbox-line)));
+  transform: scaleY(-1);
+}
+
+.listbox-drop__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: inherit;
+  scrollbar-gutter: stable;
+}

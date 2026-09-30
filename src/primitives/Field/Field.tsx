@@ -10,17 +10,18 @@ const Field = (props: FieldProps) => {
   const autoId = useId();
   const controlId = htmlFor ?? `field-${autoId}`;
   const noteId = `${controlId}-note`;
+  const labelId = label != null ? `${controlId}-label` : undefined;
   const note = error ?? hint;
   const invalid = error != null;
   const control = useMemo(
-    () => ({ id: controlId, describedBy: note != null ? noteId : undefined, invalid }),
-    [controlId, noteId, note, invalid],
+    () => ({ id: controlId, describedBy: note != null ? noteId : undefined, invalid, labelId }),
+    [controlId, noteId, note, invalid, labelId],
   );
 
   return (
     <div className={`field${inline ? ' field--inline' : ''}${className ? ` ${className}` : ''}`}>
       {label != null && (
-        <label className="field__label" htmlFor={controlId}>
+        <label id={labelId} className="field__label" htmlFor={controlId}>
           {label}
           {required && <span className="field__required">*</span>}
         </label>

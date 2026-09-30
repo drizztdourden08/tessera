@@ -32,7 +32,13 @@ export type { DropZoneProps, DropZoneVariant } from './DropZone';
 export { TextInput } from './TextInput';
 export { Textarea } from './Textarea';
 export { Select, NativeSelect } from './Select';
-export type { SelectOption, SelectGroup, SelectProps } from './Select';
+export type { SelectOption, SelectGroup, SelectItemsProps, SelectOptionsProps, SelectProps } from './Select';
+export { Combobox } from './Combobox';
+export type { ComboboxProps } from './Combobox';
+export type {
+  ColumnAlign, ColumnCondition, ColumnEvaluator, ColumnFormat, ColumnRule, ColumnWidth, FieldOf, ItemAccessor, ItemContext,
+  ItemPlace, ListboxCategories, ListboxCategory, ListboxColumn, ListboxItemProps, ListboxTone, ValueDisplay, ValueOf,
+} from './listbox';
 export { Toggle } from './Toggle';
 export { Slider } from './Slider';
 export { RadioGroup, type RadioOption } from './RadioGroup';

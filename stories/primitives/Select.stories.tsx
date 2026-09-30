@@ -1,79 +1,78 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Field, NativeSelect, Select, Text } from '../../src/primitives';
-import type { SelectGroup, SelectOption } from '../../src/primitives';
+import { Box, NativeSelect, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { STATE } from '../_template/states/states.constants';
-import type { StateProps } from '../_template/states/states.type';
+import { REGION_OPTIONS } from './_samples/picker-data';
+import { SELECT_CODE } from './_samples/picker-emoji';
+import { PICKER_ARG_TYPES, pickerStates, pickerVariant } from './_samples/picker-story';
+import { SelectPlayground } from './_samples/select-playground';
+import {
+  AsyncList, Categories, ConditionalColumns, DetailsCompact, DetailsFull, FullTrigger, MultiSelect, ObjectColumns, OneProperty, Optional,
+  OptionsAndGroups, PlainStrings,
+} from './_samples/select-variants';
+import type { SelectArgs } from './_samples/select-playground';
+import './Select.stories.css';
 
-type SelectArgs = {
-  placeholder: string;
-  size: 'md' | 'sm';
-  searchable: boolean;
-  grouped: boolean;
-  disabled: boolean;
-  invalid: boolean;
+type Story = StoryLiteStoryDefinition<SelectArgs>;
+
+const ARGS: Partial<SelectArgs> = {
+  placeholder: 'Pick a build',
+  look: 'status emoji',
+  grouped: false,
+  valueDisplay: 'label',
+  min: 1,
+  max: 1,
+  searchable: false,
+  loading: false,
+  size: 'md',
+  disabled: false,
+  invalid: false,
 };
 
-const REGIONS: SelectOption[] = [
-  { value: 'light', label: 'Light World', description: 'Overworld, 64 screens' },
-  { value: 'dark', label: 'Dark World', description: 'Overworld, 64 screens' },
-  { value: 'castle', label: 'Hyrule Castle' },
-  { value: 'eastern', label: 'Eastern Palace' },
-  { value: 'desert', label: 'Desert Palace' },
-  { value: 'hera', label: 'Tower of Hera' },
-];
-
-const GROUPS: SelectGroup[] = [
-  { label: 'Overworld', options: REGIONS.slice(0, 2) },
-  { label: 'Dungeons', options: REGIONS.slice(2) },
-];
-
-const ARGS: Partial<SelectArgs> = { placeholder: 'Pick a region', size: 'md', searchable: false, grouped: false, disabled: false, invalid: false };
-
 const ARG_TYPES: StoryLiteArgTypes<SelectArgs> = {
-    placeholder: { control: 'text' },
-    size: { control: 'select', options: ['md', 'sm'] },
-    searchable: { control: 'boolean' },
-    grouped: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    invalid: { control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
-  };
+  placeholder: { control: 'text' },
+  look: { control: 'select', options: ['columns', 'status emoji', 'custom item'], description: 'Plain columns with a header, columns that react to the status, or a multi-line item component.' },
+  grouped: { control: 'boolean', description: 'Group the builds by status, under category headers with an emoji.' },
+  valueDisplay: { control: 'select', options: ['label', 'full'], description: 'What the trigger shows: the label, or the item drawn in full.' },
+  searchable: { control: 'boolean' },
+  ...PICKER_ARG_TYPES,
+};
 
 const meta = {
   title: 'Primitives · Inputs/Select',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SelectArgs>;
 
-const StatefulSelect = (props: { initial: string } & Partial<SelectArgs>) => {
-  const { initial, placeholder, size, searchable, grouped, disabled, invalid } = props;
-  const [value, setValue] = useState(initial);
-  return (
-    <Box className="story-column">
-      <Select
-        value={value}
-        onChange={setValue}
-        options={grouped ? undefined : REGIONS}
-        groups={grouped ? GROUPS : undefined}
-        placeholder={placeholder}
-        size={size}
-        searchable={searchable}
-        disabled={disabled}
-        invalid={invalid}
-      />
-      <Text className="story-label">Value: {value === '' ? '(none)' : value}</Text>
-    </Box>
-  );
-};
+const Playground = {
+  name: 'Playground',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <SelectPlayground {...args} />,
+} satisfies Story;
+
+const VARIANTS: readonly Story[] = [
+  pickerVariant('Plain strings', PlainStrings),
+  pickerVariant('Objects with columns', ObjectColumns),
+  pickerVariant('Conditional columns', ConditionalColumns),
+  pickerVariant('Multi-line items, full trigger', DetailsFull),
+  pickerVariant('Multi-line items, compact trigger', DetailsCompact),
+  pickerVariant('Columns in the trigger', FullTrigger),
+  pickerVariant('Categories', Categories),
+  pickerVariant('Multi select, up to three', MultiSelect),
+  pickerVariant('Optional, min 0', Optional),
+  pickerVariant('Return one property', OneProperty),
+  pickerVariant('Async and dynamic list', AsyncList),
+  pickerVariant('Options and groups', OptionsAndGroups),
+];
 
 const StatefulNativeSelect = (props: { disabled?: boolean }) => {
   const { disabled } = props;
-  const [value, setValue] = useState(REGIONS[0]?.label ?? '');
+  const [value, setValue] = useState(REGION_OPTIONS[0]?.label ?? '');
   return (
     <Box className="story-column">
       <NativeSelect value={value} disabled={disabled} onChange={(event) => setValue(event.target.value)}>
-        {REGIONS.map((region) => (
+        {REGION_OPTIONS.map((region) => (
           <Box as="option" key={region.value}>{region.label}</Box>
         ))}
       </NativeSelect>
@@ -81,46 +80,6 @@ const StatefulNativeSelect = (props: { disabled?: boolean }) => {
     </Box>
   );
 };
-
-const Playground = {
-  name: 'Playground',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => <StatefulSelect initial="eastern" {...args} />,
-} satisfies StoryLiteStoryDefinition<SelectArgs>;
-
-const Sizes = {
-  name: 'Sizes',
-  render: () => (
-    <Box className="story-column">
-      <Text className="story-label">md</Text>
-      <StatefulSelect initial="hera" />
-      <Text className="story-label">sm</Text>
-      <StatefulSelect initial="hera" size="sm" />
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<SelectArgs>;
-
-const Grouped = {
-  name: 'Grouped and searchable',
-  render: () => <StatefulSelect initial="desert" grouped searchable />,
-} satisfies StoryLiteStoryDefinition<SelectArgs>;
-
-const Region = (props: { initial: string; open?: boolean; disabled?: boolean }) => {
-  const { initial, open, disabled } = props;
-  const [value, setValue] = useState(initial);
-  return <Select value={value} onChange={setValue} options={REGIONS} placeholder="Pick a region" defaultOpen={open} inline={open} disabled={disabled} />;
-};
-
-const renderState = (props: StateProps) => (
-  <Region initial={props.filled === true ? 'eastern' : ''} open={props.open === true} disabled={props.disabled === true} />
-);
-
-const renderError = () => (
-  <Field error="Pick the region the run starts in.">
-    <Region initial="" />
-  </Field>
-);
 
 const Native = {
   name: 'NativeSelect',
@@ -132,42 +91,16 @@ const Native = {
       <StatefulNativeSelect disabled />
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<SelectArgs>;
-
-const CODE = `import { useState } from 'react';
-import { Select } from '@drizztdourden08/tessera';
-
-const [region, setRegion] = useState('eastern');
-
-<Select
-  value={region}
-  onChange={setRegion}
-  placeholder="Pick a region"
-  options={[
-    { value: 'light', label: 'Light World', description: 'Overworld, 64 screens' },
-    { value: 'eastern', label: 'Eastern Palace' },
-  ]}
-/>`;
+} satisfies Story;
 
 const Overview = overviewStory({
   component: 'Select',
-  description: 'A dropdown that picks one value from a list, drawn with the design system\'s own menu. Options can carry a description and be split into labelled groups. It has two sizes, a placeholder while nothing is picked, an optional search field and arrow-key navigation. defaultOpen starts it open, and inline draws the list right under the field, not as a floating panel. Set invalid for the error look, or wrap it in a Field with an error. For a form or a touch screen, NativeSelect wraps the browser\'s own select.',
+  description: 'A dropdown that picks from a list. The trigger and the list read as one shape: where they meet, the line and the corners go, and a curved corner fills the step when the list is wider. items takes plain strings, { value, label } objects or any object; getKey names what identifies an item, so the selection holds while the list changes or loads late. An object item is a row of columns on one grid shared by every row, set up by configuration: a field, a value map, a tone map, rules and a format. Each of them can be a function that also gets the item, its place in the list and whether it is selected, active or disabled. itemComponent draws each row with your own component, as tall as it needs. valueDisplay full draws the picked item in the trigger at its full height, and valueComponent gives the trigger its own compact look. groupBy and categories split the list under headers with an icon or an emoji. min and max drive the picking: max above 1 adds a checkbox per row, and min 0 lets the user clear the field. valueField returns one property of the item. The arrow keys, Home, End, Page Up and Page Down move, typing jumps to a label, and Space or Enter picks. NativeSelect wraps the browser\'s own select, for a form or a touch screen.',
   playground: Playground,
-  variants: [Sizes, Grouped],
-  states: {
-    render: renderState,
-    list: [
-      STATE.idle,
-      STATE.hover,
-      STATE.focus,
-      { name: 'Filled', props: { filled: true } },
-      { ...STATE.open, props: { open: true, filled: true } },
-      { ...STATE.error, render: renderError },
-      { ...STATE.disabled, props: { disabled: true, filled: true } },
-    ],
-  },
-  code: CODE,
+  variants: VARIANTS,
+  states: pickerStates('select', {}),
+  code: SELECT_CODE,
 });
 
 export default meta;
-export { Grouped, Native, Overview, Playground, Sizes };
+export { Native, Overview, Playground };

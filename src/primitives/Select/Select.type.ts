@@ -1,52 +1,55 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, SelectHTMLAttributes } from 'react';
+import type {
+  FieldOf, ListboxColumn, ListboxFieldProps, ListboxLook, ListboxValueProps, ValueDisplay,
+} from '../listbox/listbox.type';
 
 interface SelectOption {
   value: string;
   label: string;
   description?: string;
+  disabled?: boolean;
 }
 
 interface SelectGroup {
   label: string;
+  icon?: ReactNode;
   options: SelectOption[];
 }
 
-interface SelectProps {
-  value: string;
-  onChange: (value: string) => void;
-  options?: SelectOption[];
-  groups?: SelectGroup[];
-  placeholder?: string;
-  disabled?: boolean;
-  invalid?: boolean;
+interface SelectLookProps extends ListboxFieldProps {
   searchable?: boolean;
-  defaultOpen?: boolean;
-  inline?: boolean;
-  size?: 'md' | 'sm';
-  className?: string;
-  renderOption?: (option: SelectOption, isSelected: boolean) => ReactNode;
-  id?: string;
-  'aria-label'?: string;
-  'aria-labelledby'?: string;
-  'aria-describedby'?: string;
 }
+
+interface SelectItemsProps<T, F extends FieldOf<T>> extends ListboxLook<T>, ListboxValueProps<T, F>, SelectLookProps {
+  options?: never;
+  groups?: never;
+  renderOption?: never;
+}
+
+interface SelectOptionsProps extends SelectLookProps {
+  options?: readonly SelectOption[];
+  groups?: readonly SelectGroup[];
+  value?: string;
+  onChange?: (value: string) => void;
+  values?: readonly string[];
+  onValuesChange?: (values: string[]) => void;
+  columns?: readonly ListboxColumn<SelectOption>[];
+  valueDisplay?: ValueDisplay;
+  renderOption?: (option: SelectOption, isSelected: boolean) => ReactNode;
+  items?: never;
+}
+
+type SelectProps<T = string, F extends FieldOf<T> = never> = SelectItemsProps<T, F> | SelectOptionsProps;
 
 interface NativeSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {}
-
-interface SelectItemProps {
-  option: SelectOption;
-  selected: boolean;
-  highlighted: boolean;
-  idx: number;
-  onSelect: (val: string) => void;
-  renderOption?: (option: SelectOption, isSelected: boolean) => ReactNode;
-}
 
 export type {
   NativeSelectProps,
   SelectGroup,
-  SelectItemProps,
+  SelectItemsProps,
+  SelectLookProps,
   SelectOption,
-  SelectProps
+  SelectOptionsProps,
+  SelectProps,
 };

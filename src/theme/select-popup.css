@@ -1,5 +1,4 @@
 /* @layer renderer-components @kind style */
-.select-content,
 .tag-input__panel {
   position: fixed;
   z-index: var(--z-popover);
@@ -13,12 +12,10 @@
   pointer-events: auto;
 }
 
-.select-content[data-drop-up='true'],
 .tag-input__panel[data-drop-up='true'] {
   transform: translateY(-100%);
 }
 
-.select-item,
 .tag-input__option {
   display: flex;
   align-items: center;
@@ -30,8 +27,6 @@
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.select-item:hover,
-.select-item--highlighted,
 .tag-input__option:hover,
 .tag-input__option--highlighted {
   background: var(--c-hover);

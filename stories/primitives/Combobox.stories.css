@@ -1,0 +1,4 @@
+/* @layer stories @kind style */
+.combobox-narrow {
+  max-width: var(--size-288);
+}

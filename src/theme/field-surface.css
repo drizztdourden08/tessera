@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind style */
 .select,
 .select-trigger,
+.combobox,
 .text-input,
 .textarea {
   width: 100%;
@@ -38,12 +39,13 @@
 }
 
 .number-input:focus-within,
-.stepper:focus-within {
+.stepper:focus-within,
+.combobox:focus-within {
   border-color: var(--c-primary);
 }
 
 :is(.select, .select-trigger, .text-input, .textarea):hover:not(:disabled, :focus, [readonly], [aria-invalid='true'], .select-trigger--open),
-:is(.number-input, .stepper):hover:not(:focus-within, :has([aria-invalid='true'])) {
+:is(.number-input, .stepper, .combobox):hover:not(:focus-within, :has([aria-invalid='true'])) {
   border-color: color-mix(in oklab, var(--c-border-strong), var(--c-text-muted));
 }
 
@@ -52,7 +54,8 @@
 .text-input:focus,
 .textarea:focus,
 .number-input:focus-within,
-.stepper:focus-within {
+.stepper:focus-within,
+.combobox:focus-within {
   box-shadow: 0 0 0 var(--border-width-thick) var(--c-primary-soft);
 }
 
@@ -62,13 +65,13 @@
 }
 
 :is(.select, .select-trigger, .text-input, .textarea)[aria-invalid='true'],
-.number-input:has([aria-invalid='true']) {
+:is(.number-input, .combobox):has([aria-invalid='true']) {
   border-color: var(--c-danger);
 }
 
 :is(.select, .text-input, .textarea)[aria-invalid='true']:focus,
 .select-trigger[aria-invalid='true']:focus-visible,
-.number-input:has([aria-invalid='true']):focus-within {
+:is(.number-input, .combobox):has([aria-invalid='true']):focus-within {
   box-shadow: 0 0 0 var(--border-width-thick) var(--c-danger-soft);
 }
 

@@ -16,6 +16,7 @@ export default brockEslint({
   defaultExportGlobs: ['.storylite/config.ts'],
   glyphContent: [
     { files: ['src/primitives/EmojiIcon/**', 'stories/icons/EmojiIcon.stories.tsx'], why: 'EmojiIcon is the primitive that draws an emoji' },
+    { files: ['stories/primitives/_samples/picker-emoji.tsx'], why: 'the Select and Combobox samples map build states and categories to emoji' },
   ],
   inlineStyle: [
     { files: ['src/composites/Widget/Widget.tsx'], why: 'a widget is placed where it was docked, dragged or resized' },

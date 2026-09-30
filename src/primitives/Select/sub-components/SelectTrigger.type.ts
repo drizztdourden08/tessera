@@ -1,17 +1,12 @@
 /* @layer renderer-components @kind types */
-import type { SelectDropdown } from '../behavior/useSelectDropdown.type';
+import type { ListboxSetup } from '../../listbox/listbox-model.type';
+import type { SelectState } from '../behavior/useSelect.type';
+import type { SelectLookProps } from '../Select.type';
 
-interface SelectTriggerProps {
-  dropdown: SelectDropdown;
-  className: string;
-  disabled: boolean;
-  invalid: boolean;
-  selectedLabel?: string;
-  placeholder: string;
-  id?: string;
-  ariaLabel?: string;
-  ariaLabelledBy?: string;
-  ariaDescribedBy?: string;
+interface SelectTriggerProps<T, V> {
+  select: SelectState<T>;
+  setup: ListboxSetup<T, V>;
+  look: SelectLookProps;
 }
 
 export type { SelectTriggerProps };
