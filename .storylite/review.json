@@ -253,9 +253,9 @@
       "at": "2026-09-30"
     },
     "Shortcut": {
-      "status": "ok",
-      "hash": "4c7ef2329d13f5d3",
-      "at": "2026-09-30"
+      "status": "seen",
+      "hash": "5229f771325e834d",
+      "at": "2026-10-01"
     },
     "Quote": {
       "status": "ok",
@@ -500,7 +500,9 @@
       "status": "new"
     },
     "SegmentedControl": {
-      "status": "new"
+      "status": "seen",
+      "hash": "d10a6de70e19e9cd",
+      "at": "2026-10-01"
     },
     "Select": {
       "status": "new"
@@ -766,10 +768,14 @@
       "status": "new"
     },
     "Widget": {
-      "status": "new"
+      "status": "seen",
+      "hash": "eab8c7e49eeac903",
+      "at": "2026-10-01"
     },
     "WidgetOptions": {
-      "status": "new"
+      "status": "seen",
+      "hash": "8f875d3c718fb9eb",
+      "at": "2026-10-01"
     }
   },
   "Composites · Screens": {
