@@ -2,7 +2,9 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Stepper } from '../../src/primitives';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
+import { Stepper, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -15,15 +17,17 @@ type StepperArgs = {
   max: number;
   step: number;
   disabled: boolean;
+  size: ControlSize;
 };
 
-const ARGS: Partial<StepperArgs> = { min: 1, max: 20, step: 1, disabled: false };
+const ARGS: Partial<StepperArgs> = { min: 1, max: 20, step: 1, disabled: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<StepperArgs> = {
     min: { control: 'number' },
     max: { control: 'number' },
     step: { control: 'number' },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -32,11 +36,11 @@ const meta = {
 } satisfies StoryLiteMeta<StepperArgs>;
 
 const StatefulStepper = (props: { initial: number; caption: string } & Partial<StepperArgs>) => {
-  const { initial, caption, min, max, step, disabled } = props;
+  const { initial, caption, min, max, step, disabled, size } = props;
   const [value, setValue] = useState(initial);
   return (
     <ValueReadout value={Number.isNaN(value) ? '(empty)' : value}>
-      <Stepper value={value} onChange={setValue} min={min} max={max} step={step} disabled={disabled} ariaLabel={caption} />
+      <Stepper value={value} onChange={setValue} min={min} max={max} step={step} disabled={disabled} size={size} ariaLabel={caption} />
     </ValueReadout>
   );
 };
@@ -65,6 +69,8 @@ const Values = {
   render: () => <Demonstrator rows={axis(Object.keys(VALUES))} cell={(row) => VALUES[row]} />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
+const Sizes = sizesStory<StepperArgs>((size) => <StatefulStepper initial={4} min={1} max={20} size={size} caption={`Players, ${size}`} />);
+
 const Players = (props: { disabled?: boolean }) => {
   const { disabled } = props;
   const [value, setValue] = useState(4);
@@ -75,9 +81,9 @@ const renderState = (props: StateProps) => <Players disabled={props.disabled ===
 
 const Overview = overviewStory({
   component: 'Stepper',
-  description: 'A number field with a minus and a plus button on either side. Use it for small counts and amounts, such as players in a session or a percentage in steps of five. The buttons move the value by step and stop at min and max, and the field takes typed digits. An empty field reports NaN, and the whole control can be disabled.',
+  description: 'A number field with a minus and a plus button on either side. Use it for small counts and amounts, such as players in a session or a percentage in steps of five. The buttons move the value by step and stop at min and max, and the field takes typed digits. size md matches the standard control height and sm is the compact one. An empty field reports NaN, and the whole control can be disabled.',
   playground: Playground,
-  variants: [Values],
+  variants: [Sizes, Values],
   states: {
     render: renderState,
     list: [
@@ -96,4 +102,4 @@ const [players, setPlayers] = useState(4);
 });
 
 export default meta;
-export { Overview, Playground, Values };
+export { Overview, Playground, Sizes, Values };

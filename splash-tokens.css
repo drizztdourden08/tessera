@@ -225,6 +225,7 @@
   --pixel-wordmark-md: calc(58 * 1px);
   --pixel-wordmark-lg: calc(87 * 1px);
   --control-h-sm: 28px;
+  --control-h-md: calc(39 * 1px);
   --dropzone-inline-w: 288px;
   --table-select-w: 28px;
   --open-entry-width: 128px;

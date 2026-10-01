@@ -1,13 +1,16 @@
 /* @layer renderer-components @kind component */
+import '../../theme/control-size.css';
 import '../../theme/focus-ring.css';
 import '../../theme/segment-group.css';
 import './ToggleGroup.css';
+import { useControlSize } from '../field-control/useControlSize';
 import { useHintReport } from '../hint/useHintReport';
 import { Small, Span } from '../text-elements';
 import type { ToggleGroupProps } from './ToggleGroup.type';
 
 const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
-  const { value, options, onChange, onHint, label, description, disabled = false } = props;
+  const { value, options, onChange, onHint, label, description, disabled = false, size } = props;
+  const controlSize = useControlSize(size);
   const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
 
   const toggle = (v: T) => {
@@ -19,7 +22,7 @@ const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
   };
 
   return (
-    <div className={`toggle-group ${disabled ? 'toggle-group--disabled' : ''}`}>
+    <div className={`toggle-group control-size--${controlSize} ${disabled ? 'toggle-group--disabled' : ''}`}>
       {[label, description].some(Boolean) && (
         <div className="toggle-group__header">
           {label && <Span className="toggle-group__label">{label}</Span>}

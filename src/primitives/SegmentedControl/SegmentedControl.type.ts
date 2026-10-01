@@ -1,9 +1,8 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintHandlers, HintReport } from '../hint/hint.type';
 import type { IconName } from '../Icon/Icon.type';
-
-type SegmentedSize = 'xs' | 'md';
 
 interface SegmentOptionBase<T extends string> {
   value: T;
@@ -33,7 +32,7 @@ interface SegmentedControlProps<T extends string = string> {
   onHint?: HintReport;
   label?: string;
   description?: string;
-  size?: SegmentedSize;
+  size?: ControlSize;
   disabled?: boolean;
   'aria-label'?: string;
 }
@@ -42,7 +41,7 @@ interface SegmentButtonProps<T extends string> {
   option: SegmentOption<T>;
   active: boolean;
   disabled: boolean;
-  size: SegmentedSize;
+  size: ControlSize;
   handlers: HintHandlers;
   onSelect: () => void;
 }
@@ -53,5 +52,4 @@ export type {
   SegmentOption,
   SegmentTextOption,
   SegmentedControlProps,
-  SegmentedSize,
 };

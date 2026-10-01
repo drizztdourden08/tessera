@@ -3,6 +3,9 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteArgs, StoryLiteArgTypes, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Combobox, Field, Select } from '../../../src/primitives';
+import type { ControlSize } from '../../../src/primitives';
+import { SIZE_ARG } from '../../_template/control-sizes.constants';
+import { sizesStory } from '../../_template/sizes-story';
 import { STATE } from '../../_template/states/states.constants';
 import type { OverviewStates } from '../../_template/states/states.type';
 import { REGIONS } from './picker-data';
@@ -13,12 +16,12 @@ type PickerArgs = {
   min: number;
   max: number;
   loading: boolean;
-  size: 'md' | 'sm';
+  size: ControlSize;
   disabled: boolean;
   invalid: boolean;
 };
 
-type RegionPickerProps = { kind: PickerKind; initial: string | null; open?: boolean; disabled?: boolean };
+type RegionPickerProps = { kind: PickerKind; initial: string | null; open?: boolean; disabled?: boolean; size?: ControlSize };
 
 type StateTargets = { field?: string; input?: string };
 
@@ -26,7 +29,7 @@ const PICKER_ARG_TYPES: StoryLiteArgTypes<PickerArgs> = {
   min: { control: 'number', description: 'How many must stay picked. 0 lets the user clear the field.' },
   max: { control: 'number', description: 'How many can be picked. Above 1, each row gets a checkbox.' },
   loading: { control: 'boolean' },
-  size: { control: 'select', options: ['md', 'sm'] },
+  size: SIZE_ARG,
   disabled: { control: 'boolean' },
   invalid: { control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
 };
@@ -37,13 +40,16 @@ const pickerVariant = <A extends StoryLiteArgs>(name: string, Render: () => Reac
 });
 
 const RegionPicker = (props: RegionPickerProps) => {
-  const { kind, initial, open, disabled } = props;
+  const { kind, initial, open, disabled, size } = props;
   const [value, setValue] = useState(initial);
-  const shared = { items: REGIONS, value, onChange: setValue, defaultOpen: open, inline: open, disabled };
+  const shared = { items: REGIONS, value, onChange: setValue, defaultOpen: open, inline: open, disabled, size };
   return kind === 'select'
     ? <Select {...shared} placeholder="Pick a region" />
     : <Combobox {...shared} placeholder="Type a region" />;
 };
+
+const pickerSizes = <A extends StoryLiteArgs>(kind: PickerKind): StoryLiteStoryDefinition<A> =>
+  sizesStory<A>((size) => <RegionPicker kind={kind} initial="Eastern Palace" size={size} />, { align: 'stretch' });
 
 const pickerStates = (kind: PickerKind, targets: StateTargets): OverviewStates => ({
   render: (props) => (
@@ -67,5 +73,5 @@ const pickerStates = (kind: PickerKind, targets: StateTargets): OverviewStates =
   ],
 });
 
-export { PICKER_ARG_TYPES, pickerStates, pickerVariant };
+export { PICKER_ARG_TYPES, pickerSizes, pickerStates, pickerVariant };
 export type { PickerArgs };

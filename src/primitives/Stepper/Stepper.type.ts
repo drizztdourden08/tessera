@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { ControlSize } from '../field-control/field-control.type';
+
 interface StepperProps {
   value: number;
   onChange: (value: number) => void;
@@ -6,6 +8,7 @@ interface StepperProps {
   max?: number;
   step?: number;
   disabled?: boolean;
+  size?: ControlSize;
   ariaLabel?: string;
   className?: string;
 }

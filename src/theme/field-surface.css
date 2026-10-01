@@ -5,7 +5,6 @@
 .text-input,
 .textarea {
   width: 100%;
-  padding: var(--space-sm) var(--space-md);
   background: var(--c-surface);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
@@ -16,8 +15,26 @@
 .select,
 .text-input,
 .textarea {
-  font-size: var(--text-base);
+  padding: calc((var(--control-height) - var(--control-font) * var(--leading-normal)) / 2 - var(--border-width-thin)) var(--control-pad-inline);
+  font-size: var(--control-font);
+  line-height: var(--leading-normal);
   outline: none;
+}
+
+.select {
+  height: var(--control-height);
+  padding-block: 0;
+}
+
+.select-trigger {
+  min-height: var(--control-height);
+  padding: var(--space-2xs) var(--control-pad-inline);
+  font-size: var(--control-font);
+}
+
+.combobox {
+  min-height: var(--control-height);
+  padding: var(--space-2xs) calc(var(--control-pad-inline) - var(--space-xs));
 }
 
 .select:focus,
@@ -98,7 +115,9 @@
   min-width: 0;
   background: transparent;
   border: none;
+  padding-block: calc((var(--control-height) - var(--control-font) * var(--leading-normal)) / 2 - var(--border-width-thin));
   color: var(--c-text);
-  font-size: var(--text-base);
+  font-size: var(--control-font);
+  line-height: var(--leading-normal);
   outline: none;
 }

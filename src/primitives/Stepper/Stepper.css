@@ -1,20 +1,29 @@
 /* @layer renderer-components @kind style */
+.stepper.control-size--md {
+  --stepper-button-w: var(--size-32);
+  --stepper-field-w: var(--size-48);
+}
+
+.stepper.control-size--sm {
+  --stepper-button-w: var(--size-24);
+  --stepper-field-w: var(--size-40);
+}
+
 .stepper__field {
-  width: var(--size-40);
+  width: var(--stepper-field-w);
+  padding-inline: 0;
   text-align: center;
-  padding: var(--space-xs) 0;
 }
 
 .stepper__btn {
   flex: none;
-  width: var(--size-24);
+  width: var(--stepper-button-w);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: none;
   color: var(--c-text-dim);
-  font-size: var(--text-lg);
   line-height: 1;
   cursor: pointer;
   transition: background var(--transition-fast), color var(--transition-fast);

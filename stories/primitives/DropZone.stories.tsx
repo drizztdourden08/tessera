@@ -1,8 +1,10 @@
 /* @layer stories @kind story */
 import { useEffect, useRef, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, DropZone, Text } from '../../src/primitives';
-import type { DropZoneProps, DropZoneVariant } from '../../src/primitives';
+import type { ControlSize, DropZoneProps, DropZoneVariant } from '../../src/primitives';
+import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import type { DemonstratorAxis } from '../_template/Demonstrator.type';
 import { overviewStory } from '../_template/overview-story';
@@ -15,6 +17,7 @@ type DropZoneArgs = {
   variant: DropZoneVariant;
   romsOnly: boolean;
   disabled: boolean;
+  size: ControlSize;
 };
 
 const ROM_EXTENSIONS = ['.sfc', '.smc'];
@@ -27,6 +30,7 @@ const ARGS: Partial<DropZoneArgs> = {
     variant: 'block',
     romsOnly: true,
     disabled: false,
+    size: 'md',
   };
 
 const ARG_TYPES: StoryLiteArgTypes<DropZoneArgs> = {
@@ -35,6 +39,7 @@ const ARG_TYPES: StoryLiteArgTypes<DropZoneArgs> = {
     variant: { control: 'select', options: ['block', 'inline'] },
     romsOnly: { control: 'boolean', description: 'Passes accept, so other files are dropped silently.' },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const KINDS: readonly DemonstratorAxis<'defaults' | 'roms' | 'inline'>[] = [
@@ -51,7 +56,7 @@ const meta = {
 type StatefulDropZoneProps = Omit<DropZoneProps, 'onDrop'>;
 
 const StatefulDropZone = (props: StatefulDropZoneProps) => {
-  const { accept, label, hint, variant, icon, disabled } = props;
+  const { accept, label, hint, variant, icon, disabled, size } = props;
   const [files, setFiles] = useState<readonly string[]>([]);
   return (
     <Box className="story-column">
@@ -62,6 +67,7 @@ const StatefulDropZone = (props: StatefulDropZoneProps) => {
         variant={variant}
         icon={icon}
         disabled={disabled}
+        size={size}
         onDrop={(dropped) => setFiles(dropped.map((file) => file.name))}
       />
       <Text className="story-label">Received: {files.length === 0 ? 'nothing yet' : files.join(', ')}</Text>
@@ -80,6 +86,7 @@ const Playground = {
       hint={args.hint === '' ? undefined : args.hint}
       variant={args.variant}
       disabled={args.disabled}
+      size={args.size}
       onDrop={ignoreDrop}
     />
   ),
@@ -100,6 +107,22 @@ const Kinds = {
   ),
 } satisfies StoryLiteStoryDefinition<DropZoneArgs>;
 
+const Sizes = {
+  name: 'Sizes',
+  render: () => (
+    <Demonstrator
+      rows={axis(CONTROL_SIZES)}
+      columns={axis(['block', 'inline'])}
+      valign="start"
+      cell={(size, variant) => (
+        <Box>
+          <DropZone size={size} variant={variant === 'inline' ? 'inline' : 'block'} accept={ROM_EXTENSIONS} label="Drop a ROM here" hint="A US or Japanese copy" onDrop={ignoreDrop} />
+        </Box>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<DropZoneArgs>;
+
 const renderState = (props: StateProps) => (
   <DropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" hint="A US or Japanese copy, as .sfc or .smc" disabled={props.disabled === true} onDrop={ignoreDrop} />
 );
@@ -116,9 +139,9 @@ const DraggedOver = () => {
 
 const Overview = overviewStory({
   component: 'DropZone',
-  description: 'A target for files, dragged in or picked with a click, which opens the file browser. Block is the tall target with a glyph, a label and a hint; inline is a one line dashed box that fits a header row and opens the picker from the keyboard too. With accept set, files of other types are dropped without a word, and onDrop gets only the files that pass.',
+  description: 'A target for files, dragged in or picked with a click, which opens the file browser. Block is the tall target with a glyph, a label and a hint; inline is a one line dashed box that fits a header row and opens the picker from the keyboard too. With accept set, files of other types are dropped without a word, and onDrop gets only the files that pass. size md makes the inline box the standard control height and sm the compact one, and sm also tightens the block target.',
   playground: Playground,
-  variants: [Kinds],
+  variants: [Kinds, Sizes],
   states: {
     render: renderState,
     list: [
@@ -131,4 +154,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Kinds, Overview, Playground };
+export { Kinds, Overview, Playground, Sizes };

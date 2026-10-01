@@ -6,6 +6,7 @@ import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings
 import { SelectBody } from './sub-components/SelectBody';
 import type { FieldOf } from '../listbox/listbox.type';
 import type { SelectProps } from './Select.type';
+import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
 import '../../theme/listbox.css';
 import '../../theme/listbox-drop.css';

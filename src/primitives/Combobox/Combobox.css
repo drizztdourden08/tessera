@@ -5,14 +5,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-xs);
-  min-height: var(--size-32);
-  padding: var(--space-2xs) var(--space-sm);
   cursor: text;
-}
-
-.combobox--sm {
-  min-height: var(--control-h-sm);
-  border-radius: var(--radius-sm);
 }
 
 .combobox--disabled {
@@ -25,7 +18,7 @@
   min-width: var(--size-64);
   padding: var(--space-2xs) var(--space-xs);
   font: inherit;
-  font-size: var(--text-sm);
+  font-size: var(--control-font);
   color: var(--c-text);
   background: none;
   border: 0;
@@ -45,7 +38,7 @@
   align-items: center;
   min-width: 0;
   padding: var(--space-2xs) var(--space-xs);
-  font-size: var(--text-sm);
+  font-size: var(--control-font);
 }
 
 .combobox__input::placeholder {

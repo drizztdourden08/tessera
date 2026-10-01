@@ -6,7 +6,7 @@ import type { AxisFieldProps } from '../PositionInput.type';
 import { DEFAULT_STEP } from './AxisField.constants';
 
 const AxisField = (props: AxisFieldProps) => {
-  const { axis, axisLabel, value, disabled, onCommit } = props;
+  const { axis, axisLabel, value, disabled, size, onCommit } = props;
   const { fieldValue, handleChange, handleBlur, handleKeyDown } = useAxisDraft({ value, axis, onCommit });
 
   return (
@@ -19,6 +19,7 @@ const AxisField = (props: AxisFieldProps) => {
         max={axis.max}
         step={axis.step ?? DEFAULT_STEP}
         disabled={disabled}
+        size={size}
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}

@@ -24,7 +24,7 @@ const SelectCell = (props: SelectCellProps) => {
 
   return (
     <Box role={role} className="data-table__select" onPointerDown={handlePointerDown} onClick={stop}>
-      <Checkbox checked={checked} indeterminate={indeterminate} ariaLabel={ariaLabel} onChange={handleChange} />
+      <Checkbox size="sm" checked={checked} indeterminate={indeterminate} ariaLabel={ariaLabel} onChange={handleChange} />
     </Box>
   );
 };

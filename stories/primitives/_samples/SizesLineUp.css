@@ -1,0 +1,7 @@
+/* @layer stories @kind style */
+.sizes-line-up {
+  display: grid;
+  grid-template-columns: minmax(var(--size-96), 1fr) minmax(var(--size-96), 1fr) auto auto minmax(var(--size-96), 1fr) auto;
+  align-items: start;
+  gap: var(--space-sm);
+}

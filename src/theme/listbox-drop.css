@@ -10,10 +10,6 @@
   --listbox-soft: var(--size-1);
 }
 
-:is(.listbox-anchor.select-trigger--sm, .listbox-anchor.combobox--sm, .listbox-drop[data-size='sm']) {
-  --listbox-radius: var(--radius-sm);
-}
-
 .listbox-anchor[data-drop] {
   border-color: var(--listbox-edge);
   box-shadow: 0 0 0 var(--listbox-ring) var(--listbox-halo);

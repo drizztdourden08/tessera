@@ -43,7 +43,7 @@ const OptionsDemo = (props: OptionsDemoProps) => {
         >
           {ownRows && (
             <OptionRow label="Rows">
-              <Toggle size="xs" checked={compact} onChange={setCompact} hint={COMPACT_HINT} />
+              <Toggle size="sm" checked={compact} onChange={setCompact} hint={COMPACT_HINT} />
             </OptionRow>
           )}
         </WidgetOptions>

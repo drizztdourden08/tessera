@@ -42,20 +42,20 @@ describe('HintLine', () => {
   });
 });
 
-describe('xs sizes', () => {
+describe('compact sizes', () => {
   it('draws an icon-only segment named by its hint', () => {
     const options = [{ value: 'left', icon: 'panel-left', hint: LEFT }, { value: 'float', icon: 'picture-in-picture-2', hint: FLOAT }];
-    const html = renderToString(h(SegmentedControl, { value: 'left', options, onChange: noop, size: 'xs', 'aria-label': 'Placement' }));
-    expect(html).toContain('segmented--xs');
+    const html = renderToString(h(SegmentedControl, { value: 'left', options, onChange: noop, size: 'sm', 'aria-label': 'Placement' }));
+    expect(html).toContain('control-size--sm');
     expect(html).toContain('aria-label="Placement"');
     expect(html).toContain('aria-label="Dock left"');
     expect(html).toContain('<svg');
   });
 
-  it('gives IconButton, Toggle, Slider and Shortcut an xs class', () => {
+  it('gives IconButton and Shortcut an xs class, and Toggle and Slider the sm size', () => {
     expect(renderToString(h(IconButton, { label: 'Reset', size: 'xs', hint: LEFT }, 'x'))).toContain('icon-btn--xs');
-    expect(renderToString(h(Toggle, { checked: true, onChange: noop, size: 'xs', hint: LEFT }))).toContain('toggle--xs');
-    expect(renderToString(h(Slider, { value: 5, min: 0, max: 10, onChange: noop, size: 'xs', hint: LEFT }))).toContain('slider--xs');
+    expect(renderToString(h(Toggle, { checked: true, onChange: noop, size: 'sm', hint: LEFT }))).toContain('control-size--sm');
+    expect(renderToString(h(Slider, { value: 5, min: 0, max: 10, onChange: noop, size: 'sm', hint: LEFT }))).toContain('control-size--sm');
     expect(renderToString(h(Shortcut, { keys: 'esc', size: 'xs' }))).toContain('shortcut--xs');
     expect(renderToString(h(Shortcut, { keys: 'esc' }))).not.toContain('shortcut--md');
   });

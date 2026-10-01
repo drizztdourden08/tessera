@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ControlSize } from '../field-control/field-control.type';
 
 interface FieldProps {
   label?: ReactNode;
@@ -8,6 +9,7 @@ interface FieldProps {
   htmlFor?: string;
   required?: boolean;
   inline?: boolean;
+  size?: ControlSize;
   className?: string;
   children: ReactNode;
 }

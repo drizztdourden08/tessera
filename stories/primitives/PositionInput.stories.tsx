@@ -1,8 +1,10 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
 import { Box, PositionInput, Text } from '../../src/primitives';
-import type { PositionAxis, PositionValue } from '../../src/primitives';
+import type { ControlSize, PositionAxis, PositionValue } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -13,9 +15,10 @@ type PositionInputArgs = {
   yMax: number;
   step: number;
   disabled: boolean;
+  size: ControlSize;
 };
 
-const ARGS: Partial<PositionInputArgs> = { label: 'Spawn tile', xMax: 63, yMax: 63, step: 1, disabled: false };
+const ARGS: Partial<PositionInputArgs> = { label: 'Spawn tile', xMax: 63, yMax: 63, step: 1, disabled: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<PositionInputArgs> = {
     label: { control: 'text' },
@@ -23,6 +26,7 @@ const ARG_TYPES: StoryLiteArgTypes<PositionInputArgs> = {
     yMax: { control: 'number' },
     step: { control: 'number' },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -36,14 +40,15 @@ type StatefulPositionProps = {
   y?: PositionAxis;
   label?: string;
   disabled?: boolean;
+  size?: ControlSize;
 };
 
 const StatefulPosition = (props: StatefulPositionProps) => {
-  const { initial, x, y, label, disabled } = props;
+  const { initial, x, y, label, disabled, size } = props;
   const [value, setValue] = useState(initial);
   return (
     <Box className="story-column">
-      <PositionInput value={value} onChange={setValue} x={x} y={y} label={label} disabled={disabled} />
+      <PositionInput value={value} onChange={setValue} x={x} y={y} label={label} disabled={disabled} size={size} />
       <Text className="story-label">
         Value: x {value.x}, y {value.y}
       </Text>
@@ -52,7 +57,7 @@ const StatefulPosition = (props: StatefulPositionProps) => {
 };
 
 const PlaygroundDemo = (props: PositionInputArgs) => {
-  const { label, xMax, yMax, step, disabled } = props;
+  const { label, xMax, yMax, step, disabled, size } = props;
   return (
     <StatefulPosition
       initial={{ x: 12, y: 30 }}
@@ -60,6 +65,7 @@ const PlaygroundDemo = (props: PositionInputArgs) => {
       y={{ min: 0, max: yMax, step }}
       label={label}
       disabled={disabled}
+      size={size}
     />
   );
 };
@@ -93,6 +99,10 @@ const Axes = {
   ),
 } satisfies StoryLiteStoryDefinition<PositionInputArgs>;
 
+const Sizes = sizesStory<PositionInputArgs>((size) => (
+  <StatefulPosition initial={{ x: 12, y: 30 }} x={{ min: 0, max: 63 }} y={{ min: 0, max: 63 }} label={`Spawn tile, ${size}`} size={size} />
+), { align: 'stretch' });
+
 const SpawnTile = (props: { disabled: boolean }) => {
   const { disabled } = props;
   const [value, setValue] = useState({ x: 12, y: 30 });
@@ -116,9 +126,9 @@ const [spawn, setSpawn] = useState({ x: 12, y: 30 });
 
 const Overview = overviewStory({
   component: 'PositionInput',
-  description: 'An x and y pair edited as one control, for a tile, a pixel position or an anchor point. Each axis takes its own min, max, step and caption, and an axis given nothing is open at both ends. onChange only ever fires with a valid pair: never NaN, never outside the bounds given.',
+  description: 'An x and y pair edited as one control, for a tile, a pixel position or an anchor point. Each axis takes its own min, max, step and caption, and an axis given nothing is open at both ends. onChange only ever fires with a valid pair: never NaN, never outside the bounds given. size sets both number fields: md at the standard control height, sm at the compact one.',
   playground: Playground,
-  variants: [Axes],
+  variants: [Axes, Sizes],
   states: {
     render: renderState,
     list: [
@@ -131,4 +141,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Axes, Overview, Playground };
+export { Axes, Overview, Playground, Sizes };

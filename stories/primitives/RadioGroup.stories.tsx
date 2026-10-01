@@ -1,8 +1,10 @@
 /* @layer stories @kind story */
 import { useId, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
 import { Box, RadioGroup } from '../../src/primitives';
-import type { RadioOption } from '../../src/primitives';
+import type { ControlSize, RadioOption } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -15,6 +17,7 @@ type RadioGroupArgs = {
   description: string;
   direction: Direction;
   disabled: boolean;
+  size: ControlSize;
 };
 
 type Difficulty = 'casual' | 'normal' | 'hard';
@@ -27,13 +30,14 @@ const DIFFICULTIES: RadioOption<Difficulty>[] = [
 
 const SHORT: RadioOption<Difficulty>[] = DIFFICULTIES.map(({ value, label }) => ({ value, label }));
 
-const ARGS: Partial<RadioGroupArgs> = { label: 'Difficulty', description: 'Applies to new sessions only.', direction: 'vertical', disabled: false };
+const ARGS: Partial<RadioGroupArgs> = { label: 'Difficulty', description: 'Applies to new sessions only.', direction: 'vertical', disabled: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<RadioGroupArgs> = {
     label: { control: 'text' },
     description: { control: 'text' },
     direction: { control: 'select', options: ['horizontal', 'vertical'] },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -44,7 +48,7 @@ const meta = {
 type StatefulRadioProps = { name: string; options?: RadioOption<Difficulty>[] } & Partial<RadioGroupArgs>;
 
 const StatefulRadio = (props: StatefulRadioProps) => {
-  const { name, options = DIFFICULTIES, label, description, direction, disabled } = props;
+  const { name, options = DIFFICULTIES, label, description, direction, disabled, size } = props;
   const [value, setValue] = useState<Difficulty>('normal');
   return (
     <ValueReadout value={value}>
@@ -57,6 +61,7 @@ const StatefulRadio = (props: StatefulRadioProps) => {
         description={description}
         direction={direction}
         disabled={disabled}
+        size={size}
       />
     </ValueReadout>
   );
@@ -79,6 +84,8 @@ const Layouts = {
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<RadioGroupArgs>;
+
+const Sizes = sizesStory<RadioGroupArgs>((size) => <StatefulRadio name={`radio-size-${size}`} options={SHORT} direction="horizontal" size={size} />);
 
 const DifficultyPick = (props: { disabled: boolean }) => {
   const { disabled } = props;
@@ -108,9 +115,9 @@ const [difficulty, setDifficulty] = useState('normal');
 
 const Overview = overviewStory({
   component: 'RadioGroup',
-  description: 'A set of options where exactly one is picked, all of them in view. Reach for it when there are few choices and each may need its own line of description. It lays out horizontally or vertically, takes a group label and description, and can be disabled as a whole.',
+  description: 'A set of options where exactly one is picked, all of them in view. Reach for it when there are few choices and each may need its own line of description. It lays out horizontally or vertically, takes a group label and description, and can be disabled as a whole. size md makes each option the standard control height and sm the compact one, with a smaller dot and text.',
   playground: Playground,
-  variants: [Layouts],
+  variants: [Layouts, Sizes],
   states: {
     render: renderState,
     list: [
@@ -124,4 +131,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Layouts, Overview, Playground };
+export { Layouts, Overview, Playground, Sizes };

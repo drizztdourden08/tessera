@@ -1,8 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Text, Toggle } from '../../src/primitives';
-import type { ToggleSize } from '../../src/primitives';
+import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
+import { Box, Text, Toggle, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -14,7 +14,7 @@ type ToggleArgs = {
   description: string;
   link: string;
   disabled: boolean;
-  size: ToggleSize;
+  size: ControlSize;
 };
 
 const ARGS: Partial<ToggleArgs> = {
@@ -30,7 +30,7 @@ const ARG_TYPES: StoryLiteArgTypes<ToggleArgs> = {
     description: { control: 'text' },
     link: { control: 'text' },
     disabled: { control: 'boolean' },
-    size: { control: 'select', options: ['md', 'xs'], description: 'xs is the compact switch for widget panels.' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -81,13 +81,11 @@ const Labels = {
   ),
 } satisfies StoryLiteStoryDefinition<ToggleArgs>;
 
-const SIZE_KEYS = ['md', 'xs'] as const;
-
 const Sizes = {
   name: 'Sizes',
   render: () => (
     <Demonstrator
-      rows={axis(SIZE_KEYS)}
+      rows={axis(CONTROL_SIZES)}
       columns={axis(['off', 'on'])}
       cell={(size, state) => <Toggle size={size} checked={state === 'on'} onChange={() => undefined} aria-label={`Music, ${size}, ${state}`} />}
     />
@@ -104,7 +102,7 @@ const renderState = (props: StateProps) => <AutoSave initial={props.checked === 
 
 const Overview = overviewStory({
   component: 'Toggle',
-  description: 'An on and off switch for a setting that takes effect at once, such as auto-save or music. It can carry a label and a line of description, and a link that opens a page about the setting in a new tab. The whole row is one label, so a click anywhere on it flips the switch. It can be disabled in either position. size xs draws a compact switch for widget panels, and hint gives it a value and a one-line description that it reports through onHint and to the HintScope around it while it is pointed at or focused.',
+  description: 'An on and off switch for a setting that takes effect at once, such as auto-save or music. It can carry a label and a line of description, and a link that opens a page about the setting in a new tab. The whole row is one label, so a click anywhere on it flips the switch. It can be disabled in either position. size md is the standard switch and sm the compact one for widget panels and dense rows, and hint gives it a value and a one-line description that it reports through onHint and to the HintScope around it while it is pointed at or focused.',
   playground: Playground,
   variants: [Labels, Sizes],
   states: {

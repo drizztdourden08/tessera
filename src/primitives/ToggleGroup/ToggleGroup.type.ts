@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintReport } from '../hint/hint.type';
 
 interface ToggleOption<T extends string = string> {
@@ -16,6 +17,7 @@ interface ToggleGroupProps<T extends string = string> {
   label?: string;
   description?: string;
   disabled?: boolean;
+  size?: ControlSize;
 }
 
 export type { ToggleOption, ToggleGroupProps };

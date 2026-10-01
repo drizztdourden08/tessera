@@ -7,7 +7,7 @@ const fieldState = (look: ListboxFieldProps, control: FieldControl): FieldState 
   invalid: look.invalid ?? control.invalid ?? false,
   labelledBy: look['aria-labelledby'] ?? control.labelId,
   disabled: look.disabled === true,
-  size: look.size ?? 'md',
+  size: look.size ?? control.size ?? 'md',
   className: look.className ?? '',
 });
 

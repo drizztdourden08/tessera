@@ -7,6 +7,11 @@
   gap: var(--space-lg);
 }
 
+.segmented.control-size--sm,
+.toggle-group.control-size--sm {
+  gap: var(--space-sm);
+}
+
 .segmented--disabled,
 .toggle-group--disabled {
   opacity: 0.5;
@@ -24,7 +29,7 @@
 
 .segmented__label,
 .toggle-group__label {
-  font-size: var(--text-base);
+  font-size: var(--control-font);
   font-weight: var(--weight-medium);
   color: var(--c-text);
 }
@@ -33,6 +38,7 @@
 .toggle-group__track {
   position: relative;
   display: flex;
+  height: var(--control-height);
   padding: var(--space-xs);
   border-radius: var(--radius-md);
   background: var(--c-surface);
@@ -44,10 +50,10 @@
 .toggle-group__btn {
   position: relative;
   z-index: var(--z-base);
-  padding: var(--space-xs) var(--space-md);
+  padding: 0 var(--space-md);
   background: transparent;
   color: var(--c-text-dim);
-  font-size: var(--text-sm);
+  font-size: var(--control-font-dense);
   font-weight: var(--weight-medium);
   cursor: pointer;
   border-radius: var(--radius-sm);

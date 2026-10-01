@@ -1,8 +1,10 @@
 /* @layer renderer-components @kind types */
+import type { ControlSize } from '../../field-control/field-control.type';
+
 interface ComboboxClassInput {
   open: boolean;
   disabled: boolean;
-  size: 'md' | 'sm';
+  size: ControlSize;
   multi: boolean;
   className: string;
 }

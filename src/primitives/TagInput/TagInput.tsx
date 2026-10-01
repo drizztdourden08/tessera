@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useId } from 'react';
+import { useControlSize } from '../field-control/useControlSize';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { useTagInput } from './behavior/useTagInput';
 import { adviseTag } from './behavior/tag-convention';
@@ -9,6 +10,7 @@ import { TagEntry } from './sub-components/TagEntry';
 import { TagHint } from './sub-components/TagHint';
 import { TagSuggestionPanel } from './sub-components/TagSuggestionPanel';
 import type { TagInputProps } from './TagInput.type';
+import '../../theme/control-size.css';
 import '../../theme/select-popup.css';
 import './TagInput.css';
 
@@ -16,8 +18,9 @@ const TagInput = (props: TagInputProps) => {
   const { fields } = useTesseraStrings();
   const {
     value, onChange, suggestions, validate, enforce, createError,
-    placeholder = fields.tagPlaceholder, disabled = false, label, maxSuggestions, defaultOpen, inline, className = '', id,
+    placeholder = fields.tagPlaceholder, disabled = false, label, maxSuggestions, defaultOpen, inline, size, className = '', id,
   } = props;
+  const controlSize = useControlSize(size);
 
   const generatedId = useId();
   const fieldId = id ?? `tag-input-${generatedId}`;
@@ -29,7 +32,7 @@ const TagInput = (props: TagInputProps) => {
   });
   const { popup } = tags;
 
-  const rootCls = tagInputClass({ disabled, invalid: tags.blocked || tags.createError != null, className });
+  const rootCls = tagInputClass({ disabled, invalid: tags.blocked || tags.createError != null, size: controlSize, className });
 
   return (
     <div className={rootCls}>

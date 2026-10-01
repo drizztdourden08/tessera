@@ -1,7 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintReport } from '../hint/hint.type';
-
-type SliderSize = 'xs' | 'md';
 
 interface SliderProps {
   value: number;
@@ -16,7 +15,7 @@ interface SliderProps {
   formatValue?: (value: number) => string;
   mute?: boolean;
   onMuteToggle?: () => void;
-  size?: SliderSize;
+  size?: ControlSize;
   hint?: Hint;
   onHint?: HintReport;
   'aria-label'?: string;
@@ -24,5 +23,4 @@ interface SliderProps {
 
 export type {
   SliderProps,
-  SliderSize,
 };

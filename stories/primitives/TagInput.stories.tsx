@@ -1,8 +1,10 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
 import { Box, namespacedTag, TagInput } from '../../src/primitives';
-import type { TagValidator } from '../../src/primitives';
+import type { ControlSize, TagValidator } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -15,6 +17,7 @@ type TagInputArgs = {
   enforce: boolean;
   namespaced: boolean;
   disabled: boolean;
+  size: ControlSize;
 };
 
 const GAME_TAGS: readonly string[] = [
@@ -40,6 +43,7 @@ const ARGS: Partial<TagInputArgs> = {
     enforce: false,
     namespaced: true,
     disabled: false,
+    size: 'md',
   };
 
 const ARG_TYPES: StoryLiteArgTypes<TagInputArgs> = {
@@ -49,6 +53,7 @@ const ARG_TYPES: StoryLiteArgTypes<TagInputArgs> = {
     enforce: { control: 'boolean', description: 'Refuse a new tag that breaks the convention.' },
     namespaced: { control: 'boolean', description: 'Check that each tag reads namespace:value (namespacedTag). Off accepts anything.' },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -63,7 +68,7 @@ type StatefulTagsProps = {
 } & Partial<TagInputArgs>;
 
 const StatefulTags = (props: StatefulTagsProps) => {
-  const { initial, validate, createError, label, placeholder, maxSuggestions, enforce, namespaced, disabled } = props;
+  const { initial, validate, createError, label, placeholder, maxSuggestions, enforce, namespaced, disabled, size } = props;
   const [value, setValue] = useState(initial);
   return (
     <ValueReadout value={value}>
@@ -78,6 +83,7 @@ const StatefulTags = (props: StatefulTagsProps) => {
         placeholder={placeholder}
         maxSuggestions={maxSuggestions}
         disabled={disabled}
+        size={size}
       />
     </ValueReadout>
   );
@@ -103,6 +109,8 @@ const Validation = {
   ),
 } satisfies StoryLiteStoryDefinition<TagInputArgs>;
 
+const Sizes = sizesStory<TagInputArgs>((size) => <StatefulTags initial={['game:a-link-to-the-past', 'mode:open']} size={size} namespaced />, { align: 'stretch' });
+
 type SessionGamesProps = { initial: readonly string[]; open: boolean; createError?: string; disabled: boolean };
 
 const SessionGames = (props: SessionGamesProps) => {
@@ -124,9 +132,9 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TagInput',
-  description: 'A text field that collects a list of values as removable Tags, for labels such as games or modes on a record. Typing filters the suggestions first, and a value that is not there yet can still be added. Any tag is accepted unless validate passes a check: namespacedTag asks for namespace:value, and a tag that fails gets a hint but is kept, unless enforce is on, which refuses it. createError shows a refusal from the server and draws the error look. defaultOpen starts with the suggestions open, and inline draws them right under the field, not as a floating panel.',
+  description: 'A text field that collects a list of values as removable Tags, for labels such as games or modes on a record. Typing filters the suggestions first, and a value that is not there yet can still be added. Any tag is accepted unless validate passes a check: namespacedTag asks for namespace:value, and a tag that fails gets a hint but is kept, unless enforce is on, which refuses it. createError shows a refusal from the server and draws the error look. defaultOpen starts with the suggestions open, and inline draws them right under the field, not as a floating panel. size md makes the field the standard control height and sm the compact one; the Tags inside keep their own size.',
   playground: Playground,
-  variants: [Validation],
+  variants: [Validation, Sizes],
   states: {
     render: renderState,
     list: [
@@ -153,4 +161,4 @@ const [tags, setTags] = useState<readonly string[]>(['mode:open']);
 });
 
 export default meta;
-export { Overview, Playground, Validation };
+export { Overview, Playground, Sizes, Validation };

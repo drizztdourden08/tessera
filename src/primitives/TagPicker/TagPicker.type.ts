@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { ControlSize } from '../field-control/field-control.type';
 import type { TagLook } from '../Tag';
 
 type TagPickerOption<T extends string = string> = TagLook & {
@@ -19,6 +20,7 @@ interface TagPickerProps<T extends string = string> {
   label?: string;
   disabled?: boolean;
   single?: boolean;
+  size?: ControlSize;
 }
 
 export type { TagPickerGroup, TagPickerOption, TagPickerProps };

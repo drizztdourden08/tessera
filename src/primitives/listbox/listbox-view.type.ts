@@ -4,6 +4,7 @@ import type { ItemContext, ListboxColumn, ListboxItemProps } from './listbox.typ
 import type { EntryState, ListboxBlock, ListboxDisplay, ListboxEntry, ListboxSetup } from './listbox-model.type';
 import type { ListboxDrop } from './listbox-drop.type';
 import type { ListboxModel } from './listbox-state.type';
+import type { ControlSize } from '../field-control/field-control.type';
 
 interface ListboxView<T> {
   model: ListboxModel<T>;
@@ -72,7 +73,7 @@ interface HighlightedTextProps {
 interface ListboxDropViewProps {
   drop: ListboxDrop<HTMLElement>;
   invalid: boolean;
-  size: 'md' | 'sm';
+  size: ControlSize;
   className?: string;
   children: ReactNode;
 }
@@ -80,7 +81,7 @@ interface ListboxDropViewProps {
 interface ListboxPopupProps<T> extends ListboxListProps<T> {
   drop: ListboxDrop<HTMLElement>;
   invalid: boolean;
-  size: 'md' | 'sm';
+  size: ControlSize;
   header?: ReactNode;
 }
 

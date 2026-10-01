@@ -28,22 +28,11 @@
   cursor: not-allowed;
 }
 
-.segmented--xs {
-  gap: var(--space-sm);
-}
-
-.segmented--xs .segmented__track {
+.segmented.control-size--sm .segmented__track {
   padding: var(--space-2xs);
-  border-radius: var(--radius-sm);
 }
 
-.segmented--xs .segmented__btn {
+.segmented.control-size--sm .segmented__btn {
   min-inline-size: var(--size-24);
-  block-size: var(--size-20);
   padding: 0 var(--space-xs);
-  font-size: var(--text-xs);
-}
-
-.segmented--xs .segmented__label {
-  font-size: var(--text-sm);
 }

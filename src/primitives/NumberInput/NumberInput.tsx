@@ -1,21 +1,26 @@
 /* @layer renderer-components @kind component */
+import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
 import './NumberInput.css';
 import { preventTextSelection } from '../dom/prevent-text-selection';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
+import { useControlSize } from '../field-control/useControlSize';
 import { Glyph } from '../Glyph';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import type { CSSProperties } from 'react';
 import type { NumberInputProps } from './NumberInput.type';
 import { digitColumns } from './behavior/digit-columns';
 import { toNumber } from './behavior/to-number';
+import { SPIN_GLYPH_SIZES } from './NumberInput.constants';
 
 const NumberInput = (props: NumberInputProps) => {
   const {
     onChange, className = '', value, min, max, step, disabled = false, sizeToContent = false,
-    invalid, id, 'aria-describedby': ownDescribedBy, ...rest
+    invalid, size, id, 'aria-describedby': ownDescribedBy, ...rest
   } = props;
   const control = useFieldControl(id, ownDescribedBy);
+  const controlSize = useControlSize(size);
+  const glyphSize = SPIN_GLYPH_SIZES[controlSize];
   const { fields } = useTesseraStrings();
   const isInvalid = invalid ?? control.invalid ?? false;
 
@@ -37,7 +42,7 @@ const NumberInput = (props: NumberInputProps) => {
 
   return (
     <div
-      className={`number-input ${columns === undefined ? '' : 'number-input--auto'} ${disabled ? 'number-input--disabled' : ''} ${className}`}
+      className={`number-input control-size--${controlSize} ${columns === undefined ? '' : 'number-input--auto'} ${disabled ? 'number-input--disabled' : ''} ${className}`}
       style={sizingVars}
     >
       <input
@@ -56,10 +61,10 @@ const NumberInput = (props: NumberInputProps) => {
       />
       <div className="number-input__spin">
         <button type="button" className="number-input__btn" tabIndex={-1} aria-label={fields.increment} disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(1)}>
-          <Glyph name="chevronUp" size={12} strokeWidth={2} />
+          <Glyph name="chevronUp" size={glyphSize} strokeWidth={2} />
         </button>
         <button type="button" className="number-input__btn" tabIndex={-1} aria-label={fields.decrement} disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(-1)}>
-          <Glyph name="chevronDown" size={12} strokeWidth={2} />
+          <Glyph name="chevronDown" size={glyphSize} strokeWidth={2} />
         </button>
       </div>
     </div>

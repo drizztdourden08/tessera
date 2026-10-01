@@ -1,11 +1,13 @@
 /* @layer renderer-components @kind component */
+import { useControlSize } from '../../field-control/useControlSize';
 import type { NativeSelectProps } from '../Select.type';
 
 const NativeSelect = (props: NativeSelectProps) => {
-  const { className = '', children, ...rest } = props;
+  const { className = '', size, children, ...rest } = props;
+  const controlSize = useControlSize(size);
 
   return (
-    <select className={`select ${className}`} {...rest}>
+    <select className={`select control-size--${controlSize} ${className}`} {...rest}>
       {children}
     </select>
   );

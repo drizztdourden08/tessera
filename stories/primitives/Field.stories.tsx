@@ -1,10 +1,13 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Field, NumberInput, Text, TextInput, Toggle } from '../../src/primitives';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
+import { Box, Field, NumberInput, Text, TextInput, Toggle, type ControlSize } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { SizesLineUp } from './_samples/SizesLineUp';
 
 type FieldArgs = {
   label: string;
@@ -12,6 +15,7 @@ type FieldArgs = {
   error: string;
   required: boolean;
   inline: boolean;
+  size: ControlSize;
 };
 
 const ARGS: Partial<FieldArgs> = {
@@ -20,6 +24,7 @@ const ARGS: Partial<FieldArgs> = {
     error: '',
     required: true,
     inline: false,
+    size: 'md',
   };
 
 const ARG_TYPES: StoryLiteArgTypes<FieldArgs> = {
@@ -28,6 +33,7 @@ const ARG_TYPES: StoryLiteArgTypes<FieldArgs> = {
     error: { control: 'text', description: 'Replaces the hint while set.' },
     required: { control: 'boolean' },
     inline: { control: 'boolean' },
+    size: { ...SIZE_ARG, description: 'Sets the size of the control inside, unless the control sets its own.' },
   };
 
 const meta = {
@@ -89,6 +95,7 @@ const Playground = {
       error={args.error || undefined}
       required={args.required}
       inline={args.inline}
+      size={args.size}
       htmlFor="field-player-name"
     >
       <TextInput id="field-player-name" defaultValue="Link" />
@@ -99,6 +106,17 @@ const Playground = {
 const Form = {
   name: 'In a form',
   render: () => <SessionForm />,
+} satisfies StoryLiteStoryDefinition<FieldArgs>;
+
+const Sizes = sizesStory<FieldArgs>((size) => (
+  <Field label="Player name" hint="Shown to everyone in the session." size={size}>
+    <TextInput defaultValue="Link" />
+  </Field>
+), { align: 'stretch' });
+
+const LineUp = {
+  name: 'Sizes line up',
+  render: () => <SizesLineUp />,
 } satisfies StoryLiteStoryDefinition<FieldArgs>;
 
 const Validation = {
@@ -114,9 +132,9 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'Field',
-  description: 'The frame around one form control: a label above it, and a hint or an error below it. Reach for it around any input so every form lines up the same way. An error replaces the hint while it is set and marks the control inside as invalid, which draws its error look. Required adds a star to the label, inline puts the label beside the control, and htmlFor ties the label to the input it names.',
+  description: 'The frame around one form control: a label above it, and a hint or an error below it. Reach for it around any input so every form lines up the same way. An error replaces the hint while it is set and marks the control inside as invalid, which draws its error look. Required adds a star to the label, inline puts the label beside the control, and htmlFor ties the label to the input it names. size passes md or sm to the control inside, which takes it unless it sets its own. Every input shares two heights, md and sm, so a row of mixed inputs and a Button of one size lines up top and bottom.',
   playground: Playground,
-  variants: [Form],
+  variants: [Form, Sizes, LineUp],
   states: {
     render: renderState,
     list: [
@@ -127,4 +145,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Form, Overview, Playground, Validation };
+export { Form, LineUp, Overview, Playground, Sizes, Validation };

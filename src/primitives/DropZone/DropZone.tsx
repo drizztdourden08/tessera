@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind component */
+import '../../theme/control-size.css';
 import './DropZone.css';
+import { useControlSize } from '../field-control/useControlSize';
 import { Glyph } from '../Glyph';
 import { Span } from '../text-elements';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
@@ -17,15 +19,17 @@ const DropZone = (props: DropZoneProps) => {
     hint,
     disabled = false,
     variant = 'block',
+    size,
     icon,
     onDrop,
   } = props;
   const zone = useDropZone(accept, onDrop);
+  const controlSize = useControlSize(size);
   const inline = variant === 'inline';
 
   return (
     <div
-      className={dropZoneClass(inline, zone.active, disabled)}
+      className={dropZoneClass(controlSize, inline, zone.active, disabled)}
       onDragEnter={zone.handleDragEnter}
       onDragLeave={zone.handleDragLeave}
       onDragOver={zone.handleDragOver}

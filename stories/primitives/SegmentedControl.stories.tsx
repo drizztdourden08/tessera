@@ -1,8 +1,9 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, Glyph, SegmentedControl, Text } from '../../src/primitives';
-import type { SegmentOption, SegmentedSize } from '../../src/primitives';
+import type { ControlSize, SegmentOption } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -16,7 +17,7 @@ type SegmentedControlArgs = {
   description: string;
   disabled: boolean;
   deselectable: boolean;
-  size: SegmentedSize;
+  size: ControlSize;
 };
 
 type Scale = '1x' | '2x' | '3x' | 'fit';
@@ -47,7 +48,7 @@ const ARG_TYPES: StoryLiteArgTypes<SegmentedControlArgs> = {
     description: { control: 'text' },
     disabled: { control: 'boolean' },
     deselectable: { control: 'boolean', description: 'Wires onDeselect, so a re-click clears the value.' },
-    size: { control: 'select', options: ['md', 'xs'], description: 'xs is the compact size for widget panels.' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -95,13 +96,11 @@ const Kinds = {
   ),
 } satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
 
-const SIZE_KEYS = ['md', 'xs'] as const;
-
 const Sizes = {
   name: 'Sizes',
   render: () => (
     <Demonstrator
-      rows={axis(SIZE_KEYS)}
+      rows={axis(CONTROL_SIZES)}
       columns={axis(['Text', 'Icons'])}
       cell={(size, kind) => (kind === 'Text'
         ? <StatefulSegments<Scale> initial="2x" options={SCALES} size={size} />
@@ -143,7 +142,7 @@ const [scale, setScale] = useState('2x');
 
 const Overview = overviewStory({
   component: 'SegmentedControl',
-  description: 'A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one. Reach for it for short settings where every choice fits on one line, like a scale or an alignment. Options can be text, or an icon with a title; one option or the whole control can be disabled, and onDeselect lets a second click on the active segment clear the value. size xs is the compact control for widget panels, and an option can be an icon alone, named by its hint. Each option can carry a hint, a short value label and a one-line description: while an option is pointed at or focused, the control reports it through onHint and to the nearest HintScope, so a HintLine or any other component can show what the option does. Point at the icons below to see the line fill in.',
+  description: 'A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one. Reach for it for short settings where every choice fits on one line, like a scale or an alignment. Options can be text, or an icon with a title; one option or the whole control can be disabled, and onDeselect lets a second click on the active segment clear the value. size md matches the standard control height and sm is the compact control for widget panels, and an option can be an icon alone, named by its hint. Each option can carry a hint, a short value label and a one-line description: while an option is pointed at or focused, the control reports it through onHint and to the nearest HintScope, so a HintLine or any other component can show what the option does. Point at the icons below to see the line fill in.',
   playground: Playground,
   variants: [Kinds, Sizes, HintOutput],
   states: {

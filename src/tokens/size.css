@@ -12,6 +12,7 @@
   --pixel-wordmark-md: calc(58 * var(--size-1));
   --pixel-wordmark-lg: calc(87 * var(--size-1));
   --control-h-sm: var(--size-28);
+  --control-h-md: calc(39 * var(--size-1));
   --dropzone-inline-w: var(--size-288);
   --table-select-w: var(--size-28);
   --open-entry-width: var(--size-128);

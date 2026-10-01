@@ -6,6 +6,7 @@ import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings
 import { ComboboxField } from './sub-components/ComboboxField';
 import type { FieldOf } from '../listbox/listbox.type';
 import type { ComboboxProps } from './Combobox.type';
+import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
 import '../../theme/listbox.css';
 import '../../theme/listbox-drop.css';

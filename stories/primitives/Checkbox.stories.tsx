@@ -1,7 +1,9 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Checkbox, Text } from '../../src/primitives';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
+import { Box, Checkbox, Text, type ControlSize } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -10,16 +12,18 @@ type CheckboxArgs = {
   label: string;
   disabled: boolean;
   indeterminate: boolean;
+  size: ControlSize;
 };
 
 const GAMES = ['A Link to the Past', "Link's Awakening", 'Ocarina of Time'] as const;
 
-const ARGS: Partial<CheckboxArgs> = { label: 'Show hints on the map', disabled: false, indeterminate: false };
+const ARGS: Partial<CheckboxArgs> = { label: 'Show hints on the map', disabled: false, indeterminate: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<CheckboxArgs> = {
     label: { control: 'text' },
     disabled: { control: 'boolean' },
     indeterminate: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -28,7 +32,7 @@ const meta = {
 } satisfies StoryLiteMeta<CheckboxArgs>;
 
 const StatefulCheckbox = (props: { initial: boolean; ariaLabel?: string } & Partial<CheckboxArgs>) => {
-  const { initial, label, ariaLabel, disabled, indeterminate } = props;
+  const { initial, label, ariaLabel, disabled, indeterminate, size } = props;
   const [checked, setChecked] = useState(initial);
   return (
     <Box className="story-row">
@@ -39,6 +43,7 @@ const StatefulCheckbox = (props: { initial: boolean; ariaLabel?: string } & Part
         ariaLabel={ariaLabel}
         disabled={disabled}
         indeterminate={indeterminate}
+        size={size}
       />
       <Text className="story-label">{checked ? 'checked' : 'unchecked'}</Text>
     </Box>
@@ -83,6 +88,8 @@ const Labels = {
   ),
 } satisfies StoryLiteStoryDefinition<CheckboxArgs>;
 
+const Sizes = sizesStory<CheckboxArgs>((size) => <StatefulCheckbox initial size={size} label="Show hints on the map" />);
+
 const HintsOption = (props: { initial: boolean; indeterminate?: boolean; disabled?: boolean }) => {
   const { initial, indeterminate, disabled } = props;
   const [checked, setChecked] = useState(initial);
@@ -108,9 +115,9 @@ const HintsOption = () => {
 
 const Overview = overviewStory({
   component: 'Checkbox',
-  description: 'A box for one on or off choice in a list or a form, with its label beside it. It is controlled: checked comes in and onChange hands back the new value. Indeterminate draws the mixed state for a box that stands for a partly checked set, disabled dims it, and ariaLabel names a box whose label is drawn somewhere else.',
+  description: 'A box for one on or off choice in a list or a form, with its label beside it. It is controlled: checked comes in and onChange hands back the new value. Indeterminate draws the mixed state for a box that stands for a partly checked set, disabled dims it, and ariaLabel names a box whose label is drawn somewhere else. size md draws a 16 px box with body text, to sit beside standard controls; sm draws a 14 px box with small text, for dense lists and tables.',
   playground: Playground,
-  variants: [Labels],
+  variants: [Labels, Sizes],
   states: {
     render: renderState,
     list: [
@@ -126,4 +133,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Labels, Overview, Playground, SelectAll };
+export { Labels, Overview, Playground, SelectAll, Sizes };

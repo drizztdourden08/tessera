@@ -7,7 +7,7 @@
 
 .toggle-group__btn {
   align-self: stretch;
-  padding: var(--space-sm) var(--space-md);
+  padding: 0 var(--control-pad-inline);
   border: 0;
   border-radius: 0;
   transition: color var(--transition-normal), background var(--transition-normal);

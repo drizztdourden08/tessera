@@ -30,6 +30,7 @@ const FilterClauseCard = (props: FilterClauseCardProps) => {
       <Flex align="stretch" className={groupClass}>
         <Checkbox
           className="filter-bar__check"
+          size="sm"
           checked={clause.enabled}
           ariaLabel={filters.applyFilterNamed(field.label)}
           onChange={onToggleEnabled}

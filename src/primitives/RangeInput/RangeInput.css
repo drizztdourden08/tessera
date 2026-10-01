@@ -4,6 +4,10 @@
   cursor: pointer;
 }
 
+.range-input--sm {
+  zoom: 0.75;
+}
+
 .range-input:focus-visible {
   outline: var(--border-width-thick) solid var(--c-primary);
   outline-offset: var(--size-2);

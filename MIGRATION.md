@@ -475,3 +475,31 @@ In the gallery, Colours, Gradients shows each brand's gradient and backdrop with
 
 - A `DropdownMenu` no longer takes the 288 px cap of a `Select` list. The hamburger menu, an anchored menu and every submenu grow to fit their items and stop only at the space left between their anchor and the window edge, minus 8 px; past that the menu scrolls inside. An anchored menu or submenu opens towards the side with more room. `Select` and `Combobox` keep their 288 px cap.
 - `useListboxDrop` takes `fit` (default false): with it, the drop's space is the room to the window edge with no fixed cap, which `--listbox-space` then carries as before. `dropPlacement` takes the same flag as its fourth argument.
+
+## 36. Every input has two sizes, md and sm
+
+Every input takes `size`: `'md'`, the default, or `'sm'`. The two sizes differ mainly in height, and padding and text follow the height. A row of `md` inputs and a `md` Button shares one height and lines up top and bottom; the same goes for `sm`.
+
+- New token `--control-h-md` (39 px), the standard control height a TextInput and a `md` Button already had, beside `--control-h-sm` (28 px).
+- `ControlSize` (`'sm' | 'md'`) and `useControlSize(size)` are exported. The hook returns the size given, or the size of the `Field` around the control, or `'md'`.
+- `Field` takes `size` and passes it to the control inside, which takes it unless it sets its own. A `sm` Field also tightens the gap under its label.
+- `src/theme/control-size.css` holds the shared size classes, `control-size--md` and `control-size--sm`. Each input sets one on its root, and `field-surface.css` reads the height, padding and text size from them.
+- The text boxes (TextInput, Textarea at one row, NativeSelect, NumberInput, Stepper, the Select trigger, the Combobox field and the TagInput field) are 39 px at `md` with 14 px text and 28 px at `sm` with 12 px text. TextInput, Textarea, NumberInput and NativeSelect used to take the HTML `size` attribute through; `size` is now the control size.
+- SegmentedControl and ToggleGroup are 39 px and 28 px; RadioGroup options are at least that tall, with a 16 px or 12 px dot.
+- Checkbox draws a 16 px box with 14 px text at `md`, and at `sm` the 14 px box with 12 px text it drew before. Toggle, Slider and RangeSlider keep their current look as `md`; `sm` is the smaller switch, thumb and track. RangeInput draws the browser control at three quarters at `sm`.
+- ColorSwatch is a square of the control height: 39 px at `md`, 28 px at `sm`. `--swatch-size` still sets any other size.
+- DropZone inline is the control height; a `sm` block target has less padding. PositionInput passes its size to both number fields. TagPicker at `sm` tightens its gaps and label; the Tags keep their one size.
+- Removed, with no alias: the `xs` size of SegmentedControl, Toggle and Slider, which `sm` replaces, and the types `SegmentedSize`, `ToggleSize` and `SliderSize`, which `ControlSize` replaces. The classes `select-trigger--sm`, `combobox--sm`, `segmented--md`, `segmented--xs`, `toggle--md`, `toggle--xs`, `slider--md` and `slider--xs` are gone; style `control-size--sm` instead. `IconButton` keeps `xs`.
+- What changes at the default size: the Select trigger grows from 36 to 39 px with 14 px text, the Combobox field and the TagInput field from 32 to 39 px, SegmentedControl and ToggleGroup from 36 to 39 px, Stepper from 31 to 39 px, ColorSwatch and inline DropZone from 28 to 39 px, and the Checkbox box from 14 to 16 px. A `sm` Select or Combobox now has the same rounded corners as a `sm` Button.
+- WidgetOptions draws its choices, its opacity Slider and its own rows at `sm`. The panel is 6 px taller than with `xs`.
+- The DataTable row checkbox, the FilterBar checkboxes and the check in a multi-select list pass `size="sm"`, so they look as before.
+
+```tsx
+<SegmentedControl size="xs" value={edge} options={EDGES} onChange={setEdge} />
+<Checkbox checked={on} onChange={setOn} label="Shuffle" />
+
+<SegmentedControl size="sm" value={edge} options={EDGES} onChange={setEdge} />
+<Checkbox size="sm" checked={on} onChange={setOn} label="Shuffle" />
+```
+
+rotp replaces `size="xs"` on SegmentedControl, Toggle and Slider with `size="sm"`, and passes `size="sm"` where it wants the old Stepper, Checkbox, ColorSwatch or inline DropZone. A compact form can set `size="sm"` once on each `Field`.

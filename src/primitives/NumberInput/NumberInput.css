@@ -9,12 +9,12 @@
 
 .number-input--auto .number-input__field {
   flex: 0 0 auto;
-  width: calc((var(--number-input-columns) * 1ch) + (var(--space-md) * 2) + 0.75ch);
+  width: calc((var(--number-input-columns) * 1ch) + (var(--control-pad-inline) * 2) + 0.75ch);
 }
 
 .number-input__field {
   flex: 1;
-  padding: var(--space-sm) var(--space-md);
+  padding-inline: var(--control-pad-inline);
   appearance: textfield;
 }
 

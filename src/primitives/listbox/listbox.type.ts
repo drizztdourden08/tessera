@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ComponentType, ReactNode } from 'react';
 import type { TextTone } from '../TextElement/TextElement.type';
+import type { ControlSize } from '../field-control/field-control.type';
 
 type FieldOf<T> = T extends object ? Extract<keyof T, string> : never;
 
@@ -102,7 +103,7 @@ interface ListboxFieldProps {
   invalid?: boolean;
   defaultOpen?: boolean;
   inline?: boolean;
-  size?: 'md' | 'sm';
+  size?: ControlSize;
   className?: string;
   id?: string;
   'aria-label'?: string;

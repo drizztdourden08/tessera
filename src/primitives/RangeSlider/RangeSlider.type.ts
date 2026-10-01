@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { ControlSize } from '../field-control/field-control.type';
+
 interface RangeSliderProps {
   stops: readonly string[];
   value: readonly [number, number];
@@ -7,6 +9,7 @@ interface RangeSliderProps {
   step?: number;
   labelEvery?: number;
   ariaLabel?: string;
+  size?: ControlSize;
   className?: string;
 }
 

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ControlSize } from '../field-control/field-control.type';
 
 type DropZoneVariant = 'block' | 'inline';
 
@@ -9,6 +10,7 @@ interface DropZoneProps {
   hint?: string;
   disabled?: boolean;
   variant?: DropZoneVariant;
+  size?: ControlSize;
   icon?: ReactNode;
   onDrop: (files: File[]) => void;
 }

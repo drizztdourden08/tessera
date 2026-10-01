@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { RefObject } from 'react';
+import type { ControlSize } from '../field-control/field-control.type';
 
 type TagValidationResult = boolean | string;
 
@@ -30,6 +31,7 @@ interface TagInputProps {
   maxSuggestions?: number;
   defaultOpen?: boolean;
   inline?: boolean;
+  size?: ControlSize;
   className?: string;
   id?: string;
 }

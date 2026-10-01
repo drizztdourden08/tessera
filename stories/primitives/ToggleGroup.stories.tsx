@@ -1,8 +1,10 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
 import { Box, ToggleGroup } from '../../src/primitives';
-import type { ToggleOption } from '../../src/primitives';
+import type { ControlSize, ToggleOption } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -12,6 +14,7 @@ type ToggleGroupArgs = {
   label: string;
   description: string;
   disabled: boolean;
+  size: ControlSize;
 };
 
 type Overlay = 'grid' | 'collision' | 'sprites' | 'doors';
@@ -27,12 +30,13 @@ const WITH_LOCKED: ToggleOption<Overlay>[] = OVERLAYS.map((opt) =>
   opt.value === 'doors' ? { ...opt, disabled: true } : opt,
 );
 
-const ARGS: Partial<ToggleGroupArgs> = { label: 'Map overlays', description: 'Pick any number of layers to draw.', disabled: false };
+const ARGS: Partial<ToggleGroupArgs> = { label: 'Map overlays', description: 'Pick any number of layers to draw.', disabled: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<ToggleGroupArgs> = {
     label: { control: 'text' },
     description: { control: 'text' },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -43,7 +47,7 @@ const meta = {
 type StatefulGroupProps = { initial: Overlay[]; options?: ToggleOption<Overlay>[] } & Partial<ToggleGroupArgs>;
 
 const StatefulGroup = (props: StatefulGroupProps) => {
-  const { initial, options = OVERLAYS, label, description, disabled } = props;
+  const { initial, options = OVERLAYS, label, description, disabled, size } = props;
   const [value, setValue] = useState<Overlay[]>(initial);
   return (
     <ValueReadout value={value}>
@@ -54,6 +58,7 @@ const StatefulGroup = (props: StatefulGroupProps) => {
         label={label}
         description={description}
         disabled={disabled}
+        size={size}
       />
     </ValueReadout>
   );
@@ -77,6 +82,8 @@ const Header = {
   ),
 } satisfies StoryLiteStoryDefinition<ToggleGroupArgs>;
 
+const Sizes = sizesStory<ToggleGroupArgs>((size) => <StatefulGroup initial={['grid']} size={size} />);
+
 const Overlays = (props: { initial: Overlay[]; options: ToggleOption<Overlay>[]; disabled: boolean }) => {
   const { initial, options, disabled } = props;
   const [value, setValue] = useState<Overlay[]>(initial);
@@ -93,9 +100,9 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'ToggleGroup',
-  description: 'A row of joined buttons, each one switched on or off by itself, for choosing any number of options from a short list. Map overlays and filters are the usual fit. The group can carry a label and a description above the row. Single options can be disabled, or the whole group at once.',
+  description: 'A row of joined buttons, each one switched on or off by itself, for choosing any number of options from a short list. Map overlays and filters are the usual fit. The group can carry a label and a description above the row. Single options can be disabled, or the whole group at once. size md matches the standard control height and sm is the compact one.',
   playground: Playground,
-  variants: [Header],
+  variants: [Header, Sizes],
   states: {
     render: renderState,
     list: [
@@ -122,4 +129,4 @@ const [overlays, setOverlays] = useState(['grid']);
 });
 
 export default meta;
-export { Header, Overview, Playground };
+export { Header, Overview, Playground, Sizes };

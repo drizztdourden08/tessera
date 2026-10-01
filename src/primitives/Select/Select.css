@@ -8,8 +8,6 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  min-height: var(--size-32);
-  font-size: var(--text-sm);
   text-align: left;
   cursor: pointer;
 }
@@ -38,13 +36,6 @@
 
 .select-trigger--open .select-trigger__chevron {
   transform: rotate(180deg);
-}
-
-.select-trigger--sm {
-  min-height: var(--control-h-sm);
-  padding: var(--space-xs) var(--space-sm);
-  font-size: var(--text-xs);
-  border-radius: var(--radius-sm);
 }
 
 .select-trigger--full {

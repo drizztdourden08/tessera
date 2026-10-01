@@ -3,6 +3,7 @@ import type { ReactNode, SelectHTMLAttributes } from 'react';
 import type {
   FieldOf, ListboxColumn, ListboxFieldProps, ListboxLook, ListboxValueProps, ValueDisplay,
 } from '../listbox/listbox.type';
+import type { ControlSize } from '../field-control/field-control.type';
 
 interface SelectOption {
   value: string;
@@ -45,7 +46,9 @@ interface SelectOptionsProps extends SelectLookProps {
 
 type SelectProps<T = string, F extends FieldOf<T> = never> = SelectItemsProps<T, F> | SelectOptionsProps;
 
-interface NativeSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {}
+interface NativeSelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+  size?: ControlSize;
+}
 
 export type {
   MultiDisplay,

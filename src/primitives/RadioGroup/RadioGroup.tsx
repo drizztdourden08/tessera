@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind data */
+import '../../theme/control-size.css';
 import './RadioGroup.css';
+import { useControlSize } from '../field-control/useControlSize';
 import { Small, Span } from '../text-elements';
 import type { RadioGroupProps } from './RadioGroup.type';
 
@@ -13,12 +15,14 @@ const RadioGroup = <T extends string = string>(props: RadioGroupProps<T>) => {
     direction = 'horizontal',
     disabled = false,
     name,
+    size,
   } = props;
+  const controlSize = useControlSize(size);
 
   const groupName = name ?? `radio-${label?.replace(/\s+/g, '-').toLowerCase() ?? 'group'}`;
 
   return (
-    <fieldset className={`radio-group ${disabled ? 'radio-group--disabled' : ''}`}>
+    <fieldset className={`radio-group control-size--${controlSize} ${disabled ? 'radio-group--disabled' : ''}`}>
       {[label, description].some(Boolean) && (
         <div className="radio-group__header">
           {label && <legend className="radio-group__label">{label}</legend>}

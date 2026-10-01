@@ -1,6 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { InputHTMLAttributes } from 'react';
+import type { ControlSize } from '../field-control/field-control.type';
 
-type RangeInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
+interface RangeInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+  size?: ControlSize;
+}
 
 export type { RangeInputProps };

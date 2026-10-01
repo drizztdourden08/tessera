@@ -8,7 +8,7 @@ const triggerClass = (input: TriggerClassInput): string => {
     'listbox-anchor',
     open && 'select-trigger--open',
     disabled && 'select-trigger--disabled',
-    size === 'sm' && 'select-trigger--sm',
+    `control-size--${size}`,
     full && 'select-trigger--full',
     className,
   ].filter(Boolean).join(' ');

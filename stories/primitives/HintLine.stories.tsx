@@ -77,7 +77,7 @@ const CODE = `import { HintLine, HintScope, SegmentedControl } from '@drizztdour
 
 <HintScope>
   <SegmentedControl
-    size="xs"
+    size="sm"
     aria-label="Placement"
     value={edge}
     onChange={setEdge}

@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { ControlSize } from '../field-control/field-control.type';
+
 interface PositionAxis {
   min?: number;
   max?: number;
@@ -18,6 +20,7 @@ interface PositionInputProps {
   y?: PositionAxis;
   disabled?: boolean;
   label?: string;
+  size?: ControlSize;
   className?: string;
 }
 
@@ -26,6 +29,7 @@ interface AxisFieldProps {
   axisLabel: string;
   value: number;
   disabled: boolean;
+  size: ControlSize;
   onCommit: (next: number) => void;
 }
 

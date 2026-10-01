@@ -16,11 +16,11 @@ const SegmentHintDemo = () => {
         <Box className="segment-hint-demo__panel">
           <Box className="segment-hint-demo__row">
             <Text className="story-label">Placement</Text>
-            <SegmentedControl size="xs" aria-label="Placement" value={dock} options={DOCK_OPTIONS} onChange={setDock} onHint={setReported} />
+            <SegmentedControl size="sm" aria-label="Placement" value={dock} options={DOCK_OPTIONS} onChange={setDock} onHint={setReported} />
           </Box>
           <Box className="segment-hint-demo__row">
             <Text className="story-label">Show</Text>
-            <SegmentedControl size="xs" aria-label="Show" value={view} options={VIEW_OPTIONS} onChange={setView} />
+            <SegmentedControl size="sm" aria-label="Show" value={view} options={VIEW_OPTIONS} onChange={setView} />
           </Box>
           <HintLine className="segment-hint-demo__line" />
         </Box>

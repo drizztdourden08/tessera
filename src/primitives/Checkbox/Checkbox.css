@@ -6,14 +6,23 @@
   cursor: pointer;
 }
 
+.checkbox.control-size--md {
+  --checkbox-box: var(--size-16);
+}
+
+.checkbox.control-size--sm {
+  --checkbox-box: var(--size-14);
+}
+
 .checkbox--disabled {
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
 
 .checkbox__input {
-  width: var(--size-14);
-  height: var(--size-14);
+  flex: none;
+  width: var(--checkbox-box);
+  height: var(--checkbox-box);
   accent-color: var(--c-primary);
   cursor: inherit;
 }
@@ -24,7 +33,7 @@
 }
 
 .checkbox__label {
-  font-size: var(--text-sm);
+  font-size: var(--control-font);
   transition: color var(--transition-fast);
 }
 

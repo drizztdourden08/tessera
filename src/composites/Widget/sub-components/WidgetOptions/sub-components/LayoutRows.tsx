@@ -31,7 +31,7 @@ const LayoutRows = (props: LayoutRowsProps) => {
       )}
       <OptionRow label={widgets.opacity}>
         <Slider
-          size="xs"
+          size="sm"
           value={percent}
           min={OPACITY_MIN}
           max={OPACITY_MAX}

@@ -1,8 +1,16 @@
 /* @layer renderer-components @kind style */
+.color-swatch--md {
+  --swatch-default: var(--control-h-md);
+}
+
+.color-swatch--sm {
+  --swatch-default: var(--control-h-sm);
+}
+
 .color-swatch {
   position: relative;
-  width: var(--swatch-size, var(--size-28));
-  height: var(--swatch-size, var(--size-28));
+  width: var(--swatch-size, var(--swatch-default));
+  height: var(--swatch-size, var(--swatch-default));
   padding: 0;
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-sm);

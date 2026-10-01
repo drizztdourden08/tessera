@@ -2,7 +2,9 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, RangeSlider, Text } from '../../src/primitives';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
+import { Box, RangeSlider, Text, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -13,6 +15,7 @@ type RangeSliderArgs = {
   step: number;
   labelEvery: number;
   disabled: boolean;
+  size: ControlSize;
 };
 
 const SPEEDS = ['0.5x', '0.75x', '1x', '1.25x', '1.5x', '2x', '3x', '4x', '6x', '8x', '10x'] as const;
@@ -21,12 +24,13 @@ const PRICES = Array.from({ length: 21 }, (_, index) => String(index * 5));
 
 const DUNGEONS = ['Eastern', 'Desert', 'Hera', 'Darkness', 'Swamp', 'Skull', 'Thieves', 'Ice', 'Misery', 'Turtle'] as const;
 
-const ARGS: Partial<RangeSliderArgs> = { step: 1, labelEvery: 2, disabled: false };
+const ARGS: Partial<RangeSliderArgs> = { step: 1, labelEvery: 2, disabled: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<RangeSliderArgs> = {
     step: { control: 'number', description: 'Keyboard stride, in stops.' },
     labelEvery: { control: 'number' },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -41,7 +45,7 @@ type StatefulRangeProps = {
 } & Partial<RangeSliderArgs>;
 
 const StatefulRange = (props: StatefulRangeProps) => {
-  const { stops, initial, caption, step, labelEvery, disabled } = props;
+  const { stops, initial, caption, step, labelEvery, disabled, size } = props;
   const [value, setValue] = useState<[number, number]>(initial);
   return (
     <Box className="story-column">
@@ -52,6 +56,7 @@ const StatefulRange = (props: StatefulRangeProps) => {
         step={step}
         labelEvery={labelEvery}
         disabled={disabled}
+        size={size}
         ariaLabel={caption}
       />
       <Text className="story-label">
@@ -87,6 +92,10 @@ const Stops = {
   render: () => <Demonstrator rows={axis(Object.keys(STOPS))} align="stretch" cell={(row) => STOPS[row]} />,
 } satisfies StoryLiteStoryDefinition<RangeSliderArgs>;
 
+const Sizes = sizesStory<RangeSliderArgs>((size) => (
+  <StatefulRange stops={SPEEDS} initial={[2, 5]} labelEvery={2} size={size} caption={`Turbo speed range, ${size}`} />
+), { align: 'stretch' });
+
 const TurboRange = (props: { disabled: boolean }) => {
   const { disabled } = props;
   const [value, setValue] = useState<[number, number]>([2, 7]);
@@ -105,9 +114,9 @@ const [range, setRange] = useState<[number, number]>([1, 3]);
 
 const Overview = overviewStory({
   component: 'RangeSlider',
-  description: 'A two-thumb slider that picks a range over a list of named stops, such as speeds or price points. The low thumb can never pass the high one. It is built from two native range inputs, so arrows, Home, End and screen readers work; step sets a coarser keyboard stride, and labelEvery thins out the tick labels.',
+  description: 'A two-thumb slider that picks a range over a list of named stops, such as speeds or price points. The low thumb can never pass the high one. It is built from two native range inputs, so arrows, Home, End and screen readers work; step sets a coarser keyboard stride, and labelEvery thins out the tick labels. size md draws 16 px thumbs and sm 12 px ones, for compact rows.',
   playground: Playground,
-  variants: [Stops],
+  variants: [Stops, Sizes],
   states: {
     render: renderState,
     list: [
@@ -121,4 +130,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Playground, Stops };
+export { Overview, Playground, Sizes, Stops };

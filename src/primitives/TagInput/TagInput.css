@@ -17,8 +17,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-xs);
-  min-height: var(--size-32);
-  padding: var(--space-xs) var(--space-sm);
+  min-height: var(--control-height);
+  padding: var(--space-2xs) var(--space-sm);
   background: var(--c-surface);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
@@ -53,7 +53,7 @@
   min-width: var(--size-96);
   padding: 0;
   color: var(--c-text);
-  font-size: var(--text-sm);
+  font-size: var(--control-font);
   font-family: inherit;
   background: transparent;
   border: none;

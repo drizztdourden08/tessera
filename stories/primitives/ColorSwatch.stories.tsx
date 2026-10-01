@@ -1,7 +1,9 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, ColorSwatch, Text } from '../../src/primitives';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
+import { Box, ColorSwatch, Text, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -15,6 +17,7 @@ type ColorSwatchArgs = {
   edited: boolean;
   transparent: boolean;
   disabled: boolean;
+  size: ControlSize;
 };
 
 const TUNIC_GREEN = '#38a048';
@@ -26,7 +29,7 @@ const TUNIC_ROW: readonly string[] = [
 
 const EDITED_SLOTS = new Set([5, 6]);
 
-const ARGS: Partial<ColorSwatchArgs> = { hex: TUNIC_GREEN, caption: '5', selected: false, edited: false, transparent: false, disabled: false };
+const ARGS: Partial<ColorSwatchArgs> = { hex: TUNIC_GREEN, caption: '5', selected: false, edited: false, transparent: false, disabled: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<ColorSwatchArgs> = {
     hex: { control: 'color' },
@@ -35,6 +38,7 @@ const ARG_TYPES: StoryLiteArgTypes<ColorSwatchArgs> = {
     edited: { control: 'boolean' },
     transparent: { control: 'boolean' },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -50,6 +54,7 @@ const PaletteRow = () => {
         {TUNIC_ROW.map((hex, index) => (
           <ColorSwatch
             key={hex}
+            size="sm"
             color={hex}
             caption={index}
             transparent={index === 0}
@@ -79,6 +84,7 @@ const Playground = {
       edited={args.edited}
       transparent={args.transparent}
       disabled={args.disabled}
+      size={args.size}
       aria-label="Palette slot"
     />
   ),
@@ -96,6 +102,8 @@ const Fills = {
   ),
 } satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
 
+const Sizes = sizesStory<ColorSwatchArgs>((size) => <ColorSwatch size={size} color={TUNIC_GREEN} caption="5" aria-label={`Palette slot 5, ${size}`} />);
+
 const renderState = (props: StateProps) => <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label="Palette slot 5" {...props} />;
 
 const Palette = {
@@ -105,9 +113,9 @@ const Palette = {
 
 const Overview = overviewStory({
   component: 'ColorSwatch',
-  description: 'One colour drawn as a button, for picking a slot in a palette or a colour from a set. A small caption inside it, usually the palette index, labels the slot. Selected draws a ring, edited marks a value changed from its original, transparent swaps the fill for a checkerboard, and every button prop, onClick and disabled included, passes through.',
+  description: 'One colour drawn as a button, for picking a slot in a palette or a colour from a set. A small caption inside it, usually the palette index, labels the slot. Selected draws a ring, edited marks a value changed from its original, transparent swaps the fill for a checkerboard, and every button prop, onClick and disabled included, passes through. size md is a square at the standard control height and sm one at the compact height, so a swatch lines up with the field beside it; --swatch-size sets any other size.',
   playground: Playground,
-  variants: [Fills],
+  variants: [Fills, Sizes],
   states: {
     render: renderState,
     list: [
@@ -122,4 +130,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Fills, Overview, Palette, Playground };
+export { Fills, Overview, Palette, Playground, Sizes };

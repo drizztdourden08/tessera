@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind component */
+import '../../theme/control-size.css';
 import './PositionInput.css';
 import { useCallback } from 'react';
+import { useControlSize } from '../field-control/useControlSize';
 import { FieldControlBoundary } from '../FieldControlBoundary/FieldControlBoundary';
 import { Span } from '../text-elements';
 import { AxisField } from './sub-components/AxisField';
@@ -8,13 +10,15 @@ import type { PositionInputProps } from './PositionInput.type';
 import { DEFAULT_X_LABEL, DEFAULT_Y_LABEL, OPEN_AXIS } from './PositionInput.constants';
 
 const PositionInput = (props: PositionInputProps) => {
-  const { value, onChange, x = OPEN_AXIS, y = OPEN_AXIS, disabled = false, label, className = '' } = props;
+  const { value, onChange, x = OPEN_AXIS, y = OPEN_AXIS, disabled = false, label, size, className = '' } = props;
+  const controlSize = useControlSize(size);
 
   const commitX = useCallback((next: number) => onChange({ ...value, x: next }), [onChange, value]);
   const commitY = useCallback((next: number) => onChange({ ...value, y: next }), [onChange, value]);
 
   const classes = [
     'position-input',
+    `control-size--${controlSize}`,
     disabled ? 'position-input--disabled' : '',
     className,
   ].filter(Boolean).join(' ');
@@ -29,6 +33,7 @@ const PositionInput = (props: PositionInputProps) => {
             axisLabel={x.label ?? DEFAULT_X_LABEL}
             value={value.x}
             disabled={disabled}
+            size={controlSize}
             onCommit={commitX}
           />
           <AxisField
@@ -36,6 +41,7 @@ const PositionInput = (props: PositionInputProps) => {
             axisLabel={y.label ?? DEFAULT_Y_LABEL}
             value={value.y}
             disabled={disabled}
+            size={controlSize}
             onCommit={commitY}
           />
         </FieldControlBoundary>

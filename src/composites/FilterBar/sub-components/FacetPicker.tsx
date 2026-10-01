@@ -36,6 +36,7 @@ const FacetPicker = ({ facet }: FacetPickerProps) => {
             {facet.options.map((option) => (
               <Checkbox
                 key={option.id}
+                size="sm"
                 className="filter-bar__facet-row"
                 checked={!facet.hidden.has(option.id)}
                 onChange={() => facet.onToggle(option.id)}

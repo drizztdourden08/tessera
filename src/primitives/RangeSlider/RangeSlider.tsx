@@ -1,7 +1,9 @@
 /* @layer renderer-components @kind component */
+import '../../theme/control-size.css';
 import '../../theme/slider-thumb.css';
 import './RangeSlider.css';
 import type { CSSProperties } from 'react';
+import { useControlSize } from '../field-control/useControlSize';
 import type { RangeSliderProps } from './RangeSlider.type';
 import { rangePercent } from './behavior/range-percent';
 import { useRangeThumbs } from './behavior/useRangeThumbs';
@@ -10,8 +12,9 @@ import { RangeTicks } from './sub-components/RangeTicks';
 
 const RangeSlider = (props: RangeSliderProps) => {
   const {
-    stops, value, onChange, disabled = false, step = 1, labelEvery, ariaLabel, className = '',
+    stops, value, onChange, disabled = false, step = 1, labelEvery, ariaLabel, size, className = '',
   } = props;
+  const controlSize = useControlSize(size);
   const [low, high] = value;
   const last = Math.max(0, stops.length - 1);
   const thumbs = useRangeThumbs(value, onChange, last, step);
@@ -23,7 +26,7 @@ const RangeSlider = (props: RangeSliderProps) => {
   } as CSSProperties;
 
   return (
-    <div className={`range-slider${disabled ? ' range-slider--disabled' : ''}${className ? ` ${className}` : ''}`}>
+    <div className={`range-slider control-size--${controlSize}${disabled ? ' range-slider--disabled' : ''}${className ? ` ${className}` : ''}`}>
       <div className="range-slider__track" style={fill}>
         <RangeThumb
           value={low}

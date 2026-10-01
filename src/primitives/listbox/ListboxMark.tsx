@@ -12,7 +12,7 @@ const ListboxMark = (props: ListboxMarkProps) => {
   }
   return (
     <span className="listbox-option__mark" inert>
-      <Checkbox checked={state.selected} disabled={state.disabled || state.locked} onChange={ignoreChange} />
+      <Checkbox size="sm" checked={state.selected} disabled={state.disabled || state.locked} onChange={ignoreChange} />
     </span>
   );
 };

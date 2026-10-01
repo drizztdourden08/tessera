@@ -45,6 +45,7 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
     title: 'Controls and chrome',
     entries: [
       { token: '--control-h-sm' },
+      { token: '--control-h-md' },
       { token: '--titlebar-height' },
       { token: '--scrollbar-size' },
       { token: '--avatar-d' },

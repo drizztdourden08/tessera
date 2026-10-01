@@ -1,6 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Field, Textarea } from '../../src/primitives';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
+import { Field, Textarea, type ControlSize } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -14,11 +16,12 @@ type TextareaArgs = {
   disabled: boolean;
   readOnly: boolean;
   invalid: boolean;
+  size: ControlSize;
 };
 
 const SESSION_NOTES = 'Picked up the lamp early.\nSkipped the sewer route and went straight to the throne room.';
 
-const ARGS: Partial<TextareaArgs> = { initialValue: SESSION_NOTES, placeholder: 'Notes for this session', rows: 4, disabled: false, readOnly: false, invalid: false };
+const ARGS: Partial<TextareaArgs> = { initialValue: SESSION_NOTES, placeholder: 'Notes for this session', rows: 4, disabled: false, readOnly: false, invalid: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<TextareaArgs> = {
     initialValue: { control: 'textarea' },
@@ -27,6 +30,7 @@ const ARG_TYPES: StoryLiteArgTypes<TextareaArgs> = {
     disabled: { control: 'boolean' },
     readOnly: { control: 'boolean' },
     invalid: { control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -52,9 +56,12 @@ const Playground = {
       disabled={args.disabled}
       readOnly={args.readOnly}
       invalid={args.invalid}
+      size={args.size}
     />
   ),
 } satisfies StoryLiteStoryDefinition<TextareaArgs>;
+
+const Sizes = sizesStory<TextareaArgs>((size) => <Textarea size={size} rows={1} defaultValue="One line of notes" />, { align: 'stretch' });
 
 const InField = {
   name: 'In a field',
@@ -75,9 +82,9 @@ const renderError = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'Textarea',
-  description: 'A multi-line text field, the styled replacement for a raw textarea. Use it for notes, descriptions and any text longer than one line. It takes every native textarea attribute, including rows, placeholder, disabled and readOnly, and forwards its ref. Set invalid for the error look, or wrap it in a Field with an error: the field sets invalid for it and shows the message.',
+  description: 'A multi-line text field, the styled replacement for a raw textarea. Use it for notes, descriptions and any text longer than one line. size sets the padding and text: at one row, md matches the standard control height and sm the compact one. It takes every native textarea attribute, including rows, placeholder, disabled and readOnly, and forwards its ref. Set invalid for the error look, or wrap it in a Field with an error: the field sets invalid for it and shows the message.',
   playground: Playground,
-  variants: [InField],
+  variants: [Sizes, InField],
   states: {
     render: renderState,
     list: [
@@ -93,4 +100,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { InField, Overview, Playground };
+export { InField, Overview, Playground, Sizes };

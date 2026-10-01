@@ -1,12 +1,15 @@
 /* @layer renderer-components @kind component */
+import '../../theme/control-size.css';
 import './TagPicker.css';
+import { useControlSize } from '../field-control/useControlSize';
 import { Tag } from '../Tag';
 import { Span } from '../text-elements';
 import { optionLook } from './behavior/option-look';
 import type { TagPickerProps } from './TagPicker.type';
 
 const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
-  const { value, groups, onChange, label, disabled = false, single = false } = props;
+  const { value, groups, onChange, label, disabled = false, single = false, size } = props;
+  const controlSize = useControlSize(size);
 
   const toggle = (tag: T) => {
     if (single) {
@@ -19,7 +22,7 @@ const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
   };
 
   return (
-    <div className={`tag-picker ${disabled ? 'tag-picker--disabled' : ''}`}>
+    <div className={`tag-picker control-size--${controlSize} ${disabled ? 'tag-picker--disabled' : ''}`}>
       {label && <Span className="tag-picker__label">{label}</Span>}
       {groups.map(group => (
         <div key={group.id} className="tag-picker__group">

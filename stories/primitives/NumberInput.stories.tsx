@@ -2,7 +2,9 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Field, NumberInput, Text } from '../../src/primitives';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
+import { Box, Field, NumberInput, Text, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -15,9 +17,10 @@ type NumberInputArgs = {
   step: number;
   disabled: boolean;
   sizeToContent: boolean;
+  size: ControlSize;
 };
 
-const ARGS: Partial<NumberInputArgs> = { min: 0, max: 100, step: 5, disabled: false, sizeToContent: true };
+const ARGS: Partial<NumberInputArgs> = { min: 0, max: 100, step: 5, disabled: false, sizeToContent: true, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<NumberInputArgs> = {
     min: { control: 'number' },
@@ -25,6 +28,7 @@ const ARG_TYPES: StoryLiteArgTypes<NumberInputArgs> = {
     step: { control: 'number' },
     disabled: { control: 'boolean' },
     sizeToContent: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -33,7 +37,7 @@ const meta = {
 } satisfies StoryLiteMeta<NumberInputArgs>;
 
 const StatefulNumber = (props: { initial: number } & Partial<NumberInputArgs>) => {
-  const { initial, min, max, step, disabled, sizeToContent } = props;
+  const { initial, min, max, step, disabled, sizeToContent, size } = props;
   const [value, setValue] = useState(initial);
   return (
     <Box className="story-row">
@@ -44,6 +48,7 @@ const StatefulNumber = (props: { initial: number } & Partial<NumberInputArgs>) =
         step={step}
         disabled={disabled}
         sizeToContent={sizeToContent}
+        size={size}
         onChange={setValue}
       />
       <Text className="story-label">Value: {Number.isNaN(value) ? '(empty)' : value}</Text>
@@ -75,6 +80,8 @@ const Sizing = {
   render: () => <Demonstrator rows={axis(Object.keys(SIZINGS))} align="stretch" cell={(row) => SIZINGS[row]} />,
 } satisfies StoryLiteStoryDefinition<NumberInputArgs>;
 
+const Sizes = sizesStory<NumberInputArgs>((size) => <StatefulNumber initial={25} min={0} max={100} step={5} sizeToContent size={size} />);
+
 const HintCost = (props: { initial: number; disabled?: boolean }) => {
   const { initial, disabled } = props;
   const [value, setValue] = useState(initial);
@@ -100,9 +107,9 @@ const [cost, setCost] = useState(25);
 
 const Overview = overviewStory({
   component: 'NumberInput',
-  description: 'A number field with its own step up and step down buttons. Use it for a count, a cost or a speed, where typing a value and nudging it both make sense. The buttons move by step and stop at min and max, onChange hands back a number (NaN when the field is cleared), sizeToContent narrows the field to the widest value max allows, and invalid, or a Field with an error, draws the error look.',
+  description: 'A number field with its own step up and step down buttons. Use it for a count, a cost or a speed, where typing a value and nudging it both make sense. The buttons move by step and stop at min and max, onChange hands back a number (NaN when the field is cleared), sizeToContent narrows the field to the widest value max allows, size picks md, the standard control height, or the compact sm, and invalid, or a Field with an error, draws the error look.',
   playground: Playground,
-  variants: [Sizing],
+  variants: [Sizing, Sizes],
   states: {
     render: renderState,
     list: [
@@ -117,4 +124,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Playground, Sizing };
+export { Overview, Playground, Sizes, Sizing };

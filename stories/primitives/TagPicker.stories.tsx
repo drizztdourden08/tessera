@@ -1,8 +1,10 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { sizesStory } from '../_template/sizes-story';
 import { Box, TagPicker } from '../../src/primitives';
-import type { TagPickerGroup } from '../../src/primitives';
+import type { ControlSize, TagPickerGroup } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -15,6 +17,7 @@ type TagPickerArgs = {
   label: string;
   single: boolean;
   disabled: boolean;
+  size: ControlSize;
 };
 
 const GAME_GROUPS: TagPickerGroup[] = [
@@ -50,12 +53,13 @@ const GOALS: TagPickerGroup[] = [
   },
 ];
 
-const ARGS: Partial<TagPickerArgs> = { label: 'Games in the multiworld', single: false, disabled: false };
+const ARGS: Partial<TagPickerArgs> = { label: 'Games in the multiworld', single: false, disabled: false, size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<TagPickerArgs> = {
     label: { control: 'text' },
     single: { control: 'boolean', description: 'One pick at a time, the tags act as radios.' },
     disabled: { control: 'boolean' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -66,11 +70,11 @@ const meta = {
 type StatefulPickerProps = { initial: string[]; groups: TagPickerGroup[] } & Partial<TagPickerArgs>;
 
 const StatefulPicker = (props: StatefulPickerProps) => {
-  const { initial, groups, label, single, disabled } = props;
+  const { initial, groups, label, single, disabled, size } = props;
   const [value, setValue] = useState(initial);
   return (
     <ValueReadout value={value}>
-      <TagPicker value={value} groups={groups} onChange={setValue} label={label} single={single} disabled={disabled} />
+      <TagPicker value={value} groups={groups} onChange={setValue} label={label} single={single} disabled={disabled} size={size} />
     </ValueReadout>
   );
 };
@@ -103,6 +107,8 @@ const Colours = {
   ),
 } satisfies StoryLiteStoryDefinition<TagPickerArgs>;
 
+const Sizes = sizesStory<TagPickerArgs>((size) => <StatefulPicker initial={['alttp']} groups={GAME_GROUPS} label="Games in the multiworld" size={size} />);
+
 const Goals = (props: { initial: string[]; disabled: boolean }) => {
   const { initial, disabled } = props;
   const [value, setValue] = useState(initial);
@@ -115,9 +121,9 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TagPicker',
-  description: 'A set of Tags to switch on and off, for picking from a short, known list of options. Options can sit in labelled groups, or in one flat set with no heading. Each click adds or removes a value, and single turns the tags into radios that hold at most one pick. The value is an array either way, and the whole picker can be disabled. An option takes the variant and color of a Tag and keeps them once picked: category colours for a series, urgency colours for a state. An option with neither turns primary.',
+  description: 'A set of Tags to switch on and off, for picking from a short, known list of options. Options can sit in labelled groups, or in one flat set with no heading. Each click adds or removes a value, and single turns the tags into radios that hold at most one pick. The value is an array either way, and the whole picker can be disabled. An option takes the variant and color of a Tag and keeps them once picked: category colours for a series, urgency colours for a state. An option with neither turns primary. size sm tightens the gaps and the label for a compact panel; the Tags keep their one size.',
   playground: Playground,
-  variants: [Layouts, Colours],
+  variants: [Layouts, Colours, Sizes],
   states: {
     render: renderState,
     list: [
@@ -145,4 +151,4 @@ const [goals, setGoals] = useState(['ganon']);
 });
 
 export default meta;
-export { Colours, Layouts, Overview, Playground };
+export { Colours, Layouts, Overview, Playground, Sizes };

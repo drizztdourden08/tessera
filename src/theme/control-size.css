@@ -1,0 +1,16 @@
+/* @layer renderer-components @kind style */
+.control-size--md {
+  --control-height: var(--control-h-md);
+  --control-pad-inline: var(--space-md);
+  --control-font: var(--text-base);
+  --control-font-dense: var(--text-sm);
+  --control-gap: var(--space-sm);
+}
+
+.control-size--sm {
+  --control-height: var(--control-h-sm);
+  --control-pad-inline: var(--space-sm);
+  --control-font: var(--text-sm);
+  --control-font-dense: var(--text-xs);
+  --control-gap: var(--space-xs);
+}

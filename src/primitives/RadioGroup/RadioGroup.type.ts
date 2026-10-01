@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { ControlSize } from '../field-control/field-control.type';
+
 interface RadioOption<T extends string = string> {
   value: T;
   label: string;
@@ -14,6 +16,7 @@ interface RadioGroupProps<T extends string = string> {
   direction?: 'horizontal' | 'vertical';
   disabled?: boolean;
   name?: string;
+  size?: ControlSize;
 }
 
 export type {

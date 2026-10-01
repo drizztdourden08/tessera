@@ -26,19 +26,19 @@ const HintScopeDemo = () => {
         </Box>
         <Box className="segment-hint-demo__row">
           <Text className="story-label">Placement</Text>
-          <SegmentedControl size="xs" aria-label="Placement" value={dock} options={DOCK_OPTIONS} onChange={setDock} />
+          <SegmentedControl size="sm" aria-label="Placement" value={dock} options={DOCK_OPTIONS} onChange={setDock} />
         </Box>
         <Box className="segment-hint-demo__row">
           <Text className="story-label">Layers</Text>
-          <ToggleGroup value={layers} options={LAYERS} onChange={setLayers} />
+          <ToggleGroup size="sm" value={layers} options={LAYERS} onChange={setLayers} />
         </Box>
         <Box className="segment-hint-demo__row">
           <Text className="story-label">Snap</Text>
-          <Toggle size="xs" checked={snap} onChange={setSnap} hint={{ label: snap ? 'Snap on' : 'Snap off', description: 'Pulls the map to the nearest room' }} />
+          <Toggle size="sm" checked={snap} onChange={setSnap} hint={{ label: snap ? 'Snap on' : 'Snap off', description: 'Pulls the map to the nearest room' }} />
         </Box>
         <Box className="segment-hint-demo__row">
           <Text className="story-label">Zoom</Text>
-          <Slider size="xs" value={zoom} min={50} max={200} step={10} onChange={setZoom} formatValue={(v) => `${v}%`} hint={{ label: `Zoom ${zoom}%`, description: 'How close the map is drawn' }} />
+          <Slider size="sm" value={zoom} min={50} max={200} step={10} onChange={setZoom} formatValue={(v) => `${v}%`} hint={{ label: `Zoom ${zoom}%`, description: 'How close the map is drawn' }} />
         </Box>
         <HintLine className="segment-hint-demo__line" />
       </Box>

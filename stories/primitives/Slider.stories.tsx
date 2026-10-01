@@ -1,8 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, Slider } from '../../src/primitives';
-import type { SliderSize } from '../../src/primitives';
+import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
+import { Box, Slider, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -19,7 +19,7 @@ type SliderArgs = {
   showValue: boolean;
   withMute: boolean;
   disabled: boolean;
-  size: SliderSize;
+  size: ControlSize;
 };
 
 const percent = (value: number): string => `${value}%`;
@@ -45,7 +45,7 @@ const ARG_TYPES: StoryLiteArgTypes<SliderArgs> = {
     showValue: { control: 'boolean' },
     withMute: { control: 'boolean', description: 'Passes mute, which draws the speaker button.' },
     disabled: { control: 'boolean' },
-    size: { control: 'select', options: ['md', 'xs'], description: 'xs is the compact slider for widget panels.' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -95,12 +95,10 @@ const Kinds = {
   ),
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
-const SIZE_KEYS = ['md', 'xs'] as const;
-
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <Demonstrator rows={axis(SIZE_KEYS)} cell={(size) => <StatefulSlider initial={60} size={size} format={percent} step={5} />} />
+    <Demonstrator rows={axis(CONTROL_SIZES)} cell={(size) => <StatefulSlider initial={60} size={size} format={percent} step={5} />} />
   ),
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
@@ -129,7 +127,7 @@ const [volume, setVolume] = useState(80);
 
 const Overview = overviewStory({
   component: 'Slider',
-  description: 'A labelled single-value slider with its current value written beside the track. Use it for a setting on a scale, like a volume or a cost. formatValue sets how the value is written, showValue hides it, and passing mute adds a speaker button that drops the value to zero and brings it back.',
+  description: 'A labelled single-value slider with its current value written beside the track. Use it for a setting on a scale, like a volume or a cost. formatValue sets how the value is written, showValue hides it, and passing mute adds a speaker button that drops the value to zero and brings it back. size md is the standard slider and sm the compact one for widget panels, with a smaller thumb, track and text.',
   playground: Playground,
   variants: [Kinds, Sizes],
   states: {

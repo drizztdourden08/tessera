@@ -11,7 +11,7 @@ const ChoiceRow = <T extends string>(props: ChoiceRowProps<T>) => {
   };
   return (
     <OptionRow label={label}>
-      <SegmentedControl<T | ''> size="xs" aria-label={label} value={value} options={iconOptions(choices, words)} onChange={choose} />
+      <SegmentedControl<T | ''> size="sm" aria-label={label} value={value} options={iconOptions(choices, words)} onChange={choose} />
       {children}
     </OptionRow>
   );

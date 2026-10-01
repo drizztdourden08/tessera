@@ -8,7 +8,7 @@ const comboboxClass = (input: ComboboxClassInput): string => {
     'listbox-anchor',
     open && 'combobox--open',
     disabled && 'combobox--disabled',
-    size === 'sm' && 'combobox--sm',
+    `control-size--${size}`,
     multi && 'combobox--multi',
     className,
   ].filter(Boolean).join(' ');

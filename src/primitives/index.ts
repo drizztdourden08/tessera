@@ -46,12 +46,12 @@ export type {
   ItemPlace, ListboxCategories, ListboxCategory, ListboxColumn, ListboxItemProps, ListboxTone, ValueDisplay, ValueOf,
 } from './listbox';
 export { Toggle } from './Toggle';
-export type { ToggleProps, ToggleSize } from './Toggle/Toggle.type';
+export type { ToggleProps } from './Toggle/Toggle.type';
 export { Slider } from './Slider';
-export type { SliderProps, SliderSize } from './Slider/Slider.type';
+export type { SliderProps } from './Slider/Slider.type';
 export { RadioGroup, type RadioOption } from './RadioGroup';
 export { SegmentedControl } from './SegmentedControl';
-export type { SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps, SegmentedSize } from './SegmentedControl';
+export type { SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps } from './SegmentedControl';
 export { ToggleGroup } from './ToggleGroup';
 export type { ToggleOption, ToggleGroupProps } from './ToggleGroup';
 export { TabBar, type TabItem } from './TabBar';
@@ -74,6 +74,8 @@ export type { TagAdvice, TagInputProps, TagValidationResult, TagValidator } from
 export { Field, useFieldControl } from './Field';
 export { FieldControlBoundary } from './FieldControlBoundary';
 export type { FieldProps } from './Field';
+export { useControlSize } from './field-control/useControlSize';
+export type { ControlSize } from './field-control/field-control.type';
 export { NumberInput } from './NumberInput';
 export type { NumberInputProps } from './NumberInput';
 export { PositionInput, clampAxis, clampPosition, isValidForAxis, isWithinAxis } from './PositionInput';
