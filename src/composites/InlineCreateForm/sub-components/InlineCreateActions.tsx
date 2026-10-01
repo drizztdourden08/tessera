@@ -1,15 +1,16 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
 import { ButtonRow } from '../../../primitives/ButtonRow';
-import { CANCEL_LABEL, SUBMIT_LABEL } from '../InlineCreateForm.constants';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { InlineCreateActionsProps } from './InlineCreateActions.type';
 
 const InlineCreateActions = (props: InlineCreateActionsProps) => {
-  const { ready, onSubmit, onCancel, submitLabel = SUBMIT_LABEL, cancelLabel = CANCEL_LABEL } = props;
+  const { ready, onSubmit, onCancel, submitLabel, cancelLabel } = props;
+  const { common } = useTesseraStrings();
   return (
     <ButtonRow className="inline-create-form__actions">
-      <Button variant="primary" fullWidth disabled={!ready} onClick={onSubmit}>{submitLabel}</Button>
-      {onCancel && <Button variant="tertiary" fullWidth onClick={onCancel}>{cancelLabel}</Button>}
+      <Button variant="primary" fullWidth disabled={!ready} onClick={onSubmit}>{submitLabel ?? common.create}</Button>
+      {onCancel && <Button variant="tertiary" fullWidth onClick={onCancel}>{cancelLabel ?? common.cancel}</Button>}
     </ButtonRow>
   );
 };

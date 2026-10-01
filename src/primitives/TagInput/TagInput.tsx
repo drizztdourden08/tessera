@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useId } from 'react';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { useTagInput } from './behavior/useTagInput';
 import { adviseTag } from './behavior/tag-convention';
 import { tagInputClass } from './behavior/tag-input-class';
@@ -12,9 +13,10 @@ import '../../theme/select-popup.css';
 import './TagInput.css';
 
 const TagInput = (props: TagInputProps) => {
+  const { fields } = useTesseraStrings();
   const {
     value, onChange, suggestions, validate, enforce, createError,
-    placeholder = 'Add a tag...', disabled = false, label, maxSuggestions, defaultOpen, inline, className = '', id,
+    placeholder = fields.tagPlaceholder, disabled = false, label, maxSuggestions, defaultOpen, inline, className = '', id,
   } = props;
 
   const generatedId = useId();

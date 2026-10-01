@@ -90,7 +90,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
     },
     {
       group: 'Setup',
-      entries: [{ name: 'TesseraProvider', summary: 'Swaps Tessera parts, like the spinner, for ones the app brings, once at the root.' }],
+      entries: [{ name: 'TesseraProvider', summary: 'Swaps Tessera parts, from the spinner and links to the wording and icons, for ones the app brings, once at the root.' }],
     },
   ],
 };

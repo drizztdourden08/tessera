@@ -6,6 +6,8 @@ import type { ICONS } from './Icon.constants';
 
 type IconName = keyof typeof ICONS;
 
+type IconSet = Readonly<Record<IconName, IconifyIcon>>;
+
 type IconRotation = 0 | 90 | 180 | 270;
 
 type IconFlip = 'horizontal' | 'vertical' | 'both';
@@ -31,4 +33,4 @@ interface BrandIconProps extends IconLook {
   tone?: BrandIconTone;
 }
 
-export type { BrandIconName, BrandIconProps, BrandIconTone, IconFlip, IconLook, IconName, IconProps, IconRotation, IconSource };
+export type { BrandIconName, BrandIconProps, BrandIconTone, IconFlip, IconLook, IconName, IconProps, IconRotation, IconSet, IconSource };

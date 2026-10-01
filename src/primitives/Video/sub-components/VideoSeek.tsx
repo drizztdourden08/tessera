@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import type { CSSProperties, KeyboardEvent } from 'react';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { formatTime } from '../behavior/format-time';
 import { hasTimeline } from '../behavior/has-timeline';
 import { seekTarget } from '../behavior/seek-target';
@@ -11,6 +12,7 @@ import { VideoTrack } from './VideoTrack';
 
 const VideoSeek = (props: VideoSeekProps) => {
   const { currentTime, duration, buffered, onSeek } = props;
+  const { video } = useTesseraStrings();
   const { hover, handlePointerMove, handlePointerLeave } = useSeekHover();
   const seekable = hasTimeline(duration);
 
@@ -32,8 +34,8 @@ const VideoSeek = (props: VideoSeekProps) => {
         disabled={!seekable}
         fill={toPercent(currentTime, duration)}
         buffer={toPercent(buffered, duration)}
-        aria-label="Seek"
-        aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration)}`}
+        aria-label={video.seek}
+        aria-valuetext={video.timeOf(formatTime(currentTime), formatTime(duration))}
         onChange={(event) => onSeek(Number(event.target.value))}
         onKeyDown={handleKeyDown}
       />

@@ -74,8 +74,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     'DataTable': 'table', 'FilterBar': 'filter', 'RecordEditor': 'file-pen-line', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',
   },
   'Composites · Content': {
-    LogPanel: 'logs', AboutPanel: 'info', ReleaseNotesPanel: 'notebook-text', Emphasis: 'wand-sparkles', ColorPicker: 'pipette',
-    ColorPickerPopover: 'paintbrush', PixelWordmark: 'type-outline', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
+    LogPanel: 'logs', AboutPanel: 'info', FactsPanel: 'table-properties', ReleaseNotesPanel: 'notebook-text', Emphasis: 'wand-sparkles',
+    ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', PixelWordmark: 'type-outline', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
   'Composites · Input devices': { CalibrationPanel: 'crosshair', PressedGrid: 'grid-2x2-check', StickPlot: 'joystick' },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog' },

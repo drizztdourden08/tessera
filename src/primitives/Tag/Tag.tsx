@@ -3,6 +3,7 @@ import { Glyph } from '../Glyph';
 import { IconButton } from '../IconButton';
 import { Pressable } from '../Pressable';
 import { Span } from '../text-elements';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { tagClass } from './behavior/tag-class';
 import type { TagProps } from './Tag.type';
 import './Tag.css';
@@ -12,10 +13,11 @@ const Tag = (props: TagProps) => {
     variant, color, selected, onSelect, role, onRemove, name, disabled = false, title, className, children, ...data
   } = props;
   const cls = tagClass(props);
+  const { common } = useTesseraStrings();
   const body = (
     <>
-      {variant === 'category' && <span className="tag-chip__dot" aria-hidden />}
-      <Span className="tag-chip__text">{children}</Span>
+      {variant === 'category' && <span className="tag__dot" aria-hidden />}
+      <Span className="tag__text">{children}</Span>
     </>
   );
 
@@ -42,10 +44,10 @@ const Tag = (props: TagProps) => {
       {body}
       {onRemove !== undefined && (
         <IconButton
-          className="tag-chip__remove"
+          className="tag__remove"
           variant="ghost"
           size="sm"
-          label={`Remove ${name ?? String(children)}`}
+          label={common.removeNamed(name ?? String(children))}
           disabled={disabled}
           tabIndex={disabled ? -1 : 0}
           onClick={onRemove}

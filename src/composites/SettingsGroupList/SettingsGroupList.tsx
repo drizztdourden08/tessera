@@ -2,7 +2,7 @@
 import { Box } from '../../primitives/Box';
 import { EmptyState } from '../../primitives/EmptyState';
 import { SettingsSection } from '../SettingsSection';
-import { EMPTY_MESSAGE } from './SettingsGroupList.constants';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { SettingsGroupListHeading } from './sub-components/SettingsGroupListHeading';
 import type { SettingsGroupListProps } from './SettingsGroupList.type';
 import '../../theme/search-hit.css';
@@ -12,7 +12,8 @@ const flashClass = (id: string | undefined, flash: string | undefined): string |
   id !== undefined && id === flash ? 'search-hit' : undefined;
 
 const SettingsGroupList = (props: SettingsGroupListProps) => {
-  const { sections, flash, renderLock, emptyMessage = EMPTY_MESSAGE, className = '' } = props;
+  const { panels } = useTesseraStrings();
+  const { sections, flash, renderLock, emptyMessage = panels.settingsEmpty, className = '' } = props;
   if (sections.length === 0) return <EmptyState className={className || undefined} message={emptyMessage} />;
 
   return (

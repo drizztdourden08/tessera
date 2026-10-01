@@ -3,12 +3,14 @@ import { forwardRef } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { Text } from '../../../primitives/Text';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { cellContent } from '../behavior/cell-content';
 import type { ColumnDragGhostProps } from './ColumnDragGhost.type';
 
 const ColumnDragGhost = forwardRef<HTMLElement, ColumnDragGhostProps>((props, ref) => {
   const { label, path, field, rows, total } = props;
   const rest = Math.max(0, total - rows.length);
+  const { table } = useTesseraStrings();
 
   return (
     <Box ref={ref} className="data-table__drag-ghost" aria-hidden="true">
@@ -21,7 +23,7 @@ const ColumnDragGhost = forwardRef<HTMLElement, ColumnDragGhostProps>((props, re
           {cellContent(row, path, field)}
         </Box>
       ))}
-      {rest > 0 && <Text variant="caption" className="data-table__drag-ghost-rest">{`+${rest} more`}</Text>}
+      {rest > 0 && <Text variant="caption" className="data-table__drag-ghost-rest">{table.moreRows(rest)}</Text>}
     </Box>
   );
 });

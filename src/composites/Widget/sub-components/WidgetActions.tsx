@@ -2,12 +2,14 @@
 import { Box } from '../../../primitives/Box';
 import { Glyph } from '../../../primitives/Glyph';
 import { IconButton } from '../../../primitives/IconButton';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { PinButton } from './PinButton';
 import { PopButton } from './PopButton';
 import type { WidgetActionsProps } from './WidgetActions.type';
 
 const WidgetActions = (props: WidgetActionsProps) => {
   const { mode, pin, onTop, onPinChange, onPopOut, canPopOut, optionsOpen, onOpenOptions, onClose } = props;
+  const { common } = useTesseraStrings();
   const out = mode === 'out';
 
   return (
@@ -16,14 +18,14 @@ const WidgetActions = (props: WidgetActionsProps) => {
       <PopButton out={out} canPopOut={canPopOut ?? true} onPopOut={onPopOut} />
       <IconButton
         className="widget__btn"
-        label="Options"
-        title="Options"
+        label={common.options}
+        title={common.options}
         active={optionsOpen ?? false}
         onClick={(e) => onOpenOptions(e.currentTarget)}
       >
         <Glyph name="gear" size={14} />
       </IconButton>
-      <IconButton className="widget__btn" label="Close" title="Close" onClick={onClose}>
+      <IconButton className="widget__btn" label={common.close} title={common.close} onClick={onClose}>
         <Glyph name="close" size={14} />
       </IconButton>
     </Box>

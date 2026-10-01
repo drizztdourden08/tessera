@@ -2,11 +2,12 @@
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
 import { Paragraph } from '../../../primitives/text-elements';
-import { DELETE, REVERT, SAVE } from './EditorFooter.constants';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { EditorFooterProps } from './EditorFooter.type';
 
 const EditorFooter = (props: EditorFooterProps) => {
   const { canSave, isDirty, saving, saveError, disabled, onRevert, onSave, onDelete } = props;
+  const { common, records } = useTesseraStrings();
   if (!canSave && onDelete === undefined) return null;
   const locked = !isDirty || saving || disabled;
 
@@ -17,16 +18,16 @@ const EditorFooter = (props: EditorFooterProps) => {
       )}
       {onDelete !== undefined && (
         <Button variant="danger" disabled={disabled} onClick={onDelete}>
-          {DELETE}
+          {common.delete}
         </Button>
       )}
       {canSave && (
         <>
           <Button variant="tertiary" disabled={locked} onClick={onRevert}>
-            {REVERT}
+            {records.revert}
           </Button>
           <Button variant="primary" disabled={!isDirty || disabled} loading={saving} onClick={onSave}>
-            {SAVE}
+            {common.save}
           </Button>
         </>
       )}

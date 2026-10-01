@@ -85,8 +85,11 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
       { token: '--hero-art-left' },
       { token: '--hero-art-h' },
       { token: '--hero-aside-w' },
-      { token: '--hero-fact-max-w' },
     ],
+  },
+  {
+    title: 'FactsPanel',
+    entries: [{ token: '--facts-panel-value-max-w' }],
   },
   {
     title: 'Brand',

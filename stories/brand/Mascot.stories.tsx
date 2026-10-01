@@ -7,6 +7,7 @@ import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { MASCOT_BRANDS, MASCOT_VARIANT_IDS } from './_samples/mascot-brands.constants';
+import { IconFileRows } from './_samples/IconFileRows';
 import { MascotBreakdown } from './_samples/MascotBreakdown';
 
 type MascotArgs = {
@@ -105,11 +106,16 @@ const Breakdown = {
   ),
 } satisfies StoryLiteStoryDefinition<MascotArgs>;
 
+const IconFiles = {
+  name: 'Icon files',
+  render: () => <IconFileRows pick={(_app, files) => files.kind === 'mascot'} />,
+} satisfies StoryLiteStoryDefinition<MascotArgs>;
+
 const Overview = overviewStory({
   component: 'Mascot',
-  description: 'An app\'s mascot, built in code from its separate SVG pieces: a composition function places, turns and clips each piece, and Mascot draws the result inline. The mascot comes from the brand data, so any app can add one; Relic of the Past is the only one with a mascot so far: Sentri, a gold pyramid with a visor, eyes and pods. Its variants are Sentri at rest and the Hookshop highlight, where Sentri pulls a shop bag in with its hookshot. A pose moves the eyes and turns the pods without new art. Use size for the mark sizes, or scale for whole screen pixels per art pixel. Breakdown shows every piece alone and the assembly step by step.',
+  description: 'An app\'s mascot, built in code from its separate SVG pieces: a composition function places, turns and clips each piece, and Mascot draws the result inline. The mascot comes from the brand data, so any app can add one; Relic of the Past is the only one with a mascot so far: Sentri, a gold pyramid with a visor, eyes and pods. Its variants are Sentri at rest and the Hookshop highlight, where Sentri pulls a shop bag in with its hookshot. A pose moves the eyes and turns the pods without new art. Use size for the mark sizes, or scale for whole screen pixels per art pixel. Breakdown shows every piece alone and the assembly step by step. Icon files shows the PNG at each size and the .ico that `pnpm icons` writes for each mascot.',
   playground: Playground,
-  variants: [Variants, Sizes, Poses],
+  variants: [Variants, Sizes, Poses, IconFiles],
   code: `import { Mascot } from '@drizztdourden08/tessera/brand';
 
 <Mascot brand="rotp" size="lg" />
@@ -118,4 +124,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Breakdown, Overview };
+export { Breakdown, IconFiles, Overview };

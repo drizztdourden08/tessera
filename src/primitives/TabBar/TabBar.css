@@ -57,6 +57,8 @@
 }
 
 .tab-bar__icon {
+  display: inline-flex;
+  flex: none;
   font-size: var(--text-base);
 }
 

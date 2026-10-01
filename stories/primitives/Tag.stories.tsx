@@ -142,7 +142,7 @@ const Overview = overviewStory({
       STATE.focus,
       STATE.selected,
       { ...STATE.disabled, props: { selected: true, disabled: true } },
-      { name: 'Remove focused', pseudo: 'focus-visible', target: '.tag-chip__remove', render: () => <Tag onRemove={noop}>mode:open</Tag> },
+      { name: 'Remove focused', pseudo: 'focus-visible', target: '.tag__remove', render: () => <Tag onRemove={noop}>mode:open</Tag> },
     ],
   },
   code: `import { Tag } from '@drizztdourden08/tessera';

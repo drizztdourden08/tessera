@@ -5,7 +5,7 @@ import type { Side } from './InteractiveTessera.type';
 const MARK = { x: 228, y: 226, size: 799 };
 const WING = 650;
 const STAGE = { x: MARK.x - WING, y: MARK.y, width: MARK.size + 2 * WING, height: MARK.size };
-const CALLOUT_EDGE: Record<Side, number> = { left: 170, right: 1090 };
+const CALLOUT_EDGE: Record<Side, number> = { left: 120, right: 1135 };
 const BAR_BOTTOM = 450;
 const SLIDE = 520;
 

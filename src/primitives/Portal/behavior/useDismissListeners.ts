@@ -4,7 +4,7 @@ import { ownerDocumentOf } from '../../dom/owner-document';
 import type { UseDismissListenersParams } from './useDismissListeners.type';
 
 const useDismissListeners = (params: UseDismissListenersParams): void => {
-  const { open, onClose, contentRef, triggerRef } = params;
+  const { open, onClose, contentRef, triggerRef, escape = true } = params;
 
   useEffect(() => {
     if (!open) return;
@@ -23,7 +23,7 @@ const useDismissListeners = (params: UseDismissListenersParams): void => {
   }, [open, onClose, contentRef, triggerRef]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || !escape) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.stopPropagation();
@@ -33,7 +33,7 @@ const useDismissListeners = (params: UseDismissListenersParams): void => {
     const doc = ownerDocumentOf(triggerRef.current ?? contentRef.current);
     doc.addEventListener('keydown', handler, true);
     return () => doc.removeEventListener('keydown', handler, true);
-  }, [open, onClose, contentRef, triggerRef]);
+  }, [open, escape, onClose, contentRef, triggerRef]);
 };
 
 export { useDismissListeners };

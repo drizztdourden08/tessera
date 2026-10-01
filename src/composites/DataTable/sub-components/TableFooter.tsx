@@ -1,18 +1,20 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Text } from '../../../primitives/Text';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { summaryLine } from '../behavior/summary-line';
 import { TableOptionsMenu } from './TableOptionsMenu';
-import { DEFAULT_COUNT_LABEL } from './TableFooter.constants';
 import type { TableFooterProps } from './TableFooter.type';
 import './TableFooter.css';
 
 const TableFooter = (props: TableFooterProps) => {
   const {
-    count, countLabel = DEFAULT_COUNT_LABEL, sortActive, groupActive, fieldNodes, actions, summary,
+    count, countLabel, sortActive, groupActive, fieldNodes, actions, summary,
   } = props;
-  const noun = count === 1 ? countLabel[0] : countLabel[1];
-  const line = summaryLine(summary);
+  const { table } = useTesseraStrings();
+  const [one, many] = countLabel ?? [table.entry, table.entries];
+  const noun = count === 1 ? one : many;
+  const line = summaryLine(summary, table);
 
   return (
     <Box className="data-table__footer">

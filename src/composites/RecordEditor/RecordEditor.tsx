@@ -2,10 +2,10 @@
 import { useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { Text } from '../../primitives/Text';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useEditorBinding } from './behavior/useEditorBinding';
 import { useRecordEditorState } from './behavior/useRecordEditorState';
 import { layoutGroups } from './behavior/layout-groups';
-import { NO_FIELDS } from './RecordEditor.constants';
 import { EditorFooter } from './sub-components/EditorFooter';
 import { EditorGroup } from './sub-components/EditorGroup';
 import { ReferencedBy } from './sub-components/ReferencedBy';
@@ -20,8 +20,9 @@ const RecordEditor = <T,>(props: RecordEditorProps<T>) => {
   } = props;
   const { working, isDirty, isPathDirty, saving, saveError, setValue, revert, handleSave } =
     useRecordEditorState({ record, onSave });
+  const { records } = useTesseraStrings();
 
-  const groups = useMemo(() => layoutGroups(schema, config), [schema, config]);
+  const groups = useMemo(() => layoutGroups(schema, records, config), [schema, records, config]);
   const binding = useEditorBinding({
     working, setValue, isPathDirty, readOnly: onSave === undefined || disabled, changedPaths,
     resolveIdRefOptions, resolveTagSuggestions, onCreateTag, resolveNumberBounds,
@@ -29,7 +30,7 @@ const RecordEditor = <T,>(props: RecordEditorProps<T>) => {
 
   return (
     <Box className="record-editor">
-      {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{NO_FIELDS}</Text>}
+      {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{records.noFieldsToShow}</Text>}
       {groups.map((group) => (
         <EditorGroup key={group.id} group={group} binding={binding} depth={0} />
       ))}

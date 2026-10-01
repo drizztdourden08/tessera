@@ -161,7 +161,7 @@ const [query, setQuery] = useState('');
 
 const Overview = overviewStory({
   component: 'SectionNav',
-  description: 'The side nav of a window with several sections: a column of gold line icons, collapsed by default, which a chevron on its edge opens to show group and item labels. Reach for it for the top-level sections of a window, such as a data manager. It can pin a Home item above the groups and hold a search field that grows when the nav opens; the host owns the query and shows the results. On narrow screens the open panel floats over the content, so the page does not reflow. The rail variant is the app-level screen list: it sits flush on the window edge on the surface fill, shows its labels unless the host collapses it, draws no toggle, and can hold disabled items and a group with no label.',
+  description: 'The side nav of a window with several sections: a column of gold line icons, collapsed by default, which a chevron on its edge opens to show group and item labels. Reach for it for the top-level sections of a window, such as a data manager. It can pin a Home item above the groups and hold a search field that grows when the nav opens; the host owns the query and shows the results. With overlay, as NavLayout sets when compact, the open panel slides over the content, so the page keeps its width, and Escape, a click outside or picking an item closes it. The rail variant is the app-level screen list: it sits flush on the window edge on the surface fill, shows its labels unless the host collapses it, draws no toggle, and can hold disabled items and a group with no label.',
   playground: Playground,
   variants: [OpenWithSearch, GroupsOnly, Rail, RailCollapsed],
   states: {

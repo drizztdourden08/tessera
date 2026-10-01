@@ -3,16 +3,18 @@ import { useRef } from 'react';
 import { Button } from '../../primitives/Button';
 import { Paragraph } from '../../primitives/text-elements';
 import { DialogShell } from '../DialogShell';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import './Dialog.css';
 import { type DialogProps } from './Dialog.type';
 
 const Dialog = (props: DialogProps) => {
+  const { common } = useTesseraStrings();
   const {
     open,
     title,
     message,
-    confirmLabel = 'Confirm',
-    cancelLabel = 'Cancel',
+    confirmLabel = common.confirm,
+    cancelLabel = common.cancel,
     confirmDisabled = false,
     hideCancel = false,
     variant = 'default',

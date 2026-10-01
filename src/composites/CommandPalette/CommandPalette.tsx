@@ -1,18 +1,21 @@
 /* @layer renderer-components @kind component */
 import { useId } from 'react';
 import { Box } from '../../primitives/Box';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { emptyMessage } from './behavior/empty-message';
 import { optionId } from './behavior/option-id';
 import { paletteClass } from './behavior/palette-class';
 import { useCommandPalette } from './behavior/useCommandPalette';
 import { CommandPaletteInput } from './sub-components/CommandPaletteInput';
 import { CommandPaletteList } from './sub-components/CommandPaletteList';
-import { DEFAULT_LABEL, DEFAULT_PLACEHOLDER } from './CommandPalette.constants';
 import type { CommandPaletteItem, CommandPaletteProps } from './CommandPalette.type';
 import './CommandPalette.css';
 
 const CommandPalette = <T extends CommandPaletteItem>(props: CommandPaletteProps<T>) => {
-  const { open, onClose, query, onQueryChange, groups, onSelect, placeholder = DEFAULT_PLACEHOLDER, emptyText, label = DEFAULT_LABEL } = props;
+  const { open, onClose, query, onQueryChange, groups, onSelect, placeholder: placeholderProp, emptyText, label: labelProp } = props;
+  const { common, navigation } = useTesseraStrings();
+  const placeholder = placeholderProp ?? navigation.commandPlaceholder;
+  const label = labelProp ?? common.search;
   const { items, active, setActive, inputRef, listRef, handleKeyDown } = useCommandPalette(props);
   const listId = useId();
 
@@ -46,7 +49,7 @@ const CommandPalette = <T extends CommandPaletteItem>(props: CommandPaletteProps
             onActive={setActive}
             onSelect={onSelect}
             label={label}
-            empty={emptyMessage(query, items.length, emptyText)}
+            empty={emptyMessage(query, items.length, emptyText, navigation)}
           />
         </Box>
       </Box>

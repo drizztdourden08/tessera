@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
 import { Box, Button, Glyph, Text } from '../../primitives';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useLogWindow } from './behavior/useLogWindow';
 import { LogLine } from './sub-components/LogLine';
 import { LogToolbar } from './sub-components/LogToolbar';
@@ -12,9 +13,10 @@ const matchesQuery = (row: { tag: string; message: string }, query: string): boo
   row.message.toLowerCase().includes(query) || row.tag.toLowerCase().includes(query);
 
 const LogPanel = (props: LogPanelProps) => {
+  const { panels } = useTesseraStrings();
   const {
     rows, className, kinds, hidden, onToggleKind, search, onSearchChange,
-    copyText, countLabel = 'entries', emptyLabel = 'No entries.', toolbarExtra,
+    copyText, countLabel = panels.logNoun, emptyLabel = panels.logEmpty, toolbarExtra,
   } = props;
 
   const kindById = useMemo(() => new Map(kinds?.map((kind) => [kind.id, kind])), [kinds]);
@@ -49,15 +51,15 @@ const LogPanel = (props: LogPanelProps) => {
             {hiddenOlder > 0 && (
               <Box className="log-panel__older">
                 <Button variant="tertiary" size="sm" icon={<Glyph name="arrowUp" />} onClick={loadOlder}>
-                  Load {Math.min(OLDER_CHUNK, hiddenOlder)} older
+                  {panels.loadOlder(Math.min(OLDER_CHUNK, hiddenOlder))}
                 </Button>
-                <Text className="log-panel__older-note">{hiddenOlder} earlier rows hidden</Text>
+                <Text className="log-panel__older-note">{panels.olderHidden(hiddenOlder)}</Text>
               </Box>
             )}
             {shown.slice(first).map((row) => <LogLine key={row.id} row={row} kind={kindById.get(row.kind)} />)}
           </Box>
           <Button variant="tertiary" size="sm" className="log-panel__to-bottom" icon={<Glyph name="arrowDown" />} onClick={jumpToBottom}>
-            Newest
+            {panels.newest}
           </Button>
         </Box>
       )}

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useState } from 'react';
 import { getPath, setPath } from '../../../data/schema/path';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { CreateFormStateParams } from './useCreateFormState.type';
 
 const isFilled = (value: unknown): boolean => {
@@ -13,6 +14,7 @@ const useCreateFormState = <T,>(params: CreateFormStateParams<T>) => {
   const [working, setWorking] = useState<T>(initialRecord);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { records } = useTesseraStrings();
 
   useEffect(() => {
     if (!open) return;
@@ -37,12 +39,12 @@ const useCreateFormState = <T,>(params: CreateFormStateParams<T>) => {
       }
       return result.id;
     } catch (thrown: unknown) {
-      setError(thrown instanceof Error ? thrown.message : 'Create failed');
+      setError(thrown instanceof Error ? thrown.message : records.createFailed);
       return null;
     } finally {
       setSaving(false);
     }
-  }, [onCreate, working]);
+  }, [onCreate, working, records]);
 
   return {
     working, setValue, isComplete, saving, error, handleCreate,

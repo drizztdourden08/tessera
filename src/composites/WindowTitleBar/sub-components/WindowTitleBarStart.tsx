@@ -2,16 +2,19 @@
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { DropdownMenu } from '../../DropdownMenu';
 import type { WindowTitleBarStartProps } from './WindowTitleBarStart.type';
 
 const WindowTitleBarStart = (props: WindowTitleBarStartProps) => {
-  const { menu, menuAnchorRef, pinned, onPinToggle, left } = props;
+  const { menu, menuLabel, onMenuOpenChange, pin, pinned, onControl, left } = props;
+  const { windows } = useTesseraStrings();
 
   return (
-    <Box ref={menuAnchorRef} className="window-title-bar__start">
-      {menu}
-      {onPinToggle && (
-        <IconButton size="sm" active={pinned} label={pinned ? 'Unpin window' : 'Pin window on top'} onClick={onPinToggle}>
+    <Box className="window-title-bar__start">
+      {menu && <DropdownMenu trigger="hamburger" groups={menu} label={menuLabel} onOpenChange={onMenuOpenChange} />}
+      {pin && (
+        <IconButton size="sm" active={pinned} label={pinned ? windows.unpin : windows.pinOnTop} onClick={() => onControl('pin')}>
           <Icon name={pinned ? 'pin-off' : 'pin'} size={14} />
         </IconButton>
       )}

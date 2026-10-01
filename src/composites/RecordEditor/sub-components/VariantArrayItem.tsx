@@ -3,13 +3,13 @@ import { Box } from '../../../primitives/Box';
 import { Flex } from '../../../primitives/Flex';
 import { Select } from '../../../primitives/Select';
 import { Text } from '../../../primitives/Text';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Span } from '../../../primitives/text-elements';
 import { ListItemControls } from '../../field-kits/sub-components/ListItemControls';
 import { keyOf } from '../behavior/key-of';
 import { rebaseField } from '../behavior/rebase-field';
 import { detectUnionBranch } from '../behavior/union-branch';
 import { EditorRow } from './EditorRow';
-import { NO_BRANCH } from './VariantArrayItem.constants';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 import type { VariantArrayItemProps } from './VariantArrayItem.type';
 
@@ -18,6 +18,7 @@ const branchOptions = (branches: readonly FieldDescriptor[]) =>
 
 const VariantArrayItem = (props: VariantArrayItemProps) => {
   const { element, address, list, index, branches, binding, depth, onWrite, onBranch } = props;
+  const { records } = useTesseraStrings();
   const rebased = rebaseField(element, element.path, address);
   const branch = detectUnionBranch(rebased, list[index]);
   const shape = branch.status === 'resolved' ? branch.fields[0] : undefined;
@@ -26,11 +27,11 @@ const VariantArrayItem = (props: VariantArrayItemProps) => {
   return (
     <Box className="record-editor__array-item">
       <Flex className="record-editor__array-item-head" gap="xs" align="center">
-        <Span tone="muted" className="record-editor__array-index">{`#${index + 1}`}</Span>
+        <Span tone="muted" className="record-editor__array-index">{records.itemPosition(index + 1)}</Span>
         <Select
           size="sm"
           value={currentKey}
-          placeholder="Shape..."
+          placeholder={records.shapePlaceholder}
           disabled={binding.disabled}
           options={branchOptions(branches)}
           onChange={(next) => onBranch(index, next)}
@@ -45,7 +46,7 @@ const VariantArrayItem = (props: VariantArrayItemProps) => {
             ))}
           </Box>
         )
-        : <Text variant="caption" className="record-editor__note">{NO_BRANCH}</Text>}
+        : <Text variant="caption" className="record-editor__note">{records.chooseShape}</Text>}
     </Box>
   );
 };

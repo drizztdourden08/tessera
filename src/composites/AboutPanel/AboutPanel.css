@@ -20,11 +20,19 @@
   border-radius: var(--radius-lg);
 }
 
+.about-panel__header .about-panel__mark {
+  --brand-mark-size: var(--size-96);
+}
+
 .about-panel__title {
   margin: 0;
   color: var(--c-text);
   font-size: var(--text-xl);
   font-weight: var(--weight-semi);
+}
+
+.about-panel__title .about-panel__wordmark {
+  display: block;
 }
 
 .about-panel__rows {

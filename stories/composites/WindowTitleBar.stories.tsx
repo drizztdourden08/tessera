@@ -1,14 +1,14 @@
 /* @layer stories @kind story */
-import { useRef, useState } from 'react';
-import type { RefObject } from 'react';
+import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { DropdownMenu, WindowTitleBar } from '../../src/composites';
-import type { MenuEntry, WindowTitleBarProps } from '../../src/composites';
+import { WindowTitleBar } from '../../src/composites';
+import type { WindowControl, WindowControlsConfig, WindowTitleBarProps } from '../../src/composites';
 import { Box, Icon, IconButton, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { brandLogoUri } from './_samples/brand-logo';
+import { buildTitleMenu } from './_samples/data-title-menu';
 import './WindowTitleBar.stories.css';
 
 type TitleBarArgs = {
@@ -18,32 +18,18 @@ type TitleBarArgs = {
   withMenu: boolean;
   withSlots: boolean;
   concealed: boolean;
+  fullscreenButton: boolean;
+  pinButton: boolean;
+  minimizeButton: boolean;
+  maximizeButton: boolean;
 };
 
 const LOGO = brandLogoUri('brock');
 const DEV_LOGO = brandLogoUri('tessera');
 
-const MENU: MenuEntry[] = [
-  { key: 'about', label: 'About', icon: <Icon name="info" size={14} /> },
-  { key: 'updates', label: 'Check for updates', icon: <Icon name="refresh-cw" size={14} /> },
-  'separator',
-  { key: 'settings', label: 'Settings', icon: <Icon name="settings" size={14} /> },
-];
-
 const ignore = () => undefined;
 
-const TitleBarMenu = (props: { open: boolean; onToggle: () => void; anchorRef: RefObject<HTMLElement | null> }) => {
-  const { open, onToggle, anchorRef } = props;
-  const items = MENU.map((entry) => (entry === 'separator' ? entry : { ...entry, onClick: onToggle }));
-  return (
-    <>
-      <IconButton size="sm" label="Menu" active={open} onClick={onToggle}>
-        <Icon name="ellipsis-vertical" />
-      </IconButton>
-      {open && <DropdownMenu items={items} anchorRef={anchorRef} />}
-    </>
-  );
-};
+const STATE_MENU = buildTitleMenu(ignore);
 
 const SLOTS = (
   <>
@@ -52,15 +38,26 @@ const SLOTS = (
   </>
 );
 
+const controlsOf = (args: TitleBarArgs): WindowControlsConfig => ({
+  fullscreen: args.fullscreenButton,
+  pin: args.pinButton,
+  minimize: args.minimizeButton,
+  maximize: args.maximizeButton,
+});
+
 const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
   const { title, withLogo, instanceName, withMenu, withSlots, concealed } = props;
-  const [menuOpen, setMenuOpen] = useState(false);
   const [pinned, setPinned] = useState(false);
   const [maximized, setMaximized] = useState(props.maximized === true);
   const [fullscreen, setFullscreen] = useState(false);
   const [said, setSaid] = useState('Nothing pressed yet.');
-  const menuRef = useRef<HTMLElement>(null);
-  const toggleMenu = () => setMenuOpen((open) => !open);
+
+  const onControl = (control: WindowControl) => {
+    setSaid(`${control} pressed.`);
+    if (control === 'pin') setPinned((on) => !on);
+    if (control === 'maximize') setMaximized((on) => !on);
+    if (control === 'fullscreen') setFullscreen((on) => !on);
+  };
 
   return (
     <Box className="story-frame window-title-bar-story__frame">
@@ -68,18 +65,13 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
         title={title}
         logo={withLogo ? LOGO : undefined}
         instance={instanceName ? { name: instanceName, logo: DEV_LOGO } : null}
-        menu={withMenu ? <TitleBarMenu open={menuOpen} onToggle={toggleMenu} anchorRef={menuRef} /> : undefined}
-        menuOpen={menuOpen}
-        menuAnchorRef={menuRef}
+        menu={withMenu ? buildTitleMenu((label) => setSaid(`${label} picked.`)) : undefined}
+        controls={controlsOf(props)}
         pinned={pinned}
-        onPinToggle={() => setPinned((on) => !on)}
-        left={withSlots ? SLOTS : undefined}
         maximized={maximized}
         fullscreen={fullscreen}
-        onFullscreenToggle={() => setFullscreen((on) => !on)}
-        onMinimize={() => setSaid('Minimize pressed.')}
-        onMaximizeToggle={() => setMaximized((on) => !on)}
-        onClose={() => setSaid('Close pressed.')}
+        onControl={onControl}
+        left={withSlots ? SLOTS : undefined}
         concealed={concealed}
       />
       <Box className="window-title-bar-story__body">
@@ -94,16 +86,29 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
 };
 
 const ARGS: Partial<TitleBarArgs> = {
-  title: 'Brock Demo', withLogo: true, instanceName: '', withMenu: true, withSlots: true, concealed: false,
+  title: 'Brock Demo',
+  withLogo: true,
+  instanceName: '',
+  withMenu: true,
+  withSlots: true,
+  concealed: false,
+  fullscreenButton: true,
+  pinButton: true,
+  minimizeButton: true,
+  maximizeButton: true,
 };
 
 const ARG_TYPES: StoryLiteArgTypes<TitleBarArgs> = {
   title: { control: 'text' },
   withLogo: { control: 'boolean' },
   instanceName: { control: 'text', description: 'Names a second copy of the app, such as a dev build, in a Status pill.' },
-  withMenu: { control: 'boolean' },
+  withMenu: { control: 'boolean', description: 'Pass menu groups; the bar draws the hamburger and its menu.' },
   withSlots: { control: 'boolean' },
   concealed: { control: 'boolean' },
+  fullscreenButton: { control: 'boolean', description: 'controls.fullscreen' },
+  pinButton: { control: 'boolean', description: 'controls.pin' },
+  minimizeButton: { control: 'boolean', description: 'controls.minimize' },
+  maximizeButton: { control: 'boolean', description: 'controls.maximize' },
 };
 
 const meta = {
@@ -119,10 +124,17 @@ const Playground = {
 } satisfies StoryLiteStoryDefinition<TitleBarArgs>;
 
 const AppWindow = {
-  name: 'App window',
+  name: 'App window with a menu from config',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} />,
+} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+
+const FewerButtons = {
+  name: 'Buttons removed by config',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <TitleBarDemo {...args} withSlots={false} fullscreenButton={false} pinButton={false} maximizeButton={false} />,
 } satisfies StoryLiteStoryDefinition<TitleBarArgs>;
 
 const SecondInstance = {
@@ -133,7 +145,7 @@ const SecondInstance = {
 } satisfies StoryLiteStoryDefinition<TitleBarArgs>;
 
 const Maximized = {
-  name: 'Maximized, no slots',
+  name: 'Maximized, no menu or slots',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} maximized withMenu={false} withSlots={false} />,
@@ -148,58 +160,45 @@ const Concealed = {
 
 const renderState = (props: StateProps) => (
   <Box className="window-title-bar-story__strip">
-    <WindowTitleBar
-      title="Brock Demo"
-      logo={LOGO}
-      menu={(
-        <IconButton size="sm" label="Menu" active={props.menuOpen === true}>
-          <Icon name="ellipsis-vertical" />
-        </IconButton>
-      )}
-      onPinToggle={ignore}
-      onFullscreenToggle={ignore}
-      onMinimize={ignore}
-      onMaximizeToggle={ignore}
-      onClose={ignore}
-      {...(props as Partial<WindowTitleBarProps>)}
-    />
+    <WindowTitleBar title="Brock Demo" logo={LOGO} menu={STATE_MENU} onControl={ignore} {...(props as Partial<WindowTitleBarProps>)} />
   </Box>
 );
 
 const CODE = `import { WindowTitleBar } from '@drizztdourden08/tessera';
+import type { MenuGroup } from '@drizztdourden08/tessera';
+
+const menu: MenuGroup[] = [
+  { id: 'screens', label: 'Screens', items: [{ id: 'home', icon: 'house', label: 'Home', onSelect: goHome }] },
+  { id: 'app', items: [{ id: 'quit', icon: 'log-out', label: 'Quit', shortcut: 'Ctrl+Q', onSelect: quit }] },
+];
 
 <WindowTitleBar
   title="Brock Demo"
   logo={logoSrc}
   instance={instanceName ? { name: instanceName, logo: instanceLogoSrc } : null}
-  menu={<IconButton label="Menu" active={menuOpen} onClick={toggleMenu}>...</IconButton>}
-  menuOpen={menuOpen}
-  menuAnchorRef={menuRef}
+  menu={menu}
+  controls={{ fullscreen: false }}
   pinned={pinned}
-  onPinToggle={togglePin}
-  left={<UpdateStatus />}
   maximized={isMaximized}
   fullscreen={isFullscreen}
-  onFullscreenToggle={win.toggleFullscreen}
-  onMinimize={win.minimize}
-  onMaximizeToggle={win.toggleMaximize}
-  onClose={win.close}
+  onControl={(control) => win[control]()}
+  left={<UpdateStatus />}
   concealed={hidden}
 />`;
 
 const Overview = overviewStory({
   component: 'WindowTitleBar',
-  description: 'The title bar of a frameless desktop app window. The brand sits in the middle: the app logo on both sides of the title, and a Status pill naming a second instance, such as a dev build, with its own logo. The left end holds the menu trigger, a pin to keep the window on top and any slots the app adds; the right end holds the full screen, minimize, maximize and close buttons, each shown when its callback is set. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge; an open menu keeps it in view.',
+  description: 'The title bar of a frameless desktop app window. The brand sits in the middle: the app logo on both sides of the title, and a Status pill naming a second instance, such as a dev build, with its own logo. menu takes menu groups, the same data DropdownMenu takes, and the bar draws the hamburger at the left end with the menu hanging from it; with no items there is no hamburger. The pin and the full screen, minimize, maximize and close buttons are built in and report to onControl; controls turns any of them off except close, as in controls={{ fullscreen: false }}. left holds any slots the app adds. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge; an open menu keeps it in view.',
   playground: Playground,
-  variants: [AppWindow, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, FewerButtons, SecondInstance, Maximized, Concealed],
   states: {
     render: renderState,
     list: [
       STATE.idle,
       { ...STATE.hover, name: 'Hover on a control', target: '.window-title-bar__control' },
       { ...STATE.hover, name: 'Hover on close', target: '.window-title-bar__control--close' },
+      { ...STATE.hover, name: 'Hover on the menu', target: '.menu-button' },
       { ...STATE.focus, target: '.window-title-bar__control' },
-      { name: 'Menu open', props: { menuOpen: true } },
       { name: 'Pinned', props: { pinned: true } },
       { name: 'Instance', props: { instance: { name: 'Dev', logo: DEV_LOGO } } },
       { name: 'Maximized', props: { maximized: true } },
@@ -211,4 +210,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AppWindow, Concealed, Maximized, Overview, Playground, SecondInstance };
+export { AppWindow, Concealed, FewerButtons, Maximized, Overview, Playground, SecondInstance };

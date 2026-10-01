@@ -5,6 +5,7 @@ import { Text } from '../../primitives/Text';
 import { Button } from '../../primitives/Button';
 import { ColorSwatch } from '../../primitives/ColorSwatch';
 import { FieldControlBoundary } from '../../primitives/FieldControlBoundary';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { PickerWheel } from './sub-components/PickerWheel';
 import { ColorFields } from './sub-components/ColorFields';
 import { ColorMeta } from './sub-components/ColorMeta';
@@ -20,6 +21,7 @@ const ColorPicker = (props: ColorPickerProps) => {
     value, onChange, alpha = 1, onAlphaChange, disableAlpha = false,
     title, original, word, snapped = false, onReset, onClose, swatchGroups,
   } = props;
+  const { common } = useTesseraStrings();
 
   const { seed, beginDrag, followWheel } = useWheelColor(value, alpha, disableAlpha);
   const { hexInput, commitHex } = useHexInput(value, onChange);
@@ -56,8 +58,8 @@ const ColorPicker = (props: ColorPickerProps) => {
       <QuickAssign value={value} onChange={onChange} swatchGroups={swatchGroups} />
 
       <Box className="color-picker__actions">
-        {onReset && <Button variant="secondary" size="sm" onClick={onReset}>Reset</Button>}
-        {onClose && <Button variant="primary" size="sm" onClick={onClose}>Done</Button>}
+        {onReset && <Button variant="secondary" size="sm" onClick={onReset}>{common.reset}</Button>}
+        {onClose && <Button variant="primary" size="sm" onClick={onClose}>{common.done}</Button>}
       </Box>
     </Box>
     </FieldControlBoundary>

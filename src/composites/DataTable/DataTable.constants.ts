@@ -46,12 +46,10 @@ const trackListWith = (
     fallbacks.fit,
   );
 
-const ABSENT_KEY_LABEL = '-';
-
 const GHOST_ROW_LIMIT = 6;
 
 const KEY_RENDERED_KINDS: readonly string[] = ['enum', 'idRef'];
 
 export {
-  ABSENT_KEY_LABEL, GHOST_ROW_LIMIT, KEY_RENDERED_KINDS, trackList, trackListWith,
+  GHOST_ROW_LIMIT, KEY_RENDERED_KINDS, trackList, trackListWith,
 };

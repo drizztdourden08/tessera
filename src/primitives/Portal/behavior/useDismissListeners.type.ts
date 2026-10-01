@@ -6,6 +6,7 @@ interface UseDismissListenersParams {
   onClose: () => void;
   contentRef: RefObject<HTMLElement | null>;
   triggerRef: RefObject<HTMLElement | null>;
+  escape?: boolean;
 }
 
 export type { UseDismissListenersParams };

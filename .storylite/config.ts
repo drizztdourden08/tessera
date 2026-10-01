@@ -3,7 +3,8 @@ import { defineConfig } from '@storylite/storylite';
 import { appSwitcherScript } from './app-switcher';
 import { GALLERY_APPS } from './app-switcher.constants';
 import { componentPagesScript } from './component-pages';
-import { HOME_LOGO_MOUNT, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN, ROOT } from './config.constants';
+import { FAVICON, HOME_LOGO_MOUNT, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN, ROOT } from './config.constants';
+import { faviconPlugin } from './favicon-plugin';
 import { controlledReact } from './renderer/controlled-renderer';
 import { buildHome } from './home';
 import { HOME_CSS } from './home-css.constants';
@@ -20,7 +21,7 @@ import { wordmarkSvg } from './wordmark-svg';
 
 export default defineConfig({
   stories: ['./stories/**/*.stories.tsx'],
-  vitePlugins: [windowsFsPaths(), ssrBundle(), strictPort(), reviewPlugin(ROOT)],
+  vitePlugins: [windowsFsPaths(), ssrBundle(), strictPort(), reviewPlugin(ROOT), faviconPlugin(ROOT)],
   css: [
     './src/tokens/index.css',
     './stories/themes/rotp.css',
@@ -29,7 +30,7 @@ export default defineConfig({
   ],
   renderers: [controlledReact()],
   home: buildHome(ROOT),
-  managerHead: (defaults) => [defaults, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN].join('\n'),
+  managerHead: (defaults) => [defaults, FAVICON, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN].join('\n'),
   managerBodyEnd: (defaults) => [defaults, appSwitcherScript(), componentPagesScript(componentPages(ROOT)), sidebarDecorScript(ROOT), HOME_LOGO_MOUNT].join('\n'),
   storyId: (_path, suggestedId) => suggestedId.replace(/^stories-/, ''),
   storySort: { order: menuOrder() },

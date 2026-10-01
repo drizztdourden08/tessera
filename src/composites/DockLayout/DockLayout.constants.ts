@@ -42,18 +42,11 @@ const HANDLE_SELECTOR = '[data-drag-tab],[data-drag-widget],[data-drag-main]';
 
 const NO_MODIFIERS: DragModifiers = { swap: false, overlay: false };
 
-const DEFAULT_MAIN_LABEL = 'Main view';
-
-const DEFAULT_GRIP_LABEL = 'Main';
-
 const HINT_ICONS: Record<DockEdge | 'tab', IconName> = {
   left: 'panel-left', right: 'panel-right', top: 'panel-top', bottom: 'panel-bottom', tab: 'layers',
 };
 
-const HINT_LABELS = { swap: 'Swap', popOut: 'Release to pop out', stays: 'This widget stays in the app' } as const;
-
 export {
-  COMPASS, COMPASS_STEPS, DEFAULT_GRIP_LABEL, DEFAULT_MAIN_LABEL, DRAG_THRESHOLD, EDGES, EXTERNAL_GRAB, FLOAT_BOX, GAP,
-  GHOST_OFFSET, HANDLE_SELECTOR, HINT_ICONS, HINT_LABELS, MAIN_NODE, MAX_PUSHES, MIN_SIZE, NO_HELD_KEYS, NO_MODIFIERS, OUTER_STRIP,
-  POP_MARGIN, SHARE, STRIP,
+  COMPASS, COMPASS_STEPS, DRAG_THRESHOLD, EDGES, EXTERNAL_GRAB, FLOAT_BOX, GAP, GHOST_OFFSET, HANDLE_SELECTOR, HINT_ICONS, MAIN_NODE,
+  MAX_PUSHES, MIN_SIZE, NO_HELD_KEYS, NO_MODIFIERS, OUTER_STRIP, POP_MARGIN, SHARE, STRIP,
 };

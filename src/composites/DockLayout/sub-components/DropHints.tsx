@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Span } from '../../../primitives/text-elements';
-import { HINT_LABELS } from '../DockLayout.constants';
 import type { Rect } from '../DockLayout.type';
 import type { DragView, DropZone } from '../behavior/drag.type';
 import type { LaidOut } from '../behavior/layout-tree.type';
@@ -26,6 +26,7 @@ const swapRectOf = (view: DragView, laid: LaidOut): Rect | null => {
 
 const DropHints = (props: DropHintsProps) => {
   const { view, laid } = props;
+  const { widgets } = useTesseraStrings();
   const swapRect = swapRectOf(view, laid);
   const zones = view.swap ? [] : view.zones.filter((z) => z.kind !== 'float');
 
@@ -35,7 +36,7 @@ const DropHints = (props: DropHintsProps) => {
       {view.preview && !view.outside && <DropPreview rect={view.preview} refused={view.refused} />}
       {swapRect && (
         <Box className="dock-layout__swap" style={rectStyle(swapRect)} aria-hidden="true">
-          <Span className="dock-layout__swap-label">{HINT_LABELS.swap}</Span>
+          <Span className="dock-layout__swap-label">{widgets.hintSwap}</Span>
         </Box>
       )}
       {(view.outside || view.stays) && <DropPopZone stays={view.stays} />}

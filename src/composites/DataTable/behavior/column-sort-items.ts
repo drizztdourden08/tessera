@@ -1,30 +1,31 @@
 /* @layer renderer-components @kind logic */
 import { menuGlyph } from './menu-glyph';
 import { menuIcon } from './menu-icon';
-import { SORT_DIR_ICON, SORT_DIR_LABEL } from './column-sort-items.constants';
-import type { MenuEntry } from '../../DropdownMenu';
+import { directionWord } from './direction-word';
+import { SORT_DIR_ICON } from './column-sort-items.constants';
+import type { MenuNode } from '../../DropdownMenu';
 import type { SortEntry } from '../../../data/table/types';
 import type { ColumnSortInput } from './column-sort-items.type';
 
-const directionEntry = (input: ColumnSortInput, dir: SortEntry['dir']): MenuEntry => ({
-  key: `sort-${dir}`,
+const directionEntry = (input: ColumnSortInput, dir: SortEntry['dir']): MenuNode => ({
+  id: `sort-${dir}`,
   icon: menuGlyph(SORT_DIR_ICON[dir]),
-  label: `Sort ${SORT_DIR_LABEL[dir]}`,
-  onClick: input.act(() => input.actions.onSortDir(input.path, dir)),
+  label: dir === 'asc' ? input.strings.sortAscending : input.strings.sortDescending,
+  onSelect: input.act(() => input.actions.onSortDir(input.path, dir)),
 });
 
-const buildColumnSortItems = (input: ColumnSortInput): MenuEntry[] => {
-  const { path, sortDir, actions, act } = input;
+const buildColumnSortItems = (input: ColumnSortInput): MenuNode[] => {
+  const { path, sortDir, actions, act, strings } = input;
 
   if (!sortDir) return [directionEntry(input, 'asc'), directionEntry(input, 'desc')];
 
   return [
     directionEntry(input, sortDir === 'asc' ? 'desc' : 'asc'),
     {
-      key: 'sort-remove',
+      id: 'sort-remove',
       icon: menuIcon('delete'),
-      label: `Remove sort on this column (${SORT_DIR_LABEL[sortDir]})`,
-      onClick: act(() => actions.onRemoveSort(path)),
+      label: strings.removeColumnSort(directionWord(sortDir, strings)),
+      onSelect: act(() => actions.onRemoveSort(path)),
     },
   ];
 };

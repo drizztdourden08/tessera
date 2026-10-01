@@ -1,18 +1,19 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
 import { operatorsFor } from '../../../data/filter/operators';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { DropdownMenu } from '../../DropdownMenu';
 import { operatorMenuItems } from '../behavior/operator-menu-items';
 import { supportsCaseModifier } from '../behavior/supports-case-modifier';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
 import { glyphForOperatorIcon } from '../behavior/operator-icon-glyphs';
-import { CASE_SENSITIVE_SUFFIX } from './OperatorMenu.constants';
 import type { OperatorMenuProps } from './OperatorMenu.type';
 import '../../../theme/filter-bar.css';
 
 const OperatorMenu = (props: OperatorMenuProps) => {
   const { field, op, caseSensitive, onChange, onChangeCaseSensitive } = props;
   const menu = useAnchorMenu<HTMLButtonElement>('.dropdown-menu');
+  const { filters, filterOperators } = useTesseraStrings();
   const specs = operatorsFor(field.kind);
   const current = specs.find((spec) => spec.id === op) ?? specs[0];
 
@@ -27,10 +28,12 @@ const OperatorMenu = (props: OperatorMenuProps) => {
     caseSensitive,
     onPickOperator: handlePick,
     onToggleCaseSensitive: onChangeCaseSensitive,
+    strings: filters,
+    operatorLabels: filterOperators,
   });
 
   const marked = caseSensitive === true && supportsCaseModifier(field.kind);
-  const label = current ? `Filter operator: ${current.label}` : 'Filter operator';
+  const label = current ? filters.operatorNamed(filterOperators[current.icon]) : filters.operator;
 
   return (
     <>
@@ -41,12 +44,12 @@ const OperatorMenu = (props: OperatorMenuProps) => {
         className={`filter-bar__operator-button${marked ? ' filter-bar__operator-button--cased' : ''}`}
         aria-haspopup="menu"
         aria-expanded={menu.open}
-        aria-label={marked ? `${label}${CASE_SENSITIVE_SUFFIX}` : label}
+        aria-label={marked ? filters.withMatchCase(label) : label}
         onClick={menu.toggle}
       >
         {current ? glyphForOperatorIcon(current.icon) : '?'}
       </Button>
-      {menu.open && items.length > 0 && <DropdownMenu items={items} anchorRef={menu.anchorRef} />}
+      {menu.open && items.length > 0 && <DropdownMenu groups={[{ id: 'operators', items }]} anchorRef={menu.anchorRef} onClose={menu.close} />}
     </>
   );
 };

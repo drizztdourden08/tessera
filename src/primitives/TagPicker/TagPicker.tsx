@@ -2,6 +2,7 @@
 import './TagPicker.css';
 import { Tag } from '../Tag';
 import { Span } from '../text-elements';
+import { optionLook } from './behavior/option-look';
 import type { TagPickerProps } from './TagPicker.type';
 
 const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
@@ -27,7 +28,7 @@ const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
             {group.options.map(opt => (
               <Tag
                 key={opt.value}
-                color="primary"
+                {...optionLook(opt)}
                 selected={value.includes(opt.value)}
                 role={single ? 'radio' : undefined}
                 disabled={disabled}

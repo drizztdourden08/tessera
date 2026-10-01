@@ -5,6 +5,7 @@ import { ListboxValue } from '../../listbox/ListboxValue';
 import { Spinner } from '../../Spinner';
 import { Span } from '../../text-elements';
 import { Tag } from '../../Tag';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { comboboxClass } from '../behavior/combobox-class';
 import { fieldPress } from '../behavior/field-press';
 import { ComboboxInput } from './ComboboxInput';
@@ -15,6 +16,7 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
   const { drop, displays, field } = box;
   const editable = !field.disabled;
   const clearable = editable && box.min === 0 && displays.length > 0;
+  const { fields } = useTesseraStrings();
 
   return (
     <div
@@ -43,7 +45,7 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
       <ComboboxInput box={box} look={look} />
       {look.loading === true && <Spinner size="sm" className="combobox__spinner" />}
       {clearable && (
-        <IconButton className="combobox__clear" variant="ghost" size="sm" type="button" label="Clear" tabIndex={-1} onClick={box.clear}>
+        <IconButton className="combobox__clear" variant="ghost" size="sm" type="button" label={fields.clear} tabIndex={-1} onClick={box.clear}>
           <Glyph name="close" />
         </IconButton>
       )}

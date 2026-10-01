@@ -36,6 +36,7 @@ interface SectionNavProps {
   defaultOpen?: boolean;
   variant?: SectionNavVariant;
   collapsed?: boolean;
+  overlay?: boolean;
   ariaLabel?: string;
   className?: string;
 }

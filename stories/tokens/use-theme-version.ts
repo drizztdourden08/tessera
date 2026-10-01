@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import type { RefObject } from 'react';
 
-const WATCHED = ['data-theme', 'data-palette'];
+const WATCHED = ['data-palette'];
 
 const useThemeVersion = (ref: RefObject<Element | null>): number => {
   const [version, setVersion] = useState(0);

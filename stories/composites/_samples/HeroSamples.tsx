@@ -1,8 +1,6 @@
 /* @layer stories @kind component */
 import { Box, Button, Icon, ProgressBar, Text, Thumbnail } from '../../../src/primitives';
 
-const HeroScene = () => <Box className="hero-story__scene" aria-hidden="true" />;
-
 const HeroTools = () => (
   <>
     <Button variant="secondary" size="sm" icon={<Icon name="folder-open" size={14} />} title="Open this profile's folder">Folder</Button>
@@ -34,4 +32,4 @@ const HeroProgress = () => (
   </Box>
 );
 
-export { HeroLastSave, HeroPlay, HeroProgress, HeroScene, HeroTools };
+export { HeroLastSave, HeroPlay, HeroProgress, HeroTools };

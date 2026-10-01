@@ -18,3 +18,8 @@
 .empty-state__action {
   margin-top: var(--space-xs);
 }
+
+.empty-state__art {
+  display: flex;
+  justify-content: center;
+}

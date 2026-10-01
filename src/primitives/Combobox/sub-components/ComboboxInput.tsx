@@ -1,12 +1,13 @@
 /* @layer renderer-components @kind component */
 import { activeOptionId } from '../../listbox/active-option-id';
-import { DEFAULT_PLACEHOLDER } from '../Combobox.constants';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import type { ComboboxFieldProps } from './ComboboxField.type';
 
 const ComboboxInput = <T,>(props: ComboboxFieldProps<T>) => {
   const { box, look } = props;
   const { drop, model, control, field } = box;
   const chipsShown = box.multi && box.displays.length > 0;
+  const { fields } = useTesseraStrings();
 
   return (
     <input
@@ -24,7 +25,7 @@ const ComboboxInput = <T,>(props: ComboboxFieldProps<T>) => {
       aria-describedby={control.describedBy}
       aria-label={look['aria-label']}
       aria-labelledby={look['aria-labelledby']}
-      placeholder={chipsShown ? '' : look.placeholder ?? DEFAULT_PLACEHOLDER}
+      placeholder={chipsShown ? '' : look.placeholder ?? fields.comboboxPlaceholder}
       value={box.inputValue}
       disabled={field.disabled}
       onChange={(event) => box.type(event.target.value)}

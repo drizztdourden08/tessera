@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind logic */
-import { IMPLICIT_ID, LEFTOVER_ID, LEFTOVER_LABEL } from './layout-groups.constants';
+import { IMPLICIT_ID, LEFTOVER_ID } from './layout-groups.constants';
 import type { FieldDescriptor, FieldGroup, SchemaConfig } from '../../../data/schema/field-descriptor';
+import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
 import type { EditorGroupModel } from '../RecordEditor.type';
 
 const claims = (group: FieldGroup, field: FieldDescriptor): boolean =>
@@ -23,6 +24,7 @@ const singleGroup = (fields: readonly FieldDescriptor[]): readonly EditorGroupMo
 
 const layoutGroups = (
   schema: readonly FieldDescriptor[],
+  strings: TesseraStrings['records'],
   config?: SchemaConfig,
 ): readonly EditorGroupModel[] => {
   const visible = schema.filter((field) => !field.hidden);
@@ -40,7 +42,7 @@ const layoutGroups = (
   if (!laid.length) return singleGroup(visible);
 
   const leftover = visible.filter((field) => !taken.has(field.path));
-  if (leftover.length) laid.push({ id: LEFTOVER_ID, label: LEFTOVER_LABEL, fields: leftover });
+  if (leftover.length) laid.push({ id: LEFTOVER_ID, label: strings.otherGroup, fields: leftover });
   return laid;
 };
 

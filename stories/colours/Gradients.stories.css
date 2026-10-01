@@ -33,3 +33,7 @@
 .brand-gradient--brock {
   background: var(--brand-brock-gradient);
 }
+
+.brand-gradient--backdrop {
+  background: var(--brand-backdrop-gradient);
+}

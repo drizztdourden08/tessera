@@ -2,6 +2,7 @@
 import { Highlight } from 'prism-react-renderer';
 import { Box } from '../Box';
 import { codeBlockClass } from './behavior/code-block-class';
+import { tokenClass } from './behavior/token-class';
 import { CODE_THEME } from './CodeBlock.constants';
 import { CopyCodeButton } from './sub-components/CopyCodeButton';
 import './CodeBlock.css';
@@ -22,22 +23,20 @@ const CodeBlock = (props: CodeBlockProps) => {
           <Box as="pre" className="code-block__pre">
             <Box as="code" className="code-block__code">
               {tokens.map((line, lineIndex) => {
-                const { className: lineClassName, style: lineStyle } = getLineProps({ line });
+                const { style: lineStyle } = getLineProps({ line });
                 const isChanged = highlighted?.has(lineIndex + 1) ?? false;
                 return (
                   <Box
                     key={lineIndex}
                     as="div"
-                    className={
-                      `code-block__line${lineClassName ? ` ${lineClassName}` : ''}${isChanged ? ' code-block__line--changed' : ''}`
-                    }
+                    className={`code-block__line${isChanged ? ' code-block__line--changed' : ''}`}
                     style={lineStyle}
                   >
                     {showLineNumbers && <Box as="span" className="code-block__number" aria-hidden>{lineIndex + 1}</Box>}
                     {line.map((token, tokenIndex) => {
-                      const { className: tokenClassName, style: tokenStyle, children } = getTokenProps({ token });
+                      const { style: tokenStyle, children } = getTokenProps({ token });
                       return (
-                        <Box key={tokenIndex} as="span" className={tokenClassName} style={tokenStyle}>
+                        <Box key={tokenIndex} as="span" className={tokenClass(token.types)} style={tokenStyle}>
                           {children}
                         </Box>
                       );

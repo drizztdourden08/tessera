@@ -1,14 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-
-interface HeroFact {
-  label: string;
-  value: ReactNode;
-  title?: string;
-  mono?: boolean;
-}
-
-type HeroFactRow = readonly HeroFact[];
+import type { FactsPanelGroup } from '../FactsPanel';
 
 interface HeroArt {
   src: string;
@@ -23,7 +15,7 @@ interface HeroProps {
   art?: HeroArt | null;
   actions?: ReactNode;
   tools?: ReactNode;
-  facts?: readonly HeroFactRow[];
+  facts?: readonly FactsPanelGroup[];
   aside?: ReactNode;
   panel?: ReactNode;
   label?: string;
@@ -34,8 +26,4 @@ type HeroIntroProps = Pick<HeroProps, 'eyebrow' | 'title' | 'actions'>;
 
 type HeroBottomProps = Pick<HeroProps, 'facts' | 'panel'>;
 
-interface HeroFactsProps {
-  rows: readonly HeroFactRow[];
-}
-
-export type { HeroArt, HeroBottomProps, HeroFact, HeroFactRow, HeroFactsProps, HeroIntroProps, HeroProps };
+export type { HeroArt, HeroBottomProps, HeroIntroProps, HeroProps };

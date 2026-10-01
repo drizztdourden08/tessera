@@ -18,6 +18,7 @@ Issues found in the components while writing their stories. Everything here came
 | StatusBadge | interactive mode was a clickable span with no role, tab stop or keys | StatusBadge merged into the read-only `Status`; the click to cycle mode is gone |
 | barrels | Stepper, DropZone, Toast, Drawer, SettingsSection, `dropPanelPositionFor` and several prop types were not exported | exported |
 | DropdownMenu | a type re-export sat in the middle of the file | moved to the barrel |
+| DropdownMenu | `MenuItem.description` was never drawn, and nothing closed the menu on Escape or after a pick | drawn as a muted second line; `onClose` runs on Escape, Tab and after a pick |
 | several | stray byte-order marks after the header comment (27 files) | removed |
 | comments | DataTable, CompactRecordView, RecordEditor and the number kit pointed at rotp files and game indexes | rewritten in the design system's own terms |
 
@@ -44,7 +45,6 @@ Issues found in the components while writing their stories. Everything here came
 | DeleteGuardDialog | title and confirm label are fixed strings |
 | SplitPane, SectionNav, GroupTree | read their default props on first render only; SplitPane has hard-coded glyphs; SectionNav hard-codes English aria labels |
 | ListItemRow | base and hover backgrounds are the same, so hover only changes the border |
-| DropdownMenu | `MenuItem.description` is never rendered; no outside-click or close handling |
 | Widget | docked panes size from `100vh`/`100vw` with `position: fixed`, so a dock cannot live in part of a page |
 | data engine | filters match every row until the field kits are imported, which registers the testers |
 | tokens | two radius scales (`--r-*`, `--radius-*`) and two shadow sets (`--shadow-1..3`, `--shadow-dropdown/overlay/lg`) |

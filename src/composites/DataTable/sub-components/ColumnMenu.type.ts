@@ -2,7 +2,7 @@
 import type { RefObject } from 'react';
 import type { ColumnMenuInput } from '../behavior/column-menu-items.type';
 
-interface ColumnMenuProps extends ColumnMenuInput {
+interface ColumnMenuProps extends Omit<ColumnMenuInput, 'strings'> {
   anchorRef: RefObject<HTMLElement | null>;
 }
 

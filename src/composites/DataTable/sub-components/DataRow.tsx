@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { cellContent } from '../behavior/cell-content';
 import { DataCell } from './DataCell';
 import { SelectCell } from './SelectCell';
@@ -12,6 +13,7 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
     columns, schema, draggingPath, getRowId, selectedId, onSelect, selection,
     onCellDragOver, onCellDrop, resolveIdRefDisplay, resolveIdRefDefault,
   } = context;
+  const { table } = useTesseraStrings();
   const id = getRowId(row);
   const selected = selection ? selection.isSelected(id) : selectedId === id;
   const handleClick = selection
@@ -30,7 +32,7 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
         <SelectCell
           role="gridcell"
           checked={selected}
-          ariaLabel="Select row"
+          ariaLabel={table.selectRow}
           onToggle={(range) => selection.onCheck(id, range)}
         />
       )}

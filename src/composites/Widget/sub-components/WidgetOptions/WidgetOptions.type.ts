@@ -1,8 +1,13 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
 import type { ShortcutKey } from '../../../../primitives/Shortcut/Shortcut.type';
+import type { TesseraStrings } from '../../../../primitives/strings/tessera-strings.type';
 import type { DockEdge } from '../../../DockLayout';
 import type { PinMode, WidgetPlacement, WidgetVisibility } from '../../Widget.type';
+
+type WidgetStrings = TesseraStrings['widgets'];
+
+type WidgetWordKey = { [K in keyof WidgetStrings]: WidgetStrings[K] extends string ? K : never }[keyof WidgetStrings];
 
 interface WidgetOptionsProps {
   title: string;
@@ -48,13 +53,13 @@ type WindowRowsProps = Pick<WidgetOptionsProps, 'pin' | 'onPinChange' | 'snap' |
 
 interface PlacementButton {
   edge: DockEdge | null;
-  label: string;
+  labelKey: WidgetWordKey;
 }
 
 interface ShortcutEntry {
   keys?: ShortcutKey;
-  gesture: string;
-  does: string;
+  gesture?: WidgetWordKey;
+  does: WidgetWordKey;
 }
 
 export type { LayoutRowsProps, OptionRowProps, PlacementButton, PlacementRowProps, ShortcutEntry, WidgetOptionsProps, WindowRowsProps };

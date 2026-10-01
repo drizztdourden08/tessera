@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useMemo } from 'react';
 import { createSchemaIndex } from '../../../data/schema/build-schema';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { GHOST_ROW_LIMIT } from '../DataTable.constants';
 import { columnLabelsOf } from './column-labels';
 import { buildPickerNodes } from './field-picker-nodes';
@@ -24,6 +25,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
     rows, schema, viewKey, viewStorage, fallbackColumns, fallbackGroupBy,
   });
   const index = useMemo(() => createSchemaIndex(schema), [schema]);
+  const strings = useTesseraStrings();
 
   const groups = useExpandedGroups({
     groupedRows: table.groupedRows,
@@ -52,7 +54,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
 
   const labels = columnLabelsOf({
     columns: table.columns, schema: index, sort: table.sort, groupBy: table.groupBy,
-    draggingPath: drag.draggingPath,
+    draggingPath: drag.draggingPath, strings: strings.table,
   });
 
   const context = useRowContext({

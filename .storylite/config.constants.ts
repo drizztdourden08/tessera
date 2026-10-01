@@ -32,4 +32,11 @@ const PREVIEW_ALLOWS_FULLSCREEN = `<script>
 
 const HOME_LOGO_MOUNT = '<script type="module" src="/.storylite/home-logo-mount.ts"></script>';
 
-export { HOME_LOGO_MOUNT, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN, ROOT };
+const FAVICON_FILE = 'brand/tessera/mark/mark.ico';
+
+const FAVICON = `<script>
+document.querySelectorAll('link[rel="icon"]').forEach(function (link) { link.remove(); });
+</script>
+<link rel="icon" type="image/x-icon" href="./${FAVICON_FILE}" />`;
+
+export { FAVICON, FAVICON_FILE, HOME_LOGO_MOUNT, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN, ROOT };

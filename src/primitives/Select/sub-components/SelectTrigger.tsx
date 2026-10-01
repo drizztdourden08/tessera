@@ -4,13 +4,14 @@ import { activeOptionId } from '../../listbox/active-option-id';
 import { ListboxValue } from '../../listbox/ListboxValue';
 import { Span } from '../../text-elements';
 import { triggerClass } from '../behavior/trigger-class';
-import { DEFAULT_PLACEHOLDER } from '../Select.constants';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import type { SelectTriggerProps } from './SelectTrigger.type';
 
 const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
   const { select, setup, look } = props;
   const { drop, model, control, field } = select;
   const { open } = drop;
+  const { fields } = useTesseraStrings();
   const full = setup.valueDisplay === 'full' || setup.valueComponent !== undefined;
 
   return (
@@ -38,7 +39,7 @@ const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
         <ListboxValue
           displays={select.displays}
           look={setup}
-          placeholder={look.placeholder ?? DEFAULT_PLACEHOLDER}
+          placeholder={look.placeholder ?? fields.selectPlaceholder}
           tags={setup.max > 1 && look.multiDisplay === 'tags'}
         />
       </Span>

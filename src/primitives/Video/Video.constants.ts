@@ -80,10 +80,7 @@ const MENU_KEY_STEPS: Readonly<Record<string, number>> = {
   ArrowUp: -1,
 };
 
-const DEFAULT_ERROR_MESSAGE = 'This video could not be loaded.';
-
 export {
-  DEFAULT_ERROR_MESSAGE,
   FULLSCREEN_EVENTS,
   FULLSCREEN_GRACE_MS,
   IDLE_MS,

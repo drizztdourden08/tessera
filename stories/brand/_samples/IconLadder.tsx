@@ -1,45 +1,39 @@
 /* @layer stories @kind component */
-import { Image, Stack, Text } from '../../../src/primitives';
+import { Image, ScrollArea, Stack, Text } from '../../../src/primitives';
 import { ICON_SIZES } from '../../../src/brand';
 import type { IconArtFiles } from '../../../src/brand';
-import { BRAND_FOLDER, ICON_PNGS } from './icon-pngs.constants';
+import { BRAND_FOLDER, ICON_URLS } from './icon-urls.constants';
 import { axis } from '../../_template/axis';
 import { Demonstrator } from '../../_template/Demonstrator';
-import { ICON_LADDER_ROW_MAX } from './IconLadder.constants';
+import { ICO_COLUMN, ICO_SHOWN_AT } from './IconLadder.constants';
+import type { IconLadderProps } from './IconLadder.type';
 import './IconLadder.css';
-
-interface IconLadderProps {
-  files: IconArtFiles;
-}
 
 const icoLine = (files: IconArtFiles): string => (files.ico
   ? `brand/${files.ico}: ${ICON_SIZES.ico.join(', ')}`
-  : 'No .ico: only an app has one');
+  : 'No .ico for this art');
 
 const ladderLine = (files: IconArtFiles): string => {
   const { ladder } = ICON_SIZES;
   return `brand/${files.ladder(ladder[0] ?? 0)} to ${files.ladder(ladder[ladder.length - 1] ?? 0).split('/').pop() ?? ''}`;
 };
 
-const ladderRows = (): number[][] => [
-  ICON_SIZES.ladder.filter((size) => size <= ICON_LADDER_ROW_MAX),
-  ICON_SIZES.ladder.filter((size) => size > ICON_LADDER_ROW_MAX),
-].filter((sizes) => sizes.length > 0);
+const columnsOf = (files: IconArtFiles): string[] => [...ICON_SIZES.ladder.map(String), ...(files.ico ? [ICO_COLUMN] : [])];
+
+const fileCell = (files: IconArtFiles, column: string) => {
+  const ico = column === ICO_COLUMN;
+  const path = ico ? files.ico : files.ladder(Number(column));
+  const size = ico ? ICO_SHOWN_AT : Number(column);
+  return <Image className="icon-ladder__png" src={ICON_URLS[`${BRAND_FOLDER}${path ?? ''}`]} width={size} height={size} alt="" placeholder="none" />;
+};
 
 const IconLadder = (props: IconLadderProps) => {
   const { files } = props;
   return (
-    <Stack gap="sm">
-      {ladderRows().map((sizes) => (
-        <Demonstrator
-          key={sizes.join('-')}
-          columns={axis(sizes.map(String))}
-          valign="end"
-          cell={(_row, size) => (
-            <Image className="icon-ladder__png" src={ICON_PNGS[`${BRAND_FOLDER}${files.ladder(Number(size))}`]} width={Number(size)} height={Number(size)} alt="" placeholder="none" />
-          )}
-        />
-      ))}
+    <Stack gap="sm" className="icon-ladder">
+      <ScrollArea axis="x" className="icon-ladder__row">
+        <Demonstrator columns={axis(columnsOf(files))} valign="end" cell={(_row, column) => fileCell(files, column)} />
+      </ScrollArea>
       <Text variant="caption">{ladderLine(files)}</Text>
       <Text variant="caption">{icoLine(files)}</Text>
     </Stack>

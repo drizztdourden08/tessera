@@ -1,16 +1,17 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
-import { useCopied } from '../behavior/useCopied';
-import { COPIED_LABEL } from '../AboutPanel.constants';
+import { useCopy } from '../../../primitives/TesseraProvider/behavior/useCopy';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { AboutCopyButtonProps } from './AboutCopyButton.type';
 
 const AboutCopyButton = (props: AboutCopyButtonProps) => {
-  const { text, label, onCopy } = props;
-  const { copied, handleCopy } = useCopied(text, onCopy);
+  const { text, label } = props;
+  const { copied, copy } = useCopy();
+  const { common, panels } = useTesseraStrings();
 
   return (
-    <Button variant="secondary" className="about-panel__copy" onClick={() => void handleCopy()} loading={text === null}>
-      {copied ? COPIED_LABEL : label}
+    <Button variant="secondary" className="about-panel__copy" onClick={() => void (text !== null && copy(text))} loading={text === null}>
+      {copied ? common.copied : label ?? panels.copyDebugInfo}
     </Button>
   );
 };

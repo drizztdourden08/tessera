@@ -1,0 +1,33 @@
+/* @layer renderer-components @kind data */
+const COMMON_STRINGS = {
+  loading: 'Loading',
+  cancel: 'Cancel',
+  close: 'Close',
+  confirm: 'Confirm',
+  create: 'Create',
+  delete: 'Delete',
+  done: 'Done',
+  keep: 'Keep',
+  options: 'Options',
+  remove: 'Remove',
+  reset: 'Reset',
+  save: 'Save',
+  search: 'Search',
+  searchPlaceholder: 'Search...',
+  filterPlaceholder: 'Filter...',
+  noMatches: 'No matches',
+  nothingToShow: 'Nothing to show.',
+  copied: 'Copied',
+  yes: 'Yes',
+  no: 'No',
+  mute: 'Mute',
+  unmute: 'Unmute',
+  play: 'Play',
+  pause: 'Pause',
+  popIn: 'Pop in',
+  popOut: 'Pop out',
+  selectedCount: (count: number) => `${count} selected`,
+  removeNamed: (name: string) => `Remove ${name}`,
+};
+
+export { COMMON_STRINGS };

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toList } from '../../field-kits/to-list';
 import { toText } from '../../field-kits/to-text';
 import { countLabel } from '../../field-kits/count-label';
@@ -11,7 +12,6 @@ import { EnumTagSelect } from '../../field-kits/sub-components/EnumTagSelect';
 import { ListItemControls } from '../../field-kits/sub-components/ListItemControls';
 import { blankFor } from '../../field-kits/blank-for';
 import { isTagsField } from '../behavior/tag-field';
-import { ADD } from './ArrayFieldEditor.constants';
 import { TagArrayEditor } from './TagArrayEditor';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 import type { ArrayFieldEditorProps } from '../RecordEditor.type';
@@ -22,6 +22,7 @@ const closedSetOf = (element: FieldDescriptor): readonly string[] | undefined =>
 
 const ArrayFieldEditor = (props: ArrayFieldEditorProps) => {
   const { field, value, binding } = props;
+  const { records } = useTesseraStrings();
   const element = field.of;
   const kit = element ? resolveFieldKit(element.kind) : undefined;
   if (!element || !kit) return null;
@@ -47,7 +48,7 @@ const ArrayFieldEditor = (props: ArrayFieldEditorProps) => {
 
   return (
     <Flex className="record-editor__array" direction="column" gap="xs">
-      {!list.length && <Text variant="caption" className="record-editor__empty">{countLabel(0)}</Text>}
+      {!list.length && <Text variant="caption" className="record-editor__empty">{countLabel(0, records)}</Text>}
       {list.map((entry, index) => (
         <Flex key={`${field.path}.${index}`} className="record-editor__array-row" gap="xs" align="center">
           <ElementControl
@@ -60,7 +61,7 @@ const ArrayFieldEditor = (props: ArrayFieldEditorProps) => {
           <ListItemControls list={list} index={index} disabled={disabled} onChange={write} />
         </Flex>
       ))}
-      <AddItemButton label={ADD} disabled={disabled} onAdd={() => write([...list, blankFor(element)])} />
+      <AddItemButton label={records.add} disabled={disabled} onAdd={() => write([...list, blankFor(element)])} />
     </Flex>
   );
 };

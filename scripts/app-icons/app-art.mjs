@@ -16,13 +16,15 @@ const iconArt = (brand, mark) => (brand.appIcon === 'tile'
   ? square(`<rect width="${CANVAS}" height="${CANVAS}" rx="${CANVAS * TILE_RADIUS}" fill="${brand.tile}"/>${placed(mark, TILE_SCALE)}`)
   : mark);
 
+const groundOf = (brand, size, fill) => (brand.appIcon === 'tile' ? `<rect width="${size}" height="${size}" fill="${fill}"/>` : '');
+
 const appArt = (brand, mark) => ({
   icon: iconArt(brand, mark),
   iconFile: brand.appIcon === 'tile' ? iconArt(brand, mark) : square(placed(mark, 1)),
-  maskable: square(`<rect width="${CANVAS}" height="${CANVAS}" fill="${brand.tile}"/>${placed(mark, MASKABLE_SCALE)}`),
+  maskable: square(`${groundOf(brand, CANVAS, brand.tile)}${placed(mark, MASKABLE_SCALE)}`),
   foreground: square(placed(mark, FOREGROUND_SCALE)),
-  background: square(`<rect width="${CANVAS}" height="${CANVAS}" fill="${brand.tile}"/>`),
-  splash: square(`<rect width="${SPLASH_SIZE}" height="${SPLASH_SIZE}" fill="${SPLASH_GROUND}"/>${placed(mark, SPLASH_SCALE, SPLASH_SIZE)}`, SPLASH_SIZE),
+  background: square(groundOf(brand, CANVAS, brand.tile)),
+  splash: square(`${groundOf(brand, SPLASH_SIZE, SPLASH_GROUND)}${placed(mark, SPLASH_SCALE, SPLASH_SIZE)}`, SPLASH_SIZE),
 });
 
 export { appArt, svgOf };

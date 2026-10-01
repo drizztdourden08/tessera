@@ -1,11 +1,11 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { BRAND_APPS, BRAND_FAMILY, iconFiles, Logo } from '../../src/brand';
+import { BRAND_APPS, BRAND_FAMILY, Logo } from '../../src/brand';
 import type { BrandApp, BrandMarkSize, BrandMarkVariant, IconArtFiles, LogoProps } from '../../src/brand';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import { IconLadder } from './_samples/IconLadder';
+import { IconFileRows } from './_samples/IconFileRows';
 
 type LogoArgs = {
   brand: BrandApp;
@@ -17,11 +17,8 @@ const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
 
 const APPS_WITH_ICONS = BRAND_APPS.filter((app) => BRAND_FAMILY[app].appIcon !== null);
 
-const LADDERS = BRAND_APPS.flatMap((app) => iconFiles(app)
-  .filter((files) => files.kind !== 'mark' || BRAND_FAMILY[app].appIcon === null)
-  .map((files) => ({ key: `${app}-${files.kind}`, label: `${app}, ${files.label.toLowerCase()}`, files })));
-
-const LADDER_FILES: Readonly<Record<string, IconArtFiles>> = Object.fromEntries(LADDERS.map(({ key, files }) => [key, files]));
+const isBrandFile = (app: BrandApp, files: IconArtFiles): boolean =>
+  files.kind === 'icon' || (files.kind === 'mark' && BRAND_FAMILY[app].appIcon === null);
 
 const ARG_TYPES: StoryLiteArgTypes<LogoArgs> = {
   brand: { control: 'select', options: [...BRAND_APPS] },
@@ -61,20 +58,12 @@ const AppIcon = {
 
 const IconFiles = {
   name: 'Icon files',
-  render: () => (
-    <Demonstrator
-      rows={LADDERS}
-      cell={(key) => {
-        const files = LADDER_FILES[key];
-        return files && <IconLadder files={files} />;
-      }}
-    />
-  ),
+  render: () => <IconFileRows pick={isBrandFile} />,
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
 
 const Overview = overviewStory({
   component: 'Logo',
-  description: 'An app\'s mark alone, drawn inline from path data so it stays sharp at any size. Use it where there is room for a mark but not a name: a title bar, a tab, a list of projects. It comes in four sizes, and variant="app-icon" draws the app icon the brand data describes: Relic of the Past and Brock use the mark straight, Archipelia sits on its tile, and Tessera has none because it is not an app. `pnpm icons` turns every mark, app icon and mascot into the files an app ships: a PNG at each size from 16 to 512, crisp whole pixels where pixel art fits, and a Windows .ico from 16 to 256. Icon files shows each ladder as generated. Mascots have their own page.',
+  description: 'An app\'s mark alone, drawn inline from path data so it stays sharp at any size. Use it where there is room for a mark but not a name: a title bar, a tab, a list of projects. It comes in four sizes, and variant="app-icon" draws the app icon the brand data describes: Relic of the Past and Brock use the mark straight, Archipelia sits on its tile, and Tessera has none because it is not an app. `pnpm icons` turns every mark, app icon and mascot into the files an app ships: a PNG at each size from 16 to 512, crisp whole pixels where pixel art fits, and a Windows .ico from 16 to 256. Tessera gets a mark.ico, the gallery favicon. Icon files shows each brand\'s own files as generated, every size and the .ico in one row that scrolls sideways. Mascots and their files have their own page.',
   playground: Playground,
   variants: [Sizes, AppIcon, IconFiles],
 });

@@ -1,14 +1,41 @@
 /* @layer renderer-components @kind types */
-type ProgressVariant = 'primary' | 'secondary' | 'danger';
+type ProgressTone = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'info';
 
-interface ProgressBarProps {
+type ProgressPaint = { tone?: ProgressTone; color?: never } | { color: string; tone?: never };
+
+type ProgressPart = ProgressPaint & {
   value: number;
+  label: string;
+};
+
+type ProgressSegment = ProgressPart & {
+  start: number;
+  width: number;
+};
+
+interface ProgressBarBase {
   max?: number;
-  variant?: ProgressVariant;
   secondaryValue?: number;
-  secondaryVariant?: ProgressVariant;
+  secondaryTone?: ProgressTone;
+  label?: string;
   live?: boolean;
   className?: string;
 }
 
-export type { ProgressBarProps, ProgressVariant };
+interface ProgressBarSingle extends ProgressBarBase {
+  value: number;
+  tone?: ProgressTone;
+  parts?: never;
+  legend?: never;
+}
+
+interface ProgressBarMultipart extends ProgressBarBase {
+  parts: readonly ProgressPart[];
+  legend?: boolean;
+  value?: never;
+  tone?: never;
+}
+
+type ProgressBarProps = ProgressBarSingle | ProgressBarMultipart;
+
+export type { ProgressBarProps, ProgressPaint, ProgressPart, ProgressSegment, ProgressTone };

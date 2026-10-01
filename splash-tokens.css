@@ -178,20 +178,20 @@
   --c-scrim: #00000099;
   --c-scrim-game: #00000059;
   --c-primary: #8a8a96;
-  --c-primary-bright: #aca0a3;
-  --c-primary-dim: #060505;
+  --c-primary-bright: #a3a3ac;
+  --c-primary-dim: #050506;
   --c-primary-soft: #8a8a9624;
   --c-on-primary: #0e0e12;
   --c-selected: #8a8a961f;
   --c-secondary: #6e6e7a;
-  --c-secondary-bright: #958a8d;
-  --c-secondary-dim: #040303;
+  --c-secondary-bright: #8c8c96;
+  --c-secondary-dim: #030304;
   --c-secondary-soft: #6e6e7a24;
   --c-secondary-scrim: #6e6e7a29;
   --c-on-secondary: #fff;
   --c-tertiary: #9a9aa4;
-  --c-tertiary-bright: #b7adb0;
-  --c-tertiary-dim: #070606;
+  --c-tertiary-bright: #afafb7;
+  --c-tertiary-dim: #060607;
   --c-tertiary-soft: #9a9aa424;
   --c-on-tertiary: #0e0e12;
   --blur: 8px;
@@ -248,7 +248,7 @@
   --hero-art-left: calc(232 * 1px);
   --hero-art-h: 256px;
   --hero-aside-w: calc(360 * 1px);
-  --hero-fact-max-w: calc(220 * 1px);
+  --facts-panel-value-max-w: calc(220 * 1px);
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
@@ -331,6 +331,7 @@
   --brand-rotp-gradient: linear-gradient(160deg, #3a2e14, #1e1810, #12100e);
   --brand-archipelia-gradient: linear-gradient(160deg, #ece6ff, #e2d8ff, #c1a8ff);
   --brand-brock-gradient: linear-gradient(160deg, #ffc66e, #ffb341, #ff9416);
+  --brand-backdrop-gradient: radial-gradient(ellipse at 70% 30%, #8a8a964d, transparent 55%), radial-gradient(ellipse at 20% 90%, #6e6e7a59, transparent 60%), linear-gradient(160deg, #17171a, #000);
 }
 
 [data-palette="archipelia"] {
@@ -421,6 +422,7 @@
   --c-tertiary-dim: #07070b;
   --c-tertiary-soft: #a79fc824;
   --c-on-tertiary: #0d0b14;
+  --brand-backdrop-gradient: radial-gradient(ellipse at 70% 30%, #7c4dff4d, transparent 55%), radial-gradient(ellipse at 20% 90%, #ece6ff59, transparent 60%), linear-gradient(160deg, #1a1821, #000);
 }
 
 [data-palette="rotp"] {
@@ -464,4 +466,5 @@
   --c-secondary-soft: #4a996624;
   --c-secondary-scrim: #4a996629;
   --c-on-secondary: #000;
+  --brand-backdrop-gradient: radial-gradient(ellipse at 70% 30%, #c8a84e4d, transparent 55%), radial-gradient(ellipse at 20% 90%, #4a996659, transparent 60%), linear-gradient(160deg, #17171a, #000);
 }

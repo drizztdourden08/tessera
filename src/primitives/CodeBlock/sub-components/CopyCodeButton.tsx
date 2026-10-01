@@ -1,27 +1,18 @@
 /* @layer renderer-components @kind component */
-import { useCallback, useEffect, useState } from 'react';
 import { Glyph } from '../../Glyph';
 import { IconButton } from '../../IconButton';
-import { DONE_MS } from './CopyCodeButton.constants';
+import { useCopy } from '../../TesseraProvider/behavior/useCopy';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import type { CopyCodeButtonProps } from './CopyCodeButton.type';
 
 const CopyCodeButton = (props: CopyCodeButtonProps) => {
   const { code } = props;
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    if (!done) return undefined;
-    const timer = setTimeout(() => setDone(false), DONE_MS);
-    return () => clearTimeout(timer);
-  }, [done]);
-
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(code).then(() => setDone(true)).catch(() => setDone(false));
-  }, [code]);
+  const { copied, copy } = useCopy();
+  const { common, fields } = useTesseraStrings();
 
   return (
-    <IconButton className="code-block__copy" variant="ghost" size="sm" label={done ? 'Copied' : 'Copy code'} onClick={handleCopy}>
-      <Glyph name={done ? 'check' : 'copy'} />
+    <IconButton className="code-block__copy" variant="ghost" size="sm" label={copied ? common.copied : fields.copyCode} onClick={() => void copy(code)}>
+      <Glyph name={copied ? 'check' : 'copy'} />
     </IconButton>
   );
 };

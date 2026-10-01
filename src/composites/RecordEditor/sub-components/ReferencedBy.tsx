@@ -4,7 +4,7 @@ import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
 import { Text } from '../../../primitives/Text';
 import { Paragraph } from '../../../primitives/text-elements';
-import { EMPTY, TITLE } from './ReferencedBy.constants';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { ReferencedByHit } from '../RecordEditor.type';
 import type { KindGroup, ReferencedByProps } from './ReferencedBy.type';
 import '../../../theme/record-editor.css';
@@ -24,9 +24,10 @@ const groupByKind = (hits: readonly ReferencedByHit[]): readonly KindGroup[] => 
 const ReferencedBy = (props: ReferencedByProps) => {
   const { hits } = props;
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(new Set());
+  const { records } = useTesseraStrings();
 
   if (hits.length === 0) {
-    return <Text variant="caption" className="referenced-by__empty">{EMPTY}</Text>;
+    return <Text variant="caption" className="referenced-by__empty">{records.notReferenced}</Text>;
   }
 
   const toggle = (kind: string): void => {
@@ -39,7 +40,7 @@ const ReferencedBy = (props: ReferencedByProps) => {
 
   return (
     <Box className="referenced-by">
-      <Paragraph tone="dim" className="referenced-by__title">{TITLE}</Paragraph>
+      <Paragraph tone="dim" className="referenced-by__title">{records.referencedBy}</Paragraph>
       {groupByKind(hits).map((group) => (
         <Box key={group.kind} className="referenced-by__group">
           <Button
@@ -65,7 +66,7 @@ const ReferencedBy = (props: ReferencedByProps) => {
                   >
                     {hit.label}
                   </Text>
-                  <Text as="span" className="referenced-by__field">via {hit.field}</Text>
+                  <Text as="span" className="referenced-by__field">{records.via(hit.field)}</Text>
                 </Box>
               ))}
             </Box>

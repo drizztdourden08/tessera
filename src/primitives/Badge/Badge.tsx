@@ -10,6 +10,7 @@ const Badge = <S extends string = string>(props: BadgeProps<S>) => {
   warnBadgeText(value);
   const text = badgeText(value, max);
   const hosted = children !== undefined && children !== null;
+  if (text === '' && props.variant !== 'dot') return hosted ? <>{children}</> : null;
   const badge = (
     <span
       className={badgeClass(props, text, hosted)}

@@ -2,37 +2,34 @@
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
-import { PathIcon } from '../../../primitives/PathIcon';
-import {
-  CAPTION_SIZE, CAPTION_VIEWBOX, CLOSE_PATHS, MAXIMIZE_PATHS, MINIMIZE_PATHS, RESTORE_PATHS,
-} from '../WindowTitleBar.constants';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { CaptionGlyph } from './CaptionGlyph';
 import type { WindowControlsProps } from './WindowControls.type';
 
 const WindowControls = (props: WindowControlsProps) => {
-  const { maximized, fullscreen, onFullscreenToggle, onMinimize, onMaximizeToggle, onClose } = props;
+  const { controls, maximized, fullscreen, onControl } = props;
+  const { common, windows } = useTesseraStrings();
 
   return (
     <Box className="window-title-bar__controls">
-      {onFullscreenToggle && (
-        <IconButton className="window-title-bar__control" label={fullscreen ? 'Exit fullscreen' : 'Fullscreen'} onClick={onFullscreenToggle}>
+      {controls.fullscreen !== false && (
+        <IconButton className="window-title-bar__control" label={fullscreen ? windows.exitFullscreen : windows.fullscreen} onClick={() => onControl('fullscreen')}>
           <Icon name={fullscreen ? 'minimize-2' : 'maximize-2'} size={12} />
         </IconButton>
       )}
-      {onMinimize && (
-        <IconButton className="window-title-bar__control" label="Minimize" onClick={onMinimize}>
-          <PathIcon paths={MINIMIZE_PATHS} size={CAPTION_SIZE} viewBox={CAPTION_VIEWBOX} />
+      {controls.minimize !== false && (
+        <IconButton className="window-title-bar__control" label={windows.minimize} onClick={() => onControl('minimize')}>
+          <CaptionGlyph name="windowMinimize" />
         </IconButton>
       )}
-      {onMaximizeToggle && (
-        <IconButton className="window-title-bar__control" label={maximized ? 'Restore' : 'Maximize'} onClick={onMaximizeToggle}>
-          <PathIcon paths={maximized ? RESTORE_PATHS : MAXIMIZE_PATHS} size={CAPTION_SIZE} viewBox={CAPTION_VIEWBOX} />
+      {controls.maximize !== false && (
+        <IconButton className="window-title-bar__control" label={maximized ? windows.restore : windows.maximize} onClick={() => onControl('maximize')}>
+          <CaptionGlyph name={maximized ? 'windowRestore' : 'windowMaximize'} />
         </IconButton>
       )}
-      {onClose && (
-        <IconButton className="window-title-bar__control window-title-bar__control--close" label="Close" onClick={onClose}>
-          <PathIcon paths={CLOSE_PATHS} size={CAPTION_SIZE} viewBox={CAPTION_VIEWBOX} />
-        </IconButton>
-      )}
+      <IconButton className="window-title-bar__control window-title-bar__control--close" label={common.close} onClick={() => onControl('close')}>
+        <CaptionGlyph name="windowClose" />
+      </IconButton>
     </Box>
   );
 };

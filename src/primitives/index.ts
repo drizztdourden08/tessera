@@ -57,7 +57,6 @@ export { Anchored, useAnchorSupport } from './Anchored';
 export type { AnchoredPlacement, AnchoredProps } from './Anchored';
 export type { FloatingLength, FloatingPlacement, FloatingProps } from './Floating';
 export { Portal, useAnchorTracking, dropPanelPositionFor } from './Portal';
-export { PortalDocumentContext } from './dom/portal-document-context';
 export type {
   DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult,
 } from './Portal';
@@ -93,11 +92,17 @@ export type { StatRowProps } from './StatRow';
 export { TermList } from './TermList';
 export type { TermListItem, TermListProps } from './TermList';
 export { ProgressBar } from './ProgressBar';
-export type { ProgressBarProps, ProgressVariant } from './ProgressBar';
+export type { ProgressBarProps, ProgressPart, ProgressTone } from './ProgressBar';
 export { Spinner } from './Spinner';
 export type { SpinnerProps, SpinnerSize } from './Spinner';
-export { TesseraProvider } from './TesseraProvider';
-export type { TesseraOverrides, TesseraPart, TesseraProviderProps } from './TesseraProvider';
+export { TesseraProvider, useTesseraStrings } from './TesseraProvider';
+export type {
+  ClipboardWriter, ErrorFallbackProps, TesseraOverrides, TesseraPart, TesseraProviderProps,
+} from './TesseraProvider';
+export { TESSERA_STRINGS } from './strings';
+export type { TesseraStringGroup, TesseraStrings, TesseraStringsOverride } from './strings';
+export { Link } from './Link';
+export type { LinkProps } from './Link';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 export { RangeInput } from './RangeInput';
@@ -107,14 +112,14 @@ export type { RangeSliderProps } from './RangeSlider';
 export { Thumbnail } from './Thumbnail';
 export type { ThumbnailProps } from './Thumbnail';
 export { Image } from './Image';
-export type { ImageProps } from './Image';
+export type { ImagePlaceholderProps, ImageProps } from './Image';
 export { Video } from './Video';
 export type { VideoProps } from './Video';
 export { Icon, ICONS } from './Icon';
 export { Glyph, GLYPHS } from './Glyph';
 export type { GlyphName, GlyphProps } from './Glyph';
 export type {
-  BrandIconName, BrandIconProps, BrandIconTone, IconFlip, IconName, IconProps, IconRotation,
+  BrandIconName, BrandIconProps, BrandIconTone, IconFlip, IconName, IconProps, IconRotation, IconSet,
 } from './Icon';
 export { PathIcon } from './PathIcon';
 export type { PathIconCircle, PathIconProps } from './PathIcon';

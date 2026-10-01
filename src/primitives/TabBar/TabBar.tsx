@@ -5,6 +5,7 @@ import { Badge } from '../Badge';
 import { Glyph } from '../Glyph';
 import { IconButton } from '../IconButton';
 import { Span } from '../text-elements';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { tabIndexForKey } from './behavior/tab-index-for-key';
 import { useTabStripOverflow } from './behavior/useTabStripOverflow';
 import type { TabBarProps } from './TabBar.type';
@@ -17,6 +18,7 @@ const pagerClass = (enabled: boolean): string =>
 const TabBar = (props: TabBarProps) => {
   const { tabs, activeTab, onTabChange, iconOnly = false } = props;
   const strip = useTabStripOverflow(tabs.length);
+  const { fields } = useTesseraStrings();
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number): void => {
     const next = tabIndexForKey(event.key, index, tabs.length);
@@ -36,7 +38,7 @@ const TabBar = (props: TabBarProps) => {
         <IconButton
           type="button"
           className={pagerClass(strip.canScrollBack)}
-          label="Show earlier tabs"
+          label={fields.earlierTabs}
           disabled={!strip.canScrollBack}
           onClick={() => strip.pageBy(-1)}
         >
@@ -67,7 +69,7 @@ const TabBar = (props: TabBarProps) => {
         <IconButton
           type="button"
           className={pagerClass(strip.canScrollForward)}
-          label="Show later tabs"
+          label={fields.laterTabs}
           disabled={!strip.canScrollForward}
           onClick={() => strip.pageBy(1)}
         >

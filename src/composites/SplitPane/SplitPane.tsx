@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { startShareOf } from './behavior/start-share-of';
 import { useSplitPane } from './behavior/useSplitPane';
 import { SplitDivider } from './sub-components/SplitDivider';
@@ -10,9 +11,10 @@ import './SplitPane.css';
 const SplitPane = (props: SplitPaneProps) => {
   const {
     start, end, defaultRatio = DEFAULT_RATIO, snapAt = DEFAULT_SNAP, defaultCollapsed = 'none',
-    startLabel = 'left pane', endLabel = 'right pane', className,
+    startLabel, endLabel, className,
   } = props;
 
+  const { navigation } = useTesseraStrings();
   const { trackRef, ratio, collapsed, dragging, ...handlers } = useSplitPane(defaultRatio, snapAt, defaultCollapsed);
   const startShare = startShareOf(collapsed, ratio);
 
@@ -29,8 +31,8 @@ const SplitPane = (props: SplitPaneProps) => {
       <SplitDivider
         collapsed={collapsed}
         startShare={startShare}
-        startLabel={startLabel}
-        endLabel={endLabel}
+        startLabel={startLabel ?? navigation.leftPane}
+        endLabel={endLabel ?? navigation.rightPane}
         handlers={handlers}
       />
 

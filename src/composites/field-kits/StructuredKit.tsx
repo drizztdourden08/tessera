@@ -31,21 +31,8 @@ const renderCell = (value: unknown): ReactNode => {
   );
 };
 
-const createPlaceholderEditor = (note: string) => {
-  const EditorControl = (props: EditorControlProps) => {
-    const { field } = props;
-    return <Text className="field-kit__placeholder" title={field.path}>{note}</Text>;
-  };
-  return EditorControl;
-};
-
-const createStructuredKit = (kind: FieldKind, editor: string | FieldControl<EditorControlProps>): FieldTypeStrategy => {
-  const kit: FieldTypeStrategy = {
-    kind,
-    FilterControl,
-    EditorControl: typeof editor === 'string' ? createPlaceholderEditor(editor) : editor,
-    renderCell,
-  };
+const createStructuredKit = (kind: FieldKind, editor: FieldControl<EditorControlProps>): FieldTypeStrategy => {
+  const kit: FieldTypeStrategy = { kind, FilterControl, EditorControl: editor, renderCell };
   registerFieldTester(kind, { test: testExistence });
   registerComparator(kind, structuredCompare);
   registerGroupKey(kind, structuredGroupKey);

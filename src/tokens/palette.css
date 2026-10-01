@@ -26,21 +26,4 @@
     --p-on-secondary: var(--p-pure-white);
     --p-on-tertiary:  var(--p-black);
   }
-
-  [data-theme="light"] {
-    --p-danger:       #c9304f;
-    --p-warning:      #a67800;
-    --p-info:         #2f6fb0;
-    --p-success:      #2e8b57;
-    --p-tag-rose:     #c93a57;
-    --p-tag-orange:   #c96a22;
-    --p-tag-amber:    #a67a00;
-    --p-tag-lime:     #5f8a1c;
-    --p-tag-green:    #23875a;
-    --p-tag-teal:     #14857a;
-    --p-tag-cyan:     #1f7fa8;
-    --p-tag-blue:     #3a63c9;
-    --p-tag-violet:   #6b4fc4;
-    --p-tag-pink:     #b0428f;
-  }
 }

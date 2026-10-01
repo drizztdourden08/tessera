@@ -39,10 +39,10 @@ const LayoutDemo = (props: NavLayoutArgs) => {
   const open = (id: string) => { setQuery(''); setActive(id.split('/')[0] ?? id); };
   const search = withSearch ? { value: query, onChange: setQuery, placeholder: searchPlaceholder } : undefined;
   return (
-    <Box className="story-frame nav-layout-story__frame">
+    <Box className={`story-frame nav-layout-story__frame${compact ? ' nav-layout-story__frame--narrow' : ''}`}>
       <NavLayout
         compact={compact}
-        nav={{ config: HUB_NAV, activeId: active, onSelect: open, search, defaultOpen: true }}
+        nav={{ config: HUB_NAV, activeId: active, onSelect: open, search, defaultOpen: !compact }}
         results={<SearchResults query={query} count={hits.length} hits={hits} onOpenHit={(hit) => open(hit.id)} />}
       >
         <HubPage id={active} />
@@ -55,7 +55,7 @@ const ARGS: Partial<NavLayoutArgs> = { withSearch: true, compact: false, searchP
 
 const ARG_TYPES: StoryLiteArgTypes<NavLayoutArgs> = {
   withSearch: { control: 'boolean' },
-  compact: { control: 'boolean' },
+  compact: { control: 'boolean', description: 'For a narrow window: the menu slides over the page, which keeps its width. The frame narrows to show it.' },
   searchPlaceholder: { control: 'text' },
 };
 
@@ -72,10 +72,10 @@ const Playground = {
 } satisfies StoryLiteStoryDefinition<NavLayoutArgs>;
 
 const Compact = {
-  name: 'Compact, no search',
+  name: 'Compact, in a narrow window',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <LayoutDemo {...args} compact withSearch={false} />,
+  render: (args) => <LayoutDemo {...args} compact />,
 } satisfies StoryLiteStoryDefinition<NavLayoutArgs>;
 
 const renderState = (props: StateProps) => {
@@ -112,7 +112,7 @@ const [query, setQuery] = useState('');
 
 const Overview = overviewStory({
   component: 'NavLayout',
-  description: 'A window of sections: a SectionNav on the left and the current page on the right, in a pane that scrolls. Reach for it for a hub or a settings screen. The nav is data and takes every SectionNav prop. When the nav has a search and results is set, the pane shows the results while the field has focus or holds text, and no nav item reads as current. Escape clears a filled search without leaving the screen. compact tightens the gap beside the nav. The pane takes a SettingsPage, a SearchResults or any page.',
+  description: 'A window of sections: a SectionNav on the left and the current page on the right, in a pane that scrolls. Reach for it for a hub or a settings screen. The nav is data and takes every SectionNav prop. When the nav has a search and results is set, the pane shows the results while the field has focus or holds text, and no nav item reads as current. Escape clears a filled search without leaving the screen. compact is for a narrow window: the nav stays a strip of icons beside the page, and its toggle slides the open menu over the page, which keeps its full width; the toggle, Escape, a click outside or picking an item closes it, and focus goes back to the toggle. The pane takes a SettingsPage, a SearchResults or any page.',
   playground: Playground,
   variants: [Compact],
   states: {

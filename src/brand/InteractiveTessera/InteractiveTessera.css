@@ -58,19 +58,19 @@
   position: absolute;
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
-  padding: 0.35em 0.65em;
+  padding: 0.35em 0.5em;
   border: var(--border-width-thin) solid transparent;
   border-radius: var(--radius-xl);
   background: none;
   color: var(--c-text);
-  font-size: larger;
-  font-weight: var(--weight-bold);
+  font-size: 1.6cqi;
   white-space: nowrap;
   cursor: pointer;
   transform: translateY(-50%);
   transition: opacity var(--duration-slow), border-color var(--duration-normal), background var(--duration-normal);
 }
+
+.interactive-tessera .interactive-tessera__callout[data-side="left"] { flex-direction: row-reverse; }
 
 .interactive-tessera .interactive-tessera__callout:is(:hover, :focus-visible) {
   border-color: var(--c-border);
@@ -79,7 +79,30 @@
 }
 
 .interactive-tessera__callout .brand-mark { --brand-mark-size: 1.9em; }
-.interactive-tessera__callout .pixel-wordmark { --pixel-wordmark-size: 1.05em; }
+
+.interactive-tessera__name {
+  display: block;
+  overflow: hidden;
+  inline-size: 0;
+  opacity: 0;
+  interpolate-size: allow-keywords;
+  transition: inline-size var(--duration-normal) var(--ease-emphasized), opacity var(--duration-normal);
+}
+
+.interactive-tessera__callout[data-lit] .interactive-tessera__name {
+  inline-size: auto;
+  opacity: 1;
+}
+
+.interactive-tessera__name .pixel-wordmark {
+  --pixel-wordmark-size: 1.05em;
+
+  display: block;
+  max-inline-size: none;
+  margin-inline: 0.5em 0;
+}
+
+.interactive-tessera__callout[data-side="left"] .interactive-tessera__name .pixel-wordmark { margin-inline: 0 0.5em; }
 
 .interactive-tessera[data-picked] .interactive-tessera__leads,
 .interactive-tessera[data-picked] .interactive-tessera__callout {
@@ -95,5 +118,6 @@
   .interactive-tessera__t,
   .interactive-tessera__glow,
   .interactive-tessera__leads,
+  .interactive-tessera__name,
   .interactive-tessera .interactive-tessera__callout { transition: none; }
 }

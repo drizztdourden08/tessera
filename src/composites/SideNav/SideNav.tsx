@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
 import { TextInput } from '../../primitives/TextInput';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { GroupTitle } from './sub-components/GroupTitle';
 import type { SideNavProps } from './SideNav.type';
 import '../../theme/glass-panel.css';
@@ -10,7 +11,8 @@ import '../../theme/focus-ring.css';
 import './SideNav.css';
 
 const SideNav = (props: SideNavProps) => {
-  const { groups, activeId, onSelect, searchable = false, searchPlaceholder = 'Filter...', header, query, onQueryChange } = props;
+  const { groups, activeId, onSelect, searchable = false, searchPlaceholder, header, query, onQueryChange } = props;
+  const { common } = useTesseraStrings();
   const controlled = query !== undefined;
   const [innerQuery, setInnerQuery] = useState('');
   const value = controlled ? query : innerQuery;
@@ -30,7 +32,7 @@ const SideNav = (props: SideNavProps) => {
       {header && <Box className="side-nav__header">{header}</Box>}
       {searchable && (
         <Box className="side-nav__search">
-          <TextInput value={value} onChange={e => onInput(e.target.value)} placeholder={searchPlaceholder} />
+          <TextInput value={value} onChange={e => onInput(e.target.value)} placeholder={searchPlaceholder ?? common.filterPlaceholder} />
         </Box>
       )}
       <Box className="side-nav__list">

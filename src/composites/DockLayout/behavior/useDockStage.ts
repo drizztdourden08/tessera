@@ -11,7 +11,7 @@ import { sameRect } from './same-rect';
 import { useStageSize } from './useStageSize';
 
 const useDockStage = (stageRef: RefObject<HTMLElement | null>, params: DockStageParams): DockStage => {
-  const { layout, peek, modifiers, labelOf, mainLabel, canPopOut, onMainRect } = params;
+  const { layout, peek, modifiers, labelOf, mainLabel, strings, canPopOut, onMainRect } = params;
   const size = useStageSize(stageRef);
   const stage = useMemo<Rect>(() => ({ x: 0, y: 0, width: size?.width ?? 0, height: size?.height ?? 0 }), [size]);
   const laid = useMemo(() => {
@@ -29,8 +29,8 @@ const useDockStage = (stageRef: RefObject<HTMLElement | null>, params: DockStage
   }, [mainRect, onMainRect]);
 
   const context = useMemo<DragContext>(
-    () => ({ laid, layout, mainRect, stage, modifiers, labelOf, mainLabel, canPopOut }),
-    [laid, layout, mainRect, stage, modifiers, labelOf, mainLabel, canPopOut],
+    () => ({ laid, layout, mainRect, stage, modifiers, labelOf, mainLabel, strings, canPopOut }),
+    [laid, layout, mainRect, stage, modifiers, labelOf, mainLabel, strings, canPopOut],
   );
   return { laid, mainRect, context };
 };

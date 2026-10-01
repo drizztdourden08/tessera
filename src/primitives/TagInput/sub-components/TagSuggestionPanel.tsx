@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import { Anchored } from '../../Anchored';
 import { Span } from '../../text-elements';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import type { MouseEvent } from 'react';
 import type { TagSuggestionPanelProps } from '../TagInput.type';
 
@@ -10,6 +11,7 @@ const keepFocus = (e: MouseEvent) => e.preventDefault();
 const TagSuggestionPanel = (props: TagSuggestionPanelProps) => {
   const { listId, optionId, panelRef, anchorRef, pos, suggestions, highlightIdx, createText, inline, onPick } = props;
   const detached = useRef<HTMLElement>(null);
+  const { fields } = useTesseraStrings();
 
   const isEmpty = suggestions.length === 0 && createText === null;
 
@@ -38,12 +40,12 @@ const TagSuggestionPanel = (props: TagSuggestionPanelProps) => {
           onMouseDown={keepFocus}
           onClick={() => onPick(createText)}
         >
-          <Span className="tag-input__create-verb">Create</Span>
+          <Span className="tag-input__create-verb">{fields.createTag}</Span>
           <Span className="tag-input__create-value">{createText}</Span>
         </div>
       )}
 
-      {isEmpty && <div className="tag-input__empty"><Span>No matching tags</Span></div>}
+      {isEmpty && <div className="tag-input__empty"><Span>{fields.noMatchingTags}</Span></div>}
     </>
   );
 

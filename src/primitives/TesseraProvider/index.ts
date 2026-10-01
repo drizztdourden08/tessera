@@ -1,3 +1,6 @@
 /* @layer renderer-components @kind barrel */
 export { TesseraProvider } from './TesseraProvider';
-export type { TesseraOverrides, TesseraPart, TesseraProviderProps } from './TesseraProvider.type';
+export { useTesseraStrings } from './behavior/useTesseraStrings';
+export type {
+  ClipboardWriter, ErrorFallbackProps, TesseraOverrides, TesseraPart, TesseraProviderProps,
+} from './TesseraProvider.type';

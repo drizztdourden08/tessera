@@ -1,10 +1,7 @@
 /* @layer renderer-components @kind types */
-import type { AboutPanelCopy } from '../AboutPanel.type';
-
 interface AboutCopyButtonProps {
   text: string | null;
-  label: string;
-  onCopy?: AboutPanelCopy;
+  label?: string;
 }
 
 export type { AboutCopyButtonProps };

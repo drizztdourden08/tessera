@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { Anchored, Box, Button, ButtonRow, ScrollArea, Select, Text, Tooltip } from '../../../src/primitives';
 import type { AnchoredPlacement } from '../../../src/primitives';
 import { DropdownMenu } from '../../../src/composites';
+import type { MenuGroup } from '../../../src/composites';
 import { REGIONS } from './picker-data';
 
 type AnchoredArgs = {
@@ -13,11 +14,9 @@ type AnchoredArgs = {
 
 const PLACEMENTS: readonly AnchoredPlacement[] = ['bottom-start', 'bottom-center', 'bottom-end', 'top-start', 'top-center', 'top-end', 'right-start'];
 
-const MENU = [
-  { key: 'save', label: 'Save the run' },
-  { key: 'share', label: 'Share the seed' },
-  'separator' as const,
-  { key: 'delete', label: 'Delete' },
+const MENU: MenuGroup[] = [
+  { id: 'run', items: [{ id: 'save', label: 'Save the run' }, { id: 'share', label: 'Share the seed' }] },
+  { id: 'danger', items: [{ id: 'delete', label: 'Delete' }] },
 ];
 
 const PinnedPanel = (props: Partial<AnchoredArgs>) => {
@@ -57,7 +56,7 @@ const ScrollBox = () => {
             <Text as="span" className="anchored-demo__hint">Hover for a hint</Text>
           </Tooltip>
         </ButtonRow>
-        {menuOpen && <DropdownMenu items={MENU} anchorRef={menuRef} />}
+        {menuOpen && <DropdownMenu groups={MENU} anchorRef={menuRef} onClose={() => setMenuOpen(false)} />}
         <Text className="anchored-demo__filler">More content, so the box scrolls.</Text>
         <Box className="anchored-demo__spacer" />
       </Box>

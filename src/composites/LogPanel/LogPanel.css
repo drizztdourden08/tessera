@@ -69,10 +69,11 @@
 
 .log-panel__row {
   display: grid;
-  grid-template-columns: var(--log-gutter-w, 4ch) 1fr;
+  grid-template-columns: minmax(var(--log-gutter-w, 4ch), max-content) 1fr;
   column-gap: var(--space-md);
   align-items: stretch;
   padding: 0 var(--space-md);
+  font-size: var(--text-base);
   white-space: pre-wrap;
 }
 
@@ -88,7 +89,7 @@
 
 .log-panel__content {
   display: grid;
-  grid-template-columns: var(--log-tag-w, 10ch) 1fr;
+  grid-template-columns: minmax(var(--log-tag-w, 10ch), max-content) 1fr;
   column-gap: var(--space-md);
   align-items: baseline;
   min-width: 0;
@@ -110,9 +111,10 @@
   border-left: var(--border-width-thick) solid var(--c-hairline);
 }
 
+.log-panel__gutter,
 .log-panel__tag,
 .log-panel__msg {
-  font-size: var(--text-base);
+  font-size: inherit;
 }
 
 .log-panel__tag {

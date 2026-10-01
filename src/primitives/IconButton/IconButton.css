@@ -52,4 +52,5 @@
 
 .icon-btn--tone-danger:active:not(:disabled) {
   background: transparent;
+  color: var(--c-danger);
 }

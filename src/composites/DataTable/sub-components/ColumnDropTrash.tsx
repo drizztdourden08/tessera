@@ -3,12 +3,14 @@ import { useState } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { Span } from '../../../primitives/text-elements';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { DragEvent } from 'react';
 import type { ColumnDropTrashProps } from './ColumnDropTrash.type';
 
 const ColumnDropTrash = (props: ColumnDropTrashProps) => {
   const { draggingPath, label, onRemove, onDragEnd } = props;
   const [over, setOver] = useState(false);
+  const { table } = useTesseraStrings();
 
   if (draggingPath === null) return null;
 
@@ -28,13 +30,13 @@ const ColumnDropTrash = (props: ColumnDropTrashProps) => {
   return (
     <Box
       className={over ? 'data-table__trash data-table__trash--over' : 'data-table__trash'}
-      aria-label={`Drop ${label} here to remove the column`}
+      aria-label={table.dropToRemoveNamed(label)}
       onDragOver={handleDragOver}
       onDragLeave={() => setOver(false)}
       onDrop={handleDrop}
     >
       <Icon name="trash-2" size={24} />
-      <Span className="data-table__trash-label">{over ? 'Release to remove' : 'Drop to remove'}</Span>
+      <Span className="data-table__trash-label">{over ? table.releaseToRemove : table.dropToRemove}</Span>
     </Box>
   );
 };

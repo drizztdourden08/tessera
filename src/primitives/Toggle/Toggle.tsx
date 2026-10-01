@@ -3,12 +3,15 @@ import './Toggle.css';
 import { useId } from 'react';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { Glyph } from '../Glyph';
+import { Link } from '../Link';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { Small, Span } from '../text-elements';
 import type { ToggleProps } from './Toggle.type';
 
 const Toggle = (props: ToggleProps) => {
   const { checked, onChange, label, description, disabled = false, id, link, 'aria-label': ariaLabel } = props;
   const generatedId = useId();
+  const { fields } = useTesseraStrings();
   const control = useFieldControl(id);
   const toggleId = control.id ?? `toggle-${generatedId}`;
 
@@ -21,16 +24,16 @@ const Toggle = (props: ToggleProps) => {
             <Small tone="dim" className="toggle__description">
               {description}
               {link && (
-                <a
+                <Link
                   className="toggle__link"
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  title="Learn more"
+                  title={fields.learnMore}
                 >
                   <Glyph name="external" size={12} />
-                </a>
+                </Link>
               )}
             </Small>
           )}

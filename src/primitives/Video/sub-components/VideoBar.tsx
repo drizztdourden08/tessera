@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Icon } from '../../Icon';
 import { IconButton } from '../../IconButton';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import './VideoBar.css';
 import type { VideoBarProps } from './VideoBar.type';
 import { VideoRateMenu } from './VideoRateMenu';
@@ -11,13 +12,14 @@ import { VideoVolume } from './VideoVolume';
 
 const VideoBar = (props: VideoBarProps) => {
   const { media, actions, fullscreen, pictureInPicture, theater } = props;
+  const { common } = useTesseraStrings();
   const playing = !media.paused;
 
   return (
     <div className="video-bar">
       <VideoSeek currentTime={media.currentTime} duration={media.duration} buffered={media.buffered} onSeek={actions.seekTo} />
       <div className="video-bar__row">
-        <IconButton className="video-bar__button" label={playing ? 'Pause' : 'Play'} onClick={actions.togglePlay}>
+        <IconButton className="video-bar__button" label={playing ? common.pause : common.play} onClick={actions.togglePlay}>
           <Icon name={playing ? 'pause' : 'play'} size={18} />
         </IconButton>
         <VideoVolume volume={media.volume} muted={media.muted} onVolume={actions.setVolume} onToggleMute={actions.toggleMute} />

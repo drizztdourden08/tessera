@@ -26,7 +26,7 @@ const ContrastTable = (args: ContrastArgs) => {
   return (
     <Box className="story-column">
       <Text className="story-label">
-        Ratios are computed from the colours the page paints, per WCAG 2.1. Switch the palette or theme to re-measure.
+        Ratios are computed from the colours the page paints, per WCAG 2.1. Switch the palette to re-measure.
       </Text>
       <Demonstrator
         corner="Pair"
@@ -64,7 +64,7 @@ const Pairs = {
 
 const Overview = overviewStory({
   component: 'Contrast',
-  description: 'Every text and surface pair the roles produce, with its contrast ratio computed from the colours the page paints, per WCAG 2.1. Change the sample or the thresholds, or switch the palette or theme, to measure again.',
+  description: 'Every text and surface pair the roles produce, with its contrast ratio computed from the colours the page paints, per WCAG 2.1. Change the sample or the thresholds, or switch the palette, to measure again.',
   playground: Pairs,
   code: false,
   variants: [],

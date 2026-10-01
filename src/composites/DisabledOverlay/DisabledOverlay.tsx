@@ -3,12 +3,13 @@ import { Box } from '../../primitives/Box';
 import { Text } from '../../primitives/Text';
 import { Button } from '../../primitives/Button';
 import './DisabledOverlay.css';
-import { DEFAULT_ACTION_LABEL, DEFAULT_MESSAGE } from './DisabledOverlay.constants';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { DisabledOverlayProps } from './DisabledOverlay.type';
 
 const DisabledOverlay = (props: DisabledOverlayProps) => {
+  const { panels } = useTesseraStrings();
   const {
-    active, message = DEFAULT_MESSAGE, actionLabel = DEFAULT_ACTION_LABEL,
+    active, message = panels.disabled, actionLabel = panels.openSettings,
     contained = false, onOpenSettings, children, className = '',
   } = props;
 

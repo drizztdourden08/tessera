@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
 import type {
   DockTree, DragModifiers, DropTarget, FloatingWidget, LayoutEdit, Rect, Size, WidgetId,
 } from '../DockLayout.type';
@@ -58,6 +59,7 @@ interface DragContext {
   modifiers: DragModifiers;
   labelOf: (id: WidgetId) => string;
   mainLabel: string;
+  strings: TesseraStrings['widgets'];
   canPopOut?: (id: WidgetId) => boolean;
 }
 

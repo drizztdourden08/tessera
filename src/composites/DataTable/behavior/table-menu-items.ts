@@ -2,11 +2,11 @@
 import { buildFieldMenuItems } from './field-menu-items';
 import { menuGlyph } from './menu-glyph';
 import { menuIcon } from './menu-icon';
-import type { MenuEntry } from '../../DropdownMenu';
+import type { MenuNode } from '../../DropdownMenu';
 import type { TableMenuInput } from './table-menu-items.type';
 
-const buildTableMenuItems = (input: TableMenuInput): MenuEntry[] => {
-  const { sortActive, groupActive, fieldNodes = [], actions, onClose } = input;
+const buildTableMenuItems = (input: TableMenuInput): MenuNode[] => {
+  const { sortActive, groupActive, fieldNodes = [], actions, onClose, strings } = input;
   const act = (run: () => void) => () => {
     onClose();
     run();
@@ -14,37 +14,38 @@ const buildTableMenuItems = (input: TableMenuInput): MenuEntry[] => {
 
   return [
     {
-      key: 'add-column',
+      id: 'add-column',
       icon: menuGlyph('plus'),
-      label: 'Add column',
+      label: strings.addColumn,
       children: buildFieldMenuItems({
         nodes: fieldNodes,
+        strings,
         onPick: (field: string) => act(() => actions.onAddColumn(field))(),
       }),
     },
-    'separator',
+    { separator: true },
     {
-      key: 'clear-sort',
+      id: 'clear-sort',
       icon: menuIcon('delete'),
-      label: 'Clear all sorting',
+      label: strings.clearSorting,
       disabled: !sortActive,
-      onClick: act(actions.onClearSort),
+      onSelect: act(actions.onClearSort),
     },
     {
-      key: 'clear-group',
+      id: 'clear-group',
       icon: menuIcon('delete'),
-      label: 'Clear all grouping',
+      label: strings.clearGrouping,
       disabled: !groupActive,
-      onClick: act(actions.onClearGroupBy),
+      onSelect: act(actions.onClearGroupBy),
     },
-    'separator',
+    { separator: true },
     {
-      key: 'fit-all',
+      id: 'fit-all',
       icon: menuGlyph('widen'),
-      label: 'Fit all to content',
-      onClick: act(actions.onFitAllToContent),
+      label: strings.fitAllToContent,
+      onSelect: act(actions.onFitAllToContent),
     },
-    { key: 'reset', icon: menuIcon('rotate-ccw'), label: 'Reset columns to defaults', onClick: act(actions.onResetColumns) },
+    { id: 'reset', icon: menuIcon('rotate-ccw'), label: strings.resetColumns, onSelect: act(actions.onResetColumns) },
   ];
 };
 

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Box } from '../../primitives/Box';
 import { titleBarClass } from './behavior/title-bar-class';
 import { usePeek } from './behavior/usePeek';
@@ -11,18 +11,27 @@ import './WindowTitleBar.css';
 
 const WindowTitleBar = (props: WindowTitleBarProps) => {
   const {
-    title, logo, instance = null, menu, menuOpen = false, menuAnchorRef, pinned = false, onPinToggle, left,
-    concealed = false, peek, className = '', ...controls
+    title, logo, instance, menu, menuLabel, controls = {}, maximized, fullscreen = false,
+    pinned, onControl, left, concealed = false, peek, className = '',
   } = props;
   const barRef = useRef<HTMLElement>(null);
-  const tucked = (concealed || controls.fullscreen === true) && !menuOpen;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const tucked = (concealed || fullscreen) && !menuOpen;
   const { peeking, handleMouseLeave } = usePeek(tucked && peek === undefined, barRef);
 
   return (
     <Box ref={barRef} className={titleBarClass(tucked, peek ?? peeking, className)} onMouseLeave={handleMouseLeave}>
-      <WindowTitleBarStart menu={menu} menuAnchorRef={menuAnchorRef} pinned={pinned} onPinToggle={onPinToggle} left={left} />
+      <WindowTitleBarStart
+        menu={menu}
+        menuLabel={menuLabel}
+        onMenuOpenChange={setMenuOpen}
+        pin={controls.pin !== false}
+        pinned={pinned}
+        onControl={onControl}
+        left={left}
+      />
       <WindowTitleBarBrand title={title} logo={logo} instance={instance} />
-      <WindowControls {...controls} />
+      <WindowControls controls={controls} maximized={maximized} fullscreen={fullscreen} onControl={onControl} />
     </Box>
   );
 };

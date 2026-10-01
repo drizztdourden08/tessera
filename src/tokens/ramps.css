@@ -1,6 +1,6 @@
 /* @layer renderer-design-system @kind style */
 @layer ds.palette {
-  :root, [data-palette], [data-theme] {
+  :root, [data-palette] {
     --p-primary-50: color-mix(in oklab, var(--p-primary) 8%, var(--p-pure-white));
     --p-primary-100: color-mix(in oklab, var(--p-primary) 14%, var(--p-pure-white));
     --p-primary-200: color-mix(in oklab, var(--p-primary) 28%, var(--p-pure-white));

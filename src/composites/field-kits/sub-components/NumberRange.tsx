@@ -3,6 +3,7 @@ import { FieldControlBoundary } from '../../../primitives/FieldControlBoundary';
 import { Flex } from '../../../primitives/Flex';
 import { NumberInput } from '../../../primitives/NumberInput';
 import { Text } from '../../../primitives/Text';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toNumber } from '../to-number';
 import { toPair } from '../to-pair';
 import type { NumberRangeProps } from './NumberRange.type';
@@ -18,21 +19,22 @@ const asBound = (entered: number): number | null => (Number.isNaN(entered) ? nul
 const NumberRange = (props: NumberRangeProps) => {
   const { value, onChange } = props;
   const [low, high] = toPair(value, null);
+  const { records } = useTesseraStrings();
 
   return (
     <FieldControlBoundary>
       <Flex gap="xs" align="center">
         <NumberInput
           value={inputValue(low)}
-          placeholder="from"
-          aria-label="From"
+          placeholder={records.rangeFrom}
+          aria-label={records.rangeFromLabel}
           onChange={(entered) => onChange([asBound(entered), high ?? null])}
         />
         <Text className="field-kit__range-sep">-</Text>
         <NumberInput
           value={inputValue(high)}
-          placeholder="to"
-          aria-label="To"
+          placeholder={records.rangeTo}
+          aria-label={records.rangeToLabel}
           onChange={(entered) => onChange([low ?? null, asBound(entered)])}
         />
       </Flex>

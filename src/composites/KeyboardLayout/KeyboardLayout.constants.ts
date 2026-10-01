@@ -5,8 +5,6 @@ import type { KeyboardSize, KeyRow, KeyZone } from './KeyboardLayout.type';
 
 const KEYBOARD_SIZES = ['full', 'tenkeyless'] as const;
 
-const KEYBOARD_LABEL = 'Keyboard';
-
 const SIZE_ZONES: Record<KeyboardSize, readonly KeyZone[]> = {
   full: ['function', 'main', 'navigation', 'arrows', 'numpad'],
   tenkeyless: ['function', 'main', 'navigation', 'arrows'],
@@ -93,4 +91,4 @@ const NUMPAD_ROWS: readonly KeyRow[] = [
 
 const KEYBOARD_KEYS = buildLayout([...FUNCTION_ROWS, ...MAIN_ROWS, ...CLUSTER_ROWS, ...NUMPAD_ROWS]);
 
-export { KEYBOARD_KEYS, KEYBOARD_LABEL, KEYBOARD_SIZES, SIZE_ZONES };
+export { KEYBOARD_KEYS, KEYBOARD_SIZES, SIZE_ZONES };

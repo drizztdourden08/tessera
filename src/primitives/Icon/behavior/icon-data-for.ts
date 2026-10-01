@@ -1,8 +1,7 @@
 /* @layer renderer-components @kind logic */
 import type { IconifyIcon } from '@iconify/types';
-import { ICONS } from '../Icon.constants';
-import type { IconSource } from '../Icon.type';
+import type { IconSet, IconSource } from '../Icon.type';
 
-const iconDataFor = (source: IconSource): IconifyIcon => source.icon ?? ICONS[source.name];
+const iconDataFor = (source: IconSource, set: IconSet): IconifyIcon => source.icon ?? set[source.name];
 
 export { iconDataFor };

@@ -67,7 +67,8 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Content',
       entries: [
         { name: 'LogPanel', summary: 'A live log with kinds, search and paging.' },
-        { name: 'AboutPanel', summary: 'An About screen: logo, name, facts, copy and legal text.' },
+        { name: 'AboutPanel', summary: 'An About screen: logo or wordmark, facts, copy and legal text.' },
+        { name: 'FactsPanel', summary: 'Label and value pairs in a bordered box, in groups split by hairlines.' },
         { name: 'ReleaseNotesPanel', summary: 'Release notes in a titled, scrolling box.' },
         { name: 'Emphasis', summary: 'Animates a word along the weight axis.' },
         { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },

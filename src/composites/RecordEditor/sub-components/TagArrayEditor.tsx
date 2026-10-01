@@ -1,16 +1,18 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useMemo, useState } from 'react';
 import { namespacedTag, TagInput } from '../../../primitives/TagInput';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toList } from '../../field-kits/to-list';
 import { toText } from '../../field-kits/to-text';
 import { buildTagKeyMap } from '../behavior/tag-key-map';
 import { isReferencedTagList } from '../behavior/is-referenced-tag-list';
-import { NO_OPTIONS, NO_SUGGESTIONS, PLACEHOLDER } from './TagArrayEditor.constants';
+import { NO_OPTIONS, NO_SUGGESTIONS } from './TagArrayEditor.constants';
 import type { TagArrayEditorProps } from '../RecordEditor.type';
 import '../../../theme/record-editor.css';
 
 const TagArrayEditor = (props: TagArrayEditorProps) => {
   const { field, value, binding } = props;
+  const { records } = useTesseraStrings();
   const referenced = isReferencedTagList(field);
   const targetKind = field.of?.targetKind ?? '';
 
@@ -59,7 +61,7 @@ const TagArrayEditor = (props: TagArrayEditorProps) => {
       className="record-editor__tags"
       value={shown}
       suggestions={suggestions}
-      placeholder={PLACEHOLDER}
+      placeholder={records.tagPlaceholder}
       validate={namespacedTag}
       enforce={referenced}
       disabled={binding.disabled}

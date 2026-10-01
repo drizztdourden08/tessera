@@ -1,37 +1,30 @@
 /* @layer renderer-components @kind logic */
-import { DIR_WORD } from './sort-group-summary.constants';
-import type { SortEntry } from '../../../data/table/types';
+import { directionWord } from './direction-word';
 import type { SortGroupInput, SortGroupSummary } from './sort-group-summary.type';
 
-const ordinal = (n: number): string => {
-  const teen = n % 100 >= 11 && n % 100 <= 13;
-  const ones = n % 10;
-  if (teen) return `${n}th`;
-  if (ones === 1) return `${n}st`;
-  if (ones === 2) return `${n}nd`;
-  if (ones === 3) return `${n}rd`;
-  return `${n}th`;
-};
-
-const sortedLine = (sort: readonly SortEntry[], labelOf: (path: string) => string): string | undefined => {
+const sortedLine = (input: SortGroupInput): string | undefined => {
+  const { sort, labelOf, strings } = input;
   if (sort.length === 0) return undefined;
   const parts = sort.map((entry, at) => {
-    const rank = sort.length > 1 ? `${ordinal(at + 1)}, ` : '';
-    return `${labelOf(entry.path)} (${rank}${DIR_WORD[entry.dir]})`;
+    const label = labelOf(entry.path);
+    const direction = directionWord(entry.dir, strings);
+    return sort.length > 1
+      ? strings.rankedSortEntry(label, strings.ordinal(at + 1), direction)
+      : strings.sortEntry(label, direction);
   });
-  return `Sorted: ${parts.join(', ')}`;
+  return strings.sortedLine(parts);
 };
 
-const groupedLine = (groupBy: readonly string[], labelOf: (path: string) => string): string | undefined => {
+const groupedLine = (input: SortGroupInput): string | undefined => {
+  const { groupBy, labelOf, strings } = input;
   if (groupBy.length === 0) return undefined;
-  return `Grouped by: ${groupBy.map((path) => labelOf(path)).join(', then ')}`;
+  return strings.groupedLine(groupBy.map((path) => labelOf(path)));
 };
 
 const summarizeSortGroup = (input: SortGroupInput): SortGroupSummary => {
-  const { sort, groupBy, labelOf } = input;
   const summary: SortGroupSummary = {};
-  const sorted = sortedLine(sort, labelOf);
-  const grouped = groupedLine(groupBy, labelOf);
+  const sorted = sortedLine(input);
+  const grouped = groupedLine(input);
 
   if (sorted !== undefined) summary.sorted = sorted;
   if (grouped !== undefined) summary.grouped = grouped;

@@ -2,9 +2,9 @@
 import { Field } from '../../../primitives/Field';
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { keyOf } from '../key-of';
 import { resolveFieldKit } from '../resolve-field-kit';
-import { EMPTY } from './ObjectValueEditor.constants';
 import type { EditorControlProps } from '../registry.type';
 
 const asRecord = (value: unknown): Record<string, unknown> =>
@@ -12,9 +12,10 @@ const asRecord = (value: unknown): Record<string, unknown> =>
 
 const ObjectValueEditor = (props: EditorControlProps) => {
   const { field, value, onChange, disabled, resolveIdRefOptions } = props;
+  const { records } = useTesseraStrings();
   const record = asRecord(value);
   const children = (field.children ?? []).filter((child) => !child.hidden);
-  if (!children.length) return <Text className="field-kit__muted">{EMPTY}</Text>;
+  if (!children.length) return <Text className="field-kit__muted">{records.objectNoFields}</Text>;
 
   return (
     <Flex className="field-kit__object" direction="column" gap="sm">

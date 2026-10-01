@@ -2,16 +2,18 @@
 import { Box } from '../../primitives/Box';
 import { ButtonRow } from '../../primitives/ButtonRow';
 import { Image } from '../../primitives/Image';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { HeroBottom } from './sub-components/HeroBottom';
 import { HeroIntro } from './sub-components/HeroIntro';
 import type { HeroProps } from './Hero.type';
 import './Hero.css';
 
 const Hero = (props: HeroProps) => {
-  const { title, eyebrow, backdrop, art, actions, tools, facts, aside, panel, label = 'Overview', className } = props;
+  const { title, eyebrow, backdrop, art, actions, tools, facts, aside, panel, label, className } = props;
+  const { panels } = useTesseraStrings();
 
   return (
-    <Box as="section" className={['hero', className].filter(Boolean).join(' ')} aria-label={label}>
+    <Box as="section" className={['hero', className].filter(Boolean).join(' ')} aria-label={label ?? panels.overview}>
       <Box className="hero__backdrop">{backdrop}</Box>
       {art && (
         <Image

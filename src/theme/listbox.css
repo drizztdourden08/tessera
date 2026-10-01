@@ -157,7 +157,7 @@
   white-space: nowrap;
 }
 
-.listbox-tags:has(> .tag-chip) {
+.listbox-tags:has(> .tag) {
   margin-block: calc(-1 * var(--size-1));
 }
 

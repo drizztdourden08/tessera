@@ -3,10 +3,13 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, TagPicker } from '../../src/primitives';
 import type { TagPickerGroup } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { ValueReadout } from '../_template/ValueReadout';
+import { TAG_PICKER_COLOURS } from './_samples/tag-picker-colours.constants';
 
 type TagPickerArgs = {
   label: string;
@@ -90,6 +93,16 @@ const Layouts = {
   ),
 } satisfies StoryLiteStoryDefinition<TagPickerArgs>;
 
+const Colours = {
+  name: 'Option colours',
+  render: () => (
+    <Demonstrator
+      rows={axis(['default', 'category', 'urgency'] as const)}
+      cell={(row) => <StatefulPicker initial={TAG_PICKER_COLOURS[row].initial} groups={TAG_PICKER_COLOURS[row].groups} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TagPickerArgs>;
+
 const Goals = (props: { initial: string[]; disabled: boolean }) => {
   const { initial, disabled } = props;
   const [value, setValue] = useState(initial);
@@ -102,15 +115,15 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TagPicker',
-  description: 'A set of Tags to switch on and off, for picking from a short, known list of options. Options can sit in labelled groups, or in one flat set with no heading. Each click adds or removes a value, and single turns the tags into radios that hold at most one pick. The value is an array either way, and the whole picker can be disabled.',
+  description: 'A set of Tags to switch on and off, for picking from a short, known list of options. Options can sit in labelled groups, or in one flat set with no heading. Each click adds or removes a value, and single turns the tags into radios that hold at most one pick. The value is an array either way, and the whole picker can be disabled. An option takes the variant and color of a Tag and keeps them once picked: category colours for a series, urgency colours for a state. An option with neither turns primary.',
   playground: Playground,
-  variants: [Layouts],
+  variants: [Layouts, Colours],
   states: {
     render: renderState,
     list: [
       STATE.idle,
-      { ...STATE.hover, target: '.tag-chip' },
-      { ...STATE.focus, target: '.tag-chip' },
+      { ...STATE.hover, target: '.tag' },
+      { ...STATE.focus, target: '.tag' },
       STATE.selected,
       { ...STATE.disabled, props: { selected: true, disabled: true } },
     ],
@@ -132,4 +145,4 @@ const [goals, setGoals] = useState(['ganon']);
 });
 
 export default meta;
-export { Layouts, Overview, Playground };
+export { Colours, Layouts, Overview, Playground };

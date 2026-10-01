@@ -2,13 +2,16 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { BACKDROP_GRADIENT } from '../src/brand/backdrop-gradient.constants';
+import { backdropGradientCss } from '../src/brand/backdrop-gradient-css';
 import { brandGradientCss } from '../src/brand/brand-gradient-css';
 import { BRAND_APPS, BRAND_FAMILY } from '../src/brand/family.constants';
 import { evaluateColourMix } from '../scripts/tokens/evaluate-colour-mix.mjs';
 import { tokenFiles } from '../scripts/tokens/token-files.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const FILES = tokenFiles(ROOT, { family: BRAND_FAMILY, apps: BRAND_APPS, gradientCss: brandGradientCss });
+const BRANDS = { family: BRAND_FAMILY, apps: BRAND_APPS, gradientCss: brandGradientCss, backdrop: backdropGradientCss(BACKDROP_GRADIENT) };
+const FILES = tokenFiles(ROOT, BRANDS);
 const committed = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const OPAQUE_HEX = /^#[0-9a-f]{6}$/;
 
@@ -34,6 +37,15 @@ describe('generated token files', () => {
       expect(brands[app].gradient).toEqual(to === undefined ? [from, via] : [from, to, via]);
       expect(brands[app].gradient.every((stop) => OPAQUE_HEX.test(stop))).toBe(true);
     }
+  });
+});
+
+describe('the backdrop gradient', () => {
+  it('resolves to literal colours in every palette, each its own', () => {
+    const { palettes } = JSON.parse(FILES['tokens.json']);
+    const backdrops = Object.values(palettes).map((palette) => palette.backdrop);
+    expect(backdrops.every((css) => css.startsWith('radial-gradient(') && !/var\(|color-mix\(/.test(css))).toBe(true);
+    expect(new Set(backdrops).size).toBe(backdrops.length);
   });
 });
 

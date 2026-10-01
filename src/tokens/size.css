@@ -35,7 +35,7 @@
   --hero-art-left: calc(232 * var(--size-1));
   --hero-art-h: var(--size-256);
   --hero-aside-w: calc(360 * var(--size-1));
-  --hero-fact-max-w: calc(220 * var(--size-1));
+  --facts-panel-value-max-w: calc(220 * var(--size-1));
 
 }
 }

@@ -2,12 +2,14 @@
 import { Icon } from '../../Icon';
 import { IconButton } from '../../IconButton';
 import { Spinner } from '../../Spinner';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { Paragraph } from '../../text-elements';
 import './VideoOverlay.css';
 import type { VideoOverlayProps } from './VideoOverlay.type';
 
 const VideoOverlay = (props: VideoOverlayProps) => {
   const { media, controls, errorMessage, onPlay } = props;
+  const { common, video } = useTesseraStrings();
 
   if (media.failed) {
     return (
@@ -28,7 +30,7 @@ const VideoOverlay = (props: VideoOverlayProps) => {
   if (media.started && !media.ended) return null;
   return (
     <div className="video-overlay">
-      <IconButton variant="primary" className="video-overlay__play" label={media.ended ? 'Replay' : 'Play'} onClick={onPlay}>
+      <IconButton variant="primary" className="video-overlay__play" label={media.ended ? video.replay : common.play} onClick={onPlay}>
         <Icon name={media.ended ? 'rotate-ccw' : 'play'} size={28} />
       </IconButton>
     </div>

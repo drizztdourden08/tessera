@@ -4,10 +4,11 @@ import { registerFieldTester } from '../../data/filter/tester-registry';
 import { registerComparator, registerGroupKey } from '../../data/table/strategy-registry';
 import { NumberInput } from '../../primitives/NumberInput';
 import { Text } from '../../primitives/Text';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { EmptyListCell } from './sub-components/EmptyListCell';
 import { LENGTH_OPS } from './ArrayKit.constants';
 import { isNullish } from './coerce';
 import { nullsLast } from './compare';
-import { countLabel } from './count-label';
 import { isBlankOperand } from './is-blank-operand';
 import { registerFieldKit } from './registry';
 import { summarizeList } from './summarize-list';
@@ -48,17 +49,19 @@ const test = (value: unknown, op: string, operand: unknown): boolean => {
 
 const compare = nullsLast((a, b) => toList(a).length - toList(b).length);
 
-const groupKey = (value: unknown): string => (isNullish(value) ? '' : countLabel(toList(value).length));
+const groupKey = (value: unknown): string =>
+  (isNullish(value) ? '' : String(toList(value).length));
 
 const FilterControl = (props: FilterControlProps) => {
   const { field, op, value, onChange } = props;
+  const { records } = useTesseraStrings();
   if (LENGTH_OPS.includes(op)) {
     const parsed = toNumber(value);
     return (
       <NumberInput
         value={Number.isFinite(parsed) ? parsed : ''}
         min={0}
-        placeholder="count"
+        placeholder={records.countPlaceholder}
         onChange={(entered) => onChange(Number.isNaN(entered) ? null : entered)}
       />
     );
@@ -75,7 +78,7 @@ const FilterControl = (props: FilterControlProps) => {
 
 const renderCell = (value: unknown, field: FieldDescriptor, options?: CellRenderOptions): ReactNode => {
   const list = toList(value);
-  if (!list.length) return <Text className="field-kit__muted">{countLabel(0)}</Text>;
+  if (!list.length) return <EmptyListCell />;
   if (field.of?.kind === 'idRef') {
     return (
       <IdRefTagList

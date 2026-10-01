@@ -1,0 +1,47 @@
+/* @layer renderer-components @kind style */
+.facts-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-layer);
+}
+
+.facts-panel__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs) var(--space-xl);
+}
+
+.facts-panel__group + .facts-panel__group {
+  padding-top: var(--space-sm);
+  border-top: var(--border-width-thin) solid color-mix(in srgb, var(--c-text) 12%, transparent);
+}
+
+.facts-panel .facts-panel__fact {
+  justify-content: flex-start;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.facts-panel__fact .stat-row__label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.facts-panel__fact .stat-row__value {
+  max-width: var(--facts-panel-value-max-w);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  font-weight: var(--weight-medium);
+}
+
+.facts-panel__fact .stat-row__value[data-mono] {
+  font-size: var(--text-sm);
+}

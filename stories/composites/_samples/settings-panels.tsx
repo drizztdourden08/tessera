@@ -4,10 +4,10 @@ import type { ComponentType } from 'react';
 import { SettingsSection } from '../../../src/composites/SettingsSection';
 import { EmptyState, Field, NumberInput, Select, TextInput, Toggle } from '../../../src/primitives';
 
-const THEMES = [
-  { value: 'system', label: 'Match the system' },
-  { value: 'dark', label: 'Dark' },
-  { value: 'light', label: 'Light' },
+const SCALES = [
+  { value: '90', label: '90%' },
+  { value: '100', label: '100%' },
+  { value: '125', label: '125%' },
 ];
 
 const DENSITY = [
@@ -42,11 +42,11 @@ const HostingPanel = () => {
 };
 
 const AppearancePanel = () => {
-  const [theme, setTheme] = useState('system');
+  const [scale, setScale] = useState('100');
   const [density, setDensity] = useState('comfortable');
   return (
     <SettingsSection title="Appearance">
-      <Field label="Theme"><Select value={theme} onChange={setTheme} options={THEMES} /></Field>
+      <Field label="Interface size"><Select value={scale} onChange={setScale} options={SCALES} /></Field>
       <Field label="List density"><Select value={density} onChange={setDensity} options={DENSITY} /></Field>
     </SettingsSection>
   );

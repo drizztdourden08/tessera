@@ -24,6 +24,7 @@
 .hero__backdrop {
   inset: 0;
   z-index: -3;
+  background: var(--brand-backdrop-gradient);
 }
 
 .hero .hero__art {
@@ -99,7 +100,7 @@
   margin-top: var(--space-sm);
 }
 
-.hero__glass {
+.hero .hero__glass {
   background: color-mix(in srgb, var(--c-layer) 64%, transparent);
   backdrop-filter: blur(var(--blur));
   border: var(--border-width-thin) solid color-mix(in srgb, var(--c-text) 14%, transparent);
@@ -112,48 +113,4 @@
 
 .hero__panel {
   padding: var(--space-sm) var(--space-md);
-}
-
-.hero__facts {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-lg);
-}
-
-.hero__fact-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-xs) var(--space-xl);
-}
-
-.hero__fact-row + .hero__fact-row {
-  border-top: var(--border-width-thin) solid color-mix(in srgb, var(--c-text) 12%, transparent);
-  padding-top: var(--space-sm);
-}
-
-.hero__facts .hero__fact {
-  justify-content: flex-start;
-  gap: var(--space-sm);
-  min-width: 0;
-}
-
-.hero__fact .stat-row__label {
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-}
-
-.hero__fact .stat-row__value {
-  max-width: var(--hero-fact-max-w);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-align: left;
-  font-weight: var(--weight-medium);
-}
-
-.hero__fact .stat-row__value[data-mono] {
-  font-size: var(--text-sm);
 }

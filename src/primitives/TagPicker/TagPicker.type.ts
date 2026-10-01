@@ -1,8 +1,10 @@
 /* @layer renderer-components @kind types */
-interface TagPickerOption<T extends string = string> {
+import type { TagLook } from '../Tag';
+
+type TagPickerOption<T extends string = string> = TagLook & {
   value: T;
   label: string;
-}
+};
 
 interface TagPickerGroup<T extends string = string> {
   id: string;

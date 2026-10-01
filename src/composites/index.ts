@@ -50,7 +50,9 @@ export type { InlineCreateFormProps } from './InlineCreateForm';
 export { Drawer } from './Drawer';
 export type { DrawerProps } from './Drawer';
 export { DropdownMenu } from './DropdownMenu';
-export type { DropdownMenuProps, MenuEntry, MenuItem } from './DropdownMenu';
+export type {
+  DropdownMenuProps, MenuAlign, MenuGroup, MenuItem, MenuNode, MenuSeparator, MenuSide, MenuTrigger,
+} from './DropdownMenu';
 export { FullScreenLayer } from './FullScreenLayer';
 export { FloatingSwitch } from './FloatingSwitch';
 export type { FloatingSwitchItem, FloatingSwitchProps } from './FloatingSwitch';
@@ -75,13 +77,15 @@ export type {
 export { WindowHeader } from './WindowHeader';
 export type { WindowHeaderProps } from './WindowHeader';
 export { WindowTitleBar } from './WindowTitleBar';
-export type { WindowControlsState, WindowTitleBarInstance, WindowTitleBarProps } from './WindowTitleBar';
+export type { WindowControl, WindowControlsConfig, WindowTitleBarInstance, WindowTitleBarProps } from './WindowTitleBar';
 export { ReleaseNotesPanel } from './ReleaseNotesPanel';
 export type { ReleaseNotesPanelProps } from './ReleaseNotesPanel';
 export { AboutPanel } from './AboutPanel';
-export type { AboutPanelCopy, AboutPanelProps, AboutPanelRow } from './AboutPanel';
+export type { AboutPanelProps, AboutPanelRow } from './AboutPanel';
 export { Hero } from './Hero';
-export type { HeroArt, HeroFact, HeroFactRow, HeroProps } from './Hero';
+export type { HeroArt, HeroProps } from './Hero';
+export { FactsPanel } from './FactsPanel';
+export type { FactsPanelFact, FactsPanelGroup, FactsPanelProps } from './FactsPanel';
 export { CommandPalette, CommandPaletteRow } from './CommandPalette';
 export type {
   CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle,

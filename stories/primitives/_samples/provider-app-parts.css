@@ -1,0 +1,17 @@
+/* @layer stories @kind style */
+.app-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  width: 100%;
+  height: 100%;
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+
+.app-placeholder[data-status="broken"] {
+  background: var(--c-danger-dim);
+  color: var(--c-danger);
+}

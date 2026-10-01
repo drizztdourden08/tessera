@@ -2,18 +2,19 @@
 import { Icon } from '../../../primitives/Icon';
 import { ConfirmIconButton } from '../../ConfirmIconButton';
 import { ListItemRow } from '../../ListItemRow';
-import { CONFIRM_DELETE, KEEP } from '../ProfilePicker.constants';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { ProfilePickerRowProps } from './ProfilePickerRow.type';
 
 const ProfilePickerRow = (props: ProfilePickerRowProps) => {
   const { profile, selected, onSelect, onDelete } = props;
   const { id, name, meta, aside, icon } = profile;
+  const { common, panels } = useTesseraStrings();
   const remove = onDelete && (
     <ConfirmIconButton
       icon={<Icon name="trash-2" size={14} />}
-      label={`Delete ${name}`}
-      confirmLabel={`${CONFIRM_DELETE} ${name}`}
-      cancelLabel={KEEP}
+      label={panels.deleteNamed(name)}
+      confirmLabel={panels.deleteNamed(name)}
+      cancelLabel={common.keep}
       onConfirm={() => onDelete(id)}
     />
   );

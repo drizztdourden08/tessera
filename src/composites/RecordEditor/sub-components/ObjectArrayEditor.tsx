@@ -2,6 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { Flex } from '../../../primitives/Flex';
 import { Span } from '../../../primitives/text-elements';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toList } from '../../field-kits/to-list';
 import { blankValue } from '../../field-kits/blank-value';
 import { ListItemControls } from '../../field-kits/sub-components/ListItemControls';
@@ -13,6 +14,7 @@ import '../../../theme/record-editor.css';
 
 const ObjectArrayEditor = (props: ObjectArrayEditorProps) => {
   const { field, value, binding, depth } = props;
+  const { records } = useTesseraStrings();
   const element = field.of;
   if (!element?.children?.length) return null;
 
@@ -25,7 +27,7 @@ const ObjectArrayEditor = (props: ObjectArrayEditorProps) => {
       {list.map((_entry, index) => (
         <Box key={`${field.path}.${index}`} className="record-editor__array-item">
           <Flex className="record-editor__array-item-head" gap="xs" align="center">
-            <Span tone="muted" className="record-editor__array-index">{`#${index + 1}`}</Span>
+            <Span tone="muted" className="record-editor__array-index">{records.itemPosition(index + 1)}</Span>
             <ListItemControls list={list} index={index} disabled={disabled} onChange={write} />
           </Flex>
           <Box className="record-editor__nested">

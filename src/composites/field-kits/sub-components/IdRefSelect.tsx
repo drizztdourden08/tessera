@@ -1,24 +1,30 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
 import { Select } from '../../../primitives/Select';
-import { DANGLING } from './IdRefSelect.constants';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { IdRefOption } from '../registry.type';
+import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
 import type { SelectOption } from '../../../primitives/Select';
 import type { IdRefSelectProps } from './IdRefSelect.type';
 
-const withCurrent = (options: readonly IdRefOption[], value: string): SelectOption[] => {
+const withCurrent = (
+  options: readonly IdRefOption[],
+  value: string,
+  strings: TesseraStrings['records'],
+): SelectOption[] => {
   const listed = options.map((option) => ({
     value: option.value,
     label: option.label,
     description: option.description,
   }));
   if (!value || listed.some((option) => option.value === value)) return listed;
-  return [{ value, label: value, description: DANGLING }, ...listed];
+  return [{ value, label: value, description: strings.notInCollection }, ...listed];
 };
 
 const IdRefSelect = (props: IdRefSelectProps) => {
   const { options, value, placeholder, disabled = false, onChange } = props;
-  const selectOptions = useMemo(() => withCurrent(options, value), [options, value]);
+  const { records } = useTesseraStrings();
+  const selectOptions = useMemo(() => withCurrent(options, value, records), [options, value, records]);
   return (
     <Select
       options={selectOptions}

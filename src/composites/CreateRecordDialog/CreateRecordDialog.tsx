@@ -4,12 +4,13 @@ import { Box } from '../../primitives/Box';
 import { Button } from '../../primitives/Button';
 import { Text } from '../../primitives/Text';
 import { Paragraph } from '../../primitives/text-elements';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { getPath } from '../../data/schema/path';
 import { DialogShell } from '../DialogShell';
 import { EditorGroup, layoutGroups } from '../RecordEditor';
 import { useCreateFormState } from './behavior/useCreateFormState';
 import type { EditorBinding } from '../RecordEditor';
-import { CANCEL, CREATE, NO_FIELDS, NOT_DIRTY } from './CreateRecordDialog.constants';
+import { NOT_DIRTY } from './CreateRecordDialog.constants';
 import type { CreateRecordDialogProps } from './CreateRecordDialog.type';
 import './CreateRecordDialog.css';
 
@@ -25,8 +26,9 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
     initialRecord, requiredPaths, open, onCreate,
   });
   const createRef = useRef<HTMLButtonElement>(null);
+  const { common, records } = useTesseraStrings();
 
-  const groups = useMemo(() => layoutGroups(schema, config), [schema, config]);
+  const groups = useMemo(() => layoutGroups(schema, records, config), [schema, records, config]);
   const readValue = useCallback((path: string) => getPath(working, path), [working]);
   const readBounds = useCallback(
     (path: string) => resolveNumberBounds?.(path, working),
@@ -51,9 +53,9 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
 
   const actions = (
     <>
-      <Button variant="tertiary" onClick={onCancel}>{CANCEL}</Button>
+      <Button variant="tertiary" onClick={onCancel}>{common.cancel}</Button>
       <Button ref={createRef} variant="primary" disabled={!isComplete} loading={saving} onClick={submit}>
-        {CREATE}
+        {common.create}
       </Button>
     </>
   );
@@ -61,7 +63,7 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
   return (
     <DialogShell open={open} onClose={onCancel} title={title} actions={actions} initialFocusRef={createRef}>
       <Box className="create-record-dialog">
-        {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{NO_FIELDS}</Text>}
+        {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{records.noFieldsToFill}</Text>}
         {groups.map((group) => (
           <EditorGroup key={group.id} group={group} binding={binding} depth={0} />
         ))}

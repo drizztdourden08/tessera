@@ -1,6 +1,11 @@
 /* @layer renderer-components @kind types */
-import type { WindowControlsState } from '../WindowTitleBar.type';
+import type { WindowControl, WindowControlsConfig } from '../WindowTitleBar.type';
 
-type WindowControlsProps = WindowControlsState;
+interface WindowControlsProps {
+  controls: WindowControlsConfig;
+  maximized?: boolean;
+  fullscreen: boolean;
+  onControl: (control: WindowControl) => void;
+}
 
 export type { WindowControlsProps };

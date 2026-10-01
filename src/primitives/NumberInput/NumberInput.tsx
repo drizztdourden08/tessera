@@ -4,6 +4,7 @@ import './NumberInput.css';
 import { preventTextSelection } from '../dom/prevent-text-selection';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { Glyph } from '../Glyph';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import type { CSSProperties } from 'react';
 import type { NumberInputProps } from './NumberInput.type';
 import { digitColumns } from './behavior/digit-columns';
@@ -15,6 +16,7 @@ const NumberInput = (props: NumberInputProps) => {
     invalid, id, 'aria-describedby': ownDescribedBy, ...rest
   } = props;
   const control = useFieldControl(id, ownDescribedBy);
+  const { fields } = useTesseraStrings();
   const isInvalid = invalid ?? control.invalid ?? false;
 
   const stepBy = (dir: 1 | -1): void => {
@@ -53,10 +55,10 @@ const NumberInput = (props: NumberInputProps) => {
         {...rest}
       />
       <div className="number-input__spin">
-        <button type="button" className="number-input__btn" tabIndex={-1} aria-label="Increment" disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(1)}>
+        <button type="button" className="number-input__btn" tabIndex={-1} aria-label={fields.increment} disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(1)}>
           <Glyph name="chevronUp" size={12} strokeWidth={2} />
         </button>
-        <button type="button" className="number-input__btn" tabIndex={-1} aria-label="Decrement" disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(-1)}>
+        <button type="button" className="number-input__btn" tabIndex={-1} aria-label={fields.decrement} disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(-1)}>
           <Glyph name="chevronDown" size={12} strokeWidth={2} />
         </button>
       </div>

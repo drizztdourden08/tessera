@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind style */
-.tag-chip {
+.tag {
   --tag-ink: var(--c-text-dim);
   --tag-fill: var(--c-inset);
   --tag-edge: var(--c-border);
@@ -24,14 +24,14 @@
   vertical-align: middle;
 }
 
-.tag-chip__text {
+.tag__text {
   min-width: 0;
   line-height: var(--leading-tight);
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.tag-chip__dot {
+.tag__dot {
   flex: none;
   width: var(--size-6);
   height: var(--size-6);
@@ -39,11 +39,11 @@
   background: var(--tag-dot);
 }
 
-.tag-chip--removable {
+.tag--removable {
   padding-inline-end: var(--space-2xs);
 }
 
-.tag-chip .tag-chip__remove {
+.tag .tag__remove {
   width: var(--size-16);
   min-width: auto;
   height: var(--size-16);
@@ -53,25 +53,25 @@
   font-size: var(--text-xs);
 }
 
-.tag-chip--urgency,
-.tag-chip--category {
+.tag--urgency,
+.tag--category {
   border-color: transparent;
 }
 
-.tag-chip--urgency {
+.tag--urgency {
   font-weight: var(--weight-semi);
 }
 
-.tag-chip--category {
+.tag--category {
   --tag-ink: var(--c-text);
 }
 
-.tag-chip--selectable {
+.tag--selectable {
   cursor: pointer;
   transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
 }
 
-.tag-chip--selectable:not(.tag-chip--selected) {
+.tag--selectable:not(.tag--selected) {
   --tag-ink: var(--c-text-dim);
   --tag-fill: var(--c-inset);
   --tag-edge: var(--c-border);
@@ -79,110 +79,122 @@
   border-color: var(--tag-edge);
 }
 
-.tag-chip--selectable:not(.tag-chip--selected):hover:not(:disabled) {
+.tag--selectable:not(.tag--selected):hover:not(:disabled) {
   --tag-ink: var(--c-text);
   --tag-edge: var(--c-border-strong);
 }
 
-.tag-chip--selectable:focus-visible {
+.tag--selectable:focus-visible {
   outline: var(--border-width-thick) solid var(--c-primary);
   outline-offset: var(--size-1);
 }
 
-.tag-chip--selectable:disabled {
+.tag--selectable:disabled {
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
 
-.tag-chip--primary {
+.tag--primary {
   --tag-ink: var(--c-primary-bright);
   --tag-fill: var(--c-primary-soft);
   --tag-edge: var(--c-primary);
 }
 
-.tag-chip--secondary {
+.tag--secondary {
   --tag-ink: var(--c-secondary-bright);
   --tag-fill: var(--c-secondary-soft);
   --tag-edge: var(--c-secondary);
 }
 
-.tag-chip--tertiary {
+.tag--tertiary {
   --tag-ink: var(--c-tertiary-bright);
   --tag-fill: var(--c-tertiary-soft);
   --tag-edge: var(--c-tertiary);
 }
 
-.tag-chip--neutral.tag-chip--selected {
+.tag--selected:is(.tag--urgency, .tag--category) {
+  border-color: var(--tag-edge);
+}
+
+.tag--category.tag--selected {
+  --tag-edge: var(--tag-dot);
+}
+
+.tag--neutral.tag--selected {
   --tag-ink: var(--c-text);
   --tag-edge: var(--c-text-muted);
 }
 
-.tag-chip--success {
+.tag--success {
   --tag-ink: var(--c-success-bright);
   --tag-fill: var(--c-success-soft);
+  --tag-edge: var(--c-success);
 }
 
-.tag-chip--warning {
+.tag--warning {
   --tag-ink: var(--c-warning-bright);
   --tag-fill: var(--c-warning-soft);
+  --tag-edge: var(--c-warning);
 }
 
-.tag-chip--danger {
+.tag--danger {
   --tag-ink: var(--c-danger-bright);
   --tag-fill: var(--c-danger-soft);
+  --tag-edge: var(--c-danger);
 }
 
-.tag-chip--info {
+.tag--info {
   --tag-ink: var(--c-info-bright);
   --tag-fill: var(--c-info-soft);
+  --tag-edge: var(--c-info);
 }
 
-.tag-chip--rose {
+.tag--rose {
   --tag-fill: var(--c-tag-rose-soft);
   --tag-dot: var(--c-tag-rose);
 }
 
-.tag-chip--orange {
+.tag--orange {
   --tag-fill: var(--c-tag-orange-soft);
   --tag-dot: var(--c-tag-orange);
 }
 
-.tag-chip--amber {
+.tag--amber {
   --tag-fill: var(--c-tag-amber-soft);
   --tag-dot: var(--c-tag-amber);
 }
 
-.tag-chip--lime {
+.tag--lime {
   --tag-fill: var(--c-tag-lime-soft);
   --tag-dot: var(--c-tag-lime);
 }
 
-.tag-chip--green {
+.tag--green {
   --tag-fill: var(--c-tag-green-soft);
   --tag-dot: var(--c-tag-green);
 }
 
-.tag-chip--teal {
+.tag--teal {
   --tag-fill: var(--c-tag-teal-soft);
   --tag-dot: var(--c-tag-teal);
 }
 
-.tag-chip--cyan {
+.tag--cyan {
   --tag-fill: var(--c-tag-cyan-soft);
   --tag-dot: var(--c-tag-cyan);
 }
 
-.tag-chip--blue {
+.tag--blue {
   --tag-fill: var(--c-tag-blue-soft);
   --tag-dot: var(--c-tag-blue);
 }
 
-.tag-chip--violet {
+.tag--violet {
   --tag-fill: var(--c-tag-violet-soft);
   --tag-dot: var(--c-tag-violet);
 }
 
-.tag-chip--pink {
+.tag--pink {
   --tag-fill: var(--c-tag-pink-soft);
   --tag-dot: var(--c-tag-pink);
 }

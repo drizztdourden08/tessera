@@ -3,6 +3,7 @@ import { Button } from '../../../primitives/Button';
 import { Anchored } from '../../../primitives/Anchored';
 import { Glyph } from '../../../primitives/Glyph';
 import { useAnchorTracking } from '../../../primitives/Portal';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toSchemaIndex } from '../../../data/schema/build-schema';
 import { createClauseForField } from '../behavior/filter-clause-defaults';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
@@ -14,6 +15,7 @@ const AddFilterButton = (props: AddFilterButtonProps) => {
   const { schema, excludePaths, onAdd } = props;
   const menu = useAnchorMenu<HTMLButtonElement>('.filter-bar__add-picker');
   const index = toSchemaIndex(schema);
+  const { filters } = useTesseraStrings();
 
   const { position: pos } = useAnchorTracking({
     active: menu.open,
@@ -40,7 +42,7 @@ const AddFilterButton = (props: AddFilterButtonProps) => {
         aria-expanded={menu.open}
         onClick={menu.toggle}
       >
-        <Glyph name="plus" /> Add filter
+        <Glyph name="plus" /> {filters.addFilter}
       </Button>
       {menu.open && (
         <Anchored anchorRef={menu.anchorRef} layer="overlay" fallback={pos} className="filter-bar__add-picker">

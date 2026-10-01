@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Field } from '../../../primitives/Field';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { isIdentityField } from '../behavior/identity-field';
 import { kitFor } from '../behavior/kit-for';
 import { nestedPlanFor } from '../behavior/nested-plan';
@@ -70,11 +71,12 @@ const rowClassName = (changed: boolean, dirty: boolean): string =>
 
 const EditorRow = (props: EditorRowProps) => {
   const { field, binding, depth } = props;
+  const { records } = useTesseraStrings();
   const value = binding.value(field.path);
   const pair = positionPairOf(field);
   const plan: NestedPlan | null = pair
     ? { fields: pair.others }
-    : nestedPlanFor(field, value, depth);
+    : nestedPlanFor(field, value, depth, records);
 
   if (plan) {
     return <EditorNest field={field} value={value} plan={plan} pair={pair} binding={binding} depth={depth} />;

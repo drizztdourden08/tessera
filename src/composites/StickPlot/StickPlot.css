@@ -39,6 +39,16 @@
   fill: var(--c-info);
 }
 
+.stick-plot__stem {
+  stroke: var(--c-primary);
+  stroke-width: var(--border-width-thick);
+  stroke-linecap: round;
+}
+
+.stick-plot__stem[data-resting] {
+  stroke: var(--c-text-muted);
+}
+
 .stick-plot__dot {
   fill: var(--c-primary);
 }
@@ -54,4 +64,9 @@
 .stick-plot__value {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
+}
+
+.stick-plot__value .stick-plot__cal {
+  margin-left: var(--space-xs);
+  font-size: inherit;
 }

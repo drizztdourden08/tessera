@@ -9,7 +9,7 @@ import { useDropWidth } from './useDropWidth';
 import type { ListboxDrop, UseListboxDropParams } from './listbox-drop.type';
 
 const useListboxDrop = <E extends HTMLElement>(params: UseListboxDropParams): ListboxDrop<E> => {
-  const { disabled, defaultOpen, inline = false, contentKey, focusRef, onClose } = params;
+  const { disabled, defaultOpen, inline = false, contentKey, focusRef, escape, onClose } = params;
   const [open, setOpen] = useState(defaultOpen === true && !disabled);
   const anchorRef = useRef<E>(null);
   const dropRef = useRef<HTMLDivElement>(null);
@@ -32,7 +32,7 @@ const useListboxDrop = <E extends HTMLElement>(params: UseListboxDropParams): Li
   const { position, reposition } = useAnchorTracking({ active: open && !inline, anchorRef, compute, onOutOfView: close });
   useAnchorResize(open && !inline, anchorRef, reposition);
   const width = useDropWidth({ open: open && !inline, dropRef, placement: position, contentKey });
-  useDismissListeners({ open, onClose: close, contentRef: dropRef, triggerRef: anchorRef });
+  useDismissListeners({ open, onClose: close, contentRef: dropRef, triggerRef: anchorRef, escape });
 
   useEffect(() => {
     if (disabled) setOpen(false);

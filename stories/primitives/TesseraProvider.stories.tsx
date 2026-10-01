@@ -1,77 +1,68 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Box, SegmentedControl, TesseraProvider } from '../../src/primitives';
+import { TesseraProvider } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { ProviderShowcase } from './_samples/provider-showcase';
-import { APP_OVERRIDES, SPINNER_CHOICES, SPINNER_OPTIONS } from './_samples/provider-spinners.constants';
-import type { SpinnerChoice } from './_samples/provider-spinners.constants';
+import { ALL_PARTS, PART_NOTES } from './_samples/provider-parts.constants';
+import type { ProviderParts } from './_samples/provider-parts.constants';
+import { APP_STRINGS } from './_samples/provider-app-strings.constants';
+import { ProviderPlayground } from './_samples/provider-playground';
+import { StringsDemo } from './_samples/provider-sections';
+import { PROVIDER_SETUP_CODE } from './_samples/provider-setup-code.constants';
 
-type ProviderArgs = {
-  spinner: SpinnerChoice;
+const NONE: ProviderParts = {
+  spinner: false, writeText: false, link: false, imagePlaceholder: false, strings: false, errorFallback: false, emptyArt: false, icons: false,
 };
 
-const ARGS: Partial<ProviderArgs> = { spinner: 'mosaic' };
-
-const ARG_TYPES: StoryLiteArgTypes<ProviderArgs> = {
-  spinner: { control: 'select', options: [...SPINNER_CHOICES], description: 'The spinner the app hands to TesseraProvider.' },
+const ARG_TYPES: StoryLiteArgTypes<ProviderParts> = {
+  spinner: { control: 'boolean', description: PART_NOTES.spinner },
+  writeText: { control: 'boolean', description: PART_NOTES.writeText },
+  link: { control: 'boolean', description: PART_NOTES.link },
+  imagePlaceholder: { control: 'boolean', description: PART_NOTES.imagePlaceholder },
+  strings: { control: 'boolean', description: PART_NOTES.strings },
+  errorFallback: { control: 'boolean', description: PART_NOTES.errorFallback },
+  emptyArt: { control: 'boolean', description: PART_NOTES.emptyArt },
+  icons: { control: 'boolean', description: PART_NOTES.icons },
 };
 
 const meta = {
   title: 'Primitives · Setup/TesseraProvider',
   parameters: { renderer: 'react' },
-} satisfies StoryLiteMeta<ProviderArgs>;
+} satisfies StoryLiteMeta<ProviderParts>;
 
 const Playground = {
   name: 'Playground',
-  args: ARGS,
+  args: ALL_PARTS,
   argTypes: ARG_TYPES,
-  render: (args) => (
-    <TesseraProvider overrides={APP_OVERRIDES[args.spinner]}>
-      <ProviderShowcase />
+  render: (args) => <ProviderPlayground parts={{ ...NONE, ...args }} />,
+} satisfies StoryLiteStoryDefinition<ProviderParts>;
+
+const TesseraParts = {
+  name: 'Tessera parts, no overrides',
+  render: () => <ProviderPlayground parts={NONE} />,
+} satisfies StoryLiteStoryDefinition<ProviderParts>;
+
+const OUTER = { strings: APP_STRINGS };
+
+const INNER = { strings: { fields: { selectPlaceholder: 'Pick a build...', dropFiles: 'Drop a patch here' } } };
+
+const NestedProvider = {
+  name: 'A nested provider replaces only what it names',
+  render: () => (
+    <TesseraProvider overrides={OUTER}>
+      <TesseraProvider overrides={INNER}>
+        <StringsDemo />
+      </TesseraProvider>
     </TesseraProvider>
   ),
-} satisfies StoryLiteStoryDefinition<ProviderArgs>;
-
-const SpinnerSwap = () => {
-  const [choice, setChoice] = useState<SpinnerChoice>('mosaic');
-  return (
-    <Box className="story-column">
-      <SegmentedControl label="App spinner" value={choice} options={SPINNER_OPTIONS} onChange={setChoice} />
-      <TesseraProvider overrides={APP_OVERRIDES[choice]}>
-        <ProviderShowcase />
-      </TesseraProvider>
-    </Box>
-  );
-};
-
-const AppSpinner = {
-  name: 'A custom spinner, app wide',
-  render: () => <SpinnerSwap />,
-} satisfies StoryLiteStoryDefinition<ProviderArgs>;
-
-const CODE = `import { TesseraProvider } from '@drizztdourden08/tessera';
-import type { SpinnerProps, TesseraOverrides } from '@drizztdourden08/tessera';
-
-const AppSpinner = ({ size, label, className }: SpinnerProps) => (
-  <span className={className} data-size={size} role="status" aria-label={label}>...</span>
-);
-
-const OVERRIDES: TesseraOverrides = { spinner: AppSpinner };
-
-createRoot(root).render(
-  <TesseraProvider overrides={OVERRIDES}>
-    <App />
-  </TesseraProvider>,
-);`;
+} satisfies StoryLiteStoryDefinition<ProviderParts>;
 
 const Overview = overviewStory({
   component: 'TesseraProvider',
-  description: 'Swaps parts of Tessera for the app\'s own, once, at the root. Every Spinner rendered below it draws the app spinner, including the ones inside Button, IconButton, Select, Combobox and Video, and the ones in dialogs and popups rendered through a portal, since a portal keeps the React tree. The app spinner takes size, label and className, and carries the status role and the label itself. Keep the overrides object stable, as a module constant, so the tree does not redraw. A provider inside another one keeps the outer parts and replaces the ones it names; naming a part as undefined gives back the Tessera part for that subtree. A separate React root, such as one mounted inside an iframe, needs its own provider. It reads nothing from window or document, so it renders on the server.',
+  description: 'Swaps parts of Tessera for the app\'s own, once, at the root: the spinner, the clipboard writer behind every copy button, the link behind every href, the Image and Thumbnail placeholder, the built-in wording, the ErrorBoundary crash screen, the EmptyState art, the document portals render into, and the icon set behind Icon names. Each part is one entry of the overrides; a part left out keeps the Tessera default. Every Tessera component below the provider reads it, including the ones in dialogs and popups rendered through a portal, since a portal keeps the React tree. A provider inside another one keeps the outer parts and replaces the ones it names, and wording merges key by key; naming a part as undefined gives back the Tessera part for that subtree. Keep the overrides object stable, as a module constant. A separate React root, such as one inside an iframe, needs its own provider. It reads nothing from window or document while rendering, so it renders on the server.',
   playground: Playground,
-  variants: [AppSpinner],
-  code: CODE,
+  variants: [TesseraParts, NestedProvider],
+  code: PROVIDER_SETUP_CODE,
 });
 
 export default meta;
-export { AppSpinner, Overview, Playground };
+export { NestedProvider, Overview, Playground, TesseraParts };

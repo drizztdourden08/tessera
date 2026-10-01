@@ -12,6 +12,9 @@ export type { LogoCombinedProps, LogoDirection, LogoProps, LogoWordmarkProps } f
 export { Mascot } from './Mascot';
 export type { MascotProps } from './Mascot';
 export { BRAND_APPS, BRAND_FAMILY } from './family.constants';
+export { BACKDROP_GRADIENT } from './backdrop-gradient.constants';
+export { backdropGradientCss } from './backdrop-gradient-css';
+export type { BackdropGlow, BackdropGradient, BackdropToken } from './backdrop-gradient.type';
 export { brandGradientCss } from './brand-gradient-css';
 export { iconFiles } from './icon-files';
 export { ICON_SIZES } from './icon-sizes.constants';

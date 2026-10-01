@@ -2,12 +2,12 @@
 import type { ReactNode } from 'react';
 import { registerFieldTester } from '../../data/filter/tester-registry';
 import { registerComparator, registerGroupKey } from '../../data/table/strategy-registry';
-import { Status } from '../../primitives/Status';
 import { Text } from '../../primitives/Text';
 import { Toggle } from '../../primitives/Toggle';
+import { BooleanCell } from './sub-components/BooleanCell';
 import { isNullish } from './coerce';
 import { nullsLast } from './compare';
-import { ABSENT, NO, YES } from './BooleanKit.constants';
+import { ABSENT } from './BooleanKit.constants';
 import { registerFieldKit } from './registry';
 import type { EditorControlProps, FieldTypeStrategy } from './registry.type';
 import '../../theme/field-kits.css';
@@ -22,7 +22,7 @@ const compare = nullsLast((a, b) => Number(a === true) - Number(b === true));
 
 const groupKey = (value: unknown): string => {
   if (isNullish(value)) return '';
-  return value === true ? YES : NO;
+  return value === true ? 'true' : 'false';
 };
 
 const FilterControl = () => null;
@@ -34,7 +34,7 @@ const EditorControl = (props: EditorControlProps) => {
 
 const renderCell = (value: unknown): ReactNode => {
   if (isNullish(value)) return <Text className="field-kit__muted">{ABSENT}</Text>;
-  return <Status tone={value === true ? 'success' : 'neutral'}>{value === true ? YES : NO}</Status>;
+  return <BooleanCell on={value === true} />;
 };
 
 const booleanKit: FieldTypeStrategy = { kind: 'boolean', FilterControl, EditorControl, renderCell };

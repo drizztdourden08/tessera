@@ -2,6 +2,7 @@
 import './DropZone.css';
 import { Glyph } from '../Glyph';
 import { Span } from '../text-elements';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import type { DropZoneProps } from './DropZone.type';
 import { acceptAttribute } from './behavior/accept-list';
 import { dropZoneClass } from './behavior/drop-zone-class';
@@ -9,9 +10,10 @@ import { useDropZone } from './behavior/useDropZone';
 import { DropZoneHints } from './sub-components/DropZoneHints';
 
 const DropZone = (props: DropZoneProps) => {
+  const { fields } = useTesseraStrings();
   const {
     accept,
-    label = 'Drop files here',
+    label = fields.dropFiles,
     hint,
     disabled = false,
     variant = 'block',

@@ -1,8 +1,9 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useState } from 'react';
 import { setPath } from '../../../data/schema/path';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { hasPathChanged } from './dirty-paths';
-import { SAVE_FAILED, WHOLE_RECORD } from './useRecordEditorState.constants';
+import { WHOLE_RECORD } from './useRecordEditorState.constants';
 import type { RecordEditorStateParams } from './useRecordEditorState.type';
 
 const useRecordEditorState = <T,>(params: RecordEditorStateParams<T>) => {
@@ -11,6 +12,7 @@ const useRecordEditorState = <T,>(params: RecordEditorStateParams<T>) => {
   const [working, setWorking] = useState<T>(record);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const { records } = useTesseraStrings();
 
   useEffect(() => {
     setBaseline(record);
@@ -40,11 +42,11 @@ const useRecordEditorState = <T,>(params: RecordEditorStateParams<T>) => {
       await onSave(working);
       setBaseline(working);
     } catch (error: unknown) {
-      setSaveError(error instanceof Error ? error.message : SAVE_FAILED);
+      setSaveError(error instanceof Error ? error.message : records.saveFailed);
     } finally {
       setSaving(false);
     }
-  }, [onSave, working]);
+  }, [onSave, working, records]);
 
   return {
     working,

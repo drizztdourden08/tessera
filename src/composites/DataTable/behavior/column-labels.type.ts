@@ -2,6 +2,7 @@
 import type { SortGroupSummary } from './sort-group-summary.type';
 import type { SchemaIndex } from '../../../data/schema/build-schema';
 import type { SortEntry, TableColumn } from '../../../data/table/types';
+import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
 
 interface ColumnLabelsInput {
   columns: readonly TableColumn[];
@@ -9,6 +10,7 @@ interface ColumnLabelsInput {
   sort: readonly SortEntry[];
   groupBy: readonly string[];
   draggingPath: string | null;
+  strings: TesseraStrings['table'];
 }
 
 interface ColumnLabels {

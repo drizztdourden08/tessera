@@ -15,7 +15,7 @@ const NavLayout = (props: NavLayoutProps) => {
 
   return (
     <Box ref={ref} className={classes} onKeyDown={keepSearchOnEscape(nav.search?.value ?? '')}>
-      <SectionNav {...nav} search={search} activeId={showResults ? '' : nav.activeId} />
+      <SectionNav {...nav} overlay={compact} search={search} activeId={showResults ? '' : nav.activeId} />
       <ScrollArea className="nav-layout__pane">{showResults ? results : children}</ScrollArea>
     </Box>
   );

@@ -1,11 +1,13 @@
 /* @layer renderer-components @kind component */
 import { Box, Glyph, Span } from '../../../primitives';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { hiddenLabelOf } from '../behavior/hidden-label-of';
 import type { SplitDividerProps } from './SplitDivider.type';
 import '../../../theme/focus-ring.css';
 
 const SplitDivider = (props: SplitDividerProps) => {
   const { collapsed, startShare, startLabel, endLabel, handlers } = props;
+  const { navigation } = useTesseraStrings();
   const hidden = hiddenLabelOf(collapsed, startLabel, endLabel);
 
   return (
@@ -13,7 +15,7 @@ const SplitDivider = (props: SplitDividerProps) => {
       className={`split-pane__divider split-pane__divider--${collapsed} focus-ring-inset`}
       role="separator"
       aria-orientation="vertical"
-      aria-label={hidden !== null ? `Show ${hidden}` : `Resize ${startLabel} and ${endLabel}`}
+      aria-label={hidden !== null ? navigation.showPane(hidden) : navigation.resizePanes(startLabel, endLabel)}
       aria-valuenow={Math.round(startShare * 100)}
       aria-valuemin={0}
       aria-valuemax={100}
@@ -25,7 +27,7 @@ const SplitDivider = (props: SplitDividerProps) => {
       onKeyDown={handlers.handleKeyDown}
       onClick={hidden !== null ? handlers.expand : undefined}
       onDoubleClick={handlers.expand}
-      title={hidden !== null ? `Show ${hidden}` : 'Drag to resize · double-click to reset'}
+      title={hidden !== null ? navigation.showPane(hidden) : navigation.resizeHint}
     >
       {hidden !== null
         ? <Span tone="dim" className="split-pane__rail-label"><Glyph name="chevronDown" size={10} /> {hidden}</Span>

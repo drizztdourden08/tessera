@@ -3,14 +3,15 @@ import { useState } from 'react';
 import { Button } from '../../../primitives/Button';
 import { FieldControlBoundary } from '../../../primitives/FieldControlBoundary';
 import { Flex } from '../../../primitives/Flex';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { committedValue } from '../committed-value';
-import { TOGGLE } from './OpenSetControl.constants';
 import { OpenSetEntry } from './OpenSetEntry';
 import type { OpenSetControlProps } from './OpenSetControl.type';
 
 const OpenSetControl = (props: OpenSetControlProps) => {
   const { current, label, onSubmit, disabled = false, children } = props;
   const [draft, setDraft] = useState<string | null>(null);
+  const { records } = useTesseraStrings();
 
   const commit = () => {
     const next = committedValue(draft ?? '', current);
@@ -26,10 +27,10 @@ const OpenSetControl = (props: OpenSetControlProps) => {
         variant="tertiary"
         disabled={disabled}
         aria-expanded={draft !== null}
-        title={`${label}: use a value that is not listed`}
+        title={records.otherValueTitle(label)}
         onClick={() => setDraft(draft === null ? current : null)}
       >
-        {TOGGLE}
+        {records.otherValue}
       </Button>
       {draft !== null && (
         <FieldControlBoundary>

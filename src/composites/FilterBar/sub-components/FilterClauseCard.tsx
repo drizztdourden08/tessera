@@ -5,6 +5,7 @@ import { Flex } from '../../../primitives/Flex';
 import { Glyph } from '../../../primitives/Glyph';
 import { IconButton } from '../../../primitives/IconButton';
 import { Span } from '../../../primitives/text-elements';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { findOperator } from '../../../data/filter/operators';
 import { resolveFieldKit } from '../../field-kits';
 import { OperatorMenu } from './OperatorMenu';
@@ -15,6 +16,7 @@ const FilterClauseCard = (props: FilterClauseCardProps) => {
   const {
     field, clause, onChangeOperator, onChangeValue, onToggleEnabled, onRemove, onChangeCaseSensitive,
   } = props;
+  const { filters } = useTesseraStrings();
   const kit = resolveFieldKit(field.kind);
   const arity = findOperator(field.kind, clause.op)?.arity;
   const FilterControl = arity === 'none' ? undefined : kit?.FilterControl;
@@ -29,7 +31,7 @@ const FilterClauseCard = (props: FilterClauseCardProps) => {
         <Checkbox
           className="filter-bar__check"
           checked={clause.enabled}
-          ariaLabel={`Apply the ${field.label} filter`}
+          ariaLabel={filters.applyFilterNamed(field.label)}
           onChange={onToggleEnabled}
         />
         <OperatorMenu
@@ -48,7 +50,7 @@ const FilterClauseCard = (props: FilterClauseCardProps) => {
           tone="danger"
           size="sm"
           className="filter-bar__remove"
-          label={`Remove filter on ${field.label}`}
+          label={filters.removeFilterNamed(field.label)}
           onClick={onRemove}
         >
           <Glyph name="close" />

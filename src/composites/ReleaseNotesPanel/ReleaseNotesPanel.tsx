@@ -3,12 +3,13 @@ import { Box } from '../../primitives/Box';
 import { ScrollArea } from '../../primitives/ScrollArea';
 import { Text } from '../../primitives/Text';
 import { Paragraph } from '../../primitives/text-elements';
-import { DEFAULT_TITLE } from './ReleaseNotesPanel.constants';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { ReleaseNotesPanelProps } from './ReleaseNotesPanel.type';
 import './ReleaseNotesPanel.css';
 
 const ReleaseNotesPanel = (props: ReleaseNotesPanelProps) => {
-  const { title = DEFAULT_TITLE, children, className = '' } = props;
+  const { panels } = useTesseraStrings();
+  const { title = panels.releaseNotes, children, className = '' } = props;
   const body = typeof children === 'string'
     ? <Paragraph tone="dim" className="release-notes-panel__text">{children}</Paragraph>
     : children;

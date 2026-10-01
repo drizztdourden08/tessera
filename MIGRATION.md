@@ -242,3 +242,112 @@ A badge is a count or a dot, a status is a read-only word for the state somethin
 - `pnpm icons` builds everything from the brand data, including `brand/<app>.svg`. PNG ladders are 16, 24, 32, 48, 64, 128, 256 and 512, with whole-pixel scaling for pixel art; each `.ico` holds 16 to 256. `mark-96`, `mark-192` and `mark-1024` are gone, and `icon/png/icon-1024.png` stays for the installer builder. Tessera no longer has `brand/tessera/icon/` or `brand/tessera/splash/`. `brand/rotp-mascot.svg` moved to `brand/rotp/mascot/sentri.svg`, beside Sentri's PNG ladder, `sentri.ico`, and the Hookshop highlight as `hookshop.svg` and `hookshop-<1|2|4>x.png`.
 - rotp takes its logo, Sentri and the Hookshop highlight from Tessera once it consumes the package: `<Logo brand="rotp" />`, `<Mascot brand="rotp" />`, `<Mascot brand="rotp" variant="hookshop" />`, and the files under `brand/rotp/`.
 - In the gallery, the Brand tier gains a Mascot page after Combined, and the Logo page gains Icon files in place of its Mascot story.
+
+## 26. Caption glyphs, FactsPanel and owner fixes to the composites
+
+- `WindowTitleBar` draws minimize, maximize, restore and close with the design system `Glyph` set, at 16 pixels with a 1.25 stroke, so each reads at the 10 to 11 pixel size of the old shapes. The filled 12 unit paths and their constants (`CAPTION_SIZE`, `CAPTION_VIEWBOX`, `MINIMIZE_PATHS`, `MAXIMIZE_PATHS`, `RESTORE_PATHS`, `CLOSE_PATHS`) are gone. The props are unchanged. The `Glyph` set gains `windowMinimize` and `windowClose`, drawn in the same box as `windowMaximize`.
+- `FactsPanel` is new: label and value pairs in a bordered box. `groups` is a list of groups, each a list of `{ label, value, title?, mono? }`; a group runs along one row and wraps, with a hairline between groups. `title` puts the full text of a long value in a tooltip, `mono` sets the value in the monospace font, and `label` names the panel. `FactsPanelFact`, `FactsPanelGroup` and `FactsPanelProps` are exported.
+- `Hero` draws its `facts` with `FactsPanel`, on the same glass as before. `facts` takes `FactsPanelGroup[]`; `HeroFact` and `HeroFactRow` are removed, so a host imports `FactsPanelFact` and `FactsPanelGroup` in their place. The shape of each fact is unchanged. The `.hero__facts`, `.hero__fact-row` and `.hero__fact` classes are now `.facts-panel`, `.facts-panel__group` and `.facts-panel__fact`, and the `--hero-fact-max-w` token is now `--facts-panel-value-max-w`.
+- `AboutPanel` takes `brand`, a `BrandApp`, and then draws that app's icon (`Logo` with `variant="app-icon"`) in place of the `logo` image and shows its wordmark as the heading, with `title` as the wordmark's accessible name. Without `brand`, `logo` stays an optional image and the heading is `title` as text, for an app that is not a Tessera brand. `title` is now a `string` in place of any node. Brock passes `brand="brock"` and drops `logo`.
+- `IconButton` with `tone="danger"` keeps its glyph red while pressed; it used to take the page background colour.
+- `LogPanel` measures its gutter and tag columns at the size they are drawn, so `--log-gutter-w` and `--log-tag-w` in `ch` now count characters of the log text. Each column also grows to fit a longer time or tag, so time, tag and message never overlap. A host that set wider values to make up for the old measure can lower them.
+- The `SectionNav` rail glows on its current item, as the panel does.
+- `SectionNav` takes `overlay`: the nav keeps its strip of icons beside the content, and the open panel slides over the content, so the page keeps its width; the toggle, Escape, a click outside or picking an item closes it, and focus inside the menu goes back to the toggle. The rule that floated the open panel below a 768 pixel wide viewport is gone; a host that relied on it passes `overlay`. `NavLayout` with `compact` sets it, in place of only tightening the gap.
+- `TabBar` centres each tab icon on its label; the icon used to sit about 2 pixels high.
+- `SettingsPage` blurs what is behind its panel, as Relic of the Past does.
+- `StickPlot` draws a line from the centre to the dot, and the calibrated marker is a muted `Small` after the numbers.
+- In the gallery, Content gains a FactsPanel page after AboutPanel.
+
+## 27. Tag classes, TagPicker colours, Badge sanitising and multipart ProgressBar
+
+- `Tag` classes are `.tag` and `.tag__*`, `.tag--*` again: `.tag-chip` is now `.tag`, `.tag-chip__text`, `__dot` and `__remove` are `.tag__text`, `.tag__dot` and `.tag__remove`, and every `.tag-chip--<variant|colour|state>` is `.tag--<variant|colour|state>`. The `--tag-ink`, `--tag-fill`, `--tag-edge` and `--tag-dot` properties keep their names. A host stylesheet that targeted `.tag-chip` renames it.
+- `CodeBlock` no longer passes on the highlighter's own class names, which were `token`, the token type (`tag`, `keyword`, `string` and so on) and `token-line`. Each token span carries `code-block__token` and one `code-block__token--<type>` for each type, and a line carries `code-block__line` alone, so a token class can never match a component class. The colours are unchanged; a host that styled `.token.<type>` inside a code block targets `.code-block__token--<type>`.
+- A `TagPickerOption` takes the `variant` and `color` of a `Tag` (`TagLook`), and a picked option keeps them: a `category` option shows its own tint and dot, an `urgency` option its own tone. An option with neither is `normal` `primary`, as before. A picked `urgency` or `category` Tag now draws a border in its own colour, so a pick stands out against the grey resting tags.
+- `Badge` cleans its value before it renders: a space or a symbol in a string is dropped, so `"4 new"` shows `4new`, and a trailing `+` stays only after digits. A number shows as a whole count: a fraction is cut to its whole part, and a negative number, `NaN` or an infinite number has no text. A `number` or `inline` Badge with no text left renders nothing, and a hosted one renders its children alone; a `dot` is unchanged. The dev warning still fires for a string with a space or a symbol, and now for a number that is not a whole count from 0.
+- `ProgressBar` renames `variant` to `tone`, `secondaryVariant` to `secondaryTone` and the `ProgressVariant` type to `ProgressTone`, to match the parts and `Status`. There are no aliases: `<ProgressBar value={60} variant="danger" />` becomes `<ProgressBar value={60} tone="danger" />`.
+- `ProgressBar` takes `parts` in place of `value` and `tone`: several amounts stacked in order in one bar, each a `ProgressPart` with a `value`, a `label` and a `tone` or its own CSS `color`. Parts past `max` are cut. `legend` lists the parts under the bar with a swatch, the label and the value; the root is then `.progress-bar-group` around the bar and `.progress-bar__legend`.
+- `ProgressBar` is now a `progressbar` to assistive tech: `aria-valuemin` 0, `aria-valuemax` `max`, `aria-valuenow` the value or the sum of the parts, capped at `max`, and `label` names it. A multipart bar sets `aria-valuetext`, such as 136 of 216: Found 120, Hinted 12, Missed 4, and each part carries its label as a `title`.
+- `ProgressTone` gains `tertiary`, `success`, `warning` and `info`. `secondaryValue` stays beside `parts`: it is a second amount behind the fill that is not progress, such as reachable against done or a peak, so it is not part of `aria-valuenow`. With no `secondaryTone` it is a faded copy of the first part's colour. The root no longer carries `data-variant` or `data-secondary-variant`; each fill carries `data-tone` and its colour in `--progress-fill`.
+
+## 28. TesseraProvider takes every app part, and Tessera's wording is one table
+
+`TesseraOverrides` gains eight parts beside `spinner`. Each is optional and a part left out keeps the Tessera default. An inner provider keeps the outer parts and replaces the ones it names; `strings` merges key by key. The provider reads nothing from `window` or `document` while rendering.
+
+- `writeText: ClipboardWriter`, `(text) => Promise<void> | void`, which rejects or throws when it fails. Every copy button writes through it: the `CodeBlock` copy button, the `AboutPanel` copy button and the `LogPanel` Copy all button. The default is `navigator.clipboard.writeText`, looked up only when a button is pressed.
+- `link: ComponentType<LinkProps>`, for router integration. The new `Link` primitive (`LinkProps` is the anchor props with a required `href`) renders the app link, or `<a>` by default. Everything Tessera renders with an `href` goes through it: the `Toggle` learn more link, and a `Box` with an `href`. A `Box` given an `href` and no `as` now renders a link where it rendered a `div`.
+- `imagePlaceholder: ComponentType<ImagePlaceholderProps>`, whose `status` is `empty`, `loading` or `broken`. It replaces the picture `Image` and `Thumbnail` draw while loading, when broken and when there is no source. A `fallback` still wins once loading ends, and `placeholder="none"` still draws nothing.
+- `strings: TesseraStringsOverride`, the wording; see below.
+- `errorFallback: ComponentType<ErrorFallbackProps>` (`error`, `label`, `action`, `reset`, `className`) replaces the panel every `ErrorBoundary` draws. `reset` clears the boundary and draws its children again; `label` is the boundary's `label` or the table's wording.
+- `emptyArt: ReactNode` is drawn by every `EmptyState` that has no `icon`, in `.empty-state__art`. `icon={null}` opts one out.
+- `portalDocument: Document` replaces `PortalDocumentContext`, which is removed. `<PortalDocumentContext value={doc}>` becomes `<TesseraProvider overrides={{ portalDocument: doc }}>`. A `Portal` still prefers the document it is rendered in.
+- `icons: IconSet`, a `Readonly<Record<IconName, IconifyIcon>>`, serves every `Icon` name. The type wants every name, so a set built without one fails to compile; spread `ICONS` and replace the names the app draws its own way. `Icon.Brand` and an `Icon` given `icon` data are unchanged.
+
+`AboutPanel` loses `onCopy` and the `AboutPanelCopy` type: a desktop host that writes the clipboard itself gives `writeText` to the provider once. `copyLabel` stays.
+
+Every fixed user-facing string in Tessera, visible text, `aria-label`, `title`, placeholders and default prop wording, now comes from `TESSERA_STRINGS`, a typed table of English defaults in groups: `common`, `fields`, `video`, `colorPicker`, `table`, `filters`, `filterOperators`, `records`, `navigation`, `panels`, `widgets` and `windows`. Wording that holds a value is a function, such as `common.selectedCount(count)`. `TesseraStrings` is its type; `TesseraStringsOverride` takes any group in part, so an app passes a whole translated table or a few keys. `useTesseraStrings()` returns the merged table, for an app's own components. A prop that took wording keeps it, and its default now comes from the table.
+
+- `OperatorSpec.label` is removed. `FilterBar` names an operator with `filterOperators[spec.icon]`.
+- `DataTable` group keys for boolean and array fields are now `true`, `false` and the item count; the group row words them through the table (`common.yes`, `common.no`, `records.itemsMany`).
+- Left out of the table: key and mouse button names in `Shortcut` and `KeyboardLayout`, the `Tags read namespace:value` hint `namespacedTag` returns, the `yesno` listbox column format (pass a format function), the `<label> item` field `deriveFields` names, colour notation (R, G, B, A, HEX), unit symbols, punctuation such as the truncation ellipsis, developer warnings and errors no user sees.
+
+New exports: `Link`, `LinkProps`, `ClipboardWriter`, `ErrorFallbackProps`, `ImagePlaceholderProps`, `IconSet`, `TESSERA_STRINGS`, `TesseraStrings`, `TesseraStringGroup`, `TesseraStringsOverride` and `useTesseraStrings`.
+
+## 29. Neutral bright greys, one colour set, the backdrop gradient and straight app icons
+
+- `--c-primary-bright`, `--c-secondary-bright` and `--c-tertiary-bright` now mix in oklab, not oklch. In the Tessera palette they drew slightly pink (`#aca0a3`, `#958a8d`, `#b7adb0`), because Chromium draws a near-grey oklch mix at hue 0. They are now greys at the same lightness (`#a3a3ac`, `#8c8c96`, `#afafb7`). `--c-primary-dim`, `--c-secondary-dim` and `--c-tertiary-dim` mix in oklab too, for the same reason (`#050506`, `#030304`, `#060607` in place of `#060505`, `#040303`, `#070606`). Every other palette keeps the same colours.
+- The light colour set is gone. Tessera has no light and dark themes: an app's look is its branding, set by its palette. The `[data-theme="light"]` blocks in `canonical.css` and `palette.css` are removed, and the tokens re-derive under `[data-palette]` only, no longer under `[data-theme]`. A host that set `data-theme="light"` can drop it, since it now changes nothing. `tokens.json` keeps its `dark` keys.
+- `--brand-backdrop-gradient` is new: the one backdrop every app shares, a glow of `--c-primary` at the top right and of `--c-secondary` at the bottom left over `--c-surface` fading to `--c-bg`. It sits in `src/tokens/brand.css` under `:root, [data-palette]`, so each palette paints its own version. `BACKDROP_GRADIENT` holds the data and `backdropGradientCss()` builds the CSS; `BackdropGlow`, `BackdropGradient` and `BackdropToken` are the types. `pnpm tokens` writes the token, its resolved value per palette in `splash-tokens.css`, and `palettes.<palette>.backdrop` in `tokens.json`.
+- `Hero` draws `--brand-backdrop-gradient` behind its `backdrop` slot, so a Hero with no backdrop shows it and a host scene covers it.
+- `InteractiveTessera` callouts show the app's logo alone. The wordmark opens beside it, on the side away from the T, while that tile or callout is pointed at or has keyboard focus. Callouts now scale with the component, so they never reach the T, each other or the component's edge at any width. The wordmark sits in `.interactive-tessera__name`, and each callout carries `data-side`. The inner parts are renamed `InteractiveTesseraArt`, `InteractiveTesseraCallout` and `InteractiveTesseraDetail`, with their files and types; none of them is exported.
+- `pnpm icons` writes `brand/tessera/mark/mark.ico`, holding 16 to 256: a brand with no app icon gets a `.ico` of its mark, and `iconFiles()` gives it as the mark's `ico`.
+- A `straight` app (Relic of the Past, Brock) draws `icon/maskable-512.png`, `icon/android/icon-background.png` and `splash/splash.svg` with `splash-2732.png` on transparent ground: the maskable icon and the splash are the mark alone, and the Android background layer is empty. The paths and names are unchanged. A splash window that relied on the dark ground paints its own background, such as its brand gradient. Archipelia keeps its tile.
+- In the gallery, the favicon is Tessera's `mark.ico`. The Logo page's Icon files shows each brand's own files, every PNG size and the `.ico` in one row that scrolls sideways; Sentri's files moved to a new Icon files story on the Mascot page. Colours, Gradients shows the backdrop gradient.
+
+## 30. DropdownMenu builds from data, the hamburger trigger, and WindowTitleBar from config
+
+`DropdownMenu` is now the one data driven menu for the whole app: the title bar menu, toolbar menus and the table and filter menus all take the same groups. There is no second menu component and no alias for the old props.
+
+- `DropdownMenu` takes `groups` in place of `items`. `MenuEntry` and the `'separator'` string are gone: a separator is `{ separator: true }`, and it can sit in a group or in any submenu. An item's `key` is now `id` and `onClick` is now `onSelect`. Wrap a flat list in one group: `groups={[{ id: 'column', items }]}`.
+- An item's `icon` takes an `IconName`, drawn with `Icon`, or an element; a bare string is read as an icon name, so wrap text marks such as `'Aa'` in an element. `description` is now drawn as a muted second line. `shortcut` takes display text such as `'Ctrl+Shift+P'` (split on `+`; `Control`, `CmdOrCtrl`, `Command`, `Escape` and the like map to the Shortcut key names) or a list of Shortcut keys, and is drawn with `Shortcut`. It is for display only: the app binds the key. Setting `checked` to true or false makes the item a checkbox item.
+- Separators at the start or end of a list, and separators next to each other, are dropped, and a group left with no items is dropped with them. A submenu with no items left draws as a plain item.
+- `closeOnSelect` (default true) calls `onClose` after an item's `onSelect`. `onClose` is new and also runs on Escape and Tab. `label` names the menu for screen readers. The menu takes focus on its first item when it opens and gives focus back to its anchor when it closes. The arrows, Home and End move through the items, typing the start of a label jumps to it, the right arrow, Enter or Space opens a submenu, and the left arrow or Escape closes it. The roles are `menu`, `group` (labelled by the group label), `menuitem`, `menuitemcheckbox` with `aria-checked`, and `separator`.
+- `trigger="hamburger"` draws the trigger and the menu: three lines in a gold edge with a cast shadow, which turn into a cross while the menu is open (at once under reduced motion). The menu hangs from it as the `Select` list does, with the gold edge running from the trigger around the menu, and its submenus take the same edge. `onOpenChange` reports the open state. It draws nothing when the menu has no items.
+- Items look like `SideNav` items: hover and keyboard focus take the hover fill, the full text colour and a dim gold bar on the left, where they used to take the selected fill and bright gold text. A checked item keeps bright gold text. Group labels are small capitals, as in `SideNav`. The `DataTable` field picker follows the same look.
+- The `DataTable` column and table menus, the `FilterBar` operator menu and the enum multi select of the field kits moved to `groups`; the multi select passes `closeOnSelect={false}`. The `DataTable` reference column submenu now shows each field path under its name.
+- The menu config is the contract a generator fills, for example Brock building the title bar menu from its folders. Every type is exported from the package root:
+
+```ts
+interface MenuItem {
+  id: string;
+  label: string;
+  icon?: IconName | ReactElement;
+  description?: string;
+  shortcut?: string | readonly ShortcutKey[];
+  disabled?: boolean;
+  checked?: boolean;
+  children?: readonly MenuNode[];
+  onSelect?: () => void;
+}
+
+interface MenuSeparator { separator: true }
+
+type MenuNode = MenuItem | MenuSeparator;
+
+interface MenuGroup {
+  id: string;
+  label?: string;
+  items: readonly MenuNode[];
+}
+```
+
+- Categories come either way: a labelled group draws as a heading over its items, and an item with an `icon` and `children` draws as a submenu.
+- `WindowTitleBar` builds its left menu from `menu`, a `MenuGroup[]`, and draws the hamburger and the menu itself, with `menuLabel` naming it. The `menu` node slot, `menuOpen` and `menuAnchorRef` are gone; an open menu still keeps a concealed bar in view.
+- The pin and the full screen, minimize, maximize and close buttons are built in and all report to one callback, `onControl(control)`, where `control` is `'fullscreen' | 'pin' | 'minimize' | 'maximize' | 'close'`. `controls` turns any of them off except close: `controls={{ fullscreen: false, pin: false }}`. `onPinToggle`, `onFullscreenToggle`, `onMinimize`, `onMaximizeToggle`, `onClose` and `WindowControlsState` are removed; `WindowControl` and `WindowControlsConfig` are new.
+
+```tsx
+<WindowTitleBar menu={<MenuTrigger />} menuOpen={open} menuAnchorRef={ref} onPinToggle={pin} onMinimize={win.minimize} onMaximizeToggle={win.toggleMaximize} onClose={win.close} />
+
+<WindowTitleBar menu={groups} controls={{ fullscreen: false }} onControl={(control) => win[control]()} />
+```
+
+- `useListboxDrop` and `useDismissListeners` take `escape` (default true); a popup that handles Escape itself, one level at a time, passes false. The string table gains `navigation.menu`, the default name of the hamburger.

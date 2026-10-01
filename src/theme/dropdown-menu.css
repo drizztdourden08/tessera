@@ -48,6 +48,28 @@
   }
 }
 
+.dropdown__menu {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+
+.dropdown__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown__group-label {
+  display: block;
+  padding: var(--space-xs) var(--space-md);
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .dropdown__item {
   display: flex;
   align-items: center;
@@ -56,16 +78,23 @@
   padding: var(--space-xs) var(--space-md);
   background: none;
   border: none;
+  border-left: var(--border-width-thick) solid transparent;
   color: var(--c-text-dim);
   font-size: var(--text-sm);
   cursor: pointer;
   text-align: left;
-  transition: background var(--transition-fast);
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   white-space: nowrap;
 }
 
-.dropdown__item:hover:not(:disabled) {
-  background: var(--c-selected);
+.dropdown__item:is(:hover, :focus-visible):not(:disabled),
+.dropdown__item[aria-expanded='true'] {
+  background: var(--c-hover);
+  border-left-color: var(--c-primary-dim);
+  color: var(--c-text);
+}
+
+.dropdown__item[aria-checked='true'] {
   color: var(--c-primary-bright);
 }
 
@@ -79,14 +108,37 @@
 }
 
 .dropdown__icon {
-  width: var(--size-16);
-  text-align: center;
-  font-size: var(--text-sm);
+  display: inline-grid;
   flex-shrink: 0;
+  place-items: center;
+  width: var(--size-16);
+  font-size: var(--text-base);
+}
+
+.dropdown__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .dropdown__label {
   flex: 1;
+}
+
+.dropdown__description {
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+}
+
+.dropdown__item:disabled .dropdown__description {
+  color: var(--c-text-faint);
+}
+
+.dropdown__item .dropdown__shortcut {
+  margin-left: auto;
+  padding-left: var(--space-md);
+  font-size: var(--text-xs);
 }
 
 .dropdown__chevron {
@@ -102,7 +154,12 @@
   color: var(--c-primary-bright);
 }
 
+.dropdown__shortcut + .dropdown__check {
+  margin-left: 0;
+}
+
 .dropdown__separator {
+  flex-shrink: 0;
   height: var(--border-width-thin);
   background: var(--c-border);
   margin: var(--space-xs) var(--space-sm);

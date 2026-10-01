@@ -1,0 +1,54 @@
+/* @layer renderer-components @kind style */
+.hamburger-icon {
+  --hamburger-icon-w: var(--size-16);
+  --hamburger-icon-h: var(--size-12);
+  --hamburger-icon-bar: var(--border-width-thick);
+
+  position: relative;
+  display: block;
+  width: var(--hamburger-icon-w);
+  height: var(--hamburger-icon-h);
+}
+
+.hamburger-icon__bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--hamburger-icon-bar);
+  border-radius: var(--radius-pill);
+  background: currentcolor;
+  transition:
+    transform var(--duration-normal) var(--ease-emphasized),
+    opacity var(--duration-fast) var(--ease-standard);
+}
+
+.hamburger-icon__bar:nth-child(1) {
+  top: 0;
+}
+
+.hamburger-icon__bar:nth-child(2) {
+  top: calc(50% - var(--hamburger-icon-bar) / 2);
+}
+
+.hamburger-icon__bar:nth-child(3) {
+  bottom: 0;
+}
+
+.hamburger-icon--open .hamburger-icon__bar:nth-child(1) {
+  transform: translateY(calc(var(--hamburger-icon-h) / 2 - var(--hamburger-icon-bar) / 2)) rotate(45deg);
+}
+
+.hamburger-icon--open .hamburger-icon__bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-icon--open .hamburger-icon__bar:nth-child(3) {
+  transform: translateY(calc(var(--hamburger-icon-bar) / 2 - var(--hamburger-icon-h) / 2)) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hamburger-icon__bar {
+    transition: none;
+  }
+}

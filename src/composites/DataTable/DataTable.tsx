@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
 import { EmptyState } from '../../primitives/EmptyState';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useColumnActions } from './behavior/useColumnActions';
 import { useGridStyle } from './behavior/useGridStyle';
 import { useTableActions } from './behavior/useTableActions';
@@ -14,7 +15,8 @@ import type { DataTableProps } from './DataTable.type';
 import './DataTable.css';
 
 const DataTable = <T,>(props: DataTableProps<T>) => {
-  const { rows, countLabel, emptyMessage = 'Nothing to show.', resolveTargetFields } = props;
+  const { rows, countLabel, emptyMessage, resolveTargetFields } = props;
+  const { common } = useTesseraStrings();
 
   const {
     table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context, checkboxes,
@@ -51,7 +53,7 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
           lead={selection && checkboxes ? <SelectAllCell selection={selection} /> : undefined}
         />
         <RowTree nodes={table.groupedRows} parentUid="" context={context} />
-        {rows.length === 0 && <EmptyState className="data-table__empty" message={emptyMessage} />}
+        {rows.length === 0 && <EmptyState className="data-table__empty" message={emptyMessage ?? common.nothingToShow} />}
       </Box>
       <ColumnDropTrash
         draggingPath={drag.draggingPath}

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { rectStyle } from '../behavior/rect-style';
 import { DockFloating } from './DockFloating';
 import { DockPanes } from './DockPanes';
@@ -13,6 +14,7 @@ const DockScene = (props: DockSceneProps) => {
   const {
     laid, mainRect, main, floating, drag, ownDrag, dragId, stageRef, onEdit, renderPane, renderFloating, mainLabel, gripLabel, mainGrip,
   } = props;
+  const { widgets } = useTesseraStrings();
   const showGrip = mainGrip === 'always' || (mainGrip === 'dragging' && drag !== null);
   return (
     <>
@@ -23,7 +25,7 @@ const DockScene = (props: DockSceneProps) => {
       ))}
       {mainRect && (
         <>
-          {showGrip && <MainGrip rect={mainRect} stageRef={stageRef} label={gripLabel} hint={`Drag to move the ${mainLabel.toLowerCase()}`} />}
+          {showGrip && <MainGrip rect={mainRect} stageRef={stageRef} label={gripLabel} hint={widgets.moveMainHint(mainLabel)} />}
           <DockFloating floating={floating} mainRect={mainRect} drag={drag} dragId={dragId} renderFloating={renderFloating} />
         </>
       )}

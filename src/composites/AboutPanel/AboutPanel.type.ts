@@ -1,22 +1,21 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { BrandApp } from '../../brand/brand.type';
 
 interface AboutPanelRow {
   label: string;
   value: ReactNode;
 }
 
-type AboutPanelCopy = (text: string) => Promise<boolean> | boolean;
-
 interface AboutPanelProps {
-  title: ReactNode;
+  title: string;
+  brand?: BrandApp;
   logo?: string;
   rows: readonly AboutPanelRow[];
   copyText?: string | null;
   copyLabel?: string;
-  onCopy?: AboutPanelCopy;
   legal?: ReactNode;
   className?: string;
 }
 
-export type { AboutPanelCopy, AboutPanelProps, AboutPanelRow };
+export type { AboutPanelProps, AboutPanelRow };

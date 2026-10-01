@@ -11,7 +11,6 @@ type OperatorIcon =
 
 interface OperatorSpec {
   id: string;
-  label: string;
   icon: OperatorIcon;
   arity: 'none' | 'one' | 'many';
 }

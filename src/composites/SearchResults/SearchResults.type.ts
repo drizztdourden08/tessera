@@ -42,7 +42,7 @@ interface EmptyMessageInput {
   needle: string;
   count: number;
   jumpCount: number;
-  idleMessage: ReactNode;
+  idleMessage?: ReactNode;
   emptyMessage?: ReactNode;
 }
 

@@ -15,8 +15,8 @@ const mayLeave = (ctx: DragContext, source: DragSource): boolean =>
 
 const labelFor = (ctx: DragContext, source: DragSource, mode: { swap: boolean; overlay: boolean }): string => {
   const base = source.id === null ? ctx.mainLabel : ctx.labelOf(source.id);
-  if (mode.swap) return `${base} · swap`;
-  if (mode.overlay) return `${base} · overlay`;
+  if (mode.swap) return ctx.strings.dragSwapLabel(base);
+  if (mode.overlay) return ctx.strings.dragOverlayLabel(base);
   return base;
 };
 

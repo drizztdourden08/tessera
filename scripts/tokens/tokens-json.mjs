@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind logic */
 import { formatColour } from './format-colour.mjs';
 import { parseColour } from './parse-colour.mjs';
-import { DEFAULT_PALETTE, THEME_COLOURS, THEME_SCALES } from './tokens.constants.mjs';
+import { BACKDROP_TOKEN, DEFAULT_PALETTE, THEME_COLOURS, THEME_SCALES } from './tokens.constants.mjs';
 
 const opaque = (value, ground) => {
   const colour = parseColour(value);
@@ -35,7 +35,7 @@ const tokensJson = (resolved, { family, apps, gradientCss }) => {
       dark: darkColours(base),
       ...Object.fromEntries(Object.entries(THEME_SCALES).map(([key, prefix]) => [key, scale(base, prefix)])),
     },
-    palettes: Object.fromEntries(Object.entries(resolved).map(([palette, tokens]) => [palette, { dark: darkColours(tokens) }])),
+    palettes: Object.fromEntries(Object.entries(resolved).map(([palette, tokens]) => [palette, { dark: darkColours(tokens), backdrop: tokens.get(BACKDROP_TOKEN) }])),
   };
 };
 

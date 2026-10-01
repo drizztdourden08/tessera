@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
-import { useContext, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { PortalDocumentContext } from '../dom/portal-document-context';
+import { useTesseraOverride } from '../TesseraProvider/behavior/useTesseraOverride';
 import type { PortalLayer, PortalProps } from './Portal.type';
 import { LAYERS } from './Portal.constants';
 import { useInBrowser } from './behavior/useInBrowser';
@@ -38,7 +38,7 @@ const getLayerContainer = (doc: Document, layer: PortalLayer): HTMLElement => {
 
 const Portal = (props: PortalProps) => {
   const { layer, children } = props;
-  const provided = useContext(PortalDocumentContext);
+  const provided = useTesseraOverride('portalDocument');
   const anchorRef = useRef<HTMLTemplateElement>(null);
   const [anchorDoc, setAnchorDoc] = useState<Document | null>(null);
   const inBrowser = useInBrowser();

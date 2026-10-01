@@ -87,11 +87,3 @@
 .section-nav--rail .section-nav__chevron {
   display: none;
 }
-
-.section-nav--rail .section-nav__item--active {
-  box-shadow: none;
-}
-
-.section-nav--rail .section-nav__item--active .section-nav__icon {
-  filter: none;
-}

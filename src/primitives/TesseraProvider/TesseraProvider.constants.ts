@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind data */
-import type { TesseraOverrides } from './TesseraProvider.type';
+import { TESSERA_STRINGS } from '../strings/tessera-strings.constants';
+import type { TesseraSetup } from './TesseraProvider.type';
 
-const NO_OVERRIDES: TesseraOverrides = Object.freeze({});
+const TESSERA_SETUP: TesseraSetup = Object.freeze({ strings: TESSERA_STRINGS });
 
-export { NO_OVERRIDES };
+export { TESSERA_SETUP };

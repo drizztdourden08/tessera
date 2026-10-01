@@ -4,7 +4,7 @@ import type { ColumnLabels, ColumnLabelsInput } from './column-labels.type';
 
 const columnLabelsOf = (input: ColumnLabelsInput): ColumnLabels => {
   const {
-    columns, schema, sort, groupBy, draggingPath,
+    columns, schema, sort, groupBy, draggingPath, strings,
   } = input;
 
   const labelOf = (path: string): string =>
@@ -12,7 +12,7 @@ const columnLabelsOf = (input: ColumnLabelsInput): ColumnLabels => {
 
   return {
     labelOf,
-    summary: summarizeSortGroup({ sort, groupBy, labelOf }),
+    summary: summarizeSortGroup({ sort, groupBy, labelOf, strings }),
     carriedLabel: draggingPath ? labelOf(draggingPath) : '',
   };
 };

@@ -5,12 +5,13 @@ import { ButtonRow } from '../../primitives/ButtonRow';
 import { Stack } from '../../primitives/Stack';
 import { Text } from '../../primitives/Text';
 import { Paragraph, Span } from '../../primitives/text-elements';
-import { CANCEL_LABEL } from './CalibrationPanel.constants';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { CalibrationPanelProps } from './CalibrationPanel.type';
 import './CalibrationPanel.css';
 
 const CalibrationPanel = (props: CalibrationPanelProps) => {
-  const { title, instruction, readout, action, onCancel, cancelLabel = CANCEL_LABEL, children, className = '' } = props;
+  const { common } = useTesseraStrings();
+  const { title, instruction, readout, action, onCancel, cancelLabel = common.cancel, children, className = '' } = props;
   const titleId = useId();
 
   return (

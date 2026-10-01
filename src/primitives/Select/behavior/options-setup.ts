@@ -2,11 +2,10 @@
 import { listboxSetup } from '../../listbox/listbox-setup';
 import { allOptionsOf } from './all-options';
 import { groupCategories } from './group-categories';
-import { NO_OPTIONS } from '../Select.constants';
 import type { ListboxSetup } from '../../listbox/listbox-model.type';
 import type { SelectOption, SelectOptionsProps } from '../Select.type';
 
-const optionsSetup = (props: SelectOptionsProps): ListboxSetup<SelectOption, string> => {
+const optionsSetup = (props: SelectOptionsProps, noOptions: string): ListboxSetup<SelectOption, string> => {
   const { groups, renderOption, onChange } = props;
   const groupOf = new Map(groups?.flatMap((group) => group.options.map((option) => [option, group.label] as const)));
   const setup = listboxSetup<SelectOption, 'value'>({
@@ -24,7 +23,7 @@ const optionsSetup = (props: SelectOptionsProps): ListboxSetup<SelectOption, str
     loading: props.loading,
     emptyText: props.emptyText,
     valueDisplay: props.valueDisplay,
-  }, NO_OPTIONS);
+  }, noOptions);
   if (!renderOption) return setup;
   return { ...setup, renderItem: (context) => renderOption(context.item, context.selected) };
 };
