@@ -22,7 +22,9 @@
       "status": "new"
     },
     "Mascot": {
-      "status": "new"
+      "status": "seen",
+      "hash": "f0dc02a9f361aa66",
+      "at": "2026-10-01"
     }
   },
   "Colours": {
@@ -564,7 +566,9 @@
   },
   "Primitives · Navigation": {
     "TabBar": {
-      "status": "new"
+      "status": "seen",
+      "hash": "1f01cee37ce388ee",
+      "at": "2026-10-01"
     }
   },
   "Primitives · Setup": {
@@ -622,7 +626,9 @@
       "at": "2026-10-01"
     },
     "HeaderTabs": {
-      "status": "new"
+      "status": "seen",
+      "hash": "435229260b09201d",
+      "at": "2026-10-01"
     },
     "FloatingSwitch": {
       "status": "new"
@@ -662,7 +668,9 @@
       "at": "2026-10-01"
     },
     "NavLayout": {
-      "status": "new"
+      "status": "seen",
+      "hash": "9d63d4230a8a4e44",
+      "at": "2026-10-01"
     },
     "SearchResults": {
       "status": "new"
@@ -673,7 +681,9 @@
   },
   "Composites · Menus": {
     "DropdownMenu": {
-      "status": "new"
+      "status": "seen",
+      "hash": "96a5012fb7f0847a",
+      "at": "2026-10-01"
     },
     "SearchSpark": {
       "status": "new"
@@ -712,6 +722,9 @@
       "status": "seen",
       "hash": "b93c2fd8a708b3a9",
       "at": "2026-10-01"
+    },
+    "FactsPanel": {
+      "status": "new"
     },
     "ReleaseNotesPanel": {
       "status": "new"
