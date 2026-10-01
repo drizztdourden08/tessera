@@ -27,7 +27,7 @@
     },
     "Mascot": {
       "status": "ok",
-      "hash": "5d5eede6cef91d0c",
+      "hash": "b0ba022cfc5d57ff",
       "at": "2026-10-01"
     }
   },
@@ -302,32 +302,32 @@
   "Tokens": {
     "Size scale": {
       "status": "ok",
-      "hash": "251bd3d57eb3379e",
+      "hash": "22d1c71c48aed089",
       "at": "2026-10-01"
     },
     "Sizes": {
       "status": "ok",
-      "hash": "4ca8985f450f247d",
+      "hash": "a399ba023546551c",
       "at": "2026-10-01"
     },
     "Margin": {
       "status": "ok",
-      "hash": "7eee97daccd85d43",
+      "hash": "97e61de3f2f538a8",
       "at": "2026-10-01"
     },
     "Padding": {
       "status": "ok",
-      "hash": "6d4636ebf4067a61",
+      "hash": "20e760bb5f1f2374",
       "at": "2026-10-01"
     },
     "Gap": {
       "status": "ok",
-      "hash": "8c14f283acd6a0b1",
+      "hash": "46644757c8d40c44",
       "at": "2026-10-01"
     },
     "Radius": {
       "status": "ok",
-      "hash": "d279de35d189a0f4",
+      "hash": "e4cd63c33d63bb3a",
       "at": "2026-10-01"
     },
     "Shadows": {
