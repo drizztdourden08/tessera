@@ -12,6 +12,7 @@ interface PieceSpot {
 interface GroupSpot {
   turn?: SceneTurn;
   clip?: readonly ScenePoint[];
+  part?: string;
 }
 
 interface SceneWriter {

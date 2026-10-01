@@ -1,5 +1,6 @@
 /* @layer stories @kind data */
 import type { IconName } from '../../../src/primitives';
+import { ROM_FILE } from './rotp-profiles';
 
 type ProfileMode = '' | 'standard' | 'local' | 'online';
 
@@ -20,66 +21,68 @@ type ModeCard = { value: Exclude<ProfileMode, ''>; label: string; description: s
 
 type Choice = { value: string; label: string };
 
-const GAMES: readonly Choice[] = [
-  { value: 'alttp-us', label: 'A Link to the Past (US 1.0)' },
-  { value: 'alttp-jp', label: 'A Link to the Past (JP 1.0)' },
-  { value: 'sm-us', label: 'Super Metroid (US)' },
-];
+const ROMS: readonly Choice[] = [{ value: ROM_FILE, label: ROM_FILE }];
 
 const MODES: readonly ModeCard[] = [
-  { value: 'standard', label: 'Standard', description: 'The game as it shipped. Saves, playtime and widgets, no seed.', icon: 'play' },
-  { value: 'local', label: 'Randomizer on this PC', description: 'Rolls a seed here and patches your ROM. Plays offline.', icon: 'sparkles' },
-  { value: 'online', label: 'Randomizer online', description: 'Joins a multiworld room. Items travel between players.', icon: 'globe' },
+  { value: 'standard', label: 'Standard', description: 'The game as it shipped, with your preset, saves and widgets. No seed.', icon: 'play' },
+  { value: 'local', label: 'Randomizer, local', description: 'A seed is thrown on this PC and the items are placed before you start.', icon: 'sparkles' },
+  { value: 'online', label: 'Randomizer, online', description: 'Joins an Archipelago room. Items travel between players in the session.', icon: 'globe' },
 ];
 
 const MODE_LABEL: Readonly<Record<ProfileMode, string>> = {
   '': 'Not chosen',
   standard: 'Standard',
-  local: 'Randomizer, on this PC',
-  online: 'Randomizer, online',
+  local: 'Randomizer, local',
+  online: 'Randomizer, online (Archipelago)',
 };
 
-const PRESETS: readonly Choice[] = [
-  { value: 'default', label: 'Default' },
-  { value: 'speedrun', label: 'Speedrun' },
-  { value: 'streaming', label: 'Streaming' },
+const ENHANCED = 'Enhanced';
+
+const PRESETS = [
+  { value: 'vanilla', label: 'Vanilla' },
+  { value: ENHANCED, label: ENHANCED },
 ];
 
+const PRESET_HINT: Readonly<Record<string, string>> = {
+  vanilla: 'The original 4:3 picture and rules, nothing added.',
+  [ENHANCED]: 'Widescreen, autosave, the new HUD, quality of life and bug fixes.',
+};
+
 const LANGUAGES: readonly Choice[] = [
-  { value: 'en', label: 'English' },
-  { value: 'fr', label: 'Français' },
-  { value: 'de', label: 'Deutsch' },
-  { value: 'ja', label: 'Japanese' },
+  { value: '', label: 'Default (English)' },
+  { value: 'de', label: 'German (Deutsch)' },
+  { value: 'fr', label: 'French (Français)' },
+  { value: 'fr-c', label: 'French Canadian' },
+  { value: 'es', label: 'Spanish (Español)' },
+  { value: 'pl', label: 'Polish (Polski)' },
+  { value: 'pt', label: 'Portuguese (Português)' },
+  { value: 'nl', label: 'Dutch (Nederlands)' },
+  { value: 'sv', label: 'Swedish (Svenska)' },
+  { value: 'redux', label: 'Redux' },
 ];
 
 const MSU_PACKS: readonly Choice[] = [
-  { value: 'none', label: 'No MSU pack' },
-  { value: 'orchestral', label: 'Orchestral Hyrule' },
-  { value: 'chiptune', label: 'Chiptune remix' },
+  { value: '', label: 'None' },
+  { value: 'alttp-orchestral', label: 'alttp-orchestral' },
+  { value: 'alttp-remastered', label: 'alttp-remastered' },
 ];
 
-const SERVERS: readonly Choice[] = [
-  { value: '', label: 'Pick a room' },
-  { value: 'archipelago.gg:38281', label: 'archipelago.gg:38281' },
-  { value: 'eu.multiworld.net:51420', label: 'eu.multiworld.net:51420' },
-];
-
-const SEEDS = ['3fa9c1e7', 'b71e0244', '5c2d9a10', 'e04f7b3c', '9a13c6d8'];
+const SEEDS = ['3f9a0c71be42d580', 'b71e0244c93a5f16', '5c2d9a10e87b4403', 'e04f7b3c19d26a85'];
 
 const INITIAL_PROFILE: ProfileDraft = {
   name: '',
-  rom: 'alttp-us',
+  rom: ROM_FILE,
   mode: '',
   seed: SEEDS[0] ?? '',
   server: '',
   slot: '',
   options: {},
-  preset: 'default',
-  language: 'en',
-  msu: 'none',
+  preset: ENHANCED,
+  language: '',
+  msu: '',
 };
 
-const EXISTING_NAMES: readonly string[] = ['Casual run', 'Weekly async'];
+const EXISTING_NAMES: readonly string[] = ['Casual run', 'Weekly async', 'Speedrun seed'];
 
 export type { Choice, ProfileDraft };
-export { EXISTING_NAMES, GAMES, INITIAL_PROFILE, LANGUAGES, MODE_LABEL, MODES, MSU_PACKS, PRESETS, SEEDS, SERVERS };
+export { EXISTING_NAMES, INITIAL_PROFILE, LANGUAGES, MODE_LABEL, MODES, MSU_PACKS, PRESET_HINT, PRESETS, ROMS, SEEDS };

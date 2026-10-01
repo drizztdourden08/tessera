@@ -2,7 +2,7 @@
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { KEYBOARD_SIZES, KeyboardLayout } from '../../src/composites';
 import type { KeyboardSize, KeyboardTarget } from '../../src/composites';
-import { Box } from '../../src/primitives';
+import { ScrollArea } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -33,18 +33,18 @@ const Playground = {
   args: { highlight: 'ctrl, shift, P', pressed: 'ctrl-left', size: 'full' },
   argTypes: ARG_TYPES,
   render: (args) => (
-    <Box className="keyboard-story">
+    <ScrollArea axis="x" className="keyboard-story">
       <KeyboardLayout highlight={keyList(args.highlight)} pressed={keyList(args.pressed)} size={args.size} />
-    </Box>
+    </ScrollArea>
   ),
 } satisfies StoryLiteStoryDefinition<KeyboardArgs>;
 
 const keyboardStory = (name: string, highlight: readonly KeyboardTarget[], pressed: readonly KeyboardTarget[], size: KeyboardSize = 'full') => ({
   name,
   render: () => (
-    <Box className="keyboard-story">
+    <ScrollArea axis="x" className="keyboard-story">
       <KeyboardLayout highlight={highlight} pressed={pressed} size={size} />
-    </Box>
+    </ScrollArea>
   ),
 }) satisfies StoryLiteStoryDefinition<KeyboardArgs>;
 
@@ -55,9 +55,9 @@ const HELD: readonly KeyboardTarget[] = ['ctrl-left', 'alt-left', 'delete'];
 const NONE: readonly KeyboardTarget[] = [];
 
 const renderState = (props: StateProps) => (
-  <Box className="keyboard-story">
+  <ScrollArea axis="x" className="keyboard-story">
     <KeyboardLayout highlight={props.lit === true ? LIT : NONE} pressed={props.held === true ? HELD : NONE} />
-  </Box>
+  </ScrollArea>
 );
 
 const Overview = overviewStory({

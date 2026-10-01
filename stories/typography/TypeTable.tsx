@@ -8,12 +8,12 @@ import type { TypeTableProps } from './TypeTable.type';
 import './typography.css';
 
 const TypeTable = (props: TypeTableProps) => {
-  const { entries, property, specimen } = props;
+  const { entries, property, specimen, showValue = true } = props;
   return (
     <Demonstrator
       corner="Token"
       rows={axis(entries.map((entry) => entry.token))}
-      columns={TYPE_TABLE_COLUMNS}
+      columns={showValue ? TYPE_TABLE_COLUMNS : TYPE_TABLE_COLUMNS.filter((column) => column.key !== 'value')}
       align="start"
       cell={(token, column) => (column === 'value'
         ? <TokenValue token={token} />

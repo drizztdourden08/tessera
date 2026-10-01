@@ -20,7 +20,7 @@ const MenuButton = (props: TriggerMenuProps) => {
   const menuId = useId();
   const [start, setStart] = useState<MenuFocusStart>('first');
   const shown = tidyGroups(groups);
-  const drop = useListboxDrop<HTMLButtonElement>({ disabled: shown.length === 0, contentKey: groups, escape: false });
+  const drop = useListboxDrop<HTMLButtonElement>({ disabled: shown.length === 0, contentKey: groups, escape: false, fit: true });
   useOpenReport(drop.open, onOpenChange);
   if (shown.length === 0) return null;
 

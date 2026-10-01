@@ -2,7 +2,6 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { BACKDROP_GRADIENT } from '../src/brand/backdrop-gradient.constants';
 import { backdropGradientCss } from '../src/brand/backdrop-gradient-css';
 import { brandGradientCss } from '../src/brand/brand-gradient-css';
 import { BRAND_APPS, BRAND_FAMILY } from '../src/brand/family.constants';
@@ -10,7 +9,7 @@ import { evaluateColourMix } from '../scripts/tokens/evaluate-colour-mix.mjs';
 import { tokenFiles } from '../scripts/tokens/token-files.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const BRANDS = { family: BRAND_FAMILY, apps: BRAND_APPS, gradientCss: brandGradientCss, backdrop: backdropGradientCss(BACKDROP_GRADIENT) };
+const BRANDS = { family: BRAND_FAMILY, apps: BRAND_APPS, gradientCss: brandGradientCss, backdropCss: backdropGradientCss };
 const FILES = tokenFiles(ROOT, BRANDS);
 const committed = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const OPAQUE_HEX = /^#[0-9a-f]{6}$/;
@@ -40,12 +39,24 @@ describe('generated token files', () => {
   });
 });
 
-describe('the backdrop gradient', () => {
-  it('resolves to literal colours in every palette, each its own', () => {
-    const { palettes } = JSON.parse(FILES['tokens.json']);
-    const backdrops = Object.values(palettes).map((palette) => palette.backdrop);
+describe('the brand backdrops', () => {
+  it('gives each brand its own backdrop in literal colours', () => {
+    const { brands } = JSON.parse(FILES['tokens.json']);
+    const backdrops = BRAND_APPS.map((app) => brands[app].backdrop);
     expect(backdrops.every((css) => css.startsWith('radial-gradient(') && !/var\(|color-mix\(/.test(css))).toBe(true);
     expect(new Set(backdrops).size).toBe(backdrops.length);
+  });
+
+  it('gives each palette the backdrop of its brand', () => {
+    const { brands, palettes } = JSON.parse(FILES['tokens.json']);
+    for (const [palette, entry] of Object.entries(palettes)) expect(entry.backdrop).toBe(brands[palette].backdrop);
+  });
+
+  it('builds every glow from the brand colours, fading to clear at its edge', () => {
+    for (const app of BRAND_APPS) {
+      const glows = backdropGradientCss(BRAND_FAMILY[app].backdrop).split('radial-gradient(').slice(1);
+      expect(glows.every((glow) => /#[0-9a-f]{6}00 100%\)/.test(glow))).toBe(true);
+    }
   });
 });
 

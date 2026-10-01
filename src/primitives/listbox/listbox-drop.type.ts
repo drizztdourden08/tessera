@@ -9,6 +9,7 @@ interface UseListboxDropParams {
   contentKey: unknown;
   focusRef?: RefObject<HTMLElement | null>;
   escape?: boolean;
+  fit?: boolean;
   onClose?: () => void;
 }
 

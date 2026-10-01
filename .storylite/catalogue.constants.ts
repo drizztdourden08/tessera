@@ -30,7 +30,7 @@ const CATALOGUE: readonly CatalogueTier[] = [
         { name: 'Palettes', summary: 'Each seed as eleven steps, and the grey scale.' },
         { name: 'Roles', summary: 'Every colour role with the value the page paints right now.' },
         { name: 'Contrast', summary: 'Text-on-fill pairs measured live, with a pass or fail per pair.' },
-        { name: 'Gradients', summary: 'Each brand\'s gradient behind its mark, with its token and CSS value.' },
+        { name: 'Gradients', summary: 'Each brand\'s gradient behind its mark and its backdrop, with their tokens.' },
       ],
     }],
   },

@@ -1,86 +1,105 @@
 /* @layer stories @kind data */
 type RandomizerOption = { id: string; label: string; hint: string; choices: readonly string[]; fallback: string };
 
-type RandomizerTab = { id: string; label: string; options: readonly RandomizerOption[] };
+type RandomizerTab = { id: string; label: string; live: boolean; options: readonly RandomizerOption[] };
 
-const ON_OFF = ['On', 'Off'] as const;
+type OptionMore = { fallback?: string; hint?: string };
 
-const option = (id: string, label: string, hint: string, choices: readonly string[]): RandomizerOption => ({
-  id, label, hint, choices, fallback: choices[0] ?? '',
+const option = (id: string, label: string, choices: readonly string[], more: OptionMore = {}): RandomizerOption => ({
+  id, label, hint: more.hint ?? '', choices, fallback: more.fallback ?? choices[0] ?? '',
 });
 
+const toggle = (id: string, label: string, on: boolean, hint = ''): RandomizerOption => option(id, label, ['On', 'Off'], { fallback: on ? 'On' : 'Off', hint });
+
+const DUNGEON_ITEM = ['Original Dungeon', 'Own Dungeons', 'Own World', 'Any World', 'Different World', 'Start With'];
+const CRYSTALS = ['7', '6', '5', '4', '3', '2', '1', '0'];
+const CURVES = ['Equal', 'Front-loaded', 'Ramp', 'Reverse Fibonacci', 'Halves', 'Free sequence'];
+const POND = ['Vanilla grants', 'Vanilla cost', 'Custom'];
+
 const RANDOMIZER_TABS: readonly RandomizerTab[] = [
-  {
-    id: 'items',
-    label: 'Items',
-    options: [
-      option('placement', 'Item placement', 'Advanced places items behind tricks a new player may not know.', ['Basic', 'Advanced']),
-      option('pool', 'Item pool', 'Hard and Expert remove upgrades and extra hearts.', ['Normal', 'Hard', 'Expert']),
-      option('behaviour', 'Item behaviour', 'How strong potions, the cape and the byrna are.', ['Normal', 'Hard', 'Expert']),
-      option('weapons', 'Weapons', 'Assured starts you with a sword.', ['Randomized', 'Assured', 'Vanilla', 'Swordless']),
-      option('progressive', 'Progressive items', 'Swords, shields, mail and gloves upgrade in order.', ON_OFF),
-      option('bottles', 'Bottle contents', 'What a bottle holds when you find it.', ['Random', 'Empty']),
-      option('accessibility', 'Accessibility', 'Locations makes every check reachable.', ['Items', 'Locations', 'Beatable']),
-      option('heartPieces', 'Heart pieces', 'Shuffle the 24 pieces with the rest of the pool.', ON_OFF),
-    ],
-  },
-  {
-    id: 'dungeons',
-    label: 'Dungeons',
-    options: [
-      option('dungeonItems', 'Dungeon items', 'Keysanity shuffles every key, map and compass into the world.', ['Standard', 'Maps and compasses', 'Small keys', 'Keysanity']),
-      option('bosses', 'Boss shuffle', 'Full moves every boss, Random allows repeats.', ['None', 'Simple', 'Full', 'Random']),
-      option('enemies', 'Enemy shuffle', 'Swaps enemies inside each room.', ['None', 'Shuffled', 'Random']),
-      option('pots', 'Pot shuffle', 'Moves what hides under the pots.', ['Off', 'On']),
-      option('counters', 'Item counters', 'Shows how many checks a dungeon still holds.', ['Default', 'On', 'Off']),
-      option('bigKeys', 'Big key chests', 'Lets a big key chest hold any item.', ['Off', 'On']),
-    ],
-  },
-  {
-    id: 'logic',
-    label: 'Logic',
-    options: [
-      option('glitches', 'Glitches required', 'Overworld glitches expects fake flippers and clips.', ['None', 'Overworld glitches', 'Major glitches', 'No logic']),
-      option('world', 'World state', 'Open skips the escape, Inverted starts in the Dark World.', ['Standard', 'Open', 'Inverted', 'Retro']),
-      option('entrances', 'Entrance shuffle', 'Crossed mixes Light and Dark World doors.', ['None', 'Simple', 'Restricted', 'Full', 'Crossed']),
-      option('darkRooms', 'Dark rooms', 'What logic expects you to carry through a dark room.', ['Lamp', 'Torches', 'None']),
-      option('hints', 'Hints', 'Telepathic tiles point at useful items.', ON_OFF),
-      option('spoiler', 'Spoiler log', 'Writes where every item went next to the seed.', ON_OFF),
-      option('timer', 'Timer', 'Counts up, or down to a game over.', ['None', 'Stopwatch', 'Countdown']),
-    ],
-  },
-  {
-    id: 'goal',
-    label: 'Goal',
-    options: [
-      option('goal', 'Goal', 'What ends the run.', ['Defeat Ganon', 'Fast Ganon', 'All dungeons', 'Triforce hunt', 'Pedestal']),
-      option('towerCrystals', 'Tower crystals', 'Crystals needed to open Ganon\'s Tower.', ['7', '6', '5', '4', '3', '2', '1', '0']),
-      option('ganonCrystals', 'Ganon crystals', 'Crystals needed before Ganon can be hurt.', ['7', '6', '5', '4', '3', '2', '1', '0']),
-      option('pieces', 'Triforce pieces', 'Pieces placed for a Triforce hunt.', ['30 placed, 20 needed', '40 placed, 30 needed', '20 placed, 20 needed']),
-    ],
-  },
-  {
-    id: 'shops',
-    label: 'Shops',
-    options: [
-      option('shopsanity', 'Shopsanity', 'Shop items join the pool.', ['Off', 'On']),
-      option('takeAny', 'Take any caves', 'Caves that trade a heart for an item.', ['Off', 'On']),
-      option('prices', 'Prices', 'How much shop items cost.', ['Vanilla', 'Cheap', 'Expensive']),
-      option('retroBow', 'Retro bow', 'Arrows cost rupees, as in the first game.', ['Off', 'On']),
-    ],
-  },
-  {
-    id: 'cosmetics',
-    label: 'Cosmetics',
-    options: [
-      option('sprite', 'Player sprite', 'Who you play as.', ['Link', 'Zelda', 'Tunic', 'Random']),
-      option('heartColor', 'Heart colour', 'Colour of the life meter.', ['Red', 'Blue', 'Green', 'Yellow']),
-      option('heartBeep', 'Low health beep', 'How often the beep plays.', ['Normal', 'Half', 'Quarter', 'Off']),
-      option('menuSpeed', 'Menu speed', 'How fast the item menu opens.', ['Normal', 'Fast', 'Instant']),
-      option('music', 'Music', 'Turn it off to stream your own.', ON_OFF),
-      option('palette', 'Palette shuffle', 'Recolours the overworld and dungeons.', ['Off', 'Blackout', 'Shuffled']),
-    ],
-  },
+  { id: 'world', label: 'World', live: true, options: [
+    toggle('npcChecks', 'Include NPC and event checks', true, 'Rewards from characters, bosses and story events join the shuffle.'),
+    toggle('standing', 'Include standing world items', true),
+    option('accessibility', 'Accessibility', ['Full', 'Items', 'Minimal'], { hint: 'Full: every location can be reached.' }),
+    toggle('darkRooms', 'Dark rooms need a light', true),
+    toggle('lamp', 'Lamp lights a dark room', true),
+    toggle('fireRod', 'Fire rod lights a dark room', true),
+    toggle('bombos', 'Bombos lights a dark room', true),
+    toggle('redCane', 'Red cane lights a dark room', true),
+  ] },
+  { id: 'goal', label: 'Goal', live: false, options: [
+    option('goal', 'Goal', ['Ganon', 'Crystals', 'Bosses', 'Pedestal', 'Ganon Pedestal', 'Triforce Hunt', 'Local Triforce Hunt', 'Ganon Triforce Hunt'], { hint: 'What ends the seed and what it asks of you first.' }),
+    option('towerCrystals', 'Crystals to enter the dark tower', CRYSTALS),
+    option('ganonCrystals', 'Crystals to hurt the final boss', CRYSTALS),
+    option('piecesRequired', 'Triforce Pieces Required', ['20', '30', '40']),
+    option('piecesAvailable', 'Triforce Pieces Available', ['30', '40', '50']),
+  ] },
+  { id: 'items', label: 'Items', live: true, options: [
+    option('swordOrder', 'Sword: how the tiers arrive', ['In order', 'Any order']),
+    option('shieldOrder', 'Shield: how the tiers arrive', ['In order', 'Any order']),
+    option('swordCopies', 'Sword: copies', ['Normal', 'Double', 'Triple']),
+    option('hearts', 'Most hearts', ['20', '16', '12', '8', '3']),
+    toggle('retroBow', 'Retro Bow', false, 'Arrows are no longer found or carried; every shot costs rupees.'),
+    toggle('net', 'Net catches fairies', true),
+    toggle('cape', 'Cape drains magic twice as fast', false),
+    toggle('silvers', 'Silver arrows bite everywhere', true),
+    toggle('hammerGanon', 'Hammer hurts the last fight', false),
+    toggle('medallions', 'Medallion doors need no sword', false),
+  ] },
+  { id: 'shops', label: 'Shops', live: true, options: [
+    option('shopShuffle', 'Shop Shuffle', ['Custom (exactly the ticked slots)', 'Vanilla (nothing shuffled)', 'Sequential (the first ticked slots)', 'Random (ticked slots drawn from the seed)']),
+    option('slots', 'Available Shop Slots', ['0', '4', '8', '12']),
+    option('perSlot', 'Items Per Shop Slot', ['2', '1', '3']),
+    option('priceModifier', 'Shop Price Modifier', ['100%', '50%', '150%', '200%']),
+  ] },
+  { id: 'dungeon', label: 'Dungeon', live: true, options: [
+    toggle('prizes', 'Shuffle Dungeon Prizes', true, 'Pendants and crystals move between dungeons.'),
+    option('bigKeys', 'Big Key Shuffle', DUNGEON_ITEM),
+    option('smallKeys', 'Small Key Shuffle', [...DUNGEON_ITEM, 'Universal']),
+    toggle('keyDrops', 'Key Drop Shuffle', true),
+    option('compasses', 'Compass Shuffle', DUNGEON_ITEM),
+    option('maps', 'Map Shuffle', DUNGEON_ITEM),
+  ] },
+  { id: 'capacity', label: 'Capacity upgrades', live: true, options: [
+    toggle('capacity', 'Capacity upgrades', true),
+    toggle('progressiveCapacity', 'Progressive capacity upgrades', true),
+    option('explosives', 'Explosives upgrades', ['Vanilla', 'Vanilla in pool', 'Custom']),
+    option('explosivesCurve', 'Explosives upgrade curve', CURVES),
+    option('wallet', 'Wallet upgrades', ['Vanilla', 'Custom']),
+  ] },
+  { id: 'pond', label: 'Fairy ponds', live: true, options: [
+    toggle('pondShare', 'One set of settings for all three ponds', true),
+    option('hylia', 'Hylia Fairy', POND),
+    option('waterfall', 'Waterfall Fairy', POND),
+    option('pyramid', 'Pyramid Fairy', POND),
+  ] },
+  { id: 'environmental', label: 'Environmental', live: false, options: [
+    option('prizeShuffle', 'Shuffle Prizes', ['Off', 'General', 'Bonk', 'Both']),
+    toggle('pots', 'Pot Shuffle', false),
+    toggle('bushes', 'Bush Shuffle', false),
+  ] },
+  { id: 'entrance', label: 'Entrance', live: false, options: [
+    option('entrances', 'Entrance Shuffle', ['Vanilla', 'Dungeons Simple', 'Dungeons Full', 'Dungeons Crossed', 'Simple', 'Restricted', 'Full', 'Crossed', 'Insanity'], { hint: 'Where the doorways lead, from dungeon doors alone up to every door in both worlds.' }),
+  ] },
+  { id: 'enemies', label: 'Enemies', live: false, options: [
+    option('enemyHealth', 'Enemy Health', ['Default', 'Easy', 'Hard', 'Expert']),
+    option('enemyDamage', 'Enemy Damage', ['Default', 'Shuffled', 'Chaos']),
+    option('bossShuffle', 'Boss Shuffle', ['None', 'Basic', 'Full', 'Chaos', 'Singularity']),
+    toggle('enemyShuffle', 'Enemy Shuffle', false),
+    toggle('thieves', 'Killable Thieves', false),
+  ] },
+  { id: 'traps', label: 'Traps', live: false, options: [
+    option('beeTotal', 'Beemizer Total Chance', ['0', '25', '50', '100']),
+    option('beeTrap', 'Beemizer Trap Chance', ['0', '25', '60', '100']),
+  ] },
+  { id: 'minigames', label: 'Mini-games', live: false, options: [] },
+  { id: 'timer', label: 'Timer', live: false, options: [
+    option('timer', 'Timer', ['None', 'Timed', 'Timed OHKO', 'OHKO', 'Timed Countdown', 'Display']),
+    option('countdown', 'Countdown Start Time', ['0', '60', '120', '240']),
+  ] },
+  { id: 'glitches', label: 'Glitches', live: false, options: [
+    option('glitches', 'Glitches Required', ['No Glitches', 'Minor Glitches', 'Overworld Glitches', 'Hybrid Major Glitches', 'No Logic']),
+  ] },
 ];
 
 const valueOf = (options: Readonly<Record<string, string>>, item: RandomizerOption): string => options[item.id] ?? item.fallback;
@@ -91,5 +110,8 @@ const changedIn = (tab: RandomizerTab, options: Readonly<Record<string, string>>
 const changedTotal = (options: Readonly<Record<string, string>>): number =>
   RANDOMIZER_TABS.reduce((sum, tab) => sum + changedIn(tab, options), 0);
 
+const changedNames = (options: Readonly<Record<string, string>>): readonly string[] =>
+  RANDOMIZER_TABS.flatMap((tab) => tab.options.filter((item) => valueOf(options, item) !== item.fallback).map((item) => `${item.label}: ${valueOf(options, item)}`));
+
 export type { RandomizerOption };
-export { changedIn, changedTotal, RANDOMIZER_TABS, valueOf };
+export { changedIn, changedNames, changedTotal, RANDOMIZER_TABS, valueOf };

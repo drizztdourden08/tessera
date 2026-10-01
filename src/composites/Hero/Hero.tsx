@@ -9,11 +9,16 @@ import type { HeroProps } from './Hero.type';
 import './Hero.css';
 
 const Hero = (props: HeroProps) => {
-  const { title, eyebrow, backdrop, art, actions, tools, facts, aside, panel, label, className } = props;
+  const { title, eyebrow, brand = 'tessera', backdrop, art, actions, tools, facts, aside, panel, label, className } = props;
   const { panels } = useTesseraStrings();
 
   return (
-    <Box as="section" className={['hero', className].filter(Boolean).join(' ')} aria-label={label ?? panels.overview}>
+    <Box
+      as="section"
+      className={['hero', className].filter(Boolean).join(' ')}
+      data-brand={brand}
+      aria-label={label ?? panels.overview}
+    >
       <Box className="hero__backdrop">{backdrop}</Box>
       {art && (
         <Image

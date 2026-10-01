@@ -6,6 +6,7 @@ import { HOOKSHOP_EFFECTS } from '../hookshop/hookshop-effects.constants';
 import { HOOKSHOP_STAMP } from '../hookshop/hookshop-stamp.constants';
 import { HOOKSHOT_PIECES } from '../hookshop/hookshot-pieces.constants';
 import { composeSentri } from '../sentri/compose-sentri';
+import { SENTRI_MOTION } from '../sentri/sentri-motion.constants';
 import { SENTRI_PIECES } from '../sentri/sentri-pieces.constants';
 
 const { body, visor, eye, podLeft, podRight } = SENTRI_PIECES;
@@ -31,6 +32,7 @@ const ROTP_MASCOT: BrandMascot = {
       compose: composeHookshop,
     },
   ],
+  motion: SENTRI_MOTION,
 };
 
 export { ROTP_MASCOT };

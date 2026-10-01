@@ -1,6 +1,10 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import { BRAND_APPS } from '../../src/brand';
+import type { BrandApp } from '../../src/brand';
 import { Hero } from '../../src/composites';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { brandLogoUri } from './_samples/brand-logo';
 import { PROFILE_FACTS } from './_samples/data-facts';
@@ -8,6 +12,7 @@ import { HeroLastSave, HeroPlay, HeroProgress, HeroTools } from './_samples/Hero
 import './Hero.stories.css';
 
 type HeroArgs = {
+  brand: BrandApp;
   eyebrow: string;
   title: string;
   withArt: boolean;
@@ -21,6 +26,7 @@ const ART = { src: brandLogoUri('rotp'), alt: '', pixelated: true };
 
 const draw = (args: HeroArgs) => (
   <Hero
+    brand={args.brand}
     eyebrow={args.eyebrow || undefined}
     title={args.title}
     art={args.withArt ? ART : null}
@@ -33,10 +39,11 @@ const draw = (args: HeroArgs) => (
 );
 
 const ARGS: Partial<HeroArgs> = {
-  eyebrow: 'Mode', title: 'Randomizer', withArt: true, withTools: true, withFacts: true, withAside: true, withPanel: true,
+  brand: 'rotp', eyebrow: 'Mode', title: 'Randomizer', withArt: true, withTools: true, withFacts: true, withAside: true, withPanel: true,
 };
 
 const ARG_TYPES: StoryLiteArgTypes<HeroArgs> = {
+  brand: { control: 'select', options: [...BRAND_APPS], description: 'The brand whose backdrop draws behind everything.' },
   eyebrow: { control: 'text' },
   title: { control: 'text' },
   withArt: { control: 'boolean', description: 'A piece of art beside the intro, drawn at whole pixels.' },
@@ -63,9 +70,23 @@ const Profile = story('Profile overview', {});
 const FactsOnly = story('Facts, no art or side tiles', { withArt: false, withAside: false, withPanel: false });
 const TitleOnly = story('Title and action', { withTools: false, withFacts: false, withAside: false, withPanel: false });
 
+const Brands = {
+  name: 'Brand backdrops',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <Demonstrator
+      rows={axis(BRAND_APPS)}
+      align="stretch"
+      cell={(brand) => draw({ ...args, brand, withArt: false, withAside: false, withPanel: false })}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<HeroArgs>;
+
 const CODE = `import { Hero } from '@drizztdourden08/tessera';
 
 <Hero
+  brand="rotp"
   eyebrow="Mode"
   title="Randomizer"
   art={{ src: heroArt, pixelated: true }}
@@ -78,11 +99,11 @@ const CODE = `import { Hero } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Hero',
-  description: 'The top of a home screen: the shared backdrop gradient (--brand-backdrop-gradient, painted by the palette) behind everything, an art piece beside the intro, and the details floating over both. The intro holds an eyebrow, the title and the actions under it; tools sit along the top right. Facts run along the bottom in a FactsPanel on frosted glass, one row per group with a hairline between groups, a long value cut short with its full text in a tooltip. An aside tile sits right of the intro and a panel right of the facts, both on the same glass; the host fills them. A shade darkens the left and bottom edges so text reads on any backdrop. A host with its own scene, such as a screenshot, passes it as backdrop and it covers the gradient.',
+  description: 'The top of a home screen: the backdrop of its brand (--brand-<app>-backdrop, picked by brand, tessera by default) behind everything, an art piece beside the intro, and the details floating over both. The intro holds an eyebrow, the title and the actions under it; tools sit along the top right. Facts run along the bottom in a FactsPanel on frosted glass, one row per group with a hairline between groups, a long value cut short with its full text in a tooltip. An aside tile sits right of the intro and a panel right of the facts, both on the same glass; the host fills them. A shade darkens the left and bottom edges so text reads on any backdrop. A host with its own scene, such as a screenshot, passes it as backdrop and it covers the gradient.',
   playground: Playground,
-  variants: [Profile, FactsOnly, TitleOnly],
+  variants: [Profile, FactsOnly, TitleOnly, Brands],
   code: CODE,
 });
 
 export default meta;
-export { FactsOnly, Overview, Playground, Profile, TitleOnly };
+export { Brands, FactsOnly, Overview, Playground, Profile, TitleOnly };

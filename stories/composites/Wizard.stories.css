@@ -6,41 +6,45 @@
   inline-size: 100%;
 }
 
-.profile-wizard-story__screen {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  block-size: 44rem;
-  overflow: hidden;
-  background: var(--c-surface);
-  box-shadow: var(--shadow-lg);
-  border-radius: var(--radius-lg);
-  border: var(--border-width-thin) solid var(--c-border-strong);
-}
-
-.profile-wizard-story__bar {
+.rotp-window {
   display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-sm) var(--space-lg);
-  border-block-end: var(--border-width-thin) solid var(--c-border);
-  background: var(--c-sunken);
+  flex-direction: column;
+  inline-size: 100%;
+  block-size: clamp(40rem, 62vw, 54rem);
+  overflow: hidden;
+  background: var(--brand-backdrop-gradient, var(--c-bg));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), 0 0 0 var(--border-width-thin) var(--c-border-strong);
+  transform: translateZ(0);
 }
 
-.profile-wizard-story__crumb {
-  font-size: var(--text-sm);
-}
-
-.profile-wizard-story__body {
+.rotp-window__body {
+  display: flex;
+  flex: 1;
   min-block-size: 0;
 }
 
-.profile-wizard-story__outcome {
+.rotp-window__page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+  padding: var(--space-lg);
+}
+
+.rotp-window__fill {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-lg);
+  min-block-size: 0;
+}
+
+.rotp-window__list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-lg);
-  max-inline-size: 36rem;
-  padding: var(--space-2xl);
+  gap: var(--space-xs);
+  max-inline-size: 48rem;
 }
 
 .profile-wizard-story__modes {
@@ -101,14 +105,21 @@
   border-block-end: var(--border-width-thin) solid var(--c-hairline);
 }
 
-.session-wizard-story {
-  block-size: 30rem;
+.rom-import-story {
+  block-size: 34rem;
   overflow: hidden;
   background: var(--c-surface);
   border-radius: var(--radius-lg);
   outline: var(--border-width-thin) solid var(--c-border);
 }
 
-.session-wizard-story--short {
+.rom-import-story--short {
   block-size: 24rem;
+}
+
+.calibration-wizard-story__stick {
+  display: grid;
+  grid-template-columns: auto minmax(14rem, 1fr);
+  align-items: center;
+  gap: var(--space-2xl);
 }

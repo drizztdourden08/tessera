@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind logic */
 import { formatColour } from './format-colour.mjs';
 import { parseColour } from './parse-colour.mjs';
-import { BACKDROP_TOKEN, DEFAULT_PALETTE, THEME_COLOURS, THEME_SCALES } from './tokens.constants.mjs';
+import { DEFAULT_PALETTE, THEME_COLOURS, THEME_SCALES } from './tokens.constants.mjs';
 
 const opaque = (value, ground) => {
   const colour = parseColour(value);
@@ -17,25 +17,28 @@ const darkColours = (tokens) => {
 const scale = (tokens, prefix) =>
   Object.fromEntries([...tokens].filter(([name]) => name.startsWith(prefix)).map(([name, value]) => [name.slice(prefix.length), value]));
 
-const brandEntry = (gradient, gradientCss) => {
+const brandEntry = ({ gradient, backdrop }, { gradientCss, backdropCss }) => {
   const [from, via, to] = gradient.stops;
   return {
     gradient: to === undefined ? [from, via] : [from, to, via],
     angle: gradient.angle,
     stops: [...gradient.stops],
     css: gradientCss(gradient),
+    backdrop: backdropCss(backdrop),
   };
 };
 
-const tokensJson = (resolved, { family, apps, gradientCss }) => {
+const backdropOf = (tokens, palette) => tokens.get(`--brand-${palette}-backdrop`) ?? tokens.get(`--brand-${DEFAULT_PALETTE}-backdrop`);
+
+const tokensJson = (resolved, brands) => {
   const base = resolved[DEFAULT_PALETTE];
   return {
-    brands: Object.fromEntries(apps.map((app) => [app, brandEntry(family[app].gradient, gradientCss)])),
+    brands: Object.fromEntries(brands.apps.map((app) => [app, brandEntry(brands.family[app], brands)])),
     theme: {
       dark: darkColours(base),
       ...Object.fromEntries(Object.entries(THEME_SCALES).map(([key, prefix]) => [key, scale(base, prefix)])),
     },
-    palettes: Object.fromEntries(Object.entries(resolved).map(([palette, tokens]) => [palette, { dark: darkColours(tokens), backdrop: tokens.get(BACKDROP_TOKEN) }])),
+    palettes: Object.fromEntries(Object.entries(resolved).map(([palette, tokens]) => [palette, { dark: darkColours(tokens), backdrop: backdropOf(tokens, palette) }])),
   };
 };
 

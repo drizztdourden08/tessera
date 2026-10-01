@@ -1,13 +1,12 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { WizardStep } from '../../src/composites';
-import { Field, Select, TextInput } from '../../src/primitives';
+import { Field, TextInput } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
-import { SERVERS } from './_samples/profile-wizard-data';
 
 type StepArgs = {
   title: string;
@@ -17,7 +16,7 @@ type StepArgs = {
 
 const ARGS: Partial<StepArgs> = {
   title: 'Seed and connection',
-  description: 'The seed decides where every item lands. It locks once the profile exists.',
+  description: 'The seed decides where every item lands. Locked once the profile is created.',
   error: '',
 };
 
@@ -32,12 +31,13 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<StepArgs>;
 
-const CONNECTION_ERROR = 'Could not reach archipelago.gg:38281. Check the port with your host, then try again.';
+const CONNECTION_ERROR = 'Server pre-flight failed (connection refused: ws://archipelago.gg:38281). Check the port with your host, then test again.';
 
 const fields = (
   <>
-    <Field label="Seed" hint="Share it and others play the same world."><TextInput defaultValue="3fa9c1e7" /></Field>
-    <Field label="Room"><Select options={SERVERS} value="archipelago.gg:38281" onChange={() => undefined} /></Field>
+    <Field label="Seed" hint="Thrown for you. Share it and others play the same world."><TextInput defaultValue="3f9a0c71be42d580" /></Field>
+    <Field label="Server URL" hint="The Archipelago room your host shared, with its port."><TextInput defaultValue="archipelago.gg:38281" /></Field>
+    <Field label="Slot name"><TextInput defaultValue="Mira" placeholder="Player" /></Field>
   </>
 );
 

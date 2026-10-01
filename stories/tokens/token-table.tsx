@@ -1,5 +1,5 @@
 /* @layer stories @kind component */
-import { Box } from '../../src/primitives';
+import { ScrollArea } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
 import { axis } from '../_template/axis';
 import { SCALE_STEPS } from './dimension-lists';
@@ -7,7 +7,6 @@ import { TOKEN_TABLE_COLUMNS } from './token-table.constants';
 import { TokenSample } from './TokenSample';
 import { TokenValue } from './TokenValue';
 import type { TokenTableProps } from './token-table.type';
-import './token-table.css';
 
 const stepOf = (value: string): string => {
   const px = /^(\d+)px$/.exec(value.trim())?.[1];
@@ -17,7 +16,7 @@ const stepOf = (value: string): string => {
 const TokenTable = (props: TokenTableProps) => {
   const { entries, specimen, showStep = true } = props;
   return (
-    <Box className="token-table-wrap">
+    <ScrollArea axis="x">
       <Demonstrator
         corner="Token"
         rows={axis(entries.map((entry) => entry.token))}
@@ -28,7 +27,7 @@ const TokenTable = (props: TokenTableProps) => {
           return <TokenValue token={token} format={column === 'step' ? stepOf : undefined} />;
         }}
       />
-    </Box>
+    </ScrollArea>
   );
 };
 

@@ -3,7 +3,6 @@
   --scroll-fade: var(--size-16);
 
   scroll-behavior: smooth;
-  overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: var(--c-border) transparent;
 }
@@ -18,6 +17,14 @@
 
 .scroll-area[data-axis='both'] {
   overflow: auto;
+}
+
+.scroll-area[data-overflow~='x'] {
+  overscroll-behavior-x: contain;
+}
+
+.scroll-area[data-overflow~='y'] {
+  overscroll-behavior-y: contain;
 }
 
 .scroll-area[data-fade~='top'] {

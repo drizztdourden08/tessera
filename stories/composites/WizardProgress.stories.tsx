@@ -46,7 +46,7 @@ const strip = (args: ProgressArgs) => {
       compact={args.compact}
       canSelect={before(at)}
       onSelect={() => undefined}
-      activeSubStepId="items"
+      activeSubStepId="dungeon"
     />
   );
   return args.orientation === 'vertical' ? <Box className="wizard-progress-story__rail">{progress}</Box> : progress;

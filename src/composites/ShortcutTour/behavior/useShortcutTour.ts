@@ -6,7 +6,7 @@ import { tourFrames } from './tour-frames';
 import { tourTargets } from './tour-targets';
 import { tourView } from './tour-view';
 import { travelMs } from './travel-ms';
-import { useReducedMotion } from './useReducedMotion';
+import { useReducedMotion } from '../../../primitives/dom/useReducedMotion';
 import { useTourClock } from './useTourClock';
 import { useTourScene } from './useTourScene';
 import type { KeyboardTarget } from '../../KeyboardLayout';

@@ -6,16 +6,29 @@
   gap: var(--space-md);
 }
 
+.brand-gradients--wide {
+  grid-template-columns: repeat(auto-fill, minmax(var(--size-512), 1fr));
+}
+
+.brand-gradients--pair {
+  grid-template-columns: minmax(var(--size-256), 1fr) minmax(var(--size-288), 2fr);
+}
+
 .brand-gradients__card {
   display: grid;
   gap: var(--space-md);
 }
 
-.brand-gradient {
+.brand-gradient,
+.brand-backdrop {
   display: grid;
   min-height: var(--size-192);
   place-items: center;
   border-radius: var(--radius-lg);
+}
+
+.brand-backdrop {
+  min-height: var(--size-224);
 }
 
 .brand-gradient--tessera {
@@ -34,6 +47,18 @@
   background: var(--brand-brock-gradient);
 }
 
-.brand-gradient--backdrop {
-  background: var(--brand-backdrop-gradient);
+.brand-backdrop--tessera {
+  background: var(--brand-tessera-backdrop);
+}
+
+.brand-backdrop--rotp {
+  background: var(--brand-rotp-backdrop);
+}
+
+.brand-backdrop--archipelia {
+  background: var(--brand-archipelia-backdrop);
+}
+
+.brand-backdrop--brock {
+  background: var(--brand-brock-backdrop);
 }

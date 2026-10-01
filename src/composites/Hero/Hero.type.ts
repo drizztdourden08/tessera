@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { BrandApp } from '../../brand/brand.type';
 import type { FactsPanelGroup } from '../FactsPanel';
 
 interface HeroArt {
@@ -11,6 +12,7 @@ interface HeroArt {
 interface HeroProps {
   title: ReactNode;
   eyebrow?: ReactNode;
+  brand?: BrandApp;
   backdrop?: ReactNode;
   art?: HeroArt | null;
   actions?: ReactNode;

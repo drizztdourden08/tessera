@@ -648,22 +648,34 @@
   },
   "Composites · Wizard": {
     "Wizard": {
-      "status": "new"
+      "status": "seen",
+      "hash": "91fd2d6ce58752d1",
+      "at": "2026-10-01"
     },
     "WizardProgress": {
-      "status": "new"
+      "status": "seen",
+      "hash": "097b4930a758dceb",
+      "at": "2026-10-01"
     },
     "WizardStep": {
-      "status": "new"
+      "status": "seen",
+      "hash": "f27923a170063551",
+      "at": "2026-10-01"
     },
     "WizardNav": {
-      "status": "new"
+      "status": "seen",
+      "hash": "0875e5ea5acf2980",
+      "at": "2026-10-01"
     },
     "WizardReview": {
-      "status": "new"
+      "status": "seen",
+      "hash": "d77ae493fbebd0a7",
+      "at": "2026-10-01"
     },
     "WizardExitGuard": {
-      "status": "new"
+      "status": "seen",
+      "hash": "769b9fedaad72b0f",
+      "at": "2026-10-01"
     }
   },
   "Composites · Navigation": {

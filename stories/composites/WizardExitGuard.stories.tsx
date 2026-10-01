@@ -52,7 +52,7 @@ const WithHook = () => {
   const exit = useWizardExit({ dirty: name !== '', busy, onExit: () => { setName(''); setLeft(left + 1); } });
   return (
     <Box className="story-column">
-      <Field label="Profile name" hint="Type something, then leave."><TextInput value={name} placeholder="Speedrun seed" onChange={(e) => setName(e.target.value)} /></Field>
+      <Field label="Profile name" hint="Type something, then leave."><TextInput value={name} placeholder="My Profile" onChange={(e) => setName(e.target.value)} /></Field>
       <Checkbox checked={busy} onChange={setBusy} label="A seed is being generated" />
       <Box className="story-inline">
         <Button variant="secondary" onClick={exit.requestExit}>Back to profiles</Button>

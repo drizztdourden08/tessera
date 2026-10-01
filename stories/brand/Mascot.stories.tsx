@@ -1,16 +1,21 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { BRAND_FAMILY, Mascot } from '../../src/brand';
-import type { BrandApp, BrandMarkSize, MascotPose } from '../../src/brand';
+import { AnimatedMascot, BRAND_FAMILY, Mascot } from '../../src/brand';
+import type { BrandApp, BrandMarkSize, MascotPose, SentriAnimation } from '../../src/brand';
 import { Stack, Text } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import { MASCOT_BRANDS, MASCOT_VARIANT_IDS } from './_samples/mascot-brands.constants';
+import { MASCOT_BRANDS, MASCOT_VARIANT_IDS, SENTRI_ANIMATIONS } from './_samples/mascot-brands.constants';
 import { IconFileRows } from './_samples/IconFileRows';
+import { MascotAnimations } from './_samples/MascotAnimations';
 import { MascotBreakdown } from './_samples/MascotBreakdown';
 
 type MascotArgs = {
+  animation: SentriAnimation | 'none';
+  speed: number;
+  loop: boolean;
+  playing: boolean;
   brand: BrandApp;
   variant: string;
   scale: number;
@@ -31,6 +36,10 @@ const POSES: Readonly<Record<string, MascotPose>> = {
 };
 
 const ARG_TYPES: StoryLiteArgTypes<MascotArgs> = {
+  animation: { control: 'select', options: ['none', ...SENTRI_ANIMATIONS], description: 'Sentri\'s animation, drawn with AnimatedMascot. none draws the still Mascot with the variant and pose below.' },
+  speed: { control: 'number', description: 'Playback speed: 1 is normal, 0.5 half, 2 double.' },
+  loop: { control: 'boolean', description: 'Plays the animation again and again. Off plays it once; turn playing off and on to see it again.' },
+  playing: { control: 'boolean', description: 'Off pauses the animation where it is.' },
   brand: { control: 'select', options: [...MASCOT_BRANDS] },
   variant: { control: 'select', options: [...MASCOT_VARIANT_IDS], description: 'A variant id from the brand\'s mascot data. An unknown one draws the mascot itself.' },
   scale: { control: 'number', description: 'Screen pixels per art pixel. Whole numbers keep every pixel square.' },
@@ -47,16 +56,23 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { brand: 'rotp', variant: 'sentri', scale: 5, lookX: 0, lookY: 0, podLeft: 0, podRight: 0 },
+  args: { animation: 'idle', speed: 1, loop: true, playing: true, brand: 'rotp', variant: 'sentri', scale: 5, lookX: 0, lookY: 0, podLeft: 0, podRight: 0 },
   argTypes: ARG_TYPES,
-  render: (args) => (
+  render: (args) => (args.animation === 'none' ? (
     <Mascot
       brand={args.brand}
       variant={args.variant}
       scale={args.scale}
       pose={{ look: [args.lookX, args.lookY], podAngles: { left: args.podLeft, right: args.podRight } }}
     />
-  ),
+  ) : (
+    <AnimatedMascot brand="rotp" animation={args.animation} speed={args.speed} loop={args.loop} playing={args.playing} scale={args.scale} />
+  )),
+} satisfies StoryLiteStoryDefinition<MascotArgs>;
+
+const Animations = {
+  name: 'Animations',
+  render: () => <MascotAnimations />,
 } satisfies StoryLiteStoryDefinition<MascotArgs>;
 
 const Variants = {
@@ -113,14 +129,17 @@ const IconFiles = {
 
 const Overview = overviewStory({
   component: 'Mascot',
-  description: 'An app\'s mascot, built in code from its separate SVG pieces: a composition function places, turns and clips each piece, and Mascot draws the result inline. The mascot comes from the brand data, so any app can add one; Relic of the Past is the only one with a mascot so far: Sentri, a gold pyramid with a visor, eyes and pods. Its variants are Sentri at rest and the Hookshop highlight, where Sentri pulls a shop bag in with its hookshot. A pose moves the eyes and turns the pods without new art. Use size for the mark sizes, or scale for whole screen pixels per art pixel. Breakdown shows every piece alone and the assembly step by step. Icon files shows the PNG at each size and the .ico that `pnpm icons` writes for each mascot.',
+  description: 'An app\'s mascot, built in code from its separate SVG pieces: a composition function places, turns and clips each piece, and Mascot draws the result inline. The mascot comes from the brand data, so any app can add one; Relic of the Past is the only one with a mascot so far: Sentri, a gold pyramid with a visor, eyes and pods. Its variants are Sentri at rest and the Hookshop highlight, where Sentri pulls a shop bag in with its hookshot. A pose moves the eyes and turns the pods without new art. AnimatedMascot moves the same pieces with the Web Animations API: the brand data lists each mascot\'s animations, and Sentri has Idle, Move, Jump, Wave, Look around, Happy and Alert, side by side in Animations with one play and pause button. Each animation turns and moves the piece groups around their own pivots, loops or plays once, and shows Sentri at rest when the system asks for reduced motion. Use size for the mark sizes, or scale for whole screen pixels per art pixel. Breakdown shows every piece alone and the assembly step by step. Icon files shows the PNG at each size and the .ico that `pnpm icons` writes for each mascot.',
   playground: Playground,
-  variants: [Variants, Sizes, Poses, IconFiles],
-  code: `import { Mascot } from '@drizztdourden08/tessera/brand';
+  variants: [Animations, Variants, Sizes, Poses, IconFiles],
+  code: `import { AnimatedMascot, Mascot } from '@drizztdourden08/tessera/brand';
 
 <Mascot brand="rotp" size="lg" />
 <Mascot brand="rotp" variant="hookshop" scale={4} />
-<Mascot brand="rotp" pose={{ look: [2, 0], podAngles: { left: 25 } }} />`,
+<Mascot brand="rotp" pose={{ look: [2, 0], podAngles: { left: 25 } }} />
+
+<AnimatedMascot brand="rotp" animation="idle" scale={4} />
+<AnimatedMascot brand="rotp" animation="jump" speed={0.5} playing={!paused} onFinish={backToIdle} />`,
 });
 
 export default meta;

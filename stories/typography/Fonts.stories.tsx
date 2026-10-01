@@ -21,7 +21,7 @@ const Fonts = {
   render: () => (
     <Box className="story-column">
       <Text className="story-label">The font stacks. Every face ships with Tessera, so nothing is fetched from the network.</Text>
-      <TypeTable entries={FONTS} property="fontFamily" specimen={PANGRAM} />
+      <TypeTable entries={FONTS} property="fontFamily" specimen={PANGRAM} showValue={false} />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition;

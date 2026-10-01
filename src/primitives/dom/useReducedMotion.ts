@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useSyncExternalStore } from 'react';
 import type { RefObject } from 'react';
-import { ownerWindowOf } from '../../../primitives/dom/owner-window';
-import { REDUCED_MOTION_QUERY } from '../ShortcutTour.constants';
+import { ownerWindowOf } from './owner-window';
+import { REDUCED_MOTION_QUERY } from './reduced-motion.constants';
 
-const useReducedMotion = (ref: RefObject<HTMLElement | null>): boolean => {
+const useReducedMotion = (ref: RefObject<Element | null>): boolean => {
   const subscribe = useCallback((notify: () => void) => {
     const node = ref.current;
     if (!node) return () => undefined;

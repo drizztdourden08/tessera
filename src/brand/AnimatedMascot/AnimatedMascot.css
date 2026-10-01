@@ -1,0 +1,5 @@
+/* @layer renderer-components @kind style */
+.animated-mascot--sm { block-size: var(--brand-mark-sm); }
+.animated-mascot--md { block-size: var(--brand-mark-md); }
+.animated-mascot--lg { block-size: var(--brand-mark-lg); }
+.animated-mascot--xl { block-size: var(--brand-mark-xl); }

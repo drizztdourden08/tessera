@@ -20,7 +20,7 @@ const StripDriver = () => {
             orientation="vertical"
             canSelect={canSelect}
             onSelect={select}
-            activeSubStepId="items"
+            activeSubStepId="dungeon"
           />
         </Box>
       </Box>

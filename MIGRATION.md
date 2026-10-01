@@ -427,3 +427,51 @@ const wizard = useWizard({ steps: STEPS, initialValues: EMPTY_SESSION, onFinish:
 ```
 
 rotp moves its two hand-made step strips and the profile creation form onto these parts; Brock moves its profile screen.
+
+## 33. AnimatedMascot and Sentri's animations
+
+Nothing is removed or renamed, so rotp needs no change to keep working. The additions:
+
+- `AnimatedMascot` draws a mascot that moves: `brand`, `animation`, `playing` (default true, false pauses where it is), `speed` (1 is normal), `loop` (defaults to the animation's own), `size`, `scale`, `title`, `className` and `onFinish`, which runs each time an animation that plays once ends. `animation` is typed per brand through `MascotAnimationNames`, so `brand="rotp"` takes only Sentri's names; without it the mascot plays its rest animation.
+- It uses the Web Animations API with no new dependency. Nothing runs during render: the server draws Sentri at rest, and the animation starts in an effect. Under `prefers-reduced-motion: reduce` it stays at rest.
+- `BrandMascot` takes `motion`, a `MascotMotion`: the stage margin around the art, the pivot of the whole body, the moving parts (an id, the scene node label it wraps and its pivot), an optional ground shadow, the rest animation and the animations by name. An animation (`MascotAnimation`) has a name, a summary, a duration in ms, whether it loops, and tracks of frames on parts; a frame (`MotionFrame`) sets `x`, `y`, `rotate`, `scale`, `scaleX`, `scaleY` and `opacity` at an offset from 0 to 1, with the easing to the next frame. Another app's mascot adds its own `motion` and an entry in `MascotAnimationNames`.
+- Sentri's animations are `idle`, `move`, `jump`, `wave`, `scan` (Look around), `happy` and `alert`; `SentriAnimation` is their type. Idle, Move and Look around loop; the others play once.
+- `SceneGroupNode` and `groupNode` take `part`, which `BrandScene` writes as `data-motion-part`. `BrandScene` takes `ref` for its `svg`.
+- `useReducedMotion` moved from `ShortcutTour` to `src/primitives/dom/useReducedMotion.ts`, with `REDUCED_MOTION_QUERY` beside it. Neither is exported.
+
+```tsx
+<AnimatedMascot brand="rotp" animation="idle" scale={4} />
+<AnimatedMascot brand="rotp" animation="wave" onFinish={() => setAnimation('idle')} />
+```
+
+rotp can use `AnimatedMascot` wherever it shows Sentri today: idle beside the hookshop, a wave when the app opens, alert when something needs the player.
+
+## 34. A backdrop per brand, and ScrollArea lets the page scroll
+
+The shared backdrop is gone, with no alias. Each brand now has its own.
+
+- `BRAND_FAMILY[app].backdrop` is new on `BrandInfo`: a `BackdropGradient` of soft glows in the brand colours over a dark ground tinted with the brand. A glow (`BackdropGlow`) is `{ colour, strength, at: [x, y], size: [width, height] }`, with `colour` a hex value, `strength` its opacity in percent at the centre and `size` the ellipse in percent of the box. `angle` and `stops` (two hex values) set the ground.
+- `backdropGradientCss(backdrop)` builds the CSS: each glow fades to clear on an eased curve, so no circle edge shows.
+- `BACKDROP_GRADIENT` and the `BackdropToken` type are removed.
+- `--brand-backdrop-gradient` is removed. `--brand-tessera-backdrop`, `--brand-rotp-backdrop`, `--brand-archipelia-backdrop` and `--brand-brock-backdrop` replace it, in `:root` with literal colours, so a palette no longer changes them.
+- `tokens.json`: each `brands.<app>` gains `backdrop`, its CSS. `palettes.<palette>.backdrop` stays and now holds the backdrop of the brand with the same name. `splash-tokens.css` holds the four new tokens in `:root` and no longer has a backdrop per palette.
+- `Hero` takes `brand` (`'tessera'` by default) and draws that brand's backdrop.
+
+```tsx
+<Box style={{ background: 'var(--brand-backdrop-gradient)' }} />
+<Box style={{ background: 'var(--brand-rotp-backdrop)' }} />
+
+<Hero title="Randomizer" />
+<Hero brand="rotp" title="Randomizer" />
+```
+
+rotp passes `brand="rotp"` to its Hero. Brock can read `brands.<app>.backdrop` from `tokens.json` for a splash.
+
+`ScrollArea` holds the wheel only on an axis that has something to scroll. It sets `data-overflow` (`x`, `y` or both) and contains overscroll on those axes alone. Before, every ScrollArea contained both axes, so a sideways one, or one whose content fit, caught the wheel and stopped the page from scrolling. No props change.
+
+In the gallery, Colours, Gradients shows each brand's gradient and backdrop with a Playground; Hero has a brand control and a row per brand; Palettes draws each palette as one continuous strip; Fonts drops the value column; and the token tables, the Shortcut legend tables and the keyboard scroll sideways in a `ScrollArea` instead of a box that also scrolled down by a pixel.
+
+## 35. Menus grow to fit their items
+
+- A `DropdownMenu` no longer takes the 288 px cap of a `Select` list. The hamburger menu, an anchored menu and every submenu grow to fit their items and stop only at the space left between their anchor and the window edge, minus 8 px; past that the menu scrolls inside. An anchored menu or submenu opens towards the side with more room. `Select` and `Combobox` keep their 288 px cap.
+- `useListboxDrop` takes `fit` (default false): with it, the drop's space is the room to the window edge with no fixed cap, which `--listbox-space` then carries as before. `dropPlacement` takes the same flag as its fourth argument.

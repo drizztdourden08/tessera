@@ -7,10 +7,11 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { frozenWizard } from './_samples/frozen-wizard';
+import { CalibrationWizard } from './_samples/CalibrationWizard';
 import { ProfileWizardDemo } from './_samples/ProfileWizardDemo';
-import { INITIAL_SESSION_DRAFT, SESSION_STEPS } from './_samples/session-wizard-data';
-import { SessionBody } from './_samples/SessionWizard';
-import { SessionWizardPanel } from './_samples/SessionWizardPanel';
+import { INITIAL_ROM_IMPORT, ROM_FILE, ROM_IMPORT_STEPS } from './_samples/rom-import-data';
+import { RomImportPanel } from './_samples/RomImportPanel';
+import { RomImportBody } from './_samples/RomImportWizard';
 import './Wizard.stories.css';
 
 type WizardArgs = {
@@ -20,7 +21,7 @@ type WizardArgs = {
   compactProgress: boolean;
 };
 
-const ARGS: Partial<WizardArgs> = { title: 'New session', orientation: 'horizontal', presentation: 'inline', compactProgress: false };
+const ARGS: Partial<WizardArgs> = { title: 'Import a ROM', orientation: 'horizontal', presentation: 'inline', compactProgress: false };
 
 const ARG_TYPES: StoryLiteArgTypes<WizardArgs> = {
   title: { control: 'text' },
@@ -39,45 +40,45 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <SessionWizardPanel title={args.title} orientation={args.orientation} presentation={args.presentation} compact={args.compactProgress} />
+    <RomImportPanel title={args.title} orientation={args.orientation} presentation={args.presentation} compact={args.compactProgress} />
   ),
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
 const ProfileInScreen = {
-  name: 'New profile, steps on the left of the screen',
+  name: 'Relic of the Past: a new profile in the Profiles screen',
   render: () => <ProfileWizardDemo />,
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
 const StepsOnTop = {
-  name: 'Steps on top',
-  render: () => <SessionWizardPanel title="New session" orientation="horizontal" presentation="inline" compact={false} />,
+  name: 'Steps on top: importing a ROM',
+  render: () => <RomImportPanel title="Import a ROM" orientation="horizontal" presentation="inline" compact={false} />,
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
 const InDialog = {
-  name: 'In a dialog',
-  render: () => <SessionWizardPanel title="New session" orientation="horizontal" presentation="dialog" compact={false} />,
+  name: 'In a dialog: calibrating a controller',
+  render: () => <CalibrationWizard />,
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
 const Compact = {
-  name: 'Compact progress',
-  render: () => <SessionWizardPanel title="New session" orientation="horizontal" presentation="inline" compact short />,
+  name: 'Compact progress, in a narrow panel',
+  render: () => <RomImportPanel title="Import a ROM" orientation="horizontal" presentation="inline" compact short />,
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
-const FAILED = 'The server refused the room: eu-west-2 is full. Pick another server and try again.';
+const FAILED = 'Extraction stopped: the data folder is full. Free some space, then import again; the ROM is untouched.';
 
-const STATE_AT: Readonly<Record<string, string>> = { idle: 'preset', invalid: 'server', busy: 'review', failed: 'review' };
+const STATE_AT: Readonly<Record<string, string>> = { idle: 'check', invalid: 'file', busy: 'review', failed: 'review' };
 
 const renderState = (props: StateProps) => {
   const look = typeof props.look === 'string' ? props.look : 'idle';
-  const values = look === 'invalid' ? INITIAL_SESSION_DRAFT : { ...INITIAL_SESSION_DRAFT, name: 'Friday async' };
-  const wizard = frozenWizard(SESSION_STEPS, values, STATE_AT[look] ?? 'preset', {
+  const values = look === 'invalid' ? INITIAL_ROM_IMPORT : { ...INITIAL_ROM_IMPORT, file: ROM_FILE };
+  const wizard = frozenWizard(ROM_IMPORT_STEPS, values, STATE_AT[look] ?? 'check', {
     busy: look === 'busy',
     errors: look === 'failed' ? { review: FAILED } : {},
   });
   return (
-    <Box className="session-wizard-story session-wizard-story--short">
-      <WizardFrame wizard={wizard} title="New session" onExit={() => undefined} finishLabel="Open room" busyLabel="Opening room...">
-        <SessionBody wizard={wizard} />
+    <Box className="rom-import-story rom-import-story--short">
+      <WizardFrame wizard={wizard} title="Import a ROM" onExit={() => undefined} finishLabel="Import ROM" busyLabel="Extracting assets...">
+        <RomImportBody wizard={wizard} />
       </WizardFrame>
     </Box>
   );

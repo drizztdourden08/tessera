@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { createScrollSyncController } from './behavior/create-scroll-sync-controller';
 import { setNodeOnRef } from './behavior/set-node-on-ref';
-import { useScrollFade } from './behavior/useScrollFade';
+import { useScrollEdges } from './behavior/useScrollEdges';
 import type { ScrollAreaProps } from './ScrollArea.type';
 import type { UIEvent } from 'react';
 import './ScrollArea.css';
@@ -12,7 +12,7 @@ const ScrollArea = (props: ScrollAreaProps) => {
 
   const nodeRef = useRef<HTMLDivElement | null>(null);
   const controller = useMemo(() => createScrollSyncController(() => nodeRef.current), []);
-  useScrollFade(nodeRef, axis, fade);
+  useScrollEdges(nodeRef, axis, fade);
 
   useEffect(() => {
     controller.applyScrollTo(scrollTo ?? {});

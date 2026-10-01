@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { PixelWordmarkColors } from '../composites/PixelWordmark';
+import type { BackdropGradient } from './backdrop-gradient.type';
+import type { MascotMotion } from './motion/motion.type';
 
 type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp';
 
@@ -61,6 +63,7 @@ interface SceneGroupNode {
   label: string;
   turn?: SceneTurn;
   clip?: readonly ScenePoint[];
+  part?: string;
   children: readonly SceneNode[];
 }
 
@@ -89,6 +92,7 @@ interface BrandMascot {
   name: string;
   summary: string;
   variants: readonly [BrandMascotVariant, ...BrandMascotVariant[]];
+  motion?: MascotMotion;
 }
 
 interface BrandInfo {
@@ -105,6 +109,7 @@ interface BrandInfo {
   mascot?: BrandMascot;
   wordmark: BrandWordmarkSpec;
   gradient: BrandGradient;
+  backdrop: BackdropGradient;
 }
 
 export type {

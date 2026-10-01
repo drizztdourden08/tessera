@@ -48,6 +48,22 @@
   }
 }
 
+.dropdown-menu[data-anchored] {
+  max-block-size: stretch;
+  overflow-y: auto;
+  position-try-order: most-height;
+}
+
+.dropdown-menu[data-anchored]:is([data-anchor-place^='bottom'], [data-anchor-place='right-start']) {
+  bottom: var(--space-sm);
+  align-self: start;
+}
+
+.dropdown-menu[data-anchored][data-anchor-place^='top'] {
+  top: var(--space-sm);
+  align-self: end;
+}
+
 .dropdown__menu {
   display: flex;
   flex-direction: column;

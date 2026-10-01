@@ -2,33 +2,51 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
-import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { PALETTES } from './colour-lists';
 import type { Palette } from './colour-lists';
 import { useSwatchHex } from './use-swatch-hex';
 import './colours.css';
 
-const Step = ({ token, isSeed }: { token: string; isSeed: boolean }) => {
+interface StepProps {
+  token: string;
+  step: number;
+  column: number;
+  isSeed: boolean;
+}
+
+const Step = ({ token, step, column, isSeed }: StepProps) => {
   const { ref, hex } = useSwatchHex<HTMLElement>();
   return (
-    <Box className={`palette-step${isSeed ? ' palette-step--seed' : ''}`}>
-      <Box ref={ref} className="palette-step__chip" style={{ background: `var(${token})` }} />
-      {isSeed && <Text className="palette-step__name">seed</Text>}
-      <Text className="palette-step__value">{hex}</Text>
-    </Box>
+    <>
+      <Box
+        ref={ref}
+        className={`palette-strip__chip${isSeed ? ' palette-strip__chip--seed' : ''}`}
+        style={{ background: `var(${token})`, gridColumn: column }}
+      />
+      <Box className="palette-strip__label" style={{ gridColumn: column }}>
+        <Text className="palette-strip__step">{isSeed ? `${step} seed` : step}</Text>
+        <Text className="palette-strip__value">{hex}</Text>
+      </Box>
+    </>
   );
 };
 
-const PaletteGrid = ({ palettes }: { palettes: readonly Palette[] }) => (
+const PaletteStrip = ({ palette }: { palette: Palette }) => (
+  <Box className="palette-strip" style={{ gridTemplateColumns: `repeat(${palette.steps.length}, minmax(0, 1fr))` }}>
+    {palette.steps.map((step, index) => (
+      <Step key={step} token={`${palette.prefix}-${step}`} step={step} column={index + 1} isSeed={step === palette.seed} />
+    ))}
+  </Box>
+);
+
+const PaletteStrips = ({ palettes }: { palettes: readonly Palette[] }) => (
   <Demonstrator
     rows={palettes.map((palette) => ({ key: palette.prefix, label: `${palette.name} ${palette.prefix}-*` }))}
-    columns={axis(palettes[0]?.steps.map(String) ?? [])}
-    fill
     align="stretch"
-    cell={(prefix, step) => {
+    cell={(prefix) => {
       const palette = palettes.find((entry) => entry.prefix === prefix);
-      return <Step token={`${prefix}-${step}`} isSeed={palette?.seed === Number(step)} />;
+      return palette ? <PaletteStrip palette={palette} /> : null;
     }}
   />
 );
@@ -45,15 +63,14 @@ const Palettes = {
       <Text className="story-label">
         The three main colours as twelve steps each, palest to deepest, with the colour at 500: paler steps mix toward pure white, deeper ones toward pure black. Then the greys from pure white to pure black.
       </Text>
-      <PaletteGrid palettes={PALETTES.filter((palette) => palette.seed !== null)} />
-      <PaletteGrid palettes={PALETTES.filter((palette) => palette.seed === null)} />
+      <PaletteStrips palettes={PALETTES} />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition;
 
 const Overview = overviewStory({
   component: 'Palettes',
-  description: 'The three accents as twelve steps each, palest to deepest with the accent itself at 500, then the greys from pure white to pure black. Paler steps mix toward pure white and deeper ones toward pure black.',
+  description: 'The three accents as twelve steps each, palest to deepest with the accent itself at 500, then the greys from pure white to pure black. Each palette is one continuous strip, its step and value under each colour. Paler steps mix toward pure white and deeper ones toward pure black.',
   variants: [Palettes],
 });
 

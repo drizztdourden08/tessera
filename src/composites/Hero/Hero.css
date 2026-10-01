@@ -24,8 +24,12 @@
 .hero__backdrop {
   inset: 0;
   z-index: -3;
-  background: var(--brand-backdrop-gradient);
+  background: var(--brand-tessera-backdrop);
 }
+
+.hero[data-brand='rotp'] > .hero__backdrop { background: var(--brand-rotp-backdrop); }
+.hero[data-brand='archipelia'] > .hero__backdrop { background: var(--brand-archipelia-backdrop); }
+.hero[data-brand='brock'] > .hero__backdrop { background: var(--brand-brock-backdrop); }
 
 .hero .hero__art {
   z-index: -2;

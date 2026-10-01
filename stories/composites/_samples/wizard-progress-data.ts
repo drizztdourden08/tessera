@@ -11,20 +11,21 @@ const STRIP_STEPS: readonly WizardProgressStep[] = [
 ];
 
 const SUMMARIES: Readonly<Record<string, string>> = {
-  basics: 'Speedrun seed',
-  mode: 'Randomizer, on this PC',
-  seed: '3fa9c1e7',
-  options: '7 changed',
-  settings: 'Speedrun, English',
+  basics: 'Hyrule practice',
+  mode: 'Randomizer, local',
+  seed: '3f9a0c71be42d580',
+  options: '6 changed',
+  settings: 'Vanilla, German (Deutsch)',
 };
 
 const SUB_STEPS = [
+  { id: 'world', label: 'World', count: 1 },
+  { id: 'goal', label: 'Goal', count: 0 },
   { id: 'items', label: 'Items', count: 3 },
-  { id: 'dungeons', label: 'Dungeons', count: 2 },
-  { id: 'logic', label: 'Logic', count: 0 },
-  { id: 'goal', label: 'Goal', count: 1 },
   { id: 'shops', label: 'Shops', count: 0 },
-  { id: 'cosmetics', label: 'Cosmetics', count: 1 },
+  { id: 'dungeon', label: 'Dungeon', count: 2 },
+  { id: 'capacity', label: 'Capacity upgrades', count: 0 },
+  { id: 'pond', label: 'Fairy ponds', count: 0 },
 ];
 
 const LONG_LABELS: Readonly<Record<string, string>> = { seed: 'Seed and connection', options: 'Randomizer options' };

@@ -1,53 +1,94 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { BACKDROP_GRADIENT, BRAND_APPS, BRAND_FAMILY, BrandMark, backdropGradientCss, brandGradientCss } from '../../src/brand';
+import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { BRAND_APPS, BRAND_FAMILY, BrandMark, brandGradientCss } from '../../src/brand';
+import type { BrandApp } from '../../src/brand';
 import { Box, Card, Stack, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import './Gradients.stories.css';
 
+type GradientArgs = {
+  brand: BrandApp;
+};
+
+const ARG_TYPES: StoryLiteArgTypes<GradientArgs> = {
+  brand: { control: 'select', options: [...BRAND_APPS], description: 'The brand whose gradient and backdrop are drawn.' },
+};
+
 const meta = {
   title: 'Colours/Gradients',
   parameters: { renderer: 'react' },
-} satisfies StoryLiteMeta;
+} satisfies StoryLiteMeta<GradientArgs>;
+
+const GradientCard = ({ app }: { app: BrandApp }) => (
+  <Card className="brand-gradients__card">
+    <Box className={`brand-gradient brand-gradient--${app}`}>
+      <BrandMark app={app} size="xl" title="" />
+    </Box>
+    <Stack gap="xs">
+      <Text variant="title">{BRAND_FAMILY[app].name}</Text>
+      <Text variant="caption">{`--brand-${app}-gradient`}</Text>
+      <Text variant="caption">{brandGradientCss(BRAND_FAMILY[app].gradient)}</Text>
+    </Stack>
+  </Card>
+);
+
+const BackdropCard = ({ app }: { app: BrandApp }) => {
+  const { glows, stops } = BRAND_FAMILY[app].backdrop;
+  return (
+    <Card className="brand-gradients__card">
+      <Box className={`brand-backdrop brand-backdrop--${app}`} />
+      <Stack gap="xs">
+        <Text variant="title">{BRAND_FAMILY[app].name}</Text>
+        <Text variant="caption">{`--brand-${app}-backdrop`}</Text>
+        <Text variant="caption">{`${glows.length} glows over ${stops.join(' to ')}`}</Text>
+      </Stack>
+    </Card>
+  );
+};
+
+const Playground = {
+  name: 'Playground',
+  args: { brand: 'rotp' },
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <Box className="brand-gradients brand-gradients--pair">
+      <GradientCard app={args.brand} />
+      <BackdropCard app={args.brand} />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<GradientArgs>;
 
 const Gradients = {
   name: 'Gradients',
   render: () => (
     <Box className="brand-gradients">
-      {BRAND_APPS.map((app) => (
-        <Card key={app} className="brand-gradients__card">
-          <Box className={`brand-gradient brand-gradient--${app}`}>
-            <BrandMark app={app} size="xl" title="" />
-          </Box>
-          <Stack gap="xs">
-            <Text variant="title">{BRAND_FAMILY[app].name}</Text>
-            <Text variant="caption">{`--brand-${app}-gradient`}</Text>
-            <Text variant="caption">{brandGradientCss(BRAND_FAMILY[app].gradient)}</Text>
-          </Stack>
-        </Card>
-      ))}
-      <Card className="brand-gradients__card">
-        <Box className="brand-gradient brand-gradient--backdrop" />
-        <Stack gap="xs">
-          <Text variant="title">Backdrop</Text>
-          <Text variant="caption">--brand-backdrop-gradient</Text>
-          <Text variant="caption">{backdropGradientCss(BACKDROP_GRADIENT)}</Text>
-        </Stack>
-      </Card>
+      {BRAND_APPS.map((app) => <GradientCard key={app} app={app} />)}
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition;
+} satisfies StoryLiteStoryDefinition<GradientArgs>;
+
+const Backdrops = {
+  name: 'Backdrops',
+  render: () => (
+    <Box className="brand-gradients brand-gradients--wide">
+      {BRAND_APPS.map((app) => <BackdropCard key={app} app={app} />)}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<GradientArgs>;
 
 const Overview = overviewStory({
   component: 'Gradients',
-  description: 'Each brand has one gradient, drawn behind its mark on a splash window or a hero panel, and chosen so its own mark reads on it. The token --brand-<app>-gradient holds it for CSS, and brandGradientCss() builds the same linear-gradient() from the brand data. It belongs to the brand, so it stays the same whichever look is picked in the toolbar. The backdrop is the one gradient every app shares, behind a Hero and any other home screen scene: a glow of the primary colour at the top right and of the secondary at the bottom left, over the surface fading to the background. It is built from the colour roles, so each app\'s palette paints its own version; pick a look in the toolbar to see it change. --brand-backdrop-gradient holds it, and backdropGradientCss(BACKDROP_GRADIENT) builds it from the data.',
-  variants: [Gradients],
-  code: `import { BRAND_FAMILY, brandGradientCss } from '@drizztdourden08/tessera';
+  description: 'Each brand has two gradients of its own. The gradient is drawn behind its mark on a splash window, chosen so the mark reads on it: --brand-<app>-gradient holds it, and brandGradientCss() builds the same linear-gradient() from the brand data. The backdrop is the glow behind a Hero and any other home screen scene: several soft glows of the brand colours at different sizes and places, each fading out on an eased curve, over a dark ground tinted with the brand. --brand-<app>-backdrop holds it, and backdropGradientCss() builds it from BRAND_FAMILY[app].backdrop. Both belong to the brand, so they stay the same whichever look is picked in the toolbar; a Hero picks its backdrop with its brand prop.',
+  playground: Playground,
+  variants: [Gradients, Backdrops],
+  code: `import { BRAND_FAMILY, Hero, backdropGradientCss, brandGradientCss } from '@drizztdourden08/tessera';
 
 <Box style={{ background: 'var(--brand-rotp-gradient)' }} />
 <Box style={{ background: brandGradientCss(BRAND_FAMILY.rotp.gradient) }} />
-<Box style={{ background: 'var(--brand-backdrop-gradient)' }} />`,
+<Box style={{ background: 'var(--brand-rotp-backdrop)' }} />
+<Box style={{ background: backdropGradientCss(BRAND_FAMILY.rotp.backdrop) }} />
+<Hero brand="rotp" title="Randomizer" />`,
 });
 
 export default meta;
-export { Gradients, Overview };
+export { Backdrops, Gradients, Overview, Playground };

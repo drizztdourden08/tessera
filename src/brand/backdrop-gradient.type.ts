@@ -1,17 +1,15 @@
 /* @layer renderer-components @kind types */
-type BackdropToken = `--${string}`;
-
 interface BackdropGlow {
-  token: BackdropToken;
+  colour: string;
   strength: number;
   at: readonly [x: number, y: number];
-  reach: number;
+  size: readonly [width: number, height: number];
 }
 
 interface BackdropGradient {
   glows: readonly BackdropGlow[];
   angle: number;
-  stops: readonly [from: BackdropToken, to: BackdropToken];
+  stops: readonly [from: string, to: string];
 }
 
-export type { BackdropGlow, BackdropGradient, BackdropToken };
+export type { BackdropGlow, BackdropGradient };

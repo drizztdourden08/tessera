@@ -14,23 +14,23 @@ type ReviewArgs = {
 };
 
 const SECTIONS: readonly WizardReviewSection[] = [
-  { stepId: 'basics', title: 'Basics', rows: [{ term: 'Name', detail: 'Speedrun seed' }, { term: 'Game', detail: 'A Link to the Past (US 1.0)' }] },
-  { stepId: 'mode', title: 'Mode', rows: [{ term: 'Mode', detail: 'Randomizer, online' }] },
+  { stepId: 'basics', title: 'Basics', rows: [{ term: 'Profile name', detail: 'Weekly async' }, { term: 'ROM', detail: 'The Legend of Zelda: A Link to the Past (USA).sfc' }] },
+  { stepId: 'mode', title: 'Mode', rows: [{ term: 'Mode', detail: 'Randomizer, online (Archipelago)' }] },
   {
     stepId: 'seed',
     title: 'Seed and connection',
     rows: [
-      { term: 'Seed', detail: <Code>3fa9c1e7</Code> },
-      { term: 'Room', detail: 'archipelago.gg:38281' },
-      { term: 'Slot', detail: 'Mira_ALttP' },
+      { term: 'Seed', detail: <Code>3f9a0c71be42d580</Code> },
+      { term: 'Server URL', detail: 'archipelago.gg:38281' },
+      { term: 'Slot name', detail: 'Mira' },
     ],
   },
   {
     stepId: 'options',
     title: 'Randomizer options',
     rows: [
-      { term: 'Changed', detail: <><Tag>Keysanity</Tag> <Tag>Boss shuffle: Full</Tag> <Tag>Goal: Triforce hunt</Tag></> },
-      { term: 'Defaults', detail: 'Everything else' },
+      { term: 'Changed', detail: <><Tag>Big Key Shuffle: Any World</Tag> <Tag>Small Key Shuffle: Universal</Tag> <Tag>Retro Bow: On</Tag></> },
+      { term: 'Defaults', detail: 'Every other row on the 14 tabs' },
     ],
   },
 ];

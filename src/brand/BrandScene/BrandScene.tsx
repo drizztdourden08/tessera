@@ -6,10 +6,11 @@ import { SceneNodeView } from './sub-components/SceneNodeView';
 import './BrandScene.css';
 
 const BrandScene = (props: BrandSceneProps) => {
-  const { scene, scale, title = '', className = '' } = props;
+  const { scene, scale, title = '', className = '', ref } = props;
   const { width, height, nodes } = scene;
   return (
     <Svg
+      ref={ref}
       className={['brand-scene', className].filter(Boolean).join(' ')}
       viewBox={`0 0 ${width} ${height}`}
       width={scale === undefined ? undefined : width * scale}

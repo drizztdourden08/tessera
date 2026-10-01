@@ -3,15 +3,20 @@ import { useEffect } from 'react';
 import type { RefObject } from 'react';
 import type { ScrollAxis } from '../ScrollArea.type';
 import { scrollFadeSides } from './scroll-fade-sides';
+import { scrollOverflowAxes } from './scroll-overflow-axes';
 
-const useScrollFade = (nodeRef: RefObject<HTMLDivElement | null>, axis: ScrollAxis, enabled: boolean): void => {
+const setData = (node: HTMLElement, key: 'fade' | 'overflow', value: string): void => {
+  if (value) node.dataset[key] = value;
+  else delete node.dataset[key];
+};
+
+const useScrollEdges = (nodeRef: RefObject<HTMLDivElement | null>, axis: ScrollAxis, fade: boolean): void => {
   useEffect(() => {
     const node = nodeRef.current;
-    if (!node || !enabled) return undefined;
+    if (!node) return undefined;
     const update = (): void => {
-      const sides = scrollFadeSides(node, axis);
-      if (sides) node.dataset['fade'] = sides;
-      else delete node.dataset['fade'];
+      setData(node, 'overflow', scrollOverflowAxes(node, axis));
+      setData(node, 'fade', fade ? scrollFadeSides(node, axis) : '');
     };
     const observer = new ResizeObserver(update);
     const watchChildren = (): void => {
@@ -27,9 +32,10 @@ const useScrollFade = (nodeRef: RefObject<HTMLDivElement | null>, axis: ScrollAx
       observer.disconnect();
       mutations.disconnect();
       node.removeEventListener('scroll', update);
-      delete node.dataset['fade'];
+      setData(node, 'overflow', '');
+      setData(node, 'fade', '');
     };
-  }, [nodeRef, axis, enabled]);
+  }, [nodeRef, axis, fade]);
 };
 
-export { useScrollFade };
+export { useScrollEdges };

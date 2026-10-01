@@ -7,6 +7,7 @@ interface TypeTableProps {
   entries: readonly TypeEntry[];
   property: TypeProperty;
   specimen: string;
+  showValue?: boolean;
 }
 
 export type { TypeTableProps };
