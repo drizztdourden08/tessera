@@ -1,14 +1,10 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Widget } from '../../src/composites';
-import type { PinMode, WidgetTab } from '../../src/composites';
-import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { WidgetDock } from './_samples/data-widget-dock';
-import { WIDGET_CONTENT } from './_samples/data-widget-panels';
+import { WidgetFrameDemo } from './_samples/WidgetFrameDemo';
 import './Widget.stories.css';
 
 type WidgetArgs = {
@@ -23,39 +19,7 @@ type WidgetArgs = {
   makeRoomHint: string;
 };
 
-const TABS: WidgetTab[] = [{ id: 'hints', label: 'Hints' }, { id: 'players', label: 'Players' }];
-
-const FrameDemo = (props: WidgetArgs & { optionsOpen?: boolean }) => {
-  const { tabbed, mode, peek, opacity, canPopOut, optionsOpen = false } = props;
-  const [active, setActive] = useState('hints');
-  const [pin, setPin] = useState<PinMode>('off');
-  const [open, setOpen] = useState(optionsOpen);
-  const tabs = tabbed ? TABS : TABS.slice(0, 1);
-  return (
-    <Box className={`widget-story__box${peek ? ' widget-story__box--peek' : ''}`}>
-      <Widget
-        id={active}
-        tabs={tabs}
-        activeId={tabbed ? active : 'hints'}
-        paneKey={mode === 'out' ? null : 'demo'}
-        opacity={opacity}
-        peek={peek}
-        optionsOpen={open}
-        mode={mode}
-        pin={pin}
-        onTop={pin !== 'off'}
-        onPinChange={setPin}
-        canPopOut={canPopOut}
-        onPopOut={() => undefined}
-        onActivateTab={setActive}
-        onOpenOptions={() => setOpen((v) => !v)}
-        onClose={() => undefined}
-      >
-        {tabbed && active === 'players' ? WIDGET_CONTENT.players : WIDGET_CONTENT.hints}
-      </Widget>
-    </Box>
-  );
-};
+const FrameDemo = (props: WidgetArgs & { optionsOpen?: boolean }) => <WidgetFrameDemo {...props} />;
 
 const ARGS: Partial<WidgetArgs> = {
   tabbed: false,
@@ -133,7 +97,7 @@ const CODE = `import { Widget } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Widget',
-  description: 'The frame a tool panel wears, docked in a DockLayout pane, floating over the main view, or in its own window: a player list, a log, hints. The title bar is the drag handle; it shows the widget name, or one tab chip per widget when its pane holds several, then the pop out, options and close buttons. In its own window it shows a pop in button and a pin that steps through off, always on top and with the app. The frame takes the opacity setting and turns solid on hover, while the content stays opaque. Peek folds it to its title strip. The frame fills the box it is given; WidgetManager places a whole dock of them from a WidgetLayout and opens WidgetOptions from the gear.',
+  description: 'The frame a tool panel wears, docked in a DockLayout pane, floating over the main view, or in its own window: a player list, a log, hints. The title bar is the drag handle; it shows the widget name, or one tab chip per widget when its pane holds several, then the pop out, options and close buttons. In its own window it shows a pop in button and a pin that steps through off, always on top and with the app. The frame takes the opacity setting and turns solid on hover, while the content stays opaque. Peek folds it to its title strip. The gear opens WidgetOptions, live in every example here: its icon controls change the frame, pointing at any option shows its value and what it does in the hint line at the bottom, and the line under the frame shows every value. The frame fills the box it is given; WidgetManager places a whole dock of them from a WidgetLayout and opens WidgetOptions from the gear.',
   playground: Playground,
   variants: [Single, Tabbed, OwnWindow, Folded, Dock],
   states: {

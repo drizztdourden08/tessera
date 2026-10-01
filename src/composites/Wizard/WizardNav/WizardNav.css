@@ -1,0 +1,32 @@
+/* @layer renderer-components @kind style */
+.wizard-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+  min-inline-size: 0;
+}
+
+.wizard-nav__extra {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.wizard-nav__hint {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-size: var(--text-sm);
+}
+
+.wizard-nav__hint[data-busy] {
+  color: var(--c-text-dim);
+  text-align: end;
+}
+
+.wizard-nav__buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-inline-start: auto;
+}

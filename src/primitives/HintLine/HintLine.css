@@ -1,0 +1,22 @@
+/* @layer renderer-components @kind style */
+.hint-line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  block-size: calc(2 * var(--leading-normal) * var(--text-sm));
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--c-text);
+}
+
+.hint-line--1 {
+  -webkit-line-clamp: 1;
+  block-size: calc(var(--leading-normal) * var(--text-sm));
+}
+
+.hint-line__label {
+  margin-inline-end: var(--space-2xs);
+  font-weight: var(--weight-medium);
+  color: var(--c-text);
+}

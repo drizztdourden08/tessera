@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ComponentPropsWithRef } from 'react';
 import type {
-  CAP_WIDTHS, CHARACTER_KEYS, KEY_SPECS, LETTER_KEYS, SHORTCUT_LEGENDS, SHORTCUT_STATES,
+  CAP_WIDTHS, CHARACTER_KEYS, KEY_SPECS, LETTER_KEYS, SHORTCUT_LEGENDS, SHORTCUT_SIZES, SHORTCUT_STATES,
 } from './Shortcut.constants';
 import type { KEY_SYMBOLS } from './sub-components/Keycap.constants';
 import type { MOUSE_SPECS } from './sub-components/MouseCap.constants';
@@ -28,6 +28,8 @@ type CapWidth = (typeof CAP_WIDTHS)[number];
 
 type ShortcutState = (typeof SHORTCUT_STATES)[number];
 
+type ShortcutSize = (typeof SHORTCUT_SIZES)[number];
+
 type KeySymbolName = keyof typeof KEY_SYMBOLS;
 
 type KeyWidth = CapWidth | 'space';
@@ -53,12 +55,14 @@ interface ShortcutBaseProps extends Omit<ComponentPropsWithRef<'kbd'>, 'children
   animate?: boolean;
   state?: ShortcutState;
   fill?: boolean;
+  size?: ShortcutSize;
 }
 
 interface ShortcutClassParams {
   animate: boolean;
   state: ShortcutState | undefined;
   fill: boolean;
+  size: ShortcutSize;
   className: string | undefined;
 }
 
@@ -70,5 +74,5 @@ type ShortcutProps = ShortcutBaseProps & ShortcutInput;
 
 export type {
   CapWidth, FunctionKey, KeyFace, KeyName, KeySpec, MouseButton, PrintableKey, ShortcutClassParams, ShortcutKey,
-  ShortcutKeys, ShortcutLegend, ShortcutProps, ShortcutState,
+  ShortcutKeys, ShortcutLegend, ShortcutProps, ShortcutSize, ShortcutState,
 };

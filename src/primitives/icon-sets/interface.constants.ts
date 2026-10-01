@@ -47,6 +47,8 @@ import deleteIcon from '@iconify-icons/lucide/delete';
 import panelRightIcon from '@iconify-icons/lucide/panel-right';
 import panelTopIcon from '@iconify-icons/lucide/panel-top';
 import panelBottomIcon from '@iconify-icons/lucide/panel-bottom';
+import appWindowIcon from '@iconify-icons/lucide/app-window';
+import magnetIcon from '@iconify-icons/lucide/magnet';
 
 const INTERFACE_ICONS = {
   'check': checkIcon,
@@ -97,6 +99,8 @@ const INTERFACE_ICONS = {
   'panel-right': panelRightIcon,
   'panel-top': panelTopIcon,
   'panel-bottom': panelBottomIcon,
+  'app-window': appWindowIcon,
+  'magnet': magnetIcon,
 } as const;
 
 export { INTERFACE_ICONS };

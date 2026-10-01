@@ -1,0 +1,106 @@
+/* @layer renderer-components @kind style */
+.wizard-dot {
+  position: relative;
+  display: block;
+  flex: none;
+  inline-size: var(--wizard-progress-dot);
+  block-size: var(--wizard-progress-dot);
+}
+
+.wizard-dot__art {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.wizard-dot__ring {
+  fill: none;
+  stroke: var(--c-border-strong);
+  stroke-width: var(--border-width-thick);
+  transition: stroke var(--duration-normal) var(--ease-standard);
+}
+
+.wizard-dot__draw {
+  fill: none;
+  stroke: var(--c-primary);
+  stroke-width: var(--border-width-thick);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transform: rotate(180deg);
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: stroke-dashoffset var(--duration-step-fill) var(--ease-in-out);
+}
+
+.wizard-dot__fill {
+  fill: var(--c-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transform-box: fill-box;
+  transition: transform var(--duration-step-fill) var(--ease-in-out);
+}
+
+.wizard-dot__number {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semi);
+  color: var(--c-text-muted);
+  transition: color var(--duration-slow) var(--ease-standard);
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-dot__draw {
+  transform: rotate(-90deg);
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-dot__fill {
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.wizard-progress__item[data-state='current'] .wizard-dot__draw {
+  stroke-dashoffset: 0;
+  transition-duration: var(--duration-slow);
+}
+
+.wizard-progress__item[data-state='current'] .wizard-dot__number {
+  color: var(--c-primary);
+}
+
+.wizard-progress__item[data-state='done'] .wizard-dot__draw {
+  stroke-dashoffset: 0;
+}
+
+.wizard-progress__item[data-state='done'] .wizard-dot__fill {
+  transform: none;
+}
+
+.wizard-progress__item[data-state='done'] .wizard-dot__number {
+  color: var(--c-on-primary);
+}
+
+.wizard-progress__step:enabled:is(:hover, :focus-visible) .wizard-dot__ring {
+  stroke: var(--c-text-muted);
+}
+
+.wizard-progress[data-direction='forward'] .wizard-progress__item[data-state='done'] .wizard-dot__number {
+  transition-delay: calc(var(--duration-step-fill) / 2);
+}
+
+.wizard-progress[data-direction='forward'] .wizard-progress__item[data-state='current'] :is(.wizard-dot__draw, .wizard-dot__number) {
+  transition-delay: calc(var(--duration-step-fill) + var(--duration-step-line));
+}
+
+.wizard-progress[data-direction='back'] :is(.wizard-dot__draw, .wizard-dot__fill, .wizard-dot__number) {
+  transition-duration: var(--duration-normal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wizard-progress :is(.wizard-dot__ring, .wizard-dot__draw, .wizard-dot__fill, .wizard-dot__number) {
+    transition: none;
+  }
+}

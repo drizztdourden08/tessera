@@ -241,8 +241,9 @@
   --dock-divider-bar: calc(3 * 1px);
   --widget-titlebar-h: calc(30 * 1px);
   --widget-btn-d: 20px;
-  --widget-options-w: calc(272 * 1px);
-  --widget-options-slider-w: calc(140 * 1px);
+  --widget-options-w: calc(240 * 1px);
+  --widget-options-aside-w: 256px;
+  --widget-options-slider-w: 128px;
   --hero-h: calc(300 * 1px);
   --hero-intro-w: calc(200 * 1px);
   --hero-art-left: calc(232 * 1px);
@@ -297,7 +298,10 @@
   --duration-float: 1.6s;
   --duration-glow-drift: 2.6s;
   --duration-mascot-hop: 2.4s;
+  --duration-step-fill: 0.52s;
+  --duration-step-line: 0.38s;
   --ease-standard: ease;
+  --ease-in-out: ease-in-out;
   --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 0.1s ease;
   --transition-normal: 0.15s ease;

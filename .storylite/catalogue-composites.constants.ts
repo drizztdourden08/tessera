@@ -10,7 +10,6 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'Dialog', summary: 'A modal question with a message and actions.' },
         { name: 'DialogShell', summary: 'The frame every modal is built in.' },
-        { name: 'WizardDialogShell', summary: 'A modal that walks through numbered steps.' },
         { name: 'CreateRecordDialog', summary: 'A modal form that creates one record.' },
         { name: 'DeleteGuardDialog', summary: 'Confirms a delete and lists what still points at it.' },
         { name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' },
@@ -20,6 +19,17 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'FullScreenLayer', summary: 'A full-window page over the main content.' },
         { name: 'DisabledOverlay', summary: 'Covers a disabled area and says why.' },
         { name: 'ErrorBoundary', summary: 'Catches a crash in its children and shows a fallback.' },
+      ],
+    },
+    {
+      group: 'Wizard',
+      entries: [
+        { name: 'Wizard', summary: 'A task done in steps, inside a screen or a dialog, with useWizard behind it.' },
+        { name: 'WizardProgress', summary: 'The step strip: numbered circles that fill as each step is done.' },
+        { name: 'WizardStep', summary: 'One step: heading, description, an error on top, then the fields.' },
+        { name: 'WizardNav', summary: 'Cancel, Back, Next and the finish button, with a busy state.' },
+        { name: 'WizardReview', summary: 'The last step: what was chosen per step, each with Edit.' },
+        { name: 'WizardExitGuard', summary: 'Asks before unsaved input is thrown away.' },
       ],
     },
     {

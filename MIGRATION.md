@@ -351,3 +351,79 @@ interface MenuGroup {
 ```
 
 - `useListboxDrop` and `useDismissListeners` take `escape` (default true); a popup that handles Escape itself, one level at a time, passes false. The string table gains `navigation.menu`, the default name of the hamburger.
+
+## 31. Hints on controls, the HintLine, xs sizes and the compact widget options
+
+Controls can now say what each option does. Hover or keyboard focus on an option publishes its hint, and a `HintLine` shows it in a space set aside for it.
+
+- A hint is `{ label, description }`, a short value label and a one-line description; the type is `Hint`. `SegmentOption` and `ToggleOption` take `hint`, and `Toggle`, `Slider` and `IconButton` take `hint` for themselves.
+- Every one of those controls takes `onHint(hint | null)`. It fires with the hint while an option is pointed at or holds keyboard focus, and with `null` once nothing is. A click that only moves focus with the mouse does not hold the hint.
+- `HintScope` collects the hints of every control inside it, and `useHint()` reads the current one, so any component can show it. `HintLine` reads the scope, or takes `hint` directly (`null` shows the idle line). It shows the value in the text colour and the description muted, an idle line while nothing is pointed at (`idle`, default from the string table), keeps a fixed height of `lines` (1 or 2, default 2) and is a polite live region. `useHintTarget` and `useHintReport` let an app control report to the same scope.
+- New strings: `common.hintIdle`.
+
+```tsx
+<HintScope>
+  <SegmentedControl size="xs" aria-label="Placement" value={edge} onChange={setEdge} options={[
+    { value: 'left', icon: 'panel-left', hint: { label: 'Dock left', description: 'Takes the left edge of the app' } },
+  ]} />
+  <HintLine />
+</HintScope>
+```
+
+### Sizes
+
+- `SegmentedControl` takes `size`, `'md'` (the default, as before) or `'xs'`, and `aria-label` for when it has no visible `label`. An option is either `{ value, label }` as before or `{ value, icon, hint }`: an `IconName` drawn alone, named by `hint.label` unless `title` is set. `SegmentOption` is now that union (`SegmentTextOption | SegmentIconOption`); code that reads `option.label` checks `option.icon` first.
+- `IconButton` `size` adds `'xs'` (20 px square); the type is `IconButtonSize`.
+- `Toggle` and `Slider` take `size`, `'md'` (default) or `'xs'`, and `aria-label` for when they have no visible label. `ToggleSize` and `SliderSize` are exported.
+- `Shortcut` takes `size`, `'md'` (default) or `'xs'`, its smallest caps; `SHORTCUT_SIZES` and `ShortcutSize` are exported.
+- Two icons join the set, `app-window` and `magnet`. An app that passes a whole `icons` set to `TesseraProvider` adds them.
+
+### WidgetOptions
+
+The panel keeps every function and every prop of `WidgetOptionsProps`; only its look changed, so a call site that passes those props needs no change.
+
+- Every choice is an xs icon `SegmentedControl`: Placement (dock left, right, top and bottom, float, own window), Main view (make room or overlay, docked only), Show (always or in context, not in its own window), Pin (off, on top, with app) and Snap (free or snap to edges), both only in its own window. In its own window a pop in button sits beside Placement. Opacity is an xs `Slider`.
+- The header holds the title, a keys button that opens the shortcut list, reset and close, all xs `IconButton`s. Reset is an icon now, not a text button.
+- One `HintLine` sits at the bottom of the panel, and the panel is a `HintScope`, so the widget's own rows report to it too.
+- The shortcut list moved out of the panel into a floating aside anchored beside it, drawn with the xs `Shortcut`. The keys button opens and closes it and the choice is kept for the session.
+- `OptionRow` takes `hint` as a `Hint` object, which it reports while the row is pointed at or holds focus; it no longer draws a line of text under the label. A widget's own controls take their own `hint` too.
+
+```tsx
+<OptionRow label="Compact rows" hint="One line per player"><Toggle checked={compact} onChange={setCompact} /></OptionRow>
+
+<OptionRow label="Rows">
+  <Toggle size="xs" checked={compact} onChange={setCompact} hint={{ label: 'Compact rows', description: 'One line per player' }} />
+</OptionRow>
+```
+
+- Widget strings: `placementSection`, `windowSection`, `pinHint` and `snapToEdges` are gone. `popInTitle` is `popInHint`, `pinOffTitle`, `pinOnTopTitle` and `pinWithAppTitle` are `pinOffHint`, `pinOnTopHint` and `pinWithAppHint`, and `snapHint` is `snapOnHint`. New: `placement`, `mainView`, `overlay`, `snap`, `snapOff`, `snapOn`, `ownWindow`, `showShortcuts`, `hideShortcuts`, `opacityValue`, and a `...Hint` description for every choice and header button. An app that overrides those strings renames its keys.
+- `--widget-options-w` is 240 px, `--widget-options-slider-w` is 128 px, and `--widget-options-aside-w` (256 px) sizes the shortcut aside.
+- `Anchored` keeps one ref callback across renders, so a popup can anchor to another `Anchored` popup, as the shortcut aside does.
+
+## 32. The wizard parts replace WizardDialogShell
+
+`WizardDialogShell`, `WizardDialogShellProps` and the `WizardStep` type (`{ label }`) are removed, with no alias. A wizard is now built from the parts in `src/composites/Wizard/`, all exported from the package root. It sits inside a screen by default; a dialog is optional.
+
+- `useWizard({ steps, initialValues, onFinish, onFinished? })` holds the input (`values`, `setValue`, `update`), where the user is (`current`, `index`, `isFirst`, `isLast`, the shown `steps`), what they visited (`visited`), per step errors (`errors`, `setError`), unsaved input (`dirty`) and the finish (`busy`, `finish`). A step is a `WizardStepDef`: `{ id, label, description?, when?, validate? }`. `when(values)` false hides the step; `validate(values)` returns why the step is not ready, or null, and Next stays off until it is null (`invalid` holds the reason for the current step). The reason is a string, or a `WizardProblem` `{ message, inField: true }` when a field already shows it under itself; `hint` is the reason the nav shows, null for an `inField` one, so the same problem is never shown twice. `goNext`, `goBack`, `goTo(id)` and `canGoTo(id)` move: back is always open, forward only over valid steps the user has visited. `onFinish(values)` returns the `CreateOutcome` that `CreateRecordDialog` uses; a failure, or a throw, keeps every input and puts the error on the current step, and a success calls `onFinished(id)` and clears `dirty`. `reset()` starts over.
+- `WizardFrame` lays it out: `wizard`, `onExit`, `title`, `presentation` (`'inline'`, the default, or `'dialog'` through `DialogShell`), `orientation` (`'horizontal'` with the strip on top, or `'vertical'` with the strip in a 240 px column on the left), `compactProgress`, `stepInfo` (a summary and sub-steps per step id), `activeSubStepId`, `onSubStepSelect`, `finishLabel`, `busyLabel`, `navExtra` and `headerExtra`. The step content comes in as children, the step scrolls on its own and the buttons stay in a footer.
+- `WizardProgress` is the step strip. Each step is a numbered circle; a done step fills with `--c-primary` while its border draws, then the line to the next circle grows, then the next circle lights up. Going back plays a quick reverse, and reduced motion turns it off. It takes `steps` (`{ id, label, summary?, subSteps? }`), `currentId`, `orientation`, `compact` (Step 2 of 5 over a `ProgressBar`), `canSelect`, `onSelect`, `activeSubStepId`, `onSubStepSelect` and `label`. Summaries and sub-steps with their count `Badge` show only when vertical; a count of 0 draws no badge. The current step carries `aria-current="step"`, and a step `canSelect` refuses is a disabled button.
+- `WizardStep` draws one step: `title`, `description`, `error` (a danger `Callout` in an alert above the fields), `level` and `focusOnOpen` (on by default: focus moves to the heading when the step mounts).
+- `WizardNav` draws Cancel, Back and Next, or the finish button on the last step with `Button` `loading` while `busy`, a `hint` beside them while Next is off, and an `extra` slot. While `busy`, `busyLabel` (default `wizard.finishing`) shows in place of the hint, in a polite live region, since a loading Button hides its own label.
+- `WizardReview` draws one block per step from `sections` (`{ stepId, title, rows }`, rows on a `TermList`) with an Edit button that calls `onEdit(stepId)`.
+- `WizardExitGuard` asks before unsaved input is thrown away, with the `Dialog` composite in its danger variant; `blocked` asks the user to wait instead while something runs. `useWizardExit({ dirty, busy, onExit })` returns `requestExit` and the `guard` props; `WizardFrame` wires both to its Cancel and to Escape in the dialog.
+- `TermListItem.detail` takes any `ReactNode`, not only a string.
+- The string table gains a `wizard` group: step names for assistive tech, Step 2 of 5, Back, Next, Finish, Edit and the guard wording.
+- Two motion tokens and an easing: `--duration-step-fill` (0.52 s), `--duration-step-line` (0.38 s) and `--ease-in-out`.
+
+```tsx
+<WizardDialogShell open={open} onClose={close} title="New session" steps={STEPS} activeStep={step} onStepChange={setStep} actions={buttons}>
+  <SessionStep step={step} />
+</WizardDialogShell>
+
+const wizard = useWizard({ steps: STEPS, initialValues: EMPTY_SESSION, onFinish: openRoom, onFinished: close });
+<WizardFrame wizard={wizard} presentation="dialog" open={open} title="New session" onExit={close}>
+  <SessionStep wizard={wizard} />
+</WizardFrame>
+```
+
+rotp moves its two hand-made step strips and the profile creation form onto these parts; Brock moves its profile screen.

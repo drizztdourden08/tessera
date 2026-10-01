@@ -2,11 +2,13 @@
 import '../../theme/focus-ring.css';
 import '../../theme/segment-group.css';
 import './ToggleGroup.css';
+import { useHintReport } from '../hint/useHintReport';
 import { Small, Span } from '../text-elements';
 import type { ToggleGroupProps } from './ToggleGroup.type';
 
 const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
-  const { value, options, onChange, label, description, disabled = false } = props;
+  const { value, options, onChange, onHint, label, description, disabled = false } = props;
+  const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
 
   const toggle = (v: T) => {
     if (value.includes(v)) {
@@ -35,6 +37,7 @@ const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
               className={`toggle-group__btn focus-ring-inset ${active ? 'toggle-group__btn--active' : ''}`}
               onClick={() => toggle(opt.value)}
               disabled={disabled || opt.disabled}
+              {...handlersFor(opt.value)}
             >
               {opt.label}
             </button>

@@ -1,4 +1,8 @@
 /* @layer renderer-components @kind types */
+import type { Hint, HintReport } from '../hint/hint.type';
+
+type SliderSize = 'xs' | 'md';
+
 interface SliderProps {
   value: number;
   min: number;
@@ -12,8 +16,13 @@ interface SliderProps {
   formatValue?: (value: number) => string;
   mute?: boolean;
   onMuteToggle?: () => void;
+  size?: SliderSize;
+  hint?: Hint;
+  onHint?: HintReport;
+  'aria-label'?: string;
 }
 
 export type {
   SliderProps,
+  SliderSize,
 };

@@ -1,5 +1,5 @@
 /* @layer stories @kind data */
-import type { ReferencedByHit, WizardStep } from '../../../src/composites';
+import type { ReferencedByHit } from '../../../src/composites';
 import type { FieldDescriptor, SchemaConfig } from '../../../src/data';
 
 const PRESET_HITS: readonly ReferencedByHit[] = [
@@ -28,11 +28,4 @@ const SESSION_CONFIG: SchemaConfig = {
 const INITIAL_SESSION: Record<string, unknown> = { name: '', preset: 'Casual', maxPlayers: 8 };
 const REQUIRED_PATHS: readonly string[] = ['name', 'preset', 'maxPlayers'];
 
-const WIZARD_STEPS: WizardStep[] = [
-  { label: 'Game preset' },
-  { label: 'Players' },
-  { label: 'Server' },
-  { label: 'Review' },
-];
-
-export { INITIAL_SESSION, PRESET_HITS, REQUIRED_PATHS, SESSION_CONFIG, SESSION_SCHEMA, WIZARD_STEPS };
+export { INITIAL_SESSION, PRESET_HITS, REQUIRED_PATHS, SESSION_CONFIG, SESSION_SCHEMA };

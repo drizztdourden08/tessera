@@ -162,6 +162,45 @@
   clip-path: inset(50%);
 }
 
+.shortcut--xs {
+  gap: var(--size-1);
+  font-size: var(--text-xs);
+}
+
+.shortcut--xs .shortcut__cap {
+  min-inline-size: var(--size-16);
+  block-size: var(--size-16);
+  padding-inline: var(--space-2xs);
+}
+
+.shortcut--xs .shortcut__cap--icon {
+  padding-inline: 0;
+}
+
+.shortcut--xs .shortcut__cap--wide {
+  min-inline-size: var(--size-28);
+}
+
+.shortcut--xs .shortcut__cap--space {
+  min-inline-size: var(--size-56);
+}
+
+.shortcut--xs .shortcut__symbol {
+  inline-size: var(--size-10);
+  block-size: var(--size-10);
+}
+
+.shortcut--xs .shortcut__symbol--long {
+  inline-size: var(--size-12);
+  block-size: var(--size-8);
+}
+
+.shortcut--xs .shortcut__mouse,
+.shortcut--xs .shortcut__mouse-icon {
+  inline-size: var(--size-16);
+  block-size: var(--size-16);
+}
+
 .shortcut--animate {
   animation: shortcut-press var(--duration-float) var(--ease-standard) infinite;
 }

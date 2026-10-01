@@ -104,3 +104,24 @@
 .slider__mute--muted:hover {
   background: var(--c-danger-soft);
 }
+
+.slider--xs {
+  gap: var(--space-sm);
+}
+
+.slider--xs .slider__track {
+  gap: var(--space-xs);
+}
+
+.slider--xs .slider__input {
+  height: var(--size-4);
+}
+
+.slider--xs .slider__input::-webkit-slider-thumb {
+  width: var(--size-12);
+  height: var(--size-12);
+}
+
+.slider--xs .slider__value {
+  font-size: var(--text-xs);
+}

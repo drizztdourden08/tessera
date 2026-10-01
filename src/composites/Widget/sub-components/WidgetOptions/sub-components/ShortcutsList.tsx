@@ -12,7 +12,7 @@ const ShortcutsList = () => {
       {SHORTCUTS.map(({ keys, gesture, does }) => (
         <Box key={does} className="widget-shortcuts__row">
           <Box className="widget-shortcuts__keys">
-            {keys && <Shortcut keys={keys} />}
+            {keys && <Shortcut keys={keys} size="xs" />}
             {gesture && <Span className="widget-shortcuts__gesture">{widgets[gesture]}</Span>}
           </Box>
           <Small tone="muted" className="widget-shortcuts__does">{widgets[does]}</Small>

@@ -5,6 +5,8 @@ const CAP_WIDTHS = ['normal', 'wide'] as const;
 
 const SHORTCUT_STATES = ['idle', 'lit', 'pressed'] as const;
 
+const SHORTCUT_SIZES = ['xs', 'md'] as const;
+
 const LETTER_KEYS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const CHARACTER_KEYS = '0123456789`~!@#$%^&*()-_=+[]{}\\|;:\'",.<>/?';
@@ -42,4 +44,4 @@ const KEY_SPECS = {
   right: { name: 'Right arrow', symbol: 'right' },
 } as const;
 
-export { CAP_WIDTHS, CHARACTER_KEYS, FUNCTION_KEY_COUNT, KEY_SPECS, LETTER_KEYS, SHORTCUT_LEGENDS, SHORTCUT_STATES };
+export { CAP_WIDTHS, CHARACTER_KEYS, FUNCTION_KEY_COUNT, KEY_SPECS, LETTER_KEYS, SHORTCUT_LEGENDS, SHORTCUT_SIZES, SHORTCUT_STATES };

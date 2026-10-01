@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Text, Toggle } from '../../src/primitives';
+import type { ToggleSize } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -11,6 +14,7 @@ type ToggleArgs = {
   description: string;
   link: string;
   disabled: boolean;
+  size: ToggleSize;
 };
 
 const ARGS: Partial<ToggleArgs> = {
@@ -18,6 +22,7 @@ const ARGS: Partial<ToggleArgs> = {
     description: 'Write a save state every time you enter a new room.',
     link: '',
     disabled: false,
+    size: 'md',
   };
 
 const ARG_TYPES: StoryLiteArgTypes<ToggleArgs> = {
@@ -25,6 +30,7 @@ const ARG_TYPES: StoryLiteArgTypes<ToggleArgs> = {
     description: { control: 'text' },
     link: { control: 'text' },
     disabled: { control: 'boolean' },
+    size: { control: 'select', options: ['md', 'xs'], description: 'xs is the compact switch for widget panels.' },
   };
 
 const meta = {
@@ -33,7 +39,7 @@ const meta = {
 } satisfies StoryLiteMeta<ToggleArgs>;
 
 const StatefulToggle = (props: { initial: boolean } & Partial<ToggleArgs>) => {
-  const { initial, label, description, link, disabled } = props;
+  const { initial, label, description, link, disabled, size } = props;
   const [checked, setChecked] = useState(initial);
   return (
     <Box className="story-column">
@@ -44,6 +50,7 @@ const StatefulToggle = (props: { initial: boolean } & Partial<ToggleArgs>) => {
         description={description}
         link={link === '' ? undefined : link}
         disabled={disabled}
+        size={size}
       />
       <Text className="story-label">{checked ? 'on' : 'off'}</Text>
     </Box>
@@ -74,6 +81,19 @@ const Labels = {
   ),
 } satisfies StoryLiteStoryDefinition<ToggleArgs>;
 
+const SIZE_KEYS = ['md', 'xs'] as const;
+
+const Sizes = {
+  name: 'Sizes',
+  render: () => (
+    <Demonstrator
+      rows={axis(SIZE_KEYS)}
+      columns={axis(['off', 'on'])}
+      cell={(size, state) => <Toggle size={size} checked={state === 'on'} onChange={() => undefined} aria-label={`Music, ${size}, ${state}`} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ToggleArgs>;
+
 const AutoSave = (props: { initial: boolean; disabled?: boolean }) => {
   const { initial, disabled } = props;
   const [checked, setChecked] = useState(initial);
@@ -84,9 +104,9 @@ const renderState = (props: StateProps) => <AutoSave initial={props.checked === 
 
 const Overview = overviewStory({
   component: 'Toggle',
-  description: 'An on and off switch for a setting that takes effect at once, such as auto-save or music. It can carry a label and a line of description, and a link that opens a page about the setting in a new tab. The whole row is one label, so a click anywhere on it flips the switch. It can be disabled in either position.',
+  description: 'An on and off switch for a setting that takes effect at once, such as auto-save or music. It can carry a label and a line of description, and a link that opens a page about the setting in a new tab. The whole row is one label, so a click anywhere on it flips the switch. It can be disabled in either position. size xs draws a compact switch for widget panels, and hint gives it a value and a one-line description that it reports through onHint and to the HintScope around it while it is pointed at or focused.',
   playground: Playground,
-  variants: [Labels],
+  variants: [Labels, Sizes],
   states: {
     render: renderState,
     list: [
@@ -111,4 +131,4 @@ const [autoSave, setAutoSave] = useState(true);
 });
 
 export default meta;
-export { Labels, Overview, Playground };
+export { Labels, Overview, Playground, Sizes };

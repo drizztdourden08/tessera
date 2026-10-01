@@ -1,0 +1,51 @@
+/* @layer renderer-components @kind style */
+.wizard-sub-steps {
+  grid-area: 2 / 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin: var(--space-xs) 0 0;
+  padding: 0 0 var(--space-xs);
+  list-style: none;
+  min-inline-size: 0;
+}
+
+.wizard-sub-steps__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  inline-size: 100%;
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+}
+
+.wizard-sub-steps__label {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wizard-sub-steps__item:enabled {
+  color: var(--c-text-dim);
+  transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+}
+
+.wizard-sub-steps__item:enabled:hover {
+  background: var(--c-hover);
+  color: var(--c-text);
+}
+
+.wizard-sub-steps__item:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: calc(-1 * var(--border-width-thick));
+}
+
+.wizard-sub-steps__item[aria-current='true'] {
+  background: var(--c-selected);
+  color: var(--c-primary);
+  box-shadow: inset var(--border-width-thick) 0 0 var(--c-primary);
+}

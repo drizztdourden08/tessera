@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Flex, Icon, IconButton, Text } from '../../src/primitives';
 import type { IconName } from '../../src/primitives';
-import type { IconButtonTone, IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
+import type { IconButtonSize, IconButtonTone, IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
@@ -21,7 +21,7 @@ type IconButtonArgs = {
   glyph: GlyphName;
   variant: IconButtonVariant;
   tone: ToneChoice;
-  size: 'sm' | 'md';
+  size: IconButtonSize;
   active: boolean;
   loading: boolean;
   disabled: boolean;
@@ -47,8 +47,8 @@ const LABELS: Record<GlyphName, string> = {
   bug: 'Report a bug',
 };
 
-const glyph = (name: GlyphName, size: 'sm' | 'md') => (
-  <Icon name={GLYPHS[name]} size={size === 'sm' ? 12 : 16} />
+const glyph = (name: GlyphName, size: IconButtonSize) => (
+  <Icon name={GLYPHS[name]} size={size === 'md' ? 16 : 12} />
 );
 
 const ARGS: Partial<IconButtonArgs> = {
@@ -60,7 +60,7 @@ const ARG_TYPES: StoryLiteArgTypes<IconButtonArgs> = {
     glyph: { control: 'select', options: Object.keys(GLYPHS) as GlyphName[] },
     variant: { control: 'select', options: [...VARIANTS] },
     tone: { control: 'select', options: ['none', 'danger'], description: 'Draws a ghost button in a status colour with a soft glow.' },
-    size: { control: 'select', options: ['sm', 'md'] },
+    size: { control: 'select', options: ['xs', 'sm', 'md'] },
     active: { control: 'boolean' },
     loading: { control: 'boolean', description: 'Shows the spinner in place of the icon and disables the button.' },
     disabled: { control: 'boolean' },
@@ -90,7 +90,7 @@ const Playground = {
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
-const SIZES = ['md', 'sm'] as const;
+const SIZES = ['md', 'sm', 'xs'] as const;
 
 const STATE_VARIANTS: readonly IconButtonVariant[] = ['primary', 'tertiary', 'danger', 'ghost'];
 
@@ -175,7 +175,7 @@ const Toolbar = {
 
 const Overview = overviewStory({
   component: 'IconButton',
-  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, and two sizes. It shares the Button focus ring and pressed fill, and active marks a toggle as on and announces it as pressed. tone="danger" draws a ghost button in red with a soft red glow, for a report a bug button or a remove button, and fills red inside a danger ring on hover. loading swaps the icon for the Spinner, keeps the square, stops clicks and announces the button as busy.',
+  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, and three sizes: md, sm, and xs for compact panels such as the widget options. It shares the Button focus ring and pressed fill, and active marks a toggle as on and announces it as pressed. tone="danger" draws a ghost button in red with a soft red glow, for a report a bug button or a remove button, and fills red inside a danger ring on hover. loading swaps the icon for the Spinner, keeps the square, stops clicks and announces the button as busy. hint gives it a value and a one-line description that it reports through onHint and to the HintScope around it while it is pointed at or focused, for a HintLine to show.',
   playground: Playground,
   variants: [AllVariants, DangerTone, Loading],
   states: markedStates(BUTTON_STATES, renderState),

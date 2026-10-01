@@ -26,6 +26,7 @@ const COMMON_STRINGS = {
   pause: 'Pause',
   popIn: 'Pop in',
   popOut: 'Pop out',
+  hintIdle: 'Point at an option to see what it does',
   selectedCount: (count: number) => `${count} selected`,
   removeNamed: (name: string) => `Remove ${name}`,
 };

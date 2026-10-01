@@ -20,7 +20,7 @@ export { Spacer, type SpacerProps } from './Spacer';
 export { Button } from './Button';
 export type { ButtonProps, ButtonSize, ButtonVariant } from './Button/Button.type';
 export { IconButton } from './IconButton';
-export type { IconButtonProps, IconButtonTone, IconButtonVariant } from './IconButton/IconButton.type';
+export type { IconButtonProps, IconButtonSize, IconButtonTone, IconButtonVariant } from './IconButton/IconButton.type';
 export { Pressable } from './Pressable';
 export type { PressableProps } from './Pressable';
 export { Badge } from './Badge';
@@ -46,9 +46,12 @@ export type {
   ItemPlace, ListboxCategories, ListboxCategory, ListboxColumn, ListboxItemProps, ListboxTone, ValueDisplay, ValueOf,
 } from './listbox';
 export { Toggle } from './Toggle';
+export type { ToggleProps, ToggleSize } from './Toggle/Toggle.type';
 export { Slider } from './Slider';
+export type { SliderProps, SliderSize } from './Slider/Slider.type';
 export { RadioGroup, type RadioOption } from './RadioGroup';
-export { SegmentedControl, type SegmentOption } from './SegmentedControl';
+export { SegmentedControl } from './SegmentedControl';
+export type { SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps, SegmentedSize } from './SegmentedControl';
 export { ToggleGroup } from './ToggleGroup';
 export type { ToggleOption, ToggleGroupProps } from './ToggleGroup';
 export { TabBar, type TabItem } from './TabBar';
@@ -103,6 +106,14 @@ export { TESSERA_STRINGS } from './strings';
 export type { TesseraStringGroup, TesseraStrings, TesseraStringsOverride } from './strings';
 export { Link } from './Link';
 export type { LinkProps } from './Link';
+export { HintLine } from './HintLine';
+export type { HintLineProps } from './HintLine';
+export { HintScope } from './HintScope';
+export type { HintScopeProps } from './HintScope';
+export { useHint, useHintReport, useHintTarget } from './hint';
+export type {
+  Hint, HintHandlers, HintReport, HintReporter, HintTargetHandlers, UseHintReportParams, UseHintTargetParams,
+} from './hint';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 export { RangeInput } from './RangeInput';

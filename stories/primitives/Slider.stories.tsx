@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, Slider } from '../../src/primitives';
+import type { SliderSize } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -16,6 +19,7 @@ type SliderArgs = {
   showValue: boolean;
   withMute: boolean;
   disabled: boolean;
+  size: SliderSize;
 };
 
 const percent = (value: number): string => `${value}%`;
@@ -29,6 +33,7 @@ const ARGS: Partial<SliderArgs> = {
     showValue: true,
     withMute: false,
     disabled: false,
+    size: 'md',
   };
 
 const ARG_TYPES: StoryLiteArgTypes<SliderArgs> = {
@@ -40,6 +45,7 @@ const ARG_TYPES: StoryLiteArgTypes<SliderArgs> = {
     showValue: { control: 'boolean' },
     withMute: { control: 'boolean', description: 'Passes mute, which draws the speaker button.' },
     disabled: { control: 'boolean' },
+    size: { control: 'select', options: ['md', 'xs'], description: 'xs is the compact slider for widget panels.' },
   };
 
 const meta = {
@@ -48,7 +54,7 @@ const meta = {
 } satisfies StoryLiteMeta<SliderArgs>;
 
 const StatefulSlider = (props: { initial: number; format?: (value: number) => string } & Partial<SliderArgs>) => {
-  const { initial, format, label, description, min = 0, max = 100, step, showValue, withMute, disabled } = props;
+  const { initial, format, label, description, min = 0, max = 100, step, showValue, withMute, disabled, size } = props;
   const [value, setValue] = useState(initial);
   return (
     <ValueReadout value={value}>
@@ -64,6 +70,7 @@ const StatefulSlider = (props: { initial: number; format?: (value: number) => st
         formatValue={format}
         mute={withMute ? value === 0 : undefined}
         disabled={disabled}
+        size={size}
       />
     </ValueReadout>
   );
@@ -85,6 +92,15 @@ const Kinds = {
       <StatefulSlider initial={3} min={1} max={8} label="Hearts at start" showValue={false} />
       <StatefulSlider initial={50} />
     </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<SliderArgs>;
+
+const SIZE_KEYS = ['md', 'xs'] as const;
+
+const Sizes = {
+  name: 'Sizes',
+  render: () => (
+    <Demonstrator rows={axis(SIZE_KEYS)} cell={(size) => <StatefulSlider initial={60} size={size} format={percent} step={5} />} />
   ),
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
@@ -115,7 +131,7 @@ const Overview = overviewStory({
   component: 'Slider',
   description: 'A labelled single-value slider with its current value written beside the track. Use it for a setting on a scale, like a volume or a cost. formatValue sets how the value is written, showValue hides it, and passing mute adds a speaker button that drops the value to zero and brings it back.',
   playground: Playground,
-  variants: [Kinds],
+  variants: [Kinds, Sizes],
   states: {
     render: renderState,
     list: [
@@ -130,4 +146,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Kinds, Overview, Playground };
+export { Kinds, Overview, Playground, Sizes };

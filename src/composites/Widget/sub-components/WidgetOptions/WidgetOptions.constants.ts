@@ -1,18 +1,36 @@
 /* @layer renderer-components @kind data */
-import type { IconName } from '../../../../primitives/Icon';
-import type { PlacementButton, ShortcutEntry } from './WidgetOptions.type';
+import type { PinMode, WidgetVisibility } from '../../Widget.type';
+import type { IconChoice, PlacementChoice, RoomChoice, ShortcutEntry, SnapChoice } from './WidgetOptions.type';
 
-const PLACEMENT_BUTTONS: readonly PlacementButton[] = [
-  { edge: 'left', labelKey: 'dockLeft' },
-  { edge: 'right', labelKey: 'dockRight' },
-  { edge: 'top', labelKey: 'dockTop' },
-  { edge: 'bottom', labelKey: 'dockBottom' },
-  { edge: null, labelKey: 'float' },
+const PLACEMENT_CHOICES: readonly IconChoice<PlacementChoice>[] = [
+  { value: 'left', icon: 'panel-left', label: 'dockLeft', hint: 'dockLeftHint' },
+  { value: 'right', icon: 'panel-right', label: 'dockRight', hint: 'dockRightHint' },
+  { value: 'top', icon: 'panel-top', label: 'dockTop', hint: 'dockTopHint' },
+  { value: 'bottom', icon: 'panel-bottom', label: 'dockBottom', hint: 'dockBottomHint' },
+  { value: 'float', icon: 'picture-in-picture-2', label: 'float', hint: 'floatHint' },
+  { value: 'window', icon: 'app-window', label: 'ownWindow', hint: 'ownWindowHint' },
 ];
 
-const PLACEMENT_ICONS: Record<'left' | 'right' | 'top' | 'bottom' | 'float', IconName> = {
-  left: 'panel-left', right: 'panel-right', top: 'panel-top', bottom: 'panel-bottom', float: 'picture-in-picture-2',
-};
+const ROOM_CHOICES: readonly IconChoice<RoomChoice>[] = [
+  { value: 'room', icon: 'columns-3', label: 'makeRoom', hint: 'makeRoomHint' },
+  { value: 'overlay', icon: 'layers', label: 'overlay', hint: 'overlayHint' },
+];
+
+const SHOW_CHOICES: readonly IconChoice<WidgetVisibility>[] = [
+  { value: 'always', icon: 'eye', label: 'showAlways', hint: 'showAlwaysHint' },
+  { value: 'context-only', icon: 'play', label: 'contextLabel', hint: 'contextHint' },
+];
+
+const PIN_CHOICES: readonly IconChoice<PinMode>[] = [
+  { value: 'off', icon: 'pin-off', label: 'pinOff', hint: 'pinOffHint' },
+  { value: 'top', icon: 'pin', label: 'pinOnTop', hint: 'pinOnTopHint' },
+  { value: 'with-app', icon: 'link', label: 'pinWithApp', hint: 'pinWithAppHint' },
+];
+
+const SNAP_CHOICES: readonly IconChoice<SnapChoice>[] = [
+  { value: 'free', icon: 'move', label: 'snapOff', hint: 'snapOffHint' },
+  { value: 'snap', icon: 'magnet', label: 'snapOn', hint: 'snapOnHint' },
+];
 
 const OPACITY_MIN = 0;
 
@@ -20,15 +38,19 @@ const OPACITY_MAX = 100;
 
 const OPACITY_STEP = 5;
 
-const PANEL_WIDTH = 272;
+const PANEL_WIDTH = 240;
 
-const PANEL_HEIGHT = 470;
+const PANEL_HEIGHT = 280;
+
+const ASIDE_WIDTH = 256;
 
 const EDGE_MARGIN = 8;
 
 const ANCHOR_GAP = 4;
 
 const ORIGIN = { top: 0, left: 0 };
+
+const SHORTCUTS_OPEN_KEY = 'tessera:widget-options-shortcuts';
 
 const SHORTCUTS: readonly ShortcutEntry[] = [
   { gesture: 'shortcutDragTitle', does: 'shortcutDragTitleDoes' },
@@ -41,6 +63,6 @@ const SHORTCUTS: readonly ShortcutEntry[] = [
 ];
 
 export {
-  ANCHOR_GAP, EDGE_MARGIN, OPACITY_MAX, OPACITY_MIN, OPACITY_STEP, ORIGIN, PANEL_HEIGHT, PANEL_WIDTH, PLACEMENT_BUTTONS, PLACEMENT_ICONS,
-  SHORTCUTS,
+  ANCHOR_GAP, ASIDE_WIDTH, EDGE_MARGIN, OPACITY_MAX, OPACITY_MIN, OPACITY_STEP, ORIGIN, PANEL_HEIGHT, PANEL_WIDTH, PIN_CHOICES,
+  PLACEMENT_CHOICES, ROOM_CHOICES, SHORTCUTS, SHORTCUTS_OPEN_KEY, SHOW_CHOICES, SNAP_CHOICES,
 };

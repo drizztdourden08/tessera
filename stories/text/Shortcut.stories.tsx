@@ -1,7 +1,9 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, CAP_WIDTHS, SHORTCUT_LEGENDS, SHORTCUT_STATES, Shortcut, Text } from '../../src/primitives';
-import type { CapWidth, MouseButton, ShortcutKey, ShortcutLegend, ShortcutState } from '../../src/primitives';
+import { Box, CAP_WIDTHS, SHORTCUT_LEGENDS, SHORTCUT_SIZES, SHORTCUT_STATES, Shortcut, Text } from '../../src/primitives';
+import type { CapWidth, MouseButton, ShortcutKey, ShortcutLegend, ShortcutSize, ShortcutState } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import {
@@ -20,6 +22,7 @@ type ShortcutArgs = {
   animate: boolean;
   state: ShortcutState | 'none';
   fill: boolean;
+  size: ShortcutSize;
 };
 
 const ARG_TYPES: StoryLiteArgTypes<ShortcutArgs> = {
@@ -30,6 +33,7 @@ const ARG_TYPES: StoryLiteArgTypes<ShortcutArgs> = {
   animate: { control: 'boolean', description: 'Presses and releases in a loop. It wins over state while it runs.' },
   state: { control: 'select', options: ['none', ...SHORTCUT_STATES], description: 'Idle, lit in the primary colour, or pressed down.' },
   fill: { control: 'boolean', description: 'Stretches the caps to fill their box, shown here in a fixed box.' },
+  size: { control: 'select', options: [...SHORTCUT_SIZES], description: 'md for text and lists, xs for compact panels.' },
 };
 
 const meta = {
@@ -49,7 +53,7 @@ const rowsStory = (name: string, rows: readonly ShortcutRow[]) => ({
 
 const Playground = {
   name: 'Playground',
-  args: { keys: 'ctrl, shift', mouse: 'left', legend: 'label', width: 'natural', animate: false, state: 'none', fill: false },
+  args: { keys: 'ctrl, shift', mouse: 'left', legend: 'label', width: 'natural', animate: false, state: 'none', fill: false, size: 'md' },
   argTypes: ARG_TYPES,
   render: (args) => {
     const look = {
@@ -58,6 +62,7 @@ const Playground = {
       animate: args.animate || undefined,
       state: args.state === 'none' ? undefined : args.state,
       fill: args.fill || undefined,
+      size: args.size,
     };
     const shortcut = args.mouse === 'none'
       ? <Shortcut keys={keyList(args.keys)} {...look} />
@@ -102,6 +107,21 @@ const KeysAndMouse = rowsStory('Keys with a mouse button', KEYS_AND_MOUSE_ROWS);
 
 const Animated = rowsStory('Animated', ANIMATED_ROWS);
 
+const SIZE_SAMPLES: Readonly<Record<string, readonly ShortcutKey[]>> = {
+  'Ctrl + S': ['ctrl', 'S'], Shift: ['shift'], Esc: ['esc'], Space: ['space'], 'Alt + arrows': ['alt', 'left', 'right'],
+};
+
+const Sizes = {
+  name: 'Sizes',
+  render: () => (
+    <Demonstrator
+      rows={axis(Object.keys(SIZE_SAMPLES))}
+      columns={axis(SHORTCUT_SIZES)}
+      cell={(sample, size) => <Shortcut keys={SIZE_SAMPLES[sample] ?? []} size={size} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ShortcutArgs>;
+
 const Filled = {
   name: 'Filling a box',
   render: () => <ShortcutFillDemo />,
@@ -123,10 +143,10 @@ const renderState = (props: StateProps) => <Shortcut keys={['ctrl', 'S']} mouse=
 const Overview = overviewStory({
   component: 'Shortcut (Sc)',
   importName: 'Shortcut',
-  description: 'A key, a key combination or a mouse button. Pass keys a key name, or an array for a combination, and mouse one mouse button. Keys come first, then the mouse button, with a plus between them. Letters, digits, punctuation and F1 to F24 work as they are. Legend picks what a key shows: its label, its symbol or its plain arrow, and a key without that legend shows its label. Width sets the cap to normal or wide; by default each key keeps its own width. A mouse button has no cap: the mouse is drawn in the text colour and the pressed part in the primary colour. Animate presses and releases in a loop, all together in a combination. State holds one look instead: idle, lit in the primary colour, or pressed down, and a change of state eases between the two looks the loop uses. An idle mouse button draws its pressed part in the text colour. While animate runs it wins over state, and with reduced motion both keep the colour change and drop the movement. Fill stretches the caps to fill their box, which is how a keyboard sizes a key to its width in key units. Screen readers hear the key name, and selecting the text around a shortcut leaves the keycaps out. The mouse and key icons come from Phosphor.',
+  description: 'A key, a key combination or a mouse button. Pass keys a key name, or an array for a combination, and mouse one mouse button. Keys come first, then the mouse button, with a plus between them. Letters, digits, punctuation and F1 to F24 work as they are. Legend picks what a key shows: its label, its symbol or its plain arrow, and a key without that legend shows its label. Width sets the cap to normal or wide; by default each key keeps its own width. A mouse button has no cap: the mouse is drawn in the text colour and the pressed part in the primary colour. Animate presses and releases in a loop, all together in a combination. State holds one look instead: idle, lit in the primary colour, or pressed down, and a change of state eases between the two looks the loop uses. An idle mouse button draws its pressed part in the text colour. While animate runs it wins over state, and with reduced motion both keep the colour change and drop the movement. Size md is for text and lists; xs is the smallest, for compact panels such as the widget shortcut list. Fill stretches the caps to fill their box, which is how a keyboard sizes a key to its width in key units. Screen readers hear the key name, and selecting the text around a shortcut leaves the keycaps out. The mouse and key icons come from Phosphor.',
   playground: Playground,
   variants: [
-    Legends, CapWidths, PrintableKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, Animated, Filled, InSentence,
+    Legends, CapWidths, PrintableKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, Animated, Sizes, Filled, InSentence,
   ],
   states: {
     render: renderState,
@@ -137,5 +157,5 @@ const Overview = overviewStory({
 export default meta;
 export {
   Animated, Arrows, CapWidths, Combinations, Filled, InSentence, KeysAndMouse, Legends, MouseButtons, Overview,
-  Playground, PrintableKeys,
+  Playground, PrintableKeys, Sizes,
 };

@@ -4,7 +4,7 @@ const GROUP_ICONS: Record<string, string> = {
   'Primitives · Layout': 'layout-grid', 'Primitives · Display': 'monitor', 'Primitives · Actions': 'mouse-pointer-click',
   'Primitives · Inputs': 'text-cursor-input', 'Primitives · Feedback': 'message-square-warning', 'Primitives · Navigation': 'compass',
   'Primitives · Setup': 'wrench',
-  'Composites · Dialogs': 'app-window', 'Composites · Navigation': 'signpost', 'Composites · Menus': 'menu',
+  'Composites · Dialogs': 'app-window', 'Composites · Wizard': 'wand-sparkles', 'Composites · Navigation': 'signpost', 'Composites · Menus': 'menu',
   'Composites · Data views': 'table', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
 };
@@ -54,14 +54,18 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Toast: 'bell', Tooltip: 'message-square',
-    Callout: 'megaphone',
+    HintLine: 'text-quote', Callout: 'megaphone',
   },
   'Primitives · Navigation': { TabBar: 'panels-top-left' },
   'Primitives · Setup': { TesseraProvider: 'replace' },
   'Composites · Dialogs': {
-    Dialog: 'app-window', DialogShell: 'app-window-mac', WizardDialogShell: 'wand-sparkles', CreateRecordDialog: 'file-plus',
+    Dialog: 'app-window', DialogShell: 'app-window-mac', CreateRecordDialog: 'file-plus',
     DeleteGuardDialog: 'shield-alert', ConfirmIconButton: 'circle-check', InlineCreateForm: 'square-pen', Overlay: 'layers-2',
     Drawer: 'panel-right', FullScreenLayer: 'fullscreen', DisabledOverlay: 'ban', ErrorBoundary: 'bug',
+  },
+  'Composites · Wizard': {
+    Wizard: 'wand-sparkles', WizardProgress: 'git-commit-horizontal', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
+    WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
   'Composites · Navigation': {
     SideNav: 'panel-left', SectionNav: 'list', HeaderTabs: 'panel-top', FloatingSwitch: 'blend', SplitPane: 'columns-2',

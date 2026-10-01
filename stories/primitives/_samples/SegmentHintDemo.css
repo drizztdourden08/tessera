@@ -1,0 +1,23 @@
+/* @layer stories @kind style */
+.segment-hint-demo__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: var(--size-288);
+  padding: var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-layer);
+}
+
+.segment-hint-demo__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.segment-hint-demo__line {
+  padding-top: var(--space-xs);
+  border-top: var(--border-width-thin) solid var(--c-hairline);
+}

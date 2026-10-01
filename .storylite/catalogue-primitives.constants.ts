@@ -81,6 +81,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'ProgressRing', summary: 'Progress as a ring, for tight spaces.' },
         { name: 'Toast', summary: 'A short message that dismisses itself.' },
         { name: 'Tooltip', summary: 'A hint on hover or focus.' },
+        { name: 'HintLine', summary: 'A fixed line that shows the value and meaning of the option under the pointer or focus.' },
         { name: 'Callout', summary: 'A note set apart: a toned box or a footnote, with an action.' },
       ],
     },

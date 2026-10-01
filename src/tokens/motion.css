@@ -10,7 +10,10 @@
   --duration-float:   1.6s;
   --duration-glow-drift: 2.6s;
   --duration-mascot-hop: 2.4s;
+  --duration-step-fill: 0.52s;
+  --duration-step-line: 0.38s;
   --ease-standard:    ease;
+  --ease-in-out:      ease-in-out;
   --ease-emphasized:  cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast:   0.1s ease;
   --transition-normal: 0.15s ease;

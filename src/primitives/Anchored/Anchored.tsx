@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { useId, useRef } from 'react';
+import { useCallback, useId, useRef } from 'react';
 import { setNodeOnRef } from '../ScrollArea/behavior/set-node-on-ref';
 import { anchorIdent } from './behavior/anchor-ident';
 import { useAnchorName } from './behavior/useAnchorName';
@@ -17,10 +17,10 @@ const Anchored = (props: AnchoredProps) => {
   useAnchorName(native, anchorRef, name);
   useShownPopover(native, popupRef);
 
-  const attach = (node: HTMLDivElement | null) => {
+  const attach = useCallback((node: HTMLDivElement | null) => {
     popupRef.current = node;
     setNodeOnRef(ref, node);
-  };
+  }, [ref]);
 
   if (!native) {
     return (

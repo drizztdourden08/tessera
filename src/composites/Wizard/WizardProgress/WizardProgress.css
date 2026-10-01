@@ -1,0 +1,172 @@
+/* @layer renderer-components @kind style */
+.wizard-progress {
+  --wizard-progress-dot: var(--size-32);
+  --wizard-progress-step-w: var(--size-96);
+}
+
+.wizard-progress[data-orientation='vertical'] {
+  min-inline-size: 0;
+}
+
+.wizard-progress__list {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wizard-progress__item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex: 1 1 0;
+}
+
+.wizard-progress__item:last-child {
+  flex: none;
+}
+
+.wizard-progress__step {
+  position: relative;
+  z-index: var(--z-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: none;
+  inline-size: var(--wizard-progress-step-w);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.wizard-progress__step:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-2);
+}
+
+.wizard-progress__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.wizard-progress__label {
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  color: var(--c-text-muted);
+  transition: color var(--duration-slow) var(--ease-standard);
+}
+
+.wizard-progress__summary {
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wizard-progress__item[data-state='done'] .wizard-progress__label {
+  color: var(--c-text);
+}
+
+.wizard-progress__item[data-state='current'] .wizard-progress__label {
+  color: var(--c-primary);
+  font-weight: var(--weight-semi);
+}
+
+.wizard-progress__step:enabled:hover .wizard-progress__label {
+  color: var(--c-primary-bright);
+}
+
+.wizard-progress__link {
+  position: relative;
+  flex: 1 1 auto;
+  min-inline-size: calc(var(--wizard-progress-step-w) - var(--wizard-progress-dot) + var(--size-8));
+  block-size: var(--border-width-thick);
+  margin-block-start: calc(var(--wizard-progress-dot) / 2 - var(--border-width-thin));
+  margin-inline: calc((var(--wizard-progress-dot) - var(--wizard-progress-step-w)) / 2 + var(--space-xs));
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--c-border-strong);
+}
+
+.wizard-progress__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--c-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration-step-line) var(--ease-in-out);
+}
+
+.wizard-progress__link[data-done]::after {
+  transform: none;
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-progress__list {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-progress__item {
+  display: grid;
+  grid-template-columns: var(--wizard-progress-dot) minmax(0, 1fr);
+  column-gap: var(--space-md);
+  flex: none;
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-progress__step {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-md);
+  inline-size: auto;
+  text-align: start;
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-progress__text {
+  padding-block-start: calc((var(--wizard-progress-dot) - var(--text-sm) * var(--leading-tight)) / 2);
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-progress__link {
+  grid-area: 2 / 1;
+  justify-self: center;
+  inline-size: var(--border-width-thick);
+  block-size: auto;
+  min-inline-size: 0;
+  min-block-size: var(--size-20);
+  margin: var(--space-xs) 0;
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-progress__link::after {
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.wizard-progress[data-orientation='vertical'] .wizard-progress__link[data-done]::after {
+  transform: none;
+}
+
+.wizard-progress[data-direction='forward'] .wizard-progress__link[data-done]::after {
+  transition-delay: var(--duration-step-fill);
+}
+
+.wizard-progress[data-direction='forward'] .wizard-progress__item[data-state='current'] .wizard-progress__label {
+  transition-delay: calc(var(--duration-step-fill) + var(--duration-step-line));
+}
+
+.wizard-progress[data-direction='back'] .wizard-progress__label,
+.wizard-progress[data-direction='back'] .wizard-progress__link::after {
+  transition-duration: var(--duration-normal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wizard-progress .wizard-progress__label,
+  .wizard-progress .wizard-progress__link::after {
+    transition: none;
+  }
+}

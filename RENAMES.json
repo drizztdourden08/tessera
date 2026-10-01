@@ -92,6 +92,9 @@
     "resolveWidgetDisabledState": "moves to the app; WidgetManager takes `resolveDisabled`",
     "StatusBadge": "merged into Status; pass tone, variant=\"pill\" and the label as children",
     "ScreenStatus": "removed with StatusBadge; the app maps its own statuses to a Status tone and label",
-    "StatusBadgeProps": "replaced by StatusProps"
+    "StatusBadgeProps": "replaced by StatusProps",
+    "WizardDialogShell": "replaced by WizardFrame with presentation=\"dialog\" and useWizard; see MIGRATION.md",
+    "WizardDialogShellProps": "replaced by WizardFrameProps",
+    "WizardStep (type)": "replaced by WizardStepDef; WizardStep is now the component for one step"
   }
 }

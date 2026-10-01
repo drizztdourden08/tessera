@@ -1,7 +1,9 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
+
 interface TermListItem {
   term: string;
-  detail: string;
+  detail: ReactNode;
 }
 
 interface TermListProps {

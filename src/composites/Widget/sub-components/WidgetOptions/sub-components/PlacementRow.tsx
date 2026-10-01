@@ -1,33 +1,32 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../../../primitives/Box';
-import { Button } from '../../../../../primitives/Button';
 import { Icon } from '../../../../../primitives/Icon';
 import { IconButton } from '../../../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import type { DockEdge } from '../../../../DockLayout';
-import { PLACEMENT_BUTTONS, PLACEMENT_ICONS } from '../WidgetOptions.constants';
-import type { PlacementRowProps } from '../WidgetOptions.type';
+import { placementChoice } from '../behavior/placement-choice';
+import { PLACEMENT_CHOICES } from '../WidgetOptions.constants';
+import type { PlacementChoice, PlacementRowProps } from '../WidgetOptions.type';
+import { ChoiceRow } from './ChoiceRow';
 
 const PlacementRow = (props: PlacementRowProps) => {
   const { placement, dockEdge, onDock, onFloat, onPopOut, canPopOut = true } = props;
   const { common, widgets } = useTesseraStrings();
-  const isLit = (edge: DockEdge | null): boolean =>
-    (edge === null ? placement === 'floating' : placement === 'docked' && dockEdge === edge);
+  const popped = placement === 'popped';
+  const windowShown = onPopOut !== undefined && (popped || canPopOut);
+  const choices = windowShown ? PLACEMENT_CHOICES : PLACEMENT_CHOICES.filter((choice) => choice.value !== 'window');
+  const choose = (next: PlacementChoice) => {
+    if (next === 'float') onFloat();
+    else if (next !== 'window') onDock(next);
+    else if (!popped) onPopOut?.();
+  };
 
   return (
-    <Box className="widget-options__placement">
-      <Box className="widget-options__placement-buttons">
-        {PLACEMENT_BUTTONS.map(({ edge, labelKey }) => (
-          <IconButton key={labelKey} label={widgets[labelKey]} title={widgets[labelKey]} active={isLit(edge)} onClick={() => (edge === null ? onFloat() : onDock(edge))}>
-            <Icon name={PLACEMENT_ICONS[edge ?? 'float']} size={14} />
-          </IconButton>
-        ))}
-      </Box>
-      {placement === 'popped' && onPopOut && (
-        <Button size="sm" variant="tertiary" onClick={onPopOut} title={widgets.popInTitle}>{common.popIn}</Button>
+    <ChoiceRow<PlacementChoice> label={widgets.placement} value={placementChoice(placement, dockEdge)} choices={choices} words={widgets} onChange={choose}>
+      {popped && onPopOut && (
+        <IconButton size="xs" label={common.popIn} hint={{ label: common.popIn, description: widgets.popInHint }} onClick={onPopOut}>
+          <Icon name="minimize-2" size={12} />
+        </IconButton>
       )}
-      {placement !== 'popped' && canPopOut && onPopOut && <Button size="sm" variant="tertiary" onClick={onPopOut}>{common.popOut}</Button>}
-    </Box>
+    </ChoiceRow>
   );
 };
 

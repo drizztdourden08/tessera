@@ -2,43 +2,21 @@
 import './Toggle.css';
 import { useId } from 'react';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
-import { Glyph } from '../Glyph';
-import { Link } from '../Link';
-import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
-import { Small, Span } from '../text-elements';
+import { useHintTarget } from '../hint/useHintTarget';
+import { ToggleText } from './sub-components/ToggleText';
 import type { ToggleProps } from './Toggle.type';
 
 const Toggle = (props: ToggleProps) => {
-  const { checked, onChange, label, description, disabled = false, id, link, 'aria-label': ariaLabel } = props;
+  const { checked, onChange, label, description, disabled = false, id, link, size = 'md', hint, onHint, 'aria-label': ariaLabel } = props;
   const generatedId = useId();
-  const { fields } = useTesseraStrings();
   const control = useFieldControl(id);
   const toggleId = control.id ?? `toggle-${generatedId}`;
+  const hintHandlers = useHintTarget<HTMLLabelElement>({ hint, onHint });
+  const classes = ['toggle', `toggle--${size}`, disabled && 'toggle--disabled'].filter(Boolean).join(' ');
 
   return (
-    <label className={`toggle ${disabled ? 'toggle--disabled' : ''}`} htmlFor={toggleId}>
-      {[label, description].some(Boolean) && (
-        <span className="toggle__text">
-          {label && <Span className="toggle__label">{label}</Span>}
-          {description && (
-            <Small tone="dim" className="toggle__description">
-              {description}
-              {link && (
-                <Link
-                  className="toggle__link"
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  title={fields.learnMore}
-                >
-                  <Glyph name="external" size={12} />
-                </Link>
-              )}
-            </Small>
-          )}
-        </span>
-      )}
+    <label className={classes} htmlFor={toggleId} {...hintHandlers}>
+      <ToggleText label={label} description={description} link={link} />
       <input
         id={toggleId}
         type="checkbox"
@@ -48,7 +26,7 @@ const Toggle = (props: ToggleProps) => {
         disabled={disabled}
         role="switch"
         aria-checked={checked}
-        aria-label={label ? undefined : ariaLabel}
+        aria-label={label ? undefined : ariaLabel ?? hint?.label}
         aria-describedby={control.describedBy}
       />
       <span className="toggle__track">

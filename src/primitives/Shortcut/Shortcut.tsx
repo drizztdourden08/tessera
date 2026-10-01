@@ -9,12 +9,12 @@ import type { ShortcutKey, ShortcutProps } from './Shortcut.type';
 import './Shortcut.css';
 
 const Shortcut = (props: ShortcutProps) => {
-  const { keys = [], mouse, legend = 'label', width, animate = false, state, fill = false, className, ...rest } = props;
+  const { keys = [], mouse, legend = 'label', width, animate = false, state, fill = false, size = 'md', className, ...rest } = props;
   const list: readonly ShortcutKey[] = typeof keys === 'string' ? [keys] : keys;
   const caps: ReactNode[] = list.map((key) => <Keycap face={keyFace(key, legend, width)} />);
   if (mouse) caps.push(<MouseCap button={mouse} />);
   return (
-    <kbd className={shortcutClass({ animate, state, fill, className })} {...rest}>
+    <kbd className={shortcutClass({ animate, state, fill, size, className })} {...rest}>
       {caps.map((cap, index) => (
         <Fragment key={index}>
           {index > 0 ? <span className="shortcut__joiner">+</span> : null}

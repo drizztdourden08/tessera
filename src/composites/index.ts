@@ -13,8 +13,14 @@ export type { ConfirmIconButtonProps } from './ConfirmIconButton';
 export { Dialog } from './Dialog';
 export { DialogShell } from './DialogShell';
 export type { DialogShellProps } from './DialogShell';
-export { WizardDialogShell } from './WizardDialogShell';
-export type { WizardStep, WizardDialogShellProps } from './WizardDialogShell';
+export {
+  WizardExitGuard, WizardFrame, WizardNav, WizardProgress, WizardReview, WizardStep, useWizard, useWizardExit,
+} from './Wizard';
+export type {
+  WizardApi, WizardExit, WizardExitGuardProps, WizardExitOptions, WizardFrameProps, WizardNavProps, WizardOptions,
+  WizardOrientation, WizardPresentation, WizardProgressProps, WizardProgressStep, WizardReviewProps, WizardReviewSection,
+  WizardProblem, WizardStepDef, WizardStepInfo, WizardStepProps, WizardStepState, WizardSubStep, WizardValues,
+} from './Wizard';
 export { GroupTree } from './GroupTree';
 export type { GroupTreeProps, TreeNode } from './GroupTree';
 export { HeaderTabs } from './HeaderTabs';

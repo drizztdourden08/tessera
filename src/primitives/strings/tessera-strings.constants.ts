@@ -11,6 +11,7 @@ import { TABLE_STRINGS } from './table-strings.constants';
 import { VIDEO_STRINGS } from './video-strings.constants';
 import { WIDGET_STRINGS } from './widgets-strings.constants';
 import { WINDOW_STRINGS } from './windows-strings.constants';
+import { WIZARD_STRINGS } from './wizard-strings.constants';
 
 const TESSERA_STRINGS = {
   common: COMMON_STRINGS,
@@ -25,6 +26,7 @@ const TESSERA_STRINGS = {
   panels: PANEL_STRINGS,
   widgets: WIDGET_STRINGS,
   windows: WINDOW_STRINGS,
+  wizard: WIZARD_STRINGS,
 };
 
 export { TESSERA_STRINGS };

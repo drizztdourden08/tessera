@@ -5,6 +5,12 @@
   line-height: 1;
 }
 
+.icon-btn--xs {
+  width: var(--size-20);
+  height: var(--size-20);
+  font-size: var(--text-xs);
+}
+
 .icon-btn--sm {
   width: var(--control-h-sm);
   height: var(--control-h-sm);

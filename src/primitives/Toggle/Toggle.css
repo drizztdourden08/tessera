@@ -95,3 +95,25 @@
   transform: translateX(var(--size-20));
   background: var(--c-bg);
 }
+
+.toggle--xs {
+  gap: var(--space-sm);
+}
+
+.toggle--xs .toggle__label {
+  font-size: var(--text-sm);
+}
+
+.toggle--xs .toggle__track {
+  width: var(--size-28);
+  height: var(--size-16);
+}
+
+.toggle--xs .toggle__thumb {
+  width: var(--size-10);
+  height: var(--size-10);
+}
+
+.toggle--xs .toggle__input:checked + .toggle__track .toggle__thumb {
+  transform: translateX(var(--size-12));
+}

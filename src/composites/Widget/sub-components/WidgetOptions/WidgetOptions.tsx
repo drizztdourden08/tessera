@@ -2,25 +2,27 @@
 import { useRef } from 'react';
 import { Anchored } from '../../../../primitives/Anchored';
 import { Box } from '../../../../primitives/Box';
-import { Button } from '../../../../primitives/Button';
-import { Divider } from '../../../../primitives/Divider';
-import { Glyph } from '../../../../primitives/Glyph';
-import { IconButton } from '../../../../primitives/IconButton';
+import { HintLine } from '../../../../primitives/HintLine';
+import { HintScope } from '../../../../primitives/HintScope';
 import { useAnchorTracking, useDismissListeners } from '../../../../primitives/Portal';
 import { useTesseraStrings } from '../../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { Small, Span } from '../../../../primitives/text-elements';
-import { ORIGIN } from './WidgetOptions.constants';
+import { ORIGIN, SHORTCUTS_OPEN_KEY } from './WidgetOptions.constants';
 import { panelPositionFor } from './behavior/panel-position';
+import { useAfterFirstFrame } from './behavior/useAfterFirstFrame';
+import { useSessionFlag } from './behavior/useSessionFlag';
 import { LayoutRows } from './sub-components/LayoutRows';
+import { OptionsHeader } from './sub-components/OptionsHeader';
 import { PlacementRow } from './sub-components/PlacementRow';
-import { ShortcutsList } from './sub-components/ShortcutsList';
+import { ShortcutsAside } from './sub-components/ShortcutsAside';
 import type { WidgetOptionsProps } from './WidgetOptions.type';
 import './WidgetOptions.css';
 
 const WidgetOptions = (props: WidgetOptionsProps) => {
   const { title, anchorRef, onReset, onClose, children } = props;
-  const { common, widgets } = useTesseraStrings();
+  const { widgets } = useTesseraStrings();
   const panelRef = useRef<HTMLDivElement>(null);
+  const shortcuts = useSessionFlag(SHORTCUTS_OPEN_KEY);
+  const shown = useAfterFirstFrame();
   const { position } = useAnchorTracking({ active: true, anchorRef, compute: panelPositionFor, onOutOfView: onClose });
   useDismissListeners({ open: true, onClose, contentRef: panelRef, triggerRef: anchorRef });
 
@@ -36,28 +38,16 @@ const WidgetOptions = (props: WidgetOptionsProps) => {
       aria-label={widgets.optionsFor(title)}
       onMouseDown={(e) => e.stopPropagation()}
     >
-      <Box className="widget-options__header">
-        <Span className="widget-options__title">{title}</Span>
-        <IconButton label={common.close} title={common.close} onClick={onClose}>
-          <Glyph name="close" size={14} />
-        </IconButton>
-      </Box>
-      <Small tone="muted" className="widget-options__section">{widgets.placementSection}</Small>
-      <PlacementRow {...props} />
-      <LayoutRows {...props} />
-      {children != null && (
-        <>
-          <Divider className="widget-options__divider" />
-          {children}
-        </>
-      )}
-      <Divider className="widget-options__divider" />
-      <Small tone="muted" className="widget-options__section">{widgets.shortcutsSection}</Small>
-      <ShortcutsList />
-      <Divider className="widget-options__divider" />
-      <Box className="widget-options__footer">
-        <Button size="sm" variant="ghost" onClick={onReset}>{widgets.resetWidget}</Button>
-      </Box>
+      <HintScope>
+        <OptionsHeader title={title} shortcutsOpen={shortcuts.on} onToggleShortcuts={shortcuts.toggle} onReset={onReset} onClose={onClose} />
+        <Box className="widget-options__rows">
+          <PlacementRow {...props} />
+          <LayoutRows {...props} />
+        </Box>
+        {children != null && <Box className="widget-options__own">{children}</Box>}
+        <HintLine className="widget-options__hint" />
+      </HintScope>
+      {shown && shortcuts.on && <ShortcutsAside panelRef={panelRef} />}
     </Anchored>
   );
 };

@@ -1,0 +1,33 @@
+/* @layer renderer-components @kind style */
+.wizard-review {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-inline-size: 0;
+}
+
+.wizard-review__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-panel);
+}
+
+.wizard-review__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.wizard-review__title {
+  margin: 0;
+  font-size: var(--text-base);
+}
+
+.wizard-review__rows {
+  font-size: var(--text-sm);
+}

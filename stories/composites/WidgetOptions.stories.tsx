@@ -19,10 +19,10 @@ const ARGS: Partial<OptionsArgs> = {
 const ARG_TYPES: StoryLiteArgTypes<OptionsArgs> = {
   title: { control: 'text' },
   placement: { control: 'select', options: ['docked', 'floating', 'popped'], description: 'Where the widget lives when the panel opens.' },
-  canPopOut: { control: 'boolean', description: 'Shows Pop out; a widget that cannot leave the app hides it.' },
-  makeRoomHint: { control: 'text', description: 'The line under Make room.' },
+  canPopOut: { control: 'boolean', description: 'Shows the own window option; a widget that cannot leave the app hides it.' },
+  makeRoomHint: { control: 'text', description: 'The hint line text for Make room.' },
   contextLabel: { control: 'text', description: 'The Show choice for a widget seen only in context.' },
-  ownRows: { control: 'boolean', description: 'The widget adds its own OptionRows.' },
+  ownRows: { control: 'boolean', description: 'The widget adds its own OptionRow, an xs Toggle with a hint.' },
 };
 
 const meta = {
@@ -62,14 +62,19 @@ const CODE = `import { OptionRow, WidgetOptions } from '@drizztdourden08/tessera
   onReset={reset}
   onClose={closeOptions}
 >
-  <OptionRow label="Compact rows" hint="One line per player">
-    <Toggle checked={compact} onChange={setCompact} />
+  <OptionRow label="Rows">
+    <Toggle
+      size="xs"
+      checked={compact}
+      onChange={setCompact}
+      hint={{ label: 'Compact rows', description: 'One line per player, no avatars' }}
+    />
   </OptionRow>
 </WidgetOptions>`;
 
 const Overview = overviewStory({
   component: 'WidgetOptions',
-  description: 'The options panel every widget gets from its gear, pinned under the button. Placement docks the widget to an edge, floats it over the main view, or sends it to its own window and back. A docked widget can make room or lie over the main view; a widget in its own window picks how it pins and whether it snaps to edges. Opacity sets the frame, Show picks always or only in context, the widget adds its own OptionRows, and the keys the dock answers to are listed at the bottom above a reset. Escape, the close button and a press outside close it. Press the gear in each example to open the panel.',
+  description: 'The options panel every widget gets from its gear, pinned under the button. Every choice is a small icon SegmentedControl, and pointing at or tabbing to any option shows its value and what it does in the hint line at the bottom, a HintLine reading the HintScope the panel wraps around its rows. Placement docks the widget to an edge, floats it over the main view, or sends it to its own window; in its own window a pop in button brings it back. A docked widget makes room or lies over the main view as an overlay; a widget in its own window picks how it pins and whether it snaps to edges. Opacity is an xs Slider, Show picks always or only in context, and the widget adds its own OptionRows, whose controls report to the same hint line. The keys button in the header opens the shortcut list in a floating aside beside the panel and remembers that for the session; reset and close sit next to it. Escape, the close button and a press outside close the panel. Press the gear in each example to open it; the line beside the gear shows every value the panel set.',
   playground: Playground,
   variants: [Docked, Floating, OwnWindow, OwnRows],
   code: CODE,

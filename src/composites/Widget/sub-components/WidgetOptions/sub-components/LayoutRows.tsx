@@ -1,44 +1,46 @@
 /* @layer renderer-components @kind component */
-import { SegmentedControl } from '../../../../../primitives/SegmentedControl';
-import type { SegmentOption } from '../../../../../primitives/SegmentedControl/SegmentedControl.type';
 import { Slider } from '../../../../../primitives/Slider';
 import { useTesseraStrings } from '../../../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { Toggle } from '../../../../../primitives/Toggle';
 import type { WidgetVisibility } from '../../../Widget.type';
-import { OPACITY_MAX, OPACITY_MIN, OPACITY_STEP } from '../WidgetOptions.constants';
-import type { LayoutRowsProps } from '../WidgetOptions.type';
+import { OPACITY_MAX, OPACITY_MIN, OPACITY_STEP, ROOM_CHOICES, SHOW_CHOICES } from '../WidgetOptions.constants';
+import type { LayoutRowsProps, RoomChoice } from '../WidgetOptions.type';
+import { ChoiceRow } from './ChoiceRow';
 import { OptionRow } from './OptionRow';
 import { WindowRows } from './WindowRows';
 
 const LayoutRows = (props: LayoutRowsProps) => {
   const { placement, makeRoom, makeRoomHint, onMakeRoomChange, opacity, onOpacityChange, show, onShowChange, contextLabel } = props;
   const { widgets } = useTesseraStrings();
-  const popped = placement === 'popped';
-  const showOptions: SegmentOption<WidgetVisibility>[] = [
-    { value: 'always', label: widgets.showAlways },
-    { value: 'context-only', label: contextLabel ?? widgets.contextLabel },
-  ];
+  const words = { ...widgets, makeRoomHint: makeRoomHint ?? widgets.makeRoomHint, contextLabel: contextLabel ?? widgets.contextLabel };
+  const percent = Math.round(opacity * OPACITY_MAX);
 
   return (
     <>
       {placement === 'docked' && (
-        <OptionRow label={widgets.makeRoom} hint={makeRoomHint ?? widgets.makeRoomHint}><Toggle checked={makeRoom} onChange={onMakeRoomChange} /></OptionRow>
+        <ChoiceRow<RoomChoice>
+          label={widgets.mainView}
+          value={makeRoom ? 'room' : 'overlay'}
+          choices={ROOM_CHOICES}
+          words={words}
+          onChange={(next) => onMakeRoomChange(next === 'room')}
+        />
       )}
-      {popped && <WindowRows {...props} />}
+      {placement === 'popped' && <WindowRows {...props} />}
+      {placement !== 'popped' && (
+        <ChoiceRow<WidgetVisibility> label={widgets.show} value={show} choices={SHOW_CHOICES} words={words} onChange={onShowChange} />
+      )}
       <OptionRow label={widgets.opacity}>
         <Slider
-          value={Math.round(opacity * OPACITY_MAX)}
+          size="xs"
+          value={percent}
           min={OPACITY_MIN}
           max={OPACITY_MAX}
           step={OPACITY_STEP}
           onChange={(v) => onOpacityChange(v / OPACITY_MAX)}
-          showValue
           formatValue={(v) => `${v}%`}
+          hint={{ label: widgets.opacityValue(percent), description: widgets.opacityHint }}
         />
       </OptionRow>
-      {!popped && (
-        <OptionRow label={widgets.show}><SegmentedControl<WidgetVisibility> value={show} options={showOptions} onChange={onShowChange} /></OptionRow>
-      )}
     </>
   );
 };
