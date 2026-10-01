@@ -504,144 +504,154 @@
   },
   "Primitives · Inputs": {
     "TextInput": {
-      "status": "seen",
-      "hash": "7faefbeecc127875",
+      "status": "ok",
+      "hash": "48560bb3c24e512c",
       "at": "2026-10-01"
     },
     "Textarea": {
       "status": "seen",
-      "hash": "fdcb1d3158e49b6a",
+      "hash": "f043cafe020f4c6e",
       "at": "2026-10-01"
     },
     "NumberInput": {
-      "status": "seen",
-      "hash": "965debef8d88379a",
+      "status": "ok",
+      "hash": "99d8153f63b44f16",
       "at": "2026-10-01"
     },
     "Stepper": {
-      "status": "seen",
-      "hash": "01286e8c85944313",
+      "status": "ok",
+      "hash": "220db3de96e4802b",
       "at": "2026-10-01"
     },
     "Checkbox": {
-      "status": "seen",
-      "hash": "432295782683bdd1",
+      "status": "ok",
+      "hash": "f01667d8d97d2b92",
       "at": "2026-10-01"
     },
     "Toggle": {
-      "status": "seen",
-      "hash": "f58bda1f87f1814a",
+      "status": "ok",
+      "hash": "7d91882f5324865e",
       "at": "2026-10-01"
     },
     "ToggleGroup": {
-      "status": "seen",
-      "hash": "1499142b20c46bc6",
+      "status": "ok",
+      "hash": "9765ca1df5d8f543",
       "at": "2026-10-01"
     },
     "RadioGroup": {
-      "status": "seen",
-      "hash": "64a9793d0948e471",
+      "status": "ok",
+      "hash": "a0fbdaa133f6ce93",
       "at": "2026-10-01"
     },
     "SegmentedControl": {
-      "status": "seen",
-      "hash": "36f042cca4d3fe38",
+      "status": "ok",
+      "hash": "3ab15aa1dcc75ff1",
       "at": "2026-10-01"
     },
     "Select": {
-      "status": "seen",
-      "hash": "6bbee5c08f68d1e3",
+      "status": "ok",
+      "hash": "f421b148aabbf8c7",
       "at": "2026-10-01"
     },
     "Combobox": {
-      "status": "seen",
-      "hash": "4a384761d8259728",
+      "status": "ok",
+      "hash": "2bcb9cbd2e1860fb",
       "at": "2026-10-01"
     },
     "Slider": {
       "status": "seen",
-      "hash": "b004a023d01e95a0",
+      "hash": "5f61d469e5f3a30e",
       "at": "2026-10-01"
     },
     "RangeInput": {
       "status": "seen",
-      "hash": "f7a09cc5187ca72e",
+      "hash": "8f85dcb884d84d9f",
       "at": "2026-10-01"
     },
     "RangeSlider": {
       "status": "seen",
-      "hash": "1b4eb66d8c374547",
+      "hash": "c0523014ba2638f9",
       "at": "2026-10-01"
     },
     "PositionInput": {
       "status": "seen",
-      "hash": "9dcf6140673215bb",
+      "hash": "0efa674898d47dbd",
       "at": "2026-10-01"
     },
     "TagInput": {
-      "status": "seen",
-      "hash": "8ea155a6fa2bbeca",
+      "status": "ok",
+      "hash": "5a030248b8227068",
       "at": "2026-10-01"
     },
     "TagPicker": {
-      "status": "seen",
-      "hash": "27bb0ae4f251ebfe",
+      "status": "ok",
+      "hash": "50b1f803290b429b",
       "at": "2026-10-01"
     },
     "ColorSwatch": {
-      "status": "seen",
-      "hash": "a73359edda31e08c",
+      "status": "ok",
+      "hash": "bfcd9dfd9c3470b5",
       "at": "2026-10-01"
     },
     "DropZone": {
-      "status": "seen",
-      "hash": "eae978351c2adb7a",
+      "status": "ok",
+      "hash": "4ad596f2f81a8720",
       "at": "2026-10-01"
     },
     "Field": {
-      "status": "seen",
-      "hash": "f6d97c62ac1b35aa",
+      "status": "ok",
+      "hash": "92e8e1841d0d48e8",
       "at": "2026-10-01"
     }
   },
   "Primitives · Feedback": {
     "Spinner": {
-      "status": "seen",
-      "hash": "3a874fc56b68e125",
-      "at": "2026-09-30"
+      "status": "ok",
+      "hash": "f3dd49878bb40ef7",
+      "at": "2026-10-01"
     },
     "ProgressBar": {
-      "status": "seen",
-      "hash": "136e7c833fbed12e",
+      "status": "ok",
+      "hash": "b0e374768b47338e",
       "at": "2026-10-01"
     },
     "ProgressRing": {
-      "status": "new"
+      "status": "ok",
+      "hash": "4db07ae045aab2ea",
+      "at": "2026-10-01"
     },
     "Toast": {
-      "status": "new"
+      "status": "ok",
+      "hash": "ff17d8cbd2cfe208",
+      "at": "2026-10-01"
     },
     "Tooltip": {
-      "status": "new"
+      "status": "ok",
+      "hash": "27d363a3a159944d",
+      "at": "2026-10-01"
     },
     "HintLine": {
-      "status": "new"
+      "status": "ok",
+      "hash": "1ddcaeb826962dbd",
+      "at": "2026-10-01"
     },
     "Callout": {
-      "status": "new"
+      "status": "ok",
+      "hash": "ad5c8b413880e167",
+      "at": "2026-10-01"
     }
   },
   "Primitives · Navigation": {
     "TabBar": {
       "status": "seen",
-      "hash": "1f01cee37ce388ee",
+      "hash": "dde69384e519c562",
       "at": "2026-10-01"
     }
   },
   "Primitives · Setup": {
     "TesseraProvider": {
       "status": "seen",
-      "hash": "9f0379d47fa1c57f",
+      "hash": "9bcd625f66217f12",
       "at": "2026-10-01"
     }
   },
