@@ -5,7 +5,7 @@
   gap: var(--space-2xs);
 }
 
-.video-volume__input.range-input {
+.video-volume__input.video-track {
   width: 0;
   opacity: 0;
   transition: width var(--transition-normal), opacity var(--transition-normal);
@@ -18,7 +18,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .video-volume__input.range-input {
+  .video-volume__input.video-track {
     transition: none;
   }
 }

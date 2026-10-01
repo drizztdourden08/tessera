@@ -134,3 +134,9 @@ export { CreateRecordDialog } from './CreateRecordDialog';
 export type { CreateOutcome, CreateRecordDialogProps } from './CreateRecordDialog';
 export { CompactRecordView } from './CompactRecordView';
 export type { CompactIdRefResolver, CompactRecordViewProps, FieldDifference } from './CompactRecordView';
+export { PatternInput, escapePatternText, parsePattern } from './PatternInput';
+export type {
+  ParsedPattern, PatternAction, PatternActions, PatternChoice, PatternIcons, PatternInputProps, PatternLists, PatternPart,
+  PatternSetup, PatternSlotCase, PatternSlotChars, PatternSlotConfig, PatternSlotConfigs, PatternSlotControl, PatternSlotSpec,
+  PatternSlotType, PatternSlotValue, PatternValue,
+} from './PatternInput';

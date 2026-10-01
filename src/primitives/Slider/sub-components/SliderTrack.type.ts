@@ -1,6 +1,16 @@
 /* @layer renderer-components @kind types */
-import type { SliderProps } from '../Slider.type';
+import type { ReactNode } from 'react';
+import type { SliderScale } from '../behavior/slider-scale.type';
+import type { SliderLabels } from '../Slider.type';
 
-type SliderTrackProps = Omit<SliderProps, 'label' | 'description' | 'size' | 'hint' | 'onHint' | 'aria-label'> & { name?: string };
+interface SliderTrackProps {
+  scale: SliderScale;
+  labels?: SliderLabels;
+  span: readonly [number, number];
+  readout: ReactNode;
+  before?: ReactNode;
+  children: ReactNode;
+  onTrackPick?: (fraction: number) => void;
+}
 
 export type { SliderTrackProps };

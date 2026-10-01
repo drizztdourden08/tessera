@@ -2,7 +2,9 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
-import { Field, Textarea, type ControlSize } from '../../src/primitives';
+import { Field, Textarea, type ControlSize, type TextareaResize } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -16,12 +18,15 @@ type TextareaArgs = {
   disabled: boolean;
   readOnly: boolean;
   invalid: boolean;
+  resize: TextareaResize;
   size: ControlSize;
 };
 
+const RESIZES: readonly TextareaResize[] = ['vertical', 'none', 'horizontal', 'both'];
+
 const SESSION_NOTES = 'Picked up the lamp early.\nSkipped the sewer route and went straight to the throne room.';
 
-const ARGS: Partial<TextareaArgs> = { initialValue: SESSION_NOTES, placeholder: 'Notes for this session', rows: 4, disabled: false, readOnly: false, invalid: false, size: 'md' };
+const ARGS: Partial<TextareaArgs> = { initialValue: SESSION_NOTES, placeholder: 'Notes for this session', rows: 4, disabled: false, readOnly: false, invalid: false, resize: 'vertical', size: 'md' };
 
 const ARG_TYPES: StoryLiteArgTypes<TextareaArgs> = {
     initialValue: { control: 'textarea' },
@@ -30,6 +35,7 @@ const ARG_TYPES: StoryLiteArgTypes<TextareaArgs> = {
     disabled: { control: 'boolean' },
     readOnly: { control: 'boolean' },
     invalid: { control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
+    resize: { control: 'select', options: [...RESIZES], description: 'Which way the corner handle drags. none locks the size.' },
     size: SIZE_ARG,
   };
 
@@ -56,12 +62,24 @@ const Playground = {
       disabled={args.disabled}
       readOnly={args.readOnly}
       invalid={args.invalid}
+      resize={args.resize}
       size={args.size}
     />
   ),
 } satisfies StoryLiteStoryDefinition<TextareaArgs>;
 
 const Sizes = sizesStory<TextareaArgs>((size) => <Textarea size={size} rows={1} defaultValue="One line of notes" />, { align: 'stretch' });
+
+const Resize = {
+  name: 'Resize',
+  render: () => (
+    <Demonstrator
+      rows={axis(RESIZES)}
+      align="stretch"
+      cell={(resize) => <Textarea resize={resize} rows={2} defaultValue={resize === 'none' ? 'Locked at two rows.' : `Drag the corner: ${resize}.`} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TextareaArgs>;
 
 const InField = {
   name: 'In a field',
@@ -82,9 +100,9 @@ const renderError = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'Textarea',
-  description: 'A multi-line text field, the styled replacement for a raw textarea. Use it for notes, descriptions and any text longer than one line. size sets the padding and text: at one row, md matches the standard control height and sm the compact one. It takes every native textarea attribute, including rows, placeholder, disabled and readOnly, and forwards its ref. Set invalid for the error look, or wrap it in a Field with an error: the field sets invalid for it and shows the message.',
+  description: 'A multi-line text field, the styled replacement for a raw textarea. Use it for notes, descriptions and any text longer than one line. size sets the padding and text: at one row, md matches the standard control height and sm the compact one. It takes every native textarea attribute, including rows, placeholder, disabled and readOnly, and forwards its ref. resize sets which way the corner handle drags: vertical by default, none to lock the size, horizontal or both. Set invalid for the error look, or wrap it in a Field with an error: the field sets invalid for it and shows the message.',
   playground: Playground,
-  variants: [Sizes, InField],
+  variants: [Sizes, Resize, InField],
   states: {
     render: renderState,
     list: [
@@ -100,4 +118,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { InField, Overview, Playground, Sizes };
+export { InField, Overview, Playground, Resize, Sizes };

@@ -1,80 +1,59 @@
 /* @layer stories @kind component */
-import { useState } from 'react';
 import type { ReactNode } from 'react';
-import { AboutPanel, ErrorBoundary } from '../../../src/composites';
+import { Logo } from '../../../src/brand';
 import {
-  Box, Button, CodeBlock, DropZone, EmptyState, Flex, Icon, Image, Select, TagInput, Text, Thumbnail, Toggle,
+  Button, CodeBlock, DropZone, EmptyState, Flex, Icon, Image, Select, Spinner, Thumbnail,
 } from '../../../src/primitives';
-import { Demonstrator } from '../../_template/Demonstrator';
+import type { TesseraOverrides, TesseraPart } from '../../../src/primitives';
 import { axis } from '../../_template/axis';
-import { SHOWN_ICONS } from './provider-app-icons.constants';
+import { Demonstrator } from '../../_template/Demonstrator';
+import type { OverviewSection } from '../../_template/OverviewPage';
+import { MosaicSpinner } from './MosaicSpinner';
+import { APP_ICONS, SHOWN_ICONS } from './provider-app-icons.constants';
+import { AppCrashScreen, AppImagePlaceholder, AppLink } from './provider-app-parts';
+import { APP_STRINGS } from './provider-app-strings.constants';
+import { CrashDemo } from './provider-crash-demo';
+import { LinkDemo } from './provider-link-demo';
+import { PART_TEXT } from './provider-part-text.constants';
+import { ProviderPart } from './ProviderPart';
 
-const NO_TAGS: string[] = [];
+type AppOverrides = (report: (line: string) => void) => TesseraOverrides;
 
 const noop = () => undefined;
 
-const PartSection = (props: { title: string; note: string; children: ReactNode }) => (
-  <Box className="story-column">
-    <Text variant="subtitle">{props.title}</Text>
-    <Text variant="caption">{props.note}</Text>
-    {props.children}
-  </Box>
-);
-
-const ClipboardDemo = () => (
-  <Flex gap="md" align="start" wrap>
-    <CodeBlock language="text" code="pnpm add @drizztdourden08/tessera" copyable wrap />
-    <AboutPanel title="Brock Demo" rows={[{ label: 'Version', value: '1.4.0' }]} copyText="Brock Demo 1.4.0, Electron 38" />
-  </Flex>
-);
-
-const LinkDemo = () => (
-  <Flex gap="lg" align="center" wrap>
-    <Toggle checked label="Sync saves" description="Keeps saves in step across machines." link="/settings/sync" onChange={noop} />
-    <Box href="/guides/provider">Read the setup guide</Box>
-  </Flex>
-);
-
-const ImageDemo = () => (
-  <Flex gap="md" align="start" wrap>
-    <Image src="data:image/png;base64,AAAA" alt="Boss art" width={160} />
-    <Image pending alt="Map art" width={160} />
-    <Thumbnail src={null} alt="Save slot" width={96} />
-  </Flex>
-);
-
-const StringsDemo = () => (
-  <Flex gap="md" align="start" wrap>
-    <Select options={[]} aria-label="Build" />
-    <TagInput value={NO_TAGS} onChange={noop} />
-    <DropZone onDrop={noop} />
-  </Flex>
-);
-
-const Crashing = (props: { armed: boolean }) => {
-  if (props.armed) throw new Error('The sample threw on purpose.');
-  return <Text>This section draws fine.</Text>;
+const SPINNER_CELLS: Readonly<Record<string, ReactNode>> = {
+  'Spinner': <Spinner />,
+  'Loading button': <Button variant="primary" loading>Save</Button>,
+  'Loading select': <Select options={[]} loading placeholder="Pick a build" aria-label="Build" />,
 };
 
-const CrashDemo = () => {
-  const [armed, setArmed] = useState(false);
-  const [attempt, setAttempt] = useState(0);
-  return (
-    <Box className="story-column">
-      <Button variant="secondary" size="sm" onClick={() => setArmed(true)}>Break this section</Button>
-      <ErrorBoundary
-        resetKey={attempt}
-        onError={() => setArmed(false)}
-        action={<Button variant="tertiary" size="sm" onClick={() => setAttempt(attempt + 1)}>Show it again</Button>}
-      >
-        <Crashing armed={armed} />
-      </ErrorBoundary>
-    </Box>
-  );
+const IMAGE_CELLS: Readonly<Record<string, ReactNode>> = {
+  loading: <Image pending alt="Map art" width={120} height={80} />,
+  broken: <Image src="data:image/png;base64,AAAA" alt="Boss art" width={120} height={80} />,
+  empty: <Thumbnail src={null} alt="Save slot" width={80} />,
 };
 
-const EmptyDemo = () => <EmptyState message="No saves yet." action={<Button size="sm">New save</Button>} />;
+const section = (part: TesseraPart, app: AppOverrides | undefined, demo: ReactNode, reports = false): OverviewSection => ({
+  title: PART_TEXT[part].title,
+  node: <ProviderPart part={part} app={app} reports={reports}>{demo}</ProviderPart>,
+});
 
-const IconDemo = () => <Demonstrator columns={axis(SHOWN_ICONS)} cell={(_row, name) => <Icon name={name} size={24} />} />;
+const PROVIDER_SECTIONS: readonly OverviewSection[] = [
+  section('spinner', () => ({ spinner: MosaicSpinner }),
+    <Demonstrator columns={axis(Object.keys(SPINNER_CELLS))} cell={(_row, name) => SPINNER_CELLS[name]} />),
+  section('writeText', (report) => ({ writeText: (text) => report(`The app clipboard got "${text}"`) }),
+    <CodeBlock language="text" code="pnpm add @drizztdourden08/tessera" copyable />, true),
+  section('link', () => ({ link: AppLink }), <LinkDemo />, true),
+  section('imagePlaceholder', () => ({ imagePlaceholder: AppImagePlaceholder }),
+    <Demonstrator columns={axis(Object.keys(IMAGE_CELLS))} cell={(_row, name) => IMAGE_CELLS[name]} />),
+  section('strings', () => ({ strings: APP_STRINGS }),
+    <Flex gap="md" align="start" wrap><Select options={[]} aria-label="Build" /><DropZone onDrop={noop} /></Flex>),
+  section('errorFallback', () => ({ errorFallback: AppCrashScreen }), <CrashDemo />),
+  section('emptyArt', () => ({ emptyArt: <Logo brand="rotp" size="lg" /> }),
+    <EmptyState message="No saves yet." action={<Button size="sm">New save</Button>} />),
+  section('portalDocument', undefined, null),
+  section('icons', () => ({ icons: APP_ICONS }),
+    <Demonstrator columns={axis(SHOWN_ICONS)} cell={(_row, name) => <Icon name={name} size={32} />} />),
+];
 
-export { ClipboardDemo, CrashDemo, EmptyDemo, IconDemo, ImageDemo, LinkDemo, PartSection, StringsDemo };
+export { PROVIDER_SECTIONS };

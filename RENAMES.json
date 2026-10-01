@@ -69,6 +69,30 @@
     "--c-upgrade-dim": "--c-tag-violet-dim",
     "--c-upgrade": "--c-tag-violet"
   },
+  "components": {
+    "TabBar": "Tabs",
+    "RangeSlider": "Slider (with range; see MIGRATION.md)",
+    "RangeInput": "Slider (see MIGRATION.md)",
+    "PositionInput": "PatternInput with a pattern such as \"X {x:number 0..63}  Y {y:number 0..63}\" (see MIGRATION.md)"
+  },
+  "cssClasses": {
+    "tab-bar": "tabs",
+    "range-slider__input--top": "slider__input--top",
+    "range-slider__input": "slider__input",
+    "range-slider__track": "slider__rail",
+    "range-slider__ticks": "slider__marks",
+    "range-slider__tick--in": "slider__mark--in",
+    "range-slider__tick": "slider__mark",
+    "range-slider--disabled": "slider--disabled",
+    "range-slider": "slider slider--range",
+    "range-input": "slider__input",
+    "position-input__axes": "pattern-input__surface",
+    "position-input__field": "pattern-input__slot",
+    "position-input__label": "field__label",
+    "position-input__axis": "pattern-input__segment",
+    "position-input__cap": "pattern-input__literal",
+    "position-input": "pattern-input"
+  },
   "propValues": {
     "ProgressBar.variant": {
       "gold": "primary",
@@ -83,6 +107,9 @@
     }
   },
   "props": {
+    "RangeSlider.ariaLabel": "Slider.aria-label",
+    "RangeSlider.labelEvery": "Slider.labels (the rule \"every N\")",
+    "RangeSlider.step": "Slider.keyStep",
     "WidgetManager.gameRunning": "WidgetManager.contextActive",
     "WidgetManager.vanillaSafe + WidgetManager.settings": "WidgetManager.resolveDisabled (callback, see MIGRATION.md)"
   },
@@ -95,6 +122,15 @@
     "StatusBadgeProps": "replaced by StatusProps",
     "WizardDialogShell": "replaced by WizardFrame with presentation=\"dialog\" and useWizard; see MIGRATION.md",
     "WizardDialogShellProps": "replaced by WizardFrameProps",
-    "WizardStep (type)": "replaced by WizardStepDef; WizardStep is now the component for one step"
+    "WizardStep (type)": "replaced by WizardStepDef; WizardStep is now the component for one step",
+    "RangeSliderProps": "replaced by SliderProps with range: true",
+    "RangeInputProps": "replaced by SliderProps",
+    "PositionInputProps": "replaced by PatternInputProps",
+    "PositionAxis": "replaced by the range, step and label args of a number slot in the pattern",
+    "PositionValue": "replaced by PatternValue, an object keyed by slot name",
+    "clampAxis": "removed; PatternInput clamps a number slot to its range when the slot is left",
+    "clampPosition": "removed; PatternInput clamps each slot to its range when the slot is left",
+    "isValidForAxis": "removed; PatternInput emits only values inside the range",
+    "isWithinAxis": "removed; PatternInput emits only values inside the range"
   }
 }

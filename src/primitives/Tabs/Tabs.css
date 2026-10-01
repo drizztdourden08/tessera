@@ -1,0 +1,106 @@
+/* @layer renderer-components @kind style */
+.tabs {
+  --tabs-pager: var(--control-h-sm);
+  --tabs-fade: var(--space-lg);
+
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+}
+
+.tabs__strip {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  min-width: 0;
+  overflow: auto hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: calc(var(--tabs-clear-back, 0%) + var(--tabs-fade-back, 0%)) calc(var(--tabs-clear-forward, 0%) + var(--tabs-fade-forward, 0%));
+  scrollbar-width: none;
+}
+
+.tabs[data-back] {
+  --tabs-clear-back: var(--tabs-pager);
+  --tabs-fade-back: var(--tabs-fade);
+}
+
+.tabs[data-forward] {
+  --tabs-clear-forward: var(--tabs-pager);
+  --tabs-fade-forward: var(--tabs-fade);
+}
+
+.tabs[data-back] .tabs__strip,
+.tabs[data-forward] .tabs__strip {
+  mask-image: linear-gradient(
+    to right,
+    transparent var(--tabs-clear-back, 0%),
+    var(--c-bg) calc(var(--tabs-clear-back, 0%) + var(--tabs-fade-back, 0%)),
+    var(--c-bg) calc(100% - var(--tabs-clear-forward, 0%) - var(--tabs-fade-forward, 0%)),
+    transparent calc(100% - var(--tabs-clear-forward, 0%))
+  );
+}
+
+.tabs__strip::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs__pager {
+  position: absolute;
+  inset-block: 0;
+  z-index: var(--z-base);
+  margin-block: auto;
+}
+
+.tabs__pager--back {
+  inset-inline-start: 0;
+}
+
+.tabs__pager--forward {
+  inset-inline-end: 0;
+}
+
+.tabs__tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-bottom: var(--border-width-thick) solid transparent;
+  background: transparent;
+  color: var(--c-text-dim);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: color var(--transition-normal), border-color var(--transition-normal);
+  white-space: nowrap;
+}
+
+.tabs__tab:hover {
+  color: var(--c-text);
+}
+
+.tabs__tab--active {
+  color: var(--c-primary-bright);
+  border-bottom-color: var(--c-primary);
+}
+
+.tabs__icon {
+  display: inline-flex;
+  flex: none;
+  font-size: var(--text-base);
+}
+
+.tabs__label {
+  line-height: var(--leading-tight);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs__strip {
+    scroll-behavior: auto;
+  }
+
+}

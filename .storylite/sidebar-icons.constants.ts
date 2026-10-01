@@ -5,6 +5,7 @@ const GROUP_ICONS: Record<string, string> = {
   'Primitives · Inputs': 'text-cursor-input', 'Primitives · Feedback': 'message-square-warning', 'Primitives · Navigation': 'compass',
   'Primitives · Setup': 'wrench',
   'Composites · Dialogs': 'app-window', 'Composites · Wizard': 'wand-sparkles', 'Composites · Navigation': 'signpost', 'Composites · Menus': 'menu',
+  'Composites · Inputs': 'text-cursor-input',
   'Composites · Data views': 'table', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
 };
@@ -48,15 +49,15 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Primitives · Inputs': {
     TextInput: 'text-cursor-input', Textarea: 'letter-text', NumberInput: 'hash', Stepper: 'diff', Checkbox: 'square-check',
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',
-    Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal', RangeInput: 'move-horizontal',
-    RangeSlider: 'sliders-vertical', PositionInput: 'move', TagInput: 'tag', TagPicker: 'tags', ColorSwatch: 'paint-bucket',
+    Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal',
+    TagInput: 'tag', TagPicker: 'tags', ColorSwatch: 'paint-bucket',
     DropZone: 'upload', Field: 'form-input',
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Toast: 'bell', Tooltip: 'message-square',
     HintLine: 'text-quote', Callout: 'megaphone',
   },
-  'Primitives · Navigation': { TabBar: 'panels-top-left' },
+  'Primitives · Navigation': { Tabs: 'panels-top-left' },
   'Primitives · Setup': { TesseraProvider: 'replace' },
   'Composites · Dialogs': {
     Dialog: 'app-window', DialogShell: 'app-window-mac', CreateRecordDialog: 'file-plus',
@@ -81,6 +82,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     LogPanel: 'logs', AboutPanel: 'info', FactsPanel: 'table-properties', ReleaseNotesPanel: 'notebook-text', Emphasis: 'wand-sparkles',
     ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', PixelWordmark: 'type-outline', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
+  'Composites · Inputs': { PatternInput: 'braces' },
   'Composites · Input devices': { CalibrationPanel: 'crosshair', PressedGrid: 'grid-2x2-check', StickPlot: 'joystick' },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog' },
   'Composites · Screens': { Hero: 'mountain-snow' },

@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.slider-stage {
+  width: var(--size-512);
+  max-width: 100%;
+}

@@ -279,7 +279,7 @@ A badge is a count or a dot, a status is a read-only word for the state somethin
 - `strings: TesseraStringsOverride`, the wording; see below.
 - `errorFallback: ComponentType<ErrorFallbackProps>` (`error`, `label`, `action`, `reset`, `className`) replaces the panel every `ErrorBoundary` draws. `reset` clears the boundary and draws its children again; `label` is the boundary's `label` or the table's wording.
 - `emptyArt: ReactNode` is drawn by every `EmptyState` that has no `icon`, in `.empty-state__art`. `icon={null}` opts one out.
-- `portalDocument: Document` replaces `PortalDocumentContext`, which is removed. `<PortalDocumentContext value={doc}>` becomes `<TesseraProvider overrides={{ portalDocument: doc }}>`. A `Portal` still prefers the document it is rendered in.
+- `portalDocument: Document` replaces `PortalDocumentContext`, which is removed. `<PortalDocumentContext value={doc}>` becomes `<TesseraProvider overrides={{ portalDocument: doc }}>`. A `Portal` renders into the provider's document when one is named, and otherwise into the document it is rendered in (see section 37).
 - `icons: IconSet`, a `Readonly<Record<IconName, IconifyIcon>>`, serves every `Icon` name. The type wants every name, so a set built without one fails to compile; spread `ICONS` and replace the names the app draws its own way. `Icon.Brand` and an `Icon` given `icon` data are unchanged.
 
 `AboutPanel` loses `onCopy` and the `AboutPanelCopy` type: a desktop host that writes the clipboard itself gives `writeText` to the provider once. `copyLabel` stays.
@@ -503,3 +503,203 @@ Every input takes `size`: `'md'`, the default, or `'sm'`. The two sizes differ m
 ```
 
 rotp replaces `size="xs"` on SegmentedControl, Toggle and Slider with `size="sm"`, and passes `size="sm"` where it wants the old Stepper, Checkbox, ColorSwatch or inline DropZone. A compact form can set `size="sm"` once on each `Field`.
+
+## 37. TabBar is now Tabs, its arrows take no room, and portalDocument wins
+
+- `TabBar` is renamed `Tabs`. The props and the `TabItem` type are unchanged. There is no alias: change the import and the tag.
+- Its classes follow the new name: `.tab-bar` and every `.tab-bar__*` part are now `.tabs` and `.tabs__*`. A host stylesheet that reached into the old classes renames them. Both renames are in RENAMES.json.
+- The scroll arrows of an overflowing strip no longer keep a blank space at each end. The left arrow shows only once the strip has scrolled away from the start, and the right arrow only while more tabs wait to the right. Each arrow sits over the strip, on a faded edge, so the first tab starts at the left edge. The `.tabs__pager--idle` class is gone; the arrows are `.tabs__pager--back` and `.tabs__pager--forward`.
+- The Tab key skips the arrows, and clicking one leaves focus where it was. The arrow keys, Home and End still move along the tabs.
+- `HeaderTabs` is a separate composite and keeps its name.
+- `portalDocument` in `TesseraProvider` now wins: a `Portal` renders into that document ahead of the one it is rendered in, as an app hosting Tessera in an iframe needs. With no `portalDocument` set, a `Portal` still uses its own document.
+
+```tsx
+import { TabBar } from '@drizztdourden08/tessera';
+<TabBar tabs={TABS} activeTab={active} onTabChange={setActive} />
+
+import { Tabs } from '@drizztdourden08/tessera';
+<Tabs tabs={TABS} activeTab={active} onTabChange={setActive} />
+```
+
+rotp and Brock both use `TabBar`: each replaces the import and the tag with `Tabs`, and renames any `.tab-bar` selector to `.tabs`.
+
+## 38. One Slider: range mode, named stops and labels from a rule; Textarea locks its size
+
+`RangeSlider` and `RangeInput` are gone, with no alias. `Slider` does both jobs.
+
+### Slider
+
+- `range` switches the mode. Without it the slider has one thumb and `value` is a number; with `range` it has two thumbs and `value` is `[low, high]`, and `onChange` gets a fresh `[low, high]`. The props are a union on `range`, so TypeScript checks the value type against the mode. The low thumb never passes the high one.
+- `stops` (a list of names) turns the track into named positions: `min` is 0, `max` is the last index, and `value` is an index. The readout and the screen reader text read the stop name. With stops and no `labels`, every stop is labelled, as `RangeSlider` did.
+- `labels` writes labels under the track, with a tick above each one, in both modes and at both sizes. Labels that would overlap thin out to an even stride, always keeping the first and last; the ticks of hidden labels hide with them. Labels inside the selected part are brighter.
+- In range mode, a press on the bare track moves the nearer thumb there, snapped to a step, and focuses it. With both thumbs on one value, the thumb on the side pressed moves. The low thumb still never passes the high one.
+- The thumb looks the same in Firefox: `src/theme/slider-thumb.css` styles `::-moz-range-thumb` beside `::-webkit-slider-thumb`, and clears `::-moz-range-track` and `::-moz-range-progress` so the rail draws the bar and the fill in both engines.
+- `keyStep` sets a coarser stride for the arrow keys; `step` stays the stride for the pointer and the native keys.
+- `min` and `max` are optional, 0 and 100 by default. `value` is optional: leave it out and pass `defaultValue` to let the slider keep its own value. `onChange` is optional too. `id`, `name` and `className` pass through; `name` puts the slider in a form, and in range mode both inputs carry it.
+- Kept: `label`, `description`, `showValue`, `formatValue`, `mute` and `onMuteToggle` (one thumb only), `size` (`md`, `sm`), `hint`, `onHint`, `disabled` and `aria-label`.
+- In range mode the readout shows both ends, with a dash between them that CSS draws.
+- The inputs now always have an accessible name: `aria-label`, then `label`, then `hint.label`. In range mode the thumbs read `<name> start` and `<name> end`.
+- The track is drawn by `.slider__rail` and its `::before`; the input is transparent over it. `--slider-lo` and `--slider-hi` set the filled part, and `--slider-thumb`, `--slider-bar` and `--slider-tick` come from the size class. `.slider__marks`, `.slider__mark`, `.slider__mark-text` and the `--start`, `--end`, `--in` and `--hidden` modifiers draw the labels. `.slider--range` marks range mode. The disabled slider dims by `--opacity-disabled`.
+
+### The labels field
+
+`labels` takes one of three things.
+
+1. A rule string, in two halves split by `|`: where the labels go, then how each reads. Either half can be left out.
+2. A list of `[value, label]` pairs, where the label is a string or any node. Pairs outside `min` and `max` are dropped.
+3. A function `(value) => label`, called on every step. Return `null`, `false` or an empty string for no label there. It runs on up to 2000 steps; past that it warns and draws nothing.
+
+Where the labels go, joined with `+` to combine:
+
+| Write | Places a label |
+|---|---|
+| `every N` | every N, counted from `min` |
+| `count N` | N times, spread evenly from `min` to `max`, each on a step |
+| `ends` | at `min` and `max` |
+| `steps` | on every step |
+| `0, 50, max` | at these values; `min` and `max` name the ends, and `at` in front reads the same |
+| `0=Off` | at 0, with its own text, which wins over the template |
+| `none` | nowhere |
+
+How each label reads:
+
+| Write | Gives |
+|---|---|
+| `{v}` | the value |
+| `{v:0.0}` | the value in a number format: `0` whole, `0.0` one decimal, `0.##` up to two, `#,##0` grouped, `+0` signed |
+| `{v*100}` | the value worked out first, with `*`, `/`, `+` or `-` and a number; it takes a format too, `{v*100:0}` |
+| `{p}` | how far along the track, in percent |
+| `{stop}` | the stop name |
+| `{heart\|hearts}` | the first form at 1 and the second otherwise; `{none\|one\|many}` adds a form for 0 |
+| `[Low, Medium, High]` | one word per label, in order |
+| any other text | itself |
+
+Left out, the template is the readout text: the stop name, or `formatValue`, or the plain number. Left out, the placement is `steps`, or one label per word for a word list. A rule that does not read gives a warning in development, naming the rule and the problem, and no labels; it never throws. A placement that would make more than 500 labels is refused the same way.
+
+```tsx
+<Slider min={0.5} max={4} step={0.25} value={zoom} onChange={setZoom} labels="every 0.5 | {v}x" />
+<Slider value={cost} onChange={setCost} labels="every 25 + 0=Off | {v}%" />
+<Slider max={1000} step={50} value={delay} onChange={setDelay} labels="0, 250, 500, 1000 | {v} ms" />
+<Slider max={0.5} step={0.01} value={deadzone} onChange={setDeadzone} labels="every 0.1 | {v*100:0}%" />
+<Slider value={quality} onChange={setQuality} labels="[Low, Medium, High]" />
+<Slider min={1} max={8} value={hearts} onChange={setHearts} labels="every 2 + ends | {v} {heart|hearts}" />
+<Slider value={volume} onChange={setVolume} labels={[[0, <Glyph name="mute" />], [100, <Glyph name="volume" />]]} />
+<Slider max={180} step={15} value={angle} onChange={setAngle} labels={(v) => (v % 45 === 0 ? `${v}°` : null)} />
+```
+
+### Moving from RangeSlider and RangeInput
+
+- `RangeSlider` becomes `Slider` with `range`. `ariaLabel` becomes `aria-label`. `step`, which was the keyboard stride over stops, becomes `keyStep`. `labelEvery={n}` becomes `labels="every n"`. `stops`, `value`, `onChange`, `disabled`, `size` and `className` keep their names. A `Slider` shows the readout by default; pass `showValue={false}` for the old look.
+- `RangeInput` becomes `Slider`. Pass `value` and `onChange` (which now gets the number, not the event), or `defaultValue` alone. Set `showValue={false}` and leave out `label` for the bare control.
+- The classes `range-slider*` and `range-input` are gone. RENAMES.json maps them to the `slider` classes, and maps the props.
+- `RangeSliderProps` and `RangeInputProps` are removed; use `SliderProps`. `SliderLabels`, `SliderLabelEntry` and `SliderPair` are exported.
+- Inside Tessera, `Video` drew its seek and volume bars on `RangeInput`. They are plain range inputs now, styled by `.video-track` alone; they look the same.
+
+```tsx
+<RangeSlider stops={SPEEDS} value={range} onChange={setRange} labelEvery={2} step={2} ariaLabel="Turbo speed range" />
+<Slider range stops={SPEEDS} value={range} onChange={setRange} labels="every 2" keyStep={2} aria-label="Turbo speed range" />
+
+<RangeInput value={cost} min={0} max={100} onChange={(event) => setCost(Number(event.target.value))} aria-label="Hint cost" />
+<Slider value={cost} onChange={setCost} showValue={false} aria-label="Hint cost" />
+```
+
+### Textarea
+
+`Textarea` takes `resize`: `'vertical'` (the default, as before), `'none'` to lock the size, `'horizontal'` or `'both'`. It sets the CSS `resize` through the classes `textarea--resize-none`, `textarea--resize-vertical`, `textarea--resize-horizontal` and `textarea--resize-both`. `rows` still sets the starting height. `TextareaProps` and `TextareaResize` are exported.
+
+```tsx
+<Textarea rows={4} resize="none" />
+```
+
+rotp and Brock replace each `RangeSlider` and `RangeInput` as above, and pass `resize="none"` to a Textarea whose size must not change.
+
+## 39. PatternInput replaces PositionInput
+
+`PositionInput` is gone, with no alias. `PatternInput` does its job and many more: the developer writes the field as a pattern of muted text and typed slots, each slot is its own segment, and the slot in focus opens a popover with the control its type calls for.
+
+The name says what the API is: one pattern string says what the field shows and asks for. It reads in the spirit of the Slider label rule in section 38: braces hold a value, a colon says what kind it is, and `|` separates alternatives.
+
+PatternInput is a composite, since a colour slot opens the ColorPicker. It is exported from the package root and from `/composites`. The ColorPicker loads the first time a colour popover opens, so react-color stays out of an app that never shows one.
+
+### Moving from PositionInput
+
+```tsx
+<PositionInput label="Spawn tile" value={spawn} onChange={setSpawn} x={{ min: 0, max: 63 }} y={{ min: 0, max: 63 }} />
+
+<Field label="Spawn tile">
+  <PatternInput pattern="X {x:number 0..63}  Y {y:number 0..63}" value={spawn} onChange={setSpawn} />
+</Field>
+```
+
+- `x` and `y` become the args of each slot: the range, `stepN` and a quoted label, as in `{x:number 0..63 step8 "Column"}`. A fractional step takes a decimal slot: `{x:decimal 2 0..1 step0.05}`.
+- `label` moves to a `Field` around the input, or to `aria-label`.
+- `value` is still `{ x, y }`, keyed by slot name. A slot left empty is `null`. `onChange` gets the whole object each time a slot holds a new valid value.
+- `clampAxis`, `clampPosition`, `isValidForAxis` and `isWithinAxis` are removed, with `PositionAxis`, `PositionValue` and `PositionInputProps`. A number slot settles into its range when it is left, and `onChange` never gets a value outside it.
+- The `.position-input` classes are gone. RENAMES.json maps them to the `.pattern-input` parts.
+- Inside Tessera, RecordEditor draws an x and y pair with PatternInput, and builds the pattern from the field labels and bounds.
+
+### The pattern
+
+| Write | Means |
+|---|---|
+| any text | Shown as written, muted. Spaces count. |
+| `{name:type args}` | A slot. The name keys the value, the type says what it takes, and the args, split by spaces, tune it. |
+| `"Label"` inside a slot | The accessible name of the slot. Without one the slot is called by its name, or Hour and Minute. |
+| `{=slot}` | The shown value of another slot, as muted text. |
+| `{=slot.field}` | One field of the chosen option, such as `{=country.dial}`. |
+| `[icon:name]` | A Tessera icon, or an entry of `icons`. |
+| `[action:name]` | An icon button from `actions`; `onPress` gets the whole value. |
+| `[spacer]` | Takes the free width, so what follows sits at the far end. |
+| `\{` `\}` `\[` `\]` `\` | A plain brace, bracket or backslash. `escapePatternText` does this for text from data. |
+
+| Type | Value | Popover |
+|---|---|---|
+| `number` | a whole number | a Slider when both ends of the range are set, else a Stepper |
+| `decimal` | a number; the decimals show muted | a Slider when both ends are set, else a NumberInput |
+| `hour` | 0 to 23, or 1 to 12 with `12h` | hour and minute Steppers |
+| `minute` | 0 to 59 | hour and minute Steppers |
+| `choice` | the value of an option | the option list, with flags and details |
+| `text` | a string | none |
+| `hex` | a colour such as `#e05a47` | the ColorPicker |
+
+| Arg | Types | Means |
+|---|---|---|
+| `MIN..MAX` | number, decimal | the range; either end can stay open |
+| `padN` | number | zero pads to N digits, and N digits complete the slot |
+| `stepN` | number, decimal, hour, minute | the step of the arrow keys and the popover |
+| `group` | number, decimal | thousands separators while not editing |
+| `wrap` | number | stepping past one end goes to the other |
+| `slider`, `stepper` | number, decimal | picks the popover control |
+| `N` | decimal | the count of decimals, 2 when left out |
+| `12h`, `24h` | hour | the clock, 24h when left out |
+| `A\|B\|C` | choice | the options, inline |
+| `@name` | choice | the options in `lists.name` |
+| `flag` | choice | shows only the flag of the chosen option |
+| `maxN`, `minN`, `lenN` | text | the most, the fewest, or exactly N characters |
+| `digits`, `letters`, `alnum` | text | the characters the slot takes |
+| `upper`, `lower` | text | changes the case while typing |
+| `fill` | text | takes the free width |
+| `muted` | every type | draws the value muted |
+
+A pattern that does not read never throws. In development each problem is a warning that names the part and says what to write; the part it cannot read shows as text. `parsePattern` returns the parts, the slots and the problems, for a test or a tool.
+
+### Props
+
+- `pattern`, `value`, `onChange`, as above.
+- `slots`: per slot `label` and `placeholder`, for app wording. It wins over the pattern label. A slot with no placeholder shows its name.
+- `lists`: option lists for `@name`. An option has `value`, and may have `label`, `short` (what the slot shows), `flag` (a region code such as `IE`), `detail` (muted in the list) and any other field an echo reads.
+- `actions`: `{ label, icon, disabled, onPress }` per `[action:name]`.
+- `icons`: Iconify icons for `[icon:name]` beyond the Tessera set.
+- `counter`: the name of a text slot with `maxN` or `lenN`; draws `12 / 100` under the field.
+- `size`, `disabled`, `invalid`, `id`, `className` and the `aria-label`, `aria-labelledby` and `aria-describedby` props. Inside a `Field` it takes the label, the hint, the error and the size.
+
+### Behaviour
+
+- Typing fills the slot in focus. A full slot moves focus to the next one: two digits for a padded slot, three for 0..255, or as soon as no further digit fits the range.
+- A character the slot cannot take, such as `.`, `:`, `x` or a space, moves on once something was typed in the slot, so `192.168.0.1:8080` types straight through.
+- Tab and Shift Tab move between slots. Backspace in an empty slot goes back. The left and right arrows cross into the next slot at the edge of the text. Up and down step a number; on a choice they move through the list. Enter settles the slot; Escape closes the popover.
+- Letters on a choice jump to the matching option and pick it, and a single match moves on.
+- The popover opens on click, on Tab and on a move from the slot before. It sits under the slot through `Anchored`.
+- The strings `Hour`, `Minute` and the counter text are in the new `patternInput` group of the string table.
+
+rotp and Brock replace each `PositionInput` as above.

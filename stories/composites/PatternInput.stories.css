@@ -1,0 +1,44 @@
+/* @layer stories @kind style */
+.pattern-story__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+  max-width: var(--size-512);
+  padding: var(--space-md);
+  background: var(--c-panel);
+  border: var(--border-width-thin) solid var(--c-hairline);
+  border-radius: var(--radius-lg);
+}
+
+.pattern-story__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--c-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.pattern-story__pattern {
+  display: block;
+  max-width: var(--size-320);
+  font-size: var(--text-xs);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.pattern-story__doc {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--c-text-dim);
+}
+
+.pattern-story__keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.pattern-story__playground {
+  width: var(--size-512);
+  max-width: 100%;
+}

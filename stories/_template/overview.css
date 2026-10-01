@@ -25,6 +25,17 @@
   line-height: var(--leading-normal);
 }
 
+.overview__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+  padding-inline-start: var(--space-xl);
+  color: var(--c-text-dim);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
 .overview__section {
   display: flex;
   flex-direction: column;

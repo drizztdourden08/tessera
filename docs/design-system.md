@@ -39,7 +39,7 @@ navigation. Only Views are wired to data and logic.
 
 | Tier | What it is | Domain-aware? | Logic/data? | Lives in | Real examples |
 |------|-----------|---------------|-------------|----------|---------------|
-| **Primitive** | Generic UI atom | No, generic | No | `components/primitives/` | Button, Select, Toggle, TextInput, Badge, Slider, TabBar, Toast |
+| **Primitive** | Generic UI atom | No, generic | No | `components/primitives/` | Button, Select, Toggle, TextInput, Badge, Slider, Tabs, Toast |
 | **Composite** | Generic **structural** unit built from primitives | No, generic | No | `components/composites/` | Card, Dialog, Overlay, DropdownMenu, FullScreenLayer, SettingsLayout, Widget |
 | **Compound** | **Domain-specific** presentational unit composed from primitives/composites | Yes, a concept | No (data via props) | `components/compounds/` | ProfileCard, RomCard, SaveSlot, HeroSaveCard, CreateProfileForm |
 | **View** | Page/feature with business logic + data | Yes | Yes: stores, IPC, game | `components/views/`, `widgets/` | ProfileHub, GameLayer, TrackerView, SpriteDebug, TitleBar |

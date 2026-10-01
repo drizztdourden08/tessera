@@ -62,10 +62,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'SegmentedControl', summary: 'One choice out of a few, as joined buttons.' },
         { name: 'Select', summary: 'One or several choices out of many, in a dropdown with columns.' },
         { name: 'Combobox', summary: 'Type to narrow a list, then pick one or several.' },
-        { name: 'Slider', summary: 'A value on a continuous range.' },
-        { name: 'RangeInput', summary: 'The bare native range input.' },
-        { name: 'RangeSlider', summary: 'A low and high value on one track.' },
-        { name: 'PositionInput', summary: 'An x and y pair with per-axis bounds.' },
+        { name: 'Slider', summary: 'A value, or a low and high pair, on one track, with labels from a rule.' },
         { name: 'TagInput', summary: 'Free tags with suggestions and validation.' },
         { name: 'TagPicker', summary: 'Tags picked from a fixed, grouped vocabulary.' },
         { name: 'ColorSwatch', summary: 'A colour chip, pickable or read-only.' },
@@ -87,7 +84,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
     },
     {
       group: 'Navigation',
-      entries: [{ name: 'TabBar', summary: 'Tabs that scroll when they overflow.' }],
+      entries: [{ name: 'Tabs', summary: 'Tabs that scroll when they overflow.' }],
     },
     {
       group: 'Setup',

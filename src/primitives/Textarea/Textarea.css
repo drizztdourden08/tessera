@@ -2,5 +2,20 @@
 .textarea {
   font-family: inherit;
   min-height: var(--control-height);
+}
+
+.textarea--resize-none {
+  resize: none;
+}
+
+.textarea--resize-vertical {
   resize: vertical;
+}
+
+.textarea--resize-horizontal {
+  resize: horizontal;
+}
+
+.textarea--resize-both {
+  resize: both;
 }

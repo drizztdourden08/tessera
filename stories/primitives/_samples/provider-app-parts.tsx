@@ -37,8 +37,10 @@ const AppCrashScreen = (props: ErrorFallbackProps) => {
   const { error, label, reset } = props;
   return (
     <Callout tone="danger" action={<Button variant="secondary" size="sm" onClick={reset}>Try again</Button>}>
-      <Text>{label}</Text>
-      <Text variant="caption">{error instanceof Error ? error.message : String(error)}</Text>
+      <Box className="story-column">
+        <Text>{label}</Text>
+        <Text variant="caption">{error instanceof Error ? error.message : String(error)}</Text>
+      </Box>
     </Callout>
   );
 };

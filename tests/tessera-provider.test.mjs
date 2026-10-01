@@ -15,6 +15,7 @@ import { ICONS } from '../src/primitives/Icon/Icon.constants';
 import { IconButton } from '../src/primitives/IconButton';
 import { Image } from '../src/primitives/Image';
 import { Portal } from '../src/primitives/Portal';
+import { portalDocumentFor } from '../src/primitives/Portal/behavior/portal-document-for';
 import { Spinner } from '../src/primitives/Spinner';
 import { TesseraProvider } from '../src/primitives/TesseraProvider';
 import { Thumbnail } from '../src/primitives/Thumbnail';
@@ -162,5 +163,15 @@ describe('TesseraProvider crash screen, art, icons and portals', () => {
     seen.inBrowser = false;
     expect(made).toContain(seen.containers[0]);
     expect(html).toContain('app-spinner');
+  });
+
+  it('puts the provider document ahead of the one the Portal is rendered in', () => {
+    const own = { name: 'own' };
+    const provided = { name: 'host' };
+    const global = { name: 'global' };
+    const fallback = () => global;
+    expect(portalDocumentFor(provided, own, fallback)).toBe(provided);
+    expect(portalDocumentFor(undefined, own, fallback)).toBe(own);
+    expect(portalDocumentFor(undefined, null, fallback)).toBe(global);
   });
 });

@@ -1,14 +1,12 @@
 /* @layer renderer-components @kind component */
-import { PositionInput } from '../../../primitives/PositionInput';
+import { PatternInput } from '../../PatternInput';
 import { toNumber } from '../../field-kits/to-number';
+import { positionPattern } from '../behavior/position-pattern';
+import { AXIS_KEYS } from '../behavior/position-pattern.constants';
 import { ORIGIN } from './PositionFieldEditor.constants';
-import type { PositionAxis } from '../../../primitives/PositionInput';
-import type { NumberBounds } from '../../field-kits/registry.type';
+import type { PatternValue } from '../../PatternInput';
 import type { PositionFieldEditorProps } from '../RecordEditor.type';
 import '../../../theme/record-editor.css';
-
-const axisFor = (label: string, bounds: NumberBounds | undefined): PositionAxis =>
-  ({ ...bounds, label });
 
 const coordinate = (raw: unknown, min: number | undefined): number => {
   const parsed = toNumber(raw);
@@ -22,22 +20,24 @@ const PositionFieldEditor = (props: PositionFieldEditorProps) => {
   const yBounds = binding.bounds(pair.y.path);
 
   const value = {
-    x: coordinate(binding.value(pair.x.path), xBounds?.min),
-    y: coordinate(binding.value(pair.y.path), yBounds?.min),
+    [AXIS_KEYS.x]: coordinate(binding.value(pair.x.path), xBounds?.min),
+    [AXIS_KEYS.y]: coordinate(binding.value(pair.y.path), yBounds?.min),
   };
 
-  const write = (next: { x: number; y: number }): void => {
+  const write = (next: PatternValue): void => {
     const base = (held !== null && typeof held === 'object') ? held : {};
-    binding.onChange(field.path, { ...base, [pair.xKey]: next.x, [pair.yKey]: next.y });
+    const x = coordinate(next[AXIS_KEYS.x], xBounds?.min);
+    const y = coordinate(next[AXIS_KEYS.y], yBounds?.min);
+    binding.onChange(field.path, { ...base, [pair.xKey]: x, [pair.yKey]: y });
   };
 
   return (
-    <PositionInput
+    <PatternInput
       className="record-editor__position"
+      pattern={positionPattern(pair, xBounds, yBounds)}
       value={value}
-      x={axisFor(pair.x.label, xBounds)}
-      y={axisFor(pair.y.label, yBounds)}
       disabled={binding.disabled}
+      aria-label={field.label}
       onChange={write}
     />
   );

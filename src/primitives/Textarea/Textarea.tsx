@@ -8,7 +8,7 @@ import './Textarea.css';
 import { type TextareaProps } from './Textarea.type';
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => {
-  const { className = '', id, invalid, size, 'aria-describedby': ownDescribedBy, ...rest } = props;
+  const { className = '', id, invalid, size, resize = 'vertical', 'aria-describedby': ownDescribedBy, ...rest } = props;
   const controlSize = useControlSize(size);
   const { id: controlId, describedBy, invalid: fieldInvalid } = useFieldControl(id, ownDescribedBy);
   const ariaInvalid = (invalid ?? fieldInvalid) === true || undefined;
@@ -18,7 +18,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => 
       id={controlId}
       aria-describedby={describedBy}
       aria-invalid={ariaInvalid}
-      className={`textarea control-size--${controlSize} ${className}`}
+      className={`textarea textarea--resize-${resize} control-size--${controlSize} ${className}`}
       ref={ref}
       {...rest}
     />

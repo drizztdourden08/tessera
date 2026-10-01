@@ -3,6 +3,11 @@
 
 Helpers that every stories file builds its Overview page from. `overviewStory` draws the page: the description, the Variants, the States, the Playground and the Code.
 
+Two optional parts suit a page that is not about variants, such as TesseraProvider:
+
+- `points`: a bullet list under the description.
+- `sections`: extra sections after the Variants, each `{ title, node }` with its own heading.
+
 ## Demonstrator
 
 Every layout that shows variants across rows, columns or both is a `Demonstrator`. A story never builds its own grid, table or list of labelled rows for this: one component draws them all, so every page spaces and rules its variants the same way.

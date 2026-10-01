@@ -12,23 +12,39 @@ interface OverviewVariant {
   node: ReactNode;
 }
 
+interface OverviewSection {
+  title: string;
+  node: ReactNode;
+}
+
 interface OverviewPageProps {
   name: string;
   description: string;
+  points: readonly string[];
   variants: readonly OverviewVariant[];
+  sections: readonly OverviewSection[];
   states: OverviewStates | null;
   playground: OverviewPlaygroundProps | null;
   code: string | null;
 }
 
+const OverviewHead = (props: Pick<OverviewPageProps, 'name' | 'description' | 'points'>) => (
+  <Box as="header" className="overview__head">
+    <Text as="h1" className="overview__name">{props.name}</Text>
+    <Text as="p" className="overview__description">{props.description}</Text>
+    {props.points.length > 0 && (
+    <Box as="ul" className="overview__points">
+      {props.points.map((point) => <Box as="li" key={point}>{point}</Box>)}
+    </Box>
+    )}
+  </Box>
+);
+
 const OverviewPage = (props: OverviewPageProps) => {
-  const { name, description, variants, states, playground, code } = props;
+  const { name, description, points, variants, sections, states, playground, code } = props;
   return (
     <Box className="overview">
-      <Box as="header" className="overview__head">
-        <Text as="h1" className="overview__name">{name}</Text>
-        <Text as="p" className="overview__description">{description}</Text>
-      </Box>
+      <OverviewHead name={name} description={description} points={points} />
       {variants.length > 0 && (
       <Box as="section" className="overview__section">
         <Text as="h2" className="overview__heading">Variants</Text>
@@ -40,6 +56,12 @@ const OverviewPage = (props: OverviewPageProps) => {
         ))}
       </Box>
       )}
+      {sections.map((section) => (
+      <Box as="section" key={section.title} className="overview__section">
+        <Text as="h2" className="overview__heading">{section.title}</Text>
+        {section.node}
+      </Box>
+      ))}
       {states !== null && <StatesSection {...states} />}
       {playground !== null && <OverviewPlayground {...playground} />}
       {playground === null && code !== null && (
@@ -53,3 +75,4 @@ const OverviewPage = (props: OverviewPageProps) => {
 };
 
 export { OverviewPage };
+export type { OverviewSection };

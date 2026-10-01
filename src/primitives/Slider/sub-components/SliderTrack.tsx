@@ -1,32 +1,38 @@
 /* @layer renderer-components @kind component */
-import type { CSSProperties } from 'react';
+import { useMemo } from 'react';
+import type { CSSProperties, PointerEvent } from 'react';
 import { Span } from '../../text-elements';
-import { useMuteToggle } from '../behavior/useMuteToggle';
-import { SliderMute } from './SliderMute';
+import { percentOf } from '../behavior/percent-of';
+import { trackFraction } from '../behavior/track-fraction';
+import { resolveSliderLabels } from './SliderLabels/behavior/resolve-slider-labels';
+import { SliderLabels } from './SliderLabels';
 import type { SliderTrackProps } from './SliderTrack.type';
 
 const SliderTrack = (props: SliderTrackProps) => {
-  const { value, min, max, step = 1, onChange, disabled = false, showValue = true, formatValue = String, mute, onMuteToggle, name } = props;
-  const span = max - min;
-  const pct = span > 0 ? ((value - min) / span) * 100 : 0;
-  const handleMuteClick = useMuteToggle(value, onChange, onMuteToggle);
+  const { scale, labels, span, readout, before, children, onTrackPick } = props;
+  const { min, max, step, stops, formatValue } = scale;
+  const points = useMemo(
+    () => resolveSliderLabels(labels, { min, max, step, stops, formatValue }),
+    [labels, min, max, step, stops, formatValue],
+  );
+  const fill = {
+    '--slider-lo': `${percentOf(span[0], scale)}%`,
+    '--slider-hi': `${percentOf(span[1], scale)}%`,
+  } as CSSProperties;
+  const pick = (event: PointerEvent<HTMLDivElement>) => {
+    if (!onTrackPick || event.button !== 0 || event.target instanceof HTMLInputElement) return;
+    event.preventDefault();
+    onTrackPick(trackFraction(event.clientX, event.currentTarget.getBoundingClientRect()));
+  };
 
   return (
-    <div className="slider__track">
-      {mute != null && <SliderMute mute={mute} disabled={disabled} onClick={handleMuteClick} />}
-      <input
-        type="range"
-        className="slider__input"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        disabled={disabled}
-        aria-label={name}
-        style={{ '--slider-pct': `${pct}%` } as CSSProperties}
-      />
-      {showValue && <Span tone="primary" className="slider__value">{formatValue(value)}</Span>}
+    <div className={`slider__track${points.length > 0 ? ' slider__track--labelled' : ''}`}>
+      {before}
+      <div className="slider__rail" style={fill} onPointerDown={onTrackPick ? pick : undefined}>
+        {children}
+        {points.length > 0 && <SliderLabels points={points} scale={scale} span={span} />}
+      </div>
+      {readout !== null && <Span tone="primary" className="slider__value">{readout}</Span>}
     </div>
   );
 };

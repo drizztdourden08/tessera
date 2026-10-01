@@ -1,5 +1,5 @@
 /* @layer stories @kind story */
-import { Box, Callout, Field, Icon, Select, TabBar, Toggle } from '../../../src/primitives';
+import { Box, Callout, Field, Icon, Select, Tabs, Toggle } from '../../../src/primitives';
 import { changedIn, RANDOMIZER_TABS, valueOf } from './randomizer-options';
 import type { RandomizerOption } from './randomizer-options';
 import type { BodyProps } from './ProfileWizardBodies';
@@ -36,7 +36,7 @@ const ProfileOptionsBody = ({ wizard, tab, onTab }: OptionsBodyProps) => {
   const locked = active?.live === false;
   return (
     <>
-      <TabBar tabs={tabs} activeTab={active?.id ?? ''} onTabChange={onTab} />
+      <Tabs tabs={tabs} activeTab={active?.id ?? ''} onTabChange={onTab} />
       {locked && (
         <Callout tone="info" icon={<Icon name="lock" />}>
           {active.options.length > 0 ? 'Not implemented yet. These rows are fixed in this version and show what the seed uses.' : 'Not implemented yet.'}

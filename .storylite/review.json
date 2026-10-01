@@ -563,21 +563,6 @@
       "hash": "5f61d469e5f3a30e",
       "at": "2026-10-01"
     },
-    "RangeInput": {
-      "status": "seen",
-      "hash": "8f85dcb884d84d9f",
-      "at": "2026-10-01"
-    },
-    "RangeSlider": {
-      "status": "seen",
-      "hash": "c0523014ba2638f9",
-      "at": "2026-10-01"
-    },
-    "PositionInput": {
-      "status": "seen",
-      "hash": "0efa674898d47dbd",
-      "at": "2026-10-01"
-    },
     "TagInput": {
       "status": "ok",
       "hash": "5a030248b8227068",
@@ -642,10 +627,8 @@
     }
   },
   "Primitives · Navigation": {
-    "TabBar": {
-      "status": "seen",
-      "hash": "dde69384e519c562",
-      "at": "2026-10-01"
+    "Tabs": {
+      "status": "new"
     }
   },
   "Primitives · Setup": {
@@ -798,6 +781,11 @@
       "status": "new"
     },
     "CommandPaletteRow": {
+      "status": "new"
+    }
+  },
+  "Composites · Inputs": {
+    "PatternInput": {
       "status": "new"
     }
   },

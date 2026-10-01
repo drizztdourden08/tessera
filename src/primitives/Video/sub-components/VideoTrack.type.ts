@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
-import type { RangeInputProps } from '../../RangeInput';
+import type { InputHTMLAttributes } from 'react';
 
-interface VideoTrackProps extends RangeInputProps {
+interface VideoTrackProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   fill: string;
   buffer?: string;
 }

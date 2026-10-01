@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind style */
-.video-track.range-input {
+.video-track {
   appearance: none;
   display: block;
   width: 100%;
@@ -16,11 +16,11 @@
   transition: height var(--transition-fast);
 }
 
-.video-track.range-input:disabled {
+.video-track:disabled {
   cursor: default;
 }
 
-.video-track.range-input:focus-visible {
+.video-track:focus-visible {
   outline: var(--border-width-thick) solid var(--c-primary);
   outline-offset: var(--size-4);
 }

@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { useTesseraOverride } from '../TesseraProvider/behavior/useTesseraOverride';
 import type { PortalLayer, PortalProps } from './Portal.type';
 import { LAYERS } from './Portal.constants';
+import { portalDocumentFor } from './behavior/portal-document-for';
 import { useInBrowser } from './behavior/useInBrowser';
 
 const getPortalRoot = (doc: Document): HTMLElement => {
@@ -47,7 +48,7 @@ const Portal = (props: PortalProps) => {
     setAnchorDoc(anchorRef.current?.ownerDocument ?? null);
   }, []);
 
-  const doc = inBrowser ? anchorDoc ?? provided ?? document : null;
+  const doc = inBrowser ? portalDocumentFor(provided, anchorDoc, () => document) : null;
   return (
     <>
       <template ref={anchorRef} />

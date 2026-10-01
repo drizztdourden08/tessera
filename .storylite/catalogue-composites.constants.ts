@@ -64,6 +64,12 @@ const COMPOSITES_TIER: CatalogueTier = {
       ],
     },
     {
+      group: 'Inputs',
+      entries: [
+        { name: 'PatternInput', summary: 'One field built from a pattern: typed slots, muted text, icons and actions, with a control per slot.' },
+      ],
+    },
+    {
       group: 'Data views',
       entries: [
         { name: 'DataTable', summary: 'Sortable, groupable, resizable table with saved layouts.' },
