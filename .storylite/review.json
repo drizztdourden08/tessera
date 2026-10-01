@@ -588,7 +588,9 @@
       "status": "new"
     },
     "WizardDialogShell": {
-      "status": "new"
+      "status": "seen",
+      "hash": "e4c90561a588d66e",
+      "at": "2026-10-01"
     },
     "CreateRecordDialog": {
       "status": "new"
