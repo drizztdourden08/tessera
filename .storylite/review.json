@@ -504,70 +504,104 @@
   },
   "Primitives · Inputs": {
     "TextInput": {
-      "status": "new"
+      "status": "seen",
+      "hash": "7faefbeecc127875",
+      "at": "2026-10-01"
     },
     "Textarea": {
-      "status": "new"
+      "status": "seen",
+      "hash": "fdcb1d3158e49b6a",
+      "at": "2026-10-01"
     },
     "NumberInput": {
-      "status": "new"
+      "status": "seen",
+      "hash": "965debef8d88379a",
+      "at": "2026-10-01"
     },
     "Stepper": {
-      "status": "new"
+      "status": "seen",
+      "hash": "01286e8c85944313",
+      "at": "2026-10-01"
     },
     "Checkbox": {
-      "status": "new"
+      "status": "seen",
+      "hash": "432295782683bdd1",
+      "at": "2026-10-01"
     },
     "Toggle": {
-      "status": "new"
+      "status": "seen",
+      "hash": "f58bda1f87f1814a",
+      "at": "2026-10-01"
     },
     "ToggleGroup": {
-      "status": "new"
+      "status": "seen",
+      "hash": "1499142b20c46bc6",
+      "at": "2026-10-01"
     },
     "RadioGroup": {
-      "status": "new"
+      "status": "seen",
+      "hash": "64a9793d0948e471",
+      "at": "2026-10-01"
     },
     "SegmentedControl": {
       "status": "seen",
-      "hash": "d10a6de70e19e9cd",
+      "hash": "36f042cca4d3fe38",
       "at": "2026-10-01"
     },
     "Select": {
-      "status": "new"
+      "status": "seen",
+      "hash": "6bbee5c08f68d1e3",
+      "at": "2026-10-01"
     },
     "Combobox": {
-      "status": "new"
+      "status": "seen",
+      "hash": "4a384761d8259728",
+      "at": "2026-10-01"
     },
     "Slider": {
-      "status": "new"
+      "status": "seen",
+      "hash": "b004a023d01e95a0",
+      "at": "2026-10-01"
     },
     "RangeInput": {
-      "status": "new"
+      "status": "seen",
+      "hash": "f7a09cc5187ca72e",
+      "at": "2026-10-01"
     },
     "RangeSlider": {
-      "status": "new"
+      "status": "seen",
+      "hash": "1b4eb66d8c374547",
+      "at": "2026-10-01"
     },
     "PositionInput": {
-      "status": "new"
+      "status": "seen",
+      "hash": "9dcf6140673215bb",
+      "at": "2026-10-01"
     },
     "TagInput": {
       "status": "seen",
-      "hash": "352ba1c5951eb2bb",
-      "at": "2026-09-30"
+      "hash": "8ea155a6fa2bbeca",
+      "at": "2026-10-01"
     },
     "TagPicker": {
       "status": "seen",
-      "hash": "41c19465dcf73f1a",
+      "hash": "27bb0ae4f251ebfe",
       "at": "2026-10-01"
     },
     "ColorSwatch": {
-      "status": "new"
+      "status": "seen",
+      "hash": "a73359edda31e08c",
+      "at": "2026-10-01"
     },
     "DropZone": {
-      "status": "new"
+      "status": "seen",
+      "hash": "eae978351c2adb7a",
+      "at": "2026-10-01"
     },
     "Field": {
-      "status": "new"
+      "status": "seen",
+      "hash": "f6d97c62ac1b35aa",
+      "at": "2026-10-01"
     }
   },
   "Primitives · Feedback": {
