@@ -6,7 +6,7 @@ const SENTRI_RIG: SentriRig = {
   visor: [10, 11],
   eyes: [[13, 13], [19, 13]],
   podLeft: { at: [0, 13], pivot: [5, 2.5] },
-  podRight: { at: [28, 13], pivot: [1, 2.5] },
+  podRight: { at: [27, 13], pivot: [2, 2.5] },
   lookReach: [2, 1],
 };
 
