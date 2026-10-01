@@ -11,6 +11,7 @@ import { brandLogoUri } from './_samples/brand-logo';
 type AboutArgs = {
   title: string;
   brand: BrandApp | 'none';
+  heading: 'wordmark' | 'title';
   version: string;
   withLogo: boolean;
   withCopy: boolean;
@@ -37,6 +38,7 @@ const draw = (args: AboutArgs) => (
   <AboutPanel
     title={args.title}
     brand={args.brand === 'none' ? undefined : args.brand}
+    heading={args.heading}
     logo={args.withLogo ? LOGO : undefined}
     rows={[{ label: 'Version', value: args.version }, ...ROWS]}
     copyText={copyTextOf(args)}
@@ -45,7 +47,7 @@ const draw = (args: AboutArgs) => (
 );
 
 const ARGS: Partial<AboutArgs> = {
-  title: 'Brock Demo', brand: 'brock', version: '1.4.0', withLogo: true, withCopy: true, collecting: false, withLegal: true,
+  title: 'Brock Demo', brand: 'brock', heading: 'wordmark', version: '1.4.0', withLogo: true, withCopy: true, collecting: false, withLegal: true,
 };
 
 const ARG_TYPES: StoryLiteArgTypes<AboutArgs> = {
@@ -54,6 +56,11 @@ const ARG_TYPES: StoryLiteArgTypes<AboutArgs> = {
     control: 'select',
     options: ['none', 'tessera', 'brock', 'archipelia', 'rotp'],
     description: 'Draws the icon and wordmark of this Tessera brand in place of the logo image and the title text.',
+  },
+  heading: {
+    control: 'select',
+    options: ['wordmark', 'title'],
+    description: 'With a brand: draw its wordmark, or keep the mark and show the title text, for an app named differently from its brand.',
   },
   version: { control: 'text' },
   withLogo: { control: 'boolean', description: 'An image logo, drawn only when brand is none.' },

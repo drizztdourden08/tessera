@@ -18,6 +18,7 @@ interface WindowTitleBarProps {
   instance?: WindowTitleBarInstance | null;
   menu?: readonly MenuGroup[];
   menuLabel?: string;
+  onMenuOpenChange?: (open: boolean) => void;
   controls?: WindowControlsConfig;
   maximized?: boolean;
   fullscreen?: boolean;

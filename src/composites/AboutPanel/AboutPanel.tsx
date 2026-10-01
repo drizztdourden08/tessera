@@ -11,7 +11,7 @@ import type { AboutPanelProps } from './AboutPanel.type';
 import './AboutPanel.css';
 
 const AboutPanel = (props: AboutPanelProps) => {
-  const { title, brand, logo, rows, copyText, copyLabel, legal, className = '' } = props;
+  const { title, brand, heading = 'wordmark', logo, rows, copyText, copyLabel, legal, className = '' } = props;
 
   return (
     <Box className={`about-panel${className ? ` ${className}` : ''}`}>
@@ -20,7 +20,7 @@ const AboutPanel = (props: AboutPanelProps) => {
           ? <Logo brand={brand} variant="app-icon" size="xl" title="" className="about-panel__mark" />
           : logo && <Image className="about-panel__logo" src={logo} alt="" placeholder="none" />}
         <Text as="h2" className="about-panel__title">
-          {brand ? <BrandWordmark app={brand} size="md" title={title} className="about-panel__wordmark" /> : title}
+          {brand && heading === 'wordmark' ? <BrandWordmark app={brand} size="md" title={title} className="about-panel__wordmark" /> : title}
         </Text>
       </Box>
       <Box className="about-panel__rows">

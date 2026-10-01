@@ -7,9 +7,12 @@ interface AboutPanelRow {
   value: ReactNode;
 }
 
+type AboutPanelHeading = 'wordmark' | 'title';
+
 interface AboutPanelProps {
   title: string;
   brand?: BrandApp;
+  heading?: AboutPanelHeading;
   logo?: string;
   rows: readonly AboutPanelRow[];
   copyText?: string | null;
@@ -18,4 +21,4 @@ interface AboutPanelProps {
   className?: string;
 }
 
-export type { AboutPanelProps, AboutPanelRow };
+export type { AboutPanelHeading, AboutPanelProps, AboutPanelRow };

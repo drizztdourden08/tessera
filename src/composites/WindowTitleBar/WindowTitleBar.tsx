@@ -11,11 +11,15 @@ import './WindowTitleBar.css';
 
 const WindowTitleBar = (props: WindowTitleBarProps) => {
   const {
-    title, logo, instance, menu, menuLabel, controls = {}, maximized, fullscreen = false,
+    title, logo, instance, menu, menuLabel, onMenuOpenChange, controls = {}, maximized, fullscreen = false,
     pinned, onControl, left, concealed = false, peek, className = '',
   } = props;
   const barRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const handleMenuOpenChange = (open: boolean): void => {
+    setMenuOpen(open);
+    onMenuOpenChange?.(open);
+  };
   const tucked = (concealed || fullscreen) && !menuOpen;
   const { peeking, handleMouseLeave } = usePeek(tucked && peek === undefined, barRef);
 
@@ -24,7 +28,7 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
       <WindowTitleBarStart
         menu={menu}
         menuLabel={menuLabel}
-        onMenuOpenChange={setMenuOpen}
+        onMenuOpenChange={handleMenuOpenChange}
         pin={controls.pin !== false}
         pinned={pinned}
         onControl={onControl}

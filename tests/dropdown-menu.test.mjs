@@ -36,6 +36,16 @@ describe('menuShortcutKeys', () => {
   it('passes a key list through', () => {
     expect(menuShortcutKeys(['alt', 'F4'])).toEqual(['alt', 'F4']);
   });
+
+  it('reads Mod by platform, punctuation names and function keys', () => {
+    expect(menuShortcutKeys('Mod+Comma')).toEqual([expect.stringMatching(/^(ctrl|cmd)$/), ',']);
+    expect(menuShortcutKeys('Ctrl+Plus')).toEqual(['ctrl', '+']);
+    expect(menuShortcutKeys('f12')).toEqual(['F12']);
+  });
+
+  it('leaves out a part that is not a key', () => {
+    expect(menuShortcutKeys('Ctrl+Banana')).toEqual(['ctrl']);
+  });
 });
 
 describe('DropdownMenu', () => {

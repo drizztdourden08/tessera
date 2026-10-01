@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { AboutPanel } from './AboutPanel';
-export type { AboutPanelProps, AboutPanelRow } from './AboutPanel.type';
+export type { AboutPanelHeading, AboutPanelProps, AboutPanelRow } from './AboutPanel.type';

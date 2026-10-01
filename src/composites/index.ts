@@ -81,7 +81,7 @@ export type { WindowControl, WindowControlsConfig, WindowTitleBarInstance, Windo
 export { ReleaseNotesPanel } from './ReleaseNotesPanel';
 export type { ReleaseNotesPanelProps } from './ReleaseNotesPanel';
 export { AboutPanel } from './AboutPanel';
-export type { AboutPanelProps, AboutPanelRow } from './AboutPanel';
+export type { AboutPanelHeading, AboutPanelProps, AboutPanelRow } from './AboutPanel';
 export { Hero } from './Hero';
 export type { HeroArt, HeroProps } from './Hero';
 export { FactsPanel } from './FactsPanel';
