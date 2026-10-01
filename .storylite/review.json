@@ -4,12 +4,14 @@
       "status": "new"
     },
     "InteractiveTessera": {
-      "status": "new"
+      "status": "seen",
+      "hash": "8e0e3408cc07cf28",
+      "at": "2026-10-01"
     },
     "Logo": {
       "status": "seen",
-      "hash": "39ffaa74d65bfbbb",
-      "at": "2026-09-30"
+      "hash": "b12a8fca6540ff6c",
+      "at": "2026-10-01"
     },
     "WordMark": {
       "status": "ok",
@@ -45,7 +47,9 @@
       "at": "2026-09-30"
     },
     "Gradients": {
-      "status": "new"
+      "status": "seen",
+      "hash": "d2e258353cea8a71",
+      "at": "2026-10-01"
     }
   },
   "Typography": {
@@ -420,14 +424,16 @@
     },
     "Badge": {
       "status": "seen",
-      "hash": "83bef4cdc402cb6a",
-      "at": "2026-09-30"
+      "hash": "a6ab2d1c47609000",
+      "at": "2026-10-01"
     },
     "Status": {
       "status": "new"
     },
     "Tag": {
-      "status": "new"
+      "status": "seen",
+      "hash": "5e3c6eb48a46c350",
+      "at": "2026-10-01"
     },
     "EmptyState": {
       "status": "new"
@@ -455,7 +461,9 @@
       "at": "2026-09-30"
     },
     "IconButton": {
-      "status": "new"
+      "status": "seen",
+      "hash": "5c9ee5d9a3465e1a",
+      "at": "2026-10-01"
     },
     "ButtonRow": {
       "status": "new"
@@ -517,8 +525,8 @@
     },
     "TagPicker": {
       "status": "seen",
-      "hash": "674fde4fb22222c5",
-      "at": "2026-09-30"
+      "hash": "41c19465dcf73f1a",
+      "at": "2026-10-01"
     },
     "ColorSwatch": {
       "status": "new"
@@ -537,7 +545,9 @@
       "at": "2026-09-30"
     },
     "ProgressBar": {
-      "status": "new"
+      "status": "seen",
+      "hash": "136e7c833fbed12e",
+      "at": "2026-10-01"
     },
     "ProgressRing": {
       "status": "new"
@@ -559,7 +569,9 @@
   },
   "Primitives · Setup": {
     "TesseraProvider": {
-      "status": "new"
+      "status": "seen",
+      "hash": "9f0379d47fa1c57f",
+      "at": "2026-10-01"
     }
   },
   "Composites · Dialogs": {
@@ -605,7 +617,9 @@
       "status": "new"
     },
     "SectionNav": {
-      "status": "new"
+      "status": "seen",
+      "hash": "529cc0eac55c015c",
+      "at": "2026-10-01"
     },
     "HeaderTabs": {
       "status": "new"
@@ -629,7 +643,9 @@
       "status": "new"
     },
     "WindowTitleBar": {
-      "status": "new"
+      "status": "seen",
+      "hash": "d3c7e5deafe3f421",
+      "at": "2026-10-01"
     },
     "SettingsShell": {
       "status": "new"
@@ -641,7 +657,9 @@
       "status": "new"
     },
     "SettingsPage": {
-      "status": "new"
+      "status": "seen",
+      "hash": "867b5a0430f55837",
+      "at": "2026-10-01"
     },
     "NavLayout": {
       "status": "new"
@@ -686,10 +704,14 @@
   },
   "Composites · Content": {
     "LogPanel": {
-      "status": "new"
+      "status": "seen",
+      "hash": "188e3fe7d3f877c1",
+      "at": "2026-10-01"
     },
     "AboutPanel": {
-      "status": "new"
+      "status": "seen",
+      "hash": "b93c2fd8a708b3a9",
+      "at": "2026-10-01"
     },
     "ReleaseNotesPanel": {
       "status": "new"
@@ -721,7 +743,9 @@
       "status": "new"
     },
     "StickPlot": {
-      "status": "new"
+      "status": "seen",
+      "hash": "610ff4ced8435c1b",
+      "at": "2026-10-01"
     }
   },
   "Composites · Widgets": {
@@ -737,7 +761,9 @@
   },
   "Composites · Screens": {
     "Hero": {
-      "status": "new"
+      "status": "seen",
+      "hash": "be331871b3bfd428",
+      "at": "2026-10-01"
     }
   },
   "Data": {
