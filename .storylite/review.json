@@ -34,12 +34,12 @@
   "Colours": {
     "Swatches": {
       "status": "ok",
-      "hash": "fd5e0000c6a6e397",
+      "hash": "9fe0179060cde65b",
       "at": "2026-10-01"
     },
     "Palettes": {
-      "status": "seen",
-      "hash": "5ed4a65883663dbd",
+      "status": "ok",
+      "hash": "18b6b17ff792e2f5",
       "at": "2026-10-01"
     },
     "Roles": {
@@ -53,25 +53,25 @@
       "at": "2026-10-01"
     },
     "Gradients": {
-      "status": "seen",
-      "hash": "c81695f54c3356ba",
+      "status": "ok",
+      "hash": "d5f508519c469bbb",
       "at": "2026-10-01"
     }
   },
   "Typography": {
     "Fonts": {
-      "status": "seen",
-      "hash": "91c766cc05c8760e",
+      "status": "ok",
+      "hash": "149356a448a77226",
       "at": "2026-10-01"
     },
     "Weights": {
       "status": "ok",
-      "hash": "fec2a3fafdaf7f56",
+      "hash": "ad98ad2ab11637b8",
       "at": "2026-10-01"
     },
     "Sizes": {
       "status": "ok",
-      "hash": "a30d75607ab85685",
+      "hash": "b2f1211b9fd0de77",
       "at": "2026-10-01"
     },
     "Optical size and italic": {
@@ -86,7 +86,7 @@
     },
     "Transform and style": {
       "status": "ok",
-      "hash": "816ff1f62eac3aea",
+      "hash": "6dd37fbdd1ec4c04",
       "at": "2026-10-01"
     }
   },
@@ -263,7 +263,7 @@
     },
     "Quote": {
       "status": "ok",
-      "hash": "579c051f79ab8370",
+      "hash": "670cc234f8609fff",
       "at": "2026-10-01"
     },
     "CodeBlock": {
@@ -275,7 +275,7 @@
   "Icons": {
     "Icon": {
       "status": "ok",
-      "hash": "6fb3dfbb925e7ef3",
+      "hash": "82938c0bdd665440",
       "at": "2026-10-01"
     },
     "Brand icons": {
@@ -302,32 +302,32 @@
   "Tokens": {
     "Size scale": {
       "status": "ok",
-      "hash": "37b13db8995b6843",
+      "hash": "251bd3d57eb3379e",
       "at": "2026-10-01"
     },
     "Sizes": {
       "status": "ok",
-      "hash": "52c1992a03abc5d6",
+      "hash": "4ca8985f450f247d",
       "at": "2026-10-01"
     },
     "Margin": {
       "status": "ok",
-      "hash": "86b316e048a7e648",
+      "hash": "7eee97daccd85d43",
       "at": "2026-10-01"
     },
     "Padding": {
       "status": "ok",
-      "hash": "d0fcc17d0cc6520b",
+      "hash": "6d4636ebf4067a61",
       "at": "2026-10-01"
     },
     "Gap": {
       "status": "ok",
-      "hash": "3d4c76699aff8bfa",
+      "hash": "8c14f283acd6a0b1",
       "at": "2026-10-01"
     },
     "Radius": {
       "status": "ok",
-      "hash": "1ff6defe7551e407",
+      "hash": "d279de35d189a0f4",
       "at": "2026-10-01"
     },
     "Shadows": {
@@ -399,17 +399,17 @@
     },
     "ScrollArea": {
       "status": "ok",
-      "hash": "19b691190ab14a85",
+      "hash": "423e68c553569c8b",
       "at": "2026-10-01"
     },
     "Portal": {
       "status": "ok",
-      "hash": "e795c9ba1c097361",
+      "hash": "461d184e19deb936",
       "at": "2026-10-01"
     },
     "Anchored": {
       "status": "ok",
-      "hash": "ff57527b38c69c21",
+      "hash": "1072547dfbf5edd0",
       "at": "2026-10-01"
     },
     "Floating": {
@@ -436,7 +436,7 @@
     },
     "Badge": {
       "status": "ok",
-      "hash": "f285112952522eaf",
+      "hash": "cf89b465539c78a9",
       "at": "2026-10-01"
     },
     "Status": {
@@ -466,7 +466,7 @@
     },
     "Video": {
       "status": "ok",
-      "hash": "f33939b2f1d4a2c7",
+      "hash": "e27691ca456a416e",
       "at": "2026-10-01"
     },
     "Canvas": {
