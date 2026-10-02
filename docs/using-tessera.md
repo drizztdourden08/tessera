@@ -321,13 +321,15 @@ Tessera declares an extension for `@drizztdourden08/standards`, so an app that u
 
 ## Creating a part with the tessera command
 
-The package ships a `tessera` command. `tessera new` writes a component folder in the shape `brock structure --check` expects, with a usage file and a gallery story, and prints what to fill in next. In an app, run it through pnpm:
+The package ships a `tessera` command. `tessera new` writes a component folder in the shape `brock structure --check` expects, with a usage file and a gallery story, and prints what to fill in next. In a Brock app, run it through the Brock command line, which forwards every argument:
 
 ```sh
-pnpm exec tessera new compound SaveSlot
-pnpm exec tessera new view SaveList --group Saves
-pnpm exec tessera new primitive HelpWebview --yes
+brock tessera new compound SaveSlot
+brock tessera new view SaveList --group Saves
+brock tessera new primitive HelpWebview --yes
 ```
+
+In a repo with its own command, use that one, as in `archipelia tessera new view Inventory --group Game`. Outside Brock, `pnpm exec tessera …` runs the same thing.
 
 In the Tessera repo, `pnpm tessera new primitive QuestBanner --group Layout` runs the same command.
 
@@ -357,7 +359,7 @@ An app primitive or composite starts with a warning: most primitives and composi
 | `--yes` | creates an app primitive or composite without asking |
 | `--dry-run` | lists the files it would write and change, and writes nothing |
 
-Other tools run the same commands through `@drizztdourden08/tessera/cli`: `runTessera(['new', 'compound', 'SaveSlot'], { cwd })` resolves to the exit code, so the Brock command line can offer them as its own.
+Other tools run the same commands through `@drizztdourden08/tessera/cli`: `runTessera(['new', 'compound', 'SaveSlot'], { cwd })` resolves to the exit code. `brock tessera` is built on it.
 
 ## Upgrading
 

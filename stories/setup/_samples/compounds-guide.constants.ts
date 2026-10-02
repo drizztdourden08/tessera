@@ -40,7 +40,7 @@ const COMPOUNDS_GUIDE: Guide = {
     {
       title: 'Create one',
       points: [
-        'Create one with the Tessera CLI: `pnpm exec tessera new compound SaveSlot`. It writes the folder above with its usage file, a story when the app uses StoryLite, and lists what to fill in next.',
+        'Create one with the Tessera CLI: `brock tessera new compound SaveSlot` (`pnpm exec tessera …` outside Brock). It writes the folder above with its usage file, a story when the app uses StoryLite, and lists what to fill in next.',
         `Next: ${GUIDE_LINKS.views}, which hand compounds their data.`,
       ],
     },

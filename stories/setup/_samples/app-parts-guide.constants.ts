@@ -50,7 +50,7 @@ export default brockEslint({
     { title: 'Lint rules', points: [...LINT_POINTS, 'In the app primitives folder, `no-raw-html`, `no-as-element-with-primitive` and the inline style rules are off. Every other rule holds.'] },
     {
       title: 'Create one',
-      points: ['Create one with the Tessera CLI: `pnpm exec tessera new primitive HelpWebview` or `pnpm exec tessera new composite <Name>`. It first warns that most primitives and composites belong in Tessera and asks to confirm; `--yes` answers for you.'],
+      points: ['Create one with the Tessera CLI: `brock tessera new primitive HelpWebview` or `brock tessera new composite <Name>` (`pnpm exec tessera …` outside Brock). It first warns that most primitives and composites belong in Tessera and asks to confirm; `--yes` answers for you.'],
     },
   ],
   example: {
