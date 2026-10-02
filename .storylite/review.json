@@ -106,6 +106,11 @@
       "hash": "c373f335ab8c3926",
       "at": "2026-10-01"
     },
+    "TextElement": {
+      "status": "ok",
+      "hash": "6644bf84723eca40",
+      "at": "2026-10-02"
+    },
     "Paragraph": {
       "status": "ok",
       "hash": "320955e7dd6fd63d",
@@ -404,8 +409,8 @@
     },
     "Portal": {
       "status": "ok",
-      "hash": "461d184e19deb936",
-      "at": "2026-10-01"
+      "hash": "0eed5bc9023e088c",
+      "at": "2026-10-02"
     },
     "Anchored": {
       "status": "ok",
@@ -466,8 +471,8 @@
     },
     "Video": {
       "status": "ok",
-      "hash": "e27691ca456a416e",
-      "at": "2026-10-01"
+      "hash": "a5413c03c3d0d1ba",
+      "at": "2026-10-02"
     },
     "Canvas": {
       "status": "ok",
@@ -500,6 +505,11 @@
       "status": "ok",
       "hash": "0dd5e87b8ae00863",
       "at": "2026-10-01"
+    },
+    "Pressable": {
+      "status": "ok",
+      "hash": "1942deca80fe23f4",
+      "at": "2026-10-02"
     }
   },
   "Primitives · Inputs": {
@@ -509,9 +519,9 @@
       "at": "2026-10-01"
     },
     "Textarea": {
-      "status": "seen",
-      "hash": "f043cafe020f4c6e",
-      "at": "2026-10-01"
+      "status": "ok",
+      "hash": "a60d887499b93c2e",
+      "at": "2026-10-02"
     },
     "NumberInput": {
       "status": "ok",
@@ -560,8 +570,8 @@
     },
     "Slider": {
       "status": "seen",
-      "hash": "5f61d469e5f3a30e",
-      "at": "2026-10-01"
+      "hash": "afe262e0b3c6815a",
+      "at": "2026-10-02"
     },
     "TagInput": {
       "status": "ok",
@@ -587,6 +597,11 @@
       "status": "ok",
       "hash": "92e8e1841d0d48e8",
       "at": "2026-10-01"
+    },
+    "FieldControlBoundary": {
+      "status": "seen",
+      "hash": "e6dd29de4cc45236",
+      "at": "2026-10-02"
     }
   },
   "Primitives · Feedback": {
@@ -620,6 +635,9 @@
       "hash": "1ddcaeb826962dbd",
       "at": "2026-10-01"
     },
+    "HintScope": {
+      "status": "new"
+    },
     "Callout": {
       "status": "ok",
       "hash": "ad5c8b413880e167",
@@ -628,6 +646,9 @@
   },
   "Primitives · Navigation": {
     "Tabs": {
+      "status": "new"
+    },
+    "Link": {
       "status": "new"
     }
   },
