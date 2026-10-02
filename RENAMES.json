@@ -1,5 +1,5 @@
 {
-  "$comment": "Every rename and removal in Tessera, grouped by the release it ships in, oldest first. An upgrade replays each release between the old and the new version, in order; inside a release every key maps straight to its final name, so one pass is enough. Unreleased entries sit in the release named next, which the release step renames to the new version. Inside a map, replace longer keys first.",
+  "$comment": "Every rename and removal in Tessera, grouped by the release it ships in, oldest first. An upgrade replays each release between the old and the new version, in order; inside a release every key maps straight to its final name, so one pass is enough. Unreleased entries sit in the release named next, which the release step renames to the new version. Inside a map, replace longer keys first. components holds every renamed export, components and their types. props keys are Component.prop under the old component name. A value with words after the name, or any removedExports value, is a note for a person, not a name to write. A cssClasses value may hold several classes separated by spaces; write them all.",
   "releases": [
     {
       "version": "next",
@@ -77,7 +77,11 @@
         "RangeSlider": "Slider (with range; see MIGRATION.md)",
         "RangeInput": "Slider (see MIGRATION.md)",
         "PatternInput": "DynamicInput",
-        "PositionInput": "DynamicInput with a pattern such as \"X {x:number 0..63}  Y {y:number 0..63}\" (see MIGRATION.md)"
+        "PositionInput": "DynamicInput with a pattern such as \"X {x:number 0..63}  Y {y:number 0..63}\" (see MIGRATION.md)",
+        "Badge": "Status",
+        "BadgeVariant": "StatusTone",
+        "BadgeProps": "StatusProps",
+        "ProgressVariant": "ProgressTone"
       },
       "cssClasses": {
         "tab-bar": "tabs",
@@ -102,7 +106,11 @@
         "position-input__cap": "dynamic-input__literal",
         "position-input": "dynamic-input",
         "pattern-input": "dynamic-input",
-        "search-results__count": "search-results__summary (the summary text in the fixed head)"
+        "search-results__count": "search-results__summary (the summary text in the fixed head)",
+        "badge--success": "status--success",
+        "badge--warning": "status--warning",
+        "badge--danger": "status--danger",
+        "badge--neutral": "status--neutral"
       },
       "propValues": {
         "ProgressBar.variant": {
@@ -124,9 +132,22 @@
         "Slider.mute": "VolumeControl (see MIGRATION.md)",
         "Slider.onMuteToggle": "VolumeControl.onMutedChange",
         "WidgetManager.gameRunning": "WidgetManager.contextActive",
-        "WidgetManager.vanillaSafe + WidgetManager.settings": "WidgetManager.resolveDisabled (callback, see MIGRATION.md)",
-        "TesseraOverrides.link": "RouterLink.onNavigate, through an app AppLink compound (see MIGRATION.md)",
-        "Box.href": "Link.href for a URL, RouterLink.to for a route (see MIGRATION.md)"
+        "Box.href": "Link.href for a URL, RouterLink.to for a route (see MIGRATION.md)",
+        "Badge.variant": "Status.tone",
+        "ProgressBar.variant": "ProgressBar.tone",
+        "ProgressBar.secondaryVariant": "ProgressBar.secondaryTone",
+        "WidgetManager.vanillaSafe": "WidgetManager.resolveDisabled (one callback with settings; see MIGRATION.md section 4)",
+        "WidgetManager.settings": "WidgetManager.resolveDisabled (one callback with vanillaSafe; see MIGRATION.md section 4)",
+        "WidgetManager.onUpdate": "WidgetManager.onLayoutChange(next), which takes the whole layout (see MIGRATION.md section 21)",
+        "WidgetManager.bounds": "removed; the widgets tile around WidgetManager.main (see MIGRATION.md section 21)",
+        "WidgetManager.topOffset": "removed; the widgets tile around WidgetManager.main (see MIGRATION.md section 21)",
+        "WidgetManager.onInsetsChange": "removed; the main view takes the room the docked widgets leave (see MIGRATION.md section 21)",
+        "WidgetManager.exclusiveLabel": "WidgetManager.makeRoomHint",
+        "Widget.exclusiveLabel": "WidgetOptions.makeRoomHint",
+        "Widget.state": "removed; Widget takes id, tabs, activeId and paneKey (see MIGRATION.md section 21)",
+        "Widget.onChange": "removed; layout changes go through WidgetManager.onLayoutChange (see MIGRATION.md section 21)",
+        "Widget.dockedStyle": "removed; DockLayout places the panes (see MIGRATION.md section 21)",
+        "WidgetLayout.widgets": "the v2 layout: dock, floating, popped and frame; migrateLayout turns a stored flat layout into it (see MIGRATION.md section 21)"
       },
       "removedExports": {
         "WIDGET_DEFINITIONS": "moves to the app; pass it to WidgetManager and the layout helpers as `definitions`",
@@ -137,7 +158,6 @@
         "StatusBadgeProps": "replaced by StatusProps",
         "WizardDialogShell": "replaced by WizardFrame with presentation=\"dialog\" and useWizard; see MIGRATION.md",
         "WizardDialogShellProps": "replaced by WizardFrameProps",
-        "WizardStep (type)": "replaced by WizardStepDef; WizardStep is now the component for one step",
         "RangeSliderProps": "replaced by SliderProps with range: true",
         "RangeInputProps": "replaced by SliderProps",
         "PatternInputProps": "replaced by DynamicInputProps",
@@ -149,7 +169,23 @@
         "isValidForAxis": "removed; DynamicInput emits only values inside the range",
         "isWithinAxis": "removed; DynamicInput emits only values inside the range",
         "SliderLabels": "replaced by ScaleLabelSource",
-        "SliderLabelEntry": "replaced by ScaleLabelEntry"
+        "SliderLabelEntry": "replaced by ScaleLabelEntry",
+        "WizardStep": "the type is now WizardStepDef; WizardStep is now the component for one step",
+        "WidgetState": "removed; a widget lives in the v2 layout tree, migrateLayout converts a stored one (see MIGRATION.md section 21)",
+        "WidgetMode": "removed with WidgetState (see MIGRATION.md section 21)",
+        "WidgetBounds": "removed with WidgetState (see MIGRATION.md section 21)",
+        "computeDockedStyles": "removed; DockLayout places docked widgets (see MIGRATION.md section 21)",
+        "createDefaultWidgetState": "removed; openWidget adds a widget to the layout (see MIGRATION.md section 21)",
+        "startingLayout": "removed; createDefaultLayout() returns the main view alone (see MIGRATION.md section 21)",
+        "updateWidget": "removed; use the pure layout edits such as dockWidget, floatWidget and setFrame (see MIGRATION.md section 21)",
+        "getWidgetState": "removed; read the v2 layout (see MIGRATION.md section 21)",
+        "useWidgetDrag": "removed; DockLayout handles dragging (see MIGRATION.md section 21)",
+        "useWidgetResize": "removed; DockLayout handles resizing (see MIGRATION.md section 21)",
+        "getDockedResizeEdge": "removed; DockLayout handles resizing (see MIGRATION.md section 21)",
+        "TITLEBAR_HEIGHT": "removed (see MIGRATION.md section 21)",
+        "DockedLayoutResult": "removed with computeDockedStyles (see MIGRATION.md section 21)",
+        "ExclusiveInsets": "removed; the main view takes the room the docked widgets leave (see MIGRATION.md section 21)",
+        "WidgetSettings": "replaced by WidgetOptions, anchored to the gear through anchorRef (see MIGRATION.md section 21)"
       }
     }
   ]
