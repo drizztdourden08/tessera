@@ -690,33 +690,51 @@
       "at": "2026-10-02"
     },
     "RouterLink": {
-      "status": "new"
+      "status": "ok",
+      "hash": "94ac613a7e2907e7",
+      "at": "2026-10-02"
     }
   },
   "Composites · Dialogs": {
     "Dialog": {
-      "status": "new"
+      "status": "ok",
+      "hash": "cc4450721f9db62d",
+      "at": "2026-10-02"
     },
     "DialogShell": {
-      "status": "new"
+      "status": "ok",
+      "hash": "01019d96176d7766",
+      "at": "2026-10-02"
     },
     "CreateRecordDialog": {
-      "status": "new"
+      "status": "ok",
+      "hash": "c267bb235a4486f0",
+      "at": "2026-10-02"
     },
     "DeleteGuardDialog": {
-      "status": "new"
+      "status": "ok",
+      "hash": "6b7b5dfef86b834a",
+      "at": "2026-10-02"
     },
     "ConfirmIconButton": {
-      "status": "new"
+      "status": "seen",
+      "hash": "88dd930bf4154c2b",
+      "at": "2026-10-02"
     },
     "InlineCreateForm": {
-      "status": "new"
+      "status": "seen",
+      "hash": "63c0675eb255d1c1",
+      "at": "2026-10-02"
     },
     "Overlay": {
-      "status": "new"
+      "status": "ok",
+      "hash": "57e836e3fb28624e",
+      "at": "2026-10-02"
     },
     "Drawer": {
-      "status": "new"
+      "status": "ok",
+      "hash": "be70be5e1771b024",
+      "at": "2026-10-02"
     },
     "FullScreenLayer": {
       "status": "new"
