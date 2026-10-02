@@ -77,3 +77,11 @@ describe('adding to a list in a source file', () => {
     expect(insertInList('entries: [{ name: \'Hero\' }],', 9, '{ name: \'Map\' }')).toBe('entries: [{ name: \'Hero\' }, { name: \'Map\' }],');
   });
 });
+
+describe('runTessera', () => {
+  it('runs a command in a given folder and resolves to its exit code', async () => {
+    const { runTessera } = await import('../scripts/cli/index.mjs');
+    expect(await runTessera(['--version'])).toBe(0);
+    expect(await runTessera(['nothing'], { cwd: process.cwd() })).toBe(1);
+  });
+});

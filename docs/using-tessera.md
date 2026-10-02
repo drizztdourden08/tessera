@@ -357,6 +357,8 @@ An app primitive or composite starts with a warning: most primitives and composi
 | `--yes` | creates an app primitive or composite without asking |
 | `--dry-run` | lists the files it would write and change, and writes nothing |
 
+Other tools run the same commands through `@drizztdourden08/tessera/cli`: `runTessera(['new', 'compound', 'SaveSlot'], { cwd })` resolves to the exit code, so the Brock command line can offer them as its own.
+
 ## Upgrading
 
 `CHANGELOG.md` lists what changed in each version. `MIGRATION.md` explains each breaking change and what a consuming app does about it. `RENAMES.json` is the machine-readable part: every renamed custom property, component, prop, prop value and CSS class, and every removed export. Replay it over the app's code when upgrading, longer keys first.

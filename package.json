@@ -33,6 +33,10 @@
       "types": "./scripts/config/index.d.mts",
       "default": "./scripts/config/index.mjs"
     },
+    "./cli": {
+      "types": "./scripts/cli/index.d.mts",
+      "default": "./scripts/cli/index.mjs"
+    },
     "./tessera.config.schema.json": "./tessera.config.schema.json",
     "./standards.extension.mjs": "./standards.extension.mjs",
     "./package.json": "./package.json"
