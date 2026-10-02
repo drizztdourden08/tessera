@@ -1,8 +1,7 @@
 /* @layer root-config @kind logic */
+import { folderFor } from './catalogue-folder';
 import { CATALOGUE } from './catalogue.constants';
 import type { MenuOrder } from './menu.type';
-
-const folderFor = (tier: string, group: string): string => (group ? `${tier} · ${group}` : tier);
 
 const menuOrder = (): MenuOrder =>
   CATALOGUE.flatMap((t) => t.groups.flatMap((g) => [

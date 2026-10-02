@@ -47,7 +47,22 @@ button[aria-label="App"]:not(.toolbar-dropdown__item) { display: none; }
 [data-review="yellow"] { --review-dot: #e6b84f; }
 [data-review="green"] { --review-dot: #6cc38a; }
 
-/* A closed component whose story is open reads as the current row (component-pages.ts). */
+/* Tiers (sidebar-tiers.constants.ts): Core, Primitives, Composites and Data head their groups.
+   Story titles keep their "Tier · Group" folder; the menu shows the group name under its tier.
+   A tier with no group of its own (Data) lists its pages straight under the tier row. */
+.story-tier { margin: 0; }
+.story-group__toggle.story-tier__toggle { text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
+.story-group[data-tier] {
+  margin-inline-start: 14px; padding-inline-start: 8px;
+  border-inline-start: 1px solid color-mix(in oklab, var(--sl-border), transparent 24%);
+}
+.story-group[data-tier-closed] { display: none; }
+.story-group[data-tier-root] > h2 { display: none; }
+.story-group[data-tier-root] > .story-group__components { display: grid; margin: 0; padding: 0; border: 0; }
+
+/* A closed component whose story is open reads as the current row (component-pages.ts),
+   and so does a closed tier. */
+.story-tier__toggle[data-current],
 .story-component:has(.story-tree__branch--collapsed .story-link.active) > h3 .story-component__toggle {
   color: var(--sl-primary); background: var(--sl-primary-soft); box-shadow: inset 0 0 0 1px var(--sl-primary-quiet);
 }

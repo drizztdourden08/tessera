@@ -7,8 +7,9 @@ const componentPagesScript = (pages: Record<string, string>): string => `<script
   var keyOf = function (section) {
     var name = section.querySelector('.story-component__toggle > span');
     var group = section.closest('.story-group');
-    var folder = group && group.querySelector('.story-group__toggle > span');
-    return (folder ? folder.textContent.trim() + '/' : '') + (name ? name.textContent.trim() : '');
+    var label = group && group.querySelector('.story-group__toggle > span');
+    var folder = group && (group.getAttribute('data-folder') || (label ? label.textContent.trim() : ''));
+    return (folder ? folder + '/' : '') + (name ? name.textContent.trim() : '');
   };
   var searching = function () {
     var box = document.querySelector('.story-search input');

@@ -12,9 +12,10 @@ const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {} };
   };
   var decorate = function () {
     queued = false;
+    decorateTiers();
     document.querySelectorAll('.story-group').forEach(function (group) {
       var toggle = group.querySelector('.story-group__toggle');
-      var folder = text(toggle && toggle.querySelector(':scope > span'));
+      var folder = folderOf(group);
       setIcon(toggle && toggle.querySelector('.story-tree__type-icon'), folder, ICONS.groups[folder]);
       mark(toggle, colours.groups[folder]);
       group.querySelectorAll('.story-component').forEach(function (page) {

@@ -1,8 +1,10 @@
 /* @layer root-config @kind logic */
 import { lucideBody } from './lucide-body';
-import { REVIEW_ROUTE } from './review.constants';
+import { REVIEW_RANK, REVIEW_ROUTE } from './review.constants';
 import { SIDEBAR_BODY, SIDEBAR_POLL_MS } from './sidebar-decor.constants';
 import { GROUP_ICONS, PAGE_ICONS } from './sidebar-icons.constants';
+import { TIER_BODY } from './sidebar-tiers.constants';
+import { sidebarTiers } from './sidebar-tiers';
 
 const sidebarIcons = (root: string) => {
   const groups = Object.fromEntries(Object.entries(GROUP_ICONS).map(([group, icon]) => [group, lucideBody(root, icon)]));
@@ -14,9 +16,11 @@ const sidebarIcons = (root: string) => {
 const sidebarDecorScript = (root: string): string => `<script>
 (function () {
   var ICONS = ${JSON.stringify(sidebarIcons(root))};
+  var TIERS = ${JSON.stringify(sidebarTiers(root))};
+  var RANK = ${JSON.stringify(REVIEW_RANK)};
   var ROUTE = ${JSON.stringify(REVIEW_ROUTE)};
   var POLL_MS = ${SIDEBAR_POLL_MS};
-${SIDEBAR_BODY}})();
+${TIER_BODY}${SIDEBAR_BODY}})();
 </script>`;
 
 export { sidebarDecorScript };

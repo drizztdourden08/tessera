@@ -1,4 +1,6 @@
 /* @layer root-config @kind data */
+const TIER_ICONS: Record<string, string> = { Core: 'atom', Primitives: 'box', Composites: 'boxes', Data: 'database' };
+
 const GROUP_ICONS: Record<string, string> = {
   'Core · Setup': 'rocket', 'Core · Brand': 'gem', 'Core · Colours': 'palette', 'Core · Typography': 'type', 'Core · Text': 'pilcrow',
   'Core · Icons': 'shapes', 'Core · Tokens': 'ruler',
@@ -92,4 +94,4 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Data': { Engine: 'cpu' },
 };
 
-export { GROUP_ICONS, PAGE_ICONS };
+export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };
