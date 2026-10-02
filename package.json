@@ -90,7 +90,8 @@
     "tokens": "node scripts/tokens/build-tokens.mjs",
     "review": "node scripts/review/review.mjs",
     "ai": "node scripts/ai/build-ai.mjs",
-    "tessera": "node scripts/cli/tessera.mjs"
+    "tessera": "node scripts/cli/tessera.mjs",
+    "release:version": "changeset version && node scripts/renames/stamp-renames.mjs"
   },
   "standards": {
     "extension": "./standards.extension.mjs"

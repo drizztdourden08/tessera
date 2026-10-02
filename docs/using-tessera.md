@@ -363,7 +363,7 @@ Other tools run the same commands through `@drizztdourden08/tessera/cli`: `runTe
 
 ## Upgrading
 
-`CHANGELOG.md` lists what changed in each version. `MIGRATION.md` explains each breaking change and what a consuming app does about it. `RENAMES.json` is the machine-readable part: every renamed custom property, component, prop, prop value and CSS class, and every removed export. Replay it over the app's code when upgrading, longer keys first.
+`CHANGELOG.md` lists what changed in each version. `MIGRATION.md` explains each breaking change and what a consuming app does about it. `RENAMES.json` is the machine-readable part: every renamed custom property, component, prop, prop value and CSS class, and every removed export, grouped by the release it shipped in. When upgrading, replay each release between the old and the new version, oldest first, longer keys first inside a map. `brock upgrade` does this for a Brock app.
 
 ## Asking for a missing part
 
