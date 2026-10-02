@@ -636,7 +636,9 @@
       "at": "2026-10-01"
     },
     "HintScope": {
-      "status": "new"
+      "status": "ok",
+      "hash": "bf75a5ae2e36a29a",
+      "at": "2026-10-02"
     },
     "Callout": {
       "status": "ok",
@@ -646,7 +648,9 @@
   },
   "Primitives · Navigation": {
     "Tabs": {
-      "status": "new"
+      "status": "ok",
+      "hash": "70da85fee908b9e9",
+      "at": "2026-10-02"
     },
     "Link": {
       "status": "new"
