@@ -9,8 +9,7 @@ const TREE_MODULE = '/src/ai/tree.constants.ts';
 const STORIES_DIR = 'stories';
 const THEME_DIR = 'src/theme';
 const EXAMPLE_DIR = '.ai-examples';
-const MODE_KEY = 'aiUsage';
-const MODES = ['report', 'enforce'];
+const MODE_KEY = 'ai.usage';
 const DEFAULT_MODE = 'report';
 const REQUIRED_TEXT = ['job', 'example', 'propsHash'];
 const REQUIRED_LISTS = ['useWhen', 'avoidWhen', 'rules', 'a11y'];
@@ -25,6 +24,6 @@ const FILES = {
 };
 
 export {
-  AI_DIR, COMPONENTS_DIR, DEFAULT_MODE, EXAMPLE_DIR, FILES, LITERAL_LIMIT, MODE_KEY, MODES, REQUIRED_LISTS,
+  AI_DIR, COMPONENTS_DIR, DEFAULT_MODE, EXAMPLE_DIR, FILES, LITERAL_LIMIT, MODE_KEY, REQUIRED_LISTS,
   REQUIRED_TEXT, SKIPPED_FOLDERS, SRC_DIR, STORIES_DIR, THEME_DIR, TIER_ORDER, TREE_MODULE, USAGE_SUFFIX,
 };

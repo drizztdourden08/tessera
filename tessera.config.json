@@ -1,0 +1,10 @@
+{
+  "$schema": "./tessera.config.schema.json",
+  "parts": {
+    "primitives": "src/primitives",
+    "composites": "src/composites"
+  },
+  "stories": "stories",
+  "theme": { "css": "src/tokens/index.css" },
+  "ai": { "usage": "report" }
+}

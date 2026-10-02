@@ -8,12 +8,11 @@ const TYPE_IMPORTS = {
   app: 'import type { ComponentUsage } from \'@drizztdourden08/tessera\';',
 };
 
-const exampleOf = ({ mode, kind, names, folder }) => {
-  const from = mode === 'tessera' ? '@drizztdourden08/tessera' : `../../${folder.split('/').slice(1).join('/')}`;
+const exampleOf = ({ kind, names, exampleImport }) => {
   const element = kind === 'view'
     ? `<${names.name} title="${names.human}" />`
     : `<${names.name} title="${names.human}">The content ${names.name} holds.</${names.name}>`;
-  return `import { ${names.name} } from '${from}';\n\nconst ${names.name}Sample = () => ${element};\n`;
+  return `import { ${names.name} } from '${exampleImport}';\n\nconst ${names.name}Sample = () => ${element};\n`;
 };
 
 const placeOf = ({ tree, names }) => {

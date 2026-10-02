@@ -27,7 +27,7 @@ const printProblems = (problems) => {
 
 const printFindings = (findings, { mode, problem, total, leafCount, verbose }) => {
   const enforce = mode === 'enforce';
-  console.log(`ai: ${mode} mode (package.json tessera.${MODE_KEY}). ${enforce ? 'Coverage gaps fail the check.' : 'Coverage gaps are listed and do not fail; set it to "enforce" once every component has its usage.'}`);
+  console.log(`ai: ${mode} mode (tessera.config.json ${MODE_KEY}). ${enforce ? 'Coverage gaps fail the check.' : 'Coverage gaps are listed and do not fail; set it to "enforce" once every component has its usage.'}`);
   printMissing(findings.filter((f) => f.kind === 'missing-usage'), total);
   printLeaves(findings.filter((f) => f.kind === 'unreached-leaf'), leafCount, verbose);
   const { problems, failed } = aiVerdict(findings, { mode, problem });

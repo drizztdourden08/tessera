@@ -10,19 +10,11 @@ const STORYLITE = '@storylite/storylite';
 const SIDEBAR_FILE = '.storylite/sidebar-icons.constants.ts';
 const ICON_DIR = 'node_modules/@iconify-icons/lucide';
 
-const FOLDERS = {
-  primitive: 'src/primitives',
-  composite: 'src/composites',
-  compound: 'src/compounds',
-  view: 'src/views',
-};
+const TESSERA_EXTRA_FOLDERS = ['src/brand'];
 
-const STORY_FOLDERS = {
-  primitive: 'stories/primitives',
-  composite: 'stories/composites',
-  compound: 'stories/compounds',
-  view: 'stories/views',
-};
+const SCHEMA_PATH = './node_modules/@drizztdourden08/tessera/tessera.config.schema.json';
+
+const CONFIG_HINT = `no tessera.config.json here or above, so the files go to the default folders: src/<kind>s and stories/. To choose the folders, add tessera.config.json at the repo root with { "$schema": "${SCHEMA_PATH}" } and its parts.`;
 
 const CATALOGUE_FILES = {
   primitive: '.storylite/catalogue-primitives.constants.ts',
@@ -46,6 +38,7 @@ Options:
   --tree <path>     where it sits in the decision tree, answers joined by " > ",
                     such as "actions > one action > a visible word" (asked when left out,
                     and a building block when none is picked)
+  --into <folder>   the folder to write in, when tessera.config.json lists more than one for the kind
   --icon <name>     the Lucide icon of its gallery page in Tessera (default ${DEFAULT_ICON})
   --yes             create an app primitive or composite without asking
   --dry-run         list the files it would write and change, and write nothing
@@ -53,6 +46,6 @@ Options:
 `;
 
 export {
-  APP_PART_KINDS, APP_PART_WARNING, APP_TIERS, CATALOGUE_FILES, DEFAULT_ICON, FOLDERS, ICON_DIR, KINDS, LAYERS, NAME_RULE,
-  NEW_USAGE, PACKAGE_NAME, SIDEBAR_FILE, STORY_FOLDERS, STORYLITE, TESSERA_KINDS, TREE_SEPARATOR,
+  APP_PART_KINDS, APP_PART_WARNING, APP_TIERS, CATALOGUE_FILES, CONFIG_HINT, DEFAULT_ICON, ICON_DIR, KINDS, LAYERS, NAME_RULE,
+  NEW_USAGE, PACKAGE_NAME, SIDEBAR_FILE, STORYLITE, TESSERA_EXTRA_FOLDERS, TESSERA_KINDS, TREE_SEPARATOR,
 };

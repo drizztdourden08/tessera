@@ -39,6 +39,31 @@ const SETUP_GUIDE: Guide = {
       language: 'text',
     },
     {
+      title: 'tessera.config.json',
+      points: [
+        'Tessera tools run from `node_modules`, so `tessera.config.json` tells them where the app parts live. Put it at the repo root, next to `pnpm-workspace.yaml` in a monorepo.',
+        'A new single-app repo needs only the `$schema` line. Each folder then has its default: `src/primitives`, `src/composites`, `src/compounds`, `src/views`, `stories` and `src/theme.css`.',
+        'In a monorepo, the shared parts live in `packages/design`, a workspace package named `@<scope>/design`. Each app sets its own `parts.views` under `apps`.',
+        'Paths are relative to the file. A tool reads the first `tessera.config.json` in its folder or above it.',
+        `Every key and its default: ${GUIDE_LINKS.usingTessera}.`,
+      ],
+      code: `{
+  "$schema": "./node_modules/@drizztdourden08/tessera/tessera.config.schema.json",
+  "package": "@archipelia/design",
+  "parts": {
+    "primitives": "packages/design/src/primitives",
+    "composites": "packages/design/src/composites",
+    "compounds": "packages/design/src/compounds"
+  },
+  "stories": "packages/design/stories",
+  "theme": { "css": "packages/design/src/theme.css", "palette": "archipelia" },
+  "apps": {
+    "apps/desktop": { "parts": { "views": "apps/desktop/src/views" } }
+  }
+}`,
+      language: 'json',
+    },
+    {
       title: 'Wrap the root',
       points: [
         'Wrap the root once in `TesseraProvider`. Name only the parts the app draws its own way; the rest keep the Tessera default.',

@@ -838,3 +838,33 @@ The glow on the `SettingsPage` icon, the current `SectionNav` item and the searc
 ```
 
 rotp and Brock can draw their hub search with `SearchResults` and pass each page's rows as a group's `children`. An app that overrides `nothingMatches` moves the text to `searchTip`.
+
+## 44. tessera.config.json says where an app keeps its parts; aiUsage moves into it
+
+Tessera's tools run from `node_modules`, so an app now names its own folders in `tessera.config.json` at the repo root, next to `pnpm-workspace.yaml` in a monorepo. Every key is optional and every path is relative to the file; `docs/using-tessera.md` lists the keys and their defaults. A single-app repo that keeps the default `src/<kind>` folders needs only:
+
+```json
+{
+  "$schema": "./node_modules/@drizztdourden08/tessera/tessera.config.schema.json"
+}
+```
+
+- `tessera new` reads it: each kind goes to its `parts` folder, a view to the `parts.views` of the app it runs in, and `--into <folder>` picks a folder when a kind lists more than one. With no file, it writes to the default folders and prints a hint.
+- `@drizztdourden08/tessera/config` exports `loadTesseraConfig(fromDir?)` and `findTesseraConfig(fromDir?)` for Node tools, with types. A key the schema does not know, or a value of the wrong type, throws an error that names the key.
+- `package.json` declares `"standards": { "extension": "./standards.extension.mjs" }`. An app on `@drizztdourden08/standards` gets the usage file rule for its `parts`, `primitivesGlobs` and the theme token file from `tessera.config.json`.
+- `./config` is the first `exports` entry with a `types` condition, so its value is an object. The Vite alias in `docs/using-tessera.md` now takes `target.default ?? target`; an app that copied the old alias updates that line.
+
+The `tessera.aiUsage` key of Tessera's `package.json` is gone. The setting is `ai.usage` in Tessera's own `tessera.config.json`, with the same values, `report` or `enforce`, and the same default. `pnpm ai --check` prints `(tessera.config.json ai.usage)` where it printed `(package.json tessera.aiUsage)`, and a wrong value names the key the same way the loader does.
+
+```json
+"tessera": { "aiUsage": "report" }
+```
+
+```json
+{
+  "$schema": "./tessera.config.schema.json",
+  "ai": { "usage": "report" }
+}
+```
+
+Brock reads the app layout with `loadTesseraConfig`. rotp and Archipelia add a `tessera.config.json` with `$schema` and the folders they use; Archipelia moves its shared parts to `packages/design` and sets `parts.views` per app under `apps`.

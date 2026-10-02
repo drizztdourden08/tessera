@@ -29,7 +29,7 @@ React 19 and React DOM 19 are peer dependencies. The package ships TypeScript an
 
 ### Working on Tessera and an app together
 
-With Tessera checked out next to the app, one alias list in the app's `vite.config.ts` makes Vite read the checkout instead of the installed package. It maps every entry of Tessera's `exports`, so each import path keeps working:
+With Tessera checked out next to the app, one alias list in the app's `vite.config.ts` makes Vite read the checkout instead of the installed package. It maps every entry of Tessera's `exports`, so each import path keeps working. An entry with types, such as `./config`, is an object, and the alias takes its `default`:
 
 ```ts
 import { readFileSync } from 'node:fs';
@@ -40,8 +40,49 @@ const TESSERA = fileURLToPath(new URL('../tessera/', import.meta.url));
 const { exports } = JSON.parse(readFileSync(`${TESSERA}package.json`, 'utf8'));
 
 const tessera = Object.entries(exports).map(([path, target]) => ({
-  find: new RegExp(`^@drizztdourden08/tessera${path.slice(1).replace('*', '(.*)')}$`),
-  replacement: TESSERA + target.slice(2).replace('*', '$1'),
+  find: new RegExp(`^@drizztdourden08/tessera${path.slice(1).replace('*', '(.*)')}<!-- @layer docs @kind doc -->
+# Using Tessera in an app
+
+How an app installs Tessera, themes it and keeps up with it. For how Tessera itself is organised, see `design-system.md`.
+
+The gallery's Core · Setup pages give the short version of each step with code to copy: Setup, TesseraProvider, Building compounds, Building views, and App primitives and composites.
+
+## Install
+
+Tessera is published to GitHub Packages. Point the scope at that registry in the app's `.npmrc`:
+
+```ini
+@drizztdourden08:registry=https://npm.pkg.github.com
+```
+
+GitHub Packages asks for a token even to read. Put one with the `read:packages` scope in your user `~/.npmrc`, not in the repo:
+
+```ini
+//npm.pkg.github.com/:_authToken=<token>
+```
+
+Then:
+
+```sh
+pnpm add @drizztdourden08/tessera
+```
+
+React 19 and React DOM 19 are peer dependencies. The package ships TypeScript and CSS source, not a build: the app's Vite compiles it like its own code.
+
+### Working on Tessera and an app together
+
+With Tessera checked out next to the app, one alias list in the app's `vite.config.ts` makes Vite read the checkout instead of the installed package. It maps every entry of Tessera's `exports`, so each import path keeps working:
+
+```ts
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { defineConfig } from 'vite';
+
+const TESSERA = fileURLToPath(new URL('../tessera/', import.meta.url));
+const { exports } = JSON.parse(readFileSync(`${TESSERA}package.json`, 'utf8'));
+
+),
+  replacement: TESSERA + (target.default ?? target).slice(2).replace('*', '$1'),
 }));
 
 export default defineConfig({
@@ -176,12 +217,107 @@ const AppLink = (props: Omit<RouterLinkProps, 'onNavigate' | 'href'>) => {
 | `/tokens.css` | every token, imported once |
 | `/tokens.json`, `/splash-tokens.css` | the theme as plain values |
 | `/brand/*` | the brand files: SVG marks, icons, PNGs and `.ico` |
+| `/config` | `loadTesseraConfig` and `findTesseraConfig`, for Node tools that read `tessera.config.json` |
+| `/tessera.config.schema.json` | the schema of `tessera.config.json` |
 
 The colour pickers and the field kits have their own paths so an app that never uses them never loads them.
 
 ## The gallery
 
 In a Tessera checkout, `pnpm storylite` serves the gallery on `http://localhost:4400`. Every part has an Overview page: what it is for, its variants, its states, a playground with controls, and the code to copy. The logo buttons at the top of the menu redraw every page in each app's palette. Look there first before building something.
+
+## tessera.config.json
+
+Tessera's tools run from `node_modules`, so they cannot guess where an app keeps its own parts. `tessera.config.json` tells them. `tessera new`, the standards extension and any other Tessera tool read it.
+
+Put the file at the root of the repo: next to `pnpm-workspace.yaml` in a monorepo, next to `package.json` otherwise. A tool looks for it in the folder it runs in, then in each folder above, and takes the first one it finds. Every path in it is relative to the file.
+
+A new single-app repo starts with only the schema line, which gives the editor its hints:
+
+```json
+{
+  "$schema": "./node_modules/@drizztdourden08/tessera/tessera.config.schema.json"
+}
+```
+
+Every key is optional:
+
+| Key | What it says | Default |
+|---|---|---|
+| `package` | the workspace package that holds the shared parts, such as `@archipelia/design` | none |
+| `parts.primitives` | the app primitives | `src/primitives` |
+| `parts.composites` | the app composites | `src/composites` |
+| `parts.compounds` | the compounds | `src/compounds` |
+| `parts.views` | the views | `src/views` |
+| `stories` | the gallery stories | `stories` |
+| `theme.css` | the theme stylesheet | `src/theme.css` |
+| `theme.palette` | the `data-palette` name of the app palette | none |
+| `ai.usage` | `report` lists the parts with no usage file and passes; `enforce` fails on them | `report` |
+| `ai.out` | the folder `pnpm ai` writes | `ai` |
+| `ai.tree` | the module that holds the decision tree of the app parts | none |
+| `gallery` | `title`, `port` and `review` of the StoryLite gallery, read only when `@storylite/storylite` is installed | none |
+| `overrides` | the file that builds the app `TesseraOverrides` | none |
+| `apps` | settings per app, below | none |
+
+Each `parts` entry takes a folder, a glob, or a list of them. `tessera new` writes into the first one, and `--into <folder>` picks another one of the list.
+
+A key the schema does not know, or a value of the wrong type, stops the tool with an error that names the key, such as `"gallery.port" is a string; it takes a whole number`.
+
+### A monorepo
+
+In a monorepo, the shared parts live in one workspace package, `packages/design`, named `@<scope>/design`. The compounds, the rare app primitives and composites, the stories and the theme sit there. Each app keeps its own views in its own folder.
+
+```text
+pnpm-workspace.yaml
+tessera.config.json
+packages/design/          @archipelia/design
+  src/primitives/
+  src/composites/
+  src/compounds/
+  src/theme.css
+  stories/
+apps/desktop/
+  src/views/
+apps/web/
+  src/views/
+```
+
+```json
+{
+  "$schema": "./node_modules/@drizztdourden08/tessera/tessera.config.schema.json",
+  "package": "@archipelia/design",
+  "parts": {
+    "primitives": "packages/design/src/primitives",
+    "composites": "packages/design/src/composites",
+    "compounds": "packages/design/src/compounds"
+  },
+  "stories": "packages/design/stories",
+  "theme": { "css": "packages/design/src/theme.css", "palette": "archipelia" },
+  "apps": {
+    "apps/desktop": { "parts": { "views": "apps/desktop/src/views" } },
+    "apps/web": { "parts": { "views": "apps/web/src/views" } }
+  }
+}
+```
+
+Each key of `apps` is an app folder. Its value changes the settings above for a tool run inside that folder: objects merge key by key, and any other value replaces. Most apps set only `parts.views`, since the other parts are shared.
+
+### Reading it from a tool
+
+`@drizztdourden08/tessera/config` reads the file from Node, with types:
+
+```ts
+import { findTesseraConfig, loadTesseraConfig } from '@drizztdourden08/tessera/config';
+
+const config = loadTesseraConfig(process.cwd());
+config?.parts.views; // absolute folders, the app ones when run inside an apps entry
+```
+
+`loadTesseraConfig` returns `undefined` when there is no file. Otherwise every path is absolute, every default is filled in, `root` is the folder of the file, and `app` is the app folder when the search started inside an `apps` entry. `findTesseraConfig` returns the path of the file alone.
+
+### The standards extension
+
+Tessera declares an extension for `@drizztdourden08/standards`, so an app that uses both gets it with no setup. From `tessera.config.json` it requires `Name.usage.ts` in each part folder under `parts`, passes the primitives and composites folders as `primitivesGlobs` to ESLint, and passes `theme.css` as a token file to stylelint.
 
 ## Creating a part with the tessera command
 
@@ -195,7 +331,7 @@ pnpm exec tessera new primitive HelpWebview --yes
 
 In the Tessera repo, `pnpm tessera new primitive QuestBanner --group Layout` runs the same command.
 
-It looks for the nearest `package.json` to know where it runs, and puts each kind in its folder:
+It reads `tessera.config.json` to know where it runs and where each kind goes. Tessera must be installed in the app or at the root of the repo. A view goes to the `parts.views` of the app it runs in. With no `tessera.config.json`, it takes the nearest `package.json` that lists Tessera, writes to the default folders and prints a hint to add the file. The default folders:
 
 | Kind | In an app | In the Tessera repo |
 |---|---|---|
@@ -204,9 +340,11 @@ It looks for the nearest `package.json` to know where it runs, and puts each kin
 | `primitive` | `src/primitives/<Name>/`, after a warning | `src/primitives/<Name>/` |
 | `composite` | `src/composites/<Name>/`, after a warning | `src/composites/<Name>/` |
 
+It refuses a name already taken in any `parts` folder. The story goes under the `stories` folder, in `<kind>s/`, and imports the part by its relative path.
+
 Each folder gets `<Name>.tsx` built from `Box` and `Text`, `<Name>.type.ts` with its props, `<Name>.css` with tokens only, `index.ts` and `<Name>.usage.ts`. Every field of the usage file holds a sentence that says what to write there: replace each one. `propsHash` matches the props it writes; change the props and `pnpm ai --check` gives the new hash.
 
-In Tessera it also exports the part from its tier barrel, adds its entry to `.storylite/catalogue-*.constants.ts` and its icon to `.storylite/sidebar-icons.constants.ts`, writes an Overview story from the gallery template, then runs `pnpm ai`. In an app that lists `@storylite/storylite`, it writes a story under `stories/`.
+In Tessera it also exports the part from its tier barrel, adds its entry to `.storylite/catalogue-*.constants.ts` and its icon to `.storylite/sidebar-icons.constants.ts`, writes an Overview story from the gallery template, then runs `pnpm ai`. In an app, it writes the story when `@storylite/storylite` is listed by the app, by the repo root or by the package that holds the `stories` folder.
 
 An app primitive or composite starts with a warning: most primitives and composites belong in Tessera, so build it there unless only this app will ever need it. The command then asks to confirm. Without a terminal it stops unless `--yes` is given.
 
@@ -214,6 +352,7 @@ An app primitive or composite starts with a warning: most primitives and composi
 |---|---|
 | `--group <group>` | the gallery group of its page, such as `Layout`. In Tessera it asks when this is left out |
 | `--tree <path>` | where the part sits in the decision tree of `ai/decide.md`, the answers joined by `>`, such as `"actions > one action > a visible word"`. Left out, it asks in a terminal; with no answer picked, the part is a building block |
+| `--into <folder>` | the folder to write in, when `tessera.config.json` lists more than one for the kind |
 | `--icon <name>` | the Lucide icon of its gallery page in Tessera, `component` by default |
 | `--yes` | creates an app primitive or composite without asking |
 | `--dry-run` | lists the files it would write and change, and writes nothing |

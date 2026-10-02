@@ -24,6 +24,7 @@ describe('tessera new in an app that uses Tessera', () => {
     expect(made.results.flatMap((result) => result.scripts)).toEqual([]);
     expect(made.results[0].out).toContain('tessera: created the compound SaveSlot.');
     expect(made.results[2].out).toContain('tessera: created the app primitive HelpWebview.');
+    expect(made.results[0].out).toContain('tessera: no tessera.config.json here or above, so the files go to the default folders');
   });
 
   it('builds from Tessera parts imported from the package', () => {
@@ -31,6 +32,8 @@ describe('tessera new in an app that uses Tessera', () => {
     expect(made.read('src/views/SaveList/SaveList.tsx')).toContain('<Box as="section"');
     expect(made.read('src/compounds/SaveSlot/SaveSlot.usage.ts')).toContain('import type { ComponentUsage } from \'@drizztdourden08/tessera\';');
     expect(made.read('stories/views/SaveList.stories.tsx')).toContain('title: \'Views · Saves/SaveList\',');
+    expect(made.read('stories/views/SaveList.stories.tsx')).toContain('import { SaveList } from \'../../src/views/SaveList\';');
+    expect(made.read('src/compounds/SaveSlot/SaveSlot.usage.ts')).toContain('import { SaveSlot } from \'../../compounds/SaveSlot\';');
   });
 
   it('warns before an app primitive or composite and asks to confirm', () => {

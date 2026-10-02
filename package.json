@@ -29,6 +29,12 @@
     "./splash-tokens.css": "./splash-tokens.css",
     "./brand/*": "./brand/*",
     "./ai/*": "./ai/*",
+    "./config": {
+      "types": "./scripts/config/index.d.mts",
+      "default": "./scripts/config/index.mjs"
+    },
+    "./tessera.config.schema.json": "./tessera.config.schema.json",
+    "./standards.extension.mjs": "./standards.extension.mjs",
     "./package.json": "./package.json"
   },
   "imports": {
@@ -43,6 +49,8 @@
   "files": [
     "ai",
     "scripts/cli",
+    "scripts/config",
+    "scripts/standards",
     "scripts/ai/props-hash.mjs",
     "src",
     "brand",
@@ -53,7 +61,9 @@
     "MIGRATION.md",
     "RENAMES.json",
     "tokens.json",
-    "splash-tokens.css"
+    "splash-tokens.css",
+    "tessera.config.schema.json",
+    "standards.extension.mjs"
   ],
   "sideEffects": [
     "**/*.css",
@@ -78,8 +88,8 @@
     "ai": "node scripts/ai/build-ai.mjs",
     "tessera": "node scripts/cli/tessera.mjs"
   },
-  "tessera": {
-    "aiUsage": "report"
+  "standards": {
+    "extension": "./standards.extension.mjs"
   },
   "peerDependencies": {
     "react": "^19.0.0",

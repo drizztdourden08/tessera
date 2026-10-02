@@ -1,15 +1,16 @@
 /* @layer tooling-scripts @kind logic */
+import { importPath } from './import-path.mjs';
 import { quoteText } from './quote-text.mjs';
 
-const importsOf = ({ mode, kind, names, folder }) => {
+const importsOf = ({ mode, kind, names, folder, kindDir, storyDir, primitivesDir }) => {
   if (mode === 'app') {
     return [
       'import { Text } from \'@drizztdourden08/tessera\';',
-      `import { ${names.name} } from '../../${folder}';`,
+      `import { ${names.name} } from '${importPath(storyDir, folder)}';`,
     ];
   }
-  if (kind === 'primitive') return [`import { ${names.name}, Text } from '../../src/primitives';`];
-  return [`import { ${names.name} } from '../../src/composites';`, 'import { Text } from \'../../src/primitives\';'];
+  if (kind === 'primitive') return [`import { ${names.name}, Text } from '${importPath(storyDir, kindDir)}';`];
+  return [`import { ${names.name} } from '${importPath(storyDir, kindDir)}';`, `import { Text } from '${importPath(storyDir, primitivesDir)}';`];
 };
 
 const overviewLines = ({ names }) => [

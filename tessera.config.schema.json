@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/drizztdourden08/tessera/blob/main/tessera.config.schema.json",
+  "title": "tessera.config.json",
+  "description": "Where an app keeps its own design-system parts, for the Tessera tools. It sits at the repo root, next to pnpm-workspace.yaml in a monorepo. Every path is relative to this file.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "description": "The schema that gives this file its editor hints: ./node_modules/@drizztdourden08/tessera/tessera.config.schema.json",
+      "type": "string"
+    },
+    "package": {
+      "description": "The workspace package that holds the shared parts, such as @archipelia/design. No default.",
+      "type": "string",
+      "minLength": 1
+    },
+    "parts": { "$ref": "#/definitions/parts" },
+    "stories": {
+      "description": "The folder of the gallery stories. Default: stories.",
+      "$ref": "#/definitions/path"
+    },
+    "theme": { "$ref": "#/definitions/theme" },
+    "ai": { "$ref": "#/definitions/ai" },
+    "gallery": { "$ref": "#/definitions/gallery" },
+    "overrides": {
+      "description": "The file that builds the TesseraOverrides the app hands to TesseraProvider. No default.",
+      "$ref": "#/definitions/path"
+    },
+    "apps": {
+      "description": "Per app settings. Each key is an app folder, relative to this file, such as apps/desktop. Its value overrides or extends the settings above for that app; usually only parts.views.",
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/app" }
+    }
+  },
+  "definitions": {
+    "path": {
+      "description": "A path relative to this file.",
+      "type": "string",
+      "minLength": 1
+    },
+    "folders": {
+      "description": "A folder or glob, or a list of them, relative to this file. tessera new writes into the first one unless --into picks another.",
+      "anyOf": [
+        { "$ref": "#/definitions/path" },
+        { "type": "array", "items": { "$ref": "#/definitions/path" }, "minItems": 1 }
+      ]
+    },
+    "parts": {
+      "description": "The folders of each kind of part the app builds.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "primitives": { "description": "App primitives, the rare part only this app needs that writes raw HTML. Default: src/primitives.", "$ref": "#/definitions/folders" },
+        "composites": { "description": "App composites, the rare part only this app needs built from primitives. Default: src/composites.", "$ref": "#/definitions/folders" },
+        "compounds": { "description": "Compounds, which draw one app concept from Tessera parts. Default: src/compounds.", "$ref": "#/definitions/folders" },
+        "views": { "description": "Views, the screens that own state. Usually set per app under apps. Default: src/views.", "$ref": "#/definitions/folders" }
+      }
+    },
+    "theme": {
+      "description": "The app theme.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "css": { "description": "The theme stylesheet that sets the palette seeds. Default: src/theme.css.", "$ref": "#/definitions/path" },
+        "palette": { "description": "The data-palette name of the app palette, such as archipelia. No default.", "type": "string", "minLength": 1 }
+      }
+    },
+    "ai": {
+      "description": "The usage files and the ai/ folder built from them.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "usage": { "description": "report lists the parts with no usage file and passes; enforce fails on them. Default: report.", "enum": ["report", "enforce"] },
+        "out": { "description": "The folder pnpm ai writes. Default: ai.", "$ref": "#/definitions/path" },
+        "tree": { "description": "The module that holds the decision tree of the app parts. No default.", "$ref": "#/definitions/path" }
+      }
+    },
+    "gallery": {
+      "description": "The StoryLite gallery. Read only when @storylite/storylite is installed.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": { "description": "The title at the top of the gallery menu.", "type": "string", "minLength": 1 },
+        "port": { "description": "The port the gallery serves on.", "type": "integer", "minimum": 1, "maximum": 65535 },
+        "review": { "description": "The file that records the review of each gallery page.", "$ref": "#/definitions/path" }
+      }
+    },
+    "app": {
+      "description": "What this app changes from the settings above. Objects merge key by key; any other value replaces.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "parts": { "$ref": "#/definitions/parts" },
+        "stories": { "description": "The folder of the gallery stories of this app.", "$ref": "#/definitions/path" },
+        "theme": { "$ref": "#/definitions/theme" },
+        "ai": { "$ref": "#/definitions/ai" },
+        "gallery": { "$ref": "#/definitions/gallery" },
+        "overrides": { "description": "The overrides file of this app.", "$ref": "#/definitions/path" }
+      }
+    }
+  }
+}

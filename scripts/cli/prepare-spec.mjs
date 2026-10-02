@@ -3,9 +3,10 @@ import { checkIcon } from './check-icon.mjs';
 import { componentNames } from './component-names.mjs';
 import { confirmAppPart } from './confirm-app-part.mjs';
 import { nameTaken } from './name-taken.mjs';
-import { APP_PART_KINDS, DEFAULT_ICON, FOLDERS, LAYERS, TESSERA_KINDS } from './new.constants.mjs';
+import { APP_PART_KINDS, DEFAULT_ICON, LAYERS, TESSERA_KINDS } from './new.constants.mjs';
 import { pickGroup } from './pick-group.mjs';
 import { pickTree } from './pick-tree.mjs';
+import { placeFiles } from './place-files.mjs';
 
 const refusal = ({ mode }, { kind, name }) =>
   (mode === 'tessera' && !TESSERA_KINDS.includes(kind)
@@ -22,16 +23,17 @@ const placeInGallery = async (io, project, { kind }, flags) => {
 
 const prepareSpec = async (io, project, request, flags) => {
   const { kind, name } = request;
-  const folder = `${FOLDERS[kind]}/${name}`;
   const problem = refusal(project, request) ?? nameTaken(project, name);
   if (problem) return { problem };
+  const place = placeFiles(project, request, flags.into);
+  if (place.problem) return { problem: place.problem };
   const appPart = project.mode === 'app' && APP_PART_KINDS.includes(kind);
-  if (appPart && !(await confirmAppPart(io, { yes: flags.yes, kind, name, folder }))) return { cancelled: true };
+  if (appPart && !(await confirmAppPart(io, { yes: flags.yes, kind, name, folder: place.folder }))) return { cancelled: true };
   const gallery = await placeInGallery(io, project, request, flags);
   if (gallery.problem) return { problem: gallery.problem };
   const tree = await pickTree(io, { tree: flags.tree, name });
   if (tree.problem) return { problem: tree.problem };
-  const spec = { mode: project.mode, kind, folder, layer: LAYERS[project.mode], names: componentNames(name), tree: tree.path, ...gallery };
+  const spec = { mode: project.mode, kind, ...place, layer: LAYERS[project.mode], names: componentNames(name), tree: tree.path, ...gallery };
   return { spec };
 };
 

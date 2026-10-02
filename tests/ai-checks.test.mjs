@@ -16,9 +16,9 @@ const TIMEOUT = 60_000;
 const problemsIn = async (name) =>
   (await collectAi(ROOT, { usageDir: fixture(name) })).findings.filter((f) => !f.coverage).map(({ kind, name: component }) => ({ kind, component }));
 
-const modeOf = (manifest) => {
+const modeOf = (config) => {
   const dir = mkdtempSync(join(tmpdir(), 'tessera-ai-'));
-  writeFileSync(join(dir, 'package.json'), JSON.stringify(manifest));
+  if (config) writeFileSync(join(dir, 'tessera.config.json'), JSON.stringify(config));
   try {
     return aiMode(dir);
   } finally {
@@ -63,10 +63,11 @@ describe('the report and enforce switch', () => {
   const gap = { kind: 'missing-usage', name: 'Badge', coverage: true };
   const problem = { kind: 'off-tree', name: 'Tag', coverage: false };
 
-  it('reads report by default and from package.json tessera.aiUsage', () => {
+  it('reads report by default and from tessera.config.json ai.usage', () => {
+    expect(modeOf()).toEqual({ mode: 'report' });
     expect(modeOf({})).toEqual({ mode: 'report' });
-    expect(modeOf({ tessera: { aiUsage: 'enforce' } })).toEqual({ mode: 'enforce' });
-    expect(modeOf({ tessera: { aiUsage: 'loose' } })).toMatchObject({ mode: 'enforce', problem: expect.stringContaining('"loose"') });
+    expect(modeOf({ ai: { usage: 'enforce' } })).toEqual({ mode: 'enforce' });
+    expect(modeOf({ ai: { usage: 'loose' } })).toMatchObject({ mode: 'enforce', problem: expect.stringContaining('"ai.usage" is "loose"') });
   });
 
   it('lets coverage gaps pass in report mode and fails them in enforce mode', () => {

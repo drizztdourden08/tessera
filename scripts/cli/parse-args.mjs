@@ -1,6 +1,6 @@
 /* @layer tooling-scripts @kind logic */
 const SWITCHES = ['yes', 'dry-run', 'help'];
-const VALUES = ['group', 'tree', 'icon'];
+const VALUES = ['group', 'tree', 'icon', 'into'];
 const SHORT = { '-h': 'help', '-y': 'yes' };
 
 const readOption = (argv, index, parsed) => {

@@ -20,7 +20,7 @@ const COMPOUNDS_GUIDE: Guide = {
     {
       title: 'Where files go',
       points: [
-        'One folder per compound: `src/compounds/<Name>/`.',
+        'One folder per compound, in the `parts.compounds` folder of `tessera.config.json`: `src/compounds/<Name>/` by default, `packages/design/src/compounds/<Name>/` in a monorepo.',
         'The same shape as a Tessera component folder. `brock structure --check` rejects any other file at its root.',
         'CSS classes start with the component name, such as `save-slot__meta`.',
       ],

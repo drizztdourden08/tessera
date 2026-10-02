@@ -13,7 +13,7 @@ const BROCK_WITHOUT_USAGE = /\.usage\.ts: not part of a component folder/;
 const ROOT = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const MODULES = join(ROOT, 'node_modules');
 const APP_FIXTURE = join(ROOT, 'tests', 'fixtures', 'cli', 'app');
-const TESSERA_PARTS = ['src', 'stories', '.storylite', 'scripts', 'ai', 'types', 'package.json', 'tsconfig.json', 'eslint.config.mjs', 'stylelint.config.mjs'];
+const TESSERA_PARTS = ['src', 'stories', '.storylite', 'scripts', 'ai', 'types', 'package.json', 'tessera.config.json', 'tessera.config.schema.json', 'tsconfig.json', 'eslint.config.mjs', 'stylelint.config.mjs'];
 const BIN = {
   eslint: join(MODULES, 'eslint', 'bin', 'eslint.js'),
   stylelint: join(MODULES, 'stylelint', 'bin', 'stylelint.mjs'),

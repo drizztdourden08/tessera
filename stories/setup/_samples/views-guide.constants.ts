@@ -20,7 +20,8 @@ const VIEWS_GUIDE: Guide = {
     {
       title: 'Where files go',
       points: [
-        'One folder per view: `src/views/<Name>/`, in the same shape as a compound.',
+        'One folder per view, in the same shape as a compound, in the `parts.views` folder of the app: `src/views/<Name>/` by default.',
+        'In a monorepo, views stay in each app. Set the folder per app under `apps` in `tessera.config.json`, such as `apps/desktop/src/views`.',
         'Each hook has its own file under `behavior/`, named after the hook.',
       ],
       code: `src/views/SaveList/

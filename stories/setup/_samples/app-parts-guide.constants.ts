@@ -27,8 +27,8 @@ const APP_PARTS_GUIDE: Guide = {
     {
       title: 'Where files go',
       points: [
-        '`src/primitives/<Name>/` and `src/composites/<Name>/`, in the Tessera folder shape, usage file included.',
-        'Only the app primitives folder may write raw HTML. Name it in `primitivesGlobs` in the app `eslint.config.mjs`.',
+        'The `parts.primitives` and `parts.composites` folders of `tessera.config.json`, in the Tessera folder shape, usage file included. By default `src/primitives/<Name>/` and `src/composites/<Name>/`.',
+        'Only the app primitives folder may write raw HTML. Name it in `primitivesGlobs` in the app `eslint.config.mjs`. With `@drizztdourden08/standards`, the Tessera extension reads it from `tessera.config.json`.',
       ],
       code: `import { brockEslint } from '@drizztdourden08/brock-lint-config';
 

@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind logic */
 import { defaultIo } from './default-io.mjs';
 import { findProject } from './find-project.mjs';
-import { NEW_USAGE } from './new.constants.mjs';
+import { CONFIG_HINT, NEW_USAGE } from './new.constants.mjs';
 import { parseArgs } from './parse-args.mjs';
 import { planApp } from './plan-app.mjs';
 import { planTessera } from './plan-tessera.mjs';
@@ -19,13 +19,13 @@ const fail = (io, problems, usage = false) => {
 const runAi = (io, project) => {
   if (!project.manifest.scripts?.ai) return 0;
   io.log('tessera: running pnpm ai so ai/ follows the new usage file.');
-  const status = io.runScript(project.root, 'ai');
+  const status = io.runScript(project.manifestDir, 'ai');
   if (status !== 0) io.warn('tessera: pnpm ai failed. The files are written: fix what it reports, then run pnpm ai again.');
   return status;
 };
 
 const create = (io, project, spec, dryRun) => {
-  const plan = spec.mode === 'tessera' ? planTessera(project.root, spec) : planApp(project.manifest, spec);
+  const plan = spec.mode === 'tessera' ? planTessera(project.root, spec) : planApp(project, spec);
   if (plan.problems.length > 0) return fail(io, plan.problems);
   if (!dryRun) writePlan(project.root, plan);
   printPlan(io, { spec, plan, dryRun });
@@ -44,6 +44,7 @@ const run = async (argv, { cwd, io = defaultIo() }) => {
   if (wrong.length > 0) return fail(io, wrong, true);
   const project = findProject(cwd);
   if (project.problem) return fail(io, [project.problem]);
+  if (project.unconfigured) io.log(`tessera: ${CONFIG_HINT}`);
   const prepared = await prepareSpec(io, project, request, flags);
   if (prepared.cancelled) return 1;
   if (prepared.problem) return fail(io, [prepared.problem]);
