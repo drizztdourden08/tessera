@@ -47,7 +47,7 @@ const VIEWS_GUIDE: Guide = {
     {
       title: 'Create one',
       points: [
-        'Create one with the Tessera CLI: `brock tessera new view SaveList` (`pnpm exec tessera …` outside Brock). It writes the folder above with its usage file, a story when the app uses StoryLite, and lists what to fill in next.',
+        'Create one with the Tessera CLI: `brock tessera new view SaveList` (`pnpm exec tessera` outside Brock). It writes the folder above with its usage file, a story when the app uses StoryLite, and lists what to fill in next.',
         `Back to ${GUIDE_LINKS.setup}.`,
       ],
     },

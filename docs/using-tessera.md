@@ -329,7 +329,7 @@ brock tessera new view SaveList --group Saves
 brock tessera new primitive HelpWebview --yes
 ```
 
-In a repo with its own command, use that one, as in `archipelia tessera new view Inventory --group Game`. Outside Brock, `pnpm exec tessera …` runs the same thing.
+In a repo with its own command, use that one, as in `archipelia tessera new view Inventory --group Game`. Outside Brock, `pnpm exec tessera` runs the same commands.
 
 In the Tessera repo, `pnpm tessera new primitive QuestBanner --group Layout` runs the same command.
 
