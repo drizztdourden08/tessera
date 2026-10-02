@@ -37,6 +37,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Video', summary: 'A video player with its own control bar, keys and error state.' },
         { name: 'Canvas', summary: 'A 2D drawing surface for charts and pixel art.' },
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
+        { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
       ],
     },
     {
@@ -46,6 +47,8 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'IconButton', summary: 'A square button that holds only an icon.' },
         { name: 'ButtonRow', summary: 'A row of buttons with consistent spacing.' },
         { name: 'ButtonGroup', summary: 'Buttons joined into one control, with shared borders.' },
+        { name: 'Pressable', summary: 'A button with no look, for a clickable surface the caller draws.' },
+        { name: 'Link', summary: 'A link to a URL in the Tessera look, with tones and an external variant.' },
       ],
     },
     {
@@ -68,6 +71,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'ColorSwatch', summary: 'A colour chip, pickable or read-only.' },
         { name: 'DropZone', summary: 'Drop or browse for a file.' },
         { name: 'Field', summary: 'A label, hint and error around any input.' },
+        { name: 'FieldControlBoundary', summary: 'Keeps the id and error of a Field off the inner inputs of a control made of several.' },
       ],
     },
     {
@@ -79,16 +83,16 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Toast', summary: 'A short message that dismisses itself.' },
         { name: 'Tooltip', summary: 'A hint on hover or focus.' },
         { name: 'HintLine', summary: 'A fixed line that shows the value and meaning of the option under the pointer or focus.' },
+        { name: 'HintScope', summary: 'Collects the hints of the controls inside it for a HintLine or useHint.' },
         { name: 'Callout', summary: 'A note set apart: a toned box or a footnote, with an action.' },
       ],
     },
     {
       group: 'Navigation',
-      entries: [{ name: 'Tabs', summary: 'Tabs that scroll when they overflow.' }],
-    },
-    {
-      group: 'Setup',
-      entries: [{ name: 'TesseraProvider', summary: 'Swaps Tessera parts, from the spinner and links to the wording and icons, for ones the app brings, once at the root.' }],
+      entries: [
+        { name: 'Tabs', summary: 'Tabs that scroll when they overflow.' },
+        { name: 'RouterLink', summary: 'A link to a route in the app: a real href, and a plain click calls the app navigate.' },
+      ],
     },
   ],
 };

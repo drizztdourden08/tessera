@@ -8,7 +8,7 @@ import '../_template/story-heading.css';
 import './Roles.stories.css';
 
 const meta = {
-  title: 'Colours/Roles',
+  title: 'Core · Colours/Roles',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
-import { PatternInput } from '../../PatternInput';
+import { DynamicInput } from '../../DynamicInput';
 import { toNumber } from '../../field-kits/to-number';
 import { positionPattern } from '../behavior/position-pattern';
 import { AXIS_KEYS } from '../behavior/position-pattern.constants';
 import { ORIGIN } from './PositionFieldEditor.constants';
-import type { PatternValue } from '../../PatternInput';
+import type { PatternValue } from '../../DynamicInput';
 import type { PositionFieldEditorProps } from '../RecordEditor.type';
 import '../../../theme/record-editor.css';
 
@@ -32,7 +32,7 @@ const PositionFieldEditor = (props: PositionFieldEditorProps) => {
   };
 
   return (
-    <PatternInput
+    <DynamicInput
       className="record-editor__position"
       pattern={positionPattern(pair, xBounds, yBounds)}
       value={value}

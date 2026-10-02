@@ -1,0 +1,45 @@
+/* @layer renderer-components @kind style */
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.volume-control.control-size--sm {
+  gap: var(--space-sm);
+}
+
+.volume-control__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.volume-control--disabled .volume-control__text {
+  opacity: var(--opacity-disabled);
+}
+
+.volume-control__label {
+  font-size: var(--control-font);
+  font-weight: var(--weight-medium);
+  color: var(--c-text);
+}
+
+.volume-control__body {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.volume-control.control-size--sm .volume-control__body {
+  gap: var(--space-xs);
+}
+
+.volume-control__slider {
+  flex: 1;
+  min-width: 0;
+}

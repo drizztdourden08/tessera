@@ -1,142 +1,62 @@
 <!-- @layer docs @kind doc -->
-# Design System Structure & Rules
+# How Tessera is built
 
-The foundation for the app's UI is a set of design tokens plus a four-tier
-component library. All code obeys @docs/contributing/coding-standards.md. For where
-UI fits in the wider app, see @docs/architecture/overview.md.
+Tessera is the design system shared by Relic of the Past, Brock and Archipelia. This page says what each part of it is for and where an app's own UI goes. For installing and theming, see `using-tessera.md`. For how code is written, see `coding-standards.md`.
 
-## Where things live
+## Tiers
 
-All UI lives under `apps/web/src/ui/`, split into a reusable
-`design-system/` and app-facing `domains/`:
+| Tier | What it is | Lives in | Examples |
+|---|---|---|---|
+| Tokens | CSS custom properties: colour roles, space, sizes, type, motion | `src/tokens/` | `--c-primary`, `--space-md`, `--radius-lg` |
+| Primitives | single-purpose building blocks; the only place raw HTML is written | `src/primitives/` | Box, Text, Button, TextInput, Field, Icon, Tooltip |
+| Composites | parts built from primitives, holding layout and interaction | `src/composites/` | Dialog, DropdownMenu, DataTable, Wizard, SideNav |
+| Brand | each app's mark, wordmark, mascot and gradient | `src/brand/`, files in `brand/` | Logo, BrandWordmark, Mascot |
+| Data | headless logic and hooks with no markup: schema, table, filter, view state | `src/data/` | useDataTable, useViewState |
 
-```
-ui/
-├── design-system/          @ds/*  - reusable, domain-agnostic
-│   ├── tokens/             concept files (color, space, size, radius, border,
-│   │                       typography, shadow, motion, z-index, opacity, reset)
-│   │                       + index.css (the single @import entry; imported once in main.tsx)
-│   ├── primitives/         tier 1 - generic atoms; the one place raw HTML is allowed
-│   └── composites/         tier 2 - generic structural combos
-└── domains/                @domains/*  - domain-specific UI
-    ├── app/
-    │   ├── compounds/      tier 3 - domain presentational
-    │   └── views/          tier 4 - page/feature with logic + data
-    ├── widgets/            domain: overlay widgets
-    └── hud/                domain: game HUD (own primitives/composites/compounds/views)
-```
+Tokens have one entry, `src/tokens/index.css`, with one file per concept behind it. CSS that several components share, such as the focus ring and the control sizes, sits in `src/theme/`.
 
-Aliases: `@ds/*` maps to `ui/design-system/*` and `@domains/*` to `ui/domains/*`, plus the
-existing `@app/*` for `apps/web/src/*` and `@shared/*`. Non-presentational code
-(`App/`, `stores/`, `lib/`, `hooks/`, `utils/`) stays at `src/` root.
+Every tier is presentational. Data comes in through props and goes out through callbacks. Nothing in Tessera reads an app's stores, calls its IPC, or imports its router; a part that needs one of those takes it as a prop or through `TesseraProvider`.
 
-## The four component tiers
+## Raw HTML lives only in primitives
 
-Every UI component is exactly one tier. Pick the tier first, then build it in the
-right folder. The first three are bare, self-contained, and presentational: data comes
-in via props and callbacks, with no access to stores, `window.api`, `lib/game`, or
-navigation. Only Views are wired to data and logic.
+Only files in `src/primitives/` write lowercase JSX such as `<div>` or `<button>`. Everywhere else, composites, brand, stories and apps alike, builds from primitives: `Box` for a plain element (`<Box as="section">`), `Text` for text, `Flex` and `Stack` for layout, `Button` for a button. ESLint enforces it with `local/no-raw-html`, which is off for `src/primitives/**` alone, and `local/no-as-element-with-primitive` stops `as="button"` and the like when a primitive exists.
 
-| Tier | What it is | Domain-aware? | Logic/data? | Lives in | Real examples |
-|------|-----------|---------------|-------------|----------|---------------|
-| **Primitive** | Generic UI atom | No, generic | No | `components/primitives/` | Button, Select, Toggle, TextInput, Badge, Slider, Tabs, Toast |
-| **Composite** | Generic **structural** unit built from primitives | No, generic | No | `components/composites/` | Card, Dialog, Overlay, DropdownMenu, FullScreenLayer, SettingsLayout, Widget |
-| **Compound** | **Domain-specific** presentational unit composed from primitives/composites | Yes, a concept | No (data via props) | `components/compounds/` | ProfileCard, RomCard, SaveSlot, HeroSaveCard, CreateProfileForm |
-| **View** | Page/feature with business logic + data | Yes | Yes: stores, IPC, game | `components/views/`, `widgets/` | ProfileHub, GameLayer, TrackerView, SpriteDebug, TitleBar |
+So a primitive is where an element gets its markup, its accessibility and its look once. When a composite needs an element no primitive draws, the fix is a new primitive, not raw HTML in the composite.
 
-**Primitive:** a generic atom with no domain knowledge. `<Button>`, `<Select>`,
-`<Toggle>`. Pure props in, events out, reusable in any app.
+## The app's own tiers
 
-**Composite:** a generic, reusable structural or layout component built from
-primitives, still domain-agnostic. `<Card>`, `<Dialog>`, `<Overlay>`,
-`<DropdownMenu>`. Often a small Facade over markup and tokens.
+Two tiers stay in each app, because they know its domain:
 
-**Compound:** a domain-specific presentational component for a concrete concept,
-composed from primitives and composites. `<ProfileCard>`, `<RomCard>`, `<SaveSlot>`.
-It knows a domain shape (it takes a `Profile`/`Rom`/`Slot` prop) but stays bare: it
-fetches nothing, owns no store, and fires callbacks up. Here "compound" means a
-composed domain card or form, which is different from the React-Context "compound
-components" pattern.
+| Tier | What it is | Example |
+|---|---|---|
+| Compound | a presentational part for one of the app's concepts, built from Tessera parts; data in by props | SaveSlot, PlayerRow |
+| View | a screen or feature that owns state and talks to stores, IPC or the router, then hands data down | ProfileHub, GameStore |
 
-**View:** the container. Owns state via Zustand stores, `window.api` IPC, or
-`lib/game`, and passes data and callbacks down into the bare tiers. It's the only tier
-with business logic, which lives in its `behavior/` hooks.
+An app keeps them in its own source, for example `src/compounds/<Name>/` and `src/views/<Name>/`, as Archipelia does. Compounds follow the same rules as Tessera's tiers: no raw HTML, no stores, tokens only in CSS. Views are the one tier with logic and data.
 
-> **Hard boundary:** primitives, composites, and compounds keep clear of stores,
-> `window.api`, `lib/game`, and navigation imports. Data flows in via props only. If a
-> bare component needs to fetch or subscribe, it is a View, so move it. This
-> container/presentational split is what keeps the library reusable and testable.
+To pick a tier: a part that touches stores, IPC or navigation is a View. A part tied to an app concept but only drawing it is a Compound. A part any app could use belongs in Tessera; ask for it instead of building it in the app (see `using-tessera.md`).
 
-### Choosing the tier
+The gallery's Core · Setup pages show how to build each one: the folder, the usage file, the lint rules and an example. Building compounds and Building views cover the two app tiers. App primitives and composites covers the rare part only one app needs, which is not recommended and follows the same rules as Tessera's own.
 
-- Touches stores, IPC, game, or navigation, or owns state: **View**.
-- Tied to a specific domain concept but purely presentational: **Compound**.
-- Generic structural combo of primitives, domain-agnostic: **Composite**.
-- Generic single atom: **Primitive**.
+## One component per folder
 
-## Per-component structure (enforced by the structure-policy)
-
-```
+```text
 <tier>/<Name>/
-├── <Name>.tsx          - one component, arrow fn, exports at end, ≤200 lines  ┐
-├── <Name>.css          - scoped styles, tokens only, class names prefixed     │ ONLY
-├── <Name>.type.ts      - <Name>Props etc. (exports at end)                    │ these
-├── <Name>.constants.ts - static config (optional)                            │ at root
-├── index.ts            - barrel (re-export only)                              ┘
-├── behavior/           - hooks/handlers, one per file
-└── sub-components/<Child>/  - children used only here (recursive: same shape)
+  <Name>.tsx            the component
+  <Name>.css            its styles, tokens only, classes prefixed with its name
+  <Name>.type.ts        its props and other types
+  <Name>.constants.ts   static data, when it has any
+  index.ts              the barrel
+  behavior/             hooks and logic, one per file
+  sub-components/       children used only here, in the same shape
 ```
 
-Root files are name-prefixed (`<Name>.type.ts`, `<Name>.constants.ts`). The
-structure-policy (R12, see below) flags any other file at the component root, or any
-subfolder besides `behavior/` and `sub-components/`.
+`brock structure --check` rejects any other file at a component root, and the ESLint shape rules keep one export per file, types in `.type.ts` files and constants in `.constants.ts` files.
 
 ## Rules
 
-**Tokens**
-
-1. `ui/design-system/tokens/` (one concept file per category) is the single
-   source of truth. Use `var(--token)`, with no raw hex and no magic px.
-2. For a new design value, add a token first, then use it.
-3. Get readability from value contrast and the spacing scale, not ad-hoc numbers.
-
-**Components**
-4. One component per folder; one thing per file; ≤200 lines; arrow fn; exports at end.
-5. **Rule of two:** a UI pattern used 2+ times gets extracted to the right tier rather
-   than copy-pasted. The second occurrence is the trigger.
-6. Express variants via props and data-attributes/CSS, not duplicated components
-   (`<Button variant="danger">`, not `DangerButton`).
-
-**Styling**
-7. Colocate CSS as `<Name>.css` with scoped, prefixed class names so nothing bleeds
-   globally. Prefer CSS over inline `style`.
-8. Reserve inline `style={{}}` for dynamic values such as computed transforms
-   and measured sizes.
-
-**Boundaries**
-9. `ui/design-system/` holds tokens plus reusable primitives and composites, free of
-   logic and data imports (see the hard boundary above). Domain UI lives in `ui/domains/`.
-10. Views compose the lower tiers and leave primitive styling to the primitives.
-
-## Mechanical enforcement
-
-Three policies back the rules above. They start as warnings and flip to errors once
-each reaches zero. See the full rules table in
-@docs/contributing/coding-standards.md.
-
-| Rule | Tool | What it flags |
-|------|------|---------------|
-| **R11 no-raw-html** | ESLint (`local/no-raw-html`) | any lowercase JSX element outside `primitives/`; use `Box`/`Text`/`Flex`/`Button`/... |
-| **R12 structure-policy** | analyze adapter | component-root files other than `<Name>.{tsx,css,type.ts,constants.ts}`+`index.ts`, or subfolders other than `behavior/`/`sub-components/` |
-| **R13 token-policy** | stylelint (`color-no-hex`, `color-named`) | raw hex / named colors in `ui/**` component CSS (tokens/ exempt) |
-
-Reports: `npm run report` (all three) · `report:html` · `report:structure` ·
-`report:tokens`. Form controls (`input`/`select`/`textarea`) are already a hard
-error outside primitives.
-
-## Growing it
-
-For a new UI need, pick the tier (above), then check for an existing component to reuse.
-If none exists and it's reusable, create it in the right tier folder, and wire data only at
-the View tier. Every change runs the `coding-standards` checkup and is placed per
-@docs/architecture/overview.md.
+- Use a token for every design value. A new value gets a token first.
+- Express a variant through a prop, never a second component: `<Button variant="danger">`, not `DangerButton`.
+- A pattern used twice gets extracted to the right tier.
+- Style in the component's own CSS file. Inline `style` is for values computed at run time, and each such file is listed with its reason in `eslint.config.mjs`.
+- Every exported part has a gallery page in `stories/`, registered in `.storylite/catalogue*.constants.ts`.

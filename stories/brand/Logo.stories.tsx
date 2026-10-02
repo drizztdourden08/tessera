@@ -27,7 +27,7 @@ const ARG_TYPES: StoryLiteArgTypes<LogoArgs> = {
 };
 
 const meta = {
-  title: 'Brand/Logo',
+  title: 'Core · Brand/Logo',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<LogoArgs>;
 

@@ -4,7 +4,7 @@ import { scaleStories } from './scale-stories';
 import { TRANSITIONS } from './token-lists';
 
 const meta = {
-  title: 'Tokens/Transitions',
+  title: 'Core · Tokens/Transitions',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

@@ -12,7 +12,7 @@ const TITLE_WEIGHTS = [400, 500, 600, 700] as const;
 const ADDED_GAME_GLYPHS = '# $ % & * + / ; = @ [ \\ ] ^ _ ` { } ~';
 
 const meta = {
-  title: 'Typography/Fonts',
+  title: 'Core · Typography/Fonts',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

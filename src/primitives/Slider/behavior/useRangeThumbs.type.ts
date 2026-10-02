@@ -12,7 +12,6 @@ interface RangeThumbs {
   setLow: (next: number) => void;
   setHigh: (next: number) => void;
   setActive: (thumb: Thumb) => void;
-  pickTrack: (fraction: number) => void;
 }
 
 export type { RangeThumbs, Thumb };

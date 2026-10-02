@@ -6,7 +6,7 @@ import { SIZE_GROUPS } from './dimension-lists';
 import { TokenTable } from './token-table';
 
 const meta = {
-  title: 'Tokens/Sizes',
+  title: 'Core · Tokens/Sizes',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

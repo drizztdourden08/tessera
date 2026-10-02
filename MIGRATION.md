@@ -615,11 +615,11 @@ rotp and Brock replace each `RangeSlider` and `RangeInput` as above, and pass `r
 
 ## 39. PatternInput replaces PositionInput
 
-`PositionInput` is gone, with no alias. `PatternInput` does its job and many more: the developer writes the field as a pattern of muted text and typed slots, each slot is its own segment, and the slot in focus opens a popover with the control its type calls for.
+`PositionInput` is gone, with no alias. `PatternInput`, now named `DynamicInput` (section 41), does its job and many more: the developer writes the field as a pattern of muted text and typed slots, each slot is its own segment, and the slot in focus opens a popover with the control its type calls for.
 
-The name says what the API is: one pattern string says what the field shows and asks for. It reads in the spirit of the Slider label rule in section 38: braces hold a value, a colon says what kind it is, and `|` separates alternatives.
+The API is one pattern string that says what the field shows and asks for. It reads in the spirit of the Slider label rule in section 38: braces hold a value, a colon says what kind it is, and `|` separates alternatives.
 
-PatternInput is a composite, since a colour slot opens the ColorPicker. It is exported from the package root and from `/composites`. The ColorPicker loads the first time a colour popover opens, so react-color stays out of an app that never shows one.
+DynamicInput is a composite, since a colour slot opens the ColorPicker. It is exported from the package root and from `/composites`. The ColorPicker loads the first time a colour popover opens, so react-color stays out of an app that never shows one.
 
 ### Moving from PositionInput
 
@@ -627,7 +627,7 @@ PatternInput is a composite, since a colour slot opens the ColorPicker. It is ex
 <PositionInput label="Spawn tile" value={spawn} onChange={setSpawn} x={{ min: 0, max: 63 }} y={{ min: 0, max: 63 }} />
 
 <Field label="Spawn tile">
-  <PatternInput pattern="X {x:number 0..63}  Y {y:number 0..63}" value={spawn} onChange={setSpawn} />
+  <DynamicInput pattern="X {x:number 0..63}  Y {y:number 0..63}" value={spawn} onChange={setSpawn} />
 </Field>
 ```
 
@@ -635,8 +635,8 @@ PatternInput is a composite, since a colour slot opens the ColorPicker. It is ex
 - `label` moves to a `Field` around the input, or to `aria-label`.
 - `value` is still `{ x, y }`, keyed by slot name. A slot left empty is `null`. `onChange` gets the whole object each time a slot holds a new valid value.
 - `clampAxis`, `clampPosition`, `isValidForAxis` and `isWithinAxis` are removed, with `PositionAxis`, `PositionValue` and `PositionInputProps`. A number slot settles into its range when it is left, and `onChange` never gets a value outside it.
-- The `.position-input` classes are gone. RENAMES.json maps them to the `.pattern-input` parts.
-- Inside Tessera, RecordEditor draws an x and y pair with PatternInput, and builds the pattern from the field labels and bounds.
+- The `.position-input` classes are gone. RENAMES.json maps them to the `.dynamic-input` parts.
+- Inside Tessera, RecordEditor draws an x and y pair with DynamicInput, and builds the pattern from the field labels and bounds.
 
 ### The pattern
 
@@ -700,6 +700,96 @@ A pattern that does not read never throws. In development each problem is a warn
 - Tab and Shift Tab move between slots. Backspace in an empty slot goes back. The left and right arrows cross into the next slot at the edge of the text. Up and down step a number; on a choice they move through the list. Enter settles the slot; Escape closes the popover.
 - Letters on a choice jump to the matching option and pick it, and a single match moves on.
 - The popover opens on click, on Tab and on a move from the slot before. It sits under the slot through `Anchored`.
-- The strings `Hour`, `Minute` and the counter text are in the new `patternInput` group of the string table.
+- The strings `Hour`, `Minute` and the counter text are in the `dynamicInput` group of the string table.
 
 rotp and Brock replace each `PositionInput` as above.
+
+## 40. Value rules and ScaleLabels on their own, VolumeControl, and Slider drags both thumbs
+
+### The value rule engine is its own module
+
+The rule syntax from section 38 is no longer inside `Slider`. It lives in `src/primitives/value-rule/` and is exported:
+
+- A **value rule** is a short text that says where labels go on a scale and how each reads, such as `"every 0.5 | {v}x"`. The syntax is unchanged.
+- `parseValueRule(text)` reads the text. It returns `{ rule, error: null }`, or `{ rule: null, error }` with a message that names the rule and the problem. It never throws.
+- `formatValueRule(rule, scale)` takes a rule (text or parsed) and a `ValueScale` (`{ min, max, step, stops?, formatValue? }`) and returns `{ marks, error }`, where each mark is `{ value, text }`. A bad rule gives no marks and the error.
+- `thinLabels(boxes, gap)` takes the measured `{ start, end }` of a row of labels and returns which to show: an even stride that keeps the first and last.
+- Types: `ValueRule`, `ValueRuleParse`, `ValueRuleMarks`, `ValueMark`, `ValueScale`, `LabelBox`.
+
+### ScaleLabels
+
+`ScaleLabels` draws labels, each with a tick, along a scale. Slider uses it for its `labels`, and a ProgressBar or a StickPlot axis can use it too.
+
+- `min`, `max`, `step`, `stops` and `formatValue` describe the scale.
+- `labels` takes a value rule, a list of `[value, label]` pairs (`ScaleLabelEntry`), or a function from value to label (`ScaleLabelSource` covers all three). With `stops` and no `labels`, every stop is labelled.
+- `orientation` is `'horizontal'` (the default) or `'vertical'`, where values rise from the bottom.
+- `thin` (default true) hides labels that would overlap. `ticks` (default true) draws the ticks. `highlight` takes `[from, to]` and brightens the labels in that span and fades the rest.
+- Its look is `.scale-labels`, `.scale-labels--horizontal` or `--vertical`, `.scale-labels__mark` with `--start`, `--end`, `--in`, `--out` and `--hidden`, and `.scale-labels__text`. Set `--scale-labels-tick` for the tick length and `--scale-labels-overhang` for how far the end labels may reach past the ends. The labels cannot be selected.
+- `SliderLabels` and `SliderLabelEntry` are replaced by `ScaleLabelSource` and `ScaleLabelEntry`. The classes `slider__marks`, `slider__mark` and `slider__mark-text` become the `scale-labels` ones.
+
+### Slider
+
+- In range mode, either thumb can be dragged with the mouse, from anywhere on the thumb, with the pointer captured, so the drag holds when the pointer leaves the track. The thumb keeps its offset from the pointer, so it does not jump on grab. When both thumbs sit on one value, the first move picks the one to drag: left takes the low thumb, right the high one. A press on the bare track still brings the nearer thumb there. The range inputs take no pointer events now; the track handles the pointer, and the inputs keep the keyboard and the screen reader.
+- The thumb under the pointer or being dragged grows, as a hovered thumb does in single mode (`.slider__input--hot`).
+- The readout keeps the width of its longest possible text, worked out from `min`, `max`, `step`, `stops` and `formatValue`, and both ends with the dash in range mode. The track no longer changes width as the value changes. The readout uses tabular numbers and cannot be selected.
+- `mute` and `onMuteToggle` are removed, with the `slider__mute` classes. Use `VolumeControl`.
+- The labels sit under the rail in the flow of the slider, so a labelled slider is taller by the label row.
+
+### VolumeControl
+
+A composite for a sound level: a mute `IconButton` beside a `Slider`.
+
+- `value` and `onChange` set the level; `min` (0), `max` (100) and `step` (1) set the scale.
+- Without `muted`, mute drops the level to `min` and a second press brings back the last level. Pass `muted` and `onMutedChange` to keep the level while muted; the slider then reads `min`, and dragging it unmutes.
+- The icon follows the level: `volume-x` when muted or silent, `volume-1` below half, `volume-2` above.
+- `label`, `description`, `showValue`, `formatValue` (percent of the range by default), `labels`, `size`, `disabled` and `onHint` pass through. Both parts report hints: the button names mute or unmute, the slider the level.
+- New strings in `common`: `volume`, `volumeHint`, `muteHint` and `unmuteHint`.
+
+```tsx
+<Slider label="Music volume" value={volume} onChange={setVolume} mute={volume === 0} />
+<VolumeControl label="Music volume" value={volume} onChange={setVolume} />
+```
+
+Video keeps its own volume bar; nothing in Video changes.
+
+rotp replaces each `Slider` with `mute` by a `VolumeControl`, and renames `SliderLabels` to `ScaleLabelSource`.
+
+## 41. PatternInput is now DynamicInput
+
+`PatternInput` from section 39 is renamed `DynamicInput`, with no alias. The pattern string, the props and the behaviour stay the same.
+
+| Before | After |
+|---|---|
+| `PatternInput` | `DynamicInput` |
+| `PatternInputProps` | `DynamicInputProps` |
+| `.pattern-input`, `.pattern-input__*`, `.pattern-input--*` | `.dynamic-input`, `.dynamic-input__*`, `.dynamic-input--*` |
+| the `patternInput` group of the string table | the `dynamicInput` group |
+| the gallery page `Composites · Inputs/PatternInput` | `Composites · Inputs/DynamicInput` |
+
+The pattern names stay: `parsePattern`, `escapePatternText`, `PatternValue`, `PatternSetup` and the other `Pattern*` types. A development warning about a pattern now starts with `DynamicInput:`.
+
+rotp never used PatternInput, so it moves from `PositionInput` straight to `DynamicInput`. RENAMES.json maps both names.
+
+## 42. Link and RouterLink replace the link override; the gallery gains Core · Setup
+
+- The `link` override is gone from `TesseraOverrides`. No Tessera part routes through the provider any more.
+- `Link` is now a styled link for a URL: the Tessera link colour, an underline on hover and the focus ring. It takes `tone` (`primary`, `secondary`, `neutral`, `danger`) and `external`, which sets `target="_blank"`, `rel="noopener noreferrer"` and an icon whose label says the link opens a new tab. A `className` wins over its look. It moves to Primitives · Actions in the gallery.
+- `RouterLink` is new, for a route inside the app. It takes `to` and `onNavigate(to)`, and an optional `href` for the address it shows, which defaults to `to`. It renders a real anchor, so middle click, Ctrl click and Copy link work; a plain click calls `onNavigate(to)` instead of loading the page.
+- `Box` no longer takes `href` and never draws a link. Use `Link` for a URL and `RouterLink` for a route.
+- Toggle's `link` draws an external `Link`. Its look is unchanged.
+- The string table has `navigation.opensInNewTab`.
+
+```tsx
+const OVERRIDES: TesseraOverrides = { link: AppRouterLink };
+<Box href="/saves/slot-2">Open slot 2</Box>
+
+const AppLink = (props: Omit<RouterLinkProps, 'onNavigate' | 'href'>) => {
+  const navigate = useNavigate();
+  return <RouterLink {...props} href={useHref(props.to)} onNavigate={navigate} />;
+};
+<AppLink to="/saves/slot-2">Open slot 2</AppLink>
+```
+
+The gallery puts every top group under Core: Core · Setup, Core · Brand, Core · Colours, Core · Typography, Core · Text, Core · Icons and Core · Tokens. Core · Setup holds the TesseraProvider page and new pages on the app setup, building compounds and views, and the rare app primitive or composite.
+
+rotp and Brock remove `link` from their overrides, wrap `RouterLink` in an app `AppLink` compound as above, and replace each `<Box href>` and each rendered `Link` that relied on the override with `AppLink` for a route or `Link` for a URL.

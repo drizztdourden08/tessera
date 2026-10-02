@@ -33,7 +33,7 @@ const FACES: readonly DemonstratorAxis<'roman' | 'italic'>[] = [{ key: 'roman', 
 const WORD = 'Hookshot 1920';
 
 const meta = {
-  title: 'Typography/Optical size and italic',
+  title: 'Core · Typography/Optical size and italic',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<OpticalArgs>;
 

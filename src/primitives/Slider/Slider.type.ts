@@ -1,11 +1,7 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
 import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintReport } from '../hint/hint.type';
-
-type SliderLabelEntry = readonly [value: number, label: ReactNode];
-
-type SliderLabels = string | readonly SliderLabelEntry[] | ((value: number) => ReactNode);
+import type { ScaleLabelSource } from '../ScaleLabels/ScaleLabels.type';
 
 type SliderPair = readonly [number, number];
 
@@ -15,7 +11,7 @@ interface SliderCommonProps {
   step?: number;
   keyStep?: number;
   stops?: readonly string[];
-  labels?: SliderLabels;
+  labels?: ScaleLabelSource;
   label?: string;
   description?: string;
   disabled?: boolean;
@@ -35,8 +31,6 @@ interface SliderSingleProps extends SliderCommonProps {
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
-  mute?: boolean;
-  onMuteToggle?: () => void;
 }
 
 interface SliderRangeProps extends SliderCommonProps {
@@ -44,15 +38,11 @@ interface SliderRangeProps extends SliderCommonProps {
   value?: SliderPair;
   defaultValue?: SliderPair;
   onChange?: (value: [number, number]) => void;
-  mute?: never;
-  onMuteToggle?: never;
 }
 
 type SliderProps = SliderSingleProps | SliderRangeProps;
 
 export type {
-  SliderLabelEntry,
-  SliderLabels,
   SliderPair,
   SliderProps,
   SliderRangeProps,

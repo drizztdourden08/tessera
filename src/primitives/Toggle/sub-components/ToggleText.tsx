@@ -1,5 +1,4 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../../Glyph';
 import { Link } from '../../Link';
 import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { Small, Span } from '../../text-elements';
@@ -19,13 +18,11 @@ const ToggleText = (props: ToggleTextProps) => {
             <Link
               className="toggle__link"
               href={link}
-              target="_blank"
-              rel="noopener noreferrer"
+              external
               onClick={(e) => e.stopPropagation()}
               title={fields.learnMore}
-            >
-              <Glyph name="external" size={12} />
-            </Link>
+              aria-label={fields.learnMore}
+            />
           )}
         </Small>
       )}

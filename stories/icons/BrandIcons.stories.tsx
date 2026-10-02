@@ -28,7 +28,7 @@ const ARG_TYPES: StoryLiteArgTypes<BrandIconArgs> = {
 };
 
 const meta = {
-  title: 'Icons/Brand icons',
+  title: 'Core · Icons/Brand icons',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<BrandIconArgs>;
 

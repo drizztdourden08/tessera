@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-const trackFraction = (clientX: number, rect: DOMRect): number => {
+const trackFraction = (clientX: number, rect: Pick<DOMRect, 'left' | 'width' | 'height'>): number => {
   const inset = rect.height / 2;
   const span = rect.width - inset * 2;
   if (span <= 0) return 0;

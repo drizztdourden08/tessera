@@ -19,7 +19,7 @@ const ARG_TYPES: StoryLiteArgTypes<CombinedArgs> = {
 };
 
 const meta = {
-  title: 'Brand/Combined',
+  title: 'Core · Brand/Combined',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<CombinedArgs>;
 

@@ -28,13 +28,21 @@
     "./tokens.json": "./tokens.json",
     "./splash-tokens.css": "./splash-tokens.css",
     "./brand/*": "./brand/*",
+    "./ai/*": "./ai/*",
     "./package.json": "./package.json"
   },
+  "bin": {
+    "tessera": "./scripts/cli/tessera.mjs"
+  },
   "files": [
+    "ai",
+    "scripts/cli",
+    "scripts/ai/props-hash.mjs",
     "src",
     "brand",
     "fonts",
     "types",
+    "docs",
     "README.md",
     "MIGRATION.md",
     "RENAMES.json",
@@ -47,8 +55,8 @@
     "**/field-kits/*Kit.tsx"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit && tsc --noEmit -p .storylite",
-    "lint": "pnpm typecheck && eslint . && stylelint \"src/**/*.css\" \"fonts/**/*.css\" \"stories/**/*.css\" && brock prose && knip && jscpd",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/ai",
+    "lint": "pnpm typecheck && eslint . && stylelint \"src/**/*.css\" \"fonts/**/*.css\" \"stories/**/*.css\" && brock prose && knip && jscpd && pnpm ai --check",
     "lint:md": "markdownlint-cli2",
     "test": "vitest run",
     "storylite": "storylite dev --port 4400",
@@ -60,7 +68,12 @@
     "duplicates": "jscpd",
     "icons": "node scripts/app-icons/build-app-icons.mjs",
     "tokens": "node scripts/tokens/build-tokens.mjs",
-    "review": "node scripts/review/review.mjs"
+    "review": "node scripts/review/review.mjs",
+    "ai": "node scripts/ai/build-ai.mjs",
+    "tessera": "node scripts/cli/tessera.mjs"
+  },
+  "tessera": {
+    "aiUsage": "report"
   },
   "peerDependencies": {
     "react": "^19.0.0",

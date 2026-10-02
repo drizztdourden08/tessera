@@ -1,0 +1,1857 @@
+{
+  "package": "@drizztdourden08/tessera",
+  "entryPoints": [
+    "@drizztdourden08/tessera",
+    "@drizztdourden08/tessera/brand",
+    "@drizztdourden08/tessera/color-picker",
+    "@drizztdourden08/tessera/color-picker-popover",
+    "@drizztdourden08/tessera/composites",
+    "@drizztdourden08/tessera/data",
+    "@drizztdourden08/tessera/field-kits",
+    "@drizztdourden08/tessera/primitives"
+  ],
+  "tree": {
+    "question": "What are you placing?",
+    "answers": {
+      "actions": {
+        "question": "One action, or several related buttons?",
+        "answers": {
+          "one action": {
+            "question": "What does the action look like?",
+            "answers": {
+              "a visible word": {
+                "components": []
+              },
+              "an icon only": {
+                "components": []
+              },
+              "irreversible, on a row": {
+                "components": []
+              },
+              "irreversible, for a whole view": {
+                "components": []
+              },
+              "goes to a URL": {
+                "components": []
+              },
+              "a whole area the user presses": {
+                "components": []
+              }
+            }
+          },
+          "several related buttons": {
+            "question": "How do the buttons relate?",
+            "answers": {
+              "only one can be on": {
+                "components": []
+              },
+              "each on or off by itself": {
+                "components": []
+              },
+              "peer actions on one thing, read as one tool": {
+                "components": []
+              },
+              "separate decisions, with space between": {
+                "components": []
+              },
+              "too many, or secondary": {
+                "components": []
+              }
+            }
+          }
+        }
+      },
+      "a value the user sets": {
+        "question": "What does the user set?",
+        "answers": {
+          "free text or a number": {
+            "question": "What shape is it?",
+            "answers": {
+              "one line of text": {
+                "components": []
+              },
+              "several lines of text": {
+                "components": []
+              },
+              "a number typed in": {
+                "components": []
+              },
+              "a number stepped up or down": {
+                "components": []
+              },
+              "text that follows a pattern": {
+                "components": []
+              },
+              "free words, as tags": {
+                "components": []
+              }
+            }
+          },
+          "one choice": {
+            "question": "How many options are there?",
+            "answers": {
+              "a few, all in view": {
+                "components": []
+              },
+              "many, in a list": {
+                "components": []
+              },
+              "many, found by typing": {
+                "components": []
+              }
+            }
+          },
+          "several choices": {
+            "components": []
+          },
+          "on or off": {
+            "question": "When does the change apply?",
+            "answers": {
+              "at once": {
+                "components": []
+              },
+              "when the form is sent": {
+                "components": []
+              }
+            }
+          },
+          "a colour": {
+            "question": "Where does the picker sit?",
+            "answers": {
+              "in the page": {
+                "components": []
+              },
+              "behind a swatch button": {
+                "components": []
+              }
+            }
+          },
+          "a range": {
+            "components": []
+          },
+          "a file": {
+            "components": []
+          },
+          "a whole record": {
+            "question": "What happens to the record?",
+            "answers": {
+              "edit it in place": {
+                "components": []
+              },
+              "create one in the page": {
+                "components": []
+              },
+              "create one in a dialog": {
+                "components": []
+              }
+            }
+          },
+          "the label and help around an input": {
+            "components": []
+          }
+        }
+      },
+      "a status, a count or a label": {
+        "question": "What does it show?",
+        "answers": {
+          "the state something is in": {
+            "components": []
+          },
+          "a count, or a dot for news": {
+            "components": []
+          },
+          "a value that sorts an item into a group": {
+            "components": []
+          },
+          "a label and its value": {
+            "components": []
+          },
+          "terms and what they mean": {
+            "components": []
+          },
+          "a colour sample": {
+            "components": []
+          },
+          "a key or a shortcut": {
+            "components": []
+          }
+        }
+      },
+      "something over the page": {
+        "question": "What sits over the page?",
+        "answers": {
+          "a hint on hover or focus": {
+            "components": []
+          },
+          "a question the user must answer": {
+            "components": []
+          },
+          "a dialog with its own layout": {
+            "components": []
+          },
+          "a panel from the edge of the window": {
+            "components": []
+          },
+          "a search over every command": {
+            "components": []
+          },
+          "a layer over the whole window": {
+            "components": []
+          },
+          "a cover over a part that is off": {
+            "components": []
+          },
+          "a dim backdrop": {
+            "components": []
+          }
+        }
+      },
+      "navigation": {
+        "question": "Where does the user go?",
+        "answers": {
+          "between views of one area": {
+            "components": []
+          },
+          "between pages, from the header": {
+            "components": []
+          },
+          "between pages, from a side list": {
+            "components": []
+          },
+          "between sections of one long page": {
+            "components": []
+          },
+          "through a nested tree": {
+            "components": []
+          },
+          "to a search result": {
+            "components": []
+          },
+          "through the steps of one task": {
+            "components": []
+          },
+          "between profiles": {
+            "components": []
+          },
+          "between a few modes, from a floating switch": {
+            "components": []
+          }
+        }
+      },
+      "layout": {
+        "question": "What are you arranging?",
+        "answers": {
+          "a plain block": {
+            "components": []
+          },
+          "items in a row or a column": {
+            "components": []
+          },
+          "blocks stacked in a column": {
+            "components": []
+          },
+          "items on a grid": {
+            "components": []
+          },
+          "one item in the centre": {
+            "components": []
+          },
+          "one raised item": {
+            "components": []
+          },
+          "empty space": {
+            "components": []
+          },
+          "a line between sections": {
+            "components": []
+          },
+          "content that scrolls": {
+            "components": []
+          },
+          "a list beside its detail": {
+            "components": []
+          },
+          "two panes the user resizes": {
+            "components": []
+          },
+          "an app frame with its navigation": {
+            "components": []
+          },
+          "panels the user docks and moves": {
+            "components": []
+          },
+          "a settings screen": {
+            "question": "Which part of it?",
+            "answers": {
+              "the whole page": {
+                "components": []
+              },
+              "the frame around the sections": {
+                "components": []
+              },
+              "one section of rows": {
+                "components": []
+              },
+              "a list of groups": {
+                "components": []
+              }
+            }
+          },
+          "window chrome": {
+            "question": "Which part of the window?",
+            "answers": {
+              "the title bar": {
+                "components": []
+              },
+              "a header inside the window": {
+                "components": []
+              }
+            }
+          },
+          "a ready-made app panel": {
+            "question": "Which panel?",
+            "answers": {
+              "about the app": {
+                "components": []
+              },
+              "release notes": {
+                "components": []
+              },
+              "facts in groups": {
+                "components": []
+              },
+              "an opening banner with art": {
+                "components": []
+              }
+            }
+          },
+          "the app root": {
+            "components": []
+          }
+        }
+      },
+      "feedback": {
+        "question": "What are you telling the user?",
+        "answers": {
+          "work is running, length unknown": {
+            "components": []
+          },
+          "progress toward an end, as a bar": {
+            "components": []
+          },
+          "progress toward an end, in a small round space": {
+            "components": []
+          },
+          "a short message that passes": {
+            "components": []
+          },
+          "a note that stays on the page": {
+            "components": []
+          },
+          "nothing is here yet": {
+            "components": []
+          },
+          "a hint for what is under the pointer": {
+            "components": []
+          },
+          "a part of the page failed": {
+            "components": []
+          }
+        }
+      },
+      "text": {
+        "question": "What kind of text?",
+        "answers": {
+          "a heading": {
+            "components": []
+          },
+          "a section heading with an action": {
+            "components": []
+          },
+          "running text": {
+            "components": []
+          },
+          "a quotation": {
+            "components": []
+          },
+          "a block of code": {
+            "components": []
+          },
+          "words that draw the eye, animated": {
+            "components": []
+          }
+        }
+      },
+      "data": {
+        "question": "What data are you showing?",
+        "answers": {
+          "rows and columns to sort and filter": {
+            "components": []
+          },
+          "filters over a collection": {
+            "components": []
+          },
+          "one record, compact and read only": {
+            "components": []
+          },
+          "a row in a list, with its actions": {
+            "components": []
+          },
+          "a stream of log lines": {
+            "components": []
+          },
+          "a drawing": {
+            "question": "How is it drawn?",
+            "answers": {
+              "in pixels": {
+                "components": []
+              },
+              "in shapes": {
+                "components": []
+              }
+            }
+          },
+          "a picture or a video": {
+            "question": "Which one?",
+            "answers": {
+              "a picture that holds its box": {
+                "components": []
+              },
+              "a small framed picture": {
+                "components": []
+              },
+              "a video": {
+                "components": []
+              }
+            }
+          },
+          "controller or keyboard input": {
+            "question": "What about the input?",
+            "answers": {
+              "a keyboard with keys marked": {
+                "components": []
+              },
+              "a tour of shortcuts": {
+                "components": []
+              },
+              "which buttons are held": {
+                "components": []
+              },
+              "where a stick points": {
+                "components": []
+              },
+              "a calibration step": {
+                "components": []
+              }
+            }
+          }
+        }
+      },
+      "icons and brand": {
+        "question": "Which mark?",
+        "answers": {
+          "an icon from the set": {
+            "components": []
+          },
+          "a small stroke glyph": {
+            "components": []
+          },
+          "an icon from your own path": {
+            "components": []
+          },
+          "an emoji": {
+            "components": []
+          },
+          "the search mark": {
+            "components": []
+          },
+          "an app logo": {
+            "components": []
+          },
+          "an app mark alone": {
+            "components": []
+          },
+          "an app name": {
+            "components": []
+          },
+          "an app mascot": {
+            "components": []
+          },
+          "the brand scene": {
+            "components": []
+          },
+          "the interactive mosaic": {
+            "components": []
+          }
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Anchored",
+      "tier": "primitives",
+      "source": "src/primitives/Anchored/Anchored.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Badge",
+      "tier": "primitives",
+      "source": "src/primitives/Badge/Badge.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Box",
+      "tier": "primitives",
+      "source": "src/primitives/Box/Box.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Button",
+      "tier": "primitives",
+      "source": "src/primitives/Button/Button.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ButtonGroup",
+      "tier": "primitives",
+      "source": "src/primitives/ButtonGroup/ButtonGroup.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ButtonRow",
+      "tier": "primitives",
+      "source": "src/primitives/ButtonRow/ButtonRow.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Callout",
+      "tier": "primitives",
+      "source": "src/primitives/Callout/Callout.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Canvas",
+      "tier": "primitives",
+      "source": "src/primitives/Canvas/Canvas.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Card",
+      "tier": "primitives",
+      "source": "src/primitives/Card/Card.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Center",
+      "tier": "primitives",
+      "source": "src/primitives/Center/Center.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Checkbox",
+      "tier": "primitives",
+      "source": "src/primitives/Checkbox/Checkbox.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "CodeBlock",
+      "tier": "primitives",
+      "source": "src/primitives/CodeBlock/CodeBlock.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ColorSwatch",
+      "tier": "primitives",
+      "source": "src/primitives/ColorSwatch/ColorSwatch.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Combobox",
+      "tier": "primitives",
+      "source": "src/primitives/Combobox/Combobox.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Divider",
+      "tier": "primitives",
+      "source": "src/primitives/Divider/Divider.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "DropZone",
+      "tier": "primitives",
+      "source": "src/primitives/DropZone/DropZone.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "EmojiIcon",
+      "tier": "primitives",
+      "source": "src/primitives/EmojiIcon/EmojiIcon.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "EmptyState",
+      "tier": "primitives",
+      "source": "src/primitives/EmptyState/EmptyState.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Field",
+      "tier": "primitives",
+      "source": "src/primitives/Field/Field.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "FieldControlBoundary",
+      "tier": "primitives",
+      "source": "src/primitives/FieldControlBoundary/FieldControlBoundary.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Flex",
+      "tier": "primitives",
+      "source": "src/primitives/Flex/Flex.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Floating",
+      "tier": "primitives",
+      "source": "src/primitives/Floating/Floating.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Glyph",
+      "tier": "primitives",
+      "source": "src/primitives/Glyph/Glyph.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Grid",
+      "tier": "primitives",
+      "source": "src/primitives/Grid/Grid.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "HintLine",
+      "tier": "primitives",
+      "source": "src/primitives/HintLine/HintLine.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "HintScope",
+      "tier": "primitives",
+      "source": "src/primitives/HintScope/HintScope.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Icon",
+      "tier": "primitives",
+      "source": "src/primitives/Icon/Icon.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "IconButton",
+      "tier": "primitives",
+      "source": "src/primitives/IconButton/IconButton.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Image",
+      "tier": "primitives",
+      "source": "src/primitives/Image/Image.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Link",
+      "tier": "primitives",
+      "source": "src/primitives/Link/Link.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "NumberInput",
+      "tier": "primitives",
+      "source": "src/primitives/NumberInput/NumberInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "PathIcon",
+      "tier": "primitives",
+      "source": "src/primitives/PathIcon/PathIcon.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Portal",
+      "tier": "primitives",
+      "source": "src/primitives/Portal/Portal.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Pressable",
+      "tier": "primitives",
+      "source": "src/primitives/Pressable/Pressable.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ProgressBar",
+      "tier": "primitives",
+      "source": "src/primitives/ProgressBar/ProgressBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ProgressRing",
+      "tier": "primitives",
+      "source": "src/primitives/ProgressRing/ProgressRing.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Quote",
+      "tier": "primitives",
+      "source": "src/primitives/Quote/Quote.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "RadioGroup",
+      "tier": "primitives",
+      "source": "src/primitives/RadioGroup/RadioGroup.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "RouterLink",
+      "tier": "primitives",
+      "source": "src/primitives/RouterLink/RouterLink.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ScaleLabels",
+      "tier": "primitives",
+      "source": "src/primitives/ScaleLabels/ScaleLabels.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ScrollArea",
+      "tier": "primitives",
+      "source": "src/primitives/ScrollArea/ScrollArea.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SectionHeader",
+      "tier": "primitives",
+      "source": "src/primitives/SectionHeader/SectionHeader.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SegmentedControl",
+      "tier": "primitives",
+      "source": "src/primitives/SegmentedControl/SegmentedControl.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Select",
+      "tier": "primitives",
+      "source": "src/primitives/Select/Select.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Shortcut",
+      "tier": "primitives",
+      "source": "src/primitives/Shortcut/Shortcut.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Slider",
+      "tier": "primitives",
+      "source": "src/primitives/Slider/Slider.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Spacer",
+      "tier": "primitives",
+      "source": "src/primitives/Spacer/Spacer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Spinner",
+      "tier": "primitives",
+      "source": "src/primitives/Spinner/Spinner.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Stack",
+      "tier": "primitives",
+      "source": "src/primitives/Stack/Stack.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "StatRow",
+      "tier": "primitives",
+      "source": "src/primitives/StatRow/StatRow.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Status",
+      "tier": "primitives",
+      "source": "src/primitives/Status/Status.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Stepper",
+      "tier": "primitives",
+      "source": "src/primitives/Stepper/Stepper.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Svg",
+      "tier": "primitives",
+      "source": "src/primitives/Svg/Svg.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Tabs",
+      "tier": "primitives",
+      "source": "src/primitives/Tabs/Tabs.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Tag",
+      "tier": "primitives",
+      "source": "src/primitives/Tag/Tag.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "TagInput",
+      "tier": "primitives",
+      "source": "src/primitives/TagInput/TagInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "TagPicker",
+      "tier": "primitives",
+      "source": "src/primitives/TagPicker/TagPicker.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "TermList",
+      "tier": "primitives",
+      "source": "src/primitives/TermList/TermList.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "TesseraProvider",
+      "tier": "primitives",
+      "source": "src/primitives/TesseraProvider/TesseraProvider.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Text",
+      "tier": "primitives",
+      "source": "src/primitives/Text/Text.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Textarea",
+      "tier": "primitives",
+      "source": "src/primitives/Textarea/Textarea.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "TextElement",
+      "tier": "primitives",
+      "source": "src/primitives/TextElement/TextElement.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "TextInput",
+      "tier": "primitives",
+      "source": "src/primitives/TextInput/TextInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Thumbnail",
+      "tier": "primitives",
+      "source": "src/primitives/Thumbnail/Thumbnail.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Title",
+      "tier": "primitives",
+      "source": "src/primitives/Title/Title.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Toast",
+      "tier": "primitives",
+      "source": "src/primitives/Toast/Toast.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Toggle",
+      "tier": "primitives",
+      "source": "src/primitives/Toggle/Toggle.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ToggleGroup",
+      "tier": "primitives",
+      "source": "src/primitives/ToggleGroup/ToggleGroup.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Tooltip",
+      "tier": "primitives",
+      "source": "src/primitives/Tooltip/Tooltip.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Video",
+      "tier": "primitives",
+      "source": "src/primitives/Video/Video.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "AboutPanel",
+      "tier": "composites",
+      "source": "src/composites/AboutPanel/AboutPanel.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "CalibrationPanel",
+      "tier": "composites",
+      "source": "src/composites/CalibrationPanel/CalibrationPanel.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ColorPicker",
+      "tier": "composites",
+      "source": "src/composites/ColorPicker/ColorPicker.tsx",
+      "imports": [
+        "@drizztdourden08/tessera/color-picker"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ColorPickerPopover",
+      "tier": "composites",
+      "source": "src/composites/ColorPickerPopover/ColorPickerPopover.tsx",
+      "imports": [
+        "@drizztdourden08/tessera/color-picker-popover"
+      ],
+      "usage": false
+    },
+    {
+      "name": "CommandPalette",
+      "tier": "composites",
+      "source": "src/composites/CommandPalette/CommandPalette.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "CompactRecordView",
+      "tier": "composites",
+      "source": "src/composites/CompactRecordView/CompactRecordView.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ConfirmIconButton",
+      "tier": "composites",
+      "source": "src/composites/ConfirmIconButton/ConfirmIconButton.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "CreateRecordDialog",
+      "tier": "composites",
+      "source": "src/composites/CreateRecordDialog/CreateRecordDialog.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "DataTable",
+      "tier": "composites",
+      "source": "src/composites/DataTable/DataTable.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "DeleteGuardDialog",
+      "tier": "composites",
+      "source": "src/composites/DeleteGuardDialog/DeleteGuardDialog.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Dialog",
+      "tier": "composites",
+      "source": "src/composites/Dialog/Dialog.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "DialogShell",
+      "tier": "composites",
+      "source": "src/composites/DialogShell/DialogShell.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "DisabledOverlay",
+      "tier": "composites",
+      "source": "src/composites/DisabledOverlay/DisabledOverlay.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "DockLayout",
+      "tier": "composites",
+      "source": "src/composites/DockLayout/DockLayout.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Drawer",
+      "tier": "composites",
+      "source": "src/composites/Drawer/Drawer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "DropdownMenu",
+      "tier": "composites",
+      "source": "src/composites/DropdownMenu/DropdownMenu.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "DynamicInput",
+      "tier": "composites",
+      "source": "src/composites/DynamicInput/DynamicInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Emphasis",
+      "tier": "composites",
+      "source": "src/composites/Emphasis/Emphasis.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ErrorBoundary",
+      "tier": "composites",
+      "source": "src/composites/ErrorBoundary/ErrorBoundary.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "FactsPanel",
+      "tier": "composites",
+      "source": "src/composites/FactsPanel/FactsPanel.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "FilterBar",
+      "tier": "composites",
+      "source": "src/composites/FilterBar/FilterBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "FloatingSwitch",
+      "tier": "composites",
+      "source": "src/composites/FloatingSwitch/FloatingSwitch.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "FullScreenLayer",
+      "tier": "composites",
+      "source": "src/composites/FullScreenLayer/FullScreenLayer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "GroupTree",
+      "tier": "composites",
+      "source": "src/composites/GroupTree/GroupTree.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "HeaderTabs",
+      "tier": "composites",
+      "source": "src/composites/HeaderTabs/HeaderTabs.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Hero",
+      "tier": "composites",
+      "source": "src/composites/Hero/Hero.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "InlineCreateForm",
+      "tier": "composites",
+      "source": "src/composites/InlineCreateForm/InlineCreateForm.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "KeyboardLayout",
+      "tier": "composites",
+      "source": "src/composites/KeyboardLayout/KeyboardLayout.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ListItemRow",
+      "tier": "composites",
+      "source": "src/composites/ListItemRow/ListItemRow.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "LogPanel",
+      "tier": "composites",
+      "source": "src/composites/LogPanel/LogPanel.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "MasterDetailLayout",
+      "tier": "composites",
+      "source": "src/composites/MasterDetailLayout/MasterDetailLayout.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "NavLayout",
+      "tier": "composites",
+      "source": "src/composites/NavLayout/NavLayout.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Overlay",
+      "tier": "composites",
+      "source": "src/composites/Overlay/Overlay.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "PixelWordmark",
+      "tier": "composites",
+      "source": "src/composites/PixelWordmark/PixelWordmark.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "PressedGrid",
+      "tier": "composites",
+      "source": "src/composites/PressedGrid/PressedGrid.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ProfilePicker",
+      "tier": "composites",
+      "source": "src/composites/ProfilePicker/ProfilePicker.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "RecordEditor",
+      "tier": "composites",
+      "source": "src/composites/RecordEditor/RecordEditor.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ReleaseNotesPanel",
+      "tier": "composites",
+      "source": "src/composites/ReleaseNotesPanel/ReleaseNotesPanel.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SearchResults",
+      "tier": "composites",
+      "source": "src/composites/SearchResults/SearchResults.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SearchSpark",
+      "tier": "composites",
+      "source": "src/composites/SearchSpark/SearchSpark.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SectionNav",
+      "tier": "composites",
+      "source": "src/composites/SectionNav/SectionNav.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SettingsGroupList",
+      "tier": "composites",
+      "source": "src/composites/SettingsGroupList/SettingsGroupList.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SettingsPage",
+      "tier": "composites",
+      "source": "src/composites/SettingsPage/SettingsPage.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SettingsSection",
+      "tier": "composites",
+      "source": "src/composites/SettingsSection/SettingsSection.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SettingsShell",
+      "tier": "composites",
+      "source": "src/composites/SettingsShell/SettingsShell.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ShortcutTour",
+      "tier": "composites",
+      "source": "src/composites/ShortcutTour/ShortcutTour.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SideNav",
+      "tier": "composites",
+      "source": "src/composites/SideNav/SideNav.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SplitPane",
+      "tier": "composites",
+      "source": "src/composites/SplitPane/SplitPane.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "StickPlot",
+      "tier": "composites",
+      "source": "src/composites/StickPlot/StickPlot.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "VolumeControl",
+      "tier": "composites",
+      "source": "src/composites/VolumeControl/VolumeControl.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Widget",
+      "tier": "composites",
+      "source": "src/composites/Widget/Widget.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "WindowHeader",
+      "tier": "composites",
+      "source": "src/composites/WindowHeader/WindowHeader.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "WindowTitleBar",
+      "tier": "composites",
+      "source": "src/composites/WindowTitleBar/WindowTitleBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "WizardExitGuard",
+      "tier": "composites",
+      "source": "src/composites/Wizard/WizardExitGuard/WizardExitGuard.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "WizardFrame",
+      "tier": "composites",
+      "source": "src/composites/Wizard/WizardFrame/WizardFrame.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "WizardNav",
+      "tier": "composites",
+      "source": "src/composites/Wizard/WizardNav/WizardNav.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "WizardProgress",
+      "tier": "composites",
+      "source": "src/composites/Wizard/WizardProgress/WizardProgress.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "WizardReview",
+      "tier": "composites",
+      "source": "src/composites/Wizard/WizardReview/WizardReview.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "WizardStep",
+      "tier": "composites",
+      "source": "src/composites/Wizard/WizardStep/WizardStep.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "AnimatedMascot",
+      "tier": "brand",
+      "source": "src/brand/AnimatedMascot/AnimatedMascot.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
+      "name": "BrandMark",
+      "tier": "brand",
+      "source": "src/brand/BrandMark/BrandMark.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
+      "name": "BrandPaths",
+      "tier": "brand",
+      "source": "src/brand/BrandPaths/BrandPaths.tsx",
+      "imports": [],
+      "usage": false
+    },
+    {
+      "name": "BrandScene",
+      "tier": "brand",
+      "source": "src/brand/BrandScene/BrandScene.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
+      "name": "BrandWordmark",
+      "tier": "brand",
+      "source": "src/brand/BrandWordmark/BrandWordmark.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
+      "name": "InteractiveTessera",
+      "tier": "brand",
+      "source": "src/brand/InteractiveTessera/InteractiveTessera.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Logo",
+      "tier": "brand",
+      "source": "src/brand/Logo/Logo.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
+      "name": "Mascot",
+      "tier": "brand",
+      "source": "src/brand/Mascot/Mascot.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    }
+  ]
+}

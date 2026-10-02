@@ -6,7 +6,7 @@ import { SPACING } from './dimension-lists';
 import { TokenTable } from './token-table';
 
 const meta = {
-  title: 'Tokens/Gap',
+  title: 'Core · Tokens/Gap',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

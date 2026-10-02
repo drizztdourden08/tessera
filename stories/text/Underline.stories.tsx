@@ -4,7 +4,7 @@ import { Text } from '../../src/primitives';
 import { textElementStories } from './text-element-stories';
 
 const meta = {
-  title: 'Text/Underline',
+  title: 'Core · Text/Underline',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

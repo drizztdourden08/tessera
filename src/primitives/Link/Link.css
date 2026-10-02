@@ -1,0 +1,47 @@
+/* @layer renderer-components @kind style */
+:where(.link) {
+  color: var(--link-ink);
+  text-decoration: none;
+  text-underline-offset: var(--size-2);
+  border-radius: var(--size-2);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+:where(.link:hover) {
+  color: var(--link-ink-hover);
+  text-decoration: underline;
+}
+
+:where(.link:focus-visible) {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thin);
+}
+
+:where(.link[data-tone="primary"]) {
+  --link-ink: var(--c-primary-bright);
+  --link-ink-hover: var(--c-primary);
+}
+
+:where(.link[data-tone="secondary"]) {
+  --link-ink: var(--c-secondary-bright);
+  --link-ink-hover: var(--c-secondary);
+}
+
+:where(.link[data-tone="danger"]) {
+  --link-ink: var(--c-danger-bright);
+  --link-ink-hover: var(--c-danger);
+}
+
+:where(.link[data-tone="neutral"]) {
+  color: inherit;
+  text-decoration: underline;
+}
+
+:where(.link[data-tone="neutral"]:hover) {
+  color: var(--c-text);
+}
+
+:where(.link__external--spaced) {
+  margin-inline-start: var(--space-2xs);
+}

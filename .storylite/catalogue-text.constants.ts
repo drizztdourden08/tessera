@@ -3,14 +3,15 @@ import { TEXT_ELEMENT_SPECS } from '../src/primitives/text-elements/text-element
 import type { CatalogueTier } from './catalogue.type';
 
 const TEXT_TIER: CatalogueTier = {
-  tier: 'Text',
+  tier: 'Core',
   intro: 'Every HTML text element and the six headings, each by full name or short name, on the Text and Title namespaces or on their own.',
   groups: [{
-    group: '',
+    group: 'Text',
     entries: [
       { name: 'Text', summary: 'The namespace for every text element, and plain text by variant.' },
       { name: 'All elements', summary: 'Every text element on one page.' },
       { name: 'Title', summary: 'H1 to H6 in the title face, built from one heading.' },
+      { name: 'TextElement', summary: 'The element every Text member is built on, for a tag picked at run time.' },
       ...TEXT_ELEMENT_SPECS.map((spec) => ({
         name: spec.name,
         summary: spec.name === spec.short ? `The <${spec.tag}> element.` : `The <${spec.tag}> element, also ${spec.short}.`,

@@ -1,0 +1,148 @@
+# Decide which component to use
+
+Start at the first question and pick the answer that fits. Each answer leads to the next question or to the components for that case. The component page then gives its rules and an example.
+
+**What are you placing?**
+
+- Actions. **One action, or several related buttons?**
+  - One action. **What does the action look like?**
+    - A visible word: no component yet.
+    - An icon only: no component yet.
+    - Irreversible, on a row: no component yet.
+    - Irreversible, for a whole view: no component yet.
+    - Goes to a URL: no component yet.
+    - A whole area the user presses: no component yet.
+  - Several related buttons. **How do the buttons relate?**
+    - Only one can be on: no component yet.
+    - Each on or off by itself: no component yet.
+    - Peer actions on one thing, read as one tool: no component yet.
+    - Separate decisions, with space between: no component yet.
+    - Too many, or secondary: no component yet.
+- A value the user sets. **What does the user set?**
+  - Free text or a number. **What shape is it?**
+    - One line of text: no component yet.
+    - Several lines of text: no component yet.
+    - A number typed in: no component yet.
+    - A number stepped up or down: no component yet.
+    - Text that follows a pattern: no component yet.
+    - Free words, as tags: no component yet.
+  - One choice. **How many options are there?**
+    - A few, all in view: no component yet.
+    - Many, in a list: no component yet.
+    - Many, found by typing: no component yet.
+  - Several choices: no component yet.
+  - On or off. **When does the change apply?**
+    - At once: no component yet.
+    - When the form is sent: no component yet.
+  - A colour. **Where does the picker sit?**
+    - In the page: no component yet.
+    - Behind a swatch button: no component yet.
+  - A range: no component yet.
+  - A file: no component yet.
+  - A whole record. **What happens to the record?**
+    - Edit it in place: no component yet.
+    - Create one in the page: no component yet.
+    - Create one in a dialog: no component yet.
+  - The label and help around an input: no component yet.
+- A status, a count or a label. **What does it show?**
+  - The state something is in: no component yet.
+  - A count, or a dot for news: no component yet.
+  - A value that sorts an item into a group: no component yet.
+  - A label and its value: no component yet.
+  - Terms and what they mean: no component yet.
+  - A colour sample: no component yet.
+  - A key or a shortcut: no component yet.
+- Something over the page. **What sits over the page?**
+  - A hint on hover or focus: no component yet.
+  - A question the user must answer: no component yet.
+  - A dialog with its own layout: no component yet.
+  - A panel from the edge of the window: no component yet.
+  - A search over every command: no component yet.
+  - A layer over the whole window: no component yet.
+  - A cover over a part that is off: no component yet.
+  - A dim backdrop: no component yet.
+- Navigation. **Where does the user go?**
+  - Between views of one area: no component yet.
+  - Between pages, from the header: no component yet.
+  - Between pages, from a side list: no component yet.
+  - Between sections of one long page: no component yet.
+  - Through a nested tree: no component yet.
+  - To a search result: no component yet.
+  - Through the steps of one task: no component yet.
+  - Between profiles: no component yet.
+  - Between a few modes, from a floating switch: no component yet.
+- Layout. **What are you arranging?**
+  - A plain block: no component yet.
+  - Items in a row or a column: no component yet.
+  - Blocks stacked in a column: no component yet.
+  - Items on a grid: no component yet.
+  - One item in the centre: no component yet.
+  - One raised item: no component yet.
+  - Empty space: no component yet.
+  - A line between sections: no component yet.
+  - Content that scrolls: no component yet.
+  - A list beside its detail: no component yet.
+  - Two panes the user resizes: no component yet.
+  - An app frame with its navigation: no component yet.
+  - Panels the user docks and moves: no component yet.
+  - A settings screen. **Which part of it?**
+    - The whole page: no component yet.
+    - The frame around the sections: no component yet.
+    - One section of rows: no component yet.
+    - A list of groups: no component yet.
+  - Window chrome. **Which part of the window?**
+    - The title bar: no component yet.
+    - A header inside the window: no component yet.
+  - A ready-made app panel. **Which panel?**
+    - About the app: no component yet.
+    - Release notes: no component yet.
+    - Facts in groups: no component yet.
+    - An opening banner with art: no component yet.
+  - The app root: no component yet.
+- Feedback. **What are you telling the user?**
+  - Work is running, length unknown: no component yet.
+  - Progress toward an end, as a bar: no component yet.
+  - Progress toward an end, in a small round space: no component yet.
+  - A short message that passes: no component yet.
+  - A note that stays on the page: no component yet.
+  - Nothing is here yet: no component yet.
+  - A hint for what is under the pointer: no component yet.
+  - A part of the page failed: no component yet.
+- Text. **What kind of text?**
+  - A heading: no component yet.
+  - A section heading with an action: no component yet.
+  - Running text: no component yet.
+  - A quotation: no component yet.
+  - A block of code: no component yet.
+  - Words that draw the eye, animated: no component yet.
+- Data. **What data are you showing?**
+  - Rows and columns to sort and filter: no component yet.
+  - Filters over a collection: no component yet.
+  - One record, compact and read only: no component yet.
+  - A row in a list, with its actions: no component yet.
+  - A stream of log lines: no component yet.
+  - A drawing. **How is it drawn?**
+    - In pixels: no component yet.
+    - In shapes: no component yet.
+  - A picture or a video. **Which one?**
+    - A picture that holds its box: no component yet.
+    - A small framed picture: no component yet.
+    - A video: no component yet.
+  - Controller or keyboard input. **What about the input?**
+    - A keyboard with keys marked: no component yet.
+    - A tour of shortcuts: no component yet.
+    - Which buttons are held: no component yet.
+    - Where a stick points: no component yet.
+    - A calibration step: no component yet.
+- Icons and brand. **Which mark?**
+  - An icon from the set: no component yet.
+  - A small stroke glyph: no component yet.
+  - An icon from your own path: no component yet.
+  - An emoji: no component yet.
+  - The search mark: no component yet.
+  - An app logo: no component yet.
+  - An app mark alone: no component yet.
+  - An app name: no component yet.
+  - An app mascot: no component yet.
+  - The brand scene: no component yet.
+  - The interactive mosaic: no component yet.

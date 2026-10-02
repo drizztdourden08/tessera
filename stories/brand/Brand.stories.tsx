@@ -7,7 +7,7 @@ import { overviewStory } from '../_template/overview-story';
 import './Brand.stories.css';
 
 const meta = {
-  title: 'Brand/Brand',
+  title: 'Core · Brand/Brand',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

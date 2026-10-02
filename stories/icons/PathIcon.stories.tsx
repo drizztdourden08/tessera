@@ -41,7 +41,7 @@ const ARG_TYPES: StoryLiteArgTypes<IconArgs> = {
   };
 
 const meta = {
-  title: 'Icons/PathIcon',
+  title: 'Core · Icons/PathIcon',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<IconArgs>;
 

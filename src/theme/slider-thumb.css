@@ -9,7 +9,6 @@
   border: var(--border-width-thick) solid var(--c-bg);
   box-shadow: var(--shadow-1);
   cursor: pointer;
-  pointer-events: auto;
   transition: transform var(--transition-fast);
 }
 
@@ -19,7 +18,6 @@
   box-sizing: border-box;
   border: var(--border-width-thick) solid var(--c-bg);
   border-radius: var(--radius-round);
-  pointer-events: auto;
   cursor: pointer;
   background: var(--c-primary-bright);
   transition: transform var(--transition-fast);
@@ -33,11 +31,13 @@
   border: none;
 }
 
-.slider__input:hover::-webkit-slider-thumb {
+.slider__input:hover::-webkit-slider-thumb,
+.slider__input--hot::-webkit-slider-thumb {
   transform: scale(1.15);
 }
 
-.slider__input:hover::-moz-range-thumb {
+.slider__input:hover::-moz-range-thumb,
+.slider__input--hot::-moz-range-thumb {
   transform: scale(1.15);
 }
 

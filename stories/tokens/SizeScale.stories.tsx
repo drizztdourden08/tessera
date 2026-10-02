@@ -6,7 +6,7 @@ import { SCALE } from './dimension-lists';
 import { TokenTable } from './token-table';
 
 const meta = {
-  title: 'Tokens/Size scale',
+  title: 'Core · Tokens/Size scale',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

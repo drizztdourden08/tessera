@@ -4,7 +4,7 @@ import { Text } from '../../src/primitives';
 import { textElementStories } from './text-element-stories';
 
 const meta = {
-  title: 'Text/Abbreviation',
+  title: 'Core · Text/Abbreviation',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

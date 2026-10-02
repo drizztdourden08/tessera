@@ -4,7 +4,7 @@ import { scaleStories } from './scale-stories';
 import { EASINGS } from './token-lists';
 
 const meta = {
-  title: 'Tokens/Easings',
+  title: 'Core · Tokens/Easings',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

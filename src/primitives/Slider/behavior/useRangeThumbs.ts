@@ -1,12 +1,10 @@
 /* @layer renderer-components @kind hook */
 import { useRef, useState } from 'react';
+import type { ValueScale } from '../../value-rule/value-rule.type';
 import { clampValue } from './clamp-value';
-import { nearestThumb } from './nearest-thumb';
-import type { SliderScale } from './slider-scale.type';
-import { snapValue } from './snap-value';
 import type { RangeThumbs, Thumb } from './useRangeThumbs.type';
 
-const useRangeThumbs = (pair: [number, number], onPair: (next: [number, number]) => void, scale: SliderScale): RangeThumbs => {
+const useRangeThumbs = (pair: [number, number], onPair: (next: [number, number]) => void, scale: ValueScale): RangeThumbs => {
   const [low, high] = pair;
   const [active, setActive] = useState<Thumb>('high');
   const lowRef = useRef<HTMLInputElement>(null);
@@ -14,21 +12,17 @@ const useRangeThumbs = (pair: [number, number], onPair: (next: [number, number])
 
   const setLow = (next: number) => {
     setActive('low');
-    onPair([Math.min(clampValue(next, scale), high), high]);
+    const value = Math.min(clampValue(next, scale), high);
+    if (value !== low) onPair([value, high]);
   };
   const setHigh = (next: number) => {
     setActive('high');
-    onPair([low, Math.max(clampValue(next, scale), low)]);
-  };
-  const pickTrack = (fraction: number) => {
-    const at = scale.min + fraction * (scale.max - scale.min);
-    const which = nearestThumb(at, low, high);
-    (which === 'low' ? setLow : setHigh)(snapValue(at, scale));
-    (which === 'low' ? lowRef : highRef).current?.focus();
+    const value = Math.max(clampValue(next, scale), low);
+    if (value !== high) onPair([low, value]);
   };
   const lowOnTop = low === high && (high === scale.max || (low !== scale.min && active === 'low'));
 
-  return { low, high, lowOnTop, lowRef, highRef, setLow, setHigh, setActive, pickTrack };
+  return { low, high, lowOnTop, lowRef, highRef, setLow, setHigh, setActive };
 };
 
 export { useRangeThumbs };

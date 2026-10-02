@@ -24,7 +24,7 @@ const INITIAL: FeatureArgs = {
 };
 
 const meta = {
-  title: 'Typography/OpenType features',
+  title: 'Core · Typography/OpenType features',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<FeatureArgs>;
 

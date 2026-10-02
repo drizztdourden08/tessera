@@ -6,7 +6,7 @@ import { SIZES, SPECIMEN } from './type-lists';
 import { TypeTable } from './TypeTable';
 
 const meta = {
-  title: 'Typography/Sizes',
+  title: 'Core · Typography/Sizes',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

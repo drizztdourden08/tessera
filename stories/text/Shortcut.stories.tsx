@@ -37,7 +37,7 @@ const ARG_TYPES: StoryLiteArgTypes<ShortcutArgs> = {
 };
 
 const meta = {
-  title: 'Text/Shortcut',
+  title: 'Core · Text/Shortcut',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<ShortcutArgs>;
 

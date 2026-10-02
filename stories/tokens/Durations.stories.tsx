@@ -4,7 +4,7 @@ import { scaleStories } from './scale-stories';
 import { DURATIONS } from './token-lists';
 
 const meta = {
-  title: 'Tokens/Durations',
+  title: 'Core · Tokens/Durations',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

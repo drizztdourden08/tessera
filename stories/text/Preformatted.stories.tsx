@@ -4,7 +4,7 @@ import { Text } from '../../src/primitives';
 import { textElementStories } from './text-element-stories';
 
 const meta = {
-  title: 'Text/Preformatted',
+  title: 'Core · Text/Preformatted',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

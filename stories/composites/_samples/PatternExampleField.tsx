@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { PatternInput } from '../../../src/composites';
+import { DynamicInput } from '../../../src/composites';
 import { Box, Field, Text } from '../../../src/primitives';
 import { PATTERN_ICONS, PATTERN_LISTS } from './pattern-data';
 import type { PatternActions, PatternValue } from '../../../src/composites';
@@ -36,7 +36,7 @@ const PatternExampleField = (props: PatternExampleFieldProps) => {
   return (
     <Box className="pattern-story__card">
       <Field label={example.label} hint={example.hint} size={size}>
-        <PatternInput
+        <DynamicInput
           pattern={example.pattern}
           value={value}
           onChange={setValue}

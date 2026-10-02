@@ -20,7 +20,7 @@ const ARG_TYPES: StoryLiteArgTypes<WeightArgs> = {
 };
 
 const meta = {
-  title: 'Typography/Weights',
+  title: 'Core · Typography/Weights',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<WeightArgs>;
 

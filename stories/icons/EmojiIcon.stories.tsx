@@ -22,7 +22,7 @@ const ARG_TYPES: StoryLiteArgTypes<EmojiIconArgs> = {
   };
 
 const meta = {
-  title: 'Icons/EmojiIcon',
+  title: 'Core · Icons/EmojiIcon',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<EmojiIconArgs>;
 

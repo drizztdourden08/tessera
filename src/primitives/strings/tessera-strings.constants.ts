@@ -1,12 +1,12 @@
 /* @layer renderer-components @kind data */
 import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
 import { COMMON_STRINGS } from './common-strings.constants';
+import { DYNAMIC_INPUT_STRINGS } from './dynamic-input-strings.constants';
 import { FIELD_STRINGS } from './fields-strings.constants';
 import { FILTER_OPERATOR_STRINGS } from './filter-operators-strings.constants';
 import { FILTER_STRINGS } from './filters-strings.constants';
 import { NAVIGATION_STRINGS } from './navigation-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
-import { PATTERN_INPUT_STRINGS } from './pattern-input-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
 import { VIDEO_STRINGS } from './video-strings.constants';
@@ -19,7 +19,7 @@ const TESSERA_STRINGS = {
   fields: FIELD_STRINGS,
   video: VIDEO_STRINGS,
   colorPicker: COLOR_PICKER_STRINGS,
-  patternInput: PATTERN_INPUT_STRINGS,
+  dynamicInput: DYNAMIC_INPUT_STRINGS,
   table: TABLE_STRINGS,
   filters: FILTER_STRINGS,
   filterOperators: FILTER_OPERATOR_STRINGS,

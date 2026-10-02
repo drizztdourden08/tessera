@@ -17,6 +17,7 @@ const NAVIGATION_STRINGS = {
   resizeHint: 'Drag to resize · double-click to reset',
   pageViews: (title: string) => `${title} views`,
   pageSections: (title: string) => `${title} sections`,
+  opensInNewTab: 'opens in a new tab',
 };
 
 export { NAVIGATION_STRINGS };

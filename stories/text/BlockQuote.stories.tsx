@@ -6,7 +6,7 @@ import { textElementStories } from './text-element-stories';
 const LONG_QUOTE = 'It is dangerous to go alone. Take this sword, and keep it close while you cross the fields to the castle. The rain will not stop tonight, and the guards will not let you pass the gate, so look for the way in under the moat. Your uncle went ahead of you. Find him before the soldiers do.';
 
 const meta = {
-  title: 'Text/BlockQuote',
+  title: 'Core · Text/BlockQuote',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

@@ -15,7 +15,7 @@ const ARG_TYPES: StoryLiteArgTypes<InteractiveTesseraArgs> = {
 };
 
 const meta = {
-  title: 'Brand/InteractiveTessera',
+  title: 'Core · Brand/InteractiveTessera',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<InteractiveTesseraArgs>;
 

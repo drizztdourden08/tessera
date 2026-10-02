@@ -1,15 +1,19 @@
 /* @layer root-config @kind data */
 import { COMPOSITES_TIER } from './catalogue-composites.constants';
 import { PRIMITIVES_TIER } from './catalogue-primitives.constants';
+import { SETUP_TIER } from './catalogue-setup.constants';
 import { TEXT_TIER } from './catalogue-text.constants';
+import { withUsageJobs } from './catalogue-jobs';
 import type { CatalogueTier } from './catalogue.type';
+import { ROOT } from './config.constants';
 
-const CATALOGUE: readonly CatalogueTier[] = [
+const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
+  SETUP_TIER,
   {
-    tier: 'Brand',
+    tier: 'Core',
     intro: 'Every mark in the family. Apps import theirs from the design system: `<Logo brand="archipelia" />`.',
     groups: [{
-      group: '',
+      group: 'Brand',
       entries: [
         { name: 'Brand', summary: 'The family on one page: each app\'s mark at every size, its mascot, its wordmark and what it is.' },
         { name: 'InteractiveTessera', summary: 'The mosaic T, interactive: pick a coloured tile to see its project. The home page shows it too.' },
@@ -21,10 +25,10 @@ const CATALOGUE: readonly CatalogueTier[] = [
     }],
   },
   {
-    tier: 'Colours',
+    tier: 'Core',
     intro: 'The colour system: the seeds, the palettes built from them, the roles components use, and each brand\'s gradient.',
     groups: [{
-      group: '',
+      group: 'Colours',
       entries: [
         { name: 'Swatches', summary: 'The three seeds, and the white and black every palette runs between.' },
         { name: 'Palettes', summary: 'Each seed as eleven steps, and the grey scale.' },
@@ -35,10 +39,10 @@ const CATALOGUE: readonly CatalogueTier[] = [
     }],
   },
   {
-    tier: 'Typography',
+    tier: 'Core',
     intro: 'Fonts, weights, sizes, and how text is cased, spaced and set.',
     groups: [{
-      group: '',
+      group: 'Typography',
       entries: [
         { name: 'Fonts', summary: 'Inter, Chakra Petch, mono, emoji and the game face, with the title and game specimens.' },
         { name: 'Weights', summary: 'Nine named weights on a continuous 100 to 900 axis, and a playground.' },
@@ -51,10 +55,10 @@ const CATALOGUE: readonly CatalogueTier[] = [
   },
   TEXT_TIER,
   {
-    tier: 'Icons',
+    tier: 'Core',
     intro: 'One icon system for every app: a named Lucide set through @iconify, and the brand marks as icons.',
     groups: [{
-      group: '',
+      group: 'Icons',
       entries: [
         { name: 'Icon', summary: 'A named icon, or any @iconify icon, with size, rotation, flip and a label.' },
         { name: 'Brand icons', summary: 'Every brand mark as an icon, in colour or one colour: Icon.Brand.' },
@@ -65,10 +69,10 @@ const CATALOGUE: readonly CatalogueTier[] = [
     }],
   },
   {
-    tier: 'Tokens',
+    tier: 'Core',
     intro: 'The values every component is drawn from. They follow the app picked in the toolbar.',
     groups: [{
-      group: '',
+      group: 'Tokens',
       entries: [
         { name: 'Size scale', summary: 'The one scale every length is a step of, smallest to biggest.' },
         { name: 'Sizes', summary: 'Fixed widths, heights and diameters, by what they size.' },
@@ -91,6 +95,6 @@ const CATALOGUE: readonly CatalogueTier[] = [
     intro: 'The headless engine under the data composites: schema, tables, filters and view state.',
     groups: [{ group: '', entries: [{ name: 'Engine', summary: 'Schema derivation, the table hook, filters and view storage.' }] }],
   },
-];
+]);
 
 export { CATALOGUE };

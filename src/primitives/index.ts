@@ -49,7 +49,11 @@ export type {
 export { Toggle } from './Toggle';
 export type { ToggleProps } from './Toggle/Toggle.type';
 export { Slider } from './Slider';
-export type { SliderLabelEntry, SliderLabels, SliderPair, SliderProps } from './Slider';
+export type { SliderPair, SliderProps } from './Slider';
+export { ScaleLabels } from './ScaleLabels';
+export type { ScaleLabelEntry, ScaleLabelSource, ScaleLabelsProps, ScaleOrientation } from './ScaleLabels';
+export { formatValueRule, parseValueRule, thinLabels } from './value-rule';
+export type { LabelBox, ValueMark, ValueRule, ValueRuleMarks, ValueRuleParse, ValueScale } from './value-rule';
 export { RadioGroup, type RadioOption } from './RadioGroup';
 export { SegmentedControl } from './SegmentedControl';
 export type { SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps } from './SegmentedControl';
@@ -106,7 +110,9 @@ export type {
 export { TESSERA_STRINGS } from './strings';
 export type { TesseraStringGroup, TesseraStrings, TesseraStringsOverride } from './strings';
 export { Link } from './Link';
-export type { LinkProps } from './Link';
+export type { LinkProps, LinkTone } from './Link';
+export { RouterLink } from './RouterLink';
+export type { RouterLinkProps } from './RouterLink';
 export { HintLine } from './HintLine';
 export type { HintLineProps } from './HintLine';
 export { HintScope } from './HintScope';

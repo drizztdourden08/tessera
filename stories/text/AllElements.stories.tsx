@@ -17,7 +17,7 @@ const ELEMENTS: readonly { label: string; node: ReactNode }[] = [
 ];
 
 const meta = {
-  title: 'Text/All elements',
+  title: 'Core · Text/All elements',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

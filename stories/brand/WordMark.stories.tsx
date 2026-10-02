@@ -22,7 +22,7 @@ const ARG_TYPES: StoryLiteArgTypes<WordMarkArgs> = {
 };
 
 const meta = {
-  title: 'Brand/WordMark',
+  title: 'Core · Brand/WordMark',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<WordMarkArgs>;
 

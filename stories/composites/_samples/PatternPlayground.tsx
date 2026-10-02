@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useMemo, useState } from 'react';
-import { PatternInput, parsePattern } from '../../../src/composites';
-import { checkPattern } from '../../../src/composites/PatternInput/behavior/check-pattern';
+import { DynamicInput, parsePattern } from '../../../src/composites';
+import { checkPattern } from '../../../src/composites/DynamicInput/behavior/check-pattern';
 import { Box, Callout, Field, Text } from '../../../src/primitives';
 import { PATTERN_ICONS, PATTERN_LISTS } from './pattern-data';
 import type { PatternActions, PatternSetup, PatternValue } from '../../../src/composites';
@@ -37,7 +37,7 @@ const PatternPlayground = (props: PatternPlaygroundArgs) => {
   return (
     <Box className="story-column pattern-story__playground">
       <Field label={label} size={size} error={invalid ? 'Check this value.' : undefined}>
-        <PatternInput pattern={pattern} value={value} onChange={setValue} disabled={disabled} {...setup} />
+        <DynamicInput pattern={pattern} value={value} onChange={setValue} disabled={disabled} {...setup} />
       </Field>
       <Text className="pattern-story__value">{JSON.stringify(value)}</Text>
       {problems.length > 0 && (

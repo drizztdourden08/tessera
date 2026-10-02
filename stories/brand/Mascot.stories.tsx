@@ -50,7 +50,7 @@ const ARG_TYPES: StoryLiteArgTypes<MascotArgs> = {
 };
 
 const meta = {
-  title: 'Brand/Mascot',
+  title: 'Core · Brand/Mascot',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<MascotArgs>;
 

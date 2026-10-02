@@ -23,7 +23,7 @@ const ARG_TYPES: StoryLiteArgTypes<TitleArgs> = {
 };
 
 const meta = {
-  title: 'Text/Title',
+  title: 'Core · Text/Title',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<TitleArgs>;
 

@@ -4,7 +4,7 @@ import { scaleStories } from './scale-stories';
 import { Z_INDEX } from './token-lists';
 
 const meta = {
-  title: 'Tokens/Z-index',
+  title: 'Core · Tokens/Z-index',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

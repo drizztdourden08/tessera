@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { Slider } from './Slider';
-export type { SliderLabelEntry, SliderLabels, SliderPair, SliderProps } from './Slider.type';
+export type { SliderPair, SliderProps } from './Slider.type';

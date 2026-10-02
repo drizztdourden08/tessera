@@ -1,9 +1,9 @@
 /* @layer root-config @kind data */
 const GROUP_ICONS: Record<string, string> = {
-  'Brand': 'gem', 'Colours': 'palette', 'Typography': 'type', 'Text': 'pilcrow', 'Icons': 'shapes', 'Tokens': 'ruler',
+  'Core · Setup': 'rocket', 'Core · Brand': 'gem', 'Core · Colours': 'palette', 'Core · Typography': 'type', 'Core · Text': 'pilcrow',
+  'Core · Icons': 'shapes', 'Core · Tokens': 'ruler',
   'Primitives · Layout': 'layout-grid', 'Primitives · Display': 'monitor', 'Primitives · Actions': 'mouse-pointer-click',
   'Primitives · Inputs': 'text-cursor-input', 'Primitives · Feedback': 'message-square-warning', 'Primitives · Navigation': 'compass',
-  'Primitives · Setup': 'wrench',
   'Composites · Dialogs': 'app-window', 'Composites · Wizard': 'wand-sparkles', 'Composites · Navigation': 'signpost', 'Composites · Menus': 'menu',
   'Composites · Inputs': 'text-cursor-input',
   'Composites · Data views': 'table', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
@@ -11,17 +11,21 @@ const GROUP_ICONS: Record<string, string> = {
 };
 
 const PAGE_ICONS: Record<string, Record<string, string>> = {
-  'Brand': {
+  'Core · Setup': {
+    'Setup': 'package-plus', 'TesseraProvider': 'replace', 'Building compounds': 'component',
+    'Building views': 'layout-panel-top', 'App primitives and composites': 'puzzle',
+  },
+  'Core · Brand': {
     Brand: 'stamp', InteractiveTessera: 'grid-2x2',
     Logo: 'badge-check', WordMark: 'signature', Combined: 'layers-2', Mascot: 'bot',
   },
-  'Colours': { Swatches: 'swatch-book', Palettes: 'paintbrush', Roles: 'tags', Contrast: 'contrast', Gradients: 'blend' },
-  'Typography': {
+  'Core · Colours': { Swatches: 'swatch-book', Palettes: 'paintbrush', Roles: 'tags', Contrast: 'contrast', Gradients: 'blend' },
+  'Core · Typography': {
     'Fonts': 'type', 'Weights': 'bold', 'Sizes': 'a-large-small', 'Optical size and italic': 'italic',
     'OpenType features': 'ligature', 'Transform and style': 'case-sensitive',
   },
-  'Text': {
-    'Text': 'text', 'All elements': 'list', 'Title': 'heading', 'Paragraph': 'pilcrow', 'Span': 'text-cursor',
+  'Core · Text': {
+    'Text': 'text', 'All elements': 'list', 'Title': 'heading', 'TextElement': 'code-xml', 'Paragraph': 'pilcrow', 'Span': 'text-cursor',
     'Strong': 'bold', 'Emphasis': 'wand', 'Bold': 'bold', 'Italic': 'italic', 'Underline': 'underline',
     'Strikethrough': 'strikethrough', 'Deleted': 'eraser', 'Inserted': 'square-plus', 'Highlight': 'highlighter',
     'Small': 'a-arrow-down', 'Subscript': 'subscript', 'Superscript': 'superscript', 'Code': 'code', 'Sample': 'terminal',
@@ -30,8 +34,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     'BidiIsolate': 'arrow-left-right', 'BidiOverride': 'arrow-right-left', 'Ruby': 'languages', 'RubyText': 'captions',
     'RubyParenthesis': 'parentheses', 'Shortcut': 'keyboard', 'Quote': 'quote', 'CodeBlock': 'square-code',
   },
-  'Icons': { 'Icon': 'shapes', 'Brand icons': 'badge', 'Glyph': 'pen-tool', 'PathIcon': 'spline', 'EmojiIcon': 'smile' },
-  'Tokens': {
+  'Core · Icons': { 'Icon': 'shapes', 'Brand icons': 'badge', 'Glyph': 'pen-tool', 'PathIcon': 'spline', 'EmojiIcon': 'smile' },
+  'Core · Tokens': {
     'Size scale': 'ruler', 'Sizes': 'move-diagonal', 'Margin': 'expand', 'Padding': 'shrink', 'Gap': 'separator-vertical',
     'Radius': 'square-round-corner', 'Shadows': 'layers', 'Z-index': 'layers-3', 'Durations': 'timer',
     'Easings': 'chart-spline', 'Transitions': 'arrow-right-left',
@@ -43,22 +47,21 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', TermList: 'book-text', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
-    EmptyState: 'inbox', Image: 'image', Thumbnail: 'gallery-thumbnails', Video: 'video', Canvas: 'frame', Svg: 'vector-square',
+    EmptyState: 'inbox', Image: 'image', Thumbnail: 'gallery-thumbnails', Video: 'video', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
   },
-  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group' },
+  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link' },
   'Primitives · Inputs': {
     TextInput: 'text-cursor-input', Textarea: 'letter-text', NumberInput: 'hash', Stepper: 'diff', Checkbox: 'square-check',
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',
     Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal',
     TagInput: 'tag', TagPicker: 'tags', ColorSwatch: 'paint-bucket',
-    DropZone: 'upload', Field: 'form-input',
+    DropZone: 'upload', Field: 'form-input', FieldControlBoundary: 'square-dashed',
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Toast: 'bell', Tooltip: 'message-square',
-    HintLine: 'text-quote', Callout: 'megaphone',
+    HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone',
   },
-  'Primitives · Navigation': { Tabs: 'panels-top-left' },
-  'Primitives · Setup': { TesseraProvider: 'replace' },
+  'Primitives · Navigation': { Tabs: 'panels-top-left', RouterLink: 'route' },
   'Composites · Dialogs': {
     Dialog: 'app-window', DialogShell: 'app-window-mac', CreateRecordDialog: 'file-plus',
     DeleteGuardDialog: 'shield-alert', ConfirmIconButton: 'circle-check', InlineCreateForm: 'square-pen', Overlay: 'layers-2',
@@ -82,7 +85,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     LogPanel: 'logs', AboutPanel: 'info', FactsPanel: 'table-properties', ReleaseNotesPanel: 'notebook-text', Emphasis: 'wand-sparkles',
     ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', PixelWordmark: 'type-outline', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
-  'Composites · Inputs': { PatternInput: 'braces' },
+  'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2' },
   'Composites · Input devices': { CalibrationPanel: 'crosshair', PressedGrid: 'grid-2x2-check', StickPlot: 'joystick' },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog' },
   'Composites · Screens': { Hero: 'mountain-snow' },

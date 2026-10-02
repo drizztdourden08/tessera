@@ -6,7 +6,7 @@ import { RADIUS } from './dimension-lists';
 import { TokenTable } from './token-table';
 
 const meta = {
-  title: 'Tokens/Radius',
+  title: 'Core · Tokens/Radius',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

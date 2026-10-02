@@ -51,7 +51,7 @@ const ARG_TYPES: StoryLiteArgTypes<ContrastArgs> = {
   };
 
 const meta = {
-  title: 'Colours/Contrast',
+  title: 'Core · Colours/Contrast',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<ContrastArgs>;
 

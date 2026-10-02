@@ -15,7 +15,7 @@ const ARG_TYPES: StoryLiteArgTypes<GradientArgs> = {
 };
 
 const meta = {
-  title: 'Colours/Gradients',
+  title: 'Core · Colours/Gradients',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<GradientArgs>;
 

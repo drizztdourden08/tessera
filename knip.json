@@ -3,6 +3,8 @@
   "entry": [
     "src/{primitives,composites,data,brand}/index.ts",
     "src/composites/{ColorPicker,ColorPickerPopover,field-kits}/index.ts",
+    "src/ai/*.ts",
+    "src/**/*.usage.ts",
     "stories/**/*.stories.tsx",
     ".storylite/config.ts",
     ".storylite/home-logo-mount.ts",

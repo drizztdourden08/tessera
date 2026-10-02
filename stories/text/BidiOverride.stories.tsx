@@ -4,7 +4,7 @@ import { Text } from '../../src/primitives';
 import { textElementStories } from './text-element-stories';
 
 const meta = {
-  title: 'Text/BidiOverride',
+  title: 'Core · Text/BidiOverride',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.bounded-range__end {
+  flex: 1 1 var(--size-96);
+  min-width: var(--size-96);
+}

@@ -5,7 +5,6 @@ import { describe, expect, it, vi } from 'vitest';
 import { AboutPanel } from '../src/composites/AboutPanel';
 import { ErrorBoundary } from '../src/composites/ErrorBoundary';
 import { LogPanel } from '../src/composites/LogPanel';
-import { Box } from '../src/primitives/Box';
 import { Button } from '../src/primitives/Button';
 import { CodeBlock } from '../src/primitives/CodeBlock';
 import { DropZone } from '../src/primitives/DropZone';
@@ -19,7 +18,6 @@ import { portalDocumentFor } from '../src/primitives/Portal/behavior/portal-docu
 import { Spinner } from '../src/primitives/Spinner';
 import { TesseraProvider } from '../src/primitives/TesseraProvider';
 import { Thumbnail } from '../src/primitives/Thumbnail';
-import { Toggle } from '../src/primitives/Toggle';
 
 const { seen, recordClicks } = vi.hoisted(() => {
   const state = { clicks: [], inBrowser: false, containers: [] };
@@ -47,7 +45,6 @@ vi.mock('react-dom', async (importOriginal) => ({
 }));
 
 const AppSpinner = ({ size, label, className }) => h('i', { className: `app-spinner ${className}`, 'data-size': size, role: 'status', 'aria-label': label });
-const AppLink = ({ href, children }) => h('a', { 'data-app-link': href }, children);
 const AppPlaceholder = ({ status }) => h('i', { 'data-app-placeholder': status });
 const AppCrash = ({ label, error, reset }) => h('p', { 'data-app-crash': typeof reset }, `${label}: ${error.message}`);
 const APP_ICONS = { ...ICONS, house: { body: '<path d="M0 0h1"/>', width: 1, height: 1 } };
@@ -89,7 +86,7 @@ describe('TesseraProvider spinner', () => {
 
 });
 
-describe('TesseraProvider clipboard, links, placeholders and wording', () => {
+describe('TesseraProvider clipboard, placeholders and wording', () => {
   it('writes every copy button through the app clipboard writer', async () => {
     const written = [];
     seen.clicks.length = 0;
@@ -99,15 +96,6 @@ describe('TesseraProvider clipboard, links, placeholders and wording', () => {
       h(LogPanel, { rows: [], copyText: () => 'log text' }));
     await Promise.all(seen.clicks.filter(Boolean).map((click) => click()));
     expect(written.sort()).toEqual(['Brock 1.4.0', 'log text', 'pnpm build']);
-  });
-
-  it('renders every href through the app link', () => {
-    const html = draw({ link: AppLink },
-      h(Toggle, { checked: true, onChange: () => undefined, label: 'Sync', description: 'Keeps saves in step.', link: '/sync' }),
-      h(Box, { href: '/guide' }, 'Guide'));
-    expect(html).toContain('data-app-link="/sync"');
-    expect(html).toContain('data-app-link="/guide"');
-    expect(renderToString(h(Box, { href: '/guide' }, 'Guide'))).toContain('<a href="/guide">');
   });
 
   it('draws the app placeholder for loading and empty images and thumbnails', () => {

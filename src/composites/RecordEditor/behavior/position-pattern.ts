@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-import { escapePatternText } from '../../PatternInput';
+import { escapePatternText } from '../../DynamicInput';
 import { axisSlot } from './axis-slot';
 import { AXIS_GAP, AXIS_KEYS } from './position-pattern.constants';
 import type { NumberBounds } from '../../field-kits/registry.type';

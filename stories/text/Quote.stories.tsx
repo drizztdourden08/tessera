@@ -18,7 +18,7 @@ const ARG_TYPES: StoryLiteArgTypes<QuoteArgs> = {
 };
 
 const meta = {
-  title: 'Text/Quote',
+  title: 'Core · Text/Quote',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<QuoteArgs>;
 

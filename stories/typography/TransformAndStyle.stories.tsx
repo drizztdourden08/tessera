@@ -13,7 +13,7 @@ const SPECIMEN_COLUMN: readonly DemonstratorAxis<'specimen'>[] = [{ key: 'specim
 const LEADING_SAMPLE = 'Wren sent the Hookshot to Tavi. Priya asked for a hint. Marlowe reached their goal and released the rest of their items.';
 
 const meta = {
-  title: 'Typography/Transform and style',
+  title: 'Core · Typography/Transform and style',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

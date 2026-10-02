@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { Slider } from '../../../src/primitives';
-import type { ControlSize, SliderLabels } from '../../../src/primitives';
+import type { ControlSize, ScaleLabelSource } from '../../../src/primitives';
 import { ValueReadout } from '../../_template/ValueReadout';
 
 type StatefulSliderProps = {
@@ -13,27 +13,26 @@ type StatefulSliderProps = {
   step?: number;
   keyStep?: number;
   stops?: readonly string[];
-  labels?: SliderLabels;
+  labels?: ScaleLabelSource;
   format?: (value: number) => string;
   showValue?: boolean;
-  withMute?: boolean;
   disabled?: boolean;
   size?: ControlSize;
   ariaLabel?: string;
 };
 
 const SingleSlider = (props: StatefulSliderProps & { initial: number }) => {
-  const { initial, format, withMute, ariaLabel, ...rest } = props;
+  const { initial, format, ariaLabel, ...rest } = props;
   const [value, setValue] = useState(initial);
   return (
     <ValueReadout value={rest.stops?.[value] ?? value}>
-      <Slider {...rest} value={value} onChange={setValue} formatValue={format} mute={withMute ? value === 0 : undefined} aria-label={ariaLabel} />
+      <Slider {...rest} value={value} onChange={setValue} formatValue={format} aria-label={ariaLabel} />
     </ValueReadout>
   );
 };
 
 const PairSlider = (props: StatefulSliderProps & { initial: readonly [number, number] }) => {
-  const { initial, format, withMute, ariaLabel, stops, ...rest } = props;
+  const { initial, format, ariaLabel, stops, ...rest } = props;
   const [value, setValue] = useState<[number, number]>([initial[0], initial[1]]);
   const shown = value.map((at) => stops?.[at] ?? (format ? format(at) : String(at)));
   return (

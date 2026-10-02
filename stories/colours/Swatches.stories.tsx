@@ -25,7 +25,7 @@ const SwatchCard = ({ swatch }: { swatch: MainSwatch }) => {
 };
 
 const meta = {
-  title: 'Colours/Swatches',
+  title: 'Core · Colours/Swatches',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

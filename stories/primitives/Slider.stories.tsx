@@ -3,13 +3,12 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
-import { Box, Slider, Text, type ControlSize } from '../../src/primitives';
+import { Box, Slider, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
-import { LABEL_SYNTAX } from './_samples/slider-label-syntax.constants';
 import { LabelsDemo } from './_samples/slider-labels';
 import { DUNGEONS, PRICES, SPEEDS } from './_samples/slider-stops.constants';
 import { StatefulSlider } from './_samples/StatefulSlider';
@@ -24,7 +23,6 @@ type SliderArgs = {
   step: number;
   labels: string;
   showValue: boolean;
-  withMute: boolean;
   disabled: boolean;
   size: ControlSize;
 };
@@ -40,7 +38,6 @@ const ARGS: Partial<SliderArgs> = {
     step: 5,
     labels: 'every 25 | {v}%',
     showValue: true,
-    withMute: false,
     disabled: false,
     size: 'md',
   };
@@ -52,9 +49,8 @@ const ARG_TYPES: StoryLiteArgTypes<SliderArgs> = {
     min: { control: 'number' },
     max: { control: 'number' },
     step: { control: 'number' },
-    labels: { control: 'text', description: 'A label rule, read live. Try every 10, count 5 | {p}%, ends + 50=Half or [Low, Medium, High].' },
+    labels: { control: 'text', description: 'A value rule, read live. Try every 10, count 5 | {p}%, ends + 50=Half or [Low, Medium, High]. The ScaleLabels page lists the whole syntax.' },
     showValue: { control: 'boolean' },
-    withMute: { control: 'boolean', description: 'Passes mute, which draws the speaker button. Single mode only.' },
     disabled: { control: 'boolean' },
     size: SIZE_ARG,
   };
@@ -83,7 +79,7 @@ const Kinds = {
   render: () => (
     <Box className="story-column">
       <StatefulSlider initial={40} label="Hint cost" format={percent} step={5} />
-      <StatefulSlider initial={80} label="Music volume" description="Click the speaker to mute." format={percent} withMute />
+      <StatefulSlider initial={80} label="Music volume" description="For a mute button, use VolumeControl." format={percent} />
       <StatefulSlider initial={3} min={1} max={8} label="Hearts at start" showValue={false} />
       <StatefulSlider initial={[20, 60]} label="Hint cost window" format={percent} step={5} />
       <StatefulSlider initial={50} ariaLabel="Plain" />
@@ -109,19 +105,6 @@ const Labels = {
   render: () => <LabelsDemo />,
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
-const LabelRules = {
-  name: 'Label rule syntax',
-  render: () => (
-    <Demonstrator
-      corner="Write"
-      rows={Object.keys(LABEL_SYNTAX).map((key) => ({ key, label: key }))}
-      columns={[{ key: 'means', label: 'Means', fill: true }]}
-      align="start"
-      cell={(row) => <Text>{LABEL_SYNTAX[row]}</Text>}
-    />
-  ),
-} satisfies StoryLiteStoryDefinition<SliderArgs>;
-
 const Sizes = {
   name: 'Sizes',
   render: () => (
@@ -137,13 +120,13 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
-const MusicVolume = (props: { initial: number; disabled: boolean }) => {
-  const { initial, disabled } = props;
-  const [value, setValue] = useState(initial);
-  return <Slider value={value} min={0} max={100} onChange={setValue} label="Music volume" formatValue={percent} mute={value === 0} disabled={disabled} />;
+const HintCost = (props: { disabled: boolean }) => {
+  const { disabled } = props;
+  const [value, setValue] = useState(60);
+  return <Slider value={value} min={0} max={100} step={5} onChange={setValue} label="Hint cost" formatValue={percent} labels="every 25" disabled={disabled} />;
 };
 
-const renderState = (props: StateProps) => <MusicVolume initial={props.muted === true ? 0 : 60} disabled={props.disabled === true} />;
+const renderState = (props: StateProps) => <HintCost disabled={props.disabled === true} />;
 
 const CODE = `import { useState } from 'react';
 import { Slider } from '@drizztdourden08/tessera';
@@ -151,7 +134,7 @@ import { Slider } from '@drizztdourden08/tessera';
 const [volume, setVolume] = useState(80);
 const [costs, setCosts] = useState<[number, number]>([20, 60]);
 
-<Slider label="Music volume" value={volume} onChange={setVolume} formatValue={(v) => \`\${v}%\`} mute={volume === 0} />
+<Slider label="Music volume" value={volume} onChange={setVolume} formatValue={(v) => \`\${v}%\`} />
 
 <Slider range label="Hint cost window" value={costs} onChange={setCosts} step={5} labels="every 25 | {v}%" />
 
@@ -159,16 +142,15 @@ const [costs, setCosts] = useState<[number, number]>([20, 60]);
 
 const Overview = overviewStory({
   component: 'Slider',
-  description: 'A labelled slider with its value written beside the track. One thumb gives a number; range gives two thumbs and a [low, high] pair, where the low thumb never passes the high one. stops turns the track into named positions, like speeds or dungeons, and the value into an index. labels writes labels under the track from one field: a rule such as "every 0.5 | {v}x", a list of [value, label] pairs, or a function. Labels that would overlap thin out to fit. formatValue sets how the value reads, showValue hides it, keyStep sets a coarser stride for the arrow keys, and passing mute adds a speaker button. It runs controlled with value and onChange, or on its own from defaultValue, and name sends it with a form. size md is the standard slider and sm the compact one.',
+  description: 'A labelled slider with its value written beside the track. One thumb gives a number; range gives two thumbs and a [low, high] pair, where the low thumb never passes the high one. stops turns the track into named positions, like speeds or dungeons, and the value into an index. labels writes labels under the track from one field: a rule such as "every 0.5 | {v}x", a list of [value, label] pairs, or a function. The labels are drawn by ScaleLabels, whose page lists the whole rule syntax; labels that would overlap thin out to fit. Drag either thumb, or press the bare track to bring the nearer thumb there. The readout keeps the width of its longest value, so the track never shifts while you drag. formatValue sets how the value reads, showValue hides it, and keyStep sets a coarser stride for the arrow keys. For a mute button, use the VolumeControl composite. It runs controlled with value and onChange, or on its own from defaultValue, and name sends it with a form. size md is the standard slider and sm the compact one.',
   playground: Playground,
-  variants: [Kinds, Stops, Labels, LabelRules, Sizes],
+  variants: [Kinds, Stops, Labels, Sizes],
   states: {
     render: renderState,
     list: [
       STATE.idle,
       { ...STATE.hover, target: '.slider__input' },
       { ...STATE.focus, target: '.slider__input' },
-      { name: 'Muted', props: { muted: true } },
       STATE.disabled,
     ],
   },
@@ -176,4 +158,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Kinds, LabelRules, Labels, Overview, Playground, Sizes, Stops };
+export { Kinds, Labels, Overview, Playground, Sizes, Stops };

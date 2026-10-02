@@ -4,7 +4,7 @@ import { Text } from '../../src/primitives';
 import { textElementStories } from './text-element-stories';
 
 const meta = {
-  title: 'Text/RubyParenthesis',
+  title: 'Core · Text/RubyParenthesis',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

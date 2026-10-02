@@ -1,363 +1,382 @@
 {
-  "Brand": {
+  "Core · Setup": {
+    "Setup": {
+      "status": "new"
+    },
+    "TesseraProvider": {
+      "status": "seen",
+      "hash": "9bcd625f66217f12",
+      "at": "2026-10-01"
+    },
+    "Building compounds": {
+      "status": "new"
+    },
+    "Building views": {
+      "status": "new"
+    },
+    "App primitives and composites": {
+      "status": "new"
+    }
+  },
+  "Core · Brand": {
     "Brand": {
       "status": "ok",
-      "hash": "5937cf4407792fb9",
+      "hash": "649dd6dd789cb95a",
       "at": "2026-10-01"
     },
     "InteractiveTessera": {
       "status": "ok",
-      "hash": "df494ed86f673f1d",
+      "hash": "0cc10639c1a7bb2f",
       "at": "2026-10-01"
     },
     "Logo": {
       "status": "ok",
-      "hash": "e2f40227301a2c33",
+      "hash": "76eda36cb668685c",
       "at": "2026-10-01"
     },
     "WordMark": {
       "status": "ok",
-      "hash": "c1f62806761b7834",
+      "hash": "fe5df3da2c901ec8",
       "at": "2026-10-01"
     },
     "Combined": {
       "status": "ok",
-      "hash": "2a589e09cbfb3d55",
+      "hash": "8f87680ae938bbaa",
       "at": "2026-10-01"
     },
     "Mascot": {
       "status": "ok",
-      "hash": "b0ba022cfc5d57ff",
+      "hash": "d18939ceb55e05d4",
       "at": "2026-10-01"
     }
   },
-  "Colours": {
+  "Core · Colours": {
     "Swatches": {
       "status": "ok",
-      "hash": "9fe0179060cde65b",
+      "hash": "8a18ca0299b087ef",
       "at": "2026-10-01"
     },
     "Palettes": {
       "status": "ok",
-      "hash": "18b6b17ff792e2f5",
+      "hash": "1fe93486d906eda8",
       "at": "2026-10-01"
     },
     "Roles": {
       "status": "ok",
-      "hash": "bd7dbd7890f165ba",
+      "hash": "7c11e022ced6af1a",
       "at": "2026-10-01"
     },
     "Contrast": {
       "status": "ok",
-      "hash": "2cad5bca7844c353",
+      "hash": "1ca22f4a4bcd2219",
       "at": "2026-10-01"
     },
     "Gradients": {
       "status": "ok",
-      "hash": "d5f508519c469bbb",
+      "hash": "e685767180140aa1",
       "at": "2026-10-01"
     }
   },
-  "Typography": {
+  "Core · Typography": {
     "Fonts": {
       "status": "ok",
-      "hash": "149356a448a77226",
+      "hash": "aaeebeabe2dfa25f",
       "at": "2026-10-01"
     },
     "Weights": {
       "status": "ok",
-      "hash": "ad98ad2ab11637b8",
+      "hash": "07ce29751240babe",
       "at": "2026-10-01"
     },
     "Sizes": {
       "status": "ok",
-      "hash": "b2f1211b9fd0de77",
+      "hash": "4c2f1d62e0dfa305",
       "at": "2026-10-01"
     },
     "Optical size and italic": {
       "status": "ok",
-      "hash": "00a8a97cf64efe3b",
+      "hash": "a4d2aa2a9be46867",
       "at": "2026-10-01"
     },
     "OpenType features": {
       "status": "ok",
-      "hash": "bf036bdaf0040698",
+      "hash": "a554bb6a16d204cd",
       "at": "2026-10-01"
     },
     "Transform and style": {
       "status": "ok",
-      "hash": "6dd37fbdd1ec4c04",
+      "hash": "d96a478318cb9424",
       "at": "2026-10-01"
     }
   },
-  "Text": {
+  "Core · Text": {
     "Text": {
       "status": "ok",
-      "hash": "4ec343e113a4319e",
+      "hash": "3fe7fff811582f36",
       "at": "2026-10-01"
     },
     "All elements": {
       "status": "ok",
-      "hash": "56356ed34860f993",
+      "hash": "49019ecdc0bb0f8e",
       "at": "2026-10-01"
     },
     "Title": {
       "status": "ok",
-      "hash": "c373f335ab8c3926",
+      "hash": "09c1a735f533c917",
       "at": "2026-10-01"
     },
     "TextElement": {
       "status": "ok",
-      "hash": "6644bf84723eca40",
+      "hash": "9be6383e955eaace",
       "at": "2026-10-02"
     },
     "Paragraph": {
       "status": "ok",
-      "hash": "320955e7dd6fd63d",
+      "hash": "37a7e0a866a8dd07",
       "at": "2026-10-01"
     },
     "Span": {
       "status": "ok",
-      "hash": "cb72193d68b35c8d",
+      "hash": "789baf1d9b46c8b5",
       "at": "2026-10-01"
     },
     "Strong": {
       "status": "ok",
-      "hash": "e783f02b5ee3251f",
+      "hash": "ddb6d5f617d684d1",
       "at": "2026-10-01"
     },
     "Emphasis": {
       "status": "ok",
-      "hash": "2b2e306a20c69b6e",
+      "hash": "8aa9e6e08f4b00b7",
       "at": "2026-10-01"
     },
     "Bold": {
       "status": "ok",
-      "hash": "f84f86862a86d8a6",
+      "hash": "0991f13a0a05a91c",
       "at": "2026-10-01"
     },
     "Italic": {
       "status": "ok",
-      "hash": "da6ed594203548e4",
+      "hash": "737d642bb30d6e93",
       "at": "2026-10-01"
     },
     "Underline": {
       "status": "ok",
-      "hash": "2927159e5a9c4005",
+      "hash": "c9cec0df0b13774d",
       "at": "2026-10-01"
     },
     "Strikethrough": {
       "status": "ok",
-      "hash": "76fd4ea05519f222",
+      "hash": "cd0bd53992475b93",
       "at": "2026-10-01"
     },
     "Deleted": {
       "status": "ok",
-      "hash": "c1cd3a1b1412e451",
+      "hash": "1ca20307d887091b",
       "at": "2026-10-01"
     },
     "Inserted": {
       "status": "ok",
-      "hash": "b67ec51712470361",
+      "hash": "ee3d71b0b930268e",
       "at": "2026-10-01"
     },
     "Highlight": {
       "status": "ok",
-      "hash": "ca762b2a77659f9e",
+      "hash": "70799f9c3b3c165e",
       "at": "2026-10-01"
     },
     "Small": {
       "status": "ok",
-      "hash": "b40eae5bee449548",
+      "hash": "56673591c1cb3de5",
       "at": "2026-10-01"
     },
     "Subscript": {
       "status": "ok",
-      "hash": "4477924a1d99f5f7",
+      "hash": "cf15f8b643993315",
       "at": "2026-10-01"
     },
     "Superscript": {
       "status": "ok",
-      "hash": "25cbedcd9517e540",
+      "hash": "3af97fb7dea637ab",
       "at": "2026-10-01"
     },
     "Code": {
       "status": "ok",
-      "hash": "a9c2ee83f05bfa76",
+      "hash": "5c8935aad0b67d17",
       "at": "2026-10-01"
     },
     "Sample": {
       "status": "ok",
-      "hash": "3b0c72f896694817",
+      "hash": "4c07ac452a2bbba5",
       "at": "2026-10-01"
     },
     "Variable": {
       "status": "ok",
-      "hash": "f69783bef8ec346e",
+      "hash": "e32966d88ef9d5c6",
       "at": "2026-10-01"
     },
     "Abbreviation": {
       "status": "ok",
-      "hash": "106fe35b7799cab8",
+      "hash": "b6def34f340e8e4e",
       "at": "2026-10-01"
     },
     "Citation": {
       "status": "ok",
-      "hash": "cd841e8ae1a809f4",
+      "hash": "61d2743b0e05604d",
       "at": "2026-10-01"
     },
     "BlockQuote": {
       "status": "ok",
-      "hash": "c4d26b9c76873949",
+      "hash": "e775a4e8059cab58",
       "at": "2026-10-01"
     },
     "Definition": {
       "status": "ok",
-      "hash": "9508a277dd9ddd4d",
+      "hash": "376f616e4626b5bb",
       "at": "2026-10-01"
     },
     "Time": {
       "status": "ok",
-      "hash": "a04ca65b18e0a8fa",
+      "hash": "5a651b8f31a5ec33",
       "at": "2026-10-01"
     },
     "Data": {
       "status": "ok",
-      "hash": "40b75c5990599921",
+      "hash": "283d4e1378246a86",
       "at": "2026-10-01"
     },
     "Address": {
       "status": "ok",
-      "hash": "0b156b7820dd3a9e",
+      "hash": "c79554d595ca6d38",
       "at": "2026-10-01"
     },
     "Preformatted": {
       "status": "ok",
-      "hash": "3850e90f6fd78497",
+      "hash": "d7aeddebc8430961",
       "at": "2026-10-01"
     },
     "BidiIsolate": {
       "status": "ok",
-      "hash": "7981298277725ace",
+      "hash": "fb64de3cd2e5f154",
       "at": "2026-10-01"
     },
     "BidiOverride": {
       "status": "ok",
-      "hash": "9cb2948d3e979d08",
+      "hash": "b309445a5dee6bdd",
       "at": "2026-10-01"
     },
     "Ruby": {
       "status": "ok",
-      "hash": "ecc9dc79b7d06f14",
+      "hash": "e9d8b4c0350668fd",
       "at": "2026-10-01"
     },
     "RubyText": {
       "status": "ok",
-      "hash": "b872accbc4ee30e1",
+      "hash": "2cf9d61ba88e6fcc",
       "at": "2026-10-01"
     },
     "RubyParenthesis": {
       "status": "ok",
-      "hash": "7fd301f3fe77b00b",
+      "hash": "1e914c7749edd699",
       "at": "2026-10-01"
     },
     "Shortcut": {
       "status": "ok",
-      "hash": "458cc05991522303",
+      "hash": "6ff3b83391cb5c3e",
       "at": "2026-10-01"
     },
     "Quote": {
       "status": "ok",
-      "hash": "670cc234f8609fff",
+      "hash": "b0d115c818b25307",
       "at": "2026-10-01"
     },
     "CodeBlock": {
       "status": "ok",
-      "hash": "d75734042e81fd7a",
+      "hash": "598189ae75cfda7b",
       "at": "2026-10-01"
     }
   },
-  "Icons": {
+  "Core · Icons": {
     "Icon": {
       "status": "ok",
-      "hash": "82938c0bdd665440",
+      "hash": "149aa57a1bc9438d",
       "at": "2026-10-01"
     },
     "Brand icons": {
       "status": "ok",
-      "hash": "8b87285d5c100e06",
+      "hash": "b7720d4e1f802056",
       "at": "2026-10-01"
     },
     "Glyph": {
       "status": "ok",
-      "hash": "eecdad82a16d3b52",
+      "hash": "887fe236749c8dab",
       "at": "2026-10-01"
     },
     "PathIcon": {
       "status": "ok",
-      "hash": "dcb7cb243d87db36",
+      "hash": "aab7c24a9dc95be3",
       "at": "2026-10-01"
     },
     "EmojiIcon": {
       "status": "ok",
-      "hash": "d561b1d62490d53e",
+      "hash": "5f9976dd57b98b89",
       "at": "2026-10-01"
     }
   },
-  "Tokens": {
+  "Core · Tokens": {
     "Size scale": {
       "status": "ok",
-      "hash": "22d1c71c48aed089",
+      "hash": "fcff3f7e6fc6da18",
       "at": "2026-10-01"
     },
     "Sizes": {
       "status": "ok",
-      "hash": "a399ba023546551c",
+      "hash": "f4ae55287e310554",
       "at": "2026-10-01"
     },
     "Margin": {
       "status": "ok",
-      "hash": "97e61de3f2f538a8",
+      "hash": "8477e43e2a43a4cd",
       "at": "2026-10-01"
     },
     "Padding": {
       "status": "ok",
-      "hash": "20e760bb5f1f2374",
+      "hash": "fcf80bccbc654a69",
       "at": "2026-10-01"
     },
     "Gap": {
       "status": "ok",
-      "hash": "46644757c8d40c44",
+      "hash": "876000bf90613736",
       "at": "2026-10-01"
     },
     "Radius": {
       "status": "ok",
-      "hash": "e4cd63c33d63bb3a",
+      "hash": "4ecfb263a4d39e18",
       "at": "2026-10-01"
     },
     "Shadows": {
       "status": "ok",
-      "hash": "bf3c358b3bba81cc",
+      "hash": "eba4931e1b18d263",
       "at": "2026-10-01"
     },
     "Z-index": {
       "status": "ok",
-      "hash": "f46150e0b8bd9c1d",
+      "hash": "6c16171f369b2861",
       "at": "2026-10-01"
     },
     "Durations": {
       "status": "ok",
-      "hash": "819649273d4480ef",
+      "hash": "b8d2adc48487236c",
       "at": "2026-10-01"
     },
     "Easings": {
       "status": "ok",
-      "hash": "d743786be8253f37",
+      "hash": "86844743d8522e0b",
       "at": "2026-10-01"
     },
     "Transitions": {
       "status": "ok",
-      "hash": "4187414844aa9ed1",
+      "hash": "924c0bf92e857cd9",
       "at": "2026-10-01"
     }
   },
@@ -483,6 +502,9 @@
       "status": "ok",
       "hash": "97145c39cb41ed0e",
       "at": "2026-10-01"
+    },
+    "ScaleLabels": {
+      "status": "new"
     }
   },
   "Primitives · Actions": {
@@ -510,6 +532,9 @@
       "status": "ok",
       "hash": "1942deca80fe23f4",
       "at": "2026-10-02"
+    },
+    "Link": {
+      "status": "new"
     }
   },
   "Primitives · Inputs": {
@@ -652,15 +677,8 @@
       "hash": "70da85fee908b9e9",
       "at": "2026-10-02"
     },
-    "Link": {
+    "RouterLink": {
       "status": "new"
-    }
-  },
-  "Primitives · Setup": {
-    "TesseraProvider": {
-      "status": "seen",
-      "hash": "9bcd625f66217f12",
-      "at": "2026-10-01"
     }
   },
   "Composites · Dialogs": {
@@ -706,12 +724,12 @@
     },
     "WizardProgress": {
       "status": "seen",
-      "hash": "097b4930a758dceb",
+      "hash": "6f043f62652dc94d",
       "at": "2026-10-01"
     },
     "WizardStep": {
       "status": "seen",
-      "hash": "f27923a170063551",
+      "hash": "f1c92d6f7cc8fb76",
       "at": "2026-10-01"
     },
     "WizardNav": {
@@ -721,12 +739,12 @@
     },
     "WizardReview": {
       "status": "seen",
-      "hash": "d77ae493fbebd0a7",
+      "hash": "ca595948591edd4c",
       "at": "2026-10-01"
     },
     "WizardExitGuard": {
       "status": "seen",
-      "hash": "769b9fedaad72b0f",
+      "hash": "a9b9472e9d8b196d",
       "at": "2026-10-01"
     }
   },
@@ -736,7 +754,7 @@
     },
     "SectionNav": {
       "status": "seen",
-      "hash": "529cc0eac55c015c",
+      "hash": "ef54a16952ee3695",
       "at": "2026-10-01"
     },
     "HeaderTabs": {
@@ -764,7 +782,7 @@
     },
     "WindowTitleBar": {
       "status": "seen",
-      "hash": "d3c7e5deafe3f421",
+      "hash": "457b2e4ada3cc03d",
       "at": "2026-10-01"
     },
     "SettingsShell": {
@@ -778,12 +796,12 @@
     },
     "SettingsPage": {
       "status": "seen",
-      "hash": "867b5a0430f55837",
+      "hash": "732123e164bcabf3",
       "at": "2026-10-01"
     },
     "NavLayout": {
       "status": "seen",
-      "hash": "9d63d4230a8a4e44",
+      "hash": "872406d0b5ff2ee3",
       "at": "2026-10-01"
     },
     "SearchResults": {
@@ -796,7 +814,7 @@
   "Composites · Menus": {
     "DropdownMenu": {
       "status": "seen",
-      "hash": "96a5012fb7f0847a",
+      "hash": "f60fc7db2cde226f",
       "at": "2026-10-01"
     },
     "SearchSpark": {
@@ -810,7 +828,10 @@
     }
   },
   "Composites · Inputs": {
-    "PatternInput": {
+    "DynamicInput": {
+      "status": "new"
+    },
+    "VolumeControl": {
       "status": "new"
     }
   },
@@ -834,12 +855,12 @@
   "Composites · Content": {
     "LogPanel": {
       "status": "seen",
-      "hash": "188e3fe7d3f877c1",
+      "hash": "774ff40a72191780",
       "at": "2026-10-01"
     },
     "AboutPanel": {
       "status": "seen",
-      "hash": "b93c2fd8a708b3a9",
+      "hash": "b8a644ca5c1d37fb",
       "at": "2026-10-01"
     },
     "FactsPanel": {
@@ -876,7 +897,7 @@
     },
     "StickPlot": {
       "status": "seen",
-      "hash": "610ff4ced8435c1b",
+      "hash": "1c5cbfd98643bcc1",
       "at": "2026-10-01"
     }
   },
@@ -891,14 +912,14 @@
     },
     "WidgetOptions": {
       "status": "seen",
-      "hash": "8f875d3c718fb9eb",
+      "hash": "25f9478d31cc56ff",
       "at": "2026-10-01"
     }
   },
   "Composites · Screens": {
     "Hero": {
       "status": "seen",
-      "hash": "be331871b3bfd428",
+      "hash": "81c377b88c1b9637",
       "at": "2026-10-01"
     }
   },

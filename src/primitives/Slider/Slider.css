@@ -6,15 +6,15 @@
 }
 
 .slider.control-size--md {
-  --slider-mute-d: var(--control-h-sm);
   --slider-thumb: var(--size-16);
+  --slider-thumb-half: var(--size-8);
   --slider-bar: var(--size-6);
   --slider-tick: var(--size-4);
 }
 
 .slider.control-size--sm {
-  --slider-mute-d: var(--size-20);
   --slider-thumb: var(--size-12);
+  --slider-thumb-half: var(--size-6);
   --slider-bar: var(--size-4);
   --slider-tick: var(--size-2);
 
@@ -48,20 +48,25 @@
 }
 
 .slider__value {
+  flex-shrink: 0;
+  box-sizing: content-box;
+  min-width: var(--slider-readout);
   font-size: var(--control-font-dense);
   font-family: var(--font-mono);
-  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  line-height: var(--slider-thumb);
+  text-align: end;
   white-space: nowrap;
+  user-select: none;
 }
 
 .slider__value-to::before {
   content: '\2013';
-  padding-inline: var(--space-2xs);
 }
 
 .slider__track {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-sm);
   flex: 1;
   min-width: 0;
@@ -71,15 +76,23 @@
   gap: var(--space-xs);
 }
 
-.slider__track--labelled {
-  padding-bottom: calc(var(--slider-tick) + var(--space-2xs) * 2 + var(--text-xs));
+.slider__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 var(--size-128);
+  min-width: var(--size-64);
 }
 
 .slider__rail {
   position: relative;
-  flex: 1 1 var(--size-128);
-  min-width: var(--size-64);
   height: var(--slider-thumb);
+}
+
+.slider__scale {
+  --scale-labels-tick: var(--slider-tick);
+  --scale-labels-overhang: var(--slider-thumb-half);
+
+  margin-inline: var(--slider-thumb-half);
 }
 
 .slider__rail::before {
@@ -124,38 +137,5 @@
 
 .slider--range .slider__rail {
   cursor: pointer;
-}
-
-
-.slider__mute {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--slider-mute-d);
-  height: var(--slider-mute-d);
-  padding: 0;
-  border: var(--border-width-thin) solid var(--c-border);
-  border-radius: var(--radius-sm);
-  background: var(--c-surface);
-  color: var(--c-text-dim);
-  font-size: var(--control-font);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.slider__mute:hover {
-  background: var(--c-hover);
-  border-color: var(--c-primary);
-  color: var(--c-text);
-}
-
-.slider__mute--muted {
-  color: var(--c-danger);
-  border-color: var(--c-danger);
-  background: var(--c-danger-dim);
-}
-
-.slider__mute--muted:hover {
-  background: var(--c-danger-soft);
+  touch-action: none;
 }

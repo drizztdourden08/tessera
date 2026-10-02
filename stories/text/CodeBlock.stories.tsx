@@ -45,7 +45,7 @@ const ARG_TYPES: StoryLiteArgTypes<CodeBlockArgs> = {
   };
 
 const meta = {
-  title: 'Text/CodeBlock',
+  title: 'Core · Text/CodeBlock',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<CodeBlockArgs>;
 

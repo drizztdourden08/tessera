@@ -1,0 +1,16 @@
+{
+  "name": "@fixture/cli-app",
+  "version": "0.0.0",
+  "private": true,
+  "description": "An app that uses Tessera, for the tests of tessera new.",
+  "type": "module",
+  "dependencies": {
+    "@drizztdourden08/tessera": "^0.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@drizztdourden08/brock-lint-config": "^0.1.0",
+    "@storylite/storylite": "^1.6.0"
+  }
+}

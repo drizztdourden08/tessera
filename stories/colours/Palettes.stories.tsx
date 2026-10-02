@@ -52,7 +52,7 @@ const PaletteStrips = ({ palettes }: { palettes: readonly Palette[] }) => (
 );
 
 const meta = {
-  title: 'Colours/Palettes',
+  title: 'Core · Colours/Palettes',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

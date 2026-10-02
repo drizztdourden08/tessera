@@ -4,7 +4,7 @@ import { scaleStories } from './scale-stories';
 import { SHADOWS } from './token-lists';
 
 const meta = {
-  title: 'Tokens/Shadows',
+  title: 'Core · Tokens/Shadows',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

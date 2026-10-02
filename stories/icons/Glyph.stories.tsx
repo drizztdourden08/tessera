@@ -18,7 +18,7 @@ const ARG_TYPES: StoryLiteArgTypes<GlyphArgs> = {
 };
 
 const meta = {
-  title: 'Icons/Glyph',
+  title: 'Core · Icons/Glyph',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<GlyphArgs>;
 

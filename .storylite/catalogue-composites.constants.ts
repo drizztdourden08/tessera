@@ -66,7 +66,8 @@ const COMPOSITES_TIER: CatalogueTier = {
     {
       group: 'Inputs',
       entries: [
-        { name: 'PatternInput', summary: 'One field built from a pattern: typed slots, muted text, icons and actions, with a control per slot.' },
+        { name: 'DynamicInput', summary: 'One field built from a pattern: typed slots, muted text, icons and actions, with a control per slot.' },
+        { name: 'VolumeControl', summary: 'A mute button beside a volume slider, with the icon following the level.' },
       ],
     },
     {

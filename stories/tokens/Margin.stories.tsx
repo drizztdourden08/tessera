@@ -6,7 +6,7 @@ import { SPACING } from './dimension-lists';
 import { TokenTable } from './token-table';
 
 const meta = {
-  title: 'Tokens/Margin',
+  title: 'Core · Tokens/Margin',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta;
 

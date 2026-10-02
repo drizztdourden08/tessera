@@ -1,0 +1,46 @@
+/* @layer stories @kind style */
+.scale-stage {
+  display: flex;
+  min-width: 0;
+}
+
+.scale-stage--horizontal {
+  flex-direction: column;
+  padding-inline: var(--space-lg);
+}
+
+.scale-stage--vertical {
+  flex-direction: row;
+  height: var(--size-224);
+  padding-block: var(--space-md);
+}
+
+.scale-stage__axis {
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+}
+
+.scale-stage--horizontal .scale-stage__axis {
+  height: var(--size-4);
+}
+
+.scale-stage--vertical .scale-stage__axis {
+  width: var(--size-4);
+}
+
+.scale-stage--narrow {
+  width: var(--size-192);
+}
+
+.scale-stage--medium {
+  width: var(--size-384);
+}
+
+.scale-stage--wide {
+  width: 100%;
+}
+
+.scale-stage--vertical.scale-stage--wide {
+  width: auto;
+}

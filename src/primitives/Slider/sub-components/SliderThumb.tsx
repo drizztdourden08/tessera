@@ -2,11 +2,11 @@
 import type { KeyboardEvent } from 'react';
 import { clampValue } from '../behavior/clamp-value';
 import { keyDelta } from '../behavior/key-delta';
-import { valueText } from '../behavior/value-text';
+import { valueText } from '../../value-rule/value-text';
 import type { SliderThumbProps } from './SliderThumb.type';
 
 const SliderThumb = (props: SliderThumbProps) => {
-  const { value, scale, disabled, label, id, name, keyStep, onTop = false, onValue, onFocus, ref } = props;
+  const { value, scale, disabled, label, id, name, keyStep, onTop = false, hot = false, onValue, onFocus, ref } = props;
 
   const handleKey = (event: KeyboardEvent<HTMLInputElement>) => {
     const delta = keyStep ? keyDelta(event.key, keyStep) : 0;
@@ -19,7 +19,7 @@ const SliderThumb = (props: SliderThumbProps) => {
     <input
       ref={ref}
       type="range"
-      className={`slider__input${onTop ? ' slider__input--top' : ''}`}
+      className={['slider__input', onTop && 'slider__input--top', hot && 'slider__input--hot'].filter(Boolean).join(' ')}
       id={id}
       name={name}
       min={scale.min}

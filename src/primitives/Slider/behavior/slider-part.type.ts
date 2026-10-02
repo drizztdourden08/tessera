@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind types */
-import type { SliderScale } from './slider-scale.type';
+import type { ValueScale } from '../../value-rule/value-rule.type';
 
 interface SliderPartProps<P> {
   props: P;
-  scale: SliderScale;
+  scale: ValueScale;
   disabled: boolean;
   accessibleName?: string;
 }
