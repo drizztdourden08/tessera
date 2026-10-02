@@ -38,6 +38,13 @@ describe('finding tessera.config.json', () => {
     expect(loadTesseraConfig(join(dir, 'apps/desktop/src')).root).toBe(`${dir}/apps/desktop`);
   });
 
+  it('stops at the top of the repo, a .git folder or pnpm-workspace.yaml', () => {
+    const dir = repo();
+    mkdirSync(join(dir, 'nested/.git'), { recursive: true });
+    mkdirSync(join(dir, 'nested/app/src'), { recursive: true });
+    expect(findTesseraConfig(join(dir, 'nested/app/src'))).toBeUndefined();
+  });
+
   it('gives undefined when no file is found', () => {
     const dir = repo({ 'package.json': '{}' });
     expect(findTesseraConfig(dir)).toBeUndefined();
@@ -95,6 +102,15 @@ describe('the resolved config', () => {
     expect(app.parts.compounds).toEqual(loadTesseraConfig(dir).parts.compounds);
     expect(app.theme.palette).toBe('fixture');
     expect(loadTesseraConfig(join(dir, 'packages/design')).app).toBeUndefined();
+  });
+
+  it('takes the default views and theme of an app from its own folder', () => {
+    const dir = repo();
+    writeFileSync(join(dir, 'tessera.config.json'), JSON.stringify({ apps: { 'apps/web': {} } }));
+    const app = loadTesseraConfig(join(dir, 'apps/web'));
+    expect(app.parts.views).toEqual([`${dir}/apps/web/src/views`]);
+    expect(app.theme.css).toBe(`${dir}/apps/web/src/theme.css`);
+    expect(app.parts.compounds).toEqual([`${dir}/src/compounds`]);
   });
 });
 

@@ -230,7 +230,7 @@ In a Tessera checkout, `pnpm storylite` serves the gallery on `http://localhost:
 
 Tessera's tools run from `node_modules`, so they cannot guess where an app keeps its own parts. `tessera.config.json` tells them. `tessera new`, the standards extension and any other Tessera tool read it.
 
-Put the file at the root of the repo: next to `pnpm-workspace.yaml` in a monorepo, next to `package.json` otherwise. A tool looks for it in the folder it runs in, then in each folder above, and takes the first one it finds. Every path in it is relative to the file.
+Put the file at the root of the repo: next to `pnpm-workspace.yaml` in a monorepo, next to `package.json` otherwise. A tool looks for it in the folder it runs in, then in each folder above, and takes the first one it finds. It stops at the top of the repo, the folder with `.git` or `pnpm-workspace.yaml`, so a stray file in a parent folder is never read. Every path in it is relative to the file.
 
 A new single-app repo starts with only the schema line, which gives the editor its hints:
 
@@ -300,7 +300,7 @@ apps/web/
 }
 ```
 
-Each key of `apps` is an app folder. Its value changes the settings above for a tool run inside that folder: objects merge key by key, and any other value replaces. Most apps set only `parts.views`, since the other parts are shared.
+Each key of `apps` is an app folder. Its value changes the settings above for a tool run inside that folder: objects merge key by key, and any other value replaces. Most apps set only `parts.views`, since the other parts are shared. Inside an app, the default views folder and theme file are that app's own `src/views` and `src/theme.css`.
 
 ### Reading it from a tool
 
@@ -317,7 +317,7 @@ config?.parts.views; // absolute folders, the app ones when run inside an apps e
 
 ### The standards extension
 
-Tessera declares an extension for `@drizztdourden08/standards`, so an app that uses both gets it with no setup. From `tessera.config.json` it requires `Name.usage.ts` in each part folder under `parts`, passes the primitives and composites folders as `primitivesGlobs` to ESLint, and passes `theme.css` as a token file to stylelint.
+Tessera declares an extension for `@drizztdourden08/standards`, so an app that uses both gets it with no setup. From `tessera.config.json` it requires `Name.usage.ts` in each part folder under `parts`, passes the primitives folders as `primitivesGlobs` to ESLint (only primitives may write raw HTML), and passes `theme.css` as a token file to stylelint. It reads the config at lint time from the root or package the standards factory passes, and a broken config shows as a structure finding instead of stopping the lint.
 
 ## Creating a part with the tessera command
 

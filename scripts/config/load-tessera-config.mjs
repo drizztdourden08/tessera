@@ -14,7 +14,8 @@ const loadTesseraConfig = (fromDir = process.cwd()) => {
   const root = dirname(file);
   const app = appOf(raw.apps, root, fromDir);
   if (app === undefined) return resolveConfig(raw, { file, root });
-  return { ...resolveConfig(mergeConfig(raw, raw.apps[app]), { file, root }), app: absolutePath(root, app) };
+  const appRoot = absolutePath(root, app);
+  return { ...resolveConfig(mergeConfig(raw, raw.apps[app]), { file, root, appRoot }), app: appRoot };
 };
 
 export { loadTesseraConfig };

@@ -2,6 +2,7 @@
 const CONFIG_FILE = 'tessera.config.json';
 const SCHEMA_FILE = new URL('../../tessera.config.schema.json', import.meta.url);
 const PART_KINDS = ['primitives', 'composites', 'compounds', 'views'];
+const SEARCH_STOPS = ['.git', 'pnpm-workspace.yaml'];
 const GLOB_CHARS = /[*?[\]{}]/;
 
 const DEFAULTS = {
@@ -21,4 +22,4 @@ const TYPE_NAMES = {
   null: 'null',
 };
 
-export { CONFIG_FILE, DEFAULTS, GLOB_CHARS, PART_KINDS, SCHEMA_FILE, TYPE_NAMES };
+export { CONFIG_FILE, DEFAULTS, GLOB_CHARS, PART_KINDS, SCHEMA_FILE, SEARCH_STOPS, TYPE_NAMES };
