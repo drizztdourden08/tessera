@@ -1,0 +1,4 @@
+/* @layer renderer-components @kind style */
+.icon-glow {
+  filter: drop-shadow(0 0 var(--blur-glow) var(--c-primary));
+}

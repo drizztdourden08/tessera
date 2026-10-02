@@ -2,10 +2,10 @@
 import type { ReactNode } from 'react';
 import type { SearchResultsJump } from '../SearchResults.type';
 
-interface SearchResultsSummaryProps {
+interface SearchResultsHeadProps {
   summary: ReactNode;
   jumps: readonly SearchResultsJump[];
   onJump?: (id: string) => void;
 }
 
-export type { SearchResultsSummaryProps };
+export type { SearchResultsHeadProps };

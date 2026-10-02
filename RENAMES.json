@@ -98,7 +98,8 @@
     "position-input__axis": "dynamic-input__segment",
     "position-input__cap": "dynamic-input__literal",
     "position-input": "dynamic-input",
-    "pattern-input": "dynamic-input"
+    "pattern-input": "dynamic-input",
+    "search-results__count": "search-results__summary (the summary text in the fixed head)"
   },
   "propValues": {
     "ProgressBar.variant": {

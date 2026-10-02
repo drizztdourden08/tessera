@@ -793,3 +793,48 @@ const AppLink = (props: Omit<RouterLinkProps, 'onNavigate' | 'href'>) => {
 The gallery puts every top group under Core: Core · Setup, Core · Brand, Core · Colours, Core · Typography, Core · Text, Core · Icons and Core · Tokens. Core · Setup holds the TesseraProvider page and new pages on the app setup, building compounds and views, and the rare app primitive or composite.
 
 rotp and Brock remove `link` from their overrides, wrap `RouterLink` in an app `AppLink` compound as above, and replace each `<Box href>` and each rendered `Link` that relied on the override with `AppLink` for a route or `Link` for a URL.
+
+## 43. SearchResults gets a fixed head; NavLayout leaves the results to scroll themselves
+
+`SearchResults` now looks like the rotp profile hub search.
+
+- The head is fixed: the summary in `text-lg` semibold, then a chip for each entry of `jumps`, on a row with a bottom border and a min height of the new `--search-results-head-h` token (52px). Only the body below it scrolls.
+- A chip reads `navigation.openNamed(label)`, "Open Sessions" by default, so pass the page name as the jump `label`. `onJump` still gets the id.
+- `groupHeading` picks the group heading. `split`, the new default, draws the page icon with a glow, an `h3` title, a count pill and an `openLabel` button on the right, shown when `onOpenGroup` is set. `openLabel` defaults to `navigation.openPage`. `button` keeps the old look, the whole heading as one button.
+- `idleIcon` sits above the idle message, a 40px `SearchSpark` by default. Pass `null` to hide it.
+- With no match, the head stays and `emptyMessage` shows in the body. Its default is the new `navigation.searchTip`; the summary says `navigation.noResultsFor(query)`.
+- The root is a `section` named by `navigation.searchResults`, and each group is a `section` named by its label.
+- `.search-results__count` is gone: the summary text is `.search-results__summary`. The new parts are `__body`, `__chip`, `__group-head`, `__group-icon`, `__group-title`, `__group-count` and `__open`.
+- The string table drops `navigation.nothingMatches` and adds `searchResults`, `searchTip`, `openPage` and `openNamed`.
+
+`NavLayout` takes `paneScroll`:
+
+| Value | The pane scrolls |
+|---|---|
+| `page` (default) | the page, and leaves the results to scroll themselves |
+| `always` | the page and the results, as before |
+| `none` | nothing, for pages that scroll themselves, such as a `SettingsPage` |
+
+Pass `paneScroll="always"` for results that cannot scroll on their own.
+
+The glow on the `SettingsPage` icon, the current `SectionNav` item and the search group icons is one shared class, `.icon-glow` in `src/theme/icon-glow.css`: `filter: drop-shadow(0 0 var(--blur-glow) var(--c-primary))`. The card behind a `SettingsPage` and a framed `SearchResults` is one shared class too, `.page-card` in `src/theme/page-card.css`. The looks are unchanged.
+
+```tsx
+<NavLayout nav={nav} paneScroll="none" results={(
+  <SearchResults
+    framed
+    query={query}
+    count={total}
+    summary={`${total} settings match "${query}"`}
+    jumps={pagesByName}
+    onJump={openPage}
+    groups={pagesWithRows}
+    onOpenGroup={openPage}
+    openLabel="Open tab"
+  />
+)}>
+  <CurrentSettingsPage />
+</NavLayout>
+```
+
+rotp and Brock can draw their hub search with `SearchResults` and pass each page's rows as a group's `children`. An app that overrides `nothingMatches` moves the text to `searchTip`.

@@ -46,9 +46,11 @@ export type { SettingsGroupListGroup, SettingsGroupListProps, SettingsGroupListS
 export { SettingsPage } from './SettingsPage';
 export type { SettingsPageAnchor, SettingsPageProps, SettingsPageTabs } from './SettingsPage';
 export { NavLayout } from './NavLayout';
-export type { NavLayoutProps } from './NavLayout';
+export type { NavLayoutPaneScroll, NavLayoutProps } from './NavLayout';
 export { SearchResults } from './SearchResults';
-export type { SearchResultsGroup, SearchResultsHit, SearchResultsJump, SearchResultsProps } from './SearchResults';
+export type {
+  SearchResultsGroup, SearchResultsGroupHeading, SearchResultsHit, SearchResultsJump, SearchResultsProps,
+} from './SearchResults';
 export { ProfilePicker } from './ProfilePicker';
 export type { ProfilePickerItem, ProfilePickerProps } from './ProfilePicker';
 export { InlineCreateForm } from './InlineCreateForm';

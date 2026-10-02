@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { NavLayout } from './NavLayout';
-export type { NavLayoutProps } from './NavLayout.type';
+export type { NavLayoutPaneScroll, NavLayoutProps } from './NavLayout.type';

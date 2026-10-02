@@ -1,0 +1,23 @@
+/* @layer stories @kind style */
+.search-results-story__frame {
+  display: flex;
+  flex-direction: column;
+  height: var(--size-384);
+}
+
+.search-results-story__frame--short {
+  height: var(--size-256);
+}
+
+.search-results-story__hub {
+  display: flex;
+  height: var(--size-512);
+  padding: var(--space-md);
+}
+
+.search-results-story__state {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: var(--size-192);
+}

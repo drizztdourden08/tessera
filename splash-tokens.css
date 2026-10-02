@@ -238,6 +238,7 @@
   --section-nav-w-open: 224px;
   --section-nav-item-h: 40px;
   --section-nav-toggle-d: 24px;
+  --search-results-head-h: calc(52 * 1px);
   --dock-grip-h: calc(18 * 1px);
   --dock-divider-bar: calc(3 * 1px);
   --widget-titlebar-h: calc(30 * 1px);

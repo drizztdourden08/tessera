@@ -22,6 +22,8 @@ interface SearchResultsGroup {
   children?: ReactNode;
 }
 
+type SearchResultsGroupHeading = 'split' | 'button';
+
 interface SearchResultsProps {
   query: string;
   count: number;
@@ -32,18 +34,13 @@ interface SearchResultsProps {
   onJump?: (id: string) => void;
   groups?: readonly SearchResultsGroup[];
   onOpenGroup?: (id: string) => void;
+  groupHeading?: SearchResultsGroupHeading;
+  openLabel?: ReactNode;
   framed?: boolean;
+  idleIcon?: ReactNode;
   idleMessage?: ReactNode;
   emptyMessage?: ReactNode;
   className?: string;
 }
 
-interface EmptyMessageInput {
-  needle: string;
-  count: number;
-  jumpCount: number;
-  idleMessage?: ReactNode;
-  emptyMessage?: ReactNode;
-}
-
-export type { EmptyMessageInput, SearchResultsGroup, SearchResultsHit, SearchResultsJump, SearchResultsProps };
+export type { SearchResultsGroup, SearchResultsGroupHeading, SearchResultsHit, SearchResultsJump, SearchResultsProps };

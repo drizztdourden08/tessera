@@ -73,7 +73,6 @@
 .section-nav__item--active .section-nav__icon {
   color: var(--c-primary-bright);
   opacity: 1;
-  filter: drop-shadow(0 0 var(--blur-glow) var(--c-primary));
 }
 
 .section-nav__item--active .section-nav__label {

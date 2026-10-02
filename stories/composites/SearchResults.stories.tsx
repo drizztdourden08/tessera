@@ -1,24 +1,21 @@
 /* @layer stories @kind story */
 import { useMemo, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { SearchResults, SettingsGroupList } from '../../src/composites';
-import type { SearchResultsGroup, SearchResultsJump } from '../../src/composites';
+import { SearchResults } from '../../src/composites';
+import type { SearchResultsGroupHeading } from '../../src/composites';
 import { Box, Icon, Text, TextInput } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { matchHub } from './_samples/hub';
-import { useSettingsSample } from './_samples/settings-list';
+import { countOf, hubGroups, hubJumps, settingsSummary, useSwitches } from './_samples/hub-search';
+import { SettingsHubDemo } from './_samples/SettingsHubDemo';
+import './SearchResults.stories.css';
 
 type ResultsArgs = {
   query: string;
   framed: boolean;
   idleMessage: string;
 };
-
-const JUMPS: readonly SearchResultsJump[] = [
-  { id: 'window', label: 'Window', icon: <Icon name="monitor" /> },
-  { id: 'sound', label: 'Sound', icon: <Icon name="volume-2" /> },
-];
 
 const FlatDemo = (props: ResultsArgs) => {
   const { framed, idleMessage } = props;
@@ -28,36 +25,41 @@ const FlatDemo = (props: ResultsArgs) => {
   return (
     <Box className="story-column">
       <TextInput value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search this hub" aria-label="Search this hub" />
-      <SearchResults query={query} count={hits.length} hits={hits} onOpenHit={(hit) => setOpened(hit.label)} framed={framed} idleMessage={idleMessage} />
+      <Box className="search-results-story__frame">
+        <SearchResults query={query} count={hits.length} hits={hits} onOpenHit={(hit) => setOpened(hit.label)} framed={framed} idleMessage={idleMessage} />
+      </Box>
       <Text className="story-label">{opened ? `Opened ${opened}` : 'Try "se" or "players"'}</Text>
     </Box>
   );
 };
 
-const GroupedDemo = () => {
-  const sections = useSettingsSample();
+const GroupedDemo = (props: { query: string; heading?: SearchResultsGroupHeading }) => {
+  const { query, heading } = props;
+  const switches = useSwitches();
   const [opened, setOpened] = useState('');
-  const groups: SearchResultsGroup[] = [
-    { id: 'window', label: 'Window', icon: <Icon name="monitor" />, count: 2, children: <SettingsGroupList sections={sections.slice(0, 1)} /> },
-  ];
+  const groups = hubGroups(query, switches);
+  const count = countOf(groups);
   return (
     <Box className="story-column">
-      <SearchResults
-        framed
-        query="tray"
-        count={2}
-        summary={'2 settings match "tray"'}
-        jumps={JUMPS.slice(0, 1)}
-        onJump={setOpened}
-        groups={groups}
-        onOpenGroup={setOpened}
-      />
-      <Text className="story-label">{opened ? `Opened ${opened}` : 'The jump buttons and group headings open a page'}</Text>
+      <Box className="search-results-story__frame">
+        <SearchResults
+          framed
+          query={query}
+          count={count}
+          summary={settingsSummary(count, query)}
+          jumps={hubJumps(query)}
+          onJump={setOpened}
+          groups={groups}
+          onOpenGroup={setOpened}
+          groupHeading={heading}
+        />
+      </Box>
+      <Text className="story-label">{opened ? `Opened ${opened}` : 'The chips and the group actions open a page'}</Text>
     </Box>
   );
 };
 
-const ARGS: Partial<ResultsArgs> = { query: 'se', framed: false, idleMessage: 'Type to search this hub.' };
+const ARGS: Partial<ResultsArgs> = { query: 'se', framed: true, idleMessage: 'Type to search this hub.' };
 
 const ARG_TYPES: StoryLiteArgTypes<ResultsArgs> = {
   query: { control: 'text' },
@@ -77,47 +79,85 @@ const Playground = {
   render: (args) => <FlatDemo key={args.query} {...args} />,
 } satisfies StoryLiteStoryDefinition<ResultsArgs>;
 
-const Grouped = {
-  name: 'Grouped, framed, with jumps',
-  render: () => <GroupedDemo />,
+const FixedHead = {
+  name: 'Fixed head with page chips',
+  render: () => <GroupedDemo query="s" />,
 } satisfies StoryLiteStoryDefinition<ResultsArgs>;
 
-const JumpsOnly = {
-  name: 'Page names only',
-  render: () => <SearchResults query="sound" count={0} summary={'0 settings match "sound"'} jumps={JUMPS.slice(1)} />,
+const ButtonHeading = {
+  name: 'Whole heading as a button',
+  render: () => <GroupedDemo query="tray" heading="button" />,
+} satisfies StoryLiteStoryDefinition<ResultsArgs>;
+
+const Idle = {
+  name: 'Idle, with the search spark',
+  render: () => (
+    <Box className="search-results-story__frame">
+      <SearchResults framed query="" count={0} idleMessage="Type to search every setting, on every tab." />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ResultsArgs>;
+
+const ZeroMatches = {
+  name: 'Zero matches, with a page chip',
+  render: () => (
+    <Box className="search-results-story__frame search-results-story__frame--short">
+      <SearchResults
+        framed
+        query="overview"
+        count={0}
+        jumps={[{ id: 'home', label: 'Overview', icon: <Icon name="house" /> }]}
+        emptyMessage="Try a shorter word, or the name of what the setting changes."
+      />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ResultsArgs>;
+
+const InHub = {
+  name: 'In a settings hub, one scroll',
+  render: () => <SettingsHubDemo query="s" />,
 } satisfies StoryLiteStoryDefinition<ResultsArgs>;
 
 const renderState = (props: StateProps) => {
   const query = typeof props.query === 'string' ? props.query : 'se';
   const hits = matchHub(query);
-  return <SearchResults query={query} count={hits.length} hits={hits} />;
+  return (
+    <Box className="search-results-story__state">
+      <SearchResults query={query} count={hits.length} hits={hits} />
+    </Box>
+  );
 };
 
-const CODE = `import { SearchResults } from '@drizztdourden08/tessera';
+const CODE = `import { NavLayout, SearchResults } from '@drizztdourden08/tessera';
 
-<SearchResults
-  query={query}
-  count={hits.length}
-  hits={hits}
-  onOpenHit={openHit}
-/>
+<SearchResults query={query} count={hits.length} hits={hits} onOpenHit={openHit} />
 
-<SearchResults
-  framed
-  query={query}
-  count={total}
-  summary={\`\${total} settings match "\${query}"\`}
-  jumps={pagesByName}
-  onJump={openPage}
-  groups={pagesWithRows.map((page) => ({ id: page.id, label: page.label, icon: page.icon, count: page.count, children: page.rows }))}
-  onOpenGroup={openPage}
-/>`;
+<NavLayout nav={nav} paneScroll="none" results={(
+  <SearchResults
+    framed
+    query={query}
+    count={total}
+    summary={\`\${total} settings match "\${query}"\`}
+    jumps={pagesByName}
+    onJump={openPage}
+    groups={pagesWithRows.map((page) => ({ id: page.id, label: page.label, icon: page.icon, count: page.count, children: page.rows }))}
+    onOpenGroup={openPage}
+    openLabel="Open tab"
+  />
+)}>
+  <CurrentSettingsPage />
+</NavLayout>`;
 
 const Overview = overviewStory({
   component: 'SearchResults',
-  description: 'The results of a search inside a window: a count, jump buttons to pages whose names match, and the hits, flat or grouped under a heading per page. Reach for it in the pane of a NavLayout while its search runs. Flat hits are buttons with a detail line; a group heading shows the page icon, its name and a count, and holds hits or any content, such as the matching settings rows. Before a query it shows idleMessage, and when nothing matches it says so. framed draws it on a panel.',
+  description: 'The results of a search inside a window. A fixed head holds the summary and a chip for each page whose name matches; the body below it scrolls. Hits are flat buttons with a detail line, or groups, one per page, that hold hits or any content, such as the matching settings rows. Reach for it in the pane of a NavLayout while its search runs. With no query it shows idleIcon above idleMessage; with no match it keeps the head and shows emptyMessage in the body. framed draws it on a panel.',
+  points: [
+    'groupHeading picks the group heading. split, the default, draws a glowing icon, the title, a count and an openLabel button on the right. button makes the whole heading one button.',
+    'The chips read "Open" and the page name, from the string table. onJump gets the page id.',
+    'It scrolls its own body, so NavLayout leaves the results unwrapped.',
+  ],
   playground: Playground,
-  variants: [Grouped, JumpsOnly],
+  variants: [FixedHead, ButtonHeading, Idle, ZeroMatches, InHub],
   states: {
     render: renderState,
     list: [
@@ -130,4 +170,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Grouped, JumpsOnly, Overview, Playground };
+export { ButtonHeading, FixedHead, Idle, InHub, Overview, Playground, ZeroMatches };
