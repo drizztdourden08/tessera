@@ -1,21 +1,29 @@
 {
   "Core · Setup": {
     "Setup": {
-      "status": "new"
+      "status": "ok",
+      "hash": "eee50a08c3397a1c",
+      "at": "2026-10-02"
     },
     "TesseraProvider": {
-      "status": "seen",
-      "hash": "9bcd625f66217f12",
-      "at": "2026-10-01"
+      "status": "ok",
+      "hash": "6e74f37195d16504",
+      "at": "2026-10-02"
     },
     "Building compounds": {
-      "status": "new"
+      "status": "ok",
+      "hash": "2c2b60ca202f34f5",
+      "at": "2026-10-02"
     },
     "Building views": {
-      "status": "new"
+      "status": "ok",
+      "hash": "db38280827307126",
+      "at": "2026-10-02"
     },
     "App primitives and composites": {
-      "status": "new"
+      "status": "ok",
+      "hash": "75ad9470041bbdbc",
+      "at": "2026-10-02"
     }
   },
   "Core · Brand": {
