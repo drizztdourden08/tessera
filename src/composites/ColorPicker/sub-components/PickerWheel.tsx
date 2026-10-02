@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
-import CustomPicker from 'react-color/es/components/common/ColorWrap';
-import Saturation from 'react-color/es/components/common/Saturation';
-import Hue from 'react-color/es/components/common/Hue';
-import Alpha from 'react-color/es/components/common/Alpha';
+import CustomPicker from '#react-color/ColorWrap';
+import Saturation from '#react-color/Saturation';
+import Hue from '#react-color/Hue';
+import Alpha from '#react-color/Alpha';
 import type { ColorChangeHandler } from 'react-color';
 import { Box } from '../../../primitives/Box';
 import { IGNORE_CHANGE, RIM } from './PickerWheel.constants';

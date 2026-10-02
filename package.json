@@ -31,6 +31,12 @@
     "./ai/*": "./ai/*",
     "./package.json": "./package.json"
   },
+  "imports": {
+    "#react-color/*": {
+      "types": "./types/react-color/*.d.ts",
+      "default": "react-color/es/components/common/*.js"
+    }
+  },
   "bin": {
     "tessera": "./scripts/cli/tessera.mjs"
   },
@@ -84,6 +90,7 @@
     "@iconify-icons/ph": "^2.0.0",
     "@iconify/react": "^6.0.2",
     "@iconify/types": "^2.0.0",
+    "@types/react-color": "^3.0.13",
     "prism-react-renderer": "^2.4.1",
     "react-color": "^2.19.3"
   },
@@ -96,7 +103,6 @@
     "@storylite/storylite": "^1.6.0",
     "@types/node": "^24.19.0",
     "@types/react": "^19.2.15",
-    "@types/react-color": "^3.0.13",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.4.0",
     "eslint-plugin-react-hooks": "^7.1.1",
