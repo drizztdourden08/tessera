@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { NumberInput } from '../../../primitives/NumberInput';
 import { Slider } from '../../../primitives/Slider';
-import { Stepper } from '../../../primitives/Stepper';
+import { NumberStepper } from '../../../primitives/NumberStepper';
 import { asNumber } from '../behavior/as-number';
 import { clampToRange } from '../behavior/clamp-to-range';
 import { roundTo } from '../behavior/round-to';
@@ -24,7 +24,7 @@ const NumberPanel = (props: NumberPanelProps) => {
         <Slider value={current ?? min ?? 0} min={min ?? 0} max={max ?? 0} step={step} onChange={set} size={size} aria-label={label} />
       )}
       {panel === 'stepper' && (
-        <Stepper value={current ?? Number.NaN} min={min} max={max} step={step} onChange={set} size={size} ariaLabel={label} />
+        <NumberStepper value={current ?? Number.NaN} min={min} max={max} step={step} onChange={set} size={size} ariaLabel={label} />
       )}
       {panel === 'spin' && (
         <NumberInput value={current ?? ''} min={min} max={max} step={step} onChange={set} size={size} aria-label={label} />

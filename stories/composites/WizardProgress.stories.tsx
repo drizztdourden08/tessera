@@ -111,7 +111,7 @@ const DONE_STEP = '.wizard-progress__item[data-state="done"] .wizard-progress__s
 
 const Overview = overviewStory({
   component: 'WizardProgress',
-  description: 'The step strip of a wizard: a numbered circle per step with its label underneath, or beside it when the strip runs down the left. When a step is done its circle fills with the primary colour from left to right while its border draws, then the line to the next circle grows, then the next circle lights up as current. Going back plays a quick reverse, and reduced motion shows the end state at once. Only steps the user has done, or can reach, can be clicked; the current step carries aria-current. On the left, a step can show what was chosen under its label and indented sub-steps with a count each. The compact form is Step 2 of 5 with a ProgressBar. Not to be confused with Stepper, the number input.',
+  description: 'The step strip of a wizard: a numbered circle per step with its label underneath, or beside it when the strip runs down the left. When a step is done its circle fills with the primary colour from left to right while its border draws, then the line to the next circle grows, then the next circle lights up as current. Going back plays a quick reverse, and reduced motion shows the end state at once. Only steps the user has done, or can reach, can be clicked; the current step carries aria-current. On the left, a step can show what was chosen under its label and indented sub-steps with a count each. The compact form is Step 2 of 5 with a ProgressBar. Not to be confused with NumberStepper, the number input.',
   playground: Playground,
   variants: [StepByStep, Horizontal, Vertical, Compact],
   states: {

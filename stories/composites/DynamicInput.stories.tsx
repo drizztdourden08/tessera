@@ -99,7 +99,7 @@ const [time, setTime] = useState({ hh: 12, mm: 30, ampm: 'AM' });
 
 const Overview = overviewStory({
   component: 'DynamicInput',
-  description: 'One field built from a pattern. The pattern mixes muted text with typed slots, such as {hh:hour 12h} or {currency:choice USD|EUR|CAD}, and icons or buttons in square brackets. Each slot is its own segment: typing fills it, a full slot moves on to the next one, and the slot in focus opens a popover with the control its type calls for, a Stepper, a Slider, an option list or a ColorPicker. The value is one object keyed by slot name.',
+  description: 'One field built from a pattern. The pattern mixes muted text with typed slots, such as {hh:hour 12h} or {currency:choice USD|EUR|CAD}, and icons or buttons in square brackets. Each slot is its own segment: typing fills it, a full slot moves on to the next one, and the slot in focus opens a popover with the control its type calls for, a NumberStepper, a Slider, an option list or a ColorPicker. The value is one object keyed by slot name.',
   points: [
     'Tab and Shift Tab move between slots, Backspace in an empty slot goes back, and the arrow keys step numbers.',
     'A bad pattern never throws. The part it cannot read shows as text and a warning names the problem.',

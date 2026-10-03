@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Stepper } from '../../../primitives/Stepper';
+import { NumberStepper } from '../../../primitives/NumberStepper';
 import { asNumber } from '../behavior/as-number';
 import { clampToRange } from '../behavior/clamp-to-range';
 import { slotLabel } from '../behavior/slot-label';
@@ -24,7 +24,7 @@ const TimePanel = (props: SlotPanelProps) => {
         };
         return (
           <PanelSection key={slot.name} title={label}>
-            <Stepper
+            <NumberStepper
               value={asNumber(field.value[slot.name]) ?? Number.NaN}
               min={slot.min}
               max={slot.max}

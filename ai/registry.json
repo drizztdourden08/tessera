@@ -829,6 +829,16 @@
       "usage": false
     },
     {
+      "name": "NumberStepper",
+      "tier": "primitives",
+      "source": "src/primitives/NumberStepper/NumberStepper.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
       "name": "PasswordInput",
       "tier": "primitives",
       "source": "src/primitives/PasswordInput/PasswordInput.tsx",
@@ -1042,16 +1052,6 @@
       "name": "Status",
       "tier": "primitives",
       "source": "src/primitives/Status/Status.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
-      "name": "Stepper",
-      "tier": "primitives",
-      "source": "src/primitives/Stepper/Stepper.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"

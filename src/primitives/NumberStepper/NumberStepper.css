@@ -1,23 +1,23 @@
 /* @layer renderer-components @kind style */
-.stepper.control-size--md {
-  --stepper-button-w: var(--size-32);
-  --stepper-field-w: var(--size-48);
+.number-stepper.control-size--md {
+  --number-stepper-button-w: var(--size-32);
+  --number-stepper-field-w: var(--size-48);
 }
 
-.stepper.control-size--sm {
-  --stepper-button-w: var(--size-24);
-  --stepper-field-w: var(--size-40);
+.number-stepper.control-size--sm {
+  --number-stepper-button-w: var(--size-24);
+  --number-stepper-field-w: var(--size-40);
 }
 
-.stepper__field {
-  width: var(--stepper-field-w);
+.number-stepper__field {
+  width: var(--number-stepper-field-w);
   padding-inline: 0;
   text-align: center;
 }
 
-.stepper__btn {
+.number-stepper__btn {
   flex: none;
-  width: var(--stepper-button-w);
+  width: var(--number-stepper-button-w);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -29,15 +29,15 @@
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.stepper__btn:first-child {
+.number-stepper__btn:first-child {
   border-right: var(--border-width-thin) solid var(--c-border);
 }
 
-.stepper__btn:last-child {
+.number-stepper__btn:last-child {
   border-left: var(--border-width-thin) solid var(--c-border);
 }
 
-.stepper__btn:hover {
+.number-stepper__btn:hover {
   background: var(--c-hover);
   color: var(--c-text);
 }

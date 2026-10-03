@@ -28,7 +28,7 @@ Issues found in the components while writing their stories. Everything here came
 |---|---|
 | TextInput, Textarea | no error or disabled styling of their own; the error state only shows through Field |
 | RadioGroup | the default `name` comes from the label, so two groups with the same label share one radio set |
-| Stepper | typing strips everything but digits, so negative or decimal values cannot be typed even when allowed |
+| NumberStepper | typing strips everything but digits, so negative or decimal values cannot be typed even when allowed |
 | DropZone | `disabled` is enforced only by CSS; handlers do not check it. The block variant has static inline styles |
 | ProgressRing | has no size of its own and stretches to its container |
 | Toast | the exit `setTimeout` is not cleared on unmount |

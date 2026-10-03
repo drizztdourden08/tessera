@@ -280,6 +280,23 @@
         "SettingsShellProps": "replaced by WorkspaceScreenProps, or NavLayoutProps with filterable and filterPlaceholder",
         "SEARCH_ICON_PATHS": "removed; draw the glass with <Icon name=\"search\" /> (see MIGRATION.md section 56)"
       }
+    },
+    {
+      "version": "next",
+      "components": {
+        "StepperProps": "NumberStepperProps",
+        "Stepper": "NumberStepper"
+      },
+      "cssClasses": {
+        "stepper--disabled": "number-stepper--disabled",
+        "stepper__field": "number-stepper__field",
+        "stepper__btn": "number-stepper__btn",
+        "stepper": "number-stepper"
+      },
+      "cssCustomProperties": {
+        "--stepper-button-w": "--number-stepper-button-w",
+        "--stepper-field-w": "--number-stepper-field-w"
+      }
     }
   ]
 }

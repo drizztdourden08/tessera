@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ControlSize } from '../field-control/field-control.type';
 
-interface StepperProps {
+interface NumberStepperProps {
   value: number;
   onChange: (value: number) => void;
   min?: number;
@@ -13,4 +13,4 @@ interface StepperProps {
   className?: string;
 }
 
-export type { StepperProps };
+export type { NumberStepperProps };

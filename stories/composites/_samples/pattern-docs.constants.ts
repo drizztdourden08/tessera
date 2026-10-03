@@ -14,10 +14,10 @@ const SYNTAX_ROWS: readonly PatternDocRow[] = [
 ];
 
 const TYPE_ROWS: readonly PatternDocRow[] = [
-  { key: 'number', cells: ['{x:number 0..1920}', 'A whole number', 'Digits, and a minus when the range allows it. Moves on once no further digit fits.', 'A Slider when both ends are set, else a Stepper.'] },
+  { key: 'number', cells: ['{x:number 0..1920}', 'A whole number', 'Digits, and a minus when the range allows it. Moves on once no further digit fits.', 'A Slider when both ends are set, else a NumberStepper.'] },
   { key: 'decimal', cells: ['{amount:decimal 2 group}', 'A number', 'Digits and one dot. Moves on once the decimals are typed. The decimals show muted.', 'A Slider when both ends are set, else a NumberInput.'] },
-  { key: 'hour', cells: ['{hh:hour 12h}', '0 to 23, or 1 to 12', 'Two digits that wrap at the ends.', 'Hour and minute Steppers.'] },
-  { key: 'minute', cells: ['{mm:minute step5}', '0 to 59', 'Two digits that wrap at the ends.', 'Hour and minute Steppers.'] },
+  { key: 'hour', cells: ['{hh:hour 12h}', '0 to 23, or 1 to 12', 'Two digits that wrap at the ends.', 'Hour and minute NumberSteppers.'] },
+  { key: 'minute', cells: ['{mm:minute step5}', '0 to 59', 'Two digits that wrap at the ends.', 'Hour and minute NumberSteppers.'] },
   { key: 'choice', cells: ['{ampm:choice AM|PM}', 'The value of an option', 'Letters jump to the matching option, and a single match moves on.', 'The option list, with flags and details when the options have them.'] },
   { key: 'text', cells: ['{comment:text max100}', 'A string', 'Any characters, or only digits, letters or both. Moves on at lenN.', 'None.'] },
   { key: 'hex', cells: ['{color:hex}', 'A colour such as #e05a47', 'Six hex digits. Three digits grow to six when the slot is left.', 'A ColorPicker.'] },

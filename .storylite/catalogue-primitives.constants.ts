@@ -59,7 +59,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'PasswordInput', summary: 'A password with a show button, any mask character, a Caps Lock warning and an optional checklist.' },
         { name: 'Textarea', summary: 'Several lines of text.' },
         { name: 'NumberInput', summary: 'A number with bounds and a step.' },
-        { name: 'Stepper', summary: 'A number with minus and plus buttons.' },
+        { name: 'NumberStepper', summary: 'A number with minus and plus buttons.' },
         { name: 'Checkbox', summary: 'One on or off choice with a label.' },
         { name: 'Toggle', summary: 'A switch for a setting that applies at once.' },
         { name: 'ToggleGroup', summary: 'Several independent toggles as one control.' },

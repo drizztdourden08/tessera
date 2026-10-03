@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { Box, Button, Combobox, NumberInput, Select, Stepper, TextInput } from '../../../src/primitives';
+import { Box, Button, Combobox, NumberInput, NumberStepper, Select, TextInput } from '../../../src/primitives';
 import type { ControlSize } from '../../../src/primitives';
 import { axis } from '../../_template/axis';
 import { CONTROL_SIZES } from '../../_template/control-sizes.constants';
@@ -19,7 +19,7 @@ const LineUpRow = (props: { size: ControlSize }) => {
       <TextInput size={size} defaultValue="Link" aria-label={`Player name, ${size}`} />
       <Select size={size} items={REGIONS} value={region} onChange={setRegion} aria-label={`Region, ${size}`} />
       <NumberInput size={size} value={cost} min={0} max={100} step={5} sizeToContent onChange={setCost} aria-label={`Hint cost, ${size}`} />
-      <Stepper size={size} value={players} min={1} max={20} onChange={setPlayers} ariaLabel={`Players, ${size}`} />
+      <NumberStepper size={size} value={players} min={1} max={20} onChange={setPlayers} ariaLabel={`Players, ${size}`} />
       <Combobox size={size} items={REGIONS} value={game} onChange={setGame} placeholder="Type a region" aria-label={`Start, ${size}`} />
       <Button size={size}>Start</Button>
     </Box>

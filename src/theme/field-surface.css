@@ -45,7 +45,7 @@
 }
 
 .number-input,
-.stepper {
+.number-stepper {
   display: inline-flex;
   align-items: stretch;
   background: var(--c-surface);
@@ -56,14 +56,14 @@
 }
 
 .number-input:focus-within,
-.stepper:focus-within,
+.number-stepper:focus-within,
 .combobox:focus-within {
   border-color: var(--c-primary);
 }
 
 :is(.select, .select-trigger, .text-input, .textarea):hover:not(:disabled, :focus, [readonly], [aria-invalid='true'], .select-trigger--open),
 .text-input-frame:hover > .text-input:not(:disabled, :focus, [readonly], [aria-invalid='true']),
-:is(.number-input, .stepper, .combobox):hover:not(:focus-within, :has([aria-invalid='true'])) {
+:is(.number-input, .number-stepper, .combobox):hover:not(:focus-within, :has([aria-invalid='true'])) {
   border-color: color-mix(in oklab, var(--c-border-strong), var(--c-text-muted));
 }
 
@@ -72,7 +72,7 @@
 .text-input:focus,
 .textarea:focus,
 .number-input:focus-within,
-.stepper:focus-within,
+.number-stepper:focus-within,
 .combobox:focus-within {
   box-shadow: 0 0 0 var(--border-width-thick) var(--c-primary-soft);
 }
@@ -106,13 +106,13 @@
 }
 
 .number-input--disabled,
-.stepper--disabled {
+.number-stepper--disabled {
   opacity: var(--opacity-disabled);
   pointer-events: none;
 }
 
 .number-input__field,
-.stepper__field {
+.number-stepper__field {
   min-width: 0;
   background: transparent;
   border: none;

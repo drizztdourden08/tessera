@@ -1410,3 +1410,19 @@ The popups of `DynamicInput` now show the standard parts in their own look. The 
 ### What an app does
 
 An app that put a `WindowHeader` inside a `Drawer` passes its `title`, `subtitle` and close handler to the `Drawer` instead, moves its buttons to `actions`, and drops the padding it gave the content. An app that styled `.dynamic-input__panel-title` or `.dynamic-input__panel-body` drops those styles.
+
+## 58. Stepper is now NumberStepper
+
+The number field with a minus and a plus button is renamed `NumberStepper`, and its props type `NumberStepperProps`. Its props and look are unchanged. The name `Stepper` goes to the step progress indicator of a wizard in a later release, so this rename ships on its own first.
+
+The class names move with it: `stepper` is `number-stepper`, `stepper__field` is `number-stepper__field`, `stepper__btn` is `number-stepper__btn` and `stepper--disabled` is `number-stepper--disabled`. The custom properties `--stepper-button-w` and `--stepper-field-w` are `--number-stepper-button-w` and `--number-stepper-field-w`.
+
+```tsx
+import { NumberStepper } from '@drizztdourden08/tessera';
+
+<NumberStepper value={players} onChange={setPlayers} min={1} max={20} ariaLabel="Players in the session" />
+```
+
+### What an app does
+
+An app renames `Stepper` to `NumberStepper` and `StepperProps` to `NumberStepperProps`, and renames the classes and custom properties above in its own styles. Every rename here is in RENAMES.json. The `stepper` keyword in a `DynamicInput` pattern keeps its name.

@@ -36,6 +36,7 @@ One line per component. 6 of 141 have their usage written; a linked name opens i
 - `Image`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Link`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `NumberStepper`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PathIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -58,7 +59,6 @@ One line per component. 6 of 141 have their usage written; a linked name opens i
 - `Stack`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `StatRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Status`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Stepper`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Svg`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Tabs`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Tag`: usage not written yet. Import from `@drizztdourden08/tessera`.

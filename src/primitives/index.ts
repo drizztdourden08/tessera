@@ -31,8 +31,8 @@ export { Tag } from './Tag';
 export type {
   TagCategoryColor, TagColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 } from './Tag';
-export { Stepper } from './Stepper';
-export type { StepperProps } from './Stepper';
+export { NumberStepper } from './NumberStepper';
+export type { NumberStepperProps } from './NumberStepper';
 export { DropZone } from './DropZone';
 export type { DropZoneProps, DropZoneVariant } from './DropZone';
 export { TextInput } from './TextInput';
