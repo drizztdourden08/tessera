@@ -721,11 +721,6 @@
       "hash": "88dd930bf4154c2b",
       "at": "2026-10-02"
     },
-    "InlineCreateForm": {
-      "status": "seen",
-      "hash": "63c0675eb255d1c1",
-      "at": "2026-10-02"
-    },
     "Overlay": {
       "status": "ok",
       "hash": "57e836e3fb28624e",
@@ -737,13 +732,19 @@
       "at": "2026-10-02"
     },
     "FullScreenLayer": {
-      "status": "new"
+      "status": "seen",
+      "hash": "81880cc4c5d73585",
+      "at": "2026-10-02"
     },
     "DisabledOverlay": {
-      "status": "new"
+      "status": "ok",
+      "hash": "029f834bc5a6001d",
+      "at": "2026-10-03"
     },
     "ErrorBoundary": {
-      "status": "new"
+      "status": "seen",
+      "hash": "c00b1dd456dab0f7",
+      "at": "2026-10-03"
     }
   },
   "Composites · Wizard": {
@@ -865,14 +866,19 @@
       "status": "new"
     }
   },
+  "Composites · Forms": {
+    "InlineCreateForm": {
+      "status": "new"
+    },
+    "RecordEditor": {
+      "status": "new"
+    }
+  },
   "Composites · Data views": {
     "DataTable": {
       "status": "new"
     },
     "FilterBar": {
-      "status": "new"
-    },
-    "RecordEditor": {
       "status": "new"
     },
     "CompactRecordView": {
