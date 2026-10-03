@@ -1426,3 +1426,19 @@ import { NumberStepper } from '@drizztdourden08/tessera';
 ### What an app does
 
 An app renames `Stepper` to `NumberStepper` and `StepperProps` to `NumberStepperProps`, and renames the classes and custom properties above in its own styles. Every rename here is in RENAMES.json. The `stepper` keyword in a `DynamicInput` pattern keeps its name.
+
+## 59. Emphasis is a text primitive; the gallery regroups the composites
+
+`Emphasis`, the word that swells along the weight axis, moves from the composites to the primitives, beside the text elements. Its props, class names and look are unchanged. The package root still exports it. Its gallery page is Core · Text, Emphasis animation, next to the `Emphasis` element (`<em>`).
+
+```tsx
+import { Emphasis } from '@drizztdourden08/tessera';
+
+<Emphasis trigger="hover" from={400} to={800}>Triforce</Emphasis>
+```
+
+The gallery groups change too. Composites · Navigation keeps only navigation. Layout holds `SplitPane`, `MasterDetailLayout` and `NavLayout`; Lists holds `ListItemRow`, `GroupTree` and `SearchResults`; Settings holds `SettingsPage`, `SettingsSection` and `SettingsGroupList`; Windows holds `WindowTitleBar` and `WindowHeader`. `ColorPicker` and `ColorPickerPopover` move to Inputs, `KeyboardLayout` and `ShortcutTour` to Input devices, and `Hero` to Content. No component name or import changes with them.
+
+### What an app does
+
+An app that imports `Emphasis` or its types from `@drizztdourden08/tessera/composites` imports them from the package root or from `@drizztdourden08/tessera/primitives`. No name changes, so RENAMES.json has no entry for this section.

@@ -61,7 +61,7 @@ const ARG_TYPES: StoryLiteArgTypes<PageArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Navigation/SettingsPage',
+  title: 'Composites · Settings/SettingsPage',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<PageArgs>;
 

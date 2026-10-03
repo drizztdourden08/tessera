@@ -21,6 +21,7 @@ One line per component. 6 of 141 have their usage written; a linked name opens i
 - `Divider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DropZone`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `EmojiIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `Emphasis`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `EmptyState`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ErrorBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Field`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -97,7 +98,6 @@ One line per component. 6 of 141 have their usage written; a linked name opens i
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DropdownMenu`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DynamicInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Emphasis`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FilterBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.

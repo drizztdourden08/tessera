@@ -47,7 +47,7 @@ const ARG_TYPES: StoryLiteArgTypes<ColorPickerArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Content/ColorPicker',
+  title: 'Composites · Inputs/ColorPicker',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<ColorPickerArgs>;
 

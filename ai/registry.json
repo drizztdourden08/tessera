@@ -678,6 +678,16 @@
       "usage": false
     },
     {
+      "name": "Emphasis",
+      "tier": "primitives",
+      "source": "src/primitives/Emphasis/Emphasis.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
       "name": "EmptyState",
       "tier": "primitives",
       "source": "src/primitives/EmptyState/EmptyState.tsx",
@@ -1400,16 +1410,6 @@
       "name": "DynamicInput",
       "tier": "composites",
       "source": "src/composites/DynamicInput/DynamicInput.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "Emphasis",
-      "tier": "composites",
-      "source": "src/composites/Emphasis/Emphasis.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"

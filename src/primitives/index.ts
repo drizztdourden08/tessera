@@ -11,6 +11,8 @@ export { Quote, Quote as Q, type QuoteProps } from './Quote';
 export * from './Shortcut';
 export { CodeBlock } from './CodeBlock';
 export type { CodeBlockLanguage, CodeBlockProps } from './CodeBlock';
+export { Emphasis } from './Emphasis';
+export type { EmphasisAnchor, EmphasisOrder, EmphasisProps, EmphasisTrigger } from './Emphasis';
 export { Flex, type FlexProps, type SpaceToken, type FlexAlign, type FlexJustify } from './Flex';
 export { Stack, type StackProps } from './Stack';
 export { Grid, type GridProps } from './Grid';

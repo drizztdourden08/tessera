@@ -55,7 +55,7 @@ const EDITOR_ARG_TYPES: StoryLiteArgTypes<SplitArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Navigation/SplitPane',
+  title: 'Composites · Layout/SplitPane',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SplitArgs>;
 

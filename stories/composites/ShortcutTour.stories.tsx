@@ -25,7 +25,7 @@ const ARG_TYPES: StoryLiteArgTypes<TourArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Content/ShortcutTour',
+  title: 'Composites · Input devices/ShortcutTour',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<TourArgs>;
 

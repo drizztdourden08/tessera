@@ -55,7 +55,7 @@ const ARG_TYPES: StoryLiteArgTypes<TreeArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Navigation/GroupTree',
+  title: 'Composites · Lists/GroupTree',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<TreeArgs>;
 

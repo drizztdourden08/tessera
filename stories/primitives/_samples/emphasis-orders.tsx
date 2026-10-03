@@ -1,7 +1,6 @@
 /* @layer stories @kind component */
-import { Emphasis } from '../../../src/composites';
-import type { EmphasisAnchor, EmphasisOrder } from '../../../src/composites';
-import { Text } from '../../../src/primitives';
+import type { EmphasisAnchor, EmphasisOrder } from '../../../src/primitives';
+import { Emphasis, Text } from '../../../src/primitives';
 import { axis } from '../../_template/axis';
 import { Demonstrator } from '../../_template/Demonstrator';
 import '../../typography/variable-type.css';

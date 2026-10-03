@@ -64,7 +64,7 @@ const ARG_TYPES: StoryLiteArgTypes<PopoverArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Content/ColorPickerPopover',
+  title: 'Composites · Inputs/ColorPickerPopover',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<PopoverArgs>;
 

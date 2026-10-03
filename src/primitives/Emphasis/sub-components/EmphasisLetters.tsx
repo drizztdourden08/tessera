@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
+import { Box } from '../../Box';
 import { letterDelay } from '../behavior/letter-delay';
 import { letterRanks } from '../behavior/letter-ranks';
 import { splitGraphemes } from '../behavior/split-graphemes';

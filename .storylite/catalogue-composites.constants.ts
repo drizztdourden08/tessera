@@ -39,18 +39,31 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
         { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
         { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
+        { name: 'ProfilePicker', summary: 'Profiles to pick from, add and delete.' },
+      ],
+    },
+    {
+      group: 'Layout',
+      entries: [
         { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
         { name: 'MasterDetailLayout', summary: 'A list beside the detail of the selected item.' },
-        { name: 'GroupTree', summary: 'Nested groups that open and close.' },
+        { name: 'NavLayout', summary: 'A SideNav beside the current page, with search results.' },
+      ],
+    },
+    {
+      group: 'Lists',
+      entries: [
         { name: 'ListItemRow', summary: 'One selectable row with icon, meta, aside and action.' },
-        { name: 'WindowHeader', summary: 'A panel title bar with extras and close.' },
-        { name: 'WindowTitleBar', summary: 'An app window title bar with brand, slots and window buttons.' },
+        { name: 'GroupTree', summary: 'Nested groups that open and close.' },
+        { name: 'SearchResults', summary: 'Search hits with a count, jumps and groups.' },
+      ],
+    },
+    {
+      group: 'Settings',
+      entries: [
+        { name: 'SettingsPage', summary: 'A settings page header with tabs over a scrolling body.' },
         { name: 'SettingsSection', summary: 'One titled group of settings.' },
         { name: 'SettingsGroupList', summary: 'Settings sections of bordered row groups, with reset and locks.' },
-        { name: 'SettingsPage', summary: 'A settings page header with tabs over a scrolling body.' },
-        { name: 'NavLayout', summary: 'A SideNav beside the current page, with search results.' },
-        { name: 'SearchResults', summary: 'Search hits with a count, jumps and groups.' },
-        { name: 'ProfilePicker', summary: 'Profiles to pick from, add and delete.' },
       ],
     },
     {
@@ -70,6 +83,8 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'DynamicInput', summary: 'One field built from a pattern: typed slots, muted text, icons and actions, with a control per slot.' },
         { name: 'VolumeControl', summary: 'A mute button beside a volume slider, with the icon following the level.' },
+        { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
+        { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
       ],
     },
     {
@@ -95,12 +110,8 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'AboutPanel', summary: 'An About screen: logo or wordmark, facts, copy and legal text.' },
         { name: 'FactsPanel', summary: 'Label and value pairs in a bordered box, in groups split by hairlines.' },
         { name: 'ReleaseNotesPanel', summary: 'Release notes in a titled, scrolling box.' },
-        { name: 'Emphasis', summary: 'Animates a word along the weight axis.' },
-        { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
-        { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
+        { name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' },
         { name: 'PixelWordmark', summary: 'A wordmark set in the pixel alphabet from a text and four colours.' },
-        { name: 'KeyboardLayout', summary: 'A full keyboard drawn from data, with keys lit or pressed.' },
-        { name: 'ShortcutTour', summary: 'A camera that walks a keyboard through a shortcut, key by key.' },
       ],
     },
     {
@@ -109,6 +120,8 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'CalibrationPanel', summary: 'One calibration step: instruction, live readout, content, cancel and next.' },
         { name: 'PressedGrid', summary: 'A grid of buttons that light up while held.' },
         { name: 'StickPlot', summary: 'Where an analog stick points, with dead zones and calibration marks.' },
+        { name: 'KeyboardLayout', summary: 'A full keyboard drawn from data, with keys lit or pressed.' },
+        { name: 'ShortcutTour', summary: 'A camera that walks a keyboard through a shortcut, key by key.' },
       ],
     },
     {
@@ -120,6 +133,13 @@ const COMPOSITES_TIER: CatalogueTier = {
       ],
     },
     {
+      group: 'Windows',
+      entries: [
+        { name: 'WindowTitleBar', summary: 'An app window title bar with brand, slots and window buttons.' },
+        { name: 'WindowHeader', summary: 'A panel title bar with extras and close.' },
+      ],
+    },
+    {
       group: 'Screens',
       entries: [
         { name: 'WorkspaceScreen', summary: 'A screen to work in: a side list of pages and the current page with its header pills.' },
@@ -128,7 +148,6 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'StageScreen', summary: 'One big open stage for custom work, such as calibration, with an optional toolbar.' },
         { name: 'ScreenWindow', summary: 'Building block: the plain screen window with a title, a close button and an empty container.' },
         { name: 'ScreenLayer', summary: 'Building block: the overlay and the card with its gap, to build a new kind of screen.' },
-        { name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' },
       ],
     },
   ],

@@ -112,7 +112,7 @@ const ARG_TYPES: StoryLiteArgTypes<TitleBarArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Navigation/WindowTitleBar',
+  title: 'Composites · Windows/WindowTitleBar',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<TitleBarArgs>;
 

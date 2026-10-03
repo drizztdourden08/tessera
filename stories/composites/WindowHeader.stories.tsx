@@ -47,7 +47,7 @@ const ARG_TYPES: StoryLiteArgTypes<WindowHeaderArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Navigation/WindowHeader',
+  title: 'Composites · Windows/WindowHeader',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<WindowHeaderArgs>;
 

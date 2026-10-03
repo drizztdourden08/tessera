@@ -48,7 +48,7 @@ const ARG_TYPES: StoryLiteArgTypes<SectionArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Navigation/SettingsSection',
+  title: 'Composites · Settings/SettingsSection',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SectionArgs>;
 

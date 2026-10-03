@@ -34,7 +34,7 @@ const ARG_TYPES: StoryLiteArgTypes<GroupListArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Navigation/SettingsGroupList',
+  title: 'Composites · Settings/SettingsGroupList',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<GroupListArgs>;
 

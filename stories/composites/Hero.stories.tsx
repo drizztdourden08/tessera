@@ -54,7 +54,7 @@ const ARG_TYPES: StoryLiteArgTypes<HeroArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Screens/Hero',
+  title: 'Composites · Content/Hero',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<HeroArgs>;
 

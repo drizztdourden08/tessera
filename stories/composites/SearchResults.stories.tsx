@@ -68,7 +68,7 @@ const ARG_TYPES: StoryLiteArgTypes<ResultsArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Navigation/SearchResults',
+  title: 'Composites · Lists/SearchResults',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<ResultsArgs>;
 

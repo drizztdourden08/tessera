@@ -7,10 +7,11 @@ const GROUP_ICONS: Record<string, string> = {
   'Primitives · Layout': 'layout-grid', 'Primitives · Display': 'monitor', 'Primitives · Actions': 'mouse-pointer-click',
   'Primitives · Inputs': 'text-cursor-input', 'Primitives · Feedback': 'message-square-warning', 'Primitives · Navigation': 'compass',
   'Composites · Dialogs': 'app-window', 'Composites · Overlays': 'layers', 'Composites · Wizard': 'wand-sparkles',
-  'Composites · Navigation': 'signpost', 'Composites · Menus': 'menu', 'Composites · Actions': 'square-mouse-pointer',
+  'Composites · Navigation': 'signpost', 'Composites · Layout': 'layout-panel-left', 'Composites · Lists': 'list-tree',
+  'Composites · Settings': 'settings', 'Composites · Menus': 'menu', 'Composites · Actions': 'square-mouse-pointer',
   'Composites · Inputs': 'text-cursor-input', 'Composites · Forms': 'clipboard-pen-line',
   'Composites · Data views': 'table', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
-  'Composites · Widgets': 'blocks', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
+  'Composites · Widgets': 'blocks', 'Composites · Windows': 'app-window-mac', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
 };
 
 const PAGE_ICONS: Record<string, Record<string, string>> = {
@@ -35,7 +36,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     'Variable': 'variable', 'Abbreviation': 'whole-word', 'Citation': 'book-open', 'BlockQuote': 'text-quote',
     'Definition': 'book-a', 'Time': 'clock', 'Data': 'binary', 'Address': 'map-pin', 'Preformatted': 'file-code',
     'BidiIsolate': 'arrow-left-right', 'BidiOverride': 'arrow-right-left', 'Ruby': 'languages', 'RubyText': 'captions',
-    'RubyParenthesis': 'parentheses', 'Shortcut': 'keyboard', 'Quote': 'quote', 'CodeBlock': 'square-code',
+    'RubyParenthesis': 'parentheses', 'Shortcut': 'keyboard', 'Quote': 'quote', 'CodeBlock': 'square-code', 'Emphasis animation': 'wand-sparkles',
   },
   'Core · Icons': { 'Icon': 'shapes', 'Brand icons': 'badge', 'Glyph': 'pen-tool', 'PathIcon': 'spline', 'EmojiIcon': 'smile' },
   'Core · Tokens': {
@@ -74,28 +75,29 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Wizard: 'wand-sparkles', WizardProgress: 'git-commit-horizontal', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
-  'Composites · Navigation': {
-    SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', SplitPane: 'columns-2',
-    MasterDetailLayout: 'layout-list', GroupTree: 'folder-tree', ListItemRow: 'list-start', WindowHeader: 'heading-2',
-    WindowTitleBar: 'app-window-mac', SettingsSection: 'settings-2', SettingsGroupList: 'list-checks',
-    SettingsPage: 'file-cog', NavLayout: 'layout-template', SearchResults: 'search-check', ProfilePicker: 'users',
-  },
+  'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', ProfilePicker: 'users' },
+  'Composites · Layout': { SplitPane: 'columns-2', MasterDetailLayout: 'layout-list', NavLayout: 'layout-template' },
+  'Composites · Lists': { ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check' },
+  'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsGroupList: 'list-checks' },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search' },
   'Composites · Data views': {
     'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',
   },
   'Composites · Content': {
-    LogPanel: 'logs', AboutPanel: 'info', FactsPanel: 'table-properties', ReleaseNotesPanel: 'notebook-text', Emphasis: 'wand-sparkles',
-    ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', PixelWordmark: 'type-outline', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
+    LogPanel: 'logs', AboutPanel: 'info', FactsPanel: 'table-properties', ReleaseNotesPanel: 'notebook-text', Hero: 'mountain-snow',
+    PixelWordmark: 'type-outline',
   },
-  'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2' },
+  'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line' },
-  'Composites · Input devices': { CalibrationPanel: 'crosshair', PressedGrid: 'grid-2x2-check', StickPlot: 'joystick' },
+  'Composites · Input devices': {
+    CalibrationPanel: 'crosshair', PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
+  },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog' },
   'Composites · Screens': {
     WorkspaceScreen: 'panels-left-bottom', InfoScreen: 'info', UtilityScreen: 'refresh-cw', StageScreen: 'gamepad-2',
-    ScreenWindow: 'app-window', ScreenLayer: 'fullscreen', Hero: 'mountain-snow',
+    ScreenWindow: 'app-window', ScreenLayer: 'fullscreen',
   },
+  'Composites · Windows': { WindowTitleBar: 'app-window-mac', WindowHeader: 'heading-2' },
   'Data': { Engine: 'cpu' },
 };
 

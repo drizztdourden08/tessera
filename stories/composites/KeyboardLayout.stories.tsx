@@ -21,7 +21,7 @@ const ARG_TYPES: StoryLiteArgTypes<KeyboardArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Content/KeyboardLayout',
+  title: 'Composites · Input devices/KeyboardLayout',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<KeyboardArgs>;
 

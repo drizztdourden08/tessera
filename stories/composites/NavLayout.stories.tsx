@@ -73,7 +73,7 @@ const ARG_TYPES: StoryLiteArgTypes<NavLayoutArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Navigation/NavLayout',
+  title: 'Composites · Layout/NavLayout',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<NavLayoutArgs>;
 

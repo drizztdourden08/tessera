@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../primitives/Box';
+import { Box } from '../Box';
 import { emphasisVars } from './behavior/emphasis-vars';
 import { emphasisClass } from './behavior/emphasis-class';
 import { resolveEmphasis } from './behavior/resolve-emphasis';

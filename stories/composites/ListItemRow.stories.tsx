@@ -55,7 +55,7 @@ const ARG_TYPES: StoryLiteArgTypes<RowArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Navigation/ListItemRow',
+  title: 'Composites · Lists/ListItemRow',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<RowArgs>;
 

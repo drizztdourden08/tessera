@@ -1,7 +1,6 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { Emphasis } from '../../../src/composites';
-import { Box, Button, Text } from '../../../src/primitives';
+import { Box, Button, Emphasis, Text } from '../../../src/primitives';
 
 const ActiveDemo = () => {
   const [active, setActive] = useState(false);

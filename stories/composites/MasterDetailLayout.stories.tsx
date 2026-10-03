@@ -64,7 +64,7 @@ const ARG_TYPES: StoryLiteArgTypes<MasterDetailArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Navigation/MasterDetailLayout',
+  title: 'Composites · Layout/MasterDetailLayout',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<MasterDetailArgs>;
 

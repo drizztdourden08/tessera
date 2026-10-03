@@ -1,8 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Emphasis } from '../../src/composites';
-import type { EmphasisAnchor, EmphasisOrder, EmphasisTrigger } from '../../src/composites';
-import { Box, Text } from '../../src/primitives';
+import type { EmphasisAnchor, EmphasisOrder, EmphasisTrigger } from '../../src/primitives';
+import { Box, Emphasis, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { ActiveDemo, ButtonDemo, PulseDemo } from './_samples/emphasis-demos';
 import { AnchorDemo, WaveOrderDemo } from './_samples/emphasis-orders';
@@ -51,7 +50,7 @@ const orderOf = (args: EmphasisArgs): EmphasisOrder => {
 };
 
 const meta = {
-  title: 'Composites · Content/Emphasis',
+  title: 'Core · Text/Emphasis animation',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<EmphasisArgs>;
 
