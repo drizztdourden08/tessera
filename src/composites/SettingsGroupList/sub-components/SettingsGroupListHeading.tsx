@@ -24,6 +24,7 @@ const SettingsGroupListHeading = (props: SettingsGroupListHeadingProps) => {
         cancelLabel={panels.keepSettings}
         disabled={!resettable}
         onConfirm={onReset}
+        placement="end"
       />
     </Box>
   );

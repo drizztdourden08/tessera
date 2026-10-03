@@ -16,6 +16,7 @@ const ProfilePickerRow = (props: ProfilePickerRowProps) => {
       confirmLabel={panels.deleteNamed(name)}
       cancelLabel={common.keep}
       onConfirm={() => onDelete(id)}
+      placement="end"
     />
   );
 

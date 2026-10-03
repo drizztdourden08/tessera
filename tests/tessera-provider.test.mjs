@@ -3,7 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { AboutPanel } from '../src/composites/AboutPanel';
-import { ErrorBoundary } from '../src/composites/ErrorBoundary';
+import { ErrorBoundary } from '../src/primitives/ErrorBoundary';
 import { LogPanel } from '../src/composites/LogPanel';
 import { Button } from '../src/primitives/Button';
 import { CodeBlock } from '../src/primitives/CodeBlock';

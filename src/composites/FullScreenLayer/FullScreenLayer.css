@@ -21,13 +21,13 @@ html.booting .fullscreen-layer {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-2xl);
+  padding: max(calc(var(--control-h-md) / 2 + var(--space-lg)), calc(var(--space-2xl) + 5cqmin));
 }
 
 .fullscreen-layer__frame {
   position: relative;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   display: flex;
 }
 
@@ -70,37 +70,16 @@ html.booting .fullscreen-layer {
   padding: 0 var(--space-xl) var(--space-lg);
 }
 
-@container fullscreen-layer (width < 1280px) {
-  .fullscreen-layer__inset { padding-inline: var(--space-xl); }
-  .fullscreen-layer__frame { width: 94%; }
+@container fullscreen-layer (width < 1280px) or (height < 800px) {
+  .fullscreen-layer__inset { padding: max(calc(var(--control-h-md) / 2 + var(--space-lg)), calc(var(--space-xl) + 3cqmin)); }
 }
 
-@container fullscreen-layer (width < 960px) {
-  .fullscreen-layer__inset { padding-inline: var(--space-lg); }
-  .fullscreen-layer__frame { width: 100%; }
-}
-
-@container fullscreen-layer (width < 720px) {
-  .fullscreen-layer__inset { padding-inline: var(--space-sm); }
-}
-
-@container fullscreen-layer (height < 800px) {
-  .fullscreen-layer__inset { padding-block: var(--space-xl); }
-  .fullscreen-layer__frame { height: 94%; }
-}
-
-@container fullscreen-layer (height < 600px) {
-  .fullscreen-layer__inset { padding-block: var(--space-lg); }
-  .fullscreen-layer__frame { height: 100%; }
+@container fullscreen-layer (width < 960px) or (height < 600px) {
+  .fullscreen-layer__inset { padding: calc(var(--control-h-md) / 2 + var(--space-lg)); }
 }
 
 @container fullscreen-layer (width < 480px) or (height < 440px) {
   .fullscreen-layer__inset { padding: 0; }
-
-  .fullscreen-layer__frame {
-    width: 100%;
-    height: 100%;
-  }
 
   .fullscreen-layer__floating {
     top: var(--space-sm);
@@ -127,11 +106,6 @@ html.booting .fullscreen-layer {
 
 .platform-mobile .fullscreen-layer__inset {
   padding: 0;
-}
-
-.platform-mobile .fullscreen-layer__frame {
-  width: 100%;
-  height: 100%;
 }
 
 .platform-mobile .fullscreen-layer__floating {

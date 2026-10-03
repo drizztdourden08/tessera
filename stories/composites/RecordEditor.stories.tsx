@@ -75,7 +75,7 @@ const ARG_TYPES: StoryLiteArgTypes<RecordEditorArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Data views/RecordEditor',
+  title: 'Composites · Forms/RecordEditor',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<RecordEditorArgs>;
 

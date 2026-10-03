@@ -89,6 +89,8 @@ export { SectionHeader } from './SectionHeader';
 export type { SectionHeaderProps } from './SectionHeader';
 export { Callout } from './Callout';
 export type { CalloutProps, CalloutTone, CalloutVariant } from './Callout';
+export { ErrorBoundary } from './ErrorBoundary';
+export type { ErrorBoundaryProps } from './ErrorBoundary';
 export { EmptyState } from './EmptyState';
 export type { EmptyStateProps } from './EmptyState';
 export { ButtonRow } from './ButtonRow';

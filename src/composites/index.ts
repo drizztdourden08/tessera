@@ -9,7 +9,7 @@ export type {
   IdRefTargetField, IdRefTargetFieldResolver, PickerNode,
 } from './DataTable';
 export { ConfirmIconButton } from './ConfirmIconButton';
-export type { ConfirmIconButtonProps } from './ConfirmIconButton';
+export type { ConfirmIconButtonPlacement, ConfirmIconButtonProps } from './ConfirmIconButton';
 export { Dialog } from './Dialog';
 export { DialogShell } from './DialogShell';
 export type { DialogShellProps } from './DialogShell';
@@ -100,8 +100,8 @@ export type {
 } from './CommandPalette';
 export { Overlay } from './Overlay';
 export { DisabledOverlay } from './DisabledOverlay';
-export { ErrorBoundary } from './ErrorBoundary';
-export type { ErrorBoundaryProps } from './ErrorBoundary';
+export { ErrorBoundary } from '../primitives/ErrorBoundary';
+export type { ErrorBoundaryProps } from '../primitives/ErrorBoundary';
 export type { DisabledOverlayProps } from './DisabledOverlay';
 export {
   Widget, WidgetManager, WidgetOptions, OptionRow, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,

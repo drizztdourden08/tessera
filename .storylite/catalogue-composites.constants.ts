@@ -12,13 +12,14 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'DialogShell', summary: 'The frame every modal is built in.' },
         { name: 'CreateRecordDialog', summary: 'A modal form that creates one record.' },
         { name: 'DeleteGuardDialog', summary: 'Confirms a delete and lists what still points at it.' },
-        { name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' },
-        { name: 'InlineCreateForm', summary: 'A boxed name field that creates one thing in place.' },
+      ],
+    },
+    {
+      group: 'Overlays',
+      entries: [
         { name: 'Overlay', summary: 'A scrim over the page with content on top.' },
         { name: 'Drawer', summary: 'A panel that slides in from an edge.' },
-        { name: 'FullScreenLayer', summary: 'A full-window page over the main content.' },
         { name: 'DisabledOverlay', summary: 'Covers a disabled area and says why.' },
-        { name: 'ErrorBoundary', summary: 'Catches a crash in its children and shows a fallback.' },
       ],
     },
     {
@@ -64,6 +65,10 @@ const COMPOSITES_TIER: CatalogueTier = {
       ],
     },
     {
+      group: 'Actions',
+      entries: [{ name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' }],
+    },
+    {
       group: 'Inputs',
       entries: [
         { name: 'DynamicInput', summary: 'One field built from a pattern: typed slots, muted text, icons and actions, with a control per slot.' },
@@ -71,11 +76,17 @@ const COMPOSITES_TIER: CatalogueTier = {
       ],
     },
     {
+      group: 'Forms',
+      entries: [
+        { name: 'InlineCreateForm', summary: 'A name field that creates one thing in place, boxed or on one line.' },
+        { name: 'RecordEditor', summary: 'Edits one record, form derived from its schema.' },
+      ],
+    },
+    {
       group: 'Data views',
       entries: [
         { name: 'DataTable', summary: 'Sortable, groupable, resizable table with saved layouts.' },
         { name: 'FilterBar', summary: 'Filter clauses, facets and search over a collection.' },
-        { name: 'RecordEditor', summary: 'Edits one record, form derived from its schema.' },
         { name: 'CompactRecordView', summary: 'One record read-only, with differences marked.' },
         { name: 'Field kits', summary: 'The editor, cell and filter for each field kind.' },
       ],
@@ -113,7 +124,10 @@ const COMPOSITES_TIER: CatalogueTier = {
     },
     {
       group: 'Screens',
-      entries: [{ name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' }],
+      entries: [
+        { name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' },
+        { name: 'FullScreenLayer', summary: 'A full-window page over the main content.' },
+      ],
     },
   ],
 };

@@ -669,6 +669,17 @@
       "usage": false
     },
     {
+      "name": "ErrorBoundary",
+      "tier": "primitives",
+      "source": "src/primitives/ErrorBoundary/ErrorBoundary.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
       "name": "Field",
       "tier": "primitives",
       "source": "src/primitives/Field/Field.tsx",
@@ -1360,16 +1371,6 @@
       "name": "Emphasis",
       "tier": "composites",
       "source": "src/composites/Emphasis/Emphasis.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "ErrorBoundary",
-      "tier": "composites",
-      "source": "src/composites/ErrorBoundary/ErrorBoundary.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"

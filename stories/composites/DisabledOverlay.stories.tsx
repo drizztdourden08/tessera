@@ -73,7 +73,7 @@ const ARG_TYPES: StoryLiteArgTypes<DisabledArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Dialogs/DisabledOverlay',
+  title: 'Composites · Overlays/DisabledOverlay',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<DisabledArgs>;
 

@@ -85,6 +85,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'HintLine', summary: 'A fixed line that shows the value and meaning of the option under the pointer or focus.' },
         { name: 'HintScope', summary: 'Collects the hints of the controls inside it for a HintLine or useHint.' },
         { name: 'Callout', summary: 'A note set apart: a toned box or a footnote, with an action.' },
+        { name: 'ErrorBoundary', summary: 'Catches a crash in its children and shows a notice in their place.' },
       ],
     },
     {

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ErrorFallbackProps } from '../../../primitives/TesseraProvider/TesseraProvider.type';
+import type { ErrorFallbackProps } from '../../TesseraProvider/TesseraProvider.type';
 
 type ErrorFallbackViewProps = Omit<ErrorFallbackProps, 'label'> & { label?: string };
 

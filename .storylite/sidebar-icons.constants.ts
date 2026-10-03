@@ -6,8 +6,9 @@ const GROUP_ICONS: Record<string, string> = {
   'Core · Icons': 'shapes', 'Core · Tokens': 'ruler',
   'Primitives · Layout': 'layout-grid', 'Primitives · Display': 'monitor', 'Primitives · Actions': 'mouse-pointer-click',
   'Primitives · Inputs': 'text-cursor-input', 'Primitives · Feedback': 'message-square-warning', 'Primitives · Navigation': 'compass',
-  'Composites · Dialogs': 'app-window', 'Composites · Wizard': 'wand-sparkles', 'Composites · Navigation': 'signpost', 'Composites · Menus': 'menu',
-  'Composites · Inputs': 'text-cursor-input',
+  'Composites · Dialogs': 'app-window', 'Composites · Overlays': 'layers', 'Composites · Wizard': 'wand-sparkles',
+  'Composites · Navigation': 'signpost', 'Composites · Menus': 'menu', 'Composites · Actions': 'square-mouse-pointer',
+  'Composites · Inputs': 'text-cursor-input', 'Composites · Forms': 'clipboard-pen-line',
   'Composites · Data views': 'table', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
 };
@@ -61,14 +62,14 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Toast: 'bell', Tooltip: 'message-square',
-    HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone',
+    HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone', ErrorBoundary: 'bug',
   },
   'Primitives · Navigation': { Tabs: 'panels-top-left', RouterLink: 'route' },
   'Composites · Dialogs': {
-    Dialog: 'app-window', DialogShell: 'app-window-mac', CreateRecordDialog: 'file-plus',
-    DeleteGuardDialog: 'shield-alert', ConfirmIconButton: 'circle-check', InlineCreateForm: 'square-pen', Overlay: 'layers-2',
-    Drawer: 'panel-right', FullScreenLayer: 'fullscreen', DisabledOverlay: 'ban', ErrorBoundary: 'bug',
+    Dialog: 'app-window', DialogShell: 'app-window-mac', CreateRecordDialog: 'file-plus', DeleteGuardDialog: 'shield-alert',
   },
+  'Composites · Overlays': { Overlay: 'layers-2', Drawer: 'panel-right', DisabledOverlay: 'ban' },
+  'Composites · Actions': { ConfirmIconButton: 'circle-check' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardProgress: 'git-commit-horizontal', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
@@ -81,16 +82,17 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', SearchSpark: 'sparkles', CommandPalette: 'command', CommandPaletteRow: 'text-search' },
   'Composites · Data views': {
-    'DataTable': 'table', 'FilterBar': 'filter', 'RecordEditor': 'file-pen-line', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',
+    'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',
   },
   'Composites · Content': {
     LogPanel: 'logs', AboutPanel: 'info', FactsPanel: 'table-properties', ReleaseNotesPanel: 'notebook-text', Emphasis: 'wand-sparkles',
     ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', PixelWordmark: 'type-outline', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2' },
+  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line' },
   'Composites · Input devices': { CalibrationPanel: 'crosshair', PressedGrid: 'grid-2x2-check', StickPlot: 'joystick' },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog' },
-  'Composites · Screens': { Hero: 'mountain-snow' },
+  'Composites · Screens': { Hero: 'mountain-snow', FullScreenLayer: 'fullscreen' },
   'Data': { Engine: 'cpu' },
 };
 

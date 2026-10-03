@@ -86,7 +86,7 @@ const ARG_TYPES: StoryLiteArgTypes<LayerArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Dialogs/FullScreenLayer',
+  title: 'Composites · Screens/FullScreenLayer',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<LayerArgs>;
 
@@ -137,12 +137,11 @@ const Overview = overviewStory({
   description: 'A window that covers its positioned parent, usually the whole app: a card with a title bar, a close button and a scrolling body. Reach for it for a full view the user opens and closes, such as a session list or a data manager. The title bar takes a subtitle and extra controls, and a floating slot sits centred on the top edge of the card for a switch between sibling windows. Setting hidden hides the layer and keeps its content mounted.',
   playground: Playground,
   points: [
-    'The space around the card follows the room the layer has, not the window, and width and height step down on their own.',
-    'Width: from 1280 px a 2xl gap and the card takes 90% of the rest; 960 to 1279 px an xl gap and 94%; 720 to 959 px an lg gap and the full width; 480 to 719 px an sm gap.',
-    'Height: from 800 px a 2xl gap and 90%; 600 to 799 px an xl gap and 94%; 440 to 599 px an lg gap and the full height.',
-    'Under 480 px wide or 440 px high there is no gap: the card fills the layer with square corners and no border, and the floating switch moves inside the top of the card. On a phone the card always fills the layer.',
-  ],
-  variants: [FitsItsRoom, SiblingWindows, TitleOnly],
+    'The space around the card is the same on all four sides and follows the room the layer has, not the window.',
+    'From 1280 px wide and 800 px high: a 2xl gap plus 5% of the smaller side. Under that: an xl gap plus 3% of the smaller side.',
+    'The gap never drops below half a control height plus an lg space, so the floating switch on the top edge always has room above it.',
+    'Under 960 px wide or 600 px high the gap stays at that minimum. Under 480 px wide or 440 px high there is no gap: the card fills the layer with square corners and no border, and the switch moves inside the top of the card. On a phone the card always fills the layer.',
+  ],  variants: [FitsItsRoom, SiblingWindows, TitleOnly],
   code: CODE,
 });
 

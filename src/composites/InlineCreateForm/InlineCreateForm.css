@@ -16,3 +16,25 @@
 .inline-create-form__actions > * {
   flex: 1;
 }
+
+.inline-create-form--compact {
+  gap: var(--space-2xs);
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.inline-create-form__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.inline-create-form--compact .inline-create-form__name {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.inline-create-form--compact .inline-create-form__error {
+  font-size: var(--text-xs);
+}

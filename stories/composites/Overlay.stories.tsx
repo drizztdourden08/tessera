@@ -53,7 +53,7 @@ const ARG_TYPES: StoryLiteArgTypes<OverlayArgs> = {
   };
 
 const meta = {
-  title: 'Composites · Dialogs/Overlay',
+  title: 'Composites · Overlays/Overlay',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<OverlayArgs>;
 

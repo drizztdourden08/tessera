@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
-import { Span } from '../../../primitives/text-elements';
-import { useTesseraOverride } from '../../../primitives/TesseraProvider/behavior/useTesseraOverride';
-import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { Box } from '../../Box';
+import { Span } from '../../text-elements';
+import { useTesseraOverride } from '../../TesseraProvider/behavior/useTesseraOverride';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import type { ErrorFallbackViewProps } from './ErrorFallbackView.type';
 
 const messageOf = (error: unknown): string => (error instanceof Error ? error.message : String(error));

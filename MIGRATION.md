@@ -871,14 +871,64 @@ Brock reads the app layout with `loadTesseraConfig`. rotp and Archipelia add a `
 
 ## 45. FullScreenLayer's margin follows the room it has
 
-The space around the card used to be a fixed 2xl padding with the card at 90% of the rest. It now steps down with the size of the layer, measured with a container query, so a small window or a small host no longer wastes its edges. Width and height step down on their own:
+The space around the card used to be a fixed 2xl padding with the card at 90% of the rest, so the sides and the top differed. It is now one gap, the same on all four sides, measured from the size of the layer with a container query:
 
-| Room | Gap | Card |
+| Room | Gap on every side |
+|---|---|
+| 1280 px wide and 800 px high or more | 2xl plus 5% of the smaller side |
+| under that | xl plus 3% of the smaller side |
+| under 960 px wide or 600 px high | the minimum |
+| under 480 px wide or 440 px high | none: the card fills the layer with square corners and no border, and the floating switch moves inside the card |
+
+The minimum is half a control height plus an lg space, so the floating switch, which sits across the top edge of the card, always has room above it; no gap above the minimum tier goes below it.
+
+The padding sits on a new `.fullscreen-layer__inset` wrapper; `.fullscreen-layer` itself has none. A host stylesheet that set the padding of `.fullscreen-layer` sets it on `.fullscreen-layer__inset`. In the gallery the page moves to Composites · Screens.
+
+## 46. ConfirmIconButton takes a placement, InlineCreateForm has a compact form, ErrorBoundary is a primitive
+
+`ConfirmIconButton` takes `placement`, which says which edge of the button stays put when the question opens. The cancel button always takes the place of the icon, so a second click backs out, and the order and alignment follow the writing direction.
+
+| Value | Where it sits | The question grows |
 |---|---|---|
-| 1280 px wide or more, 800 px high or more | 2xl | 90% of the rest |
-| 960 to 1279 px wide, 600 to 799 px high | xl | 94% |
-| 720 to 959 px wide, 440 to 599 px high | lg | the full size |
-| 480 to 719 px wide | sm | the full size |
-| under 480 px wide or 440 px high | none | fills the layer, square corners, no border; the floating switch moves inside the card |
+| `start` (default) | at the start of a row or a toolbar | toward the end, as before |
+| `end` | at the end of a row, such as a list row action | toward the start, with confirm before cancel |
+| `center` | in a centred footer | both ways from the middle |
 
-The card now sits in a new `.fullscreen-layer__inset` wrapper, which holds the padding; `.fullscreen-layer` itself has none. A host stylesheet that set the padding of `.fullscreen-layer` sets it on `.fullscreen-layer__inset`.
+`ProfilePicker` rows and the reset button of a `SettingsGroupList` heading now pass `placement="end"`, and `.settings-group-list__reset` no longer sets `justify-content`. An app that put a `ConfirmIconButton` at the end of a row passes `placement="end"` and drops any `justify-content: flex-end` it added to line the icon up.
+
+```tsx
+<ListItemRow
+  name={session.name}
+  action={(
+    <ConfirmIconButton
+      placement="end"
+      icon={<Icon name="trash-2" />}
+      label={`Remove ${session.name}`}
+      confirmLabel="Yes, remove it"
+      cancelLabel="Keep it"
+      onConfirm={() => remove(session.id)}
+    />
+  )}
+/>
+```
+
+`InlineCreateForm` takes `compact`: one line at the `sm` control size, with no box. The name field comes first, then `extraFields`, then an icon button that creates and, with `onCancel`, one that cancels. `submitLabel` and `cancelLabel` name the icon buttons and default to Create and Cancel. The name field keeps its accessible name from `label` or the placeholder, and `error` shows on a line below it. In both forms the error now describes the name field through `aria-describedby`. Controls in `extraFields` take the `sm` size unless they set their own.
+
+```tsx
+<InlineCreateForm
+  compact
+  label="New folder name"
+  placeholder="New folder"
+  submitLabel="Create folder"
+  onCreate={createFolder}
+  error={error}
+/>
+```
+
+`ErrorBoundary` moves from the composites tier to the primitives tier: it is a behaviour with a default notice and is built from primitives only. `@drizztdourden08/tessera` and `@drizztdourden08/tessera/composites` still export it, and `@drizztdourden08/tessera/primitives` now does too. Only a deep import of the folder changes:
+
+| Before | After |
+|---|---|
+| `src/composites/ErrorBoundary` | `src/primitives/ErrorBoundary` |
+
+The gallery regroups its composites. Dialogs keeps `Dialog`, `DialogShell`, `CreateRecordDialog` and `DeleteGuardDialog`. A new Overlays group takes `Overlay`, `Drawer` and `DisabledOverlay`, a new Actions group takes `ConfirmIconButton`, and a new Forms group takes `InlineCreateForm` from Dialogs and `RecordEditor` from Data views. `FullScreenLayer` moves to Screens, and `ErrorBoundary` to Primitives · Feedback. The Drawer page shows file details, filters, notifications and a search sheet in place of the menu examples.

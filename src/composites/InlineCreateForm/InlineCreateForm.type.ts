@@ -12,6 +12,7 @@ interface InlineCreateFormProps {
   defaultValue?: string;
   submitLabel?: string;
   cancelLabel?: string;
+  compact?: boolean;
   className?: string;
 }
 

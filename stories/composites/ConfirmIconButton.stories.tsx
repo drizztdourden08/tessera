@@ -2,18 +2,22 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { ConfirmIconButton, ListItemRow } from '../../src/composites';
+import type { ConfirmIconButtonPlacement } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { LogToolbarDemo, PresetCardDemo } from './_samples/ConfirmPlacementDemos';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS } from './_samples/sessions';
 import type { SampleSession } from './_samples/sessions';
+import './ConfirmIconButton.stories.css';
 
 type ConfirmArgs = {
   label: string;
   confirmLabel: string;
   cancelLabel: string;
+  placement: ConfirmIconButtonPlacement;
   disabled: boolean;
 };
 
@@ -28,9 +32,11 @@ const RowsDemo = (props: ConfirmArgs) => {
           key={session.id}
           name={session.name}
           meta={`${session.players} players, ${session.server}`}
+          actionVisibility="always"
           action={(
             <ConfirmIconButton
               {...props}
+              placement="end"
               icon={trash}
               label={`Remove ${session.name}`}
               onConfirm={() => setRows(rows.filter((row) => row.id !== session.id))}
@@ -43,17 +49,24 @@ const RowsDemo = (props: ConfirmArgs) => {
   );
 };
 
-const ARGS: Partial<ConfirmArgs> = { label: 'Remove session', confirmLabel: 'Yes, remove it', cancelLabel: 'Keep it', disabled: false };
+const ARGS: Partial<ConfirmArgs> = {
+  label: 'Remove session', confirmLabel: 'Yes, remove it', cancelLabel: 'Keep it', placement: 'start', disabled: false,
+};
 
 const ARG_TYPES: StoryLiteArgTypes<ConfirmArgs> = {
-    label: { control: 'text' },
-    confirmLabel: { control: 'text' },
-    cancelLabel: { control: 'text' },
-    disabled: { control: 'boolean' },
-  };
+  label: { control: 'text' },
+  confirmLabel: { control: 'text' },
+  cancelLabel: { control: 'text' },
+  placement: {
+    control: 'select',
+    options: ['start', 'center', 'end'],
+    description: 'Which edge stays put when the question opens: the start, the centre or the end.',
+  },
+  disabled: { control: 'boolean' },
+};
 
 const meta = {
-  title: 'Composites · Dialogs/ConfirmIconButton',
+  title: 'Composites · Actions/ConfirmIconButton',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<ConfirmArgs>;
 
@@ -66,6 +79,7 @@ const Playground = {
       label={args.label}
       confirmLabel={args.confirmLabel}
       cancelLabel={args.cancelLabel}
+      placement={args.placement}
       disabled={args.disabled}
       icon={trash}
       onConfirm={() => undefined}
@@ -74,10 +88,20 @@ const Playground = {
 } satisfies StoryLiteStoryDefinition<ConfirmArgs>;
 
 const InListRows = {
-  name: 'In list rows',
+  name: 'At the end of a list row',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RowsDemo {...args} />,
+} satisfies StoryLiteStoryDefinition<ConfirmArgs>;
+
+const InToolbar = {
+  name: 'At the start of a toolbar',
+  render: () => <LogToolbarDemo />,
+} satisfies StoryLiteStoryDefinition<ConfirmArgs>;
+
+const InCardFooter = {
+  name: 'In a centred card footer',
+  render: () => <PresetCardDemo />,
 } satisfies StoryLiteStoryDefinition<ConfirmArgs>;
 
 const renderState = (props: StateProps) => (
@@ -86,18 +110,19 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'ConfirmIconButton',
-  description: 'An icon action that asks before it runs. Reach for it on a row action that cannot be undone, such as removing an entry, where a dialog over the page would be too much. At rest it is one glyph; pressing it swaps in a red cancel and a green confirm, with focus on cancel. Escape backs out, and disabling it drops a pending question. defaultArmed opens it on the question.',
+  description: 'An icon action that asks before it runs. Reach for it on a row action that cannot be undone, such as removing an entry, where a dialog over the page would be too much. At rest it is one glyph; pressing it swaps in a red cancel and a green confirm, with focus on cancel, and cancel takes the place of the glyph so a second click backs out. placement says which edge stays put: start grows toward the end, end grows toward the start, and center grows both ways from the middle. Escape backs out, and disabling it drops a pending question. defaultArmed opens it on the question.',
   playground: Playground,
-  variants: [InListRows],
+  variants: [InListRows, InToolbar, InCardFooter],
   states: {
     render: renderState,
     list: [
       STATE.idle,
       { name: 'Armed', props: { defaultArmed: true } },
+      { name: 'Armed at the end', props: { defaultArmed: true, placement: 'end' } },
       { ...STATE.disabled, props: { disabled: true, label: 'Cannot remove a running session' } },
     ],
   },
 });
 
 export default meta;
-export { InListRows, Overview, Playground };
+export { InCardFooter, InListRows, InToolbar, Overview, Playground };
