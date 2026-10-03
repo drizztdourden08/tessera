@@ -282,7 +282,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.6.0",
       "components": {
         "StepperProps": "NumberStepperProps",
         "Stepper": "NumberStepper"
