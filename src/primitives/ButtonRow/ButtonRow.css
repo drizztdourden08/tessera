@@ -1,0 +1,23 @@
+/* @layer renderer-components @kind style */
+.button-row .btn--md {
+  block-size: var(--control-h-md);
+}
+
+.button-row .btn--sm {
+  block-size: var(--control-h-sm);
+}
+
+.button-row__lead {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+  min-inline-size: 0;
+}
+
+.button-row--bar {
+  padding: var(--space-md) var(--space-xl);
+  border-block-start: var(--border-width-thin) solid var(--c-hairline);
+  background: var(--c-glass);
+}

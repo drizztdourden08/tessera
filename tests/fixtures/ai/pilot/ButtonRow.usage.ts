@@ -17,6 +17,7 @@ const usage = {
     'Keep one primary button per row.',
     'Change the spacing through the gap prop, never with margins on the buttons.',
     'Set align="start" or align="between" only when the layout around the row asks for it.',
+    'At the foot of a panel or a wizard, set variant="bar" for the dark action bar, and put a hint or a control of the step in lead, at the start.',
   ],
   a11y: [
     'Focus moves through the buttons in source order, so write them in reading order.',
@@ -35,7 +36,7 @@ const DialogActions = ({ onCancel, onSave }: { onCancel: () => void; onSave: () 
   </ButtonRow>
 );
 `,
-  propsHash: '35bee83bf1368908',
+  propsHash: '2a33a8ce1b07b4fe',
 } satisfies ComponentUsage;
 
 export { usage };

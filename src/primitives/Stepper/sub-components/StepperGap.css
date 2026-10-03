@@ -1,0 +1,42 @@
+/* @layer renderer-components @kind style */
+.stepper__gap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-inline-size: var(--size-16);
+  padding-block-start: calc(var(--stepper-dot) + var(--space-sm));
+}
+
+.stepper__gap:has(.stepper-sub-steps) {
+  min-inline-size: var(--size-128);
+}
+
+.stepper__line {
+  position: absolute;
+  inset-block-start: calc((var(--stepper-dot) - var(--stepper-line)) / 2);
+  inset-inline: calc((var(--stepper-dot) - var(--stepper-step-w)) / 2);
+  block-size: var(--stepper-line);
+  border-radius: var(--radius-pill);
+  background: var(--c-border-strong);
+}
+
+.stepper__line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--stepper-tone);
+  box-shadow: 0 0 calc(var(--blur-glow) / 2) var(--stepper-tone);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration-step-line) var(--ease-in-out);
+}
+
+.stepper__item:is([data-status='done'], [data-status='error']) .stepper__line::after {
+  transform: none;
+}
+
+.stepper[data-direction='forward'] .stepper__item[data-wave][data-status='done'] .stepper__line::after {
+  transition-delay: calc(var(--stepper-wave) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)) + var(--duration-step-fill));
+}

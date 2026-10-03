@@ -1,0 +1,89 @@
+/* @layer renderer-components @kind style */
+.stepper__item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex: 1 1 0;
+}
+
+.stepper__item:has(.stepper-sub-steps) {
+  flex-grow: 2;
+}
+
+.stepper__item:last-child {
+  flex: none;
+}
+
+.stepper__step {
+  position: relative;
+  z-index: var(--z-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: none;
+  inline-size: var(--stepper-step-w);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.stepper__step:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-2);
+}
+
+.stepper__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.stepper__label {
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  color: var(--c-text-muted);
+  transition: color var(--duration-normal) var(--ease-standard);
+}
+
+.stepper__summary {
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stepper__item[data-status='done'] .stepper__label {
+  color: var(--c-text);
+}
+
+.stepper__item:is([data-status='current'], [data-status='error']) .stepper__label {
+  color: var(--stepper-tone);
+  font-weight: var(--weight-semi);
+}
+
+.stepper__step:enabled:hover .stepper__label {
+  color: var(--c-primary-bright);
+}
+
+.stepper__item[data-status='error'] {
+  --stepper-tone: var(--c-danger);
+}
+
+.stepper[data-direction='forward'] .stepper__item[data-wave]:not([data-wave='0']) .stepper__label {
+  transition-delay: calc((var(--stepper-wave) - 1) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)) + var(--duration-step-fill) + var(--duration-step-line));
+}
+
+.stepper[data-direction='back'] .stepper__label,
+.stepper[data-direction='back'] .stepper__line::after {
+  transition-duration: var(--duration-normal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper .stepper__label,
+  .stepper .stepper__line::after {
+    transition: none;
+  }
+}

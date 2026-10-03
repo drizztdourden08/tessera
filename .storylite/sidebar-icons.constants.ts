@@ -65,14 +65,15 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Toast: 'bell', Tooltip: 'message-square',
     HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone', ErrorBoundary: 'bug',
   },
-  'Primitives · Navigation': { Tabs: 'panels-top-left', RouterLink: 'route' },
+  'Primitives · Navigation': { Tabs: 'panels-top-left', RouterLink: 'route', Stepper: 'git-commit-horizontal' },
   'Composites · Dialogs': {
     Dialog: 'app-window', DialogShell: 'app-window-mac', CreateRecordDialog: 'file-plus', DeleteGuardDialog: 'shield-alert',
+    WizardDialog: 'wand-sparkles',
   },
   'Composites · Overlays': { Overlay: 'layers-2', Drawer: 'panel-right', DisabledOverlay: 'ban' },
   'Composites · Actions': { ConfirmIconButton: 'circle-check' },
   'Composites · Wizard': {
-    Wizard: 'wand-sparkles', WizardProgress: 'git-commit-horizontal', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
+    Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
   'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', ProfilePicker: 'users' },

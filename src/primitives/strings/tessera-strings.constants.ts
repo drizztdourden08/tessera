@@ -9,6 +9,7 @@ import { NAVIGATION_STRINGS } from './navigation-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
 import { PASSWORD_STRINGS } from './password-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
+import { STEPPER_STRINGS } from './stepper-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
 import { VIDEO_STRINGS } from './video-strings.constants';
 import { WIDGET_STRINGS } from './widgets-strings.constants';
@@ -29,6 +30,7 @@ const TESSERA_STRINGS = {
   navigation: NAVIGATION_STRINGS,
   panels: PANEL_STRINGS,
   widgets: WIDGET_STRINGS,
+  stepper: STEPPER_STRINGS,
   windows: WINDOW_STRINGS,
   wizard: WIZARD_STRINGS,
 };

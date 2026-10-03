@@ -1,0 +1,21 @@
+/* @layer renderer-components @kind style */
+.dialog.wizard-dialog {
+  display: flex;
+  flex-direction: column;
+  inline-size: 92%;
+  max-inline-size: var(--size-768);
+  block-size: min(80vh, var(--size-640));
+  padding: 0;
+  overflow: hidden;
+}
+
+.wizard-dialog > .dialog__header {
+  margin: 0;
+  padding: var(--space-md) var(--space-lg);
+  border-block-end: var(--border-width-thin) solid var(--c-hairline);
+}
+
+.wizard-dialog > .wizard-frame {
+  flex: 1 1 auto;
+  block-size: auto;
+}

@@ -1,13 +1,12 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { WizardFrame } from '../../src/composites';
-import type { WizardOrientation, WizardPresentation } from '../../src/composites';
 import { Box } from '../../src/primitives';
+import type { StepperOrientation } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { frozenWizard } from './_samples/frozen-wizard';
-import { CalibrationWizard } from './_samples/CalibrationWizard';
 import { ProfileWizardDemo } from './_samples/ProfileWizardDemo';
 import { INITIAL_ROM_IMPORT, ROM_FILE, ROM_IMPORT_STEPS } from './_samples/rom-import-data';
 import { RomImportPanel } from './_samples/RomImportPanel';
@@ -16,17 +15,15 @@ import './Wizard.stories.css';
 
 type WizardArgs = {
   title: string;
-  orientation: WizardOrientation;
-  presentation: WizardPresentation;
+  orientation: StepperOrientation;
   compactProgress: boolean;
 };
 
-const ARGS: Partial<WizardArgs> = { title: 'Import a ROM', orientation: 'horizontal', presentation: 'inline', compactProgress: false };
+const ARGS: Partial<WizardArgs> = { title: 'Import a ROM', orientation: 'horizontal', compactProgress: false };
 
 const ARG_TYPES: StoryLiteArgTypes<WizardArgs> = {
   title: { control: 'text' },
   orientation: { control: 'select', options: ['horizontal', 'vertical'], description: 'Steps on top, or in a column on the left.' },
-  presentation: { control: 'select', options: ['inline', 'dialog'], description: 'Inside the screen, or in a dialog.' },
   compactProgress: { control: 'boolean', description: 'Step 2 of 4 and a bar, for tight spaces.' },
 };
 
@@ -40,7 +37,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <RomImportPanel title={args.title} orientation={args.orientation} presentation={args.presentation} compact={args.compactProgress} />
+    <RomImportPanel title={args.title} orientation={args.orientation} compact={args.compactProgress} />
   ),
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
@@ -51,17 +48,12 @@ const ProfileInScreen = {
 
 const StepsOnTop = {
   name: 'Steps on top: importing a ROM',
-  render: () => <RomImportPanel title="Import a ROM" orientation="horizontal" presentation="inline" compact={false} />,
-} satisfies StoryLiteStoryDefinition<WizardArgs>;
-
-const InDialog = {
-  name: 'In a dialog: calibrating a controller',
-  render: () => <CalibrationWizard />,
+  render: () => <RomImportPanel title="Import a ROM" orientation="horizontal" compact={false} />,
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
 const Compact = {
   name: 'Compact progress, in a narrow panel',
-  render: () => <RomImportPanel title="Import a ROM" orientation="horizontal" presentation="inline" compact short />,
+  render: () => <RomImportPanel title="Import a ROM" orientation="horizontal" compact short />,
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
 const FAILED = 'Extraction stopped: the data folder is full. Free some space, then import again; the ROM is untouched.';
@@ -77,7 +69,7 @@ const renderState = (props: StateProps) => {
   });
   return (
     <Box className="rom-import-story rom-import-story--short">
-      <WizardFrame wizard={wizard} title="Import a ROM" onExit={() => undefined} finishLabel="Import ROM" busyLabel="Extracting assets...">
+      <WizardFrame wizard={wizard} title="Import a ROM" onExit={() => undefined}>
         <RomImportBody wizard={wizard} />
       </WizardFrame>
     </Box>
@@ -87,16 +79,26 @@ const renderState = (props: StateProps) => {
 const CODE = `import { useWizard, WizardFrame } from '@drizztdourden08/tessera';
 
 const STEPS = [
-  { id: 'basics', label: 'Basics', validate: (d) => (d.name.trim() ? null : 'Give the profile a name to continue.') },
-  { id: 'mode', label: 'Mode' },
-  { id: 'seed', label: 'Seed and connection', when: (d) => d.mode !== 'standard' },
-  { id: 'review', label: 'Review' },
+  {
+    id: 'basics',
+    label: 'Basics',
+    validate: (d) => (d.name.trim() ? null : 'Give the profile a name to continue.'),
+    summary: (d) => d.name,
+  },
+  { id: 'mode', label: 'Mode', hint: 'You can change the mode until the profile is created.' },
+  { id: 'seed', label: 'Seed and connection', when: (d) => d.mode !== 'standard', extra: (wizard) => <TestConnection wizard={wizard} /> },
+  {
+    id: 'review',
+    label: 'Review',
+    busyHint: 'Generating seed...',
+    buttons: { back: { label: 'Change something' }, next: { label: 'Create profile', icon: 'plus' } },
+  },
 ];
 
 const NewProfile = ({ onDone }: { onDone: () => void }) => {
   const wizard = useWizard({ steps: STEPS, initialValues: EMPTY_PROFILE, onFinish: createProfile, onFinished: onDone });
   return (
-    <WizardFrame wizard={wizard} title="New profile" orientation="vertical" onExit={onDone} finishLabel="Create profile">
+    <WizardFrame wizard={wizard} title="New profile" orientation="vertical" onExit={onDone}>
       <ProfileStep wizard={wizard} />
     </WizardFrame>
   );
@@ -105,9 +107,9 @@ const NewProfile = ({ onDone }: { onDone: () => void }) => {
 const Overview = overviewStory({
   component: 'Wizard',
   importName: 'WizardFrame',
-  description: 'A task done in steps, such as creating a profile. useWizard holds the steps, the input, where the user is, what they have visited, the errors and the finish; WizardFrame lays it out with WizardProgress, WizardStep, WizardNav and WizardExitGuard. It sits inside a screen by default, with the steps on top or in a column on the left, the step filling the rest with its own scroll and the buttons in a footer that stays put; it can open in a dialog instead. A step can be hidden by a condition, Next stays off until the step is valid, and a finish that fails keeps every input and shows the error on the last step. Leaving with unsaved input asks first.',
+  description: 'A task done in steps, such as creating a profile. useWizard holds the steps, the input, where the user is, what they have visited, the errors and the finish. Each step definition drives the whole wizard: its label and summary and sub-steps feed the Stepper, its validate and hint feed the hint in the action bar, busyHint shows while the finish runs, extra adds something of its own to the bar, and buttons changes the label or the icon of Cancel, Back and Next on that step, each on its own; on the last step Next is the finish button. WizardFrame lays it out: the Stepper on top or down the left, the step filling the rest with its own scroll, and WizardNav in a dark action bar that stays put. The step fades out while its circle fills and the next one fades in while the line runs on. A step can be hidden by a condition, Next stays off until the step is valid, and a finish that fails keeps every input and shows the error on the last step. Leaving with unsaved input asks first. WizardDialog puts the same wizard in a dialog.',
   playground: Playground,
-  variants: [ProfileInScreen, StepsOnTop, InDialog, Compact],
+  variants: [ProfileInScreen, StepsOnTop, Compact],
   states: {
     render: renderState,
     list: [
@@ -121,4 +123,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, InDialog, Overview, Playground, ProfileInScreen, StepsOnTop };
+export { Compact, Overview, Playground, ProfileInScreen, StepsOnTop };

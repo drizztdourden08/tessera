@@ -1,9 +1,23 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
+import type { IconName } from '../../primitives/Icon';
+import type { StepperSubStep } from '../../primitives/Stepper';
 import type { CreateOutcome } from '../CreateRecordDialog/CreateRecordDialog.type';
 
 type WizardValues = object;
 
 type WizardProblem = string | { message: string; inField: boolean };
+
+interface WizardButtonLook {
+  label?: string;
+  icon?: IconName | null;
+}
+
+interface WizardStepButtons {
+  cancel?: WizardButtonLook | false;
+  back?: WizardButtonLook | false;
+  next?: WizardButtonLook;
+}
 
 interface WizardStepDef<V extends WizardValues> {
   id: string;
@@ -11,6 +25,12 @@ interface WizardStepDef<V extends WizardValues> {
   description?: string;
   when?: (values: V) => boolean;
   validate?: (values: V) => WizardProblem | null;
+  hint?: string | ((values: V) => string | null);
+  busyHint?: string | ((values: V) => string);
+  summary?: (values: V) => string | undefined;
+  subSteps?: readonly StepperSubStep[] | ((values: V) => readonly StepperSubStep[]);
+  buttons?: WizardStepButtons;
+  extra?: (wizard: WizardApi<V>) => ReactNode;
 }
 
 interface WizardOptions<V extends WizardValues> {
@@ -66,4 +86,7 @@ interface WizardApi<V extends WizardValues> extends WizardView<V> {
 
 type WizardMoves<V extends WizardValues> = Pick<WizardApi<V>, 'goNext' | 'goBack' | 'goTo' | 'setValue' | 'update' | 'setError'>;
 
-export type { WizardAction, WizardApi, WizardMoves, WizardOptions, WizardProblem, WizardState, WizardStepDef, WizardValues, WizardView };
+export type {
+  WizardAction, WizardApi, WizardButtonLook, WizardMoves, WizardOptions, WizardProblem, WizardState, WizardStepButtons, WizardStepDef, WizardValues,
+  WizardView,
+};

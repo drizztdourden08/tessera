@@ -1,15 +1,15 @@
 /* @layer stories @kind story */
 import { useCallback } from 'react';
-import { useWizard, WizardFrame, WizardReview } from '../../../src/composites';
-import type { CreateOutcome, WizardApi, WizardOrientation, WizardPresentation } from '../../../src/composites';
+import { useWizard, WizardDialog, WizardFrame, WizardReview } from '../../../src/composites';
+import type { CreateOutcome, WizardApi } from '../../../src/composites';
 import { Button, Callout, DropZone, Field, Icon, TermList, TextInput, Toggle } from '../../../src/primitives';
+import type { StepperOrientation } from '../../../src/primitives';
 import { INITIAL_ROM_IMPORT, ROM_CHECKS, ROM_FILE, ROM_IMPORT_STEPS, romImportReview } from './rom-import-data';
 import type { RomImportDraft } from './rom-import-data';
 
 type RomImportWizardProps = {
   title: string;
-  orientation: WizardOrientation;
-  presentation: WizardPresentation;
+  orientation: StepperOrientation;
   compact: boolean;
   open?: boolean;
   onExit: () => void;
@@ -47,7 +47,7 @@ const RomImportBody = ({ wizard }: { wizard: WizardApi<RomImportDraft> }) => {
 };
 
 const RomImportWizard = (props: RomImportWizardProps) => {
-  const { title, orientation, presentation, compact, open, onExit, onOpened } = props;
+  const { title, orientation, compact, open, onExit, onOpened } = props;
   const onFinish = useCallback(async (draft: RomImportDraft): Promise<CreateOutcome> => {
     await new Promise((resolve) => {
       setTimeout(resolve, 1200);
@@ -55,21 +55,11 @@ const RomImportWizard = (props: RomImportWizardProps) => {
     return { success: true, id: draft.label };
   }, []);
   const wizard = useWizard({ steps: ROM_IMPORT_STEPS, initialValues: INITIAL_ROM_IMPORT, onFinish, onFinished: onOpened });
-  return (
-    <WizardFrame
-      wizard={wizard}
-      title={title}
-      orientation={orientation}
-      presentation={presentation}
-      compactProgress={compact}
-      open={open}
-      onExit={onExit}
-      finishLabel="Import ROM"
-      busyLabel="Extracting assets..."
-    >
-      <RomImportBody wizard={wizard} />
-    </WizardFrame>
-  );
+  const frame = { wizard, orientation, compactProgress: compact, onExit };
+  const body = <RomImportBody wizard={wizard} />;
+  return open === undefined
+    ? <WizardFrame {...frame} title={title}>{body}</WizardFrame>
+    : <WizardDialog {...frame} open={open} title={title}>{body}</WizardDialog>;
 };
 
 export { RomImportBody, RomImportWizard };

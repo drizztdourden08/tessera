@@ -1069,6 +1069,16 @@
       "usage": false
     },
     {
+      "name": "Stepper",
+      "tier": "primitives",
+      "source": "src/primitives/Stepper/Stepper.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
       "name": "Svg",
       "tier": "primitives",
       "source": "src/primitives/Svg/Svg.tsx",
@@ -2319,6 +2329,16 @@
       "usage": false
     },
     {
+      "name": "WizardDialog",
+      "tier": "composites",
+      "source": "src/composites/Wizard/WizardDialog/WizardDialog.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
       "name": "WizardExitGuard",
       "tier": "composites",
       "source": "src/composites/Wizard/WizardExitGuard/WizardExitGuard.tsx",
@@ -2342,16 +2362,6 @@
       "name": "WizardNav",
       "tier": "composites",
       "source": "src/composites/Wizard/WizardNav/WizardNav.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "WizardProgress",
-      "tier": "composites",
-      "source": "src/composites/Wizard/WizardProgress/WizardProgress.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"

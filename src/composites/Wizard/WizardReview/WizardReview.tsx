@@ -20,7 +20,6 @@ const WizardReview = (props: WizardReviewProps) => {
             {onEdit && (
               <Button
                 variant="ghost"
-                size="sm"
                 icon={<Icon name="pencil" />}
                 disabled={disabled}
                 aria-label={wizard.editStep(section.title)}

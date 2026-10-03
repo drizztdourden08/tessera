@@ -303,6 +303,8 @@
   --duration-mascot-hop: 2.4s;
   --duration-step-fill: 0.52s;
   --duration-step-line: 0.38s;
+  --duration-step-ring: 0.46s;
+  --duration-step-breathe: 2.8s;
   --ease-standard: ease;
   --ease-in-out: ease-in-out;
   --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);

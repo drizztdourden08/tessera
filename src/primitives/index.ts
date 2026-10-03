@@ -29,6 +29,8 @@ export { Badge } from './Badge';
 export type { BadgeAnchor, BadgeColor, BadgeProps, BadgeText, BadgeValue, BadgeVariant } from './Badge';
 export { Status } from './Status';
 export type { StatusProps, StatusTone, StatusVariant } from './Status';
+export { Stepper } from './Stepper';
+export type { StepperOrientation, StepperProps, StepperStatus, StepperStep, StepperSubStep } from './Stepper';
 export { Tag } from './Tag';
 export type {
   TagCategoryColor, TagColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
@@ -106,7 +108,7 @@ export type { ErrorBoundaryProps } from './ErrorBoundary';
 export { EmptyState } from './EmptyState';
 export type { EmptyStateProps } from './EmptyState';
 export { ButtonRow } from './ButtonRow';
-export type { ButtonRowProps } from './ButtonRow';
+export type { ButtonRowProps, ButtonRowVariant } from './ButtonRow';
 export { ButtonGroup } from './ButtonGroup';
 export type { ButtonGroupOrientation, ButtonGroupProps } from './ButtonGroup';
 export { StatRow } from './StatRow';

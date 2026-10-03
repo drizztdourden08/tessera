@@ -1442,3 +1442,37 @@ The gallery groups change too. Composites · Navigation keeps only navigation. L
 ### What an app does
 
 An app that imports `Emphasis` or its types from `@drizztdourden08/tessera/composites` imports them from the package root or from `@drizztdourden08/tessera/primitives`. No name changes, so RENAMES.json has no entry for this section.
+
+## 62. WizardProgress is the Stepper primitive; the step definition drives the wizard; WizardDialog; ButtonRow has a bar
+
+`WizardProgress` is now the primitive `Stepper`, with `StepperProps`, `StepperStep`, `StepperSubStep`, `StepperStatus` and `StepperOrientation` in place of `WizardProgressProps`, `WizardProgressStep`, `WizardSubStep`, `WizardStepState` and `WizardOrientation`. Its props are the same. A step takes `error` to show that it needs attention. Summaries and sub-steps now show in both orientations: in a horizontal Stepper the sub-steps stack under the line that follows their step. The lines meet the circles exactly in both orientations, and sub-steps never break them.
+
+Each step forward plays one sequence: the circle fills from the side its line leaves, the line runs to the next circle, the colour reaches that circle where the line meets it and spreads both ways round its border until the ends meet, then the current circle breathes. Done and current circles glow. A jump over several steps plays the sequence once per step. The new tokens `--duration-step-ring` and `--duration-step-breathe` time the last two parts. The class names move from `wizard-progress`, `wizard-dot` and `wizard-sub-steps` to `stepper`, `stepper-dot` and `stepper-sub-steps`, and the strings `steps`, `stepOf`, `stepName`, `stepDone`, `sections` and `changedCount` move from the `wizard` group to a new `stepper` group, which adds `stepError`.
+
+The step definition now drives the whole wizard. `WizardStepDef` takes:
+
+- `summary(values)` and `subSteps`, an array or a function of the values, for the Stepper;
+- `hint`, a string or a function of the values, shown in the action bar when the step is valid;
+- `busyHint`, shown while the finish runs;
+- `extra(wizard)`, something of the step's own in the action bar;
+- `buttons`, which changes the `label` or the `icon` of `cancel`, `back` and `next` on that step, each on its own. `false` drops Back or Cancel, and `icon: null` drops an icon. On the last step `next` is the finish button.
+
+So `WizardFrame` drops `stepInfo`, `finishLabel`, `busyLabel` and `navExtra`, and `WizardNav` drops `cancelLabel`, `backLabel`, `nextLabel` and `finishLabel` for `buttons`, and renames `busyLabel` to `busyHint`. WizardNav generates Back with an arrow on its left and Next with an arrow on its right, both the same size, and the finish button with a check. It is a `ButtonRow` with the new `variant="bar"`: the dark action bar, padded and ruled off. `ButtonRow` also takes `lead`, content at the start of the row, and every button in a ButtonRow is now the same height. The step content fades out while its circle fills and fades in while the line runs.
+
+`WizardFrame` drops `presentation` and `open`: the dialog form is the new `WizardDialog`, which puts the same wizard under the standard dialog header.
+
+```tsx
+const STEPS: readonly WizardStepDef<Draft>[] = [
+  { id: 'basics', label: 'Basics', validate: nameProblem, summary: (d) => d.name },
+  { id: 'options', label: 'Options', subSteps: (d) => optionTabs(d) },
+  { id: 'review', label: 'Review', busyHint: 'Generating seed...', buttons: { next: { label: 'Create profile', icon: 'plus' } } },
+];
+
+<WizardDialog wizard={wizard} open={open} title="New profile" onExit={close}>
+  <ProfileStep wizard={wizard} />
+</WizardDialog>
+```
+
+### What an app does
+
+An app renames `WizardProgress` and its types and classes as RENAMES.json lists. It moves `stepInfo` into `summary` and `subSteps` on each step, `finishLabel` into `buttons.next.label` and `busyLabel` into `busyHint` on the last step, and `navExtra` into `extra` on the step that shows it. A `WizardFrame` with `presentation="dialog"` becomes a `WizardDialog` with the same props and `open`. An app that overrides the wizard strings for the step strip moves them to the `stepper` group.

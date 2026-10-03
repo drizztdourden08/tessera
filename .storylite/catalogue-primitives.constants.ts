@@ -94,6 +94,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
       group: 'Navigation',
       entries: [
         { name: 'Tabs', summary: 'Tabs that scroll when they overflow.' },
+        { name: 'Stepper', summary: 'The steps of a task as circles joined by lines, filling in sequence as each step is done.' },
         { name: 'RouterLink', summary: 'A link to a route in the app: a real href, and a plain click calls the app navigate.' },
       ],
     },

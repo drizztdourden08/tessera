@@ -14,12 +14,11 @@ export { Dialog } from './Dialog';
 export { DialogShell } from './DialogShell';
 export type { DialogShellProps } from './DialogShell';
 export {
-  WizardExitGuard, WizardFrame, WizardNav, WizardProgress, WizardReview, WizardStep, useWizard, useWizardExit,
+  WizardDialog, WizardExitGuard, WizardFrame, WizardNav, WizardReview, WizardStep, useWizard, useWizardExit,
 } from './Wizard';
 export type {
-  WizardApi, WizardExit, WizardExitGuardProps, WizardExitOptions, WizardFrameProps, WizardNavProps, WizardOptions,
-  WizardOrientation, WizardPresentation, WizardProgressProps, WizardProgressStep, WizardReviewProps, WizardReviewSection,
-  WizardProblem, WizardStepDef, WizardStepInfo, WizardStepProps, WizardStepState, WizardSubStep, WizardValues,
+  WizardApi, WizardButtonLook, WizardDialogProps, WizardExit, WizardExitGuardProps, WizardExitOptions, WizardFrameProps, WizardNavProps,
+  WizardOptions, WizardProblem, WizardReviewProps, WizardReviewSection, WizardStepButtons, WizardStepDef, WizardStepProps, WizardValues,
 } from './Wizard';
 export { GroupTree } from './GroupTree';
 export type { GroupTreeProps, TreeNode } from './GroupTree';

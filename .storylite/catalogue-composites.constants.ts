@@ -12,6 +12,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'DialogShell', summary: 'The frame every modal is built in.' },
         { name: 'CreateRecordDialog', summary: 'A modal form that creates one record.' },
         { name: 'DeleteGuardDialog', summary: 'Confirms a delete and lists what still points at it.' },
+        { name: 'WizardDialog', summary: 'A wizard in a dialog, under the standard dialog header.' },
       ],
     },
     {
@@ -25,10 +26,9 @@ const COMPOSITES_TIER: CatalogueTier = {
     {
       group: 'Wizard',
       entries: [
-        { name: 'Wizard', summary: 'A task done in steps, inside a screen or a dialog, with useWizard behind it.' },
-        { name: 'WizardProgress', summary: 'The step strip: numbered circles that fill as each step is done.' },
+        { name: 'Wizard', summary: 'A task done in steps inside a screen, driven by its step definitions, with useWizard behind it.' },
         { name: 'WizardStep', summary: 'One step: heading, description, an error on top, then the fields.' },
-        { name: 'WizardNav', summary: 'Cancel, Back, Next and the finish button, with a busy state.' },
+        { name: 'WizardNav', summary: 'The action bar of a wizard: Cancel, Back and Next built from the step, with a busy state.' },
         { name: 'WizardReview', summary: 'The last step: what was chosen per step, each with Edit.' },
         { name: 'WizardExitGuard', summary: 'Asks before unsaved input is thrown away.' },
       ],

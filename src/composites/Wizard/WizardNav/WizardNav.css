@@ -1,12 +1,4 @@
 /* @layer renderer-components @kind style */
-.wizard-nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-sm) var(--space-md);
-  min-inline-size: 0;
-}
-
 .wizard-nav__extra {
   display: flex;
   align-items: center;
@@ -29,4 +21,21 @@
   align-items: center;
   gap: var(--space-sm);
   margin-inline-start: auto;
+}
+
+.wizard-nav__pair {
+  display: inline-grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  gap: var(--space-sm);
+}
+
+.wizard-nav__button {
+  justify-content: center;
+}
+
+.wizard-nav__icon {
+  flex: none;
+  inline-size: var(--size-16);
+  block-size: var(--size-16);
 }

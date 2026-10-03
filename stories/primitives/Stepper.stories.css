@@ -1,0 +1,29 @@
+/* @layer stories @kind style */
+.stepper-story__driver {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  inline-size: 100%;
+}
+
+.stepper-story__pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 16rem;
+  align-items: start;
+  gap: var(--space-2xl);
+}
+
+.stepper-story__rail {
+  inline-size: 16rem;
+  padding: var(--space-lg);
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+}
+
+.stepper-story__wide {
+  inline-size: 100%;
+}
+
+.stepper-story__compact {
+  inline-size: 20rem;
+}

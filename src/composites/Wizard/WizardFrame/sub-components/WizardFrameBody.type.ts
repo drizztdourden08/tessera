@@ -1,11 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { WizardOrientation } from '../../WizardProgress/WizardProgress.type';
-import type { WizardPresentation } from '../WizardFrame.type';
+import type { StepperOrientation } from '../../../../primitives/Stepper';
 
 interface WizardFrameBodyProps {
-  orientation: WizardOrientation;
-  presentation: WizardPresentation;
+  orientation: StepperOrientation;
   stepKey: string;
   title?: ReactNode;
   progress: ReactNode;

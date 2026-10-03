@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { IconName } from '../../../primitives/Icon';
+import type { WizardStepButtons } from '../wizard.type';
 
 interface WizardNavProps {
   isFirst: boolean;
@@ -7,24 +9,25 @@ interface WizardNavProps {
   canGoNext: boolean;
   busy?: boolean;
   hint?: ReactNode;
+  busyHint?: string;
   extra?: ReactNode;
+  buttons?: WizardStepButtons;
   onCancel?: () => void;
   onBack: () => void;
   onNext: () => void;
   onFinish: () => void;
-  cancelLabel?: string;
-  backLabel?: string;
-  nextLabel?: string;
-  finishLabel?: string;
-  busyLabel?: string;
   className?: string;
 }
 
-interface WizardNavLabels {
-  cancel: string;
-  back: string;
-  next: string;
-  finish: string;
+interface WizardNavLook {
+  label: string;
+  icon: IconName | null;
 }
 
-export type { WizardNavLabels, WizardNavProps };
+interface WizardNavLooks {
+  cancel: WizardNavLook | null;
+  back: WizardNavLook | null;
+  next: WizardNavLook;
+}
+
+export type { WizardNavLook, WizardNavLooks, WizardNavProps };

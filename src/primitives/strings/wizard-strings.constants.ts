@@ -1,11 +1,5 @@
 /* @layer renderer-components @kind data */
 const WIZARD_STRINGS = {
-  steps: 'Steps',
-  stepOf: (step: number, total: number) => `Step ${step} of ${total}`,
-  stepName: (step: number, label: string) => `Step ${step}, ${label}`,
-  stepDone: (step: number, label: string) => `Step ${step}, ${label}, done`,
-  sections: (label: string) => `${label} sections`,
-  changedCount: (count: number) => `${count} changed`,
   back: 'Back',
   next: 'Next',
   finish: 'Finish',

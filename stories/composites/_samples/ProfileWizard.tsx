@@ -1,5 +1,5 @@
 /* @layer stories @kind story */
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useWizard, WizardFrame } from '../../../src/composites';
 import type { CreateOutcome, WizardApi } from '../../../src/composites';
 import { Button, Icon } from '../../../src/primitives';
@@ -7,7 +7,7 @@ import { IDLE_CONNECTION, probeConnection } from './connection-test';
 import type { ConnectionState } from './connection-test';
 import { INITIAL_PROFILE } from './profile-wizard-data';
 import type { ProfileDraft } from './profile-wizard-data';
-import { PROFILE_STEPS, profileStepInfo } from './profile-wizard-steps';
+import { profileSteps } from './profile-wizard-steps';
 import { ProfileOptionsBody } from './ProfileOptionsBody';
 import { ProfileSeedBody } from './ProfileSeedBody';
 import { BasicsBody, ModeBody, ReviewBody, SettingsBody } from './ProfileWizardBodies';
@@ -40,20 +40,23 @@ const StepBody = ({ wizard, tab, onTab, connection }: StepBodyProps) => {
   }
 };
 
-const useConnectionTest = (wizard: WizardApi<ProfileDraft>) => {
+const targetOf = (draft: ProfileDraft) => `${draft.server}|${draft.slot}`;
+
+const useConnectionSteps = () => {
   const [connection, setConnection] = useState<ConnectionState>(IDLE_CONNECTION);
-  const test = () => {
-    setConnection({ status: 'testing', message: '' });
-    void probeConnection(wizard.values.server, wizard.values.slot).then(setConnection);
-  };
-  const online = wizard.current.id === 'seed' && wizard.values.mode === 'online';
-  const button = online ? (
-    <Button variant="ghost" icon={<Icon name="plug-zap" />} loading={connection.status === 'testing'} disabled={wizard.values.server.trim() === ''} onClick={test}>
-      Test connection
-    </Button>
-  ) : undefined;
-  const current = connection.target === undefined || connection.target === `${wizard.values.server}|${wizard.values.slot}`;
-  return { connection: current ? connection : IDLE_CONNECTION, button };
+  const steps = useMemo(() => profileSteps((wizard) => {
+    if (wizard.values.mode !== 'online') return null;
+    const test = () => {
+      setConnection({ status: 'testing', message: '' });
+      void probeConnection(wizard.values.server, wizard.values.slot).then(setConnection);
+    };
+    return (
+      <Button variant="ghost" icon={<Icon name="plug-zap" />} loading={connection.status === 'testing'} disabled={wizard.values.server.trim() === ''} onClick={test}>
+        Test connection
+      </Button>
+    );
+  }), [connection.status]);
+  return { connection, steps };
 };
 
 const ProfileWizard = ({ failNext, onFailUsed, onCreated, onLeft }: ProfileWizardProps) => {
@@ -66,26 +69,16 @@ const ProfileWizard = ({ failNext, onFailUsed, onCreated, onLeft }: ProfileWizar
     fail.current.onFailUsed();
     return { success: false, error: SEED_FAILURE };
   }, []);
-  const wizard = useWizard({ steps: PROFILE_STEPS, initialValues: INITIAL_PROFILE, onFinish, onFinished: onCreated });
-  const { connection, button } = useConnectionTest(wizard);
+  const { connection, steps } = useConnectionSteps();
+  const wizard = useWizard({ steps, initialValues: INITIAL_PROFILE, onFinish, onFinished: onCreated });
+  const current = connection.target === undefined || connection.target === targetOf(wizard.values);
   const pickTab = (stepId: string, tabId: string) => {
     setTab(tabId);
     if (wizard.current.id !== stepId) wizard.goTo(stepId);
   };
   return (
-    <WizardFrame
-      wizard={wizard}
-      title="New profile"
-      orientation="vertical"
-      onExit={onLeft}
-      stepInfo={profileStepInfo(wizard.values, wizard.visited, wizard.current.id)}
-      activeSubStepId={tab}
-      onSubStepSelect={pickTab}
-      navExtra={button}
-      finishLabel="Create profile"
-      busyLabel={wizard.values.mode === 'standard' ? 'Creating profile...' : 'Generating seed...'}
-    >
-      <StepBody wizard={wizard} tab={tab} onTab={setTab} connection={connection} />
+    <WizardFrame wizard={wizard} title="New profile" orientation="vertical" onExit={onLeft} activeSubStepId={tab} onSubStepSelect={pickTab}>
+      <StepBody wizard={wizard} tab={tab} onTab={setTab} connection={current ? connection : IDLE_CONNECTION} />
     </WizardFrame>
   );
 };

@@ -1,6 +1,6 @@
 /* @layer stories @kind story */
 import { useCallback, useState } from 'react';
-import { useWizard, WizardFrame, WizardReview } from '../../../src/composites';
+import { useWizard, WizardDialog, WizardReview } from '../../../src/composites';
 import type { CreateOutcome, WizardApi, WizardStepDef } from '../../../src/composites';
 import { Box, Button, Icon, P, ProgressBar, Slider, Span } from '../../../src/primitives';
 import { LiveStickPlot } from './LiveStickPlot';
@@ -23,7 +23,13 @@ const STEPS: readonly WizardStepDef<CalibrationDraft>[] = [
     description: 'Slowly rotate both sticks in full circles, reaching the physical limits in all directions.',
     validate: (d) => (d.ranged ? null : 'Rotate both sticks fully to continue.'),
   },
-  { id: 'review', label: 'Review', description: 'Test the calibrated output. Sticks should be centered at rest and reach the edge evenly. Adjust the deadzones where it helps.' },
+  {
+    id: 'review',
+    label: 'Review',
+    description: 'Test the calibrated output. Sticks should be centered at rest and reach the edge evenly. Adjust the deadzones where it helps.',
+    busyHint: 'Saving...',
+    buttons: { next: { label: 'Save Calibration', icon: 'save' } },
+  },
 ];
 
 const INITIAL: CalibrationDraft = { centered: false, ranged: false, inner: 8, outer: 92 };
@@ -75,17 +81,9 @@ const CalibrationFrame = ({ open, onDone }: { open: boolean; onDone: (message: s
   }, []);
   const wizard = useWizard({ steps: STEPS, initialValues: INITIAL, onFinish, onFinished: () => onDone('Calibration saved for the left stick.') });
   return (
-    <WizardFrame
-      wizard={wizard}
-      presentation="dialog"
-      open={open}
-      title="Left Stick Calibration"
-      onExit={() => onDone('Left without saving.')}
-      finishLabel="Save Calibration"
-      busyLabel="Saving..."
-    >
+    <WizardDialog wizard={wizard} open={open} title="Left Stick Calibration" onExit={() => onDone('Left without saving.')}>
       <Body wizard={wizard} />
-    </WizardFrame>
+    </WizardDialog>
   );
 };
 

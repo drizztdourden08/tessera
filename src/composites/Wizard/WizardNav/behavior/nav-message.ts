@@ -4,8 +4,8 @@ import type { TesseraStrings } from '../../../../primitives/strings/tessera-stri
 import type { WizardNavProps } from '../WizardNav.type';
 
 const navMessage = (props: WizardNavProps, strings: TesseraStrings): ReactNode => {
-  if (props.busy) return props.busyLabel ?? strings.wizard.finishing;
-  return props.canGoNext ? null : props.hint;
+  if (props.busy) return props.busyHint ?? strings.wizard.finishing;
+  return props.hint;
 };
 
 export { navMessage };

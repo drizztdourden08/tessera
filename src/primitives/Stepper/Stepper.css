@@ -1,0 +1,69 @@
+/* @layer renderer-components @kind style */
+.stepper {
+  --stepper-dot: var(--size-32);
+  --stepper-ring: var(--border-width-thick);
+  --stepper-line: var(--border-width-thick);
+  --stepper-step-w: var(--size-96);
+  --stepper-gap: var(--space-xl);
+  --stepper-tone: var(--c-primary);
+
+  min-inline-size: 0;
+}
+
+.stepper__list {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stepper[data-orientation='vertical'] .stepper__list {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--stepper-gap);
+}
+
+.stepper[data-orientation='vertical'] .stepper__item {
+  display: grid;
+  grid-template-columns: var(--stepper-dot) minmax(0, 1fr);
+  column-gap: var(--space-md);
+  flex: none;
+  min-inline-size: 0;
+}
+
+.stepper[data-orientation='vertical'] .stepper__step {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-md);
+  inline-size: auto;
+  text-align: start;
+}
+
+.stepper[data-orientation='vertical'] .stepper__text {
+  padding-block-start: calc((var(--stepper-dot) - var(--text-sm) * var(--leading-tight)) / 2);
+}
+
+.stepper[data-orientation='vertical'] .stepper__gap {
+  position: static;
+  grid-column: 2;
+  min-inline-size: 0;
+  padding-block-start: 0;
+}
+
+.stepper[data-orientation='vertical'] .stepper__line {
+  inset-block: var(--stepper-dot) calc(-1 * var(--stepper-gap));
+  inset-inline: calc((var(--stepper-dot) - var(--stepper-line)) / 2) auto;
+  inline-size: var(--stepper-line);
+  block-size: auto;
+}
+
+.stepper[data-orientation='vertical'] .stepper__line::after {
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.stepper[data-orientation='vertical'] .stepper__item:is([data-status='done'], [data-status='error']) .stepper__line::after {
+  transform: none;
+}

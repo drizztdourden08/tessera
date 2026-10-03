@@ -1,0 +1,40 @@
+/* @layer renderer-components @kind style */
+.wizard-step-fade {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.wizard-step-fade[data-phase='out'] {
+  animation: wizard-step-out var(--duration-step-fill) var(--ease-in-out) both;
+}
+
+.wizard-step-fade[data-phase='in'][data-direction='forward'] {
+  animation: wizard-step-in var(--duration-step-line) var(--ease-in-out) both;
+}
+
+.wizard-step-fade[data-direction='back'][data-phase='out'] {
+  animation-duration: var(--duration-normal);
+}
+
+.wizard-step-fade[data-phase='in'][data-direction='back'] {
+  animation: wizard-step-in var(--duration-normal) var(--ease-in-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wizard-step-fade[data-phase][data-direction] {
+    animation: none;
+  }
+}
+
+@keyframes wizard-step-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes wizard-step-in {
+  from {
+    opacity: 0;
+  }
+}

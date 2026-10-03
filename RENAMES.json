@@ -297,6 +297,63 @@
         "--stepper-button-w": "--number-stepper-button-w",
         "--stepper-field-w": "--number-stepper-field-w"
       }
+    },
+    {
+      "version": "next",
+      "components": {
+        "WizardProgressProps": "StepperProps",
+        "WizardProgressStep": "StepperStep",
+        "WizardProgress": "Stepper",
+        "WizardSubStep": "StepperSubStep",
+        "WizardStepState": "StepperStatus",
+        "WizardOrientation": "StepperOrientation"
+      },
+      "cssClasses": {
+        "wizard-progress-compact__position": "stepper-compact__position",
+        "wizard-progress-compact__label": "stepper-compact__label",
+        "wizard-progress-compact__head": "stepper-compact__head",
+        "wizard-progress-compact": "stepper-compact",
+        "wizard-progress__summary": "stepper__summary",
+        "wizard-progress__label": "stepper__label",
+        "wizard-progress__text": "stepper__text",
+        "wizard-progress__step": "stepper__step",
+        "wizard-progress__item": "stepper__item",
+        "wizard-progress__list": "stepper__list",
+        "wizard-progress__link": "stepper__line",
+        "wizard-progress": "stepper",
+        "wizard-sub-steps__label": "stepper-sub-steps__label",
+        "wizard-sub-steps__item": "stepper-sub-steps__item",
+        "wizard-sub-steps": "stepper-sub-steps",
+        "wizard-dot__number": "stepper-dot__number",
+        "wizard-dot__ring": "stepper-dot__track",
+        "wizard-dot__draw": "stepper-dot__edge",
+        "wizard-dot__fill": "stepper-dot__fill",
+        "wizard-dot__art": "stepper-dot__art",
+        "wizard-dot": "stepper-dot",
+        "wizard-frame__footer": "removed; WizardNav is the footer, a ButtonRow with variant bar (see MIGRATION.md section 62)",
+        "wizard-frame-dialog": "wizard-dialog"
+      },
+      "props": {
+        "WizardFrame.presentation": "removed; render WizardDialog for a wizard in a dialog (see MIGRATION.md section 62)",
+        "WizardFrame.open": "WizardDialog.open",
+        "WizardFrame.stepInfo": "removed; summary and subSteps go on each WizardStepDef (see MIGRATION.md section 62)",
+        "WizardFrame.finishLabel": "removed; buttons.next.label on the last WizardStepDef (see MIGRATION.md section 62)",
+        "WizardFrame.busyLabel": "removed; busyHint on the last WizardStepDef (see MIGRATION.md section 62)",
+        "WizardFrame.navExtra": "removed; extra on the WizardStepDef (see MIGRATION.md section 62)",
+        "WizardNav.cancelLabel": "removed; WizardNav.buttons.cancel.label",
+        "WizardNav.backLabel": "removed; WizardNav.buttons.back.label",
+        "WizardNav.nextLabel": "removed; WizardNav.buttons.next.label",
+        "WizardNav.finishLabel": "removed; WizardNav.buttons.next.label on the last step",
+        "WizardNav.busyLabel": "WizardNav.busyHint"
+      },
+      "removedExports": {
+        "WizardPresentation": "removed with WizardFrame.presentation; WizardDialog is the dialog form (see MIGRATION.md section 62)",
+        "WizardStepInfo": "removed; summary and subSteps are fields of WizardStepDef (see MIGRATION.md section 62)"
+      },
+      "cssCustomProperties": {
+        "--wizard-progress-step-w": "--stepper-step-w",
+        "--wizard-progress-dot": "--stepper-dot"
+      }
     }
   ]
 }

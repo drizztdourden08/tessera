@@ -15,9 +15,15 @@ const INITIAL_ROM_IMPORT: RomImportDraft = { file: '', label: 'A Link to the Pas
 
 const ROM_IMPORT_STEPS: readonly WizardStepDef<RomImportDraft>[] = [
   { id: 'file', label: 'ROM file', description: 'Pick the ROM you dumped from your own cartridge.', validate: (d) => (d.file === '' ? 'Choose a ROM file to continue.' : null) },
-  { id: 'check', label: 'Check', description: 'The file is compared with the ROM Relic of the Past was built for.' },
+  { id: 'check', label: 'Check', description: 'The file is compared with the ROM Relic of the Past was built for.', hint: 'Every check passed.' },
   { id: 'assets', label: 'Assets', description: 'Graphics, sound and text are read from the ROM once and kept on this PC.', validate: (d) => (d.label.trim() === '' ? 'Name the ROM to continue.' : null) },
-  { id: 'review', label: 'Review', description: 'Import the ROM and extract its assets.' },
+  {
+    id: 'review',
+    label: 'Review',
+    description: 'Import the ROM and extract its assets.',
+    busyHint: 'Extracting assets...',
+    buttons: { next: { label: 'Import ROM', icon: 'download' } },
+  },
 ];
 
 const romImportReview = (draft: RomImportDraft): readonly WizardReviewSection[] => [
