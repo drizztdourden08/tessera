@@ -63,7 +63,7 @@
 }
 
 .hero__main {
-  grid-template-columns: var(--hero-intro-w) 1fr minmax(0, var(--hero-aside-w));
+  grid-template-columns: minmax(var(--hero-intro-w), max-content) 1fr minmax(0, var(--hero-aside-w));
 }
 
 .hero__bottom {
