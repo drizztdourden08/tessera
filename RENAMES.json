@@ -2,7 +2,7 @@
   "$comment": "Every rename and removal in Tessera, grouped by the release it ships in, oldest first. An upgrade replays each release between the old and the new version, in order; inside a release every key maps straight to its final name, so one pass is enough. Unreleased entries sit in the release named next, which the release step renames to the new version. Inside a map, replace longer keys first. components holds every renamed export, components and their types. props keys are Component.prop under the old component name. A value with words after the name, or any removedExports value, is a note for a person, not a name to write. A cssClasses value may hold several classes separated by spaces; write them all.",
   "releases": [
     {
-      "version": "next",
+      "version": "0.4.0",
       "cssCustomProperties": {
         "--color-surface-hover-strong": "--c-hover",
         "--color-danger-surface-hover": "--c-danger-dim",
