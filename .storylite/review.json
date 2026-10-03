@@ -53,9 +53,9 @@
       "at": "2026-10-01"
     },
     "Mascot": {
-      "status": "ok",
-      "hash": "d18939ceb55e05d4",
-      "at": "2026-10-01"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     }
   },
   "Core · Colours": {
@@ -853,11 +853,13 @@
   "Composites · Menus": {
     "DropdownMenu": {
       "status": "seen",
-      "hash": "f60fc7db2cde226f",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "CommandPalette": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "CommandPaletteRow": {
       "status": "ok",
@@ -935,9 +937,6 @@
       "hash": "6977932c7af4f776",
       "at": "2026-10-03"
     },
-    "ReleaseNotesPanel": {
-      "status": "new"
-    },
     "Hero": {
       "status": "seen",
       "hash": "flagged",
@@ -950,9 +949,6 @@
     }
   },
   "Composites · Input devices": {
-    "CalibrationPanel": {
-      "status": "new"
-    },
     "PressedGrid": {
       "status": "seen",
       "hash": "flagged",
