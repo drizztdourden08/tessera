@@ -803,9 +803,6 @@
       "status": "ok",
       "hash": "ac5ac47c355ddda4",
       "at": "2026-10-03"
-    },
-    "ProfilePicker": {
-      "status": "new"
     }
   },
   "Composites · Layout": {
@@ -929,11 +926,6 @@
       "hash": "774ff40a72191780",
       "at": "2026-10-01"
     },
-    "AboutPanel": {
-      "status": "seen",
-      "hash": "b8a644ca5c1d37fb",
-      "at": "2026-10-01"
-    },
     "FactsPanel": {
       "status": "ok",
       "hash": "6977932c7af4f776",
@@ -944,8 +936,8 @@
     },
     "Hero": {
       "status": "seen",
-      "hash": "81c377b88c1b9637",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "PixelWordmark": {
       "status": "ok",
@@ -996,11 +988,13 @@
   "Composites · Windows": {
     "WindowTitleBar": {
       "status": "seen",
-      "hash": "457b2e4ada3cc03d",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "WindowHeader": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     }
   },
   "Composites · Screens": {
@@ -1013,7 +1007,9 @@
       "at": "2026-10-03"
     },
     "UtilityScreen": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "StageScreen": {
       "status": "ok",
