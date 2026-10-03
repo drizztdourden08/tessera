@@ -323,6 +323,9 @@
       "hash": "7f8d5a6b40195c9d",
       "at": "2026-10-03"
     },
+    "InputIcon": {
+      "status": "new"
+    },
     "PathIcon": {
       "status": "ok",
       "hash": "13e2d4bc9e71ea56",
@@ -532,9 +535,9 @@
       "at": "2026-10-01"
     },
     "ButtonRow": {
-      "status": "ok",
-      "hash": "982b09185abdc867",
-      "at": "2026-10-01"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "ButtonGroup": {
       "status": "ok",
@@ -579,7 +582,9 @@
       "at": "2026-10-03"
     },
     "NumberStepper": {
-      "status": "new"
+      "status": "ok",
+      "hash": "9da3309c771ed2a4",
+      "at": "2026-10-03"
     },
     "Checkbox": {
       "status": "ok",
@@ -705,6 +710,9 @@
       "hash": "e1192167bc235cf2",
       "at": "2026-10-03"
     },
+    "Stepper": {
+      "status": "new"
+    },
     "RouterLink": {
       "status": "ok",
       "hash": "94ac613a7e2907e7",
@@ -731,6 +739,9 @@
       "status": "ok",
       "hash": "6b7b5dfef86b834a",
       "at": "2026-10-02"
+    },
+    "WizardDialog": {
+      "status": "new"
     }
   },
   "Composites · Overlays": {
@@ -753,13 +764,8 @@
   "Composites · Wizard": {
     "Wizard": {
       "status": "seen",
-      "hash": "91fd2d6ce58752d1",
-      "at": "2026-10-01"
-    },
-    "WizardProgress": {
-      "status": "seen",
-      "hash": "6f043f62652dc94d",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "WizardStep": {
       "status": "ok",
@@ -768,8 +774,8 @@
     },
     "WizardNav": {
       "status": "seen",
-      "hash": "0875e5ea5acf2980",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "WizardReview": {
       "status": "ok",
@@ -800,12 +806,6 @@
     },
     "ProfilePicker": {
       "status": "new"
-    },
-    "GroupTree": {
-      "status": "new"
-    },
-    "ListItemRow": {
-      "status": "new"
     }
   },
   "Composites · Layout": {
@@ -819,14 +819,24 @@
       "hash": "11b7ce9c65d0417d",
       "at": "2026-10-03"
     },
-    "NavLayout": {
-      "status": "seen",
-      "hash": "872406d0b5ff2ee3",
-      "at": "2026-10-01"
+    "SideNavLayout": {
+      "status": "new"
     }
   },
   "Composites · Lists": {
+    "ListItemRow": {
+      "status": "new"
+    },
+    "GroupTree": {
+      "status": "new"
+    },
     "SearchResults": {
+      "status": "new"
+    },
+    "SearchResultGroup": {
+      "status": "new"
+    },
+    "SearchResultHit": {
       "status": "new"
     }
   },
@@ -839,7 +849,7 @@
     "SettingsSection": {
       "status": "new"
     },
-    "SettingsGroupList": {
+    "SettingsRow": {
       "status": "new"
     }
   },
