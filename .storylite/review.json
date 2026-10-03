@@ -874,7 +874,9 @@
   },
   "Composites · Inputs": {
     "DynamicInput": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "VolumeControl": {
       "status": "ok",
@@ -887,7 +889,9 @@
       "at": "2026-10-03"
     },
     "ColorPickerPopover": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     }
   },
   "Composites · Forms": {
@@ -950,7 +954,9 @@
       "status": "new"
     },
     "PressedGrid": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "StickPlot": {
       "status": "ok",
@@ -976,13 +982,13 @@
     },
     "Widget": {
       "status": "seen",
-      "hash": "eab8c7e49eeac903",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "WidgetOptions": {
       "status": "seen",
-      "hash": "25f9478d31cc56ff",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-03"
     }
   },
   "Composites · Windows": {
