@@ -1,10 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { SettingsSectionLockRenderer, SettingsSectionRow } from '../SettingsSection.type';
+import type { SettingsSectionLook, SettingsSectionRow } from '../SettingsSection.type';
 
-interface SettingsSectionRowsProps {
+interface SettingsSectionRowsProps extends SettingsSectionLook {
   rows: readonly SettingsSectionRow[];
-  renderLock?: SettingsSectionLockRenderer;
-  flashKey?: string;
 }
 
 export type { SettingsSectionRowsProps };

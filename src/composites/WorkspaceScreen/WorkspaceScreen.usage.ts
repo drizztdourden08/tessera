@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../ai/usage.type';
 
 const usage = {
-  job: 'A screen to work in: a side list of pages beside the current page, with its header pills and a body that scrolls.',
+  job: 'A screen to work in, built from one content object: a side nav of pages, the current page under a header that compacts as it scrolls, and a search over every setting.',
   useWhen: [
     'A settings hub, a profile hub or a data manager with several pages.',
     'The user moves between pages and changes things on them.',
@@ -11,46 +11,54 @@ const usage = {
     { case: 'The screen is read and holds no settings, such as About or credits.', use: 'InfoScreen' },
     { case: 'The screen runs one short task with a status, such as an update check.', use: 'UtilityScreen' },
     { case: 'The screen is one big surface with no pages, such as calibration.', use: 'StageScreen' },
-    { case: 'The side list and the page sit inside an app frame, not over it.', use: 'NavLayout' },
+    { case: 'The side nav and the page sit inside an app frame, not over it.', use: 'SideNavLayout' },
   ],
   rules: [
-    'The host owns the active page: swap page and children when nav.onSelect fires.',
-    'Set page.anchors for one long page, or page.tabs for views of one area, never both.',
-    'Give the nav a search and set results to search every page; use filterable only to narrow the side list by label.',
+    'Describe every page in content: its id, title and icon, and either sections of SettingsRow data or content of its own.',
+    'The nav, the header pills, the rows and the search all come from content; never build them by hand beside it.',
+    'Give options a hint, toggles hints for on and off and sliders hintOf, so the live hint says what each value does.',
+    'Pass activeId and onActiveChange, or search.query and search.onQueryChange, only when the host must own them.',
     'Use the floating slot for a switch between sibling workspaces, and hidden to keep the screen mounted while it is closed.',
   ],
   a11y: [
     'The card is a modal dialog named by the title, and each page is a section named by its title.',
-    'The side list is a navigation landmark; set nav.ariaLabel when the screen holds more than one.',
+    'The side nav is a navigation landmark, and every row input is named by its row title.',
     'Escape clears a filled search before it reaches the screen.',
   ],
   tree: {
     path: ['a full screen view', 'working across pages, picked from a side list'],
     rule: 'A side list of pages beside the current page.',
   },
-  example: `import { Icon, SettingsGroupList, WorkspaceScreen } from '@drizztdourden08/tessera';
-import type { SettingsGroupListSection, SideNavConfig } from '@drizztdourden08/tessera';
+  example: `import { Icon, WorkspaceScreen } from '@drizztdourden08/tessera';
+import type { WorkspaceContent } from '@drizztdourden08/tessera';
 
 interface HubProps {
-  config: SideNavConfig;
-  active: string;
-  onSelect: (id: string) => void;
-  sections: SettingsGroupListSection[];
+  volume: number;
+  setVolume: (value: number) => void;
   onClose: () => void;
 }
 
-const SettingsHub = ({ config, active, onSelect, sections, onClose }: HubProps) => (
-  <WorkspaceScreen
-    title="Settings"
-    onClose={onClose}
-    nav={{ config, activeId: active, onSelect, defaultOpen: true }}
-    page={{ icon: <Icon name="settings" />, title: 'General' }}
-  >
-    <SettingsGroupList sections={sections} />
-  </WorkspaceScreen>
-);
+const SettingsHub = ({ volume, setVolume, onClose }: HubProps) => {
+  const content: WorkspaceContent = {
+    groups: [{
+      id: 'app',
+      label: 'App',
+      pages: [{
+        id: 'audio',
+        title: 'Audio',
+        icon: <Icon name="volume-2" />,
+        sections: [{
+          id: 'output',
+          title: 'Output',
+          rows: [{ id: 'volume', title: 'Master volume', input: { kind: 'slider', value: volume, onChange: setVolume, min: 0, max: 100 } }],
+        }],
+      }],
+    }],
+  };
+  return <WorkspaceScreen title="Settings" onClose={onClose} content={content} />;
+};
 `,
-  propsHash: 'e62e15d55e47e2f7',
+  propsHash: '9f8f101476bab180',
 } satisfies ComponentUsage;
 
 export { usage };

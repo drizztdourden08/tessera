@@ -1,40 +1,61 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { SettingsItem } from '../SettingsRow';
 
-interface SettingsSectionRow {
-  key: string;
+interface SettingsContentRow {
+  id: string;
   content: ReactNode;
+  title?: string;
+  keywords?: string;
   lock?: string | null;
 }
 
-interface SettingsSectionLock {
+type SettingsSectionRow = SettingsItem | SettingsContentRow;
+
+interface SettingsGroupData {
+  id?: string;
+  title?: string;
+  description?: string;
+  rows: readonly SettingsSectionRow[];
+}
+
+interface SettingsSectionData {
+  id: string;
+  title?: string;
+  description?: string;
+  keywords?: string;
+  rows?: readonly SettingsSectionRow[];
+  groups?: readonly SettingsGroupData[];
+  changedCount?: number;
+  onReset?: () => void;
+}
+
+interface SettingsLock {
   cause: string;
   children: ReactNode;
 }
 
-type SettingsSectionLockRenderer = (lock: SettingsSectionLock) => ReactNode;
+type SettingsLockRenderer = (lock: SettingsLock) => ReactNode;
 
-interface SettingsSectionRun {
+interface SettingsSectionLook {
+  flash?: string;
+  renderLock?: SettingsLockRenderer;
+  compact?: boolean;
+  readOnly?: boolean;
+}
+
+interface SettingsSectionProps extends Omit<SettingsSectionData, 'id'>, SettingsSectionLook {
+  id?: string;
+  children?: ReactNode;
+  className?: string;
+}
+
+interface SettingsRun {
   lock: string | null;
   rows: SettingsSectionRow[];
 }
 
-interface SettingsSectionProps {
-  title?: string;
-  description?: string;
-  children?: ReactNode;
-  rows?: readonly SettingsSectionRow[];
-  renderLock?: SettingsSectionLockRenderer;
-  flashKey?: string;
-  anchor?: string;
-  inset?: boolean;
-  className?: string;
-}
-
 export type {
-  SettingsSectionLock,
-  SettingsSectionLockRenderer,
-  SettingsSectionProps,
-  SettingsSectionRow,
-  SettingsSectionRun,
+  SettingsContentRow, SettingsGroupData, SettingsLock, SettingsLockRenderer, SettingsRun, SettingsSectionData, SettingsSectionLook,
+  SettingsSectionProps, SettingsSectionRow,
 };

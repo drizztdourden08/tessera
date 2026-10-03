@@ -14,7 +14,7 @@ const SearchResultsHead = (props: SearchResultsHeadProps) => {
       {jumps.length > 0 && (
         <Box className="search-results__jumps">
           {jumps.map((jump) => (
-            <Pressable key={jump.id} className="search-results__chip" onClick={() => onJump?.(jump.id)}>
+            <Pressable key={jump.id} className="search-results__chip search-chip" onClick={() => onJump?.(jump.id)}>
               {jump.icon}
               {navigation.openNamed(jump.label)}
             </Pressable>

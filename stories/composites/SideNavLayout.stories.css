@@ -1,0 +1,16 @@
+/* @layer stories @kind style */
+.side-nav-layout-story__frame {
+  display: flex;
+  height: var(--size-512);
+  padding: var(--space-md);
+}
+
+.side-nav-layout-story__frame--narrow {
+  max-width: var(--size-640);
+}
+
+.side-nav-layout-story__state {
+  display: flex;
+  width: 100%;
+  height: var(--size-288);
+}

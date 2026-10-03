@@ -1,10 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { SearchResultHitProps } from '../SearchResultHit';
 
-interface SearchResultsHit {
+interface SearchResultsHit extends Pick<SearchResultHitProps, 'label' | 'description' | 'path' | 'icon'> {
   id: string;
-  label: string;
-  detail?: string;
 }
 
 interface SearchResultsJump {
@@ -22,8 +21,6 @@ interface SearchResultsGroup {
   children?: ReactNode;
 }
 
-type SearchResultsGroupHeading = 'split' | 'button';
-
 interface SearchResultsProps {
   query: string;
   count: number;
@@ -34,13 +31,11 @@ interface SearchResultsProps {
   onJump?: (id: string) => void;
   groups?: readonly SearchResultsGroup[];
   onOpenGroup?: (id: string) => void;
-  groupHeading?: SearchResultsGroupHeading;
   openLabel?: ReactNode;
-  framed?: boolean;
   idleIcon?: ReactNode;
   idleMessage?: ReactNode;
   emptyMessage?: ReactNode;
   className?: string;
 }
 
-export type { SearchResultsGroup, SearchResultsGroupHeading, SearchResultsHit, SearchResultsJump, SearchResultsProps };
+export type { SearchResultsGroup, SearchResultsHit, SearchResultsJump, SearchResultsProps };

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 6 of 143 have their usage written; a linked name opens its page.
+One line per component. 6 of 145 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -112,7 +112,6 @@ One line per component. 6 of 143 have their usage written; a linked name opens i
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `LogPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `MasterDetailLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `NavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -121,12 +120,15 @@ One line per component. 6 of 143 have their usage written; a linked name opens i
 - `ReleaseNotesPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.
+- `SearchResultGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `SearchResultHit`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResults`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `SettingsGroupList`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsPage`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `SettingsRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsSection`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ShortcutTour`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, with an optional toolbar row and a Done button. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -141,7 +143,7 @@ One line per component. 6 of 143 have their usage written; a linked name opens i
 - `WizardNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardReview`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardStep`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [WorkspaceScreen](components/WorkspaceScreen.md): A screen to work in: a side list of pages beside the current page, with its header pills and a body that scrolls. Import from `@drizztdourden08/tessera`.
+- [WorkspaceScreen](components/WorkspaceScreen.md): A screen to work in, built from one content object: a side nav of pages, the current page under a header that compacts as it scrolls, and a search over every setting. Import from `@drizztdourden08/tessera`.
 
 ## Brand
 

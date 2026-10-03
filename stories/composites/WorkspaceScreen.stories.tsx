@@ -1,17 +1,25 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { overviewStory } from '../_template/overview-story';
-import { WorkspaceHubDemo } from './_samples/WorkspaceHubDemo';
+import { WorkspaceDemo } from './_samples/WorkspaceDemo';
 
 type WorkspaceArgs = {
-  compact: boolean;
+  pageHeader: boolean;
+  search: boolean;
+  compactRows: boolean;
+  readOnly: boolean;
+  narrow: boolean;
   withSwitch: boolean;
 };
 
-const ARGS: Partial<WorkspaceArgs> = { compact: false, withSwitch: true };
+const ARGS: Partial<WorkspaceArgs> = { pageHeader: true, search: true, compactRows: false, readOnly: false, narrow: false, withSwitch: true };
 
 const ARG_TYPES: StoryLiteArgTypes<WorkspaceArgs> = {
-  compact: { control: 'boolean', description: 'For a narrow window: the side list stays a strip of icons and opens over the page.' },
+  pageHeader: { control: 'boolean', description: 'The page header: icon, title, section pills and the fading backdrop. It compacts once the page scrolls.' },
+  search: { control: 'boolean', description: 'The search in the side nav. It searches every row of every page and shows the matches in the pane.' },
+  compactRows: { control: 'boolean', description: 'One line per setting. The description moves to a tooltip on the title, the hint to a bubble under the control.' },
+  readOnly: { control: 'boolean', description: 'Every value as text, with the hint of the current value.' },
+  narrow: { control: 'boolean', description: 'For a narrow window: the side nav stays a strip of icons and opens over the page.' },
   withSwitch: { control: 'boolean', description: 'A floating switch between sibling workspaces on the top edge.' },
 };
 
@@ -24,40 +32,80 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <WorkspaceHubDemo compact={args.compact} withSwitch={args.withSwitch} />,
+  render: (args) => <WorkspaceDemo {...args} key={JSON.stringify(args)} />,
+} satisfies StoryLiteStoryDefinition<WorkspaceArgs>;
+
+const Searching = {
+  name: 'Searching every page',
+  render: () => <WorkspaceDemo query="o" />,
+} satisfies StoryLiteStoryDefinition<WorkspaceArgs>;
+
+const CompactRows = {
+  name: 'Compact rows',
+  render: () => <WorkspaceDemo compactRows startPage="audio" />,
+} satisfies StoryLiteStoryDefinition<WorkspaceArgs>;
+
+const ReadOnly = {
+  name: 'Read only',
+  render: () => <WorkspaceDemo readOnly startPage="display" />,
+} satisfies StoryLiteStoryDefinition<WorkspaceArgs>;
+
+const NoHeader = {
+  name: 'Without the page header',
+  render: () => <WorkspaceDemo pageHeader={false} />,
 } satisfies StoryLiteStoryDefinition<WorkspaceArgs>;
 
 const Narrow = {
   name: 'A narrow window',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: () => <WorkspaceHubDemo compact withSwitch={false} />,
+  render: () => <WorkspaceDemo narrow />,
 } satisfies StoryLiteStoryDefinition<WorkspaceArgs>;
 
 const CODE = `import { WorkspaceScreen } from '@drizztdourden08/tessera';
+import type { WorkspaceContent } from '@drizztdourden08/tessera';
 
-<WorkspaceScreen
-  title="Home"
-  subtitle="Profile: mira"
-  onClose={close}
-  nav={{ config: HUB_NAV, activeId: active, onSelect: setActive, defaultOpen: true }}
-  page={{ icon: <Icon name="settings" />, title: 'General', anchors: GENERAL_ANCHORS }}
->
-  <SettingsGroupList sections={generalSections} />
-</WorkspaceScreen>`;
+const content: WorkspaceContent = {
+  home: { id: 'home', title: 'Overview', icon: <Icon name="house" />, content: <Overview /> },
+  groups: [{
+    id: 'app',
+    label: 'App',
+    pages: [{
+      id: 'audio',
+      title: 'Audio',
+      icon: <Icon name="volume-2" />,
+      sections: [{
+        id: 'output',
+        title: 'Output',
+        rows: [
+          { id: 'volume', title: 'Master volume', input: { kind: 'slider', value: volume, onChange: setVolume, min: 0, max: 100 } },
+          {
+            id: 'channels',
+            title: 'Channels',
+            input: { kind: 'segmented', value: channels, onChange: setChannels, options: [
+              { value: '1', label: 'Mono', hint: 'Folds the output to one channel.' },
+              { value: '2', label: 'Stereo', hint: 'Keeps left and right apart.' },
+            ] },
+          },
+        ],
+      }],
+    }],
+  }],
+};
+
+<WorkspaceScreen title="Settings" onClose={close} content={content} />`;
 
 const Overview = overviewStory({
   component: 'WorkspaceScreen',
-  description: 'The screen the user works in: a settings hub, a profile hub or a data manager. It is a ScreenWindow with a SideNav on the left and the current page on the right. The page is a SettingsPage: page sets its icon, its title and the pills of its header, which jump to its sections or switch its views, and the children are its body, which scrolls. The host swaps page and children when the nav changes. With a search in the nav and results set, the page gives way to the results while the user searches. filterable narrows the nav by label instead. The title bar takes a subtitle and extra controls, and the floating slot takes a switch between sibling workspaces.',
-  playground: Playground,
+  description: 'The screen the user works in: a settings hub, a profile hub or a data manager. It takes one content object, the pages in their nav groups, and builds everything from it: the side nav, the page header with its icon, its title and a pill per section, the sections and their rows, and the search. Each page holds sections of SettingsRow data, or any content of its own. The page header sits over a backdrop that fades out behind the title, and it compacts once the page scrolls. The search in the side nav runs over every row of every page; while it runs, the pane shows the matches grouped by page, with the real controls, a chip for every page whose name matches and an Open page button that opens the page on the first match.',
   points: [
-    'Use it for screens with several pages the user moves between and changes things on.',
+    'The screen owns the current page and the query unless activeId or search.query are given.',
+    'pageHeader={false} drops the header for a page that brings its own; backdrop={null} drops the fading art.',
+    'compactRows and readOnly reach every row on every page and in the search results.',
     'For About or credits, use InfoScreen. For one short task with a status, use UtilityScreen. For one big custom surface, use StageScreen.',
-    'hidden keeps the screen mounted, so the page and the scroll stay where the user left them.',
   ],
-  variants: [Narrow],
+  playground: Playground,
+  variants: [Searching, CompactRows, ReadOnly, NoHeader, Narrow],
   code: CODE,
 });
 
 export default meta;
-export { Narrow, Overview, Playground };
+export { CompactRows, Narrow, NoHeader, Overview, Playground, ReadOnly, Searching };

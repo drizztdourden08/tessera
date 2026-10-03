@@ -1,51 +1,48 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { SettingsSection } from '../../src/composites';
-import { Box, Toggle } from '../../src/primitives';
+import { Box, Paragraph } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { AppearancePanel, GeneralPanel, HostingPanel } from './_samples/settings-panels';
+import { STATE } from '../_template/states/states.constants';
+import type { StateProps } from '../_template/states/states.type';
+import { audioSections, generalSections } from './_samples/settings-sample-sections';
+import { useSampleSettings } from './_samples/settings-sample-state';
 
 type SectionArgs = {
-  title: string;
-  description: string;
+  compact: boolean;
+  readOnly: boolean;
+  withReset: boolean;
+  flash: string;
 };
 
-const NotificationToggles = () => {
-  const [joins, setJoins] = useState(true);
-  const [items, setItems] = useState(false);
+const SectionsDemo = (props: SectionArgs & { audio?: boolean }) => {
+  const { compact, readOnly, withReset, flash, audio = false } = props;
+  const state = useSampleSettings();
+  const sections = audio ? audioSections(state) : generalSections(state);
   return (
-    <>
-      <Toggle checked={joins} onChange={setJoins} label="A player joins or leaves" />
-      <Toggle checked={items} onChange={setItems} label="Someone sends me an item" />
-    </>
+    <Box className="story-column">
+      {sections.map((section) => (
+        <SettingsSection
+          key={section.id}
+          {...section}
+          onReset={withReset ? section.onReset : undefined}
+          compact={compact}
+          readOnly={readOnly}
+          flash={flash || undefined}
+        />
+      ))}
+    </Box>
   );
 };
 
-const LockedRows = () => {
-  const [tray, setTray] = useState(false);
-  const [close, setClose] = useState(false);
-  const [minimise, setMinimise] = useState(true);
-  const lock = tray ? null : 'Turn on the tray icon first';
-  return (
-    <SettingsSection
-      inset
-      title="Tray"
-      rows={[
-        { key: 'tray', content: <Toggle checked={tray} onChange={setTray} label="Show a tray icon" /> },
-        { key: 'close', content: <Toggle checked={close} onChange={setClose} label="Close to the tray" />, lock },
-        { key: 'minimise', content: <Toggle checked={minimise} onChange={setMinimise} label="Minimise to the tray" />, lock },
-      ]}
-    />
-  );
-};
-
-const ARGS: Partial<SectionArgs> = { title: 'Notifications', description: 'Which session events show a desktop notification.' };
+const ARGS: Partial<SectionArgs> = { compact: false, readOnly: false, withReset: true, flash: '' };
 
 const ARG_TYPES: StoryLiteArgTypes<SectionArgs> = {
-    title: { control: 'text' },
-    description: { control: 'textarea' },
-  };
+  compact: { control: 'boolean', description: 'One line per row, for a dense page or a side panel.' },
+  readOnly: { control: 'boolean', description: 'Every value as text.' },
+  withReset: { control: 'boolean', description: 'The reset button in the heading, faint until the heading is hovered.' },
+  flash: { control: 'select', options: ['', 'restore', 'language', 'tray-icon', 'startup'], description: 'A row key, group id or section id to pulse, as a search does when it jumps.' },
+};
 
 const meta = {
   title: 'Composites · Settings/SettingsSection',
@@ -56,45 +53,84 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => (
-    <SettingsSection title={args.title} description={args.description || undefined}>
-      <NotificationToggles />
-    </SettingsSection>
-  ),
+  render: (args) => <SectionsDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<SectionArgs>;
 
-const General = {
-  name: 'General',
-  render: () => <Box className="story-column"><GeneralPanel /></Box>,
+const Audio = {
+  name: 'Sliders, segments and a pattern',
+  args: ARGS,
+  render: (args) => <SectionsDemo {...args} audio />,
 } satisfies StoryLiteStoryDefinition<SectionArgs>;
 
-const WithoutDescription = {
-  name: 'Without a description',
-  render: () => <Box className="story-column"><AppearancePanel /></Box>,
+const Compact = {
+  name: 'Compact',
+  args: ARGS,
+  render: (args) => <SectionsDemo {...args} audio compact />,
 } satisfies StoryLiteStoryDefinition<SectionArgs>;
 
-const Rows = {
-  name: 'Inset rows with a locked run',
-  render: () => <Box className="story-column"><LockedRows /></Box>,
+const ReadOnly = {
+  name: 'Read only',
+  args: ARGS,
+  render: (args) => <SectionsDemo {...args} readOnly withReset={false} />,
 } satisfies StoryLiteStoryDefinition<SectionArgs>;
 
-const Stacked = {
-  name: 'Stacked sections',
+const Content = {
+  name: 'Free content in the box',
   render: () => (
     <Box className="story-column">
-      <GeneralPanel />
-      <HostingPanel />
-      <AppearancePanel />
+      <SettingsSection title="About" description="A section can hold any content in place of rows.">
+        <Paragraph tone="muted">Version 2.4.1, released on 3 October.</Paragraph>
+        <Paragraph tone="muted">Every child gets the row padding and a divider.</Paragraph>
+      </SettingsSection>
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<SectionArgs>;
 
+const StateSection = (props: StateProps) => {
+  const [startup] = generalSections(useSampleSettings());
+  if (startup === undefined) return null;
+  const rows = (startup.rows ?? []).slice(0, 2).map((row) => ({ ...row, lock: props.locked === true ? 'Managed by your organisation' : null }));
+  return <SettingsSection {...startup} rows={rows} changedCount={props.changed === true ? 1 : 0} flash={typeof props.flash === 'string' ? props.flash : undefined} />;
+};
+
+const CODE = `import { SettingsSection } from '@drizztdourden08/tessera';
+
+<SettingsSection
+  id="tray"
+  title="Tray"
+  changedCount={1}
+  onReset={resetTray}
+  groups={[{
+    id: 'tray-icon',
+    title: 'Icon',
+    rows: [
+      { id: 'tray', title: 'Show a tray icon', input: { kind: 'toggle', value: tray, onChange: setTray } },
+      { id: 'close', title: 'Close to the tray', lock: tray ? null : 'Turn on the tray icon first', input: { kind: 'toggle', value: close, onChange: setClose } },
+    ],
+  }]}
+/>`;
+
 const Overview = overviewStory({
   component: 'SettingsSection',
-  description: 'One titled block of a settings page: an uppercase title, an optional description, and the controls under them. Reach for it to group related settings, one section per topic, stacked down the page. It is layout only; the controls inside belong to the caller. Pass rows in place of children to key each row: rows that share a lock cause run together under one DisabledOverlay, flashKey pulses one row for a search that jumps to it, and anchor sets data-section for a page that spies on its sections. inset draws the group on the sunken fill with a hairline border, the look SettingsGroupList uses.',
+  description: 'One section of a settings page, drawn from data. The title is large and underlined; with onReset a reset button sits at its end, faint until the heading is hovered, which asks once and says how many settings differ from their defaults. Under it come groups of rows: a group can have its own small uppercase title, and its rows sit in a sunken box with a divider between them. rows draws one untitled group, groups draws several. A row is SettingsRow data, or { id, content } for anything else. Rows next to each other that share a lock cause run together under one DisabledOverlay that says why. compact and readOnly reach every row. flash pulses a row, a group or the whole section, for a search that jumps to it. The section carries data-section and every row data-setting-key, so SettingsPage can follow the scroll and a search can find a row. Children, when given, fill one more box, a row each.',
+  points: [
+    'Stack sections one after another; each one after the first keeps its distance on its own.',
+    'filterSettingsSections(sections, query) keeps the rows that match, which is how the search results draw the same sections.',
+  ],
   playground: Playground,
-  variants: [General, WithoutDescription, Rows],
+  variants: [Audio, Compact, ReadOnly, Content],
+  states: {
+    render: (props) => <StateSection {...props} />,
+    list: [
+      { ...STATE.idle, name: 'At defaults' },
+      { name: 'Changed', props: { changed: true } },
+      { name: 'Heading hover', pseudo: 'hover', target: '.settings-section__heading', props: { changed: true } },
+      { name: 'Locked run', props: { locked: true } },
+      { name: 'Search hit', props: { flash: 'restore' } },
+    ],
+  },
+  code: CODE,
 });
 
 export default meta;
-export { General, Overview, Playground, Rows, Stacked, WithoutDescription };
+export { Audio, Compact, Content, Overview, Playground, ReadOnly };

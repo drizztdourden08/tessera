@@ -38,28 +38,6 @@
   gap: var(--space-xs);
 }
 
-.search-results__chip {
-  display: inline-flex;
-  gap: var(--space-xs);
-  align-items: center;
-  padding: var(--space-xs) var(--space-md);
-  border: var(--border-width-thin) solid var(--c-border);
-  border-radius: var(--radius-pill);
-  color: var(--c-primary-bright);
-  font-size: var(--text-sm);
-  transition: background var(--transition-fast), border-color var(--transition-fast);
-}
-
-.search-results__chip:hover {
-  border-color: var(--c-primary);
-  background: var(--c-primary-soft);
-}
-
-.search-results__chip:focus-visible {
-  outline: var(--border-width-thick) solid var(--c-primary);
-  outline-offset: var(--border-width-thin);
-}
-
 .search-results__body {
   display: flex;
   flex: 1;
@@ -69,71 +47,12 @@
   padding: var(--space-xl);
 }
 
-.search-results__group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.search-results__group-head {
-  display: flex;
-  gap: var(--space-sm);
-  align-items: center;
-}
-
-.search-results__group-icon {
-  display: grid;
-  place-items: center;
-  color: var(--c-primary-bright);
-  font-size: var(--text-xl);
-}
-
-.search-results__group-title {
-  margin: 0;
-  color: var(--c-text);
-  font-size: var(--text-xl);
-  font-weight: var(--weight-bold);
-}
-
-.search-results__group-count {
-  padding: 0 var(--space-sm);
-  border-radius: var(--radius-pill);
-  background: var(--c-primary-soft);
-  color: var(--c-primary-bright);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semi);
-  font-variant-numeric: tabular-nums;
-}
-
-.search-results__open {
-  margin-left: auto;
-}
-
-.search-results__heading {
-  align-self: flex-start;
-  color: var(--c-primary-bright);
-  font-size: var(--text-lg);
-  font-weight: var(--weight-semi);
-}
-
 .search-results__hits {
   display: flex;
   flex-direction: column;
   gap: var(--space-2xs);
-  align-items: stretch;
-}
-
-.search-results__hit {
-  justify-content: flex-start;
-  gap: var(--space-sm);
-}
-
-.search-results__detail {
-  font-size: var(--text-xs);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .search-results__chip {
-    transition: none;
-  }
+  padding: var(--space-xs);
+  border: var(--border-width-thin) solid var(--c-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--c-inset);
 }

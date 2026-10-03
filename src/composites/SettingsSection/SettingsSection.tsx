@@ -1,30 +1,27 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { Text } from '../../primitives/Text';
 import { Paragraph } from '../../primitives/text-elements';
-import { SettingsSectionRows } from './sub-components/SettingsSectionRows';
+import { flashClass } from './behavior/flash-class';
+import { groupsOf } from './behavior/groups-of';
+import { SettingsSectionGroup } from './sub-components/SettingsSectionGroup';
+import { SettingsSectionHeading } from './sub-components/SettingsSectionHeading';
+import type { SettingsSectionProps } from './SettingsSection.type';
+import '../../theme/search-hit.css';
 import './SettingsSection.css';
-import { type SettingsSectionProps } from './SettingsSection.type';
 
 const SettingsSection = (props: SettingsSectionProps) => {
-  const { title, description, children, rows, renderLock, flashKey, anchor, inset = false, className = '' } = props;
-  const classes = ['settings-section', inset ? 'settings-section--inset' : '', className].filter(Boolean).join(' ');
+  const { id, title, description, children, changedCount = 0, onReset, flash, renderLock, compact = false, readOnly = false, className = '' } = props;
+  const look = { flash, renderLock, compact, readOnly };
+  const classes = ['settings-section', compact && 'settings-section--compact', flashClass(id, flash), className].filter(Boolean).join(' ');
 
   return (
-    <Box as="section" className={classes} data-section={anchor}>
-      {(title !== undefined || description !== undefined) && (
-        <Box className="settings-section__header">
-          {title && <Text as="h3" className="settings-section__title">{title}</Text>}
-          {description && <Paragraph tone="muted" className="settings-section__desc">{description}</Paragraph>}
-        </Box>
-      )}
-      <Box className="settings-section__content">
-        {rows ? <SettingsSectionRows rows={rows} renderLock={renderLock} flashKey={flashKey} /> : children}
-      </Box>
+    <Box as="section" className={classes} data-section={id}>
+      {title !== undefined && <SettingsSectionHeading title={title} changedCount={changedCount} onReset={onReset} />}
+      {description !== undefined && <Paragraph tone="muted" className="settings-section__description">{description}</Paragraph>}
+      {groupsOf(props).map((group, index) => <SettingsSectionGroup key={group.id ?? index} group={group} {...look} />)}
+      {children !== undefined && <Box className="settings-section__box settings-section__box--content">{children}</Box>}
     </Box>
   );
 };
 
-export {
-  SettingsSection,
-};
+export { SettingsSection };

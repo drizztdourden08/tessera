@@ -1473,6 +1473,79 @@ An app that imports `Emphasis` or its types from `@drizztdourden08/tessera/compo
 
 An app that puts a `WindowTitleBar` in a box that shrinks to its content gives that box its full width, since the brand no longer widens the bar. An app that sized a `Hero` with its own height or relied on it growing with its content gives it the room of `--hero-h`. An app that wrapped the `extra` of a `WindowHeader` in a column of its own passes the parts side by side. An app with its own pre-release toggle, version picker or report button in the children of a `UtilityScreen` moves them to `settings` and `footnote`. No name changes, so RENAMES.json has no entry for this section.
 
+## 61. Settings come from one model: SettingsRow, one SettingsSection, WorkspaceScreen builds itself, SideNavLayout, and the search result parts
+
+### The settings model
+
+A setting is data. `SettingsItem` holds its `id`, `title`, `description`, `hint`, `keywords`, `disabled`, `lock` and its `input`: a `kind` with the value, `onChange` and the props of that kind. The kinds are `toggle`, `select`, `segmented`, `radio`, `multi`, `slider`, `number`, `text`, `password`, `dynamic` (a `DynamicInput` pattern), `color`, `keybind`, `tags` and `custom`. Options are `SettingsOption`: `{ value, label, hint? }`. A section is `SettingsSectionData`: `{ id, title?, description?, keywords?, rows?, groups?, changedCount?, onReset? }`, and a group is `SettingsGroupData`: `{ id?, title?, description?, rows }`. A row in a section is a `SettingsItem`, or a `SettingsContentRow`, `{ id, content, title?, keywords?, lock? }`, for anything else.
+
+### SettingsRow is new
+
+`SettingsRow` draws one `SettingsItem`: the title, the description, a live hint line and the input on the right.
+
+- The hint line says what the current value does and, while the pointer or the keyboard is on one part of the input, what that part does. `SettingsOption.hint`, the `hints` of a toggle (`{ on, off }`) and the `hintOf(value)` of a slider feed it; `hint` on the row is the line at rest.
+- `compact` draws one line with small inputs. The description moves to a tooltip on the title, marked with an info icon, and the hint to a bubble under the input.
+- `readOnly` draws the value as text: On or Off, the option label, the slider value as `formatValue` writes it, the number with its unit, the masked password, the pattern text, a swatch with its code, keycaps, tags.
+- Every row carries `data-setting-key` and `data-kind`; `flash` pulses it with `search-hit`.
+- New strings: the `settings` group (`on`, `off`, `none`, `notSet`, `pressKeys`, `changeShortcut`, `pickColour`, `aboutSetting`, `searchPlaceholder`, `searchIdle`, `searchTip`, `settingsMatch`, `noSettingMatches`).
+
+### SettingsGroupList is folded into SettingsSection
+
+One `SettingsSection` is one section of a page, drawn the way relic-of-the-past draws it: the large underlined title with the reset button that asks once, then groups with their small uppercase title, each a sunken box (`--c-inset`, a hairline border) with a divider between rows. Rows next to each other that share a `lock` run under one `DisabledOverlay`, or under `renderLock`. Its props are the section data plus `flash`, `renderLock`, `compact`, `readOnly`, `children` and `className`. Sections placed one after another keep their own distance.
+
+- `SettingsGroupList` is removed. Render one `SettingsSection` per section, `sections.map((section) => <SettingsSection key={section.id} {...section} />)`, and draw your own empty message.
+- `SettingsSectionRow` takes `id` in place of `key`. `anchor` is `id`, `flashKey` is `flash`, and `inset` is gone: the sunken box is the only look. `SettingsSectionLock` is `SettingsLock` and `SettingsSectionLockRenderer` is `SettingsLockRenderer`.
+- `filterSettingsSections(sections, query)` keeps the rows that match by title, description, hint, keywords and option labels; a section or group whose title matches keeps all its rows.
+
+### WorkspaceScreen builds itself from content
+
+`WorkspaceScreen` takes `content`, a `WorkspaceContent`: `{ home?, groups: [{ id, label?, pages }] }`. A `WorkspacePage` is `{ id, title, icon?, description?, keywords?, sections?, content?, tabs?, actions?, backdrop?, scroll? }`. From it the screen builds the side nav, the page header with a pill per section, the sections, and the search.
+
+- The page header is a `SettingsPage`: the glowing icon and the title over a backdrop that fades out behind them, compacting from 64 to 40 pixels once the page scrolls. `pageHeader={false}` drops it; `backdrop` replaces the default art, and `null` drops the art.
+- The search in the side nav runs over every row of every page. While it runs, the pane shows `SearchResults`: a group per page with its matching rows and their real inputs, a chip for every page whose name matches, and Open page, which opens the page and flashes its first match. `search` takes `placeholder`, `query` with `onQueryChange`, `idleMessage` and `emptyMessage`; `search={false}` turns it off.
+- `activeId`, `defaultActiveId` and `onActiveChange` set the current page; otherwise the screen keeps it.
+- `compactRows`, `readOnly` and `renderLock` reach every row.
+- Removed props: `nav`, `page`, `children`, `results`, `filterable` and `filterPlaceholder`; `compact` is `narrow`. `WorkspaceScreenPage` is removed. New types: `WorkspaceContent`, `WorkspaceGroup`, `WorkspacePage`, `WorkspaceSearch`.
+
+### NavLayout is SideNavLayout
+
+The name says what it is: a side nav beside a content pane. `NavLayoutProps` is `SideNavLayoutProps`, `NavLayoutPaneScroll` is `SideNavLayoutPaneScroll`, `compact` is `narrow`, and the classes are `side-nav-layout`, `side-nav-layout__pane` and `side-nav-layout--narrow`. `filterable` and `filterPlaceholder` are removed: the search in the nav never narrows the menu. The host searches the content of every page with the query and passes the matches as `results`, which the pane shows.
+
+### The search result parts
+
+- `SearchResultGroup` is new: the glowing icon, the title, a count pill and an Open page button (`onOpen`, `openLabel`), then any content. It carries `data-group`.
+- `SearchResultHit` is new: an icon, the label and the description with the query marked, and the path, its steps joined by chevrons. The whole row is one button.
+- `SearchResults` draws its groups and hits with them, always on the page card. `framed` and `groupHeading` are removed, with `SearchResultsGroupHeading`. `SearchResultsHit` takes `path` (a list of names), `description` and `icon`; `detail` is gone. The classes move with the parts: `search-results__group` is `search-result-group`, `search-results__open` is `search-result-group__open`, `search-results__hit` is `search-result-hit`.
+
+### What an app does
+
+Replay RENAMES.json. Then, in Brock:
+
+- `Hub` and `SettingsHub` import `SideNavLayout` in place of `NavLayout`; the props they pass keep their names.
+- `SettingsLayout` renders one `SettingsSection` per section in place of `SettingsGroupList`, with its own empty message; `group-list-sections.ts` returns `SettingsSectionData[]` and builds rows as `{ id: item.key, content, lock }`.
+- `hub-result-groups.ts` builds a hit as `{ id, label, path: tail, description: entry.description }` in place of `detail`.
+- `HubSearchResults` drops `framed`.
+- The review selector for the open button of a group is `.search-result-group__open`.
+- `DisplaySettingsTab` keeps `SettingsSection` with children; its title now draws as the large section heading.
+
+```tsx
+<SettingsSection
+  id="output"
+  title="Output"
+  rows={[
+    { id: 'volume', title: 'Master volume', input: { kind: 'slider', value: volume, onChange: setVolume, min: 0, max: 100 } },
+    {
+      id: 'channels',
+      title: 'Channels',
+      input: { kind: 'segmented', value: channels, onChange: setChannels, options: [
+        { value: '1', label: 'Mono', hint: 'Folds the output to one channel.' },
+        { value: '2', label: 'Stereo', hint: 'Keeps left and right apart.' },
+      ] },
+    },
+  ]}
+/>
+```
+
 ## 62. WizardProgress is the Stepper primitive; the step definition drives the wizard; WizardDialog; ButtonRow has a bar
 
 `WizardProgress` is now the primitive `Stepper`, with `StepperProps`, `StepperStep`, `StepperSubStep`, `StepperStatus` and `StepperOrientation` in place of `WizardProgressProps`, `WizardProgressStep`, `WizardSubStep`, `WizardStepState` and `WizardOrientation`. Its props are the same. A step takes `error` to show that it needs attention. Summaries and sub-steps now show in both orientations: in a horizontal Stepper the sub-steps stack under the line that follows their step. The lines meet the circles exactly in both orientations, and sub-steps never break them.

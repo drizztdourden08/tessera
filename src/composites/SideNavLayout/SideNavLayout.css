@@ -1,0 +1,21 @@
+/* @layer renderer-components @kind style */
+.side-nav-layout {
+  display: flex;
+  flex: 1;
+  gap: var(--space-xl);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.side-nav-layout--narrow {
+  gap: var(--space-sm);
+}
+
+.side-nav-layout__pane {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-xl);
+  min-width: 0;
+  min-height: 0;
+}

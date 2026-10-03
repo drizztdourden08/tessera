@@ -1673,16 +1673,6 @@
       "usage": false
     },
     {
-      "name": "NavLayout",
-      "tier": "composites",
-      "source": "src/composites/NavLayout/NavLayout.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "Overlay",
       "tier": "composites",
       "source": "src/composites/Overlay/Overlay.tsx",
@@ -1982,6 +1972,26 @@
       "parts": []
     },
     {
+      "name": "SearchResultGroup",
+      "tier": "composites",
+      "source": "src/composites/SearchResultGroup/SearchResultGroup.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SearchResultHit",
+      "tier": "composites",
+      "source": "src/composites/SearchResultHit/SearchResultHit.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
       "name": "SearchResults",
       "tier": "composites",
       "source": "src/composites/SearchResults/SearchResults.tsx",
@@ -1992,9 +2002,9 @@
       "usage": false
     },
     {
-      "name": "SettingsGroupList",
+      "name": "SettingsPage",
       "tier": "composites",
-      "source": "src/composites/SettingsGroupList/SettingsGroupList.tsx",
+      "source": "src/composites/SettingsPage/SettingsPage.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
@@ -2002,9 +2012,9 @@
       "usage": false
     },
     {
-      "name": "SettingsPage",
+      "name": "SettingsRow",
       "tier": "composites",
-      "source": "src/composites/SettingsPage/SettingsPage.tsx",
+      "source": "src/composites/SettingsRow/SettingsRow.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
@@ -2035,6 +2045,16 @@
       "name": "SideNav",
       "tier": "composites",
       "source": "src/composites/SideNav/SideNav.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "SideNavLayout",
+      "tier": "composites",
+      "source": "src/composites/SideNavLayout/SideNavLayout.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
@@ -2419,7 +2439,7 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "A screen to work in: a side list of pages beside the current page, with its header pills and a body that scrolls.",
+      "job": "A screen to work in, built from one content object: a side nav of pages, the current page under a header that compacts as it scrolls, and a search over every setting.",
       "useWhen": [
         "A settings hub, a profile hub or a data manager with several pages.",
         "The user moves between pages and changes things on them."
@@ -2438,19 +2458,20 @@
           "use": "StageScreen"
         },
         {
-          "case": "The side list and the page sit inside an app frame, not over it.",
-          "use": "NavLayout"
+          "case": "The side nav and the page sit inside an app frame, not over it.",
+          "use": "SideNavLayout"
         }
       ],
       "rules": [
-        "The host owns the active page: swap page and children when nav.onSelect fires.",
-        "Set page.anchors for one long page, or page.tabs for views of one area, never both.",
-        "Give the nav a search and set results to search every page; use filterable only to narrow the side list by label.",
+        "Describe every page in content: its id, title and icon, and either sections of SettingsRow data or content of its own.",
+        "The nav, the header pills, the rows and the search all come from content; never build them by hand beside it.",
+        "Give options a hint, toggles hints for on and off and sliders hintOf, so the live hint says what each value does.",
+        "Pass activeId and onActiveChange, or search.query and search.onQueryChange, only when the host must own them.",
         "Use the floating slot for a switch between sibling workspaces, and hidden to keep the screen mounted while it is closed."
       ],
       "a11y": [
         "The card is a modal dialog named by the title, and each page is a section named by its title.",
-        "The side list is a navigation landmark; set nav.ariaLabel when the screen holds more than one.",
+        "The side nav is a navigation landmark, and every row input is named by its row title.",
         "Escape clears a filled search before it reaches the screen."
       ],
       "tree": {
@@ -2460,8 +2481,8 @@
         ],
         "rule": "A side list of pages beside the current page."
       },
-      "example": "import { Icon, SettingsGroupList, WorkspaceScreen } from '@drizztdourden08/tessera';\nimport type { SettingsGroupListSection, SideNavConfig } from '@drizztdourden08/tessera';\n\ninterface HubProps {\n  config: SideNavConfig;\n  active: string;\n  onSelect: (id: string) => void;\n  sections: SettingsGroupListSection[];\n  onClose: () => void;\n}\n\nconst SettingsHub = ({ config, active, onSelect, sections, onClose }: HubProps) => (\n  <WorkspaceScreen\n    title=\"Settings\"\n    onClose={onClose}\n    nav={{ config, activeId: active, onSelect, defaultOpen: true }}\n    page={{ icon: <Icon name=\"settings\" />, title: 'General' }}\n  >\n    <SettingsGroupList sections={sections} />\n  </WorkspaceScreen>\n);\n",
-      "propsHash": "e62e15d55e47e2f7",
+      "example": "import { Icon, WorkspaceScreen } from '@drizztdourden08/tessera';\nimport type { WorkspaceContent } from '@drizztdourden08/tessera';\n\ninterface HubProps {\n  volume: number;\n  setVolume: (value: number) => void;\n  onClose: () => void;\n}\n\nconst SettingsHub = ({ volume, setVolume, onClose }: HubProps) => {\n  const content: WorkspaceContent = {\n    groups: [{\n      id: 'app',\n      label: 'App',\n      pages: [{\n        id: 'audio',\n        title: 'Audio',\n        icon: <Icon name=\"volume-2\" />,\n        sections: [{\n          id: 'output',\n          title: 'Output',\n          rows: [{ id: 'volume', title: 'Master volume', input: { kind: 'slider', value: volume, onChange: setVolume, min: 0, max: 100 } }],\n        }],\n      }],\n    }],\n  };\n  return <WorkspaceScreen title=\"Settings\" onClose={onClose} content={content} />;\n};\n",
+      "propsHash": "9f8f101476bab180",
       "props": {
         "own": [
           {
@@ -2475,19 +2496,45 @@
             "text": "() => void"
           },
           {
-            "name": "nav",
+            "name": "content",
             "optional": false,
-            "text": "SideNavProps"
+            "text": "WorkspaceContent"
           },
           {
-            "name": "page",
-            "optional": false,
-            "text": "WorkspaceScreenPage"
+            "name": "activeId",
+            "optional": true,
+            "text": "string"
           },
           {
-            "name": "children",
-            "optional": false,
-            "text": "ReactNode"
+            "name": "defaultActiveId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onActiveChange",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "pageHeader",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "backdrop",
+            "optional": true,
+            "text": "ReactNode",
+            "default": "<WorkspaceBackdrop />"
+          },
+          {
+            "name": "search",
+            "optional": true,
+            "text": "WorkspaceSearch | false"
+          },
+          {
+            "name": "narrow",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "subtitle",
@@ -2510,30 +2557,24 @@
             "text": "boolean"
           },
           {
-            "name": "results",
-            "optional": true,
-            "text": "ReactNode"
-          },
-          {
-            "name": "filterable",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "filterPlaceholder",
+            "name": "className",
             "optional": true,
             "text": "string"
           },
           {
-            "name": "compact",
+            "name": "compactRows",
             "optional": true,
             "text": "boolean"
           },
           {
-            "name": "className",
+            "name": "readOnly",
             "optional": true,
-            "text": "string",
-            "default": "''"
+            "text": "boolean"
+          },
+          {
+            "name": "renderLock",
+            "optional": true,
+            "text": "SettingsLockRenderer"
           }
         ],
         "inherited": {
@@ -2542,7 +2583,18 @@
           "extends": []
         }
       },
-      "tokens": [],
+      "tokens": [
+        "--blur",
+        "--border-width-thin",
+        "--c-border",
+        "--c-layer",
+        "--c-panel",
+        "--c-primary",
+        "--c-primary-dim",
+        "--c-secondary",
+        "--radius-xl",
+        "--space-xl"
+      ],
       "gallery": {
         "title": "Composites · Screens/WorkspaceScreen",
         "route": "#/story/composites-workspacescreen--overview",

@@ -1,0 +1,28 @@
+/* @layer renderer-components @kind style */
+.search-chip {
+  display: inline-flex;
+  gap: var(--space-xs);
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-pill);
+  color: var(--c-primary-bright);
+  font-size: var(--text-sm);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.search-chip:hover {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+}
+
+.search-chip:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thin);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-chip {
+    transition: none;
+  }
+}

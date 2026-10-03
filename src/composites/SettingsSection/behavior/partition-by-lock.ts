@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind logic */
-import type { SettingsSectionRow, SettingsSectionRun } from '../SettingsSection.type';
+import type { SettingsRun, SettingsSectionRow } from '../SettingsSection.type';
 
-const partitionByLock = (rows: readonly SettingsSectionRow[]): SettingsSectionRun[] => {
-  const runs: SettingsSectionRun[] = [];
+const partitionByLock = (rows: readonly SettingsSectionRow[]): SettingsRun[] => {
+  const runs: SettingsRun[] = [];
   for (const row of rows) {
     const lock = row.lock ?? null;
     const current = runs.at(-1);

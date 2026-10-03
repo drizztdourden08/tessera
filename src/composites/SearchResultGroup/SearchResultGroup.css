@@ -1,0 +1,40 @@
+/* @layer renderer-components @kind style */
+.search-result-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.search-result-group__head {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.search-result-group__icon {
+  display: grid;
+  place-items: center;
+  color: var(--c-primary-bright);
+  font-size: var(--text-xl);
+}
+
+.search-result-group__title {
+  margin: 0;
+  color: var(--c-text);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+}
+
+.search-result-group__count {
+  padding: 0 var(--space-sm);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-bright);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  font-variant-numeric: tabular-nums;
+}
+
+.search-result-group__open {
+  margin-left: auto;
+}

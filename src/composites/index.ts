@@ -32,20 +32,25 @@ export { MasterDetailLayout } from './MasterDetailLayout';
 export type { MasterDetailLayoutProps } from './MasterDetailLayout';
 export { SplitPane } from './SplitPane';
 export type { CollapsedSide, SplitOrientation, SplitPaneProps } from './SplitPane';
-export { SettingsSection } from './SettingsSection';
+export { SettingsRow } from './SettingsRow';
 export type {
-  SettingsSectionLock, SettingsSectionLockRenderer, SettingsSectionProps, SettingsSectionRow,
+  SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowProps,
+} from './SettingsRow';
+export { filterSettingsSections, SettingsSection } from './SettingsSection';
+export type {
+  SettingsContentRow, SettingsGroupData, SettingsLock, SettingsLockRenderer, SettingsSectionData, SettingsSectionLook, SettingsSectionProps,
+  SettingsSectionRow,
 } from './SettingsSection';
-export { SettingsGroupList } from './SettingsGroupList';
-export type { SettingsGroupListGroup, SettingsGroupListProps, SettingsGroupListSection } from './SettingsGroupList';
 export { SettingsPage } from './SettingsPage';
 export type { SettingsPageAnchor, SettingsPageProps, SettingsPageTabs } from './SettingsPage';
-export { NavLayout } from './NavLayout';
-export type { NavLayoutPaneScroll, NavLayoutProps } from './NavLayout';
+export { SideNavLayout } from './SideNavLayout';
+export type { SideNavLayoutPaneScroll, SideNavLayoutProps } from './SideNavLayout';
 export { SearchResults } from './SearchResults';
-export type {
-  SearchResultsGroup, SearchResultsGroupHeading, SearchResultsHit, SearchResultsJump, SearchResultsProps,
-} from './SearchResults';
+export type { SearchResultsGroup, SearchResultsHit, SearchResultsJump, SearchResultsProps } from './SearchResults';
+export { SearchResultGroup } from './SearchResultGroup';
+export type { SearchResultGroupProps } from './SearchResultGroup';
+export { SearchResultHit } from './SearchResultHit';
+export type { SearchResultHitProps } from './SearchResultHit';
 export { ProfilePicker } from './ProfilePicker';
 export type { ProfilePickerItem, ProfilePickerProps } from './ProfilePicker';
 export { InlineCreateForm } from './InlineCreateForm';
@@ -61,7 +66,9 @@ export type { ScreenLayerProps, ScreenLayerSize } from './ScreenLayer';
 export { ScreenWindow } from './ScreenWindow';
 export type { ScreenWindowProps } from './ScreenWindow';
 export { WorkspaceScreen } from './WorkspaceScreen';
-export type { WorkspaceScreenPage, WorkspaceScreenProps } from './WorkspaceScreen';
+export type {
+  WorkspaceContent, WorkspaceGroup, WorkspacePage, WorkspaceScreenProps, WorkspaceSearch,
+} from './WorkspaceScreen';
 export { InfoScreen } from './InfoScreen';
 export type { InfoScreenProps, InfoScreenWidth } from './InfoScreen';
 export { UtilityScreen } from './UtilityScreen';
