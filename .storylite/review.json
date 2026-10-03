@@ -302,6 +302,9 @@
       "status": "ok",
       "hash": "598189ae75cfda7b",
       "at": "2026-10-01"
+    },
+    "Emphasis animation": {
+      "status": "new"
     }
   },
   "Core · Icons": {
@@ -575,10 +578,8 @@
       "hash": "3d7e0f9ac8d2669d",
       "at": "2026-10-03"
     },
-    "Stepper": {
-      "status": "ok",
-      "hash": "df397a417d794a4b",
-      "at": "2026-10-03"
+    "NumberStepper": {
+      "status": "new"
     },
     "Checkbox": {
       "status": "ok",
@@ -797,6 +798,17 @@
       "hash": "ac5ac47c355ddda4",
       "at": "2026-10-03"
     },
+    "ProfilePicker": {
+      "status": "new"
+    },
+    "GroupTree": {
+      "status": "new"
+    },
+    "ListItemRow": {
+      "status": "new"
+    }
+  },
+  "Composites · Layout": {
     "SplitPane": {
       "status": "ok",
       "hash": "55d0221ad562b025",
@@ -807,40 +819,27 @@
       "hash": "11b7ce9c65d0417d",
       "at": "2026-10-03"
     },
-    "GroupTree": {
-      "status": "new"
-    },
-    "ListItemRow": {
-      "status": "new"
-    },
-    "WindowHeader": {
-      "status": "new"
-    },
-    "WindowTitleBar": {
+    "NavLayout": {
       "status": "seen",
-      "hash": "457b2e4ada3cc03d",
+      "hash": "872406d0b5ff2ee3",
+      "at": "2026-10-01"
+    }
+  },
+  "Composites · Lists": {
+    "SearchResults": {
+      "status": "new"
+    }
+  },
+  "Composites · Settings": {
+    "SettingsPage": {
+      "status": "seen",
+      "hash": "732123e164bcabf3",
       "at": "2026-10-01"
     },
     "SettingsSection": {
       "status": "new"
     },
     "SettingsGroupList": {
-      "status": "new"
-    },
-    "SettingsPage": {
-      "status": "seen",
-      "hash": "732123e164bcabf3",
-      "at": "2026-10-01"
-    },
-    "NavLayout": {
-      "status": "seen",
-      "hash": "872406d0b5ff2ee3",
-      "at": "2026-10-01"
-    },
-    "SearchResults": {
-      "status": "new"
-    },
-    "ProfilePicker": {
       "status": "new"
     }
   },
@@ -874,6 +873,14 @@
       "status": "ok",
       "hash": "d7e223751753e3e5",
       "at": "2026-10-03"
+    },
+    "ColorPicker": {
+      "status": "ok",
+      "hash": "cff59304c329c1e1",
+      "at": "2026-10-03"
+    },
+    "ColorPickerPopover": {
+      "status": "new"
     }
   },
   "Composites · Forms": {
@@ -925,30 +932,14 @@
     "ReleaseNotesPanel": {
       "status": "new"
     },
-    "Emphasis": {
-      "status": "new"
-    },
-    "ColorPicker": {
-      "status": "ok",
-      "hash": "cff59304c329c1e1",
-      "at": "2026-10-03"
-    },
-    "ColorPickerPopover": {
-      "status": "new"
+    "Hero": {
+      "status": "seen",
+      "hash": "81c377b88c1b9637",
+      "at": "2026-10-01"
     },
     "PixelWordmark": {
       "status": "ok",
       "hash": "71db2c1310f3d20f",
-      "at": "2026-10-03"
-    },
-    "KeyboardLayout": {
-      "status": "ok",
-      "hash": "ca23e213be3cf93b",
-      "at": "2026-10-03"
-    },
-    "ShortcutTour": {
-      "status": "ok",
-      "hash": "2e0233107e9c7753",
       "at": "2026-10-03"
     }
   },
@@ -962,6 +953,16 @@
     "StickPlot": {
       "status": "ok",
       "hash": "1c5cbfd98643bcc1",
+      "at": "2026-10-03"
+    },
+    "KeyboardLayout": {
+      "status": "ok",
+      "hash": "ca23e213be3cf93b",
+      "at": "2026-10-03"
+    },
+    "ShortcutTour": {
+      "status": "ok",
+      "hash": "2e0233107e9c7753",
       "at": "2026-10-03"
     }
   },
@@ -980,6 +981,16 @@
       "status": "seen",
       "hash": "25f9478d31cc56ff",
       "at": "2026-10-01"
+    }
+  },
+  "Composites · Windows": {
+    "WindowTitleBar": {
+      "status": "seen",
+      "hash": "457b2e4ada3cc03d",
+      "at": "2026-10-01"
+    },
+    "WindowHeader": {
+      "status": "new"
     }
   },
   "Composites · Screens": {
@@ -1008,11 +1019,6 @@
       "status": "ok",
       "hash": "3d19bf69146f61d5",
       "at": "2026-10-03"
-    },
-    "Hero": {
-      "status": "seen",
-      "hash": "81c377b88c1b9637",
-      "at": "2026-10-01"
     }
   },
   "Data": {
