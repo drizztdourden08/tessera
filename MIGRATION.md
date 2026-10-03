@@ -1681,3 +1681,11 @@ The pop out button passes no point. `ScreenPoint` is exported.
 ### What an app does
 
 Nothing is renamed. An app that drew controller prompts from its own SVG files can draw `InputIcon` instead and keep the file credits. An app that passes `onPopOut` to `DockLayout` or `WidgetManager` can open the new window at `point` when it is given. An app that decided by itself which popped windows to show can read `visibleLayoutOf(layout, gates).popped` instead. An app that styled `.widget-options` to a width of 240 pixels moves to 256.
+
+## 65. The gear glyph is a gear
+
+`<Glyph name="gear" />` draws a toothed wheel with a hole: the Lucide `settings` shape, scaled to the 16 unit glyph grid with the 1.5 glyph stroke. It drew a ring with eight rays, which read as a sun. The name stays `gear`, so the gear in the DataTable options button and the gear `Icon name="settings"` draws in `Widget` and `SettingsPage` are the same shape.
+
+### What an app does
+
+Nothing. An app that drew its own gear beside a `Glyph` can use `<Glyph name="gear" />`.
