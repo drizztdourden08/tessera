@@ -18,5 +18,8 @@ storylite-static/
 # Storylite static build
 dist-storylite/
 
+# The owner's page notes for the next pass: ephemeral, never committed
+.storylite/review-notes.json
+
 # Local Claude Code session config
 .claude/

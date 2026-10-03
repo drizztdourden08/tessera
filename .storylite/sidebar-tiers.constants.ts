@@ -55,10 +55,11 @@ const TIER_BODY = `  var TIER_KEY = 'tessera:sidebar-tiers';
     setAttr(group, 'data-tier', place[0]);
     flag(group, 'data-tier-root', !place[1]);
     flag(group, 'data-tier-closed', !open && !!closedTiers[place[0]]);
-    var info = tiers[place[0]] || (tiers[place[0]] = { first: group, count: 0, colour: '', active: false });
+    var info = tiers[place[0]] || (tiers[place[0]] = { first: group, count: 0, colour: '', active: false, hasNote: false });
     info.count += Number(text(group.querySelector('.story-group__toggle > small'))) || 0;
     info.colour = worst(info.colour, colours.groups[folder]);
     info.active = info.active || !!group.querySelector('.story-link.active');
+    info.hasNote = info.hasNote || !!noted[folder];
   };
   var paintTier = function (tier, info, open) {
     var row = tierRow(tier);
@@ -69,7 +70,7 @@ const TIER_BODY = `  var TIER_KEY = 'tessera:sidebar-tiers';
     setAttr(button, 'aria-expanded', String(!closed));
     setIcon(button.firstChild, closed ? 'closed' : 'open', closed ? TIERS.closed : TIERS.open);
     if (small.textContent !== String(info.count)) small.textContent = String(info.count);
-    mark(button, info.colour);
+    mark(button, info.colour, info.hasNote);
     flag(button, 'data-current', closed && info.active);
   };
   var decorateTiers = function () {

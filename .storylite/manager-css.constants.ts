@@ -43,9 +43,9 @@ button[aria-label="App"]:not(.toolbar-dropdown__item) { display: none; }
 [data-review] > small::after {
   content: ""; inline-size: 7px; block-size: 7px; border-radius: 50%; flex: none; background: var(--review-dot);
 }
-[data-review="red"] { --review-dot: #ef6a6a; }
-[data-review="yellow"] { --review-dot: #e6b84f; }
-[data-review="green"] { --review-dot: #6cc38a; }
+[data-review="red"] { --review-dot: var(--review-red); }
+[data-review="yellow"] { --review-dot: var(--review-yellow); }
+[data-review="green"] { --review-dot: var(--review-green); }
 
 /* Tiers (sidebar-tiers.constants.ts): Core, Primitives, Composites and Data head their groups.
    Story titles keep their "Tier · Group" folder; the menu shows the group name under its tier.

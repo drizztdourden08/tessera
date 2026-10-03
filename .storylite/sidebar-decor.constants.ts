@@ -1,5 +1,6 @@
 /* @layer root-config @kind data */
-const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {} };
+const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {}, notes: {} };
+  var noted = {};
   var queued = false;
   var text = function (el) { return el ? el.textContent.trim() : ''; };
   var setIcon = function (svg, key, body) {
@@ -7,8 +8,10 @@ const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {} };
     svg.innerHTML = body;
     svg.setAttribute('data-icon', key);
   };
-  var mark = function (row, colour) {
-    if (row && colour && row.getAttribute('data-review') !== colour) row.setAttribute('data-review', colour);
+  var mark = function (row, colour, note) {
+    if (!row) return;
+    if (colour && row.getAttribute('data-review') !== colour) row.setAttribute('data-review', colour);
+    flag(row, 'data-note', !!note);
   };
   var decorate = function () {
     queued = false;
@@ -17,12 +20,12 @@ const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {} };
       var toggle = group.querySelector('.story-group__toggle');
       var folder = folderOf(group);
       setIcon(toggle && toggle.querySelector('.story-tree__type-icon'), folder, ICONS.groups[folder]);
-      mark(toggle, colours.groups[folder]);
+      mark(toggle, colours.groups[folder], noted[folder]);
       group.querySelectorAll('.story-component').forEach(function (page) {
         var pageToggle = page.querySelector('.story-component__toggle');
         var key = folder + '/' + text(pageToggle && pageToggle.querySelector(':scope > span'));
         setIcon(pageToggle && pageToggle.querySelector('.story-tree__type-icon'), key, ICONS.pages[key]);
-        mark(pageToggle, colours.pages[key]);
+        mark(pageToggle, colours.pages[key], colours.notes[key]);
       });
     });
   };
@@ -34,9 +37,15 @@ const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {} };
   var refresh = function () {
     fetch(ROUTE, { cache: 'no-store' })
       .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (next) { if (next && next.pages) { colours = next; schedule(); } })
+      .then(function (next) { if (next && next.pages) window.dispatchEvent(new CustomEvent(EVENT, { detail: next })); })
       .catch(function () { /* a built gallery has no review route: no colours */ });
   };
+  window.addEventListener(EVENT, function (e) {
+    colours = Object.assign({ notes: {} }, e.detail);
+    noted = {};
+    Object.keys(colours.notes).forEach(function (title) { noted[title.slice(0, title.lastIndexOf('/'))] = true; });
+    schedule();
+  });
   new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
   window.addEventListener('focus', refresh);
   setInterval(refresh, POLL_MS);

@@ -1,35 +1,40 @@
 /* @layer tooling-scripts @kind entry */
 import { runnerImport } from 'vite';
 import { findPages } from './find-pages.mjs';
+import { reviewNotes } from './review-notes.mjs';
 import { printReview } from './print-review.mjs';
 
 const RUNNER = { configFile: false, logLevel: 'silent' };
-const USAGE = 'Usage: pnpm review ok|seen|clear <page>... | pnpm review list [red|yellow|green]';
+const USAGE = 'Usage: pnpm review ok|seen|clear <page>... | pnpm review list [red|yellow|green] | pnpm review notes [clear <page>... | clear --all]';
 const STATUS = { ok: 'ok', seen: 'seen', clear: 'new' };
 
 const root = process.cwd();
 const [verb, ...names] = process.argv.slice(2);
 const load = async (file) => (await runnerImport(file, { ...RUNNER, root })).module;
-const { reviewPages } = await load('/.storylite/review-pages.ts');
-const { syncRegistry } = await load('/.storylite/review-registry.ts');
-const { writeRegistry } = await load('/.storylite/review-write.ts');
-const { splitTitle } = await load('/.storylite/review-split-title.ts');
-const { reviewState } = await load('/.storylite/review-colours.ts');
 
-const record = () => {
-  const pages = reviewPages(root);
-  const registry = syncRegistry(root, pages);
-  const today = new Date().toISOString().slice(0, 10);
-  for (const page of findPages(pages, names)) {
-    const [folder, name] = splitTitle(page.title);
-    registry[folder][name] = verb === 'clear' ? { status: 'new' } : { status: STATUS[verb], hash: page.hash, at: today };
-    console.log(`${verb.padEnd(5)} ${page.title}`);
-  }
-  writeRegistry(root, registry);
+const record = async () => {
+  const { setReview } = await load('/.storylite/review-set.ts');
+  for (const page of setReview(root, STATUS[verb], (pages) => findPages(pages, names))) console.log(`${verb.padEnd(5)} ${page.title}`);
 };
 
-if (verb === 'list') printReview(reviewState(root), names[0]);
-else if (verb in STATUS && names.length > 0) record();
+const list = async () => {
+  const { reviewState } = await load('/.storylite/review-colours.ts');
+  printReview(reviewState(root), names[0]);
+};
+
+const notes = async () => {
+  const store = {
+    ...(await load('/.storylite/review-notes-read.ts')),
+    ...(await load('/.storylite/review-notes-write.ts')),
+    ...(await load('/.storylite/review-note-set.ts')),
+  };
+  return reviewNotes(root, store, names);
+};
+
+const run = { list, notes };
+
+if (verb in run) await run[verb]();
+else if (verb in STATUS && names.length > 0) await record();
 else {
   console.error(USAGE);
   process.exitCode = 1;

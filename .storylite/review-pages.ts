@@ -3,9 +3,8 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { pageFiles } from './review-files';
-import { META_TITLE } from './review.constants';
+import { reviewStories } from './review-stories';
 import type { ReviewPage } from './review.type';
-import { storyFiles } from './story-files';
 
 const hashFiles = (root: string, files: readonly string[]): string => {
   const hash = crypto.createHash('sha1');
@@ -17,9 +16,6 @@ const hashFiles = (root: string, files: readonly string[]): string => {
 };
 
 const reviewPages = (root: string): ReviewPage[] =>
-  storyFiles(path.join(root, 'stories')).flatMap((file) => {
-    const title = META_TITLE.exec(fs.readFileSync(file, 'utf8'))?.[1];
-    return title ? [{ title, hash: hashFiles(root, pageFiles(root, file)) }] : [];
-  });
+  reviewStories(root).map(({ title, file }) => ({ title, hash: hashFiles(root, pageFiles(root, file)) }));
 
 export { reviewPages };

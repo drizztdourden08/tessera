@@ -11,6 +11,8 @@ import { HOME_CSS } from './home-css.constants';
 import { MANAGER_CSS } from './manager-css.constants';
 import { markSvg } from './mark-svg';
 import { menuOrder } from './menu';
+import { reviewControlScript } from './review-control';
+import { reviewCss } from './review-css';
 import { reviewPlugin } from './review-plugin';
 import { sidebarDecorScript } from './sidebar-decor';
 import { componentPages } from './story-index';
@@ -31,11 +33,11 @@ export default defineConfig({
   renderers: [controlledReact()],
   home: buildHome(ROOT),
   managerHead: (defaults) => [defaults, FAVICON, LEAVE_MAXIMIZED, PREVIEW_ALLOWS_FULLSCREEN].join('\n'),
-  managerBodyEnd: (defaults) => [defaults, appSwitcherScript(), componentPagesScript(componentPages(ROOT)), sidebarDecorScript(ROOT), HOME_LOGO_MOUNT].join('\n'),
+  managerBodyEnd: (defaults) => [defaults, appSwitcherScript(), componentPagesScript(componentPages(ROOT)), sidebarDecorScript(ROOT), reviewControlScript(ROOT), HOME_LOGO_MOUNT].join('\n'),
   storyId: (_path, suggestedId) => suggestedId.replace(/^stories-/, ''),
   storySort: { order: menuOrder() },
   ui: {
-    css: [MANAGER_CSS, HOME_CSS].join('\n'),
+    css: [MANAGER_CSS, reviewCss(ROOT), HOME_CSS].join('\n'),
     brand: {
       markHtml: markSvg('tessera', '34px', 'gallery-mark'),
       titleHtml: wordmarkSvg('tessera', '20px', 'gallery-wordmark'),

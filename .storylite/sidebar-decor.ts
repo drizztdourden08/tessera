@@ -1,6 +1,6 @@
 /* @layer root-config @kind logic */
 import { lucideBody } from './lucide-body';
-import { REVIEW_RANK, REVIEW_ROUTE } from './review.constants';
+import { REVIEW_EVENT, REVIEW_RANK, REVIEW_ROUTE } from './review.constants';
 import { SIDEBAR_BODY, SIDEBAR_POLL_MS } from './sidebar-decor.constants';
 import { GROUP_ICONS, PAGE_ICONS } from './sidebar-icons.constants';
 import { TIER_BODY } from './sidebar-tiers.constants';
@@ -19,6 +19,7 @@ const sidebarDecorScript = (root: string): string => `<script>
   var TIERS = ${JSON.stringify(sidebarTiers(root))};
   var RANK = ${JSON.stringify(REVIEW_RANK)};
   var ROUTE = ${JSON.stringify(REVIEW_ROUTE)};
+  var EVENT = ${JSON.stringify(REVIEW_EVENT)};
   var POLL_MS = ${SIDEBAR_POLL_MS};
 ${TIER_BODY}${SIDEBAR_BODY}})();
 </script>`;

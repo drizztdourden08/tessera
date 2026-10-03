@@ -16,9 +16,41 @@ interface ReviewPage {
   hash: string;
 }
 
+interface ReviewStory {
+  title: string;
+  file: string;
+}
+
+interface ReviewMark {
+  status: ReviewStatus;
+  changed: boolean;
+}
+
+interface ReviewNote {
+  text: string;
+  at: string;
+}
+
+type ReviewNotes = Record<string, ReviewNote>;
+
 interface ReviewState {
   pages: Record<string, ReviewColour>;
   groups: Record<string, ReviewColour>;
+  marks: Record<string, ReviewMark>;
+  notes: ReviewNotes;
 }
 
-export type { ReviewColour, ReviewEntry, ReviewPage, ReviewRegistry, ReviewState };
+type ReviewPostKind = 'set' | 'note';
+
+type ReviewRequest = { kind: 'set'; title: string; status: ReviewStatus } | { kind: 'note'; title: string; text: string };
+
+interface ReviewReply {
+  code: number;
+  error?: string;
+  state?: ReviewState;
+}
+
+export type {
+  ReviewColour, ReviewEntry, ReviewNote, ReviewNotes, ReviewPage, ReviewPostKind, ReviewRegistry, ReviewReply, ReviewRequest,
+  ReviewState, ReviewStatus, ReviewStory,
+};

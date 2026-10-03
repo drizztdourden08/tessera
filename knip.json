@@ -10,10 +10,11 @@
     ".storylite/home-logo-mount.ts",
     ".storylite/renderer/controlled-client.ts",
     ".storylite/review-colours.ts",
-    ".storylite/review-pages.ts",
-    ".storylite/review-registry.ts",
-    ".storylite/review-write.ts",
-    ".storylite/review-split-title.ts"
+    ".storylite/review-post.ts",
+    ".storylite/review-set.ts",
+    ".storylite/review-notes-read.ts",
+    ".storylite/review-notes-write.ts",
+    ".storylite/review-note-set.ts"
   ],
   "project": [
     "src/**/*.{ts,tsx}",
