@@ -295,8 +295,8 @@
     },
     "Quote": {
       "status": "ok",
-      "hash": "b0d115c818b25307",
-      "at": "2026-10-01"
+      "hash": "4525d252d95992c2",
+      "at": "2026-10-03"
     },
     "CodeBlock": {
       "status": "ok",
@@ -307,8 +307,8 @@
   "Core · Icons": {
     "Icon": {
       "status": "ok",
-      "hash": "149aa57a1bc9438d",
-      "at": "2026-10-01"
+      "hash": "67168855c99c51c0",
+      "at": "2026-10-03"
     },
     "Brand icons": {
       "status": "ok",
@@ -436,13 +436,13 @@
     },
     "Portal": {
       "status": "ok",
-      "hash": "0eed5bc9023e088c",
-      "at": "2026-10-02"
+      "hash": "e6c1b43ed368abc4",
+      "at": "2026-10-03"
     },
     "Anchored": {
       "status": "ok",
-      "hash": "1072547dfbf5edd0",
-      "at": "2026-10-01"
+      "hash": "620c95794a0eb368",
+      "at": "2026-10-03"
     },
     "Floating": {
       "status": "ok",
@@ -468,8 +468,8 @@
     },
     "Badge": {
       "status": "ok",
-      "hash": "cf89b465539c78a9",
-      "at": "2026-10-01"
+      "hash": "753166347dd22f06",
+      "at": "2026-10-03"
     },
     "Status": {
       "status": "ok",
@@ -498,8 +498,8 @@
     },
     "Video": {
       "status": "ok",
-      "hash": "a5413c03c3d0d1ba",
-      "at": "2026-10-02"
+      "hash": "a5390864f06afe36",
+      "at": "2026-10-03"
     },
     "Canvas": {
       "status": "ok",
@@ -513,8 +513,8 @@
     },
     "ScaleLabels": {
       "status": "ok",
-      "hash": "06d9853b3f0d90e7",
-      "at": "2026-10-02"
+      "hash": "dc560b827ec2ae58",
+      "at": "2026-10-03"
     }
   },
   "Primitives · Actions": {
@@ -560,8 +560,8 @@
     },
     "Textarea": {
       "status": "ok",
-      "hash": "a60d887499b93c2e",
-      "at": "2026-10-02"
+      "hash": "1e4deb8cf790408d",
+      "at": "2026-10-03"
     },
     "NumberInput": {
       "status": "ok",
@@ -570,33 +570,33 @@
     },
     "Stepper": {
       "status": "ok",
-      "hash": "220db3de96e4802b",
-      "at": "2026-10-01"
+      "hash": "bf3277ce8db08901",
+      "at": "2026-10-03"
     },
     "Checkbox": {
       "status": "ok",
-      "hash": "f01667d8d97d2b92",
-      "at": "2026-10-01"
+      "hash": "1f2f52a7b3e63288",
+      "at": "2026-10-03"
     },
     "Toggle": {
       "status": "ok",
-      "hash": "182eed6003dcdd34",
-      "at": "2026-10-02"
+      "hash": "b38e40ef7a9d5136",
+      "at": "2026-10-03"
     },
     "ToggleGroup": {
       "status": "ok",
-      "hash": "9765ca1df5d8f543",
-      "at": "2026-10-01"
+      "hash": "46de46a1ac7381ff",
+      "at": "2026-10-03"
     },
     "RadioGroup": {
       "status": "ok",
-      "hash": "a0fbdaa133f6ce93",
-      "at": "2026-10-01"
+      "hash": "b77c1c4a02afc767",
+      "at": "2026-10-03"
     },
     "SegmentedControl": {
       "status": "ok",
-      "hash": "3ab15aa1dcc75ff1",
-      "at": "2026-10-01"
+      "hash": "9a530937e93da30e",
+      "at": "2026-10-03"
     },
     "Select": {
       "status": "ok",
@@ -605,43 +605,43 @@
     },
     "Combobox": {
       "status": "ok",
-      "hash": "2bcb9cbd2e1860fb",
-      "at": "2026-10-01"
+      "hash": "7f60cb32665b5431",
+      "at": "2026-10-03"
     },
     "Slider": {
       "status": "ok",
-      "hash": "d222bcce409995d1",
-      "at": "2026-10-02"
+      "hash": "416bbf438bc3f4ce",
+      "at": "2026-10-03"
     },
     "TagInput": {
       "status": "ok",
-      "hash": "5a030248b8227068",
-      "at": "2026-10-01"
+      "hash": "86e780ea94f6ee8b",
+      "at": "2026-10-03"
     },
     "TagPicker": {
       "status": "ok",
-      "hash": "50b1f803290b429b",
-      "at": "2026-10-01"
+      "hash": "3c276d5f6c120304",
+      "at": "2026-10-03"
     },
     "ColorSwatch": {
       "status": "ok",
-      "hash": "bfcd9dfd9c3470b5",
-      "at": "2026-10-01"
+      "hash": "10509fca1626a522",
+      "at": "2026-10-03"
     },
     "DropZone": {
       "status": "ok",
-      "hash": "4ad596f2f81a8720",
-      "at": "2026-10-01"
+      "hash": "d29dd9f744f1cd5e",
+      "at": "2026-10-03"
     },
     "Field": {
       "status": "ok",
-      "hash": "92e8e1841d0d48e8",
-      "at": "2026-10-01"
+      "hash": "e51e1be515c4cc85",
+      "at": "2026-10-03"
     },
     "FieldControlBoundary": {
       "status": "ok",
-      "hash": "548068a7e4a0573d",
-      "at": "2026-10-02"
+      "hash": "2bf9b122ab8e1541",
+      "at": "2026-10-03"
     }
   },
   "Primitives · Feedback": {
@@ -694,8 +694,8 @@
   "Primitives · Navigation": {
     "Tabs": {
       "status": "ok",
-      "hash": "70da85fee908b9e9",
-      "at": "2026-10-02"
+      "hash": "0717e7d5432f07d2",
+      "at": "2026-10-03"
     },
     "RouterLink": {
       "status": "ok",
@@ -711,8 +711,8 @@
     },
     "DialogShell": {
       "status": "ok",
-      "hash": "01019d96176d7766",
-      "at": "2026-10-02"
+      "hash": "8e37bced1cd62786",
+      "at": "2026-10-03"
     },
     "CreateRecordDialog": {
       "status": "ok",
