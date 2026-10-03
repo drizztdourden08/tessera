@@ -739,8 +739,8 @@
       "at": "2026-10-02"
     },
     "Drawer": {
-      "status": "ok",
-      "hash": "4e5c58fb6141ec43",
+      "status": "seen",
+      "hash": "7332c8a3d525748c",
       "at": "2026-10-03"
     },
     "DisabledOverlay": {
@@ -870,7 +870,9 @@
       "status": "new"
     },
     "VolumeControl": {
-      "status": "new"
+      "status": "ok",
+      "hash": "d7e223751753e3e5",
+      "at": "2026-10-03"
     }
   },
   "Composites · Forms": {
