@@ -739,8 +739,8 @@
       "at": "2026-10-02"
     },
     "Drawer": {
-      "status": "seen",
-      "hash": "7332c8a3d525748c",
+      "status": "ok",
+      "hash": "f58be5257152d2c1",
       "at": "2026-10-03"
     },
     "DisabledOverlay": {
@@ -761,9 +761,9 @@
       "at": "2026-10-01"
     },
     "WizardStep": {
-      "status": "seen",
+      "status": "ok",
       "hash": "f1c92d6f7cc8fb76",
-      "at": "2026-10-01"
+      "at": "2026-10-03"
     },
     "WizardNav": {
       "status": "seen",
@@ -771,14 +771,14 @@
       "at": "2026-10-01"
     },
     "WizardReview": {
-      "status": "seen",
+      "status": "ok",
       "hash": "ca595948591edd4c",
-      "at": "2026-10-01"
+      "at": "2026-10-03"
     },
     "WizardExitGuard": {
-      "status": "seen",
+      "status": "ok",
       "hash": "a9b9472e9d8b196d",
-      "at": "2026-10-01"
+      "at": "2026-10-03"
     }
   },
   "Composites · Navigation": {
@@ -788,22 +788,24 @@
       "at": "2026-10-01"
     },
     "HeaderAnchorNav": {
-      "status": "seen",
-      "hash": "435229260b09201d",
+      "status": "ok",
+      "hash": "bf56a365066f4aef",
       "at": "2026-10-03"
     },
     "FloatingSwitch": {
-      "status": "seen",
-      "hash": "457ad6553e1ca4b9",
+      "status": "ok",
+      "hash": "ac5ac47c355ddda4",
       "at": "2026-10-03"
     },
     "SplitPane": {
-      "status": "seen",
-      "hash": "3925bf6722535682",
+      "status": "ok",
+      "hash": "55d0221ad562b025",
       "at": "2026-10-03"
     },
     "MasterDetailLayout": {
-      "status": "new"
+      "status": "ok",
+      "hash": "11b7ce9c65d0417d",
+      "at": "2026-10-03"
     },
     "GroupTree": {
       "status": "new"
@@ -852,7 +854,9 @@
       "status": "new"
     },
     "CommandPaletteRow": {
-      "status": "new"
+      "status": "ok",
+      "hash": "f6ac297996682113",
+      "at": "2026-10-03"
     }
   },
   "Composites · Actions": {
@@ -874,12 +878,14 @@
   },
   "Composites · Forms": {
     "InlineCreateForm": {
-      "status": "seen",
-      "hash": "63c0675eb255d1c1",
-      "at": "2026-10-02"
+      "status": "ok",
+      "hash": "c023a7ae78055982",
+      "at": "2026-10-03"
     },
     "RecordEditor": {
-      "status": "new"
+      "status": "ok",
+      "hash": "721d427a1ecc606b",
+      "at": "2026-10-03"
     }
   },
   "Composites · Data views": {
@@ -890,10 +896,14 @@
       "status": "new"
     },
     "CompactRecordView": {
-      "status": "new"
+      "status": "ok",
+      "hash": "ba0d06f6acb785cb",
+      "at": "2026-10-03"
     },
     "Field kits": {
-      "status": "new"
+      "status": "ok",
+      "hash": "8fa682f38ff3b8e8",
+      "at": "2026-10-03"
     }
   },
   "Composites · Content": {
@@ -908,7 +918,9 @@
       "at": "2026-10-01"
     },
     "FactsPanel": {
-      "status": "new"
+      "status": "ok",
+      "hash": "6977932c7af4f776",
+      "at": "2026-10-03"
     },
     "ReleaseNotesPanel": {
       "status": "new"
@@ -917,19 +929,27 @@
       "status": "new"
     },
     "ColorPicker": {
-      "status": "new"
+      "status": "ok",
+      "hash": "cff59304c329c1e1",
+      "at": "2026-10-03"
     },
     "ColorPickerPopover": {
       "status": "new"
     },
     "PixelWordmark": {
-      "status": "new"
+      "status": "ok",
+      "hash": "71db2c1310f3d20f",
+      "at": "2026-10-03"
     },
     "KeyboardLayout": {
-      "status": "new"
+      "status": "ok",
+      "hash": "ca23e213be3cf93b",
+      "at": "2026-10-03"
     },
     "ShortcutTour": {
-      "status": "new"
+      "status": "ok",
+      "hash": "2e0233107e9c7753",
+      "at": "2026-10-03"
     }
   },
   "Composites · Input devices": {
@@ -940,14 +960,16 @@
       "status": "new"
     },
     "StickPlot": {
-      "status": "seen",
+      "status": "ok",
       "hash": "1c5cbfd98643bcc1",
-      "at": "2026-10-01"
+      "at": "2026-10-03"
     }
   },
   "Composites · Widgets": {
     "DockLayout": {
-      "status": "new"
+      "status": "ok",
+      "hash": "91b337341e5aa482",
+      "at": "2026-10-03"
     },
     "Widget": {
       "status": "seen",
@@ -965,20 +987,26 @@
       "status": "new"
     },
     "InfoScreen": {
-      "status": "new"
+      "status": "ok",
+      "hash": "ef16f47aa768638b",
+      "at": "2026-10-03"
     },
     "UtilityScreen": {
       "status": "new"
     },
     "StageScreen": {
-      "status": "new"
+      "status": "ok",
+      "hash": "f06d4b56a32513cf",
+      "at": "2026-10-03"
     },
     "ScreenWindow": {
-      "status": "new"
+      "status": "ok",
+      "hash": "689f555aa128a4a3",
+      "at": "2026-10-03"
     },
     "ScreenLayer": {
-      "status": "seen",
-      "hash": "78a2c4106cf3f2af",
+      "status": "ok",
+      "hash": "3d19bf69146f61d5",
       "at": "2026-10-03"
     },
     "Hero": {
