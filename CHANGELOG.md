@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.7.1
+
+### Patch Changes
+
+- bba5a42: Hero's intro column grows to fit its title and only shortens it when the hero is too narrow. LogPanel's default count says "1 entry" and "2 entries".
+
 ## 0.7.0
 
 ### Minor Changes
