@@ -7,8 +7,8 @@
     },
     "TesseraProvider": {
       "status": "ok",
-      "hash": "6e74f37195d16504",
-      "at": "2026-10-02"
+      "hash": "9a0a2a6549163f7a",
+      "at": "2026-10-03"
     },
     "Building compounds": {
       "status": "ok",
@@ -334,33 +334,33 @@
   "Core · Tokens": {
     "Size scale": {
       "status": "ok",
-      "hash": "fcff3f7e6fc6da18",
-      "at": "2026-10-01"
+      "hash": "07df7d1fb5d7c311",
+      "at": "2026-10-03"
     },
     "Sizes": {
       "status": "ok",
-      "hash": "f4ae55287e310554",
-      "at": "2026-10-01"
+      "hash": "8def71ebeae86830",
+      "at": "2026-10-03"
     },
     "Margin": {
       "status": "ok",
-      "hash": "8477e43e2a43a4cd",
-      "at": "2026-10-01"
+      "hash": "38765e80d3ef2a9d",
+      "at": "2026-10-03"
     },
     "Padding": {
       "status": "ok",
-      "hash": "fcf80bccbc654a69",
-      "at": "2026-10-01"
+      "hash": "e409110deb76d643",
+      "at": "2026-10-03"
     },
     "Gap": {
       "status": "ok",
-      "hash": "876000bf90613736",
-      "at": "2026-10-01"
+      "hash": "4b3bba9e0b4f52c7",
+      "at": "2026-10-03"
     },
     "Radius": {
       "status": "ok",
-      "hash": "4ecfb263a4d39e18",
-      "at": "2026-10-01"
+      "hash": "cc0a71d322894b27",
+      "at": "2026-10-03"
     },
     "Shadows": {
       "status": "ok",
