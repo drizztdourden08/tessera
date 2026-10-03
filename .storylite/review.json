@@ -817,7 +817,9 @@
       "at": "2026-10-03"
     },
     "SideNavLayout": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     }
   },
   "Composites · Lists": {
@@ -828,7 +830,9 @@
       "status": "new"
     },
     "SearchResults": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "SearchResultGroup": {
       "status": "new"
@@ -844,7 +848,9 @@
       "at": "2026-10-01"
     },
     "SettingsSection": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "SettingsRow": {
       "status": "new"
@@ -1001,7 +1007,9 @@
   },
   "Composites · Screens": {
     "WorkspaceScreen": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "InfoScreen": {
       "status": "ok",
