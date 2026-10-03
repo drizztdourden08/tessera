@@ -77,9 +77,12 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
   'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', ProfilePicker: 'users' },
-  'Composites · Layout': { SplitPane: 'columns-2', MasterDetailLayout: 'layout-list', NavLayout: 'layout-template' },
-  'Composites · Lists': { ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check' },
-  'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsGroupList: 'list-checks' },
+  'Composites · Layout': { SplitPane: 'columns-2', MasterDetailLayout: 'layout-list', SideNavLayout: 'layout-template' },
+  'Composites · Lists': {
+    ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
+    SearchResultHit: 'mouse-pointer-click',
+  },
+  'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsRow: 'sliders-horizontal' },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search' },
   'Composites · Data views': {
     'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',

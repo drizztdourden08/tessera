@@ -47,7 +47,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
         { name: 'MasterDetailLayout', summary: 'A list beside the detail of the selected item.' },
-        { name: 'NavLayout', summary: 'A SideNav beside the current page, with search results.' },
+        { name: 'SideNavLayout', summary: 'A side nav beside a content pane; its search shows results in the pane.' },
       ],
     },
     {
@@ -55,15 +55,17 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'ListItemRow', summary: 'One selectable row with icon, meta, aside and action.' },
         { name: 'GroupTree', summary: 'Nested groups that open and close.' },
-        { name: 'SearchResults', summary: 'Search hits with a count, jumps and groups.' },
+        { name: 'SearchResults', summary: 'The search pane: a summary with page chips over groups of matches.' },
+        { name: 'SearchResultGroup', summary: 'One group of matches: glowing icon, title, count and an open button.' },
+        { name: 'SearchResultHit', summary: 'One match: icon, label with the match marked, and its path.' },
       ],
     },
     {
       group: 'Settings',
       entries: [
         { name: 'SettingsPage', summary: 'A settings page header with tabs over a scrolling body.' },
-        { name: 'SettingsSection', summary: 'One titled group of settings.' },
-        { name: 'SettingsGroupList', summary: 'Settings sections of bordered row groups, with reset and locks.' },
+        { name: 'SettingsSection', summary: 'One section of settings: a title with reset, and groups of rows with locks.' },
+        { name: 'SettingsRow', summary: 'One setting: title, description, a live hint and its control, compact or read only.' },
       ],
     },
     {
