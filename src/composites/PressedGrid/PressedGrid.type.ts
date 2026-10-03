@@ -1,16 +1,25 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { InputIconFamily, InputIconSource } from '../../primitives/InputIcon';
 
 interface PressedGridItem {
   id: string;
   label?: ReactNode;
   title?: string;
+  icon?: InputIconSource;
 }
 
 interface PressedGridProps {
   items: readonly PressedGridItem[];
   pressed: readonly string[];
+  family?: InputIconFamily;
   className?: string;
 }
 
-export type { PressedGridItem, PressedGridProps };
+interface PressedGridCellProps {
+  item: PressedGridItem;
+  family?: InputIconFamily;
+  down: boolean;
+}
+
+export type { PressedGridCellProps, PressedGridItem, PressedGridProps };

@@ -1,9 +1,14 @@
 /* @layer stories @kind component */
 import { useRef, useState } from 'react';
-import { OptionRow, WidgetOptions } from '../../../src/composites';
+import { WidgetOptions } from '../../../src/composites';
 import type { WidgetPlacement } from '../../../src/composites';
-import { Box, Glyph, IconButton, Text, Toggle } from '../../../src/primitives';
+import { Box, Button, Text, Toggle } from '../../../src/primitives';
+import type { PlayersView } from './data-widget-panels';
+import { PlayersOptionRows } from './PlayersOptionRows';
+import { SceneWidget } from './SceneWidget';
+import { useSceneOptions } from './useSceneOptions';
 import { useWidgetOptionsDemo } from './useWidgetOptionsDemo';
+import type { DemoPanelProps } from './useWidgetOptionsDemo';
 
 type OptionsDemoProps = {
   title: string;
@@ -14,38 +19,72 @@ type OptionsDemoProps = {
   ownRows: boolean;
 };
 
-const COMPACT_HINT = { label: 'Compact rows', description: 'One line per player, no avatars' };
+const START_VIEW: Required<PlayersView> = { sort: 'progress', compact: false, finished: true };
+
+const sceneNotes = (title: string, session: boolean, hidden: 'closed' | 'context' | null): string[] => [
+  session ? 'Session view: a multiworld is running' : 'Session view: no session running',
+  ...(hidden === 'closed' ? [`${title} is closed.`] : []),
+  ...(hidden === 'context' ? [`${title} shows again once a session runs, or with Show set to always.`] : []),
+];
+
+const hiddenBy = (closed: boolean, inContext: boolean): 'closed' | 'context' | null => {
+  if (closed) return 'closed';
+  return inContext ? null : 'context';
+};
+
+const sceneAttrs = (panel: DemoPanelProps) => ({
+  'data-place': panel.placement === 'docked' ? panel.dockEdge : panel.placement,
+  'data-room': panel.makeRoom ? '' : undefined,
+});
 
 const OptionsDemo = (props: OptionsDemoProps) => {
   const { title, placement, canPopOut, makeRoomHint, contextLabel, ownRows } = props;
-  const anchorRef = useRef<HTMLElement>(null);
-  const [open, setOpen] = useState(false);
-  const [compact, setCompact] = useState(false);
+  const sceneRef = useRef<HTMLElement>(null);
+  const [session, setSession] = useState(true);
+  const [closed, setClosed] = useState(false);
+  const [view, setView] = useState(START_VIEW);
   const { panel, summary } = useWidgetOptionsDemo(placement);
+  const inContext = session || panel.show === 'always';
+  const shown = !closed && inContext;
+  const hidden = hiddenBy(closed, inContext);
+  const options = useSceneOptions(sceneRef, shown);
 
   return (
-    <Box className="options-story">
-      <Box as="span" ref={anchorRef} className="options-story__anchor">
-        <IconButton label="Options" title="Options" active={open} onClick={() => setOpen((v) => !v)}>
-          <Glyph name="gear" size={14} />
-        </IconButton>
+    <Box className="story-column options-story">
+      <Box ref={sceneRef} className="options-scene" {...sceneAttrs(panel)}>
+        <Box className="options-scene__main">
+          {sceneNotes(title, session, hidden).map((note) => <Text key={note} className="story-label">{note}</Text>)}
+        </Box>
+        {shown && (
+          <Box className="options-scene__widget">
+            <SceneWidget
+              title={title}
+              panel={panel}
+              view={ownRows ? view : START_VIEW}
+              canPopOut={canPopOut}
+              optionsOpen={options.open}
+              onOpenOptions={options.toggle}
+              onClose={() => setClosed(true)}
+            />
+          </Box>
+        )}
       </Box>
-      <Text className="story-label options-story__summary">{`${title}: ${summary}${ownRows ? ` · compact ${compact ? 'on' : 'off'}` : ''}`}</Text>
-      {open && (
+      <Box className="story-row">
+        <Toggle size="sm" checked={session} onChange={setSession} label="Session running" />
+        {closed && <Button size="sm" variant="tertiary" onClick={() => setClosed(false)}>Reopen</Button>}
+        <Text className="story-label options-story__summary">{`${title}: ${summary}`}</Text>
+      </Box>
+      {options.open && (
         <WidgetOptions
           {...panel}
           title={title}
           canPopOut={canPopOut}
-          anchorRef={anchorRef}
-          onClose={() => setOpen(false)}
+          anchorRef={options.anchorRef}
+          onClose={options.close}
           makeRoomHint={makeRoomHint}
           contextLabel={contextLabel}
         >
-          {ownRows && (
-            <OptionRow label="Rows">
-              <Toggle size="sm" checked={compact} onChange={setCompact} hint={COMPACT_HINT} />
-            </OptionRow>
-          )}
+          {ownRows && <PlayersOptionRows view={view} onChange={(patch) => setView((prev) => ({ ...prev, ...patch }))} />}
         </WidgetOptions>
       )}
     </Box>

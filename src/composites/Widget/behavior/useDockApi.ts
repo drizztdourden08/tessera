@@ -34,10 +34,10 @@ const useDockApi = <D extends WidgetDefinition>(params: DockApiParams<D>): Widge
         if (optionsId === id) setOptions(null);
         change((prev) => removeEverywhere(prev, id));
       },
-      popOut: (id) => {
+      popOut: (id, point) => {
         if (!canPopOut(id)) return;
         change((prev) => popOutWidget(prev, id));
-        onPopOut?.(id);
+        onPopOut?.(id, point);
       },
       toggleOptions: (id, anchor) => setOptions(optionsId === id ? null : { id, anchor }),
     };

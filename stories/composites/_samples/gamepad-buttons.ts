@@ -20,9 +20,20 @@ const GAMEPAD_BUTTONS: readonly PressedGridItem[] = [
   { id: 'misc1', label: 'Share' },
 ];
 
+const GAMEPAD_IDS: readonly PressedGridItem[] = [
+  ...GAMEPAD_BUTTONS.map(({ id }) => ({ id })),
+  { id: 'lefttrigger' },
+  { id: 'righttrigger' },
+];
+
+const KEYBOARD_KEYS: readonly PressedGridItem[] = [
+  'KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'ShiftLeft', 'KeyE', 'KeyQ',
+  'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Escape', 'Digit1', 'F5',
+].map((id) => ({ id }));
+
 const PRESS_SEQUENCE: readonly (readonly string[])[] = [
   ['a'], [], ['b'], [], ['x', 'y'], [], ['dpup'], ['dpright'], ['dpdown'], ['dpleft'], [],
   ['leftshoulder', 'rightshoulder'], [], ['start'], [], ['leftstick'], ['rightstick'], [],
 ];
 
-export { GAMEPAD_BUTTONS, PRESS_SEQUENCE };
+export { GAMEPAD_BUTTONS, GAMEPAD_IDS, KEYBOARD_KEYS, PRESS_SEQUENCE };

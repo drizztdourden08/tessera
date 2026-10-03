@@ -149,9 +149,11 @@ export { Icon, ICONS } from './Icon';
 export { Glyph, GLYPHS } from './Glyph';
 export type { GlyphName, GlyphProps } from './Glyph';
 export type {
-  BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions,
+  BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions, IconEffectSize,
   IconFlip, IconName, IconProps, IconRotation, IconSet,
 } from './Icon';
+export { GAMEPAD_INPUT_ICONS, INPUT_ICONS, InputIcon, gamepadInputIcon, inputIconData } from './InputIcon';
+export type { InputIconFamily, InputIconName, InputIconProps, InputIconSource, InputIconTone } from './InputIcon';
 export { PathIcon } from './PathIcon';
 export type { PathIconCircle, PathIconProps } from './PathIcon';
 export { EmojiIcon } from './EmojiIcon';

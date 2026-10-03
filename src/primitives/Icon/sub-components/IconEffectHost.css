@@ -40,7 +40,8 @@
 }
 
 .icon-effect__pop--twinkle,
-.icon-effect__pop--dot {
+.icon-effect__pop--dot,
+.icon-effect__pop--comet {
   fill: currentcolor;
   stroke: none;
 }
@@ -58,6 +59,13 @@
 .icon-effect__pop--ping { animation-name: icon-pop-ping; }
 .icon-effect__pop--burst { animation-name: icon-pop-burst; }
 .icon-effect__pop--dot { animation-name: icon-pop-dot; }
+.icon-effect__pop--comet { animation-name: icon-pop-comet; }
+
+.icon-effect__pop--comet-tail {
+  stroke-dasharray: 1;
+  animation-name: icon-pop-comet-tail;
+  animation-timing-function: var(--ease-in-out);
+}
 
 .icon-effect__pop--shimmer {
   animation-name: icon-pop-sweep;
@@ -139,6 +147,37 @@
   100% {
     opacity: 0;
     transform: scale(0.6);
+  }
+}
+
+@keyframes icon-pop-comet-tail {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+  15% { opacity: 1; }
+  45% { stroke-dashoffset: 0; }
+
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -1;
+  }
+}
+
+@keyframes icon-pop-comet {
+  0%, 35% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+
+  55% {
+    opacity: 1;
+    transform: scale(1.2) rotate(30deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(60deg);
   }
 }
 

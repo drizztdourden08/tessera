@@ -1,8 +1,11 @@
 /* @layer stories @kind component */
 import { PressedGrid } from '../../../src/composites';
-import { GAMEPAD_BUTTONS, PRESS_SEQUENCE } from './gamepad-buttons';
+import type { InputIconFamily } from '../../../src/primitives';
+import { GAMEPAD_IDS, PRESS_SEQUENCE } from './gamepad-buttons';
 import { usePressSequence } from './use-press-sequence';
 
-const LivePressedGrid = () => <PressedGrid items={GAMEPAD_BUTTONS} pressed={usePressSequence(PRESS_SEQUENCE)} />;
+const LivePressedGrid = (props: { family: InputIconFamily }) => (
+  <PressedGrid items={GAMEPAD_IDS} family={props.family} pressed={usePressSequence(PRESS_SEQUENCE)} />
+);
 
 export { LivePressedGrid };

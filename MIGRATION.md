@@ -1506,3 +1506,66 @@ const STEPS: readonly WizardStepDef<Draft>[] = [
 ### What an app does
 
 An app renames `WizardProgress` and its types and classes as RENAMES.json lists. It moves `stepInfo` into `summary` and `subSteps` on each step, `finishLabel` into `buttons.next.label` and `busyLabel` into `busyHint` on the last step, and `navExtra` into `extra` on the step that shows it. A `WizardFrame` with `presentation="dialog"` becomes a `WizardDialog` with the same props and `open`. An app that overrides the wizard strings for the step strip moves them to the `stepper` group.
+
+## 64. InputIcon, thinner icon effects with sizes and a comet, PressedGrid glyphs, the pop-out point and the options gear
+
+`InputIcon` is a new primitive: a button prompt for a controller or a keyboard. It draws through `Icon`, so it takes the same `size`, `rotate`, `flip`, `inline`, `label` and `effect`, and draws in `currentColor`.
+
+```tsx
+<InputIcon family="xbox" name="a" />
+<InputIcon family="playstation" name="l2" size={24} />
+<InputIcon family="switch" name="dpad-up" tone="theme" />
+<InputIcon family="keyboard" name="space-icon" label="Space" />
+```
+
+| Family | What it holds |
+|---|---|
+| `xbox` | face buttons, `lb` `rb` `lt` `rt`, `ls` `rs`, `menu` `view` `share` `guide`, the d-pad, both sticks in every direction, the controller |
+| `playstation` | `cross` `circle` `square` `triangle`, `l1` to `r3`, `create` `options`, the d-pad, both sticks, the controller |
+| `switch` | face buttons, `l` `r` `zl` `zr` `gl` `gr` `c`, `plus` `minus` `home` `capture`, the d-pad, both sticks, the controller |
+| `gamecube` | `a` `b` `x` `y` `z` `l` `r` `c`, `start` `home` `capture`, the d-pad, the control stick and the C stick, the controller |
+| `snes` | `a` `b` `x` `y` `l` `r` `select` `start` and the d-pad, in full colour |
+| `generic` | round, square and trigger buttons in solid, fill and outline, sticks, joysticks |
+| `keyboard` | letters, digits, F1 to F12, arrows, modifiers and the punctuation keys, with `-icon` variants that draw a symbol in place of a word |
+
+Names come from the file names of the pack, with the family and `button_` dropped: `xbox_button_a` is `a`, `xbox_stick_l_press` is `stick-l-press`. RotP's `gc_button_c` file draws the same C stick art as `stick-c`, so it is left out, and the real C button, `gc_button_chat`, is `c`. The pack holds 278 glyphs. The red generic joysticks are `joystick-highlight`. `INPUT_ICONS` holds every family; `InputIconName<'xbox'>` types the names of one.
+
+A few glyphs carry a highlight: the pressed arm of a d-pad, the ball of a joystick, the coloured GameCube buttons. `tone="color"`, the default, keeps the colours of the pack; `tone="theme"` paints them in `--c-primary-bright`. The SNES glyphs are full colour art and keep their own colours under either tone.
+
+`gamepadInputIcon(family, id)` turns an SDL button id into the glyph of a family: `a`, `b`, `x`, `y` are positions (south, east, west, north), so `gamepadInputIcon('switch', 'a')` is the Switch `b`. It knows `back`, `guide`, `start`, `leftstick`, `rightstick`, `leftshoulder`, `rightshoulder`, `lefttrigger`, `righttrigger`, the d-pad ids, `misc1`, `misc2`, the paddles and `touchpad` where the family has them. For `keyboard` it takes `KeyboardEvent.code`: `KeyW`, `Digit1`, `F5`, `ArrowUp`, `ShiftLeft`. It returns `null` when the family has no glyph for the id. `GAMEPAD_INPUT_ICONS` holds the table.
+
+The Xbox, PlayStation, Switch, GameCube, generic and keyboard glyphs are Kenney's Input Prompts (CC0), the same files Relic of the Past uses. The SNES art is Relic of the Past's own, modified from Tiago Alexander's SNES Controller in Sketch; its texture overlay is left out. README.md credits both.
+
+`PressedGrid` takes `family` and draws each cell with the `InputIcon` that `gamepadInputIcon` finds for its id. An item takes `icon`, an `InputIconSource`, which wins over the family match. A cell with an icon and no `label` shows the icon alone; a cell with no icon shows its label or id as before. The cell icon is 28 pixels, muted while idle and `--c-primary-bright` while held, and cells are at least 40 pixels tall.
+
+```tsx
+<PressedGrid family="xbox" items={[{ id: 'a' }, { id: 'b' }, { id: 'dpup' }]} pressed={held} />
+<PressedGrid items={[{ id: 'confirm', label: 'Confirm', icon: { family: 'switch', name: 'a' } }]} pressed={held} />
+```
+
+The `Icon` effects draw with thinner lines: the ping ring, the burst rays and the comet tail are 0.9 units of the 24 unit grid, the glint 1.1, the shimmer 1.4, and the twinkle star and the dot are slimmer. The effect options take `size`, `sm`, `md` (the default) or `lg`: the pop draws at 0.7, 1 or 1.45 times its size with the same line weight, and a shimmer runs along 4, 6 or 9 sampled points. A new kind, `comet`, draws a short streak that runs into the point and ends in a small four point star. `IconEffectSize` is exported.
+
+```tsx
+<Icon name="star" effect={{ kind: 'comet', size: 'lg' }} />
+```
+
+The `DynamicInput` popover is as wide as the control it holds: a `NumberStepper` popover is 140 pixels at md where it was at least 218. A slider keeps a floor of 192 pixels so it stays easy to drag, and a decimal field with no range is 12 characters wide.
+
+`Widget` draws its options button with the Lucide `settings` gear in place of the `gear` glyph.
+
+`WidgetOptions` is 256 pixels wide, up from 240: in its own window, the placement row with the pop in button ran past the panel edge.
+
+`DockLayout`, `WidgetManager` and the dock API pass a second argument to `onPopOut`: the screen point where the pointer let go when a widget is dragged out past the window edge.
+
+```ts
+interface ScreenPoint { screenX: number; screenY: number }
+onPopOut?: (id: WidgetId, point?: ScreenPoint) => void;
+```
+
+The pop out button passes no point. `ScreenPoint` is exported.
+
+`visibleLayoutOf(layout, gates)` now applies the show rules to popped widgets too: the `popped` list it returns holds only the widgets that pass them, the same rules a docked or floating widget meets (a definition and content, context only, the page open, developer tools, forced ids).
+
+### What an app does
+
+Nothing is renamed. An app that drew controller prompts from its own SVG files can draw `InputIcon` instead and keep the file credits. An app that passes `onPopOut` to `DockLayout` or `WidgetManager` can open the new window at `point` when it is given. An app that decided by itself which popped windows to show can read `visibleLayoutOf(layout, gates).popped` instead. An app that styled `.widget-options` to a width of 240 pixels moves to 256.

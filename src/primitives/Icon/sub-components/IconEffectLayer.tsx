@@ -8,10 +8,11 @@ const IconEffectLayer = (props: IconPopsParams) => {
   const { effect } = props;
   const beat = useIconPops(props);
   const scale = beat ? beat.samples.span / ICON_EFFECT.design : 1;
+  const { grow } = ICON_EFFECT.sizes[effect.size];
   return (
     <svg className="icon-effect__layer" viewBox={beat?.samples.viewBox} aria-hidden="true" focusable="false">
       {beat?.spots.map((spot, i) => (
-        <IconEffectPop key={`${beat.id}-${i}`} kind={effect.kind} spot={spot} scale={scale} />
+        <IconEffectPop key={`${beat.id}-${i}`} kind={effect.kind} spot={spot} scale={scale} grow={grow} />
       ))}
     </svg>
   );

@@ -21,13 +21,13 @@ const NumberPanel = (props: NumberPanelProps) => {
   return (
     <PanelSection title={label} fill={panel !== 'stepper'}>
       {panel === 'slider' && (
-        <Slider value={current ?? min ?? 0} min={min ?? 0} max={max ?? 0} step={step} onChange={set} size={size} aria-label={label} />
+        <Slider className="dynamic-input__slider" value={current ?? min ?? 0} min={min ?? 0} max={max ?? 0} step={step} onChange={set} size={size} aria-label={label} />
       )}
       {panel === 'stepper' && (
         <NumberStepper value={current ?? Number.NaN} min={min} max={max} step={step} onChange={set} size={size} ariaLabel={label} />
       )}
       {panel === 'spin' && (
-        <NumberInput value={current ?? ''} min={min} max={max} step={step} onChange={set} size={size} aria-label={label} />
+        <NumberInput className="dynamic-input__spin" value={current ?? ''} min={min} max={max} step={step} onChange={set} size={size} sizeToContent aria-label={label} />
       )}
     </PanelSection>
   );

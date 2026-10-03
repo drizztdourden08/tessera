@@ -13,6 +13,7 @@ const resolveIconEffect = (effect: IconEffect): ResolvedIconEffect => {
     jitter,
     color: options.color ?? 'primary',
     count: Math.max(1, Math.round(options.count ?? 1)),
+    size: options.size ?? 'md',
   };
 };
 

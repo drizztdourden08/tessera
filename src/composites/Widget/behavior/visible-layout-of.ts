@@ -17,13 +17,14 @@ const isHidden = (layout: WidgetLayout, id: WidgetId, gates: WidgetGates): boole
 };
 
 const visibleLayoutOf = (layout: WidgetLayout, gates: WidgetGates): WidgetLayout => {
-  const present = [...widgetsIn(layout.dock), ...layout.floating.map((f) => f.id)];
+  const present = [...widgetsIn(layout.dock), ...layout.floating.map((f) => f.id), ...layout.popped.map((p) => p.id)];
   const hidden = present.filter((id) => isHidden(layout, id, gates));
   if (hidden.length === 0) return layout;
   return {
     ...layout,
     dock: hidden.reduce((tree, id) => removeWidget(tree, id) ?? MAIN_NODE, layout.dock),
     floating: layout.floating.filter((f) => !hidden.includes(f.id)),
+    popped: layout.popped.filter((p) => !hidden.includes(p.id)),
   };
 };
 

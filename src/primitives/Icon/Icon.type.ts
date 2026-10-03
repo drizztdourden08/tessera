@@ -16,7 +16,9 @@ type BrandIconName = BrandApp | 'rotp-mascot';
 
 type BrandIconTone = 'color' | 'mono';
 
-type IconEffectKind = 'twinkle' | 'glint' | 'ping' | 'burst' | 'dot' | 'shimmer';
+type IconEffectKind = 'twinkle' | 'glint' | 'ping' | 'burst' | 'dot' | 'comet' | 'shimmer';
+
+type IconEffectSize = 'sm' | 'md' | 'lg';
 
 type IconEffectColor = 'current' | 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'info';
 
@@ -26,6 +28,7 @@ interface IconEffectOptions {
   jitter?: number;
   color?: IconEffectColor;
   count?: number;
+  size?: IconEffectSize;
 }
 
 type IconEffect = IconEffectKind | IconEffectOptions;
@@ -49,6 +52,6 @@ interface BrandIconProps extends IconLook {
 }
 
 export type {
-  BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions,
+  BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions, IconEffectSize,
   IconFlip, IconLook, IconName, IconProps, IconRotation, IconSet, IconSource,
 };

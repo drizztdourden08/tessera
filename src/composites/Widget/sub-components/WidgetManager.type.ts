@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, WidgetId } from '../../DockLayout';
+import type { DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, ScreenPoint, WidgetId } from '../../DockLayout';
 import type { WidgetDefinition, WidgetDisabledState, WidgetLayout } from '../Widget.type';
 
 interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
@@ -19,7 +19,7 @@ interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   peek?: boolean;
   modifiers?: DragModifiers;
   onMainRect?: (rect: Rect | null) => void;
-  onPopOut?: (id: WidgetId) => void;
+  onPopOut?: (id: WidgetId, point?: ScreenPoint) => void;
   externalDrag?: ExternalDrag | null;
   onExternalDrop?: (id: WidgetId, edit: LayoutEdit | null) => void;
   mainLabel?: string;

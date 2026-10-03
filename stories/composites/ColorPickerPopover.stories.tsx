@@ -6,12 +6,12 @@ import { Box, ColorSwatch, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { SWATCH_GROUPS, TEAMS } from './_samples/data-colors';
 import type { TeamColour } from './_samples/data-colors';
+import { ColorPopoverPlayground } from './_samples/ColorPopoverPlayground';
+import type { ColorPopoverPlaygroundProps } from './_samples/ColorPopoverPlayground';
 
-type PopoverArgs = {
-  disableAlpha: boolean;
-};
+type PopoverArgs = ColorPopoverPlaygroundProps;
 
-const TeamPalette = ({ disableAlpha }: PopoverArgs) => {
+const TeamPalette = ({ disableAlpha }: Pick<PopoverArgs, 'disableAlpha'>) => {
   const [teams, setTeams] = useState<readonly TeamColour[]>(TEAMS);
   const [editing, setEditing] = useState<string | null>(null);
   const anchorRef = useRef<HTMLElement | null>(null);
@@ -68,6 +68,26 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<PopoverArgs>;
 
+const PLAYGROUND_ARGS: Partial<PopoverArgs> = {
+  title: 'Team Lanterns', start: '#e0a13c', disableAlpha: true, showOriginal: true, showSwatches: true, startOpen: false,
+};
+
+const PLAYGROUND_ARG_TYPES: StoryLiteArgTypes<PopoverArgs> = {
+  title: { control: 'text', description: 'The heading inside the panel.' },
+  start: { control: 'color', description: 'The colour the swatch holds when the page loads; also the Reset target.' },
+  disableAlpha: { control: 'boolean', description: 'Hide the alpha slider and field.' },
+  showOriginal: { control: 'boolean', description: 'Pass original and onReset, so the panel shows the start colour and a Reset button.' },
+  showSwatches: { control: 'boolean', description: 'Pass swatchGroups for quick picks.' },
+  startOpen: { control: 'boolean', description: 'Open the panel on load, without a press on the swatch.' },
+};
+
+const Playground = {
+  name: 'Playground',
+  args: PLAYGROUND_ARGS,
+  argTypes: PLAYGROUND_ARG_TYPES,
+  render: (args) => <ColorPopoverPlayground key={`${args.start}-${args.startOpen ? 'open' : 'shut'}`} {...args} />,
+} satisfies StoryLiteStoryDefinition<PopoverArgs>;
+
 const TeamColours = {
   name: 'Team colours',
   args: ARGS,
@@ -99,9 +119,10 @@ const [color, setColor] = useState('#3f8fd2');
 const Overview = overviewStory({
   component: 'ColorPickerPopover',
   description: 'The ColorPicker as a floating panel beside the swatch that opened it. Reach for it in a palette of many swatches, where an inline picker would take too much room. It floats above any dialog so nothing clips it, stays inside the viewport, and closes on Escape, on a click outside, and when its swatch scrolls out of view. It takes every ColorPicker option, with a Done button that closes it.',
+  playground: Playground,
   variants: [TeamColours],
   code: CODE,
 });
 
 export default meta;
-export { Overview, TeamColours };
+export { Overview, Playground, TeamColours };

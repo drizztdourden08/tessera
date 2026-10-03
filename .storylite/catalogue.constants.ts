@@ -63,6 +63,7 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
         { name: 'Icon', summary: 'A named icon, or any @iconify icon, with size, rotation, flip and a label.' },
         { name: 'Brand icons', summary: 'Every brand mark as an icon, in colour or one colour: Icon.Brand.' },
         { name: 'Glyph', summary: 'The small stroke glyphs the components draw.' },
+        { name: 'InputIcon', summary: 'Controller buttons, sticks, triggers and keyboard keys by family, for button prompts.' },
         { name: 'PathIcon', summary: 'An SVG from your own path data, for a one-off shape.' },
         { name: 'EmojiIcon', summary: 'An emoji at a fixed size and baseline.' },
       ],

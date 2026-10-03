@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
-import type { LayoutEdit, Rect, WidgetId } from '../../DockLayout';
+import type { LayoutEdit, Rect, ScreenPoint, WidgetId } from '../../DockLayout';
 import type { WidgetDefinition, WidgetDisabledState, WidgetLayout } from '../Widget.type';
 import type { WidgetManagerProps } from '../sub-components/WidgetManager.type';
 import type { LayoutUpdater } from './useWidgetLayout.type';
@@ -22,7 +22,7 @@ interface WidgetDockApi {
   change: (fn: LayoutUpdater) => void;
   apply: (edit: LayoutEdit) => void;
   close: (id: WidgetId) => void;
-  popOut: (id: WidgetId) => void;
+  popOut: (id: WidgetId, point?: ScreenPoint) => void;
   toggleOptions: (id: WidgetId, anchor: HTMLElement) => void;
   onOpenSettings?: (settingId: string) => void;
 }

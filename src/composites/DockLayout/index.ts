@@ -3,7 +3,7 @@ export { DockLayout } from './DockLayout';
 export { EDGES, GAP, MAIN_NODE, STRIP } from './DockLayout.constants';
 export type {
   DockEdge, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget, LayoutEdit,
-  LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, Size, SplitAxis, SplitNode, WidgetId,
+  LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis, SplitNode, WidgetId,
 } from './DockLayout.type';
 export type { DividerRect, LaidOut, LeafRect } from './behavior/layout-tree.type';
 export { layoutTree } from './behavior/layout-tree';

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { PinButton } from './PinButton';
@@ -23,7 +24,7 @@ const WidgetActions = (props: WidgetActionsProps) => {
         active={optionsOpen ?? false}
         onClick={(e) => onOpenOptions(e.currentTarget)}
       >
-        <Glyph name="gear" size={14} />
+        <Icon name="settings" size={14} />
       </IconButton>
       <IconButton className="widget__btn" label={common.close} title={common.close} onClick={onClose}>
         <Glyph name="close" size={14} />

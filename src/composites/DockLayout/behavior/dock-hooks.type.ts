@@ -1,7 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { RefObject } from 'react';
 import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
-import type { DockLayoutProps, DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, Size, WidgetId } from '../DockLayout.type';
+import type {
+  DockLayoutProps, DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, ScreenPoint, Size, WidgetId,
+} from '../DockLayout.type';
 import type { DragContext, DragSource, DragView } from './drag.type';
 import type { LaidOut } from './layout-tree.type';
 
@@ -15,7 +17,7 @@ interface Press {
 interface DockDragLatest {
   context: DragContext;
   onEdit: (edit: LayoutEdit) => void;
-  onPopOut?: (id: WidgetId) => void;
+  onPopOut?: (id: WidgetId, point?: ScreenPoint) => void;
 }
 
 interface DockDragParams extends DockDragLatest {

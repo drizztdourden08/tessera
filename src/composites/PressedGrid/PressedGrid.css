@@ -7,7 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-xs);
   min-width: 0;
+  min-height: var(--size-40);
   padding: var(--space-xs) var(--space-sm);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-sm);
@@ -18,6 +20,16 @@
 .pressed-grid__cell[data-pressed] {
   border-color: var(--c-primary);
   background: var(--c-primary-soft);
+}
+
+.pressed-grid__icon {
+  flex: none;
+  color: var(--c-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.pressed-grid__cell[data-pressed] .pressed-grid__icon {
+  color: var(--c-primary-bright);
 }
 
 .pressed-grid__label {

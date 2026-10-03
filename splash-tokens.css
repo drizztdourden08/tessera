@@ -243,7 +243,7 @@
   --dock-divider-bar: calc(3 * 1px);
   --widget-titlebar-h: calc(30 * 1px);
   --widget-btn-d: 20px;
-  --widget-options-w: calc(240 * 1px);
+  --widget-options-w: 256px;
   --widget-options-aside-w: 256px;
   --widget-options-slider-w: 128px;
   --hero-h: calc(408 * 1px);

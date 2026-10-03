@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { RefObject } from 'react';
 import type { IconifyIcon } from '@iconify/types';
-import type { IconEffect, IconEffectColor, IconEffectKind, IconLook } from '../Icon.type';
+import type { IconEffect, IconEffectColor, IconEffectKind, IconEffectSize, IconLook } from '../Icon.type';
 
 interface SamplePoint {
   x: number;
@@ -32,6 +32,12 @@ interface PopSpot {
   trail: string;
 }
 
+interface PopPick {
+  kind: IconEffectKind;
+  count: number;
+  trail?: number;
+}
+
 interface PopBeat {
   id: number;
   samples: IconSamples;
@@ -44,6 +50,7 @@ interface ResolvedIconEffect {
   jitter: number;
   color: IconEffectColor;
   count: number;
+  size: IconEffectSize;
 }
 
 interface IconPopsParams {
@@ -76,9 +83,10 @@ interface IconEffectPopProps {
   kind: IconEffectKind;
   spot: PopSpot;
   scale: number;
+  grow: number;
 }
 
 export type {
-  IconEffectHostProps, IconEffectPopProps, IconPopsParams, IconSamples, PopBeat, PopSpot,
+  IconEffectHostProps, IconEffectPopProps, IconPopsParams, IconSamples, PopBeat, PopPick, PopSpot,
   PopSchedulerParams, ResolvedIconEffect, SamplePoint, SampleShape, SampleSpan,
 };

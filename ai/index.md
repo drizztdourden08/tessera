@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 6 of 142 have their usage written; a linked name opens its page.
+One line per component. 6 of 143 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -35,6 +35,7 @@ One line per component. 6 of 142 have their usage written; a linked name opens i
 - `Icon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `IconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Image`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `InputIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Link`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `NumberStepper`: usage not written yet. Import from `@drizztdourden08/tessera`.

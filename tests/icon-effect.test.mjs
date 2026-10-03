@@ -9,6 +9,8 @@ import { nextPopDelay } from '../src/primitives/Icon/behavior/next-pop-delay';
 import { popSpots } from '../src/primitives/Icon/behavior/pop-spots';
 import { resolveIconEffect } from '../src/primitives/Icon/behavior/resolve-icon-effect';
 import { spreadSamples } from '../src/primitives/Icon/behavior/spread-samples';
+import { ICON_EFFECT } from '../src/primitives/Icon/sub-components/IconEffectHost.constants';
+import { IconEffectPop } from '../src/primitives/Icon/sub-components/IconEffectPop';
 
 const line = (x1, y1, x2, y2) => ({
   length: Math.hypot(x2 - x1, y2 - y1),
@@ -60,7 +62,7 @@ describe('picking where a pop lands', () => {
   const points = spreadSamples([line(0, 0, 20, 0), line(0, 5, 20, 5)], 20);
 
   it('lands each pop on a sampled point, each on its own point', () => {
-    const spots = popSpots(points, 'twinkle', 3, sequence(0.1, 0.1, 0.5, 0.9));
+    const spots = popSpots(points, { kind: 'twinkle', count: 3 }, sequence(0.1, 0.1, 0.5, 0.9));
     expect(spots).toHaveLength(3);
     expect(spots.every(isSampled(points))).toBe(true);
     expect(new Set(spots.map((spot) => `${spot.x},${spot.y}`)).size).toBe(3);
@@ -69,14 +71,42 @@ describe('picking where a pop lands', () => {
 
   it('runs a shimmer along the next points of the same shape only', () => {
     const trailOf = (spot) => spot.trail.split(' ').map((pair) => pair.split(',').map(Number));
-    const [early] = popSpots(points, 'shimmer', 1, () => 0.2);
+    const [early] = popSpots(points, { kind: 'shimmer', count: 1 }, () => 0.2);
     expect(trailOf(early).length).toBeGreaterThan(1);
     expect(trailOf(early).every(([, y]) => y === 0)).toBe(true);
     expect(trailOf(early)[0]).toEqual([early.x, early.y]);
-    const [last] = popSpots(points, 'shimmer', 1, () => 0.45);
+    const [last] = popSpots(points, { kind: 'shimmer', count: 1 }, () => 0.45);
     expect(trailOf(last).length).toBeGreaterThan(1);
     expect(trailOf(last).every(([, y]) => y === 0)).toBe(true);
     expect(trailOf(last).at(-1)).toEqual([last.x, last.y]);
+  });
+});
+
+describe('sizing a pop', () => {
+  const points = spreadSamples([line(0, 0, 40, 0)], 40);
+  const lengthOf = (spot) => spot.trail.split(' ').length;
+
+  it('runs a longer shimmer trail for a bigger size', () => {
+    const [small] = popSpots(points, { kind: 'shimmer', count: 1, trail: ICON_EFFECT.sizes.sm.trail }, () => 0.2);
+    const [large] = popSpots(points, { kind: 'shimmer', count: 1, trail: ICON_EFFECT.sizes.lg.trail }, () => 0.2);
+    expect(lengthOf(small)).toBe(ICON_EFFECT.sizes.sm.trail);
+    expect(lengthOf(large)).toBe(ICON_EFFECT.sizes.lg.trail);
+  });
+
+  it('grows the shape and keeps the line weight the same', () => {
+    const draw = (size) => renderToString(h(IconEffectPop, { kind: 'comet', spot: { x: 4, y: 6, trail: '' }, scale: 1, grow: ICON_EFFECT.sizes[size].grow }));
+    const small = draw('sm');
+    const large = draw('lg');
+    expect(small).toContain(`scale(${ICON_EFFECT.sizes.sm.grow})`);
+    expect(large).toContain(`scale(${ICON_EFFECT.sizes.lg.grow})`);
+    const weight = (html, grow) => Number(html.match(/stroke-width="([\d.]+)"/)[1]) * grow;
+    expect(weight(small, ICON_EFFECT.sizes.sm.grow)).toBeCloseTo(weight(large, ICON_EFFECT.sizes.lg.grow));
+  });
+
+  it('draws a comet as a streak that ends in a small star', () => {
+    const html = renderToString(h(IconEffectPop, { kind: 'comet', spot: { x: 0, y: 0, trail: '' }, scale: 1, grow: 1 }));
+    expect(html).toContain('icon-effect__pop--comet-tail');
+    expect(html).toContain('icon-effect__pop--comet"');
   });
 });
 
@@ -112,9 +142,9 @@ describe('scheduling the pops', () => {
   });
 
   it('fills in the defaults and clamps the options', () => {
-    expect(resolveIconEffect('ping')).toEqual({ kind: 'ping', every: 3500, jitter: 875, color: 'primary', count: 1 });
-    expect(resolveIconEffect({ kind: 'dot', every: 10, jitter: -5, count: 0, color: 'danger' }))
-      .toEqual({ kind: 'dot', every: 120, jitter: 0, color: 'danger', count: 1 });
+    expect(resolveIconEffect('ping')).toEqual({ kind: 'ping', every: 3500, jitter: 875, color: 'primary', count: 1, size: 'md' });
+    expect(resolveIconEffect({ kind: 'dot', every: 10, jitter: -5, count: 0, color: 'danger', size: 'lg' }))
+      .toEqual({ kind: 'dot', every: 120, jitter: 0, color: 'danger', count: 1, size: 'lg' });
   });
 });
 

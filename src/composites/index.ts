@@ -123,7 +123,7 @@ export {
 } from './DockLayout';
 export type {
   DividerRect, DockEdge, DockKeys, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget,
-  LaidOut, LayoutEdit, LayoutNode, LeafNode, LeafRect, MainNode, MainTarget, PaneNode, Rect, Size, SplitAxis, SplitNode, WidgetId,
+  LaidOut, LayoutEdit, LayoutNode, LeafNode, LeafRect, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis, SplitNode, WidgetId,
 } from './DockLayout';
 export { FilterBar, FacetPicker } from './FilterBar';
 export type { FacetPickerProps, FilterBarProps, FilterFacet, FilterFacetOption } from './FilterBar';

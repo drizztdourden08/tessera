@@ -38,7 +38,7 @@ const OPACITY_MAX = 100;
 
 const OPACITY_STEP = 5;
 
-const PANEL_WIDTH = 240;
+const PANEL_WIDTH = 256;
 
 const PANEL_HEIGHT = 280;
 

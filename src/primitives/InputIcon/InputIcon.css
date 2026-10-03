@@ -1,0 +1,4 @@
+/* @layer renderer-components @kind style */
+.input-icon--theme .input-icon__accent {
+  fill: var(--c-primary-bright);
+}

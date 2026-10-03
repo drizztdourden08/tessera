@@ -7,22 +7,31 @@ import { HINTS } from './data-hints';
 import { LOG_ROWS } from './data-log';
 import { PLAYERS, playerName } from './data-players';
 import '../LogPanel.stories.css';
-import type { PlayerStatus } from './data-players';
+import type { PlayerRow, PlayerStatus } from './data-players';
 
 const STATUS_TONE: Record<PlayerStatus, StatusTone> = {
   playing: 'success', idle: 'warning', goal: 'neutral', offline: 'danger',
 };
 
-const PlayersPanel = () => (
+type PlayersView = { compact?: boolean; sort?: 'name' | 'progress'; finished?: boolean };
+
+const playersFor = (view: PlayersView): PlayerRow[] => {
+  const shown = PLAYERS.filter((player) => view.finished !== false || player.status !== 'goal');
+  if (view.sort === 'name') return [...shown].sort((a, b) => a.name.localeCompare(b.name));
+  if (view.sort === 'progress') return [...shown].sort((a, b) => b.checked / b.total - a.checked / a.total);
+  return shown;
+};
+
+const PlayersPanel = (props: PlayersView) => (
   <Stack className="widget-story__list">
-    {PLAYERS.map((player) => (
+    {playersFor(props).map((player) => (
       <Box key={player.id} className="widget-story__player">
         <Box className="story-row">
           <Text>{player.name}</Text>
           <Status tone={STATUS_TONE[player.status]}>{player.status}</Status>
         </Box>
-        <Text className="story-label">{player.game}</Text>
-        <ProgressBar value={player.checked} max={player.total} />
+        {!props.compact && <Text className="story-label">{player.game}</Text>}
+        {!props.compact && <ProgressBar value={player.checked} max={player.total} />}
       </Box>
     ))}
   </Stack>
@@ -71,4 +80,5 @@ const WIDGET_CONTENT = {
   console: <ConsolePanel />,
 };
 
-export { WIDGET_CONTENT };
+export { PlayersPanel, WIDGET_CONTENT };
+export type { PlayersView };

@@ -26,7 +26,7 @@ const listenPress = (wiring: PressWiring): (() => void) => {
     const p = press.current;
     if (p?.pointerId !== ev.pointerId) return;
     finish();
-    releasePress(p, latest.current);
+    releasePress(p, latest.current, { screenX: ev.screenX, screenY: ev.screenY });
   };
   const onKey = (ev: KeyboardEvent): void => {
     if (ev.key === 'Escape') finish();

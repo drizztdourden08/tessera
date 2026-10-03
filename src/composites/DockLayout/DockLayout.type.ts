@@ -89,6 +89,11 @@ interface ExternalDrag {
 
 type DockMainGrip = 'always' | 'dragging' | 'hidden';
 
+interface ScreenPoint {
+  screenX: number;
+  screenY: number;
+}
+
 interface DockLayoutProps {
   layout: DockTree;
   renderPane: (pane: PaneNode, rect: Rect) => ReactNode;
@@ -99,7 +104,7 @@ interface DockLayoutProps {
   peek?: boolean;
   modifiers?: DragModifiers;
   onMainRect?: (rect: Rect | null) => void;
-  onPopOut?: (id: WidgetId) => void;
+  onPopOut?: (id: WidgetId, point?: ScreenPoint) => void;
   canPopOut?: (id: WidgetId) => boolean;
   externalDrag?: ExternalDrag | null;
   onExternalDrop?: (id: WidgetId, edit: LayoutEdit | null) => void;
@@ -112,5 +117,5 @@ interface DockLayoutProps {
 
 export type {
   DockEdge, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget, LayoutEdit,
-  LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, Size, SplitAxis, SplitNode, WidgetId,
+  LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis, SplitNode, WidgetId,
 };

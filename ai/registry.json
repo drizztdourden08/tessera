@@ -819,6 +819,16 @@
       "usage": false
     },
     {
+      "name": "InputIcon",
+      "tier": "primitives",
+      "source": "src/primitives/InputIcon/InputIcon.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
       "name": "Link",
       "tier": "primitives",
       "source": "src/primitives/Link/Link.tsx",
