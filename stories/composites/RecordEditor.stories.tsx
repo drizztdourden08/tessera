@@ -4,7 +4,9 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { RecordEditor } from '../../src/composites';
 import type { SchemaConfig } from '../../src/data';
 import { Box, Text } from '../../src/primitives';
+import type { ControlSize } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { sizesStory } from '../_template/sizes-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { PLAYERS, PLAYER_CONFIG, PLAYER_SCHEMA } from './_samples/data-players';
@@ -12,6 +14,7 @@ import type { PlayerRow } from './_samples/data-players';
 import {
   createTag, hintsFor, pretendSave, resolvePlayerBounds, resolvePlayerOptions, resolveTags,
 } from './_samples/data-editor';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
 
 type RecordEditorArgs = {
   slot: string;
@@ -20,13 +23,14 @@ type RecordEditorArgs = {
   showReferencedBy: boolean;
   markServerChanges: boolean;
   failSave: boolean;
+  size: ControlSize;
 };
 
 const SLOTS = PLAYERS.map((player) => player.id);
 const SERVER_CHANGES: readonly string[] = ['checked', 'connection.ping'];
 
 const EditorDemo = (args: RecordEditorArgs) => {
-  const { slot, readOnly, disabled, showReferencedBy, markServerChanges, failSave } = args;
+  const { slot, readOnly, disabled, showReferencedBy, markServerChanges, failSave, size } = args;
   const [records, setRecords] = useState<readonly PlayerRow[]>(PLAYERS);
   const [message, setMessage] = useState('No changes saved yet.');
   const record = records.find((player) => player.id === slot) ?? records[0];
@@ -56,13 +60,14 @@ const EditorDemo = (args: RecordEditorArgs) => {
         onCreateTag={createTag}
         resolveNumberBounds={resolvePlayerBounds}
         referencedBy={showReferencedBy ? hintsFor(record.id) : undefined}
+        size={size}
       />
     </Box>
   );
 };
 
 const ARGS: Partial<RecordEditorArgs> = {
-    slot: 'slot-1', readOnly: false, disabled: false, showReferencedBy: true, markServerChanges: false, failSave: false,
+    slot: 'slot-1', readOnly: false, disabled: false, showReferencedBy: true, markServerChanges: false, failSave: false, size: 'md',
   };
 
 const ARG_TYPES: StoryLiteArgTypes<RecordEditorArgs> = {
@@ -72,6 +77,7 @@ const ARG_TYPES: StoryLiteArgTypes<RecordEditorArgs> = {
     showReferencedBy: { control: 'boolean', description: 'List the hints that point at this slot' },
     markServerChanges: { control: 'boolean', description: 'Mark fields the server changed before any edit here' },
     failSave: { control: 'boolean', description: 'Make the next save reject, to see the error line' },
+    size: SIZE_ARG,
   };
 
 const meta = {
@@ -91,6 +97,23 @@ const STATE_SCHEMA = PLAYER_SCHEMA.filter((field) => STATE_PATHS.includes(field.
 const STATE_CONFIG: SchemaConfig = { groups: [{ id: 'progress', label: 'Progress', paths: STATE_PATHS }] };
 const CHANGED_ELSEWHERE: readonly string[] = ['checked'];
 const saveNothing = () => Promise.resolve();
+
+const SIZE_PATHS: string[] = ['name', 'game', 'tags', 'checked'];
+const SIZE_SCHEMA = PLAYER_SCHEMA.filter((field) => SIZE_PATHS.includes(field.path));
+const SIZE_CONFIG: SchemaConfig = { groups: [{ id: 'player', label: 'Player', paths: SIZE_PATHS }] };
+const SIZE_CHANGES: readonly string[] = ['name', 'game', 'checked'];
+
+const Sizes = sizesStory<RecordEditorArgs>((size) => (
+  <RecordEditor
+    record={PLAYERS[0]}
+    schema={SIZE_SCHEMA}
+    config={SIZE_CONFIG}
+    onSave={saveNothing}
+    changedPaths={SIZE_CHANGES}
+    resolveTagSuggestions={resolveTags}
+    size={size}
+  />
+), { align: 'stretch' });
 
 const renderState = (props: StateProps) => (
   <RecordEditor
@@ -114,9 +137,9 @@ const CODE = `import { RecordEditor } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'RecordEditor',
-  description: 'A form built from a schema for one record, with the layout worked out from the fields. Reach for it to edit or inspect any record the app stores, such as a player slot. With onSave it tracks edits, marks dirty fields and offers Save and Revert, and a failed save shows its error; without onSave every control renders disabled and there is no footer. Given the lookups, it also marks fields another source changed, lists what still points at the record, and turns reference fields into searchable pickers.',
+  description: 'A form built from a schema for one record, with the layout worked out from the fields. Reach for it to edit or inspect any record the app stores, such as a player slot. With onSave it tracks edits, marks dirty fields and offers Save and Revert, and a failed save shows its error; without onSave every control renders disabled and there is no footer. Given the lookups, it also marks fields another source changed, lists what still points at the record, and turns reference fields into searchable pickers. Each field sits in a row with the same padding on every side, so a marked row keeps its label and control clear of its edges. size takes md or sm for every control, and without it the editor follows the size of the Field around it, else md.',
   playground: Playground,
-  variants: [],
+  variants: [Sizes],
   states: {
     render: renderState,
     list: [
@@ -130,4 +153,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Playground };
+export { Overview, Playground, Sizes };

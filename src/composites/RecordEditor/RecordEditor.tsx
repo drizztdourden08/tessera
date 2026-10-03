@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
 import { Box } from '../../primitives/Box';
+import { FieldControlContext } from '../../primitives/field-control/field-control-context';
+import { useControlSize } from '../../primitives/field-control/useControlSize';
 import { Text } from '../../primitives/Text';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useEditorBinding } from './behavior/useEditorBinding';
@@ -16,11 +18,13 @@ const RecordEditor = <T,>(props: RecordEditorProps<T>) => {
   const {
     record, schema, config, onSave, disabled = false, changedPaths,
     resolveIdRefOptions, resolveTagSuggestions, onCreateTag, resolveNumberBounds,
-    referencedBy, onDelete,
+    referencedBy, onDelete, size,
   } = props;
   const { working, isDirty, isPathDirty, saving, saveError, setValue, revert, handleSave } =
     useRecordEditorState({ record, onSave });
   const { records } = useTesseraStrings();
+  const controlSize = useControlSize(size);
+  const control = useMemo(() => ({ size: controlSize }), [controlSize]);
 
   const groups = useMemo(() => layoutGroups(schema, records, config), [schema, records, config]);
   const binding = useEditorBinding({
@@ -29,23 +33,25 @@ const RecordEditor = <T,>(props: RecordEditorProps<T>) => {
   });
 
   return (
-    <Box className="record-editor">
-      {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{records.noFieldsToShow}</Text>}
-      {groups.map((group) => (
-        <EditorGroup key={group.id} group={group} binding={binding} depth={0} />
-      ))}
-      {referencedBy !== undefined && <ReferencedBy hits={referencedBy} />}
-      <EditorFooter
-        canSave={onSave !== undefined}
-        isDirty={isDirty}
-        saving={saving}
-        saveError={saveError}
-        disabled={disabled}
-        onRevert={revert}
-        onSave={handleSave}
-        onDelete={onDelete}
-      />
-    </Box>
+    <FieldControlContext.Provider value={control}>
+      <Box className="record-editor">
+        {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{records.noFieldsToShow}</Text>}
+        {groups.map((group) => (
+          <EditorGroup key={group.id} group={group} binding={binding} depth={0} />
+        ))}
+        {referencedBy !== undefined && <ReferencedBy hits={referencedBy} />}
+        <EditorFooter
+          canSave={onSave !== undefined}
+          isDirty={isDirty}
+          saving={saving}
+          saveError={saveError}
+          disabled={disabled}
+          onRevert={revert}
+          onSave={handleSave}
+          onDelete={onDelete}
+        />
+      </Box>
+    </FieldControlContext.Provider>
   );
 };
 

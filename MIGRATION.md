@@ -1334,3 +1334,23 @@ The usage file check of Tessera's extension now follows `ai.usage` for a missing
 ### What an app does
 
 Nothing beyond installing Tessera. An app on `@drizztdourden08/standards` discovers the extension from its dependencies, so it lists no extension and names no primitives folder: the extension reads `parts.primitives` from `tessera.config.json`. An app that still passes `primitivesGlobs` for that folder can drop it. A Brock app keeps `brock-lint-config` and `brock-build`, which sit on standards.
+
+## 55. InlineCreateForm and RecordEditor take a size; RecordEditor rows get padding
+
+`InlineCreateForm` takes `size`, `md` or `sm`, like any control. Without it the form follows the size of the `Field` around it, else `md`. `compact` now only sets the layout: one line, unboxed. Before, `compact` forced `sm`. The name field, the controls in `extraFields` and the buttons all follow the size: the Create and Cancel buttons in the boxed form, and the icon buttons in the compact form, which match the height of the field. The error line uses the dense font of the size.
+
+An app that relies on the small compact form passes `size="sm"`:
+
+```tsx
+<InlineCreateForm
+  compact
+  size="sm"
+  label="New folder name"
+  placeholder="New folder"
+  submitLabel="Create folder"
+  onCreate={createFolder}
+  error={error}
+/>
+```
+
+`RecordEditor` takes `size` too, with the same rule, and passes it to every field. Each row of the editor now has `--space-sm` of padding on every side, so the label and the control stay clear of the edges of a row marked by a background or a border, at both sizes and with fields that wrap over several lines. The gap between rows drops from `--space-sm` to `--space-xs` to keep the editor compact. `CreateRecordDialog` builds its rows the same way and gets the same padding. An app that styled `.record-editor__row` with its own padding can drop it.

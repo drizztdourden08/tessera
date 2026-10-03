@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind data */
-import type { FieldControl } from '../../primitives/field-control/field-control.type';
+import type { ControlSize } from '../../primitives/field-control/field-control.type';
 
-const COMPACT_CONTROL: FieldControl = { size: 'sm' };
+const COMPACT_GLYPH_SIZES: Readonly<Record<ControlSize, number>> = { md: 16, sm: 13 };
 
-export { COMPACT_CONTROL };
+export { COMPACT_GLYPH_SIZES };

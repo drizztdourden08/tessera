@@ -5,12 +5,12 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import type { InlineCreateActionsProps } from './InlineCreateActions.type';
 
 const InlineCreateActions = (props: InlineCreateActionsProps) => {
-  const { ready, onSubmit, onCancel, submitLabel, cancelLabel } = props;
+  const { ready, size, onSubmit, onCancel, submitLabel, cancelLabel } = props;
   const { common } = useTesseraStrings();
   return (
     <ButtonRow className="inline-create-form__actions">
-      <Button variant="primary" fullWidth disabled={!ready} onClick={onSubmit}>{submitLabel ?? common.create}</Button>
-      {onCancel && <Button variant="tertiary" fullWidth onClick={onCancel}>{cancelLabel ?? common.cancel}</Button>}
+      <Button variant="primary" size={size} fullWidth disabled={!ready} onClick={onSubmit}>{submitLabel ?? common.create}</Button>
+      {onCancel && <Button variant="tertiary" size={size} fullWidth onClick={onCancel}>{cancelLabel ?? common.cancel}</Button>}
     </ButtonRow>
   );
 };

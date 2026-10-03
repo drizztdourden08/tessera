@@ -8,7 +8,7 @@
 .record-editor__group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   margin: 0;
   padding: 0;
   border: 0;
@@ -31,7 +31,7 @@
 
 .record-editor__row {
   border-inline-start: var(--border-width-thick) solid transparent;
-  padding-inline-start: var(--space-sm);
+  padding: var(--space-sm);
 }
 
 .record-editor__row label {
@@ -72,7 +72,7 @@
 .record-editor__nested {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   margin-inline-start: var(--space-xs);
   padding-inline-start: var(--space-md);
   border-inline-start: var(--border-width-thin) solid var(--c-border);

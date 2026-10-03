@@ -2,10 +2,15 @@
 import { useState } from 'react';
 import { InlineCreateForm } from '../../../src/composites';
 import { Box, Card, Icon, Text } from '../../../src/primitives';
+import type { ControlSize } from '../../../src/primitives';
+
+interface FolderListDemoProps {
+  size: ControlSize;
+}
 
 const START_FOLDERS: readonly string[] = ['Drafts', 'Invoices', 'Meeting notes'];
 
-const FolderListDemo = () => {
+const FolderListDemo = ({ size }: FolderListDemoProps) => {
   const [folders, setFolders] = useState<readonly string[]>(START_FOLDERS);
   const [error, setError] = useState<string>();
   const [round, setRound] = useState(0);
@@ -21,7 +26,7 @@ const FolderListDemo = () => {
   };
 
   return (
-    <Card className="inline-create-story__folders">
+    <Card className={`inline-create-story__folders inline-create-story__folders--${size}`}>
       <Text className="story-label">Folders</Text>
       {folders.map((folder) => (
         <Box key={folder} className="inline-create-story__folder">
@@ -32,6 +37,7 @@ const FolderListDemo = () => {
       <InlineCreateForm
         key={round}
         compact
+        size={size}
         label="New folder name"
         placeholder="New folder"
         submitLabel="Create folder"

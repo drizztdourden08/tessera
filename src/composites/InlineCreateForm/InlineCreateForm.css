@@ -10,7 +10,7 @@
 }
 
 .inline-create-form__error {
-  font-size: var(--text-sm);
+  font-size: var(--control-font-dense);
 }
 
 .inline-create-form__actions > * {
@@ -27,14 +27,16 @@
 .inline-create-form__row {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--control-gap);
+}
+
+.inline-create-form__row > .icon-btn {
+  flex: none;
+  inline-size: var(--control-height);
+  block-size: var(--control-height);
 }
 
 .inline-create-form--compact .inline-create-form__name {
   flex: 1;
   min-inline-size: 0;
-}
-
-.inline-create-form--compact .inline-create-form__error {
-  font-size: var(--text-xs);
 }

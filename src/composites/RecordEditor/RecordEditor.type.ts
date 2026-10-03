@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { FieldDescriptor, SchemaConfig } from '../../data/schema/field-descriptor';
+import type { ControlSize } from '../../primitives/field-control/field-control.type';
 import type { IdRefOptionResolver, NumberBounds } from '../field-kits/registry.type';
 
 type TagSuggestionResolver = (field: FieldDescriptor) => readonly string[];
@@ -25,6 +26,7 @@ interface RecordEditorProps<T> {
   resolveNumberBounds?: NumberBoundsResolver;
   referencedBy?: readonly ReferencedByHit[];
   onDelete?: () => void;
+  size?: ControlSize;
 }
 
 interface ReferencedByHit {
