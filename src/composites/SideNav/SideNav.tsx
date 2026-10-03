@@ -1,56 +1,59 @@
 /* @layer renderer-components @kind component */
-import { useState, useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
-import { TextInput } from '../../primitives/TextInput';
+import { Icon } from '../../primitives/Icon';
+import { Span } from '../../primitives/text-elements';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { GroupTitle } from './sub-components/GroupTitle';
+import { navClassName } from './behavior/nav-class-name';
+import { usePanelOpen } from './behavior/usePanelOpen';
+import { SideNavItem } from './sub-components/SideNavItem';
+import { SideNavTop } from './sub-components/SideNavTop';
 import type { SideNavProps } from './SideNav.type';
-import '../../theme/glass-panel.css';
-import '../../theme/focus-ring.css';
 import './SideNav.css';
 
 const SideNav = (props: SideNavProps) => {
-  const { groups, activeId, onSelect, searchable = false, searchPlaceholder, header, query, onQueryChange } = props;
-  const { common } = useTesseraStrings();
-  const controlled = query !== undefined;
-  const [innerQuery, setInnerQuery] = useState('');
-  const value = controlled ? query : innerQuery;
-  const q = value.trim().toLowerCase();
-
-  const filtered = useMemo(() => {
-    if (controlled || !q) return groups;
-    return groups
-      .map(g => ({ ...g, items: g.items.filter(i => i.label.toLowerCase().includes(q)) }))
-      .filter(g => g.items.length > 0 || (g.id !== undefined && (g.title ?? '').toLowerCase().includes(q)));
-  }, [controlled, groups, q]);
-
-  const onInput = (next: string) => (controlled ? onQueryChange?.(next) : setInnerQuery(next));
+  const {
+    config, activeId, onSelect, search, defaultOpen = false, variant = 'panel', collapsed = false, overlay = false, ariaLabel,
+    className = '',
+  } = props;
+  const { navigation } = useTesseraStrings();
+  const rail = variant === 'rail';
+  const { navRef, toggleRef, open, floating, toggle, openPanel, select } = usePanelOpen({ rail, collapsed, defaultOpen, overlay, onSelect });
 
   return (
-    <Box as="nav" className="side-nav glass-panel">
-      {header && <Box className="side-nav__header">{header}</Box>}
-      {searchable && (
-        <Box className="side-nav__search">
-          <TextInput value={value} onChange={e => onInput(e.target.value)} placeholder={searchPlaceholder ?? common.filterPlaceholder} />
+    <Box as="nav" ref={navRef} className={navClassName(variant, open, floating, className)} aria-label={ariaLabel ?? navigation.sections}>
+      <Box className="side-nav__panel">
+        {!rail && (
+          <Pressable
+            ref={toggleRef}
+            className="side-nav__toggle"
+            onClick={toggle}
+            aria-expanded={open}
+            aria-label={open ? navigation.collapseNavigation : navigation.expandNavigation}
+          >
+            <Icon name="chevron-right" size={14} />
+          </Pressable>
+        )}
+
+        <SideNavTop
+          home={config.home}
+          search={search}
+          open={open}
+          onOpen={openPanel}
+          activeId={activeId}
+          onSelect={select}
+        />
+
+        <Box className="side-nav__groups">
+          {config.groups.map((group) => (
+            <Box key={group.id} className="side-nav__group" role="group" aria-label={group.label}>
+              {group.label ? <Span tone="muted" className="side-nav__group-label">{group.label}</Span> : null}
+              {group.items.map((item) => (
+                <SideNavItem key={item.id} item={item} active={item.id === activeId} onSelect={select} />
+              ))}
+            </Box>
+          ))}
         </Box>
-      )}
-      <Box className="side-nav__list">
-        {filtered.map((group, gi) => (
-          <Box key={group.id ?? group.title ?? gi} className="side-nav__group">
-            {group.title && <GroupTitle group={group} activeId={activeId} onSelect={onSelect} />}
-            {group.items.map(item => (
-              <Pressable
-                key={item.id}
-                className={`side-nav__item focus-ring-inset${item.id === activeId ? ' side-nav__item--active' : ''}`}
-                onClick={() => onSelect(item.id)}
-              >
-                {item.icon && <Box as="span" className="side-nav__icon">{item.icon}</Box>}
-                {item.label}
-              </Pressable>
-            ))}
-          </Box>
-        ))}
       </Box>
     </Box>
   );

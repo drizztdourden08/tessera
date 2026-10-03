@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { SectionNav } from '../SectionNav';
+import { SideNav } from '../SideNav';
 import { keepSearchOnEscape } from './behavior/keep-search-on-escape';
 import { paneScrolls } from './behavior/pane-scrolls';
 import { useNavSearch } from './behavior/useNavSearch';
@@ -16,7 +16,7 @@ const NavLayout = (props: NavLayoutProps) => {
 
   return (
     <Box ref={ref} className={classes} onKeyDown={keepSearchOnEscape(nav.search?.value ?? '')}>
-      <SectionNav {...nav} overlay={compact} search={search} activeId={showResults ? '' : nav.activeId} />
+      <SideNav {...nav} overlay={compact} search={search} activeId={showResults ? '' : nav.activeId} />
       <NavLayoutPane scroll={paneScrolls(paneScroll, showResults)}>{showResults ? results : children}</NavLayoutPane>
     </Box>
   );

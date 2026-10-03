@@ -773,14 +773,11 @@
   },
   "Composites · Navigation": {
     "SideNav": {
-      "status": "new"
-    },
-    "SectionNav": {
       "status": "seen",
       "hash": "ef54a16952ee3695",
       "at": "2026-10-01"
     },
-    "HeaderTabs": {
+    "HeaderAnchorNav": {
       "status": "seen",
       "hash": "435229260b09201d",
       "at": "2026-10-03"

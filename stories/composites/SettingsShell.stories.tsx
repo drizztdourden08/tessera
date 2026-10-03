@@ -4,41 +4,38 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from 
 import { SettingsShell } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { SETTINGS_GROUPS } from './_samples/nav';
+import { SETTINGS_GROUPS } from './_samples/settings-nav';
 import { SettingsPanel } from './_samples/settings-panels';
 import './SettingsShell.stories.css';
 
 type ShellArgs = {
-  searchable: boolean;
-  searchPlaceholder: string;
+  filterable: boolean;
+  filterPlaceholder: string;
   withHeader: boolean;
 };
 
 const ShellDemo = (props: ShellArgs) => {
-  const { searchable, searchPlaceholder, withHeader } = props;
+  const { filterable, filterPlaceholder, withHeader } = props;
   const [active, setActive] = useState('general');
-  const nav = {
-    groups: SETTINGS_GROUPS,
-    activeId: active,
-    onSelect: setActive,
-    searchable,
-    searchPlaceholder,
-    header: withHeader ? <Text variant="title">Settings</Text> : undefined,
-  };
   return (
     <Box className="story-frame settings-shell-story__frame">
-      <SettingsShell nav={nav}>
+      <SettingsShell
+        nav={{ config: { groups: SETTINGS_GROUPS }, activeId: active, onSelect: setActive, ariaLabel: 'Settings' }}
+        filterable={filterable}
+        filterPlaceholder={filterPlaceholder}
+        header={withHeader ? <Text variant="title">Settings</Text> : undefined}
+      >
         <SettingsPanel id={active} />
       </SettingsShell>
     </Box>
   );
 };
 
-const ARGS: Partial<ShellArgs> = { searchable: true, searchPlaceholder: 'Filter settings...', withHeader: false };
+const ARGS: Partial<ShellArgs> = { filterable: true, filterPlaceholder: 'Filter settings...', withHeader: false };
 
 const ARG_TYPES: StoryLiteArgTypes<ShellArgs> = {
-    searchable: { control: 'boolean' },
-    searchPlaceholder: { control: 'text' },
+    filterable: { control: 'boolean' },
+    filterPlaceholder: { control: 'text' },
     withHeader: { control: 'boolean' },
   };
 
@@ -54,28 +51,32 @@ const Playground = {
   render: (args) => <ShellDemo {...args} />,
 } satisfies StoryLiteStoryDefinition<ShellArgs>;
 
-const WithoutSearch = {
-  name: 'Without search, with a header',
+const WithoutFilter = {
+  name: 'Without the filter, with a header',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <ShellDemo {...args} searchable={false} withHeader />,
+  render: (args) => <ShellDemo {...args} filterable={false} withHeader />,
 } satisfies StoryLiteStoryDefinition<ShellArgs>;
 
 const CODE = `import { SettingsShell } from '@drizztdourden08/tessera';
 
 const [active, setActive] = useState('general');
 
-<SettingsShell nav={{ groups: SETTINGS_GROUPS, activeId: active, onSelect: setActive, searchable: true }}>
+<SettingsShell
+  nav={{ config: { groups: SETTINGS_GROUPS }, activeId: active, onSelect: setActive }}
+  filterable
+  header={<Text variant="title">Settings</Text>}
+>
   <SettingsPanel id={active} />
 </SettingsShell>`;
 
 const Overview = overviewStory({
   component: 'SettingsShell',
-  description: 'The layout of a settings page: a grouped SideNav on the left and a scrolling panel on the right. Reach for it for any settings-style page. The nav is data and takes every SideNav prop, including its filter box and header; the panel is the children, which the caller swaps for the active item.',
+  description: 'The layout of a settings page: a SideNav on the left, open so its labels show, and a scrolling panel on the right. Reach for it for any settings-style page. The nav is data and takes every SideNav prop; the panel is the children, which the caller swaps for the active item. filterable adds a filter field to the nav that narrows its items by label, and the shell keeps the query. A host that passes nav.search owns the query and filters the groups itself. header puts a row above the nav and the panel, such as a page title. Under 640 pixels wide the nav hides.',
   playground: Playground,
-  variants: [WithoutSearch],
+  variants: [WithoutFilter],
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, WithoutSearch };
+export { Overview, Playground, WithoutFilter };

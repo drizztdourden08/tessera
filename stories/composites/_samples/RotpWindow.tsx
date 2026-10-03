@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import { SectionNav, SettingsPage, WindowTitleBar } from '../../../src/composites';
+import { SideNav, SettingsPage, WindowTitleBar } from '../../../src/composites';
 import type { WindowControl } from '../../../src/composites';
 import { Box, Icon, IconButton, P } from '../../../src/primitives';
 import { brandLogoUri } from './brand-logo';
@@ -41,7 +41,7 @@ const RotpWindow = ({ profiles }: RotpWindowProps) => {
         onControl={onControl}
       />
       <Box className="rotp-window__body">
-        <SectionNav variant="rail" ariaLabel="Data" config={ROTP_RAIL} activeId={screen} onSelect={setScreen} />
+        <SideNav variant="rail" ariaLabel="Data" config={ROTP_RAIL} activeId={screen} onSelect={setScreen} />
         <Box className="rotp-window__page">
           {screen === 'profiles' ? profiles : (
             <SettingsPage icon={<Icon name={page?.icon ?? 'house'} />} title={page?.label ?? screen} scroll={false}>

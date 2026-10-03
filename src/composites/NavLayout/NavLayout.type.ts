@@ -1,11 +1,11 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, Ref } from 'react';
-import type { SectionNavProps } from '../SectionNav';
+import type { SideNavProps } from '../SideNav';
 
 type NavLayoutPaneScroll = 'page' | 'always' | 'none';
 
 interface NavLayoutProps {
-  nav: SectionNavProps;
+  nav: SideNavProps;
   children: ReactNode;
   results?: ReactNode;
   paneScroll?: NavLayoutPaneScroll;

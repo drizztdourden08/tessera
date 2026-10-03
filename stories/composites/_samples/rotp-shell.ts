@@ -1,6 +1,6 @@
 /* @layer stories @kind data */
 import { createElement } from 'react';
-import type { MenuGroup, SectionNavConfig } from '../../../src/composites';
+import type { MenuGroup, SideNavConfig } from '../../../src/composites';
 import { Icon } from '../../../src/primitives';
 import type { IconName } from '../../../src/primitives';
 
@@ -21,7 +21,7 @@ const railItem = (id: string) => {
   return { id, label: screen?.label ?? id, icon: createElement(Icon, { name: screen?.icon ?? 'house' }) };
 };
 
-const ROTP_RAIL: SectionNavConfig = {
+const ROTP_RAIL: SideNavConfig = {
   home: railItem('home'),
   groups: [
     { id: 'library', label: 'Library', items: ['profiles', 'roms', 'sprites'].map(railItem) },

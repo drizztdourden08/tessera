@@ -1,10 +1,22 @@
 /* @layer renderer-components @kind style */
 .settings-shell {
   display: flex;
+  flex-direction: column;
   flex: 1;
   min-height: 0;
   gap: var(--space-md);
   padding: 0 var(--space-md) var(--space-md);
+}
+
+.settings-shell__header {
+  padding: 0 var(--space-sm);
+}
+
+.settings-shell__body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  gap: var(--space-md);
 }
 
 .settings-shell__content {
@@ -15,7 +27,7 @@
 }
 
 @media (width <= 640px) {
-  .settings-shell {
+  .settings-shell__body {
     gap: 0;
   }
 

@@ -43,7 +43,7 @@ Issues found in the components while writing their stories. Everything here came
 | Dialog | `message` is required though it renders conditionally |
 | CreateRecordDialog | resets its draft only when `open` changes |
 | DeleteGuardDialog | title and confirm label are fixed strings |
-| SplitPane, SectionNav, GroupTree | read their default props on first render only; SplitPane has hard-coded glyphs; SectionNav hard-codes English aria labels |
+| SplitPane, SideNav, GroupTree | read their default props on first render only; SplitPane has hard-coded glyphs; SideNav hard-codes English aria labels |
 | ListItemRow | base and hover backgrounds are the same, so hover only changes the border |
 | Widget | docked panes size from `100vh`/`100vw` with `position: fixed`, so a dock cannot live in part of a page |
 | data engine | filters match every row until the field kits are imported, which registers the testers |

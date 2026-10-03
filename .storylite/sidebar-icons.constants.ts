@@ -75,7 +75,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
   'Composites · Navigation': {
-    SideNav: 'panel-left', SectionNav: 'list', HeaderTabs: 'panel-top', FloatingSwitch: 'blend', SplitPane: 'columns-2',
+    SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', SplitPane: 'columns-2',
     MasterDetailLayout: 'layout-list', GroupTree: 'folder-tree', ListItemRow: 'list-start', WindowHeader: 'heading-2',
     WindowTitleBar: 'app-window-mac', SettingsShell: 'settings', SettingsSection: 'settings-2', SettingsGroupList: 'list-checks',
     SettingsPage: 'file-cog', NavLayout: 'layout-template', SearchResults: 'search-check', ProfilePicker: 'users',

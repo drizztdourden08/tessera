@@ -36,9 +36,8 @@ const COMPOSITES_TIER: CatalogueTier = {
     {
       group: 'Navigation',
       entries: [
-        { name: 'SideNav', summary: 'A vertical menu of grouped links.' },
-        { name: 'SectionNav', summary: 'Grouped section navigation with search, or an app rail.' },
-        { name: 'HeaderTabs', summary: 'Tabs in a page header, with counts.' },
+        { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
+        { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
         { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
         { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
         { name: 'MasterDetailLayout', summary: 'A list beside the detail of the selected item.' },
@@ -50,7 +49,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'SettingsSection', summary: 'One titled group of settings.' },
         { name: 'SettingsGroupList', summary: 'Settings sections of bordered row groups, with reset and locks.' },
         { name: 'SettingsPage', summary: 'A settings page header with tabs over a scrolling body.' },
-        { name: 'NavLayout', summary: 'A SectionNav beside the current page, with search results.' },
+        { name: 'NavLayout', summary: 'A SideNav beside the current page, with search results.' },
         { name: 'SearchResults', summary: 'Search hits with a count, jumps and groups.' },
         { name: 'ProfilePicker', summary: 'Profiles to pick from, add and delete.' },
       ],

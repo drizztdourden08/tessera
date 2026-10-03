@@ -6,7 +6,7 @@ import type { SplitDividerProps } from './SplitDivider.type';
 import '../../../theme/focus-ring.css';
 
 const SplitDivider = (props: SplitDividerProps) => {
-  const { collapsed, startShare, startLabel, endLabel, handlers } = props;
+  const { collapsed, orientation, startShare, valueRange, startLabel, endLabel, handlers } = props;
   const { navigation } = useTesseraStrings();
   const hidden = hiddenLabelOf(collapsed, startLabel, endLabel);
 
@@ -14,11 +14,11 @@ const SplitDivider = (props: SplitDividerProps) => {
     <Box
       className={`split-pane__divider split-pane__divider--${collapsed} focus-ring-inset`}
       role="separator"
-      aria-orientation="vertical"
+      aria-orientation={orientation === 'horizontal' ? 'vertical' : 'horizontal'}
       aria-label={hidden !== null ? navigation.showPane(hidden) : navigation.resizePanes(startLabel, endLabel)}
       aria-valuenow={Math.round(startShare * 100)}
-      aria-valuemin={0}
-      aria-valuemax={100}
+      aria-valuemin={valueRange.min}
+      aria-valuemax={valueRange.max}
       tabIndex={0}
       onPointerDown={handlers.handlePointerDown}
       onPointerMove={handlers.handlePointerMove}

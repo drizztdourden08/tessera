@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { PointerEvent as ReactPointerEvent, KeyboardEvent as ReactKeyboardEvent } from 'react';
-import type { CollapsedSide } from '../SplitPane.type';
+import type { CollapsedSide, SplitOrientation } from '../SplitPane.type';
 
 interface SplitDividerHandlers {
   handlePointerDown: (event: ReactPointerEvent<HTMLDivElement>) => void;
@@ -12,7 +12,9 @@ interface SplitDividerHandlers {
 
 interface SplitDividerProps {
   collapsed: CollapsedSide;
+  orientation: SplitOrientation;
   startShare: number;
+  valueRange: { min: number; max: number };
   startLabel: string;
   endLabel: string;
   handlers: SplitDividerHandlers;

@@ -3,10 +3,15 @@ import type { ReactNode } from 'react';
 
 type CollapsedSide = 'none' | 'start' | 'end';
 
+type SplitOrientation = 'horizontal' | 'vertical';
+
 interface SplitPaneProps {
   start: ReactNode;
   end: ReactNode;
+  orientation?: SplitOrientation;
   defaultRatio?: number;
+  minRatio?: number;
+  maxRatio?: number;
   snapAt?: number;
   defaultCollapsed?: CollapsedSide;
   startLabel?: string;
@@ -14,4 +19,4 @@ interface SplitPaneProps {
   className?: string;
 }
 
-export type { CollapsedSide, SplitPaneProps };
+export type { CollapsedSide, SplitOrientation, SplitPaneProps };

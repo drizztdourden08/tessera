@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { HeaderTabItem } from '../HeaderTabs';
+import type { HeaderAnchorNavItem } from '../HeaderAnchorNav';
 
 interface SettingsPageAnchor {
   id: string;
@@ -8,7 +8,7 @@ interface SettingsPageAnchor {
 }
 
 interface SettingsPageTabs {
-  items: readonly HeaderTabItem[];
+  items: readonly HeaderAnchorNavItem[];
   activeId: string;
   onSelect: (id: string) => void;
 }

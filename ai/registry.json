@@ -1428,9 +1428,9 @@
       "usage": false
     },
     {
-      "name": "HeaderTabs",
+      "name": "HeaderAnchorNav",
       "tier": "composites",
-      "source": "src/composites/HeaderTabs/HeaderTabs.tsx",
+      "source": "src/composites/HeaderAnchorNav/HeaderAnchorNav.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
@@ -1581,16 +1581,6 @@
       "name": "SearchSpark",
       "tier": "composites",
       "source": "src/composites/SearchSpark/SearchSpark.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "SectionNav",
-      "tier": "composites",
-      "source": "src/composites/SectionNav/SectionNav.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"

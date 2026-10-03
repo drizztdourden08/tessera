@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 0 of 137 have their usage written; a linked name opens its page.
+One line per component. 0 of 136 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -101,7 +101,7 @@ One line per component. 0 of 137 have their usage written; a linked name opens i
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FullScreenLayer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `GroupTree`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `HeaderTabs`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `InlineCreateForm`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -117,7 +117,6 @@ One line per component. 0 of 137 have their usage written; a linked name opens i
 - `ReleaseNotesPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResults`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchSpark`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `SectionNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsGroupList`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsPage`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsSection`: usage not written yet. Import from `@drizztdourden08/tessera`.

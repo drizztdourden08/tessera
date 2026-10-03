@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind hook */
 import { useMemo, useState } from 'react';
-import type { SectionNavSearch } from '../../SectionNav';
+import type { SideNavSearch } from '../../SideNav';
 
-const useNavSearch = (search: SectionNavSearch | undefined) => {
+const useNavSearch = (search: SideNavSearch | undefined) => {
   const [focused, setFocused] = useState(false);
-  const watched = useMemo<SectionNavSearch | undefined>(() => search && {
+  const watched = useMemo<SideNavSearch | undefined>(() => search && {
     ...search,
     onFocusChange: (next: boolean) => {
       setFocused(next);

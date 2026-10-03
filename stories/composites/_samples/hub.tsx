@@ -1,14 +1,14 @@
 /* @layer stories @kind component */
-import type { SearchResultsHit, SectionNavConfig, SectionNavItem } from '../../../src/composites';
+import type { SearchResultsHit, SideNavConfig, SideNavItem } from '../../../src/composites';
 import { Icon } from '../../../src/primitives';
 import { NAV_ICONS } from './nav';
 import type { NavIcon } from './nav';
 
-const hubItem = (id: string, label: string, icon: NavIcon): SectionNavItem => ({
+const hubItem = (id: string, label: string, icon: NavIcon): SideNavItem => ({
   id, label, icon: <Icon name={NAV_ICONS[icon]} size={18} />,
 });
 
-const HUB_NAV: SectionNavConfig = {
+const HUB_NAV: SideNavConfig = {
   home: hubItem('home', 'Overview', 'home'),
   groups: [
     { id: 'play', label: 'Play', items: [hubItem('sessions', 'Sessions', 'sessions'), hubItem('players', 'Players', 'players')] },
@@ -16,8 +16,8 @@ const HUB_NAV: SectionNavConfig = {
   ],
 };
 
-const HUB_PAGES: readonly SectionNavItem[] = [HUB_NAV.home, ...HUB_NAV.groups.flatMap((g) => g.items)].filter(
-  (page): page is SectionNavItem => page !== undefined,
+const HUB_PAGES: readonly SideNavItem[] = [HUB_NAV.home, ...HUB_NAV.groups.flatMap((g) => g.items)].filter(
+  (page): page is SideNavItem => page !== undefined,
 );
 
 const HUB_TABS: readonly SearchResultsHit[] = [

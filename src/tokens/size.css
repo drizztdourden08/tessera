@@ -21,10 +21,10 @@
   --sort-caret-width: var(--size-8);
   --menu-trigger-width: var(--size-20);
   --avatar-d: var(--size-40);
-  --section-nav-w: var(--size-56);
-  --section-nav-w-open: var(--size-224);
-  --section-nav-item-h: var(--size-40);
-  --section-nav-toggle-d: var(--size-24);
+  --side-nav-w: var(--size-56);
+  --side-nav-w-open: var(--size-224);
+  --side-nav-item-h: var(--size-40);
+  --side-nav-toggle-d: var(--size-24);
   --search-results-head-h: calc(52 * var(--size-1));
   --dock-grip-h: calc(18 * var(--size-1));
   --dock-divider-bar: calc(3 * var(--size-1));

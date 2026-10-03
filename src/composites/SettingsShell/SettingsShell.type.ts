@@ -4,6 +4,9 @@ import type { SideNavProps } from '../SideNav';
 
 interface SettingsShellProps {
   nav: SideNavProps;
+  filterable?: boolean;
+  filterPlaceholder?: string;
+  header?: ReactNode;
   children: ReactNode;
   className?: string;
 }

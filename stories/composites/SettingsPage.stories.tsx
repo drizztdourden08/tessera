@@ -6,7 +6,7 @@ import { Box, Button, Icon, Paragraph } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
-import { SESSION_TABS } from './_samples/nav';
+import { SESSION_SECTIONS } from './_samples/nav';
 import { SETTINGS_ANCHORS, useSettingsSample } from './_samples/settings-list';
 import './SettingsPage.stories.css';
 
@@ -43,7 +43,7 @@ const TabsDemo = () => {
       <SettingsPage
         icon={<Icon name="layers" />}
         title="Friday async"
-        tabs={{ items: SESSION_TABS, activeId: view, onSelect: setView }}
+        tabs={{ items: SESSION_SECTIONS, activeId: view, onSelect: setView }}
         scroll={false}
       >
         <Paragraph tone="muted">The host swaps this body for the {view} view. With scroll off the body holds its own scrolling.</Paragraph>

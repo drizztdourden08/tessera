@@ -932,3 +932,116 @@ The padding sits on a new `.fullscreen-layer__inset` wrapper; `.fullscreen-layer
 | `src/composites/ErrorBoundary` | `src/primitives/ErrorBoundary` |
 
 The gallery regroups its composites. Dialogs keeps `Dialog`, `DialogShell`, `CreateRecordDialog` and `DeleteGuardDialog`. A new Overlays group takes `Overlay`, `Drawer` and `DisabledOverlay`, a new Actions group takes `ConfirmIconButton`, and a new Forms group takes `InlineCreateForm` from Dialogs and `RecordEditor` from Data views. `FullScreenLayer` moves to Screens, and `ErrorBoundary` to Primitives · Feedback. The Drawer page shows file details, filters, notifications and a search sheet in place of the menu examples.
+
+## 47. SectionNav is now SideNav, the old SideNav is gone, and HeaderTabs is HeaderAnchorNav
+
+The gold icon column that was `SectionNav` takes the name `SideNav`. The grouped list that was called `SideNav` is removed: the new `SideNav` replaces it, and `SettingsShell` now draws the new one. There is no alias.
+
+| Before | After |
+|---|---|
+| `SectionNav` | `SideNav` |
+| `SectionNavProps`, `SectionNavConfig`, `SectionNavGroup`, `SectionNavItem`, `SectionNavSearch`, `SectionNavVariant` | `SideNavProps`, `SideNavConfig`, `SideNavGroup`, `SideNavItem`, `SideNavSearch`, `SideNavVariant` |
+| `.section-nav` and every `.section-nav__*` and `.section-nav--*` class | `.side-nav`, `.side-nav__*`, `.side-nav--*` |
+| `--section-nav-w`, `--section-nav-w-open`, `--section-nav-item-h`, `--section-nav-toggle-d` | `--side-nav-w`, `--side-nav-w-open`, `--side-nav-item-h`, `--side-nav-toggle-d` |
+| `src/composites/SectionNav` | `src/composites/SideNav` |
+| gallery page Composites · Navigation/SectionNav | Composites · Navigation/SideNav |
+
+`NavLayout` takes the same `nav` data as before, now typed `SideNavProps`. The props of the renamed component are unchanged.
+
+### An app that used the old SideNav
+
+`SideNav`, `SideNavProps`, `SideNavGroup` and `SideNavItem` keep their names but now describe the former `SectionNav`, so RENAMES.json does not map them; it lists the old props as notes instead. Rewrite each use by hand:
+
+| Old SideNav | New SideNav |
+|---|---|
+| `groups` | `config.groups` |
+| a group's `title` | its `label` |
+| a group's optional `id` | a required `id` |
+| an item's optional `icon` | a required `icon` |
+| `searchable`, `searchPlaceholder`, `query`, `onQueryChange` | `search`: `{ value, onChange, placeholder }`, owned by the host |
+| `header` | none |
+| `activeId`, `onSelect` | unchanged |
+
+What the new SideNav does not do:
+
+- A group heading is a label, never a target of its own. A group that had an `id` and no items becomes a plain item.
+- It has no `header` slot.
+- It does not filter its own items: the host owns the query and the results, as `NavLayout` does with `SearchResults`.
+- It shows only icons until it opens. `defaultOpen` opens it on first render, and the `rail` variant shows its labels unless `collapsed` is set.
+
+The old classes `.side-nav__header`, `.side-nav__list`, `.side-nav__group-title`, `.side-nav__group-title--action` and `.side-nav__group-title--active` are gone. `.side-nav__list` becomes `.side-nav__groups` and `.side-nav__group-title` becomes `.side-nav__group-label`; the others have no counterpart.
+
+### SettingsShell
+
+`SettingsShell` draws the new `SideNav`, open by default so its labels show. It keeps the filter and the header itself:
+
+| Before | After |
+|---|---|
+| `nav.groups` | `nav.config.groups`, with an id on each group and an icon on each item |
+| `nav.searchable` | `filterable` |
+| `nav.searchPlaceholder` | `filterPlaceholder`, which defaults to the Filter string |
+| `nav.query`, `nav.onQueryChange` | `nav.search`: the host owns the query and filters the groups itself |
+| `nav.header` | `header`, a row above the nav and the panel |
+
+With `filterable`, the shell keeps the query and narrows the items by label, hiding a group with no match. The header now spans the top of the shell instead of sitting inside the nav. The nav still hides under 640 pixels wide; the `.settings-shell .side-nav` rule now meets the new nav, and the panel and nav sit in a new `.settings-shell__body` row.
+
+```tsx
+<SettingsShell
+  nav={{ config: { groups: SETTINGS_GROUPS }, activeId: active, onSelect: setActive }}
+  filterable
+  header={<Text variant="title">Settings</Text>}
+>
+  <SettingsPanel id={active} />
+</SettingsShell>
+```
+
+### HeaderAnchorNav
+
+`HeaderTabs` is renamed `HeaderAnchorNav`: it jumps to the sections of a page and is not a set of tabs.
+
+| Before | After |
+|---|---|
+| `HeaderTabs`, `HeaderTabsProps`, `HeaderTabItem` | `HeaderAnchorNav`, `HeaderAnchorNavProps`, `HeaderAnchorNavItem` |
+| `.header-tabs` | `.header-anchor-nav` |
+| `.header-tabs__tab`, `.header-tabs__tab--active` | `.header-anchor-nav__item`, `.header-anchor-nav__item--active` |
+| gallery page Composites · Navigation/HeaderTabs | Composites · Navigation/HeaderAnchorNav |
+
+The props are unchanged. The `nav` landmark now holds a list, `.header-anchor-nav__list`, with one item per button, so a screen reader announces how many sections there are. The flex row moves from `.header-anchor-nav` to `.header-anchor-nav__list`; a host stylesheet that set the gap or wrapping on `.header-tabs` sets it on the list. The current button carries `aria-current="location"` in place of `aria-current="true"`. `SettingsPage` uses it for its anchors and its view tabs, and its `tabs.items` are typed `HeaderAnchorNavItem`.
+
+RENAMES.json holds every rename above. rotp and Brock replay it, then rewrite any use of the old `SideNav` by the tables in this section.
+
+## 48. FloatingSwitch slides a thumb to the lit place; SplitPane gets a visible divider, limits and a vertical form
+
+`FloatingSwitch` draws one thumb behind its items, a pill with the lit fill, border and glow. It slides and resizes to the place the user picks, and the lit text changes colour as it arrives. The thumb is measured from the inline start, so it lines up right to left too, and it measures again when the items, their labels or the switch size change. With reduced motion the thumb moves without sliding. Hovering a place no longer fills it: its text brightens and its icon and label gain a soft glow. The props are the same. The lit item no longer sets its own border, background or shadow, and each label now sits in a `.floating-switch__label` span. A host stylesheet that styled `.floating-switch__item--active` for its fill styles `.floating-switch__thumb` instead.
+
+`SplitPane` was hard to use: the divider was a faint line with nothing to grab, and under 960 pixels of window width the panes stacked and the divider disappeared, which is most of the gallery canvas. The divider now shows a hairline with a grip in the middle, lights up under the pointer and on focus, and follows the pointer from where it was grabbed, right to left included. The stacking rule is gone; a host that wants the panes stacked on a narrow screen passes `orientation="vertical"`.
+
+New props:
+
+```ts
+type SplitOrientation = 'horizontal' | 'vertical';
+
+interface SplitPaneProps {
+  orientation?: SplitOrientation; // 'horizontal' (default): side by side; 'vertical': one above the other
+  minRatio?: number;              // default 0.2, the smallest share of the start pane while it is open
+  maxRatio?: number;              // default 0.8, the largest share of the start pane while it is open
+}
+```
+
+A drag between the snap point and a limit stops at the limit; past the snap point the pane still collapses, and `snapAt={0}` turns collapsing off. On the divider, the arrow keys of its axis move it (Shift for bigger steps), a step past a limit collapses the pane, Home and End collapse a side (or go to a limit when `snapAt` is 0), and Enter, Space or a double-click reset it. `aria-valuemin` and `aria-valuemax` follow the limits when nothing can collapse.
+
+The default pane names in the string table change from `navigation.leftPane` and `navigation.rightPane` to `navigation.firstPane` and `navigation.secondPane` ("first pane" and "second pane"), since the start pane is on the right in right to left and on top in the vertical form. An app that overrides those strings renames its keys.
+
+```tsx
+<SplitPane
+  orientation="vertical"
+  start={<Editor />}
+  end={<Console />}
+  defaultRatio={0.7}
+  minRatio={0.3}
+  startLabel="editor"
+  endLabel="console"
+/>
+```
+
+The SplitPane page shows a file list beside a preview and an editor above its console, and tells the viewer to drag the divider.

@@ -1,3 +1,5 @@
 /* @layer renderer-components @kind barrel */
 export { SideNav } from './SideNav';
-export type { SideNavItem, SideNavGroup, SideNavProps } from './SideNav.type';
+export type {
+  SideNavConfig, SideNavGroup, SideNavItem, SideNavProps, SideNavSearch, SideNavVariant,
+} from './SideNav.type';

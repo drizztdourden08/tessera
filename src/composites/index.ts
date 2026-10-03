@@ -23,8 +23,8 @@ export type {
 } from './Wizard';
 export { GroupTree } from './GroupTree';
 export type { GroupTreeProps, TreeNode } from './GroupTree';
-export { HeaderTabs } from './HeaderTabs';
-export type { HeaderTabItem, HeaderTabsProps } from './HeaderTabs';
+export { HeaderAnchorNav } from './HeaderAnchorNav';
+export type { HeaderAnchorNavItem, HeaderAnchorNavProps } from './HeaderAnchorNav';
 export { LogPanel } from './LogPanel';
 export type { LogKindDef, LogPanelProps, LogRow } from './LogPanel';
 export { ListItemRow } from './ListItemRow';
@@ -32,9 +32,7 @@ export type { ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole } f
 export { MasterDetailLayout } from './MasterDetailLayout';
 export type { MasterDetailLayoutProps } from './MasterDetailLayout';
 export { SplitPane } from './SplitPane';
-export type { CollapsedSide, SplitPaneProps } from './SplitPane';
-export { SideNav } from './SideNav';
-export type { SideNavItem, SideNavGroup, SideNavProps } from './SideNav';
+export type { CollapsedSide, SplitOrientation, SplitPaneProps } from './SplitPane';
 export { SettingsShell } from './SettingsShell';
 export type { SettingsShellProps } from './SettingsShell';
 export { SettingsSection } from './SettingsSection';
@@ -78,10 +76,8 @@ export { StickPlot } from './StickPlot';
 export type { StickPlotPoint, StickPlotProps, StickPlotRange, StickPlotSize } from './StickPlot';
 export { ShortcutTour } from './ShortcutTour';
 export type { ShortcutTourProps } from './ShortcutTour';
-export { SectionNav } from './SectionNav';
-export type {
-  SectionNavConfig, SectionNavGroup, SectionNavItem, SectionNavProps, SectionNavSearch, SectionNavVariant,
-} from './SectionNav';
+export { SideNav } from './SideNav';
+export type { SideNavConfig, SideNavGroup, SideNavItem, SideNavProps, SideNavSearch, SideNavVariant } from './SideNav';
 export { WindowHeader } from './WindowHeader';
 export type { WindowHeaderProps } from './WindowHeader';
 export { WindowTitleBar } from './WindowTitleBar';

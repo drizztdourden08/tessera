@@ -1,28 +1,29 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { splitOptionsOf } from './behavior/split-options-of';
 import { startShareOf } from './behavior/start-share-of';
 import { useSplitPane } from './behavior/useSplitPane';
+import { valueRangeOf } from './behavior/value-range-of';
 import { SplitDivider } from './sub-components/SplitDivider';
-import { DEFAULT_RATIO, DEFAULT_SNAP } from './SplitPane.constants';
 import type { SplitPaneProps } from './SplitPane.type';
 import './SplitPane.css';
 
 const SplitPane = (props: SplitPaneProps) => {
-  const {
-    start, end, defaultRatio = DEFAULT_RATIO, snapAt = DEFAULT_SNAP, defaultCollapsed = 'none',
-    startLabel, endLabel, className,
-  } = props;
-
+  const { start, end, startLabel, endLabel, className } = props;
+  const options = splitOptionsOf(props);
+  const { orientation } = options;
   const { navigation } = useTesseraStrings();
-  const { trackRef, ratio, collapsed, dragging, ...handlers } = useSplitPane(defaultRatio, snapAt, defaultCollapsed);
+  const { trackRef, ratio, collapsed, dragging, limits, ...handlers } = useSplitPane(options);
   const startShare = startShareOf(collapsed, ratio);
+  const template = `minmax(0, ${startShare}fr) auto minmax(0, ${1 - startShare}fr)`;
+  const classes = ['split-pane', `split-pane--${orientation}`, dragging && 'split-pane--dragging', className];
 
   return (
     <Box
       ref={trackRef}
-      className={`split-pane${dragging ? ' split-pane--dragging' : ''}${className ? ` ${className}` : ''}`}
-      style={{ gridTemplateColumns: `minmax(0, ${startShare}fr) auto minmax(0, ${1 - startShare}fr)` }}
+      className={classes.filter(Boolean).join(' ')}
+      style={orientation === 'vertical' ? { gridTemplateRows: template } : { gridTemplateColumns: template }}
     >
       <Box className={`split-pane__pane${collapsed === 'start' ? ' split-pane__pane--hidden' : ''}`}>
         {start}
@@ -30,9 +31,11 @@ const SplitPane = (props: SplitPaneProps) => {
 
       <SplitDivider
         collapsed={collapsed}
+        orientation={orientation}
         startShare={startShare}
-        startLabel={startLabel ?? navigation.leftPane}
-        endLabel={endLabel ?? navigation.rightPane}
+        valueRange={valueRangeOf(limits)}
+        startLabel={startLabel ?? navigation.firstPane}
+        endLabel={endLabel ?? navigation.secondPane}
         handlers={handlers}
       />
 

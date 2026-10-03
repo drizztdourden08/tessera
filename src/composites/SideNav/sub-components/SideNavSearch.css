@@ -1,0 +1,52 @@
+/* @layer renderer-components @kind style */
+.side-nav__search {
+  display: grid;
+  grid-template-areas: 'stack';
+  align-items: center;
+  height: var(--side-nav-item-h);
+}
+
+.side-nav__search > * {
+  grid-area: stack;
+}
+
+.side-nav__search-mark {
+  justify-self: start;
+  z-index: var(--z-base);
+  display: grid;
+  place-items: center;
+  width: var(--side-nav-item-h);
+  height: var(--side-nav-item-h);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.side-nav__search-mark:hover .search-spark {
+  color: var(--c-primary-bright);
+  filter: drop-shadow(0 0 var(--size-6) var(--c-primary-soft));
+}
+
+.side-nav__search .side-nav__search-input {
+  padding-left: var(--side-nav-item-h);
+  padding-right: calc(var(--space-sm) * 2 + var(--space-lg));
+  background: var(--c-sunken);
+}
+
+.side-nav__search-clear {
+  justify-self: end;
+  z-index: var(--z-base);
+  display: grid;
+  place-items: center;
+  margin-right: var(--space-xs);
+  padding: var(--space-xs);
+  border: none;
+  background: none;
+  color: var(--c-text-muted);
+  cursor: pointer;
+}
+
+.side-nav__search-clear:hover {
+  color: var(--c-text);
+}
