@@ -10,3 +10,16 @@
   gap: var(--space-sm);
   overflow-y: auto;
 }
+
+.full-screen-layer-story__room {
+  position: relative;
+  width: var(--size-1024);
+  max-width: 100%;
+  height: var(--size-640);
+  min-width: var(--size-224);
+  min-height: var(--size-224);
+  resize: both;
+  overflow: hidden;
+  border: var(--border-width-thin) dashed var(--c-hairline);
+  border-radius: var(--radius-md);
+}

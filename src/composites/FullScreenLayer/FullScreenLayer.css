@@ -4,10 +4,7 @@
   inset: 0;
   z-index: var(--z-backdrop);
   animation: fsl-in 0.2s ease-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-2xl);
+  container: fullscreen-layer / size;
 }
 
 .fullscreen-layer--hidden {
@@ -16,6 +13,15 @@
 
 html.booting .fullscreen-layer {
   animation: none;
+}
+
+.fullscreen-layer__inset {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl);
 }
 
 .fullscreen-layer__frame {
@@ -64,6 +70,49 @@ html.booting .fullscreen-layer {
   padding: 0 var(--space-xl) var(--space-lg);
 }
 
+@container fullscreen-layer (width < 1280px) {
+  .fullscreen-layer__inset { padding-inline: var(--space-xl); }
+  .fullscreen-layer__frame { width: 94%; }
+}
+
+@container fullscreen-layer (width < 960px) {
+  .fullscreen-layer__inset { padding-inline: var(--space-lg); }
+  .fullscreen-layer__frame { width: 100%; }
+}
+
+@container fullscreen-layer (width < 720px) {
+  .fullscreen-layer__inset { padding-inline: var(--space-sm); }
+}
+
+@container fullscreen-layer (height < 800px) {
+  .fullscreen-layer__inset { padding-block: var(--space-xl); }
+  .fullscreen-layer__frame { height: 94%; }
+}
+
+@container fullscreen-layer (height < 600px) {
+  .fullscreen-layer__inset { padding-block: var(--space-lg); }
+  .fullscreen-layer__frame { height: 100%; }
+}
+
+@container fullscreen-layer (width < 480px) or (height < 440px) {
+  .fullscreen-layer__inset { padding: 0; }
+
+  .fullscreen-layer__frame {
+    width: 100%;
+    height: 100%;
+  }
+
+  .fullscreen-layer__floating {
+    top: var(--space-sm);
+    transform: translateX(-50%);
+  }
+
+  .fullscreen-layer__card {
+    border: none;
+    border-radius: 0;
+  }
+}
+
 @keyframes fsl-in {
   from {
     opacity: 0;
@@ -76,7 +125,7 @@ html.booting .fullscreen-layer {
   }
 }
 
-.platform-mobile .fullscreen-layer {
+.platform-mobile .fullscreen-layer__inset {
   padding: 0;
 }
 

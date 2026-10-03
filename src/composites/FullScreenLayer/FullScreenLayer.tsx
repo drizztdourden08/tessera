@@ -11,14 +11,16 @@ const FullScreenLayer = (props: FullScreenLayerProps) => {
 
   return (
     <Box className={`fullscreen-layer${hidden ? ' fullscreen-layer--hidden' : ''}`}>
-      <Box className="fullscreen-layer__frame">
-        <Box className="fullscreen-layer__card" role="dialog" aria-modal="true" aria-labelledby={title ? titleId : undefined}>
-          <WindowHeader title={title} titleId={titleId} subtitle={subtitle} extra={extra} onClose={onClose} className="fullscreen-layer__header" />
-          <Box className="fullscreen-layer__content">
-            {children}
+      <Box className="fullscreen-layer__inset">
+        <Box className="fullscreen-layer__frame">
+          <Box className="fullscreen-layer__card" role="dialog" aria-modal="true" aria-labelledby={title ? titleId : undefined}>
+            <WindowHeader title={title} titleId={titleId} subtitle={subtitle} extra={extra} onClose={onClose} className="fullscreen-layer__header" />
+            <Box className="fullscreen-layer__content">
+              {children}
+            </Box>
           </Box>
+          {floating && <Box className="fullscreen-layer__floating">{floating}</Box>}
         </Box>
-        {floating && <Box className="fullscreen-layer__floating">{floating}</Box>}
       </Box>
     </Box>
   );

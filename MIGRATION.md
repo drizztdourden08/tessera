@@ -868,3 +868,17 @@ The `tessera.aiUsage` key of Tessera's `package.json` is gone. The setting is `a
 ```
 
 Brock reads the app layout with `loadTesseraConfig`. rotp and Archipelia add a `tessera.config.json` with `$schema` and the folders they use; Archipelia moves its shared parts to `packages/design` and sets `parts.views` per app under `apps`.
+
+## 45. FullScreenLayer's margin follows the room it has
+
+The space around the card used to be a fixed 2xl padding with the card at 90% of the rest. It now steps down with the size of the layer, measured with a container query, so a small window or a small host no longer wastes its edges. Width and height step down on their own:
+
+| Room | Gap | Card |
+|---|---|---|
+| 1280 px wide or more, 800 px high or more | 2xl | 90% of the rest |
+| 960 to 1279 px wide, 600 to 799 px high | xl | 94% |
+| 720 to 959 px wide, 440 to 599 px high | lg | the full size |
+| 480 to 719 px wide | sm | the full size |
+| under 480 px wide or 440 px high | none | fills the layer, square corners, no border; the floating switch moves inside the card |
+
+The card now sits in a new `.fullscreen-layer__inset` wrapper, which holds the padding; `.fullscreen-layer` itself has none. A host stylesheet that set the padding of `.fullscreen-layer` sets it on `.fullscreen-layer__inset`.

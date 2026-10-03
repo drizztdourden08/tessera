@@ -35,6 +35,17 @@ const PlayerList = () => (
   </Box>
 );
 
+const RoomDemo = () => (
+  <Box className="story-column">
+    <Text className="story-label">Drag the bottom right corner to change the room the layer has</Text>
+    <Box className="full-screen-layer-story__room">
+      <FullScreenLayer title="Sessions" subtitle="Profile: mira" onClose={() => undefined}>
+        <SessionList />
+      </FullScreenLayer>
+    </Box>
+  </Box>
+);
+
 const LayerDemo = (props: LayerArgs) => {
   const { title, subtitle, withExtra, withFloating } = props;
   const [hidden, setHidden] = useState(false);
@@ -100,6 +111,13 @@ const TitleOnly = {
   render: (args) => <LayerDemo {...args} subtitle="" withExtra={false} />,
 } satisfies StoryLiteStoryDefinition<LayerArgs>;
 
+const FitsItsRoom = {
+  name: 'Fits its room',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: () => <RoomDemo />,
+} satisfies StoryLiteStoryDefinition<LayerArgs>;
+
 const CODE = `import { Button, FullScreenLayer } from '@drizztdourden08/tessera';
 
 const [hidden, setHidden] = useState(false);
@@ -118,9 +136,15 @@ const Overview = overviewStory({
   component: 'FullScreenLayer',
   description: 'A window that covers its positioned parent, usually the whole app: a card with a title bar, a close button and a scrolling body. Reach for it for a full view the user opens and closes, such as a session list or a data manager. The title bar takes a subtitle and extra controls, and a floating slot sits centred on the top edge of the card for a switch between sibling windows. Setting hidden hides the layer and keeps its content mounted.',
   playground: Playground,
-  variants: [SiblingWindows, TitleOnly],
+  points: [
+    'The space around the card follows the room the layer has, not the window, and width and height step down on their own.',
+    'Width: from 1280 px a 2xl gap and the card takes 90% of the rest; 960 to 1279 px an xl gap and 94%; 720 to 959 px an lg gap and the full width; 480 to 719 px an sm gap.',
+    'Height: from 800 px a 2xl gap and 90%; 600 to 799 px an xl gap and 94%; 440 to 599 px an lg gap and the full height.',
+    'Under 480 px wide or 440 px high there is no gap: the card fills the layer with square corners and no border, and the floating switch moves inside the top of the card. On a phone the card always fills the layer.',
+  ],
+  variants: [FitsItsRoom, SiblingWindows, TitleOnly],
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, SiblingWindows, TitleOnly };
+export { FitsItsRoom, Overview, Playground, SiblingWindows, TitleOnly };
