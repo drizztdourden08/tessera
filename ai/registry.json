@@ -2650,6 +2650,16 @@
       "usage": false
     },
     {
+      "name": "ChosenMascot",
+      "tier": "brand",
+      "source": "src/brand/ChosenMascot/ChosenMascot.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
       "name": "InteractiveTessera",
       "tier": "brand",
       "source": "src/brand/InteractiveTessera/InteractiveTessera.tsx",

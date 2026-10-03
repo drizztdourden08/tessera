@@ -1580,6 +1580,45 @@ const STEPS: readonly WizardStepDef<Draft>[] = [
 
 An app renames `WizardProgress` and its types and classes as RENAMES.json lists. It moves `stepInfo` into `summary` and `subSteps` on each step, `finishLabel` into `buttons.next.label` and `busyLabel` into `busyHint` on the last step, and `navExtra` into `extra` on the step that shows it. A `WizardFrame` with `presentation="dialog"` becomes a `WizardDialog` with the same props and `open`. An app that overrides the wizard strings for the step strip moves them to the `stepper` group.
 
+## 63. DropdownMenu draws its own trigger and joins its sub-menus; CommandPalette takes a mascot
+
+The look of the hamburger menu is now the look of every `DropdownMenu`. `trigger` no longer takes `'hamburger'`: it takes the button to draw, and the menu draws it. `iconOnly` draws an `IconButton`, the hamburger unless `icon` names another icon; without it the trigger is a `Button` with the label and an optional icon on either side. The trigger takes the variant of the menu, and the open menu joins it at every size, the coloured edge running on around the menu with a rounded notch where the button meets it.
+
+- `variant` takes the `Button` variants and colours both the trigger and the edge. It defaults to `primary`.
+- `intensity` sets how strong the edge is: `strong`, the default, adds the halo; `medium` keeps the coloured edge alone; `subtle` uses the plain border.
+- `size` is `sm` or `md`, and `disabled` turns the trigger off.
+- A click outside, Escape, or scrolling the trigger out of view closes the menu. A menu hung from `anchorRef` now does this itself as well, and takes `variant` and `intensity` too.
+
+Inside the menu, labels line up whether or not an item has an icon, and every shortcut sits in one column at the right edge; a subtitle runs under the shortcut column and does not move it. `kind: 'radio'` makes an item a radio, and `checked` alone still makes a check; both marks now sit at the start of the row, in a column that only appears when the menu has one. Each run of radio items is its own group. A sub-menu joins the edge of the menu it comes from: the edge between them opens, and each corner where the two edges meet is rounded. `filter` adds a search field above the items that searches every level, sub-menus included, and lists the results in the same menu with the path of each one; `filterPlaceholder` replaces its hint.
+
+```tsx
+import { DropdownMenu } from '@drizztdourden08/tessera';
+
+<DropdownMenu trigger={{ label: 'Menu', iconOnly: true }} groups={groups} />
+<DropdownMenu
+  trigger={{ label: 'View', icon: 'chevron-down', iconSide: 'end' }}
+  variant="secondary"
+  intensity="medium"
+  filter
+  groups={[{ id: 'sort', label: 'Sort by', items: [{ id: 'name', label: 'Name', kind: 'radio', checked: sort === 'name', onSelect: () => setSort('name') }] }]}
+/>
+```
+
+The class names follow: `menu-button` is `dropdown-trigger`, `menu-button__drop` is `dropdown-drop`, and `dropdown__check` is `dropdown__mark`. `dropdown__text` is removed: the label and the subtitle sit straight in the item.
+
+`ChosenMascot` is a new brand component that picks among the mascots. `mascot` names one, or `auto`, the default, takes the mascot of `brand`, then of the palette the page shows through `data-palette`, then the first mascot there is. It takes the `AnimatedMascot` props for the animation. `CommandPalette` takes `mascot` with the same values: a small mascot sits at the start of the field, looks around while the field is empty, and asks the user what they are looking for, which is the placeholder unless `placeholder` is given.
+
+```tsx
+import { ChosenMascot, CommandPalette } from '@drizztdourden08/tessera';
+
+<ChosenMascot mascot="auto" animation="scan" />
+<CommandPalette open={open} onClose={close} query={query} onQueryChange={setQuery} groups={groups} onSelect={run} mascot="auto" />
+```
+
+### What an app does
+
+An app replaces `trigger="hamburger"` with `trigger={{ label: 'Menu', iconOnly: true }}`; the label names the menu unless `label` is given. It renames the classes above in its own styles. A menu hung from `anchorRef` now has the coloured edge; an app that wants the old plain look passes `intensity="subtle"`. Every rename here is in RENAMES.json.
+
 ## 64. InputIcon, thinner icon effects with sizes and a comet, PressedGrid glyphs, the pop-out point and the options gear
 
 `InputIcon` is a new primitive: a button prompt for a controller or a keyboard. It draws through `Icon`, so it takes the same `size`, `rotate`, `flip`, `inline`, `label` and `effect`, and draws in `currentColor`.

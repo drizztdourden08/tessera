@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { AnimatedMascot, BRAND_FAMILY, Mascot } from '../../src/brand';
-import type { BrandApp, BrandMarkSize, MascotPose, SentriAnimation } from '../../src/brand';
+import { AnimatedMascot, BRAND_FAMILY, ChosenMascot, Mascot } from '../../src/brand';
+import type { BrandApp, BrandMarkSize, ChosenMascotProps, MascotPose, SentriAnimation } from '../../src/brand';
 import { Stack, Text } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -122,6 +122,19 @@ const Breakdown = {
   ),
 } satisfies StoryLiteStoryDefinition<MascotArgs>;
 
+const CHOICES: Readonly<Record<string, ChosenMascotProps>> = {
+  'auto, from the palette': { mascot: 'auto' },
+  'auto, brand rotp': { mascot: 'auto', brand: 'rotp' },
+  'sentri, by name': { mascot: 'sentri' },
+};
+
+const Chosen = {
+  name: 'Picked by name or palette',
+  render: () => (
+    <Demonstrator columns={axis(Object.keys(CHOICES))} cell={(_row, choice) => <ChosenMascot {...CHOICES[choice]} animation="scan" scale={3} />} />
+  ),
+} satisfies StoryLiteStoryDefinition<MascotArgs>;
+
 const IconFiles = {
   name: 'Icon files',
   render: () => <IconFileRows pick={(_app, files) => files.kind === 'mascot'} />,
@@ -129,9 +142,9 @@ const IconFiles = {
 
 const Overview = overviewStory({
   component: 'Mascot',
-  description: 'An app\'s mascot, built in code from its separate SVG pieces: a composition function places, turns and clips each piece, and Mascot draws the result inline. The mascot comes from the brand data, so any app can add one; Relic of the Past is the only one with a mascot so far: Sentri, a gold pyramid with a visor, eyes and pods. Its variants are Sentri at rest and the Hookshop highlight, where Sentri pulls a shop bag in with its hookshot. A pose moves the eyes and turns the pods without new art. AnimatedMascot moves the same pieces with the Web Animations API: the brand data lists each mascot\'s animations, and Sentri has Idle, Move, Jump, Wave, Look around, Happy and Alert, side by side in Animations with one play and pause button. Each animation turns and moves the piece groups around their own pivots, loops or plays once, and shows Sentri at rest when the system asks for reduced motion. Use size for the mark sizes, or scale for whole screen pixels per art pixel. Breakdown shows every piece alone and the assembly step by step. Icon files shows the PNG at each size and the .ico that `pnpm icons` writes for each mascot.',
+  description: 'An app\'s mascot, built in code from its separate SVG pieces: a composition function places, turns and clips each piece, and Mascot draws the result inline. The mascot comes from the brand data, so any app can add one; Relic of the Past is the only one with a mascot so far: Sentri, a gold pyramid with a visor, eyes and pods. Its variants are Sentri at rest and the Hookshop highlight, where Sentri pulls a shop bag in with its hookshot. A pose moves the eyes and turns the pods without new art. AnimatedMascot moves the same pieces with the Web Animations API: the brand data lists each mascot\'s animations, and Sentri has Idle, Move, Jump, Wave, Look around, Happy and Alert, side by side in Animations with one play and pause button. Each animation turns and moves the piece groups around their own pivots, loops or plays once, and shows Sentri at rest when the system asks for reduced motion. Use size for the mark sizes, or scale for whole screen pixels per art pixel. Breakdown shows every piece alone and the assembly step by step. Icon files shows the PNG at each size and the .ico that `pnpm icons` writes for each mascot. ChosenMascot picks among the mascots for a part that wants one without naming a brand: mascot names one, and auto takes the mascot of brand, then of the palette the page shows, then the first mascot there is.',
   playground: Playground,
-  variants: [Animations, Variants, Sizes, Poses, IconFiles],
+  variants: [Animations, Variants, Sizes, Poses, Chosen, IconFiles],
   code: `import { AnimatedMascot, Mascot } from '@drizztdourden08/tessera/brand';
 
 <Mascot brand="rotp" size="lg" />
@@ -139,8 +152,10 @@ const Overview = overviewStory({
 <Mascot brand="rotp" pose={{ look: [2, 0], podAngles: { left: 25 } }} />
 
 <AnimatedMascot brand="rotp" animation="idle" scale={4} />
-<AnimatedMascot brand="rotp" animation="jump" speed={0.5} playing={!paused} onFinish={backToIdle} />`,
+<AnimatedMascot brand="rotp" animation="jump" speed={0.5} playing={!paused} onFinish={backToIdle} />
+
+<ChosenMascot mascot="auto" animation="scan" />`,
 });
 
 export default meta;
-export { Breakdown, IconFiles, Overview };
+export { Breakdown, Chosen, IconFiles, Overview };

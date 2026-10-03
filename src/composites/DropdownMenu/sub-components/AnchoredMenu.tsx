@@ -2,6 +2,8 @@
 import { useRef } from 'react';
 import { Anchored } from '../../../primitives/Anchored';
 import { Floating } from '../../../primitives/Floating';
+import { useDismissListeners } from '../../../primitives/Portal';
+import { menuLookClass } from '../behavior/menu-look-class';
 import { tidyGroups } from '../behavior/tidy-groups';
 import { useFocusReturn } from '../behavior/useFocusReturn';
 import { useMenuAnchor } from '../behavior/useMenuAnchor';
@@ -11,15 +13,26 @@ import type { AnchoredMenuProps } from '../DropdownMenu.type';
 const ignore = (): void => undefined;
 
 const AnchoredMenu = (props: AnchoredMenuProps) => {
-  const { groups, anchorRef, side, align, inline = false, label, closeOnSelect = true, onClose = ignore, className } = props;
+  const { groups, anchorRef, side, align, inline = false, label, variant = 'primary', intensity = 'strong' } = props;
+  const { closeOnSelect = true, filter = false, filterPlaceholder, onClose = ignore, className } = props;
   const menuRef = useRef<HTMLDivElement>(null);
-  const { anchor, placement, fallback } = useMenuAnchor({ anchorRef, side, align, inline });
+  const { anchor, placement, fallback } = useMenuAnchor({ anchorRef, side, align, inline, onOutOfView: onClose });
   useFocusReturn(menuRef, anchor);
+  useDismissListeners({ open: !inline, onClose, contentRef: menuRef, triggerRef: anchor, escape: false });
 
   const body = (
-    <MenuRoot groups={tidyGroups(groups)} label={label} start={inline ? 'none' : 'first'} closeOnSelect={closeOnSelect} onClose={onClose} />
+    <MenuRoot
+      groups={tidyGroups(groups)}
+      label={label}
+      start={inline ? 'none' : 'first'}
+      closeOnSelect={closeOnSelect}
+      filter={filter}
+      filterPlaceholder={filterPlaceholder}
+      onClose={onClose}
+    />
   );
-  const classes = ['dropdown-menu', inline && 'dropdown-menu--inline', className].filter(Boolean).join(' ');
+  const classes = ['dropdown-menu', 'dropdown-surface', menuLookClass(variant, intensity), inline && 'dropdown-menu--inline', className]
+    .filter(Boolean).join(' ');
 
   if (inline) return <Floating ref={menuRef} className={classes}>{body}</Floating>;
   return (

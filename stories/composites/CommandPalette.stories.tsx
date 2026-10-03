@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useMemo, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { MascotChoice } from '../../src/brand';
 import { CommandPalette } from '../../src/composites';
 import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -14,6 +15,7 @@ type PaletteArgs = {
   defaultOpen: boolean;
   defaultQuery: string;
   placeholder: string;
+  mascot: 'none' | MascotChoice;
 };
 
 const NO_FLAGS: Readonly<Record<string, boolean>> = { sound: true };
@@ -21,7 +23,7 @@ const NO_FLAGS: Readonly<Record<string, boolean>> = { sound: true };
 const ignore = () => undefined;
 
 const PaletteDemo = (props: PaletteArgs) => {
-  const { defaultOpen, defaultQuery, placeholder } = props;
+  const { defaultOpen, defaultQuery, placeholder, mascot } = props;
   const [open, setOpen] = useState(defaultOpen);
   const [query, setQuery] = useState(defaultQuery);
   const [flags, setFlags] = useState(NO_FLAGS);
@@ -48,18 +50,20 @@ const PaletteDemo = (props: PaletteArgs) => {
         onQueryChange={setQuery}
         groups={groups}
         onSelect={handleSelect}
-        placeholder={placeholder}
+        placeholder={placeholder === '' ? undefined : placeholder}
+        mascot={mascot === 'none' ? undefined : mascot}
       />
     </Box>
   );
 };
 
-const ARGS: Partial<PaletteArgs> = { defaultOpen: true, defaultQuery: '', placeholder: 'Search screens, settings and actions' };
+const ARGS: Partial<PaletteArgs> = { defaultOpen: true, defaultQuery: '', placeholder: 'Search screens, settings and actions', mascot: 'none' };
 
 const ARG_TYPES: StoryLiteArgTypes<PaletteArgs> = {
   defaultOpen: { control: 'boolean' },
   defaultQuery: { control: 'text' },
-  placeholder: { control: 'text' },
+  placeholder: { control: 'text', description: 'Leave it empty to hear the mascot ask' },
+  mascot: { control: 'select', options: ['none', 'auto', 'sentri'], description: 'auto picks the mascot of the app palette' },
 };
 
 const meta = {
@@ -86,6 +90,13 @@ const Results = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="s" />,
+} satisfies StoryLiteStoryDefinition<PaletteArgs>;
+
+const WithMascot = {
+  name: 'With a mascot',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" placeholder="" mascot="auto" />,
 } satisfies StoryLiteStoryDefinition<PaletteArgs>;
 
 const Closed = {
@@ -134,9 +145,9 @@ const [query, setQuery] = useState('');
 
 const Overview = overviewStory({
   component: 'CommandPalette',
-  description: 'A search box that drops from the top of the window over a dim scrim, for jumping to any screen, setting or action by name. It grows out of a pill at the top edge and shrinks back when it closes. The host owns the query and the results, as groups with an optional heading; each row is a CommandPaletteRow with an icon, a description, a breadcrumb, a check dot or an inline toggle. Arrow keys and Page Up and Down move the active row past disabled ones, Enter picks it, Ctrl+Enter flips a toggle row, and Escape or a click on the scrim closes. The field is a combobox that points at the active option of its listbox, and focus comes back to where it was on close.',
+  description: 'A search box that drops from the top of the window over a dim scrim, for jumping to any screen, setting or action by name. It grows out of a pill at the top edge and shrinks back when it closes. The host owns the query and the results, as groups with an optional heading; each row is a CommandPaletteRow with an icon, a description, a breadcrumb, a check dot or an inline toggle. Arrow keys and Page Up and Down move the active row past disabled ones, Enter picks it, Ctrl+Enter flips a toggle row, and Escape or a click on the scrim closes. The field is a combobox that points at the active option of its listbox, and focus comes back to where it was on close. mascot adds a small mascot at the start of the field that looks around while the field is empty and asks what the user is looking for; auto picks the mascot of the app palette, and a name picks that one.',
   playground: Playground,
-  variants: [Idle, Results, Closed],
+  variants: [Idle, Results, WithMascot, Closed],
   states: {
     render: renderState,
     list: [
@@ -150,4 +161,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Closed, Idle, Overview, Playground, Results };
+export { Closed, Idle, Overview, Playground, Results, WithMascot };

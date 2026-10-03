@@ -6,6 +6,8 @@ const NAVIGATION_STRINGS = {
   expandNavigation: 'Expand navigation',
   clearSearch: 'Clear search',
   commandPlaceholder: 'Search screens, settings and actions',
+  commandMascotPrompt: 'What are you looking for?',
+  menuFilter: 'Filter',
   noResultsFor: (query: string) => `No results for "${query}"`,
   resultsFor: (count: number, query: string) => `${count} ${count === 1 ? 'result' : 'results'} for "${query}"`,
   searchResults: 'Search results',

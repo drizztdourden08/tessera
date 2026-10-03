@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, RefObject } from 'react';
+import type { KeyboardEvent, ReactNode, RefObject } from 'react';
 
 interface CommandPaletteInputProps {
   inputRef: RefObject<HTMLInputElement | null>;
@@ -10,6 +10,7 @@ interface CommandPaletteInputProps {
   listId: string;
   activeId?: string;
   count: number;
+  mascot?: ReactNode;
 }
 
 export type { CommandPaletteInputProps };

@@ -5,10 +5,11 @@ import { Small } from '../../../primitives/text-elements';
 import type { CommandPaletteInputProps } from './CommandPaletteInput.type';
 
 const CommandPaletteInput = (props: CommandPaletteInputProps) => {
-  const { inputRef, value, onChange, onKeyDown, placeholder, listId, activeId, count } = props;
+  const { inputRef, value, onChange, onKeyDown, placeholder, listId, activeId, count, mascot } = props;
 
   return (
     <Box className="command-palette__input-row">
+      {mascot}
       <SearchInput
         ref={inputRef}
         className="command-palette__input"

@@ -9,6 +9,7 @@ interface UseMenuAnchorParams {
   side?: MenuSide;
   align?: MenuAlign;
   inline: boolean;
+  onOutOfView: () => void;
 }
 
 interface MenuAnchor {

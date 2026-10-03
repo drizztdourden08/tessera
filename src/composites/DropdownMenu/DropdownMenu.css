@@ -1,0 +1,86 @@
+/* @layer renderer-components @kind style */
+.dropdown-look {
+  --menu-line: var(--border-width-thin);
+  --menu-ring: var(--border-width-thick);
+  --menu-radius: var(--radius-md);
+  --menu-soft: var(--size-1);
+}
+
+.dropdown-look--primary {
+  --menu-tone: var(--c-primary);
+  --menu-tone-bright: var(--c-primary-bright);
+  --menu-tone-soft: var(--c-primary-soft);
+}
+
+.dropdown-look--secondary {
+  --menu-tone: var(--c-secondary);
+  --menu-tone-bright: var(--c-secondary-bright);
+  --menu-tone-soft: var(--c-secondary-soft);
+}
+
+.dropdown-look--tertiary {
+  --menu-tone: var(--c-tertiary);
+  --menu-tone-bright: var(--c-tertiary-bright);
+  --menu-tone-soft: var(--c-tertiary-soft);
+}
+
+.dropdown-look--danger {
+  --menu-tone: var(--c-danger);
+  --menu-tone-bright: var(--c-danger-bright);
+  --menu-tone-soft: var(--c-danger-soft);
+}
+
+.dropdown-look--warning {
+  --menu-tone: var(--c-warning);
+  --menu-tone-bright: var(--c-warning-bright);
+  --menu-tone-soft: var(--c-warning-soft);
+}
+
+.dropdown-look--info {
+  --menu-tone: var(--c-info);
+  --menu-tone-bright: var(--c-info-bright);
+  --menu-tone-soft: var(--c-info-soft);
+}
+
+.dropdown-look--success {
+  --menu-tone: var(--c-success);
+  --menu-tone-bright: var(--c-success-bright);
+  --menu-tone-soft: var(--c-success-soft);
+}
+
+.dropdown-look--ghost {
+  --menu-tone: var(--c-border-strong);
+  --menu-tone-bright: var(--c-text);
+  --menu-tone-soft: var(--c-hover);
+}
+
+.dropdown-look--strong {
+  --menu-edge: var(--menu-tone);
+  --menu-halo: var(--menu-tone-soft);
+}
+
+.dropdown-look--medium {
+  --menu-edge: var(--menu-tone);
+  --menu-halo: var(--menu-no-halo, transparent);
+}
+
+.dropdown-look--subtle {
+  --menu-edge: var(--c-border);
+  --menu-halo: var(--menu-no-halo, transparent);
+}
+
+.listbox-anchor.dropdown-look,
+.listbox-drop.dropdown-look {
+  --listbox-edge: var(--menu-edge);
+  --listbox-halo: var(--menu-halo);
+  --listbox-ring: var(--menu-ring);
+}
+
+.dropdown-menu.dropdown-surface {
+  border-color: var(--menu-edge);
+  box-shadow: 0 0 0 var(--menu-ring) var(--menu-halo), var(--shadow-dropdown);
+}
+
+.dropdown-menu.dropdown-menu--sub.dropdown-surface {
+  box-shadow: 0 0 0 var(--menu-ring) var(--menu-halo), var(--shadow-2);
+}

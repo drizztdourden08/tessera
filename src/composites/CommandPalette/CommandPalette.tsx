@@ -8,13 +8,14 @@ import { paletteClass } from './behavior/palette-class';
 import { useCommandPalette } from './behavior/useCommandPalette';
 import { CommandPaletteInput } from './sub-components/CommandPaletteInput';
 import { CommandPaletteList } from './sub-components/CommandPaletteList';
+import { CommandPaletteMascot } from './sub-components/CommandPaletteMascot';
 import type { CommandPaletteItem, CommandPaletteProps } from './CommandPalette.type';
 import './CommandPalette.css';
 
 const CommandPalette = <T extends CommandPaletteItem>(props: CommandPaletteProps<T>) => {
-  const { open, onClose, query, onQueryChange, groups, onSelect, placeholder: placeholderProp, emptyText, label: labelProp } = props;
+  const { open, onClose, query, onQueryChange, groups, onSelect, placeholder: placeholderProp, emptyText, label: labelProp, mascot } = props;
   const { common, navigation } = useTesseraStrings();
-  const placeholder = placeholderProp ?? navigation.commandPlaceholder;
+  const placeholder = placeholderProp ?? (mascot ? navigation.commandMascotPrompt : navigation.commandPlaceholder);
   const label = labelProp ?? common.search;
   const { items, active, setActive, inputRef, listRef, handleKeyDown } = useCommandPalette(props);
   const listId = useId();
@@ -39,6 +40,9 @@ const CommandPalette = <T extends CommandPaletteItem>(props: CommandPaletteProps
           listId={listId}
           activeId={optionId(listId, active)}
           count={items.length}
+          mascot={open && mascot && (
+            <CommandPaletteMascot mascot={mascot} query={query} count={items.length} title={navigation.commandMascotPrompt} />
+          )}
         />
         <Box className="command-palette__body">
           <CommandPaletteList

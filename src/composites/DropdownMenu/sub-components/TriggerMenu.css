@@ -1,0 +1,19 @@
+/* @layer renderer-components @kind style */
+.dropdown-trigger.listbox-anchor[data-drop],
+.dropdown-trigger.listbox-anchor[data-drop]:hover:not(:disabled) {
+  border-color: var(--listbox-edge);
+  background: var(--c-surface);
+  color: var(--menu-tone-bright);
+}
+
+.dropdown-trigger[data-drop] .hamburger-icon {
+  filter: drop-shadow(0 0 var(--size-2) var(--menu-tone));
+}
+
+.dropdown-drop > .dropdown__menu {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--space-xs) 0;
+  overflow-y: auto;
+  border-radius: inherit;
+}

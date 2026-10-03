@@ -360,7 +360,11 @@
         "search-results__open": "search-result-group__open",
         "search-results__hit": "search-result-hit",
         "nav-layout__pane": "side-nav-layout__pane",
-        "nav-layout": "side-nav-layout"
+        "nav-layout": "side-nav-layout",
+        "menu-button__drop": "dropdown-drop",
+        "dropdown__check": "dropdown__mark",
+        "dropdown__text": "removed; the label and the subtitle sit straight in the item (see MIGRATION.md section 63)",
+        "menu-button": "dropdown-trigger"
       },
       "props": {
         "WizardFrame.presentation": "removed; render WizardDialog for a wizard in a dialog (see MIGRATION.md section 62)",
@@ -403,6 +407,11 @@
       "cssCustomProperties": {
         "--wizard-progress-step-w": "--stepper-step-w",
         "--wizard-progress-dot": "--stepper-dot"
+      },
+      "propValues": {
+        "DropdownMenu.trigger": {
+          "hamburger": "{ label: 'Menu', iconOnly: true } (see MIGRATION.md section 63)"
+        }
       }
     }
   ]

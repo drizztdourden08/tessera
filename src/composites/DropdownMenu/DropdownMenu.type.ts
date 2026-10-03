@@ -1,7 +1,10 @@
 /* @layer renderer-components @kind types */
 import type { ReactElement, RefObject } from 'react';
+import type { ButtonVariant } from '../../primitives/Button/Button.type';
 import type { IconName } from '../../primitives/Icon';
 import type { ShortcutKey } from '../../primitives/Shortcut';
+
+type MenuItemKind = 'action' | 'check' | 'radio';
 
 interface MenuItem {
   id: string;
@@ -10,6 +13,7 @@ interface MenuItem {
   description?: string;
   shortcut?: string | readonly ShortcutKey[];
   disabled?: boolean;
+  kind?: MenuItemKind;
   checked?: boolean;
   children?: readonly MenuNode[];
   onSelect?: () => void;
@@ -31,12 +35,31 @@ type MenuSide = 'below' | 'above';
 
 type MenuAlign = 'start' | 'end';
 
-type MenuTrigger = 'hamburger';
+type MenuVariant = ButtonVariant;
+
+type MenuIntensity = 'strong' | 'medium' | 'subtle';
+
+type MenuSize = 'sm' | 'md';
+
+type MenuIconSide = 'start' | 'end';
+
+type MenuTriggerIcon = IconName | ReactElement | 'hamburger';
+
+interface MenuTrigger {
+  label: string;
+  icon?: MenuTriggerIcon;
+  iconSide?: MenuIconSide;
+  iconOnly?: boolean;
+}
 
 interface MenuBaseProps {
   groups: readonly MenuGroup[];
   label?: string;
+  variant?: MenuVariant;
+  intensity?: MenuIntensity;
   closeOnSelect?: boolean;
+  filter?: boolean;
+  filterPlaceholder?: string;
   className?: string;
 }
 
@@ -51,12 +74,14 @@ interface AnchoredMenuProps extends MenuBaseProps {
 
 interface TriggerMenuProps extends MenuBaseProps {
   trigger: MenuTrigger;
+  size?: MenuSize;
+  disabled?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
 type DropdownMenuProps = AnchoredMenuProps | TriggerMenuProps;
 
 export type {
-  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuItem, MenuNode, MenuSeparator, MenuSide, MenuTrigger,
-  TriggerMenuProps,
+  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemKind, MenuNode,
+  MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant, TriggerMenuProps,
 };

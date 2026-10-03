@@ -1,0 +1,84 @@
+/* @layer renderer-components @kind style */
+.dropdown-menu.dropdown-menu--sub.dropdown-surface {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: visible;
+}
+
+.dropdown-menu.dropdown-menu--sub[data-join-side] {
+  animation: dropdown-join-in var(--duration-fast) var(--ease-standard);
+}
+
+.dropdown-menu--sub.dropdown-surface > .dropdown__menu {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--space-xs) 0;
+  overflow-y: auto;
+  border-radius: inherit;
+}
+
+.dropdown__join {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dropdown__join[data-side='left'] {
+  transform: scaleX(-1);
+}
+
+.dropdown__join-strip {
+  position: absolute;
+  width: var(--menu-line);
+  background: var(--c-surface);
+}
+
+.dropdown__join-fillet {
+  position: absolute;
+  width: calc(var(--menu-radius) + var(--menu-line));
+  height: calc(var(--menu-radius) + var(--menu-line));
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      transparent calc(var(--menu-radius) - var(--menu-soft) / 2),
+      var(--menu-edge) calc(var(--menu-radius) + var(--menu-soft) / 2),
+      var(--menu-edge) calc(var(--menu-radius) + var(--menu-line) - var(--menu-soft) / 2),
+      var(--c-surface) calc(var(--menu-radius) + var(--menu-line) + var(--menu-soft) / 2)
+    ),
+    radial-gradient(
+      circle at 100% 0,
+      transparent calc(var(--menu-radius) - var(--menu-ring) - var(--menu-soft) / 2),
+      var(--menu-halo) calc(var(--menu-radius) - var(--menu-ring) + var(--menu-soft) / 2),
+      var(--menu-halo) var(--menu-radius),
+      transparent var(--menu-radius)
+    ) top / 100% calc(var(--menu-radius) - var(--menu-ring)) no-repeat;
+}
+
+.dropdown__join-fillet--bottom-inside {
+  transform: scaleY(-1);
+}
+
+.dropdown__join-fillet--top-outside {
+  transform: scaleX(-1);
+}
+
+.dropdown__join-fillet--bottom-outside {
+  transform: scale(-1);
+}
+
+@keyframes dropdown-join-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown-menu.dropdown-menu--sub[data-join-side] {
+    animation: none;
+  }
+}

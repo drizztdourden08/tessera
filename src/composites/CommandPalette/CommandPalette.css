@@ -97,6 +97,12 @@
   outline: none;
 }
 
+.command-palette .command-palette__mascot {
+  flex: none;
+  block-size: var(--size-40);
+  margin-block: calc(-1 * var(--space-xs));
+}
+
 .command-palette .command-palette__count {
   flex: none;
   font-family: var(--font-mono);

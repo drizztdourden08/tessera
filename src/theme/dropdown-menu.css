@@ -131,13 +131,6 @@
   font-size: var(--text-base);
 }
 
-.dropdown__text {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-width: 0;
-}
-
 .dropdown__label {
   flex: 1;
 }
@@ -151,27 +144,10 @@
   color: var(--c-text-faint);
 }
 
-.dropdown__item .dropdown__shortcut {
-  margin-left: auto;
-  padding-left: var(--space-md);
-  font-size: var(--text-xs);
-}
-
 .dropdown__chevron {
   margin-left: auto;
   font-size: var(--text-base);
   color: var(--c-text-faint);
-}
-
-.dropdown__check {
-  margin-left: auto;
-  padding-left: var(--space-sm);
-  font-size: var(--text-sm);
-  color: var(--c-primary-bright);
-}
-
-.dropdown__shortcut + .dropdown__check {
-  margin-left: 0;
 }
 
 .dropdown__separator {

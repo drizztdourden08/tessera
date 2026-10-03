@@ -59,7 +59,8 @@ export { Drawer } from './Drawer';
 export type { DrawerProps } from './Drawer';
 export { DropdownMenu } from './DropdownMenu';
 export type {
-  DropdownMenuProps, MenuAlign, MenuGroup, MenuItem, MenuNode, MenuSeparator, MenuSide, MenuTrigger,
+  DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemKind, MenuNode, MenuSeparator, MenuSide,
+  MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from './DropdownMenu';
 export { ScreenLayer } from './ScreenLayer';
 export type { ScreenLayerProps, ScreenLayerSize } from './ScreenLayer';

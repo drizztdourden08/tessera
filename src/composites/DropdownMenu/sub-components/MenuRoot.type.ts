@@ -8,7 +8,10 @@ interface MenuRootProps {
   label?: string;
   start: MenuFocusStart;
   closeOnSelect: boolean;
+  filter: boolean;
+  filterPlaceholder?: string;
   onClose: () => void;
+  onQueryChange?: (query: string) => void;
 }
 
 export type { MenuRootProps };

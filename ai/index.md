@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 6 of 145 have their usage written; a linked name opens its page.
+One line per component. 6 of 146 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -152,6 +152,7 @@ One line per component. 6 of 145 have their usage written; a linked name opens i
 - `BrandPaths`: usage not written yet. Not exported; Tessera uses it inside.
 - `BrandScene`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `BrandWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `ChosenMascot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `InteractiveTessera`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Logo`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Mascot`: usage not written yet. Import from `@drizztdourden08/tessera`.

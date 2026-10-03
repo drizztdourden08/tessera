@@ -1,8 +1,12 @@
 /* @layer renderer-components @kind constants */
-const SUB_MENU_WIDTH = 180;
+const PATH_JOIN = ' › ';
 
-const SUB_ROW_HEIGHT = 30;
+const JOIN_MARGIN = 8;
 
-const SUB_MENU_PADDING = 8;
+const JOIN_REACH = 48;
 
-export { SUB_MENU_PADDING, SUB_MENU_WIDTH, SUB_ROW_HEIGHT };
+const JOIN_FLUSH = 0.5;
+
+const SURFACE_SELECTOR = '.dropdown-surface';
+
+export { JOIN_FLUSH, JOIN_MARGIN, JOIN_REACH, PATH_JOIN, SURFACE_SELECTOR };

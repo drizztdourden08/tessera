@@ -6,9 +6,4 @@ interface SubMenuProps {
   nodes: readonly MenuNode[];
 }
 
-interface PanelPosition {
-  top: number;
-  left: number;
-}
-
-export type { PanelPosition, SubMenuProps };
+export type { SubMenuProps };
