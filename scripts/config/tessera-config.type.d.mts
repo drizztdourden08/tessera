@@ -7,6 +7,8 @@ type Folders = string | readonly string[];
 
 interface TesseraAppSettings {
   parts?: Partial<Record<PartKind, Folders>>;
+  /** The @layer tag tessera new writes in the files of an app part, such as renderer-shell. */
+  layer?: string;
   stories?: string;
   theme?: { css?: string; palette?: string };
   ai?: { usage?: AiUsage; out?: string; tree?: string; tsconfig?: string };
@@ -30,6 +32,8 @@ interface ResolvedTesseraConfig {
   package?: string;
   /** Each kind as a list of folders or globs, src/<kind> when unset. */
   parts: Record<PartKind, string[]>;
+  /** The @layer tag of new app parts, renderer-app when unset. */
+  layer: string;
   stories: string;
   theme: { css: string; palette?: string };
   ai: { usage: AiUsage; out: string; tree?: string; tsconfig?: string };

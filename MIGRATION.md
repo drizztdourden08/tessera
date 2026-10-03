@@ -1724,3 +1724,38 @@ Nothing. An app that drew its own gear beside a `Glyph` can use `<Glyph name="ge
 ### What an app does
 
 An app that passed `facets` to `FilterBar` turns each facet into an enum field of its schema and filters it with a clause. An app that wired `hidden` and `onToggleKind` on `LogPanel` drops them and passes the full rows; the panel filters them. An app that passed `aside` to `ListItemRow` passes it as an end aligned column. An app that used `GroupTree` passes `renderItem` and `getItemKey` in place of `renderItems`, and `onExpandedChange` in place of `onToggleKey`. An app that wrapped `DataTable` in its own scroll box or border drops it.
+
+## 67. AboutPanel, ReleaseNotesPanel, CalibrationPanel and ProfilePicker move to Brock; tessera new takes a layer; useCopy is exported
+
+Four app panels leave Tessera. Brock 0.4.0, built on Tessera 0.6.0, owns them now:
+
+| Removed from Tessera | Where it is now |
+|---|---|
+| `AboutPanel` and its types | `import { AboutPanel } from '@drizztdourden08/brock-react'`, with the same props: `brand`, `heading`, `title`, `rows`, the copy text and `legal` |
+| `ReleaseNotesPanel` and its props type | `import { ReleaseNotesPanel } from '@drizztdourden08/brock-react'`, also used in the Brock updater's `UpdateDialog` |
+| `CalibrationPanel` and its types | `import { CalibrationPanel } from '@drizztdourden08/brock-input/renderer'`. It takes the same props plus `reading` and `buttons` |
+| `ProfilePicker` and its types | nothing in Tessera. Brock has `ProfilesPanel` in `@drizztdourden08/brock-react`: select, create through `InlineCreateForm`, rename, and delete through `ConfirmIconButton` |
+
+Their gallery pages, the answers of the decision tree that led to them and the strings only they used go with them: `panels.copyDebugInfo`, `panels.releaseNotes`, `panels.newProfile`, `panels.deleteNamed` and `common.keep`. The screen examples show the same content from Tessera parts: the About screen of `InfoScreen` puts the logo and the name in `lead` and the build facts in a `FactsPanel`, the update check of `UtilityScreen` shows its notes in a `Card` under a `SectionHeader`, and each calibration step of `StageScreen` is a `Card` with a `SectionHeader`, a `StatRow` reading, the plot and a `ButtonRow`.
+
+`useCopy` is exported from the package root and from `/primitives`. It gives `{ copied, copy }`: `copy(text)` writes through the `writeText` override of `TesseraProvider` and sets `copied` for a moment. `useTesseraStrings()` already gave the whole string table, `panels` included, with the overrides merged in, so an app part reads Tessera's wording instead of keeping a copy:
+
+```tsx
+import { Button, useCopy, useTesseraStrings } from '@drizztdourden08/tessera';
+
+const CopyLogButton = ({ text }: { text: string }) => {
+  const { copied, copy } = useCopy();
+  const { common, panels } = useTesseraStrings();
+  return <Button onClick={() => void copy(text)}>{copied ? common.copied : panels.copyAll}</Button>;
+};
+```
+
+`tessera new` changes in three ways for an app:
+
+- `tessera.config.json` takes `layer`, at the top or in an `apps` entry, and `tessera new` takes `--layer <name>`. Either sets the `@layer` tag at the top of each file of a new app part, such as `renderer-shell`. The default stays `renderer-app`; a Tessera part always takes `renderer-components`. The value is lowercase words joined by hyphens.
+- With a part in another workspace package, the usage example imports it from that package: the `name` of its nearest `package.json`, plus the entry of its `exports` whose file sits in the folder closest above the part, such as `@drizztdourden08/brock-input/renderer`. A relative path is used only when the part and the views share a package. Before, with no `package` set, the example imported a relative path from the default `src/views`.
+- The story is written when the package that holds the part lists `@storylite/storylite`. When `stories` is set, it is also written when the repo root or the package of the `stories` folder lists StoryLite. A part in a workspace package with no StoryLite and no `stories` setting gets no story, where it got one whenever the repo root listed StoryLite. With no `stories` setting, the story goes to `stories/` in the package that holds the part.
+
+### What an app does
+
+An app that imports any of the four panels imports them from Brock as in the table; `brock upgrade` rewrites the imports of a Brock app. An app that used `ProfilePicker` moves to Brock's `ProfilesPanel`, or builds its list from `ListItemRow`, `ConfirmIconButton` and `InlineCreateForm`. An app that overrides one of the five removed strings drops that key from its `strings` override. RENAMES.json lists the removed exports in `removedExports`, as notes that point to Brock. An app with its own copy of the clipboard hook or of the string table uses `useCopy` and `useTesseraStrings`. A Brock app adds `"layer": "renderer-shell"` to `tessera.config.json` where its parts use that layer.

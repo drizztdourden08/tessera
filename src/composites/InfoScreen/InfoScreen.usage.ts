@@ -16,7 +16,7 @@ const usage = {
     'Put a logo, a wordmark or a hero in lead, and the sections in the children.',
     'Keep width="readable" for text; use width="wide" for a grid of cards, as credits need.',
     'Put legal text in footer, never in the last section.',
-    'An AboutPanel goes in as the children of an About screen.',
+    'On an About screen, put the logo and the app name in lead and the build facts in a FactsPanel.',
   ],
   a11y: [
     'The card is a modal dialog named by the title.',
@@ -26,11 +26,18 @@ const usage = {
     path: ['a full screen view', 'reading, such as About or credits'],
     rule: 'One centred column to read.',
   },
-  example: `import { AboutPanel, InfoScreen } from '@drizztdourden08/tessera';
+  example: `import { FactsPanel, InfoScreen, Logo, Title } from '@drizztdourden08/tessera';
+
+const lead = (
+  <>
+    <Logo brand="rotp" variant="app-icon" size="xl" title="" />
+    <Title level={2}>Relic of the Past</Title>
+  </>
+);
 
 const AboutScreen = ({ onClose }: { onClose: () => void }) => (
-  <InfoScreen title="About" onClose={onClose} footer="Names and marks belong to their owners.">
-    <AboutPanel title="Relic of the Past" brand="rotp" rows={[{ label: 'Version', value: '0.9.2' }]} />
+  <InfoScreen title="About" onClose={onClose} lead={lead} footer="Names and marks belong to their owners.">
+    <FactsPanel label="This build" groups={[[{ label: 'Version', value: '0.9.2', mono: true }]]} />
   </InfoScreen>
 );
 `,

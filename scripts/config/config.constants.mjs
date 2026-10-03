@@ -6,6 +6,7 @@ const SEARCH_STOPS = ['.git', 'pnpm-workspace.yaml'];
 const GLOB_CHARS = /[*?[\]{}]/;
 
 const DEFAULTS = {
+  layer: 'renderer-app',
   stories: 'stories',
   themeCss: 'src/theme.css',
   aiUsage: 'report',

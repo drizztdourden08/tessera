@@ -25,7 +25,7 @@ const runAi = (io, project) => {
 };
 
 const create = (io, project, spec, dryRun) => {
-  const plan = spec.mode === 'tessera' ? planTessera(project.root, spec) : planApp(project, spec);
+  const plan = spec.mode === 'tessera' ? planTessera(project.root, spec) : planApp(spec);
   if (plan.problems.length > 0) return fail(io, plan.problems);
   if (!dryRun) writePlan(project.root, plan);
   printPlan(io, { spec, plan, dryRun });

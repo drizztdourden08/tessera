@@ -32,6 +32,7 @@ const resolveConfig = (raw, { file, root, appRoot = root }) => ({
   root,
   ...optional('package', raw.package),
   parts: resolveParts(raw.parts ?? {}, { root, appRoot }),
+  layer: raw.layer ?? DEFAULTS.layer,
   stories: absolutePath(root, raw.stories ?? DEFAULTS.stories),
   theme: resolveTheme(raw.theme ?? {}, { root, appRoot }),
   ai: resolveAi(raw.ai ?? {}, root),

@@ -3,7 +3,7 @@ import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { runNew, slopIn } from './cli-sandbox.mjs';
-import { fixtureRepo, MONOREPO } from './config-fixture.mjs';
+import { fixtureRepo, MONOREPO, WORKSPACES_CONFIG } from './config-fixture.mjs';
 
 const state = { dir: '', results: {} };
 const read = (path) => readFileSync(join(state.dir, path), 'utf8');
@@ -62,6 +62,53 @@ describe('tessera new in a monorepo with tessera.config.json', () => {
     const elsewhere = await runNew(state.dir, ['compound', 'GameFrame', '--into', 'src/elsewhere']);
     expect(elsewhere.out).toContain('--into src/elsewhere is not one of the compound folders in tessera.config.json: packages/design/src/compounds, packages/design/src/panels');
     expect([...Object.values(state.results), taken, elsewhere].flatMap((result) => slopIn(result.out))).toEqual([]);
+  });
+});
+
+describe('tessera new across workspace packages, with no package key', () => {
+  const ws = { dir: '', results: {} };
+  const wsRead = (path) => readFileSync(join(ws.dir, path), 'utf8');
+  const wsHas = (path) => existsSync(join(ws.dir, path));
+  const ROOT_MANIFEST = { name: 'fixture-root', private: true, devDependencies: { '@drizztdourden08/tessera': '^0.6.0', '@storylite/storylite': '^1.6.0' } };
+
+  beforeAll(async () => {
+    ws.dir = fixtureRepo({ ...MONOREPO, 'tessera.config.json': WORKSPACES_CONFIG, 'package.json': ROOT_MANIFEST });
+    ws.results.dial = await runNew(ws.dir, ['composite', 'StickDial', '--into', 'packages/input/src/renderer/composites', '--yes']);
+    ws.results.slot = await runNew(ws.dir, ['compound', 'SaveSlot']);
+    ws.results.view = await runNew(join(ws.dir, 'apps/desktop'), ['view', 'SaveList']);
+    ws.results.flag = await runNew(ws.dir, ['compound', 'GemSlot', '--layer', 'renderer-gems']);
+  });
+
+  afterAll(() => rmSync(ws.dir, { recursive: true, force: true }));
+
+  it('writes the layer of tessera.config.json, of the apps entry, or of --layer', () => {
+    expect(Object.values(ws.results).map((result) => result.status)).toEqual([0, 0, 0, 0]);
+    expect(wsRead('packages/input/src/renderer/composites/StickDial/StickDial.tsx')).toMatch(/^\/\* @layer renderer-shell @kind component \*\//);
+    expect(wsRead('packages/input/src/renderer/composites/StickDial/StickDial.css')).toMatch(/^\/\* @layer renderer-shell @kind style \*\//);
+    expect(wsRead('apps/desktop/src/views/SaveList/SaveList.usage.ts')).toMatch(/^\/\* @layer renderer-desktop @kind data \*\//);
+    expect(wsRead('packages/design/src/compounds/GemSlot/GemSlot.type.ts')).toMatch(/^\/\* @layer renderer-gems @kind types \*\//);
+    expect(read('packages/design/src/compounds/SaveSlot/SaveSlot.tsx')).toMatch(/^\/\* @layer renderer-app @kind component \*\//);
+  });
+
+  it('imports a usage example from the part package and the export that holds it, and relatively inside one package', () => {
+    expect(wsRead('packages/input/src/renderer/composites/StickDial/StickDial.usage.ts')).toContain('import { StickDial } from \'@fixture/input/renderer\';');
+    expect(wsRead('packages/design/src/compounds/SaveSlot/SaveSlot.usage.ts')).toContain('import { SaveSlot } from \'@fixture/design\';');
+    expect(wsRead('apps/desktop/src/views/SaveList/SaveList.usage.ts')).toContain('import { SaveList } from \'../SaveList\';');
+  });
+
+  it('writes a story only for a package that lists StoryLite, into that package when no stories folder is set', () => {
+    expect(wsRead('packages/design/stories/compounds/SaveSlot.stories.tsx')).toContain('import { SaveSlot } from \'../../src/compounds/SaveSlot\';');
+    expect(wsHas('stories/composites/StickDial.stories.tsx')).toBe(false);
+    expect(wsHas('packages/input/stories')).toBe(false);
+    expect(wsHas('stories/views/SaveList.stories.tsx')).toBe(false);
+    expect(wsHas('apps/desktop/stories')).toBe(false);
+  });
+
+  it('refuses a --layer that is not a layer name', async () => {
+    const result = await runNew(ws.dir, ['compound', 'RuneSlot', '--layer', 'Renderer_Shell']);
+    expect(result.status).toBe(1);
+    expect(result.out).toContain('--layer Renderer_Shell is not a layer name');
+    expect(wsHas('packages/design/src/compounds/RuneSlot')).toBe(false);
   });
 });
 

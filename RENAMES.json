@@ -433,7 +433,19 @@
         "FacetPicker": "removed; add an enum field to the schema and filter it with a FilterBar clause through + (see MIGRATION.md)",
         "FacetPickerProps": "removed with FacetPicker",
         "FilterFacet": "removed; a facet is an enum field filtered by a clause",
-        "FilterFacetOption": "removed; the options are the enum field's options"
+        "FilterFacetOption": "removed; the options are the enum field's options",
+        "AboutPanel": "moved to @drizztdourden08/brock-react: import { AboutPanel } from '@drizztdourden08/brock-react' (see MIGRATION.md section 67)",
+        "AboutPanelHeading": "moved to @drizztdourden08/brock-react with AboutPanel (see MIGRATION.md section 67)",
+        "AboutPanelProps": "moved to @drizztdourden08/brock-react with AboutPanel (see MIGRATION.md section 67)",
+        "AboutPanelRow": "moved to @drizztdourden08/brock-react with AboutPanel (see MIGRATION.md section 67)",
+        "ReleaseNotesPanel": "moved to @drizztdourden08/brock-react: import { ReleaseNotesPanel } from '@drizztdourden08/brock-react' (see MIGRATION.md section 67)",
+        "ReleaseNotesPanelProps": "moved to @drizztdourden08/brock-react with ReleaseNotesPanel (see MIGRATION.md section 67)",
+        "CalibrationPanel": "moved to @drizztdourden08/brock-input/renderer: import { CalibrationPanel } from '@drizztdourden08/brock-input/renderer'; it also takes reading and buttons (see MIGRATION.md section 67)",
+        "CalibrationPanelAction": "moved to @drizztdourden08/brock-input/renderer with CalibrationPanel (see MIGRATION.md section 67)",
+        "CalibrationPanelProps": "moved to @drizztdourden08/brock-input/renderer with CalibrationPanel (see MIGRATION.md section 67)",
+        "ProfilePicker": "removed with no Tessera replacement; Brock has ProfilesPanel: import { ProfilesPanel } from '@drizztdourden08/brock-react' (see MIGRATION.md section 67)",
+        "ProfilePickerItem": "removed with ProfilePicker; see ProfilesPanel in @drizztdourden08/brock-react (see MIGRATION.md section 67)",
+        "ProfilePickerProps": "removed with ProfilePicker; see ProfilesPanel in @drizztdourden08/brock-react (see MIGRATION.md section 67)"
       },
       "cssCustomProperties": {
         "--wizard-progress-step-w": "--stepper-step-w",

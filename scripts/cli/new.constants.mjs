@@ -23,7 +23,8 @@ const CATALOGUE_FILES = {
 
 const APP_TIERS = { primitive: 'Primitives', composite: 'Composites', compound: 'Compounds', view: 'Views' };
 
-const LAYERS = { tessera: 'renderer-components', app: 'renderer-app' };
+const TESSERA_LAYER = 'renderer-components';
+const LAYER_RULE = /^[a-z][a-z0-9]*(-[a-z0-9]+)*$/;
 
 const APP_PART_WARNING = 'Most primitives and composites belong in Tessera. Build it there unless only this app will ever need it.';
 
@@ -39,6 +40,8 @@ Options:
                     such as "actions > one action > a visible word" (asked when left out,
                     and a building block when none is picked)
   --into <folder>   the folder to write in, when tessera.config.json lists more than one for the kind
+  --layer <name>    the @layer tag of the new files in an app, such as renderer-shell
+                    (default: layer in tessera.config.json, else renderer-app)
   --icon <name>     the Lucide icon of its gallery page in Tessera (default ${DEFAULT_ICON})
   --yes             create an app primitive or composite without asking
   --dry-run         list the files it would write and change, and write nothing
@@ -46,6 +49,6 @@ Options:
 `;
 
 export {
-  APP_PART_KINDS, APP_PART_WARNING, APP_TIERS, CATALOGUE_FILES, CONFIG_HINT, DEFAULT_ICON, ICON_DIR, KINDS, LAYERS, NAME_RULE,
-  NEW_USAGE, PACKAGE_NAME, SIDEBAR_FILE, STORYLITE, TESSERA_EXTRA_FOLDERS, TESSERA_KINDS, TREE_SEPARATOR,
+  APP_PART_KINDS, APP_PART_WARNING, APP_TIERS, CATALOGUE_FILES, CONFIG_HINT, DEFAULT_ICON, ICON_DIR, KINDS, LAYER_RULE, NAME_RULE,
+  NEW_USAGE, PACKAGE_NAME, SIDEBAR_FILE, STORYLITE, TESSERA_EXTRA_FOLDERS, TESSERA_KINDS, TESSERA_LAYER, TREE_SEPARATOR,
 };

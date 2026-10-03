@@ -2,10 +2,11 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Logo } from '../../src/brand';
-import { AboutPanel, InfoScreen } from '../../src/composites';
-import type { AboutPanelRow, InfoScreenWidth } from '../../src/composites';
+import { InfoScreen } from '../../src/composites';
+import type { InfoScreenWidth } from '../../src/composites';
 import { Span, Title } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { AboutBody } from './_samples/AboutBody';
 import { CreditsBody } from './_samples/CreditsBody';
 import { ScreenDemo } from './_samples/ScreenDemo';
 import './InfoScreen.stories.css';
@@ -16,22 +17,18 @@ type InfoArgs = {
   withFooter: boolean;
 };
 
-const ROWS: readonly AboutPanelRow[] = [
-  { label: 'Version', value: '0.9.2' },
-  { label: 'Runtime', value: 'Electron 38.1.0' },
-  { label: 'Engine', value: 'Chromium 140.0.7339.80' },
-  { label: 'Platform', value: 'windows' },
-];
-
 const LEGAL = 'A fan project, not made or approved by the owners of the games it tracks. Names and marks belong to their owners.';
 
-const CREDITS_LEAD = (
+const lead = (line: string) => (
   <>
     <Logo brand="rotp" variant="app-icon" size="xl" title="" />
     <Title level={2} className="info-screen-story__lead-title">Relic of the Past</Title>
-    <Span tone="muted">Made by a small team, with help from these people and projects.</Span>
+    <Span tone="muted">{line}</Span>
   </>
 );
+
+const ABOUT_LEAD = lead('Tracks your randomizer runs, from the first seed to the last boss.');
+const CREDITS_LEAD = lead('Made by a small team, with help from these people and projects.');
 
 const InfoDemo = (props: InfoArgs) => {
   const { page, width, withFooter } = props;
@@ -44,10 +41,10 @@ const InfoDemo = (props: InfoArgs) => {
         width={width}
         hidden={hidden}
         onClose={() => setHidden(true)}
-        lead={about ? undefined : CREDITS_LEAD}
+        lead={about ? ABOUT_LEAD : CREDITS_LEAD}
         footer={withFooter ? LEGAL : undefined}
       >
-        {about ? <AboutPanel title="Relic of the Past" brand="rotp" rows={ROWS} copyText="Relic of the Past 0.9.2, windows" /> : <CreditsBody />}
+        {about ? <AboutBody /> : <CreditsBody />}
       </InfoScreen>
     </ScreenDemo>
   );
@@ -80,15 +77,20 @@ const Credits = {
   render: () => <InfoDemo page="credits" width="wide" withFooter={false} />,
 } satisfies StoryLiteStoryDefinition<InfoArgs>;
 
-const CODE = `import { AboutPanel, InfoScreen } from '@drizztdourden08/tessera';
+const CODE = `import { FactsPanel, InfoScreen, Logo, Title } from '@drizztdourden08/tessera';
 
-<InfoScreen title="About" onClose={close} footer={LEGAL}>
-  <AboutPanel title="Relic of the Past" brand="rotp" rows={rows} copyText={debugInfo} />
+<InfoScreen
+  title="About"
+  onClose={close}
+  lead={<><Logo brand="rotp" variant="app-icon" size="xl" title="" /><Title level={2}>Relic of the Past</Title></>}
+  footer={LEGAL}
+>
+  <FactsPanel label="This build" groups={[[{ label: 'Version', value: '0.9.2', mono: true }]]} />
 </InfoScreen>`;
 
 const Overview = overviewStory({
   component: 'InfoScreen',
-  description: 'A screen the user reads: About, credits, a licence or a welcome. It is a ScreenWindow with wide margins and one centred column that scrolls. lead sits at the top of the column, centred, for a logo, a wordmark or a hero. The children are the sections, spaced well apart. footer closes the column with small dim text above a hairline, for legal text. width="readable" keeps lines short; width="wide" fits a grid of cards, as credits need. An AboutPanel goes in as the children.',
+  description: 'A screen the user reads: About, credits, a licence or a welcome. It is a ScreenWindow with wide margins and one centred column that scrolls. lead sits at the top of the column, centred, for a logo, a wordmark or a hero. The children are the sections, spaced well apart. footer closes the column with small dim text above a hairline, for legal text. width="readable" keeps lines short; width="wide" fits a grid of cards, as credits need. An About screen puts the logo and the name in lead and the build facts in a FactsPanel.',
   playground: Playground,
   points: [
     'Use it when the user reads and does not change anything.',

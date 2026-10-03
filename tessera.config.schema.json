@@ -16,6 +16,7 @@
       "minLength": 1
     },
     "parts": { "$ref": "#/definitions/parts" },
+    "layer": { "$ref": "#/definitions/layer" },
     "stories": {
       "description": "The folder of the gallery stories. Default: stories.",
       "$ref": "#/definitions/path"
@@ -38,6 +39,11 @@
       "description": "A path relative to this file.",
       "type": "string",
       "minLength": 1
+    },
+    "layer": {
+      "description": "The @layer tag tessera new writes at the top of each file of an app part, such as renderer-shell. Default: renderer-app.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$"
     },
     "folders": {
       "description": "A folder or glob, or a list of them, relative to this file. tessera new writes into the first one unless --into picks another.",
@@ -93,6 +99,7 @@
       "additionalProperties": false,
       "properties": {
         "parts": { "$ref": "#/definitions/parts" },
+        "layer": { "$ref": "#/definitions/layer" },
         "stories": { "description": "The folder of the gallery stories of this app.", "$ref": "#/definitions/path" },
         "theme": { "$ref": "#/definitions/theme" },
         "ai": { "$ref": "#/definitions/ai" },

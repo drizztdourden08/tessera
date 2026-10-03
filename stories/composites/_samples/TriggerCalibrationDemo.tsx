@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
-import { CalibrationPanel } from '../../../src/composites';
 import { ProgressBar, Slider, Stack, StatRow } from '../../../src/primitives';
+import { CalibrationStep } from './CalibrationStep';
 import { useTriggerCalibrationDemo } from './use-trigger-calibration-demo';
 import type { TriggerStep } from './use-trigger-calibration-demo';
 
@@ -14,7 +14,7 @@ const TriggerCalibrationDemo = () => {
   const { step, value, peak, deadzone, setDeadzone, readout, action, restart } = useTriggerCalibrationDemo();
 
   return (
-    <CalibrationPanel
+    <CalibrationStep
       title="Calibrate Right trigger"
       instruction={TRIGGER_STEP_TEXT[step]}
       readout={readout}
@@ -28,7 +28,7 @@ const TriggerCalibrationDemo = () => {
       {step === 'review' && (
         <Slider label="Dead zone" value={deadzone} min={0} max={0.3} step={0.01} onChange={setDeadzone} showValue />
       )}
-    </CalibrationPanel>
+    </CalibrationStep>
   );
 };
 

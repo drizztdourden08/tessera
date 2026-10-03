@@ -146,6 +146,19 @@ createRoot(root).render(
 
 Every Tessera component below the provider uses the overrides, including the ones in portaled dialogs. A provider inside another one keeps the outer overrides and replaces only the ones it names.
 
+An app part reads the same wording and clipboard as the Tessera parts beside it, so it never keeps a copy of either:
+
+- `useTesseraStrings()` gives the whole string table with the overrides merged in, every group included: `common`, `fields`, `panels` and the rest. `TESSERA_STRINGS` holds the defaults.
+- `useCopy()` gives `{ copied, copy }`. `copy(text)` writes through the `writeText` override and sets `copied` for a moment, as every Tessera copy button does.
+
+```tsx
+const CopyLogButton = ({ text }: { text: string }) => {
+  const { copied, copy } = useCopy();
+  const { common, panels } = useTesseraStrings();
+  return <Button onClick={() => void copy(text)}>{copied ? common.copied : panels.copyAll}</Button>;
+};
+```
+
 ## Links and the router
 
 Links are not an override. Two primitives draw them:
@@ -208,6 +221,7 @@ Every key is optional:
 | `parts.composites` | the app composites | `src/composites` |
 | `parts.compounds` | the compounds | `src/compounds` |
 | `parts.views` | the views | `src/views` |
+| `layer` | the `@layer` tag `tessera new` writes at the top of each file of an app part, such as `renderer-shell` | `renderer-app` |
 | `stories` | the gallery stories | `stories` |
 | `theme.css` | the theme stylesheet | `src/theme.css` |
 | `theme.palette` | the `data-palette` name of the app palette | none |
@@ -298,7 +312,7 @@ Every part in the `parts` folders of `tessera.config.json` has a `Name.usage.ts`
 
 `tessera ai` runs the same check, then writes the app guide to `ai.out`. Its `README.md` sends the reader to the Tessera guide in `node_modules/@drizztdourden08/tessera/ai/` first. Then come `decide.md` with the answers the app adds, `index.md` with every app part, a page per part and `registry.json`. A part whose usage still holds a sentence from `tessera new` gets no page. An alternative that names a Tessera part links to its Tessera page.
 
-The check reads the props and the examples with TypeScript, so the app needs `typescript` installed. Each part is read with the nearest `tsconfig.json` above it, or with `ai.tsconfig`. An example is checked as a file in a `.ai-examples` folder beside the app views, so `../SaveList` reaches the view `SaveList`. A part of the `package` is checked beside its own folder and imports from the package name. A usage file and the tree module import types only: the check runs them without the app bundler.
+The check reads the props and the examples with TypeScript, so the app needs `typescript` installed. Each part is read with the nearest `tsconfig.json` above it, or with `ai.tsconfig`. An example is checked as a file in a `.ai-examples` folder beside the app views, so `../SaveList` reaches the view `SaveList`. A part in another workspace package is checked beside its own folder and imports from that package: the `name` of its nearest `package.json`, plus the entry of its `exports` whose file sits in the folder closest above the part, such as `@brock/input/renderer`. A relative path is used only when the part and the views share a package. A usage file and the tree module import types only: the check runs them without the app bundler.
 
 In the Tessera repo, `pnpm ai --check` runs the same checks on Tessera's own parts.
 
@@ -361,11 +375,11 @@ It reads `tessera.config.json` to know where it runs and where each kind goes. T
 | `primitive` | `src/primitives/<Name>/`, after a warning | `src/primitives/<Name>/` |
 | `composite` | `src/composites/<Name>/`, after a warning | `src/composites/<Name>/` |
 
-It refuses a name already taken in any `parts` folder. The story goes under the `stories` folder, in `<kind>s/`, and imports the part by its relative path.
+It refuses a name already taken in any `parts` folder. The story goes under the `stories` folder, in `<kind>s/`, and imports the part by its relative path. With no `stories` set in `tessera.config.json` or in the app entry, that folder is `stories/` in the package that holds the part.
 
 Each folder gets `<Name>.tsx` built from `Box` and `Text`, `<Name>.type.ts` with its props, `<Name>.css` with tokens only, `index.ts` and `<Name>.usage.ts`. Every field of the usage file holds a sentence that says what to write there: replace each one. Until then `tessera check` lists the field. `propsHash` matches the props it writes; change the props and `tessera check` gives the new hash (`pnpm ai --check` in Tessera).
 
-In Tessera it also exports the part from its tier barrel, adds its entry to `.storylite/catalogue-*.constants.ts` and its icon to `.storylite/sidebar-icons.constants.ts`, writes an Overview story from the gallery template, then runs `pnpm ai`. In an app, it writes the story when `@storylite/storylite` is listed by the app, by the repo root or by the package that holds the `stories` folder.
+In Tessera it also exports the part from its tier barrel, adds its entry to `.storylite/catalogue-*.constants.ts` and its icon to `.storylite/sidebar-icons.constants.ts`, writes an Overview story from the gallery template, then runs `pnpm ai`. In an app, it writes the story when the package that holds the part lists `@storylite/storylite`. When `stories` is set, it also writes it when the repo root or the package that holds the `stories` folder lists StoryLite. A part in a workspace package with no StoryLite and no `stories` setting gets no story.
 
 An app primitive or composite starts with a warning: most primitives and composites belong in Tessera, so build it there unless only this app will ever need it. The command then asks to confirm. Without a terminal it stops unless `--yes` is given.
 
@@ -374,6 +388,7 @@ An app primitive or composite starts with a warning: most primitives and composi
 | `--group <group>` | the gallery group of its page, such as `Layout`. In Tessera it asks when this is left out |
 | `--tree <path>` | where the part sits in the decision tree of `ai/decide.md`, the answers joined by `>`, such as `"actions > one action > a visible word"`. Left out, it asks in a terminal; with no answer picked, the part is a building block |
 | `--into <folder>` | the folder to write in, when `tessera.config.json` lists more than one for the kind |
+| `--layer <name>` | the `@layer` tag of the files of an app part, such as `renderer-shell`. Left out, it takes `layer` from `tessera.config.json` or the app entry, else `renderer-app`. Tessera parts always take `renderer-components` |
 | `--icon <name>` | the Lucide icon of its gallery page in Tessera, `component` by default |
 | `--yes` | creates an app primitive or composite without asking |
 | `--dry-run` | lists the files it would write and change, and writes nothing |

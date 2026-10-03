@@ -17,13 +17,5 @@ const UPDATE_STATUS: Readonly<Record<UpdateStep, UtilityScreenStatus>> = {
   failed: { tone: 'danger', title: 'The check failed', message: 'The update server did not answer. Check your connection, then try again.' },
 };
 
-const RELEASE_NOTES = `New
-- A tracker for the item log, with filters by player.
-- Sessions resume after a crash.
-
-Fixed
-- The hint window kept an old hint after a reset.
-- Calibration lost the dead zones on the second stick.`;
-
-export { RELEASE_NOTES, UPDATE_STATUS, UPDATE_STEP_LABEL, UPDATE_STEPS };
+export { UPDATE_STATUS, UPDATE_STEP_LABEL, UPDATE_STEPS };
 export type { UpdateStep };

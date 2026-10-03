@@ -7,7 +7,6 @@ const COMMON_STRINGS = {
   create: 'Create',
   delete: 'Delete',
   done: 'Done',
-  keep: 'Keep',
   options: 'Options',
   remove: 'Remove',
   reset: 'Reset',

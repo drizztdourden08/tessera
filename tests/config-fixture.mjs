@@ -21,12 +21,29 @@ const CONFIG = {
   apps: { 'apps/desktop': { parts: { views: 'apps/desktop/src/views' } } },
 };
 
+const WORKSPACES_CONFIG = {
+  $schema: CONFIG.$schema,
+  parts: {
+    composites: ['packages/design/src/composites', 'packages/input/src/renderer/composites'],
+    compounds: 'packages/design/src/compounds',
+  },
+  layer: 'renderer-shell',
+  apps: { 'apps/desktop': { parts: { views: 'apps/desktop/src/views' }, layer: 'renderer-desktop' } },
+};
+
 const MONOREPO = {
   'tessera.config.json': CONFIG,
   'pnpm-workspace.yaml': 'packages:\n  - \'apps/*\'\n  - \'packages/*\'\n',
   'package.json': { name: 'fixture-root', private: true, devDependencies: { '@drizztdourden08/tessera': '^0.3.0' } },
   'packages/design/package.json': { name: '@fixture/design', private: true, devDependencies: { '@storylite/storylite': '^1.6.0' } },
   'packages/design/src/index.ts': 'export {};\n',
+  'packages/input/package.json': {
+    name: '@fixture/input',
+    private: true,
+    exports: { '.': './src/index.ts', './renderer': './src/renderer/index.ts', './tokens.css': './src/tokens.css' },
+  },
+  'packages/input/src/index.ts': 'export {};\n',
+  'packages/input/src/renderer/index.ts': 'export {};\n',
   'apps/desktop/package.json': { name: '@fixture/desktop', private: true, dependencies: { '@fixture/design': 'workspace:*' } },
   'apps/desktop/src/main.tsx': 'export {};\n',
 };
@@ -44,4 +61,4 @@ const fixtureRepo = (files = MONOREPO) => {
   return dir;
 };
 
-export { CONFIG, fixtureRepo, MONOREPO, writeTree };
+export { CONFIG, fixtureRepo, MONOREPO, WORKSPACES_CONFIG, writeTree };

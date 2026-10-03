@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 6 of 146 have their usage written; a linked name opens its page.
+One line per component. 6 of 142 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -83,8 +83,6 @@ One line per component. 6 of 146 have their usage written; a linked name opens i
 
 ## Composites
 
-- `AboutPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `CalibrationPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorPicker`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker`.
 - `ColorPickerPopover`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker-popover`.
 - `CommandPalette`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -115,9 +113,7 @@ One line per component. 6 of 146 have their usage written; a linked name opens i
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `ProfilePicker`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `ReleaseNotesPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.
 - `SearchResultGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -21,7 +21,7 @@ const APP_STRINGS: TesseraStringsOverride = {
     learnMore: 'En savoir plus',
   },
   panels: {
-    copyDebugInfo: 'Copier les infos de débogage',
+    copyAll: 'Tout copier',
     sectionFailed: 'Cette section ne peut pas être affichée',
   },
 };

@@ -72,7 +72,7 @@ const StageOnly = {
   render: () => <StageDemo withToolbar={false} withDone={false} />,
 } satisfies StoryLiteStoryDefinition<StageArgs>;
 
-const CODE = `import { CalibrationPanel, StageScreen, StickPlot } from '@drizztdourden08/tessera';
+const CODE = `import { Card, SectionHeader, StageScreen, Status, StickPlot } from '@drizztdourden08/tessera';
 
 <StageScreen
   title="Input calibration"
@@ -80,18 +80,19 @@ const CODE = `import { CalibrationPanel, StageScreen, StickPlot } from '@drizztd
   toolbar={<Status tone="success" variant="pill">Controller connected</Status>}
   done={{ onClick: close }}
 >
-  <CalibrationPanel title="Calibrate Left stick" instruction={step.text} action={step.action} onCancel={reset}>
+  <Card>
+    <SectionHeader title="Calibrate Left stick" subtitle={step.text} />
     <StickPlot x={x} y={y} size="lg" />
-  </CalibrationPanel>
+  </Card>
 </StageScreen>`;
 
 const Overview = overviewStory({
   component: 'StageScreen',
-  description: 'One big screen for custom work with no navigation of its own: calibration, HUD layout, a map or a sprite editor. It is a ScreenWindow whose content is one open stage that scrolls when its content is larger. toolbar is an optional row above the stage, for a status and a few tools. done adds a primary button at the end of that row; it reads Done unless label says otherwise. Calibration steps go on the stage as CalibrationPanels.',
+  description: 'One big screen for custom work with no navigation of its own: calibration, HUD layout, a map or a sprite editor. It is a ScreenWindow whose content is one open stage that scrolls when its content is larger. toolbar is an optional row above the stage, for a status and a few tools. done adds a primary button at the end of that row; it reads Done unless label says otherwise. The stage holds whatever the app draws, such as one Card per calibration step.',
   playground: Playground,
   points: [
     'Use it when the content is one surface the app draws itself.',
-    'The example stage is built from the standard parts only: two CalibrationPanels, one with a StickPlot and one with a ProgressBar, and a PressedGrid.',
+    'The example stage is built from the standard parts only: two calibration steps in Cards, one with a StickPlot and one with a ProgressBar, and a PressedGrid.',
     'For pages the user moves between, use WorkspaceScreen. For a task the app runs with a status, use UtilityScreen.',
     'The stage is a positioned box, so its content can place layers inside it.',
   ],

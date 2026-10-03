@@ -73,7 +73,6 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Through a nested tree: no component yet.
   - To a search result: no component yet.
   - Through the steps of one task: no component yet.
-  - Between profiles: no component yet.
   - Between a few modes, from a floating switch: no component yet.
 - Layout. **What are you arranging?**
   - A plain block: no component yet.
@@ -97,8 +96,6 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - The title bar: no component yet.
     - A header inside the window: no component yet.
   - A ready-made app panel. **Which panel?**
-    - About the app: no component yet.
-    - Release notes: no component yet.
     - Facts in groups: no component yet.
     - An opening banner with art: no component yet.
   - The app root: no component yet.
@@ -136,7 +133,6 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - A tour of shortcuts: no component yet.
     - Which buttons are held: no component yet.
     - Where a stick points: no component yet.
-    - A calibration step: no component yet.
 - Icons and brand. **Which mark?**
   - An icon from the set: no component yet.
   - A small stroke glyph: no component yet.

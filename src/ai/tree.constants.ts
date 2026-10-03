@@ -83,7 +83,7 @@ const NAVIGATION = {
   answers: {
     'between views of one area': null, 'between pages, from the header': null, 'between pages, from a side list': null,
     'between sections of one long page': null, 'through a nested tree': null, 'to a search result': null,
-    'through the steps of one task': null, 'between profiles': null, 'between a few modes, from a floating switch': null,
+    'through the steps of one task': null, 'between a few modes, from a floating switch': null,
   },
 } as const;
 
@@ -104,7 +104,7 @@ const LAYOUT = {
     },
     'a ready-made app panel': {
       question: 'Which panel?',
-      answers: { 'about the app': null, 'release notes': null, 'facts in groups': null, 'an opening banner with art': null },
+      answers: { 'facts in groups': null, 'an opening banner with art': null },
     },
     'the app root': null,
   },
@@ -152,7 +152,7 @@ const DATA = {
       question: 'What about the input?',
       answers: {
         'a keyboard with keys marked': null, 'a tour of shortcuts': null, 'which buttons are held': null,
-        'where a stick points': null, 'a calibration step': null,
+        'where a stick points': null,
       },
     },
   },

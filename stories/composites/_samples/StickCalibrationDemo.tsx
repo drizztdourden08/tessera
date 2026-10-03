@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
-import { CalibrationPanel, StickPlot } from '../../../src/composites';
+import { StickPlot } from '../../../src/composites';
 import { Slider } from '../../../src/primitives';
+import { CalibrationStep } from './CalibrationStep';
 import { useStickCalibrationDemo } from './use-stick-calibration-demo';
 import type { StickStep } from './use-stick-calibration-demo';
 
@@ -14,7 +15,7 @@ const StickCalibrationDemo = () => {
   const { step, x, y, center, range, inner, setInner, outer, setOuter, readout, action, reset } = useStickCalibrationDemo();
 
   return (
-    <CalibrationPanel
+    <CalibrationStep
       title="Calibrate Left stick"
       instruction={STICK_STEP_TEXT[step]}
       readout={readout}
@@ -37,7 +38,7 @@ const StickCalibrationDemo = () => {
           <Slider label="Outer dead zone" value={outer} min={0.5} max={1} step={0.01} onChange={setOuter} showValue />
         </>
       )}
-    </CalibrationPanel>
+    </CalibrationStep>
   );
 };
 

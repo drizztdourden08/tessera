@@ -1,6 +1,6 @@
 /* @layer stories @kind hook */
 import { useEffect, useState } from 'react';
-import type { CalibrationPanelAction } from '../../../src/composites';
+import type { CalibrationStepAction } from './CalibrationStep.type';
 import { triggerAt } from './controller-motion';
 import { useAnimationTime } from './use-animation-time';
 
@@ -32,7 +32,7 @@ const useTriggerCalibrationDemo = () => {
     setStep('press');
   };
 
-  const actions: Record<TriggerStep, CalibrationPanelAction> = {
+  const actions: Record<TriggerStep, CalibrationStepAction> = {
     rest: { label: 'Record rest', onClick: recordRest },
     press: { label: 'Next', disabled: peak - base < MIN_TRAVEL, onClick: () => setStep('review') },
     review: { label: 'Save', onClick: restart },

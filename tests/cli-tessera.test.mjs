@@ -83,6 +83,7 @@ describe('what tessera new refuses in Tessera', () => {
     expect(await outOf('primitive', 'RuneSlot', '--group', 'Layout', '--tree', 'actions > one action')).toContain('--tree stops at the question "What does the action look like?"');
     expect(await outOf('primitive', 'RuneSlot', '--group', 'Layout', '--icon', 'no-such-icon')).toContain('Lucide has no icon "no-such-icon"');
     expect(await outOf('widget', 'rune-slot')).toContain('"widget" is not a kind');
+    expect(await outOf('primitive', 'RuneSlot', '--group', 'Layout', '--layer', 'renderer-shell')).toContain('a Tessera part always takes @layer renderer-components');
     expect(existsSync(join(made.dir, 'src/primitives/RuneSlot'))).toBe(false);
   });
 

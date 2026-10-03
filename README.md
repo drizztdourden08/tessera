@@ -24,7 +24,7 @@ An app's `theme.css` sets the palette seeds, unlayered, so they beat every Tesse
 
 Every accent role (`--c-primary-bright`, `-dim`, `-soft`, `--c-selected`, the secondary set) derives from those seeds; any one of them can still be pinned. There is one set of neutrals, dark: Tessera has no light and dark themes, because an app's look is its branding, set by its palette. `data-palette` on an element re-derives the accents there.
 
-An app that draws some parts its own way hands them to `TesseraProvider` once, at the root: the spinner, the clipboard writer behind every copy button, the image placeholder, Tessera's wording (`TESSERA_STRINGS`, whole or key by key), the `ErrorBoundary` crash screen, the `EmptyState` art, the document portals render into and the icon set behind `Icon` names. Every Tessera component below the provider uses them, including the ones in portaled dialogs.
+An app that draws some parts its own way hands them to `TesseraProvider` once, at the root: the spinner, the clipboard writer behind every copy button, the image placeholder, Tessera's wording (`TESSERA_STRINGS`, whole or key by key), the `ErrorBoundary` crash screen, the `EmptyState` art, the document portals render into and the icon set behind `Icon` names. Every Tessera component below the provider uses them, including the ones in portaled dialogs. An app part reads the same table with `useTesseraStrings()`, every group included, and writes the clipboard with `useCopy()`.
 
 ```tsx
 const OVERRIDES: TesseraOverrides = { spinner: AppSpinner, strings: { common: { cancel: 'Annuler' } } };

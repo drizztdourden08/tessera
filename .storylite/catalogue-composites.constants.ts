@@ -39,7 +39,6 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
         { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
         { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
-        { name: 'ProfilePicker', summary: 'Profiles to pick from, add and delete.' },
       ],
     },
     {
@@ -109,9 +108,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Content',
       entries: [
         { name: 'LogPanel', summary: 'A live log in one framed box: a FilterBar toolbar, tones per type, older lines on demand.' },
-        { name: 'AboutPanel', summary: 'An About screen: logo or wordmark, facts, copy and legal text.' },
         { name: 'FactsPanel', summary: 'Label and value pairs in a bordered box, in groups split by hairlines.' },
-        { name: 'ReleaseNotesPanel', summary: 'Release notes in a titled, scrolling box.' },
         { name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' },
         { name: 'PixelWordmark', summary: 'A wordmark set in the pixel alphabet from a text and four colours.' },
       ],
@@ -119,7 +116,6 @@ const COMPOSITES_TIER: CatalogueTier = {
     {
       group: 'Input devices',
       entries: [
-        { name: 'CalibrationPanel', summary: 'One calibration step: instruction, live readout, content, cancel and next.' },
         { name: 'PressedGrid', summary: 'A grid of buttons that light up while held.' },
         { name: 'StickPlot', summary: 'Where an analog stick points, with dead zones and calibration marks.' },
         { name: 'KeyboardLayout', summary: 'A full keyboard drawn from data, with keys lit or pressed.' },

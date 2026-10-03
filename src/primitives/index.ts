@@ -119,7 +119,7 @@ export { ProgressBar } from './ProgressBar';
 export type { ProgressBarProps, ProgressPart, ProgressTone } from './ProgressBar';
 export { Spinner } from './Spinner';
 export type { SpinnerProps, SpinnerSize } from './Spinner';
-export { TesseraProvider, useTesseraStrings } from './TesseraProvider';
+export { TesseraProvider, useCopy, useTesseraStrings } from './TesseraProvider';
 export type {
   ClipboardWriter, ErrorFallbackProps, TesseraOverrides, TesseraPart, TesseraProviderProps,
 } from './TesseraProvider';

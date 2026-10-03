@@ -252,9 +252,6 @@
           "through the steps of one task": {
             "components": []
           },
-          "between profiles": {
-            "components": []
-          },
           "between a few modes, from a floating switch": {
             "components": []
           }
@@ -330,12 +327,6 @@
           "a ready-made app panel": {
             "question": "Which panel?",
             "answers": {
-              "about the app": {
-                "components": []
-              },
-              "release notes": {
-                "components": []
-              },
               "facts in groups": {
                 "components": []
               },
@@ -457,9 +448,6 @@
                 "components": []
               },
               "where a stick points": {
-                "components": []
-              },
-              "a calibration step": {
                 "components": []
               }
             }
@@ -1269,26 +1257,6 @@
       "usage": false
     },
     {
-      "name": "AboutPanel",
-      "tier": "composites",
-      "source": "src/composites/AboutPanel/AboutPanel.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "CalibrationPanel",
-      "tier": "composites",
-      "source": "src/composites/CalibrationPanel/CalibrationPanel.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "ColorPicker",
       "tier": "composites",
       "source": "src/composites/ColorPicker/ColorPicker.tsx",
@@ -1528,7 +1496,7 @@
         "Put a logo, a wordmark or a hero in lead, and the sections in the children.",
         "Keep width=\"readable\" for text; use width=\"wide\" for a grid of cards, as credits need.",
         "Put legal text in footer, never in the last section.",
-        "An AboutPanel goes in as the children of an About screen."
+        "On an About screen, put the logo and the app name in lead and the build facts in a FactsPanel."
       ],
       "a11y": [
         "The card is a modal dialog named by the title.",
@@ -1541,7 +1509,7 @@
         ],
         "rule": "One centred column to read."
       },
-      "example": "import { AboutPanel, InfoScreen } from '@drizztdourden08/tessera';\n\nconst AboutScreen = ({ onClose }: { onClose: () => void }) => (\n  <InfoScreen title=\"About\" onClose={onClose} footer=\"Names and marks belong to their owners.\">\n    <AboutPanel title=\"Relic of the Past\" brand=\"rotp\" rows={[{ label: 'Version', value: '0.9.2' }]} />\n  </InfoScreen>\n);\n",
+      "example": "import { FactsPanel, InfoScreen, Logo, Title } from '@drizztdourden08/tessera';\n\nconst lead = (\n  <>\n    <Logo brand=\"rotp\" variant=\"app-icon\" size=\"xl\" title=\"\" />\n    <Title level={2}>Relic of the Past</Title>\n  </>\n);\n\nconst AboutScreen = ({ onClose }: { onClose: () => void }) => (\n  <InfoScreen title=\"About\" onClose={onClose} lead={lead} footer=\"Names and marks belong to their owners.\">\n    <FactsPanel label=\"This build\" groups={[[{ label: 'Version', value: '0.9.2', mono: true }]]} />\n  </InfoScreen>\n);\n",
       "propsHash": "2a8ecba5773d489b",
       "props": {
         "own": [
@@ -1703,29 +1671,9 @@
       "usage": false
     },
     {
-      "name": "ProfilePicker",
-      "tier": "composites",
-      "source": "src/composites/ProfilePicker/ProfilePicker.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "RecordEditor",
       "tier": "composites",
       "source": "src/composites/RecordEditor/RecordEditor.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "ReleaseNotesPanel",
-      "tier": "composites",
-      "source": "src/composites/ReleaseNotesPanel/ReleaseNotesPanel.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
@@ -2102,7 +2050,7 @@
       "rules": [
         "Keep the toolbar to a status and a few tools; it is not a place for navigation.",
         "Set done when the work ends with a clear finish; the close button still closes without it.",
-        "Put calibration steps on the stage as CalibrationPanels.",
+        "Put each calibration step on the stage in its own Card, with a SectionHeader that says what to do.",
         "The stage scrolls when its content is larger; a canvas that pans itself sets its own size to fill the stage."
       ],
       "a11y": [

@@ -1,12 +1,13 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { ReleaseNotesPanel, UtilityScreen } from '../../src/composites';
+import { UtilityScreen } from '../../src/composites';
 import { Button, Callout, Icon, SegmentedControl } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { ReleaseNotes } from './_samples/ReleaseNotes';
 import { ScreenDemo } from './_samples/ScreenDemo';
 import { updateActions } from './_samples/update-actions';
-import { RELEASE_NOTES, UPDATE_STATUS, UPDATE_STEP_LABEL, UPDATE_STEPS } from './_samples/update-states';
+import { UPDATE_STATUS, UPDATE_STEP_LABEL, UPDATE_STEPS } from './_samples/update-states';
 import type { UpdateStep } from './_samples/update-states';
 import { UpdateSettings } from './_samples/UpdateSettings';
 import { isPrerelease, NEWEST_STABLE } from './_samples/update-versions';
@@ -57,7 +58,7 @@ const UpdateDemo = (props: UtilityArgs) => {
         actions={updateActions(step, setStep, () => setHidden(true))}
       >
         {settings && isPrerelease(version) && <Callout tone="warning" icon={<Icon name="triangle-alert" size={16} />}>{PRERELEASE_NOTE}</Callout>}
-        {notes && <ReleaseNotesPanel title={`What is new in ${version}`}>{RELEASE_NOTES}</ReleaseNotesPanel>}
+        {notes && <ReleaseNotes version={version} />}
       </UtilityScreen>
     </ScreenDemo>
   );
@@ -102,7 +103,7 @@ const Failed = {
   render: () => <UpdateDemo step="failed" />,
 } satisfies StoryLiteStoryDefinition<UtilityArgs>;
 
-const CODE = `import { Button, Field, ReleaseNotesPanel, Select, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
+const CODE = `import { Button, Card, Field, Paragraph, SectionHeader, Select, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
 
 <UtilityScreen
   title="Check for updates"
@@ -118,7 +119,10 @@ const CODE = `import { Button, Field, ReleaseNotesPanel, Select, Toggle, Utility
     { label: 'Install', variant: 'primary', onClick: install },
   ]}
 >
-  <ReleaseNotesPanel>{notes}</ReleaseNotesPanel>
+  <Card>
+    <SectionHeader title="What is new" />
+    {notes.map((line) => <Paragraph key={line} tone="dim">{line}</Paragraph>)}
+  </Card>
 </UtilityScreen>`;
 
 const Overview = overviewStory({

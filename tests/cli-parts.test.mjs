@@ -44,6 +44,11 @@ describe('the arguments of tessera new', () => {
   it('names an unknown option and a missing value', () => {
     expect(parseArgs(['view', 'SaveList', '--colour', 'red', '--group']).problems).toEqual(['there is no option --colour', '--group takes a value']);
   });
+
+  it('reads --layer as a value', () => {
+    expect(parseArgs(['compound', 'SaveSlot', '--layer', 'renderer-shell']).flags).toEqual({ layer: 'renderer-shell' });
+    expect(parseArgs(['compound', 'SaveSlot', '--layer']).problems).toEqual(['--layer takes a value']);
+  });
 });
 
 describe('the decision tree', () => {

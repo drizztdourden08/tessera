@@ -2,8 +2,7 @@
 import { posix } from 'node:path';
 import { posixPath } from '../config/posix-path.mjs';
 import { readManifest } from '../cli/read-manifest.mjs';
-
-const exportTarget = (target) => (typeof target === 'string' ? target : target?.types ?? target?.import ?? target?.default);
+import { exportTarget } from './export-target.mjs';
 
 const packageEntry = (dir) => {
   const manifest = readManifest(dir);

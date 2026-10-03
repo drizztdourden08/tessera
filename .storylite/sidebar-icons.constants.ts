@@ -76,7 +76,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
-  'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', ProfilePicker: 'users' },
+  'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend' },
   'Composites · Layout': { SplitPane: 'columns-2', MasterDetailLayout: 'layout-list', SideNavLayout: 'layout-template' },
   'Composites · Lists': {
     ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
@@ -88,13 +88,13 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',
   },
   'Composites · Content': {
-    LogPanel: 'logs', AboutPanel: 'info', FactsPanel: 'table-properties', ReleaseNotesPanel: 'notebook-text', Hero: 'mountain-snow',
+    LogPanel: 'logs', FactsPanel: 'table-properties', Hero: 'mountain-snow',
     PixelWordmark: 'type-outline',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line' },
   'Composites · Input devices': {
-    CalibrationPanel: 'crosshair', PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
+    PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog' },
   'Composites · Screens': {

@@ -31,7 +31,7 @@ One open stage with an optional toolbar.
 
 - Keep the toolbar to a status and a few tools; it is not a place for navigation.
 - Set done when the work ends with a clear finish; the close button still closes without it.
-- Put calibration steps on the stage as CalibrationPanels.
+- Put each calibration step on the stage in its own Card, with a SectionHeader that says what to do.
 - The stage scrolls when its content is larger; a canvas that pans itself sets its own size to fill the stage.
 
 ## Accessibility

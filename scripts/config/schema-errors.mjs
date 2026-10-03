@@ -33,8 +33,14 @@ const arrayErrors = (value, node, root, path) => {
   return value.flatMap((item, index) => schemaErrors(item, node.items, root, `${path}[${index}]`));
 };
 
+const textErrors = (value, node, path) => {
+  if (value.length < (node.minLength ?? 0)) return [`${named(path)} is empty; write a value or leave the key out`];
+  if (node.pattern && !new RegExp(node.pattern, 'u').test(value)) return [`${named(path)} is ${JSON.stringify(value)}; it takes text that matches ${node.pattern}`];
+  return [];
+};
+
 const rangeErrors = (value, node, path) => {
-  if (typeof value === 'string' && value.length < (node.minLength ?? 0)) return [`${named(path)} is empty; write a value or leave the key out`];
+  if (typeof value === 'string') return textErrors(value, node, path);
   const low = node.minimum ?? -Infinity;
   const high = node.maximum ?? Infinity;
   if (typeof value === 'number' && (value < low || value > high)) return [`${named(path)} is ${value}; it takes ${low} to ${high}`];

@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind data */
 const PANEL_STRINGS = {
-  copyDebugInfo: 'Copy debug info',
   copyAll: 'Copy all',
   logNoun: 'entries',
   logCount: (shown: number, total: number, noun: string) => (shown === total ? `${total} ${noun}` : `${shown} of ${total} ${noun}`),
@@ -14,14 +13,11 @@ const PANEL_STRINGS = {
   logNoMatch: 'No lines match the search and filters.',
   filterLog: 'Filter the log',
   sectionFailed: 'This section could not be shown',
-  releaseNotes: 'Release notes',
   settingsEmpty: 'Nothing to set here right now.',
   resetSection: (changed: number) => `Reset section to defaults (${changed} changed)`,
   sectionAtDefaults: 'Section is already at its defaults',
   resetToDefaults: 'Reset to defaults',
   keepSettings: 'Keep current settings',
-  newProfile: 'New profile',
-  deleteNamed: (name: string) => `Delete ${name}`,
   disabled: 'Disabled',
   openSettings: 'Open Settings',
   overview: 'Overview',

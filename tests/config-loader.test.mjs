@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { afterAll, describe, expect, it } from 'vitest';
 import { findTesseraConfig, loadTesseraConfig } from '../scripts/config/index.mjs';
 import { posixPath } from '../scripts/config/posix-path.mjs';
-import { CONFIG, fixtureRepo } from './config-fixture.mjs';
+import { CONFIG, fixtureRepo, MONOREPO, WORKSPACES_CONFIG } from './config-fixture.mjs';
 
 const ROOT = posixPath(fileURLToPath(new URL('..', import.meta.url))).replace(/\/$/, '');
 const made = [];
@@ -73,6 +73,7 @@ describe('the resolved config', () => {
         compounds: [`${dir}/src/compounds`],
         views: [`${dir}/src/views`],
       },
+      layer: 'renderer-app',
       stories: `${dir}/stories`,
       theme: { css: `${dir}/src/theme.css` },
       ai: { usage: 'report', out: `${dir}/ai` },
@@ -112,6 +113,13 @@ describe('the resolved config', () => {
     expect(app.theme.css).toBe(`${dir}/apps/web/src/theme.css`);
     expect(app.parts.compounds).toEqual([`${dir}/src/compounds`]);
   });
+
+  it('takes the layer of the file, and the layer of an app inside its apps entry', () => {
+    const dir = repo({ ...MONOREPO, 'tessera.config.json': WORKSPACES_CONFIG });
+    expect(loadTesseraConfig(dir).layer).toBe('renderer-shell');
+    expect(loadTesseraConfig(join(dir, 'packages/input')).layer).toBe('renderer-shell');
+    expect(loadTesseraConfig(join(dir, 'apps/desktop/src')).layer).toBe('renderer-desktop');
+  });
 });
 
 describe('a broken tessera.config.json', () => {
@@ -127,6 +135,8 @@ describe('a broken tessera.config.json', () => {
     expect(errorOf(single({ parts: { views: ['src/views', 3] } }))).toContain('"parts.views[1]" is a whole number; it takes a string');
     expect(errorOf(single({ parts: { views: 3 } }))).toContain('"parts.views" is a whole number; it takes a string or a list');
     expect(errorOf(single({ stories: '' }))).toContain('"stories" is empty');
+    expect(errorOf(single({ layer: 'Renderer Shell' }))).toContain('"layer" is "Renderer Shell"; it takes text that matches');
+    expect(errorOf(single({ apps: { 'apps/web': { layer: 'renderer_web' } } }))).toContain('"apps[\'apps/web\'].layer" is "renderer_web"');
     expect(errorOf(single([]))).toContain('the file is a list; it takes an object');
   });
 

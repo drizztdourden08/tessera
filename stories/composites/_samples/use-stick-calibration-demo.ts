@@ -1,6 +1,7 @@
 /* @layer stories @kind hook */
 import { useEffect, useState } from 'react';
-import type { CalibrationPanelAction, StickPlotPoint, StickPlotRange } from '../../../src/composites';
+import type { StickPlotPoint, StickPlotRange } from '../../../src/composites';
+import type { CalibrationStepAction } from './CalibrationStep.type';
 import { stickAt } from './controller-motion';
 import type { StickMotion } from './controller-motion';
 import { useAnimationTime } from './use-animation-time';
@@ -43,7 +44,7 @@ const useStickCalibrationDemo = () => {
     setStep('range');
   };
 
-  const actions: Record<StickStep, CalibrationPanelAction> = {
+  const actions: Record<StickStep, CalibrationStepAction> = {
     center: { label: 'Record center', onClick: recordCenter },
     range: { label: 'Next', disabled: spanX < MIN_SPAN || spanY < MIN_SPAN, onClick: () => setStep('review') },
     review: { label: 'Save', onClick: reset },

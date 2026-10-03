@@ -2,7 +2,6 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { AboutPanel } from '../src/composites/AboutPanel';
 import { ErrorBoundary } from '../src/primitives/ErrorBoundary';
 import { LogPanel } from '../src/composites/LogPanel';
 import { Button } from '../src/primitives/Button';
@@ -16,7 +15,8 @@ import { Image } from '../src/primitives/Image';
 import { Portal } from '../src/primitives/Portal';
 import { portalDocumentFor } from '../src/primitives/Portal/behavior/portal-document-for';
 import { Spinner } from '../src/primitives/Spinner';
-import { TesseraProvider } from '../src/primitives/TesseraProvider';
+import { TesseraProvider, useCopy, useTesseraStrings } from '../src/primitives/TesseraProvider';
+import { TESSERA_STRINGS } from '../src/primitives/strings';
 import { Thumbnail } from '../src/primitives/Thumbnail';
 
 const { seen, recordClicks } = vi.hoisted(() => {
@@ -50,6 +50,10 @@ const AppCrash = ({ label, error, reset }) => h('p', { 'data-app-crash': typeof 
 const APP_ICONS = { ...ICONS, house: { body: '<path d="M0 0h1"/>', width: 1, height: 1 } };
 const STRINGS = { common: { loading: 'Chargement', cancel: 'Annuler' }, fields: { dropFiles: 'Deposez ici' } };
 const OVERRIDES = { spinner: AppSpinner };
+const CopyProbe = ({ text }) => {
+  const { copy } = useCopy();
+  return h(Button, { onClick: () => copy(text) }, 'Copy');
+};
 const draw = (overrides, ...children) => renderToString(h(TesseraProvider, { overrides }, ...children));
 
 describe('TesseraProvider spinner', () => {
@@ -87,12 +91,12 @@ describe('TesseraProvider spinner', () => {
 });
 
 describe('TesseraProvider clipboard, placeholders and wording', () => {
-  it('writes every copy button through the app clipboard writer', async () => {
+  it('writes every copy button and an app useCopy through the app clipboard writer', async () => {
     const written = [];
     seen.clicks.length = 0;
     draw({ writeText: (text) => { written.push(text); } },
       h(CodeBlock, { code: 'pnpm build', language: 'text', copyable: true }),
-      h(AboutPanel, { title: 'Brock', rows: [], copyText: 'Brock 1.4.0' }),
+      h(CopyProbe, { text: 'Brock 1.4.0' }),
       h(LogPanel, { rows: [], copyText: () => 'log text' }));
     await Promise.all(seen.clicks.filter(Boolean).map((click) => click()));
     expect(written.sort()).toEqual(['Brock 1.4.0', 'log text', 'pnpm build']);
@@ -112,6 +116,15 @@ describe('TesseraProvider clipboard, placeholders and wording', () => {
     expect(html).toContain('app-spinner');
     expect(html).toContain('Deposez ici');
     expect(renderToString(h(DropZone, { onDrop: () => undefined }))).toContain('Drop files here');
+  });
+
+  it('hands an app part every group of the table, panels included, with the overrides merged in', () => {
+    const PanelWords = () => {
+      const { common, panels } = useTesseraStrings();
+      return h('p', null, `${panels.copyAll} ${panels.newest} ${common.cancel}`);
+    };
+    expect(renderToString(h(PanelWords))).toContain(`${TESSERA_STRINGS.panels.copyAll} Newest Cancel`);
+    expect(draw({ strings: { panels: { copyAll: 'Tout copier' } } }, h(PanelWords))).toContain('Tout copier Newest Cancel');
   });
 
 });
