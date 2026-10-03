@@ -9,11 +9,9 @@
 
 .filter-bar .filter-bar__search {
   flex: 1 1 var(--open-entry-width);
+  width: auto;
   min-width: var(--open-entry-width);
   align-self: flex-end;
-  height: var(--control-h-sm);
-  padding: 0 var(--space-sm);
-  font-size: var(--text-sm);
 }
 
 .filter-bar__facet-trigger {

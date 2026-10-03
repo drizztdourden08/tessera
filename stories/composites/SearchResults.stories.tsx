@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { SearchResults } from '../../src/composites';
 import type { SearchResultsGroupHeading } from '../../src/composites';
-import { Box, Icon, Text, TextInput } from '../../src/primitives';
+import { Box, Icon, SearchInput, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { matchHub } from './_samples/hub';
@@ -24,7 +24,7 @@ const FlatDemo = (props: ResultsArgs) => {
   const hits = useMemo(() => matchHub(query), [query]);
   return (
     <Box className="story-column">
-      <TextInput value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search this hub" aria-label="Search this hub" />
+      <SearchInput value={query} onChange={setQuery} placeholder="Search this hub" aria-label="Search this hub" />
       <Box className="search-results-story__frame">
         <SearchResults query={query} count={hits.length} hits={hits} onOpenHit={(hit) => setOpened(hit.label)} framed={framed} idleMessage={idleMessage} />
       </Box>

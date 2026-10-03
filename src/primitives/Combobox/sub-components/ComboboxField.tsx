@@ -1,13 +1,12 @@
 /* @layer renderer-components @kind component */
 import { Glyph } from '../../Glyph';
-import { IconButton } from '../../IconButton';
+import { InputAdornmentView } from '../../field-control/InputAdornmentView';
 import { ListboxValue } from '../../listbox/ListboxValue';
 import { Spinner } from '../../Spinner';
 import { Span } from '../../text-elements';
 import { Tag } from '../../Tag';
 import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { comboboxClass } from '../behavior/combobox-class';
-import { CLEAR_BUTTON_SIZES } from '../Combobox.constants';
 import { fieldPress } from '../behavior/field-press';
 import { ComboboxInput } from './ComboboxInput';
 import type { ComboboxFieldProps } from './ComboboxField.type';
@@ -46,9 +45,12 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
       <ComboboxInput box={box} look={look} />
       {look.loading === true && <Spinner size="sm" className="combobox__spinner" />}
       {clearable && (
-        <IconButton className="combobox__clear" variant="ghost" size={CLEAR_BUTTON_SIZES[field.size]} type="button" label={fields.clear} tabIndex={-1} onClick={box.clear}>
-          <Glyph name="close" />
-        </IconButton>
+        <InputAdornmentView
+          className="combobox__clear"
+          adornment={{ icon: <Glyph name="close" />, label: fields.clear, onClick: box.clear }}
+          size={field.size}
+          focusable={false}
+        />
       )}
       <Glyph name="chevronDown" className="combobox__chevron" />
     </div>

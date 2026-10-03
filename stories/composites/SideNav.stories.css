@@ -19,3 +19,8 @@
   gap: 0;
   padding: 0;
 }
+
+.side-nav-story__lead {
+  display: flex;
+  height: 17rem;
+}

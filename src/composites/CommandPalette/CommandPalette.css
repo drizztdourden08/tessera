@@ -70,7 +70,8 @@
   flex: none;
   gap: var(--space-sm);
   align-items: center;
-  padding: var(--space-md) var(--space-lg);
+  padding-block: var(--space-md);
+  padding-inline: var(--space-sm) var(--space-lg);
   border-bottom: var(--border-width-thin) solid var(--c-hairline);
 }
 
@@ -80,15 +81,15 @@
   pointer-events: none;
 }
 
-.command-palette__input-icon {
-  flex: none;
-  color: var(--c-text-muted);
+.command-palette .command-palette__input {
+  --control-height: var(--size-32);
+
+  flex: 1;
 }
 
-.command-palette .command-palette__input,
-.command-palette .command-palette__input:focus {
-  flex: 1;
-  padding: 0;
+.command-palette .command-palette__input > .text-input,
+.command-palette .command-palette__input > .text-input:focus {
+  padding-block: 0;
   border: none;
   background: transparent;
   box-shadow: none;

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { TextInput } from '../../primitives/TextInput';
+import { SearchInput } from '../../primitives/SearchInput';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { FacetPicker } from './sub-components/FacetPicker';
 import { FilterClauseList } from './sub-components/FilterClauseList';
@@ -16,12 +16,12 @@ const FilterBar = (props: FilterBarProps) => {
 
   return (
     <Box className={`filter-bar${className ? ` ${className}` : ''}`}>
-      <TextInput
-        type="text"
+      <SearchInput
+        size="sm"
         className="filter-bar__search"
         placeholder={searchPlaceholder ?? common.searchPlaceholder}
         value={search}
-        onChange={(e) => onSearchChange(e.target.value)}
+        onChange={onSearchChange}
         aria-label={searchLabel ?? common.search}
       />
       {schema !== undefined && clauses !== undefined && onChange !== undefined && (

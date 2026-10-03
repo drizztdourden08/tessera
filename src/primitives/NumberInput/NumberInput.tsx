@@ -4,11 +4,12 @@ import '../../theme/field-surface.css';
 import './NumberInput.css';
 import { preventTextSelection } from '../dom/prevent-text-selection';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
+import { InputAdornmentSlot } from '../field-control/InputAdornmentSlot';
 import { useControlSize } from '../field-control/useControlSize';
 import { Glyph } from '../Glyph';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
-import type { CSSProperties } from 'react';
 import type { NumberInputProps } from './NumberInput.type';
+import { columnVars } from './behavior/column-vars';
 import { digitColumns } from './behavior/digit-columns';
 import { toNumber } from './behavior/to-number';
 import { SPIN_GLYPH_SIZES } from './NumberInput.constants';
@@ -16,13 +17,14 @@ import { SPIN_GLYPH_SIZES } from './NumberInput.constants';
 const NumberInput = (props: NumberInputProps) => {
   const {
     onChange, className = '', value, min, max, step, disabled = false, sizeToContent = false,
-    invalid, size, id, 'aria-describedby': ownDescribedBy, ...rest
+    invalid, size, start, end, id, 'aria-describedby': ownDescribedBy, ...rest
   } = props;
   const control = useFieldControl(id, ownDescribedBy);
   const controlSize = useControlSize(size);
   const glyphSize = SPIN_GLYPH_SIZES[controlSize];
   const { fields } = useTesseraStrings();
   const isInvalid = invalid ?? control.invalid ?? false;
+  const locked = disabled || rest.readOnly === true;
 
   const stepBy = (dir: 1 | -1): void => {
     const stepN = toNumber(step) ?? 1;
@@ -36,15 +38,13 @@ const NumberInput = (props: NumberInputProps) => {
   };
 
   const columns = digitColumns(sizeToContent, max, step);
-  const sizingVars = columns === undefined
-    ? undefined
-    : ({ '--number-input-columns': String(columns) } as CSSProperties);
 
   return (
     <div
       className={`number-input control-size--${controlSize} ${columns === undefined ? '' : 'number-input--auto'} ${disabled ? 'number-input--disabled' : ''} ${className}`}
-      style={sizingVars}
+      style={columnVars(columns)}
     >
+      <InputAdornmentSlot className="number-input__slot" adornment={start} size={controlSize} disabled={locked} />
       <input
         type="number"
         className="number-input__field"
@@ -59,6 +59,7 @@ const NumberInput = (props: NumberInputProps) => {
         aria-invalid={isInvalid ? true : undefined}
         {...rest}
       />
+      <InputAdornmentSlot className="number-input__slot" adornment={end} size={controlSize} disabled={locked} />
       <div className="number-input__spin">
         <button type="button" className="number-input__btn" tabIndex={-1} aria-label={fields.increment} disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(1)}>
           <Glyph name="chevronUp" size={glyphSize} strokeWidth={2} />

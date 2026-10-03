@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { TextInput } from '../../TextInput';
+import { SearchInput } from '../../SearchInput';
 import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import type { SelectSearchProps } from './SelectSearch.type';
 
@@ -11,19 +11,17 @@ const SelectSearch = <T,>(props: SelectSearchProps<T>) => {
 
   return (
     <div className="select-search">
-      <TextInput
+      <SearchInput
         ref={select.searchRef}
         id={`${model.listId}-search`}
         className="select-search__input"
-        type="text"
-        placeholder={common.searchPlaceholder}
-        autoComplete="off"
+        size="sm"
         aria-label={common.search}
         aria-autocomplete="list"
         aria-controls={model.listId}
         aria-activedescendant={activeId}
         value={select.search}
-        onChange={(event) => select.setSearch(event.target.value)}
+        onChange={select.setSearch}
         onKeyDown={select.onKeyDown}
       />
     </div>

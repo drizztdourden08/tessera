@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { ListItemRow, WindowHeader } from '../../../src/composites';
-import { Badge, Box, Button, ButtonRow, Checkbox, Field, Icon, Select, StatRow, Text, TextInput, Toggle } from '../../../src/primitives';
+import { Badge, Box, Button, ButtonRow, Checkbox, Field, Icon, SearchInput, Select, StatRow, Text, Toggle } from '../../../src/primitives';
 import { FILE_FACTS, FILE_STATUSES, NOTICES, RECENT_SEARCHES, SORT_OPTIONS } from './drawer-data';
 import type { SampleNotice } from './drawer-data';
 
@@ -73,7 +73,7 @@ const SearchSheetBody = () => {
   const [query, setQuery] = useState('');
   return (
     <Box className="drawer-story__panel">
-      <TextInput autoFocus aria-label="Search files" placeholder="Search files" value={query} onChange={(e) => setQuery(e.target.value)} />
+      <SearchInput autoFocus aria-label="Search files" placeholder="Search files" value={query} onChange={setQuery} />
       <Text className="story-label">Recent searches</Text>
       {RECENT_SEARCHES.map((recent) => (
         <Button key={recent} variant="ghost" onClick={() => setQuery(recent)}>{recent}</Button>

@@ -910,6 +910,16 @@
       "usage": false
     },
     {
+      "name": "SearchInput",
+      "tier": "primitives",
+      "source": "src/primitives/SearchInput/SearchInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
       "name": "SectionHeader",
       "tier": "primitives",
       "source": "src/primitives/SectionHeader/SectionHeader.tsx",

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 0 of 136 have their usage written; a linked name opens its page.
+One line per component. 0 of 137 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -46,6 +46,7 @@ One line per component. 0 of 136 have their usage written; a linked name opens i
 - `RouterLink`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ScaleLabels`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ScrollArea`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `SearchInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SectionHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SegmentedControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Select`: usage not written yet. Import from `@drizztdourden08/tessera`.

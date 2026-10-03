@@ -555,6 +555,9 @@
       "hash": "48560bb3c24e512c",
       "at": "2026-10-01"
     },
+    "SearchInput": {
+      "status": "new"
+    },
     "Textarea": {
       "status": "ok",
       "hash": "a60d887499b93c2e",

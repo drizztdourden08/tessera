@@ -62,6 +62,7 @@
 }
 
 :is(.select, .select-trigger, .text-input, .textarea):hover:not(:disabled, :focus, [readonly], [aria-invalid='true'], .select-trigger--open),
+.text-input-frame:hover > .text-input:not(:disabled, :focus, [readonly], [aria-invalid='true']),
 :is(.number-input, .stepper, .combobox):hover:not(:focus-within, :has([aria-invalid='true'])) {
   border-color: color-mix(in oklab, var(--c-border-strong), var(--c-text-muted));
 }

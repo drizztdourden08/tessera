@@ -80,6 +80,26 @@ const Sizing = {
   render: () => <Demonstrator rows={axis(Object.keys(SIZINGS))} align="stretch" cell={(row) => SIZINGS[row]} />,
 } satisfies StoryLiteStoryDefinition<NumberInputArgs>;
 
+const TurnTimer = (props: { size: ControlSize }) => {
+  const { size } = props;
+  const [seconds, setSeconds] = useState(45);
+  return (
+    <NumberInput
+      value={Number.isNaN(seconds) ? '' : seconds}
+      min={5}
+      max={300}
+      step={5}
+      size={size}
+      aria-label="Turn timer, seconds"
+      start={{ icon: 'clock' }}
+      end={{ icon: 'rotate-ccw', label: 'Reset to 45 seconds', onClick: () => setSeconds(45) }}
+      onChange={setSeconds}
+    />
+  );
+};
+
+const Icons = { ...sizesStory<NumberInputArgs>((size) => <TurnTimer size={size} />), name: 'Icons at either end' };
+
 const Sizes = sizesStory<NumberInputArgs>((size) => <StatefulNumber initial={25} min={0} max={100} step={5} sizeToContent size={size} />);
 
 const HintCost = (props: { initial: number; disabled?: boolean }) => {
@@ -107,9 +127,9 @@ const [cost, setCost] = useState(25);
 
 const Overview = overviewStory({
   component: 'NumberInput',
-  description: 'A number field with its own step up and step down buttons. Use it for a count, a cost or a speed, where typing a value and nudging it both make sense. The buttons move by step and stop at min and max, onChange hands back a number (NaN when the field is cleared), sizeToContent narrows the field to the widest value max allows, size picks md, the standard control height, or the compact sm, and invalid, or a Field with an error, draws the error look.',
+  description: 'A number field with its own step up and step down buttons. Use it for a count, a cost or a speed, where typing a value and nudging it both make sense. The buttons move by step and stop at min and max, onChange hands back a number (NaN when the field is cleared), sizeToContent narrows the field to the widest value max allows, size picks md, the standard control height, or the compact sm, start and end put an icon at either end, a button when it has onClick, and invalid, or a Field with an error, draws the error look.',
   playground: Playground,
-  variants: [Sizing, Sizes],
+  variants: [Sizing, Sizes, Icons],
   states: {
     render: renderState,
     list: [
@@ -124,4 +144,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Playground, Sizes, Sizing };
+export { Icons, Overview, Playground, Sizes, Sizing };

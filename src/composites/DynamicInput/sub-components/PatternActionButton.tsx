@@ -1,8 +1,7 @@
 /* @layer renderer-components @kind component */
-import { Icon } from '../../../primitives/Icon';
-import { IconButton } from '../../../primitives/IconButton';
-import { isIconName } from '../behavior/is-icon-name';
-import { ACTION_SIZES, FALLBACK_ACTION_ICON, ICON_SIZES } from '../DynamicInput.constants';
+import { isIconName } from '../../../primitives/Icon/behavior/is-icon-name';
+import { InputAdornmentView } from '../../../primitives/field-control/InputAdornmentView';
+import { FALLBACK_ACTION_ICON } from '../DynamicInput.constants';
 import type { AdornmentProps } from './PatternAdornment.type';
 
 const PatternActionButton = (props: AdornmentProps) => {
@@ -12,15 +11,12 @@ const PatternActionButton = (props: AdornmentProps) => {
   const icon = action.icon ?? (isIconName(name) ? name : FALLBACK_ACTION_ICON);
 
   return (
-    <IconButton
+    <InputAdornmentView
       className="dynamic-input__action"
-      size={ACTION_SIZES[field.size]}
-      label={action.label}
+      adornment={{ icon, label: action.label, onClick: () => action.onPress(field.value) }}
+      size={field.size}
       disabled={field.disabled || action.disabled === true}
-      onClick={() => action.onPress(field.value)}
-    >
-      <Icon name={icon} size={ICON_SIZES[field.size]} />
-    </IconButton>
+    />
   );
 };
 

@@ -1,0 +1,43 @@
+/* @layer renderer-components @kind style */
+.text-input-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.text-input-frame > .text-input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.text-input-frame--start > .text-input {
+  padding-inline-start: var(--control-height);
+}
+
+.text-input-frame--end > .text-input {
+  padding-inline-end: var(--control-height);
+}
+
+.text-input-frame__slot {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-height);
+  pointer-events: none;
+}
+
+.text-input-frame__slot--start {
+  inset-inline-start: 0;
+}
+
+.text-input-frame__slot--end {
+  inset-inline-end: 0;
+}
+
+.text-input-frame:has(> .text-input:disabled) > .text-input-frame__slot > .input-adornment:not(.input-adornment--action) {
+  opacity: var(--opacity-disabled);
+}

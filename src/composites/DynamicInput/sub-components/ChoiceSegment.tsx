@@ -8,7 +8,7 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import { segmentClass } from '../behavior/segment-class';
 import { slotLabel } from '../behavior/slot-label';
 import { useChoiceSegment } from '../behavior/useChoiceSegment';
-import { ICON_SIZES } from '../DynamicInput.constants';
+import { ADORNMENT_ICON_SIZES } from '../../../primitives/field-control/input-adornment.constants';
 import { ChoiceFace } from './ChoiceFace';
 import { SlotPopover } from './SlotPopover';
 import type { SegmentProps } from './TypedSegment.type';
@@ -44,7 +44,7 @@ const ChoiceSegment = (props: SegmentProps) => {
         onClick={choice.handleClick}
       >
         <ChoiceFace field={field} slot={slot} choice={choice.selected} />
-        <Icon name="chevron-down" size={ICON_SIZES[field.size]} className="dynamic-input__caret" />
+        <Icon name="chevron-down" size={ADORNMENT_ICON_SIZES[field.size]} className="dynamic-input__caret" />
       </Pressable>
       {open && (
         <SlotPopover field={field} anchorRef={anchorRef} variant="list">

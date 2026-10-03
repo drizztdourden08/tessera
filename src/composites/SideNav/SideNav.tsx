@@ -4,6 +4,7 @@ import { Pressable } from '../../primitives/Pressable';
 import { Icon } from '../../primitives/Icon';
 import { Span } from '../../primitives/text-elements';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { leadRow } from './behavior/lead-row';
 import { navClassName } from './behavior/nav-class-name';
 import { usePanelOpen } from './behavior/usePanelOpen';
 import { SideNavItem } from './sub-components/SideNavItem';
@@ -19,9 +20,10 @@ const SideNav = (props: SideNavProps) => {
   const { navigation } = useTesseraStrings();
   const rail = variant === 'rail';
   const { navRef, toggleRef, open, floating, toggle, openPanel, select } = usePanelOpen({ rail, collapsed, defaultOpen, overlay, onSelect });
+  const classes = navClassName({ variant, open, overlay: floating, lead: leadRow(config, search, open), className });
 
   return (
-    <Box as="nav" ref={navRef} className={navClassName(variant, open, floating, className)} aria-label={ariaLabel ?? navigation.sections}>
+    <Box as="nav" ref={navRef} className={classes} aria-label={ariaLabel ?? navigation.sections}>
       <Box className="side-nav__panel">
         {!rail && (
           <Pressable

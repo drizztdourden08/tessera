@@ -36,6 +36,9 @@ export type { StepperProps } from './Stepper';
 export { DropZone } from './DropZone';
 export type { DropZoneProps, DropZoneVariant } from './DropZone';
 export { TextInput } from './TextInput';
+export type { TextInputProps } from './TextInput';
+export { SearchInput } from './SearchInput';
+export type { SearchInputProps } from './SearchInput';
 export { Textarea } from './Textarea';
 export type { TextareaProps, TextareaResize } from './Textarea';
 export { Select, NativeSelect } from './Select';
@@ -81,6 +84,9 @@ export { FieldControlBoundary } from './FieldControlBoundary';
 export type { FieldProps } from './Field';
 export { useControlSize } from './field-control/useControlSize';
 export type { ControlSize } from './field-control/field-control.type';
+export type {
+  InputAdornment, InputAdornmentAction, InputAdornmentIcon, InputAdornmentMark,
+} from './field-control/input-adornment.type';
 export { NumberInput } from './NumberInput';
 export type { NumberInputProps } from './NumberInput';
 export { Checkbox } from './Checkbox';

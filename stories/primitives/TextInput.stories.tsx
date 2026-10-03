@@ -4,10 +4,12 @@ import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Field, TextInput, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
+import { CONTROL_SIZES } from '../_template/control-sizes.constants';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { ICON_CASES, iconCase } from './_samples/text-input-icons';
 
 type InputType = 'text' | 'password' | 'email' | 'search';
 
@@ -72,6 +74,13 @@ const Types = {
   ),
 } satisfies StoryLiteStoryDefinition<TextInputArgs>;
 
+const Icons = {
+  name: 'Icons at either end',
+  render: () => (
+    <Demonstrator rows={axis(ICON_CASES)} columns={axis(CONTROL_SIZES)} align="stretch" cell={(row, size) => iconCase(row, size)} />
+  ),
+} satisfies StoryLiteStoryDefinition<TextInputArgs>;
+
 const Sizes = sizesStory<TextInputArgs>((size) => <TextInput size={size} defaultValue="Link" />, { align: 'stretch' });
 
 const InField = {
@@ -93,9 +102,9 @@ const renderError = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TextInput',
-  description: 'A single-line text field, the styled replacement for a raw input. Use it for names, addresses, search terms and passwords. size md is the standard control height and sm the compact one. It takes every native input attribute, including type, placeholder, disabled and readOnly, and forwards its ref. Set invalid for the error look, or wrap it in a Field with an error: the field sets invalid for it and shows the message.',
+  description: 'A single-line text field, the styled replacement for a raw input. Use it for names, addresses, search terms and passwords. size md is the standard control height and sm the compact one. It takes every native input attribute, including type, placeholder, disabled and readOnly, and forwards its ref. Set invalid for the error look, or wrap it in a Field with an error: the field sets invalid for it and shows the message. start and end put an icon at either end, sized to the control. An icon with onClick becomes a button that needs a label, such as a password reveal or a copy button, and a disabled or read-only field disables it. With an icon set, the input sits in a frame that takes className. For a search field, reach for SearchInput.',
   playground: Playground,
-  variants: [Types, Sizes, InField],
+  variants: [Types, Icons, Sizes, InField],
   states: {
     render: renderState,
     list: [
@@ -111,4 +120,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { InField, Overview, Playground, Sizes, Types };
+export { Icons, InField, Overview, Playground, Sizes, Types };

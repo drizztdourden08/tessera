@@ -60,3 +60,19 @@
   cursor: default;
   opacity: 0.4;
 }
+
+.number-input__slot {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-height);
+}
+
+.number-input__slot + .number-input__field {
+  padding-inline-start: 0;
+}
+
+.number-input__field:has(+ .number-input__slot) {
+  padding-inline-end: 0;
+}

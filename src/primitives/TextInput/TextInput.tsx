@@ -1,26 +1,41 @@
 /* @layer renderer-components @kind component */
 import { forwardRef } from 'react';
+import { Box } from '../Box';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
+import { InputAdornmentSlot } from '../field-control/InputAdornmentSlot';
 import { useControlSize } from '../field-control/useControlSize';
 import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
+import './TextInput.css';
+import { frameClass } from './behavior/frame-class';
 import { type TextInputProps } from './TextInput.type';
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
-  const { className = '', id, invalid, size, 'aria-describedby': ownDescribedBy, ...rest } = props;
+  const { className = '', id, invalid, size, start, end, 'aria-describedby': ownDescribedBy, ...rest } = props;
   const control = useFieldControl(id, ownDescribedBy);
   const controlSize = useControlSize(size);
   const isInvalid = invalid ?? control.invalid ?? false;
+  const framed = start !== undefined || end !== undefined;
+  const locked = rest.disabled === true || rest.readOnly === true;
 
-  return (
+  const input = (
     <input
       ref={ref}
-      className={`text-input control-size--${controlSize} ${className}`}
+      className={framed ? 'text-input' : `text-input control-size--${controlSize} ${className}`}
       id={control.id}
       aria-describedby={control.describedBy}
       aria-invalid={isInvalid ? true : undefined}
       {...rest}
     />
+  );
+  if (!framed) return input;
+
+  return (
+    <Box as="span" className={frameClass({ size: controlSize, start: start !== undefined, end: end !== undefined, className })}>
+      <InputAdornmentSlot className="text-input-frame__slot text-input-frame__slot--start" adornment={start} size={controlSize} disabled={locked} />
+      {input}
+      <InputAdornmentSlot className="text-input-frame__slot text-input-frame__slot--end" adornment={end} size={controlSize} disabled={locked} />
+    </Box>
   );
 });
 

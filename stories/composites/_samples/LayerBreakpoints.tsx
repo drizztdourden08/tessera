@@ -1,10 +1,9 @@
 /* @layer stories @kind component */
 import { FloatingSwitch, FullScreenLayer, ListItemRow } from '../../../src/composites';
-import { Box, Text } from '../../../src/primitives';
+import { Box, Span, Text } from '../../../src/primitives';
 import { LAYER_BREAKPOINTS } from './layer-breakpoints';
+import { LAYER_WINDOWS } from './layer-windows';
 import { SESSIONS, STATUS_LABEL } from './sessions';
-
-const SWITCH = [{ id: 'sessions', label: 'Sessions' }, { id: 'players', label: 'Players' }];
 
 const LayerBreakpoints = () => (
   <Box className="full-screen-layer-story__tiers">
@@ -16,7 +15,7 @@ const LayerBreakpoints = () => (
             <FullScreenLayer
               title="Sessions"
               onClose={() => undefined}
-              floating={<FloatingSwitch items={SWITCH} activeId="sessions" onSelect={() => undefined} label="Switch window" />}
+              floating={<FloatingSwitch items={LAYER_WINDOWS} activeId="sessions" onSelect={() => undefined} label="Switch window" />}
             >
               <Box className="full-screen-layer-story__body">
                 {SESSIONS.map((s) => <ListItemRow key={s.id} name={s.name} meta={`${STATUS_LABEL[s.status]}, ${s.players} players`} />)}
@@ -24,7 +23,7 @@ const LayerBreakpoints = () => (
             </FullScreenLayer>
           </Box>
         </Box>
-        <Text tone="muted">{tier.rule}</Text>
+        <Span tone="muted">{tier.rule}</Span>
       </Box>
     ))}
   </Box>

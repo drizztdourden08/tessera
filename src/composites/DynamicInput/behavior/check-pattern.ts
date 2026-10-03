@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { isIconName } from './is-icon-name';
+import { isIconName } from '../../../primitives/Icon/behavior/is-icon-name';
 import { PATTERN_PROBLEMS } from './pattern-problems.constants';
 import type { ParsedPattern, PatternPart, PatternSlotSpec } from './parse-pattern.type';
 import type { PatternSetup } from '../DynamicInput.type';

@@ -48,17 +48,7 @@
   border-bottom: var(--border-width-thin) solid var(--c-border);
 }
 
-.text-input.select-search__input {
-  width: 100%;
-  padding: var(--space-xs) var(--space-sm);
-  color: var(--c-text);
-  font-size: var(--text-sm);
+.select-search__input > .text-input {
   background: var(--c-inset);
-  border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-sm);
-  outline: none;
-}
-
-.text-input.select-search__input:focus {
-  border-color: var(--c-primary);
 }

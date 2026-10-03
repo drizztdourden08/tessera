@@ -1,9 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { PathIcon } from '../../../primitives/PathIcon';
+import { SearchInput } from '../../../primitives/SearchInput';
 import { Small } from '../../../primitives/text-elements';
-import { TextInput } from '../../../primitives/TextInput';
-import { SEARCH_ICON_PATHS } from '../../SearchSpark';
 import type { CommandPaletteInputProps } from './CommandPaletteInput.type';
 
 const CommandPaletteInput = (props: CommandPaletteInputProps) => {
@@ -11,14 +9,13 @@ const CommandPaletteInput = (props: CommandPaletteInputProps) => {
 
   return (
     <Box className="command-palette__input-row">
-      <PathIcon paths={SEARCH_ICON_PATHS} size={16} className="command-palette__input-icon" aria-hidden />
-      <TextInput
+      <SearchInput
         ref={inputRef}
         className="command-palette__input"
         placeholder={placeholder}
         aria-label={placeholder}
         value={value}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={onChange}
         onKeyDown={onKeyDown}
         role="combobox"
         aria-expanded

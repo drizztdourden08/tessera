@@ -1045,3 +1045,68 @@ The default pane names in the string table change from `navigation.leftPane` and
 ```
 
 The SplitPane page shows a file list beside a preview and an editor above its console, and tells the viewer to drag the divider.
+
+## 49. TextInput takes an icon at either end; SearchInput is a primitive; the SideNav chevron lines up with the first row
+
+`TextInput` and `NumberInput` take `start` and `end`. Each holds one icon, sized to the control: 16 pixels at md and 14 at sm. An icon with `onClick` becomes a real button, which needs a `label`; the types refuse one without it. The button has the hover and focus look of a ghost `IconButton`, it does not take the focus from the input on a mouse click, and a disabled or read-only input disables it. The slots use logical properties, so `start` is on the right in right to left.
+
+```ts
+type InputAdornmentIcon = IconName | Exclude<ReactNode, string>;
+
+type InputAdornment =
+  | { icon: InputAdornmentIcon; label?: string; onClick?: never } // drawn only; a label names it for a screen reader
+  | { icon: InputAdornmentIcon; label: string; onClick: () => void }; // a button
+
+interface TextInputProps {
+  start?: InputAdornment;
+  end?: InputAdornment;
+}
+
+interface NumberInputProps {
+  start?: InputAdornment;
+  end?: InputAdornment; // before the step buttons
+}
+```
+
+With `start` or `end` set, `TextInput` draws a `.text-input-frame` span around the input, and `className` goes on that frame; the ref and every other prop still go on the input. With neither, it is the bare input it was. `TextInputProps`, `InputAdornment`, `InputAdornmentAction`, `InputAdornmentMark` and `InputAdornmentIcon` are exported.
+
+```tsx
+<TextInput
+  type={shown ? 'text' : 'password'}
+  start={{ icon: 'lock' }}
+  end={{ icon: shown ? 'eye-off' : 'eye', label: shown ? 'Hide password' : 'Show password', onClick: toggle }}
+/>
+```
+
+`SearchInput` is the search field, built on `TextInput`: a search icon at the start, `type="search"`, and a clear button at the end once there is a query. The clear button and Escape empty the query and keep the focus in the field. A host that handles Escape itself calls `preventDefault` to keep the query, as `CommandPalette` does to close. The placeholder is `common.searchPlaceholder` and the accessible name `common.search` unless the host passes its own or a `Field` labels it; the clear button reads `navigation.clearSearch`. `start` swaps the search icon for another mark.
+
+```ts
+interface SearchInputProps extends Omit<TextInputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'start' | 'end'> {
+  value: string;
+  onChange: (value: string) => void; // the query, not the event
+  start?: InputAdornment;            // default { icon: 'search' }
+}
+```
+
+```tsx
+const [query, setQuery] = useState('');
+
+<SearchInput value={query} onChange={setQuery} placeholder="Search game presets" />
+```
+
+Every search field in Tessera is now a `SearchInput`, with the same behaviour:
+
+| Host | What changed |
+|---|---|
+| `SideNav` search | the open field is a `SearchInput` with the search mark at the start; the closed nav still shows the mark as a button. `.side-nav__search-input` is on the frame |
+| `CommandPalette` | the input row is a `SearchInput`; `.command-palette__input-icon` is gone and `.command-palette__input` is on the frame |
+| `FilterBar`, and `LogPanel` through it | the search is a `SearchInput` at sm; `.filter-bar__search` is on the frame |
+| `Select` with `searchable` | the search box is a `SearchInput` at sm; `.select-search__input` is on the frame |
+
+The other icons drawn inside an input now come from the same place. The `Combobox` clear button and the `[icon:name]` and `[action:name]` parts of a `DynamicInput` pattern draw through the shared adornment, so their sizes match the control. A `Combobox` filters in its own field and has no separate search box, so it stays as it is.
+
+A host stylesheet that styled one of the classes above as the input now styles the input inside it, for example `.select-search__input > .text-input`. The `.side-nav__search-clear` class is gone; the clear button is the `SearchInput` one.
+
+The `SideNav` chevron now sits level with the first row the nav shows: the search field, the Home item, the first group label when the nav is open, or the first item. The nav carries `side-nav--lead-search`, `side-nav--lead-item` or `side-nav--lead-label` to say which. The search field is as tall as an item, so it lines up closed and open. The nav column has the same space above the first row and below the last: the bottom padding of `.side-nav__groups` drops from md to sm, and the rail no longer adds an extra sm above its first group.
+
+The SearchInput page shows the sizes, the clear button, a disabled field and a list filtered as you type. The TextInput page shows a decorative icon, a password reveal and a copy button at both sizes. The SideNav page shows the chevron beside each kind of first row, closed and open, including a nav with one item.

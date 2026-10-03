@@ -1,0 +1,5 @@
+/* @layer renderer-components @kind style */
+.search-input > .text-input::-webkit-search-cancel-button,
+.search-input > .text-input::-webkit-search-decoration {
+  appearance: none;
+}

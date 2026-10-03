@@ -2,11 +2,10 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { FloatingSwitch, FullScreenLayer, ListItemRow } from '../../src/composites';
-import type { FloatingSwitchItem } from '../../src/composites';
-import { Box, Button, Icon, Text } from '../../src/primitives';
+import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { LayerBreakpoints } from './_samples/LayerBreakpoints';
-import { NAV_ICONS } from './_samples/nav';
+import { LAYER_WINDOWS } from './_samples/layer-windows';
 import { PLAYERS, SESSIONS, STATUS_LABEL } from './_samples/sessions';
 import './FullScreenLayer.stories.css';
 
@@ -16,11 +15,6 @@ type LayerArgs = {
   withExtra: boolean;
   withFloating: boolean;
 };
-
-const WINDOWS: FloatingSwitchItem[] = [
-  { id: 'sessions', label: 'Sessions', icon: <Icon name={NAV_ICONS.sessions} /> },
-  { id: 'players', label: 'Players', icon: <Icon name={NAV_ICONS.players} /> },
-];
 
 const SessionList = () => (
   <Box className="full-screen-layer-story__body">
@@ -52,7 +46,7 @@ const LayerDemo = (props: LayerArgs) => {
   const [hidden, setHidden] = useState(false);
   const [view, setView] = useState('sessions');
   const floating = withFloating
-    ? <FloatingSwitch items={WINDOWS} activeId={view} onSelect={setView} label="Switch window" />
+    ? <FloatingSwitch items={LAYER_WINDOWS} activeId={view} onSelect={setView} label="Switch window" />
     : undefined;
   const viewTitle = view === 'sessions' ? 'Sessions' : 'Players';
   return (

@@ -2,8 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Pressable } from '../../../primitives/Pressable';
-import { Icon } from '../../../primitives/Icon';
-import { TextInput } from '../../../primitives/TextInput';
+import { SearchInput } from '../../../primitives/SearchInput';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { SearchSpark } from '../../SearchSpark';
 import { SEARCH_MARK_SIZE } from '../SideNav.constants';
@@ -12,7 +11,7 @@ import './SideNavSearch.css';
 
 const SideNavSearch = (props: SideNavSearchProps) => {
   const { search, open, onOpen } = props;
-  const { common, navigation } = useTesseraStrings();
+  const { common } = useTesseraStrings();
   const inputRef = useRef<HTMLInputElement>(null);
   const focusWhenOpen = useRef(false);
 
@@ -21,39 +20,28 @@ const SideNavSearch = (props: SideNavSearchProps) => {
     focusWhenOpen.current = false;
   }, [open]);
 
-  const handleMark = () => {
-    if (open) {
-      inputRef.current?.focus();
-      return;
-    }
+  const openAndFocus = () => {
     focusWhenOpen.current = true;
     onOpen();
   };
 
   return (
     <Box className={`side-nav__search${open ? ' side-nav__search--open' : ''}`}>
-      {open && (
-        <TextInput
+      {open ? (
+        <SearchInput
           ref={inputRef}
           className="side-nav__search-input"
-          type="text"
-          role="searchbox"
-          enterKeyHint="search"
           value={search.value}
+          onChange={search.onChange}
           placeholder={search.placeholder}
           aria-label={search.placeholder}
-          onChange={(e) => search.onChange(e.target.value)}
+          start={{ icon: <SearchSpark size={SEARCH_MARK_SIZE} /> }}
           onFocus={() => search.onFocusChange?.(true)}
           onBlur={() => search.onFocusChange?.(false)}
-          onKeyDown={(e) => { if (e.key === 'Escape') search.onChange(''); }}
         />
-      )}
-      <Pressable className="side-nav__search-mark" onClick={handleMark} title={common.search} aria-label={common.search}>
-        <SearchSpark size={SEARCH_MARK_SIZE} />
-      </Pressable>
-      {open && search.value && (
-        <Pressable className="side-nav__search-clear" onClick={() => search.onChange('')} aria-label={navigation.clearSearch}>
-          <Icon name="x" size={14} />
+      ) : (
+        <Pressable className="side-nav__search-mark" onClick={openAndFocus} title={common.search} aria-label={common.search}>
+          <SearchSpark size={SEARCH_MARK_SIZE} />
         </Pressable>
       )}
     </Box>

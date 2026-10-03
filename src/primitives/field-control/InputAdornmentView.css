@@ -1,0 +1,13 @@
+/* @layer renderer-components @kind style */
+.input-adornment {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text-muted);
+  line-height: 1;
+}
+
+.input-adornment--action {
+  pointer-events: auto;
+}
