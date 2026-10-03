@@ -1,48 +1,39 @@
 /* @layer stories @kind story */
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { LogPanel } from '../../src/composites';
 import type { LogRow } from '../../src/composites';
-import { Box } from '../../src/primitives';
+import { createClause } from '../../src/data';
+import type { FilterClause } from '../../src/data';
+import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
-import { LOG_KINDS, LOG_ROWS, logAsText, longSession } from './_samples/data-log';
+import { LOG_KINDS, LOG_ROWS, longSession } from './_samples/data-log';
 import './LogPanel.stories.css';
 
 type LogPanelArgs = {
-  showKindFilter: boolean;
-  showSearch: boolean;
-  showCopy: boolean;
+  toolbar: boolean;
   countLabel: string;
   emptyLabel: string;
 };
 
-type LogDemoProps = LogPanelArgs & { rows: LogRow[] };
+type LogDemoProps = LogPanelArgs & { rows: readonly LogRow[]; startWith?: readonly FilterClause[] };
+
+const NO_FILTERS: readonly FilterClause[] = [];
 
 const LogDemo = (props: LogDemoProps) => {
-  const { rows, showKindFilter, showSearch, showCopy, countLabel, emptyLabel } = props;
-  const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set());
-  const [search, setSearch] = useState('');
-  const shown = useMemo(() => rows.filter((row) => !hidden.has(row.kind)), [rows, hidden]);
-  const toggleKind = (kind: string) => setHidden((prev) => {
-    const next = new Set(prev);
-    if (next.has(kind)) next.delete(kind);
-    else next.add(kind);
-    return next;
-  });
-
+  const { rows, toolbar, countLabel, emptyLabel, startWith = NO_FILTERS } = props;
+  const [filters, setFilters] = useState<readonly FilterClause[]>(startWith);
   return (
     <Box className="log-panel-story">
       <LogPanel
-        rows={shown}
+        rows={rows}
         className="server-log"
-        kinds={showKindFilter ? LOG_KINDS : undefined}
-        hidden={hidden}
-        onToggleKind={toggleKind}
-        search={search}
-        onSearchChange={showSearch ? setSearch : undefined}
-        copyText={showCopy ? () => logAsText(shown) : undefined}
+        kinds={LOG_KINDS}
+        filters={filters}
+        onFiltersChange={setFilters}
+        toolbar={toolbar}
         countLabel={countLabel}
         emptyLabel={emptyLabel}
       />
@@ -52,15 +43,12 @@ const LogDemo = (props: LogDemoProps) => {
 
 const LONG_ROWS = longSession(1500);
 const NO_ROWS: LogRow[] = [];
+const PROBLEMS: readonly FilterClause[] = [createClause('kind', 'anyOf', ['Errors', 'Hints'])];
 
-const ARGS: Partial<LogPanelArgs> = {
-    showKindFilter: true, showSearch: true, showCopy: true, countLabel: 'lines', emptyLabel: 'The server has not said anything yet.',
-  };
+const ARGS: Partial<LogPanelArgs> = { toolbar: true, countLabel: 'lines', emptyLabel: 'The server has not said anything yet.' };
 
 const ARG_TYPES: StoryLiteArgTypes<LogPanelArgs> = {
-    showKindFilter: { control: 'boolean' },
-    showSearch: { control: 'boolean' },
-    showCopy: { control: 'boolean' },
+    toolbar: { control: 'boolean', description: 'Search, filters, the line count and Copy all' },
     countLabel: { control: 'text' },
     emptyLabel: { control: 'text' },
   };
@@ -77,14 +65,27 @@ const ServerLog = {
   render: (args) => <LogDemo {...args} rows={LOG_ROWS} />,
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
-const LongSession = {
-  name: 'Long session (1500 lines)',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => <LogDemo {...args} rows={LONG_ROWS} />,
+const Filtered = {
+  name: 'Filtered to errors and hints',
+  render: () => <LogDemo {...(ARGS as LogPanelArgs)} rows={LOG_ROWS} startWith={PROBLEMS} />,
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
-const ONE_ROW = LOG_ROWS.slice(0, 1);
+const LongSession = {
+  name: 'Long session (1500 lines)',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">The newest 400 lines are mounted; scroll up to load older ones.</Text>
+      <LogDemo {...(ARGS as LogPanelArgs)} rows={LONG_ROWS} />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const Bare = {
+  name: 'Without a toolbar',
+  render: () => <LogDemo {...(ARGS as LogPanelArgs)} toolbar={false} rows={LOG_ROWS} />,
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const ONE_ROW = LOG_ROWS.slice(0, 3);
 
 const renderState = (props: StateProps) => (
   <Box className="log-panel-story log-panel-story--state">
@@ -100,8 +101,6 @@ const renderState = (props: StateProps) => (
 
 const CODE = `import { LogPanel } from '@drizztdourden08/tessera';
 
-const [search, setSearch] = useState('');
-
 <LogPanel
   rows={rows}
   kinds={[
@@ -109,17 +108,14 @@ const [search, setSearch] = useState('');
     { id: 'error', label: 'Errors', tone: 'danger', toneMessage: true },
   ]}
   className="server-log"
-  search={search}
-  onSearchChange={setSearch}
-  copyText={() => logAsText(rows)}
   countLabel="lines"
 />`;
 
 const Overview = overviewStory({
   component: 'LogPanel',
-  description: 'A log view styled like a code editor: a gutter column, then a type tag and a message on each line, indented for nested lines. Reach for it for a running log, such as a server log or a simulation trace, and give each type a tone: the tag takes the tone, and toneMessage colours the message too, as for errors. A colour outside the tones still works through a class of your own on the kind. The toolbar shows a line count, plus a type filter, a search box and a copy button when the caller wires them. Only the newest lines are mounted and older ones load on demand, so a long session stays fast.',
+  description: 'A log view styled like a code editor, in one framed box: a toolbar on top, then a gutter column, a type tag and a message on each line, indented under a guide for nested lines. Reach for it for a running log, such as a server log or a simulation trace. The toolbar is a FilterBar: a search box, a + that adds filters on the type, the tag or the message, then the line count and Copy all, which copies the lines in view. Give each type a tone: the tag takes the tone, and toneMessage colours the message too, as for errors. Only the newest lines are mounted and older ones load on demand, so a long session stays fast, and a Newest button shows once you scroll away from the end.',
   playground: ServerLog,
-  variants: [ServerLog],
+  variants: [Filtered, LongSession, Bare],
   states: {
     render: renderState,
     list: [
@@ -132,4 +128,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { LongSession, Overview, ServerLog };
+export { Bare, Filtered, LongSession, Overview, ServerLog };

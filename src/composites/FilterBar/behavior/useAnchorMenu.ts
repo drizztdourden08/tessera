@@ -2,9 +2,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
 
-const useAnchorMenu = <T extends HTMLElement>(portalSelector: string) => {
+const useAnchorMenu = <T extends HTMLElement>(portalSelector: string, initialOpen = false) => {
   const anchorRef = useRef<T>(null);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(initialOpen);
 
   useEffect(() => {
     if (!open) return undefined;

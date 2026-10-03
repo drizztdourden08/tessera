@@ -1,10 +1,9 @@
 /* @layer stories @kind component */
-import { useMemo } from 'react';
-import { buildSchema, compile, compileTextSearch, createClause } from '../../../src/data';
-import type { FilterClause } from '../../../src/data';
 import '../../../src/composites/field-kits';
 import { Box, CodeBlock, Text } from '../../../src/primitives';
-import { LOCATIONS, LOCATION_CONFIG } from './data-locations';
+import { LOCATIONS } from './data-locations';
+import { useLocationRows } from './use-location-rows';
+import { useSphereClauses } from './use-sphere-clauses';
 
 type FilterDemoProps = {
   search: string;
@@ -12,19 +11,10 @@ type FilterDemoProps = {
   progressionOnly: boolean;
 };
 
-const SCHEMA = buildSchema(LOCATIONS, LOCATION_CONFIG);
-
 const EngineFilterDemo = ({ search, minSphere, progressionOnly }: FilterDemoProps) => {
-  const clauses = useMemo<readonly FilterClause[]>(() => [
-    createClause('sphere', 'gte', minSphere),
-    ...(progressionOnly ? [createClause('progression', 'isTrue')] : []),
-  ], [minSphere, progressionOnly]);
+  const clauses = useSphereClauses(minSphere, progressionOnly);
 
-  const shown = useMemo(() => {
-    const matches = compile(clauses, SCHEMA);
-    const text = compileTextSearch(search);
-    return LOCATIONS.filter((row) => matches(row) && (!text || text(row)));
-  }, [clauses, search]);
+  const shown = useLocationRows(clauses, search);
 
   const asData = clauses.map(({ path, op, value, enabled }) => ({ path, op, value, enabled }));
 

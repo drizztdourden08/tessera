@@ -1,0 +1,6 @@
+/* @layer renderer-components @kind style */
+.list-item-list {
+  display: grid;
+  gap: var(--space-xs) var(--space-xl);
+  align-content: start;
+}

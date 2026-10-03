@@ -2,11 +2,14 @@
 .log-panel-story {
   display: flex;
   flex-direction: column;
+  inline-size: 100%;
   height: 24rem;
 }
 
 .log-panel-story--state {
-  height: 9rem;
+  height: 11rem;
+  inline-size: 44rem;
+  max-inline-size: 100%;
 }
 
 .server-log {

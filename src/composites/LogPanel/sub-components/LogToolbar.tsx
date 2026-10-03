@@ -1,34 +1,34 @@
 /* @layer renderer-components @kind component */
-import { useMemo } from 'react';
+import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { Box, Text } from '../../../primitives';
+import { FilterBar } from '../../FilterBar';
 import { CopyAllButton } from './CopyAllButton';
-import { LogFilterControls } from './LogFilterControls';
-import type { FilterFacet } from '../../FilterBar';
 import type { LogToolbarProps } from './LogToolbar.type';
 
 const LogToolbar = (props: LogToolbarProps) => {
-  const { shown, total, countLabel, kinds, hidden, onToggleKind, search, onSearchChange, copyText, extra } = props;
-
-  const { panels } = useTesseraStrings();
-  const showFilter = kinds !== undefined && hidden !== undefined && onToggleKind !== undefined;
-  const facets = useMemo<FilterFacet[] | undefined>(() => (
-    showFilter
-      ? [{ id: 'kinds', label: panels.showTypes, options: kinds, hidden, onToggle: onToggleKind }]
-      : undefined
-  ), [showFilter, kinds, hidden, onToggleKind, panels.showTypes]);
-
-  if (!showFilter && onSearchChange === undefined && copyText === undefined && extra === undefined) return null;
+  const { filter, total, countLabel, copyText, extra } = props;
+  const { common, panels } = useTesseraStrings();
 
   return (
-    <Box className="log-panel__toolbar">
-      <Text className="log-panel__count">
-        {panels.logCount(shown, total, countLabel)}
-      </Text>
-      <LogFilterControls facets={facets} search={search} onSearchChange={onSearchChange} />
-      {extra}
-      {copyText !== undefined && <CopyAllButton copyText={copyText} disabled={total === 0} />}
-    </Box>
+    <FilterBar
+      className="log-panel__toolbar"
+      search={filter.search}
+      onSearchChange={filter.setSearch}
+      searchPlaceholder={common.filterPlaceholder}
+      searchLabel={panels.filterLog}
+      schema={filter.schema}
+      clauses={filter.filters}
+      onChange={filter.setFilters}
+      extra={(
+        <>
+          <Text className="log-panel__count" aria-live="polite">
+            {panels.logCount(filter.shown.length, total, countLabel)}
+          </Text>
+          {extra}
+          <CopyAllButton copyText={() => copyText(filter.shown)} disabled={filter.shown.length === 0} />
+        </>
+      )}
+    />
   );
 };
 

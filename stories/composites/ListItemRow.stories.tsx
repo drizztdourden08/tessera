@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { ListItemRow } from '../../src/composites';
+import { ListItemList, ListItemRow } from '../../src/composites';
+import type { ListItemColumn } from '../../src/composites';
 import { Box, Button, Icon, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -10,11 +11,14 @@ import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS, STATUS_LABEL } from './_samples/sessions';
+import type { SampleSession } from './_samples/sessions';
+import './ListItemRow.stories.css';
 
 type RowArgs = {
   name: string;
   meta: string;
-  aside: string;
+  columns: number;
+  twoLines: boolean;
   withIcon: boolean;
   selected: boolean;
   withAction: boolean;
@@ -22,33 +26,44 @@ type RowArgs = {
 
 const sessionIcon = <Icon name={NAV_ICONS.sessions} />;
 
-const SelectableList = () => {
+const sessionColumns = (session: SampleSession, count: number, twoLines: boolean): ListItemColumn[] => [
+  { primary: `${session.players} players`, secondary: twoLines ? session.preset : undefined, align: 'end' as const },
+  { primary: session.server, secondary: twoLines ? `host ${session.host}` : undefined },
+  { primary: session.started, secondary: twoLines ? STATUS_LABEL[session.status] : undefined, align: 'end' as const },
+].slice(0, count);
+
+const SessionList = ({ selectable }: { selectable: boolean }) => {
   const [selectedId, setSelectedId] = useState(SESSIONS[0].id);
   const [opened, setOpened] = useState<string | null>(null);
   return (
-    <Box className="story-column">
-      {SESSIONS.map((s) => (
-        <ListItemRow
-          key={s.id}
-          icon={sessionIcon}
-          name={s.name}
-          meta={`${STATUS_LABEL[s.status]}, ${s.players} players`}
-          selected={s.id === selectedId}
-          onClick={() => setSelectedId(s.id)}
-          onDoubleClick={() => setOpened(s.name)}
-        />
-      ))}
-      <Text className="story-label">{opened ? `Opened ${opened}` : 'Click to select, double-click to open'}</Text>
+    <Box className="story-column list-item-row-story">
+      <ListItemList label="Sessions">
+        {SESSIONS.map((s) => (
+          <ListItemRow
+            key={s.id}
+            icon={sessionIcon}
+            name={s.name}
+            meta={<Status tone={s.status === 'running' ? 'success' : 'neutral'}>{STATUS_LABEL[s.status]}</Status>}
+            columns={sessionColumns(s, 3, true)}
+            selected={selectable && s.id === selectedId}
+            onClick={selectable ? () => setSelectedId(s.id) : undefined}
+            onDoubleClick={selectable ? () => setOpened(s.name) : undefined}
+            action={<Button size="sm" variant="secondary">Join</Button>}
+          />
+        ))}
+      </ListItemList>
+      {selectable && <Text className="story-label">{opened ? `Opened ${opened}` : 'Click to select, double-click to open'}</Text>}
     </Box>
   );
 };
 
-const ARGS: Partial<RowArgs> = { name: 'Friday async', meta: '8 players, eu-west-2', aside: '2 days ago', withIcon: true, selected: false, withAction: true };
+const ARGS: Partial<RowArgs> = { name: 'Friday async', meta: '8 players, eu-west-2', columns: 2, twoLines: true, withIcon: true, selected: false, withAction: true };
 
 const ARG_TYPES: StoryLiteArgTypes<RowArgs> = {
-    name: { control: 'text' },
-    meta: { control: 'text' },
-    aside: { control: 'text' },
+    name: { control: 'text', description: 'First line of the main column' },
+    meta: { control: 'text', description: 'Second line of the main column' },
+    columns: { control: 'number', description: 'Columns after the main one, from 0 to 3' },
+    twoLines: { control: 'boolean', description: 'Give each extra column a second line' },
     withIcon: { control: 'boolean' },
     selected: { control: 'boolean' },
     withAction: { control: 'boolean' },
@@ -64,18 +79,27 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <ListItemRow
-      name={args.name}
-      meta={args.meta || undefined}
-      aside={args.aside || undefined}
-      icon={args.withIcon ? sessionIcon : undefined}
-      selected={args.selected}
-      action={args.withAction ? <Button size="sm" variant="secondary">Join</Button> : undefined}
-    />
+    <Box className="list-item-row-story">
+      <ListItemRow
+        name={args.name}
+        meta={args.meta || undefined}
+        columns={sessionColumns(SESSIONS[0], Math.max(0, Math.min(3, args.columns)), args.twoLines === true)}
+        icon={args.withIcon ? sessionIcon : undefined}
+        selected={args.selected}
+        onClick={() => undefined}
+        action={args.withAction ? <Button size="sm" variant="secondary">Join</Button> : undefined}
+      />
+    </Box>
   ),
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
-const FORMS = ['name only', 'icon and meta', 'with aside', 'with action'] as const;
+const FORMS = ['name only', 'icon and meta', 'one column', 'two-line columns', 'with action'] as const;
+
+const formColumns = (form: typeof FORMS[number]): ListItemColumn[] | undefined => {
+  if (form === 'one column') return sessionColumns(SESSIONS[0], 1, false);
+  if (form === 'two-line columns' || form === 'with action') return sessionColumns(SESSIONS[0], 3, true);
+  return undefined;
+};
 
 const AllVariants = {
   name: 'All variants',
@@ -88,34 +112,23 @@ const AllVariants = {
           name="Friday async"
           meta={form === 'name only' ? undefined : '8 players, eu-west-2'}
           icon={form === 'name only' ? undefined : sessionIcon}
-          aside={form === 'with aside' ? '2 days ago' : undefined}
+          columns={formColumns(form)}
           action={form === 'with action' ? <Button size="sm" variant="secondary">Join</Button> : undefined}
+          actionVisibility="always"
         />
       )}
     />
   ),
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
-const Selectable = {
-  name: 'Selectable list',
-  render: () => <SelectableList />,
+const AlignedList = {
+  name: 'Aligned list',
+  render: () => <SessionList selectable={false} />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
-const RichContent = {
-  name: 'Rich name and meta',
-  render: () => (
-    <Box className="story-column">
-      {SESSIONS.map((s) => (
-        <ListItemRow
-          key={s.id}
-          icon={sessionIcon}
-          name={s.name}
-          meta={<Status tone={s.status === 'running' ? 'success' : 'neutral'}>{STATUS_LABEL[s.status]}</Status>}
-          action={<Button size="sm" variant="ghost">Details</Button>}
-        />
-      ))}
-    </Box>
-  ),
+const Selectable = {
+  name: 'Selectable list',
+  render: () => <SessionList selectable />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
 const renderState = (props: StateProps) => (
@@ -123,17 +136,37 @@ const renderState = (props: StateProps) => (
     name="Friday async"
     meta="8 players, eu-west-2"
     icon={sessionIcon}
+    columns={sessionColumns(SESSIONS[0], 1, true)}
     action={<Button size="sm" variant="secondary">Join</Button>}
     onClick={() => undefined}
     {...props}
   />
 );
 
+const CODE = `import { ListItemList, ListItemRow } from '@drizztdourden08/tessera';
+
+<ListItemList label="Sessions">
+  {sessions.map((session) => (
+    <ListItemRow
+      key={session.id}
+      icon={<Icon name="layers" />}
+      name={session.name}
+      meta={session.status}
+      columns={[
+        { primary: \`\${session.players} players\`, secondary: session.preset, align: 'end' },
+        { primary: session.server, secondary: \`host \${session.host}\` },
+      ]}
+      selected={session.id === selectedId}
+      onClick={() => setSelectedId(session.id)}
+    />
+  ))}
+</ListItemList>`;
+
 const Overview = overviewStory({
   component: 'ListItemRow',
-  description: 'One row of a list: an optional icon, a name, a line of meta under it, a short aside such as a date at the right, and an action slot on the right that shows on hover. Reach for it for lists of records the user picks from, such as sessions or players. It takes a selected state, plus click and double-click handlers for selecting and opening. The name and meta take any content, such as a Status.',
+  description: 'One row of a list: an optional icon, a main column with a name and a line of meta under it, any number of extra columns, and an action slot at the right that shows on hover. Each extra column takes a primary line, an optional secondary line under it, and an alignment. Put rows in a ListItemList and their columns line up from row to row, each as wide as its widest cell. A row takes a selected state, plus click and double-click handlers for selecting and opening. Every line takes any content, such as a Status.',
   playground: Playground,
-  variants: [AllVariants],
+  variants: [AllVariants, AlignedList, Selectable],
   states: {
     render: renderState,
     list: [
@@ -143,7 +176,8 @@ const Overview = overviewStory({
       STATE.selected,
     ],
   },
+  code: CODE,
 });
 
 export default meta;
-export { AllVariants, Overview, Playground, RichContent, Selectable };
+export { AlignedList, AllVariants, Overview, Playground, Selectable };

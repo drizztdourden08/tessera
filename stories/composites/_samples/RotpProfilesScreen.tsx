@@ -21,7 +21,7 @@ const ProfileList = ({ rows, outcome }: { rows: readonly ProfileRow[]; outcome: 
           icon={<Icon name={row.icon} />}
           name={row.name}
           meta={row.meta}
-          aside={row.aside}
+          columns={[{ primary: row.aside, align: 'end' }]}
           selected={index === 0 && outcome?.kind === 'created'}
         />
       ))}

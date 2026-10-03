@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.list-item-row-story {
+  inline-size: 100%;
+  max-inline-size: 48rem;
+}

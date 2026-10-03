@@ -11,7 +11,7 @@ const CopyAllButton = (props: CopyAllButtonProps) => {
 
   return (
     <Button
-      variant="tertiary"
+      variant="ghost"
       size="sm"
       className="log-panel__copy"
       onClick={() => void copy(copyText())}

@@ -1,16 +1,20 @@
 /* @layer renderer-components @kind component */
-import type { KeyboardEvent, ReactNode } from 'react';
+import { useContext } from 'react';
+import type { KeyboardEvent } from 'react';
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
-import { Text } from '../../primitives/Text';
-import { Small, Span } from '../../primitives/text-elements';
-import { rowClassName } from './behavior/row-class-name';
+import { ListItemContext } from './behavior/list-item-context';
+import { rowFrame } from './behavior/row-frame';
+import { ListItemBody } from './sub-components/ListItemBody';
 import './ListItemRow.css';
 import type { ListItemRowProps } from './ListItemRow.type';
 
 const ListItemRow = (props: ListItemRowProps) => {
-  const { name, icon, meta, aside, action, actionVisibility = 'hover', selected = false, onClick, onDoubleClick, role, className = '' } = props;
+  const { name, meta, icon, columns, action, actionVisibility = 'hover', selected = false, onClick, onDoubleClick } = props;
+  const inList = useContext(ListItemContext);
   const interactive = onClick !== undefined || onDoubleClick !== undefined;
+  const frame = rowFrame(props, inList, interactive);
+  const body = <ListItemBody name={name} meta={meta} icon={icon} columns={columns} />;
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key !== 'Enter' || !onDoubleClick) return;
@@ -18,22 +22,8 @@ const ListItemRow = (props: ListItemRowProps) => {
     onDoubleClick();
   };
 
-  const body: ReactNode = (
-    <>
-      {icon != null && <Text className="list-item-row__icon" aria-hidden>{icon}</Text>}
-      <Box className="list-item-row__info">
-        <Span className="list-item-row__name">{name}</Span>
-        {meta != null && <Span tone="muted" className="list-item-row__meta">{meta}</Span>}
-      </Box>
-      {aside != null && <Small tone="muted" className="list-item-row__aside">{aside}</Small>}
-    </>
-  );
-
   return (
-    <Box
-      className={rowClassName(selected, interactive, className)}
-      role={role}
-    >
+    <Box className={frame.className} role={frame.role} style={frame.style}>
       {interactive ? (
         <Pressable
           className="list-item-row__main"

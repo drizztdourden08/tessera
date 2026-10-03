@@ -53,8 +53,8 @@ const COMPOSITES_TIER: CatalogueTier = {
     {
       group: 'Lists',
       entries: [
-        { name: 'ListItemRow', summary: 'One selectable row with icon, meta, aside and action.' },
-        { name: 'GroupTree', summary: 'Nested groups that open and close.' },
+        { name: 'ListItemRow', summary: 'One selectable row: icon, name and meta, any number of two-line columns that line up in a list, and an action.' },
+        { name: 'GroupTree', summary: 'A keyboard tree of groups with guides, icons and counts, and the items as leaves.' },
         { name: 'SearchResults', summary: 'The search pane: a summary with page chips over groups of matches.' },
         { name: 'SearchResultGroup', summary: 'One group of matches: glowing icon, title, count and an open button.' },
         { name: 'SearchResultHit', summary: 'One match: icon, label with the match marked, and its path.' },
@@ -100,7 +100,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Data views',
       entries: [
         { name: 'DataTable', summary: 'Sortable, groupable, resizable table with saved layouts.' },
-        { name: 'FilterBar', summary: 'Filter clauses, facets and search over a collection.' },
+        { name: 'FilterBar', summary: 'A search box and filter chips, each added with + and edited in place.' },
         { name: 'CompactRecordView', summary: 'One record read-only, with differences marked.' },
         { name: 'Field kits', summary: 'The editor, cell and filter for each field kind.' },
       ],
@@ -108,7 +108,7 @@ const COMPOSITES_TIER: CatalogueTier = {
     {
       group: 'Content',
       entries: [
-        { name: 'LogPanel', summary: 'A live log with kinds, search and paging.' },
+        { name: 'LogPanel', summary: 'A live log in one framed box: a FilterBar toolbar, tones per type, older lines on demand.' },
         { name: 'AboutPanel', summary: 'An About screen: logo or wordmark, facts, copy and legal text.' },
         { name: 'FactsPanel', summary: 'Label and value pairs in a bordered box, in groups split by hairlines.' },
         { name: 'ReleaseNotesPanel', summary: 'Release notes in a titled, scrolling box.' },

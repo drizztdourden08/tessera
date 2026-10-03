@@ -2,9 +2,10 @@
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 import type { FilterClause } from '../../../data/filter/clause';
 
-interface FilterClauseCardProps {
+interface FilterChipProps {
   field: FieldDescriptor;
   clause: FilterClause;
+  openOnMount: boolean;
   onChangeOperator: (nextOp: string) => void;
   onChangeValue: (nextValue: unknown) => void;
   onToggleEnabled: (enabled: boolean) => void;
@@ -12,4 +13,4 @@ interface FilterClauseCardProps {
   onChangeCaseSensitive?: (next: boolean) => void;
 }
 
-export type { FilterClauseCardProps };
+export type { FilterChipProps };

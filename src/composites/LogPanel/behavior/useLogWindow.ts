@@ -5,6 +5,7 @@ import { BOTTOM_SLACK, CHUNK } from './useLogWindow.constants';
 const useLogWindow = (total: number) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(CHUNK);
+  const [pinned, setPinned] = useState(true);
   const atBottom = useRef(true);
   const pendingAnchor = useRef<number | null>(null);
 
@@ -27,14 +28,16 @@ const useLogWindow = (total: number) => {
 
   const jumpToBottom = useCallback(() => {
     const el = scrollRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
+    if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
     atBottom.current = true;
+    setPinned(true);
   }, []);
 
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
     atBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight <= BOTTOM_SLACK;
+    setPinned(atBottom.current);
   }, []);
 
   useEffect(() => {
@@ -43,7 +46,7 @@ const useLogWindow = (total: number) => {
   }, [total, visible]);
 
   const shownCount = Math.min(visible, total);
-  return { scrollRef, shownCount, hiddenOlder: total - shownCount, loadOlder, jumpToBottom, handleScroll };
+  return { scrollRef, shownCount, hiddenOlder: total - shownCount, pinned, loadOlder, jumpToBottom, handleScroll };
 };
 
 export { useLogWindow };

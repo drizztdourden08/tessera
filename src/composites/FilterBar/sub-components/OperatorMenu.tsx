@@ -1,14 +1,13 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
+import { Span } from '../../../primitives/text-elements';
 import { operatorsFor } from '../../../data/filter/operators';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { DropdownMenu } from '../../DropdownMenu';
 import { operatorMenuItems } from '../behavior/operator-menu-items';
 import { supportsCaseModifier } from '../behavior/supports-case-modifier';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
-import { glyphForOperatorIcon } from '../behavior/operator-icon-glyphs';
 import type { OperatorMenuProps } from './OperatorMenu.type';
-import '../../../theme/filter-bar.css';
 
 const OperatorMenu = (props: OperatorMenuProps) => {
   const { field, op, caseSensitive, onChange, onChangeCaseSensitive } = props;
@@ -33,21 +32,23 @@ const OperatorMenu = (props: OperatorMenuProps) => {
   });
 
   const marked = caseSensitive === true && supportsCaseModifier(field.kind);
-  const label = current ? filters.operatorNamed(filterOperators[current.icon]) : filters.operator;
+  const word = current ? filterOperators[current.icon] : filters.operator;
+  const label = current ? filters.operatorNamed(word) : filters.operator;
 
   return (
     <>
       <Button
         ref={menu.anchorRef}
-        variant="tertiary"
+        variant="ghost"
         size="sm"
-        className={`filter-bar__operator-button${marked ? ' filter-bar__operator-button--cased' : ''}`}
+        className="filter-chip__segment filter-chip__operator"
         aria-haspopup="menu"
         aria-expanded={menu.open}
         aria-label={marked ? filters.withMatchCase(label) : label}
         onClick={menu.toggle}
       >
-        {current ? glyphForOperatorIcon(current.icon) : '?'}
+        {word}
+        {marked && <Span className="filter-chip__case">{filters.matchCaseMark}</Span>}
       </Button>
       {menu.open && items.length > 0 && <DropdownMenu groups={[{ id: 'operators', items }]} anchorRef={menu.anchorRef} onClose={menu.close} />}
     </>

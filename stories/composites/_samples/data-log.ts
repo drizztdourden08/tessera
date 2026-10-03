@@ -49,7 +49,4 @@ const longSession = (count: number): LogRow[] =>
     return { id: `long-${i}`, gutter: clock, tag: 'ITEM', kind: 'item', message: `Check ${i + 1}: item sent to slot ${(i % 14) + 1}` };
   });
 
-const logAsText = (rows: readonly LogRow[]): string =>
-  rows.map((row) => `${row.gutter} [${row.tag}] ${row.message}`).join('\n');
-
-export { LOG_KINDS, LOG_ROWS, logAsText, longSession };
+export { LOG_KINDS, LOG_ROWS, longSession };

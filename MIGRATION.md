@@ -1689,3 +1689,38 @@ Nothing is renamed. An app that drew controller prompts from its own SVG files c
 ### What an app does
 
 Nothing. An app that drew its own gear beside a `Glyph` can use `<Glyph name="gear" />`.
+
+## 66. FilterBar adds every filter with +; LogPanel, ListItemRow and GroupTree are redone; DataTable scrolls inside its border
+
+`FilterBar` has no facets any more. `FacetPicker`, `FacetPickerProps`, `FilterFacet`, `FilterFacetOption` and the `facets` prop are gone. Every filter is a clause, added through the + button, which opens a `DropdownMenu` of the schema fields; `fields` limits that menu to some top level paths. An active filter is a chip of joined segments that reads like a sentence: the field turns the filter on and off, the operator opens the operator menu, the value opens an editor that suits the field (a checkable menu for an enum, the field kit control in a popover for the rest), and the cross removes it. A new filter opens its value right away, and Clear filters shows once there are two. `extra` puts content at the end of the bar, such as a count or a button.
+
+```tsx
+<FilterBar
+  search={search}
+  onSearchChange={setSearch}
+  schema={PLAYER_SCHEMA}
+  clauses={clauses}
+  onChange={setClauses}
+  extra={<Button size="sm">Export</Button>}
+/>
+```
+
+`LogPanel` is one framed box: a `FilterBar` toolbar on top with the search, the + for filters on the type, the tag or the message, the line count and Copy all, then the lines. It filters its lines itself. `hidden` and `onToggleKind` are gone; the type filter is a clause, kept inside the panel or handed to the host with `filters` and `onFiltersChange`. `search` and `onSearchChange` are optional and do the same for the search. `copyText` is optional and receives the lines in view; without it, Copy all copies them as `time [TAG] message`. `toolbar={false}` hides the toolbar. The Newest button only shows once you scroll away from the end.
+
+`ListItemRow` takes `columns`: any number of columns after the name, each `{ primary, secondary?, align? }`, where `align` is `start`, `center` or `end`. `aside` is gone; pass `columns={[{ primary: aside, align: 'end' }]}`. The new `ListItemList` holds rows and lines their columns up from row to row, each column as wide as its widest cell. The class names `list-item-row__info`, `__name`, `__meta` and `__aside` are now `list-item-row__cell`, `__primary` and `__secondary`.
+
+```tsx
+<ListItemList label="Sessions">
+  {sessions.map((s) => (
+    <ListItemRow key={s.id} name={s.name} meta={s.status} columns={[{ primary: `${s.players} players`, secondary: s.preset, align: 'end' }]} />
+  ))}
+</ListItemList>
+```
+
+`GroupTree` is a real tree: `role="tree"` with one tab stop, arrows to move, Right to open or go to the first child, Left to close or go to the parent, Home and End, Enter and Space to select. Each level indents under a guide line, the guide of the selected branch is lit, each group shows an icon (`node.icon`, or a folder) and the count of items under it (`node.count` overrides it; `showCounts={false}` hides it), and the items are tree rows too. `renderItems(items)` is now `renderItem(item)` plus `getItemKey(item)`, with an optional `itemIcon(item)`. `selectedKey` and `onSelect(key, item)` select a group or an item, `onActivate(item)` runs on Enter or a double click, and `onToggleKey(key)` is now `onExpandedChange(keys)`, which takes the full list of open keys. `label` names the tree. The class names `group-tree__group`, `__header`, `__name` and `__content` are gone; rows are `group-tree__row`.
+
+`DataTable` draws its border and corners on the whole table, footer included, and owns its sideways scroll: it takes the width its container gives it, never widens that container, and scrolls its columns inside the border when they do not fit.
+
+### What an app does
+
+An app that passed `facets` to `FilterBar` turns each facet into an enum field of its schema and filters it with a clause. An app that wired `hidden` and `onToggleKind` on `LogPanel` drops them and passes the full rows; the panel filters them. An app that passed `aside` to `ListItemRow` passes it as an end aligned column. An app that used `GroupTree` passes `renderItem` and `getItemKey` in place of `renderItems`, and `onExpandedChange` in place of `onToggleKey`. An app that wrapped `DataTable` in its own scroll box or border drops it.

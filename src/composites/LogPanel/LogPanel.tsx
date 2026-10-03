@@ -1,68 +1,31 @@
 /* @layer renderer-components @kind component */
-import { useMemo } from 'react';
-import { Box, Button, Glyph, Text } from '../../primitives';
+import { Box } from '../../primitives/Box';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { useLogWindow } from './behavior/useLogWindow';
-import { LogLine } from './sub-components/LogLine';
+import { logAsText } from './behavior/log-as-text';
+import { useLogFilter } from './behavior/useLogFilter';
+import { LogList } from './sub-components/LogList';
 import { LogToolbar } from './sub-components/LogToolbar';
-import { OLDER_CHUNK } from './LogPanel.constants';
 import type { LogPanelProps } from './LogPanel.type';
+import '../../theme/focus-ring.css';
 import './LogPanel.css';
-
-const matchesQuery = (row: { tag: string; message: string }, query: string): boolean =>
-  row.message.toLowerCase().includes(query) || row.tag.toLowerCase().includes(query);
 
 const LogPanel = (props: LogPanelProps) => {
   const { panels } = useTesseraStrings();
   const {
-    rows, className, kinds, hidden, onToggleKind, search, onSearchChange,
-    copyText, countLabel = panels.logNoun, emptyLabel = panels.logEmpty, toolbarExtra,
+    rows, kinds, className, toolbar = true, copyText = logAsText,
+    countLabel = panels.logNoun, emptyLabel = panels.logEmpty, toolbarExtra,
   } = props;
-
-  const kindById = useMemo(() => new Map(kinds?.map((kind) => [kind.id, kind])), [kinds]);
-
-  const shown = useMemo(() => {
-    const query = search?.trim().toLowerCase();
-    return query ? rows.filter((row) => matchesQuery(row, query)) : rows;
-  }, [rows, search]);
-
-  const { scrollRef, shownCount, hiddenOlder, loadOlder, jumpToBottom, handleScroll } = useLogWindow(shown.length);
-  const first = shown.length - shownCount;
+  const filter = useLogFilter(props);
+  const empty = rows.length === 0 ? emptyLabel : panels.logNoMatch;
 
   return (
     <Box className={`log-panel${className ? ` ${className}` : ''}`}>
-      <LogToolbar
-        shown={shown.length}
-        total={rows.length}
-        countLabel={countLabel}
-        kinds={kinds}
-        hidden={hidden}
-        onToggleKind={onToggleKind}
-        search={search}
-        onSearchChange={onSearchChange}
-        copyText={copyText}
-        extra={toolbarExtra}
-      />
-      {shown.length === 0 ? (
-        <Box className="log-panel__list log-panel__list--empty">{emptyLabel}</Box>
-      ) : (
-        <Box className="log-panel__scroll">
-          <Box ref={scrollRef} className="log-panel__list" onScroll={handleScroll}>
-            {hiddenOlder > 0 && (
-              <Box className="log-panel__older">
-                <Button variant="tertiary" size="sm" icon={<Glyph name="arrowUp" />} onClick={loadOlder}>
-                  {panels.loadOlder(Math.min(OLDER_CHUNK, hiddenOlder))}
-                </Button>
-                <Text className="log-panel__older-note">{panels.olderHidden(hiddenOlder)}</Text>
-              </Box>
-            )}
-            {shown.slice(first).map((row) => <LogLine key={row.id} row={row} kind={kindById.get(row.kind)} />)}
-          </Box>
-          <Button variant="tertiary" size="sm" className="log-panel__to-bottom" icon={<Glyph name="arrowDown" />} onClick={jumpToBottom}>
-            {panels.newest}
-          </Button>
-        </Box>
+      {toolbar && (
+        <LogToolbar filter={filter} total={rows.length} countLabel={countLabel} copyText={copyText} extra={toolbarExtra} />
       )}
+      {filter.shown.length === 0
+        ? <Box className="log-panel__empty">{empty}</Box>
+        : <LogList rows={filter.shown} kinds={kinds} />}
     </Box>
   );
 };

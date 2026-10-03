@@ -1,48 +1,23 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { FacetPicker, FilterBar } from '../../src/composites';
+import { FilterBar } from '../../src/composites';
 import { createClause } from '../../src/data';
 import type { FilterClause } from '../../src/data';
-import { Box, Text } from '../../src/primitives';
+import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { FilterDemo } from './_samples/data-filter-demo';
 import type { FilterDemoProps } from './_samples/data-filter-demo';
 import { PLAYER_SCHEMA } from './_samples/data-players';
+import './FilterBar.stories.css';
 
-type FilterBarArgs = FilterDemoProps;
+type FilterBarArgs = Omit<FilterDemoProps, 'startWith'>;
 
-const CHANNELS = [
-  { id: 'chat', label: 'Chat' },
-  { id: 'items', label: 'Item sends' },
-  { id: 'hints', label: 'Hints' },
-  { id: 'joins', label: 'Joins and leaves' },
-];
-
-const FacetDemo = () => {
-  const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set(['joins']));
-  const onToggle = (id: string) => setHidden((prev) => {
-    const next = new Set(prev);
-    if (next.has(id)) next.delete(id);
-    else next.add(id);
-    return next;
-  });
-  const visible = CHANNELS.filter((channel) => !hidden.has(channel.id)).map((channel) => channel.label);
-  return (
-    <Box className="story-row">
-      <FacetPicker facet={{ id: 'channels', label: 'Show channels', options: CHANNELS, hidden, onToggle }} />
-      <Text className="story-label">{`Showing: ${visible.join(', ') || 'nothing'}`}</Text>
-    </Box>
-  );
-};
-
-const ARGS: Partial<FilterBarArgs> = { withClauses: true, withFacets: true, placeholder: 'Search players, games, tags...' };
+const ARGS: Partial<FilterBarArgs> = { withClauses: true, placeholder: 'Search players, games, tags...' };
 
 const ARG_TYPES: StoryLiteArgTypes<FilterBarArgs> = {
-    withClauses: { control: 'boolean', description: 'Schema-driven clause list' },
-    withFacets: { control: 'boolean', description: 'Enumerated show and hide facets' },
+    withClauses: { control: 'boolean', description: 'Pass a schema so filters can be added with +' },
     placeholder: { control: 'text' },
   };
 
@@ -55,40 +30,56 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <FilterDemo {...args} />,
+  render: (args) => <FilterDemo withClauses={args.withClauses === true} placeholder={args.placeholder} />,
 } satisfies StoryLiteStoryDefinition<FilterBarArgs>;
 
 const SearchOnly = {
   name: 'Search only',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => <FilterDemo withClauses={false} withFacets={false} placeholder={args.placeholder} />,
+  render: () => <FilterDemo withClauses={false} placeholder="Search players, games, tags..." />,
 } satisfies StoryLiteStoryDefinition<FilterBarArgs>;
 
-const Facet = {
-  name: 'FacetPicker',
-  render: () => <FacetDemo />,
+const NO_CLAUSES: readonly FilterClause[] = [];
+
+const Empty = {
+  name: 'No filters yet',
+  render: () => <FilterDemo withClauses placeholder="Search players..." startWith={NO_CLAUSES} />,
 } satisfies StoryLiteStoryDefinition<FilterBarArgs>;
 
-const ON_CLAUSES: readonly FilterClause[] = [createClause('checked', 'gte', 100)];
+const EVERY_KIND: readonly FilterClause[] = [
+  createClause('name', 'startsWith', 'S'),
+  createClause('game', 'noneOf', ['Factorio', 'Celeste', 'Terraria']),
+  createClause('checked', 'between', [100, 250]),
+  createClause('deathLink', 'isTrue'),
+  createClause('tags', 'isEmpty'),
+];
+
+const EveryKind = {
+  name: 'One filter per kind',
+  render: () => <FilterDemo withClauses placeholder="Search players..." startWith={EVERY_KIND} />,
+} satisfies StoryLiteStoryDefinition<FilterBarArgs>;
+
+const ON_CLAUSES: readonly FilterClause[] = [createClause('status', 'anyOf', ['playing']), createClause('checked', 'gte', 100)];
 const OFF_CLAUSES: readonly FilterClause[] = ON_CLAUSES.map((clause) => ({ ...clause, enabled: false }));
 
 const renderState = (props: StateProps) => (
-  <FilterBar
-    search=""
-    onSearchChange={() => undefined}
-    searchLabel="Search players"
-    schema={PLAYER_SCHEMA}
-    clauses={props.disabled === true ? OFF_CLAUSES : ON_CLAUSES}
-    onChange={() => undefined}
-  />
+  <Box className="filter-bar-story">
+    <FilterBar
+      search=""
+      onSearchChange={() => undefined}
+      searchLabel="Search players"
+      schema={PLAYER_SCHEMA}
+      clauses={props.disabled === true ? OFF_CLAUSES : ON_CLAUSES}
+      onChange={() => undefined}
+    />
+  </Box>
 );
 
-const CODE = `import { FilterBar } from '@drizztdourden08/tessera';
+const CODE = `import { FilterBar, compile } from '@drizztdourden08/tessera';
 import type { FilterClause } from '@drizztdourden08/tessera';
 
 const [search, setSearch] = useState('');
 const [clauses, setClauses] = useState<readonly FilterClause[]>([]);
+const rows = players.filter(compile(clauses, PLAYER_SCHEMA));
 
 <FilterBar
   search={search}
@@ -100,20 +91,20 @@ const [clauses, setClauses] = useState<readonly FilterClause[]>([]);
 
 const Overview = overviewStory({
   component: 'FilterBar',
-  description: 'The filter surface for a list of rows: a search box that is always there, an optional list of schema-driven clauses, and optional show and hide facets. Reach for it above any table or list the user narrows down. It holds no filter logic: it reports the query, the clauses and each facet toggle, and the screen that renders the rows applies them. FacetPicker, the facet dropdown, also works on its own.',
+  description: 'The filter surface for a list of rows: a search box, then one chip per filter, then a + button that adds one. The + opens a menu of the fields in the schema; picking one adds a chip and opens its value. A chip reads like a sentence, such as Checks done is at least 100: its field turns it on and off, its operator opens the operator menu, its value opens an editor that suits the field, and the cross removes it. Reach for it above any table or list the user narrows down. It holds no filter logic: it reports the query and the clauses, and compile turns the clauses into a test for each row.',
   playground: Playground,
-  variants: [SearchOnly, Facet],
+  variants: [SearchOnly, Empty, EveryKind],
   states: {
     render: renderState,
     list: [
       STATE.idle,
-      { ...STATE.hover, target: '.filter-bar__clause' },
-      { ...STATE.focus, target: '.filter-bar__control input' },
-      { ...STATE.disabled, name: 'Clause off' },
+      { ...STATE.hover, target: '.filter-chip__value' },
+      { ...STATE.focus, target: '.filter-chip__operator' },
+      { ...STATE.disabled, name: 'Filter off' },
     ],
   },
   code: CODE,
 });
 
 export default meta;
-export { Facet, Overview, Playground, SearchOnly };
+export { Empty, EveryKind, Overview, Playground, SearchOnly };

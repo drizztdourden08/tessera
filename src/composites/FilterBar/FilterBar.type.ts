@@ -1,19 +1,7 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
 import type { SchemaLike } from '../../data/schema/build-schema';
 import type { FilterClause } from '../../data/filter/clause';
-
-interface FilterFacetOption {
-  id: string;
-  label: string;
-}
-
-interface FilterFacet {
-  id: string;
-  label: string;
-  options: readonly FilterFacetOption[];
-  hidden: ReadonlySet<string>;
-  onToggle: (optionId: string) => void;
-}
 
 interface FilterBarProps {
   search: string;
@@ -23,8 +11,9 @@ interface FilterBarProps {
   schema?: SchemaLike;
   clauses?: readonly FilterClause[];
   onChange?: (next: readonly FilterClause[]) => void;
-  facets?: readonly FilterFacet[];
+  fields?: readonly string[];
+  extra?: ReactNode;
   className?: string;
 }
 
-export type { FilterBarProps, FilterFacet, FilterFacetOption };
+export type { FilterBarProps };

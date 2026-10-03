@@ -85,7 +85,7 @@ const NotificationsDrawer = (props: SampleDrawerProps) => {
             icon={<Icon name={notice.icon} size={16} />}
             name={notice.text}
             meta={notice.when}
-            aside={notice.unread ? <Badge variant="dot" color="primary" label="Unread" /> : undefined}
+            columns={notice.unread ? [{ primary: <Badge variant="dot" color="primary" label="Unread" />, align: 'end' }] : undefined}
           />
         ))}
       </Box>

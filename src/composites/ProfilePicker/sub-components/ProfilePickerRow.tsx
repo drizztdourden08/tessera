@@ -25,7 +25,7 @@ const ProfilePickerRow = (props: ProfilePickerRowProps) => {
       role="listitem"
       name={name}
       meta={meta}
-      aside={aside}
+      columns={aside == null ? undefined : [{ primary: aside, align: 'end' }]}
       icon={icon}
       selected={selected}
       onClick={() => onSelect(id)}

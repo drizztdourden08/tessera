@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.filter-bar-story {
+  inline-size: 100%;
+  max-inline-size: 52rem;
+}

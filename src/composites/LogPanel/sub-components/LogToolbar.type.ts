@@ -1,11 +1,13 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { LogPanelProps } from '../LogPanel.type';
+import type { LogRow } from '../LogPanel.type';
+import type { LogFilter } from '../behavior/useLogFilter.type';
 
-interface LogToolbarProps extends Pick<LogPanelProps, 'kinds' | 'hidden' | 'onToggleKind' | 'search' | 'onSearchChange' | 'copyText'> {
-  shown: number;
+interface LogToolbarProps {
+  filter: LogFilter;
   total: number;
   countLabel: string;
+  copyText: (shown: readonly LogRow[]) => string;
   extra?: ReactNode;
 }
 

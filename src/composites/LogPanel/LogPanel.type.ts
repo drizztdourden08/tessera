@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { FilterClause } from '../../data/filter/clause';
 import type { TextTone } from '../../primitives/TextElement';
 
 interface LogRow {
@@ -19,17 +20,18 @@ interface LogKindDef {
 }
 
 interface LogPanelProps {
-  rows: LogRow[];
-  className?: string;
+  rows: readonly LogRow[];
   kinds?: readonly LogKindDef[];
-  hidden?: ReadonlySet<string>;
-  onToggleKind?: (kind: string) => void;
   search?: string;
   onSearchChange?: (query: string) => void;
-  copyText?: () => string;
+  filters?: readonly FilterClause[];
+  onFiltersChange?: (next: readonly FilterClause[]) => void;
+  toolbar?: boolean;
+  copyText?: (shown: readonly LogRow[]) => string;
   countLabel?: string;
   emptyLabel?: string;
   toolbarExtra?: ReactNode;
+  className?: string;
 }
 
 export type { LogKindDef, LogPanelProps, LogRow };

@@ -1,35 +1,28 @@
 /* @layer renderer-components @kind component */
+import { useMemo } from 'react';
 import { Button } from '../../../primitives/Button';
-import { Anchored } from '../../../primitives/Anchored';
 import { Glyph } from '../../../primitives/Glyph';
-import { useAnchorTracking } from '../../../primitives/Portal';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toSchemaIndex } from '../../../data/schema/build-schema';
+import { DropdownMenu } from '../../DropdownMenu';
+import { addFilterItems } from '../behavior/add-filter-items';
 import { createClauseForField } from '../behavior/filter-clause-defaults';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
-import { FieldPicker } from '../../DataTable';
 import type { AddFilterButtonProps } from './AddFilterButton.type';
-import '../../../theme/filter-bar.css';
 
 const AddFilterButton = (props: AddFilterButtonProps) => {
-  const { schema, excludePaths, onAdd } = props;
-  const menu = useAnchorMenu<HTMLButtonElement>('.filter-bar__add-picker');
-  const index = toSchemaIndex(schema);
+  const { schema, fields, excludePaths = [], onAdd } = props;
+  const menu = useAnchorMenu<HTMLButtonElement>('.dropdown-menu');
   const { filters } = useTesseraStrings();
-
-  const { position: pos } = useAnchorTracking({
-    active: menu.open,
-    anchorRef: menu.anchorRef,
-    compute: (rect) => ({ top: rect.bottom, left: rect.left }),
-    onOutOfView: menu.close,
+  const taken = useMemo(() => new Set(excludePaths), [excludePaths]);
+  const items = addFilterItems(toSchemaIndex(schema).roots(), {
+    fields,
+    taken,
+    onPick: (field) => {
+      onAdd(createClauseForField(field));
+      menu.close();
+    },
   });
-
-  const handlePick = (path: string): void => {
-    const field = index.byPath(path);
-    if (!field) return;
-    onAdd(createClauseForField(field));
-    menu.close();
-  };
 
   return (
     <>
@@ -38,16 +31,17 @@ const AddFilterButton = (props: AddFilterButtonProps) => {
         variant="tertiary"
         size="sm"
         className="filter-bar__add"
+        icon={<Glyph name="plus" />}
         aria-haspopup="menu"
         aria-expanded={menu.open}
+        aria-label={filters.addFilter}
+        title={filters.addFilter}
         onClick={menu.toggle}
       >
-        <Glyph name="plus" /> {filters.addFilter}
+        {excludePaths.length === 0 ? filters.addFilter : null}
       </Button>
-      {menu.open && (
-        <Anchored anchorRef={menu.anchorRef} layer="overlay" fallback={pos} className="filter-bar__add-picker">
-          <FieldPicker schema={index.roots()} excludePaths={excludePaths} onPick={handlePick} />
-        </Anchored>
+      {menu.open && items.length > 0 && (
+        <DropdownMenu groups={[{ id: 'fields', label: filters.filterBy, items }]} anchorRef={menu.anchorRef} onClose={menu.close} />
       )}
     </>
   );

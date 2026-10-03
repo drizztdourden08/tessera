@@ -5,6 +5,7 @@ import type { FilterClause } from '../../../data/filter/clause';
 interface FilterClauseListProps {
   schema: SchemaLike;
   clauses: readonly FilterClause[];
+  fields?: readonly string[];
   onChange: (next: readonly FilterClause[]) => void;
 }
 

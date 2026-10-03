@@ -74,12 +74,8 @@ const PLAYER_CONFIG: SchemaConfig = {
 
 const PLAYER_SCHEMA = buildSchema(PLAYERS, PLAYER_CONFIG);
 
-const GAMES: readonly string[] = [...new Set(PLAYERS.map((player) => player.game))];
-
-const STATUSES: readonly PlayerStatus[] = ['playing', 'idle', 'goal', 'offline'];
-
 const playerName = (id: string): string | undefined =>
   PLAYERS.find((player) => player.id === id)?.name;
 
-export { GAMES, PLAYERS, PLAYER_CONFIG, PLAYER_SCHEMA, STATUSES, playerName };
+export { PLAYERS, PLAYER_CONFIG, PLAYER_SCHEMA, playerName };
 export type { PlayerRow, PlayerStatus };

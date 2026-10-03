@@ -9,7 +9,7 @@ const TOKEN_STORIES = [
 
 const DEMONSTRATOR = ['stories/_template/Demonstrator.tsx'];
 
-const SAMPLE_STORIES = ['stories/data/_samples/table-demo.tsx'];
+const SAMPLE_STORIES = ['stories/data/_samples/engine-grid.tsx'];
 
 export default standardsEslint({
   ignores: ['dist-storylite/**'],
@@ -28,6 +28,8 @@ export default standardsEslint({
     { files: ['src/composites/DropdownMenu/sub-components/SubMenuPanel.tsx', 'src/composites/DropdownMenu/sub-components/SubMenuJoinPieces.tsx'], why: 'a sub-menu and the pieces that join it to its parent sit where the measured parent edge and trigger row put them' },
     { files: ['src/composites/DataTable/DataTable.tsx'], why: 'column widths are sized and resized per table' },
     { files: ['src/composites/DataTable/sub-components/GroupRow.tsx'], why: 'a group row indents by its depth' },
+    { files: ['src/composites/GroupTree/sub-components/GroupTreeRow.tsx', 'src/composites/GroupTree/sub-components/GroupTreeGuides.tsx'], why: 'a tree row indents by its depth and draws a guide per ancestor' },
+    { files: ['src/composites/ListItemRow/ListItemRow.tsx', 'src/composites/ListItemRow/sub-components/ListItemList.tsx'], why: 'the grid tracks follow the number of columns the rows pass in' },
     { files: ['src/primitives/CodeBlock/CodeBlock.tsx'], why: 'the highlighter returns each line and token style' },
     { files: ['src/composites/PixelWordmark/PixelWordmark.tsx'], why: 'the aspect ratio comes from the laid out letters' },
     { files: ['src/composites/Emphasis/**'], why: 'the weights, timing and each letter delay are set per instance' },

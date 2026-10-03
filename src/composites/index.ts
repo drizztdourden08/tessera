@@ -26,8 +26,10 @@ export { HeaderAnchorNav } from './HeaderAnchorNav';
 export type { HeaderAnchorNavItem, HeaderAnchorNavProps } from './HeaderAnchorNav';
 export { LogPanel } from './LogPanel';
 export type { LogKindDef, LogPanelProps, LogRow } from './LogPanel';
-export { ListItemRow } from './ListItemRow';
-export type { ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole } from './ListItemRow';
+export { ListItemList, ListItemRow } from './ListItemRow';
+export type {
+  ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole,
+} from './ListItemRow';
 export { MasterDetailLayout } from './MasterDetailLayout';
 export type { MasterDetailLayoutProps } from './MasterDetailLayout';
 export { SplitPane } from './SplitPane';
@@ -133,8 +135,8 @@ export type {
   DividerRect, DockEdge, DockKeys, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget,
   LaidOut, LayoutEdit, LayoutNode, LeafNode, LeafRect, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis, SplitNode, WidgetId,
 } from './DockLayout';
-export { FilterBar, FacetPicker } from './FilterBar';
-export type { FacetPickerProps, FilterBarProps, FilterFacet, FilterFacetOption } from './FilterBar';
+export { FilterBar } from './FilterBar';
+export type { FilterBarProps } from './FilterBar';
 export { RecordEditor, ReferencedBy } from './RecordEditor';
 export type {
   EditorGroupModel, IdRefOption, IdRefOptionResolver, NumberBounds, NumberBoundsResolver,

@@ -5,11 +5,19 @@ type ListItemRowRole = 'listitem' | 'row';
 
 type ListItemRowActionVisibility = 'hover' | 'always';
 
+type ListItemColumnAlign = 'start' | 'center' | 'end';
+
+interface ListItemColumn {
+  primary: ReactNode;
+  secondary?: ReactNode;
+  align?: ListItemColumnAlign;
+}
+
 interface ListItemRowProps {
   name: ReactNode;
-  icon?: ReactNode;
   meta?: ReactNode;
-  aside?: ReactNode;
+  icon?: ReactNode;
+  columns?: readonly ListItemColumn[];
   action?: ReactNode;
   actionVisibility?: ListItemRowActionVisibility;
   selected?: boolean;
@@ -19,4 +27,19 @@ interface ListItemRowProps {
   className?: string;
 }
 
-export type { ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole };
+interface ListItemListProps {
+  children: ReactNode;
+  label?: string;
+  className?: string;
+}
+
+interface ListItemShape {
+  icon: boolean;
+  columns: number;
+  action: boolean;
+}
+
+export type {
+  ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps,
+  ListItemRowRole, ListItemShape,
+};

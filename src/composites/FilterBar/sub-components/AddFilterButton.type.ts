@@ -4,6 +4,7 @@ import type { FilterClause } from '../../../data/filter/clause';
 
 interface AddFilterButtonProps {
   schema: SchemaLike;
+  fields?: readonly string[];
   excludePaths?: readonly string[];
   onAdd: (clause: FilterClause) => void;
 }
