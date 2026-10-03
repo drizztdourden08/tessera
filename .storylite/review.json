@@ -683,8 +683,8 @@
       "at": "2026-10-01"
     },
     "ErrorBoundary": {
-      "status": "seen",
-      "hash": "c00b1dd456dab0f7",
+      "status": "ok",
+      "hash": "edb1f054706b6da2",
       "at": "2026-10-03"
     }
   },
@@ -783,13 +783,17 @@
     "HeaderTabs": {
       "status": "seen",
       "hash": "435229260b09201d",
-      "at": "2026-10-01"
+      "at": "2026-10-03"
     },
     "FloatingSwitch": {
-      "status": "new"
+      "status": "seen",
+      "hash": "457ad6553e1ca4b9",
+      "at": "2026-10-03"
     },
     "SplitPane": {
-      "status": "new"
+      "status": "seen",
+      "hash": "3925bf6722535682",
+      "at": "2026-10-03"
     },
     "MasterDetailLayout": {
       "status": "new"
@@ -960,9 +964,9 @@
       "at": "2026-10-01"
     },
     "FullScreenLayer": {
-      "status": "seen",
-      "hash": "81880cc4c5d73585",
-      "at": "2026-10-02"
+      "status": "ok",
+      "hash": "646a7de37cb6f6d2",
+      "at": "2026-10-03"
     }
   },
   "Data": {
