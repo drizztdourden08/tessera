@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.6.0
+
+### Minor Changes
+
+- 1d3453a: `Emphasis` moves from the composites to the primitives, beside the text elements, and its gallery page is now Core · Text, Emphasis animation. The package root still exports it; an import from the `composites` subpath moves to the root or `primitives`. The gallery regroups the composites: Navigation keeps only navigation, and new Layout, Lists, Settings and Windows groups hold the rest. See MIGRATION.md section 59.
+- 3b7504e: `Stepper`, the number field with minus and plus buttons, is renamed `NumberStepper`, with `NumberStepperProps` and `number-stepper` class names. Nothing else about it changes. The name `Stepper` is freed for the wizard step indicator in a later release. See MIGRATION.md section 58.
+
 ## 0.5.0
 
 ### Minor Changes
