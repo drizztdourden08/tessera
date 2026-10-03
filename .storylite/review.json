@@ -824,10 +824,14 @@
   },
   "Composites · Lists": {
     "ListItemRow": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "GroupTree": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "SearchResults": {
       "status": "seen",
@@ -916,10 +920,14 @@
   },
   "Composites · Data views": {
     "DataTable": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "FilterBar": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "CompactRecordView": {
       "status": "ok",
@@ -935,8 +943,8 @@
   "Composites · Content": {
     "LogPanel": {
       "status": "seen",
-      "hash": "774ff40a72191780",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-03"
     },
     "FactsPanel": {
       "status": "ok",
@@ -1039,7 +1047,9 @@
   },
   "Data": {
     "Engine": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-03"
     }
   }
 }
