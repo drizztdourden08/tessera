@@ -1388,3 +1388,25 @@ The icon keeps its size: the pops draw in a layer laid over the icon, and the ic
 ### What an app does
 
 Replace each `<SearchSpark size={n} />` with `<Icon name="search" size={n} effect="twinkle" className="search-glass" />`, and rename `.search-spark` to `.search-glass` in its styles. Drop any style aimed at `.search-spark__star`.
+
+## 57. Drawer has a header, a padded body and an actions row; DynamicInput popups use the standard look
+
+`Drawer` takes `title`, `subtitle` and `actions`. A title or a subtitle draws a `WindowHeader` at the top of the panel with a close button that calls `onClose`. The children go in a body that pads them by `--space-lg` on every side, stacks them with a `--space-md` gap and scrolls when they run long. `actions` sit in a `ButtonRow` at the bottom, aligned to the end. The header and the actions row are padded by `--space-md` and `--space-lg` and ruled off from the body. Without a `label`, the title names the dialog for screen readers.
+
+```tsx
+<Drawer
+  open={open}
+  onClose={close}
+  title="Filters"
+  subtitle="2 of 3 statuses"
+  actions={<Button variant="primary" onClick={close}>Show results</Button>}
+>
+  <Checkbox label="Open" checked={showOpen} onChange={setShowOpen} />
+</Drawer>
+```
+
+The popups of `DynamicInput` now show the standard parts in their own look. The Stepper keeps its own width in place of stretching across the popup, and every popup shares one frame: the surface and border of the `ColorPicker` card, `--space-md` of padding, a `Text` subtitle as the title and a `--space-sm` gap. The option list runs to the edges of the frame under its title. A selected slot no longer shows the browser's blue selection box: the selection draws in `--c-selected` and the text keeps `--c-text`. The class names `dynamic-input__panel-body` and `dynamic-input__panel-title` are gone; the sections are `dynamic-input__section`.
+
+### What an app does
+
+An app that put a `WindowHeader` inside a `Drawer` passes its `title`, `subtitle` and close handler to the `Drawer` instead, moves its buttons to `actions`, and drops the padding it gave the content. An app that styled `.dynamic-input__panel-title` or `.dynamic-input__panel-body` drops those styles.

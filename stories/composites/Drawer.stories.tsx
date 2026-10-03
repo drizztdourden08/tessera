@@ -1,11 +1,11 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { ReactNode } from 'react';
+import type { ComponentType } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
-import { Drawer } from '../../src/composites/Drawer';
 import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { FilterPanelBody, ItemDetailsBody, NotificationsBody, SearchSheetBody } from './_samples/DrawerBodies';
+import { FilterPanelDrawer, ItemDetailsDrawer, NotificationsDrawer, SearchSheetDrawer } from './_samples/DrawerBodies';
+import type { SampleDrawerProps } from './_samples/DrawerBodies';
 import './Drawer.stories.css';
 
 type DrawerSide = 'left' | 'right' | 'top';
@@ -15,10 +15,10 @@ type DrawerArgs = {
   label: string;
 };
 
-type DrawerDemoProps = DrawerArgs & { openLabel: string; renderBody: (close: () => void) => ReactNode };
+type DrawerDemoProps = DrawerArgs & { openLabel: string; Sample: ComponentType<SampleDrawerProps> };
 
 const DrawerDemo = (props: DrawerDemoProps) => {
-  const { side, label, openLabel, renderBody } = props;
+  const { side, label, openLabel, Sample } = props;
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   return (
@@ -30,7 +30,7 @@ const DrawerDemo = (props: DrawerDemoProps) => {
           <Button variant="secondary" onClick={() => setOpen(true)}>{openLabel}</Button>
         </Box>
       </Box>
-      <Drawer open={open} onClose={close} side={side} label={label}>{renderBody(close)}</Drawer>
+      <Sample open={open} close={close} side={side} label={label} />
     </Box>
   );
 };
@@ -52,7 +52,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <DrawerDemo {...args} openLabel="Show details" renderBody={(close) => <ItemDetailsBody close={close} />} />
+    <DrawerDemo {...args} openLabel="Show details" Sample={ItemDetailsDrawer} />
   ),
 } satisfies StoryLiteStoryDefinition<DrawerArgs>;
 
@@ -61,7 +61,7 @@ const FilterPanel = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <DrawerDemo {...args} side="left" label="Filters" openLabel="Filters" renderBody={(close) => <FilterPanelBody close={close} />} />
+    <DrawerDemo {...args} side="left" label="Filters" openLabel="Filters" Sample={FilterPanelDrawer} />
   ),
 } satisfies StoryLiteStoryDefinition<DrawerArgs>;
 
@@ -75,7 +75,7 @@ const Notifications = {
       side="right"
       label="Notifications"
       openLabel="Notifications"
-      renderBody={(close) => <NotificationsBody close={close} />}
+      Sample={NotificationsDrawer}
     />
   ),
 } satisfies StoryLiteStoryDefinition<DrawerArgs>;
@@ -85,20 +85,31 @@ const SearchSheet = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <DrawerDemo {...args} side="top" label="Search files" openLabel="Search" renderBody={() => <SearchSheetBody />} />
+    <DrawerDemo {...args} side="top" label="Search files" openLabel="Search" Sample={SearchSheetDrawer} />
   ),
 } satisfies StoryLiteStoryDefinition<DrawerArgs>;
 
-const CODE = `import { Drawer, WindowHeader } from '@drizztdourden08/tessera';
+const CODE = `import { Button, Drawer } from '@drizztdourden08/tessera';
 
-<Drawer open={open} onClose={() => setOpen(false)} side="right" label="File details">
-  <WindowHeader title="Details" subtitle="Budget 2026.xlsx" onClose={() => setOpen(false)} />
+<Drawer
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Details"
+  subtitle="Budget 2026.xlsx"
+  actions={<Button variant="primary" onClick={openFile}>Open</Button>}
+>
   <FileDetails />
 </Drawer>`;
 
 const Overview = overviewStory({
   component: 'Drawer',
-  description: 'A sheet that slides in from one edge over a scrim. Reach for it on touch and narrow layouts, for details, filters, notifications or a quick search that should not take a whole page. It opens from the right by default, or from the left or the top, and a tap on the scrim closes it. The body is yours, and label names the panel for screen readers.',
+  description: 'A sheet that slides in from one edge over a scrim. Reach for it on touch and narrow layouts, for details, filters, notifications or a quick search that should not take a whole page. It opens from the right by default, or from the left or the top, and a tap on the scrim or the close button closes it.',
+  points: [
+    'title and subtitle fill a WindowHeader with a close button at the top.',
+    'The body pads its content on every side and scrolls when it runs long, so content needs no padding of its own.',
+    'actions sit in a footer row at the bottom, aligned to the end.',
+    'label names the panel for screen readers when there is no title.',
+  ],
   playground: Playground,
   variants: [FilterPanel, Notifications, SearchSheet],
   code: CODE,

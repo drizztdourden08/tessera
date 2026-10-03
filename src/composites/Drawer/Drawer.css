@@ -37,6 +37,27 @@
   will-change: transform;
 }
 
+.drawer__header {
+  flex: none;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+}
+
+.drawer__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-height: 0;
+  padding: var(--space-lg);
+}
+
+.drawer__actions {
+  flex: none;
+  padding: var(--space-md) var(--space-lg);
+  border-top: var(--border-width-thin) solid var(--c-border);
+}
+
 .drawer--right .drawer__panel {
   right: 0;
   transform: translateX(100%);

@@ -102,6 +102,15 @@
   box-shadow: none;
 }
 
+.dynamic-input .dynamic-input__slot::selection {
+  background: var(--c-selected);
+  color: var(--c-text);
+}
+
+.dynamic-input .dynamic-input__segment--shaded .dynamic-input__slot::selection {
+  color: transparent;
+}
+
 .dynamic-input .dynamic-input__slot::placeholder {
   color: var(--c-text-faint);
   font-weight: var(--weight-normal);
@@ -185,41 +194,49 @@
 .dynamic-input__panel {
   --anchored-gap: var(--space-xs);
 
+  display: flex;
+  flex-direction: column;
   min-width: var(--size-192);
-  padding: var(--space-sm);
+  padding: var(--space-md);
   color: var(--c-text);
   background: var(--c-surface);
-  border: var(--border-width-thin) solid var(--c-border-strong);
+  border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-dropdown);
+  cursor: default;
   pointer-events: auto;
 }
 
 .dynamic-input__panel--list {
-  display: flex;
-  flex-direction: column;
   max-height: var(--size-288);
-  padding: var(--space-2xs) 0;
 }
 
 .dynamic-input__panel--color {
-  min-width: 0;
   padding: 0;
   background: none;
   border: 0;
-  box-shadow: none;
 }
 
-.dynamic-input__panel-body {
+.dynamic-input__section {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  align-items: flex-start;
+  gap: var(--space-sm);
+  min-height: 0;
 }
 
-.dynamic-input__panel-title {
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
+.dynamic-input__section--fill {
+  flex: 1 1 auto;
+  align-items: stretch;
+}
+
+.dynamic-input__bleed {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  margin-inline: calc(-1 * var(--space-md));
+  margin-block-end: calc(-1 * var(--space-md));
 }
 
 .dynamic-input__time {

@@ -1,13 +1,12 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
 import { NumberInput } from '../../../primitives/NumberInput';
 import { Slider } from '../../../primitives/Slider';
 import { Stepper } from '../../../primitives/Stepper';
-import { Span } from '../../../primitives/text-elements';
 import { asNumber } from '../behavior/as-number';
 import { clampToRange } from '../behavior/clamp-to-range';
 import { roundTo } from '../behavior/round-to';
 import { slotLabel } from '../behavior/slot-label';
+import { PanelSection } from './PanelSection';
 import type { NumberPanelProps } from './SlotPanel.type';
 
 const NumberPanel = (props: NumberPanelProps) => {
@@ -20,8 +19,7 @@ const NumberPanel = (props: NumberPanelProps) => {
   };
 
   return (
-    <Box className="dynamic-input__panel-body">
-      <Span tone="muted" className="dynamic-input__panel-title">{label}</Span>
+    <PanelSection title={label} fill={panel !== 'stepper'}>
       {panel === 'slider' && (
         <Slider value={current ?? min ?? 0} min={min ?? 0} max={max ?? 0} step={step} onChange={set} size={size} aria-label={label} />
       )}
@@ -31,7 +29,7 @@ const NumberPanel = (props: NumberPanelProps) => {
       {panel === 'spin' && (
         <NumberInput value={current ?? ''} min={min} max={max} step={step} onChange={set} size={size} aria-label={label} />
       )}
-    </Box>
+    </PanelSection>
   );
 };
 

@@ -10,6 +10,7 @@ import { slotLabel } from '../behavior/slot-label';
 import { useChoiceSegment } from '../behavior/useChoiceSegment';
 import { ADORNMENT_ICON_SIZES } from '../../../primitives/field-control/input-adornment.constants';
 import { ChoiceFace } from './ChoiceFace';
+import { PanelSection } from './PanelSection';
 import { SlotPopover } from './SlotPopover';
 import type { SegmentProps } from './TypedSegment.type';
 import '../../../theme/listbox.css';
@@ -48,7 +49,11 @@ const ChoiceSegment = (props: SegmentProps) => {
       </Pressable>
       {open && (
         <SlotPopover field={field} anchorRef={anchorRef} variant="list">
-          <ListboxList view={choice.view} loading={false} emptyText={fields.noOptions} label={label} />
+          <PanelSection title={label} fill>
+            <Box className="dynamic-input__bleed">
+              <ListboxList view={choice.view} loading={false} emptyText={fields.noOptions} label={label} />
+            </Box>
+          </PanelSection>
         </SlotPopover>
       )}
     </Box>

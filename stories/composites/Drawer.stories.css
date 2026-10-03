@@ -11,10 +11,8 @@
   padding: var(--space-lg);
 }
 
-.drawer-story__panel {
+.drawer-story__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  padding: var(--space-lg);
-  overflow-y: auto;
+  gap: var(--space-xs);
 }

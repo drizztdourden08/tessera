@@ -1,11 +1,11 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Stepper } from '../../../primitives/Stepper';
-import { Span } from '../../../primitives/text-elements';
 import { asNumber } from '../behavior/as-number';
 import { clampToRange } from '../behavior/clamp-to-range';
 import { slotLabel } from '../behavior/slot-label';
 import { TIME_TYPES } from '../DynamicInput.constants';
+import { PanelSection } from './PanelSection';
 import type { PatternSlotSpec } from '../behavior/parse-pattern.type';
 import type { SlotPanelProps } from './SlotPanel.type';
 
@@ -23,8 +23,7 @@ const TimePanel = (props: SlotPanelProps) => {
           if (Number.isFinite(next)) field.setSlot(slot.name, clampToRange(next, slot));
         };
         return (
-          <Box key={slot.name} className="dynamic-input__panel-body">
-            <Span tone="muted" className="dynamic-input__panel-title">{label}</Span>
+          <PanelSection key={slot.name} title={label}>
             <Stepper
               value={asNumber(field.value[slot.name]) ?? Number.NaN}
               min={slot.min}
@@ -34,7 +33,7 @@ const TimePanel = (props: SlotPanelProps) => {
               size={field.size}
               ariaLabel={label}
             />
-          </Box>
+          </PanelSection>
         );
       })}
     </Box>

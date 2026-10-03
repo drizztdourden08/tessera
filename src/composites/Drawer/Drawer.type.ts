@@ -1,11 +1,16 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 
+type DrawerSide = 'left' | 'right' | 'top';
+
 interface DrawerProps {
   open: boolean;
   onClose: () => void;
-  side?: 'left' | 'right' | 'top';
+  side?: DrawerSide;
   label?: string;
+  title?: ReactNode;
+  subtitle?: ReactNode;
+  actions?: ReactNode;
   children: ReactNode;
 }
 
