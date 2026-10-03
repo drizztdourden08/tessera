@@ -1972,16 +1972,6 @@
       "usage": false
     },
     {
-      "name": "SearchSpark",
-      "tier": "composites",
-      "source": "src/composites/SearchSpark/SearchSpark.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "SettingsGroupList",
       "tier": "composites",
       "source": "src/composites/SettingsGroupList/SettingsGroupList.tsx",

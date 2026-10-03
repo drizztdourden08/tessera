@@ -16,12 +16,27 @@ type BrandIconName = BrandApp | 'rotp-mascot';
 
 type BrandIconTone = 'color' | 'mono';
 
+type IconEffectKind = 'twinkle' | 'glint' | 'ping' | 'burst' | 'dot' | 'shimmer';
+
+type IconEffectColor = 'current' | 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'info';
+
+interface IconEffectOptions {
+  kind: IconEffectKind;
+  every?: number;
+  jitter?: number;
+  color?: IconEffectColor;
+  count?: number;
+}
+
+type IconEffect = IconEffectKind | IconEffectOptions;
+
 interface IconLook extends Omit<SVGProps<SVGSVGElement>, 'ref' | 'rotate' | 'name' | 'mode' | 'onLoad'> {
   size?: number | string;
   rotate?: IconRotation;
   flip?: IconFlip;
   inline?: boolean;
   label?: string;
+  effect?: IconEffect;
 }
 
 type IconSource = { name: IconName; icon?: never } | { icon: IconifyIcon; name?: never };
@@ -33,4 +48,7 @@ interface BrandIconProps extends IconLook {
   tone?: BrandIconTone;
 }
 
-export type { BrandIconName, BrandIconProps, BrandIconTone, IconFlip, IconLook, IconName, IconProps, IconRotation, IconSet, IconSource };
+export type {
+  BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions,
+  IconFlip, IconLook, IconName, IconProps, IconRotation, IconSet, IconSource,
+};

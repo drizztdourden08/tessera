@@ -1,0 +1,149 @@
+/* @layer renderer-components @kind style */
+.icon-effect {
+  position: relative;
+  display: inline-flex;
+}
+
+.icon-effect--inline {
+  line-height: 1;
+  vertical-align: -12.5%;
+}
+
+.icon-effect--primary { --icon-effect-ink: var(--c-primary-bright); }
+.icon-effect--secondary { --icon-effect-ink: var(--c-secondary-bright); }
+.icon-effect--tertiary { --icon-effect-ink: var(--c-tertiary-bright); }
+.icon-effect--success { --icon-effect-ink: var(--c-success-bright); }
+.icon-effect--warning { --icon-effect-ink: var(--c-warning-bright); }
+.icon-effect--danger { --icon-effect-ink: var(--c-danger-bright); }
+.icon-effect--info { --icon-effect-ink: var(--c-info-bright); }
+
+.icon-effect__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: var(--icon-effect-ink, currentcolor);
+  filter: drop-shadow(0 0 var(--size-2) currentcolor);
+  pointer-events: none;
+}
+
+.icon-effect__pop {
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: var(--duration-icon-pop) var(--ease-emphasized) both;
+}
+
+.icon-effect__pop--twinkle,
+.icon-effect__pop--dot {
+  fill: currentcolor;
+  stroke: none;
+}
+
+.icon-effect__pop--twinkle {
+  animation-name: icon-pop-twinkle;
+  animation-timing-function: var(--ease-standard);
+}
+
+.icon-effect__pop--glint {
+  animation-name: icon-pop-sweep;
+  animation-timing-function: var(--ease-in-out);
+}
+
+.icon-effect__pop--ping { animation-name: icon-pop-ping; }
+.icon-effect__pop--burst { animation-name: icon-pop-burst; }
+.icon-effect__pop--dot { animation-name: icon-pop-dot; }
+
+.icon-effect__pop--shimmer {
+  animation-name: icon-pop-sweep;
+  animation-duration: calc(var(--duration-icon-pop) * 2);
+  animation-timing-function: var(--ease-in-out);
+}
+
+@keyframes icon-pop-twinkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+
+  35% {
+    opacity: 1;
+    transform: scale(1) rotate(35deg);
+  }
+
+  70% {
+    opacity: 0.7;
+    transform: scale(0.75) rotate(60deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(90deg);
+  }
+}
+
+@keyframes icon-pop-sweep {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 0.45;
+  }
+  20%, 80% { opacity: 1; }
+
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -1.1;
+  }
+}
+
+@keyframes icon-pop-ping {
+  0% {
+    opacity: 1;
+    transform: scale(0.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+@keyframes icon-pop-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  30% { opacity: 1; }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+}
+
+@keyframes icon-pop-dot {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-effect__layer {
+    display: none;
+  }
+}

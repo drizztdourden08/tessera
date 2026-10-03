@@ -1354,3 +1354,37 @@ An app that relies on the small compact form passes `size="sm"`:
 ```
 
 `RecordEditor` takes `size` too, with the same rule, and passes it to every field. Each row of the editor now has `--space-sm` of padding on every side, so the label and the control stay clear of the edges of a row marked by a background or a border, at both sizes and with fields that wrap over several lines. The gap between rows drops from `--space-sm` to `--space-xs` to keep the editor compact. `CreateRecordDialog` builds its rows the same way and gets the same padding. An app that styled `.record-editor__row` with its own padding can drop it.
+
+## 56. Icon takes an effect; SearchSpark is removed
+
+`Icon` takes `effect`: a small pop that lands every few seconds on a random point of the drawn shape. The point is sampled from the painted paths, circles, lines, polylines, polygons and rects of the icon, so a pop never lands in empty space. `Icon.Brand` takes it too.
+
+```tsx
+<Icon name="search" effect="twinkle" />
+<Icon name="settings" effect={{ kind: 'ping', every: 2000, jitter: 400, color: 'secondary', count: 2 }} />
+```
+
+| Kind | The pop |
+|---|---|
+| `twinkle` | a four point star that grows, turns and fades, the old SearchSpark star |
+| `glint` | a short bright streak that sweeps across the point |
+| `ping` | a ring that grows and fades |
+| `burst` | eight tiny rays that fly out |
+| `dot` | a dot that pops and fades |
+| `shimmer` | a bright dash that runs along the stroke from the point |
+
+`every` is the time between pops in milliseconds, 3500 by default. `jitter` adds or takes up to that many milliseconds at random, a quarter of `every` by default, so icons on one screen never pop in step. `color` is `primary` by default and takes `current`, `secondary`, `tertiary`, `success`, `warning`, `danger` or `info`; each draws in its bright token. `count` pops on that many points at once. The pop length is the new `--duration-icon-pop` token.
+
+The icon keeps its size: the pops draw in a layer laid over the icon, and the icon sits in a `span.icon-effect` of exactly its size. The layer is hidden from assistive tech, and the label of the icon stays as it was. The pops pause while the icon is off screen or the tab is hidden, and never show under reduced motion. A selector that reaches the svg through a direct child combinator, such as `.my-slot > svg`, now meets the `span` first when the icon has an effect.
+
+`SearchSpark` is removed: it was a search glass with a star. Draw it with the search icon, the effect and the new `search-glass` class, which carries the colour and the soft glow:
+
+```tsx
+<Icon name="search" size={40} effect="twinkle" className="search-glass" />
+```
+
+`SearchSparkProps` goes with it: `size` and `className` are the same props on `Icon`. `SEARCH_ICON_PATHS` is removed; the glass is the `search` icon of the named set. `.search-spark` becomes `.search-glass`, and `.search-spark__star` is gone. `SideNav` search and the idle icon of `SearchResults` now draw this icon.
+
+### What an app does
+
+Replace each `<SearchSpark size={n} />` with `<Icon name="search" size={n} effect="twinkle" className="search-glass" />`, and rename `.search-spark` to `.search-glass` in its styles. Drop any style aimed at `.search-spark__star`.

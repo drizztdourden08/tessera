@@ -29,7 +29,6 @@ export default standardsEslint({
     { files: ['src/composites/DataTable/sub-components/GroupRow.tsx'], why: 'a group row indents by its depth' },
     { files: ['src/primitives/CodeBlock/CodeBlock.tsx'], why: 'the highlighter returns each line and token style' },
     { files: ['src/composites/PixelWordmark/PixelWordmark.tsx'], why: 'the aspect ratio comes from the laid out letters' },
-    { files: ['src/composites/SearchSpark/SearchSpark.tsx'], why: 'the size prop scales the glyph' },
     { files: ['src/composites/Emphasis/**'], why: 'the weights, timing and each letter delay are set per instance' },
     { files: ['src/composites/KeyboardLayout/**'], why: 'each key is placed and sized from the layout data, in key units' },
     { files: ['src/composites/ShortcutTour/**'], why: 'the camera transform and the speed are computed per frame' },

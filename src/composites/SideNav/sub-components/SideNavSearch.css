@@ -26,8 +26,8 @@
   cursor: pointer;
 }
 
-.side-nav__search-mark:hover .search-spark,
-.side-nav__search-input:hover .search-spark {
+.side-nav__search-mark:hover .search-glass,
+.side-nav__search-input:hover .search-glass {
   color: var(--c-primary-bright);
   filter: drop-shadow(0 0 var(--size-6) var(--c-primary-soft));
 }

@@ -145,7 +145,8 @@ export { Icon, ICONS } from './Icon';
 export { Glyph, GLYPHS } from './Glyph';
 export type { GlyphName, GlyphProps } from './Glyph';
 export type {
-  BrandIconName, BrandIconProps, BrandIconTone, IconFlip, IconName, IconProps, IconRotation, IconSet,
+  BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions,
+  IconFlip, IconName, IconProps, IconRotation, IconSet,
 } from './Icon';
 export { PathIcon } from './PathIcon';
 export type { PathIconCircle, PathIconProps } from './PathIcon';

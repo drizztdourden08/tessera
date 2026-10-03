@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 6 of 142 have their usage written; a linked name opens its page.
+One line per component. 6 of 141 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -120,7 +120,6 @@ One line per component. 6 of 142 have their usage written; a linked name opens i
 - [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.
 - `SearchResults`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `SearchSpark`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsGroupList`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsPage`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsSection`: usage not written yet. Import from `@drizztdourden08/tessera`.

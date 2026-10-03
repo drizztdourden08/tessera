@@ -57,7 +57,6 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Menus',
       entries: [
         { name: 'DropdownMenu', summary: 'A menu of actions, checks and submenus.' },
-        { name: 'SearchSpark', summary: 'A compact search field.' },
         { name: 'CommandPalette', summary: 'A search box over the window for screens, settings and actions.' },
         { name: 'CommandPaletteRow', summary: 'One result row: icon, label, breadcrumb, check or toggle.' },
       ],

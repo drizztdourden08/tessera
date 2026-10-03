@@ -73,8 +73,6 @@ export { StageScreen } from './StageScreen';
 export type { StageScreenDone, StageScreenProps } from './StageScreen';
 export { FloatingSwitch } from './FloatingSwitch';
 export type { FloatingSwitchItem, FloatingSwitchProps } from './FloatingSwitch';
-export { SearchSpark, SEARCH_ICON_PATHS } from './SearchSpark';
-export type { SearchSparkProps } from './SearchSpark';
 export { Emphasis } from './Emphasis';
 export type { EmphasisAnchor, EmphasisOrder, EmphasisProps, EmphasisTrigger } from './Emphasis';
 export { KeyboardLayout, KEYBOARD_SIZES } from './KeyboardLayout';

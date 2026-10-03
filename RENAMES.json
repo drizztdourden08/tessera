@@ -246,7 +246,9 @@
     {
       "version": "next",
       "components": {
-        "FullScreenLayer": "ScreenWindow"
+        "FullScreenLayer": "ScreenWindow",
+        "SearchSparkProps": "IconProps",
+        "SearchSpark": "Icon, drawn as <Icon name=\"search\" effect=\"twinkle\" className=\"search-glass\" /> (see MIGRATION.md section 56)"
       },
       "cssClasses": {
         "fullscreen-layer__content": "screen-window__content",
@@ -260,7 +262,9 @@
         "settings-shell__content": "removed with SettingsShell; the page sits in the NavLayout pane (see MIGRATION.md section 52)",
         "settings-shell__header": "removed with SettingsShell; the title moves to WorkspaceScreen (see MIGRATION.md section 52)",
         "settings-shell__body": "nav-layout",
-        "settings-shell": "removed with SettingsShell; use nav-layout (see MIGRATION.md section 52)"
+        "settings-shell": "removed with SettingsShell; use nav-layout (see MIGRATION.md section 52)",
+        "search-spark__star": "removed; the star is the twinkle of the Icon effect prop (see MIGRATION.md section 56)",
+        "search-spark": "search-glass"
       },
       "props": {
         "SideNav.searchable": "SideNav.search, which the host owns; NavLayout.filterable keeps a filter the layout owns (see MIGRATION.md sections 47 and 52)",
@@ -273,7 +277,8 @@
       },
       "removedExports": {
         "SettingsShell": "replaced by WorkspaceScreen for a settings screen, or NavLayout with filterable inside a page; see MIGRATION.md section 52",
-        "SettingsShellProps": "replaced by WorkspaceScreenProps, or NavLayoutProps with filterable and filterPlaceholder"
+        "SettingsShellProps": "replaced by WorkspaceScreenProps, or NavLayoutProps with filterable and filterPlaceholder",
+        "SEARCH_ICON_PATHS": "removed; draw the glass with <Icon name=\"search\" /> (see MIGRATION.md section 56)"
       }
     }
   ]

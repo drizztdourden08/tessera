@@ -1,0 +1,6 @@
+/* @layer renderer-components @kind style */
+.search-glass {
+  color: var(--c-primary);
+  filter: drop-shadow(0 0 var(--size-4) var(--c-primary-soft));
+  transition: filter var(--transition-normal), color var(--transition-normal);
+}

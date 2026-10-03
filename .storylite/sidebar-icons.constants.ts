@@ -80,7 +80,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WindowTitleBar: 'app-window-mac', SettingsSection: 'settings-2', SettingsGroupList: 'list-checks',
     SettingsPage: 'file-cog', NavLayout: 'layout-template', SearchResults: 'search-check', ProfilePicker: 'users',
   },
-  'Composites · Menus': { DropdownMenu: 'square-chevron-down', SearchSpark: 'sparkles', CommandPalette: 'command', CommandPaletteRow: 'text-search' },
+  'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search' },
   'Composites · Data views': {
     'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',
   },

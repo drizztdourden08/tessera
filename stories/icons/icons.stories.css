@@ -33,3 +33,19 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
+
+.icon-effect-specimen {
+  position: relative;
+  display: inline-flex;
+}
+
+.icon-effect-specimen__samples {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: var(--c-danger);
+  fill: currentcolor;
+  pointer-events: none;
+}
