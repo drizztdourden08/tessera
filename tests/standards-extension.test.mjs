@@ -6,6 +6,7 @@ import { tesseraExtension } from '../scripts/standards/tessera-extension.mjs';
 import { extension } from '../standards.extension.mjs';
 import { fixtureRepo, MONOREPO, writeTree } from './config-fixture.mjs';
 
+const TIMEOUT = 60_000;
 const FACETS = ['id', 'description', 'structure', 'eslint', 'stylelint', 'markdownlint', 'prose'];
 const PART = (name) => `/* @layer renderer-app @kind component */\nconst ${name} = () => null;\n\nexport { ${name} };\n`;
 const dir = fixtureRepo();
@@ -44,28 +45,34 @@ describe('the standards extension', () => {
     expect(extension.eslint.options(inDesign)).toEqual({ primitivesGlobs: ['src/primitives/**/*.tsx'] });
   });
 
-  it('requires Name.usage.ts in each part folder of the package that holds it, and nowhere else', () => {
-    expect(check('packages/design')).toEqual([
+  it('requires Name.usage.ts in each part folder of the package that holds it, and nowhere else', async () => {
+    expect((await check('packages/design')).findings).toEqual([
       'packages/design/src/compounds/SaveSlot: missing SaveSlot.usage.ts (every part in the folders of tessera.config.json says when to use it)',
     ]);
-    expect(check('apps/desktop')).toEqual([
+    expect((await check('apps/desktop')).findings).toEqual([
       'apps/desktop/src/views/Bare: missing Bare.usage.ts (every part in the folders of tessera.config.json says when to use it)',
     ]);
-    expect(check('.')).toEqual([]);
-  });
+    expect(await check('.')).toEqual({ findings: [], notes: [] });
+  }, TIMEOUT);
 
-  it('supplies the check and empty options when there is no config', () => {
+  it('notes a usage file it cannot read in report mode', async () => {
+    const { notes } = await check('apps/desktop');
+    expect(notes[0]).toBe('apps/desktop/src/views/Home: unreadable-usage: apps/desktop/src/views/Home/Home.usage.ts exports no usage object');
+    expect(notes).toContain('apps/desktop/src/views/Home: tsconfig: no tsconfig.json in apps/desktop/src/views/Home or above it; set ai.tsconfig in tessera.config.json');
+  }, TIMEOUT);
+
+  it('supplies the check and empty options when there is no config', async () => {
     const bare = fixtureRepo({ 'package.json': '{}' });
-    const findings = extension.structure.checks[0]({ rootDir: bare, packageDir: bare });
+    const findings = await extension.structure.checks[0]({ rootDir: bare, packageDir: bare });
     const options = [extension.eslint.options({ rootDir: bare }), extension.stylelint.options({ rootDir: bare })];
     rmSync(bare, { recursive: true, force: true });
     expect(options).toEqual([{}, {}]);
     expect(findings).toEqual([]);
   });
 
-  it('reports a broken config as a structure finding, never while loading', () => {
+  it('reports a broken config as a structure finding, never while loading', async () => {
     const broken = fixtureRepo({ ...MONOREPO, 'tessera.config.json': { parts: { widgets: 'src/widgets' } } });
-    const findings = extension.structure.checks[0]({ rootDir: broken, packageDir: broken });
+    const findings = await extension.structure.checks[0]({ rootDir: broken, packageDir: broken });
     const options = extension.eslint.options({ rootDir: broken });
     rmSync(broken, { recursive: true, force: true });
     expect(options).toEqual({});

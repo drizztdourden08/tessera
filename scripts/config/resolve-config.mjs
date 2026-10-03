@@ -18,6 +18,7 @@ const resolveAi = (ai, root) => ({
   usage: ai.usage ?? DEFAULTS.aiUsage,
   out: absolutePath(root, ai.out ?? DEFAULTS.aiOut),
   ...optional('tree', ai.tree, (tree) => absolutePath(root, tree)),
+  ...optional('tsconfig', ai.tsconfig, (tsconfig) => absolutePath(root, tsconfig)),
 });
 
 const resolveGallery = (gallery, root) => ({

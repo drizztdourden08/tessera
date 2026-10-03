@@ -1110,3 +1110,217 @@ A host stylesheet that styled one of the classes above as the input now styles t
 The `SideNav` chevron now sits level with the first row the nav shows: the search field, the Home item, the first group label when the nav is open, or the first item. The nav carries `side-nav--lead-search`, `side-nav--lead-item` or `side-nav--lead-label` to say which. The search field is as tall as an item, so it lines up closed and open. The nav column has the same space above the first row and below the last: the bottom padding of `.side-nav__groups` drops from md to sm, and the rail no longer adds an extra sm above its first group.
 
 The SearchInput page shows the sizes, the clear button, a disabled field and a list filtered as you type. The TextInput page shows a decorative icon, a password reveal and a copy button at both sizes. The SideNav page shows the chevron beside each kind of first row, closed and open, including a nav with one item.
+
+## 50. PasswordInput is a primitive
+
+`PasswordInput` is the password field, built on `TextInput`. It has an eye button at the end, any mask character, a mono option, a Caps Lock warning, and an optional checklist with a strength meter. Paste always works.
+
+```ts
+type PasswordMode = 'current' | 'new';
+type PasswordScore = 0 | 1 | 2 | 3 | 4;
+type PasswordStrength = false | 'rules' | PasswordScore | ((value: string) => PasswordScore);
+type PasswordStrengthLevel = 'weak' | 'fair' | 'good' | 'strong';
+
+interface PasswordRule {
+  id: string;
+  label: string;
+  test: (value: string) => boolean;
+}
+
+interface PasswordInputProps extends Omit<TextInputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'end'> {
+  value: string;
+  onChange: (value: string) => void;       // the password, not the event
+  mode?: PasswordMode;                     // 'current'; 'new' sets autoComplete="new-password"
+  revealed?: boolean;                      // controlled
+  defaultRevealed?: boolean;               // false
+  onRevealedChange?: (revealed: boolean) => void;
+  hideOnBlur?: boolean;                    // false
+  maskChar?: string;                       // any character or emoji; leave it out for the browser dots
+  monospace?: boolean;                     // false; maskChar turns it on
+  capsLockWarning?: boolean;               // true
+  rules?: readonly PasswordRule[];
+  strength?: PasswordStrength;             // 'rules' in new mode with rules, false otherwise
+}
+```
+
+```tsx
+const RULES = [
+  { id: 'length', label: 'At least 12 characters', test: (value: string) => value.length >= 12 },
+  { id: 'number', label: 'At least one number', test: (value: string) => /\d/.test(value) },
+];
+
+<Field label="Password">
+  <PasswordInput mode="new" rules={RULES} value={password} onChange={setPassword} />
+</Field>
+```
+
+What it does:
+
+| Part | Behaviour |
+|---|---|
+| Eye button | named `password.showPassword` with `aria-pressed`; a mouse click keeps the focus and the selection in the field, and the keyboard keeps the focus on the button. `hideOnBlur` hides the password once the focus leaves the field and its button. A shown password hides again when its form submits, so the browser offers to save it as a password |
+| Attributes | `autoComplete` is `current-password`, or `new-password` in new mode; `spellCheck={false}`, `autoCapitalize="off"` and `autoCorrect="off"`. Each can be overridden. The name is `password.password` unless the host passes its own or a `Field` labels it |
+| `maskChar` | draws the given character in place of the dots. The real `type="password"` input stays underneath with transparent text and a visible caret, so password managers, autofill and the mobile password keyboard work as before. Both use the mono font, and each mask cell is as wide as the dot the browser draws, so the caret lines up. A character wider than one mono cell, such as `✱` or an emoji, gets two or three cells, with the same spacing added to the input. The mask follows the field when the password is longer than the field |
+| Copy and cut | the browser blocks both while the password is hidden; shown, they work |
+| Caps Lock | while the field has focus, a warning shows under it and a polite live region reads `password.capsLockOn` |
+| `rules` | a checklist under the field, linked with `aria-describedby`, each item ticked as its rule is met |
+| `strength` | a meter of four bars with Weak, Fair, Good or Strong. `'rules'` scores from the share of rules met; a number or a function is the host score, such as one from zxcvbn. Tessera bundles no strength library |
+| Announcements | a rule that flips and a new strength word are read in a polite live region once typing pauses for a second, never on each key |
+
+`mode="new"` shows the meter by default only when the host gives rules: Tessera does not know the password policy, so it ships no rules of its own.
+
+The mask has these limits. While the browser shows an autofilled value it has not handed to the page, the field shows the browser dots. Chrome and Safari draw one dot per character as the reader sees it, and Firefox one per UTF-16 unit; the mask counts the same way the browser does, found once per page. On Android and iOS the browser shows the last letter typed for a moment, in its own width, so the caret can sit off by part of a cell until it hides. Right to left works: the mask starts at the right and follows the scroll.
+
+`InputAdornmentAction` takes `pressed`, which sets `aria-pressed` on the button for a toggle such as the eye.
+
+The `password` group joins the string table: `password`, `showPassword`, `capsLockOn`, `strength`, `weak`, `fair`, `good`, `strong`, `requirements`, `met`, `notMet`, `ruleState(label, state)` and `strengthIs(level)`. The icon set gains `arrow-big-up-dash` for Caps Lock and `circle` for a rule not met yet.
+
+The TextInput page no longer builds its own password reveal; its icon examples are a decorative icon, a copy button and both ends, and its description sends passwords to `PasswordInput`. The room password on the Field page is a `PasswordInput`.
+
+The PasswordInput page shows the field hidden and shown, the browser dots beside five mask characters, the mono font on a key, the Caps Lock warning with how to try it, a sign-up form with the checklist and the meter, a score from the host, the sizes, the states, the field in a `Field`, and the field beside another input in one `Field` with a `FieldControlBoundary`.
+
+## 52. Screens come in layers: ScreenLayer, ScreenWindow and four screen kinds
+
+`FullScreenLayer` is split in two building blocks, and four screen kinds are built on them. `SettingsShell` is removed: `NavLayout` takes its filter, and `WorkspaceScreen` replaces it as the frame of a settings hub.
+
+| Layer | Name | What it is |
+|---|---|---|
+| base | `ScreenLayer` | the overlay, the gap from section 45, the empty card and the floating slot; a building block |
+| window | `ScreenWindow` | a `ScreenLayer` with a title, a close button and an empty container; a building block |
+| kind | `WorkspaceScreen` | a side list of pages beside the current `SettingsPage`, for a settings hub, a profile hub or a data manager |
+| kind | `InfoScreen` | wide margins and one centred column, for About and credits |
+| kind | `UtilityScreen` | a compact window with a status, optional progress and details, and an action row, for an update check |
+| kind | `StageScreen` | one open stage with an optional toolbar and Done, for calibration or a HUD editor |
+
+App code shows a screen through one of the four kinds. `ScreenWindow` is for a screen none of them fits, and `ScreenLayer` only for building a new kind.
+
+### FullScreenLayer
+
+| Before | After |
+|---|---|
+| `FullScreenLayer` | `ScreenWindow`, with the same `title`, `subtitle`, `extra`, `floating`, `hidden` and `onClose`; `title` is now required |
+| the overlay and the card alone | `ScreenLayer`, which has no title and no padding |
+| `.fullscreen-layer` | `.screen-layer` |
+| `.fullscreen-layer__inset`, `__frame`, `__card`, `__floating` | `.screen-layer__inset`, `__frame`, `__card`, `__floating` |
+| `.fullscreen-layer--hidden` | `.screen-layer--hidden` |
+| `.fullscreen-layer__header` | `.screen-window__header` |
+| `.fullscreen-layer__content` | `.screen-window__content` |
+| the container name `fullscreen-layer` | `screen-layer` |
+| `src/composites/FullScreenLayer` | `src/composites/ScreenLayer` and `src/composites/ScreenWindow` |
+| gallery page Composites · Screens/FullScreenLayer | Composites · Screens/ScreenLayer and Composites · Screens/ScreenWindow |
+
+The padding inside the window is now the same on all four sides. The title bar had an md by xl padding and the content had none on top, xl at the sides and lg at the bottom; a new `.screen-window` box inside the card now has an xl padding on every side, or md when the card fills a tiny room or a phone, and an lg gap between the title bar and the content. The content of a full window sits a little further in from the top and the bottom than before.
+
+Under 480 px wide or 440 px high, the floating switch moves inside the card, and the card itself now takes the room above its content, so every kind clears the switch, not only the title bar.
+
+`ScreenLayer` takes `size`: `fill`, the default, takes the room inside the gap; `compact` fits the card to its content, up to `--dialog-w-md` wide. `ScreenWindow` passes `size` through, and `UtilityScreen` uses `compact`. A `ScreenLayer` names its dialog with `label` or `labelledBy`.
+
+### SettingsShell
+
+`SettingsShell` and `SettingsShellProps` are removed. Its parts move:
+
+| Before | After |
+|---|---|
+| `SettingsShell` as the frame of a settings screen | `WorkspaceScreen`, with the page header from `page` and the body as children |
+| `SettingsShell` inside a page | `NavLayout` |
+| `filterable`, `filterPlaceholder` | the same props on `NavLayout` and `WorkspaceScreen` |
+| `header` | the `title` of the `WorkspaceScreen`, or a heading the host places above the `NavLayout` |
+| the glass panel around the children | the `SettingsPage` card |
+| `.settings-shell`, `.settings-shell__header`, `.settings-shell__body`, `.settings-shell__content` | `.nav-layout` and its pane; the shell classes are gone |
+| gallery page Composites · Navigation/SettingsShell | the A filter over the nav example on Composites · Navigation/NavLayout |
+
+`NavLayout` with `filterable` keeps the query and narrows the nav items by label, hiding a group with no match, as the shell did. A nav that passes its own `search` keeps it, and the filter steps aside.
+
+### The screen kinds
+
+```tsx
+<WorkspaceScreen
+  title="Home"
+  subtitle={profile.name}
+  floating={<WorkspaceSwitch />}
+  onClose={close}
+  nav={{ config: HUB_NAV, activeId: tab, onSelect: setTab, defaultOpen: true }}
+  page={{ icon: <Icon name="settings" />, title: 'General', anchors: GENERAL_ANCHORS }}
+>
+  <SettingsGroupList sections={generalSections} />
+</WorkspaceScreen>
+
+<InfoScreen title="About" onClose={close} footer={LEGAL}>
+  <AboutPanel title="Relic of the Past" brand="rotp" rows={rows} copyText={debugInfo} />
+</InfoScreen>
+
+<UtilityScreen
+  title="Check for updates"
+  onClose={close}
+  status={{ tone: 'info', title: 'Version 0.10.0 is ready', message: 'You have 0.9.2.' }}
+  progress={downloading ? { value: percent, label: 'Downloaded' } : undefined}
+  actions={[{ label: 'Later', variant: 'ghost', onClick: close }, { label: 'Install', variant: 'primary', onClick: install }]}
+>
+  <ReleaseNotesPanel>{notes}</ReleaseNotesPanel>
+</UtilityScreen>
+
+<StageScreen title="Input calibration" onClose={close} toolbar={<RescanButton />} done={{ onClick: close }}>
+  <CalibrationPanel {...step} />
+</StageScreen>
+```
+
+`WorkspaceScreen` holds a `NavLayout` with `paneScroll="none"` and a `SettingsPage`; `page` takes every `SettingsPage` prop but the children. `UtilityScreen` status tones are `busy`, which shows a spinner, and `info`, `success`, `warning` and `danger`, which show their icon; the status is a polite live region. `StageScreen` reads Done from the strings unless `done.label` is set.
+
+`AboutPanel`, `ReleaseNotesPanel` and `CalibrationPanel` keep their props. The gallery shows them inside their kinds: `AboutPanel` in `InfoScreen`, `ReleaseNotesPanel` in `UtilityScreen`, `CalibrationPanel` in `StageScreen`.
+
+The decision tree gains a full screen view, which picks between the four kinds; the leaves a layer over the whole window and the frame around the sections are gone. Each new part has a usage file, and `ScreenLayer` and `ScreenWindow` are marked as building blocks.
+
+### rotp
+
+rotp's `PageRouter` wraps each page in `FullScreenLayer`. Replay `RENAMES.json`, which maps `FullScreenLayer` to `ScreenWindow`, then move each page onto its kind: the profile hub and the data manager onto `WorkspaceScreen`, About and Credits onto `InfoScreen`, the update dialog onto `UtilityScreen`, and Input Calibration onto `StageScreen`. `DesignGallery`, which used `SettingsShell`, moves onto `WorkspaceScreen` with `filterable`.
+
+## 53. App parts follow the usage rules: tessera check, tessera ai and the app tree
+
+The usage file of an app part now goes through the same checks as a Tessera part. `tessera check`, or `brock tessera check` in a Brock app, checks every part in the `parts` folders of `tessera.config.json`, the views of each `apps` entry included:
+
+| Check | What it wants |
+|---|---|
+| fields | every field filled, `job` on one line, a `tree` or `buildingBlock: true` |
+| placeholders | no field still holds a sentence `tessera new` wrote |
+| alternatives | each `avoidWhen.use` names a Tessera export or a part of the app |
+| tree | each `tree.path` ends on an answer of the Tessera tree or the app tree, and each answer the app tree adds has a part |
+| examples | each `example` type-checks against the app |
+| props | `propsHash` matches the props in the code; the finding gives the new hash |
+
+`ai.usage` decides what a finding does. `report`, the default, lists every finding and exits 0. `enforce` exits 1 on any finding. `tessera ai` runs the same check, then writes the app guide to `ai.out`, `ai/` by default, with links to the Tessera guide in `node_modules`.
+
+The standards extension runs the same checks on the parts of each package it checks. In `report` mode they print as notes, so an app on report mode sees no new finding; in `enforce` mode each one is a finding. A missing usage file stays a finding in both modes.
+
+### The app tree
+
+`ai.tree` names a module that exports `APP_TREE`, the branches the app adds to the Tessera decision tree. Each branch has `at`, the answers that lead to a Tessera question, and `answers`, the new answers to it. Type it with `AppTree`, and add the app part names and the tree to `TesseraApps` by declaration merging so `ComponentUsage` takes them:
+
+```ts
+import type { AppTree } from '@drizztdourden08/tessera';
+
+const APP_TREE = [
+  { at: [], answers: { 'a saved game': { question: 'What about the save?', answers: { 'one save': null } } } },
+] as const satisfies AppTree;
+
+declare module '@drizztdourden08/tessera' {
+  interface TesseraApps {
+    archipelia: { parts: 'SaveSlot' | 'SaveList'; tree: typeof APP_TREE };
+  }
+}
+
+export { APP_TREE };
+```
+
+Usage files keep `satisfies ComponentUsage`. The module imports types only, like a usage file: the check runs both without the app bundler.
+
+### What an app does
+
+1. Make sure `typescript` is installed in the app or at the repo root. The check reads the props and the examples with it, through the nearest `tsconfig.json` above each part or the one `ai.tsconfig` names.
+2. Run `brock tessera check` and fix what it lists: replace the sentences `tessera new` left, set each `propsHash` it gives, and point every alternative at a real part.
+3. Give the app answers a home: add the `ai.tree` module above when the app parts need questions of their own. A part that sits on a Tessera answer needs no tree module.
+4. Add `ai/` to what the app commits, or ignore it, then run `brock tessera ai`.
+5. Switch `ai.usage` to `enforce` once the check is clean.
+
+`tessera new` now names `tessera check` in its next steps, and `--tree` and its tree prompt take the app answers. The example of a shared part imports from the package name; the example of a view imports `../<Name>`, as before.
+
+In Tessera, `pnpm ai` and `pnpm ai --check` print and write the same as before. They read the usage files and the tree with TypeScript instead of Vite, so a usage file imports types only.

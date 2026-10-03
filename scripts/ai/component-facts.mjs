@@ -25,7 +25,7 @@ const componentFacts = ({ program, root, exports, gallery }, component) => {
     imports: exports.get(component.name)?.specifiers ?? [],
     parts: partsOf(component, exports),
     gallery: story,
-    ...(component.usage ? usageFacts(program, root, component) : {}),
+    ...(component.usage && program ? usageFacts(program, root, component) : {}),
   };
 };
 

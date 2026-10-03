@@ -73,7 +73,7 @@ const OVERLAYS = {
   question: 'What sits over the page?',
   answers: {
     'a hint on hover or focus': null, 'a question the user must answer': null, 'a dialog with its own layout': null,
-    'a panel from the edge of the window': null, 'a search over every command': null, 'a layer over the whole window': null,
+    'a panel from the edge of the window': null, 'a search over every command': null,
     'a cover over a part that is off': null, 'a dim backdrop': null,
   },
 } as const;
@@ -96,7 +96,7 @@ const LAYOUT = {
     'an app frame with its navigation': null, 'panels the user docks and moves': null,
     'a settings screen': {
       question: 'Which part of it?',
-      answers: { 'the whole page': null, 'the frame around the sections': null, 'one section of rows': null, 'a list of groups': null },
+      answers: { 'the whole page': null, 'one section of rows': null, 'a list of groups': null },
     },
     'window chrome': {
       question: 'Which part of the window?',
@@ -117,6 +117,16 @@ const FEEDBACK = {
     'progress toward an end, in a small round space': null, 'a short message that passes': null,
     'a note that stays on the page': null, 'nothing is here yet': null, 'a hint for what is under the pointer': null,
     'a part of the page failed': null,
+  },
+} as const;
+
+const SCREENS = {
+  question: 'What is the screen for?',
+  answers: {
+    'working across pages, picked from a side list': null,
+    'reading, such as About or credits': null,
+    'one short task with a status, such as an update check': null,
+    'one big custom surface, such as calibration': null,
   },
 } as const;
 
@@ -164,6 +174,7 @@ const DECISION_TREE = {
     'a value the user sets': VALUES,
     'a status, a count or a label': STATUS,
     'something over the page': OVERLAYS,
+    'a full screen view': SCREENS,
     'navigation': NAVIGATION,
     'layout': LAYOUT,
     'feedback': FEEDBACK,

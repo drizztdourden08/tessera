@@ -10,19 +10,19 @@ const diagnosticText = (diagnostic) => {
   return `line ${line + 1}: ${text}`;
 };
 
-const importProblems = (source, packageName, specifiers) =>
+const importProblems = (source, { packageName, specifiers, relative }) =>
   source.statements
     .filter((statement) => ts.isImportDeclaration(statement) && ts.isStringLiteral(statement.moduleSpecifier))
     .map((statement) => statement.moduleSpecifier.text)
-    .filter((spec) => spec.startsWith('.') || (spec.startsWith(packageName) && !specifiers.has(spec)))
+    .filter((spec) => (spec.startsWith('.') && !relative) || (spec.startsWith(packageName) && !specifiers.has(spec)))
     .map((spec) => `imports ${spec}; import from the package root or a public subpath`);
 
-const checkExamples = ({ program, exampleFiles }, packageName, specifiers) =>
+const checkExamples = ({ program, exampleFiles }, imports) =>
   [...exampleFiles].flatMap(([name, file]) => {
     const source = program.getSourceFile(file);
     if (!source) return [finding(name, 'the example could not be read')];
     const diagnostics = [...program.getSyntacticDiagnostics(source), ...program.getSemanticDiagnostics(source)];
-    return [...importProblems(source, packageName, specifiers), ...diagnostics.map(diagnosticText)].map((message) => finding(name, message));
+    return [...importProblems(source, imports), ...diagnostics.map(diagnosticText)].map((message) => finding(name, message));
   });
 
 export { checkExamples };

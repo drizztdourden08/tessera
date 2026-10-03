@@ -2,7 +2,7 @@
 
 /**
  * Runs a tessera command, the same as the `tessera` bin, and resolves to its exit code.
- * args are the words after `tessera`, such as ['new', 'compound', 'SaveSlot', '--yes'].
+ * args are the words after `tessera`, such as ['new', 'compound', 'SaveSlot', '--yes'] or ['check'].
  * cwd is where the command runs (default: the working folder); tessera.config.json is found from there.
  */
 declare const runTessera: (args: readonly string[], options?: { cwd?: string }) => Promise<number>;

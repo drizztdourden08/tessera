@@ -4,8 +4,10 @@ const COMPONENTS_DIR = 'ai/components';
 const SRC_DIR = 'src';
 const SKIPPED_FOLDERS = ['ai', 'sub-components', 'behavior'];
 const TIER_ORDER = ['primitives', 'composites', 'brand'];
+const APP_TIER_ORDER = ['primitives', 'composites', 'compounds', 'views'];
 const USAGE_SUFFIX = '.usage.ts';
 const TREE_MODULE = '/src/ai/tree.constants.ts';
+const APP_TREE_EXPORT = 'APP_TREE';
 const STORIES_DIR = 'stories';
 const THEME_DIR = 'src/theme';
 const EXAMPLE_DIR = '.ai-examples';
@@ -14,6 +16,11 @@ const DEFAULT_MODE = 'report';
 const REQUIRED_TEXT = ['job', 'example', 'propsHash'];
 const REQUIRED_LISTS = ['useWhen', 'avoidWhen', 'rules', 'a11y'];
 const LITERAL_LIMIT = 12;
+
+const TESSERA_WORDS = {
+  tree: 'src/ai/tree.constants.ts',
+  unknown: 'which the package does not export',
+};
 
 const FILES = {
   readme: 'ai/README.md',
@@ -24,6 +31,6 @@ const FILES = {
 };
 
 export {
-  AI_DIR, COMPONENTS_DIR, DEFAULT_MODE, EXAMPLE_DIR, FILES, LITERAL_LIMIT, MODE_KEY, REQUIRED_LISTS,
-  REQUIRED_TEXT, SKIPPED_FOLDERS, SRC_DIR, STORIES_DIR, THEME_DIR, TIER_ORDER, TREE_MODULE, USAGE_SUFFIX,
+  AI_DIR, APP_TIER_ORDER, APP_TREE_EXPORT, COMPONENTS_DIR, DEFAULT_MODE, EXAMPLE_DIR, FILES, LITERAL_LIMIT, MODE_KEY, REQUIRED_LISTS,
+  REQUIRED_TEXT, SKIPPED_FOLDERS, SRC_DIR, STORIES_DIR, TESSERA_WORDS, THEME_DIR, TIER_ORDER, TREE_MODULE, USAGE_SUFFIX,
 };

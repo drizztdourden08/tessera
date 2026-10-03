@@ -195,14 +195,36 @@
           "a search over every command": {
             "components": []
           },
-          "a layer over the whole window": {
-            "components": []
-          },
           "a cover over a part that is off": {
             "components": []
           },
           "a dim backdrop": {
             "components": []
+          }
+        }
+      },
+      "a full screen view": {
+        "question": "What is the screen for?",
+        "answers": {
+          "working across pages, picked from a side list": {
+            "components": [
+              "WorkspaceScreen"
+            ]
+          },
+          "reading, such as About or credits": {
+            "components": [
+              "InfoScreen"
+            ]
+          },
+          "one short task with a status, such as an update check": {
+            "components": [
+              "UtilityScreen"
+            ]
+          },
+          "one big custom surface, such as calibration": {
+            "components": [
+              "StageScreen"
+            ]
           }
         }
       },
@@ -284,9 +306,6 @@
             "question": "Which part of it?",
             "answers": {
               "the whole page": {
-                "components": []
-              },
-              "the frame around the sections": {
                 "components": []
               },
               "one section of rows": {
@@ -803,6 +822,16 @@
       "name": "NumberInput",
       "tier": "primitives",
       "source": "src/primitives/NumberInput/NumberInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "PasswordInput",
+      "tier": "primitives",
+      "source": "src/primitives/PasswordInput/PasswordInput.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
@@ -1418,16 +1447,6 @@
       "usage": false
     },
     {
-      "name": "FullScreenLayer",
-      "tier": "composites",
-      "source": "src/composites/FullScreenLayer/FullScreenLayer.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "GroupTree",
       "tier": "composites",
       "source": "src/composites/GroupTree/GroupTree.tsx",
@@ -1456,6 +1475,132 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "InfoScreen",
+      "tier": "composites",
+      "source": "src/composites/InfoScreen/InfoScreen.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A screen to read, such as About or credits: wide margins and one centred column that scrolls.",
+      "useWhen": [
+        "About the app, credits, a licence or a welcome page.",
+        "The user reads and changes nothing."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The screen holds settings or several pages.",
+          "use": "WorkspaceScreen"
+        },
+        {
+          "case": "The screen runs one short task with a status and actions.",
+          "use": "UtilityScreen"
+        },
+        {
+          "case": "The screen is one big custom surface.",
+          "use": "StageScreen"
+        }
+      ],
+      "rules": [
+        "Put a logo, a wordmark or a hero in lead, and the sections in the children.",
+        "Keep width=\"readable\" for text; use width=\"wide\" for a grid of cards, as credits need.",
+        "Put legal text in footer, never in the last section.",
+        "An AboutPanel goes in as the children of an About screen."
+      ],
+      "a11y": [
+        "The card is a modal dialog named by the title.",
+        "Give each section a heading, so a screen reader can jump between them."
+      ],
+      "tree": {
+        "path": [
+          "a full screen view",
+          "reading, such as About or credits"
+        ],
+        "rule": "One centred column to read."
+      },
+      "example": "import { AboutPanel, InfoScreen } from '@drizztdourden08/tessera';\n\nconst AboutScreen = ({ onClose }: { onClose: () => void }) => (\n  <InfoScreen title=\"About\" onClose={onClose} footer=\"Names and marks belong to their owners.\">\n    <AboutPanel title=\"Relic of the Past\" brand=\"rotp\" rows={[{ label: 'Version', value: '0.9.2' }]} />\n  </InfoScreen>\n);\n",
+      "propsHash": "2a8ecba5773d489b",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "lead",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "footer",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "width",
+            "optional": true,
+            "text": "InfoScreenWidth",
+            "literals": [
+              "'readable'",
+              "'wide'"
+            ],
+            "default": "'readable'"
+          },
+          {
+            "name": "floating",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "hidden",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-hairline",
+        "--c-text-dim",
+        "--dialog-w-md",
+        "--size-1024",
+        "--space-2xl",
+        "--space-lg",
+        "--space-md",
+        "--space-xl",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Screens/InfoScreen",
+        "route": "#/story/composites-infoscreen--overview",
+        "file": "stories/composites/InfoScreen.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "InlineCreateForm",
@@ -1578,6 +1723,245 @@
       "usage": false
     },
     {
+      "name": "ScreenLayer",
+      "tier": "composites",
+      "source": "src/composites/ScreenLayer/ScreenLayer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Building block: the overlay and the card of every screen, with one gap around the card that follows the room.",
+      "useWhen": [
+        "You build a new kind of screen that none of the screen kinds or ScreenWindow can hold."
+      ],
+      "avoidWhen": [
+        {
+          "case": "You show a screen with pages and a side list.",
+          "use": "WorkspaceScreen"
+        },
+        {
+          "case": "You show About, credits or another screen to read.",
+          "use": "InfoScreen"
+        },
+        {
+          "case": "You show one short task with a status, such as an update check.",
+          "use": "UtilityScreen"
+        },
+        {
+          "case": "You show one big custom surface, such as calibration.",
+          "use": "StageScreen"
+        },
+        {
+          "case": "You need a title, a close button and an empty container.",
+          "use": "ScreenWindow"
+        }
+      ],
+      "rules": [
+        "Use it only inside a screen kind. App code shows screens through the kinds.",
+        "Put it in a positioned parent: it covers that parent, usually the whole app.",
+        "Never set a margin or a padding on the gap: the layer works it out from its room.",
+        "Draw the inside of the card yourself, including its padding, which is the same on all four sides.",
+        "Use size=\"compact\" for a card that fits its content, up to a readable width."
+      ],
+      "a11y": [
+        "The card is a modal dialog. Pass labelledBy with the id of a visible title, or label when there is none.",
+        "hidden takes the layer out of the page and out of the accessibility tree, and keeps its content mounted."
+      ],
+      "buildingBlock": true,
+      "example": "import type { ReactNode } from 'react';\nimport { ScreenLayer } from '@drizztdourden08/tessera';\n\nconst KioskScreen = ({ children }: { children: ReactNode }) => (\n  <ScreenLayer label=\"Kiosk\" className=\"kiosk-screen\">\n    {children}\n  </ScreenLayer>\n);\n",
+      "propsHash": "8193f0c3b7139134",
+      "props": {
+        "own": [
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "floating",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "hidden",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ScreenLayerSize",
+            "literals": [
+              "'fill'",
+              "'compact'"
+            ],
+            "default": "'fill'"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "labelledBy",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-hairline",
+        "--c-layer",
+        "--control-h-md",
+        "--dialog-w-md",
+        "--radius-xl",
+        "--shadow-3",
+        "--space-2xl",
+        "--space-lg",
+        "--space-sm",
+        "--space-xl",
+        "--z-backdrop",
+        "--z-base"
+      ],
+      "gallery": {
+        "title": "Composites · Screens/ScreenLayer",
+        "route": "#/story/composites-screenlayer--overview",
+        "file": "stories/composites/ScreenLayer.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "ScreenWindow",
+      "tier": "composites",
+      "source": "src/composites/ScreenWindow/ScreenWindow.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Building block: the plain screen window, a ScreenLayer with a title, a close button and an empty container.",
+      "useWhen": [
+        "You build a new kind of screen on the window every screen kind shares.",
+        "A screen fits none of the four kinds and needs only a title, a close button and its own content."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The screen has pages the user moves between from a side list.",
+          "use": "WorkspaceScreen"
+        },
+        {
+          "case": "The screen is read, such as About or credits.",
+          "use": "InfoScreen"
+        },
+        {
+          "case": "The screen runs one short task with a status and actions.",
+          "use": "UtilityScreen"
+        },
+        {
+          "case": "The screen is one big custom surface.",
+          "use": "StageScreen"
+        }
+      ],
+      "rules": [
+        "Reach for a screen kind first. Use ScreenWindow alone only when none of them fits.",
+        "The padding inside the card is the same on all four sides. Never add padding around the children to make up for it.",
+        "The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.",
+        "Keep extra to a few small controls; the close button always comes last."
+      ],
+      "a11y": [
+        "The card is a modal dialog named by the title.",
+        "The close button carries the Close label from the strings."
+      ],
+      "buildingBlock": true,
+      "example": "import { ScreenWindow, ScrollArea } from '@drizztdourden08/tessera';\n\nconst SessionsScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Sessions\" subtitle=\"Profile: mira\" onClose={onClose}>\n    <ScrollArea>Sessions list</ScrollArea>\n  </ScreenWindow>\n);\n",
+      "propsHash": "488aad91e11d1ce3",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "subtitle",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "extra",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "floating",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "hidden",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ScreenLayerSize",
+            "literals": [
+              "'fill'",
+              "'compact'"
+            ]
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--space-lg",
+        "--space-md",
+        "--space-xl",
+        "--text-xl"
+      ],
+      "gallery": {
+        "title": "Composites · Screens/ScreenWindow",
+        "route": "#/story/composites-screenwindow--overview",
+        "file": "stories/composites/ScreenWindow.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "SearchResults",
       "tier": "composites",
       "source": "src/composites/SearchResults/SearchResults.tsx",
@@ -1628,16 +2012,6 @@
       "usage": false
     },
     {
-      "name": "SettingsShell",
-      "tier": "composites",
-      "source": "src/composites/SettingsShell/SettingsShell.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "ShortcutTour",
       "tier": "composites",
       "source": "src/composites/ShortcutTour/ShortcutTour.tsx",
@@ -1668,6 +2042,120 @@
       "usage": false
     },
     {
+      "name": "StageScreen",
+      "tier": "composites",
+      "source": "src/composites/StageScreen/StageScreen.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "One big open stage for custom work with no navigation of its own, with an optional toolbar row and a Done button.",
+      "useWhen": [
+        "Controller calibration, HUD layout, a map or an editor the app draws itself.",
+        "The content is one surface, not pages or sections."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The screen has pages the user moves between.",
+          "use": "WorkspaceScreen"
+        },
+        {
+          "case": "The screen is read, such as About or credits.",
+          "use": "InfoScreen"
+        },
+        {
+          "case": "The app runs one short task and reports a status.",
+          "use": "UtilityScreen"
+        }
+      ],
+      "rules": [
+        "Keep the toolbar to a status and a few tools; it is not a place for navigation.",
+        "Set done when the work ends with a clear finish; the close button still closes without it.",
+        "Put calibration steps on the stage as CalibrationPanels.",
+        "The stage scrolls when its content is larger; a canvas that pans itself sets its own size to fill the stage."
+      ],
+      "a11y": [
+        "The card is a modal dialog named by the title.",
+        "Custom content on the stage brings its own roles and keyboard support."
+      ],
+      "tree": {
+        "path": [
+          "a full screen view",
+          "one big custom surface, such as calibration"
+        ],
+        "rule": "One open stage with an optional toolbar."
+      },
+      "example": "import { StageScreen, Status } from '@drizztdourden08/tessera';\n\nconst Calibration = ({ onClose }: { onClose: () => void }) => (\n  <StageScreen\n    title=\"Input calibration\"\n    onClose={onClose}\n    toolbar={<Status tone=\"success\" variant=\"pill\">Controller connected</Status>}\n    done={{ onClick: onClose }}\n  >\n    Calibration steps\n  </StageScreen>\n);\n",
+      "propsHash": "f21b5c1f9815620e",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "subtitle",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "toolbar",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "done",
+            "optional": true,
+            "text": "StageScreenDone"
+          },
+          {
+            "name": "floating",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "hidden",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--space-lg",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Screens/StageScreen",
+        "route": "#/story/composites-stagescreen--overview",
+        "file": "stories/composites/StageScreen.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "StickPlot",
       "tier": "composites",
       "source": "src/composites/StickPlot/StickPlot.tsx",
@@ -1676,6 +2164,129 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "UtilityScreen",
+      "tier": "composites",
+      "source": "src/composites/UtilityScreen/UtilityScreen.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A compact screen for one short task: a status with an icon or a spinner, optional progress and details, and a row of actions.",
+      "useWhen": [
+        "The app checks for updates, imports a file or tests a connection, and shows how it went.",
+        "The task has a few states, each with its own title, message and actions."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user answers one question and nothing runs.",
+          "use": "Dialog"
+        },
+        {
+          "case": "The screen holds settings or several pages.",
+          "use": "WorkspaceScreen"
+        },
+        {
+          "case": "The screen is read, such as About or credits.",
+          "use": "InfoScreen"
+        },
+        {
+          "case": "The screen is one big custom surface.",
+          "use": "StageScreen"
+        }
+      ],
+      "rules": [
+        "Set status.tone to busy while the task runs; it shows a spinner in place of the icon.",
+        "Write the status title as the state, such as You are up to date, and the message as what it means or what to do.",
+        "Put the main action last in actions, with variant primary, and keep one primary action.",
+        "Set progress only when the task can say how far it is."
+      ],
+      "a11y": [
+        "The status is a live region: a screen reader reads each new title and message.",
+        "The card is a modal dialog named by the title."
+      ],
+      "tree": {
+        "path": [
+          "a full screen view",
+          "one short task with a status, such as an update check"
+        ],
+        "rule": "A status, details and actions in a compact window."
+      },
+      "example": "import { UtilityScreen } from '@drizztdourden08/tessera';\n\nconst UpdateCheck = ({ onClose, onInstall }: { onClose: () => void; onInstall: () => void }) => (\n  <UtilityScreen\n    title=\"Check for updates\"\n    onClose={onClose}\n    status={{ tone: 'info', title: 'Version 0.10.0 is ready', message: 'You have 0.9.2.' }}\n    actions={[\n      { label: 'Later', variant: 'ghost', onClick: onClose },\n      { label: 'Install', variant: 'primary', onClick: onInstall },\n    ]}\n  />\n);\n",
+      "propsHash": "30d1a5f9a3ef015a",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "status",
+            "optional": false,
+            "text": "UtilityScreenStatus"
+          },
+          {
+            "name": "progress",
+            "optional": true,
+            "text": "UtilityScreenProgress"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "readonly UtilityScreenAction[]",
+            "default": "NO_ACTIONS"
+          },
+          {
+            "name": "hidden",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-danger",
+        "--c-info",
+        "--c-primary-bright",
+        "--c-success",
+        "--c-text",
+        "--c-warning",
+        "--size-48",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--text-lg",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Composites · Screens/UtilityScreen",
+        "route": "#/story/composites-utilityscreen--overview",
+        "file": "stories/composites/UtilityScreen.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "VolumeControl",
@@ -1776,6 +2387,146 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "WorkspaceScreen",
+      "tier": "composites",
+      "source": "src/composites/WorkspaceScreen/WorkspaceScreen.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A screen to work in: a side list of pages beside the current page, with its header pills and a body that scrolls.",
+      "useWhen": [
+        "A settings hub, a profile hub or a data manager with several pages.",
+        "The user moves between pages and changes things on them."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The screen is read and holds no settings, such as About or credits.",
+          "use": "InfoScreen"
+        },
+        {
+          "case": "The screen runs one short task with a status, such as an update check.",
+          "use": "UtilityScreen"
+        },
+        {
+          "case": "The screen is one big surface with no pages, such as calibration.",
+          "use": "StageScreen"
+        },
+        {
+          "case": "The side list and the page sit inside an app frame, not over it.",
+          "use": "NavLayout"
+        }
+      ],
+      "rules": [
+        "The host owns the active page: swap page and children when nav.onSelect fires.",
+        "Set page.anchors for one long page, or page.tabs for views of one area, never both.",
+        "Give the nav a search and set results to search every page; use filterable only to narrow the side list by label.",
+        "Use the floating slot for a switch between sibling workspaces, and hidden to keep the screen mounted while it is closed."
+      ],
+      "a11y": [
+        "The card is a modal dialog named by the title, and each page is a section named by its title.",
+        "The side list is a navigation landmark; set nav.ariaLabel when the screen holds more than one.",
+        "Escape clears a filled search before it reaches the screen."
+      ],
+      "tree": {
+        "path": [
+          "a full screen view",
+          "working across pages, picked from a side list"
+        ],
+        "rule": "A side list of pages beside the current page."
+      },
+      "example": "import { Icon, SettingsGroupList, WorkspaceScreen } from '@drizztdourden08/tessera';\nimport type { SettingsGroupListSection, SideNavConfig } from '@drizztdourden08/tessera';\n\ninterface HubProps {\n  config: SideNavConfig;\n  active: string;\n  onSelect: (id: string) => void;\n  sections: SettingsGroupListSection[];\n  onClose: () => void;\n}\n\nconst SettingsHub = ({ config, active, onSelect, sections, onClose }: HubProps) => (\n  <WorkspaceScreen\n    title=\"Settings\"\n    onClose={onClose}\n    nav={{ config, activeId: active, onSelect, defaultOpen: true }}\n    page={{ icon: <Icon name=\"settings\" />, title: 'General' }}\n  >\n    <SettingsGroupList sections={sections} />\n  </WorkspaceScreen>\n);\n",
+      "propsHash": "e62e15d55e47e2f7",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "nav",
+            "optional": false,
+            "text": "SideNavProps"
+          },
+          {
+            "name": "page",
+            "optional": false,
+            "text": "WorkspaceScreenPage"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "subtitle",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "extra",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "floating",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "hidden",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "results",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "filterable",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "filterPlaceholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "compact",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Composites · Screens/WorkspaceScreen",
+        "route": "#/story/composites-workspacescreen--overview",
+        "file": "stories/composites/WorkspaceScreen.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "AnimatedMascot",

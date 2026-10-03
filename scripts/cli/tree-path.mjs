@@ -4,7 +4,7 @@ import { TREE_SEPARATOR } from './new.constants.mjs';
 const listed = (node) => Object.keys(node.answers).map((answer) => `"${answer}"`).join(', ');
 
 const step = (node, answer, walked) => {
-  if (!node.answers) return { problem: `${walked.join(TREE_SEPARATOR)} is already an answer with no further question; drop "${answer}"` };
+  if (!node?.answers) return { problem: `${walked.join(TREE_SEPARATOR)} is already an answer with no further question; drop "${answer}"` };
   if (!Object.hasOwn(node.answers, answer)) return { problem: `"${answer}" does not answer "${node.question}". Its answers: ${listed(node)}` };
   return { node: node.answers[answer] };
 };
@@ -17,7 +17,7 @@ const treePath = (tree, text) => {
     if (next.problem) return { problem: `--tree: ${next.problem}` };
     node = next.node;
   }
-  if (node.answers) return { problem: `--tree stops at the question "${node.question}". Add one of its answers: ${listed(node)}` };
+  if (node?.answers) return { problem: `--tree stops at the question "${node.question}". Add one of its answers: ${listed(node)}` };
   return { path };
 };
 

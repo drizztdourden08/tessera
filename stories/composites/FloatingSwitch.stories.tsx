@@ -95,7 +95,7 @@ const [active, setActive] = useState('sessions');
 
 const Overview = overviewStory({
   component: 'FloatingSwitch',
-  description: 'A floating pill that switches between two or more sibling places, with the current one lit. The lit pill slides to the place you pick, and its text brightens as it arrives; hovering another place brightens its text and gives it a soft glow without filling it. Reach for it when a window has a few peer views to jump between, such as the switch on the top edge of a FullScreenLayer. It holds no state: the host passes the active id and handles the pick. An item can be disabled, and picking the lit item does nothing.',
+  description: 'A floating pill that switches between two or more sibling places, with the current one lit. The lit pill slides to the place you pick, and its text brightens as it arrives; hovering another place brightens its text and gives it a soft glow without filling it. Reach for it when a window has a few peer views to jump between, such as the switch on the top edge of a ScreenWindow. It holds no state: the host passes the active id and handles the pick. An item can be disabled, and picking the lit item does nothing.',
   playground: Playground,
   variants: [ThreePlaces],
   states: {

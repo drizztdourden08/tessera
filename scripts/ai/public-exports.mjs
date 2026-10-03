@@ -1,10 +1,7 @@
 /* @layer tooling-scripts @kind logic */
 import ts from 'typescript';
-
-const specifierOf = (packageName, key) => (key === '.' ? packageName : `${packageName}${key.slice(1)}`);
-
-const codeEntries = (manifest) =>
-  Object.entries(manifest.exports).filter(([, target]) => typeof target === 'string' && /\.tsx?$/.test(target));
+import { codeEntries } from './code-entries.mjs';
+import { specifierOf } from './specifier-of.mjs';
 
 const declarationFile = (checker, symbol, root) => {
   const target = symbol.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(symbol) : symbol;

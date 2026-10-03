@@ -1,12 +1,21 @@
 /* @layer tooling-scripts @kind logic */
+import { appScopes } from '../ai/app-scopes.mjs';
 import { askTree } from './ask-tree.mjs';
 import { readTree } from './read-tree.mjs';
 import { treePath } from './tree-path.mjs';
 
-const pickTree = async (io, { tree, name }) => {
-  const root = readTree();
+const treeOf = async (project) => {
+  if (project.mode !== 'app' || !project.config.ai.tree) return { root: readTree() };
+  const { appTree } = await import('../ai/app-tree.mjs');
+  const { tree, problems } = appTree(project.root, appScopes(project.config));
+  return problems.length > 0 ? { problem: problems.map((f) => `${f.at}: ${f.message}`).join('; ') } : { root: tree };
+};
+
+const pickTree = async (io, { tree, name, project }) => {
+  if (tree === undefined && !io.interactive) return { path: undefined };
+  const { root, problem } = await treeOf(project);
+  if (problem) return { problem };
   if (tree !== undefined) return treePath(root, tree);
-  if (!io.interactive) return { path: undefined };
   io.log(`Place ${name} in the decision tree of ai/decide.md, or press Enter to make it a building block.`);
   return { path: await askTree(io, root) };
 };

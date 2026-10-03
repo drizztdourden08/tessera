@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 0 of 137 have their usage written; a linked name opens its page.
+One line per component. 6 of 142 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -36,6 +36,7 @@ One line per component. 0 of 137 have their usage written; a linked name opens i
 - `Image`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Link`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PathIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Pressable`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -100,10 +101,10 @@ One line per component. 0 of 137 have their usage written; a linked name opens i
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FilterBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `FullScreenLayer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `GroupTree`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [InfoScreen](components/InfoScreen.md): A screen to read, such as About or credits: wide margins and one centred column that scrolls. Import from `@drizztdourden08/tessera`.
 - `InlineCreateForm`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -116,16 +117,19 @@ One line per component. 0 of 137 have their usage written; a linked name opens i
 - `ProfilePicker`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ReleaseNotesPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
+- [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.
 - `SearchResults`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchSpark`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsGroupList`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsPage`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsSection`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `SettingsShell`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ShortcutTour`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, with an optional toolbar row and a Done button. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task: a status with an icon or a spinner, optional progress and details, and a row of actions. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -136,6 +140,7 @@ One line per component. 0 of 137 have their usage written; a linked name opens i
 - `WizardProgress`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardReview`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardStep`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [WorkspaceScreen](components/WorkspaceScreen.md): A screen to work in: a side list of pages beside the current page, with its header pills and a body that scrolls. Import from `@drizztdourden08/tessera`.
 
 ## Brand
 

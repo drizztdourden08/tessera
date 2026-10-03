@@ -54,7 +54,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link' },
   'Primitives · Inputs': {
-    TextInput: 'text-cursor-input', SearchInput: 'scan-search', Textarea: 'letter-text', NumberInput: 'hash', Stepper: 'diff', Checkbox: 'square-check',
+    TextInput: 'text-cursor-input', SearchInput: 'scan-search', PasswordInput: 'lock-keyhole', Textarea: 'letter-text', NumberInput: 'hash', Stepper: 'diff', Checkbox: 'square-check',
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',
     Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal',
     TagInput: 'tag', TagPicker: 'tags', ColorSwatch: 'paint-bucket',
@@ -77,7 +77,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Navigation': {
     SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', SplitPane: 'columns-2',
     MasterDetailLayout: 'layout-list', GroupTree: 'folder-tree', ListItemRow: 'list-start', WindowHeader: 'heading-2',
-    WindowTitleBar: 'app-window-mac', SettingsShell: 'settings', SettingsSection: 'settings-2', SettingsGroupList: 'list-checks',
+    WindowTitleBar: 'app-window-mac', SettingsSection: 'settings-2', SettingsGroupList: 'list-checks',
     SettingsPage: 'file-cog', NavLayout: 'layout-template', SearchResults: 'search-check', ProfilePicker: 'users',
   },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', SearchSpark: 'sparkles', CommandPalette: 'command', CommandPaletteRow: 'text-search' },
@@ -92,7 +92,10 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line' },
   'Composites · Input devices': { CalibrationPanel: 'crosshair', PressedGrid: 'grid-2x2-check', StickPlot: 'joystick' },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog' },
-  'Composites · Screens': { Hero: 'mountain-snow', FullScreenLayer: 'fullscreen' },
+  'Composites · Screens': {
+    WorkspaceScreen: 'panels-left-bottom', InfoScreen: 'info', UtilityScreen: 'refresh-cw', StageScreen: 'gamepad-2',
+    ScreenWindow: 'app-window', ScreenLayer: 'fullscreen', Hero: 'mountain-snow',
+  },
   'Data': { Engine: 'cpu' },
 };
 

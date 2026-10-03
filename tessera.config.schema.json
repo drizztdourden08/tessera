@@ -71,9 +71,10 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "usage": { "description": "report lists the parts with no usage file and passes; enforce fails on them. Default: report.", "enum": ["report", "enforce"] },
-        "out": { "description": "The folder pnpm ai writes. Default: ai.", "$ref": "#/definitions/path" },
-        "tree": { "description": "The module that holds the decision tree of the app parts. No default.", "$ref": "#/definitions/path" }
+        "usage": { "description": "How tessera check and the standards extension treat what they find in the usage files: report lists it and passes; enforce fails on it. Default: report.", "enum": ["report", "enforce"] },
+        "out": { "description": "The folder tessera ai writes for the app, pnpm ai in Tessera. Default: ai.", "$ref": "#/definitions/path" },
+        "tree": { "description": "The module whose APP_TREE adds the app branches to the Tessera decision tree. No default.", "$ref": "#/definitions/path" },
+        "tsconfig": { "description": "The tsconfig.json tessera check reads the props and the examples with. Default: the nearest tsconfig.json above each part.", "$ref": "#/definitions/path" }
       }
     },
     "gallery": {

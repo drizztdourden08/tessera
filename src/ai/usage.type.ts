@@ -2,16 +2,28 @@
 import type * as ColorPickerEntry from '../composites/ColorPicker';
 import type * as ColorPickerPopoverEntry from '../composites/ColorPickerPopover';
 import type * as PackageRoot from '../index';
+import type { AppTreePaths } from './app-tree.type';
+import type { TesseraApps } from './tessera-apps.type';
 import type { DECISION_TREE } from './tree.constants';
 import type { PathsOf } from './tree.type';
 
 type PublicValues = typeof PackageRoot & typeof ColorPickerEntry & typeof ColorPickerPopoverEntry;
 
-type ComponentName = {
+type TesseraName = {
   [Name in Extract<keyof PublicValues, string>]: Name extends Uppercase<Name> ? never : Name extends Capitalize<Name> ? Name : never;
 }[Extract<keyof PublicValues, string>];
 
-type TreePath = PathsOf<typeof DECISION_TREE>;
+type RegisteredApp = TesseraApps[keyof TesseraApps];
+
+type AppPartName<App> = App extends { readonly parts: infer Parts extends string } ? Parts : never;
+
+type AppPath<App> = App extends { readonly tree: infer Tree } ? AppTreePaths<Tree> : never;
+
+type WithApp<Own, App> = Own | App;
+
+type ComponentName = WithApp<TesseraName, AppPartName<RegisteredApp>>;
+
+type TreePath = WithApp<PathsOf<typeof DECISION_TREE>, AppPath<RegisteredApp>>;
 
 type Lines = readonly [string, ...string[]];
 

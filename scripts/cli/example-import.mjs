@@ -1,24 +1,14 @@
 /* @layer tooling-scripts @kind logic */
-import { join, posix, relative } from 'node:path';
-import { isGlob } from '../config/is-glob.mjs';
-import { posixPath } from '../config/posix-path.mjs';
+import { exampleHome } from '../ai/example-home.mjs';
+import { absolutePath } from '../config/absolute-path.mjs';
 import { importPath } from './import-path.mjs';
-import { nearestManifest } from './nearest-manifest.mjs';
 import { PACKAGE_NAME } from './new.constants.mjs';
-import { readManifest } from './read-manifest.mjs';
-
-const inPackage = (project, folder) =>
-  project.config.package !== undefined && readManifest(nearestManifest(join(project.root, folder))).name === project.config.package;
-
-const viewFolder = (project, kindDir) => {
-  const views = project.config.parts.views[0];
-  return isGlob(views) ? kindDir : posixPath(relative(project.root, views));
-};
 
 const exampleImport = (project, { kindDir, folder }) => {
   if (project.mode === 'tessera') return PACKAGE_NAME;
-  if (inPackage(project, folder)) return project.config.package;
-  return importPath(posix.join(viewFolder(project, kindDir), 'View'), folder);
+  const place = { kindDir: absolutePath(project.root, kindDir), folder: absolutePath(project.root, folder) };
+  const home = exampleHome(project.config, place);
+  return home.from ?? importPath(home.dir, place.folder);
 };
 
 export { exampleImport };

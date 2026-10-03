@@ -55,7 +55,7 @@
     "scripts/cli",
     "scripts/config",
     "scripts/standards",
-    "scripts/ai/props-hash.mjs",
+    "scripts/ai",
     "src",
     "brand",
     "fonts",
@@ -98,7 +98,13 @@
   },
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "typescript": ">=5.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@iconify-icons/lucide": "^1.2.136",

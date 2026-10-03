@@ -56,6 +56,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
       entries: [
         { name: 'TextInput', summary: 'One line of text, with an optional icon or button at either end.' },
         { name: 'SearchInput', summary: 'A search field with a search icon and a clear button.' },
+        { name: 'PasswordInput', summary: 'A password with a show button, any mask character, a Caps Lock warning and an optional checklist.' },
         { name: 'Textarea', summary: 'Several lines of text.' },
         { name: 'NumberInput', summary: 'A number with bounds and a step.' },
         { name: 'Stepper', summary: 'A number with minus and plus buttons.' },

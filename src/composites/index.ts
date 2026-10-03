@@ -33,8 +33,6 @@ export { MasterDetailLayout } from './MasterDetailLayout';
 export type { MasterDetailLayoutProps } from './MasterDetailLayout';
 export { SplitPane } from './SplitPane';
 export type { CollapsedSide, SplitOrientation, SplitPaneProps } from './SplitPane';
-export { SettingsShell } from './SettingsShell';
-export type { SettingsShellProps } from './SettingsShell';
 export { SettingsSection } from './SettingsSection';
 export type {
   SettingsSectionLock, SettingsSectionLockRenderer, SettingsSectionProps, SettingsSectionRow,
@@ -59,7 +57,20 @@ export { DropdownMenu } from './DropdownMenu';
 export type {
   DropdownMenuProps, MenuAlign, MenuGroup, MenuItem, MenuNode, MenuSeparator, MenuSide, MenuTrigger,
 } from './DropdownMenu';
-export { FullScreenLayer } from './FullScreenLayer';
+export { ScreenLayer } from './ScreenLayer';
+export type { ScreenLayerProps, ScreenLayerSize } from './ScreenLayer';
+export { ScreenWindow } from './ScreenWindow';
+export type { ScreenWindowProps } from './ScreenWindow';
+export { WorkspaceScreen } from './WorkspaceScreen';
+export type { WorkspaceScreenPage, WorkspaceScreenProps } from './WorkspaceScreen';
+export { InfoScreen } from './InfoScreen';
+export type { InfoScreenProps, InfoScreenWidth } from './InfoScreen';
+export { UtilityScreen } from './UtilityScreen';
+export type {
+  UtilityScreenAction, UtilityScreenProgress, UtilityScreenProps, UtilityScreenStatus, UtilityScreenTone,
+} from './UtilityScreen';
+export { StageScreen } from './StageScreen';
+export type { StageScreenDone, StageScreenProps } from './StageScreen';
 export { FloatingSwitch } from './FloatingSwitch';
 export type { FloatingSwitchItem, FloatingSwitchProps } from './FloatingSwitch';
 export { SearchSpark, SEARCH_ICON_PATHS } from './SearchSpark';

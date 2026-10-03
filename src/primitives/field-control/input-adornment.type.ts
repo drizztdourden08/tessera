@@ -15,6 +15,7 @@ interface InputAdornmentAction {
   icon: InputAdornmentIcon;
   label: string;
   onClick: () => void;
+  pressed?: boolean;
 }
 
 type InputAdornment = InputAdornmentMark | InputAdornmentAction;

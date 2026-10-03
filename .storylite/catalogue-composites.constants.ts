@@ -45,7 +45,6 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ListItemRow', summary: 'One selectable row with icon, meta, aside and action.' },
         { name: 'WindowHeader', summary: 'A panel title bar with extras and close.' },
         { name: 'WindowTitleBar', summary: 'An app window title bar with brand, slots and window buttons.' },
-        { name: 'SettingsShell', summary: 'The frame of a settings page.' },
         { name: 'SettingsSection', summary: 'One titled group of settings.' },
         { name: 'SettingsGroupList', summary: 'Settings sections of bordered row groups, with reset and locks.' },
         { name: 'SettingsPage', summary: 'A settings page header with tabs over a scrolling body.' },
@@ -124,8 +123,13 @@ const COMPOSITES_TIER: CatalogueTier = {
     {
       group: 'Screens',
       entries: [
+        { name: 'WorkspaceScreen', summary: 'A screen to work in: a side list of pages and the current page with its header pills.' },
+        { name: 'InfoScreen', summary: 'A screen to read, such as About or credits: wide margins and one centred column.' },
+        { name: 'UtilityScreen', summary: 'A compact screen for one short task: a status, details, progress and actions.' },
+        { name: 'StageScreen', summary: 'One big open stage for custom work, such as calibration, with an optional toolbar.' },
+        { name: 'ScreenWindow', summary: 'Building block: the plain screen window with a title, a close button and an empty container.' },
+        { name: 'ScreenLayer', summary: 'Building block: the overlay and the card with its gap, to build a new kind of screen.' },
         { name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' },
-        { name: 'FullScreenLayer', summary: 'A full-window page over the main content.' },
       ],
     },
   ],

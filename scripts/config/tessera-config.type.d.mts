@@ -9,7 +9,7 @@ interface TesseraAppSettings {
   parts?: Partial<Record<PartKind, Folders>>;
   stories?: string;
   theme?: { css?: string; palette?: string };
-  ai?: { usage?: AiUsage; out?: string; tree?: string };
+  ai?: { usage?: AiUsage; out?: string; tree?: string; tsconfig?: string };
   gallery?: { title?: string; port?: number; review?: string };
   overrides?: string;
 }
@@ -32,7 +32,7 @@ interface ResolvedTesseraConfig {
   parts: Record<PartKind, string[]>;
   stories: string;
   theme: { css: string; palette?: string };
-  ai: { usage: AiUsage; out: string; tree?: string };
+  ai: { usage: AiUsage; out: string; tree?: string; tsconfig?: string };
   gallery?: { title?: string; port?: number; review?: string };
   overrides?: string;
   /** The folder of every apps entry. */

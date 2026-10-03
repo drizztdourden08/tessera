@@ -1,10 +1,10 @@
 /* @layer tooling-scripts @kind logic */
 import ts from 'typescript';
-import { EXAMPLE_DIR } from './ai.constants.mjs';
 
 const cache = new Map();
+const EXAMPLE_OPTIONS = { noUnusedLocals: false, noUnusedParameters: false };
 
-const configOf = (root) => ts.getParsedCommandLineOfConfigFile(`${root}/tsconfig.json`, {}, { ...ts.sys, onUnRecoverableConfigFileDiagnostic: () => {} });
+const configOf = (tsconfig) => ts.getParsedCommandLineOfConfigFile(tsconfig, {}, { ...ts.sys, onUnRecoverableConfigFileDiagnostic: () => {} });
 
 const hostFor = (options, virtual) => {
   const host = ts.createCompilerHost(options, true);
@@ -21,14 +21,13 @@ const hostFor = (options, virtual) => {
   return host;
 };
 
-const createAiProgram = (root, { entries, examples }) => {
-  const config = configOf(root);
-  const exampleFiles = new Map(Object.keys(examples).map((name) => [name, `${root}/${EXAMPLE_DIR}/${name}.example.tsx`]));
-  const virtual = new Map([...exampleFiles].map(([name, file]) => [file, examples[name]]));
-  const typeFiles = config.fileNames.filter((file) => file.startsWith(`${root}/types/`));
-  const rootNames = [...entries.map((entry) => `${root}/${entry}`), ...typeFiles, ...virtual.keys()];
-  const program = ts.createProgram({ rootNames, options: config.options, host: hostFor(config.options, virtual) });
-  return { program, checker: program.getTypeChecker(), exampleFiles };
+const createAiProgram = ({ tsconfig, rootNames, examples, ambient, paths }) => {
+  const config = configOf(tsconfig);
+  const options = { ...config.options, ...EXAMPLE_OPTIONS, ...(paths ? { paths: { ...config.options.paths, ...paths } } : {}) };
+  const virtual = new Map(examples.map((example) => [example.file, example.text]));
+  const names = [...rootNames, ...config.fileNames.filter(ambient), ...virtual.keys()];
+  const program = ts.createProgram({ rootNames: names, options, host: hostFor(options, virtual) });
+  return { program, checker: program.getTypeChecker(), exampleFiles: new Map(examples.map((example) => [example.name, example.file])) };
 };
 
 export { createAiProgram };

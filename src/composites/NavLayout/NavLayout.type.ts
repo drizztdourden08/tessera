@@ -8,6 +8,8 @@ interface NavLayoutProps {
   nav: SideNavProps;
   children: ReactNode;
   results?: ReactNode;
+  filterable?: boolean;
+  filterPlaceholder?: string;
   paneScroll?: NavLayoutPaneScroll;
   compact?: boolean;
   className?: string;

@@ -1,0 +1,26 @@
+/* @layer renderer-components @kind style */
+.stage-screen .screen-window__content {
+  gap: var(--space-lg);
+}
+
+.stage-screen__bar {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.stage-screen__toolbar {
+  display: flex;
+  flex: 1;
+  gap: var(--space-sm);
+  align-items: center;
+  min-width: 0;
+}
+
+.stage-screen__stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}

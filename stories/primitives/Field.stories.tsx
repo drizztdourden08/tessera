@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
-import { Box, Field, NumberInput, Text, TextInput, Toggle, type ControlSize } from '../../src/primitives';
+import { Box, Field, NumberInput, PasswordInput, Text, TextInput, Toggle, type ControlSize } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -63,6 +63,7 @@ const SessionForm = () => {
   const [seed, setSeed] = useState('48213');
   const [hintCost, setHintCost] = useState(25);
   const [spoilers, setSpoilers] = useState(false);
+  const [roomPassword, setRoomPassword] = useState('abc');
   return (
     <Box className="story-column">
       <Field label="Seed" hint="Leave empty for a random seed." htmlFor="field-seed">
@@ -72,7 +73,7 @@ const SessionForm = () => {
         <NumberInput value={hintCost} min={0} max={100} step={5} sizeToContent onChange={setHintCost} />
       </Field>
       <Field label="Room password" error="Passwords need at least 6 characters." required htmlFor="field-password">
-        <TextInput id="field-password" type="password" defaultValue="abc" />
+        <PasswordInput id="field-password" value={roomPassword} onChange={setRoomPassword} />
       </Field>
       <Field>
         <Toggle checked={spoilers} onChange={setSpoilers} label="Publish the spoiler log" />

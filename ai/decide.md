@@ -58,9 +58,13 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A dialog with its own layout: no component yet.
   - A panel from the edge of the window: no component yet.
   - A search over every command: no component yet.
-  - A layer over the whole window: no component yet.
   - A cover over a part that is off: no component yet.
   - A dim backdrop: no component yet.
+- A full screen view. **What is the screen for?**
+  - Working across pages, picked from a side list: [WorkspaceScreen](components/WorkspaceScreen.md). A side list of pages beside the current page.
+  - Reading, such as About or credits: [InfoScreen](components/InfoScreen.md). One centred column to read.
+  - One short task with a status, such as an update check: [UtilityScreen](components/UtilityScreen.md). A status, details and actions in a compact window.
+  - One big custom surface, such as calibration: [StageScreen](components/StageScreen.md). One open stage with an optional toolbar.
 - Navigation. **Where does the user go?**
   - Between views of one area: no component yet.
   - Between pages, from the header: no component yet.
@@ -87,7 +91,6 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Panels the user docks and moves: no component yet.
   - A settings screen. **Which part of it?**
     - The whole page: no component yet.
-    - The frame around the sections: no component yet.
     - One section of rows: no component yet.
     - A list of groups: no component yet.
   - Window chrome. **Which part of the window?**
@@ -146,3 +149,10 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - An app mascot: no component yet.
   - The brand scene: no component yet.
   - The interactive mosaic: no component yet.
+
+## Building blocks
+
+No question leads to these parts. Other components are built on them; reach for one only when no component above fits.
+
+- [ScreenLayer](components/ScreenLayer.md). Building block: the overlay and the card of every screen, with one gap around the card that follows the room.
+- [ScreenWindow](components/ScreenWindow.md). Building block: the plain screen window, a ScreenLayer with a title, a close button and an empty container.

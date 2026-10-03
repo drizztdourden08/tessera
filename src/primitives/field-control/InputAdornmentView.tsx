@@ -25,6 +25,7 @@ const InputAdornmentView = (props: InputAdornmentViewProps) => {
       variant="ghost"
       size={ADORNMENT_BUTTON_SIZES[size]}
       label={adornment.label}
+      aria-pressed={adornment.pressed}
       disabled={disabled}
       tabIndex={focusable ? undefined : -1}
       onMouseDown={preventTextSelection}

@@ -1,0 +1,35 @@
+/* @layer renderer-components @kind style */
+.screen-window {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-lg);
+  min-width: 0;
+  min-height: 0;
+  padding: var(--space-xl);
+}
+
+.screen-window__header {
+  flex-shrink: 0;
+}
+
+.screen-window__header .window-header__title {
+  font-size: var(--text-xl);
+}
+
+.screen-window__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@container screen-layer (width < 480px) or (height < 440px) {
+  .screen-window { padding: var(--space-md); }
+}
+
+.platform-mobile .screen-window {
+  padding: var(--space-md);
+}

@@ -39,6 +39,10 @@ export { TextInput } from './TextInput';
 export type { TextInputProps } from './TextInput';
 export { SearchInput } from './SearchInput';
 export type { SearchInputProps } from './SearchInput';
+export { PasswordInput } from './PasswordInput';
+export type {
+  PasswordInputProps, PasswordMode, PasswordRule, PasswordScore, PasswordStrength, PasswordStrengthLevel,
+} from './PasswordInput';
 export { Textarea } from './Textarea';
 export type { TextareaProps, TextareaResize } from './Textarea';
 export { Select, NativeSelect } from './Select';

@@ -49,6 +49,8 @@ import panelTopIcon from '@iconify-icons/lucide/panel-top';
 import panelBottomIcon from '@iconify-icons/lucide/panel-bottom';
 import appWindowIcon from '@iconify-icons/lucide/app-window';
 import magnetIcon from '@iconify-icons/lucide/magnet';
+import arrowBigUpDashIcon from '@iconify-icons/lucide/arrow-big-up-dash';
+import circleIcon from '@iconify-icons/lucide/circle';
 
 const INTERFACE_ICONS = {
   'check': checkIcon,
@@ -101,6 +103,8 @@ const INTERFACE_ICONS = {
   'panel-bottom': panelBottomIcon,
   'app-window': appWindowIcon,
   'magnet': magnetIcon,
+  'arrow-big-up-dash': arrowBigUpDashIcon,
+  'circle': circleIcon,
 } as const;
 
 export { INTERFACE_ICONS };

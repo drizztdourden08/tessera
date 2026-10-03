@@ -7,6 +7,7 @@ import { FILTER_OPERATOR_STRINGS } from './filter-operators-strings.constants';
 import { FILTER_STRINGS } from './filters-strings.constants';
 import { NAVIGATION_STRINGS } from './navigation-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
+import { PASSWORD_STRINGS } from './password-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
 import { VIDEO_STRINGS } from './video-strings.constants';
@@ -17,6 +18,7 @@ import { WIZARD_STRINGS } from './wizard-strings.constants';
 const TESSERA_STRINGS = {
   common: COMMON_STRINGS,
   fields: FIELD_STRINGS,
+  password: PASSWORD_STRINGS,
   video: VIDEO_STRINGS,
   colorPicker: COLOR_PICKER_STRINGS,
   dynamicInput: DYNAMIC_INPUT_STRINGS,

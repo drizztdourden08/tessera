@@ -558,6 +558,9 @@
     "SearchInput": {
       "status": "new"
     },
+    "PasswordInput": {
+      "status": "new"
+    },
     "Textarea": {
       "status": "ok",
       "hash": "1e4deb8cf790408d",
@@ -812,9 +815,6 @@
       "hash": "457b2e4ada3cc03d",
       "at": "2026-10-01"
     },
-    "SettingsShell": {
-      "status": "new"
-    },
     "SettingsSection": {
       "status": "new"
     },
@@ -958,15 +958,30 @@
     }
   },
   "Composites · Screens": {
+    "WorkspaceScreen": {
+      "status": "new"
+    },
+    "InfoScreen": {
+      "status": "new"
+    },
+    "UtilityScreen": {
+      "status": "new"
+    },
+    "StageScreen": {
+      "status": "new"
+    },
+    "ScreenWindow": {
+      "status": "new"
+    },
+    "ScreenLayer": {
+      "status": "seen",
+      "hash": "78a2c4106cf3f2af",
+      "at": "2026-10-03"
+    },
     "Hero": {
       "status": "seen",
       "hash": "81c377b88c1b9637",
       "at": "2026-10-01"
-    },
-    "FullScreenLayer": {
-      "status": "seen",
-      "hash": "78a2c4106cf3f2af",
-      "at": "2026-10-03"
     }
   },
   "Data": {

@@ -31,7 +31,7 @@ const prepareSpec = async (io, project, request, flags) => {
   if (appPart && !(await confirmAppPart(io, { yes: flags.yes, kind, name, folder: place.folder }))) return { cancelled: true };
   const gallery = await placeInGallery(io, project, request, flags);
   if (gallery.problem) return { problem: gallery.problem };
-  const tree = await pickTree(io, { tree: flags.tree, name });
+  const tree = await pickTree(io, { tree: flags.tree, name, project });
   if (tree.problem) return { problem: tree.problem };
   const spec = { mode: project.mode, kind, ...place, layer: LAYERS[project.mode], names: componentNames(name), tree: tree.path, ...gallery };
   return { spec };

@@ -13,7 +13,7 @@ const nextSteps = (spec, plan) => {
     `Write the props in ${spec.folder}/${name}.type.ts and draw them in ${name}.tsx.`,
     spec.mode === 'tessera'
       ? `Rewrite each sentence of ${name}.usage.ts, then run pnpm ai. When the props change, pnpm ai --check prints the new propsHash.`
-      : `Rewrite each sentence of ${name}.usage.ts. When the props change, read it again and update propsHash.`,
+      : `Rewrite each sentence of ${name}.usage.ts, then run tessera check (brock tessera check in a Brock app). When the props change, it prints the new propsHash.`,
     ...(story ? [`Fill the gallery page ${story.path} with the variants and states of ${name}.`] : []),
     ...(spec.mode === 'app' ? [USE_IT[spec.kind](name)] : []),
     spec.mode === 'tessera'

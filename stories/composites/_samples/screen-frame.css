@@ -1,0 +1,11 @@
+/* @layer stories @kind style */
+.screens-story__frame {
+  width: var(--size-1024);
+  max-width: 100%;
+  min-height: var(--size-640);
+}
+
+.screens-story__frame--narrow {
+  width: var(--size-768);
+  max-width: 100%;
+}
