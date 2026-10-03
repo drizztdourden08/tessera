@@ -6,17 +6,20 @@ import { Span } from '../../../primitives/text-elements';
 import type { WindowTitleBarBrandProps } from './WindowTitleBarBrand.type';
 
 const WindowTitleBarBrand = (props: WindowTitleBarBrandProps) => {
-  const { title, logo, instance } = props;
+  const { title, logo, instance, fit, ref } = props;
   const shown = instance?.logo ?? logo;
   const mark = shown ? <Image className="window-title-bar__logo" src={shown} alt="" placeholder="none" /> : null;
 
   return (
-    <Box className="window-title-bar__brand">
-      {mark}
-      <Span tone="dim" className="window-title-bar__title">{title}</Span>
-      {instance && <Status tone="info" variant="pill" pulse={instance.pulse} className="window-title-bar__instance">{instance.name}</Status>}
-      {mark}
-    </Box>
+    <>
+      <Box ref={ref} className={`window-title-bar__brand${fit === 'full' ? '' : ' window-title-bar__brand--away'}`}>
+        {mark}
+        <Span tone="dim" className="window-title-bar__title">{title}</Span>
+        {instance && <Status tone="info" variant="pill" pulse={instance.pulse} className="window-title-bar__instance">{instance.name}</Status>}
+        {mark}
+      </Box>
+      {fit === 'logo' && mark && <Box className="window-title-bar__brand window-title-bar__brand--mark" aria-hidden="true">{mark}</Box>}
+    </>
   );
 };
 

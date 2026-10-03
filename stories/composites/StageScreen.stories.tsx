@@ -39,7 +39,7 @@ const StageDemo = (props: StageArgs) => {
         <Box className="stage-screen-story__grid">
           <StickCalibrationDemo />
           <TriggerCalibrationDemo />
-          <LivePressedGrid />
+          <LivePressedGrid family="xbox" />
         </Box>
       </StageScreen>
     </ScreenDemo>
@@ -91,6 +91,7 @@ const Overview = overviewStory({
   playground: Playground,
   points: [
     'Use it when the content is one surface the app draws itself.',
+    'The example stage is built from the standard parts only: two CalibrationPanels, one with a StickPlot and one with a ProgressBar, and a PressedGrid.',
     'For pages the user moves between, use WorkspaceScreen. For a task the app runs with a status, use UtilityScreen.',
     'The stage is a positioned box, so its content can place layers inside it.',
   ],

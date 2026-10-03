@@ -129,7 +129,7 @@ One line per component. 6 of 142 have their usage written; a linked name opens i
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, with an optional toolbar row and a Done button. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task: a status with an icon or a spinner, optional progress and details, and a row of actions. Import from `@drizztdourden08/tessera`.
+- [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task: a status with an icon or a spinner, optional progress, settings and details, a footnote bar and a row of actions. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.

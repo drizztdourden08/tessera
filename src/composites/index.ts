@@ -66,7 +66,7 @@ export { InfoScreen } from './InfoScreen';
 export type { InfoScreenProps, InfoScreenWidth } from './InfoScreen';
 export { UtilityScreen } from './UtilityScreen';
 export type {
-  UtilityScreenAction, UtilityScreenProgress, UtilityScreenProps, UtilityScreenStatus, UtilityScreenTone,
+  UtilityScreenAction, UtilityScreenFootnote, UtilityScreenProgress, UtilityScreenProps, UtilityScreenStatus, UtilityScreenTone,
 } from './UtilityScreen';
 export { StageScreen } from './StageScreen';
 export type { StageScreenDone, StageScreenProps } from './StageScreen';

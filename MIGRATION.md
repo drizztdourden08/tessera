@@ -1443,6 +1443,36 @@ The gallery groups change too. Composites · Navigation keeps only navigation. L
 
 An app that imports `Emphasis` or its types from `@drizztdourden08/tessera/composites` imports them from the package root or from `@drizztdourden08/tessera/primitives`. No name changes, so RENAMES.json has no entry for this section.
 
+## 60. WindowTitleBar centres its brand on the whole bar; WindowHeader keeps one row; Hero keeps its size; UtilityScreen takes settings and a footnote
+
+`WindowTitleBar` puts its brand, the logos with the title and the instance pill, in the centre of the whole bar, not in the space left between the start slots and the window buttons. When the brand would run into either end, the title and the pill hide and the logo stays alone in the centre; when even the logo has no room, the centre stays empty. The bar measures this itself as it resizes. The hidden brand keeps its place for screen readers under the class `window-title-bar__brand--away`, and the lone logo is `window-title-bar__brand--mark`. The brand no longer grows with `flex: 1` and adds nothing to the width of the bar; the window buttons sit at the end through `margin-inline-start: auto`.
+
+`WindowHeader` stays on one row at any width. As room runs out, the subtitle shortens with an ellipsis, then the `extra` content hides as a whole under the class `window-header__extra--away`, then the title shortens. The close button always stays. `extra` is a row that never wraps, with a `--space-sm` gap, so its children sit side by side.
+
+`Hero` has a fixed height, `--hero-h`, now 408 pixels, and fills the width of its container. What it holds no longer changes its size: the eyebrow and the title stay on one line and shorten with an ellipsis.
+
+`UtilityScreen` takes two new props. `settings` holds the choices that shape the task, such as an Include pre-releases toggle and a version picker; it sits under the status and the progress, above the details, and scrolls with them. `footnote` draws a footnote `Callout` above the row of actions that stays in view, with its `action` at the end, such as a button to report an issue. Its type is `UtilityScreenFootnote`.
+
+```tsx
+<UtilityScreen
+  title="Check for updates"
+  onClose={close}
+  status={{ tone: 'info', title: 'Version 0.10.0 is ready', message: 'You have 0.9.2.' }}
+  settings={<>
+    <Toggle label="Include pre-releases" checked={prereleases} onChange={setPrereleases} />
+    <Field label="Version to install"><Select value={version} onChange={setVersion} groups={versions} /></Field>
+  </>}
+  footnote={{ text: 'Please report anything that stops working.', action: <Button size="sm" variant="secondary">Report an issue</Button> }}
+  actions={[{ label: 'Install', variant: 'primary', onClick: install }]}
+/>
+```
+
+`StageScreen` does not change. Its gallery example is built from the standard parts: `CalibrationPanel`, `StickPlot`, `ProgressBar`, `StatRow`, `Slider` and `PressedGrid`.
+
+### What an app does
+
+An app that puts a `WindowTitleBar` in a box that shrinks to its content gives that box its full width, since the brand no longer widens the bar. An app that sized a `Hero` with its own height or relied on it growing with its content gives it the room of `--hero-h`. An app that wrapped the `extra` of a `WindowHeader` in a column of its own passes the parts side by side. An app with its own pre-release toggle, version picker or report button in the children of a `UtilityScreen` moves them to `settings` and `footnote`. No name changes, so RENAMES.json has no entry for this section.
+
 ## 62. WizardProgress is the Stepper primitive; the step definition drives the wizard; WizardDialog; ButtonRow has a bar
 
 `WizardProgress` is now the primitive `Stepper`, with `StepperProps`, `StepperStep`, `StepperSubStep`, `StepperStatus` and `StepperOrientation` in place of `WizardProgressProps`, `WizardProgressStep`, `WizardSubStep`, `WizardStepState` and `WizardOrientation`. Its props are the same. A step takes `error` to show that it needs attention. Summaries and sub-steps now show in both orientations: in a horizontal Stepper the sub-steps stack under the line that follows their step. The lines meet the circles exactly in both orientations, and sub-steps never break them.

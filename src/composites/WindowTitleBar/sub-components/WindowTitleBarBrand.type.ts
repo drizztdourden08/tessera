@@ -1,11 +1,13 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
-import type { WindowTitleBarInstance } from '../WindowTitleBar.type';
+import type { ReactNode, Ref } from 'react';
+import type { BrandFit, WindowTitleBarInstance } from '../WindowTitleBar.type';
 
 interface WindowTitleBarBrandProps {
   title: ReactNode;
   logo?: string;
   instance?: WindowTitleBarInstance | null;
+  fit: BrandFit;
+  ref?: Ref<HTMLElement>;
 }
 
 export type { WindowTitleBarBrandProps };

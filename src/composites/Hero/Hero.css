@@ -3,9 +3,10 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: var(--space-lg);
-  min-height: var(--hero-h);
+  width: 100%;
+  height: var(--hero-h);
   padding: var(--space-xl);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-xl);
@@ -78,6 +79,15 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-xs);
+  min-width: 0;
+}
+
+.hero__eyebrow,
+.hero .hero__title {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .hero__main > .hero__aside {

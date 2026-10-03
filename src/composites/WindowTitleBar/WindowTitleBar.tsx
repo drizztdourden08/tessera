@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import { Box } from '../../primitives/Box';
 import { titleBarClass } from './behavior/title-bar-class';
+import { useBrandFit } from './behavior/useBrandFit';
 import { usePeek } from './behavior/usePeek';
 import { WindowControls } from './sub-components/WindowControls';
 import { WindowTitleBarBrand } from './sub-components/WindowTitleBarBrand';
@@ -15,6 +16,8 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
     pinned, onControl, left, concealed = false, peek, className = '',
   } = props;
   const barRef = useRef<HTMLElement>(null);
+  const brandRef = useRef<HTMLElement>(null);
+  const fit = useBrandFit(barRef, brandRef);
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenuOpenChange = (open: boolean): void => {
     setMenuOpen(open);
@@ -34,7 +37,7 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
         onControl={onControl}
         left={left}
       />
-      <WindowTitleBarBrand title={title} logo={logo} instance={instance} />
+      <WindowTitleBarBrand ref={brandRef} title={title} logo={logo} instance={instance} fit={fit} />
       <WindowControls controls={controls} maximized={maximized} fullscreen={fullscreen} onControl={onControl} />
     </Box>
   );

@@ -1,6 +1,6 @@
 # UtilityScreen
 
-A compact screen for one short task: a status with an icon or a spinner, optional progress and details, and a row of actions.
+A compact screen for one short task: a status with an icon or a spinner, optional progress, settings and details, a footnote bar and a row of actions.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -34,6 +34,8 @@ A status, details and actions in a compact window.
 - Write the status title as the state, such as You are up to date, and the message as what it means or what to do.
 - Put the main action last in actions, with variant primary, and keep one primary action.
 - Set progress only when the task can say how far it is.
+- Put choices that shape the task, such as a pre-release toggle or a version picker, in settings, not in the children.
+- Use footnote for fine print that stays in view, with an action at its end such as a button to report an issue.
 
 ## Accessibility
 
@@ -43,13 +45,14 @@ A status, details and actions in a compact window.
 ## Example
 
 ```tsx
-import { UtilityScreen } from '@drizztdourden08/tessera';
+import { Button, UtilityScreen } from '@drizztdourden08/tessera';
 
 const UpdateCheck = ({ onClose, onInstall }: { onClose: () => void; onInstall: () => void }) => (
   <UtilityScreen
     title="Check for updates"
     onClose={onClose}
     status={{ tone: 'info', title: 'Version 0.10.0 is ready', message: 'You have 0.9.2.' }}
+    footnote={{ text: 'Please report anything that stops working.', action: <Button size="sm" variant="secondary">Report an issue</Button> }}
     actions={[
       { label: 'Later', variant: 'ghost', onClick: onClose },
       { label: 'Install', variant: 'primary', onClick: onInstall },
@@ -64,7 +67,9 @@ const UpdateCheck = ({ onClose, onInstall }: { onClose: () => void; onInstall: (
 - `onClose`: `() => void`.
 - `status`: `UtilityScreenStatus`.
 - `progress` (optional): `UtilityScreenProgress`.
+- `settings` (optional): `ReactNode`.
 - `children` (optional): `ReactNode`.
+- `footnote` (optional): `UtilityScreenFootnote`.
 - `actions` (optional): `readonly UtilityScreenAction[]`. Default `NO_ACTIONS`.
 - `hidden` (optional): `boolean`.
 - `className` (optional): `string`. Default `''`.

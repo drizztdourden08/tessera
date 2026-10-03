@@ -2,6 +2,7 @@
 .window-title-bar-story__frame {
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: 12rem;
   transform: translateZ(0);
 }
@@ -18,4 +19,24 @@
   min-width: 48rem;
   height: var(--titlebar-height);
   border: var(--border-width-thin) dashed var(--c-border);
+}
+
+.window-title-bar-story__strip--wide {
+  min-width: 0;
+  width: 56rem;
+}
+
+.window-title-bar-story__strip--medium {
+  min-width: 0;
+  width: 44rem;
+}
+
+.window-title-bar-story__strip--narrow {
+  min-width: 0;
+  width: 34rem;
+}
+
+.window-title-bar-story__strip--tiny {
+  min-width: 0;
+  width: 27rem;
 }

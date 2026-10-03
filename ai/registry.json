@@ -2174,7 +2174,7 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "A compact screen for one short task: a status with an icon or a spinner, optional progress and details, and a row of actions.",
+      "job": "A compact screen for one short task: a status with an icon or a spinner, optional progress, settings and details, a footnote bar and a row of actions.",
       "useWhen": [
         "The app checks for updates, imports a file or tests a connection, and shows how it went.",
         "The task has a few states, each with its own title, message and actions."
@@ -2201,7 +2201,9 @@
         "Set status.tone to busy while the task runs; it shows a spinner in place of the icon.",
         "Write the status title as the state, such as You are up to date, and the message as what it means or what to do.",
         "Put the main action last in actions, with variant primary, and keep one primary action.",
-        "Set progress only when the task can say how far it is."
+        "Set progress only when the task can say how far it is.",
+        "Put choices that shape the task, such as a pre-release toggle or a version picker, in settings, not in the children.",
+        "Use footnote for fine print that stays in view, with an action at its end such as a button to report an issue."
       ],
       "a11y": [
         "The status is a live region: a screen reader reads each new title and message.",
@@ -2214,8 +2216,8 @@
         ],
         "rule": "A status, details and actions in a compact window."
       },
-      "example": "import { UtilityScreen } from '@drizztdourden08/tessera';\n\nconst UpdateCheck = ({ onClose, onInstall }: { onClose: () => void; onInstall: () => void }) => (\n  <UtilityScreen\n    title=\"Check for updates\"\n    onClose={onClose}\n    status={{ tone: 'info', title: 'Version 0.10.0 is ready', message: 'You have 0.9.2.' }}\n    actions={[\n      { label: 'Later', variant: 'ghost', onClick: onClose },\n      { label: 'Install', variant: 'primary', onClick: onInstall },\n    ]}\n  />\n);\n",
-      "propsHash": "30d1a5f9a3ef015a",
+      "example": "import { Button, UtilityScreen } from '@drizztdourden08/tessera';\n\nconst UpdateCheck = ({ onClose, onInstall }: { onClose: () => void; onInstall: () => void }) => (\n  <UtilityScreen\n    title=\"Check for updates\"\n    onClose={onClose}\n    status={{ tone: 'info', title: 'Version 0.10.0 is ready', message: 'You have 0.9.2.' }}\n    footnote={{ text: 'Please report anything that stops working.', action: <Button size=\"sm\" variant=\"secondary\">Report an issue</Button> }}\n    actions={[\n      { label: 'Later', variant: 'ghost', onClick: onClose },\n      { label: 'Install', variant: 'primary', onClick: onInstall },\n    ]}\n  />\n);\n",
+      "propsHash": "5c5caab09961b13b",
       "props": {
         "own": [
           {
@@ -2239,9 +2241,19 @@
             "text": "UtilityScreenProgress"
           },
           {
+            "name": "settings",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
             "name": "children",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "footnote",
+            "optional": true,
+            "text": "UtilityScreenFootnote"
           },
           {
             "name": "actions",

@@ -24,15 +24,22 @@ interface UtilityScreenAction {
   loading?: boolean;
 }
 
+interface UtilityScreenFootnote {
+  text: ReactNode;
+  action?: ReactNode;
+}
+
 interface UtilityScreenProps {
   title: ReactNode;
   onClose: () => void;
   status: UtilityScreenStatus;
   progress?: UtilityScreenProgress;
+  settings?: ReactNode;
   children?: ReactNode;
+  footnote?: UtilityScreenFootnote;
   actions?: readonly UtilityScreenAction[];
   hidden?: boolean;
   className?: string;
 }
 
-export type { UtilityScreenAction, UtilityScreenProgress, UtilityScreenProps, UtilityScreenStatus, UtilityScreenTone };
+export type { UtilityScreenAction, UtilityScreenFootnote, UtilityScreenProgress, UtilityScreenProps, UtilityScreenStatus, UtilityScreenTone };

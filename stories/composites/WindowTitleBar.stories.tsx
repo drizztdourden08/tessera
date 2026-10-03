@@ -9,6 +9,7 @@ import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { brandLogoUri } from './_samples/brand-logo';
 import { buildTitleMenu } from './_samples/data-title-menu';
+import { TitleBarWidths } from './_samples/TitleBarWidths';
 import './WindowTitleBar.stories.css';
 
 type TitleBarArgs = {
@@ -158,6 +159,13 @@ const Concealed = {
   render: (args) => <TitleBarDemo {...args} concealed />,
 } satisfies StoryLiteStoryDefinition<TitleBarArgs>;
 
+const Narrow = {
+  name: 'Narrow windows drop the title, then the logo',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <TitleBarWidths title={args.title} logo={LOGO} menu={STATE_MENU} left={SLOTS} />,
+} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+
 const renderState = (props: StateProps) => (
   <Box className="window-title-bar-story__strip">
     <WindowTitleBar title="Brock Demo" logo={LOGO} menu={STATE_MENU} onControl={ignore} {...(props as Partial<WindowTitleBarProps>)} />
@@ -188,9 +196,9 @@ const menu: MenuGroup[] = [
 
 const Overview = overviewStory({
   component: 'WindowTitleBar',
-  description: 'The title bar of a frameless desktop app window. The brand sits in the middle: the app logo on both sides of the title, and a Status pill naming a second instance, such as a dev build, with its own logo. menu takes menu groups, the same data DropdownMenu takes, and the bar draws the hamburger at the left end with the menu hanging from it; with no items there is no hamburger. The pin and the full screen, minimize, maximize and close buttons are built in and report to onControl; controls turns any of them off except close, as in controls={{ fullscreen: false }}. left holds any slots the app adds. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge; an open menu keeps it in view.',
+  description: 'The title bar of a frameless desktop app window. The brand sits in the middle of the whole bar, whatever the two ends hold: the app logo on both sides of the title, and a Status pill naming a second instance, such as a dev build, with its own logo. When the brand would run into either end, the title goes and the logo stays alone in the middle; when even the logo has no room, the middle stays empty. menu takes menu groups, the same data DropdownMenu takes, and the bar draws the hamburger at the left end with the menu hanging from it; with no items there is no hamburger. The pin and the full screen, minimize, maximize and close buttons are built in and report to onControl; controls turns any of them off except close, as in controls={{ fullscreen: false }}. left holds any slots the app adds. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge; an open menu keeps it in view.',
   playground: Playground,
-  variants: [AppWindow, FewerButtons, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, Narrow, FewerButtons, SecondInstance, Maximized, Concealed],
   states: {
     render: renderState,
     list: [
@@ -210,4 +218,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AppWindow, Concealed, FewerButtons, Maximized, Overview, Playground, SecondInstance };
+export { AppWindow, Concealed, FewerButtons, Maximized, Narrow, Overview, Playground, SecondInstance };

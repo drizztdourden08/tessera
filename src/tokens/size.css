@@ -33,7 +33,7 @@
   --widget-options-w: calc(240 * var(--size-1));
   --widget-options-aside-w: var(--size-256);
   --widget-options-slider-w: var(--size-128);
-  --hero-h: calc(300 * var(--size-1));
+  --hero-h: calc(408 * var(--size-1));
   --hero-intro-w: calc(200 * var(--size-1));
   --hero-art-left: calc(232 * var(--size-1));
   --hero-art-h: var(--size-256);

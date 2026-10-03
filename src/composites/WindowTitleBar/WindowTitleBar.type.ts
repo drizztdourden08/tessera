@@ -8,6 +8,8 @@ interface WindowTitleBarInstance {
   pulse?: boolean;
 }
 
+type BrandFit = 'full' | 'logo' | 'none';
+
 type WindowControl = 'fullscreen' | 'pin' | 'minimize' | 'maximize' | 'close';
 
 type WindowControlsConfig = Partial<Record<Exclude<WindowControl, 'close'>, boolean>>;
@@ -30,4 +32,4 @@ interface WindowTitleBarProps {
   className?: string;
 }
 
-export type { WindowControl, WindowControlsConfig, WindowTitleBarInstance, WindowTitleBarProps };
+export type { BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarInstance, WindowTitleBarProps };

@@ -1,20 +1,25 @@
 /* @layer renderer-components @kind style */
 
 .window-header {
+  position: relative;
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   gap: var(--space-sm);
+  min-width: 0;
 }
 
 .window-header__titles {
   flex: 1;
   min-width: 0;
   display: flex;
+  flex-wrap: nowrap;
   align-items: baseline;
   gap: var(--space-lg);
 }
 
 .window-header__subtitle {
+  flex: 0 1 auto;
   min-width: 0;
   font-size: var(--text-xl);
   font-weight: var(--weight-semi);
@@ -39,7 +44,20 @@
 }
 
 .window-header__extra {
+  display: flex;
   flex-shrink: 0;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-sm);
+  white-space: nowrap;
+}
+
+.window-header__extra--away {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .window-header .window-header__close {

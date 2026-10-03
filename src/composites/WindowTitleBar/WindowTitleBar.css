@@ -43,12 +43,20 @@
 }
 
 .window-title-bar__brand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   display: flex;
-  flex: 1;
   gap: var(--space-md);
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  width: max-content;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.window-title-bar__brand--away {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .window-title-bar__title {
@@ -72,6 +80,7 @@
 
 .window-title-bar__controls {
   display: flex;
+  margin-inline-start: auto;
   align-items: center;
   -webkit-app-region: no-drag;
 }

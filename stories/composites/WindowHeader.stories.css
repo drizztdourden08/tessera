@@ -1,0 +1,29 @@
+/* @layer stories @kind style */
+.window-header-story__window {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 40rem;
+  padding: var(--space-lg);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-xl);
+  background: var(--c-layer);
+}
+
+.window-header-story__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.window-header-story__strip {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width-thin) dashed var(--c-border);
+}
+
+.window-header-story__strip--wide { max-width: 40rem; }
+.window-header-story__strip--medium { max-width: 28rem; }
+.window-header-story__strip--narrow { max-width: 20rem; }
+.window-header-story__strip--tiny { max-width: 10rem; }
