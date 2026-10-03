@@ -5,6 +5,7 @@ import { FloatingSwitch, FullScreenLayer, ListItemRow } from '../../src/composit
 import type { FloatingSwitchItem } from '../../src/composites';
 import { Box, Button, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { LayerBreakpoints } from './_samples/LayerBreakpoints';
 import { NAV_ICONS } from './_samples/nav';
 import { PLAYERS, SESSIONS, STATUS_LABEL } from './_samples/sessions';
 import './FullScreenLayer.stories.css';
@@ -118,6 +119,13 @@ const FitsItsRoom = {
   render: () => <RoomDemo />,
 } satisfies StoryLiteStoryDefinition<LayerArgs>;
 
+const Breakpoints = {
+  name: 'Breakpoints',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: () => <LayerBreakpoints />,
+} satisfies StoryLiteStoryDefinition<LayerArgs>;
+
 const CODE = `import { Button, FullScreenLayer } from '@drizztdourden08/tessera';
 
 const [hidden, setHidden] = useState(false);
@@ -141,9 +149,10 @@ const Overview = overviewStory({
     'From 1280 px wide and 800 px high: a 2xl gap plus 5% of the smaller side. Under that: an xl gap plus 3% of the smaller side.',
     'The gap never drops below half a control height plus an lg space, so the floating switch on the top edge always has room above it.',
     'Under 960 px wide or 600 px high the gap stays at that minimum. Under 480 px wide or 440 px high there is no gap: the card fills the layer with square corners and no border, and the switch moves inside the top of the card. On a phone the card always fills the layer.',
-  ],  variants: [FitsItsRoom, SiblingWindows, TitleOnly],
+  ],
+  variants: [Breakpoints, FitsItsRoom, SiblingWindows, TitleOnly],
   code: CODE,
 });
 
 export default meta;
-export { FitsItsRoom, Overview, Playground, SiblingWindows, TitleOnly };
+export { Breakpoints, FitsItsRoom, Overview, Playground, SiblingWindows, TitleOnly };

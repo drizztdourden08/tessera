@@ -878,7 +878,7 @@ The space around the card used to be a fixed 2xl padding with the card at 90% of
 | 1280 px wide and 800 px high or more | 2xl plus 5% of the smaller side |
 | under that | xl plus 3% of the smaller side |
 | under 960 px wide or 600 px high | the minimum |
-| under 480 px wide or 440 px high | none: the card fills the layer with square corners and no border, and the floating switch moves inside the card |
+| under 480 px wide or 440 px high | none: the card fills the layer with square corners and no border, and the floating switch moves inside the card, with the title bar pushed down below it |
 
 The minimum is half a control height plus an lg space, so the floating switch, which sits across the top edge of the card, always has room above it; no gap above the minimum tier goes below it.
 

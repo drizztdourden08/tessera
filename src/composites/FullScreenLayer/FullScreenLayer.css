@@ -90,6 +90,10 @@ html.booting .fullscreen-layer {
     border: none;
     border-radius: 0;
   }
+
+  .fullscreen-layer__frame:has(> .fullscreen-layer__floating) .fullscreen-layer__header {
+    padding-block-start: calc(var(--control-h-md) + var(--space-md));
+  }
 }
 
 @keyframes fsl-in {
@@ -111,6 +115,10 @@ html.booting .fullscreen-layer {
 .platform-mobile .fullscreen-layer__floating {
   top: var(--space-sm);
   transform: translateX(-50%);
+}
+
+.platform-mobile .fullscreen-layer__frame:has(> .fullscreen-layer__floating) .fullscreen-layer__header {
+  padding-block-start: calc(var(--control-h-md) + var(--space-md));
 }
 
 .platform-mobile .fullscreen-layer__card {
