@@ -1,4 +1,4 @@
 /* @layer root-config @kind config */
-import { brockEslint } from '@drizztdourden08/brock-lint-config';
+import { standardsEslint } from '@drizztdourden08/standards/eslint';
 
-export default brockEslint({ rootDir: import.meta.dirname });
+export default standardsEslint({ rootDir: import.meta.dirname });

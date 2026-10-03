@@ -4,10 +4,12 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import { tesseraExtension } from '../scripts/standards/tessera-extension.mjs';
 import { extension } from '../standards.extension.mjs';
-import { fixtureRepo, MONOREPO, writeTree } from './config-fixture.mjs';
+import { CONFIG, fixtureRepo, MONOREPO, writeTree } from './config-fixture.mjs';
 
 const TIMEOUT = 60_000;
 const FACETS = ['id', 'description', 'structure', 'eslint', 'stylelint', 'markdownlint', 'prose'];
+const MISSING_SAVE_SLOT = 'packages/design/src/compounds/SaveSlot: missing SaveSlot.usage.ts (every part in the folders of tessera.config.json says when to use it)';
+const MISSING_BARE = 'apps/desktop/src/views/Bare: missing Bare.usage.ts (every part in the folders of tessera.config.json says when to use it)';
 const PART = (name) => `/* @layer renderer-app @kind component */\nconst ${name} = () => null;\n\nexport { ${name} };\n`;
 const dir = fixtureRepo();
 writeTree(dir, {
@@ -45,19 +47,30 @@ describe('the standards extension', () => {
     expect(extension.eslint.options(inDesign)).toEqual({ primitivesGlobs: ['src/primitives/**/*.tsx'] });
   });
 
-  it('requires Name.usage.ts in each part folder of the package that holds it, and nowhere else', async () => {
-    expect((await check('packages/design')).findings).toEqual([
-      'packages/design/src/compounds/SaveSlot: missing SaveSlot.usage.ts (every part in the folders of tessera.config.json says when to use it)',
-    ]);
-    expect((await check('apps/desktop')).findings).toEqual([
-      'apps/desktop/src/views/Bare: missing Bare.usage.ts (every part in the folders of tessera.config.json says when to use it)',
-    ]);
+  it('notes a missing Name.usage.ts in report mode, in each part folder of the package that holds it, and nowhere else', async () => {
+    const design = await check('packages/design');
+    expect(design.findings).toEqual([]);
+    expect(design.notes).toContain(MISSING_SAVE_SLOT);
+    const desktop = await check('apps/desktop');
+    expect(desktop.findings).toEqual([]);
+    expect(desktop.notes[0]).toBe(MISSING_BARE);
+    expect(desktop.notes.filter((note) => note.includes('.usage.ts (every part'))).toEqual([MISSING_BARE]);
     expect(await check('.')).toEqual({ findings: [], notes: [] });
+  }, TIMEOUT);
+
+  it('fails on a missing Name.usage.ts in enforce mode', async () => {
+    writeTree(dir, { 'tessera.config.json': { ...CONFIG, ai: { ...CONFIG.ai, usage: 'enforce' } } });
+    try {
+      expect((await check('packages/design')).findings).toContain(MISSING_SAVE_SLOT);
+      expect((await check('apps/desktop')).findings[0]).toBe(MISSING_BARE);
+    } finally {
+      writeTree(dir, { 'tessera.config.json': CONFIG });
+    }
   }, TIMEOUT);
 
   it('notes a usage file it cannot read in report mode', async () => {
     const { notes } = await check('apps/desktop');
-    expect(notes[0]).toBe('apps/desktop/src/views/Home: unreadable-usage: apps/desktop/src/views/Home/Home.usage.ts exports no usage object');
+    expect(notes[1]).toBe('apps/desktop/src/views/Home: unreadable-usage: apps/desktop/src/views/Home/Home.usage.ts exports no usage object');
     expect(notes).toContain('apps/desktop/src/views/Home: tsconfig: no tsconfig.json in apps/desktop/src/views/Home or above it; set ai.tsconfig in tessera.config.json');
   }, TIMEOUT);
 

@@ -1,9 +1,9 @@
 /* @layer root-config @kind config */
-import { brockStylelint } from '@drizztdourden08/brock-lint-config/stylelint';
+import { standardsStylelint } from '@drizztdourden08/standards/stylelint';
 
 const RAW_VALUE_FILES = ['src/tokens/palette.css', 'src/tokens/brand.css', 'src/tokens/scale.css', 'fonts/**/*.css'];
 
-const base = brockStylelint({
+const base = standardsStylelint({
   uiGlobs: ['src/**/*.css'],
   tokenGlobs: ['src/tokens/**/*.css'],
   rawValueGlobs: RAW_VALUE_FILES,

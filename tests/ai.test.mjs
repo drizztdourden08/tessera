@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind test */
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { findSlop } from '@drizztdourden08/brock-lint-config/slop-patterns';
+import { findSlop } from '@drizztdourden08/standards/writing';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { aiFiles } from '../scripts/ai/ai-files.mjs';
 import { collectAi } from '../scripts/ai/collect-ai.mjs';

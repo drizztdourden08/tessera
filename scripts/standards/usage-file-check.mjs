@@ -21,7 +21,8 @@ const usageFileCheck = async ({ rootDir, packageDir }) => {
     const missing = folders.filter(missingUsage).map((folder) => `${posixPath(relative(rootDir, folder))}: missing ${basename(folder)}.usage.ts (${USAGE_REASON})`);
     const ownsTree = config.ai.tree !== undefined && ownedBy(config.ai.tree, packageDir);
     const content = folders.length > 0 || ownsTree ? await contentFindings(config, { rootDir, packageDir }) : [];
-    return config.ai.usage === 'enforce' ? { findings: [...missing, ...content], notes: [] } : { findings: missing, notes: content };
+    const all = [...missing, ...content];
+    return config.ai.usage === 'enforce' ? { findings: all, notes: [] } : { findings: [], notes: all };
   } catch (error) {
     return [problemText(error)];
   }

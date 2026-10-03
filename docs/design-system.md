@@ -51,7 +51,7 @@ The gallery's Core · Setup pages show how to build each one: the folder, the us
   sub-components/       children used only here, in the same shape
 ```
 
-`brock structure --check` rejects any other file at a component root, and the ESLint shape rules keep one export per file, types in `.type.ts` files and constants in `.constants.ts` files.
+`standards structure --check` rejects any other file at a component root, and the ESLint shape rules keep one export per file, types in `.type.ts` files and constants in `.constants.ts` files.
 
 ## Rules
 

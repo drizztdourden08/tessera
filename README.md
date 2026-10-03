@@ -68,6 +68,8 @@ pnpm install
 pnpm storylite   the gallery on http://localhost:4400
 pnpm lint        tsc, eslint, stylelint
 pnpm lint:md
+pnpm structure   the folder shape and the usage files
+pnpm sync        the shared files match @drizztdourden08/standards
 ```
 
 How Tessera is built, its tiers and where an app's own parts go: [docs/design-system.md](docs/design-system.md). How code is written: [docs/coding-standards.md](docs/coding-standards.md).

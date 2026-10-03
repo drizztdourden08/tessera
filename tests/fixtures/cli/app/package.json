@@ -10,7 +10,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@drizztdourden08/brock-lint-config": "^0.1.0",
+    "@drizztdourden08/standards": "^1.0.0",
     "@storylite/storylite": "^1.6.0"
   }
 }

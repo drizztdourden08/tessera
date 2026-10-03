@@ -3,13 +3,13 @@ import { spawnSync } from 'node:child_process';
 import { cpSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll } from 'vitest';
-import { findSlop } from '@drizztdourden08/brock-lint-config/slop-patterns';
+import { findSlop } from '@drizztdourden08/standards/writing';
+import { checkShapes } from '@drizztdourden08/standards/structure';
 import { run } from '../scripts/cli/new-command.mjs';
 
 const TIMEOUT = 240_000;
-const BROCK_WITHOUT_USAGE = /\.usage\.ts: not part of a component folder/;
 const ROOT = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const MODULES = join(ROOT, 'node_modules');
 const APP_FIXTURE = join(ROOT, 'tests', 'fixtures', 'cli', 'app');
@@ -19,7 +19,6 @@ const BIN = {
   stylelint: join(MODULES, 'stylelint', 'bin', 'stylelint.mjs'),
   tsc: join(MODULES, 'typescript', 'bin', 'tsc'),
 };
-const SHAPES = pathToFileURL(join(MODULES, '@drizztdourden08', 'brock-build', 'src', 'commands', 'structure-shape.mjs')).href;
 
 const sandbox = (copy) => {
   const dir = mkdtempSync(join(tmpdir(), 'tessera-cli-'));
@@ -33,7 +32,7 @@ const tesseraCopy = () => sandbox((dir) => {
 });
 
 const appTsconfig = (dir) => ({
-  extends: '@drizztdourden08/brock-lint-config/tsconfig/react.json',
+  extends: '@drizztdourden08/standards/tsconfig/react.json',
   compilerOptions: {
     types: [],
     paths: {
@@ -90,10 +89,7 @@ const typecheck = (cwd, files) => {
   return errors;
 };
 
-const structure = async (cwd, folder) => {
-  const { checkShapes } = await import(SHAPES);
-  return checkShapes(cwd, join(cwd, folder)).filter((finding) => !BROCK_WITHOUT_USAGE.test(finding));
-};
+const structure = (cwd, folder) => checkShapes(cwd, join(cwd, folder));
 
 const filesOf = ({ kind, name, folder }) => [
   `${folder}/${name}.tsx`, `${folder}/${name}.type.ts`, `${folder}/${name}.css`, `${folder}/${name}.usage.ts`, `${folder}/index.ts`,

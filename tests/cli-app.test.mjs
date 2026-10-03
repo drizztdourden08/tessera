@@ -68,8 +68,8 @@ describe('the warning and the gates in an app', () => {
     expect(typecheck(made.dir, made.code)).toEqual([]);
   }, TIMEOUT);
 
-  it('passes brock structure (brock-build 0.1.0 does not take Name.usage.ts yet; 0.1.1 does) and the prose rules', async () => {
-    for (const part of PARTS) expect(await structure(made.dir, part.folder)).toEqual([]);
+  it('passes the standards folder shape and the prose rules', () => {
+    for (const part of PARTS) expect(structure(made.dir, part.folder)).toEqual([]);
     expect(slop(made.dir, made.files)).toEqual([]);
     expect(made.results.flatMap((result) => slopIn(result.out))).toEqual([]);
   });

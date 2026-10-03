@@ -17,8 +17,8 @@ const nextSteps = (spec, plan) => {
     ...(story ? [`Fill the gallery page ${story.path} with the variants and states of ${name}.`] : []),
     ...(spec.mode === 'app' ? [USE_IT[spec.kind](name)] : []),
     spec.mode === 'tessera'
-      ? 'Run pnpm lint, pnpm exec brock structure --check and pnpm test.'
-      : 'Run the app lint and brock structure --check.',
+      ? 'Run pnpm lint, pnpm exec standards structure --check and pnpm test.'
+      : 'Run the app lint and standards structure --check (brock structure --check in a Brock app).',
   ].map((line, index) => `  ${index + 1}. ${line}`);
 };
 

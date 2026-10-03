@@ -76,13 +76,14 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/ai",
-    "lint": "pnpm typecheck && eslint . && stylelint \"src/**/*.css\" \"fonts/**/*.css\" \"stories/**/*.css\" && brock prose && knip && jscpd && pnpm ai --check",
+    "lint": "pnpm typecheck && eslint . && stylelint \"src/**/*.css\" \"fonts/**/*.css\" \"stories/**/*.css\" && standards prose && knip && jscpd && pnpm ai --check",
     "lint:md": "markdownlint-cli2",
     "test": "vitest run",
     "storylite": "storylite dev --port 4400",
     "storylite:build": "storylite build",
-    "structure": "brock structure --check",
-    "prose": "brock prose",
+    "structure": "standards structure --check",
+    "prose": "standards prose",
+    "sync": "standards sync --check",
     "changeset": "changeset",
     "deadcode": "knip",
     "duplicates": "jscpd",
@@ -117,8 +118,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
-    "@drizztdourden08/brock-build": "^0.1.2",
-    "@drizztdourden08/brock-lint-config": "^0.1.2",
+    "@drizztdourden08/standards": "^1.0.0",
     "@resvg/resvg-js": "^2.6.2",
     "@storylite/renderer-react": "^1.6.0",
     "@storylite/storylite": "^1.6.0",
@@ -126,7 +126,6 @@
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.4.0",
-    "eslint-plugin-react-hooks": "^7.1.1",
     "jscpd": "^5.3.2",
     "knip": "^6.38.0",
     "markdownlint-cli2": "^0.22.1",
@@ -136,7 +135,6 @@
     "stylelint": "^17.13.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.1",
     "vite": "8.3.1",
     "vitest": "^4.1.7"
   }

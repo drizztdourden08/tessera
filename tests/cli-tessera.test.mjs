@@ -54,8 +54,8 @@ describe('the gates on what tessera new writes in Tessera', () => {
     expect(typecheck(made.dir, made.code)).toEqual([]);
   }, TIMEOUT);
 
-  it('passes brock structure (brock-build 0.1.0 does not take Name.usage.ts yet; 0.1.1 does)', async () => {
-    for (const part of PARTS) expect(await structure(made.dir, part.folder)).toEqual([]);
+  it('passes the standards folder shape', () => {
+    for (const part of PARTS) expect(structure(made.dir, part.folder)).toEqual([]);
   });
 
   it('passes the prose rules, in the files and in what it prints', () => {

@@ -1,4 +1,4 @@
 /* @layer root-config @kind config */
-import { brockStylelint } from '@drizztdourden08/brock-lint-config/stylelint';
+import { standardsStylelint } from '@drizztdourden08/standards/stylelint';
 
-export default brockStylelint({ uiGlobs: ['src/**/*.css'] });
+export default standardsStylelint({ uiGlobs: ['src/**/*.css'] });

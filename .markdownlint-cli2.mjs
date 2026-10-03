@@ -1,4 +1,4 @@
 /* @layer root-config @kind config */
-import { brockMarkdownlint } from '@drizztdourden08/brock-lint-config/markdownlint';
+import { standardsMarkdownlint } from '@drizztdourden08/standards/markdownlint';
 
-export default brockMarkdownlint();
+export default standardsMarkdownlint();

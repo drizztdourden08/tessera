@@ -45,8 +45,8 @@ const LINT_POINTS: readonly string[] = [
   '`local/no-raw-color` and `local/no-static-inline-style`: styles live in the CSS file beside the component.',
   'Stylelint: tokens only in CSS. No hex, px or ms values.',
   'Shape: one export per file, types in `.type.ts`, constants in `.constants.ts`, a hook file named after its hook, and a component imports only its own CSS.',
-  '`local/no-comments`: the file header and no other comment. `brock prose` checks the wording.',
-  '`brock structure --check`: the folder shape above.',
+  '`local/no-comments`: the file header and no other comment. `standards prose` checks the wording.',
+  '`standards structure --check`: the folder shape above.',
 ];
 
 export { LINT_POINTS, TIER_TOPIC, USAGE_TOPIC };

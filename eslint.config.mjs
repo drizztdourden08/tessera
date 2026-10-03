@@ -1,5 +1,5 @@
 /* @layer root-config @kind config */
-import { brockEslint } from '@drizztdourden08/brock-lint-config';
+import { standardsEslint } from '@drizztdourden08/standards/eslint';
 
 const TOKEN_STORIES = [
   'stories/colours/**',
@@ -11,9 +11,8 @@ const DEMONSTRATOR = ['stories/_template/Demonstrator.tsx'];
 
 const SAMPLE_STORIES = ['stories/data/_samples/table-demo.tsx'];
 
-export default brockEslint({
+export default standardsEslint({
   ignores: ['dist-storylite/**'],
-  primitivesGlobs: ['src/primitives/**/*.tsx'],
   defaultExportGlobs: ['.storylite/config.ts'],
   consoleGlobs: ['**/bin/**', '**/scripts/**', '**/tooling/**', '**/*.test.{ts,tsx,js,mjs}', 'src/primitives/dom/dev-warn.ts'],
   glyphContent: [

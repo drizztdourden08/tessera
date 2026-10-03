@@ -1289,7 +1289,7 @@ The usage file of an app part now goes through the same checks as a Tessera part
 
 `ai.usage` decides what a finding does. `report`, the default, lists every finding and exits 0. `enforce` exits 1 on any finding. `tessera ai` runs the same check, then writes the app guide to `ai.out`, `ai/` by default, with links to the Tessera guide in `node_modules`.
 
-The standards extension runs the same checks on the parts of each package it checks. In `report` mode they print as notes, so an app on report mode sees no new finding; in `enforce` mode each one is a finding. A missing usage file stays a finding in both modes.
+The standards extension runs the same checks on the parts of each package it checks. In `report` mode they print as notes, so an app on report mode sees no new finding; in `enforce` mode each one is a finding. A missing usage file follows the same mode: a note in `report`, a finding in `enforce`.
 
 ### The app tree
 
@@ -1324,3 +1324,13 @@ Usage files keep `satisfies ComponentUsage`. The module imports types only, like
 `tessera new` now names `tessera check` in its next steps, and `--tree` and its tree prompt take the app answers. The example of a shared part imports from the package name; the example of a view imports `../<Name>`, as before.
 
 In Tessera, `pnpm ai` and `pnpm ai --check` print and write the same as before. They read the usage files and the tree with TypeScript instead of Vite, so a usage file imports types only.
+
+## 54. Tessera's tooling moves to @drizztdourden08/standards
+
+Tessera now lints and checks itself with `@drizztdourden08/standards` in place of `@drizztdourden08/brock-build` and `@drizztdourden08/brock-lint-config`. The rules keep their names. `standards prose`, `standards structure --check` and `standards sync --check` replace the Brock commands, and the root `standards.config.mjs` takes the `design-system` preset and Tessera's own extension. CI runs the reusable workflow of the standards repo.
+
+The usage file check of Tessera's extension now follows `ai.usage` for a missing file as well: in `report` mode a part without `Name.usage.ts` prints as a note and the check passes, in `enforce` mode it is a finding. Before, a missing file was a finding in both modes.
+
+### What an app does
+
+Nothing beyond installing Tessera. An app on `@drizztdourden08/standards` discovers the extension from its dependencies, so it lists no extension and names no primitives folder: the extension reads `parts.primitives` from `tessera.config.json`. An app that still passes `primitivesGlobs` for that folder can drop it. A Brock app keeps `brock-lint-config` and `brock-build`, which sit on standards.

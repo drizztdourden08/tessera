@@ -277,9 +277,9 @@ config?.parts.views; // absolute folders, the app ones when run inside an apps e
 
 ### The standards extension
 
-Tessera declares an extension for `@drizztdourden08/standards`, so an app that uses both gets it with no setup. From `tessera.config.json` it requires `Name.usage.ts` in each part folder under `parts`, passes the primitives folders as `primitivesGlobs` to ESLint (only primitives may write raw HTML), and passes `theme.css` as a token file to stylelint. It reads the config at lint time from the root or package the standards factory passes, and a broken config shows as a structure finding instead of stopping the lint.
+Tessera declares an extension for `@drizztdourden08/standards`, so an app that uses both gets it with no setup. From `tessera.config.json` it checks for `Name.usage.ts` in each part folder under `parts`, passes the primitives folders as `primitivesGlobs` to ESLint (only primitives may write raw HTML), and passes `theme.css` as a token file to stylelint. It reads the config at lint time from the root or package the standards factory passes, and a broken config shows as a structure finding instead of stopping the lint.
 
-Its structure check also runs the usage check below on the parts of the package it checks. In `report` mode what it finds prints as notes and the check passes; in `enforce` mode each one is a finding. A missing usage file is a finding in both modes.
+Its structure check also runs the usage check below on the parts of the package it checks. In `report` mode what it finds prints as notes and the check passes, a missing usage file included; in `enforce` mode each one is a finding.
 
 ## Usage rules for app parts
 
@@ -340,7 +340,7 @@ The check refuses an answer the question already has and an `at` that does not e
 
 ## Creating a part with the tessera command
 
-The package ships a `tessera` command. `tessera new` writes a component folder in the shape `brock structure --check` expects, with a usage file and a gallery story, and prints what to fill in next. In a Brock app, run it through the Brock command line, which forwards every argument:
+The package ships a `tessera` command. `tessera new` writes a component folder in the shape `standards structure --check` expects, with a usage file and a gallery story, and prints what to fill in next. In a Brock app, run it through the Brock command line, which forwards every argument:
 
 ```sh
 brock tessera new compound SaveSlot

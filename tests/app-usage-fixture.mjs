@@ -33,7 +33,7 @@ export { APP_TREE };
 `;
 
 const tsconfig = (include) => ({
-  extends: '@drizztdourden08/brock-lint-config/tsconfig/react.json',
+  extends: '@drizztdourden08/standards/tsconfig/react.json',
   compilerOptions: {
     types: [],
     paths: {
