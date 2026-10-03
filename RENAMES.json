@@ -95,8 +95,7 @@
         "SectionNav": "SideNav",
         "HeaderTabsProps": "HeaderAnchorNavProps",
         "HeaderTabItem": "HeaderAnchorNavItem",
-        "HeaderTabs": "HeaderAnchorNav",
-        "FullScreenLayer": "ScreenWindow"
+        "HeaderTabs": "HeaderAnchorNav"
       },
       "cssClasses": {
         "tab-bar": "tabs",
@@ -156,19 +155,7 @@
         "side-nav__list": "side-nav__groups",
         "header-tabs__tab--active": "header-anchor-nav__item--active",
         "header-tabs__tab": "header-anchor-nav__item",
-        "header-tabs": "header-anchor-nav",
-        "fullscreen-layer__content": "screen-window__content",
-        "fullscreen-layer__floating": "screen-layer__floating",
-        "fullscreen-layer__header": "screen-window__header",
-        "fullscreen-layer--hidden": "screen-layer--hidden",
-        "fullscreen-layer__inset": "screen-layer__inset",
-        "fullscreen-layer__frame": "screen-layer__frame",
-        "fullscreen-layer__card": "screen-layer__card",
-        "fullscreen-layer": "screen-layer",
-        "settings-shell__content": "removed with SettingsShell; the page sits in the NavLayout pane (see MIGRATION.md section 52)",
-        "settings-shell__header": "removed with SettingsShell; the title moves to WorkspaceScreen (see MIGRATION.md section 52)",
-        "settings-shell__body": "nav-layout",
-        "settings-shell": "removed with SettingsShell; use nav-layout (see MIGRATION.md section 52)"
+        "header-tabs": "header-anchor-nav"
       },
       "propValues": {
         "ProgressBar.variant": {
@@ -207,18 +194,15 @@
         "Widget.dockedStyle": "removed; DockLayout places the panes (see MIGRATION.md section 21)",
         "WidgetLayout.widgets": "the v2 layout: dock, floating, popped and frame; migrateLayout turns a stored flat layout into it (see MIGRATION.md section 21)",
         "SideNav.groups": "SideNav.config.groups, where each group needs an id, its title becomes label and every item needs an icon. SideNav, SideNavProps, SideNavGroup and SideNavItem keep their names but now describe the former SectionNav, so they are not mapped (see MIGRATION.md section 47)",
-        "SideNav.searchable": "SideNav.search, which the host owns; NavLayout.filterable keeps a filter the layout owns (see MIGRATION.md sections 47 and 52)",
-        "SideNav.searchPlaceholder": "SideNav.search.placeholder, or NavLayout.filterPlaceholder (see MIGRATION.md sections 47 and 52)",
+        "SideNav.searchable": "SideNav.search, which the host owns; SettingsShell.filterable keeps a filter the shell owns (see MIGRATION.md section 47)",
+        "SideNav.searchPlaceholder": "SideNav.search.placeholder, or SettingsShell.filterPlaceholder (see MIGRATION.md section 47)",
         "SideNav.query": "SideNav.search.value (see MIGRATION.md section 47)",
         "SideNav.onQueryChange": "SideNav.search.onChange (see MIGRATION.md section 47)",
-        "SideNav.header": "removed; WorkspaceScreen.title, or a heading the host places above a NavLayout (see MIGRATION.md section 52)",
+        "SideNav.header": "removed; SettingsShell.header puts a row above the nav and the panel (see MIGRATION.md section 47)",
         "SideNavGroup.title": "SideNavGroup.label (see MIGRATION.md section 47)",
         "SideNavGroup.id": "now required on every group; a group heading is no longer a target of its own (see MIGRATION.md section 47)",
         "SideNavItem.icon": "now required (see MIGRATION.md section 47)",
-        "SettingsShell.nav": "removed with SettingsShell; WorkspaceScreen.nav and NavLayout.nav take SideNavProps: config, activeId, onSelect and search (see MIGRATION.md sections 47 and 52)",
-        "SettingsShell.filterable": "NavLayout.filterable, or WorkspaceScreen.filterable",
-        "SettingsShell.filterPlaceholder": "NavLayout.filterPlaceholder, or WorkspaceScreen.filterPlaceholder",
-        "SettingsShell.header": "removed; WorkspaceScreen.title, or a heading the host places above a NavLayout (see MIGRATION.md section 52)"
+        "SettingsShell.nav": "takes the new SideNavProps: config, activeId, onSelect and search; searchable, searchPlaceholder and header move to SettingsShell.filterable, SettingsShell.filterPlaceholder and SettingsShell.header (see MIGRATION.md section 47)"
       },
       "removedExports": {
         "WIDGET_DEFINITIONS": "moves to the app; pass it to WidgetManager and the layout helpers as `definitions`",
@@ -256,7 +240,38 @@
         "TITLEBAR_HEIGHT": "removed (see MIGRATION.md section 21)",
         "DockedLayoutResult": "removed with computeDockedStyles (see MIGRATION.md section 21)",
         "ExclusiveInsets": "removed; the main view takes the room the docked widgets leave (see MIGRATION.md section 21)",
-        "WidgetSettings": "replaced by WidgetOptions, anchored to the gear through anchorRef (see MIGRATION.md section 21)",
+        "WidgetSettings": "replaced by WidgetOptions, anchored to the gear through anchorRef (see MIGRATION.md section 21)"
+      }
+    },
+    {
+      "version": "next",
+      "components": {
+        "FullScreenLayer": "ScreenWindow"
+      },
+      "cssClasses": {
+        "fullscreen-layer__content": "screen-window__content",
+        "fullscreen-layer__floating": "screen-layer__floating",
+        "fullscreen-layer__header": "screen-window__header",
+        "fullscreen-layer--hidden": "screen-layer--hidden",
+        "fullscreen-layer__inset": "screen-layer__inset",
+        "fullscreen-layer__frame": "screen-layer__frame",
+        "fullscreen-layer__card": "screen-layer__card",
+        "fullscreen-layer": "screen-layer",
+        "settings-shell__content": "removed with SettingsShell; the page sits in the NavLayout pane (see MIGRATION.md section 52)",
+        "settings-shell__header": "removed with SettingsShell; the title moves to WorkspaceScreen (see MIGRATION.md section 52)",
+        "settings-shell__body": "nav-layout",
+        "settings-shell": "removed with SettingsShell; use nav-layout (see MIGRATION.md section 52)"
+      },
+      "props": {
+        "SideNav.searchable": "SideNav.search, which the host owns; NavLayout.filterable keeps a filter the layout owns (see MIGRATION.md sections 47 and 52)",
+        "SideNav.searchPlaceholder": "SideNav.search.placeholder, or NavLayout.filterPlaceholder (see MIGRATION.md sections 47 and 52)",
+        "SideNav.header": "removed; WorkspaceScreen.title, or a heading the host places above a NavLayout (see MIGRATION.md section 52)",
+        "SettingsShell.nav": "removed with SettingsShell; WorkspaceScreen.nav and NavLayout.nav take SideNavProps: config, activeId, onSelect and search (see MIGRATION.md sections 47 and 52)",
+        "SettingsShell.filterable": "NavLayout.filterable, or WorkspaceScreen.filterable",
+        "SettingsShell.filterPlaceholder": "NavLayout.filterPlaceholder, or WorkspaceScreen.filterPlaceholder",
+        "SettingsShell.header": "removed; WorkspaceScreen.title, or a heading the host places above a NavLayout (see MIGRATION.md section 52)"
+      },
+      "removedExports": {
         "SettingsShell": "replaced by WorkspaceScreen for a settings screen, or NavLayout with filterable inside a page; see MIGRATION.md section 52",
         "SettingsShellProps": "replaced by WorkspaceScreenProps, or NavLayoutProps with filterable and filterPlaceholder"
       }
