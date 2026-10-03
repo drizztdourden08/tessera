@@ -299,7 +299,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.7.0",
       "components": {
         "WizardProgressProps": "StepperProps",
         "WizardProgressStep": "StepperStep",
