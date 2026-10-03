@@ -67,15 +67,23 @@ describe('the review write route', () => {
 });
 
 describe('the shared status logic', () => {
-  it('marks an approved page as changed once its files change, and approving again takes the new hash', () => {
+  it('keeps an approved page green with a changed mark once its files change, and approving again takes the new hash', () => {
     setReview(ROOT, 'ok', only);
     const first = entry().hash;
     writeFileSync(join(ROOT, 'stories/primitives/Button.stories.tsx'), `${STORY}// changed\n`);
     const stale = reviewPost(ROOT, 'note', JSON.stringify({ title: TITLE, text: '' })).state;
-    expect(stale.pages[TITLE]).toBe('yellow');
+    expect(stale.pages[TITLE]).toBe('green');
     expect(stale.marks[TITLE]).toEqual({ status: 'ok', changed: true });
     expect(setReview(ROOT, 'ok', only).map((page) => page.title)).toEqual([TITLE]);
     expect(entry().hash).not.toBe(first);
+  });
+
+  it('shows feedback with nothing changed yet as red, and a flagged page as yellow until reviewed', () => {
+    setReview(ROOT, 'seen', only);
+    expect(reviewPost(ROOT, 'note', JSON.stringify({ title: TITLE, text: '' })).state.pages[TITLE]).toBe('red');
+    setReview(ROOT, 'flag', only);
+    expect(entry().status).toBe('seen');
+    expect(reviewPost(ROOT, 'note', JSON.stringify({ title: TITLE, text: '' })).state.pages[TITLE]).toBe('yellow');
   });
 
   it('forgets the hash and date when a page goes back to not reviewed', () => {

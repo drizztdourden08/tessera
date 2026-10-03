@@ -5,8 +5,8 @@ import { reviewNotes } from './review-notes.mjs';
 import { printReview } from './print-review.mjs';
 
 const RUNNER = { configFile: false, logLevel: 'silent' };
-const USAGE = 'Usage: pnpm review ok|seen|clear <page>... | pnpm review list [red|yellow|green] | pnpm review notes [clear <page>... | clear --all]';
-const STATUS = { ok: 'ok', seen: 'seen', clear: 'new' };
+const USAGE = 'Usage: pnpm review ok|seen|flag|clear <page>... | pnpm review list [red|yellow|green] | pnpm review notes [clear <page>... | clear --all]';
+const STATUS = { ok: 'ok', seen: 'seen', flag: 'flag', clear: 'new' };
 
 const root = process.cwd();
 const [verb, ...names] = process.argv.slice(2);

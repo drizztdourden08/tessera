@@ -8,8 +8,8 @@ import type { ReviewColour, ReviewEntry, ReviewPage, ReviewState } from './revie
 
 const pageColour = (entry: ReviewEntry | undefined, hash: string): ReviewColour => {
   if (!entry || entry.status === 'new') return 'red';
-  if (entry.hash !== hash) return 'yellow';
-  return entry.status === 'ok' ? 'green' : 'red';
+  if (entry.status === 'ok') return 'green';
+  return entry.hash === hash ? 'red' : 'yellow';
 };
 
 const reviewState = (root: string, pages: readonly ReviewPage[] = reviewPages(root)): ReviewState => {

@@ -12,17 +12,17 @@
     },
     "Building compounds": {
       "status": "ok",
-      "hash": "112b3249db26754d",
+      "hash": "3d23742150052109",
       "at": "2026-10-03"
     },
     "Building views": {
       "status": "ok",
-      "hash": "3a37a0f3fca04ab0",
+      "hash": "91011185cc7ae14b",
       "at": "2026-10-03"
     },
     "App primitives and composites": {
       "status": "ok",
-      "hash": "5c5765d0b06aa52c",
+      "hash": "dc44cf90030b8682",
       "at": "2026-10-03"
     }
   },
@@ -71,13 +71,13 @@
     },
     "Roles": {
       "status": "ok",
-      "hash": "7c11e022ced6af1a",
-      "at": "2026-10-01"
+      "hash": "74d2b46e96e081da",
+      "at": "2026-10-03"
     },
     "Contrast": {
       "status": "ok",
-      "hash": "1ca22f4a4bcd2219",
-      "at": "2026-10-01"
+      "hash": "e2268f8f316e9584",
+      "at": "2026-10-03"
     },
     "Gradients": {
       "status": "ok",
@@ -295,7 +295,7 @@
     },
     "Quote": {
       "status": "ok",
-      "hash": "4525d252d95992c2",
+      "hash": "7a9540ce3e8938e4",
       "at": "2026-10-03"
     },
     "CodeBlock": {
@@ -306,24 +306,24 @@
   },
   "Core · Icons": {
     "Icon": {
-      "status": "ok",
-      "hash": "0c837910ad72b89b",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-03"
     },
     "Brand icons": {
       "status": "ok",
-      "hash": "b7720d4e1f802056",
-      "at": "2026-10-01"
+      "hash": "f4f1679e71798776",
+      "at": "2026-10-03"
     },
     "Glyph": {
       "status": "ok",
-      "hash": "887fe236749c8dab",
-      "at": "2026-10-01"
+      "hash": "7f8d5a6b40195c9d",
+      "at": "2026-10-03"
     },
     "PathIcon": {
       "status": "ok",
-      "hash": "aab7c24a9dc95be3",
-      "at": "2026-10-01"
+      "hash": "13e2d4bc9e71ea56",
+      "at": "2026-10-03"
     },
     "EmojiIcon": {
       "status": "ok",
@@ -364,28 +364,28 @@
     },
     "Shadows": {
       "status": "ok",
-      "hash": "eba4931e1b18d263",
-      "at": "2026-10-01"
+      "hash": "4d6c6b65f46f316b",
+      "at": "2026-10-03"
     },
     "Z-index": {
       "status": "ok",
-      "hash": "6c16171f369b2861",
-      "at": "2026-10-01"
+      "hash": "12c0629e367869ab",
+      "at": "2026-10-03"
     },
     "Durations": {
       "status": "ok",
-      "hash": "b8d2adc48487236c",
-      "at": "2026-10-01"
+      "hash": "828da97b9a24e197",
+      "at": "2026-10-03"
     },
     "Easings": {
       "status": "ok",
-      "hash": "86844743d8522e0b",
-      "at": "2026-10-01"
+      "hash": "d0e9b52100a76830",
+      "at": "2026-10-03"
     },
     "Transitions": {
       "status": "ok",
-      "hash": "924c0bf92e857cd9",
-      "at": "2026-10-01"
+      "hash": "cd04adcc980c2fe3",
+      "at": "2026-10-03"
     }
   },
   "Primitives · Layout": {
@@ -436,12 +436,12 @@
     },
     "Portal": {
       "status": "ok",
-      "hash": "e6c1b43ed368abc4",
+      "hash": "bf63b56eb6a8e9ed",
       "at": "2026-10-03"
     },
     "Anchored": {
       "status": "ok",
-      "hash": "620c95794a0eb368",
+      "hash": "319fad7388931b1a",
       "at": "2026-10-03"
     },
     "Floating": {
@@ -468,7 +468,7 @@
     },
     "Badge": {
       "status": "ok",
-      "hash": "753166347dd22f06",
+      "hash": "af333401397a9744",
       "at": "2026-10-03"
     },
     "Status": {
@@ -498,7 +498,7 @@
     },
     "Video": {
       "status": "ok",
-      "hash": "a5390864f06afe36",
+      "hash": "1f30b472ddd7b7cb",
       "at": "2026-10-03"
     },
     "Canvas": {
@@ -513,7 +513,7 @@
     },
     "ScaleLabels": {
       "status": "ok",
-      "hash": "dc560b827ec2ae58",
+      "hash": "0b1c70bbd4ec3aa4",
       "at": "2026-10-03"
     }
   },
@@ -557,12 +557,12 @@
     },
     "SearchInput": {
       "status": "ok",
-      "hash": "485eec9a409b88d0",
+      "hash": "e61e577162b84e15",
       "at": "2026-10-03"
     },
     "PasswordInput": {
       "status": "ok",
-      "hash": "49131f29cd9faef5",
+      "hash": "5d47ab74d16f48f3",
       "at": "2026-10-03"
     },
     "Textarea": {
@@ -572,12 +572,12 @@
     },
     "NumberInput": {
       "status": "ok",
-      "hash": "d194baaef58d217e",
+      "hash": "3d7e0f9ac8d2669d",
       "at": "2026-10-03"
     },
     "Stepper": {
       "status": "ok",
-      "hash": "4c846687cd88fc25",
+      "hash": "df397a417d794a4b",
       "at": "2026-10-03"
     },
     "Checkbox": {
@@ -607,12 +607,12 @@
     },
     "Select": {
       "status": "ok",
-      "hash": "76333e36a4fec747",
+      "hash": "28286ba81cd903a2",
       "at": "2026-10-03"
     },
     "Combobox": {
       "status": "ok",
-      "hash": "5dcec3fe64435989",
+      "hash": "12723d2e2705ee04",
       "at": "2026-10-03"
     },
     "Slider": {
@@ -701,7 +701,7 @@
   "Primitives · Navigation": {
     "Tabs": {
       "status": "ok",
-      "hash": "0717e7d5432f07d2",
+      "hash": "e1192167bc235cf2",
       "at": "2026-10-03"
     },
     "RouterLink": {
@@ -718,7 +718,7 @@
     },
     "DialogShell": {
       "status": "ok",
-      "hash": "8e37bced1cd62786",
+      "hash": "aaa15d8c31a50628",
       "at": "2026-10-03"
     },
     "CreateRecordDialog": {
