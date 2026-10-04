@@ -28,9 +28,9 @@
   },
   "Core · Brand": {
     "Brand": {
-      "status": "ok",
-      "hash": "649dd6dd789cb95a",
-      "at": "2026-10-01"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "InteractiveTessera": {
       "status": "ok",
@@ -38,19 +38,19 @@
       "at": "2026-10-01"
     },
     "Logo": {
-      "status": "ok",
-      "hash": "76eda36cb668685c",
-      "at": "2026-10-01"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "WordMark": {
-      "status": "ok",
-      "hash": "fe5df3da2c901ec8",
-      "at": "2026-10-01"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "Combined": {
-      "status": "ok",
-      "hash": "8f87680ae938bbaa",
-      "at": "2026-10-01"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "Mascot": {
       "status": "ok",
