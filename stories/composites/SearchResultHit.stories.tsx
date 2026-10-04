@@ -71,7 +71,12 @@ const LongPath = {
 
 const Overview = overviewStory({
   component: 'SearchResultHit',
-  description: 'One match in the search results: an optional icon, the label with the matching text marked, a description under it, and the path to where it lives, its steps joined by chevrons on the right. The whole row is one button; an arrow shows on hover and focus. Use it for matches that are not settings, such as a help entry or a record; settings show as their own live rows instead.',
+  description: 'One match in the search results that is not a setting, such as a help entry or a record.',
+  points: [
+    'It shows an `icon`, the `label` with the `query` marked, a `description` and its `path`.',
+    'The whole row is one button that calls `onOpen`; an arrow shows on hover and focus.',
+    'Settings show as their own live rows instead.',
+  ],
   playground: Playground,
   variants: [LabelOnly, LongPath],
   states: {

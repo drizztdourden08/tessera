@@ -150,7 +150,14 @@ const CODE = `import { GroupTree } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'GroupTree',
-  description: 'A tree of groups that open and close, nested to any depth, with the items of each group as leaves. Reach for it to browse a long list sorted into groups, such as players by server and then by session. Each level is indented with a guide line down to its last row, each group shows an icon and the count of items under it, and the guide of the selected branch is lit. It is a real tree for keyboards and screen readers: arrows move, Right opens, Left closes or goes to the parent, Home and End jump, Enter selects. expandToDepth opens the top levels on mount, and expandedKeys with onExpandedChange hand expansion to the caller.',
+  description: 'A tree of groups that open and close, with the items as leaves, to browse a long list sorted into groups.',
+  points: [
+    'Give it a `root` node; each node holds its child groups and its `items`.',
+    'Each group shows an icon and a count, and a guide line runs down each level.',
+    'Arrows move, [[Right]] opens, [[Left]] closes or goes up, [[Home]] and [[End]] jump, [[Enter]] selects.',
+    '`expandToDepth` opens the top levels on mount.',
+    '`expandedKeys` with `onExpandedChange` lets the caller own which groups are open.',
+  ],
   playground: Playground,
   variants: [FullyExpanded, Flat, Controlled],
   states: {

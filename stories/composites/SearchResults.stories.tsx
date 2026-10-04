@@ -118,10 +118,13 @@ const CODE = `import { filterSettingsSections, SearchResults, SettingsSection } 
 
 const Overview = overviewStory({
   component: 'SearchResults',
-  description: 'The pane a search fills, on the same card as a settings page so the two read as one surface. A fixed head holds the summary and a chip for each page whose name matches; the body under it scrolls. The body holds one SearchResultGroup per page: a glowing icon, the page name, a count and an Open page button, then what matched on that page. For settings, that is the matching rows with their real controls, drawn by SettingsSection from filterSettingsSections; for anything else, SearchResultHit rows with the match marked and their path. With no query it shows the search glass and idleMessage; with no match it keeps the head and shows emptyMessage. WorkspaceScreen builds all of this from its content.',
+  description: 'The pane a search fills: a summary with page chips on top, then the matches grouped by page.',
   points: [
-    'The chips read "Open" and the page name, from the string table. onJump gets the page id.',
-    'It scrolls its own body, so SideNavLayout leaves the results unwrapped.',
+    '`groups` holds one [SearchResultGroup] per page; each holds live settings rows or [SearchResultHit] rows.',
+    '`jumps` adds a chip for each page whose name matches; `onJump` gets the page id.',
+    'With no query it shows `idleMessage`; with no match it keeps the head and shows `emptyMessage`.',
+    'It scrolls its own body, so [SideNavLayout] leaves it unwrapped.',
+    '[WorkspaceScreen] builds all of this from its pages.',
   ],
   playground: Playground,
   variants: [LiveSettings, Hits, Idle, ZeroMatches],

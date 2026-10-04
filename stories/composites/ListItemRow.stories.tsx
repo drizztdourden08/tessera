@@ -165,7 +165,15 @@ const CODE = `import { ListItemList, ListItemRow } from '@drizztdourden08/tesser
 
 const Overview = overviewStory({
   component: 'ListItemRow',
-  description: 'One row of a list: an optional icon, a main column with a name and a line of meta under it, any number of extra columns, and an action slot at the right that shows on hover. Each extra column takes a primary line, an optional secondary line under it, and an alignment. Put rows in a ListItemList and their columns line up from row to row, each as wide as its widest cell. A row takes a selected state, plus click and double-click handlers for selecting and opening. Every line takes any content, such as a Status.',
+  description: 'One row of a list: an icon, a name with a meta line under it, extra columns, and an action on the right.',
+  points: [
+    'Each of the `columns` takes a `primary` line, an optional `secondary` line and an `align`.',
+    'Put rows in a `ListItemList` and their columns line up, each as wide as its widest cell.',
+    '`selected`, `onClick` and `onDoubleClick` cover picking a row and opening it.',
+    'The `action` shows on hover; `actionVisibility="always"` keeps it on.',
+    'Every line takes any content, such as a [Status].',
+  ],
+  instead: '[DataTable] for many rows the user sorts and filters by column.',
   playground: Playground,
   variants: [AllVariants, AlignedList, Selectable],
   states: {

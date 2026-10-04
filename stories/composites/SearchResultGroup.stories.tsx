@@ -70,7 +70,13 @@ const Bare = {
 
 const Overview = overviewStory({
   component: 'SearchResultGroup',
-  description: 'One group in the search results, most often one page: the page icon with its glow, the page name, a pill with how many matches it holds and an Open page button at the far end, then the matches themselves. It takes any content: the live rows of a SettingsSection, or SearchResultHit rows. SearchResults draws one per entry of its groups; use it alone to build a results pane of your own. It carries data-group with its id, so a test or a tour can find it.',
+  description: 'One group in the search results, most often one page: its icon, name, match count and an Open page button.',
+  points: [
+    'The matches go in `children`: live rows of a [SettingsSection], or [SearchResultHit] rows.',
+    '`onOpen` draws the Open page button; `openLabel` changes its text.',
+    'It carries `data-group` with its `id`, so a test or a tour can find it.',
+  ],
+  instead: '[SearchResults], which draws one group per page for you.',
   playground: Playground,
   variants: [WithHits, Bare],
 });
