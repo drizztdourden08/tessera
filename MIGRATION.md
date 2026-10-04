@@ -1905,3 +1905,19 @@ SideNav's groups now scroll in a slim ScrollArea, with the line kept a corner ra
 ### What an app does
 
 Nothing. Pass `scrollbar="slim"` to a ScrollArea that should scroll without giving up width.
+
+## 77. The Stepper reverses exactly, skips in one sweep, flips done numbers to a check, and takes a colour per step
+
+Going back plays the forward sequence in exact reverse, one step at a time: the breathing stops, the border draws back to the point where the line arrived, the line retracts to the previous circle, then that circle drains. Each part takes 0.6 of its forward time on the mirrored curve, so the speed still matches where one part hands over to the next. One step back takes 0.82 s instead of a 0.15 s fade of everything at once.
+
+A jump over two or more steps no longer replays the sequence once per step. Every passed circle fills and spreads its border at the same time, the lines then draw in one sweep that speeds up out of the first circle, runs at an even pace and slows into the last, and the border of the step it lands on spreads as that step starts to breathe. Skip to Review across six steps takes 1.6 s instead of 6.8 s. One step forward is unchanged.
+
+A done circle now flips its number over to a check, turning about its upright axis. `doneIcon` on the Stepper sets the icon for every step and `false` keeps the numbers; `doneIcon` on a step overrides it. The icon keeps the colours the number had, and reduced motion swaps it at once.
+
+`tone` on the Stepper or on a step takes `primary`, `secondary`, `tertiary`, `success`, `warning`, `danger`, `info` or a tag colour. It colours the fill, the border, the glow, the label of the current step and the line arriving at that step. A step that needs attention stays red. Without a tone the Stepper looks as before.
+
+The new tokens are `--duration-step`, `--duration-step-flip`, `--duration-step-fill-back`, `--duration-step-line-back`, `--duration-step-ring-back`, `--duration-step-flip-back`, `--duration-step-back`, `--duration-step-skip-fill`, `--duration-step-skip-line`, `--duration-step-skip-ring`, `--ease-step-fill-back`, `--ease-step-line-back`, `--ease-step-ring-back`, `--ease-step-sweep-in`, `--ease-step-sweep` and `--ease-step-sweep-out`.
+
+### What an app does
+
+Nothing, unless it wants the numbers back: pass `doneIcon={false}`. A style that targeted `.stepper[data-direction]` now targets `.stepper[data-motion]`, which is `still`, `step`, `skip` or `back`. The number's colour sits on `.stepper-dot__card`, which holds `.stepper-dot__number` and `.stepper-dot__icon`.

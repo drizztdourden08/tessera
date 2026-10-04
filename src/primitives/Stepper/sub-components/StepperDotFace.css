@@ -1,0 +1,75 @@
+/* @layer renderer-components @kind style */
+.stepper-dot__face {
+  position: absolute;
+  inset: 0;
+  perspective: calc(var(--stepper-dot) * 4);
+}
+
+.stepper-dot__card {
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semi);
+  color: var(--c-text-muted);
+  transform-style: preserve-3d;
+  transition: color var(--duration-normal) var(--ease-standard), transform var(--duration-step-flip) var(--ease-in-out);
+}
+
+.stepper-dot__number,
+.stepper-dot__icon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  backface-visibility: hidden;
+}
+
+.stepper-dot__icon {
+  transform: rotateY(180deg);
+}
+
+.stepper__item[data-status='done'] .stepper-dot__card {
+  color: var(--stepper-on-tone);
+}
+
+.stepper__item[data-status='done'] .stepper-dot__card[data-flip] {
+  transform: rotateY(180deg);
+}
+
+.stepper__item:is([data-status='current'], [data-status='error']) .stepper-dot__card {
+  color: var(--stepper-tone);
+}
+
+.stepper[data-motion='step'] .stepper__item[data-wave]:not([data-wave='0']) .stepper-dot__card {
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step) - var(--duration-step-ring));
+}
+
+.stepper[data-motion='step'] .stepper__item[data-wave][data-status='done'] .stepper-dot__card {
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step) + var(--duration-step-fill) / 2);
+}
+
+.stepper[data-motion='skip'] .stepper__item[data-wave] .stepper-dot__card {
+  transition-delay: calc(var(--duration-step-skip-fill) / 2);
+}
+
+.stepper[data-motion='skip'] .stepper__item[data-wave][data-current] .stepper-dot__card {
+  transition-delay: calc(var(--duration-step-skip-fill) + (var(--stepper-wave) + 1) * var(--duration-step-skip-line));
+}
+
+.stepper[data-motion='back'] .stepper__item[data-wave='0'] .stepper-dot__card {
+  transition-delay: calc(var(--duration-step-ring-back) - var(--duration-fast));
+}
+
+.stepper[data-motion='back'] .stepper__item[data-wave]:not([data-wave='0']) .stepper-dot__card {
+  transition-duration: var(--duration-fast), var(--duration-step-flip-back);
+  transition-delay:
+    calc(var(--stepper-wave) * var(--duration-step-back) - var(--duration-step-fill-back) / 2 - var(--duration-fast)),
+    calc(var(--stepper-wave) * var(--duration-step-back) - var(--duration-step-fill-back) / 2 - var(--duration-step-flip-back));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper .stepper__item .stepper-dot__card {
+    transition: none;
+  }
+}

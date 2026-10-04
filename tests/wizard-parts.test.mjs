@@ -32,10 +32,10 @@ describe('stepStatus', () => {
 });
 
 describe('waveOf', () => {
-  it('numbers the steps a forward move passes, from the step it left', () => {
+  it('numbers the steps a move passes, from the step it left', () => {
     const motion = { from: 1, direction: 'forward' };
     expect([0, 1, 2, 3, 4].map((index) => waveOf(index, 3, motion))).toEqual([undefined, 0, 1, 2, undefined]);
-    expect(waveOf(2, 1, { from: 3, direction: 'back' })).toBeUndefined();
+    expect(waveOf(2, 1, { from: 3, direction: 'back' })).toBe(1);
   });
 });
 

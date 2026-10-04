@@ -68,22 +68,33 @@
   color: var(--c-primary-bright);
 }
 
+.stepper__item[data-tone] {
+  --stepper-tone: var(--stepper-step-tone);
+  --stepper-on-tone: var(--stepper-step-on-tone);
+}
+
 .stepper__item[data-status='error'] {
   --stepper-tone: var(--c-danger);
 }
 
-.stepper[data-direction='forward'] .stepper__item[data-wave]:not([data-wave='0']) .stepper__label {
-  transition-delay: calc((var(--stepper-wave) - 1) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)) + var(--duration-step-fill) + var(--duration-step-line));
+.stepper[data-motion='step'] .stepper__item[data-wave]:not([data-wave='0']) .stepper__label {
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step) - var(--duration-step-ring));
 }
 
-.stepper[data-direction='back'] .stepper__label,
-.stepper[data-direction='back'] .stepper__line::after {
-  transition-duration: var(--duration-normal);
+.stepper[data-motion='skip'] .stepper__item[data-wave][data-current] .stepper__label {
+  transition-delay: calc(var(--duration-step-skip-fill) + (var(--stepper-wave) + 1) * var(--duration-step-skip-line));
+}
+
+.stepper[data-motion='back'] .stepper__item[data-wave]:not([data-current]) .stepper__label {
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step-back) + var(--duration-step-ring-back) - var(--duration-normal));
+}
+
+.stepper[data-motion='back'] .stepper__item[data-wave][data-current] .stepper__label {
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step-back) - var(--duration-normal));
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stepper .stepper__label,
-  .stepper .stepper__line::after {
+  .stepper .stepper__label {
     transition: none;
   }
 }

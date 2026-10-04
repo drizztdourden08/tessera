@@ -6,6 +6,7 @@
   --stepper-step-w: var(--size-96);
   --stepper-gap: var(--space-xl);
   --stepper-tone: var(--c-primary);
+  --stepper-on-tone: var(--c-on-primary);
 
   min-inline-size: 0;
 }

@@ -1,0 +1,37 @@
+/* @layer renderer-components @kind style */
+.stepper-dot__fill {
+  fill: var(--stepper-tone);
+  transform: translateX(-100%);
+  transform-box: fill-box;
+  transition: transform var(--duration-step-fill) var(--ease-in-out);
+}
+
+.stepper[data-orientation='vertical'] .stepper-dot__fill {
+  transform: translateY(-100%);
+}
+
+.stepper__item[data-status='done'] .stepper-dot__fill {
+  transform: none;
+}
+
+.stepper[data-motion='step'] .stepper__item[data-wave][data-status='done'] .stepper-dot__fill {
+  transition-timing-function: var(--ease-step-fill);
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step));
+}
+
+.stepper[data-motion='skip'] .stepper__item[data-wave] .stepper-dot__fill {
+  transition-duration: var(--duration-step-skip-fill);
+  transition-timing-function: var(--ease-step-fill);
+}
+
+.stepper[data-motion='back'] .stepper__item[data-wave]:not([data-wave='0']) .stepper-dot__fill {
+  transition-duration: var(--duration-step-fill-back);
+  transition-timing-function: var(--ease-step-fill-back);
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step-back) - var(--duration-step-fill-back));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper .stepper__item .stepper-dot__fill {
+    transition: none;
+  }
+}

@@ -17,6 +17,7 @@ const StepperDriver = () => {
           <Stepper steps={stepperSteps({ summaries: true, subSteps: true, long: true }, at)} orientation="vertical" {...common} />
         </Box>
       </Box>
+      <Stepper steps={stepperSteps({ summaries: false, subSteps: false, long: false, tones: true, icons: true }, at)} {...common} />
       <ButtonRow align="start">
         <Button variant="secondary" disabled={at === 0} onClick={() => setAt(at - 1)}><Icon name="arrow-left" />Back</Button>
         <Button variant="primary" disabled={at >= last} onClick={() => setAt(at + 1)}>Next<Icon name="arrow-right" /></Button>

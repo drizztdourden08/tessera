@@ -26,8 +26,8 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: var(--stepper-tone);
-  box-shadow: 0 0 calc(var(--blur-glow) / 2) var(--stepper-tone);
+  background: var(--stepper-line-tone, var(--stepper-tone));
+  box-shadow: 0 0 calc(var(--blur-glow) / 2) var(--stepper-line-tone, var(--stepper-tone));
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform var(--duration-step-line) var(--ease-in-out);
@@ -37,7 +37,36 @@
   transform: none;
 }
 
-.stepper[data-direction='forward'] .stepper__item[data-wave][data-status='done'] .stepper__line::after {
+.stepper[data-motion='step'] .stepper__item[data-wave][data-status='done'] .stepper__line::after {
   transition-timing-function: var(--ease-step-line);
-  transition-delay: calc(var(--stepper-wave) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)) + var(--duration-step-fill));
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step) + var(--duration-step-fill));
+}
+
+.stepper[data-motion='skip'] .stepper__item[data-wave] .stepper__line::after {
+  transition-duration: var(--duration-step-skip-line);
+  transition-timing-function: var(--ease-step-sweep);
+  transition-delay: calc(var(--duration-step-skip-fill) + (var(--stepper-wave) + 0.5) * var(--duration-step-skip-line));
+}
+
+.stepper[data-motion='skip'] .stepper__item[data-wave='0'] .stepper__line::after {
+  transition-duration: calc(var(--duration-step-skip-line) * 1.5);
+  transition-timing-function: var(--ease-step-sweep-in);
+  transition-delay: var(--duration-step-skip-fill);
+}
+
+.stepper[data-motion='skip'] .stepper__item[data-wave]:has(+ .stepper__item[data-current]) .stepper__line::after {
+  transition-duration: calc(var(--duration-step-skip-line) * 1.5);
+  transition-timing-function: var(--ease-step-sweep-out);
+}
+
+.stepper[data-motion='back'] .stepper__item[data-wave]:not([data-wave='0']) .stepper__line::after {
+  transition-duration: var(--duration-step-line-back);
+  transition-timing-function: var(--ease-step-line-back);
+  transition-delay: calc(var(--stepper-wave) * var(--duration-step-back) - var(--duration-step-fill-back) - var(--duration-step-line-back));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper .stepper__item .stepper__line::after {
+    transition: none;
+  }
 }

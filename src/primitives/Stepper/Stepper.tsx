@@ -1,7 +1,10 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../Box';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
+import { lineTone } from './behavior/line-tone';
+import { motionKind } from './behavior/motion-kind';
 import { stepStatus } from './behavior/step-status';
+import { toneStyle } from './behavior/tone-style';
 import { useStepMotion } from './behavior/useStepMotion';
 import { waveOf } from './behavior/wave-of';
 import { StepperCompact } from './sub-components/StepperCompact';
@@ -11,7 +14,7 @@ import './Stepper.css';
 
 const Stepper = (props: StepperProps) => {
   const {
-    steps, currentId, orientation = 'horizontal', compact = false, canSelect, onSelect,
+    steps, currentId, orientation = 'horizontal', compact = false, tone, doneIcon = 'check', canSelect, onSelect,
     activeSubStepId, onSubStepSelect, label, className = '',
   } = props;
   const { stepper } = useTesseraStrings();
@@ -20,7 +23,14 @@ const Stepper = (props: StepperProps) => {
   const name = label ?? stepper.steps;
   if (compact) return <StepperCompact steps={steps} current={current} label={name} className={className} />;
   return (
-    <Box as="nav" className={`stepper${className ? ` ${className}` : ''}`} data-orientation={orientation} data-direction={motion.direction} aria-label={name}>
+    <Box
+      as="nav"
+      className={`stepper${className ? ` ${className}` : ''}`}
+      style={toneStyle(tone, '--stepper-')}
+      data-orientation={orientation}
+      data-motion={motionKind(motion, current)}
+      aria-label={name}
+    >
       <Box as="ol" className="stepper__list">
         {steps.map((step, index) => (
           <StepperItem
@@ -31,6 +41,8 @@ const Stepper = (props: StepperProps) => {
             current={index === current}
             last={index === steps.length - 1}
             wave={waveOf(index, current, motion)}
+            lineTone={lineTone(step, steps[index + 1], tone)}
+            doneIcon={(step.doneIcon ?? doneIcon) || undefined}
             selectable={index !== current && (canSelect?.(step.id) ?? false)}
             onSelect={onSelect}
             activeSubStepId={activeSubStepId}

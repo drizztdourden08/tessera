@@ -6,4 +6,6 @@ interface StepperMotion {
   direction: StepperDirection;
 }
 
-export type { StepperMotion };
+type StepperMotionKind = 'still' | 'step' | 'skip' | 'back';
+
+export type { StepperMotion, StepperMotionKind };
