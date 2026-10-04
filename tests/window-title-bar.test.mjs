@@ -5,12 +5,13 @@ import { describe, expect, it } from 'vitest';
 import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { fitStep } from '../src/composites/WindowTitleBar/behavior/fit-step';
 import { hideOrder } from '../src/composites/WindowTitleBar/behavior/hide-order';
+import { slideKeyframes } from '../src/composites/WindowTitleBar/behavior/slide-keyframes';
 import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-bar-menu';
 
 const ignore = () => undefined;
 const BUG = { id: 'bug', icon: 'bug', label: 'Report a bug', onSelect: ignore };
 const UPDATES = { id: 'updates', icon: 'download', label: 'Check for updates', bar: 'status', status: 'Update available', onSelect: ignore };
-const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', fullscreen: 'Fullscreen' };
+const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', fullscreen: 'Fullscreen', windowGroup: 'Window group', windowGroupNone: 'None' };
 
 describe('WindowTitleBar', () => {
   it('draws every control by default, with the hamburger for the View sub-menu', () => {
@@ -27,18 +28,21 @@ describe('WindowTitleBar', () => {
     expect(html).not.toContain('Pin window on top');
   });
 
-  it('draws an action as a button, and a status action as a pill only while its status is set', () => {
+  it('draws an action as a button, and a status action as text only while its status is set', () => {
     const controls = { fullscreen: false, pin: false };
     const shown = renderToString(h(WindowTitleBar, { title: 'App', controls, actions: [BUG, UPDATES], onControl: ignore }));
     expect(shown).toContain('aria-label="Report a bug"');
     expect(shown).toContain('Update available');
+    expect(shown).toContain('status--text');
+    expect(shown).not.toContain('status--pill');
+    expect(shown).toContain('emphasis--pulse emphasis--anchor-center');
     const quiet = renderToString(h(WindowTitleBar, { title: 'App', controls, actions: [BUG, { ...UPDATES, status: undefined }], onControl: ignore }));
     expect(quiet).not.toContain('Update available');
   });
 });
 
 describe('hideOrder', () => {
-  it('hides the action buttons, last first, then the pin, the status pills and full screen', () => {
+  it('hides the action buttons, last first, then the pin, the status texts and full screen', () => {
     const second = { ...BUG, id: 'mute' };
     expect(hideOrder([BUG, UPDATES, second], {})).toEqual(['action:mute', 'action:bug', 'control:pin', 'action:updates', 'control:fullscreen']);
     expect(hideOrder([BUG, { ...UPDATES, status: undefined }, { ...BUG, id: 'menu-only', bar: 'menu' }], { pin: false })).toEqual(['action:bug', 'control:fullscreen']);
@@ -61,6 +65,20 @@ describe('titleBarMenu', () => {
     const groups = titleBarMenu({ ...base, actions: [], pin: false, menu: [{ id: 'screens', items: [] }] });
     expect(groups.map((group) => group.id)).toEqual(['screens', 'window-title-bar']);
     expect(groups[1].items[0].children.map((item) => item.label)).toEqual(['Fullscreen']);
+  });
+
+  it('adds a Window group radio sub-menu to View only when the host passes its groups', () => {
+    const picked = [];
+    const windowGroups = [{ id: 'a', label: 'Group 1' }, { id: 'b', label: 'Group 2' }];
+    const withGroups = titleBarMenu({ ...base, menu: [], windowGroups, windowGroup: 'b', onWindowGroupChange: (id) => picked.push(id) });
+    const group = withGroups[0].items[0].children[2];
+    expect(group.label).toBe('Window group');
+    expect(group.children.map((item) => [item.label, item.kind, item.checked])).toEqual([['None', 'radio', false], ['Group 1', 'radio', false], ['Group 2', 'radio', true]]);
+    group.children[0].onSelect();
+    group.children[1].onSelect();
+    expect(picked).toEqual([null, 'a']);
+    const without = titleBarMenu({ ...base, menu: [] });
+    expect(without[0].items[0].children).toHaveLength(2);
   });
 });
 
@@ -85,5 +103,29 @@ describe('fitStep', () => {
     expect(fitStep(sizes(400))).toEqual({ hidden: [0, 1, 2, 3], brand: 'logo' });
     expect(fitStep(sizes(312))).toEqual({ hidden: [0, 1, 2, 3], brand: 'small' });
     expect(fitStep(sizes(260))).toEqual({ hidden: [0, 1, 2, 3], brand: 'none' });
+  });
+});
+
+describe('slideKeyframes', () => {
+  const shown = { offset: 40, opacity: 1, seen: true, away: false };
+  const gone = { offset: 0, opacity: 1, seen: false, away: true };
+  const xs = (frames) => frames.map((frame) => frame.transform);
+
+  it('glides a shown item from where it was to where it is', () => {
+    expect(xs(slideKeyframes(shown, { offset: 10, out: -28, away: false }))).toEqual(['translateX(30px)', 'translateX(0px)']);
+    expect(slideKeyframes(shown, { offset: 40, out: -28, away: false })).toBeNull();
+  });
+
+  it('slides a hiding item out by its own width towards its edge while it fades', () => {
+    const frames = slideKeyframes(shown, { offset: 0, out: -28, away: true });
+    expect(xs(frames)).toEqual(['translateX(40px)', 'translateX(12px)']);
+    expect(frames.map((frame) => frame.opacity)).toEqual([1, 0]);
+    expect(slideKeyframes(gone, { offset: 0, out: -28, away: true })).toBeNull();
+  });
+
+  it('slides a returning item in from its edge', () => {
+    const frames = slideKeyframes(gone, { offset: 72, out: 48, away: false });
+    expect(xs(frames)).toEqual(['translateX(48px)', 'translateX(0px)']);
+    expect(frames.map((frame) => frame.opacity)).toEqual([0, 1]);
   });
 });

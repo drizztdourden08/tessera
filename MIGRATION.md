@@ -2067,3 +2067,34 @@ The new strings sit in `widgets`: `sync`, `syncAbout`, `syncOn`, `syncOnHint`, `
 ### What an app does
 
 Nothing; every new prop is optional. A host that pops widgets into their own windows passes `sync` and `group` to the WidgetOptions of each widget window, shows WindowGuideOverlay while the user drags or resizes one, and sets `square` on the Widget of a window it shows fullscreen.
+
+## 75. WindowTitleBar slides its items and its concealed bar, shows a status as green text, and joins a window group
+
+As the bar narrows, a hiding item no longer vanishes on the spot. It slides out towards its own end of the bar while it fades: the pin and the actions towards the start edge, full screen towards the end edge, mirrored in a right to left layout. When there is room again it slides back in the same way, and the items beside it glide into the space it leaves or needs. The motion moves the items with `transform` and `opacity` only, so no item changes width or scale on any frame. It runs for `--duration-slow` with `--ease-standard`, and under reduced motion each item jumps straight to the end. The measurement now reads the bar's direction, so the bar also fits right to left layouts, where before every item hid.
+
+The concealed bar keeps its full height and slides down from the top edge when the pointer nears it, then slides back up, fading as it goes. Before, its height grew from zero, which folded the content open. `.window-title-bar--concealed` now holds `transform: translateY(-100%)` in place of `height: 0`.
+
+A status action, such as Check for updates with the status Update available, shows its status as plain text in the tone of the action, `info` when it has none, with no pill, border or background. The text uses Emphasis with `trigger="pulse"` and `anchor="center"`, so each letter swells in turn from the centre outwards when the status appears or changes. The menu item still shows the status as its subtitle.
+
+Emphasis `pulse` and `loop` now stop animating under reduced motion, as `hover` and `active` already did.
+
+The bar can also put the window in a window group. Pass `windowGroups` and the View sub-menu gains a Window group radio sub-menu: None first, then each group of the host. `windowGroup` marks the current one, `null` or left out for None, and `onWindowGroupChange` reports a pick, with `null` for None. Without `windowGroups` the entry is not there.
+
+```ts
+interface WindowTitleBarGroup {
+  id: string;
+  label: string;
+}
+
+interface WindowTitleBarProps {
+  windowGroup?: string | null;
+  windowGroups?: readonly WindowTitleBarGroup[];
+  onWindowGroupChange?: (id: string | null) => void;
+}
+```
+
+The labels come from the strings `windows.windowGroup` and `windows.windowGroupNone`.
+
+### What an app does
+
+Nothing. An app that styled the status pill inside the bar, `.window-title-bar__status .status--pill`, styles `.window-title-bar__status .status--text` instead.

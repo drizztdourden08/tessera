@@ -3,6 +3,7 @@ import type { MenuGroup, MenuItem, MenuNode } from '../../DropdownMenu';
 import { BAR_GROUP_ID, VIEW_ITEM_ID } from '../WindowTitleBar.constants';
 import type { WindowTitleBarAction } from '../WindowTitleBar.type';
 import type { TitleBarMenuInput } from './title-bar-menu.type';
+import { windowGroupItem } from './window-group-item';
 
 const viewItems = (input: TitleBarMenuInput): MenuItem[] => {
   const { pin, fullscreenButton, pinned, fullscreen, onControl, strings } = input;
@@ -11,7 +12,8 @@ const viewItems = (input: TitleBarMenuInput): MenuItem[] => {
   if (fullscreenButton) {
     items.push({ id: 'fullscreen', icon: 'maximize-2', label: strings.fullscreen, checked: fullscreen, onSelect: () => onControl('fullscreen') });
   }
-  return items;
+  const group = windowGroupItem(input);
+  return group ? [...items, group] : items;
 };
 
 const actionMenuItem = (action: WindowTitleBarAction): MenuItem => ({

@@ -12,6 +12,7 @@ import { brandLogoUri } from './_samples/brand-logo';
 import { buildTitleMenu } from './_samples/data-title-menu';
 import { titleBarActions } from './_samples/title-bar-actions';
 import { TitleBarWidths } from './_samples/TitleBarWidths';
+import { TITLE_BAR_CODE } from './_samples/title-bar-code.constants';
 import './WindowTitleBar.stories.css';
 
 type TitleBarArgs = {
@@ -37,6 +38,8 @@ const STATE_MENU = buildTitleMenu(ignore, false);
 
 const STATE_ACTIONS = titleBarActions(ignore);
 
+const WINDOW_GROUPS = [{ id: 'reading', label: 'Group 1' }, { id: 'tools', label: 'Group 2' }];
+
 const controlsOf = (args: TitleBarArgs): WindowControlsConfig => ({
   fullscreen: args.fullscreenButton,
   pin: args.pinButton,
@@ -49,6 +52,7 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
   const [pinned, setPinned] = useState(false);
   const [maximized, setMaximized] = useState(props.maximized === true);
   const [fullscreen, setFullscreen] = useState(false);
+  const [windowGroup, setWindowGroup] = useState<string | null>(null);
   const [said, setSaid] = useState('Nothing pressed yet.');
   const pick = (label: string) => setSaid(`${label} picked.`);
 
@@ -69,6 +73,9 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
         actions={withActions ? titleBarActions(pick, updateAvailable ? 'Update available' : null) : undefined}
         controls={controlsOf(props)}
         pinned={pinned}
+        windowGroup={windowGroup}
+        windowGroups={WINDOW_GROUPS}
+        onWindowGroupChange={setWindowGroup}
         maximized={maximized}
         fullscreen={fullscreen}
         onControl={onControl}
@@ -104,12 +111,12 @@ const ARG_TYPES: PlaygroundArgTypes<TitleBarArgs> = {
   withLogo: { group: 'Content', control: 'boolean' },
   instanceName: { group: 'Content', control: 'text', description: 'Names a second copy of the app, such as a dev build, in a Status pill.' },
   withMenu: { group: 'Content', control: 'boolean', description: 'Pass menu groups; the bar draws the hamburger and its menu.' },
-  withActions: { group: 'Content', control: 'boolean', description: 'Pass actions: Report a bug as a button and Check for updates as a status pill.' },
+  withActions: { group: 'Content', control: 'boolean', description: 'Pass actions: Report a bug as a button and Check for updates as green status text.' },
   fullscreenButton: { group: 'Content', control: 'boolean', description: 'controls.fullscreen' },
   pinButton: { group: 'Content', control: 'boolean', description: 'controls.pin' },
   minimizeButton: { group: 'Content', control: 'boolean', description: 'controls.minimize' },
   maximizeButton: { group: 'Content', control: 'boolean', description: 'controls.maximize' },
-  updateAvailable: { group: 'State', control: 'boolean', description: 'Sets the status of Check for updates, which shows the pill and the menu subtitle.' },
+  updateAvailable: { group: 'State', control: 'boolean', description: 'Sets the status of Check for updates, which shows the green text in the bar and the menu subtitle.' },
   concealed: { group: 'State', control: 'boolean' },
 };
 
@@ -160,6 +167,17 @@ const Concealed = {
   render: (args) => <TitleBarDemo {...args} concealed />,
 } satisfies PlaygroundStory<TitleBarArgs>;
 
+const Resizable = {
+  name: 'Drag the corner to watch the items slide',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <Box className="window-title-bar-story__resizable">
+      <WindowTitleBar title={args.title} logo={LOGO} menu={STATE_MENU} actions={STATE_ACTIONS} onControl={ignore} />
+    </Box>
+  ),
+} satisfies PlaygroundStory<TitleBarArgs>;
+
 const Narrow = {
   name: 'Narrow windows move the items to the menu, then shrink the brand',
   args: ARGS,
@@ -173,38 +191,11 @@ const renderState = (props: StateProps) => (
   </Box>
 );
 
-const CODE = `import { WindowTitleBar } from '@drizztdourden08/tessera';
-import type { MenuGroup, WindowTitleBarAction } from '@drizztdourden08/tessera';
-
-const menu: MenuGroup[] = [
-  { id: 'screens', label: 'Screens', items: [{ id: 'home', icon: 'house', label: 'Home', onSelect: goHome }] },
-  { id: 'app', items: [{ id: 'quit', icon: 'log-out', label: 'Quit', shortcut: 'Ctrl+Q', onSelect: quit }] },
-];
-
-const actions: WindowTitleBarAction[] = [
-  { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', onSelect: reportBug },
-  { id: 'updates', icon: 'download', label: 'Check for updates', bar: 'status', status: update ? 'Update available' : undefined, tone: 'success', onSelect: checkForUpdates },
-];
-
-<WindowTitleBar
-  title="Brock Demo"
-  logo={logoSrc}
-  instance={instanceName ? { name: instanceName, logo: instanceLogoSrc } : null}
-  menu={menu}
-  actions={actions}
-  controls={{ fullscreen: false }}
-  pinned={pinned}
-  maximized={isMaximized}
-  fullscreen={isFullscreen}
-  onControl={(control) => win[control]()}
-  concealed={hidden}
-/>`;
-
 const Overview = overviewStory({
   component: 'WindowTitleBar',
-  description: 'The title bar of a frameless desktop app window. The brand sits in the middle of the whole bar, whatever the two ends hold: the app logo on both sides of the title, and a Status pill naming a second instance, such as a dev build, with its own logo. menu takes menu groups, the same data DropdownMenu takes, and the bar draws the hamburger at the left end with the menu hanging from it. The pin and the full screen, minimize, maximize and close buttons are built in and report to onControl; controls turns any of them off except close, as in controls={{ fullscreen: false }}. actions adds more: each one is declared once, with a label, an icon and onSelect, and shows in the bar as an icon button, or as a status pill while its status is set, such as Update available. Everything the bar shows is also in the menu, always: the pin and full screen as check items in a View sub-menu, and each action as an item, its status as the subtitle. The group of the bar sits just above the last group of menu. As the window narrows, the bar items hide one by one, the action buttons first, then the pin, then the status pills, then full screen; then the title goes, then the logo shrinks, and only when even the small logo has no room does the middle stay empty. Minimize, maximize and close never hide. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge; an open menu keeps it in view.',
+  description: 'The title bar of a frameless desktop app window. The brand sits in the middle of the whole bar, whatever the two ends hold: the app logo on both sides of the title, and a Status pill naming a second instance, such as a dev build, with its own logo. menu takes menu groups, the same data DropdownMenu takes, and the bar draws the hamburger at the left end with the menu hanging from it. The pin and the full screen, minimize, maximize and close buttons are built in and report to onControl; controls turns any of them off except close, as in controls={{ fullscreen: false }}. actions adds more: each one is declared once, with a label, an icon and onSelect, and shows in the bar as an icon button, or as status text in the tone of the action while its status is set, such as Update available in green, which swells from its centre letter by letter when it appears. Everything the bar shows is also in the menu, always: the pin and full screen as check items in a View sub-menu, and each action as an item, its status as the subtitle. The group of the bar sits just above the last group of menu. windowGroups adds a Window group radio sub-menu to View, None first and then each group of the host; windowGroup marks the current one and onWindowGroupChange reports a pick, with null for None. As the window narrows, the bar items hide one by one, the action buttons first, then the pin, then the status texts, then full screen, each end hiding only what is in the way of the brand. An item slides out towards its end of the bar as it fades, slides back in the same way, and the items beside it glide into the freed space; then the title goes, then the logo shrinks, and only when even the small logo has no room does the middle stay empty. Minimize, maximize and close never hide. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge, where it slides down into view; an open menu keeps it in view.',
   playground: Playground,
-  variants: [AppWindow, Narrow, FewerButtons, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, Narrow, Resizable, FewerButtons, SecondInstance, Maximized, Concealed],
   states: {
     render: renderState,
     list: [
@@ -220,8 +211,8 @@ const Overview = overviewStory({
       { name: 'Peek', props: { concealed: true, peek: true } },
     ],
   },
-  code: CODE,
+  code: TITLE_BAR_CODE,
 });
 
 export default meta;
-export { AppWindow, Concealed, FewerButtons, Maximized, Narrow, Overview, Playground, SecondInstance };
+export { AppWindow, Concealed, FewerButtons, Maximized, Narrow, Overview, Playground, Resizable, SecondInstance };

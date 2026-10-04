@@ -77,8 +77,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .emphasis__text,
-  .emphasis__letter {
+  .emphasis :is(.emphasis__text, .emphasis__letter) {
     transition: none;
     animation: none;
   }

@@ -94,7 +94,8 @@ export { WindowHeader } from './WindowHeader';
 export type { WindowHeaderProps } from './WindowHeader';
 export { WindowTitleBar } from './WindowTitleBar';
 export type {
-  WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarInstance, WindowTitleBarProps,
+  WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarGroup, WindowTitleBarInstance,
+  WindowTitleBarProps,
 } from './WindowTitleBar';
 export { Hero } from './Hero';
 export type { HeroArt, HeroProps } from './Hero';

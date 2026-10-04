@@ -22,14 +22,20 @@ const itemSizes = (bar: HTMLElement, order: readonly string[], start: HTMLElemen
   });
 };
 
+const reach = (element: HTMLElement | null, width: number, fromLeft: boolean): number => {
+  if (!element) return 0;
+  return fromLeft ? element.offsetLeft + element.offsetWidth : width - element.offsetLeft;
+};
+
 const measureBar = (bar: HTMLElement, brand: HTMLElement, order: readonly string[]): BarSizes => {
   const width = bar.clientWidth;
   const start = bar.querySelector<HTMLElement>(START_SELECTOR);
   const controls = bar.querySelector<HTMLElement>(CONTROLS_SELECTOR);
+  const rtl = bar.ownerDocument.defaultView?.getComputedStyle(bar).direction === 'rtl';
   return {
     width,
-    startEnd: start ? start.offsetLeft + start.offsetWidth : 0,
-    endWidth: controls ? width - controls.offsetLeft : 0,
+    startEnd: reach(start, width, !rtl),
+    endWidth: reach(controls, width, rtl),
     startGap: gapOf(start),
     endGap: gapOf(controls),
     items: itemSizes(bar, order, start),

@@ -18,6 +18,11 @@ type WindowControlsConfig = Partial<Record<Exclude<WindowControl, 'close'>, bool
 
 type WindowTitleBarActionBar = 'button' | 'status' | 'menu';
 
+interface WindowTitleBarGroup {
+  id: string;
+  label: string;
+}
+
 interface WindowTitleBarAction {
   id: string;
   label: string;
@@ -41,6 +46,9 @@ interface WindowTitleBarProps {
   maximized?: boolean;
   fullscreen?: boolean;
   pinned?: boolean;
+  windowGroup?: string | null;
+  windowGroups?: readonly WindowTitleBarGroup[];
+  onWindowGroupChange?: (id: string | null) => void;
   onControl: (control: WindowControl) => void;
   concealed?: boolean;
   peek?: boolean;
@@ -48,6 +56,6 @@ interface WindowTitleBarProps {
 }
 
 export type {
-  BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarInstance,
+  BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarGroup, WindowTitleBarInstance,
   WindowTitleBarProps,
 };
