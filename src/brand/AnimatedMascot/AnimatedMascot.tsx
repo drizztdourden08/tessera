@@ -15,7 +15,7 @@ const AnimatedMascot = (props: AnimatedMascotProps) => {
   const motion = mascot?.motion;
   const ref = useRef<SVGSVGElement>(null);
   const clip = pickClip(motion, animation);
-  const scene = useMemo(() => mascotStage(mascot, clip?.still), [mascot, clip]);
+  const scene = useMemo(() => mascotStage(mascot, clip), [mascot, clip]);
   useMascotMotion(ref, { motion, clip, loop, playing, speed, onFinish });
   if (!mascot || !scene) return null;
   return <BrandScene ref={ref} scene={scene} scale={scale} title={title ?? mascot.name} className={animatedMascotClass(props)} />;

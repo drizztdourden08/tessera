@@ -2949,3 +2949,50 @@ A drop on the outer strip of the dock still opens a new pane there; a drop on a 
 2. Rename `OptionRow` to `ControlMenuRow`.
 3. An app that docked a widget on an edge it already uses and wanted a second pane further out drops it on the outer strip of the dock; opening it now joins the pane on that edge.
 4. Reach for `ControlMenu` wherever a button opens a few settings that need more than menu items.
+
+## 114. Mascot states: 29 clips in three groups, and symbol effects
+
+Every mascot now plays 29 clips. The ten from section 106 are unchanged, byte for byte. The new ones follow the owner's state sheet, drawn for Sentri; Flint and Pelago take the same names.
+
+| Group | Clip | What Sentri does |
+|---|---|---|
+| Motion | `idle-bounce` | a variant of `idle`: bounces on the spot in whole pixel steps, with bounce lines as it lands |
+| Motion | `move-wobble` | a variant of `move`: rocks left and right with wobble lines and grins on the last steps |
+| Motion | `jump-hop` | a variant of `jump`: crouches, springs nine pixels up with lift lines and lands with sparkles |
+| Motion | `spin` | spins round twice in a ring of swooshes, showing its back, then bursts into cyan and gold sparkles |
+| Expressions | `default` | the neutral face, still, blinking now and then |
+| Expressions | `happy-grin` | a variant of `happy`: caret eyes, bobbing a pixel |
+| Expressions | `content` | a soft squint with gently arched eyes |
+| Expressions | `curious` | a tilted head and a question mark above |
+| Expressions | `focused` | narrowed eyes and a small mark of effort by the tip |
+| Expressions | `sleep` | closed eyes and a z, a z and a Z rising |
+| Expressions | `alert-exclaim` | a variant of `alert`: an exclamation mark pops up as it flinches |
+| Expressions | `love` | a pink heart beating above |
+| Interactions | `working` | typing at a laptop in front of it |
+| Interactions | `idea` | a bulb above lights up yellow with flashing rays |
+| Interactions | `success` | squints with joy and hops in a burst of confetti |
+| Interactions | `confused` | tilts hard with arched eyes under a question mark |
+| Interactions | `worried` | sweat drops run down its head as it jitters |
+| Interactions | `low-power` | a nearly empty red battery blinks above, eyes half shut, pods hanging |
+| Interactions | `resting` | lies flat and squashed with its eyes shut and z letters rising |
+
+- Variants are clip names of their own, so the list stays flat and any name works for every mascot. `MASCOT_CLIP_VARIANTS` maps each variant to its original.
+- `MASCOT_CLIP_GROUPS` sorts every clip into Motion, Expressions and Interactions, each variant right after its original. The Mascot page's Animations section picks a mascot and shows the three groups.
+- `MotionEffect` takes `fixed`: the piece sits on the stage after the body instead of riding with it, so it stays upright and still while the body tilts or bobs. Without it, an effect rides inside the body, which suits a face drawn over the eyes.
+- `MascotAnimation` takes `still`, a list of effect ids the clip shows at rest. They are drawn in the resting picture, so reduced motion keeps them with no animation, and while the clip plays a frame without `opacity` keeps them shown. Effects not in the list still start hidden.
+- `AnimatedMascot` draws only the effects the playing clip names in its tracks or `still`, so a clip without symbols carries none.
+- Sentri's new clips move in whole pixels with stepped timing, and its symbols are pixel art: cyan sparkles, a yellow bulb, a pink heart, a red battery, plus a question mark, an exclamation mark, z letters, sweat drops, confetti and a laptop.
+
+```ts
+type MascotClipGroupId = 'motion' | 'expressions' | 'interactions';
+interface MascotClipGroup { id: MascotClipGroupId; label: string; clips: readonly MascotClip[] }
+const MASCOT_CLIP_GROUPS: readonly MascotClipGroup[];
+const MASCOT_CLIP_VARIANTS: Readonly<Partial<Record<MascotClip, MascotClip>>>;
+
+interface MotionEffect { id: string; piece: BrandPiece; at: ScenePoint; fixed?: boolean }
+interface MascotAnimation { name: string; summary: string; duration: number; loop: boolean; tracks: readonly MotionTrack[]; still?: readonly string[] }
+```
+
+### What an app does
+
+Nothing changes for an app that plays the ten clips. Pass any new name to `animation` to use a state, for example `<AnimatedMascot brand="rotp" animation="low-power" />`. A test that read the hidden effects of a mascot from its idle markup renders the clip that uses them instead.

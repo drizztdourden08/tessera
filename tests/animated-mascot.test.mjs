@@ -65,20 +65,28 @@ describe('mascot motion data', () => {
 });
 
 describe('mascot effects', () => {
-  it("draws Sentri's spark and Flint's spark and chip glow on the stage, hidden until a clip fades them in", () => {
-    const sentri = renderToString(h(AnimatedMascot, { brand: 'rotp', scale: 2 }));
-    const flint = renderToString(h(AnimatedMascot, { brand: 'brock', scale: 2 }));
+  it("draws Sentri's spark and Flint's spark and chip glow on the stage for link, hidden until the clip fades them in", () => {
+    const sentri = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'link', scale: 2 }));
+    const flint = renderToString(h(AnimatedMascot, { brand: 'brock', animation: 'link', scale: 2 }));
     expect(sentri).toContain('data-motion-part="spark" opacity="0"');
     for (const part of ['spark', 'chipGlow']) expect(flint).toContain(`data-motion-part="${part}" opacity="0"`);
   });
 
   it("shows a clip's still effects in the drawing itself, so reduced motion keeps them, and draws fixed effects on the stage outside the rig", () => {
     const motion = { ...BRAND_FAMILY.rotp.mascot.motion, effects: [{ id: 'mark', piece: { name: 'Mark', w: 1, h: 1, paths: [] }, at: [0, 0], fixed: true }] };
-    const scene = stageScene(BRAND_FAMILY.rotp.mascot.variants[0].compose(), motion, ['mark']);
+    const scene = stageScene(BRAND_FAMILY.rotp.mascot.variants[0].compose(), motion, { ...motion.animations.idle, still: ['mark'] });
     const [stage] = scene.nodes;
     expect(stage.children.at(-1)).toMatchObject({ part: 'mark' });
     expect(stage.children.at(-1).hidden).toBeUndefined();
     expect(stageScene(BRAND_FAMILY.rotp.mascot.variants[0].compose(), motion).nodes[0].children.at(-1).hidden).toBe(true);
+  });
+
+  it('draws only the effects the playing clip names, so a clip without symbols carries none', () => {
+    const idle = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'idle' }));
+    const sleep = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'sleep' }));
+    expect(idle).not.toContain('data-motion-part="spark"');
+    for (const part of ['closed', 'zSmall', 'zMid', 'zBig']) expect(sleep).toContain(`data-motion-part="${part}"`);
+    expect(sleep).not.toContain('data-motion-part="heart"');
   });
 
   it("counts an effect's opacity from 0, so a frame without one keeps it hidden", () => {
