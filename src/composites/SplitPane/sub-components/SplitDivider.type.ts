@@ -13,7 +13,7 @@ interface SplitDividerHandlers {
 interface SplitDividerProps {
   collapsed: CollapsedSide;
   orientation: SplitOrientation;
-  startShare: number;
+  value: number;
   valueRange: { min: number; max: number };
   startLabel: string;
   endLabel: string;

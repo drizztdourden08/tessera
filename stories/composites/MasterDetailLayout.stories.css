@@ -5,3 +5,8 @@
   height: 26rem;
   padding: var(--space-md) 0;
 }
+
+.master-detail-story__frame--narrow {
+  inline-size: var(--size-512);
+  max-inline-size: 100%;
+}

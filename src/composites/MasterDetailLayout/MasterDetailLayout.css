@@ -1,12 +1,24 @@
 /* @layer renderer-components @kind style */
 .master-detail {
-  display: grid;
-  grid-template-columns: var(--size-320) 1fr;
-  gap: var(--space-lg);
+  container: master-detail / inline-size;
+  display: flex;
   flex: 1;
+  flex-direction: column;
   min-height: 0;
   padding: 0 var(--space-sm);
   overflow: hidden;
+}
+
+.master-detail__panes {
+  display: grid;
+  grid-template-columns: var(--size-320) minmax(0, 1fr);
+  column-gap: var(--space-lg);
+  flex: 1;
+  min-height: 0;
+}
+
+.master-detail--resizable .master-detail__panes {
+  column-gap: var(--space-2xs);
 }
 
 .master-detail__list {
@@ -33,4 +45,50 @@
   justify-content: center;
   color: var(--c-text-muted);
   font-size: var(--text-sm);
+}
+
+.master-detail--dragging {
+  cursor: col-resize;
+  user-select: none;
+}
+
+.master-detail--dragging :is(.master-detail__list, .master-detail__detail) {
+  pointer-events: none;
+}
+
+.master-detail__back {
+  display: none;
+  flex-shrink: 0;
+  margin: calc(-1 * var(--space-sm)) 0 var(--space-sm) calc(-1 * var(--space-sm));
+}
+
+@container master-detail (width < 768px) {
+  .master-detail__panes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .master-detail__panes > .split-pane__divider,
+  .master-detail__panes[data-view='list'] > .master-detail__detail,
+  .master-detail__panes[data-view='detail'] > .master-detail__list {
+    display: none;
+  }
+
+  .master-detail__panes:not([data-view='both']) > * {
+    flex: 1;
+  }
+
+  .master-detail__panes[data-view='both'] {
+    overflow-y: auto;
+  }
+
+  .master-detail__panes[data-view='both'] > * {
+    flex: none;
+    overflow: visible;
+  }
+
+  .master-detail__back {
+    display: flex;
+  }
 }

@@ -32,7 +32,7 @@ const SplitPane = (props: SplitPaneProps) => {
       <SplitDivider
         collapsed={collapsed}
         orientation={orientation}
-        startShare={startShare}
+        value={Math.round(startShare * 100)}
         valueRange={valueRangeOf(limits)}
         startLabel={startLabel ?? navigation.firstPane}
         endLabel={endLabel ?? navigation.secondPane}

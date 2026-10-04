@@ -3728,3 +3728,44 @@ interface JobDialogProps extends Omit<TaskProgressProps, 'actions' | 'className'
 
 1. Archipelia: `RunProgressPanel`, its `stepperOf` and its CSS give way to `TaskProgress`, and the `RunProgress` view becomes a `JobDialog` with `onHide` and `onCancel`; the seed moves to the title or a `CopyValue` in `line`. Engine setup shows its state, its line and its log in a `TaskProgress`.
 2. Brock: the updater `DownloadStatus` shows a `TaskProgress` with `percent` and a line such as Downloading 0.5.0: 31 of 84 MB, and its error through `error`. The job API reports `state`, `percent`, `line`, `steps`, `currentId`, `error` and `log`, the props of TaskProgress.
+
+## 144. MasterDetailLayout stacks on small windows and its list column drags
+
+From the UX review (ux-65), as decided by the owner (T-04). At 960 by 540 the Presets and Servers screens of Archipelia squeezed the detail beside a fixed 320 px list.
+
+- **Under 768 px the columns stack.** The layout measures its own width (a container query at `--bp-compact`, 768 px), so it stacks inside a narrow pane too. With `onBack`, it shows the list while `detailEmpty` is true, and the detail once the caller picks an item, with a Back button at the top of the detail that calls `onBack`, where the caller clears the selection. Without `onBack`, a small window shows the list and then the detail in one scrolling column, with no Back button.
+- **On a wide window the list column drags.** It starts at `listWidth` (320 px) and drags between `minListWidth` (240 px) and `maxListWidth` (480 px) through the same divider SplitPane draws, a separator with a grip. The arrow keys step it by 16 px, 64 px with Shift; Home and End go to the limits; Enter, Space and a double click put it back. `resizable={false}` drops the divider.
+- **The width is remembered.** With `storageKey`, the layout stores the width in local storage and starts from it next time. A blocked storage only means the width lasts until the layout unmounts.
+- **The divider is named after the panes**, "Resize list and details" by default; `listLabel` and `detailLabel` name them after what they hold.
+- **The two columns sit in a `.master-detail__panes` grid** inside `.master-detail`, which is now the container.
+- **SplitDivider takes `value`** in place of `startShare`, so SplitPane passes its percent and MasterDetailLayout its width in pixels, and its styles move from SplitPane.css to the `split-divider.css` theme sheet it imports. Both are internal to Tessera.
+
+```ts
+interface MasterDetailLayoutProps {
+  list: ReactNode;
+  detail: ReactNode;
+  detailEmpty?: boolean;
+  className?: string;
+  // added
+  onBack?: () => void;
+  backLabel?: string; // default 'Back'
+  resizable?: boolean; // default true
+  listWidth?: number; // default 320
+  minListWidth?: number; // default 240
+  maxListWidth?: number; // default 480
+  storageKey?: string;
+  listLabel?: string; // default 'list'
+  detailLabel?: string; // default 'details'
+}
+
+// navigation strings, added
+listPane: 'list';
+detailPane: 'details';
+back: 'Back';
+```
+
+### What an app does
+
+1. Pass `onBack` that clears the selection, so a small window can go back to the list.
+2. Pass a `storageKey` per screen, such as `presets.list-width`, to remember the width.
+3. A host stylesheet that set `grid-template-columns` on `.master-detail` passes `listWidth` instead, and one that styled the grid styles `.master-detail__panes`.

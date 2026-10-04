@@ -4,9 +4,10 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import { hiddenLabelOf } from '../behavior/hidden-label-of';
 import type { SplitDividerProps } from './SplitDivider.type';
 import '../../../theme/focus-ring.css';
+import '../../../theme/split-divider.css';
 
 const SplitDivider = (props: SplitDividerProps) => {
-  const { collapsed, orientation, startShare, valueRange, startLabel, endLabel, handlers } = props;
+  const { collapsed, orientation, value, valueRange, startLabel, endLabel, handlers } = props;
   const { navigation } = useTesseraStrings();
   const hidden = hiddenLabelOf(collapsed, startLabel, endLabel);
 
@@ -16,7 +17,7 @@ const SplitDivider = (props: SplitDividerProps) => {
       role="separator"
       aria-orientation={orientation === 'horizontal' ? 'vertical' : 'horizontal'}
       aria-label={hidden !== null ? navigation.showPane(hidden) : navigation.resizePanes(startLabel, endLabel)}
-      aria-valuenow={Math.round(startShare * 100)}
+      aria-valuenow={value}
       aria-valuemin={valueRange.min}
       aria-valuemax={valueRange.max}
       tabIndex={0}
