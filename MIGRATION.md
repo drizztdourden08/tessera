@@ -2454,3 +2454,11 @@ A full SettingsRow used to keep its text and its control side by side at any wid
 ### What an app does
 
 Nothing. A host stylesheet that set `grid-template-columns` on `.settings-row` drops it: a full row is now a wrapping flex row, and only `.settings-row--compact` is a grid.
+
+## 96. The Composites pages for data views, lists, settings, layout, windows, screens, content and input devices open on a short lead and points
+
+Every Overview page in the Composites groups Data views, Lists, Settings, Layout, Windows, Screens, Content and Input devices, and the Data engine page, is rewritten to the description format of section 87: a one-sentence lead, 3 to 6 short points and, where a sibling is the better pick, a Use instead line.
+
+### What an app does
+
+Nothing. This changes the gallery only.
