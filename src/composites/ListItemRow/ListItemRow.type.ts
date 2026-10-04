@@ -30,6 +30,8 @@ interface ListItemRowProps {
 interface ListItemListProps {
   children: ReactNode;
   label?: string;
+  heading?: ReactNode;
+  count?: number;
   className?: string;
 }
 

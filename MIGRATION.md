@@ -3119,3 +3119,31 @@ interface TextProps {
 1. Replace the app classes that only colour a Text, set its face or its figures with `tone`, `mono` and `numeric`.
 2. Replace hand-made group headings with `<Text variant="overline">`.
 3. Change any `color: var(--c-text-faint)` the rule now reports to `var(--c-text-muted)`.
+
+## 118. SectionHeader titles are headings with a count, and ListItemList takes a heading
+
+From the Tessera review (tessera-22, tessera-31) and the UX review (ux-68).
+
+- **SectionHeader draws its title as a heading**, `h3` by default; `level` picks another one. The look is unchanged.
+- **SectionHeader takes `count`**, drawn as a tame inline Badge after the title inside the heading, so "Templates · 3" becomes `title="Templates" count={3}` and the number can be styled on its own. A count of 0 shows 0.
+- **ListItemList takes `heading` and `count`.** The heading is drawn in the Text overline look with the count as a Badge, and it names the list (`aria-labelledby`) unless `label` is set. With a heading the list sits in a `list-item-list-group` wrapper, which takes `className`.
+
+```ts
+interface SectionHeaderProps {
+  // added
+  count?: number;
+  level?: HeadingLevel; // 1 to 6, default 3
+}
+
+interface ListItemListProps {
+  // added
+  heading?: ReactNode;
+  count?: number;
+}
+```
+
+### What an app does
+
+1. Move a count written into a title (`"Players · 2"`) to `count`.
+2. Replace a hand-made caption over a ListItemList, or a Stack with `role="list"`, with `<ListItemList heading="…" count={n}>`.
+3. A page whose SectionHeader sits under an `h1` or `h2` keeps the default; pass `level` where the outline needs another one.

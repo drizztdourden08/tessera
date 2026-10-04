@@ -38,7 +38,7 @@ const SessionList = ({ selectable }: { selectable: boolean }) => {
   const [opened, setOpened] = useState<string | null>(null);
   return (
     <Box className="story-column list-item-row-story">
-      <ListItemList label="Sessions">
+      <ListItemList {...(selectable ? { label: 'Sessions' } : { heading: 'Sessions', count: SESSIONS.length })}>
         {SESSIONS.map((s) => (
           <ListItemRow
             key={s.id}
@@ -123,7 +123,7 @@ const AllVariants = {
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
 const AlignedList = {
-  name: 'Aligned list',
+  name: 'Aligned list, with a heading and a count',
   render: () => <SessionList selectable={false} />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
@@ -169,6 +169,7 @@ const Overview = overviewStory({
   points: [
     'Each of the `columns` takes a `primary` line, an optional `secondary` line and an `align`.',
     'Put rows in a `ListItemList` and their columns line up, each as wide as its widest cell.',
+    '`heading` and `count` title the list in the overline look and name it for screen readers.',
     '`selected`, `onClick` and `onDoubleClick` cover picking a row and opening it.',
     'The `action` shows on hover; `actionVisibility="always"` keeps it on.',
     'Every line takes any content, such as a [Status].',
