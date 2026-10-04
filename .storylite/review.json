@@ -864,12 +864,14 @@
       "at": "2026-10-01"
     },
     "SettingsSection": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "be72284ee8482069",
+      "at": "2026-10-04"
     },
     "SettingsRow": {
-      "status": "new"
+      "status": "seen",
+      "hash": "c4afa9a6a1f5c89f",
+      "at": "2026-10-04"
     }
   },
   "Composites · Menus": {
@@ -879,9 +881,9 @@
       "at": "2026-10-03"
     },
     "CommandPalette": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "470ee7d3ee12146b",
+      "at": "2026-10-04"
     },
     "CommandPaletteRow": {
       "status": "ok",
@@ -898,9 +900,9 @@
   },
   "Composites · Inputs": {
     "DynamicInput": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "937ad4222496a472",
+      "at": "2026-10-04"
     },
     "VolumeControl": {
       "status": "ok",
@@ -913,9 +915,9 @@
       "at": "2026-10-03"
     },
     "ColorPickerPopover": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "539b703519a18cf2",
+      "at": "2026-10-04"
     }
   },
   "Composites · Forms": {
@@ -954,9 +956,9 @@
   },
   "Composites · Content": {
     "LogPanel": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "43e208664cd0f2a1",
+      "at": "2026-10-04"
     },
     "FactsPanel": {
       "status": "ok",
@@ -964,9 +966,9 @@
       "at": "2026-10-03"
     },
     "Hero": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "aa194f94e33be26f",
+      "at": "2026-10-04"
     },
     "PixelWordmark": {
       "status": "ok",
