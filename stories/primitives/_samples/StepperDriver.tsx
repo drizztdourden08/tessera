@@ -28,8 +28,8 @@ const StepperDriver = (props: StepperDriverProps) => {
         </>
       )}
       <ButtonRow align="start">
-        <Button variant="secondary" disabled={at === 0} onClick={() => setAt(at - 1)}><Icon name="arrow-left" />Back</Button>
-        <Button variant="primary" disabled={at >= last} onClick={() => setAt(at + 1)}>Next<Icon name="arrow-right" /></Button>
+        <Button variant="secondary" icon={<Icon name="arrow-left" />} disabled={at === 0} onClick={() => setAt(at - 1)}>Back</Button>
+        <Button variant="primary" icon={<Icon name="arrow-right" />} disabled={at >= last} onClick={() => setAt(at + 1)}>Next</Button>
         <Button variant="tertiary" disabled={at >= last} onClick={() => setAt(last)}>Skip to Review</Button>
         <Button variant="ghost" icon={<Icon name="rotate-ccw" />} onClick={() => setAt(0)}>Start over</Button>
       </ButtonRow>

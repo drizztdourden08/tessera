@@ -3311,3 +3311,20 @@ interface TooltipProps {
 1. Pass `focusable` to a Tooltip whose children are text or an icon that the user needs to read from the keyboard, such as a truncated value.
 2. Drop app code that rendered ToastContainer only while toasts were queued; render it once, always.
 3. Drop the `name` you passed to RadioGroup only to keep groups apart.
+
+## 125. Drag regions keep their controls clickable, four lint rules, and a table of common needs
+
+From the Tessera review (tessera-33, tessera-34, tessera-35, tessera-36).
+
+- **Every control inside `[data-app-region="drag"]` is `no-drag`.** That covers buttons, links, inputs, selects, text areas, labels, summaries, elements with a button, link, tab or menu item role, editable elements and anything focusable. A new control in a title bar works with no app rule. `data-app-region` is the only way to mark a drag region; docs/using-tessera.md has a "Window drag regions" section.
+- **The standards extension adds four rules**, in Tessera and in every app that installs it:
+  - `tessera/no-faint-text` (stylelint, from section 117);
+  - `tessera/no-tessera-internals` (stylelint) refuses a selector that names a class of a Tessera part, such as `.log-panel__tag--goal`, `.stat-row__value` or `.dialog`, from any stylesheet outside the Tessera package. The parts are read from the Tessera stylesheets, block names before `__` or `--`, so the rule follows every new part with no hand list;
+  - `tessera/no-icon-button-child` (ESLint) refuses an `<Icon>` written as a child of `<Button>`;
+  - `tessera/prefer-named-input` (ESLint) refuses `<TextInput type="password">` and `type="search"`.
+- **docs/using-tessera.md has a "Common needs" table.** It lists Callout for an error, SearchInput or FilterBar to search a list, `actionVisibility`, LogPanel `kinds`, PasswordInput, Grid `minColWidth`, FactsPanel, Stepper, and the props added in sections 117 to 123.
+
+### What an app does
+
+1. Delete the app rules that set `-webkit-app-region: no-drag` on controls inside a drag region, and mark regions with `data-app-region="drag"` only.
+2. Run the lint and fix what the new rules report: pass the icon as `icon`, use PasswordInput or SearchInput, and replace each rule on a Tessera class with the prop or token it needed. Ask for one when none exists.

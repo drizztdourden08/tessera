@@ -5,6 +5,7 @@
 }
 
 [data-app-region="no-drag"],
+[data-app-region="drag"] :is(button, a, input, select, textarea, label, summary, [role="button"], [role="link"], [role="tab"], [role="menuitem"], [contenteditable], [tabindex]:not([tabindex="-1"])),
 :root[data-popup-open] [data-app-region="drag"] {
   -webkit-app-region: no-drag;
   app-region: no-drag;

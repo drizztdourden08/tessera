@@ -23,6 +23,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>((props, ref) 
   };
 
   return (
+    // eslint-disable-next-line tessera/prefer-named-input -- SearchInput is the part the rule points to
     <TextInput
       ref={setRef}
       type="search"

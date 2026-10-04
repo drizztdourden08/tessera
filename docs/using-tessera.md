@@ -205,6 +205,34 @@ const AppLink = (props: Omit<RouterLinkProps, 'onNavigate' | 'href'>) => {
 
 The colour pickers and the field kits have their own paths so an app that never uses them never loads them.
 
+## Window drag regions
+
+In a frameless window, mark the parts the user drags the window by with `data-app-region="drag"`, and nothing else: no `-webkit-app-region` in app CSS. `tokens.css` turns the attribute into the region and gives three things for free:
+
+- every button, link, input, select, textarea, label, summary, element with a button, link, tab or menu item role, editable element and focusable element inside a drag region stays clickable (`no-drag`), so a new control in a title bar works with no extra rule;
+- `data-app-region="no-drag"` lifts the region from anything else inside it;
+- while a popup is open, every drag region turns `no-drag`, so a click on the title bar reaches the page and closes the popup.
+
+WindowTitleBar uses it.
+
+## Common needs
+
+Most needs already have a part. Check this table before writing app CSS or a new compound.
+
+| Need | Use |
+|---|---|
+| Show an error or a warning in a page | `Callout` with `tone="danger"` or `tone="warning"` |
+| Search a list | `SearchInput`, or `FilterBar` for search and filters together |
+| Row buttons always visible | `actionVisibility="always"` on `ListItemRow` |
+| Colour log lines by type | `kinds` on `LogPanel`, with `tone` and `toneMessage` |
+| A password field | `PasswordInput` |
+| Equal columns that wrap | `Grid` with `minColWidth` |
+| Label and value facts, on a line or in rows | `FactsPanel` with `layout`, or `StatRow` |
+| Steps of a process | `Stepper` |
+| A count after a heading | `count` on `SectionHeader` or `ListItemList` |
+| Quiet, error or code text | `tone`, `mono` and `numeric` on `Text` |
+| A whole screen with nothing in it yet | `EmptyState` with `size="hero"`, `title`, `action` and `hint` |
+
 ## The gallery
 
 In a Tessera checkout, `pnpm storylite` serves the gallery on `http://localhost:4400`. Every part has an Overview page: what it is for, its variants, its states, a playground with controls, and the code to copy. The logo buttons at the top of the menu redraw every page in each app's palette. Look there first before building something.
@@ -306,6 +334,15 @@ config?.parts.views; // absolute folders, the app ones when run inside an apps e
 Tessera declares an extension for `@drizztdourden08/standards`, so an app that uses both gets it with no setup. From `tessera.config.json` it checks for `Name.usage.ts` in each part folder under `parts`, passes the primitives folders as `primitivesGlobs` to ESLint (only primitives may write raw HTML), and passes `theme.css` as a token file to stylelint. It reads the config at lint time from the root or package the standards factory passes, and a broken config shows as a structure finding instead of stopping the lint.
 
 Its structure check also runs the usage check below on the parts of the package it checks. In `report` mode what it finds prints as notes and the check passes, a missing usage file included; in `enforce` mode each one is a finding.
+
+It also adds four lint rules, in Tessera and in every app that installs it:
+
+| Rule | Tool | What it refuses |
+|---|---|---|
+| `tessera/no-faint-text` | stylelint | `color`, `caret-color` or `-webkit-text-fill-color` set to `--c-text-faint`, about 1.86:1 on the surface; text takes `--c-text-muted` |
+| `tessera/no-tessera-internals` | stylelint | a selector that names a class of a Tessera part, such as `.log-panel__tag` or `.stat-row__value`, from any stylesheet outside the Tessera package; ask for a prop or a token instead. The list of parts is read from the Tessera stylesheets, so it follows every new part |
+| `tessera/no-icon-button-child` | ESLint | an `<Icon>` written as a child of `<Button>`; pass it as `icon`, or use `IconButton` for a button with only an icon |
+| `tessera/prefer-named-input` | ESLint | `<TextInput type="password">` or `type="search"`; use `PasswordInput` or `SearchInput` |
 
 ## Usage rules for app parts
 
