@@ -3,6 +3,7 @@ import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
+import { Paragraph } from '../../../primitives/text-elements';
 import { Tooltip } from '../../../primitives/Tooltip';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { UtilityFooterProps } from './UtilityFooter.type';
@@ -15,19 +16,24 @@ const UtilityFooter = (props: UtilityFooterProps) => {
   return (
     <Box className="utility-screen__footer">
       {report && (
-        <Tooltip content={label}>
-          <IconButton variant="ghost" tone="danger" label={label} onClick={report.onClick}>
-            <Icon name="bug" size={16} />
-          </IconButton>
-        </Tooltip>
+        <Box className="utility-screen__footnote">
+          {report.footnote != null && <Paragraph className="utility-screen__footnote-text">{report.footnote}</Paragraph>}
+          <Tooltip content={label}>
+            <IconButton variant="ghost" tone="danger" size="sm" label={label} className="utility-screen__report" onClick={report.onClick}>
+              <Icon name="bug" size={14} />
+            </IconButton>
+          </Tooltip>
+        </Box>
       )}
-      <Box className="utility-screen__actions">
-        {actions.map((action) => (
-          <Button key={action.label} variant={action.variant ?? 'secondary'} disabled={action.disabled} loading={action.loading} onClick={action.onClick}>
-            {action.label}
-          </Button>
-        ))}
-      </Box>
+      {actions.length > 0 && (
+        <Box className="utility-screen__actions">
+          {actions.map((action) => (
+            <Button key={action.label} variant={action.variant ?? 'secondary'} disabled={action.disabled} loading={action.loading} onClick={action.onClick}>
+              {action.label}
+            </Button>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };

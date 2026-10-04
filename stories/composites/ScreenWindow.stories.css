@@ -6,3 +6,7 @@
   gap: var(--space-sm);
   min-height: 0;
 }
+
+.screen-window-story__list--padded {
+  padding: var(--space-xl);
+}

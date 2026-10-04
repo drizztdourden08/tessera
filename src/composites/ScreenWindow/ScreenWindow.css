@@ -26,6 +26,14 @@
   overflow: hidden;
 }
 
+.screen-window--header > .content-header .content-header__actions {
+  gap: var(--space-sm);
+}
+
+.screen-window .screen-window__close {
+  color: var(--c-text-dim);
+}
+
 @container screen-layer (width < 960px) or (height < 600px) {
   .screen-window { padding: var(--space-lg); }
 }
@@ -35,9 +43,21 @@
     gap: var(--space-md);
     padding: var(--space-md);
   }
+
+  .screen-window--header > .content-header { padding-inline: var(--space-md); }
 }
 
 .platform-mobile .screen-window {
   gap: var(--space-md);
   padding: var(--space-md);
+}
+
+.platform-mobile .screen-window--header > .content-header {
+  padding-inline: var(--space-md);
+}
+
+.screen-window.screen-window--header,
+.platform-mobile .screen-window--header {
+  gap: 0;
+  padding: 0;
 }

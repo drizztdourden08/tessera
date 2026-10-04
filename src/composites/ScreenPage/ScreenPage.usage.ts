@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'Building block: the page header container every screen kind shows, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.',
+  job: 'Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.',
   useWhen: [
     'You build a new kind of screen and it must look like the others, with the same header.',
     'A page in an app frame needs the same header as the pages of a screen.',
@@ -16,7 +16,7 @@ const usage = {
     { case: 'Only the header, on a card or a panel of your own.', use: 'ContentHeader' },
   ],
   rules: [
-    'Every screen kind renders it, and none of them can turn it off. A screen without the header is a custom screen built from ScreenWindow or ScreenLayer.',
+    'WorkspaceScreen and StageScreen render it, and neither can turn it off. UtilityScreen shows its header at the top of the window instead, and InfoScreen has none.',
     'Always pass an icon and a title; without them it warns in development.',
     'Leave backdrop out for the default art, pass your own scene, or pass null for a plain header.',
     'Use strip for a few controls after the title, such as section pills or a status, and actions for the end of the header.',

@@ -1,11 +1,15 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ContentHeaderProps } from '../ContentHeader';
 import type { ScreenLayerSize } from '../ScreenLayer';
+
+type ScreenWindowHeader = Pick<ContentHeaderProps, 'icon' | 'backdrop' | 'strip' | 'actions' | 'compact' | 'level' | 'live'>;
 
 interface ScreenWindowProps {
   title: ReactNode;
   onClose: () => void;
   children: ReactNode;
+  header?: ScreenWindowHeader;
   subtitle?: ReactNode;
   extra?: ReactNode;
   floating?: ReactNode;
@@ -15,4 +19,4 @@ interface ScreenWindowProps {
   className?: string;
 }
 
-export type { ScreenWindowProps };
+export type { ScreenWindowHeader, ScreenWindowProps };

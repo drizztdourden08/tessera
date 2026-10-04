@@ -29,7 +29,7 @@ One open stage with an optional toolbar.
 
 ## Rules
 
-- Give it an icon and a heading for the page header, which every screen kind shows and nothing turns off.
+- Give it an icon and a heading for the page header, which StageScreen always shows and nothing turns off.
 - Keep the toolbar to a status and a few tools; it sits in the header after the heading and is not a place for navigation.
 - Set done when the work ends with a clear finish; the close button still closes without it.
 - Put each calibration step on the stage in its own Card, with a SectionHeader that says what to do.

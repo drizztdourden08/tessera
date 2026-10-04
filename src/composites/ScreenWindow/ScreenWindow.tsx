@@ -3,17 +3,23 @@ import { useId } from 'react';
 import { Box } from '../../primitives/Box';
 import { ScreenLayer } from '../ScreenLayer';
 import { WindowHeader } from '../WindowHeader';
+import { useTopOnlyCheck } from './behavior/useTopOnlyCheck';
+import { WindowContentHeader } from './sub-components/WindowContentHeader';
 import type { ScreenWindowProps } from './ScreenWindow.type';
 import './ScreenWindow.css';
 
 const ScreenWindow = (props: ScreenWindowProps) => {
-  const { title, onClose, children, subtitle, extra, floating, hidden, size, square, className = '' } = props;
+  const { title, onClose, children, header, subtitle, extra, floating, hidden, size, square, className } = props;
   const titleId = useId();
+  useTopOnlyCheck(props);
+  const classes = ['screen-window', header && 'screen-window--header', className].filter(Boolean).join(' ');
 
   return (
     <ScreenLayer floating={floating} hidden={hidden} size={size} square={square} labelledBy={titleId}>
-      <Box className={`screen-window${className ? ` ${className}` : ''}`}>
-        <WindowHeader title={title} titleId={titleId} subtitle={subtitle} extra={extra} onClose={onClose} className="screen-window__header" />
+      <Box className={classes}>
+        {header
+          ? <WindowContentHeader header={header} title={title} titleId={titleId} onClose={onClose} />
+          : <WindowHeader title={title} titleId={titleId} subtitle={subtitle} extra={extra} onClose={onClose} className="screen-window__header" />}
         <Box className="screen-window__content">{children}</Box>
       </Box>
     </ScreenLayer>

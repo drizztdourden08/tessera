@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
 
+type ScreenKind = 'WorkspaceScreen' | 'StageScreen' | 'UtilityScreen' | 'InfoScreen';
+
 interface ScreenPageProps {
   icon: ReactNode;
   title: ReactNode;
@@ -17,4 +19,4 @@ interface ScreenPageProps {
   className?: string;
 }
 
-export type { ScreenPageProps };
+export type { ScreenKind, ScreenPageProps };

@@ -5,7 +5,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { Logo } from '../../src/brand';
 import { InfoScreen } from '../../src/composites';
 import type { InfoScreenWidth } from '../../src/composites';
-import { Icon, Span } from '../../src/primitives';
+import { H2, Span } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { AboutBody } from './_samples/AboutBody';
 import { CreditsBody } from './_samples/CreditsBody';
@@ -20,15 +20,16 @@ type InfoArgs = {
 
 const LEGAL = 'A fan project, not made or approved by the owners of the games it tracks. Names and marks belong to their owners.';
 
-const lead = (line: string) => (
+const lead = (name: string, line: string) => (
   <>
     <Logo brand="rotp" variant="app-icon" size="xl" title="" />
+    <H2>{name}</H2>
     <Span tone="muted">{line}</Span>
   </>
 );
 
-const ABOUT_LEAD = lead('Tracks your randomizer runs, from the first seed to the last boss.');
-const CREDITS_LEAD = lead('Made by a small team, with help from these people and projects.');
+const ABOUT_LEAD = lead('Relic of the Past', 'Tracks your randomizer runs, from the first seed to the last boss.');
+const CREDITS_LEAD = lead('Thank you', 'Made by a small team, with help from these people and projects.');
 
 const InfoDemo = (props: InfoArgs) => {
   const { page, width, withFooter } = props;
@@ -38,8 +39,6 @@ const InfoDemo = (props: InfoArgs) => {
     <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="The close button hides the screen">
       <InfoScreen
         title={about ? 'About' : 'Credits'}
-        icon={<Icon name={about ? 'info' : 'heart'} />}
-        heading={about ? 'Relic of the Past' : 'Thank you'}
         width={width}
         hidden={hidden}
         onClose={() => setHidden(true)}
@@ -79,14 +78,12 @@ const Credits = {
   render: () => <InfoDemo page="credits" width="wide" withFooter={false} />,
 } satisfies PlaygroundStory<InfoArgs>;
 
-const CODE = `import { FactsPanel, Icon, InfoScreen, Logo } from '@drizztdourden08/tessera';
+const CODE = `import { FactsPanel, H2, InfoScreen, Logo } from '@drizztdourden08/tessera';
 
 <InfoScreen
   title="About"
-  icon={<Icon name="info" />}
-  heading="Relic of the Past"
   onClose={close}
-  lead={<Logo brand="rotp" variant="app-icon" size="xl" title="" />}
+  lead={<><Logo brand="rotp" variant="app-icon" size="xl" title="" /><H2>Relic of the Past</H2></>}
   footer={LEGAL}
 >
   <FactsPanel label="This build" groups={[[{ label: 'Version', value: '0.9.2', mono: true }]]} />
@@ -94,10 +91,10 @@ const CODE = `import { FactsPanel, Icon, InfoScreen, Logo } from '@drizztdourden
 
 const Overview = overviewStory({
   component: 'InfoScreen',
-  description: 'A screen the user reads, such as About, credits, a licence or a welcome: one centred column under the page header.',
+  description: 'A screen the user reads, such as About, credits, a licence or a welcome: one centred column under the window title.',
   points: [
-    '`icon` and `heading` are required; the header compacts once the column scrolls.',
-    '`lead` sits centred at the top of the column, for a logo, a wordmark or a hero.',
+    'No page header: the window title bar holds the title and the close button, and the column scrolls under it.',
+    '`lead` sits centred at the top of the column, for a logo, the app name or a hero.',
     'The children are the sections; `footer` closes the column with small text, for legal lines.',
     '`width="readable"` keeps lines short; `width="wide"` fits a grid of cards, as credits need.',
     'An About screen puts the build facts in a [FactsPanel].',

@@ -25,6 +25,7 @@ interface UtilityScreenNotes {
 interface UtilityScreenReport {
   onClick: () => void;
   label?: string;
+  footnote?: ReactNode;
 }
 
 interface UtilityScreenAction {
@@ -36,7 +37,6 @@ interface UtilityScreenAction {
 }
 
 interface UtilityScreenProps {
-  title: ReactNode;
   onClose: () => void;
   status: UtilityScreenStatus;
   progress?: UtilityScreenProgress;

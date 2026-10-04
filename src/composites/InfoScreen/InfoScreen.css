@@ -1,4 +1,9 @@
 /* @layer renderer-components @kind style */
+.info-screen__body {
+  flex: 1;
+  min-height: 0;
+}
+
 .info-screen__column {
   display: flex;
   flex-direction: column;

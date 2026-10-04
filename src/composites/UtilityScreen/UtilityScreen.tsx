@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../primitives/Box';
 import { Paragraph } from '../../primitives/text-elements';
+import { ScrollArea } from '../../primitives/ScrollArea';
+import { Box } from '../../primitives/Box';
 import { useHeaderOptOutCheck } from '../ScreenPage/behavior/useHeaderOptOutCheck';
-import { ScreenPage } from '../ScreenPage';
 import { ScreenWindow } from '../ScreenWindow';
 import { NO_ACTIONS } from './UtilityScreen.constants';
 import { UtilityFooter } from './sub-components/UtilityFooter';
@@ -13,28 +13,26 @@ import type { UtilityScreenProps } from './UtilityScreen.type';
 import './UtilityScreen.css';
 
 const UtilityScreen = (props: UtilityScreenProps) => {
-  const { title, onClose, status, progress, settings, notes, children, report, actions = NO_ACTIONS, backdrop, hidden, className = '' } = props;
-  const hasFooter = report !== undefined || actions.length > 0;
+  const { onClose, status, progress, settings, notes, children, report, actions = NO_ACTIONS, backdrop, hidden, className = '' } = props;
   useHeaderOptOutCheck('UtilityScreen', props);
 
   return (
-    <ScreenWindow title={title} onClose={onClose} hidden={hidden} size="compact" className={`utility-screen utility-screen--${status.tone}${className ? ` ${className}` : ''}`}>
-      <ScreenPage
-        icon={<UtilityMark status={status} />}
-        title={status.title}
-        live
-        backdrop={backdrop}
-        footer={hasFooter ? <UtilityFooter report={report} actions={actions} /> : undefined}
-        bodyClassName="utility-screen__body"
-      >
-        <Box className="utility-screen__column">
-          {status.message != null && <Paragraph className="utility-screen__message" aria-live="polite">{status.message}</Paragraph>}
-          {settings != null && <Box className="utility-screen__settings">{settings}</Box>}
-          {children}
-          {notes && <UtilityNotes notes={notes} />}
-          {progress && <UtilityProgress progress={progress} />}
-        </Box>
-      </ScreenPage>
+    <ScreenWindow
+      title={status.title}
+      header={{ icon: <UtilityMark status={status} />, backdrop, live: true }}
+      onClose={onClose}
+      hidden={hidden}
+      size="compact"
+      className={`utility-screen utility-screen--${status.tone}${className ? ` ${className}` : ''}`}
+    >
+      <ScrollArea className="utility-screen__body">
+        {status.message != null && <Paragraph className="utility-screen__message" aria-live="polite">{status.message}</Paragraph>}
+        {settings != null && <Box className="utility-screen__settings">{settings}</Box>}
+        {children}
+        {notes && <UtilityNotes notes={notes} />}
+        {progress && <UtilityProgress progress={progress} />}
+      </ScrollArea>
+      <UtilityFooter report={report} actions={actions} />
     </ScreenWindow>
   );
 };

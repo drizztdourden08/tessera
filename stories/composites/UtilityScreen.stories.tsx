@@ -23,7 +23,10 @@ const PICKABLE: readonly UpdateStep[] = ['available', 'downloading', 'current'];
 
 const PRERELEASE_NOTE = 'This is a pre-release. It ships before the usual testing, so expect rough edges the stable builds do not have.';
 
-const REPORT = { onClick: () => undefined };
+const REPORT = {
+  onClick: () => undefined,
+  footnote: 'Any earlier version can be picked above if something stops working. Please report it either way, so it gets fixed.',
+};
 
 const UpdateDemo = (props: UtilityArgs) => {
   const [step, setStep] = useState<UpdateStep>(props.step);
@@ -47,7 +50,6 @@ const UpdateDemo = (props: UtilityArgs) => {
       tools={<SegmentedControl aria-label="Update step" size="sm" options={STEP_OPTIONS} value={step} onChange={setStep} />}
     >
       <UtilityScreen
-        title="Check for updates"
         hidden={hidden}
         onClose={() => setHidden(true)}
         status={UPDATE_STATUS[step]}
@@ -105,7 +107,6 @@ const Failed = {
 const CODE = `import { Field, Icon, Select, Strong, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
 
 <UtilityScreen
-  title="Check for updates"
   onClose={close}
   status={{ tone: 'info', icon: <Icon name="download" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> }}
   settings={<>
@@ -113,9 +114,9 @@ const CODE = `import { Field, Icon, Select, Strong, Toggle, UtilityScreen } from
     <Field label="Version to install"><Select value={version} onChange={setVersion} groups={versions} /></Field>
   </>}
   notes={{ title: 'What is new in 0.10.0', children: <ReleaseNotes /> }}
-  report={{ onClick: openBugReport }}
+  report={{ onClick: openBugReport, footnote: 'Any earlier version can be picked above if something stops working.' }}
   actions={[
-    { label: 'Later', variant: 'ghost', onClick: close },
+    { label: 'Later', variant: 'tertiary', onClick: close },
     { label: 'Install', variant: 'primary', onClick: install },
   ]}
 />`;
@@ -124,11 +125,11 @@ const Overview = overviewStory({
   component: 'UtilityScreen',
   description: 'A compact screen for one short task the app runs, such as checking for updates, importing a file or testing a connection.',
   points: [
-    '`status` fills the header: a spinner while `busy`, or the icon and colour of its tone, with a title.',
+    '`status` is the window header, beside the close button: a spinner while `busy`, or the icon of its tone.',
     '`settings` holds the choices that shape the task; the children hold details such as a warning.',
     '`notes` is a framed box with its own scroll, for release notes or a log; `progress` adds a bar.',
-    '`actions` sit at the right of the footer, main action last; `report` adds a bug button on the left.',
-    'The status title and the message are live regions, so a screen reader reads each new one.',
+    '`report` adds a red bug button over a rule, with an optional `footnote`; `actions` sit under it, main action last.',
+    'The layout copies the rotp update dialog: one column with one gap, and no card inside the window.',
   ],
   instead: '[Dialog] for a question with two answers, or [WorkspaceScreen] for pages with a side list.',
   playground: Playground,

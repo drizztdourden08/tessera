@@ -2537,3 +2537,68 @@ New types: `HeroBackdrop`, `HeroImageFit` and `HeroShade`, beside `HeroArt` and 
 - A host that passed a scene as `backdrop={<Scene />}` passes `backdrop={{ kind: 'node', node: <Scene /> }}`. The brand gradient no longer draws under a scene; a scene with see-through parts that relied on it draws its own sky.
 - A host that passed `art={{ src, alt, pixelated }}` adds `kind: 'image'`.
 - A host stylesheet that set the background of `.hero__backdrop` sets it on `.hero__backdrop--brand`, or passes the colour or image as `backdrop`.
+
+## 100. ScreenWindow can take a page header as its top, UtilityScreen copies rotp's update dialog, and InfoScreen drops the page header
+
+Section 80 made every screen kind show the page header inside its window. The owner changes that rule for two of them: UtilityScreen puts the header at the top of the window itself, and InfoScreen shows no page header at all. WorkspaceScreen and StageScreen keep the page header inside the window, as before.
+
+| Screen kind | Top of the window | Page header |
+|---|---|---|
+| WorkspaceScreen | the title bar, with the close button | inside the window, on every page |
+| StageScreen | the title bar, with the close button | inside the window, with the toolbar and Done |
+| UtilityScreen | the page header itself, with the close button at its end | none inside: the header is the top |
+| InfoScreen | the title bar, with the close button | none |
+
+### ScreenWindow takes `header`
+
+The title bar stays the default. Pass `header` to make a ContentHeader the window's top edge instead, inside the window's border and corners. `title` is the header's title and names the dialog; the close button sits last in the header's actions.
+
+```ts
+type ScreenWindowHeader = Pick<ContentHeaderProps, 'icon' | 'backdrop' | 'strip' | 'actions' | 'compact' | 'level' | 'live'>;
+
+interface ScreenWindowProps {
+  // ...as before
+  header?: ScreenWindowHeader; // left out: the title bar
+}
+```
+
+```tsx
+<ScreenWindow title="Players" header={{ icon: <Icon name="users" />, actions: <Button size="sm">Invite</Button> }} onClose={close}>
+  <PlayerList />
+</ScreenWindow>
+```
+
+With `header` the window has no padding and no gap, and no card sits inside it: the children pad themselves, so a scrolling body reaches the window edge. `subtitle` and `extra` belong to the title bar and do not show with `header`; in development the window warns when they are passed together. Under 840 px wide or 560 px high the header's side padding drops to md, as ScreenPage's does.
+
+### UtilityScreen
+
+UtilityScreen is now laid out as rotp's UpdateDialog, with one difference: the header at the top of the window is a ContentHeader carrying the status, where rotp has a title bar. There is no ScreenPage card inside the window any more.
+
+- The header shows the status: `status.title` is its title and names the window, the tone picks the icon (a spinner while busy), and the success, warning and danger tones colour it. The close button sits at its end.
+- One column under it, with one md gap between every block: the message, the settings, the children, the notes and the progress. The column starts xl under the header and sits 2xl from each side, as rotp's body sits inside its dialog padding. It scrolls when the window is too short.
+- The footer stays in view: `report` is a rule over the column's width with the bug button at its end, and `report.footnote` is a short line beside it, as rotp's footnote. The actions sit under it, at the right, lg from the window edge.
+- `title` is gone: `status.title` names the window.
+- Under 840 px wide or 560 px high the window fills the layer, as in section 93, and the column, the rule and the actions sit md from the sides.
+
+```ts
+interface UtilityScreenReport { onClick: () => void; label?: string; footnote?: ReactNode }
+```
+
+The class `utility-screen__column` is gone: `utility-screen__body` is the column itself, a ScrollArea. The footer holds `utility-screen__footnote` (the rule, `utility-screen__footnote-text` and `utility-screen__report`) and `utility-screen__actions`.
+
+### InfoScreen
+
+InfoScreen shows no page header. Its window keeps the title bar with the title and the close button, and the reading column scrolls right under it in `info-screen__body`, a ScrollArea. `icon`, `heading` and `backdrop` are gone; put the app name in `lead` with the logo.
+
+### The checks
+
+- ScreenPage warns in development when its icon or title is missing; the message now names WorkspaceScreen and StageScreen, the kinds that always show it.
+- A screen kind warns when it gets a prop that would change its header: `pageHeader` on WorkspaceScreen, StageScreen and UtilityScreen, and `pageHeader`, `icon`, `heading` or `backdrop` on InfoScreen, which has no page header.
+
+### What an app does
+
+- UtilityScreen: drop `title`; `status.title` names the window. Move a line that sat next to the report button into `report.footnote`. A host stylesheet that styled `.utility-screen__column` styles `.utility-screen__body`.
+- InfoScreen: drop `icon`, `heading` and `backdrop`, and put the app name in `lead`, for example as an `H2` under the logo. A host stylesheet that reached the column through `.info-screen .screen-page__body` uses `.info-screen__body`.
+- A custom screen can use `header` on ScreenWindow for a header at the window level, in place of a ScreenPage card inside.
+
+`RENAMES.json` lists the removed props and the class.

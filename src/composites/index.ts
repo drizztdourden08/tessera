@@ -65,7 +65,7 @@ export type {
 export { ScreenLayer } from './ScreenLayer';
 export type { ScreenLayerProps, ScreenLayerSize } from './ScreenLayer';
 export { ScreenWindow } from './ScreenWindow';
-export type { ScreenWindowProps } from './ScreenWindow';
+export type { ScreenWindowHeader, ScreenWindowProps } from './ScreenWindow';
 export { ScreenPage } from './ScreenPage';
 export type { ScreenPageProps } from './ScreenPage';
 export { WorkspaceScreen } from './WorkspaceScreen';

@@ -1,6 +1,6 @@
 # UtilityScreen
 
-A compact screen for one short task: the page header shows the status with a spinner or a tone icon, then a centred message, settings, details, a framed notes box, progress, and a footer with a report button and the actions.
+A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -30,20 +30,20 @@ A status, details and actions in a compact window.
 
 ## Rules
 
-- The status is the page header, which every screen kind shows and nothing turns off: status.title is its title and the tone picks its icon.
+- The status is the header at the top of the window, with the close button at its end: status.title is its title and names the window, and the tone picks its icon. There is no card inside the window.
 - Set status.tone to busy while the task runs; it shows a spinner in place of the icon. Use status.icon for a closer icon, such as a download arrow.
 - Write the status title as the state, such as Update available, and the message as one short line, such as the version.
 - Put choices that shape the task, such as a pre-release toggle or a version picker, in settings, not in the children.
 - Put long text, such as release notes, in notes: a framed box with its own scroll.
 - Set progress only when the task can say how far it is.
-- Pass report to offer a way to report a problem; it is one red bug icon button, never a bar of text.
+- Pass report to offer a way to report a problem: one red bug icon button over a rule, with report.footnote as a short line beside it.
 - Put the main action last in actions, with variant primary, and keep one primary action.
 
 ## Accessibility
 
 - The status title and the message are live regions: a screen reader reads each new one.
 - The report button is named Report an issue from the strings, and shows the same words in a tooltip.
-- The card is a modal dialog named by the title.
+- The card is a modal dialog named by the status title.
 
 ## Example
 
@@ -59,13 +59,12 @@ interface UpdateCheckProps {
 
 const UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) => (
   <UtilityScreen
-    title="Check for updates"
     onClose={onClose}
     status={{ tone: 'info', icon: <Icon name="download" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> }}
     notes={{ title: 'What is new in 0.10.0', children: notes }}
-    report={{ onClick: onReport }}
+    report={{ onClick: onReport, footnote: 'Any earlier version can be picked above if something stops working.' }}
     actions={[
-      { label: 'Later', variant: 'ghost', onClick: onClose },
+      { label: 'Later', variant: 'tertiary', onClick: onClose },
       { label: 'Install', variant: 'primary', onClick: onInstall },
     ]}
   />
@@ -74,7 +73,6 @@ const UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) 
 
 ## Props
 
-- `title`: `ReactNode`.
 - `onClose`: `() => void`.
 - `status`: `UtilityScreenStatus`.
 - `progress` (optional): `UtilityScreenProgress`.
@@ -89,4 +87,4 @@ const UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) 
 
 ## Tokens
 
-It draws on `--blur-glow`, `--border-width-thin`, `--c-danger`, `--c-primary`, `--c-primary-soft`, `--c-success`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--leading-normal`, `--radius-md`, `--size-2`, `--size-32`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-semi`.
+It draws on `--blur-glow`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-primary`, `--c-primary-soft`, `--c-success`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--leading-normal`, `--radius-md`, `--size-2`, `--size-32`, `--size-320`, `--space-2xl`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-semi`.
