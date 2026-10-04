@@ -66,7 +66,13 @@ const Rims = {
 
 const Overview = overviewStory({
   component: 'WordMark',
-  description: 'An app\'s name set in the pixel alphabet, in the brand\'s own colours: Logo.Wordmark. Use it where the name should read as the brand, beside a mark or alone in a header. Uppercase letters draw at capital size and lowercase smaller, so each name keeps the shape of its artwork. It takes brand (tessera by default), a size and a rim, and names itself after the brand for screen readers.',
+  description: 'An app\'s name in the pixel alphabet and the brand\'s own colours, `Logo.Wordmark`, for a header or beside a mark.',
+  points: [
+    '`brand` picks the app, `tessera` by default; `size` and `rim` set its size and outline.',
+    'Uppercase letters draw at capital size and lowercase smaller, so each name keeps the shape of its artwork.',
+    'Screen readers read it as the brand name.',
+  ],
+  instead: '[Combined] for the mark and the name together.',
   playground: Playground,
   variants: [Wordmarks, Sizes, Rims],
   code: `import { Logo } from '@drizztdourden08/tessera';

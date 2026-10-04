@@ -51,7 +51,14 @@ const Rims = {
 
 const Overview = overviewStory({
   component: 'Combined',
-  description: 'An app\'s mark and wordmark together: Logo.Combined. Inline sets the name beside the mark, for a header or a title bar with room to spare. Stacked sets it under the mark, for a splash or an about page. The pair reads as one image named after the brand. It takes brand (tessera by default), a size for the mark that the wordmark follows, and the mark\'s variant, where app-icon draws the app icon. A rim outlines both the mark and the name.',
+  description: 'An app\'s mark and wordmark together, `Logo.Combined`, for a header, a title bar or a splash screen.',
+  points: [
+    '`direction="inline"`, the default, sets the name beside the mark; `stacked` sets it under the mark.',
+    '`brand` picks the app, `tessera` by default; `size` sizes the mark and the wordmark follows it.',
+    '`variant="app-icon"` draws the app icon in place of the mark.',
+    '`rim` outlines both the mark and the name. Screen readers read the pair as one image named after the brand.',
+  ],
+  instead: '[Logo] for the mark alone, or [WordMark] for the name alone.',
   playground: Playground,
   variants: [Inline, Stacked, Rims],
   code: `import { Logo } from '@drizztdourden08/tessera';

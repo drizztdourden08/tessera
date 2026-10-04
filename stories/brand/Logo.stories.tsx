@@ -80,7 +80,15 @@ const RimFiles = {
 
 const Overview = overviewStory({
   component: 'Logo',
-  description: 'An app\'s mark alone, drawn inline from path data so it stays sharp at any size. Use it where there is room for a mark but not a name: a title bar, a tab, a list of projects. It comes in four sizes, and variant="app-icon" draws the app icon the brand data describes: Relic of the Past and Brock use the mark straight, Archipelia sits on its tile, and Tessera has none because it is not an app. `pnpm icons` turns every mark, app icon and mascot into the files an app ships: a PNG at each size from 16 to 512, crisp whole pixels where pixel art fits, and a Windows .ico from 16 to 256. Tessera gets a mark.ico, the gallery favicon. Icon files shows each brand\'s own files as generated, every size and the .ico at its own pixel size, wrapping onto a new line where the page runs out of room. Mascots and their files have their own page. rim="light" or rim="dark" draws a thin outline that follows the silhouette, so a dark mark such as Brock\'s reads on a dark title bar; Rims shows every brand with each rim on a dark and a light ground. `pnpm icons` also writes every brand\'s files again with each rim, under brand/light-rim and brand/dark-rim, always without a tile, and Rimmed icon files shows them.',
+  description: 'An app\'s mark alone, sharp at any size, for a title bar, a tab or a list of projects.',
+  points: [
+    '`size` takes `sm`, `md`, `lg` or `xl`; `variant="app-icon"` draws the app icon from the brand data.',
+    'Tessera has no app icon, because it is not an app.',
+    '`rim="light"` or `"dark"` outlines the silhouette, so a dark mark reads on a dark title bar.',
+    '`pnpm icons` writes every mark and app icon as PNG files from 16 to 512 and a Windows `.ico`.',
+    'It writes them again with each rim, under `brand/light-rim` and `brand/dark-rim`, always without a tile.',
+  ],
+  instead: '[Combined] for the mark with the app name.',
   playground: Playground,
   variants: [Sizes, AppIcon, Rims, IconFiles, RimFiles],
 });

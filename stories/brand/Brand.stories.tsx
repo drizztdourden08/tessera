@@ -66,7 +66,13 @@ const Rims = {
 
 const Overview = overviewStory({
   component: 'Brand',
-  description: 'Every app and package in the family on one page: its mark at each size and as its app icon, its mascot where it has one, its wordmark, what it is and how to import it. The Logo, WordMark, Combined and Mascot pages show each part on its own, and the Gradients page under Colours shows each brand gradient. Rims shows each mark with no rim, a light rim and a dark rim, on a dark and a light ground.',
+  description: 'Every app and package in the family on one page: its mark at each size, its app icon, its mascot and its wordmark.',
+  points: [
+    'Each row says what the app is and shows the import line for its parts.',
+    '[Logo], [WordMark], [Combined] and [Mascot] show each part on its own, with a playground.',
+    'Rims shows every mark with no rim, a light rim and a dark rim, on a dark and a light ground.',
+    'Each brand\'s gradient is on the [Gradients] page under Colours.',
+  ],
   variants: [Family, Rims],
 });
 
