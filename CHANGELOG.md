@@ -1,5 +1,20 @@
 # @drizztdourden08/tessera
 
+## 0.13.0
+
+### Minor Changes
+
+- ed9afe3: Brand palettes ship in the package: `@drizztdourden08/tessera/palettes/rotp.css`, `archipelia.css` and `brock.css` set each family app's seeds under `[data-palette]`. Brock gets its own palette, the logo's orange on a neutral charcoal.
+- ed8dc38: DropdownMenu sub-menus line up with the parent menu's top edge, or its bottom edge when the top does not reach the open row, and the join runs straight along that edge with square corners; only when neither lines up does the sub-menu sit on the row with curves on both sides. Every item keeps the mark and icon columns, sub-menu rows included, so icons and labels line up across item kinds; an unchecked item shows a dim check and every radio item shows a ring.
+- e66cee3: Hero's `backdrop` takes many kinds: a live scene node that fills the hero, an image by URL that covers, contains or tiles, a solid colour or token, or `null` for none; left out, it draws the brand gradient. `art` takes an image by URL or any node, and the new `shade` prop sets the fade that keeps text readable (`fade`, `scrim` or `none`). Both `backdrop` and `art` now name their kind: wrap a scene as `{ kind: 'node', node }` and art as `{ kind: 'image', src }`.
+- e33cae3: ChosenMascot with `auto` draws none when the brand or palette has no mascot, instead of Sentri. `mascotForBrand(brand)` gives the mascot of a brand, or null.
+- cdaa3fe: ScreenWindow takes `header`, which makes a ContentHeader the top edge of the window in place of the title bar, with the close button at the end of its actions; the title bar stays the default. UtilityScreen is laid out as rotp's update dialog, with the status in that header at the window level and no card inside: one column, the report button over a rule with an optional `report.footnote`, then the actions. `title` is gone: `status.title` names the window. InfoScreen drops the page header and its `icon`, `heading` and `backdrop`: its window keeps the title bar and the reading column scrolls under it.
+
+### Patch Changes
+
+- cbb907d: ScreenPage's header no longer flickers between full and compact when the body barely overflows: it compacts only when the body still scrolls with the smaller header, and comes back only at the top.
+- c0899a9: WindowTitleBar's status, such as Update available, swells again every 4 seconds and breathes with a slight opacity change in between; reduced motion keeps it still.
+
 ## 0.12.0
 
 ### Minor Changes

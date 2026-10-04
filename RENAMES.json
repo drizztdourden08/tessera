@@ -582,7 +582,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.13.0",
       "props": {
         "UtilityScreen.title": "removed; status.title names the window and is the title of the header at its top (see MIGRATION.md section 100)",
         "InfoScreen.icon": "removed; InfoScreen has no page header, only the window title bar (see MIGRATION.md section 100)",
