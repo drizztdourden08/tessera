@@ -1,4 +1,5 @@
 /* @layer stories @kind component */
+import type { ReactNode } from 'react';
 import { Widget } from '../../../src/composites';
 import { Box } from '../../../src/primitives';
 import { WIDGET_CONTENT } from './data-widget-panels';
@@ -15,10 +16,11 @@ type DemoWidgetProps = {
   onActivateTab: (id: string) => void;
   onOpenOptions: (gear: HTMLElement) => void;
   onClose: () => void;
+  titleBarActions?: ReactNode;
 };
 
 const DemoWidget = (props: DemoWidgetProps) => {
-  const { view, panel, peek, square, canPopOut, optionsOpen, onActivateTab, onOpenOptions, onClose } = props;
+  const { view, panel, peek, square, canPopOut, optionsOpen, onActivateTab, onOpenOptions, onClose, titleBarActions } = props;
   return (
     <Box className={`widget-story__box${peek ? ' widget-story__box--peek' : ''}`}>
       <Widget
@@ -32,8 +34,8 @@ const DemoWidget = (props: DemoWidgetProps) => {
         optionsOpen={optionsOpen}
         mode={panel.placement === 'popped' ? 'out' : 'in'}
         pin={panel.pin}
-        onTop={panel.pin !== 'off'}
         onPinChange={panel.onPinChange}
+        titleBarActions={titleBarActions}
         canPopOut={canPopOut}
         onPopOut={panel.onPopOut}
         onActivateTab={onActivateTab}

@@ -112,6 +112,12 @@
   height: var(--widget-btn-d);
 }
 
+.widget__pin--top,
+.widget__pin--top:hover:not(:disabled) {
+  border-color: var(--c-primary);
+  color: var(--c-primary-bright);
+}
+
 .widget__content {
   flex: 1;
   min-height: 0;

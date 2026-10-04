@@ -2,7 +2,7 @@
 import { useCallback, useState } from 'react';
 import { WidgetManager, isWidgetOpen, useWidgetLayout } from '../../../src/composites';
 import type { WidgetDefinition, WidgetDisabledState } from '../../../src/composites';
-import { Box, Button, Text } from '../../../src/primitives';
+import { Box, Button, Icon, IconButton, Text } from '../../../src/primitives';
 import { WIDGET_CONTENT } from './data-widget-panels';
 import { MEMORY_IO, PROFILE_ID, STORAGE_KEY, WIDGET_DEFINITIONS } from './data-widgets';
 import '../DockLayout.stories.css';
@@ -26,6 +26,12 @@ const WidgetDock = (props: WidgetDockProps) => {
       (definition.id === disabledWidget ? { message: disabledMessage, settingId: 'session.hintSharing' } : null),
     [disabledWidget, disabledMessage],
   );
+
+  const widgetActions = useCallback((id: string) => (id === 'log' ? (
+    <IconButton className="widget__btn" label="Clear log" title="Clear log" onClick={() => setNotice('Would clear the log')}>
+      <Icon name="trash-2" size={12} />
+    </IconButton>
+  ) : null), []);
 
   const main = (
     <Box className="dock-story__main">
@@ -60,6 +66,7 @@ const WidgetDock = (props: WidgetDockProps) => {
           resolveDisabled={resolveDisabled}
           onOpenSettings={(settingId) => setNotice(`Would open the setting ${settingId}`)}
           makeRoomHint={makeRoomHint}
+          widgetActions={widgetActions}
           main={main}
         >
           {WIDGET_CONTENT}

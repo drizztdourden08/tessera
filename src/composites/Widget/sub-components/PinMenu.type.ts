@@ -1,10 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { PinMode } from '../Widget.type';
 
-interface PinButtonProps {
+interface PinMenuProps {
   pin: PinMode;
-  onTop: boolean;
   onChange: (mode: PinMode) => void;
 }
 
-export type { PinButtonProps };
+export type { PinMenuProps };

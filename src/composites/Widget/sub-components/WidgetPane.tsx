@@ -26,6 +26,7 @@ const WidgetPane = (props: WidgetPaneProps) => {
       onPopOut={() => api.popOut(activeId)}
       canPopOut={api.canPopOut(activeId)}
       onClose={() => api.close(activeId)}
+      titleBarActions={api.actionsOf(activeId)}
     >
       <DisabledOverlay active={disabled !== null} message={disabled?.message} contained onOpenSettings={onOpenSettings}>
         {api.contentOf(activeId)}

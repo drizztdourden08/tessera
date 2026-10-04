@@ -2300,3 +2300,33 @@ The head of every gallery Overview page now has three parts: a one-sentence lead
 ### What an app does
 
 Nothing. This changes the gallery only.
+
+## 88. The widget pin is a menu, PinMode drops with-app, and the title bar takes actions of its own
+
+The pin button of a widget in its own window stepped through three states, and nobody could tell which one was on. It is now an icon button that opens a menu of labelled choices, a DropdownMenu with radio items:
+
+| Choice | Icon | What it does |
+|---|---|---|
+| Off | `pin-off` | Stacks like any other window |
+| On top | `pin`, lit | Stays over every other window |
+
+The button shows the icon of the current choice and lights up while the window stays on top; the menu marks the current choice and gives each one its icon and a line on what it does. Its accessible name says the current choice: `Pin: On top. Click to choose`.
+
+`PinMode` is `'off' | 'top'`. The old `'with-app'` meant the window followed the main window, which the Sync with main window row of WidgetOptions now does, so the Pin row of WidgetOptions has two choices too. `Widget` no longer takes `onTop`: with two choices, the window is on top exactly when `pin` is `'top'`.
+
+`Widget` takes `titleBarActions`, buttons of the widget's own drawn in the title bar before the built-in ones. `WidgetManager` takes `widgetActions(id)` for the same on every widget of a dock. Use an `IconButton` with the class `widget__btn` so it matches the built-in buttons.
+
+| Before | Now |
+|---|---|
+| `PinMode` `'with-app'` | `'off'` with `sync: true` in the window options |
+| `<Widget onTop={…} />` | removed; the pin button lights up while `pin` is `'top'` |
+| a node portalled into `.widget__titlebar-actions` | `<Widget titleBarActions={node} />`, or `<WidgetManager widgetActions={(id) => node} />` |
+| strings `widgets.pinTitleOff`, `pinTitleTop`, `pinTitleWithApp` | `widgets.pinTitle(choice)`, which names the current choice |
+| strings `widgets.pinWithApp`, `pinWithAppHint` | removed |
+
+### What an app does
+
+1. Read a saved `'with-app'` pin as `'off'` and turn sync on for that window.
+2. Drop `onTop` from every `Widget`.
+3. Pass extra title bar buttons through `titleBarActions` or `widgetActions` in place of a portal into `.widget__titlebar-actions`.
+4. An app that overrides the widget strings renames `pinTitleOff`, `pinTitleTop` and `pinTitleWithApp` to one `pinTitle(choice)` function, and drops `pinWithApp` and `pinWithAppHint`.

@@ -48,7 +48,7 @@ const Playground = {
   ),
 } satisfies PlaygroundStory<HintLineArgs>;
 
-const LONG = { label: 'With app', description: 'On top exactly when the app is, and comes forward with it whenever the app is brought to the front' };
+const LONG = { label: 'Synced', description: 'Shows, hides and minimizes with the main window, and comes forward with it whenever the main window is brought to the front' };
 
 const SHORT = { label: 'Float', description: 'Hovers over the main view' };
 

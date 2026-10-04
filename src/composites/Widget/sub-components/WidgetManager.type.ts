@@ -30,6 +30,7 @@ interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   windowOptions?: (id: WidgetId) => WidgetWindowOptions | undefined;
   windowGroups?: readonly WindowGroup[];
   onWindowOptionsChange?: (id: WidgetId, patch: WidgetWindowOptions) => void;
+  widgetActions?: (id: WidgetId) => ReactNode;
   className?: string;
 }
 

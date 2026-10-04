@@ -24,7 +24,6 @@ const SHOW_CHOICES: readonly IconChoice<WidgetVisibility>[] = [
 const PIN_CHOICES: readonly IconChoice<PinMode>[] = [
   { value: 'off', icon: 'pin-off', label: 'pinOff', hint: 'pinOffHint' },
   { value: 'top', icon: 'pin', label: 'pinOnTop', hint: 'pinOnTopHint' },
-  { value: 'with-app', icon: 'link', label: 'pinWithApp', hint: 'pinWithAppHint' },
 ];
 
 const SNAP_CHOICES: readonly IconChoice<SnapChoice>[] = [

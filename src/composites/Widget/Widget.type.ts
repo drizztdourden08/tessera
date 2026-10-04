@@ -8,7 +8,7 @@ type WidgetVisibility = 'always' | 'context-only';
 
 type WidgetPlacement = 'docked' | 'floating' | 'popped';
 
-type PinMode = 'off' | 'top' | 'with-app';
+type PinMode = 'off' | 'top';
 
 interface WindowBounds {
   x: number;
@@ -89,8 +89,8 @@ interface WidgetProps {
   canPopOut?: boolean;
   mode?: 'in' | 'out';
   pin?: PinMode;
-  onTop?: boolean;
   onPinChange?: (mode: PinMode) => void;
+  titleBarActions?: ReactNode;
   square?: boolean;
 }
 

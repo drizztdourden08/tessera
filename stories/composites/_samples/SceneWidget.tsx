@@ -25,7 +25,6 @@ const SceneWidget = (props: SceneWidgetProps) => {
       opacity={panel.opacity}
       mode={panel.placement === 'popped' ? 'out' : 'in'}
       pin={panel.pin}
-      onTop={panel.pin !== 'off'}
       onPinChange={panel.onPinChange}
       canPopOut={canPopOut}
       onPopOut={panel.onPopOut}

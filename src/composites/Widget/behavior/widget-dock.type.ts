@@ -17,6 +17,7 @@ interface WidgetDockApi {
   definitionOf: (id: WidgetId) => WidgetDefinition | undefined;
   labelOf: (id: WidgetId) => string;
   contentOf: (id: WidgetId) => ReactNode;
+  actionsOf: (id: WidgetId) => ReactNode;
   disabledOf: (id: WidgetId) => WidgetDisabledState | null;
   canPopOut: (id: WidgetId) => boolean;
   change: (fn: LayoutUpdater) => void;

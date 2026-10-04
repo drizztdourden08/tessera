@@ -12,7 +12,7 @@ import type { DockApiParams, WidgetDockApi } from './widget-dock.type';
 
 const useDockApi = <D extends WidgetDefinition>(params: DockApiParams<D>): WidgetDockApi => {
   const { props, peek, options, setOptions, mainRef } = params;
-  const { definitions, layout, onLayoutChange, children, resolveDisabled, onOpenSettings, onPopOut } = props;
+  const { definitions, layout, onLayoutChange, children, resolveDisabled, onOpenSettings, onPopOut, widgetActions } = props;
   const latest = useRef(layout);
   latest.current = layout;
   const change = useCallback((fn: LayoutUpdater) => onLayoutChange(fn(latest.current)), [onLayoutChange]);
@@ -25,6 +25,7 @@ const useDockApi = <D extends WidgetDefinition>(params: DockApiParams<D>): Widge
       layout, peek, optionsId, definitionOf, canPopOut, change, onOpenSettings,
       labelOf: (id) => definitionOf(id)?.label ?? id,
       contentOf: (id) => children[id],
+      actionsOf: (id) => widgetActions?.(id),
       disabledOf: (id) => {
         const def = getWidgetDefinition(definitions, id);
         return def && resolveDisabled ? resolveDisabled(def) : null;
@@ -41,7 +42,7 @@ const useDockApi = <D extends WidgetDefinition>(params: DockApiParams<D>): Widge
       },
       toggleOptions: (id, anchor) => setOptions(optionsId === id ? null : { id, anchor }),
     };
-  }, [definitions, layout, peek, optionsId, change, children, resolveDisabled, onOpenSettings, onPopOut, setOptions, mainRef]);
+  }, [definitions, layout, peek, optionsId, change, children, resolveDisabled, onOpenSettings, onPopOut, widgetActions, setOptions, mainRef]);
 };
 
 export { useDockApi };

@@ -4,6 +4,7 @@ import { WidgetOptions } from '../../../src/composites';
 import { Box, Button, Text } from '../../../src/primitives';
 import { DemoWidget } from './DemoWidget';
 import { frameTabs } from './frame-tabs';
+import { useSpoilerAction } from './useSpoilerAction';
 import { useWidgetOptionsDemo } from './useWidgetOptionsDemo';
 
 type WidgetFrameDemoProps = {
@@ -13,14 +14,16 @@ type WidgetFrameDemoProps = {
   opacity: number;
   canPopOut: boolean;
   square?: boolean;
+  titleBarActions?: boolean;
   optionsOpen?: boolean;
 };
 
 const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
-  const { tabbed, mode, peek, opacity, canPopOut, square = false, optionsOpen = false } = props;
+  const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false, optionsOpen = false } = props;
   const [active, setActive] = useState('hints');
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [closed, setClosed] = useState(false);
+  const spoilers = useSpoilerAction(titleBarActions);
   const { panel, summary } = useWidgetOptionsDemo(mode === 'out' ? 'popped' : 'docked', opacity);
   const anchorRef = useMemo(() => ({ current: anchor }), [anchor]);
   const view = frameTabs(tabbed, active);
@@ -46,8 +49,9 @@ const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
         onActivateTab={setActive}
         onOpenOptions={(gear) => setAnchor(anchor ? null : gear)}
         onClose={() => setClosed(true)}
+        titleBarActions={spoilers.action}
       />
-      <Text className="story-label widget-story__summary">{`${view.label}: ${summary}`}</Text>
+      <Text className="story-label widget-story__summary">{`${view.label}: ${summary}${spoilers.note}`}</Text>
       {anchor && <WidgetOptions {...panel} title={view.label} canPopOut={canPopOut} anchorRef={anchorRef} onClose={() => setAnchor(null)} />}
     </Box>
   );

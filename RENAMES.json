@@ -550,6 +550,17 @@
           "scripts.ai": "scripts.guide"
         }
       }
+    },
+    {
+      "version": "next",
+      "propValues": {
+        "PinMode": {
+          "with-app": "off, with sync: true in the window options; the Sync with main window row does what with-app did (see MIGRATION.md section 88)"
+        }
+      },
+      "props": {
+        "Widget.onTop": "removed; the pin button lights up while pin is top (see MIGRATION.md section 88)"
+      }
     }
   ]
 }
