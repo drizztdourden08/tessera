@@ -113,11 +113,13 @@ const CODE = `import { SettingsSection } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'SettingsSection',
-  description: 'One section of a settings page, drawn from data. The title is large and underlined; with onReset a reset button sits at its end, faint until the heading is hovered, which asks once and says how many settings differ from their defaults. Under it come groups of rows: a group can have its own small uppercase title, and its rows sit in a sunken box with a divider between them. rows draws one untitled group, groups draws several. A row is SettingsRow data, or { id, content } for anything else. Rows next to each other that share a lock cause run together under one DisabledOverlay that says why. compact and readOnly reach every row. flash pulses a row, a group or the whole section, for a search that jumps to it. The section carries data-section and every row data-setting-key, so SettingsPage can follow the scroll and a search can find a row. Children, when given, fill one more box, a row each.',
+  description: 'One section of a settings page, drawn from data: a title, then groups of rows in sunken boxes.',
   points: [
-    'Stack sections one after another; each one after the first keeps its distance on its own.',
-    'filterSettingsSections(sections, query) keeps the rows that match, which is how the search results draw the same sections.',
-    'Pointing at part of an input swaps the description of that row for its hint in place, so the section never shifts under the pointer.',
+    '`rows` draws one untitled group and `groups` draws several; a row is [SettingsRow] data or `{ id, content }`.',
+    '`onReset` adds a reset button to the title that asks once and counts the changed settings.',
+    'Rows next to each other that share a `lock` sit under one [DisabledOverlay] that says why.',
+    '`compact` and `readOnly` reach every row; `flash` pulses a row, a group or the section.',
+    '`filterSettingsSections(sections, query)` keeps the matching rows, for search results.',
   ],
   playground: Playground,
   variants: [Audio, Compact, ReadOnly, Content],
