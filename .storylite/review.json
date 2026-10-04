@@ -7,7 +7,7 @@
     },
     "TesseraProvider": {
       "status": "ok",
-      "hash": "49116895e78f92fd",
+      "hash": "3a8fb138d8a4609b",
       "at": "2026-10-03"
     },
     "Building compounds": {
@@ -312,7 +312,7 @@
   "Core · Icons": {
     "Icon": {
       "status": "ok",
-      "hash": "596e707f725c7a40",
+      "hash": "c33625f6729c188e",
       "at": "2026-10-04"
     },
     "Brand icons": {
@@ -527,6 +527,14 @@
       "at": "2026-10-03"
     }
   },
+  "Primitives · Charts": {
+    "Sparkline": {
+      "status": "new"
+    },
+    "Gauge": {
+      "status": "new"
+    }
+  },
   "Primitives · Actions": {
     "Button": {
       "status": "ok",
@@ -572,7 +580,7 @@
     },
     "PasswordInput": {
       "status": "ok",
-      "hash": "c4e4ba41b379a3ae",
+      "hash": "0fdee324c4cf5875",
       "at": "2026-10-03"
     },
     "Textarea": {
@@ -716,7 +724,7 @@
     },
     "Stepper": {
       "status": "ok",
-      "hash": "7cebba3dd989c149",
+      "hash": "247d500d31e0dca4",
       "at": "2026-10-04"
     },
     "RouterLink": {
@@ -772,7 +780,7 @@
   "Composites · Wizard": {
     "Wizard": {
       "status": "ok",
-      "hash": "e689b320a9bfa858",
+      "hash": "53146472503f8522",
       "at": "2026-10-04"
     },
     "WizardStep": {
@@ -875,19 +883,19 @@
     },
     "SettingsRow": {
       "status": "ok",
-      "hash": "f544966160b4da13",
+      "hash": "b38d3a5a1530d80d",
       "at": "2026-10-04"
     }
   },
   "Composites · Menus": {
     "DropdownMenu": {
       "status": "seen",
-      "hash": "1292796ef931997d",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "CommandPalette": {
       "status": "ok",
-      "hash": "0c1b35b1c5f2259f",
+      "hash": "f39611fc35141058",
       "at": "2026-10-04"
     },
     "CommandPaletteRow": {
@@ -906,7 +914,7 @@
   "Composites · Inputs": {
     "DynamicInput": {
       "status": "ok",
-      "hash": "272f36eb9bc200a8",
+      "hash": "bfeb50339801d3e2",
       "at": "2026-10-04"
     },
     "VolumeControl": {
@@ -933,19 +941,19 @@
     },
     "RecordEditor": {
       "status": "ok",
-      "hash": "d3a07232793eca45",
+      "hash": "004567f049f66f8d",
       "at": "2026-10-03"
     }
   },
   "Composites · Data views": {
     "DataTable": {
       "status": "ok",
-      "hash": "b0d42f181dd1be9f",
+      "hash": "d126dc362a501ce9",
       "at": "2026-10-04"
     },
     "FilterBar": {
       "status": "ok",
-      "hash": "5bb52c320aae195e",
+      "hash": "2de27b0b88f8f0b3",
       "at": "2026-10-04"
     },
     "CompactRecordView": {
@@ -955,8 +963,16 @@
     },
     "Field kits": {
       "status": "ok",
-      "hash": "1655e0a3cd573f29",
+      "hash": "1fe6367f83708390",
       "at": "2026-10-03"
+    }
+  },
+  "Composites · Charts": {
+    "StatTile": {
+      "status": "new"
+    },
+    "StackedBar": {
+      "status": "new"
     }
   },
   "Composites · Content": {
@@ -1005,30 +1021,30 @@
   },
   "Composites · Widgets": {
     "DockLayout": {
-      "status": "ok",
-      "hash": "1e44f6e048d8d521",
-      "at": "2026-10-03"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "Widget": {
-      "status": "ok",
-      "hash": "9d9400f403e86eff",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "WidgetOptions": {
-      "status": "ok",
-      "hash": "718e86f2537c672d",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "WindowGuideOverlay": {
-      "status": "ok",
-      "hash": "c5163cdc011129e2",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     }
   },
   "Composites · Windows": {
     "WindowTitleBar": {
-      "status": "ok",
-      "hash": "01cc89726da9f85f",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "WindowHeader": {
@@ -1077,7 +1093,7 @@
   "Data": {
     "Engine": {
       "status": "ok",
-      "hash": "e79c32e269d6a99e",
+      "hash": "e6946075e485af17",
       "at": "2026-10-04"
     }
   }
