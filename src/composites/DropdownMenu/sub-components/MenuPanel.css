@@ -16,6 +16,19 @@
   font-size: var(--text-sm);
 }
 
+.dropdown__menu .dropdown__mark--off {
+  color: var(--c-text-faint);
+}
+
+.dropdown__radio-ring {
+  display: inline-grid;
+  place-items: center;
+  width: var(--size-12);
+  height: var(--size-12);
+  border: var(--border-width-thin) solid currentcolor;
+  border-radius: var(--radius-pill);
+}
+
 .dropdown__radio-dot {
   width: var(--size-6);
   height: var(--size-6);

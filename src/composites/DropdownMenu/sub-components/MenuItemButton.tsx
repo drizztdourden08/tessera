@@ -8,7 +8,6 @@ import { itemKind } from '../behavior/item-kind';
 import { MenuContext } from '../behavior/menu-context';
 import { menuShortcutKeys } from '../behavior/menu-shortcut-keys';
 import { MenuItemBody } from './MenuItemBody';
-import { MenuMark } from './MenuMark';
 import type { MenuItemButtonProps } from './MenuItemButton.type';
 
 const MenuItemButton = (props: MenuItemButtonProps) => {
@@ -36,7 +35,6 @@ const MenuItemButton = (props: MenuItemButtonProps) => {
         item={item}
         query={query}
         path={path}
-        mark={<MenuMark kind={kind} checked={item.checked === true} />}
         end={keys && <Shortcut keys={keys} className="dropdown__shortcut" aria-hidden="true" />}
       />
     </Pressable>

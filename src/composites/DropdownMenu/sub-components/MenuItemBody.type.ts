@@ -4,7 +4,6 @@ import type { MenuItem } from '../DropdownMenu.type';
 
 interface MenuItemBodyProps {
   item: MenuItem;
-  mark?: ReactNode;
   end?: ReactNode;
   query?: string;
   path?: readonly string[];

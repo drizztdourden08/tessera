@@ -8,10 +8,12 @@ import type { MenuMarkProps } from './MenuMark.type';
 const MenuMark = (props: MenuMarkProps) => {
   const { kind, checked } = props;
   const { marks } = useContext(MenuColumnsContext);
-  if (kind === 'action' && !marks) return null;
+  if (!marks) return null;
+  const state = kind !== 'action' && !checked ? ' dropdown__mark--off' : '';
   return (
-    <Span className={`dropdown__mark dropdown__mark--${kind}`} aria-hidden="true">
-      {checked && (kind === 'check' ? <Glyph name="check" /> : <Span className="dropdown__radio-dot" />)}
+    <Span className={`dropdown__mark dropdown__mark--${kind}${state}`} aria-hidden="true">
+      {kind === 'check' && <Glyph name="check" />}
+      {kind === 'radio' && <Span className="dropdown__radio-ring">{checked && <Span className="dropdown__radio-dot" />}</Span>}
     </Span>
   );
 };

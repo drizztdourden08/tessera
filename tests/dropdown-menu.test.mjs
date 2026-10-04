@@ -6,8 +6,6 @@ import { DropdownMenu } from '../src/composites/DropdownMenu';
 import { menuShortcutKeys } from '../src/composites/DropdownMenu/behavior/menu-shortcut-keys';
 import { menuMatches } from '../src/composites/DropdownMenu/behavior/menu-matches';
 import { nodeRuns } from '../src/composites/DropdownMenu/behavior/node-runs';
-import { safeAreaStyle } from '../src/composites/DropdownMenu/behavior/safe-area-style';
-import { subMenuJoin } from '../src/composites/DropdownMenu/behavior/sub-menu-join';
 import { mascotFor } from '../src/brand/ChosenMascot/behavior/mascot-for';
 import { tidyGroups } from '../src/composites/DropdownMenu/behavior/tidy-groups';
 import { tidyNodes } from '../src/composites/DropdownMenu/behavior/tidy-nodes';
@@ -89,8 +87,22 @@ describe('DropdownMenu', () => {
     const radios = [{ id: 'a', label: 'A', kind: 'radio', checked: true }, { id: 'b', label: 'B', kind: 'radio', checked: false }];
     const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'g', items: [item('plain'), ...radios] }] }));
     expect(html.match(/role="menuitemradio"/g)).toHaveLength(2);
-    expect(html).toContain('dropdown__radio-dot');
-    expect(html.match(/dropdown__mark /g)).toHaveLength(3);
+    expect(html.match(/dropdown__radio-ring/g)).toHaveLength(2);
+    expect(html.match(/dropdown__radio-dot/g)).toHaveLength(1);
+    expect(html.match(/dropdown__mark dropdown__mark--radio dropdown__mark--off/g)).toHaveLength(1);
+    expect(html.match(/class="[^"]*dropdown__mark /g)).toHaveLength(3);
+  });
+
+  it('gives every item the mark and icon slots, sub-menu rows too, and shows a dim check on an unchecked item', () => {
+    const view = [
+      { id: 'pin', icon: 'pin', label: 'Pin', checked: false },
+      { id: 'full', icon: 'maximize-2', label: 'Fullscreen' },
+      { id: 'group', label: 'Group', children: [{ id: 'none', label: 'None', kind: 'radio', checked: true }] },
+    ];
+    const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'view', items: view }] }));
+    expect(html.match(/class="[^"]*dropdown__mark /g)).toHaveLength(3);
+    expect(html.match(/class="[^"]*dropdown__icon"/g)).toHaveLength(3);
+    expect(html).toMatch(/dropdown__mark--check dropdown__mark--off"[^>]*><svg/);
   });
 });
 
@@ -115,66 +127,6 @@ describe('menuMatches', () => {
   it('needs every word and returns nothing for an empty query', () => {
     expect(menuMatches(groups, 'json export')).toHaveLength(1);
     expect(menuMatches(groups, '  ')).toEqual([]);
-  });
-});
-
-describe('subMenuJoin', () => {
-  const corners = { topLeft: 6, topRight: 6, bottomLeft: 6, bottomRight: 6 };
-  const base = {
-    row: { top: 130, bottom: 160, left: 11, right: 209 },
-    parent: { top: 100, bottom: 400, left: 10, right: 210 },
-    parentCorners: corners,
-    width: 150, height: 100, lead: 5, line: 1, ring: 2, radius: 6, gap: 6, viewWidth: 1000, viewHeight: 800,
-  };
-  const full = { corner: 6, fillet: 3 };
-
-  it('sets the sub-menu a gap away with its first item on the row, and runs the tunnel along the row', () => {
-    const join = subMenuJoin(base);
-    expect(join).toMatchObject({ side: 'right', left: 216, top: 125, edgeOffset: 7, tunnelTop: 5, tunnelBottom: 35 });
-    expect(join.parentEnds).toEqual({ top: full, bottom: full });
-    expect(join.ownEnds.bottom).toEqual(full);
-  });
-
-  it('shares the room between a corner and its fillet when the row sits near a menu end', () => {
-    const near = subMenuJoin(base).ownEnds.top;
-    expect(near.corner).toBeCloseTo(8 / 3);
-    expect(near.fillet).toBeCloseTo(4 / 3);
-    expect(subMenuJoin({ ...base, parent: { ...base.parent, top: 125 } }).parentEnds.top.fillet).toBeCloseTo(4 / 3);
-    expect(subMenuJoin({ ...base, parent: { ...base.parent, top: 129 } }).parentEnds.top).toEqual({ corner: 0, fillet: 0 });
-  });
-
-  it('moves up to stay on screen and keeps the tunnel on the row', () => {
-    const join = subMenuJoin({ ...base, viewHeight: 200 });
-    expect(join).toMatchObject({ top: 92, tunnelTop: 38, tunnelBottom: 68 });
-    expect(join.ownEnds).toEqual({ top: full, bottom: full });
-  });
-
-  it('opens on the left without room on the right', () => {
-    const nearEdge = { ...base, row: { ...base.row, left: 401, right: 599 }, parent: { ...base.parent, left: 400, right: 600 }, viewWidth: 700 };
-    expect(subMenuJoin(nearEdge)).toMatchObject({ side: 'left', left: 244, edgeOffset: 7 });
-  });
-});
-
-describe('safeAreaStyle', () => {
-  const join = subMenuJoin({
-    row: { top: 130, bottom: 160, left: 11, right: 209 },
-    parent: { top: 100, bottom: 400, left: 10, right: 210 },
-    parentCorners: { topLeft: 6, topRight: 6, bottomLeft: 6, bottomRight: 6 },
-    width: 150, height: 100, lead: 5, line: 1, ring: 2, radius: 6, gap: 6, viewWidth: 1000, viewHeight: 800,
-  });
-
-  const row = { top: 5, bottom: 35, edge: -7 };
-
-  it('spans from the pointer to the sub-menu edge and leaves the row itself to the row', () => {
-    expect(safeAreaStyle(join, row, -50, 20)).toEqual({
-      left: '-50px', top: '0px', width: '50px', height: '100px',
-      clipPath: 'polygon(37.5px 5px, 50px 0px, 50px 100px, 9.38px 35px, 43px 35px, 43px 5px)',
-    });
-  });
-
-  it('is a plain triangle from the tunnel, and is gone once the pointer is over the sub-menu', () => {
-    expect(safeAreaStyle(join, row, -4, 20)).toMatchObject({ left: '-4px', clipPath: 'polygon(0px 20px, 4px 0px, 4px 100px)' });
-    expect(safeAreaStyle(join, row, 2, 20)).toBeNull();
   });
 });
 

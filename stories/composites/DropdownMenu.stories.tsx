@@ -11,6 +11,7 @@ import type { StateProps } from '../_template/states/states.type';
 import { buildTitleMenu } from './_samples/data-title-menu';
 import { CATEGORY_MENU, EDIT_MENU, NESTED_MENU, SUBTITLE_MENU } from './_samples/data-menu-features';
 import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
+import { JoinDemos, MarksDemo } from './_samples/menu-join-demos';
 import type { MenuDemoArgs } from './_samples/menu-demos';
 
 const VARIANTS: readonly MenuVariant[] = ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'info', 'success', 'ghost'];
@@ -121,6 +122,10 @@ const SubMenus = {
   ),
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const Joins = { name: 'Where a sub-menu opens', render: () => <JoinDemos /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
+const Marks = { name: 'Checks, plain items and a radio sub-menu', render: () => <MarksDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const renderState = (props: StateProps) => (
   <DropdownMenu
     inline
@@ -167,7 +172,7 @@ const Overview = overviewStory({
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, Inside, Commands, SubMenus],
+  variants: [Variants, Triggers, Inside, Commands, Marks, SubMenus, Joins],
   states: {
     render: renderState,
     list: [
@@ -182,4 +187,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Inside, Overview, Playground, SubMenus, Triggers, Variants };
+export { Commands, Inside, Joins, Marks, Overview, Playground, SubMenus, Triggers, Variants };

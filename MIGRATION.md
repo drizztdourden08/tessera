@@ -2612,3 +2612,17 @@ With `mascot="auto"`, `ChosenMascot` (and so `CommandPalette`) used to fall back
 ### What an app does
 
 An app that wants a mascot whatever its brand names one: `mascot="sentri"`, or `mascot={mascotForBrand(brand) ?? 'sentri'}`. An app that kept its own brand to mascot table can drop it for `mascotForBrand`.
+
+## 102. A sub-menu lines up with its parent's top or bottom, and every item keeps the mark and icon columns
+
+A DropdownMenu sub-menu now opens level with its parent menu. Its top edge sits on the parent's top edge when it still reaches the open row and fits on screen; otherwise its bottom edge sits on the parent's bottom edge. The tunnel then runs from that edge down or up to the open row, so both menus share one straight edge with square corners on that side, and only the other side keeps its curve. A sub-menu that falls short of the row by less than one curve grows by that much to line up. Only when neither end lines up does it sit on the row with its first item level with the row, curved on both sides as before. It still opens on the left without room on the right.
+
+Before, a sub-menu opened from the first row stood 4 px below the parent's top with a small curve on each side, so the top edge stepped. The tunnel's straight edges now draw over both menus' borders, so the join stays flush at 100, 125 and 150 % zoom without a seam at the corners.
+
+Every item in a panel keeps the same columns: the mark, the icon, the label, then the shortcut or the sub-menu chevron. A sub-menu row now reserves the mark column like the other items, so its icon lines up with a checkable item's icon. A checkable item shows a dim check while it is off, and every radio item shows a ring, with a dot in the selected one. Each panel reserves the mark and icon columns on its own, as soon as one of its items uses them.
+
+New classes: `dropdown__tunnel-edge` draws the tunnel's straight edges, `dropdown__radio-ring` holds the radio dot, and `dropdown__mark--off` marks a check that is off or a radio that is not selected. The sub-menu carries `data-join-align` set to `top`, `bottom` or `middle`, and the tunnel body takes `--tunnel-lit-top` and `--tunnel-lit-height` for the open row's highlight.
+
+### What an app does
+
+Nothing. A style that drew the tunnel's edges through `dropdown__tunnel-body` targets `dropdown__tunnel-edge`.

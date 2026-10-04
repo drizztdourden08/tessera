@@ -29,6 +29,7 @@ const SubMenuPanel = (props: SubMenuPanelProps) => {
       fallback={join && !native ? { top: join.top, left: join.left } : null}
       className="dropdown-menu dropdown-menu--sub dropdown-surface"
       data-join-side={join?.side}
+      data-join-align={join?.align}
       style={join ? joinStyle(join, native) : undefined}
     >
       <SubMenuJoinPieces join={join} areaRef={areaRef} bodyRef={bodyRef} />
