@@ -2462,3 +2462,36 @@ Every Overview page in the Composites groups Data views, Lists, Settings, Layout
 ### What an app does
 
 Nothing. This changes the gallery only.
+
+## 97. ContentHeader: the page header is its own component
+
+The header every screen page shows (an icon and a title over a fading backdrop, a strip after the title and actions at the end) is now `ContentHeader`, so any container can carry it: a card, a panel or a page. ScreenPage, every screen kind and SettingsPage draw it, and they look the same as before.
+
+```tsx
+<ContentHeader
+  icon={<Icon name="settings" />}
+  title="General"
+  strip={<HeaderAnchorNav items={sections} activeId={section} onSelect={setSection} ariaLabel="General sections" />}
+  actions={<Button size="sm">Reset</Button>}
+/>
+```
+
+- `backdrop`: leave it out for the default art, pass a scene of your own, or `null` for a plain header.
+- `compact`: the slim row ScreenPage switches to once its body scrolls.
+- `level`: the heading tag of the title, 1 to 4, `h2` by default. `titleId` sets the title's id, so the container can name itself after it with `aria-labelledby`.
+- `live`: a screen reader reads each new title.
+
+### What an app does
+
+Nothing, unless a host stylesheet styles the header through its classes. The classes move from ScreenPage to ContentHeader, and the compact modifier moves from the page to the header:
+
+| Was | Now |
+|---|---|
+| `screen-page__head` | `content-header` |
+| `screen-page__backdrop` | `content-header__backdrop` |
+| `screen-page__art` | `content-header__art` |
+| `screen-page__icon` | `content-header__icon` |
+| `screen-page__title` | `content-header__title` |
+| `screen-page__actions` | `content-header__actions` |
+| `.screen-page--compact` on the page | `.content-header--compact` on the header |
+| `--screen-page-head-h`, `--screen-page-head-h-compact` | `--content-header-h`, `--content-header-h-compact` |

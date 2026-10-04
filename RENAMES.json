@@ -492,21 +492,21 @@
         "field-picker__empty": "removed with FieldPicker (see MIGRATION.md section 76)",
         "field-picker": "removed with FieldPicker (see MIGRATION.md section 76)",
         "settings-page__body--fixed": "screen-page__body--fixed",
-        "settings-page__backdrop": "screen-page__backdrop",
-        "settings-page__actions": "screen-page__actions",
-        "settings-page--compact": "screen-page--compact",
-        "settings-page__title": "screen-page__title",
-        "settings-page__head": "screen-page__head",
-        "settings-page__icon": "screen-page__icon",
+        "settings-page__backdrop": "content-header__backdrop",
+        "settings-page__actions": "content-header__actions",
+        "settings-page--compact": "content-header--compact",
+        "settings-page__title": "content-header__title",
+        "settings-page__head": "content-header",
+        "settings-page__icon": "content-header__icon",
         "settings-page__body": "screen-page__body",
-        "workspace-screen__backdrop": "screen-page__art",
+        "workspace-screen__backdrop": "content-header__art",
         "workspace-screen__plain": "removed; every page shows the page header (see MIGRATION.md section 80)",
         "utility-screen__footnote": "utility-screen__footer (the report button and the actions; see MIGRATION.md section 80)",
         "utility-screen__details": "removed; the children sit in utility-screen__column (see MIGRATION.md section 80)",
-        "utility-screen__status": "removed; the status is the page header, screen-page__head (see MIGRATION.md section 80)",
-        "utility-screen__title": "screen-page__title",
-        "utility-screen__mark": "screen-page__icon",
-        "stage-screen__bar": "removed; the toolbar and Done sit in the page header, screen-page__head (see MIGRATION.md section 80)",
+        "utility-screen__status": "removed; the status is the page header, content-header (see MIGRATION.md section 80)",
+        "utility-screen__title": "content-header__title",
+        "utility-screen__mark": "content-header__icon",
+        "stage-screen__bar": "removed; the toolbar and Done sit in the page header, content-header (see MIGRATION.md section 80)",
         "info-screen__scroll": "screen-page__body",
         "dropdown__join": "dropdown__tunnel",
         "dropdown__join-strip": "dropdown__tunnel-body (the tunnel bridges the gap at the open row; see MIGRATION.md section 82)",
@@ -529,8 +529,8 @@
         "SettingsSection.rows": "SettingsSection.rows (every settings row and content row needs a hint and a description or noDescription: true; see MIGRATION.md section 79)"
       },
       "cssCustomProperties": {
-        "--settings-page-head-h-compact": "--screen-page-head-h-compact",
-        "--settings-page-head-h": "--screen-page-head-h"
+        "--settings-page-head-h-compact": "--content-header-h-compact",
+        "--settings-page-head-h": "--content-header-h"
       },
       "components": {
         "AiUsage": "GuideUsage"
@@ -563,6 +563,22 @@
       },
       "props": {
         "Widget.onTop": "removed; the pin button lights up while pin is top (see MIGRATION.md section 88)"
+      }
+    },
+    {
+      "version": "next",
+      "cssClasses": {
+        "screen-page__head": "content-header",
+        "screen-page__backdrop": "content-header__backdrop",
+        "screen-page__art": "content-header__art",
+        "screen-page__icon": "content-header__icon",
+        "screen-page__title": "content-header__title",
+        "screen-page__actions": "content-header__actions",
+        "screen-page--compact": "content-header--compact"
+      },
+      "cssCustomProperties": {
+        "--screen-page-head-h-compact": "--content-header-h-compact",
+        "--screen-page-head-h": "--content-header-h"
       }
     }
   ]

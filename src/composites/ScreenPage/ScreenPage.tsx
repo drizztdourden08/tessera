@@ -2,11 +2,10 @@
 import { useId, useRef } from 'react';
 import { Box } from '../../primitives/Box';
 import { ScrollArea } from '../../primitives/ScrollArea';
+import { ContentHeader } from '../ContentHeader';
 import { pageClasses } from './behavior/page-classes';
 import { useCompactOnScroll } from './behavior/useCompactOnScroll';
 import { useHeaderCheck } from './behavior/useHeaderCheck';
-import { ScreenBackdrop } from './sub-components/ScreenBackdrop';
-import { ScreenPageHead } from './sub-components/ScreenPageHead';
 import type { ScreenPageProps } from './ScreenPage.type';
 import '../../theme/page-card.css';
 import './ScreenPage.css';
@@ -18,11 +17,11 @@ const ScreenPage = (props: ScreenPageProps) => {
   const ref = bodyRef ?? ownRef;
   const scrolled = useCompactOnScroll(ref);
   useHeaderCheck(icon, title);
-  const classes = pageClasses({ compact: compact ?? scrolled, scroll, className, bodyClassName });
+  const classes = pageClasses({ scroll, className, bodyClassName });
 
   return (
     <Box as="section" className={classes.root} aria-labelledby={titleId}>
-      <ScreenPageHead icon={icon} title={title} titleId={titleId} backdrop={backdrop === undefined ? <ScreenBackdrop /> : backdrop} strip={strip} actions={actions} live={live} />
+      <ContentHeader icon={icon} title={title} titleId={titleId} backdrop={backdrop} strip={strip} actions={actions} live={live} compact={compact ?? scrolled} />
       {scroll
         ? <ScrollArea ref={ref} className={classes.body}>{children}</ScrollArea>
         : <Box ref={ref} className={classes.body}>{children}</Box>}

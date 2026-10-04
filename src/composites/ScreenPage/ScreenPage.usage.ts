@@ -13,6 +13,7 @@ const usage = {
     { case: 'The screen runs one short task with a status and actions.', use: 'UtilityScreen' },
     { case: 'The screen is one big custom surface.', use: 'StageScreen' },
     { case: 'The page holds settings with a pill per section.', use: 'SettingsPage' },
+    { case: 'Only the header, on a card or a panel of your own.', use: 'ContentHeader' },
   ],
   rules: [
     'Every screen kind renders it, and none of them can turn it off. A screen without the header is a custom screen built from ScreenWindow or ScreenLayer.',

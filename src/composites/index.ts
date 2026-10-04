@@ -156,3 +156,5 @@ export type {
   PatternSetup, PatternSlotCase, PatternSlotChars, PatternSlotConfig, PatternSlotConfigs, PatternSlotControl, PatternSlotSpec,
   PatternSlotType, PatternSlotValue, PatternValue,
 } from './DynamicInput';
+export { ContentHeader } from './ContentHeader';
+export type { ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';

@@ -84,7 +84,7 @@ const SettingsHub = ({ volume, setVolume, onClose }: HubProps) => {
 - `activeId` (optional): `string`.
 - `defaultActiveId` (optional): `string`.
 - `onActiveChange` (optional): `(id: string) => void`.
-- `backdrop` (optional): `ReactNode`. Default `<ScreenBackdrop />`.
+- `backdrop` (optional): `ReactNode`.
 - `search` (optional): `WorkspaceSearch | false`.
 - `narrow` (optional): `boolean`.
 - `subtitle` (optional): `ReactNode`.

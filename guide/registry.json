@@ -299,6 +299,11 @@
           "panels the user docks and moves": {
             "components": []
           },
+          "a header with an icon and a title over a block": {
+            "components": [
+              "ContentHeader"
+            ]
+          },
           "a settings screen": {
             "question": "Which part of it?",
             "answers": {
@@ -1305,6 +1310,150 @@
       "usage": false
     },
     {
+      "name": "ContentHeader",
+      "tier": "composites",
+      "source": "src/composites/ContentHeader/ContentHeader.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end.",
+      "useWhen": [
+        "A card, a panel or a page needs a header that names it, with an icon and a title.",
+        "Section pills or a status sit right after the title, and a few buttons at the end."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A small heading row inside a panel, with a subtitle and one action.",
+          "use": "SectionHeader"
+        },
+        {
+          "case": "The title bar of a window, dialog or drawer, with a close button.",
+          "use": "WindowHeader"
+        },
+        {
+          "case": "A whole page with a header over a body that scrolls.",
+          "use": "ScreenPage"
+        }
+      ],
+      "rules": [
+        "Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header.",
+        "Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.",
+        "Set compact once the content under it scrolls; it shrinks to a slim row.",
+        "level sets the heading tag, h2 by default; pick the level that fits the page outline."
+      ],
+      "a11y": [
+        "The title is a real heading; pass titleId to name the container with aria-labelledby.",
+        "With live, a screen reader reads each new title, as a status does.",
+        "The icon is hidden from screen readers; the title carries the name."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a header with an icon and a title over a block"
+        ],
+        "rule": "ContentHeader is the header with an icon, a title and a backdrop that any container can carry."
+      },
+      "example": "import { ContentHeader, HeaderAnchorNav, Icon } from '@drizztdourden08/tessera';\n\nconst GeneralHeader = ({ section, onSection }: { section: string; onSection: (id: string) => void }) => (\n  <ContentHeader\n    icon={<Icon name=\"settings\" />}\n    title=\"General\"\n    strip={<HeaderAnchorNav items={[{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }]} activeId={section} onSelect={onSection} ariaLabel=\"General sections\" />}\n  />\n);\n",
+      "propsHash": "6be8fa77225629f3",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "backdrop",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "strip",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "compact",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "level",
+            "optional": true,
+            "text": "ContentHeaderLevel",
+            "literals": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "default": "2"
+          },
+          {
+            "name": "titleId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "live",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--blur-glow",
+        "--border-width-thin",
+        "--c-border",
+        "--c-layer",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-dim",
+        "--c-secondary",
+        "--c-text",
+        "--size-40",
+        "--size-64",
+        "--space-md",
+        "--space-xl",
+        "--space-xs",
+        "--text-2xl",
+        "--text-lg",
+        "--text-xl",
+        "--transition-fast",
+        "--weight-bold"
+      ],
+      "gallery": {
+        "title": "Composites · Layout/ContentHeader",
+        "route": "#/story/composites-contentheader--overview",
+        "file": "stories/composites/ContentHeader.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "CreateRecordDialog",
       "tier": "composites",
       "source": "src/composites/CreateRecordDialog/CreateRecordDialog.tsx",
@@ -1858,6 +2007,10 @@
         {
           "case": "The page holds settings with a pill per section.",
           "use": "SettingsPage"
+        },
+        {
+          "case": "Only the header, on a card or a panel of your own.",
+          "use": "ContentHeader"
         }
       ],
       "rules": [
@@ -1953,28 +2106,13 @@
       },
       "tokens": [
         "--blur",
-        "--blur-glow",
         "--border-width-thin",
         "--c-border",
         "--c-hairline",
-        "--c-layer",
         "--c-panel",
-        "--c-primary",
-        "--c-primary-bright",
-        "--c-primary-dim",
-        "--c-secondary",
-        "--c-text",
         "--radius-xl",
-        "--size-40",
-        "--size-64",
         "--space-md",
-        "--space-xl",
-        "--space-xs",
-        "--text-2xl",
-        "--text-lg",
-        "--text-xl",
-        "--transition-fast",
-        "--weight-bold"
+        "--space-xl"
       ],
       "gallery": {
         "title": "Composites · Screens/ScreenPage",
@@ -2709,8 +2847,7 @@
           {
             "name": "backdrop",
             "optional": true,
-            "text": "ReactNode",
-            "default": "<ScreenBackdrop />"
+            "text": "ReactNode"
           },
           {
             "name": "search",

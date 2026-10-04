@@ -47,6 +47,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
         { name: 'MasterDetailLayout', summary: 'A list beside the detail of the selected item.' },
         { name: 'SideNavLayout', summary: 'A side nav beside a content pane; its search shows results in the pane.' },
+        { name: 'ContentHeader', summary: 'Write the one job of ContentHeader in one sentence.' },
       ],
     },
     {

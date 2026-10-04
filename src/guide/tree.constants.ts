@@ -94,6 +94,7 @@ const LAYOUT = {
     'one item in the centre': null, 'one raised item': null, 'empty space': null, 'a line between sections': null,
     'content that scrolls': null, 'a list beside its detail': null, 'two panes the user resizes': null,
     'an app frame with its navigation': null, 'panels the user docks and moves': null,
+    'a header with an icon and a title over a block': null,
     'a settings screen': {
       question: 'Which part of it?',
       answers: { 'the whole page': null, 'one section of rows': null, 'a list of groups': null },

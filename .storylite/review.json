@@ -28,8 +28,8 @@
   },
   "Core · Brand": {
     "Brand": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "dd119d60a23a909b",
       "at": "2026-10-04"
     },
     "InteractiveTessera": {
@@ -38,18 +38,18 @@
       "at": "2026-10-01"
     },
     "Logo": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "7cf52a61c2e79a57",
       "at": "2026-10-04"
     },
     "WordMark": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "1b9beb3e77ce5c46",
       "at": "2026-10-04"
     },
     "Combined": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "e172ca8f65bc3c12",
       "at": "2026-10-04"
     },
     "Mascot": {
@@ -326,8 +326,8 @@
       "at": "2026-10-03"
     },
     "InputIcon": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "1b93f14455415e68",
       "at": "2026-10-04"
     },
     "PathIcon": {
@@ -715,8 +715,8 @@
       "at": "2026-10-03"
     },
     "Stepper": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "7cebba3dd989c149",
       "at": "2026-10-04"
     },
     "RouterLink": {
@@ -764,7 +764,9 @@
       "at": "2026-10-03"
     },
     "DisabledOverlay": {
-      "status": "new"
+      "status": "ok",
+      "hash": "94d3e4665dd0b17b",
+      "at": "2026-10-04"
     }
   },
   "Composites · Wizard": {
@@ -826,6 +828,9 @@
       "status": "seen",
       "hash": "flagged",
       "at": "2026-10-04"
+    },
+    "ContentHeader": {
+      "status": "new"
     }
   },
   "Composites · Lists": {
@@ -857,18 +862,18 @@
   },
   "Composites · Settings": {
     "SettingsPage": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "077299d1a594e528",
       "at": "2026-10-04"
     },
     "SettingsSection": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "5f8c2f33f2aa49b2",
       "at": "2026-10-04"
     },
     "SettingsRow": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "f544966160b4da13",
       "at": "2026-10-04"
     }
   },

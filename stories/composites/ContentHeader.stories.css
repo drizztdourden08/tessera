@@ -1,0 +1,18 @@
+/* @layer stories @kind style */
+.content-header-story__strip {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-overlay);
+}
+
+.content-header-story__card {
+  max-width: var(--size-448);
+  padding: 0;
+  overflow: hidden;
+}
+
+.content-header-story__body {
+  padding: var(--space-lg) var(--space-xl);
+}

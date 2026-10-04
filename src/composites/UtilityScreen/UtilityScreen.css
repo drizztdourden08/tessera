@@ -13,7 +13,7 @@
 .utility-screen--warning { --utility-tone: var(--c-warning); }
 .utility-screen--danger { --utility-tone: var(--c-danger); }
 
-.utility-screen:is(.utility-screen--success, .utility-screen--warning, .utility-screen--danger) .screen-page__icon {
+.utility-screen:is(.utility-screen--success, .utility-screen--warning, .utility-screen--danger) .content-header__icon {
   color: var(--utility-tone);
   filter: drop-shadow(0 0 var(--blur-glow) var(--utility-tone));
 }

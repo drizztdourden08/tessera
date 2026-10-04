@@ -26,6 +26,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - The screen runs one short task with a status and actions. Use [UtilityScreen](UtilityScreen.md) instead.
 - The screen is one big custom surface. Use [StageScreen](StageScreen.md) instead.
 - The page holds settings with a pill per section. Use `SettingsPage` instead.
+- Only the header, on a card or a panel of your own. Use [ContentHeader](ContentHeader.md) instead.
 
 ## Rules
 
@@ -73,4 +74,4 @@ const SessionsScreen = ({ onClose }: { onClose: () => void }) => (
 
 ## Tokens
 
-It draws on `--blur`, `--blur-glow`, `--border-width-thin`, `--c-border`, `--c-hairline`, `--c-layer`, `--c-panel`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-secondary`, `--c-text`, `--radius-xl`, `--size-40`, `--size-64`, `--space-md`, `--space-xl`, `--space-xs`, `--text-2xl`, `--text-lg`, `--text-xl`, `--transition-fast`, `--weight-bold`.
+It draws on `--blur`, `--border-width-thin`, `--c-border`, `--c-hairline`, `--c-panel`, `--radius-xl`, `--space-md`, `--space-xl`.

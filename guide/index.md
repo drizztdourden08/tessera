@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 7 of 145 have their usage written; a linked name opens its page.
+One line per component. 8 of 146 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -88,6 +88,7 @@ One line per component. 7 of 145 have their usage written; a linked name opens i
 - `CommandPalette`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `CompactRecordView`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ContentHeader](components/ContentHeader.md): The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end. Import from `@drizztdourden08/tessera`.
 - `CreateRecordDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DataTable`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DeleteGuardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.

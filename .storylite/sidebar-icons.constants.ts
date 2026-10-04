@@ -77,7 +77,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
   'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend' },
-  'Composites · Layout': { SplitPane: 'columns-2', MasterDetailLayout: 'layout-list', SideNavLayout: 'layout-template' },
+  'Composites · Layout': { SplitPane: 'columns-2', MasterDetailLayout: 'layout-list', SideNavLayout: 'layout-template', ContentHeader: 'panel-top' },
   'Composites · Lists': {
     ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
     SearchResultHit: 'mouse-pointer-click',

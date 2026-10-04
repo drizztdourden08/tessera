@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind component */
 import { useHeaderOptOutCheck } from '../ScreenPage/behavior/useHeaderOptOutCheck';
-import { ScreenBackdrop } from '../ScreenPage/sub-components/ScreenBackdrop';
 import { ScreenWindow } from '../ScreenWindow';
 import { SideNavLayout } from '../SideNavLayout';
 import { useWorkspace } from './behavior/useWorkspace';
@@ -10,7 +9,7 @@ import type { WorkspaceScreenProps } from './WorkspaceScreen.type';
 import './WorkspaceScreen.css';
 
 const WorkspaceScreen = (props: WorkspaceScreenProps) => {
-  const { title, onClose, backdrop = <ScreenBackdrop />, search, narrow, compactRows, readOnly, renderLock, subtitle, extra, floating, hidden, className } = props;
+  const { title, onClose, backdrop, search, narrow, compactRows, readOnly, renderLock, subtitle, extra, floating, hidden, className } = props;
   const { pages, page, config, query, navSearch, flash, open } = useWorkspace(props);
   const look = { compactRows, readOnly, renderLock };
   useHeaderOptOutCheck('WorkspaceScreen', props);

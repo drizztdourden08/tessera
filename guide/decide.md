@@ -88,6 +88,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Two panes the user resizes: no component yet.
   - An app frame with its navigation: no component yet.
   - Panels the user docks and moves: no component yet.
+  - A header with an icon and a title over a block: [ContentHeader](components/ContentHeader.md). ContentHeader is the header with an icon, a title and a backdrop that any container can carry.
   - A settings screen. **Which part of it?**
     - The whole page: no component yet.
     - One section of rows: no component yet.
