@@ -70,7 +70,13 @@ const InCards = {
 
 const Overview = overviewStory({
   component: 'TermList',
-  description: 'A short list of terms and what they mean, one entry per line. Use it for keyboard shortcuts, modes or any key and its meaning. Each term leads in gold with its colon, and the detail follows in the surrounding text colour. It is a real definition list, and it takes its size and colour from the parent.',
+  description: 'A short list of terms and what they mean, one entry per line, such as keyboard shortcuts or modes.',
+  points: [
+    'Pass `items`, each a `term` and its `detail`.',
+    'Each term leads in gold with its colon, and the detail follows in the text colour.',
+    'It is a real definition list, and it takes its size and colour from its parent.',
+  ],
+  instead: '[StatRow] for a label and a value lined up on both edges.',
   playground: Playground,
   variants: [InCards],
 });

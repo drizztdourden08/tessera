@@ -155,7 +155,13 @@ const ChecksChart = () => {
 
 const Overview = overviewStory({
   component: 'Canvas',
-  description: 'The plain canvas element, for anything drawn by code: a chart, a sprite, a minimap. It forwards a ref and every canvas attribute, and adds no styles, so the bitmap size comes from width and height and the shown size from CSS. Give it a role and a label when the drawing carries meaning.',
+  description: 'The plain canvas element, for anything drawn by code, such as a chart, a sprite or a minimap.',
+  points: [
+    'It forwards a ref and every canvas attribute, and adds no styles.',
+    '**Two sizes:** `width` and `height` set the bitmap, and CSS sets the size on screen.',
+    'Give it a `role` and a label when the drawing carries meaning.',
+  ],
+  instead: '[Svg] for a drawing made of shapes that scale and stay sharp.',
   playground: Playground,
   variants: [PixelArt],
   code: CODE,

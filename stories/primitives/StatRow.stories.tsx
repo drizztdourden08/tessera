@@ -55,7 +55,13 @@ const SessionDetails = {
 
 const Overview = overviewStory({
   component: 'StatRow',
-  description: 'One line of a readout: a label on the left and its value on the right. Stack a few of them in a card for session details, stats or settings at a glance. The value can be text or any node, such as a Status. Set mono for addresses, ids and coordinates, so the value draws in a monospace font.',
+  description: 'One line of a readout, with a label on the left and its value on the right.',
+  points: [
+    'Stack a few in a [Card] for session details, stats or settings at a glance.',
+    '`value` can be text or any node, such as a [Status].',
+    '`mono` draws the value in a monospace font, for addresses, ids and coordinates.',
+  ],
+  instead: '[TermList] for terms and what they mean.',
   playground: Playground,
   variants: [SessionDetails],
 });

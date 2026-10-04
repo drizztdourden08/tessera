@@ -130,7 +130,14 @@ const { marks } = formatValueRule('every 25 | {v}%', { min: 0, max: 100, step: 5
 
 const Overview = overviewStory({
   component: 'ScaleLabels',
-  description: 'Labels along a scale, with a tick above each, from one labels field. Slider draws its labels with it, and a ProgressBar or a StickPlot axis can too. labels takes a value rule (a short text that says where the labels go and how each reads, such as "every 0.5 | {v}x"), a list of [value, label] pairs, or a function from value to label. min, max, step, stops and formatValue describe the scale; orientation lays it out across or up; highlight brightens a span; and thin hides labels that would overlap, keeping an even stride and both ends. The rule engine is also exported on its own: parseValueRule reads a rule into a structure or a clear error, formatValueRule turns a rule and a scale into marks, each a value and its text, and thinLabels picks which of a row of measured labels fit. A rule that does not read warns once in development and draws nothing.',
+  description: 'Labels along a scale, with a tick above each, built from one `labels` field.',
+  points: [
+    '[Slider] draws its labels with it, and a [ProgressBar] axis can too.',
+    '`labels` takes a rule such as `every 0.5 | {v}x`, a list of value and label pairs, or a function.',
+    '`min`, `max`, `step` and `stops` describe the scale; `orientation` lays it out across or up.',
+    '`thin` hides labels that would overlap, keeping an even stride and both ends.',
+    '**A rule that does not read draws nothing** and warns once in development.',
+  ],
   playground: Playground,
   variants: [Syntax, Rules, Sources, Orientation, Thinning],
   code: CODE,

@@ -104,7 +104,13 @@ const Elements = {
 
 const Overview = overviewStory({
   component: 'Svg',
-  description: 'Inline SVG for drawings computed at run time: plots, gizmos, minimaps. Reach for it when a static Icon glyph cannot show the shape. Svg is the root element, and SvgGroup, SvgRect, SvgCircle, SvgLine, SvgPolygon, SvgPath and SvgText draw inside it. Each one passes every SVG attribute straight through and adds no style of its own.',
+  description: 'Inline SVG for drawings computed at run time, such as plots, gizmos and minimaps.',
+  points: [
+    '`Svg` is the root; `SvgGroup`, `SvgRect`, `SvgCircle`, `SvgPath`, `SvgText` and others draw inside it.',
+    'Each one passes every SVG attribute through and adds no style of its own.',
+    'Use it when a static icon cannot show the shape.',
+  ],
+  instead: '[Icon] for a fixed glyph, or [Canvas] for a drawing with many moving pixels.',
   playground: Playground,
   variants: [Elements],
 });

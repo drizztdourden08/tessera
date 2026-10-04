@@ -70,7 +70,12 @@ const Variants = {
 
 const Overview = overviewStory({
   component: 'EmptyState',
-  description: 'What a list, a table or a panel shows when it has nothing in it yet. The message is the only required part; an icon above it and an action below it, such as a button to import or to scan again, are both optional. It stacks the three parts, centres them across its width, and sets the message in small muted text.',
+  description: 'What a list, a table or a panel shows when it has nothing in it yet.',
+  points: [
+    '`message` is the only required part.',
+    '`icon` sits above the message, and `action` below it, such as a button to import or to scan again.',
+    'It centres the parts across its width and sets the message in small muted text.',
+  ],
   playground: Playground,
   variants: [Variants],
 });

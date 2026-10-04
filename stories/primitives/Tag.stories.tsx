@@ -132,7 +132,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'Tag',
-  description: 'A value that sorts an item into a group: a game, a category, a mode. Every tag shares one shape and one size, so the chips of a tag field, the picks in a select, the options of a picker and the labels on a list all read as the same family. variant picks the palette and color picks from it: normal takes neutral, the default, and the theme colours, drawn with a border; urgency takes success, warning, danger and info, drawn bold with no border; category takes the ten category colours, drawn as a tinted chip with a dot. The types refuse a colour that is not in its variant. onRemove adds a remove button, as in TagInput and Combobox. selected with onSelect makes the tag a toggle, as in TagPicker: it rests grey and shows its colour once picked.',
+  description: 'A small chip for a value that sorts an item into a group, such as a game, a category or a mode.',
+  points: [
+    'Every tag shares one shape, so the tags of a field, a picker and a list read as one family.',
+    '`variant` picks the palette and `color` picks from it: `normal`, `urgency` or `category`.',
+    '`onRemove` adds a remove button, as in [TagInput].',
+    '`selected` with `onSelect` makes it a toggle, as in [TagPicker]: grey until it is picked.',
+  ],
+  instead: '[Status] for a word that names a state.',
   playground: Playground,
   variants: [Variants, Removable, Selectable, OnItems],
   states: {

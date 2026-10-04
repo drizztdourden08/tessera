@@ -101,7 +101,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'Video',
-  description: 'A video player in the Tessera look, for replays, clips and live streams. It takes every native video attribute and a ref, and draws its own control bar in place of the browser one: play and pause, a seek bar with the buffered part and a time preview, the time, volume, playback speed, picture in picture, theater mode and full screen. Space or K plays and pauses, the arrows skip five seconds, M mutes, T toggles theater mode and F goes full screen. Theater mode works on its own, or a page can own it through theater and onTheaterChange. A large play button sits over the poster until the first play, and the bar fades while the video plays and the pointer rests. It shows a spinner while it waits for data and a message when the source fails. Set controls to false for a bare framed video.',
+  description: 'A video player in the Tessera look, for replays, clips and live streams.',
+  points: [
+    'It takes every native video attribute and a ref, and draws its own control bar.',
+    'The bar has a seek bar with a time preview, volume, speed, picture in picture, theater mode and full screen.',
+    '[[Space]] or [[K]] plays and pauses, the arrows skip five seconds, and [[F]] goes full screen.',
+    'Theater mode works on its own, or a page can own it through `theater` and `onTheaterChange`.',
+    'Set `controls` to `false` for a bare framed video.',
+  ],
   playground: Playground,
   variants: [TheaterMode, LiveStream, NoControls],
   states: {

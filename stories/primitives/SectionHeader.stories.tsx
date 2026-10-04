@@ -81,7 +81,12 @@ const InAPanel = {
 
 const Overview = overviewStory({
   component: 'SectionHeader',
-  description: 'The heading row of a section or a panel: a title, an optional subtitle beneath it, and an optional action on the right. Reach for it at the top of a settings group, a list or a card. The action slot takes anything, most often a button, a Status or a count.',
+  description: 'The heading row of a section or a panel, with a title, an optional subtitle and an optional action.',
+  points: [
+    'Use it at the top of a settings group, a list or a card.',
+    '`subtitle` sits beneath the title.',
+    '`action` sits on the right and takes anything, most often a button, a [Status] or a count.',
+  ],
   playground: Playground,
   variants: [Variants],
 });

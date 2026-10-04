@@ -132,7 +132,12 @@ const SaveSlots = {
 
 const Overview = overviewStory({
   component: 'Thumbnail',
-  description: 'A fixed frame that shows a small image, such as a save slot screenshot or a room preview. The caller sets the frame size with a class, and the image fills it. It draws through Image, so a loading source shows the pulsing picture outline and a source that fails shows the outline in the danger colour with a cross, sized to the frame. With no src it draws the placeholder node, or the plain outline, so an empty slot keeps its shape in a list.',
+  description: 'A fixed frame that shows a small image, such as a save slot screenshot or a room preview.',
+  points: [
+    'You set the frame size with a class, and the image fills it.',
+    'It draws through [Image], so loading and broken sources show the same outlines, sized to the frame.',
+    'With no `src` it draws `placeholder` or the plain outline, so an empty slot keeps its shape.',
+  ],
   playground: Playground,
   variants: [Sizes, BrokenSizes, SaveSlots],
   states: {

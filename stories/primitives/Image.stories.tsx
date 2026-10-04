@@ -160,7 +160,14 @@ const Sizes = {
 
 const Overview = overviewStory({
   component: 'Image',
-  description: 'The image element of the design system, with every img attribute passed through. It holds the box the picture will take, from width and height, an aspect ratio, or 16 / 9 by default, so the layout never jumps. While the source loads it draws a picture outline that pulses, and a source that fails shows the same outline in the danger colour with a cross. A fallback node replaces the outline when the source fails or is missing. pending marks a source that is still on its way.',
+  description: 'The image element of the design system, which holds its space so the layout never jumps while it loads.',
+  points: [
+    'It takes its box from `width` and `height` or `aspectRatio`, and falls back to 16 / 9.',
+    'While the source loads it draws a picture outline that pulses.',
+    'A source that fails shows the outline in the danger colour with a cross; `fallback` replaces it.',
+    '`pending` marks a source that is still on its way.',
+  ],
+  instead: '[Thumbnail] for a small image in a fixed frame.',
   playground: Playground,
   variants: [SlowSource, WithFallback, Sizes],
   states: {

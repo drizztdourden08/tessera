@@ -105,7 +105,14 @@ const ScreenList = {
 
 const Overview = overviewStory({
   component: 'Status',
-  description: 'A read-only word that says what state something is in: connected, syncing, draft, verified. text draws the word in its tone, beside a name or in a table cell; pill draws it in capitals on a filled pill, for a record header or a list of screens. The tone carries the meaning: neutral, the default, the four urgencies and the three theme colours. dot leads the word with a dot in the same tone, and pulse fades it in and out for a state that is still changing, only the dot when there is one. The caller passes the word, so the same tone serves any label.',
+  description: 'A read-only word that says what state something is in, such as connected, syncing or draft.',
+  points: [
+    '`text` draws the word in its tone; `pill` draws it in capitals on a filled pill, for a record header.',
+    '`tone` carries the meaning: `neutral` by default, the four urgencies or the three theme colours.',
+    '`dot` leads the word with a dot, and `pulse` fades it for a state that is still changing.',
+    'You pass the word, so the same tone serves any label.',
+  ],
+  instead: '[Badge] for a count, or [Tag] for a value that sorts an item into a group.',
   playground: Playground,
   variants: [Tones, Pulsing, ScreenList],
 });
