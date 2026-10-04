@@ -39,6 +39,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
         { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
+        { name: 'CopyValue', summary: 'A value to copy, such as an address or a key, with a copy button at its end.' },
       ],
     },
     {
@@ -58,6 +59,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'ButtonGroup', summary: 'Buttons joined into one control, with shared borders.' },
         { name: 'Pressable', summary: 'A button with no look, for a clickable surface the caller draws.' },
         { name: 'Link', summary: 'A link to a URL in the Tessera look, with tones and an external variant.' },
+        { name: 'CopyButton', summary: 'Copies a text to the clipboard and says Copied.' },
       ],
     },
     {

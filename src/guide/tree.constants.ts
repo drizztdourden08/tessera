@@ -12,6 +12,7 @@ const ACTIONS = {
         'irreversible, on a row': null,
         'irreversible, for a whole view': null,
         'goes to a URL': null,
+        'copies a text': null,
         'a whole area the user presses': null,
       },
     },
@@ -67,7 +68,7 @@ const STATUS = {
   answers: {
     'the state something is in': null, 'a count, or a dot for news': null, 'a value that sorts an item into a group': null,
     'a label and its value': null, 'terms and what they mean': null, 'a colour sample': null, 'a key or a shortcut': null,
-    'a list of keys and what they do': null,
+    'a list of keys and what they do': null, 'a value to copy, such as an address or a key': null,
   },
 } as const;
 

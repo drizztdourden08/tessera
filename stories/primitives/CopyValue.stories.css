@@ -1,0 +1,17 @@
+/* @layer stories @kind style */
+.copy-value-story {
+  max-inline-size: 100%;
+}
+
+.copy-value-story--narrow {
+  inline-size: var(--size-224);
+  padding: var(--space-xs);
+  border: var(--border-width-thin) dashed var(--c-border);
+}
+
+.copy-value-story__bar {
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+}

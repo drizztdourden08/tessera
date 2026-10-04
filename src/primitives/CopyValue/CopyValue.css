@@ -1,0 +1,51 @@
+/* @layer renderer-components @kind style */
+.copy-value {
+  display: inline-flex;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--c-text);
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  vertical-align: middle;
+}
+
+.copy-value--md {
+  gap: var(--space-xs);
+  font-size: var(--text-base);
+}
+
+.copy-value[data-mono] {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.copy-value__text {
+  position: relative;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+
+.copy-value--end .copy-value__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copy-value--middle .copy-value__text {
+  display: inline-flex;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.copy-value__head {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.copy-value__tail {
+  flex: none;
+}

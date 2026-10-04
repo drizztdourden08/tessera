@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 14 of 152 have their usage written; a linked name opens its page.
+One line per component. 16 of 154 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -18,6 +18,8 @@ One line per component. 14 of 152 have their usage written; a linked name opens 
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Combobox`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [CopyButton](components/CopyButton.md): A button that copies a text to the clipboard and confirms it with a check and the word Copied. Import from `@drizztdourden08/tessera`.
+- [CopyValue](components/CopyValue.md): A value the user often copies, such as an address, a seed or a key, shown with a copy button at its end. Import from `@drizztdourden08/tessera`.
 - `Divider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DropZone`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `EmojiIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -53,8 +53,9 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     SectionHeader: 'heading-1', TermList: 'book-text', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
     EmptyState: 'inbox', Image: 'image', Thumbnail: 'gallery-thumbnails', Video: 'video', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
     ShortcutList: 'keyboard',
+    CopyValue: 'copy',
   },
-  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link' },
+  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', CopyButton: 'clipboard-copy' },
   'Primitives · Inputs': {
     TextInput: 'text-cursor-input', SearchInput: 'scan-search', PasswordInput: 'lock-keyhole', Textarea: 'letter-text', NumberInput: 'hash', NumberStepper: 'diff', Checkbox: 'square-check',
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',

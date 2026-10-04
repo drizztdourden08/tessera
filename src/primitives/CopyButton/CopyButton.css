@@ -1,0 +1,10 @@
+/* @layer renderer-components @kind style */
+.copy-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.copy-button [data-copied] svg {
+  color: var(--c-success);
+}

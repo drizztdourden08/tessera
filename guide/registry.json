@@ -34,6 +34,11 @@
               "goes to a URL": {
                 "components": []
               },
+              "copies a text": {
+                "components": [
+                  "CopyButton"
+                ]
+              },
               "a whole area the user presses": {
                 "components": []
               }
@@ -183,6 +188,11 @@
           "a list of keys and what they do": {
             "components": [
               "ShortcutList"
+            ]
+          },
+          "a value to copy, such as an address or a key": {
+            "components": [
+              "CopyValue"
             ]
           }
         }
@@ -674,6 +684,258 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "CopyButton",
+      "tier": "primitives",
+      "source": "src/primitives/CopyButton/CopyButton.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A button that copies a text to the clipboard and confirms it with a check and the word Copied.",
+      "useWhen": [
+        "One action copies something the user does not see in full, such as debug info or a whole log.",
+        "A panel needs a copy action beside its other buttons, with or without its word."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The value itself is on screen and the copy belongs at its end.",
+          "use": "CopyValue"
+        },
+        {
+          "case": "A label and its value sit on one row, as a readout.",
+          "use": "StatRow"
+        }
+      ],
+      "rules": [
+        "Name the button after what it copies, such as Copy address or Copy debug info.",
+        "Pass a function as text when the text is costly to build or changes often, so it is built at the click.",
+        "Keep it icon only in tight rows and toolbars; show the word where the button stands alone."
+      ],
+      "a11y": [
+        "An icon only button is named by its label and shows the same name as a tooltip.",
+        "After a copy, a polite status region says Copied once, and the name reads Copied for two seconds."
+      ],
+      "tree": {
+        "path": [
+          "actions",
+          "one action",
+          "copies a text"
+        ],
+        "rule": "CopyButton writes to the clipboard through the one copy path every Tessera part uses, with the same check and announcement."
+      },
+      "example": "import { CopyButton } from '@drizztdourden08/tessera';\n\nconst AboutActions = ({ debugInfo }: { debugInfo: () => string }) => (\n  <CopyButton text={debugInfo} label=\"Copy debug info\" showLabel variant=\"secondary\" />\n);\n",
+      "propsHash": "b39e8ed376a355a2",
+      "props": {
+        "own": [
+          {
+            "name": "text",
+            "optional": false,
+            "text": "CopyText"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "copiedLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "showLabel",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "ButtonVariant",
+            "literals": [
+              "'primary'",
+              "'secondary'",
+              "'tertiary'",
+              "'danger'",
+              "'warning'",
+              "'info'",
+              "'success'",
+              "'ghost'"
+            ]
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "CopyButtonSize",
+            "literals": [
+              "'xs'",
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "loading",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onCopied",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-success",
+        "--size-1"
+      ],
+      "gallery": {
+        "title": "Primitives · Actions/CopyButton",
+        "route": "#/story/primitives-copybutton--overview",
+        "file": "stories/primitives/CopyButton.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "CopyValue",
+      "tier": "primitives",
+      "source": "src/primitives/CopyValue/CopyValue.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A value the user often copies, such as an address, a seed or a key, shown with a copy button at its end.",
+      "useWhen": [
+        "A room address, a seed, a fingerprint or an ID sits in a status bar, a card or a dialog.",
+        "A long value has to fit one line and still be copied whole."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The value has a label beside it, as one row of a readout.",
+          "use": "StatRow"
+        },
+        {
+          "case": "The text to copy is not on screen, such as debug info.",
+          "use": "CopyButton"
+        }
+      ],
+      "rules": [
+        "Pass label as a short lower case name, such as room address, so the button reads Copy room address.",
+        "Set mono for codes, keys, addresses and numbers the user may read back character by character.",
+        "Use truncate middle for keys and fingerprints, where the last characters tell two values apart."
+      ],
+      "a11y": [
+        "The value and its button form a group named by label.",
+        "A cut value is read whole by a screen reader and shown whole on hover.",
+        "The button says Copied through a polite status region after a copy."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a value to copy, such as an address or a key"
+        ],
+        "rule": "CopyValue keeps the value selectable and puts the copy button at its end, with the same check and announcement as every copy."
+      },
+      "example": "import { CopyValue } from '@drizztdourden08/tessera';\n\nconst RoomAddress = ({ address }: { address: string }) => (\n  <CopyValue value={address} label=\"room address\" mono truncate=\"middle\" />\n);\n",
+      "propsHash": "2de5d1a6247cdda9",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "mono",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "truncate",
+            "optional": true,
+            "text": "CopyValueTruncate",
+            "literals": [
+              "'end'",
+              "'middle'"
+            ]
+          },
+          {
+            "name": "copyLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "copiedLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "CopyValueSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ],
+            "default": "'sm'"
+          },
+          {
+            "name": "onCopied",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-text",
+        "--font-mono",
+        "--leading-tight",
+        "--size-1",
+        "--space-2xs",
+        "--space-xs",
+        "--text-base",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/CopyValue",
+        "route": "#/story/primitives-copyvalue--overview",
+        "file": "stories/primitives/CopyValue.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Divider",

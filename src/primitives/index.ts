@@ -176,3 +176,7 @@ export type { StackedBarColor, StackedBarProps, StackedBarSegment, StackedBarSiz
 export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from './dom/app-region.constants';
 export { ShortcutList } from './ShortcutList';
 export type { ShortcutGesture, ShortcutListGroup, ShortcutListItem, ShortcutListProps } from './ShortcutList';
+export { CopyButton } from './CopyButton';
+export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
+export { CopyValue } from './CopyValue';
+export type { CopyValueProps, CopyValueSize, CopyValueTruncate } from './CopyValue';

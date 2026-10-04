@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
+import { CopyButton } from '../../../primitives/CopyButton';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { FilterBar } from '../../FilterBar';
-import { CopyAllButton } from './CopyAllButton';
 import type { LogToolbarProps } from './LogToolbar.type';
 
 const LogToolbar = (props: LogToolbarProps) => {
@@ -25,7 +25,13 @@ const LogToolbar = (props: LogToolbarProps) => {
             {panels.logCount(filter.shown.length, total, countLabel)}
           </Text>
           {extra}
-          <CopyAllButton copyText={() => copyText(filter.shown)} disabled={filter.shown.length === 0} />
+          <CopyButton
+            text={() => copyText(filter.shown)}
+            label={panels.copyAll}
+            showLabel
+            disabled={filter.shown.length === 0}
+            className="log-panel__copy"
+          />
         </>
       )}
     />

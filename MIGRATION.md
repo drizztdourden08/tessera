@@ -3419,3 +3419,54 @@ Tessera's standards extension now gives knip what it needs to see a part used on
 ### What an app does
 
 Move to `@drizztdourden08/standards` ^0.7.0 and run `standards knip` as before. A part used only by its example no longer shows as unused, so any knip ignore added for that can go.
+
+## 133. CopyValue and CopyButton: one way to copy a value
+
+`CopyValue` is a new primitive, under Primitives · Display, and `CopyButton` a new one under Primitives · Actions. They replace the copy buttons each app built for itself: the Copy address button of the Archipelia session bar, the room address, seed and host key that had no copy at all, and the Brock About copy button.
+
+- **CopyValue** shows a value with a copy icon button at its end. `label` names the value, so the button reads Copy room address. `mono` sets it in the monospace face. `truncate` cuts a value too long for its line at its `end`, or in its `middle` so the last eight characters stay in view; a cut value shows whole on hover and reads whole to a screen reader.
+- **CopyButton** is the button alone, for a text that is not on screen, such as debug info. `text` is a string or a function called at the click. It is icon only, named by `label`, or shows its word with `showLabel`.
+- **Copied.** After a copy the icon turns to a green check and the name reads Copied for two seconds, and a polite status region says Copied once.
+
+```ts
+type CopyText = string | (() => string);
+
+interface CopyButtonProps {
+  text: CopyText;
+  label?: string; // default Copy
+  copiedLabel?: string; // default Copied
+  showLabel?: boolean;
+  variant?: ButtonVariant; // default ghost
+  size?: 'xs' | 'sm' | 'md'; // default sm
+  disabled?: boolean;
+  loading?: boolean;
+  onCopied?: () => void;
+  className?: string;
+}
+
+interface CopyValueProps {
+  value: string;
+  label?: string;
+  mono?: boolean;
+  truncate?: 'end' | 'middle'; // default: wraps
+  copyLabel?: string; // default Copy and the label
+  copiedLabel?: string;
+  size?: 'sm' | 'md'; // default sm
+  onCopied?: () => void;
+  className?: string;
+}
+```
+
+One copy path:
+
+| Before | Now |
+|---|---|
+| LogPanel `CopyAllButton`, private | `CopyButton` with `showLabel`, class `log-panel__copy` on its wrapper |
+| CodeBlock `CopyCodeButton`, private | `CopyButton`, class `code-block__copy` on its wrapper |
+| `useCopy().copy(text)` resolved to nothing | resolves to `true` when the text reached the clipboard |
+| the check showed for 1.5 seconds | two seconds, for every copy |
+
+### What an app does
+
+1. Archipelia: the session bar, the room widget and the server test panel show the address, the room page, the seed and the host key as `CopyValue`, and `useSessionDashboard` drops its copied flag.
+2. Brock: `AboutCopyButton` and `useCopyText` give way to `CopyButton` with `showLabel`; a text still being gathered passes `loading`.

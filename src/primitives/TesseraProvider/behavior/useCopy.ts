@@ -14,12 +14,14 @@ const useCopy = () => {
     return () => clearTimeout(timer);
   }, [copied]);
 
-  const copy = useCallback(async (text: string) => {
+  const copy = useCallback(async (text: string): Promise<boolean> => {
     try {
       await writeText(text);
       setCopied(true);
+      return true;
     } catch {
       setCopied(false);
+      return false;
     }
   }, [writeText]);
 

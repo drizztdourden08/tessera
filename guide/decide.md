@@ -11,6 +11,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Irreversible, on a row: no component yet.
     - Irreversible, for a whole view: no component yet.
     - Goes to a URL: no component yet.
+    - Copies a text: [CopyButton](components/CopyButton.md). CopyButton writes to the clipboard through the one copy path every Tessera part uses, with the same check and announcement.
     - A whole area the user presses: no component yet.
   - Several related buttons. **How do the buttons relate?**
     - Only one can be on: no component yet.
@@ -54,6 +55,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A colour sample: no component yet.
   - A key or a shortcut: no component yet.
   - A list of keys and what they do: [ShortcutList](components/ShortcutList.md). ShortcutList keeps every key in one column and every description at one edge, however long the text runs.
+  - A value to copy, such as an address or a key: [CopyValue](components/CopyValue.md). CopyValue keeps the value selectable and puts the copy button at its end, with the same check and announcement as every copy.
 - Something over the page. **What sits over the page?**
   - A hint on hover or focus: no component yet.
   - A question the user must answer: no component yet.
