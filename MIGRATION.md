@@ -3621,3 +3621,19 @@ An element with `hidden` inside `ts-splash` stays hidden, even a `ts-actions` ro
 
 1. Brock: `packages/build/src/splash/splash-page.css` keeps only its layout and its mark, and the page uses `ts-button`, `ts-button--primary`, `ts-progress ts-progress--edge`, `ts-status` and `ts-version`; the failed state adds `ts-status--danger` and `ts-progress--danger`.
 2. A script sets the bar with `bar.style.setProperty('--value', String(fraction))`.
+
+## 140. Screens take focus, make the page behind inert and give focus back
+
+From the UX review (ux-38), the rest of it after section 134, and a follow up to ux-48.
+
+- **The switcher and the card are one modal dialog.** `role="dialog"`, `aria-modal` and the label moved from the card to the frame that holds `floating` and the card, so a screen reader no longer hides the switcher as outside the modal. The card keeps its class and look.
+- **Focus moves in on open.** A screen starts on its `labelledBy` title, made focusable with `tabindex="-1"`, or on its first control when it has only a `label`. A control that focuses itself on open keeps it. This is the focus code of DialogShell, now shared: Tab and Shift+Tab stay inside, and a Tab from the title goes to the control beside it.
+- **The page behind is inert.** While the screen is open and not `hidden`, every sibling of the layer in its parent gets `inert`, so Tab, clicks and screen readers skip it. Siblings that were inert already are left alone. Focus that lands in that parent outside the screen is brought back. Popups opened through the Portal are not pulled back, and nothing outside the parent is touched, so a title bar there stays reachable.
+- **Focus returns on close**, whether the screen unmounts or turns `hidden`, to the control that had it before the screen opened.
+- **A toast gives focus back when it closes.** Choosing its action or its close button sent focus to the page body. It now goes back to where it was before focus entered the toast.
+
+### What an app does
+
+1. Render the page a screen covers as a sibling of the screen inside the same positioned parent, and keep the title bar outside that parent.
+2. Pass `labelledBy` with the id of the visible title, as the screen kinds do, so focus starts there.
+3. Remove app code that made the page behind inert, or that moved focus into a screen or back to its opener.

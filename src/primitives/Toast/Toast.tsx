@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { useState, useCallback } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Button } from '../Button';
 import { Glyph } from '../Glyph';
 import { Span } from '../text-elements';
@@ -14,12 +14,16 @@ const Toast = (props: ToastProps) => {
   const { fields } = useTesseraStrings();
   const variant = item.variant ?? 'info';
   const { action } = item;
+  const toastRef = useRef<HTMLDivElement>(null);
+  const returnRef = useRef<(toast: HTMLElement | null) => void>(() => undefined);
 
   const dismiss = useCallback(() => {
+    returnRef.current(toastRef.current);
     setExiting(true);
     setTimeout(() => onDismiss(item.id), 200);
   }, [item.id, onDismiss]);
   const hold = useToastTimer(item.duration, dismiss);
+  returnRef.current = hold.returnFocus;
 
   const run = () => {
     action?.onSelect();
@@ -27,7 +31,7 @@ const Toast = (props: ToastProps) => {
   };
 
   return (
-    <div className={`toast toast--${variant} ${exiting ? 'toast--exiting' : ''}`} role={variant === 'danger' ? 'alert' : undefined} {...hold}>
+    <div ref={toastRef} className={`toast toast--${variant} ${exiting ? 'toast--exiting' : ''}`} role={variant === 'danger' ? 'alert' : undefined} {...hold.handlers}>
       <Span className="toast__message">{item.message}</Span>
       {action && <Button variant={variant} size="sm" className="toast__action" onClick={run}>{action.label}</Button>}
       <button type="button" className="toast__close" onClick={dismiss} aria-label={fields.dismiss}>

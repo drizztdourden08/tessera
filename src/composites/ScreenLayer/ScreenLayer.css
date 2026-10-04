@@ -31,6 +31,10 @@ html.booting .screen-layer {
   height: 100%;
 }
 
+.screen-layer__frame:focus {
+  outline: none;
+}
+
 .screen-layer--compact .screen-layer__frame {
   width: min(100%, var(--dialog-w-md));
   height: auto;

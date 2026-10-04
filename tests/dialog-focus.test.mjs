@@ -41,6 +41,16 @@ describe('Tab inside a dialog', () => {
     expect(step('page', false, false)).toBe('close');
   });
 
+  it('moves from a heading or other focus inside that is no stop to the stop beside it, or wraps', () => {
+    const order = ['close', 'heading', 'cancel', 'delete'];
+    const follows = (from) => (stop) => order.indexOf(stop) > order.indexOf(from);
+    const loose = (backwards) => tabTarget({ stops, active: 'heading', backwards, container: 'dialog', inside: true, follows: follows('heading') });
+    expect(loose(false)).toBe('cancel');
+    expect(loose(true)).toBe('close');
+    const first = tabTarget({ stops: ['cancel'], active: 'heading', backwards: true, container: 'dialog', inside: true, follows: follows('heading') });
+    expect(first).toBe('cancel');
+  });
+
   it('keeps focus on the dialog when it holds nothing to focus', () => {
     expect(tabTarget({ stops: [], active: 'dialog', backwards: false, container: 'dialog', inside: true })).toBe('dialog');
   });
@@ -53,20 +63,28 @@ describe('focus on open', () => {
   const dialog = dialogOf([close, cancel, confirm]);
 
   it('takes the ref when it can hold focus', () => {
-    expect(initialFocusOf(dialog, { current: confirm }, 'first')).toBe(confirm);
+    expect(initialFocusOf(dialog, { initialFocusRef: { current: confirm }, initialFocus: 'first' })).toBe(confirm);
   });
 
   it('skips the header close button for the first stop of the body', () => {
-    expect(initialFocusOf(dialog, undefined, 'first')).toBe(cancel);
+    expect(initialFocusOf(dialog, { initialFocus: 'first' })).toBe(cancel);
   });
 
   it('falls back from a disabled or missing ref, to the dialog itself when asked', () => {
     const disabled = element('create', { tabIndex: -1 });
     const field = element('field', { tagName: 'INPUT' });
-    expect(initialFocusOf(dialogOf([close, field, disabled]), { current: disabled }, 'first')).toBe(field);
+    expect(initialFocusOf(dialogOf([close, field, disabled]), { initialFocusRef: { current: disabled }, initialFocus: 'first' })).toBe(field);
     const lone = dialogOf([close]);
-    expect(initialFocusOf(lone, { current: null }, 'dialog')).toBe(lone);
-    expect(initialFocusOf(lone, undefined, 'first')).toBe(lone);
+    expect(initialFocusOf(lone, { initialFocusRef: { current: null }, initialFocus: 'dialog' })).toBe(lone);
+    expect(initialFocusOf(lone, { initialFocus: 'first' })).toBe(lone);
+  });
+
+  it('starts on the heading of a screen, made focusable, before its first control', () => {
+    const heading = element('heading', { tagName: 'H2', tabIndex: -1, attrs: {}, hasAttribute: () => false, setAttribute: vi.fn() });
+    const screen = { ...dialogOf([cancel]), ownerDocument: { getElementById: (id) => (id === 'title' ? heading : null) }, contains: (node) => node === heading || node === cancel };
+    expect(initialFocusOf(screen, { initialFocus: 'first', headingId: 'title' })).toBe(heading);
+    expect(heading.setAttribute).toHaveBeenCalledWith('tabindex', '-1');
+    expect(initialFocusOf(screen, { initialFocus: 'first', headingId: 'missing' })).toBe(cancel);
   });
 
   it('counts only the checked radio of a group as a stop', () => {

@@ -96,3 +96,7 @@
   height: var(--size-640);
 }
 
+
+.screen-layer-story__page {
+  position: relative;
+}

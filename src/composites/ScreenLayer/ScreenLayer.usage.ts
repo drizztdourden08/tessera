@@ -22,7 +22,9 @@ const usage = {
     'Set square for a window shown fullscreen: the card drops its corner radius and its outer border, and the host draws what surrounds it.',
   ],
   a11y: [
-    'The card is a modal dialog. Pass labelledBy with the id of a visible title, or label when there is none.',
+    'The card and the floating switcher are one modal dialog. Pass labelledBy with the id of a visible title, or label when there is none.',
+    'On open focus moves to the labelledBy title, or to the first control without one; Tab stays inside, and on close focus returns to the opener.',
+    'While open, the siblings of the layer in its parent are inert: put the page it covers beside it, and keep a title bar outside that parent.',
     'hidden takes the layer out of the page and out of the accessibility tree, and keeps its content mounted.',
     'floating comes before the card in the page order, so a switcher in it is the first Tab stop; it still draws on the top edge of the card.',
   ],

@@ -7,6 +7,7 @@ import type { ScreenLayerSize } from '../../src/composites';
 import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { LayerBreakpoints } from './_samples/LayerBreakpoints';
+import { LayerOverPage } from './_samples/LayerOverPage';
 import { LayerSample } from './_samples/LayerSample';
 import { useWindowSwitch } from './_samples/useWindowSwitch';
 import './ScreenLayer.stories.css';
@@ -79,6 +80,13 @@ const FitsItsRoom = {
   render: () => <RoomDemo />,
 } satisfies PlaygroundStory<LayerArgs>;
 
+const OverPage = {
+  name: 'Over a page, with focus',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: () => <LayerOverPage />,
+} satisfies PlaygroundStory<LayerArgs>;
+
 const Compact = {
   name: 'Compact size',
   args: ARGS,
@@ -101,17 +109,17 @@ const Overview = overviewStory({
   description: 'A building block: the overlay and empty card of every screen, with one gap around the card that follows the room.',
   points: [
     'The gap is 2xl plus 5% of the smaller side from 1280 by 800 px, and xl plus 3% under that.',
-    'Under 960 px wide or 600 px high the gap stays at its minimum, which leaves room for the floating switch.',
-    'Under 840 px wide or 560 px high the card fills the layer with square corners, the switch inside it.',
+    'Under 960 by 600 px the gap stays at its minimum; under 840 by 560 px the card fills the layer, square.',
     '`floating` sits centred on the top edge of the card, for a switch between sibling screens.',
     '`size="compact"` fits the card to its content; `hidden` hides the layer and keeps it mounted.',
-    'The card is a dialog: pass `label`, or `labelledBy` with the id of a visible title.',
+    'The card and switch are one modal dialog: pass `label`, or `labelledBy` with the id of a visible title.',
+    'On open focus moves to that title, or the first control; the page behind is inert; on close focus returns.',
   ],
   instead: '[WorkspaceScreen], [InfoScreen], [UtilityScreen] or [StageScreen] to show a screen, [ScreenWindow] if none fits.',
   playground: Playground,
-  variants: [Breakpoints, FitsItsRoom, Compact],
+  variants: [OverPage, Breakpoints, FitsItsRoom, Compact],
   code: CODE,
 });
 
 export default meta;
-export { Breakpoints, Compact, FitsItsRoom, Overview, Playground };
+export { Breakpoints, Compact, FitsItsRoom, Overview, OverPage, Playground };

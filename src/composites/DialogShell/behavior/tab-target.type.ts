@@ -5,6 +5,7 @@ interface TabTargetParams<T> {
   backwards: boolean;
   container: T;
   inside: boolean;
+  follows?: (stop: T) => boolean;
 }
 
 export type { TabTargetParams };
