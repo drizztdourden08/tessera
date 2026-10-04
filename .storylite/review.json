@@ -440,9 +440,9 @@
       "at": "2026-10-01"
     },
     "ScrollArea": {
-      "status": "ok",
-      "hash": "423e68c553569c8b",
-      "at": "2026-10-01"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "Portal": {
       "status": "ok",
@@ -799,8 +799,8 @@
   "Composites · Navigation": {
     "SideNav": {
       "status": "seen",
-      "hash": "ef54a16952ee3695",
-      "at": "2026-10-01"
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "HeaderAnchorNav": {
       "status": "ok",
