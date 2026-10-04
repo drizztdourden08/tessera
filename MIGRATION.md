@@ -2647,6 +2647,8 @@ Sub-menus now place themselves right inside a page or frame scaled with CSS `zoo
 
 `data-join-align` on a sub-menu now also takes `row-top` and `row-bottom`. The gallery adds Sub-menus inside sub-menus, renames the third join example Level with the row, and the View menu shows a toggle and a radio sub-menu that keep the menu open.
 
+Select, Combobox and the DropdownMenu trigger also follow CSS `zoom`: the list's width, the attach width that draws the join with its trigger, the room it measures and its fallback position were read in screen pixels and used as CSS pixels, so at 150 % the list grew wider than its content and the join's curve stood off the trigger. Tag fitting and scrolling the active option into view read the zoom too. In browsers without CSS anchor positioning, sub-menus now render in the popover layer next to the menu instead of inside it, so the menu's clip no longer cuts them off from the second level on; they keep the menu's look, clicks inside them no longer count as outside the menu, and closing the menu from a sub-menu returns focus to the trigger.
+
 ### What an app does
 
 An app that closed the menu by hand after a checkable or radio item, or that passed `closeOnSelect={false}` only to keep toggles open, can drop that code. An app that wants a toggle to close the menu closes it in the item's `onSelect`.

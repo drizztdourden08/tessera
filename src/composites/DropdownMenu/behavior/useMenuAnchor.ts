@@ -11,7 +11,7 @@ const useMenuAnchor = (params: UseMenuAnchorParams): MenuAnchor => {
   const { position } = useAnchorTracking({
     active: anchorRef !== undefined && !inline,
     anchorRef: anchor,
-    compute: (rect, view) => menuPlacement(rect, view, side, align),
+    compute: (rect, view) => menuPlacement(anchor.current, rect, view, [side, align]),
     onOutOfView,
   });
   const placement = `${side === 'below' ? 'bottom' : 'top'}-${align}` as const;

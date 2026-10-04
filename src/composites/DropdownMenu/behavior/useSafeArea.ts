@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { SAFE_AREA_GRACE, SAFE_AREA_SLACK } from '../DropdownMenu.constants';
-import { cssZoomOf } from './css-zoom-of';
+import { cssZoomOf } from '../../../primitives/dom/css-zoom-of';
 import { safeAreaStyle } from './safe-area-style';
 import type { SafeAreaOptions } from './useSafeArea.type';
 

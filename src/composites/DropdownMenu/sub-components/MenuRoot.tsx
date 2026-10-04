@@ -10,13 +10,13 @@ import { MenuResults } from './MenuResults';
 import type { MenuRootProps } from './MenuRoot.type';
 
 const MenuRoot = (props: MenuRootProps) => {
-  const { groups, label, start, closeOnSelect, filter, filterPlaceholder, onClose, onQueryChange } = props;
+  const { groups, label, start, closeOnSelect, look, filter, filterPlaceholder, onClose, onQueryChange } = props;
   const ownId = useId();
   const id = props.id ?? ownId;
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const menuRef = useRef<HTMLElement>(null);
-  const context = useMemo(() => ({ close: onClose, closeOnSelect }), [onClose, closeOnSelect]);
+  const context = useMemo(() => ({ close: onClose, closeOnSelect, look }), [onClose, closeOnSelect, look]);
   const matches = useMemo(() => menuMatches(groups, query), [groups, query]);
   const searching = filter && query.trim() !== '';
   const toFilter = filter ? () => inputRef.current?.focus() : undefined;

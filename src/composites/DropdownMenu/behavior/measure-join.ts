@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind util */
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
-import { cssZoomOf } from './css-zoom-of';
+import { cssZoomOf } from '../../../primitives/dom/css-zoom-of';
 import { MENU_ITEM_SELECTOR, MENU_SELECTOR } from './menu-items-of.constants';
 import { subMenuJoin } from './sub-menu-join';
 import type { JoinCorners, JoinRect, SubMenuJoin } from './sub-menu-join.type';

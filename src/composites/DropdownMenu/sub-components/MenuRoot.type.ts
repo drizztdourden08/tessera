@@ -8,6 +8,7 @@ interface MenuRootProps {
   label?: string;
   start: MenuFocusStart;
   closeOnSelect: boolean;
+  look: string;
   filter: boolean;
   filterPlaceholder?: string;
   onClose: () => void;

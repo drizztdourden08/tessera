@@ -2,6 +2,7 @@
 interface MenuContextValue {
   close: () => void;
   closeOnSelect: boolean;
+  look: string;
 }
 
 type MenuFocusStart = 'first' | 'last' | 'none';

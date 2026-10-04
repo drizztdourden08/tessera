@@ -3,6 +3,7 @@ import { useId, useMemo, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { ListboxPanel } from '../../../primitives/listbox/ListboxPanel';
 import { useListboxDrop } from '../../../primitives/listbox/useListboxDrop';
+import { closeMenu } from '../behavior/close-menu';
 import { menuLookClass } from '../behavior/menu-look-class';
 import { tidyGroups } from '../behavior/tidy-groups';
 import { triggerAttributes } from '../behavior/trigger-attributes';
@@ -61,9 +62,10 @@ const TriggerMenu = (props: TriggerMenuProps) => {
             label={label ?? trigger.label}
             start={start}
             closeOnSelect={closeOnSelect}
+            look={look}
             filter={filter}
             filterPlaceholder={filterPlaceholder}
-            onClose={drop.close}
+            onClose={() => closeMenu(drop.close, drop.anchorRef.current)}
             onQueryChange={setQuery}
           />
         </ListboxPanel>

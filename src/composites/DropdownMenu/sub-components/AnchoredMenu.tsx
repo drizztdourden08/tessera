@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Anchored } from '../../../primitives/Anchored';
 import { Floating } from '../../../primitives/Floating';
 import { useDismissListeners } from '../../../primitives/Portal';
+import { closeMenu } from '../behavior/close-menu';
 import { menuLookClass } from '../behavior/menu-look-class';
 import { tidyGroups } from '../behavior/tidy-groups';
 import { useFocusReturn } from '../behavior/useFocusReturn';
@@ -16,6 +17,7 @@ const AnchoredMenu = (props: AnchoredMenuProps) => {
   const { groups, anchorRef, side, align, inline = false, label, variant = 'primary', intensity = 'strong' } = props;
   const { closeOnSelect = true, filter = false, filterPlaceholder, onClose = ignore, className } = props;
   const menuRef = useRef<HTMLDivElement>(null);
+  const look = menuLookClass(variant, intensity);
   const { anchor, placement, fallback } = useMenuAnchor({ anchorRef, side, align, inline, onOutOfView: onClose });
   useFocusReturn(menuRef, anchor);
   useDismissListeners({ open: !inline, onClose, contentRef: menuRef, triggerRef: anchor, escape: false });
@@ -26,12 +28,13 @@ const AnchoredMenu = (props: AnchoredMenuProps) => {
       label={label}
       start={inline ? 'none' : 'first'}
       closeOnSelect={closeOnSelect}
+      look={look}
       filter={filter}
       filterPlaceholder={filterPlaceholder}
-      onClose={onClose}
+      onClose={() => closeMenu(onClose, anchor.current)}
     />
   );
-  const classes = ['dropdown-menu', 'dropdown-surface', menuLookClass(variant, intensity), inline && 'dropdown-menu--inline', className]
+  const classes = ['dropdown-menu', 'dropdown-surface', look, inline && 'dropdown-menu--inline', className]
     .filter(Boolean).join(' ');
 
   if (inline) return <Floating ref={menuRef} className={classes}>{body}</Floating>;
