@@ -1,10 +1,11 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { WidgetDock } from './_samples/data-widget-dock';
+import { PerformanceWidget } from './_samples/PerformanceWidget';
 import { WidgetFrameDemo } from './_samples/WidgetFrameDemo';
 import './Widget.stories.css';
 
@@ -79,6 +80,11 @@ const Dock = {
   render: (args) => <WidgetDock {...args} />,
 } satisfies PlaygroundStory<WidgetArgs>;
 
+const Performance = {
+  name: 'A performance widget, live',
+  render: () => <PerformanceWidget />,
+} satisfies StoryLiteStoryDefinition<WidgetArgs>;
+
 const renderState = (props: StateProps) => (
   <FrameDemo {...(ARGS as WidgetArgs)} tabbed peek={props.peek === true} optionsOpen={props.open === true} />
 );
@@ -118,7 +124,7 @@ const Overview = overviewStory({
     'The gear opens [WidgetOptions], and `WidgetManager` places a whole dock of widgets from a layout.',
   ],
   playground: Playground,
-  variants: [Single, Tabbed, OwnWindow, OwnActions, Fullscreen, Folded, Dock],
+  variants: [Single, Tabbed, OwnWindow, OwnActions, Fullscreen, Folded, Dock, Performance],
   states: {
     render: renderState,
     list: [
@@ -132,4 +138,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Dock, Folded, Fullscreen, OwnActions, OwnWindow, Overview, Playground, Single, Tabbed };
+export { Dock, Folded, Fullscreen, OwnActions, OwnWindow, Overview, Performance, Playground, Single, Tabbed };

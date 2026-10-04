@@ -1,5 +1,5 @@
 /* @layer stories @kind data */
-import type { StackedBarSegment } from '../../../src/composites';
+import type { StackedBarSegment } from '../../../src/primitives';
 
 const CPU_SERIES = [22, 25, 31, 28, 35, 41, 38, 52, 61, 58, 66, 72, 69, 81, 86, 78, 74, 83, 88, 79, 71, 64, 59, 62];
 

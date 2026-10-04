@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
+import type { TesseraStrings } from '../../strings/tessera-strings.type';
 import type { StackedBarRow } from '../StackedBar.type';
 import type { BarTracks } from './bar-tracks.type';
 

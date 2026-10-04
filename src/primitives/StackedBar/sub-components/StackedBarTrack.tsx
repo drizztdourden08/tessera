@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
+import { Box } from '../../Box';
 import { FREE_ID } from '../StackedBar.constants';
 import { StackedBarPiece } from './StackedBarPiece';
 import type { StackedBarTrackProps } from './StackedBarTrack.type';

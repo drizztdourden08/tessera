@@ -9,7 +9,6 @@ import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { LiveTrigger } from './_samples/LiveTrigger';
-import { PROGRESS_PARTS } from './_samples/progress-parts.constants';
 
 type SecondaryChoice = ProgressTone | 'none';
 
@@ -102,20 +101,6 @@ const BARS: Readonly<Record<string, ReactNode>> = {
   'done over reachable, coloured secondary': <ProgressBar value={30} secondaryValue={70} secondaryTone="secondary" />,
 };
 
-const MULTIPART: Readonly<Record<string, ReactNode>> = {
-  'tones, with a legend': <ProgressBar parts={PROGRESS_PARTS.checks} max={216} label="Checks" legend />,
-  'own colours, with a legend': <ProgressBar parts={PROGRESS_PARTS.storage} max={64} label="Disk" legend />,
-  'parts past the max are cut': <ProgressBar parts={PROGRESS_PARTS.over} label="Copy" />,
-  'parts over a faded secondary': <ProgressBar parts={PROGRESS_PARTS.checks} max={216} secondaryValue={180} label="Checks" />,
-};
-
-const Multipart = {
-  name: 'Several parts in one bar',
-  render: () => (
-    <Demonstrator rows={axis(Object.keys(MULTIPART))} align="stretch" cell={(row) => MULTIPART[row]} />
-  ),
-} satisfies StoryLiteStoryDefinition<ProgressBarArgs>;
-
 const Variants = {
   name: 'Variants',
   render: () => (
@@ -138,14 +123,13 @@ const Overview = overviewStory({
   description: 'A thin bar that shows how much of a task or a total is done.',
   points: [
     '`tone` picks a theme colour or an urgency, and the bar fills the width it is given.',
-    '`parts` stacks several amounts in one bar, each with a label; `legend` lists them under it.',
     '`secondaryValue` draws a second fill behind the main one, such as reachable against done.',
     '`live` turns off the easing for a value that changes every frame.',
   ],
-  instead: '[ProgressRing] for a round indicator, or [Spinner] when the length is unknown.',
+  instead: '[ProgressRing] for a round one, [Spinner] when the length is unknown, or [StackedBar] for parts of a whole.',
   playground: Playground,
-  variants: [Variants, Multipart, Trigger],
+  variants: [Variants, Trigger],
 });
 
 export default meta;
-export { Loading, Multipart, Overview, Playground, Trigger, Variants };
+export { Loading, Overview, Playground, Trigger, Variants };

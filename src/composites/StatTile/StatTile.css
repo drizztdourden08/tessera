@@ -1,14 +1,30 @@
 /* @layer renderer-components @kind style */
 .stat-tile {
+  --stat-tile-value: var(--text-xl);
+  --stat-tile-unit: var(--text-sm);
+  --stat-tile-pad: var(--space-sm) var(--space-md);
+
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
   box-sizing: border-box;
   min-width: 0;
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--stat-tile-pad);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
   background: var(--c-inset);
+}
+
+.stat-tile[data-size='sm'] {
+  --stat-tile-value: var(--text-lg);
+  --stat-tile-unit: var(--text-xs);
+  --stat-tile-pad: var(--space-xs) var(--space-sm);
+}
+
+.stat-tile[data-size='lg'] {
+  --stat-tile-value: var(--text-2xl);
+  --stat-tile-unit: var(--text-base);
+  --stat-tile-pad: var(--space-md) var(--space-lg);
 }
 
 .stat-tile[data-chart='beside'] {
@@ -59,7 +75,7 @@
 
 .stat-tile__value {
   color: var(--c-text);
-  font-size: var(--text-xl);
+  font-size: var(--stat-tile-value);
   font-variant-numeric: tabular-nums;
   font-weight: var(--weight-semi);
   line-height: 1;
@@ -67,7 +83,7 @@
 
 .stat-tile__unit {
   color: var(--c-text-muted);
-  font-size: var(--text-sm);
+  font-size: var(--stat-tile-unit);
 }
 
 .stat-tile .stat-tile__delta {

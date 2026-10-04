@@ -6,3 +6,7 @@
 .stat-tile-story--wide {
   width: var(--size-288);
 }
+
+.stat-tile-story--narrow {
+  width: var(--size-128);
+}

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
-import type { StatusTone } from '../../primitives/Status/Status.type';
-import type { TagCategoryColor } from '../../primitives/Tag/Tag.type';
+import type { StatusTone } from '../Status/Status.type';
+import type { TagCategoryColor } from '../Tag/Tag.type';
 
 type StackedBarColor = StatusTone | TagCategoryColor;
 

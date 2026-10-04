@@ -14,59 +14,20 @@
   position: absolute;
   inset-block: 0;
   inset-inline-start: 0;
-  background: var(--progress-fill);
-  transition: width var(--transition-normal), inset-inline-start var(--transition-normal);
-}
-
-.progress-bar__fill:last-child,
-.progress-bar__fill--secondary {
   border-start-end-radius: var(--radius-sm);
   border-end-end-radius: var(--radius-sm);
+  background: var(--progress-fill);
+  transition: width var(--transition-normal);
 }
 
 .progress-bar[data-live='yes'] .progress-bar__fill { transition: none; }
 
 .progress-bar__fill[data-faded='yes'] { opacity: var(--opacity-faint); }
 
-:is(.progress-bar__fill, .progress-bar__swatch)[data-tone='primary'] { --progress-fill: var(--c-primary); }
-:is(.progress-bar__fill, .progress-bar__swatch)[data-tone='secondary'] { --progress-fill: var(--c-secondary); }
-:is(.progress-bar__fill, .progress-bar__swatch)[data-tone='tertiary'] { --progress-fill: var(--c-tertiary); }
-:is(.progress-bar__fill, .progress-bar__swatch)[data-tone='success'] { --progress-fill: var(--c-success); }
-:is(.progress-bar__fill, .progress-bar__swatch)[data-tone='warning'] { --progress-fill: var(--c-warning); }
-:is(.progress-bar__fill, .progress-bar__swatch)[data-tone='danger'] { --progress-fill: var(--c-danger); }
-:is(.progress-bar__fill, .progress-bar__swatch)[data-tone='info'] { --progress-fill: var(--c-info); }
-
-.progress-bar-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  width: 100%;
-}
-
-.progress-bar__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2xs) var(--space-md);
-  margin: 0;
-  padding: 0;
-  font-size: var(--text-xs);
-  list-style: none;
-}
-
-.progress-bar__key {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-.progress-bar__swatch {
-  flex: none;
-  width: var(--size-8);
-  height: var(--size-8);
-  border-radius: var(--radius-round);
-  background: var(--progress-fill);
-}
-
-.progress-bar__amount {
-  font-variant-numeric: tabular-nums;
-}
+.progress-bar__fill[data-tone='primary'] { --progress-fill: var(--c-primary); }
+.progress-bar__fill[data-tone='secondary'] { --progress-fill: var(--c-secondary); }
+.progress-bar__fill[data-tone='tertiary'] { --progress-fill: var(--c-tertiary); }
+.progress-bar__fill[data-tone='success'] { --progress-fill: var(--c-success); }
+.progress-bar__fill[data-tone='warning'] { --progress-fill: var(--c-warning); }
+.progress-bar__fill[data-tone='danger'] { --progress-fill: var(--c-danger); }
+.progress-bar__fill[data-tone='info'] { --progress-fill: var(--c-info); }

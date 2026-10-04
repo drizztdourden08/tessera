@@ -159,6 +159,4 @@ export type {
 export { ContentHeader } from './ContentHeader';
 export type { ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';
 export { StatTile } from './StatTile';
-export type { StatTileChartPlacement, StatTileProps, StatTrend, StatTrendMeaning } from './StatTile';
-export { StackedBar } from './StackedBar';
-export type { StackedBarColor, StackedBarProps, StackedBarSegment, StackedBarSize } from './StackedBar';
+export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning } from './StatTile';

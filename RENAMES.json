@@ -643,6 +643,30 @@
         "dock-ghost__gesture": "removed; the drag hint is one row of keys (see MIGRATION.md section 107)",
         "dock-ghost__keys": "removed; the keys sit in the one row of dock-ghost (see MIGRATION.md section 107)"
       }
+    },
+    {
+      "version": "next",
+      "props": {
+        "ProgressBar.parts": "StackedBar segments; ProgressBar draws one value, and a bar split into parts is a StackedBar, with an id on each part and total in place of max (see MIGRATION.md section 110)",
+        "ProgressBar.legend": "StackedBar legend; ProgressBar draws no legend (see MIGRATION.md section 110)"
+      },
+      "removedExports": {
+        "ProgressPart": "StackedBarSegment, with an id; a CSS color becomes a status tone or a tag colour (see MIGRATION.md section 110)"
+      },
+      "components": {
+        "StackedBar": "StackedBar, now a primitive: import it from @drizztdourden08/tessera or /primitives, not /composites (see MIGRATION.md section 110)",
+        "StackedBarProps": "StackedBarProps, now from /primitives, not /composites (see MIGRATION.md section 110)",
+        "StackedBarSegment": "StackedBarSegment, now from /primitives, not /composites (see MIGRATION.md section 110)",
+        "StackedBarColor": "StackedBarColor, now from /primitives, not /composites (see MIGRATION.md section 110)",
+        "StackedBarSize": "StackedBarSize, now from /primitives, not /composites (see MIGRATION.md section 110)"
+      },
+      "cssClasses": {
+        "progress-bar-group": "stacked-bar; the multipart ProgressBar is gone (see MIGRATION.md section 110)",
+        "progress-bar__legend": "stacked-bar__legend (see MIGRATION.md section 110)",
+        "progress-bar__key": "stacked-bar__item (see MIGRATION.md section 110)",
+        "progress-bar__swatch": "stacked-bar__swatch (see MIGRATION.md section 110)",
+        "progress-bar__amount": "stacked-bar__amount (see MIGRATION.md section 110)"
+      }
     }
   ]
 }

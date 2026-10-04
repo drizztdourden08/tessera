@@ -32,6 +32,7 @@ StatTile puts one reading, its change and its trend together in a tile sized for
 - Keep delta short, such as +4 or -2.1, and leave the unit to the unit prop.
 - Pass a Sparkline as chart, below the value in a narrow tile and beside it in a wide one.
 - Use tone on the value only when the reading is past its limit.
+- Pick size md for a widget grid, sm for a dense one and lg for a reading that leads a page.
 
 ## Accessibility
 
@@ -67,8 +68,9 @@ const FrameRateTile = ({ samples }: { samples: readonly number[] }) => (
 - `deltaTone` (optional): `StatusTone`, one of `'neutral'`, `'success'`, `'warning'`, `'danger'`, `'info'`, `'primary'`, `'secondary'`, `'tertiary'`.
 - `chart` (optional): `ReactNode`.
 - `chartPlacement` (optional): `StatTileChartPlacement`, one of `'below'`, `'beside'`. Default `'below'`.
+- `size` (optional): `StatTileSize`, one of `'sm'`, `'md'`, `'lg'`. Default `'md'`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-info`, `--c-inset`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-muted`, `--c-warning`, `--radius-md`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xl`, `--text-xs`, `--tracking-wide`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-info`, `--c-inset`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-muted`, `--c-warning`, `--radius-md`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-2xl`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xl`, `--text-xs`, `--tracking-wide`, `--weight-semi`.

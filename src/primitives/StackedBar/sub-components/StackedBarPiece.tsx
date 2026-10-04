@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { memo } from 'react';
-import { Tooltip } from '../../../primitives/Tooltip';
-import { Span } from '../../../primitives/text-elements';
+import { Tooltip } from '../../Tooltip';
+import { Span } from '../../text-elements';
 import type { StackedBarPieceProps } from './StackedBarPiece.type';
 
 const StackedBarPieceView = (props: StackedBarPieceProps) => {

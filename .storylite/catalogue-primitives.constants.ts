@@ -45,6 +45,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
       entries: [
         { name: 'Sparkline', summary: 'A small line or area chart of the latest samples, with a threshold band.' },
         { name: 'Gauge', summary: 'A round meter for one value against its limit, coloured by its zone.' },
+        { name: 'StackedBar', summary: 'One bar split into the parts of a whole, with tooltips, a legend and an Other part.' },
       ],
     },
     {

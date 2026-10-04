@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
-import { Box } from '../../primitives/Box';
-import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { Box } from '../Box';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { barLabels } from './behavior/bar-labels';
 import { barRows } from './behavior/bar-rows';
 import { barTracks } from './behavior/bar-tracks';

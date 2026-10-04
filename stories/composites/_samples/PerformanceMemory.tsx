@@ -1,6 +1,5 @@
 /* @layer stories @kind component */
-import { StackedBar } from '../../../src/composites';
-import { Flex, Span, Stack } from '../../../src/primitives';
+import { Flex, Span, StackedBar, Stack } from '../../../src/primitives';
 import { formatGigabytes } from './format-gigabytes';
 import { MEMORY_TOTAL } from './performance-feed.constants';
 import type { PerformanceProcess } from './performance-feed.type';

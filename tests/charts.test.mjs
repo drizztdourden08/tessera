@@ -2,10 +2,10 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { StackedBar } from '../src/composites/StackedBar';
-import { barTracks } from '../src/composites/StackedBar/behavior/bar-tracks';
-import { groupSegments } from '../src/composites/StackedBar/behavior/group-segments';
-import { sharePercent } from '../src/composites/StackedBar/behavior/share-percent';
+import { StackedBar } from '../src/primitives/StackedBar';
+import { barTracks } from '../src/primitives/StackedBar/behavior/bar-tracks';
+import { groupSegments } from '../src/primitives/StackedBar/behavior/group-segments';
+import { sharePercent } from '../src/primitives/StackedBar/behavior/share-percent';
 import { StatTile } from '../src/composites/StatTile';
 import { trendTone } from '../src/composites/StatTile/behavior/trend-tone';
 import { Gauge } from '../src/primitives/Gauge';

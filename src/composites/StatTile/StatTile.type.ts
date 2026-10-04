@@ -8,6 +8,8 @@ type StatTrendMeaning = 'good' | 'bad' | 'neutral';
 
 type StatTileChartPlacement = 'below' | 'beside';
 
+type StatTileSize = 'sm' | 'md' | 'lg';
+
 interface StatTileProps {
   label: ReactNode;
   value: ReactNode;
@@ -19,7 +21,8 @@ interface StatTileProps {
   deltaTone?: StatusTone;
   chart?: ReactNode;
   chartPlacement?: StatTileChartPlacement;
+  size?: StatTileSize;
   className?: string;
 }
 
-export type { StatTileChartPlacement, StatTileProps, StatTrend, StatTrendMeaning };
+export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning };

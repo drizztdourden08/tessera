@@ -1393,6 +1393,147 @@
       "usage": false
     },
     {
+      "name": "StackedBar",
+      "tier": "primitives",
+      "source": "src/primitives/StackedBar/StackedBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend.",
+      "useWhen": [
+        "A total is shared by a few named parts and the reader compares their sizes, such as memory or disk use.",
+        "A count of jobs splits by status, each part in its status tone."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One value toward an end, with nothing to split.",
+          "use": "ProgressBar"
+        },
+        {
+          "case": "Rows of exact figures the reader sorts and filters.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Give each segment a stable id, so a live bar keeps its parts in place from one update to the next.",
+        "Set limit to the parts worth naming; the smallest beyond it join one Other part.",
+        "Pass total when the parts do not fill the whole, so the room left shows as free track.",
+        "Use status tones when the parts are states and tag colours when they are names; leave color out to cycle the tag colours."
+      ],
+      "a11y": [
+        "With a label, the bar is an image named with every part and its value.",
+        "The legend lists each part as text, so the values never live only in a tooltip."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a chart",
+          "a whole split into parts"
+        ],
+        "rule": "StackedBar shows how one total splits into named parts, in a single bar."
+      },
+      "example": "import { StackedBar } from '@drizztdourden08/tessera';\n\nconst gigabytes = (value: number) => `${value.toFixed(1)} GB`;\n\nconst MemoryBar = () => (\n  <StackedBar\n    segments={[{ id: 'game', label: 'Game', value: 4.2 }, { id: 'browser', label: 'Browser', value: 1.8 }]}\n    total={16}\n    legend\n    label=\"Memory\"\n    format={gigabytes}\n  />\n);\n",
+      "propsHash": "344a6c4a1bf04399",
+      "props": {
+        "own": [
+          {
+            "name": "segments",
+            "optional": false,
+            "text": "readonly StackedBarSegment[]"
+          },
+          {
+            "name": "total",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "limit",
+            "optional": true,
+            "text": "number",
+            "default": "DEFAULT_LIMIT"
+          },
+          {
+            "name": "legend",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "StackedBarSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "format",
+            "optional": true,
+            "text": "(value: number) => string",
+            "default": "formatAmount"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-danger",
+        "--c-hover",
+        "--c-info",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-tag-amber",
+        "--c-tag-blue",
+        "--c-tag-cyan",
+        "--c-tag-green",
+        "--c-tag-lime",
+        "--c-tag-orange",
+        "--c-tag-pink",
+        "--c-tag-rose",
+        "--c-tag-teal",
+        "--c-tag-violet",
+        "--c-tertiary",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--c-warning",
+        "--radius-pill",
+        "--radius-sm",
+        "--size-1",
+        "--size-12",
+        "--size-6",
+        "--size-8",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-xs"
+      ],
+      "gallery": {
+        "title": "Primitives · Charts/StackedBar",
+        "route": "#/story/primitives-stackedbar--overview",
+        "file": "stories/primitives/StackedBar.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "StatRow",
       "tier": "primitives",
       "source": "src/primitives/StatRow/StatRow.tsx",
@@ -2681,147 +2822,6 @@
       "usage": false
     },
     {
-      "name": "StackedBar",
-      "tier": "composites",
-      "source": "src/composites/StackedBar/StackedBar.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": true,
-      "job": "One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend.",
-      "useWhen": [
-        "A total is shared by a few named parts and the reader compares their sizes, such as memory or disk use.",
-        "A count of jobs splits by status, each part in its status tone."
-      ],
-      "avoidWhen": [
-        {
-          "case": "One value toward an end, with nothing to split.",
-          "use": "ProgressBar"
-        },
-        {
-          "case": "Rows of exact figures the reader sorts and filters.",
-          "use": "DataTable"
-        }
-      ],
-      "rules": [
-        "Give each segment a stable id, so a live bar keeps its parts in place from one update to the next.",
-        "Set limit to the parts worth naming; the smallest beyond it join one Other part.",
-        "Pass total when the parts do not fill the whole, so the room left shows as free track.",
-        "Use status tones when the parts are states and tag colours when they are names; leave color out to cycle the tag colours."
-      ],
-      "a11y": [
-        "With a label, the bar is an image named with every part and its value.",
-        "The legend lists each part as text, so the values never live only in a tooltip."
-      ],
-      "tree": {
-        "path": [
-          "data",
-          "a chart",
-          "a whole split into parts"
-        ],
-        "rule": "StackedBar shows how one total splits into named parts, in a single bar."
-      },
-      "example": "import { StackedBar } from '@drizztdourden08/tessera';\n\nconst gigabytes = (value: number) => `${value.toFixed(1)} GB`;\n\nconst MemoryBar = () => (\n  <StackedBar\n    segments={[{ id: 'game', label: 'Game', value: 4.2 }, { id: 'browser', label: 'Browser', value: 1.8 }]}\n    total={16}\n    legend\n    label=\"Memory\"\n    format={gigabytes}\n  />\n);\n",
-      "propsHash": "344a6c4a1bf04399",
-      "props": {
-        "own": [
-          {
-            "name": "segments",
-            "optional": false,
-            "text": "readonly StackedBarSegment[]"
-          },
-          {
-            "name": "total",
-            "optional": true,
-            "text": "number"
-          },
-          {
-            "name": "limit",
-            "optional": true,
-            "text": "number",
-            "default": "DEFAULT_LIMIT"
-          },
-          {
-            "name": "legend",
-            "optional": true,
-            "text": "boolean",
-            "default": "false"
-          },
-          {
-            "name": "label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "size",
-            "optional": true,
-            "text": "StackedBarSize",
-            "literals": [
-              "'sm'",
-              "'md'"
-            ],
-            "default": "'md'"
-          },
-          {
-            "name": "format",
-            "optional": true,
-            "text": "(value: number) => string",
-            "default": "formatAmount"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--c-danger",
-        "--c-hover",
-        "--c-info",
-        "--c-primary",
-        "--c-secondary",
-        "--c-success",
-        "--c-tag-amber",
-        "--c-tag-blue",
-        "--c-tag-cyan",
-        "--c-tag-green",
-        "--c-tag-lime",
-        "--c-tag-orange",
-        "--c-tag-pink",
-        "--c-tag-rose",
-        "--c-tag-teal",
-        "--c-tag-violet",
-        "--c-tertiary",
-        "--c-text-dim",
-        "--c-text-muted",
-        "--c-warning",
-        "--radius-pill",
-        "--radius-sm",
-        "--size-1",
-        "--size-12",
-        "--size-6",
-        "--size-8",
-        "--space-2xs",
-        "--space-md",
-        "--space-sm",
-        "--space-xs",
-        "--text-xs"
-      ],
-      "gallery": {
-        "title": "Composites · Charts/StackedBar",
-        "route": "#/story/composites-stackedbar--overview",
-        "file": "stories/composites/StackedBar.stories.tsx"
-      },
-      "parts": []
-    },
-    {
       "name": "StageScreen",
       "tier": "composites",
       "source": "src/composites/StageScreen/StageScreen.tsx",
@@ -2980,7 +2980,8 @@
         "Set trend from the change, and upIs from what a rise means: good for frame rate, bad for frame time.",
         "Keep delta short, such as +4 or -2.1, and leave the unit to the unit prop.",
         "Pass a Sparkline as chart, below the value in a narrow tile and beside it in a wide one.",
-        "Use tone on the value only when the reading is past its limit."
+        "Use tone on the value only when the reading is past its limit.",
+        "Pick size md for a widget grid, sm for a dense one and lg for a reading that leads a page."
       ],
       "a11y": [
         "The trend arrow is named Rising, Falling or Steady, so a screen reader hears the direction with the delta.",
@@ -2995,7 +2996,7 @@
         "rule": "StatTile puts one reading, its change and its trend together in a tile sized for a widget grid."
       },
       "example": "import { Sparkline, StatTile } from '@drizztdourden08/tessera';\n\nconst FrameRateTile = ({ samples }: { samples: readonly number[] }) => (\n  <StatTile\n    label=\"Frame rate\"\n    value={samples[samples.length - 1] ?? 0}\n    unit=\"fps\"\n    delta=\"+4\"\n    trend=\"up\"\n    chart={<Sparkline values={samples} min={0} max={165} tone=\"success\" dot />}\n  />\n);\n",
-      "propsHash": "6230fa9a39dc2c2e",
+      "propsHash": "5f728be456f17f76",
       "props": {
         "own": [
           {
@@ -3085,6 +3086,17 @@
             "default": "'below'"
           },
           {
+            "name": "size",
+            "optional": true,
+            "text": "StatTileSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ],
+            "default": "'md'"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -3111,9 +3123,13 @@
         "--c-warning",
         "--radius-md",
         "--space-2xs",
+        "--space-lg",
         "--space-md",
         "--space-sm",
         "--space-xs",
+        "--text-2xl",
+        "--text-base",
+        "--text-lg",
         "--text-sm",
         "--text-xl",
         "--text-xs",

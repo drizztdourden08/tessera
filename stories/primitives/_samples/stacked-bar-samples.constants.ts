@@ -1,5 +1,5 @@
 /* @layer stories @kind data */
-import type { StackedBarSegment } from '../../../src/composites';
+import type { StackedBarSegment } from '../../../src/primitives';
 
 const CATEGORY_SEGMENTS: readonly StackedBarSegment[] = [
   { id: 'rose', label: 'Rose', value: 3, color: 'rose' },

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
-import { Span } from '../../../primitives/text-elements';
+import { Box } from '../../Box';
+import { Span } from '../../text-elements';
 import type { StackedBarLegendProps } from './StackedBarLegend.type';
 
 const StackedBarLegend = (props: StackedBarLegendProps) => {

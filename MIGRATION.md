@@ -2833,3 +2833,33 @@ A DropdownMenu sub-menu no longer lines up with its parent menu's own top or bot
 ### What an app does
 
 Nothing. A style that targeted `[data-join-align='row-top']` or `[data-join-align='row-bottom']` targets `top` or `bottom`.
+
+## 110. ProgressBar draws one value, StackedBar is a primitive, and StatTile takes a size
+
+A bar split into parts now has one home, StackedBar, so ProgressBar keeps a single value.
+
+- `ProgressBar` drops `parts` and `legend`, and the `ProgressPart` type is gone. It takes `value`, `max`, `tone`, `secondaryValue`, `secondaryTone`, `label`, `live` and `className`, as before the multipart form. The classes `progress-bar-group`, `progress-bar__legend`, `progress-bar__key`, `progress-bar__swatch` and `progress-bar__amount` go with it.
+- `StackedBar` moves from the composites to the primitives, into Primitives · Charts. It draws its own markup and uses only primitives, such as `Tooltip`. Its props do not change. The root import `@drizztdourden08/tessera` works as before; `@drizztdourden08/tessera/composites` no longer exports it or its types, which come from `@drizztdourden08/tessera/primitives`.
+- `StatTile` takes `size`: `sm`, `md` (the default) or `lg`, which scale the value, the unit and the padding. `StatTileSize` is the new type.
+- The StatTile page shows StatTile alone: tones, trends, chart placement and sizes. The live Performance panel moves to the Widget page, inside a real Widget.
+
+```ts
+interface ProgressBarProps {
+  value: number; max?: number; tone?: ProgressTone; secondaryValue?: number; secondaryTone?: ProgressTone;
+  label?: string; live?: boolean; className?: string;
+}
+
+type StatTileSize = 'sm' | 'md' | 'lg';
+```
+
+### What an app does
+
+1. A ProgressBar with `parts` becomes a StackedBar. Each part takes an `id`; `max` becomes `total`, so the room the parts leave shows as free track; `legend` and `label` stay; a `tone` becomes `color`; a CSS `color` becomes a status tone or a tag colour.
+
+   ```tsx
+   <ProgressBar parts={[{ value: 120, label: 'Found', tone: 'success' }]} max={216} label="Checks" legend />
+   <StackedBar segments={[{ id: 'found', label: 'Found', value: 120, color: 'success' }]} total={216} label="Checks" legend />
+   ```
+
+2. An import of StackedBar or its types from `@drizztdourden08/tessera/composites` imports from `@drizztdourden08/tessera/primitives`, or from the root.
+3. Nothing for StatTile; `size` is new and defaults to the old look.

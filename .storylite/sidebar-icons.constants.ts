@@ -103,8 +103,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Composites · Windows': { WindowTitleBar: 'app-window-mac', WindowHeader: 'heading-2' },
   'Data': { Engine: 'cpu' },
-  'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge' },
-  'Composites · Charts': { StatTile: 'trending-up', StackedBar: 'chart-bar-stacked' },
+  'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge', StackedBar: 'chart-bar-stacked' },
+  'Composites · Charts': { StatTile: 'trending-up' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };

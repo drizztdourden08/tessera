@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.performance-widget-story {
+  width: var(--size-384);
+  height: var(--size-512);
+}

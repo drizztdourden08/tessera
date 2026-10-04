@@ -16,6 +16,7 @@ const usage = {
     'Keep delta short, such as +4 or -2.1, and leave the unit to the unit prop.',
     'Pass a Sparkline as chart, below the value in a narrow tile and beside it in a wide one.',
     'Use tone on the value only when the reading is past its limit.',
+    'Pick size md for a widget grid, sm for a dense one and lg for a reading that leads a page.',
   ],
   a11y: [
     'The trend arrow is named Rising, Falling or Steady, so a screen reader hears the direction with the delta.',
@@ -38,7 +39,7 @@ const FrameRateTile = ({ samples }: { samples: readonly number[] }) => (
   />
 );
 `,
-  propsHash: '6230fa9a39dc2c2e',
+  propsHash: '5f728be456f17f76',
 } satisfies ComponentUsage;
 
 export { usage };

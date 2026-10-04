@@ -1,16 +1,15 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { StackedBar } from '../../src/composites';
-import type { StackedBarSize } from '../../src/composites';
-import { Box } from '../../src/primitives';
+import { Box, StackedBar } from '../../src/primitives';
+import type { StackedBarSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { CATEGORY_SEGMENTS } from './_samples/stacked-bar-samples.constants';
-import { MANY_SEGMENTS, MEMORY_SEGMENTS, TONED_SEGMENTS } from './_samples/chart-samples.constants';
-import { formatGigabytes } from './_samples/format-gigabytes';
+import { MANY_SEGMENTS, MEMORY_SEGMENTS, TONED_SEGMENTS } from '../composites/_samples/chart-samples.constants';
+import { formatGigabytes } from '../composites/_samples/format-gigabytes';
 import { LiveMemoryBar } from './_samples/LiveMemoryBar';
 import './StackedBar.stories.css';
 
@@ -35,7 +34,7 @@ const ARG_TYPES: PlaygroundArgTypes<StackedBarArgs> = {
 };
 
 const meta = {
-  title: 'Composites · Charts/StackedBar',
+  title: 'Primitives · Charts/StackedBar',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<StackedBarArgs>;
 

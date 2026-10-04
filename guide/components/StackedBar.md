@@ -2,13 +2,13 @@
 
 One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend.
 
-Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/primitives`.
 
 ```tsx
 import { StackedBar } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/composites/StackedBar/StackedBar.tsx`. Its gallery page is Composites · Charts/StackedBar (`#/story/composites-stackedbar--overview`).
+The source is `src/primitives/StackedBar/StackedBar.tsx`. Its gallery page is Primitives · Charts/StackedBar (`#/story/primitives-stackedbar--overview`).
 
 ## Where the questions lead here
 

@@ -109,7 +109,6 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Charts',
       entries: [
         { name: 'StatTile', summary: 'One headline number with its unit, its change and a small chart.' },
-        { name: 'StackedBar', summary: 'One bar split into the parts of a whole, with tooltips, a legend and an Other part.' },
       ],
     },
     {

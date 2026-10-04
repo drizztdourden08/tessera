@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
+import type { TesseraStrings } from '../../strings/tessera-strings.type';
 import type { StackedBarPart, StackedBarRow } from '../StackedBar.type';
 import { sharePercent } from './share-percent';
 

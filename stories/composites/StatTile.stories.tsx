@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { StatTile } from '../../src/composites';
-import type { StatTileChartPlacement, StatTrend, StatTrendMeaning } from '../../src/composites';
+import type { StatTileChartPlacement, StatTileSize, StatTrend, StatTrendMeaning } from '../../src/composites';
 import { Sparkline } from '../../src/primitives';
 import type { StatusTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -10,7 +10,6 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { STAT_TILE_TRENDS } from './_samples/stat-tile-trends.constants';
-import { PerformancePanel } from './_samples/PerformancePanel';
 import type { SampleChartKind } from './_samples/sample-chart.type';
 import { FPS_SERIES, NET_SERIES } from './_samples/chart-samples.constants';
 import './StatTile.stories.css';
@@ -25,12 +24,13 @@ type StatTileArgs = {
   tone: StatusTone | 'none';
   chart: SampleChartKind;
   chartPlacement: StatTileChartPlacement;
+  size: StatTileSize;
 };
 
 const TONES: readonly (StatusTone | 'none')[] = ['none', 'success', 'warning', 'danger', 'info', 'primary'];
 
 const ARGS: Partial<StatTileArgs> = {
-  label: 'Frame rate', value: '144', unit: 'fps', delta: '+4', trend: 'up', upIs: 'good', tone: 'none', chart: 'line', chartPlacement: 'below',
+  label: 'Frame rate', value: '144', unit: 'fps', delta: '+4', trend: 'up', upIs: 'good', tone: 'none', chart: 'line', chartPlacement: 'below', size: 'md',
 };
 
 const ARG_TYPES: PlaygroundArgTypes<StatTileArgs> = {
@@ -42,6 +42,7 @@ const ARG_TYPES: PlaygroundArgTypes<StatTileArgs> = {
   trend: { group: 'Value', control: 'select', options: ['none', 'up', 'down', 'flat'] },
   upIs: { group: 'Value', control: 'select', options: ['good', 'bad', 'neutral'], description: 'Whether a rise reads as good news.' },
   tone: { group: 'Appearance', control: 'select', options: [...TONES], description: 'Colours the value, for a reading in alarm.' },
+  size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg'] },
   chartPlacement: { group: 'Layout', control: 'select', options: ['below', 'beside'] },
 };
 
@@ -72,13 +73,34 @@ const Playground = {
       tone={args.tone === 'none' ? undefined : args.tone}
       chart={chartOf(args.chart)}
       chartPlacement={args.chartPlacement}
+      size={args.size}
     />
   ),
 } satisfies PlaygroundStory<StatTileArgs>;
 
-const PerformanceWidget = {
-  name: 'A performance widget',
-  render: () => <PerformancePanel />,
+const Tones = {
+  name: 'Values, units and tones',
+  render: () => (
+    <Demonstrator
+      columns={axis(TONES.slice(0, 5))}
+      cell={(_row, tone) => (
+        <StatTile className="stat-tile-story--narrow" label="GPU heat" value="81" unit="°C" tone={tone === 'none' ? undefined : tone} />
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StatTileArgs>;
+
+const Sizes = {
+  name: 'Sizes',
+  render: () => (
+    <Demonstrator
+      columns={axis(['sm', 'md', 'lg'])}
+      valign="end"
+      cell={(_row, size) => (
+        <StatTile className="stat-tile-story" label="Frame rate" value="144" unit="fps" delta="+4" trend="up" size={size as StatTileSize} />
+      )}
+    />
+  ),
 } satisfies StoryLiteStoryDefinition<StatTileArgs>;
 
 const Trends = {
@@ -137,11 +159,11 @@ const Overview = overviewStory({
     '`delta` and `trend` show how the value moved; `upIs` says whether a rise is good, bad or neither.',
     '`chart` takes a [Sparkline] or any small chart, `below` the value or `beside` it.',
     '`tone` colours the value itself, for a reading past its limit.',
-    'A tile fills its grid cell, so a widget lays out several in a grid of two or three columns.',
+    '`size` picks sm, md or lg; a tile fills its grid cell, so several sit side by side in a widget.',
   ],
   instead: '[StatRow] for a plain label and value on one line, with no trend or chart.',
   playground: Playground,
-  variants: [PerformanceWidget, Trends, Placements],
+  variants: [Tones, Trends, Placements, Sizes],
   states: {
     render: renderState,
     list: [
@@ -154,4 +176,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, PerformanceWidget, Placements, Playground, Trends };
+export { Overview, Placements, Playground, Sizes, Tones, Trends };

@@ -1,9 +1,8 @@
 /* @layer stories @kind component */
-import { StackedBar } from '../../../src/composites';
-import { Box } from '../../../src/primitives';
-import { formatGigabytes } from './format-gigabytes';
-import { MEMORY_TOTAL } from './performance-feed.constants';
-import { usePerformanceFeed } from './use-performance-feed';
+import { Box, StackedBar } from '../../../src/primitives';
+import { formatGigabytes } from '../../composites/_samples/format-gigabytes';
+import { MEMORY_TOTAL } from '../../composites/_samples/performance-feed.constants';
+import { usePerformanceFeed } from '../../composites/_samples/use-performance-feed';
 
 const LiveMemoryBar = () => {
   const { processes } = usePerformanceFeed();
