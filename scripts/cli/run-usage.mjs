@@ -5,8 +5,8 @@ import { findProject } from './find-project.mjs';
 const OPTIONS = ['--verbose', '--help', '-h'];
 
 const RUNNERS = {
-  tessera: async () => (await import('../ai/run-tessera-ai.mjs')).runTesseraAi,
-  app: async () => (await import('../ai/run-app-ai.mjs')).runAppAi,
+  tessera: async () => (await import('../guide/run-tessera-guide.mjs')).runTesseraGuide,
+  app: async () => (await import('../guide/run-app-guide.mjs')).runAppGuide,
 };
 
 const fail = (io, message) => {

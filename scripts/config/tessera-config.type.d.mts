@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind types */
 type PartKind = 'primitives' | 'composites' | 'compounds' | 'views';
 
-type AiUsage = 'report' | 'enforce';
+type GuideUsage = 'report' | 'enforce';
 
 type Folders = string | readonly string[];
 
@@ -11,7 +11,7 @@ interface TesseraAppSettings {
   layer?: string;
   stories?: string;
   theme?: { css?: string; palette?: string };
-  ai?: { usage?: AiUsage; out?: string; tree?: string; tsconfig?: string };
+  guide?: { usage?: GuideUsage; out?: string; tree?: string; tsconfig?: string };
   gallery?: { title?: string; port?: number; review?: string };
   overrides?: string;
 }
@@ -36,11 +36,11 @@ interface ResolvedTesseraConfig {
   layer: string;
   stories: string;
   theme: { css: string; palette?: string };
-  ai: { usage: AiUsage; out: string; tree?: string; tsconfig?: string };
+  guide: { usage: GuideUsage; out: string; tree?: string; tsconfig?: string };
   gallery?: { title?: string; port?: number; review?: string };
   overrides?: string;
   /** The folder of every apps entry. */
   apps: string[];
 }
 
-export type { AiUsage, Folders, PartKind, ResolvedTesseraConfig, TesseraAppSettings, TesseraConfigFile };
+export type { Folders, GuideUsage, PartKind, ResolvedTesseraConfig, TesseraAppSettings, TesseraConfigFile };

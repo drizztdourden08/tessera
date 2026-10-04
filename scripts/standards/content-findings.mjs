@@ -6,8 +6,8 @@ import { readManifest } from '../cli/read-manifest.mjs';
 import { ownedBy } from './owned-by.mjs';
 
 const collect = async (config) => {
-  if (readManifest(config.root).name === PACKAGE_NAME) return (await import('../ai/collect-ai.mjs')).collectAi(config.root);
-  return (await import('../ai/collect-app.mjs')).collectApp(config);
+  if (readManifest(config.root).name === PACKAGE_NAME) return (await import('../guide/collect-guide.mjs')).collectGuide(config.root);
+  return (await import('../guide/collect-app.mjs')).collectApp(config);
 };
 
 const contentFindings = async (config, { rootDir, packageDir }) => {

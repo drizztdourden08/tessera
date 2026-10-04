@@ -1,25 +1,23 @@
+# Every dot-folder that needs ignoring is covered by the .*/ line below,
+# at any depth. A dot-folder the repo tracks gets a ! line here. Never add
+# a line for a single dot-folder: .*/ already covers it.
+.*/
+!.github/
+!.changeset/
+!.storylite/
+!.vscode/
+.vscode/*
+!.vscode/extensions.json
+
+# The owner's page notes for the next pass: ephemeral, never committed
+.storylite/review-notes.json
+
 # Dependencies
 node_modules/
 
 # Build output
 dist/
-*.tsbuildinfo
-
-# Tooling caches and reports
-.vite/
-coverage/
-storylite-static/
-
-# Local editor state
-.idea/
-.vscode/*
-!.vscode/extensions.json
-
-# Storylite static build
 dist-storylite/
-
-# The owner's page notes for the next pass: ephemeral, never committed
-.storylite/review-notes.json
-
-# Local Claude Code session config
-.claude/
+storylite-static/
+coverage/
+*.tsbuildinfo

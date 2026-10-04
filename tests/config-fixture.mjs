@@ -15,7 +15,7 @@ const CONFIG = {
   },
   stories: 'packages/design/stories',
   theme: { css: 'packages/design/src/theme.css', palette: 'fixture' },
-  ai: { usage: 'report', out: 'ai', tree: 'packages/design/src/ai/tree.ts' },
+  guide: { usage: 'report', out: 'guide', tree: 'packages/design/src/guide/tree.ts' },
   gallery: { title: 'Fixture', port: 4410, review: 'packages/design/review.json' },
   overrides: 'packages/design/src/tessera-overrides.ts',
   apps: { 'apps/desktop': { parts: { views: 'apps/desktop/src/views' } } },

@@ -18,7 +18,7 @@ const PARTS = [
 const made = generateParts(appCopy, PARTS);
 
 describe('tessera new in an app that uses Tessera', () => {
-  it('creates each kind in the app folders, with a StoryLite story, and runs no pnpm ai', () => {
+  it('creates each kind in the app folders, with a StoryLite story, and runs no pnpm guide', () => {
     expect(made.results.map((result) => result.status)).toEqual([0, 0, 0, 0]);
     for (const file of made.files) expect(existsSync(join(made.dir, file)), file).toBe(true);
     expect(made.results.flatMap((result) => result.scripts)).toEqual([]);

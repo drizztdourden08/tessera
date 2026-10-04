@@ -22,7 +22,7 @@
       "$ref": "#/definitions/path"
     },
     "theme": { "$ref": "#/definitions/theme" },
-    "ai": { "$ref": "#/definitions/ai" },
+    "guide": { "$ref": "#/definitions/guide" },
     "gallery": { "$ref": "#/definitions/gallery" },
     "overrides": {
       "description": "The file that builds the TesseraOverrides the app hands to TesseraProvider. No default.",
@@ -72,13 +72,13 @@
         "palette": { "description": "The data-palette name of the app palette, such as archipelia. No default.", "type": "string", "minLength": 1 }
       }
     },
-    "ai": {
-      "description": "The usage files and the ai/ folder built from them.",
+    "guide": {
+      "description": "The usage files and the usage guide built from them in guide/.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "usage": { "description": "How tessera check and the standards extension treat what they find in the usage files: report lists it and passes; enforce fails on it. Default: report.", "enum": ["report", "enforce"] },
-        "out": { "description": "The folder tessera ai writes for the app, pnpm ai in Tessera. Default: ai.", "$ref": "#/definitions/path" },
+        "out": { "description": "The folder tessera guide writes for the app, pnpm guide in Tessera. Default: guide.", "$ref": "#/definitions/path" },
         "tree": { "description": "The module whose APP_TREE adds the app branches to the Tessera decision tree. No default.", "$ref": "#/definitions/path" },
         "tsconfig": { "description": "The tsconfig.json tessera check reads the props and the examples with. Default: the nearest tsconfig.json above each part.", "$ref": "#/definitions/path" }
       }
@@ -102,7 +102,7 @@
         "layer": { "$ref": "#/definitions/layer" },
         "stories": { "description": "The folder of the gallery stories of this app.", "$ref": "#/definitions/path" },
         "theme": { "$ref": "#/definitions/theme" },
-        "ai": { "$ref": "#/definitions/ai" },
+        "guide": { "$ref": "#/definitions/guide" },
         "gallery": { "$ref": "#/definitions/gallery" },
         "overrides": { "description": "The overrides file of this app.", "$ref": "#/definitions/path" }
       }

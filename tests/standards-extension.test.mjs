@@ -59,7 +59,7 @@ describe('the standards extension', () => {
   }, TIMEOUT);
 
   it('fails on a missing Name.usage.ts in enforce mode', async () => {
-    writeTree(dir, { 'tessera.config.json': { ...CONFIG, ai: { ...CONFIG.ai, usage: 'enforce' } } });
+    writeTree(dir, { 'tessera.config.json': { ...CONFIG, guide: { ...CONFIG.guide, usage: 'enforce' } } });
     try {
       expect((await check('packages/design')).findings).toContain(MISSING_SAVE_SLOT);
       expect((await check('apps/desktop')).findings[0]).toBe(MISSING_BARE);
@@ -71,7 +71,7 @@ describe('the standards extension', () => {
   it('notes a usage file it cannot read in report mode', async () => {
     const { notes } = await check('apps/desktop');
     expect(notes[1]).toBe('apps/desktop/src/views/Home: unreadable-usage: apps/desktop/src/views/Home/Home.usage.ts exports no usage object');
-    expect(notes).toContain('apps/desktop/src/views/Home: tsconfig: no tsconfig.json in apps/desktop/src/views/Home or above it; set ai.tsconfig in tessera.config.json');
+    expect(notes).toContain('apps/desktop/src/views/Home: tsconfig: no tsconfig.json in apps/desktop/src/views/Home or above it; set guide.tsconfig in tessera.config.json');
   }, TIMEOUT);
 
   it('supplies the check and empty options when there is no config', async () => {

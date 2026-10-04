@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-import type { ComponentUsage } from '../../ai/usage.type';
+import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
   job: 'Building block: the overlay and the card of every screen, with one gap around the card that follows the room.',

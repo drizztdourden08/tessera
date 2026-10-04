@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-import type { ComponentUsage } from '../../ai/usage.type';
+import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
   job: 'One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button.',

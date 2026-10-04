@@ -839,7 +839,7 @@ The glow on the `SettingsPage` icon, the current `SectionNav` item and the searc
 
 rotp and Brock can draw their hub search with `SearchResults` and pass each page's rows as a group's `children`. An app that overrides `nothingMatches` moves the text to `searchTip`.
 
-## 44. tessera.config.json says where an app keeps its parts; aiUsage moves into it
+## 44. tessera.config.json says where an app keeps its parts; the usage mode moves into it
 
 Tessera's tools run from `node_modules`, so an app now names its own folders in `tessera.config.json` at the repo root, next to `pnpm-workspace.yaml` in a monorepo. Every key is optional and every path is relative to the file; `docs/using-tessera.md` lists the keys and their defaults. A single-app repo that keeps the default `src/<kind>` folders needs only:
 
@@ -854,16 +854,12 @@ Tessera's tools run from `node_modules`, so an app now names its own folders in 
 - `package.json` declares `"standards": { "extension": "./standards.extension.mjs" }`. An app on `@drizztdourden08/standards` gets the usage file rule for its `parts`, `primitivesGlobs` and the theme token file from `tessera.config.json`.
 - `./config` is the first `exports` entry with a `types` condition, so its value is an object. The Vite alias in `docs/using-tessera.md` now takes `target.default ?? target`; an app that copied the old alias updates that line.
 
-The `tessera.aiUsage` key of Tessera's `package.json` is gone. The setting is `ai.usage` in Tessera's own `tessera.config.json`, with the same values, `report` or `enforce`, and the same default. `pnpm ai --check` prints `(tessera.config.json ai.usage)` where it printed `(package.json tessera.aiUsage)`, and a wrong value names the key the same way the loader does.
-
-```json
-"tessera": { "aiUsage": "report" }
-```
+The usage mode key under `tessera` in Tessera's `package.json` is gone. The setting moves to Tessera's own `tessera.config.json`, now `guide.usage`, with the same values, `report` or `enforce`, and the same default. The check prints `(tessera.config.json guide.usage)` where it printed the `package.json` key, and a wrong value names the key the same way the loader does.
 
 ```json
 {
   "$schema": "./tessera.config.schema.json",
-  "ai": { "usage": "report" }
+  "guide": { "usage": "report" }
 }
 ```
 
@@ -1274,7 +1270,7 @@ The decision tree gains a full screen view, which picks between the four kinds; 
 
 rotp's `PageRouter` wraps each page in `FullScreenLayer`. Replay `RENAMES.json`, which maps `FullScreenLayer` to `ScreenWindow`, then move each page onto its kind: the profile hub and the data manager onto `WorkspaceScreen`, About and Credits onto `InfoScreen`, the update dialog onto `UtilityScreen`, and Input Calibration onto `StageScreen`. `DesignGallery`, which used `SettingsShell`, moves onto `WorkspaceScreen` with `filterable`.
 
-## 53. App parts follow the usage rules: tessera check, tessera ai and the app tree
+## 53. App parts follow the usage rules: tessera check, tessera guide and the app tree
 
 The usage file of an app part now goes through the same checks as a Tessera part. `tessera check`, or `brock tessera check` in a Brock app, checks every part in the `parts` folders of `tessera.config.json`, the views of each `apps` entry included:
 
@@ -1287,13 +1283,13 @@ The usage file of an app part now goes through the same checks as a Tessera part
 | examples | each `example` type-checks against the app |
 | props | `propsHash` matches the props in the code; the finding gives the new hash |
 
-`ai.usage` decides what a finding does. `report`, the default, lists every finding and exits 0. `enforce` exits 1 on any finding. `tessera ai` runs the same check, then writes the app guide to `ai.out`, `ai/` by default, with links to the Tessera guide in `node_modules`.
+`guide.usage` decides what a finding does. `report`, the default, lists every finding and exits 0. `enforce` exits 1 on any finding. `tessera guide` runs the same check, then writes the app guide to `guide.out`, `guide/` by default, with links to the Tessera guide in `node_modules`.
 
 The standards extension runs the same checks on the parts of each package it checks. In `report` mode they print as notes, so an app on report mode sees no new finding; in `enforce` mode each one is a finding. A missing usage file follows the same mode: a note in `report`, a finding in `enforce`.
 
 ### The app tree
 
-`ai.tree` names a module that exports `APP_TREE`, the branches the app adds to the Tessera decision tree. Each branch has `at`, the answers that lead to a Tessera question, and `answers`, the new answers to it. Type it with `AppTree`, and add the app part names and the tree to `TesseraApps` by declaration merging so `ComponentUsage` takes them:
+`guide.tree` names a module that exports `APP_TREE`, the branches the app adds to the Tessera decision tree. Each branch has `at`, the answers that lead to a Tessera question, and `answers`, the new answers to it. Type it with `AppTree`, and add the app part names and the tree to `TesseraApps` by declaration merging so `ComponentUsage` takes them:
 
 ```ts
 import type { AppTree } from '@drizztdourden08/tessera';
@@ -1315,21 +1311,21 @@ Usage files keep `satisfies ComponentUsage`. The module imports types only, like
 
 ### What an app does
 
-1. Make sure `typescript` is installed in the app or at the repo root. The check reads the props and the examples with it, through the nearest `tsconfig.json` above each part or the one `ai.tsconfig` names.
+1. Make sure `typescript` is installed in the app or at the repo root. The check reads the props and the examples with it, through the nearest `tsconfig.json` above each part or the one `guide.tsconfig` names.
 2. Run `brock tessera check` and fix what it lists: replace the sentences `tessera new` left, set each `propsHash` it gives, and point every alternative at a real part.
-3. Give the app answers a home: add the `ai.tree` module above when the app parts need questions of their own. A part that sits on a Tessera answer needs no tree module.
-4. Add `ai/` to what the app commits, or ignore it, then run `brock tessera ai`.
-5. Switch `ai.usage` to `enforce` once the check is clean.
+3. Give the app answers a home: add the `guide.tree` module above when the app parts need questions of their own. A part that sits on a Tessera answer needs no tree module.
+4. Add `guide/` to what the app commits, or ignore it, then run `brock tessera guide`.
+5. Switch `guide.usage` to `enforce` once the check is clean.
 
 `tessera new` now names `tessera check` in its next steps, and `--tree` and its tree prompt take the app answers. The example of a shared part imports from the package name; the example of a view imports `../<Name>`, as before.
 
-In Tessera, `pnpm ai` and `pnpm ai --check` print and write the same as before. They read the usage files and the tree with TypeScript instead of Vite, so a usage file imports types only.
+In Tessera, `pnpm guide` and `pnpm guide --check` print and write the same as before. They read the usage files and the tree with TypeScript instead of Vite, so a usage file imports types only.
 
 ## 54. Tessera's tooling moves to @drizztdourden08/standards
 
 Tessera now lints and checks itself with `@drizztdourden08/standards` in place of `@drizztdourden08/brock-build` and `@drizztdourden08/brock-lint-config`. The rules keep their names. `standards prose`, `standards structure --check` and `standards sync --check` replace the Brock commands, and the root `standards.config.mjs` takes the `design-system` preset and Tessera's own extension. CI runs the reusable workflow of the standards repo.
 
-The usage file check of Tessera's extension now follows `ai.usage` for a missing file as well: in `report` mode a part without `Name.usage.ts` prints as a note and the check passes, in `enforce` mode it is a finding. Before, a missing file was a finding in both modes.
+The usage file check of Tessera's extension now follows `guide.usage` for a missing file as well: in `report` mode a part without `Name.usage.ts` prints as a note and the check passes, in `enforce` mode it is a finding. Before, a missing file was a finding in both modes.
 
 ### What an app does
 
@@ -2255,3 +2251,27 @@ Compact rows are at least `--settings-row-compact-h` (40px) tall. A slider, a se
 ### What an app does
 
 Give every settings row and every content row a `hint`, and a `description` or `noDescription: true`. A row that used `hint` as text under a missing description moves that text to `description`. A style on `.settings-row__hint` no longer needs a border or a left padding.
+
+## 85. The usage guide tooling is now named guide, and Tessera moves to standards 0.6.0
+
+The usage guide tooling is now named guide everywhere, with no alias:
+
+- In `tessera.config.json`, the object that holds `usage`, `out`, `tree` and `tsconfig` is `guide`, at the top level and in each `apps` entry. `guide.out` defaults to `guide`.
+- The command that checks the usage files and writes the app guide is `tessera guide`, or `brock tessera guide` in a Brock app.
+- The `package.json` script that builds the guide is `guide`. `tessera new` runs `pnpm guide` after it writes a part when the package has that script.
+- Tessera ships its guide in `guide/`, exported as `@drizztdourden08/tessera/guide/*`. The README of an app guide links to `node_modules/@drizztdourden08/tessera/guide/`.
+- `@drizztdourden08/tessera/config` exports the type of the usage mode as `GuideUsage`.
+- The check writes each example to a `.guide-examples` folder beside the app views.
+
+`RENAMES.json` lists each moved path in a new `configKeys` group, by file: the `tessera.config.json` keys, the same keys under `apps.*`, and the `package.json` script. Its `removedExports` notes the export path, and `components` the type.
+
+Tessera now depends on `@drizztdourden08/standards` `^0.6.0` and calls the shared workflows at `@v0`; 0.6.0 holds everything 1.0.5 did. Its word rule bans the names of one kind of tool and of its vendors in prose, comments, strings and identifier segments: `local/no-tool-brand-words` in ESLint, `BROCK007` in markdownlint and the same rule in `standards prose`. Every check reads the ignored paths from git, so `.gitignore` ignores every dot-folder with `.*/` and lists the tracked ones as exceptions, and the tool folder globs are gone from `.jscpd.json`. `pnpm lint` runs `standards knip` in place of plain knip. `standards sync --check` fails on a changeset that asks for a major bump.
+
+### What an app does
+
+1. In `tessera.config.json`, rename the object that holds the usage settings to `guide`, at the top level and in each `apps` entry. Brock's replay does it from `configKeys`.
+2. Rename the `package.json` script that builds the guide to `guide`, if the app has one.
+3. Run `brock tessera guide`. It writes the app guide to `guide/` unless `guide.out` names another folder. Delete the folder the app guide used before, and update `.gitignore` if it named that folder.
+4. Point every import of a file from the shipped guide at `@drizztdourden08/tessera/guide/*`.
+5. Rename uses of the usage mode type to `GuideUsage`.
+6. On `@drizztdourden08/standards`, depend on `^0.6.0`, call the workflows at `@v0` and run `standards knip` in place of knip.

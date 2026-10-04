@@ -1,5 +1,5 @@
 /* @layer tooling-scripts @kind logic */
-import { exampleHome } from '../ai/example-home.mjs';
+import { exampleHome } from '../guide/example-home.mjs';
 import { absolutePath } from '../config/absolute-path.mjs';
 import { importPath } from './import-path.mjs';
 import { PACKAGE_NAME } from './new.constants.mjs';

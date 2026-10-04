@@ -11,4 +11,4 @@ declare const findTesseraConfig: (fromDir?: string) => string | undefined;
 declare const loadTesseraConfig: (fromDir?: string) => ResolvedTesseraConfig | undefined;
 
 export { findTesseraConfig, loadTesseraConfig };
-export type { AiUsage, Folders, PartKind, ResolvedTesseraConfig, TesseraAppSettings, TesseraConfigFile } from './tessera-config.type.mjs';
+export type { Folders, GuideUsage, PartKind, ResolvedTesseraConfig, TesseraAppSettings, TesseraConfigFile } from './tessera-config.type.mjs';

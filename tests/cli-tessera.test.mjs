@@ -14,10 +14,10 @@ const PARTS = [
 const made = generateParts(tesseraCopy, PARTS);
 
 describe('tessera new in the Tessera repo', () => {
-  it('creates a primitive and a composite, then runs pnpm ai', () => {
+  it('creates a primitive and a composite, then runs pnpm guide', () => {
     expect(made.results.map((result) => result.status)).toEqual([0, 0]);
     for (const file of made.files) expect(existsSync(join(made.dir, file)), file).toBe(true);
-    expect(made.results.flatMap((result) => result.scripts).map((script) => script.script)).toEqual(['ai', 'ai']);
+    expect(made.results.flatMap((result) => result.scripts).map((script) => script.script)).toEqual(['guide', 'guide']);
     expect(made.results[0].out).toContain('tessera: created the primitive QuestBanner.');
     expect(made.results[0].out).toContain('  .storylite/catalogue-primitives.constants.ts');
   });
@@ -37,10 +37,10 @@ describe('tessera new in the Tessera repo', () => {
 });
 
 describe('the gates on what tessera new writes in Tessera', () => {
-  it('keeps ai/ in step: pnpm ai --check passes with the new usage files', () => {
-    const check = pnpm(made.dir, 'ai --check');
+  it('keeps guide/ in step: pnpm guide --check passes with the new usage files', () => {
+    const check = pnpm(made.dir, 'guide --check');
     expect(check.status, `${check.stdout}${check.stderr}`).toBe(0);
-    expect(made.read('ai/components/QuestBanner.md')).toContain('# QuestBanner');
+    expect(made.read('guide/components/QuestBanner.md')).toContain('# QuestBanner');
   }, TIMEOUT);
 
   it('passes eslint, with the edited catalogue, sidebar and barrels', () => {

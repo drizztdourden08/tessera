@@ -2,3 +2,4 @@ fonts/game/LICENSE.txt           CC BY 3.0 licence of the dialogue face, travels
 fonts/game/README.txt            the face author's original readme, travels unchanged under CC BY 3.0
 fonts/inter/LICENSE.txt          SIL Open Font License of Inter, travels unchanged
 fonts/chakra-petch/LICENSE.txt   SIL Open Font License of Chakra Petch, travels unchanged
+RENAMES.json                     maps retired public names to their new ones, so it keeps old names the word rules ban

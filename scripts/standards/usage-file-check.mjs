@@ -19,10 +19,10 @@ const usageFileCheck = async ({ rootDir, packageDir }) => {
     if (!config) return [];
     const folders = partDirs(config).filter((dir) => ownedBy(dir, packageDir)).flatMap(componentFolders);
     const missing = folders.filter(missingUsage).map((folder) => `${posixPath(relative(rootDir, folder))}: missing ${basename(folder)}.usage.ts (${USAGE_REASON})`);
-    const ownsTree = config.ai.tree !== undefined && ownedBy(config.ai.tree, packageDir);
+    const ownsTree = config.guide.tree !== undefined && ownedBy(config.guide.tree, packageDir);
     const content = folders.length > 0 || ownsTree ? await contentFindings(config, { rootDir, packageDir }) : [];
     const all = [...missing, ...content];
-    return config.ai.usage === 'enforce' ? { findings: all, notes: [] } : { findings: [], notes: all };
+    return config.guide.usage === 'enforce' ? { findings: all, notes: [] } : { findings: [], notes: all };
   } catch (error) {
     return [problemText(error)];
   }

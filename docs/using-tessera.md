@@ -225,10 +225,10 @@ Every key is optional:
 | `stories` | the gallery stories | `stories` |
 | `theme.css` | the theme stylesheet | `src/theme.css` |
 | `theme.palette` | the `data-palette` name of the app palette | none |
-| `ai.usage` | `report` lists what the usage check finds and passes; `enforce` fails on it | `report` |
-| `ai.out` | the folder `tessera ai` writes the app guide to | `ai` |
-| `ai.tree` | the module whose `APP_TREE` adds the app branches to the decision tree | none |
-| `ai.tsconfig` | the `tsconfig.json` the usage check reads every part with | the nearest one above each part |
+| `guide.usage` | `report` lists what the usage check finds and passes; `enforce` fails on it | `report` |
+| `guide.out` | the folder `tessera guide` writes the app guide to | `guide` |
+| `guide.tree` | the module whose `APP_TREE` adds the app branches to the decision tree | none |
+| `guide.tsconfig` | the `tsconfig.json` the usage check reads every part with | the nearest one above each part |
 | `gallery` | `title`, `port` and `review` of the StoryLite gallery, read only when `@storylite/storylite` is installed | none |
 | `overrides` | the file that builds the app `TesseraOverrides` | none |
 | `apps` | settings per app, below | none |
@@ -308,20 +308,20 @@ Every part in the `parts` folders of `tessera.config.json` has a `Name.usage.ts`
 - each example type-checks against the app;
 - `propsHash` matches the props in the code. When it does not, the finding gives the hash to set once the usage is read again.
 
-`ai.usage` decides what a finding does. In `report` mode `tessera check` lists every finding and exits 0; in `enforce` mode any finding makes it exit 1. Start in `report`, fill the usage files, then switch to `enforce`.
+`guide.usage` decides what a finding does. In `report` mode `tessera check` lists every finding and exits 0; in `enforce` mode any finding makes it exit 1. Start in `report`, fill the usage files, then switch to `enforce`.
 
-`tessera ai` runs the same check, then writes the app guide to `ai.out`. Its `README.md` sends the reader to the Tessera guide in `node_modules/@drizztdourden08/tessera/ai/` first. Then come `decide.md` with the answers the app adds, `index.md` with every app part, a page per part and `registry.json`. A part whose usage still holds a sentence from `tessera new` gets no page. An alternative that names a Tessera part links to its Tessera page.
+`tessera guide` runs the same check, then writes the app guide to `guide.out`. Its `README.md` sends the reader to the Tessera guide in `node_modules/@drizztdourden08/tessera/guide/` first. Then come `decide.md` with the answers the app adds, `index.md` with every app part, a page per part and `registry.json`. A part whose usage still holds a sentence from `tessera new` gets no page. An alternative that names a Tessera part links to its Tessera page.
 
-The check reads the props and the examples with TypeScript, so the app needs `typescript` installed. Each part is read with the nearest `tsconfig.json` above it, or with `ai.tsconfig`. An example is checked as a file in a `.ai-examples` folder beside the app views, so `../SaveList` reaches the view `SaveList`. A part in another workspace package is checked beside its own folder and imports from that package: the `name` of its nearest `package.json`, plus the entry of its `exports` whose file sits in the folder closest above the part, such as `@brock/input/renderer`. A relative path is used only when the part and the views share a package. A usage file and the tree module import types only: the check runs them without the app bundler.
+The check reads the props and the examples with TypeScript, so the app needs `typescript` installed. Each part is read with the nearest `tsconfig.json` above it, or with `guide.tsconfig`. An example is checked as a file in a `.guide-examples` folder beside the app views, so `../SaveList` reaches the view `SaveList`. A part in another workspace package is checked beside its own folder and imports from that package: the `name` of its nearest `package.json`, plus the entry of its `exports` whose file sits in the folder closest above the part, such as `@brock/input/renderer`. A relative path is used only when the part and the views share a package. A usage file and the tree module import types only: the check runs them without the app bundler.
 
-In the Tessera repo, `pnpm ai --check` runs the same checks on Tessera's own parts.
+In the Tessera repo, `pnpm guide --check` runs the same checks on Tessera's own parts.
 
 ### The app tree
 
-`ai.tree` names a module that adds app branches to the Tessera decision tree. It exports `APP_TREE`, a list of branches. `at` lists the answers that lead to a question of the Tessera tree, `[]` for the first question. `answers` holds the new answers to that question: `null` for an answer that leads to parts, or a new question with its own answers.
+`guide.tree` names a module that adds app branches to the Tessera decision tree. It exports `APP_TREE`, a list of branches. `at` lists the answers that lead to a question of the Tessera tree, `[]` for the first question. `answers` holds the new answers to that question: `null` for an answer that leads to parts, or a new question with its own answers.
 
 ```ts
-// packages/design/src/ai/tree.ts
+// packages/design/src/guide/tree.ts
 import type { AppTree } from '@drizztdourden08/tessera';
 
 const APP_TREE = [
@@ -377,23 +377,23 @@ It reads `tessera.config.json` to know where it runs and where each kind goes. T
 
 It refuses a name already taken in any `parts` folder. The story goes under the `stories` folder, in `<kind>s/`, and imports the part by its relative path. With no `stories` set in `tessera.config.json` or in the app entry, that folder is `stories/` in the package that holds the part.
 
-Each folder gets `<Name>.tsx` built from `Box` and `Text`, `<Name>.type.ts` with its props, `<Name>.css` with tokens only, `index.ts` and `<Name>.usage.ts`. Every field of the usage file holds a sentence that says what to write there: replace each one. Until then `tessera check` lists the field. `propsHash` matches the props it writes; change the props and `tessera check` gives the new hash (`pnpm ai --check` in Tessera).
+Each folder gets `<Name>.tsx` built from `Box` and `Text`, `<Name>.type.ts` with its props, `<Name>.css` with tokens only, `index.ts` and `<Name>.usage.ts`. Every field of the usage file holds a sentence that says what to write there: replace each one. Until then `tessera check` lists the field. `propsHash` matches the props it writes; change the props and `tessera check` gives the new hash (`pnpm guide --check` in Tessera).
 
-In Tessera it also exports the part from its tier barrel, adds its entry to `.storylite/catalogue-*.constants.ts` and its icon to `.storylite/sidebar-icons.constants.ts`, writes an Overview story from the gallery template, then runs `pnpm ai`. In an app, it writes the story when the package that holds the part lists `@storylite/storylite`. When `stories` is set, it also writes it when the repo root or the package that holds the `stories` folder lists StoryLite. A part in a workspace package with no StoryLite and no `stories` setting gets no story.
+In Tessera it also exports the part from its tier barrel, adds its entry to `.storylite/catalogue-*.constants.ts` and its icon to `.storylite/sidebar-icons.constants.ts`, writes an Overview story from the gallery template, then runs `pnpm guide`. In an app, it writes the story when the package that holds the part lists `@storylite/storylite`. When `stories` is set, it also writes it when the repo root or the package that holds the `stories` folder lists StoryLite. A part in a workspace package with no StoryLite and no `stories` setting gets no story.
 
 An app primitive or composite starts with a warning: most primitives and composites belong in Tessera, so build it there unless only this app will ever need it. The command then asks to confirm. Without a terminal it stops unless `--yes` is given.
 
 | Option | What it does |
 |---|---|
 | `--group <group>` | the gallery group of its page, such as `Layout`. In Tessera it asks when this is left out |
-| `--tree <path>` | where the part sits in the decision tree of `ai/decide.md`, the answers joined by `>`, such as `"actions > one action > a visible word"`. Left out, it asks in a terminal; with no answer picked, the part is a building block |
+| `--tree <path>` | where the part sits in the decision tree of `guide/decide.md`, the answers joined by `>`, such as `"actions > one action > a visible word"`. Left out, it asks in a terminal; with no answer picked, the part is a building block |
 | `--into <folder>` | the folder to write in, when `tessera.config.json` lists more than one for the kind |
 | `--layer <name>` | the `@layer` tag of the files of an app part, such as `renderer-shell`. Left out, it takes `layer` from `tessera.config.json` or the app entry, else `renderer-app`. Tessera parts always take `renderer-components` |
 | `--icon <name>` | the Lucide icon of its gallery page in Tessera, `component` by default |
 | `--yes` | creates an app primitive or composite without asking |
 | `--dry-run` | lists the files it would write and change, and writes nothing |
 
-Other tools run the same commands through `@drizztdourden08/tessera/cli`: `runTessera(['new', 'compound', 'SaveSlot'], { cwd })` and `runTessera(['check'], { cwd })` resolve to the exit code. `brock tessera` is built on it, so `brock tessera check` and `brock tessera ai` reach them too.
+Other tools run the same commands through `@drizztdourden08/tessera/cli`: `runTessera(['new', 'compound', 'SaveSlot'], { cwd })` and `runTessera(['check'], { cwd })` resolve to the exit code. `brock tessera` is built on it, so `brock tessera check` and `brock tessera guide` reach them too.
 
 ## Upgrading
 

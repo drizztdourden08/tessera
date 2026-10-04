@@ -29,7 +29,7 @@ const COMPOUNDS_GUIDE: Guide = {
   SaveSlot.css            its styles, tokens only
   SaveSlot.type.ts        its props and other types
   SaveSlot.constants.ts   static data, when it has any
-  SaveSlot.usage.ts       what it is for, for people and AI readers
+  SaveSlot.usage.ts       what it is for, for people and assistants
   index.ts                the barrel
   behavior/               hooks and logic, one per file
   sub-components/         children used only here, in the same shape`,

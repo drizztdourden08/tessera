@@ -4,10 +4,10 @@ import { readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { collectApp } from '../scripts/ai/collect-app.mjs';
-import { graftBranch } from '../scripts/ai/graft-branch.mjs';
+import { collectApp } from '../scripts/guide/collect-app.mjs';
+import { graftBranch } from '../scripts/guide/graft-branch.mjs';
 import { run as check } from '../scripts/cli/check-command.mjs';
-import { run as writeGuide } from '../scripts/cli/ai-command.mjs';
+import { run as writeGuide } from '../scripts/cli/guide-command.mjs';
 import { loadTesseraConfig } from '../scripts/config/load-tessera-config.mjs';
 import { tesseraExtension } from '../scripts/standards/tessera-extension.mjs';
 import { appUsageFixture } from './app-usage-fixture.mjs';
@@ -30,7 +30,7 @@ const withMode = async (mode, work) => {
   const file = at('tessera.config.json');
   const original = read('tessera.config.json');
   const config = JSON.parse(original);
-  writeFileSync(file, JSON.stringify({ ...config, ai: { ...config.ai, usage: mode } }));
+  writeFileSync(file, JSON.stringify({ ...config, guide: { ...config.guide, usage: mode } }));
   try {
     return await work();
   } finally {
@@ -91,17 +91,17 @@ describe('the usage types in an app', () => {
   }, TIMEOUT);
 });
 
-describe('tessera check and tessera ai', () => {
-  it('runs pnpm ai --check in the Tessera repo', async () => {
+describe('tessera check and tessera guide', () => {
+  it('runs pnpm guide --check in the Tessera repo', async () => {
     const result = await command(check, ROOT);
     expect(result.status).toBe(0);
-    expect(result.out).toContain('ai: ai/ matches what pnpm ai writes.');
+    expect(result.out).toContain('guide: guide/ matches what pnpm guide writes.');
   }, TIMEOUT);
 
   it('prints every finding and passes in report mode', async () => {
     const result = await command(check, state.dir);
     expect(result.status).toBe(0);
-    expect(result.out).toContain('tessera: report mode (tessera.config.json ai.usage).');
+    expect(result.out).toContain('tessera: report mode (tessera.config.json guide.usage).');
     expect(result.out).toContain('tessera: 5 of 6 parts have a usage file.');
     expect(result.out).toContain('stale-props RunePanel: propsHash is');
     expect(result.out).toContain('tessera: 1 usage file(s) still hold sentences tessera new wrote: Home.');
@@ -110,17 +110,17 @@ describe('tessera check and tessera ai', () => {
   it('fails on any finding in enforce mode, run from inside an app too', async () => {
     const results = await withMode('enforce', async () => [await command(check, state.dir), await command(check, at('apps/desktop'))]);
     expect(results.map((result) => result.status)).toEqual([1, 1]);
-    expect(results[1].out).toContain('tessera: enforce mode (tessera.config.json ai.usage). Every finding fails the check.');
+    expect(results[1].out).toContain('tessera: enforce mode (tessera.config.json guide.usage). Every finding fails the check.');
   }, TIMEOUT);
 
-  it('writes the app guide to ai.out, linked to the Tessera guide', async () => {
+  it('writes the app guide to guide.out, linked to the Tessera guide', async () => {
     const result = await command(writeGuide, state.dir);
-    expect(result.out).toContain('tessera: wrote 8 file(s) to ai/.');
-    expect(read('ai/README.md')).toContain('[rules.md](../node_modules/@drizztdourden08/tessera/ai/rules.md)');
-    expect(read('ai/decide.md')).toContain('  - The list of saves: [SaveList](components/SaveList.md). SaveList draws one saved game.');
-    expect(read('ai/components/SaveList.md')).toContain('Use [SaveSlot](SaveSlot.md) instead.');
-    expect(read('ai/components/SaveSlot.md')).toContain('import { SaveSlot } from \'@fixture/design\';');
-    expect(read('ai/index.md')).toContain('- `Home`: usage not written yet. Its folder is `apps/desktop/src/views/Home`.');
+    expect(result.out).toContain('tessera: wrote 8 file(s) to guide/.');
+    expect(read('guide/README.md')).toContain('[rules.md](../node_modules/@drizztdourden08/tessera/guide/rules.md)');
+    expect(read('guide/decide.md')).toContain('  - The list of saves: [SaveList](components/SaveList.md). SaveList draws one saved game.');
+    expect(read('guide/components/SaveList.md')).toContain('Use [SaveSlot](SaveSlot.md) instead.');
+    expect(read('guide/components/SaveSlot.md')).toContain('import { SaveSlot } from \'@fixture/design\';');
+    expect(read('guide/index.md')).toContain('- `Home`: usage not written yet. Its folder is `apps/desktop/src/views/Home`.');
   }, TIMEOUT);
 });
 
@@ -132,7 +132,7 @@ describe('the standards extension on an app', () => {
     expect(design.findings).toEqual([]);
     expect(design.notes).toEqual([
       expect.stringMatching(/^packages\/design\/src\/panels\/RunePanel: stale-props: propsHash is /),
-      'packages/design/src/ai/tree.ts: unreached-leaf: a saved game > an old save',
+      'packages/design/src/guide/tree.ts: unreached-leaf: a saved game > an old save',
     ]);
   }, TIMEOUT);
 

@@ -9,8 +9,8 @@ const DEFAULTS = {
   layer: 'renderer-app',
   stories: 'stories',
   themeCss: 'src/theme.css',
-  aiUsage: 'report',
-  aiOut: 'ai',
+  guideUsage: 'report',
+  guideOut: 'guide',
 };
 
 const TYPE_NAMES = {

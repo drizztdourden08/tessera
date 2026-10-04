@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-import type { ComponentUsage } from '../../ai/usage.type';
+import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
   job: 'A compact screen for one short task: the page header shows the status with a spinner or a tone icon, then a centred message, settings, details, a framed notes box, progress, and a footer with a report button and the actions.',

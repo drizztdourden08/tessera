@@ -16,11 +16,11 @@ const fail = (io, problems, usage = false) => {
   return 1;
 };
 
-const runAi = (io, project) => {
-  if (!project.manifest.scripts?.ai) return 0;
-  io.log('tessera: running pnpm ai so ai/ follows the new usage file.');
-  const status = io.runScript(project.manifestDir, 'ai');
-  if (status !== 0) io.warn('tessera: pnpm ai failed. The files are written: fix what it reports, then run pnpm ai again.');
+const runGuide = (io, project) => {
+  if (!project.manifest.scripts?.guide) return 0;
+  io.log('tessera: running pnpm guide so guide/ follows the new usage file.');
+  const status = io.runScript(project.manifestDir, 'guide');
+  if (status !== 0) io.warn('tessera: pnpm guide failed. The files are written: fix what it reports, then run pnpm guide again.');
   return status;
 };
 
@@ -30,7 +30,7 @@ const create = (io, project, spec, dryRun) => {
   if (!dryRun) writePlan(project.root, plan);
   printPlan(io, { spec, plan, dryRun });
   if (dryRun) return 0;
-  return runAi(io, project) === 0 ? 0 : 1;
+  return runGuide(io, project) === 0 ? 0 : 1;
 };
 
 const run = async (argv, { cwd, io = defaultIo() }) => {

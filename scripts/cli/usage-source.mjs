@@ -1,10 +1,10 @@
 /* @layer tooling-scripts @kind logic */
 import { quoteText } from './quote-text.mjs';
-import { placeholderSentences } from '../ai/placeholder-sentences.mjs';
+import { placeholderSentences } from '../guide/placeholder-sentences.mjs';
 import { templatePropsHash } from './template-props-hash.mjs';
 
 const TYPE_IMPORTS = {
-  tessera: 'import type { ComponentUsage } from \'../../ai/usage.type\';',
+  tessera: 'import type { ComponentUsage } from \'../../guide/usage.type\';',
   app: 'import type { ComponentUsage } from \'@drizztdourden08/tessera\';',
 };
 

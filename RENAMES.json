@@ -1,5 +1,5 @@
 {
-  "$comment": "Every rename and removal in Tessera, grouped by the release it ships in, oldest first. An upgrade replays each release between the old and the new version, in order; inside a release every key maps straight to its final name, so one pass is enough. Unreleased entries sit in the release named next, which the release step renames to the new version. Inside a map, replace longer keys first. components holds every renamed export, components and their types. props keys are Component.prop under the old component name. A value with words after the name, or any removedExports value, is a note for a person, not a name to write. A cssClasses value may hold several classes separated by spaces; write them all.",
+  "$comment": "Every rename and removal in Tessera, grouped by the release it ships in, oldest first. An upgrade replays each release between the old and the new version, in order; inside a release every key maps straight to its final name, so one pass is enough. Unreleased entries sit in the release named next, which the release step renames to the new version. Inside a map, replace longer keys first. components holds every renamed export, components and their types. props keys are Component.prop under the old component name. A value with words after the name, or any removedExports value, is a note for a person, not a name to write. A cssClasses value may hold several classes separated by spaces; write them all. configKeys maps setting paths inside the JSON files a project keeps, grouped by file name, such as tessera.config.json and package.json: each key is a dotted path into that file, where * stands for any one key such as an apps folder, and the value is the path the same value moves to, unchanged.",
   "releases": [
     {
       "version": "0.4.0",
@@ -480,7 +480,8 @@
       "removedExports": {
         "FieldPicker": "removed; list fields in a DropdownMenu with children, as DataTable does (see MIGRATION.md section 76)",
         "FieldPickerProps": "removed with FieldPicker (see MIGRATION.md section 76)",
-        "UtilityScreenFootnote": "replaced by UtilityScreenReport, the report button (see MIGRATION.md section 80)"
+        "UtilityScreenFootnote": "replaced by UtilityScreenReport, the report button (see MIGRATION.md section 80)",
+        "@drizztdourden08/tessera/ai/*": "@drizztdourden08/tessera/guide/* (the shipped usage guide folder moves from ai/ to guide/; see MIGRATION.md section 85)"
       },
       "cssClasses": {
         "filter-chip__dot": "filter-bar__kind",
@@ -530,6 +531,24 @@
       "cssCustomProperties": {
         "--settings-page-head-h-compact": "--screen-page-head-h-compact",
         "--settings-page-head-h": "--screen-page-head-h"
+      },
+      "components": {
+        "AiUsage": "GuideUsage"
+      },
+      "configKeys": {
+        "tessera.config.json": {
+          "apps.*.ai.tsconfig": "apps.*.guide.tsconfig",
+          "apps.*.ai.usage": "apps.*.guide.usage",
+          "apps.*.ai.tree": "apps.*.guide.tree",
+          "apps.*.ai.out": "apps.*.guide.out",
+          "ai.tsconfig": "guide.tsconfig",
+          "ai.usage": "guide.usage",
+          "ai.tree": "guide.tree",
+          "ai.out": "guide.out"
+        },
+        "package.json": {
+          "scripts.ai": "scripts.guide"
+        }
       }
     }
   ]

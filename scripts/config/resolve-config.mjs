@@ -14,11 +14,11 @@ const resolveTheme = (theme, { root, appRoot }) => ({
   ...optional('palette', theme.palette),
 });
 
-const resolveAi = (ai, root) => ({
-  usage: ai.usage ?? DEFAULTS.aiUsage,
-  out: absolutePath(root, ai.out ?? DEFAULTS.aiOut),
-  ...optional('tree', ai.tree, (tree) => absolutePath(root, tree)),
-  ...optional('tsconfig', ai.tsconfig, (tsconfig) => absolutePath(root, tsconfig)),
+const resolveGuide = (guide, root) => ({
+  usage: guide.usage ?? DEFAULTS.guideUsage,
+  out: absolutePath(root, guide.out ?? DEFAULTS.guideOut),
+  ...optional('tree', guide.tree, (tree) => absolutePath(root, tree)),
+  ...optional('tsconfig', guide.tsconfig, (tsconfig) => absolutePath(root, tsconfig)),
 });
 
 const resolveGallery = (gallery, root) => ({
@@ -35,7 +35,7 @@ const resolveConfig = (raw, { file, root, appRoot = root }) => ({
   layer: raw.layer ?? DEFAULTS.layer,
   stories: absolutePath(root, raw.stories ?? DEFAULTS.stories),
   theme: resolveTheme(raw.theme ?? {}, { root, appRoot }),
-  ai: resolveAi(raw.ai ?? {}, root),
+  guide: resolveGuide(raw.guide ?? {}, root),
   ...optional('gallery', raw.gallery, (gallery) => resolveGallery(gallery, root)),
   ...optional('overrides', raw.overrides, (overrides) => absolutePath(root, overrides)),
   apps: Object.keys(raw.apps ?? {}).map((app) => absolutePath(root, app)),

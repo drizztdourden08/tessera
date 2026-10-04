@@ -28,7 +28,7 @@
     "./tokens.json": "./tokens.json",
     "./splash-tokens.css": "./splash-tokens.css",
     "./brand/*": "./brand/*",
-    "./ai/*": "./ai/*",
+    "./guide/*": "./guide/*",
     "./config": {
       "types": "./scripts/config/index.d.mts",
       "default": "./scripts/config/index.mjs"
@@ -51,11 +51,11 @@
     "tessera": "./scripts/cli/tessera.mjs"
   },
   "files": [
-    "ai",
+    "guide",
     "scripts/cli",
     "scripts/config",
     "scripts/standards",
-    "scripts/ai",
+    "scripts/guide",
     "src",
     "brand",
     "fonts",
@@ -75,8 +75,8 @@
     "**/field-kits/*Kit.tsx"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/ai",
-    "lint": "pnpm typecheck && eslint . && stylelint \"src/**/*.css\" \"fonts/**/*.css\" \"stories/**/*.css\" && standards prose && knip && jscpd && pnpm ai --check",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide",
+    "lint": "pnpm typecheck && eslint . && stylelint \"src/**/*.css\" \"fonts/**/*.css\" \"stories/**/*.css\" && standards prose && standards knip && jscpd && pnpm guide --check",
     "lint:md": "markdownlint-cli2",
     "test": "vitest run",
     "storylite": "storylite dev --port 4400",
@@ -85,12 +85,12 @@
     "prose": "standards prose",
     "sync": "standards sync --check",
     "changeset": "changeset",
-    "deadcode": "knip",
+    "deadcode": "standards knip",
     "duplicates": "jscpd",
     "icons": "node scripts/app-icons/build-app-icons.mjs",
     "tokens": "node scripts/tokens/build-tokens.mjs",
     "review": "node scripts/review/review.mjs",
-    "ai": "node scripts/ai/build-ai.mjs",
+    "guide": "node scripts/guide/build-guide.mjs",
     "tessera": "node scripts/cli/tessera.mjs",
     "release:version": "changeset version && node scripts/renames/stamp-renames.mjs"
   },
@@ -118,7 +118,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
-    "@drizztdourden08/standards": "^1.0.2",
+    "@drizztdourden08/standards": "^0.6.0",
     "@resvg/resvg-js": "^2.6.2",
     "@storylite/renderer-react": "^1.6.0",
     "@storylite/storylite": "^1.6.0",

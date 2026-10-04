@@ -57,7 +57,7 @@ describe('finding tessera.config.json', () => {
     expect(config.parts.primitives).toEqual([`${ROOT}/src/primitives`]);
     expect(config.parts.composites).toEqual([`${ROOT}/src/composites`]);
     expect(config.stories).toBe(`${ROOT}/stories`);
-    expect(config.ai.usage).toBe('report');
+    expect(config.guide.usage).toBe('report');
   });
 });
 
@@ -76,7 +76,7 @@ describe('the resolved config', () => {
       layer: 'renderer-app',
       stories: `${dir}/stories`,
       theme: { css: `${dir}/src/theme.css` },
-      ai: { usage: 'report', out: `${dir}/ai` },
+      guide: { usage: 'report', out: `${dir}/guide` },
       apps: [],
     });
   });
@@ -89,7 +89,7 @@ describe('the resolved config', () => {
     expect(config.parts.compounds).toEqual([`${dir}/packages/design/src/compounds`, `${dir}/packages/design/src/panels`]);
     expect(config.parts.views).toEqual([`${dir}/src/views`]);
     expect(config.theme).toEqual({ css: `${dir}/packages/design/src/theme.css`, palette: 'fixture' });
-    expect(config.ai).toEqual({ usage: 'report', out: `${dir}/ai`, tree: `${dir}/packages/design/src/ai/tree.ts` });
+    expect(config.guide).toEqual({ usage: 'report', out: `${dir}/guide`, tree: `${dir}/packages/design/src/guide/tree.ts` });
     expect(config.gallery).toEqual({ title: 'Fixture', port: 4410, review: `${dir}/packages/design/review.json` });
     expect(config.overrides).toBe(`${dir}/packages/design/src/tessera-overrides.ts`);
     expect(config.apps).toEqual([`${dir}/apps/desktop`]);
@@ -131,7 +131,7 @@ describe('a broken tessera.config.json', () => {
 
   it('names a key of the wrong type or value', () => {
     expect(errorOf(single({ gallery: { port: '4410' } }))).toContain('"gallery.port" is a string; it takes a whole number');
-    expect(errorOf(single({ ai: { usage: 'loose' } }))).toContain('"ai.usage" is "loose"; it takes "report" or "enforce"');
+    expect(errorOf(single({ guide: { usage: 'loose' } }))).toContain('"guide.usage" is "loose"; it takes "report" or "enforce"');
     expect(errorOf(single({ parts: { views: ['src/views', 3] } }))).toContain('"parts.views[1]" is a whole number; it takes a string');
     expect(errorOf(single({ parts: { views: 3 } }))).toContain('"parts.views" is a whole number; it takes a string or a list');
     expect(errorOf(single({ stories: '' }))).toContain('"stories" is empty');

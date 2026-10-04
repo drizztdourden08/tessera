@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-import type { ComponentUsage } from '../../ai/usage.type';
+import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
   job: 'A screen to read, such as About or credits: the page header with its icon and heading, then wide margins and one centred column that scrolls.',

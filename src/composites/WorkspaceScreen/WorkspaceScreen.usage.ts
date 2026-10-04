@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-import type { ComponentUsage } from '../../ai/usage.type';
+import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
   job: 'A screen to work in, built from one content object: a side nav of pages, the current page under a header that compacts as it scrolls, and a search over every setting.',

@@ -1,5 +1,5 @@
 /* @layer tooling-scripts @kind logic */
-import { placeholderSentences } from '../ai/placeholder-sentences.mjs';
+import { placeholderSentences } from '../guide/placeholder-sentences.mjs';
 import { addBarrelExport } from './add-barrel-export.mjs';
 import { addCatalogueEntry } from './add-catalogue-entry.mjs';
 import { addSidebarIcon } from './add-sidebar-icon.mjs';

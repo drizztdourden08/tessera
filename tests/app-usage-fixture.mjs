@@ -2,7 +2,7 @@
 import { readFileSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { placeholderSentences } from '../scripts/ai/placeholder-sentences.mjs';
+import { placeholderSentences } from '../scripts/guide/placeholder-sentences.mjs';
 import { run } from '../scripts/cli/new-command.mjs';
 import { fixtureRepo, MONOREPO } from './config-fixture.mjs';
 
@@ -47,8 +47,8 @@ const tsconfig = (include) => ({
 const FILES = {
   ...MONOREPO,
   'packages/design/tsconfig.json': tsconfig(['src/**/*']),
-  'apps/desktop/tsconfig.json': tsconfig(['src/**/*', '../../packages/design/src/ai/tree.ts']),
-  'packages/design/src/ai/tree.ts': APP_TREE,
+  'apps/desktop/tsconfig.json': tsconfig(['src/**/*', '../../packages/design/src/guide/tree.ts']),
+  'packages/design/src/guide/tree.ts': APP_TREE,
   'packages/design/src/index.ts': 'export { SaveSlot } from \'./compounds/SaveSlot\';\nexport { RunePanel } from \'./panels/RunePanel\';\n',
   'apps/desktop/src/views/Bare/Bare.tsx': 'const Bare = () => null;\n\nexport { Bare };\n',
 };

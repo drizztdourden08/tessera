@@ -6,5 +6,5 @@
   },
   "stories": "stories",
   "theme": { "css": "src/tokens/index.css" },
-  "ai": { "usage": "report" }
+  "guide": { "usage": "report" }
 }

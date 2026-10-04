@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-import type { ComponentUsage } from '../../ai/usage.type';
+import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
   job: 'Building block: the page header container every screen kind shows, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.',
