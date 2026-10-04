@@ -1803,3 +1803,23 @@ As the bar narrows, its items hide one by one, each end hiding only what is in t
 ### What an app does
 
 An app turns each child of `left` into an action with a label, an icon and `onSelect`, and an update pill into an action with `bar: 'status'`. It removes from `menu` any item an action now adds, such as Check for updates, so the menu does not list it twice. The tessera strings gain `windows.view`, the label of the View sub-menu. RENAMES.json notes `WindowTitleBar.left` under the release named next.
+
+## 71. InputIcon: SNES art is vector only, every d-pad direction is red, and the generic family has a d-pad
+
+The SNES glyphs were imported with the art's blur filters and with its outline paths filled black, so the d-pad arrows drew as black blobs and the edges went soft. They are now vector paths only: the shadows and highlights are drawn as shapes, and the noise texture, a bitmap in the source, is left out. Every InputIcon is now free of bitmaps and filters, and a test keeps it so.
+
+The pressed arm of each `dpad-up`, `dpad-down`, `dpad-left` and `dpad-right` glyph is red with `tone="color"` in every family that has a d-pad: xbox, playstation, switch, gamecube, snes and generic. With `tone="theme"` it takes `--c-primary`, not `--c-primary-bright`, and a thin gap in `--c-bg` around it, so a pale primary still stands apart from a light glyph. The same applies to the other highlights: the joystick balls and the coloured GameCube buttons.
+
+The generic family adds `dpad`, a plain cross, and the four directions. `gamepadInputIcon('generic', 'dpup')` and the other d-pad ids now give these in place of the stick arrows.
+
+```tsx
+<InputIcon family="generic" name="dpad-left" />
+<InputIcon family="snes" name="dpad-up" tone="theme" />
+gamepadInputIcon('generic', 'dpdown'); // { family: 'generic', name: 'dpad-down' }
+```
+
+The SNES art was drawn by drizztdourden_ from scratch for Relic of the Past, inspired by Tiago Alexander's "SNES Controller in Sketch". README.md and the InputIcon page say so.
+
+### What an app does
+
+Nothing, unless it relied on a generic d-pad id drawing a stick arrow or on the theme highlight being `--c-primary-bright`.

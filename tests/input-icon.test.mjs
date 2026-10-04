@@ -9,7 +9,7 @@ describe('InputIcon data', () => {
   it('holds every family RotP had, and every glyph draws something', () => {
     expect(Object.keys(INPUT_ICONS)).toEqual(['xbox', 'playstation', 'switch', 'gamecube', 'snes', 'generic', 'keyboard']);
     const total = Object.values(INPUT_ICONS).reduce((sum, set) => sum + Object.keys(set).length, 0);
-    expect(total).toBe(278);
+    expect(total).toBe(283);
     for (const [family, set] of Object.entries(INPUT_ICONS)) {
       for (const name of Object.keys(set)) expect(inputIconData({ family, name })?.body.length).toBeGreaterThan(20);
     }
@@ -19,6 +19,29 @@ describe('InputIcon data', () => {
     expect(inputIconData({ family: 'xbox', name: 'a' })?.body).toContain('fill="currentColor"');
     expect(inputIconData({ family: 'xbox', name: 'dpad-up' })?.body).toContain('class="input-icon__accent"');
     expect(Object.values(INPUT_ICONS.keyboard).join('')).not.toContain('#FFFFFF');
+  });
+
+  it('is vector geometry only: no bitmap, no texture, no blur filter', () => {
+    const RASTER = /<image|data:image|<filter|filter=|<pattern|foreignObject|backdrop-filter/;
+    for (const [family, set] of Object.entries(INPUT_ICONS)) {
+      for (const name of Object.keys(set)) expect(inputIconData({ family, name })?.body, `${family}/${name}`).not.toMatch(RASTER);
+    }
+  });
+
+  it('paints only what the art fills, so outline paths in the SNES art stay outlines', () => {
+    for (const name of Object.keys(INPUT_ICONS.snes)) expect(inputIconData({ family: 'snes', name })?.body.startsWith('<g fill="none"')).toBe(true);
+  });
+
+  it('marks the pressed arm of every d-pad direction, in every family that has one', () => {
+    const families = Object.keys(INPUT_ICONS).filter((family) => Object.hasOwn(INPUT_ICONS[family], 'dpad-up'));
+    expect(families).toEqual(['xbox', 'playstation', 'switch', 'gamecube', 'snes', 'generic']);
+    for (const family of families) {
+      for (const way of ['up', 'down', 'left', 'right']) {
+        const body = inputIconData({ family, name: `dpad-${way}` })?.body ?? '';
+        expect(body.match(/class="input-icon__accent"/g), `${family}/dpad-${way}`).toHaveLength(1);
+      }
+    }
+    expect(inputIconData({ family: 'generic', name: 'dpad' })?.body).not.toContain('input-icon__accent');
   });
 
   it('gives one object per glyph, so the effect samples stay cached', () => {
@@ -42,6 +65,8 @@ describe('matching a device id to a glyph', () => {
     expect(gamepadInputIcon('gamecube', 'b')).toEqual({ family: 'gamecube', name: 'x' });
     expect(gamepadInputIcon('xbox', 'dpleft')).toEqual({ family: 'xbox', name: 'dpad-left' });
     expect(gamepadInputIcon('playstation', 'guide')).toBeNull();
+    expect(gamepadInputIcon('generic', 'dpup')).toEqual({ family: 'generic', name: 'dpad-up' });
+    expect(gamepadInputIcon('generic', 'dpright')).toEqual({ family: 'generic', name: 'dpad-right' });
   });
 
   it('reads KeyboardEvent.code for the keyboard', () => {

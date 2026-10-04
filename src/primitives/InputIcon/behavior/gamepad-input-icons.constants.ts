@@ -28,7 +28,7 @@ const GAMEPAD_INPUT_ICONS: GamepadIcons = {
     misc1: 'button', touchpad: 'button-square', leftshoulder: 'button-trigger-a', rightshoulder: 'button-trigger-b',
     lefttrigger: 'button-trigger-a', righttrigger: 'button-trigger-b', paddle1: 'button-trigger-b', paddle2: 'button-trigger-a',
     paddle3: 'button-trigger-b', paddle4: 'button-trigger-a', leftstick: 'stick-press', rightstick: 'stick-press',
-    dpup: 'stick-up', dpdown: 'stick-down', dpleft: 'stick-left', dpright: 'stick-right',
+    ...DPAD,
   },
   keyboard: {
     ArrowUp: 'arrow-up', ArrowDown: 'arrow-down', ArrowLeft: 'arrow-left', ArrowRight: 'arrow-right',
