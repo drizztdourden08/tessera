@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useId, useRef, useState } from 'react';
+import { HIT_AREA_CLASS } from '../../../primitives/dom/hit-area.constants';
 import { IconButton } from '../../../primitives/IconButton';
 import { DropdownMenu } from '../../DropdownMenu';
 import { useMenuDismiss } from '../behavior/useMenuDismiss';
@@ -19,7 +20,7 @@ const WidgetMenu = (props: WidgetMenuProps) => {
     <>
       <IconButton
         ref={triggerRef}
-        className={['widget__btn', className].filter(Boolean).join(' ')}
+        className={['widget__btn', HIT_AREA_CLASS, className].filter(Boolean).join(' ')}
         label={label}
         title={label}
         active={open || lit}

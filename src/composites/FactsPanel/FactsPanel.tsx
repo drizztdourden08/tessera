@@ -16,7 +16,7 @@ const FactsPanel = (props: FactsPanelProps) => {
               key={fact.label}
               className="facts-panel__fact"
               label={fact.label}
-              value={fact.title ? <Tooltip content={fact.title}>{fact.value}</Tooltip> : fact.value}
+              value={fact.title ? <Tooltip content={fact.title} focusable>{fact.value}</Tooltip> : fact.value}
               mono={fact.mono}
               copyable={fact.copyable}
             />

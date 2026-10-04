@@ -3571,3 +3571,14 @@ interface StatusOfProps<Map extends StatusMap> extends Omit<StatusProps, 'tone' 
 
 1. Archipelia: `STATUS_VIEW` of SessionDashboard and of SessionsLibrary become one `SESSION_STATUSES` table, and `STATUS_TONE`, `HINT_TONE` and the engine `STATE_VIEW` become `defineStatuses` tables with their labels.
 2. Each place that drew `<Status tone={TABLE[key].tone}>{TABLE[key].label}</Status>` draws `<StatusOf map={TABLE} value={key} />`; the engine passes `fallback="unknown"`.
+
+## 137. Widget title bar buttons take clicks on 24 by 24 px, and a cut FactsPanel value takes focus
+
+From the UX review (ux-63, ux-60), following sections 124 and 126.
+
+- **The Widget title bar buttons take the `hit-area` class.** Pin, pop out or pop in, the options gear, close and every WidgetMenu button keep their 20 px box and look, and take clicks on 24 by 24 px. The 4 px gap between two buttons leaves room for both hit areas, so they meet and never cover the next button.
+- **A FactsPanel value with a `title` is focusable.** The Tooltip on a value cut short passes `focusable`, so Tab reaches the value, it shows a focus ring, and the tooltip with the full value opens on focus.
+
+### What an app does
+
+Nothing.

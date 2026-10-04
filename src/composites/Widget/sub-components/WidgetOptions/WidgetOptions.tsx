@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { HIT_AREA_CLASS } from '../../../../primitives/dom/hit-area.constants';
 import { Icon } from '../../../../primitives/Icon';
 import { useTesseraStrings } from '../../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ControlMenu, ControlMenuGroup, ControlMenuSub } from '../../../ControlMenu';
@@ -23,7 +24,7 @@ const WidgetOptions = (props: WidgetOptionsProps) => {
       intensity="medium"
       defaultOpen={defaultOpen}
       className="widget-options"
-      triggerClassName="widget__btn widget__options"
+      triggerClassName={`widget__btn widget__options ${HIT_AREA_CLASS}`}
     >
       <PlacementRow {...props} />
       <LayoutRows {...props} />
