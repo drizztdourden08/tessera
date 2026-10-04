@@ -1,39 +1,38 @@
 /* @layer renderer-components @kind hook */
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { ownerDocumentOf } from '../../dom/owner-document';
+import { enterLayer } from './enter-layer';
+import { heldAbove } from './held-above';
+import { isNode } from './is-node';
+import type { DismissLayer } from './dismiss-layers.type';
 import type { UseDismissListenersParams } from './useDismissListeners.type';
 
 const useDismissListeners = (params: UseDismissListenersParams): void => {
   const { open, onClose, contentRef, triggerRef, escape = true } = params;
+  const latest = useRef({ onClose, contentRef, triggerRef, escape });
+  latest.current = { onClose, contentRef, triggerRef, escape };
 
   useEffect(() => {
     if (!open) return;
-    const handler = (e: MouseEvent) => {
-      const path = e.composedPath();
-      if (
-        contentRef.current?.contains(e.target as Node) ||
-        triggerRef.current?.contains(e.target as Node) ||
-        path.some((node) => node === contentRef.current || node === triggerRef.current)
-      ) return;
-      onClose();
+    const { contentRef: content, triggerRef: trigger } = latest.current;
+    const doc = ownerDocumentOf(trigger.current ?? content.current);
+    const holds = (node: Node): boolean => {
+      const own = latest.current;
+      return own.contentRef.current?.contains(node) === true || own.triggerRef.current?.contains(node) === true;
     };
-    const doc = ownerDocumentOf(triggerRef.current ?? contentRef.current);
-    doc.addEventListener('mousedown', handler);
-    return () => doc.removeEventListener('mousedown', handler);
-  }, [open, onClose, contentRef, triggerRef]);
-
-  useEffect(() => {
-    if (!open || !escape) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.stopPropagation();
-        onClose();
-      }
+    const layer: DismissLayer = { escape: () => latest.current.escape, close: () => latest.current.onClose(), holds };
+    const leave = enterLayer(doc, layer);
+    const press = (event: MouseEvent): void => {
+      const path = event.composedPath().filter(isNode);
+      if (path.some((node) => holds(node) || heldAbove(doc, layer, node))) return;
+      latest.current.onClose();
     };
-    const doc = ownerDocumentOf(triggerRef.current ?? contentRef.current);
-    doc.addEventListener('keydown', handler, true);
-    return () => doc.removeEventListener('keydown', handler, true);
-  }, [open, escape, onClose, contentRef, triggerRef]);
+    doc.addEventListener('mousedown', press);
+    return () => {
+      leave();
+      doc.removeEventListener('mousedown', press);
+    };
+  }, [open]);
 };
 
 export { useDismissListeners };

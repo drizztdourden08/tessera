@@ -66,8 +66,6 @@ export { ScreenLayer } from './ScreenLayer';
 export type { ScreenLayerProps, ScreenLayerSize } from './ScreenLayer';
 export { ScreenWindow } from './ScreenWindow';
 export type { ScreenWindowProps } from './ScreenWindow';
-export { ScreenPage } from './ScreenPage';
-export type { ScreenPageProps } from './ScreenPage';
 export { WorkspaceScreen } from './WorkspaceScreen';
 export type {
   WorkspaceContent, WorkspaceGroup, WorkspacePage, WorkspaceScreenProps, WorkspaceSearch,
@@ -76,7 +74,7 @@ export { InfoScreen } from './InfoScreen';
 export type { InfoScreenProps, InfoScreenWidth } from './InfoScreen';
 export { UtilityScreen } from './UtilityScreen';
 export type {
-  UtilityScreenAction, UtilityScreenNotes, UtilityScreenProgress, UtilityScreenProps, UtilityScreenReport, UtilityScreenStatus, UtilityScreenTone,
+  UtilityScreenAction, UtilityScreenFootnote, UtilityScreenProgress, UtilityScreenProps, UtilityScreenStatus, UtilityScreenTone,
 } from './UtilityScreen';
 export { StageScreen } from './StageScreen';
 export type { StageScreenDone, StageScreenProps } from './StageScreen';

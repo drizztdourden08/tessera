@@ -8,7 +8,6 @@ interface ScreenLayerProps {
   floating?: ReactNode;
   hidden?: boolean;
   size?: ScreenLayerSize;
-  square?: boolean;
   label?: string;
   labelledBy?: string;
   className?: string;

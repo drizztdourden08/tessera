@@ -1034,22 +1034,22 @@
     "WorkspaceScreen": {
       "status": "seen",
       "hash": "flagged",
-      "at": "2026-10-04"
+      "at": "2026-10-03"
     },
     "InfoScreen": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-04"
+      "status": "ok",
+      "hash": "ef16f47aa768638b",
+      "at": "2026-10-03"
     },
     "UtilityScreen": {
       "status": "seen",
       "hash": "flagged",
-      "at": "2026-10-04"
+      "at": "2026-10-03"
     },
     "StageScreen": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-04"
+      "status": "ok",
+      "hash": "f06d4b56a32513cf",
+      "at": "2026-10-03"
     },
     "ScreenWindow": {
       "status": "ok",

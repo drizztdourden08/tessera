@@ -2099,47 +2099,12 @@ The labels come from the strings `windows.windowGroup` and `windows.windowGroupN
 
 Nothing. An app that styled the status pill inside the bar, `.window-title-bar__status .status--pill`, styles `.window-title-bar__status .status--text` instead.
 
-## 80. Every screen kind shows the page header, and UtilityScreen looks like rotp's update dialog again
+## 83. Escape closes the innermost popup first
 
-WorkspaceScreen, InfoScreen, UtilityScreen and StageScreen all show the page header container: a card whose header holds a glowing icon and a title over a backdrop that fades out behind the title, and compacts once the body scrolls. Nothing turns it off. A screen without that header is a custom screen built from ScreenWindow or ScreenLayer. In development a screen kind warns when `pageHeader` is forced on it, and the header warns when its icon or title is missing.
+A popup opened inside another popup now takes Escape first and keeps it. In WidgetOptions, Escape on an open Window group select closes only the select, and a second Escape closes the panel. Before, one Escape closed both.
 
-The header container is a new building block, ScreenPage. SettingsPage is built on it, so WorkspaceScreen's pages keep their look.
+Every popup that uses `useDismissListeners` joins one stack per document: WidgetOptions, Select, Combobox and the other listbox drops, ColorPickerPopover, TagInput, DynamicInput, SideNav's floating panel, the Video rate menu and DropdownMenu. One Escape listener per document closes the popup opened last and stops the key there. A popup that handles Escape itself, such as a DropdownMenu with its filter (`escape: false`), keeps the key, so the popup under it stays open. A press inside a popup higher in the stack no longer counts as outside for the popups under it, even when that popup sits in a portal. Dialogs already stopped at an open Select or menu and still do.
 
-```ts
-interface ScreenPageProps {
-  icon: ReactNode;
-  title: ReactNode;
-  children: ReactNode;
-  backdrop?: ReactNode; // left out: the default art; null: a plain header
-  strip?: ReactNode; // controls after the title
-  actions?: ReactNode; // the end of the header
-  footer?: ReactNode; // a row under the body that stays in view
-  live?: boolean; // the title is a live region
-  scroll?: boolean;
-  compact?: boolean;
-  bodyRef?: RefObject<HTMLDivElement | null>;
-  bodyClassName?: string;
-  className?: string;
-}
-```
+### What an app does
 
-- WorkspaceScreen drops `pageHeader`, and `WorkspacePage.icon` is required.
-- InfoScreen and StageScreen take a required `icon` and `heading`, and an optional `backdrop`. The window keeps `title`; `heading` is the title of the page header.
-- StageScreen's toolbar now sits in the header after the heading, and the Done button at the end of the header. The stage is the scrolling body under it.
-- UtilityScreen follows rotp's UpdateDialog. The status is the header: `status.title` is its title and the tone picks its icon, a spinner while busy; `status.icon` swaps the icon. `status.message` is one centred line, such as the version. `notes` is a framed box with a tinted title and its own scroll, for release notes. `progress` shows its percent under the bar. `footnote` is replaced by `report`, one ghost icon button in the danger tone with a bug icon, named Report an issue from the strings (`common.reportIssue`), with the same words in a tooltip. The footer under the body stays in view: the report button on the left, the actions on the right.
-
-```ts
-interface UtilityScreenStatus { tone: UtilityScreenTone; title: ReactNode; message?: ReactNode; icon?: ReactNode }
-interface UtilityScreenNotes { title: ReactNode; children: ReactNode }
-interface UtilityScreenReport { onClick: () => void; label?: string }
-```
-
-- ScreenLayer and ScreenWindow take `square?: boolean`. It drops the card's corner radius and outer border, for a window shown fullscreen; the host draws what surrounds it.
-
-Renamed classes: `settings-page__head`, `__backdrop`, `__icon`, `__title`, `__actions`, `__body`, `__body--fixed` and `settings-page--compact` become the same names under `screen-page`. `workspace-screen__backdrop` becomes `screen-page__art`. `--settings-page-head-h` and `--settings-page-head-h-compact` become `--screen-page-head-h` and `--screen-page-head-h-compact`. `RENAMES.json` lists them, with the removed classes.
-
-### What rotp does
-
-- Give every WorkspacePage an icon, and drop `pageHeader`.
-- Pass `icon` and `heading` to each InfoScreen and StageScreen.
-- Build the update check as a UtilityScreen: the state as `status.title` (Checking for updates, Update available, Up to date), the version line as `status.message`, the pre-release toggle and version picker in `settings`, the release notes in `notes`, and `report={{ onClick: openBugReport }}` in place of the BugReportButton footnote.
+Nothing. A popup that called `useDismissListeners` keeps the same parameters. The hook now reads `onClose`, `escape` and the refs on every render, so passing a new function each render no longer re-registers the listeners.

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 7 of 145 have their usage written; a linked name opens its page.
+One line per component. 6 of 144 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -104,7 +104,7 @@ One line per component. 7 of 145 have their usage written; a linked name opens i
 - `GroupTree`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [InfoScreen](components/InfoScreen.md): A screen to read, such as About or credits: the page header with its icon and heading, then wide margins and one centred column that scrolls. Import from `@drizztdourden08/tessera`.
+- [InfoScreen](components/InfoScreen.md): A screen to read, such as About or credits: wide margins and one centred column that scrolls. Import from `@drizztdourden08/tessera`.
 - `InlineCreateForm`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -115,7 +115,6 @@ One line per component. 7 of 145 have their usage written; a linked name opens i
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
-- [ScreenPage](components/ScreenPage.md): Building block: the page header container every screen kind shows, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.
 - `SearchResultGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResultHit`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -127,9 +126,9 @@ One line per component. 7 of 145 have their usage written; a linked name opens i
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
+- [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, with an optional toolbar row and a Done button. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task: the page header shows the status with a spinner or a tone icon, then a centred message, settings, details, a framed notes box, progress, and a footer with a report button and the actions. Import from `@drizztdourden08/tessera`.
+- [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task: a status with an icon or a spinner, optional progress, settings and details, a footnote bar and a row of actions. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowGuideOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -1,18 +1,19 @@
 /* @layer stories @kind component */
-import { Box, Text } from '../../../src/primitives';
+import { Card, Paragraph, SectionHeader, Stack, Title } from '../../../src/primitives';
 import { RELEASE_NOTES } from './release-notes';
 
-const ReleaseNotes = () => (
-  <>
-    {RELEASE_NOTES.map((group) => (
-      <Box key={group.title}>
-        <Text as="h4">{group.title}</Text>
-        <Box as="ul">
-          {group.items.map((item) => <Box as="li" key={item}>{item}</Box>)}
-        </Box>
-      </Box>
-    ))}
-  </>
+const ReleaseNotes = ({ version }: { version: string }) => (
+  <Card>
+    <Stack gap="md">
+      <SectionHeader title={`What is new in ${version}`} />
+      {RELEASE_NOTES.map((group) => (
+        <Stack key={group.title} gap="xs">
+          <Title level={6}>{group.title}</Title>
+          {group.items.map((item) => <Paragraph key={item} tone="dim">{item}</Paragraph>)}
+        </Stack>
+      ))}
+    </Stack>
+  </Card>
 );
 
 export { ReleaseNotes };

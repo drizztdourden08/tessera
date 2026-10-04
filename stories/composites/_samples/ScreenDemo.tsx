@@ -9,12 +9,11 @@ interface ScreenDemoProps {
   note: string;
   tools?: ReactNode;
   narrow?: boolean;
-  tall?: boolean;
   children: ReactNode;
 }
 
 const ScreenDemo = (props: ScreenDemoProps) => {
-  const { hidden, onReopen, note, tools, narrow = false, tall = false, children } = props;
+  const { hidden, onReopen, note, tools, narrow = false, children } = props;
   return (
     <Box className="story-column">
       <Box className="story-row">
@@ -22,7 +21,7 @@ const ScreenDemo = (props: ScreenDemoProps) => {
         <Button variant="secondary" disabled={!hidden} onClick={onReopen}>Reopen the screen</Button>
         <Text className="story-label">{note}</Text>
       </Box>
-      <Box className={`story-frame screens-story__frame${narrow ? ' screens-story__frame--narrow' : ''}${tall ? ' screens-story__frame--tall' : ''}`}>{children}</Box>
+      <Box className={`story-frame screens-story__frame${narrow ? ' screens-story__frame--narrow' : ''}`}>{children}</Box>
     </Box>
   );
 };

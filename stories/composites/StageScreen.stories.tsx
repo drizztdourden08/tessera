@@ -32,8 +32,6 @@ const StageDemo = (props: StageArgs) => {
       <StageScreen
         title="Input calibration"
         subtitle="Player 1"
-        icon={<Icon name="gamepad-2" />}
-        heading="Xbox controller"
         hidden={hidden}
         onClose={() => setHidden(true)}
         toolbar={withToolbar ? TOOLBAR : undefined}
@@ -52,8 +50,8 @@ const StageDemo = (props: StageArgs) => {
 const ARGS: Partial<StageArgs> = { withToolbar: true, withDone: true };
 
 const ARG_TYPES: PlaygroundArgTypes<StageArgs> = {
-  withToolbar: { group: 'Content', control: 'boolean', description: 'A status and a few tools in the header, after the heading.' },
-  withDone: { group: 'Content', control: 'boolean', description: 'A Done button at the end of the header.' },
+  withToolbar: { group: 'Content', control: 'boolean', description: 'A row above the stage for status and tools.' },
+  withDone: { group: 'Content', control: 'boolean', description: 'A Done button at the end of the toolbar row.' },
 };
 
 const meta = {
@@ -75,12 +73,10 @@ const StageOnly = {
   render: () => <StageDemo withToolbar={false} withDone={false} />,
 } satisfies PlaygroundStory<StageArgs>;
 
-const CODE = `import { Card, Icon, SectionHeader, StageScreen, Status, StickPlot } from '@drizztdourden08/tessera';
+const CODE = `import { Card, SectionHeader, StageScreen, Status, StickPlot } from '@drizztdourden08/tessera';
 
 <StageScreen
   title="Input calibration"
-  icon={<Icon name="gamepad-2" />}
-  heading="Xbox controller"
   onClose={close}
   toolbar={<Status tone="success" variant="pill">Controller connected</Status>}
   done={{ onClick: close }}
@@ -93,7 +89,7 @@ const CODE = `import { Card, Icon, SectionHeader, StageScreen, Status, StickPlot
 
 const Overview = overviewStory({
   component: 'StageScreen',
-  description: 'One big screen for custom work with no navigation of its own: calibration, HUD layout, a map or a sprite editor. It is a ScreenWindow holding the page header every screen kind has, with the stage as its body. icon and heading are required; the header sits over the fading backdrop and compacts once the stage scrolls. toolbar sits in the header after the heading, past a divider, for a status and a few tools. done adds a primary button at the end of the header; it reads Done unless label says otherwise. The stage scrolls when its content is larger. The stage holds whatever the app draws, such as one Card per calibration step.',
+  description: 'One big screen for custom work with no navigation of its own: calibration, HUD layout, a map or a sprite editor. It is a ScreenWindow whose content is one open stage that scrolls when its content is larger. toolbar is an optional row above the stage, for a status and a few tools. done adds a primary button at the end of that row; it reads Done unless label says otherwise. The stage holds whatever the app draws, such as one Card per calibration step.',
   playground: Playground,
   points: [
     'Use it when the content is one surface the app draws itself.',

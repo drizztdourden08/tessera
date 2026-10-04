@@ -32,7 +32,6 @@ const COMMON_STRINGS = {
   hintIdle: 'Point at an option to see what it does',
   selectedCount: (count: number) => `${count} selected`,
   removeNamed: (name: string) => `Remove ${name}`,
-  reportIssue: 'Report an issue',
 };
 
 export { COMMON_STRINGS };

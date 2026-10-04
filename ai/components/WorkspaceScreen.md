@@ -31,7 +31,6 @@ A side list of pages beside the current page.
 ## Rules
 
 - Describe every page in content: its id, title and icon, and either sections of SettingsRow data or content of its own.
-- Every page shows the page header with its icon and title, and nothing turns it off. A screen without it is a custom screen built from ScreenWindow.
 - The nav, the header pills, the rows and the search all come from content; never build them by hand beside it.
 - Give options a hint, toggles hints for on and off and sliders hintOf, so the live hint says what each value does.
 - Pass activeId and onActiveChange, or search.query and search.onQueryChange, only when the host must own them.
@@ -84,7 +83,8 @@ const SettingsHub = ({ volume, setVolume, onClose }: HubProps) => {
 - `activeId` (optional): `string`.
 - `defaultActiveId` (optional): `string`.
 - `onActiveChange` (optional): `(id: string) => void`.
-- `backdrop` (optional): `ReactNode`. Default `<ScreenBackdrop />`.
+- `pageHeader` (optional): `boolean`.
+- `backdrop` (optional): `ReactNode`. Default `<WorkspaceBackdrop />`.
 - `search` (optional): `WorkspaceSearch | false`.
 - `narrow` (optional): `boolean`.
 - `subtitle` (optional): `ReactNode`.
@@ -95,3 +95,7 @@ const SettingsHub = ({ volume, setVolume, onClose }: HubProps) => {
 - `compactRows` (optional): `boolean`.
 - `readOnly` (optional): `boolean`.
 - `renderLock` (optional): `SettingsLockRenderer`.
+
+## Tokens
+
+It draws on `--blur`, `--border-width-thin`, `--c-border`, `--c-layer`, `--c-panel`, `--c-primary`, `--c-primary-dim`, `--c-secondary`, `--radius-xl`, `--space-xl`.

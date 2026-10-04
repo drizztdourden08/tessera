@@ -4,8 +4,8 @@ import type { ScreenLayerProps } from './ScreenLayer.type';
 import './ScreenLayer.css';
 
 const ScreenLayer = (props: ScreenLayerProps) => {
-  const { children, floating, hidden = false, size = 'fill', square = false, label, labelledBy, className = '' } = props;
-  const classes = ['screen-layer', `screen-layer--${size}`, hidden ? 'screen-layer--hidden' : '', square ? 'screen-layer--square' : ''].filter(Boolean).join(' ');
+  const { children, floating, hidden = false, size = 'fill', label, labelledBy, className = '' } = props;
+  const classes = ['screen-layer', `screen-layer--${size}`, hidden ? 'screen-layer--hidden' : ''].filter(Boolean).join(' ');
 
   return (
     <Box className={classes}>

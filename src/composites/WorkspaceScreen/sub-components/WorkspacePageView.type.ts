@@ -4,7 +4,8 @@ import type { WorkspacePage, WorkspaceRowLook } from '../WorkspaceScreen.type';
 
 interface WorkspacePageViewProps extends WorkspaceRowLook {
   page: WorkspacePage;
-  backdrop?: ReactNode;
+  header: boolean;
+  backdrop: ReactNode;
   flash?: string;
 }
 

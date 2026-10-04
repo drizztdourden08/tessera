@@ -1,11 +1,16 @@
 /* @layer renderer-components @kind style */
+.info-screen__scroll {
+  flex: 1;
+  min-height: 0;
+}
+
 .info-screen__column {
   display: flex;
   flex-direction: column;
   gap: var(--space-2xl);
   width: 100%;
   margin-inline: auto;
-  padding-block: var(--space-lg);
+  padding: var(--space-2xl) var(--space-xl);
 }
 
 .info-screen__column--readable {
@@ -39,5 +44,5 @@
 }
 
 @container screen-layer (width < 480px) or (height < 440px) {
-  .info-screen__column { padding-block: 0; }
+  .info-screen__column { padding: var(--space-lg) 0; }
 }

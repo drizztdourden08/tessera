@@ -99,7 +99,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog', WindowGuideOverlay: 'move' },
   'Composites · Screens': {
     WorkspaceScreen: 'panels-left-bottom', InfoScreen: 'info', UtilityScreen: 'refresh-cw', StageScreen: 'gamepad-2',
-    ScreenWindow: 'app-window', ScreenPage: 'panel-top', ScreenLayer: 'fullscreen',
+    ScreenWindow: 'app-window', ScreenLayer: 'fullscreen',
   },
   'Composites · Windows': { WindowTitleBar: 'app-window-mac', WindowHeader: 'heading-2' },
   'Data': { Engine: 'cpu' },

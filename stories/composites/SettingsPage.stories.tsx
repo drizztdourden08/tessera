@@ -109,7 +109,7 @@ const CODE = `import { SettingsPage } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'SettingsPage',
-  description: 'One page of settings, built on ScreenPage, the header container every screen kind shows: a header line with a glowing icon, the title and a strip of tabs, over an optional backdrop that fades out behind the title, and a body that scrolls on its own. With anchors the strip jumps between the sections of the body and follows the scroll, reading the data-section attribute that SettingsSection sets; with tabs it shows the host\'s own views instead. Once the body scrolls, the header compacts in place; compact holds either look. actions sit at the far end of the header. scroll={false} leaves the scrolling to the body\'s content.',
+  description: 'One page of settings: a header line with a glowing icon, the title and a strip of tabs, over an optional backdrop that fades out behind the title, and a body that scrolls on its own. With anchors the strip jumps between the sections of the body and follows the scroll, reading the data-section attribute that SettingsSection sets; with tabs it shows the host\'s own views instead. Once the body scrolls, the header compacts in place; compact holds either look. actions sit at the far end of the header. scroll={false} leaves the scrolling to the body\'s content.',
   playground: Playground,
   variants: [PlainWithActions, ViewTabs],
   states: {

@@ -479,8 +479,7 @@
       "version": "next",
       "removedExports": {
         "FieldPicker": "removed; list fields in a DropdownMenu with children, as DataTable does (see MIGRATION.md section 76)",
-        "FieldPickerProps": "removed with FieldPicker (see MIGRATION.md section 76)",
-        "UtilityScreenFootnote": "replaced by UtilityScreenReport, the report button (see MIGRATION.md section 80)"
+        "FieldPickerProps": "removed with FieldPicker (see MIGRATION.md section 76)"
       },
       "cssClasses": {
         "filter-chip__dot": "filter-bar__kind",
@@ -489,37 +488,7 @@
         "data-table__caret": "data-table__sort (the sort toggle is an IconButton; see MIGRATION.md section 76)",
         "field-picker__kind": "removed with FieldPicker (see MIGRATION.md section 76)",
         "field-picker__empty": "removed with FieldPicker (see MIGRATION.md section 76)",
-        "field-picker": "removed with FieldPicker (see MIGRATION.md section 76)",
-        "settings-page__body--fixed": "screen-page__body--fixed",
-        "settings-page__backdrop": "screen-page__backdrop",
-        "settings-page__actions": "screen-page__actions",
-        "settings-page--compact": "screen-page--compact",
-        "settings-page__title": "screen-page__title",
-        "settings-page__head": "screen-page__head",
-        "settings-page__icon": "screen-page__icon",
-        "settings-page__body": "screen-page__body",
-        "workspace-screen__backdrop": "screen-page__art",
-        "workspace-screen__plain": "removed; every page shows the page header (see MIGRATION.md section 80)",
-        "utility-screen__footnote": "utility-screen__footer (the report button and the actions; see MIGRATION.md section 80)",
-        "utility-screen__details": "removed; the children sit in utility-screen__column (see MIGRATION.md section 80)",
-        "utility-screen__status": "removed; the status is the page header, screen-page__head (see MIGRATION.md section 80)",
-        "utility-screen__title": "screen-page__title",
-        "utility-screen__mark": "screen-page__icon",
-        "stage-screen__bar": "removed; the toolbar and Done sit in the page header, screen-page__head (see MIGRATION.md section 80)",
-        "info-screen__scroll": "screen-page__body"
-      },
-      "props": {
-        "WorkspaceScreen.pageHeader": "removed; every page shows the page header, so give every WorkspacePage an icon. A screen without the header is a custom screen built from ScreenWindow (see MIGRATION.md section 80)",
-        "WorkspacePage.icon": "WorkspacePage.icon (now required; see MIGRATION.md section 80)",
-        "InfoScreen.title": "InfoScreen.title (the window title; also pass the required icon and heading for the page header; see MIGRATION.md section 80)",
-        "StageScreen.title": "StageScreen.title (the window title; also pass the required icon and heading for the page header; see MIGRATION.md section 80)",
-        "StageScreen.toolbar": "StageScreen.toolbar (now sits in the page header after the heading, with done at its end; see MIGRATION.md section 80)",
-        "UtilityScreen.footnote": "UtilityScreen.report (one red bug icon button: pass report={ onClick }; the footnote text goes; see MIGRATION.md section 80)",
-        "UtilityScreen.children": "UtilityScreen.children (details such as a warning; long text such as release notes goes in notes; see MIGRATION.md section 80)"
-      },
-      "cssCustomProperties": {
-        "--settings-page-head-h-compact": "--screen-page-head-h-compact",
-        "--settings-page-head-h": "--screen-page-head-h"
+        "field-picker": "removed with FieldPicker (see MIGRATION.md section 76)"
       }
     }
   ]

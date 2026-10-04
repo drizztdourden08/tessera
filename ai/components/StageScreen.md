@@ -1,6 +1,6 @@
 # StageScreen
 
-One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button.
+One big open stage for custom work with no navigation of its own, with an optional toolbar row and a Done button.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -29,8 +29,7 @@ One open stage with an optional toolbar.
 
 ## Rules
 
-- Give it an icon and a heading for the page header, which every screen kind shows and nothing turns off.
-- Keep the toolbar to a status and a few tools; it sits in the header after the heading and is not a place for navigation.
+- Keep the toolbar to a status and a few tools; it is not a place for navigation.
 - Set done when the work ends with a clear finish; the close button still closes without it.
 - Put each calibration step on the stage in its own Card, with a SectionHeader that says what to do.
 - The stage scrolls when its content is larger; a canvas that pans itself sets its own size to fill the stage.
@@ -43,13 +42,11 @@ One open stage with an optional toolbar.
 ## Example
 
 ```tsx
-import { Icon, StageScreen, Status } from '@drizztdourden08/tessera';
+import { StageScreen, Status } from '@drizztdourden08/tessera';
 
 const Calibration = ({ onClose }: { onClose: () => void }) => (
   <StageScreen
     title="Input calibration"
-    icon={<Icon name="gamepad-2" />}
-    heading="Xbox controller"
     onClose={onClose}
     toolbar={<Status tone="success" variant="pill">Controller connected</Status>}
     done={{ onClick: onClose }}
@@ -62,18 +59,15 @@ const Calibration = ({ onClose }: { onClose: () => void }) => (
 ## Props
 
 - `title`: `ReactNode`.
-- `icon`: `ReactNode`.
-- `heading`: `ReactNode`.
 - `onClose`: `() => void`.
 - `children`: `ReactNode`.
 - `subtitle` (optional): `ReactNode`.
 - `toolbar` (optional): `ReactNode`.
 - `done` (optional): `StageScreenDone`.
-- `backdrop` (optional): `ReactNode`.
 - `floating` (optional): `ReactNode`.
 - `hidden` (optional): `boolean`.
 - `className` (optional): `string`. Default `''`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border-strong`, `--space-lg`, `--space-sm`.
+It draws on `--space-lg`, `--space-md`, `--space-sm`.

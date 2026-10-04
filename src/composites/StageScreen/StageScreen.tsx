@@ -1,17 +1,12 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { Button } from '../../primitives/Button';
-import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { useHeaderOptOutCheck } from '../ScreenPage/behavior/useHeaderOptOutCheck';
-import { ScreenPage } from '../ScreenPage';
 import { ScreenWindow } from '../ScreenWindow';
+import { StageBar } from './sub-components/StageBar';
 import type { StageScreenProps } from './StageScreen.type';
 import './StageScreen.css';
 
 const StageScreen = (props: StageScreenProps) => {
-  const { title, icon, heading, onClose, children, subtitle, toolbar, done, backdrop, floating, hidden, className = '' } = props;
-  const { common } = useTesseraStrings();
-  useHeaderOptOutCheck('StageScreen', props);
+  const { title, onClose, children, subtitle, toolbar, done, floating, hidden, className = '' } = props;
 
   return (
     <ScreenWindow
@@ -22,16 +17,8 @@ const StageScreen = (props: StageScreenProps) => {
       onClose={onClose}
       className={`stage-screen${className ? ` ${className}` : ''}`}
     >
-      <ScreenPage
-        icon={icon}
-        title={heading}
-        backdrop={backdrop}
-        strip={toolbar != null && <Box className="stage-screen__toolbar">{toolbar}</Box>}
-        actions={done && <Button variant="primary" disabled={done.disabled} onClick={done.onClick}>{done.label ?? common.done}</Button>}
-        bodyClassName="stage-screen__stage"
-      >
-        {children}
-      </ScreenPage>
+      <StageBar toolbar={toolbar} done={done} />
+      <Box className="stage-screen__stage">{children}</Box>
     </ScreenWindow>
   );
 };

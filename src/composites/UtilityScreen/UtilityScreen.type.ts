@@ -8,22 +8,11 @@ interface UtilityScreenStatus {
   tone: UtilityScreenTone;
   title: ReactNode;
   message?: ReactNode;
-  icon?: ReactNode;
 }
 
 interface UtilityScreenProgress {
   value: number;
   max?: number;
-  label?: string;
-}
-
-interface UtilityScreenNotes {
-  title: ReactNode;
-  children: ReactNode;
-}
-
-interface UtilityScreenReport {
-  onClick: () => void;
   label?: string;
 }
 
@@ -35,21 +24,22 @@ interface UtilityScreenAction {
   loading?: boolean;
 }
 
+interface UtilityScreenFootnote {
+  text: ReactNode;
+  action?: ReactNode;
+}
+
 interface UtilityScreenProps {
   title: ReactNode;
   onClose: () => void;
   status: UtilityScreenStatus;
   progress?: UtilityScreenProgress;
   settings?: ReactNode;
-  notes?: UtilityScreenNotes;
   children?: ReactNode;
-  report?: UtilityScreenReport;
+  footnote?: UtilityScreenFootnote;
   actions?: readonly UtilityScreenAction[];
-  backdrop?: ReactNode;
   hidden?: boolean;
   className?: string;
 }
 
-export type {
-  UtilityScreenAction, UtilityScreenNotes, UtilityScreenProgress, UtilityScreenProps, UtilityScreenReport, UtilityScreenStatus, UtilityScreenTone,
-};
+export type { UtilityScreenAction, UtilityScreenFootnote, UtilityScreenProgress, UtilityScreenProps, UtilityScreenStatus, UtilityScreenTone };

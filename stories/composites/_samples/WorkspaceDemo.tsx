@@ -9,6 +9,7 @@ import { WORKSPACE_MODES } from './workspace-modes';
 interface WorkspaceDemoProps {
   narrow?: boolean;
   withSwitch?: boolean;
+  pageHeader?: boolean;
   compactRows?: boolean;
   readOnly?: boolean;
   search?: boolean;

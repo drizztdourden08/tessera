@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind types */
 import type { UtilityScreenStatus } from '../UtilityScreen.type';
 
-interface UtilityMarkProps {
+interface UtilityStatusProps {
   status: UtilityScreenStatus;
 }
 
-export type { UtilityMarkProps };
+export type { UtilityStatusProps };
