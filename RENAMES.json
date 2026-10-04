@@ -703,7 +703,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.17.0",
       "components": {
         "StatusOfProps": "StatusProps",
         "StatusOf": "Status"
