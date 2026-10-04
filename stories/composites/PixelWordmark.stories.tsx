@@ -87,7 +87,14 @@ const Brands = {
 
 const Overview = overviewStory({
   component: 'PixelWordmark',
-  description: 'A wordmark drawn in the pixel alphabet from a line of text and four gradient colours, top band to bottom. Reach for it for a title or an app name in the retro look. Capitals draw at full height and lowercase letters smaller, the outline and shadow come from the bottom colour, and every art pixel stays a crisp square at the sm, md and lg sizes. Each brand wordmark is one of these, set with its own text and colours.',
+  description: 'A title or app name drawn in the retro pixel alphabet, from a line of text and four colours.',
+  points: [
+    '`colors` are four bands, top to bottom; the outline and shadow come from the last one.',
+    'Capitals draw at full height and lowercase letters smaller.',
+    'Every pixel stays a crisp square at the `sm`, `md` and `lg` sizes.',
+    'Each brand wordmark is one of these, set with its own text and colours.',
+  ],
+  instead: '[WordMark] for an app\'s own name in its brand colours.',
   playground: Playground,
   variants: [Alphabet, Brands],
 });

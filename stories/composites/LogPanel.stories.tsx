@@ -114,7 +114,14 @@ const CODE = `import { LogPanel } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'LogPanel',
-  description: 'A log view styled like a code editor, in one framed box: a toolbar on top, then a gutter column, a type tag and a message on each line, indented under a guide for nested lines. Reach for it for a running log, such as a server log or a simulation trace. The toolbar is a FilterBar: a search box, a + that adds filters on the type, the tag or the message, then the line count and Copy all, which copies the lines in view. Give each type a tone: the tag takes the tone, and toneMessage colours the message too, as for errors. Only the newest lines are mounted and older ones load on demand, so a long session stays fast, and a Newest button shows once you scroll away from the end.',
+  description: 'A running log, such as a server log or a simulation trace, in one framed box with a filter toolbar.',
+  points: [
+    'Each of the `rows` has a gutter, a tag, a `kind` and a message; `indent` nests it under a guide.',
+    'The toolbar is a [FilterBar]: search, filters on type, tag or message, a line count and Copy all.',
+    '`kinds` gives each type a `tone`; `toneMessage` colours the message too, as for errors.',
+    'Only the newest lines are mounted and older ones load on demand, so a long session stays fast.',
+    'A Newest button shows once the user scrolls away from the end.',
+  ],
   playground: ServerLog,
   variants: [Filtered, LongSession, Bare],
   states: {

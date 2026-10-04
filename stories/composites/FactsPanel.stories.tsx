@@ -59,7 +59,13 @@ const CODE = `import { FactsPanel } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'FactsPanel',
-  description: 'A bordered box of label and value pairs, for the facts about one thing: a profile, a save, a build. Facts come in groups; each group runs along one row and wraps when the row is full, with a hairline between groups. Labels are small capitals in a muted tone and values follow them. mono sets a value in the monospace font, for a seed or an address. A long value is cut short; give it a title and the full text shows in a tooltip. Hero draws its facts with it, on glass.',
+  description: 'A bordered box of label and value pairs, for the facts about one thing, such as a profile, a save or a build.',
+  points: [
+    '`groups` holds the facts; each group runs along one row, with a hairline between groups.',
+    '`mono` sets a value in the monospace font, for a seed or an address.',
+    'A long value is cut short; its `title` shows the full text in a tooltip.',
+    '[Hero] draws its facts with it, on glass.',
+  ],
   playground: Playground,
   variants: [TwoGroups, OneGroup],
   code: CODE,
