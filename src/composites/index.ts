@@ -169,3 +169,5 @@ export { JobDialog } from './JobDialog';
 export type { JobDialogProps } from './JobDialog';
 export { ActionBar } from './ActionBar';
 export type { ActionBarAlign, ActionBarProps, ActionConfirm, ActionItem, ActionKind } from './ActionBar';
+export { ValidationSummary } from './ValidationSummary';
+export type { ValidationProblem, ValidationSummaryProps, ValidationTone } from './ValidationSummary';

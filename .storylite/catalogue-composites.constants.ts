@@ -96,6 +96,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'InlineCreateForm', summary: 'A name field that creates one thing in place, boxed or on one line.' },
         { name: 'RecordEditor', summary: 'Edits one record, form derived from its schema.' },
+        { name: 'ValidationSummary', summary: 'What blocks a save, each problem a link to its field, the rest under and N more.' },
       ],
     },
     {

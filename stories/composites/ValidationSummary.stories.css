@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.validation-summary-story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  inline-size: var(--size-768);
+  max-inline-size: 100%;
+}

@@ -3932,3 +3932,32 @@ interface ActionBarProps {
 
 1. Archipelia: EditorHeader, TemplateRow, RunRow, the ServerManager detail header, the SessionStatusBar actions and the OverridesPanel actions pass their buttons as `actions` to one ActionBar; Delete becomes `kind: 'danger'`, which asks in place.
 2. Brock: the ProfilesPanelRow icon buttons can move to an ActionBar with `size: 'sm'` and `keep`.
+
+## 151. ValidationSummary: what blocks a save, with a jump to each field
+
+`ValidationSummary` is a new composite, under Composites · Forms (Archipelia review T-12, tessera-07). Each editor listed what blocks a save its own way: a Card with "and N more" in the session builder, one red caption in the preset editor, loose captions in the server editor, and none linked a problem to its field.
+
+- **The box.** A `Callout` in the `danger` tone, or `warning` for options to check that do not block the save, inside an alert, with a circle or a triangle icon.
+- **The title.** `title`, or by default a count: 1 thing to fix before saving, 6 things to fix before saving.
+- **The problems.** A list. A problem with a `field` is a button named by its message, with an arrow, that calls `onFocusField(field)`; the app moves focus there. Without `onFocusField` or `field` the message is plain text.
+- **More.** The first `max` problems show (4 by default). "and N more" shows the rest and moves focus to the first problem it revealed.
+- **Empty.** No problems, no box: the component draws nothing.
+- **Strings.** `items.fixBeforeSaving(count)` and `items.andMore(count)`.
+
+```ts
+type ValidationTone = 'danger' | 'warning';
+interface ValidationProblem { id: string; message: ReactNode; field?: string }
+interface ValidationSummaryProps {
+  title?: ReactNode; // default items.fixBeforeSaving(problems.length)
+  problems: readonly ValidationProblem[];
+  max?: number; // default 4
+  tone?: ValidationTone; // default 'danger'
+  onFocusField?: (field: string) => void;
+  className?: string;
+}
+```
+
+### What an app does
+
+1. Archipelia: the SessionBuilder ProblemList, the PresetEditor summary line, the ServerManager problem captions and the CreatePresetDialog error become one ValidationSummary each, with `field` set to the id the editor uses to focus and scroll to the input.
+2. A Wizard step that lists its problems can pass them the same way.

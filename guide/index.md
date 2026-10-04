@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 20 of 158 have their usage written; a linked name opens its page.
+One line per component. 21 of 159 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -143,6 +143,7 @@ One line per component. 20 of 158 have their usage written; a linked name opens 
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
+- [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowGuideOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.

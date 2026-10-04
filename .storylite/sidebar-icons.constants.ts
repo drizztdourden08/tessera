@@ -97,7 +97,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     TaskProgress: 'list-todo',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
-  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line' },
+  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x' },
   'Composites · Input devices': {
     PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },

@@ -1,0 +1,71 @@
+/* @layer renderer-components @kind style */
+.validation-summary.callout {
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.validation-summary .callout__icon {
+  padding-block-start: var(--space-2xs);
+}
+
+.validation-summary .callout__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  color: var(--c-text);
+  font-size: var(--text-base);
+}
+
+.validation-summary__title {
+  color: var(--c-text);
+  font-weight: var(--weight-semi);
+}
+
+.validation-summary__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding-inline-start: var(--space-lg);
+}
+
+.validation-summary__item {
+  display: list-item;
+  list-style: disc;
+}
+
+.validation-summary__item::marker {
+  color: var(--c-text-dim);
+}
+
+.validation-summary__jump {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  border-radius: var(--radius-sm);
+  text-align: start;
+}
+
+.validation-summary__jump .validation-summary__message {
+  text-decoration: underline;
+  text-decoration-color: var(--c-border-strong);
+  text-underline-offset: var(--space-2xs);
+}
+
+.validation-summary__jump:hover .validation-summary__message {
+  text-decoration-color: currentcolor;
+}
+
+.validation-summary__jump:focus-visible,
+.validation-summary__problem:focus-visible {
+  outline: var(--border-width-thick) solid var(--callout-ink);
+  outline-offset: var(--border-width-thick);
+}
+
+.validation-summary__jump svg {
+  flex: none;
+}
+
+.validation-summary__more {
+  margin-inline-start: var(--space-md);
+}
