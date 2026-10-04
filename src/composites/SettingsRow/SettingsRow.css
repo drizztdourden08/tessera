@@ -43,7 +43,7 @@
 
 .settings-row__hint-label {
   margin-inline-end: var(--space-2xs);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-bold);
   color: var(--c-primary-bright);
 }
 
