@@ -1,5 +1,17 @@
 # @drizztdourden08/tessera
 
+## 0.14.0
+
+### Minor Changes
+
+- 9d3adaa: DropdownMenu sub-menus line up with the open row's top or bottom edge before they fall back to the middle, and a join at a menu's first or last row runs straight along that menu's edge. Checkable and radio items keep the menu open when picked; every other item still closes it. Sub-menus place themselves right inside a page scaled with CSS `zoom`.
+- c9b35c8: Pelago, the Archipelia mascot, is redrawn as an island spirit: a floating island of faceted stone with a glowing crystal face, four islets in orbit joined by threads of light, and pebbles below, over the ring of dots. Its animations are redone and it gains point, link (a spark that runs around the ring of islets) and blink. A motion frame's opacity fades its part again, so Sentri's and Flint's shadows fade as drawn. Scene groups lose goo, and the Svg primitives lose SvgFilter, SvgFeGaussianBlur and SvgFeColorMatrix.
+
+### Patch Changes
+
+- 78aaa5b: Select, Combobox and DropdownMenu lists keep their width and the join with their trigger inside a page scaled with CSS `zoom`. Without CSS anchor positioning, DropdownMenu sub-menus are no longer cut off from the second level on.
+- ddab775: The brand palettes sit in the `ds.palette` layer, so an app's own `theme.css` seeds win whatever the import order.
+
 ## 0.13.0
 
 ### Minor Changes

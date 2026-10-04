@@ -594,7 +594,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.14.0",
       "props": {
         "SceneGroupNode.goo": "removed; Pelago no longer melts its shapes, and no scene uses it (see MIGRATION.md section 105)",
         "GroupSpot.goo": "removed with SceneGroupNode.goo (see MIGRATION.md section 105)"
