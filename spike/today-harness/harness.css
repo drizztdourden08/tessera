@@ -1,0 +1,7 @@
+html, body { margin: 0; background: var(--c-bg); color: var(--c-text); }
+#shot { padding: 24px; box-sizing: border-box; background: var(--c-panel); display: flex; flex-direction: column; gap: 20px; }
+.h-label { font: 600 11px/1.2 var(--font-sans, sans-serif); color: var(--c-text-faint, #888); letter-spacing: 0.04em; margin-bottom: -10px; }
+.h-row { display: flex; gap: 20px; align-items: flex-start; }
+.h-row > * { flex: 1; min-width: 0; }
+.h-frame { border: 1px dashed var(--c-border); border-radius: 8px; padding: 12px; }
+#shot > * { flex-shrink: 0; }
