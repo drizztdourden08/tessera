@@ -2,27 +2,27 @@
   "Core · Setup": {
     "Setup": {
       "status": "ok",
-      "hash": "eee50a08c3397a1c",
+      "hash": "ebc482d324d4e820",
       "at": "2026-10-02"
     },
     "TesseraProvider": {
       "status": "ok",
-      "hash": "4559f984fbc3b836",
+      "hash": "49116895e78f92fd",
       "at": "2026-10-03"
     },
     "Building compounds": {
       "status": "ok",
-      "hash": "3d23742150052109",
+      "hash": "9907c99831df75ee",
       "at": "2026-10-03"
     },
     "Building views": {
       "status": "ok",
-      "hash": "91011185cc7ae14b",
+      "hash": "a2b3e439d450d604",
       "at": "2026-10-03"
     },
     "App primitives and composites": {
       "status": "ok",
-      "hash": "dc44cf90030b8682",
+      "hash": "f3b44026fd1ca36f",
       "at": "2026-10-03"
     }
   },
@@ -34,7 +34,7 @@
     },
     "InteractiveTessera": {
       "status": "ok",
-      "hash": "0cc10639c1a7bb2f",
+      "hash": "236f8956f52c78b8",
       "at": "2026-10-01"
     },
     "Logo": {
@@ -61,268 +61,268 @@
   "Core · Colours": {
     "Swatches": {
       "status": "ok",
-      "hash": "8a18ca0299b087ef",
+      "hash": "180c6a8bf9137234",
       "at": "2026-10-01"
     },
     "Palettes": {
       "status": "ok",
-      "hash": "1fe93486d906eda8",
+      "hash": "a7f7c1700c2c8a8f",
       "at": "2026-10-01"
     },
     "Roles": {
       "status": "ok",
-      "hash": "74d2b46e96e081da",
+      "hash": "dd7b3cedc233d63b",
       "at": "2026-10-03"
     },
     "Contrast": {
       "status": "ok",
-      "hash": "e2268f8f316e9584",
+      "hash": "24f4077617742b07",
       "at": "2026-10-03"
     },
     "Gradients": {
       "status": "ok",
-      "hash": "e685767180140aa1",
+      "hash": "9e9d17e3682cd4c6",
       "at": "2026-10-01"
     }
   },
   "Core · Typography": {
     "Fonts": {
       "status": "ok",
-      "hash": "aaeebeabe2dfa25f",
+      "hash": "b5390b9be3d22330",
       "at": "2026-10-01"
     },
     "Weights": {
       "status": "ok",
-      "hash": "07ce29751240babe",
+      "hash": "fb9dba145c549504",
       "at": "2026-10-01"
     },
     "Sizes": {
       "status": "ok",
-      "hash": "4c2f1d62e0dfa305",
+      "hash": "19738ba7f3a6079d",
       "at": "2026-10-01"
     },
     "Optical size and italic": {
       "status": "ok",
-      "hash": "a4d2aa2a9be46867",
+      "hash": "543d70d8a23e171b",
       "at": "2026-10-01"
     },
     "OpenType features": {
       "status": "ok",
-      "hash": "a554bb6a16d204cd",
+      "hash": "26d13087a58ebb00",
       "at": "2026-10-01"
     },
     "Transform and style": {
       "status": "ok",
-      "hash": "d96a478318cb9424",
+      "hash": "cbc7c05d2d57bcf5",
       "at": "2026-10-01"
     }
   },
   "Core · Text": {
     "Text": {
       "status": "ok",
-      "hash": "3fe7fff811582f36",
+      "hash": "8776bf88e5215d69",
       "at": "2026-10-01"
     },
     "All elements": {
       "status": "ok",
-      "hash": "49019ecdc0bb0f8e",
+      "hash": "0fe2e0b108ea034f",
       "at": "2026-10-01"
     },
     "Title": {
       "status": "ok",
-      "hash": "09c1a735f533c917",
+      "hash": "969cb2b73c6bc231",
       "at": "2026-10-01"
     },
     "TextElement": {
       "status": "ok",
-      "hash": "9be6383e955eaace",
+      "hash": "e582e484ddfa3f99",
       "at": "2026-10-02"
     },
     "Paragraph": {
       "status": "ok",
-      "hash": "37a7e0a866a8dd07",
+      "hash": "b2c0f59f0283fb56",
       "at": "2026-10-01"
     },
     "Span": {
       "status": "ok",
-      "hash": "789baf1d9b46c8b5",
+      "hash": "c398b27013cbbcaa",
       "at": "2026-10-01"
     },
     "Strong": {
       "status": "ok",
-      "hash": "ddb6d5f617d684d1",
+      "hash": "91c021f59b593a0d",
       "at": "2026-10-01"
     },
     "Emphasis": {
       "status": "ok",
-      "hash": "8aa9e6e08f4b00b7",
+      "hash": "00abbdc120bdcf6a",
       "at": "2026-10-01"
     },
     "Bold": {
       "status": "ok",
-      "hash": "0991f13a0a05a91c",
+      "hash": "463f4941af1f65fd",
       "at": "2026-10-01"
     },
     "Italic": {
       "status": "ok",
-      "hash": "737d642bb30d6e93",
+      "hash": "bdecae7d451c8aa6",
       "at": "2026-10-01"
     },
     "Underline": {
       "status": "ok",
-      "hash": "c9cec0df0b13774d",
+      "hash": "5e3833306d9dd7c9",
       "at": "2026-10-01"
     },
     "Strikethrough": {
       "status": "ok",
-      "hash": "cd0bd53992475b93",
+      "hash": "051cd54debf378b6",
       "at": "2026-10-01"
     },
     "Deleted": {
       "status": "ok",
-      "hash": "1ca20307d887091b",
+      "hash": "04a7e3bfa4618f7e",
       "at": "2026-10-01"
     },
     "Inserted": {
       "status": "ok",
-      "hash": "ee3d71b0b930268e",
+      "hash": "6e43a70104d78805",
       "at": "2026-10-01"
     },
     "Highlight": {
       "status": "ok",
-      "hash": "70799f9c3b3c165e",
+      "hash": "a7741cb4fe35fbb0",
       "at": "2026-10-01"
     },
     "Small": {
       "status": "ok",
-      "hash": "56673591c1cb3de5",
+      "hash": "06e9aa357be3348b",
       "at": "2026-10-01"
     },
     "Subscript": {
       "status": "ok",
-      "hash": "cf15f8b643993315",
+      "hash": "f271f067061db0b3",
       "at": "2026-10-01"
     },
     "Superscript": {
       "status": "ok",
-      "hash": "3af97fb7dea637ab",
+      "hash": "8bfa8842332c5ae0",
       "at": "2026-10-01"
     },
     "Code": {
       "status": "ok",
-      "hash": "5c8935aad0b67d17",
+      "hash": "44e4bd6ba1782925",
       "at": "2026-10-01"
     },
     "Sample": {
       "status": "ok",
-      "hash": "4c07ac452a2bbba5",
+      "hash": "509be63a6b7a6b79",
       "at": "2026-10-01"
     },
     "Variable": {
       "status": "ok",
-      "hash": "e32966d88ef9d5c6",
+      "hash": "5d9c85bd3097d036",
       "at": "2026-10-01"
     },
     "Abbreviation": {
       "status": "ok",
-      "hash": "b6def34f340e8e4e",
+      "hash": "fb963a8746b5e0b7",
       "at": "2026-10-01"
     },
     "Citation": {
       "status": "ok",
-      "hash": "61d2743b0e05604d",
+      "hash": "124a8f865e499162",
       "at": "2026-10-01"
     },
     "BlockQuote": {
       "status": "ok",
-      "hash": "e775a4e8059cab58",
+      "hash": "f217a41cd358bbab",
       "at": "2026-10-01"
     },
     "Definition": {
       "status": "ok",
-      "hash": "376f616e4626b5bb",
+      "hash": "e19ec6111d405a0d",
       "at": "2026-10-01"
     },
     "Time": {
       "status": "ok",
-      "hash": "5a651b8f31a5ec33",
+      "hash": "92614afb68c68af7",
       "at": "2026-10-01"
     },
     "Data": {
       "status": "ok",
-      "hash": "283d4e1378246a86",
+      "hash": "2cfa3c42e668b4f5",
       "at": "2026-10-01"
     },
     "Address": {
       "status": "ok",
-      "hash": "c79554d595ca6d38",
+      "hash": "1637b29256108b97",
       "at": "2026-10-01"
     },
     "Preformatted": {
       "status": "ok",
-      "hash": "d7aeddebc8430961",
+      "hash": "c87188b525ad2cec",
       "at": "2026-10-01"
     },
     "BidiIsolate": {
       "status": "ok",
-      "hash": "fb64de3cd2e5f154",
+      "hash": "d3bedce1e868f29d",
       "at": "2026-10-01"
     },
     "BidiOverride": {
       "status": "ok",
-      "hash": "b309445a5dee6bdd",
+      "hash": "6600e612b1ce7ae6",
       "at": "2026-10-01"
     },
     "Ruby": {
       "status": "ok",
-      "hash": "e9d8b4c0350668fd",
+      "hash": "09ed98fb027626a4",
       "at": "2026-10-01"
     },
     "RubyText": {
       "status": "ok",
-      "hash": "2cf9d61ba88e6fcc",
+      "hash": "dce9998b97eea694",
       "at": "2026-10-01"
     },
     "RubyParenthesis": {
       "status": "ok",
-      "hash": "1e914c7749edd699",
+      "hash": "ee7b51133ee111a2",
       "at": "2026-10-01"
     },
     "Shortcut": {
       "status": "ok",
-      "hash": "6ff3b83391cb5c3e",
+      "hash": "51a2aab421a2777c",
       "at": "2026-10-01"
     },
     "Quote": {
       "status": "ok",
-      "hash": "7a9540ce3e8938e4",
+      "hash": "21576f8911b6c354",
       "at": "2026-10-03"
     },
     "CodeBlock": {
       "status": "ok",
-      "hash": "598189ae75cfda7b",
+      "hash": "b7b8887574d9c8b9",
       "at": "2026-10-01"
     },
     "Emphasis animation": {
       "status": "ok",
-      "hash": "0eef2a201702f250",
+      "hash": "f68f4d664e847e64",
       "at": "2026-10-04"
     }
   },
   "Core · Icons": {
     "Icon": {
       "status": "ok",
-      "hash": "bc32e307fea89ab1",
+      "hash": "ae05354ba57611a2",
       "at": "2026-10-04"
     },
     "Brand icons": {
       "status": "ok",
-      "hash": "f4f1679e71798776",
+      "hash": "6c76ae5aee1b3871",
       "at": "2026-10-03"
     },
     "Glyph": {
       "status": "ok",
-      "hash": "7f8d5a6b40195c9d",
+      "hash": "dfb976804113a463",
       "at": "2026-10-03"
     },
     "InputIcon": {
@@ -332,386 +332,386 @@
     },
     "PathIcon": {
       "status": "ok",
-      "hash": "13e2d4bc9e71ea56",
+      "hash": "db1ae767acd0074e",
       "at": "2026-10-03"
     },
     "EmojiIcon": {
       "status": "ok",
-      "hash": "5f9976dd57b98b89",
+      "hash": "fa6af972f79e4f35",
       "at": "2026-10-01"
     }
   },
   "Core · Tokens": {
     "Size scale": {
       "status": "ok",
-      "hash": "07df7d1fb5d7c311",
+      "hash": "a7b0f7d0ebbfd1b7",
       "at": "2026-10-03"
     },
     "Sizes": {
       "status": "ok",
-      "hash": "8def71ebeae86830",
+      "hash": "1f149f11b8bb4717",
       "at": "2026-10-03"
     },
     "Margin": {
       "status": "ok",
-      "hash": "38765e80d3ef2a9d",
+      "hash": "414156d5664a55c3",
       "at": "2026-10-03"
     },
     "Padding": {
       "status": "ok",
-      "hash": "e409110deb76d643",
+      "hash": "2e44dcda8e100539",
       "at": "2026-10-03"
     },
     "Gap": {
       "status": "ok",
-      "hash": "4b3bba9e0b4f52c7",
+      "hash": "f3b075e739ba200c",
       "at": "2026-10-03"
     },
     "Radius": {
       "status": "ok",
-      "hash": "cc0a71d322894b27",
+      "hash": "b07fd15d3ea74aa5",
       "at": "2026-10-03"
     },
     "Shadows": {
       "status": "ok",
-      "hash": "4d6c6b65f46f316b",
+      "hash": "6329ec208e0b3002",
       "at": "2026-10-03"
     },
     "Z-index": {
       "status": "ok",
-      "hash": "12c0629e367869ab",
+      "hash": "f802d8e7fc86cb09",
       "at": "2026-10-03"
     },
     "Durations": {
       "status": "ok",
-      "hash": "828da97b9a24e197",
+      "hash": "b3d80c1481e3ff83",
       "at": "2026-10-03"
     },
     "Easings": {
       "status": "ok",
-      "hash": "d0e9b52100a76830",
+      "hash": "8987095b42855c4f",
       "at": "2026-10-03"
     },
     "Transitions": {
       "status": "ok",
-      "hash": "cd04adcc980c2fe3",
+      "hash": "c9da989f4ad9b81f",
       "at": "2026-10-03"
     }
   },
   "Primitives · Layout": {
     "Box": {
       "status": "ok",
-      "hash": "d2d008942f4af84f",
+      "hash": "f190604963710e52",
       "at": "2026-10-02"
     },
     "Flex": {
       "status": "ok",
-      "hash": "6e9e67491e3456d4",
+      "hash": "563bc084d624ca84",
       "at": "2026-10-01"
     },
     "Stack": {
       "status": "ok",
-      "hash": "bc7620fdae0b613d",
+      "hash": "04442862a1fc2279",
       "at": "2026-10-01"
     },
     "Grid": {
       "status": "ok",
-      "hash": "8fbf192f985af9a4",
+      "hash": "ffd99c3ed504ff67",
       "at": "2026-10-01"
     },
     "Center": {
       "status": "ok",
-      "hash": "a5664efb757547e9",
+      "hash": "7a74286a73d4b86e",
       "at": "2026-10-01"
     },
     "Spacer": {
       "status": "ok",
-      "hash": "a37e9f2631ba5605",
+      "hash": "0c976f1c065f110b",
       "at": "2026-10-01"
     },
     "Divider": {
       "status": "ok",
-      "hash": "1f91ba74f99007ba",
+      "hash": "6a00b8e4b4e9de78",
       "at": "2026-10-01"
     },
     "Card": {
       "status": "ok",
-      "hash": "eb7f42c9c9978fa3",
+      "hash": "087df9ae4b357513",
       "at": "2026-10-01"
     },
     "ScrollArea": {
       "status": "ok",
-      "hash": "e5150a6e10abdfea",
+      "hash": "12dfc94df957c195",
       "at": "2026-10-04"
     },
     "Portal": {
       "status": "ok",
-      "hash": "bf63b56eb6a8e9ed",
+      "hash": "74f9a01311354edb",
       "at": "2026-10-03"
     },
     "Anchored": {
       "status": "ok",
-      "hash": "319fad7388931b1a",
+      "hash": "b2e1f246bdff4bcb",
       "at": "2026-10-03"
     },
     "Floating": {
       "status": "ok",
-      "hash": "dc1488cc51ed68c3",
+      "hash": "d8db8366bdc9b25f",
       "at": "2026-10-01"
     }
   },
   "Primitives · Display": {
     "SectionHeader": {
       "status": "ok",
-      "hash": "f241017727a5ed3b",
+      "hash": "d2a8b73d40fd5141",
       "at": "2026-10-01"
     },
     "TermList": {
       "status": "ok",
-      "hash": "1c4bb4fc2038a1eb",
+      "hash": "150d42796ba8a6b5",
       "at": "2026-10-01"
     },
     "StatRow": {
       "status": "ok",
-      "hash": "9c69b0edd5e86780",
+      "hash": "7f187bfef29b1745",
       "at": "2026-10-01"
     },
     "Badge": {
       "status": "ok",
-      "hash": "af333401397a9744",
+      "hash": "80118d0d6990997e",
       "at": "2026-10-03"
     },
     "Status": {
       "status": "ok",
-      "hash": "7f245f063b870670",
+      "hash": "1809fdcb5027cd26",
       "at": "2026-10-01"
     },
     "Tag": {
       "status": "ok",
-      "hash": "789c6bd0420b27b0",
+      "hash": "95b138a84348eb35",
       "at": "2026-10-01"
     },
     "EmptyState": {
       "status": "ok",
-      "hash": "0f91b541b6ac6887",
+      "hash": "0c60c0c4c9f32ba1",
       "at": "2026-10-01"
     },
     "Image": {
       "status": "ok",
-      "hash": "84ac2ce3a6524f63",
+      "hash": "1793daf13cb5711a",
       "at": "2026-10-01"
     },
     "Thumbnail": {
       "status": "ok",
-      "hash": "5d6d931fc4dfb574",
+      "hash": "dc08cf095534e91e",
       "at": "2026-10-01"
     },
     "Video": {
       "status": "ok",
-      "hash": "1f30b472ddd7b7cb",
+      "hash": "57d6a47dec0bf33a",
       "at": "2026-10-03"
     },
     "Canvas": {
       "status": "ok",
-      "hash": "bc265540d67dde3d",
+      "hash": "1e35b899a480b501",
       "at": "2026-10-01"
     },
     "Svg": {
       "status": "ok",
-      "hash": "97145c39cb41ed0e",
+      "hash": "f326dc5561a34075",
       "at": "2026-10-01"
     },
     "ScaleLabels": {
       "status": "ok",
-      "hash": "0b1c70bbd4ec3aa4",
+      "hash": "df1c8e42243199d8",
       "at": "2026-10-03"
     }
   },
   "Primitives · Actions": {
     "Button": {
       "status": "ok",
-      "hash": "3bc7369d89845f3e",
+      "hash": "cd1950b647dfa3ff",
       "at": "2026-10-01"
     },
     "IconButton": {
       "status": "ok",
-      "hash": "2968fe5fc77aa2b9",
+      "hash": "11c7e60194849ee7",
       "at": "2026-10-01"
     },
     "ButtonRow": {
       "status": "ok",
-      "hash": "d5376aae501ffc8d",
+      "hash": "82a734b655f3400d",
       "at": "2026-10-04"
     },
     "ButtonGroup": {
       "status": "ok",
-      "hash": "0dd5e87b8ae00863",
+      "hash": "95bc63708a20f19c",
       "at": "2026-10-01"
     },
     "Pressable": {
       "status": "ok",
-      "hash": "1942deca80fe23f4",
+      "hash": "b98f15d476900db0",
       "at": "2026-10-02"
     },
     "Link": {
       "status": "ok",
-      "hash": "dd56b5019259aa19",
+      "hash": "14908a536e47eb0b",
       "at": "2026-10-04"
     }
   },
   "Primitives · Inputs": {
     "TextInput": {
       "status": "ok",
-      "hash": "288b2428d9fcb0ec",
+      "hash": "45cc140542c6aea6",
       "at": "2026-10-03"
     },
     "SearchInput": {
       "status": "ok",
-      "hash": "e61e577162b84e15",
+      "hash": "5f18b90fe7810bea",
       "at": "2026-10-03"
     },
     "PasswordInput": {
       "status": "ok",
-      "hash": "5d47ab74d16f48f3",
+      "hash": "e9c4c9a08c65a2bf",
       "at": "2026-10-03"
     },
     "Textarea": {
       "status": "ok",
-      "hash": "6b7efffe7b2d5c62",
+      "hash": "38aee1d4f15c3da8",
       "at": "2026-10-03"
     },
     "NumberInput": {
       "status": "ok",
-      "hash": "3d7e0f9ac8d2669d",
+      "hash": "6b98fc67d14907b9",
       "at": "2026-10-03"
     },
     "NumberStepper": {
       "status": "ok",
-      "hash": "9da3309c771ed2a4",
+      "hash": "578f41a131538294",
       "at": "2026-10-03"
     },
     "Checkbox": {
       "status": "ok",
-      "hash": "9c2a397265139428",
+      "hash": "ccade712972a684a",
       "at": "2026-10-03"
     },
     "Toggle": {
       "status": "ok",
-      "hash": "361d109268d00647",
+      "hash": "ff26b46ba9d8618b",
       "at": "2026-10-03"
     },
     "ToggleGroup": {
       "status": "ok",
-      "hash": "a6fccceceb389fe3",
+      "hash": "1b50ffe199d15261",
       "at": "2026-10-03"
     },
     "RadioGroup": {
       "status": "ok",
-      "hash": "1b53a603a097eb4e",
+      "hash": "76d3c552fd57bd29",
       "at": "2026-10-03"
     },
     "SegmentedControl": {
       "status": "ok",
-      "hash": "92da47c9cf281559",
+      "hash": "50500169bf69c5c9",
       "at": "2026-10-03"
     },
     "Select": {
       "status": "ok",
-      "hash": "28286ba81cd903a2",
+      "hash": "24c404576d3d1a8b",
       "at": "2026-10-03"
     },
     "Combobox": {
       "status": "ok",
-      "hash": "12723d2e2705ee04",
+      "hash": "bc0cc853cd5f9725",
       "at": "2026-10-03"
     },
     "Slider": {
       "status": "ok",
-      "hash": "2a63e637f42d9437",
+      "hash": "4a5f94981f7817c9",
       "at": "2026-10-03"
     },
     "TagInput": {
       "status": "ok",
-      "hash": "c5c6188ebeae22c3",
+      "hash": "0b0cff3ef0dc738e",
       "at": "2026-10-03"
     },
     "TagPicker": {
       "status": "ok",
-      "hash": "3041717a7be0f0ed",
+      "hash": "6e0724eb1c719011",
       "at": "2026-10-03"
     },
     "ColorSwatch": {
       "status": "ok",
-      "hash": "49149196dcbadc7f",
+      "hash": "7a8c266b32d749d3",
       "at": "2026-10-03"
     },
     "DropZone": {
       "status": "ok",
-      "hash": "e6e822804e0b37df",
+      "hash": "d2bcca9999bb8f08",
       "at": "2026-10-03"
     },
     "Field": {
       "status": "ok",
-      "hash": "78020f3bf50def3b",
+      "hash": "15378aa531a1f0ef",
       "at": "2026-10-03"
     },
     "FieldControlBoundary": {
       "status": "ok",
-      "hash": "2c9a3d75c17926ec",
+      "hash": "a6b679c9f87ffa44",
       "at": "2026-10-03"
     }
   },
   "Primitives · Feedback": {
     "Spinner": {
       "status": "ok",
-      "hash": "f3dd49878bb40ef7",
+      "hash": "98e7d213393bd4c3",
       "at": "2026-10-01"
     },
     "ProgressBar": {
       "status": "ok",
-      "hash": "b0e374768b47338e",
+      "hash": "fb1e644edaa758ab",
       "at": "2026-10-01"
     },
     "ProgressRing": {
       "status": "ok",
-      "hash": "4db07ae045aab2ea",
+      "hash": "a2e1b56b2e28b2b6",
       "at": "2026-10-01"
     },
     "Toast": {
       "status": "ok",
-      "hash": "ff17d8cbd2cfe208",
+      "hash": "005faaee5f94c765",
       "at": "2026-10-01"
     },
     "Tooltip": {
       "status": "ok",
-      "hash": "27d363a3a159944d",
+      "hash": "5c6ed8f8f0a688bd",
       "at": "2026-10-01"
     },
     "HintLine": {
       "status": "ok",
-      "hash": "1ddcaeb826962dbd",
+      "hash": "581175ec43a0e603",
       "at": "2026-10-01"
     },
     "HintScope": {
       "status": "ok",
-      "hash": "bf75a5ae2e36a29a",
+      "hash": "26b808d03027e768",
       "at": "2026-10-02"
     },
     "Callout": {
       "status": "ok",
-      "hash": "ad5c8b413880e167",
+      "hash": "e0fe7a682f89762f",
       "at": "2026-10-01"
     },
     "ErrorBoundary": {
       "status": "ok",
-      "hash": "edb1f054706b6da2",
+      "hash": "ed75506c66d3cb82",
       "at": "2026-10-03"
     }
   },
   "Primitives · Navigation": {
     "Tabs": {
       "status": "ok",
-      "hash": "e1192167bc235cf2",
+      "hash": "a29a2572e63009ed",
       "at": "2026-10-03"
     },
     "Stepper": {
@@ -721,46 +721,46 @@
     },
     "RouterLink": {
       "status": "ok",
-      "hash": "94ac613a7e2907e7",
+      "hash": "5f95b4846a8f38ec",
       "at": "2026-10-02"
     }
   },
   "Composites · Dialogs": {
     "Dialog": {
       "status": "ok",
-      "hash": "cc4450721f9db62d",
+      "hash": "232269e6a5996fa5",
       "at": "2026-10-02"
     },
     "DialogShell": {
       "status": "ok",
-      "hash": "aaa15d8c31a50628",
+      "hash": "c95d3bb3c04eaa11",
       "at": "2026-10-03"
     },
     "CreateRecordDialog": {
       "status": "ok",
-      "hash": "c267bb235a4486f0",
+      "hash": "d984c28b7cff42d1",
       "at": "2026-10-02"
     },
     "DeleteGuardDialog": {
       "status": "ok",
-      "hash": "6b7b5dfef86b834a",
+      "hash": "f10e2f65ca4d3967",
       "at": "2026-10-02"
     },
     "WizardDialog": {
       "status": "ok",
-      "hash": "84fdcad12d0abacc",
+      "hash": "555f9d991b156b8b",
       "at": "2026-10-04"
     }
   },
   "Composites · Overlays": {
     "Overlay": {
       "status": "ok",
-      "hash": "01416a13a115a8ec",
+      "hash": "4b7720e819fd8099",
       "at": "2026-10-02"
     },
     "Drawer": {
       "status": "ok",
-      "hash": "f58be5257152d2c1",
+      "hash": "1c00a8627a2fb6e3",
       "at": "2026-10-03"
     },
     "DisabledOverlay": {
@@ -770,88 +770,88 @@
   "Composites · Wizard": {
     "Wizard": {
       "status": "ok",
-      "hash": "faa17cdc99874330",
+      "hash": "78f5980640091800",
       "at": "2026-10-04"
     },
     "WizardStep": {
       "status": "ok",
-      "hash": "f1c92d6f7cc8fb76",
+      "hash": "332c135201c6b5a2",
       "at": "2026-10-03"
     },
     "WizardNav": {
       "status": "ok",
-      "hash": "93e615e7c9f953d8",
+      "hash": "129bd921f7de2db4",
       "at": "2026-10-04"
     },
     "WizardReview": {
       "status": "ok",
-      "hash": "ca595948591edd4c",
+      "hash": "5f937fc16bd08660",
       "at": "2026-10-03"
     },
     "WizardExitGuard": {
       "status": "ok",
-      "hash": "a9b9472e9d8b196d",
+      "hash": "236904bc175d179e",
       "at": "2026-10-03"
     }
   },
   "Composites · Navigation": {
     "SideNav": {
       "status": "ok",
-      "hash": "4dc0b8e1b924e308",
+      "hash": "3f13fb69f7dbd144",
       "at": "2026-10-04"
     },
     "HeaderAnchorNav": {
       "status": "ok",
-      "hash": "bf56a365066f4aef",
+      "hash": "eb93eeb8ac523b31",
       "at": "2026-10-03"
     },
     "FloatingSwitch": {
       "status": "ok",
-      "hash": "ac5ac47c355ddda4",
+      "hash": "b43e8603895a6936",
       "at": "2026-10-03"
     }
   },
   "Composites · Layout": {
     "SplitPane": {
       "status": "ok",
-      "hash": "55d0221ad562b025",
+      "hash": "0b37f7c570e8319a",
       "at": "2026-10-03"
     },
     "MasterDetailLayout": {
       "status": "ok",
-      "hash": "11b7ce9c65d0417d",
+      "hash": "291e93e74ff9e724",
       "at": "2026-10-03"
     },
     "SideNavLayout": {
       "status": "ok",
-      "hash": "3304df68c4d283ec",
+      "hash": "5094fe646126cbc0",
       "at": "2026-10-04"
     }
   },
   "Composites · Lists": {
     "ListItemRow": {
       "status": "ok",
-      "hash": "b896f1d4e4f74bc6",
+      "hash": "c103b23dd57deff6",
       "at": "2026-10-04"
     },
     "GroupTree": {
       "status": "ok",
-      "hash": "3b280284611e2798",
+      "hash": "b5eaf98ebbb400b4",
       "at": "2026-10-04"
     },
     "SearchResults": {
       "status": "ok",
-      "hash": "40da3783f30c41c1",
+      "hash": "85f94c0b4c28be2b",
       "at": "2026-10-04"
     },
     "SearchResultGroup": {
       "status": "ok",
-      "hash": "2e50612851d92c74",
+      "hash": "1ecf1458d93094a3",
       "at": "2026-10-04"
     },
     "SearchResultHit": {
       "status": "ok",
-      "hash": "9560bda27712bdb3",
+      "hash": "9f520db6c1a49ca7",
       "at": "2026-10-04"
     }
   },
@@ -880,53 +880,53 @@
     },
     "CommandPalette": {
       "status": "ok",
-      "hash": "470ee7d3ee12146b",
+      "hash": "3a22e92e9901ffde",
       "at": "2026-10-04"
     },
     "CommandPaletteRow": {
       "status": "ok",
-      "hash": "f6ac297996682113",
+      "hash": "971c632a3b7da5e3",
       "at": "2026-10-03"
     }
   },
   "Composites · Actions": {
     "ConfirmIconButton": {
       "status": "ok",
-      "hash": "0380925806a6126c",
+      "hash": "25af15ae75425554",
       "at": "2026-10-03"
     }
   },
   "Composites · Inputs": {
     "DynamicInput": {
       "status": "ok",
-      "hash": "937ad4222496a472",
+      "hash": "6a48ea4de0c9a7f9",
       "at": "2026-10-04"
     },
     "VolumeControl": {
       "status": "ok",
-      "hash": "d7e223751753e3e5",
+      "hash": "5af32a4c30ae5e5a",
       "at": "2026-10-03"
     },
     "ColorPicker": {
       "status": "ok",
-      "hash": "cff59304c329c1e1",
+      "hash": "e0e6469b5a7b279f",
       "at": "2026-10-03"
     },
     "ColorPickerPopover": {
       "status": "ok",
-      "hash": "539b703519a18cf2",
+      "hash": "155b816b4b2763db",
       "at": "2026-10-04"
     }
   },
   "Composites · Forms": {
     "InlineCreateForm": {
       "status": "ok",
-      "hash": "c023a7ae78055982",
+      "hash": "63a67337ae15ad83",
       "at": "2026-10-03"
     },
     "RecordEditor": {
       "status": "ok",
-      "hash": "721d427a1ecc606b",
+      "hash": "d3a07232793eca45",
       "at": "2026-10-03"
     }
   },
@@ -943,63 +943,63 @@
     },
     "CompactRecordView": {
       "status": "ok",
-      "hash": "ba0d06f6acb785cb",
+      "hash": "e4a0cd8c97ab16a6",
       "at": "2026-10-03"
     },
     "Field kits": {
       "status": "ok",
-      "hash": "8fa682f38ff3b8e8",
+      "hash": "8ce0d30ee29142e3",
       "at": "2026-10-03"
     }
   },
   "Composites · Content": {
     "LogPanel": {
       "status": "ok",
-      "hash": "43e208664cd0f2a1",
+      "hash": "7a8c17b1e4b31d6c",
       "at": "2026-10-04"
     },
     "FactsPanel": {
       "status": "ok",
-      "hash": "6977932c7af4f776",
+      "hash": "9c599f55e4491ac3",
       "at": "2026-10-03"
     },
     "Hero": {
       "status": "ok",
-      "hash": "aa194f94e33be26f",
+      "hash": "28777f91e8f376ef",
       "at": "2026-10-04"
     },
     "PixelWordmark": {
       "status": "ok",
-      "hash": "71db2c1310f3d20f",
+      "hash": "c47ebd0e8314795e",
       "at": "2026-10-03"
     }
   },
   "Composites · Input devices": {
     "PressedGrid": {
       "status": "ok",
-      "hash": "3a3a7cc2d7aeae61",
+      "hash": "d701fbe54d179267",
       "at": "2026-10-04"
     },
     "StickPlot": {
       "status": "ok",
-      "hash": "1c5cbfd98643bcc1",
+      "hash": "ee58354926ad2f32",
       "at": "2026-10-03"
     },
     "KeyboardLayout": {
       "status": "ok",
-      "hash": "ca23e213be3cf93b",
+      "hash": "f41784ada0c07316",
       "at": "2026-10-03"
     },
     "ShortcutTour": {
       "status": "ok",
-      "hash": "2e0233107e9c7753",
+      "hash": "7dd105c40429e0ce",
       "at": "2026-10-03"
     }
   },
   "Composites · Widgets": {
     "DockLayout": {
       "status": "ok",
-      "hash": "91b337341e5aa482",
+      "hash": "d54c09f880267ccc",
       "at": "2026-10-03"
     },
     "Widget": {
@@ -1024,7 +1024,7 @@
     },
     "WindowHeader": {
       "status": "ok",
-      "hash": "05248e011ff7a958",
+      "hash": "538d8778dfaa3454",
       "at": "2026-10-04"
     }
   },
@@ -1051,7 +1051,7 @@
     },
     "ScreenWindow": {
       "status": "ok",
-      "hash": "689f555aa128a4a3",
+      "hash": "2139d48706aa4236",
       "at": "2026-10-03"
     },
     "ScreenPage": {
@@ -1059,14 +1059,14 @@
     },
     "ScreenLayer": {
       "status": "ok",
-      "hash": "3d19bf69146f61d5",
+      "hash": "2bd27710aec3d8bb",
       "at": "2026-10-03"
     }
   },
   "Data": {
     "Engine": {
       "status": "ok",
-      "hash": "94d14c55a4b5d6e4",
+      "hash": "f24c9cb2a7d08d46",
       "at": "2026-10-04"
     }
   }
