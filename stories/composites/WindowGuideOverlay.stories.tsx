@@ -53,7 +53,14 @@ const CODE = `import { WindowGuideOverlay } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'WindowGuideOverlay',
-  description: 'A dimmed scrim over the whole window with a card in the middle that says how to handle windows while one is moved or resized. The card names what is happening, shows whether the window snaps to corners and edges, and lists the keys: Ctrl moves or resizes without snapping, and Ctrl on a shared edge resizes only this window. The host adds its own rows, such as group shortcuts, through hints. It fades in and out quickly, and at once when reduced motion is on. The overlay is hidden from assistive technology, since it is only visual guidance; a polite status line says the mode and when snapping turns off. The host decides when it shows. Each example draws it over a small desktop holding one widget window; hold Ctrl over the page to see snapping turn off.',
+  description: 'A dimmed guide over the whole window that lists the keys while a window is moved or resized.',
+  points: [
+    'The card names what is happening and whether the window snaps to corners and edges.',
+    '[[Ctrl]] moves or resizes without snapping, and on a shared edge it resizes only this window.',
+    '`hints` adds rows of the host\'s own, such as group shortcuts.',
+    'The host shows it with `open`; it fades in and out, at once under reduced motion.',
+    'It is hidden from screen readers, and a polite status line says the mode instead.',
+  ],
   playground: Playground,
   variants: [Moving, Resizing, SnappingOff, GroupShortcuts],
   code: CODE,

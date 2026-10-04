@@ -108,7 +108,15 @@ const CODE = `import { Widget } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Widget',
-  description: 'The frame a tool panel wears, docked in a DockLayout pane, floating over the main view, or in its own window: a player list, a log, hints. The title bar is the drag handle; it shows the widget name, or one tab chip per widget when its pane holds several, then the pop out, options and close buttons. In its own window it shows a pop in button and a pin menu: its button shows the pin-off icon while the window stacks like any other and a lit pin while it stays on top, and the menu lists both choices with their icons and a mark on the current one. titleBarActions adds buttons of its own to the title bar, before the built-in ones; WidgetManager takes widgetActions(id) for the same in a dock, as the clear button on the Log widget shows. Set square for a widget window shown fullscreen: the frame drops its corner radius and its outer border. The frame takes the opacity setting and turns solid on hover, while the content stays opaque. Peek folds it to its title strip. The gear opens WidgetOptions, live in every example here: its icon controls change the frame, pointing at any option shows its value and what it does in the hint line at the bottom, and the line under the frame shows every value. The frame fills the box it is given; WidgetManager places a whole dock of them from a WidgetLayout and opens WidgetOptions from the gear.',
+  description: 'The frame of a tool panel, such as a player list or a log, docked in a [DockLayout], floating, or in its own window.',
+  points: [
+    'The title bar is the drag handle, with the name or one tab per widget, then pop out, options and close.',
+    'In its own window, `pin` picks from a title bar menu whether it stays on top.',
+    '`titleBarActions` adds buttons of its own before the built-in ones.',
+    'The frame takes `opacity` and turns solid on hover; `peek` folds it to its title strip.',
+    '`square` drops the corners and the border for a widget window shown fullscreen.',
+    'The gear opens [WidgetOptions], and `WidgetManager` places a whole dock of widgets from a layout.',
+  ],
   playground: Playground,
   variants: [Single, Tabbed, OwnWindow, OwnActions, Fullscreen, Folded, Dock],
   states: {

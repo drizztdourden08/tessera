@@ -75,7 +75,14 @@ const CODE = `import { OptionRow, WidgetOptions } from '@drizztdourden08/tessera
 
 const Overview = overviewStory({
   component: 'WidgetOptions',
-  description: 'The options panel every widget gets from its gear, pinned under the button. Every choice is a small icon SegmentedControl, and pointing at or tabbing to any option shows its value and what it does in the hint line at the bottom, a HintLine reading the HintScope the panel wraps around its rows. Placement docks the widget to an edge, floats it over the main view, or sends it to its own window; in its own window a pop in button brings it back. A docked widget makes room or lies over the main view as an overlay; a widget in its own window picks whether it pins on top or stacks like any window, whether it snaps to edges, whether it follows the main window and which window group it joins, the last two each with an info icon whose tooltip says what they do. Opacity is an sm Slider, Show picks always or only in context, and the widget adds its own OptionRows, whose controls report to the same hint line. The keys button in the header opens the shortcut list in a floating aside beside the panel and remembers that for the session; reset and close sit next to it. Escape, the close button and a press outside close the panel. Each example is a small app: a session view and a Players widget, with the panel open on the gear as soon as the example scrolls into view. Every choice acts on the scene: placement moves the widget, Make room and Overlay change the main view, opacity fades the frame, Show hides the widget when the Session running switch is off, and the sort, compact and finished rows change the list. In its own window the title bar carries the same pin choice as a menu: its button shows the pin-off icon or a lit pin, and the menu marks the current choice, so the bar and the Pin row always agree. The line under the scene shows every value the panel set.',
+  description: 'The options panel every widget opens from its gear: where it sits, whether it makes room, its opacity and when it shows.',
+  points: [
+    'Each choice is a small icon [SegmentedControl], explained in the hint line when you point at it.',
+    'Placement docks the widget to an edge, floats it over the main view, or sends it to its own window.',
+    'In its own window it adds pin, snap, follow the main window and window group.',
+    'The widget adds its own rows as children, and they report to the same hint line.',
+    'The keys button opens the shortcut list beside the panel; [[Esc]] or a press outside closes the panel.',
+  ],
   playground: Playground,
   variants: [Docked, Floating, OwnWindow, FrameOnly],
   code: CODE,
