@@ -122,7 +122,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TagPicker',
-  description: 'A set of Tags to switch on and off, for picking from a short, known list of options. Options can sit in labelled groups, or in one flat set with no heading. Each click adds or removes a value, and single turns the tags into radios that hold at most one pick. The value is an array either way, and the whole picker can be disabled. An option takes the variant and color of a Tag and keeps them once picked: category colours for a series, urgency colours for a state. An option with neither turns primary. size sm tightens the gaps and the label for a compact panel; the Tags keep their one size.',
+  description: 'A set of tags to switch on and off, for picking from a short, known list of options.',
+  points: [
+    'Options can sit in labelled groups, or in one flat set.',
+    'Each click adds or removes a value; `single` holds at most one pick.',
+    'The value is an array either way.',
+    'An option keeps the `variant` and `color` of its [Tag] once picked; one with neither turns primary.',
+  ],
+  instead: '[TagInput] when the user can type new values.',
   playground: Playground,
   variants: [Layouts, Colours, Sizes],
   states: {

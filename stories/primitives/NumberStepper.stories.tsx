@@ -82,7 +82,14 @@ const renderState = (props: StateProps) => <Players disabled={props.disabled ===
 
 const Overview = overviewStory({
   component: 'NumberStepper',
-  description: 'A number field with a minus and a plus button on either side. Use it for small counts and amounts, such as players in a session or a percentage in steps of five. The buttons move the value by step and stop at min and max, and the field takes typed digits. size md matches the standard control height and sm is the compact one. An empty field reports NaN, and the whole control can be disabled.',
+  description: 'A number field with a minus and a plus button on either side, for small counts and amounts.',
+  points: [
+    'Use it for players in a session or a percentage in steps of five.',
+    'The buttons move the value by `step` and stop at `min` and `max`; the field takes typed digits.',
+    'An empty field reports `NaN`.',
+    'The whole control can be `disabled`.',
+  ],
+  instead: '[NumberInput] for a cost or a speed where typing comes first.',
   playground: Playground,
   variants: [Sizes, Values],
   states: {

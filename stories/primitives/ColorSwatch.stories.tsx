@@ -114,7 +114,13 @@ const Palette = {
 
 const Overview = overviewStory({
   component: 'ColorSwatch',
-  description: 'One colour drawn as a button, for picking a slot in a palette or a colour from a set. A small caption inside it, usually the palette index, labels the slot. Selected draws a ring, edited marks a value changed from its original, transparent swaps the fill for a checkerboard, and every button prop, onClick and disabled included, passes through. size md is a square at the standard control height and sm one at the compact height, so a swatch lines up with the field beside it; --swatch-size sets any other size.',
+  description: 'One colour drawn as a button, for picking a slot in a palette or a colour from a set.',
+  points: [
+    '`caption` writes a small label inside it, usually the palette index.',
+    '`selected` draws a ring, and `edited` marks a value changed from its original.',
+    '`transparent` swaps the fill for a checkerboard.',
+    '`md` and `sm` match the control heights, so a swatch lines up with the field beside it.',
+  ],
   playground: Playground,
   variants: [Fills, Sizes],
   states: {

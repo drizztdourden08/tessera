@@ -133,7 +133,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TagInput',
-  description: 'A text field that collects a list of values as removable Tags, for labels such as games or modes on a record. Typing filters the suggestions first, and a value that is not there yet can still be added. Any tag is accepted unless validate passes a check: namespacedTag asks for namespace:value, and a tag that fails gets a hint but is kept, unless enforce is on, which refuses it. createError shows a refusal from the server and draws the error look. defaultOpen starts with the suggestions open, and inline draws them right under the field, not as a floating panel. size md makes the field the standard control height and sm the compact one; the Tags inside keep their own size.',
+  description: 'A text field that collects a list of values as removable tags, such as games or modes on a record.',
+  points: [
+    'Typing filters the `suggestions`, and a new value can still be added.',
+    '`validate` checks each tag; one that fails gets a hint but is kept, unless `enforce` is on.',
+    '`createError` shows a refusal from the server and draws the error look.',
+    '`inline` draws the suggestions right under the field instead of as a floating panel.',
+  ],
+  instead: '[TagPicker] when the options are a short, known list.',
   playground: Playground,
   variants: [Validation, Sizes],
   states: {

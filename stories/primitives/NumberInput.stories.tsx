@@ -128,7 +128,15 @@ const [cost, setCost] = useState(25);
 
 const Overview = overviewStory({
   component: 'NumberInput',
-  description: 'A number field with its own step up and step down buttons. Use it for a count, a cost or a speed, where typing a value and nudging it both make sense. The buttons move by step and stop at min and max, onChange hands back a number (NaN when the field is cleared), sizeToContent narrows the field to the widest value max allows, size picks md, the standard control height, or the compact sm, start and end put an icon at either end, a button when it has onClick, and invalid, or a Field with an error, draws the error look.',
+  description: 'A number field with its own step up and step down buttons, for a count, a cost or a speed.',
+  points: [
+    'The buttons move by `step` and stop at `min` and `max`.',
+    '**`onChange` hands back a number,** and `NaN` when the field is cleared.',
+    '`sizeToContent` narrows the field to the widest value `max` allows.',
+    '`start` and `end` put an icon at either end, a button when it has `onClick`.',
+    '`invalid`, or a [Field] with an error, draws the error look.',
+  ],
+  instead: '[NumberStepper] for small counts with a minus and a plus on either side.',
   playground: Playground,
   variants: [Sizing, Sizes, Icons],
   states: {

@@ -134,7 +134,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'Field',
-  description: 'The frame around one form control: a label above it, and a hint or an error below it. Reach for it around any input so every form lines up the same way. An error replaces the hint while it is set and marks the control inside as invalid, which draws its error look. Required adds a star to the label, inline puts the label beside the control, and htmlFor ties the label to the input it names. size passes md or sm to the control inside, which takes it unless it sets its own. Every input shares two heights, md and sm, so a row of mixed inputs and a Button of one size lines up top and bottom.',
+  description: 'The frame around one form control, with a label above it and a hint or an error below it.',
+  points: [
+    'Put it around any input so every form lines up the same way.',
+    '`error` replaces the hint and draws the control inside in its error look.',
+    '`required` adds a star to the label, and `inline` puts the label beside the control.',
+    '`htmlFor` ties the label to the input it names.',
+    '`size` passes `md` or `sm` to the control inside, unless it sets its own.',
+  ],
   playground: Playground,
   variants: [Form, Sizes, LineUp],
   states: {

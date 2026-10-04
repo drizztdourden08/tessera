@@ -143,7 +143,15 @@ const [costs, setCosts] = useState<[number, number]>([20, 60]);
 
 const Overview = overviewStory({
   component: 'Slider',
-  description: 'A labelled slider with its value written beside the track. One thumb gives a number; range gives two thumbs and a [low, high] pair, where the low thumb never passes the high one. stops turns the track into named positions, like speeds or dungeons, and the value into an index. labels writes labels under the track from one field: a rule such as "every 0.5 | {v}x", a list of [value, label] pairs, or a function. The labels are drawn by ScaleLabels, whose page lists the whole rule syntax; labels that would overlap thin out to fit. Drag either thumb, or press the bare track to bring the nearer thumb there. The readout keeps the width of its longest value, so the track never shifts while you drag. formatValue sets how the value reads, showValue hides it, and keyStep sets a coarser stride for the arrow keys. For a mute button, use the VolumeControl composite. It runs controlled with value and onChange, or on its own from defaultValue, and name sends it with a form. size md is the standard slider and sm the compact one.',
+  description: 'A labelled slider with its value written beside the track.',
+  points: [
+    'One thumb gives a number; `range` gives two thumbs and a low and high pair.',
+    '`stops` turns the track into named positions, and the value into an index.',
+    '`labels` writes labels under the track; [ScaleLabels] lists the whole rule syntax.',
+    '`formatValue` sets how the value reads, and `keyStep` sets a coarser stride for the arrow keys.',
+    'It runs controlled with `value` and `onChange`, or on its own from `defaultValue`.',
+  ],
+  instead: '[VolumeControl] for a volume slider with a mute button.',
   playground: Playground,
   variants: [Kinds, Stops, Labels, Sizes],
   states: {

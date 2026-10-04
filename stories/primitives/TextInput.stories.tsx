@@ -103,7 +103,14 @@ const renderError = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'TextInput',
-  description: 'A single-line text field, the styled replacement for a raw input. Use it for names, addresses and codes. size md is the standard control height and sm the compact one. It takes every native input attribute, including type, placeholder, disabled and readOnly, and forwards its ref. Set invalid for the error look, or wrap it in a Field with an error: the field sets invalid for it and shows the message. start and end put an icon at either end, sized to the control. An icon with onClick becomes a button that needs a label, such as a copy button, and a disabled or read-only field disables it. With an icon set, the input sits in a frame that takes className. For a search field, reach for SearchInput, and for a password, PasswordInput.',
+  description: 'A single-line text field, for names, addresses and codes.',
+  points: [
+    'It takes every native input attribute and forwards its ref.',
+    '`invalid`, or a [Field] with an error, draws the error look.',
+    '`start` and `end` put an icon at either end; one with `onClick` becomes a button that needs a label.',
+    'With an icon set, the input sits in a frame that takes the `className`.',
+  ],
+  instead: '[SearchInput] for a search, [PasswordInput] for a password, or [Textarea] for longer text.',
   playground: Playground,
   variants: [Types, Icons, Sizes, InField],
   states: {

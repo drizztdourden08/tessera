@@ -101,7 +101,13 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'ToggleGroup',
-  description: 'A row of joined buttons, each one switched on or off by itself, for choosing any number of options from a short list. Map overlays and filters are the usual fit. The group can carry a label and a description above the row. Single options can be disabled, or the whole group at once. size md matches the standard control height and sm is the compact one.',
+  description: 'A row of joined buttons, each switched on or off by itself, for picking any number of options.',
+  points: [
+    'Map overlays and filters are the usual fit.',
+    'The group can carry a `label` and a `description` above the row.',
+    'One option can be `disabled`, or the whole group at once.',
+  ],
+  instead: '[SegmentedControl] when exactly one option is on.',
   playground: Playground,
   variants: [Header, Sizes],
   states: {

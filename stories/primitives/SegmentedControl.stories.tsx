@@ -143,7 +143,14 @@ const [scale, setScale] = useState('2x');
 
 const Overview = overviewStory({
   component: 'SegmentedControl',
-  description: 'A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one. Reach for it for short settings where every choice fits on one line, like a scale or an alignment. Options can be text, or an icon with a title; one option or the whole control can be disabled, and onDeselect lets a second click on the active segment clear the value. size md matches the standard control height and sm is the compact control for widget panels, and an option can be an icon alone, named by its hint. Each option can carry a hint, a short value label and a one-line description: while an option is pointed at or focused, the control reports it through onHint and to the nearest HintScope, so a HintLine or any other component can show what the option does. Point at the icons below to see the line fill in.',
+  description: 'A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one.',
+  points: [
+    'Use it for short settings where every choice fits on one line, such as a scale or an alignment.',
+    'Options can be text, or an icon named by its hint.',
+    '`onDeselect` lets a second click on the active option clear the value.',
+    'Each option can carry a `hint` that a [HintLine] shows while it is pointed at or focused.',
+  ],
+  instead: '[ToggleGroup] to switch several options on, or [Tabs] to switch views.',
   playground: Playground,
   variants: [Kinds, Sizes, HintOutput],
   states: {

@@ -72,7 +72,15 @@ const [query, setQuery] = useState('');
 
 const Overview = overviewStory({
   component: 'SearchInput',
-  description: 'A search field: a TextInput with a search icon at the start and a clear button at the end. Reach for it wherever the user types to narrow a list, such as a filter bar, a palette or a nav. The clear button shows once there is a query, empties it and keeps the focus in the field, and Escape empties it too; a host that handles Escape itself calls preventDefault to keep the query. value and onChange hand the query as a string. The placeholder and the accessible name come from the string table unless the host passes its own, and start swaps the search icon for another mark. size md is the standard control height and sm the compact one.',
+  description: 'A search field, with a search icon at the start and a clear button at the end, for narrowing a list.',
+  points: [
+    'Use it in a filter bar, a palette or a nav.',
+    'The clear button shows once there is a query, empties it and keeps the focus in the field.',
+    '[[Esc]] empties it too; a host that handles Esc itself calls `preventDefault` to keep the query.',
+    '`value` and `onChange` hand the query as a string.',
+    '`start` swaps the search icon for another mark.',
+  ],
+  instead: '[Combobox] when typing picks from a list.',
   playground: Playground,
   variants: [Sizes, ClearButton, Filtering],
   states: {

@@ -116,7 +116,14 @@ const [difficulty, setDifficulty] = useState('normal');
 
 const Overview = overviewStory({
   component: 'RadioGroup',
-  description: 'A set of options where exactly one is picked, all of them in view. Reach for it when there are few choices and each may need its own line of description. It lays out horizontally or vertically, takes a group label and description, and can be disabled as a whole. size md makes each option the standard control height and sm the compact one, with a smaller dot and text.',
+  description: 'A set of options where exactly one is picked, all of them in view.',
+  points: [
+    'Use it when there are few choices and each may need its own line of description.',
+    '`direction` lays the options out across or down.',
+    'It takes a group `label` and `description`, and can be `disabled` as a whole.',
+    '`sm` makes the options compact, with a smaller dot and text.',
+  ],
+  instead: '[Select] for a long list, or [SegmentedControl] for a short one on one line.',
   playground: Playground,
   variants: [Layouts, Sizes],
   states: {

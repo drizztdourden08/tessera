@@ -140,7 +140,13 @@ const DraggedOver = () => {
 
 const Overview = overviewStory({
   component: 'DropZone',
-  description: 'A target for files, dragged in or picked with a click, which opens the file browser. Block is the tall target with a glyph, a label and a hint; inline is a one line dashed box that fits a header row and opens the picker from the keyboard too. With accept set, files of other types are dropped without a word, and onDrop gets only the files that pass. size md makes the inline box the standard control height and sm the compact one, and sm also tightens the block target.',
+  description: 'A target for files, dragged in or picked with a click that opens the file browser.',
+  points: [
+    '`block` is the tall target with a glyph, a label and a hint.',
+    '`inline` is a one line dashed box that fits a header row.',
+    '**With `accept` set, other files are dropped silently:** `onDrop` gets only the files that pass.',
+    '`md` and `sm` set the height of the inline box; `sm` also tightens the block.',
+  ],
   playground: Playground,
   variants: [Kinds, Sizes],
   states: {

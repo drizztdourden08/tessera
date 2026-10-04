@@ -103,7 +103,14 @@ const renderState = (props: StateProps) => <AutoSave initial={props.checked === 
 
 const Overview = overviewStory({
   component: 'Toggle',
-  description: 'An on and off switch for a setting that takes effect at once, such as auto-save or music. It can carry a label and a line of description, and a link that opens a page about the setting in a new tab. The whole row is one label, so a click anywhere on it flips the switch. It can be disabled in either position. size md is the standard switch and sm the compact one for widget panels and dense rows, and hint gives it a value and a one-line description that it reports through onHint and to the HintScope around it while it is pointed at or focused.',
+  description: 'An on and off switch for a setting that takes effect at once, such as auto-save or music.',
+  points: [
+    'It can carry a `label`, a line of `description` and a `link` to a page about the setting.',
+    'The whole row is one label, so a click anywhere on it flips the switch.',
+    '`sm` is the compact switch, for widget panels and dense rows.',
+    '`hint` reports a one-line description to a [HintLine] while it is pointed at or focused.',
+  ],
+  instead: '[Checkbox] for a choice saved with a form.',
   playground: Playground,
   variants: [Labels, Sizes],
   states: {

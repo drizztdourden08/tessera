@@ -169,7 +169,14 @@ const [password, setPassword] = useState('');
 
 const Overview = overviewStory({
   component: 'PasswordInput',
-  description: 'A password field built on TextInput, with an eye button at the end that shows and hides the password. The button keeps the focus and the caret where they were, and says whether the password is shown with aria-pressed. revealed and onRevealedChange control it from outside; defaultRevealed sets where it starts, and hideOnBlur hides it again when the focus leaves the field. maskChar draws any character, emoji included, in place of the browser dots, in the mono font so the caret lines up with it; the real password input stays underneath, so password managers and autofill keep working. monospace sets the mono font for keys and codes. A Caps Lock warning shows under the field while it has focus. mode="new" asks the browser for a new password; give it rules and it shows the checklist and a strength meter, or pass strength a score from your own library. Paste always works. value and onChange hand the password as a string.',
+  description: 'A password field with an eye button at the end that shows and hides the password.',
+  points: [
+    '`revealed` and `onRevealedChange` control it from outside; `hideOnBlur` hides it when focus leaves.',
+    '`maskChar` draws any character in place of the dots; password managers and autofill still work.',
+    'A Caps Lock warning shows under the field while it has focus.',
+    '`mode="new"` with `rules` shows a checklist and a strength meter; `strength` takes your own score.',
+    '`monospace` sets the mono font, for keys and codes.',
+  ],
   playground: Playground,
   variants: [Revealed, Masks, Monospace, CapsLock, SignUp, HostScore, Sizes, InField, Bounded],
   states: {

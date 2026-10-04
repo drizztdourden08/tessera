@@ -38,7 +38,13 @@ const CODE = `import { Field, FieldControlBoundary, Flex, NumberInput } from '@d
 
 const Overview = overviewStory({
   component: 'FieldControlBoundary',
-  description: 'Stops a Field from handing its id, error state, note and size to the inputs inside. Field gives these to the one control it wraps; when that control is built from several inputs, such as a low and high pair, every input would take the same id and turn red together. Wrap the inner inputs in a boundary and label each one with aria-label. It draws nothing and takes no props. The Field still shows its error line below. A single input in a Field needs no boundary.',
+  description: 'Stops a [Field] from handing its id, error state, note and size to the inputs inside.',
+  points: [
+    'Use it when the control in a Field is built from several inputs, such as a low and a high pair.',
+    'Without it every input would take the same id and turn red together.',
+    'Label each inner input with `aria-label`; the Field still shows its error line below.',
+    'It draws nothing and takes no props. A single input needs no boundary.',
+  ],
   variants: [Compare],
   code: CODE,
 });

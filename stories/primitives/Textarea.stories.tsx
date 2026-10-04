@@ -101,7 +101,14 @@ const renderError = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'Textarea',
-  description: 'A multi-line text field, the styled replacement for a raw textarea. Use it for notes, descriptions and any text longer than one line. size sets the padding and text: at one row, md matches the standard control height and sm the compact one. It takes every native textarea attribute, including rows, placeholder, disabled and readOnly, and forwards its ref. resize sets which way the corner handle drags: vertical by default, none to lock the size, horizontal or both. Set invalid for the error look, or wrap it in a Field with an error: the field sets invalid for it and shows the message.',
+  description: 'A multi-line text field, for notes, descriptions and any text longer than one line.',
+  points: [
+    'It takes every native textarea attribute, including `rows`, and forwards its ref.',
+    '`resize` sets which way the corner handle drags: `vertical` by default, or `none` to lock the size.',
+    '`invalid`, or a [Field] with an error, draws the error look.',
+    'At one row, `md` and `sm` match the standard and compact control heights.',
+  ],
+  instead: '[TextInput] for one line.',
   playground: Playground,
   variants: [Sizes, Resize, InField],
   states: {

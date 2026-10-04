@@ -116,7 +116,14 @@ const HintsOption = () => {
 
 const Overview = overviewStory({
   component: 'Checkbox',
-  description: 'A box for one on or off choice in a list or a form, with its label beside it. It is controlled: checked comes in and onChange hands back the new value. Indeterminate draws the mixed state for a box that stands for a partly checked set, disabled dims it, and ariaLabel names a box whose label is drawn somewhere else. size md draws a 16 px box with body text, to sit beside standard controls; sm draws a 14 px box with small text, for dense lists and tables.',
+  description: 'A box for one on or off choice in a list or a form, with its label beside it.',
+  points: [
+    'It is controlled: `checked` comes in and `onChange` hands back the new value.',
+    '`indeterminate` draws the mixed state, for a box that stands for a partly checked set.',
+    '`ariaLabel` names a box whose label is drawn somewhere else.',
+    '`md` sits beside standard controls; `sm` is for dense lists and tables.',
+  ],
+  instead: '[Toggle] for a setting that takes effect at once.',
   playground: Playground,
   variants: [Labels, Sizes],
   states: {
