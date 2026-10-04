@@ -1,5 +1,4 @@
 /* @layer renderer-components @kind component */
-import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { ariaKeyShortcuts } from '../../DropdownMenu/behavior/aria-key-shortcuts';
 import { menuShortcutKeys } from '../../DropdownMenu/behavior/menu-shortcut-keys';
@@ -7,6 +6,7 @@ import { actionBar } from '../behavior/action-bar';
 import { actionItem } from '../behavior/action-item';
 import { barItemProps } from '../behavior/bar-item-props';
 import type { TitleBarActionProps } from './TitleBarAction.type';
+import { TitleBarActionIcon } from './TitleBarActionIcon';
 import { TitleBarDropdown } from './TitleBarDropdown';
 import { TitleBarStatus } from './TitleBarStatus';
 import { TitleBarTip } from './TitleBarTip';
@@ -29,7 +29,7 @@ const TitleBarAction = (props: TitleBarActionProps) => {
         aria-keyshortcuts={keys && ariaKeyShortcuts(keys)}
         onClick={action.onSelect}
       >
-        <Icon name={action.icon} size={14} />
+        <TitleBarActionIcon action={action} size={14} />
       </IconButton>
     </TitleBarTip>
   );

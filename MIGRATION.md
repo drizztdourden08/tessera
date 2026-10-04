@@ -3882,3 +3882,16 @@ interface StackedBarProps { orientation?: StackedBarOrientation; height?: number
 ### What an app does
 
 Nothing; a bar without `orientation` draws as before.
+
+## 149. Title bar actions take a tone colour and an icon effect
+
+A title bar action's `tone` now colours its icon for every tone, not only `danger`, and a new `effect` plays one of Icon's effects on it. Both carry over when the action folds into the main menu.
+
+```ts
+{ id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K', tone: 'primary', effect: 'twinkle', onSelect }
+{ id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', effect: 'ping', onSelect }
+```
+
+### What an app does
+
+Nothing. Set `tone` and `effect` on the actions that should stand out.

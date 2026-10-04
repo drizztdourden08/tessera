@@ -25,7 +25,7 @@ const groupActions = (state: TitleBarGroupState): WindowTitleBarAction[] => [
       { id: 'sync', items: [{ id: 'sync', kind: 'check', label: 'Sync with main window', checked: state.sync, onSelect: state.onSync }] },
     ],
   },
-  { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', onSelect: state.onBug },
+  { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', effect: 'ping', onSelect: state.onBug },
   {
     id: 'saves',
     icon: 'refresh-cw',

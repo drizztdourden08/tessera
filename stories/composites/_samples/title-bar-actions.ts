@@ -2,8 +2,8 @@
 import type { WindowTitleBarAction } from '../../../src/composites';
 
 const titleBarActions = (onPick: (label: string) => void, update: string | null = 'Update available', pulse = false): WindowTitleBarAction[] => [
-  { id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K', onSelect: () => onPick('Search') },
-  { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', onSelect: () => onPick('Report a bug') },
+  { id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K', tone: 'primary', effect: 'twinkle', onSelect: () => onPick('Search') },
+  { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', effect: 'ping', onSelect: () => onPick('Report a bug') },
   {
     id: 'updates',
     icon: 'download',

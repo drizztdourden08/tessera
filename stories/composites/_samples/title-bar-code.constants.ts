@@ -8,7 +8,7 @@ const menu: MenuGroup[] = [
 ];
 
 const actions: WindowTitleBarAction[] = [
-  { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', onSelect: reportBug },
+  { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', effect: 'ping', onSelect: reportBug },
   { id: 'updates', icon: 'download', label: 'Check for updates', bar: 'status', status: update ? 'Update available' : undefined, tone: 'success', onSelect: checkForUpdates },
 ];
 

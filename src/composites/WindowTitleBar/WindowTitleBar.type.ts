@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { IconName } from '../../primitives/Icon';
+import type { IconEffect, IconName } from '../../primitives/Icon';
 import type { StatusTone } from '../../primitives/Status';
 import type { MenuGroup, MenuItem } from '../DropdownMenu';
 
@@ -31,6 +31,7 @@ interface WindowTitleBarCommandAction extends WindowTitleBarActionBase {
   status?: string;
   tone?: StatusTone;
   pulse?: boolean;
+  effect?: IconEffect;
 }
 
 interface WindowTitleBarDropdownAction extends WindowTitleBarActionBase {
