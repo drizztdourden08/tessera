@@ -440,8 +440,8 @@
       "at": "2026-10-01"
     },
     "ScrollArea": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "e5150a6e10abdfea",
       "at": "2026-10-04"
     },
     "Portal": {
@@ -798,8 +798,8 @@
   },
   "Composites · Navigation": {
     "SideNav": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "4dc0b8e1b924e308",
       "at": "2026-10-04"
     },
     "HeaderAnchorNav": {
@@ -978,8 +978,8 @@
   },
   "Composites · Input devices": {
     "PressedGrid": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "3a3a7cc2d7aeae61",
       "at": "2026-10-04"
     },
     "StickPlot": {
@@ -1005,14 +1005,14 @@
       "at": "2026-10-03"
     },
     "Widget": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "4f22c6187f8decf3",
+      "at": "2026-10-04"
     },
     "WidgetOptions": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "4728df5a8f97b34b",
+      "at": "2026-10-04"
     }
   },
   "Composites · Windows": {
@@ -1022,9 +1022,9 @@
       "at": "2026-10-04"
     },
     "WindowHeader": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "05248e011ff7a958",
+      "at": "2026-10-04"
     }
   },
   "Composites · Screens": {
@@ -1052,6 +1052,9 @@
       "status": "ok",
       "hash": "689f555aa128a4a3",
       "at": "2026-10-03"
+    },
+    "ScreenPage": {
+      "status": "new"
     },
     "ScreenLayer": {
       "status": "ok",
