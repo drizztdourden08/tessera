@@ -35,11 +35,11 @@ describe('ManagedList', () => {
     expect(html.match(/aria-pressed="true"/g)).toHaveLength(1);
   });
 
-  it('puts rename and delete on the picked row only', () => {
+  it('shows rename and delete on the picked row, and on the other rows on hover', () => {
     const html = draw({ selectedId: 'a', onSelect: () => {}, onRename: () => {}, onDelete: () => {} });
     expect(html).toContain('aria-label="Rename Keysanity"');
     expect(html).toContain('aria-label="Delete Keysanity"');
-    expect(html).not.toContain('Rename Short run');
+    expect(html).toMatch(/list-item-row__action--hover.*aria-label="Rename Short run"/);
   });
 
   it('shows the filter from 8 items, or when asked', () => {

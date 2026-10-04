@@ -12,6 +12,7 @@ interface ConfirmIconButtonProps {
   disabled?: boolean;
   defaultArmed?: boolean;
   placement?: ConfirmIconButtonPlacement;
+  tabIndex?: number;
   className?: string;
 }
 

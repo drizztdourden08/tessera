@@ -11,7 +11,7 @@ import './ListItemRow.css';
 import type { ListItemRowProps } from './ListItemRow.type';
 
 const ListItemRow = (props: ListItemRowProps) => {
-  const { name, meta, icon, columns, action, actionVisibility = 'always', selected = false, onClick, onDoubleClick } = props;
+  const { name, meta, icon, columns, action, actionVisibility = 'always', selected = false, tabIndex, onClick, onDoubleClick } = props;
   const inList = useContext(ListItemContext);
   const interactive = onClick !== undefined || onDoubleClick !== undefined;
   const frame = rowFrame(props, inList, interactive);
@@ -25,6 +25,7 @@ const ListItemRow = (props: ListItemRowProps) => {
         <Pressable
           className="list-item-row__main"
           aria-pressed={selected}
+          tabIndex={tabIndex}
           onClick={handleClick}
           onDoubleClick={onDoubleClick}
         >

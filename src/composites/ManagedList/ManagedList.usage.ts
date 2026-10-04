@@ -17,13 +17,16 @@ const usage = {
     'Pass create to open a form at the top of the list, such as an InlineCreateForm with more fields, and call its close after a create or a cancel.',
     'Pass onCreate in place of create when the app opens its own flow, such as a dialog or a wizard.',
     'Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.',
+    'Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.',
+    'Leave actionVisibility on hover to show rename and delete on the picked row and on any row under the pointer; always shows them on every row.',
     'Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.',
     'Write empty as what to do next, such as Install a game from Games, then make a preset for it.',
     'Write error as what failed and why, such as Could not read servers.json: unexpected end of input.',
   ],
   a11y: [
     'The list is a section named by its title, and each group is a list named by its heading.',
-    'The arrow keys, Home and End move the selection between rows; F2 renames the focused row.',
+    'The arrow keys, Home and End move the selection between rows, or only the focus with onActivate; F2 renames the focused row.',
+    'With onActivate the rows are one Tab stop on the focused row; a click, Enter or Space activates it, and Tab reaches its actions.',
     'In the rename box, Enter keeps the name and Escape cancels; focus goes back to the row.',
     'New moves focus into the create form; Escape or Cancel closes it and focus goes back to New.',
     'After a create, focus goes to the new row when the app picks it, and back to New when it does not.',
@@ -69,7 +72,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
   />
 );
 `,
-  propsHash: 'e2732be3dde0047b',
+  propsHash: '2b555bdd0d7f3a2a',
 } satisfies ComponentUsage;
 
 export { usage };

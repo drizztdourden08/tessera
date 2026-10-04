@@ -7,12 +7,12 @@ import { ConfirmIconButton } from '../../ConfirmIconButton';
 import type { ManagedListToolsProps } from '../ManagedList.type';
 
 const ManagedListTools = (props: ManagedListToolsProps) => {
-  const { id, name, onStartRename, onDelete } = props;
+  const { id, name, onStartRename, onDelete, tabIndex } = props;
   const { lists } = useTesseraStrings();
   return (
     <Box className="managed-list__tools">
       {onStartRename && (
-        <IconButton size="sm" variant="ghost" label={lists.rename(name)} title={lists.rename(name)} onClick={() => onStartRename(id)}>
+        <IconButton size="sm" variant="ghost" label={lists.rename(name)} title={lists.rename(name)} tabIndex={tabIndex} onClick={() => onStartRename(id)}>
           <Icon name="pencil" />
         </IconButton>
       )}
@@ -23,6 +23,7 @@ const ManagedListTools = (props: ManagedListToolsProps) => {
           confirmLabel={lists.deleteConfirm}
           cancelLabel={lists.deleteCancel}
           placement="end"
+          tabIndex={tabIndex}
           onConfirm={() => onDelete(id)}
         />
       )}

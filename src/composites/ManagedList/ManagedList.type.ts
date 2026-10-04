@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, ReactNode, RefObject } from 'react';
-import type { ListItemRowProps } from '../ListItemRow/ListItemRow.type';
+import type { FocusEvent, KeyboardEvent, ReactNode, RefObject } from 'react';
+import type { ListItemRowActionVisibility, ListItemRowProps } from '../ListItemRow/ListItemRow.type';
 
 type ManagedListRowParts = Pick<ListItemRowProps, 'meta' | 'icon' | 'columns'>;
 
@@ -17,6 +17,7 @@ interface ManagedListProps<T> {
   groupBy?: (item: T) => string | undefined;
   selectedId?: string | null;
   onSelect?: (id: string) => void;
+  onActivate?: (id: string) => void;
   onCreate?: () => void;
   create?: ManagedListCreate;
   createOpen?: boolean;
@@ -24,6 +25,7 @@ interface ManagedListProps<T> {
   createLabel?: string;
   onRename?: (id: string, name: string) => void;
   onDelete?: (id: string) => void;
+  actionVisibility?: ListItemRowActionVisibility;
   filter?: ManagedListFilter;
   filterPlaceholder?: string;
   loading?: boolean;
@@ -45,10 +47,26 @@ interface ManagedListView<T> {
   groups: readonly ManagedListGroup<T>[];
   rowIds: readonly string[];
   renamingId: string | null;
+  tabId: string | null;
   startRename: (id: string) => void;
   endRename: (id: string, name: string | null) => void;
   listRef: RefObject<HTMLElement | null>;
   onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+  onFocus: (event: FocusEvent<HTMLElement>) => void;
+}
+
+type ManagedListPick = Pick<ManagedListProps<unknown>, 'selectedId' | 'onSelect' | 'onActivate'>;
+
+interface ManagedListKey extends Pick<ManagedListPick, 'onSelect' | 'onActivate'> {
+  event: Pick<KeyboardEvent<HTMLElement>, 'key' | 'target' | 'preventDefault'>;
+  buttons: readonly HTMLElement[];
+  rowIds: readonly string[];
+  rename?: (id: string) => void;
+}
+
+interface ManagedListRowTabs {
+  row: number | undefined;
+  tools: number | undefined;
 }
 
 interface ManagedListBodyProps<T> {
@@ -88,6 +106,7 @@ interface ManagedListToolsProps {
   name: string;
   onStartRename?: (id: string) => void;
   onDelete?: (id: string) => void;
+  tabIndex?: number;
 }
 
 interface ManagedListRenameProps {
@@ -97,6 +116,7 @@ interface ManagedListRenameProps {
 }
 
 export type {
-  ManagedListBodyProps, ManagedListCreate, ManagedListCreateView, ManagedListFilter, ManagedListGroup, ManagedListHeadProps, ManagedListProps,
-  ManagedListRenameProps, ManagedListRowParts, ManagedListSettle, ManagedListToolsProps, ManagedListView,
+  ManagedListBodyProps, ManagedListCreate, ManagedListCreateView, ManagedListFilter, ManagedListGroup, ManagedListHeadProps, ManagedListKey,
+  ManagedListPick, ManagedListProps, ManagedListRenameProps, ManagedListRowParts, ManagedListRowTabs, ManagedListSettle, ManagedListToolsProps,
+  ManagedListView,
 };

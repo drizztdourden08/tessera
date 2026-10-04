@@ -3,7 +3,7 @@ import type { ReactNode, RefObject } from 'react';
 import type { ManagedListProps } from '../ManagedList/ManagedList.type';
 import type { MasterDetailLayoutProps } from '../MasterDetailLayout/MasterDetailLayout.type';
 
-type MasterDetailList<T> = Omit<ManagedListProps<T>, 'selectedId' | 'onSelect'>;
+type MasterDetailList<T> = Omit<ManagedListProps<T>, 'selectedId' | 'onSelect' | 'onActivate'>;
 
 type MasterDetailGuardLook = 'dialog' | 'inline';
 

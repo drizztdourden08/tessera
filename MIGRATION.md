@@ -4623,3 +4623,36 @@ interface ManagedListProps<T> {
 2. The form calls `close` from Cancel, and after a create that worked; on a failed create it keeps the form open and shows the error.
 3. To land focus on the new row, the app picks the new item before it calls `close`.
 4. An app that opened its create form on a first run, such as with a `createOpen` of its own, passes `createOpen` and `onCreateOpenChange`.
+
+## 169. ManagedList: actions on every row, and moving apart from activating
+
+Brock's ProfilesPanel could not move to `ManagedList` for two reasons. Rename and delete showed on the picked row only, so a mouse user had to pick a profile before deleting another. The arrow keys, Home and End called `onSelect`, so moving through the profiles switched the profile and closed the screen.
+
+```ts
+interface ManagedListProps<T> {
+  onActivate?: (id: string) => void;
+  actionVisibility?: ListItemRowActionVisibility; // 'hover' | 'always', default 'hover'
+}
+
+interface ListItemRowProps {
+  tabIndex?: number;
+}
+
+interface ConfirmIconButtonProps {
+  tabIndex?: number;
+}
+```
+
+- `actionVisibility` is the prop of `ListItemRow`, passed through to every row. Rename and delete are now on every row. With `'hover'`, the default, the picked row shows them always and every other row shows them under the pointer or while it holds focus, so the list at rest looks as it did and a mouse user reaches the actions of any row. Touch screens show them always. `'always'` shows them on every row.
+- `onActivate` runs on a click, Enter or Space on a row. With it set, the arrow keys, Home and End move only the focus and leave `onSelect` alone; `selectedId` still marks the current item, such as the active profile. A click or Enter calls `onSelect` too when it is passed.
+- With `onActivate` the rows are one Tab stop: the focused row, else the current one, else the first. Tab from that row reaches its rename and delete, and the actions of the other rows stay out of the Tab order. The list tracks the focused row itself; the app keeps the current item.
+- Without `onActivate` nothing changes: the arrow keys move the selection, and Tab reaches the actions of the picked row only. `MasterDetail` keeps this pattern, so its `list` takes no `onActivate`.
+- F2 renames the focused row either way, and after a create focus goes to the new row when the app picks it.
+- `ListItemRow` and `ConfirmIconButton` take `tabIndex`, for the row button and the delete button.
+- The ManagedList page shows profiles with an active one and the actions on every row: the arrows move, Enter switches.
+
+### What an app does
+
+1. Brock: ProfilesPanel passes the active profile as `selectedId`, switches profile in `onActivate` and drops `onSelect`.
+2. An app whose users delete often passes `actionVisibility: 'always'`.
+3. A test that expected rename and delete on the picked row only now finds them on every row, out of the Tab order on the rows that are not picked.

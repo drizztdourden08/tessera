@@ -33,7 +33,7 @@ const ManagedList = <T,>(props: ManagedListProps<T>) => {
         </Box>
       )}
       {showsFilter(props) && <SearchInput value={view.query} onChange={view.setQuery} placeholder={placeholder} aria-label={placeholder} />}
-      <Box ref={view.listRef} className="managed-list__body" onKeyDown={view.onKeyDown}>
+      <Box ref={view.listRef} className="managed-list__body" onKeyDown={view.onKeyDown} onFocus={view.onFocus}>
         <ManagedListBody list={props} view={view} />
       </Box>
     </Box>

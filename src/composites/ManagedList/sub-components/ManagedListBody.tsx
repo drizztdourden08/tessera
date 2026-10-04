@@ -6,12 +6,14 @@ import { Spinner } from '../../../primitives/Spinner';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ListItemList, ListItemRow } from '../../ListItemRow';
+import { rowPick } from '../behavior/row-pick';
+import { rowTabs } from '../behavior/row-tabs';
 import type { ManagedListBodyProps } from '../ManagedList.type';
 import { ManagedListRename } from './ManagedListRename';
 import { ManagedListTools } from './ManagedListTools';
 
 const ManagedListBody = <T,>({ list, view }: ManagedListBodyProps<T>) => {
-  const { title, items, getId, getName, render, selectedId, onSelect, onRename, onDelete, loading, error, empty, emptyIcon } = list;
+  const { title, items, getId, getName, render, selectedId, onRename, onDelete, actionVisibility = 'hover', loading, error, empty, emptyIcon } = list;
   const { lists } = useTesseraStrings();
   const tools = onRename !== undefined || onDelete !== undefined;
   if (loading) {
@@ -32,15 +34,17 @@ const ManagedListBody = <T,>({ list, view }: ManagedListBodyProps<T>) => {
         const name = getName(item);
         if (id === view.renamingId) return <ManagedListRename key={id} id={id} name={name} onEnd={view.endRename} />;
         const selected = id === selectedId;
+        const tabs = rowTabs(list, view.tabId, id);
         return (
           <ListItemRow
             key={id}
             name={name}
             {...render?.(item)}
             selected={selected}
-            onClick={onSelect ? () => onSelect(id) : undefined}
-            action={tools && (selected || !onSelect) ? <ManagedListTools id={id} name={name} onStartRename={onRename && view.startRename} onDelete={onDelete} /> : undefined}
-            actionVisibility={selected ? 'always' : 'hover'}
+            tabIndex={tabs.row}
+            onClick={rowPick(id, list)}
+            action={tools ? <ManagedListTools id={id} name={name} onStartRename={onRename && view.startRename} onDelete={onDelete} tabIndex={tabs.tools} /> : undefined}
+            actionVisibility={selected ? 'always' : actionVisibility}
           />
         );
       })}

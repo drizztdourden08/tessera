@@ -21,6 +21,7 @@ interface ListItemRowProps {
   action?: ReactNode;
   actionVisibility?: ListItemRowActionVisibility;
   selected?: boolean;
+  tabIndex?: number;
   onClick?: () => void;
   onDoubleClick?: () => void;
   role?: ListItemRowRole;

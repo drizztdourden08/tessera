@@ -3,3 +3,9 @@
   inline-size: var(--size-384);
   max-inline-size: 100%;
 }
+
+.managed-list-story--switch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}

@@ -8,7 +8,7 @@ import { ConfirmIconButtonAsk } from './sub-components/ConfirmIconButtonAsk';
 
 const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   const {
-    icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, defaultArmed = false, placement = 'start', className = '',
+    icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, defaultArmed = false, placement = 'start', tabIndex, className = '',
   } = props;
   const [armed, setArmed] = useState(defaultArmed && !disabled);
   const [asked, setAsked] = useState(false);
@@ -38,7 +38,7 @@ const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   return (
     <Box className={`confirm-icon-btn confirm-icon-btn--${placement} ${className}`} onKeyDown={handleKeyDown}>
       {!armed && (
-        <IconButton label={label} title={label} disabled={disabled} onClick={handleArm}>
+        <IconButton label={label} title={label} disabled={disabled} tabIndex={tabIndex} onClick={handleArm}>
           {icon}
         </IconButton>
       )}

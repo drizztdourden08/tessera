@@ -40,7 +40,7 @@ const DeleteRow = ({ onDelete }: { onDelete: () => void }) => (
   />
 );
 `,
-  propsHash: 'a57b53966770cfd5',
+  propsHash: '91387c42c2daf297',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -5,6 +5,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import type { StateProps } from '../_template/states/states.type';
 import { ManagedListCreateDemo } from './_samples/ManagedListCreateDemo';
 import { ManagedListDemo } from './_samples/ManagedListDemo';
+import { ManagedListSwitchDemo } from './_samples/ManagedListSwitchDemo';
 import type { ManagedListDemoProps, ManagedListDemoState } from './_samples/preset-samples.type';
 import './ManagedList.stories.css';
 
@@ -62,6 +63,11 @@ const FirstRun = {
   render: () => <ManagedListCreateDemo firstRun />,
 } satisfies StoryLiteStoryDefinition<ManagedListArgs>;
 
+const PickToSwitch = {
+  name: 'Pick to switch: the arrows move, Enter switches',
+  render: () => <ManagedListSwitchDemo />,
+} satisfies StoryLiteStoryDefinition<ManagedListArgs>;
+
 const CODE = `import { ManagedList } from '@drizztdourden08/tessera';
 
 <ManagedList
@@ -100,6 +106,18 @@ const CODE = `import { ManagedList } from '@drizztdourden08/tessera';
       extraFields={<Field label="Game"><Select value={game} onChange={setGame} options={GAMES} /></Field>}
     />
   )}
+/>
+
+<ManagedList
+  title="Profiles"
+  items={profiles}
+  getId={(profile) => profile.id}
+  getName={(profile) => profile.name}
+  selectedId={activeId}
+  onActivate={switchProfile}
+  onRename={renameProfile}
+  onDelete={deleteProfile}
+  actionVisibility="always"
 />`;
 
 const Overview = overviewStory({
@@ -109,13 +127,13 @@ const Overview = overviewStory({
     '`getId` and `getName` read each item; `render` adds the meta, an icon or end columns to its row.',
     '`create` draws a form such as [InlineCreateForm] under the title; `createOpen` lets the app hold it open.',
     '`groupBy` puts the rows under headings; the arrow keys, Home and End move the selection across groups.',
-    '`onRename` adds a pencil to the picked row and [[F2]]: [[Enter]] keeps the new name, [[Esc]] cancels.',
-    '`onDelete` adds a trash button to the picked row that asks once, through [ConfirmIconButton].',
+    '`onActivate` runs on a click, [[Enter]] or [[Space]]; the arrow keys then move the focus, not the selection.',
+    '`onRename` ([[F2]]) and `onDelete` add a pencil and a trash; `actionVisibility` shows them on hover or always.',
     '`loading`, `error` and `empty` take the place of the rows; the filter shows from 8 items, or with `filter`.',
   ],
   instead: '[MasterDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,
-  variants: [Grouped, Plain, CreateForm, FirstRun],
+  variants: [Grouped, Plain, CreateForm, FirstRun, PickToSwitch],
   states: {
     render: (props: StateProps) => <ManagedListDemo {...(props as ManagedListDemoProps)} />,
     list: STATES.map((state) => ({ name: state, props: { state, title: state === 'ready' ? 'Presets' : 'Servers' } })),
@@ -124,4 +142,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { CreateForm, FirstRun, Grouped, Overview, Plain, Playground };
+export { CreateForm, FirstRun, Grouped, Overview, PickToSwitch, Plain, Playground };
