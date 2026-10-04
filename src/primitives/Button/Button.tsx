@@ -23,7 +23,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
       {...rest}
     >
       <ButtonIcon icon={icon} loading={loading} />
-      {children}
+      <span className="btn__label">{children}</span>
     </button>
   );
 });

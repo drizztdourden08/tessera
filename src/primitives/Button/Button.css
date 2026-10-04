@@ -48,8 +48,12 @@
   justify-content: center;
 }
 
-.btn--loading:has(> .btn__spinner) {
-  color: transparent;
+.btn__label {
+  display: contents;
+}
+
+.btn--loading:has(> .btn__spinner) > .btn__label {
+  visibility: hidden;
 }
 
 .btn--loading > .btn__spinner {
