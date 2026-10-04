@@ -160,15 +160,16 @@ const IconFiles = {
 
 const Overview = overviewStory({
   component: 'Mascot',
-  description: 'An app\'s mascot, drawn in code from its own SVG pieces: still with Mascot, moving with AnimatedMascot.',
+  description: 'An app\'s mascot, drawn in code from its own SVG pieces: still with `Mascot`, moving with `AnimatedMascot`.',
   points: [
-    'Three so far: Sentri for Relic of the Past, a gold pixel pyramid, Flint for Brock, a faceted stone, and Pelago for Archipelia, three purple spheres.',
-    '`pose` moves the eyes and turns the limbs, Sentri\'s pods or the hands of Flint and Pelago, without new art.',
-    'Pelago never stops: its spheres drift and melt together under every clip, and its eyes and hands float a beat behind.',
-    'AnimatedMascot plays the brand\'s clips: idle, move, jump, wave, scan, happy, alert; Flint adds point, blink.',
-    'Reduced motion shows the mascot at rest. `scale` sets screen pixels per art unit; `size` uses the mark sizes.',
-    'ChosenMascot picks one by `mascot` name, or with `auto` by `brand`, then by the page\'s `data-palette`.',
+    'Three so far: Sentri for Relic of the Past, Flint for Brock and Pelago for Archipelia.',
+    '`pose` moves the eyes and turns the limbs, such as Sentri\'s pods or Flint\'s hands, without new art.',
+    '`AnimatedMascot` plays the brand\'s clips, such as idle, jump and wave; Flint adds point and blink.',
+    'Pelago never stops: its spheres drift and melt together, and its eyes and hands float a beat behind.',
+    '`scale` sets screen pixels per art unit and `size` uses the mark sizes; reduced motion shows it at rest.',
+    '`ChosenMascot` picks one by `mascot` name, or with `auto` by `brand`, then by the page\'s `data-palette`.',
   ],
+  instead: '[Logo] for the app\'s mark, or [Brand] for the whole family on one page.',
   playground: Playground,
   variants: [Animations, Variants, Sizes, Poses, Chosen, IconFiles],
   code: `import { AnimatedMascot, Mascot } from '@drizztdourden08/tessera/brand';
