@@ -105,11 +105,14 @@ const [time, setTime] = useState({ hh: 12, mm: 30, ampm: 'AM' });
 
 const Overview = overviewStory({
   component: 'DynamicInput',
-  description: 'One field built from a pattern. The pattern mixes muted text with typed slots, such as {hh:hour 12h} or {currency:choice USD|EUR|CAD}, and icons or buttons in square brackets. Each slot is its own segment: typing fills it, a full slot moves on to the next one, and the slot in focus opens a popover with the control its type calls for, a NumberStepper, a Slider, an option list or a ColorPicker. The value is one object keyed by slot name.',
+  description: 'One field built from a pattern of typed slots, muted text and icons, such as a time or a price with its currency.',
   points: [
-    'Tab and Shift Tab move between slots, Backspace in an empty slot goes back, and the arrow keys step numbers.',
-    'A bad pattern never throws. The part it cannot read shows as text and a warning names the problem.',
-    'Works inside a Field, which gives it its label, hint, error and size.',
+    'Write slots in braces, such as `{hh:hour 12h}`; the value is one object keyed by slot name.',
+    'Typing fills a slot, and a full slot moves on to the next.',
+    'The slot in focus opens the control its type calls for, such as a [NumberStepper] or a [ColorPicker].',
+    '[[Tab]] and [[Shift+Tab]] move between slots, and [[Backspace]] in an empty slot goes back.',
+    '**A bad pattern never throws:** the part it cannot read shows as text, with a warning.',
+    'Put it in a [Field] for its label, hint, error and size.',
   ],
   playground: Playground,
   variants: [Examples, Sizes],

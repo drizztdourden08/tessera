@@ -88,7 +88,14 @@ const [alpha, setAlpha] = useState(1);
 
 const Overview = overviewStory({
   component: 'ColorPicker',
-  description: 'A colour editor: a saturation, hue and alpha wheel, hex and RGBA fields, and quick-assign swatches grouped by where each colour comes from. Use it inline wherever one colour slot is edited; for a picker that floats beside a swatch, use ColorPickerPopover. It can hide the alpha channel, show the starting colour with a Reset button, and show the stored hardware word and whether the colour was snapped to it.',
+  description: 'A colour editor with a wheel, hex and RGBA fields, and swatches to pick from, for one colour slot.',
+  points: [
+    '`value` is a hex colour; `alpha` and `onAlphaChange` add transparency, or `disableAlpha` hides it.',
+    '`swatchGroups` lists quick colours, grouped by where each one comes from.',
+    '`original` and `onReset` show the starting colour with a Reset button.',
+    '`word` and `snapped` show the stored hardware word and whether the colour was snapped to it.',
+  ],
+  instead: '[ColorPickerPopover] for a picker that floats beside a swatch.',
   playground: Playground,
   variants: [AllVariants],
   code: CODE,

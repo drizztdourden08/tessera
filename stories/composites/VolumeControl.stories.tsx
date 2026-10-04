@@ -89,7 +89,14 @@ const [muted, setMuted] = useState(false);
 
 const Overview = overviewStory({
   component: 'VolumeControl',
-  description: 'A mute button beside a Slider, for any sound level. The speaker icon follows the level: crossed out when silent, one wave below half, two above. With only value and onChange, mute drops the level to the minimum and a second press brings back the last level. Pass muted and onMutedChange to keep the level while muted, as a video player does; the slider then reads zero, and dragging it unmutes. Both parts report hints to a HintScope, and the readout shows percent of the range unless formatValue says otherwise. size md and sm follow the Slider and the IconButton sizes.',
+  description: 'A mute button beside a volume [Slider], for any sound level, with the speaker icon following the level.',
+  points: [
+    'With `value` and `onChange` alone, mute drops the level to the minimum and a second press brings it back.',
+    'Pass `muted` and `onMutedChange` to keep the level while muted, as a video player does.',
+    'Dragging the slider while muted unmutes.',
+    'The readout shows percent of the range unless `formatValue` says otherwise.',
+    'Both parts report their hints to a [HintScope].',
+  ],
   playground: Playground,
   variants: [Levels, Modes, Hints, Sizes],
   states: {

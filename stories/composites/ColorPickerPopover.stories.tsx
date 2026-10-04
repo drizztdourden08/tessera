@@ -119,7 +119,13 @@ const [color, setColor] = useState('#3f8fd2');
 
 const Overview = overviewStory({
   component: 'ColorPickerPopover',
-  description: 'The ColorPicker as a floating panel beside the swatch that opened it. Reach for it in a palette of many swatches, where an inline picker would take too much room. It floats above any dialog so nothing clips it, stays inside the viewport, and closes on Escape, on a click outside, and when its swatch scrolls out of view. It takes every ColorPicker option, with a Done button that closes it.',
+  description: 'The [ColorPicker] in a floating panel beside the swatch that opened it.',
+  points: [
+    'Use it in a palette of many swatches, where an inline picker would take too much room.',
+    '`anchorRef` points at the swatch; the panel stays inside the window and floats above any dialog.',
+    'It closes on [[Esc]], on a click outside, on Done, and when its swatch scrolls out of view.',
+    'It takes every [ColorPicker] option.',
+  ],
   playground: Playground,
   variants: [TeamColours],
   code: CODE,
