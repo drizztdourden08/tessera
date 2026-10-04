@@ -28,8 +28,8 @@
   },
   "Core · Brand": {
     "Brand": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "7bf0aafa06bd5c68",
       "at": "2026-10-04"
     },
     "InteractiveTessera": {
@@ -38,8 +38,8 @@
       "at": "2026-10-01"
     },
     "Logo": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "bd112e35b397ed64",
       "at": "2026-10-04"
     },
     "WordMark": {
@@ -311,9 +311,9 @@
   },
   "Core · Icons": {
     "Icon": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "bc32e307fea89ab1",
+      "at": "2026-10-04"
     },
     "Brand icons": {
       "status": "ok",
@@ -1005,13 +1005,13 @@
       "at": "2026-10-03"
     },
     "Widget": {
-      "status": "ok",
-      "hash": "4f22c6187f8decf3",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "WidgetOptions": {
-      "status": "ok",
-      "hash": "4728df5a8f97b34b",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "WindowGuideOverlay": {
