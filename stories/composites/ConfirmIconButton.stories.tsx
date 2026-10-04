@@ -112,7 +112,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'ConfirmIconButton',
-  description: 'An icon action that asks before it runs. Reach for it on a row action that cannot be undone, such as removing an entry, where a dialog over the page would be too much. At rest it is one glyph; pressing it swaps in a red cancel and a green confirm, with focus on cancel, and cancel takes the place of the glyph so a second click backs out. placement says which edge stays put: start grows toward the end, end grows toward the start, and center grows both ways from the middle. Escape backs out, and disabling it drops a pending question. defaultArmed opens it on the question.',
+  description: 'An icon button that asks before it acts, for a row action that cannot be undone, such as removing an entry.',
+  points: [
+    'A press swaps the icon for a red cancel and a green confirm, with focus on cancel.',
+    'Cancel takes the place of the icon, so a second click backs out, and so does [[Esc]].',
+    '`placement` picks the edge that stays put: `start`, `center` or `end`.',
+    'Disabling it drops a question that is waiting.',
+  ],
+  instead: '[Dialog] when the action needs a message to explain it.',
   playground: Playground,
   variants: [InListRows, InToolbar, InCardFooter],
   states: {
