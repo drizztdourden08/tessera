@@ -105,7 +105,7 @@ import '@drizztdourden08/tessera/palettes/brock.css';
 document.documentElement.dataset.palette = 'brock';
 ```
 
-A palette change in Tessera then reaches the app with a normal upgrade. An app that sets its own seeds in `theme.css` still wins, because `theme.css` is unlayered.
+A palette change in Tessera then reaches the app with a normal upgrade. The palettes sit in the `ds.palette` layer, so seeds an app sets in its unlayered `theme.css` win whatever the import order.
 
 There is no light or dark switch, because an app's look is its branding and its palette sets it. Tessera has one set of neutrals, dark, and each palette paints its accents over them.
 

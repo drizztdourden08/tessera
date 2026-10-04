@@ -2626,3 +2626,11 @@ New classes: `dropdown__tunnel-edge` draws the tunnel's straight edges, `dropdow
 ### What an app does
 
 Nothing. A style that drew the tunnel's edges through `dropdown__tunnel-body` targets `dropdown__tunnel-edge`.
+
+## 103. Brand palettes sit in the ds.palette layer
+
+The brand palettes of section 98 (`@drizztdourden08/tessera/palettes/*.css`) were unlayered, so an app's `theme.css` only won when it was imported after them. They now sit in the `ds.palette` layer with Tessera's own palette, and seeds an app sets in its unlayered `theme.css` win whatever the import order.
+
+### What an app does
+
+An app that imported a palette with `@import '...' layer(ds.palette)` to work around this can drop the `layer(...)`; both work.
