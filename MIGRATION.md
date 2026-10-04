@@ -2996,3 +2996,27 @@ interface MascotAnimation { name: string; summary: string; duration: number; loo
 ### What an app does
 
 Nothing changes for an app that plays the ten clips. Pass any new name to `animation` to use a state, for example `<AnimatedMascot brand="rotp" animation="low-power" />`. A test that read the hidden effects of a mascot from its idle markup renders the clip that uses them instead.
+
+## 115. SideNavLayout opens with labels, and a long segmented choice turns into a Select
+
+From the Archipelia review (archipelia-07, archipelia-14).
+
+- **SideNavLayout opens its nav with labels on a wide layout.** `nav.defaultOpen` now defaults to `true` unless `narrow` is set. A narrow layout keeps its strip of icons, and under 640 px the nav still folds into the bar and its drawer.
+- **SideNav remembers the choice.** It takes `open` with `onOpenChange` to hold the state in the host, and `storageKey` to keep the last choice in `localStorage`, like the `storageKey` of the widget layout. SideNavLayout takes them through `nav`. On a `narrow` layout, where the open nav floats over the page, the stored choice is neither read nor written.
+- **The nav scrollbar shows on hover only.** The slim scroll thumb of the nav groups drew a long accent bar beside the items whenever the list overflowed by a few pixels. It now shows while the pointer is over the nav, while a key moves focus in it, and while it is dragged. `--scrollbar-slim-rest` is the new rest width token.
+- **A segmented SettingsRow choice that does not fit turns into a Select.** The row measures the segmented control against its own width with a ResizeObserver, before paint, so it never flickers. A full row gives the choice its whole content width, since the control can wrap under the text. A compact row leaves the title its own width, up to half the row. The Select keeps the options, the value and the option hints.
+
+```ts
+interface SideNavProps {
+  // added
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  storageKey?: string;
+}
+```
+
+### What an app does
+
+1. A hub that wants the old collapsed start passes `nav.defaultOpen: false`.
+2. A hub that should remember the choice passes `nav.storageKey`, such as `` `hub.${id}.nav-open` ``, or holds it with `nav.open` and `nav.onOpenChange`.
+3. Nothing for SettingsRow: a segmented row picks its look by itself.

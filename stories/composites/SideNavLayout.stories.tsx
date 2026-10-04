@@ -19,7 +19,7 @@ type LayoutArgs = {
 
 const countOf = (groups: ReturnType<typeof searchLibrary>): number => groups.reduce((sum, group) => sum + (group.count ?? 0), 0);
 
-const LayoutDemo = (props: LayoutArgs & { query?: string; phone?: boolean }) => {
+const LayoutDemo = (props: LayoutArgs & { query?: string; phone?: boolean; storageKey?: string }) => {
   const { withSearch, narrow, searchPlaceholder } = props;
   const [active, setActive] = useState('hosting');
   const [flash, setFlash] = useState<string | undefined>(undefined);
@@ -38,7 +38,7 @@ const LayoutDemo = (props: LayoutArgs & { query?: string; phone?: boolean }) => 
         <SideNavLayout
           narrow={narrow}
           paneScroll="none"
-          nav={{ config: LIBRARY_NAV, activeId: active, onSelect: (id) => open(id), search, defaultOpen: !narrow }}
+          nav={{ config: LIBRARY_NAV, activeId: active, onSelect: (id) => open(id), search, storageKey: props.storageKey }}
           results={(
             <SearchResults
               query={query}
@@ -73,7 +73,7 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <LayoutDemo {...args} />,
+  render: (args) => <LayoutDemo {...args} storageKey="tessera-gallery.side-nav-layout.open" />,
 } satisfies PlaygroundStory<LayoutArgs>;
 
 const Searching = {
@@ -101,7 +101,7 @@ const renderState = (props: StateProps) => {
     <Box className="side-nav-layout-story__state">
       <SideNavLayout
         paneScroll="none"
-        nav={{ config: LIBRARY_NAV, activeId: 'hosting', onSelect: () => undefined, defaultOpen: true, search: { value: query, onChange: () => undefined, placeholder: 'Search the guides' } }}
+        nav={{ config: LIBRARY_NAV, activeId: 'hosting', onSelect: () => undefined, search: { value: query, onChange: () => undefined, placeholder: 'Search the guides' } }}
         results={<SearchResults query={query} count={countOf(groups)} groups={groups} />}
       >
         <LibraryPageView id="hosting" />
@@ -117,7 +117,13 @@ const groups = searchEveryPage(query);
 
 <SideNavLayout
   paneScroll="none"
-  nav={{ config, activeId: page, onSelect: openPage, search: { value: query, onChange: setQuery, placeholder: 'Search the guides' } }}
+  nav={{
+    config,
+    activeId: page,
+    onSelect: openPage,
+    storageKey: 'guides.nav-open',
+    search: { value: query, onChange: setQuery, placeholder: 'Search the guides' },
+  }}
   results={<SearchResults query={query} count={total} groups={groups} onOpenHit={openHit} onOpenGroup={openPage} />}
 >
   <CurrentPage />
@@ -127,9 +133,9 @@ const Overview = overviewStory({
   component: 'SideNavLayout',
   description: 'A side nav beside a content pane: the nav picks the page and the pane shows it.',
   points: [
-    '`nav` takes every [SideNav] prop as data.',
-    'Its search never narrows the menu: the host passes the matches as `results`, and the pane shows them.',
+    '`nav` takes every [SideNav] prop; its search never narrows the menu, the pane shows the host `results`.',
     '[[Esc]] clears a filled search without leaving the screen.',
+    'Wide, the nav opens with labels; `nav.storageKey` keeps the user choice, or `nav.open` with `onOpenChange`.',
     '`narrow` keeps the nav as a strip of icons and slides the open menu over the page.',
     'Under 640 px wide the nav folds into a bar with a menu button and the search; the menu opens as a drawer.',
     '`paneScroll` sets what scrolls: `page` by default, `always`, or `none` for pages that scroll themselves.',

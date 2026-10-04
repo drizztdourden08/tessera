@@ -15,12 +15,14 @@ import './SideNav.css';
 
 const SideNav = (props: SideNavProps) => {
   const {
-    config, activeId, onSelect, search, defaultOpen = false, variant = 'panel', collapsed = false, overlay = false, ariaLabel,
-    className = '',
+    config, activeId, onSelect, search, defaultOpen = false, open: openProp, onOpenChange, storageKey, variant = 'panel', collapsed = false,
+    overlay = false, ariaLabel, className = '',
   } = props;
   const { navigation } = useTesseraStrings();
   const rail = variant === 'rail';
-  const { navRef, toggleRef, open, floating, toggle, openPanel, select } = usePanelOpen({ rail, collapsed, defaultOpen, overlay, onSelect });
+  const { navRef, toggleRef, open, floating, toggle, openPanel, select } = usePanelOpen({
+    rail, collapsed, defaultOpen, overlay, onSelect, open: openProp, onOpenChange, storageKey,
+  });
   const classes = navClassName({ variant, open, overlay: floating, lead: leadRow(config, search, open), className });
 
   return (

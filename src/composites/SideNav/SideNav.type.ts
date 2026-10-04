@@ -34,6 +34,9 @@ interface SideNavProps {
   onSelect: (id: string) => void;
   search?: SideNavSearch;
   defaultOpen?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  storageKey?: string;
   variant?: SideNavVariant;
   collapsed?: boolean;
   overlay?: boolean;

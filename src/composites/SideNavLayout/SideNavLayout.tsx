@@ -3,9 +3,9 @@ import { useId } from 'react';
 import { Box } from '../../primitives/Box';
 import { SideNav } from '../SideNav';
 import { currentItem } from './behavior/current-item';
-import { drawerNav } from './behavior/drawer-nav';
 import { keepSearchOnEscape } from './behavior/keep-search-on-escape';
 import { layoutClassName } from './behavior/layout-class-name';
+import { layoutNav } from './behavior/layout-nav';
 import { paneScrolls } from './behavior/pane-scrolls';
 import { useNavDrawer } from './behavior/useNavDrawer';
 import { useNavSearch } from './behavior/useNavSearch';
@@ -36,7 +36,7 @@ const SideNavLayout = (props: SideNavLayoutProps) => {
           current={currentItem(nav.config, activeId)}
         />
         <Box ref={drawer.drawerRef} id={drawerId} className="side-nav-layout__nav">
-          <SideNav {...nav} overlay={narrow} search={search} activeId={activeId} {...drawerNav(drawer)} />
+          <SideNav {...layoutNav(nav, narrow, drawer, { search, activeId })} />
         </Box>
         <SideNavLayoutPane scroll={paneScrolls(paneScroll, showResults)}>{showResults ? results : children}</SideNavLayoutPane>
       </Box>

@@ -3,7 +3,6 @@ import { createElement as h } from 'react';
 import { NumberInput } from '../../../primitives/NumberInput';
 import { PasswordInput } from '../../../primitives/PasswordInput';
 import { RadioGroup } from '../../../primitives/RadioGroup';
-import { SegmentedControl } from '../../../primitives/SegmentedControl';
 import { Slider } from '../../../primitives/Slider';
 import { TagInput } from '../../../primitives/TagInput';
 import { TextInput } from '../../../primitives/TextInput';
@@ -15,6 +14,7 @@ import { optionHint } from './option-hint';
 import { valueHint } from './value-hint';
 import { SettingsColor } from '../sub-components/SettingsColor';
 import { SettingsKeybind } from '../sub-components/SettingsKeybind';
+import { SettingsSegmented } from '../sub-components/SettingsSegmented';
 import { SettingsSelect } from '../sub-components/SettingsSelect';
 import type { InputRenderers } from './renderers.type';
 
@@ -23,13 +23,7 @@ const INPUT_RENDERERS: InputRenderers = {
     checked: input.value, onChange: input.onChange, hint: valueHint(input, strings), disabled, 'aria-label': label,
   }),
   select: (input, { label, disabled }) => h(SettingsSelect, { input, label, disabled }),
-  segmented: (input, { label, disabled }) => h(SegmentedControl, {
-    value: input.value,
-    onChange: input.onChange,
-    options: input.options.map((option) => ({ value: option.value, label: option.label, hint: optionHint(option) })),
-    disabled,
-    'aria-label': label,
-  }),
+  segmented: (input, { label, disabled, compact }) => h(SettingsSegmented, { input, label, disabled, compact }),
   radio: (input, { disabled, compact }) => h(RadioGroup, {
     value: input.value,
     onChange: input.onChange,

@@ -79,6 +79,10 @@
   padding: 0 var(--space-sm) var(--space-sm);
 }
 
+.side-nav:not(:hover, :has(:focus-visible)) .side-nav__groups:not([data-scroll-thumb]) {
+  --scroll-thumb-w: var(--scrollbar-slim-rest);
+}
+
 .side-nav__group {
   display: flex;
   flex-direction: column;

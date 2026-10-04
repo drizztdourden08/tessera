@@ -75,6 +75,38 @@
   min-width: 0;
 }
 
+.settings-row[data-kind='segmented'] .settings-row__control {
+  position: relative;
+}
+
+.settings-row__fit {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.settings-row__fit-probe {
+  display: inline-flex;
+  inline-size: max-content;
+}
+
+.settings-row__fit-select {
+  display: flex;
+  inline-size: var(--settings-row-control-w);
+  max-inline-size: 100%;
+}
+
+.settings-row__fit-select > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-row--compact .settings-row__fit-select {
+  inline-size: var(--settings-row-compact-control-w);
+}
+
 .settings-row__number,
 .settings-row__color,
 .settings-row__tags {

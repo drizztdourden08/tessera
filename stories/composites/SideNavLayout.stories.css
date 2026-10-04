@@ -1,6 +1,8 @@
 /* @layer stories @kind style */
 .side-nav-layout-story__frame {
   display: flex;
+  width: var(--size-896);
+  max-width: 100%;
   height: var(--size-512);
   padding: var(--space-md);
 }

@@ -177,7 +177,7 @@ const Overview = overviewStory({
   description: 'The side nav of a window with several sections: a column of icons that a chevron on its edge opens to show the labels.',
   points: [
     'Use it for the top-level sections of a window; `config` lists the groups, their items and an optional `home`.',
-    'It starts collapsed, and `defaultOpen` starts it open.',
+    'It starts collapsed unless `defaultOpen`; `open` with `onOpenChange` or `storageKey` keeps the choice.',
     '`search` adds a field that grows when the nav opens; the host owns the query and shows the results.',
     '`overlay` slides the open nav over the content; [[Esc]], a click outside or a pick closes it.',
     '`variant="rail"` is the app screen list: flush on the window edge, its labels shown unless `collapsed`.',

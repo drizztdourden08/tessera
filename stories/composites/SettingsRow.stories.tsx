@@ -7,6 +7,7 @@ import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { ChoiceFitDemo } from './_samples/ChoiceFitDemo';
 import { everyKind, KIND_ORDER, rowOfKind } from './_samples/every-kind';
 import { useSampleSettings } from './_samples/settings-sample-state';
 
@@ -78,6 +79,16 @@ const ReadOnly = {
   render: () => <EveryKind readOnly />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
+const ChoiceFit = {
+  name: 'A long choice in a narrow row',
+  render: () => <ChoiceFitDemo />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
+const ChoiceFitCompact = {
+  name: 'A long choice in a narrow row, compact',
+  render: () => <ChoiceFitDemo compact />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
 const StateRow = (props: StateProps) => {
   const row = rowOfKind(useSampleSettings(), 'segmented');
   if (row === undefined) return null;
@@ -113,12 +124,12 @@ const Overview = overviewStory({
     'The input is data: a `kind` such as `toggle`, `select` or `slider`, its props, `value` and `onChange`.',
     'The line shows the description, or the hint of the part of the input _under the pointer_.',
     '**It never changes height:** the line keeps room for its longest hint.',
-    '`compact` draws one line and moves the description to a tooltip on the title.',
-    '`readOnly` draws the value as text: On or Off, the option label, keycaps.',
+    '`compact` draws one line, the description in a tooltip; `readOnly` draws the value as text.',
+    'A `segmented` choice too wide for its row turns into a [Select] with the same options and value.',
     'Rows sit in a [SettingsSection], which draws the box, the dividers and the shared `lock`.',
   ],
   playground: Playground,
-  variants: [Kinds, Compact, ReadOnly],
+  variants: [Kinds, Compact, ReadOnly, ChoiceFit, ChoiceFitCompact],
   states: {
     render: (props) => <StateRow {...props} />,
     list: [
@@ -133,4 +144,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Kinds, Overview, Playground, ReadOnly };
+export { ChoiceFit, ChoiceFitCompact, Compact, Kinds, Overview, Playground, ReadOnly };
