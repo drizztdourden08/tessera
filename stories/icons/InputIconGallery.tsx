@@ -1,5 +1,5 @@
 /* @layer stories @kind component */
-import { Box, INPUT_ICONS, InputIcon, Text } from '../../src/primitives';
+import { Box, INPUT_ICON_NAMES, InputIcon, Text } from '../../src/primitives';
 import type { InputIconFamily, InputIconSource, InputIconTone } from '../../src/primitives';
 import './icons.stories.css';
 
@@ -10,7 +10,7 @@ interface InputIconGalleryProps {
 }
 
 const sourcesOf = (family: InputIconFamily): InputIconSource[] =>
-  Object.keys(INPUT_ICONS[family]).map((name) => ({ family, name }) as InputIconSource);
+  INPUT_ICON_NAMES[family].map((name) => ({ family, name }) as InputIconSource);
 
 const InputIconGallery = (props: InputIconGalleryProps) => {
   const { family, title, tone } = props;

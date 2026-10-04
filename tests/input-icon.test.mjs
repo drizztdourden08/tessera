@@ -1,9 +1,11 @@
 /* @layer tooling-scripts @kind test */
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { PressedGrid } from '../src/composites/PressedGrid';
-import { GAMEPAD_INPUT_ICONS, INPUT_ICONS, InputIcon, gamepadInputIcon, inputIconData } from '../src/primitives/InputIcon';
+import {
+  GAMEPAD_INPUT_ICONS, INPUT_ICON_FAMILIES, INPUT_ICON_NAMES, INPUT_ICONS, InputIcon, gamepadInputIcon, inputIconData, isInputIconName,
+} from '../src/primitives/InputIcon';
 
 describe('InputIcon data', () => {
   it('holds every family RotP had, and every glyph draws something', () => {
@@ -54,6 +56,40 @@ describe('InputIcon data', () => {
     expect(html).toContain('class="icon input-icon input-icon--theme"');
     expect(html).toContain('width="32"');
     expect(html).toContain('aria-label="A"');
+  });
+});
+
+describe('the list of accepted names', () => {
+  it('lists every family, in the order of the glyph data', () => {
+    expect(INPUT_ICON_FAMILIES).toEqual(Object.keys(INPUT_ICONS));
+    expect(Object.keys(INPUT_ICON_NAMES)).toEqual([...INPUT_ICON_FAMILIES]);
+  });
+
+  it('gives every listed name glyph data, and every glyph a listed name, once', () => {
+    for (const family of INPUT_ICON_FAMILIES) {
+      const listed = INPUT_ICON_NAMES[family];
+      expect(new Set(listed).size, `${family} has a name twice`).toBe(listed.length);
+      expect([...listed].sort(), family).toEqual(Object.keys(INPUT_ICONS[family]).sort());
+    }
+  });
+
+  it('checks a name against its own family only', () => {
+    expect(isInputIconName('xbox', 'lb')).toBe(true);
+    expect(isInputIconName('playstation', 'lb')).toBe(false);
+    expect(isInputIconName('keyboard', 'question')).toBe(true);
+    expect(isInputIconName('xbox', 'toString')).toBe(false);
+    expect(isInputIconName('atari', 'a')).toBe(false);
+  });
+
+  it('draws a question mark key for a name it does not know, and warns once', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const html = renderToString(h(InputIcon, { family: 'snes', name: 'lb', size: 24 }));
+    renderToString(h(InputIcon, { family: 'snes', name: 'lb', size: 24 }));
+    expect(html).toContain('input-icon--unknown');
+    expect(html).toContain('<path');
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0]?.[0])).toContain('"lb" in the "snes" family');
+    warn.mockRestore();
   });
 });
 

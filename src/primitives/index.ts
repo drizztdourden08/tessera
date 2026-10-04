@@ -152,7 +152,9 @@ export type {
   BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions, IconEffectSize,
   IconFlip, IconName, IconProps, IconRotation, IconSet,
 } from './Icon';
-export { GAMEPAD_INPUT_ICONS, INPUT_ICONS, InputIcon, gamepadInputIcon, inputIconData } from './InputIcon';
+export {
+  GAMEPAD_INPUT_ICONS, INPUT_ICON_FAMILIES, INPUT_ICON_NAMES, INPUT_ICONS, InputIcon, gamepadInputIcon, inputIconData, isInputIconName,
+} from './InputIcon';
 export type { InputIconFamily, InputIconName, InputIconProps, InputIconSource, InputIconTone } from './InputIcon';
 export { PathIcon } from './PathIcon';
 export type { PathIconCircle, PathIconProps } from './PathIcon';

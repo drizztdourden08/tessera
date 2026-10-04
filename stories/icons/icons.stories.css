@@ -49,3 +49,12 @@
   fill: currentcolor;
   pointer-events: none;
 }
+
+.input-icon-playground {
+  inline-size: 100%;
+}
+
+.input-icon-playground__stage {
+  display: flex;
+  justify-content: center;
+}

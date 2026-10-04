@@ -1862,3 +1862,26 @@ Each part of a step forward used to ease in and out, so the motion slowed to a s
 ### What an app does
 
 Nothing.
+
+## 73. InputIcon lists every name it accepts
+
+InputIcon exports the families and names it draws as readonly lists, and the types come from them, so the list and the types cannot disagree.
+
+```ts
+const INPUT_ICON_FAMILIES: readonly ['xbox', 'playstation', 'switch', 'gamecube', 'snes', 'generic', 'keyboard'];
+const INPUT_ICON_NAMES: { readonly [F in InputIconFamily]: readonly InputIconName<F>[] };
+const isInputIconName: <F extends InputIconFamily>(family: F, name: string) => name is InputIconName<F>;
+
+type InputIconFamily = (typeof INPUT_ICON_FAMILIES)[number];
+type InputIconName<F extends InputIconFamily = InputIconFamily> = (typeof INPUT_ICON_NAMES)[F][number];
+```
+
+`INPUT_ICONS` must hold a glyph for every listed name, which the compiler checks, and a test checks that every glyph has a listed name. `gamepadInputIcon` and PressedGrid check their names against the same list.
+
+A name the family does not have, from untyped data or a cast, draws the keyboard question mark key with the class `input-icon--unknown` and warns once in development. It never draws nothing.
+
+The gallery Playground picks the family and the name from two selects. The name select lists exactly that family's names, with each glyph beside its name, and moves to the family's first name when the one chosen is not in the new family.
+
+### What an app does
+
+Nothing. To build a picker or check stored data, read `INPUT_ICON_NAMES[family]` or call `isInputIconName(family, name)` in place of `Object.keys(INPUT_ICONS[family])`.

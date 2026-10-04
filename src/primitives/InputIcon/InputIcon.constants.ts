@@ -6,6 +6,7 @@ import { PLAYSTATION_INPUT_ICONS } from '../icon-sets/input-playstation.constant
 import { SNES_INPUT_ICONS } from '../icon-sets/input-snes.constants';
 import { SWITCH_INPUT_ICONS } from '../icon-sets/input-switch.constants';
 import { XBOX_INPUT_ICONS } from '../icon-sets/input-xbox.constants';
+import type { InputIconFamily, InputIconSet } from './InputIcon.type';
 
 const INPUT_ICONS = {
   xbox: XBOX_INPUT_ICONS,
@@ -15,7 +16,7 @@ const INPUT_ICONS = {
   snes: SNES_INPUT_ICONS,
   generic: GENERIC_INPUT_ICONS,
   keyboard: KEYBOARD_INPUT_ICONS,
-} as const;
+} as const satisfies { readonly [F in InputIconFamily]: InputIconSet<F> };
 
 const INPUT_ICON_GRID = 64;
 

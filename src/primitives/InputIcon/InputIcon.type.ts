@@ -1,10 +1,11 @@
 /* @layer renderer-components @kind types */
 import type { IconLook } from '../Icon/Icon.type';
-import type { INPUT_ICONS } from './InputIcon.constants';
+import type { INPUT_ICON_FAMILIES } from './behavior/input-icon-families.constants';
+import type { INPUT_ICON_NAMES } from './behavior/input-icon-names.constants';
 
-type InputIconFamily = keyof typeof INPUT_ICONS;
+type InputIconFamily = (typeof INPUT_ICON_FAMILIES)[number];
 
-type InputIconName<F extends InputIconFamily = InputIconFamily> = Extract<keyof (typeof INPUT_ICONS)[F], string>;
+type InputIconName<F extends InputIconFamily = InputIconFamily> = (typeof INPUT_ICON_NAMES)[F][number];
 
 type InputIconSource = { [F in InputIconFamily]: { family: F; name: InputIconName<F> } }[InputIconFamily];
 
@@ -14,8 +15,12 @@ type GamepadIcons = { readonly [F in InputIconFamily]: Readonly<Record<string, I
 
 type InputIconEntry = string | { width: number; height: number; body: string };
 
+type InputIconSet<F extends InputIconFamily> = Readonly<Record<InputIconName<F>, InputIconEntry>>;
+
 type InputIconProps = IconLook & InputIconSource & {
   tone?: InputIconTone;
 };
 
-export type { GamepadIcons, InputIconEntry, InputIconFamily, InputIconName, InputIconProps, InputIconSource, InputIconTone };
+export type {
+  GamepadIcons, InputIconEntry, InputIconFamily, InputIconName, InputIconProps, InputIconSet, InputIconSource, InputIconTone,
+};
