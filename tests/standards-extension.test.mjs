@@ -1,5 +1,6 @@
 /* @layer tooling-scripts @kind test */
 import { readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import { tesseraExtension } from '../scripts/standards/tessera-extension.mjs';
@@ -7,7 +8,7 @@ import { extension } from '../standards.extension.mjs';
 import { CONFIG, fixtureRepo, MONOREPO, writeTree } from './config-fixture.mjs';
 
 const TIMEOUT = 60_000;
-const FACETS = ['id', 'description', 'structure', 'eslint', 'stylelint', 'markdownlint', 'prose'];
+const FACETS = ['id', 'description', 'structure', 'eslint', 'stylelint', 'markdownlint', 'prose', 'knip'];
 const MISSING_SAVE_SLOT = 'packages/design/src/compounds/SaveSlot: missing SaveSlot.usage.ts (every part in the folders of tessera.config.json says when to use it)';
 const MISSING_BARE = 'apps/desktop/src/views/Bare: missing Bare.usage.ts (every part in the folders of tessera.config.json says when to use it)';
 const PART = (name) => `/* @layer renderer-app @kind component */\nconst ${name} = () => null;\n\nexport { ${name} };\n`;
@@ -90,5 +91,13 @@ describe('the standards extension', () => {
     rmSync(broken, { recursive: true, force: true });
     expect(options).toEqual({});
     expect(findings).toEqual([expect.stringContaining('unknown key "parts.widgets"')]);
+  });
+});
+
+describe('the knip facet', () => {
+  it('counts usage examples as uses: a knip compiler for usage files, and the usage files as entries', () => {
+    expect(Object.keys(extension.knip.compilers)).toEqual(['ts']);
+    expect(extension.knip.entry({ rootDir: process.cwd() })).toEqual(['src/primitives/**/*.usage.ts', 'src/composites/**/*.usage.ts']);
+    expect(extension.knip.entry({ rootDir: join(tmpdir(), 'tessera-no-config-here') })).toEqual([]);
   });
 });

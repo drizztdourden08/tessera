@@ -3411,3 +3411,11 @@ interface WindowTitleBarAction {
 1. Give the title bar actions their `shortcut`, such as `'Ctrl+K'` for Search, so the tooltip shows it.
 2. Remove any app tooltip or `title` on title bar buttons, and any app code that revealed the concealed bar on focus.
 3. An app that listens for a lone Alt itself while the bar is concealed lets the bar have it.
+
+## 130. Usage examples count as uses in knip
+
+Tessera's standards extension now gives knip what it needs to see a part used only by its usage file's example, on standards 0.7.0 and up. It adds the usage files of every primitives and composites folder in `tessera.config.json` (and the `guide.parts` file when one is set) as entries, plus a compiler that turns a usage file's example imports into re-exports.
+
+### What an app does
+
+Move to `@drizztdourden08/standards` ^0.7.0 and run `standards knip` as before. A part used only by its example no longer shows as unused, so any knip ignore added for that can go.

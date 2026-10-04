@@ -34,8 +34,8 @@ importers:
         specifier: ^2.31.1
         version: 2.31.1(@types/node@24.19.0)
       '@drizztdourden08/standards':
-        specifier: ^0.6.0
-        version: 0.6.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.7.0
+        version: 0.7.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
@@ -269,8 +269,8 @@ packages:
     peerDependencies:
       postcss-selector-parser: ^7.1.1
 
-  '@drizztdourden08/standards@0.6.0':
-    resolution: {integrity: sha512-Sz5oPPx0YdKmIAiPl+ygA/lqG8H5/v+K24a26e0rv2df9Df6FUQAgRZzb5cuOsOQxYIuHCGLWGeSL+8iF8YmoA==, tarball: https://npm.pkg.github.com/download/@drizztdourden08/standards/0.6.0/cc980d371b686e50af03566c81e5501eb4a54307}
+  '@drizztdourden08/standards@0.7.0':
+    resolution: {integrity: sha512-eJULBthwkGW28qNtkK6evvHYmRKg9p5NJgONG+IJ63BJaAH2NaVwGLOt8s8mPueaQdJkIItwQWjuOZCmLSwzqA==, tarball: https://npm.pkg.github.com/download/@drizztdourden08/standards/0.7.0/51919d52a4c7c8db755c3137a984ac17d5641f96}
     engines: {node: '>=24'}
     hasBin: true
     peerDependencies:
@@ -2706,7 +2706,7 @@ snapshots:
     dependencies:
       postcss-selector-parser: 7.1.6
 
-  '@drizztdourden08/standards@0.6.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)':
+  '@drizztdourden08/standards@0.7.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.11.0(jiti@2.7.0))
       eslint: 10.11.0(jiti@2.7.0)

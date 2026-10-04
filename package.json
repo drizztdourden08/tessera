@@ -119,7 +119,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
-    "@drizztdourden08/standards": "^0.6.0",
+    "@drizztdourden08/standards": "^0.7.0",
     "@resvg/resvg-js": "^2.6.2",
     "@storylite/renderer-react": "^1.6.0",
     "@storylite/storylite": "^1.6.0",
