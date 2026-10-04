@@ -4,12 +4,13 @@ import { ownerDocumentOf } from '../dom/owner-document';
 import { useAnchorTracking } from '../Portal/behavior/useAnchorTracking';
 import { useDismissListeners } from '../Portal/behavior/useDismissListeners';
 import { dropPlacement } from './drop-placement';
+import { dropShape } from './drop-shape';
 import { useAnchorResize } from './useAnchorResize';
 import { useDropWidth } from './useDropWidth';
 import type { ListboxDrop, UseListboxDropParams } from './listbox-drop.type';
 
 const useListboxDrop = <E extends HTMLElement>(params: UseListboxDropParams): ListboxDrop<E> => {
-  const { disabled, defaultOpen, inline = false, contentKey, focusRef, escape, fit, onClose } = params;
+  const { disabled, defaultOpen, inline = false, contentKey, focusRef, escape, fit, align, onClose } = params;
   const [open, setOpen] = useState(defaultOpen === true && !disabled);
   const anchorRef = useRef<E>(null);
   const dropRef = useRef<HTMLDivElement>(null);
@@ -29,8 +30,8 @@ const useListboxDrop = <E extends HTMLElement>(params: UseListboxDropParams): Li
   }, [disabled]);
 
   const compute = useCallback(
-    (rect: DOMRect, view: Window) => dropPlacement(anchorRef.current, rect, view, fit),
-    [fit],
+    (rect: DOMRect, view: Window) => dropPlacement(anchorRef.current, rect, view, { fit, align }),
+    [fit, align],
   );
   const { position, reposition } = useAnchorTracking({ active: open && !inline, anchorRef, compute, onOutOfView: close });
   useAnchorResize(open && !inline, anchorRef, reposition);
@@ -41,9 +42,7 @@ const useListboxDrop = <E extends HTMLElement>(params: UseListboxDropParams): Li
     if (disabled) setOpen(false);
   }, [disabled]);
 
-  const fillet = position !== null && width !== null && width > position.anchorWidth + 1;
-  const attach = position?.dropUp === true ? 'up' : 'down';
-  return { open, show, close, anchorRef, dropRef, placement: position, width, fillet, attach, inline };
+  return { open, show, close, anchorRef, dropRef, placement: position, width, ...dropShape(position, width), inline };
 };
 
 export { useListboxDrop };

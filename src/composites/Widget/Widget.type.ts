@@ -1,7 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { DockEdge, DockTree, WidgetId } from '../DockLayout';
-import type { MenuGroup } from '../DropdownMenu';
 
 type SnapSide = DockEdge;
 
@@ -77,7 +76,7 @@ interface WidgetProps {
   onActivateTab: (id: WidgetId) => void;
   onClose: () => void;
   children: ReactNode;
-  options?: readonly MenuGroup[];
+  options?: ReactNode;
   peek?: boolean;
   onPopOut?: () => void;
   canPopOut?: boolean;

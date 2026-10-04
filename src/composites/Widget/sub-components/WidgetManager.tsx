@@ -1,27 +1,24 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useMemo, useRef } from 'react';
 import { Box } from '../../../primitives/Box';
-import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { DockLayout, useDockKeys } from '../../DockLayout';
 import type { FloatingWidget, LayoutEdit, PaneNode, Rect, WidgetId } from '../../DockLayout';
 import { FALLBACK_FLOAT_SIZE } from '../Widget.constants';
 import type { WidgetDefinition } from '../Widget.type';
 import { applyEdit } from '../behavior/apply-edit';
 import { mainOrWindow } from '../behavior/main-or-window';
-import { optionsInputFor } from '../behavior/options-input-for';
 import { removeEverywhere } from '../behavior/remove-everywhere';
 import { useDockApi } from '../behavior/useDockApi';
 import { visibleLayoutOf } from '../behavior/visible-layout-of';
-import { widgetOptionsMenu } from '../behavior/widget-options-menu';
 import { windowRowsFor } from '../behavior/window-rows-for';
 import { NO_FORCED_IDS } from './WidgetManager.constants';
+import { WidgetOptionsHost } from './WidgetOptionsHost';
 import { WidgetPane } from './WidgetPane';
 import type { WidgetManagerProps } from './WidgetManager.type';
 
 const WidgetManager = <D extends WidgetDefinition = WidgetDefinition>(props: WidgetManagerProps<D>) => {
   const { definitions, layout, children, contextActive, pageOpen = false, developerToolsEnabled = false } = props;
-  const { startupForcedWidgetIds = NO_FORCED_IDS, onMainRect, onExternalDrop, className } = props;
-  const { widgets, common } = useTesseraStrings();
+  const { startupForcedWidgetIds = NO_FORCED_IDS, onMainRect, onExternalDrop, settingsContent, className } = props;
   const keys = useDockKeys();
   const mainRef = useRef<Rect | null>(null);
   const api = useDockApi({ props, peek: props.peek ?? keys.peek, mainRef });
@@ -38,10 +35,18 @@ const WidgetManager = <D extends WidgetDefinition = WidgetDefinition>(props: Wid
     onExternalDrop?.(id, edit);
     if (edit) api.change((prev) => applyEdit(removeEverywhere(prev, id), edit, mainOrWindow(mainRef.current)));
   }, [onExternalDrop, api]);
-  const optionsOf = (id: WidgetId, rect: Rect) => widgetOptionsMenu(optionsInputFor(api, id, {
-    rect, main: mainRef.current, own: props.optionGroups?.(id), makeRoomHint: props.makeRoomHint, contextLabel: props.contextLabel,
-    ...windowRowsFor(props, id),
-  }), { widgets, common });
+  const optionsOf = (id: WidgetId, rect: Rect) => (
+    <WidgetOptionsHost
+      api={api}
+      id={id}
+      paneRect={rect}
+      mainRect={mainRef.current}
+      settings={settingsContent?.[id]}
+      makeRoomHint={props.makeRoomHint}
+      contextLabel={props.contextLabel}
+      windowRows={windowRowsFor(props, id)}
+    />
+  );
   const renderPane = (pane: PaneNode, rect: Rect) => (
     <WidgetPane api={api} widgets={pane.widgets} activeId={pane.active} paneKey={pane.key} options={optionsOf(pane.active, rect)} />
   );

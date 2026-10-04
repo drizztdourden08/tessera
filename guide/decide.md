@@ -43,6 +43,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Edit it in place: no component yet.
     - Create one in the page: no component yet.
     - Create one in a dialog: no component yet.
+  - Several settings, behind one button: [ControlMenu](components/ControlMenu.md). ControlMenu keeps several small settings one click away without a page or a dialog.
   - The label and help around an input: no component yet.
 - A status, a count or a label. **What does it show?**
   - The state something is in: no component yet.

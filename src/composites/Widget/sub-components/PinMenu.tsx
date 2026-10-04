@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { Icon } from '../../../primitives/Icon';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { pinMenuGroups } from '../behavior/pin-menu-groups';
-import { PIN_CHOICES } from '../behavior/widget-options-menu.constants';
+import { PIN_CHOICES } from './WidgetOptions/WidgetOptions.constants';
 import { WidgetMenu } from './WidgetMenu';
 import type { PinMenuProps } from './PinMenu.type';
 

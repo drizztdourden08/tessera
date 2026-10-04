@@ -23,7 +23,7 @@ type WidgetArgs = {
   makeRoomHint: string;
 };
 
-const FrameDemo = (props: WidgetArgs) => <WidgetFrameDemo {...props} />;
+const FrameDemo = (props: WidgetArgs & { optionsOpen?: boolean }) => <WidgetFrameDemo {...props} />;
 
 const ARGS: Partial<WidgetArgs> = {
   tabbed: false,
@@ -86,10 +86,10 @@ const Performance = {
 } satisfies StoryLiteStoryDefinition<WidgetArgs>;
 
 const renderState = (props: StateProps) => (
-  <FrameDemo {...(ARGS as WidgetArgs)} tabbed peek={props.peek === true} />
+  <FrameDemo {...(ARGS as WidgetArgs)} tabbed peek={props.peek === true} optionsOpen={props.open === true} />
 );
 
-const CODE = `import { Widget, useWidgetOptionsMenu } from '@drizztdourden08/tessera';
+const CODE = `import { Widget, WidgetOptions } from '@drizztdourden08/tessera';
 
 <Widget
   id="hints"
@@ -98,7 +98,7 @@ const CODE = `import { Widget, useWidgetOptionsMenu } from '@drizztdourden08/tes
   paneKey={pane.key}
   opacity={0.92}
   peek={peek}
-  options={useWidgetOptionsMenu({ placement, makeRoom, opacity, show, onDock, onFloat, onReset })}
+  options={<WidgetOptions title="Hints" {...frameOptions} />}
   onActivateTab={(id) => onEdit({ type: 'activate-tab', key: pane.key, id })}
   onPopOut={() => popOut('hints')}
   onClose={() => close('hints')}
@@ -109,8 +109,7 @@ const CODE = `import { Widget, useWidgetOptionsMenu } from '@drizztdourden08/tes
 
 // A whole dock goes through WidgetManager, which draws a DockLayout of Widgets
 // and their options from a WidgetLayout, and hands every change to onLayoutChange.
-// widgetActions={(id) => ...} gives each widget its own title bar buttons there,
-// and optionGroups={(id) => ...} adds its own groups to the gear menu.`;
+// widgetActions={(id) => ...} gives each widget its own title bar buttons there.`;
 
 const Overview = overviewStory({
   component: 'Widget',
@@ -121,7 +120,7 @@ const Overview = overviewStory({
     '`titleBarActions` adds buttons of its own before the built-in ones.',
     'The body scrolls with the slim scrollbar in a gutter of its own, so the thumb never covers text.',
     'The frame takes `opacity` and turns solid on hover; `peek` folds it and `square` drops its corners.',
-    'The gear and the pin open a [DropdownMenu] kept on screen; `options` fills the gear, see [WidgetOptions].',
+    '`options` puts [WidgetOptions], a [ControlMenu], on the gear; `WidgetManager` places a whole dock from a layout.',
   ],
   playground: Playground,
   variants: [Single, Tabbed, OwnWindow, OwnActions, Fullscreen, Folded, Dock, Performance],
@@ -130,6 +129,7 @@ const Overview = overviewStory({
     list: [
       STATE.idle,
       { name: 'Tab hover', pseudo: 'hover', target: '.widget__tab:not(.widget__tab--active)' },
+      { ...STATE.open, name: 'Options open' },
       { name: 'Peek', props: { peek: true } },
     ],
   },

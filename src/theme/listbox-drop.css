@@ -55,6 +55,28 @@
   );
 }
 
+.listbox-anchor[data-drop='down'][data-fillet][data-align='end'] {
+  clip-path: polygon(
+    calc(100% + var(--listbox-ring)) calc(-1 * var(--listbox-ring)),
+    calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)),
+    calc(-1 * var(--listbox-ring)) calc(100% - var(--listbox-line) - var(--listbox-radius)),
+    0 calc(100% - var(--listbox-line) - var(--listbox-radius)),
+    0 calc(100% - var(--listbox-line)),
+    calc(100% + var(--listbox-ring)) calc(100% - var(--listbox-line))
+  );
+}
+
+.listbox-anchor[data-drop='up'][data-fillet][data-align='end'] {
+  clip-path: polygon(
+    calc(100% + var(--listbox-ring)) var(--listbox-line),
+    0 var(--listbox-line),
+    0 calc(var(--listbox-line) + var(--listbox-radius)),
+    calc(-1 * var(--listbox-ring)) calc(var(--listbox-line) + var(--listbox-radius)),
+    calc(-1 * var(--listbox-ring)) calc(100% + var(--listbox-ring)),
+    calc(100% + var(--listbox-ring)) calc(100% + var(--listbox-ring))
+  );
+}
+
 .listbox-drop {
   position: fixed;
   z-index: var(--z-popover);
@@ -131,6 +153,36 @@
   );
 }
 
+.listbox-drop[data-attach='down'][data-fillet][data-align='end'] {
+  border-top-left-radius: var(--listbox-radius);
+  border-top-right-radius: 0;
+  clip-path: polygon(
+    calc(100% + var(--listbox-reach)) 0,
+    calc(100% - var(--listbox-attach) + var(--listbox-line)) 0,
+    calc(100% - var(--listbox-attach) + var(--listbox-line)) calc(-1 * var(--listbox-radius)),
+    calc(100% - var(--listbox-attach)) calc(-1 * var(--listbox-radius)),
+    calc(100% - var(--listbox-attach)) calc(-1 * var(--listbox-reach)),
+    calc(-1 * var(--listbox-reach)) calc(-1 * var(--listbox-reach)),
+    calc(-1 * var(--listbox-reach)) calc(100% + var(--listbox-reach)),
+    calc(100% + var(--listbox-reach)) calc(100% + var(--listbox-reach))
+  );
+}
+
+.listbox-drop[data-attach='up'][data-fillet][data-align='end'] {
+  border-bottom-left-radius: var(--listbox-radius);
+  border-bottom-right-radius: 0;
+  clip-path: polygon(
+    calc(100% + var(--listbox-reach)) calc(-1 * var(--listbox-reach)),
+    calc(-1 * var(--listbox-reach)) calc(-1 * var(--listbox-reach)),
+    calc(-1 * var(--listbox-reach)) calc(100% + var(--listbox-reach)),
+    calc(100% - var(--listbox-attach)) calc(100% + var(--listbox-reach)),
+    calc(100% - var(--listbox-attach)) calc(100% + var(--listbox-radius)),
+    calc(100% - var(--listbox-attach) + var(--listbox-line)) calc(100% + var(--listbox-radius)),
+    calc(100% - var(--listbox-attach) + var(--listbox-line)) 100%,
+    calc(100% + var(--listbox-reach)) 100%
+  );
+}
+
 .listbox-drop::before {
   position: absolute;
   right: calc(-1 * var(--listbox-line));
@@ -191,6 +243,22 @@
 .listbox-drop[data-attach='up'][data-fillet]::after {
   bottom: calc(-1 * (var(--listbox-radius) + var(--listbox-line)));
   transform: scaleY(-1);
+}
+
+.listbox-drop[data-fillet][data-align='end']::before {
+  right: calc(-1 * var(--listbox-line));
+  left: auto;
+  background: linear-gradient(to left, var(--listbox-edge) var(--listbox-line), var(--c-surface) var(--listbox-line));
+}
+
+.listbox-drop[data-fillet][data-align='end']::after {
+  right: calc(var(--listbox-attach) - 2 * var(--listbox-line));
+  left: auto;
+  transform: scaleX(-1);
+}
+
+.listbox-drop[data-attach='up'][data-fillet][data-align='end']::after {
+  transform: scale(-1, -1);
 }
 
 .listbox-drop__scroll {

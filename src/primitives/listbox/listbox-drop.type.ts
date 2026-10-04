@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { RefObject } from 'react';
-import type { DropPlacement } from './drop-placement.type';
+import type { DropAlign, DropPlacement } from './drop-placement.type';
 
 interface UseListboxDropParams {
   disabled: boolean;
@@ -10,6 +10,7 @@ interface UseListboxDropParams {
   focusRef?: RefObject<HTMLElement | null>;
   escape?: boolean;
   fit?: boolean;
+  align?: DropAlign;
   onClose?: () => void;
 }
 
@@ -23,6 +24,7 @@ interface ListboxDrop<E extends HTMLElement> {
   width: number | null;
   fillet: boolean;
   attach: 'up' | 'down';
+  end: boolean;
   inline: boolean;
 }
 

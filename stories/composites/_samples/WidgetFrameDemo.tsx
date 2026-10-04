@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { useWidgetOptionsMenu } from '../../../src/composites';
+import { WidgetOptions } from '../../../src/composites';
 import { Box, Button, Text } from '../../../src/primitives';
 import { DemoWidget } from './DemoWidget';
 import { frameTabs } from './frame-tabs';
@@ -15,15 +15,15 @@ type WidgetFrameDemoProps = {
   canPopOut: boolean;
   square?: boolean;
   titleBarActions?: boolean;
+  optionsOpen?: boolean;
 };
 
 const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
-  const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false } = props;
+  const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false, optionsOpen = false } = props;
   const [active, setActive] = useState('hints');
   const [closed, setClosed] = useState(false);
   const spoilers = useSpoilerAction(titleBarActions);
   const { panel, summary } = useWidgetOptionsDemo(mode === 'out' ? 'popped' : 'docked', opacity);
-  const options = useWidgetOptionsMenu({ ...panel, canPopOut });
   const view = frameTabs(tabbed, active);
 
   if (closed) {
@@ -43,7 +43,7 @@ const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
         peek={peek}
         square={square}
         canPopOut={canPopOut}
-        options={options}
+        options={<WidgetOptions {...panel} title={view.label} canPopOut={canPopOut} defaultOpen={optionsOpen} />}
         onActivateTab={setActive}
         onClose={() => setClosed(true)}
         titleBarActions={spoilers.action}

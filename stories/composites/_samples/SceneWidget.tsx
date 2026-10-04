@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
+import type { ReactNode } from 'react';
 import { Widget } from '../../../src/composites';
-import type { MenuGroup } from '../../../src/composites';
 import { PlayersPanel } from './data-widget-panels';
 import type { PlayersView } from './data-widget-panels';
 import type { DemoPanelProps } from './useWidgetOptionsDemo';
@@ -10,7 +10,7 @@ type SceneWidgetProps = {
   panel: DemoPanelProps;
   view: PlayersView;
   canPopOut: boolean;
-  options: readonly MenuGroup[];
+  options: ReactNode;
   onClose: () => void;
 };
 

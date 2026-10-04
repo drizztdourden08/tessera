@@ -95,7 +95,7 @@ const Overview = overviewStory({
     'Drag a title bar to dock, tab or float the widget, or past the window edge to pop it out through `onPopOut`.',
     'A small hint beside the pointer lists the keys: [[Shift]] swaps panes, [[Ctrl]] overlays, [[Esc]] cancels.',
     'Drag a divider, or any edge of a floating widget down to `floatingMin`, to resize; double-click evens a divider.',
-    'A widget menu, the gear or the pin, opens above the dock and is never clipped by a pane or the window.',
+    'The menus of a widget, its gear and its pin, open above the dock and are never clipped by a pane.',
   ],
   playground: Playground,
   variants: [Tiled, Floating, Peek],

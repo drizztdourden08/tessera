@@ -1,10 +1,10 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { useWidgetOptionsMenu } from '../../../src/composites';
+import { WidgetOptions } from '../../../src/composites';
 import type { WidgetPlacement } from '../../../src/composites';
 import { Box, Button, Text, Toggle } from '../../../src/primitives';
 import type { PlayersView } from './data-widget-panels';
-import { playersMenuGroups } from './players-menu-groups';
+import { PlayersOptionRows } from './PlayersOptionRows';
 import { SceneWidget } from './SceneWidget';
 import { useWidgetOptionsDemo } from './useWidgetOptionsDemo';
 import type { DemoPanelProps } from './useWidgetOptionsDemo';
@@ -16,6 +16,7 @@ type OptionsDemoProps = {
   makeRoomHint: string;
   contextLabel: string;
   ownRows: boolean;
+  open?: boolean;
 };
 
 const START_VIEW: Required<PlayersView> = { sort: 'progress', compact: false, finished: true };
@@ -37,7 +38,7 @@ const sceneAttrs = (panel: DemoPanelProps) => ({
 });
 
 const OptionsDemo = (props: OptionsDemoProps) => {
-  const { title, placement, canPopOut, makeRoomHint, contextLabel, ownRows } = props;
+  const { title, placement, canPopOut, makeRoomHint, contextLabel, ownRows, open = false } = props;
   const [session, setSession] = useState(true);
   const [closed, setClosed] = useState(false);
   const [view, setView] = useState(START_VIEW);
@@ -45,8 +46,11 @@ const OptionsDemo = (props: OptionsDemoProps) => {
   const inContext = session || panel.show === 'always';
   const shown = !closed && inContext;
   const hidden = hiddenBy(closed, inContext);
-  const own = ownRows ? playersMenuGroups(view, (patch) => setView((prev) => ({ ...prev, ...patch }))) : undefined;
-  const options = useWidgetOptionsMenu({ ...panel, canPopOut, makeRoomHint, contextLabel, own });
+  const options = (
+    <WidgetOptions {...panel} title={title} canPopOut={canPopOut} makeRoomHint={makeRoomHint} contextLabel={contextLabel} defaultOpen={open}>
+      {ownRows && <PlayersOptionRows view={view} onChange={(patch) => setView((prev) => ({ ...prev, ...patch }))} />}
+    </WidgetOptions>
+  );
 
   return (
     <Box className="story-column options-story">

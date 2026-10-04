@@ -26,6 +26,7 @@ export default standardsEslint({
     { files: ['src/composites/SplitPane/SplitPane.tsx'], why: 'the split share is dragged by the user' },
     { files: ['src/composites/FloatingSwitch/FloatingSwitch.tsx'], why: 'the thumb is placed and sized from the measured lit item' },
     { files: ['src/composites/DropdownMenu/sub-components/SubMenuPanel.tsx', 'src/composites/DropdownMenu/sub-components/SubMenuJoinPieces.tsx'], why: 'a sub-menu and the pieces that join it to its parent sit where the measured parent edge and trigger row put them' },
+    { files: ['src/composites/ControlMenu/sub-components/ControlSubPanel.tsx', 'src/composites/ControlMenu/sub-components/ControlSubUnder.tsx'], why: 'a ControlMenu sub-panel joins its row the way a DropdownMenu sub-menu does, from the measured join, or takes the width of its row' },
     { files: ['src/composites/DataTable/DataTable.tsx'], why: 'column widths are sized and resized per table' },
     { files: ['src/composites/DataTable/sub-components/GroupRow.tsx'], why: 'a group row indents by its depth' },
     { files: ['src/composites/GroupTree/sub-components/GroupTreeRow.tsx', 'src/composites/GroupTree/sub-components/GroupTreeGuides.tsx'], why: 'a tree row indents by its depth and draws a guide per ancestor' },

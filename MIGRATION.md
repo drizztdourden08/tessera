@@ -2877,84 +2877,61 @@ On Windows, a press on a window drag region (`-webkit-app-region: drag`) goes to
 
 Mark its own drag regions with `data-app-region="drag"` in place of `-webkit-app-region: drag` in CSS, so a click on them closes open popups too.
 
-## 112. The widget gear opens a DropdownMenu, and every widget menu stays on screen
+## 113. ControlMenu: a dropdown of compact controls, and WidgetOptions opens in it from the gear
 
-The gear of a widget opened `WidgetOptions`, a panel of its own, and the pin menu of a widget in its own window was cut off near the window edge and made the page scroll sideways. Both are now the shared `DropdownMenu`, opened from a button in the widget title bar.
+Section 112 is withdrawn: the widget gear does not open a DropdownMenu, and nothing it listed ships. This section takes its place, measured from 0.15.0.
 
-**The gear menu.** `Widget` takes `options`, the groups of its gear menu, and draws the gear only when it has some. `useWidgetOptionsMenu` builds those groups from the same values the panel took:
+`ControlMenu` is new, under Composites · Menus. It is a dropdown of settings behind one button: each row is a label with one compact control, such as a SegmentedControl, a Toggle, a Slider, a Select or a NumberStepper. It is a component of its own and not a DropdownMenu option, because DropdownMenu entries are actions, checks and radios that a menu walks with the arrow keys, while a ControlMenu row holds a control that takes the keys itself. It looks and closes like a DropdownMenu:
 
-| In the panel | In the menu |
-|---|---|
-| Placement row | Placement sub-menu: a radio per edge, Float and Own window, each with its hint; Pop in in its own window |
-| Main view row (docked) | Main view sub-menu: Make room or Overlay |
-| Show row | Show sub-menu: Always or In context |
-| Opacity slider | Opacity sub-menu: 100, 90, 75, 50, 25 and 0 percent |
-| Pin row (own window) | Pin sub-menu: Off or On top |
-| Snap row (own window) | Snap to edges, a check |
-| Sync with main window (own window) | Sync with main window, a check |
-| The widget's own rows (children) | the widget's own groups, through `own` |
-| Shortcut list beside the panel | Shortcuts sub-menu, each key or drag with what it does |
-| Reset button | Reset this widget, an action |
-
-Each sub-menu names its current choice under its label. Picking a check or a radio keeps the menu open; Reset closes it. Escape closes the innermost menu first, and a press anywhere outside the menu closes it, a widget title bar included.
+- the trigger and the open panel share one border, joined like the DropdownMenu trigger and its list, with the same curves;
+- `ControlMenuSub` opens a sub-panel beside the panel on hover, click, Enter or the right arrow, joined at its row the way a sub-menu is (section 109), with the same safe area for the pointer. When there is no room beside the panel, as in a narrow widget window, the sub-panel opens under its row over the panel instead;
+- `filter` adds a field at the top that narrows the rows by label; rows of a sub-panel show inline under its name while the field holds text;
+- it sits in the top layer, or the portal where the browser has no anchor positioning, stays inside the window, follows CSS zoom, and closes through the shared popup stack: Escape closes the innermost panel first, and a press outside, a window blur or a hidden page closes it.
 
 ```ts
-interface WidgetProps {
-  // ...
-  options?: readonly MenuGroup[];
+interface ControlMenuProps {
+  trigger: MenuTrigger;
+  children: ReactNode;
+  label?: string;
+  header?: ReactNode;
+  filter?: boolean;
+  filterPlaceholder?: string;
+  hints?: boolean; // the hint line at the bottom, default true
+  align?: 'start' | 'end' | 'auto'; // default auto: the side of the trigger with more room
+  variant?: MenuVariant;
+  intensity?: MenuIntensity;
+  size?: MenuSize;
+  disabled?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  className?: string;
+  triggerClassName?: string;
 }
 
-interface WidgetOptionsMenuInput {
-  placement: WidgetPlacement;
-  makeRoom: boolean;
-  opacity: number;
-  show: WidgetVisibility;
-  onDock: (edge: DockEdge) => void;
-  onFloat: () => void;
-  onMakeRoomChange: (value: boolean) => void;
-  onOpacityChange: (value: number) => void;
-  onShowChange: (value: WidgetVisibility) => void;
-  onReset: () => void;
-  dockEdge?: DockEdge;
-  onPopOut?: () => void;
-  canPopOut?: boolean;
-  pin?: PinMode;
-  onPinChange?: (mode: PinMode) => void;
-  snap?: boolean;
-  onSnapChange?: (on: boolean) => void;
-  sync?: boolean;
-  onSyncChange?: (on: boolean) => void;
-  makeRoomHint?: string;
-  contextLabel?: string;
-  own?: readonly MenuGroup[];
-}
-
-const useWidgetOptionsMenu: (input: WidgetOptionsMenuInput) => MenuGroup[];
-
-interface WidgetManagerProps {
-  // ...
-  optionGroups?: (id: WidgetId) => readonly MenuGroup[] | undefined;
-}
+interface ControlMenuRowProps { label: string; hint?: Hint; about?: string; children: ReactNode }
+interface ControlMenuSubProps { label: string; icon?: IconName; description?: string; hint?: Hint; children: ReactNode }
+interface ControlMenuGroupProps { label?: string; children: ReactNode }
 ```
 
-`WidgetManager` builds the gear menu of every widget itself; `optionGroups` adds a widget's own groups, in place of `settingsContent`.
+The shared listbox drop under Select, Combobox and the DropdownMenu trigger takes `align` too, `'start'` by default, so a drop can line up with the end of its trigger and keep the same join, mirrored. Nothing changes for an existing caller. The DropdownMenu look, trigger and sub-menu stylesheets move to `theme/dropdown-look.css`, `theme/dropdown-trigger.css` and `theme/dropdown-sub-menu.css`, so both components load them; the rules are the same.
 
-**Every widget menu stays on screen.** The gear and pin menus sit in the top layer, or in the portal where the browser has no anchor positioning, so no pane, widget or window overflow clips them and they add no scroll. A menu opens below its button, aligned to its end. When it would leave the window it moves inside it, 8 pixels from the edge, and it is never wider than the window; long labels and descriptions wrap. When the window has no room for a sub-menu beside the menu, which is the case in most widget windows, the sub-menus open inline as labelled groups of the same menu, so nothing has to sit outside the window. A menu taller than the window scrolls inside itself. The pin menu no longer squeezes to the room right of its button.
+**WidgetOptions** keeps its 0.15.0 rows and controls: Placement, Main view and Show as icon SegmentedControls, the opacity Slider, Pin, Snap and Sync with main window in its own window, the widget's own rows and the hint line. It now opens in a ControlMenu from the gear, with the title and Reset at the top, a filter, and Shortcuts as a sub-panel of rows in place of the list beside the panel. The pin menu of a widget in its own window stays a DropdownMenu and no longer squeezes against the window edge.
 
-**Removed.**
-
-| Removed | Now |
+| 0.15.0 | Now |
 |---|---|
-| `WidgetOptions`, `WidgetOptionsProps` | `useWidgetOptionsMenu` and `WidgetOptionsMenuInput`, passed to `Widget` as `options` |
-| `OptionRow`, `OptionRowProps` | a group of menu items, checks and radios, in `own` |
-| `Widget` props `onOpenOptions`, `optionsOpen` | `options`; the widget opens and closes its menu itself |
-| `WidgetManager` prop `settingsContent` | `optionGroups` |
-| strings `widgets.showShortcuts`, `hideShortcuts`, `shortcutsHint`, `closeHint`, `snap`, `snapOff`, `syncAbout`, `syncOn`, `syncOff`, `opacityHint` | nothing; `widgets.opacityValue(percent)` now reads `90%` |
-| tokens `--widget-options-w`, `--widget-options-aside-w`, `--widget-options-slider-w` | nothing; the menu sizes to its content |
-| classes `widget-options`, `widget-options__*`, `widget-options-aside`, `widget-option-row`, `widget-option-row__*`, `widget-shortcuts`, `widget-shortcuts__*` | the `DropdownMenu` classes, under `widget-menu` |
+| `<Widget onOpenOptions={(anchor) => …} optionsOpen={open} />` and a `WidgetOptions` anchored to the gear | `<Widget options={<WidgetOptions … />} />`; the gear is the trigger of the ControlMenu |
+| `WidgetOptions` props `anchorRef`, `onClose` | removed; it opens and closes itself, and takes `defaultOpen` |
+| `OptionRow`, `OptionRowProps` | `ControlMenuRow`, `ControlMenuRowProps` |
+| classes `widget-option-row`, `widget-option-row__*` | `control-menu__row`, `control-menu__label`, `control-menu__control`, `control-menu__about`, `control-menu__about-icon` |
+| classes `widget-options-aside`, `widget-options__actions`, `__rows`, `__own`, `__section`, `widget-shortcuts`, `__row`, `__keys`, `__does` | removed; the panel is a ControlMenu with `widget-options` on it |
+| class `widget-options__hint` | `control-menu__hint` |
+| token `--widget-options-aside-w` | removed |
+| strings `widgets.showShortcuts`, `hideShortcuts`, `closeHint` | removed; `shortcutsHint` describes the Shortcuts row |
+
+`WidgetManager` keeps `settingsContent`, now rows inside the gear menu.
 
 ### What an app does
 
-1. Replace a `WidgetOptions` it rendered from `onOpenOptions` with `options={useWidgetOptionsMenu({ ... })}` on the `Widget`, passing the same values, and drop `onOpenOptions` and `optionsOpen`.
-2. Turn its own `OptionRow`s into menu items: a toggle becomes `{ kind: 'check', checked, onSelect }`, a choice becomes a sub-menu of `{ kind: 'radio' }` items, and a button becomes a plain item. Pass them as `own`, or through `optionGroups` on `WidgetManager` in place of `settingsContent`.
-3. An app that styled `.widget-options` styles `.widget-menu`, the class on the menu.
+1. Pass the options of a widget as `options={<WidgetOptions … />}` on `Widget` in place of `onOpenOptions` and `optionsOpen`, and drop `anchorRef` and `onClose` from `WidgetOptions`. An app on `WidgetManager` changes nothing.
+2. Rename `OptionRow` to `ControlMenuRow`.
+3. Reach for `ControlMenu` wherever a button opens a few settings that need more than menu items.

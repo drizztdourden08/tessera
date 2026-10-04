@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { MenuGroup } from '../../DropdownMenu';
 import type { DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, ScreenPoint, Size, WidgetId } from '../../DockLayout';
 import type { WidgetDefinition, WidgetDisabledState, WidgetLayout, WidgetWindowOptions } from '../Widget.type';
 
@@ -10,6 +9,7 @@ interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   onLayoutChange: (layout: WidgetLayout) => void;
   contextActive: boolean;
   children: Record<string, ReactNode>;
+  settingsContent?: Record<string, ReactNode>;
   pageOpen?: boolean;
   developerToolsEnabled?: boolean;
   startupForcedWidgetIds?: string[];
@@ -31,7 +31,6 @@ interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   windowOptions?: (id: WidgetId) => WidgetWindowOptions | undefined;
   onWindowOptionsChange?: (id: WidgetId, patch: WidgetWindowOptions) => void;
   widgetActions?: (id: WidgetId) => ReactNode;
-  optionGroups?: (id: WidgetId) => readonly MenuGroup[] | undefined;
   className?: string;
 }
 

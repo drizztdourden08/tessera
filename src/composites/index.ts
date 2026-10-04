@@ -113,7 +113,7 @@ export { ErrorBoundary } from '../primitives/ErrorBoundary';
 export type { ErrorBoundaryProps } from '../primitives/ErrorBoundary';
 export type { DisabledOverlayProps } from './DisabledOverlay';
 export {
-  Widget, WidgetManager, useWidgetOptionsMenu, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,
+  Widget, WidgetManager, WidgetOptions, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,
   migrateLayout, loadLayoutForProfile, loadLayoutLocal, saveLayoutForProfile, saveLayoutLocal, applyEdit, dockOnEdge, dockWidget,
   dropFrame, edgeOf, floatInMain, floatWidget, frameOf, isWidgetOpen, moveMain, openStartupWidgets, openWidget, placementOf,
   popOutWidget, removeEverywhere, resolveSplit, setFrame, setMakeRoom, setPopped, visibleLayoutOf, DEFAULT_LAYOUT_STORAGE_KEY,
@@ -121,7 +121,7 @@ export {
 export type {
   FlatWidgetLayout, FlatWidgetState, PinMode, PoppedWidget, ResolvedSplit, SnapLink, SnapSide, StartupOverride,
   UseWidgetLayoutParams, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetGates, WidgetLayout, WidgetManagerProps,
-  WidgetOptionsMenuInput, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions,
+  WidgetOptionsProps, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions,
   WindowBounds,
 } from './Widget';
 export { WindowGuideOverlay } from './WindowGuideOverlay';
@@ -160,3 +160,5 @@ export { ContentHeader } from './ContentHeader';
 export type { ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';
 export { StatTile } from './StatTile';
 export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning } from './StatTile';
+export { ControlMenu, ControlMenuGroup, ControlMenuRow, ControlMenuSub } from './ControlMenu';
+export type { ControlMenuGroupProps, ControlMenuProps, ControlMenuRowProps, ControlMenuSubProps } from './ControlMenu';

@@ -1,7 +1,6 @@
 /* @layer stories @kind component */
 import type { ReactNode } from 'react';
 import { Widget } from '../../../src/composites';
-import type { MenuGroup } from '../../../src/composites';
 import { Box } from '../../../src/primitives';
 import { WIDGET_CONTENT } from './data-widget-panels';
 import type { FrameTabs } from './frame-tabs';
@@ -13,7 +12,7 @@ type DemoWidgetProps = {
   peek: boolean;
   square?: boolean;
   canPopOut: boolean;
-  options: readonly MenuGroup[];
+  options: ReactNode;
   onActivateTab: (id: string) => void;
   onClose: () => void;
   titleBarActions?: ReactNode;

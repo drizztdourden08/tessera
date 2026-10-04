@@ -14,7 +14,7 @@ import { MenuTriggerButton } from './MenuTriggerButton';
 import type { MenuFocusStart } from '../behavior/menu-context.type';
 import type { TriggerMenuProps } from '../DropdownMenu.type';
 import '../../../theme/listbox-drop.css';
-import './TriggerMenu.css';
+import '../../../theme/dropdown-trigger.css';
 
 const TriggerMenu = (props: TriggerMenuProps) => {
   const { groups, trigger, label, filterPlaceholder, onOpenChange, className } = props;

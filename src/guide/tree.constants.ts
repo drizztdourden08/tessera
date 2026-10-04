@@ -57,6 +57,7 @@ const VALUES = {
       question: 'What happens to the record?',
       answers: { 'edit it in place': null, 'create one in the page': null, 'create one in a dialog': null },
     },
+    'several settings, behind one button': null,
     'the label and help around an input': null,
   },
 } as const;

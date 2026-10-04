@@ -36,6 +36,8 @@
   --dock-divider-bar: calc(3 * var(--size-1));
   --widget-titlebar-h: calc(30 * var(--size-1));
   --widget-btn-d: var(--size-20);
+  --widget-options-w: var(--size-256);
+  --widget-options-slider-w: var(--size-128);
   --hero-h: calc(408 * var(--size-1));
   --hero-h-min: var(--size-288);
   --hero-intro-w: calc(200 * var(--size-1));

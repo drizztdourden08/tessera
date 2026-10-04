@@ -1,28 +1,22 @@
 /* @layer renderer-components @kind component */
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { Anchored } from '../../../primitives/Anchored';
 import { useDismissListeners } from '../../../primitives/Portal';
-import { joinStyle } from '../behavior/join-style';
 import { MenuContext } from '../behavior/menu-context';
 import { menuColumns } from '../behavior/menu-columns';
-import { useSafeArea } from '../behavior/useSafeArea';
-import { useSubMenuJoin } from '../behavior/useSubMenuJoin';
+import { useJoinedPanel } from '../behavior/useJoinedPanel';
 import { MenuNodes } from './MenuNodes';
 import { MenuPanel } from './MenuPanel';
 import { SubMenuJoinPieces } from './SubMenuJoinPieces';
 import type { SubMenuPanelProps } from './SubMenuPanel.type';
-import './SubMenuPanel.css';
+import '../../../theme/dropdown-sub-menu.css';
 
 const stay = (): void => undefined;
 
 const SubMenuPanel = (props: SubMenuPanelProps) => {
   const { id, anchorRef, label, start, nodes, onBack } = props;
-  const panelRef = useRef<HTMLDivElement>(null);
-  const areaRef = useRef<HTMLElement>(null);
-  const bodyRef = useRef<HTMLElement>(null);
-  const { join, native } = useSubMenuJoin(anchorRef, panelRef);
+  const { panelRef, pieces, place } = useJoinedPanel(anchorRef);
   const { look } = useContext(MenuContext);
-  useSafeArea({ rowRef: anchorRef, panelRef, areaRef, bodyRef, join });
   useDismissListeners({ open: true, onClose: stay, contentRef: panelRef, triggerRef: anchorRef, escape: false });
 
   return (
@@ -31,13 +25,10 @@ const SubMenuPanel = (props: SubMenuPanelProps) => {
       anchorRef={anchorRef}
       placement="right-start"
       flip={false}
-      fallback={join && !native ? { top: join.top, left: join.left } : null}
       className={`dropdown-menu dropdown-menu--sub dropdown-surface ${look}`}
-      data-join-side={join?.side}
-      data-join-align={join?.align}
-      style={join ? joinStyle(join, native) : undefined}
+      {...place}
     >
-      <SubMenuJoinPieces join={join} areaRef={areaRef} bodyRef={bodyRef} />
+      <SubMenuJoinPieces {...pieces} />
       <MenuPanel id={id} label={label} start={start} columns={menuColumns(nodes)} onBack={onBack}>
         <MenuNodes nodes={nodes} />
       </MenuPanel>

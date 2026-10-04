@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Anchored } from '../Anchored';
+import { dropAnchoring } from './drop-anchoring';
 import { dropStyle } from './drop-style';
 import type { ListboxDropViewProps } from './listbox-view.type';
 
@@ -9,6 +10,7 @@ const ListboxPanel = (props: ListboxDropViewProps) => {
   const look = {
     ref: drop.dropRef,
     'data-attach': drop.attach,
+    'data-align': drop.end ? 'end' : undefined,
     'data-fillet': drop.fillet || undefined,
     'data-invalid': invalid || undefined,
     'data-size': size,
@@ -16,13 +18,14 @@ const ListboxPanel = (props: ListboxDropViewProps) => {
     style: dropStyle(drop),
   };
 
+  const anchoring = dropAnchoring(drop);
   if (drop.inline) return <div className={`listbox-drop listbox-drop--inline ${className}`} {...look}>{children}</div>;
   return (
     <Anchored
       anchorRef={drop.anchorRef}
-      placement={drop.attach === 'up' ? 'top-start' : 'bottom-start'}
+      placement={anchoring.place}
       flip={false}
-      fallback={placement && { top: placement.top, left: placement.left }}
+      fallback={anchoring.fallback}
       className={`listbox-drop ${className}`}
       {...look}
     >

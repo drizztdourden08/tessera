@@ -3,6 +3,6 @@ import type { WidgetProps } from '../Widget.type';
 
 type WidgetActionsProps = Pick<
   WidgetProps, 'mode' | 'pin' | 'onPinChange' | 'titleBarActions' | 'onPopOut' | 'canPopOut' | 'options' | 'onClose'
-> & { title: string };
+>;
 
 export type { WidgetActionsProps };

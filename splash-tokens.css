@@ -249,6 +249,8 @@
   --dock-divider-bar: calc(3 * 1px);
   --widget-titlebar-h: calc(30 * 1px);
   --widget-btn-d: 20px;
+  --widget-options-w: 256px;
+  --widget-options-slider-w: 128px;
   --hero-h: calc(408 * 1px);
   --hero-h-min: 288px;
   --hero-intro-w: calc(200 * 1px);

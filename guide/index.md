@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 12 of 150 have their usage written; a linked name opens its page.
+One line per component. 13 of 151 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -92,6 +92,7 @@ One line per component. 12 of 150 have their usage written; a linked name opens 
 - `CompactRecordView`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ContentHeader](components/ContentHeader.md): The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end. Import from `@drizztdourden08/tessera`.
+- [ControlMenu](components/ControlMenu.md): A dropdown of settings behind one button: each row is a label with one compact control, and the panel joins its button like a DropdownMenu. Import from `@drizztdourden08/tessera`.
 - `CreateRecordDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DataTable`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DeleteGuardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.

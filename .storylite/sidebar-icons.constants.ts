@@ -83,7 +83,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     SearchResultHit: 'mouse-pointer-click',
   },
   'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsRow: 'sliders-horizontal' },
-  'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search' },
+  'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search', ControlMenu: 'sliders-horizontal' },
   'Composites · Data views': {
     'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',
   },

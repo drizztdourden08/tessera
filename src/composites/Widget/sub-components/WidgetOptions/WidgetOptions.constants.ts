@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind data */
-import type { PinMode, WidgetVisibility } from '../Widget.type';
-import type { IconChoice, PlacementChoice, RoomChoice, ShortcutEntry } from './widget-options-menu.type';
+import type { PinMode, WidgetVisibility } from '../../Widget.type';
+import type { IconChoice, PlacementChoice, RoomChoice, ShortcutEntry, SnapChoice } from './WidgetOptions.type';
 
 const PLACEMENT_CHOICES: readonly IconChoice<PlacementChoice>[] = [
   { value: 'left', icon: 'panel-left', label: 'dockLeft', hint: 'dockLeftHint' },
@@ -26,11 +26,16 @@ const PIN_CHOICES: readonly IconChoice<PinMode>[] = [
   { value: 'top', icon: 'pin', label: 'pinOnTop', hint: 'pinOnTopHint' },
 ];
 
-const OPACITY_PERCENTS: readonly number[] = [100, 90, 75, 50, 25, 0];
+const SNAP_CHOICES: readonly IconChoice<SnapChoice>[] = [
+  { value: 'free', icon: 'move', label: 'snapOff', hint: 'snapOffHint' },
+  { value: 'snap', icon: 'magnet', label: 'snapOn', hint: 'snapOnHint' },
+];
 
-const OPACITY_TOLERANCE = 5;
+const OPACITY_MIN = 0;
 
-const PERCENT = 100;
+const OPACITY_MAX = 100;
+
+const OPACITY_STEP = 5;
 
 const SHORTCUTS: readonly ShortcutEntry[] = [
   { gesture: 'shortcutDragTitle', does: 'shortcutDragTitleDoes' },
@@ -42,4 +47,6 @@ const SHORTCUTS: readonly ShortcutEntry[] = [
   { gesture: 'shortcutDragGap', does: 'shortcutResizeDoes' },
 ];
 
-export { OPACITY_PERCENTS, OPACITY_TOLERANCE, PERCENT, PIN_CHOICES, PLACEMENT_CHOICES, ROOM_CHOICES, SHORTCUTS, SHOW_CHOICES };
+export {
+  OPACITY_MAX, OPACITY_MIN, OPACITY_STEP, PIN_CHOICES, PLACEMENT_CHOICES, ROOM_CHOICES, SHORTCUTS, SHOW_CHOICES, SNAP_CHOICES,
+};

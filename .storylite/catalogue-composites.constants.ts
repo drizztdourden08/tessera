@@ -74,6 +74,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'DropdownMenu', summary: 'A menu of actions, checks and submenus.' },
         { name: 'CommandPalette', summary: 'A search box over the window for screens, settings and actions.' },
         { name: 'CommandPaletteRow', summary: 'One result row: icon, label, breadcrumb, check or toggle.' },
+        { name: 'ControlMenu', summary: 'A dropdown of settings, each a compact control, joined to its button.' },
       ],
     },
     {
@@ -134,7 +135,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'DockLayout', summary: 'Tiles widget panes around a main view, with drag, drop and resize.' },
         { name: 'Widget', summary: 'The frame of a tool panel: title bar, tabs, pop out, options, close.' },
-        { name: 'WidgetOptions', summary: 'The gear menu of one widget: placement, make room, show, opacity and its own items.' },
+        { name: 'WidgetOptions', summary: 'The gear options of one widget, in a ControlMenu: placement, make room, opacity, show.' },
         { name: 'WindowGuideOverlay', summary: 'A dimmed guide over the window that lists the keys while one is moved or resized.' },
       ],
     },
