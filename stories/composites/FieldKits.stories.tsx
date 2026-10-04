@@ -78,7 +78,13 @@ const { EditorControl } = kit;
 
 const Overview = overviewStory({
   component: 'resolveFieldKit',
-  description: 'Field kits are the rendering half of each field kind in a schema: string, number, boolean, enum, reference, array, object, union and unknown. RecordEditor, DataTable, CompactRecordView and FilterBar all draw fields through them, so a kind looks the same everywhere. Each kit gives an editor control, a filter control and a compact table cell, and resolveFieldKit returns the kit for a kind. A new kind is one registerFieldKit call.',
+  description: 'How each kind of field is drawn, so a string or a reference looks the same in every data view.',
+  points: [
+    'Each kind has a kit: an editor control, a filter control and a compact table cell.',
+    'The kinds are string, number, boolean, enum, reference, array, object, union and unknown.',
+    '[RecordEditor], [DataTable], [CompactRecordView] and [FilterBar] all draw fields through the kits.',
+    '`resolveFieldKit(kind)` returns the kit for a kind; `registerFieldKit` adds a new kind.',
+  ],
   variants: [AllKits],
   code: CODE,
 });

@@ -92,7 +92,14 @@ const rows = players.filter(compile(clauses, PLAYER_SCHEMA));
 
 const Overview = overviewStory({
   component: 'FilterBar',
-  description: 'The filter surface for a list of rows: a search box, then one chip per filter, then a + button that adds one. The + opens a menu of the fields in the schema; picking one adds a chip and opens its value. A chip reads like a sentence, such as Checks done is at least 100: its field turns it on and off, its operator opens the operator menu, its value opens an editor that suits the field, and the cross removes it. Reach for it above any table or list the user narrows down. It holds no filter logic: it reports the query and the clauses, and compile turns the clauses into a test for each row.',
+  description: 'A search box and filter chips above a table or list, so the user can narrow down its rows.',
+  points: [
+    '`search` and `onSearchChange` drive the box; a `schema` adds the filter chips.',
+    'The + button lists the schema fields; picking one adds a chip and opens its value.',
+    'A chip reads like a sentence: click its field to turn it off, or its operator or value to change them.',
+    '`fields` limits which fields the + button offers.',
+    '**It filters nothing itself:** `onChange` reports the `clauses`, and `compile` turns them into a row test.',
+  ],
   playground: Playground,
   variants: [SearchOnly, Empty, EveryKind],
   states: {

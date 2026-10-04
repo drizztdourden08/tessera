@@ -123,7 +123,14 @@ const CODE = `import { CompactRecordView } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'CompactRecordView',
-  description: 'A read-only property sheet for one record, one line per field, grouped from the schema the same way RecordEditor groups it. Built for a floating panel a few hundred pixels wide, where a summary fits and an editor does not. It can narrow to a list of groups or field paths, show a reference by its target\'s name, and bracket the live value beside a field that disagrees with it.',
+  description: 'One record shown read only, a line per field, for a narrow panel where an editor does not fit.',
+  points: [
+    'Give it the `record` and its `schema`; fields group the same way [RecordEditor] groups them.',
+    '`groups` narrows it to a few groups or field paths.',
+    '`resolveIdRefDisplay` shows a reference by its target\'s name instead of its id.',
+    '`diffs` marks a field that disagrees with the live value, and shows that value beside it.',
+  ],
+  instead: '[RecordEditor] when the user edits the record.',
   playground: Player,
   variants: [AllVariants],
   code: CODE,

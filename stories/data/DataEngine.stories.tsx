@@ -93,11 +93,15 @@ const SpoilerLog = () => {
 const Overview = overviewStory({
   component: 'Data engine',
   importName: 'useDataTable',
-  description: 'The headless half of the data views: plain functions and hooks with no markup of their own. buildSchema reads the rows and describes every field, compile and compileTextSearch turn filter clauses and a search into a test for each row, and useDataTable keeps the columns, a multi-level sort and layered grouping, and hands back the rows those produce. Draw its groupedRows with any markup and call its actions from headers and menus. DataTable and FilterBar are built on it; reach for it directly when a screen needs its own layout, as in the spoiler log below.',
+  description: 'The logic under the data views, with no markup: describe the rows, filter them, then sort and group them for your own layout.',
   points: [
-    'Rows sit one step in from the group they belong to, so a two-level grouping reads as a tree.',
-    'The table state is plain data: save it with a view key and ViewStorageProvider, and restore it on the next visit.',
+    '`buildSchema(rows)` reads the rows and describes every field.',
+    '`compile` and `compileTextSearch` turn filter clauses and a search into a test for each row.',
+    '`useDataTable` keeps the columns, sort and grouping, and returns `groupedRows` to draw with any markup.',
+    'Rows sit one step in from their group, so a two-level grouping reads as a tree.',
+    'The table state is plain data: a view key and `ViewStorageProvider` keep it between visits.',
   ],
+  instead: '[DataTable] and [FilterBar] when the standard table and filter bar fit the screen.',
   playground: Playground,
   variants: [Explorer],
   code: CODE,
