@@ -78,6 +78,15 @@
   border-radius: var(--radius-sm);
   background: none;
   cursor: pointer;
+  animation: title-bar-status-breathe var(--duration-status-breathe) var(--ease-in-out) infinite;
+}
+
+@keyframes title-bar-status-breathe {
+  50% { opacity: var(--opacity-glow); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window-title-bar__status { animation: none; }
 }
 
 .window-title-bar__status:focus-visible {
