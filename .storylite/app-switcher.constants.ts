@@ -2,7 +2,7 @@
 import { BRAND_FAMILY } from '../src/brand/family.constants';
 import type { GalleryApp } from './app-switcher.type';
 
-const GALLERY_APPS: readonly GalleryApp[] = (['tessera', 'rotp', 'archipelia'] as const).map((id) => ({ id, name: BRAND_FAMILY[id].name }));
+const GALLERY_APPS: readonly GalleryApp[] = (['tessera', 'rotp', 'archipelia', 'brock'] as const).map((id) => ({ id, name: BRAND_FAMILY[id].name }));
 
 const SWITCHER_BODY = `  var KEY = 'storylite:toolbar-settings';
   var GROUP_ID = 'tessera-app-switch';

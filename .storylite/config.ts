@@ -28,6 +28,7 @@ export default defineConfig({
     './src/tokens/index.css',
     './stories/themes/rotp.css',
     './stories/themes/archipelia.css',
+    './stories/themes/brock.css',
     './stories/storylite.css',
   ],
   renderers: [controlledReact()],
