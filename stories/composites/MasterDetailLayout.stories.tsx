@@ -95,7 +95,13 @@ const selected = sessions.find((s) => s.id === selectedId);
 
 const Overview = overviewStory({
   component: 'MasterDetailLayout',
-  description: 'A two-column layout: a scrolling list on the left and a detail panel on the right. Reach for it when the user picks one record from a list and reads or edits it beside the list. It is layout only: the caller fills both columns and owns the selection. detailEmpty centres the detail panel for a placeholder when nothing is picked.',
+  description: 'A scrolling list on the left and the detail of the picked item on the right.',
+  points: [
+    'Pass the `list` and the `detail` as content; the list scrolls on its own.',
+    '`detailEmpty` centres the detail panel, for a placeholder when nothing is picked.',
+    '**It is layout only:** the caller fills both columns and owns the selection.',
+  ],
+  instead: '[SplitPane] when the user should resize the two columns.',
   playground: Playground,
   variants: [],
   states: {

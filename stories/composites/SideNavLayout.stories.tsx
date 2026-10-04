@@ -119,7 +119,15 @@ const groups = searchEveryPage(query);
 
 const Overview = overviewStory({
   component: 'SideNavLayout',
-  description: 'A side nav beside a content pane: the nav picks the page, the pane shows it. Reach for it inside an app frame; for a whole screen with settings, use WorkspaceScreen, which builds one from its content. The nav is data and takes every SideNav prop. Its search never narrows the menu: the host searches the content of every page with the query and passes the matches as results, and the pane shows them while the field has focus or holds text, with no nav item current. Escape clears a filled search without leaving the screen. narrow is for a narrow window: the nav stays a strip of icons beside the page, and its toggle slides the open menu over the page, which keeps its full width. paneScroll sets what the pane scrolls: page, the default, scrolls the page and leaves the results to scroll themselves; always scrolls both; none scrolls neither, for pages that scroll themselves, such as a SettingsPage.',
+  description: 'A side nav beside a content pane: the nav picks the page and the pane shows it.',
+  points: [
+    '`nav` takes every [SideNav] prop as data.',
+    'Its search never narrows the menu: the host passes the matches as `results`, and the pane shows them.',
+    '[[Esc]] clears a filled search without leaving the screen.',
+    '`narrow` keeps the nav as a strip of icons and slides the open menu over the page.',
+    '`paneScroll` sets what scrolls: `page` by default, `always`, or `none` for pages that scroll themselves.',
+  ],
+  instead: '[WorkspaceScreen] for a whole screen, which builds one of these from its pages.',
   playground: Playground,
   variants: [Searching, Narrow],
   states: {

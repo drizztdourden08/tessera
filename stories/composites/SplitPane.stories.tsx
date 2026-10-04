@@ -109,7 +109,14 @@ const CODE = `import { SplitPane } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'SplitPane',
-  description: 'Two panes that share a space, with a bar between them the user drags to give either one more room. Reach for it when both views matter but their balance depends on the task, such as a file list beside a preview or an editor above its console. The bar shows a thin line with a grip in the middle and lights up under the pointer. `orientation` puts the panes side by side or one above the other, and `minRatio` and `maxRatio` keep both panes usable. Dragging a pane past the snap point hides it and leaves a labelled rail that brings it back on a click or a drag. The bar takes the arrow keys (Shift for bigger steps), Home and End, and a double-click or Enter resets it. It fills its parent, so the parent needs a size.',
+  description: 'Two panes with a bar between them that the user drags to give either one more room.',
+  points: [
+    '`orientation` puts the panes side by side or one above the other.',
+    '`minRatio` and `maxRatio` keep both panes usable; `defaultRatio` sets the first split.',
+    'Dragging past `snapAt` hides a pane behind a labelled rail; a click or a drag brings it back.',
+    'The bar takes the arrow keys, [[Home]] and [[End]]; a double click or [[Enter]] resets it.',
+    '**The parent needs a size:** the split fills it.',
+  ],
   playground: Playground,
   variants: [EditorAndConsole],
   states: {
