@@ -113,7 +113,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Data': { Engine: 'cpu' },
   'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge', StackedBar: 'chart-bar-stacked' },
   'Composites · Charts': { StatTile: 'trending-up' },
-  'Preview · For approval': { 'Mascot stage': 'theater' },
+  'Preview · For approval': { 'Mascot stage': 'theater', EditorHeader: 'panel-top-dashed', RowGrid: 'rows-4' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };
