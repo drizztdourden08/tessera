@@ -823,8 +823,8 @@
       "at": "2026-10-03"
     },
     "SideNavLayout": {
-      "status": "ok",
-      "hash": "5094fe646126cbc0",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     }
   },
@@ -964,8 +964,8 @@
       "at": "2026-10-03"
     },
     "Hero": {
-      "status": "ok",
-      "hash": "28777f91e8f376ef",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "PixelWordmark": {
@@ -1050,17 +1050,17 @@
       "at": "2026-10-04"
     },
     "ScreenWindow": {
-      "status": "ok",
-      "hash": "2139d48706aa4236",
-      "at": "2026-10-03"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "ScreenPage": {
       "status": "new"
     },
     "ScreenLayer": {
-      "status": "ok",
-      "hash": "2bd27710aec3d8bb",
-      "at": "2026-10-03"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     }
   },
   "Data": {
