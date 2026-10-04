@@ -1,14 +1,8 @@
 /* @layer stories @kind data */
-import type { SideNavConfig, SideNavItem } from '../../../src/composites';
-import { Icon } from '../../../src/primitives';
-import { NAV_ICONS } from './nav';
-import type { NavIcon } from './nav';
+import type { SideNavConfig } from '../../../src/composites';
+import { navItem } from './nav-item';
 
 type LeadCase = 'search' | 'item' | 'label' | 'one';
-
-const navItem = (id: string, label: string, icon: NavIcon): SideNavItem => ({
-  id, label, icon: <Icon name={NAV_ICONS[icon]} size={18} />,
-});
 
 const PLAY = { id: 'play', label: 'Play', items: [navItem('sessions', 'Sessions', 'sessions'), navItem('players', 'Players', 'players')] };
 

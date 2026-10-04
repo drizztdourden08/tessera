@@ -1885,3 +1885,23 @@ The gallery Playground picks the family and the name from two selects. The name 
 ### What an app does
 
 Nothing. To build a picker or check stored data, read `INPUT_ICON_NAMES[family]` or call `isInputIconName(family, name)` in place of `Object.keys(INPUT_ICONS[family])`.
+
+## 74. ScrollArea takes a slim gold scrollbar, and SideNav uses it
+
+ScrollArea takes `scrollbar`. The default, `native`, is the bar it always drew. `slim` hides the browser bar and paints a thin line in the primary colour along the edge, on the area's own background, so it takes no layout width and the content keeps its size whether or not it scrolls.
+
+```ts
+type ScrollAreaScrollbar = 'native' | 'slim';
+
+interface ScrollAreaProps {
+  scrollbar?: ScrollAreaScrollbar;
+}
+```
+
+The line is 3px wide at rest (`--scrollbar-slim`) and 5px under the pointer or while dragged (`--scrollbar-slim-active`). It keeps 2px from the edge and 4px from each end, and is never shorter than 24px. A host class can change those with `--scroll-thumb-edge`, `--scroll-thumb-ends` and `--scroll-thumb-min`. Content painted right up to that edge covers the line, so leave some padding there.
+
+SideNav's groups now scroll in a slim ScrollArea, with the line kept a corner radius away from each end. In the collapsed column the browser bar used to take 10px from the items, squeezing a 38px item to 28px. The items now keep their width and position, and the groups fade at an edge with more to scroll, as every ScrollArea does.
+
+### What an app does
+
+Nothing. Pass `scrollbar="slim"` to a ScrollArea that should scroll without giving up width.

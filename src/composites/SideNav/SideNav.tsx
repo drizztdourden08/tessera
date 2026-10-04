@@ -2,6 +2,7 @@
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
 import { Icon } from '../../primitives/Icon';
+import { ScrollArea } from '../../primitives/ScrollArea';
 import { Span } from '../../primitives/text-elements';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { leadRow } from './behavior/lead-row';
@@ -46,7 +47,7 @@ const SideNav = (props: SideNavProps) => {
           onSelect={select}
         />
 
-        <Box className="side-nav__groups">
+        <ScrollArea scrollbar="slim" className="side-nav__groups">
           {config.groups.map((group) => (
             <Box key={group.id} className="side-nav__group" role="group" aria-label={group.label}>
               {group.label ? <Span tone="muted" className="side-nav__group-label">{group.label}</Span> : null}
@@ -55,7 +56,7 @@ const SideNav = (props: SideNavProps) => {
               ))}
             </Box>
           ))}
-        </Box>
+        </ScrollArea>
       </Box>
     </Box>
   );

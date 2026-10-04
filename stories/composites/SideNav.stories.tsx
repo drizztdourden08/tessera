@@ -10,6 +10,7 @@ import type { StateProps } from '../_template/states/states.type';
 import { navItemStates } from './_samples/nav-states';
 import { NAV_ICONS } from './_samples/nav';
 import { SideNavLeads } from './_samples/SideNavLeads';
+import { SideNavScroll } from './_samples/SideNavScroll';
 import type { NavIcon } from './_samples/nav';
 import './SideNav.stories.css';
 
@@ -108,6 +109,11 @@ const FirstRows = {
   render: () => <SideNavLeads />,
 } satisfies StoryLiteStoryDefinition<SideNavArgs>;
 
+const ManyItems = {
+  name: 'Many items, scrolling',
+  render: () => <SideNavScroll />,
+} satisfies StoryLiteStoryDefinition<SideNavArgs>;
+
 const RAIL_GROUPS: SideNavConfig['groups'] = [
   { id: 'main', items: [HOME, item('sessions', 'Sessions', 'sessions')] },
   ...GROUPS.slice(1).map((group) => ({ ...group, items: group.items.map((entry) => ({ ...entry, disabled: entry.id === 'logs' })) })),
@@ -169,7 +175,7 @@ const Overview = overviewStory({
   component: 'SideNav',
   description: 'The side nav of a window with several sections: a column of gold line icons, collapsed by default, which a chevron on its edge opens to show group and item labels. The chevron sits level with the first row, whether that is the search field, a group label or an item. Reach for it for the top-level sections of a window, such as a data manager. It can pin a Home item above the groups and hold a search field that grows when the nav opens; the host owns the query and shows the results. With overlay, as SideNavLayout sets when narrow, the open panel slides over the content, so the page keeps its width, and Escape, a click outside or picking an item closes it. The rail variant is the app-level screen list: it sits flush on the window edge on the surface fill, shows its labels unless the host collapses it, draws no toggle, and can hold disabled items and a group with no label.',
   playground: Playground,
-  variants: [OpenWithSearch, GroupsOnly, FirstRows, Rail, RailCollapsed],
+  variants: [OpenWithSearch, GroupsOnly, FirstRows, ManyItems, Rail, RailCollapsed],
   states: {
     render: renderState,
     list: [
@@ -182,4 +188,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { FirstRows, GroupsOnly, OpenWithSearch, Overview, Playground, Rail, RailCollapsed };
+export { FirstRows, GroupsOnly, ManyItems, OpenWithSearch, Overview, Playground, Rail, RailCollapsed };

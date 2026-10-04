@@ -2,13 +2,14 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
 import { Box, ScrollArea, Text } from '../../src/primitives';
-import type { ScrollAxis, ScrollPosition } from '../../src/primitives';
+import type { ScrollAreaScrollbar, ScrollAxis, ScrollPosition } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './ScrollArea.stories.css';
 
 type ScrollAreaArgs = {
   axis: ScrollAxis;
+  scrollbar: ScrollAreaScrollbar;
   entries: number;
 };
 
@@ -28,10 +29,11 @@ const SETTINGS_KEYS = ['scale', 'aspect', 'vsync', 'shader', 'volume', 'latency'
 const configLines = (suffix: string) =>
   Array.from({ length: 30 }, (_, index) => `${SETTINGS_KEYS[index % SETTINGS_KEYS.length]}.${Math.floor(index / 10)} = ${suffix}${index}`);
 
-const ARGS: Partial<ScrollAreaArgs> = { axis: 'y', entries: 24 };
+const ARGS: Partial<ScrollAreaArgs> = { axis: 'y', scrollbar: 'native', entries: 24 };
 
 const ARG_TYPES: StoryLiteArgTypes<ScrollAreaArgs> = {
     axis: { control: 'select', options: ['y', 'x', 'both'] },
+    scrollbar: { control: 'select', options: ['native', 'slim'] },
     entries: { control: 'number' },
   };
 
@@ -45,7 +47,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <ScrollArea axis={args.axis} className="scroll-demo">
+    <ScrollArea axis={args.axis} scrollbar={args.scrollbar} className="scroll-demo">
       {Array.from({ length: Math.max(0, args.entries) }, (_, index) => (
         <Box key={index} className="scroll-demo__entry">
           <Text variant="caption">{`Version 2.${Math.floor(index / 4)}.${index % 4}`}</Text>
@@ -57,6 +59,8 @@ const Playground = {
 } satisfies StoryLiteStoryDefinition<ScrollAreaArgs>;
 
 const AXES: readonly ScrollAxis[] = ['y', 'x', 'both'];
+
+const SCROLLBARS: readonly ScrollAreaScrollbar[] = ['native', 'slim'];
 
 const axisContent = (axis: ScrollAxis) => {
   if (axis === 'y') {
@@ -83,8 +87,10 @@ const AllVariants = {
   render: () => (
     <Demonstrator
       rows={AXES.map((axis) => ({ key: axis, label: `axis ${axis}` }))}
+      columns={SCROLLBARS.map((scrollbar) => ({ key: scrollbar, label: `scrollbar ${scrollbar}` }))}
+      fill
       align="stretch"
-      cell={(axis) => <ScrollArea axis={axis} className="scroll-demo">{axisContent(axis)}</ScrollArea>}
+      cell={(axis, scrollbar) => <ScrollArea axis={axis} scrollbar={scrollbar} className="scroll-demo">{axisContent(axis)}</ScrollArea>}
     />
   ),
 } satisfies StoryLiteStoryDefinition<ScrollAreaArgs>;
@@ -148,7 +154,7 @@ const CODE = `import { Box, ScrollArea } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'ScrollArea',
-  description: 'A scrollable region with the one scrollbar style used everywhere, and scrolling that glides instead of jumping. Use it wherever content can grow past a fixed height or width. axis picks y, x or both, and the other direction is clipped. onScroll and scrollTo let two areas move together, as in a side by side comparison.',
+  description: 'A scrollable region with a styled scrollbar, and scrolling that glides instead of jumping. Use it wherever content can grow past a fixed height or width. axis picks y, x or both, and the other direction is clipped. scrollbar slim swaps the bar for a thin gold line painted along the edge, so it takes no width and the content keeps its size; it widens under the pointer and can be dragged. Leave some padding on that edge, since content painted there covers the line. onScroll and scrollTo let two areas move together, as in a side by side comparison.',
   playground: Playground,
   variants: [AllVariants],
   code: CODE,

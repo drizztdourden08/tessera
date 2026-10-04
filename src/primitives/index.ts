@@ -79,7 +79,7 @@ export { Portal, useAnchorTracking, dropPanelPositionFor } from './Portal';
 export type {
   DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult,
 } from './Portal';
-export { ScrollArea, type ScrollAreaProps, type ScrollAxis, type ScrollPosition } from './ScrollArea';
+export { ScrollArea, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition } from './ScrollArea';
 export { Toast, ToastContainer } from './Toast';
 export type { PortalLayer } from './Portal';
 export type { ToastItem, ToastVariant, ToastPosition, ToastProps, ToastContainerProps } from './Toast';

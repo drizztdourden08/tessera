@@ -217,6 +217,8 @@
   --space-2xl: 32px;
   --titlebar-height: 40px;
   --scrollbar-size: 6px;
+  --scrollbar-slim: calc(3 * 1px);
+  --scrollbar-slim-active: calc(5 * 1px);
   --brand-mark-sm: 16px;
   --brand-mark-md: 24px;
   --brand-mark-lg: 48px;

@@ -72,8 +72,49 @@
   background: transparent;
 }
 
+:where(.scroll-area[data-scrollbar='slim']) {
+  --scroll-thumb-edge: var(--size-2);
+  --scroll-thumb-ends: var(--size-4);
+  --scroll-thumb-min: var(--size-24);
+}
+
+.scroll-area[data-scrollbar='slim'] {
+  --scroll-thumb-w: var(--scrollbar-slim);
+
+  scrollbar-width: none;
+  background-image: linear-gradient(var(--c-primary), var(--c-primary)), linear-gradient(var(--c-primary), var(--c-primary));
+  background-repeat: no-repeat;
+  background-position:
+    right var(--scroll-thumb-edge) top calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-y-progress, 0)) + var(--scroll-thumb-y-progress, 0) * 100%),
+    left calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-x-progress, 0)) + var(--scroll-thumb-x-progress, 0) * 100%) bottom var(--scroll-thumb-edge);
+  background-size:
+    var(--scroll-thumb-y-w, 0) min(100% - 2 * var(--scroll-thumb-ends), max(var(--scroll-thumb-min), var(--scroll-thumb-y-fraction, 0) * (100% - 2 * var(--scroll-thumb-ends)))),
+    min(100% - 2 * var(--scroll-thumb-ends), max(var(--scroll-thumb-min), var(--scroll-thumb-x-fraction, 0) * (100% - 2 * var(--scroll-thumb-ends)))) var(--scroll-thumb-x-w, 0);
+  transition: background-size var(--transition-fast);
+}
+
+.scroll-area[data-scrollbar='slim'][data-overflow~='y'] {
+  --scroll-thumb-y-w: var(--scroll-thumb-w);
+}
+
+.scroll-area[data-scrollbar='slim'][data-overflow~='x'] {
+  --scroll-thumb-x-w: var(--scroll-thumb-w);
+}
+
+.scroll-area[data-scrollbar='slim'][data-scroll-thumb] {
+  --scroll-thumb-w: var(--scrollbar-slim-active);
+}
+
+.scroll-area[data-scrollbar='slim']::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-area {
     scroll-behavior: auto;
+  }
+
+  .scroll-area[data-scrollbar='slim'] {
+    transition: none;
   }
 }

@@ -70,9 +70,10 @@
 }
 
 .side-nav__groups {
+  --scroll-thumb-ends: var(--radius-xl);
+
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   padding: 0 var(--space-sm) var(--space-sm);
