@@ -37,7 +37,7 @@ const PlayersPanel = (props: PlayersView) => (
   </Stack>
 );
 
-const LogWidget = () => <LogPanel rows={LOG_ROWS} className="server-log" countLabel="lines" />;
+const LogWidget = () => <LogPanel rows={LOG_ROWS} className="server-log" countLabel="lines" height="fill" />;
 
 const HintsPanel = () => (
   <Stack className="widget-story__list">
@@ -60,7 +60,7 @@ const ConsolePanel = () => {
   };
   return (
     <Stack className="widget-story__console">
-      <Box className="widget-story__list">
+      <Box className="widget-story__list widget-story__lines">
         {lines.map((line, i) => <Text key={`${i}-${line}`} className="widget-story__mono">{line}</Text>)}
       </Box>
       <TextInput

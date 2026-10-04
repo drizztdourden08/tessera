@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind barrel */
 export { Box, type BoxProps } from './Box';
-export { Card, type CardProps } from './Card';
+export { Card, type CardHeading, type CardProps, type CardTone, type CardVariant } from './Card';
 export { Text, type TextProps, type TextVariant } from './Text';
 export { featureSettings, typesettingStyle, TYPE_FEATURE_GROUPS, TYPE_FEATURES } from './Text';
 export type { OpticalSize, Typesetting, TypeFeature, TypeFeatureGroup, TypeFeatureInfo } from './Text';

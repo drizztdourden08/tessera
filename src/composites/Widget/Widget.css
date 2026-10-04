@@ -129,6 +129,48 @@
   padding-bottom: calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active));
 }
 
+.widget__content--pad-sm {
+  padding: var(--space-sm) max(var(--space-sm), calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active))) var(--space-sm) var(--space-sm);
+}
+
+.widget__content--pad-md {
+  padding: var(--space-md) max(var(--space-md), calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active))) var(--space-md) var(--space-md);
+}
+
+.widget__content--pad-sm[data-overflow~='x'] {
+  padding-bottom: max(var(--space-sm), calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active)));
+}
+
+.widget__content--pad-md[data-overflow~='x'] {
+  padding-bottom: max(var(--space-md), calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active)));
+}
+
+.widget .widget__content[data-fill] {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.widget .widget__content--pad-none[data-fill] {
+  padding: 0;
+}
+
+.widget .widget__content--pad-sm[data-fill] {
+  padding: var(--space-sm);
+}
+
+.widget .widget__content--pad-md[data-fill] {
+  padding: var(--space-md);
+}
+
+.widget__content[data-fill] > *,
+.widget__content[data-fill] > .disabled-overlay > .disabled-overlay__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
 @position-try --widget-menu-start {
   right: auto;
   left: var(--space-xs);

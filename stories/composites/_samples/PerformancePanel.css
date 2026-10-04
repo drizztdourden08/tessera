@@ -1,7 +1,6 @@
 /* @layer stories @kind style */
 .performance-panel {
   box-sizing: border-box;
-  padding: var(--space-sm);
 }
 
 .performance-panel__heading {

@@ -9,6 +9,7 @@ const WidgetPane = (props: WidgetPaneProps) => {
   const { api, widgets, activeId, paneKey, options } = props;
   const tabs = useMemo(() => widgets.map((id) => ({ id, label: api.labelOf(id) })), [widgets, api]);
   const disabled = api.disabledOf(activeId);
+  const definition = api.definitionOf(activeId);
   const openSettings = api.onOpenSettings;
   const onOpenSettings = disabled && openSettings ? () => openSettings(disabled.settingId) : undefined;
 
@@ -18,7 +19,9 @@ const WidgetPane = (props: WidgetPaneProps) => {
       tabs={tabs}
       activeId={activeId}
       paneKey={paneKey}
-      opacity={frameOf(api.layout, activeId, api.definitionOf(activeId)).opacity}
+      opacity={frameOf(api.layout, activeId, definition).opacity}
+      padding={definition?.padding}
+      fill={definition?.fill}
       peek={api.peek}
       options={options}
       onActivateTab={(id) => { if (paneKey) api.apply({ type: 'activate-tab', key: paneKey, id }); }}

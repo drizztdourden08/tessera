@@ -46,6 +46,6 @@ describe('the widget body', () => {
       id: 'perf', tabs: [{ id: 'perf', label: 'Performance' }], activeId: 'perf', paneKey: null, opacity: 1,
       onActivateTab: () => undefined, onOpenOptions: () => undefined, onClose: () => undefined,
     }, h('p', null, 'Frame time')));
-    expect(html).toMatch(/class="scroll-area widget__content"[^>]*data-axis="both"[^>]*data-scrollbar="slim"/);
+    expect(html).toMatch(/class="scroll-area widget__content widget__content--pad-sm"[^>]*data-axis="both"[^>]*data-scrollbar="slim"/);
   });
 });

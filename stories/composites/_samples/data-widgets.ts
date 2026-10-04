@@ -9,7 +9,7 @@ const WIDGET_DEFINITIONS: readonly WidgetDefinition[] = [
   },
   {
     id: 'log', label: 'Server log', defaultVisibility: 'always', defaultSide: 'bottom',
-    defaultDockedSize: 170, defaultFloatingSize: { width: 480, height: 220 }, popOut: true,
+    defaultDockedSize: 170, defaultFloatingSize: { width: 480, height: 220 }, popOut: true, padding: 'none', fill: true,
   },
   {
     id: 'hints', label: 'Hints', defaultVisibility: 'context-only', defaultSide: 'right',
@@ -17,7 +17,7 @@ const WIDGET_DEFINITIONS: readonly WidgetDefinition[] = [
   },
   {
     id: 'console', label: 'Console', defaultVisibility: 'always', defaultSide: 'right',
-    defaultDockedSize: 300, defaultFloatingSize: { width: 340, height: 200 },
+    defaultDockedSize: 300, defaultFloatingSize: { width: 340, height: 200 }, fill: true,
   },
 ];
 

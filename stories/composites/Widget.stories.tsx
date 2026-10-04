@@ -6,6 +6,7 @@ import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { WidgetDock } from './_samples/data-widget-dock';
 import { PerformanceWidget } from './_samples/PerformanceWidget';
+import { WidgetBodyDemo } from './_samples/WidgetBodyDemo';
 import { WidgetFrameDemo } from './_samples/WidgetFrameDemo';
 import './Widget.stories.css';
 
@@ -80,6 +81,11 @@ const Dock = {
   render: (args) => <WidgetDock {...args} />,
 } satisfies PlaygroundStory<WidgetArgs>;
 
+const Bodies = {
+  name: 'Body padding and fill',
+  render: () => <WidgetBodyDemo />,
+} satisfies StoryLiteStoryDefinition<WidgetArgs>;
+
 const Performance = {
   name: 'A performance widget, live',
   render: () => <PerformanceWidget />,
@@ -118,12 +124,12 @@ const Overview = overviewStory({
     'The title bar is the drag handle, with the name or tabs; pop out, options and close name the widget.',
     '`titleBarActions` adds buttons before the built-in ones; in its own window `pin` keeps it on top.',
     'Each widget carries `data-widget-id` and each [DockLayout] pane `data-pane-id`, for tests.',
-    'The body scrolls with the slim scrollbar in a gutter of its own, so the thumb never covers text.',
-    'The frame takes `opacity` and turns solid on hover; `peek` folds it and `square` drops its corners.',
+    'The body scrolls in a gutter of its own and takes `padding`, `sm` by default, or `none` or `md`.',
+    '`fill`, here or in the widget definition, makes the body a full-height column for a log or a chart.',
     '`options` puts [WidgetOptions], a [ControlMenu], on the gear; `WidgetManager` places a whole dock from a layout.',
   ],
   playground: Playground,
-  variants: [Single, Tabbed, OwnWindow, OwnActions, Fullscreen, Folded, Dock, Performance],
+  variants: [Single, Tabbed, OwnWindow, OwnActions, Fullscreen, Folded, Bodies, Dock, Performance],
   states: {
     render: renderState,
     list: [
@@ -137,4 +143,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Dock, Folded, Fullscreen, OwnActions, OwnWindow, Overview, Performance, Playground, Single, Tabbed };
+export { Bodies, Dock, Folded, Fullscreen, OwnActions, OwnWindow, Overview, Performance, Playground, Single, Tabbed };

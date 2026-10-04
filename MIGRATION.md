@@ -3495,3 +3495,46 @@ interface ToastItem {
 
 1. Pass `action: { label: 'Retry', onSelect: save }` on the danger toast of a failed save, in place of a separate button or a second toast.
 2. Nothing for ScreenLayer: the switcher moves in the Tab order by itself.
+
+## 135. Card has a header row, and the Widget body takes padding and fill
+
+From the Archipelia review (tessera-21, tessera-23), as decided by the owner (T-05, T-06).
+
+- **Card takes a header.** `title` draws a header row at the top of the card in the SectionHeader look, which it reuses: `subtitle` under the title, `count` as a Badge after it, `actions` at the end, and `level` for the heading, `h3` by default. The row is at least 40 px tall, with a hairline under it, and the body keeps the card padding below. `tone` tints the row: `neutral` (the default) leaves it plain, while `primary`, `info`, `success`, `warning` and `danger` give it a soft fill, a tinted line and a bright title. A card with no `title` draws as before.
+- **`title` on a Card is no longer the native tooltip.** CardProps now leaves the `title` HTML attribute out, so a string there draws the header row.
+- **The Widget body takes padding.** `padding` is `none`, `sm` (8 px, the default) or `md` (12 px). The right side keeps the scrollbar gutter: it is the larger of the padding and the gutter of 0.15.0, so the slim thumb still never covers text.
+- **The Widget body can fill.** With `fill`, the body is a full-height column that does not scroll, and its child stretches to the full height, also inside a DisabledOverlay, for a log, a chart or a console with an input at the bottom.
+- **The widget definition takes both.** `padding` and `fill` sit on WidgetDefinition too, and WidgetManager passes them to each Widget it draws.
+
+```ts
+type CardTone = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
+
+interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+  variant?: 'default' | 'interactive' | 'danger';
+  // added
+  title?: ReactNode;
+  subtitle?: ReactNode;
+  actions?: ReactNode;
+  count?: number;
+  tone?: CardTone; // default 'neutral'
+  level?: HeadingLevel; // default 3
+  children: ReactNode;
+}
+
+type WidgetPadding = 'none' | 'sm' | 'md';
+
+interface WidgetBodyLook {
+  padding?: WidgetPadding; // default 'sm'
+  fill?: boolean;
+}
+
+interface WidgetProps extends WidgetBodyLook { /* as before */ }
+interface WidgetDefinition extends WidgetBodyLook { /* as before */ }
+```
+
+### What an app does
+
+1. Replace a SectionHeader inside a Stack inside a Card with `<Card title subtitle count actions>`, and drop the CSS that drew a title bar on a card.
+2. A Card that set the native `title` attribute for a tooltip wraps the card in a Tooltip instead.
+3. Drop the padding an app put on every widget body, such as `padding: var(--space-sm)`: the body pads itself now. A widget whose content draws its own edge, such as a LogPanel, passes `padding: 'none'`.
+4. Replace a `height: 100%` flex column class on a widget body with `fill: true` on the Widget or in its definition.

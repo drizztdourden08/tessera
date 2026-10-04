@@ -10,6 +10,13 @@ type WidgetPlacement = 'docked' | 'floating' | 'popped';
 
 type PinMode = 'off' | 'top';
 
+type WidgetPadding = 'none' | 'sm' | 'md';
+
+interface WidgetBodyLook {
+  padding?: WidgetPadding;
+  fill?: boolean;
+}
+
 interface WindowBounds {
   x: number;
   y: number;
@@ -46,7 +53,7 @@ interface WidgetLayout extends DockTree {
   poppedMemory?: Partial<Record<WidgetId, PoppedWidget>>;
 }
 
-interface WidgetDefinition {
+interface WidgetDefinition extends WidgetBodyLook {
   id: string;
   label: string;
   defaultVisibility: WidgetVisibility;
@@ -67,7 +74,7 @@ interface WidgetTab {
   label: string;
 }
 
-interface WidgetProps {
+interface WidgetProps extends WidgetBodyLook {
   id: WidgetId;
   tabs: WidgetTab[];
   activeId: WidgetId;
@@ -88,6 +95,6 @@ interface WidgetProps {
 }
 
 export type {
-  PinMode, PoppedWidget, SnapLink, SnapSide, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
-  WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds,
+  PinMode, PoppedWidget, SnapLink, SnapSide, WidgetBodyLook, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
+  WidgetPadding, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds,
 };
