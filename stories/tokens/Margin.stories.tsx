@@ -22,7 +22,13 @@ const Values = {
 
 const Overview = overviewStory({
   component: 'Margin',
-  description: 'The space outside an element. Margin takes a step of the one spacing scale, never a raw length.',
+  description: 'The space outside an element, from the one spacing scale.',
+  points: [
+    'Margin takes a `--space-*` step, from `--space-2xs` to `--space-2xl`, never a raw length.',
+    'Each row shows the step on a sample, beside its value.',
+    'Vertical margins between stacked blocks collapse, so two margins can show as one.',
+  ],
+  instead: '[Gap] between items in a layout, or [Padding] inside an element.',
   variants: [Values],
 });
 

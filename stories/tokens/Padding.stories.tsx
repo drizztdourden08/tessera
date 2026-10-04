@@ -22,7 +22,13 @@ const Values = {
 
 const Overview = overviewStory({
   component: 'Padding',
-  description: 'The space inside an element, between its edge and its content. Padding takes a step of the one spacing scale, never a raw length.',
+  description: 'The space inside an element, between its edge and its content, from the one spacing scale.',
+  points: [
+    'Padding takes a `--space-*` step, from `--space-2xs` to `--space-2xl`, never a raw length.',
+    'Each row shows the step on a sample, beside its value.',
+    'Keep the padding of sibling panels on the same step so their content lines up.',
+  ],
+  instead: '[Gap] between items in a layout, or [Margin] outside an element.',
   variants: [Values],
 });
 

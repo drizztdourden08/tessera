@@ -10,7 +10,13 @@ const meta = {
 
 const { Overview, Values } = scaleStories({
   name: 'Easings',
-  description: 'The curves motion follows: standard for most changes, emphasized for a part entering the screen. Point at a track to play it.',
+  description: 'The curves motion follows.',
+  points: [
+    '`--ease-standard` suits most changes.',
+    '`--ease-emphasized` suits a part entering the screen: it starts fast and settles slowly.',
+    'Point at a track to play it.',
+  ],
+  instead: '[Transitions] for a duration and an easing paired.',
   specimen: 'easing',
   tokens: EASINGS,
 });

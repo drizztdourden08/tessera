@@ -10,7 +10,12 @@ const meta = {
 
 const { Overview, Values } = scaleStories({
   name: 'Z-index',
-  description: 'The stacking layers, lowest to highest: the page, sticky chrome, panels, floating parts, dialogs, popovers, toasts and tooltips. A component takes its layer from here, never a raw number.',
+  description: 'The stacking layers, lowest to highest, from the page to tooltips.',
+  points: [
+    'Sticky chrome, panels, floating parts, dialogs, popovers, toasts and tooltips each have a layer.',
+    'A component takes its layer from here, such as `--z-modal`, never a raw number.',
+    '`--z-top` is the highest layer, above every other part.',
+  ],
   specimen: 'z',
   tokens: Z_INDEX,
 });

@@ -22,7 +22,12 @@ const Values = {
 
 const Overview = overviewStory({
   component: 'Radius',
-  description: 'Corner rounding. Every rounded corner takes a step of this one scale.',
+  description: 'Corner rounding: every rounded corner takes a step of this one scale.',
+  points: [
+    '`--radius-sm` to `--radius-xl` round chips, controls, cards and panels.',
+    '`--radius-pill` gives a fully rounded end; `--radius-round` makes a circle.',
+    'A corner never takes a raw length.',
+  ],
   variants: [Values],
 });
 

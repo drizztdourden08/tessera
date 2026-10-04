@@ -10,7 +10,13 @@ const meta = {
 
 const { Overview, Values } = scaleStories({
   name: 'Transitions',
-  description: 'A duration and an easing paired, ready for the transition property: fast for hover and focus, normal for parts that open and close. Point at a track to play it.',
+  description: 'A duration and an easing paired, ready for the `transition` property.',
+  points: [
+    '`--transition-fast` suits hover and focus.',
+    '`--transition-normal` suits parts that open and close.',
+    'Point at a track to play it.',
+  ],
+  instead: '[Durations] and [Easings] to time a motion of your own.',
   specimen: 'transition',
   tokens: TRANSITIONS,
 });

@@ -22,7 +22,13 @@ const Values = {
 
 const Overview = overviewStory({
   component: 'Gap',
-  description: 'The gap between items in a flex or grid layout. Gap takes a step of the one spacing scale, never a raw length.',
+  description: 'The gap between items in a flex or grid layout, from the one spacing scale.',
+  points: [
+    'Gap takes a `--space-*` step, from `--space-2xs` to `--space-2xl`, never a raw length.',
+    'Each row shows the step on a sample, beside its value.',
+    'Gap keeps spacing on the parent, so a child added or removed leaves no stray margin.',
+  ],
+  instead: '[Padding] inside an element, or [Margin] outside one.',
   variants: [Values],
 });
 

@@ -9,7 +9,7 @@ import { TokenValue } from './TokenValue';
 import type { ScaleStoriesParams } from './scale-stories.type';
 
 const scaleStories = (params: ScaleStoriesParams) => {
-  const { name, description, specimen, tokens } = params;
+  const { name, description, points, instead, specimen, tokens } = params;
   const Values = {
     name,
     render: () => (
@@ -22,7 +22,7 @@ const scaleStories = (params: ScaleStoriesParams) => {
       />
     ),
   } satisfies StoryLiteStoryDefinition;
-  const Overview = overviewStory({ component: name, description, variants: [Values] });
+  const Overview = overviewStory({ component: name, description, points, instead, variants: [Values] });
   return { Overview, Values };
 };
 

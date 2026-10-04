@@ -22,7 +22,12 @@ const Scale = {
 
 const Overview = overviewStory({
   component: 'Size scale',
-  description: 'The one size scale. Spacing, radius, type, borders, shadows, fixed sizes and breakpoints are all steps of it, and nothing sits in between.',
+  description: 'The one size scale: every length in Tessera is a step of it, and nothing sits in between.',
+  points: [
+    'Spacing, radius, type, borders, shadows, fixed sizes and breakpoints are all built from its steps.',
+    'Each step is a `--size-*` token named after its pixel value, such as `--size-16`.',
+    'App CSS picks a named token built on it, such as `--space-md`, before a bare step.',
+  ],
   variants: [Scale],
 });
 

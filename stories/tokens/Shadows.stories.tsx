@@ -10,7 +10,12 @@ const meta = {
 
 const { Overview, Values } = scaleStories({
   name: 'Shadows',
-  description: 'Elevation, from a card resting on the page to a dropdown and an overlay floating above it. Each row casts its shadow on a sample surface, with the value the page resolves.',
+  description: 'Elevation, from a card resting on the page to a dropdown and an overlay floating above it.',
+  points: [
+    '`--shadow-1` to `--shadow-3` lift resting surfaces, lowest first.',
+    '`--shadow-dropdown` and `--shadow-overlay` are for menus and overlays that float above the page.',
+    'Each row casts its shadow on a sample surface, beside the value the page resolves.',
+  ],
   specimen: 'shadow',
   tokens: SHADOWS,
 });
