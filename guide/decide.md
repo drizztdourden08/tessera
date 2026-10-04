@@ -94,6 +94,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Content that scrolls: no component yet.
   - A list beside its detail: no component yet.
   - Two panes the user resizes: no component yet.
+  - A list beside an editor, with unsaved edits guarded: [MasterDetail](components/MasterDetail.md). MasterDetail joins ManagedList and MasterDetailLayout and asks the same question before edits are lost in every app.
   - An app frame with its navigation: no component yet.
   - Panels the user docks and moves: no component yet.
   - A header with an icon and a title over a block: [ContentHeader](components/ContentHeader.md). ContentHeader is the header with an icon, a title and a backdrop that any container can carry.
@@ -130,6 +131,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 - Data. **What data are you showing?**
   - Rows and columns to sort and filter: no component yet.
   - Filters over a collection: no component yet.
+  - A list the user adds to, renames and deletes from: [ManagedList](components/ManagedList.md). ManagedList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
   - One record, compact and read only: no component yet.
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: no component yet.

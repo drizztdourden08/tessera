@@ -1,0 +1,29 @@
+/* @layer stories @kind style */
+.master-detail-editor-story {
+  display: flex;
+  flex-direction: column;
+  block-size: var(--size-512);
+  padding-block: var(--space-md);
+}
+
+.master-detail-editor-story--narrow {
+  inline-size: var(--size-512);
+  max-inline-size: 100%;
+}
+
+.preset-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.preset-editor__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.preset-editor__save {
+  margin-inline-start: auto;
+}

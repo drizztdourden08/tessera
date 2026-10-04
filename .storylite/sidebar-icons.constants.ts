@@ -82,10 +82,10 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
   'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend' },
-  'Composites · Layout': { SplitPane: 'columns-2', MasterDetailLayout: 'layout-list', SideNavLayout: 'layout-template', ContentHeader: 'panel-top' },
+  'Composites · Layout': { SplitPane: 'columns-2', MasterDetailLayout: 'layout-list', SideNavLayout: 'layout-template', ContentHeader: 'panel-top', MasterDetail: 'panels-left-bottom' },
   'Composites · Lists': {
     ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
-    SearchResultHit: 'mouse-pointer-click',
+    SearchResultHit: 'mouse-pointer-click', ManagedList: 'list-checks',
   },
   'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsRow: 'sliders-horizontal' },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search', ControlMenu: 'sliders-horizontal' },

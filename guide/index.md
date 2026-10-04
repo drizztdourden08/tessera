@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 23 of 161 have their usage written; a linked name opens its page.
+One line per component. 25 of 163 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -122,6 +122,8 @@ One line per component. 23 of 161 have their usage written; a linked name opens 
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `LogPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ManagedList](components/ManagedList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.
+- [MasterDetail](components/MasterDetail.md): A ManagedList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
 - `MasterDetailLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.

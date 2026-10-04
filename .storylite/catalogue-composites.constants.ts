@@ -47,6 +47,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
         { name: 'MasterDetailLayout', summary: 'A list beside the detail of the selected item.' },
+        { name: 'MasterDetail', summary: 'A ManagedList beside an editor that asks before unsaved edits are lost.' },
         { name: 'SideNavLayout', summary: 'A side nav beside a content pane; its search shows results in the pane.' },
         { name: 'ContentHeader', summary: 'Write the one job of ContentHeader in one sentence.' },
       ],
@@ -59,6 +60,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'SearchResults', summary: 'The search pane: a summary with page chips over groups of matches.' },
         { name: 'SearchResultGroup', summary: 'One group of matches: glowing icon, title, count and an open button.' },
         { name: 'SearchResultHit', summary: 'One match: icon, label with the match marked, and its path.' },
+        { name: 'ManagedList', summary: 'The list side of a list and editor screen: count, New, filter, groups, rename, delete and states.' },
       ],
     },
     {

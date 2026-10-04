@@ -99,6 +99,7 @@ const LAYOUT = {
     'a plain block': null, 'items in a row or a column': null, 'blocks stacked in a column': null, 'items on a grid': null,
     'one item in the centre': null, 'one raised item': null, 'empty space': null, 'a line between sections': null,
     'content that scrolls': null, 'a list beside its detail': null, 'two panes the user resizes': null,
+    'a list beside an editor, with unsaved edits guarded': null,
     'an app frame with its navigation': null, 'panels the user docks and moves': null,
     'a header with an icon and a title over a block': null,
     'a settings screen': {
@@ -151,6 +152,7 @@ const DATA = {
   question: 'What data are you showing?',
   answers: {
     'rows and columns to sort and filter': null, 'filters over a collection': null,
+    'a list the user adds to, renames and deletes from': null,
     'one record, compact and read only': null, 'a row in a list, with its actions': null, 'a stream of log lines': null,
     'a drawing': { question: 'How is it drawn?', answers: { 'in pixels': null, 'in shapes': null } },
     'a chart': {

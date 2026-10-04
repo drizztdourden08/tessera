@@ -173,3 +173,7 @@ export { ValidationSummary } from './ValidationSummary';
 export type { ValidationProblem, ValidationSummaryProps, ValidationTone } from './ValidationSummary';
 export { CheckList } from './CheckList';
 export type { Check, CheckListProps, CheckState } from './CheckList';
+export { ManagedList } from './ManagedList';
+export type { ManagedListFilter, ManagedListProps, ManagedListRowParts } from './ManagedList';
+export { MasterDetail } from './MasterDetail';
+export type { MasterDetailGuardLook, MasterDetailList, MasterDetailProps, MasterDetailSave } from './MasterDetail';

@@ -4052,3 +4052,73 @@ interface CheckListProps {
 
 1. Archipelia: ServerTestPanel maps each result to a `Check` (ok to `pass`, advice to `warn`, failed to `fail`) in place of its StatRows, with the server name in `summary`.
 2. Brock: the bug report diagnostics and review checks can use the same list.
+
+## 156. ManagedList and MasterDetail: the list side of list and editor screens, and a guard on unsaved edits
+
+From the Archipelia review (tessera-10, archipelia-40), as decided by the owner (T-15). Archipelia's PresetList and ServerManager list, its TemplatesCard and HistoryCard, and Brock's ProfilesPanel each built a list with a "Name · count" label, a New button, caps headings, ListItemRows, an EmptyState for loading and empty and an error line; Brock added inline create and rename with its own CSS. PresetsHub and ServerManager then put the list beside an editor and handled select, discard and delete by hand.
+
+`ManagedList` is a new composite, under Composites · Lists, and `MasterDetail` a new one under Composites · Layout.
+
+- **The head.** The title with its count, such as Presets · 5, or Presets · 1 of 5 while a filter narrows it, and New (`onCreate`, `createLabel`).
+- **The filter.** A SearchInput that matches every typed word in the name. With `filter: 'auto'`, the default, it shows from 8 items; `true` and `false` force it.
+- **The rows.** `getId` and `getName` read each item; `render` adds the meta, an icon or end columns to its ListItemRow. `groupBy` puts the rows under small headings, in the order each group first appears.
+- **Rename and delete.** `onRename` adds a pencil to the picked row; it, or F2 on a focused row, swaps the row for a name box with a check and a cross: Enter keeps the name, Escape cancels, and focus goes back to the row. `onDelete` adds a trash ConfirmIconButton that asks once (Delete or Keep). Without `onSelect`, every row shows them on hover.
+- **Keys.** The arrow keys, Home and End move the selection and the focus between rows, across groups.
+- **States.** `loading` shows a Spinner and Loading servers as a status; `error` a danger Callout in an alert; no items the EmptyState with `empty` and `emptyIcon`; a filter that matches nothing says so.
+- **MasterDetail** puts a ManagedList (`list`, its props without the selection) beside `detail` in a MasterDetailLayout, with `resizable`, `listWidth`, `storageKey`, Back under 768 px and the rest of its props. With `dirty`, picking another row (by click or key), New and Back ask first: Stay here, Discard (`onDiscard`, then the move) and, with `onSave`, Save and open or Save and leave. `onSave` may return a promise; false, or a rejection, keeps the user on the edited item. `guard: 'dialog'`, the default, asks in a dialog built like Dialog, focus on Stay here; `guard: 'inline'` asks in a warning bar at the top of the editor, an alertdialog that takes focus, Escape staying and focus going back where it was. `emptyDetail` fills the editor side while nothing is picked.
+
+```ts
+type ManagedListRowParts = Pick<ListItemRowProps, 'meta' | 'icon' | 'columns'>;
+
+interface ManagedListProps<T> {
+  title: string;
+  items: readonly T[];
+  getId: (item: T) => string;
+  getName: (item: T) => string;
+  render?: (item: T) => ManagedListRowParts;
+  groupBy?: (item: T) => string | undefined;
+  selectedId?: string | null;
+  onSelect?: (id: string) => void;
+  onCreate?: () => void;
+  createLabel?: string; // default New
+  onRename?: (id: string, name: string) => void;
+  onDelete?: (id: string) => void;
+  filter?: boolean | 'auto'; // default 'auto': from 8 items
+  filterPlaceholder?: string;
+  loading?: boolean;
+  error?: ReactNode;
+  empty?: ReactNode;
+  emptyIcon?: ReactNode;
+  className?: string;
+}
+
+interface MasterDetailProps<T> {
+  list: Omit<ManagedListProps<T>, 'selectedId' | 'onSelect'>;
+  selectedId: string | null;
+  onSelect: (id: string | null) => void;
+  detail: ReactNode;
+  emptyDetail?: ReactNode;
+  dirty?: boolean;
+  onSave?: () => boolean | void | Promise<boolean | void>;
+  onDiscard?: () => void;
+  guard?: 'dialog' | 'inline'; // default 'dialog'
+  resizable?: boolean;
+  listWidth?: number;
+  minListWidth?: number;
+  maxListWidth?: number;
+  storageKey?: string;
+  backLabel?: string;
+  listLabel?: string;
+  detailLabel?: string;
+  className?: string;
+}
+```
+
+| Before | Now |
+|---|---|
+| | new strings group `lists`: `newItem`, `count`, `filterOf`, `loadingOf`, `empty`, `noMatch`, `rename`, `newName`, `keepName`, `cancelRename`, `deleteNamed`, `deleteConfirm`, `deleteCancel`, `unsavedTitle`, `unsavedOpen`, `unsavedLeave`, `stayHere`, `discard`, `saveAndOpen`, `saveAndLeave`, `pickItem` |
+
+### What an app does
+
+1. Archipelia: PresetsHub becomes a `MasterDetail` over the presets, `groupBy` the game, with `dirty` from the preset editor, `onSave` and `onDiscard`; its own select and discard handling goes. ServerManager does the same with `createLabel: 'Add'` and its `loading` and `error`. TemplatesCard and HistoryCard become a `ManagedList`.
+2. Brock: ProfilesPanel becomes a `ManagedList` with `onCreate`, `onRename` and `onDelete`; its inline rename and its CSS go.
