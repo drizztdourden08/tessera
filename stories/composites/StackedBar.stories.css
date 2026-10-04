@@ -1,0 +1,4 @@
+/* @layer stories @kind style */
+.stacked-bar-story {
+  width: var(--size-320);
+}

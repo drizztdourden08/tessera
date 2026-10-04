@@ -125,6 +125,11 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A drawing. **How is it drawn?**
     - In pixels: no component yet.
     - In shapes: no component yet.
+  - A chart. **What should the chart show?**
+    - A trend over recent samples: [Sparkline](components/Sparkline.md). Sparkline draws the recent samples of one reading as a line or an area, with no axes.
+    - One value against its limit: [Gauge](components/Gauge.md). Gauge shows where one reading sits between its bounds, in the tone of its zone.
+    - A headline number with its trend: [StatTile](components/StatTile.md). StatTile puts one reading, its change and its trend together in a tile sized for a widget grid.
+    - A whole split into parts: [StackedBar](components/StackedBar.md). StackedBar shows how one total splits into named parts, in a single bar.
   - A picture or a video. **Which one?**
     - A picture that holds its box: no component yet.
     - A small framed picture: no component yet.

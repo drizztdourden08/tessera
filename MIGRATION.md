@@ -2778,3 +2778,48 @@ interface WindowGuideOverlayProps {
 2. Nothing to pass for resizing; a host that wants another least size passes `floatingMin`.
 3. A widget whose content wrapped itself in its own scroll box, such as Brock's Performance widget, drops that box and lets the widget body scroll, or fills the body at full height and keeps a right padding of its own.
 4. A host that shows `WindowGuideOverlay` while the user moves or resizes a widget window passes `pointer` from the pointer events it already reads.
+
+## 108. Charts: Sparkline, Gauge, StatTile and StackedBar
+
+Four small chart parts, built for a panel that updates every second, such as Brock's Performance widget. They sit in new gallery groups, Primitives · Charts and Composites · Charts, and the decision tree gains data, a chart, with one answer for each.
+
+- `Sparkline` (primitive) draws the latest samples as a line or an area in SVG. `length` keeps room for that many samples, so a new series fills in from the right. `min` and `max` fix the domain; left out, it follows the samples. `band` shades a zone, such as a warning above 80, and `dot` marks the latest sample, in the band tone when it sits inside the band. It fills its box in width and is 32 px tall, or takes `width` and `height`. It is hidden from screen readers until it has a `label`; then it reads the latest, low and high values.
+- `Gauge` (primitive) is a 270 degree meter with the value and its unit in the middle, in three sizes. Its tone follows the zone the value is in: success under 60% of the range, warning under 85%, danger above. `thresholds` move the edges, and a danger edge below the warning edge means a low value is bad, as for frame rate. `zones` tints the track; `tone` fixes the colour. It is a `meter` with its value, unit and bounds.
+- `StatTile` (composite) holds a label, a big value, a unit, a delta with a trend arrow, and a `chart` slot below or beside the value. `upIs` says whether a rise is good, bad or neither, which sets the delta tone; the arrow is named Rising, Falling or Steady.
+- `StackedBar` (composite) splits one bar into parts, each in a status tone or a tag colour, or the next tag colour in turn. `limit` caps the parts; the smallest beyond it join one Other part. `total` leaves the room the parts do not fill as free track. Each part has a `Tooltip` with its value and share, and `legend` lists them.
+
+```ts
+type SparklineTone = StatusTone | TagCategoryColor;
+interface SparklineBand { from: number; to?: number; tone?: SparklineTone }
+interface SparklineProps {
+  values: readonly number[]; variant?: 'line' | 'area'; length?: number; min?: number; max?: number;
+  band?: SparklineBand; dot?: boolean; tone?: SparklineTone; width?: number; height?: number;
+  label?: string; format?: (value: number) => string; className?: string;
+}
+
+interface GaugeThresholds { warning: number; danger: number }
+interface GaugeProps {
+  value: number; min?: number; max?: number; thresholds?: GaugeThresholds; tone?: StatusTone;
+  unit?: string; label?: string; size?: 'sm' | 'md' | 'lg'; zones?: boolean;
+  format?: (value: number) => string; className?: string;
+}
+
+interface StatTileProps {
+  label: ReactNode; value: ReactNode; unit?: ReactNode; tone?: StatusTone;
+  delta?: ReactNode; trend?: 'up' | 'down' | 'flat'; upIs?: 'good' | 'bad' | 'neutral'; deltaTone?: StatusTone;
+  chart?: ReactNode; chartPlacement?: 'below' | 'beside'; className?: string;
+}
+
+type StackedBarColor = StatusTone | TagCategoryColor;
+interface StackedBarSegment { id: string; label: string; value: number; color?: StackedBarColor }
+interface StackedBarProps {
+  segments: readonly StackedBarSegment[]; total?: number; limit?: number; legend?: boolean;
+  label?: string; size?: 'sm' | 'md'; format?: (value: number) => string; className?: string;
+}
+```
+
+Every path is built in a memo from the samples, an update changes attributes on the same elements, and nothing remounts. The gauge eases to a new value; under reduced motion it moves at once. The words the parts speak are in a new `charts` group of the string table, so a host can replace them through `TesseraProvider`.
+
+### What an app does
+
+Nothing; the parts are new. An app that drew its own sparklines, gauges or split bars can swap them for these. Brock builds its Performance widget from them; the gallery page of StatTile shows one, fed with made up readings every second.

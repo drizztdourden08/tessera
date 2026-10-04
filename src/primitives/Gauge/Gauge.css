@@ -1,0 +1,139 @@
+/* @layer renderer-components @kind style */
+.gauge {
+  --gauge-ink: var(--c-success);
+  --gauge-dial: var(--size-80);
+  --gauge-value: var(--text-lg);
+  --gauge-unit: var(--text-xs);
+
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.gauge[data-size='sm'] {
+  --gauge-dial: var(--size-48);
+  --gauge-value: var(--text-sm);
+  --gauge-unit: var(--text-xs);
+}
+
+.gauge[data-size='lg'] {
+  --gauge-dial: var(--size-128);
+  --gauge-value: var(--text-2xl);
+  --gauge-unit: var(--text-sm);
+}
+
+.gauge__dial {
+  position: relative;
+  width: var(--gauge-dial);
+  height: var(--gauge-dial);
+  contain: strict;
+}
+
+.gauge__arc {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.gauge__track,
+.gauge__zone,
+.gauge__fill {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.gauge__track {
+  stroke: var(--c-hover);
+}
+
+.gauge__zone {
+  stroke: color-mix(in srgb, var(--gauge-zone) 26%, transparent);
+  stroke-linecap: butt;
+}
+
+.gauge__fill {
+  stroke: var(--gauge-ink);
+  transition: stroke-dashoffset var(--duration-slow) var(--ease-standard), stroke var(--duration-slow) var(--ease-standard);
+}
+
+.gauge__fill[data-empty] {
+  visibility: hidden;
+}
+
+.gauge__reading {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  color: var(--c-text);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+
+.gauge__value {
+  font-size: var(--gauge-value);
+  font-weight: var(--weight-semi);
+  font-variant-numeric: tabular-nums;
+}
+
+.gauge__unit {
+  margin-left: var(--space-2xs);
+  color: var(--c-text-muted);
+  font-size: var(--gauge-unit);
+}
+
+.gauge__label {
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+}
+
+.gauge[data-tone='primary'] {
+  --gauge-ink: var(--c-primary);
+}
+
+.gauge[data-tone='secondary'] {
+  --gauge-ink: var(--c-secondary);
+}
+
+.gauge[data-tone='tertiary'] {
+  --gauge-ink: var(--c-tertiary);
+}
+
+.gauge[data-tone='neutral'] {
+  --gauge-ink: var(--c-text-muted);
+}
+
+.gauge[data-tone='warning'] {
+  --gauge-ink: var(--c-warning);
+}
+
+.gauge[data-tone='danger'] {
+  --gauge-ink: var(--c-danger);
+}
+
+.gauge[data-tone='info'] {
+  --gauge-ink: var(--c-info);
+}
+
+.gauge__zone[data-tone='success'] {
+  --gauge-zone: var(--c-success);
+}
+
+.gauge__zone[data-tone='warning'] {
+  --gauge-zone: var(--c-warning);
+}
+
+.gauge__zone[data-tone='danger'] {
+  --gauge-zone: var(--c-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gauge__fill {
+    transition: none;
+  }
+}

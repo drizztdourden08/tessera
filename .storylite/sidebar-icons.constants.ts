@@ -4,13 +4,13 @@ const TIER_ICONS: Record<string, string> = { Core: 'atom', Primitives: 'box', Co
 const GROUP_ICONS: Record<string, string> = {
   'Core · Setup': 'rocket', 'Core · Brand': 'gem', 'Core · Colours': 'palette', 'Core · Typography': 'type', 'Core · Text': 'pilcrow',
   'Core · Icons': 'shapes', 'Core · Tokens': 'ruler',
-  'Primitives · Layout': 'layout-grid', 'Primitives · Display': 'monitor', 'Primitives · Actions': 'mouse-pointer-click',
+  'Primitives · Layout': 'layout-grid', 'Primitives · Display': 'monitor', 'Primitives · Charts': 'chart-spline', 'Primitives · Actions': 'mouse-pointer-click',
   'Primitives · Inputs': 'text-cursor-input', 'Primitives · Feedback': 'message-square-warning', 'Primitives · Navigation': 'compass',
   'Composites · Dialogs': 'app-window', 'Composites · Overlays': 'layers', 'Composites · Wizard': 'wand-sparkles',
   'Composites · Navigation': 'signpost', 'Composites · Layout': 'layout-panel-left', 'Composites · Lists': 'list-tree',
   'Composites · Settings': 'settings', 'Composites · Menus': 'menu', 'Composites · Actions': 'square-mouse-pointer',
   'Composites · Inputs': 'text-cursor-input', 'Composites · Forms': 'clipboard-pen-line',
-  'Composites · Data views': 'table', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
+  'Composites · Data views': 'table', 'Composites · Charts': 'chart-column', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Windows': 'app-window-mac', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
 };
 
@@ -103,6 +103,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Composites · Windows': { WindowTitleBar: 'app-window-mac', WindowHeader: 'heading-2' },
   'Data': { Engine: 'cpu' },
+  'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge' },
+  'Composites · Charts': { StatTile: 'trending-up', StackedBar: 'chart-bar-stacked' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };

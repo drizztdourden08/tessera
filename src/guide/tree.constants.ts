@@ -145,6 +145,13 @@ const DATA = {
     'rows and columns to sort and filter': null, 'filters over a collection': null,
     'one record, compact and read only': null, 'a row in a list, with its actions': null, 'a stream of log lines': null,
     'a drawing': { question: 'How is it drawn?', answers: { 'in pixels': null, 'in shapes': null } },
+    'a chart': {
+      question: 'What should the chart show?',
+      answers: {
+        'a trend over recent samples': null, 'one value against its limit': null,
+        'a headline number with its trend': null, 'a whole split into parts': null,
+      },
+    },
     'a picture or a video': {
       question: 'Which one?',
       answers: { 'a picture that holds its box': null, 'a small framed picture': null, 'a video': null },

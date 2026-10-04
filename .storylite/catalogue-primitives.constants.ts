@@ -41,6 +41,13 @@ const PRIMITIVES_TIER: CatalogueTier = {
       ],
     },
     {
+      group: 'Charts',
+      entries: [
+        { name: 'Sparkline', summary: 'A small line or area chart of the latest samples, with a threshold band.' },
+        { name: 'Gauge', summary: 'A round meter for one value against its limit, coloured by its zone.' },
+      ],
+    },
+    {
       group: 'Actions',
       entries: [
         { name: 'Button', summary: 'Primary, secondary, tertiary, ghost, danger, tile and bare.' },

@@ -1,0 +1,14 @@
+/* @layer stories @kind style */
+.sparkline-story {
+  width: var(--size-128);
+}
+
+.sparkline-story--wide {
+  width: var(--size-256);
+}
+
+.sparkline-story-live {
+  display: grid;
+  gap: var(--space-md);
+  width: var(--size-320);
+}

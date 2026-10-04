@@ -1,0 +1,108 @@
+/* @layer renderer-components @kind style */
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-inset);
+}
+
+.stat-tile[data-chart='beside'] {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.stat-tile__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.stat-tile[data-chart='beside'] .stat-tile__body {
+  flex: none;
+}
+
+.stat-tile__chart {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.stat-tile[data-chart='beside'] .stat-tile__chart {
+  flex: 1;
+  align-self: stretch;
+}
+
+.stat-tile__label {
+  overflow: hidden;
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: var(--tracking-wide);
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.stat-tile__reading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.stat-tile__value {
+  color: var(--c-text);
+  font-size: var(--text-xl);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-semi);
+  line-height: 1;
+}
+
+.stat-tile__unit {
+  color: var(--c-text-muted);
+  font-size: var(--text-sm);
+}
+
+.stat-tile .stat-tile__delta {
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-tile__value[data-tone='success'] {
+  color: var(--c-success);
+}
+
+.stat-tile__value[data-tone='warning'] {
+  color: var(--c-warning);
+}
+
+.stat-tile__value[data-tone='danger'] {
+  color: var(--c-danger);
+}
+
+.stat-tile__value[data-tone='info'] {
+  color: var(--c-info);
+}
+
+.stat-tile__value[data-tone='primary'] {
+  color: var(--c-primary);
+}
+
+.stat-tile__value[data-tone='secondary'] {
+  color: var(--c-secondary);
+}
+
+.stat-tile__value[data-tone='tertiary'] {
+  color: var(--c-tertiary);
+}
+
+.stat-tile__value[data-tone='neutral'] {
+  color: var(--c-text-muted);
+}

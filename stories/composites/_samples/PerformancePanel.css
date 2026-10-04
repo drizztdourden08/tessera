@@ -1,0 +1,25 @@
+/* @layer stories @kind style */
+.performance-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  box-sizing: border-box;
+  width: var(--size-384);
+  max-width: 100%;
+}
+
+.performance-panel__heading {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semi);
+}
+
+.performance-panel__figure {
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.performance-panel__tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}

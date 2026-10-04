@@ -426,6 +426,31 @@
               }
             }
           },
+          "a chart": {
+            "question": "What should the chart show?",
+            "answers": {
+              "a trend over recent samples": {
+                "components": [
+                  "Sparkline"
+                ]
+              },
+              "one value against its limit": {
+                "components": [
+                  "Gauge"
+                ]
+              },
+              "a headline number with its trend": {
+                "components": [
+                  "StatTile"
+                ]
+              },
+              "a whole split into parts": {
+                "components": [
+                  "StackedBar"
+                ]
+              }
+            }
+          },
           "a picture or a video": {
             "question": "Which one?",
             "answers": {
@@ -742,6 +767,165 @@
       "usage": false
     },
     {
+      "name": "Gauge",
+      "tier": "primitives",
+      "source": "src/primitives/Gauge/Gauge.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A small round meter that shows one value against its limit, coloured by the zone the value is in.",
+      "useWhen": [
+        "A load, a temperature or a fill level reads best as a share of its maximum, such as CPU use.",
+        "A panel shows a few such readings side by side and each needs its own colour for good, warning and danger."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Progress toward the end of a task, such as a download.",
+          "use": "ProgressRing"
+        },
+        {
+          "case": "The history of a reading matters more than where it sits now.",
+          "use": "Sparkline"
+        }
+      ],
+      "rules": [
+        "Pass min and max when the range is not 0 to 100, and a unit for the value in the middle.",
+        "Leave tone out so the zone sets it; set thresholds when the default edges at 60% and 85% do not fit.",
+        "Put the danger edge below the warning edge for a reading where low is bad, such as frame rate.",
+        "Pick sm for a dense row, md for a panel and lg for a page about that one reading."
+      ],
+      "a11y": [
+        "It is a meter: a screen reader hears its label, its value with the unit, and its bounds.",
+        "Without a label it is named Meter; give each gauge a label so they can be told apart."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a chart",
+          "one value against its limit"
+        ],
+        "rule": "Gauge shows where one reading sits between its bounds, in the tone of its zone."
+      },
+      "example": "import { Gauge } from '@drizztdourden08/tessera';\n\nconst CpuGauge = ({ load }: { load: number }) => <Gauge value={load} unit=\"%\" label=\"CPU\" zones />;\n",
+      "propsHash": "80a6706e93fdb143",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "min",
+            "optional": true,
+            "text": "number",
+            "default": "0"
+          },
+          {
+            "name": "max",
+            "optional": true,
+            "text": "number",
+            "default": "100"
+          },
+          {
+            "name": "thresholds",
+            "optional": true,
+            "text": "GaugeThresholds"
+          },
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "StatusTone",
+            "literals": [
+              "'neutral'",
+              "'success'",
+              "'warning'",
+              "'danger'",
+              "'info'",
+              "'primary'",
+              "'secondary'",
+              "'tertiary'"
+            ]
+          },
+          {
+            "name": "unit",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "GaugeSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "zones",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "format",
+            "optional": true,
+            "text": "(value: number) => string",
+            "default": "formatReading"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-danger",
+        "--c-hover",
+        "--c-info",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-tertiary",
+        "--c-text",
+        "--c-text-muted",
+        "--c-warning",
+        "--duration-slow",
+        "--ease-standard",
+        "--leading-tight",
+        "--size-128",
+        "--size-48",
+        "--size-80",
+        "--space-2xs",
+        "--text-2xl",
+        "--text-lg",
+        "--text-sm",
+        "--text-xs",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Primitives · Charts/Gauge",
+        "route": "#/story/primitives-gauge--overview",
+        "file": "stories/primitives/Gauge.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "Glyph",
       "tier": "primitives",
       "source": "src/primitives/Glyph/Glyph.tsx",
@@ -1030,6 +1214,163 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "Sparkline",
+      "tier": "primitives",
+      "source": "src/primitives/Sparkline/Sparkline.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A small line or area chart of the latest samples, so a reader sees which way a value moves at a glance.",
+      "useWhen": [
+        "A live reading, such as frame rate or download speed, needs its recent history beside the number.",
+        "A tile or a row has room for a trend but not for a full chart with axes."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The number and its change matter more than the shape, in a tile of its own.",
+          "use": "StatTile"
+        },
+        {
+          "case": "One value against its limit, with no history.",
+          "use": "Gauge"
+        }
+      ],
+      "rules": [
+        "Pass the samples newest last, and set length to the window, so a new series fills in from the right.",
+        "Fix min and max for a reading with known bounds, such as a percentage; leave them out to follow the samples.",
+        "Use band for the zone that matters, such as a warning above 80, and dot to mark where the latest sample sits.",
+        "Give it a width and height, or a box to fill; it is 32 px tall when nothing sets its height."
+      ],
+      "a11y": [
+        "It is hidden from screen readers unless it has a label, since the number beside it usually says the same.",
+        "With a label, a screen reader hears the name with the latest, lowest and highest sample."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a chart",
+          "a trend over recent samples"
+        ],
+        "rule": "Sparkline draws the recent samples of one reading as a line or an area, with no axes."
+      },
+      "example": "import { Sparkline } from '@drizztdourden08/tessera';\n\nconst FrameRateTrend = ({ samples }: { samples: readonly number[] }) => (\n  <Sparkline values={samples} length={40} min={0} max={165} band={{ from: 0, to: 60, tone: 'danger' }} tone=\"success\" dot label=\"Frame rate\" />\n);\n",
+      "propsHash": "6aa00edc7d0ba954",
+      "props": {
+        "own": [
+          {
+            "name": "values",
+            "optional": false,
+            "text": "readonly number[]"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "SparklineVariant",
+            "literals": [
+              "'line'",
+              "'area'"
+            ],
+            "default": "'line'"
+          },
+          {
+            "name": "length",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "min",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "max",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "band",
+            "optional": true,
+            "text": "SparklineBand"
+          },
+          {
+            "name": "dot",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "SparklineTone",
+            "default": "'primary'"
+          },
+          {
+            "name": "width",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "height",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "format",
+            "optional": true,
+            "text": "(value: number) => string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-danger",
+        "--c-info",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-tag-amber",
+        "--c-tag-blue",
+        "--c-tag-cyan",
+        "--c-tag-green",
+        "--c-tag-lime",
+        "--c-tag-orange",
+        "--c-tag-pink",
+        "--c-tag-rose",
+        "--c-tag-teal",
+        "--c-tag-violet",
+        "--c-tertiary",
+        "--c-text-muted",
+        "--c-warning",
+        "--opacity-muted",
+        "--size-32",
+        "--size-6"
+      ],
+      "gallery": {
+        "title": "Primitives · Charts/Sparkline",
+        "route": "#/story/primitives-sparkline--overview",
+        "file": "stories/primitives/Sparkline.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Spinner",
@@ -2340,6 +2681,147 @@
       "usage": false
     },
     {
+      "name": "StackedBar",
+      "tier": "composites",
+      "source": "src/composites/StackedBar/StackedBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend.",
+      "useWhen": [
+        "A total is shared by a few named parts and the reader compares their sizes, such as memory or disk use.",
+        "A count of jobs splits by status, each part in its status tone."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One value toward an end, with nothing to split.",
+          "use": "ProgressBar"
+        },
+        {
+          "case": "Rows of exact figures the reader sorts and filters.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Give each segment a stable id, so a live bar keeps its parts in place from one update to the next.",
+        "Set limit to the parts worth naming; the smallest beyond it join one Other part.",
+        "Pass total when the parts do not fill the whole, so the room left shows as free track.",
+        "Use status tones when the parts are states and tag colours when they are names; leave color out to cycle the tag colours."
+      ],
+      "a11y": [
+        "With a label, the bar is an image named with every part and its value.",
+        "The legend lists each part as text, so the values never live only in a tooltip."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a chart",
+          "a whole split into parts"
+        ],
+        "rule": "StackedBar shows how one total splits into named parts, in a single bar."
+      },
+      "example": "import { StackedBar } from '@drizztdourden08/tessera';\n\nconst gigabytes = (value: number) => `${value.toFixed(1)} GB`;\n\nconst MemoryBar = () => (\n  <StackedBar\n    segments={[{ id: 'game', label: 'Game', value: 4.2 }, { id: 'browser', label: 'Browser', value: 1.8 }]}\n    total={16}\n    legend\n    label=\"Memory\"\n    format={gigabytes}\n  />\n);\n",
+      "propsHash": "344a6c4a1bf04399",
+      "props": {
+        "own": [
+          {
+            "name": "segments",
+            "optional": false,
+            "text": "readonly StackedBarSegment[]"
+          },
+          {
+            "name": "total",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "limit",
+            "optional": true,
+            "text": "number",
+            "default": "DEFAULT_LIMIT"
+          },
+          {
+            "name": "legend",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "StackedBarSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "format",
+            "optional": true,
+            "text": "(value: number) => string",
+            "default": "formatAmount"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-danger",
+        "--c-hover",
+        "--c-info",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-tag-amber",
+        "--c-tag-blue",
+        "--c-tag-cyan",
+        "--c-tag-green",
+        "--c-tag-lime",
+        "--c-tag-orange",
+        "--c-tag-pink",
+        "--c-tag-rose",
+        "--c-tag-teal",
+        "--c-tag-violet",
+        "--c-tertiary",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--c-warning",
+        "--radius-pill",
+        "--radius-sm",
+        "--size-1",
+        "--size-12",
+        "--size-6",
+        "--size-8",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Charts/StackedBar",
+        "route": "#/story/composites-stackedbar--overview",
+        "file": "stories/composites/StackedBar.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "StageScreen",
       "tier": "composites",
       "source": "src/composites/StageScreen/StageScreen.tsx",
@@ -2467,6 +2949,181 @@
         "title": "Composites · Screens/StageScreen",
         "route": "#/story/composites-stagescreen--overview",
         "file": "stories/composites/StageScreen.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "StatTile",
+      "tier": "composites",
+      "source": "src/composites/StatTile/StatTile.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart.",
+      "useWhen": [
+        "A dashboard or a widget shows a few key readings, each with its change since the last one.",
+        "A reading needs its trend drawn beside it, such as frame rate with a Sparkline."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A plain label and value on one line, with no trend or chart.",
+          "use": "StatRow"
+        },
+        {
+          "case": "One value against its limit, as a round meter.",
+          "use": "Gauge"
+        }
+      ],
+      "rules": [
+        "Set trend from the change, and upIs from what a rise means: good for frame rate, bad for frame time.",
+        "Keep delta short, such as +4 or -2.1, and leave the unit to the unit prop.",
+        "Pass a Sparkline as chart, below the value in a narrow tile and beside it in a wide one.",
+        "Use tone on the value only when the reading is past its limit."
+      ],
+      "a11y": [
+        "The trend arrow is named Rising, Falling or Steady, so a screen reader hears the direction with the delta.",
+        "The label, value and unit are plain text read in order; the chart speaks only when it has a label."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a chart",
+          "a headline number with its trend"
+        ],
+        "rule": "StatTile puts one reading, its change and its trend together in a tile sized for a widget grid."
+      },
+      "example": "import { Sparkline, StatTile } from '@drizztdourden08/tessera';\n\nconst FrameRateTile = ({ samples }: { samples: readonly number[] }) => (\n  <StatTile\n    label=\"Frame rate\"\n    value={samples[samples.length - 1] ?? 0}\n    unit=\"fps\"\n    delta=\"+4\"\n    trend=\"up\"\n    chart={<Sparkline values={samples} min={0} max={165} tone=\"success\" dot />}\n  />\n);\n",
+      "propsHash": "6230fa9a39dc2c2e",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "unit",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "StatusTone",
+            "literals": [
+              "'neutral'",
+              "'success'",
+              "'warning'",
+              "'danger'",
+              "'info'",
+              "'primary'",
+              "'secondary'",
+              "'tertiary'"
+            ]
+          },
+          {
+            "name": "delta",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "trend",
+            "optional": true,
+            "text": "StatTrend",
+            "literals": [
+              "'up'",
+              "'down'",
+              "'flat'"
+            ]
+          },
+          {
+            "name": "upIs",
+            "optional": true,
+            "text": "StatTrendMeaning",
+            "literals": [
+              "'good'",
+              "'bad'",
+              "'neutral'"
+            ],
+            "default": "'good'"
+          },
+          {
+            "name": "deltaTone",
+            "optional": true,
+            "text": "StatusTone",
+            "literals": [
+              "'neutral'",
+              "'success'",
+              "'warning'",
+              "'danger'",
+              "'info'",
+              "'primary'",
+              "'secondary'",
+              "'tertiary'"
+            ]
+          },
+          {
+            "name": "chart",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "chartPlacement",
+            "optional": true,
+            "text": "StatTileChartPlacement",
+            "literals": [
+              "'below'",
+              "'beside'"
+            ],
+            "default": "'below'"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-info",
+        "--c-inset",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-tertiary",
+        "--c-text",
+        "--c-text-muted",
+        "--c-warning",
+        "--radius-md",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--text-xl",
+        "--text-xs",
+        "--tracking-wide",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Composites · Charts/StatTile",
+        "route": "#/story/composites-stattile--overview",
+        "file": "stories/composites/StatTile.stories.tsx"
       },
       "parts": []
     },

@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.stat-tile-story {
+  width: var(--size-192);
+}
+
+.stat-tile-story--wide {
+  width: var(--size-288);
+}

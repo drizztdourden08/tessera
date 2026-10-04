@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 8 of 146 have their usage written; a linked name opens its page.
+One line per component. 12 of 150 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -28,6 +28,7 @@ One line per component. 8 of 146 have their usage written; a linked name opens i
 - `FieldControlBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Flex`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Floating`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Gauge](components/Gauge.md): A small round meter that shows one value against its limit, coloured by the zone the value is in. Import from `@drizztdourden08/tessera`.
 - `Glyph`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Grid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `HintLine`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -57,6 +58,7 @@ One line per component. 8 of 146 have their usage written; a linked name opens i
 - `Shortcut`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Slider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Spacer`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Sparkline](components/Sparkline.md): A small line or area chart of the latest samples, so a reader sees which way a value moves at a glance. Import from `@drizztdourden08/tessera`.
 - `Spinner`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Stack`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `StatRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -128,7 +130,9 @@ One line per component. 8 of 146 have their usage written; a linked name opens i
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [StackedBar](components/StackedBar.md): One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend. Import from `@drizztdourden08/tessera`.
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
+- [StatTile](components/StatTile.md): A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.

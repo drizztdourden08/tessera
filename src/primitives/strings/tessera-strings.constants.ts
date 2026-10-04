@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind data */
+import { CHART_STRINGS } from './charts-strings.constants';
 import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
 import { COMMON_STRINGS } from './common-strings.constants';
 import { DYNAMIC_INPUT_STRINGS } from './dynamic-input-strings.constants';
@@ -37,6 +38,7 @@ const TESSERA_STRINGS = {
   stepper: STEPPER_STRINGS,
   windows: WINDOW_STRINGS,
   wizard: WIZARD_STRINGS,
+  charts: CHART_STRINGS,
 };
 
 export { TESSERA_STRINGS };

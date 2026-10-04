@@ -106,6 +106,13 @@ const COMPOSITES_TIER: CatalogueTier = {
       ],
     },
     {
+      group: 'Charts',
+      entries: [
+        { name: 'StatTile', summary: 'One headline number with its unit, its change and a small chart.' },
+        { name: 'StackedBar', summary: 'One bar split into the parts of a whole, with tooltips, a legend and an Other part.' },
+      ],
+    },
+    {
       group: 'Content',
       entries: [
         { name: 'LogPanel', summary: 'A live log in one framed box: a FilterBar toolbar, tones per type, older lines on demand.' },
