@@ -3,12 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { catalogueTitles } from './catalogue-titles';
 import { splitTitle } from './review-split-title';
+import { sharedStore } from './review-shared-store';
+import { reviewStore } from './review-store';
 import { REVIEW_FILE } from './review.constants';
 import type { ReviewEntry, ReviewPage, ReviewRegistry } from './review.type';
 
 const readRegistry = (root: string): ReviewRegistry => {
   try {
-    return JSON.parse(fs.readFileSync(path.join(root, REVIEW_FILE), 'utf8')) as ReviewRegistry;
+    return JSON.parse(fs.readFileSync(path.join(reviewStore(root), REVIEW_FILE), 'utf8')) as ReviewRegistry;
   } catch {
     return {};
   }
@@ -17,6 +19,12 @@ const readRegistry = (root: string): ReviewRegistry => {
 const entryOf = (registry: ReviewRegistry, title: string): ReviewEntry | undefined => {
   const [folder, page] = splitTitle(title);
   return registry[folder]?.[page];
+};
+
+const keepUnknown = (current: ReviewRegistry, next: ReviewRegistry): ReviewRegistry => {
+  const merged: ReviewRegistry = { ...next };
+  for (const [folder, pages] of Object.entries(current)) merged[folder] = { ...pages, ...next[folder] };
+  return merged;
 };
 
 const syncRegistry = (root: string, pages: readonly ReviewPage[]): ReviewRegistry => {
@@ -32,7 +40,7 @@ const syncRegistry = (root: string, pages: readonly ReviewPage[]): ReviewRegistr
     const stamped = entry.status !== 'new' && !entry.hash ? { ...entry, hash, at: today } : entry;
     next[folder] = { ...next[folder], [page]: stamped };
   }
-  return next;
+  return sharedStore() ? keepUnknown(current, next) : next;
 };
 
 export { syncRegistry };

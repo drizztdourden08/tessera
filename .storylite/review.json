@@ -24,6 +24,9 @@
       "status": "ok",
       "hash": "f3b44026fd1ca36f",
       "at": "2026-10-03"
+    },
+    "Static splash": {
+      "status": "new"
     }
   },
   "Core · Brand": {
@@ -53,8 +56,8 @@
       "at": "2026-10-04"
     },
     "Mascot": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "11613ddfc05d40fa",
       "at": "2026-10-04"
     }
   },
@@ -525,14 +528,32 @@
       "status": "ok",
       "hash": "0709973edd7b0633",
       "at": "2026-10-03"
+    },
+    "ShortcutList": {
+      "status": "new"
+    },
+    "CopyValue": {
+      "status": "new"
+    },
+    "StatusOf": {
+      "status": "new"
     }
   },
   "Primitives · Charts": {
     "Sparkline": {
-      "status": "new"
+      "status": "ok",
+      "hash": "519647a4874b09f0",
+      "at": "2026-10-04"
     },
     "Gauge": {
-      "status": "new"
+      "status": "ok",
+      "hash": "81579d133c60afeb",
+      "at": "2026-10-04"
+    },
+    "StackedBar": {
+      "status": "ok",
+      "hash": "f8be97d166dc4593",
+      "at": "2026-10-04"
     }
   },
   "Primitives · Actions": {
@@ -565,6 +586,9 @@
       "status": "ok",
       "hash": "14908a536e47eb0b",
       "at": "2026-10-04"
+    },
+    "CopyButton": {
+      "status": "new"
     }
   },
   "Primitives · Inputs": {
@@ -758,6 +782,9 @@
       "status": "ok",
       "hash": "555f9d991b156b8b",
       "at": "2026-10-04"
+    },
+    "JobDialog": {
+      "status": "new"
     }
   },
   "Composites · Overlays": {
@@ -889,8 +916,8 @@
   },
   "Composites · Menus": {
     "DropdownMenu": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "cf7cd6b7f9efd632",
       "at": "2026-10-04"
     },
     "CommandPalette": {
@@ -902,6 +929,11 @@
       "status": "ok",
       "hash": "971c632a3b7da5e3",
       "at": "2026-10-03"
+    },
+    "ControlMenu": {
+      "status": "ok",
+      "hash": "cd90205b7c170af7",
+      "at": "2026-10-04"
     }
   },
   "Composites · Actions": {
@@ -969,10 +1001,9 @@
   },
   "Composites · Charts": {
     "StatTile": {
-      "status": "new"
-    },
-    "StackedBar": {
-      "status": "new"
+      "status": "ok",
+      "hash": "f90fe9e9e74a0f8c",
+      "at": "2026-10-04"
     }
   },
   "Composites · Content": {
@@ -995,6 +1026,9 @@
       "status": "ok",
       "hash": "c47ebd0e8314795e",
       "at": "2026-10-03"
+    },
+    "TaskProgress": {
+      "status": "new"
     }
   },
   "Composites · Input devices": {
@@ -1021,30 +1055,30 @@
   },
   "Composites · Widgets": {
     "DockLayout": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "7cc6e1c53f61660b",
       "at": "2026-10-04"
     },
     "Widget": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "da383aa52350938b",
       "at": "2026-10-04"
     },
     "WidgetOptions": {
       "status": "seen",
-      "hash": "flagged",
+      "hash": "3a12b659258fdf86",
       "at": "2026-10-04"
     },
     "WindowGuideOverlay": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "e5b8fd0003c7d68d",
       "at": "2026-10-04"
     }
   },
   "Composites · Windows": {
     "WindowTitleBar": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "94370eeeeb7315cd",
       "at": "2026-10-04"
     },
     "WindowHeader": {

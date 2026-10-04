@@ -1,11 +1,12 @@
 /* @layer root-config @kind logic */
 import fs from 'node:fs';
 import path from 'node:path';
+import { reviewStore } from './review-store';
 import { REVIEW_NOTES_FILE } from './review.constants';
 import type { ReviewNotes } from './review.type';
 
 const writeNotes = (root: string, notes: ReviewNotes): void => {
-  const file = path.join(root, REVIEW_NOTES_FILE);
+  const file = path.join(reviewStore(root), REVIEW_NOTES_FILE);
   const titles = Object.keys(notes).sort();
   if (titles.length === 0) {
     fs.rmSync(file, { force: true });
