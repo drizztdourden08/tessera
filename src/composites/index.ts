@@ -162,3 +162,7 @@ export { StatTile } from './StatTile';
 export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning } from './StatTile';
 export { ControlMenu, ControlMenuGroup, ControlMenuRow, ControlMenuSub } from './ControlMenu';
 export type { ControlMenuGroupProps, ControlMenuProps, ControlMenuRowProps, ControlMenuSubProps } from './ControlMenu';
+export { TaskProgress } from './TaskProgress';
+export type { TaskProgressProps, TaskState } from './TaskProgress';
+export { JobDialog } from './JobDialog';
+export type { JobDialogProps } from './JobDialog';

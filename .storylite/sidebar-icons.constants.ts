@@ -72,6 +72,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Dialogs': {
     Dialog: 'app-window', DialogShell: 'app-window-mac', CreateRecordDialog: 'file-plus', DeleteGuardDialog: 'shield-alert',
     WizardDialog: 'wand-sparkles',
+    JobDialog: 'square-activity',
   },
   'Composites · Overlays': { Overlay: 'layers-2', Drawer: 'panel-right', DisabledOverlay: 'ban' },
   'Composites · Actions': { ConfirmIconButton: 'circle-check' },
@@ -93,6 +94,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Content': {
     LogPanel: 'logs', FactsPanel: 'table-properties', Hero: 'mountain-snow',
     PixelWordmark: 'type-outline',
+    TaskProgress: 'list-todo',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line' },

@@ -13,6 +13,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'CreateRecordDialog', summary: 'A modal form that creates one record.' },
         { name: 'DeleteGuardDialog', summary: 'Confirms a delete and lists what still points at it.' },
         { name: 'WizardDialog', summary: 'A wizard in a dialog, under the standard dialog header.' },
+        { name: 'JobDialog', summary: 'A long job in a dialog, with Cancel and Hide while it runs and Close once it ends.' },
       ],
     },
     {
@@ -119,6 +120,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'FactsPanel', summary: 'Label and value pairs in a bordered box, in groups split by hairlines.' },
         { name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' },
         { name: 'PixelWordmark', summary: 'A wordmark set in the pixel alphabet from a text and four colours.' },
+        { name: 'TaskProgress', summary: 'One long job: a bar, the current line, its steps, the error and a folded log.' },
       ],
     },
     {

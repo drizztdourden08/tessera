@@ -65,6 +65,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A search over every command: no component yet.
   - A cover over a part that is off: no component yet.
   - A dim backdrop: no component yet.
+  - A long job the user can hide or cancel: [JobDialog](components/JobDialog.md). JobDialog puts TaskProgress in a dialog whose buttons follow the state of the job.
 - A full screen view. **What is the screen for?**
   - Working across pages, picked from a side list: [WorkspaceScreen](components/WorkspaceScreen.md). A side list of pages beside the current page.
   - Reading, such as About or credits: [InfoScreen](components/InfoScreen.md). One centred column to read.
@@ -114,6 +115,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Nothing is here yet: no component yet.
   - A hint for what is under the pointer: no component yet.
   - A part of the page failed: no component yet.
+  - A long job with steps, a log or a failure: [TaskProgress](components/TaskProgress.md). TaskProgress draws a bar, the steps, the failure and the log of one job the same way in every app.
 - Text. **What kind of text?**
   - A heading: no component yet.
   - A section heading with an action: no component yet.

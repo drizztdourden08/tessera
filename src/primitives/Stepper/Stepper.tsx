@@ -14,11 +14,11 @@ import './Stepper.css';
 
 const Stepper = (props: StepperProps) => {
   const {
-    steps, currentId, orientation = 'horizontal', compact = false, tone, doneIcon = 'check', reserve = 'summaries', canSelect, onSelect,
+    steps, currentId, complete, orientation = 'horizontal', compact = false, tone, doneIcon = 'check', reserve = 'summaries', canSelect, onSelect,
     activeSubStepId, onSubStepSelect, label, className = '',
   } = props;
   const { stepper } = useTesseraStrings();
-  const current = Math.max(steps.findIndex((step) => step.id === currentId), 0);
+  const current = complete ? steps.length : Math.max(steps.findIndex((step) => step.id === currentId), 0);
   const motion = useStepMotion(current);
   const name = label ?? stepper.steps;
   if (compact) return <StepperCompact steps={steps} current={current} label={name} className={className} />;

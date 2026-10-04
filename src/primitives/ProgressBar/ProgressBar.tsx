@@ -7,7 +7,7 @@ import { ProgressTrack } from './sub-components/ProgressTrack';
 
 const ProgressBar = (props: ProgressBarProps) => {
   const { showValue = false, formatValue = percentText, className, ...track } = props;
-  if (!showValue) return <ProgressTrack {...track} className={className} />;
+  if (!showValue || track.indeterminate) return <ProgressTrack {...track} className={className} />;
   const text = formatValue(track.value, track.max ?? 100);
   return (
     <div className={className ? `progress-bar-row ${className}` : 'progress-bar-row'}>

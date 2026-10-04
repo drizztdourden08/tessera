@@ -9,6 +9,7 @@ interface ProgressBarProps {
   secondaryTone?: ProgressTone;
   label?: string;
   live?: boolean;
+  indeterminate?: boolean;
   showValue?: boolean;
   formatValue?: (value: number, max: number) => string;
   className?: string;

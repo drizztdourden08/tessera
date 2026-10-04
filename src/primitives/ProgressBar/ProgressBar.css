@@ -22,6 +22,25 @@
 
 .progress-bar[data-live='yes'] .progress-bar__fill { transition: none; }
 
+.progress-bar[data-indeterminate='yes'] .progress-bar__fill {
+  inline-size: 40%;
+  border-radius: var(--radius-sm);
+  animation: progress-sweep var(--duration-float) var(--ease-in-out) infinite;
+}
+
+@keyframes progress-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar[data-indeterminate='yes'] .progress-bar__fill {
+    inline-size: 100%;
+    opacity: var(--opacity-faint);
+    animation: none;
+  }
+}
+
 .progress-bar__fill[data-faded='yes'] { opacity: var(--opacity-faint); }
 
 .progress-bar__fill[data-tone='primary'] { --progress-fill: var(--c-primary); }

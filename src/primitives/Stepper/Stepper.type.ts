@@ -33,6 +33,7 @@ interface StepperStep {
 interface StepperProps {
   steps: readonly StepperStep[];
   currentId: string;
+  complete?: boolean;
   orientation?: StepperOrientation;
   compact?: boolean;
   tone?: StepperTone;

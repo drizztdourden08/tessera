@@ -225,6 +225,11 @@
           },
           "a dim backdrop": {
             "components": []
+          },
+          "a long job the user can hide or cancel": {
+            "components": [
+              "JobDialog"
+            ]
           }
         }
       },
@@ -396,6 +401,11 @@
           },
           "a part of the page failed": {
             "components": []
+          },
+          "a long job with steps, a log or a failure": {
+            "components": [
+              "TaskProgress"
+            ]
           }
         }
       },
@@ -2961,6 +2971,179 @@
       "usage": false
     },
     {
+      "name": "JobDialog",
+      "tier": "composites",
+      "source": "src/composites/JobDialog/JobDialog.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A long job in a dialog: its TaskProgress, with Cancel and Hide while it runs and Close once it ends.",
+      "useWhen": [
+        "The user starts a long job, such as a generation, an install or an update, and should see it run.",
+        "The user may hide the job and go on working, then come back to it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The progress belongs in a page or a panel, not over it.",
+          "use": "TaskProgress"
+        },
+        {
+          "case": "The dialog asks a question and waits for the answer.",
+          "use": "Dialog"
+        }
+      ],
+      "rules": [
+        "Name the job in the title, such as Generating Friday async, and keep it while the job runs.",
+        "Keep the job running when the dialog hides, and give the user a way back to it, such as a button with the percent.",
+        "Pass onCancel only when the job can stop; set cancelling while it stops.",
+        "Add Try again through actions after a failure, beside Close."
+      ],
+      "a11y": [
+        "Focus starts on Hide while the job runs and on Close once it ends.",
+        "Escape hides a running job and closes an ended one, as the close button does.",
+        "The progress inside reads as TaskProgress does: a status word, a named bar and an alert on failure."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a long job the user can hide or cancel"
+        ],
+        "rule": "JobDialog puts TaskProgress in a dialog whose buttons follow the state of the job."
+      },
+      "example": "import { useState } from 'react';\nimport { Button, JobDialog } from '@drizztdourden08/tessera';\nimport type { TaskState } from '@drizztdourden08/tessera';\n\nconst GenerateButton = ({ state, percent, cancel }: { state: TaskState; percent: number; cancel: () => void }) => {\n  const [open, setOpen] = useState(true);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Show the run</Button>\n      <JobDialog\n        open={open}\n        title=\"Generating Friday async\"\n        state={state}\n        percent={percent}\n        onHide={() => setOpen(false)}\n        onCancel={cancel}\n      />\n    </>\n  );\n};\n",
+      "propsHash": "c777a6c815530596",
+      "props": {
+        "own": [
+          {
+            "name": "open",
+            "optional": false,
+            "text": "boolean"
+          },
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onHide",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "onClose",
+            "optional": true,
+            "text": "() => void",
+            "default": "onHide"
+          },
+          {
+            "name": "cancelling",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "line",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "state",
+            "optional": false,
+            "text": "TaskState",
+            "literals": [
+              "'running'",
+              "'done'",
+              "'failed'",
+              "'cancelled'"
+            ]
+          },
+          {
+            "name": "percent",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "steps",
+            "optional": true,
+            "text": "readonly StepperStep[]"
+          },
+          {
+            "name": "currentId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "error",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "log",
+            "optional": true,
+            "text": "readonly LogRow[]"
+          },
+          {
+            "name": "logKinds",
+            "optional": true,
+            "text": "readonly LogKindDef[]"
+          },
+          {
+            "name": "logOpen",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onLogToggle",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "logHeight",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": [
+            "Omit<TaskProgressProps, 'actions' | 'className'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--dialog-w-md"
+      ],
+      "gallery": {
+        "title": "Composites · Dialogs/JobDialog",
+        "route": "#/story/composites-jobdialog--overview",
+        "file": "stories/composites/JobDialog.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "KeyboardLayout",
       "tier": "composites",
       "source": "src/composites/KeyboardLayout/KeyboardLayout.tsx",
@@ -3884,6 +4067,154 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "TaskProgress",
+      "tier": "composites",
+      "source": "src/composites/TaskProgress/TaskProgress.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded.",
+      "useWhen": [
+        "A job runs for seconds or minutes, such as a generation, an engine setup or a download, and the user waits on it.",
+        "The job has named steps, writes output lines, or can fail with a message the user must read."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The job should sit in a dialog the user can hide or cancel.",
+          "use": "JobDialog"
+        },
+        {
+          "case": "Only a bar is needed, with no line, steps or log.",
+          "use": "ProgressBar"
+        },
+        {
+          "case": "The user walks through the steps and picks when to go on.",
+          "use": "Wizard"
+        }
+      ],
+      "rules": [
+        "Pass percent only when the job knows it; leave it out and the running bar sweeps.",
+        "Write the line as what happens now, such as Downloading Python: 31 of 84 MB, and update it as the job moves.",
+        "Pass the error as a sentence that says what failed and what to do; it shows once the state is failed.",
+        "Keep every output line in log, so the user can read why a job failed."
+      ],
+      "a11y": [
+        "The section is named by label, and the bar by the same name.",
+        "The state word is a status region, so a screen reader hears Done, Failed or Cancelled when it changes.",
+        "The error is an alert, and the log toggle says whether the log is open."
+      ],
+      "tree": {
+        "path": [
+          "feedback",
+          "a long job with steps, a log or a failure"
+        ],
+        "rule": "TaskProgress draws a bar, the steps, the failure and the log of one job the same way in every app."
+      },
+      "example": "import { TaskProgress } from '@drizztdourden08/tessera';\nimport type { LogRow, StepperStep, TaskState } from '@drizztdourden08/tessera';\n\ninterface Job {\n  state: TaskState;\n  percent?: number;\n  line: string;\n  steps: StepperStep[];\n  currentId: string;\n  error?: string;\n  log: LogRow[];\n}\n\nconst EngineSetup = ({ job }: { job: Job }) => (\n  <TaskProgress\n    state={job.state}\n    percent={job.percent}\n    line={job.line}\n    steps={job.steps}\n    currentId={job.currentId}\n    error={job.error}\n    log={job.log}\n  />\n);\n",
+      "propsHash": "d0f7170e82b89711",
+      "props": {
+        "own": [
+          {
+            "name": "state",
+            "optional": false,
+            "text": "TaskState",
+            "literals": [
+              "'running'",
+              "'done'",
+              "'failed'",
+              "'cancelled'"
+            ]
+          },
+          {
+            "name": "percent",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "line",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "steps",
+            "optional": true,
+            "text": "readonly StepperStep[]"
+          },
+          {
+            "name": "currentId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "error",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "log",
+            "optional": true,
+            "text": "readonly LogRow[]"
+          },
+          {
+            "name": "logKinds",
+            "optional": true,
+            "text": "readonly LogKindDef[]"
+          },
+          {
+            "name": "logOpen",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onLogToggle",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "logHeight",
+            "optional": true,
+            "text": "number",
+            "default": "LOG_HEIGHT"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-text-dim",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Content/TaskProgress",
+        "route": "#/story/composites-taskprogress--overview",
+        "file": "stories/composites/TaskProgress.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "UtilityScreen",

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 17 of 155 have their usage written; a linked name opens its page.
+One line per component. 19 of 157 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -115,6 +115,7 @@ One line per component. 17 of 155 have their usage written; a linked name opens 
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [InfoScreen](components/InfoScreen.md): A screen to read, such as About or credits: the window title bar with the close button, then wide margins and one centred column that scrolls. Import from `@drizztdourden08/tessera`.
 - `InlineCreateForm`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [JobDialog](components/JobDialog.md): A long job in a dialog: its TaskProgress, with Cancel and Hide while it runs and Close once it ends. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `LogPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -139,6 +140,7 @@ One line per component. 17 of 155 have their usage written; a linked name opens 
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
 - [StatTile](components/StatTile.md): A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.

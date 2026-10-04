@@ -19,12 +19,13 @@ type ProgressBarArgs = {
   secondaryValue: number;
   secondaryTone: SecondaryChoice;
   live: boolean;
+  indeterminate: boolean;
   showValue: boolean;
 };
 
 const TONES: readonly ProgressTone[] = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'info'];
 
-const ARGS: Partial<ProgressBarArgs> = { value: 42, max: 216, tone: 'primary', secondaryValue: 0, secondaryTone: 'none', live: false, showValue: false };
+const ARGS: Partial<ProgressBarArgs> = { value: 42, max: 216, tone: 'primary', secondaryValue: 0, secondaryTone: 'none', live: false, indeterminate: false, showValue: false };
 
 const ARG_TYPES: PlaygroundArgTypes<ProgressBarArgs> = {
     value: { group: 'Value', control: 'number' },
@@ -33,6 +34,7 @@ const ARG_TYPES: PlaygroundArgTypes<ProgressBarArgs> = {
     tone: { group: 'Appearance', control: 'select', options: [...TONES] },
     secondaryTone: { group: 'Appearance', control: 'select', options: ['none', ...TONES] },
     live: { group: 'Behaviour', control: 'boolean' },
+    indeterminate: { group: 'Behaviour', control: 'boolean', description: 'A short fill that sweeps across while the length is unknown.' },
     showValue: { group: 'Content', control: 'boolean', description: 'The value at the end of the bar, a percent by default.' },
   };
 
@@ -86,6 +88,7 @@ const Playground = {
       secondaryValue={args.secondaryValue > 0 ? args.secondaryValue : undefined}
       secondaryTone={args.secondaryTone === 'none' ? undefined : args.secondaryTone}
       live={args.live}
+      indeterminate={args.indeterminate}
       showValue={args.showValue}
     />
   ),
@@ -102,6 +105,7 @@ const BARS: Readonly<Record<string, ReactNode>> = {
   'done over reachable, faded secondary': <ProgressBar value={30} secondaryValue={70} />,
   'done over reachable, coloured secondary': <ProgressBar value={30} secondaryValue={70} secondaryTone="secondary" />,
   'with its value': <ProgressBar value={42} showValue />,
+  'length unknown': <ProgressBar value={0} indeterminate label="Starting" />,
   'with a value of its own': <ProgressBar value={12} max={40} showValue formatValue={(value, max) => `${value} / ${max} checks`} />,
 };
 
@@ -130,8 +134,9 @@ const Overview = overviewStory({
     '`secondaryValue` draws a second fill behind the main one, such as reachable against done.',
     '`live` turns off the easing for a value that changes every frame.',
     '`showValue` writes the value at its end, a percent unless `formatValue(value, max)` says otherwise.',
+    '`indeterminate` sweeps a short fill across while the length of the task is unknown.',
   ],
-  instead: '[ProgressRing] for a round one, [Spinner] when the length is unknown, or [StackedBar] for parts of a whole.',
+  instead: '[ProgressRing] for a round one, [Spinner] for a wait in a small space, or [StackedBar] for parts of a whole.',
   playground: Playground,
   variants: [Variants, Trigger],
 });

@@ -24,6 +24,15 @@ const PANEL_STRINGS = {
   stickPosition: 'Stick position',
   calibrated: 'cal',
   keyboard: 'Keyboard',
+  taskProgress: 'Progress',
+  taskSteps: 'Steps',
+  taskRunning: 'Running',
+  taskDone: 'Done',
+  taskFailed: 'Failed',
+  taskCancelled: 'Cancelled',
+  showLog: (count: number) => `Show log (${count})`,
+  hideLog: 'Hide log',
+  hideJob: 'Hide',
 };
 
 export { PANEL_STRINGS };

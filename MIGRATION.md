@@ -3674,3 +3674,57 @@ showLess: 'Less';
 2. Move validation text that sat under a row into `problem`, and an Advanced mark into `badge`.
 3. A host stylesheet that styled the resting hint through `.settings-row__description` uses `.settings-row__resting`: the description keeps `.settings-row__description`, and the hint line under it is `.settings-row__resting`.
 4. A section that passed `changedCount` only to count changed rows can drop it once its rows carry `changed`.
+
+## 143. TaskProgress and JobDialog: one way to show a long job
+
+`TaskProgress` is a new composite, under Composites · Content, and `JobDialog` a new one under Composites · Dialogs. A long job was drawn three ways: Archipelia's run dialog built its own step list with four colour classes, its engine setup stacked a Status, StatRows and a LogPanel, and Brock's updater wrote a centred percent under a ProgressBar. The job API of Brock draws the same parts from these two.
+
+- **The bar.** `percent`, from 0 to 100, fills the bar and is written at its end. Without it a running bar sweeps across, through the new `indeterminate` of ProgressBar. The bar is primary while the job runs, success when done, danger when failed and secondary when cancelled.
+- **The line and the state.** `line` says what happens now, beside a state word: Running (pulsing), Done, Failed or Cancelled, drawn with `StatusOf` and read out as a status region.
+- **The steps.** `steps` and `currentId` draw a vertical `Stepper`. A failed job marks the current step as an error; a done job ticks every step, through the new `complete` of Stepper.
+- **The failure.** `error` shows in a danger `Callout` inside an alert once `state` is `failed`.
+- **The log.** `log` folds the output lines under Show log (count). Open, they show in a `LogPanel` 224 pixels tall (`logHeight`). A failed job opens its log until the user folds it; `logOpen` and `onLogToggle` control it from outside.
+- **JobDialog** puts TaskProgress in a dialog 640 pixels wide. While the job runs it shows Cancel (with `onCancel`, `cancelling` spins it) and Hide; Hide, Escape, the close button and a click outside call `onHide` and leave the job running. Once the job ends, one Close button calls `onClose`, or `onHide` without it. Focus starts on Hide, or on Close. `actions` adds buttons before them, such as Try again.
+
+```ts
+type TaskState = 'running' | 'done' | 'failed' | 'cancelled';
+
+interface TaskProgressProps {
+  state: TaskState;
+  percent?: number; // left out: the bar sweeps while running
+  line?: ReactNode;
+  steps?: readonly StepperStep[];
+  currentId?: string;
+  error?: ReactNode;
+  log?: readonly LogRow[];
+  logKinds?: readonly LogKindDef[];
+  logOpen?: boolean;
+  onLogToggle?: (open: boolean) => void;
+  logHeight?: number; // default 224
+  label?: string; // default Progress
+  actions?: ReactNode;
+  className?: string;
+}
+
+interface JobDialogProps extends Omit<TaskProgressProps, 'actions' | 'className'> {
+  open: boolean;
+  title: ReactNode;
+  onHide: () => void;
+  onCancel?: () => void;
+  onClose?: () => void; // default onHide
+  cancelling?: boolean;
+  actions?: ReactNode;
+  className?: string;
+}
+```
+
+| Before | Now |
+|---|---|
+| ProgressBar had no state for a length not known | `indeterminate`: a fill 40% wide that sweeps across, no `aria-valuenow`, no value text; with reduced motion a still, faded full bar |
+| Stepper always had one current step | `complete`: every step done, none current |
+| | new strings `panels.taskProgress`, `taskSteps`, `taskRunning`, `taskDone`, `taskFailed`, `taskCancelled`, `showLog(count)`, `hideLog`, `hideJob` |
+
+### What an app does
+
+1. Archipelia: `RunProgressPanel`, its `stepperOf` and its CSS give way to `TaskProgress`, and the `RunProgress` view becomes a `JobDialog` with `onHide` and `onCancel`; the seed moves to the title or a `CopyValue` in `line`. Engine setup shows its state, its line and its log in a `TaskProgress`.
+2. Brock: the updater `DownloadStatus` shows a `TaskProgress` with `percent` and a line such as Downloading 0.5.0: 31 of 84 MB, and its error through `error`. The job API reports `state`, `percent`, `line`, `steps`, `currentId`, `error` and `log`, the props of TaskProgress.

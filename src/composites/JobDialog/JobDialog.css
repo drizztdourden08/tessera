@@ -1,0 +1,4 @@
+/* @layer renderer-components @kind style */
+.dialog.job-dialog {
+  max-width: var(--dialog-w-md);
+}
