@@ -125,7 +125,16 @@ const CODE = `import { InlineCreateForm } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'InlineCreateForm',
-  description: 'A small boxed form that creates one thing from a name, in place on the page. Reach for it where a dialog would be too much, such as a new profile above the profile list. The name field takes focus and Enter submits; Create stays disabled until there is a name and canSubmit holds. extraFields sit under the name, error shows under them in the danger colour and marks the field, and onCancel adds a Cancel button. compact draws it on one line, unboxed: the name, any extraFields, then an icon button that creates and one that cancels, each named by submitLabel and cancelLabel. size takes md or sm like any control, and without it the form follows the size of the Field around it, else md; the name, the extraFields and the buttons all follow it. The name keeps its accessible name from label or the placeholder, and an error shows on a line below and describes the field.',
+  description: 'A small form that creates one thing from a name, in place on the page, such as a new profile above a list.',
+  points: [
+    'The name field takes focus, and [[Enter]] sends the name to `onCreate`.',
+    'Create stays off until there is a name and `canSubmit` holds.',
+    '`extraFields` sit under the name; `error` shows under them and marks the field.',
+    '`onCancel` adds a Cancel button.',
+    '`compact` draws it on one line, unboxed, with icon buttons to create and cancel.',
+    'Without `size`, it follows the size of the [Field] around it.',
+  ],
+  instead: '[CreateRecordDialog] for a record with more than a few fields.',
   playground: Playground,
   variants: [Compact, Sizes, ExtraFields],
   states: {

@@ -138,7 +138,16 @@ const CODE = `import { RecordEditor } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'RecordEditor',
-  description: 'A form built from a schema for one record, with the layout worked out from the fields. Reach for it to edit or inspect any record the app stores, such as a player slot. With onSave it tracks edits, marks dirty fields and offers Save and Revert, and a failed save shows its error; without onSave every control renders disabled and there is no footer. Given the lookups, it also marks fields another source changed, lists what still points at the record, and turns reference fields into searchable pickers. Each field sits in a row with the same padding on every side, so a marked row keeps its label and control clear of its edges. size takes md or sm for every control, and without it the editor follows the size of the Field around it, else md.',
+  description: 'A form for one record, built from its schema, to edit or inspect anything the app stores, such as a player slot.',
+  points: [
+    'Give it a `record` and a `schema`; the layout comes from the fields.',
+    'With `onSave` it marks changed fields and offers Save and Revert; a failed save shows its error.',
+    '**Without `onSave` it is read only:** every control is disabled and there is no footer.',
+    '`changedPaths` marks fields another source changed; `referencedBy` lists what points at the record.',
+    'The resolvers turn reference fields into searchable pickers.',
+    'Without `size`, it follows the size of the [Field] around it.',
+  ],
+  instead: '[CreateRecordDialog] to add a new record.',
   playground: Playground,
   variants: [Sizes],
   states: {
