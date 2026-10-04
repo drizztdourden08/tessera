@@ -14,4 +14,7 @@ const ARRIVE_PX = 0.75;
 /** The longest frame step the engine integrates, in seconds, so a background tab does not teleport. */
 const MAX_STEP_S = 0.05;
 
-export { ACCEL_PER_SPEED, ARRIVE_PX, MAX_STEP_S, STAGE_HEIGHT, WALK_SPEED };
+/** A mascot fades out or back in over this time, in milliseconds. */
+const PRESENCE_FADE_MS = 280;
+
+export { ACCEL_PER_SPEED, ARRIVE_PX, MAX_STEP_S, PRESENCE_FADE_MS, STAGE_HEIGHT, WALK_SPEED };

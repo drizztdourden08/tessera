@@ -13,6 +13,7 @@ const syncActor = (actor: StageActor, before: MascotStageCast, next: MascotStage
   const { core, runner } = actor;
   if (next.rest && next.rest !== before.rest) core.rest = next.rest;
   if (next.autonomy !== before.autonomy) actor.setAutonomy(next.autonomy);
+  if ((next.hidden ?? false) !== (before.hidden ?? false)) actor.handle.setVisible(!next.hidden);
   const moved = next.x !== undefined && next.x !== before.x;
   const turned = next.face !== undefined && next.face !== before.face;
   const face = turned && next.face ? { face: next.face } : {};

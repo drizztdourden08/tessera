@@ -15,8 +15,6 @@ const elsewhere = (c: AutonomyContext): number => {
   return c.x < (c.min + c.max) / 2 ? c.max - span / 8 : c.min + span / 8;
 };
 
-const SLEEP_AFTER_MS = 45000;
-
 /**
  * The default idle life: mostly small things (blink, look around, a bounce), sometimes a wander to a spot
  * to scan it and maybe come back, rarely a spin or a wave, and a nap at home after a long quiet spell.
@@ -42,7 +40,7 @@ const AUTONOMY_RULES: readonly AutonomyRule[] = [
     id: 'nap',
     weight: 50,
     cooldown: 60000,
-    when: (c) => c.idleFor > SLEEP_AFTER_MS,
+    when: (c) => c.idleFor > c.napAfter,
     steps: (c) => [{ moveTo: c.home }, { play: 'resting', loop: 1 }, { play: 'sleep', loop: 6 }, { play: 'blink' }],
   },
 ];

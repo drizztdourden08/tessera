@@ -72,6 +72,10 @@ interface ActorCore {
   scale: number;
   dom: ActorDom | undefined;
   native: NativeRun;
+  /** Fading in (to 1) or out (to 0); a hidden mascot stays on the stage as a state, its clips paused. */
+  presence: { from: number; to: number; start: number };
+  /** True while fully hidden: nothing is drawn or ticked for it. */
+  away: boolean;
   emit: (event: Omit<MascotStageEvent, 'actor'>) => void;
 }
 

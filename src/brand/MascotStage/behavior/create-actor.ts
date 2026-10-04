@@ -2,6 +2,7 @@
 import type { MascotActorHandle, MascotStageCast, MascotStageEvent } from '../MascotStage.type';
 import type { ActorCore } from './actor.type';
 import { finalClip } from './actor-moves';
+import { fadePresence } from './fade-presence';
 import type { ActorRig } from './actor-rig.type';
 import type { AutonomyConfig } from './autonomy.type';
 import { createDirector } from './create-director';
@@ -48,6 +49,7 @@ const createActor = (setup: ActorSetup): StageActor => {
     turn: { from: cast.face === 'left' ? -1 : 1, to: cast.face === 'left' ? -1 : 1, start },
     travel: undefined, step: undefined, queue: [], waiting: undefined, overrides: new Map(),
     bounds: { min: x, max: x }, lastHost: start, reduced: false, scale: 1, dom: undefined, native: { source: undefined, clip: [], ambient: [] },
+    presence: { from: cast.hidden ? 0 : 1, to: cast.hidden ? 0 : 1, start }, away: false,
     emit: (event) => emit({ ...event, actor: cast.id }),
   };
   const runner = createStepRunner(core);
@@ -68,9 +70,10 @@ const createActor = (setup: ActorSetup): StageActor => {
         for (const id of rig.effects) fadeExtra(core, id, mode, now());
       },
       autonomy: (config) => actor.setAutonomy(config),
+      setVisible: (visible) => fadePresence(core, visible, now()),
       state: () => ({
         x: core.x, facing: core.facing, clip: finalClip(core.source).id, moving: core.travel !== undefined,
-        busy: !runner.idle(), queued: core.queue.length,
+        busy: !runner.idle(), queued: core.queue.length, visible: core.presence.to > 0,
       }),
     },
   };

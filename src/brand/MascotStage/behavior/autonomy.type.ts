@@ -12,6 +12,8 @@ interface AutonomyContext {
   facing: Facing;
   /** Milliseconds since the host last gave a command. */
   idleFor: number;
+  /** Quiet milliseconds before the nap rule may run. */
+  napAfter: number;
   /** A number from 0 up to 1, seeded so a run can repeat. */
   random: () => number;
 }
@@ -31,6 +33,8 @@ interface AutonomyConfig {
   rules?: readonly AutonomyRule[];
   /** Rest between behaviours, from and to, in milliseconds. */
   pause?: readonly [number, number];
+  /** Quiet milliseconds (no host command) before a nap. Default 45 s. */
+  napAfter?: number;
   seed?: number;
 }
 

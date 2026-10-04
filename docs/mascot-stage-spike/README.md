@@ -4,6 +4,26 @@ A strip of fixed height and any width where Sentri, Flint and Pelago live. Each 
 
 Try it on the spike's gallery: `pnpm exec storylite dev --port 4410` on the branch `spike/mascot-stage`, then open Core · Brand / Mascot stage. The Stage page has the controls (click the stage to send the chosen mascot walking there, drag its corner to resize it, Slow motion to watch the blends); Side by side shows today's AnimatedMascot next to the stage; Crowd measures 3 to 30 mascots at once.
 
+## Second round: more to play with
+
+The gallery page now has twelve stories:
+
+- Stage: pick which mascots are on stage and how many of each (one to three), hide or show each one with its own toggle, and set walk, autonomous mode, extras, speed and stage height in a Stage options menu.
+- Director: script a sequence (walk to x, play a clip some times, face, wait), run it, replay it when it ends; three ready scripts (Patrol, Show off, Work day).
+- Dialogue: two mascots face each other and take turns, each waiting for the other to finish.
+- Follow the pointer: the mascot walks to where you hover, keeping its speed when the target moves; a click makes it hop there.
+- Guided tour: the mascot walks below a highlighted card and points up at it.
+- Autonomy tuning: live sliders for each rule's weight and cooldown, the pause between behaviours and the nap time, per mascot, with a count of what it picked.
+- Flip every clip: each clip facing right and facing left, by mascot and clip group.
+- Speed: the stage faster, slower or paused, and one clip at its own speed on top.
+- Reduced motion: the stage with the reduced motion setting previewed (or forced off).
+- Stress: a random command every few hundred milliseconds (slider), with the engine's frame cost.
+- Side by side and Crowd, as before.
+
+Hiding a mascot is a state, not an unmount: `hidden` in the cast or `setVisible(false)` on the handle fades it out over 280 ms; it keeps its place, steps and facing; once fully hidden its clips pause and the engine skips it. Measured with 9 mascots spinning: 0.042 ms of engine work and 0.34 ms of style a frame shown, 0.004 ms and 0 ms hidden. `stageX(clientX)` on the stage handle turns a pointer position into a stage x, and `motion` on the stage (`system`, `full`, `reduced`) previews reduced motion. The autonomous mode takes `napAfter`.
+
+Settled clips still play through today's `playClip`, so the approved clips look the same. Frame cost after this round (Crowd page): engine 0.09, 0.20, 0.28 and 0.33 ms a frame for 3, 9, 18 and 30 mascots; style 0.19 to 1.17 ms against today's 0.10 to 1.02 ms.
+
 ## 1. Library choice
 
 Recommendation: **no library.** A small engine of our own on top of the browser's Web Animations API. When a clip is settled it plays through today's `playClip`, unchanged; only while a blend or a walk is running does the engine work per frame.

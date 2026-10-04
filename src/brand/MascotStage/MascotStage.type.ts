@@ -50,6 +50,7 @@ interface MascotActorState {
   moving: boolean;
   busy: boolean;
   queued: number;
+  visible: boolean;
 }
 
 /** The imperative controller of one mascot on the stage. */
@@ -67,6 +68,8 @@ interface MascotActorHandle {
   /** Fades every extra out (hide) or hands them back to the clips (auto). */
   effects: (mode: 'auto' | 'hide') => void;
   autonomy: (config: boolean | AutonomyConfig) => void;
+  /** Fades the mascot out (false) or back in (true). It keeps its place and state; its clips pause while hidden. */
+  setVisible: (visible: boolean) => void;
   state: () => MascotActorState;
 }
 
@@ -94,11 +97,15 @@ interface MascotStageCast {
   /** Height of this mascot's frame as a share of the stage height. Default 1. */
   size?: number;
   autonomy?: boolean | AutonomyConfig;
+  /** Fades it out, keeping its place and state. Changing it fades it back in. */
+  hidden?: boolean;
 }
 
 interface MascotStageHandle {
   actor: (id: string) => MascotActorHandle | undefined;
   width: () => number;
+  /** A pointer's clientX as a stage x, for walking to where the user points. */
+  stageX: (clientX: number) => number;
   /** The engine's own work per frame so far: frames drawn, total and worst milliseconds. */
   stats: () => { frames: number; busyMs: number; worstMs: number };
 }
@@ -109,6 +116,8 @@ interface MascotStageProps {
   height?: number;
   playing?: boolean;
   speed?: number;
+  /** system follows the reduced motion setting; reduced previews it; full ignores it. */
+  motion?: 'system' | 'full' | 'reduced';
   className?: string;
   label?: string;
   onEvent?: (event: MascotStageEvent) => void;

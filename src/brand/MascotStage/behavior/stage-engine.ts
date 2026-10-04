@@ -21,6 +21,7 @@ const createStageEngine = (): StageEngine => {
   const listener: { current?: ((event: MascotStageEvent) => void) | undefined } = {};
   const emit = (event: MascotStageEvent): void => listener.current?.(event);
   let width = 0;
+  let element: HTMLElement | null = null;
   let height = 0;
   let frame = 0;
   let last = clock.now();
@@ -40,7 +41,7 @@ const createStageEngine = (): StageEngine => {
     const dt = Math.min(MAX_STEP_S, Math.max(0, (now - last) / 1000));
     last = now;
     for (const actor of actors.values()) {
-      actor.director?.tick(now);
+      if (actor.core.presence.to > 0) actor.director?.tick(now);
       actor.runner.tick(now, dt);
       renderActor(actor.core, now, clock.state());
     }
@@ -64,6 +65,7 @@ const createStageEngine = (): StageEngine => {
   const handle: MascotStageHandle = {
     actor: (id) => actors.get(id)?.handle,
     width: () => width,
+    stageX: (clientX) => clientX - (element?.getBoundingClientRect().left ?? 0),
     stats: () => ({ ...stats }),
   };
   return {
@@ -122,6 +124,9 @@ const createStageEngine = (): StageEngine => {
         stopNative(actor.core);
         if (actor.core.dom) playAmbient(actor.core, actor.core.dom.svg, clock.now(), clock.state());
       }
+    },
+    setElement: (next) => {
+      element = next;
     },
     setPlaying: (playing) => {
       clock.setPlaying(playing);

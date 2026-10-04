@@ -7,6 +7,7 @@ import type { StepRunner } from './step-runner.type';
 
 const AUTONOMY_PRIORITY = 0;
 const DEFAULT_PAUSE: readonly [number, number] = [1800, 5200];
+const NAP_AFTER_MS = 45000;
 
 interface Director {
   tick: (now: number) => void;
@@ -39,7 +40,7 @@ const createDirector = (actor: ActorCore, runner: StepRunner, config: AutonomyCo
       wasIdle = idle;
       if (!idle || now < nextAt) return;
       const context: AutonomyContext = {
-        now, x: actor.x, home: actor.home, min: actor.bounds.min, max: actor.bounds.max, facing: actor.facing, idleFor: now - actor.lastHost, random,
+        now, x: actor.x, home: actor.home, min: actor.bounds.min, max: actor.bounds.max, facing: actor.facing, idleFor: now - actor.lastHost, napAfter: config.napAfter ?? NAP_AFTER_MS, random,
       };
       const rule = choose(rules, context, used, last);
       nextAt = now + shortest;

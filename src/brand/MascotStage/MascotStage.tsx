@@ -13,9 +13,9 @@ import './MascotStage.css';
  * states) or the handle (play, moveTo, queue), or let each mascot run its own idle life (autonomy).
  */
 const MascotStage = (props: MascotStageProps) => {
-  const { cast, height = STAGE_HEIGHT, playing = true, speed = 1, className = '', label, onEvent, ref } = props;
+  const { cast, height = STAGE_HEIGHT, playing = true, speed = 1, motion = 'system', className = '', label, onEvent, ref } = props;
   const stageRef = useRef<HTMLDivElement>(null);
-  const engine = useStageEngine(stageRef, { cast, height, playing, speed, onEvent });
+  const engine = useStageEngine(stageRef, { cast, height, playing, speed, motion, onEvent });
   useImperativeHandle(ref, () => engine.handle, [engine]);
   const names = cast.map((c) => BRAND_FAMILY[c.brand].mascot?.name ?? c.id).join(', ');
   return (

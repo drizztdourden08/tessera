@@ -16,6 +16,7 @@ interface StageEngine {
   attach: (id: string, wrap: HTMLElement, svg: SVGSVGElement, reduced: boolean) => () => void;
   resize: (width: number, height: number) => void;
   setReduced: (reduced: boolean) => void;
+  setElement: (element: HTMLElement | null) => void;
   setPlaying: (playing: boolean) => void;
   setSpeed: (speed: number) => void;
   start: () => void;

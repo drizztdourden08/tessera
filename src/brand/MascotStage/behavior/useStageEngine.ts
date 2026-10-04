@@ -6,13 +6,14 @@ import type { MascotStageProps } from '../MascotStage.type';
 import { createStageEngine } from './stage-engine';
 import type { StageEngine } from './stage-engine.type';
 
-type EngineOptions = Required<Pick<MascotStageProps, 'cast' | 'height' | 'playing' | 'speed'>> & Pick<MascotStageProps, 'onEvent'>;
+type EngineOptions = Required<Pick<MascotStageProps, 'cast' | 'height' | 'playing' | 'speed' | 'motion'>> & Pick<MascotStageProps, 'onEvent'>;
 
 /** Creates the stage engine, keeps it in step with the props and the stage size, and runs its frame loop. */
 const useStageEngine = (stageRef: RefObject<HTMLDivElement | null>, options: EngineOptions): StageEngine => {
-  const { cast, height, playing, speed, onEvent } = options;
+  const { cast, height, playing, speed, motion, onEvent } = options;
   const [engine] = useState(createStageEngine);
-  const reduced = useReducedMotion(stageRef);
+  const system = useReducedMotion(stageRef);
+  const reduced = motion === 'system' ? system : motion === 'reduced';
   useMemo(() => engine.sync(cast), [engine, cast]);
   useEffect(() => {
     engine.listener.current = onEvent;
@@ -23,6 +24,7 @@ const useStageEngine = (stageRef: RefObject<HTMLDivElement | null>, options: Eng
   useLayoutEffect(() => {
     const stage = stageRef.current;
     if (!stage) return undefined;
+    engine.setElement(stage);
     engine.resize(stage.getBoundingClientRect().width, height);
     const observer = new ResizeObserver(([entry]) => engine.resize(entry?.contentRect.width ?? 0, height));
     observer.observe(stage);

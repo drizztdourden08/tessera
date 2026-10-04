@@ -6,7 +6,8 @@ import type { ExtraWeights } from './compose-outputs';
 import { easeWeight } from './ease-weight';
 import { evaluateSource } from './evaluate-source';
 import { facingValue } from './facing-value';
-import { playNative, stopNative } from './native-play';
+import { playNative, stopNative, syncNative } from './native-play';
+import { presenceValue } from './presence-value';
 import type { ClockState } from './native-play';
 import { settleSource } from './settle-source';
 import { sourceParts } from './source-parts';
@@ -38,13 +39,39 @@ const place = (actor: ActorCore, dom: ActorDom, now: number): void => {
   if (dom.svg.style.transform !== turn) dom.svg.style.transform = turn;
 };
 
+const pauseAll = (actor: ActorCore): void => {
+  for (const animation of [...actor.native.clip, ...actor.native.ambient]) animation.pause();
+};
+
+/** Fades the whole mascot; once fully hidden it is skipped and its clips pause, so it costs nothing. */
+const present = (actor: ActorCore, dom: ActorDom, now: number, clock: ClockState): boolean => {
+  const shown = presenceValue(actor, now);
+  if (shown === 0 && actor.presence.to === 0) {
+    if (!actor.away) {
+      actor.away = true;
+      pauseAll(actor);
+      dom.wrap.style.opacity = '0';
+      dom.wrap.style.visibility = 'hidden';
+    }
+    return false;
+  }
+  if (actor.away) {
+    actor.away = false;
+    syncNative(actor, now, clock);
+    dom.wrap.style.visibility = '';
+  }
+  const opacity = shown === 1 ? '' : String(shown);
+  if (dom.wrap.style.opacity !== opacity) dom.wrap.style.opacity = opacity;
+  return true;
+};
+
 /**
  * Draws one mascot at a moment on the stage clock. A settled clip plays natively (today's playClip, nothing
  * per frame); while a blend runs, or an extra is forced, the engine samples both sides and holds the frame.
  */
 const renderActor = (actor: ActorCore, now: number, clock: ClockState): void => {
   const { dom, rig } = actor;
-  if (!dom) return;
+  if (!dom || !present(actor, dom, now, clock)) return;
   actor.source = settleSource(actor.source, now);
   const { source } = actor;
   const parts = sourceParts(source, rig);
