@@ -2153,3 +2153,19 @@ Every popup that uses `useDismissListeners` joins one stack per document: Widget
 ### What an app does
 
 Nothing. A popup that called `useDismissListeners` keeps the same parameters. The hook now reads `onClose`, `escape` and the refs on every render, so passing a new function each render no longer re-registers the listeners.
+
+## 84. InputIcon takes every Status tone, and wordmarks scale down to fit
+
+`InputIcon` `tone` was `'color' | 'theme'`. It is now `'color' | 'theme' | StatusTone`, the same tones as Status: primary, secondary, tertiary, neutral, success, warning, danger and info. A Status tone paints the highlight parts, such as the pressed arm of a d-pad, the ball of a joystick or the coloured GameCube buttons, in the colour of that tone, with the same thin gap in the page background that `theme` cuts. `theme` still paints them in the primary colour, so it matches `primary`.
+
+```tsx
+<InputIcon family="generic" name="joystick-highlight" tone="danger" />
+```
+
+`PixelWordmark` sets its width from its size and keeps its height in proportion, so a wordmark in a box narrower than the art scales down whole. Before, it kept its full height and drew the art smaller inside, which left empty space above and below. `Logo.Wordmark`, `BrandWordmark` and `Logo.Combined` draw through it. An inline `Logo.Combined` now fits its box: the mark keeps its size and the name shrinks beside it.
+
+The gallery pages under Core · Brand lay their variants out in grids that wrap, so nothing spills out of its cell at any width. The Icon files rows wrap too, and a 512 pixel icon scales down when the page is narrower.
+
+### What an app does
+
+Nothing. A `tone` of `color` or `theme` draws as before, and a wordmark in a box wide enough for it draws at the same size.

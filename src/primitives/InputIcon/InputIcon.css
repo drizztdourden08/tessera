@@ -1,6 +1,16 @@
 /* @layer renderer-components @kind style */
-.input-icon--theme .input-icon__accent {
-  fill: var(--c-primary);
+.input-icon--theme,
+.input-icon--primary { --input-icon-accent: var(--c-primary); }
+.input-icon--secondary { --input-icon-accent: var(--c-secondary); }
+.input-icon--tertiary { --input-icon-accent: var(--c-tertiary); }
+.input-icon--neutral { --input-icon-accent: var(--c-text-muted); }
+.input-icon--success { --input-icon-accent: var(--c-success); }
+.input-icon--warning { --input-icon-accent: var(--c-warning); }
+.input-icon--danger { --input-icon-accent: var(--c-danger); }
+.input-icon--info { --input-icon-accent: var(--c-info); }
+
+.input-icon:not(.input-icon--color) .input-icon__accent {
+  fill: var(--input-icon-accent);
   stroke: var(--c-bg);
   stroke-width: var(--border-width-thick);
   paint-order: stroke;

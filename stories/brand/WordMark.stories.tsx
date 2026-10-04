@@ -3,12 +3,12 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS, Logo } from '../../src/brand';
 import type { BrandApp, BrandRim, LogoWordmarkProps } from '../../src/brand';
-import { Flex } from '../../src/primitives';
-import { axis } from '../_template/axis';
-import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { RimGrid } from './_samples/RimGrid';
 import { RIMS } from './_samples/RimGrid.constants';
+import { VariantGrid } from './_samples/VariantGrid';
+import { VariantGroups } from './_samples/VariantGroups';
+import type { VariantGridMin } from './_samples/VariantGrid.type';
 
 type WordmarkSize = NonNullable<LogoWordmarkProps['size']>;
 
@@ -19,6 +19,8 @@ type WordMarkArgs = {
 };
 
 const SIZES: readonly WordmarkSize[] = ['sm', 'md', 'lg'];
+
+const SIZE_MIN: Record<WordmarkSize, VariantGridMin> = { sm: 'md', md: 'lg', lg: 'xl' };
 
 const ARG_TYPES: PlaygroundArgTypes<WordMarkArgs> = {
   brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
@@ -40,26 +42,26 @@ const Playground = {
 
 const Wordmarks = {
   name: 'Wordmarks',
-  render: () => <Demonstrator rows={axis(BRAND_APPS)} cell={(brand) => <Logo.Wordmark brand={brand} size="md" />} />,
+  render: () => <VariantGrid min="lg" items={BRAND_APPS.map((brand) => ({ key: brand, label: brand, node: <Logo.Wordmark brand={brand} size="md" /> }))} />,
 } satisfies StoryLiteStoryDefinition<WordMarkArgs>;
 
 const Sizes = {
   name: 'Sizes',
   render: () => (
-    <Demonstrator
-      rows={axis(SIZES)}
-      cell={(size) => (
-        <Flex gap="lg" align="center" wrap>
-          {BRAND_APPS.map((brand) => <Logo.Wordmark key={brand} brand={brand} size={size} title="" />)}
-        </Flex>
-      )}
+    <VariantGroups
+      groups={SIZES.map((size) => ({
+        key: size,
+        label: size,
+        min: SIZE_MIN[size],
+        items: BRAND_APPS.map((brand) => ({ key: brand, label: brand, node: <Logo.Wordmark brand={brand} size={size} title="" /> })),
+      }))}
     />
   ),
 } satisfies StoryLiteStoryDefinition<WordMarkArgs>;
 
 const Rims = {
   name: 'Rims',
-  render: () => <RimGrid draw={(brand, rim) => <Logo.Wordmark brand={brand} size="sm" rim={rim} title="" />} />,
+  render: () => <RimGrid min="md" draw={(brand, rim) => <Logo.Wordmark brand={brand} size="sm" rim={rim} title="" />} />,
 } satisfies StoryLiteStoryDefinition<WordMarkArgs>;
 
 const Overview = overviewStory({

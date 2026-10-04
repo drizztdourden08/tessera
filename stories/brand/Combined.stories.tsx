@@ -3,11 +3,10 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS, Logo } from '../../src/brand';
 import type { BrandApp, BrandMarkSize, BrandRim, LogoDirection } from '../../src/brand';
-import { axis } from '../_template/axis';
-import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { RimGrid } from './_samples/RimGrid';
 import { RIMS } from './_samples/RimGrid.constants';
+import { VariantGrid } from './_samples/VariantGrid';
 
 type CombinedArgs = {
   brand: BrandApp;
@@ -37,17 +36,17 @@ const Playground = {
 
 const Inline = {
   name: 'Inline',
-  render: () => <Demonstrator rows={axis(BRAND_APPS)} cell={(brand) => <Logo.Combined brand={brand} size="lg" />} />,
+  render: () => <VariantGrid min="xl" items={BRAND_APPS.map((brand) => ({ key: brand, label: brand, node: <Logo.Combined brand={brand} size="lg" /> }))} />,
 } satisfies StoryLiteStoryDefinition<CombinedArgs>;
 
 const Stacked = {
   name: 'Stacked',
-  render: () => <Demonstrator rows={axis(BRAND_APPS)} cell={(brand) => <Logo.Combined brand={brand} direction="stacked" size="xl" />} />,
+  render: () => <VariantGrid min="xl" items={BRAND_APPS.map((brand) => ({ key: brand, label: brand, node: <Logo.Combined brand={brand} direction="stacked" size="xl" /> }))} />,
 } satisfies StoryLiteStoryDefinition<CombinedArgs>;
 
 const Rims = {
   name: 'Rims',
-  render: () => <RimGrid draw={(brand, rim) => <Logo.Combined brand={brand} size="md" rim={rim} />} />,
+  render: () => <RimGrid min="md" draw={(brand, rim) => <Logo.Combined brand={brand} size="md" rim={rim} />} />,
 } satisfies StoryLiteStoryDefinition<CombinedArgs>;
 
 const Overview = overviewStory({

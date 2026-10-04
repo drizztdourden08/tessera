@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { IconLook } from '../Icon/Icon.type';
+import type { StatusTone } from '../Status/Status.type';
 import type { INPUT_ICON_FAMILIES } from './behavior/input-icon-families.constants';
 import type { INPUT_ICON_NAMES } from './behavior/input-icon-names.constants';
 
@@ -9,7 +10,7 @@ type InputIconName<F extends InputIconFamily = InputIconFamily> = (typeof INPUT_
 
 type InputIconSource = { [F in InputIconFamily]: { family: F; name: InputIconName<F> } }[InputIconFamily];
 
-type InputIconTone = 'color' | 'theme';
+type InputIconTone = 'color' | 'theme' | StatusTone;
 
 type GamepadIcons = { readonly [F in InputIconFamily]: Readonly<Record<string, InputIconName<F>>> };
 

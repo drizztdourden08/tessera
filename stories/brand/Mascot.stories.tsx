@@ -11,6 +11,7 @@ import { MASCOT_BRANDS, MASCOT_VARIANT_IDS, SENTRI_ANIMATIONS } from './_samples
 import { IconFileRows } from './_samples/IconFileRows';
 import { MascotAnimations } from './_samples/MascotAnimations';
 import { MascotBreakdown } from './_samples/MascotBreakdown';
+import { VariantGroups } from './_samples/VariantGroups';
 
 type MascotArgs = {
   animation: SentriAnimation | 'none';
@@ -106,10 +107,12 @@ const Sizes = {
 const Poses = {
   name: 'Poses',
   render: () => (
-    <Demonstrator
-      rows={axis(MASCOT_BRANDS)}
-      columns={axis(Object.keys(POSES))}
-      cell={(brand, pose) => <Mascot brand={brand} pose={POSES[pose]} scale={3} title="" />}
+    <VariantGroups
+      groups={MASCOT_BRANDS.map((brand) => ({
+        key: brand,
+        label: brand,
+        items: Object.entries(POSES).map(([label, pose]) => ({ key: label, label, node: <Mascot brand={brand} pose={pose} scale={3} title="" /> })),
+      }))}
     />
   ),
 } satisfies StoryLiteStoryDefinition<MascotArgs>;

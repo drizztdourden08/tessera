@@ -2,13 +2,25 @@
 import { useState } from 'react';
 import { AnimatedMascot } from '../../../src/brand';
 import { Button, Flex, Icon, Stack, Text } from '../../../src/primitives';
-import { Demonstrator } from '../../_template/Demonstrator';
 import { SENTRI_ANIMATIONS, SENTRI_MOTION } from './mascot-brands.constants';
-
-const COLUMNS = SENTRI_ANIMATIONS.map((id) => ({ key: id, label: SENTRI_MOTION?.animations[id]?.name ?? id }));
+import { VariantGrid } from './VariantGrid';
 
 const MascotAnimations = () => {
   const [playing, setPlaying] = useState(true);
+  const items = SENTRI_ANIMATIONS.map((id) => {
+    const clip = SENTRI_MOTION?.animations[id];
+    return {
+      key: id,
+      label: clip?.name ?? id,
+      node: (
+        <Stack gap="sm" align="center">
+          <AnimatedMascot brand="rotp" animation={id} playing={playing} loop scale={3} title={`Sentri, ${clip?.name ?? id}`} />
+          <Text variant="caption">{clip?.loop ? 'Loops.' : 'Plays once; looped here.'}</Text>
+          <Text variant="caption">{clip?.summary}</Text>
+        </Stack>
+      ),
+    };
+  });
   return (
     <Stack gap="lg">
       <Flex>
@@ -16,21 +28,7 @@ const MascotAnimations = () => {
           {playing ? 'Pause' : 'Play'}
         </Button>
       </Flex>
-      <Demonstrator
-        columns={COLUMNS}
-        fill
-        valign="start"
-        cell={(_row, id) => {
-          const clip = SENTRI_MOTION?.animations[id];
-          return (
-            <Stack gap="sm" align="center">
-              <AnimatedMascot brand="rotp" animation={id} playing={playing} loop scale={3} title={`Sentri, ${clip?.name ?? id}`} />
-              <Text variant="caption">{clip?.loop ? 'Loops.' : 'Plays once; looped here.'}</Text>
-              <Text variant="caption">{clip?.summary}</Text>
-            </Stack>
-          );
-        }}
-      />
+      <VariantGrid items={items} />
     </Stack>
   );
 };

@@ -15,7 +15,7 @@ const PixelWordmark = (props: PixelWordmarkProps) => {
     <Svg
       className={cls}
       viewBox={art.viewBox}
-      style={{ aspectRatio: `${art.width} / ${art.height}` }}
+      style={{ aspectRatio: `${art.width} / ${art.height}`, inlineSize: `calc(var(--pixel-wordmark-size) * ${art.width / art.height})` }}
       shapeRendering="crispEdges"
       role={label ? 'img' : undefined}
       aria-label={label || undefined}

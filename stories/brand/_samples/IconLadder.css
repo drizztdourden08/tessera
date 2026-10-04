@@ -4,9 +4,32 @@
   min-inline-size: 0;
 }
 
-.icon-ladder__row { padding-block-end: var(--space-sm); }
+.icon-ladder__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-lg);
+  min-inline-size: 0;
+}
+
+.icon-ladder__file {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
 
 .icon-ladder__png {
   flex: none;
+  max-inline-size: 100%;
+  block-size: auto;
   background: repeating-conic-gradient(var(--c-surface) 0 25%, var(--c-bg) 0 50%) 0 0 / var(--space-sm) var(--space-sm);
+}
+
+.icon-ladder__size {
+  color: var(--c-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
 }

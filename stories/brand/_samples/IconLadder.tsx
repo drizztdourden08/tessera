@@ -1,10 +1,8 @@
 /* @layer stories @kind component */
-import { Image, ScrollArea, Stack, Text } from '../../../src/primitives';
+import { Box, Image, Stack, Text } from '../../../src/primitives';
 import { ICON_SIZES } from '../../../src/brand';
 import type { IconArtFiles } from '../../../src/brand';
 import { BRAND_FOLDER, ICON_URLS } from './icon-urls.constants';
-import { axis } from '../../_template/axis';
-import { Demonstrator } from '../../_template/Demonstrator';
 import { ICO_COLUMN, ICO_SHOWN_AT } from './IconLadder.constants';
 import type { IconLadderProps } from './IconLadder.type';
 import './IconLadder.css';
@@ -31,9 +29,14 @@ const IconLadder = (props: IconLadderProps) => {
   const { files } = props;
   return (
     <Stack gap="sm" className="icon-ladder">
-      <ScrollArea axis="x" className="icon-ladder__row">
-        <Demonstrator columns={axis(columnsOf(files))} valign="end" cell={(_row, column) => fileCell(files, column)} />
-      </ScrollArea>
+      <Box className="icon-ladder__row">
+        {columnsOf(files).map((column) => (
+          <Box key={column} className="icon-ladder__file">
+            {fileCell(files, column)}
+            <Text className="icon-ladder__size">{column}</Text>
+          </Box>
+        ))}
+      </Box>
       <Text variant="caption">{ladderLine(files)}</Text>
       <Text variant="caption">{icoLine(files)}</Text>
     </Stack>
