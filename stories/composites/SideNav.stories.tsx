@@ -174,7 +174,15 @@ const [query, setQuery] = useState('');
 
 const Overview = overviewStory({
   component: 'SideNav',
-  description: 'The side nav of a window with several sections: a column of gold line icons, collapsed by default, which a chevron on its edge opens to show group and item labels. The chevron sits level with the first row, whether that is the search field, a group label or an item. Reach for it for the top-level sections of a window, such as a data manager. It can pin a Home item above the groups and hold a search field that grows when the nav opens; the host owns the query and shows the results. With overlay, as SideNavLayout sets when narrow, the open panel slides over the content, so the page keeps its width, and Escape, a click outside or picking an item closes it. The rail variant is the app-level screen list: it sits flush on the window edge on the surface fill, shows its labels unless the host collapses it, draws no toggle, and can hold disabled items and a group with no label.',
+  description: 'The side nav of a window with several sections: a column of icons that a chevron on its edge opens to show the labels.',
+  points: [
+    'Use it for the top-level sections of a window; `config` lists the groups, their items and an optional `home`.',
+    'It starts collapsed, and `defaultOpen` starts it open.',
+    '`search` adds a field that grows when the nav opens; the host owns the query and shows the results.',
+    '`overlay` slides the open nav over the content; [[Esc]], a click outside or a pick closes it.',
+    '`variant="rail"` is the app screen list: flush on the window edge, its labels shown unless `collapsed`.',
+  ],
+  instead: '[SideNavLayout] for a nav beside a content pane that shows the page and the search results.',
   playground: Playground,
   variants: [OpenWithSearch, GroupsOnly, FirstRows, ManyItems, Rail, RailCollapsed],
   states: {

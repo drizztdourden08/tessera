@@ -88,7 +88,14 @@ const [active, setActive] = useState('players');
 
 const Overview = overviewStory({
   component: 'HeaderAnchorNav',
-  description: 'The row of pill links a page header carries beside its title, each one jumping to a section of the page, with the current section in gold. Reach for it when a long page has a few named sections, as SettingsPage does with its anchors. It is a nav landmark holding a list of buttons, and the current one carries aria-current="location". It is not a set of tabs: the Tab key moves from one button to the next. Each button can carry a count badge, and the row wraps onto more lines when the header is narrow. It holds no state: the host passes the current id, scrolls to the section on a pick and moves the current id as the page scrolls.',
+  description: 'A row of pill links beside a page title, each one jumping to a section of the page, with the current one lit.',
+  points: [
+    'Use it when a long page has a few named sections, as [SettingsPage] does.',
+    'Each item can carry a count in `badge`, and the row wraps when the header is narrow.',
+    'It holds no state: pass `activeId`, scroll on `onSelect`, and move `activeId` as the page scrolls.',
+    'It is a nav of buttons, not tabs: [[Tab]] moves from one button to the next.',
+  ],
+  instead: '[Tabs] when each section takes the place of the last instead of scrolling to it.',
   playground: Playground,
   variants: [InWindowHeader],
   states: {
