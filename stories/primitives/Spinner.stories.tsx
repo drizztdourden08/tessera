@@ -58,7 +58,14 @@ const InContext = {
 
 const Overview = overviewStory({
   component: 'Spinner',
-  description: 'A small turning ring for work of unknown length, like connecting to a server or reading a file. Put it beside a line that says what is happening. It comes in three sizes and carries a status role labelled Loading for screen readers, or the label you give it. It is the one spinner in Tessera: Button, IconButton, Select, Combobox and Video draw it too, and an app swaps it everywhere at once through TesseraProvider. With reduced motion it stops turning and fades in and out.',
+  description: 'A small turning ring for work of unknown length, such as connecting to a server or reading a file.',
+  points: [
+    'Put it beside a line that says what is happening.',
+    'It comes in three sizes and screen readers announce it as Loading, or as the `label` you give it.',
+    '[Button], [Select], [Video] and others draw it too, and [TesseraProvider] swaps it everywhere at once.',
+    'With reduced motion it stops turning and fades in and out.',
+  ],
+  instead: '[ProgressBar] when you know how much is done.',
   playground: Playground,
   variants: [Sizes],
 });

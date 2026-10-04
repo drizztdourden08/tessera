@@ -77,7 +77,14 @@ const Footnote = {
 
 const Overview = overviewStory({
   component: 'Callout',
-  description: 'A short note set apart from the text around it, read out as a note. The box variant sits on a soft fill inside a border in its tone, for a warning such as a pre-release notice; the footnote variant is small muted text under a hairline, for the fine print at the end of a dialog. Either can lead with an icon and end with an action, such as a report a bug button.',
+  description: 'A short note set apart from the text around it, such as a pre-release notice or the fine print of a dialog.',
+  points: [
+    '`box` sits on a soft fill inside a border in its tone, for a warning.',
+    '`footnote` is small muted text under a hairline, for the fine print at the end of a dialog.',
+    'Either can lead with an `icon` and end with an `action`, such as a report a bug button.',
+    'Screen readers read it out as a note.',
+  ],
+  instead: '[Toast] for a message that comes and goes on its own.',
   playground: Playground,
   variants: [Tones, WithIcon, Footnote],
 });

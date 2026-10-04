@@ -92,7 +92,15 @@ const CODE = `import { HintLine, HintScope, SegmentedControl } from '@drizztdour
 
 const Overview = overviewStory({
   component: 'HintLine',
-  description: 'A line set aside in a panel that says what the option under the pointer or the keyboard focus does: its value in the text colour, then the explanation muted. Inside a HintScope it reads whatever control is pointed at or focused, from SegmentedControl, ToggleGroup, Toggle, Slider, IconButton or anything that uses useHintTarget; outside one, or to show something else, pass hint yourself. While nothing is pointed at it shows an idle line. Its height is fixed at one or two lines and longer text ends in an ellipsis, so the panel never jumps. It is a polite live region, so a screen reader reads each new hint once the user stops moving.',
+  description: 'A line in a panel that says what the option under the pointer or the keyboard focus does.',
+  points: [
+    'Inside a [HintScope] it reads whatever control is pointed at or focused.',
+    'Outside one, or to show something else, pass `hint` yourself.',
+    'While nothing is pointed at it shows the `idle` line.',
+    'Its height is fixed at one or two `lines` and longer text is cut, so the panel never jumps.',
+    'Screen readers read each new hint once the user stops moving.',
+  ],
+  instead: '[Tooltip] for a note on one control.',
   playground: Playground,
   variants: [FromScope, Content],
   code: CODE,

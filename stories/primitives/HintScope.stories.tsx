@@ -33,7 +33,14 @@ const MyReadout = () => {
 
 const Overview = overviewStory({
   component: 'HintScope',
-  description: 'Collects the hints of the controls inside it and hands the one under the pointer or keyboard focus to a HintLine, or to anything that calls useHint. Put one around each panel that has a HintLine; a control reports to the nearest scope above it, so two panels never mix their hints. It draws nothing and takes no props. SegmentedControl, ToggleGroup, Toggle, Slider and IconButton report on their own, and useHintTarget adds the same to any element. Use a Tooltip instead for a hint on one control, or pass hint to HintLine yourself when it does not come from a control.',
+  description: 'Collects the hints of the controls inside it and hands the one in use to a [HintLine].',
+  points: [
+    'Put one around each panel that has a HintLine; it draws nothing and takes no props.',
+    'A control reports to the nearest scope above it, so two panels never mix their hints.',
+    '[SegmentedControl], [ToggleGroup], [Toggle], [Slider] and [IconButton] report on their own.',
+    '`useHintTarget` adds the same to any element, and `useHint` reads the current hint.',
+  ],
+  instead: '[Tooltip] for a hint on one control.',
   variants: [Panel, Pair],
   code: CODE,
 });

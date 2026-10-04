@@ -74,7 +74,12 @@ const ProgressAndSizes = {
 
 const Overview = overviewStory({
   component: 'ProgressRing',
-  description: 'A circular progress indicator, the round counterpart to ProgressBar. progress is a fraction from 0 to 1; leave it out and only the track is drawn. The ring fills the box it is given, so its size comes from a class or its container, and radius and strokeWidth set the line.',
+  description: 'A circular progress indicator, the round counterpart to [ProgressBar].',
+  points: [
+    '`progress` is a fraction from 0 to 1; leave it out and only the track is drawn.',
+    'The ring fills its box, so its size comes from a class or its container.',
+    '`radius` and `strokeWidth` set the line.',
+  ],
   playground: Playground,
   variants: [ProgressAndSizes],
 });

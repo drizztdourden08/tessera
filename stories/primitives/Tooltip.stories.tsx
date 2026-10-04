@@ -64,7 +64,14 @@ const Placements = {
 
 const Overview = overviewStory({
   component: 'Tooltip',
-  description: 'A short note that appears while the pointer rests on an element, for a cost, a hint or the full text behind a short label. Wrap any element in it and pass the note as content. It opens above by default or below with placement, and draws in a portal so a clipped panel does not cut it off. With no content it draws nothing.',
+  description: 'A short note that appears while the pointer rests on an element, such as a cost or the full text of a label.',
+  points: [
+    'Wrap any element in it and pass the note as `content`.',
+    'It opens above by default, or below with `placement="bottom"`.',
+    'It draws above the page, so a clipped panel does not cut it off.',
+    'With no `content` it draws nothing.',
+  ],
+  instead: '[HintLine] for a panel that explains every option in one place.',
   playground: Playground,
   variants: [Placements],
 });

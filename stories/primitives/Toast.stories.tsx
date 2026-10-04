@@ -112,7 +112,14 @@ const Stacked = {
 
 const Overview = overviewStory({
   component: 'Toast',
-  description: 'Short messages that pop up in a corner of the window and leave on their own, such as a save written or a sync lost. ToastContainer draws the queue in a portal at the bottom right or bottom left, and each Toast has a close button. The variant sets the colour: info, success, warning or danger. A toast leaves after its duration, or stays until dismissed when the duration is zero.',
+  description: 'Short messages that pop up in a corner of the window and leave on their own, such as a save written.',
+  points: [
+    '`ToastContainer` draws the queue at the bottom right or the bottom left.',
+    '`variant` sets the colour: `info`, `success`, `warning` or `danger`.',
+    'A toast leaves after its `duration`, or stays until closed when the `duration` is 0.',
+    'Each toast has a close button.',
+  ],
+  instead: '[Callout] for a note that stays in the page.',
   playground: Playground,
   variants: [Variants],
   code: `import { useState } from 'react';

@@ -135,7 +135,14 @@ const Trigger = {
 
 const Overview = overviewStory({
   component: 'ProgressBar',
-  description: 'A thin bar that shows how much of a task or a total is done. tone picks one of the theme colours or the urgencies, and the bar fills the width it is given. parts stacks several amounts in one bar, in order, each with a label and a tone or its own color: the bar reads their sum as its value, names every part to a screen reader, shows the label on hover, and legend lists them under it. Parts past the max are cut. An optional second fill behind the main one shows a second amount that is not progress, such as reachable against done, and live turns off the easing for a value that changes every frame. Under a StatRow with mono on, a live bar reads out an analog trigger or any other axis.',
+  description: 'A thin bar that shows how much of a task or a total is done.',
+  points: [
+    '`tone` picks a theme colour or an urgency, and the bar fills the width it is given.',
+    '`parts` stacks several amounts in one bar, each with a label; `legend` lists them under it.',
+    '`secondaryValue` draws a second fill behind the main one, such as reachable against done.',
+    '`live` turns off the easing for a value that changes every frame.',
+  ],
+  instead: '[ProgressRing] for a round indicator, or [Spinner] when the length is unknown.',
   playground: Playground,
   variants: [Variants, Multipart, Trigger],
 });

@@ -76,7 +76,14 @@ const CODE = `import { ErrorBoundary, TesseraProvider } from '@drizztdourden08/t
 
 const Overview = overviewStory({
   component: 'ErrorBoundary',
-  description: 'A behaviour with a default notice, not a styled container: it catches an error thrown while its children render and draws nothing of its own while they are healthy. Wrap a section that reads data it does not control, so one broken section never takes the page down. When a child throws, a small danger notice takes its place, with a headline, the error message and an optional action. An app replaces that notice everywhere through the errorFallback of TesseraProvider, and a changed resetKey drops the error and renders the children again.',
+  description: 'Catches an error thrown while its children render, so one broken section never takes the page down.',
+  points: [
+    'Wrap a section that reads data it does not control.',
+    'It draws nothing of its own while the children are healthy.',
+    'When a child throws, a small danger notice takes its place, with the message and an optional `action`.',
+    'A changed `resetKey` drops the error and renders the children again.',
+    'An app replaces the notice everywhere through the `errorFallback` of [TesseraProvider].',
+  ],
   playground: Playground,
   variants: [Healthy, DefaultNotice, ProviderFallback, Recoverable],
   code: CODE,
