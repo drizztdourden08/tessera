@@ -2,10 +2,12 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
+import { FactsPanel } from '../src/composites/FactsPanel';
 import { LogPanel } from '../src/composites/LogPanel';
 import { CodeBlock } from '../src/primitives/CodeBlock';
 import { CopyButton } from '../src/primitives/CopyButton';
 import { CopyValue } from '../src/primitives/CopyValue';
+import { StatRow } from '../src/primitives/StatRow';
 
 const KEY = 'SHA256:mK3v9Qe1ZtR8wLp2xN6cY4hB0sJ7uF5dA1gH9kT2oE';
 
@@ -53,5 +55,16 @@ describe('one copy path', () => {
     const code = renderToString(h(CodeBlock, { code: 'pnpm add tessera', language: 'text', copyable: true }));
     expect(code).toContain('class="copy-button code-block__copy"');
     expect(code).toContain('aria-label="Copy code"');
+  });
+
+  it('StatRow and FactsPanel copy through CopyButton, named after the row', () => {
+    const row = renderToString(h(StatRow, { label: 'Seed', value: '2193', copyable: true }));
+    expect(row).toContain('class="copy-button stat-row__copy"');
+    expect(row).toContain('aria-label="Copy Seed" title="Copy Seed"');
+    expect(row).toContain('role="status"');
+    expect(row).toContain('icon-btn--xs');
+    const facts = renderToString(h(FactsPanel, { groups: [[{ label: 'Port', value: '38281', copyable: true }]] }));
+    expect(facts).toContain('class="copy-button stat-row__copy"');
+    expect(facts).toContain('aria-label="Copy Port"');
   });
 });

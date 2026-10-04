@@ -3769,3 +3769,7 @@ back: 'Back';
 1. Pass `onBack` that clears the selection, so a small window can go back to the list.
 2. Pass a `storageKey` per screen, such as `presets.list-width`, to remember the width.
 3. A host stylesheet that set `grid-template-columns` on `.master-detail` passes `listWidth` instead, and one that styled the grid styles `.master-detail__panes`.
+
+## 145. StatRow copies through CopyButton
+
+The copy button of `StatRow`, and so of every `FactsPanel` fact with `copyable`, is now `CopyButton`, the one copy path of section 133. It keeps its look: an extra small ghost icon button, 20 by 20 pixels, at the end of the row, named Copy and the row label through `common.copyNamed`. It gains what every copy has: the check turns green, the name reads Copied for two seconds, and a polite status region says Copied. The class `stat-row__copy` now sits on the wrapper of the button. The private `StatRowCopy` is removed. Nothing changes for an app.
