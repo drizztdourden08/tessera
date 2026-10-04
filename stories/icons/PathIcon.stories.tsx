@@ -84,7 +84,13 @@ const Tones = {
 
 const Overview = overviewStory({
   component: 'PathIcon',
-  description: 'An inline SVG drawn from your own path strings and circles on a 16-unit grid, for a one-off shape no icon set has. For everyday symbols use Icon with a name instead. It fills with currentColor, so it takes the colour of the text around it, and one size sets both width and height.',
+  description: 'An SVG drawn from your own path data, for a one-off shape no icon set has.',
+  points: [
+    '`paths` takes path strings and `circles` takes circles; `viewBox` sets the grid, 16 units by default.',
+    'It fills with `currentColor`, so it takes the colour of the text around it.',
+    '`size` sets both the width and the height.',
+  ],
+  instead: '[Icon] with a name for everyday symbols.',
   playground: Playground,
   variants: [GlyphSet, Tones],
 });

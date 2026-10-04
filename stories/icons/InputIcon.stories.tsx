@@ -119,7 +119,15 @@ const glyph = gamepadInputIcon('switch', 'a'); // { family: 'switch', name: 'b' 
 
 const Overview = overviewStory({
   component: 'InputIcon',
-  description: 'A button prompt: a controller button, stick, trigger, d-pad direction or keyboard key, drawn by Icon from data bundled with the app. Pick a family, xbox, playstation, switch, gamecube, snes, generic or keyboard, and a name from it. INPUT_ICON_FAMILIES lists the families and INPUT_ICON_NAMES lists the names each one accepts, the same lists the types come from, and isInputIconName(family, name) checks a name at run time. A name the family does not have draws a question mark key and warns in development, so a wrong name never leaves a gap. It takes the same size, rotation, flip, label and effect as Icon and draws in currentColor. A few glyphs carry a highlight: the pressed arm of a d-pad, red in every family, the red ball of a joystick, the coloured GameCube buttons. tone="color" keeps the pack colours. tone="theme" paints them in the primary colour and cuts a thin gap around them, so a pale primary still stands apart from the glyph. The Status tones, primary, secondary, tertiary, neutral, success, warning, danger and info, paint them in the colour of that tone with the same gap, so a pressed arm can read as a warning or a fault. The SNES family is full colour art and keeps its own colours, apart from the pressed d-pad arrow, which follows tone. The generic family has a plain d-pad and the four directions, for a controller with no known layout. Every glyph is vector paths only, with no bitmap or blur filter, so it stays sharp at 16 pixels and at 64. gamepadInputIcon(family, id) turns an SDL button id or a KeyboardEvent.code into the right glyph, which is how PressedGrid draws its cells. The Xbox, PlayStation, Switch, GameCube, generic and keyboard glyphs are Kenney Input Prompts (CC0). The SNES art was drawn by drizztdourden_ from scratch for Relic of the Past, inspired by Tiago Alexander\'s "SNES Controller in Sketch".',
+  description: 'A button prompt: a controller button, stick, trigger, d-pad direction or keyboard key.',
+  points: [
+    '`family` picks the controller, such as `xbox`, `playstation`, `switch` or `keyboard`; `name` picks the glyph.',
+    'A name the family lacks draws a question mark key and warns in development.',
+    '`tone` paints highlights such as a pressed d-pad arm: `color`, `theme` or a Status tone.',
+    '`gamepadInputIcon(family, id)` turns an SDL button id or a `KeyboardEvent.code` into a glyph.',
+    'It takes the same `size`, `rotate`, `flip`, `label` and `effect` as [Icon].',
+    'Glyphs are Kenney Input Prompts (CC0) and SNES art by drizztdourden_; the README lists the credits.',
+  ],
   playground: Playground,
   variants: [EveryIcon, Tones, Sizes],
   code: CODE,

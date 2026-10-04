@@ -71,7 +71,13 @@ const InControls = {
 
 const Overview = overviewStory({
   component: 'EmojiIcon',
-  description: 'A colour emoji used as an icon, in a button, a menu entry or an empty state. It comes in three sizes on the type scale, sm, md and lg, and keeps its own colours inside any control. It is hidden from screen readers, so the control around it carries the accessible name.',
+  description: 'A colour emoji used as an icon, in a button, a menu entry or an empty state.',
+  points: [
+    '`size` takes `sm`, `md` or `lg`, steps of the type scale.',
+    'It keeps its own colours inside any control.',
+    '**Screen readers skip it:** the control around it carries the accessible name.',
+  ],
+  instead: '[Icon] for an icon that follows the text colour.',
   playground: Playground,
   variants: [Sizes],
 });

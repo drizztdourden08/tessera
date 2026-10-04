@@ -46,7 +46,13 @@ const Set = {
 
 const Overview = overviewStory({
   component: 'Glyph',
-  description: 'The small stroke glyphs the components draw themselves: chevrons, check, close, sort arrows, the gear. They sit on a 16-unit grid with a 1.5 stroke in currentColor, sized to sit beside dense UI text. For anything an app draws, use Icon with a name.',
+  description: 'The small stroke glyphs the components draw themselves: chevrons, check, close, sort arrows, the gear.',
+  points: [
+    'They sit on a 16 unit grid with a 1.5 stroke in `currentColor`.',
+    'They are sized to sit beside dense interface text.',
+    '`name` picks the glyph and `size` sets its size.',
+  ],
+  instead: '[Icon] with a name for anything an app draws.',
   playground: Playground,
   variants: [Set],
 });

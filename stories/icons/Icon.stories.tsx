@@ -145,7 +145,15 @@ import swordsIcon from '@iconify-icons/lucide/swords';
 
 const Overview = overviewStory({
   component: 'Icon',
-  description: 'The icon every app shares, drawn by @iconify from data bundled with the app, so nothing is fetched. Pass a name from the named set (Lucide icons: the app set Archipelia uses, interface controls, and status and media), or icon= with any @iconify icon you import. It draws in currentColor, so it takes the colour of the text around it, and takes a size, a rotation in quarter turns and a flip. Give it a label when it carries meaning on its own; without one it is hidden from assistive tech. Icon.Brand draws the family marks the same way. Pass effect to make a small pop land every few seconds on a random point of the drawn shape: a twinkling star, a glint, a ping, a spark burst, a dot, a comet (a short streak that ends in a small star) or a shimmer along a line. Set how often with every, add random spread with jitter, pick a colour, and pick a size, sm, md or lg, which scales the pop and keeps its thin line. The pops pause off screen and in a hidden tab, never show under reduced motion, never change the size of the icon and stay hidden from assistive tech.',
+  description: 'The icon every app shares: a named Lucide icon, or any @iconify icon, drawn from data bundled with the app.',
+  points: [
+    '`name` picks from the named set; `icon` takes any @iconify icon you import.',
+    'It draws in `currentColor`, so it takes the colour of the text around it.',
+    '`size`, `rotate` in quarter turns and `flip` set how it sits.',
+    '**Label it when it stands alone:** without a `label`, assistive tech skips it.',
+    '`effect` lands a small pop every few seconds, such as a twinkle; reduced motion turns it off.',
+  ],
+  instead: '[EmojiIcon] for a colour emoji, or [PathIcon] for a one-off shape no set has.',
   playground: Playground,
   variants: [NamedSet, Transforms, Effects, AnyIcon],
   code: CODE,

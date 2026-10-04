@@ -58,7 +58,13 @@ const EveryBrand = {
 
 const Overview = overviewStory({
   component: 'Icon.Brand',
-  description: 'Every family mark as an icon: tessera, rotp, the rotp mascot, archipelia and brock. It is the same Icon underneath, so it takes the same size, rotation, flip and label. In colour it keeps the brand inks; with tone="mono" it draws in currentColor and follows the text, like any other icon in a toolbar or a menu.',
+  description: 'Every family mark as an icon, `Icon.Brand`, for a toolbar, a menu or a list of projects.',
+  points: [
+    '`name` takes `tessera`, `rotp`, `rotp-mascot`, `archipelia` or `brock`.',
+    'In colour it keeps the brand inks; `tone="mono"` draws in `currentColor` like any other icon.',
+    'It is the same [Icon] underneath, so it takes the same `size`, `rotate`, `flip` and `label`.',
+  ],
+  instead: '[Logo] for a mark at the brand sizes, with its app icon and rim.',
   playground: Playground,
   variants: [EveryBrand],
   code: `import { Icon } from '@drizztdourden08/tessera';
