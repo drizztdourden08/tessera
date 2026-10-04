@@ -22,7 +22,6 @@ const WindowTitleBarBrand = (props: WindowTitleBarBrandProps) => {
         {mark}
         <Span tone="dim" className="window-title-bar__title">{title}</Span>
         {instance && <Status tone="info" variant="pill" pulse={instance.pulse} className="window-title-bar__instance">{instance.name}</Status>}
-        {mark}
       </Box>
       {shown && (
         <Box className={markClass(fit)} aria-hidden="true">

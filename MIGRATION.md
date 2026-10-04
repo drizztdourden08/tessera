@@ -3390,3 +3390,24 @@ interface FieldProps {
 
 1. Look over forms on wide screens: pass `width="full"` to a Field that should fill the row, such as a long description, and `width="sm"` to a port or a short code.
 2. A readout that wants rows across the whole page sets `--stat-row-max-w: none` on a parent.
+
+## 129. The concealed title bar opens to the keyboard, icon buttons show tooltips, and the mark draws once
+
+From the UX review (ux-46, ux-47) and the Archipelia review (archipelia-23).
+
+- **A concealed title bar shows while focus is in it.** In `concealed` and full screen the bar slid in only when the pointer neared the top edge, so the keyboard could Tab to its buttons while they stayed invisible. It now shows while focus is inside it and tucks away again when focus leaves.
+- **A tap on Alt opens it from the keyboard.** Alt pressed and released alone, with no other key between, moves focus to the first control of a concealed bar, the menu button, so Enter opens the menu. Escape in the bar sends focus back to where it was before the tap. Alt held with another key, such as an app shortcut, does nothing. A bar that is not concealed leaves Alt alone.
+- **Every icon button in the bar shows a tooltip on hover and on focus**: the pin, the action buttons and full screen, minimize, maximize and close. It drops below the bar and holds the label, and the `shortcut` of an action as keycaps through Shortcut, such as Search with Ctrl K. An action with a `shortcut` also sets `aria-keyshortcuts` on its button. The hamburger has none, since its menu opens below it. An item folded into the menu as the bar narrows has no tooltip and no box of its own, so the fold measures as before. While the bar peeks, the tooltip closes with it when the pointer leaves.
+- **The brand draws the app mark once**, before the name, with the instance badge after the name. It drew the mark on both sides, so a second instance showed two near-identical logos. The brand is one mark narrower, so it keeps its full form down to a narrower bar; the fold steps and the probe for the small mark measure the same way.
+
+```ts
+interface WindowTitleBarAction {
+  shortcut?: string | readonly ShortcutKey[]; // now also shown in the tooltip and set as aria-keyshortcuts
+}
+```
+
+### What an app does
+
+1. Give the title bar actions their `shortcut`, such as `'Ctrl+K'` for Search, so the tooltip shows it.
+2. Remove any app tooltip or `title` on title bar buttons, and any app code that revealed the concealed bar on focus.
+3. An app that listens for a lone Alt itself while the bar is concealed lets the bar have it.

@@ -22,10 +22,10 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
     onMenuOpenChange?.(open);
   };
   const tucked = (concealed || fullscreen) && !menuOpen;
-  const { peeking, handleMouseLeave } = usePeek(tucked && peek === undefined, barRef);
+  const { peeking, focused, handlers } = usePeek(tucked, barRef, peek === undefined);
 
   return (
-    <Box ref={barRef} className={titleBarClass(tucked, peek ?? peeking, className)} data-app-region="drag" onMouseLeave={handleMouseLeave}>
+    <Box ref={barRef} className={titleBarClass(tucked, (peek ?? peeking) || focused, className)} data-app-region="drag" {...handlers}>
       <WindowTitleBarStart
         menu={groups}
         menuLabel={menuLabel}

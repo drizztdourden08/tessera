@@ -144,3 +144,13 @@
     transition: none;
   }
 }
+
+.window-title-bar__tip--away {
+  display: contents;
+}
+
+.window-title-bar__tip-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}

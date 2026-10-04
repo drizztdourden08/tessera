@@ -1,13 +1,20 @@
 /* @layer renderer-components @kind hook */
-import { useEffect, useState } from 'react';
-import type { RefObject } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { FocusEvent, KeyboardEvent, RefObject } from 'react';
+import { isHTMLElement } from '../../../primitives/dom/is-html-element';
+import { isNode } from '../../../primitives/Portal/behavior/is-node';
 import { PEEK_ZONE_PX } from '../WindowTitleBar.constants';
+import { useAltReveal } from './useAltReveal';
+import type { Peek } from './usePeek.type';
 
-const usePeek = (tucked: boolean, barRef: RefObject<HTMLElement | null>) => {
+const usePeek = (tucked: boolean, barRef: RefObject<HTMLElement | null>, follow: boolean): Peek => {
   const [peeking, setPeeking] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const returnRef = useRef<Element | null>(null);
+  useAltReveal(tucked, barRef, returnRef);
 
   useEffect(() => {
-    if (!tucked) {
+    if (!tucked || !follow) {
       setPeeking(false);
       return undefined;
     }
@@ -21,13 +28,31 @@ const usePeek = (tucked: boolean, barRef: RefObject<HTMLElement | null>) => {
     };
     view.addEventListener('mousemove', onMove);
     return () => view.removeEventListener('mousemove', onMove);
-  }, [tucked, barRef]);
+  }, [tucked, follow, barRef]);
 
-  const handleMouseLeave = () => {
-    if (tucked) setPeeking(false);
+  const onBlur = (event: FocusEvent<HTMLElement>) => {
+    const next = event.relatedTarget;
+    if (next === null || !isNode(next) || !event.currentTarget.contains(next)) setFocused(false);
   };
 
-  return { peeking, handleMouseLeave };
+  const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key !== 'Escape' || event.defaultPrevented || !tucked) return;
+    const back = returnRef.current;
+    returnRef.current = null;
+    if (isHTMLElement(back) && back.isConnected) back.focus();
+    else if (isHTMLElement(event.target)) event.target.blur();
+  };
+
+  return {
+    peeking,
+    focused,
+    handlers: {
+      onMouseLeave: () => { if (tucked) setPeeking(false); },
+      onFocus: () => setFocused(true),
+      onBlur,
+      onKeyDown,
+    },
+  };
 };
 
 export { usePeek };

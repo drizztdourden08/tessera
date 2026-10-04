@@ -155,7 +155,7 @@ const Maximized = {
 } satisfies PlaygroundStory<TitleBarArgs>;
 
 const Concealed = {
-  name: 'Concealed until the pointer nears it',
+  name: 'Concealed until the pointer, Tab or Alt reaches it',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} concealed />,
@@ -192,8 +192,9 @@ const Overview = overviewStory({
     '`onControl` hears the pin, full screen, minimize, maximize and close; `controls` turns off all but close.',
     '`menu` takes the same groups as [DropdownMenu] and hangs from the hamburger at the left.',
     '`actions` add icon buttons, or status text such as Update available while their `status` is set.',
+    'Each icon button shows a tooltip with its label, and its `shortcut` as keycaps, on hover and on focus.',
     'As the window narrows, items hide one by one into the menu; minimize, maximize and close never hide.',
-    '`concealed` and full screen tuck the bar away until the pointer nears the top edge.',
+    '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
   variants: [AppWindow, Narrow, Resizable, FewerButtons, SecondInstance, Maximized, Concealed],
