@@ -3,12 +3,13 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SettingsRow, SettingsSection } from '../../src/composites';
 import type { SettingsDescription, SettingsInputKind } from '../../src/composites';
-import { Box } from '../../src/primitives';
+import { Box, Tag } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { ChoiceFitDemo } from './_samples/ChoiceFitDemo';
 import { everyKind, KIND_ORDER, rowOfKind } from './_samples/every-kind';
+import { RowMarksDemo } from './_samples/RowMarksDemo';
 import { useSampleSettings } from './_samples/settings-sample-state';
 
 type RowArgs = {
@@ -17,17 +18,33 @@ type RowArgs = {
   readOnly: boolean;
   disabled: boolean;
   description: boolean;
+  changed: boolean;
+  badge: boolean;
+  problem: string;
 };
 
 const KindDemo = (props: RowArgs) => {
-  const { kind, compact, readOnly, disabled, description } = props;
+  const { kind, compact, readOnly, disabled, description, changed, badge, problem } = props;
   const row = rowOfKind(useSampleSettings(), kind);
   if (row === undefined) return null;
   const text: SettingsDescription = description ? { description: row.description ?? 'What this setting changes, in one line.' } : { noDescription: true };
   return (
     <Box className="story-column">
       <SettingsSection>
-        <SettingsRow id={row.id} title={row.title} hint={row.hint} input={row.input} {...text} compact={compact} readOnly={readOnly} disabled={disabled} />
+        <SettingsRow
+          id={row.id}
+          title={row.title}
+          hint={row.hint}
+          input={row.input}
+          {...text}
+          compact={compact}
+          readOnly={readOnly}
+          disabled={disabled}
+          changed={changed}
+          onReset={() => undefined}
+          badge={badge ? <Tag color="secondary">Advanced</Tag> : undefined}
+          problem={problem || undefined}
+        />
       </SettingsSection>
     </Box>
   );
@@ -42,11 +59,14 @@ const EveryKind = (props: { compact?: boolean; readOnly?: boolean }) => {
   );
 };
 
-const ARGS: Partial<RowArgs> = { kind: 'segmented', compact: false, readOnly: false, disabled: false, description: true };
+const ARGS: Partial<RowArgs> = { kind: 'segmented', compact: false, readOnly: false, disabled: false, description: true, changed: true, badge: false, problem: '' };
 
 const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
   kind: { group: 'Content', control: 'select', options: [...KIND_ORDER], description: 'The input the row draws on the right.' },
   description: { group: 'Content', control: 'boolean' },
+  badge: { group: 'Content', control: 'boolean', description: 'A Tag after the title, such as Advanced.' },
+  problem: { group: 'Content', control: 'text', description: 'Shown under the row in the danger tone. Leave empty to hide.' },
+  changed: { group: 'State', control: 'boolean', description: 'A dot after the title and, with onReset, a reset button.' },
   compact: { group: 'Appearance', control: 'boolean', description: 'One line, at least 40 px tall: the description moves to a tooltip on the title, hints to a bubble under the control, and radio options drop their subtitles.' },
   readOnly: { group: 'State', control: 'boolean', description: 'The value as text. Pointing at it puts the hint of the current value in place of the description.' },
   disabled: { group: 'State', control: 'boolean' },
@@ -79,6 +99,16 @@ const ReadOnly = {
   render: () => <EveryKind readOnly />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
+const Marks = {
+  name: 'Changed, reset, badge, problem and a folded description',
+  render: () => <RowMarksDemo />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
+const MarksCompact = {
+  name: 'Changed, reset, badge and problem, compact',
+  render: () => <RowMarksDemo compact />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
 const ChoiceFit = {
   name: 'A long choice in a narrow row',
   render: () => <ChoiceFitDemo />,
@@ -94,7 +124,7 @@ const StateRow = (props: StateProps) => {
   if (row === undefined) return null;
   return (
     <SettingsSection>
-      <SettingsRow {...row} disabled={props.disabled === true} readOnly={props.readOnly === true} compact={props.compact === true} flash={props.flash === true} />
+      <SettingsRow {...row} disabled={props.disabled === true} readOnly={props.readOnly === true} compact={props.compact === true} flash={props.flash === true} changed={props.changed === true} onReset={() => undefined} />
     </SettingsSection>
   );
 };
@@ -122,14 +152,14 @@ const Overview = overviewStory({
   description: 'One setting: its title, a line under it, and the input on the right.',
   points: [
     'The input is data: a `kind` such as `toggle`, `select` or `slider`, its props, `value` and `onChange`.',
-    'The line shows the description, or the hint of the part of the input _under the pointer_.',
-    '**It never changes height:** the line keeps room for its longest hint.',
+    '**It never changes height:** the hint line under the description keeps room for every hint it can show.',
+    '`changed` adds a dot after the title and, with `onReset`, a reset button; `problem` shows under the row.',
+    '`badge` sits after the title; `descriptionLines` folds a long description behind More.',
     '`compact` draws one line, the description in a tooltip; `readOnly` draws the value as text.',
-    'A `segmented` choice too wide for its row turns into a [Select] with the same options and value.',
-    'Rows sit in a [SettingsSection], which draws the box, the dividers and the shared `lock`.',
+    'Rows sit in a [SettingsSection], which draws the box, counts the changed rows and holds the `lock`.',
   ],
   playground: Playground,
-  variants: [Kinds, Compact, ReadOnly, ChoiceFit, ChoiceFitCompact],
+  variants: [Kinds, Compact, ReadOnly, Marks, MarksCompact, ChoiceFit, ChoiceFitCompact],
   states: {
     render: (props) => <StateRow {...props} />,
     list: [
@@ -137,6 +167,7 @@ const Overview = overviewStory({
       { name: 'Compact', props: { compact: true } },
       STATE.readOnly,
       STATE.disabled,
+      { name: 'Changed', props: { changed: true } },
       { name: 'Search hit', props: { flash: true } },
     ],
   },
@@ -144,4 +175,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ChoiceFit, ChoiceFitCompact, Compact, Kinds, Overview, Playground, ReadOnly };
+export { ChoiceFit, ChoiceFitCompact, Compact, Kinds, Marks, MarksCompact, Overview, Playground, ReadOnly };

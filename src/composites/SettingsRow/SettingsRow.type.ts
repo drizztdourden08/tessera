@@ -99,6 +99,11 @@ interface SettingsItemFields {
   input: SettingsInput;
   disabled?: boolean;
   lock?: string | null;
+  changed?: boolean;
+  onReset?: () => void;
+  problem?: ReactNode;
+  badge?: ReactNode;
+  descriptionLines?: number;
 }
 
 type SettingsItem = SettingsItemFields & SettingsDescription;

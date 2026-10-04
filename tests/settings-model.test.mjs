@@ -101,7 +101,7 @@ describe('SettingsRow', () => {
   });
 
   it('rests on the row hint when the row has no description', () => {
-    expect(renderToString(h(SettingsRow, port))).toMatch(/settings-row__description[^>]*>Other players connect here\./);
+    expect(renderToString(h(SettingsRow, port))).toMatch(/settings-row__resting[^>]*>Other players connect here\./);
   });
 
   it('drops the radio subtitles when compact', () => {

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
 import { Paragraph } from '../../primitives/text-elements';
+import { countChanged } from './behavior/count-changed';
 import { flashClass } from './behavior/flash-class';
 import { groupsOf } from './behavior/groups-of';
 import { SettingsSectionGroup } from './sub-components/SettingsSectionGroup';
@@ -10,7 +11,8 @@ import '../../theme/search-hit.css';
 import './SettingsSection.css';
 
 const SettingsSection = (props: SettingsSectionProps) => {
-  const { id, title, description, children, changedCount = 0, onReset, flash, renderLock, compact = false, readOnly = false, className = '' } = props;
+  const { id, title, description, children, onReset, flash, renderLock, compact = false, readOnly = false, className = '' } = props;
+  const changedCount = props.changedCount ?? countChanged(props);
   const look = { flash, renderLock, compact, readOnly };
   const classes = ['settings-section', compact && 'settings-section--compact', flashClass(id, flash), className].filter(Boolean).join(' ');
 

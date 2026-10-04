@@ -6,12 +6,12 @@ import { SettingsRowHintText } from './SettingsRowHintText';
 import type { SettingsRowLineProps } from './SettingsRowLine.type';
 
 const SettingsRowLine = (props: SettingsRowLineProps) => {
-  const { resting, hints, pointed } = props;
+  const { resting, hints, pointed, quiet = false } = props;
   const shown = useHint() ?? pointed;
 
   return (
     <Box className="settings-row__line" data-pointed={shown === undefined ? undefined : true}>
-      <Small tone="dim" className="settings-row__description">{resting}</Small>
+      <Small tone={quiet ? 'muted' : 'dim'} className="settings-row__resting">{resting}</Small>
       <Small className="settings-row__hint" role="status" aria-live="polite">
         {shown !== undefined && <SettingsRowHintText hint={shown} />}
       </Small>

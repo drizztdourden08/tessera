@@ -7,17 +7,16 @@ import type { SampleState } from './settings-sample-state';
 
 const quietText = (value: Record<string, unknown>): string => `${String(value.hh)}:${String(value.mm).padStart(2, '0')} ${String(value.ampm)}`;
 
-const generalSections = ({ s, set, changed, reset }: SampleState): SettingsSectionData[] => [
+const generalSections = ({ s, set, reset, mark }: SampleState): SettingsSectionData[] => [
   {
     id: 'startup',
     title: 'Startup',
-    changedCount: changed(['restore', 'updates', 'language', 'startPage']),
     onReset: () => reset(['restore', 'updates', 'language', 'startPage']),
     rows: [
-      { id: 'restore', title: 'Open the last screen on launch', description: 'Which screen the app opens on.', hint: 'Turn it off to always start on Home.', input: { kind: 'toggle', value: s.restore, onChange: (v) => set({ restore: v }), hints: { on: 'You land where you left off.', off: 'You always land on Home.' } } },
-      { id: 'updates', title: 'Check for updates', description: 'Once a day, in the background.', hint: 'Installs the update when you quit.', input: { kind: 'toggle', value: s.updates, onChange: (v) => set({ updates: v }) } },
-      { id: 'language', title: 'Language', description: 'The language of menus and dialogue.', hint: 'The change applies at once.', keywords: 'locale translation', input: { kind: 'select', value: s.language, onChange: (v) => set({ language: v }), options: LANGUAGES } },
-      { id: 'start-page', title: 'First page', noDescription: true, hint: 'Where the app opens when it starts.', input: { kind: 'radio', value: s.startPage, onChange: (v) => set({ startPage: v }), options: START_PAGES } },
+      { id: 'restore', title: 'Open the last screen on launch', description: 'Which screen the app opens on.', hint: 'Turn it off to always start on Home.', ...mark('restore'), input: { kind: 'toggle', value: s.restore, onChange: (v) => set({ restore: v }), hints: { on: 'You land where you left off.', off: 'You always land on Home.' } } },
+      { id: 'updates', title: 'Check for updates', description: 'Once a day, in the background.', hint: 'Installs the update when you quit.', ...mark('updates'), input: { kind: 'toggle', value: s.updates, onChange: (v) => set({ updates: v }) } },
+      { id: 'language', title: 'Language', description: 'The language of menus and dialogue.', hint: 'The change applies at once.', keywords: 'locale translation', ...mark('language'), input: { kind: 'select', value: s.language, onChange: (v) => set({ language: v }), options: LANGUAGES } },
+      { id: 'start-page', title: 'First page', noDescription: true, hint: 'Where the app opens when it starts.', ...mark('startPage'), input: { kind: 'radio', value: s.startPage, onChange: (v) => set({ startPage: v }), options: START_PAGES } },
     ],
   },
   {

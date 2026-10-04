@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
-interface SettingsRowCompactTextProps {
-  title: string;
+import type { SettingsRowHeadProps } from './SettingsRowHead.type';
+
+interface SettingsRowCompactTextProps extends Omit<SettingsRowHeadProps, 'lead'> {
   description?: string;
 }
 

@@ -31,8 +31,8 @@ type SamplePatch = (patch: Partial<SampleSettings>) => void;
 interface SampleState {
   s: SampleSettings;
   set: SamplePatch;
-  changed: (keys: readonly (keyof SampleSettings)[]) => number;
   reset: (keys: readonly (keyof SampleSettings)[]) => void;
+  mark: (key: keyof SampleSettings) => { changed: boolean; onReset: () => void };
 }
 
 const SAMPLE_DEFAULTS: SampleSettings = {
@@ -64,9 +64,9 @@ const STARTING: SampleSettings = { ...SAMPLE_DEFAULTS, updates: false, volume: 6
 const useSampleSettings = (): SampleState => {
   const [s, setS] = useState(STARTING);
   const set: SamplePatch = (patch) => setS((prev) => ({ ...prev, ...patch }));
-  const changed = (keys: readonly (keyof SampleSettings)[]) => keys.filter((key) => s[key] !== SAMPLE_DEFAULTS[key]).length;
   const reset = (keys: readonly (keyof SampleSettings)[]) => set(Object.fromEntries(keys.map((key) => [key, SAMPLE_DEFAULTS[key]])));
-  return { s, set, changed, reset };
+  const mark = (key: keyof SampleSettings) => ({ changed: s[key] !== SAMPLE_DEFAULTS[key], onReset: () => reset([key]) });
+  return { s, set, reset, mark };
 };
 
 export { useSampleSettings };

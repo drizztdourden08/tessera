@@ -3637,3 +3637,40 @@ From the UX review (ux-38), the rest of it after section 134, and a follow up to
 1. Render the page a screen covers as a sibling of the screen inside the same positioned parent, and keep the title bar outside that parent.
 2. Pass `labelledBy` with the id of the visible title, as the screen kinds do, so focus starts there.
 3. Remove app code that made the page behind inert, or that moved focus into a screen or back to its opener.
+
+## 141. Settings rows show changes, problems and badges
+
+From the Archipelia review (tessera-20, archipelia-39) and the UX review (ux-50), as decided by the owner (T-01). Archipelia's OptionField can now be a SettingsRow with an input of kind `custom`.
+
+- **A changed row is marked.** `changed` draws a small dot after the title, named "Changed" for screen readers. With `onReset` as well, a reset button sits after the dot, named "Reset" and the title, with a 24 by 24 px hit area; pointing at it puts "Puts back the default value." in the hint line. A read only row shows the dot and no button.
+- **A problem shows under the row.** `problem` draws a line across the whole row, under the text and the control, in the danger tone with an alert icon, as an alert like a Field error. A compact row puts it on a second line.
+- **A badge sits after the title**, such as a Tag that reads Advanced. `badge` takes any node.
+- **A long description folds.** `descriptionLines` clamps the description to that many lines; when the text runs longer, a More button opens it and Less folds it back.
+- **The hint shows under the description at rest.** A full row now shows the description, then the hint on its own line in the muted tone. Pointing at the input changes that line to the hint of the part under the pointer, and the description stays. The row still keeps room for its longest hint, so it never changes height. A compact row has no room for a second line and keeps the hint bubble under the control. A row with no description shows its hint on the first line, as before.
+- **SettingsSection counts changed rows.** Without `changedCount`, the section reset button counts the rows with `changed` in its rows and groups. SettingsPage and WorkspaceScreen draw rows from the same SettingsItem, so the marks reach them with no change.
+- **Narrow rows and compact rows still fit.** In a narrow row the control still moves under the text (section 95), and a compact row keeps one line of 40 px, with the dot and the reset button after the title.
+
+```ts
+interface SettingsItemFields {
+  // added
+  changed?: boolean;
+  onReset?: () => void;
+  problem?: ReactNode;
+  badge?: ReactNode;
+  descriptionLines?: number;
+}
+
+// settings strings, added
+changed: 'Changed';
+resetRow: (title: string) => string; // 'Reset Death link'
+resetHint: 'Puts back the default value.';
+showMore: 'More';
+showLess: 'Less';
+```
+
+### What an app does
+
+1. Pass `changed` and `onReset` on each setting that differs from its default, and drop a hand-made changed mark or per-row reset.
+2. Move validation text that sat under a row into `problem`, and an Advanced mark into `badge`.
+3. A host stylesheet that styled the resting hint through `.settings-row__description` uses `.settings-row__resting`: the description keeps `.settings-row__description`, and the hint line under it is `.settings-row__resting`.
+4. A section that passed `changedCount` only to count changed rows can drop it once its rows carry `changed`.
