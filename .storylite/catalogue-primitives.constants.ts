@@ -40,6 +40,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
         { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
         { name: 'CopyValue', summary: 'A value to copy, such as an address or a key, with a copy button at its end.' },
+        { name: 'StatusOf', summary: 'One state drawn from a table of states declared once with defineStatuses.' },
       ],
     },
     {

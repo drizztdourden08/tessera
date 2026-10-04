@@ -180,3 +180,5 @@ export { CopyButton } from './CopyButton';
 export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
 export { CopyValue } from './CopyValue';
 export type { CopyValueProps, CopyValueSize, CopyValueTruncate } from './CopyValue';
+export { defineStatuses, StatusOf } from './StatusOf';
+export type { StatusDef, StatusKey, StatusMap, StatusOfProps } from './StatusOf';

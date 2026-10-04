@@ -3538,3 +3538,36 @@ interface WidgetDefinition extends WidgetBodyLook { /* as before */ }
 2. A Card that set the native `title` attribute for a tooltip wraps the card in a Tooltip instead.
 3. Drop the padding an app put on every widget body, such as `padding: var(--space-sm)`: the body pads itself now. A widget whose content draws its own edge, such as a LogPanel, passes `padding: 'none'`.
 4. Replace a `height: 100%` flex column class on a widget body with `fill: true` on the Widget or in its definition.
+
+## 136. defineStatuses and StatusOf: a kind of state declared once
+
+`StatusOf` is a new primitive, under Primitives · Display, with the function `defineStatuses`. Archipelia keeps five tables that map a state to a label and a tone and draws a `Status` from them by hand: the session status of the dashboard and of the library, the player status, the hint state and the engine state. Two of them disagree on the same session status. A table declared once with `defineStatuses` and drawn with `StatusOf` reads the same on every screen.
+
+- **defineStatuses** takes an object of keys, each `{ label, tone, pulse?, icon? }`, and hands it back frozen, with its keys kept as a type.
+- **StatusOf** takes `map` and `value`, a key of that table, so a misspelt or missing state fails the type check. `fallback` names the key drawn while the value is still unknown, or when a value outside the table comes in. With no match and no fallback it draws nothing.
+- Every other prop goes to `Status`, such as `variant` and `dot`. An entry with an `icon` draws it in place of the dot, 12 pixels in the text look and 10 in a pill.
+
+```ts
+interface StatusDef {
+  label: string;
+  tone: StatusTone;
+  pulse?: boolean;
+  icon?: IconName;
+}
+
+type StatusMap<Key extends string = string> = Readonly<Record<Key, StatusDef>>;
+type StatusKey<Map extends StatusMap> = Extract<keyof Map, string>;
+
+const defineStatuses: <const Defs extends Record<string, StatusDef>>(defs: Defs) => Readonly<Defs>;
+
+interface StatusOfProps<Map extends StatusMap> extends Omit<StatusProps, 'tone' | 'pulse' | 'children'> {
+  map: Map;
+  value: StatusKey<Map> | null | undefined;
+  fallback?: StatusKey<Map>;
+}
+```
+
+### What an app does
+
+1. Archipelia: `STATUS_VIEW` of SessionDashboard and of SessionsLibrary become one `SESSION_STATUSES` table, and `STATUS_TONE`, `HINT_TONE` and the engine `STATE_VIEW` become `defineStatuses` tables with their labels.
+2. Each place that drew `<Status tone={TABLE[key].tone}>{TABLE[key].label}</Status>` draws `<StatusOf map={TABLE} value={key} />`; the engine passes `fallback="unknown"`.
