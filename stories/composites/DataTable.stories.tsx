@@ -169,7 +169,15 @@ const CODE = `import { DataTable } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'DataTable',
-  description: 'A table of records whose columns come from a schema. Use it for any collection a user browses, sorts and picks from. Its column menus sort, group, rename, resize, fit and remove columns, columns reorder by drag, and a view key keeps that layout between visits. It can add a checkbox column for picking many rows with Ctrl, Shift and Escape, and show a reference by a chosen field of its target.',
+  description: 'A table of records whose columns come from a schema, for any collection the user browses, sorts and picks from.',
+  points: [
+    'Give it `rows`, a `schema` and `getRowId`; the columns come from the schema.',
+    'Column menus sort, group, rename, resize and remove columns, and columns reorder by drag.',
+    '`viewKey` keeps that layout between visits.',
+    '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
+    'A reference column shows its target by a field the user picks from the column menu.',
+  ],
+  instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,
   variants: [AllVariants],
   states: {

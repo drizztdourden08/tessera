@@ -3,10 +3,62 @@
 
 Helpers that every stories file builds its Overview page from. `overviewStory` draws the page: the description, the Variants, the States, the Playground and the Code.
 
-Two optional parts suit a page that is not about variants, such as TesseraProvider:
+One optional part suits a page that is not about variants, such as TesseraProvider: `sections`, extra sections after the Variants, each `{ title, node }` with its own heading.
 
-- `points`: a bullet list under the description.
-- `sections`: extra sections after the Variants, each `{ title, node }` with its own heading.
+## Writing a description
+
+The head of every Overview page has three parts. Keep each one short: say what the component is for, then only what someone needs to use it.
+
+- `description`: the lead, one sentence that says what the component is for. At most 140 characters.
+- `points`: 3 to 6 bullets of at most 110 characters each. Pick from: when to use it, the main props or behaviours, and one gotcha if there is one.
+- `instead`: optional, one line that names a sibling component that is the better pick, and when.
+
+```tsx
+const Overview = overviewStory({
+  component: 'Button',
+  description: 'The control for an action the user starts, such as saving, opening or confirming.',
+  points: [
+    '`primary` marks the main action of a view; `secondary` and `tertiary` sit beside it, `ghost` in toolbars.',
+    '`loading` swaps the icon for a [Spinner] while the action runs; the button keeps its width and ignores clicks.',
+    '**Loading is not disabled:** a `disabled` button fades and never spins.',
+  ],
+  instead: '[IconButton] for an icon alone, or [Pressable] for a clickable surface with a look of its own.',
+  variants: [AllVariants],
+});
+```
+
+### Tone
+
+- Plain words. Name the thing, then what it does. No jargon a newcomer would have to look up.
+- What it is for comes first. How it is built comes last, or not at all.
+- One idea per bullet. If a bullet needs "and also", split it or drop the second half.
+- Leave out what the Variants, States and Playground already show, such as every colour or size.
+
+### Markup
+
+The lead, the points and `instead` take a small markup. Everything else is plain text; HTML is never drawn.
+
+| Write | Draws | Use it for |
+|---|---|---|
+| `` `loading` `` | `Code` | prop names, values, CSS names |
+| `**Loading is not disabled:**` | `Strong` | the one gotcha a bullet leads with |
+| `_under the pointer_` | `Em` | a word that carries the stress |
+| `[[Ctrl+S]]` | `Shortcut` keycaps | keys: names such as Ctrl, Shift, Esc, Enter, a letter, or F1 to F24 |
+| `[Pressable]` | `Code` that links to the Pressable page | other components |
+| `[text/Emphasis]` | the same, for a name two folders share | the folder, then the name |
+| `[Setup](#/story/setup-setup--overview)` | `Link` | a gallery page by its route, or an `https://` address |
+
+A key combination Shortcut does not know, a link to anything but a gallery route or `https://`, and an unmatched marker stay as plain text.
+
+### The check
+
+`tests/overview-descriptions.test.mjs` reads every Overview page and lists each one whose lead, points or `instead` breaks the limits above, or names a page that does not exist. Write each part as a plain string, or a constant holding one, so the check can read it. It runs with `pnpm test`; to see the list, run:
+
+```sh
+pnpm exec vitest run tests/overview-descriptions.test.mjs --reporter=verbose
+```
+
+It only reports at first. `DESCRIPTION_CHECK` in `description/description.constants.ts` turns it into a failure once every page fits. Button, DataTable and SettingsRow are the reference pages, and they must always pass.
 
 ## Demonstrator
 

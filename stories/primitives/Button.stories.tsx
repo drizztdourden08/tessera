@@ -83,7 +83,15 @@ const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
 
 const Overview = overviewStory({
   component: 'Button',
-  description: 'The one control for an action the user starts: saving, opening, confirming. Primary marks the main action of a view, secondary and tertiary the ones beside it. Danger, warning, info and success carry an urgency. Every coloured variant rests as a dim tint and fills with its colour on hover. Ghost stays out of the way in toolbars and rows. Two sizes. A focused button draws a ring in the primary colour and a pressed one sinks to a deeper fill. Set active on a button that toggles to mark it as on; it is announced as pressed. Set loading while the action it started runs: the Spinner takes the place of the icon, or covers the label when there is no icon, the button keeps its width, stops taking clicks and is announced as busy. Loading is not disabled: a disabled button fades and never spins. A clickable container with a look of its own is a Pressable, not a Button.',
+  description: 'The control for an action the user starts, such as saving, opening or confirming.',
+  points: [
+    '`primary` marks the main action of a view; `secondary` and `tertiary` sit beside it, `ghost` in toolbars.',
+    '`danger`, `warning`, `info` and `success` carry an urgency. Two sizes: `md` and `sm`.',
+    '`active` marks a toggle button as on, and it is announced as pressed.',
+    '`loading` swaps the icon for a [Spinner] while the action runs; the button keeps its width and ignores clicks.',
+    '**Loading is not disabled:** a `disabled` button fades and never spins.',
+  ],
+  instead: '[IconButton] for an icon alone, or [Pressable] for a clickable surface with a look of its own.',
   playground: Playground,
   variants: [AllVariants, Loading],
   states: markedStates(BUTTON_STATES, renderState),

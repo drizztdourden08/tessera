@@ -12,7 +12,16 @@ interface ImportMetaGlobOptions {
   import?: string;
 }
 
+interface ImportMetaLazyGlobOptions {
+  eager?: false;
+  query?: string;
+  import?: string;
+}
+
 interface ImportMeta {
   readonly env?: ImportMetaEnv;
-  readonly glob: <T>(pattern: string | readonly string[], options: ImportMetaGlobOptions) => Record<string, T>;
+  readonly glob: {
+    <T>(pattern: string | readonly string[], options: ImportMetaGlobOptions): Record<string, T>;
+    <T>(pattern: string | readonly string[], options?: ImportMetaLazyGlobOptions): Record<string, () => Promise<T>>;
+  };
 }

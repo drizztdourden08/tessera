@@ -2292,3 +2292,11 @@ The new type is `StepperReserve`.
 ### What an app does
 
 Nothing for a Stepper that shows summaries, such as the one inside `Wizard`: it stops moving. A Stepper that never shows summaries and wants its old height passes `reserve="none"`.
+
+## 87. Overview pages open on a lead, short points and a Use instead line
+
+The head of every gallery Overview page now has three parts: a one-sentence lead (`description`), 3 to 6 short `points`, and an optional `instead` that names a better sibling. All three take a small markup that draws Tessera's own parts: backticks draw `Code`, `**bold**` draws `Strong`, `_word_` draws `Em`, `[[Ctrl+S]]` draws `Shortcut` keycaps, `[Pressable]` links to that component's page, and `[label](#/story/...)` draws a `Link`. HTML is never drawn. `stories/_template/README.md` has the limits, the tone and examples under Writing a description. A new test lists the pages that break the limits; it only reports until every page fits, then it fails.
+
+### What an app does
+
+Nothing. This changes the gallery only.

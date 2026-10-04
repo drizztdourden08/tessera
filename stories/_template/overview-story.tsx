@@ -16,6 +16,7 @@ interface OverviewParams<A extends StoryLiteArgs> {
   importName?: string;
   description: string;
   points?: readonly string[];
+  instead?: string;
   variants: readonly (Story<A> | PlaygroundStory<A>)[];
   sections?: readonly OverviewSection[];
   states?: OverviewStates;
@@ -34,7 +35,7 @@ const draw = <A extends StoryLiteArgs>(story: Pick<Story<A>, 'render' | 'args'>,
   story.render?.({ ...(story.args ?? {}), ...args } as A, context) as ReactNode;
 
 const overviewStory = <A extends StoryLiteArgs>(params: OverviewParams<A>): Story<A> => {
-  const { component, importName = component, description, points = [], variants, sections = [], states, playground, code } = params;
+  const { component, importName = component, description, points = [], instead, variants, sections = [], states, playground, code } = params;
   const defaults: StoryLiteArgs = { ...(playground?.args ?? {}) };
   const fixedCode = typeof code === 'string' ? code : null;
   const snippet = code === false ? null : (node: ReactNode) => fixedCode ?? snippetFor(importName, node);
@@ -46,6 +47,7 @@ const overviewStory = <A extends StoryLiteArgs>(params: OverviewParams<A>): Stor
         name={component}
         description={description}
         points={points}
+        instead={instead ?? null}
         sections={sections}
         variants={variants.map((story) => ({ title: story.name ?? '', node: draw(story, defaults, context) }))}
         states={states ?? null}
