@@ -1,5 +1,16 @@
 # @drizztdourden08/tessera
 
+## 0.9.0
+
+### Minor Changes
+
+- 2dfb2c0: InputIcon exports `INPUT_ICON_FAMILIES`, `INPUT_ICON_NAMES`, the accepted names of each family as a readonly list, and `isInputIconName(family, name)`. `InputIconFamily` and `InputIconName` come from those lists, and a test keeps them equal to the glyph data. A name the family does not have draws a question mark key and warns in development. See MIGRATION.md.
+- 50c017c: ScrollArea takes `scrollbar="slim"`: a thin line in the primary colour, painted along the edge so it takes no layout width, wider under the pointer and draggable. SideNav scrolls its groups with it, so the collapsed icon column is no longer squeezed by the scrollbar. New tokens `--scrollbar-slim` and `--scrollbar-slim-active`. See MIGRATION.md.
+
+### Patch Changes
+
+- 4335b63: The Stepper sequence runs without a stall between its parts. The fill, the line and the ring each take a curve that hands its speed to the next, from the new tokens `--ease-step-fill`, `--ease-step-line` and `--ease-step-ring`, and the current circle starts breathing as its ring spreads. See MIGRATION.md.
+
 ## 0.8.0
 
 ### Minor Changes
