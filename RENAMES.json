@@ -476,7 +476,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.10.0",
       "removedExports": {
         "FieldPicker": "removed; list fields in a DropdownMenu with children, as DataTable does (see MIGRATION.md section 76)",
         "FieldPickerProps": "removed with FieldPicker (see MIGRATION.md section 76)",
