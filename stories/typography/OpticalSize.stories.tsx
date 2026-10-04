@@ -85,7 +85,13 @@ const Playground = {
 const Overview = overviewStory({
   component: 'Optical size and italic',
   importName: 'Text',
-  description: 'Inter\'s second axis, optical size, runs from 14 to 32. Small text gets looser spacing and sturdier details, display text gets tighter and finer, and auto lets the browser follow the font size. The italic is a true italic with the same two axes. Text takes both through opticalSize and italic.',
+  description: 'Inter\'s optical size axis, which tunes letters for small text or display text, and its true italic.',
+  points: [
+    '`opticalSize="text"` gives looser spacing and sturdier details for small text.',
+    '`opticalSize="display"` gives tighter spacing and finer details for large text.',
+    '`auto`, the default, lets the browser follow the font size.',
+    '`italic` draws Inter\'s true italic, with the same weight and optical size axes.',
+  ],
   playground: Playground,
   variants: [OpticalSizes, Italic],
 });

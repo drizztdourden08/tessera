@@ -67,7 +67,14 @@ const GameFace = {
 
 const Overview = overviewStory({
   component: 'Fonts',
-  description: 'Every face Tessera sets text in, all shipped with Tessera so nothing is fetched from the network. Inter (--font-sans) sets running text and controls, Chakra Petch (--font-title) sets titles and headings, and --font-mono and --font-game cover code and the game\'s dialogue face.',
+  description: 'Every face Tessera sets text in, all shipped with Tessera so nothing is fetched from the network.',
+  points: [
+    'Inter, `--font-sans`, sets running text and controls.',
+    'Chakra Petch, `--font-title`, sets titles and headings.',
+    '`--font-mono` sets code and `--font-emoji` sets emoji.',
+    '`--font-game` is the dialogue face of Relic of the Past.',
+    'App CSS names a face by its token, never by its family name.',
+  ],
   variants: [Fonts, TitleFace, GameFace],
 });
 

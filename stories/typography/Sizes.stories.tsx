@@ -22,7 +22,12 @@ const Sizes = {
 
 const Overview = overviewStory({
   component: 'Sizes',
-  description: 'The type sizes, from --text-xs to the display steps, each a step of the size scale. Text variants and component styles pick from these, so a size never comes from a raw pixel value.',
+  description: 'The type sizes, from `--text-xs` to `--text-display`, each a step of the size scale.',
+  points: [
+    '[Text] variants and component styles pick from these sizes.',
+    'App CSS sets a font size with these tokens, never a raw pixel value.',
+    'Every token is a step of the [size scale](#/story/tokens-sizescale--overview), as spacing is.',
+  ],
   variants: [Sizes],
 });
 

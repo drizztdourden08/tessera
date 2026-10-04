@@ -39,7 +39,12 @@ const TransformAndStyle = {
 
 const Overview = overviewStory({
   component: 'Transform and style',
-  description: 'How text is cased, spaced and led: the case and style treatments with what each is for, the letter-spacing tokens, and the line-height tokens for dense lists up to long reading.',
+  description: 'How text is cased, spaced and led: the case and style treatments, letter spacing and line height.',
+  points: [
+    'Each case and style treatment says what it is for.',
+    '`--tracking-tight` to `--tracking-caps` set letter spacing; capitals take `--tracking-caps`.',
+    '`--leading-tight` suits dense lists and `--leading-normal` suits long reading.',
+  ],
   variants: [TransformAndStyle],
 });
 

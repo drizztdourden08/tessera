@@ -54,7 +54,12 @@ const Playground = {
 const Overview = overviewStory({
   component: 'OpenType features',
   importName: 'Text',
-  description: 'Inter ships 36 OpenType features: tabular and slashed numbers, fractions, case forms, alternate letters, circled and boxed digits and more. Text turns them on by name through its features prop, and typesettingStyle builds the same style for any element.',
+  description: 'The 36 OpenType features Inter ships, such as tabular numbers, fractions and alternate letters, each shown off and on.',
+  points: [
+    '[Text] turns features on by name through its `features` prop, such as `features={[\'tabularNumbers\']}`.',
+    '`tabularNumbers` keeps every digit the same width, so columns of values line up.',
+    '`typesettingStyle()` builds the same style for any element.',
+  ],
   playground: Playground,
   variants: [Gallery],
 });

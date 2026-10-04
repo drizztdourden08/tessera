@@ -57,7 +57,12 @@ const Playground = {
 const Overview = overviewStory({
   component: 'Weights',
   importName: 'Text',
-  description: 'Inter is a variable font, so weight is a continuous axis from 100 to 900. Nine tokens name the usual stops, from --weight-thin to --weight-black, and Text takes any whole number in between through its weight prop. Emphasis animates along the same axis.',
+  description: 'Inter\'s weight axis, which runs without steps from 100 to 900.',
+  points: [
+    'Nine tokens name the usual stops, from `--weight-thin` to `--weight-black`.',
+    '[Text] takes any whole number from 100 to 900 through its `weight` prop.',
+    '[primitives/Emphasis] animates a word along the same axis.',
+  ],
   playground: Playground,
   variants: [Tokens, Continuous],
 });
