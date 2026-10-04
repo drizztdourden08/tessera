@@ -6,7 +6,7 @@ export type { OptionRowProps, WidgetOptionsProps } from './sub-components/Widget
 export type { WidgetManagerProps } from './sub-components/WidgetManager.type';
 export type {
   PinMode, PoppedWidget, SnapLink, SnapSide, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
-  WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds, WindowGroup,
+  WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds,
 } from './Widget.type';
 export type { FlatWidgetLayout, FlatWidgetState, ResolvedSplit, WidgetGates } from './behavior/widget-layout.type';
 export { DEFAULT_LAYOUT_STORAGE_KEY } from './Widget.constants';

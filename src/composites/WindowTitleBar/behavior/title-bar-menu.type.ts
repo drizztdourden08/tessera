@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { MenuGroup } from '../../DropdownMenu';
-import type { WindowControl, WindowTitleBarAction, WindowTitleBarGroup } from '../WindowTitleBar.type';
+import type { WindowControl, WindowTitleBarAction } from '../WindowTitleBar.type';
 
 interface TitleBarMenuInput {
   menu: readonly MenuGroup[];
@@ -10,10 +10,7 @@ interface TitleBarMenuInput {
   pinned: boolean;
   fullscreen: boolean;
   onControl: (control: WindowControl) => void;
-  windowGroup?: string | null;
-  windowGroups?: readonly WindowTitleBarGroup[];
-  onWindowGroupChange?: (id: string | null) => void;
-  strings: { view: string; pinOnTop: string; fullscreen: string; windowGroup: string; windowGroupNone: string };
+  strings: { view: string; pinOnTop: string; fullscreen: string };
 }
 
 export type { TitleBarMenuInput };

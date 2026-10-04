@@ -88,14 +88,14 @@ const { peek, modifiers } = useDockKeys();
 
 const Overview = overviewStory({
   component: 'DockLayout',
-  description: 'The stage that widgets tile around a main view, where they move by drag and drop and resize by their dividers.',
+  description: 'The stage that widgets tile around a main view, where they move by drag and drop and resize by dividers and edges.',
   points: [
     'It lays out the split tree in `layout` and draws each pane through `renderPane`.',
     '**It owns no data:** every change leaves through `onEdit` as a `LayoutEdit` for the host to apply.',
-    'Drag a widget by its title bar; edge strips, a compass on each pane and a preview show where it lands.',
+    'Drag a title bar to dock, tab or float the widget, or past the window edge to pop it out through `onPopOut`.',
+    'A small hint beside the pointer lists the keys: [[Shift]] swaps panes, [[Ctrl]] overlays, [[Esc]] cancels.',
     'Drag a divider to resize, or double-click it to even out the two sides.',
-    'While dragging, [[Shift]] swaps two panes, [[Ctrl]] lays the pane over the main view and [[Esc]] cancels.',
-    'Dropped past the window edge, a widget can pop out to its own window through `onPopOut`.',
+    'A floating widget resizes from any edge or corner, from `floatingMin` up to the main view.',
   ],
   playground: Playground,
   variants: [Tiled, Floating, Peek],

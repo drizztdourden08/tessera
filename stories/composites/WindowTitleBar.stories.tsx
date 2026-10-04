@@ -38,8 +38,6 @@ const STATE_MENU = buildTitleMenu(ignore, false);
 
 const STATE_ACTIONS = titleBarActions(ignore);
 
-const WINDOW_GROUPS = [{ id: 'reading', label: 'Group 1' }, { id: 'tools', label: 'Group 2' }];
-
 const controlsOf = (args: TitleBarArgs): WindowControlsConfig => ({
   fullscreen: args.fullscreenButton,
   pin: args.pinButton,
@@ -52,7 +50,6 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
   const [pinned, setPinned] = useState(false);
   const [maximized, setMaximized] = useState(props.maximized === true);
   const [fullscreen, setFullscreen] = useState(false);
-  const [windowGroup, setWindowGroup] = useState<string | null>(null);
   const [said, setSaid] = useState('Nothing pressed yet.');
   const pick = (label: string) => setSaid(`${label} picked.`);
 
@@ -73,9 +70,6 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
         actions={withActions ? titleBarActions(pick, updateAvailable ? 'Update available' : null) : undefined}
         controls={controlsOf(props)}
         pinned={pinned}
-        windowGroup={windowGroup}
-        windowGroups={WINDOW_GROUPS}
-        onWindowGroupChange={setWindowGroup}
         maximized={maximized}
         fullscreen={fullscreen}
         onControl={onControl}

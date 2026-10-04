@@ -96,7 +96,7 @@ export { WindowHeader } from './WindowHeader';
 export type { WindowHeaderProps } from './WindowHeader';
 export { WindowTitleBar } from './WindowTitleBar';
 export type {
-  WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarGroup, WindowTitleBarInstance,
+  WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarInstance,
   WindowTitleBarProps,
 } from './WindowTitleBar';
 export { Hero } from './Hero';
@@ -122,10 +122,10 @@ export type {
   FlatWidgetLayout, FlatWidgetState, OptionRowProps, PinMode, PoppedWidget, ResolvedSplit, SnapLink, SnapSide, StartupOverride,
   UseWidgetLayoutParams, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetGates, WidgetLayout, WidgetManagerProps,
   WidgetOptionsProps, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions,
-  WindowBounds, WindowGroup,
+  WindowBounds,
 } from './Widget';
 export { WindowGuideOverlay } from './WindowGuideOverlay';
-export type { WindowGuideHint, WindowGuideMode, WindowGuideOverlayProps } from './WindowGuideOverlay';
+export type { WindowGuideHint, WindowGuideMode, WindowGuideOverlayProps, WindowGuidePointer } from './WindowGuideOverlay';
 export {
   DockLayout, EDGES, GAP, MAIN_NODE, STRIP, createPane, evenSplit, findLeaf, floatingRect, holdsMain, insertAt, layoutTree,
   mainRectOf, paneOf, patchPane, placeFloating, removeLeaf, removeWidget, resizeSplit, swapPanes, toFloating, useDockKeys,

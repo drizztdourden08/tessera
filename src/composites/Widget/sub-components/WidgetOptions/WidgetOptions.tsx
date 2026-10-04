@@ -4,11 +4,12 @@ import { Anchored } from '../../../../primitives/Anchored';
 import { Box } from '../../../../primitives/Box';
 import { HintLine } from '../../../../primitives/HintLine';
 import { HintScope } from '../../../../primitives/HintScope';
-import { useAnchorTracking, useDismissListeners } from '../../../../primitives/Portal';
+import { useAnchorTracking } from '../../../../primitives/Portal';
 import { useTesseraStrings } from '../../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ORIGIN, SHORTCUTS_OPEN_KEY } from './WidgetOptions.constants';
 import { panelPositionFor } from './behavior/panel-position';
 import { useAfterFirstFrame } from './behavior/useAfterFirstFrame';
+import { useOptionsDismiss } from './behavior/useOptionsDismiss';
 import { useSessionFlag } from './behavior/useSessionFlag';
 import { LayoutRows } from './sub-components/LayoutRows';
 import { OptionsHeader } from './sub-components/OptionsHeader';
@@ -24,7 +25,7 @@ const WidgetOptions = (props: WidgetOptionsProps) => {
   const shortcuts = useSessionFlag(SHORTCUTS_OPEN_KEY);
   const shown = useAfterFirstFrame();
   const { position } = useAnchorTracking({ active: true, anchorRef, compute: panelPositionFor, onOutOfView: onClose });
-  useDismissListeners({ open: true, onClose, contentRef: panelRef, triggerRef: anchorRef });
+  useOptionsDismiss({ panelRef, anchorRef, onClose });
 
   return (
     <Anchored

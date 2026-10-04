@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { Box } from '../../primitives/Box';
+import { ScrollArea } from '../../primitives/ScrollArea';
 import { WidgetTitlebar } from './sub-components/WidgetTitlebar';
 import type { WidgetProps } from './Widget.type';
 import './Widget.css';
@@ -22,7 +23,11 @@ const Widget = (props: WidgetProps) => {
       onMouseLeave={() => setHovered(false)}
     >
       <WidgetTitlebar {...props} />
-      {!peek && <Box className="widget__content">{children}</Box>}
+      {!peek && (
+        <ScrollArea axis="both" scrollbar="slim" fade={false} className="widget__content">
+          {children}
+        </ScrollArea>
+      )}
     </Box>
   );
 };

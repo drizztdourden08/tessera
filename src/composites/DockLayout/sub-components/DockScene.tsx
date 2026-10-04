@@ -13,6 +13,7 @@ import type { DockSceneProps } from './DockScene.type';
 const DockScene = (props: DockSceneProps) => {
   const {
     laid, mainRect, main, floating, drag, ownDrag, dragId, stageRef, onEdit, renderPane, renderFloating, mainLabel, gripLabel, mainGrip,
+    floatingMin, peek,
   } = props;
   const { widgets } = useTesseraStrings();
   const showGrip = mainGrip === 'always' || (mainGrip === 'dragging' && drag !== null);
@@ -26,7 +27,16 @@ const DockScene = (props: DockSceneProps) => {
       {mainRect && (
         <>
           {showGrip && <MainGrip rect={mainRect} stageRef={stageRef} label={gripLabel} hint={widgets.moveMainHint(mainLabel)} />}
-          <DockFloating floating={floating} mainRect={mainRect} drag={drag} dragId={dragId} renderFloating={renderFloating} />
+          <DockFloating
+            floating={floating}
+            mainRect={mainRect}
+            drag={drag}
+            dragId={dragId}
+            min={floatingMin}
+            resizable={!peek}
+            onEdit={onEdit}
+            renderFloating={renderFloating}
+          />
         </>
       )}
       {drag && <DropHints view={drag} laid={laid} />}

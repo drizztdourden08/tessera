@@ -15,13 +15,11 @@ const useTitleBarLayout = (
   brandRef: RefObject<HTMLElement | null>,
 ): TitleBarLayout => {
   const { menu = NO_MENU, actions = NO_ACTIONS, controls = ALL_CONTROLS, pinned = false, fullscreen = false, onControl } = props;
-  const { windowGroup, windowGroups, onWindowGroupChange } = props;
   const { windows } = useTesseraStrings();
   const captureSlide = useBarSlide(barRef);
   const fit = useTitleBarFit(barRef, brandRef, hideOrder(actions, controls), captureSlide);
   const groups = useTitleBarMenu({
-    menu, actions, pin: controls.pin !== false, fullscreenButton: controls.fullscreen !== false, pinned, fullscreen, onControl,
-    windowGroup, windowGroups, onWindowGroupChange, strings: windows,
+    menu, actions, pin: controls.pin !== false, fullscreenButton: controls.fullscreen !== false, pinned, fullscreen, onControl, strings: windows,
   });
   return { groups, actions, controls, hidden: new Set(fit.hidden), brand: fit.brand };
 };

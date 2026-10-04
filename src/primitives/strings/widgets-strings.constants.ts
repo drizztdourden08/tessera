@@ -54,12 +54,6 @@ const WIDGET_STRINGS = {
   syncOnHint: 'Follows the main window and shares its taskbar entry',
   syncOff: 'Independent',
   syncOffHint: 'Ignores the main window and has a taskbar entry of its own',
-  group: 'Window group',
-  groupAbout: 'Windows in one group maximize, minimize, close and go fullscreen together',
-  groupNone: 'None',
-  groupNoneHint: 'Acts alone, in no group',
-  groupNumbered: (n: number) => `Group ${n}`,
-  groupJoinHint: (label: string) => `Maximizes, minimizes, closes and goes fullscreen with the other windows in ${label}`,
   guideMoving: 'Moving window',
   guideResizing: 'Resizing window',
   guideSnapping: 'Snaps to corners and edges',
@@ -90,9 +84,6 @@ const WIDGET_STRINGS = {
   ghostSwap: 'swap',
   ghostOverlay: 'overlay',
   ghostCancel: 'cancel',
-  ghostPastEdge: 'Past the edge',
-  ghostPopOut: 'pop out',
-  ghostStays: 'stays in the app',
 };
 
 export { WIDGET_STRINGS };

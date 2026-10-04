@@ -60,6 +60,7 @@ interface DockSettings {
   mainLabel: string;
   gripLabel: string;
   mainGrip: DockMainGrip;
+  floatingMin: Size;
 }
 
 interface DockKeys {

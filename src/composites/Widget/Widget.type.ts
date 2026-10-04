@@ -30,14 +30,8 @@ interface PoppedWidget {
   link?: SnapLink | null;
 }
 
-interface WindowGroup {
-  id: string;
-  label: string;
-}
-
 interface WidgetWindowOptions {
   sync?: boolean;
-  group?: string | null;
 }
 
 interface WidgetFrame {
@@ -96,5 +90,5 @@ interface WidgetProps {
 
 export type {
   PinMode, PoppedWidget, SnapLink, SnapSide, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
-  WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds, WindowGroup,
+  WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds,
 };

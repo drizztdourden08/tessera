@@ -11,7 +11,7 @@ import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-ba
 const ignore = () => undefined;
 const BUG = { id: 'bug', icon: 'bug', label: 'Report a bug', onSelect: ignore };
 const UPDATES = { id: 'updates', icon: 'download', label: 'Check for updates', bar: 'status', status: 'Update available', onSelect: ignore };
-const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', fullscreen: 'Fullscreen', windowGroup: 'Window group', windowGroupNone: 'None' };
+const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', fullscreen: 'Fullscreen' };
 
 describe('WindowTitleBar', () => {
   it('draws every control by default, with the hamburger for the View sub-menu', () => {
@@ -67,18 +67,10 @@ describe('titleBarMenu', () => {
     expect(groups[1].items[0].children.map((item) => item.label)).toEqual(['Fullscreen']);
   });
 
-  it('adds a Window group radio sub-menu to View only when the host passes its groups', () => {
-    const picked = [];
-    const windowGroups = [{ id: 'a', label: 'Group 1' }, { id: 'b', label: 'Group 2' }];
-    const withGroups = titleBarMenu({ ...base, menu: [], windowGroups, windowGroup: 'b', onWindowGroupChange: (id) => picked.push(id) });
-    const group = withGroups[0].items[0].children[2];
-    expect(group.label).toBe('Window group');
-    expect(group.children.map((item) => [item.label, item.kind, item.checked])).toEqual([['None', 'radio', false], ['Group 1', 'radio', false], ['Group 2', 'radio', true]]);
-    group.children[0].onSelect();
-    group.children[1].onSelect();
-    expect(picked).toEqual([null, 'a']);
-    const without = titleBarMenu({ ...base, menu: [] });
-    expect(without[0].items[0].children).toHaveLength(2);
+  it('keeps View to the pin and full screen, with no window group entry', () => {
+    const view = titleBarMenu({ ...base, menu: [] })[0].items[0].children;
+    expect(view.map((item) => item.id)).toEqual(['pin', 'fullscreen']);
+    expect(view.some((item) => item.children)).toBe(false);
   });
 });
 

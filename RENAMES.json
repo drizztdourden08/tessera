@@ -604,6 +604,40 @@
         "SvgFeGaussianBlur": "removed; write an feGaussianBlur element in your own svg (see MIGRATION.md section 105)",
         "SvgFeColorMatrix": "removed; write an feColorMatrix element in your own svg (see MIGRATION.md section 105)"
       }
+    },
+    {
+      "version": "next",
+      "removedExports": {
+        "WindowGroup": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "WindowTitleBarGroup": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)"
+      },
+      "props": {
+        "WidgetOptions.group": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "WidgetOptions.groups": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "WidgetOptions.onGroupChange": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "WidgetManager.windowGroups": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "WidgetWindowOptions.group": "removed; WidgetWindowOptions holds sync only (see MIGRATION.md section 107)",
+        "WindowTitleBar.windowGroup": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "WindowTitleBar.windowGroups": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "WindowTitleBar.onWindowGroupChange": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)"
+      },
+      "strings": {
+        "widgets.groupNumbered": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "widgets.groupNoneHint": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "widgets.groupJoinHint": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "widgets.groupAbout": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "widgets.groupNone": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "widgets.group": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "windows.windowGroupNone": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "windows.windowGroup": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
+        "widgets.ghostPastEdge": "removed; the drag hint is one line, and the band past the window edge says Pop out or Stays in the app (see MIGRATION.md section 107)",
+        "widgets.ghostPopOut": "removed with ghostPastEdge (see MIGRATION.md section 107)",
+        "widgets.ghostStays": "removed with ghostPastEdge (see MIGRATION.md section 107)"
+      },
+      "cssClasses": {
+        "dock-ghost__gesture": "removed; the drag hint is one row of keys (see MIGRATION.md section 107)",
+        "dock-ghost__keys": "removed; the keys sit in the one row of dock-ghost (see MIGRATION.md section 107)"
+      }
     }
   ]
 }

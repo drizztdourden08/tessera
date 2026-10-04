@@ -39,6 +39,8 @@ const DockLayout = (props: DockLayoutProps) => {
           mainLabel={settings.mainLabel}
           gripLabel={settings.gripLabel}
           mainGrip={settings.mainGrip}
+          floatingMin={settings.floatingMin}
+          peek={settings.peek}
         />
       )}
     </Box>

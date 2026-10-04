@@ -5,7 +5,7 @@ import type { IconName } from '../../../../primitives/Icon/Icon.type';
 import type { ShortcutKey } from '../../../../primitives/Shortcut/Shortcut.type';
 import type { TesseraStrings } from '../../../../primitives/strings/tessera-strings.type';
 import type { DockEdge } from '../../../DockLayout';
-import type { PinMode, WidgetPlacement, WidgetVisibility, WindowGroup } from '../../Widget.type';
+import type { PinMode, WidgetPlacement, WidgetVisibility } from '../../Widget.type';
 
 type WidgetStrings = TesseraStrings['widgets'];
 
@@ -42,9 +42,6 @@ interface WidgetOptionsProps {
   onSnapChange?: (on: boolean) => void;
   sync?: boolean;
   onSyncChange?: (on: boolean) => void;
-  group?: string | null;
-  groups?: readonly WindowGroup[];
-  onGroupChange?: (group: string | null) => void;
   makeRoomHint?: string;
   contextLabel?: string;
   children?: ReactNode;
@@ -93,17 +90,11 @@ type LayoutRowsProps = Pick<
   | 'contextLabel' | WindowRowKey
 >;
 
-type WindowRowKey = 'pin' | 'onPinChange' | 'snap' | 'onSnapChange' | 'sync' | 'onSyncChange' | 'group' | 'groups' | 'onGroupChange';
+type WindowRowKey = 'pin' | 'onPinChange' | 'snap' | 'onSnapChange' | 'sync' | 'onSyncChange';
 
 type WindowRowsProps = Pick<WidgetOptionsProps, WindowRowKey>;
 
 type SyncRowProps = Required<Pick<WidgetOptionsProps, 'sync' | 'onSyncChange'>>;
-
-interface GroupRowProps {
-  group: string | null;
-  groups?: readonly WindowGroup[];
-  onGroupChange: (group: string | null) => void;
-}
 
 interface ShortcutEntry {
   keys?: ShortcutKey;
@@ -112,6 +103,6 @@ interface ShortcutEntry {
 }
 
 export type {
-  ChoiceRowProps, GroupRowProps, IconChoice, LayoutRowsProps, OptionRowProps, OptionsHeaderProps, PlacementChoice, PlacementRowProps,
+  ChoiceRowProps, IconChoice, LayoutRowsProps, OptionRowProps, OptionsHeaderProps, PlacementChoice, PlacementRowProps,
   RoomChoice, ShortcutEntry, ShortcutsAsideProps, SnapChoice, SyncRowProps, WidgetOptionsProps, WidgetWords, WindowRowsProps,
 };

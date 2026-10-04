@@ -8,8 +8,6 @@ const WINDOW_STRINGS = {
   pinOnTop: 'Pin window on top',
   unpin: 'Unpin window',
   view: 'View',
-  windowGroup: 'Window group',
-  windowGroupNone: 'None',
 };
 
 export { WINDOW_STRINGS };

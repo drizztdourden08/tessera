@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
 import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
-import { NO_MODIFIERS } from '../DockLayout.constants';
+import { FLOAT_MIN, NO_MODIFIERS } from '../DockLayout.constants';
 import type { DockLayoutProps } from '../DockLayout.type';
 import type { DockSettings } from './dock-hooks.type';
 
@@ -11,6 +11,7 @@ const dockSettings = (props: DockLayoutProps, strings: TesseraStrings['widgets']
   mainLabel: props.mainLabel ?? strings.mainLabel,
   gripLabel: props.gripLabel ?? strings.gripLabel,
   mainGrip: props.mainGrip ?? 'always',
+  floatingMin: props.floatingMin ?? FLOAT_MIN,
 });
 
 export { dockSettings };

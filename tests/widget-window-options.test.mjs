@@ -1,8 +1,6 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it, vi } from 'vitest';
 import { windowRowsFor } from '../src/composites/Widget/behavior/window-rows-for';
-import { groupOptions } from '../src/composites/Widget/sub-components/WidgetOptions/behavior/group-options';
-import { NO_GROUP } from '../src/composites/Widget/sub-components/WidgetOptions/WidgetOptions.constants';
 import { guideHints } from '../src/composites/WindowGuideOverlay/behavior/guide-hints';
 import { WIDGET_STRINGS } from '../src/primitives/strings/widgets-strings.constants';
 
@@ -12,27 +10,12 @@ describe('the window rows WidgetManager hands to WidgetOptions', () => {
     expect(windowRowsFor({ windowOptions: () => ({ sync: true }) }, 'log')).toEqual({});
   });
 
-  it('reports each change with the widget id and only the field that changed', () => {
+  it('reports a sync change with the widget id, and hands over no group row', () => {
     const change = vi.fn();
-    const groups = [{ id: 'left', label: 'Left screen' }];
-    const rows = windowRowsFor({ windowOptions: () => ({ sync: true, group: null }), windowGroups: groups, onWindowOptionsChange: change }, 'log');
-    expect(rows).toMatchObject({ sync: true, group: null, groups });
+    const rows = windowRowsFor({ windowOptions: () => ({ sync: true }), onWindowOptionsChange: change }, 'log');
+    expect(Object.keys(rows).sort()).toEqual(['onSyncChange', 'sync']);
     rows.onSyncChange(false);
-    rows.onGroupChange('left');
-    expect(change.mock.calls).toEqual([['log', { sync: false }], ['log', { group: 'left' }]]);
-  });
-});
-
-describe('the window group choices', () => {
-  it('lists None, then Group 1 to Group 4 by default', () => {
-    expect(groupOptions(undefined, WIDGET_STRINGS).map((o) => [o.value, o.label])).toEqual([
-      [NO_GROUP, 'None'], ['group-1', 'Group 1'], ['group-2', 'Group 2'], ['group-3', 'Group 3'], ['group-4', 'Group 4'],
-    ]);
-  });
-
-  it('lists the host groups in place of the numbered ones', () => {
-    const options = groupOptions([{ id: 'stream', label: 'Stream' }], WIDGET_STRINGS);
-    expect(options.map((o) => o.label)).toEqual(['None', 'Stream']);
+    expect(change.mock.calls).toEqual([['log', { sync: false }]]);
   });
 });
 

@@ -9,7 +9,7 @@ const MODE_ICONS: Readonly<Record<WindowGuideMode, IconName>> = {
   resizing: 'maximize-2',
 };
 
-const MODE_ICON_SIZE = 18;
+const MODE_ICON_SIZE = 14;
 
 const SNAP_ICON_SIZE = 12;
 

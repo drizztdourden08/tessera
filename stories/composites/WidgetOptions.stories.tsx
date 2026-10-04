@@ -41,7 +41,7 @@ const story = (name: string, patch: Partial<OptionsArgs>) => ({
 const Playground = story('Playground', {});
 const Docked = story('Docked on the right, with its own rows', {});
 const Floating = story('Floating over the main view', { placement: 'floating' });
-const OwnWindow = story('In its own window: pin, snap, sync and group', { placement: 'popped' });
+const OwnWindow = story('In its own window: pin, snap and sync', { placement: 'popped' });
 const FrameOnly = story('Frame options only', { ownRows: false });
 
 const CODE = `import { OptionRow, WidgetOptions } from '@drizztdourden08/tessera';
@@ -79,9 +79,9 @@ const Overview = overviewStory({
   points: [
     'Each choice is a small icon [SegmentedControl], explained in the hint line when you point at it.',
     'Placement docks the widget to an edge, floats it over the main view, or sends it to its own window.',
-    'In its own window it adds pin, snap, follow the main window and window group.',
+    'In its own window it adds pin, snap and follow the main window.',
     'The widget adds its own rows as children, and they report to the same hint line.',
-    'The keys button opens the shortcut list beside the panel; [[Esc]] or a press outside closes the panel.',
+    'The keys button opens the shortcut list; [[Esc]], a press outside or the window losing focus closes the panel.',
   ],
   playground: Playground,
   variants: [Docked, Floating, OwnWindow, FrameOnly],

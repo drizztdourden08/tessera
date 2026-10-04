@@ -2686,3 +2686,61 @@ type PelagoAnimation = 'idle' | 'move' | 'jump' | 'wave' | 'scan' | 'happy' | 'a
 ### What an app does
 
 Nothing, for an app that draws Pelago through `Mascot`, `AnimatedMascot`, `ChosenMascot` or the files in `brand/archipelia/mascot/`. An app that built its own scene with `goo` drops it, and one that imported `SvgFilter`, `SvgFeGaussianBlur` or `SvgFeColorMatrix` writes the `filter`, `feGaussianBlur` and `feColorMatrix` elements itself.
+
+## 107. A floating widget resizes, the widget options close like a popover, the body keeps a scrollbar gutter, the drag hint sits at the pointer, and window groups are gone
+
+Five fixes from hands-on testing of Brock on Tessera 0.10 to 0.13.
+
+**A floating widget resizes.** DockLayout drew no resize handles on a floating widget, so no prop a host could pass made it resizable. Each floating widget now has a handle on every edge and corner. The side held follows the pointer and the far side stays put; the size never goes below `floatingMin` and never past the main view the widget floats over. Letting go sends a `float-widget` edit with the new rectangle, the same edit a move sends, so a host that applies `LayoutEdit`s with `applyEdit` needs no change. Escape puts the widget back. The handles hide during peek and while the widget is dragged.
+
+```ts
+interface DockLayoutProps {
+  // ...
+  floatingMin?: Size; // default { width: 160, height: 96 }
+}
+
+interface WidgetManagerProps {
+  // ...
+  floatingMin?: Size;
+}
+```
+
+**WidgetOptions closes like a popover.** A press on any widget title bar starts a possible drag, which cancels `pointerdown`, so the browser never sent the `mousedown` the panel listened for, and the panel stayed open. The panel now reads a press outside it on `pointerdown` in the capture phase, so no handler underneath can hide the press from it. It also closes when focus moves to something outside it, and when the window loses focus. Escape still goes through the shared `useDismissListeners` stack, so an inner popup closes first.
+
+**The widget body keeps a gutter for the scrollbar.** The body of every widget, docked, floating or in its own window, is a slim `ScrollArea` (`scrollbar="slim"`, both axes, no fade). Its right padding is the width of the active thumb and its two margins, 9 pixels, and it gains the same bottom padding while it scrolls sideways, so the thumb never covers text. `.widget__content` is now the `scroll-area` element itself.
+
+**The drag hint sits at the pointer.** While a widget moves inside the app, the card beside the pointer is one line: the widget name, then Shift swap, Ctrl overlay and Esc cancel, on an opaque surface at full opacity. It sits 12 pixels after and below the pointer, flips to the other side near an edge, and stays inside the part of the stage on screen. The pop out entry left the card: past the window edge, the band around the stage still says Pop out or Stays in the app. The edge strips draw at full opacity, and the compass buttons on an opaque surface.
+
+`WindowGuideOverlay` takes `pointer`, the pointer in client pixels. Given, the card sits beside it the same way, follows it, stays inside the window and draws no scrim. Left out, the card sits centred over the scrim as before. The card is smaller in both cases.
+
+```ts
+interface WindowGuidePointer {
+  x: number;
+  y: number;
+}
+
+interface WindowGuideOverlayProps {
+  // ...
+  pointer?: WindowGuidePointer | null;
+}
+```
+
+**Window groups are removed.** Snapped windows cluster on the host's side, so Tessera draws no group choice.
+
+| Removed | Now |
+|---|---|
+| `WidgetOptions` props `group`, `groups`, `onGroupChange` | nothing |
+| `WidgetManager` prop `windowGroups`, and `group` in `WidgetWindowOptions` | nothing; `WidgetWindowOptions` holds `sync` only |
+| `WindowTitleBar` props `windowGroup`, `windowGroups`, `onWindowGroupChange` | nothing; the View sub-menu holds the pin and full screen |
+| types `WindowGroup`, `WindowTitleBarGroup` | nothing |
+| strings `widgets.group`, `groupAbout`, `groupNone`, `groupNoneHint`, `groupNumbered`, `groupJoinHint` | nothing |
+| strings `windows.windowGroup`, `windowGroupNone` | nothing |
+| strings `widgets.ghostPastEdge`, `ghostPopOut`, `ghostStays` | the pop out band past the window edge |
+| classes `dock-ghost__keys`, `dock-ghost__gesture` | the card is one row, `.dock-ghost` |
+
+### What an app does
+
+1. Drop `group`, `groups` and `onGroupChange` from every `WidgetOptions`, `windowGroups` from `WidgetManager`, `group` from what `windowOptions` returns, and `windowGroup`, `windowGroups` and `onWindowGroupChange` from `WindowTitleBar`. Drop the `WindowGroup` and `WindowTitleBarGroup` imports, and the removed keys from a strings override.
+2. Nothing to pass for resizing; a host that wants another least size passes `floatingMin`.
+3. A widget whose content wrapped itself in its own scroll box, such as Brock's Performance widget, drops that box and lets the widget body scroll, or fills the body at full height and keeps a right padding of its own.
+4. A host that shows `WindowGuideOverlay` while the user moves or resizes a widget window passes `pointer` from the pointer events it already reads.

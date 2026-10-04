@@ -121,8 +121,12 @@
 .widget__content {
   flex: 1;
   min-height: 0;
-  overflow: auto;
   position: relative;
+  padding-right: calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active));
+}
+
+.widget__content[data-overflow~='x'] {
+  padding-bottom: calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active));
 }
 
 @media (prefers-reduced-motion: reduce) {

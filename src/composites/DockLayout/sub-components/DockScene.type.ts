@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
-import type { DockLayoutProps, DockMainGrip, LayoutEdit, Rect, WidgetId } from '../DockLayout.type';
+import type { DockLayoutProps, DockMainGrip, LayoutEdit, Rect, Size, WidgetId } from '../DockLayout.type';
 import type { DragView } from '../behavior/drag.type';
 import type { LaidOut } from '../behavior/layout-tree.type';
 
@@ -17,6 +17,8 @@ type DockSceneProps = Pick<DockLayoutProps, 'renderPane' | 'renderFloating'> & {
   mainLabel: string;
   gripLabel: string;
   mainGrip: DockMainGrip;
+  floatingMin: Size;
+  peek: boolean;
 };
 
 export type { DockSceneProps };

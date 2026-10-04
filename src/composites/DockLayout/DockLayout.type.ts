@@ -112,6 +112,7 @@ interface DockLayoutProps {
   mainLabel?: string;
   gripLabel?: string;
   mainGrip?: DockMainGrip;
+  floatingMin?: Size;
   className?: string;
 }
 

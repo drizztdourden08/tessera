@@ -2,8 +2,7 @@
 import type { ShortcutKey } from '../../../primitives/Shortcut/Shortcut.type';
 
 interface DragGhostKeyProps {
-  keys?: ShortcutKey;
-  gesture?: string;
+  keys: ShortcutKey;
   does: string;
   lit: boolean;
 }
