@@ -80,7 +80,13 @@ const CODE = `import { WizardReview } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'WizardReview',
-  description: 'The last step of a wizard: one block per step with what was chosen, as label and value rows on a TermList, so a value can be text or any node such as a Tag or Code. Each block has an Edit button that goes back to its step; pass the wizard\'s goTo. While the finish runs, the Edit buttons wait.',
+  description: 'The last step of a wizard: what was chosen on each step, with an Edit button that goes back to it.',
+  points: [
+    '`sections` holds one block per step, with label and value rows drawn by a [TermList].',
+    'A value can be text or any node, such as a [Tag].',
+    'Pass the wizard\'s `goTo` as `onEdit`.',
+    '`disabled` holds the Edit buttons while the finish runs.',
+  ],
   playground: Playground,
   variants: [ReadOnly],
   states: {

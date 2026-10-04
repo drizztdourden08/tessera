@@ -122,7 +122,14 @@ const renderState = (props: StateProps) => draw({ ...(ARGS as NavArgs), isLast: 
 
 const Overview = overviewStory({
   component: 'WizardNav',
-  description: 'The action bar under a wizard step, a ButtonRow in its dark bar look. It generates its buttons: Cancel, Back with an arrow on its left, then Next with an arrow on its right, or the finish button with a check on the last step. Back and Next are always the same width and every button in the bar is the same height. The step definition can change the label and the icon of each button on its own, or drop Back or Cancel. The hint at the start of the bar says why Next is off, or whatever the step has to say. While the finish runs, the finish button shows its spinner, the busy text such as Generating seed... shows in place of the hint, and the others wait. The extra slot holds something of the step\'s own, such as Test connection. Wizard draws one from the current step.',
+  description: 'The action bar under a wizard step, with Cancel, Back and Next, or the finish button on the last step.',
+  points: [
+    '`canGoNext` turns Next on, and `hint` at the start of the bar says why it is off.',
+    '`buttons` changes the label or the icon of each button, or drops Back or Cancel.',
+    'While `busy`, the finish button spins, `busyHint` takes the place of the hint, and the others wait.',
+    '`extra` holds something of the step\'s own, such as a Test connection button.',
+    '[Wizard] draws one from the current step.',
+  ],
   playground: Playground,
   variants: [Moments, Overrides],
   states: {

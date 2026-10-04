@@ -107,7 +107,16 @@ const NewProfile = ({ onDone }: { onDone: () => void }) => {
 
 const Overview = overviewStory({
   component: 'Wizard',
-  description: 'A task done in steps, such as creating a profile. useWizard holds the steps, the input, where the user is, what they have visited, the errors and the finish. Each step definition drives the whole wizard: its label and summary and sub-steps feed the Stepper, its validate and hint feed the hint in the action bar, busyHint shows while the finish runs, extra adds something of its own to the bar, and buttons changes the label or the icon of Cancel, Back and Next on that step, each on its own; on the last step Next is the finish button. Wizard lays it out: the Stepper on top or down the left, the step filling the rest with its own scroll, and WizardNav in a dark action bar that stays put. The step fades out while its circle fills and the next one fades in while the line runs on. A step can be hidden by a condition, Next stays off until the step is valid, and a finish that fails keeps every input and shows the error on the last step. Leaving with unsaved input asks first. WizardDialog puts the same wizard in a dialog.',
+  description: 'A task done in steps inside a screen, such as creating a profile: a [Stepper], the current step and an action bar.',
+  points: [
+    '`useWizard` holds the steps, the input, the errors and the finish; pass what it returns as `wizard`.',
+    'Each step definition sets its label, its `validate` check, its `hint` and the look of its buttons.',
+    'Next stays off until the step is valid, and a step with `when` shows only when it applies.',
+    'A failed finish keeps every input and shows the error on the last step.',
+    '`orientation` puts the [Stepper] on top or down the left.',
+    'Leaving with unsaved input asks first, through [WizardExitGuard].',
+  ],
+  instead: '[WizardDialog] for the same wizard in a dialog.',
   playground: Playground,
   variants: [ProfileInScreen, StepsOnTop, Compact],
   states: {

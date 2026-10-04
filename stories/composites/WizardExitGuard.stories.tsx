@@ -90,7 +90,13 @@ const exit = useWizardExit({ dirty: wizard.dirty, busy: wizard.busy, onExit: clo
 
 const Overview = overviewStory({
   component: 'WizardExitGuard',
-  description: 'Asks before a wizard is left with unsaved input: a danger Dialog with Discard and Keep editing. While something runs, such as a seed being generated, it does not offer to leave at all and asks the user to wait. useWizardExit decides: it leaves at once when nothing is entered, asks when something is, and waits while busy. Wizard wires both to its Cancel; a screen that can be left another way, such as a tab or a menu, calls requestExit itself.',
+  description: 'Asks before a wizard is left with unsaved input, in a danger [Dialog] with Discard and Keep editing.',
+  points: [
+    '`blocked` is for while something runs: it asks the user to wait instead of offering to leave.',
+    '`useWizardExit` leaves at once when nothing is entered, asks when something is, and waits while busy.',
+    '[Wizard] wires both to its Cancel.',
+    'A screen that can be left another way, such as a tab or a menu, calls `requestExit` itself.',
+  ],
   playground: Playground,
   variants: [Blocked, Hooked],
   code: CODE,
