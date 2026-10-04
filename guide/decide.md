@@ -43,6 +43,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Behind a swatch button: no component yet.
   - A range: no component yet.
   - A file: no component yet.
+  - A path to a file or folder: [PathField](components/PathField.md). PathField takes a typed, dropped or browsed path in one field and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
     - Edit it in place: no component yet.
     - Create one in the page: no component yet.

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 29 of 166 have their usage written; a linked name opens its page.
+One line per component. 30 of 167 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -44,6 +44,7 @@ One line per component. 29 of 166 have their usage written; a linked name opens 
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `NumberStepper`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [PathField](components/PathField.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one field, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `PathIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Pressable`: usage not written yet. Import from `@drizztdourden08/tessera`.

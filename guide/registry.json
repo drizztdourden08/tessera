@@ -152,6 +152,11 @@
           "a file": {
             "components": []
           },
+          "a path to a file or folder": {
+            "components": [
+              "PathField"
+            ]
+          },
           "a whole record": {
             "question": "What happens to the record?",
             "answers": {
@@ -1528,6 +1533,171 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "PathField",
+      "tier": "primitives",
+      "source": "src/primitives/PathField/PathField.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A file or folder path the user can type, drop from the desktop or pick with Browse in one field, with copy, reveal and clear.",
+      "useWhen": [
+        "A setting holds the path of a file or a folder, such as an SSH key, a ROM, a save folder or an output zip.",
+        "The app shows a path it made, read only, and the user may copy it or open its folder."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The app needs the contents of the files, not their path.",
+          "use": "DropZone"
+        },
+        {
+          "case": "The value is free text that is not a path.",
+          "use": "TextInput"
+        }
+      ],
+      "rules": [
+        "Pass onBrowse to open the dialog of the app, such as the native dialog through Electron, and return the picked path or null.",
+        "Pass resolvePath in Electron, such as webUtils.getPathForFile, so a drop gives the full path and not only the name.",
+        "Set kind and accept to what the setting takes, so a wrong drop is turned away with a reason.",
+        "Pass onReveal only when the app can show the file in its folder."
+      ],
+      "a11y": [
+        "The input takes the label, hint and error of its Field, and typing edits the path.",
+        "Copy, Reveal, Clear and Browse are buttons with names, in that order after the input.",
+        "A drop that is turned away marks the input invalid and says why in an alert under it."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a path to a file or folder"
+        ],
+        "rule": "PathField takes a typed, dropped or browsed path in one field and cuts a long one in the middle, the same way in every app."
+      },
+      "example": "import { Field, PathField } from '@drizztdourden08/tessera';\n\ninterface Bridge {\n  pickFile: () => Promise<string | null>;\n  showInFolder: (path: string) => void;\n  pathOf: (file: File) => string;\n}\n\nconst KeyFileField = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPath: string | null; setKeyPath: (path: string | null) => void }) => (\n  <Field label=\"Key file\" hint=\"Only the path is stored.\">\n    <PathField\n      value={keyPath}\n      onChange={setKeyPath}\n      onBrowse={bridge.pickFile}\n      onReveal={bridge.showInFolder}\n      resolvePath={bridge.pathOf}\n      placeholder=\"No key file yet\"\n    />\n  </Field>\n);\n",
+      "propsHash": "0347fa9da023f2e0",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string | null"
+          },
+          {
+            "name": "onChange",
+            "optional": true,
+            "text": "(path: string | null) => void"
+          },
+          {
+            "name": "onBrowse",
+            "optional": true,
+            "text": "PathBrowse"
+          },
+          {
+            "name": "onReveal",
+            "optional": true,
+            "text": "(path: string) => void"
+          },
+          {
+            "name": "kind",
+            "optional": true,
+            "text": "PathKind",
+            "literals": [
+              "'file'",
+              "'folder'",
+              "'any'"
+            ]
+          },
+          {
+            "name": "accept",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "resolvePath",
+            "optional": true,
+            "text": "(file: File) => string | null | undefined"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "readOnly",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "invalid",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "copyable",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "id",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-describedby",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-inset",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-text",
+        "--c-text-muted",
+        "--font-mono",
+        "--font-sans",
+        "--opacity-disabled",
+        "--radius-md",
+        "--size-40",
+        "--space-2xs",
+        "--space-sm",
+        "--text-sm",
+        "--transition-normal"
+      ],
+      "gallery": {
+        "title": "Primitives · Inputs/PathField",
+        "route": "#/story/primitives-pathfield--overview",
+        "file": "stories/primitives/PathField.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "PathIcon",

@@ -4301,3 +4301,50 @@ interface ActionTileProps {
 
 1. Archipelia: build the session summary row from ActionTile (Players and Hints with `onOpen` to their widgets, Address with a copy action, Uptime with a danger Stop), and the data overview with one tile per data domain, its folder as a tool and its main action at the foot.
 2. Keep StatTile where a tile only reads a value.
+
+## 162. PathField: type, drop or browse for a path in one field
+
+From the Archipelia review (tessera-06), as decided by the owner (T-19), who asked that typing, dropping and the picking dialog all work on the same field. Picking or showing a path was a bare TextInput (the Archipelia server key file) or a caption beside a separate button (PlayerRow Import file, the DataOverview path with Open folder, the RoomWidget output zip), with no Browse, no Clear and no Reveal.
+
+`PathField` is a new primitive, under Primitives · Inputs.
+
+- **Typing.** The input holds the whole path in a mono font; each change calls `onChange` with the text, or null when it is emptied. Without `onChange`, or with `readOnly`, it is read only.
+- **Dropping.** A file or folder dragged from the desktop turns the field into a dashed drop target that reads Drop the file to use it (or the folder). Text dragged in is left to the input. On drop the first item that fits is used: `kind` (`file`, the default, `folder` or `any`) and `accept` (endings such as `.yaml`) decide; anything else is turned away, the input is marked invalid and an alert under it says why (That is a folder. Drop a file.). The path comes from `resolvePath(file)`, such as `webUtils.getPathForFile` in Electron, else the `path` the platform puts on the file, else its name.
+- **Browsing.** `onBrowse` opens the dialog of the app; a string it returns, or resolves to, becomes the value. The button reads Browse... while empty and Change... once set.
+- **The end of the field.** Copy (through CopyButton, on by default, `copyable`), Reveal with `onReveal(path)` (Show in folder, or Open the folder for a folder) and Clear.
+- **Long paths** are cut in the middle while the field is not focused, so the last folders and the file name stay in view; the whole path is the title, and focus shows it all for editing.
+- The drag handling follows DropZone and reuses its ending check.
+
+```ts
+type PathKind = 'file' | 'folder' | 'any';
+type PathBrowse = () => string | null | void | Promise<string | null | void>;
+
+interface PathFieldProps {
+  value: string | null;
+  onChange?: (path: string | null) => void;
+  onBrowse?: PathBrowse;
+  onReveal?: (path: string) => void;
+  kind?: PathKind; // default 'file'
+  accept?: readonly string[];
+  resolvePath?: (file: File) => string | null | undefined;
+  placeholder?: string; // default No file yet, or No folder yet
+  readOnly?: boolean;
+  disabled?: boolean;
+  invalid?: boolean;
+  copyable?: boolean; // default true
+  id?: string;
+  'aria-label'?: string;
+  'aria-describedby'?: string;
+  className?: string;
+}
+```
+
+| Before | Now |
+|---|---|
+| | new strings group `paths`: `browse`, `change`, `clear`, `copy`, `revealFile`, `revealFolder`, `noFile`, `noFolder`, `dropFile`, `dropFolder`, `notFile`, `notFolder`, `notType(types)` |
+
+### What an app does
+
+1. Archipelia: the ServerForm key file becomes a `PathField` with `onBrowse` through Brock's native dialog and `resolvePath`; PlayerRow Import file becomes a `PathField` with `accept: ['.yaml', '.yml']`; the DataOverview path and the RoomWidget output zip become read only PathFields with `onReveal`.
+2. Brock: expose `pickFile`, `pickFolder`, `showInFolder` and `webUtils.getPathForFile` through the preload bridge for these props.
+3. Relic of the Past: the ROM and save folder settings use `kind: 'folder'` or `accept` with the ROM endings.

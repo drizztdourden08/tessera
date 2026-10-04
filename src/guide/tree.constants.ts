@@ -57,6 +57,7 @@ const VALUES = {
     },
     'a range': null,
     'a file': null,
+    'a path to a file or folder': null,
     'a whole record': {
       question: 'What happens to the record?',
       answers: { 'edit it in place': null, 'create one in the page': null, 'create one in a dialog': null },

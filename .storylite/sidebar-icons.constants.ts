@@ -63,6 +63,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal',
     TagInput: 'tag', TagPicker: 'tags', ColorSwatch: 'paint-bucket',
     DropZone: 'upload', Field: 'form-input', FieldControlBoundary: 'square-dashed',
+    PathField: 'folder-input',
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Toast: 'bell', Tooltip: 'message-square',

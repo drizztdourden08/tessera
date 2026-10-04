@@ -184,3 +184,5 @@ export { RetryButton } from './RetryButton';
 export type { RetryButtonProps } from './RetryButton';
 export { CommandInput } from './CommandInput';
 export type { CommandInputProps, CommandSubmit } from './CommandInput';
+export { PathField } from './PathField';
+export type { PathBrowse, PathFieldProps, PathKind } from './PathField';

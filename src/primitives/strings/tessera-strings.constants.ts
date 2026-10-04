@@ -12,6 +12,7 @@ import { LIST_STRINGS } from './lists-strings.constants';
 import { NAVIGATION_STRINGS } from './navigation-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
 import { PASSWORD_STRINGS } from './password-strings.constants';
+import { PATH_STRINGS } from './paths-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
 import { SETTINGS_STRINGS } from './settings-strings.constants';
 import { STEPPER_STRINGS } from './stepper-strings.constants';
@@ -43,6 +44,7 @@ const TESSERA_STRINGS = {
   charts: CHART_STRINGS,
   items: ITEM_STRINGS,
   lists: LIST_STRINGS,
+  paths: PATH_STRINGS,
 };
 
 export { TESSERA_STRINGS };
