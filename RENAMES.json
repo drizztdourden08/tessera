@@ -458,7 +458,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.8.0",
       "components": {
         "WizardFrameProps": "WizardProps",
         "WizardFrame": "Wizard"

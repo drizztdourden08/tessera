@@ -1,5 +1,14 @@
 # @drizztdourden08/tessera
 
+## 0.8.0
+
+### Minor Changes
+
+- ab732c5: Every logo takes `rim`: `'none'`, `'light'` or `'dark'`, a thin outline that follows the mark so it reads on dark and light surfaces. The rim colours and widths are tokens, and `pnpm icons` writes every brand's icon files again with each rim under `brand/light-rim/` and `brand/dark-rim/`, always without a tile. See MIGRATION.md and brand/LOGO.md.
+- ce207fd: InputIcon: the SNES glyphs are vector paths only, with no blur filter or bitmap, and their pressed d-pad arrow is red. The generic family adds `dpad` and the four d-pad directions, and `gamepadInputIcon('generic', 'dpup')` maps to them. `tone="theme"` paints highlights in `--c-primary` with a thin gap around them. See MIGRATION.md.
+- 859a6f0: `WindowTitleBar` takes `actions`, declared once, which show as bar buttons or status pills and as menu items; `left` is removed. Everything the bar shows is also in its hamburger menu: the pin and full screen as check items in a View sub-menu, each action as an item with its status as the subtitle. As the bar narrows, its items hide one by one before the brand gives way, and the logo shrinks before it goes. See MIGRATION.md and RENAMES.json.
+- 69aec47: `WizardFrame` is now `Wizard`, `WizardFrameProps` is now `WizardProps`, and its classes `wizard-frame` and `wizard-frame__*` are now `wizard` and `wizard__*`, with no alias. See MIGRATION.md and RENAMES.json.
+
 ## 0.7.1
 
 ### Patch Changes
