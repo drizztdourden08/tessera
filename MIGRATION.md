@@ -2981,7 +2981,8 @@ Every mascot now plays 29 clips. The ten from section 106 are unchanged, byte fo
 - `MotionEffect` takes `fixed`: the piece sits on the stage after the body instead of riding with it, so it stays upright and still while the body tilts or bobs. Without it, an effect rides inside the body, which suits a face drawn over the eyes.
 - `MascotAnimation` takes `still`, a list of effect ids the clip shows at rest. They are drawn in the resting picture, so reduced motion keeps them with no animation, and while the clip plays a frame without `opacity` keeps them shown. Effects not in the list still start hidden.
 - `AnimatedMascot` draws only the effects the playing clip names in its tracks or `still`, so a clip without symbols carries none.
-- Sentri's new clips move in whole pixels with stepped timing, and its symbols are pixel art: cyan sparkles, a yellow bulb, a pink heart, a red battery, plus a question mark, an exclamation mark, z letters, sweat drops, confetti and a laptop.
+- Sentri's symbols are pixel art: cyan sparkles, a yellow bulb, a pink heart, a red battery, plus a question mark, an exclamation mark, z letters, sweat drops, confetti and a laptop.
+- Every clip moves smoothly, as the first ten do: rotation, position, scale and opacity ease continuously between keyframes, and symbols fade in and out instead of popping. Sentri's new clips first shipped with stepped timing and are smooth now, its `link` spark glides along the edges instead of hopping pixel by pixel, and Flint's spin, battery blink and chip flicker no longer use stepped easing.
 
 ```ts
 type MascotClipGroupId = 'motion' | 'expressions' | 'interactions';

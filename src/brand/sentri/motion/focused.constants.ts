@@ -1,18 +1,47 @@
 /* @layer renderer-components @kind data */
 import type { MascotAnimation } from '../../motion/motion.type';
-import { stepTrack } from '../step-track';
 
 const SENTRI_FOCUSED: MascotAnimation = {
   name: 'Focused',
-  summary: 'Concentrates: narrows its eyes, leans in a pixel and keeps a small mark of effort by its tip that flickers as it thinks.',
+  summary: 'Concentrates: narrows its eyes, leans in and keeps a small mark of effort by its tip that bobs and fades as it thinks.',
   duration: 2400,
   loop: true,
   still: ['narrow', 'focus'],
   tracks: [
-    stepTrack('rig', [{ at: 0, y: 1, rotate: 3 }, { at: 1, y: 1, rotate: 3 }]),
-    stepTrack('podLeft', [{ at: 0, rotate: -12 }, { at: 0.5, rotate: -8 }, { at: 1, rotate: -12 }]),
-    stepTrack('podRight', [{ at: 0, rotate: 12 }, { at: 0.5, rotate: 8 }, { at: 1, rotate: 12 }]),
-    stepTrack('focus', [{ at: 0 }, { at: 0.5, y: -1 }, { at: 0.75, opacity: 0 }, { at: 0.83 }, { at: 1 }]),
+    {
+      part: 'rig',
+      frames: [
+        { at: 0, y: 0.6, rotate: 2 },
+        { at: 0.5, y: 1, rotate: 4 },
+        { at: 1, y: 0.6, rotate: 2 },
+      ],
+    },
+    {
+      part: 'podLeft',
+      frames: [
+        { at: 0, rotate: -12 },
+        { at: 0.5, rotate: -7 },
+        { at: 1, rotate: -12 },
+      ],
+    },
+    {
+      part: 'podRight',
+      frames: [
+        { at: 0, rotate: 12 },
+        { at: 0.5, rotate: 7 },
+        { at: 1, rotate: 12 },
+      ],
+    },
+    {
+      part: 'focus',
+      frames: [
+        { at: 0 },
+        { at: 0.4, y: -1.5 },
+        { at: 0.62, y: -2, opacity: 0.3 },
+        { at: 0.82 },
+        { at: 1 },
+      ],
+    },
   ],
 };
 

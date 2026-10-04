@@ -14,18 +14,18 @@ const POD_RIGHT = DOWN.at(-1) ?? REST;
 const off = ([x, y]: ScenePoint): Pick<MotionFrame, 'x' | 'y'> => ({ x: x - REST[0], y: y - REST[1] });
 
 const spark: readonly MotionFrame[] = [
-  { at: 0, ease: EASE.step },
-  { at: 0.1, ...off(POD_LEFT), ease: EASE.step },
-  ...routeFrames(UP, REST, [0.14, 0.42], EASE.step),
-  { at: 0.45, ...off(TIP), scale: 2, opacity: 1, ease: EASE.step },
-  ...routeFrames(DOWN, REST, [0.5, 0.66], EASE.step),
-  { at: 0.69, ...off(POD_RIGHT), ease: EASE.step },
+  { at: 0 },
+  { at: 0.1, ...off(POD_LEFT) },
+  ...routeFrames(UP, REST, [0.14, 0.42], EASE.linear),
+  { at: 0.45, ...off(TIP), scale: 2, opacity: 1 },
+  ...routeFrames(DOWN, REST, [0.5, 0.66], EASE.linear),
+  { at: 0.69, ...off(POD_RIGHT) },
   { at: 1 },
 ];
 
 const SENTRI_LINK: MascotAnimation = {
   name: 'Link',
-  summary: 'Links its pods: the left pod pulses and sends out a spark of light that hops pixel by pixel up the left edge to the tip, flashes there, and runs down the right edge into the right pod, which pulses as it lands. Then both pods lift and Sentri hops, the eyes following the spark all the way.',
+  summary: 'Links its pods: the left pod pulses and sends out a spark of light that glides up the left edge to the tip, flashes there, and runs down the right edge into the right pod, which pulses as it lands. Then both pods lift and Sentri hops, the eyes following the spark all the way.',
   duration: 2800,
   loop: false,
   tracks: [
