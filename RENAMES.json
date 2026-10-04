@@ -685,18 +685,18 @@
         "widget-options__own": "removed; the widget rows sit in a control-menu__group (see MIGRATION.md section 113)",
         "widget-options__section": "removed; Shortcuts is a sub-panel (see MIGRATION.md section 113)",
         "widget-options-aside": "removed; Shortcuts is a sub-panel, control-menu__sub-panel (see MIGRATION.md section 113)",
-        "widget-shortcuts__row": "removed; the shortcuts are a ShortcutList, each row a shortcut-list__row (see MIGRATION.md section 120)",
-        "widget-shortcuts__keys": "removed; the shortcuts are a ShortcutList, each row a shortcut-list__row (see MIGRATION.md section 120)",
-        "widget-shortcuts__does": "removed; the shortcuts are a ShortcutList, each row a shortcut-list__row (see MIGRATION.md section 120)",
-        "window-guide__hint": "removed; the rows are a ShortcutList, each a shortcut-list__row (see MIGRATION.md section 120)"
+        "widget-shortcuts__row": "removed; the shortcuts are a ShortcutList, each row a shortcut-list__row (see MIGRATION.md section 121)",
+        "widget-shortcuts__keys": "removed; the shortcuts are a ShortcutList, each row a shortcut-list__row (see MIGRATION.md section 121)",
+        "widget-shortcuts__does": "removed; the shortcuts are a ShortcutList, each row a shortcut-list__row (see MIGRATION.md section 121)",
+        "window-guide__hint": "removed; the rows are a ShortcutList, each a shortcut-list__row (see MIGRATION.md section 121)"
       },
       "strings": {
         "widgets.showShortcuts": "removed; Shortcuts is a sub-panel (see MIGRATION.md section 113)",
         "widgets.hideShortcuts": "removed; Shortcuts is a sub-panel (see MIGRATION.md section 113)",
         "widgets.closeHint": "removed; the options close like any popup (see MIGRATION.md section 113)",
-        "widgets.titlebarHint": "removed; the widget title bar has no tooltip, and the Shortcuts sub-panel lists the drags (see MIGRATION.md section 120)",
-        "widgets.outHint": "removed; the widget title bar has no tooltip (see MIGRATION.md section 120)",
-        "widgets.shortcutPlusDrop": "removed; the While dragging heading says it (see MIGRATION.md section 120)"
+        "widgets.titlebarHint": "removed; the widget title bar has no tooltip, and the Shortcuts sub-panel lists the drags (see MIGRATION.md section 121)",
+        "widgets.outHint": "removed; the widget title bar has no tooltip (see MIGRATION.md section 121)",
+        "widgets.shortcutPlusDrop": "removed; the While dragging heading says it (see MIGRATION.md section 121)"
       },
       "cssCustomProperties": {
         "--widget-options-aside-w": "removed; Shortcuts is a sub-panel (see MIGRATION.md section 113)"
