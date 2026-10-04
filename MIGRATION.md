@@ -1854,3 +1854,11 @@ The SNES art was drawn by drizztdourden_ from scratch for Relic of the Past, ins
 ### What an app does
 
 Nothing, unless it relied on a generic d-pad id drawing a stick arrow or on the theme highlight being `--c-primary-bright`.
+
+## 72. The Stepper sequence runs without a stall between its parts
+
+Each part of a step forward used to ease in and out, so the motion slowed to a stop where the fill met the line, the line met the ring, and the ring met the next fill. The parts now take curves that hand their speed on: the fill speeds up into the line, the line slows to the speed the ring starts at, and the ring meets itself gently. The new tokens are `--ease-step-fill`, `--ease-step-line` and `--ease-step-ring`. The current circle starts breathing as its ring begins to spread, so its glow is already rising when the ring closes. The order, the durations and the quick reverse stay the same, and reduced motion still shows the end state at once.
+
+### What an app does
+
+Nothing.

@@ -38,5 +38,6 @@
 }
 
 .stepper[data-direction='forward'] .stepper__item[data-wave][data-status='done'] .stepper__line::after {
+  transition-timing-function: var(--ease-step-line);
   transition-delay: calc(var(--stepper-wave) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)) + var(--duration-step-fill));
 }

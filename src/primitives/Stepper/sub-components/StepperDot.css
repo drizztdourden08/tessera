@@ -109,7 +109,12 @@
   transition-delay: calc((var(--stepper-wave) - 1) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)) + var(--duration-step-fill) + var(--duration-step-line));
 }
 
+.stepper[data-direction='forward'] .stepper__item[data-wave]:not([data-wave='0']) :is(.stepper-dot__halo, .stepper-dot__edge) {
+  transition-timing-function: var(--ease-step-ring), var(--ease-standard);
+}
+
 .stepper[data-direction='forward'] .stepper__item[data-wave][data-status='done'] .stepper-dot__fill {
+  transition-timing-function: var(--ease-step-fill);
   transition-delay: calc(var(--stepper-wave) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)));
 }
 
@@ -118,7 +123,7 @@
 }
 
 .stepper[data-direction='forward'] .stepper__item[data-wave][data-status='current'] .stepper-dot__halo {
-  animation-delay: calc(var(--stepper-wave) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)));
+  animation-delay: calc((var(--stepper-wave) - 1) * (var(--duration-step-fill) + var(--duration-step-line) + var(--duration-step-ring)) + var(--duration-step-fill) + var(--duration-step-line));
 }
 
 .stepper[data-direction='back'] :is(.stepper-dot__fill, .stepper-dot__halo, .stepper-dot__edge, .stepper-dot__number) {
