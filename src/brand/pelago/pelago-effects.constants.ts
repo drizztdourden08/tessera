@@ -2,7 +2,8 @@
 import type { MotionEffect } from '../motion/motion.type';
 import { CONFETTI_LEFT, CONFETTI_RIGHT, SWEAT, TWINKLE } from './pelago-bits.constants';
 import { BLUSH, GRIN, LIDS_FOCUS, LIDS_SHUT, LIDS_SMILE, LIDS_TIRED, LIDS_WORRIED } from './pelago-faces.constants';
-import { BATTERY, BULB, LAPTOP, RAYS } from './pelago-props.constants';
+import { LAPTOP } from './pelago-laptop.constants';
+import { BATTERY, BULB, RAYS } from './pelago-props.constants';
 import { EXCLAIM, HEART, QUESTION, ZEE } from './pelago-signs.constants';
 import { symbolPiece } from './symbol-piece';
 
@@ -33,7 +34,7 @@ const PELAGO_EFFECTS: readonly MotionEffect[] = [
   { id: 'twinkleA', piece: symbolPiece(TWINKLE), at: [12.6, -1], fixed: true },
   { id: 'twinkleB', piece: symbolPiece(TWINKLE, 0.8), at: [47.6, -3], fixed: true },
   { id: 'twinkleC', piece: symbolPiece(TWINKLE, 0.7), at: [50.4, 41], fixed: true },
-  { id: 'laptop', piece: symbolPiece(LAPTOP, 1.2), at: [3, 29.6], fixed: true },
+  { id: 'laptop', piece: symbolPiece(LAPTOP, 1.2), at: [3, 30.8], fixed: true },
 ];
 
 export { PELAGO_EFFECTS };

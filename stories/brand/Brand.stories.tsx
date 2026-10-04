@@ -1,9 +1,11 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
-import { BRAND_APPS, BRAND_FAMILY, BrandMark, BrandWordmark, Mascot } from '../../src/brand';
+import { BRAND_APPS, BRAND_FAMILY, BrandMark, BrandWordmark } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
 import { overviewStory } from '../_template/overview-story';
+import { BrandMascotRow } from './_samples/BrandMascotRow';
+import { MascotTabbed } from './_samples/MascotTabbed';
 import { RimGrid } from './_samples/RimGrid';
 import './Brand.stories.css';
 
@@ -35,13 +37,6 @@ const Family = {
               <BrandMark app={app} size="lg" title="" />
               <BrandMark app={app} size="md" title="" />
               <BrandMark app={app} size="sm" title="" />
-              {brand.mascot && (
-                <Flex gap="lg" align="center" className="brand-family__mascot">
-                  <Mascot brand={app} size="xl" title={`${brand.mascot.name}, the ${brand.name} mascot`} />
-                  <Mascot brand={app} size="lg" title="" />
-                  <Mascot brand={app} size="md" title="" />
-                </Flex>
-              )}
             </Flex>
             <BrandWordmark app={app} size="md" />
             <Stack gap="xs">
@@ -59,6 +54,11 @@ const Family = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Mascots = {
+  name: 'Mascots',
+  render: () => <MascotTabbed tabs draw={(app) => <BrandMascotRow app={app} />} />,
+} satisfies StoryLiteStoryDefinition;
+
 const Rims = {
   name: 'Rims',
   render: () => <RimGrid draw={(app, rim) => <BrandMark app={app} size="xl" rim={rim} title="" />} />,
@@ -69,12 +69,13 @@ const Overview = overviewStory({
   description: 'Every app and package in the family on one page: its mark at each size, its app icon, its mascot and its wordmark.',
   points: [
     'Each row says what the app is and shows the import line for its parts.',
+    'Mascots shows one mascot at a time: the tabs pick it, and the [Mascot] page shares the pick.',
     '[Logo], [WordMark], [Combined] and [Mascot] show each part on its own, with a playground.',
     'Rims shows every mark with no rim, a light rim and a dark rim, on a dark and a light ground.',
     'Each brand\'s gradient is on the [Gradients] page under Colours.',
   ],
-  variants: [Family, Rims],
+  variants: [Family, Mascots, Rims],
 });
 
 export default meta;
-export { Family, Overview, Rims };
+export { Family, Mascots, Overview, Rims };

@@ -2,9 +2,13 @@
 import { useState } from 'react';
 import { AnimatedMascot, BRAND_FAMILY, MASCOT_CLIP_GROUPS, MASCOT_CLIP_VARIANTS } from '../../../src/brand';
 import type { AnimatedMascotBrand, MascotClip } from '../../../src/brand';
-import { Button, Flex, Icon, SegmentedControl, Stack, Text } from '../../../src/primitives';
-import { ANIMATED_BRANDS } from './mascot-brands.constants';
+import { Button, Flex, Icon, Stack, Text } from '../../../src/primitives';
+import { clipLabel } from './clip-label';
 import { VariantGroups } from './VariantGroups';
+
+interface MascotAnimationsProps {
+  brand: AnimatedMascotBrand;
+}
 
 const clipNote = (id: MascotClip, loop: boolean | undefined): string => {
   const original = MASCOT_CLIP_VARIANTS[id];
@@ -14,13 +18,13 @@ const clipNote = (id: MascotClip, loop: boolean | undefined): string => {
 const clipItem = (brand: AnimatedMascotBrand, id: MascotClip, playing: boolean) => {
   const mascot = BRAND_FAMILY[brand].mascot;
   const clip = mascot?.motion?.animations[id];
-  const name = clip?.name ?? id;
+  const label = clipLabel(id);
   return {
     key: id,
-    label: name,
+    label,
     node: (
       <Stack gap="sm" align="center">
-        <AnimatedMascot brand={brand} animation={id} playing={playing} loop scale={3} title={`${mascot?.name ?? brand}, ${name}`} />
+        <AnimatedMascot brand={brand} animation={id} playing={playing} loop scale={3} title={`${mascot?.name ?? brand}, ${label}`} />
         <Text variant="caption">{clipNote(id, clip?.loop)}</Text>
         <Text variant="caption">{clip?.summary}</Text>
       </Stack>
@@ -28,19 +32,13 @@ const clipItem = (brand: AnimatedMascotBrand, id: MascotClip, playing: boolean) 
   };
 };
 
-const MascotAnimations = () => {
+const MascotAnimations = (props: MascotAnimationsProps) => {
+  const { brand } = props;
   const [playing, setPlaying] = useState(true);
-  const [brand, setBrand] = useState<AnimatedMascotBrand>('rotp');
   const groups = MASCOT_CLIP_GROUPS.map((group) => ({ key: group.id, label: group.label, items: group.clips.map((id) => clipItem(brand, id, playing)) }));
   return (
     <Stack gap="lg">
       <Flex gap="md" align="center">
-        <SegmentedControl
-          aria-label="Mascot"
-          value={brand}
-          options={ANIMATED_BRANDS.map((b) => ({ value: b, label: BRAND_FAMILY[b].mascot?.name ?? b }))}
-          onChange={setBrand}
-        />
         <Button variant="secondary" size="sm" icon={<Icon name={playing ? 'pause' : 'play'} />} onClick={() => setPlaying((on) => !on)}>
           {playing ? 'Pause' : 'Play'}
         </Button>

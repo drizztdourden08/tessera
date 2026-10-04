@@ -25,16 +25,18 @@ interface OverviewPageProps {
   instead: string | null;
   variants: readonly OverviewVariant[];
   sections: readonly OverviewSection[];
+  switcher: ReactNode;
   states: OverviewStates | null;
   playground: OverviewPlaygroundProps | null;
   code: string | null;
 }
 
 const OverviewPage = (props: OverviewPageProps) => {
-  const { name, description, points, instead, variants, sections, states, playground, code } = props;
+  const { name, description, points, instead, variants, sections, switcher, states, playground, code } = props;
   return (
     <Box className="overview">
       <OverviewHead name={name} description={description} points={points} instead={instead} />
+      {switcher}
       {variants.length > 0 && (
       <Box as="section" className="overview__section">
         <Text as="h2" className="overview__heading">Variants</Text>

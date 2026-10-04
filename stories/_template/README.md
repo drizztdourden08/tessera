@@ -5,6 +5,8 @@ Helpers that every stories file builds its Overview page from. `overviewStory` d
 
 One optional part suits a page that is not about variants, such as TesseraProvider: `sections`, extra sections after the Variants, each `{ title, node }` with its own heading.
 
+A page that shows one of several things at a time, such as Mascot, passes `switcher`: a node drawn under the head and above every section, such as a tab bar that picks what the whole page shows.
+
 ## Writing a description
 
 The head of every Overview page has three parts. Keep each one short: say what the component is for, then only what someone needs to use it.

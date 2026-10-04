@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { AnimatedMascot, BRAND_FAMILY, BRAND_APPS, MASCOT_CLIP_GROUPS, MASCOT_CLIP_VARIANTS, MASCOT_CLIPS } from '../src/brand';
 import { motionKeyframes } from '../src/brand/AnimatedMascot/behavior/motion-keyframes';
 import { motionPivots } from '../src/brand/AnimatedMascot/behavior/motion-pivots';
+import { pickClip } from '../src/brand/AnimatedMascot/behavior/pick-clip';
 import { stageScene } from '../src/brand/AnimatedMascot/behavior/stage-scene';
 
 const motions = BRAND_APPS.flatMap((app) => {
@@ -13,6 +14,8 @@ const motions = BRAND_APPS.flatMap((app) => {
 });
 
 const isRest = (frame) => Object.keys(frame).every((key) => key === 'at' || key === 'ease');
+
+const moves = (clip) => clip.tracks.some((track) => track.frames.some((frame) => !isRest(frame)));
 
 describe('AnimatedMascot', () => {
   it('renders the still mascot on a stage, with a group for every moving part and no motion on the server', () => {
@@ -39,6 +42,20 @@ describe('mascot motion data', () => {
   it.each(motions)('%s: plays every clip in the shared list, in its order and no other, idle at rest', (_app, motion) => {
     expect(Object.keys(motion.animations)).toEqual([...MASCOT_CLIPS]);
     expect(motion.rest).toBe('idle');
+  });
+
+  it.each(motions)('%s: plays each clip with its own motion, never idle or another clip standing in', (_app, motion) => {
+    const idle = JSON.stringify(motion.animations.idle.tracks);
+    const seen = new Map();
+    for (const id of MASCOT_CLIPS) {
+      const clip = pickClip(motion, id);
+      expect(clip).toBe(motion.animations[id]);
+      expect(moves(clip)).toBe(true);
+      const tracks = JSON.stringify(clip.tracks);
+      if (id !== 'idle') expect(tracks, `${id} moves like idle`).not.toBe(idle);
+      expect(seen.get(tracks), `${id} moves like ${seen.get(tracks)}`).toBeUndefined();
+      seen.set(tracks, id);
+    }
   });
 
   it.each(motions)('%s: every track names a known part and runs from 0 to 1 in order', (_app, motion) => {

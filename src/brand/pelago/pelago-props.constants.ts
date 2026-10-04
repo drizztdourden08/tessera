@@ -1,6 +1,4 @@
 /* @layer renderer-components @kind data */
-import { growPolygon } from './grow-polygon';
-import type { Polygon } from './pelago.type';
 import { PELAGO_ACCENTS as A } from './pelago-accents.constants';
 import type { SymbolSpec } from './pelago-symbol.type';
 import { PELAGO_TONES as T } from './pelago-tones.constants';
@@ -45,24 +43,4 @@ const BATTERY: SymbolSpec = {
   ],
 };
 
-const LID: Polygon = [[2.4, 0.6], [15.6, 1.6], [14.6, 10], [1.6, 9.4]];
-const BASE: Polygon = [[0.6, 9.6], [15.4, 10.2], [18.4, 11.6], [3.2, 12.2]];
-const LIP: Polygon = [[3.2, 12.2], [18.4, 11.6], [18.4, 12.3], [3.2, 12.9]];
-
-const LAPTOP: SymbolSpec = {
-  name: 'Laptop',
-  w: 19,
-  h: 13,
-  layers: [
-    { ink: T.edge, shapes: [LID, BASE, LIP].map((p) => polySteps(growPolygon(p, 0.4))) },
-    { ink: T.deep, shapes: [polySteps(LID)] },
-    { ink: T.shade, shapes: [polySteps([[2.4, 0.6], [15.6, 1.6], [15.5, 2.4], [2.3, 1.4]])] },
-    { ink: T.violet, opacity: 0.35, shapes: [[8.6, 5.6, 2.4, 2.1]] },
-    { ink: T.violetMid, shapes: [polySteps([[8.6, 4.2], [9.8, 5.6], [8.6, 7], [7.4, 5.6]])] },
-    { ink: T.lavender, shapes: [polySteps([[8.6, 4.7], [9.2, 5.6], [8.6, 6.5], [8, 5.6]])] },
-    { ink: T.mid, shapes: [polySteps(BASE)] },
-    { ink: T.shade, shapes: [polySteps(LIP)] },
-  ],
-};
-
-export { BATTERY, BULB, LAPTOP, RAYS };
+export { BATTERY, BULB, RAYS };

@@ -63,7 +63,7 @@ const FLINT_MOTION: MascotMotion<MascotClip> = {
     { id: 'blush', piece: FLINT_FACE_EFFECTS.blush, at: [12.6, 14.3] },
     { id: 'sweatLeft', piece: FLINT_FACE_EFFECTS.sweat, at: [6, 1.8] },
     { id: 'sweatRight', piece: FLINT_FACE_EFFECTS.sweat, at: [31.6, 1.8] },
-    { id: 'laptop', piece: FLINT_PROPS.laptop, at: [10.75, 18.6], fixed: true },
+    { id: 'laptop', piece: FLINT_PROPS.laptop, at: [9.5, 17.8], fixed: true },
     { id: 'question', piece: FLINT_SYMBOLS.question, at: [17.35, -10.1], fixed: true },
     { id: 'exclaim', piece: FLINT_SYMBOLS.exclaim, at: [18.55, -10.35], fixed: true },
     { id: 'heart', piece: FLINT_SYMBOLS.heart, at: [16.05, -9.4], fixed: true },
