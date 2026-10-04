@@ -19,6 +19,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Peer actions on one thing, read as one tool: no component yet.
     - Separate decisions, with space between: no component yet.
     - Too many, or secondary: no component yet.
+    - Actions on one item, folding into More when narrow: [ActionBar](components/ActionBar.md). ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and always asks before it.
 - A value the user sets. **What does the user set?**
   - Free text or a number. **What shape is it?**
     - One line of text: no component yet.

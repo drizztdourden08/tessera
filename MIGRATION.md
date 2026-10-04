@@ -3895,3 +3895,40 @@ A title bar action's `tone` now colours its icon for every tone, not only `dange
 ### What an app does
 
 Nothing. Set `tone` and `effect` on the actions that should stand out.
+
+## 150. ActionBar: the actions on one item, folding into More
+
+`ActionBar` is a new composite, under Composites · Actions (Archipelia review T-14, tessera-09). Archipelia's editor header lined up six buttons, TemplateRow four and RunRow three; in a narrow window they wrapped onto extra lines, and Delete was ghost, secondary or danger depending on the screen. One row now draws them all the same way.
+
+- **Order.** `actions` keep their order. A `primary` action sits last and never folds.
+- **Folding.** The bar measures hidden copies of its buttons. When the row runs out of width, the last actions move into More, an icon button that opens a `DropdownMenu` under it, with danger actions in a group of their own after a separator. `keep` caps how many show before More at any width, such as one in a list row. `align: 'end'` sets the buttons at the end of the row.
+- **Danger and confirm.** A `danger` action takes the danger look and always asks first. The question replaces the button (or More, for a folded action) with the check and cross of `ConfirmIconButton`, focus on the cross; the check runs `onSelect`, and the cross or Escape puts focus back on the action. `confirm` sets the question and the name of the check, and makes any other action ask too. In the menu, an action that asks reads `Delete...`.
+- **Strings.** A new `items` group: `more` (More), `asksFirst(label)` (`label...`) and `confirmQuestion(label)` (`label?`).
+
+```ts
+type ActionKind = 'primary' | 'default' | 'danger';
+interface ActionConfirm { title: string; confirmLabel: string }
+interface ActionItem {
+  id: string;
+  label: string;
+  icon?: IconName;
+  onSelect: () => void;
+  kind?: ActionKind; // default 'default'
+  disabled?: boolean;
+  confirm?: ActionConfirm; // danger asks without it: `${label}?`
+}
+interface ActionBarProps {
+  actions: readonly ActionItem[];
+  size?: 'sm' | 'md'; // default 'md'
+  keep?: number; // default: as many as fit
+  overflowLabel?: string; // default items.more
+  align?: 'start' | 'end'; // default 'start'
+  label?: string; // names the group
+  className?: string;
+}
+```
+
+### What an app does
+
+1. Archipelia: EditorHeader, TemplateRow, RunRow, the ServerManager detail header, the SessionStatusBar actions and the OverridesPanel actions pass their buttons as `actions` to one ActionBar; Delete becomes `kind: 'danger'`, which asks in place.
+2. Brock: the ProfilesPanelRow icon buttons can move to an ActionBar with `size: 'sm'` and `keep`.

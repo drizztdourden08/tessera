@@ -167,3 +167,5 @@ export { TaskProgress } from './TaskProgress';
 export type { TaskProgressProps, TaskState } from './TaskProgress';
 export { JobDialog } from './JobDialog';
 export type { JobDialogProps } from './JobDialog';
+export { ActionBar } from './ActionBar';
+export type { ActionBarAlign, ActionBarProps, ActionConfirm, ActionItem, ActionKind } from './ActionBar';

@@ -1,0 +1,38 @@
+/* @layer stories @kind style */
+.action-bar-story {
+  inline-size: calc(var(--size-512) - var(--size-32));
+  max-inline-size: 100%;
+}
+
+.action-bar-story--wide {
+  inline-size: var(--size-896);
+  max-inline-size: 100%;
+}
+
+.action-bar-story--rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  inline-size: var(--size-768);
+  max-inline-size: 100%;
+}
+
+.action-bar-story-box {
+  max-inline-size: 100%;
+}
+
+.action-bar-story-box[data-width='320'] {
+  inline-size: var(--size-320);
+}
+
+.action-bar-story-box[data-width='480'] {
+  inline-size: calc(var(--size-512) - var(--size-32));
+}
+
+.action-bar-story-box[data-width='640'] {
+  inline-size: var(--size-640);
+}
+
+.action-bar-story-box[data-width='896'] {
+  inline-size: var(--size-896);
+}

@@ -7,6 +7,7 @@ import { FIELD_KIND_STRINGS } from './field-kinds-strings.constants';
 import { FIELD_STRINGS } from './fields-strings.constants';
 import { FILTER_OPERATOR_STRINGS } from './filter-operators-strings.constants';
 import { FILTER_STRINGS } from './filters-strings.constants';
+import { ITEM_STRINGS } from './items-strings.constants';
 import { NAVIGATION_STRINGS } from './navigation-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
 import { PASSWORD_STRINGS } from './password-strings.constants';
@@ -39,6 +40,7 @@ const TESSERA_STRINGS = {
   windows: WINDOW_STRINGS,
   wizard: WIZARD_STRINGS,
   charts: CHART_STRINGS,
+  items: ITEM_STRINGS,
 };
 
 export { TESSERA_STRINGS };

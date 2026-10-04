@@ -75,7 +75,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     JobDialog: 'square-activity',
   },
   'Composites · Overlays': { Overlay: 'layers-2', Drawer: 'panel-right', DisabledOverlay: 'ban' },
-  'Composites · Actions': { ConfirmIconButton: 'circle-check' },
+  'Composites · Actions': { ConfirmIconButton: 'circle-check', ActionBar: 'rectangle-ellipsis' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',

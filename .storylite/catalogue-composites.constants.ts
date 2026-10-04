@@ -80,7 +80,7 @@ const COMPOSITES_TIER: CatalogueTier = {
     },
     {
       group: 'Actions',
-      entries: [{ name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' }],
+      entries: [{ name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' }, { name: 'ActionBar', summary: 'The actions on one item in a row that folds the rest into More when narrow.' }],
     },
     {
       group: 'Inputs',
