@@ -645,7 +645,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.16.0",
       "props": {
         "ProgressBar.parts": "StackedBar segments; ProgressBar draws one value, and a bar split into parts is a StackedBar, with an id on each part and total in place of max (see MIGRATION.md section 110)",
         "ProgressBar.legend": "StackedBar legend; ProgressBar draws no legend (see MIGRATION.md section 110)",
