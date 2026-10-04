@@ -7,6 +7,7 @@ const WINDOW_STRINGS = {
   restore: 'Restore',
   pinOnTop: 'Pin window on top',
   unpin: 'Unpin window',
+  view: 'View',
 };
 
 export { WINDOW_STRINGS };

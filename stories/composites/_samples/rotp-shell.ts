@@ -36,7 +36,6 @@ const rotpMenu = (go: (screen: string) => void): MenuGroup[] => [
       { id: 'home', icon: 'house', label: 'Home', onSelect: () => go('home') },
       { id: 'save-states', icon: 'save', label: 'Save States', description: 'While a game runs', disabled: true },
       { id: 'randomizer', icon: 'sparkles', label: 'Randomizer' },
-      { id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K' },
     ],
   },
   {

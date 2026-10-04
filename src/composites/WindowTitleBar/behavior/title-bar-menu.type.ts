@@ -2,15 +2,15 @@
 import type { MenuGroup } from '../../DropdownMenu';
 import type { WindowControl, WindowTitleBarAction } from '../WindowTitleBar.type';
 
-interface WindowTitleBarStartProps {
+interface TitleBarMenuInput {
   menu: readonly MenuGroup[];
-  menuLabel?: string;
-  onMenuOpenChange: (open: boolean) => void;
-  pin: boolean;
-  pinned?: boolean;
-  onControl: (control: WindowControl) => void;
   actions: readonly WindowTitleBarAction[];
-  hidden: ReadonlySet<string>;
+  pin: boolean;
+  fullscreenButton: boolean;
+  pinned: boolean;
+  fullscreen: boolean;
+  onControl: (control: WindowControl) => void;
+  strings: { view: string; pinOnTop: string; fullscreen: string };
 }
 
-export type { WindowTitleBarStartProps };
+export type { TitleBarMenuInput };

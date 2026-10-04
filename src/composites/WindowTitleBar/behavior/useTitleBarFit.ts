@@ -1,0 +1,37 @@
+/* @layer renderer-components @kind hook */
+import { useLayoutEffect, useState } from 'react';
+import type { RefObject } from 'react';
+import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { CONTROLS_SELECTOR, FULL_FIT, ITEM_SELECTOR, PROBE_SELECTOR, START_SELECTOR } from '../WindowTitleBar.constants';
+import type { BarFit } from './bar-fit.type';
+import { fitStep } from './fit-step';
+import { measureBar } from './measure-bar';
+import { sameFit } from './same-fit';
+
+const useTitleBarFit = (barRef: RefObject<HTMLElement | null>, brandRef: RefObject<HTMLElement | null>, order: readonly string[]): BarFit => {
+  const [fit, setFit] = useState<BarFit>(FULL_FIT);
+  const orderKey = JSON.stringify(order);
+
+  useLayoutEffect(() => {
+    const bar = barRef.current;
+    const brand = brandRef.current;
+    if (!bar || !brand) return undefined;
+    const ids = JSON.parse(orderKey) as string[];
+    const update = () => {
+      const step = fitStep(measureBar(bar, brand, ids));
+      const next = { hidden: step.hidden.map((index) => ids[index] ?? ''), brand: step.brand };
+      setFit((current) => (sameFit(current, next) ? current : next));
+    };
+    update();
+    const view = ownerWindowOf(bar) as Window & typeof globalThis;
+    if (typeof view.ResizeObserver === 'undefined') return undefined;
+    const observer = new view.ResizeObserver(update);
+    const parts = bar.querySelectorAll<HTMLElement>(`${START_SELECTOR}, ${CONTROLS_SELECTOR}, ${ITEM_SELECTOR}, ${PROBE_SELECTOR}`);
+    [bar, brand, ...parts].forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, [barRef, brandRef, orderKey]);
+
+  return fit;
+};
+
+export { useTitleBarFit };

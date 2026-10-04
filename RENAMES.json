@@ -456,6 +456,12 @@
           "hamburger": "{ label: 'Menu', iconOnly: true } (see MIGRATION.md section 63)"
         }
       }
+    },
+    {
+      "version": "next",
+      "props": {
+        "WindowTitleBar.left": "WindowTitleBar.actions (each slot becomes an action with a label, an icon and onSelect; see MIGRATION.md section 70)"
+      }
     }
   ]
 }

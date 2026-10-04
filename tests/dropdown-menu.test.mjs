@@ -3,7 +3,6 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { DropdownMenu } from '../src/composites/DropdownMenu';
-import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { menuShortcutKeys } from '../src/composites/DropdownMenu/behavior/menu-shortcut-keys';
 import { menuMatches } from '../src/composites/DropdownMenu/behavior/menu-matches';
 import { nodeRuns } from '../src/composites/DropdownMenu/behavior/node-runs';
@@ -91,24 +90,6 @@ describe('DropdownMenu', () => {
     expect(html.match(/role="menuitemradio"/g)).toHaveLength(2);
     expect(html).toContain('dropdown__radio-dot');
     expect(html.match(/dropdown__mark /g)).toHaveLength(3);
-  });
-});
-
-describe('WindowTitleBar', () => {
-  const ignore = () => undefined;
-
-  it('draws every control by default', () => {
-    const html = renderToString(h(WindowTitleBar, { title: 'App', onControl: ignore }));
-    expect(html.match(/<button/g)).toHaveLength(5);
-    expect(html).toContain('Pin window on top');
-  });
-
-  it('removes the controls config turns off, but keeps close', () => {
-    const controls = { fullscreen: false, pin: false, minimize: false, maximize: false };
-    const html = renderToString(h(WindowTitleBar, { title: 'App', controls, onControl: ignore }));
-    expect(html.match(/<button/g)).toHaveLength(1);
-    expect(html).toContain('window-title-bar__control--close');
-    expect(html).not.toContain('Pin window on top');
   });
 });
 

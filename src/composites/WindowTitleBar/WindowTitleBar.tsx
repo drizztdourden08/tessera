@@ -2,22 +2,20 @@
 import { useRef, useState } from 'react';
 import { Box } from '../../primitives/Box';
 import { titleBarClass } from './behavior/title-bar-class';
-import { useBrandFit } from './behavior/useBrandFit';
 import { usePeek } from './behavior/usePeek';
+import { useTitleBarLayout } from './behavior/useTitleBarLayout';
 import { WindowControls } from './sub-components/WindowControls';
 import { WindowTitleBarBrand } from './sub-components/WindowTitleBarBrand';
 import { WindowTitleBarStart } from './sub-components/WindowTitleBarStart';
+import { FULLSCREEN_ITEM } from './WindowTitleBar.constants';
 import type { WindowTitleBarProps } from './WindowTitleBar.type';
 import './WindowTitleBar.css';
 
 const WindowTitleBar = (props: WindowTitleBarProps) => {
-  const {
-    title, logo, instance, menu, menuLabel, onMenuOpenChange, controls = {}, maximized, fullscreen = false,
-    pinned, onControl, left, concealed = false, peek, className = '',
-  } = props;
+  const { title, logo, instance, menuLabel, onMenuOpenChange, maximized, fullscreen = false, pinned, onControl, concealed = false, peek, className = '' } = props;
   const barRef = useRef<HTMLElement>(null);
   const brandRef = useRef<HTMLElement>(null);
-  const fit = useBrandFit(barRef, brandRef);
+  const { groups, actions, controls, hidden, brand } = useTitleBarLayout(props, barRef, brandRef);
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenuOpenChange = (open: boolean): void => {
     setMenuOpen(open);
@@ -29,16 +27,17 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
   return (
     <Box ref={barRef} className={titleBarClass(tucked, peek ?? peeking, className)} onMouseLeave={handleMouseLeave}>
       <WindowTitleBarStart
-        menu={menu}
+        menu={groups}
         menuLabel={menuLabel}
         onMenuOpenChange={handleMenuOpenChange}
         pin={controls.pin !== false}
         pinned={pinned}
         onControl={onControl}
-        left={left}
+        actions={actions}
+        hidden={hidden}
       />
-      <WindowTitleBarBrand ref={brandRef} title={title} logo={logo} instance={instance} fit={fit} />
-      <WindowControls controls={controls} maximized={maximized} fullscreen={fullscreen} onControl={onControl} />
+      <WindowTitleBarBrand ref={brandRef} title={title} logo={logo} instance={instance} fit={brand} />
+      <WindowControls controls={controls} maximized={maximized} fullscreen={fullscreen} fullscreenAway={hidden.has(FULLSCREEN_ITEM)} onControl={onControl} />
     </Box>
   );
 };

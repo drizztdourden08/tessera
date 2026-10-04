@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { SideNav, SettingsPage, WindowTitleBar } from '../../../src/composites';
-import type { WindowControl } from '../../../src/composites';
-import { Box, Icon, IconButton, P } from '../../../src/primitives';
+import type { WindowControl, WindowTitleBarAction } from '../../../src/composites';
+import { Box, Icon, P } from '../../../src/primitives';
 import { brandLogoUri } from './brand-logo';
 import { ROTP_RAIL, ROTP_SCREENS, rotpMenu } from './rotp-shell';
 
@@ -11,13 +11,11 @@ type RotpWindowProps = { profiles: ReactNode };
 
 const LOGO = brandLogoUri('rotp');
 
-const TITLE_SLOTS = (
-  <>
-    <IconButton variant="ghost" size="sm" label="Search (Ctrl+K)"><Icon name="search" size={14} /></IconButton>
-    <IconButton variant="ghost" tone="danger" size="sm" label="Report a bug"><Icon name="bug" size={14} /></IconButton>
-    <IconButton variant="ghost" size="sm" label="Mute"><Icon name="volume-2" size={14} /></IconButton>
-  </>
-);
+const TITLE_ACTIONS: WindowTitleBarAction[] = [
+  { id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K', onSelect: () => undefined },
+  { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', onSelect: () => undefined },
+  { id: 'mute', icon: 'volume-2', label: 'Mute', onSelect: () => undefined },
+];
 
 const RotpWindow = ({ profiles }: RotpWindowProps) => {
   const [screen, setScreen] = useState('profiles');
@@ -35,7 +33,7 @@ const RotpWindow = ({ profiles }: RotpWindowProps) => {
         logo={LOGO}
         menu={rotpMenu(setScreen)}
         menuLabel="Relic of the Past menu"
-        left={TITLE_SLOTS}
+        actions={TITLE_ACTIONS}
         maximized={maximized}
         pinned={pinned}
         onControl={onControl}

@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { MenuGroup } from '../DropdownMenu';
+import type { IconName } from '../../primitives/Icon';
+import type { StatusTone } from '../../primitives/Status';
+import type { MenuGroup, MenuItem } from '../DropdownMenu';
 
 interface WindowTitleBarInstance {
   name: string;
@@ -8,11 +10,24 @@ interface WindowTitleBarInstance {
   pulse?: boolean;
 }
 
-type BrandFit = 'full' | 'logo' | 'none';
+type BrandFit = 'full' | 'logo' | 'small' | 'none';
 
 type WindowControl = 'fullscreen' | 'pin' | 'minimize' | 'maximize' | 'close';
 
 type WindowControlsConfig = Partial<Record<Exclude<WindowControl, 'close'>, boolean>>;
+
+type WindowTitleBarActionBar = 'button' | 'status' | 'menu';
+
+interface WindowTitleBarAction {
+  id: string;
+  label: string;
+  icon: IconName;
+  onSelect: () => void;
+  bar?: WindowTitleBarActionBar;
+  status?: string;
+  tone?: StatusTone;
+  shortcut?: MenuItem['shortcut'];
+}
 
 interface WindowTitleBarProps {
   title: ReactNode;
@@ -21,15 +36,18 @@ interface WindowTitleBarProps {
   menu?: readonly MenuGroup[];
   menuLabel?: string;
   onMenuOpenChange?: (open: boolean) => void;
+  actions?: readonly WindowTitleBarAction[];
   controls?: WindowControlsConfig;
   maximized?: boolean;
   fullscreen?: boolean;
   pinned?: boolean;
   onControl: (control: WindowControl) => void;
-  left?: ReactNode;
   concealed?: boolean;
   peek?: boolean;
   className?: string;
 }
 
-export type { BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarInstance, WindowTitleBarProps };
+export type {
+  BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarInstance,
+  WindowTitleBarProps,
+};

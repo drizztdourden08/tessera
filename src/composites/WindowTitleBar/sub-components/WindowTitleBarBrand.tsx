@@ -5,6 +5,12 @@ import { Status } from '../../../primitives/Status';
 import { Span } from '../../../primitives/text-elements';
 import type { WindowTitleBarBrandProps } from './WindowTitleBarBrand.type';
 
+const markClass = (fit: WindowTitleBarBrandProps['fit']): string => [
+  'window-title-bar__brand window-title-bar__brand--mark',
+  fit === 'small' && 'window-title-bar__brand--small',
+  fit !== 'logo' && fit !== 'small' && 'window-title-bar__brand--away',
+].filter(Boolean).join(' ');
+
 const WindowTitleBarBrand = (props: WindowTitleBarBrandProps) => {
   const { title, logo, instance, fit, ref } = props;
   const shown = instance?.logo ?? logo;
@@ -18,7 +24,12 @@ const WindowTitleBarBrand = (props: WindowTitleBarBrandProps) => {
         {instance && <Status tone="info" variant="pill" pulse={instance.pulse} className="window-title-bar__instance">{instance.name}</Status>}
         {mark}
       </Box>
-      {fit === 'logo' && mark && <Box className="window-title-bar__brand window-title-bar__brand--mark" aria-hidden="true">{mark}</Box>}
+      {shown && (
+        <Box className={markClass(fit)} aria-hidden="true">
+          {mark}
+          <Image className="window-title-bar__logo window-title-bar__probe" src={shown} alt="" placeholder="none" />
+        </Box>
+      )}
     </>
   );
 };

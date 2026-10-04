@@ -93,7 +93,9 @@ export type { SideNavConfig, SideNavGroup, SideNavItem, SideNavProps, SideNavSea
 export { WindowHeader } from './WindowHeader';
 export type { WindowHeaderProps } from './WindowHeader';
 export { WindowTitleBar } from './WindowTitleBar';
-export type { WindowControl, WindowControlsConfig, WindowTitleBarInstance, WindowTitleBarProps } from './WindowTitleBar';
+export type {
+  WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarInstance, WindowTitleBarProps,
+} from './WindowTitleBar';
 export { Hero } from './Hero';
 export type { HeroArt, HeroProps } from './Hero';
 export { FactsPanel } from './FactsPanel';

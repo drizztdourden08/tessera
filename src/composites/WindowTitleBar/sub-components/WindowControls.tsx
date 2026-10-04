@@ -3,17 +3,23 @@ import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { barItemProps } from '../behavior/bar-item-props';
+import { FULLSCREEN_ITEM } from '../WindowTitleBar.constants';
 import { CaptionGlyph } from './CaptionGlyph';
 import type { WindowControlsProps } from './WindowControls.type';
 
 const WindowControls = (props: WindowControlsProps) => {
-  const { controls, maximized, fullscreen, onControl } = props;
+  const { controls, maximized, fullscreen, fullscreenAway, onControl } = props;
   const { common, windows } = useTesseraStrings();
 
   return (
     <Box className="window-title-bar__controls">
       {controls.fullscreen !== false && (
-        <IconButton className="window-title-bar__control" label={fullscreen ? windows.exitFullscreen : windows.fullscreen} onClick={() => onControl('fullscreen')}>
+        <IconButton
+          {...barItemProps(FULLSCREEN_ITEM, fullscreenAway, 'window-title-bar__control')}
+          label={fullscreen ? windows.exitFullscreen : windows.fullscreen}
+          onClick={() => onControl('fullscreen')}
+        >
           <Icon name={fullscreen ? 'minimize-2' : 'maximize-2'} size={12} />
         </IconButton>
       )}

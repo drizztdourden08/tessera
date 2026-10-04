@@ -5,6 +5,7 @@ interface WindowControlsProps {
   controls: WindowControlsConfig;
   maximized?: boolean;
   fullscreen: boolean;
+  fullscreenAway: boolean;
   onControl: (control: WindowControl) => void;
 }
 

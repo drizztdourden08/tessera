@@ -1,7 +1,7 @@
 /* @layer stories @kind data */
 import type { MenuGroup } from '../../../src/composites/DropdownMenu';
 
-const buildTitleMenu = (onPick: (label: string) => void): MenuGroup[] => {
+const buildTitleMenu = (onPick: (label: string) => void, withUpdates = true): MenuGroup[] => {
   const pick = (label: string) => () => onPick(label);
   return [
     {
@@ -33,7 +33,7 @@ const buildTitleMenu = (onPick: (label: string) => void): MenuGroup[] => {
     {
       id: 'app',
       items: [
-        { id: 'updates', icon: 'download', label: 'Check for updates', onSelect: pick('Check for updates') },
+        ...(withUpdates ? [{ id: 'updates', icon: 'download', label: 'Check for updates', onSelect: pick('Check for updates') } as const] : []),
         { id: 'about', icon: 'info', label: 'About', onSelect: pick('About') },
         { separator: true },
         { id: 'quit', icon: 'log-out', label: 'Quit', shortcut: 'Ctrl+Q', onSelect: pick('Quit') },

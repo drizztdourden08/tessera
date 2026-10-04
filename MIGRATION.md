@@ -1759,3 +1759,47 @@ const CopyLogButton = ({ text }: { text: string }) => {
 ### What an app does
 
 An app that imports any of the four panels imports them from Brock as in the table; `brock upgrade` rewrites the imports of a Brock app. An app that used `ProfilePicker` moves to Brock's `ProfilesPanel`, or builds its list from `ListItemRow`, `ConfirmIconButton` and `InlineCreateForm`. An app that overrides one of the five removed strings drops that key from its `strings` override. RENAMES.json lists the removed exports in `removedExports`, as notes that point to Brock. An app with its own copy of the clipboard hook or of the string table uses `useCopy` and `useTesseraStrings`. A Brock app adds `"layer": "renderer-shell"` to `tessera.config.json` where its parts use that layer.
+
+## 70. WindowTitleBar takes actions, puts every bar item in its menu, and gives way one item at a time
+
+`WindowTitleBar` drops `left` and takes `actions`, a list of `WindowTitleBarAction`. The host declares each action once, and the bar draws both its button and its menu item from it.
+
+```ts
+interface WindowTitleBarAction {
+  id: string;
+  label: string;
+  icon: IconName;
+  onSelect: () => void;
+  bar?: 'button' | 'status' | 'menu'; // button by default
+  status?: string; // the pill text in the bar and the subtitle of the menu item
+  tone?: StatusTone;
+  shortcut?: MenuItem['shortcut'];
+}
+```
+
+- `bar: 'button'` shows an icon button at the start of the bar. A `tone` of `danger` makes it a danger button.
+- `bar: 'status'` shows a `Status` pill with the text of `status`, in `tone`, only while `status` is set. Pressing the pill runs `onSelect`.
+- `bar: 'menu'` keeps the action in the menu only.
+
+Everything the bar shows is also in the hamburger menu, always. The bar adds a group of its own just above the last group of `menu`, or at the end when `menu` has fewer than two groups. It holds a View sub-menu with the pin and full screen as check items that report to `onControl`, then each action as an item, with `status` as its subtitle. The hamburger shows whenever that menu has items, so a bar with the pin or full screen turned on has one even with no `menu`.
+
+As the bar narrows, its items hide one by one, each end hiding only what is in the way of the brand. The hide order is the action buttons, last declared first, then the pin, then the status pills, last first, then full screen. Once every item is hidden, the title goes and the logo stays alone, then the logo shrinks from 20 to 14 pixels, and only then does the middle empty. Minimize, maximize and close never hide. A hidden item keeps its size for the measurement under the class `window-title-bar__item--away` and is `inert`; the small logo is `window-title-bar__brand--small`.
+
+```tsx
+<WindowTitleBar
+  title="Brock"
+  logo={logoSrc}
+  menu={menu}
+  actions={[
+    { id: 'report-bug', icon: 'bug', label: 'Report a bug', tone: 'danger', onSelect: reportBug },
+    { id: 'updates', icon: 'download', label: 'Check for updates', bar: 'status', status: update ? 'Update available' : undefined, tone: 'success', onSelect: checkForUpdates },
+  ]}
+  pinned={pinned}
+  fullscreen={fullscreen}
+  onControl={(control) => win[control]()}
+/>
+```
+
+### What an app does
+
+An app turns each child of `left` into an action with a label, an icon and `onSelect`, and an update pill into an action with `bar: 'status'`. It removes from `menu` any item an action now adds, such as Check for updates, so the menu does not list it twice. The tessera strings gain `windows.view`, the label of the View sub-menu. RENAMES.json notes `WindowTitleBar.left` under the release named next.
