@@ -554,9 +554,9 @@
       "at": "2026-10-02"
     },
     "Link": {
-      "status": "ok",
-      "hash": "6a0fe7924002984b",
-      "at": "2026-10-02"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     }
   },
   "Primitives · Inputs": {
@@ -936,12 +936,12 @@
     "DataTable": {
       "status": "seen",
       "hash": "flagged",
-      "at": "2026-10-03"
+      "at": "2026-10-04"
     },
     "FilterBar": {
       "status": "seen",
       "hash": "flagged",
-      "at": "2026-10-03"
+      "at": "2026-10-04"
     },
     "CompactRecordView": {
       "status": "ok",
@@ -1013,6 +1013,9 @@
       "status": "ok",
       "hash": "4728df5a8f97b34b",
       "at": "2026-10-04"
+    },
+    "WindowGuideOverlay": {
+      "status": "new"
     }
   },
   "Composites · Windows": {
