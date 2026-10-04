@@ -55,7 +55,6 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     EmptyState: 'inbox', Image: 'image', Thumbnail: 'gallery-thumbnails', Video: 'video', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
     ShortcutList: 'keyboard',
     CopyValue: 'copy',
-    StatusOf: 'list-checks',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Primitives · Inputs': {

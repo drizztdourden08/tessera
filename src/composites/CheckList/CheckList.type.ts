@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { StatusDef } from '../../primitives/StatusOf';
+import type { StatusDef } from '../../primitives/Status';
 
 type CheckState = 'pass' | 'warn' | 'fail' | 'pending' | 'skip';
 

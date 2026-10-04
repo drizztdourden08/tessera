@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-import { defineStatuses } from '../../../primitives/StatusOf';
+import { defineStatuses } from '../../../primitives/Status';
 import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
 
 const checkStatuses = (items: TesseraStrings['items']) => defineStatuses({

@@ -90,7 +90,7 @@ const Overview = overviewStory({
     '`detail` says what was found, and `action` puts a button at the end, such as Pick another port.',
     '`compact` draws one line per check with no box, for a narrow panel.',
   ],
-  instead: '[TaskProgress] for one long job with steps, or [StatusOf] for one state alone.',
+  instead: '[TaskProgress] for one long job with steps, or [Status] for one state alone.',
   playground: Playground,
   variants: [Result, Running, Compact],
   states: {

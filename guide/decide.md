@@ -49,7 +49,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Several settings, behind one button: [ControlMenu](components/ControlMenu.md). ControlMenu keeps several small settings one click away without a page or a dialog.
   - The label and help around an input: no component yet.
 - A status, a count or a label. **What does it show?**
-  - The state something is in: no component yet.
+  - The state something is in: [Status](components/Status.md). Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen.
   - A count, or a dot for news: no component yet.
   - A value that sorts an item into a group: no component yet.
   - A label and its value: no component yet.
@@ -58,7 +58,6 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A key or a shortcut: no component yet.
   - A list of keys and what they do: [ShortcutList](components/ShortcutList.md). ShortcutList keeps every key in one column and every description at one edge, however long the text runs.
   - A value to copy, such as an address or a key: [CopyValue](components/CopyValue.md). CopyValue keeps the value selectable and puts the copy button at its end, with the same check and announcement as every copy.
-  - One of a set of states, declared once: [StatusOf](components/StatusOf.md). StatusOf reads the label, the tone, the pulse and the icon from one typed table, so a state cannot drift between screens.
 - Something over the page. **What sits over the page?**
   - A hint on hover or focus: no component yet.
   - A question the user must answer: no component yet.

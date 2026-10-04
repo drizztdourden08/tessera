@@ -71,7 +71,6 @@ const STATUS = {
     'the state something is in': null, 'a count, or a dot for news': null, 'a value that sorts an item into a group': null,
     'a label and its value': null, 'terms and what they mean': null, 'a colour sample': null, 'a key or a shortcut': null,
     'a list of keys and what they do': null, 'a value to copy, such as an address or a key': null,
-    'one of a set of states, declared once': null,
   },
 } as const;
 

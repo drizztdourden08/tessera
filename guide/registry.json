@@ -175,7 +175,9 @@
         "question": "What does it show?",
         "answers": {
           "the state something is in": {
-            "components": []
+            "components": [
+              "Status"
+            ]
           },
           "a count, or a dot for news": {
             "components": []
@@ -203,11 +205,6 @@
           "a value to copy, such as an address or a key": {
             "components": [
               "CopyValue"
-            ]
-          },
-          "one of a set of states, declared once": {
-            "components": [
-              "StatusOf"
             ]
           }
         }
@@ -2127,26 +2124,20 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
-    },
-    {
-      "name": "StatusOf",
-      "tier": "primitives",
-      "source": "src/primitives/StatusOf/StatusOf.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
       "usage": true,
-      "job": "Draws one state from a table of states declared once with defineStatuses, so a state reads the same on every screen.",
+      "job": "A read-only word for the state something is in, given as a word and a tone, or as a key of a table of states declared once.",
       "useWhen": [
-        "A kind of state, such as a session, a player or an engine, shows on more than one screen.",
-        "An app keeps a table that maps each state to a label and a tone, and draws a Status from it by hand."
+        "A connection, a sync, a session or a draft shows its state beside its name.",
+        "A kind of state, such as a session or an engine, shows on more than one screen, so its words and tones live in one table."
       ],
       "avoidWhen": [
         {
-          "case": "One state shows in one place and has no table behind it.",
-          "use": "Status"
+          "case": "The value is a count, or a dot for news.",
+          "use": "Badge"
+        },
+        {
+          "case": "The value sorts an item into a group the user can filter on.",
+          "use": "Tag"
         },
         {
           "case": "The state is a step in a task the user walks through.",
@@ -2154,34 +2145,61 @@
         }
       ],
       "rules": [
+        "Pass a word and a tone for a state that shows in one place; pass map and value for a kind of state that shows on several screens.",
         "Declare each table once with defineStatuses, in a constants file beside the model it describes, and import it where the state shows.",
-        "Give every key a label in sentence case; the pill variant sets it in capitals itself.",
-        "Set pulse only on states that are still moving, such as starting or generating.",
+        "Give every word in sentence case; the pill variant sets it in capitals itself.",
+        "Set pulse only on states that are still moving, such as starting or syncing.",
         "Pass fallback for a value that can be missing, such as a state not fetched yet."
       ],
       "a11y": [
-        "The label is the text a screen reader reads; the tone, the dot and the icon add nothing it needs.",
-        "An icon is hidden from screen readers and takes the place of the dot."
+        "The word is the text a screen reader reads; the tone, the dot and the icon add nothing it needs.",
+        "Add role status when the state changes while the user watches, so the new word is announced.",
+        "An icon from a table is hidden from screen readers and takes the place of the dot."
       ],
       "tree": {
         "path": [
           "a status, a count or a label",
-          "one of a set of states, declared once"
+          "the state something is in"
         ],
-        "rule": "StatusOf reads the label, the tone, the pulse and the icon from one typed table, so a state cannot drift between screens."
+        "rule": "Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen."
       },
-      "example": "import { defineStatuses, StatusOf } from '@drizztdourden08/tessera';\n\nconst ENGINE_STATES = defineStatuses({\n  ready: { label: 'Ready', tone: 'success' },\n  building: { label: 'Setting up', tone: 'warning', pulse: true },\n  failed: { label: 'Broken', tone: 'danger' },\n  unknown: { label: 'Checking', tone: 'neutral' },\n});\n\nconst EngineState = ({ state }: { state?: 'ready' | 'building' | 'failed' }) => (\n  <StatusOf map={ENGINE_STATES} value={state} fallback=\"unknown\" dot />\n);\n",
-      "propsHash": "039ed0ca4d8db489",
+      "example": "import { defineStatuses, Status } from '@drizztdourden08/tessera';\n\nconst ENGINE_STATES = defineStatuses({\n  ready: { label: 'Ready', tone: 'success' },\n  building: { label: 'Setting up', tone: 'warning', pulse: true },\n  failed: { label: 'Broken', tone: 'danger' },\n  unknown: { label: 'Checking', tone: 'neutral' },\n});\n\nconst Sync = () => <Status tone=\"warning\" dot pulse>Syncing</Status>;\n\nconst EngineState = ({ state }: { state?: 'ready' | 'building' | 'failed' }) => (\n  <Status map={ENGINE_STATES} value={state} fallback=\"unknown\" dot />\n);\n",
+      "propsHash": "0f2e7a81aebe29c7",
       "props": {
         "own": [
           {
+            "name": "tone",
+            "optional": true,
+            "text": "StatusTone",
+            "literals": [
+              "'danger'",
+              "'info'",
+              "'neutral'",
+              "'primary'",
+              "'secondary'",
+              "'success'",
+              "'tertiary'",
+              "'warning'"
+            ]
+          },
+          {
+            "name": "pulse",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
             "name": "map",
-            "optional": false,
+            "optional": true,
             "text": "Map"
           },
           {
             "name": "value",
-            "optional": false,
+            "optional": true,
             "text": "StatusKey<Map> | null | undefined"
           },
           {
@@ -2196,12 +2214,14 @@
             "literals": [
               "'text'",
               "'pill'"
-            ]
+            ],
+            "default": "'text'"
           },
           {
             "name": "dot",
             "optional": true,
-            "text": "boolean"
+            "text": "boolean",
+            "default": "false"
           }
         ],
         "inherited": {
@@ -2212,16 +2232,58 @@
             "HTMLAttributes"
           ],
           "extends": [
-            "Omit<StatusProps, 'tone' | 'pulse' | 'children'>",
             "HTMLAttributes<HTMLSpanElement>"
           ]
         }
       },
-      "tokens": [],
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-danger-bright",
+        "--c-danger-dim",
+        "--c-danger-soft",
+        "--c-info",
+        "--c-info-bright",
+        "--c-info-dim",
+        "--c-info-soft",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-dim",
+        "--c-primary-soft",
+        "--c-secondary",
+        "--c-secondary-bright",
+        "--c-secondary-dim",
+        "--c-secondary-soft",
+        "--c-success",
+        "--c-success-bright",
+        "--c-success-dim",
+        "--c-success-soft",
+        "--c-sunken",
+        "--c-tertiary",
+        "--c-tertiary-bright",
+        "--c-tertiary-dim",
+        "--c-tertiary-soft",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--c-warning",
+        "--c-warning-bright",
+        "--c-warning-dim",
+        "--c-warning-soft",
+        "--radius-pill",
+        "--radius-round",
+        "--size-6",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-wide",
+        "--weight-semi"
+      ],
       "gallery": {
-        "title": "Primitives · Display/StatusOf",
-        "route": "#/story/primitives-statusof--overview",
-        "file": "stories/primitives/StatusOf.stories.tsx"
+        "title": "Primitives · Display/Status",
+        "route": "#/story/primitives-status--overview",
+        "file": "stories/primitives/Status.stories.tsx"
       },
       "parts": [
         "defineStatuses"
@@ -2552,7 +2614,7 @@
         },
         {
           "case": "One state shown alone, such as the state of a server.",
-          "use": "StatusOf"
+          "use": "Status"
         },
         {
           "case": "Labels and values read from a record, with no state.",
@@ -3489,6 +3551,11 @@
             "text": "ReactNode"
           },
           {
+            "name": "log",
+            "optional": true,
+            "text": "readonly LogRow[]"
+          },
+          {
             "name": "state",
             "optional": false,
             "text": "TaskState",
@@ -3518,11 +3585,6 @@
             "name": "error",
             "optional": true,
             "text": "ReactNode"
-          },
-          {
-            "name": "log",
-            "optional": true,
-            "text": "readonly LogRow[]"
           },
           {
             "name": "logKinds",

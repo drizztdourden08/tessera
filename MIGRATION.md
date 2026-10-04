@@ -4122,3 +4122,32 @@ interface MasterDetailProps<T> {
 
 1. Archipelia: PresetsHub becomes a `MasterDetail` over the presets, `groupBy` the game, with `dirty` from the preset editor, `onSave` and `onDiscard`; its own select and discard handling goes. ServerManager does the same with `createLabel: 'Add'` and its `loading` and `error`. TemplatesCard and HistoryCard become a `ManagedList`.
 2. Brock: ProfilesPanel becomes a `ManagedList` with `onCreate`, `onRename` and `onDelete`; its inline rename and its CSS go.
+
+## 157. StatusOf folds into Status
+
+`StatusOf` is gone. `Status` takes the table itself: pass `map`, a table from `defineStatuses`, and `value`, one of its keys, and Status draws the word, the tone, the pulse and the icon of that key. `fallback` names the key drawn while `value` is missing or not in the table, as before. Status with a word and a `tone` works as it always did.
+
+The two shapes do not mix. With `map`, the table gives the word and the tone, so `children`, `tone` and `pulse` are type errors; without it, `value` and `fallback` are. `variant`, `dot`, `className` and every span attribute work with both. A table entry with an `icon` draws the icon in place of the dot. A key from the table sets `data-status` on the span.
+
+```ts
+type StatusProps<Map extends StatusMap = StatusMap> =
+  | (StatusLook & { tone?: StatusTone; pulse?: boolean; children: ReactNode })
+  | (StatusLook & { map: Map; value: StatusKey<Map> | null | undefined; fallback?: StatusKey<Map> });
+
+interface StatusLook extends HTMLAttributes<HTMLSpanElement> {
+  variant?: StatusVariant;
+  dot?: boolean;
+}
+```
+
+`defineStatuses`, `StatusDef`, `StatusMap` and `StatusKey` keep their names and now come from the Status folder; the package root still exports them. `StatusOfProps` is `StatusProps`. The StatusOf page is gone; its examples are on the Status page, and the decision tree answer "One of a set of states, declared once" folds into "The state something is in", which now leads to Status.
+
+```tsx
+<StatusOf map={SESSION_STATUSES} value={session.status} variant="pill" />
+// becomes
+<Status map={SESSION_STATUSES} value={session.status} variant="pill" />
+```
+
+### What an app does
+
+1. Archipelia: each `<StatusOf map={...} value={...} />` becomes `<Status map={...} value={...} />` with the same props, and `StatusOfProps` becomes `StatusProps`. `brock upgrade` writes both from `RENAMES.json`.

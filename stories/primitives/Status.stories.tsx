@@ -2,10 +2,13 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Card, Flex, Stack, Status, Text } from '../../src/primitives';
-import type { StatusTone, StatusVariant } from '../../src/primitives';
+import type { StatusKey, StatusTone, StatusVariant } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
+import { ENGINE_STATES, PLAYER_STATUSES, SESSION_STATUSES } from './_samples/status-tables.constants';
+
+type SessionKey = StatusKey<typeof SESSION_STATUSES>;
 
 type StatusArgs = {
   label: string;
@@ -13,6 +16,8 @@ type StatusArgs = {
   variant: StatusVariant;
   dot: boolean;
   pulse: boolean;
+  source: 'word' | 'map';
+  value: SessionKey;
 };
 
 const TONES: readonly StatusTone[] = ['neutral', 'success', 'warning', 'danger', 'info', 'primary', 'secondary', 'tertiary'];
@@ -37,10 +42,16 @@ const SCREENS: readonly { id: string; status: string; tone: StatusTone }[] = [
   { id: 'cave-0x1e', status: 'Unsaved', tone: 'neutral' },
 ];
 
-const ARGS: Partial<StatusArgs> = { label: 'Connected', tone: 'success', variant: 'text', dot: false, pulse: false };
+const SESSION_KEYS = Object.keys(SESSION_STATUSES) as SessionKey[];
+
+const ENGINE_KEYS = Object.keys(ENGINE_STATES) as StatusKey<typeof ENGINE_STATES>[];
+
+const ARGS: Partial<StatusArgs> = { label: 'Connected', tone: 'success', variant: 'text', dot: false, pulse: false, source: 'word', value: 'hosting' };
 
 const ARG_TYPES: PlaygroundArgTypes<StatusArgs> = {
+  source: { group: 'Content', control: 'select', options: ['word', 'map'], description: 'A word with its tone, or a key of a table declared with defineStatuses.' },
   label: { group: 'Content', control: 'text' },
+  value: { group: 'Content', control: 'select', options: SESSION_KEYS, description: 'With map: the key to draw, from the session table.' },
   tone: { group: 'Appearance', control: 'select', options: [...TONES] },
   variant: { group: 'Appearance', control: 'select', options: ['text', 'pill'] },
   dot: { group: 'Appearance', control: 'boolean', description: 'Leads the word with a dot in its tone.' },
@@ -56,9 +67,9 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => (
-    <Status tone={args.tone} variant={args.variant} dot={args.dot} pulse={args.pulse}>{args.label}</Status>
-  ),
+  render: (args) => (args.source === 'map'
+    ? <Status map={SESSION_STATUSES} value={args.value} variant={args.variant} dot={args.dot} />
+    : <Status tone={args.tone} variant={args.variant} dot={args.dot} pulse={args.pulse}>{args.label}</Status>),
 } satisfies PlaygroundStory<StatusArgs>;
 
 const Tones = {
@@ -103,19 +114,52 @@ const ScreenList = {
   ),
 } satisfies StoryLiteStoryDefinition<StatusArgs>;
 
+const OneTable = {
+  name: 'One table, two looks',
+  render: () => (
+    <Demonstrator
+      corner="Session"
+      rows={axis(SESSION_KEYS)}
+      columns={axis(['text', 'pill'] as const)}
+      cell={(key, variant) => <Status map={SESSION_STATUSES} value={key} variant={variant} dot={variant === 'text'} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
+const WithIcons = {
+  name: 'Table entries with icons',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      {ENGINE_KEYS.map((key) => <Status key={key} map={ENGINE_STATES} value={key} />)}
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
+const Fallback = {
+  name: 'A value not known yet',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      <Status map={ENGINE_STATES} value={undefined} fallback="unknown" />
+      <Status map={PLAYER_STATUSES} value="goal" variant="pill" />
+      <Status map={PLAYER_STATUSES} value="offline" variant="pill" dot />
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
 const Overview = overviewStory({
   component: 'Status',
   description: 'A read-only word that says what state something is in, such as connected, syncing or draft.',
   points: [
     '`text` draws the word in its tone; `pill` draws it in capitals on a filled pill, for a record header.',
-    '`tone` carries the meaning: `neutral` by default, the four urgencies or the three theme colours.',
-    '`dot` leads the word with a dot, and `pulse` fades it for a state that is still changing.',
-    'You pass the word, so the same tone serves any label.',
+    'Pass the word as children with its `tone`, `neutral` by default, and `pulse` for a state still changing.',
+    'Or pass `map`, a table from `defineStatuses`, and `value`, one of its keys: the table gives the word and tone.',
+    '`fallback` names the key drawn while `value` is missing or not in the table.',
+    '`dot` leads the word with a dot; a table entry with an `icon` draws the icon there instead.',
   ],
   instead: '[Badge] for a count, or [Tag] for a value that sorts an item into a group.',
   playground: Playground,
-  variants: [Tones, Pulsing, ScreenList],
+  variants: [Tones, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
 });
 
 export default meta;
-export { Overview, Playground, Pulsing, ScreenList, Tones };
+export { Fallback, OneTable, Overview, Playground, Pulsing, ScreenList, Tones, WithIcons };

@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { Box } from '../../../primitives/Box';
 import { ProgressBar } from '../../../primitives/ProgressBar';
-import { StatusOf } from '../../../primitives/StatusOf';
+import { Status } from '../../../primitives/Status';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { taskStatuses } from '../behavior/task-statuses';
@@ -17,7 +17,7 @@ const TaskMeter = (props: TaskMeterProps) => {
     <>
       <Box className="task-progress__head">
         <Span className="task-progress__line">{line}</Span>
-        <StatusOf map={statuses} value={state} role="status" className="task-progress__state" />
+        <Status map={statuses} value={state} role="status" className="task-progress__state" />
       </Box>
       <ProgressBar
         value={percent ?? (state === 'done' ? 100 : 0)}

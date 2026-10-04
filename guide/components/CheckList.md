@@ -24,7 +24,7 @@ CheckList gives pass, advice and failure their own icon and colour, so a test re
 ## Use something else when
 
 - One long job with steps that run in order, with a bar and a log. Use [TaskProgress](TaskProgress.md) instead.
-- One state shown alone, such as the state of a server. Use [StatusOf](StatusOf.md) instead.
+- One state shown alone, such as the state of a server. Use [Status](Status.md) instead.
 - Labels and values read from a record, with no state. Use `FactsPanel` instead.
 
 ## Rules

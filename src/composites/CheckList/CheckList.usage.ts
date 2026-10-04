@@ -9,7 +9,7 @@ const usage = {
   ],
   avoidWhen: [
     { case: 'One long job with steps that run in order, with a bar and a log.', use: 'TaskProgress' },
-    { case: 'One state shown alone, such as the state of a server.', use: 'StatusOf' },
+    { case: 'One state shown alone, such as the state of a server.', use: 'Status' },
     { case: 'Labels and values read from a record, with no state.', use: 'FactsPanel' },
   ],
   rules: [

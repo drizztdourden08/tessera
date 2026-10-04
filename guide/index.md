@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 25 of 163 have their usage written; a linked name opens its page.
+One line per component. 25 of 162 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -67,8 +67,7 @@ One line per component. 25 of 163 have their usage written; a linked name opens 
 - `Stack`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StackedBar](components/StackedBar.md): One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend. Import from `@drizztdourden08/tessera`.
 - `StatRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Status`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [StatusOf](components/StatusOf.md): Draws one state from a table of states declared once with defineStatuses, so a state reads the same on every screen. Import from `@drizztdourden08/tessera`.
+- [Status](components/Status.md): A read-only word for the state something is in, given as a word and a tone, or as a key of a table of states declared once. Import from `@drizztdourden08/tessera`.
 - `Stepper`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Svg`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Tabs`: usage not written yet. Import from `@drizztdourden08/tessera`.

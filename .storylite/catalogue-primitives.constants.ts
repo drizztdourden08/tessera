@@ -29,7 +29,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'TermList', summary: 'Terms and their definitions, one per row.' },
         { name: 'StatRow', summary: 'A label and its value on one line.' },
         { name: 'Badge', summary: 'A count or a dot, after text or on the corner of an icon.' },
-        { name: 'Status', summary: 'A read-only word for the state something is in, as text or a pill.' },
+        { name: 'Status', summary: 'A read-only word for the state something is in, as text or a pill, or drawn from a table of states.' },
         { name: 'Tag', summary: 'A value that sorts an item into a group: removable, selectable or plain.' },
         { name: 'EmptyState', summary: 'What to show when a list or panel has nothing yet.' },
         { name: 'Image', summary: 'An image that holds its box, with loading and broken placeholders.' },
@@ -40,7 +40,6 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
         { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
         { name: 'CopyValue', summary: 'A value to copy, such as an address or a key, with a copy button at its end.' },
-        { name: 'StatusOf', summary: 'One state drawn from a table of states declared once with defineStatuses.' },
       ],
     },
     {

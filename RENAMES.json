@@ -701,6 +701,13 @@
       "cssCustomProperties": {
         "--widget-options-aside-w": "removed; Shortcuts is a sub-panel (see MIGRATION.md section 113)"
       }
+    },
+    {
+      "version": "next",
+      "components": {
+        "StatusOfProps": "StatusProps",
+        "StatusOf": "Status"
+      }
     }
   ]
 }
