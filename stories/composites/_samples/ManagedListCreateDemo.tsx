@@ -4,14 +4,16 @@ import { InlineCreateForm, ManagedList } from '../../../src/composites';
 import { Box, Field, Select } from '../../../src/primitives';
 import { profileRow } from './profile-row';
 import { PROFILE_GAMES, PROFILE_TEMPLATES, PROFILES } from './profile-samples.constants';
-import type { SampleProfile } from './profile-samples.type';
+import type { ManagedListCreateDemoProps, SampleProfile } from './profile-samples.type';
 
 const idOf = (profile: SampleProfile) => profile.id;
 const nameOf = (profile: SampleProfile) => profile.name;
 
-const ManagedListCreateDemo = () => {
-  const [profiles, setProfiles] = useState<readonly SampleProfile[]>(PROFILES);
-  const [selectedId, setSelectedId] = useState<string | null>('pr1');
+const ManagedListCreateDemo = ({ firstRun = false }: ManagedListCreateDemoProps) => {
+  const [profiles, setProfiles] = useState<readonly SampleProfile[]>(firstRun ? [] : PROFILES);
+  const [selectedId, setSelectedId] = useState<string | null>(firstRun ? null : 'pr1');
+  const [creating, setCreating] = useState(false);
+  const none = profiles.length === 0;
   const [game, setGame] = useState('');
   const [template, setTemplate] = useState('blank');
   const reset = (close: () => void) => {
@@ -36,12 +38,15 @@ const ManagedListCreateDemo = () => {
         selectedId={selectedId}
         onSelect={setSelectedId}
         createLabel="New profile"
+        createOpen={creating || none}
+        onCreateOpenChange={setCreating}
+        empty="Create a profile to get started."
         create={(close) => (
           <InlineCreateForm
             placeholder="Profile name"
             canSubmit={game !== ''}
             onCreate={(name) => add(name, close)}
-            onCancel={() => reset(close)}
+            onCancel={none ? undefined : () => reset(close)}
             extraFields={(
               <>
                 <Field label="Game"><Select value={game} onChange={setGame} options={PROFILE_GAMES} placeholder="Pick a game" /></Field>

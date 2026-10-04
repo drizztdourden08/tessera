@@ -1,43 +1,53 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
 import { tabbablesIn } from '../../../primitives/dom/tabbables-in';
 import type { ManagedListCreateView, ManagedListProps, ManagedListView } from '../ManagedList.type';
 import { closeOnEscape } from './close-on-escape';
+import { focusLost } from './focus-lost';
+import { openChange } from './open-change';
 import { settleCreate } from './settle-create';
 
 const useManagedCreate = <T,>(props: ManagedListProps<T>, view: ManagedListView<T>): ManagedListCreateView => {
-  const { create, onCreate, selectedId = null } = props;
+  const { create, onCreate, createOpen, onCreateOpenChange, selectedId = null } = props;
   const { rowIds, listRef } = view;
-  const [open, setOpen] = useState(false);
+  const [own, setOwn] = useState(false);
+  const open = (createOpen ?? own) && create !== undefined;
   const newRef = useRef<HTMLButtonElement>(null);
   const slotRef = useRef<HTMLElement>(null);
+  const selected = useRef(selectedId);
+  selected.current = selectedId;
   const openedWith = useRef<string | null>(null);
-  const settling = useRef(false);
+  const wasOpen = useRef(false);
+  const closing = useRef(false);
 
-  const openForm = useCallback(() => {
-    openedWith.current = selectedId;
-    setOpen(true);
-  }, [selectedId]);
+  const setOpen = useMemo(() => openChange(createOpen, setOwn, onCreateOpenChange), [createOpen, onCreateOpenChange]);
+  const openForm = useCallback(() => setOpen(true), [setOpen]);
   const close = useCallback(() => {
-    settling.current = true;
+    closing.current = true;
     setOpen(false);
-  }, []);
+  }, [setOpen]);
   const onKeyDown = useCallback((event: KeyboardEvent<HTMLElement>) => closeOnEscape(event, close), [close]);
 
   useEffect(() => {
+    if (!open) return;
+    openedWith.current = selected.current;
     const slot = slotRef.current;
-    if (open && slot && !slot.contains(ownerDocumentOf(slot).activeElement)) tabbablesIn(slot)[0]?.focus();
+    if (slot && !slot.contains(ownerDocumentOf(slot).activeElement)) tabbablesIn(slot)[0]?.focus();
   }, [open]);
 
   useEffect(() => {
-    if (open || !settling.current) return;
-    settling.current = false;
+    const was = wasOpen.current;
+    wasOpen.current = open;
+    if (open || !was) return;
+    const asked = closing.current;
+    closing.current = false;
+    if (!asked && !focusLost(ownerDocumentOf(listRef.current))) return;
     settleCreate({ rowIds, openedWith: openedWith.current, selectedId, list: listRef.current, newButton: newRef.current });
   }, [open, rowIds, selectedId, listRef]);
 
-  return { open: open && create !== undefined, onNew: create ? openForm : onCreate, close, newRef, slotRef, onKeyDown };
+  return { open, onNew: create ? openForm : onCreate, close, newRef, slotRef, onKeyDown };
 };
 
 export { useManagedCreate };

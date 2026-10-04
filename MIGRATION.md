@@ -4601,6 +4601,8 @@ type ManagedListCreate = (close: () => void) => ReactNode;
 
 interface ManagedListProps<T> {
   create?: ManagedListCreate;
+  createOpen?: boolean;
+  onCreateOpenChange?: (open: boolean) => void;
 }
 ```
 
@@ -4608,13 +4610,16 @@ interface ManagedListProps<T> {
 - The form is a group named by `createLabel`, or New.
 - Escape inside the form, or `close` from its Cancel, closes it and focus goes back to New. A popup in the form, such as an open `Select`, takes Escape first.
 - After a create, the app picks the new item and calls `close`; focus goes to its row. When the app picks nothing, or the row is filtered out, focus goes back to New.
-- The app keeps every value of the form: the name, the extra fields and the error. The list keeps only whether the form is open.
+- The app keeps every value of the form: the name, the extra fields and the error. The list keeps at most whether the form is open.
+- Without `createOpen` the list tracks whether the form is open. With it, the app decides: New and `close` call `onCreateOpenChange`, and the form shows while `createOpen` is true. An app starts the form open on a first run with no items, and leaves Cancel out of its form while nothing can be cancelled.
+- The focus rules hold either way. When the app shuts the form itself, focus moves only when it went down with the form, so a form shut from elsewhere never pulls focus.
 - `onCreate` works as before for an app that opens its own flow, such as a dialog. With `create` set, New opens the form and `onCreate` is not called.
-- `MasterDetail` passes `create` through `list`. The form opens without the unsaved changes question, since it throws no edits away.
-- The ManagedList page shows a profile form with a name, a game and a template, built from `InlineCreateForm`.
+- `MasterDetail` passes `create`, `createOpen` and `onCreateOpenChange` through `list`. The form opens without the unsaved changes question, since it throws no edits away.
+- The ManagedList page shows a profile form with a name, a game and a template, built from `InlineCreateForm`, and a first run where that form starts open.
 
 ### What an app does
 
 1. An app that drew its own list to hold a create form moves to `ManagedList` with `create`, and builds the form from `InlineCreateForm` with `extraFields`.
 2. The form calls `close` from Cancel, and after a create that worked; on a failed create it keeps the form open and shows the error.
 3. To land focus on the new row, the app picks the new item before it calls `close`.
+4. An app that opened its create form on a first run, such as with a `createOpen` of its own, passes `createOpen` and `onCreateOpenChange`.

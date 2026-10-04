@@ -6,4 +6,8 @@ interface SampleProfile {
   template: string;
 }
 
-export type { SampleProfile };
+interface ManagedListCreateDemoProps {
+  firstRun?: boolean;
+}
+
+export type { ManagedListCreateDemoProps, SampleProfile };

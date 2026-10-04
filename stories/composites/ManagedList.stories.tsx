@@ -57,6 +57,11 @@ const CreateForm = {
   render: () => <ManagedListCreateDemo />,
 } satisfies StoryLiteStoryDefinition<ManagedListArgs>;
 
+const FirstRun = {
+  name: 'First run, the form starts open',
+  render: () => <ManagedListCreateDemo firstRun />,
+} satisfies StoryLiteStoryDefinition<ManagedListArgs>;
+
 const CODE = `import { ManagedList } from '@drizztdourden08/tessera';
 
 <ManagedList
@@ -84,12 +89,14 @@ const CODE = `import { ManagedList } from '@drizztdourden08/tessera';
   selectedId={selectedId}
   onSelect={setSelectedId}
   createLabel="New profile"
+  createOpen={creating || profiles.length === 0}
+  onCreateOpenChange={setCreating}
   create={(close) => (
     <InlineCreateForm
       placeholder="Profile name"
       canSubmit={game !== ''}
       onCreate={(name) => { setSelectedId(addProfile(name, game)); close(); }}
-      onCancel={close}
+      onCancel={profiles.length ? close : undefined}
       extraFields={<Field label="Game"><Select value={game} onChange={setGame} options={GAMES} /></Field>}
     />
   )}
@@ -100,7 +107,7 @@ const Overview = overviewStory({
   description: 'The list side of a list and editor screen: a title with its count, New, a filter, groups and rows to rename or delete.',
   points: [
     '`getId` and `getName` read each item; `render` adds the meta, an icon or end columns to its row.',
-    '`create` opens a form such as [InlineCreateForm] under the title in place of `onCreate`; it gets `close`.',
+    '`create` draws a form such as [InlineCreateForm] under the title; `createOpen` lets the app hold it open.',
     '`groupBy` puts the rows under headings; the arrow keys, Home and End move the selection across groups.',
     '`onRename` adds a pencil to the picked row and [[F2]]: [[Enter]] keeps the new name, [[Esc]] cancels.',
     '`onDelete` adds a trash button to the picked row that asks once, through [ConfirmIconButton].',
@@ -108,7 +115,7 @@ const Overview = overviewStory({
   ],
   instead: '[MasterDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,
-  variants: [Grouped, Plain, CreateForm],
+  variants: [Grouped, Plain, CreateForm, FirstRun],
   states: {
     render: (props: StateProps) => <ManagedListDemo {...(props as ManagedListDemoProps)} />,
     list: STATES.map((state) => ({ name: state, props: { state, title: state === 'ready' ? 'Presets' : 'Servers' } })),
@@ -117,4 +124,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { CreateForm, Grouped, Overview, Plain, Playground };
+export { CreateForm, FirstRun, Grouped, Overview, Plain, Playground };

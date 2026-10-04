@@ -32,6 +32,7 @@ ManagedList draws the count, New, the filter, the groups, rename, delete and eve
 - Pass getId and getName; the name feeds the filter, the rename box and the labels of the row buttons.
 - Pass create to open a form at the top of the list, such as an InlineCreateForm with more fields, and call its close after a create or a cancel.
 - Pass onCreate in place of create when the app opens its own flow, such as a dialog or a wizard.
+- Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.
 - Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.
 - Write empty as what to do next, such as Install a game from Games, then make a preset for it.
 - Write error as what failed and why, such as Could not read servers.json: unexpected end of input.
@@ -97,6 +98,8 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 - `onSelect` (optional): `(id: string) => void`.
 - `onCreate` (optional): `() => void`.
 - `create` (optional): `ManagedListCreate`.
+- `createOpen` (optional): `boolean`.
+- `onCreateOpenChange` (optional): `(open: boolean) => void`.
 - `createLabel` (optional): `string`.
 - `onRename` (optional): `(id: string, name: string) => void`.
 - `onDelete` (optional): `(id: string) => void`.

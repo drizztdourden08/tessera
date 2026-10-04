@@ -19,6 +19,8 @@ interface ManagedListProps<T> {
   onSelect?: (id: string) => void;
   onCreate?: () => void;
   create?: ManagedListCreate;
+  createOpen?: boolean;
+  onCreateOpenChange?: (open: boolean) => void;
   createLabel?: string;
   onRename?: (id: string, name: string) => void;
   onDelete?: (id: string) => void;
