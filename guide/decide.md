@@ -137,6 +137,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A stream of log lines: no component yet.
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
+  - A headline number that does one thing: [ActionTile](components/ActionTile.md). ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app.
   - A drawing. **How is it drawn?**
     - In pixels: no component yet.
     - In shapes: no component yet.

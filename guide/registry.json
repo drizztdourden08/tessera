@@ -492,6 +492,11 @@
               "FileList"
             ]
           },
+          "a headline number that does one thing": {
+            "components": [
+              "ActionTile"
+            ]
+          },
           "a drawing": {
             "question": "How is it drawn?",
             "answers": {
@@ -2755,6 +2760,171 @@
         "title": "Composites · Actions/ActionBar",
         "route": "#/story/composites-actionbar--overview",
         "file": "stories/composites/ActionBar.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "ActionTile",
+      "tier": "composites",
+      "source": "src/composites/ActionTile/ActionTile.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A tile with one headline value that also does one thing: runs an action, copies a text, or leads to the full view.",
+      "useWhen": [
+        "A dashboard row sums up a session or a store, and each tile has one obvious next step, such as Stop, Copy address or Clean old runs.",
+        "A tile stands for a larger view, such as a widget or a page, and the user should reach it from the tile.",
+        "A data domain has its own folder, and the tile should open it beside its main action."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The tile only reads a value, with its trend, its change or a small chart.",
+          "use": "StatTile"
+        },
+        {
+          "case": "A label and its value sit on one row in a list of readings.",
+          "use": "StatRow"
+        },
+        {
+          "case": "The item has several actions of equal weight, such as Edit, Duplicate and Delete.",
+          "use": "ActionBar"
+        }
+      ],
+      "rules": [
+        "Give each tile one action at most; put small extras, such as open the folder or copy the path, in tools.",
+        "Name the action after what it does to the value, such as Clean old runs or Copy address, not OK or Go.",
+        "Use the danger variant for an action that stops or deletes, and primary for the one action the row is about.",
+        "Pass onOpen when the tile sums up a view, with openLabel naming that view, such as Show the Players widget.",
+        "Write the label in sentence case; it shows as written, at 12 px."
+      ],
+      "a11y": [
+        "The tile is a group named by its label, so its buttons are heard with the name of the tile.",
+        "Tools and the open chevron are icon buttons named by their label, with the same name as a tooltip.",
+        "A copy action or tool confirms with Copied in a polite status region."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a headline number that does one thing"
+        ],
+        "rule": "ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app."
+      },
+      "example": "import { ActionTile } from '@drizztdourden08/tessera';\n\nconst SessionTiles = ({ address, onShowPlayers, onStop }: { address: string; onShowPlayers: () => void; onStop: () => void }) => (\n  <>\n    <ActionTile label=\"Players\" icon=\"users\" value=\"2 / 3\" unit=\"connected\" onOpen={onShowPlayers} openLabel=\"Show the Players widget\" />\n    <ActionTile label=\"Address\" icon=\"link\" value={address} action={{ label: 'Copy address', copy: address }} />\n    <ActionTile\n      label=\"Uptime\"\n      icon=\"clock\"\n      value=\"42 min\"\n      status={{ label: 'hosting', tone: 'success' }}\n      action={{ label: 'Stop', icon: 'square', variant: 'danger', onSelect: onStop }}\n    />\n  </>\n);\n",
+      "propsHash": "bfd57a652b5af170",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "unit",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "meta",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "IconName"
+          },
+          {
+            "name": "status",
+            "optional": true,
+            "text": "ActionTileStatus"
+          },
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "StatusTone",
+            "literals": [
+              "'neutral'",
+              "'success'",
+              "'warning'",
+              "'danger'",
+              "'info'",
+              "'primary'",
+              "'secondary'",
+              "'tertiary'"
+            ]
+          },
+          {
+            "name": "action",
+            "optional": true,
+            "text": "ActionTileAction"
+          },
+          {
+            "name": "tools",
+            "optional": true,
+            "text": "readonly ActionTileTool[]",
+            "default": "[]"
+          },
+          {
+            "name": "onOpen",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "openLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ActionTileSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-inset",
+        "--c-text",
+        "--c-text-muted",
+        "--radius-md",
+        "--size-20",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-lg",
+        "--text-sm",
+        "--text-xl",
+        "--text-xs",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Composites · Content/ActionTile",
+        "route": "#/story/composites-actiontile--overview",
+        "file": "stories/composites/ActionTile.stories.tsx"
       },
       "parts": []
     },

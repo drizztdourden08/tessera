@@ -1,0 +1,14 @@
+/* @layer stories @kind style */
+.action-tile-story {
+  inline-size: 100%;
+}
+
+.action-tile-story__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--size-224), 1fr));
+  gap: var(--space-sm);
+}
+
+.action-tile-story__one {
+  inline-size: var(--size-256);
+}

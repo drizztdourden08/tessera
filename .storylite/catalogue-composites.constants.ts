@@ -127,6 +127,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'TaskProgress', summary: 'One long job: a bar, the current line, its steps, the error and a folded log.' },
         { name: 'CheckList', summary: 'The results of a list of checks: pass, advice, failure, checking or skipped, with counts on top.' },
         { name: 'ItemCard', summary: 'One item of a catalogue as a card: media, eyebrow, status, title, tags, details and actions.' },
+        { name: 'ActionTile', summary: 'One headline value in a tile that also does one thing: an action, a copy or a way in.' },
       ],
     },
     {

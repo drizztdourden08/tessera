@@ -181,3 +181,8 @@ export { FileList } from './FileList';
 export type { FileEntry, FileListProps } from './FileList';
 export { ItemCard } from './ItemCard';
 export type { ItemCardLayout, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from './ItemCard';
+export { ActionTile } from './ActionTile';
+export type {
+  ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,
+  ActionTileToolRun, ActionTileVariant,
+} from './ActionTile';

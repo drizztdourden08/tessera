@@ -4260,3 +4260,44 @@ interface ItemCardProps {
 
 1. Archipelia: GameCard becomes an ItemCard with the source as `eyebrow`, the install state as `status`, the genre and platform as `tags`, the versions as `details` and Install, Update, Make a preset and Remove as `actions`; DataOverview takes `layout: 'left'`.
 2. rotp: the mod and save cards can use the same card.
+
+## 161. ActionTile: a headline value that also does one thing
+
+`ActionTile` is a new composite, under Composites · Content (Archipelia review T-24, from the T-07 proposal). Archipelia's session row and data overview drew tiles by hand: a value, a line under it and one button, or a chevron to the widget the tile sums up. ActionTile draws them the same way everywhere.
+
+- **The reading.** `label`, `value`, `unit` and `tone` read like a StatTile, at the same sizes; `meta` adds a quiet line under the value and `icon` an icon before the label. The label is set as written, at 12 px. `status` adds a toned word with a dot beside the label, such as hosting or failing.
+- **One action.** `action` is one small button at the foot of the tile, `secondary` by default, or `primary` or `danger`. Given `copy` in place of `onSelect`, it is a `CopyButton` with its word, which copies and confirms with a check and Copied.
+- **Tools and the way in.** `tools` are small ghost icon buttons in the top corner, such as Open the runs folder; a tool given `copy` copies through `CopyButton`. `onOpen` adds a chevron after them that leads to the full view, named by `openLabel` (Open by default, the new string `common.open`).
+- **Layout.** The tile fills its grid cell and keeps the action at its foot, so a row of tiles lines up. `size` is `md` or `sm`.
+- **Accessibility.** The tile is a group named by its label, so its buttons are heard with the name of the tile.
+- **Decision tree.** A new answer, data then a headline number that does one thing, leads to ActionTile. StatTile stays the passive reading with a trend, a change and a chart.
+
+```ts
+type ActionTileVariant = 'primary' | 'secondary' | 'danger';
+type ActionTileAction =
+  | { label: string; onSelect: () => void; icon?: IconName; variant?: ActionTileVariant; disabled?: boolean }
+  | { label: string; copy: CopyText; variant?: ActionTileVariant; disabled?: boolean };
+type ActionTileTool =
+  | { label: string; icon: IconName; onSelect: () => void; disabled?: boolean }
+  | { label: string; copy: CopyText; disabled?: boolean };
+interface ActionTileProps {
+  label: ReactNode;
+  value: ReactNode;
+  unit?: ReactNode;
+  meta?: ReactNode;
+  icon?: IconName;
+  status?: { label: string; tone: StatusTone };
+  tone?: StatusTone;
+  action?: ActionTileAction;
+  tools?: readonly ActionTileTool[];
+  onOpen?: () => void;
+  openLabel?: string;
+  size?: 'sm' | 'md';
+  className?: string;
+}
+```
+
+### What an app does
+
+1. Archipelia: build the session summary row from ActionTile (Players and Hints with `onOpen` to their widgets, Address with a copy action, Uptime with a danger Stop), and the data overview with one tile per data domain, its folder as a tool and its main action at the foot.
+2. Keep StatTile where a tile only reads a value.

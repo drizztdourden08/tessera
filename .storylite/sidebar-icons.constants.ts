@@ -98,6 +98,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     TaskProgress: 'list-todo',
     CheckList: 'clipboard-check',
     ItemCard: 'square-library',
+    ActionTile: 'square-activity',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x' },
