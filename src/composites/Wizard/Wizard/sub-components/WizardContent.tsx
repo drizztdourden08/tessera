@@ -6,13 +6,13 @@ import { WizardNav } from '../../WizardNav/WizardNav';
 import { WizardStep } from '../../WizardStep/WizardStep';
 import { navProps } from '../behavior/nav-props';
 import { stepperSteps } from '../behavior/stepper-steps';
-import { WizardFrameBody } from './WizardFrameBody';
-import { WizardFrameHead } from './WizardFrameHead';
+import { WizardBody } from './WizardBody';
+import { WizardHead } from './WizardHead';
 import { WizardStepFade } from './WizardStepFade';
 import type { WizardValues } from '../../wizard.type';
-import type { WizardFrameContentProps } from './WizardFrameContent.type';
+import type { WizardContentProps } from './WizardContent.type';
 
-const WizardFrameContent = <V extends WizardValues>(props: WizardFrameContentProps<V>) => {
+const WizardContent = <V extends WizardValues>(props: WizardContentProps<V>) => {
   const {
     wizard, onCancel, showTitle, title, orientation = 'horizontal', compactProgress = false,
     activeSubStepId, onSubStepSelect, headerExtra, className = '', children,
@@ -21,11 +21,11 @@ const WizardFrameContent = <V extends WizardValues>(props: WizardFrameContentPro
   const motion = useStepMotion(wizard.index);
   const steps = useMemo(() => stepperSteps(wizard), [wizard]);
   return (
-    <WizardFrameBody
+    <WizardBody
       orientation={orientation}
       stepKey={current.id}
       className={className}
-      title={showTitle ? <WizardFrameHead title={title} extra={headerExtra} /> : undefined}
+      title={showTitle ? <WizardHead title={title} extra={headerExtra} /> : undefined}
       progress={(
         <Stepper
           steps={steps}
@@ -50,4 +50,4 @@ const WizardFrameContent = <V extends WizardValues>(props: WizardFrameContentPro
   );
 };
 
-export { WizardFrameContent };
+export { WizardContent };

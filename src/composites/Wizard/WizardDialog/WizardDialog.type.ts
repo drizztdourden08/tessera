@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { WizardValues } from '../wizard.type';
-import type { WizardFrameProps } from '../WizardFrame/WizardFrame.type';
+import type { WizardProps } from '../Wizard/Wizard.type';
 
-interface WizardDialogProps<V extends WizardValues> extends Omit<WizardFrameProps<V>, 'title'> {
+interface WizardDialogProps<V extends WizardValues> extends Omit<WizardProps<V>, 'title'> {
   open: boolean;
   title?: ReactNode;
 }

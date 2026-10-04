@@ -2319,6 +2319,16 @@
       "usage": false
     },
     {
+      "name": "Wizard",
+      "tier": "composites",
+      "source": "src/composites/Wizard/Wizard/Wizard.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
       "name": "WizardDialog",
       "tier": "composites",
       "source": "src/composites/Wizard/WizardDialog/WizardDialog.tsx",
@@ -2332,16 +2342,6 @@
       "name": "WizardExitGuard",
       "tier": "composites",
       "source": "src/composites/Wizard/WizardExitGuard/WizardExitGuard.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "WizardFrame",
-      "tier": "composites",
-      "source": "src/composites/Wizard/WizardFrame/WizardFrame.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"

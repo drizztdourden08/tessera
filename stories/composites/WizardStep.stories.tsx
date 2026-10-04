@@ -81,7 +81,7 @@ const CODE = `import { WizardStep } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'WizardStep',
-  description: 'One step of a wizard: its heading, a short description, an error Callout on top when the whole step has a problem, then the fields. Each field keeps its own error text under it; the Callout is for what belongs to no single field, such as a failed connection or a finish that did not work. When the step opens, keyboard focus moves to its heading, so a screen reader announces the new step. WizardFrame draws one for the current step.',
+  description: 'One step of a wizard: its heading, a short description, an error Callout on top when the whole step has a problem, then the fields. Each field keeps its own error text under it; the Callout is for what belongs to no single field, such as a failed connection or a finish that did not work. When the step opens, keyboard focus moves to its heading, so a screen reader announces the new step. Wizard draws one for the current step.',
   playground: Playground,
   variants: [Forms],
   states: {

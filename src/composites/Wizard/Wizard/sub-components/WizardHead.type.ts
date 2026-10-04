@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 
-interface WizardFrameHeadProps {
+interface WizardHeadProps {
   title?: string;
   extra?: ReactNode;
 }
 
-export type { WizardFrameHeadProps };
+export type { WizardHeadProps };

@@ -1760,6 +1760,22 @@ const CopyLogButton = ({ text }: { text: string }) => {
 
 An app that imports any of the four panels imports them from Brock as in the table; `brock upgrade` rewrites the imports of a Brock app. An app that used `ProfilePicker` moves to Brock's `ProfilesPanel`, or builds its list from `ListItemRow`, `ConfirmIconButton` and `InlineCreateForm`. An app that overrides one of the five removed strings drops that key from its `strings` override. RENAMES.json lists the removed exports in `removedExports`, as notes that point to Brock. An app with its own copy of the clipboard hook or of the string table uses `useCopy` and `useTesseraStrings`. A Brock app adds `"layer": "renderer-shell"` to `tessera.config.json` where its parts use that layer.
 
+## 68. WizardFrame is now Wizard
+
+The wizard layout takes the name of the whole: `WizardFrame` is now `Wizard` and `WizardFrameProps` is now `WizardProps`, with the same props and no alias. Its classes follow: `wizard-frame` is now `wizard`, and `wizard-frame__rail`, `__head`, `__title`, `__main` and `__scroll` are now `wizard__rail`, `__head`, `__title`, `__main` and `__scroll`. Its gallery page was already called Wizard and keeps its place.
+
+```tsx
+import { useWizard, Wizard } from '@drizztdourden08/tessera';
+
+<Wizard wizard={wizard} title="New profile" orientation="vertical" onExit={close}>
+  <ProfileStep wizard={wizard} />
+</Wizard>
+```
+
+### What an app does
+
+An app renames `WizardFrame`, `WizardFrameProps` and the `wizard-frame` classes as RENAMES.json lists, under the release named next. `WizardDialog`, `useWizard` and the other wizard parts keep their names.
+
 ## 70. WindowTitleBar takes actions, puts every bar item in its menu, and gives way one item at a time
 
 `WindowTitleBar` drops `left` and takes `actions`, a list of `WindowTitleBarAction`. The host declares each action once, and the bar draws both its button and its menu item from it.

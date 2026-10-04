@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind style */
-.wizard-frame {
+.wizard {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   block-size: 100%;
@@ -7,7 +7,7 @@
   min-inline-size: 0;
 }
 
-.wizard-frame__rail {
+.wizard__rail {
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
@@ -16,7 +16,7 @@
   border-block-end: var(--border-width-thin) solid var(--c-hairline);
 }
 
-.wizard-frame__head {
+.wizard__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,29 +24,29 @@
   min-inline-size: 0;
 }
 
-.wizard-frame__title {
+.wizard__title {
   margin: 0;
   font-size: var(--text-lg);
 }
 
-.wizard-frame__main {
+.wizard__main {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   min-block-size: 0;
   min-inline-size: 0;
 }
 
-.wizard-frame__scroll {
+.wizard__scroll {
   min-block-size: 0;
   padding: var(--space-xl);
 }
 
-.wizard-frame[data-orientation='vertical'] {
+.wizard[data-orientation='vertical'] {
   grid-template-rows: none;
   grid-template-columns: calc(240 * var(--size-1)) minmax(0, 1fr);
 }
 
-.wizard-frame[data-orientation='vertical'] .wizard-frame__rail {
+.wizard[data-orientation='vertical'] .wizard__rail {
   overflow-y: auto;
   padding: var(--space-xl) var(--space-lg);
   border-block-end: none;

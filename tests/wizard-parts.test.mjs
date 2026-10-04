@@ -2,8 +2,8 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { navProps } from '../src/composites/Wizard/WizardFrame/behavior/nav-props';
-import { stepperSteps } from '../src/composites/Wizard/WizardFrame/behavior/stepper-steps';
+import { navProps } from '../src/composites/Wizard/Wizard/behavior/nav-props';
+import { stepperSteps } from '../src/composites/Wizard/Wizard/behavior/stepper-steps';
 import { WizardNav } from '../src/composites/Wizard/WizardNav';
 import { wizardView } from '../src/composites/Wizard/wizard-view';
 import { initialWizardState } from '../src/composites/Wizard/initial-wizard-state';

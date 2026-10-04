@@ -15,7 +15,7 @@
   border-block-end: var(--border-width-thin) solid var(--c-hairline);
 }
 
-.wizard-dialog > .wizard-frame {
+.wizard-dialog > .wizard {
   flex: 1 1 auto;
   block-size: auto;
 }

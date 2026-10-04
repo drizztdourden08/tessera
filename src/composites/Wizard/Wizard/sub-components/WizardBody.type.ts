@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 import type { StepperOrientation } from '../../../../primitives/Stepper';
 
-interface WizardFrameBodyProps {
+interface WizardBodyProps {
   orientation: StepperOrientation;
   stepKey: string;
   title?: ReactNode;
@@ -12,4 +12,4 @@ interface WizardFrameBodyProps {
   className: string;
 }
 
-export type { WizardFrameBodyProps };
+export type { WizardBodyProps };

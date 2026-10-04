@@ -133,9 +133,9 @@ One line per component. 6 of 142 have their usage written; a linked name opens i
 - `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowTitleBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `Wizard`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardExitGuard`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `WizardFrame`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardReview`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardStep`: usage not written yet. Import from `@drizztdourden08/tessera`.

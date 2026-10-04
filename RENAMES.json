@@ -459,6 +459,18 @@
     },
     {
       "version": "next",
+      "components": {
+        "WizardFrameProps": "WizardProps",
+        "WizardFrame": "Wizard"
+      },
+      "cssClasses": {
+        "wizard-frame__scroll": "wizard__scroll",
+        "wizard-frame__title": "wizard__title",
+        "wizard-frame__rail": "wizard__rail",
+        "wizard-frame__main": "wizard__main",
+        "wizard-frame__head": "wizard__head",
+        "wizard-frame": "wizard"
+      },
       "props": {
         "WindowTitleBar.left": "WindowTitleBar.actions (each slot becomes an action with a label, an icon and onSelect; see MIGRATION.md section 70)"
       }

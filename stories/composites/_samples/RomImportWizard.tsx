@@ -1,6 +1,6 @@
 /* @layer stories @kind story */
 import { useCallback } from 'react';
-import { useWizard, WizardDialog, WizardFrame, WizardReview } from '../../../src/composites';
+import { useWizard, Wizard, WizardDialog, WizardReview } from '../../../src/composites';
 import type { CreateOutcome, WizardApi } from '../../../src/composites';
 import { Button, Callout, DropZone, Field, Icon, TermList, TextInput, Toggle } from '../../../src/primitives';
 import type { StepperOrientation } from '../../../src/primitives';
@@ -58,7 +58,7 @@ const RomImportWizard = (props: RomImportWizardProps) => {
   const frame = { wizard, orientation, compactProgress: compact, onExit };
   const body = <RomImportBody wizard={wizard} />;
   return open === undefined
-    ? <WizardFrame {...frame} title={title}>{body}</WizardFrame>
+    ? <Wizard {...frame} title={title}>{body}</Wizard>
     : <WizardDialog {...frame} open={open} title={title}>{body}</WizardDialog>;
 };
 

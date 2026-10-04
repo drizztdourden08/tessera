@@ -1,6 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { WizardFrame } from '../../src/composites';
+import { Wizard } from '../../src/composites';
 import { Box } from '../../src/primitives';
 import type { StepperOrientation } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -69,14 +69,14 @@ const renderState = (props: StateProps) => {
   });
   return (
     <Box className="rom-import-story rom-import-story--short">
-      <WizardFrame wizard={wizard} title="Import a ROM" onExit={() => undefined}>
+      <Wizard wizard={wizard} title="Import a ROM" onExit={() => undefined}>
         <RomImportBody wizard={wizard} />
-      </WizardFrame>
+      </Wizard>
     </Box>
   );
 };
 
-const CODE = `import { useWizard, WizardFrame } from '@drizztdourden08/tessera';
+const CODE = `import { useWizard, Wizard } from '@drizztdourden08/tessera';
 
 const STEPS = [
   {
@@ -98,16 +98,15 @@ const STEPS = [
 const NewProfile = ({ onDone }: { onDone: () => void }) => {
   const wizard = useWizard({ steps: STEPS, initialValues: EMPTY_PROFILE, onFinish: createProfile, onFinished: onDone });
   return (
-    <WizardFrame wizard={wizard} title="New profile" orientation="vertical" onExit={onDone}>
+    <Wizard wizard={wizard} title="New profile" orientation="vertical" onExit={onDone}>
       <ProfileStep wizard={wizard} />
-    </WizardFrame>
+    </Wizard>
   );
 };`;
 
 const Overview = overviewStory({
   component: 'Wizard',
-  importName: 'WizardFrame',
-  description: 'A task done in steps, such as creating a profile. useWizard holds the steps, the input, where the user is, what they have visited, the errors and the finish. Each step definition drives the whole wizard: its label and summary and sub-steps feed the Stepper, its validate and hint feed the hint in the action bar, busyHint shows while the finish runs, extra adds something of its own to the bar, and buttons changes the label or the icon of Cancel, Back and Next on that step, each on its own; on the last step Next is the finish button. WizardFrame lays it out: the Stepper on top or down the left, the step filling the rest with its own scroll, and WizardNav in a dark action bar that stays put. The step fades out while its circle fills and the next one fades in while the line runs on. A step can be hidden by a condition, Next stays off until the step is valid, and a finish that fails keeps every input and shows the error on the last step. Leaving with unsaved input asks first. WizardDialog puts the same wizard in a dialog.',
+  description: 'A task done in steps, such as creating a profile. useWizard holds the steps, the input, where the user is, what they have visited, the errors and the finish. Each step definition drives the whole wizard: its label and summary and sub-steps feed the Stepper, its validate and hint feed the hint in the action bar, busyHint shows while the finish runs, extra adds something of its own to the bar, and buttons changes the label or the icon of Cancel, Back and Next on that step, each on its own; on the last step Next is the finish button. Wizard lays it out: the Stepper on top or down the left, the step filling the rest with its own scroll, and WizardNav in a dark action bar that stays put. The step fades out while its circle fills and the next one fades in while the line runs on. A step can be hidden by a condition, Next stays off until the step is valid, and a finish that fails keeps every input and shows the error on the last step. Leaving with unsaved input asks first. WizardDialog puts the same wizard in a dialog.',
   playground: Playground,
   variants: [ProfileInScreen, StepsOnTop, Compact],
   states: {

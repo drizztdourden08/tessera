@@ -1,6 +1,6 @@
 /* @layer stories @kind story */
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { useWizard, WizardFrame } from '../../../src/composites';
+import { useWizard, Wizard } from '../../../src/composites';
 import type { CreateOutcome, WizardApi } from '../../../src/composites';
 import { Button, Icon } from '../../../src/primitives';
 import { IDLE_CONNECTION, probeConnection } from './connection-test';
@@ -77,9 +77,9 @@ const ProfileWizard = ({ failNext, onFailUsed, onCreated, onLeft }: ProfileWizar
     if (wizard.current.id !== stepId) wizard.goTo(stepId);
   };
   return (
-    <WizardFrame wizard={wizard} title="New profile" orientation="vertical" onExit={onLeft} activeSubStepId={tab} onSubStepSelect={pickTab}>
+    <Wizard wizard={wizard} title="New profile" orientation="vertical" onExit={onLeft} activeSubStepId={tab} onSubStepSelect={pickTab}>
       <StepBody wizard={wizard} tab={tab} onTab={setTab} connection={current ? connection : IDLE_CONNECTION} />
-    </WizardFrame>
+    </Wizard>
   );
 };
 

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { StepperOrientation } from '../../../primitives/Stepper';
 import type { WizardApi, WizardValues } from '../wizard.type';
 
-interface WizardFrameProps<V extends WizardValues> {
+interface WizardProps<V extends WizardValues> {
   wizard: WizardApi<V>;
   onExit: () => void;
   title?: string;
@@ -16,4 +16,4 @@ interface WizardFrameProps<V extends WizardValues> {
   children?: ReactNode;
 }
 
-export type { WizardFrameProps };
+export type { WizardProps };

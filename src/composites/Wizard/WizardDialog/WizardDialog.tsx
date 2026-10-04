@@ -2,7 +2,7 @@
 import { DialogShell } from '../../DialogShell';
 import { WizardExitGuard } from '../WizardExitGuard/WizardExitGuard';
 import { useWizardExit } from '../WizardExitGuard/behavior/useWizardExit';
-import { WizardFrameContent } from '../WizardFrame/sub-components/WizardFrameContent';
+import { WizardContent } from '../Wizard/sub-components/WizardContent';
 import type { WizardValues } from '../wizard.type';
 import type { WizardDialogProps } from './WizardDialog.type';
 import './WizardDialog.css';
@@ -17,7 +17,7 @@ const WizardDialog = <V extends WizardValues>(props: WizardDialogProps<V>) => {
   return (
     <>
       <DialogShell open={open} onClose={close} dismissable={!wizard.busy} title={title} headerExtra={headerExtra} className={`wizard-dialog${className ? ` ${className}` : ''}`}>
-        <WizardFrameContent {...frame} onCancel={exit.requestExit} showTitle={false} />
+        <WizardContent {...frame} onCancel={exit.requestExit} showTitle={false} />
       </DialogShell>
       <WizardExitGuard {...exit.guard} />
     </>
