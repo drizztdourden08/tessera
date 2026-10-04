@@ -93,14 +93,15 @@ const CODE = `import { Card, Icon, SectionHeader, StageScreen, Status, StickPlot
 
 const Overview = overviewStory({
   component: 'StageScreen',
-  description: 'One big screen for custom work with no navigation of its own: calibration, HUD layout, a map or a sprite editor. It is a ScreenWindow holding the page header every screen kind has, with the stage as its body. icon and heading are required; the header sits over the fading backdrop and compacts once the stage scrolls. toolbar sits in the header after the heading, past a divider, for a status and a few tools. done adds a primary button at the end of the header; it reads Done unless label says otherwise. The stage scrolls when its content is larger. The stage holds whatever the app draws, such as one Card per calibration step.',
-  playground: Playground,
+  description: 'One big screen for custom work the app draws itself, such as calibration, a HUD layout or a map.',
   points: [
-    'Use it when the content is one surface the app draws itself.',
-    'The example stage is built from the standard parts only: two calibration steps in Cards, one with a StickPlot and one with a ProgressBar, and a PressedGrid.',
-    'For pages the user moves between, use WorkspaceScreen. For a task the app runs with a status, use UtilityScreen.',
-    'The stage is a positioned box, so its content can place layers inside it.',
+    '`icon` and `heading` are required; the stage is the body under the page header.',
+    '`toolbar` sits in the header after the heading, for a status and a few tools.',
+    '`done` adds a primary button at the end of the header; it reads Done unless its `label` says otherwise.',
+    'The stage scrolls when its content is larger, and its content can place layers inside it.',
   ],
+  instead: '[WorkspaceScreen] for pages the user moves between, or [UtilityScreen] for a task with a status.',
+  playground: Playground,
   variants: [StageOnly],
   code: CODE,
 });

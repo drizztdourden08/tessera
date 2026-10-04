@@ -91,13 +91,16 @@ const content: WorkspaceContent = {
 
 const Overview = overviewStory({
   component: 'WorkspaceScreen',
-  description: 'The screen the user works in: a settings hub, a profile hub or a data manager. It takes one content object, the pages in their nav groups, and builds everything from it: the side nav, the page header with its icon, its title and a pill per section, the sections and their rows, and the search. Each page holds sections of SettingsRow data, or any content of its own. The page header sits over a backdrop that fades out behind the title, and it compacts once the page scrolls. The search in the side nav runs over every row of every page; while it runs, the pane shows the matches grouped by page, with the real controls, a chip for every page whose name matches and an Open page button that opens the page on the first match.',
+  description: 'The screen the user works in, such as a settings hub or a data manager: a side list of pages and the current page.',
   points: [
-    'The screen owns the current page and the query unless activeId or search.query are given.',
-    'Every page has the page header, so every page needs an icon and a title. A screen without the header is a custom screen built from ScreenWindow. backdrop={null} drops the fading art.',
-    'compactRows and readOnly reach every row on every page and in the search results.',
-    'For About or credits, use InfoScreen. For one short task with a status, use UtilityScreen. For one big custom surface, use StageScreen.',
+    '`content` holds the pages in nav groups; the screen builds the nav, the headers and the search from it.',
+    'Each page holds sections of [SettingsRow] data, or any content of its own.',
+    'The search runs over every row of every page and shows the matches by page, with their live controls.',
+    'The screen owns the current page and the query unless `activeId` or `search.query` are given.',
+    'Every page needs an icon and a title for its header; `backdrop={null}` drops the fading art.',
+    '`compactRows` and `readOnly` reach every row, in the pages and in the search results.',
   ],
+  instead: '[InfoScreen] for About or credits, [UtilityScreen] for one short task, [StageScreen] for one custom surface.',
   playground: Playground,
   variants: [Searching, CompactRows, ReadOnly, Narrow],
   code: CODE,

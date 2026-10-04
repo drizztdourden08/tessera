@@ -122,14 +122,16 @@ const CODE = `import { Field, Icon, Select, Strong, Toggle, UtilityScreen } from
 
 const Overview = overviewStory({
   component: 'UtilityScreen',
-  description: 'A screen for one short task the app runs for the user, such as checking for updates, importing a file or testing a connection. It is a compact ScreenWindow centred over the app, sized to its content up to a readable width, and it holds the page header every screen kind has. The header is the status: a spinner while the task runs or an icon by tone, then the status title, over the fading backdrop. Under it the message sits centred, such as the version line. settings holds the choices that shape the task, such as a toggle for pre-releases and a picker for the version to install. The children are the details, such as a warning. notes is a framed box with a tinted title and its own scroll, for release notes or a log. progress is a bar with its percent under it. The footer stays in view: a red bug button to report an issue on the left, and the buttons on the right, main action last.',
-  playground: Playground,
+  description: 'A compact screen for one short task the app runs, such as checking for updates, importing a file or testing a connection.',
   points: [
-    'The status title and the message are live regions: a screen reader reads each new one.',
-    'Tones: busy shows a spinner; info, success, warning and danger show their icon and colour. status.icon swaps the icon, such as a download arrow for an update.',
-    'report adds one ghost icon button in the danger tone, with a bug icon, Report an issue as its name and the same words in a tooltip.',
-    'For a question with two answers, use Dialog. For pages with a side list, use WorkspaceScreen.',
+    '`status` fills the header: a spinner while `busy`, or the icon and colour of its tone, with a title.',
+    '`settings` holds the choices that shape the task; the children hold details such as a warning.',
+    '`notes` is a framed box with its own scroll, for release notes or a log; `progress` adds a bar.',
+    '`actions` sit at the right of the footer, main action last; `report` adds a bug button on the left.',
+    'The status title and the message are live regions, so a screen reader reads each new one.',
   ],
+  instead: '[Dialog] for a question with two answers, or [WorkspaceScreen] for pages with a side list.',
+  playground: Playground,
   variants: [Checking, Downloading, Failed],
   code: CODE,
 });

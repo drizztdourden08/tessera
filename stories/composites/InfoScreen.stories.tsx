@@ -94,13 +94,16 @@ const CODE = `import { FactsPanel, Icon, InfoScreen, Logo } from '@drizztdourden
 
 const Overview = overviewStory({
   component: 'InfoScreen',
-  description: 'A screen the user reads: About, credits, a licence or a welcome. It is a ScreenWindow holding the page header every screen kind has: icon and heading are required, and the header sits over the fading backdrop and compacts once the column scrolls. Under it, wide margins and one centred column that scrolls. lead sits at the top of the column, centred, for a logo, a wordmark or a hero. The children are the sections, spaced well apart. footer closes the column with small dim text above a hairline, for legal text. width="readable" keeps lines short; width="wide" fits a grid of cards, as credits need. An About screen puts the app name in heading, the logo in lead and the build facts in a FactsPanel.',
-  playground: Playground,
+  description: 'A screen the user reads, such as About, credits, a licence or a welcome: one centred column under the page header.',
   points: [
-    'Use it when the user reads and does not change anything.',
-    'For settings and pages with a side list, use WorkspaceScreen. For a task with a status and actions, use UtilityScreen.',
-    'The column keeps the same margins at every size, down to the tiny room where the card fills the layer.',
+    '`icon` and `heading` are required; the header compacts once the column scrolls.',
+    '`lead` sits centred at the top of the column, for a logo, a wordmark or a hero.',
+    'The children are the sections; `footer` closes the column with small text, for legal lines.',
+    '`width="readable"` keeps lines short; `width="wide"` fits a grid of cards, as credits need.',
+    'An About screen puts the build facts in a [FactsPanel].',
   ],
+  instead: '[WorkspaceScreen] for settings and pages with a side list, or [UtilityScreen] for a task with a status.',
+  playground: Playground,
   variants: [Credits],
   code: CODE,
 });

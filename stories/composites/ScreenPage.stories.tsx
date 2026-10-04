@@ -85,13 +85,17 @@ const CODE = `import { Icon, ScreenPage, ScreenWindow } from '@drizztdourden08/t
 
 const Overview = overviewStory({
   component: 'ScreenPage',
-  description: 'A building block: the page header container that every screen kind shows. It is a card with a header line, a glowing icon and a title over a backdrop that fades out behind the title, and a body that scrolls under it. Once the body scrolls, the header compacts in place; compact holds either look. WorkspaceScreen shows one per page, through SettingsPage; InfoScreen, UtilityScreen and StageScreen show one around their content. None of them can turn it off: a screen without the header is a custom screen built from ScreenWindow. strip holds a few controls after the title, actions sit at the far end, and footer is a row under the body that stays in view.',
-  playground: Playground,
+  description: 'The page header every screen kind shows: an icon and a title over a fading backdrop, then a body that scrolls.',
   points: [
-    'icon and title are required; with either missing it warns in development.',
-    'Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header.',
-    'scroll={false} leaves the scrolling to the content, and the header then stays full size.',
+    '`icon` and `title` are required; with either missing it warns in development.',
+    'The header compacts once the body scrolls; `compact` holds either look.',
+    '`strip` holds a few controls after the title and `actions` sit at the far end.',
+    '`footer` is a row under the body that stays in view.',
+    'Leave `backdrop` out for the default art, pass a scene of your own, or `null` for a plain header.',
+    '`scroll={false}` leaves the scrolling to the content, and the header stays full size.',
   ],
+  instead: '[ScreenWindow] for a custom screen with no page header.',
+  playground: Playground,
   variants: [Plain],
   states: {
     render: renderState,
