@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { Button } from '../../primitives/Button';
 import { Text } from '../../primitives/Text';
@@ -25,7 +25,6 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
   } = useCreateFormState({
     initialRecord, requiredPaths, open, onCreate,
   });
-  const createRef = useRef<HTMLButtonElement>(null);
   const { common, records } = useTesseraStrings();
 
   const groups = useMemo(() => layoutGroups(schema, records, config), [schema, records, config]);
@@ -54,14 +53,14 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
   const actions = (
     <>
       <Button variant="tertiary" onClick={onCancel}>{common.cancel}</Button>
-      <Button ref={createRef} variant="primary" disabled={!isComplete} loading={saving} onClick={submit}>
+      <Button variant="primary" disabled={!isComplete} loading={saving} onClick={submit}>
         {common.create}
       </Button>
     </>
   );
 
   return (
-    <DialogShell open={open} onClose={onCancel} title={title} actions={actions} initialFocusRef={createRef}>
+    <DialogShell open={open} onClose={onCancel} title={title} actions={actions}>
       <Box className="create-record-dialog">
         {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{records.noFieldsToFill}</Text>}
         {groups.map((group) => (

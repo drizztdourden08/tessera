@@ -24,18 +24,28 @@ const Dialog = (props: DialogProps) => {
   } = props;
 
   const confirmRef = useRef<HTMLButtonElement>(null);
+  const cancelRef = useRef<HTMLButtonElement>(null);
+  const danger = variant === 'danger';
+  const start = danger ? { ref: cancelRef, mode: 'dialog' as const } : { ref: confirmRef, mode: 'first' as const };
 
   const actions = (
     <>
-      {!hideCancel && <Button variant="tertiary" onClick={onCancel}>{cancelLabel}</Button>}
-      <Button ref={confirmRef} variant={variant === 'danger' ? 'danger' : 'primary'} onClick={onConfirm} disabled={confirmDisabled}>
+      {!hideCancel && <Button ref={cancelRef} variant="tertiary" onClick={onCancel}>{cancelLabel}</Button>}
+      <Button ref={confirmRef} variant={danger ? 'danger' : 'primary'} onClick={onConfirm} disabled={confirmDisabled}>
         {confirmLabel}
       </Button>
     </>
   );
 
   return (
-    <DialogShell open={open} onClose={onCancel} title={title} actions={actions} initialFocusRef={confirmRef}>
+    <DialogShell
+      open={open}
+      onClose={onCancel}
+      title={title}
+      actions={actions}
+      initialFocusRef={start.ref}
+      initialFocus={start.mode}
+    >
       {message && <Paragraph tone="dim" className="dialog__message">{message}</Paragraph>}
       {children}
     </DialogShell>

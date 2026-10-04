@@ -12,7 +12,7 @@ export { ConfirmIconButton } from './ConfirmIconButton';
 export type { ConfirmIconButtonPlacement, ConfirmIconButtonProps } from './ConfirmIconButton';
 export { Dialog } from './Dialog';
 export { DialogShell } from './DialogShell';
-export type { DialogShellProps } from './DialogShell';
+export type { DialogInitialFocus, DialogShellProps } from './DialogShell';
 export {
   Wizard, WizardDialog, WizardExitGuard, WizardNav, WizardReview, WizardStep, useWizard, useWizardExit,
 } from './Wizard';

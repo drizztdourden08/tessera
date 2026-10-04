@@ -113,7 +113,7 @@ const Overview = overviewStory({
   description: 'A dialog where the user fills in a new record, with the same fields as [RecordEditor].',
   points: [
     'Give it a `schema`, an `initialRecord` and the `requiredPaths` that must hold a value.',
-    'Create stays locked until every required field is filled.',
+    'Focus starts in the first field; Create stays locked until every required field is filled.',
     '`onCreate` saves the record while a [Spinner] takes the place of Create.',
     'A refused save shows its error in the dialog; a saved one calls `onCreated` with the new id.',
   ],

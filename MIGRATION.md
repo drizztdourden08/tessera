@@ -3171,3 +3171,28 @@ interface SearchResultsProps { emptyIcon?: ReactNode }
 2. Drop the caption written beside a ProgressBar; pass `showValue`, with `formatValue` for "12 / 40".
 3. Build an empty screen from one `<EmptyState size="hero" title message action hint />` in place of a hand-made layout.
 4. Pass the icon of an empty search as `emptyIcon` in place of a wrapping Box.
+
+## 120. Dialogs move focus in, keep Tab inside and give focus back
+
+From the UX review (ux-56). Focus stayed on the button behind a dialog, Tab walked out of it, focus was lost on close, and a danger dialog started on its destructive button, so Enter deleted.
+
+- **Focus moves in on open.** DialogShell focuses `initialFocusRef` when it can take focus, else the first control of the body or actions (the header close button is skipped), else the panel itself. A control in the body that focuses itself on open, such as a wizard step heading, keeps it.
+- **Tab stays inside.** Tab on the last control goes to the first, Shift+Tab on the first goes to the last, and focus that lands on the page behind comes back. Popups the dialog opens through a Portal, such as a Select list, are not pulled back.
+- **Focus returns on close** to the control that had it before the dialog opened, unless the app moved focus elsewhere or that control is gone.
+- **Only the top dialog closes on Escape**, so the exit guard of a WizardDialog closes alone and the wizard stays open under it.
+- **Dialog with `variant="danger"` starts on Cancel**, or on the panel when `hideCancel` is set. A default Dialog still starts on confirm. CreateRecordDialog starts in its first field, since Create is locked until the form is complete. DeleteGuardDialog starts on Cancel.
+- A native `<dialog>` opened with `showModal()` gives focus in, an inert page and focus return, but it sits in the top layer, above the Portal layers, so a Select, menu or tooltip opened from inside it would draw under it and be inert. DialogShell keeps its Portal and does the focus work itself.
+
+```ts
+type DialogInitialFocus = 'first' | 'dialog';
+
+interface DialogShellProps {
+  // added
+  initialFocus?: DialogInitialFocus; // default 'first'
+}
+```
+
+### What an app does
+
+1. Nothing for most dialogs. Remove any app code that focused a field after opening a DialogShell, unless it picks a field other than the first; pass `initialFocusRef` for that.
+2. A dialog whose body has no control and should not start on an action passes `initialFocus="dialog"`.

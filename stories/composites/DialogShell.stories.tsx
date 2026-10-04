@@ -114,7 +114,9 @@ const Overview = overviewStory({
   points: [
     'Pass your own body as children and your buttons as `actions`.',
     'It closes on [[Esc]], on the close button and on a click on the backdrop.',
-    '`headerExtra` adds content to the header; `initialFocusRef` picks what takes focus on open.',
+    'Focus moves in on open: `initialFocusRef`, else the first control of the body, or the panel itself.',
+    '[[Tab]] and [[Shift+Tab]] stay inside, and on close focus returns to the control that opened it.',
+    '`initialFocus="dialog"` starts on the panel; `headerExtra` adds content to the header.',
     '**Set `dismissable` to false while a save runs:** then only its own `actions` can close it.',
   ],
   instead: '[Dialog] for one question with confirm and cancel.',

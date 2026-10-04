@@ -99,6 +99,7 @@ const Overview = overviewStory({
     '**Open it only when the delete finds references:** with none, delete at once.',
     '`hits` lists what points at the record, grouped, above Delete anyway and Cancel.',
     'When a confirmed delete is refused, pass `error` and it takes the place of the list.',
+    'Focus starts on Cancel, so [[Enter]] on open never deletes.',
   ],
   playground: Playground,
   variants: [AllVariants],

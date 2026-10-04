@@ -141,7 +141,7 @@ const Overview = overviewStory({
     'Use it to confirm an action, to acknowledge a notice, or to hold a short form in its body.',
     '`variant="danger"` turns confirm red, for an action that cannot be undone.',
     '`confirmDisabled` holds confirm until the body is valid; `hideCancel` leaves confirm alone.',
-    'Focus starts on confirm, and [[Esc]] cancels.',
+    'Focus starts on confirm, or on cancel for `danger`, so [[Enter]] never deletes by accident; [[Esc]] cancels.',
   ],
   instead: '[DialogShell] for a dialog whose body and buttons are your own.',
   playground: Playground,
