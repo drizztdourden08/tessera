@@ -116,7 +116,14 @@ const CODE = `import { PressedGrid } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'PressedGrid',
-  description: 'A grid of cells, one per button, that light up in the primary colour while their button is held. items lists the buttons in order, each with an id, a label, a title for the tooltip and an InputIcon; pressed lists the ids held right now. Set family to xbox, playstation, switch, gamecube, snes, generic or keyboard and each cell draws the InputIcon of that family on its own: the ids are SDL button names (a, b, dpup, leftshoulder and so on, a being the bottom face button) or, for keyboard, KeyboardEvent.code values. An icon set on the item wins over the family match, and a cell with no icon shows its label or id. The host reads the device and passes plain ids, so the same grid serves a gamepad, a keyboard or any other set of switches. Cells keep a minimum width and wrap to fill the row, and a long label ends in an ellipsis.',
+  description: 'A grid of cells, one per button, that light up while their button is held, to test a gamepad or a keyboard.',
+  points: [
+    '`items` lists the buttons in order; `pressed` lists the ids held right now.',
+    '`family` picks the [InputIcon] set, such as `xbox`, `playstation` or `keyboard`, for every cell.',
+    'Ids are SDL button names, or `KeyboardEvent.code` values for a keyboard.',
+    'An `icon` on an item wins over the family; a cell with no icon shows its label.',
+    'The host reads the device and passes plain ids, so any set of switches fits.',
+  ],
   playground: Playground,
   variants: [Live, Families, Keyboard, FaceButtons, LongLabels],
   states: {

@@ -63,7 +63,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'KeyboardLayout',
-  description: 'A full-size US keyboard drawn from data: the function row, the main block with its real key widths, the navigation and arrow clusters and the keypad with its tall plus and Enter. Keys take the same names as Shortcut, so a combination lights the same way it is written. highlight draws keys in the primary colour, and pressed moves them down as a held key. A bare modifier such as ctrl lights both sides; ctrl-left or shift-right picks one. A shifted character such as ! lights its key. size="tenkeyless" drops the keypad. onKeyRects reports where every key sits, which is how ShortcutTour aims its camera.',
+  description: 'A full-size US keyboard drawn from data, with keys lit or pressed, to show where a shortcut sits.',
+  points: [
+    'Keys take the same names as [Shortcut], so a combination lights the way it is written.',
+    '`highlight` lights keys in the primary colour; `pressed` moves them down as held.',
+    '`ctrl` lights both sides; `ctrl-left` or `shift-right` picks one.',
+    '`size="tenkeyless"` drops the keypad.',
+    '`onKeyRects` reports where every key sits, which is how [ShortcutTour] aims its camera.',
+  ],
   playground: Playground,
   variants: [Tenkeyless],
   states: {

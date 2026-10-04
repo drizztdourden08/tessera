@@ -117,7 +117,13 @@ const CODE = `import { StickPlot } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'StickPlot',
-  description: 'Where an analog stick points, as a dot on a round plot with its value under it. x and y run from -1 to 1, with y down as a gamepad reports it. The host does the reading and the maths and passes plain numbers. innerDeadzone shades the middle where the stick reads zero and dims the dot inside it; outerDeadzone shades the rim past which it reads full. range outlines the travel measured while calibrating and center marks the recorded rest point. size lg draws it larger for a calibration panel.',
+  description: 'Where an analog stick points, as a dot on a round plot with its value under it.',
+  points: [
+    '`x` and `y` run from -1 to 1, with `y` down as a gamepad reports it; the host passes plain numbers.',
+    '`innerDeadzone` shades the middle where the stick reads zero; `outerDeadzone` shades the rim.',
+    '`range` outlines the travel measured while calibrating, and `center` marks the rest point.',
+    '`size="lg"` draws it larger, for a calibration panel.',
+  ],
   playground: Playground,
   variants: [Live, TwoSticks, Calibration],
   states: {

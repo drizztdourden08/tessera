@@ -67,7 +67,14 @@ const NoZoomOut = tourStory('No zoom out', ['alt', 'F4'], undefined, false);
 
 const Overview = overviewStory({
   component: 'ShortcutTour',
-  description: 'A short visual lesson for a shortcut. A framed keyboard sits behind a camera that zooms onto the first key and presses it, then travels to the next key and presses it once it arrives, holding the earlier keys the way a real combination is held. With zoomOut on, it then pulls back to show every key of the combination at once and presses them together, releases, and starts again. A mouse button joins the walk as the last step, with its pressed part lit in the primary colour. The press look is the one Shortcut uses. With reduced motion the camera stands still on the whole combination, pressed.',
+  description: 'A short visual lesson for a shortcut: a camera walks a keyboard and presses each key in turn.',
+  points: [
+    '`keys` lists the combination; earlier keys stay held the way a real combination is held.',
+    'It then pulls back, presses every key at once and starts again; `zoomOut` and `loop` turn those off.',
+    '`mouse` adds a mouse button as the last step.',
+    'With reduced motion the camera stands still on the whole combination, pressed.',
+  ],
+  instead: '[KeyboardLayout] to show the keys without the camera walk.',
   playground: Playground,
   variants: [Save, Palette, WithMouse, NoZoomOut],
 });
