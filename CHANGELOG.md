@@ -1,5 +1,17 @@
 # @drizztdourden08/tessera
 
+## 0.15.0
+
+### Minor Changes
+
+- 1799a34: Four chart parts for panels that update every second: Sparkline draws the latest samples as a line or an area with an optional threshold band and a dot on the latest sample; Gauge is a small round meter whose tone follows its zone; StatTile holds a headline number with its unit, a delta with a trend arrow and a chart; StackedBar splits one bar into parts with tooltips, a legend and an Other part past a limit.
+- 0365b65: Every mascot plays the same ten clips: idle, move, jump, wave, scan, happy, alert, point, blink and link. Sentri gains point, blink and link (a spark that hops pixel by pixel up one edge of the pyramid and down the other, from pod to pod), and Flint gains link (a spark thrown over its head from hand to hand through its glowing chip). One type, `MascotClip`, and one list, `MASCOT_CLIPS`, replace `SentriAnimation`, `FlintAnimation` and `PelagoAnimation`. A mascot's motion can add `effects`: pieces the moving mascot draws hidden until a clip fades them in.
+- bbe24f9: Widgets from hands-on testing in Brock: a floating widget resizes from every edge and corner, between `floatingMin` (160 by 96 pixels by default) and the main view it floats over; the WidgetOptions panel closes on a press anywhere outside it, on Escape (innermost first), when focus leaves it and when the window loses focus; every widget body scrolls with the slim ScrollArea and keeps a gutter for the thumb, so it never covers text; the drag hint is a compact one line card at full opacity beside the pointer, kept on screen, and WindowGuideOverlay takes `pointer` to sit beside the pointer too. Window groups are removed: the Window group row of WidgetOptions, the Window group sub-menu of the WindowTitleBar View menu, their props, the `WindowGroup` and `WindowTitleBarGroup` types and their strings.
+
+### Patch Changes
+
+- 097865d: DropdownMenu sub-menus join their parent the same way at every level: level with the open row's top, else its bottom, else on the row, always a gap apart with the tunnel only at the open row. They no longer line up with the parent menu's own edges and merge into it.
+
 ## 0.14.0
 
 ### Minor Changes

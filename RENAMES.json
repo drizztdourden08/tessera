@@ -606,7 +606,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.15.0",
       "components": {
         "SentriAnimation": "MascotClip",
         "FlintAnimation": "MascotClip",
