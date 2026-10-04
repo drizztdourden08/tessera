@@ -69,6 +69,7 @@ interface PathFieldView {
   drop: PathDrop;
   words: { placeholder: string; drop: string; problem: string | null };
   inputId: string | undefined;
+  labelId: string | undefined;
   describedBy: string | undefined;
   problemId: string;
   setFocused: (focused: boolean) => void;

@@ -190,3 +190,9 @@ export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,
   ActionTileToolRun, ActionTileVariant,
 } from './ActionTile';
+export { KeyValueEditor } from './KeyValueEditor';
+export type { KeyValueEditorProps, KeyValueEntry, KeyValueKind, KeyValueRecord } from './KeyValueEditor';
+export { FormRow } from './FormRow';
+export type { FormRowProps } from './FormRow';
+export { FormGroupTabs } from './FormGroupTabs';
+export type { FormGroupTab, FormGroupTabsProps } from './FormGroupTabs';

@@ -21,6 +21,7 @@ const usePathField = (props: PathFieldProps): PathFieldView => {
     ...flags, kind, drop, problemId, setFocused,
     words: pathFieldWords(useTesseraStrings(), props, drop.problem),
     inputId: control.id,
+    labelId: control.labelId,
     describedBy: [control.describedBy, drop.problem ? problemId : undefined].filter(Boolean).join(' ') || undefined,
     change: (text) => { drop.clearProblem(); set(text || null); },
     clear: () => { drop.clearProblem(); set(null); },

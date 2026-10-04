@@ -63,6 +63,9 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     TagInput: 'tag', TagPicker: 'tags', ColorSwatch: 'paint-bucket',
     DropZone: 'upload', Field: 'form-input', FieldControlBoundary: 'square-dashed',
     PathField: 'folder-input',
+    JsonInput: 'braces',
+    NamedRange: 'list-ordered',
+    SetPicker: 'list-checks',
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Toast: 'bell', Tooltip: 'message-square',
@@ -102,8 +105,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     ActionTile: 'square-activity',
     CopyValue: 'copy',
   },
-  'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
-  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x' },
+  'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus' },
+  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban' },
   'Composites · Input devices': {
     PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },

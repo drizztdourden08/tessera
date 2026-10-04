@@ -10,6 +10,7 @@ import { FILTER_STRINGS } from './filters-strings.constants';
 import { ITEM_STRINGS } from './items-strings.constants';
 import { LIST_STRINGS } from './lists-strings.constants';
 import { NAVIGATION_STRINGS } from './navigation-strings.constants';
+import { OPTION_STRINGS } from './options-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
 import { PASSWORD_STRINGS } from './password-strings.constants';
 import { PATH_STRINGS } from './paths-strings.constants';
@@ -45,6 +46,7 @@ const TESSERA_STRINGS = {
   items: ITEM_STRINGS,
   lists: LIST_STRINGS,
   paths: PATH_STRINGS,
+  options: OPTION_STRINGS,
 };
 
 export { TESSERA_STRINGS };

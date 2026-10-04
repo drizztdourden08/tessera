@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 31 of 168 have their usage written; a linked name opens its page.
+One line per component. 37 of 174 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -38,7 +38,9 @@ One line per component. 31 of 168 have their usage written; a linked name opens 
 - `IconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Image`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `InputIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [JsonInput](components/JsonInput.md): JSON typed over the code highlighting of CodeBlock, checked as the user types, with the problem, its line and its column, and Format. Import from `@drizztdourden08/tessera`.
 - `Link`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [NamedRange](components/NamedRange.md): A number from a range whose common values have names: the names as joined buttons, then Custom for any other number. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `NumberStepper`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -58,6 +60,7 @@ One line per component. 31 of 168 have their usage written; a linked name opens 
 - `SectionHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SegmentedControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Select`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [SetPicker](components/SetPicker.md): Several choices from a long list: the chosen ones as removable tags, a search, and a checklist that scrolls. Import from `@drizztdourden08/tessera`.
 - `Shortcut`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ShortcutList](components/ShortcutList.md): A list of keys, clicks and drags and what each one does, with the keys in one column and the descriptions in the next. Import from `@drizztdourden08/tessera`.
 - `Slider`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -117,6 +120,8 @@ One line per component. 31 of 168 have their usage written; a linked name opens 
 - [FileList](components/FileList.md): The files a job made or an app keeps, one row each with its type icon, name, size and date, and buttons to open it or show it in its folder. Import from `@drizztdourden08/tessera`.
 - `FilterBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [FormGroupTabs](components/FormGroupTabs.md): The top of a long form split into groups: a search over the options, Show advanced, and a tab per group with how many options changed. Import from `@drizztdourden08/tessera`.
+- [FormRow](components/FormRow.md): One option of a long form: its name and help on the left, its control in the middle, a changed mark and a reset at the end. Import from `@drizztdourden08/tessera`.
 - `GroupTree`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -125,6 +130,7 @@ One line per component. 31 of 168 have their usage written; a linked name opens 
 - [ItemCard](components/ItemCard.md): One item of a catalogue as a card: media, a small line above the title, a status, the title, tags, details and its actions. Import from `@drizztdourden08/tessera`.
 - [JobDialog](components/JobDialog.md): A long job in a dialog: its TaskProgress, with Cancel and Hide while it runs and Close once it ends. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [KeyValueEditor](components/KeyValueEditor.md): A map of names to values, row by row: a name, a value control and Remove, then an add row, with a check for names listed twice. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `LogPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ManagedList](components/ManagedList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.

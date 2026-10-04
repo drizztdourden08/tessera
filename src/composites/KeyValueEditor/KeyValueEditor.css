@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind style */
+.key-value-editor {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.key-value-editor__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.key-value-editor__row,
+.key-value-editor__add {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.key-value-editor__key {
+  flex: 1;
+  min-inline-size: 0;
+}

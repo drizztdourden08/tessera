@@ -96,6 +96,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'VolumeControl', summary: 'A mute button beside a volume slider, with the icon following the level.' },
         { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
         { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
+        { name: 'KeyValueEditor', summary: 'A map of names to values, row by row, with a duplicate check and an add row.' },
       ],
     },
     {
@@ -104,6 +105,8 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'InlineCreateForm', summary: 'A name field that creates one thing in place, boxed or on one line.' },
         { name: 'RecordEditor', summary: 'Edits one record, form derived from its schema.' },
         { name: 'ValidationSummary', summary: 'What blocks a save, each problem a link to its field, the rest under and N more.' },
+        { name: 'FormRow', summary: 'One option of a long form: name and help, its control, changed mark and reset.' },
+        { name: 'FormGroupTabs', summary: 'The top of a long form in groups: search, Show advanced and tabs with counts.' },
       ],
     },
     {

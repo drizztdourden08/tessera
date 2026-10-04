@@ -29,12 +29,16 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - A number stepped up or down: no component yet.
     - Text that follows a pattern: no component yet.
     - Free words, as tags: no component yet.
+    - Structured data, as JSON: [JsonInput](components/JsonInput.md). JsonInput checks JSON as it is typed and only hands on a value that parses, the same way in every app.
     - A command, with its history: [CommandInput](components/CommandInput.md). CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear.
   - One choice. **How many options are there?**
     - A few, all in view: no component yet.
     - Many, in a list: no component yet.
     - Many, found by typing: no component yet.
   - Several choices: no component yet.
+  - Several choices from a long list: [SetPicker](components/SetPicker.md). SetPicker shows what is chosen on top and searches the rest, the same way in every app.
+  - A number with named steps: [NamedRange](components/NamedRange.md). NamedRange puts the named values first and a number second, the same way in every app.
+  - Pairs of a name and a value: [KeyValueEditor](components/KeyValueEditor.md). KeyValueEditor edits a map row by row and holds it back while it has a duplicate, the same way in every app.
   - On or off. **When does the change apply?**
     - At once: no component yet.
     - When the form is sent: no component yet.
@@ -50,6 +54,8 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Create one in a dialog: no component yet.
   - Several settings, behind one button: [ControlMenu](components/ControlMenu.md). ControlMenu keeps several small settings one click away without a page or a dialog.
   - The label and help around an input: no component yet.
+  - One option in a long form, with a reset: [FormRow](components/FormRow.md). FormRow lays out the name, the control, the changed mark and the reset of an option the same way in every app.
+  - A long form split into tabs: [FormGroupTabs](components/FormGroupTabs.md). FormGroupTabs shows where the changes are in a long form and how to find an option, the same way in every app.
 - A status, a count or a label. **What does it show?**
   - The state something is in: [Status](components/Status.md). Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen.
   - A count, or a dot for news: no component yet.

@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.set-picker-story {
+  inline-size: var(--size-512);
+  max-inline-size: 100%;
+}

@@ -39,6 +39,7 @@ const VALUES = {
       answers: {
         'one line of text': null, 'several lines of text': null, 'a number typed in': null,
         'a number stepped up or down': null, 'text that follows a pattern': null, 'free words, as tags': null,
+        'structured data, as JSON': null,
         'a command, with its history': null,
       },
     },
@@ -47,6 +48,7 @@ const VALUES = {
       answers: { 'a few, all in view': null, 'many, in a list': null, 'many, found by typing': null },
     },
     'several choices': null,
+    'several choices from a long list': null, 'a number with named steps': null, 'pairs of a name and a value': null,
     'on or off': {
       question: 'When does the change apply?',
       answers: { 'at once': null, 'when the form is sent': null },
@@ -64,6 +66,7 @@ const VALUES = {
     },
     'several settings, behind one button': null,
     'the label and help around an input': null,
+    'one option in a long form, with a reset': null, 'a long form split into tabs': null,
   },
 } as const;
 

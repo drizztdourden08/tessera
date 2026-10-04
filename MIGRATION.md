@@ -4450,3 +4450,118 @@ interface StatRowProps {
 
 1. An import of `CopyButton`, `CopyValue` or their types from `@drizztdourden08/tessera/primitives` moves to `@drizztdourden08/tessera/composites`, or to the root.
 2. An app part that copies with its own `navigator.clipboard` call and its own Copied state uses `CopyButton`, `CopyValue` or `useCopy` instead.
+
+## 166. Option inputs: JsonInput, KeyValueEditor, NamedRange, SetPicker, FormRow and FormGroupTabs
+
+From the Archipelia review (tessera-14, tessera-15, ux-70, archipelia-39), as decided by the owner (T-23), who asked that the JSON field be built on the code block and check that the JSON is valid. The preset editor of Archipelia drew a long schema driven form in app code: a row frame with a changed mark, a reset and an advanced toggle, group tabs, a named range, a counter of items and a set picker, and dict options fell back to a raw JSON textarea that parsed on every key press, where one typo broke the value.
+
+`JsonInput`, `NamedRange` and `SetPicker` are new primitives under Primitives · Inputs; `KeyValueEditor` is a new composite under Composites · Inputs, and `FormRow` and `FormGroupTabs` new ones under Composites · Forms.
+
+- **JsonInput.** A textarea over the code highlighting of `CodeBlock` (language json, wrapped lines), so the text keeps its colours while it is typed; the field grows with its text. Each change is checked by a JSON reader that knows where and why it stops: Expected ',' or '}' after the value, Expected a key in double quotes, Expected ':' after the key, Remove the comma before the end, The text has no closing quote, Not a valid number, Unexpected text after the end, and more. The message under the field gives the line and column, such as on line 2, column 41, the textarea is marked invalid and that line is tinted. `onChange` gets the parsed value only while the text parses, so the saved value never holds a typo; `onProblem` reports the problem, or null, so a form can hold its Save. `shape` asks for an `object` or an `array`. Format rewrites valid text with `indent` spaces (2) and is off while the text does not parse or is already tidy. `defaultText` starts from a saved draft. A new value from outside replaces the text.
+- **KeyValueEditor.** A row per name: the name as a Combobox of `keys`, or a TextInput without them, a value control from `valueKind` (`count` a NumberStepper, `number`, `text` or `select` with `options`, held by `min` and `max`) and a danger Remove. The add row searches the keys not used yet, or takes a typed name, and Add puts a new row at the end at `newValue` (1 for a count). An empty name, a name listed twice or a name not in `keys` marks its rows and shows an alert (Bombs (10) is listed twice.), and `onChange` waits until it is fixed.
+- **NamedRange.** The `names` of a number as joined buttons, each with its value (Normal (50)), then Custom, which opens a NumberStepper held between `min` and `max` with the range beside it (0 to 99). A value that matches no name opens on Custom; `showValues` leaves the numbers off the names.
+- **SetPicker.** The chosen `value` as removable tags, a search named after the number of `options`, and a checklist 192 pixels tall that scrolls; the value keeps the order of the options.
+- **FormRow.** The `label` (semibold) with an `advanced` tag and a `changed` dot, the `description` under it, the control in the middle with `problem` as an alert under it, and a reset button named Reset and the label that calls `onReset` and is off until `changed`. The control gets the id, label, notes and invalid state of the row through the field context, as inside a Field. Under 640 pixels the control goes under the name.
+- **FormGroupTabs.** A search (`query`, `onQueryChange`), Show advanced (`advanced`, `onAdvancedChange`, `advancedCount`) and Tabs whose labels read the group and how many options changed (Game Options · 3 changed), with the option count as the badge.
+- JsonInput, NamedRange, SetPicker and KeyValueEditor are named by the label of their Field or FormRow through `aria-labelledby` when they have no `aria-label`, and the controls inside a group no longer take the id of the Field.
+
+```ts
+type JsonShape = 'object' | 'array' | 'any';
+
+interface JsonInputProps {
+  value: unknown;
+  onChange: (value: unknown) => void; // only while the text parses
+  onProblem?: (problem: JsonProblem | null) => void;
+  shape?: JsonShape; // default 'any'
+  defaultText?: string;
+  indent?: number; // default 2
+  readOnly?: boolean;
+  disabled?: boolean;
+  invalid?: boolean;
+  id?: string;
+  'aria-label'?: string;
+  'aria-describedby'?: string;
+  className?: string;
+}
+
+interface JsonProblem { reason: JsonReason; offset: number; line: number; column: number; message: string }
+
+type KeyValueKind = 'count' | 'number' | 'text' | 'select';
+type KeyValueEntry = string | number;
+
+interface KeyValueEditorProps {
+  value: Readonly<Record<string, KeyValueEntry>>;
+  onChange: (value: Record<string, KeyValueEntry>) => void;
+  keys?: readonly string[];
+  valueKind?: KeyValueKind; // default 'count'
+  options?: readonly string[];
+  min?: number;
+  max?: number;
+  newValue?: KeyValueEntry;
+  keyLabel?: string;
+  addPlaceholder?: string;
+  empty?: ReactNode;
+  disabled?: boolean;
+  'aria-label'?: string;
+  className?: string;
+}
+
+interface NamedRangeProps {
+  value: number;
+  onChange: (value: number) => void;
+  names: readonly { label: string; value: number }[];
+  min: number;
+  max: number;
+  step?: number;
+  showValues?: boolean; // default true
+  customLabel?: string;
+  disabled?: boolean;
+  size?: ControlSize;
+  'aria-label'?: string;
+  className?: string;
+}
+
+interface SetPickerProps {
+  options: readonly string[];
+  value: readonly string[];
+  onChange: (value: string[]) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  'aria-label'?: string;
+  className?: string;
+}
+
+interface FormRowProps {
+  label: string;
+  description?: ReactNode;
+  changed?: boolean;
+  advanced?: boolean;
+  problem?: ReactNode;
+  onReset?: () => void;
+  id?: string;
+  children: ReactNode;
+  className?: string;
+}
+
+interface FormGroupTabsProps {
+  tabs: readonly { id: string; label: string; count: number; changed?: number }[];
+  activeTab: string;
+  onTabChange: (id: string) => void;
+  query?: string;
+  onQueryChange?: (query: string) => void;
+  searchPlaceholder?: string;
+  advanced?: boolean;
+  onAdvancedChange?: (shown: boolean) => void;
+  advancedCount?: number;
+  className?: string;
+}
+```
+
+| Before | Now |
+|---|---|
+| | new strings group `options`: the JSON summaries and problems (`jsonObject`, `jsonArray`, `jsonValue`, `jsonAt`, `jsonEmpty`, `jsonValueMissing`, `jsonUnclosed`, `jsonEscape`, `jsonControl`, `jsonNumber`, `jsonKey`, `jsonColon`, `jsonObjectNext`, `jsonArrayNext`, `jsonTrailingComma`, `jsonExtra`, `jsonWantObject`, `jsonWantArray`), `format`, `custom`, `namedValue`, `range`, `customValue`, `searchItems`, `chosen`, `noMatch`, `add`, `addKey`, `addFree`, `keyName`, `valueOf`, `removeKey`, `listedTwice`, `emptyKey`, `unknownKey`, `noEntries`, `changed`, `advanced`, `reset`, `groupChanged`, `showAdvanced`, `searchOptions` |
+
+### What an app does
+
+1. Archipelia: OptionField becomes `FormRow` and OptionGroupTabs `FormGroupTabs`; the OptionControl JsonControl becomes `JsonInput` with `onProblem` holding the preset Save, CounterControl, CounterRow and CounterAdd become one `KeyValueEditor` with `keys` from the valid items, the named range control becomes `NamedRange` and the set picker `SetPicker`. Dict options that fell back to JSON move to `KeyValueEditor` where they are one level deep.
+2. Brock dev tools and the raw fields of RecordEditor can use `JsonInput` in place of a Textarea.

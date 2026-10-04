@@ -1,0 +1,19 @@
+/* @layer renderer-components @kind style */
+.form-group-tabs {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.form-group-tabs__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+}
+
+.form-group-tabs__search {
+  flex: 1 1 var(--size-256);
+  min-inline-size: 0;
+}

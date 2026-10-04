@@ -1,0 +1,14 @@
+/* @layer renderer-components @kind style */
+.named-range {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.named-range__custom {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}

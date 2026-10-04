@@ -11,6 +11,7 @@ const PathFieldInput = ({ view, value, label }: PathFieldInputProps) => (
       value={value ?? ''}
       placeholder={view.drop.dropping ? view.words.drop : view.words.placeholder}
       aria-label={label}
+      aria-labelledby={label ? undefined : view.labelId}
       aria-describedby={view.describedBy}
       aria-invalid={view.invalid || undefined}
       readOnly={!view.editable}

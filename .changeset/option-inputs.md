@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": minor
+---
+
+Six new parts for long, schema driven forms. `JsonInput` types JSON over the code highlighting of CodeBlock, checks it as it is typed, names the problem with its line and column, tints that line, hands on a value only while the text parses, and has Format. `KeyValueEditor` edits a map of names to values row by row, with names from a list of valid items or typed freely, a count, number, text or select per value, and a check that holds the value back while a name is empty, listed twice or not on the list. `NamedRange` puts the named values of a number first and Custom with a NumberStepper second. `SetPicker` picks several choices from a long list, with the chosen ones as tags over a search and a checklist. `FormRow` lays out one option with its name, help, control, changed mark, advanced tag, problem and reset, and gives the control its id, label and notes. `FormGroupTabs` heads a long form with a search, Show advanced and a tab per group with its changed count.
