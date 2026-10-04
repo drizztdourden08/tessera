@@ -10,4 +10,10 @@ interface MascotMotionOptions {
   onFinish: (() => void) | undefined;
 }
 
-export type { MascotMotionOptions };
+interface MotionLive {
+  playing: boolean;
+  rate: number;
+  onFinish: (() => void) | undefined;
+}
+
+export type { MascotMotionOptions, MotionLive };

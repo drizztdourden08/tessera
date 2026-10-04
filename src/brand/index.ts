@@ -18,6 +18,7 @@ export type { ChosenMascotProps, MascotChoice, MascotName } from './ChosenMascot
 export type { MascotAnimation, MascotMotion, MotionFrame, MotionPart, MotionShadow, MotionStage, MotionTrack } from './motion/motion.type';
 export type { SentriAnimation } from './sentri/sentri-motion.type';
 export type { FlintAnimation } from './flint/flint-motion.type';
+export type { PelagoAnimation } from './pelago/pelago-motion.type';
 export { BRAND_APPS, BRAND_FAMILY } from './family.constants';
 export { backdropGradientCss } from './backdrop-gradient-css';
 export type { BackdropGlow, BackdropGradient } from './backdrop-gradient.type';

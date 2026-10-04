@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind data */
 import type { BrandApp, BrandInfo } from './brand.type';
 import { ARCHIPELIA_MARK } from './marks/archipelia.constants';
+import { ARCHIPELIA_MASCOT } from './marks/archipelia-mascot.constants';
 import { BROCK_MARK } from './marks/brock.constants';
 import { BROCK_MASCOT } from './marks/brock-mascot.constants';
 import { ROTP_MARK } from './marks/rotp.constants';
@@ -72,6 +73,7 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
     summary: 'The Archipelago multiworld manager: games, presets, sessions and a live dashboard. The first app built on Brock and Tessera from day one.',
     placement: 'The middle of the stem, carried by everything below it.',
     mark: ARCHIPELIA_MARK,
+    mascot: ARCHIPELIA_MASCOT,
     wordmark: { text: 'Archipelia', colors: ['#e2d8ff', '#c1a8ff', '#9d77ff', '#7c4dff'] },
     gradient: { angle: 160, stops: ['#ece6ff', '#e2d8ff', '#c1a8ff'] },
     backdrop: {

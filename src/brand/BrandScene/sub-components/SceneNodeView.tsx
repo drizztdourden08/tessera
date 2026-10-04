@@ -2,14 +2,17 @@
 import { useId } from 'react';
 import { SvgClipPath, SvgGroup, SvgPolygon } from '../../../primitives/Svg';
 import { turnTransform } from '../../scene/turn-transform';
+import { SceneGooFilter } from './SceneGooFilter';
 import { ScenePieceView } from './ScenePieceView';
 import type { SceneNodeViewProps } from './SceneNodeView.type';
 
 const SceneNodeView = (props: SceneNodeViewProps) => {
   const { node } = props;
-  const clipId = `scene-clip-${useId().replace(/[^\w-]/g, '')}`;
+  const uid = useId().replace(/[^\w-]/g, '');
+  const clipId = `scene-clip-${uid}`;
+  const gooId = `scene-goo-${uid}`;
   if (node.kind === 'piece') return <ScenePieceView node={node} />;
-  const { clip, turn, part, children } = node;
+  const { clip, turn, part, goo, children } = node;
   return (
     <>
       {clip && (
@@ -17,7 +20,13 @@ const SceneNodeView = (props: SceneNodeViewProps) => {
           <SvgPolygon points={clip.map((p) => p.join(',')).join(' ')} />
         </SvgClipPath>
       )}
-      <SvgGroup transform={turn && turnTransform(turn)} clipPath={clip && `url(#${clipId})`} data-motion-part={part}>
+      {goo !== undefined && <SceneGooFilter id={gooId} blur={goo} />}
+      <SvgGroup
+        transform={turn && turnTransform(turn)}
+        clipPath={clip && `url(#${clipId})`}
+        filter={goo === undefined ? undefined : `url(#${gooId})`}
+        data-motion-part={part}
+      >
         {children.map((child, i) => <SceneNodeView key={`${child.label}-${i}`} node={child} />)}
       </SvgGroup>
     </>

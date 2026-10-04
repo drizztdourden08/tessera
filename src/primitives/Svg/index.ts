@@ -8,3 +8,6 @@ export { SvgText } from './sub-components/SvgText';
 export { SvgPolygon } from './sub-components/SvgPolygon';
 export { SvgGroup } from './sub-components/SvgGroup';
 export { SvgClipPath } from './sub-components/SvgClipPath';
+export { SvgFilter } from './sub-components/SvgFilter';
+export { SvgFeGaussianBlur } from './sub-components/SvgFeGaussianBlur';
+export { SvgFeColorMatrix } from './sub-components/SvgFeColorMatrix';

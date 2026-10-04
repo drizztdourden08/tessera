@@ -45,7 +45,7 @@ const ARG_TYPES: PlaygroundArgTypes<MascotArgs> = {
   scale: { group: 'Appearance', control: 'number', description: 'Screen pixels per art pixel. Whole numbers keep every pixel square.' },
   lookX: { group: 'State', control: 'range', min: -2, max: 2, step: 1, description: 'Where the eyes look across, from -2 to 2 art pixels.' },
   lookY: { group: 'State', control: 'range', min: -1, max: 1, step: 1, description: 'Where the eyes look up or down, from -1 to 1 art pixels.' },
-  limbLeft: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s left pod, around the point where it meets the body, or of Flint\'s left hand, around its shoulder.' },
+  limbLeft: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s left pod, around the point where it meets the body, or of Flint\'s left hand, around its shoulder. Pelago\'s hands turn the same way.' },
   limbRight: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s right pod or Flint\'s right hand.' },
   animation: { group: 'Motion', control: 'select', options: ['none', ...MASCOT_ANIMATIONS], description: 'The brand mascot\'s animation, drawn with AnimatedMascot; one it does not have plays its idle. none draws the still Mascot with the variant and pose below.' },
   speed: { group: 'Motion', control: 'range', min: 0.25, max: 4, step: 0.25, description: 'Playback speed: 1 is normal, 0.5 half, 2 double.' },
@@ -134,9 +134,11 @@ const CHOICES: Readonly<Record<string, ChosenMascotProps>> = {
   'sentri, by name': { mascot: 'sentri' },
   'auto, brand brock': { mascot: 'auto', brand: 'brock' },
   'flint, by name': { mascot: 'flint' },
+  'auto, brand archipelia': { mascot: 'auto', brand: 'archipelia' },
+  'pelago, by name': { mascot: 'pelago' },
 };
 
-const PALETTES = ['rotp', 'brock'] as const;
+const PALETTES = ['rotp', 'brock', 'archipelia'] as const;
 
 const Chosen = {
   name: 'Picked by name or palette',
@@ -160,8 +162,9 @@ const Overview = overviewStory({
   component: 'Mascot',
   description: 'An app\'s mascot, drawn in code from its own SVG pieces: still with Mascot, moving with AnimatedMascot.',
   points: [
-    'Two so far: Sentri for Relic of the Past, a gold pixel pyramid, and Flint for Brock, a faceted stone.',
-    '`pose` moves the eyes and turns the limbs, Sentri\'s pods or Flint\'s hands, without new art.',
+    'Three so far: Sentri for Relic of the Past, a gold pixel pyramid, Flint for Brock, a faceted stone, and Pelago for Archipelia, three purple spheres.',
+    '`pose` moves the eyes and turns the limbs, Sentri\'s pods or the hands of Flint and Pelago, without new art.',
+    'Pelago never stops: its spheres drift and melt together under every clip, and its eyes and hands float a beat behind.',
     'AnimatedMascot plays the brand\'s clips: idle, move, jump, wave, scan, happy, alert; Flint adds point, blink.',
     'Reduced motion shows the mascot at rest. `scale` sets screen pixels per art unit; `size` uses the mark sizes.',
     'ChosenMascot picks one by `mascot` name, or with `auto` by `brand`, then by the page\'s `data-palette`.',
@@ -178,6 +181,7 @@ const Overview = overviewStory({
 <AnimatedMascot brand="rotp" animation="jump" speed={0.5} playing={!paused} onFinish={backToIdle} />
 <AnimatedMascot brand="brock" animation="point" scale={4} />
 <Mascot brand="brock" pose={{ handAngles: { right: -70 } }} />
+<AnimatedMascot brand="archipelia" animation="alert" scale={4} />
 
 <ChosenMascot mascot="auto" animation="scan" />`,
 });

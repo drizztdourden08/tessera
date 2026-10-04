@@ -3,7 +3,7 @@ import type { AnimatedMascotBrand, MascotAnimationNames } from '../AnimatedMasco
 import type { BrandMarkSize } from '../BrandMark';
 import type { BrandApp } from '../brand.type';
 
-type MascotName = 'sentri' | 'flint';
+type MascotName = 'sentri' | 'flint' | 'pelago';
 
 type MascotChoice = MascotName | 'auto';
 

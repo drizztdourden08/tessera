@@ -9,7 +9,8 @@ const stageScene = (scene: BrandSceneData, motion: MascotMotion): BrandSceneData
   const { top, right, bottom, left } = motion.stage;
   const wrap = (node: SceneNode): SceneNode => {
     const part = motion.parts.find((p) => p.node === node.label);
-    return part ? groupNode(part.id, [node], { part: part.id }) : node;
+    const inner = node.kind === 'group' ? { ...node, children: node.children.map(wrap) } : node;
+    return part ? groupNode(part.id, [inner], { part: part.id }) : inner;
   };
   const { shadow } = motion;
   const ground = shadow ? [groupNode(SHADOW_PART, [placePiece(shadow.piece, { at: shadow.at })], { part: SHADOW_PART })] : [];

@@ -9,6 +9,7 @@ const groupNode = (label: string, children: readonly SceneNode[], spot: GroupSpo
   ...(spot.turn ? { turn: spot.turn } : {}),
   ...(spot.clip ? { clip: spot.clip } : {}),
   ...(spot.part ? { part: spot.part } : {}),
+  ...(spot.goo ? { goo: spot.goo } : {}),
 });
 
 export { groupNode };

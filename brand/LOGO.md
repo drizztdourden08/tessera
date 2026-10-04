@@ -81,6 +81,8 @@ A mascot is built in code from separate SVG pieces and is never kept flattened. 
 
 Relic of the Past's mascot is Sentri: body, visor, eyes and two pods, in `src/brand/sentri/`. Its Hookshop variant has Sentri pull a shop bag in with its hookshot. The bag, the stamp (the logo itself), the hookshot's handle, links and head, and the star, sparkle and speed line are in `src/brand/hookshop/`. The rigs (`*-rig.constants.ts`) hold where each piece sits, in the numbers Relic of the Past measured on the art.
 
+Archipelia's mascot is Pelago, in `src/brand/pelago/`: three spheres, a glint for each, two floating eyes and two floating hands, drawn as smooth vector art (`smooth: true`). The spheres sit in a group with `goo`, an SVG filter that blurs them and cuts the blur back to a hard edge, so they melt into one soft body wherever they meet; `pnpm icons` renders the same filter. Its `ambient` animation drifts the spheres under every clip, and its eyes and hands follow the body through tracks with a `lag`.
+
 To give another app a mascot, add its pieces and a composition function under `src/brand/`, and a `mascot` entry with its variants in `family.constants.ts`. The Mascot page and `pnpm icons` pick it up from there.
 
 ## The Tessera logo

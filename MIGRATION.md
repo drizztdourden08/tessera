@@ -2363,6 +2363,30 @@ Every Overview page under Core (Setup, Brand, Colours, Typography, Text, Icons a
 
 Nothing. This changes the gallery only.
 
+## 91. Archipelia has a mascot: Pelago
+
+Archipelia's mascot is Pelago: three purple spheres that press into each other and drift apart, never still, with two floating eyes above and two floating hands at its sides. The eyes and hands are not attached; they follow the body a beat late. It hovers over a ring of dots, after the Archipelia mark. Nothing an app has today changes; this section lists what is new.
+
+- `<Mascot brand="archipelia" />` draws Pelago, and `<AnimatedMascot brand="archipelia" animation="alert" />` moves it. Pelago has every animation Sentri has:
+
+| Animation | What Pelago does |
+|---|---|
+| `idle` | hovers and breathes; the hands sway, the eyes glance right, blink, glance left |
+| `move` | leans into the travel, the spheres stretch forward, the hands trail behind |
+| `jump` | squashes, stretches tall, floats with the hands flung up, lands in a wobble |
+| `wave` | lifts the right hand high and waves it three times with a squint |
+| `scan` | the eyes drift out left, blink across to the right, then rise to peek up |
+| `happy` | two tipping hops, the spheres bounce, the hands flap, the eyes smile |
+| `alert` | the spheres bunch tight together, the hands shoot up, the eyes go wide |
+
+- Under every animation the three spheres drift on slow loops of their own, so Pelago is always moving. Reduced motion stops the drift too and shows Pelago at rest.
+- `MascotName` adds `'pelago'`. `ChosenMascot` takes `mascot="pelago"`, and with `mascot="auto"` picks Pelago for `brand="archipelia"` or inside `data-palette="archipelia"`.
+- `MascotPose`: `look` floats Pelago's eyes, and `handAngles` (or `podAngles`) lifts its hands.
+- `MascotMotion` takes `ambient`, an animation that loops under every clip and keeps running when the clip changes. `MotionTrack` takes `lag`, a delay in milliseconds, so a part can follow another a beat late. A part can carry more than one track in a clip, and their moves add up. A part can wrap more than one node: list it once per node in `parts`.
+- `SceneGroupNode` and `groupNode` take `goo`, a blur radius in art units: the group's shapes melt into one soft shape through an SVG filter. `BrandScene` and `sceneMarkup` both draw it, so `pnpm icons` renders it too.
+- Svg primitives add `SvgFilter`, `SvgFeGaussianBlur` and `SvgFeColorMatrix`.
+- `pnpm icons` writes Pelago's files to `brand/archipelia/mascot/`.
+
 ## 92. The Primitives pages open on a short lead and points
 
 Every Overview page under Primitives (Layout, Display, Actions, Inputs, Feedback and Navigation) is rewritten to the description format of section 87: a one-sentence lead, 3 to 6 short points and, where a sibling is the better pick, a Use instead line.

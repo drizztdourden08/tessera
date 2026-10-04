@@ -7,10 +7,12 @@ import { motionPivots } from './motion-pivots';
 const playClip = (svg: SVGSVGElement, motion: MascotMotion, clip: MascotAnimation, loop: boolean): Animation[] => {
   const pivots = motionPivots(motion);
   return clip.tracks.flatMap((track) => {
-    const part = svg.querySelector(`[${MOTION_PART_ATTR}="${track.part}"]`);
+    const parts = [...svg.querySelectorAll(`[${MOTION_PART_ATTR}="${track.part}"]`)];
     const pivot = pivots.get(track.part);
-    if (!part || !pivot) return [];
-    return [part.animate(motionKeyframes(track.frames, pivot), { duration: clip.duration, iterations: loop ? Infinity : 1 })];
+    if (!pivot) return [];
+    const keyframes = motionKeyframes(track.frames, pivot);
+    const timing: KeyframeAnimationOptions = { duration: clip.duration, delay: track.lag ?? 0, iterations: loop ? Infinity : 1, composite: 'add' };
+    return parts.map((part) => part.animate(keyframes, timing));
   });
 };
 

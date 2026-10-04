@@ -15,6 +15,7 @@ interface MotionFrame {
 
 interface MotionTrack {
   part: string;
+  lag?: number;
   frames: readonly MotionFrame[];
 }
 
@@ -51,6 +52,7 @@ interface MascotMotion<N extends string = string> {
   shadow?: MotionShadow;
   rest: N;
   animations: Readonly<Record<N, MascotAnimation>>;
+  ambient?: MascotAnimation;
 }
 
 export type { MascotAnimation, MascotMotion, MotionFrame, MotionPart, MotionShadow, MotionStage, MotionTrack };

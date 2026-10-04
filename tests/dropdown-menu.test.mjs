@@ -183,6 +183,7 @@ describe('mascotFor', () => {
     expect(mascotFor('sentri')).toBe('sentri');
     expect(mascotFor('auto', 'rotp')).toBe('sentri');
     expect(mascotFor('auto', undefined, 'rotp')).toBe('sentri');
-    expect(mascotFor('auto', 'tessera', 'archipelia')).toBe('sentri');
+    expect(mascotFor('auto', 'tessera', 'archipelia')).toBe('pelago');
+    expect(mascotFor('auto', 'tessera', 'tessera')).toBe('sentri');
   });
 });
