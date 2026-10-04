@@ -5,7 +5,13 @@ import type { Guide } from './guide.type';
 
 const VIEWS_GUIDE: Guide = {
   name: 'Building views',
-  description: 'A view is a screen or a feature of the app. It is the one tier that owns state and talks to stores, IPC and the router, then hands data down to compounds and Tessera parts.',
+  description: 'A view is a screen or a feature of the app, and the one tier that owns state.',
+  points: [
+    'It reads stores, calls IPC and navigates, then hands data down to compounds and Tessera parts.',
+    'Logic goes in hooks under `behavior/`, so the component file reads as layout.',
+    'Views stay in each app; in a monorepo, set each app\'s folder under `apps` in `tessera.config.json`.',
+  ],
+  instead: `${GUIDE_LINKS.compounds} for a part of a screen that only draws.`,
   topics: [
     {
       title: 'What a view is',

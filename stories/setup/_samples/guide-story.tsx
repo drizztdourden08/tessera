@@ -11,6 +11,8 @@ const guideStories = (guide: Guide): Record<'Overview' | 'Example', StoryLiteSto
   Overview: overviewStory({
     component: guide.name,
     description: guide.description,
+    points: guide.points,
+    instead: guide.instead,
     variants: [],
     sections: [
       ...guide.topics.map((topic) => ({ title: topic.title, node: <GuideTopicView topic={topic} /> })),

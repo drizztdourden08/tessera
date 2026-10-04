@@ -5,7 +5,14 @@ import type { Guide } from './guide.type';
 
 const COMPOUNDS_GUIDE: Guide = {
   name: 'Building compounds',
-  description: 'A compound draws one of the app\'s concepts, such as a save slot or a player row, from Tessera parts. Data comes in through props and goes out through callbacks. It lives in the app, because it knows the app\'s domain.',
+  description: 'A compound draws one of the app\'s concepts, such as a save slot or a player row, from Tessera parts.',
+  points: [
+    'Data comes in through props and goes out through callbacks.',
+    'It never reads a store, calls IPC or uses the router; the view above it does.',
+    'It lives in the app, in the same folder shape as a Tessera component.',
+    'A part with no app concept in it belongs in Tessera instead.',
+  ],
+  instead: `${GUIDE_LINKS.views} for a screen that owns state.`,
   topics: [
     {
       title: 'What a compound is',

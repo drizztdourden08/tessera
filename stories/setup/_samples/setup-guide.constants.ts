@@ -4,7 +4,14 @@ import type { Guide } from './guide.type';
 
 const SETUP_GUIDE: Guide = {
   name: 'Setup',
-  description: 'What an app does once to use Tessera: install it, load the tokens and its theme, set its palette and wrap the root. The long form, with the registry and the local checkout alias, is docs/using-tessera.md.',
+  description: 'What an app does once to use Tessera: install it, load the tokens and its theme, set its palette and wrap the root.',
+  points: [
+    'Install it from GitHub Packages, with a `read:packages` token kept in your user `~/.npmrc`.',
+    'Import `tokens.css` first in the entry file, then the app `theme.css`.',
+    'Set the `--p-*` seeds in `theme.css`; every `--c-*` colour role derives from them.',
+    'Wrap the root once in [TesseraProvider], naming only the parts the app draws its own way.',
+    `The long form, with the registry and the local checkout alias: ${GUIDE_LINKS.usingTessera}.`,
+  ],
   topics: [
     {
       title: 'Install',

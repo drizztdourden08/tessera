@@ -5,7 +5,14 @@ import type { Guide } from './guide.type';
 
 const APP_PARTS_GUIDE: Guide = {
   name: 'App primitives and composites',
-  description: 'A primitive or composite that only one app needs. This is not recommended: almost every part belongs in Tessera, where every app gets it and the gallery shows it. Build one in the app only when it cannot live in Tessera, and then it follows the same rules as a Tessera part.',
+  description: 'A primitive or composite that only one app needs, built in the app when it cannot live in Tessera.',
+  points: [
+    '**Not recommended:** almost every part belongs in Tessera, where every app gets it and the gallery shows it.',
+    'It fits something only this app has, such as an Electron `webview`, a game canvas or a platform API.',
+    'It follows the same rules as a Tessera part: data in by props, out by callbacks, a variant is a prop.',
+    'Only the app primitives folder may write raw HTML.',
+  ],
+  instead: `${GUIDE_LINKS.compounds} when the part draws one of the app's concepts.`,
   topics: [
     {
       title: 'First, ask Tessera',

@@ -3,7 +3,6 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import { overviewStory } from '../_template/overview-story';
 import { GuideTopicView } from './_samples/GuideTopicView';
 import { PROVIDER_MORE } from './_samples/provider-more.constants';
-import { PART_TEXT, PROVIDER_PARTS } from './_samples/provider-part-text.constants';
 import { PROVIDER_SECTIONS } from './_samples/provider-sections';
 import { FullSetup } from './_samples/provider-full-setup';
 
@@ -19,8 +18,14 @@ const Setup = {
 
 const Overview = overviewStory({
   component: 'TesseraProvider',
-  description: 'Wrap the app once at the root to swap Tessera parts for its own. Anything left out keeps the Tessera default. An app can override:',
-  points: PROVIDER_PARTS.map((part) => PART_TEXT[part].point),
+  description: 'Wraps the app once at the root so Tessera parts, from the spinner to the wording and icons, draw the app\'s own.',
+  points: [
+    '`overrides` names only what the app changes; every part left out keeps the Tessera default.',
+    '`spinner`, `imagePlaceholder` and `emptyArt` swap the loading, image and empty state pictures.',
+    '`strings` replaces built in wording key by key, and `icons` swaps the set behind [Icon] names.',
+    '`writeText` is what every copy button calls; `errorFallback` is what an [ErrorBoundary] shows.',
+    '`portalDocument` is where popups and dialogs render, such as the host page of an app in an iframe.',
+  ],
   variants: [],
   sections: [
     ...PROVIDER_SECTIONS,

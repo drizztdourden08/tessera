@@ -16,6 +16,8 @@ interface GuideExample {
 interface Guide {
   name: string;
   description: string;
+  points: readonly string[];
+  instead?: string;
   topics: readonly GuideTopic[];
   example: GuideExample;
 }

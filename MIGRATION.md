@@ -2330,3 +2330,11 @@ The button shows the icon of the current choice and lights up while the window s
 2. Drop `onTop` from every `Widget`.
 3. Pass extra title bar buttons through `titleBarActions` or `widgetActions` in place of a portal into `.widget__titlebar-actions`.
 4. An app that overrides the widget strings renames `pinTitleOff`, `pinTitleTop` and `pinTitleWithApp` to one `pinTitle(choice)` function, and drops `pinWithApp` and `pinWithAppHint`.
+
+## 90. The Core pages open on a short lead and points
+
+Every Overview page under Core (Setup, Brand, Colours, Typography, Text, Icons and Tokens) is rewritten to the description format of section 87: a one-sentence lead, 3 to 6 short points and, where a sibling is the better pick, a Use instead line. The Setup guides and `textElementStories` take `points` and `instead` for this.
+
+### What an app does
+
+Nothing. This changes the gallery only.
