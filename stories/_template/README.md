@@ -58,7 +58,7 @@ A key combination Shortcut does not know, a link to anything but a gallery route
 pnpm exec vitest run tests/overview-descriptions.test.mjs --reporter=verbose
 ```
 
-It only reports at first. `DESCRIPTION_CHECK` in `description/description.constants.ts` turns it into a failure once every page fits. Button, DataTable and SettingsRow are the reference pages, and they must always pass.
+Every page fits, so a page over the limits fails `pnpm test`. `DESCRIPTION_CHECK` in `description/description.constants.ts` can set it back to `'report'`, which only lists them. Button, DataTable and SettingsRow are the reference pages. Text passed through `guideStories` is read from the `.constants` module that holds it.
 
 ## Demonstrator
 

@@ -22,6 +22,6 @@ const POINTS_MIN = 3;
 
 const POINTS_MAX = 6;
 
-const DESCRIPTION_CHECK: DescriptionCheckMode = 'report';
+const DESCRIPTION_CHECK: DescriptionCheckMode = 'enforce';
 
 export { DESCRIPTION_CHECK, GALLERY_ROUTE, LEAD_MAX, MARKUP_PIECE, POINT_MAX, POINTS_MAX, POINTS_MIN, SAFE_HREF };
