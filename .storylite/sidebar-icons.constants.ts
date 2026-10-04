@@ -17,7 +17,7 @@ const GROUP_ICONS: Record<string, string> = {
 const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Core · Setup': {
     'Setup': 'package-plus', 'TesseraProvider': 'replace', 'Building compounds': 'component',
-    'Building views': 'layout-panel-top', 'App primitives and composites': 'puzzle',
+    'Building views': 'layout-panel-top', 'App primitives and composites': 'puzzle', 'Static splash': 'power',
   },
   'Core · Brand': {
     Brand: 'stamp', InteractiveTessera: 'grid-2x2',

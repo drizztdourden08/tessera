@@ -3582,3 +3582,42 @@ From the UX review (ux-63, ux-60), following sections 124 and 126.
 ### What an app does
 
 Nothing.
+
+## 139. splash.css: the static splash kit
+
+`splash.css` is new, beside `splash-tokens.css`, and exported as `@drizztdourden08/tessera/splash.css`. It is plain CSS with no React, for a splash page in static HTML that draws before the app bundle loads. Brock styled its boot splash by hand, with its own button, primary button, progress bar and failure state; those now come from Tessera, built from the same tokens as `Button` and `ProgressBar`, so the page looks like the app.
+
+Load `splash-tokens.css` first, then `splash.css`. Every value is a token of `splash-tokens.css`, so `data-palette` on the root switches the palette as in the app.
+
+| Class | What it draws |
+|---|---|
+| `ts-splash` | the body: the background, the text colour and face, everything centred, no scroll |
+| `ts-stage` | the centred column the other parts stack in |
+| `ts-title` | the app name, in the title face |
+| `ts-status` | one line of status, cut with an ellipsis; `ts-status--danger` wraps and turns danger red, for a failed start |
+| `ts-actions` | a row of buttons |
+| `ts-button`, `ts-button--primary` | the secondary and the primary look of `Button`, 28 px tall, with hover, focus and disabled |
+| `ts-progress` | a 6 px bar, 256 px wide, that fills to `--value` from 0 to 1; `ts-progress--edge` runs 4 px tall along the bottom of the window; `ts-progress--danger` fills red |
+| `ts-version` | the version, small and muted, in the bottom right corner |
+
+An element with `hidden` inside `ts-splash` stays hidden, even a `ts-actions` row. With reduced motion the bar and the buttons do not animate.
+
+```html
+<body class="ts-splash">
+  <main class="ts-stage">
+    <h1 class="ts-title">Archipelia</h1>
+    <p class="ts-status" aria-live="polite">Loading the engine</p>
+    <div class="ts-actions" hidden>
+      <button class="ts-button ts-button--primary" type="button">Retry</button>
+      <button class="ts-button" type="button">Quit</button>
+    </div>
+  </main>
+  <span class="ts-version">0.4.2</span>
+  <div class="ts-progress ts-progress--edge" style="--value: 0.62" role="progressbar"></div>
+</body>
+```
+
+### What an app does
+
+1. Brock: `packages/build/src/splash/splash-page.css` keeps only its layout and its mark, and the page uses `ts-button`, `ts-button--primary`, `ts-progress ts-progress--edge`, `ts-status` and `ts-version`; the failed state adds `ts-status--danger` and `ts-progress--danger`.
+2. A script sets the bar with `bar.style.setProperty('--value', String(fraction))`.

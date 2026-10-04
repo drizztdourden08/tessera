@@ -12,6 +12,7 @@ const SETUP_TIER: CatalogueTier = {
       { name: 'Building compounds', summary: 'The app\'s own parts for its concepts, made of Tessera parts.' },
       { name: 'Building views', summary: 'The app\'s screens: state, stores, IPC and the router, handed down as props.' },
       { name: 'App primitives and composites', summary: 'A part only one app needs. Not recommended; when needed, it follows Tessera\'s rules.' },
+      { name: 'Static splash', summary: 'Plain CSS classes for a splash page in static HTML, before the app bundle loads.' },
     ],
   }],
 };

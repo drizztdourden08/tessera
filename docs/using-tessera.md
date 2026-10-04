@@ -126,7 +126,7 @@ App CSS uses tokens, never raw values: `var(--space-md)`, not `12px`; `var(--c-t
 
 The gallery's Colours and Tokens sections show every token with its value.
 
-`tokens.json` (`@drizztdourden08/tessera/tokens.json`) holds the same theme as plain values, for code that cannot read CSS custom properties, such as an Electron main process or a native splash window. `brands.<app>` holds each brand's gradient and backdrop, `theme.dark` the main colours as opaque hex, `theme.radius` and `theme.space` the scales, and `palettes.<palette>` the colours for each palette. `splash-tokens.css` sets the same values as literal custom properties, for a static page that loads before the app.
+`tokens.json` (`@drizztdourden08/tessera/tokens.json`) holds the same theme as plain values, for code that cannot read CSS custom properties, such as an Electron main process or a native splash window. `brands.<app>` holds each brand's gradient and backdrop, `theme.dark` the main colours as opaque hex, `theme.radius` and `theme.space` the scales, and `palettes.<palette>` the colours for each palette. `splash-tokens.css` sets the same values as literal custom properties, for a static page that loads before the app, and `splash.css` adds the classes that page draws with: a centred stage, a title, a status line, buttons, a progress bar and the version (the Static splash page of the gallery shows them).
 
 ## TesseraProvider
 
@@ -199,6 +199,7 @@ const AppLink = (props: Omit<RouterLinkProps, 'onNavigate' | 'href'>) => {
 | `/field-kits` | the editor and filter control for each field type, and `registerFieldKit` for new ones |
 | `/tokens.css` | every token, imported once |
 | `/tokens.json`, `/splash-tokens.css` | the theme as plain values |
+| `/splash.css` | the static splash kit: plain CSS classes for a page that loads before the app |
 | `/brand/*` | the brand files: SVG marks, icons, PNGs and `.ico` |
 | `/config` | `loadTesseraConfig` and `findTesseraConfig`, for Node tools that read `tessera.config.json` |
 | `/tessera.config.schema.json` | the schema of `tessera.config.json` |

@@ -27,6 +27,7 @@
     "./tokens.css": "./src/tokens/index.css",
     "./tokens.json": "./tokens.json",
     "./splash-tokens.css": "./splash-tokens.css",
+    "./splash.css": "./splash.css",
     "./palettes/*": "./src/tokens/palettes/*",
     "./brand/*": "./brand/*",
     "./guide/*": "./guide/*",
@@ -67,6 +68,7 @@
     "RENAMES.json",
     "tokens.json",
     "splash-tokens.css",
+    "splash.css",
     "tessera.config.schema.json",
     "standards.extension.mjs"
   ],

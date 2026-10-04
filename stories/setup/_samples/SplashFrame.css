@@ -1,0 +1,9 @@
+/* @layer stories @kind style */
+.splash-frame {
+  display: block;
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+  block-size: var(--size-320);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+}
