@@ -1,4 +1,5 @@
 /* @layer stories @kind story */
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { AnimatedMascot, BRAND_FAMILY, ChosenMascot, Mascot } from '../../src/brand';
@@ -128,28 +129,36 @@ const Breakdown = {
   ),
 } satisfies StoryLiteStoryDefinition<MascotArgs>;
 
-const CHOICES: Readonly<Record<string, ChosenMascotProps>> = {
-  'auto, from the palette': { mascot: 'auto' },
-  'auto, brand rotp': { mascot: 'auto', brand: 'rotp' },
-  'sentri, by name': { mascot: 'sentri' },
-  'auto, brand brock': { mascot: 'auto', brand: 'brock' },
-  'flint, by name': { mascot: 'flint' },
-  'auto, brand archipelia': { mascot: 'auto', brand: 'archipelia' },
-  'pelago, by name': { mascot: 'pelago' },
+const PICK_PALETTES = ['rotp', 'brock', 'archipelia'] as const satisfies readonly BrandApp[];
+
+const PICKS: Readonly<Record<(typeof PICK_PALETTES)[number], ChosenMascotProps>> = {
+  rotp: { mascot: 'sentri' },
+  brock: { mascot: 'flint' },
+  archipelia: { mascot: 'pelago' },
 };
 
-const PALETTES = ['rotp', 'brock', 'archipelia'] as const;
+const PICK_WAYS = [
+  { key: 'name', label: 'by name' },
+  { key: 'brand', label: 'auto, by brand' },
+  { key: 'palette', label: 'auto, inside data-palette' },
+] as const;
+
+type PickWay = (typeof PICK_WAYS)[number]['key'];
+
+const pickCell = (palette: (typeof PICK_PALETTES)[number], way: PickWay): ReactNode => {
+  if (way === 'name') return <ChosenMascot {...PICKS[palette]} animation="scan" scale={3} />;
+  if (way === 'brand') return <ChosenMascot mascot="auto" brand={palette} animation="scan" scale={3} />;
+  return <Span data-palette={palette}><ChosenMascot animation="wave" scale={3} /></Span>;
+};
 
 const Chosen = {
   name: 'Picked by name or palette',
   render: () => (
-    <Stack gap="lg">
-      <Demonstrator columns={axis(Object.keys(CHOICES))} cell={(_row, choice) => <ChosenMascot {...CHOICES[choice]} animation="scan" scale={3} />} />
-      <Demonstrator
-        columns={PALETTES.map((palette) => ({ key: palette, label: `auto, inside data-palette="${palette}"` }))}
-        cell={(_row, palette) => <Span data-palette={palette}><ChosenMascot animation="wave" scale={3} /></Span>}
-      />
-    </Stack>
+    <Demonstrator
+      rows={PICK_PALETTES.map((palette) => ({ key: palette, label: `${palette}: ${PICKS[palette].mascot ?? ''}` }))}
+      columns={PICK_WAYS}
+      cell={pickCell}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<MascotArgs>;
 
