@@ -177,6 +177,34 @@
   inline-size: var(--settings-row-compact-control-w);
 }
 
+.settings-row__end {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-sm);
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+  max-width: 100%;
+  margin-inline-start: auto;
+}
+
+.settings-row__end > .settings-row__control {
+  margin-inline-start: 0;
+}
+
+.settings-row__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: flex-end;
+}
+
+.settings-row__confirm {
+  display: inline-flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
 .settings-row__number,
 .settings-row__color,
 .settings-row__tags {
@@ -278,6 +306,19 @@
 .settings-row--compact .settings-row__text {
   flex-direction: row;
   align-items: center;
+}
+
+.settings-row--compact.settings-row--actions {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.settings-row--compact.settings-row--actions .settings-row__control {
+  width: auto;
+  min-inline-size: var(--settings-row-compact-control-w);
+}
+
+.settings-row--compact .settings-row__end {
+  flex-wrap: nowrap;
 }
 
 .settings-row--compact .settings-row__head {

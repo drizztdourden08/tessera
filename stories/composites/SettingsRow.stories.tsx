@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SettingsRow, SettingsSection } from '../../src/composites';
-import type { SettingsDescription, SettingsInputKind } from '../../src/composites';
+import type { SettingsDescription, SettingsInputKind, SettingsItem } from '../../src/composites';
 import { Box, Tag } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -21,10 +21,16 @@ type RowArgs = {
   changed: boolean;
   badge: boolean;
   problem: string;
+  actions: boolean;
 };
 
+const SAMPLE_ACTIONS: SettingsItem['actions'] = [
+  { id: 'rebuild', label: 'Rebuild', onClick: () => undefined },
+  { id: 'forget', label: 'Forget', tone: 'danger', confirm: 'Forget it?', onClick: () => undefined },
+];
+
 const KindDemo = (props: RowArgs) => {
-  const { kind, compact, readOnly, disabled, description, changed, badge, problem } = props;
+  const { kind, compact, readOnly, disabled, description, changed, badge, problem, actions } = props;
   const row = rowOfKind(useSampleSettings(), kind);
   if (row === undefined) return null;
   const text: SettingsDescription = description ? { description: row.description ?? 'What this setting changes, in one line.' } : { noDescription: true };
@@ -44,6 +50,7 @@ const KindDemo = (props: RowArgs) => {
           onReset={() => undefined}
           badge={badge ? <Tag color="secondary">Advanced</Tag> : undefined}
           problem={problem || undefined}
+          actions={actions ? SAMPLE_ACTIONS : undefined}
         />
       </SettingsSection>
     </Box>
@@ -59,13 +66,14 @@ const EveryKind = (props: { compact?: boolean; readOnly?: boolean }) => {
   );
 };
 
-const ARGS: Partial<RowArgs> = { kind: 'segmented', compact: false, readOnly: false, disabled: false, description: true, changed: true, badge: false, problem: '' };
+const ARGS: Partial<RowArgs> = { kind: 'segmented', compact: false, readOnly: false, disabled: false, description: true, changed: true, badge: false, problem: '', actions: false };
 
 const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
   kind: { group: 'Content', control: 'select', options: [...KIND_ORDER], description: 'The input the row draws on the right.' },
   description: { group: 'Content', control: 'boolean' },
   badge: { group: 'Content', control: 'boolean', description: 'A Tag after the title, such as Advanced.' },
   problem: { group: 'Content', control: 'text', description: 'Shown under the row in the danger tone. Leave empty to hide.' },
+  actions: { group: 'Content', control: 'boolean', description: 'Buttons after the control: Rebuild, and a danger Forget with a confirm step.' },
   changed: { group: 'State', control: 'boolean', description: 'A dot after the title and, with onReset, a reset button.' },
   compact: { group: 'Appearance', control: 'boolean', description: 'One line, at least 40 px tall: the description moves to a tooltip on the title, hints to a bubble under the control, and radio options drop their subtitles.' },
   readOnly: { group: 'State', control: 'boolean', description: 'The value as text. Pointing at it puts the hint of the current value in place of the description.' },
@@ -100,12 +108,12 @@ const ReadOnly = {
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
 const Marks = {
-  name: 'Changed, reset, badge, problem and a folded description',
+  name: 'Changed, reset, badge, problem, actions and a folded description',
   render: () => <RowMarksDemo />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
 const MarksCompact = {
-  name: 'Changed, reset, badge and problem, compact',
+  name: 'Changed, reset, badge, problem and actions, compact',
   render: () => <RowMarksDemo compact />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
@@ -154,8 +162,8 @@ const Overview = overviewStory({
     'The input is data: a `kind` such as `toggle`, `select` or `slider`, its props, `value` and `onChange`.',
     '**It never changes height:** the hint line under the description keeps room for every hint it can show.',
     '`changed` adds a dot after the title and, with `onReset`, a reset button; `problem` shows under the row.',
-    '`badge` sits after the title; `descriptionLines` folds a long description behind More.',
-    '`compact` draws one line, the description in a tooltip; `readOnly` draws the value as text.',
+    '`actions` puts buttons after the control, or in its place; `badge` sits after the title.',
+    '`compact` draws one line; `readOnly` draws the value as text; `descriptionLines` folds the description.',
     'Rows sit in a [SettingsSection], which draws the box, counts the changed rows and holds the `lock`.',
   ],
   playground: Playground,

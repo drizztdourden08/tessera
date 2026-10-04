@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import { SettingsSection } from '../../../src/composites';
 import type { SettingsItem } from '../../../src/composites';
-import { Box, Tag } from '../../../src/primitives';
+import { Box, Icon, Tag } from '../../../src/primitives';
 
-const DEFAULTS = { hints: 'all', deathLink: false, name: 'mira', release: 'auto' };
+const DEFAULTS = { hints: 'all', deathLink: false, name: 'mira', release: 'auto', cache: '512', owner: 'steam:7656119' };
 
 const LONG = 'Hints point at the item a player needs next. A player pays hint points for each one, earned by checking locations, '
   + 'and the cost grows with every hint in the session. Pick who may ask for hints and how often the server answers. '
@@ -37,6 +37,15 @@ const RowMarksDemo = (props: { compact?: boolean }) => {
     {
       id: 'release', title: 'Release mode', description: 'When the items of a finished player go out.', hint: 'Players can change it in a running session.', ...mark('release'),
       input: { kind: 'select', value: s.release, onChange: (v) => set({ release: v }), options: [{ value: 'auto', label: 'Auto' }, { value: 'goal', label: 'After goal' }] },
+    },
+    {
+      id: 'cache', title: 'World cache', description: 'Generated worlds kept on disk.', hint: 'Rebuild after a game update.', ...mark('cache'),
+      input: { kind: 'select', value: s.cache, onChange: (v) => set({ cache: v }), options: [{ value: '256', label: '256 MB' }, { value: '512', label: '512 MB' }] },
+      actions: [{ id: 'rebuild', label: 'Rebuild', icon: <Icon name="rotate-ccw" />, onClick: () => set({ cache: DEFAULTS.cache }) }],
+    },
+    {
+      id: 'owner', title: 'Owner id', description: s.owner === '' ? 'No owner: the next player to join claims the server.' : `Held by ${s.owner}.`, hint: 'The owner may change server options.',
+      actions: [{ id: 'forget', label: 'Forget the owner id', tone: 'danger', confirm: 'Forget it?', disabled: s.owner === '', onClick: () => set({ owner: '' }) }],
     },
   ];
   return (

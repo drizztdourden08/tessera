@@ -20,12 +20,12 @@ const allRows = (state: SampleState): SettingsItem[] =>
 const everyKind = (state: SampleState): SettingsItem[] => {
   const rows = [...allRows(state), CUSTOM_ROW];
   return KIND_ORDER.flatMap((kind) => {
-    const row = rows.find((candidate) => candidate.input.kind === kind);
+    const row = rows.find((candidate) => candidate.input?.kind === kind);
     return row === undefined ? [] : [{ ...row, lock: null }];
   });
 };
 
 const rowOfKind = (state: SampleState, kind: SettingsInputKind): SettingsItem | undefined =>
-  everyKind(state).find((row) => row.input.kind === kind);
+  everyKind(state).find((row) => row.input?.kind === kind);
 
 export { everyKind, KIND_ORDER, rowOfKind };

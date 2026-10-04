@@ -66,3 +66,26 @@ describe('a SettingsSection of changed rows', () => {
     expect(renderToString(h(SettingsSection, { id: 's', title: 'Session', rows, changedCount: 5, onReset: noop }))).toContain('(5 changed)');
   });
 });
+
+describe('row actions', () => {
+  const forget = { id: 'forget', label: 'Forget the owner id', tone: 'danger', confirm: 'Forget it?', onClick: noop };
+  const rebuild = { id: 'rebuild', label: 'Rebuild', onClick: noop };
+
+  it('sit after the control in one end area, the danger one in the danger look', () => {
+    const html = draw({ actions: [rebuild, forget] });
+    expect(html).toContain('settings-row--actions');
+    expect(html).toMatch(/settings-row__end"><div class="settings-row__control".*<\/div><div class="settings-row__actions"><button[^>]*btn--secondary[^>]*>.*Rebuild.*<button[^>]*btn--danger/);
+  });
+
+  it('take the place of the control when the row has no input, and the row still sits in a section', () => {
+    const html = renderToString(h(SettingsSection, { rows: [{ id: 'owner', title: 'Owner id', noDescription: true, hint: 'Claims the server.', actions: [forget] }] }));
+    expect(html).toContain('data-kind="none"');
+    expect(html).not.toContain('settings-row__control');
+    expect(html).toContain('Forget the owner id');
+  });
+
+  it('are left out of a read only row, and a disabled row disables them', () => {
+    expect(draw({ actions: [rebuild], readOnly: true })).not.toContain('settings-row__actions');
+    expect(draw({ actions: [rebuild], disabled: true })).toMatch(/<button[^>]*disabled=""[^>]*>.*Rebuild/);
+  });
+});

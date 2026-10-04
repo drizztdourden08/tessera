@@ -1,19 +1,26 @@
 /* @layer renderer-components @kind logic */
 import type { Hint } from '../../../primitives/hint/hint.type';
-import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
 import type { SettingsRowProps } from '../SettingsRow.type';
 import { lineHints } from './line-hints';
-import type { RowHints } from './row-hints.type';
+import type { RowHints, Words } from './row-hints.type';
 import { uniqueHints } from './unique-hints';
 import { valueHint } from './value-hint';
 
-const rowHints = (props: SettingsRowProps, settings: TesseraStrings['settings']): RowHints => {
-  const { hint, input, readOnly = false, changed = false, onReset } = props;
-  const rowHint: Hint = { label: '', description: hint };
-  const whole = readOnly ? valueHint(input, settings) ?? rowHint : rowHint;
-  const reset: readonly Hint[] = changed && onReset && !readOnly ? [{ label: '', description: settings.resetHint }] : [];
-  const hints = uniqueHints([rowHint, ...(readOnly ? [whole] : lineHints(input, settings)), ...reset]);
-  return { resting: hint, hints, whole };
+const wholeHint = (props: SettingsRowProps, rowHint: Hint, settings: Words): Hint =>
+  (props.readOnly === true && props.input !== undefined ? valueHint(props.input, settings) ?? rowHint : rowHint);
+
+const partHints = (props: SettingsRowProps, whole: Hint, settings: Words): readonly Hint[] => {
+  if (props.readOnly === true) return [whole];
+  return props.input === undefined ? [] : lineHints(props.input, settings);
+};
+
+const resetHints = (props: SettingsRowProps, settings: Words): readonly Hint[] =>
+  (props.changed === true && props.onReset && props.readOnly !== true ? [{ label: '', description: settings.resetHint }] : []);
+
+const rowHints = (props: SettingsRowProps, settings: Words): RowHints => {
+  const rowHint: Hint = { label: '', description: props.hint };
+  const whole = wholeHint(props, rowHint, settings);
+  return { resting: props.hint, hints: uniqueHints([rowHint, ...partHints(props, whole, settings), ...resetHints(props, settings)]), whole };
 };
 
 export { rowHints };

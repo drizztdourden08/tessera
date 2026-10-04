@@ -4,7 +4,7 @@ import type { RowBox } from './choice-room.type';
 
 const choiceRoom = (row: RowBox, compact: boolean): number => {
   const content = Math.max(0, row.width - row.paddingInline);
-  return compact ? Math.max(0, content - row.gap - Math.min(row.title, content * COMPACT_TITLE_MAX_SHARE)) : content;
+  return compact ? Math.max(0, content - row.gap - row.actions - Math.min(row.title, content * COMPACT_TITLE_MAX_SHARE)) : content;
 };
 
 export { choiceRoom };

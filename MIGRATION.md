@@ -3773,3 +3773,35 @@ back: 'Back';
 ## 145. StatRow copies through CopyButton
 
 The copy button of `StatRow`, and so of every `FactsPanel` fact with `copyable`, is now `CopyButton`, the one copy path of section 133. It keeps its look: an extra small ghost icon button, 20 by 20 pixels, at the end of the row, named Copy and the row label through `common.copyNamed`. It gains what every copy has: the check turns green, the name reads Copied for two seconds, and a polite status region says Copied. The class `stat-row__copy` now sits on the wrapper of the button. The private `StatRowCopy` is removed. Nothing changes for an app.
+
+## 146. Settings rows take actions
+
+From the Brock review, as decided by the owner (B-11), after section 141.
+
+- **`actions` puts buttons in the row.** Each action is a small Button after the control, in the same right-aligned end area, such as Rebuild beside a cache size. A row with no `input` shows its actions in place of the control, such as "Forget the owner id"; `input` is now optional for that.
+- **The end area reads in one order:** the reset button stays on the title line after the changed dot and the badge, and the end area holds the control, then the actions. A narrow row wraps the end area under the text (section 95), and the actions wrap under the control, both right-aligned. A compact row keeps one 40 px line, the control at its compact width with the actions after it.
+- **A `danger` action has the danger look**, and `confirm` asks first: the button turns into the question with the confirm and cancel pair of ConfirmIconButton, focus on cancel; Escape or cancel goes back, confirm runs `onClick`.
+- **A disabled row disables its actions, and a read only row leaves them out**, as it does the reset button.
+- **Search finds a row by its action labels**, and a row with no input has `data-kind="none"`.
+
+```ts
+interface SettingsRowAction {
+  id: string;
+  label: string;
+  onClick: () => void;
+  icon?: ReactNode;
+  tone?: 'danger';
+  disabled?: boolean;
+  confirm?: string; // the question, such as 'Forget it?'
+}
+
+interface SettingsItemFields {
+  input?: SettingsInput; // now optional
+  actions?: readonly SettingsRowAction[]; // added
+}
+```
+
+### What an app does
+
+1. Move buttons drawn in a custom control next to a setting into `actions`, and a row that held only a button into a row with `actions` and no `input`.
+2. Code that read `item.input.kind` reads `item.input?.kind`.

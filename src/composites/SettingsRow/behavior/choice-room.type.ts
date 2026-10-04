@@ -4,6 +4,7 @@ interface RowBox {
   paddingInline: number;
   gap: number;
   title: number;
+  actions: number;
 }
 
 export type { RowBox };

@@ -87,6 +87,16 @@ type SettingsInputKind = SettingsInput['kind'];
 
 type SettingsInputOf<K extends SettingsInputKind> = Extract<SettingsInput, { kind: K }>;
 
+interface SettingsRowAction {
+  id: string;
+  label: string;
+  onClick: () => void;
+  icon?: ReactNode;
+  tone?: 'danger';
+  disabled?: boolean;
+  confirm?: string;
+}
+
 type SettingsDescription =
   | { description: string; noDescription?: never }
   | { noDescription: true; description?: never };
@@ -96,7 +106,8 @@ interface SettingsItemFields {
   title: string;
   hint: string;
   keywords?: string;
-  input: SettingsInput;
+  input?: SettingsInput;
+  actions?: readonly SettingsRowAction[];
   disabled?: boolean;
   lock?: string | null;
   changed?: boolean;
@@ -118,5 +129,6 @@ interface SettingsRowLook {
 type SettingsRowProps = SettingsItem & SettingsRowLook;
 
 export type {
-  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowLook, SettingsRowProps,
+  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowAction, SettingsRowLook,
+  SettingsRowProps,
 };
