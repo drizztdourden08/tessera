@@ -45,14 +45,21 @@ interface MotionShadow {
   at: ScenePoint;
 }
 
+interface MotionEffect {
+  id: string;
+  piece: BrandPiece;
+  at: ScenePoint;
+}
+
 interface MascotMotion<N extends string = string> {
   stage: MotionStage;
   pivot: ScenePoint;
   parts: readonly MotionPart[];
   shadow?: MotionShadow;
+  effects?: readonly MotionEffect[];
   rest: N;
   animations: Readonly<Record<N, MascotAnimation>>;
   ambient?: MascotAnimation;
 }
 
-export type { MascotAnimation, MascotMotion, MotionFrame, MotionPart, MotionShadow, MotionStage, MotionTrack };
+export type { MascotAnimation, MascotMotion, MotionEffect, MotionFrame, MotionPart, MotionShadow, MotionStage, MotionTrack };

@@ -12,9 +12,10 @@ const stageScene = (scene: BrandSceneData, motion: MascotMotion): BrandSceneData
     const inner = node.kind === 'group' ? { ...node, children: node.children.map(wrap) } : node;
     return part ? groupNode(part.id, [inner], { part: part.id }) : inner;
   };
-  const { shadow } = motion;
+  const { shadow, effects = [] } = motion;
   const ground = shadow ? [groupNode(SHADOW_PART, [placePiece(shadow.piece, { at: shadow.at })], { part: SHADOW_PART })] : [];
-  const rig = groupNode(RIG_PART, scene.nodes.map(wrap), { part: RIG_PART });
+  const lights = effects.map((e) => groupNode(e.id, [placePiece(e.piece, { at: e.at })], { part: e.id, hidden: true }));
+  const rig = groupNode(RIG_PART, [...scene.nodes.map(wrap), ...lights], { part: RIG_PART });
   return {
     width: scene.width + left + right,
     height: scene.height + top + bottom,

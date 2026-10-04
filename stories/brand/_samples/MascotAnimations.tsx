@@ -1,16 +1,16 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { AnimatedMascot, BRAND_FAMILY } from '../../../src/brand';
+import { AnimatedMascot, BRAND_FAMILY, MASCOT_CLIPS } from '../../../src/brand';
 import { Button, Flex, Icon, Stack, Text } from '../../../src/primitives';
 import { ANIMATED_BRANDS } from './mascot-brands.constants';
-import type { AnyMascotAnimation } from './mascot-brands.constants';
 import { VariantGroups } from './VariantGroups';
 
 const MascotAnimations = () => {
   const [playing, setPlaying] = useState(true);
   const groups = ANIMATED_BRANDS.map((brand) => {
     const { mascot } = BRAND_FAMILY[brand];
-    const clips = Object.entries(mascot?.motion?.animations ?? {});
+    const animations = mascot?.motion?.animations ?? {};
+    const clips = MASCOT_CLIPS.flatMap((id) => (animations[id] ? [[id, animations[id]] as const] : []));
     return {
       key: brand,
       label: mascot?.name ?? brand,
@@ -19,7 +19,7 @@ const MascotAnimations = () => {
         label: clip.name,
         node: (
           <Stack gap="sm" align="center">
-            <AnimatedMascot brand={brand} animation={id as AnyMascotAnimation} playing={playing} loop scale={3} title={`${mascot?.name ?? brand}, ${clip.name}`} />
+            <AnimatedMascot brand={brand} animation={id} playing={playing} loop scale={3} title={`${mascot?.name ?? brand}, ${clip.name}`} />
             <Text variant="caption">{clip.loop ? 'Loops.' : 'Plays once; looped here.'}</Text>
             <Text variant="caption">{clip.summary}</Text>
           </Stack>

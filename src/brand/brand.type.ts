@@ -64,6 +64,7 @@ interface SceneGroupNode {
   turn?: SceneTurn;
   clip?: readonly ScenePoint[];
   part?: string;
+  hidden?: boolean;
   children: readonly SceneNode[];
 }
 

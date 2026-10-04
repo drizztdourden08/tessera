@@ -2,14 +2,14 @@
 import { useMemo, useRef } from 'react';
 import { BrandScene } from '../BrandScene';
 import { BRAND_FAMILY } from '../family.constants';
-import type { AnimatedMascotBrand, AnimatedMascotProps } from './AnimatedMascot.type';
+import type { AnimatedMascotProps } from './AnimatedMascot.type';
 import { animatedMascotClass } from './behavior/animated-mascot-class';
 import { mascotStage } from './behavior/mascot-stage';
 import { pickClip } from './behavior/pick-clip';
 import { useMascotMotion } from './behavior/useMascotMotion';
 import './AnimatedMascot.css';
 
-const AnimatedMascot = <B extends AnimatedMascotBrand>(props: AnimatedMascotProps<B>) => {
+const AnimatedMascot = (props: AnimatedMascotProps) => {
   const { brand, animation, playing = true, speed = 1, loop, scale, title, onFinish } = props;
   const { mascot } = BRAND_FAMILY[brand];
   const motion = mascot?.motion;

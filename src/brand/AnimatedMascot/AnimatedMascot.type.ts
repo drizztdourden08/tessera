@@ -1,20 +1,18 @@
 /* @layer renderer-components @kind types */
 import type { BrandMarkSize } from '../BrandMark';
-import type { FlintAnimation } from '../flint/flint-motion.type';
-import type { PelagoAnimation } from '../pelago/pelago-motion.type';
-import type { SentriAnimation } from '../sentri/sentri-motion.type';
+import type { MascotClip } from '../motion/mascot-clip.type';
 
 interface MascotAnimationNames {
-  rotp: SentriAnimation;
-  brock: FlintAnimation;
-  archipelia: PelagoAnimation;
+  rotp: MascotClip;
+  brock: MascotClip;
+  archipelia: MascotClip;
 }
 
 type AnimatedMascotBrand = keyof MascotAnimationNames;
 
-interface AnimatedMascotProps<B extends AnimatedMascotBrand = AnimatedMascotBrand> {
-  brand: B;
-  animation?: MascotAnimationNames[B];
+interface AnimatedMascotProps {
+  brand: AnimatedMascotBrand;
+  animation?: MascotClip;
   playing?: boolean;
   speed?: number;
   loop?: boolean;

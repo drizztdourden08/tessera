@@ -2687,6 +2687,40 @@ type PelagoAnimation = 'idle' | 'move' | 'jump' | 'wave' | 'scan' | 'happy' | 'a
 
 Nothing, for an app that draws Pelago through `Mascot`, `AnimatedMascot`, `ChosenMascot` or the files in `brand/archipelia/mascot/`. An app that built its own scene with `goo` drops it, and one that imported `SvgFilter`, `SvgFeGaussianBlur` or `SvgFeColorMatrix` writes the `filter`, `feGaussianBlur` and `feColorMatrix` elements itself.
 
+## 106. Every mascot plays the same ten clips
+
+Sentri, Flint and Pelago now share one list of animations, in this order: `idle`, `move`, `jump`, `wave`, `scan`, `happy`, `alert`, `point`, `blink` and `link`. A clip name that plays on one mascot plays on all three. No existing animation changes; the missing ones are new.
+
+| Mascot | New animation | What it does |
+|---|---|---|
+| Sentri | `point` | tilts right, pushes the right pod out and jabs it twice, the eyes looking that way, then pulls it back |
+| Sentri | `blink` | the eyes shut like shutters twice, holding a beat each time, and the pods twitch up with each blink |
+| Sentri | `link` | the left pod pulses and sends out a spark that hops pixel by pixel up the left edge to the tip, flashes there, and runs down the right edge into the right pod, which pulses; both pods lift and Sentri hops, the eyes following the spark |
+| Flint | `link` | the left hand lifts a spark that leaps over the head into the orange chip, which flares, then drops into the raised right hand; it is thrown back faster, and the chip flares brightest as the left hand catches it |
+
+- `MascotClip` is the one type for a clip name, and `MASCOT_CLIPS` lists the ten in order. They replace `SentriAnimation`, `FlintAnimation` and `PelagoAnimation`.
+- `MascotAnimationNames` maps every brand to `MascotClip`. `AnimatedMascotProps` is no longer generic: `animation` is a `MascotClip` whatever the `brand`. `ChosenMascot`'s `animation` is a `MascotClip` too.
+- Every mascot's motion is typed `MascotMotion<MascotClip>`, so a mascot that misses a clip fails the type check, and a test checks each one plays the ten in order.
+- `MascotMotion` takes `effects`, a list of `MotionEffect` (`id`, `piece`, `at`): pieces only the moving mascot draws, on top of its art and hidden until a clip fades them in. A track on an effect counts `opacity` from 0, so a frame without one keeps it hidden. Sentri's spark and Flint's spark and chip glow are effects; the still `Mascot` and the icon files do not change.
+- `SceneGroupNode` and `GroupSpot` take `hidden`, which draws the group with opacity 0.
+- Reduced motion still shows every mascot at rest and runs no animation, effects included.
+
+```ts
+type MascotClip = 'idle' | 'move' | 'jump' | 'wave' | 'scan' | 'happy' | 'alert' | 'point' | 'blink' | 'link';
+const MASCOT_CLIPS: readonly MascotClip[];
+
+interface MascotAnimationNames { rotp: MascotClip; brock: MascotClip; archipelia: MascotClip }
+interface AnimatedMascotProps { brand: AnimatedMascotBrand; animation?: MascotClip; /* the rest unchanged */ }
+interface ChosenMascotProps { animation?: MascotClip; /* the rest unchanged */ }
+
+interface MotionEffect { id: string; piece: BrandPiece; at: ScenePoint }
+interface MascotMotion<N extends string = string> { effects?: readonly MotionEffect[]; /* the rest unchanged */ }
+```
+
+### What an app does
+
+An app that imported `SentriAnimation`, `FlintAnimation` or `PelagoAnimation` imports `MascotClip` instead, and one that wrote `AnimatedMascotProps<'rotp'>` drops the type argument. Nothing else: `Mascot`, `AnimatedMascot` and `ChosenMascot` draw as before, with three new clips on Sentri and one on Flint.
+
 ## 107. A floating widget resizes, the widget options close like a popover, the body keeps a scrollbar gutter, the drag hint sits at the pointer, and window groups are gone
 
 Five fixes from hands-on testing of Brock on Tessera 0.10 to 0.13.

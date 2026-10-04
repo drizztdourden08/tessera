@@ -2,7 +2,7 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { AnimatedMascot, BRAND_FAMILY, BRAND_APPS } from '../src/brand';
+import { AnimatedMascot, BRAND_FAMILY, BRAND_APPS, MASCOT_CLIPS } from '../src/brand';
 import { motionKeyframes } from '../src/brand/AnimatedMascot/behavior/motion-keyframes';
 import { motionPivots } from '../src/brand/AnimatedMascot/behavior/motion-pivots';
 
@@ -24,10 +24,14 @@ describe('AnimatedMascot', () => {
 });
 
 describe('mascot motion data', () => {
-  it('gives Sentri its seven animations, idle at rest', () => {
-    const motion = BRAND_FAMILY.rotp.mascot?.motion;
-    expect(Object.keys(motion?.animations ?? {})).toEqual(['idle', 'move', 'jump', 'wave', 'scan', 'happy', 'alert']);
-    expect(motion?.rest).toBe('idle');
+  it('lists the ten clips every mascot plays, in order', () => {
+    expect(MASCOT_CLIPS).toEqual(['idle', 'move', 'jump', 'wave', 'scan', 'happy', 'alert', 'point', 'blink', 'link']);
+    expect(motions.map(([app]) => app).sort()).toEqual(['archipelia', 'brock', 'rotp']);
+  });
+
+  it.each(motions)('%s: plays every clip in the shared list, in its order and no other, idle at rest', (_app, motion) => {
+    expect(Object.keys(motion.animations)).toEqual([...MASCOT_CLIPS]);
+    expect(motion.rest).toBe('idle');
   });
 
   it.each(motions)('%s: every track names a known part and runs from 0 to 1 in order', (_app, motion) => {
@@ -50,6 +54,21 @@ describe('mascot motion data', () => {
         expect(isRest(track.frames.at(-1))).toBe(true);
       }
     }
+  });
+});
+
+describe('mascot effects', () => {
+  it("draws Sentri's spark and Flint's spark and chip glow on the stage, hidden until a clip fades them in", () => {
+    const sentri = renderToString(h(AnimatedMascot, { brand: 'rotp', scale: 2 }));
+    const flint = renderToString(h(AnimatedMascot, { brand: 'brock', scale: 2 }));
+    expect(sentri).toContain('data-motion-part="spark" opacity="0"');
+    for (const part of ['spark', 'chipGlow']) expect(flint).toContain(`data-motion-part="${part}" opacity="0"`);
+  });
+
+  it("counts an effect's opacity from 0, so a frame without one keeps it hidden", () => {
+    const [hidden, shown] = motionKeyframes([{ at: 0 }, { at: 1, opacity: 1 }], [0, 0], 0);
+    expect(hidden.opacity).toBe(0);
+    expect(shown.opacity).toBe(1);
   });
 });
 

@@ -9,7 +9,7 @@ const SceneNodeView = (props: SceneNodeViewProps) => {
   const { node } = props;
   const clipId = `scene-clip-${useId().replace(/[^\w-]/g, '')}`;
   if (node.kind === 'piece') return <ScenePieceView node={node} />;
-  const { clip, turn, part, children } = node;
+  const { clip, turn, part, hidden, children } = node;
   return (
     <>
       {clip && (
@@ -17,7 +17,7 @@ const SceneNodeView = (props: SceneNodeViewProps) => {
           <SvgPolygon points={clip.map((p) => p.join(',')).join(' ')} />
         </SvgClipPath>
       )}
-      <SvgGroup transform={turn && turnTransform(turn)} clipPath={clip && `url(#${clipId})`} data-motion-part={part}>
+      <SvgGroup transform={turn && turnTransform(turn)} clipPath={clip && `url(#${clipId})`} data-motion-part={part} opacity={hidden ? 0 : undefined}>
         {children.map((child, i) => <SceneNodeView key={`${child.label}-${i}`} node={child} />)}
       </SvgGroup>
     </>

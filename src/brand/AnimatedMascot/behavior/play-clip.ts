@@ -6,11 +6,12 @@ import { motionPivots } from './motion-pivots';
 
 const playClip = (svg: SVGSVGElement, motion: MascotMotion, clip: MascotAnimation, loop: boolean): Animation[] => {
   const pivots = motionPivots(motion);
+  const hidden = new Set(motion.effects?.map((e) => e.id));
   return clip.tracks.flatMap((track) => {
     const parts = [...svg.querySelectorAll(`[${MOTION_PART_ATTR}="${track.part}"]`)];
     const pivot = pivots.get(track.part);
     if (!pivot) return [];
-    const keyframes = motionKeyframes(track.frames, pivot);
+    const keyframes = motionKeyframes(track.frames, pivot, hidden.has(track.part) ? 0 : 1);
     const timing: KeyframeAnimationOptions = { duration: clip.duration, delay: track.lag ?? 0, iterations: loop ? Infinity : 1, composite: 'add' };
     return parts.map((part) => part.animate(keyframes, timing));
   });

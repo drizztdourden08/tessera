@@ -607,6 +607,11 @@
     },
     {
       "version": "next",
+      "components": {
+        "SentriAnimation": "MascotClip",
+        "FlintAnimation": "MascotClip",
+        "PelagoAnimation": "MascotClip"
+      },
       "removedExports": {
         "WindowGroup": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)",
         "WindowTitleBarGroup": "removed; snapped windows cluster on the host side, so Tessera draws no group choice (see MIGRATION.md section 107)"

@@ -8,6 +8,7 @@ const EASE = {
   overshoot: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
   snap: 'cubic-bezier(0.16, 1, 0.3, 1)',
   linear: 'linear',
+  step: 'steps(1, end)',
 } as const;
 
 const RIG_PART = 'rig';

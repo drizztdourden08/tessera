@@ -16,9 +16,9 @@ const THREADS = ['spokeA', 'spokeB', 'spokeC', 'spokeD', 'ringAB', 'ringBC', 'ri
 const ends = (track) => [track.frames[0]?.at, track.frames.at(-1)?.at];
 
 describe('Pelago, the Archipelia island spirit', () => {
-  it('has Sentri\'s seven animations, then point, link and blink, idle at rest, and a pebble drift that always loops', () => {
+  it('has the same animations as Sentri, idle at rest, and a pebble drift that always loops', () => {
     expect(mascot.name).toBe('Pelago');
-    expect(Object.keys(motion.animations)).toEqual([...SENTRI_CLIPS, 'point', 'link', 'blink']);
+    expect(Object.keys(motion.animations)).toEqual(SENTRI_CLIPS);
     expect(motion.rest).toBe('idle');
     expect(motion.ambient.loop).toBe(true);
     for (const track of motion.ambient.tracks) expect(track.part).toMatch(/^pebble[ABC]$/);

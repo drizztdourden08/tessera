@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind data */
+import type { MascotClip } from '../motion/mascot-clip.type';
 import type { MascotMotion } from '../motion/motion.type';
 import { PELAGO_ALERT } from './motion/alert.constants';
 import { PELAGO_BLINK } from './motion/blink.constants';
@@ -11,11 +12,10 @@ import { PELAGO_MOVE } from './motion/move.constants';
 import { PELAGO_POINT } from './motion/point.constants';
 import { PELAGO_SCAN } from './motion/scan.constants';
 import { PELAGO_WAVE } from './motion/wave.constants';
-import type { PelagoAnimation } from './pelago-motion.type';
 import { PELAGO_PARTS } from './pelago-parts.constants';
 import { PELAGO_SHADOW } from './pelago-shadow.constants';
 
-const PELAGO_MOTION: MascotMotion<PelagoAnimation> = {
+const PELAGO_MOTION: MascotMotion<MascotClip> = {
   stage: { top: 11, right: 7, bottom: 2, left: 7 },
   pivot: [29, 30],
   parts: PELAGO_PARTS,
@@ -30,8 +30,8 @@ const PELAGO_MOTION: MascotMotion<PelagoAnimation> = {
     happy: PELAGO_HAPPY,
     alert: PELAGO_ALERT,
     point: PELAGO_POINT,
-    link: PELAGO_LINK,
     blink: PELAGO_BLINK,
+    link: PELAGO_LINK,
   },
   ambient: PELAGO_DRIFT,
 };

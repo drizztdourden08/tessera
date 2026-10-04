@@ -13,6 +13,7 @@ interface GroupSpot {
   turn?: SceneTurn;
   clip?: readonly ScenePoint[];
   part?: string;
+  hidden?: boolean;
 }
 
 interface SceneWriter {

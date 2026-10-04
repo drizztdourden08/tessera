@@ -2,21 +2,20 @@
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { AnimatedMascot, BRAND_FAMILY, ChosenMascot, Mascot } from '../../src/brand';
-import type { AnimatedMascotBrand, BrandApp, BrandMarkSize, ChosenMascotProps, MascotPose } from '../../src/brand';
+import { AnimatedMascot, BRAND_FAMILY, ChosenMascot, MASCOT_CLIPS, Mascot } from '../../src/brand';
+import type { AnimatedMascotBrand, BrandApp, BrandMarkSize, ChosenMascotProps, MascotClip, MascotPose } from '../../src/brand';
 import { Span, Stack, Text } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import { MASCOT_ANIMATIONS, MASCOT_BRANDS, MASCOT_VARIANT_IDS } from './_samples/mascot-brands.constants';
-import type { AnyMascotAnimation } from './_samples/mascot-brands.constants';
+import { MASCOT_BRANDS, MASCOT_VARIANT_IDS } from './_samples/mascot-brands.constants';
 import { IconFileRows } from './_samples/IconFileRows';
 import { MascotAnimations } from './_samples/MascotAnimations';
 import { MascotBreakdown } from './_samples/MascotBreakdown';
 import { VariantGroups } from './_samples/VariantGroups';
 
 type MascotArgs = {
-  animation: AnyMascotAnimation | 'none';
+  animation: MascotClip | 'none';
   speed: number;
   loop: boolean;
   playing: boolean;
@@ -48,7 +47,7 @@ const ARG_TYPES: PlaygroundArgTypes<MascotArgs> = {
   lookY: { group: 'State', control: 'range', min: -1, max: 1, step: 1, description: 'Where the eyes look up or down, from -1 to 1 art pixels.' },
   limbLeft: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s left pod, around the point where it meets the body, or of Flint\'s left hand, around its shoulder. Pelago\'s upper left islet swings round the island by half that turn.' },
   limbRight: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s right pod, Flint\'s right hand or Pelago\'s upper right islet.' },
-  animation: { group: 'Motion', control: 'select', options: ['none', ...MASCOT_ANIMATIONS], description: 'The brand mascot\'s animation, drawn with AnimatedMascot; one it does not have plays its idle. none draws the still Mascot with the variant and pose below.' },
+  animation: { group: 'Motion', control: 'select', options: ['none', ...MASCOT_CLIPS], description: 'The brand mascot\'s animation, drawn with AnimatedMascot; every mascot has the same ten. none draws the still Mascot with the variant and pose below.' },
   speed: { group: 'Motion', control: 'range', min: 0.25, max: 4, step: 0.25, description: 'Playback speed: 1 is normal, 0.5 half, 2 double.' },
   loop: { group: 'Motion', control: 'boolean', description: 'Plays the animation again and again. Off plays it once; turn playing off and on to see it again.' },
   playing: { group: 'Motion', control: 'boolean', description: 'Off pauses the animation where it is.' },
@@ -173,7 +172,7 @@ const Overview = overviewStory({
   points: [
     'Three so far: Sentri for Relic of the Past, Flint for Brock and Pelago for Archipelia.',
     '`pose` moves the eyes and turns the limbs: Sentri\'s pods, Flint\'s hands or Pelago\'s upper islets.',
-    '`AnimatedMascot` plays clips such as idle, jump and wave; Flint and Pelago add point and blink.',
+    'Every mascot plays the same ten clips, from idle to link, so one clip name works for all three.',
     'Pelago is an island spirit: islets orbit it on threads of light, and `link` runs a spark around them.',
     '`scale` sets screen pixels per art unit and `size` uses the mark sizes; reduced motion shows it at rest.',
     '`ChosenMascot` picks one by name, or with `auto` by `brand` or `data-palette`; no match draws none.',

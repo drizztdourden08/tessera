@@ -13,13 +13,13 @@ const frameTransform = (frame: MotionFrame, [px, py]: ScenePoint): string => {
   return `translate(${num(px + x)}px, ${num(py + y)}px) rotate(${rotate}deg) scale(${sx}, ${sy}) translate(${-px}px, ${-py}px)`;
 };
 
-const motionKeyframes = (frames: readonly MotionFrame[], pivot: ScenePoint): Keyframe[] => {
-  const fades = frames.some((f) => f.opacity !== undefined);
+const motionKeyframes = (frames: readonly MotionFrame[], pivot: ScenePoint, rest = 1): Keyframe[] => {
+  const fades = rest !== 1 || frames.some((f) => f.opacity !== undefined);
   return frames.map((f) => ({
     offset: f.at,
     easing: f.ease ?? EASE.inOut,
     transform: frameTransform(f, pivot),
-    ...(fades ? { opacity: (f.opacity ?? 1) - 1 } : {}),
+    ...(fades ? { opacity: (f.opacity ?? rest) - rest } : {}),
   }));
 };
 

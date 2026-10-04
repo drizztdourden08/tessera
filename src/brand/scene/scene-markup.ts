@@ -17,7 +17,7 @@ const nodeTag = (node: SceneNode, w: Writer): string => {
   const clipId = node.clip ? w.clipId() : undefined;
   const clip = node.clip && clipId ? `<clipPath id="${clipId}"><polygon points="${node.clip.map((p) => p.join(',')).join(' ')}"/></clipPath>` : '';
   const turn = node.turn ? turnTransform(node.turn) : undefined;
-  return `${clip}<g${attr('transform', turn)}${attr('clip-path', clipId && `url(#${clipId})`)}>${node.children.map((c) => nodeTag(c, w)).join('')}</g>`;
+  return `${clip}<g${attr('transform', turn)}${attr('clip-path', clipId && `url(#${clipId})`)}${attr('opacity', node.hidden ? '0' : undefined)}>${node.children.map((c) => nodeTag(c, w)).join('')}</g>`;
 };
 
 const sceneMarkup = (scene: BrandSceneData, options: SceneMarkupOptions = {}): string => {

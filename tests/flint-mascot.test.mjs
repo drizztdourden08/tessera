@@ -15,10 +15,8 @@ describe('Flint, the Brock mascot', () => {
     expect(flint?.variants.map((v) => v.id)).toEqual(['flint']);
   });
 
-  it('has every animation Sentri has, plus point and blink, idle at rest', () => {
-    const names = Object.keys(flint?.motion?.animations ?? {});
-    for (const name of Object.keys(sentri?.motion?.animations ?? {})) expect(names).toContain(name);
-    expect(names).toEqual(expect.arrayContaining(['point', 'blink']));
+  it('has the same animations as Sentri, idle at rest', () => {
+    expect(Object.keys(flint?.motion?.animations ?? {})).toEqual(Object.keys(sentri?.motion?.animations ?? {}));
     expect(flint?.motion?.rest).toBe('idle');
   });
 
