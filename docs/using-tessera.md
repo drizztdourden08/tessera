@@ -240,6 +240,7 @@ Every key is optional:
 | `guide.out` | the folder `tessera guide` writes the app guide to | `guide` |
 | `guide.tree` | the module whose `APP_TREE` adds the app branches to the decision tree | none |
 | `guide.tsconfig` | the `tsconfig.json` the usage check reads every part with | the nearest one above each part |
+| `guide.parts` | the module `tessera guide` writes with the part names, added to `TesseraApps` | none |
 | `gallery` | `title`, `port` and `review` of the StoryLite gallery, read only when `@storylite/storylite` is installed | none |
 | `overrides` | the file that builds the app `TesseraOverrides` | none |
 | `apps` | settings per app, below | none |
@@ -362,6 +363,30 @@ The check refuses an answer the question already has and an `at` that does not e
 ### App names and app answers in the types
 
 `ComponentUsage` types `avoidWhen.use` and `tree.path` with the Tessera names and tree. The app adds its own once, by declaration merging into `TesseraApps`, as in the module above. Each key holds the `parts` of one package or app and the `tree` it adds; the names and answers of every key join, so two packages never clash. A usage file stays the same as in Tessera: it imports `ComponentUsage` from `@drizztdourden08/tessera` and ends with `satisfies ComponentUsage`. The module that merges must be in the tsconfig of every package whose usage files name those parts.
+
+`tessera guide` writes the part names for you when `guide.parts` names a module, at the root for the root `parts` and in each `apps` entry for its views. It lists every part in the folders of that scope, sorted, under the `name` of the nearest `package.json`, so a new view needs no hand edit. Leave `parts` out of the tree module then: it keeps only `tree`. `tessera check` reports the module once it falls behind the folders. Keep it in the tsconfig of the usage files, as above, and list it as a knip entry, since nothing imports it.
+
+```json
+{
+  "guide": { "usage": "enforce", "parts": "packages/design/src/guide/parts.type.ts" },
+  "apps": { "apps/desktop": { "guide": { "parts": "apps/desktop/src/guide/parts.type.ts" } } }
+}
+```
+
+### Usage examples and knip
+
+A usage file is a knip entry, but its `example` is a string, so knip never sees the imports in it, and a part only the example imports shows as unused. `usageExampleImports` from `@drizztdourden08/tessera/config` is a knip compiler for `.ts` files: in a `Name.usage.ts` file it adds the imports of the example as re-exports under names nothing else uses, and it leaves every other file as it is. It needs a knip config in JavaScript, since a function does not fit in `knip.json`:
+
+```js
+// knip.config.mjs
+import { usageExampleImports } from '@drizztdourden08/tessera/config';
+
+export default {
+  entry: ['src/main.tsx', 'src/views/*/*.usage.ts'],
+  project: ['src/**/*.{ts,tsx}'],
+  compilers: { ts: usageExampleImports },
+};
+```
 
 ## Creating a part with the tessera command
 

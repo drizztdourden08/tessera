@@ -3044,3 +3044,25 @@ interface SideNavProps {
 1. A hub that wants the old collapsed start passes `nav.defaultOpen: false`.
 2. A hub that should remember the choice passes `nav.storageKey`, such as `` `hub.${id}.nav-open` ``, or holds it with `nav.open` and `nav.onOpenChange`.
 3. Nothing for SettingsRow: a segmented row picks its look by itself.
+
+## 116. tessera guide writes the part names, and usage examples count for knip
+
+From the Archipelia review (archipelia-36). An app listed its part names by hand in the `TesseraApps` module, and a part that only a usage example imported showed as unused in knip, because the example is a string.
+
+- **`guide.parts`** in `tessera.config.json` names a module that `tessera guide` writes: every part in the folders of that scope, sorted, under the `name` of the nearest `package.json`, merged into `TesseraApps`. Set it at the root for the root `parts` and in each `apps` entry for its views. The module is written before the usage check runs, so a new part is known to `ComponentUsage` on the same run. `tessera check` reports it as `parts-module` once it falls behind the folders.
+- **`usageExampleImports`**, exported from `@drizztdourden08/tessera/config`, is a knip compiler for `.ts` files. In a `Name.usage.ts` file it adds the imports of the example as re-exports under names nothing else uses (`__usageExample0` and on), so a part the example imports counts as used. Every other file comes back as it is. It loads `typescript` on the first usage file.
+
+```ts
+// @drizztdourden08/tessera/config
+declare const usageExampleImports: (text: string, filePath: string) => string;
+
+interface TesseraAppSettings {
+  guide?: { usage?: GuideUsage; out?: string; tree?: string; tsconfig?: string; parts?: string };
+}
+```
+
+### What an app does
+
+1. Set `guide.parts`, such as `"apps/desktop/src/guide/parts.type.ts"` in the `apps` entry, run `tessera guide`, then delete the hand-written list and the `parts` key of the tree module.
+2. Keep the module in the tsconfig of the usage files and list it as a knip entry.
+3. Until `standards knip` takes compilers, a repo that runs knip itself adds `compilers: { ts: usageExampleImports }` to a `knip.config.mjs`; see "Usage examples and knip" in docs/using-tessera.md.

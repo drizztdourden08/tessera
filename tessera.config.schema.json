@@ -80,7 +80,8 @@
         "usage": { "description": "How tessera check and the standards extension treat what they find in the usage files: report lists it and passes; enforce fails on it. Default: report.", "enum": ["report", "enforce"] },
         "out": { "description": "The folder tessera guide writes for the app, pnpm guide in Tessera. Default: guide.", "$ref": "#/definitions/path" },
         "tree": { "description": "The module whose APP_TREE adds the app branches to the Tessera decision tree. No default.", "$ref": "#/definitions/path" },
-        "tsconfig": { "description": "The tsconfig.json tessera check reads the props and the examples with. Default: the nearest tsconfig.json above each part.", "$ref": "#/definitions/path" }
+        "tsconfig": { "description": "The tsconfig.json tessera check reads the props and the examples with. Default: the nearest tsconfig.json above each part.", "$ref": "#/definitions/path" },
+        "parts": { "description": "The module tessera guide writes with the name of every part in the parts folders, added to TesseraApps so ComponentUsage takes them; tessera check reports it once it falls behind. No default.", "$ref": "#/definitions/path" }
       }
     },
     "gallery": {

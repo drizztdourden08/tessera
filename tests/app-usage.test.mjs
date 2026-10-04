@@ -147,6 +147,41 @@ describe('the standards extension on an app', () => {
   }, TIMEOUT);
 });
 
+describe('the parts module tessera guide writes', () => {
+  const PARTS_FILES = { root: 'packages/design/src/guide/parts.type.ts', app: 'apps/desktop/src/guide/parts.type.ts' };
+
+  const withParts = async (work) => {
+    const file = at('tessera.config.json');
+    const original = read('tessera.config.json');
+    const config = JSON.parse(original);
+    const apps = { 'apps/desktop': { ...config.apps['apps/desktop'], guide: { parts: PARTS_FILES.app } } };
+    writeFileSync(file, JSON.stringify({ ...config, guide: { ...config.guide, parts: PARTS_FILES.root }, apps }));
+    try {
+      return await work();
+    } finally {
+      writeFileSync(file, original);
+      for (const path of Object.values(PARTS_FILES)) rmSync(at(path), { force: true });
+    }
+  };
+
+  it('lists the parts of each scope under the package name, and tessera check reports it once it falls behind', async () => {
+    const results = await withParts(async () => {
+      const written = await command(writeGuide, state.dir);
+      const files = Object.values(PARTS_FILES).map(read);
+      const fresh = await command(check, state.dir);
+      writeFileSync(at(PARTS_FILES.app), files[1].replace("        | 'Home'\n", ''));
+      return { written, files, fresh, stale: await command(check, state.dir) };
+    });
+    const lines = (...rows) => rows.join('\n');
+    expect(results.written.out).toContain(`tessera: wrote the part names to ${PARTS_FILES.app}.`);
+    expect(results.files[0]).toContain(lines("    '@fixture/design': {", '      parts:', "        | 'RunePanel'", "        | 'SaveSlot';"));
+    expect(results.files[1]).toContain(lines("    '@fixture/desktop': {", '      parts:', "        | 'BadView'", "        | 'Bare'", "        | 'Home'", "        | 'SaveList';"));
+    expect(results.files[1].startsWith(lines('/* @layer renderer-app @kind types */', "declare module '@drizztdourden08/tessera' {"))).toBe(true);
+    expect(results.fresh.out).not.toContain('parts-module');
+    expect(results.stale.out).toContain(`parts-module: ${PARTS_FILES.app} does not list the parts of the app; run tessera guide to write it`);
+  }, TIMEOUT);
+});
+
 describe('an app tree', () => {
   const tree = () => ({ question: 'What?', answers: { data: { question: 'Which data?', answers: { rows: null } }, text: null } });
 

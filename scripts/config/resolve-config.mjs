@@ -19,6 +19,7 @@ const resolveGuide = (guide, root) => ({
   out: absolutePath(root, guide.out ?? DEFAULTS.guideOut),
   ...optional('tree', guide.tree, (tree) => absolutePath(root, tree)),
   ...optional('tsconfig', guide.tsconfig, (tsconfig) => absolutePath(root, tsconfig)),
+  ...optional('parts', guide.parts, (parts) => absolutePath(root, parts)),
 });
 
 const resolveGallery = (gallery, root) => ({

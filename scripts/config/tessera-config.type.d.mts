@@ -11,7 +11,8 @@ interface TesseraAppSettings {
   layer?: string;
   stories?: string;
   theme?: { css?: string; palette?: string };
-  guide?: { usage?: GuideUsage; out?: string; tree?: string; tsconfig?: string };
+  /** parts: the module tessera guide writes with the part names, added to TesseraApps. */
+  guide?: { usage?: GuideUsage; out?: string; tree?: string; tsconfig?: string; parts?: string };
   gallery?: { title?: string; port?: number; review?: string };
   overrides?: string;
 }
@@ -36,7 +37,7 @@ interface ResolvedTesseraConfig {
   layer: string;
   stories: string;
   theme: { css: string; palette?: string };
-  guide: { usage: GuideUsage; out: string; tree?: string; tsconfig?: string };
+  guide: { usage: GuideUsage; out: string; tree?: string; tsconfig?: string; parts?: string };
   gallery?: { title?: string; port?: number; review?: string };
   overrides?: string;
   /** The folder of every apps entry. */
