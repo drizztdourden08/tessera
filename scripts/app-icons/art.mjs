@@ -11,7 +11,7 @@ const boxOf = (viewBox) => {
 
 const markArt = (mark) => ({ ...boxOf(mark.viewBox), pixelArt: mark.pixelArt === true, body: mark.paths.map(pathTag).join('') });
 
-const sceneArt = (scene, body) => ({ ...boxOf(`0 0 ${scene.width} ${scene.height}`), pixelArt: true, body });
+const sceneArt = (scene, body) => ({ ...boxOf(`0 0 ${scene.width} ${scene.height}`), pixelArt: scene.smooth !== true, body });
 
 const crispAttr = (art) => (art.pixelArt ? ' shape-rendering="crispEdges"' : '');
 

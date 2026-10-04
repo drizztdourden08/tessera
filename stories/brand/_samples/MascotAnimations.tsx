@@ -1,24 +1,30 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { AnimatedMascot } from '../../../src/brand';
+import { AnimatedMascot, BRAND_FAMILY } from '../../../src/brand';
 import { Button, Flex, Icon, Stack, Text } from '../../../src/primitives';
-import { SENTRI_ANIMATIONS, SENTRI_MOTION } from './mascot-brands.constants';
-import { VariantGrid } from './VariantGrid';
+import { ANIMATED_BRANDS } from './mascot-brands.constants';
+import type { AnyMascotAnimation } from './mascot-brands.constants';
+import { VariantGroups } from './VariantGroups';
 
 const MascotAnimations = () => {
   const [playing, setPlaying] = useState(true);
-  const items = SENTRI_ANIMATIONS.map((id) => {
-    const clip = SENTRI_MOTION?.animations[id];
+  const groups = ANIMATED_BRANDS.map((brand) => {
+    const { mascot } = BRAND_FAMILY[brand];
+    const clips = Object.entries(mascot?.motion?.animations ?? {});
     return {
-      key: id,
-      label: clip?.name ?? id,
-      node: (
-        <Stack gap="sm" align="center">
-          <AnimatedMascot brand="rotp" animation={id} playing={playing} loop scale={3} title={`Sentri, ${clip?.name ?? id}`} />
-          <Text variant="caption">{clip?.loop ? 'Loops.' : 'Plays once; looped here.'}</Text>
-          <Text variant="caption">{clip?.summary}</Text>
-        </Stack>
-      ),
+      key: brand,
+      label: mascot?.name ?? brand,
+      items: clips.map(([id, clip]) => ({
+        key: id,
+        label: clip.name,
+        node: (
+          <Stack gap="sm" align="center">
+            <AnimatedMascot brand={brand} animation={id as AnyMascotAnimation} playing={playing} loop scale={3} title={`${mascot?.name ?? brand}, ${clip.name}`} />
+            <Text variant="caption">{clip.loop ? 'Loops.' : 'Plays once; looped here.'}</Text>
+            <Text variant="caption">{clip.summary}</Text>
+          </Stack>
+        ),
+      })),
     };
   });
   return (
@@ -28,7 +34,7 @@ const MascotAnimations = () => {
           {playing ? 'Pause' : 'Play'}
         </Button>
       </Flex>
-      <VariantGrid items={items} />
+      <VariantGroups groups={groups} />
     </Stack>
   );
 };

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.5 28.5" width="256" height="180" role="img" aria-label="Flint">
+  <title>Flint</title>
+  <g transform="translate(4.5 0)">
+  <svg width="31.5" height="28.5" viewBox="0 0 31.5 28.5" preserveAspectRatio="none" overflow="visible">
+  <path fill="#1c1d1f" d="M11.58 0.6L19.91 0.4L26.04 3.36L30.06 8.85L31.31 15.75L30.07 22.6L27.01 28.5L4.49 28.5L1.43 22.6L0.19 15.75L1.44 8.85L5.46 3.35Z"/>
+  <path fill="#77787a" d="M5.95 3.95L11.75 1.35L9.75 6.55ZM11.75 1.35L19.75 1.15L16.75 4.55Z"/>
+  <path fill="#606162" d="M11.75 1.35L16.75 4.55L9.75 6.55ZM19.75 1.15L25.55 3.95L23.15 7.35L16.75 4.55ZM2.15 9.15L5.95 3.95L9.75 6.55L5.35 13.75Z"/>
+  <path fill="#474849" d="M25.55 3.95L29.35 9.15L23.15 7.35ZM29.35 9.15L30.55 15.75L26.15 14.15ZM0.95 15.75L2.15 9.15L5.35 13.75ZM9.75 6.55L16.75 4.55L23.15 7.35L26.15 14.15L15.75 20.35L5.35 13.75Z"/>
+  <path fill="#38383a" d="M29.35 9.15L26.15 14.15L23.15 7.35ZM29.35 22.35L26.55 27.75L24.75 21.75ZM4.95 27.75L2.15 22.35L6.95 21.95ZM15.75 20.35L26.15 14.15L24.75 21.75L15.95 24.75Z"/>
+  <path fill="#2c2d2f" d="M30.55 15.75L29.35 22.35L24.75 21.75L26.15 14.15ZM26.55 27.75L15.95 24.75L24.75 21.75ZM4.95 27.75L6.95 21.95L15.95 24.75Z"/>
+  <path fill="#232426" d="M26.55 27.75L4.95 27.75L15.95 24.75Z"/>
+  <path fill="#3f4042" d="M2.15 22.35L0.95 15.75L5.35 13.75L6.95 21.95ZM5.35 13.75L15.75 20.35L15.95 24.75L6.95 21.95Z"/>
+  <path fill="#f0862b" d="M20.95 1.8L25.35 3.75L27.1 6.1L22.95 6.25Z"/>
+  <path fill="#d65a04" d="M25.35 3.75L27.1 6.1L24.35 5.25Z"/>
+  <path fill="#ffb341" d="M20.95 1.8L23.35 2.85L22.15 4.35Z"/>
+  </svg>
+  </g>
+  <g>
+  <g transform="translate(15.35 10.15)">
+  <svg width="2.6" height="4" viewBox="0 0 2.6 4" preserveAspectRatio="none" overflow="visible">
+  <path fill="#f4efe6" d="M0.7 0L1.9 0L2.6 0.9L2.6 3.1L1.9 4L0.7 4L0 3.1L0 0.9Z"/>
+  <path fill="#d9d1c4" d="M0 2.9L2.6 2.9L2.6 3.1L1.9 4L0.7 4L0 3.1Z"/>
+  </svg>
+  </g>
+  <g transform="translate(22.55 10.15)">
+  <svg width="2.6" height="4" viewBox="0 0 2.6 4" preserveAspectRatio="none" overflow="visible">
+  <path fill="#f4efe6" d="M0.7 0L1.9 0L2.6 0.9L2.6 3.1L1.9 4L0.7 4L0 3.1L0 0.9Z"/>
+  <path fill="#d9d1c4" d="M0 2.9L2.6 2.9L2.6 3.1L1.9 4L0.7 4L0 3.1Z"/>
+  </svg>
+  </g>
+  </g>
+  <g transform="translate(18.05 16.75)">
+  <svg width="4.4" height="1.9" viewBox="0 0 4.4 1.9" preserveAspectRatio="none" overflow="visible">
+  <path fill="#f4efe6" d="M0 0L1.3 0.55L3.1 0.55L4.4 0L3.7 1.25L2.2 1.9L0.7 1.25Z"/>
+  </svg>
+  </g>
+  <g transform="translate(0 17.7)">
+  <svg width="8.3" height="8.3" viewBox="0 0 8.3 8.3" preserveAspectRatio="none" overflow="visible">
+  <path fill="#1c1d1f" d="M2.15 0.32L5.89 0.08L8.08 2.15L8.32 5.66L6.36 8.11L2.38 7.99L0.21 5.94L0.09 2.5Z"/>
+  <path fill="#77787a" d="M0.75 2.75L2.45 0.95L4.25 3.95Z"/>
+  <path fill="#606162" d="M2.45 0.95L5.65 0.75L4.25 3.95Z"/>
+  <path fill="#474849" d="M5.65 0.75L7.45 2.45L7.65 5.45L4.25 3.95Z"/>
+  <path fill="#2c2d2f" d="M7.65 5.45L6.05 7.45L2.65 7.35L4.25 3.95Z"/>
+  <path fill="#38383a" d="M2.65 7.35L0.85 5.65L0.75 2.75L4.25 3.95Z"/>
+  </svg>
+  </g>
+  <g transform="translate(32.2 17.7)">
+  <svg width="8.3" height="8.3" viewBox="0 0 8.3 8.3" preserveAspectRatio="none" overflow="visible">
+  <path fill="#1c1d1f" d="M6.15 0.32L2.41 0.08L0.22 2.15L-0.02 5.66L1.94 8.11L5.92 7.99L8.09 5.94L8.21 2.5Z"/>
+  <path fill="#77787a" d="M7.55 2.75L5.85 0.95L4.05 3.95Z"/>
+  <path fill="#606162" d="M5.85 0.95L2.65 0.75L4.05 3.95Z"/>
+  <path fill="#474849" d="M2.65 0.75L0.85 2.45L0.65 5.45L4.05 3.95Z"/>
+  <path fill="#2c2d2f" d="M0.65 5.45L2.25 7.45L5.65 7.35L4.05 3.95Z"/>
+  <path fill="#38383a" d="M5.65 7.35L7.45 5.65L7.55 2.75L4.05 3.95Z"/>
+  </svg>
+  </g>
+</svg>

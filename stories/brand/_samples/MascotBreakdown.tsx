@@ -23,7 +23,7 @@ const MascotBreakdown = (props: MascotBreakdownProps) => {
             <Text>{variant.summary}</Text>
           </Stack>
           <Text variant="subtitle">Each piece alone</Text>
-          <PieceTable pieces={variant.pieces} />
+          <PieceTable pieces={variant.pieces} smooth={variant.compose().smooth} />
           <Text variant="subtitle">The assembly, step by step</Text>
           <AssemblySteps scene={variant.compose()} />
         </Stack>

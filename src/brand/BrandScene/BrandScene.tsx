@@ -15,7 +15,7 @@ const BrandScene = (props: BrandSceneProps) => {
       viewBox={`0 0 ${width} ${height}`}
       width={scale === undefined ? undefined : width * scale}
       height={scale === undefined ? undefined : height * scale}
-      shapeRendering="crispEdges"
+      shapeRendering={scene.smooth ? undefined : 'crispEdges'}
       {...markLabelProps(title)}
     >
       {nodes.map((node, i) => <SceneNodeView key={`${node.label}-${i}`} node={node} />)}

@@ -2,19 +2,20 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { AnimatedMascot, BRAND_FAMILY, ChosenMascot, Mascot } from '../../src/brand';
-import type { BrandApp, BrandMarkSize, ChosenMascotProps, MascotPose, SentriAnimation } from '../../src/brand';
-import { Stack, Text } from '../../src/primitives';
+import type { AnimatedMascotBrand, BrandApp, BrandMarkSize, ChosenMascotProps, MascotPose } from '../../src/brand';
+import { Span, Stack, Text } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import { MASCOT_BRANDS, MASCOT_VARIANT_IDS, SENTRI_ANIMATIONS } from './_samples/mascot-brands.constants';
+import { MASCOT_ANIMATIONS, MASCOT_BRANDS, MASCOT_VARIANT_IDS } from './_samples/mascot-brands.constants';
+import type { AnyMascotAnimation } from './_samples/mascot-brands.constants';
 import { IconFileRows } from './_samples/IconFileRows';
 import { MascotAnimations } from './_samples/MascotAnimations';
 import { MascotBreakdown } from './_samples/MascotBreakdown';
 import { VariantGroups } from './_samples/VariantGroups';
 
 type MascotArgs = {
-  animation: SentriAnimation | 'none';
+  animation: AnyMascotAnimation | 'none';
   speed: number;
   loop: boolean;
   playing: boolean;
@@ -23,8 +24,8 @@ type MascotArgs = {
   scale: number;
   lookX: number;
   lookY: number;
-  podLeft: number;
-  podRight: number;
+  limbLeft: number;
+  limbRight: number;
 };
 
 const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
@@ -34,7 +35,8 @@ const POSES: Readonly<Record<string, MascotPose>> = {
   'Looks left': { look: [-2, 0] },
   'Looks right': { look: [2, 0] },
   'Looks up': { look: [0, -1] },
-  'Pods raised': { podAngles: { left: 25, right: -25 } },
+  'Arms raised': { podAngles: { left: 25, right: -25 }, handAngles: { left: 45, right: -45 } },
+  'Waving': { look: [1, 0], podAngles: { right: -75 }, handAngles: { right: -70 } },
 };
 
 const ARG_TYPES: PlaygroundArgTypes<MascotArgs> = {
@@ -43,9 +45,9 @@ const ARG_TYPES: PlaygroundArgTypes<MascotArgs> = {
   scale: { group: 'Appearance', control: 'number', description: 'Screen pixels per art pixel. Whole numbers keep every pixel square.' },
   lookX: { group: 'State', control: 'range', min: -2, max: 2, step: 1, description: 'Where the eyes look across, from -2 to 2 art pixels.' },
   lookY: { group: 'State', control: 'range', min: -1, max: 1, step: 1, description: 'Where the eyes look up or down, from -1 to 1 art pixels.' },
-  podLeft: { group: 'State', control: 'number', description: 'The left pod\'s turn in degrees, around the point where it meets the body.' },
-  podRight: { group: 'State', control: 'number', description: 'The right pod\'s turn in degrees.' },
-  animation: { group: 'Motion', control: 'select', options: ['none', ...SENTRI_ANIMATIONS], description: 'Sentri\'s animation, drawn with AnimatedMascot. none draws the still Mascot with the variant and pose below.' },
+  limbLeft: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s left pod, around the point where it meets the body, or of Flint\'s left hand, around its shoulder.' },
+  limbRight: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s right pod or Flint\'s right hand.' },
+  animation: { group: 'Motion', control: 'select', options: ['none', ...MASCOT_ANIMATIONS], description: 'The brand mascot\'s animation, drawn with AnimatedMascot; one it does not have plays its idle. none draws the still Mascot with the variant and pose below.' },
   speed: { group: 'Motion', control: 'range', min: 0.25, max: 4, step: 0.25, description: 'Playback speed: 1 is normal, 0.5 half, 2 double.' },
   loop: { group: 'Motion', control: 'boolean', description: 'Plays the animation again and again. Off plays it once; turn playing off and on to see it again.' },
   playing: { group: 'Motion', control: 'boolean', description: 'Off pauses the animation where it is.' },
@@ -58,17 +60,17 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { animation: 'idle', speed: 1, loop: true, playing: true, brand: 'rotp', variant: 'sentri', scale: 5, lookX: 0, lookY: 0, podLeft: 0, podRight: 0 },
+  args: { animation: 'idle', speed: 1, loop: true, playing: true, brand: 'rotp', variant: 'sentri', scale: 5, lookX: 0, lookY: 0, limbLeft: 0, limbRight: 0 },
   argTypes: ARG_TYPES,
   render: (args) => (args.animation === 'none' ? (
     <Mascot
       brand={args.brand}
       variant={args.variant}
       scale={args.scale}
-      pose={{ look: [args.lookX, args.lookY], podAngles: { left: args.podLeft, right: args.podRight } }}
+      pose={{ look: [args.lookX, args.lookY], podAngles: { left: args.limbLeft, right: args.limbRight }, handAngles: { left: args.limbLeft, right: args.limbRight } }}
     />
   ) : (
-    <AnimatedMascot brand="rotp" animation={args.animation} speed={args.speed} loop={args.loop} playing={args.playing} scale={args.scale} />
+    <AnimatedMascot brand={args.brand as AnimatedMascotBrand} animation={args.animation} speed={args.speed} loop={args.loop} playing={args.playing} scale={args.scale} />
   )),
 } satisfies PlaygroundStory<MascotArgs>;
 
@@ -130,12 +132,22 @@ const CHOICES: Readonly<Record<string, ChosenMascotProps>> = {
   'auto, from the palette': { mascot: 'auto' },
   'auto, brand rotp': { mascot: 'auto', brand: 'rotp' },
   'sentri, by name': { mascot: 'sentri' },
+  'auto, brand brock': { mascot: 'auto', brand: 'brock' },
+  'flint, by name': { mascot: 'flint' },
 };
+
+const PALETTES = ['rotp', 'brock'] as const;
 
 const Chosen = {
   name: 'Picked by name or palette',
   render: () => (
-    <Demonstrator columns={axis(Object.keys(CHOICES))} cell={(_row, choice) => <ChosenMascot {...CHOICES[choice]} animation="scan" scale={3} />} />
+    <Stack gap="lg">
+      <Demonstrator columns={axis(Object.keys(CHOICES))} cell={(_row, choice) => <ChosenMascot {...CHOICES[choice]} animation="scan" scale={3} />} />
+      <Demonstrator
+        columns={PALETTES.map((palette) => ({ key: palette, label: `auto, inside data-palette="${palette}"` }))}
+        cell={(_row, palette) => <Span data-palette={palette}><ChosenMascot animation="wave" scale={3} /></Span>}
+      />
+    </Stack>
   ),
 } satisfies StoryLiteStoryDefinition<MascotArgs>;
 
@@ -146,7 +158,14 @@ const IconFiles = {
 
 const Overview = overviewStory({
   component: 'Mascot',
-  description: 'An app\'s mascot, built in code from its separate SVG pieces: a composition function places, turns and clips each piece, and Mascot draws the result inline. The mascot comes from the brand data, so any app can add one; Relic of the Past is the only one with a mascot so far: Sentri, a gold pyramid with a visor, eyes and pods. Its variants are Sentri at rest and the Hookshop highlight, where Sentri pulls a shop bag in with its hookshot. A pose moves the eyes and turns the pods without new art. AnimatedMascot moves the same pieces with the Web Animations API: the brand data lists each mascot\'s animations, and Sentri has Idle, Move, Jump, Wave, Look around, Happy and Alert, side by side in Animations with one play and pause button. Each animation turns and moves the piece groups around their own pivots, loops or plays once, and shows Sentri at rest when the system asks for reduced motion. Use size for the mark sizes, or scale for whole screen pixels per art pixel. Breakdown shows every piece alone and the assembly step by step. Icon files shows the PNG at each size and the .ico that `pnpm icons` writes for each mascot. ChosenMascot picks among the mascots for a part that wants one without naming a brand: mascot names one, and auto takes the mascot of brand, then of the palette the page shows, then the first mascot there is.',
+  description: 'An app\'s mascot, drawn in code from its own SVG pieces: still with Mascot, moving with AnimatedMascot.',
+  points: [
+    'Two so far: Sentri for Relic of the Past, a gold pixel pyramid, and Flint for Brock, a faceted stone.',
+    '`pose` moves the eyes and turns the limbs, Sentri\'s pods or Flint\'s hands, without new art.',
+    'AnimatedMascot plays the brand\'s clips: idle, move, jump, wave, scan, happy, alert; Flint adds point, blink.',
+    'Reduced motion shows the mascot at rest. `scale` sets screen pixels per art unit; `size` uses the mark sizes.',
+    'ChosenMascot picks one by `mascot` name, or with `auto` by `brand`, then by the page\'s `data-palette`.',
+  ],
   playground: Playground,
   variants: [Animations, Variants, Sizes, Poses, Chosen, IconFiles],
   code: `import { AnimatedMascot, Mascot } from '@drizztdourden08/tessera/brand';
@@ -157,6 +176,8 @@ const Overview = overviewStory({
 
 <AnimatedMascot brand="rotp" animation="idle" scale={4} />
 <AnimatedMascot brand="rotp" animation="jump" speed={0.5} playing={!paused} onFinish={backToIdle} />
+<AnimatedMascot brand="brock" animation="point" scale={4} />
+<Mascot brand="brock" pose={{ handAngles: { right: -70 } }} />
 
 <ChosenMascot mascot="auto" animation="scan" />`,
 });

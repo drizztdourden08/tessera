@@ -18,6 +18,7 @@ const stageScene = (scene: BrandSceneData, motion: MascotMotion): BrandSceneData
     width: scene.width + left + right,
     height: scene.height + top + bottom,
     nodes: [groupNode('Stage', [...ground, rig], { turn: { left, top, angle: 0, originX: 0, originY: 0 } })],
+    ...(scene.smooth ? { smooth: true } : {}),
   };
 };
 

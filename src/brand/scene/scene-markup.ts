@@ -11,7 +11,7 @@ const pathTag = (p: BrandMarkPath, w: Writer): string =>
 const nodeTag = (node: SceneNode, w: Writer): string => {
   if (node.kind === 'piece') {
     const { piece } = node;
-    const art = `<svg width="${node.width}" height="${node.height}" viewBox="0 0 ${piece.w} ${piece.h}" preserveAspectRatio="none" overflow="visible" shape-rendering="crispEdges">${piece.paths.map((p) => pathTag(p, w)).join('')}</svg>`;
+    const art = `<svg width="${node.width}" height="${node.height}" viewBox="0 0 ${piece.w} ${piece.h}" preserveAspectRatio="none" overflow="visible"${w.crisp ? ' shape-rendering="crispEdges"' : ''}>${piece.paths.map((p) => pathTag(p, w)).join('')}</svg>`;
     return `<g${attr('transform', turnTransform(node))}>${art}</g>`;
   }
   const clipId = node.clip ? w.clipId() : undefined;
@@ -23,7 +23,7 @@ const nodeTag = (node: SceneNode, w: Writer): string => {
 const sceneMarkup = (scene: BrandSceneData, options: SceneMarkupOptions = {}): string => {
   const { idPrefix = 'scene', ink = (value: string) => value } = options;
   let clips = 0;
-  const writer: Writer = { ink, clipId: () => `${idPrefix}-clip-${(clips += 1)}` };
+  const writer: Writer = { ink, crisp: scene.smooth !== true, clipId: () => `${idPrefix}-clip-${(clips += 1)}` };
   return scene.nodes.map((node) => nodeTag(node, writer)).join('');
 };
 

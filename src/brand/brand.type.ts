@@ -73,11 +73,13 @@ interface BrandSceneData {
   width: number;
   height: number;
   nodes: readonly SceneNode[];
+  smooth?: boolean;
 }
 
 interface MascotPose {
   look?: ScenePoint;
   podAngles?: { readonly left?: number; readonly right?: number };
+  handAngles?: { readonly left?: number; readonly right?: number };
 }
 
 interface BrandMascotVariant {

@@ -1,17 +1,16 @@
 /* @layer renderer-components @kind types */
-import type { AnimatedMascotBrand } from '../AnimatedMascot/AnimatedMascot.type';
+import type { AnimatedMascotBrand, MascotAnimationNames } from '../AnimatedMascot/AnimatedMascot.type';
 import type { BrandMarkSize } from '../BrandMark';
 import type { BrandApp } from '../brand.type';
-import type { SentriAnimation } from '../sentri/sentri-motion.type';
 
-type MascotName = 'sentri';
+type MascotName = 'sentri' | 'flint';
 
 type MascotChoice = MascotName | 'auto';
 
 interface ChosenMascotProps {
   mascot?: MascotChoice;
   brand?: BrandApp;
-  animation?: SentriAnimation;
+  animation?: MascotAnimationNames[AnimatedMascotBrand];
   playing?: boolean;
   loop?: boolean;
   size?: BrandMarkSize;

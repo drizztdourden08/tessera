@@ -2,6 +2,7 @@
 import type { BrandApp, BrandInfo } from './brand.type';
 import { ARCHIPELIA_MARK } from './marks/archipelia.constants';
 import { BROCK_MARK } from './marks/brock.constants';
+import { BROCK_MASCOT } from './marks/brock-mascot.constants';
 import { ROTP_MARK } from './marks/rotp.constants';
 import { ROTP_MASCOT } from './marks/rotp-mascot.constants';
 import { TESSERA_MARK } from './marks/tessera.constants';
@@ -97,6 +98,7 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
     summary: 'The base every new app starts from: window, IPC, storage, settings, stores, packaging and the app builder. It brings Tessera into each app.',
     placement: 'Low in the stem, because it is what the apps stand on.',
     mark: BROCK_MARK,
+    mascot: BROCK_MASCOT,
     wordmark: { text: 'Brock', colors: ['#ffb341', '#ff9416', '#f2760c', '#d65a04'] },
     gradient: { angle: 160, stops: ['#ffc66e', '#ffb341', '#ff9416'] },
     backdrop: {

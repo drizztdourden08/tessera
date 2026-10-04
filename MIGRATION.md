@@ -2331,6 +2331,30 @@ The button shows the icon of the current choice and lights up while the window s
 3. Pass extra title bar buttons through `titleBarActions` or `widgetActions` in place of a portal into `.widget__titlebar-actions`.
 4. An app that overrides the widget strings renames `pinTitleOff`, `pinTitleTop` and `pinTitleWithApp` to one `pinTitle(choice)` function, and drops `pinWithApp` and `pinWithAppHint`.
 
+## 89. Brock has a mascot: Flint
+
+Brock's mascot is Flint, a small round stone cut in flat facets like the Brock logo, with the logo's greys and its orange chip, a flat base it sits on and two stone hands. Nothing an app has today changes; this section lists what is new.
+
+- `<Mascot brand="brock" />` draws Flint, and `<AnimatedMascot brand="brock" animation="wave" />` moves it. Flint has every animation Sentri has, plus two of its own:
+
+| Animation | What Flint does |
+|---|---|
+| `idle` | breathes as a slight squash on its base; glances, blinks twice |
+| `move` | scoots forward in small hops, hands swinging |
+| `jump` | squats, springs up, lands with a thud |
+| `wave` | tips onto one edge and waves the right hand |
+| `scan` | looks around, the smile trailing the eyes |
+| `happy` | two hops, hands flapping, wide smile |
+| `alert` | jolts up, hands beside its face, mouth in an O |
+| `point` | raises the right hand and jabs it towards something |
+| `blink` | blinks twice |
+
+- `MascotName` is `'sentri' | 'flint'`. `ChosenMascot` takes `mascot="flint"`, and with `mascot="auto"` picks Flint for `brand="brock"` or inside `data-palette="brock"`.
+- `ChosenMascot`'s `animation` takes any mascot's animation name. A name the chosen mascot lacks plays its idle.
+- `MascotPose` takes `handAngles: { left, right }`, the turn of Flint's hands in degrees, the way `podAngles` turns Sentri's pods.
+- `BrandSceneData` takes `smooth: true` for vector art: `BrandScene` and `sceneMarkup` then draw anti-aliased edges in place of crisp pixels, and `pnpm icons` renders the mascot's PNGs smooth. Sentri leaves it out and stays crisp.
+- `pnpm icons` writes Flint's files to `brand/brock/mascot/`.
+
 ## 90. The Core pages open on a short lead and points
 
 Every Overview page under Core (Setup, Brand, Colours, Typography, Text, Icons and Tokens) is rewritten to the description format of section 87: a one-sentence lead, 3 to 6 short points and, where a sibling is the better pick, a Use instead line. The Setup guides and `textElementStories` take `points` and `instead` for this.

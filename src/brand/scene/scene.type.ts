@@ -17,6 +17,7 @@ interface GroupSpot {
 
 interface SceneWriter {
   ink: (ink: string) => string;
+  crisp: boolean;
   clipId: () => string;
 }
 
