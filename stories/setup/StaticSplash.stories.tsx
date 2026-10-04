@@ -59,6 +59,7 @@ const CODE = `<link rel="stylesheet" href="node_modules/@drizztdourden08/tessera
 
 <body class="ts-splash">
   <main class="ts-stage">
+    <img class="ts-mark" src="mark.svg" alt="" />
     <h1 class="ts-title">Archipelia</h1>
     <p class="ts-status" aria-live="polite">Loading the engine</p>
     <div class="ts-actions" hidden>
@@ -75,12 +76,13 @@ const Overview = overviewStory({
   description: 'Plain CSS classes for a splash page in static HTML that shows before the app bundle loads, in the look of the app.',
   points: [
     'Load `splash-tokens.css`, then `splash.css`; no React and no bundle, so the page draws at once.',
-    '`ts-splash` on the body centres a `ts-stage`; `ts-title`, `ts-status` and `ts-actions` stack in it.',
+    '`ts-splash` on the body centres a `ts-stage`; `ts-mark`, `ts-title`, `ts-status` and `ts-actions` stack in it.',
     '`ts-button` is the secondary [Button] look, `ts-button--primary` the primary one.',
-    '`ts-progress` fills to `--value`, from 0 to 1; `ts-progress--edge` runs along the bottom of the window.',
-    '`ts-status--danger` and `ts-progress--danger` mark a failed start; `ts-version` sits in the corner.',
+    '`ts-progress` fills to `--value`, 0 to 1, or sweeps with `ts-progress--indeterminate`; `--edge` runs at the bottom.',
+    '`ts-status--danger` and `ts-progress--danger` mark a failed start; `ts-detail` holds the error text.',
+    '`ts-version` sits in the corner.',
   ],
-  instead: '[ProgressBar] and [Button] once the app bundle has loaded.',
+  instead: '[Splash] draws the same page from React once the bundle has loaded, to show it again or take over.',
   playground: Playground,
   variants: [Starting, Failed, Parts],
   code: CODE,

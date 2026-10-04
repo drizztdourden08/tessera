@@ -4348,3 +4348,54 @@ interface PathFieldProps {
 1. Archipelia: the ServerForm key file becomes a `PathField` with `onBrowse` through Brock's native dialog and `resolvePath`; PlayerRow Import file becomes a `PathField` with `accept: ['.yaml', '.yml']`; the DataOverview path and the RoomWidget output zip become read only PathFields with `onReveal`.
 2. Brock: expose `pickFile`, `pickFolder`, `showInFolder` and `webUtils.getPathForFile` through the preload bridge for these props.
 3. Relic of the Past: the ROM and save folder settings use `kind: 'folder'` or `accept` with the ROM endings.
+
+## 163. Splash: the static splash page as a component
+
+`Splash` is new, under Primitives · Feedback. It draws the `ts-` classes of `splash.css` from React, so it looks the same as a static splash page. An app shows it when it has loaded but has to wait again for the whole window, such as a lost engine it reconnects to or an update that restarts it, or renders it first so it takes over from the static page with no jump. It covers the window with a fixed layer.
+
+```ts
+interface SplashAction {
+  label: string;
+  onSelect: () => void;
+  primary?: boolean;
+  disabled?: boolean;
+}
+
+type SplashProgress = number | 'indeterminate';
+type SplashBar = 'edge' | 'inline';
+
+interface SplashProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+  title: string;
+  mark?: ReactNode;
+  status?: ReactNode;
+  detail?: ReactNode;
+  failed?: boolean;
+  progress?: SplashProgress;
+  bar?: SplashBar;
+  progressLabel?: string;
+  actions?: readonly SplashAction[];
+  version?: string;
+}
+```
+
+- **The column.** `mark` is an image URL, drawn as `<img class="ts-mark">` as on the static page, or a node such as `BrandMark`, centred in the 96 px box. `title` is the h1. `status` is one line, a polite live region; `detail` is the longer text under it, up to three lines and selectable.
+- **The bar.** `progress` fills from 0 to 1, or sweeps with `'indeterminate'`; without it there is no bar. `bar` puts it along the bottom of the window (`edge`, the default) or under the status in the column (`inline`). It is a progressbar named by `progressLabel`, the common Loading string by default.
+- **A failure.** `failed` turns the status and the bar red, makes the status line an alert and moves focus to the first primary action.
+- **The actions** are `ts-button`s, the primary one in the primary look; `version` sits in the bottom right corner.
+
+`splash.css` gains the classes the component needs, and a static page can use them too:
+
+| Class | What it draws |
+|---|---|
+| `ts-splash--layer` | the splash as a fixed layer over the window, for a page whose body is not the splash |
+| `ts-mark` | a 96 px box for the app mark, an image or any element, centred |
+| `ts-detail` | the longer text under the status, muted, up to three lines, selectable |
+| `ts-progress--indeterminate` | a sweep for work with no known end; with reduced motion, a still faint bar |
+
+The gallery shows each state, starting, failed, update and reconnecting, as the static page and the component side by side; the static frames now load Inter and Chakra Petch, as an app page does.
+
+### What an app does
+
+1. Brock: the boot splash page can use `ts-mark` for its mark and `ts-detail` for the failure message, in place of `splash__mark` and `splash__message`.
+2. Brock: the updater can show `Splash` with the update progress while it installs a version and restarts, and the renderer can show it while it reconnects to main, with the same title, mark and version as the boot splash.
+3. An app that keeps the static page in its `index.html` puts it inside the root element with `ts-splash ts-splash--layer`, and renders `Splash` with the same props until its start tasks finish.

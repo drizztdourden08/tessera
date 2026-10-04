@@ -186,3 +186,5 @@ export { CommandInput } from './CommandInput';
 export type { CommandInputProps, CommandSubmit } from './CommandInput';
 export { PathField } from './PathField';
 export type { PathBrowse, PathFieldProps, PathKind } from './PathField';
+export { Splash } from './Splash';
+export type { SplashAction, SplashBar, SplashProgress, SplashProps } from './Splash';

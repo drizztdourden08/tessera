@@ -8,6 +8,10 @@ const PACKAGE = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 const defined = new Set([...TOKENS.matchAll(/^\s*(--[\w-]+):/gm)].map((match) => match[1]));
 const OWN = new Set(['--value', '--ts-tone', '--ts-tone-dim', '--ts-tone-bright', '--ts-tone-ink']);
+const CLASSES = [
+  'ts-splash', 'ts-splash--layer', 'ts-stage', 'ts-mark', 'ts-title', 'ts-status', 'ts-status--danger', 'ts-detail', 'ts-actions', 'ts-button',
+  'ts-button--primary', 'ts-progress', 'ts-progress--edge', 'ts-progress--danger', 'ts-progress--indeterminate', 'ts-version',
+];
 
 describe('the static splash kit', () => {
   it('takes every value from splash-tokens.css or its own custom properties', () => {
@@ -17,7 +21,7 @@ describe('the static splash kit', () => {
   });
 
   it('has the classes a static splash page needs', () => {
-    for (const name of ['ts-splash', 'ts-stage', 'ts-title', 'ts-status', 'ts-status--danger', 'ts-actions', 'ts-button', 'ts-button--primary', 'ts-progress', 'ts-progress--edge', 'ts-progress--danger', 'ts-version']) {
+    for (const name of CLASSES) {
       expect(KIT.includes(`.${name} `) || KIT.includes(`.${name}:`) || KIT.includes(`.${name},`)).toBe(true);
     }
   });

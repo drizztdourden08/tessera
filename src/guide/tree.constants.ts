@@ -126,6 +126,7 @@ const FEEDBACK = {
     'progress toward an end, in a small round space': null, 'a short message that passes': null,
     'a note that stays on the page': null, 'nothing is here yet': null, 'a hint for what is under the pointer': null,
     'a part of the page failed': null, 'a long job with steps, a log or a failure': null,
+    'the app is starting, or starting again': null,
     'the results of a list of checks': null,
     'what blocks a save, with a jump to each field': null,
   },

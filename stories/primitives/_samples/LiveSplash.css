@@ -1,0 +1,11 @@
+/* @layer stories @kind style */
+.live-splash {
+  position: relative;
+  overflow: hidden;
+  contain: layout paint;
+}
+
+.splash-pair .splash-frame {
+  inline-size: var(--size-448);
+  block-size: var(--size-384);
+}

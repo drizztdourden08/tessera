@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 30 of 167 have their usage written; a linked name opens its page.
+One line per component. 31 of 168 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -66,6 +66,7 @@ One line per component. 30 of 167 have their usage written; a linked name opens 
 - `Spacer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Sparkline](components/Sparkline.md): A small line or area chart of the latest samples, so a reader sees which way a value moves at a glance. Import from `@drizztdourden08/tessera`.
 - `Spinner`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.
 - `Stack`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StackedBar](components/StackedBar.md): One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend. Import from `@drizztdourden08/tessera`.
 - `StatRow`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -19,6 +19,13 @@
   display: none;
 }
 
+.ts-splash--layer {
+  position: fixed;
+  z-index: var(--z-top);
+  min-block-size: 0;
+  inset: 0;
+}
+
 .ts-stage {
   display: flex;
   max-inline-size: 100%;
@@ -40,6 +47,14 @@
   line-height: var(--leading-tight);
 }
 
+.ts-mark {
+  display: grid;
+  inline-size: var(--size-96);
+  block-size: var(--size-96);
+  place-items: center;
+  object-fit: contain;
+}
+
 .ts-status {
   max-inline-size: var(--size-384);
   min-block-size: calc(var(--text-sm) * var(--leading-normal));
@@ -54,6 +69,16 @@
 .ts-status--danger {
   color: var(--c-danger-bright);
   white-space: normal;
+  user-select: text;
+}
+
+.ts-detail {
+  max-inline-size: var(--size-384);
+  max-block-size: calc(var(--text-sm) * var(--leading-normal) * 3);
+  margin: 0;
+  overflow: hidden;
+  color: var(--c-text-muted);
+  font-size: var(--text-sm);
   user-select: text;
 }
 
@@ -134,6 +159,13 @@
   background: var(--c-danger);
 }
 
+.ts-progress--indeterminate::before {
+  inline-size: 40%;
+  inset-inline-end: auto;
+  transform: none;
+  animation: ts-progress-sweep var(--duration-float) var(--ease-in-out) infinite;
+}
+
 .ts-progress--edge {
   position: fixed;
   inline-size: auto;
@@ -153,9 +185,21 @@
   letter-spacing: var(--tracking-wide);
 }
 
+@keyframes ts-progress-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ts-button,
   .ts-progress::before {
     transition: none;
+  }
+
+  .ts-progress--indeterminate::before {
+    inline-size: auto;
+    inset-inline-end: 0;
+    opacity: var(--opacity-faint);
+    animation: none;
   }
 }

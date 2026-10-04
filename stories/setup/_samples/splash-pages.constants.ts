@@ -8,7 +8,8 @@ const STARTING = `<main class="ts-stage">
 
 const FAILED = `<main class="ts-stage">
   <h1 class="ts-title">Archipelia</h1>
-  <p class="ts-status ts-status--danger" role="alert">The engine did not start: port 38281 is taken.</p>
+  <p class="ts-status ts-status--danger" role="alert">The engine did not start</p>
+  <p class="ts-detail">Port 38281 is taken by another program.</p>
   <div class="ts-actions">
     <button class="ts-button ts-button--primary" type="button">Retry</button>
     <button class="ts-button" type="button">Open logs</button>
@@ -21,7 +22,9 @@ const FAILED = `<main class="ts-stage">
 const PARTS = `<main class="ts-stage">
   <p class="ts-status">ts-status: Checking for updates</p>
   <p class="ts-status ts-status--danger">ts-status--danger: Download failed</p>
+  <p class="ts-detail">ts-detail: the longer text under the status, up to three lines</p>
   <div class="ts-progress" style="--value: 0.35" role="progressbar" aria-label="Download" aria-valuenow="35"></div>
+  <div class="ts-progress ts-progress--indeterminate" role="progressbar" aria-label="Waiting"></div>
   <div class="ts-actions">
     <button class="ts-button ts-button--primary" type="button">ts-button--primary</button>
     <button class="ts-button" type="button">ts-button</button>

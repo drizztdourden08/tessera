@@ -120,6 +120,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A hint for what is under the pointer: no component yet.
   - A part of the page failed: no component yet.
   - A long job with steps, a log or a failure: [TaskProgress](components/TaskProgress.md). TaskProgress draws a bar, the steps, the failure and the log of one job the same way in every app.
+  - The app is starting, or starting again: [Splash](components/Splash.md). Splash draws the classes of splash.css, so it looks the same as the static splash page.
   - The results of a list of checks: [CheckList](components/CheckList.md). CheckList gives pass, advice and failure their own icon and colour, so a test result reads the same in every app.
   - What blocks a save, with a jump to each field: [ValidationSummary](components/ValidationSummary.md). ValidationSummary lists what blocks a save in one place and takes the user to each field, the same way in every editor.
 - Text. **What kind of text?**
