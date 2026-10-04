@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.empty-state-story__hero {
+  display: flex;
+  height: var(--size-448);
+}

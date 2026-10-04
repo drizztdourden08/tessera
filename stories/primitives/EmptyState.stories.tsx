@@ -2,11 +2,12 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { ReactNode } from 'react';
-import { Button, Card, EmptyState, Glyph } from '../../src/primitives';
+import { Button, Card, EmptyState, Glyph, Shortcut } from '../../src/primitives';
 import type { GlyphName } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import './EmptyState.stories.css';
 
 type EmptyStateArgs = {
   message: string;
@@ -35,7 +36,30 @@ const VARIANT_DEMOS: Record<string, ReactNode> = {
     />
   ),
   'text icon': <EmptyState icon="0" message="No players have joined the session." />,
+  'with title and hint': (
+    <EmptyState
+      icon={<Glyph name="box" size={24} />}
+      title="No presets"
+      message="A preset keeps the options of a game for the next session."
+      action={<Button size="sm" variant="primary">New preset</Button>}
+      hint={<>or press <Shortcut keys={['ctrl', 'N']} /></>}
+    />
+  ),
+  small: <EmptyState size="sm" message="No hints yet." />,
 };
+
+const HeroDemo = () => (
+  <Card className="empty-state-story__hero">
+    <EmptyState
+      size="hero"
+      icon={<Glyph name="box" size={48} />}
+      title="No session running"
+      message="Start a session to host a multiworld for your friends."
+      action={<Button variant="primary">New session</Button>}
+      hint={<>Open a saved one with <Shortcut keys={['ctrl', 'O']} /></>}
+    />
+  </Card>
+);
 
 const meta = {
   title: 'Primitives · Display/EmptyState',
@@ -68,17 +92,24 @@ const Variants = {
   ),
 } satisfies StoryLiteStoryDefinition<EmptyStateArgs>;
 
+const Hero = {
+  name: 'A whole screen with nothing yet',
+  render: () => <HeroDemo />,
+} satisfies StoryLiteStoryDefinition<EmptyStateArgs>;
+
 const Overview = overviewStory({
   component: 'EmptyState',
   description: 'What a list, a table or a panel shows when it has nothing in it yet.',
   points: [
-    '`message` is the only required part.',
-    '`icon` sits above the message, and `action` below it, such as a button to import or to scan again.',
-    'It centres the parts across its width and sets the message in small muted text.',
+    '`message` is the only required part; `title` sits above it in bold.',
+    '`icon` sits on top, and `action` below the message: the next step, such as a button to import.',
+    '`hint` is a quiet last line that can hold [Shortcut] keycaps.',
+    '`size="sm"` fits a small panel; `size="hero"` fills a whole screen, centred.',
+    'It centres the parts across its width and sets the message in muted text.',
   ],
   playground: Playground,
-  variants: [Variants],
+  variants: [Variants, Hero],
 });
 
 export default meta;
-export { Overview, Playground, Variants };
+export { Hero, Overview, Playground, Variants };

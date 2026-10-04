@@ -10,7 +10,7 @@ import type { SearchResultsBodyProps } from './SearchResultsBody.type';
 
 const SearchResultsBody = (props: SearchResultsBodyProps) => {
   const {
-    needle, count, summary, hits = NO_HITS, onOpenHit, jumps = NO_JUMPS, onJump, groups = NO_GROUPS, onOpenGroup, openLabel, emptyMessage,
+    needle, count, summary, hits = NO_HITS, onOpenHit, jumps = NO_JUMPS, onJump, groups = NO_GROUPS, onOpenGroup, openLabel, emptyMessage, emptyIcon,
   } = props;
   const { navigation } = useTesseraStrings();
   const fallback = count > 0 ? navigation.resultsFor(count, needle) : navigation.noResultsFor(needle);
@@ -19,7 +19,7 @@ const SearchResultsBody = (props: SearchResultsBodyProps) => {
     <>
       <SearchResultsHead summary={summary ?? fallback} jumps={jumps} onJump={onJump} />
       <ScrollArea className="search-results__body">
-        {count === 0 && <EmptyState className="search-results__empty" message={emptyMessage ?? navigation.searchTip} />}
+        {count === 0 && <EmptyState className="search-results__empty" icon={emptyIcon} message={emptyMessage ?? navigation.searchTip} />}
         <SearchResultsHits hits={hits} query={needle} onOpen={onOpenHit} />
         {groups.map((group) => (
           <SearchResultGroup

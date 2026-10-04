@@ -87,6 +87,7 @@ const ZeroMatches = {
         count={0}
         jumps={[{ id: 'home', label: 'Overview', icon: <Icon name="house" /> }]}
         emptyMessage="Try a shorter word, or the name of what the setting changes."
+        emptyIcon={<Icon name="circle-x" size={32} />}
       />
     </Box>
   ),
@@ -122,7 +123,7 @@ const Overview = overviewStory({
   points: [
     '`groups` holds one [SearchResultGroup] per page; each holds live settings rows or [SearchResultHit] rows.',
     '`jumps` adds a chip for each page whose name matches; `onJump` gets the page id.',
-    'With no query it shows `idleMessage`; with no match it keeps the head and shows `emptyMessage`.',
+    'No query shows `idleIcon` and `idleMessage`; no match keeps the head and shows `emptyIcon` and `emptyMessage`.',
     'It scrolls its own body, so [SideNavLayout] leaves it unwrapped.',
     '[WorkspaceScreen] builds all of this from its pages.',
   ],

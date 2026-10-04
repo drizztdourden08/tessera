@@ -19,6 +19,8 @@ interface LogKindDef {
   toneMessage?: boolean;
 }
 
+type LogPanelHeight = 'fill' | number;
+
 interface LogPanelProps {
   rows: readonly LogRow[];
   kinds?: readonly LogKindDef[];
@@ -31,7 +33,8 @@ interface LogPanelProps {
   countLabel?: string;
   emptyLabel?: string;
   toolbarExtra?: ReactNode;
+  height?: LogPanelHeight;
   className?: string;
 }
 
-export type { LogKindDef, LogPanelProps, LogRow };
+export type { LogKindDef, LogPanelHeight, LogPanelProps, LogRow };

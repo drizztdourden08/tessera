@@ -3148,3 +3148,26 @@ interface ListItemListProps {
 1. Move a count written into a title (`"Players · 2"`) to `count`.
 2. Replace a hand-made caption over a ListItemList, or a Stack with `role="list"`, with `<ListItemList heading="…" count={n}>`.
 3. A page whose SectionHeader sits under an `h1` or `h2` keeps the default; pass `level` where the outline needs another one.
+
+## 119. LogPanel height, ProgressBar value, EmptyState title and hint, SearchResults emptyIcon
+
+From the Tessera review (tessera-24, tessera-25, tessera-26, tessera-27) and the UX review (ux-69).
+
+- **LogPanel takes `height`.** `"fill"` takes the height of its parent (`block-size: 100%`), a number fixes it in pixels. Left out, it sizes as before, growing in a flex parent.
+- **ProgressBar takes `showValue` and `formatValue(value, max)`.** The value is written at the end of the bar, a rounded percent by default, and given to assistive tech as `aria-valuetext`. With `showValue` the bar sits in a `progress-bar-row` wrapper, which takes `className`.
+- **EmptyState takes `title`, `hint` and `size`.** `title` sits above the message in bold; `action` (unchanged) is the next step under the message; `hint` is a quiet last line that can hold Shortcut keycaps. `size="sm"` fits a small panel, `size="hero"` fills a whole screen with the parts centred and a large title. The default is `md`, the look it had.
+- **SearchResults takes `emptyIcon`**, shown over `emptyMessage` when nothing matches, as `idleIcon` is over `idleMessage`.
+
+```ts
+interface LogPanelProps { height?: 'fill' | number }
+interface ProgressBarProps { showValue?: boolean; formatValue?: (value: number, max: number) => string }
+interface EmptyStateProps { title?: ReactNode; hint?: ReactNode; size?: 'sm' | 'md' | 'hero' }
+interface SearchResultsProps { emptyIcon?: ReactNode }
+```
+
+### What an app does
+
+1. Drop the Box that wrapped a LogPanel only to set its height; pass `height`.
+2. Drop the caption written beside a ProgressBar; pass `showValue`, with `formatValue` for "12 / 40".
+3. Build an empty screen from one `<EmptyState size="hero" title message action hint />` in place of a hand-made layout.
+4. Pass the icon of an empty search as `emptyIcon` in place of a wrapping Box.

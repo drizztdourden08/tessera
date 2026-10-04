@@ -2,6 +2,7 @@
 import { Box } from '../../primitives/Box';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { logAsText } from './behavior/log-as-text';
+import { logPanelClass } from './behavior/log-panel-class';
 import { useLogFilter } from './behavior/useLogFilter';
 import { LogList } from './sub-components/LogList';
 import { LogToolbar } from './sub-components/LogToolbar';
@@ -13,13 +14,13 @@ const LogPanel = (props: LogPanelProps) => {
   const { panels } = useTesseraStrings();
   const {
     rows, kinds, className, toolbar = true, copyText = logAsText,
-    countLabel, emptyLabel = panels.logEmpty, toolbarExtra,
+    countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height,
   } = props;
   const filter = useLogFilter(props);
   const empty = rows.length === 0 ? emptyLabel : panels.logNoMatch;
 
   return (
-    <Box className={`log-panel${className ? ` ${className}` : ''}`}>
+    <Box className={logPanelClass(height, className)} style={typeof height === 'number' ? { blockSize: height } : undefined}>
       {toolbar && (
         <LogToolbar filter={filter} total={rows.length} countLabel={countLabel ?? panels.logNoun(rows.length)} copyText={copyText} extra={toolbarExtra} />
       )}

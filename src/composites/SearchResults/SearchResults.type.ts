@@ -35,6 +35,7 @@ interface SearchResultsProps {
   idleIcon?: ReactNode;
   idleMessage?: ReactNode;
   emptyMessage?: ReactNode;
+  emptyIcon?: ReactNode;
   className?: string;
 }
 

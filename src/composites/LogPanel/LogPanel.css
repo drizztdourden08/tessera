@@ -11,6 +11,15 @@
   border-radius: var(--radius-md);
 }
 
+.log-panel--fill {
+  align-self: stretch;
+  block-size: 100%;
+}
+
+.log-panel--fixed {
+  flex: none;
+}
+
 .log-panel .log-panel__toolbar {
   flex: none;
   padding: var(--space-sm);

@@ -86,6 +86,24 @@ const Bare = {
   render: () => <LogDemo {...(ARGS as LogPanelArgs)} toolbar={false} rows={LOG_ROWS} />,
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
+const Heights = {
+  name: 'A fixed height, and filling a box',
+  render: () => (
+    <Box className="story-row log-panel-story__heights">
+      <Box className="story-column">
+        <Text className="story-label">height={'{160}'}</Text>
+        <LogPanel rows={LOG_ROWS} kinds={LOG_KINDS} height={160} toolbar={false} />
+      </Box>
+      <Box className="story-column">
+        <Text className="story-label">height="fill" in a 224 px box</Text>
+        <Box className="log-panel-story__box">
+          <LogPanel rows={LOG_ROWS} kinds={LOG_KINDS} height="fill" toolbar={false} />
+        </Box>
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
 const ONE_ROW = LOG_ROWS.slice(0, 3);
 
 const renderState = (props: StateProps) => (
@@ -121,9 +139,10 @@ const Overview = overviewStory({
     '`kinds` gives each type a `tone`; `toneMessage` colours the message too, as for errors.',
     'Only the newest lines are mounted and older ones load on demand, so a long session stays fast.',
     'A Newest button shows once the user scrolls away from the end.',
+    '`height="fill"` takes the height of its parent; a number fixes it in pixels.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Bare],
+  variants: [Filtered, LongSession, Bare, Heights],
   states: {
     render: renderState,
     list: [
@@ -136,4 +155,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Bare, Filtered, LongSession, Overview, ServerLog };
+export { Bare, Filtered, Heights, LongSession, Overview, ServerLog };

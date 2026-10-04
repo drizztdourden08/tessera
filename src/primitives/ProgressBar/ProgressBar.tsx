@@ -1,23 +1,18 @@
 /* @layer renderer-components @kind component */
 import './ProgressBar.css';
-import { share } from './behavior/share';
+import { Span } from '../text-elements';
+import { percentText } from './behavior/percent-text';
 import type { ProgressBarProps } from './ProgressBar.type';
-import { SecondaryFill } from './sub-components/SecondaryFill';
+import { ProgressTrack } from './sub-components/ProgressTrack';
 
 const ProgressBar = (props: ProgressBarProps) => {
-  const { value, max = 100, tone = 'primary', secondaryValue, secondaryTone, label, live = false, className } = props;
+  const { showValue = false, formatValue = percentText, className, ...track } = props;
+  if (!showValue) return <ProgressTrack {...track} className={className} />;
+  const text = formatValue(track.value, track.max ?? 100);
   return (
-    <div
-      className={className ? `progress-bar ${className}` : 'progress-bar'}
-      role="progressbar"
-      aria-label={label}
-      aria-valuemin={0}
-      aria-valuemax={max}
-      aria-valuenow={Math.min(Math.max(0, value), Math.max(0, max))}
-      data-live={live ? 'yes' : undefined}
-    >
-      <SecondaryFill value={secondaryValue} max={max} tone={secondaryTone ?? tone} faded={secondaryTone === undefined} />
-      <div className="progress-bar__fill" data-tone={tone} style={{ width: `${share(value, max)}%` }} />
+    <div className={className ? `progress-bar-row ${className}` : 'progress-bar-row'}>
+      <ProgressTrack {...track} valueText={text} />
+      <Span className="progress-bar__value" aria-hidden="true">{text}</Span>
     </div>
   );
 };
