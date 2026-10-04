@@ -15,7 +15,6 @@ const PerformanceWidget = () => (
       opacity={1}
       canPopOut={false}
       onActivateTab={() => undefined}
-      onOpenOptions={() => undefined}
       onClose={() => undefined}
     >
       <PerformancePanel />

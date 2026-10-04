@@ -12,13 +12,12 @@ type DockDemoPaneProps = {
   peek: boolean;
   onEdit: (edit: LayoutEdit) => void;
   onClose: (id: WidgetId) => void;
-  onOptions: (id: WidgetId) => void;
 };
 
 const contentOf = (id: WidgetId) => (WIDGET_CONTENT as Record<string, ReactNode>)[id];
 
 const DockDemoPane = (props: DockDemoPaneProps) => {
-  const { ids, active, paneKey, peek, onEdit, onClose, onOptions } = props;
+  const { ids, active, paneKey, peek, onEdit, onClose } = props;
   return (
     <Widget
       id={active}
@@ -28,7 +27,6 @@ const DockDemoPane = (props: DockDemoPaneProps) => {
       opacity={0.92}
       peek={peek}
       onActivateTab={(id) => { if (paneKey) onEdit({ type: 'activate-tab', key: paneKey, id }); }}
-      onOpenOptions={() => onOptions(active)}
       onClose={() => onClose(active)}
     >
       {contentOf(active)}

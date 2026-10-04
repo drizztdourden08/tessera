@@ -1,5 +1,6 @@
 /* @layer stories @kind component */
 import { Widget } from '../../../src/composites';
+import type { MenuGroup } from '../../../src/composites';
 import { PlayersPanel } from './data-widget-panels';
 import type { PlayersView } from './data-widget-panels';
 import type { DemoPanelProps } from './useWidgetOptionsDemo';
@@ -9,13 +10,12 @@ type SceneWidgetProps = {
   panel: DemoPanelProps;
   view: PlayersView;
   canPopOut: boolean;
-  optionsOpen: boolean;
-  onOpenOptions: (gear: HTMLElement) => void;
+  options: readonly MenuGroup[];
   onClose: () => void;
 };
 
 const SceneWidget = (props: SceneWidgetProps) => {
-  const { title, panel, view, canPopOut, optionsOpen, onOpenOptions, onClose } = props;
+  const { title, panel, view, canPopOut, options, onClose } = props;
   return (
     <Widget
       id="players"
@@ -28,9 +28,8 @@ const SceneWidget = (props: SceneWidgetProps) => {
       onPinChange={panel.onPinChange}
       canPopOut={canPopOut}
       onPopOut={panel.onPopOut}
-      optionsOpen={optionsOpen}
+      options={options}
       onActivateTab={() => undefined}
-      onOpenOptions={onOpenOptions}
       onClose={onClose}
     >
       <PlayersPanel {...view} />

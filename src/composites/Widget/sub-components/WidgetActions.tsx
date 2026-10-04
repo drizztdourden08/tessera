@@ -6,11 +6,12 @@ import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { PinMenu } from './PinMenu';
 import { PopButton } from './PopButton';
+import { WidgetMenu } from './WidgetMenu';
 import type { WidgetActionsProps } from './WidgetActions.type';
 
 const WidgetActions = (props: WidgetActionsProps) => {
-  const { mode, pin, onPinChange, titleBarActions, onPopOut, canPopOut, optionsOpen, onOpenOptions, onClose } = props;
-  const { common } = useTesseraStrings();
+  const { title, mode, pin, onPinChange, titleBarActions, onPopOut, canPopOut, options, onClose } = props;
+  const { common, widgets } = useTesseraStrings();
   const out = mode === 'out';
 
   return (
@@ -18,15 +19,9 @@ const WidgetActions = (props: WidgetActionsProps) => {
       {titleBarActions}
       {out && onPinChange && <PinMenu pin={pin ?? 'off'} onChange={onPinChange} />}
       <PopButton out={out} canPopOut={canPopOut ?? true} onPopOut={onPopOut} />
-      <IconButton
-        className="widget__btn"
-        label={common.options}
-        title={common.options}
-        active={optionsOpen ?? false}
-        onClick={(e) => onOpenOptions(e.currentTarget)}
-      >
-        <Icon name="settings" size={14} />
-      </IconButton>
+      {options && options.length > 0 && (
+        <WidgetMenu label={common.options} menuLabel={widgets.optionsFor(title)} icon={<Icon name="settings" size={14} />} groups={options} />
+      )}
       <IconButton className="widget__btn" label={common.close} title={common.close} onClick={onClose}>
         <Glyph name="close" size={14} />
       </IconButton>

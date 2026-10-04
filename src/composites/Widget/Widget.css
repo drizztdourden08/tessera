@@ -129,6 +129,30 @@
   padding-bottom: calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active));
 }
 
+@position-try --widget-menu-start {
+  right: auto;
+  left: var(--space-xs);
+}
+
+.widget-menu.dropdown-menu {
+  max-inline-size: min(var(--size-320), 100vw - 2 * var(--space-xs));
+}
+
+.widget-menu :is(.dropdown__label, .dropdown__description) {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.widget-menu.dropdown-menu.anchored-fallback {
+  max-block-size: calc(100vh - 2 * var(--space-xs));
+  overflow-y: auto;
+}
+
+.widget-menu.dropdown-menu[data-anchored][data-flip] {
+  position-try-fallbacks: --widget-menu-start, flip-block, --widget-menu-start flip-block;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .widget {
     transition: none;

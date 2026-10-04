@@ -1,8 +1,8 @@
 /* @layer stories @kind hook */
 import { useState } from 'react';
-import type { DockEdge, PinMode, WidgetOptionsProps, WidgetPlacement, WidgetVisibility } from '../../../src/composites';
+import type { DockEdge, PinMode, WidgetOptionsMenuInput, WidgetPlacement, WidgetVisibility } from '../../../src/composites';
 
-type DemoPanelProps = Omit<WidgetOptionsProps, 'title' | 'anchorRef' | 'onClose' | 'children'>;
+type DemoPanelProps = Omit<WidgetOptionsMenuInput, 'own'>;
 
 type WidgetOptionsDemo = { panel: DemoPanelProps; summary: string };
 

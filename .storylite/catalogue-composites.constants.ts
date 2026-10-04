@@ -134,7 +134,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'DockLayout', summary: 'Tiles widget panes around a main view, with drag, drop and resize.' },
         { name: 'Widget', summary: 'The frame of a tool panel: title bar, tabs, pop out, options, close.' },
-        { name: 'WidgetOptions', summary: 'Options for one widget: placement, make room, opacity, show and its own rows.' },
+        { name: 'WidgetOptions', summary: 'The gear menu of one widget: placement, make room, show, opacity and its own items.' },
         { name: 'WindowGuideOverlay', summary: 'A dimmed guide over the window that lists the keys while one is moved or resized.' },
       ],
     },

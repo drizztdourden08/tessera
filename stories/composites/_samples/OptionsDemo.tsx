@@ -1,12 +1,11 @@
 /* @layer stories @kind component */
-import { useRef, useState } from 'react';
-import { WidgetOptions } from '../../../src/composites';
+import { useState } from 'react';
+import { useWidgetOptionsMenu } from '../../../src/composites';
 import type { WidgetPlacement } from '../../../src/composites';
 import { Box, Button, Text, Toggle } from '../../../src/primitives';
 import type { PlayersView } from './data-widget-panels';
-import { PlayersOptionRows } from './PlayersOptionRows';
+import { playersMenuGroups } from './players-menu-groups';
 import { SceneWidget } from './SceneWidget';
-import { useSceneOptions } from './useSceneOptions';
 import { useWidgetOptionsDemo } from './useWidgetOptionsDemo';
 import type { DemoPanelProps } from './useWidgetOptionsDemo';
 
@@ -39,7 +38,6 @@ const sceneAttrs = (panel: DemoPanelProps) => ({
 
 const OptionsDemo = (props: OptionsDemoProps) => {
   const { title, placement, canPopOut, makeRoomHint, contextLabel, ownRows } = props;
-  const sceneRef = useRef<HTMLElement>(null);
   const [session, setSession] = useState(true);
   const [closed, setClosed] = useState(false);
   const [view, setView] = useState(START_VIEW);
@@ -47,11 +45,12 @@ const OptionsDemo = (props: OptionsDemoProps) => {
   const inContext = session || panel.show === 'always';
   const shown = !closed && inContext;
   const hidden = hiddenBy(closed, inContext);
-  const options = useSceneOptions(sceneRef, shown);
+  const own = ownRows ? playersMenuGroups(view, (patch) => setView((prev) => ({ ...prev, ...patch }))) : undefined;
+  const options = useWidgetOptionsMenu({ ...panel, canPopOut, makeRoomHint, contextLabel, own });
 
   return (
     <Box className="story-column options-story">
-      <Box ref={sceneRef} className="options-scene" {...sceneAttrs(panel)}>
+      <Box className="options-scene" {...sceneAttrs(panel)}>
         <Box className="options-scene__main">
           {sceneNotes(title, session, hidden).map((note) => <Text key={note} className="story-label">{note}</Text>)}
         </Box>
@@ -62,8 +61,7 @@ const OptionsDemo = (props: OptionsDemoProps) => {
               panel={panel}
               view={ownRows ? view : START_VIEW}
               canPopOut={canPopOut}
-              optionsOpen={options.open}
-              onOpenOptions={options.toggle}
+              options={options}
               onClose={() => setClosed(true)}
             />
           </Box>
@@ -74,19 +72,6 @@ const OptionsDemo = (props: OptionsDemoProps) => {
         {closed && <Button size="sm" variant="tertiary" onClick={() => setClosed(false)}>Reopen</Button>}
         <Text className="story-label options-story__summary">{`${title}: ${summary}`}</Text>
       </Box>
-      {options.open && (
-        <WidgetOptions
-          {...panel}
-          title={title}
-          canPopOut={canPopOut}
-          anchorRef={options.anchorRef}
-          onClose={options.close}
-          makeRoomHint={makeRoomHint}
-          contextLabel={contextLabel}
-        >
-          {ownRows && <PlayersOptionRows view={view} onChange={(patch) => setView((prev) => ({ ...prev, ...patch }))} />}
-        </WidgetOptions>
-      )}
     </Box>
   );
 };

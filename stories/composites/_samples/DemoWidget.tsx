@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import type { ReactNode } from 'react';
 import { Widget } from '../../../src/composites';
+import type { MenuGroup } from '../../../src/composites';
 import { Box } from '../../../src/primitives';
 import { WIDGET_CONTENT } from './data-widget-panels';
 import type { FrameTabs } from './frame-tabs';
@@ -12,15 +13,14 @@ type DemoWidgetProps = {
   peek: boolean;
   square?: boolean;
   canPopOut: boolean;
-  optionsOpen: boolean;
+  options: readonly MenuGroup[];
   onActivateTab: (id: string) => void;
-  onOpenOptions: (gear: HTMLElement) => void;
   onClose: () => void;
   titleBarActions?: ReactNode;
 };
 
 const DemoWidget = (props: DemoWidgetProps) => {
-  const { view, panel, peek, square, canPopOut, optionsOpen, onActivateTab, onOpenOptions, onClose, titleBarActions } = props;
+  const { view, panel, peek, square, canPopOut, options, onActivateTab, onClose, titleBarActions } = props;
   return (
     <Box className={`widget-story__box${peek ? ' widget-story__box--peek' : ''}`}>
       <Widget
@@ -31,7 +31,7 @@ const DemoWidget = (props: DemoWidgetProps) => {
         opacity={panel.opacity}
         peek={peek}
         square={square}
-        optionsOpen={optionsOpen}
+        options={options}
         mode={panel.placement === 'popped' ? 'out' : 'in'}
         pin={panel.pin}
         onPinChange={panel.onPinChange}
@@ -39,7 +39,6 @@ const DemoWidget = (props: DemoWidgetProps) => {
         canPopOut={canPopOut}
         onPopOut={panel.onPopOut}
         onActivateTab={onActivateTab}
-        onOpenOptions={onOpenOptions}
         onClose={onClose}
       >
         {view.activeId === 'players' ? WIDGET_CONTENT.players : WIDGET_CONTENT.hints}

@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind logic */
 import type { MenuGroup } from '../../DropdownMenu';
-import { PIN_CHOICES } from '../sub-components/WidgetOptions/WidgetOptions.constants';
-import type { WidgetWords } from '../sub-components/WidgetOptions/WidgetOptions.type';
 import type { PinMode } from '../Widget.type';
+import { PIN_CHOICES } from './widget-options-menu.constants';
+import type { WidgetWords } from './widget-options-menu.type';
 
 const pinMenuGroups = (pin: PinMode, words: WidgetWords, onChange: (mode: PinMode) => void): MenuGroup[] => [{
   id: 'pin',

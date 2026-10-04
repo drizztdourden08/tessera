@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it, vi } from 'vitest';
 import { pinMenuGroups } from '../src/composites/Widget/behavior/pin-menu-groups';
-import { PIN_CHOICES } from '../src/composites/Widget/sub-components/WidgetOptions/WidgetOptions.constants';
+import { PIN_CHOICES } from '../src/composites/Widget/behavior/widget-options-menu.constants';
 import { WIDGET_STRINGS } from '../src/primitives/strings/widgets-strings.constants';
 
 describe('the pin menu of a widget in its own window', () => {

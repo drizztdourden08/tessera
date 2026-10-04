@@ -6,7 +6,7 @@ import { frameOf } from '../behavior/frame-of';
 import type { WidgetPaneProps } from './WidgetPane.type';
 
 const WidgetPane = (props: WidgetPaneProps) => {
-  const { api, widgets, activeId, paneKey } = props;
+  const { api, widgets, activeId, paneKey, options } = props;
   const tabs = useMemo(() => widgets.map((id) => ({ id, label: api.labelOf(id) })), [widgets, api]);
   const disabled = api.disabledOf(activeId);
   const openSettings = api.onOpenSettings;
@@ -20,9 +20,8 @@ const WidgetPane = (props: WidgetPaneProps) => {
       paneKey={paneKey}
       opacity={frameOf(api.layout, activeId, api.definitionOf(activeId)).opacity}
       peek={api.peek}
-      optionsOpen={api.optionsId === activeId}
+      options={options}
       onActivateTab={(id) => { if (paneKey) api.apply({ type: 'activate-tab', key: paneKey, id }); }}
-      onOpenOptions={(anchor) => api.toggleOptions(activeId, anchor)}
       onPopOut={() => api.popOut(activeId)}
       canPopOut={api.canPopOut(activeId)}
       onClose={() => api.close(activeId)}

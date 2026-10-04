@@ -113,15 +113,15 @@ export { ErrorBoundary } from '../primitives/ErrorBoundary';
 export type { ErrorBoundaryProps } from '../primitives/ErrorBoundary';
 export type { DisabledOverlayProps } from './DisabledOverlay';
 export {
-  Widget, WidgetManager, WidgetOptions, OptionRow, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,
+  Widget, WidgetManager, useWidgetOptionsMenu, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,
   migrateLayout, loadLayoutForProfile, loadLayoutLocal, saveLayoutForProfile, saveLayoutLocal, applyEdit, dockOnEdge, dockWidget,
   dropFrame, edgeOf, floatInMain, floatWidget, frameOf, isWidgetOpen, moveMain, openStartupWidgets, openWidget, placementOf,
   popOutWidget, removeEverywhere, resolveSplit, setFrame, setMakeRoom, setPopped, visibleLayoutOf, DEFAULT_LAYOUT_STORAGE_KEY,
 } from './Widget';
 export type {
-  FlatWidgetLayout, FlatWidgetState, OptionRowProps, PinMode, PoppedWidget, ResolvedSplit, SnapLink, SnapSide, StartupOverride,
+  FlatWidgetLayout, FlatWidgetState, PinMode, PoppedWidget, ResolvedSplit, SnapLink, SnapSide, StartupOverride,
   UseWidgetLayoutParams, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetGates, WidgetLayout, WidgetManagerProps,
-  WidgetOptionsProps, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions,
+  WidgetOptionsMenuInput, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions,
   WindowBounds,
 } from './Widget';
 export { WindowGuideOverlay } from './WindowGuideOverlay';

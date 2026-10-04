@@ -648,10 +648,17 @@
       "version": "next",
       "props": {
         "ProgressBar.parts": "StackedBar segments; ProgressBar draws one value, and a bar split into parts is a StackedBar, with an id on each part and total in place of max (see MIGRATION.md section 110)",
-        "ProgressBar.legend": "StackedBar legend; ProgressBar draws no legend (see MIGRATION.md section 110)"
+        "ProgressBar.legend": "StackedBar legend; ProgressBar draws no legend (see MIGRATION.md section 110)",
+        "Widget.onOpenOptions": "Widget.options (the gear menu groups; the widget opens the menu itself) (see MIGRATION.md section 112)",
+        "Widget.optionsOpen": "removed; the widget opens and closes its menu itself (see MIGRATION.md section 112)",
+        "WidgetManager.settingsContent": "WidgetManager.optionGroups (menu groups per widget id) (see MIGRATION.md section 112)"
       },
       "removedExports": {
-        "ProgressPart": "StackedBarSegment, with an id; a CSS color becomes a status tone or a tag colour (see MIGRATION.md section 110)"
+        "ProgressPart": "StackedBarSegment, with an id; a CSS color becomes a status tone or a tag colour (see MIGRATION.md section 110)",
+        "WidgetOptionsProps": "WidgetOptionsMenuInput, the input of useWidgetOptionsMenu (see MIGRATION.md section 112)",
+        "WidgetOptions": "removed; the gear opens a DropdownMenu, so build its groups with useWidgetOptionsMenu and pass them to Widget as options (see MIGRATION.md section 112)",
+        "OptionRowProps": "removed with OptionRow (see MIGRATION.md section 112)",
+        "OptionRow": "removed; a widget adds its own menu items, checks and radios, through own or WidgetManager optionGroups (see MIGRATION.md section 112)"
       },
       "components": {
         "StackedBar": "StackedBar, now a primitive: import it from @drizztdourden08/tessera or /primitives, not /composites (see MIGRATION.md section 110)",
@@ -665,7 +672,44 @@
         "progress-bar__legend": "stacked-bar__legend (see MIGRATION.md section 110)",
         "progress-bar__key": "stacked-bar__item (see MIGRATION.md section 110)",
         "progress-bar__swatch": "stacked-bar__swatch (see MIGRATION.md section 110)",
-        "progress-bar__amount": "stacked-bar__amount (see MIGRATION.md section 110)"
+        "progress-bar__amount": "stacked-bar__amount (see MIGRATION.md section 110)",
+        "widget-options__actions": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-options__header": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-options__hint": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-options__own": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-options__rows": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-options__section": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-options__title": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-options-aside": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-option-row__about-icon": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-option-row__about": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-option-row__control": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-option-row__label": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-option-row__select": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-option-row": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-shortcuts__does": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-shortcuts__gesture": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-shortcuts__keys": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-shortcuts__row": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-shortcuts": "removed; the options are a DropdownMenu (see MIGRATION.md section 112)",
+        "widget-options": "widget-menu (the class on the gear menu, a DropdownMenu) (see MIGRATION.md section 112)"
+      },
+      "strings": {
+        "widgets.showShortcuts": "removed; the shortcuts are a sub-menu (see MIGRATION.md section 112)",
+        "widgets.hideShortcuts": "removed; the shortcuts are a sub-menu (see MIGRATION.md section 112)",
+        "widgets.shortcutsHint": "removed; the shortcuts are a sub-menu (see MIGRATION.md section 112)",
+        "widgets.closeHint": "removed; the menu has no close button (see MIGRATION.md section 112)",
+        "widgets.snapOff": "removed; Snap to edges is a check (see MIGRATION.md section 112)",
+        "widgets.snap": "removed; Snap to edges is a check, labelled widgets.snapOn (see MIGRATION.md section 112)",
+        "widgets.syncAbout": "removed; Sync with main window is a check whose description is syncOnHint or syncOffHint (see MIGRATION.md section 112)",
+        "widgets.syncOn": "removed; Sync with main window is a check (see MIGRATION.md section 112)",
+        "widgets.syncOff": "removed; Sync with main window is a check (see MIGRATION.md section 112)",
+        "widgets.opacityHint": "removed; Opacity is a sub-menu of percentages (see MIGRATION.md section 112)"
+      },
+      "cssCustomProperties": {
+        "--widget-options-slider-w": "removed; the options are a menu (see MIGRATION.md section 112)",
+        "--widget-options-aside-w": "removed; the options are a menu (see MIGRATION.md section 112)",
+        "--widget-options-w": "removed; the menu sizes to its content (see MIGRATION.md section 112)"
       }
     }
   ]

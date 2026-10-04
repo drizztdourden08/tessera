@@ -50,7 +50,6 @@ const WindowGuideDemo = (props: WindowGuideDemoProps) => {
           mode="out"
           opacity={1}
           onActivateTab={noop}
-          onOpenOptions={noop}
           onClose={noop}
         >
           <PlayersPanel />

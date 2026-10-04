@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
-import { useMemo, useState } from 'react';
-import { WidgetOptions } from '../../../src/composites';
+import { useState } from 'react';
+import { useWidgetOptionsMenu } from '../../../src/composites';
 import { Box, Button, Text } from '../../../src/primitives';
 import { DemoWidget } from './DemoWidget';
 import { frameTabs } from './frame-tabs';
@@ -15,17 +15,15 @@ type WidgetFrameDemoProps = {
   canPopOut: boolean;
   square?: boolean;
   titleBarActions?: boolean;
-  optionsOpen?: boolean;
 };
 
 const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
-  const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false, optionsOpen = false } = props;
+  const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false } = props;
   const [active, setActive] = useState('hints');
-  const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [closed, setClosed] = useState(false);
   const spoilers = useSpoilerAction(titleBarActions);
   const { panel, summary } = useWidgetOptionsDemo(mode === 'out' ? 'popped' : 'docked', opacity);
-  const anchorRef = useMemo(() => ({ current: anchor }), [anchor]);
+  const options = useWidgetOptionsMenu({ ...panel, canPopOut });
   const view = frameTabs(tabbed, active);
 
   if (closed) {
@@ -45,14 +43,12 @@ const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
         peek={peek}
         square={square}
         canPopOut={canPopOut}
-        optionsOpen={optionsOpen || anchor !== null}
+        options={options}
         onActivateTab={setActive}
-        onOpenOptions={(gear) => setAnchor(anchor ? null : gear)}
         onClose={() => setClosed(true)}
         titleBarActions={spoilers.action}
       />
       <Text className="story-label widget-story__summary">{`${view.label}: ${summary}${spoilers.note}`}</Text>
-      {anchor && <WidgetOptions {...panel} title={view.label} canPopOut={canPopOut} anchorRef={anchorRef} onClose={() => setAnchor(null)} />}
     </Box>
   );
 };
