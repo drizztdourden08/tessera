@@ -193,7 +193,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'WindowTitleBar',
-  description: 'The title bar of a frameless desktop app window. The brand sits in the middle of the whole bar, whatever the two ends hold: the app logo on both sides of the title, and a Status pill naming a second instance, such as a dev build, with its own logo. menu takes menu groups, the same data DropdownMenu takes, and the bar draws the hamburger at the left end with the menu hanging from it. The pin and the full screen, minimize, maximize and close buttons are built in and report to onControl; controls turns any of them off except close, as in controls={{ fullscreen: false }}. actions adds more: each one is declared once, with a label, an icon and onSelect, and shows in the bar as an icon button, or as status text in the tone of the action while its status is set, such as Update available in green, which swells from its centre letter by letter when it appears. Everything the bar shows is also in the menu, always: the pin and full screen as check items in a View sub-menu, and each action as an item, its status as the subtitle. The group of the bar sits just above the last group of menu. windowGroups adds a Window group radio sub-menu to View, None first and then each group of the host; windowGroup marks the current one and onWindowGroupChange reports a pick, with null for None. As the window narrows, the bar items hide one by one, the action buttons first, then the pin, then the status texts, then full screen, each end hiding only what is in the way of the brand. An item slides out towards its end of the bar as it fades, slides back in the same way, and the items beside it glide into the freed space; then the title goes, then the logo shrinks, and only when even the small logo has no room does the middle stay empty. Minimize, maximize and close never hide. The bar drags the window. The concealed prop tucks it away, and so does full screen, until the pointer comes near the top edge, where it slides down into view; an open menu keeps it in view.',
+  description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
+  points: [
+    '`onControl` hears the pin, full screen, minimize, maximize and close; `controls` turns off all but close.',
+    '`menu` takes the same groups as [DropdownMenu] and hangs from the hamburger at the left.',
+    '`actions` add icon buttons, or status text such as Update available while their `status` is set.',
+    'As the window narrows, items hide one by one into the menu; minimize, maximize and close never hide.',
+    '`concealed` and full screen tuck the bar away until the pointer nears the top edge.',
+  ],
   playground: Playground,
   variants: [AppWindow, Narrow, Resizable, FewerButtons, SecondInstance, Maximized, Concealed],
   states: {

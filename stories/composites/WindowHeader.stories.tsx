@@ -111,7 +111,13 @@ const TitleOnly = {
 
 const Overview = overviewStory({
   component: 'WindowHeader',
-  description: 'The title bar shared by windows, dialogs and drawers. The title sits on the left in gold capitals, an optional subtitle follows it in plain case, and extra content such as a Status or a button sits before the close button. The close button shows only when onClose is set. It stays one row at any width: as room runs out the subtitle shortens with an ellipsis, then the extra content hides as a whole, then the title shortens. The close button always stays.',
+  description: 'The title bar of windows, dialogs and drawers: a title, an optional subtitle, extra content and a close button.',
+  points: [
+    'The close button shows only when `onClose` is set.',
+    '`extra` takes content such as a [Status] or a button, before the close button.',
+    'It stays one row: the subtitle shortens first, then `extra` hides, then the title shortens.',
+  ],
+  instead: '[WindowTitleBar] for the title bar of a whole app window.',
   playground: Playground,
   variants: [InWindow, Narrow, TitleOnly],
 });
