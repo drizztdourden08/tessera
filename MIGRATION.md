@@ -2275,3 +2275,20 @@ Tessera now depends on `@drizztdourden08/standards` `^0.6.0` and calls the share
 4. Point every import of a file from the shipped guide at `@drizztdourden08/tessera/guide/*`.
 5. Rename uses of the usage mode type to `GuideUsage`.
 6. On `@drizztdourden08/standards`, depend on `^0.6.0`, call the workflows at `@v0` and run `standards knip` in place of knip.
+
+## 86. Stepper keeps its size as the current step moves
+
+A Stepper now keeps a summary line under every step by default, so it keeps the same width and height from the first step to the last, and nothing around it moves on Next, Back or a jump. Each label also keeps the room it needs in bold, so a label that wraps once it becomes the current step no longer grows the row. Sub-steps already show under their step at every step and keep their room.
+
+`reserve` picks what the Stepper keeps room for:
+
+| Value | What it does |
+|---|---|
+| `'summaries'`, the default | Every step keeps a summary line, empty until the step has a summary. |
+| `'none'` | A step takes a summary line only while it has one, as before. |
+
+The new type is `StepperReserve`.
+
+### What an app does
+
+Nothing for a Stepper that shows summaries, such as the one inside `Wizard`: it stops moving. A Stepper that never shows summaries and wants its old height passes `reserve="none"`.

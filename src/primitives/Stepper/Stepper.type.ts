@@ -12,6 +12,8 @@ type StepperTone = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' 
 
 type StepperDoneIcon = IconName | false;
 
+type StepperReserve = 'summaries' | 'none';
+
 interface StepperSubStep {
   id: string;
   label: string;
@@ -35,6 +37,7 @@ interface StepperProps {
   compact?: boolean;
   tone?: StepperTone;
   doneIcon?: StepperDoneIcon;
+  reserve?: StepperReserve;
   canSelect?: (id: string) => boolean;
   onSelect?: (id: string) => void;
   activeSubStepId?: string;
@@ -43,4 +46,4 @@ interface StepperProps {
   className?: string;
 }
 
-export type { StepperDirection, StepperDoneIcon, StepperOrientation, StepperProps, StepperStatus, StepperStep, StepperSubStep, StepperTone };
+export type { StepperDirection, StepperDoneIcon, StepperOrientation, StepperProps, StepperReserve, StepperStatus, StepperStep, StepperSubStep, StepperTone };

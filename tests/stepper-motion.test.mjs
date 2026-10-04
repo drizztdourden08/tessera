@@ -46,3 +46,16 @@ describe('Stepper done icon', () => {
     expect(html({ tone: 'success' })).toContain('--stepper-tone:var(--c-success)');
   });
 });
+
+describe('Stepper room', () => {
+  const html = (props) => renderToString(h(Stepper, { steps: [{ id: 'a', label: 'A', summary: 'Chosen' }, ...STEPS.slice(1)], currentId: 'b', ...props }));
+
+  it('keeps a summary line under every step by default, and only real summaries with reserve none', () => {
+    expect(html().match(/stepper__summary/g)).toHaveLength(3);
+    expect(html({ reserve: 'none' }).match(/stepper__summary/g)).toHaveLength(1);
+  });
+
+  it('gives every label a bold copy to size it', () => {
+    expect(html().match(/data-label="[ABC]"/g)).toHaveLength(3);
+  });
+});

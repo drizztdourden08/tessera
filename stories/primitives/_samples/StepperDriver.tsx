@@ -12,8 +12,8 @@ const StepperDriver = (props: StepperDriverProps) => {
   const select = (id: string) => setAt(STEPPER_STEPS.findIndex((step) => step.id === id));
   const common = { currentId: stepIdAt(at), canSelect, onSelect: select, activeSubStepId: 'dungeon', orientation };
   const vertical = orientation === 'vertical';
-  const plain = <Stepper steps={stepperSteps({ summaries: vertical, subSteps: true, long: vertical }, at)} {...common} />;
-  const toned = <Stepper steps={stepperSteps({ summaries: vertical, subSteps: false, long: vertical, tones: true, icons: true }, at)} {...common} />;
+  const plain = <Stepper steps={stepperSteps({ summaries: true, subSteps: true, long: vertical }, at)} {...common} />;
+  const toned = <Stepper steps={stepperSteps({ summaries: true, subSteps: false, long: vertical, tones: true, icons: true }, at)} {...common} />;
   return (
     <Box className="stepper-story__driver">
       {vertical ? (

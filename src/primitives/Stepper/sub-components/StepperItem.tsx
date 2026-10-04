@@ -11,7 +11,7 @@ import type { StepperItemProps } from './StepperItem.type';
 import './StepperItem.css';
 
 const StepperItem = (props: StepperItemProps) => {
-  const { step, number, status, current, last, wave, lineTone, doneIcon, selectable, onSelect, activeSubStepId, onSubStepSelect } = props;
+  const { step, number, status, current, last, wave, lineTone, doneIcon, reserveSummary, selectable, onSelect, activeSubStepId, onSubStepSelect } = props;
   const { stepper } = useTesseraStrings();
   return (
     <Box
@@ -32,8 +32,10 @@ const StepperItem = (props: StepperItemProps) => {
       >
         <StepperDot number={number} icon={doneIcon} />
         <Span className="stepper__text">
-          <Span className="stepper__label">{step.label}</Span>
-          {step.summary && <Span className="stepper__summary" title={step.summary}>{step.summary}</Span>}
+          <Span className="stepper__label" data-label={step.label}>
+            <Span className="stepper__label-text">{step.label}</Span>
+          </Span>
+          {step.summary ? <Span className="stepper__summary" title={step.summary}>{step.summary}</Span> : reserveSummary && <Span className="stepper__summary" aria-hidden />}
         </Span>
       </Pressable>
       <StepperGap step={step} current={current} last={last} selectable={selectable} activeSubStepId={activeSubStepId} onSubStepSelect={onSubStepSelect} />

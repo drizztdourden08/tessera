@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Stepper } from '../../src/primitives';
-import type { StepperOrientation, StepperTone } from '../../src/primitives';
+import type { StepperOrientation, StepperReserve, StepperTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -16,6 +16,7 @@ type StepperArgs = {
   compact: boolean;
   step: number;
   summaries: boolean;
+  reserve: StepperReserve;
   subSteps: boolean;
   error: boolean;
   doneIcon: 'check' | 'per step' | 'numbers';
@@ -24,10 +25,11 @@ type StepperArgs = {
 
 const COLOURS: readonly StepperArgs['colour'][] = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'info', 'teal', 'violet', 'per step'];
 
-const ARGS: Partial<StepperArgs> = { orientation: 'horizontal', compact: false, step: 3, summaries: true, subSteps: true, error: false, doneIcon: 'check', colour: 'primary' };
+const ARGS: Partial<StepperArgs> = { orientation: 'horizontal', compact: false, step: 3, summaries: true, reserve: 'summaries', subSteps: true, error: false, doneIcon: 'check', colour: 'primary' };
 
 const ARG_TYPES: PlaygroundArgTypes<StepperArgs> = {
   summaries: { group: 'Content', control: 'boolean', description: 'What was chosen, under each done step.' },
+  reserve: { group: 'Layout', control: 'select', options: ['summaries', 'none'], description: 'Keeps a summary line under every step, so the Stepper keeps its size as steps fill in.' },
   subSteps: { group: 'Content', control: 'boolean', description: 'The option tabs of Randomizer options.' },
   compact: { group: 'Appearance', control: 'boolean', description: 'Step 3 of 6 and a bar.' },
   doneIcon: { group: 'Appearance', control: 'select', options: ['check', 'per step', 'numbers'], description: 'What a done circle shows. The number flips over to the icon.' },
@@ -58,6 +60,7 @@ const strip = (args: StepperArgs) => {
       compact={args.compact}
       tone={args.colour === 'per step' ? undefined : args.colour}
       doneIcon={args.doneIcon === 'numbers' ? false : 'check'}
+      reserve={args.reserve}
       canSelect={before(at)}
       onSelect={() => undefined}
       onSubStepSelect={() => undefined}
@@ -67,7 +70,7 @@ const strip = (args: StepperArgs) => {
   return <Box className={args.orientation === 'vertical' ? 'stepper-story__rail' : 'stepper-story__wide'}>{stepper}</Box>;
 };
 
-const flat: StepperArgs = { orientation: 'horizontal', compact: false, step: 1, summaries: false, subSteps: false, error: false, doneIcon: 'check', colour: 'primary' };
+const flat: StepperArgs = { orientation: 'horizontal', compact: false, step: 1, summaries: false, reserve: 'summaries', subSteps: false, error: false, doneIcon: 'check', colour: 'primary' };
 
 const Playground = {
   name: 'Playground',
@@ -105,6 +108,20 @@ const SubStepsOnTop = {
       align="stretch"
       cell={(look) => strip({ ...flat, step: 4, summaries: look === 'Summaries', subSteps: look === 'Sub-steps', error: look === 'A step needs attention' })}
     />
+  ),
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const ROOMS: Readonly<Record<string, Partial<StepperArgs>>> = {
+  'Room kept, step 1': { step: 1 },
+  'Room kept, step 4': { step: 4 },
+  'No room kept, step 1': { step: 1, reserve: 'none' },
+  'No room kept, step 4': { step: 4, reserve: 'none' },
+};
+
+const Room = {
+  name: 'Room for summaries',
+  render: () => (
+    <Demonstrator rows={axis(Object.keys(ROOMS))} align="stretch" cell={(room) => strip({ ...flat, summaries: true, ...ROOMS[room] })} />
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
@@ -161,9 +178,9 @@ const CODE = `import { Stepper } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Stepper',
-  description: 'The steps of a task in order: a numbered circle per step, joined by lines, with the label under it, or beside it when the steps run down the left. Each step forward plays one sequence: the circle fills from the side the line leaves, the line runs to the next circle, the colour reaches that circle where the line meets it and spreads both ways round its border until the two ends meet, then the current circle glows and breathes. A jump over several steps plays the same sequence for each step in turn, at a faster pace. Going back plays the forward sequence in exact reverse, a little faster, once per step. A done circle flips its number over to a check, or to an icon of your choice per step, or keeps the number when doneIcon is false. Every step can take its own colour, from the Tessera tones or the tag colours: it colours the fill, the border, the glow and the line arriving at it. Reduced motion shows the end state at once. Done and current circles glow. A step can show what was chosen under its label, sub-steps with a count under the line that follows it, and an error state. Only steps the host allows can be clicked, and the current step carries aria-current. The compact form is Step 2 of 5 with a ProgressBar. Not to be confused with NumberStepper, the number input.',
+  description: 'The steps of a task in order: a numbered circle per step, joined by lines, with the label under it, or beside it when the steps run down the left. Each step forward plays one sequence: the circle fills from the side the line leaves, the line runs to the next circle, the colour reaches that circle where the line meets it and spreads both ways round its border until the two ends meet, then the current circle glows and breathes. A jump over several steps plays the same sequence for each step in turn, at a faster pace. Going back plays the forward sequence in exact reverse, a little faster, once per step. A done circle flips its number over to a check, or to an icon of your choice per step, or keeps the number when doneIcon is false. Every step can take its own colour, from the Tessera tones or the tag colours: it colours the fill, the border, the glow and the line arriving at it. Reduced motion shows the end state at once. Done and current circles glow. A step can show what was chosen under its label, in a line kept free under every step by default so the Stepper keeps its size from the first step to the last (reserve="none" drops that room), sub-steps with a count under the line that follows it, and an error state. Only steps the host allows can be clicked, and the current step carries aria-current. The compact form is Step 2 of 5 with a ProgressBar. Not to be confused with NumberStepper, the number input.',
   playground: Playground,
-  variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Vertical, IconsAndColours, Compact],
+  variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact],
   states: {
     render: () => strip({ ...flat, step: 3 }),
     list: [
@@ -176,4 +193,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Horizontal, IconsAndColours, Overview, Playground, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical };
+export { Compact, Horizontal, IconsAndColours, Overview, Playground, Room, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical };

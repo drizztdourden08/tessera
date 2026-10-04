@@ -14,7 +14,7 @@ import './Stepper.css';
 
 const Stepper = (props: StepperProps) => {
   const {
-    steps, currentId, orientation = 'horizontal', compact = false, tone, doneIcon = 'check', canSelect, onSelect,
+    steps, currentId, orientation = 'horizontal', compact = false, tone, doneIcon = 'check', reserve = 'summaries', canSelect, onSelect,
     activeSubStepId, onSubStepSelect, label, className = '',
   } = props;
   const { stepper } = useTesseraStrings();
@@ -43,6 +43,7 @@ const Stepper = (props: StepperProps) => {
             wave={waveOf(index, current, motion)}
             lineTone={lineTone(step, steps[index + 1], tone)}
             doneIcon={(step.doneIcon ?? doneIcon) || undefined}
+            reserveSummary={reserve === 'summaries'}
             selectable={index !== current && (canSelect?.(step.id) ?? false)}
             onSelect={onSelect}
             activeSubStepId={activeSubStepId}

@@ -41,14 +41,28 @@
 }
 
 .stepper__label {
+  display: grid;
   font-size: var(--text-sm);
   line-height: var(--leading-tight);
   color: var(--c-text-muted);
   transition: color var(--duration-normal) var(--ease-standard);
 }
 
+.stepper__label-text,
+.stepper__label::after {
+  grid-area: 1 / 1;
+}
+
+.stepper__label::after {
+  content: attr(data-label);
+  font-weight: var(--weight-semi);
+  visibility: hidden;
+}
+
 .stepper__summary {
+  min-block-size: calc(var(--text-sm) * var(--leading-normal));
   font-size: var(--text-sm);
+  line-height: var(--leading-normal);
   color: var(--c-text-muted);
   overflow: hidden;
   text-overflow: ellipsis;

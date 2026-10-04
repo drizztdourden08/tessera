@@ -30,7 +30,7 @@ export type { BadgeAnchor, BadgeColor, BadgeProps, BadgeText, BadgeValue, BadgeV
 export { Status } from './Status';
 export type { StatusProps, StatusTone, StatusVariant } from './Status';
 export { Stepper } from './Stepper';
-export type { StepperDoneIcon, StepperOrientation, StepperProps, StepperStatus, StepperStep, StepperSubStep, StepperTone } from './Stepper';
+export type { StepperDoneIcon, StepperOrientation, StepperProps, StepperReserve, StepperStatus, StepperStep, StepperSubStep, StepperTone } from './Stepper';
 export { Tag } from './Tag';
 export type {
   TagCategoryColor, TagColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,

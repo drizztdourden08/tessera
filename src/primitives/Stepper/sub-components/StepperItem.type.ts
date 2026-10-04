@@ -11,6 +11,7 @@ interface StepperItemProps {
   wave?: number;
   lineTone?: StepperTone;
   doneIcon?: IconName;
+  reserveSummary: boolean;
   selectable: boolean;
   onSelect?: (id: string) => void;
   activeSubStepId?: string;
