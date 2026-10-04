@@ -65,7 +65,13 @@ const Pairs = {
 
 const Overview = overviewStory({
   component: 'Contrast',
-  description: 'Every text and surface pair the roles produce, with its contrast ratio computed from the colours the page paints, per WCAG 2.1. Change the sample or the thresholds, or switch the palette, to measure again.',
+  description: 'Every text and surface pair the colour roles produce, with its contrast ratio measured from the colours the page paints.',
+  points: [
+    'Each pair passes or fails against the WCAG 2.1 thresholds for body text and large text.',
+    '`textThreshold` and `largeThreshold` set the bars: 4.5 and 3 for WCAG AA.',
+    '`sample` changes the text drawn in every cell.',
+    'Pick another app in the toolbar to measure its palette.',
+  ],
   playground: Pairs,
   code: false,
   variants: [],

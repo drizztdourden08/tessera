@@ -50,7 +50,12 @@ const Swatches = {
 
 const Overview = overviewStory({
   component: 'Swatches',
-  description: 'The only place a colour value is written: the three accents, the whites and blacks, the urgency colours and ten tag colours. Every palette and role is derived from these, and they follow the look picked at the top of the menu.',
+  description: 'The seed colours, the only place a colour value is written: every palette and role is built from them.',
+  points: [
+    'Three accents, the whites and blacks, four urgency colours and ten tag colours.',
+    'Each card says what the colour is for and the token that holds it.',
+    'An app sets its own `--p-*` seeds in `theme.css`; they follow the app picked at the top of the menu.',
+  ],
   variants: [Swatches],
 });
 

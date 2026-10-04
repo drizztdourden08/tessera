@@ -70,7 +70,13 @@ const Palettes = {
 
 const Overview = overviewStory({
   component: 'Palettes',
-  description: 'The three accents as twelve steps each, palest to deepest with the accent itself at 500, then the greys from pure white to pure black. Each palette is one continuous strip, its step and value under each colour. Paler steps mix toward pure white and deeper ones toward pure black.',
+  description: 'Each accent as twelve steps from palest to deepest, and the greys from pure white to pure black.',
+  points: [
+    'The accent itself sits at step 500.',
+    'Paler steps mix toward pure white and deeper ones toward pure black.',
+    'Each strip shows the step and the value under every colour.',
+    'Components use the colour [Roles] built from these steps, not the steps themselves.',
+  ],
   variants: [Palettes],
 });
 

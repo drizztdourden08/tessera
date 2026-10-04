@@ -79,7 +79,13 @@ const Backdrops = {
 
 const Overview = overviewStory({
   component: 'Gradients',
-  description: 'Each brand has two gradients of its own. The gradient is drawn behind its mark on a splash window, chosen so the mark reads on it: --brand-<app>-gradient holds it, and brandGradientCss() builds the same linear-gradient() from the brand data. The backdrop is the glow behind a Hero and any other home screen scene: several soft glows of the brand colours at different sizes and places, each fading out on an eased curve, over a dark ground tinted with the brand. --brand-<app>-backdrop holds it, and backdropGradientCss() builds it from BRAND_FAMILY[app].backdrop. Both belong to the brand, so they stay the same whichever look is picked in the toolbar; a Hero picks its backdrop with its brand prop.',
+  description: 'Each brand\'s two gradients: one behind its mark on a splash window, and a backdrop of soft glows behind a home screen.',
+  points: [
+    '`--brand-<app>-gradient` holds the splash gradient, and `brandGradientCss()` builds it from the brand data.',
+    '`--brand-<app>-backdrop` holds the backdrop, and `backdropGradientCss()` builds it from the brand data.',
+    'Both belong to the brand, so they stay the same whichever app is picked in the toolbar.',
+    'A [Hero] picks its backdrop with its `brand` prop.',
+  ],
   playground: Playground,
   variants: [Gradients, Backdrops],
   code: `import { BRAND_FAMILY, Hero, backdropGradientCss, brandGradientCss } from '@drizztdourden08/tessera';

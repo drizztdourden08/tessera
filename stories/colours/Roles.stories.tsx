@@ -33,7 +33,13 @@ const Roles = {
 
 const Overview = overviewStory({
   component: 'Roles',
-  description: 'The colours components use: surfaces, text, borders, accents and states, each read from the swatches and palettes. Every card shows the colour the page paints right now and what it is made from.',
+  description: 'The colours components use, by job: surfaces, text, borders, accents and states.',
+  points: [
+    'Each role is a `--c-*` token built from the [Swatches] and [Palettes].',
+    'Every card shows the colour the page paints right now and what it is made from.',
+    'App CSS uses these roles, such as `var(--c-primary)`, never a raw colour.',
+    'Pin one role in the app `theme.css` when its built value is not the one you want.',
+  ],
   variants: [Roles],
 });
 
