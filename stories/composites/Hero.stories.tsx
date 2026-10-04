@@ -91,47 +91,26 @@ const Narrow = {
 
 const lean = (args: HeroArgs): HeroArgs => ({ ...args, withAside: false, withPanel: false });
 
-const Backdrops = {
-  name: 'Backdrops',
+const rowsStory = <K extends string>(name: string, keys: readonly K[], patch: (key: K) => Partial<HeroArgs>) => ({
+  name,
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
     <Demonstrator
-      rows={axis(HERO_BACKDROP_KEYS)}
+      rows={axis(keys)}
       align="stretch"
       className="hero-story__rows"
-      cell={(backdrop) => draw({ ...lean(args), backdrop })}
+      cell={(key) => draw({ ...lean(args), ...patch(key) })}
     />
   ),
-} satisfies PlaygroundStory<HeroArgs>;
+} satisfies PlaygroundStory<HeroArgs>);
 
-const Shades = {
-  name: 'Shades over a busy backdrop',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => (
-    <Demonstrator
-      rows={axis(SHADES)}
-      align="stretch"
-      className="hero-story__rows"
-      cell={(shade) => draw({ ...lean(args), backdrop: 'svg', shade })}
-    />
-  ),
-} satisfies PlaygroundStory<HeroArgs>;
+const ART_OR_NOT = ['image', 'none'] as const satisfies readonly HeroArtKey[];
 
-const Brands = {
-  name: 'Brand backdrops',
-  args: ARGS,
-  argTypes: ARG_TYPES,
-  render: (args) => (
-    <Demonstrator
-      rows={axis(BRAND_APPS)}
-      align="stretch"
-      className="hero-story__rows"
-      cell={(brand) => draw({ ...lean(args), brand, backdrop: 'brand', art: 'none' })}
-    />
-  ),
-} satisfies PlaygroundStory<HeroArgs>;
+const Backdrops = rowsStory('Backdrops', HERO_BACKDROP_KEYS, (backdrop) => ({ backdrop }));
+const Shades = rowsStory('Shades over a busy backdrop', SHADES, (shade) => ({ backdrop: 'svg', shade }));
+const Brands = rowsStory('Brand backdrops', BRAND_APPS, (brand) => ({ brand, backdrop: 'brand', art: 'none' }));
+const Bare = rowsStory('With art, and with no art or backdrop: the height follows the content', ART_OR_NOT, (art) => ({ backdrop: 'brand', art }));
 
 const CODE = `import { Hero } from '@drizztdourden08/tessera';
 
@@ -179,15 +158,15 @@ const Overview = overviewStory({
   points: [
     '`backdrop` takes a live scene `node`, an `image` URL that covers, contains or tiles, or a `color`.',
     'Leave `backdrop` out for the gradient of `brand`, or of the nearest `data-palette`; `null` draws a plain hero.',
-    '`art` is an `image` URL or any `node`, in its own column beside the intro, never cropped.',
+    '`art` is an `image` URL or any `node` beside the intro; with no art and no `backdrop` the hero fits its content.',
     '`shade` keeps the text readable: `fade` by default, `scrim` for a busy backdrop, or `none`.',
     '`tools` sit top right, `facts` along the bottom in a [FactsPanel], `aside` and `panel` on the right.',
     'Under 720 px wide it stacks: the intro over the art, then the aside, facts and panel at full width.',
   ],
   playground: Playground,
-  variants: [Profile, Backdrops, SceneArt, Shades, Narrow, FactsOnly, TitleOnly, Brands, FromPalette],
+  variants: [Profile, Backdrops, SceneArt, Shades, Narrow, FactsOnly, TitleOnly, Bare, Brands, FromPalette],
   code: CODE,
 });
 
 export default meta;
-export { Backdrops, Brands, FactsOnly, FromPalette, Narrow, Overview, Playground, Profile, SceneArt, Shades, TitleOnly };
+export { Backdrops, Bare, Brands, FactsOnly, FromPalette, Narrow, Overview, Playground, Profile, SceneArt, Shades, TitleOnly };

@@ -80,3 +80,12 @@
 .widget-story__body-frame {
   block-size: var(--size-224);
 }
+
+.widget-story__regions [data-app-region='drag'] {
+  outline: var(--border-width-thin) dashed var(--c-primary);
+  outline-offset: calc(-1 * var(--border-width-thin));
+}
+
+.widget-story__regions [data-app-region='no-drag'] {
+  outline: var(--border-width-thin) solid var(--c-success);
+}

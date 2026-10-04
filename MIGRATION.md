@@ -4399,3 +4399,33 @@ The gallery shows each state, starting, failed, update and reconnecting, as the 
 1. Brock: the boot splash page can use `ts-mark` for its mark and `ts-detail` for the failure message, in place of `splash__mark` and `splash__message`.
 2. Brock: the updater can show `Splash` with the update progress while it installs a version and restarts, and the renderer can show it while it reconnects to main, with the same title, mark and version as the boot splash.
 3. An app that keeps the static page in its `index.html` puts it inside the root element with `ts-splash ts-splash--layer`, and renders `Splash` with the same props until its start tasks finish.
+
+## 164. Widget, Hero, SettingsRow and StatRow: four props Brock asked for
+
+Four small changes to parts that exist, so Brock can drop code it keeps around them. Each one is a prop or a look; the app keeps the state and the part draws it.
+
+```ts
+interface WidgetProps {
+  dragRegion?: boolean;
+}
+
+interface SettingsRowAction {
+  loading?: boolean;
+}
+
+interface StatRowProps {
+  size?: GaugeSize; // 'sm' | 'md' | 'lg', the scale of StatTile and Gauge
+}
+```
+
+- **Widget `dragRegion`.** The title strip takes `data-app-region="drag"` and its buttons `no-drag`, as `WindowTitleBar` does, so in a window of its own the strip moves the window and every button in it stays clickable. While a popup is open the tokens lift the drag region, so a click on the strip closes the menu. Off by default; a docked widget leaves it out.
+- **Hero height.** A hero with no `art` and no `backdrop` now fits its content and starts at the top: the title, actions and facts sit under the tools in place of 250 px lower. The brand gradient still fills it. With art or a backdrop it keeps its full height, as before.
+- **SettingsRow action `loading`.** A row action with `loading` shows its button busy, as `Button`'s `loading` does: a spinner, `aria-busy` and no clicks. The app sets it while the work runs and clears it after; the row does not wait on anything itself.
+- **StatRow `size`.** `sm` packs rows closer, `md` is the look of today and the default, and `lg` sets the label and the value at 14 px. The type is `GaugeSize`, the same scale as `StatTile` and `Gauge`.
+
+### What an app does
+
+1. Brock: the popped widget window passes `dragRegion` to `Widget` and drops the effect that sets `data-app-region` on `[data-drag-widget]`.
+2. Brock: `HeroRoot` drops `hero-root--bare` and its two `stylelint-disable` rules from `HeroRoot.css`; a hero with no art and no backdrop already fits its content.
+3. An app that runs a row action, such as Rebuild, sets `loading` on that action until the work ends.
+4. An app that sized a `StatRow` with its own CSS passes `size` instead.

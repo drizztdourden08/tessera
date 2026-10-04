@@ -15,6 +15,7 @@ type WidgetArgs = {
   mode: 'in' | 'out';
   square: boolean;
   titleBarActions: boolean;
+  dragRegion: boolean;
   peek: boolean;
   opacity: number;
   canPopOut: boolean;
@@ -31,6 +32,7 @@ const ARGS: Partial<WidgetArgs> = {
   mode: 'in',
   square: false,
   titleBarActions: false,
+  dragRegion: false,
   peek: false,
   opacity: 0.92,
   canPopOut: true,
@@ -48,6 +50,7 @@ const ARG_TYPES: PlaygroundArgTypes<WidgetArgs> = {
   opacity: { group: 'Appearance', control: 'range', min: 0, max: 1, step: 0.05, description: 'Frame opacity, 0 to 1. The content stays opaque; hover makes the frame solid.' },
   mode: { group: 'Layout', control: 'select', options: ['in', 'out'], description: 'out draws the frame as its own window: a pop in button and the pin menu.' },
   square: { group: 'Layout', control: 'boolean', description: 'For a widget window shown fullscreen: no corner radius and no outer border.' },
+  dragRegion: { group: 'Layout', control: 'boolean', description: 'In its own window: the title strip moves the window, its buttons stay clickable. Dashed here: the drag region; solid: kept clickable.' },
   peek: { group: 'State', control: 'boolean', description: 'Folded to its title strip.' },
   contextActive: { group: 'State', control: 'boolean', description: 'Dock only: a session is running. Players and Hints show only in context.' },
   disabledWidget: { group: 'State', control: 'select', options: ['none', 'players', 'log', 'hints', 'console'], description: 'Dock only: covered through resolveDisabled' },
@@ -72,6 +75,7 @@ const Tabbed = story('Tabbed pane', { tabbed: true });
 const OwnWindow = story('Own window', { mode: 'out' });
 const OwnActions = story('Own window, with a title bar action', { mode: 'out', titleBarActions: true });
 const Fullscreen = story('Own window, fullscreen', { mode: 'out', square: true });
+const DragStrip = story('Own window, the title strip moves the window', { mode: 'out', titleBarActions: true, dragRegion: true });
 const Folded = story('Peek', { peek: true });
 
 const Dock = {
@@ -122,14 +126,14 @@ const Overview = overviewStory({
   description: 'The frame of a tool panel, such as a player list or a log, docked in a [DockLayout], floating, or in its own window.',
   points: [
     'The title bar is the drag handle, with the name or tabs; pop out, options and close name the widget.',
-    '`titleBarActions` adds buttons before the built-in ones; in its own window `pin` keeps it on top.',
+    '`titleBarActions` adds buttons; in its own window `pin` keeps it on top and `dragRegion` lets the strip move it.',
     'Each widget carries `data-widget-id` and each [DockLayout] pane `data-pane-id`, for tests.',
     'The body scrolls in a gutter of its own and takes `padding`, `sm` by default, or `none` or `md`.',
     '`fill`, here or in the widget definition, makes the body a full-height column for a log or a chart.',
     '`options` puts [WidgetOptions], a [ControlMenu], on the gear; `WidgetManager` places a whole dock from a layout.',
   ],
   playground: Playground,
-  variants: [Single, Tabbed, OwnWindow, OwnActions, Fullscreen, Folded, Bodies, Dock, Performance],
+  variants: [Single, Tabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, Folded, Bodies, Dock, Performance],
   states: {
     render: renderState,
     list: [
@@ -143,4 +147,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Bodies, Dock, Folded, Fullscreen, OwnActions, OwnWindow, Overview, Performance, Playground, Single, Tabbed };
+export { Bodies, Dock, DragStrip, Folded, Fullscreen, OwnActions, OwnWindow, Overview, Performance, Playground, Single, Tabbed };

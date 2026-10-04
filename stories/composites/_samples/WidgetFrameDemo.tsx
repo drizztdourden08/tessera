@@ -15,11 +15,12 @@ type WidgetFrameDemoProps = {
   canPopOut: boolean;
   square?: boolean;
   titleBarActions?: boolean;
+  dragRegion?: boolean;
   optionsOpen?: boolean;
 };
 
 const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
-  const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false, optionsOpen = false } = props;
+  const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false, dragRegion = false, optionsOpen = false } = props;
   const [active, setActive] = useState('hints');
   const [closed, setClosed] = useState(false);
   const spoilers = useSpoilerAction(titleBarActions);
@@ -36,7 +37,7 @@ const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
   }
 
   return (
-    <Box className="story-column">
+    <Box className={dragRegion ? 'story-column widget-story__regions' : 'story-column'}>
       <DemoWidget
         view={view}
         panel={panel}
@@ -47,6 +48,7 @@ const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
         onActivateTab={setActive}
         onClose={() => setClosed(true)}
         titleBarActions={spoilers.action}
+        dragRegion={dragRegion}
       />
       <Text className="story-label widget-story__summary">{`${view.label}: ${summary}${spoilers.note}`}</Text>
     </Box>

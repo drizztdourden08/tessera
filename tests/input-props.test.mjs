@@ -54,6 +54,11 @@ describe('StatRow and FactsPanel values', () => {
     expect(renderToString(h(StatRow, { label: 'Seed', value: '2193' }))).not.toContain('stat-row__copy');
   });
 
+  it('draws a StatRow at md by default, or at the size it is given', () => {
+    expect(renderToString(h(StatRow, { label: 'Seed', value: '2193' }))).toContain('class="stat-row" data-size="md"');
+    expect(renderToString(h(StatRow, { label: 'Seed', value: '2193', size: 'lg' }))).toContain('data-size="lg"');
+  });
+
   it('lays the facts out inline by default, or as rows or boxes', () => {
     const groups = [[{ label: 'Seed', value: '12', copyable: true }]];
     expect(renderToString(h(FactsPanel, { groups }))).toContain('class="facts-panel facts-panel--inline"');

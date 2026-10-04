@@ -16,10 +16,11 @@ type DemoWidgetProps = {
   onActivateTab: (id: string) => void;
   onClose: () => void;
   titleBarActions?: ReactNode;
+  dragRegion?: boolean;
 };
 
 const DemoWidget = (props: DemoWidgetProps) => {
-  const { view, panel, peek, square, canPopOut, options, onActivateTab, onClose, titleBarActions } = props;
+  const { view, panel, peek, square, canPopOut, options, onActivateTab, onClose, titleBarActions, dragRegion } = props;
   return (
     <Box className={`widget-story__box${peek ? ' widget-story__box--peek' : ''}`}>
       <Widget
@@ -35,6 +36,7 @@ const DemoWidget = (props: DemoWidgetProps) => {
         pin={panel.pin}
         onPinChange={panel.onPinChange}
         titleBarActions={titleBarActions}
+        dragRegion={dragRegion}
         canPopOut={canPopOut}
         onPopOut={panel.onPopOut}
         onActivateTab={onActivateTab}

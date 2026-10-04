@@ -22,15 +22,16 @@ type RowArgs = {
   badge: boolean;
   problem: string;
   actions: boolean;
+  busy: boolean;
 };
 
-const SAMPLE_ACTIONS: SettingsItem['actions'] = [
-  { id: 'rebuild', label: 'Rebuild', onClick: () => undefined },
+const sampleActions = (busy: boolean): SettingsItem['actions'] => [
+  { id: 'rebuild', label: 'Rebuild', loading: busy, onClick: () => undefined },
   { id: 'forget', label: 'Forget', tone: 'danger', confirm: 'Forget it?', onClick: () => undefined },
 ];
 
 const KindDemo = (props: RowArgs) => {
-  const { kind, compact, readOnly, disabled, description, changed, badge, problem, actions } = props;
+  const { kind, compact, readOnly, disabled, description, changed, badge, problem, actions, busy } = props;
   const row = rowOfKind(useSampleSettings(), kind);
   if (row === undefined) return null;
   const text: SettingsDescription = description ? { description: row.description ?? 'What this setting changes, in one line.' } : { noDescription: true };
@@ -50,7 +51,7 @@ const KindDemo = (props: RowArgs) => {
           onReset={() => undefined}
           badge={badge ? <Tag color="secondary">Advanced</Tag> : undefined}
           problem={problem || undefined}
-          actions={actions ? SAMPLE_ACTIONS : undefined}
+          actions={actions ? sampleActions(busy) : undefined}
         />
       </SettingsSection>
     </Box>
@@ -66,7 +67,7 @@ const EveryKind = (props: { compact?: boolean; readOnly?: boolean }) => {
   );
 };
 
-const ARGS: Partial<RowArgs> = { kind: 'segmented', compact: false, readOnly: false, disabled: false, description: true, changed: true, badge: false, problem: '', actions: false };
+const ARGS: Partial<RowArgs> = { kind: 'segmented', compact: false, readOnly: false, disabled: false, description: true, changed: true, badge: false, problem: '', actions: false, busy: false };
 
 const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
   kind: { group: 'Content', control: 'select', options: [...KIND_ORDER], description: 'The input the row draws on the right.' },
@@ -75,6 +76,7 @@ const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
   problem: { group: 'Content', control: 'text', description: 'Shown under the row in the danger tone. Leave empty to hide.' },
   actions: { group: 'Content', control: 'boolean', description: 'Buttons after the control: Rebuild, and a danger Forget with a confirm step.' },
   changed: { group: 'State', control: 'boolean', description: 'A dot after the title and, with onReset, a reset button.' },
+  busy: { group: 'State', control: 'boolean', description: 'With actions: the app is running Rebuild, so it sets loading and the button shows it is busy.' },
   compact: { group: 'Appearance', control: 'boolean', description: 'One line, at least 40 px tall: the description moves to a tooltip on the title, hints to a bubble under the control, and radio options drop their subtitles.' },
   readOnly: { group: 'State', control: 'boolean', description: 'The value as text. Pointing at it puts the hint of the current value in place of the description.' },
   disabled: { group: 'State', control: 'boolean' },
@@ -116,6 +118,13 @@ const MarksCompact = {
   name: 'Changed, reset, badge, problem and actions, compact',
   render: () => <RowMarksDemo compact />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
+
+const Busy = {
+  name: 'An action at work',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <KindDemo {...args} kind="select" actions busy />,
+} satisfies PlaygroundStory<RowArgs>;
 
 const ChoiceFit = {
   name: 'A long choice in a narrow row',
@@ -161,13 +170,13 @@ const Overview = overviewStory({
   points: [
     'The input is data: a `kind` such as `toggle`, `select` or `slider`, its props, `value` and `onChange`.',
     '**It never changes height:** the hint line under the description keeps room for every hint it can show.',
-    '`changed` adds a dot after the title and, with `onReset`, a reset button; `problem` shows under the row.',
-    '`actions` puts buttons after the control, or in its place; `badge` sits after the title.',
+    '`changed` adds a dot and, with `onReset`, a reset button; `badge` sits after the title, `problem` under the row.',
+    '`actions` puts buttons after the control, or in its place, each `loading` while the app runs it.',
     '`compact` draws one line; `readOnly` draws the value as text; `descriptionLines` folds the description.',
     'Rows sit in a [SettingsSection], which draws the box, counts the changed rows and holds the `lock`.',
   ],
   playground: Playground,
-  variants: [Kinds, Compact, ReadOnly, Marks, MarksCompact, ChoiceFit, ChoiceFitCompact],
+  variants: [Kinds, Compact, ReadOnly, Marks, MarksCompact, Busy, ChoiceFit, ChoiceFitCompact],
   states: {
     render: (props) => <StateRow {...props} />,
     list: [
@@ -183,4 +192,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ChoiceFit, ChoiceFitCompact, Compact, Kinds, Marks, MarksCompact, Overview, Playground, ReadOnly };
+export { Busy, ChoiceFit, ChoiceFitCompact, Compact, Kinds, Marks, MarksCompact, Overview, Playground, ReadOnly };

@@ -94,6 +94,7 @@ interface SettingsRowAction {
   icon?: ReactNode;
   tone?: 'danger';
   disabled?: boolean;
+  loading?: boolean;
   confirm?: string;
 }
 

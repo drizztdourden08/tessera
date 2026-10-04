@@ -92,6 +92,7 @@ interface WidgetProps extends WidgetBodyLook {
   onPinChange?: (mode: PinMode) => void;
   titleBarActions?: ReactNode;
   square?: boolean;
+  dragRegion?: boolean;
 }
 
 export type {

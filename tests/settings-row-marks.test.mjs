@@ -88,4 +88,9 @@ describe('row actions', () => {
     expect(draw({ actions: [rebuild], readOnly: true })).not.toContain('settings-row__actions');
     expect(draw({ actions: [rebuild], disabled: true })).toMatch(/<button[^>]*disabled=""[^>]*>.*Rebuild/);
   });
+
+  it('show the busy look of their button while loading is set', () => {
+    expect(draw({ actions: [{ ...rebuild, loading: true }] })).toMatch(/<button[^>]*aria-busy="true"[^>]*disabled=""[^>]*>.*Rebuild/);
+    expect(draw({ actions: [rebuild] })).not.toContain('aria-busy');
+  });
 });

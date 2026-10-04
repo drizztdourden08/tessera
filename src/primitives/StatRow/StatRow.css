@@ -1,11 +1,24 @@
 /* @layer renderer-components @kind style */
 .stat-row {
+  --stat-row-text: var(--text-sm);
+  --stat-row-mono: var(--text-xs);
+
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-md);
   max-inline-size: var(--stat-row-max-w);
-  font-size: var(--text-sm);
+  font-size: var(--stat-row-text);
+}
+
+.stat-row[data-size='sm'] {
+  gap: var(--space-sm);
+  line-height: var(--leading-tight);
+}
+
+.stat-row[data-size='lg'] {
+  --stat-row-text: var(--text-base);
+  --stat-row-mono: var(--text-base);
 }
 
 .stat-row__label {
@@ -22,7 +35,7 @@
 
 .stat-row__value[data-mono] {
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-size: var(--stat-row-mono);
 }
 
 .stat-row:has(> .stat-row__copy) > .stat-row__label {

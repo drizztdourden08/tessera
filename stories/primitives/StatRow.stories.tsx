@@ -2,20 +2,27 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Card, Stack, StatRow, Status, Text } from '../../src/primitives';
+import type { GaugeSize } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 
 type StatRowArgs = {
   label: string;
   value: string;
   mono: boolean;
+  size: GaugeSize;
 };
 
-const ARGS: Partial<StatRowArgs> = { label: 'Seed', value: '48213-HOOK-VALE', mono: true };
+const SIZES = ['sm', 'md', 'lg'] as const satisfies readonly GaugeSize[];
+
+const ARGS: Partial<StatRowArgs> = { label: 'Seed', value: '48213-HOOK-VALE', mono: true, size: 'md' };
 
 const ARG_TYPES: PlaygroundArgTypes<StatRowArgs> = {
     label: { group: 'Content', control: 'text' },
     value: { group: 'Content', control: 'text' },
     mono: { group: 'Appearance', control: 'boolean' },
+    size: { group: 'Appearance', control: 'select', options: SIZES, description: 'sm packs the rows closer, md is the default, lg sets them at 14 px.' },
   };
 
 const meta = {
@@ -27,7 +34,7 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <StatRow label={args.label} value={args.value} mono={args.mono} />,
+  render: (args) => <StatRow label={args.label} value={args.value} mono={args.mono} size={args.size} />,
 } satisfies PlaygroundStory<StatRowArgs>;
 
 const SessionDetails = {
@@ -53,6 +60,23 @@ const SessionDetails = {
   ),
 } satisfies StoryLiteStoryDefinition<StatRowArgs>;
 
+const Sizes = {
+  name: 'Sizes',
+  render: () => (
+    <Demonstrator
+      rows={axis(SIZES)}
+      className="story-column"
+      cell={(size) => (
+        <Stack gap="xs">
+          <StatRow size={size} label="Host" value="archipelago.local:38281" mono copyable />
+          <StatRow size={size} label="Players" value="4 of 6" />
+          <StatRow size={size} label="Status" value={<Status tone="success">Connected</Status>} />
+        </Stack>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StatRowArgs>;
+
 const WidePage = {
   name: 'On a wide page',
   render: () => (
@@ -73,11 +97,12 @@ const Overview = overviewStory({
     '`mono` draws the value in a monospace font, for addresses, ids and coordinates.',
     'The value can be selected; `copyable` adds a button that copies it, or the string it is given.',
     'A row stops at 512 px, so on a wide page the value stays near its label.',
+    '`size` takes the scale of [StatTile] and [Gauge]: `sm` packs rows closer, `md` by default, `lg` at 14 px.',
   ],
   instead: '[TermList] for terms and what they mean.',
   playground: Playground,
-  variants: [SessionDetails, WidePage],
+  variants: [SessionDetails, Sizes, WidePage],
 });
 
 export default meta;
-export { Overview, Playground, SessionDetails, WidePage };
+export { Overview, Playground, SessionDetails, Sizes, WidePage };

@@ -7,11 +7,11 @@ import { copyText } from './behavior/copy-text';
 import type { StatRowProps } from './StatRow.type';
 
 const StatRow = (props: StatRowProps) => {
-  const { label, value, mono, copyable, className = '' } = props;
+  const { label, value, mono, copyable, size = 'md', className = '' } = props;
   const { common } = useTesseraStrings();
   const text = copyText(value, copyable);
   return (
-    <div className={`stat-row${className ? ` ${className}` : ''}`}>
+    <div className={`stat-row${className ? ` ${className}` : ''}`} data-size={size}>
       <Span tone="muted" className="stat-row__label">{label}</Span>
       <Span className="stat-row__value" data-mono={mono ? '' : undefined}>{value}</Span>
       {text !== undefined && (

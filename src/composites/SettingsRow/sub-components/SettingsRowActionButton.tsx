@@ -36,6 +36,7 @@ const SettingsRowActionButton = (props: SettingsRowActionButtonProps) => {
       variant={action.tone === 'danger' ? 'danger' : 'secondary'}
       icon={action.icon}
       disabled={disabled || action.disabled === true}
+      loading={action.loading === true}
       onClick={action.confirm === undefined ? action.onClick : () => setArmed(true)}
     >
       {action.label}

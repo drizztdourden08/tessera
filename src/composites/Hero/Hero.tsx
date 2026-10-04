@@ -22,7 +22,7 @@ const Hero = (props: HeroProps) => {
     <Box
       ref={ref}
       as="section"
-      className={['hero', aside != null ? 'hero--aside' : '', className].filter(Boolean).join(' ')}
+      className={['hero', aside != null ? 'hero--aside' : '', art == null && backdrop == null ? 'hero--bare' : '', className].filter(Boolean).join(' ')}
       data-brand={brand}
       aria-label={label ?? panels.overview}
     >
