@@ -60,6 +60,10 @@
   outline: none;
 }
 
+.tag-input.control-size--sm .tag-input__entry {
+  min-width: var(--size-80);
+}
+
 .tag-input__entry::placeholder {
   color: var(--c-text-muted);
 }

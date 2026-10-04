@@ -41,6 +41,7 @@
   gap: var(--space-2xs);
   min-block-size: var(--shortcut-list-line);
   margin: 0;
+  line-height: var(--shortcut-list-line);
 }
 
 .shortcut-list__keys .shortcut {

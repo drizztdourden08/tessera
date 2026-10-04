@@ -6,7 +6,7 @@
   --font-title: 'Chakra Petch', var(--font-sans);
   --font-mono:  'Consolas', 'Courier New', monospace;
   --font-emoji: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
-  --text-xs:    var(--size-10);
+  --text-xs:    var(--size-12);
   --text-sm:    var(--size-12);
   --text-base:  var(--size-14);
   --text-lg:    var(--size-16);

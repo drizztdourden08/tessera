@@ -4005,3 +4005,17 @@ The code lives in `stories/preview/MascotStage/`, not in `src/`, so none of it i
 ### What an app does
 
 Nothing. This changes the gallery only.
+
+## 154. Small text is 12 px, and labels are no longer in capitals
+
+The owner picked 12 px with no forced upper case for small text (Archipelia review T-03, ux-59): at 10 px and in capitals, captions, labels, tags and mono values were hard to read at 1080p and below.
+
+- **`--text-xs` is 12 px**, up from 10 px, the same size as `--text-sm`. Every part that sets small text with it grows: captions, field hints, tags, badges, status pills, mono StatRow values, keycaps, ShortcutList, ControlMenu rows and hints, DataTable headers, mascot captions. `splash-tokens.css` follows.
+- **Field labels and Text `variant="label"`** are written as given, with normal letter spacing. DataTable column headers use the label variant, so they read in sentence case too.
+- SectionHeader, widget titles and tabs, StatTile labels, Text `variant="overline"`, Status pills and ShortcutList group headings **keep their capitals**.
+- **Tight layouts checked.** Title bar items and the compact 40 px SettingsRow keep their heights; a small TagInput keeps its entry at least 80 px wide (was 96 px), so two tags and the entry stay on one line in a compact row; ShortcutList sets the `+` between keys on the line height of the list, so a row with Alt + Drag stays one line tall. ControlMenu panels grow to fit their wider labels.
+
+### What an app does
+
+1. Write Field labels and Text labels in sentence case (Server name, not SERVER NAME); they now show as written.
+2. Check any fixed size of your own built around 10 px small text, such as a 16 px row of tags, a narrow column of hints, or a width measured from a caption.
