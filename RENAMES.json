@@ -566,7 +566,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.12.0",
       "cssClasses": {
         "screen-page__head": "content-header",
         "screen-page__backdrop": "content-header__backdrop",

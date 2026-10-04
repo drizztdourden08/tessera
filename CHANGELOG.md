@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.12.0
+
+### Minor Changes
+
+- 1b835dc: ContentHeader: the header of ScreenPage is its own component, so any card, panel or page can carry it. It takes an icon, a title, a backdrop, a strip after the title, actions at the end, a compact look and a heading level. The header classes move from screen-page\_\_ to content-header (MIGRATION section 97).
+
 ## 0.11.0
 
 ### Minor Changes
