@@ -41,6 +41,10 @@ const COMMON_STRINGS = {
   tryOf: (attempt: number, attempts: number) => `Try ${attempt} of ${attempts}`,
   waitSeconds: (seconds: number) => `${seconds} s`,
   waitMinutes: (minutes: number, seconds: number) => (seconds > 0 ? `${minutes} min ${seconds} s` : `${minutes} min`),
+  send: 'Send',
+  command: 'Command',
+  history: 'history',
+  clear: 'clear',
 };
 
 export { COMMON_STRINGS };

@@ -182,3 +182,5 @@ export { CopyValue } from './CopyValue';
 export type { CopyValueProps, CopyValueSize, CopyValueTruncate } from './CopyValue';
 export { RetryButton } from './RetryButton';
 export type { RetryButtonProps } from './RetryButton';
+export { CommandInput } from './CommandInput';
+export type { CommandInputProps, CommandSubmit } from './CommandInput';

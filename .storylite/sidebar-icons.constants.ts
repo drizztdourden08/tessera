@@ -58,7 +58,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Primitives · Inputs': {
-    TextInput: 'text-cursor-input', SearchInput: 'scan-search', PasswordInput: 'lock-keyhole', Textarea: 'letter-text', NumberInput: 'hash', NumberStepper: 'diff', Checkbox: 'square-check',
+    TextInput: 'text-cursor-input', SearchInput: 'scan-search', CommandInput: 'square-terminal', PasswordInput: 'lock-keyhole', Textarea: 'letter-text', NumberInput: 'hash', NumberStepper: 'diff', Checkbox: 'square-check',
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',
     Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal',
     TagInput: 'tag', TagPicker: 'tags', ColorSwatch: 'paint-bucket',

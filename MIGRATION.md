@@ -4186,3 +4186,40 @@ interface FileListProps {
 
 1. Archipelia: the RoomWidget output and the SessionRuns outputs pass their files with `onOpen` and `onReveal` wired to the shell, in place of the mono captions.
 2. Brock: the bug report attachments and the logs folder can list their files the same way.
+
+## 159. CommandInput: a command line with history
+
+`CommandInput` is a new primitive, under Primitives · Inputs. It is the Tessera part of the console that Archipelia asked for (T-18, tessera-03, ux-13). The owner split that request: Tessera builds the command line, and the console around it (the replies, matching a reply to its command, the server commands and their confirmations) stays an Archipelia compound.
+
+- **The line.** A field in the mono face with a prompt mark, named Command (or `label`), and a primary Send button (or `sendLabel`) that is off while the line is empty.
+- **Enter** calls `onSubmit` with the trimmed text and empties the line. Return `false` from `onSubmit` to keep the text, for a command that was not sent.
+- **Up and Down** walk the history, newest first. Down past the newest entry brings back what was typed before the walk. Typing starts a new draft.
+- **Escape** clears the line. On an empty line it passes on, so a dialog or a popup around it still closes.
+- **History.** Pass `history` (oldest first) when the app keeps the sent commands. Without it the input keeps its own, 50 entries by default (`historyLimit`), with a repeat of the last entry kept once, and `storageKey` keeps it in local storage across launches.
+- **actions** sits on the row under the input, such as quick command buttons, with the key hints (Up, Down history, Esc clear) at its end; `keyHints={false}` leaves the hints out. The hints describe the field for screen readers.
+- `value`, `defaultValue` and `onValueChange` make the line controlled, so a quick command can fill it.
+
+New strings in `common`: `send`, `command`, `history` and `clear`.
+
+```ts
+type CommandSubmit = (command: string) => boolean | void;
+
+interface CommandInputProps extends Omit<TextInputProps, 'value' | 'defaultValue' | 'onChange' | 'onEnter' | 'onSubmit' | 'start' | 'end'> {
+  onSubmit: CommandSubmit;
+  history?: readonly string[];
+  storageKey?: string;
+  historyLimit?: number;
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  label?: string;
+  sendLabel?: string;
+  actions?: ReactNode;
+  keyHints?: boolean;
+}
+```
+
+### What an app does
+
+1. Archipelia: the ConsoleWidget replaces its `TextInput`, Enter handler and Send button with `CommandInput`, passes the Save and Players buttons as `actions` and its sent list as `history`, and shows the replies above it in a `LogPanel`; the commands and the reply matching stay in the widget.
+2. A Brock or rotp debug console can use `storageKey` and let the input keep its own history.

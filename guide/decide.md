@@ -29,6 +29,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - A number stepped up or down: no component yet.
     - Text that follows a pattern: no component yet.
     - Free words, as tags: no component yet.
+    - A command, with its history: [CommandInput](components/CommandInput.md). CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear.
   - One choice. **How many options are there?**
     - A few, all in view: no component yet.
     - Many, in a list: no component yet.
