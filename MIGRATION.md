@@ -3328,3 +3328,28 @@ From the Tessera review (tessera-33, tessera-34, tessera-35, tessera-36).
 
 1. Delete the app rules that set `-webkit-app-region: no-drag` on controls inside a drag region, and mark regions with `data-app-region="drag"` only.
 2. Run the lint and fix what the new rules report: pass the icon as `icon`, use PasswordInput or SearchInput, and replace each rule on a Tessera class with the prop or token it needed. Ask for one when none exists.
+
+## 126. Small controls take clicks on at least 24 by 24 px
+
+From the UX review (ux-63). The Tag remove button took clicks on 16 px, the SideNav toggle on 24 px (23 px in an app at a smaller zoom), and the Widget title bar buttons on 20 px.
+
+- **The `hit-area` class grows the hit area of a control without changing its look.** It adds an empty `::after` box centred on the control, at least `--hit-area-min` (24 px) on each side, or `--hit-area` when the control sets it. A click on that box counts as a click on the control. The control keeps its size, its glyph and its layout. The class makes the control `position: relative` only when nothing else positions it. `HIT_AREA_CLASS` in `primitives/dom/hit-area.constants` names it for Tessera components.
+- **Tag** gives its remove button the class: the glyph stays 16 px and the button takes clicks on 24 by 24 px.
+- **SideNav** gives its round edge toggle the class with `--hit-area: var(--side-nav-toggle-hit)` (28 px), so it stays over 24 px at a smaller app zoom.
+- The Widget title bar buttons take the class in a following change; with it they take clicks on 24 by 24 px and the 4 px gaps between them keep the areas apart.
+
+```ts
+// primitives/dom/hit-area.constants
+declare const HIT_AREA_CLASS: 'hit-area';
+```
+
+```css
+:root {
+  --hit-area-min: var(--size-24);
+  --side-nav-toggle-hit: var(--size-28);
+}
+```
+
+### What an app does
+
+1. Add `className="hit-area"` to any small icon button of its own, and set `--hit-area` on it for more than 24 px.

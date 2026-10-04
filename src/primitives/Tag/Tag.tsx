@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { HIT_AREA_CLASS } from '../dom/hit-area.constants';
 import { Glyph } from '../Glyph';
 import { IconButton } from '../IconButton';
 import { Pressable } from '../Pressable';
@@ -44,7 +45,7 @@ const Tag = (props: TagProps) => {
       {body}
       {onRemove !== undefined && (
         <IconButton
-          className="tag__remove"
+          className={`tag__remove ${HIT_AREA_CLASS}`}
           variant="ghost"
           size="sm"
           label={common.removeNamed(name ?? String(children))}

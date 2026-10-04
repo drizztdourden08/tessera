@@ -216,6 +216,7 @@
   --space-xl: 24px;
   --space-2xl: 32px;
   --titlebar-height: 40px;
+  --hit-area-min: 24px;
   --scrollbar-size: 6px;
   --scrollbar-slim: calc(3 * 1px);
   --scrollbar-slim-active: calc(5 * 1px);
@@ -245,6 +246,7 @@
   --side-nav-w-open: 224px;
   --side-nav-item-h: 40px;
   --side-nav-toggle-d: 24px;
+  --side-nav-toggle-hit: 28px;
   --search-results-head-h: calc(52 * 1px);
   --dock-grip-h: calc(18 * 1px);
   --dock-divider-bar: calc(3 * 1px);

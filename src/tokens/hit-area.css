@@ -1,0 +1,14 @@
+/* @layer renderer-design-system @kind style */
+:where(.hit-area) {
+  position: relative;
+}
+
+.hit-area::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, var(--hit-area, var(--hit-area-min)));
+  height: max(100%, var(--hit-area, var(--hit-area-min)));
+  transform: translate(-50%, -50%);
+}

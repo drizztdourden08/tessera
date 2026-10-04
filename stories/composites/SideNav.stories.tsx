@@ -181,6 +181,7 @@ const Overview = overviewStory({
     '`search` adds a field that grows when the nav opens; the host owns the query and shows the results.',
     '`overlay` slides the open nav over the content; [[Esc]], a click outside or a pick closes it.',
     '`variant="rail"` is the app screen list: flush on the window edge, its labels shown unless `collapsed`.',
+    'The round toggle on the edge draws at 24 px and takes clicks on 28 by 28 px.',
   ],
   instead: '[SideNavLayout] for a nav beside a content pane that shows the page and the search results.',
   playground: Playground,

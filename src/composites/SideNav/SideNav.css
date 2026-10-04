@@ -25,6 +25,8 @@
 }
 
 .side-nav__toggle {
+  --hit-area: var(--side-nav-toggle-hit);
+
   position: absolute;
   top: calc(var(--space-sm) + (var(--side-nav-item-h) - var(--side-nav-toggle-d)) / 2);
   right: calc(var(--side-nav-toggle-d) / -2);
