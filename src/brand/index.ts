@@ -13,6 +13,11 @@ export { Mascot } from './Mascot';
 export type { MascotProps } from './Mascot';
 export { AnimatedMascot } from './AnimatedMascot';
 export type { AnimatedMascotBrand, AnimatedMascotProps, MascotAnimationNames } from './AnimatedMascot';
+export { MascotStage, AUTONOMY_RULES } from './MascotStage';
+export type {
+  AutonomyConfig, AutonomyContext, AutonomyRule, EffectMode, Facing, MascotActorHandle, MascotActorState, MascotStageCast, MascotStageEvent,
+  MascotStageEventType, MascotStageHandle, MascotStageProps, MascotStep, MoveOptions, PlayOptions, StepResult,
+} from './MascotStage';
 export { ChosenMascot, mascotForBrand } from './ChosenMascot';
 export type { ChosenMascotProps, MascotChoice, MascotName } from './ChosenMascot';
 export type { MascotAnimation, MascotMotion, MotionEffect, MotionFrame, MotionPart, MotionShadow, MotionStage, MotionTrack } from './motion/motion.type';

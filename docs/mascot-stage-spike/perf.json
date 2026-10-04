@@ -1,0 +1,70 @@
+[
+ {
+  "case": "stage engine, 3",
+  "fps": "60.2",
+  "scriptMsPerFrame": "0.198",
+  "styleMsPerFrame": "0.283",
+  "layoutMsPerFrame": "0.116",
+  "taskMsPerFrame": "1.355",
+  "engineLine": "60 frames a second · engine 0.112 ms a frame on average · worst so far 1.40 ms"
+ },
+ {
+  "case": "today WAAPI, 3",
+  "fps": "60.2",
+  "scriptMsPerFrame": "0.009",
+  "styleMsPerFrame": "0.181",
+  "layoutMsPerFrame": "0.144",
+  "taskMsPerFrame": "0.946"
+ },
+ {
+  "case": "stage engine, 9",
+  "fps": "60.0",
+  "scriptMsPerFrame": "0.333",
+  "styleMsPerFrame": "0.604",
+  "layoutMsPerFrame": "0.209",
+  "taskMsPerFrame": "2.631",
+  "engineLine": "60 frames a second · engine 0.315 ms a frame on average · worst so far 1.50 ms"
+ },
+ {
+  "case": "today WAAPI, 9",
+  "fps": "60.2",
+  "scriptMsPerFrame": "0.012",
+  "styleMsPerFrame": "0.480",
+  "layoutMsPerFrame": "0.236",
+  "taskMsPerFrame": "2.274"
+ },
+ {
+  "case": "stage engine, 18",
+  "fps": "58.2",
+  "scriptMsPerFrame": "0.557",
+  "styleMsPerFrame": "1.193",
+  "layoutMsPerFrame": "0.438",
+  "taskMsPerFrame": "5.459",
+  "engineLine": "57 frames a second · engine 0.561 ms a frame on average · worst so far 7.20 ms"
+ },
+ {
+  "case": "today WAAPI, 18",
+  "fps": "58.3",
+  "scriptMsPerFrame": "0.010",
+  "styleMsPerFrame": "1.068",
+  "layoutMsPerFrame": "0.371",
+  "taskMsPerFrame": "4.576"
+ },
+ {
+  "case": "stage engine, 30",
+  "fps": "60.0",
+  "scriptMsPerFrame": "0.842",
+  "styleMsPerFrame": "1.859",
+  "layoutMsPerFrame": "0.609",
+  "taskMsPerFrame": "7.434",
+  "engineLine": "60 frames a second · engine 0.512 ms a frame on average · worst so far 5.30 ms"
+ },
+ {
+  "case": "today WAAPI, 30",
+  "fps": "60.2",
+  "scriptMsPerFrame": "0.010",
+  "styleMsPerFrame": "1.189",
+  "layoutMsPerFrame": "0.388",
+  "taskMsPerFrame": "5.134"
+ }
+]

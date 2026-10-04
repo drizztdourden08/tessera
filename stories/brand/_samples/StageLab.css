@@ -1,0 +1,17 @@
+/* @layer stories @kind style */
+.stage-lab__frame {
+  resize: horizontal;
+  overflow: hidden;
+  inline-size: 100%;
+  min-inline-size: var(--size-320);
+  max-inline-size: 100%;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-bg);
+  cursor: crosshair;
+}
+
+.stage-lab__log {
+  min-block-size: var(--size-224);
+  font-family: var(--font-mono);
+}
