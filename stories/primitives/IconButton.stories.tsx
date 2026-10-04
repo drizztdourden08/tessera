@@ -176,7 +176,15 @@ const Toolbar = {
 
 const Overview = overviewStory({
   component: 'IconButton',
-  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit. Its label is required and becomes the accessible name. The same coloured variants as Button plus ghost, and three sizes: md, sm, and xs for compact panels such as the widget options. It shares the Button focus ring and pressed fill, and active marks a toggle as on and announces it as pressed. tone="danger" draws a ghost button in red with a soft red glow, for a report a bug button or a remove button, and fills red inside a danger ring on hover. loading swaps the icon for the Spinner, keeps the square, stops clicks and announces the button as busy. hint gives it a value and a one-line description that it reports through onHint and to the HintScope around it while it is pointed at or focused, for a HintLine to show.',
+  description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit.',
+  points: [
+    '**`label` is required:** it becomes the name screen readers announce.',
+    'It takes the same variants as [Button], and three sizes: `md`, `sm` and `xs` for compact panels.',
+    '`active` marks a toggle as on; `loading` swaps the icon for a [Spinner] and stops clicks.',
+    '`tone="danger"` draws a ghost button in red, for a remove or a report a bug button.',
+    '`hint` reports a one-line description to the [HintScope] around it, for a [HintLine] to show.',
+  ],
+  instead: '[Button] when a word fits.',
   playground: Playground,
   variants: [AllVariants, DangerTone, Loading],
   states: markedStates(BUTTON_STATES, renderState),

@@ -58,7 +58,14 @@ const CODE = `import { Pressable } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Pressable',
-  description: 'A button with its look taken away: no border, padding or background, with the font and colour of its parent. It keeps what a button does: focus, Enter and Space, disabled and type="button" by default. Use Button or IconButton unless you need a clickable surface whose whole look you draw yourself, such as a menu row, a table header or a tile. It has no hover, focus or pressed look of its own, so the class you give it draws them. Use Link when the click goes to another page.',
+  description: 'A button with its look taken away, for a clickable surface whose whole look you draw yourself.',
+  points: [
+    'It has no border, padding or background, and takes the font and colour of its parent.',
+    'It keeps what a button does: focus, [[Enter]] and [[Space]], `disabled`, and `type="button"` by default.',
+    'Use it for a menu row, a table header or a tile.',
+    '**It has no hover, focus or pressed look:** the class you give it draws them.',
+  ],
+  instead: '[Button] or [IconButton] for a standard button, or [Link] when the click goes to another page.',
   playground: Playground,
   variants: [Surfaces, Clicks],
   code: CODE,

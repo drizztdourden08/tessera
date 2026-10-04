@@ -89,7 +89,14 @@ const CODE = `import { Link } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Link',
-  description: 'A link to a URL, in the Tessera look: a toned colour, an underline on hover and the focus ring. external opens it in a new tab with rel="noopener noreferrer" and a small icon that tells screen readers so. A click loads the page, as any anchor does; for a route inside the app use RouterLink. Use Button or Pressable for an action that does not change the page. variant="subtle" keeps a dotted underline at rest, for a link among dense data such as a table cell, where colour alone does not mark it; DataTable draws its reference cells this way. A className you pass wins over its look.',
+  description: 'A link to an address, in the Tessera look, with a toned colour, an underline on hover and a focus ring.',
+  points: [
+    '`external` opens it in a new tab with a small icon that tells screen readers so.',
+    '`variant="subtle"` keeps a dotted underline at rest, for a link among dense data such as a table cell.',
+    'A click loads the page, as any anchor does.',
+    'A `className` you pass wins over its look.',
+  ],
+  instead: '[RouterLink] for a route inside the app, or [Button] for an action that stays on the page.',
   playground: Playground,
   variants: [Tones, Variants, External],
   states: {

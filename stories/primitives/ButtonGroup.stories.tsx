@@ -145,7 +145,14 @@ const middleState = (entry: StateEntry): StateEntry => ({
 
 const Overview = overviewStory({
   component: 'ButtonGroup',
-  description: 'Buttons joined into one control, for a few independent actions that belong together: save, load and reset, or undo and redo. It takes Button and IconButton children with no gap between them. Neighbours share one border and only the outer corners keep the button radius. A hovered, pressed or focused button rises above its neighbours, so its border and focus ring stay whole; the States show it on the middle button. Each button keeps its own variant, size and disabled state, and a ghost button gains a border inside a group. Orientation stacks the buttons in a column. Give the group an aria-label: it renders a group, and screen readers announce the label with the buttons. For one choice out of several, use SegmentedControl; for independent on and off settings, use ToggleGroup; for spaced buttons, use ButtonRow.',
+  description: 'Buttons joined into one control, for a few separate actions that belong together, such as undo and redo.',
+  points: [
+    'It takes [Button] and [IconButton] children; neighbours share one border and only the outer corners round.',
+    'Each button keeps its own variant, size and disabled state; a `ghost` button gains a border.',
+    '`orientation="vertical"` stacks the buttons in a column.',
+    '**Give the group an `aria-label`:** screen readers announce it with the buttons.',
+  ],
+  instead: '[SegmentedControl] for one choice, [ToggleGroup] for on and off settings, [ButtonRow] for spaced buttons.',
   playground: Playground,
   variants: [AllVariants, Sizes, WithIcons, Vertical, Mixed],
   states: {

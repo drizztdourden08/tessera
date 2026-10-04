@@ -111,7 +111,15 @@ const Bar = {
 
 const Overview = overviewStory({
   component: 'ButtonRow',
-  description: 'The row of buttons at the foot of a dialog, a card or a toolbar. It is a Flex preset: buttons sit at the end with a small gap, centred on the cross axis, and wrap onto a new line when the container is narrow. The align prop moves them to the start, the centre, or spreads them out, and gap takes any space token. Every button in the row is the same height, whether it has an icon or not. variant bar turns the row into the dark action bar at the foot of a panel or a wizard, padded and ruled off from the content above, and lead puts a hint or a control of its own at the start.',
+  description: 'The row of buttons at the foot of a dialog, a card or a toolbar.',
+  points: [
+    'Buttons sit at the end with a small gap and wrap onto a new line when the container is narrow.',
+    '`align` moves them to the start or the centre, or spreads them out; `gap` takes a space token.',
+    'Every button in the row is the same height, with an icon or without.',
+    '`variant="bar"` makes the dark action bar at the foot of a panel or a wizard.',
+    '`lead` puts a hint or a control of its own at the start.',
+  ],
+  instead: '[ButtonGroup] for buttons joined into one control.',
   playground: Playground,
   variants: [Alignments, Bar],
 });
