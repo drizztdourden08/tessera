@@ -18,12 +18,15 @@ const halo = (key: string, left: number, width: number, top: number): JoinPiece[
   style: { left: joinPx(left), width: joinPx(width), top: joinPx(top) },
 }]);
 
-const flush = (bend: JoinBend): boolean => bend.corner === 0 && bend.fillet === 0;
+const parentReach = (bend: JoinBend, line: number): number => {
+  if (bend.fillet > 0) return 0;
+  return bend.corner > 0 ? line : 2 * line;
+};
 
 const edge = (key: string, join: SubMenuJoin, ends: [parent: JoinBend, own: JoinBend], top: number): JoinPiece => {
   const { gap, line } = join;
-  const left = flush(ends[0]) ? -gap - 2 * line : -gap;
-  const right = flush(ends[1]) ? 2 * line : 0;
+  const left = -gap - parentReach(ends[0], line);
+  const right = ends[1].fillet > 0 ? 0 : 2 * line;
   return { key, className: 'dropdown__tunnel-edge', style: { left: joinPx(left), width: joinPx(right - left), top: joinPx(top), height: joinPx(line) } };
 };
 

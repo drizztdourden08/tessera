@@ -8,7 +8,7 @@ interface JoinRect {
 
 type JoinSide = 'right' | 'left';
 
-type JoinAlign = 'top' | 'bottom' | 'middle';
+type JoinAlign = 'top' | 'bottom' | 'row-top' | 'row-bottom' | 'middle';
 
 interface JoinCorners {
   topLeft: number;
@@ -43,8 +43,15 @@ interface SubMenuJoinInput {
 }
 
 interface JoinPlace {
+  align: JoinAlign;
   top: number;
   height: number;
+}
+
+interface JoinSpan {
+  flat: [top: boolean, bottom: boolean];
+  tunnelTop: number;
+  tunnelBottom: number;
 }
 
 interface SubMenuJoin {
@@ -67,4 +74,4 @@ interface SubMenuJoin {
   ring: number;
 }
 
-export type { JoinAlign, JoinBend, JoinCorners, JoinEnds, JoinPlace, JoinSide, SubMenuJoin, SubMenuJoinInput };
+export type { JoinBend, JoinCorners, JoinEnds, JoinPlace, JoinRect, JoinSide, JoinSpan, SubMenuJoin, SubMenuJoinInput };

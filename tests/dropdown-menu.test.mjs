@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { DropdownMenu } from '../src/composites/DropdownMenu';
 import { menuShortcutKeys } from '../src/composites/DropdownMenu/behavior/menu-shortcut-keys';
+import { closesOnPick } from '../src/composites/DropdownMenu/behavior/closes-on-pick';
 import { menuMatches } from '../src/composites/DropdownMenu/behavior/menu-matches';
 import { nodeRuns } from '../src/composites/DropdownMenu/behavior/node-runs';
 import { mascotFor } from '../src/brand/ChosenMascot/behavior/mascot-for';
@@ -103,6 +104,18 @@ describe('DropdownMenu', () => {
     expect(html.match(/class="[^"]*dropdown__mark /g)).toHaveLength(3);
     expect(html.match(/class="[^"]*dropdown__icon"/g)).toHaveLength(3);
     expect(html).toMatch(/dropdown__mark--check dropdown__mark--off"[^>]*><svg/);
+  });
+});
+
+describe('closesOnPick', () => {
+  it('keeps the menu open for a check or a radio item and closes it for an action', () => {
+    expect(closesOnPick('check', true)).toBe(false);
+    expect(closesOnPick('radio', true)).toBe(false);
+    expect(closesOnPick('action', true)).toBe(true);
+  });
+
+  it('keeps every item open when closeOnSelect is false', () => {
+    expect(closesOnPick('action', false)).toBe(false);
   });
 });
 

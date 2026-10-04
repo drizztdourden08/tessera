@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { SAFE_AREA_GRACE, SAFE_AREA_SLACK } from '../DropdownMenu.constants';
+import { cssZoomOf } from './css-zoom-of';
 import { safeAreaStyle } from './safe-area-style';
 import type { SafeAreaOptions } from './useSafeArea.type';
 
@@ -17,7 +18,8 @@ const useSafeArea = (options: SafeAreaOptions): void => {
     let timer = 0;
     let lastX = Number.NEGATIVE_INFINITY;
     const collapse = (): void => area.removeAttribute('style');
-    const frameX = (clientX: number, box: DOMRect): number => (join.side === 'right' ? clientX - box.left : box.right - clientX);
+    const zoom = cssZoomOf(panel);
+    const frameX = (clientX: number, box: DOMRect): number => (join.side === 'right' ? clientX - box.left : box.right - clientX) / zoom;
     const place = (event: PointerEvent): void => {
       const box = panel.getBoundingClientRect();
       const rowBox = row.getBoundingClientRect();

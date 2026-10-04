@@ -1,8 +1,10 @@
 /* @layer renderer-components @kind util */
-import { JOIN_FLUSH, JOIN_MARGIN } from '../DropdownMenu.constants';
+import { JOIN_MARGIN } from '../DropdownMenu.constants';
 import { joinBend } from './join-bend';
 import { joinPlace } from './join-place';
-import type { JoinAlign, JoinEnds, JoinSide, SubMenuJoin, SubMenuJoinInput } from './sub-menu-join.type';
+import { sideCorners } from './side-corners';
+import { tunnelSpan } from './tunnel-span';
+import type { JoinEnds, JoinSide, SubMenuJoin, SubMenuJoinInput } from './sub-menu-join.type';
 
 const pickSide = (input: SubMenuJoinInput): JoinSide => {
   const roomRight = input.viewWidth - JOIN_MARGIN - (input.parent.right + input.gap);
@@ -10,29 +12,20 @@ const pickSide = (input: SubMenuJoinInput): JoinSide => {
   return input.width <= roomRight || roomRight >= roomLeft ? 'right' : 'left';
 };
 
-const pickAlign = (parent: SubMenuJoinInput['parent'], top: number, bottom: number): JoinAlign => {
-  if (Math.abs(top - parent.top) <= JOIN_FLUSH) return 'top';
-  return Math.abs(bottom - parent.bottom) <= JOIN_FLUSH ? 'bottom' : 'middle';
-};
-
-const parentEnds = (input: SubMenuJoinInput, side: JoinSide, edges: [top: number, bottom: number]): JoinEnds => {
-  const { parent, parentCorners, line, gap } = input;
-  const top = side === 'right' ? parentCorners.topRight : parentCorners.topLeft;
-  const bottom = side === 'right' ? parentCorners.bottomRight : parentCorners.bottomLeft;
+const parentEnds = (input: SubMenuJoinInput, side: JoinSide, edges: [top: number, bottom: number], flat: [boolean, boolean]): JoinEnds => {
+  const { parent, line, gap } = input;
+  const [top, bottom] = sideCorners(input, side);
   return {
-    top: joinBend(edges[0] - line - parent.top, top, gap / 2),
-    bottom: joinBend(parent.bottom - edges[1] - line, bottom, gap / 2),
+    top: joinBend(edges[0] - line - parent.top, top, flat[0] ? 0 : gap / 2),
+    bottom: joinBend(parent.bottom - edges[1] - line, bottom, flat[1] ? 0 : gap / 2),
   };
 };
 
 const subMenuJoin = (input: SubMenuJoinInput): SubMenuJoin => {
   const { row, parent, width, line, radius, gap } = input;
   const side = pickSide(input);
-  const { top, height } = joinPlace(input);
-  const align = pickAlign(parent, top, top + height);
-  const flushBottom = Math.abs(top + height - parent.bottom) <= JOIN_FLUSH;
-  const tunnelTop = align === 'top' ? line : row.top - top;
-  const tunnelBottom = flushBottom ? height - line : row.bottom - top;
+  const { align, top, height } = joinPlace(input);
+  const { flat, tunnelTop, tunnelBottom } = tunnelSpan(input, side, top, height);
   const left = side === 'right' ? parent.right + gap : parent.left - gap - width;
   return {
     side,
@@ -48,7 +41,7 @@ const subMenuJoin = (input: SubMenuJoinInput): SubMenuJoin => {
     rowBottom: row.bottom - top,
     tunnelTop,
     tunnelBottom,
-    parentEnds: parentEnds(input, side, [top + tunnelTop, top + tunnelBottom]),
+    parentEnds: parentEnds(input, side, [top + tunnelTop, top + tunnelBottom], flat),
     ownEnds: {
       top: joinBend(tunnelTop - line, radius, gap / 2),
       bottom: joinBend(height - tunnelBottom - line, radius, gap / 2),

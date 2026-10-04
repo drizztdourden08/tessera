@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { Pressable } from '../../../primitives/Pressable';
 import { Shortcut } from '../../../primitives/Shortcut';
 import { ariaKeyShortcuts } from '../behavior/aria-key-shortcuts';
+import { closesOnPick } from '../behavior/closes-on-pick';
 import { ITEM_ROLES } from '../behavior/item-role.constants';
 import { itemKind } from '../behavior/item-kind';
 import { MenuContext } from '../behavior/menu-context';
@@ -18,7 +19,7 @@ const MenuItemButton = (props: MenuItemButtonProps) => {
 
   const select = (): void => {
     item.onSelect?.();
-    if (closeOnSelect) close();
+    if (closesOnPick(kind, closeOnSelect)) close();
   };
 
   return (

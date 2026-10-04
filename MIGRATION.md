@@ -2634,3 +2634,19 @@ The brand palettes of section 98 (`@drizztdourden08/tessera/palettes/*.css`) wer
 ### What an app does
 
 An app that imported a palette with `@import '...' layer(ds.palette)` to work around this can drop the `layer(...)`; both work.
+
+## 104. A sub-menu lines up with its row before it sits in the middle, picking a check keeps the menu open, and menus follow the gallery zoom
+
+A DropdownMenu sub-menu now tries five places in order: its top level with the parent menu's top, its bottom level with the parent menu's bottom, its top level with the open row's top, its bottom level with the open row's bottom, and only then the middle of the row as before. The row cases need the sub-menu to fit on screen. In both row cases the join runs as one straight line from the row's edge into the sub-menu's edge, square on that side, and only the other side keeps its curve. The sub-menu's first item may then sit a few pixels off the row's label line.
+
+When the open row is the first or last row of its menu, the tunnel's edge on that side now runs straight along the parent's edge, with the parent's corner square, instead of a small step with two small curves. A sub-menu that is also a parent, such as the middle panel of File, New, Preset, draws both joins this way.
+
+Checkable and radio items keep the menu open when picked, by mouse or by Enter or Space: the mark changes in place and focus stays on the item. Every other item, a leaf in a sub-menu included, still closes every open level. `closeOnSelect={false}` still keeps the menu open for every item.
+
+Sub-menus now place themselves right inside a page or frame scaled with CSS `zoom`, such as the gallery's zoom levels. Before, their offsets were scaled twice and a sub-menu at 150 % opened 42 px away from its parent.
+
+`data-join-align` on a sub-menu now also takes `row-top` and `row-bottom`. The gallery adds Sub-menus inside sub-menus, renames the third join example Level with the row, and the View menu shows a toggle and a radio sub-menu that keep the menu open.
+
+### What an app does
+
+An app that closed the menu by hand after a checkable or radio item, or that passed `closeOnSelect={false}` only to keep toggles open, can drop that code. An app that wants a toggle to close the menu closes it in the item's `onSelect`.
