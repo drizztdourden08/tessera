@@ -2402,3 +2402,47 @@ Every Overview page in the Composites groups Dialogs, Overlays, Wizard, Navigati
 ### What an app does
 
 Nothing. This changes the gallery only.
+
+## 93. Screens, SideNavLayout and Hero fit small windows and phones
+
+The owner tried Brock apps at real window sizes, from 2560 × 1440 down to a 360 × 800 phone. Three parts wasted room or broke in small windows; they now follow the room they have.
+
+### The screen card fills a small window
+
+The tiers of section 45 stay, but the tier with no gap starts much earlier, and the space inside the card shrinks with it:
+
+| Room of the layer | Gap on every side | Inside the ScreenWindow |
+|---|---|---|
+| 1280 px wide and 800 px high or more | 2xl plus 5% of the smaller side | xl |
+| under that | xl plus 3% of the smaller side | xl |
+| under 960 px wide or 600 px high | the minimum | lg |
+| under 840 px wide or 560 px high (was 480 and 440) | none: square corners, no border, the floating switch inside the card | md, with an md gap under the title bar |
+
+A 960 × 540 window, a portrait tablet and a phone now get the whole layer. ScreenPage drops its header, body and footer padding to md at the same tier, and InfoScreen drops its column padding there too. Nothing changes for an app. A host stylesheet that keyed its own rules on the old 480 and 440 px container query moves them to 840 and 560.
+
+### SideNavLayout folds into a bar under 640 px
+
+SideNavLayout now measures its own width with a container query (`container: side-nav-layout / inline-size`). Under 640 px wide, the nav leaves the row:
+
+- a bar runs along the top of the layout: a menu button, then the search field when the nav has one, or else the icon and name of the current page;
+- the menu button opens the whole nav as a drawer over the page, with a scrim behind it; picking a page, Escape or a click outside closes it, and focus goes back to the menu button;
+- the search lives in the bar, so its results fill the pane under it with nothing on top.
+
+The drawer, not a bottom bar or a row of tabs, because both kinds of host use it: a settings hub has ten pages or more in groups, plus a search, which a bottom bar of four or five places cannot hold, and a scrolling row of tabs hides most pages; a Brock app home has few pages, and the drawer costs it one 40 px bar. Over 640 px nothing changes, and `narrow` still keeps the strip of icons.
+
+The markup gains a level: `.side-nav-layout` is the container and holds `.side-nav-layout__frame`, which holds `.side-nav-layout__bar`, `.side-nav-layout__nav` (the drawer, `display: contents` over 640 px) and `.side-nav-layout__pane`. The `ref` still points at `.side-nav-layout`. A host stylesheet that set the gap or the direction of `.side-nav-layout` sets them on `.side-nav-layout__frame`.
+
+### Hero
+
+- The art has its own column between the intro and the aside, and scales down to fit it (`object-fit: contain`), so the aside never covers the art and the art is never cut off at the edge. `--hero-art-left` is gone; the art starts where the intro ends.
+- With an aside, the aside column is never narrower than `--hero-aside-min` (320 px), so its text never wraps a word per line.
+- The height is `clamp(var(--hero-h-min), 60cqh, var(--hero-h))`: 408 px in a tall room, down to 288 px (`--hero-h-min`) in a short one. `cqh` reads the height of the ScreenLayer around the hero, or of the window when there is none, so a 540 px tall window gets a 324 px hero. At a given size, changing what the hero holds still never resizes it.
+- Hero measures its own width with a container query (`container: hero / inline-size`). Under 720 px wide it stacks: tools, then the intro with the art scaled down behind its right side, then the aside, the facts and the panel across the full width. A stacked hero is at least as tall as the side by side one and grows with what it holds, and the title may take two lines.
+
+The markup gains two levels: `section.hero` is the container and holds `.hero__frame` (border, corners, backdrop, height), which holds `.hero__grid`. `.hero__main` and `.hero__bottom` are `display: contents`, and the facts panel takes `.hero__facts`. A host stylesheet that set the height, border or background of `.hero` sets them on `.hero__frame`.
+
+### What an app does
+
+- Nothing for the layout: every change is inside Tessera.
+- Replace `--hero-art-left` if a host stylesheet read it; the art is placed by the grid now.
+- Move host rules from `.hero` to `.hero__frame`, and from `.side-nav-layout` to `.side-nav-layout__frame`, as above.

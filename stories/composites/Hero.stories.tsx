@@ -4,6 +4,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { BRAND_APPS } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
 import { Hero } from '../../src/composites';
+import { Box } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -71,6 +72,13 @@ const Profile = story('Profile overview', {});
 const FactsOnly = story('Facts, no art or side tiles', { withArt: false, withAside: false, withPanel: false });
 const TitleOnly = story('Title and action', { withTools: false, withFacts: false, withAside: false, withPanel: false });
 
+const Narrow = {
+  name: 'In a narrow column',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <Box className="hero-story__narrow">{draw(args)}</Box>,
+} satisfies PlaygroundStory<HeroArgs>;
+
 const Brands = {
   name: 'Brand backdrops',
   args: ARGS,
@@ -100,11 +108,18 @@ const CODE = `import { Hero } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Hero',
-  description: 'The top of a home screen: the backdrop of its brand (--brand-<app>-backdrop, picked by brand, tessera by default) behind everything, an art piece beside the intro, and the details floating over both. The intro holds an eyebrow, the title and the actions under it; tools sit along the top right. Facts run along the bottom in a FactsPanel on frosted glass, one row per group with a hairline between groups, a long value cut short with its full text in a tooltip. An aside tile sits right of the intro and a panel right of the facts, both on the same glass; the host fills them. A shade darkens the left and bottom edges so text reads on any backdrop. A host with its own scene, such as a screenshot, passes it as backdrop and it covers the gradient. The hero has a fixed height, --hero-h, and fills the width of its container, so changing what it holds never resizes it: the eyebrow and the title stay on one line and shorten with an ellipsis.',
+  description: 'The top of a home screen: a brand backdrop and art, the title and its actions, with details on glass over them.',
+  points: [
+    '`tools` sit top right, `facts` along the bottom in a [FactsPanel], `aside` and `panel` on the right.',
+    'The art has its own column beside the intro: the aside never covers it, and it shrinks to fit, never cropped.',
+    'Its height is fixed for a given room, never by content; a short window shrinks it to `--hero-h-min`.',
+    'Under 720 px wide it stacks: the intro over the art, then the aside, facts and panel at full width.',
+    'A host with its own scene, such as a screenshot, passes it as `backdrop`.',
+  ],
   playground: Playground,
-  variants: [Profile, FactsOnly, TitleOnly, Brands],
+  variants: [Profile, Narrow, FactsOnly, TitleOnly, Brands],
   code: CODE,
 });
 
 export default meta;
-export { Brands, FactsOnly, Overview, Playground, Profile, TitleOnly };
+export { Brands, FactsOnly, Narrow, Overview, Playground, Profile, TitleOnly };

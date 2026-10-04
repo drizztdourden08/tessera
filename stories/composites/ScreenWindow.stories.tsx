@@ -97,16 +97,16 @@ const CODE = `import { ScreenWindow } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'ScreenWindow',
-  description: 'A building block: the plain screen window that every screen kind is made of. It is a ScreenLayer with a title, a close button and an empty container, and nothing else. Reach for a screen kind first: WorkspaceScreen for pages with a side list, InfoScreen for About and credits, UtilityScreen for a short task such as an update check, StageScreen for one big custom surface. Use ScreenWindow alone only when none of them fits. The title bar takes a subtitle and extra controls before the close button; the floating slot, hidden and size pass through to the ScreenLayer.',
-  playground: Playground,
+  description: 'A building block: a ScreenLayer with a title, a close button and an empty container, the window of every screen kind.',
   points: [
-    'The space inside the card is the same on all four sides: an xl space, or an md space when the card fills a tiny room or a phone.',
-    'An lg gap separates the title bar from the content.',
-    'The content container is an empty column that fills the rest of the card. It does not scroll: the content picks how it scrolls.',
-    'The card is a dialog named by the title.',
-    'square drops the corner radius and the outer border, for a window shown fullscreen; the host draws what surrounds it.',
-    'Every screen kind adds the ScreenPage header inside this window and cannot drop it. A screen without that header is a custom screen built here.',
+    'The title bar takes a `subtitle` and `extra` controls before the close button.',
+    'The padding is xl, lg under 960 by 600 px, and md once the card fills the layer.',
+    'The content is an empty column that fills the card and never scrolls: the content picks how it scrolls.',
+    '`floating`, `hidden` and `size` pass through to the [ScreenLayer]; `square` drops the corners for fullscreen.',
+    'Every screen kind adds the [ScreenPage] header inside it; a screen without one is a custom screen built here.',
   ],
+  instead: '[WorkspaceScreen], [InfoScreen], [UtilityScreen] or [StageScreen] first; this only when none of them fits.',
+  playground: Playground,
   variants: [SiblingWindows, TitleOnly],
   code: CODE,
 });

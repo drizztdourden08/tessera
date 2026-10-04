@@ -253,10 +253,11 @@
   --widget-options-aside-w: 256px;
   --widget-options-slider-w: 128px;
   --hero-h: calc(408 * 1px);
+  --hero-h-min: 288px;
   --hero-intro-w: calc(200 * 1px);
-  --hero-art-left: calc(232 * 1px);
   --hero-art-h: 256px;
   --hero-aside-w: calc(360 * 1px);
+  --hero-aside-min: 320px;
   --facts-panel-value-max-w: calc(220 * 1px);
   --settings-row-compact-h: 40px;
   --settings-row-compact-control-w: 160px;

@@ -108,7 +108,7 @@
   border-top: var(--border-width-thin) solid var(--c-hairline);
 }
 
-@container screen-layer (width < 480px) or (height < 440px) {
+@container screen-layer (width < 840px) or (height < 560px) {
   .screen-page__head { padding-inline: var(--space-md); }
   .screen-page__body { padding: var(--space-md); }
   .screen-page__footer { padding-inline: var(--space-md); }

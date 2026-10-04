@@ -553,6 +553,9 @@
     },
     {
       "version": "next",
+      "cssCustomProperties": {
+        "--hero-art-left": "removed; the art takes the Hero grid column between the intro and the aside (see MIGRATION.md section 93)"
+      },
       "propValues": {
         "PinMode": {
           "with-app": "off, with sync: true in the window options; the Sync with main window row does what with-app did (see MIGRATION.md section 88)"

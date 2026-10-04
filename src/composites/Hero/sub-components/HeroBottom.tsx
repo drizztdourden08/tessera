@@ -8,7 +8,7 @@ const HeroBottom = (props: HeroBottomProps) => {
   if (facts.length === 0 && panel == null) return null;
   return (
     <Box className="hero__bottom">
-      {facts.length > 0 && <FactsPanel groups={facts} className="hero__glass" />}
+      {facts.length > 0 && <FactsPanel groups={facts} className="hero__glass hero__facts" />}
       {panel != null && <Box className="hero__glass hero__panel">{panel}</Box>}
     </Box>
   );

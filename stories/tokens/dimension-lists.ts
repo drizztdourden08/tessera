@@ -83,10 +83,11 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
     title: 'Hero',
     entries: [
       { token: '--hero-h' },
+      { token: '--hero-h-min' },
       { token: '--hero-intro-w' },
-      { token: '--hero-art-left' },
       { token: '--hero-art-h' },
       { token: '--hero-aside-w' },
+      { token: '--hero-aside-min' },
     ],
   },
   {

@@ -26,10 +26,18 @@
   overflow: hidden;
 }
 
-@container screen-layer (width < 480px) or (height < 440px) {
-  .screen-window { padding: var(--space-md); }
+@container screen-layer (width < 960px) or (height < 600px) {
+  .screen-window { padding: var(--space-lg); }
+}
+
+@container screen-layer (width < 840px) or (height < 560px) {
+  .screen-window {
+    gap: var(--space-md);
+    padding: var(--space-md);
+  }
 }
 
 .platform-mobile .screen-window {
+  gap: var(--space-md);
   padding: var(--space-md);
 }

@@ -72,7 +72,7 @@ html.booting .screen-layer {
   .screen-layer__inset { padding: calc(var(--control-h-md) / 2 + var(--space-lg)); }
 }
 
-@container screen-layer (width < 480px) or (height < 440px) {
+@container screen-layer (width < 840px) or (height < 560px) {
   .screen-layer__inset { padding: 0; }
 
   .screen-layer--compact .screen-layer__frame {

@@ -78,12 +78,12 @@
 
 .screen-layer-story__shrink--small {
   width: calc(var(--size-896) * 0.25);
-  height: calc(var(--size-512) * 0.25);
+  height: calc((var(--size-512) + var(--size-64)) * 0.25);
 }
 
 .screen-layer-story__real--small {
   width: var(--size-896);
-  height: var(--size-512);
+  height: calc(var(--size-512) + var(--size-64));
 }
 
 .screen-layer-story__shrink--tiny {

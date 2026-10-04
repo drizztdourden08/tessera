@@ -19,7 +19,7 @@ type LayoutArgs = {
 
 const countOf = (groups: ReturnType<typeof searchLibrary>): number => groups.reduce((sum, group) => sum + (group.count ?? 0), 0);
 
-const LayoutDemo = (props: LayoutArgs & { query?: string }) => {
+const LayoutDemo = (props: LayoutArgs & { query?: string; phone?: boolean }) => {
   const { withSearch, narrow, searchPlaceholder } = props;
   const [active, setActive] = useState('hosting');
   const [flash, setFlash] = useState<string | undefined>(undefined);
@@ -34,7 +34,7 @@ const LayoutDemo = (props: LayoutArgs & { query?: string }) => {
   return (
     <Box className="story-column">
       <Text className="story-label">Search for port, password or saves: the matches come from every page</Text>
-      <Box className={`story-frame side-nav-layout-story__frame${narrow ? ' side-nav-layout-story__frame--narrow' : ''}`}>
+      <Box className={`story-frame side-nav-layout-story__frame${narrow ? ' side-nav-layout-story__frame--narrow' : ''}${props.phone === true ? ' side-nav-layout-story__frame--phone' : ''}`}>
         <SideNavLayout
           narrow={narrow}
           paneScroll="none"
@@ -88,6 +88,12 @@ const Narrow = {
   render: (args) => <LayoutDemo {...args} narrow />,
 } satisfies StoryLiteStoryDefinition<LayoutArgs>;
 
+const Phone = {
+  name: 'On a phone',
+  args: ARGS,
+  render: (args) => <LayoutDemo {...args} phone />,
+} satisfies StoryLiteStoryDefinition<LayoutArgs>;
+
 const renderState = (props: StateProps) => {
   const query = props.searching === true ? 'port' : '';
   const groups = searchLibrary(query);
@@ -125,11 +131,12 @@ const Overview = overviewStory({
     'Its search never narrows the menu: the host passes the matches as `results`, and the pane shows them.',
     '[[Esc]] clears a filled search without leaving the screen.',
     '`narrow` keeps the nav as a strip of icons and slides the open menu over the page.',
+    'Under 640 px wide the nav folds into a bar with a menu button and the search; the menu opens as a drawer.',
     '`paneScroll` sets what scrolls: `page` by default, `always`, or `none` for pages that scroll themselves.',
   ],
   instead: '[WorkspaceScreen] for a whole screen, which builds one of these from its pages.',
   playground: Playground,
-  variants: [Searching, Narrow],
+  variants: [Searching, Narrow, Phone],
   states: {
     render: renderState,
     list: [
@@ -141,4 +148,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Narrow, Overview, Playground, Searching };
+export { Narrow, Overview, Phone, Playground, Searching };

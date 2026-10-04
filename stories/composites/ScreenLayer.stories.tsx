@@ -98,15 +98,17 @@ const KioskScreen = ({ label, children }: { label: string; children: ReactNode }
 
 const Overview = overviewStory({
   component: 'ScreenLayer',
-  description: 'A building block. Use it only to build a new kind of screen; to show a screen, use WorkspaceScreen, InfoScreen, UtilityScreen or StageScreen, or ScreenWindow when none of them fits. ScreenLayer is the overlay and the frame of every screen: it covers its positioned parent, keeps one gap around a card, and draws the card with nothing in it. It has no title, no close button and no padding. The floating slot sits centred on the top edge of the card, for a switch between sibling screens. size="compact" fits the card to its content up to a readable width. hidden hides the layer and keeps its content mounted.',
-  playground: Playground,
+  description: 'A building block: the overlay and empty card of every screen, with one gap around the card that follows the room.',
   points: [
-    'The gap around the card is the same on all four sides and follows the room the layer has, not the window.',
-    'From 1280 px wide and 800 px high: a 2xl gap plus 5% of the smaller side. Under that: an xl gap plus 3% of the smaller side.',
-    'The gap never drops below half a control height plus an lg space, so the floating switch on the top edge always has room above it.',
-    'Under 960 px wide or 600 px high the gap stays at that minimum. Under 480 px wide or 440 px high there is no gap: the card fills the layer with square corners and no border, and the switch moves inside the top of the card, which pushes the content below it. On a phone the card always fills the layer.',
-    'The card is a dialog: pass label, or labelledBy with the id of a visible title.',
+    'The gap is 2xl plus 5% of the smaller side from 1280 by 800 px, and xl plus 3% under that.',
+    'Under 960 px wide or 600 px high the gap stays at its minimum, which leaves room for the floating switch.',
+    'Under 840 px wide or 560 px high the card fills the layer with square corners, the switch inside it.',
+    '`floating` sits centred on the top edge of the card, for a switch between sibling screens.',
+    '`size="compact"` fits the card to its content; `hidden` hides the layer and keeps it mounted.',
+    'The card is a dialog: pass `label`, or `labelledBy` with the id of a visible title.',
   ],
+  instead: '[WorkspaceScreen], [InfoScreen], [UtilityScreen] or [StageScreen] to show a screen, [ScreenWindow] if none fits.',
+  playground: Playground,
   variants: [Breakpoints, FitsItsRoom, Compact],
   code: CODE,
 });

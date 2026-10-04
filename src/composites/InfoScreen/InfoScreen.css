@@ -38,6 +38,6 @@
   text-align: center;
 }
 
-@container screen-layer (width < 480px) or (height < 440px) {
+@container screen-layer (width < 840px) or (height < 560px) {
   .info-screen__column { padding-block: 0; }
 }

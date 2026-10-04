@@ -6,7 +6,11 @@
 }
 
 .side-nav-layout-story__frame--narrow {
-  max-width: var(--size-640);
+  max-width: var(--size-768);
+}
+
+.side-nav-layout-story__frame--phone {
+  max-width: var(--size-384);
 }
 
 .side-nav-layout-story__state {

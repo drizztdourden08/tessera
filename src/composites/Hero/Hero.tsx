@@ -15,26 +15,30 @@ const Hero = (props: HeroProps) => {
   return (
     <Box
       as="section"
-      className={['hero', className].filter(Boolean).join(' ')}
+      className={['hero', aside != null ? 'hero--aside' : '', className].filter(Boolean).join(' ')}
       data-brand={brand}
       aria-label={label ?? panels.overview}
     >
-      <Box className="hero__backdrop">{backdrop}</Box>
-      {art && (
-        <Image
-          className={`hero__art${art.pixelated ? ' hero__art--pixelated' : ''}`}
-          src={art.src}
-          alt={art.alt ?? ''}
-          placeholder="none"
-        />
-      )}
-      <Box className="hero__shade" aria-hidden="true" />
-      <ButtonRow className="hero__tools">{tools}</ButtonRow>
-      <Box className="hero__main">
-        <HeroIntro eyebrow={eyebrow} title={title} actions={actions} />
-        {aside != null && <Box className="hero__glass hero__aside">{aside}</Box>}
+      <Box className="hero__frame">
+        <Box className="hero__backdrop">{backdrop}</Box>
+        <Box className="hero__shade" aria-hidden="true" />
+        <Box className="hero__grid">
+          {art && (
+            <Image
+              className={`hero__art${art.pixelated ? ' hero__art--pixelated' : ''}`}
+              src={art.src}
+              alt={art.alt ?? ''}
+              placeholder="none"
+            />
+          )}
+          <ButtonRow className="hero__tools">{tools}</ButtonRow>
+          <Box className="hero__main">
+            <HeroIntro eyebrow={eyebrow} title={title} actions={actions} />
+            {aside != null && <Box className="hero__glass hero__aside">{aside}</Box>}
+          </Box>
+          <HeroBottom facts={facts} panel={panel} />
+        </Box>
       </Box>
-      <HeroBottom facts={facts} panel={panel} />
     </Box>
   );
 };

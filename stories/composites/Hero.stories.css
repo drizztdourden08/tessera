@@ -1,11 +1,16 @@
 /* @layer stories @kind style */
+.hero-story__narrow {
+  width: var(--size-384);
+  max-width: 100%;
+}
+
 .hero-story__save {
   display: flex;
   gap: var(--space-md);
 }
 
 .hero-story__thumb {
-  width: var(--size-160);
+  width: min(var(--size-160), 40%);
   aspect-ratio: 4 / 3;
   flex-shrink: 0;
   border-radius: var(--radius-md);
