@@ -3995,3 +3995,13 @@ interface RetryButtonProps extends Omit<ButtonProps, 'onClick' | 'children' | 'i
 
 1. Archipelia: declare the live room phases once with `defineStatuses` and build a `ConnectionStatus` compound from `Card`, `StatusOf`, a caption and `RetryButton`, with the `PasswordInput` form in its body for the auth phase. It replaces `LiveNotice`, `PHASE_TEXT` and `PasswordPrompt` in the Players and Hints widgets; the compact form in a title bar or the session bar is `StatusOf` alone.
 2. When the room drops, the live room store sets the next try time and the try count, starts the try itself when the time comes, and passes them to `RetryButton`.
+
+## 153. A mascot stage waits for approval in the gallery
+
+The gallery has a new group, Preview · For approval, for prototypes the owner has not approved yet. Its first page is Mascot stage: Sentri, Flint and Pelago on a stage of any width, where each one walks to a spot, faces left or right, and moves from clip to clip with a short cross-fade, even in the middle of a clip. The pages are Stage, Director, Dialogue, Follow the pointer, Guided tour, Autonomy tuning, Flip every clip, Speed, Reduced motion, Stress, Side by side and Crowd.
+
+The code lives in `stories/preview/MascotStage/`, not in `src/`, so none of it is in the package. A settled clip plays through AnimatedMascot's own `playClip`, so the approved clips look the same.
+
+### What an app does
+
+Nothing. This changes the gallery only.

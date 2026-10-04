@@ -44,5 +44,6 @@ export default standardsEslint({
     { files: TOKEN_STORIES, why: 'a token story draws the token or value it documents' },
     { files: SAMPLE_STORIES, why: 'a sample passes live depths through, as an app would' },
     { files: DEMONSTRATOR, why: 'the grid tracks follow the number of columns each story passes in' },
+    { files: ['stories/preview/MascotStage/**'], why: 'the stage height is passed in, and the stage engine places, fades and turns each mascot every frame' },
   ],
 });
