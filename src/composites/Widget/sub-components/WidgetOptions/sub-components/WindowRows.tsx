@@ -4,9 +4,11 @@ import type { PinMode } from '../../../Widget.type';
 import { PIN_CHOICES, SNAP_CHOICES } from '../WidgetOptions.constants';
 import type { SnapChoice, WindowRowsProps } from '../WidgetOptions.type';
 import { ChoiceRow } from './ChoiceRow';
+import { GroupRow } from './GroupRow';
+import { SyncRow } from './SyncRow';
 
 const WindowRows = (props: WindowRowsProps) => {
-  const { pin, onPinChange, snap, onSnapChange } = props;
+  const { pin, onPinChange, snap, onSnapChange, sync, onSyncChange, group, groups, onGroupChange } = props;
   const { widgets } = useTesseraStrings();
   return (
     <>
@@ -22,6 +24,8 @@ const WindowRows = (props: WindowRowsProps) => {
           onChange={(next) => onSnapChange(next === 'snap')}
         />
       )}
+      {sync !== undefined && onSyncChange && <SyncRow sync={sync} onSyncChange={onSyncChange} />}
+      {group !== undefined && onGroupChange && <GroupRow group={group} groups={groups} onGroupChange={onGroupChange} />}
     </>
   );
 };

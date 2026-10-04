@@ -10,6 +10,7 @@ import { mainOrWindow } from '../behavior/main-or-window';
 import { removeEverywhere } from '../behavior/remove-everywhere';
 import { useDockApi } from '../behavior/useDockApi';
 import { visibleLayoutOf } from '../behavior/visible-layout-of';
+import { windowRowsFor } from '../behavior/window-rows-for';
 import type { WidgetOptionsTarget } from '../behavior/widget-dock.type';
 import { NO_FORCED_IDS } from './WidgetManager.constants';
 import { WidgetOptionsHost } from './WidgetOptionsHost';
@@ -73,6 +74,7 @@ const WidgetManager = <D extends WidgetDefinition = WidgetDefinition>(props: Wid
           settings={settingsContent?.[options.id]}
           makeRoomHint={props.makeRoomHint}
           contextLabel={props.contextLabel}
+          windowRows={windowRowsFor(props, options.id)}
         />
       )}
     </Box>

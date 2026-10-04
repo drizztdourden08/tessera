@@ -118,8 +118,11 @@ export {
 export type {
   FlatWidgetLayout, FlatWidgetState, OptionRowProps, PinMode, PoppedWidget, ResolvedSplit, SnapLink, SnapSide, StartupOverride,
   UseWidgetLayoutParams, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetGates, WidgetLayout, WidgetManagerProps,
-  WidgetOptionsProps, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WindowBounds,
+  WidgetOptionsProps, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions,
+  WindowBounds, WindowGroup,
 } from './Widget';
+export { WindowGuideOverlay } from './WindowGuideOverlay';
+export type { WindowGuideHint, WindowGuideMode, WindowGuideOverlayProps } from './WindowGuideOverlay';
 export {
   DockLayout, EDGES, GAP, MAIN_NODE, STRIP, createPane, evenSplit, findLeaf, floatingRect, holdsMain, insertAt, layoutTree,
   mainRectOf, paneOf, patchPane, placeFloating, removeLeaf, removeWidget, resizeSplit, swapPanes, toFloating, useDockKeys,

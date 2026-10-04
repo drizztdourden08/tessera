@@ -5,7 +5,7 @@ import type { IconName } from '../../../../primitives/Icon/Icon.type';
 import type { ShortcutKey } from '../../../../primitives/Shortcut/Shortcut.type';
 import type { TesseraStrings } from '../../../../primitives/strings/tessera-strings.type';
 import type { DockEdge } from '../../../DockLayout';
-import type { PinMode, WidgetPlacement, WidgetVisibility } from '../../Widget.type';
+import type { PinMode, WidgetPlacement, WidgetVisibility, WindowGroup } from '../../Widget.type';
 
 type WidgetStrings = TesseraStrings['widgets'];
 
@@ -40,6 +40,11 @@ interface WidgetOptionsProps {
   onPinChange?: (mode: PinMode) => void;
   snap?: boolean;
   onSnapChange?: (on: boolean) => void;
+  sync?: boolean;
+  onSyncChange?: (on: boolean) => void;
+  group?: string | null;
+  groups?: readonly WindowGroup[];
+  onGroupChange?: (group: string | null) => void;
   makeRoomHint?: string;
   contextLabel?: string;
   children?: ReactNode;
@@ -48,6 +53,7 @@ interface WidgetOptionsProps {
 interface OptionRowProps {
   label: string;
   hint?: Hint;
+  about?: string;
   children: ReactNode;
 }
 
@@ -83,11 +89,21 @@ type PlacementRowProps = Pick<WidgetOptionsProps, 'placement' | 'dockEdge' | 'on
 
 type LayoutRowsProps = Pick<
   WidgetOptionsProps,
-  'placement' | 'makeRoom' | 'makeRoomHint' | 'onMakeRoomChange' | 'pin' | 'onPinChange' | 'snap' | 'onSnapChange'
-  | 'opacity' | 'onOpacityChange' | 'show' | 'onShowChange' | 'contextLabel'
+  'placement' | 'makeRoom' | 'makeRoomHint' | 'onMakeRoomChange' | 'opacity' | 'onOpacityChange' | 'show' | 'onShowChange'
+  | 'contextLabel' | WindowRowKey
 >;
 
-type WindowRowsProps = Pick<WidgetOptionsProps, 'pin' | 'onPinChange' | 'snap' | 'onSnapChange'>;
+type WindowRowKey = 'pin' | 'onPinChange' | 'snap' | 'onSnapChange' | 'sync' | 'onSyncChange' | 'group' | 'groups' | 'onGroupChange';
+
+type WindowRowsProps = Pick<WidgetOptionsProps, WindowRowKey>;
+
+type SyncRowProps = Required<Pick<WidgetOptionsProps, 'sync' | 'onSyncChange'>>;
+
+interface GroupRowProps {
+  group: string | null;
+  groups?: readonly WindowGroup[];
+  onGroupChange: (group: string | null) => void;
+}
 
 interface ShortcutEntry {
   keys?: ShortcutKey;
@@ -96,6 +112,6 @@ interface ShortcutEntry {
 }
 
 export type {
-  ChoiceRowProps, IconChoice, LayoutRowsProps, OptionRowProps, OptionsHeaderProps, PlacementChoice, PlacementRowProps,
-  RoomChoice, ShortcutEntry, ShortcutsAsideProps, SnapChoice, WidgetOptionsProps, WidgetWords, WindowRowsProps,
+  ChoiceRowProps, GroupRowProps, IconChoice, LayoutRowsProps, OptionRowProps, OptionsHeaderProps, PlacementChoice, PlacementRowProps,
+  RoomChoice, ShortcutEntry, ShortcutsAsideProps, SnapChoice, SyncRowProps, WidgetOptionsProps, WidgetWords, WindowRowsProps,
 };

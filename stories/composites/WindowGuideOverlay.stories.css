@@ -1,0 +1,19 @@
+/* @layer stories @kind style */
+.window-guide-story {
+  position: relative;
+  display: grid;
+  place-items: center start;
+  inline-size: 100%;
+  padding-inline: var(--space-xl);
+  block-size: var(--size-448);
+  overflow: hidden;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+  contain: layout paint;
+}
+
+.window-guide-story__window {
+  inline-size: var(--size-320);
+  block-size: var(--size-256);
+}

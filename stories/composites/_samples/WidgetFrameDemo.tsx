@@ -12,11 +12,12 @@ type WidgetFrameDemoProps = {
   peek: boolean;
   opacity: number;
   canPopOut: boolean;
+  square?: boolean;
   optionsOpen?: boolean;
 };
 
 const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
-  const { tabbed, mode, peek, opacity, canPopOut, optionsOpen = false } = props;
+  const { tabbed, mode, peek, opacity, canPopOut, square = false, optionsOpen = false } = props;
   const [active, setActive] = useState('hints');
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [closed, setClosed] = useState(false);
@@ -39,6 +40,7 @@ const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
         view={view}
         panel={panel}
         peek={peek}
+        square={square}
         canPopOut={canPopOut}
         optionsOpen={optionsOpen || anchor !== null}
         onActivateTab={setActive}

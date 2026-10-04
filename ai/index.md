@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 6 of 143 have their usage written; a linked name opens its page.
+One line per component. 6 of 144 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -131,6 +131,7 @@ One line per component. 6 of 143 have their usage written; a linked name opens i
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task: a status with an icon or a spinner, optional progress, settings and details, a footnote bar and a row of actions. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `WindowGuideOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowTitleBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Wizard`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -7,11 +7,11 @@ import type { WidgetProps } from './Widget.type';
 import './Widget.css';
 
 const Widget = (props: WidgetProps) => {
-  const { id, paneKey, opacity, peek = false, children } = props;
+  const { id, paneKey, opacity, peek = false, square = false, children } = props;
   const [hovered, setHovered] = useState(false);
   const frameOpacity = hovered ? 1 : opacity;
   const style = useMemo(() => ({ '--widget-frame-opacity': frameOpacity }) as CSSProperties, [frameOpacity]);
-  const cls = ['widget', peek && 'widget--peek', paneKey === null && 'widget--floating'].filter(Boolean).join(' ');
+  const cls = ['widget', peek && 'widget--peek', paneKey === null && 'widget--floating', square && 'widget--square'].filter(Boolean).join(' ');
 
   return (
     <Box

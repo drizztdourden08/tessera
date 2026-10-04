@@ -9,6 +9,7 @@ type DemoWidgetProps = {
   view: FrameTabs;
   panel: DemoPanelProps;
   peek: boolean;
+  square?: boolean;
   canPopOut: boolean;
   optionsOpen: boolean;
   onActivateTab: (id: string) => void;
@@ -17,7 +18,7 @@ type DemoWidgetProps = {
 };
 
 const DemoWidget = (props: DemoWidgetProps) => {
-  const { view, panel, peek, canPopOut, optionsOpen, onActivateTab, onOpenOptions, onClose } = props;
+  const { view, panel, peek, square, canPopOut, optionsOpen, onActivateTab, onOpenOptions, onClose } = props;
   return (
     <Box className={`widget-story__box${peek ? ' widget-story__box--peek' : ''}`}>
       <Widget
@@ -27,6 +28,7 @@ const DemoWidget = (props: DemoWidgetProps) => {
         paneKey={panel.placement === 'docked' ? 'demo' : null}
         opacity={panel.opacity}
         peek={peek}
+        square={square}
         optionsOpen={optionsOpen}
         mode={panel.placement === 'popped' ? 'out' : 'in'}
         pin={panel.pin}

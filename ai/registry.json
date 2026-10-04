@@ -2299,6 +2299,16 @@
       "usage": false
     },
     {
+      "name": "WindowGuideOverlay",
+      "tier": "composites",
+      "source": "src/composites/WindowGuideOverlay/WindowGuideOverlay.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
       "name": "WindowHeader",
       "tier": "composites",
       "source": "src/composites/WindowHeader/WindowHeader.tsx",

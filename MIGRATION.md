@@ -1998,3 +1998,72 @@ A choice from a known set is a select, a segmented control for up to three short
 ### What an app does
 
 Nothing.
+
+## 81. Widget windows: sync and group options, a guide while moving or resizing, and square chrome for fullscreen
+
+A widget in its own window can follow the main window and join a window group. Tessera draws the controls and the guide; the host owns the state and moves the windows.
+
+`WidgetOptions` takes two more controlled rows. Each shows only for a widget in its own window (`placement="popped"`) and only when its props are given. Each label carries an info icon whose tooltip says what the option does, and pointing at the control fills the hint line.
+
+```ts
+interface WindowGroup {
+  id: string;
+  label: string;
+}
+
+interface WidgetOptionsProps {
+  // ...
+  sync?: boolean;
+  onSyncChange?: (on: boolean) => void;
+  group?: string | null;
+  groups?: readonly WindowGroup[];
+  onGroupChange?: (group: string | null) => void;
+}
+```
+
+- **Sync with main window** is a switch. On, the window shows, hides, minimizes and comes forward with the main window; off, it is independent and gets its own taskbar entry.
+- **Window group** is a select: None, then `groups`. Without `groups` it lists Group 1 to Group 4, with the ids `group-1` to `group-4`. None is `null`.
+
+`WidgetManager` passes the same rows to the options of every widget:
+
+```ts
+interface WidgetWindowOptions {
+  sync?: boolean;
+  group?: string | null;
+}
+
+interface WidgetManagerProps {
+  // ...
+  windowOptions?: (id: WidgetId) => WidgetWindowOptions | undefined;
+  windowGroups?: readonly WindowGroup[];
+  onWindowOptionsChange?: (id: WidgetId, patch: WidgetWindowOptions) => void;
+}
+```
+
+A widget whose `windowOptions` is `undefined` shows neither row, and so does a key left out of what it returns.
+
+`WindowGuideOverlay` is new, under Composites · Widgets. It covers the whole window with a dimmed scrim and a centred card while a window is moved or resized: what is happening, whether the window snaps to corners and edges, and the keys. Ctrl moves or resizes without snapping, and while resizing, Ctrl on a shared edge resizes only this window. `hints` adds rows after these, such as group shortcuts, and `defaultHints={false}` drops the built-in ones. It fades in and out in `--duration-normal`, at once under reduced motion. The card is `aria-hidden`; a polite status line says the mode and when snapping turns off. It never takes the pointer, and the host decides when it shows.
+
+```ts
+interface WindowGuideHint {
+  keys: readonly ShortcutKey[];
+  label: string;
+}
+
+interface WindowGuideOverlayProps {
+  open: boolean;
+  mode: 'moving' | 'resizing';
+  snapping: boolean;
+  hints?: readonly WindowGuideHint[];
+  defaultHints?: boolean;
+  className?: string;
+}
+```
+
+`Widget` takes `square`, for a widget window shown fullscreen: the frame drops its corner radius and its outer border, the same prop ScreenLayer and ScreenWindow take.
+
+The new strings sit in `widgets`: `sync`, `syncAbout`, `syncOn`, `syncOnHint`, `syncOff`, `syncOffHint`, `group`, `groupAbout`, `groupNone`, `groupNoneHint`, `groupNumbered`, `groupJoinHint`, `guideMoving`, `guideResizing`, `guideSnapping`, `guideSnappingOff`, `guideMoveFree`, `guideResizeFree`, `guideResizeAlone` and `guideAnnounce`. `OptionRow` takes `about`, the tooltip text beside its label.
+
+### What an app does
+
+Nothing; every new prop is optional. A host that pops widgets into their own windows passes `sync` and `group` to the WidgetOptions of each widget window, shows WindowGuideOverlay while the user drags or resizes one, and sets `square` on the Widget of a window it shows fullscreen.

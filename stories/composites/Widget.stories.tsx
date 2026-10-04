@@ -11,6 +11,7 @@ import './Widget.stories.css';
 type WidgetArgs = {
   tabbed: boolean;
   mode: 'in' | 'out';
+  square: boolean;
   peek: boolean;
   opacity: number;
   canPopOut: boolean;
@@ -25,6 +26,7 @@ const FrameDemo = (props: WidgetArgs & { optionsOpen?: boolean }) => <WidgetFram
 const ARGS: Partial<WidgetArgs> = {
   tabbed: false,
   mode: 'in',
+  square: false,
   peek: false,
   opacity: 0.92,
   canPopOut: true,
@@ -40,6 +42,7 @@ const ARG_TYPES: PlaygroundArgTypes<WidgetArgs> = {
   makeRoomHint: { group: 'Content', control: 'text', description: 'Dock only: the hint under Make room in each widget\'s options' },
   opacity: { group: 'Appearance', control: 'range', min: 0, max: 1, step: 0.05, description: 'Frame opacity, 0 to 1. The content stays opaque; hover makes the frame solid.' },
   mode: { group: 'Layout', control: 'select', options: ['in', 'out'], description: 'out draws the frame as its own window: a pop in button and a pin.' },
+  square: { group: 'Layout', control: 'boolean', description: 'For a widget window shown fullscreen: no corner radius and no outer border.' },
   peek: { group: 'State', control: 'boolean', description: 'Folded to its title strip.' },
   contextActive: { group: 'State', control: 'boolean', description: 'Dock only: a session is running. Players and Hints show only in context.' },
   disabledWidget: { group: 'State', control: 'select', options: ['none', 'players', 'log', 'hints', 'console'], description: 'Dock only: covered through resolveDisabled' },
@@ -62,6 +65,7 @@ const Playground = story('Playground', {});
 const Single = story('One widget', {});
 const Tabbed = story('Tabbed pane', { tabbed: true });
 const OwnWindow = story('Own window', { mode: 'out' });
+const Fullscreen = story('Own window, fullscreen', { mode: 'out', square: true });
 const Folded = story('Peek', { peek: true });
 
 const Dock = {
@@ -98,9 +102,9 @@ const CODE = `import { Widget } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Widget',
-  description: 'The frame a tool panel wears, docked in a DockLayout pane, floating over the main view, or in its own window: a player list, a log, hints. The title bar is the drag handle; it shows the widget name, or one tab chip per widget when its pane holds several, then the pop out, options and close buttons. In its own window it shows a pop in button and a pin that steps through off, always on top and with the app. The frame takes the opacity setting and turns solid on hover, while the content stays opaque. Peek folds it to its title strip. The gear opens WidgetOptions, live in every example here: its icon controls change the frame, pointing at any option shows its value and what it does in the hint line at the bottom, and the line under the frame shows every value. The frame fills the box it is given; WidgetManager places a whole dock of them from a WidgetLayout and opens WidgetOptions from the gear.',
+  description: 'The frame a tool panel wears, docked in a DockLayout pane, floating over the main view, or in its own window: a player list, a log, hints. The title bar is the drag handle; it shows the widget name, or one tab chip per widget when its pane holds several, then the pop out, options and close buttons. In its own window it shows a pop in button and a pin that steps through off, always on top and with the app. Set square for a widget window shown fullscreen: the frame drops its corner radius and its outer border. The frame takes the opacity setting and turns solid on hover, while the content stays opaque. Peek folds it to its title strip. The gear opens WidgetOptions, live in every example here: its icon controls change the frame, pointing at any option shows its value and what it does in the hint line at the bottom, and the line under the frame shows every value. The frame fills the box it is given; WidgetManager places a whole dock of them from a WidgetLayout and opens WidgetOptions from the gear.',
   playground: Playground,
-  variants: [Single, Tabbed, OwnWindow, Folded, Dock],
+  variants: [Single, Tabbed, OwnWindow, Fullscreen, Folded, Dock],
   states: {
     render: renderState,
     list: [
@@ -114,4 +118,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Dock, Folded, OwnWindow, Overview, Playground, Single, Tabbed };
+export { Dock, Folded, Fullscreen, OwnWindow, Overview, Playground, Single, Tabbed };

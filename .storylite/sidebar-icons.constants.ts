@@ -96,7 +96,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Input devices': {
     PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
-  'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog' },
+  'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog', WindowGuideOverlay: 'move' },
   'Composites · Screens': {
     WorkspaceScreen: 'panels-left-bottom', InfoScreen: 'info', UtilityScreen: 'refresh-cw', StageScreen: 'gamepad-2',
     ScreenWindow: 'app-window', ScreenLayer: 'fullscreen',

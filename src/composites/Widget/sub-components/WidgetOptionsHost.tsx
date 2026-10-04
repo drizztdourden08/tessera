@@ -17,7 +17,7 @@ import { WidgetOptions } from './WidgetOptions';
 import type { WidgetOptionsHostProps } from './WidgetOptionsHost.type';
 
 const WidgetOptionsHost = (props: WidgetOptionsHostProps) => {
-  const { api, target, paneRect, mainRect, onClose, settings, makeRoomHint, contextLabel } = props;
+  const { api, target, paneRect, mainRect, onClose, settings, makeRoomHint, contextLabel, windowRows } = props;
   const { id, anchor } = target;
   const anchorRef = useMemo(() => ({ current: anchor }), [anchor]);
   const def = api.definitionOf(id);
@@ -48,6 +48,7 @@ const WidgetOptionsHost = (props: WidgetOptionsHostProps) => {
       onClose={onClose}
       makeRoomHint={makeRoomHint}
       contextLabel={contextLabel}
+      {...windowRows}
     >
       {settings}
     </WidgetOptions>

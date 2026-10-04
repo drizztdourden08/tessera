@@ -19,15 +19,19 @@ const useWidgetOptionsDemo = (start: WidgetPlacement, startOpacity = DEFAULT_OPA
   const [show, setShow] = useState<WidgetVisibility>('context-only');
   const [pin, setPin] = useState<PinMode>('off');
   const [snap, setSnap] = useState(true);
+  const [sync, setSync] = useState(true);
+  const [group, setGroup] = useState<string | null>(null);
   const [resets, setResets] = useState(0);
 
   const panel: DemoPanelProps = {
-    placement, dockEdge: edge, makeRoom, opacity, show, pin, snap, canPopOut: true,
+    placement, dockEdge: edge, makeRoom, opacity, show, pin, snap, sync, group, canPopOut: true,
     onDock: (next) => { setPlacement('docked'); setEdge(next); },
     onFloat: () => setPlacement('floating'),
     onPopOut: () => setPlacement(placement === 'popped' ? 'docked' : 'popped'),
     onPinChange: setPin,
     onSnapChange: setSnap,
+    onSyncChange: setSync,
+    onGroupChange: setGroup,
     onMakeRoomChange: setMakeRoom,
     onOpacityChange: setOpacity,
     onShowChange: setShow,
@@ -36,7 +40,7 @@ const useWidgetOptionsDemo = (start: WidgetPlacement, startOpacity = DEFAULT_OPA
   const room = makeRoom ? 'makes room' : 'overlay';
   const summary = [
     placeText(placement, edge), room, `opacity ${Math.round(opacity * 100)}%`, `show ${show}`, `pin ${pin}`,
-    snap ? 'snaps' : 'free', `resets ${resets}`,
+    snap ? 'snaps' : 'free', sync ? 'synced' : 'independent', `group ${group ?? 'none'}`, `resets ${resets}`,
   ].join(' · ');
   return { panel, summary };
 };

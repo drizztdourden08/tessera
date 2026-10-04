@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, ScreenPoint, WidgetId } from '../../DockLayout';
-import type { WidgetDefinition, WidgetDisabledState, WidgetLayout } from '../Widget.type';
+import type { WidgetDefinition, WidgetDisabledState, WidgetLayout, WidgetWindowOptions, WindowGroup } from '../Widget.type';
 
 interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   definitions: readonly D[];
@@ -27,6 +27,9 @@ interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   mainGrip?: DockMainGrip;
   makeRoomHint?: string;
   contextLabel?: string;
+  windowOptions?: (id: WidgetId) => WidgetWindowOptions | undefined;
+  windowGroups?: readonly WindowGroup[];
+  onWindowOptionsChange?: (id: WidgetId, patch: WidgetWindowOptions) => void;
   className?: string;
 }
 

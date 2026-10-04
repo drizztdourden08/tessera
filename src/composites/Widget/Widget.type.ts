@@ -30,6 +30,16 @@ interface PoppedWidget {
   link?: SnapLink | null;
 }
 
+interface WindowGroup {
+  id: string;
+  label: string;
+}
+
+interface WidgetWindowOptions {
+  sync?: boolean;
+  group?: string | null;
+}
+
 interface WidgetFrame {
   opacity: number;
   show: WidgetVisibility;
@@ -81,9 +91,10 @@ interface WidgetProps {
   pin?: PinMode;
   onTop?: boolean;
   onPinChange?: (mode: PinMode) => void;
+  square?: boolean;
 }
 
 export type {
   PinMode, PoppedWidget, SnapLink, SnapSide, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
-  WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WindowBounds,
+  WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds, WindowGroup,
 };
