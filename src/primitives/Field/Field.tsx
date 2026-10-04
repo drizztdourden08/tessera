@@ -9,7 +9,7 @@ import './Field.css';
 import type { FieldProps } from './Field.type';
 
 const Field = (props: FieldProps) => {
-  const { label, hint, error, htmlFor, required, inline, size, className = '', children } = props;
+  const { label, hint, error, htmlFor, required, inline, size, width = 'md', className = '', children } = props;
   const autoId = useId();
   const controlId = htmlFor ?? `field-${autoId}`;
   const noteId = `${controlId}-note`;
@@ -23,7 +23,7 @@ const Field = (props: FieldProps) => {
   );
 
   return (
-    <div className={`field control-size--${fieldSize}${inline ? ' field--inline' : ''}${className ? ` ${className}` : ''}`}>
+    <div className={[`field control-size--${fieldSize} field--width-${width}`, inline && 'field--inline', className].filter(Boolean).join(' ')}>
       {label != null && (
         <label id={labelId} className="field__label" htmlFor={controlId}>
           {label}

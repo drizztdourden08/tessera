@@ -4,6 +4,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-md);
+  max-inline-size: var(--stat-row-max-w);
   font-size: var(--text-sm);
 }
 

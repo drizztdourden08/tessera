@@ -2,6 +2,8 @@
 import type { ReactNode } from 'react';
 import type { ControlSize } from '../field-control/field-control.type';
 
+type FieldWidth = 'sm' | 'md' | 'full';
+
 interface FieldProps {
   label?: ReactNode;
   hint?: ReactNode;
@@ -10,8 +12,9 @@ interface FieldProps {
   required?: boolean;
   inline?: boolean;
   size?: ControlSize;
+  width?: FieldWidth;
   className?: string;
   children: ReactNode;
 }
 
-export type { FieldProps };
+export type { FieldProps, FieldWidth };

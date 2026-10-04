@@ -4,7 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
-import { Box, Field, NumberInput, PasswordInput, Text, TextInput, Toggle, type ControlSize } from '../../src/primitives';
+import { Box, Field, NumberInput, PasswordInput, Text, TextInput, Toggle, type ControlSize, type FieldWidth } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -17,6 +17,7 @@ type FieldArgs = {
   required: boolean;
   inline: boolean;
   size: ControlSize;
+  width: FieldWidth;
 };
 
 const ARGS: Partial<FieldArgs> = {
@@ -26,12 +27,14 @@ const ARGS: Partial<FieldArgs> = {
     required: true,
     inline: false,
     size: 'md',
+    width: 'md',
   };
 
 const ARG_TYPES: PlaygroundArgTypes<FieldArgs> = {
     label: { group: 'Content', control: 'text' },
     hint: { group: 'Content', control: 'text' },
     inline: { group: 'Layout', control: 'boolean' },
+    width: { group: 'Layout', control: 'select', options: ['sm', 'md', 'full'], description: 'The widest the field grows: 256 px, 512 px or the whole row.' },
     error: { group: 'State', control: 'text', description: 'Replaces the hint while set.' },
     required: { group: 'State', control: 'boolean' },
     size: { ...SIZE_ARG, description: 'Sets the size of the control inside, unless the control sets its own.' },
@@ -98,6 +101,7 @@ const Playground = {
       required={args.required}
       inline={args.inline}
       size={args.size}
+      width={args.width}
       htmlFor="field-player-name"
     >
       <TextInput id="field-player-name" defaultValue="Link" />
@@ -115,6 +119,23 @@ const Sizes = sizesStory<FieldArgs>((size) => (
     <TextInput defaultValue="Link" />
   </Field>
 ), { align: 'stretch' });
+
+const Widths = {
+  name: 'Widths on a wide page',
+  render: () => (
+    <Box className="story-column">
+      <Field label="Server port" hint="width sm" width="sm">
+        <TextInput defaultValue="38281" />
+      </Field>
+      <Field label="Server address" hint="width md, the default">
+        <TextInput defaultValue="archipelago.gg" />
+      </Field>
+      <Field label="Session notes" hint="width full" width="full">
+        <TextInput defaultValue="Async, one week, hints on" />
+      </Field>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<FieldArgs>;
 
 const LineUp = {
   name: 'Sizes line up',
@@ -141,9 +162,10 @@ const Overview = overviewStory({
     '`required` adds a star to the label, and `inline` puts the label beside the control.',
     '`htmlFor` ties the label to the input it names.',
     '`size` passes `md` or `sm` to the control inside, unless it sets its own.',
+    '`width` caps the field on a wide page: `sm` 256 px, `md` 512 px by default, or `full`.',
   ],
   playground: Playground,
-  variants: [Form, Sizes, LineUp],
+  variants: [Form, Widths, Sizes, LineUp],
   states: {
     render: renderState,
     list: [
@@ -154,4 +176,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Form, LineUp, Overview, Playground, Sizes, Validation };
+export { Form, LineUp, Overview, Playground, Sizes, Validation, Widths };

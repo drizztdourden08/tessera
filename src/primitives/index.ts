@@ -89,7 +89,7 @@ export { namespacedTag, TagInput } from './TagInput';
 export type { TagAdvice, TagInputProps, TagValidationResult, TagValidator } from './TagInput';
 export { Field, useFieldControl } from './Field';
 export { FieldControlBoundary } from './FieldControlBoundary';
-export type { FieldProps } from './Field';
+export type { FieldProps, FieldWidth } from './Field';
 export { useControlSize } from './field-control/useControlSize';
 export type { ControlSize } from './field-control/field-control.type';
 export type {

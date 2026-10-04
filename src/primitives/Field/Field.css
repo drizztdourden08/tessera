@@ -5,6 +5,14 @@
   gap: var(--space-xs);
 }
 
+.field--width-sm {
+  max-inline-size: var(--field-w-sm);
+}
+
+.field--width-md {
+  max-inline-size: var(--field-w-md);
+}
+
 .field.control-size--sm {
   gap: var(--space-2xs);
 }

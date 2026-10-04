@@ -3369,3 +3369,24 @@ From the Brock review (brock-57, brock-59, brock-60) and the UX review (ux-51).
 2. Replace selectors on `.widget` and `.dock-layout__pane` in tests with `[data-widget-id]` and `[data-pane-id]`.
 3. Drop `brand` from a Hero inside an app palette, unless it should show another brand.
 4. Draw number settings with `input: { kind: 'number', min, max, step, unit }`.
+
+## 128. Field stops at 512 px by default, and StatRow at 512 px
+
+From the UX review (ux-66). On a wide page, inputs stretched to the whole content width (a 1500 px address field, a full-width port box), and StatRow put its label and value at the two ends of a wide row.
+
+- **Field takes `width`.** `sm` caps the field at 256 px (`--field-w-sm`), for a port, a code or a short number; `md`, the default, caps it at 512 px (`--field-w-md`); `full` lets it fill the row as before. The cap is a `max-inline-size` on the field, so in a narrow column, a dialog or a grid cell the field still fills its room. The label, the control and the hint or error share the cap.
+- **StatRow stops at 512 px** (`--stat-row-max-w`), so on a wide page the value sits near its label and the rows of a stack still line up their values. In a narrow card nothing changes.
+
+```ts
+type FieldWidth = 'sm' | 'md' | 'full';
+
+interface FieldProps {
+  // added
+  width?: FieldWidth; // default 'md'
+}
+```
+
+### What an app does
+
+1. Look over forms on wide screens: pass `width="full"` to a Field that should fill the row, such as a long description, and `width="sm"` to a port or a short code.
+2. A readout that wants rows across the whole page sets `--stat-row-max-w: none` on a parent.

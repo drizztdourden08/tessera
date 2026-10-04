@@ -53,6 +53,17 @@ const SessionDetails = {
   ),
 } satisfies StoryLiteStoryDefinition<StatRowArgs>;
 
+const WidePage = {
+  name: 'On a wide page',
+  render: () => (
+    <Stack gap="xs">
+      <Text variant="title">Engine</Text>
+      <StatRow label="Archipelago" value="0.6.7" />
+      <StatRow label="Folder" value="X:\archipelia\.user-data\Data\engine\0.6.7-win32-x64" mono />
+    </Stack>
+  ),
+} satisfies StoryLiteStoryDefinition<StatRowArgs>;
+
 const Overview = overviewStory({
   component: 'StatRow',
   description: 'One line of a readout, with a label on the left and its value on the right.',
@@ -61,11 +72,12 @@ const Overview = overviewStory({
     '`value` can be text or any node, such as a [Status].',
     '`mono` draws the value in a monospace font, for addresses, ids and coordinates.',
     'The value can be selected; `copyable` adds a button that copies it, or the string it is given.',
+    'A row stops at 512 px, so on a wide page the value stays near its label.',
   ],
   instead: '[TermList] for terms and what they mean.',
   playground: Playground,
-  variants: [SessionDetails],
+  variants: [SessionDetails, WidePage],
 });
 
 export default meta;
-export { Overview, Playground, SessionDetails };
+export { Overview, Playground, SessionDetails, WidePage };

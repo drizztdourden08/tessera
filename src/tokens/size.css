@@ -49,6 +49,9 @@
   --hero-aside-min: var(--size-320);
   --facts-panel-value-max-w: calc(220 * var(--size-1));
   --settings-row-text-min: var(--size-192);
+  --field-w-sm: var(--size-256);
+  --field-w-md: var(--size-512);
+  --stat-row-max-w: var(--size-512);
   --settings-row-compact-h: var(--size-40);
   --settings-row-compact-control-w: var(--size-160);
 
