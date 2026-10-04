@@ -23,12 +23,9 @@
   display: inline-block;
   max-width: 100%;
   overflow: hidden;
-  color: var(--c-primary);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   white-space: nowrap;
-  text-decoration: underline dotted;
-  text-underline-offset: var(--size-2);
   text-overflow: ellipsis;
 }
 

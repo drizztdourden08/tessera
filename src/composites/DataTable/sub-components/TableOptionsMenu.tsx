@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
-import { Pressable } from '../../../primitives/Pressable';
 import { Glyph } from '../../../primitives/Glyph';
+import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { DropdownMenu } from '../../DropdownMenu';
 import { useMenuOpen } from '../../field-kits/behavior/useMenuOpen';
@@ -18,17 +18,17 @@ const TableOptionsMenu = (props: TableOptionsMenuProps) => {
 
   return (
     <>
-      <Pressable
+      <IconButton
         ref={menu.anchorRef}
-        className="data-table__options"
-        aria-label={table.tableOptions}
+        size="xs"
+        label={table.tableOptions}
         aria-haspopup="menu"
         aria-expanded={menu.open}
         title={table.tableOptions}
         onClick={menu.toggle}
       >
         <Glyph name="gear" />
-      </Pressable>
+      </IconButton>
       {menu.open && <DropdownMenu groups={[{ id: 'table', items }]} anchorRef={menu.anchorRef} side="above" align="end" onClose={menu.close} />}
     </>
   );

@@ -3,9 +3,9 @@ export { PixelWordmark, buildPixelWordmark, PIXEL_FONT } from './PixelWordmark';
 export type {
   PixelGlyph, PixelWordmarkArt, PixelWordmarkColors, PixelWordmarkPath, PixelWordmarkProps, PixelWordmarkSize,
 } from './PixelWordmark';
-export { DataTable, FieldPicker } from './DataTable';
+export { DataTable } from './DataTable';
 export type {
-  ColumnActions, ColumnDragBinding, DataTableProps, FieldPickerProps, IdRefDefaultResolver, IdRefDisplayResolver,
+  ColumnActions, ColumnDragBinding, DataTableProps, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver,
   IdRefTargetField, IdRefTargetFieldResolver, PickerNode,
 } from './DataTable';
 export { ConfirmIconButton } from './ConfirmIconButton';

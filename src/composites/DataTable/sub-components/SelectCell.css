@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind style */
 .data-table--selectable .data-table__header,
-.data-table--selectable .data-table__row {
+.data-table--selectable .data-table__row,
+.data-table--selectable .data-table__group {
   grid-template-columns: var(--table-select-w) var(--dt-tracks);
 }
 

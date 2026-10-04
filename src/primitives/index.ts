@@ -126,7 +126,7 @@ export type {
 export { TESSERA_STRINGS } from './strings';
 export type { TesseraStringGroup, TesseraStrings, TesseraStringsOverride } from './strings';
 export { Link } from './Link';
-export type { LinkProps, LinkTone } from './Link';
+export type { LinkProps, LinkTone, LinkVariant } from './Link';
 export { RouterLink } from './RouterLink';
 export type { RouterLinkProps } from './RouterLink';
 export { HintLine } from './HintLine';

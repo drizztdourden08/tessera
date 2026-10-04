@@ -11,6 +11,7 @@ import {
   HINTS, HINT_SCHEMA, resolveSlotDefault, resolveSlotField, resolveTargetFields,
 } from './_samples/data-hints';
 import type { HintRow } from './_samples/data-hints';
+import { LinkSandbox } from '../primitives/_samples/LinkSandbox';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -32,6 +33,7 @@ const HINT_COUNT: readonly [string, string] = ['hint', 'hints'];
 const NO_ROWS: readonly PlayerRow[] = [];
 
 const playerId = (player: PlayerRow): string => player.id;
+const slotHref = (id: string, targetKind?: string): string | undefined => (targetKind === 'slot' ? `/players/${id}` : undefined);
 const hintId = (hint: HintRow): string => hint.id;
 
 const PlayersDemo = ({ selectable, groupBy, persistLayout, emptyMessage }: DataTableArgs) => {
@@ -41,7 +43,7 @@ const PlayersDemo = ({ selectable, groupBy, persistLayout, emptyMessage }: DataT
   const picked = selectable ? `${selectedIds.size} selected` : `Selected: ${selectedId ?? 'none'}`;
 
   return (
-    <Box className="data-table-story">
+    <LinkSandbox className="data-table-story">
       <Text className="story-label">{picked}</Text>
       <DataTable
         key={`${groupBy}-${String(persistLayout)}`}
@@ -59,17 +61,18 @@ const PlayersDemo = ({ selectable, groupBy, persistLayout, emptyMessage }: DataT
         countLabel={PLAYER_COUNT}
         emptyMessage={emptyMessage}
         resolveIdRefDefault={resolveSlotDefault}
+        resolveIdRefHref={slotHref}
       />
-    </Box>
+    </LinkSandbox>
   );
 };
 
 const HintsDemo = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   return (
-    <Box className="data-table-story">
+    <LinkSandbox className="data-table-story">
       <Text className="story-label">
-        Finder and receiver are slot references. Open a column menu to pick which player field they show.
+        Finder and receiver are slot references, each a link to its player. Open a column menu to pick which player field they show.
       </Text>
       <DataTable
         rows={HINTS}
@@ -81,8 +84,9 @@ const HintsDemo = () => {
         resolveTargetFields={resolveTargetFields}
         resolveIdRefDisplay={resolveSlotField}
         resolveIdRefDefault={resolveSlotDefault}
+        resolveIdRefHref={slotHref}
       />
-    </Box>
+    </LinkSandbox>
   );
 };
 

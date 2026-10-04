@@ -87,15 +87,6 @@
   text-overflow: ellipsis;
 }
 
-.filter-chip__dot {
-  flex: none;
-  width: var(--size-8);
-  height: var(--size-8);
-  border-radius: var(--radius-pill);
-  background: var(--c-primary);
-  box-shadow: 0 0 0 var(--border-width-thin) var(--c-primary);
-}
-
 .filter-chip__case {
   padding-inline-start: var(--space-xs);
   color: var(--c-primary);
@@ -107,9 +98,8 @@
   background: transparent;
 }
 
-.filter-chip--off .filter-chip__dot {
-  background: transparent;
-  box-shadow: inset 0 0 0 var(--border-width-thin) var(--c-text-faint);
+.filter-chip--off .filter-bar__kind[data-kind] {
+  color: var(--c-text-faint);
 }
 
 .filter-chip--off .filter-chip__field-label,

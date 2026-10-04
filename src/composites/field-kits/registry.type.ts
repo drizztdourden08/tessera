@@ -37,9 +37,12 @@ interface EditorControlProps<V = unknown> {
 
 type ArrayIdRefResolver = (id: string, targetKind?: string) => string | undefined;
 
+type IdRefHrefResolver = (id: string, targetKind?: string) => string | undefined;
+
 interface CellRenderOptions {
   display?: string;
   resolveIdRefDisplay?: ArrayIdRefResolver;
+  resolveIdRefHref?: IdRefHrefResolver;
 }
 
 type FieldControl<P> = (props: P) => ReactNode;
@@ -53,5 +56,5 @@ interface FieldTypeStrategy<V = unknown> {
 
 export type {
   ArrayIdRefResolver, CellRenderOptions, EditorControlProps, FieldControl, FieldTypeStrategy, FilterControlProps,
-  IdRefOption, IdRefOptionResolver, NumberBounds,
+  IdRefHrefResolver, IdRefOption, IdRefOptionResolver, NumberBounds,
 };

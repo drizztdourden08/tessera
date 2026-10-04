@@ -1921,3 +1921,47 @@ The new tokens are `--duration-step`, `--duration-step-flip`, `--duration-step-f
 ### What an app does
 
 Nothing, unless it wants the numbers back: pass `doneIcon={false}`. A style that targeted `.stepper[data-direction]` now targets `.stepper[data-motion]`, which is `still`, `step`, `skip` or `back`. The number's colour sits on `.stepper-dot__card`, which holds `.stepper-dot__number` and `.stepper-dot__icon`.
+
+## 76. DataTable group rows span the scrolled width, reference cells are Links, and FilterBar shows each field's type
+
+### DataTable group rows
+
+A group row used to be only as wide as the visible area, so scrolling sideways left its background behind. It now lays out on the same column tracks as the data rows and spans their full width. The chevron and group value stay pinned to the start edge of the visible area and the field name and count to its end edge, at any scroll position and in right to left. The indent per level is the `--dt-group-indent` custom property on the row, and the row holds one `.data-table__group-bar` cell.
+
+### DataTable uses the DS parts
+
+The sort toggle, the column menu trigger and the table options gear are `IconButton`s at size `xs`. An unsorted column's toggle carries `.data-table__sort--off`. IconButton takes a `ref` for this.
+
+`FieldPicker` is removed. It drew its own menu with DropdownMenu's classes and nothing used it; DataTable's column and table menus already list fields through `DropdownMenu`.
+
+A reference cell looked like a link but was not one. It is now a `Link` with the new `variant="subtle"`, a dotted underline at rest, when the table gets `resolveIdRefHref` and that returns an address. Without one the cell is plain monospaced text, here and in CompactRecordView and RecordEditor.
+
+```ts
+type LinkVariant = 'inline' | 'subtle';
+
+interface LinkProps {
+  variant?: LinkVariant;
+}
+
+type IdRefHrefResolver = (id: string, targetKind?: string) => string | undefined;
+
+interface DataTableProps<T> {
+  resolveIdRefHref?: IdRefHrefResolver;
+}
+
+interface CellRenderOptions {
+  resolveIdRefHref?: IdRefHrefResolver;
+}
+
+interface IconButtonProps {
+  ref?: Ref<HTMLButtonElement>;
+}
+```
+
+### FilterBar shows each field's type
+
+Every entry of the add menu shows its field's type from the schema as a coloured icon and a label under the name: Text, Number, Yes or no, Choice, Reference, List, Group, Mixed or Unknown. Each chip shows the same icon in place of its dot, grey when the filter is off. The labels are the new `fieldKinds` string group, and the icon set gains `type`, `hash`, `toggle-left`, `circle-dot`, `braces` and `split`.
+
+### What an app does
+
+Pass `resolveIdRefHref` to a DataTable whose reference cells should open their record. Build a field picker as a `DropdownMenu` with `children` instead of `FieldPicker`. A style on `.filter-chip__dot` moves to `.filter-bar__kind`, and one on `.data-table__options` or `.data-table__caret` moves to the IconButton.

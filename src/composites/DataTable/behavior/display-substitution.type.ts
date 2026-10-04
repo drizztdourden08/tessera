@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { IdRefHrefResolver } from '../../field-kits/registry.type';
+
 interface IdRefTargetField {
   path: string;
   label: string;
@@ -18,8 +20,9 @@ interface DisplaySubstitution {
   displayField?: string;
   resolve?: IdRefDisplayResolver;
   resolveDefault?: IdRefDefaultResolver;
+  resolveHref?: IdRefHrefResolver;
 }
 
 export type {
-  DisplaySubstitution, IdRefDefaultResolver, IdRefDisplayResolver, IdRefTargetField, IdRefTargetFieldResolver,
+  DisplaySubstitution, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver, IdRefTargetField, IdRefTargetFieldResolver,
 };

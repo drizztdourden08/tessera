@@ -8,7 +8,7 @@ const leftToBrowser = (event: MouseEvent<HTMLElement>): boolean =>
   event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
 
 const LinkSandbox = (props: LinkSandboxProps) => {
-  const { children } = props;
+  const { children, className = 'story-column' } = props;
   const [last, setLast] = useState('');
   const watch = (event: MouseEvent<HTMLElement>) => {
     const anchor = (event.target as Element).closest('a');
@@ -17,7 +17,7 @@ const LinkSandbox = (props: LinkSandboxProps) => {
     setLast(`The browser would load ${anchor.getAttribute('href') ?? ''}`);
   };
   return (
-    <Box className="story-column" onClick={watch}>
+    <Box className={className} onClick={watch}>
       {children}
       {last && <Text className="story-label">{last}</Text>}
     </Box>

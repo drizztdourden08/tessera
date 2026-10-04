@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 import type { Hint, HintReport } from '../hint/hint.type';
 
 type IconButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'info' | 'success' | 'ghost';
@@ -18,6 +18,7 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   hint?: Hint;
   onHint?: HintReport;
   children: ReactNode;
+  ref?: Ref<HTMLButtonElement>;
 }
 
 export type {

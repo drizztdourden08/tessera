@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import type { ReactNode } from 'react';
 import { findOperator } from '../../data/filter/operators';
+import { Link } from '../../primitives/Link';
 import { Text } from '../../primitives/Text';
 import { isEmptyValue } from './emptiness';
 import { ABSENT } from './IdRefKit.constants';
@@ -37,16 +38,16 @@ const renderCell = (
 ): ReactNode => {
   const id = toText(value).trim();
   if (!id) return <Text className="field-kit__muted">{ABSENT}</Text>;
-  return (
-    <Text
-      className="field-kit__ref"
-      title={field.targetKind ? `${field.targetKind}: ${id}` : id}
-      data-id-ref={id}
-      data-target-kind={field.targetKind}
-    >
-      {formatIdRefDisplay(id, options?.display)}
-    </Text>
-  );
+  const ref = {
+    className: 'field-kit__ref',
+    title: field.targetKind ? `${field.targetKind}: ${id}` : id,
+    'data-id-ref': id,
+    'data-target-kind': field.targetKind,
+  };
+  const text = formatIdRefDisplay(id, options?.display);
+  const href = options?.resolveIdRefHref?.(id, field.targetKind);
+  if (href) return <Link {...ref} variant="subtle" href={href}>{text}</Link>;
+  return <Text {...ref}>{text}</Text>;
 };
 
 const idRefKit: FieldTypeStrategy = { kind: 'idRef', FilterControl, EditorControl: IdRefEditorControl, renderCell };

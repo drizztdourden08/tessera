@@ -6,7 +6,7 @@ import type { ColumnMove, SortEntry, TableColumn } from '../../data/table/types'
 import type { ViewKey } from '../../data/view-state/snapshot';
 import type { ViewStorage } from '../../data/view-state/use-view-state';
 import type {
-  IdRefDefaultResolver, IdRefDisplayResolver, IdRefTargetFieldResolver,
+  IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver, IdRefTargetFieldResolver,
 } from './behavior/display-substitution.type';
 import type { GrowFallback } from './behavior/overflow-probe.type';
 
@@ -28,6 +28,7 @@ interface DataTableProps<T> {
   resolveTargetFields?: IdRefTargetFieldResolver;
   resolveIdRefDisplay?: IdRefDisplayResolver;
   resolveIdRefDefault?: IdRefDefaultResolver;
+  resolveIdRefHref?: IdRefHrefResolver;
 }
 
 interface ColumnActions {
@@ -106,6 +107,7 @@ interface RowRenderContext<T> {
   onToggleGroup: (uid: string) => void;
   resolveIdRefDisplay?: IdRefDisplayResolver;
   resolveIdRefDefault?: IdRefDefaultResolver;
+  resolveIdRefHref?: IdRefHrefResolver;
   onCellDragOver?: (index: number, event: DragEvent<HTMLElement>) => void;
   onCellDrop?: (index: number, event: DragEvent<HTMLElement>) => void;
 }

@@ -18,7 +18,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
   const {
     rows, schema, getRowId, viewKey, viewStorage, fallbackColumns, fallbackGroupBy,
     onSelect, selectedId, selectedIds, onSelectionChange, selectable = false,
-    resolveIdRefDisplay, resolveIdRefDefault,
+    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
   } = props;
 
   const { table, sessionView, setSessionView } = useTableView({
@@ -59,7 +59,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
 
   const context = useRowContext({
     columns: table.columns, schema: index, drag, getRowId, selectedId, onSelect, selection, groups,
-    resolveIdRefDisplay, resolveIdRefDefault,
+    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
   });
 
   return {

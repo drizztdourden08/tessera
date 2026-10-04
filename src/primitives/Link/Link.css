@@ -45,3 +45,11 @@
 :where(.link__external--spaced) {
   margin-inline-start: var(--space-2xs);
 }
+
+:where(.link[data-variant="subtle"]) {
+  text-decoration: underline dotted;
+}
+
+:where(.link[data-variant="subtle"]:hover) {
+  text-decoration: underline;
+}

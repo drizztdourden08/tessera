@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { SchemaIndex } from '../../../data/schema/build-schema';
 import type { TableColumn } from '../../../data/table/types';
-import type { IdRefDefaultResolver, IdRefDisplayResolver } from './display-substitution.type';
+import type { IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver } from './display-substitution.type';
 import type { ExpandedGroups } from './useExpandedGroups.type';
 import type { ColumnDragBinding, RowSelectionBinding } from '../DataTable.type';
 
@@ -16,6 +16,7 @@ interface UseRowContextInput<T> {
   groups: ExpandedGroups;
   resolveIdRefDisplay?: IdRefDisplayResolver;
   resolveIdRefDefault?: IdRefDefaultResolver;
+  resolveIdRefHref?: IdRefHrefResolver;
 }
 
 export type { UseRowContextInput };

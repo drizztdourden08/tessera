@@ -27,6 +27,7 @@ const cellContent = (
   return kit.renderCell(value, field, {
     display: substituteDisplay(value, field, substitution),
     resolveIdRefDisplay: substitution?.resolveDefault,
+    resolveIdRefHref: substitution?.resolveHref,
   });
 };
 

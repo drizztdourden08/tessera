@@ -474,6 +474,22 @@
       "props": {
         "WindowTitleBar.left": "WindowTitleBar.actions (each slot becomes an action with a label, an icon and onSelect; see MIGRATION.md section 70)"
       }
+    },
+    {
+      "version": "next",
+      "removedExports": {
+        "FieldPicker": "removed; list fields in a DropdownMenu with children, as DataTable does (see MIGRATION.md section 76)",
+        "FieldPickerProps": "removed with FieldPicker (see MIGRATION.md section 76)"
+      },
+      "cssClasses": {
+        "filter-chip__dot": "filter-bar__kind",
+        "data-table__options": "icon-btn (the table options gear is an IconButton; see MIGRATION.md section 76)",
+        "data-table__caret--off": "data-table__sort--off",
+        "data-table__caret": "data-table__sort (the sort toggle is an IconButton; see MIGRATION.md section 76)",
+        "field-picker__kind": "removed with FieldPicker (see MIGRATION.md section 76)",
+        "field-picker__empty": "removed with FieldPicker (see MIGRATION.md section 76)",
+        "field-picker": "removed with FieldPicker (see MIGRATION.md section 76)"
+      }
     }
   ]
 }

@@ -11,7 +11,7 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
   const { row, context } = props;
   const {
     columns, schema, draggingPath, getRowId, selectedId, onSelect, selection,
-    onCellDragOver, onCellDrop, resolveIdRefDisplay, resolveIdRefDefault,
+    onCellDragOver, onCellDrop, resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
   } = context;
   const { table } = useTesseraStrings();
   const id = getRowId(row);
@@ -46,7 +46,10 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
           onDrop={onCellDrop}
         >
           {cellContent(row, column.path, schema.byPath(column.path), {
-            displayField: column.displayField, resolve: resolveIdRefDisplay, resolveDefault: resolveIdRefDefault,
+            displayField: column.displayField,
+            resolve: resolveIdRefDisplay,
+            resolveDefault: resolveIdRefDefault,
+            resolveHref: resolveIdRefHref,
           })}
         </DataCell>
       ))}

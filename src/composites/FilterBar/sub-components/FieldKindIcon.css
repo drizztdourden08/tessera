@@ -1,0 +1,39 @@
+/* @layer renderer-components @kind style */
+.filter-bar__kind {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  color: var(--c-text-faint);
+}
+
+.filter-bar__kind[data-kind="string"] {
+  color: var(--c-tag-blue);
+}
+
+.filter-bar__kind[data-kind="number"] {
+  color: var(--c-tag-amber);
+}
+
+.filter-bar__kind[data-kind="boolean"] {
+  color: var(--c-tag-green);
+}
+
+.filter-bar__kind[data-kind="enum"] {
+  color: var(--c-tag-violet);
+}
+
+.filter-bar__kind[data-kind="idRef"] {
+  color: var(--c-tag-cyan);
+}
+
+.filter-bar__kind[data-kind="array"] {
+  color: var(--c-tag-pink);
+}
+
+.filter-bar__kind[data-kind="object"] {
+  color: var(--c-tag-orange);
+}
+
+.filter-bar__kind[data-kind="union"] {
+  color: var(--c-tag-rose);
+}

@@ -30,16 +30,3 @@
   color: var(--c-text-faint);
   font-size: var(--text-sm);
 }
-
-.data-table__options {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: 0 var(--space-xs);
-  color: var(--c-text-dim);
-  cursor: pointer;
-}
-
-.data-table__options:hover {
-  color: var(--c-primary-bright);
-}

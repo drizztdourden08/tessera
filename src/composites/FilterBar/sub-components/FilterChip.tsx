@@ -6,6 +6,7 @@ import { Glyph } from '../../../primitives/Glyph';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { findOperator } from '../../../data/filter/operators';
+import { FieldKindIcon } from './FieldKindIcon';
 import { FilterChipValue } from './FilterChipValue';
 import { OperatorMenu } from './OperatorMenu';
 import type { FilterChipProps } from './FilterChip.type';
@@ -28,7 +29,7 @@ const FilterChip = (props: FilterChipProps) => {
         title={filters.applyFilterNamed(field.label)}
         onClick={() => onToggleEnabled(!clause.enabled)}
       >
-        <Span className="filter-chip__dot" aria-hidden />
+        <FieldKindIcon kind={field.kind} />
         <Span className="filter-chip__field-label">{field.label}</Span>
       </Button>
       <OperatorMenu

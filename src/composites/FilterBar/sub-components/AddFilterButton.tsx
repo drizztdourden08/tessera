@@ -8,12 +8,13 @@ import { DropdownMenu } from '../../DropdownMenu';
 import { addFilterItems } from '../behavior/add-filter-items';
 import { createClauseForField } from '../behavior/filter-clause-defaults';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
+import { FieldKindIcon } from './FieldKindIcon';
 import type { AddFilterButtonProps } from './AddFilterButton.type';
 
 const AddFilterButton = (props: AddFilterButtonProps) => {
   const { schema, fields, excludePaths = [], onAdd } = props;
   const menu = useAnchorMenu<HTMLButtonElement>('.dropdown-menu');
-  const { filters } = useTesseraStrings();
+  const { filters, fieldKinds } = useTesseraStrings();
   const taken = useMemo(() => new Set(excludePaths), [excludePaths]);
   const items = addFilterItems(toSchemaIndex(schema).roots(), {
     fields,
@@ -22,6 +23,7 @@ const AddFilterButton = (props: AddFilterButtonProps) => {
       onAdd(createClauseForField(field));
       menu.close();
     },
+    look: (field) => ({ icon: <FieldKindIcon kind={field.kind} />, description: fieldKinds[field.kind] }),
   });
 
   return (

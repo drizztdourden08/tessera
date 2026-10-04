@@ -7,30 +7,33 @@ import { Text } from '../../../primitives/Text';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { groupKeyContent } from '../behavior/group-key-content';
-import { INDENT_STEP } from './GroupRow.constants';
+import { INDENT_PROPERTY, INDENT_STEP } from './GroupRow.constants';
 import type { CSSProperties } from 'react';
 import type { GroupRowProps } from './GroupRow.type';
+import './GroupRow.css';
 
 const GroupRow = (props: GroupRowProps) => {
   const { level, groupKey, field, count, expanded, onToggle, display } = props;
   const strings = useTesseraStrings();
   const { table } = strings;
-  const indent: CSSProperties = { paddingLeft: `calc(${INDENT_STEP} * ${level + 1})` };
+  const indent = { [INDENT_PROPERTY]: `calc(${INDENT_STEP} * ${level + 1})` } as CSSProperties;
 
   return (
     <Box className="data-table__group" style={indent} role="row">
-      <Pressable
-        className="data-table__group-toggle"
-        aria-label={expanded ? table.collapseGroup : table.expandGroup}
-        aria-expanded={expanded}
-        onClick={onToggle}
-      >
-        <Span tone="dim" className="data-table__chevron"><Glyph name={expanded ? 'chevronDown' : 'chevronRight'} /></Span>
-        <Text className="data-table__group-key">{groupKeyContent(groupKey, field, display, strings)}</Text>
-      </Pressable>
-      <Box className="data-table__group-total">
-        {field && <Span tone="muted" className="data-table__group-field">{field.label}</Span>}
-        <Badge variant="inline" color="primary" value={count} />
+      <Box className="data-table__group-bar" role="gridcell">
+        <Pressable
+          className="data-table__group-toggle"
+          aria-label={expanded ? table.collapseGroup : table.expandGroup}
+          aria-expanded={expanded}
+          onClick={onToggle}
+        >
+          <Span tone="dim" className="data-table__chevron"><Glyph name={expanded ? 'chevronDown' : 'chevronRight'} /></Span>
+          <Text className="data-table__group-key">{groupKeyContent(groupKey, field, display, strings)}</Text>
+        </Pressable>
+        <Box className="data-table__group-total">
+          {field && <Span tone="muted" className="data-table__group-field">{field.label}</Span>}
+          <Badge variant="inline" color="primary" value={count} />
+        </Box>
       </Box>
     </Box>
   );

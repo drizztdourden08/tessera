@@ -6,10 +6,10 @@ import type { LinkProps } from './Link.type';
 import './Link.css';
 
 const Link = (props: LinkProps) => {
-  const { tone = 'primary', external = false, className, children, ...rest } = props;
+  const { tone = 'primary', variant = 'inline', external = false, className, children, ...rest } = props;
   const { navigation } = useTesseraStrings();
   return (
-    <a {...(external ? EXTERNAL_LINK : undefined)} {...rest} className={className ? `link ${className}` : 'link'} data-tone={tone}>
+    <a {...(external ? EXTERNAL_LINK : undefined)} {...rest} className={className ? `link ${className}` : 'link'} data-tone={tone} data-variant={variant}>
       {children}
       {external && (
         <Glyph

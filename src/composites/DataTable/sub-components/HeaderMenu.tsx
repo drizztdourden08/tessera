@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Icon } from '../../../primitives/Icon';
-import { Pressable } from '../../../primitives/Pressable';
+import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ColumnMenu } from './ColumnMenu';
 import type { HeaderMenuProps } from './HeaderMenu.type';
@@ -14,16 +14,17 @@ const HeaderMenu = (props: HeaderMenuProps) => {
 
   return (
     <>
-      <Pressable
+      <IconButton
         ref={menu.anchorRef}
+        size="xs"
         className="data-table__menu-trigger"
-        aria-label={table.columnOptionsNamed(label)}
+        label={table.columnOptionsNamed(label)}
         aria-haspopup="menu"
         aria-expanded={menu.open}
         onClick={menu.toggle}
       >
         <Icon name="ellipsis" />
-      </Pressable>
+      </IconButton>
       {menu.open && (
         <ColumnMenu
           path={column.path}

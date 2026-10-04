@@ -51,6 +51,12 @@ import appWindowIcon from '@iconify-icons/lucide/app-window';
 import magnetIcon from '@iconify-icons/lucide/magnet';
 import arrowBigUpDashIcon from '@iconify-icons/lucide/arrow-big-up-dash';
 import circleIcon from '@iconify-icons/lucide/circle';
+import typeIcon from '@iconify-icons/lucide/type';
+import hashIcon from '@iconify-icons/lucide/hash';
+import toggleLeftIcon from '@iconify-icons/lucide/toggle-left';
+import circleDotIcon from '@iconify-icons/lucide/circle-dot';
+import bracesIcon from '@iconify-icons/lucide/braces';
+import splitIcon from '@iconify-icons/lucide/split';
 
 const INTERFACE_ICONS = {
   'check': checkIcon,
@@ -105,6 +111,12 @@ const INTERFACE_ICONS = {
   'magnet': magnetIcon,
   'arrow-big-up-dash': arrowBigUpDashIcon,
   'circle': circleIcon,
+  'type': typeIcon,
+  'hash': hashIcon,
+  'toggle-left': toggleLeftIcon,
+  'circle-dot': circleDotIcon,
+  'braces': bracesIcon,
+  'split': splitIcon,
 } as const;
 
 export { INTERFACE_ICONS };
