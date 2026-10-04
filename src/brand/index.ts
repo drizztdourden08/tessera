@@ -18,6 +18,9 @@ export type { ChosenMascotProps, MascotChoice, MascotName } from './ChosenMascot
 export type { MascotAnimation, MascotMotion, MotionEffect, MotionFrame, MotionPart, MotionShadow, MotionStage, MotionTrack } from './motion/motion.type';
 export type { MascotClip } from './motion/mascot-clip.type';
 export { MASCOT_CLIPS } from './motion/mascot-clips.constants';
+export { MASCOT_CLIP_GROUPS } from './motion/mascot-clip-groups.constants';
+export type { MascotClipGroup, MascotClipGroupId } from './motion/mascot-clip-group.type';
+export { MASCOT_CLIP_VARIANTS } from './motion/mascot-clip-variants.constants';
 export { BRAND_APPS, BRAND_FAMILY } from './family.constants';
 export { backdropGradientCss } from './backdrop-gradient-css';
 export type { BackdropGlow, BackdropGradient } from './backdrop-gradient.type';

@@ -2,9 +2,10 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { AnimatedMascot, BRAND_FAMILY, BRAND_APPS, MASCOT_CLIPS } from '../src/brand';
+import { AnimatedMascot, BRAND_FAMILY, BRAND_APPS, MASCOT_CLIP_GROUPS, MASCOT_CLIP_VARIANTS, MASCOT_CLIPS } from '../src/brand';
 import { motionKeyframes } from '../src/brand/AnimatedMascot/behavior/motion-keyframes';
 import { motionPivots } from '../src/brand/AnimatedMascot/behavior/motion-pivots';
+import { stageScene } from '../src/brand/AnimatedMascot/behavior/stage-scene';
 
 const motions = BRAND_APPS.flatMap((app) => {
   const motion = BRAND_FAMILY[app].mascot?.motion;
@@ -24,8 +25,14 @@ describe('AnimatedMascot', () => {
 });
 
 describe('mascot motion data', () => {
-  it('lists the ten clips every mascot plays, in order', () => {
-    expect(MASCOT_CLIPS).toEqual(['idle', 'move', 'jump', 'wave', 'scan', 'happy', 'alert', 'point', 'blink', 'link']);
+  it('lists the clips every mascot plays, in order, and puts each one in exactly one gallery group', () => {
+    expect(MASCOT_CLIPS.slice(0, 10)).toEqual(['idle', 'move', 'jump', 'wave', 'scan', 'happy', 'alert', 'point', 'blink', 'link']);
+    expect(MASCOT_CLIPS).toHaveLength(29);
+    expect(MASCOT_CLIP_GROUPS.flatMap((g) => g.clips).sort()).toEqual([...MASCOT_CLIPS].sort());
+    for (const [variant, original] of Object.entries(MASCOT_CLIP_VARIANTS)) {
+      const group = MASCOT_CLIP_GROUPS.find((g) => g.clips.includes(variant))?.clips ?? [];
+      expect(group.indexOf(variant) - group.indexOf(original)).toBe(1);
+    }
     expect(motions.map(([app]) => app).sort()).toEqual(['archipelia', 'brock', 'rotp']);
   });
 
@@ -63,6 +70,15 @@ describe('mascot effects', () => {
     const flint = renderToString(h(AnimatedMascot, { brand: 'brock', scale: 2 }));
     expect(sentri).toContain('data-motion-part="spark" opacity="0"');
     for (const part of ['spark', 'chipGlow']) expect(flint).toContain(`data-motion-part="${part}" opacity="0"`);
+  });
+
+  it("shows a clip's still effects in the drawing itself, so reduced motion keeps them, and draws fixed effects on the stage outside the rig", () => {
+    const motion = { ...BRAND_FAMILY.rotp.mascot.motion, effects: [{ id: 'mark', piece: { name: 'Mark', w: 1, h: 1, paths: [] }, at: [0, 0], fixed: true }] };
+    const scene = stageScene(BRAND_FAMILY.rotp.mascot.variants[0].compose(), motion, ['mark']);
+    const [stage] = scene.nodes;
+    expect(stage.children.at(-1)).toMatchObject({ part: 'mark' });
+    expect(stage.children.at(-1).hidden).toBeUndefined();
+    expect(stageScene(BRAND_FAMILY.rotp.mascot.variants[0].compose(), motion).nodes[0].children.at(-1).hidden).toBe(true);
   });
 
   it("counts an effect's opacity from 0, so a frame without one keeps it hidden", () => {

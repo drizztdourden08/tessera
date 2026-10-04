@@ -2,7 +2,7 @@
 import type { BrandMascot, BrandSceneData } from '../../brand.type';
 import { stageScene } from './stage-scene';
 
-const mascotStage = (mascot: BrandMascot | undefined): BrandSceneData | undefined =>
-  (mascot?.motion ? stageScene(mascot.variants[0].compose(), mascot.motion) : undefined);
+const mascotStage = (mascot: BrandMascot | undefined, shown?: readonly string[]): BrandSceneData | undefined =>
+  (mascot?.motion ? stageScene(mascot.variants[0].compose(), mascot.motion, shown) : undefined);
 
 export { mascotStage };

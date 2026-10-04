@@ -25,6 +25,7 @@ interface MascotAnimation {
   duration: number;
   loop: boolean;
   tracks: readonly MotionTrack[];
+  still?: readonly string[];
 }
 
 interface MotionPart {
@@ -49,6 +50,7 @@ interface MotionEffect {
   id: string;
   piece: BrandPiece;
   at: ScenePoint;
+  fixed?: boolean;
 }
 
 interface MascotMotion<N extends string = string> {

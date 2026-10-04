@@ -1,11 +1,11 @@
 /* @layer renderer-components @kind logic */
 import type { BrandSceneData, SceneNode } from '../../brand.type';
 import { RIG_PART, SHADOW_PART } from '../../motion/motion.constants';
-import type { MascotMotion } from '../../motion/motion.type';
+import type { MascotMotion, MotionEffect } from '../../motion/motion.type';
 import { groupNode } from '../../scene/group-node';
 import { placePiece } from '../../scene/place-piece';
 
-const stageScene = (scene: BrandSceneData, motion: MascotMotion): BrandSceneData => {
+const stageScene = (scene: BrandSceneData, motion: MascotMotion, shown: readonly string[] = []): BrandSceneData => {
   const { top, right, bottom, left } = motion.stage;
   const wrap = (node: SceneNode): SceneNode => {
     const part = motion.parts.find((p) => p.node === node.label);
@@ -13,13 +13,15 @@ const stageScene = (scene: BrandSceneData, motion: MascotMotion): BrandSceneData
     return part ? groupNode(part.id, [inner], { part: part.id }) : inner;
   };
   const { shadow, effects = [] } = motion;
+  const light = (e: MotionEffect): SceneNode => groupNode(e.id, [placePiece(e.piece, { at: e.at })], { part: e.id, hidden: !shown.includes(e.id) });
   const ground = shadow ? [groupNode(SHADOW_PART, [placePiece(shadow.piece, { at: shadow.at })], { part: SHADOW_PART })] : [];
-  const lights = effects.map((e) => groupNode(e.id, [placePiece(e.piece, { at: e.at })], { part: e.id, hidden: true }));
-  const rig = groupNode(RIG_PART, [...scene.nodes.map(wrap), ...lights], { part: RIG_PART });
+  const riding = effects.filter((e) => !e.fixed).map(light);
+  const fixed = effects.filter((e) => e.fixed).map(light);
+  const rig = groupNode(RIG_PART, [...scene.nodes.map(wrap), ...riding], { part: RIG_PART });
   return {
     width: scene.width + left + right,
     height: scene.height + top + bottom,
-    nodes: [groupNode('Stage', [...ground, rig], { turn: { left, top, angle: 0, originX: 0, originY: 0 } })],
+    nodes: [groupNode('Stage', [...ground, rig, ...fixed], { turn: { left, top, angle: 0, originX: 0, originY: 0 } })],
     ...(scene.smooth ? { smooth: true } : {}),
   };
 };
