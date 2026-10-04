@@ -86,7 +86,13 @@ const CODE = `import { Box, Overlay, Spinner, Text } from '@drizztdourden08/tess
 
 const Overview = overviewStory({
   component: 'Overlay',
-  description: 'A dimmed glass layer over its nearest positioned parent, with its content centred. Reach for it to block a panel while something runs or waits, such as a reconnect or a paused session. It renders nothing while visible is false and fades in when shown. The parent needs a position of its own for the layer to cover it.',
+  description: 'A dimmed glass layer over a panel with its content centred, to block the panel while something runs or waits.',
+  points: [
+    'Use it for a reconnect, a paused session or a load that holds the whole panel.',
+    '`visible` shows it with a fade; while it is false the layer draws nothing.',
+    '**The parent needs a position of its own,** such as `position: relative`, for the layer to cover it.',
+  ],
+  instead: '[DisabledOverlay] for an area that a setting turns off.',
   playground: Playground,
   variants: [Paused],
   code: CODE,

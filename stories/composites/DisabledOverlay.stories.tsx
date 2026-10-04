@@ -124,7 +124,14 @@ const DefaultMessage = {
 
 const Overview = overviewStory({
   component: 'DisabledOverlay',
-  description: 'A scrim over a setting-gated surface: a locked control, a widget whose master toggle is off, a list for a disabled feature. Use it where hiding the surface would leave the user wondering where it went. The content stays visible but out of reach, the scrim says why, and an optional button links back to the setting that turns it on. The contained variant insets the scrim for content inside a scrolling or clipped box.',
+  description: 'A scrim over an area that a setting turns off, which keeps the area in sight and says why it is out of reach.',
+  points: [
+    'Use it where hiding the area would leave the user wondering where it went.',
+    '`active` shows the scrim and `message` says why.',
+    '`actionLabel` and `onOpenSettings` add a button to the setting that turns the area on.',
+    '`contained` insets the scrim for content inside a scrolling or clipped box.',
+  ],
+  instead: '[Overlay] to block a panel while something runs.',
   playground: Playground,
   variants: [DefaultMessage, NoAction, ContainedList],
 });

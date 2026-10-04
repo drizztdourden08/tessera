@@ -104,13 +104,15 @@ const CODE = `import { Button, Drawer } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Drawer',
-  description: 'A sheet that slides in from one edge over a scrim. Reach for it on touch and narrow layouts, for details, filters, notifications or a quick search that should not take a whole page. It opens from the right by default, or from the left or the top, and a tap on the scrim or the close button closes it.',
+  description: 'A panel that slides in from one edge over a scrim, for details, filters or a quick search that should not take a whole page.',
   points: [
-    'title and subtitle fill a WindowHeader with a close button at the top.',
-    'The body pads its content on every side and scrolls when it runs long, so content needs no padding of its own.',
-    'actions sit in a footer row at the bottom, aligned to the end.',
-    'label names the panel for screen readers when there is no title.',
+    '`side` picks the edge: `right` by default, `left` or `top`.',
+    '`title` and `subtitle` fill a header with a close button; `actions` sit in a footer row.',
+    'The body pads its content and scrolls when it runs long.',
+    'A tap on the scrim or the close button calls `onClose`.',
+    '`label` names the panel for screen readers when there is no `title`.',
   ],
+  instead: '[DialogShell] for a modal that waits for an answer.',
   playground: Playground,
   variants: [FilterPanel, Notifications, SearchSheet],
   code: CODE,
