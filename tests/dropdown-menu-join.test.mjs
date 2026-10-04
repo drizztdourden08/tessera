@@ -16,56 +16,39 @@ describe('subMenuJoin', () => {
   const full = { corner: 6, fillet: 3 };
   const square = { corner: 0, fillet: 0 };
 
-  it('lines the sub-menu up with the top of its parent when it reaches the row, and runs the tunnel up to that edge', () => {
-    const join = subMenuJoin(atRow(130, 160));
-    expect(join).toMatchObject({ side: 'right', align: 'top', top: 100, height: 100, left: 216, edgeOffset: 7, tunnelTop: 1, tunnelBottom: 60 });
-    expect(join).toMatchObject({ rowTop: 30, rowBottom: 60 });
-    expect(join.parentEnds).toEqual({ top: square, bottom: full });
-    expect(join.ownEnds).toEqual({ top: square, bottom: full });
-  });
-
-  it('lines it up with the bottom of its parent when the top does not reach the row', () => {
-    const join = subMenuJoin(atRow(340, 370));
-    expect(join).toMatchObject({ align: 'bottom', top: 300, height: 100, tunnelTop: 40, tunnelBottom: 99 });
-    expect(join.parentEnds).toEqual({ top: full, bottom: square });
-    expect(join.ownEnds).toEqual({ top: full, bottom: square });
-  });
-
-  it('stretches a sub-menu that falls short of the row by less than a bend to keep the edge straight', () => {
-    expect(subMenuJoin(atRow(300, 330))).toMatchObject({ align: 'bottom', top: 299, height: 101 });
-    expect(subMenuJoin(atRow(185, 205))).toMatchObject({ align: 'top', top: 100, height: 106 });
-  });
-
-  it('sets its top edge level with the row when neither parent end lines up, square on top and curved below', () => {
+  it('sets its top edge level with the open row, flat into the sub-menu on top and curved below', () => {
     const join = subMenuJoin(base);
-    expect(join).toMatchObject({ align: 'row-top', top: 230, height: 100, tunnelTop: 1, tunnelBottom: 30 });
-    expect(join.parentEnds).toEqual({ top: { corner: 6, fillet: 0 }, bottom: full });
+    expect(join).toMatchObject({ side: 'right', align: 'top', top: 230, height: 100, left: 216, edgeOffset: 7, tunnelTop: 1, tunnelBottom: 30 });
+    expect(join).toMatchObject({ rowTop: 0, rowBottom: 30 });
+    expect(join.parentEnds).toEqual({ top: full, bottom: full });
     expect(join.ownEnds).toEqual({ top: square, bottom: full });
   });
 
-  it('sets its bottom edge level with the row when the top of the row leaves no room below', () => {
-    const join = subMenuJoin({ ...atRow(130, 160), viewHeight: 200 });
-    expect(join).toMatchObject({ align: 'row-bottom', top: 60, height: 100, tunnelTop: 70, tunnelBottom: 99 });
-    expect(join.parentEnds).toEqual({ top: full, bottom: { corner: 6, fillet: 0 } });
+  it('keeps a gap to the parent at every row: it never lines up with the own edges of the parent menu', () => {
+    const first = subMenuJoin(atRow(105, 135));
+    expect(first).toMatchObject({ align: 'top', top: 105 });
+    expect(first.top).toBeGreaterThan(base.parent.top);
+  });
+
+  it('sets its bottom edge level with the open row when there is no room below', () => {
+    const join = subMenuJoin({ ...base, viewHeight: 300 });
+    expect(join).toMatchObject({ align: 'bottom', top: 160, height: 100, tunnelTop: 70, tunnelBottom: 99 });
+    expect(join.parentEnds).toEqual({ top: full, bottom: full });
     expect(join.ownEnds).toEqual({ top: full, bottom: square });
   });
 
-  it('sits on the row, curved on both sides, only when nothing lines up', () => {
+  it('sits on the row, curved on both sides, only when neither fits', () => {
     const join = subMenuJoin({ ...base, height: 260, viewHeight: 340 });
     expect(join).toMatchObject({ align: 'middle', top: 72, tunnelTop: 158, tunnelBottom: 188 });
     expect(join.parentEnds).toEqual({ top: full, bottom: full });
     expect(join.ownEnds).toEqual({ top: full, bottom: full });
   });
 
-  it('runs the tunnel straight along the parent edge when the row is the first or last row of its parent', () => {
-    const first = subMenuJoin({ ...base, parent: { ...base.parent, top: 225 }, height: 260, viewHeight: 340 });
-    expect(first).toMatchObject({ align: 'middle', top: 72, tunnelTop: 154, tunnelBottom: 188 });
-    expect(first.parentEnds.top).toEqual(square);
-    expect(first.ownEnds.top).toEqual(full);
-    const last = subMenuJoin({ ...atRow(130, 160), parent: { ...base.parent, bottom: 165 }, height: 200 });
-    expect(last).toMatchObject({ align: 'top', top: 100, tunnelBottom: 64 });
-    expect(last.parentEnds.bottom).toEqual(square);
-    expect(last.ownEnds.bottom).toEqual(full);
+  it('shares the room between the parent corner and its fillet when the row is the first row of the parent', () => {
+    const near = subMenuJoin({ ...base, parent: { ...base.parent, top: 225 } });
+    expect(near.parentEnds.top.corner).toBeCloseTo(10 / 3);
+    expect(near.parentEnds.top.fillet).toBeCloseTo(5 / 3);
+    expect(subMenuJoin({ ...base, parent: { ...base.parent, top: 229.6 } }).parentEnds.top).toEqual(square);
   });
 
   it('opens on the left without room on the right', () => {
@@ -77,12 +60,12 @@ describe('subMenuJoin', () => {
 describe('joinPieces', () => {
   const piece = (pieces, key) => pieces.find((one) => one.key === key);
 
-  it('runs the edge straight over both borders on a flush side and keeps the fillets on the other', () => {
+  it('runs the flat edge straight into the border of the sub-menu and keeps the curve of the parent', () => {
     const pieces = joinPieces(subMenuJoin(atRow(130, 160)));
-    expect(piece(pieces, 'edge-top').style).toEqual({ left: '-8px', width: '10px', top: '0px', height: '1px' });
-    expect(piece(pieces, 'edge-bottom').style).toMatchObject({ left: '-6px', width: '6px', top: '60px' });
-    expect(pieces.map((one) => one.key).filter((key) => key.includes('-top') && !key.startsWith('edge'))).toEqual(['halo-top']);
-    expect(piece(pieces, 'body').style).toMatchObject({ top: '0px', height: '61px', '--tunnel-lit-top': '30px', '--tunnel-lit-height': '30px' });
+    expect(piece(pieces, 'edge-top').style).toEqual({ left: '-6px', width: '8px', top: '0px', height: '1px' });
+    expect(piece(pieces, 'edge-bottom').style).toMatchObject({ left: '-6px', width: '6px', top: '30px' });
+    expect(pieces.map((one) => one.key).filter((key) => key.endsWith('-top') && !key.startsWith('edge'))).toEqual(['halo-top', 'parent-top']);
+    expect(piece(pieces, 'body').style).toMatchObject({ top: '0px', height: '31px', '--tunnel-lit-top': '0px', '--tunnel-lit-height': '30px' });
   });
 });
 

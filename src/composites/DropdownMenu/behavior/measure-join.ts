@@ -3,6 +3,7 @@ import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { cssZoomOf } from '../../../primitives/dom/css-zoom-of';
 import { MENU_ITEM_SELECTOR, MENU_SELECTOR } from './menu-items-of.constants';
 import { subMenuJoin } from './sub-menu-join';
+import { usedLine } from './used-line';
 import type { JoinCorners, JoinRect, SubMenuJoin } from './sub-menu-join.type';
 
 const pixels = (text: string): number => Number.parseFloat(text) || 0;
@@ -33,7 +34,7 @@ const measureJoin = (row: HTMLElement, parent: HTMLElement, panel: HTMLElement):
     width: box.width / zoom,
     height: box.height / zoom + hidden,
     lead: first ? (first.top - box.top) / zoom : 0,
-    line: pixels(style.borderTopWidth),
+    line: usedLine(panel, pixels(style.getPropertyValue('--menu-line')), zoom),
     ring: pixels(style.getPropertyValue('--menu-ring')),
     radius: pixels(style.borderBottomRightRadius),
     gap: pixels(style.getPropertyValue('--menu-gap')),

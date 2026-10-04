@@ -14,9 +14,9 @@ const MOVE: MenuItem = { id: 'move', icon: 'folder-open', label: 'Move to', chil
 const plain = (ids: readonly string[]): MenuItem[] => ids.map((id) => leaf(id, id[0]?.toUpperCase() + id.slice(1)));
 
 const JOIN_MENUS: Readonly<Record<string, MenuGroup[]>> = {
-  'From the top': [{ id: 'top', items: [RECENT, ...plain(['open', 'rename', 'duplicate'])] }],
-  'From the bottom': [{ id: 'bottom', items: [...plain(['open', 'rename', 'duplicate', 'pin']), SHARE] }],
-  'Level with the row': [{ id: 'row', items: [...plain(['open', 'rename', 'duplicate']), MOVE, ...plain(['pin', 'export', 'delete'])] }],
+  'At the first row': [{ id: 'first', items: [RECENT, ...plain(['open', 'rename', 'duplicate'])] }],
+  'At the last row': [{ id: 'last', items: [...plain(['open', 'rename', 'duplicate', 'pin']), SHARE] }],
+  'At a middle row': [{ id: 'middle', items: [...plain(['open', 'rename', 'duplicate']), MOVE, ...plain(['pin', 'export', 'delete'])] }],
 };
 
 interface ViewMenuState {

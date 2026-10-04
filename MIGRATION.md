@@ -2823,3 +2823,13 @@ Every path is built in a memo from the samples, an update changes attributes on 
 ### What an app does
 
 Nothing; the parts are new. An app that drew its own sparklines, gauges or split bars can swap them for these. Brock builds its Performance widget from them; the gallery page of StatTile shows one, fed with made up readings every second.
+
+## 109. Every sub-menu joins its parent the same way, at the open row
+
+A DropdownMenu sub-menu no longer lines up with its parent menu's own top or bottom edge. That rule from sections 102 and 104 let the tunnel fill the whole gap, so a sub-menu as tall as its parent merged into one wide panel, and deeper levels drew long shared edges and stray pieces. Every level now follows one rule: the sub-menu's top sits level with the open row's top when it fits below, else its bottom sits level with the open row's bottom, else it sits on the row as before. The panels stay apart by the gap, and the tunnel joins them only at the open row: flat into the sub-menu on the side that lines up, with the parent's curve kept, and curved on the other side.
+
+`data-join-align` takes `top`, `bottom` or `middle`, where `top` and `bottom` now mean level with the open row; `row-top` and `row-bottom` are gone. The gallery's Where a sub-menu opens example shows a sub-menu at the first, the last and a middle row.
+
+### What an app does
+
+Nothing. A style that targeted `[data-join-align='row-top']` or `[data-join-align='row-bottom']` targets `top` or `bottom`.
