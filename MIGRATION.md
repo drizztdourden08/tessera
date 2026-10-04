@@ -4223,3 +4223,40 @@ interface CommandInputProps extends Omit<TextInputProps, 'value' | 'defaultValue
 
 1. Archipelia: the ConsoleWidget replaces its `TextInput`, Enter handler and Send button with `CommandInput`, passes the Save and Players buttons as `actions` and its sent list as `history`, and shows the replies above it in a `LogPanel`; the commands and the reply matching stay in the widget.
 2. A Brock or rotp debug console can use `storageKey` and let the input keep its own history.
+
+## 160. ItemCard: one card for every catalogue
+
+`ItemCard` is a new composite, under Composites · Content (Archipelia review T-21, tessera-12). Archipelia's GameCard built a store card by hand from Card, Flex, Status, Tag, Text and a ButtonRow, with no picture and no link, and the DataOverview cards and StatCard did the same again; every catalogue in the family needs this card.
+
+- **Layout.** `layout: 'top'` puts the `media` in a band 96 px tall above the body, for a grid of cards; `'left'` puts it in a column 96 px wide, for a list or an overview. The media sits on a gradient from the `mediaTone` (`neutral`, `primary`, `info`, `success`, `warning` or `danger`) to the sunken surface, and is hidden from screen readers.
+- **Body.** `eyebrow` (a small line such as Official) and `status` (a Status with a dot) share the top line; the title is a heading, `level` 3 by default, in the body face; `tags` wrap under it; `details` join with dots and stop at three lines.
+- **Actions.** `actions` are the `ActionItem`s of `ActionBar`, drawn small with one action in view, the primary last and the rest under More; danger actions ask first.
+- **Open.** `onOpen` makes the title a button and `href` a link (`onOpen` then runs on its click). Its hit area covers the whole card, under the tags and the actions, and the focus ring circles the card. `selected` draws the primary border and sets `aria-current` on the title.
+- The card is a `Card` with no padding; the Card header row does not fit this layout, so ItemCard draws its own.
+
+```ts
+type ItemCardLayout = 'top' | 'left';
+type ItemCardMediaTone = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
+interface ItemCardStatus { label: string; tone: StatusTone }
+interface ItemCardProps {
+  title: ReactNode;
+  eyebrow?: ReactNode;
+  status?: ItemCardStatus;
+  tags?: readonly ReactNode[];
+  details?: readonly ReactNode[];
+  media?: ReactNode;
+  mediaTone?: ItemCardMediaTone; // default 'primary'
+  layout?: ItemCardLayout; // default 'top'
+  href?: string;
+  actions?: readonly ActionItem[];
+  selected?: boolean;
+  onOpen?: () => void;
+  level?: HeadingLevel; // default 3
+  className?: string;
+}
+```
+
+### What an app does
+
+1. Archipelia: GameCard becomes an ItemCard with the source as `eyebrow`, the install state as `status`, the genre and platform as `tags`, the versions as `details` and Install, Update, Make a preset and Remove as `actions`; DataOverview takes `layout: 'left'`.
+2. rotp: the mod and save cards can use the same card.

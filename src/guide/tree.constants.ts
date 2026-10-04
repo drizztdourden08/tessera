@@ -154,6 +154,7 @@ const DATA = {
     'rows and columns to sort and filter': null, 'filters over a collection': null,
     'a list the user adds to, renames and deletes from': null,
     'one record, compact and read only': null, 'a row in a list, with its actions': null, 'a stream of log lines': null,
+    'items of a catalogue, as cards': null,
     'files, with their size, date, open and reveal': null,
     'a drawing': { question: 'How is it drawn?', answers: { 'in pixels': null, 'in shapes': null } },
     'a chart': {

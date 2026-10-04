@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 27 of 164 have their usage written; a linked name opens its page.
+One line per component. 28 of 165 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -119,6 +119,7 @@ One line per component. 27 of 164 have their usage written; a linked name opens 
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [InfoScreen](components/InfoScreen.md): A screen to read, such as About or credits: the window title bar with the close button, then wide margins and one centred column that scrolls. Import from `@drizztdourden08/tessera`.
 - `InlineCreateForm`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ItemCard](components/ItemCard.md): One item of a catalogue as a card: media, a small line above the title, a status, the title, tags, details and its actions. Import from `@drizztdourden08/tessera`.
 - [JobDialog](components/JobDialog.md): A long job in a dialog: its TaskProgress, with Cancel and Hide while it runs and Close once it ends. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.

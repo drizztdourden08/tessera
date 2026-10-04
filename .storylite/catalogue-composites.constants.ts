@@ -126,6 +126,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'PixelWordmark', summary: 'A wordmark set in the pixel alphabet from a text and four colours.' },
         { name: 'TaskProgress', summary: 'One long job: a bar, the current line, its steps, the error and a folded log.' },
         { name: 'CheckList', summary: 'The results of a list of checks: pass, advice, failure, checking or skipped, with counts on top.' },
+        { name: 'ItemCard', summary: 'One item of a catalogue as a card: media, eyebrow, status, title, tags, details and actions.' },
       ],
     },
     {

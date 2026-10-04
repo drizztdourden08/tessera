@@ -97,6 +97,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     PixelWordmark: 'type-outline',
     TaskProgress: 'list-todo',
     CheckList: 'clipboard-check',
+    ItemCard: 'square-library',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x' },

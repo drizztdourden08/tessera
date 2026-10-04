@@ -135,6 +135,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - One record, compact and read only: no component yet.
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: no component yet.
+  - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
   - A drawing. **How is it drawn?**
     - In pixels: no component yet.
