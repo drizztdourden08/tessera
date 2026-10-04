@@ -10,7 +10,7 @@ const floatInMain = (layout: WidgetLayout, id: WidgetId, main: Rect, definition?
   const wanted = { x: main.x + GAP, y: main.y + GAP, ...(definition?.defaultFloatingSize ?? FALLBACK_FLOAT_SIZE) };
   const others = layout.floating.filter((f) => f.id !== id).map((f) => floatingRect(f, main));
   const placed = placeFloating(main, others, wanted);
-  return placed ? floatWidget(layout, id, placed, main) : dockOnEdge(layout, id, definition?.defaultSide ?? 'right');
+  return placed ? floatWidget(layout, id, placed, main) : dockOnEdge(layout, id, definition?.defaultSide ?? 'right', { size: definition?.defaultDockedSize });
 };
 
 export { floatInMain };

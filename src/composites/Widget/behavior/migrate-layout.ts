@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind logic */
 import { EDGES, MAIN_NODE, createPane, toFloating, wrapBeside } from '../../DockLayout';
 import type { DockEdge, LayoutNode, PaneNode } from '../../DockLayout';
-import { MIGRATE_SHARE } from '../Widget.constants';
 import type { WidgetFrame, WidgetLayout } from '../Widget.type';
 import { createDefaultLayout } from './create-default-layout';
+import { dockedShare } from './docked-share';
 import type { FlatWidgetLayout, FlatWidgetState } from './widget-layout.type';
 
 const isRecord = (raw: unknown): raw is Record<string, unknown> => typeof raw === 'object' && raw !== null;
@@ -28,12 +28,6 @@ const windowRect = () => ({
   height: typeof window === 'undefined' ? 0 : window.innerHeight,
 });
 
-const outerShare = (side: DockEdge, dockedSize: number): number => {
-  const along = side === 'left' || side === 'right' ? windowRect().width : windowRect().height;
-  if (!(along > 0) || !(dockedSize > 0)) return MIGRATE_SHARE.outer;
-  return Math.min(MIGRATE_SHARE.max, Math.max(MIGRATE_SHARE.min, dockedSize / along));
-};
-
 const stackOf = (panes: PaneNode[], side: DockEdge): LayoutNode => {
   if (panes.length === 1 && panes[0]) return panes[0];
   const axis = side === 'left' || side === 'right' ? 'column' : 'row';
@@ -45,7 +39,7 @@ const dockSide = (dock: LayoutNode, visible: FlatWidgetState[], side: DockEdge):
   if (docked.length === 0) return dock;
   const panes = docked.map((w) => createPane([w.id], w.exclusive));
   const widest = Math.max(...docked.map((w) => w.dockedSize));
-  return wrapBeside(dock, side, stackOf(panes, side), outerShare(side, widest));
+  return wrapBeside(dock, side, stackOf(panes, side), dockedShare(side, widest));
 };
 
 const fromFlat = (flat: FlatWidgetLayout): WidgetLayout => {

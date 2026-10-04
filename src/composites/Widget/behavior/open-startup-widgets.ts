@@ -6,7 +6,7 @@ import { getWidgetDefinition } from './get-widget-definition';
 const openStartupWidgets = (layout: WidgetLayout, ids: readonly string[], definitions: readonly WidgetDefinition[]): WidgetLayout =>
   ids.reduce((acc, id) => {
     const def = getWidgetDefinition(definitions, id);
-    return def ? dockOnEdge(acc, id, def.defaultSide, true) : acc;
+    return def ? dockOnEdge(acc, id, def.defaultSide, { size: def.defaultDockedSize }) : acc;
   }, layout);
 
 export { openStartupWidgets };

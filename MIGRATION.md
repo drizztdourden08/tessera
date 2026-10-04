@@ -2930,8 +2930,22 @@ The shared listbox drop under Select, Combobox and the DropdownMenu trigger take
 
 `WidgetManager` keeps `settingsContent`, now rows inside the gear menu.
 
+**Opening a widget on an edge** (review archipelia-28). A widget opened on its `defaultSide`, through `openWidget`, `useWidgetLayout().open` or `toggle`, `openStartupWidgets` or the dock fallback of `floatInMain`, now takes `defaultDockedSize` as its share of the window, kept between 12 and 45 percent, where it always took 22 percent. When that edge already holds a pane, the widget joins it as a split along the edge, and the stack shares its length evenly, where before every widget added another 22 percent pane further out. `dockOnEdge` takes the size in its fourth argument, which still takes the plain `makeRoom` boolean too:
+
+```ts
+interface DockPlace {
+  makeRoom?: boolean;
+  size?: number;
+}
+
+dockOnEdge(layout: WidgetLayout, id: WidgetId, edge: DockEdge, place?: boolean | DockPlace): WidgetLayout;
+```
+
+A drop on the outer strip of the dock still opens a new pane there; a drop on a pane still joins it as a tab or a split.
+
 ### What an app does
 
 1. Pass the options of a widget as `options={<WidgetOptions … />}` on `Widget` in place of `onOpenOptions` and `optionsOpen`, and drop `anchorRef` and `onClose` from `WidgetOptions`. An app on `WidgetManager` changes nothing.
 2. Rename `OptionRow` to `ControlMenuRow`.
-3. Reach for `ControlMenu` wherever a button opens a few settings that need more than menu items.
+3. An app that docked a widget on an edge it already uses and wanted a second pane further out drops it on the outer strip of the dock; opening it now joins the pane on that edge.
+4. Reach for `ControlMenu` wherever a button opens a few settings that need more than menu items.

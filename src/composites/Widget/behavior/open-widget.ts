@@ -6,7 +6,7 @@ import { isWidgetOpen } from './is-widget-open';
 
 const openWidget = (layout: WidgetLayout, id: string, definitions: readonly WidgetDefinition[]): WidgetLayout => {
   const def = getWidgetDefinition(definitions, id);
-  return def && !isWidgetOpen(layout, id) ? dockOnEdge(layout, id, def.defaultSide) : layout;
+  return def && !isWidgetOpen(layout, id) ? dockOnEdge(layout, id, def.defaultSide, { size: def.defaultDockedSize }) : layout;
 };
 
 export { openWidget };

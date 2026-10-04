@@ -38,4 +38,9 @@ interface FlatWidgetLayout {
   widgets: FlatWidgetState[];
 }
 
-export type { FlatWidgetLayout, FlatWidgetState, ResolvedSplit, SplitEdit, WidgetGates };
+interface DockPlace {
+  makeRoom?: boolean;
+  size?: number;
+}
+
+export type { DockPlace, FlatWidgetLayout, FlatWidgetState, ResolvedSplit, SplitEdit, WidgetGates };
