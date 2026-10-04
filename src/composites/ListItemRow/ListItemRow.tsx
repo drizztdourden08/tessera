@@ -1,26 +1,23 @@
 /* @layer renderer-components @kind component */
 import { useContext } from 'react';
-import type { KeyboardEvent } from 'react';
+import type { MouseEvent } from 'react';
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
 import { ListItemContext } from './behavior/list-item-context';
+import { rowActivate } from './behavior/row-activate';
 import { rowFrame } from './behavior/row-frame';
 import { ListItemBody } from './sub-components/ListItemBody';
 import './ListItemRow.css';
 import type { ListItemRowProps } from './ListItemRow.type';
 
 const ListItemRow = (props: ListItemRowProps) => {
-  const { name, meta, icon, columns, action, actionVisibility = 'hover', selected = false, onClick, onDoubleClick } = props;
+  const { name, meta, icon, columns, action, actionVisibility = 'always', selected = false, onClick, onDoubleClick } = props;
   const inList = useContext(ListItemContext);
   const interactive = onClick !== undefined || onDoubleClick !== undefined;
   const frame = rowFrame(props, inList, interactive);
   const body = <ListItemBody name={name} meta={meta} icon={icon} columns={columns} />;
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key !== 'Enter' || !onDoubleClick) return;
-    event.preventDefault();
-    onDoubleClick();
-  };
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => rowActivate({ onClick, onDoubleClick }, event.detail);
 
   return (
     <Box className={frame.className} role={frame.role} style={frame.style}>
@@ -28,9 +25,8 @@ const ListItemRow = (props: ListItemRowProps) => {
         <Pressable
           className="list-item-row__main"
           aria-pressed={selected}
-          onClick={onClick}
+          onClick={handleClick}
           onDoubleClick={onDoubleClick}
-          onKeyDown={handleKeyDown}
         >
           {body}
         </Pressable>

@@ -116,3 +116,9 @@
 .list-item-row:focus-within .list-item-row__action {
   opacity: 1;
 }
+
+@media (hover: none) {
+  .list-item-row__action {
+    opacity: 1;
+  }
+}

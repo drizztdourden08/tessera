@@ -33,7 +33,6 @@ const RowsDemo = (props: ConfirmArgs) => {
           key={session.id}
           name={session.name}
           meta={`${session.players} players, ${session.server}`}
-          actionVisibility="always"
           action={(
             <ConfirmIconButton
               {...props}

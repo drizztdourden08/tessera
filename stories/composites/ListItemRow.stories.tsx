@@ -23,6 +23,7 @@ type RowArgs = {
   withIcon: boolean;
   selected: boolean;
   withAction: boolean;
+  actionVisibility: 'always' | 'hover';
 };
 
 const sessionIcon = <Icon name={NAV_ICONS.sessions} />;
@@ -58,7 +59,7 @@ const SessionList = ({ selectable }: { selectable: boolean }) => {
   );
 };
 
-const ARGS: Partial<RowArgs> = { name: 'Friday async', meta: '8 players, eu-west-2', columns: 2, twoLines: true, withIcon: true, selected: false, withAction: true };
+const ARGS: Partial<RowArgs> = { name: 'Friday async', meta: '8 players, eu-west-2', columns: 2, twoLines: true, withIcon: true, selected: false, withAction: true, actionVisibility: 'always' };
 
 const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
     name: { group: 'Content', control: 'text', description: 'First line of the main column' },
@@ -67,6 +68,7 @@ const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
     withAction: { group: 'Content', control: 'boolean' },
     columns: { group: 'Layout', control: 'select', options: [0, 1, 2, 3], description: 'Columns after the main one.' },
     twoLines: { group: 'Layout', control: 'boolean', description: 'Give each extra column a second line' },
+    actionVisibility: { group: 'Behaviour', control: 'select', options: ['always', 'hover'], description: 'hover hides the action until hover or focus' },
     selected: { group: 'State', control: 'boolean' },
   };
 
@@ -89,6 +91,7 @@ const Playground = {
         selected={args.selected}
         onClick={() => undefined}
         action={args.withAction ? <Button size="sm" variant="secondary">Join</Button> : undefined}
+        actionVisibility={args.actionVisibility}
       />
     </Box>
   ),
@@ -115,7 +118,6 @@ const AllVariants = {
           icon={form === 'name only' ? undefined : sessionIcon}
           columns={formColumns(form)}
           action={form === 'with action' ? <Button size="sm" variant="secondary">Join</Button> : undefined}
-          actionVisibility="always"
         />
       )}
     />
@@ -170,8 +172,8 @@ const Overview = overviewStory({
     'Each of the `columns` takes a `primary` line, an optional `secondary` line and an `align`.',
     'Put rows in a `ListItemList` and their columns line up, each as wide as its widest cell.',
     '`heading` and `count` title the list in the overline look and name it for screen readers.',
-    '`selected`, `onClick` and `onDoubleClick` cover picking a row and opening it.',
-    'The `action` shows on hover; `actionVisibility="always"` keeps it on.',
+    '`onClick` picks a row on a click, [[Enter]] or [[Space]]; `onDoubleClick` opens it.',
+    'The `action` always shows; `actionVisibility="hover"` waits for hover or focus, except on touch.',
     'Every line takes any content, such as a [Status].',
   ],
   instead: '[DataTable] for many rows the user sorts and filters by column.',

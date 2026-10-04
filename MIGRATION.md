@@ -3247,3 +3247,21 @@ The widget title bar no longer carries a native `title` tooltip with the whole d
 
 1. An app that overrides `titlebarHint`, `outHint` or `shortcutPlusDrop` drops them.
 2. An app that lists its own shortcuts in a grid of `Shortcut` and text uses `ShortcutList` instead.
+
+## 122. ListItemRow shows its action, and Enter and Space both run onClick
+
+From the UX review (ux-58). Row actions stayed hidden until hover, so touch screens never showed them, and Enter ran `onDoubleClick` while Space ran `onClick`.
+
+- **`actionVisibility` defaults to `"always"`.** `"hover"` stays as an opt-in: it shows the action on hover and while focus is in the row, and on a screen without hover, such as a touch screen, it shows it at all times.
+- **Enter and Space both run `onClick`**, as for a click on the native button. Enter no longer runs `onDoubleClick`. A row with `onDoubleClick` and no `onClick` runs `onDoubleClick` from Enter or Space, so it can still be opened from the keyboard; a single click on it does nothing, as before.
+
+```ts
+interface ListItemRowProps {
+  actionVisibility?: ListItemRowActionVisibility; // default now 'always', was 'hover'
+}
+```
+
+### What an app does
+
+1. Drop `actionVisibility="always"`, now the default. Pass `actionVisibility="hover"` where a list should stay quiet until hover.
+2. A row that opened on Enter through `onDoubleClick` and selects on `onClick`: give the open action a button in `action`, or open on `onClick` where selecting is not needed.
