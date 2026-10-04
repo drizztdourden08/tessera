@@ -506,7 +506,14 @@
         "utility-screen__title": "screen-page__title",
         "utility-screen__mark": "screen-page__icon",
         "stage-screen__bar": "removed; the toolbar and Done sit in the page header, screen-page__head (see MIGRATION.md section 80)",
-        "info-screen__scroll": "screen-page__body"
+        "info-screen__scroll": "screen-page__body",
+        "dropdown__join": "dropdown__tunnel",
+        "dropdown__join-strip": "dropdown__tunnel-body (the tunnel bridges the gap at the open row; see MIGRATION.md section 82)",
+        "dropdown__join-fillet": "dropdown__tunnel-fillet",
+        "dropdown__join-fillet--top-inside": "dropdown__tunnel-fillet--own-top",
+        "dropdown__join-fillet--top-outside": "dropdown__tunnel-fillet--parent-top",
+        "dropdown__join-fillet--bottom-inside": "dropdown__tunnel-fillet--own-bottom",
+        "dropdown__join-fillet--bottom-outside": "dropdown__tunnel-fillet--parent-bottom"
       },
       "props": {
         "WorkspaceScreen.pageHeader": "removed; every page shows the page header, so give every WorkspacePage an icon. A screen without the header is a custom screen built from ScreenWindow (see MIGRATION.md section 80)",

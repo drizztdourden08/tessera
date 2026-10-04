@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Anchored } from '../../../primitives/Anchored';
 import { joinStyle } from '../behavior/join-style';
 import { menuColumns } from '../behavior/menu-columns';
+import { useSafeArea } from '../behavior/useSafeArea';
 import { useSubMenuJoin } from '../behavior/useSubMenuJoin';
 import { MenuNodes } from './MenuNodes';
 import { MenuPanel } from './MenuPanel';
@@ -13,7 +14,10 @@ import './SubMenuPanel.css';
 const SubMenuPanel = (props: SubMenuPanelProps) => {
   const { id, anchorRef, label, start, nodes, onBack } = props;
   const panelRef = useRef<HTMLDivElement>(null);
+  const areaRef = useRef<HTMLElement>(null);
+  const bodyRef = useRef<HTMLElement>(null);
   const { join, native } = useSubMenuJoin(anchorRef, panelRef);
+  useSafeArea({ rowRef: anchorRef, panelRef, areaRef, bodyRef, join });
 
   return (
     <Anchored
@@ -27,7 +31,7 @@ const SubMenuPanel = (props: SubMenuPanelProps) => {
       data-join-side={join?.side}
       style={join ? joinStyle(join, native) : undefined}
     >
-      {join && <SubMenuJoinPieces join={join} />}
+      <SubMenuJoinPieces join={join} areaRef={areaRef} bodyRef={bodyRef} />
       <MenuPanel id={id} label={label} start={start} columns={menuColumns(nodes)} onBack={onBack}>
         <MenuNodes nodes={nodes} />
       </MenuPanel>

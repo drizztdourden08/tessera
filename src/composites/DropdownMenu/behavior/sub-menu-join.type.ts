@@ -6,19 +6,36 @@ interface JoinRect {
   right: number;
 }
 
-type JoinEnd = 'inside' | 'outside' | 'flush';
-
 type JoinSide = 'right' | 'left';
+
+interface JoinCorners {
+  topLeft: number;
+  topRight: number;
+  bottomLeft: number;
+  bottomRight: number;
+}
+
+interface JoinBend {
+  corner: number;
+  fillet: number;
+}
+
+interface JoinEnds {
+  top: JoinBend;
+  bottom: JoinBend;
+}
 
 interface SubMenuJoinInput {
   row: JoinRect;
   parent: JoinRect;
+  parentCorners: JoinCorners;
   width: number;
   height: number;
   lead: number;
   line: number;
   ring: number;
   radius: number;
+  gap: number;
   viewWidth: number;
   viewHeight: number;
 }
@@ -31,13 +48,13 @@ interface SubMenuJoin {
   height: number;
   rowOffset: number;
   edgeOffset: number;
-  topEnd: JoinEnd;
-  bottomEnd: JoinEnd;
-  parentTop: number;
-  parentBottom: number;
+  gap: number;
+  tunnelTop: number;
+  tunnelBottom: number;
+  parentEnds: JoinEnds;
+  ownEnds: JoinEnds;
   line: number;
   ring: number;
-  radius: number;
 }
 
-export type { JoinEnd, JoinSide, SubMenuJoin, SubMenuJoinInput };
+export type { JoinBend, JoinCorners, JoinEnds, JoinSide, SubMenuJoin, SubMenuJoinInput };

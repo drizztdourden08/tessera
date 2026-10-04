@@ -4,6 +4,7 @@
   --menu-ring: var(--border-width-thick);
   --menu-radius: var(--radius-md);
   --menu-soft: var(--size-1);
+  --menu-gap: var(--radius-md);
 }
 
 .dropdown-look--primary {

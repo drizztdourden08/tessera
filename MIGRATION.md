@@ -2144,6 +2144,20 @@ Renamed classes: `settings-page__head`, `__backdrop`, `__icon`, `__title`, `__ac
 - Pass `icon` and `heading` to each InfoScreen and StageScreen.
 - Build the update check as a UtilityScreen: the state as `status.title` (Checking for updates, Update available, Up to date), the version line as `status.message`, the pre-release toggle and version picker in `settings`, the release notes in `notes`, and `report={{ onClick: openBugReport }}` in place of the BugReportButton footnote.
 
+## 82. A sub-menu sits a small gap from its parent and joins it by a tunnel at the open row
+
+A DropdownMenu sub-menu no longer lays its edge over the parent's border. It opens `--menu-gap` away from the parent, the corner radius by default, and a tunnel as tall as the open row bridges the gap. The tunnel's top and bottom edges curve into both menus with fillets half the gap wide, drawn like the trigger join, and the open row's highlight runs through it and fades into the sub-menu. Everywhere else both menus keep their full border, halo and rounded corners.
+
+When the row sits near an end of a menu, that menu's corner and the fillet beside it share the room along the edge: the parent's first or last row, or a sub-menu whose first item lines up with the row, gets a smaller corner and a smaller fillet. With no room at all the corner goes square and the tunnel's edge runs straight into the menu's. The tunnel stays on the row when the sub-menu opens on the left, when it moves up to stay on screen, and at every level of nesting. A row whose sub-menu opens on the left shows its accent bar on its right edge, away from the tunnel.
+
+The sub-menu's drop shadow no longer falls on the parent. Moving the pointer from the row toward the sub-menu keeps it open: a safe area covers the triangle from the pointer to the sub-menu's near edge, so the rows in between neither highlight nor open their own sub-menus. Stopping over another row for 400 ms hands over to that row. The row itself still takes clicks.
+
+`.dropdown-look` sets the new `--menu-gap`. The class `dropdown__join` becomes `dropdown__tunnel`, and the tunnel draws with `dropdown__tunnel-body`, `dropdown__tunnel-halo`, `dropdown__tunnel-shadow` and `dropdown__tunnel-fillet` with `--parent-top`, `--own-top`, `--parent-bottom` and `--own-bottom`. `dropdown__join-strip` and `dropdown__join-fillet` with its `--top-inside`, `--top-outside`, `--bottom-inside` and `--bottom-outside` modifiers are gone; `RENAMES.json` maps them.
+
+### What an app does
+
+Nothing. A style that targeted a `dropdown__join` class targets the matching `dropdown__tunnel` class.
+
 ## 83. Escape closes the innermost popup first
 
 A popup opened inside another popup now takes Escape first and keeps it. In WidgetOptions, Escape on an open Window group select closes only the select, and a second Escape closes the panel. Before, one Escape closed both.
