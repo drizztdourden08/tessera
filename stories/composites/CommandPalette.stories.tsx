@@ -146,7 +146,14 @@ const [query, setQuery] = useState('');
 
 const Overview = overviewStory({
   component: 'CommandPalette',
-  description: 'A search box that drops from the top of the window over a dim scrim, for jumping to any screen, setting or action by name. It grows out of a pill at the top edge and shrinks back when it closes. The host owns the query and the results, as groups with an optional heading; each row is a CommandPaletteRow with an icon, a description, a breadcrumb, a check dot or an inline toggle. Arrow keys and Page Up and Down move the active row past disabled ones, Enter picks it, Ctrl+Enter flips a toggle row, and Escape or a click on the scrim closes. The field is a combobox that points at the active option of its listbox, and focus comes back to where it was on close. mascot adds a small mascot at the start of the field that looks around while the field is empty and asks what the user is looking for; auto picks the mascot of the app palette, and a name picks that one.',
+  description: 'A search box that drops from the top of the window, for jumping to any screen, setting or action by name.',
+  points: [
+    'The host owns `query` and the results, passed as `groups` of [CommandPaletteRow] items.',
+    'The arrow keys move the active row, [[Enter]] picks it and [[Ctrl+Enter]] flips a toggle row.',
+    '[[Esc]] or a click on the scrim closes it, and focus goes back where it was.',
+    '`mascot` adds a small mascot to the field; `auto` picks the one of the app palette.',
+  ],
+  instead: '[DropdownMenu] for a short list of actions on one button.',
   playground: Playground,
   variants: [Idle, Results, WithMascot, Closed],
   states: {

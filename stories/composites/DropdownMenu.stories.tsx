@@ -154,24 +154,18 @@ const groups: MenuGroup[] = [
 <DropdownMenu trigger={{ label: 'Menu', iconOnly: true }} groups={groups} />
 <DropdownMenu trigger={{ label: 'View', icon: 'chevron-down', iconSide: 'end' }} variant="secondary" intensity="medium" filter groups={groups} />`;
 
-const DESCRIPTION = [
-  'A menu built from data that hangs from its own trigger.',
-  'trigger draws the button: iconOnly gives an IconButton, the hamburger unless icon names another, and otherwise a Button with the label and an icon on either side.',
-  'The button takes the variant of the menu, and the open menu joins it: the coloured edge runs on around the menu, with a rounded notch where the button meets it, at every size.',
-  'intensity sets how strong that edge is: strong adds the halo, medium keeps the coloured edge, subtle uses the plain border.',
-  'groups lists the groups, each with an optional label, with a line between groups.',
-  'An item has an id, a label, an icon, a subtitle, a shortcut, a disabled state and onSelect. Labels line up whether or not an item has an icon, and every shortcut sits in one column at the right edge.',
-  'kind="radio" or checked turns an item into a radio or a check.',
-  'children opens a sub-menu that joins the edge of the menu it comes from.',
-  'filter adds a search field that searches every level and lists the results in the same menu, with the path of each one.',
-  'A click outside, Escape, or scrolling the trigger out of view closes it.',
-  'The arrows, Home, End and typing the start of a label move through it; the right arrow opens a sub-menu and the left arrow closes it.',
-  'anchorRef hangs the menu from something that is not a button, such as a table header, and inline draws it in place.',
-].join(' ');
-
 const Overview = overviewStory({
   component: 'DropdownMenu',
-  description: DESCRIPTION,
+  description: 'A menu of actions, checks and sub-menus, built from data, that hangs from its own button.',
+  points: [
+    '`groups` lists the items; each has a `label` and can add an `icon`, a `shortcut` and `onSelect`.',
+    '`trigger` draws the button: a [Button] with its label, or an [IconButton] with `iconOnly`.',
+    '`kind="radio"` or `checked` turns an item into a choice, and `children` opens a sub-menu.',
+    '`filter` adds a search field that finds items on every level.',
+    'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
+    '`anchorRef` hangs it from something that is not a button, such as a table header.',
+  ],
+  instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
   variants: [Variants, Triggers, Inside, Commands, SubMenus],
   states: {

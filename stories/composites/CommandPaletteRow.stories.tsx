@@ -97,7 +97,13 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'CommandPaletteRow',
-  description: 'One result in a CommandPalette: an icon, the label with an optional description under it, then a breadcrumb that says where the result lives, and at the end a check dot or an inline toggle. The toggle flips in place without picking the row. The palette draws these for you; use the row on its own for a list of search hits that should look the same.',
+  description: 'One result in a [CommandPalette]: an icon, a label, a breadcrumb that says where it lives, and a check or a toggle.',
+  points: [
+    'Give it an `item` with its `icon`, `label`, `description`, `breadcrumb`, and `checked` or `toggle`.',
+    'The palette draws these for you; use the row alone for search hits that should look the same.',
+    '`active` lights the row the keys point at.',
+    'A `toggle` flips in place without picking the row.',
+  ],
   playground: Playground,
   variants: [Plain, WithCheck, WithToggle],
   states: {
