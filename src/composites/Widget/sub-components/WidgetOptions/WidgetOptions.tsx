@@ -11,11 +11,11 @@ import './WidgetOptions.css';
 
 const WidgetOptions = (props: WidgetOptionsProps) => {
   const { title, onReset, defaultOpen, children } = props;
-  const { common, widgets } = useTesseraStrings();
+  const { widgets } = useTesseraStrings();
 
   return (
     <ControlMenu
-      trigger={{ label: common.options, icon: <Icon name="settings" size={14} />, iconOnly: true }}
+      trigger={{ label: widgets.optionsFor(title), icon: <Icon name="settings" size={14} />, iconOnly: true }}
       label={widgets.optionsFor(title)}
       header={<OptionsHeader title={title} onReset={onReset} />}
       filter

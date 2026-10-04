@@ -1,5 +1,5 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
@@ -61,7 +61,7 @@ const ARG_TYPES: PlaygroundArgTypes<HeroArgs> = {
   withPanel: { group: 'Content', control: 'boolean', description: 'A glass panel beside the facts.' },
   backdrop: { group: 'Appearance', control: 'select', options: HERO_BACKDROP_KEYS, description: 'What fills the hero behind everything.' },
   shade: { group: 'Appearance', control: 'select', options: SHADES, description: 'The dark fade that keeps the text readable over the backdrop.' },
-  brand: { group: 'Appearance', control: 'select', options: [...BRAND_APPS], description: 'The brand whose gradient draws when there is no backdrop.' },
+  brand: { group: 'Appearance', control: 'select', options: [...BRAND_APPS], description: 'The brand whose gradient draws when there is no backdrop. Left out, the nearest data-palette names it, else tessera.' },
 };
 
 const meta = {
@@ -155,21 +155,39 @@ backdrop={{ kind: 'image', src: patternSvg, fit: 'tile', tileSize: '48px' }}
 backdrop={{ kind: 'color', color: '--c-tag-violet-dim' }}
 backdrop={null}`;
 
+const PALETTES = ['brock', 'archipelia'] as const;
+
+const FromPalette = {
+  name: 'Brand from the page palette',
+  render: () => (
+    <Demonstrator
+      rows={axis(PALETTES)}
+      align="stretch"
+      className="hero-story__rows"
+      cell={(palette) => (
+        <Box data-palette={palette}>
+          <Hero eyebrow="No brand prop" title={`In data-palette="${palette}"`} />
+        </Box>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<HeroArgs>;
+
 const Overview = overviewStory({
   component: 'Hero',
   description: 'The top of a home screen: a backdrop and art, the title and its actions, with details on glass over them.',
   points: [
     '`backdrop` takes a live scene `node`, an `image` URL that covers, contains or tiles, or a `color`.',
-    'Leave `backdrop` out for the brand gradient, or pass `null` for a plain hero.',
+    'Leave `backdrop` out for the gradient of `brand`, or of the nearest `data-palette`; `null` draws a plain hero.',
     '`art` is an `image` URL or any `node`, in its own column beside the intro, never cropped.',
     '`shade` keeps the text readable: `fade` by default, `scrim` for a busy backdrop, or `none`.',
     '`tools` sit top right, `facts` along the bottom in a [FactsPanel], `aside` and `panel` on the right.',
     'Under 720 px wide it stacks: the intro over the art, then the aside, facts and panel at full width.',
   ],
   playground: Playground,
-  variants: [Profile, Backdrops, SceneArt, Shades, Narrow, FactsOnly, TitleOnly, Brands],
+  variants: [Profile, Backdrops, SceneArt, Shades, Narrow, FactsOnly, TitleOnly, Brands, FromPalette],
   code: CODE,
 });
 
 export default meta;
-export { Backdrops, Brands, FactsOnly, Narrow, Overview, Playground, Profile, SceneArt, Shades, TitleOnly };
+export { Backdrops, Brands, FactsOnly, FromPalette, Narrow, Overview, Playground, Profile, SceneArt, Shades, TitleOnly };

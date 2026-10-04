@@ -90,7 +90,7 @@ const Overview = overviewStory({
   component: 'DockLayout',
   description: 'The stage that widgets tile around a main view, where they move by drag and drop and resize by dividers and edges.',
   points: [
-    'It lays out the split tree in `layout` and draws each pane through `renderPane`.',
+    'It lays out the split tree in `layout`, draws each pane through `renderPane` and marks it `data-pane-id`.',
     '**It owns no data:** every change leaves through `onEdit` as a `LayoutEdit` for the host to apply.',
     'Drag a title bar to dock, tab or float the widget, or past the window edge to pop it out through `onPopOut`.',
     'A small hint beside the pointer lists the keys: [[Shift]] swaps panes, [[Ctrl]] overlays, [[Esc]] cancels.',

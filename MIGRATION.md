@@ -3353,3 +3353,19 @@ declare const HIT_AREA_CLASS: 'hit-area';
 ### What an app does
 
 1. Add `className="hit-area"` to any small icon button of its own, and set `--hit-area` on it for more than 24 px.
+
+## 127. Widget buttons carry the widget name, test hooks on widgets and panes, and Hero takes the page brand
+
+From the Brock review (brock-57, brock-59, brock-60) and the UX review (ux-51).
+
+- **The title bar buttons of a Widget name it.** Close, pop out, pop in and the options gear read "Close Players", "Pop out Players", "Pop in Players" and "Players options", after the active tab. New strings: `widgets.closeNamed`, `widgets.popOutNamed` and `widgets.popInNamed`; `widgets.optionsFor` now names the gear too.
+- **Tests have stable hooks.** Each Widget carries `data-widget-id` (it already did, now documented) and each DockLayout pane `data-pane-id`, the key of its node in the layout tree, so a test finds `[data-pane-id] [data-widget-id="players"]` with no BEM class.
+- **A Hero with no `brand` takes the brand of the nearest `data-palette`**, through the `usePaletteName` hook ChosenMascot uses, and falls back to `tessera` when the palette names no brand. TesseraProvider holds no brand, so there is no provider step.
+- **SettingsRow already draws a number setting at control width.** A `number` input renders a NumberInput sized to its digits (134 px for 1024 to 65535), right-aligned with the 16 px gap of the select and slider rows, with `min`, `max`, `step` and `unit`, and no field label. Brock's full width field comes from not using `kind: 'number'`.
+
+### What an app does
+
+1. Tests that found the close button by the name "Close" look for "Close" followed by the widget name.
+2. Replace selectors on `.widget` and `.dock-layout__pane` in tests with `[data-widget-id]` and `[data-pane-id]`.
+3. Drop `brand` from a Hero inside an app palette, unless it should show another brand.
+4. Draw number settings with `input: { kind: 'number', min, max, step, unit }`.

@@ -1,7 +1,10 @@
 /* @layer renderer-components @kind component */
+import { useRef } from 'react';
+import { usePaletteName } from '../../brand/ChosenMascot/behavior/usePaletteName';
 import { Box } from '../../primitives/Box';
 import { ButtonRow } from '../../primitives/ButtonRow';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { heroBrand } from './behavior/hero-brand';
 import { HeroArtSlot } from './sub-components/HeroArtSlot';
 import { HeroBackdropLayer } from './sub-components/HeroBackdropLayer';
 import { HeroBottom } from './sub-components/HeroBottom';
@@ -10,11 +13,14 @@ import type { HeroProps } from './Hero.type';
 import './Hero.css';
 
 const Hero = (props: HeroProps) => {
-  const { title, eyebrow, brand = 'tessera', backdrop, shade = 'fade', art, actions, tools, facts, aside, panel, label, className } = props;
+  const { title, eyebrow, brand: ownBrand, backdrop, shade = 'fade', art, actions, tools, facts, aside, panel, label, className } = props;
   const { panels } = useTesseraStrings();
+  const ref = useRef<HTMLElement>(null);
+  const brand = heroBrand(ownBrand, usePaletteName(ref, ownBrand === undefined));
 
   return (
     <Box
+      ref={ref}
       as="section"
       className={['hero', aside != null ? 'hero--aside' : '', className].filter(Boolean).join(' ')}
       data-brand={brand}

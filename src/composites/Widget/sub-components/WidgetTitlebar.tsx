@@ -22,7 +22,7 @@ const WidgetTitlebar = (props: WidgetTitlebarProps) => {
       ) : (
         <Span className="widget__title">{label}</Span>
       )}
-      <WidgetActions {...props} />
+      <WidgetActions {...props} name={label} />
     </Box>
   );
 };

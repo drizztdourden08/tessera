@@ -10,6 +10,7 @@ const DockPanes = (props: DockPanesProps) => {
       key={node.key}
       className={`dock-layout__pane${node.makeRoom ? '' : ' dock-layout__pane--overlay'}`}
       data-pane-key={node.key}
+      data-pane-id={node.key}
       style={rectStyle(rect)}
     >
       {renderPane(node, rect)}

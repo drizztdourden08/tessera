@@ -115,9 +115,9 @@ const Overview = overviewStory({
   component: 'Widget',
   description: 'The frame of a tool panel, such as a player list or a log, docked in a [DockLayout], floating, or in its own window.',
   points: [
-    'The title bar is the drag handle, with the name or one tab per widget, then pop out, options and close.',
-    'In its own window, `pin` picks from a title bar menu whether it stays on top.',
-    '`titleBarActions` adds buttons of its own before the built-in ones.',
+    'The title bar is the drag handle, with the name or tabs; pop out, options and close name the widget.',
+    '`titleBarActions` adds buttons before the built-in ones; in its own window `pin` keeps it on top.',
+    'Each widget carries `data-widget-id` and each [DockLayout] pane `data-pane-id`, for tests.',
     'The body scrolls with the slim scrollbar in a gutter of its own, so the thumb never covers text.',
     'The frame takes `opacity` and turns solid on hover; `peek` folds it and `square` drops its corners.',
     '`options` puts [WidgetOptions], a [ControlMenu], on the gear; `WidgetManager` places a whole dock from a layout.',

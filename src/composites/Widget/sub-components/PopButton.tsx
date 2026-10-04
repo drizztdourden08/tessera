@@ -5,10 +5,10 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import type { PopButtonProps } from './PopButton.type';
 
 const PopButton = (props: PopButtonProps) => {
-  const { out, canPopOut, onPopOut } = props;
-  const { common } = useTesseraStrings();
+  const { out, canPopOut, onPopOut, name } = props;
+  const { widgets } = useTesseraStrings();
   if (!onPopOut || (!out && !canPopOut)) return null;
-  const label = out ? common.popIn : common.popOut;
+  const label = out ? widgets.popInNamed(name) : widgets.popOutNamed(name);
   return (
     <IconButton className="widget__btn" label={label} title={label} onClick={onPopOut}>
       <Icon name={out ? 'minimize-2' : 'maximize-2'} size={12} />

@@ -2,6 +2,9 @@
 const WIDGET_STRINGS = {
   pinTitle: (choice: string) => `Pin: ${choice}. Click to choose`,
   optionsFor: (title: string) => `${title} options`,
+  closeNamed: (name: string) => `Close ${name}`,
+  popOutNamed: (name: string) => `Pop out ${name}`,
+  popInNamed: (name: string) => `Pop in ${name}`,
   shortcutsSection: 'Shortcuts',
   shortcutsHint: 'The keys and drags the dock answers to',
   resetWidget: 'Reset this widget',

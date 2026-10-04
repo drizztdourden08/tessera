@@ -8,17 +8,18 @@ import { PopButton } from './PopButton';
 import type { WidgetActionsProps } from './WidgetActions.type';
 
 const WidgetActions = (props: WidgetActionsProps) => {
-  const { mode, pin, onPinChange, titleBarActions, onPopOut, canPopOut, options, onClose } = props;
-  const { common } = useTesseraStrings();
+  const { mode, pin, onPinChange, titleBarActions, onPopOut, canPopOut, options, onClose, name } = props;
+  const { widgets } = useTesseraStrings();
+  const close = widgets.closeNamed(name);
   const out = mode === 'out';
 
   return (
     <Box className="widget__titlebar-actions">
       {titleBarActions}
       {out && onPinChange && <PinMenu pin={pin ?? 'off'} onChange={onPinChange} />}
-      <PopButton out={out} canPopOut={canPopOut ?? true} onPopOut={onPopOut} />
+      <PopButton out={out} canPopOut={canPopOut ?? true} onPopOut={onPopOut} name={name} />
       {options}
-      <IconButton className="widget__btn" label={common.close} title={common.close} onClick={onClose}>
+      <IconButton className="widget__btn" label={close} title={close} onClick={onClose}>
         <Glyph name="close" size={14} />
       </IconButton>
     </Box>
