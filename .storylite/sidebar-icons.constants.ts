@@ -85,6 +85,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Lists': {
     ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
     SearchResultHit: 'mouse-pointer-click', ManagedList: 'list-checks',
+    FileList: 'files',
   },
   'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsRow: 'sliders-horizontal' },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search', ControlMenu: 'sliders-horizontal' },

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 25 of 162 have their usage written; a linked name opens its page.
+One line per component. 26 of 163 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -110,6 +110,7 @@ One line per component. 25 of 162 have their usage written; a linked name opens 
 - `DropdownMenu`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DynamicInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [FileList](components/FileList.md): The files a job made or an app keeps, one row each with its type icon, name, size and date, and buttons to open it or show it in its folder. Import from `@drizztdourden08/tessera`.
 - `FilterBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `GroupTree`: usage not written yet. Import from `@drizztdourden08/tessera`.

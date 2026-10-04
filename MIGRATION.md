@@ -4151,3 +4151,38 @@ interface StatusLook extends HTMLAttributes<HTMLSpanElement> {
 ### What an app does
 
 1. Archipelia: each `<StatusOf map={...} value={...} />` becomes `<Status map={...} value={...} />` with the same props, and `StatusOfProps` becomes `StatusProps`. `brock upgrade` writes both from `RENAMES.json`.
+
+## 158. FileList: files with their size, date, Open and Show in its folder
+
+`FileList` is a new composite, under Composites · Lists (Archipelia review T-20, tessera-13). Archipelia listed the output files of a room and the outputs of past runs as mono caption lines with no size, no way to open them and no way to find them on disk; Brock's bug report attachments and log files were the same.
+
+- **A row.** A type icon from the extension (archives, text and logs, images, audio; any other a plain file), the name with an ellipsis when it runs long, the size, the date it changed and the buttons. The columns line up across rows.
+- **Size and date.** `size` in bytes and `modified` in milliseconds, written with the `bytes` and `datetime` formats of DataTable (18.4 MB, 4 Oct 2026, 19:02); the date is a time element with the full timestamp.
+- **Buttons.** `onOpen(path)` adds Open (external link icon), `onReveal(path)` adds Show in its folder (folder icon); each is a ghost icon button named after the file, with a tooltip. Leave a handler out and its button goes.
+- **Icon.** `icon` on a file replaces the icon of its extension, for a type of the app such as a save file.
+- **Empty and dense.** No files shows `empty` (No files yet. by default) in the same frame; `dense` makes the rows 32 px with smaller text.
+- **Strings.** `items.files` (the list name), `items.noFiles`, `items.openFile(name)` and `items.revealFile(name)`.
+
+```ts
+interface FileEntry {
+  path: string;
+  name?: string; // default: the last part of path
+  size?: number; // bytes
+  modified?: number; // milliseconds since 1970
+  icon?: IconName;
+}
+interface FileListProps {
+  files: readonly FileEntry[];
+  onOpen?: (path: string) => void;
+  onReveal?: (path: string) => void;
+  empty?: ReactNode;
+  dense?: boolean;
+  label?: string; // default items.files
+  className?: string;
+}
+```
+
+### What an app does
+
+1. Archipelia: the RoomWidget output and the SessionRuns outputs pass their files with `onOpen` and `onReveal` wired to the shell, in place of the mono captions.
+2. Brock: the bug report attachments and the logs folder can list their files the same way.

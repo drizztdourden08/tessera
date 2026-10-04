@@ -61,6 +61,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'SearchResultGroup', summary: 'One group of matches: glowing icon, title, count and an open button.' },
         { name: 'SearchResultHit', summary: 'One match: icon, label with the match marked, and its path.' },
         { name: 'ManagedList', summary: 'The list side of a list and editor screen: count, New, filter, groups, rename, delete and states.' },
+        { name: 'FileList', summary: 'One row per file: its type icon, name, size and date, with Open and Show in folder.' },
       ],
     },
     {

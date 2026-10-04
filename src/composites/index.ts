@@ -177,3 +177,5 @@ export { ManagedList } from './ManagedList';
 export type { ManagedListFilter, ManagedListProps, ManagedListRowParts } from './ManagedList';
 export { MasterDetail } from './MasterDetail';
 export type { MasterDetailGuardLook, MasterDetailList, MasterDetailProps, MasterDetailSave } from './MasterDetail';
+export { FileList } from './FileList';
+export type { FileEntry, FileListProps } from './FileList';

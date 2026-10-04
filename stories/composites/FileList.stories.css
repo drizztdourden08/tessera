@@ -1,0 +1,20 @@
+/* @layer stories @kind style */
+.file-list-story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  inline-size: var(--size-768);
+  max-inline-size: 100%;
+}
+
+.file-list-story__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--text-lg);
+}
+
+.file-list-story--narrow {
+  inline-size: var(--size-448);
+}

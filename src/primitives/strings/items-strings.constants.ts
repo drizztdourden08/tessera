@@ -12,6 +12,10 @@ const ITEM_STRINGS = {
   checkChecking: 'checking',
   checkSkipped: 'skipped',
   checkCount: (count: number, word: string) => `${count} ${word}`,
+  files: 'Files',
+  noFiles: 'No files yet.',
+  openFile: (name: string) => `Open ${name}`,
+  revealFile: (name: string) => `Show ${name} in its folder`,
 };
 
 export { ITEM_STRINGS };
