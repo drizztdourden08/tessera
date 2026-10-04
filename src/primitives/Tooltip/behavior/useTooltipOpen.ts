@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useState } from 'react';
 import type { FocusEvent, RefObject } from 'react';
-import { isNode } from '../../Portal/behavior/is-node';
+import { focusLeft } from '../../dom/focus-left';
 import { useDismissListeners } from '../../Portal/behavior/useDismissListeners';
 import type { TooltipOpen } from './useTooltipOpen.type';
 
@@ -18,8 +18,7 @@ const useTooltipOpen = (anchorRef: RefObject<HTMLElement | null>, bubbleRef: Ref
   useDismissListeners({ open, onClose: () => setDismissed(true), contentRef: bubbleRef, triggerRef: anchorRef });
 
   const onBlur = (event: FocusEvent<HTMLElement>) => {
-    const next = event.relatedTarget;
-    if (next === null || !isNode(next) || !event.currentTarget.contains(next)) setFocus(false);
+    if (focusLeft(event)) setFocus(false);
   };
 
   return {

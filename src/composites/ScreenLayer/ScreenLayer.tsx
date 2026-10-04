@@ -11,6 +11,7 @@ const ScreenLayer = (props: ScreenLayerProps) => {
     <Box className={classes}>
       <Box className="screen-layer__inset">
         <Box className="screen-layer__frame">
+          {floating != null && <Box className="screen-layer__floating">{floating}</Box>}
           <Box
             className={`screen-layer__card${className ? ` ${className}` : ''}`}
             role="dialog"
@@ -20,7 +21,6 @@ const ScreenLayer = (props: ScreenLayerProps) => {
           >
             {children}
           </Box>
-          {floating != null && <Box className="screen-layer__floating">{floating}</Box>}
         </Box>
       </Box>
     </Box>

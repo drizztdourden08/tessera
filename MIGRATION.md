@@ -3470,3 +3470,28 @@ One copy path:
 
 1. Archipelia: the session bar, the room widget and the server test panel show the address, the room page, the seed and the host key as `CopyValue`, and `useSessionDashboard` drops its copied flag.
 2. Brock: `AboutCopyButton` and `useCopyText` give way to `CopyButton` with `showLabel`; a text still being gathered passes `loading`.
+
+## 134. A toast takes an action, and the ScreenLayer switcher comes first in Tab order
+
+From the UX review (ux-48, ux-38).
+
+- **`ToastItem` takes `action`**, a label and an `onSelect`. The toast draws it as a small button in its own tone, between the message and the close button. Choosing it runs `onSelect` and dismisses the toast. It is a native button in the Tab order, so the keyboard reaches it, and a `danger` toast keeps `role="alert"`, so a failed save with Retry is read at once.
+- **A toast waits while the pointer or focus is on it.** The `duration` timer stops while the pointer is over the toast or focus is inside it, and starts again in full when both leave, so there is time to reach its action.
+- **ScreenLayer puts `floating` before the card in the page order.** The switcher it holds, such as Multiworld and Data in a hub, drew at the top of the card but came last in Tab order. It now comes first. It still draws in the same place, centred on the top edge of the card, and above it. ScreenWindow and WorkspaceScreen pass `floating` through, so their switchers move too.
+
+```ts
+interface ToastAction {
+  label: string;
+  onSelect: () => void;
+}
+
+interface ToastItem {
+  // added
+  action?: ToastAction;
+}
+```
+
+### What an app does
+
+1. Pass `action: { label: 'Retry', onSelect: save }` on the danger toast of a failed save, in place of a separate button or a second toast.
+2. Nothing for ScreenLayer: the switcher moves in the Tab order by itself.

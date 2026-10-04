@@ -82,7 +82,7 @@ export type {
 export { ScrollArea, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition } from './ScrollArea';
 export { Toast, ToastContainer } from './Toast';
 export type { PortalLayer } from './Portal';
-export type { ToastItem, ToastVariant, ToastPosition, ToastProps, ToastContainerProps } from './Toast';
+export type { ToastAction, ToastItem, ToastVariant, ToastPosition, ToastProps, ToastContainerProps } from './Toast';
 export { TagPicker } from './TagPicker';
 export type { TagPickerGroup, TagPickerOption, TagPickerProps } from './TagPicker';
 export { namespacedTag, TagInput } from './TagInput';

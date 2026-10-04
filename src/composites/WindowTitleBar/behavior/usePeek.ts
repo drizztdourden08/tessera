@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { FocusEvent, KeyboardEvent, RefObject } from 'react';
 import { isHTMLElement } from '../../../primitives/dom/is-html-element';
-import { isNode } from '../../../primitives/Portal/behavior/is-node';
+import { focusLeft } from '../../../primitives/dom/focus-left';
 import { PEEK_ZONE_PX } from '../WindowTitleBar.constants';
 import { useAltReveal } from './useAltReveal';
 import type { Peek } from './usePeek.type';
@@ -31,8 +31,7 @@ const usePeek = (tucked: boolean, barRef: RefObject<HTMLElement | null>, follow:
   }, [tucked, follow, barRef]);
 
   const onBlur = (event: FocusEvent<HTMLElement>) => {
-    const next = event.relatedTarget;
-    if (next === null || !isNode(next) || !event.currentTarget.contains(next)) setFocused(false);
+    if (focusLeft(event)) setFocused(false);
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {

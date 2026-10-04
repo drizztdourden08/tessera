@@ -93,6 +93,21 @@ const ToastStack = () => {
   );
 };
 
+const RetryDemo = () => {
+  const { toasts, push, dismiss } = useToastQueue();
+  const fail = () => push({
+    variant: 'danger',
+    message: 'Settings could not be saved.',
+    action: { label: 'Retry', onSelect: () => push({ variant: 'success', message: 'Settings saved.', duration: 3000 }) },
+  });
+  return (
+    <Box className="story-row">
+      <Button variant="secondary" onClick={fail}>Save settings</Button>
+      <ToastContainer toasts={toasts} onDismiss={dismiss} />
+    </Box>
+  );
+};
+
 const Playground = {
   name: 'Playground',
   args: ARGS,
@@ -110,19 +125,24 @@ const Stacked = {
   render: () => <ToastStack />,
 } satisfies StoryLiteStoryDefinition<ToastArgs>;
 
+const WithAction = {
+  name: 'With an action',
+  render: () => <RetryDemo />,
+} satisfies StoryLiteStoryDefinition<ToastArgs>;
+
 const Overview = overviewStory({
   component: 'Toast',
   description: 'Short messages that pop up in a corner of the window and leave on their own, such as a save written.',
   points: [
     '`ToastContainer` draws the queue at the bottom right or the bottom left.',
     '`variant` sets the colour: `info`, `success`, `warning` or `danger`.',
-    'A toast leaves after its `duration`, or stays until closed when the `duration` is 0.',
-    'Each toast has a close button.',
+    'A toast leaves after its `duration`, or stays when it is 0; it waits while the pointer or focus is on it.',
+    '`action` adds a button, such as Retry, that runs `onSelect` and closes the toast, beside the close button.',
     'Screen readers announce each toast: the queue is a polite status region, and a `danger` toast is an alert.',
   ],
   instead: '[Callout] for a note that stays in the page.',
   playground: Playground,
-  variants: [Variants],
+  variants: [Variants, WithAction],
   code: `import { useState } from 'react';
 import { Button, ToastContainer } from '@drizztdourden08/tessera';
 import type { ToastItem } from '@drizztdourden08/tessera';
@@ -137,4 +157,4 @@ const dismiss = (id: string) => setToasts((all) => all.filter((t) => t.id !== id
 });
 
 export default meta;
-export { Overview, Playground, Stacked, Variants };
+export { Overview, Playground, Stacked, Variants, WithAction };

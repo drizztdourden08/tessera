@@ -60,6 +60,10 @@
   line-height: var(--leading-tight);
 }
 
+.toast__action {
+  flex-shrink: 0;
+}
+
 .toast__close {
   flex-shrink: 0;
   background: none;

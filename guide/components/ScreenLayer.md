@@ -39,6 +39,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 
 - The card is a modal dialog. Pass labelledBy with the id of a visible title, or label when there is none.
 - Hidden takes the layer out of the page and out of the accessibility tree, and keeps its content mounted.
+- Floating comes before the card in the page order, so a switcher in it is the first Tab stop; it still draws on the top edge of the card.
 
 ## Example
 

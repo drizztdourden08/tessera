@@ -3,11 +3,17 @@ type ToastVariant = 'danger' | 'warning' | 'info' | 'success';
 
 type ToastPosition = 'bottom-right' | 'bottom-left';
 
+interface ToastAction {
+  label: string;
+  onSelect: () => void;
+}
+
 interface ToastItem {
   id: string;
   message: string;
   variant?: ToastVariant;
   duration?: number;
+  action?: ToastAction;
 }
 
 interface ToastProps {
@@ -22,6 +28,7 @@ interface ToastContainerProps {
 }
 
 export type {
+  ToastAction,
   ToastContainerProps,
   ToastItem,
   ToastPosition,
