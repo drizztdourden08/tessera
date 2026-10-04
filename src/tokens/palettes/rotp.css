@@ -1,5 +1,5 @@
-/* @layer stories @kind style */
-/* stylelint-disable brock/no-token-override -- an app look sets the palette seeds, the way an app's theme.css does */
+/* @layer renderer-design-system @kind style */
+/* stylelint-disable brock/no-token-override -- a brand palette sets the seeds, the way an app theme.css does */
 [data-palette="rotp"] {
   --p-primary: #c8a84e;
   --p-secondary: #4a9966;

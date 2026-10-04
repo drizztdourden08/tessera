@@ -96,6 +96,17 @@ To give one part of the page another palette, set its seeds under a `data-palett
 
 The roles are declared on `:root, [data-palette]`, so they derive again inside that subtree from its own seeds.
 
+### Brand palettes
+
+Tessera ships the palette of each family app, so an app can take its brand's look instead of copying the seeds: `@drizztdourden08/tessera/palettes/rotp.css`, `archipelia.css` and `brock.css`. Each one sets the seeds under `[data-palette="<app>"]`. Import it once and put the attribute on the root, or on any part of the page:
+
+```ts
+import '@drizztdourden08/tessera/palettes/brock.css';
+document.documentElement.dataset.palette = 'brock';
+```
+
+A palette change in Tessera then reaches the app with a normal upgrade. An app that sets its own seeds in `theme.css` still wins, because `theme.css` is unlayered.
+
 There is no light or dark switch, because an app's look is its branding and its palette sets it. Tessera has one set of neutrals, dark, and each palette paints its accents over them.
 
 ## Tokens

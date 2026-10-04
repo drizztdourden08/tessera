@@ -26,9 +26,9 @@ export default defineConfig({
   vitePlugins: [windowsFsPaths(), ssrBundle(), strictPort(), reviewPlugin(ROOT), faviconPlugin(ROOT)],
   css: [
     './src/tokens/index.css',
-    './stories/themes/rotp.css',
-    './stories/themes/archipelia.css',
-    './stories/themes/brock.css',
+    './src/tokens/palettes/rotp.css',
+    './src/tokens/palettes/archipelia.css',
+    './src/tokens/palettes/brock.css',
     './stories/storylite.css',
   ],
   renderers: [controlledReact()],

@@ -1,7 +1,7 @@
 /* @layer root-config @kind config */
 import { standardsStylelint } from '@drizztdourden08/standards/stylelint';
 
-const RAW_VALUE_FILES = ['src/tokens/palette.css', 'src/tokens/brand.css', 'src/tokens/scale.css', 'fonts/**/*.css'];
+const RAW_VALUE_FILES = ['src/tokens/palette.css', 'src/tokens/palettes/*.css', 'src/tokens/brand.css', 'src/tokens/scale.css', 'fonts/**/*.css'];
 
 const base = standardsStylelint({
   uiGlobs: ['src/**/*.css'],

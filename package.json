@@ -27,6 +27,7 @@
     "./tokens.css": "./src/tokens/index.css",
     "./tokens.json": "./tokens.json",
     "./splash-tokens.css": "./splash-tokens.css",
+    "./palettes/*": "./src/tokens/palettes/*",
     "./brand/*": "./brand/*",
     "./guide/*": "./guide/*",
     "./config": {

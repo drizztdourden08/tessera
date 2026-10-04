@@ -2495,3 +2495,18 @@ Nothing, unless a host stylesheet styles the header through its classes. The cla
 | `screen-page__actions` | `content-header__actions` |
 | `.screen-page--compact` on the page | `.content-header--compact` on the header |
 | `--screen-page-head-h`, `--screen-page-head-h-compact` | `--content-header-h`, `--content-header-h-compact` |
+
+## 98. Brand palettes ship in the package
+
+The palettes of the family apps are now part of Tessera: `@drizztdourden08/tessera/palettes/rotp.css`, `archipelia.css` and `brock.css`. Each one sets the palette seeds under `[data-palette="<app>"]`. Brock's palette is new: the logo's orange `#f0862b` as the accent, its stone greys and a neutral charcoal. The gallery's app switcher shows it.
+
+### What an app does
+
+An app that copied a brand's seeds into its `theme.css` can import the palette instead and set the attribute on the root, so later palette changes arrive with a normal upgrade:
+
+```ts
+import '@drizztdourden08/tessera/palettes/brock.css';
+document.documentElement.dataset.palette = 'brock';
+```
+
+Seeds an app sets in `theme.css` still win, because `theme.css` is unlayered. `tokens.json` and `splash-tokens.css` carry the Brock palette too.

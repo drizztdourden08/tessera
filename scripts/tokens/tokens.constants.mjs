@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind data */
 const TOKENS_INDEX = 'src/tokens/index.css';
 const BRAND_CSS = 'src/tokens/brand.css';
-const PALETTES_DIR = 'stories/themes';
+const PALETTES_DIR = 'src/tokens/palettes';
 const DEFAULT_PALETTE = 'tessera';
 const TOKENS_JSON = 'tokens.json';
 const SPLASH_CSS = 'splash-tokens.css';
