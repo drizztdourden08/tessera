@@ -1,0 +1,11 @@
+/* @layer renderer-design-system @kind style */
+[data-app-region="drag"] {
+  -webkit-app-region: drag;
+  app-region: drag;
+}
+
+[data-app-region="no-drag"],
+:root[data-popup-open] [data-app-region="drag"] {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}

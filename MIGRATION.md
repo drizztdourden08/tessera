@@ -2863,3 +2863,16 @@ type StatTileSize = 'sm' | 'md' | 'lg';
 
 2. An import of StackedBar or its types from `@drizztdourden08/tessera/composites` imports from `@drizztdourden08/tessera/primitives`, or from the root.
 3. Nothing for StatTile; `size` is new and defaults to the old look.
+
+## 111. A click on the title bar closes an open popup
+
+On Windows, a press on a window drag region (`-webkit-app-region: drag`) goes to the system, so the page never saw it. A click on the title bar left an open menu, select or popover open. Now:
+
+- While any popup is open (anything on the shared dismiss stack: DropdownMenu, Select, Combobox, popovers, widget menus), the page root carries `data-popup-open`, and every drag region turns into `no-drag`. A click on the bar reaches the page and closes the popup; dragging works again as soon as it closes. Nested popups count as one: the flag stays until the last one closes.
+- Every open popup also closes, innermost first, when the window loses focus or the page is hidden.
+- Drag regions are marked with `data-app-region="drag"` (or `"no-drag"`). `tokens.css` turns the attribute into the region and lifts it while a popup is open. WindowTitleBar uses it.
+- `APP_REGION_ATTRIBUTE` and `POPUP_OPEN_ATTRIBUTE` are exported from `@drizztdourden08/tessera/primitives`.
+
+### What an app does
+
+Mark its own drag regions with `data-app-region="drag"` in place of `-webkit-app-region: drag` in CSS, so a click on them closes open popups too.

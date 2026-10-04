@@ -25,7 +25,7 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
   const { peeking, handleMouseLeave } = usePeek(tucked && peek === undefined, barRef);
 
   return (
-    <Box ref={barRef} className={titleBarClass(tucked, peek ?? peeking, className)} onMouseLeave={handleMouseLeave}>
+    <Box ref={barRef} className={titleBarClass(tucked, peek ?? peeking, className)} data-app-region="drag" onMouseLeave={handleMouseLeave}>
       <WindowTitleBarStart
         menu={groups}
         menuLabel={menuLabel}

@@ -68,3 +68,44 @@ describe('a press inside a nested popup', () => {
     expect(heldAbove(doc, select, option)).toBe(false);
   });
 });
+
+const pageDocument = () => {
+  const doc = fakeDocument();
+  const attributes = new Map();
+  const viewListeners = new Set();
+  doc.documentElement = {
+    setAttribute: (name, value) => attributes.set(name, value),
+    removeAttribute: (name) => attributes.delete(name),
+    has: (name) => attributes.has(name),
+  };
+  doc.defaultView = {
+    addEventListener: (type, fn) => viewListeners.add(fn),
+    removeEventListener: (type, fn) => viewListeners.delete(fn),
+    blur: () => [...viewListeners].forEach((fn) => fn()),
+  };
+  return doc;
+};
+
+describe('open popups and the window', () => {
+  it('flags the page while any popup is open, so drag regions let clicks through', () => {
+    const doc = pageDocument();
+    const leaveMenu = enterLayer(doc, layer());
+    const leaveSub = enterLayer(doc, layer());
+    expect(doc.documentElement.has('data-popup-open')).toBe(true);
+    leaveSub();
+    expect(doc.documentElement.has('data-popup-open')).toBe(true);
+    leaveMenu();
+    expect(doc.documentElement.has('data-popup-open')).toBe(false);
+  });
+
+  it('closes every open popup, innermost first, when the window loses focus', () => {
+    const doc = pageDocument();
+    const order = [];
+    const menu = { ...layer(), close: () => order.push('menu') };
+    const sub = { ...layer(), close: () => order.push('sub') };
+    enterLayer(doc, menu);
+    enterLayer(doc, sub);
+    doc.defaultView.blur();
+    expect(order).toEqual(['sub', 'menu']);
+  });
+});
