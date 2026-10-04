@@ -259,6 +259,7 @@
   --hero-aside-w: calc(360 * 1px);
   --hero-aside-min: 320px;
   --facts-panel-value-max-w: calc(220 * 1px);
+  --settings-row-text-min: 192px;
   --settings-row-compact-h: 40px;
   --settings-row-compact-control-w: 160px;
   --radius-sm: 4px;

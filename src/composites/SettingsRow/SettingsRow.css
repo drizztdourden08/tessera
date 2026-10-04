@@ -2,8 +2,8 @@
 .settings-row {
   --settings-row-control-w: var(--size-256);
 
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-xs) var(--space-xl);
   align-items: center;
   padding: var(--space-md) var(--space-lg);
@@ -11,6 +11,7 @@
 
 .settings-row__text {
   display: flex;
+  flex: 1 1 var(--settings-row-text-min);
   flex-direction: column;
   gap: var(--space-2xs);
   min-width: 0;
@@ -51,6 +52,8 @@
   display: flex;
   justify-content: flex-end;
   min-width: 0;
+  max-width: 100%;
+  margin-inline-start: auto;
 }
 
 .settings-row[data-kind='select'] .settings-row__control,
@@ -154,6 +157,8 @@
 }
 
 .settings-row--compact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--space-md);
   min-block-size: var(--settings-row-compact-h);
   padding: var(--space-xs) var(--space-md);

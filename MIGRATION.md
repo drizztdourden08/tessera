@@ -2446,3 +2446,11 @@ The markup gains two levels: `section.hero` is the container and holds `.hero__f
 - Nothing for the layout: every change is inside Tessera.
 - Replace `--hero-art-left` if a host stylesheet read it; the art is placed by the grid now.
 - Move host rules from `.hero` to `.hero__frame`, and from `.side-nav-layout` to `.side-nav-layout__frame`, as above.
+
+## 95. SettingsRow puts its control under the text in a narrow row
+
+A full SettingsRow used to keep its text and its control side by side at any width, so on a phone a 256 px select squeezed the title and description to a word or two per line. The row now wraps: the text keeps at least `--settings-row-text-min` (192 px), and when the text and the control no longer fit side by side, the control moves under the text, still on the right. Small controls such as a toggle, a colour or a keybind stay beside the text down to about 300 px. Compact rows don't change.
+
+### What an app does
+
+Nothing. A host stylesheet that set `grid-template-columns` on `.settings-row` drops it: a full row is now a wrapping flex row, and only `.settings-row--compact` is a grid.
