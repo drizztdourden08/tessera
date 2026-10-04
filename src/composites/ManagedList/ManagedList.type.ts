@@ -6,6 +6,8 @@ type ManagedListRowParts = Pick<ListItemRowProps, 'meta' | 'icon' | 'columns'>;
 
 type ManagedListFilter = boolean | 'auto';
 
+type ManagedListCreate = (close: () => void) => ReactNode;
+
 interface ManagedListProps<T> {
   title: string;
   items: readonly T[];
@@ -16,6 +18,7 @@ interface ManagedListProps<T> {
   selectedId?: string | null;
   onSelect?: (id: string) => void;
   onCreate?: () => void;
+  create?: ManagedListCreate;
   createLabel?: string;
   onRename?: (id: string, name: string) => void;
   onDelete?: (id: string) => void;
@@ -38,6 +41,7 @@ interface ManagedListView<T> {
   setQuery: (query: string) => void;
   shown: readonly T[];
   groups: readonly ManagedListGroup<T>[];
+  rowIds: readonly string[];
   renamingId: string | null;
   startRename: (id: string) => void;
   endRename: (id: string, name: string | null) => void;
@@ -50,11 +54,30 @@ interface ManagedListBodyProps<T> {
   view: ManagedListView<T>;
 }
 
+interface ManagedListCreateView {
+  open: boolean;
+  onNew?: () => void;
+  close: () => void;
+  newRef: RefObject<HTMLButtonElement | null>;
+  slotRef: RefObject<HTMLElement | null>;
+  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+}
+
+interface ManagedListSettle {
+  rowIds: readonly string[];
+  openedWith: string | null;
+  selectedId: string | null;
+  list: HTMLElement | null;
+  newButton: HTMLElement | null;
+}
+
 interface ManagedListHeadProps {
   title: string;
   shown: number;
   total: number;
-  onCreate?: () => void;
+  onNew?: () => void;
+  newRef: RefObject<HTMLButtonElement | null>;
+  creating: boolean;
   createLabel?: string;
 }
 
@@ -72,6 +95,6 @@ interface ManagedListRenameProps {
 }
 
 export type {
-  ManagedListBodyProps, ManagedListFilter, ManagedListGroup, ManagedListHeadProps, ManagedListProps, ManagedListRenameProps, ManagedListRowParts,
-  ManagedListToolsProps, ManagedListView,
+  ManagedListBodyProps, ManagedListCreate, ManagedListCreateView, ManagedListFilter, ManagedListGroup, ManagedListHeadProps, ManagedListProps,
+  ManagedListRenameProps, ManagedListRowParts, ManagedListSettle, ManagedListToolsProps, ManagedListView,
 };

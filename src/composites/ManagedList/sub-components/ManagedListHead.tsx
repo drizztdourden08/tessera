@@ -7,13 +7,13 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import type { ManagedListHeadProps } from '../ManagedList.type';
 
 const ManagedListHead = (props: ManagedListHeadProps) => {
-  const { title, shown, total, onCreate, createLabel } = props;
+  const { title, shown, total, onNew, newRef, creating, createLabel } = props;
   const { lists } = useTesseraStrings();
   return (
     <Box className="managed-list__head">
       <Text as="h3" variant="body" className="managed-list__title">{lists.count(title, shown, total)}</Text>
-      {onCreate && (
-        <Button size="sm" variant="primary" icon={<Icon name="plus" />} onClick={onCreate}>{createLabel ?? lists.newItem}</Button>
+      {onNew && !creating && (
+        <Button ref={newRef} size="sm" variant="primary" icon={<Icon name="plus" />} onClick={onNew}>{createLabel ?? lists.newItem}</Button>
       )}
     </Box>
   );

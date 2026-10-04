@@ -42,7 +42,7 @@ const useManagedList = <T,>(props: ManagedListProps<T>): ManagedListView<T> => {
     onSelect?.(rowIds[next] ?? id);
   }, [rowIds, onRename, onSelect]);
 
-  return { query, setQuery, shown, groups, renamingId, startRename, endRename, listRef, onKeyDown };
+  return { query, setQuery, shown, groups, rowIds, renamingId, startRename, endRename, listRef, onKeyDown };
 };
 
 export { useManagedList };

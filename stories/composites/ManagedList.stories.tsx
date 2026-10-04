@@ -3,6 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import { overviewStory } from '../_template/overview-story';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { StateProps } from '../_template/states/states.type';
+import { ManagedListCreateDemo } from './_samples/ManagedListCreateDemo';
 import { ManagedListDemo } from './_samples/ManagedListDemo';
 import type { ManagedListDemoProps, ManagedListDemoState } from './_samples/preset-samples.type';
 import './ManagedList.stories.css';
@@ -51,6 +52,11 @@ const Plain = {
   render: () => <ManagedListDemo title="Servers" createLabel="Add" grouped={false} filter={false} />,
 } satisfies StoryLiteStoryDefinition<ManagedListArgs>;
 
+const CreateForm = {
+  name: 'Profiles, created in place with a game and a template',
+  render: () => <ManagedListCreateDemo />,
+} satisfies StoryLiteStoryDefinition<ManagedListArgs>;
+
 const CODE = `import { ManagedList } from '@drizztdourden08/tessera';
 
 <ManagedList
@@ -68,6 +74,25 @@ const CODE = `import { ManagedList } from '@drizztdourden08/tessera';
   loading={loading}
   error={error}
   empty="Install a game from Games, then make a preset for it."
+/>
+
+<ManagedList
+  title="Profiles"
+  items={profiles}
+  getId={(profile) => profile.id}
+  getName={(profile) => profile.name}
+  selectedId={selectedId}
+  onSelect={setSelectedId}
+  createLabel="New profile"
+  create={(close) => (
+    <InlineCreateForm
+      placeholder="Profile name"
+      canSubmit={game !== ''}
+      onCreate={(name) => { setSelectedId(addProfile(name, game)); close(); }}
+      onCancel={close}
+      extraFields={<Field label="Game"><Select value={game} onChange={setGame} options={GAMES} /></Field>}
+    />
+  )}
 />`;
 
 const Overview = overviewStory({
@@ -75,15 +100,15 @@ const Overview = overviewStory({
   description: 'The list side of a list and editor screen: a title with its count, New, a filter, groups and rows to rename or delete.',
   points: [
     '`getId` and `getName` read each item; `render` adds the meta, an icon or end columns to its row.',
-    '`groupBy` puts the rows under small headings, in the order each group first appears.',
+    '`create` opens a form such as [InlineCreateForm] under the title in place of `onCreate`; it gets `close`.',
+    '`groupBy` puts the rows under headings; the arrow keys, Home and End move the selection across groups.',
     '`onRename` adds a pencil to the picked row and [[F2]]: [[Enter]] keeps the new name, [[Esc]] cancels.',
     '`onDelete` adds a trash button to the picked row that asks once, through [ConfirmIconButton].',
-    'The arrow keys, Home and End move the selection between rows, across groups.',
     '`loading`, `error` and `empty` take the place of the rows; the filter shows from 8 items, or with `filter`.',
   ],
   instead: '[MasterDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,
-  variants: [Grouped, Plain],
+  variants: [Grouped, Plain, CreateForm],
   states: {
     render: (props: StateProps) => <ManagedListDemo {...(props as ManagedListDemoProps)} />,
     list: STATES.map((state) => ({ name: state, props: { state, title: state === 'ready' ? 'Presets' : 'Servers' } })),
@@ -92,4 +117,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Grouped, Overview, Plain, Playground };
+export { CreateForm, Grouped, Overview, Plain, Playground };

@@ -32,6 +32,7 @@ MasterDetail joins ManagedList and MasterDetailLayout and asks the same question
 - Pass onSave so the question offers Save and open; return false, or reject, when the save fails.
 - Pass onDiscard to throw the draft away; onSelect runs after it.
 - Keep the list props in list; MasterDetail adds the selection and guards New.
+- A create form in list opens without the question, since it throws no edits away; picking the new item is up to the app.
 
 ## Accessibility
 

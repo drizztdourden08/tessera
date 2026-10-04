@@ -4591,3 +4591,30 @@ The name of a `FormRow` is now a `label` for its control. A click on the name fo
 1. An import of `ErrorBoundary` or `ErrorBoundaryProps` from `@drizztdourden08/tessera/composites` moves to `@drizztdourden08/tessera/primitives`, or to the root.
 2. An app that closed a `Drawer` on Escape with its own key listener removes it, or `onClose` runs twice.
 3. An app that focused the first control of a `Drawer` itself after opening it can drop that code.
+
+## 168. ManagedList takes a create form
+
+`ManagedList` had New and `onCreate`, with nowhere to put a create form that needs more than a name. An app that asked for a game or a template with the name kept its own list. `create` puts the form in the list.
+
+```ts
+type ManagedListCreate = (close: () => void) => ReactNode;
+
+interface ManagedListProps<T> {
+  create?: ManagedListCreate;
+}
+```
+
+- New opens the form at the top of the list, under the title, in place of the New button. Focus moves into it: to a field that takes `autoFocus`, such as the name of `InlineCreateForm`, or else to its first control.
+- The form is a group named by `createLabel`, or New.
+- Escape inside the form, or `close` from its Cancel, closes it and focus goes back to New. A popup in the form, such as an open `Select`, takes Escape first.
+- After a create, the app picks the new item and calls `close`; focus goes to its row. When the app picks nothing, or the row is filtered out, focus goes back to New.
+- The app keeps every value of the form: the name, the extra fields and the error. The list keeps only whether the form is open.
+- `onCreate` works as before for an app that opens its own flow, such as a dialog. With `create` set, New opens the form and `onCreate` is not called.
+- `MasterDetail` passes `create` through `list`. The form opens without the unsaved changes question, since it throws no edits away.
+- The ManagedList page shows a profile form with a name, a game and a template, built from `InlineCreateForm`.
+
+### What an app does
+
+1. An app that drew its own list to hold a create form moves to `ManagedList` with `create`, and builds the form from `InlineCreateForm` with `extraFields`.
+2. The form calls `close` from Cancel, and after a create that worked; on a failed create it keeps the form open and shows the error.
+3. To land focus on the new row, the app picks the new item before it calls `close`.

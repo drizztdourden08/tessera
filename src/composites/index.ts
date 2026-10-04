@@ -172,7 +172,7 @@ export type { ValidationProblem, ValidationSummaryProps, ValidationTone } from '
 export { CheckList } from './CheckList';
 export type { Check, CheckListProps, CheckState } from './CheckList';
 export { ManagedList } from './ManagedList';
-export type { ManagedListFilter, ManagedListProps, ManagedListRowParts } from './ManagedList';
+export type { ManagedListCreate, ManagedListFilter, ManagedListProps, ManagedListRowParts } from './ManagedList';
 export { MasterDetail } from './MasterDetail';
 export type { MasterDetailGuardLook, MasterDetailList, MasterDetailProps, MasterDetailSave } from './MasterDetail';
 export { FileList } from './FileList';
