@@ -136,7 +136,14 @@ const CODE = `import { Dialog } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Dialog',
-  description: 'A modal that asks one question: a title, a message line, and a confirm and a cancel button. Reach for it to confirm an action, to acknowledge a notice, or to hold a short form in its body. The danger variant turns confirm red for what cannot be undone. Confirm can be disabled until the body is valid, cancel can be hidden, and focus starts on confirm.',
+  description: 'A modal that asks one question, with a message, a confirm button and a cancel button.',
+  points: [
+    'Use it to confirm an action, to acknowledge a notice, or to hold a short form in its body.',
+    '`variant="danger"` turns confirm red, for an action that cannot be undone.',
+    '`confirmDisabled` holds confirm until the body is valid; `hideCancel` leaves confirm alone.',
+    'Focus starts on confirm, and [[Esc]] cancels.',
+  ],
+  instead: '[DialogShell] for a dialog whose body and buttons are your own.',
   playground: Playground,
   variants: [DangerConfirm, Acknowledge, WithBody],
   code: CODE,

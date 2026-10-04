@@ -110,7 +110,13 @@ const CODE = `import { CreateRecordDialog } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'CreateRecordDialog',
-  description: 'A dialog for filling in a brand-new record, drawn with the same field kits RecordEditor uses, so every field looks and works the same in both. Use it wherever a user adds a record to a collection. Create stays locked until every required field holds a value, shows the Spinner in its place while the save runs, and shows the error in the dialog when the save is refused.',
+  description: 'A dialog where the user fills in a new record, with the same fields as [RecordEditor].',
+  points: [
+    'Give it a `schema`, an `initialRecord` and the `requiredPaths` that must hold a value.',
+    'Create stays locked until every required field is filled.',
+    '`onCreate` saves the record while a [Spinner] takes the place of Create.',
+    'A refused save shows its error in the dialog; a saved one calls `onCreated` with the new id.',
+  ],
   playground: Playground,
   variants: [GroupedFields, Rejected],
   code: CODE,

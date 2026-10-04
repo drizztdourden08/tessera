@@ -52,7 +52,13 @@ const wizard = useWizard({ steps: CALIBRATION_STEPS, initialValues: EMPTY, onFin
 
 const Overview = overviewStory({
   component: 'WizardDialog',
-  description: 'A wizard in a dialog: the standard dialog header with its title and close button on top, then the same layout Wizard draws, with the Stepper, the step and the action bar. The step definitions drive it the same way. The close button, Escape and a click on the backdrop all go through the exit guard, so unsaved input is never thrown away without asking, and none of them close the dialog while the finish runs.',
+  description: 'A [Wizard] in a dialog, under the standard dialog header with its title and close button.',
+  points: [
+    'It takes the same step definitions and props as [Wizard], plus `open`.',
+    'Close, [[Esc]] and a click on the backdrop ask first when there is unsaved input.',
+    'None of them close the dialog while the finish runs.',
+  ],
+  instead: '[Wizard] for steps inside a screen instead of over it.',
   playground: Playground,
   variants: [Calibration, StepsOnTheLeft],
   code: CODE,

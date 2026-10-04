@@ -94,7 +94,12 @@ const CODE = `import { DeleteGuardDialog } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'DeleteGuardDialog',
-  description: 'A danger dialog that stands between a delete and a record other records still point at. Open it when a delete finds references; with none, delete at once and skip the dialog. It lists what points at the record, grouped, with Delete anyway and Cancel. When a confirmed delete comes back refused, the error takes the place of the list.',
+  description: 'A danger dialog that asks before deleting a record that other records still point at.',
+  points: [
+    '**Open it only when the delete finds references:** with none, delete at once.',
+    '`hits` lists what points at the record, grouped, above Delete anyway and Cancel.',
+    'When a confirmed delete is refused, pass `error` and it takes the place of the list.',
+  ],
   playground: Playground,
   variants: [AllVariants],
   code: CODE,

@@ -110,7 +110,14 @@ const CODE = `import { Button, DialogShell } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'DialogShell',
-  description: 'The modal chrome every dialog here is built on: a backdrop, a panel with a header and a close button, a body and a footer row of actions. Use it for a dialog whose body is your own, where Dialog\'s one question does not fit. It closes on Escape and a backdrop click, takes extra content in its header, and focuses a given element on open. Set it not dismissable while a write is in flight, and only its own actions can close it.',
+  description: 'The frame every modal is built in: a backdrop, a panel with a header and close button, a body and a row of actions.',
+  points: [
+    'Pass your own body as children and your buttons as `actions`.',
+    'It closes on [[Esc]], on the close button and on a click on the backdrop.',
+    '`headerExtra` adds content to the header; `initialFocusRef` picks what takes focus on open.',
+    '**Set `dismissable` to false while a save runs:** then only its own `actions` can close it.',
+  ],
+  instead: '[Dialog] for one question with confirm and cancel.',
   playground: Playground,
   variants: [HeaderStatus, NotDismissable],
   code: CODE,

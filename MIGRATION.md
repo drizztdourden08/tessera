@@ -2370,3 +2370,11 @@ Every Overview page under Primitives (Layout, Display, Actions, Inputs, Feedback
 ### What an app does
 
 Nothing. This changes the gallery only.
+
+## 94. The Composites pages for dialogs, wizards, menus, inputs and widgets open on a short lead and points
+
+Every Overview page in the Composites groups Dialogs, Overlays, Wizard, Navigation, Menus, Actions, Inputs, Forms and Widgets is rewritten to the description format of section 87: a one-sentence lead, 3 to 6 short points and, where a sibling is the better pick, a Use instead line. The DropdownMenu page writes its lead as a plain string the check can read.
+
+### What an app does
+
+Nothing. This changes the gallery only.
