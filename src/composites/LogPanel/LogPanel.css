@@ -52,7 +52,7 @@
 .log-panel__empty {
   flex: 1;
   padding: var(--space-md);
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
@@ -74,7 +74,7 @@
 }
 
 .log-panel__older-note {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
 }
 
 .log-panel__row {
@@ -92,7 +92,7 @@
 }
 
 .log-panel__gutter {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
   text-align: right;
   user-select: none;
 }

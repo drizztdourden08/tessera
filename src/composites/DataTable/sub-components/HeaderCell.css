@@ -60,5 +60,5 @@
 }
 
 .data-table__header-cell .data-table__sort--off {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
 }

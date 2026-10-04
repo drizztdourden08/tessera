@@ -104,7 +104,7 @@
 }
 
 .scale-labels__mark--out .scale-labels__text {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
 }
 
 .scale-labels__mark--hidden {

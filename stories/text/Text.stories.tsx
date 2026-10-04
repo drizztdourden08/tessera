@@ -1,8 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Stack, TEXT_ELEMENT_SPECS, Text } from '../../src/primitives';
-import type { TextVariant } from '../../src/primitives';
+import { Box, Stack, TEXT_ELEMENT_SPECS, TEXT_TONES, Text } from '../../src/primitives';
+import type { TextTone, TextVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -16,11 +16,14 @@ type TextArgs = {
   as: TextElement;
   weight: number;
   italic: boolean;
+  tone: TextTone | 'none';
+  mono: boolean;
+  numeric: boolean;
 };
 
 type Member = { name: string; short: string; renders: string };
 
-const VARIANTS: readonly TextVariant[] = ['title', 'subtitle', 'body', 'label', 'caption'];
+const VARIANTS: readonly TextVariant[] = ['title', 'subtitle', 'body', 'label', 'caption', 'overline'];
 
 const SAMPLES: Record<TextVariant, string> = {
   title: 'Multiworld session',
@@ -28,6 +31,7 @@ const SAMPLES: Record<TextVariant, string> = {
   body: 'Items found in your world are sent to their owner as soon as you pick them up.',
   label: 'Connection',
   caption: 'Last synced 12 seconds ago',
+  overline: 'Templates',
 };
 
 const EXTRA_MEMBERS: readonly Member[] = [
@@ -41,13 +45,16 @@ const MEMBERS: readonly Member[] = [
   ...EXTRA_MEMBERS,
 ];
 
-const ARGS: Partial<TextArgs> = { text: 'Items found in your world are sent to their owner.', variant: 'body', as: 'p', weight: 400, italic: false };
+const ARGS: Partial<TextArgs> = { text: 'Items found in your world are sent to their owner.', variant: 'body', as: 'p', weight: 400, italic: false, tone: 'none', mono: false, numeric: false };
 
 const ARG_TYPES: PlaygroundArgTypes<TextArgs> = {
   text: { group: 'Content', control: 'text' },
   variant: { group: 'Appearance', control: 'select', options: ['none', ...VARIANTS] },
   weight: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Any whole number from 100 to 900.' },
   italic: { group: 'Appearance', control: 'boolean' },
+  tone: { group: 'Appearance', control: 'select', options: ['none', ...TEXT_TONES], description: 'The colour, as on Span: quiet, accent or status.' },
+  mono: { group: 'Appearance', control: 'boolean', description: 'The code face, for file names, seeds and addresses.' },
+  numeric: { group: 'Appearance', control: 'boolean', description: 'Tabular figures, so times and counts line up.' },
   as: { group: 'Behaviour', control: 'select', options: ['span', 'p', 'div', 'h2', 'h3', 'strong', 'label'] },
 };
 
@@ -66,6 +73,9 @@ const Playground = {
       variant={args.variant === 'none' ? undefined : args.variant}
       weight={args.weight === 400 ? undefined : args.weight}
       italic={args.italic || undefined}
+      tone={args.tone === 'none' ? undefined : args.tone}
+      mono={args.mono || undefined}
+      numeric={args.numeric || undefined}
     >
       {args.text}
     </Text>
@@ -119,11 +129,33 @@ const AllVariants = {
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 
+const Tones = {
+  name: 'Tones',
+  render: () => (
+    <Demonstrator
+      rows={axis<TextTone>([...TEXT_TONES])}
+      cell={(tone) => <Text tone={tone}>{tone === 'danger' ? 'The server stopped: port 38281 is taken.' : 'Last synced 12 seconds ago'}</Text>}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TextArgs>;
+
+const Figures = {
+  name: 'Code type and tabular figures',
+  render: () => (
+    <Stack gap="xs">
+      <Text variant="overline">Run times</Text>
+      <Text numeric>01:12:08 and 11:47:31</Text>
+      <Text>01:12:08 and 11:47:31, proportional</Text>
+      <Text mono tone="muted">seed 2193847561 · archipelago.gg:38281</Text>
+    </Stack>
+  ),
+} satisfies StoryLiteStoryDefinition<TextArgs>;
+
 const Composed = {
   name: 'Composed block',
   render: () => (
     <Stack gap="xs">
-      <Text variant="label">Connection</Text>
+      <Text variant="overline">Connection</Text>
       <Text as="h2" variant="title">{SAMPLES.title}</Text>
       <Text as="p" variant="subtitle">{SAMPLES.subtitle}</Text>
       <Text as="p" variant="body">{SAMPLES.body}</Text>
@@ -137,15 +169,16 @@ const Overview = overviewStory({
   description: 'The namespace for every text element, and on its own a plain text element for interface copy.',
   points: [
     'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
-    '`variant` picks a role: `title`, `subtitle`, `body`, `label` or `caption`.',
+    '`variant` picks a role: `title`, `subtitle`, `body`, `label`, `caption`, or `overline` over a group.',
     'With no `variant` it takes the size and colour of its parent.',
     '`as` swaps the default `<span>` for another element, such as `p` or `label`.',
-    '`weight` and `italic` set the face.',
+    '`weight` and `italic` set the face; `mono` the code face, `numeric` tabular figures.',
+    '`tone` colours it as on [Span]: `muted` for quiet captions, `danger` for an error.',
   ],
   instead: '[Title] for headings.',
   playground: Playground,
-  variants: [Passage, Members, AllVariants, Composed],
+  variants: [Passage, Members, AllVariants, Tones, Figures, Composed],
 });
 
 export default meta;
-export { AllVariants, Composed, Members, Overview, Passage, Playground };
+export { AllVariants, Composed, Figures, Members, Overview, Passage, Playground, Tones };

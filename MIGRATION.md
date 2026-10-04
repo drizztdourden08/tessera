@@ -3090,3 +3090,32 @@ interface TesseraAppSettings {
 1. Set `guide.parts`, such as `"apps/desktop/src/guide/parts.type.ts"` in the `apps` entry, run `tessera guide`, then delete the hand-written list and the `parts` key of the tree module.
 2. Keep the module in the tsconfig of the usage files and list it as a knip entry.
 3. Until `standards knip` takes compilers, a repo that runs knip itself adds `compilers: { ts: usageExampleImports }` to a `knip.config.mjs`; see "Usage examples and knip" in docs/using-tessera.md.
+
+## 117. Text takes a tone, mono, numeric and an overline, and no text is faint
+
+From the Tessera review (tessera-17, tessera-18, tessera-19) and the UX review (ux-57).
+
+- **`tone`** on Text colours it as on Span and the other text elements: `dim`, `muted`, `primary`, `secondary`, `tertiary`, `success`, `warning`, `danger` or `info`. A tone wins over the colour of the variant, so `<Text variant="caption" tone="danger">` is a red caption.
+- **`mono`** sets the code face and **`numeric`** sets tabular figures, for times, seeds, slots, file names and counts.
+- **`variant="overline"`** is the small caps heading over a group: extra small, semibold, upper case, caps tracking, muted.
+- **No text is faint.** `--c-text-faint` measures about 1.86:1 on the surface; `--c-text-muted` measures 5.29:1 on the LogPanel. Every `color: var(--c-text-faint)` in Tessera is now `--c-text-muted`, in LogPanel, MasterDetailLayout, DataTable, DropdownMenu, ControlMenu, DynamicInput, FilterBar and the field kits, GroupTree, SearchResultHit, SettingsRow and ScaleLabels. `--c-text-faint` stays for borders and decoration.
+- The standards extension adds the stylelint rule **`tessera/no-faint-text`**: `color`, `caret-color` or `-webkit-text-fill-color` set to `--c-text-faint` is an error, in Tessera and in every app that installs it.
+
+The review asked for a `faint` tone too. It is left out: faint text is what ux-57 removes, and `muted` is the quietest tone that reads.
+
+```ts
+type TextVariant = 'body' | 'label' | 'title' | 'subtitle' | 'caption' | 'overline';
+
+interface TextProps {
+  // added
+  tone?: TextTone;
+  mono?: boolean;
+  numeric?: boolean;
+}
+```
+
+### What an app does
+
+1. Replace the app classes that only colour a Text, set its face or its figures with `tone`, `mono` and `numeric`.
+2. Replace hand-made group headings with `<Text variant="overline">`.
+3. Change any `color: var(--c-text-faint)` the rule now reports to `var(--c-text-muted)`.

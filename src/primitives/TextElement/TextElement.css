@@ -116,42 +116,6 @@
   color: var(--c-text-dim);
 }
 
-.text-el--tone-dim {
-  --tone-ink: var(--c-text-dim);
-}
-
-.text-el--tone-muted {
-  --tone-ink: var(--c-text-muted);
-}
-
-.text-el--tone-primary {
-  --tone-ink: var(--c-primary);
-}
-
-.text-el--tone-secondary {
-  --tone-ink: var(--c-secondary);
-}
-
-.text-el--tone-tertiary {
-  --tone-ink: var(--c-tertiary);
-}
-
-.text-el--tone-success {
-  --tone-ink: var(--c-success);
-}
-
-.text-el--tone-warning {
-  --tone-ink: var(--c-warning);
-}
-
-.text-el--tone-danger {
-  --tone-ink: var(--c-danger);
-}
-
-.text-el--tone-info {
-  --tone-ink: var(--c-info);
-}
-
 .text-el--toned {
   color: var(--tone-ink);
 }

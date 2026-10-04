@@ -2136,7 +2136,6 @@
         "--c-tertiary-soft",
         "--c-text",
         "--c-text-dim",
-        "--c-text-faint",
         "--c-text-muted",
         "--c-warning",
         "--c-warning-bright",

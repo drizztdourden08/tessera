@@ -1,9 +1,12 @@
 /* @layer tooling-scripts @kind logic */
 import { relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { loadTesseraConfig } from '../config/load-tessera-config.mjs';
 import { posixPath } from '../config/posix-path.mjs';
 import { EXTENSION_DESCRIPTION, EXTENSION_ID } from './standards.constants.mjs';
 import { usageFileCheck } from './usage-file-check.mjs';
+
+const STYLELINT_PLUGINS = ['no-faint-text'].map((name) => fileURLToPath(new URL(`./stylelint/${name}.mjs`, import.meta.url)));
 
 const fromBase = (base, path) => posixPath(relative(base, path)) || '.';
 
@@ -32,7 +35,7 @@ const tesseraExtension = () => ({
   description: EXTENSION_DESCRIPTION,
   structure: { checks: [usageFileCheck] },
   eslint: { options: eslintOptions },
-  stylelint: { options: stylelintOptions },
+  stylelint: { plugins: STYLELINT_PLUGINS, rules: { 'tessera/no-faint-text': true }, options: stylelintOptions },
 });
 
 export { tesseraExtension };

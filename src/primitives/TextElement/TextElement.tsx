@@ -2,6 +2,7 @@
 import type { ElementType, ReactElement } from 'react';
 import { typesettingStyle } from '../Text/behavior/text-style';
 import type { AnyTextElementProps, TextElementProps, TextTag } from './TextElement.type';
+import '../../theme/text-tone.css';
 import './TextElement.css';
 
 const AnyTextElement = (props: AnyTextElementProps) => {

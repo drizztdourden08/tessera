@@ -17,7 +17,7 @@
 }
 
 .dropdown__menu .dropdown__mark--off {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
 }
 
 .dropdown__radio-ring {

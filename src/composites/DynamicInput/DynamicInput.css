@@ -112,7 +112,7 @@
 }
 
 .dynamic-input .dynamic-input__slot::placeholder {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
   font-weight: var(--weight-normal);
 }
 
@@ -174,7 +174,7 @@
 }
 
 .dynamic-input__placeholder {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
   font-weight: var(--weight-normal);
 }
 

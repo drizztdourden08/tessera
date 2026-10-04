@@ -7,7 +7,7 @@
 }
 
 .field-kit__muted {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
 }
 
 .field-kit__num {

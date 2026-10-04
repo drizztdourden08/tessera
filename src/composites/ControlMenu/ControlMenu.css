@@ -89,7 +89,7 @@
 
 .control-menu__about-icon {
   flex-shrink: 0;
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
   transition: color var(--duration-fast);
 }
 

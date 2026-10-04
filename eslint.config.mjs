@@ -13,7 +13,7 @@ const SAMPLE_STORIES = ['stories/data/_samples/engine-grid.tsx'];
 
 export default standardsEslint({
   ignores: ['dist-storylite/**'],
-  defaultExportGlobs: ['.storylite/config.ts'],
+  defaultExportGlobs: ['.storylite/config.ts', 'scripts/standards/stylelint/*.mjs'],
   consoleGlobs: ['**/bin/**', '**/scripts/**', '**/tooling/**', '**/*.test.{ts,tsx,js,mjs}', 'src/primitives/dom/dev-warn.ts'],
   glyphContent: [
     { files: ['src/primitives/EmojiIcon/**', 'stories/icons/EmojiIcon.stories.tsx'], why: 'EmojiIcon is the primitive that draws an emoji' },

@@ -31,6 +31,6 @@
 .master-detail__detail--empty {
   align-items: center;
   justify-content: center;
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
   font-size: var(--text-sm);
 }

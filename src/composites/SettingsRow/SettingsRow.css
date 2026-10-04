@@ -227,7 +227,7 @@
 
 .settings-row__about-icon {
   flex-shrink: 0;
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
 }
 
 .settings-row__about:hover .settings-row__about-icon {

@@ -115,7 +115,7 @@
 }
 
 .dropdown__item:disabled {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
   cursor: default;
 }
 
@@ -141,13 +141,13 @@
 }
 
 .dropdown__item:disabled .dropdown__description {
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
 }
 
 .dropdown__chevron {
   margin-left: auto;
   font-size: var(--text-base);
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
 }
 
 .dropdown__separator {
