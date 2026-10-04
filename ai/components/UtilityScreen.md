@@ -1,6 +1,6 @@
 # UtilityScreen
 
-A compact screen for one short task: a status with an icon or a spinner, optional progress, settings and details, a footnote bar and a row of actions.
+A compact screen for one short task: the page header shows the status with a spinner or a tone icon, then a centred message, settings, details, a framed notes box, progress, and a footer with a report button and the actions.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -30,29 +30,40 @@ A status, details and actions in a compact window.
 
 ## Rules
 
-- Set status.tone to busy while the task runs; it shows a spinner in place of the icon.
-- Write the status title as the state, such as You are up to date, and the message as what it means or what to do.
-- Put the main action last in actions, with variant primary, and keep one primary action.
-- Set progress only when the task can say how far it is.
+- The status is the page header, which every screen kind shows and nothing turns off: status.title is its title and the tone picks its icon.
+- Set status.tone to busy while the task runs; it shows a spinner in place of the icon. Use status.icon for a closer icon, such as a download arrow.
+- Write the status title as the state, such as Update available, and the message as one short line, such as the version.
 - Put choices that shape the task, such as a pre-release toggle or a version picker, in settings, not in the children.
-- Use footnote for fine print that stays in view, with an action at its end such as a button to report an issue.
+- Put long text, such as release notes, in notes: a framed box with its own scroll.
+- Set progress only when the task can say how far it is.
+- Pass report to offer a way to report a problem; it is one red bug icon button, never a bar of text.
+- Put the main action last in actions, with variant primary, and keep one primary action.
 
 ## Accessibility
 
-- The status is a live region: a screen reader reads each new title and message.
+- The status title and the message are live regions: a screen reader reads each new one.
+- The report button is named Report an issue from the strings, and shows the same words in a tooltip.
 - The card is a modal dialog named by the title.
 
 ## Example
 
 ```tsx
-import { Button, UtilityScreen } from '@drizztdourden08/tessera';
+import { Icon, Strong, UtilityScreen } from '@drizztdourden08/tessera';
 
-const UpdateCheck = ({ onClose, onInstall }: { onClose: () => void; onInstall: () => void }) => (
+interface UpdateCheckProps {
+  notes: string;
+  onClose: () => void;
+  onInstall: () => void;
+  onReport: () => void;
+}
+
+const UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) => (
   <UtilityScreen
     title="Check for updates"
     onClose={onClose}
-    status={{ tone: 'info', title: 'Version 0.10.0 is ready', message: 'You have 0.9.2.' }}
-    footnote={{ text: 'Please report anything that stops working.', action: <Button size="sm" variant="secondary">Report an issue</Button> }}
+    status={{ tone: 'info', icon: <Icon name="download" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> }}
+    notes={{ title: 'What is new in 0.10.0', children: notes }}
+    report={{ onClick: onReport }}
     actions={[
       { label: 'Later', variant: 'ghost', onClick: onClose },
       { label: 'Install', variant: 'primary', onClick: onInstall },
@@ -68,12 +79,14 @@ const UpdateCheck = ({ onClose, onInstall }: { onClose: () => void; onInstall: (
 - `status`: `UtilityScreenStatus`.
 - `progress` (optional): `UtilityScreenProgress`.
 - `settings` (optional): `ReactNode`.
+- `notes` (optional): `UtilityScreenNotes`.
 - `children` (optional): `ReactNode`.
-- `footnote` (optional): `UtilityScreenFootnote`.
+- `report` (optional): `UtilityScreenReport`.
 - `actions` (optional): `readonly UtilityScreenAction[]`. Default `NO_ACTIONS`.
+- `backdrop` (optional): `ReactNode`.
 - `hidden` (optional): `boolean`.
 - `className` (optional): `string`. Default `''`.
 
 ## Tokens
 
-It draws on `--c-danger`, `--c-info`, `--c-primary-bright`, `--c-success`, `--c-text`, `--c-warning`, `--size-48`, `--space-lg`, `--space-md`, `--space-sm`, `--text-lg`, `--weight-semi`.
+It draws on `--blur-glow`, `--border-width-thin`, `--c-danger`, `--c-primary`, `--c-primary-soft`, `--c-success`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--leading-normal`, `--radius-md`, `--size-2`, `--size-32`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-semi`.

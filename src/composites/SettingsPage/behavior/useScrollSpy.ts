@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { COMPACT_AFTER, CURRENT_SLACK } from '../SettingsPage.constants';
+import { CURRENT_SLACK } from '../SettingsPage.constants';
 
 const sectionEl = (body: HTMLElement, id: string): HTMLElement | null =>
   body.querySelector<HTMLElement>(`[data-section="${CSS.escape(id)}"]`);
@@ -8,12 +8,10 @@ const sectionEl = (body: HTMLElement, id: string): HTMLElement | null =>
 const useScrollSpy = (ids: readonly string[]) => {
   const bodyRef = useRef<HTMLDivElement>(null);
   const [activeId, setActiveId] = useState(ids[0] ?? '');
-  const [compact, setCompact] = useState(false);
 
   const update = useCallback(() => {
     const body = bodyRef.current;
     if (!body) return;
-    setCompact(body.scrollTop > COMPACT_AFTER);
     const top = body.getBoundingClientRect().top + CURRENT_SLACK;
     let current = ids[0] ?? '';
     for (const id of ids) {
@@ -38,7 +36,7 @@ const useScrollSpy = (ids: readonly string[]) => {
     setActiveId(id);
   }, []);
 
-  return { bodyRef, activeId, compact, jumpTo };
+  return { bodyRef, activeId, jumpTo };
 };
 
 export { useScrollSpy };

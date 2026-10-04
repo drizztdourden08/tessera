@@ -146,6 +146,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'UtilityScreen', summary: 'A compact screen for one short task: a status, details, progress and actions.' },
         { name: 'StageScreen', summary: 'One big open stage for custom work, such as calibration, with an optional toolbar.' },
         { name: 'ScreenWindow', summary: 'Building block: the plain screen window with a title, a close button and an empty container.' },
+        { name: 'ScreenPage', summary: 'Building block: the page header container every screen kind shows, with its icon, title and fading backdrop.' },
         { name: 'ScreenLayer', summary: 'Building block: the overlay and the card with its gap, to build a new kind of screen.' },
       ],
     },

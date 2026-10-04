@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { UtilityScreen } from '../../src/composites';
-import { Button, Callout, Icon, SegmentedControl } from '../../src/primitives';
+import { Callout, Icon, SegmentedControl } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { ReleaseNotes } from './_samples/ReleaseNotes';
 import { ScreenDemo } from './_samples/ScreenDemo';
@@ -23,10 +23,7 @@ const PICKABLE: readonly UpdateStep[] = ['available', 'downloading', 'current'];
 
 const PRERELEASE_NOTE = 'This is a pre-release. It ships before the usual testing, so expect rough edges the stable builds do not have.';
 
-const FOOTNOTE = {
-  text: 'Any earlier version can be picked above if something stops working. Please report it either way, so it gets fixed.',
-  action: <Button size="sm" variant="secondary" icon={<Icon name="bug" size={14} />}>Report an issue</Button>,
-};
+const REPORT = { onClick: () => undefined };
 
 const UpdateDemo = (props: UtilityArgs) => {
   const [step, setStep] = useState<UpdateStep>(props.step);
@@ -46,6 +43,7 @@ const UpdateDemo = (props: UtilityArgs) => {
       hidden={hidden}
       onReopen={() => setHidden(false)}
       note="The buttons move between the steps"
+      tall
       tools={<SegmentedControl aria-label="Update step" size="sm" options={STEP_OPTIONS} value={step} onChange={setStep} />}
     >
       <UtilityScreen
@@ -55,11 +53,11 @@ const UpdateDemo = (props: UtilityArgs) => {
         status={UPDATE_STATUS[step]}
         progress={step === 'downloading' ? { value: 62, label: 'Downloaded' } : undefined}
         settings={settings}
-        footnote={FOOTNOTE}
+        notes={notes ? { title: `What is new in ${version}`, children: <ReleaseNotes /> } : undefined}
+        report={REPORT}
         actions={updateActions(step, setStep, () => setHidden(true))}
       >
         {settings && isPrerelease(version) && <Callout tone="warning" icon={<Icon name="triangle-alert" size={16} />}>{PRERELEASE_NOTE}</Callout>}
-        {notes && <ReleaseNotes version={version} />}
       </UtilityScreen>
     </ScreenDemo>
   );
@@ -104,35 +102,32 @@ const Failed = {
   render: () => <UpdateDemo step="failed" />,
 } satisfies PlaygroundStory<UtilityArgs>;
 
-const CODE = `import { Button, Card, Field, Paragraph, SectionHeader, Select, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
+const CODE = `import { Field, Icon, Select, Strong, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
 
 <UtilityScreen
   title="Check for updates"
   onClose={close}
-  status={{ tone: 'info', title: 'Version 0.10.0 is ready', message: 'You have 0.9.2.' }}
+  status={{ tone: 'info', icon: <Icon name="download" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> }}
   settings={<>
     <Toggle label="Include pre-releases" checked={prereleases} onChange={setPrereleases} />
     <Field label="Version to install"><Select value={version} onChange={setVersion} groups={versions} /></Field>
   </>}
-  footnote={{ text: 'Please report anything that stops working.', action: <Button size="sm" variant="secondary">Report an issue</Button> }}
+  notes={{ title: 'What is new in 0.10.0', children: <ReleaseNotes /> }}
+  report={{ onClick: openBugReport }}
   actions={[
     { label: 'Later', variant: 'ghost', onClick: close },
     { label: 'Install', variant: 'primary', onClick: install },
   ]}
->
-  <Card>
-    <SectionHeader title="What is new" />
-    {notes.map((line) => <Paragraph key={line} tone="dim">{line}</Paragraph>)}
-  </Card>
-</UtilityScreen>`;
+/>`;
 
 const Overview = overviewStory({
   component: 'UtilityScreen',
-  description: 'A screen for one short task the app runs for the user, such as checking for updates, importing a file or testing a connection. It is a compact ScreenWindow centred over the app, sized to its content up to a readable width. The status sits on top: a spinner while the task runs, or an icon by tone, then a title and a message. progress adds a bar under it. settings holds the choices that shape the task, such as a toggle for pre-releases and a picker for the version to install. The children are the details, such as release notes, and they scroll with the settings. footnote is a fine print bar above the buttons that stays in view, with an optional action at its end, such as a button to report an issue. actions is the row of buttons at the bottom, main action last.',
+  description: 'A screen for one short task the app runs for the user, such as checking for updates, importing a file or testing a connection. It is a compact ScreenWindow centred over the app, sized to its content up to a readable width, and it holds the page header every screen kind has. The header is the status: a spinner while the task runs or an icon by tone, then the status title, over the fading backdrop. Under it the message sits centred, such as the version line. settings holds the choices that shape the task, such as a toggle for pre-releases and a picker for the version to install. The children are the details, such as a warning. notes is a framed box with a tinted title and its own scroll, for release notes or a log. progress is a bar with its percent under it. The footer stays in view: a red bug button to report an issue on the left, and the buttons on the right, main action last.',
   playground: Playground,
   points: [
-    'The status is a live region: a screen reader reads each new title and message.',
-    'Tones: busy shows a spinner; info, success, warning and danger show their icon and colour.',
+    'The status title and the message are live regions: a screen reader reads each new one.',
+    'Tones: busy shows a spinner; info, success, warning and danger show their icon and colour. status.icon swaps the icon, such as a download arrow for an update.',
+    'report adds one ghost icon button in the danger tone, with a bug icon, Report an issue as its name and the same words in a tooltip.',
     'For a question with two answers, use Dialog. For pages with a side list, use WorkspaceScreen.',
   ],
   variants: [Checking, Downloading, Failed],

@@ -5,6 +5,10 @@
   min-height: var(--size-640);
 }
 
+.screens-story__frame--tall {
+  min-height: var(--size-768);
+}
+
 .screens-story__frame--narrow {
   width: var(--size-768);
   max-width: 100%;

@@ -59,6 +59,11 @@ html.booting .screen-layer {
   box-shadow: var(--shadow-3);
 }
 
+.screen-layer--square .screen-layer__card {
+  border: none;
+  border-radius: 0;
+}
+
 @container screen-layer (width < 1280px) or (height < 800px) {
   .screen-layer__inset { padding: max(calc(var(--control-h-md) / 2 + var(--space-lg)), calc(var(--space-xl) + 3cqmin)); }
 }
