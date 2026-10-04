@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.16.1
+
+### Patch Changes
+
+- 1a74e6a: Title bar actions take any `tone` as an icon colour and an `effect` from Icon (twinkle, ping and the rest), kept when the action folds into the main menu.
+
 ## 0.16.0
 
 ### Minor Changes
