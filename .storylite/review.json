@@ -326,7 +326,9 @@
       "at": "2026-10-03"
     },
     "InputIcon": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "PathIcon": {
       "status": "ok",
@@ -968,7 +970,7 @@
     "PressedGrid": {
       "status": "seen",
       "hash": "flagged",
-      "at": "2026-10-03"
+      "at": "2026-10-04"
     },
     "StickPlot": {
       "status": "ok",
