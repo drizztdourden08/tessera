@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 interface BarTracks {
-  columns: string;
+  sizes: readonly string[];
   capacity: number;
   free: number;
 }

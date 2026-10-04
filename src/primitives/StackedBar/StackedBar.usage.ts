@@ -15,6 +15,7 @@ const usage = {
     'Give each segment a stable id, so a live bar keeps its parts in place from one update to the next.',
     'Set limit to the parts worth naming; the smallest beyond it join one Other part.',
     'Pass total when the parts do not fill the whole, so the room left shows as free track.',
+    'Set orientation to vertical for a column beside other columns; give it a height, or a box with a height to fill.',
     'Use status tones when the parts are states and tag colours when they are names; leave color out to cycle the tag colours.',
   ],
   a11y: [
@@ -39,7 +40,7 @@ const MemoryBar = () => (
   />
 );
 `,
-  propsHash: '344a6c4a1bf04399',
+  propsHash: '3d7c9e3687b5a907',
 } satisfies ComponentUsage;
 
 export { usage };

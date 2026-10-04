@@ -181,10 +181,10 @@ describe('the stacked bar', () => {
 
   it('sizes each track by its share, with free room after the parts', () => {
     const parts = groupSegments([segment('a', 4), segment('b', 4)], 6, 'Other');
-    expect(barTracks(parts)).toEqual({ columns: '0.5fr 0.5fr', capacity: 8, free: 0 });
-    expect(barTracks(parts, 16)).toEqual({ columns: '0.25fr 0.25fr 0.5fr', capacity: 16, free: 8 });
+    expect(barTracks(parts)).toEqual({ sizes: ['0.5fr', '0.5fr'], capacity: 8, free: 0 });
+    expect(barTracks(parts, 16)).toEqual({ sizes: ['0.25fr', '0.25fr', '0.5fr'], capacity: 16, free: 8 });
     expect(barTracks(parts, 4).capacity).toBe(8);
-    expect(barTracks([]).columns).toBe('');
+    expect(barTracks([]).sizes).toEqual([]);
   });
 
   it('writes a share as a whole percent, and under one as <1%', () => {

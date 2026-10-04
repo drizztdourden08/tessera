@@ -147,3 +147,28 @@
 .stacked-bar [data-color='pink'] {
   --stacked-bar-ink: var(--c-tag-pink);
 }
+
+.stacked-bar[data-orientation='vertical'] {
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--space-md);
+  box-sizing: border-box;
+  height: 100%;
+  min-height: var(--size-128);
+}
+
+.stacked-bar[data-orientation='vertical'] .stacked-bar__bar {
+  flex: none;
+  grid-auto-flow: row;
+  width: var(--stacked-bar-height);
+  height: auto;
+}
+
+.stacked-bar[data-orientation='vertical'] .stacked-bar__segment {
+  min-height: 0;
+}
+
+.stacked-bar[data-orientation='vertical'] .stacked-bar__legend {
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+}

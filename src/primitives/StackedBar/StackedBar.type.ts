@@ -6,6 +6,8 @@ type StackedBarColor = StatusTone | TagCategoryColor;
 
 type StackedBarSize = 'sm' | 'md';
 
+type StackedBarOrientation = 'horizontal' | 'vertical';
+
 interface StackedBarSegment {
   id: string;
   label: string;
@@ -36,8 +38,12 @@ interface StackedBarProps {
   legend?: boolean;
   label?: string;
   size?: StackedBarSize;
+  orientation?: StackedBarOrientation;
+  height?: number;
   format?: (value: number) => string;
   className?: string;
 }
 
-export type { StackedBarColor, StackedBarPart, StackedBarProps, StackedBarRow, StackedBarSegment, StackedBarSize };
+export type {
+  StackedBarColor, StackedBarOrientation, StackedBarPart, StackedBarProps, StackedBarRow, StackedBarSegment, StackedBarSize,
+};

@@ -1809,6 +1809,7 @@
         "Give each segment a stable id, so a live bar keeps its parts in place from one update to the next.",
         "Set limit to the parts worth naming; the smallest beyond it join one Other part.",
         "Pass total when the parts do not fill the whole, so the room left shows as free track.",
+        "Set orientation to vertical for a column beside other columns; give it a height, or a box with a height to fill.",
         "Use status tones when the parts are states and tag colours when they are names; leave color out to cycle the tag colours."
       ],
       "a11y": [
@@ -1824,7 +1825,7 @@
         "rule": "StackedBar shows how one total splits into named parts, in a single bar."
       },
       "example": "import { StackedBar } from '@drizztdourden08/tessera';\n\nconst gigabytes = (value: number) => `${value.toFixed(1)} GB`;\n\nconst MemoryBar = () => (\n  <StackedBar\n    segments={[{ id: 'game', label: 'Game', value: 4.2 }, { id: 'browser', label: 'Browser', value: 1.8 }]}\n    total={16}\n    legend\n    label=\"Memory\"\n    format={gigabytes}\n  />\n);\n",
-      "propsHash": "344a6c4a1bf04399",
+      "propsHash": "3d7c9e3687b5a907",
       "props": {
         "own": [
           {
@@ -1861,8 +1862,22 @@
             "literals": [
               "'sm'",
               "'md'"
+            ]
+          },
+          {
+            "name": "orientation",
+            "optional": true,
+            "text": "StackedBarOrientation",
+            "literals": [
+              "'horizontal'",
+              "'vertical'"
             ],
-            "default": "'md'"
+            "default": "'horizontal'"
+          },
+          {
+            "name": "height",
+            "optional": true,
+            "text": "number"
           },
           {
             "name": "format",
@@ -1907,6 +1922,7 @@
         "--radius-sm",
         "--size-1",
         "--size-12",
+        "--size-128",
         "--size-6",
         "--size-8",
         "--space-2xs",

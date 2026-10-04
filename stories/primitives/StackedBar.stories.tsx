@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, StackedBar } from '../../src/primitives';
-import type { StackedBarSize } from '../../src/primitives';
+import type { StackedBarOrientation, StackedBarSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -20,9 +20,11 @@ type StackedBarArgs = {
   total: number;
   legend: boolean;
   size: StackedBarSize;
+  orientation: StackedBarOrientation;
+  height: number;
 };
 
-const ARGS: Partial<StackedBarArgs> = { label: 'Memory', count: 10, limit: 6, total: 12, legend: true, size: 'md' };
+const ARGS: Partial<StackedBarArgs> = { label: 'Memory', count: 10, limit: 6, total: 12, legend: true, size: 'md', orientation: 'horizontal', height: 192 };
 
 const ARG_TYPES: PlaygroundArgTypes<StackedBarArgs> = {
   label: { group: 'Content', control: 'text', description: 'Names the bar; a screen reader hears every part with it.' },
@@ -30,7 +32,9 @@ const ARG_TYPES: PlaygroundArgTypes<StackedBarArgs> = {
   limit: { group: 'Data', control: 'range', min: 1, max: 12, step: 1, description: 'Most parts drawn; the smallest past it join Other.' },
   total: { group: 'Value', control: 'range', min: 0, max: 16, step: 1, description: 'The whole. Room the parts leave shows as free; 0 uses their sum.' },
   legend: { group: 'Appearance', control: 'boolean' },
-  size: { group: 'Appearance', control: 'select', options: ['sm', 'md'] },
+  size: { group: 'Appearance', control: 'select', options: ['sm', 'md'], description: 'The thickness, across or up.' },
+  orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
+  height: { group: 'Layout', control: 'range', min: 96, max: 320, step: 16, description: 'The column height when vertical.' },
 };
 
 const meta = {
@@ -50,6 +54,8 @@ const Playground = {
       total={args.total || undefined}
       legend={args.legend}
       size={args.size}
+      orientation={args.orientation}
+      height={args.orientation === 'vertical' ? args.height : undefined}
       label={args.label || undefined}
       format={formatGigabytes}
     />
@@ -107,6 +113,34 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<StackedBarArgs>;
 
+const VERTICAL_COLUMNS = [
+  { key: 'room', label: 'room left, legend' },
+  { key: 'other', label: 'grouped into Other' },
+  { key: 'sm', label: 'size sm, no legend' },
+];
+
+const Vertical = {
+  name: 'Vertical, stacked bottom to top',
+  render: () => (
+    <Demonstrator
+      columns={VERTICAL_COLUMNS}
+      valign="end"
+      cell={(_row, kind) => (
+        <StackedBar
+          segments={kind === 'other' ? MANY_SEGMENTS : MEMORY_SEGMENTS}
+          total={kind === 'other' ? undefined : 12}
+          orientation="vertical"
+          height={192}
+          size={kind === 'sm' ? 'sm' : 'md'}
+          legend={kind !== 'sm'}
+          label="Memory"
+          format={formatGigabytes}
+        />
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StackedBarArgs>;
+
 const Live = {
   name: 'Live, one reading a second',
   render: () => <LiveMemoryBar />,
@@ -132,11 +166,12 @@ const Overview = overviewStory({
     '`limit` caps how many parts it draws; the smallest beyond it join one Other part.',
     '`total` sets the whole, so room the parts leave shows as free track.',
     '`legend` lists each part with its swatch and value; `format` writes the values.',
+    '`orientation="vertical"` stacks the parts bottom to top in a column `height` tall, the legend beside it.',
     'Point at a part for its name, value and share in a [Tooltip].',
   ],
   instead: '[ProgressBar] for one value toward an end.',
   playground: Playground,
-  variants: [Memory, Grouped, Colours, Sizes, Live],
+  variants: [Memory, Grouped, Colours, Sizes, Vertical, Live],
   states: {
     render: renderState,
     list: [
@@ -149,4 +184,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Colours, Grouped, Live, Memory, Overview, Playground, Sizes };
+export { Colours, Grouped, Live, Memory, Overview, Playground, Sizes, Vertical };

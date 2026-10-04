@@ -3869,3 +3869,16 @@ backTo: (page: string) => `Back to ${page}`;
 1. Brock: `toBarAction` maps a `kind: 'menu'` item to `{ id, label, icon, bar: 'dropdown', groups: toMenuGroups(spec.items, ...) }`, and `TitleBarMenuHost`, `titleBarMenu`, `useTitleBarMenuStore` and `barAnchor` go.
 2. Brock: a `kind: 'status'` item passes its `pulse` on to the action.
 3. Brock: `ScreenLayer` passes `onBack` to ScreenWindow in place of a `BackTitle` in the title, and `HubPageFrame` passes `back={{ label: page.label, onSelect: onUp }}` to ScreenPage in place of a `BackTitle`; `BackTitle` goes.
+
+## 148. StackedBar stands up
+
+`StackedBar` takes `orientation`: `horizontal`, the default and the bar it always drew, or `vertical`. A vertical bar stacks the parts bottom to top in a column, with the room `total` leaves on top. It is `height` pixels tall, or as tall as its box with a height of its own, and at least 128 px. `size` sets its width the way it sets the height of a horizontal bar: 6 px for `sm`, 12 px for `md`. The legend stands beside it, listed top to bottom in the order of the column. Grouping into Other, the tooltips and the label read the same either way.
+
+```ts
+type StackedBarOrientation = 'horizontal' | 'vertical';
+interface StackedBarProps { orientation?: StackedBarOrientation; height?: number /* vertical only */ }
+```
+
+### What an app does
+
+Nothing; a bar without `orientation` draws as before.

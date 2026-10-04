@@ -172,7 +172,7 @@ export type { SparklineBand, SparklineProps, SparklineTone, SparklineVariant } f
 export { Gauge } from './Gauge';
 export type { GaugeProps, GaugeSize, GaugeThresholds } from './Gauge';
 export { StackedBar } from './StackedBar';
-export type { StackedBarColor, StackedBarProps, StackedBarSegment, StackedBarSize } from './StackedBar';
+export type { StackedBarColor, StackedBarOrientation, StackedBarProps, StackedBarSegment, StackedBarSize } from './StackedBar';
 export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from './dom/app-region.constants';
 export { ShortcutList } from './ShortcutList';
 export type { ShortcutGesture, ShortcutListGroup, ShortcutListItem, ShortcutListProps } from './ShortcutList';

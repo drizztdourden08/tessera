@@ -1,9 +1,10 @@
 /* @layer renderer-components @kind types */
-import type { StackedBarRow } from '../StackedBar.type';
+import type { StackedBarOrientation, StackedBarRow } from '../StackedBar.type';
 
 interface StackedBarTrackProps {
   rows: readonly StackedBarRow[];
-  columns: string;
+  sizes: readonly string[];
+  orientation: StackedBarOrientation;
   freeTip: string | null;
   summary: string | undefined;
 }
