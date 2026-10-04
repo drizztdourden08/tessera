@@ -23,16 +23,17 @@
   pointer-events: none;
 }
 
-.radio-group__header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
 .radio-group__label {
+  float: inline-start;
+  width: 100%;
+  padding: 0;
   font-size: var(--control-font);
   font-weight: var(--weight-medium);
   color: var(--c-text);
+}
+
+.radio-group__label + .radio-group__description {
+  margin-top: calc(var(--space-xs) - var(--space-sm));
 }
 
 .radio-group__options {

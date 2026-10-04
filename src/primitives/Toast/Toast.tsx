@@ -25,7 +25,7 @@ const Toast = (props: ToastProps) => {
   }, [item.duration, dismiss]);
 
   return (
-    <div className={`toast toast--${variant} ${exiting ? 'toast--exiting' : ''}`}>
+    <div className={`toast toast--${variant} ${exiting ? 'toast--exiting' : ''}`} role={variant === 'danger' ? 'alert' : undefined}>
       <Span className="toast__message">{item.message}</Span>
       <button type="button" className="toast__close" onClick={dismiss} aria-label={fields.dismiss}>
         <Glyph name="close" />

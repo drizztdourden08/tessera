@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind data */
+import { useId } from 'react';
 import '../../theme/control-size.css';
 import './RadioGroup.css';
 import { useControlSize } from '../field-control/useControlSize';
@@ -22,16 +23,17 @@ const RadioGroup = <T extends string = string>(props: RadioGroupProps<T>) => {
   const controlSize = useControlSize(size);
   const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
 
-  const groupName = name ?? `radio-${label?.replace(/\s+/g, '-').toLowerCase() ?? 'group'}`;
+  const autoId = useId();
+  const groupName = name ?? `radio-${autoId}`;
+  const descriptionId = description ? `${autoId}-description` : undefined;
 
   return (
-    <fieldset className={`radio-group control-size--${controlSize} ${disabled ? 'radio-group--disabled' : ''}`}>
-      {[label, description].some(Boolean) && (
-        <div className="radio-group__header">
-          {label && <legend className="radio-group__label">{label}</legend>}
-          {description && <Small tone="dim" className="radio-group__description">{description}</Small>}
-        </div>
-      )}
+    <fieldset
+      className={`radio-group control-size--${controlSize} ${disabled ? 'radio-group--disabled' : ''}`}
+      aria-describedby={descriptionId}
+    >
+      {label && <legend className="radio-group__label">{label}</legend>}
+      {description && <Small id={descriptionId} tone="dim" className="radio-group__description">{description}</Small>}
       <div className={`radio-group__options radio-group__options--${direction}`}>
         {options.map((opt) => (
           <label

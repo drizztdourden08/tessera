@@ -1,0 +1,36 @@
+/* @layer renderer-components @kind hook */
+import { useEffect, useState } from 'react';
+import type { FocusEvent, RefObject } from 'react';
+import { isNode } from '../../Portal/behavior/is-node';
+import { useDismissListeners } from '../../Portal/behavior/useDismissListeners';
+import type { TooltipOpen } from './useTooltipOpen.type';
+
+const useTooltipOpen = (anchorRef: RefObject<HTMLElement | null>, bubbleRef: RefObject<HTMLElement | null>, hasContent: boolean): TooltipOpen => {
+  const [hover, setHover] = useState(false);
+  const [focus, setFocus] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const open = (hover || focus) && !dismissed && hasContent;
+
+  useEffect(() => {
+    if (!hover && !focus) setDismissed(false);
+  }, [hover, focus]);
+
+  useDismissListeners({ open, onClose: () => setDismissed(true), contentRef: bubbleRef, triggerRef: anchorRef });
+
+  const onBlur = (event: FocusEvent<HTMLElement>) => {
+    const next = event.relatedTarget;
+    if (next === null || !isNode(next) || !event.currentTarget.contains(next)) setFocus(false);
+  };
+
+  return {
+    open,
+    handlers: {
+      onMouseEnter: () => setHover(true),
+      onMouseLeave: () => setHover(false),
+      onFocus: () => setFocus(true),
+      onBlur,
+    },
+  };
+};
+
+export { useTooltipOpen };

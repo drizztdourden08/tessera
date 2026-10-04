@@ -3289,3 +3289,25 @@ interface StatRowProps { copyable?: boolean | string }
 1. Replace a hand-written Enter `onKeyDown` with `onEnter`.
 2. Replace a Slider beside a field kit number editor with `<Slider input />`.
 3. Replace a hand-made line of label and value facts, or restyled StatRow internals, with `<FactsPanel layout="inline">` or `layout="boxed"`, and add `copyable` to addresses, seeds and paths.
+
+## 124. Tooltip opens on focus, toasts are announced, and RadioGroup names its group
+
+From the UX review (ux-60, ux-61, ux-64).
+
+- **Tooltip opens on focus and on hover.** Focus on a control inside it, such as a Button, opens it, and it closes when focus leaves. The bubble has `role="tooltip"` and an id, and while it is open the focused control inside takes `aria-describedby` pointing at it, added to any it had. Escape closes it through the shared dismiss stack, so a tooltip inside a menu or a dialog closes first and the menu or dialog stays. It stays closed after Escape until the pointer and focus have both left.
+- **`focusable` puts plain text in the Tab order.** Text, a Status or an icon cannot take focus, so a tooltip on it was out of reach from the keyboard. With `focusable` the anchor takes `tabIndex={0}`, a focus ring and the `aria-describedby` itself. It is off by default, since a tooltip often sits inside a button or a Select trigger, where a second Tab stop would be wrong.
+- **ToastContainer is a live region.** It stays in the page with no toasts, with `role="status"` and `aria-live="polite"`, so screen readers announce each toast added to it. A `danger` toast has `role="alert"` and is read at once.
+- **RadioGroup gives every group its own `name`** from `useId`, so two groups with no `name` and no `label` no longer share `radio-group` and uncheck each other. A `name` passed in is kept. The legend is now the first child of the fieldset, so it names the group; it looks the same, with the description under it, which now describes the group through `aria-describedby`.
+
+```ts
+interface TooltipProps {
+  // added
+  focusable?: boolean; // default false
+}
+```
+
+### What an app does
+
+1. Pass `focusable` to a Tooltip whose children are text or an icon that the user needs to read from the keyboard, such as a truncated value.
+2. Drop app code that rendered ToastContainer only while toasts were queued; render it once, always.
+3. Drop the `name` you passed to RadioGroup only to keep groups apart.

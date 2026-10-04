@@ -1,31 +1,36 @@
 /* @layer renderer-components @kind component */
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useId, useRef } from 'react';
 import { Anchored } from '../Anchored';
+import { useDescribedBy } from './behavior/useDescribedBy';
+import { useFallbackPos } from './behavior/useFallbackPos';
+import { useTooltipOpen } from './behavior/useTooltipOpen';
 import './Tooltip.css';
 import type { TooltipProps } from './Tooltip.type';
 
 const Tooltip = (props: TooltipProps) => {
-  const { content, placement = 'top', children, className = '' } = props;
+  const { content, placement = 'top', focusable = false, children, className = '' } = props;
   const anchorRef = useRef<HTMLSpanElement>(null);
-  const [open, setOpen] = useState(false);
-  const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
-
-  useLayoutEffect(() => {
-    if (!open || !anchorRef.current) return;
-    const r = anchorRef.current.getBoundingClientRect();
-    setPos({ left: r.left + r.width / 2, top: placement === 'top' ? r.top : r.bottom });
-  }, [open, placement]);
+  const bubbleRef = useRef<HTMLDivElement>(null);
+  const bubbleId = useId();
+  const { open, handlers } = useTooltipOpen(anchorRef, bubbleRef, content != null);
+  const pos = useFallbackPos(anchorRef, open, placement);
+  const describedBy = open ? bubbleId : undefined;
+  useDescribedBy(anchorRef, describedBy, focusable);
+  const stop = focusable ? { tabIndex: 0, 'aria-describedby': describedBy } : {};
 
   return (
     <span
       ref={anchorRef}
       className={`tooltip-anchor${className ? ` ${className}` : ''}`}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      {...stop}
+      {...handlers}
     >
       {children}
-      {open && content != null && (
+      {open && (
         <Anchored
+          ref={bubbleRef}
+          id={bubbleId}
+          role="tooltip"
           anchorRef={anchorRef}
           placement={placement === 'top' ? 'top-center' : 'bottom-center'}
           layer="tooltip"

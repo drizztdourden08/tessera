@@ -40,7 +40,7 @@ const Placements = {
   name: 'Placements and triggers',
   render: () => (
     <Box className="story-column">
-      <Text className="story-label">Point at each item</Text>
+      <Text className="story-label">Point at each item, or move to it with Tab</Text>
       <Box className="story-row">
         <Tooltip content="Opens above" placement="top">
           <Button variant="secondary">Top</Button>
@@ -48,10 +48,10 @@ const Placements = {
         <Tooltip content="Opens below" placement="bottom">
           <Button variant="secondary">Bottom</Button>
         </Tooltip>
-        <Tooltip content="Three players are connected">
+        <Tooltip content="Three players are connected" focusable>
           <Status>3 online</Status>
         </Tooltip>
-        <Tooltip content="Seed 48213, generated on this machine">
+        <Tooltip content="Seed 48213, generated on this machine" focusable>
           <Text>Seed info</Text>
         </Tooltip>
         <Tooltip content={null}>
@@ -64,9 +64,10 @@ const Placements = {
 
 const Overview = overviewStory({
   component: 'Tooltip',
-  description: 'A short note that appears while the pointer rests on an element, such as a cost or the full text of a label.',
+  description: 'A short note that appears while the pointer rests on an element or focus is on it, such as a cost or the full text of a label.',
   points: [
-    'Wrap any element in it and pass the note as `content`.',
+    'Wrap any element in it and pass the note as `content`; it names the focused control with `aria-describedby`.',
+    'It opens on focus too and [[Esc]] closes it; `focusable` puts plain text in the Tab order.',
     'It opens above by default, or below with `placement="bottom"`.',
     'It draws above the page, so a clipped panel does not cut it off.',
     'With no `content` it draws nothing.',

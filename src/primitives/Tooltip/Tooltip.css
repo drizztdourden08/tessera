@@ -3,6 +3,12 @@
   display: inline-flex;
 }
 
+.tooltip-anchor:focus-visible {
+  border-radius: var(--radius-sm);
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-2);
+}
+
 .tooltip {
   position: fixed;
   max-width: var(--size-256);

@@ -118,6 +118,7 @@ const Overview = overviewStory({
     '`variant` sets the colour: `info`, `success`, `warning` or `danger`.',
     'A toast leaves after its `duration`, or stays until closed when the `duration` is 0.',
     'Each toast has a close button.',
+    'Screen readers announce each toast: the queue is a polite status region, and a `danger` toast is an alert.',
   ],
   instead: '[Callout] for a note that stays in the page.',
   playground: Playground,
