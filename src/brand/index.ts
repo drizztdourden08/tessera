@@ -13,7 +13,7 @@ export { Mascot } from './Mascot';
 export type { MascotProps } from './Mascot';
 export { AnimatedMascot } from './AnimatedMascot';
 export type { AnimatedMascotBrand, AnimatedMascotProps, MascotAnimationNames } from './AnimatedMascot';
-export { ChosenMascot } from './ChosenMascot';
+export { ChosenMascot, mascotForBrand } from './ChosenMascot';
 export type { ChosenMascotProps, MascotChoice, MascotName } from './ChosenMascot';
 export type { MascotAnimation, MascotMotion, MotionFrame, MotionPart, MotionShadow, MotionStage, MotionTrack } from './motion/motion.type';
 export type { SentriAnimation } from './sentri/sentri-motion.type';

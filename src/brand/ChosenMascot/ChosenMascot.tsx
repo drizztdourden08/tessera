@@ -14,17 +14,19 @@ const ChosenMascot = (props: ChosenMascotProps) => {
   const palette = usePaletteName(ref, mascot === 'auto' && brand === undefined);
   const name = mascotFor(mascot, brand, palette);
   return (
-    <Span ref={ref} className="chosen-mascot" data-mascot={name}>
-      <AnimatedMascot
-        brand={MASCOTS[name]}
-        animation={animation}
-        playing={playing}
-        loop={loop}
-        size={size}
-        scale={scale}
-        title={title}
-        className={className}
-      />
+    <Span ref={ref} className="chosen-mascot" data-mascot={name ?? 'none'}>
+      {name !== null && (
+        <AnimatedMascot
+          brand={MASCOTS[name]}
+          animation={animation}
+          playing={playing}
+          loop={loop}
+          size={size}
+          scale={scale}
+          title={title}
+          className={className}
+        />
+      )}
     </Span>
   );
 };

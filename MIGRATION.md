@@ -2602,3 +2602,13 @@ InfoScreen shows no page header. Its window keeps the title bar with the title a
 - A custom screen can use `header` on ScreenWindow for a header at the window level, in place of a ScreenPage card inside.
 
 `RENAMES.json` lists the removed props and the class.
+
+## 101. ChosenMascot draws none for a brand without a mascot
+
+With `mascot="auto"`, `ChosenMascot` (and so `CommandPalette`) used to fall back to Sentri when neither the `brand` nor the page's `data-palette` named an app with a mascot. An app on such a brand then showed Relic of the Past's mascot. It now draws nothing in that case; the wrapping `span.chosen-mascot` stays, with `data-mascot="none"`.
+
+`mascotForBrand(brand)` is new in `@drizztdourden08/tessera/brand`: it returns the mascot of a brand (`'sentri'`, `'flint'` or `'pelago'`), or `null`.
+
+### What an app does
+
+An app that wants a mascot whatever its brand names one: `mascot="sentri"`, or `mascot={mascotForBrand(brand) ?? 'sentri'}`. An app that kept its own brand to mascot table can drop it for `mascotForBrand`.

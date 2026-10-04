@@ -176,7 +176,7 @@ const Overview = overviewStory({
     '`AnimatedMascot` plays the brand\'s clips, such as idle, jump and wave; Flint adds point and blink.',
     'Pelago never stops: its spheres drift and melt together, and its eyes and hands float a beat behind.',
     '`scale` sets screen pixels per art unit and `size` uses the mark sizes; reduced motion shows it at rest.',
-    '`ChosenMascot` picks one by `mascot` name, or with `auto` by `brand`, then by the page\'s `data-palette`.',
+    '`ChosenMascot` picks one by name, or with `auto` by `brand` or `data-palette`; no match draws none.',
   ],
   instead: '[Logo] for the app\'s mark, or [Brand] for the whole family on one page.',
   playground: Playground,

@@ -1,13 +1,10 @@
 /* @layer renderer-components @kind logic */
-import { MASCOT_NAMES, MASCOTS } from '../ChosenMascot.constants';
 import type { MascotChoice, MascotName } from '../ChosenMascot.type';
+import { mascotForBrand } from './mascot-for-brand';
 
-const mascotOfBrand = (brand: string | null | undefined): MascotName | undefined =>
-  MASCOT_NAMES.find((name) => MASCOTS[name] === brand);
-
-const mascotFor = (choice: MascotChoice, brand?: string, palette?: string | null): MascotName => {
+const mascotFor = (choice: MascotChoice, brand?: string, palette?: string | null): MascotName | null => {
   if (choice !== 'auto') return choice;
-  return mascotOfBrand(brand) ?? mascotOfBrand(palette) ?? MASCOT_NAMES[0];
+  return mascotForBrand(brand) ?? mascotForBrand(palette);
 };
 
 export { mascotFor };

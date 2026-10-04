@@ -63,7 +63,7 @@ const ARGS: Partial<PaletteArgs> = { defaultOpen: true, defaultQuery: '', placeh
 const ARG_TYPES: PlaygroundArgTypes<PaletteArgs> = {
   defaultQuery: { group: 'Content', control: 'text' },
   placeholder: { group: 'Content', control: 'text', description: 'Leave it empty to hear the mascot ask' },
-  mascot: { group: 'Appearance', control: 'select', options: ['none', 'auto', 'sentri'], description: 'auto picks the mascot of the app palette' },
+  mascot: { group: 'Appearance', control: 'select', options: ['none', 'auto', 'sentri', 'flint', 'pelago'], description: 'auto picks the mascot of the app palette, and none when it has no mascot' },
   defaultOpen: { group: 'State', control: 'boolean' },
 };
 
@@ -97,7 +97,7 @@ const WithMascot = {
   name: 'With a mascot',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" placeholder="" mascot="auto" />,
+  render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" placeholder="" mascot="sentri" />,
 } satisfies PlaygroundStory<PaletteArgs>;
 
 const Closed = {
@@ -151,7 +151,7 @@ const Overview = overviewStory({
     'The host owns `query` and the results, passed as `groups` of [CommandPaletteRow] items.',
     'The arrow keys move the active row, [[Enter]] picks it and [[Ctrl+Enter]] flips a toggle row.',
     '[[Esc]] or a click on the scrim closes it, and focus goes back where it was.',
-    '`mascot` adds a small mascot to the field; `auto` picks the one of the app palette.',
+    '`mascot` adds a small mascot to the field; `auto` picks the one of the app palette, or none.',
   ],
   instead: '[DropdownMenu] for a short list of actions on one button.',
   playground: Playground,
