@@ -2,19 +2,23 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { FactsPanel } from '../../src/composites';
+import type { FactsPanelProps } from '../../src/composites';
+import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { BUILD_FACTS, PROFILE_FACTS } from './_samples/data-facts';
+import { BUILD_FACTS, PROFILE_FACTS, SERVER_FACTS } from './_samples/data-facts';
 
 type FactsArgs = {
   label: string;
   secondGroup: boolean;
+  layout: NonNullable<FactsPanelProps['layout']>;
 };
 
-const ARGS: Partial<FactsArgs> = { label: 'Profile', secondGroup: true };
+const ARGS: Partial<FactsArgs> = { label: 'Profile', secondGroup: true, layout: 'inline' };
 
 const ARG_TYPES: PlaygroundArgTypes<FactsArgs> = {
   label: { group: 'Content', control: 'text', description: 'The accessible name of the panel.' },
   secondGroup: { group: 'Content', control: 'boolean', description: 'Adds the second group under a hairline.' },
+  layout: { group: 'Layout', control: 'select', options: ['inline', 'rows', 'boxed'], description: 'Facts along a line, one per row, or one per sunken box.' },
 };
 
 const meta = {
@@ -27,7 +31,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <FactsPanel label={args.label || undefined} groups={args.secondGroup ? PROFILE_FACTS : PROFILE_FACTS.slice(0, 1)} />
+    <FactsPanel label={args.label || undefined} layout={args.layout} groups={args.secondGroup ? PROFILE_FACTS : PROFILE_FACTS.slice(0, 1)} />
   ),
 } satisfies PlaygroundStory<FactsArgs>;
 
@@ -39,6 +43,22 @@ const TwoGroups = {
 const OneGroup = {
   name: 'One group',
   render: () => <FactsPanel label="Build" groups={BUILD_FACTS} />,
+} satisfies StoryLiteStoryDefinition<FactsArgs>;
+
+const LAYOUTS = ['inline', 'rows', 'boxed'] as const;
+
+const Layouts = {
+  name: 'Layouts, with copyable values',
+  render: () => (
+    <Box className="story-column">
+      {LAYOUTS.map((layout) => (
+        <Box key={layout} className="story-column">
+          <Text className="story-label">{`layout="${layout}"`}</Text>
+          <FactsPanel label={`Server, ${layout}`} layout={layout} groups={SERVER_FACTS} />
+        </Box>
+      ))}
+    </Box>
+  ),
 } satisfies StoryLiteStoryDefinition<FactsArgs>;
 
 const CODE = `import { FactsPanel } from '@drizztdourden08/tessera';
@@ -62,14 +82,15 @@ const Overview = overviewStory({
   description: 'A bordered box of label and value pairs, for the facts about one thing, such as a profile, a save or a build.',
   points: [
     '`groups` holds the facts; each group runs along one row, with a hairline between groups.',
-    '`mono` sets a value in the monospace font, for a seed or an address.',
+    '`layout` lays the facts `inline` along a line, as `rows`, or `boxed` in sunken rows.',
+    '`mono` sets a value in the monospace font; `copyable` adds a copy button. Every value can be selected.',
     'A long value is cut short; its `title` shows the full text in a tooltip.',
     '[Hero] draws its facts with it, on glass.',
   ],
   playground: Playground,
-  variants: [TwoGroups, OneGroup],
+  variants: [TwoGroups, OneGroup, Layouts],
   code: CODE,
 });
 
 export default meta;
-export { OneGroup, Overview, Playground, TwoGroups };
+export { Layouts, OneGroup, Overview, Playground, TwoGroups };

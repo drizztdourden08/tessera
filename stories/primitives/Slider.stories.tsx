@@ -121,6 +121,16 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
+const WithInputDemo = () => {
+  const [value, setValue] = useState(10);
+  return <Slider value={value} min={0} max={100} step={1} onChange={setValue} label="Hint cost" description="Percent of a player's checks" input labels="every 25" />;
+};
+
+const WithInput = {
+  name: 'With an exact number field',
+  render: () => <Box className="story-column"><WithInputDemo /></Box>,
+} satisfies StoryLiteStoryDefinition<SliderArgs>;
+
 const HintCost = (props: { disabled: boolean }) => {
   const { disabled } = props;
   const [value, setValue] = useState(60);
@@ -150,10 +160,11 @@ const Overview = overviewStory({
     '`labels` writes labels under the track; [ScaleLabels] lists the whole rule syntax.',
     '`formatValue` sets how the value reads, and `keyStep` sets a coarser stride for the arrow keys.',
     'It runs controlled with `value` and `onChange`, or on its own from `defaultValue`.',
+    '`input` puts a [NumberInput] at its end, bound to the same value and bounds.',
   ],
   instead: '[VolumeControl] for a volume slider with a mute button.',
   playground: Playground,
-  variants: [Kinds, Stops, Labels, Sizes],
+  variants: [Kinds, Stops, Labels, Sizes, WithInput],
   states: {
     render: renderState,
     list: [
@@ -167,4 +178,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Kinds, Labels, Overview, Playground, Sizes, Stops };
+export { Kinds, Labels, Overview, Playground, Sizes, Stops, WithInput };

@@ -3,7 +3,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
-import { Field, TextInput, type ControlSize } from '../../src/primitives';
+import { useState } from 'react';
+import { Box, Field, Text, TextInput, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { CONTROL_SIZES } from '../_template/control-sizes.constants';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -82,6 +83,27 @@ const Icons = {
   ),
 } satisfies StoryLiteStoryDefinition<TextInputArgs>;
 
+const EnterDemo = () => {
+  const [sent, setSent] = useState<readonly string[]>([]);
+  const [draft, setDraft] = useState('');
+  const send = (line: string) => {
+    if (line.trim() === '') return;
+    setSent((was) => [...was, line]);
+    setDraft('');
+  };
+  return (
+    <Box className="story-column">
+      <TextInput value={draft} onChange={(event) => setDraft(event.target.value)} onEnter={send} placeholder="Type a command, then press Enter" aria-label="Command" />
+      <Text className="story-label">{sent.length === 0 ? 'Nothing sent yet' : `Sent: ${sent.join(', ')}`}</Text>
+    </Box>
+  );
+};
+
+const OnEnter = {
+  name: 'Sending on Enter',
+  render: () => <EnterDemo />,
+} satisfies StoryLiteStoryDefinition<TextInputArgs>;
+
 const Sizes = sizesStory<TextInputArgs>((size) => <TextInput size={size} defaultValue="Link" />, { align: 'stretch' });
 
 const InField = {
@@ -109,10 +131,11 @@ const Overview = overviewStory({
     '`invalid`, or a [Field] with an error, draws the error look.',
     '`start` and `end` put an icon at either end; one with `onClick` becomes a button that needs a label.',
     'With an icon set, the input sits in a frame that takes the `className`.',
+    '`onEnter` gets the value when Enter is pressed, as do [PasswordInput] and [SearchInput].',
   ],
   instead: '[SearchInput] for a search, [PasswordInput] for a password, or [Textarea] for longer text.',
   playground: Playground,
-  variants: [Types, Icons, Sizes, InField],
+  variants: [Types, Icons, Sizes, InField, OnEnter],
   states: {
     render: renderState,
     list: [
@@ -128,4 +151,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Icons, InField, Overview, Playground, Sizes, Types };
+export { Icons, InField, OnEnter, Overview, Playground, Sizes, Types };

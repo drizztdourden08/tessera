@@ -139,3 +139,7 @@
   cursor: pointer;
   touch-action: none;
 }
+
+.slider__number {
+  flex: none;
+}

@@ -17,6 +17,7 @@ const COMMON_STRINGS = {
   noMatches: 'No matches',
   nothingToShow: 'Nothing to show.',
   copied: 'Copied',
+  copyNamed: (name: string) => (name ? `Copy ${name}` : 'Copy'),
   yes: 'Yes',
   no: 'No',
   mute: 'Mute',

@@ -28,6 +28,7 @@ interface SliderCommonProps {
 
 interface SliderSingleProps extends SliderCommonProps {
   range?: false;
+  input?: boolean;
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
@@ -35,6 +36,7 @@ interface SliderSingleProps extends SliderCommonProps {
 
 interface SliderRangeProps extends SliderCommonProps {
   range: true;
+  input?: never;
   value?: SliderPair;
   defaultValue?: SliderPair;
   onChange?: (value: [number, number]) => void;

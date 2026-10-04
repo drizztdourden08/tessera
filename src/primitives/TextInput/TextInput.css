@@ -41,3 +41,8 @@
 .text-input-frame:has(> .text-input:disabled) > .text-input-frame__slot > .input-adornment:not(.input-adornment--action) {
   opacity: var(--opacity-disabled);
 }
+
+.text-input:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thin);
+}

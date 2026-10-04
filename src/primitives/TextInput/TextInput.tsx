@@ -7,11 +7,12 @@ import { useControlSize } from '../field-control/useControlSize';
 import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
 import './TextInput.css';
+import { enterKeyDown } from './behavior/enter-key-down';
 import { frameClass } from './behavior/frame-class';
 import { type TextInputProps } from './TextInput.type';
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
-  const { className = '', id, invalid, size, start, end, 'aria-describedby': ownDescribedBy, ...rest } = props;
+  const { className = '', id, invalid, size, start, end, onEnter, onKeyDown, 'aria-describedby': ownDescribedBy, ...rest } = props;
   const control = useFieldControl(id, ownDescribedBy);
   const controlSize = useControlSize(size);
   const isInvalid = invalid ?? control.invalid ?? false;
@@ -26,6 +27,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
       aria-describedby={control.describedBy}
       aria-invalid={isInvalid ? true : undefined}
       {...rest}
+      onKeyDown={enterKeyDown(onKeyDown, onEnter)}
     />
   );
   if (!framed) return input;

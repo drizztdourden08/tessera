@@ -45,3 +45,34 @@
 .facts-panel__fact .stat-row__value[data-mono] {
   font-size: var(--text-sm);
 }
+
+.facts-panel--rows .facts-panel__group,
+.facts-panel--boxed .facts-panel__group {
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+
+.facts-panel--rows .facts-panel__fact,
+.facts-panel--boxed .facts-panel__fact {
+  justify-content: space-between;
+}
+
+.facts-panel--rows .facts-panel__fact .stat-row__value,
+.facts-panel--boxed .facts-panel__fact .stat-row__value {
+  max-width: none;
+  text-align: right;
+}
+
+.facts-panel--boxed .facts-panel__group {
+  gap: var(--space-xs);
+}
+
+.facts-panel--boxed .facts-panel__fact {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--c-sunken);
+}
+
+.facts-panel--boxed .facts-panel__group + .facts-panel__group {
+  border-top: none;
+}

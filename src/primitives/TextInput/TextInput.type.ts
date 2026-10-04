@@ -8,6 +8,7 @@ interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'si
   size?: ControlSize;
   start?: InputAdornment;
   end?: InputAdornment;
+  onEnter?: (value: string) => void;
 }
 
 export type {

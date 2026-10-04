@@ -3265,3 +3265,27 @@ interface ListItemRowProps {
 
 1. Drop `actionVisibility="always"`, now the default. Pass `actionVisibility="hover"` where a list should stay quiet until hover.
 2. A row that opened on Enter through `onDoubleClick` and selects on `onClick`: give the open action a button in `action`, or open on `onClick` where selecting is not needed.
+
+## 123. onEnter on text inputs, a number field on Slider, FactsPanel layouts, copyable values
+
+From the Tessera review (tessera-28, tessera-29, tessera-30) and the UX review (ux-62, ux-67).
+
+- **TextInput takes `onEnter(value)`**, called with the value when Enter is pressed, after the host `onKeyDown`, and not while an input method composes or once the host prevented the key. PasswordInput and SearchInput pass it on.
+- **TextInput shows the focus outline of Button**, 2 px of `--c-primary`, 1 px out, on `:focus-visible`, beside the border colour it already took. PasswordInput and SearchInput take it too.
+- **Slider takes `input`** (one value only): a NumberInput at its end, bound to the same value, `min`, `max` and `step`. A typed value inside the bounds moves the thumb at once, snapped to the step; the text value beside the track is left out.
+- **FactsPanel takes `layout`.** `inline` (the default, the look it had) runs the facts along a line, `rows` puts one per row with the value on the right, `boxed` puts each row in a sunken box.
+- **StatRow and FactsPanel values can be selected and copied.** The value takes `user-select: text`. `copyable` on a StatRow or a fact adds a copy button named after the row ("Copy Seed") that copies the value text, or the string `copyable` gives when the value is a node. New string: `common.copyNamed(name)`.
+
+```ts
+interface TextInputProps { onEnter?: (value: string) => void }
+interface SliderSingleProps { input?: boolean }
+interface FactsPanelProps { layout?: 'rows' | 'inline' | 'boxed' }
+interface FactsPanelFact { copyable?: boolean | string }
+interface StatRowProps { copyable?: boolean | string }
+```
+
+### What an app does
+
+1. Replace a hand-written Enter `onKeyDown` with `onEnter`.
+2. Replace a Slider beside a field kit number editor with `<Slider input />`.
+3. Replace a hand-made line of label and value facts, or restyled StatRow internals, with `<FactsPanel layout="inline">` or `layout="boxed"`, and add `copyable` to addresses, seeds and paths.

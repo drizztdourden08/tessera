@@ -22,4 +22,12 @@ const BUILD_FACTS: readonly FactsPanelGroup[] = [
   ],
 ];
 
-export { BUILD_FACTS, PROFILE_FACTS };
+const SERVER_FACTS: readonly FactsPanelGroup[] = [
+  [
+    { label: 'Local', value: '127.0.0.1:38281', mono: true, copyable: true },
+    { label: 'Seed', value: '2193847561', mono: true, copyable: true },
+    { label: 'Uptime', value: '4 min' },
+  ],
+];
+
+export { BUILD_FACTS, PROFILE_FACTS, SERVER_FACTS };

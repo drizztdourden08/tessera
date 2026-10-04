@@ -6,12 +6,16 @@ interface FactsPanelFact {
   value: ReactNode;
   title?: string;
   mono?: boolean;
+  copyable?: boolean | string;
 }
 
 type FactsPanelGroup = readonly FactsPanelFact[];
 
+type FactsPanelLayout = 'rows' | 'inline' | 'boxed';
+
 interface FactsPanelProps {
   groups: readonly FactsPanelGroup[];
+  layout?: FactsPanelLayout;
   label?: string;
   className?: string;
 }

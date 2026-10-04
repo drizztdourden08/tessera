@@ -37,8 +37,8 @@ const SessionDetails = {
       <Card>
         <Stack gap="xs">
           <Text variant="title">Session</Text>
-          <StatRow label="Host" value="archipelago.local:38281" mono />
-          <StatRow label="Seed" value="48213-HOOK-VALE" mono />
+          <StatRow label="Host" value="archipelago.local:38281" mono copyable />
+          <StatRow label="Seed" value="48213-HOOK-VALE" mono copyable />
           <StatRow label="Players" value="4 of 6" />
           <StatRow label="Checks" value="212 / 640" />
           <StatRow label="Status" value={<Status tone="success">Connected</Status>} />
@@ -60,6 +60,7 @@ const Overview = overviewStory({
     'Stack a few in a [Card] for session details, stats or settings at a glance.',
     '`value` can be text or any node, such as a [Status].',
     '`mono` draws the value in a monospace font, for addresses, ids and coordinates.',
+    'The value can be selected; `copyable` adds a button that copies it, or the string it is given.',
   ],
   instead: '[TermList] for terms and what they mean.',
   playground: Playground,
