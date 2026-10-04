@@ -46,8 +46,8 @@ const ARG_TYPES: PlaygroundArgTypes<MascotArgs> = {
   scale: { group: 'Appearance', control: 'number', description: 'Screen pixels per art pixel. Whole numbers keep every pixel square.' },
   lookX: { group: 'State', control: 'range', min: -2, max: 2, step: 1, description: 'Where the eyes look across, from -2 to 2 art pixels.' },
   lookY: { group: 'State', control: 'range', min: -1, max: 1, step: 1, description: 'Where the eyes look up or down, from -1 to 1 art pixels.' },
-  limbLeft: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s left pod, around the point where it meets the body, or of Flint\'s left hand, around its shoulder. Pelago\'s hands turn the same way.' },
-  limbRight: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s right pod or Flint\'s right hand.' },
+  limbLeft: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s left pod, around the point where it meets the body, or of Flint\'s left hand, around its shoulder. Pelago\'s upper left islet swings round the island by half that turn.' },
+  limbRight: { group: 'State', control: 'number', description: 'The turn in degrees of Sentri\'s right pod, Flint\'s right hand or Pelago\'s upper right islet.' },
   animation: { group: 'Motion', control: 'select', options: ['none', ...MASCOT_ANIMATIONS], description: 'The brand mascot\'s animation, drawn with AnimatedMascot; one it does not have plays its idle. none draws the still Mascot with the variant and pose below.' },
   speed: { group: 'Motion', control: 'range', min: 0.25, max: 4, step: 0.25, description: 'Playback speed: 1 is normal, 0.5 half, 2 double.' },
   loop: { group: 'Motion', control: 'boolean', description: 'Plays the animation again and again. Off plays it once; turn playing off and on to see it again.' },
@@ -172,9 +172,9 @@ const Overview = overviewStory({
   description: 'An app\'s mascot, drawn in code from its own SVG pieces: still with `Mascot`, moving with `AnimatedMascot`.',
   points: [
     'Three so far: Sentri for Relic of the Past, Flint for Brock and Pelago for Archipelia.',
-    '`pose` moves the eyes and turns the limbs, such as Sentri\'s pods or Flint\'s hands, without new art.',
-    '`AnimatedMascot` plays the brand\'s clips, such as idle, jump and wave; Flint adds point and blink.',
-    'Pelago never stops: its spheres drift and melt together, and its eyes and hands float a beat behind.',
+    '`pose` moves the eyes and turns the limbs: Sentri\'s pods, Flint\'s hands or Pelago\'s upper islets.',
+    '`AnimatedMascot` plays clips such as idle, jump and wave; Flint and Pelago add point and blink.',
+    'Pelago is an island spirit: islets orbit it on threads of light, and `link` runs a spark around them.',
     '`scale` sets screen pixels per art unit and `size` uses the mark sizes; reduced motion shows it at rest.',
     '`ChosenMascot` picks one by name, or with `auto` by `brand` or `data-palette`; no match draws none.',
   ],
@@ -191,7 +191,7 @@ const Overview = overviewStory({
 <AnimatedMascot brand="rotp" animation="jump" speed={0.5} playing={!paused} onFinish={backToIdle} />
 <AnimatedMascot brand="brock" animation="point" scale={4} />
 <Mascot brand="brock" pose={{ handAngles: { right: -70 } }} />
-<AnimatedMascot brand="archipelia" animation="alert" scale={4} />
+<AnimatedMascot brand="archipelia" animation="link" scale={4} />
 
 <ChosenMascot mascot="auto" animation="scan" />`,
 });

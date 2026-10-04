@@ -2650,3 +2650,37 @@ Sub-menus now place themselves right inside a page or frame scaled with CSS `zoo
 ### What an app does
 
 An app that closed the menu by hand after a checkable or radio item, or that passed `closeOnSelect={false}` only to keep toggles open, can drop that code. An app that wants a toggle to close the menu closes it in the item's `onSelect`.
+
+## 105. Pelago is an island spirit
+
+Archipelia's mascot Pelago is drawn again from scratch. The three purple spheres with eyes and gloved hands are gone. Pelago is now a small floating island of faceted purple-grey stone with a few violet tufts and a crystal spire on top, a glowing violet crystal set in its face, and two calm glowing eyes on the crystal. Four smaller islets orbit it, joined to it and to each other by thin threads of light, the way Archipelia links many game worlds into one. Three pebbles hang below, and it still floats over the ring of dots. The islets act as its hands. The name `pelago`, the `archipelia` brand and every way to draw it stay the same.
+
+| Animation | What Pelago does |
+|---|---|
+| `idle` | bobs and breathes; the islets drift to and fro along the ring, the crystal glow swells and fades, the eyes blink now and then |
+| `move` | tips into the travel; the islets trail a beat behind and their threads stretch |
+| `jump` | dips, rises high with the islets flung outward, snaps them back and lands with a settle and a pebble bounce |
+| `wave` | the upper right islet rises beside the face and rocks side to side like a waving hand |
+| `scan` | the eyes glance left, right and up; the island turns a moment after them |
+| `happy` | a bounce, a brighter glow, a smiling squint, and the islets loop once around the island |
+| `alert` | a jolt and a shake; the islets pull in close, the glow flares and the eyes widen |
+| `point` | the upper right islet shoots out to the side and holds there on a taut thread |
+| `link` | new: the threads dim, then a spark runs around the ring of islets and each thread lights up behind it; the spokes and the crystal flare last |
+| `blink` | blinks twice |
+
+- `PelagoAnimation` adds `'point'`, `'link'` and `'blink'`, so `point` and `blink` now play on Pelago as they do on Flint.
+- The islets, the spark and the ring threads pass behind the upper half of the island and in front of its lower half, so in `happy` the islets go behind the island over the top and in front of it below.
+- Under every animation the pebbles drift on slow loops of their own. Reduced motion shows Pelago at rest and runs no animation.
+- `MascotPose`: `look` moves the eyes on the crystal, up to 1.6 units across and 1.2 up or down. `handAngles` (or `podAngles`) swings the upper left and upper right islets round the island by half the angle, up to 40 degrees, and their threads follow.
+- The scene is 58 by 51 units instead of 52 by 42, so Pelago at a given `scale` is a little larger.
+- A motion frame's `opacity` fades its part again. Since section 91 every track was added on top of the part's own state, which left a frame's `opacity` with no effect: Sentri's and Flint's shadows stopped fading. A frame's `opacity` now counts from the part's own opacity, so their shadows fade as they were drawn to, and two tracks that both dim a part dim it further.
+- Removed with the old Pelago, which was their only user: `goo` on `SceneGroupNode` and on `groupNode`'s third argument (`GroupSpot`), the filter that `BrandScene` and `sceneMarkup` drew for it, and the Svg primitives `SvgFilter`, `SvgFeGaussianBlur` and `SvgFeColorMatrix`.
+- `pnpm icons` writes Pelago's new files to `brand/archipelia/mascot/`, under the same names.
+
+```ts
+type PelagoAnimation = 'idle' | 'move' | 'jump' | 'wave' | 'scan' | 'happy' | 'alert' | 'point' | 'link' | 'blink';
+```
+
+### What an app does
+
+Nothing, for an app that draws Pelago through `Mascot`, `AnimatedMascot`, `ChosenMascot` or the files in `brand/archipelia/mascot/`. An app that built its own scene with `goo` drops it, and one that imported `SvgFilter`, `SvgFeGaussianBlur` or `SvgFeColorMatrix` writes the `filter`, `feGaussianBlur` and `feColorMatrix` elements itself.

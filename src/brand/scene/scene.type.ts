@@ -13,14 +13,12 @@ interface GroupSpot {
   turn?: SceneTurn;
   clip?: readonly ScenePoint[];
   part?: string;
-  goo?: number;
 }
 
 interface SceneWriter {
   ink: (ink: string) => string;
   crisp: boolean;
   clipId: () => string;
-  gooId: () => string;
 }
 
 interface SceneMarkupOptions {

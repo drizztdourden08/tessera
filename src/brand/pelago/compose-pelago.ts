@@ -1,37 +1,44 @@
 /* @layer renderer-components @kind logic */
-import type { BrandPiece, BrandSceneData, MascotPose, ScenePoint } from '../brand.type';
+import type { BrandSceneData, MascotPose, ScenePoint } from '../brand.type';
 import { groupNode } from '../scene/group-node';
-import { placePiece } from '../scene/place-piece';
+import { isletOffsets } from './islet-offsets';
+import { isletPiece } from './islet-piece';
+import type { IsletId, ThreadRig } from './pelago.type';
+import { PELAGO_FRONT_CLIP } from './pelago-depth.constants';
+import { PELAGO_ISLETS } from './pelago-islets.constants';
 import { PELAGO_PIECES } from './pelago-pieces.constants';
 import { PELAGO_RIG } from './pelago-rig.constants';
-import type { PelagoRig } from './pelago.type';
+import { placeAt } from './place-at';
+import { threadEnd } from './thread-end';
+import { threadLabel } from './thread-label';
+import { threadPiece } from './thread-piece';
 
 const within = (value: number, reach: number): number => Math.min(reach, Math.max(-reach, value));
 
-const handNode = (piece: BrandPiece, hand: PelagoRig['handLeft'], angle = 0) =>
-  placePiece(piece, { at: hand.at, angle, origin: [hand.pivot[0] - hand.at[0], hand.pivot[1] - hand.at[1]] as ScenePoint });
-
 const composePelago = (pose: MascotPose = {}): BrandSceneData => {
-  const { sphereTop, sphereLeft, sphereRight, glint, eye, handLeft, handRight } = PELAGO_PIECES;
+  const { aura, rock, halo, crystal, eye, spark, pebbleA, pebbleB, pebbleC } = PELAGO_PIECES;
   const rig = PELAGO_RIG;
-  const { top, left, right } = rig.spheres;
   const [lookX = 0, lookY = 0] = pose.look ?? [];
-  const dx = within(lookX, rig.lookReach[0]);
-  const dy = within(lookY, rig.lookReach[1]);
-  const hands = pose.handAngles ?? pose.podAngles ?? {};
-  const shine = (label: string, at: ScenePoint) => placePiece(glint, { at, label, angle: rig.glintAngle });
+  const look: ScenePoint = [within(lookX, rig.lookReach[0]), within(lookY, rig.lookReach[1])];
+  const offsets = isletOffsets(pose);
+  const thread = (t: ThreadRig) => placeAt(threadPiece(threadLabel(t), threadEnd(t.from, offsets), threadEnd(t.to, offsets), t.bulge));
+  const orbit = (id: IsletId) => groupNode(`Orbit ${id.toUpperCase()}`, [
+    placeAt(spark, threadEnd(id, offsets), `Spark ${id.toUpperCase()}`),
+    placeAt(isletPiece(id, offsets[id])),
+  ]);
+  const eyes = rig.eyes.map(([x, y]) => placeAt(eye, [x + look[0], y + look[1]]));
   return {
     width: rig.width,
     height: rig.height,
     smooth: true,
     nodes: [
-      groupNode('Body', [
-        groupNode('Spheres', [placePiece(sphereTop, { at: top.at }), placePiece(sphereLeft, { at: left.at }), placePiece(sphereRight, { at: right.at })], { goo: rig.goo }),
-        groupNode('Glints', [shine('Top glint', top.glint), shine('Left glint', left.glint), shine('Right glint', right.glint)]),
-      ]),
-      handNode(handLeft, rig.handLeft, hands.left),
-      handNode(handRight, rig.handRight, hands.right),
-      groupNode('Eyes', rig.eyes.map(([x, y]) => placePiece(eye, { at: [x + dx, y + dy] }))),
+      placeAt(aura),
+      ...rig.threads.filter((t) => !t.orbit).map(thread),
+      placeAt(pebbleA),
+      placeAt(pebbleB),
+      placeAt(pebbleC),
+      groupNode('Island', [placeAt(rock), placeAt(halo), placeAt(crystal), groupNode('Eyes', eyes)]),
+      groupNode('Orbits', [...rig.threads.filter((t) => t.orbit).map(thread), ...PELAGO_ISLETS.map(orbit)], { clip: PELAGO_FRONT_CLIP }),
     ],
   };
 };

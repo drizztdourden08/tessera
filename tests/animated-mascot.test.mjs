@@ -54,10 +54,10 @@ describe('mascot motion data', () => {
 });
 
 describe('motionKeyframes', () => {
-  it('turns each frame around the pivot with the same list of functions, so every frame blends', () => {
+  it('turns each frame around the pivot with the same list of functions, and counts opacity from the part\'s own, so every frame blends and adds up', () => {
     const frames = motionKeyframes([{ at: 0 }, { at: 1, x: 1, y: -2, rotate: 10, scaleY: 0.5, opacity: 0.4 }], [5, 15.5]);
-    expect(frames[0]).toEqual({ offset: 0, easing: 'cubic-bezier(0.37, 0, 0.63, 1)', opacity: 1, transform: 'translate(5px, 15.5px) rotate(0deg) scale(1, 1) translate(-5px, -15.5px)' });
+    expect(frames[0]).toEqual({ offset: 0, easing: 'cubic-bezier(0.37, 0, 0.63, 1)', opacity: 0, transform: 'translate(5px, 15.5px) rotate(0deg) scale(1, 1) translate(-5px, -15.5px)' });
     expect(frames[1].transform).toBe('translate(6px, 13.5px) rotate(10deg) scale(1, 0.5) translate(-5px, -15.5px)');
-    expect(frames[1].opacity).toBe(0.4);
+    expect(frames[1].opacity).toBeCloseTo(-0.6);
   });
 });

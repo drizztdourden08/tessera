@@ -1,60 +1,52 @@
 /* @layer renderer-components @kind data */
-import type { MascotAnimation, MotionFrame } from '../../motion/motion.type';
+import type { ScenePoint } from '../../brand.type';
+import type { MascotAnimation } from '../../motion/motion.type';
 import { EASE } from '../../motion/motion.constants';
-import { PELAGO_LAG } from '../pelago-lag.constants';
+import { isletTracks } from '../islet-tracks';
+import type { IsletBeat } from '../pelago.type';
+import { PELAGO_ISLETS } from '../pelago-islets.constants';
+import { PELAGO_RIG } from '../pelago-rig.constants';
 
-const HOPS: readonly MotionFrame[] = [
-  { at: 0 },
-  { at: 0.08, y: 1, ease: EASE.snap },
-  { at: 0.22, y: -5, ease: EASE.in },
-  { at: 0.38, y: 0.5, ease: EASE.snap },
-  { at: 0.52, y: -5, ease: EASE.in },
-  { at: 0.68, y: 0.5 },
-  { at: 0.82 },
-  { at: 1 },
-];
+const LOOP: readonly ScenePoint[] = [[10, 13.4], [29, 5], [48, 15.4], [54, 25.5], [47.4, 35.6], [29, 44], [10.6, 35], [4, 24]];
+const START = 0.1;
+const SPAN = 0.6;
 
-const flap = (side: 1 | -1): readonly MotionFrame[] => [
-  { at: 0 },
-  { at: 0.12, rotate: 70 * side },
-  { at: 0.22, rotate: 50 * side },
-  { at: 0.32, rotate: 75 * side },
-  { at: 0.42, rotate: 50 * side },
-  { at: 0.52, rotate: 75 * side },
-  { at: 0.66, rotate: 40 * side, ease: EASE.overshoot },
-  { at: 0.86 },
-  { at: 1 },
-];
+const loopBeat = (step: number): IsletBeat => ({
+  at: Number((START + (step * SPAN) / LOOP.length).toFixed(3)),
+  ease: step === 0 ? EASE.in : EASE.linear,
+  moves: Object.fromEntries(PELAGO_ISLETS.map((id, i) => {
+    const [x, y] = LOOP[(2 * i + step) % LOOP.length] ?? PELAGO_RIG.islets[id].node;
+    const [nx, ny] = PELAGO_RIG.islets[id].node;
+    return [id, { x: Number((x - nx).toFixed(3)), y: Number((y - ny).toFixed(3)) }];
+  })),
+});
+
+const STEPS = Array.from({ length: LOOP.length }, (_, step) => loopBeat(step));
 
 const PELAGO_HAPPY: MascotAnimation = {
   name: 'Happy',
-  summary: 'A little celebration: two quick hops that tip one way then the other, the spheres bounce against each other, the hands flap high and the eyes squeeze into a smile.',
-  duration: 1500,
+  summary: 'Delighted: the island bounces, its glow swells bright, the eyes squint into a smile, and the islets loop once around it, threads and all.',
+  duration: 1800,
   loop: false,
   tracks: [
     {
-      part: 'body',
+      part: 'rig',
       frames: [
         { at: 0 },
-        { at: 0.08, y: 1, scaleX: 1.08, scaleY: 0.9, ease: EASE.snap },
-        { at: 0.22, y: -5, rotate: -6, scaleX: 0.95, scaleY: 1.06, ease: EASE.in },
-        { at: 0.38, y: 0.5, scaleX: 1.08, scaleY: 0.92, ease: EASE.snap },
-        { at: 0.52, y: -5, rotate: 6, scaleX: 0.95, scaleY: 1.06, ease: EASE.in },
-        { at: 0.68, y: 0.5, scaleX: 1.06, scaleY: 0.94 },
-        { at: 0.82 },
+        { at: 0.08, y: 1.2, ease: EASE.snap },
+        { at: 0.28, y: -5, ease: EASE.out },
+        { at: 0.5, y: -4.4, ease: EASE.in },
+        { at: 0.66, y: 0.6 },
+        { at: 0.76, y: -1 },
+        { at: 0.88 },
         { at: 1 },
       ],
     },
-    { part: 'sphereTop', frames: [{ at: 0 }, { at: 0.22, y: -1.2 }, { at: 0.38, y: 1 }, { at: 0.52, y: -1.2 }, { at: 0.68, y: 1 }, { at: 0.84 }, { at: 1 }] },
-    { part: 'sphereLeft', frames: [{ at: 0 }, { at: 0.22, x: 1 }, { at: 0.38, x: -1 }, { at: 0.52, x: 1 }, { at: 0.68, x: -1 }, { at: 0.84 }, { at: 1 }] },
-    { part: 'sphereRight', frames: [{ at: 0 }, { at: 0.22, x: -1 }, { at: 0.38, x: 1 }, { at: 0.52, x: -1 }, { at: 0.68, x: 1 }, { at: 0.84 }, { at: 1 }] },
-    { part: 'shadow', frames: [{ at: 0 }, { at: 0.22, scale: 0.72, opacity: 0.6 }, { at: 0.38 }, { at: 0.52, scale: 0.72, opacity: 0.6 }, { at: 0.68 }, { at: 1 }] },
-    { part: 'eyes', lag: PELAGO_LAG.eyes / 2, frames: HOPS },
-    { part: 'eyes', frames: [{ at: 0 }, { at: 0.08, scaleY: 0.35 }, { at: 0.76, scaleY: 0.35 }, { at: 0.86 }, { at: 1 }] },
-    { part: 'handLeft', lag: PELAGO_LAG.hands / 2, frames: HOPS },
-    { part: 'handRight', lag: PELAGO_LAG.hands / 2, frames: HOPS },
-    { part: 'handLeft', frames: flap(1) },
-    { part: 'handRight', frames: flap(-1) },
+    { part: 'island', frames: [{ at: 0 }, { at: 0.08, scaleX: 1.06, scaleY: 0.94 }, { at: 0.26, scaleX: 0.97, scaleY: 1.04 }, { at: 0.5 }, { at: 0.66, scaleX: 1.05, scaleY: 0.95 }, { at: 0.8 }, { at: 1 }] },
+    { part: 'shadow', frames: [{ at: 0 }, { at: 0.28, scale: 0.7, opacity: 0.6 }, { at: 0.5, scale: 0.74, opacity: 0.65 }, { at: 0.66 }, { at: 1 }] },
+    { part: 'glow', frames: [{ at: 0 }, { at: 0.16, scale: 1.25 }, { at: 0.7, scale: 1.3 }, { at: 0.9 }, { at: 1 }] },
+    { part: 'eyes', frames: [{ at: 0 }, { at: 0.08, scaleY: 0.35 }, { at: 0.8, scaleY: 0.35 }, { at: 0.9 }, { at: 1 }] },
+    ...isletTracks([{ at: 0 }, ...STEPS, { ...loopBeat(LOOP.length), ease: EASE.out }, { at: 1 }]),
   ],
 };
 

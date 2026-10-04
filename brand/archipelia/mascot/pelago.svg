@@ -1,88 +1,265 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 42" width="256" height="207" role="img" aria-label="Pelago">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 51" width="256" height="225" role="img" aria-label="Pelago">
   <title>Pelago</title>
-  <g>
-  <filter id="pelago-goo-1" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
-  <feGaussianBlur stdDeviation="1.3"/>
-  <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 24 -11"/>
-  </filter>
-  <g filter="url(#pelago-goo-1)">
-  <g transform="translate(16.5 10)">
-  <svg width="17" height="17" viewBox="0 0 17 17" preserveAspectRatio="none" overflow="visible">
-  <path fill="#5a35dc" d="M0 8.5a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0 -17 0z"/>
-  <path fill="#7c4dff" d="M1.615 6.8a5.61 5.61 0 1 0 11.22 0a5.61 5.61 0 1 0 -11.22 0z"/>
-  <path fill="#9d77ff" d="M3.4 5.27a2.55 2.55 0 1 0 5.1 0a2.55 2.55 0 1 0 -5.1 0z"/>
+  <g transform="translate(6 5.5)">
+  <svg width="46" height="40" viewBox="0 0 46 40" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.04" d="M0 20a23 20 0 1 0 46 0a23 20 0 1 0 -46 0z"/>
+  <path fill="#7c4dff" fill-opacity="0.05" d="M4 20a19 16.5 0 1 0 38 0a19 16.5 0 1 0 -38 0z"/>
+  <path fill="#7c4dff" fill-opacity="0.06" d="M8 20a15 13 0 1 0 30 0a15 13 0 1 0 -30 0z"/>
   </svg>
   </g>
-  <g transform="translate(7.5 20.5)">
-  <svg width="17" height="17" viewBox="0 0 17 17" preserveAspectRatio="none" overflow="visible">
-  <path fill="#6a45e8" d="M0 8.5a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0 -17 0z"/>
-  <path fill="#9d77ff" d="M1.615 6.8a5.61 5.61 0 1 0 11.22 0a5.61 5.61 0 1 0 -11.22 0z"/>
-  <path fill="#c1a8ff" d="M3.4 5.27a2.55 2.55 0 1 0 5.1 0a2.55 2.55 0 1 0 -5.1 0z"/>
+  <g transform="translate(10 13.4)">
+  <svg width="19" height="12.6" viewBox="0 0 19 12.6" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.4" d="M19 12.6Q8.284 8.133 0 0Q9.832 5.8 19 12.6Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.95" d="M19 12.6Q8.726 7.467 0 0Q9.389 6.467 19 12.6Z"/>
+  <path fill="#ffffff" fill-opacity="0.85" d="M19 12.6Q8.936 7.15 0 0Q9.179 6.783 19 12.6Z"/>
   </svg>
   </g>
-  <g transform="translate(24.5 21)">
-  <svg width="19" height="19" viewBox="0 0 19 19" preserveAspectRatio="none" overflow="visible">
-  <path fill="#4527b8" d="M0 9.5a9.5 9.5 0 1 0 19 0a9.5 9.5 0 1 0 -19 0z"/>
-  <path fill="#6a3ff2" d="M1.805 7.6a6.27 6.27 0 1 0 12.54 0a6.27 6.27 0 1 0 -12.54 0z"/>
-  <path fill="#8f6bff" d="M3.8 5.89a2.85 2.85 0 1 0 5.7 0a2.85 2.85 0 1 0 -5.7 0z"/>
+  <g transform="translate(29 15.4)">
+  <svg width="19" height="10.6" viewBox="0 0 19 10.6" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.4" d="M0 10.6Q9.208 4.776 19 0Q10.572 7.221 0 10.6Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.95" d="M0 10.6Q9.597 5.475 19 0Q10.182 6.523 0 10.6Z"/>
+  <path fill="#ffffff" fill-opacity="0.85" d="M0 10.6Q9.783 5.807 19 0Q9.997 6.191 0 10.6Z"/>
   </svg>
   </g>
-  </g>
-  <g>
-  <g transform="translate(19 12) rotate(-25 3 2)">
-  <svg width="6" height="4" viewBox="0 0 6 4" preserveAspectRatio="none" overflow="visible">
-  <path fill="#ffffff" fill-opacity="0.8" d="M0.4 1.8a2.2 1.2 0 1 0 4.4 0a2.2 1.2 0 1 0 -4.4 0z"/>
-  <path fill="#ffffff" fill-opacity="0.6" d="M4.55 3.1a0.55 0.55 0 1 0 1.1 0a0.55 0.55 0 1 0 -1.1 0z"/>
+  <g transform="translate(29 26)">
+  <svg width="18.4" height="9.7" viewBox="0 0 18.4 9.7" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.4" d="M0 0Q10.218 2.85 18.4 9.6Q8.922 5.332 0 0Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.95" d="M0 0Q9.848 3.559 18.4 9.6Q9.293 4.623 0 0Z"/>
+  <path fill="#ffffff" fill-opacity="0.85" d="M0 0Q9.672 3.896 18.4 9.6Q9.468 4.286 0 0Z"/>
   </svg>
   </g>
-  <g transform="translate(10 22.5) rotate(-25 3 2)">
-  <svg width="6" height="4" viewBox="0 0 6 4" preserveAspectRatio="none" overflow="visible">
-  <path fill="#ffffff" fill-opacity="0.8" d="M0.4 1.8a2.2 1.2 0 1 0 4.4 0a2.2 1.2 0 1 0 -4.4 0z"/>
-  <path fill="#ffffff" fill-opacity="0.6" d="M4.55 3.1a0.55 0.55 0 1 0 1.1 0a0.55 0.55 0 1 0 -1.1 0z"/>
+  <g transform="translate(10.6 26)">
+  <svg width="18.4" height="9" viewBox="0 0 18.4 9" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.4" d="M18.4 0Q9.464 5.039 0 9Q8.233 2.524 18.4 0Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.95" d="M18.4 0Q9.112 4.32 0 9Q8.585 3.242 18.4 0Z"/>
+  <path fill="#ffffff" fill-opacity="0.85" d="M18.4 0Q8.945 3.979 0 9Q8.752 3.584 18.4 0Z"/>
   </svg>
   </g>
-  <g transform="translate(28 23.5) rotate(-25 3 2)">
-  <svg width="6" height="4" viewBox="0 0 6 4" preserveAspectRatio="none" overflow="visible">
-  <path fill="#ffffff" fill-opacity="0.8" d="M0.4 1.8a2.2 1.2 0 1 0 4.4 0a2.2 1.2 0 1 0 -4.4 0z"/>
-  <path fill="#ffffff" fill-opacity="0.6" d="M4.55 3.1a0.55 0.55 0 1 0 1.1 0a0.55 0.55 0 1 0 -1.1 0z"/>
+  <g transform="translate(20.6 39.6)">
+  <svg width="3.9" height="4.5" viewBox="0 0 3.9 4.5" preserveAspectRatio="none" overflow="visible">
+  <path fill="#2a1d55" d="M0.338 0.809L2.412 0.031L3.854 1.603L3.118 3.811L1.226 4.487L0.084 2.584Z"/>
+  <path fill="#c0b6d6" d="M0.7 1.1L2.3 0.5L3.4 1.7L2 2.1Z"/>
+  <path fill="#9a8fba" d="M0.7 1.1L2 2.1L1.4 4L0.5 2.5Z"/>
+  <path fill="#655a86" d="M2 2.1L3.4 1.7L2.8 3.5L1.4 4Z"/>
   </svg>
   </g>
-  </g>
-  </g>
-  <g transform="translate(0 21.5)">
-  <svg width="10" height="10" viewBox="0 0 10 10" preserveAspectRatio="none" overflow="visible">
-  <path fill="#5a35dc" d="M1.35 6a3.35 3.35 0 1 0 6.7 0a3.35 3.35 0 1 0 -6.7 0zM1.25 3.2a1.55 2.25 0 1 0 3.1 0a1.55 2.25 0 1 0 -3.1 0zM2.9 2.4a1.6 2.4 0 1 0 3.2 0a1.6 2.4 0 1 0 -3.2 0zM4.65 2.8a1.55 2.25 0 1 0 3.1 0a1.55 2.25 0 1 0 -3.1 0zM6.2 5.6a1.7 2 0 1 0 3.4 0a1.7 2 0 1 0 -3.4 0z"/>
-  <path fill="#ece6ff" d="M1.9 6a2.8 2.8 0 1 0 5.6 0a2.8 2.8 0 1 0 -5.6 0zM1.8 3.2a1 1.7 0 1 0 2 0a1 1.7 0 1 0 -2 0zM3.45 2.4a1.05 1.85 0 1 0 2.1 0a1.05 1.85 0 1 0 -2.1 0zM5.2 2.8a1 1.7 0 1 0 2 0a1 1.7 0 1 0 -2 0zM6.75 5.6a1.15 1.45 0 1 0 2.3 0a1.15 1.45 0 1 0 -2.3 0z"/>
-  <path fill="#ffffff" d="M2.8 5.2a1.1 1.1 0 1 0 2.2 0a1.1 1.1 0 1 0 -2.2 0z"/>
+  <g transform="translate(34.1 41.8)">
+  <svg width="3.1" height="3.7" viewBox="0 0 3.1 3.7" preserveAspectRatio="none" overflow="visible">
+  <path fill="#2a1d55" d="M2.83 0.687L1.17 0.065L0.017 1.323L0.606 3.089L2.119 3.63L3.033 2.107Z"/>
+  <path fill="#c0b6d6" d="M2.54 0.92L1.26 0.44L0.38 1.4L1.5 1.72Z"/>
+  <path fill="#655a86" d="M2.54 0.92L1.5 1.72L1.98 3.24L2.7 2.04Z"/>
+  <path fill="#9a8fba" d="M1.5 1.72L0.38 1.4L0.86 2.84L1.98 3.24Z"/>
   </svg>
   </g>
-  <g transform="translate(42.5 20)">
-  <svg width="10" height="10" viewBox="0 0 10 10" preserveAspectRatio="none" overflow="visible">
-  <path fill="#5a35dc" d="M1.95 6a3.35 3.35 0 1 0 6.7 0a3.35 3.35 0 1 0 -6.7 0zM5.65 3.2a1.55 2.25 0 1 0 3.1 0a1.55 2.25 0 1 0 -3.1 0zM3.9 2.4a1.6 2.4 0 1 0 3.2 0a1.6 2.4 0 1 0 -3.2 0zM2.25 2.8a1.55 2.25 0 1 0 3.1 0a1.55 2.25 0 1 0 -3.1 0zM0.4 5.6a1.7 2 0 1 0 3.4 0a1.7 2 0 1 0 -3.4 0z"/>
-  <path fill="#ece6ff" d="M2.5 6a2.8 2.8 0 1 0 5.6 0a2.8 2.8 0 1 0 -5.6 0zM6.2 3.2a1 1.7 0 1 0 2 0a1 1.7 0 1 0 -2 0zM4.45 2.4a1.05 1.85 0 1 0 2.1 0a1.05 1.85 0 1 0 -2.1 0zM2.8 2.8a1 1.7 0 1 0 2 0a1 1.7 0 1 0 -2 0zM0.95 5.6a1.15 1.45 0 1 0 2.3 0a1.15 1.45 0 1 0 -2.3 0z"/>
-  <path fill="#ffffff" d="M5 5.2a1.1 1.1 0 1 0 2.2 0a1.1 1.1 0 1 0 -2.2 0z"/>
+  <g transform="translate(23.5 45)">
+  <svg width="2.9" height="5.1" viewBox="0 0 2.9 5.1" preserveAspectRatio="none" overflow="visible">
+  <path fill="#2a1d55" d="M0.011 0.032L2.873 0.35L1.892 5.096Z"/>
+  <path fill="#7c4dff" d="M0.6 0.5L2.4 0.7L1.8 3.9Z"/>
+  <path fill="#9d77ff" d="M0.6 0.5L1.6 0.6L1.8 3.9Z"/>
   </svg>
   </g>
   <g>
-  <g transform="translate(17.5 1.5)">
-  <svg width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="none" overflow="visible">
-  <path fill="#3b2a7a" d="M0.1 4a3.9 3.9 0 1 0 7.8 0a3.9 3.9 0 1 0 -7.8 0z"/>
-  <path fill="#d4c6ff" d="M0.7 4a3.3 3.3 0 1 0 6.6 0a3.3 3.3 0 1 0 -6.6 0z"/>
-  <path fill="#ffffff" d="M0.9 3.65a2.85 2.85 0 1 0 5.7 0a2.85 2.85 0 1 0 -5.7 0z"/>
-  <path fill="#6a3ff2" d="M2.4 4.45a1.9 1.9 0 1 0 3.8 0a1.9 1.9 0 1 0 -3.8 0z"/>
-  <path fill="#1d1440" d="M3.3 4.55a1.05 1.05 0 1 0 2.1 0a1.05 1.05 0 1 0 -2.1 0z"/>
-  <path fill="#ffffff" d="M3.25 3.85a0.5 0.5 0 1 0 1 0a0.5 0.5 0 1 0 -1 0z"/>
+  <g transform="translate(12.4 -0.4)">
+  <svg width="33.2" height="47.7" viewBox="0 0 33.2 47.7" preserveAspectRatio="none" overflow="visible">
+  <path fill="#2a1d55" d="M0.059 15.434L2.917 12.576L5.954 11.319L11.037 10.303L16.595 10L22.163 10.202L27.258 11.323L30.489 12.782L33.121 15.414L32.686 19.763L30.476 23.38L29.872 26.803L26.44 31.445L24.823 35.489L21.572 38.537L19.564 41.147L16.636 43.625L13.827 41.752L11.818 38.336L8.179 35.506L6.549 31.023L3.315 25.97L3.016 23.173L0.927 19.991ZM13.905 40.364L16.594 47.625L19.552 39.826Z"/>
+  <path fill="#9a8fba" d="M0.6 15.6L3 17.6L6.1 18.8L8.1 23.6L3.8 25.8L3.5 23L1.4 19.8Z"/>
+  <path fill="#aea4c8" d="M1.4 19.8L2.8 19L4.2 22.8L3.5 23Z"/>
+  <path fill="#80759f" d="M6.1 18.8L11.2 19.7L16.6 20L22 19.7L27.1 18.8L25.2 24L16.6 23L8.1 23.6Z"/>
+  <path fill="#7a6f99" d="M8.1 23.6L12 31.9L8.6 35.2L7 30.8L3.8 25.8Z"/>
+  <path fill="#706592" d="M8.1 23.6L16.6 23L25.2 24L21.6 32.2L16.6 36.8L12 31.9Z"/>
+  <path fill="#655a86" d="M27.1 18.8L30.2 17.6L32.6 15.6L32.2 19.6L30 23.2L25.2 24Z"/>
+  <path fill="#4b4170" d="M25.2 24L30 23.2L29.4 26.6L26 31.2L21.6 32.2Z"/>
+  <path fill="#5a4f7c" d="M12 31.9L16.6 36.8L14.2 41.4L12.2 38L8.6 35.2Z"/>
+  <path fill="#3f3562" d="M16.6 36.8L21.6 32.2L26 31.2L24.4 35.2L21.2 38.2L19.2 40.8Z"/>
+  <path fill="#4b4170" d="M16.6 36.8L19.2 40.8L16.6 43L14.2 41.4Z"/>
+  <path fill="#7c4dff" d="M14.6 40.8L16.6 46.2L18.8 40.4Z"/>
+  <path fill="#9d77ff" d="M14.6 40.8L16.6 46.2L16.6 41Z"/>
+  <path fill="#c0b6d6" d="M0.6 15.6L3.2 13L6.1 11.8L11.1 10.8L16.6 10.5L22.1 10.7L27.1 11.8L30.2 13.2L32.6 15.6Z"/>
+  <path fill="#cfc6e2" d="M0.6 15.6L32.6 15.6L30.2 17.6L27.1 18.8L22 19.7L16.6 20L11.2 19.7L6.1 18.8L3 17.6Z"/>
+  <path fill="#2a1d55" d="M18.293 12.241L19.974 3.835L22.226 0.083L24.633 4.657L25.9 12.893L22.168 14.292ZM13.636 11.819L15.3 4.908L17.419 8.016L18.376 12.083ZM4.626 14.127L5.83 10.276L9.221 8.694L12.414 10.518L12.902 13.933L8.606 15.064ZM26.033 14.562L27.036 10.927L29.962 10.196L32.004 12.599L31.111 15.408Z"/>
+  <path fill="#bcaee6" d="M18.8 12L20.4 4L22.2 1L22.2 13.8ZM14.2 11.4L15.5 6L16.2 11.7Z"/>
+  <path fill="#8473ba" d="M22.2 1L24.2 4.8L25.4 12.6L22.2 13.8ZM15.5 6L17 8.2L17.8 11.6L16.2 11.7Z"/>
+  <path fill="#c2b9d6" d="M5.2 13.8L6.2 10.6L9.2 9.2L8.6 14.6ZM26.6 14.2L27.4 11.3L29.8 10.7L29 14.5Z"/>
+  <path fill="#80759f" d="M9.2 9.2L12 10.8L12.4 13.6L8.6 14.6ZM29.8 10.7L31.5 12.7L30.8 14.9L29 14.5Z"/>
+  <path fill="#7c4dff" d="M1.8 16L2.15 14.7L2.75 15.55L3.4 14.2L4.05 15.55L4.65 14.7L5 16ZM11.56 13.6L11.875 12.43L12.415 13.195L13 11.98L13.585 13.195L14.125 12.43L14.44 13.6ZM27.4 15.8L27.75 14.5L28.35 15.35L29 14L29.65 15.35L30.25 14.5L30.6 15.8ZM22.52 14.4L22.8 13.36L23.28 14.04L23.8 12.96L24.32 14.04L24.8 13.36L25.08 14.4ZM6.92 18L7.2 16.96L7.68 17.64L8.2 16.56L8.72 17.64L9.2 16.96L9.48 18Z"/>
+  <path fill="#c1a8ff" d="M2.82 16L3.013 15.285L3.343 15.752L3.7 15.01L4.058 15.752L4.388 15.285L4.58 16ZM12.478 13.6L12.651 12.957L12.948 13.377L13.27 12.709L13.592 13.377L13.889 12.957L14.062 13.6ZM28.42 15.8L28.612 15.085L28.942 15.553L29.3 14.81L29.657 15.553L29.987 15.085L30.18 15.8ZM23.336 14.4L23.49 13.828L23.754 14.202L24.04 13.608L24.326 14.202L24.59 13.828L24.744 14.4ZM7.736 18L7.89 17.428L8.154 17.802L8.44 17.208L8.726 17.802L8.99 17.428L9.144 18Z"/>
   </svg>
   </g>
-  <g transform="translate(26.5 1)">
-  <svg width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="none" overflow="visible">
-  <path fill="#3b2a7a" d="M0.1 4a3.9 3.9 0 1 0 7.8 0a3.9 3.9 0 1 0 -7.8 0z"/>
-  <path fill="#d4c6ff" d="M0.7 4a3.3 3.3 0 1 0 6.6 0a3.3 3.3 0 1 0 -6.6 0z"/>
-  <path fill="#ffffff" d="M0.9 3.65a2.85 2.85 0 1 0 5.7 0a2.85 2.85 0 1 0 -5.7 0z"/>
-  <path fill="#6a3ff2" d="M2.4 4.45a1.9 1.9 0 1 0 3.8 0a1.9 1.9 0 1 0 -3.8 0z"/>
-  <path fill="#1d1440" d="M3.3 4.55a1.05 1.05 0 1 0 2.1 0a1.05 1.05 0 1 0 -2.1 0z"/>
-  <path fill="#ffffff" d="M3.25 3.85a0.5 0.5 0 1 0 1 0a0.5 0.5 0 1 0 -1 0z"/>
+  <g transform="translate(19.2 14.8)">
+  <svg width="19.6" height="22.8" viewBox="0 0 19.6 22.8" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.16" d="M0 11.4a9.8 11.4 0 1 0 19.6 0a9.8 11.4 0 1 0 -19.6 0z"/>
+  <path fill="#9d77ff" fill-opacity="0.2" d="M1.9 11.4a7.9 9.6 0 1 0 15.8 0a7.9 9.6 0 1 0 -15.8 0z"/>
   </svg>
+  </g>
+  <g transform="translate(17.5 16.5)">
+  <svg width="23.4" height="23.6" viewBox="0 0 23.4 23.6" preserveAspectRatio="none" overflow="visible">
+  <path fill="#c1a8ff" fill-opacity="0.85" d="M5.596 4.782L1.912 3.272L0.132 4.932L0.068 4.868L1.888 2.928L5.804 4.218ZM17.189 4.221L21.306 2.728L23.33 4.667L23.27 4.733L21.294 3.072L17.411 4.779ZM5.441 13.765L2.422 15.222L1.743 17.113L1.657 17.087L2.178 14.978L5.159 13.235ZM17.827 13.228L20.807 14.765L21.54 16.48L21.46 16.52L20.593 15.035L17.573 13.772ZM11.794 19.061L11.072 21.892L11.74 23.48L11.66 23.52L10.728 21.908L11.206 18.939Z"/>
+  <path fill="#2a1d55" d="M11.5 0.014L17.691 4.284L18.108 13.673L11.5 19.535L4.892 13.673L5.309 4.284Z"/>
+  <path fill="#c1a8ff" d="M5.7 4.5L11.5 0.5L11.5 3.1L7.6 5.9Z"/>
+  <path fill="#a585ff" d="M11.5 0.5L17.3 4.5L15.4 5.9L11.5 3.1Z"/>
+  <path fill="#6a3ff2" d="M17.3 4.5L17.7 13.5L15.6 12.7L15.4 5.9Z"/>
+  <path fill="#5530d0" d="M17.7 13.5L11.5 19L11.5 16.3L15.6 12.7Z"/>
+  <path fill="#6a45e8" d="M11.5 19L5.3 13.5L7.4 12.7L11.5 16.3Z"/>
+  <path fill="#9d77ff" d="M5.3 13.5L5.7 4.5L7.6 5.9L7.4 12.7Z"/>
+  <path fill="#7c4dff" d="M11.5 3.1L15.4 5.9L15.6 12.7L11.5 16.3L7.4 12.7L7.6 5.9Z"/>
+  <path fill="#8a5fff" d="M7.6 5.9L11.5 3.1L15.4 5.9L11.5 7.1Z"/>
+  <path fill="#ece6ff" fill-opacity="0.9" d="M6.7 4.9L10.8 2.2L11.1 3L7.4 5.7Z"/>
+  </svg>
+  </g>
+  <g>
+  <g transform="translate(24.6 23.9)">
+  <svg width="4" height="5" viewBox="0 0 4 5" preserveAspectRatio="none" overflow="visible">
+  <path fill="#ece6ff" fill-opacity="0.35" d="M0.05 2.5a1.95 2.5 0 1 0 3.9 0a1.95 2.5 0 1 0 -3.9 0z"/>
+  <path fill="#ffffff" d="M0.8 2.5a1.2 1.75 0 1 0 2.4 0a1.2 1.75 0 1 0 -2.4 0z"/>
+  </svg>
+  </g>
+  <g transform="translate(29.4 23.9)">
+  <svg width="4" height="5" viewBox="0 0 4 5" preserveAspectRatio="none" overflow="visible">
+  <path fill="#ece6ff" fill-opacity="0.35" d="M0.05 2.5a1.95 2.5 0 1 0 3.9 0a1.95 2.5 0 1 0 -3.9 0z"/>
+  <path fill="#ffffff" d="M0.8 2.5a1.2 1.75 0 1 0 2.4 0a1.2 1.75 0 1 0 -2.4 0z"/>
+  </svg>
+  </g>
+  </g>
+  </g>
+  <clipPath id="pelago-clip-1">
+  <polygon points="-20,-20 80,-20 80,25.5 41.5,25.5 42,22.8 44.2,19.2 44.6,15.3 43.6,12.4 42.2,10.7 40.1,11.2 39.4,11.8 37.4,12 36.3,4.6 34.6,1.3 33.1,3.8 31.6,11.4 29.9,11 29.2,8.2 28,6.3 27,10.9 24.1,10.7 21.6,9.3 18.9,10.5 18,13 15.8,13 13.5,15.3 14.2,19.4 16.2,22.5 16.5,25.5 -20,25.5 -20,23.5 16.4,23.5 16.5,25.5 41.5,25.5 41.9,23.5 80,23.5 80,80 -20,80"/>
+  </clipPath>
+  <g clip-path="url(#pelago-clip-1)">
+  <g transform="translate(10 11)">
+  <svg width="38" height="4.4" viewBox="0 0 38 4.4" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.4" d="M0 2.4Q19.179 0.005 38 4.4Q19.032 2.801 0 2.4Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.95" d="M0 2.4Q19.137 0.804 38 4.4Q19.074 2.002 0 2.4Z"/>
+  <path fill="#ffffff" fill-opacity="0.85" d="M0 2.4Q19.117 1.183 38 4.4Q19.094 1.622 0 2.4Z"/>
+  </svg>
+  </g>
+  <g transform="translate(47.4 15.4)">
+  <svg width="4.9" height="20.3" viewBox="0 0 4.9 20.3" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.4" d="M0.6 0Q4.898 10.237 0 20.2Q2.099 10.153 0.6 0Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.95" d="M0.6 0Q4.098 10.213 0 20.2Q2.899 10.177 0.6 0Z"/>
+  <path fill="#ffffff" fill-opacity="0.85" d="M0.6 0Q3.718 10.202 0 20.2Q3.279 10.188 0.6 0Z"/>
+  </svg>
+  </g>
+  <g transform="translate(10.6 35)">
+  <svg width="36.8" height="7.2" viewBox="0 0 36.8 7.2" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.4" d="M36.8 0.6Q18.288 7.199 0 0Q18.333 4.399 36.8 0.6Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.95" d="M36.8 0.6Q18.301 6.399 0 0Q18.32 5.199 36.8 0.6Z"/>
+  <path fill="#ffffff" fill-opacity="0.85" d="M36.8 0.6Q18.307 6.019 0 0Q18.314 5.579 36.8 0.6Z"/>
+  </svg>
+  </g>
+  <g transform="translate(5.7 13.4)">
+  <svg width="5" height="21.6" viewBox="0 0 5 21.6" preserveAspectRatio="none" overflow="visible">
+  <path fill="#7c4dff" fill-opacity="0.4" d="M4.9 21.6Q0.002 10.928 4.3 0Q2.801 10.85 4.9 21.6Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.95" d="M4.9 21.6Q0.801 10.906 4.3 0Q2.001 10.872 4.9 21.6Z"/>
+  <path fill="#ffffff" fill-opacity="0.85" d="M4.9 21.6Q1.181 10.895 4.3 0Q1.621 10.883 4.9 21.6Z"/>
+  </svg>
+  </g>
+  <g>
+  <g transform="translate(8 11.4)">
+  <svg width="4" height="4" viewBox="0 0 4 4" preserveAspectRatio="none" overflow="visible">
+  <path fill="#c1a8ff" fill-opacity="0.55" d="M0 2a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>
+  <path fill="#ffffff" d="M1 2a1 1 0 1 0 2 0a1 1 0 1 0 -2 0z"/>
+  </svg>
+  </g>
+  <g transform="translate(0.8 5.6)">
+  <svg width="11.3" height="16.8" viewBox="0 0 11.3 16.8" preserveAspectRatio="none" overflow="visible">
+  <path fill="#2a1d55" d="M0.068 6.249L2.426 4.363L6.296 4.04L9.085 5.551L8.634 9.153L6.956 11.881L5 13.836L3.261 12.098L1.2 9.418ZM3.395 12.008L5.013 16.75L6.633 11.685ZM3.001 5.706L4.557 0.051L6.407 5.397Z"/>
+  <path fill="#9a8fba" d="M0.6 6.4L2.8 7.4L4.6 10L3.6 11.8L1.6 9.2Z"/>
+  <path fill="#80759f" d="M2.8 7.4L6.8 7.2L5.8 9.8L4.6 10Z"/>
+  <path fill="#655a86" d="M6.8 7.2L8.6 5.8L8.2 9L6.6 11.6L5.8 9.8Z"/>
+  <path fill="#4b4170" d="M4.6 10L5.8 9.8L6.6 11.6L5 13.2L3.6 11.8Z"/>
+  <path fill="#7c4dff" d="M4 12.4L5 15.4L6 12.2Z"/>
+  <path fill="#9d77ff" d="M4 12.4L5 15.4L5 12.7Z"/>
+  <path fill="#c0b6d6" d="M0.6 6.4L2.6 4.8L6.2 4.5L8.6 5.8Z"/>
+  <path fill="#cfc6e2" d="M0.6 6.4L8.6 5.8L6.8 7.2L2.8 7.4Z"/>
+  <path fill="#bcaee6" d="M3.6 5.2L4.6 1.4L4.7 5.1Z"/>
+  <path fill="#8473ba" d="M4.6 1.4L5.8 5L4.7 5.1Z"/>
+  <path fill="#7c4dff" d="M0.98 6.1L1.225 5.19L1.645 5.785L2.1 4.84L2.555 5.785L2.975 5.19L3.22 6.1ZM6.14 5.5L6.35 4.72L6.71 5.23L7.1 4.42L7.49 5.23L7.85 4.72L8.06 5.5Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.4" d="M7.1 7.8a2.1 2.1 0 1 0 4.2 0a2.1 2.1 0 1 0 -4.2 0z"/>
+  <path fill="#ece6ff" d="M8.15 7.8a1.05 1.05 0 1 0 2.1 0a1.05 1.05 0 1 0 -2.1 0z"/>
+  <path fill="#ffffff" d="M8.7 7.8a0.5 0.5 0 1 0 1 0a0.5 0.5 0 1 0 -1 0z"/>
+  </svg>
+  </g>
+  </g>
+  <g>
+  <g transform="translate(46 13.4)">
+  <svg width="4" height="4" viewBox="0 0 4 4" preserveAspectRatio="none" overflow="visible">
+  <path fill="#c1a8ff" fill-opacity="0.55" d="M0 2a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>
+  <path fill="#ffffff" d="M1 2a1 1 0 1 0 2 0a1 1 0 1 0 -2 0z"/>
+  </svg>
+  </g>
+  <g transform="translate(46.1 8.4)">
+  <svg width="10.2" height="15.1" viewBox="0 0 10.2 15.1" preserveAspectRatio="none" overflow="visible">
+  <path fill="#2a1d55" d="M10.119 5.604L7.997 3.907L4.513 3.616L2.004 4.976L2.409 8.217L3.92 10.673L5.68 12.433L7.245 10.868L9.1 8.456ZM7.124 10.787L5.669 15.055L4.211 10.496ZM7.479 5.116L6.079 0.026L4.414 4.837Z"/>
+  <path fill="#655a86" d="M9.64 5.74L7.66 6.64L6.04 8.98L6.94 10.6L8.74 8.26Z"/>
+  <path fill="#80759f" d="M7.66 6.64L4.06 6.46L4.96 8.8L6.04 8.98Z"/>
+  <path fill="#9a8fba" d="M4.06 6.46L2.44 5.2L2.8 8.08L4.24 10.42L4.96 8.8Z"/>
+  <path fill="#4b4170" d="M6.04 8.98L4.96 8.8L4.24 10.42L5.68 11.86L6.94 10.6Z"/>
+  <path fill="#7c4dff" d="M6.58 11.14L5.68 13.84L4.78 10.96Z"/>
+  <path fill="#9d77ff" d="M6.58 11.14L5.68 13.84L5.68 11.41Z"/>
+  <path fill="#c0b6d6" d="M9.64 5.74L7.84 4.3L4.6 4.03L2.44 5.2Z"/>
+  <path fill="#cfc6e2" d="M9.64 5.74L2.44 5.2L4.06 6.46L7.66 6.64Z"/>
+  <path fill="#8473ba" d="M6.94 4.66L6.04 1.24L5.95 4.57Z"/>
+  <path fill="#bcaee6" d="M6.04 1.24L4.96 4.48L5.95 4.57Z"/>
+  <path fill="#7c4dff" d="M9.298 5.47L9.078 4.651L8.7 5.187L8.29 4.336L7.88 5.187L7.502 4.651L7.282 5.47ZM4.654 4.93L4.465 4.228L4.141 4.687L3.79 3.958L3.439 4.687L3.115 4.228L2.926 4.93Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.4" d="M0.01 7a1.89 1.89 0 1 0 3.78 0a1.89 1.89 0 1 0 -3.78 0z"/>
+  <path fill="#ece6ff" d="M0.955 7a0.945 0.945 0 1 0 1.89 0a0.945 0.945 0 1 0 -1.89 0z"/>
+  <path fill="#ffffff" d="M1.45 7a0.45 0.45 0 1 0 0.9 0a0.45 0.45 0 1 0 -0.9 0z"/>
+  </svg>
+  </g>
+  </g>
+  <g>
+  <g transform="translate(45.4 33.6)">
+  <svg width="4" height="4" viewBox="0 0 4 4" preserveAspectRatio="none" overflow="visible">
+  <path fill="#c1a8ff" fill-opacity="0.55" d="M0 2a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>
+  <path fill="#ffffff" d="M1 2a1 1 0 1 0 2 0a1 1 0 1 0 -2 0z"/>
+  </svg>
+  </g>
+  <g transform="translate(45.1 27.4)">
+  <svg width="11.9" height="17.6" viewBox="0 0 11.9 17.6" preserveAspectRatio="none" overflow="visible">
+  <path fill="#2a1d55" d="M11.888 6.572L9.413 4.591L5.349 4.252L2.421 5.838L2.894 9.62L4.657 12.485L6.71 14.538L8.536 12.712L10.7 9.899ZM8.395 12.619L6.697 17.597L4.996 12.279ZM8.808 6.002L7.176 0.063L5.233 5.677Z"/>
+  <path fill="#655a86" d="M11.33 6.73L9.02 7.78L7.13 10.51L8.18 12.4L10.28 9.67Z"/>
+  <path fill="#80759f" d="M9.02 7.78L4.82 7.57L5.87 10.3L7.13 10.51Z"/>
+  <path fill="#9a8fba" d="M4.82 7.57L2.93 6.1L3.35 9.46L5.03 12.19L5.87 10.3Z"/>
+  <path fill="#4b4170" d="M7.13 10.51L5.87 10.3L5.03 12.19L6.71 13.87L8.18 12.4Z"/>
+  <path fill="#7c4dff" d="M7.76 13.03L6.71 16.18L5.66 12.82Z"/>
+  <path fill="#9d77ff" d="M7.76 13.03L6.71 16.18L6.71 13.345Z"/>
+  <path fill="#c0b6d6" d="M11.33 6.73L9.23 5.05L5.45 4.735L2.93 6.1Z"/>
+  <path fill="#cfc6e2" d="M11.33 6.73L2.93 6.1L4.82 7.57L9.02 7.78Z"/>
+  <path fill="#8473ba" d="M8.18 5.47L7.13 1.48L7.025 5.365Z"/>
+  <path fill="#bcaee6" d="M7.13 1.48L5.87 5.26L7.025 5.365Z"/>
+  <path fill="#7c4dff" d="M10.931 6.415L10.674 5.46L10.233 6.084L9.755 5.092L9.277 6.084L8.836 5.46L8.579 6.415ZM5.513 5.785L5.292 4.966L4.914 5.502L4.505 4.651L4.095 5.502L3.717 4.966L3.497 5.785Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.4" d="M0.095 8.2a2.205 2.205 0 1 0 4.41 0a2.205 2.205 0 1 0 -4.41 0z"/>
+  <path fill="#ece6ff" d="M1.197 8.2a1.103 1.103 0 1 0 2.205 0a1.103 1.103 0 1 0 -2.205 0z"/>
+  <path fill="#ffffff" d="M1.775 8.2a0.525 0.525 0 1 0 1.05 0a0.525 0.525 0 1 0 -1.05 0z"/>
+  </svg>
+  </g>
+  </g>
+  <g>
+  <g transform="translate(8.6 33)">
+  <svg width="4" height="4" viewBox="0 0 4 4" preserveAspectRatio="none" overflow="visible">
+  <path fill="#c1a8ff" fill-opacity="0.55" d="M0 2a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>
+  <path fill="#ffffff" d="M1 2a1 1 0 1 0 2 0a1 1 0 1 0 -2 0z"/>
+  </svg>
+  </g>
+  <g transform="translate(2.8 28.4)">
+  <svg width="9.6" height="14.3" viewBox="0 0 9.6 14.3" preserveAspectRatio="none" overflow="visible">
+  <path fill="#2a1d55" d="M0.038 5.282L2.042 3.679L5.332 3.404L7.702 4.688L7.319 7.75L5.892 10.069L4.23 11.731L2.752 10.253L1 7.975ZM2.866 10.177L4.241 14.207L5.618 9.902ZM2.531 4.82L3.853 0.013L5.426 4.557Z"/>
+  <path fill="#9a8fba" d="M0.49 5.41L2.36 6.26L3.89 8.47L3.04 10L1.34 7.79Z"/>
+  <path fill="#80759f" d="M2.36 6.26L5.76 6.09L4.91 8.3L3.89 8.47Z"/>
+  <path fill="#655a86" d="M5.76 6.09L7.29 4.9L6.95 7.62L5.59 9.83L4.91 8.3Z"/>
+  <path fill="#4b4170" d="M3.89 8.47L4.91 8.3L5.59 9.83L4.23 11.19L3.04 10Z"/>
+  <path fill="#7c4dff" d="M3.38 10.51L4.23 13.06L5.08 10.34Z"/>
+  <path fill="#9d77ff" d="M3.38 10.51L4.23 13.06L4.23 10.765Z"/>
+  <path fill="#c0b6d6" d="M0.49 5.41L2.19 4.05L5.25 3.795L7.29 4.9Z"/>
+  <path fill="#cfc6e2" d="M0.49 5.41L7.29 4.9L5.76 6.09L2.36 6.26Z"/>
+  <path fill="#bcaee6" d="M3.04 4.39L3.89 1.16L3.975 4.305Z"/>
+  <path fill="#8473ba" d="M3.89 1.16L4.91 4.22L3.975 4.305Z"/>
+  <path fill="#7c4dff" d="M0.813 5.155L1.021 4.382L1.378 4.887L1.765 4.084L2.152 4.887L2.509 4.382L2.717 5.155ZM5.199 4.645L5.378 3.982L5.684 4.416L6.015 3.727L6.347 4.416L6.653 3.982L6.831 4.645Z"/>
+  <path fill="#c1a8ff" fill-opacity="0.4" d="M6.015 6.6a1.785 1.785 0 1 0 3.57 0a1.785 1.785 0 1 0 -3.57 0z"/>
+  <path fill="#ece6ff" d="M6.908 6.6a0.892 0.892 0 1 0 1.785 0a0.892 0.892 0 1 0 -1.785 0z"/>
+  <path fill="#ffffff" d="M7.375 6.6a0.425 0.425 0 1 0 0.85 0a0.425 0.425 0 1 0 -0.85 0z"/>
+  </svg>
+  </g>
   </g>
   </g>
 </svg>

@@ -592,6 +592,18 @@
       "cssClasses": {
         "utility-screen__column": "utility-screen__body"
       }
+    },
+    {
+      "version": "next",
+      "props": {
+        "SceneGroupNode.goo": "removed; Pelago no longer melts its shapes, and no scene uses it (see MIGRATION.md section 105)",
+        "GroupSpot.goo": "removed with SceneGroupNode.goo (see MIGRATION.md section 105)"
+      },
+      "removedExports": {
+        "SvgFilter": "removed; write a filter element in your own svg (see MIGRATION.md section 105)",
+        "SvgFeGaussianBlur": "removed; write an feGaussianBlur element in your own svg (see MIGRATION.md section 105)",
+        "SvgFeColorMatrix": "removed; write an feColorMatrix element in your own svg (see MIGRATION.md section 105)"
+      }
     }
   ]
 }

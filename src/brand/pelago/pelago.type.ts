@@ -1,32 +1,72 @@
 /* @layer renderer-components @kind types */
-import type { ScenePoint } from '../brand.type';
+import type { BrandPiece, ScenePoint } from '../brand.type';
 
-interface SphereRig {
-  at: ScenePoint;
-  glint: ScenePoint;
+type IsletId = 'a' | 'b' | 'c' | 'd';
+
+type ThreadEnd = IsletId | 'core';
+
+type Polygon = readonly ScenePoint[];
+
+type Oval = readonly [x: number, y: number, rx: number, ry?: number];
+
+interface FacetLayer {
+  ink: string;
+  opacity?: number;
+  polygons?: readonly Polygon[];
+  ovals?: readonly Oval[];
+  grow?: number;
 }
 
-interface FloatingHandRig {
+interface FacetSpot {
   at: ScenePoint;
-  pivot: ScenePoint;
+  size?: number;
+  mirror?: boolean;
+}
+
+interface PlacedPiece {
+  piece: BrandPiece;
+  at: ScenePoint;
+}
+
+interface ThreadRig {
+  id: string;
+  from: ThreadEnd;
+  to: IsletId;
+  bulge: number;
+  orbit: boolean;
+}
+
+interface IsletRig {
+  node: ScenePoint;
+  mirror: boolean;
+  size: number;
 }
 
 interface PelagoRig {
   width: number;
   height: number;
-  goo: number;
-  spheres: Readonly<Record<'top' | 'left' | 'right', SphereRig>>;
-  glintAngle: number;
+  core: ScenePoint;
   eyes: readonly ScenePoint[];
-  handLeft: FloatingHandRig;
-  handRight: FloatingHandRig;
   lookReach: ScenePoint;
+  islets: Readonly<Record<IsletId, IsletRig>>;
+  threads: readonly ThreadRig[];
+  pebbles: readonly [ScenePoint, ScenePoint, ScenePoint];
+  orbit: { perDegree: number; reach: number };
 }
 
-type SphereTones = readonly [base: string, middle: string, light: string];
+interface IsletMove {
+  x?: number;
+  y?: number;
+  rotate?: number;
+  scale?: number;
+}
 
-type Oval = readonly [x: number, y: number, rx: number, ry?: number];
+interface IsletBeat {
+  at: number;
+  ease?: string;
+  moves?: Partial<Record<IsletId, IsletMove>>;
+}
 
-type PelagoPieceName = 'sphereTop' | 'sphereLeft' | 'sphereRight' | 'glint' | 'eye' | 'handLeft' | 'handRight';
+type PelagoPieceName = 'aura' | 'rock' | 'halo' | 'crystal' | 'eye' | 'spark' | 'pebbleA' | 'pebbleB' | 'pebbleC';
 
-export type { Oval, PelagoPieceName, PelagoRig, SphereTones };
+export type { FacetLayer, FacetSpot, IsletBeat, IsletId, IsletMove, PelagoPieceName, PelagoRig, PlacedPiece, Polygon, ThreadEnd, ThreadRig };

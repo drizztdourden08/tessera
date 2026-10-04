@@ -19,7 +19,7 @@ const motionKeyframes = (frames: readonly MotionFrame[], pivot: ScenePoint): Key
     offset: f.at,
     easing: f.ease ?? EASE.inOut,
     transform: frameTransform(f, pivot),
-    ...(fades ? { opacity: f.opacity ?? 1 } : {}),
+    ...(fades ? { opacity: (f.opacity ?? 1) - 1 } : {}),
   }));
 };
 
