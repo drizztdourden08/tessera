@@ -12,6 +12,8 @@ interface TextElementStoriesParams {
   name: TextElementSpec['name'];
   element: unknown;
   description: string;
+  points: readonly string[];
+  instead?: string;
   text: string;
   attributes?: Readonly<Record<string, string>>;
   context: ReactNode;
@@ -48,7 +50,7 @@ const lookProps = (looks: readonly string[], args: StoryLiteArgs): Record<string
 };
 
 const textElementStories = (params: TextElementStoriesParams) => {
-  const { name, element, description, text, attributes = {}, context, variants: extra = [] } = params;
+  const { name, element, description, points, instead, text, attributes = {}, context, variants: extra = [] } = params;
   const spec = TEXT_ELEMENT_SPECS.find((entry) => entry.name === name) ?? TEXT_ELEMENT_SPECS[0];
   const Element = element as ComponentType<Record<string, unknown>>;
   const attributeNames = Object.keys(attributes);
@@ -70,7 +72,7 @@ const textElementStories = (params: TextElementStoriesParams) => {
   } satisfies PlaygroundStory;
   const InContext = { name: 'In context', render: () => context } satisfies StoryLiteStoryDefinition;
   const variants = tones.length ? [InContext, ...extra, tonesStory(Element, text, tones, attributes)] : [InContext, ...extra];
-  const Overview = overviewStory({ component: name === spec.short ? name : `${name} (${spec.short})`, importName: spec.short, description, playground: Playground, variants });
+  const Overview = overviewStory({ component: name === spec.short ? name : `${name} (${spec.short})`, importName: spec.short, description, points, instead, playground: Playground, variants });
   return { InContext, Overview, Playground };
 };
 

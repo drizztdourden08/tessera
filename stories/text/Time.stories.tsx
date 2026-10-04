@@ -11,7 +11,12 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Time',
   element: Text.Time,
-  description: 'A date or a time. dateTime carries the machine readable value, so the visible text can say it in any form.',
+  description: 'A date or a time, with a machine readable value behind the words.',
+  points: [
+    '`Text.Time`, or `Time` imported on its own, draws a `<time>`.',
+    '`dateTime` carries the machine readable value, so the visible text can say it in any form.',
+    '`tone` takes `dim` or `muted`, and `features` sets number forms such as tabular numbers.',
+  ],
   text: 'tonight at 21:04',
   attributes: { dateTime: '2026-09-28T21:04' },
   context: <Text.P>Room opened <Text.Time dateTime="2026-09-28T21:04">tonight at 21:04</Text.Time>.</Text.P>,

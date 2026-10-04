@@ -134,7 +134,15 @@ const Composed = {
 
 const Overview = overviewStory({
   component: 'Text',
-  description: 'Text is the namespace for every text element, everything but headings, which are Title. Each element hangs off it by full name and by short name: Text.Paragraph or Text.P, Text.Strong, Text.Emphasis or Text.Em, Text.Code, Text.Shortcut or Text.Sc, Text.Quote or Text.Q, Text.CodeBlock and the rest, so one import writes a whole passage. Used on its own, Text is a plain text element for interface copy. Pick a variant for its role: title, subtitle, body, label or caption. With no variant it takes the base size and colour of its parent. Weight and italic set the face, and as swaps the default span for any other element, such as p or label.',
+  description: 'The namespace for every text element, and on its own a plain text element for interface copy.',
+  points: [
+    'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
+    '`variant` picks a role: `title`, `subtitle`, `body`, `label` or `caption`.',
+    'With no `variant` it takes the size and colour of its parent.',
+    '`as` swaps the default `<span>` for another element, such as `p` or `label`.',
+    '`weight` and `italic` set the face.',
+  ],
+  instead: '[Title] for headings.',
   playground: Playground,
   variants: [Passage, Members, AllVariants, Composed],
 });

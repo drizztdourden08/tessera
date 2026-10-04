@@ -23,7 +23,13 @@ const Multiline = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'BlockQuote',
   element: Text.Blockquote,
-  description: 'A quotation set as its own block, behind a rule in the primary colour. A tone changes only the colour of the rule; the text keeps the dim ink. It takes cite for the source.',
+  description: 'A quotation set as its own block, behind a rule in the primary colour.',
+  points: [
+    '`Text.Blockquote`, or `Blockquote` imported on its own, draws a `<blockquote>`.',
+    '`tone` changes only the colour of the rule; the text keeps the dim ink.',
+    '`cite` takes the address of the source.',
+  ],
+  instead: '[Quote] for a quotation that takes its look from where it sits.',
   text: 'It is dangerous to go alone. Take this.',
   attributes: { cite: 'https://archipelago.gg' },
   context: <Box className="story-column"><Text.Blockquote>It is dangerous to go alone. Take this.</Text.Blockquote><Text.Small>The old man in the cave</Text.Small></Box>,

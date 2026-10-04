@@ -48,7 +48,14 @@ const Multiline = {
 const Overview = overviewStory({
   component: 'Quote (Q)',
   importName: 'Q',
-  description: 'A quotation that takes its look from where it sits. Inside a paragraph it is set in italics between two small raised quote marks. On its own line it opens with one quote mark beside the text, and once the text wraps the mark grows to two lines tall and the words flow around it. The look follows the layout on its own; pass inline to force the in-sentence look anywhere else. It takes cite for the source.',
+  description: 'A quotation that takes its look from where it sits, inside a sentence or on its own line.',
+  points: [
+    'Inside a paragraph it is set in italics between two small raised quote marks.',
+    'On its own line it opens with one quote mark; once the text wraps, the mark grows to two lines tall.',
+    '`inline` forces the in-sentence look anywhere else.',
+    '`cite` takes the address of the source.',
+  ],
+  instead: '[BlockQuote] for a block behind a rule.',
   playground: Playground,
   variants: [InSentence, OneLine, Multiline],
 });

@@ -77,7 +77,13 @@ const Tones = tonesStory(TextElement, 'Hyrule Castle', TEXT_TONES, { as: 'strong
 
 const Overview = overviewStory({
   component: 'TextElement',
-  description: 'The element every Text member is built on. It draws the tag named by as, with the Tessera look for that tag, an optional tone and the type settings: weight, italic, optical size and OpenType features. In app code, use the named members instead: Text.P, Text.Strong, Text.Code and the rest, or Title for headings. Reach for TextElement only when the tag is picked at run time, such as from data.',
+  description: 'The element every Text member is built on, for when the tag is picked at run time, such as from data.',
+  points: [
+    '`as` names the tag, and it draws the Tessera look for that tag.',
+    'It takes a `tone` and the type settings: `weight`, `italic`, `opticalSize` and `features`.',
+    '**In app code, use the named members:** `Text.P`, `Text.Strong`, `Text.Code` and the rest.',
+  ],
+  instead: '[Text] for a tag known in advance, or [Title] for headings.',
   playground: Playground,
   variants: [Tags, FromData, Tones],
 });

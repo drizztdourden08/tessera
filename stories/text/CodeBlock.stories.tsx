@@ -87,7 +87,14 @@ const Diagnostics = {
 
 const Overview = overviewStory({
   component: 'CodeBlock',
-  description: 'A panel of highlighted, monospaced code that scrolls sideways when a line runs long. Use it to show a snippet, a config file or a diff in docs and settings. It highlights TypeScript, TSX and JSON with colours from the theme, and shows plain text as it is, such as a debug report or diagnostics. It can mark changed lines, add a line-number gutter and a copy button, wrap long lines, and stop at a fixed height and scroll inside.',
+  description: 'A panel of highlighted code for a snippet, a config file or a diff in docs and settings.',
+  points: [
+    '`language` takes `typescript`, `tsx`, `json`, or `text` for a debug report shown as it is.',
+    '`highlightedLines` marks changed lines; `showLineNumbers` adds a gutter.',
+    '`copyable` adds a copy button.',
+    'Long lines scroll sideways; `wrap` wraps them, and `capped` stops at a fixed height and scrolls inside.',
+  ],
+  instead: '[Code] for a fragment inside a sentence, or [Preformatted] for plain text with no panel tools.',
   playground: Playground,
   variants: [SideBySide, Diagnostics],
 });

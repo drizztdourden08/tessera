@@ -11,7 +11,13 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Emphasis',
   element: Text.Em,
-  description: 'Stress emphasis that changes how a sentence reads aloud, drawn in italic. Import it as Em; Text.Emphasis and Text.Em both work. The standalone name Emphasis is the weight animation on its own page, Emphasis animation.',
+  description: 'Stress emphasis that changes how a sentence reads aloud, drawn in italic.',
+  points: [
+    'Import it as `Em`; `Text.Emphasis` and `Text.Em` work too. It draws an `<em>`.',
+    '**The standalone `Emphasis` is another part:** the weight animation, on its own page.',
+    'Use it when the stress changes the meaning of the sentence.',
+  ],
+  instead: '[Italic] for an alternate voice, or [primitives/Emphasis] for the weight animation.',
   text: 'lamp',
   context: <Text.P>You need the <Text.Em>lamp</Text.Em> before the sewers, not after.</Text.P>,
 });

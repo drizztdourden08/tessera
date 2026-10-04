@@ -56,7 +56,13 @@ const Tones = tonesStory(Title.H3, 'Hyrule Castle', TITLE_TONES);
 
 const Overview = overviewStory({
   component: 'Title',
-  description: 'Headings in Chakra Petch, the title face, from H1 at display size down to H6. H1 to H3 are set in capitals. Title takes a level; Title.H1 to Title.H6 and Title.Heading1 to Title.Heading6 are the same headings by name, and H1 or Heading1 import on their own. Headings take a weight, italic, a quiet or accent tone, and the native attributes of their tag.',
+  description: 'Headings in Chakra Petch, the title face, from H1 at display size down to H6.',
+  points: [
+    '`level` picks the heading; `Title.H1` to `Title.H6` are the same headings by name.',
+    '`H1` or `Heading1` import on their own.',
+    'H1 to H3 are set in capitals.',
+    'It takes a `weight`, `italic`, a quiet or accent `tone`, and the native attributes of its tag.',
+  ],
   playground: Playground,
   variants: [Levels, Tones],
 });

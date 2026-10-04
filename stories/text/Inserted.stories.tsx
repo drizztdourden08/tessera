@@ -11,7 +11,12 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Inserted',
   element: Text.Ins,
-  description: 'Text added in an edit, underlined in the success colour, as in a diff. It takes cite and dateTime like Deleted, and pairs with it to show a change.',
+  description: 'Text added in an edit, underlined in the success colour, as in a diff.',
+  points: [
+    '`Text.Ins`, or `Ins` imported on its own, draws an `<ins>`.',
+    '`cite` and `dateTime` say where and when the change happened.',
+    'Pair it with [Deleted] to show a change.',
+  ],
   text: 'Ganon only',
   attributes: { dateTime: '2026-09-28' },
   context: <Text.P>Hints are <Text.Ins dateTime="2026-09-28">on for every player</Text.Ins> since the last update.</Text.P>,

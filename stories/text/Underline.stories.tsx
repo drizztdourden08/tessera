@@ -11,7 +11,13 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Underline',
   element: Text.U,
-  description: 'An annotation with no spoken meaning, such as a word marked as misspelt. Avoid it for plain emphasis, where it reads like a link.',
+  description: 'An annotation with no spoken meaning, such as a word marked as misspelt.',
+  points: [
+    '`Text.U`, or `U` imported on its own, draws an `<u>`.',
+    '**Avoid it for plain emphasis:** an underline reads like a link.',
+    'Screen readers read it as plain text.',
+  ],
+  instead: '[text/Emphasis] for stress, or [Link] for a link.',
   text: 'Hyrlue',
   context: <Text.P>Seed name <Text.U>Hyrlue</Text.U> has a typo.</Text.P>,
 });

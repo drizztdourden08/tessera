@@ -141,7 +141,14 @@ const renderState = (props: StateProps) => <Shortcut keys={['ctrl', 'S']} mouse=
 const Overview = overviewStory({
   component: 'Shortcut (Sc)',
   importName: 'Shortcut',
-  description: 'A key, a key combination or a mouse button. Pass keys a key name, or an array for a combination, and mouse one mouse button. Keys come first, then the mouse button, with a plus between them. Letters, digits, punctuation and F1 to F24 work as they are. Legend picks what a key shows: its label, its symbol or its plain arrow, and a key without that legend shows its label. Width sets the cap to normal or wide; by default each key keeps its own width. A mouse button has no cap: the mouse is drawn in the text colour and the pressed part in the primary colour. Animate presses and releases in a loop, all together in a combination. State holds one look instead: idle, lit in the primary colour, or pressed down, and a change of state eases between the two looks the loop uses. An idle mouse button draws its pressed part in the text colour. While animate runs it wins over state, and with reduced motion both keep the colour change and drop the movement. Size md is for text and lists; xs is the smallest, for compact panels such as the widget shortcut list. Fill stretches the caps to fill their box, which is how a keyboard sizes a key to its width in key units. Screen readers hear the key name, and selecting the text around a shortcut leaves the keycaps out. The mouse and key icons come from Phosphor.',
+  description: 'Keycaps for a key, a key combination or a mouse button, such as [[Ctrl+S]].',
+  points: [
+    '`keys` takes a key name, or an array for a combination; `mouse` adds one mouse button after the keys.',
+    '`legend` picks what a key shows: its label, its symbol or its plain arrow.',
+    '`size="md"` suits text and lists; `xs` suits compact panels.',
+    '`state` holds idle, lit or pressed; `animate` presses and releases in a loop and wins over `state`.',
+    'Screen readers hear the key names, and selecting the text around it leaves the keycaps out.',
+  ],
   playground: Playground,
   variants: [
     Legends, CapWidths, PrintableKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, Animated, Sizes, Filled, InSentence,

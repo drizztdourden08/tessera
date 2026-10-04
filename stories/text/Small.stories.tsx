@@ -11,7 +11,12 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Small',
   element: Text.Small,
-  description: 'Side comments and small print: a caveat, a licence line, a note beside a value. It draws one size step smaller.',
+  description: 'Side comments and small print, such as a caveat, a licence line or a note beside a value, one size step smaller.',
+  points: [
+    '`Text.Small`, or `Small` imported on its own, draws a `<small>`.',
+    '`tone` takes `dim`, `muted` or a status tone.',
+    'It keeps the meaning of the text and only sets it aside as a note.',
+  ],
   text: 'generated 21:04',
   context: <Text.P>Seed 48213 <Text.Small>generated 21:04</Text.Small></Text.P>,
 });

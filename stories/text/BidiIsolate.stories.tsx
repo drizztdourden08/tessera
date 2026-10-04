@@ -11,7 +11,13 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'BidiIsolate',
   element: Text.Bdi,
-  description: 'Isolates text whose direction is unknown, such as a player name that may be written right to left, so it cannot reorder the sentence around it.',
+  description: 'Isolates text whose direction is unknown, such as a player name written right to left, so it cannot reorder the sentence.',
+  points: [
+    '`Text.Bdi`, or `Bdi` imported on its own, draws a `<bdi>`.',
+    'Wrap any name or value that comes from people or from data.',
+    'The browser works out the direction of the text inside.',
+  ],
+  instead: '[BidiOverride] to force a direction.',
   text: 'مريم',
   context: <Text.P>Item sent by <Text.Bdi>مريم</Text.Bdi>: 3 bombs.</Text.P>,
 });

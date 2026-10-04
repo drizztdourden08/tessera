@@ -12,6 +12,11 @@ const { InContext, Overview, Playground } = textElementStories({
   name: 'Address',
   element: Text.Address,
   description: 'Contact details for the page or the section around it: a person, a server, a place.',
+  points: [
+    '`Text.Address`, or `Address` imported on its own, draws an `<address>`.',
+    'Put it in the section the details belong to, such as a footer.',
+    'It is for contact details, not for every postal address in the text.',
+  ],
   text: 'Room host: Wren',
   context: <Text.Address>Room host: Wren, at <Text.Code>archipelago.gg:38281</Text.Code></Text.Address>,
 });

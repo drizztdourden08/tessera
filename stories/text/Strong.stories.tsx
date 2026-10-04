@@ -11,7 +11,13 @@ const meta = {
 const { InContext, Overview, Playground } = textElementStories({
   name: 'Strong',
   element: Text.Strong,
-  description: 'Text of strong importance, such as a warning inside a sentence. It draws in the bold weight, and screen readers may stress it.',
+  description: 'Text of strong importance, such as a warning inside a sentence, drawn in the bold weight.',
+  points: [
+    '`Text.Strong`, or `Strong` imported on its own, draws a `<strong>`.',
+    'Screen readers may stress it.',
+    '`tone` takes `primary` or a status tone: `success`, `warning`, `danger` or `info`.',
+  ],
+  instead: '[Bold] to draw attention without adding importance.',
   text: 'Do not close the game',
   context: <Text.P><Text.Strong>Do not close the game</Text.Strong> while the save is written.</Text.P>,
 });
