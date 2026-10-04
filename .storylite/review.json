@@ -326,8 +326,8 @@
       "at": "2026-10-03"
     },
     "InputIcon": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "155667611bd867a7",
       "at": "2026-10-04"
     },
     "PathIcon": {
@@ -715,7 +715,9 @@
       "at": "2026-10-03"
     },
     "Stepper": {
-      "status": "new"
+      "status": "seen",
+      "hash": "flagged",
+      "at": "2026-10-04"
     },
     "RouterLink": {
       "status": "ok",
@@ -745,7 +747,9 @@
       "at": "2026-10-02"
     },
     "WizardDialog": {
-      "status": "new"
+      "status": "ok",
+      "hash": "84fdcad12d0abacc",
+      "at": "2026-10-04"
     }
   },
   "Composites · Overlays": {
@@ -767,9 +771,9 @@
   },
   "Composites · Wizard": {
     "Wizard": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "faa17cdc99874330",
+      "at": "2026-10-04"
     },
     "WizardStep": {
       "status": "ok",
@@ -777,9 +781,9 @@
       "at": "2026-10-03"
     },
     "WizardNav": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "93e615e7c9f953d8",
+      "at": "2026-10-04"
     },
     "WizardReview": {
       "status": "ok",
@@ -821,32 +825,36 @@
       "at": "2026-10-03"
     },
     "SideNavLayout": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "3304df68c4d283ec",
+      "at": "2026-10-04"
     }
   },
   "Composites · Lists": {
     "ListItemRow": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "b896f1d4e4f74bc6",
+      "at": "2026-10-04"
     },
     "GroupTree": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "3b280284611e2798",
+      "at": "2026-10-04"
     },
     "SearchResults": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "40da3783f30c41c1",
+      "at": "2026-10-04"
     },
     "SearchResultGroup": {
-      "status": "new"
+      "status": "ok",
+      "hash": "2e50612851d92c74",
+      "at": "2026-10-04"
     },
     "SearchResultHit": {
-      "status": "new"
+      "status": "ok",
+      "hash": "9560bda27712bdb3",
+      "at": "2026-10-04"
     }
   },
   "Composites · Settings": {
