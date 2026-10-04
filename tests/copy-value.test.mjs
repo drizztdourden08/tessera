@@ -5,8 +5,8 @@ import { describe, expect, it } from 'vitest';
 import { FactsPanel } from '../src/composites/FactsPanel';
 import { LogPanel } from '../src/composites/LogPanel';
 import { CodeBlock } from '../src/primitives/CodeBlock';
-import { CopyButton } from '../src/primitives/CopyButton';
-import { CopyValue } from '../src/primitives/CopyValue';
+import { CopyButton } from '../src/composites/CopyButton';
+import { CopyValue } from '../src/composites/CopyValue';
 import { StatRow } from '../src/primitives/StatRow';
 
 const KEY = 'SHA256:mK3v9Qe1ZtR8wLp2xN6cY4hB0sJ7uF5dA1gH9kT2oE';

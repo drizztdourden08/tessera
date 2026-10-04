@@ -1,6 +1,5 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
-import { TextInput, type ControlSize } from '../../../src/primitives';
+import { TextInput, useCopy, type ControlSize } from '../../../src/primitives';
 
 type IconCase = 'decorative start' | 'copy button' | 'both ends';
 
@@ -8,18 +7,14 @@ const ICON_CASES: readonly IconCase[] = ['decorative start', 'copy button', 'bot
 
 const CopyField = (props: { size: ControlSize; mark?: boolean }) => {
   const { size, mark = false } = props;
-  const [copied, setCopied] = useState(false);
-  const copy = () => {
-    void navigator.clipboard.writeText('HYRULE-48213');
-    setCopied(true);
-  };
+  const { copied, copy } = useCopy();
   return (
     <TextInput
       size={size}
       defaultValue="HYRULE-48213"
       aria-label="Invite code"
       start={mark ? { icon: 'key-round' } : undefined}
-      end={{ icon: copied ? 'check' : 'copy', label: copied ? 'Copied' : 'Copy invite code', onClick: copy }}
+      end={{ icon: copied ? 'check' : 'copy', label: copied ? 'Copied' : 'Copy invite code', onClick: () => void copy('HYRULE-48213') }}
     />
   );
 };

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
+import { Box } from '../../primitives/Box';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { CopyButton } from '../CopyButton';
-import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { CopyValueText } from './sub-components/CopyValueText';
 import type { CopyValueProps } from './CopyValue.type';
 import '../../theme/visually-hidden.css';
@@ -11,7 +12,7 @@ const CopyValue = (props: CopyValueProps) => {
   const { common } = useTesseraStrings();
   const cls = ['copy-value', `copy-value--${size}`, truncate && `copy-value--${truncate}`, className].filter(Boolean).join(' ');
   return (
-    <span className={cls} data-mono={mono ? '' : undefined} role="group" aria-label={label}>
+    <Box as="span" className={cls} data-mono={mono ? '' : undefined} role="group" aria-label={label}>
       <CopyValueText value={value} truncate={truncate} />
       <CopyButton
         text={value}
@@ -20,7 +21,7 @@ const CopyValue = (props: CopyValueProps) => {
         size={size === 'md' ? 'sm' : 'xs'}
         onCopied={onCopied}
       />
-    </span>
+    </Box>
   );
 };
 

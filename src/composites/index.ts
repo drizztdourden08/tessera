@@ -181,6 +181,10 @@ export { FileList } from './FileList';
 export type { FileEntry, FileListProps } from './FileList';
 export { ItemCard } from './ItemCard';
 export type { ItemCardLayout, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from './ItemCard';
+export { CopyButton } from './CopyButton';
+export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
+export { CopyValue } from './CopyValue';
+export type { CopyValueProps, CopyValueSize, CopyValueTruncate } from './CopyValue';
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,

@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, CopyValue, Flex, Status } from '../../src/primitives';
-import type { CopyValueSize } from '../../src/primitives';
+import { CopyValue } from '../../src/composites';
+import type { CopyValueSize } from '../../src/composites';
+import { Box, Flex, Status } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -41,7 +42,7 @@ const ARG_TYPES: PlaygroundArgTypes<CopyValueArgs> = {
 };
 
 const meta = {
-  title: 'Primitives · Display/CopyValue',
+  title: 'Composites · Content/CopyValue',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<CopyValueArgs>;
 
@@ -123,6 +124,7 @@ const Overview = overviewStory({
     '`mono` sets codes, keys and addresses in the monospace face.',
     '`truncate` cuts a long value at its `end` or in its `middle`, which keeps the last characters in view.',
     'A cut value shows the whole text on hover, and a screen reader reads it whole.',
+    'Its button is a [CopyButton], so it copies, confirms and announces like every other copy.',
   ],
   instead: 'A [StatRow] with `copyable` for a label and its value on one row.',
   playground: Playground,

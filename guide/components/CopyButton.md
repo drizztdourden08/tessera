@@ -2,13 +2,13 @@
 
 A button that copies a text to the clipboard and confirms it with a check and the word Copied.
 
-Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/primitives`.
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
 import { CopyButton } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/primitives/CopyButton/CopyButton.tsx`. Its gallery page is Primitives · Actions/CopyButton (`#/story/primitives-copybutton--overview`).
+The source is `src/composites/CopyButton/CopyButton.tsx`. Its gallery page is Composites · Actions/CopyButton (`#/story/composites-copybutton--overview`).
 
 ## Where the questions lead here
 

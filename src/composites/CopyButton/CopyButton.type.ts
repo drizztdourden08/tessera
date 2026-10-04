@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ButtonVariant } from '../Button/Button.type';
+import type { ButtonVariant } from '../../primitives/Button/Button.type';
 
 type CopyButtonSize = 'xs' | 'sm' | 'md';
 

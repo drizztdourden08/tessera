@@ -54,9 +54,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     SectionHeader: 'heading-1', TermList: 'book-text', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
     EmptyState: 'inbox', Image: 'image', Thumbnail: 'gallery-thumbnails', Video: 'video', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
     ShortcutList: 'keyboard',
-    CopyValue: 'copy',
   },
-  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
+  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', RetryButton: 'refresh-cw' },
   'Primitives · Inputs': {
     TextInput: 'text-cursor-input', SearchInput: 'scan-search', CommandInput: 'square-terminal', PasswordInput: 'lock-keyhole', Textarea: 'letter-text', NumberInput: 'hash', NumberStepper: 'diff', Checkbox: 'square-check',
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',
@@ -77,7 +76,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     JobDialog: 'square-activity',
   },
   'Composites · Overlays': { Overlay: 'layers-2', Drawer: 'panel-right', DisabledOverlay: 'ban' },
-  'Composites · Actions': { ConfirmIconButton: 'circle-check', ActionBar: 'rectangle-ellipsis' },
+  'Composites · Actions': { ConfirmIconButton: 'circle-check', ActionBar: 'rectangle-ellipsis', CopyButton: 'clipboard-copy' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
@@ -101,6 +100,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     CheckList: 'clipboard-check',
     ItemCard: 'square-library',
     ActionTile: 'square-activity',
+    CopyValue: 'copy',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x' },

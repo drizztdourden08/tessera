@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
-import { useCopy } from '../TesseraProvider/behavior/useCopy';
-import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
+import { Box } from '../../primitives/Box';
+import { useCopy } from '../../primitives/TesseraProvider/behavior/useCopy';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { CopyButtonControl } from './sub-components/CopyButtonControl';
 import type { CopyButtonProps } from './CopyButton.type';
 import '../../theme/visually-hidden.css';
@@ -15,10 +16,10 @@ const CopyButton = (props: CopyButtonProps) => {
     void copy(typeof text === 'function' ? text() : text).then((ok) => { if (ok) onCopied?.(); });
   };
   return (
-    <span className={className ? `copy-button ${className}` : 'copy-button'}>
+    <Box as="span" className={className ? `copy-button ${className}` : 'copy-button'}>
       <CopyButtonControl {...props} name={copied ? done : (label ?? common.copyNamed(''))} copied={copied} onClick={onClick} />
-      <span className="visually-hidden" role="status">{copied ? done : ''}</span>
-    </span>
+      <Box as="span" className="visually-hidden" role="status">{copied ? done : ''}</Box>
+    </Box>
   );
 };
 

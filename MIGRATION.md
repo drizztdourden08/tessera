@@ -4429,3 +4429,24 @@ interface StatRowProps {
 2. Brock: `HeroRoot` drops `hero-root--bare` and its two `stylelint-disable` rules from `HeroRoot.css`; a hero with no art and no backdrop already fits its content.
 3. An app that runs a row action, such as Rebuild, sets `loading` on that action until the work ends.
 4. An app that sized a `StatRow` with its own CSS passes `size` instead.
+
+## 165. CopyButton and CopyValue are composites
+
+`CopyButton` and `CopyValue` move from the primitives to the composites. Both carry behaviour: they write to the clipboard, keep a Copied state and clear it on a timer. A primitive is one visual element with little logic, so they now sit beside the other parts built from primitives. Their props, class names and look do not change.
+
+| Before | After |
+|---|---|
+| `src/primitives/CopyButton` | `src/composites/CopyButton` |
+| `src/primitives/CopyValue` | `src/composites/CopyValue` |
+| `@drizztdourden08/tessera/primitives` exports `CopyButton`, `CopyValue` and their types | `@drizztdourden08/tessera/composites` exports them |
+
+- The root import `@drizztdourden08/tessera` works as before.
+- `useCopy` stays where it was, beside `TesseraProvider`, and is still exported from the primitives. It holds the one copy path: the `writeText` override, the Copied state and its two seconds.
+- The gallery pages move with them: CopyButton to Composites · Actions, CopyValue to Composites · Content.
+- Every copy in Tessera already goes through `CopyButton`: `CopyValue`, `StatRow` with `copyable`, `FactsPanel` through `StatRow`, `CodeBlock`, `PathField`, `LogPanel` and `ActionTile`. None of them writes to the clipboard on its own.
+- `StatRow` keeps its own value and its `CopyButton`, and does not draw a `CopyValue`. A row copies a string that may differ from the value it shows, and its value may be any node, while `CopyValue` shows and copies one string.
+
+### What an app does
+
+1. An import of `CopyButton`, `CopyValue` or their types from `@drizztdourden08/tessera/primitives` moves to `@drizztdourden08/tessera/composites`, or to the root.
+2. An app part that copies with its own `navigator.clipboard` call and its own Copied state uses `CopyButton`, `CopyValue` or `useCopy` instead.

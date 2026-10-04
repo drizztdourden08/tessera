@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Highlight } from 'prism-react-renderer';
 import { Box } from '../Box';
-import { CopyButton } from '../CopyButton';
+import { CopyButton } from '../../composites/CopyButton';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { codeBlockClass } from './behavior/code-block-class';
 import { tokenClass } from './behavior/token-class';

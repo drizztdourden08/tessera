@@ -176,10 +176,6 @@ export type { StackedBarColor, StackedBarOrientation, StackedBarProps, StackedBa
 export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from './dom/app-region.constants';
 export { ShortcutList } from './ShortcutList';
 export type { ShortcutGesture, ShortcutListGroup, ShortcutListItem, ShortcutListProps } from './ShortcutList';
-export { CopyButton } from './CopyButton';
-export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
-export { CopyValue } from './CopyValue';
-export type { CopyValueProps, CopyValueSize, CopyValueTruncate } from './CopyValue';
 export { RetryButton } from './RetryButton';
 export type { RetryButtonProps } from './RetryButton';
 export { CommandInput } from './CommandInput';

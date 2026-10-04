@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
-import { Button } from '../../Button';
-import { Glyph } from '../../Glyph';
-import { IconButton } from '../../IconButton';
+import { Button } from '../../../primitives/Button';
+import { Glyph } from '../../../primitives/Glyph';
+import { IconButton } from '../../../primitives/IconButton';
 import type { CopyButtonControlProps } from '../CopyButton.type';
 
 const CopyButtonControl = (props: CopyButtonControlProps) => {

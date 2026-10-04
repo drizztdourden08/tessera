@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import './StatRow.css';
-import { CopyButton } from '../CopyButton';
+import { CopyButton } from '../../composites/CopyButton';
 import { Span } from '../text-elements';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { copyText } from './behavior/copy-text';

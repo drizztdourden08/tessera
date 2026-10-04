@@ -2,13 +2,13 @@
 
 A value the user often copies, such as an address, a seed or a key, shown with a copy button at its end.
 
-Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/primitives`.
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
 import { CopyValue } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/primitives/CopyValue/CopyValue.tsx`. Its gallery page is Primitives · Display/CopyValue (`#/story/primitives-copyvalue--overview`).
+The source is `src/composites/CopyValue/CopyValue.tsx`. Its gallery page is Composites · Content/CopyValue (`#/story/composites-copyvalue--overview`).
 
 ## Where the questions lead here
 

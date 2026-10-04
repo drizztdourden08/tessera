@@ -83,7 +83,11 @@ const COMPOSITES_TIER: CatalogueTier = {
     },
     {
       group: 'Actions',
-      entries: [{ name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' }, { name: 'ActionBar', summary: 'The actions on one item in a row that folds the rest into More when narrow.' }],
+      entries: [
+        { name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' },
+        { name: 'ActionBar', summary: 'The actions on one item in a row that folds the rest into More when narrow.' },
+        { name: 'CopyButton', summary: 'Copies a text to the clipboard and says Copied.' },
+      ],
     },
     {
       group: 'Inputs',
@@ -128,6 +132,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'CheckList', summary: 'The results of a list of checks: pass, advice, failure, checking or skipped, with counts on top.' },
         { name: 'ItemCard', summary: 'One item of a catalogue as a card: media, eyebrow, status, title, tags, details and actions.' },
         { name: 'ActionTile', summary: 'One headline value in a tile that also does one thing: an action, a copy or a way in.' },
+        { name: 'CopyValue', summary: 'A value to copy, such as an address or a key, with a copy button at its end.' },
       ],
     },
     {

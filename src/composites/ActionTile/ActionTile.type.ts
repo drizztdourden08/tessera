@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { ButtonVariant } from '../../primitives/Button/Button.type';
-import type { CopyText } from '../../primitives/CopyButton/CopyButton.type';
+import type { CopyText } from '../CopyButton/CopyButton.type';
 import type { IconName } from '../../primitives/Icon/Icon.type';
 import type { StatusTone } from '../../primitives/Status/Status.type';
 

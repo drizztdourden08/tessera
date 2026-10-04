@@ -1,8 +1,10 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { CodeBlock, CopyButton, Flex } from '../../src/primitives';
-import type { ButtonVariant, CopyButtonSize } from '../../src/primitives';
+import { CopyButton } from '../../src/composites';
+import type { CopyButtonSize } from '../../src/composites';
+import { CodeBlock, Flex } from '../../src/primitives';
+import type { ButtonVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -38,7 +40,7 @@ const ARG_TYPES: PlaygroundArgTypes<CopyButtonArgs> = {
 };
 
 const meta = {
-  title: 'Primitives · Actions/CopyButton',
+  title: 'Composites · Actions/CopyButton',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<CopyButtonArgs>;
 
@@ -89,7 +91,7 @@ const Overview = overviewStory({
     '`text` is the string to copy, or a function that builds it at the moment of the click.',
     'Icon only by default, named by `label`; `showLabel` writes the word beside the icon.',
     'After a copy the icon turns to a check, the name reads Copied and a screen reader hears it.',
-    'LogPanel, CodeBlock and [CopyValue] copy through it, so every copy looks and reads the same.',
+    'Every Tessera copy goes through it, so [CopyValue], [StatRow] and [CodeBlock] copy alike.',
   ],
   instead: '[CopyValue] to show the value itself with its copy button.',
   playground: Playground,

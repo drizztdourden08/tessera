@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
-import { CopyButton } from '../../../primitives/CopyButton';
+import { CopyButton } from '../../CopyButton';
 import { Icon } from '../../../primitives/Icon';
 import type { ActionTileButtonProps } from '../ActionTile.type';
 

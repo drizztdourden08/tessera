@@ -19,8 +19,6 @@ One line per component. 31 of 168 have their usage written; a linked name opens 
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Combobox`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [CommandInput](components/CommandInput.md): A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line. Import from `@drizztdourden08/tessera`.
-- [CopyButton](components/CopyButton.md): A button that copies a text to the clipboard and confirms it with a check and the word Copied. Import from `@drizztdourden08/tessera`.
-- [CopyValue](components/CopyValue.md): A value the user often copies, such as an address, a seed or a key, shown with a copy button at its end. Import from `@drizztdourden08/tessera`.
 - `Divider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DropZone`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `EmojiIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -103,6 +101,8 @@ One line per component. 31 of 168 have their usage written; a linked name opens 
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ContentHeader](components/ContentHeader.md): The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end. Import from `@drizztdourden08/tessera`.
 - [ControlMenu](components/ControlMenu.md): A dropdown of settings behind one button: each row is a label with one compact control, and the panel joins its button like a DropdownMenu. Import from `@drizztdourden08/tessera`.
+- [CopyButton](components/CopyButton.md): A button that copies a text to the clipboard and confirms it with a check and the word Copied. Import from `@drizztdourden08/tessera`.
+- [CopyValue](components/CopyValue.md): A value the user often copies, such as an address, a seed or a key, shown with a copy button at its end. Import from `@drizztdourden08/tessera`.
 - `CreateRecordDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DataTable`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DeleteGuardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.

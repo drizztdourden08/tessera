@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { CopyButton } from '../../CopyButton';
+import { CopyButton } from '../../../composites/CopyButton';
 import { Icon } from '../../Icon';
 import { IconButton } from '../../IconButton';
 import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';

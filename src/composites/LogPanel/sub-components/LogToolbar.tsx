@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { CopyButton } from '../../../primitives/CopyButton';
+import { CopyButton } from '../../CopyButton';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { FilterBar } from '../../FilterBar';
