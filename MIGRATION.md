@@ -2993,6 +2993,30 @@ interface MotionEffect { id: string; piece: BrandPiece; at: ScenePoint; fixed?: 
 interface MascotAnimation { name: string; summary: string; duration: number; loop: boolean; tracks: readonly MotionTrack[]; still?: readonly string[] }
 ```
 
+**Flint's states.** Flint draws all 19 new clips in its smooth facets, with its stone hands and its orange chip as an expression light: the chip flares for `idea`, `success` and `love`, dims for `sleep`, `resting` and `low-power`, and flickers between dim and lit for `worried`. Its symbols are flat vector pieces in Flint's greys and orange with the sheet's accents (a yellow bulb, a pink heart, a red battery), and its eye overlays are drawn over the face in the face's own grey, so the reduced motion picture shows shut, happy, flat or heavy lidded eyes and the symbol.
+
+| Group | Clip | What Flint does |
+|---|---|---|
+| Motion | `idle-bounce` | bounces in place, a high hop then a lower one, squashing on each landing and blinking on the second |
+| Motion | `move-wobble` | waddles from one corner of its base to the other, the lifted side's hand rising for balance |
+| Motion | `jump-hop` | hops over to the right and back home, tipping into each hop |
+| Motion | `spin` | springs up and turns a full circle around its own middle inside swoosh lines, lands with a squash and sparkles |
+| Expressions | `default` | the neutral face, breathing slowly, blinking once |
+| Expressions | `happy-grin` | happy arc eyes over a wide grin, wiggling and rubbing its hands together |
+| Expressions | `content` | happy arc eyes and a warm smile, hands folded, rocking slowly |
+| Expressions | `curious` | tilts with a hand under its chin, looking up at a bobbing question mark |
+| Expressions | `focused` | heavy lids and set brows, fists up, reading along a line as a bead of sweat rolls down |
+| Expressions | `sleep` | shut eyes, a dim chip and three z rising in turn as it breathes deep |
+| Expressions | `alert-exclaim` | stiffens under an exclamation mark that jumps and shakes, then does a double take |
+| Expressions | `love` | a beating heart, blushing cheeks and a glowing chip, hands clasped as it sways |
+| Interactions | `working` | types on a laptop in front of it with both hands, eyes reading the screen |
+| Interactions | `idea` | ponders, hand under chin, until a bulb pops on with rays and the chip flares as it hops |
+| Interactions | `success` | hands up high, hops as confetti bursts over its head, chip bright |
+| Interactions | `confused` | tips over and scratches its head under a wobbling question mark |
+| Interactions | `worried` | pinched brows, trembling and wringing its hands as sweat drops roll down |
+| Interactions | `low-power` | a red battery blinks above while it slumps with heavy lids and jerks half awake |
+| Interactions | `resting` | settles low and wide with its hands flat out, flat closed eyes, two z drifting up |
+
 ### What an app does
 
 Nothing changes for an app that plays the ten clips. Pass any new name to `animation` to use a state, for example `<AnimatedMascot brand="rotp" animation="low-power" />`. A test that read the hidden effects of a mascot from its idle markup renders the clip that uses them instead.

@@ -2,7 +2,7 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { AnimatedMascot, BRAND_FAMILY, Mascot, sceneMarkup } from '../src/brand';
+import { AnimatedMascot, BRAND_FAMILY, MASCOT_CLIPS, Mascot, sceneMarkup } from '../src/brand';
 import { mascotFor } from '../src/brand/ChosenMascot/behavior/mascot-for';
 import { composeFlint } from '../src/brand/flint/compose-flint';
 
@@ -59,5 +59,17 @@ describe('Flint, the Brock mascot', () => {
     expect(mascotFor('auto', 'brock')).toBe('flint');
     expect(mascotFor('auto', undefined, 'brock')).toBe('flint');
     expect(mascotFor('auto', undefined, 'rotp')).toBe('sentri');
+  });
+
+  it('draws its own clip for every new state, and keeps each state symbol in the resting picture', () => {
+    const { animations } = flint.motion;
+    const fresh = MASCOT_CLIPS.slice(10).map((name) => animations[name]);
+    expect(new Set([...fresh, animations.idle]).size).toBe(fresh.length + 1);
+    const sleep = renderToString(h(AnimatedMascot, { brand: 'brock', animation: 'sleep', scale: 2 }));
+    for (const part of ['eyesShut', 'chipDim', 'zSmall', 'zMid', 'zBig']) {
+      expect(sleep).toContain(`data-motion-part="${part}"`);
+      expect(sleep).not.toContain(`data-motion-part="${part}" opacity="0"`);
+    }
+    expect(renderToString(h(AnimatedMascot, { brand: 'brock', animation: 'spin', scale: 2 }))).toContain('data-motion-part="twinkles" opacity="0"');
   });
 });

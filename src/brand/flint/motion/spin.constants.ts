@@ -1,0 +1,131 @@
+/* @layer renderer-components @kind data */
+import type { MascotAnimation } from '../../motion/motion.type';
+import { EASE } from '../../motion/motion.constants';
+
+const FLINT_SPIN: MascotAnimation = {
+  name: 'Spin',
+  summary: 'An excited spin: crouches, springs up and turns a full circle in the air around its own middle with its hands flung out and its eyes squeezed shut, swoosh lines sweeping round it. It lands with a squash, eyes wide over a big open smile, and sparkles pop around it.',
+  duration: 1900,
+  loop: false,
+  tracks: [
+    {
+      part: 'rig',
+      frames: [
+        { at: 0 },
+        { at: 0.1, scaleX: 1.15, scaleY: 0.82, ease: EASE.out },
+        { at: 0.18, y: -3, scaleX: 0.92, scaleY: 1.1, ease: EASE.out },
+        { at: 0.24, y: -5.58, scale: 0.92, ease: EASE.linear },
+        { at: 0.27, x: -6.21, y: -7.24, rotate: 30, scale: 0.92, ease: EASE.linear },
+        { at: 0.3, x: -10.76, y: -11.79, rotate: 60, scale: 0.92, ease: EASE.linear },
+        { at: 0.33, x: -12.42, y: -18, rotate: 90, scale: 0.92, ease: EASE.linear },
+        { at: 0.36, x: -10.76, y: -24.21, rotate: 120, scale: 0.92, ease: EASE.linear },
+        { at: 0.39, x: -6.21, y: -28.76, rotate: 150, scale: 0.92, ease: EASE.linear },
+        { at: 0.42, y: -30.42, rotate: 180, scale: 0.92, ease: EASE.linear },
+        { at: 0.45, x: 6.21, y: -28.76, rotate: 210, scale: 0.92, ease: EASE.linear },
+        { at: 0.48, x: 10.76, y: -24.21, rotate: 240, scale: 0.92, ease: EASE.linear },
+        { at: 0.51, x: 12.42, y: -18, rotate: 270, scale: 0.92, ease: EASE.linear },
+        { at: 0.54, x: 10.76, y: -11.79, rotate: 300, scale: 0.92, ease: EASE.linear },
+        { at: 0.57, x: 6.21, y: -7.24, rotate: 330, scale: 0.92, ease: EASE.linear },
+        { at: 0.6, y: -5.58, rotate: 360, scale: 0.92, ease: EASE.fall },
+        { at: 0.68, rotate: 360, scaleX: 0.94, scaleY: 1.06, ease: EASE.linear },
+        { at: 0.71, rotate: 360, scaleX: 1.2, scaleY: 0.8, ease: EASE.step },
+        { at: 0.715, scaleX: 1.2, scaleY: 0.8, ease: EASE.out },
+        { at: 0.8, scaleX: 0.95, scaleY: 1.05 },
+        { at: 0.88, scaleX: 1.02, scaleY: 0.98 },
+        { at: 0.95 },
+        { at: 1 },
+      ],
+    },
+    {
+      part: 'shadow',
+      frames: [
+        { at: 0 },
+        { at: 0.1, scaleX: 1.12, ease: EASE.out },
+        { at: 0.24, scale: 0.62, opacity: 0.5 },
+        { at: 0.6, scale: 0.62, opacity: 0.5, ease: EASE.fall },
+        { at: 0.68, scale: 0.95 },
+        { at: 0.71, scaleX: 1.18, ease: EASE.out },
+        { at: 0.8 },
+        { at: 1 },
+      ],
+    },
+    {
+      part: 'handLeft',
+      frames: [
+        { at: 0 },
+        { at: 0.1, y: 1.2, rotate: -18, ease: EASE.out },
+        { at: 0.22, y: -2, rotate: 50 },
+        { at: 0.6, y: -2, rotate: 46 },
+        { at: 0.68, rotate: 10 },
+        { at: 0.72, y: 1.2, rotate: -22, ease: EASE.out },
+        { at: 0.82, rotate: 9 },
+        { at: 0.9, rotate: -3 },
+        { at: 0.96 },
+        { at: 1 },
+      ],
+    },
+    {
+      part: 'handRight',
+      frames: [
+        { at: 0 },
+        { at: 0.1, y: 1.2, rotate: 17, ease: EASE.out },
+        { at: 0.22, y: -2.2, rotate: -52 },
+        { at: 0.6, y: -1.8, rotate: -47 },
+        { at: 0.68, rotate: -11 },
+        { at: 0.72, y: 1.1, rotate: 23, ease: EASE.out },
+        { at: 0.83, rotate: -8 },
+        { at: 0.91, rotate: 2 },
+        { at: 0.97 },
+        { at: 1 },
+      ],
+    },
+    {
+      part: 'eyes',
+      frames: [
+        { at: 0 },
+        { at: 0.1, scaleY: 0.3 },
+        { at: 0.71, scaleY: 0.3, ease: EASE.out },
+        { at: 0.77, scale: 1.25 },
+        { at: 0.9, scale: 1.1 },
+        { at: 0.96 },
+        { at: 1 },
+      ],
+    },
+    {
+      part: 'mouth',
+      frames: [
+        { at: 0 },
+        { at: 0.1, scaleX: 0.8 },
+        { at: 0.22, scaleX: 1.2, scaleY: 1.8 },
+        { at: 0.68, scaleX: 1.2, scaleY: 1.8 },
+        { at: 0.77, scaleX: 1.35, scaleY: 1.7 },
+        { at: 0.9 },
+        { at: 1 },
+      ],
+    },
+    {
+      part: 'swoosh',
+      frames: [
+        { at: 0 },
+        { at: 0.24, opacity: 0, ease: EASE.linear },
+        { at: 0.3, rotate: 60, opacity: 0.9, ease: EASE.linear },
+        { at: 0.54, rotate: 250, opacity: 0.9, ease: EASE.linear },
+        { at: 0.62, rotate: 320, opacity: 0 },
+        { at: 1 },
+      ],
+    },
+    {
+      part: 'twinkles',
+      frames: [
+        { at: 0 },
+        { at: 0.71, scale: 0.5, opacity: 0, ease: EASE.out },
+        { at: 0.79, scale: 1.05, opacity: 1 },
+        { at: 0.88, opacity: 1 },
+        { at: 0.97, scale: 1.1, opacity: 0 },
+        { at: 1 },
+      ],
+    },
+  ],
+};
+
+export { FLINT_SPIN };

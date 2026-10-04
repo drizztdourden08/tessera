@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind data */
 import type { BrandPiece } from '../brand.type';
 
-const FLINT_EFFECTS: Readonly<Record<'chipGlow' | 'spark', BrandPiece>> = {
+const FLINT_EFFECTS: Readonly<Record<'chipGlow' | 'spark' | 'chipDim', BrandPiece>> = {
   chipGlow: {
     name: 'Chip glow',
     w: 10,
@@ -21,6 +21,16 @@ const FLINT_EFFECTS: Readonly<Record<'chipGlow' | 'spark', BrandPiece>> = {
       { ink: '#ffb341', opacity: 0.4, d: 'M0 2.5A2.5 2.5 0 1 1 5 2.5A2.5 2.5 0 1 1 0 2.5Z' },
       { ink: '#ffd27a', d: 'M2.5 0L3.1 1.9L5 2.5L3.1 3.1L2.5 5L1.9 3.1L0 2.5L1.9 1.9Z' },
       { ink: '#fff6e6', d: 'M1.7 2.5A0.8 0.8 0 1 1 3.3 2.5A0.8 0.8 0 1 1 1.7 2.5Z' },
+    ],
+  },
+  chipDim: {
+    name: 'Dim chip',
+    w: 6.5,
+    h: 4.8,
+    paths: [
+      { ink: '#7a4019', d: 'M0 0.02L4.65 1.98L6.48 4.55L2.12 4.75Z' },
+      { ink: '#5a2d10', d: 'M4.55 2.1L6.3 4.45L3.55 3.6Z' },
+      { ink: '#96532a', d: 'M0.15 0.15L2.55 1.2L1.35 2.7Z' },
     ],
   },
 };
