@@ -41,20 +41,13 @@
   color: var(--stepper-tone);
 }
 
-.stepper[data-motion='step'] .stepper__item[data-wave]:not([data-wave='0']) .stepper-dot__card {
-  transition-delay: calc(var(--stepper-wave) * var(--duration-step) - var(--duration-step-ring));
+.stepper:is([data-motion='step'], [data-motion='skip']) .stepper__item[data-wave]:not([data-wave='0']) .stepper-dot__card {
+  transition-delay: calc(var(--stepper-wave) * var(--stepper-cycle) - var(--stepper-spread));
 }
 
-.stepper[data-motion='step'] .stepper__item[data-wave][data-status='done'] .stepper-dot__card {
-  transition-delay: calc(var(--stepper-wave) * var(--duration-step) + var(--duration-step-fill) / 2);
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave] .stepper-dot__card {
-  transition-delay: calc(var(--duration-step-skip-fill) / 2);
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave][data-current] .stepper-dot__card {
-  transition-delay: calc(var(--duration-step-skip-fill) + (var(--stepper-wave) + 1) * var(--duration-step-skip-line));
+.stepper:is([data-motion='step'], [data-motion='skip']) .stepper__item[data-wave][data-status='done'] .stepper-dot__card {
+  transition-duration: var(--duration-normal), var(--stepper-flip);
+  transition-delay: calc(var(--stepper-wave) * var(--stepper-cycle) + var(--stepper-fill) / 2);
 }
 
 .stepper[data-motion='back'] .stepper__item[data-wave='0'] .stepper-dot__card {

@@ -14,14 +14,10 @@
   transform: none;
 }
 
-.stepper[data-motion='step'] .stepper__item[data-wave][data-status='done'] .stepper-dot__fill {
+.stepper:is([data-motion='step'], [data-motion='skip']) .stepper__item[data-wave][data-status='done'] .stepper-dot__fill {
+  transition-duration: var(--stepper-fill);
   transition-timing-function: var(--ease-step-fill);
-  transition-delay: calc(var(--stepper-wave) * var(--duration-step));
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave] .stepper-dot__fill {
-  transition-duration: var(--duration-step-skip-fill);
-  transition-timing-function: var(--ease-step-fill);
+  transition-delay: calc(var(--stepper-wave) * var(--stepper-cycle));
 }
 
 .stepper[data-motion='back'] .stepper__item[data-wave]:not([data-wave='0']) .stepper-dot__fill {

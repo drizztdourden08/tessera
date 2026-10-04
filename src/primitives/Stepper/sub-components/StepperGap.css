@@ -37,26 +37,10 @@
   transform: none;
 }
 
-.stepper[data-motion='step'] .stepper__item[data-wave][data-status='done'] .stepper__line::after {
+.stepper:is([data-motion='step'], [data-motion='skip']) .stepper__item[data-wave][data-status='done'] .stepper__line::after {
+  transition-duration: var(--stepper-run);
   transition-timing-function: var(--ease-step-line);
-  transition-delay: calc(var(--stepper-wave) * var(--duration-step) + var(--duration-step-fill));
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave] .stepper__line::after {
-  transition-duration: var(--duration-step-skip-line);
-  transition-timing-function: var(--ease-step-sweep);
-  transition-delay: calc(var(--duration-step-skip-fill) + (var(--stepper-wave) + 0.5) * var(--duration-step-skip-line));
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave='0'] .stepper__line::after {
-  transition-duration: calc(var(--duration-step-skip-line) * 1.5);
-  transition-timing-function: var(--ease-step-sweep-in);
-  transition-delay: var(--duration-step-skip-fill);
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave]:has(+ .stepper__item[data-current]) .stepper__line::after {
-  transition-duration: calc(var(--duration-step-skip-line) * 1.5);
-  transition-timing-function: var(--ease-step-sweep-out);
+  transition-delay: calc(var(--stepper-wave) * var(--stepper-cycle) + var(--stepper-fill));
 }
 
 .stepper[data-motion='back'] .stepper__item[data-wave]:not([data-wave='0']) .stepper__line::after {

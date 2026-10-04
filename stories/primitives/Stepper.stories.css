@@ -6,10 +6,19 @@
   inline-size: 100%;
 }
 
-.stepper-story__pair {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 16rem;
-  align-items: start;
+.stepper-story__strip {
+  overflow-x: auto;
+  padding: var(--space-sm);
+}
+
+.stepper-story__strip > .stepper {
+  min-inline-size: var(--size-768);
+}
+
+.stepper-story__rails {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   gap: var(--space-2xl);
 }
 

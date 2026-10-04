@@ -77,8 +77,13 @@ const Playground = {
 } satisfies PlaygroundStory<StepperArgs>;
 
 const StepByStep = {
-  name: 'Step by step',
-  render: () => <StepperDriver />,
+  name: 'Step by step, on top',
+  render: () => <StepperDriver orientation="horizontal" />,
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const StepByStepLeft = {
+  name: 'Step by step, on the left',
+  render: () => <StepperDriver orientation="vertical" />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
 const PLACES = ['Step 1', 'Step 3', 'Step 6'] as const;
@@ -156,9 +161,9 @@ const CODE = `import { Stepper } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Stepper',
-  description: 'The steps of a task in order: a numbered circle per step, joined by lines, with the label under it, or beside it when the steps run down the left. Each step forward plays one sequence: the circle fills from the side the line leaves, the line runs to the next circle, the colour reaches that circle where the line meets it and spreads both ways round its border until the two ends meet, then the current circle glows and breathes. A jump over several steps fills every circle it passes and spreads their borders together, draws the lines in one sweep, then spreads the border of the step it lands on. Going back plays the forward sequence in exact reverse, a little faster, once per step. A done circle flips its number over to a check, or to an icon of your choice per step, or keeps the number when doneIcon is false. Every step can take its own colour, from the Tessera tones or the tag colours: it colours the fill, the border, the glow and the line arriving at it. Reduced motion shows the end state at once. Done and current circles glow. A step can show what was chosen under its label, sub-steps with a count under the line that follows it, and an error state. Only steps the host allows can be clicked, and the current step carries aria-current. The compact form is Step 2 of 5 with a ProgressBar. Not to be confused with NumberStepper, the number input.',
+  description: 'The steps of a task in order: a numbered circle per step, joined by lines, with the label under it, or beside it when the steps run down the left. Each step forward plays one sequence: the circle fills from the side the line leaves, the line runs to the next circle, the colour reaches that circle where the line meets it and spreads both ways round its border until the two ends meet, then the current circle glows and breathes. A jump over several steps plays the same sequence for each step in turn, at a faster pace. Going back plays the forward sequence in exact reverse, a little faster, once per step. A done circle flips its number over to a check, or to an icon of your choice per step, or keeps the number when doneIcon is false. Every step can take its own colour, from the Tessera tones or the tag colours: it colours the fill, the border, the glow and the line arriving at it. Reduced motion shows the end state at once. Done and current circles glow. A step can show what was chosen under its label, sub-steps with a count under the line that follows it, and an error state. Only steps the host allows can be clicked, and the current step carries aria-current. The compact form is Step 2 of 5 with a ProgressBar. Not to be confused with NumberStepper, the number input.',
   playground: Playground,
-  variants: [StepByStep, Horizontal, SubStepsOnTop, Vertical, IconsAndColours, Compact],
+  variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Vertical, IconsAndColours, Compact],
   states: {
     render: () => strip({ ...flat, step: 3 }),
     list: [
@@ -171,4 +176,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Horizontal, IconsAndColours, Overview, Playground, StepByStep, SubStepsOnTop, Vertical };
+export { Compact, Horizontal, IconsAndColours, Overview, Playground, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical };

@@ -77,12 +77,8 @@
   --stepper-tone: var(--c-danger);
 }
 
-.stepper[data-motion='step'] .stepper__item[data-wave]:not([data-wave='0']) .stepper__label {
-  transition-delay: calc(var(--stepper-wave) * var(--duration-step) - var(--duration-step-ring));
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave][data-current] .stepper__label {
-  transition-delay: calc(var(--duration-step-skip-fill) + (var(--stepper-wave) + 1) * var(--duration-step-skip-line));
+.stepper:is([data-motion='step'], [data-motion='skip']) .stepper__item[data-wave]:not([data-wave='0']) .stepper__label {
+  transition-delay: calc(var(--stepper-wave) * var(--stepper-cycle) - var(--stepper-spread));
 }
 
 .stepper[data-motion='back'] .stepper__item[data-wave]:not([data-current]) .stepper__label {

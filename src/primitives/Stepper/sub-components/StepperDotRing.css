@@ -55,27 +55,14 @@
   }
 }
 
-.stepper[data-motion='step'] .stepper__item[data-wave]:not([data-wave='0']) :is(.stepper-dot__halo, .stepper-dot__edge) {
+.stepper:is([data-motion='step'], [data-motion='skip']) .stepper__item[data-wave]:not([data-wave='0']) :is(.stepper-dot__halo, .stepper-dot__edge) {
+  transition-duration: var(--stepper-spread), var(--duration-normal);
   transition-timing-function: var(--ease-step-ring), var(--ease-standard);
-  transition-delay: calc(var(--stepper-wave) * var(--duration-step) - var(--duration-step-ring));
+  transition-delay: calc(var(--stepper-wave) * var(--stepper-cycle) - var(--stepper-spread));
 }
 
-.stepper[data-motion='step'] .stepper__item[data-wave][data-status='current'] .stepper-dot__halo {
-  animation-delay: calc(var(--stepper-wave) * var(--duration-step) - var(--duration-step-ring));
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave]:not([data-wave='0']) :is(.stepper-dot__halo, .stepper-dot__edge) {
-  transition-duration: var(--duration-step-skip-fill), var(--duration-normal);
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave][data-current] :is(.stepper-dot__halo, .stepper-dot__edge) {
-  transition-duration: var(--duration-step-skip-ring), var(--duration-normal);
-  transition-timing-function: var(--ease-step-ring), var(--ease-standard);
-  transition-delay: calc(var(--duration-step-skip-fill) + (var(--stepper-wave) + 1) * var(--duration-step-skip-line));
-}
-
-.stepper[data-motion='skip'] .stepper__item[data-wave][data-status='current'] .stepper-dot__halo {
-  animation-delay: calc(var(--duration-step-skip-fill) + (var(--stepper-wave) + 1) * var(--duration-step-skip-line));
+.stepper:is([data-motion='step'], [data-motion='skip']) .stepper__item[data-wave][data-status='current'] .stepper-dot__halo {
+  animation-delay: calc(var(--stepper-wave) * var(--stepper-cycle) - var(--stepper-spread));
 }
 
 .stepper[data-motion='back'] .stepper__item[data-wave]:not([data-current]) :is(.stepper-dot__halo, .stepper-dot__edge) {

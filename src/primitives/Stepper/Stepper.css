@@ -7,8 +7,21 @@
   --stepper-gap: var(--space-xl);
   --stepper-tone: var(--c-primary);
   --stepper-on-tone: var(--c-on-primary);
+  --stepper-fill: var(--duration-step-fill);
+  --stepper-run: var(--duration-step-line);
+  --stepper-spread: var(--duration-step-ring);
+  --stepper-flip: var(--duration-step-flip);
+  --stepper-cycle: var(--duration-step);
 
   min-inline-size: 0;
+}
+
+.stepper[data-motion='skip'] {
+  --stepper-fill: var(--duration-step-skip-fill);
+  --stepper-run: var(--duration-step-skip-line);
+  --stepper-spread: var(--duration-step-skip-ring);
+  --stepper-flip: var(--duration-step-skip-flip);
+  --stepper-cycle: var(--duration-step-skip);
 }
 
 .stepper__list {

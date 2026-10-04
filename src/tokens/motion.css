@@ -22,9 +22,11 @@
   --duration-step-ring-back: calc(var(--duration-step-ring) * 0.6);
   --duration-step-flip-back: calc(var(--duration-step-flip) * 0.6);
   --duration-step-back: calc(var(--duration-step-fill-back) + var(--duration-step-line-back) + var(--duration-step-ring-back));
-  --duration-step-skip-fill: 0.36s;
-  --duration-step-skip-line: 0.14s;
-  --duration-step-skip-ring: 0.36s;
+  --duration-step-skip-fill: calc(var(--duration-step-fill) * 0.4);
+  --duration-step-skip-line: calc(var(--duration-step-line) * 0.4);
+  --duration-step-skip-ring: calc(var(--duration-step-ring) * 0.4);
+  --duration-step-skip-flip: calc(var(--duration-step-flip) * 0.4);
+  --duration-step-skip: calc(var(--duration-step-skip-fill) + var(--duration-step-skip-line) + var(--duration-step-skip-ring));
   --ease-standard:    ease;
   --ease-in-out:      ease-in-out;
   --ease-emphasized:  cubic-bezier(0.16, 1, 0.3, 1);
@@ -34,9 +36,6 @@
   --ease-step-fill-back: cubic-bezier(0.25, 0.5, 0.7, 0.85);
   --ease-step-line-back: cubic-bezier(0.3, 0.17, 0.7, 0.9);
   --ease-step-ring-back: cubic-bezier(0.3, 0.09, 0.8, 0.6);
-  --ease-step-sweep-in:  cubic-bezier(0.33, 0.17, 0.67, 0.5);
-  --ease-step-sweep:     linear;
-  --ease-step-sweep-out: cubic-bezier(0.33, 0.5, 0.67, 0.83);
   --transition-fast:   0.1s ease;
   --transition-normal: 0.15s ease;
 }
