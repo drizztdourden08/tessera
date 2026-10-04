@@ -1,15 +1,16 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
 import { ButtonRow } from '../../primitives/ButtonRow';
-import { Image } from '../../primitives/Image';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { HeroArtSlot } from './sub-components/HeroArtSlot';
+import { HeroBackdropLayer } from './sub-components/HeroBackdropLayer';
 import { HeroBottom } from './sub-components/HeroBottom';
 import { HeroIntro } from './sub-components/HeroIntro';
 import type { HeroProps } from './Hero.type';
 import './Hero.css';
 
 const Hero = (props: HeroProps) => {
-  const { title, eyebrow, brand = 'tessera', backdrop, art, actions, tools, facts, aside, panel, label, className } = props;
+  const { title, eyebrow, brand = 'tessera', backdrop, shade = 'fade', art, actions, tools, facts, aside, panel, label, className } = props;
   const { panels } = useTesseraStrings();
 
   return (
@@ -20,17 +21,10 @@ const Hero = (props: HeroProps) => {
       aria-label={label ?? panels.overview}
     >
       <Box className="hero__frame">
-        <Box className="hero__backdrop">{backdrop}</Box>
-        <Box className="hero__shade" aria-hidden="true" />
+        <HeroBackdropLayer backdrop={backdrop} />
+        {shade !== 'none' && <Box className="hero__shade" data-shade={shade} aria-hidden="true" />}
         <Box className="hero__grid">
-          {art && (
-            <Image
-              className={`hero__art${art.pixelated ? ' hero__art--pixelated' : ''}`}
-              src={art.src}
-              alt={art.alt ?? ''}
-              placeholder="none"
-            />
-          )}
+          <HeroArtSlot art={art} />
           <ButtonRow className="hero__tools">{tools}</ButtonRow>
           <Box className="hero__main">
             <HeroIntro eyebrow={eyebrow} title={title} actions={actions} />

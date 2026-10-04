@@ -100,7 +100,7 @@ export type {
   WindowTitleBarProps,
 } from './WindowTitleBar';
 export { Hero } from './Hero';
-export type { HeroArt, HeroProps } from './Hero';
+export type { HeroArt, HeroBackdrop, HeroImageFit, HeroProps, HeroShade } from './Hero';
 export { FactsPanel } from './FactsPanel';
 export type { FactsPanelFact, FactsPanelGroup, FactsPanelProps } from './FactsPanel';
 export { CommandPalette, CommandPaletteRow } from './CommandPalette';

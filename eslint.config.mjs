@@ -31,6 +31,7 @@ export default standardsEslint({
     { files: ['src/composites/GroupTree/sub-components/GroupTreeRow.tsx', 'src/composites/GroupTree/sub-components/GroupTreeGuides.tsx'], why: 'a tree row indents by its depth and draws a guide per ancestor' },
     { files: ['src/composites/ListItemRow/ListItemRow.tsx', 'src/composites/ListItemRow/sub-components/ListItemList.tsx'], why: 'the grid tracks follow the number of columns the rows pass in' },
     { files: ['src/primitives/CodeBlock/CodeBlock.tsx'], why: 'the highlighter returns each line and token style' },
+    { files: ['src/composites/Hero/sub-components/HeroBackdropLayer.tsx'], why: 'the backdrop image, its place and its colour are passed in by the host' },
     { files: ['src/composites/PixelWordmark/PixelWordmark.tsx'], why: 'the aspect ratio comes from the laid out letters' },
     { files: ['src/composites/Emphasis/**'], why: 'the weights, timing and each letter delay are set per instance' },
     { files: ['src/composites/KeyboardLayout/**'], why: 'each key is placed and sized from the layout data, in key units' },

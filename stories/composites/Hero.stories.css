@@ -4,6 +4,10 @@
   max-width: 100%;
 }
 
+.hero-story__rows {
+  width: 100%;
+}
+
 .hero-story__save {
   display: flex;
   gap: var(--space-md);
@@ -34,3 +38,51 @@
 .hero-story__progress > :first-child {
   grid-column: 1 / -1;
 }
+
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c-tag-blue) 55%, var(--c-bg)) 0%, color-mix(in srgb, var(--c-tag-cyan) 45%, var(--c-bg)) 100%);
+}
+
+.hero-scene__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-scene__sun { fill: color-mix(in srgb, var(--c-tag-amber) 80%, var(--c-text)); }
+
+.hero-scene__cloud {
+  fill: color-mix(in srgb, var(--c-text) 85%, transparent);
+  transform-box: view-box;
+  animation: hero-scene-drift calc(var(--duration-twinkle) * 16) linear infinite;
+}
+
+.hero-scene__cloud--b {
+  animation-duration: calc(var(--duration-twinkle) * 22);
+  animation-delay: calc(var(--duration-twinkle) * -6);
+}
+
+.hero-scene__cloud--c {
+  animation-duration: calc(var(--duration-twinkle) * 19);
+  animation-delay: calc(var(--duration-twinkle) * -12);
+}
+
+.hero-scene__hill--far { fill: color-mix(in srgb, var(--c-tag-teal) 55%, var(--c-bg)); }
+.hero-scene__hill--mid { fill: color-mix(in srgb, var(--c-tag-green) 50%, var(--c-bg)); }
+.hero-scene__hill--near { fill: color-mix(in srgb, var(--c-tag-green) 30%, var(--c-bg)); }
+
+@keyframes hero-scene-drift {
+  from { transform: translateX(-25%); }
+  to { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene__cloud { animation: none; }
+}
+
+.hero-crest__shield { fill: color-mix(in srgb, var(--c-primary) 70%, var(--c-bg)); }
+.hero-crest__band { fill: color-mix(in srgb, var(--c-bg) 55%, transparent); }
+.hero-crest__gem { fill: var(--c-secondary-bright); }

@@ -2510,3 +2510,30 @@ document.documentElement.dataset.palette = 'brock';
 ```
 
 Seeds an app sets in `theme.css` still win, because `theme.css` is unlayered. `tokens.json` and `splash-tokens.css` carry the Brock palette too.
+
+## 99. Hero takes many kinds of backdrop and art
+
+`backdrop` used to take any node and always drew the brand gradient under it, and `art` took only an image. Both now name their kind, so a host can pass a live scene, a picture, a pattern or a colour:
+
+```tsx
+<Hero backdrop={{ kind: 'node', node: <SceneBackdrop /> }} art={{ kind: 'image', src: heroArt, pixelated: true }} title="Randomizer" />
+<Hero backdrop={{ kind: 'image', src: nightPng, fit: 'cover', position: 'center bottom', pixelated: true }} title="Randomizer" />
+<Hero backdrop={{ kind: 'image', src: patternSvg, fit: 'tile', tileSize: '48px' }} title="Randomizer" />
+<Hero backdrop={{ kind: 'color', color: '--c-tag-violet-dim' }} title="Randomizer" />
+<Hero backdrop={null} shade="none" title="Randomizer" />
+```
+
+- `backdrop` left out draws the brand gradient of `brand`, as before; `null` draws none, so the frame shows `--c-layer`.
+- `{ kind: 'node', node }` fills the hero behind everything. The node's root gets the full width and height, and the layer is a size container named `hero-backdrop`, so the scene can use `cqw` and `cqh`. A scene that places itself with `position: absolute; inset: 0` fills it too.
+- `{ kind: 'image', src }` takes a PNG, JPG, WebP or SVG by URL. `fit` is `cover` (the default), `contain` or `tile`; `position` takes any CSS background position; `tileSize` sets the size of one tile; `color` fills the space around a contained or see-through image; `pixelated` keeps pixel art sharp.
+- `{ kind: 'color', color }` takes any CSS colour, or a token name such as `--c-surface`, which Hero wraps in `var()`.
+- `art` is `{ kind: 'image', src, alt, pixelated }` or `{ kind: 'node', node, label }`. A node takes the height of the art column and keeps its own ratio, so an `svg` with a `viewBox` scales like an image; it sits bottom left beside the intro and bottom right when the hero stacks. A `label` names it to screen readers; without one it is hidden from them.
+- `shade` sets the dark fade that keeps the text readable: `fade` (the default, the old shade), `scrim` (stronger, and it also dims the whole backdrop and art, for a busy picture) or `none`.
+
+New types: `HeroBackdrop`, `HeroImageFit` and `HeroShade`, beside `HeroArt` and `HeroProps`. The backdrop layer takes a modifier class for its kind (`hero__backdrop--brand`, `--node`, `--image`, `--color`), and `data-fit` on an image.
+
+### What an app does
+
+- A host that passed a scene as `backdrop={<Scene />}` passes `backdrop={{ kind: 'node', node: <Scene /> }}`. The brand gradient no longer draws under a scene; a scene with see-through parts that relied on it draws its own sky.
+- A host that passed `art={{ src, alt, pixelated }}` adds `kind: 'image'`.
+- A host stylesheet that set the background of `.hero__backdrop` sets it on `.hero__backdrop--brand`, or passes the colour or image as `backdrop`.

@@ -19,29 +19,6 @@
   background: var(--c-layer);
 }
 
-.hero__backdrop,
-.hero__shade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.hero__backdrop {
-  z-index: -3;
-  background: var(--brand-tessera-backdrop);
-}
-
-.hero[data-brand='rotp'] .hero__backdrop { background: var(--brand-rotp-backdrop); }
-.hero[data-brand='archipelia'] .hero__backdrop { background: var(--brand-archipelia-backdrop); }
-.hero[data-brand='brock'] .hero__backdrop { background: var(--brand-brock-backdrop); }
-
-.hero__shade {
-  z-index: -1;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--c-bg) 60%, transparent) 0%, transparent 28%),
-    linear-gradient(0deg, color-mix(in srgb, var(--c-bg) 80%, transparent) 0%, transparent 45%);
-}
-
 .hero__grid {
   position: relative;
   display: grid;
@@ -82,6 +59,19 @@
 }
 
 .hero__art--pixelated .image__img { image-rendering: pixelated; }
+
+.hero .hero__art--node {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.hero__art--node > * {
+  flex: 0 1 auto;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+}
 
 .hero__tools {
   grid-row: 1;
@@ -174,6 +164,8 @@
   }
 
   .hero .hero__art .image__img { object-position: right bottom; }
+
+  .hero .hero__art--node { justify-content: flex-end; }
 
   .hero__aside {
     grid-row: 3;
