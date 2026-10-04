@@ -552,7 +552,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.11.0",
       "cssCustomProperties": {
         "--hero-art-left": "removed; the art takes the Hero grid column between the intro and the aside (see MIGRATION.md section 93)"
       },

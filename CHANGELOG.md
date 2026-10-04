@@ -1,5 +1,23 @@
 # @drizztdourden08/tessera
 
+## 0.11.0
+
+### Minor Changes
+
+- 8301c5d: Archipelia has a mascot: Pelago, three purple spheres that press together and drift apart, never still, with floating eyes and floating hands that follow a beat late, over a ring of dots. It has every animation Sentri has (idle, move, jump, wave, look around, happy, alert), and ChosenMascot picks it by the name pelago, by brand="archipelia" or inside data-palette="archipelia". MascotMotion takes ambient, a loop that runs under every clip; MotionTrack takes lag; a scene group takes goo to melt its shapes into one; Svg adds SvgFilter, SvgFeGaussianBlur and SvgFeColorMatrix.
+- 663c824: Brock has a mascot: Flint, a small round stone cut in flat facets like the Brock logo, with its orange chip, a flat base and two stone hands. It has every animation Sentri has (idle, move, jump, wave, look around, happy, alert) plus point and blink, and ChosenMascot picks it by the name flint, by brand="brock" or inside data-palette="brock". A scene can set smooth to draw anti-aliased vector edges in place of crisp pixels, and MascotPose takes handAngles. ChosenMascot's animation takes any mascot's animation name; one the mascot lacks plays its idle.
+- d5afc7c: Screens, SideNavLayout and Hero fit small windows and phones. The screen card fills the layer under 840 px wide or 560 px high (was 480 and 440) and its padding shrinks to lg under 960 by 600 and md once it fills the layer. SideNavLayout folds under 640 px wide into a bar with a menu button and the search, and the nav opens as a drawer over the page. Hero gives its art a column of its own, so the aside never covers it and it is never cut off, keeps the aside at least 320 px wide, shrinks from 408 px to 288 px when the room is short, and stacks under 720 px wide. --hero-art-left is removed; --hero-h-min and --hero-aside-min are new.
+- 3d87af2: The pin of a widget in its own window is a menu of labelled choices with an icon each and a mark on the current one, and its button shows the current choice. PinMode is 'off' | 'top': with-app is gone, since Sync with main window does the same, and Widget drops onTop. Widget takes titleBarActions and WidgetManager takes widgetActions(id) for buttons of the widget's own in the title bar.
+
+### Patch Changes
+
+- 62bd7fe: Gallery: the Composites pages for Data views, Lists, Settings, Layout, Windows, Content and Input devices, and the Data engine page, open on a one-sentence lead, a few short points and, where a sibling is the better pick, a Use instead line.
+- 9480f99: Gallery: the Composites pages for Dialogs, Overlays, Wizard, Navigation, Menus, Actions, Inputs, Forms and Widgets open on a one-sentence lead, a few short points and, where a sibling is the better pick, a Use instead line.
+- 5e74126: Gallery: the Core pages (Setup, Brand, Colours, Typography, Text, Icons and Tokens) open on a one-sentence lead and a few short points in the new description format.
+- 0f0b1c9: Gallery: Overview pages open on a one-sentence lead, 3 to 6 short points and an optional Use instead line, written in a small markup that draws Code, Strong, Em, Shortcut keycaps and links to other component pages. Button, DataTable and SettingsRow use it, and a test lists the pages still over the limits.
+- 5140070: Gallery: the Primitives pages (Layout, Display, Actions, Inputs, Feedback and Navigation) open on a one-sentence lead, a few short points and, where a sibling is the better pick, a Use instead line.
+- a260d50: SettingsRow puts its control under the text when the row is too narrow for both, so a phone no longer squeezes the description to a word per line.
+
 ## 0.10.0
 
 ### Minor Changes
