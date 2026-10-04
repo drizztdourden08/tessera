@@ -28,8 +28,8 @@
   },
   "Core · Brand": {
     "Brand": {
-      "status": "ok",
-      "hash": "7bf0aafa06bd5c68",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "InteractiveTessera": {
@@ -38,8 +38,8 @@
       "at": "2026-10-01"
     },
     "Logo": {
-      "status": "ok",
-      "hash": "bd112e35b397ed64",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     },
     "WordMark": {
@@ -53,8 +53,8 @@
       "at": "2026-10-04"
     },
     "Mascot": {
-      "status": "ok",
-      "hash": "25a0de31bbc56e20",
+      "status": "seen",
+      "hash": "flagged",
       "at": "2026-10-04"
     }
   },
@@ -878,7 +878,7 @@
     "DropdownMenu": {
       "status": "seen",
       "hash": "flagged",
-      "at": "2026-10-03"
+      "at": "2026-10-04"
     },
     "CommandPalette": {
       "status": "ok",
