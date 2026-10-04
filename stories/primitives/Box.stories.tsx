@@ -80,7 +80,13 @@ const Disclosure = {
 
 const Overview = overviewStory({
   component: 'Box',
-  description: 'The plain structural element, used wherever a bare div would go outside the primitives. The as prop picks the tag, so the same component draws a section, an article, a list or a details block. It adds no styles of its own and passes every other prop and a ref through to the element.',
+  description: 'The plain element to use wherever a bare div would go outside the primitives.',
+  points: [
+    '`as` picks the tag, so the same component draws a section, an article, a list or a details block.',
+    'It adds no styles of its own.',
+    'Every other prop and a ref pass through to the element.',
+  ],
+  instead: '[Flex] or [Stack] when the children need laying out.',
   playground: Playground,
   variants: [SemanticElements, Disclosure],
 });

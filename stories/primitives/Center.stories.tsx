@@ -62,7 +62,12 @@ const InlineAvatars = {
 
 const Overview = overviewStory({
   component: 'Center',
-  description: 'Puts its children in the middle on both axes: a waiting message in an empty pane, initials in an avatar. It is a Flex preset with align and justify fixed to center, so direction, gap, wrap, inline and the as prop still apply. Inline makes it sit in a line of text, sized to its content.',
+  description: 'Puts its children in the middle on both axes, such as a waiting message in an empty pane.',
+  points: [
+    'It is a [Flex] with `align` and `justify` fixed to center, so every other Flex prop still applies.',
+    '`inline` makes it sit in a line of text, sized to its content.',
+    'Use it for initials in an avatar, an icon in a tile or a message in an empty area.',
+  ],
   playground: Playground,
   variants: [InlineAvatars],
 });

@@ -82,7 +82,13 @@ const CODE = `import { Button, Flex, Spacer, Text } from '@drizztdourden08/tesse
 
 const Overview = overviewStory({
   component: 'Spacer',
-  description: 'An empty block that makes room between siblings in a flex container. Given a spacing token as its size, it is a fixed gap of that size. Left without one, it grows to take the free space and pushes its siblings apart, as in a toolbar with its actions on the right.',
+  description: 'An empty block that makes room between siblings in a flex container.',
+  points: [
+    'Given a space token as `size`, it is a fixed gap of that size.',
+    'Without a `size`, it grows to take the free space and pushes its siblings apart.',
+    "Use the growing form to push a toolbar's actions to the right.",
+  ],
+  instead: 'The `gap` of [Flex] or [Stack] for even space between every child.',
   playground: Playground,
   variants: [FixedSizes, Toolbar],
   code: CODE,

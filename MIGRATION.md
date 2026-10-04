@@ -2338,3 +2338,11 @@ Every Overview page under Core (Setup, Brand, Colours, Typography, Text, Icons a
 ### What an app does
 
 Nothing. This changes the gallery only.
+
+## 92. The Primitives pages open on a short lead and points
+
+Every Overview page under Primitives (Layout, Display, Actions, Inputs, Feedback and Navigation) is rewritten to the description format of section 87: a one-sentence lead, 3 to 6 short points and, where a sibling is the better pick, a Use instead line.
+
+### What an app does
+
+Nothing. This changes the gallery only.

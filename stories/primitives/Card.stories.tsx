@@ -120,7 +120,13 @@ const renderState = () => (
 
 const Overview = overviewStory({
   component: 'Card',
-  description: 'A bordered surface that groups related content: a summary, a list entry, a settings block. Default is the plain panel. Interactive is for a card clicked as a whole: it shows a pointer, lights its border on hover and draws a focus ring when it takes keyboard focus, so give it a tabIndex and a role when it acts as a button. Danger frames a destructive choice in the danger colour. It sets no inner layout, so a Stack or Flex inside arranges the content, and every div prop, click handlers included, passes through.',
+  description: 'A bordered surface that groups related content, such as a summary, a list entry or a settings block.',
+  points: [
+    '`default` is the plain panel; `danger` frames a destructive choice.',
+    '`interactive` is for a card clicked as a whole: it lights its border on hover and shows a focus ring.',
+    '**An interactive card needs a `tabIndex` and a `role`** when it acts as a button.',
+    'It sets no inner layout: put a [Stack] or [Flex] inside.',
+  ],
   playground: Playground,
   variants: [AllVariants],
   states: {

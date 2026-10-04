@@ -83,7 +83,12 @@ const CODE = `import { Button, Divider, Flex, Text } from '@drizztdourden08/tess
 
 const Overview = overviewStory({
   component: 'Divider',
-  description: 'A one pixel rule in the border colour that separates groups: settings in a list, buttons in a toolbar. Horizontal, the default, spans the full width of its container. Vertical stretches to the height of the row it sits in, so it needs a flex row around it. It carries the separator role.',
+  description: 'A thin rule that separates groups, such as settings in a list or buttons in a toolbar.',
+  points: [
+    '`horizontal`, the default, spans the full width of its container.',
+    '`vertical` stretches to the height of its row, so it needs a flex row around it.',
+    'It carries the separator role for screen readers.',
+  ],
   playground: Playground,
   variants: [InContext],
   code: CODE,

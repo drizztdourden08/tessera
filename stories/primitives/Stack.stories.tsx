@@ -68,7 +68,13 @@ const GapScale = {
 
 const Overview = overviewStory({
   component: 'Stack',
-  description: 'A column of children with even space between them. Reach for it to lay out a form, a panel or a list of rows without writing margins. Gap takes a space token and defaults to md, and align sets how the children sit across the column. It is a Flex fixed to the column direction, so it takes every other Flex prop.',
+  description: 'A column of children with even space between them, for a form, a panel or a list of rows.',
+  points: [
+    '`gap` takes a space token and defaults to `md`.',
+    '`align` sets how the children sit across the column.',
+    'It is a [Flex] fixed to the column direction, so it takes every other Flex prop.',
+  ],
+  instead: '[Flex] for a row.',
   playground: Playground,
   variants: [GapScale],
 });

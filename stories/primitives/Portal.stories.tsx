@@ -111,7 +111,14 @@ const CODE = `import { Box, Portal } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Portal',
-  description: 'Renders its children into a shared layer outside the component tree, so a panel can sit above the rest of the page. Reach for it for popovers, toasts, tooltips and modals. The layer picks one of five stacked layers, from overlay at the bottom to tooltip on top. The layers ignore the pointer, so the content inside opts back in, and useAnchorTracking keeps a panel beside its trigger as the page scrolls.',
+  description: 'Draws its children in a shared layer outside the component tree, so a panel can sit above the page.',
+  points: [
+    'Use it for popovers, toasts, tooltips and modals.',
+    '`layer` picks one of five stacked layers, from `overlay` at the bottom to `tooltip` on top.',
+    '**The layers ignore the pointer:** the content inside opts back in.',
+    '`useAnchorTracking` keeps a panel beside its trigger as the page scrolls.',
+  ],
+  instead: '[Anchored] for a popup tied to the element that opened it.',
   playground: Playground,
   variants: [AnchoredPopover],
   code: CODE,

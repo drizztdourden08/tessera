@@ -92,7 +92,14 @@ const AutoFill = {
 
 const Overview = overviewStory({
   component: 'Grid',
-  description: 'Lays items out in equal columns: file tiles, cards, a gallery. Columns sets a fixed count. MinColWidth makes it responsive instead: it fits as many columns of at least that width as the container allows, and wins when both are set. The gap takes a space token, and every div prop passes through.',
+  description: 'Lays items out in equal columns, such as file tiles, cards or a gallery.',
+  points: [
+    '`columns` sets a fixed count.',
+    '`minColWidth` fits as many columns of at least that width as the container allows.',
+    'When both are set, `minColWidth` wins.',
+    '`gap` takes a space token, and every div prop passes through.',
+  ],
+  instead: '[Flex] when the items have their own widths.',
   playground: Playground,
   variants: [FixedColumns, AutoFill],
 });

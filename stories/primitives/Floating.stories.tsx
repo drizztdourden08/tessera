@@ -84,7 +84,13 @@ const { position } = useAnchorTracking({
 
 const Overview = overviewStory({
   component: 'Floating',
-  description: 'A panel pinned to the window at a measured place: a menu under its button, a picker beside its swatch, a settings panel beside its widget. Pass the place as placement (top, left, right, bottom, width), usually from useAnchorTracking, and put it in a Portal so it sits above the page. Every popup in the design system takes its position from here, so none of them writes an inline style of its own. Without a placement it renders unplaced for the frame before its anchor is measured.',
+  description: 'A panel pinned to the window at a measured place, such as a menu under its button.',
+  points: [
+    'Pass the place as `placement` (`top`, `left`, `right`, `bottom`, `width`), usually from `useAnchorTracking`.',
+    'Put it in a [Portal] so it sits above the page.',
+    'Without a `placement` it renders unplaced for the frame before its anchor is measured.',
+  ],
+  instead: '[Anchored] for a popup tied to its trigger, which the browser keeps in place.',
   playground: Playground,
   variants: [UnderItsButton],
   code: CODE,

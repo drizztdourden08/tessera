@@ -46,7 +46,14 @@ const triggerRef = useRef<HTMLButtonElement>(null);
 
 const Overview = overviewStory({
   component: 'Anchored',
-  description: 'A popup pinned to the element that opened it by the browser itself. It opens in the top layer as a manual popover, so no scroll box clips it and no z-index hides it, and it stays in the page next to its trigger. CSS anchor positioning places it, so it moves with its trigger in the same frame as a scroll, with no lag, inside scroll boxes too. placement picks the side and the edge it lines up with, and flip lets the browser move it to the other side when it runs out of room. Where the browser has no anchor positioning, it falls back to a Portal placed from script with fallback. Select, Combobox, TagInput, Tooltip, DropdownMenu and the other popups are built on it.',
+  description: 'A popup pinned to the element that opened it, kept beside it by the browser as the page scrolls.',
+  points: [
+    'Pass the trigger as `anchorRef`; `placement` picks the side and the edge the popup lines up with.',
+    '`flip` lets the browser move it to the other side when it runs out of room.',
+    'It opens in the top layer, so no scroll box clips it and no z-index hides it.',
+    'Where the browser has no anchor positioning, it falls back to a [Portal] placed from `fallback`.',
+  ],
+  instead: '[Tooltip], [Select] or [DropdownMenu] when one of them already fits; they are built on it.',
   playground: Playground,
   variants: [PlacementGrid, Scrolling],
   code: CODE,

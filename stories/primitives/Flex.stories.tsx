@@ -113,7 +113,14 @@ const GapScale = {
 
 const Overview = overviewStory({
   component: 'Flex',
-  description: 'The layout primitive for a row or a column of items: a toolbar, a list entry, a label beside its value. Direction, gap, align and justify each take a small fixed set of values, and the gap comes from the space tokens. Wrap lets items flow onto new lines, inline makes it sit in a line of text, and the as prop picks the element it renders.',
+  description: 'Lays items out in a row or a column, such as a toolbar, a list entry or a label beside its value.',
+  points: [
+    '`direction`, `gap`, `align` and `justify` each take a small fixed set of values.',
+    '`gap` takes a space token, so spacing stays on the scale.',
+    '`wrap` lets items flow onto new lines; `inline` makes it sit in a line of text.',
+    '`as` picks the element it renders.',
+  ],
+  instead: '[Stack] for a plain column, or [Grid] for equal columns.',
   playground: Playground,
   variants: [Justify, Align, GapScale],
 });

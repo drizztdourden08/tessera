@@ -155,7 +155,13 @@ const CODE = `import { Box, ScrollArea } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'ScrollArea',
-  description: 'A scrollable region with a styled scrollbar, and scrolling that glides instead of jumping. Use it wherever content can grow past a fixed height or width. axis picks y, x or both, and the other direction is clipped. scrollbar slim swaps the bar for a thin gold line painted along the edge, so it takes no width and the content keeps its size; it widens under the pointer and can be dragged. Leave some padding on that edge, since content painted there covers the line. onScroll and scrollTo let two areas move together, as in a side by side comparison.',
+  description: 'A scrollable region with a styled scrollbar, for content that can grow past a fixed height or width.',
+  points: [
+    '`axis` picks `y`, `x` or `both`; the other direction is clipped.',
+    '`scrollbar="slim"` draws a thin line along the edge that takes no width and widens under the pointer.',
+    '**Leave some padding on the slim edge:** content painted there covers the line.',
+    '`onScroll` and `scrollTo` let two areas move together, as in a side by side comparison.',
+  ],
   playground: Playground,
   variants: [AllVariants],
   code: CODE,
