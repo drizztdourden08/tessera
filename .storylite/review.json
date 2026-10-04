@@ -54,7 +54,7 @@
     },
     "Mascot": {
       "status": "seen",
-      "hash": "flagged",
+      "hash": "87825b48d59d1a66",
       "at": "2026-10-04"
     }
   },
@@ -880,7 +880,7 @@
   "Composites · Menus": {
     "DropdownMenu": {
       "status": "seen",
-      "hash": "flagged",
+      "hash": "1292796ef931997d",
       "at": "2026-10-04"
     },
     "CommandPalette": {
@@ -937,13 +937,13 @@
   },
   "Composites · Data views": {
     "DataTable": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "a2411547d23ff4a1",
       "at": "2026-10-04"
     },
     "FilterBar": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "89a56d5f31258afc",
       "at": "2026-10-04"
     },
     "CompactRecordView": {
@@ -970,7 +970,7 @@
     },
     "Hero": {
       "status": "seen",
-      "hash": "flagged",
+      "hash": "28777f91e8f376ef",
       "at": "2026-10-04"
     },
     "PixelWordmark": {
@@ -1008,23 +1008,25 @@
       "at": "2026-10-03"
     },
     "Widget": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "9d9400f403e86eff",
       "at": "2026-10-04"
     },
     "WidgetOptions": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "718e86f2537c672d",
       "at": "2026-10-04"
     },
     "WindowGuideOverlay": {
-      "status": "new"
+      "status": "ok",
+      "hash": "c5163cdc011129e2",
+      "at": "2026-10-04"
     }
   },
   "Composites · Windows": {
     "WindowTitleBar": {
       "status": "seen",
-      "hash": "flagged",
+      "hash": "df2d97445d3180da",
       "at": "2026-10-04"
     },
     "WindowHeader": {
@@ -1035,36 +1037,38 @@
   },
   "Composites · Screens": {
     "WorkspaceScreen": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "4f25e0c1a9d4224f",
       "at": "2026-10-04"
     },
     "InfoScreen": {
       "status": "seen",
-      "hash": "flagged",
+      "hash": "6e5a47228062a861",
       "at": "2026-10-04"
     },
     "UtilityScreen": {
       "status": "seen",
-      "hash": "flagged",
+      "hash": "663e85e094822378",
       "at": "2026-10-04"
     },
     "StageScreen": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "94537d2ebc9342ae",
       "at": "2026-10-04"
     },
     "ScreenWindow": {
       "status": "seen",
-      "hash": "flagged",
+      "hash": "a952d25c278ccc33",
       "at": "2026-10-04"
     },
     "ScreenPage": {
-      "status": "new"
-    },
-    "ScreenLayer": {
       "status": "seen",
       "hash": "flagged",
+      "at": "2026-10-04"
+    },
+    "ScreenLayer": {
+      "status": "ok",
+      "hash": "620be40ddc2d2682",
       "at": "2026-10-04"
     }
   },
