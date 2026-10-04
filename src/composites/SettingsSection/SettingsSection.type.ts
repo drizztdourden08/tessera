@@ -1,14 +1,17 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { SettingsItem } from '../SettingsRow';
+import type { SettingsDescription, SettingsItem } from '../SettingsRow';
 
-interface SettingsContentRow {
+interface SettingsContentFields {
   id: string;
   content: ReactNode;
   title?: string;
+  hint: string;
   keywords?: string;
   lock?: string | null;
 }
+
+type SettingsContentRow = SettingsContentFields & SettingsDescription;
 
 type SettingsSectionRow = SettingsItem | SettingsContentRow;
 

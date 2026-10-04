@@ -87,24 +87,31 @@ type SettingsInputKind = SettingsInput['kind'];
 
 type SettingsInputOf<K extends SettingsInputKind> = Extract<SettingsInput, { kind: K }>;
 
-interface SettingsItem {
+type SettingsDescription =
+  | { description: string; noDescription?: never }
+  | { noDescription: true; description?: never };
+
+interface SettingsItemFields {
   id: string;
   title: string;
-  description?: string;
-  hint?: string;
+  hint: string;
   keywords?: string;
   input: SettingsInput;
   disabled?: boolean;
   lock?: string | null;
 }
 
-interface SettingsRowProps extends SettingsItem {
+type SettingsItem = SettingsItemFields & SettingsDescription;
+
+interface SettingsRowLook {
   compact?: boolean;
   readOnly?: boolean;
   flash?: boolean;
   className?: string;
 }
 
+type SettingsRowProps = SettingsItem & SettingsRowLook;
+
 export type {
-  SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowProps,
+  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowLook, SettingsRowProps,
 };

@@ -2,6 +2,7 @@
 import '../../theme/control-size.css';
 import './RadioGroup.css';
 import { useControlSize } from '../field-control/useControlSize';
+import { useHintReport } from '../hint/useHintReport';
 import { Small, Span } from '../text-elements';
 import type { RadioGroupProps } from './RadioGroup.type';
 
@@ -10,6 +11,7 @@ const RadioGroup = <T extends string = string>(props: RadioGroupProps<T>) => {
     value,
     options,
     onChange,
+    onHint,
     label,
     description,
     direction = 'horizontal',
@@ -18,6 +20,7 @@ const RadioGroup = <T extends string = string>(props: RadioGroupProps<T>) => {
     size,
   } = props;
   const controlSize = useControlSize(size);
+  const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
 
   const groupName = name ?? `radio-${label?.replace(/\s+/g, '-').toLowerCase() ?? 'group'}`;
 
@@ -34,6 +37,7 @@ const RadioGroup = <T extends string = string>(props: RadioGroupProps<T>) => {
           <label
             key={opt.value}
             className={`radio-group__option ${value === opt.value ? 'radio-group__option--active' : ''}`}
+            {...handlersFor(opt.value)}
           >
             <input
               type="radio"

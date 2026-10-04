@@ -70,10 +70,12 @@ const content: WorkspaceContent = {
         id: 'output',
         title: 'Output',
         rows: [
-          { id: 'volume', title: 'Master volume', input: { kind: 'slider', value: volume, onChange: setVolume, min: 0, max: 100 } },
+          { id: 'volume', title: 'Master volume', description: 'The loudness of every sound.', hint: 'Drag or use the arrow keys.', input: { kind: 'slider', value: volume, onChange: setVolume, min: 0, max: 100 } },
           {
             id: 'channels',
             title: 'Channels',
+            noDescription: true,
+            hint: 'Pick Mono for a single earbud.',
             input: { kind: 'segmented', value: channels, onChange: setChannels, options: [
               { value: '1', label: 'Mono', hint: 'Folds the output to one channel.' },
               { value: '2', label: 'Stereo', hint: 'Keeps left and right apart.' },

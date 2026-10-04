@@ -45,6 +45,8 @@
   --hero-art-h: var(--size-256);
   --hero-aside-w: calc(360 * var(--size-1));
   --facts-panel-value-max-w: calc(220 * var(--size-1));
+  --settings-row-compact-h: var(--size-40);
+  --settings-row-compact-control-w: var(--size-160);
 
 }
 }

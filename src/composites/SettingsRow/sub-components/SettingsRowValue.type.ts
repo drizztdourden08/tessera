@@ -1,13 +1,10 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { Hint } from '../../../primitives/hint/hint.type';
 import type { PointHandlers } from '../behavior/row-pointed.type';
 
-interface SettingsRowControlProps {
-  bubble: boolean;
+interface SettingsRowValueProps {
   handlers: PointHandlers;
-  pointed?: Hint;
   children: ReactNode;
 }
 
-export type { SettingsRowControlProps };
+export type { SettingsRowValueProps };

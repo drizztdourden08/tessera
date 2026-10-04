@@ -6,6 +6,7 @@ const CUSTOM_ROW: SettingsItem = {
   id: 'data-folder',
   title: 'Data folder',
   description: 'A custom control: anything the host draws.',
+  hint: 'Opens the folder in the file manager.',
   input: {
     kind: 'custom',
     control: <Button size="sm" variant="secondary" icon={<Icon name="folder-open" />}>Open folder</Button>,

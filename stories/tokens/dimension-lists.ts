@@ -94,6 +94,13 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
     entries: [{ token: '--facts-panel-value-max-w' }],
   },
   {
+    title: 'Settings rows',
+    entries: [
+      { token: '--settings-row-compact-h' },
+      { token: '--settings-row-compact-control-w' },
+    ],
+  },
+  {
     title: 'Brand',
     entries: [
       { token: '--brand-mark-sm' },

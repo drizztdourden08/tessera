@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind hook */
 import { useState } from 'react';
+import type { RowPointed } from './row-pointed.type';
 
-const useRowPointed = () => {
+const useRowPointed = (): RowPointed => {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const handlers = {

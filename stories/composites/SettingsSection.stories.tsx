@@ -40,7 +40,7 @@ const ARGS: Partial<SectionArgs> = { compact: false, readOnly: false, withReset:
 
 const ARG_TYPES: PlaygroundArgTypes<SectionArgs> = {
   withReset: { group: 'Content', control: 'boolean', description: 'The reset button in the heading, faint until the heading is hovered.' },
-  compact: { group: 'Appearance', control: 'boolean', description: 'One line per row, for a dense page or a side panel.' },
+  compact: { group: 'Appearance', control: 'boolean', description: 'One line per row, for a dense page or a side panel. Each row stays at least 40 px tall, and a slider or a select at least 160 px wide.' },
   readOnly: { group: 'State', control: 'boolean', description: 'Every value as text.' },
   flash: { group: 'State', control: 'select', options: ['', 'restore', 'language', 'tray-icon', 'startup'], description: 'A row key, group id or section id to pulse, as a search does when it jumps.' },
 };
@@ -105,8 +105,8 @@ const CODE = `import { SettingsSection } from '@drizztdourden08/tessera';
     id: 'tray-icon',
     title: 'Icon',
     rows: [
-      { id: 'tray', title: 'Show a tray icon', input: { kind: 'toggle', value: tray, onChange: setTray } },
-      { id: 'close', title: 'Close to the tray', lock: tray ? null : 'Turn on the tray icon first', input: { kind: 'toggle', value: close, onChange: setClose } },
+      { id: 'tray', title: 'Show a tray icon', description: 'An icon in the system tray.', hint: 'Click the icon to bring the window back.', input: { kind: 'toggle', value: tray, onChange: setTray } },
+      { id: 'close', title: 'Close to the tray', noDescription: true, hint: 'Quit from the menu of the tray icon.', lock: tray ? null : 'Turn on the tray icon first', input: { kind: 'toggle', value: close, onChange: setClose } },
     ],
   }]}
 />`;
@@ -117,6 +117,7 @@ const Overview = overviewStory({
   points: [
     'Stack sections one after another; each one after the first keeps its distance on its own.',
     'filterSettingsSections(sections, query) keeps the rows that match, which is how the search results draw the same sections.',
+    'Pointing at part of an input swaps the description of that row for its hint in place, so the section never shifts under the pointer.',
   ],
   playground: Playground,
   variants: [Audio, Compact, ReadOnly, Content],

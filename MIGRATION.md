@@ -2183,3 +2183,75 @@ The gallery pages under Core · Brand lay their variants out in grids that wrap,
 ### What an app does
 
 Nothing. A `tone` of `color` or `theme` draws as before, and a wordmark in a box wide enough for it draws at the same size.
+
+## 79. SettingsRow swaps its description for the hint in place, every row has a description and a hint, and compact rows keep a minimum size
+
+A settings row now shows one line under its title. At rest it is the description. While the pointer or the keyboard is on the control, the line shows the row hint instead, in the same place, with no change in row height. Where a part of the input has its own hint, that hint wins while the part is pointed at: a segment, a multi option, a toggle state, a slider value as it moves, and the option highlighted in an open select. The line keeps room for the longest hint it can show, so the row never grows or shrinks as the hints change. The hint starts on the same left edge as the title and the description, and the dark rule that stood to its left is gone.
+
+`description` and `hint` are now required. A row without a description says so with `noDescription: true`; a row with neither fails the typecheck. Without a description the line rests on the hint. Content rows in a SettingsSection carry the same two fields, and `filterSettingsSections` matches the hint and the description.
+
+```ts
+type SettingsDescription =
+  | { description: string; noDescription?: never }
+  | { noDescription: true; description?: never };
+
+interface SettingsItemFields {
+  id: string;
+  title: string;
+  hint: string;
+  keywords?: string;
+  input: SettingsInput;
+  disabled?: boolean;
+  lock?: string | null;
+}
+
+type SettingsItem = SettingsItemFields & SettingsDescription;
+
+interface SettingsRowLook {
+  compact?: boolean;
+  readOnly?: boolean;
+  flash?: boolean;
+  className?: string;
+}
+
+type SettingsRowProps = SettingsItem & SettingsRowLook;
+
+interface SettingsContentFields {
+  id: string;
+  content: ReactNode;
+  title?: string;
+  hint: string;
+  keywords?: string;
+  lock?: string | null;
+}
+
+type SettingsContentRow = SettingsContentFields & SettingsDescription;
+
+type SettingsSectionRow = SettingsItem | SettingsContentRow;
+```
+
+A select in a row draws the standard option list under its control, as wide as the control, and no longer squeezes each option's label out with its hint. Select takes `onActiveChange`, called with the value of the option the keyboard or the pointer highlights, and with `null` when none is. RadioGroup options take a `hint`, reported through `onHint` or the nearest HintScope.
+
+```ts
+interface SelectOptionsProps {
+  onActiveChange?: (value: string | null) => void;
+}
+
+interface SelectItemsProps<T, F extends FieldOf<T>> {
+  onActiveChange?: (value: ValueOf<T, F> | null) => void;
+}
+
+interface RadioOption<T extends string = string> {
+  hint?: Hint;
+}
+
+interface RadioGroupProps<T extends string = string> {
+  onHint?: HintReport;
+}
+```
+
+Compact rows are at least `--settings-row-compact-h` (40px) tall. A slider, a select, a text, password, pattern or tags input takes half the row up to 256px and never less than `--settings-row-compact-control-w` (160px). The description sits in a tooltip on the title as before, and the hint shows in a bubble under the control while it is pointed at, so the row stays one line. Radio options in a compact row drop their subtitles; their hints show in the same bubble.
+
+### What an app does
+
+Give every settings row and every content row a `hint`, and a `description` or `noDescription: true`. A row that used `hint` as text under a missing description moves that text to `description`. A style on `.settings-row__hint` no longer needs a border or a left padding.

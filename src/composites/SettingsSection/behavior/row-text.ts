@@ -9,8 +9,8 @@ const inputText = (input: SettingsInput): string[] => {
 };
 
 const rowText = (row: SettingsSectionRow): string => {
-  if (!isSettingsItem(row)) return [row.title ?? '', row.keywords ?? ''].join(' ').toLowerCase();
-  return [row.title, row.description ?? '', row.hint ?? '', row.keywords ?? '', ...inputText(row.input)].join(' ').toLowerCase();
+  const words = [row.title ?? '', row.description ?? '', row.hint, row.keywords ?? ''];
+  return (isSettingsItem(row) ? [...words, ...inputText(row.input)] : words).join(' ').toLowerCase();
 };
 
 export { rowText };

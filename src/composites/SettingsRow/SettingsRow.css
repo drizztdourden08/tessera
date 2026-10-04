@@ -24,17 +24,26 @@
   overflow-wrap: break-word;
 }
 
-.settings-row__description {
+.settings-row__line {
+  display: grid;
+  min-width: 0;
   line-height: var(--leading-normal);
 }
 
-.settings-row__hint {
-  margin-top: var(--space-2xs);
-  padding-left: var(--space-sm);
-  border-left: var(--border-width-thick) solid var(--c-primary-dim);
+.settings-row__line > * {
+  grid-area: 1 / 1;
+  min-width: 0;
+  line-height: inherit;
 }
 
-.settings-row__hint .hint-line__label {
+.settings-row__line[data-pointed] > .settings-row__description,
+.settings-row__sizer {
+  visibility: hidden;
+}
+
+.settings-row__hint-label {
+  margin-inline-end: var(--space-2xs);
+  font-weight: var(--weight-medium);
   color: var(--c-primary-bright);
 }
 
@@ -146,7 +155,17 @@
 
 .settings-row--compact {
   gap: var(--space-md);
+  min-block-size: var(--settings-row-compact-h);
   padding: var(--space-xs) var(--space-md);
+}
+
+.settings-row--compact:is([data-kind='select'], [data-kind='slider'], [data-kind='text'], [data-kind='password'], [data-kind='dynamic'], [data-kind='tags']) {
+  grid-template-columns: minmax(0, 1fr) clamp(var(--settings-row-compact-control-w), 50%, var(--settings-row-control-w));
+}
+
+.settings-row--compact:is([data-kind='select'], [data-kind='slider'], [data-kind='text'], [data-kind='password'], [data-kind='dynamic'], [data-kind='tags']) .settings-row__control {
+  width: auto;
+  min-inline-size: var(--settings-row-compact-control-w);
 }
 
 .settings-row--compact .settings-row__text {
@@ -190,12 +209,9 @@
   pointer-events: none;
 }
 
-.settings-row__bubble .hint-line {
+.settings-row__bubble > * {
   font-size: var(--text-xs);
-}
-
-.settings-row__bubble .hint-line__label {
-  color: var(--c-primary-bright);
+  line-height: var(--leading-normal);
 }
 
 .settings-row__sr {

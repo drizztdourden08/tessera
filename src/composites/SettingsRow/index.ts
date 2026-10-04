@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind barrel */
 export { SettingsRow } from './SettingsRow';
 export type {
-  SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowProps,
+  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowLook, SettingsRowProps,
 } from './SettingsRow.type';

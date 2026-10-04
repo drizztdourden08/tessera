@@ -12,7 +12,7 @@ const LibraryPageView = (props: { id: string; flash?: string }) => {
       <SettingsSection
         id={page.id}
         flash={flash}
-        rows={page.entries.map((entry) => ({ id: entry.id, title: entry.title, content: <><Strong>{entry.title}</Strong><Paragraph tone="muted">{entry.text}</Paragraph></> }))}
+        rows={page.entries.map((entry) => ({ id: entry.id, title: entry.title, noDescription: true, hint: entry.text, content: <><Strong>{entry.title}</Strong><Paragraph tone="muted">{entry.text}</Paragraph></> }))}
       />
     </SettingsPage>
   );

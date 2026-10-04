@@ -4,7 +4,6 @@ import { NumberInput } from '../../../primitives/NumberInput';
 import { PasswordInput } from '../../../primitives/PasswordInput';
 import { RadioGroup } from '../../../primitives/RadioGroup';
 import { SegmentedControl } from '../../../primitives/SegmentedControl';
-import { Select } from '../../../primitives/Select';
 import { Slider } from '../../../primitives/Slider';
 import { TagInput } from '../../../primitives/TagInput';
 import { TextInput } from '../../../primitives/TextInput';
@@ -13,20 +12,17 @@ import { ToggleGroup } from '../../../primitives/ToggleGroup';
 import { Span } from '../../../primitives/text-elements';
 import { DynamicInput } from '../../DynamicInput';
 import { optionHint } from './option-hint';
+import { valueHint } from './value-hint';
 import { SettingsColor } from '../sub-components/SettingsColor';
 import { SettingsKeybind } from '../sub-components/SettingsKeybind';
+import { SettingsSelect } from '../sub-components/SettingsSelect';
 import type { InputRenderers } from './renderers.type';
 
 const INPUT_RENDERERS: InputRenderers = {
-  toggle: (input, { label, disabled }) => h(Toggle, { checked: input.value, onChange: input.onChange, disabled, 'aria-label': label }),
-  select: (input, { label, disabled }) => h(Select, {
-    value: input.value,
-    onChange: input.onChange,
-    options: input.options.map((option) => ({ value: option.value, label: option.label, description: option.hint })),
-    searchable: input.searchable,
-    disabled,
-    'aria-label': label,
+  toggle: (input, { label, disabled, strings }) => h(Toggle, {
+    checked: input.value, onChange: input.onChange, hint: valueHint(input, strings), disabled, 'aria-label': label,
   }),
+  select: (input, { label, disabled }) => h(SettingsSelect, { input, label, disabled }),
   segmented: (input, { label, disabled }) => h(SegmentedControl, {
     value: input.value,
     onChange: input.onChange,
@@ -34,10 +30,12 @@ const INPUT_RENDERERS: InputRenderers = {
     disabled,
     'aria-label': label,
   }),
-  radio: (input, { disabled }) => h(RadioGroup, {
+  radio: (input, { disabled, compact }) => h(RadioGroup, {
     value: input.value,
     onChange: input.onChange,
-    options: input.options.map((option) => ({ value: option.value, label: option.label, description: option.hint })),
+    options: input.options.map((option) => (compact
+      ? { value: option.value, label: option.label, hint: optionHint(option) }
+      : { value: option.value, label: option.label, description: option.hint })),
     disabled,
   }),
   multi: (input, { disabled }) => h(ToggleGroup, {
@@ -46,7 +44,7 @@ const INPUT_RENDERERS: InputRenderers = {
     options: input.options.map((option) => ({ value: option.value, label: option.label, hint: optionHint(option) })),
     disabled,
   }),
-  slider: (input, { label, disabled }) => h(Slider, {
+  slider: (input, { label, disabled, strings }) => h(Slider, {
     value: input.value,
     onChange: input.onChange,
     min: input.min,
@@ -55,6 +53,7 @@ const INPUT_RENDERERS: InputRenderers = {
     stops: input.stops,
     formatValue: input.formatValue,
     showValue: true,
+    hint: valueHint(input, strings),
     disabled,
     'aria-label': label,
   }),

@@ -36,7 +36,7 @@ export { SplitPane } from './SplitPane';
 export type { CollapsedSide, SplitOrientation, SplitPaneProps } from './SplitPane';
 export { SettingsRow } from './SettingsRow';
 export type {
-  SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowProps,
+  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowLook, SettingsRowProps,
 } from './SettingsRow';
 export { filterSettingsSections, SettingsSection } from './SettingsSection';
 export type {

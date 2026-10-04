@@ -7,8 +7,8 @@ import { SelectTrigger } from './SelectTrigger';
 import type { SelectBodyProps } from './SelectBody.type';
 
 const SelectBody = <T, V>(props: SelectBodyProps<T, V>) => {
-  const { setup, look } = props;
-  const select = useSelect(setup, look);
+  const { setup, look, onActiveChange } = props;
+  const select = useSelect(setup, look, onActiveChange);
   const { common } = useTesseraStrings();
 
   return (

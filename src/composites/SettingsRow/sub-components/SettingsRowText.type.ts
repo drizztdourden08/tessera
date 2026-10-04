@@ -1,12 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { Hint } from '../../../primitives/hint/hint.type';
+import type { SettingsRowLineProps } from './SettingsRowLine.type';
 
-interface SettingsRowTextProps {
+interface SettingsRowTextProps extends SettingsRowLineProps {
   title: string;
-  description?: string;
-  hintLine: boolean;
-  hint?: string;
-  current?: Hint;
 }
 
 export type { SettingsRowTextProps };

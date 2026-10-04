@@ -51,7 +51,7 @@ const SettingsHub = ({ volume, setVolume, onClose }: HubProps) => {
         sections: [{
           id: 'output',
           title: 'Output',
-          rows: [{ id: 'volume', title: 'Master volume', input: { kind: 'slider', value: volume, onChange: setVolume, min: 0, max: 100 } }],
+          rows: [{ id: 'volume', title: 'Master volume', description: 'The loudness of every sound.', hint: 'Drag or use the arrow keys.', input: { kind: 'slider', value: volume, onChange: setVolume, min: 0, max: 100 } }],
         }],
       }],
     }],

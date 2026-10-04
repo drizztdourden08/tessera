@@ -15,8 +15,8 @@ import './Select.css';
 const Select = <T = string, F extends FieldOf<T> = never>(props: SelectProps<T, F>) => {
   const { fields } = useTesseraStrings();
   return isOptionsProps(props)
-    ? <SelectBody setup={optionsSetup(props, fields.noOptions)} look={props} />
-    : <SelectBody setup={listboxSetup(props, fields.noOptions)} look={props} />;
+    ? <SelectBody setup={optionsSetup(props, fields.noOptions)} look={props} onActiveChange={props.onActiveChange} />
+    : <SelectBody setup={listboxSetup(props, fields.noOptions)} look={props} onActiveChange={props.onActiveChange} />;
 };
 
 export { Select };

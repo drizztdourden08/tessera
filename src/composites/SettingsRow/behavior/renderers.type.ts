@@ -6,6 +6,7 @@ import type { SettingsInputKind, SettingsInputOf } from '../SettingsRow.type';
 interface RenderContext {
   label: string;
   disabled: boolean;
+  compact: boolean;
   strings: TesseraStrings['settings'];
 }
 

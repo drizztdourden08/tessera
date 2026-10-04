@@ -7,8 +7,8 @@ interface OnOffWords {
   off: string;
 }
 
-type PartHintRules = { readonly [K in SettingsInputKind]: (input: SettingsInputOf<K>) => boolean };
+type LineHintRules = { readonly [K in SettingsInputKind]: (input: SettingsInputOf<K>, words: OnOffWords) => readonly Hint[] };
 
 type ValueHintRules = { readonly [K in SettingsInputKind]: (input: SettingsInputOf<K>, words: OnOffWords) => Hint | undefined };
 
-export type { OnOffWords, PartHintRules, ValueHintRules };
+export type { LineHintRules, OnOffWords, ValueHintRules };

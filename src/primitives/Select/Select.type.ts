@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, SelectHTMLAttributes } from 'react';
 import type {
-  FieldOf, ListboxColumn, ListboxFieldProps, ListboxLook, ListboxValueProps, ValueDisplay,
+  FieldOf, ListboxColumn, ListboxFieldProps, ListboxLook, ListboxValueProps, ValueDisplay, ValueOf,
 } from '../listbox/listbox.type';
 import type { ControlSize } from '../field-control/field-control.type';
 
@@ -26,6 +26,7 @@ interface SelectLookProps extends ListboxFieldProps {
 }
 
 interface SelectItemsProps<T, F extends FieldOf<T>> extends ListboxLook<T>, ListboxValueProps<T, F>, SelectLookProps {
+  onActiveChange?: (value: ValueOf<T, F> | null) => void;
   options?: never;
   groups?: never;
   renderOption?: never;
@@ -38,6 +39,7 @@ interface SelectOptionsProps extends SelectLookProps {
   onChange?: (value: string) => void;
   values?: readonly string[];
   onValuesChange?: (values: string[]) => void;
+  onActiveChange?: (value: string | null) => void;
   columns?: readonly ListboxColumn<SelectOption>[];
   valueDisplay?: ValueDisplay;
   renderOption?: (option: SelectOption, isSelected: boolean) => ReactNode;

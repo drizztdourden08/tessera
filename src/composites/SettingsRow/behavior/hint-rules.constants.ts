@@ -1,29 +1,35 @@
 /* @layer renderer-components @kind data */
+import type { Hint } from '../../../primitives/hint/hint.type';
 import { optionHint } from './option-hint';
+import { sliderHints } from './slider-hints';
 import { sliderText } from './slider-text';
-import type { PartHintRules, ValueHintRules } from './hint-rules.type';
+import type { LineHintRules, ValueHintRules } from './hint-rules.type';
 import type { SettingsOption } from '../SettingsRow.type';
 
 const NONE = (): undefined => undefined;
-const NEVER = (): boolean => false;
-const anyHint = (input: { options: readonly SettingsOption[] }): boolean => input.options.some((option) => option.hint !== undefined);
+const EMPTY = (): readonly Hint[] => [];
+const everyHint = (input: { options: readonly SettingsOption[] }): readonly Hint[] =>
+  input.options.flatMap((option) => optionHint(option) ?? []);
 const chosen = (input: { options: readonly SettingsOption[]; value: string }) => optionHint(input.options.find((option) => option.value === input.value));
 
-const PART_HINTS: PartHintRules = {
-  toggle: (input) => input.hints !== undefined,
-  select: anyHint,
-  segmented: anyHint,
-  radio: NEVER,
-  multi: anyHint,
-  slider: (input) => input.hintOf !== undefined,
-  number: NEVER,
-  text: NEVER,
-  password: NEVER,
-  dynamic: NEVER,
-  color: NEVER,
-  keybind: NEVER,
-  tags: NEVER,
-  custom: NEVER,
+const LINE_HINTS: LineHintRules = {
+  toggle: (input, words) => [
+    ...(input.hints?.on === undefined ? [] : [{ label: words.on, description: input.hints.on }]),
+    ...(input.hints?.off === undefined ? [] : [{ label: words.off, description: input.hints.off }]),
+  ],
+  select: everyHint,
+  segmented: everyHint,
+  radio: EMPTY,
+  multi: everyHint,
+  slider: sliderHints,
+  number: EMPTY,
+  text: EMPTY,
+  password: EMPTY,
+  dynamic: EMPTY,
+  color: EMPTY,
+  keybind: EMPTY,
+  tags: EMPTY,
+  custom: EMPTY,
 };
 
 const VALUE_HINTS: ValueHintRules = {
@@ -49,4 +55,4 @@ const VALUE_HINTS: ValueHintRules = {
   custom: NONE,
 };
 
-export { PART_HINTS, VALUE_HINTS };
+export { LINE_HINTS, VALUE_HINTS };
