@@ -554,8 +554,8 @@
       "at": "2026-10-02"
     },
     "Link": {
-      "status": "seen",
-      "hash": "flagged",
+      "status": "ok",
+      "hash": "dd56b5019259aa19",
       "at": "2026-10-04"
     }
   },
@@ -859,9 +859,9 @@
   },
   "Composites · Settings": {
     "SettingsPage": {
-      "status": "seen",
-      "hash": "732123e164bcabf3",
-      "at": "2026-10-01"
+      "status": "ok",
+      "hash": "c37167367d3aef28",
+      "at": "2026-10-04"
     },
     "SettingsSection": {
       "status": "ok",
