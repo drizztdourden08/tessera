@@ -3805,3 +3805,67 @@ interface SettingsItemFields {
 
 1. Move buttons drawn in a custom control next to a setting into `actions`, and a row that held only a button into a row with `actions` and no `input`.
 2. Code that read `item.input.kind` reads `item.input?.kind`.
+
+## 147. Title bar dropdowns, a pulsing status, and back buttons in headers
+
+Four parts the Brock app drew for itself. Each one replaces a workaround there.
+
+- **A title bar action with a menu of its own.** `bar: 'dropdown'` with `groups`, the same `MenuGroup[]` as DropdownMenu, draws a ghost icon button in the title bar, 28 by 28 pixels like the other actions, that opens its menu under it: Enter, Space or Arrow Down opens it, Escape closes it and gives focus back to the button. The button keeps its tooltip, hidden while the menu is open, and keeps the bar in view while the bar is concealed. It hides with the other buttons as the window narrows, and in the main menu it is a sub-menu with the same items, a separator between its groups (the group labels show only under the button). A dropdown with no items shows nowhere.
+- **A status that pulses.** A `bar: 'status'` action takes `pulse`. Its status text gets a dot that pulses, the `pulse` of Status, on top of the swell and the breathing it already has. With reduced motion all three stay still.
+- **WindowHeader takes `onBack`.** A back button, an arrow named Back (`backLabel` names it otherwise), sits before the title, outside the heading. It only draws the button and calls `onBack`: the host wires Alt+Left and the mouse back button to the same call. The narrowing order stays: the subtitle shortens, the extras go, then the title shortens; the back button and the close button stay. ScreenWindow passes `onBack` and `backLabel` to its title bar.
+- **ContentHeader takes `back`.** `back` names the parent page of a sub-page: a small ghost button, "Back to" and the label, before the icon and the title, outside the heading. When the row has no room for the header at its natural width, the button folds to an arrow, named "Back to" and the label, which shows them as a tooltip. ScreenPage, SettingsPage and the `header` of ScreenWindow pass `back` on.
+
+```ts
+type WindowTitleBarActionBar = 'button' | 'status' | 'menu' | 'dropdown'; // 'dropdown' added
+
+interface WindowTitleBarCommandAction {
+  id: string;
+  label: string;
+  icon: IconName;
+  shortcut?: MenuItem['shortcut'];
+  bar?: 'button' | 'status' | 'menu';
+  onSelect: () => void;
+  status?: string;
+  tone?: StatusTone;
+  pulse?: boolean; // added
+}
+
+interface WindowTitleBarDropdownAction {
+  id: string;
+  label: string;
+  icon: IconName;
+  shortcut?: MenuItem['shortcut'];
+  bar: 'dropdown';
+  groups: readonly MenuGroup[];
+}
+
+type WindowTitleBarAction = WindowTitleBarCommandAction | WindowTitleBarDropdownAction;
+
+interface WindowHeaderProps {
+  onBack?: () => void; // added
+  backLabel?: string; // added, default navigation.back, 'Back'
+}
+
+interface ScreenWindowProps {
+  onBack?: () => void; // added, for the title bar
+  backLabel?: string; // added
+}
+
+interface ContentHeaderBack {
+  label: string; // the parent page; the button reads 'Back to ' and the label
+  onSelect: () => void;
+}
+
+// ContentHeaderProps, ScreenPageProps, SettingsPageProps and ScreenWindowHeader take back?: ContentHeaderBack
+
+// navigation strings, added
+backTo: (page: string) => `Back to ${page}`;
+```
+
+`WindowTitleBarAction` is now a union: a dropdown action has no `onSelect`, `status`, `tone` or `pulse`. Code that reads `action.onSelect` from any action checks `action.bar !== 'dropdown'` first.
+
+### What an app does
+
+1. Brock: `toBarAction` maps a `kind: 'menu'` item to `{ id, label, icon, bar: 'dropdown', groups: toMenuGroups(spec.items, ...) }`, and `TitleBarMenuHost`, `titleBarMenu`, `useTitleBarMenuStore` and `barAnchor` go.
+2. Brock: a `kind: 'status'` item passes its `pulse` on to the action.
+3. Brock: `ScreenLayer` passes `onBack` to ScreenWindow in place of a `BackTitle` in the title, and `HubPageFrame` passes `back={{ label: page.label, onSelect: onUp }}` to ScreenPage in place of a `BackTitle`; `BackTitle` goes.

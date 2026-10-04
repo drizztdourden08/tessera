@@ -11,23 +11,11 @@ import type { StateProps } from '../_template/states/states.type';
 import { brandLogoUri } from './_samples/brand-logo';
 import { buildTitleMenu } from './_samples/data-title-menu';
 import { titleBarActions } from './_samples/title-bar-actions';
+import type { TitleBarArgs } from './_samples/title-bar-args.type';
+import { TitleBarGroupDemo } from './_samples/TitleBarGroupDemo';
 import { TitleBarWidths } from './_samples/TitleBarWidths';
 import { TITLE_BAR_CODE } from './_samples/title-bar-code.constants';
 import './WindowTitleBar.stories.css';
-
-type TitleBarArgs = {
-  title: string;
-  withLogo: boolean;
-  instanceName: string;
-  withMenu: boolean;
-  withActions: boolean;
-  updateAvailable: boolean;
-  concealed: boolean;
-  fullscreenButton: boolean;
-  pinButton: boolean;
-  minimizeButton: boolean;
-  maximizeButton: boolean;
-};
 
 const LOGO = brandLogoUri('brock');
 const DEV_LOGO = brandLogoUri('tessera');
@@ -38,6 +26,8 @@ const STATE_MENU = buildTitleMenu(ignore, false);
 
 const STATE_ACTIONS = titleBarActions(ignore);
 
+const PULSE_ACTIONS = titleBarActions(ignore, 'Downloading', true);
+
 const controlsOf = (args: TitleBarArgs): WindowControlsConfig => ({
   fullscreen: args.fullscreenButton,
   pin: args.pinButton,
@@ -46,7 +36,7 @@ const controlsOf = (args: TitleBarArgs): WindowControlsConfig => ({
 });
 
 const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
-  const { title, withLogo, instanceName, withMenu, withActions, updateAvailable, concealed } = props;
+  const { title, withLogo, instanceName, withMenu, withActions, updateAvailable, pulse, concealed } = props;
   const [pinned, setPinned] = useState(false);
   const [maximized, setMaximized] = useState(props.maximized === true);
   const [fullscreen, setFullscreen] = useState(false);
@@ -67,7 +57,7 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
         logo={withLogo ? LOGO : undefined}
         instance={instanceName ? { name: instanceName, logo: DEV_LOGO } : null}
         menu={withMenu ? buildTitleMenu(pick, false) : undefined}
-        actions={withActions ? titleBarActions(pick, updateAvailable ? 'Update available' : null) : undefined}
+        actions={withActions ? titleBarActions(pick, updateAvailable ? 'Update available' : null, pulse) : undefined}
         controls={controlsOf(props)}
         pinned={pinned}
         maximized={maximized}
@@ -93,6 +83,7 @@ const ARGS: Partial<TitleBarArgs> = {
   withMenu: true,
   withActions: true,
   updateAvailable: true,
+  pulse: false,
   concealed: false,
   fullscreenButton: true,
   pinButton: true,
@@ -111,6 +102,7 @@ const ARG_TYPES: PlaygroundArgTypes<TitleBarArgs> = {
   minimizeButton: { group: 'Content', control: 'boolean', description: 'controls.minimize' },
   maximizeButton: { group: 'Content', control: 'boolean', description: 'controls.maximize' },
   updateAvailable: { group: 'State', control: 'boolean', description: 'Sets the status of Check for updates, which shows the green text in the bar and the menu subtitle.' },
+  pulse: { group: 'State', control: 'boolean', description: 'Sets pulse on Check for updates: a beating dot before its status text.' },
   concealed: { group: 'State', control: 'boolean' },
 };
 
@@ -179,6 +171,13 @@ const Narrow = {
   render: (args) => <TitleBarWidths title={args.title} logo={LOGO} menu={STATE_MENU} actions={STATE_ACTIONS} />,
 } satisfies PlaygroundStory<TitleBarArgs>;
 
+const OwnMenu = {
+  name: 'An action with its own menu, and a status that pulses',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <TitleBarGroupDemo title={args.title} logo={LOGO} menu={STATE_MENU} />,
+} satisfies PlaygroundStory<TitleBarArgs>;
+
 const renderState = (props: StateProps) => (
   <Box className="window-title-bar-story__strip">
     <WindowTitleBar title="Brock Demo" logo={LOGO} menu={STATE_MENU} actions={STATE_ACTIONS} onControl={ignore} {...(props as Partial<WindowTitleBarProps>)} />
@@ -189,15 +188,15 @@ const Overview = overviewStory({
   component: 'WindowTitleBar',
   description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
   points: [
-    '`onControl` hears the pin, full screen, minimize, maximize and close; `controls` turns off all but close.',
-    '`menu` takes the same groups as [DropdownMenu] and hangs from the hamburger at the left.',
-    '`actions` add icon buttons, or status text such as Update available while their `status` is set.',
-    'Each icon button shows a tooltip with its label, and its `shortcut` as keycaps, on hover and on focus.',
-    'As the window narrows, items hide one by one into the menu; minimize, maximize and close never hide.',
+    '`menu` takes [DropdownMenu] groups for the hamburger; `onControl` hears the window buttons, `controls` hides some.',
+    '`actions` add icon buttons, each with a tooltip of its label and `shortcut`, on hover and on focus.',
+    "An action with `bar: 'dropdown'` opens a menu of its own, built from `groups`, under its button.",
+    "A `bar: 'status'` action shows its `status` as text; `pulse` adds a beating dot while work runs.",
+    'Narrow windows move items into the menu, a dropdown as a sub-menu; minimize, maximize and close stay.',
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, Narrow, Resizable, FewerButtons, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, Narrow, OwnMenu, Resizable, FewerButtons, SecondInstance, Maximized, Concealed],
   states: {
     render: renderState,
     list: [
@@ -207,6 +206,7 @@ const Overview = overviewStory({
       { ...STATE.hover, name: 'Hover on the menu', target: '.menu-button' },
       { ...STATE.focus, target: '.window-title-bar__control' },
       { name: 'Pinned', props: { pinned: true } },
+      { name: 'Status pulse', props: { actions: PULSE_ACTIONS } },
       { name: 'Instance', props: { instance: { name: 'Dev', logo: DEV_LOGO } } },
       { name: 'Maximized', props: { maximized: true } },
       { name: 'Concealed', props: { concealed: true, peek: false } },
@@ -217,4 +217,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AppWindow, Concealed, FewerButtons, Maximized, Narrow, Overview, Playground, Resizable, SecondInstance };
+export { AppWindow, Concealed, FewerButtons, Maximized, Narrow, Overview, OwnMenu, Playground, Resizable, SecondInstance };

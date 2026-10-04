@@ -3,11 +3,13 @@ import type { ReactNode } from 'react';
 import type { ContentHeaderProps } from '../ContentHeader';
 import type { ScreenLayerSize } from '../ScreenLayer';
 
-type ScreenWindowHeader = Pick<ContentHeaderProps, 'icon' | 'backdrop' | 'strip' | 'actions' | 'compact' | 'level' | 'live'>;
+type ScreenWindowHeader = Pick<ContentHeaderProps, 'icon' | 'back' | 'backdrop' | 'strip' | 'actions' | 'compact' | 'level' | 'live'>;
 
 interface ScreenWindowProps {
   title: ReactNode;
   onClose: () => void;
+  onBack?: () => void;
+  backLabel?: string;
   children: ReactNode;
   header?: ScreenWindowHeader;
   subtitle?: ReactNode;

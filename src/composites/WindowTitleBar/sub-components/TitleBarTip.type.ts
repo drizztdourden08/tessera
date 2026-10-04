@@ -6,6 +6,7 @@ interface TitleBarTipProps {
   label: string;
   shortcut?: WindowTitleBarAction['shortcut'];
   away?: boolean;
+  quiet?: boolean;
   children: ReactNode;
 }
 

@@ -6,6 +6,7 @@ interface WindowTitleBarStartProps {
   menu: readonly MenuGroup[];
   menuLabel?: string;
   onMenuOpenChange: (open: boolean) => void;
+  onActionMenuChange: (id: string, open: boolean) => void;
   pin: boolean;
   pinned?: boolean;
   onControl: (control: WindowControl) => void;

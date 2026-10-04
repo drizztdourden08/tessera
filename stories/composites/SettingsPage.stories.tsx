@@ -16,20 +16,24 @@ type PageArgs = {
   title: string;
   withBackdrop: boolean;
   withActions: boolean;
+  withBack: boolean;
 };
 
 const backdrop = <Box className="settings-page-story__backdrop" />;
 
 const STATE_ANCHORS = [{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }];
 
+const ignore = () => undefined;
+
 const PageDemo = (props: PageArgs) => {
-  const { title, withBackdrop, withActions } = props;
+  const { title, withBackdrop, withActions, withBack } = props;
   const sections = generalSections(useSampleSettings());
   return (
     <Box className="story-frame settings-page-story__frame">
       <SettingsPage
         icon={<Icon name="settings" />}
         title={title}
+        back={withBack ? { label: 'Settings', onSelect: ignore } : undefined}
         backdrop={withBackdrop ? backdrop : undefined}
         anchors={sections.map((section) => ({ id: section.id, label: section.title ?? section.id }))}
         actions={withActions ? <Button size="sm" variant="secondary">Export</Button> : undefined}
@@ -56,11 +60,12 @@ const TabsDemo = () => {
   );
 };
 
-const ARGS: Partial<PageArgs> = { title: 'General', withBackdrop: true, withActions: false };
+const ARGS: Partial<PageArgs> = { title: 'General', withBackdrop: true, withActions: false, withBack: false };
 
 const ARG_TYPES: PlaygroundArgTypes<PageArgs> = {
   title: { group: 'Content', control: 'text' },
   withActions: { group: 'Content', control: 'boolean' },
+  withBack: { group: 'Content', control: 'boolean', description: 'A way back to the parent page, Settings, before the icon.' },
   withBackdrop: { group: 'Appearance', control: 'boolean' },
 };
 
@@ -81,6 +86,13 @@ const PlainWithActions = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PageDemo {...args} withBackdrop={false} withActions />,
+} satisfies PlaygroundStory<PageArgs>;
+
+const SubPage = {
+  name: 'A sub-page with a way back to its parent',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <PageDemo {...args} withBack />,
 } satisfies PlaygroundStory<PageArgs>;
 
 const ViewTabs = {
@@ -114,12 +126,12 @@ const Overview = overviewStory({
     '`anchors` makes the strip jump between the [SettingsSection] blocks of the body and follow the scroll.',
     '`tabs` shows the host\'s own views in the strip instead.',
     'The header compacts once the body scrolls; `compact` holds either look.',
-    '`actions` sit at the far end of the header.',
+    '`actions` sit at the far end of the header; `back` leads to the parent page, as on [ScreenPage].',
     '`scroll={false}` leaves the scrolling to the content of the body.',
   ],
   instead: '[WorkspaceScreen] to build a whole settings screen with its side list and search.',
   playground: Playground,
-  variants: [PlainWithActions, ViewTabs],
+  variants: [PlainWithActions, SubPage, ViewTabs],
   states: {
     render: renderState,
     list: [
@@ -131,4 +143,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, PlainWithActions, Playground, ViewTabs };
+export { Overview, PlainWithActions, Playground, SubPage, ViewTabs };

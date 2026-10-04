@@ -11,7 +11,7 @@ import '../../theme/page-card.css';
 import './ScreenPage.css';
 
 const ScreenPage = (props: ScreenPageProps) => {
-  const { icon, title, children, backdrop, strip, actions, footer, live = false, scroll = true, compact, bodyRef, bodyClassName, className } = props;
+  const { icon, title, children, back, backdrop, strip, actions, footer, live = false, scroll = true, compact, bodyRef, bodyClassName, className } = props;
   const titleId = useId();
   const ownRef = useRef<HTMLDivElement>(null);
   const ref = bodyRef ?? ownRef;
@@ -21,7 +21,7 @@ const ScreenPage = (props: ScreenPageProps) => {
 
   return (
     <Box as="section" className={classes.root} aria-labelledby={titleId}>
-      <ContentHeader icon={icon} title={title} titleId={titleId} backdrop={backdrop} strip={strip} actions={actions} live={live} compact={compact ?? scrolled} />
+      <ContentHeader icon={icon} title={title} titleId={titleId} back={back} backdrop={backdrop} strip={strip} actions={actions} live={live} compact={compact ?? scrolled} />
       {scroll
         ? <ScrollArea ref={ref} className={classes.body}>{children}</ScrollArea>
         : <Box ref={ref} className={classes.body}>{children}</Box>}

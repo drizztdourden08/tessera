@@ -32,6 +32,7 @@ ContentHeader is the header with an icon, a title and a backdrop that any contai
 - Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header.
 - Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.
 - Set compact once the content under it scrolls; it shrinks to a slim row.
+- On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, before the icon, and folds to an arrow when the row has no room for it.
 - Level sets the heading tag, h2 by default; pick the level that fits the page outline.
 
 ## Accessibility
@@ -39,6 +40,7 @@ ContentHeader is the header with an icon, a title and a backdrop that any contai
 - The title is a real heading; pass titleId to name the container with aria-labelledby.
 - With live, a screen reader reads each new title, as a status does.
 - The icon is hidden from screen readers; the title carries the name.
+- The back button sits outside the heading, so the title stays the name of the page. Folded, the arrow keeps Back to and the page name as its label and shows them as a tooltip.
 
 ## Example
 
@@ -58,6 +60,7 @@ const GeneralHeader = ({ section, onSection }: { section: string; onSection: (id
 
 - `title`: `ReactNode`.
 - `icon` (optional): `ReactNode`.
+- `back` (optional): `ContentHeaderBack`.
 - `backdrop` (optional): `ReactNode`.
 - `strip` (optional): `ReactNode`.
 - `actions` (optional): `ReactNode`.
@@ -69,4 +72,4 @@ const GeneralHeader = ({ section, onSection }: { section: string; onSection: (id
 
 ## Tokens
 
-It draws on `--blur-glow`, `--border-width-thin`, `--c-border`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-secondary`, `--c-text`, `--size-40`, `--size-64`, `--space-md`, `--space-xl`, `--space-xs`, `--text-2xl`, `--text-lg`, `--text-xl`, `--transition-fast`, `--weight-bold`.
+It draws on `--blur-glow`, `--border-width-thin`, `--c-border`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-secondary`, `--c-text`, `--c-text-dim`, `--size-40`, `--size-64`, `--space-md`, `--space-xl`, `--space-xs`, `--text-2xl`, `--text-lg`, `--text-xl`, `--transition-fast`, `--weight-bold`.

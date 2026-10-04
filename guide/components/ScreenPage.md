@@ -34,6 +34,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Always pass an icon and a title; without them it warns in development.
 - Leave backdrop out for the default art, pass your own scene, or pass null for a plain header.
 - Use strip for a few controls after the title, such as section pills or a status, and actions for the end of the header.
+- On a sub-page, pass back with the name of the parent page and what returns to it; the header draws Back to and that name before the icon.
 - Put buttons that stay in view in footer; the body scrolls between the header and the footer.
 - Set scroll={false} when the content scrolls by itself; the header then stays full size.
 
@@ -61,6 +62,7 @@ const SessionsScreen = ({ onClose }: { onClose: () => void }) => (
 - `icon`: `ReactNode`.
 - `title`: `ReactNode`.
 - `children`: `ReactNode`.
+- `back` (optional): `ContentHeaderBack`.
 - `backdrop` (optional): `ReactNode`.
 - `strip` (optional): `ReactNode`.
 - `actions` (optional): `ReactNode`.

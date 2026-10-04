@@ -6,6 +6,8 @@ interface WindowHeaderProps {
   titleId?: string;
   subtitle?: ReactNode;
   onClose?: () => void;
+  onBack?: () => void;
+  backLabel?: string;
   extra?: ReactNode;
   className?: string;
 }

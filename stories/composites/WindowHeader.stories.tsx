@@ -12,6 +12,7 @@ type WindowHeaderArgs = {
   subtitle: string;
   withClose: boolean;
   withExtra: boolean;
+  withBack: boolean;
 };
 
 const HEADER_EXTRA = (
@@ -31,32 +32,46 @@ const NARROW_WIDTHS = ['wide', 'medium', 'narrow', 'tiny'] as const;
 
 const ignoreClose = () => undefined;
 
+const narrowRows = (args: WindowHeaderArgs, onBack: (() => void) | undefined) => (
+  <Box className="story-column">
+    {NARROW_WIDTHS.map((width) => (
+      <Box key={width} className={`window-header-story__strip window-header-story__strip--${width}`}>
+        <WindowHeader title={args.title} subtitle={args.subtitle || undefined} extra={HEADER_EXTRA} onBack={onBack} onClose={ignoreClose} />
+      </Box>
+    ))}
+  </Box>
+);
+
 const SaveFilesWindow = (props: WindowHeaderArgs) => {
-  const { title, subtitle, withClose, withExtra } = props;
+  const { title, subtitle, withClose, withExtra, withBack } = props;
   const [closed, setClosed] = useState(0);
+  const [back, setBack] = useState(0);
   return (
     <Box className="window-header-story__window">
       <WindowHeader
         title={title}
         subtitle={subtitle || undefined}
         extra={withExtra ? HEADER_EXTRA : undefined}
+        onBack={withBack ? () => setBack(back + 1) : undefined}
         onClose={withClose ? () => setClosed(closed + 1) : undefined}
       />
       <Box className="window-header-story__body">
         {SAVES.map((save) => <StatRow key={save.place} label={save.place} value={save.when} />)}
         {withClose && <Text className="story-label">Close pressed {closed} times</Text>}
+        {withBack && <Text className="story-label">Back pressed {back} times</Text>}
       </Box>
     </Box>
   );
 };
 
-const ARGS: Partial<WindowHeaderArgs> = { title: 'Save files', subtitle: "Mira's profile", withClose: true, withExtra: true };
+const ARGS: Partial<WindowHeaderArgs> = { title: 'Save files', subtitle: "Mira's profile", withClose: true, withExtra: true, withBack: false };
 
 const ARG_TYPES: PlaygroundArgTypes<WindowHeaderArgs> = {
   title: { group: 'Content', control: 'text' },
   subtitle: { group: 'Content', control: 'text' },
   withClose: { group: 'Content', control: 'boolean' },
   withExtra: { group: 'Content', control: 'boolean', description: 'A Status and a button before the close button.' },
+  withBack: { group: 'Content', control: 'boolean', description: 'Pass onBack: a back button before the title.' },
 };
 
 const meta = {
@@ -74,6 +89,7 @@ const Playground = {
         title={args.title}
         subtitle={args.subtitle || undefined}
         extra={args.withExtra ? HEADER_EXTRA : undefined}
+        onBack={args.withBack ? ignoreClose : undefined}
         onClose={args.withClose ? ignoreClose : undefined}
       />
     </Box>
@@ -91,15 +107,21 @@ const Narrow = {
   name: 'Less room: the subtitle shortens, the extras go, then the title shortens',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => (
-    <Box className="story-column">
-      {NARROW_WIDTHS.map((width) => (
-        <Box key={width} className={`window-header-story__strip window-header-story__strip--${width}`}>
-          <WindowHeader title={args.title} subtitle={args.subtitle || undefined} extra={HEADER_EXTRA} onClose={ignoreClose} />
-        </Box>
-      ))}
-    </Box>
-  ),
+  render: (args) => narrowRows(args, undefined),
+} satisfies PlaygroundStory<WindowHeaderArgs>;
+
+const WithBack = {
+  name: 'A back button for the screen before',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <SaveFilesWindow {...args} title="Save files" withBack />,
+} satisfies PlaygroundStory<WindowHeaderArgs>;
+
+const NarrowBack = {
+  name: 'With a back button, less room narrows it the same way',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => narrowRows(args, ignoreClose),
 } satisfies PlaygroundStory<WindowHeaderArgs>;
 
 const TitleOnly = {
@@ -115,12 +137,13 @@ const Overview = overviewStory({
   points: [
     'The close button shows only when `onClose` is set.',
     '`extra` takes content such as a [Status] or a button, before the close button.',
+    '`onBack` draws a back button before the title; the host wires [[Alt+Left]] and the mouse back button.',
     'It stays one row: the subtitle shortens first, then `extra` hides, then the title shortens.',
   ],
   instead: '[WindowTitleBar] for the title bar of a whole app window.',
   playground: Playground,
-  variants: [InWindow, Narrow, TitleOnly],
+  variants: [InWindow, Narrow, WithBack, NarrowBack, TitleOnly],
 });
 
 export default meta;
-export { InWindow, Narrow, Overview, Playground, TitleOnly };
+export { InWindow, Narrow, NarrowBack, Overview, Playground, TitleOnly, WithBack };

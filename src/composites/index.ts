@@ -97,8 +97,8 @@ export { WindowHeader } from './WindowHeader';
 export type { WindowHeaderProps } from './WindowHeader';
 export { WindowTitleBar } from './WindowTitleBar';
 export type {
-  WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarInstance,
-  WindowTitleBarProps,
+  WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
+  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarProps,
 } from './WindowTitleBar';
 export { Hero } from './Hero';
 export type { HeroArt, HeroBackdrop, HeroImageFit, HeroProps, HeroShade } from './Hero';
@@ -158,7 +158,7 @@ export type {
   PatternSlotType, PatternSlotValue, PatternValue,
 } from './DynamicInput';
 export { ContentHeader } from './ContentHeader';
-export type { ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';
+export type { ContentHeaderBack, ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';
 export { StatTile } from './StatTile';
 export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning } from './StatTile';
 export { ControlMenu, ControlMenuGroup, ControlMenuRow, ControlMenuSub } from './ControlMenu';

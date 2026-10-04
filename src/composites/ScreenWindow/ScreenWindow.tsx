@@ -9,7 +9,7 @@ import type { ScreenWindowProps } from './ScreenWindow.type';
 import './ScreenWindow.css';
 
 const ScreenWindow = (props: ScreenWindowProps) => {
-  const { title, onClose, children, header, subtitle, extra, floating, hidden, size, square, className } = props;
+  const { title, onClose, onBack, backLabel, children, header, subtitle, extra, floating, hidden, size, square, className } = props;
   const titleId = useId();
   useTopOnlyCheck(props);
   const classes = ['screen-window', header && 'screen-window--header', className].filter(Boolean).join(' ');
@@ -19,7 +19,18 @@ const ScreenWindow = (props: ScreenWindowProps) => {
       <Box className={classes}>
         {header
           ? <WindowContentHeader header={header} title={title} titleId={titleId} onClose={onClose} />
-          : <WindowHeader title={title} titleId={titleId} subtitle={subtitle} extra={extra} onClose={onClose} className="screen-window__header" />}
+          : (
+            <WindowHeader
+              title={title}
+              titleId={titleId}
+              subtitle={subtitle}
+              extra={extra}
+              onBack={onBack}
+              backLabel={backLabel}
+              onClose={onClose}
+              className="screen-window__header"
+            />
+          )}
         <Box className="screen-window__content">{children}</Box>
       </Box>
     </ScreenLayer>

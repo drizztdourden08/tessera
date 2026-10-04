@@ -88,3 +88,8 @@
     transition: none;
   }
 }
+
+.content-header .content-header__back {
+  flex-shrink: 0;
+  color: var(--c-text-dim);
+}

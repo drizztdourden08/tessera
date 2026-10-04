@@ -15,6 +15,7 @@ type HeaderArgs = {
   strip: boolean;
   actions: boolean;
   footer: boolean;
+  back: boolean;
 };
 
 const SessionLines = () => (
@@ -23,13 +24,16 @@ const SessionLines = () => (
   </Box>
 );
 
+const ignore = () => undefined;
+
 const HeaderDemo = (props: HeaderArgs & { compact?: boolean }) => {
-  const { title, backdrop, strip, actions, footer, compact } = props;
+  const { title, backdrop, strip, actions, footer, back, compact } = props;
   return (
     <Box className="story-frame screen-page-story__frame">
       <ScreenPage
         icon={<Icon name="layers" />}
         title={title}
+        back={back ? { label: 'Sessions', onSelect: ignore } : undefined}
         backdrop={backdrop ? undefined : null}
         strip={strip ? <Status tone="success" variant="pill">3 running</Status> : undefined}
         actions={actions ? <Button size="sm" variant="secondary">New session</Button> : undefined}
@@ -42,7 +46,7 @@ const HeaderDemo = (props: HeaderArgs & { compact?: boolean }) => {
   );
 };
 
-const ARGS: Partial<HeaderArgs> = { title: 'Friday async', backdrop: true, strip: true, actions: true, footer: false };
+const ARGS: Partial<HeaderArgs> = { title: 'Friday async', backdrop: true, strip: true, actions: true, footer: false, back: false };
 
 const ARG_TYPES: PlaygroundArgTypes<HeaderArgs> = {
   title: { group: 'Content', control: 'text' },
@@ -50,6 +54,7 @@ const ARG_TYPES: PlaygroundArgTypes<HeaderArgs> = {
   strip: { group: 'Content', control: 'boolean', description: 'A few controls after the title.' },
   actions: { group: 'Content', control: 'boolean', description: 'Controls at the end of the header.' },
   footer: { group: 'Content', control: 'boolean', description: 'A row under the body that stays in view.' },
+  back: { group: 'Content', control: 'boolean', description: 'A way back to the parent page, Sessions, before the icon.' },
 };
 
 const meta = {
@@ -71,8 +76,15 @@ const Plain = {
   render: (args) => <HeaderDemo {...args} backdrop={false} strip={false} actions={false} footer />,
 } satisfies PlaygroundStory<HeaderArgs>;
 
+const SubPage = {
+  name: 'A sub-page with a way back to its parent',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <HeaderDemo {...args} back />,
+} satisfies PlaygroundStory<HeaderArgs>;
+
 const renderState = (props: StateProps) => (
-  <HeaderDemo title="Friday async" backdrop strip={false} actions={false} footer={false} compact={props.compact === true} />
+  <HeaderDemo title="Friday async" backdrop strip={false} actions={false} footer={false} back={false} compact={props.compact === true} />
 );
 
 const CODE = `import { Icon, ScreenPage, ScreenWindow } from '@drizztdourden08/tessera';
@@ -89,14 +101,14 @@ const Overview = overviewStory({
   points: [
     '`icon` and `title` are required; with either missing it warns in development.',
     'The header compacts once the body scrolls; `compact` holds either look.',
-    '`strip` holds a few controls after the title and `actions` sit at the far end.',
+    '`back` leads to the parent page before the icon; `strip` follows the title, `actions` sit at the far end.',
     '`footer` is a row under the body that stays in view.',
     'Leave `backdrop` out for the default art, pass a scene of your own, or `null` for a plain header.',
     '`scroll={false}` leaves the scrolling to the content, and the header stays full size.',
   ],
   instead: '[ScreenWindow] for a custom screen with no page header.',
   playground: Playground,
-  variants: [Plain],
+  variants: [Plain, SubPage],
   states: {
     render: renderState,
     list: [
@@ -108,4 +120,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Plain, Playground };
+export { Overview, Plain, Playground, SubPage };

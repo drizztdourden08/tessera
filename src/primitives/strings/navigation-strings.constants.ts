@@ -20,6 +20,7 @@ const NAVIGATION_STRINGS = {
   listPane: 'list',
   detailPane: 'details',
   back: 'Back',
+  backTo: (page: string) => `Back to ${page}`,
   showPane: (pane: string) => `Show ${pane}`,
   resizePanes: (start: string, end: string) => `Resize ${start} and ${end}`,
   resizeHint: 'Drag to resize · double-click to reset',

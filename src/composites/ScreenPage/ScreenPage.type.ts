@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
+import type { ContentHeaderBack } from '../ContentHeader';
 
 type ScreenKind = 'WorkspaceScreen' | 'StageScreen' | 'UtilityScreen' | 'InfoScreen';
 
@@ -7,6 +8,7 @@ interface ScreenPageProps {
   icon: ReactNode;
   title: ReactNode;
   children: ReactNode;
+  back?: ContentHeaderBack;
   backdrop?: ReactNode;
   strip?: ReactNode;
   actions?: ReactNode;

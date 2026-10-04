@@ -19,6 +19,7 @@ type ContentHeaderArgs = {
   backdrop: boolean;
   strip: StripChoice;
   actions: boolean;
+  back: boolean;
   compact: boolean;
   level: ContentHeaderLevel;
 };
@@ -36,15 +37,22 @@ const STRIPS: Readonly<Record<StripChoice, ReactNode>> = {
   status: <Status tone="success" variant="pill" dot>Synced</Status>,
 };
 
+const SUB_PAGE_WIDTHS = ['wide', 'narrow'] as const;
+
 const ACTIONS = <Button size="sm" variant="secondary" icon={<Icon name="rotate-ccw" size={14} />}>Reset</Button>;
 
-const ARGS: ContentHeaderArgs = { title: 'General', icon: true, backdrop: true, strip: 'pills', actions: false, compact: false, level: 2 };
+const ARGS: ContentHeaderArgs = { title: 'General', icon: true, backdrop: true, strip: 'pills', actions: false, back: false, compact: false, level: 2 };
+
+const ignore = () => undefined;
+
+const BACK = { label: 'Settings', onSelect: ignore };
 
 const ARG_TYPES: PlaygroundArgTypes<ContentHeaderArgs> = {
   title: { group: 'Content', control: 'text' },
   icon: { group: 'Content', control: 'boolean' },
   strip: { group: 'Content', control: 'select', options: ['none', 'pills', 'status'], description: 'What sits right after the title.' },
   actions: { group: 'Content', control: 'boolean', description: 'A button at the end of the header.' },
+  back: { group: 'Content', control: 'boolean', description: 'A way back to the parent page, Settings, before the icon.' },
   backdrop: { group: 'Appearance', control: 'boolean', description: 'The default art. Off passes null for a plain header.' },
   compact: { group: 'Appearance', control: 'boolean', description: 'The slim look, once the content under it scrolls.' },
   level: { group: 'Content', control: 'select', options: [1, 2, 3, 4], description: 'The heading tag of the title.' },
@@ -54,6 +62,7 @@ const header = (args: ContentHeaderArgs) => (
   <ContentHeader
     title={args.title}
     icon={args.icon ? <Icon name="settings" /> : undefined}
+    back={args.back ? BACK : undefined}
     backdrop={args.backdrop ? undefined : null}
     strip={STRIPS[args.strip]}
     actions={args.actions ? ACTIONS : undefined}
@@ -102,6 +111,19 @@ const StatusAndActions = {
   render: () => <Box className="content-header-story__strip">{header({ ...ARGS, title: 'Cloud saves', strip: 'status', actions: true })}</Box>,
 } satisfies StoryLiteStoryDefinition<ContentHeaderArgs>;
 
+const SubPage = {
+  name: 'A sub-page with a way back, folded to an arrow when narrow',
+  render: () => (
+    <Box className="story-column">
+      {SUB_PAGE_WIDTHS.map((width) => (
+        <Box key={width} className={`content-header-story__strip content-header-story__strip--${width}`}>
+          {header({ ...ARGS, title: 'Startup', strip: 'status', back: true })}
+        </Box>
+      ))}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ContentHeaderArgs>;
+
 const OnCard = {
   name: 'On a card',
   render: () => (
@@ -119,6 +141,7 @@ const Overview = overviewStory({
   description: 'The header of a content container, such as a page, a card or a panel: an icon and a title over a fading backdrop.',
   points: [
     '`strip` holds a few controls right after the title, such as [HeaderAnchorNav] pills or a [Status].',
+    '`back` names the parent of a sub-page: a Back to button before the icon, an arrow with a tooltip when narrow.',
     '`actions` sit at the far end; `compact` shrinks it to a slim row once the content under it scrolls.',
     'Leave `backdrop` out for the default art, pass a scene of your own, or `null` for a plain header.',
     '`level` sets the heading tag, `h2` by default; `titleId` lets the container name itself after it.',
@@ -126,8 +149,8 @@ const Overview = overviewStory({
   ],
   instead: '[SectionHeader] for a small heading row inside a panel, or [WindowHeader] for a window title bar.',
   playground: Playground,
-  variants: [WithPills, Looks, StatusAndActions, OnCard],
+  variants: [WithPills, Looks, StatusAndActions, SubPage, OnCard],
 });
 
 export default meta;
-export { Looks, OnCard, Overview, Playground, StatusAndActions, WithPills };
+export { Looks, OnCard, Overview, Playground, StatusAndActions, SubPage, WithPills };

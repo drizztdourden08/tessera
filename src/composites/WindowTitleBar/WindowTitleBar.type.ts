@@ -16,18 +16,29 @@ type WindowControl = 'fullscreen' | 'pin' | 'minimize' | 'maximize' | 'close';
 
 type WindowControlsConfig = Partial<Record<Exclude<WindowControl, 'close'>, boolean>>;
 
-type WindowTitleBarActionBar = 'button' | 'status' | 'menu';
+type WindowTitleBarActionBar = 'button' | 'status' | 'menu' | 'dropdown';
 
-interface WindowTitleBarAction {
+interface WindowTitleBarActionBase {
   id: string;
   label: string;
   icon: IconName;
-  onSelect: () => void;
-  bar?: WindowTitleBarActionBar;
-  status?: string;
-  tone?: StatusTone;
   shortcut?: MenuItem['shortcut'];
 }
+
+interface WindowTitleBarCommandAction extends WindowTitleBarActionBase {
+  bar?: Exclude<WindowTitleBarActionBar, 'dropdown'>;
+  onSelect: () => void;
+  status?: string;
+  tone?: StatusTone;
+  pulse?: boolean;
+}
+
+interface WindowTitleBarDropdownAction extends WindowTitleBarActionBase {
+  bar: 'dropdown';
+  groups: readonly MenuGroup[];
+}
+
+type WindowTitleBarAction = WindowTitleBarCommandAction | WindowTitleBarDropdownAction;
 
 interface WindowTitleBarProps {
   title: ReactNode;
@@ -48,6 +59,6 @@ interface WindowTitleBarProps {
 }
 
 export type {
-  BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarInstance,
-  WindowTitleBarProps,
+  BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
+  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarProps,
 };

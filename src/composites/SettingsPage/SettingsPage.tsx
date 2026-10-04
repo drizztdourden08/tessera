@@ -8,7 +8,7 @@ import type { SettingsPageProps } from './SettingsPage.type';
 import './SettingsPage.css';
 
 const SettingsPage = (props: SettingsPageProps) => {
-  const { icon, title, backdrop = null, anchors = NO_ANCHORS, tabs, scroll = true, compact, actions, children, className = '' } = props;
+  const { icon, title, back, backdrop = null, anchors = NO_ANCHORS, tabs, scroll = true, compact, actions, children, className = '' } = props;
   const ids = useMemo(() => anchors.map((a) => a.id), [anchors]);
   const { bodyRef, activeId, jumpTo } = useScrollSpy(ids);
 
@@ -16,6 +16,7 @@ const SettingsPage = (props: SettingsPageProps) => {
     <ScreenPage
       icon={icon}
       title={title}
+      back={back}
       backdrop={backdrop}
       strip={<SettingsPageStrip title={title} tabs={tabs} anchors={anchors} activeId={activeId} onJump={jumpTo} />}
       actions={actions}

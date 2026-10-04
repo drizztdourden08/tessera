@@ -1,13 +1,14 @@
 /* @layer renderer-components @kind component */
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Box } from '../../primitives/Box';
 import { titleBarClass } from './behavior/title-bar-class';
+import { useOpenMenus } from './behavior/useOpenMenus';
 import { usePeek } from './behavior/usePeek';
 import { useTitleBarLayout } from './behavior/useTitleBarLayout';
 import { WindowControls } from './sub-components/WindowControls';
 import { WindowTitleBarBrand } from './sub-components/WindowTitleBarBrand';
 import { WindowTitleBarStart } from './sub-components/WindowTitleBarStart';
-import { FULLSCREEN_ITEM } from './WindowTitleBar.constants';
+import { FULLSCREEN_ITEM, MAIN_MENU_ID } from './WindowTitleBar.constants';
 import type { WindowTitleBarProps } from './WindowTitleBar.type';
 import './WindowTitleBar.css';
 
@@ -16,12 +17,12 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
   const barRef = useRef<HTMLElement>(null);
   const brandRef = useRef<HTMLElement>(null);
   const { groups, actions, controls, hidden, brand } = useTitleBarLayout(props, barRef, brandRef);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const menus = useOpenMenus();
   const handleMenuOpenChange = (open: boolean): void => {
-    setMenuOpen(open);
+    menus.report(MAIN_MENU_ID, open);
     onMenuOpenChange?.(open);
   };
-  const tucked = (concealed || fullscreen) && !menuOpen;
+  const tucked = (concealed || fullscreen) && !menus.anyOpen;
   const { peeking, focused, handlers } = usePeek(tucked, barRef, peek === undefined);
 
   return (
@@ -30,6 +31,7 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
         menu={groups}
         menuLabel={menuLabel}
         onMenuOpenChange={handleMenuOpenChange}
+        onActionMenuChange={menus.report}
         pin={controls.pin !== false}
         pinned={pinned}
         onControl={onControl}

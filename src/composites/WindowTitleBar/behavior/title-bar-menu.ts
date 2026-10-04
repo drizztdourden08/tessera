@@ -2,6 +2,7 @@
 import type { MenuGroup, MenuItem, MenuNode } from '../../DropdownMenu';
 import { BAR_GROUP_ID, VIEW_ITEM_ID } from '../WindowTitleBar.constants';
 import type { WindowTitleBarAction } from '../WindowTitleBar.type';
+import { dropdownNodes } from './dropdown-nodes';
 import type { TitleBarMenuInput } from './title-bar-menu.type';
 
 const viewItems = (input: TitleBarMenuInput): MenuItem[] => {
@@ -14,15 +15,18 @@ const viewItems = (input: TitleBarMenuInput): MenuItem[] => {
   return items;
 };
 
-const actionMenuItem = (action: WindowTitleBarAction): MenuItem => ({
-  id: action.id, icon: action.icon, label: action.label, description: action.status, shortcut: action.shortcut, onSelect: action.onSelect,
-});
+const actionMenuItem = (action: WindowTitleBarAction): MenuItem[] => {
+  const { id, icon, label, shortcut } = action;
+  if (action.bar !== 'dropdown') return [{ id, icon, label, description: action.status, shortcut, onSelect: action.onSelect }];
+  const children = dropdownNodes(action.groups);
+  return children.length > 0 ? [{ id, icon, label, shortcut, children }] : [];
+};
 
 const titleBarMenu = (input: TitleBarMenuInput): MenuGroup[] => {
   const view = viewItems(input);
   const items: MenuNode[] = [
     ...(view.length > 0 ? [{ id: VIEW_ITEM_ID, icon: 'app-window', label: input.strings.view, children: view } satisfies MenuItem] : []),
-    ...input.actions.map(actionMenuItem),
+    ...input.actions.flatMap(actionMenuItem),
   ];
   const { menu } = input;
   if (items.length === 0) return [...menu];

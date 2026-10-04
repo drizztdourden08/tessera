@@ -2310,12 +2310,14 @@
         "Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header.",
         "Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.",
         "Set compact once the content under it scrolls; it shrinks to a slim row.",
+        "On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, before the icon, and folds to an arrow when the row has no room for it.",
         "level sets the heading tag, h2 by default; pick the level that fits the page outline."
       ],
       "a11y": [
         "The title is a real heading; pass titleId to name the container with aria-labelledby.",
         "With live, a screen reader reads each new title, as a status does.",
-        "The icon is hidden from screen readers; the title carries the name."
+        "The icon is hidden from screen readers; the title carries the name.",
+        "The back button sits outside the heading, so the title stays the name of the page. Folded, the arrow keeps Back to and the page name as its label and shows them as a tooltip."
       ],
       "tree": {
         "path": [
@@ -2325,7 +2327,7 @@
         "rule": "ContentHeader is the header with an icon, a title and a backdrop that any container can carry."
       },
       "example": "import { ContentHeader, HeaderAnchorNav, Icon } from '@drizztdourden08/tessera';\n\nconst GeneralHeader = ({ section, onSection }: { section: string; onSection: (id: string) => void }) => (\n  <ContentHeader\n    icon={<Icon name=\"settings\" />}\n    title=\"General\"\n    strip={<HeaderAnchorNav items={[{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }]} activeId={section} onSelect={onSection} ariaLabel=\"General sections\" />}\n  />\n);\n",
-      "propsHash": "6be8fa77225629f3",
+      "propsHash": "f2d20f6c7092dc07",
       "props": {
         "own": [
           {
@@ -2337,6 +2339,11 @@
             "name": "icon",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "back",
+            "optional": true,
+            "text": "ContentHeaderBack"
           },
           {
             "name": "backdrop",
@@ -2404,6 +2411,7 @@
         "--c-primary-dim",
         "--c-secondary",
         "--c-text",
+        "--c-text-dim",
         "--size-40",
         "--size-64",
         "--space-md",
@@ -3400,6 +3408,7 @@
         "Always pass an icon and a title; without them it warns in development.",
         "Leave backdrop out for the default art, pass your own scene, or pass null for a plain header.",
         "Use strip for a few controls after the title, such as section pills or a status, and actions for the end of the header.",
+        "On a sub-page, pass back with the name of the parent page and what returns to it; the header draws Back to and that name before the icon.",
         "Put buttons that stay in view in footer; the body scrolls between the header and the footer.",
         "Set scroll={false} when the content scrolls by itself; the header then stays full size."
       ],
@@ -3409,7 +3418,7 @@
       ],
       "buildingBlock": true,
       "example": "import { Icon, ScreenPage, ScreenWindow } from '@drizztdourden08/tessera';\n\nconst SessionsScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Sessions\" onClose={onClose}>\n    <ScreenPage icon={<Icon name=\"layers\" />} title=\"Friday async\">\n      Sessions list\n    </ScreenPage>\n  </ScreenWindow>\n);\n",
-      "propsHash": "8e691340edd9840e",
+      "propsHash": "a6296922f42a613e",
       "props": {
         "own": [
           {
@@ -3426,6 +3435,11 @@
             "name": "children",
             "optional": false,
             "text": "ReactNode"
+          },
+          {
+            "name": "back",
+            "optional": true,
+            "text": "ContentHeaderBack"
           },
           {
             "name": "backdrop",
@@ -3539,7 +3553,8 @@
         "Reach for a screen kind first. Use ScreenWindow alone only when none of them fits.",
         "The title bar is the default top. Pass header to make a ContentHeader the top edge of the window instead: title is its title, and the close button sits at the end of its actions.",
         "With header the window has no padding and no card inside: the children pad themselves, so a scrolling body reaches the window edge.",
-        "With header, subtitle and extra do not show; put such controls in header.strip or header.actions.",
+        "With header, subtitle, extra and onBack do not show; put such controls in header.strip or header.actions, and a way back in header.back.",
+        "Pass onBack to draw a back button before the title, for a screen opened from another one. The host wires Alt+Left and the mouse back button to the same call.",
         "Without header, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.",
         "UtilityScreen uses header; WorkspaceScreen and StageScreen put a ScreenPage inside the title bar window; InfoScreen keeps the title bar alone.",
         "The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.",
@@ -3552,7 +3567,7 @@
       ],
       "buildingBlock": true,
       "example": "import { Button, Icon, ScreenWindow, ScrollArea } from '@drizztdourden08/tessera';\n\nconst SessionsScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Sessions\" subtitle=\"Profile: mira\" onClose={onClose}>\n    <ScrollArea>Sessions list</ScrollArea>\n  </ScreenWindow>\n);\n\nconst PlayersScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Players\" header={{ icon: <Icon name=\"users\" />, actions: <Button size=\"sm\">Invite</Button> }} onClose={onClose}>\n    <ScrollArea>Players list</ScrollArea>\n  </ScreenWindow>\n);\n",
-      "propsHash": "e810f440c0ddd14e",
+      "propsHash": "9b8537582c0db7d2",
       "props": {
         "own": [
           {
@@ -3564,6 +3579,16 @@
             "name": "onClose",
             "optional": false,
             "text": "() => void"
+          },
+          {
+            "name": "onBack",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "backLabel",
+            "optional": true,
+            "text": "string"
           },
           {
             "name": "children",

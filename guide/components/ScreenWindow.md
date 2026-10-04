@@ -31,7 +31,8 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Reach for a screen kind first. Use ScreenWindow alone only when none of them fits.
 - The title bar is the default top. Pass header to make a ContentHeader the top edge of the window instead: title is its title, and the close button sits at the end of its actions.
 - With header the window has no padding and no card inside: the children pad themselves, so a scrolling body reaches the window edge.
-- With header, subtitle and extra do not show; put such controls in header.strip or header.actions.
+- With header, subtitle, extra and onBack do not show; put such controls in header.strip or header.actions, and a way back in header.back.
+- Pass onBack to draw a back button before the title, for a screen opened from another one. The host wires Alt+Left and the mouse back button to the same call.
 - Without header, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.
 - UtilityScreen uses header; WorkspaceScreen and StageScreen put a ScreenPage inside the title bar window; InfoScreen keeps the title bar alone.
 - The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.
@@ -65,6 +66,8 @@ const PlayersScreen = ({ onClose }: { onClose: () => void }) => (
 
 - `title`: `ReactNode`.
 - `onClose`: `() => void`.
+- `onBack` (optional): `() => void`.
+- `backLabel` (optional): `string`.
 - `children`: `ReactNode`.
 - `header` (optional): `ScreenWindowHeader`.
 - `subtitle` (optional): `ReactNode`.

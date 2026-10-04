@@ -7,13 +7,15 @@ import { actionBar } from '../behavior/action-bar';
 import { actionItem } from '../behavior/action-item';
 import { barItemProps } from '../behavior/bar-item-props';
 import type { TitleBarActionProps } from './TitleBarAction.type';
+import { TitleBarDropdown } from './TitleBarDropdown';
 import { TitleBarStatus } from './TitleBarStatus';
 import { TitleBarTip } from './TitleBarTip';
 
 const TitleBarAction = (props: TitleBarActionProps) => {
-  const { action, away } = props;
+  const { action, away, onMenuOpenChange } = props;
   const bar = actionBar(action);
   if (bar === null) return null;
+  if (action.bar === 'dropdown') return <TitleBarDropdown action={action} away={away} onOpenChange={onMenuOpenChange} />;
   if (bar === 'status') return <TitleBarStatus action={action} away={away} />;
   const item = actionItem(action.id);
   const keys = action.shortcut === undefined ? undefined : menuShortcutKeys(action.shortcut);

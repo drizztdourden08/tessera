@@ -16,3 +16,11 @@
 .content-header-story__body {
   padding: var(--space-lg) var(--space-xl);
 }
+
+.content-header-story__strip--wide {
+  max-width: var(--size-640);
+}
+
+.content-header-story__strip--narrow {
+  max-width: var(--size-320);
+}

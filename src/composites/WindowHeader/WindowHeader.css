@@ -64,3 +64,8 @@
   flex-shrink: 0;
   color: var(--c-text-dim);
 }
+
+.window-header .window-header__back {
+  flex-shrink: 0;
+  color: var(--c-text-dim);
+}

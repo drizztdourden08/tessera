@@ -12,7 +12,7 @@ import { TitleBarTip } from './TitleBarTip';
 import type { WindowTitleBarStartProps } from './WindowTitleBarStart.type';
 
 const WindowTitleBarStart = (props: WindowTitleBarStartProps) => {
-  const { menu, menuLabel, onMenuOpenChange, pin, pinned, onControl, actions, hidden } = props;
+  const { menu, menuLabel, onMenuOpenChange, onActionMenuChange, pin, pinned, onControl, actions, hidden } = props;
   const { windows, navigation } = useTesseraStrings();
   const pinLabel = pinned ? windows.unpin : windows.pinOnTop;
 
@@ -26,7 +26,9 @@ const WindowTitleBarStart = (props: WindowTitleBarStartProps) => {
           </IconButton>
         </TitleBarTip>
       )}
-      {actions.map((action) => <TitleBarAction key={action.id} action={action} away={hidden.has(actionItem(action.id))} />)}
+      {actions.map((action) => (
+        <TitleBarAction key={action.id} action={action} away={hidden.has(actionItem(action.id))} onMenuOpenChange={onActionMenuChange} />
+      ))}
     </Box>
   );
 };
