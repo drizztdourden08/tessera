@@ -19,6 +19,7 @@ const usage = {
     'Never set a margin or a padding on the gap: the layer works it out from its room.',
     'Draw the inside of the card yourself, including its padding, which is the same on all four sides.',
     'Use size="compact" for a card that fits its content, up to a readable width.',
+    'Set square for a window shown fullscreen: the card drops its corner radius and its outer border, and the host draws what surrounds it.',
   ],
   a11y: [
     'The card is a modal dialog. Pass labelledBy with the id of a visible title, or label when there is none.',
@@ -34,7 +35,7 @@ const KioskScreen = ({ children }: { children: ReactNode }) => (
   </ScreenLayer>
 );
 `,
-  propsHash: '8193f0c3b7139134',
+  propsHash: '9aed0db4d9e61861',
 } satisfies ComponentUsage;
 
 export { usage };

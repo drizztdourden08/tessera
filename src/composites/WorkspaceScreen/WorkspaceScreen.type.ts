@@ -6,7 +6,7 @@ import type { SettingsPageTabs } from '../SettingsPage';
 interface WorkspacePage {
   id: string;
   title: string;
-  icon?: ReactNode;
+  icon: ReactNode;
   description?: string;
   keywords?: string;
   sections?: readonly SettingsSectionData[];
@@ -49,7 +49,6 @@ interface WorkspaceScreenProps extends WorkspaceRowLook {
   activeId?: string;
   defaultActiveId?: string;
   onActiveChange?: (id: string) => void;
-  pageHeader?: boolean;
   backdrop?: ReactNode;
   search?: WorkspaceSearch | false;
   narrow?: boolean;

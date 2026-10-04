@@ -29,9 +29,11 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 ## Rules
 
 - Reach for a screen kind first. Use ScreenWindow alone only when none of them fits.
+- Every screen kind shows the page header and none can drop it. A screen without it is a custom screen built here; put a ScreenPage inside to give a custom screen the same header.
 - The padding inside the card is the same on all four sides. Never add padding around the children to make up for it.
 - The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.
 - Keep extra to a few small controls; the close button always comes last.
+- Set square for a window shown fullscreen: it drops the corner radius and the outer border.
 
 ## Accessibility
 
@@ -60,6 +62,7 @@ const SessionsScreen = ({ onClose }: { onClose: () => void }) => (
 - `floating` (optional): `ReactNode`.
 - `hidden` (optional): `boolean`.
 - `size` (optional): `ScreenLayerSize`, one of `'fill'`, `'compact'`.
+- `square` (optional): `boolean`.
 - `className` (optional): `string`. Default `''`.
 
 ## Tokens

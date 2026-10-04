@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../ai/usage.type';
 
 const usage = {
-  job: 'One big open stage for custom work with no navigation of its own, with an optional toolbar row and a Done button.',
+  job: 'One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button.',
   useWhen: [
     'Controller calibration, HUD layout, a map or an editor the app draws itself.',
     'The content is one surface, not pages or sections.',
@@ -13,7 +13,8 @@ const usage = {
     { case: 'The app runs one short task and reports a status.', use: 'UtilityScreen' },
   ],
   rules: [
-    'Keep the toolbar to a status and a few tools; it is not a place for navigation.',
+    'Give it an icon and a heading for the page header, which every screen kind shows and nothing turns off.',
+    'Keep the toolbar to a status and a few tools; it sits in the header after the heading and is not a place for navigation.',
     'Set done when the work ends with a clear finish; the close button still closes without it.',
     'Put each calibration step on the stage in its own Card, with a SectionHeader that says what to do.',
     'The stage scrolls when its content is larger; a canvas that pans itself sets its own size to fill the stage.',
@@ -26,11 +27,13 @@ const usage = {
     path: ['a full screen view', 'one big custom surface, such as calibration'],
     rule: 'One open stage with an optional toolbar.',
   },
-  example: `import { StageScreen, Status } from '@drizztdourden08/tessera';
+  example: `import { Icon, StageScreen, Status } from '@drizztdourden08/tessera';
 
 const Calibration = ({ onClose }: { onClose: () => void }) => (
   <StageScreen
     title="Input calibration"
+    icon={<Icon name="gamepad-2" />}
+    heading="Xbox controller"
     onClose={onClose}
     toolbar={<Status tone="success" variant="pill">Controller connected</Status>}
     done={{ onClick: onClose }}
@@ -39,7 +42,7 @@ const Calibration = ({ onClose }: { onClose: () => void }) => (
   </StageScreen>
 );
 `,
-  propsHash: 'f21b5c1f9815620e',
+  propsHash: '8dfca7f27af47d7a',
 } satisfies ComponentUsage;
 
 export { usage };

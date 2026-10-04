@@ -11,6 +11,7 @@ interface ScreenWindowProps {
   floating?: ReactNode;
   hidden?: boolean;
   size?: ScreenLayerSize;
+  square?: boolean;
   className?: string;
 }
 

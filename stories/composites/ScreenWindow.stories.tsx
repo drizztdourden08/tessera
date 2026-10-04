@@ -15,6 +15,7 @@ type WindowArgs = {
   subtitle: string;
   withExtra: boolean;
   withFloating: boolean;
+  square: boolean;
 };
 
 const SessionList = () => (
@@ -30,7 +31,7 @@ const PlayerList = () => (
 );
 
 const WindowDemo = (props: WindowArgs) => {
-  const { title, subtitle, withExtra, withFloating } = props;
+  const { title, subtitle, withExtra, withFloating, square } = props;
   const [hidden, setHidden] = useState(false);
   const { view, floating } = useWindowSwitch(withFloating);
   const players = withFloating && view === 'players';
@@ -43,6 +44,7 @@ const WindowDemo = (props: WindowArgs) => {
         extra={withExtra ? <Button size="sm">New session</Button> : undefined}
         floating={floating}
         hidden={hidden}
+        square={square}
         onClose={() => setHidden(true)}
       >
         {players ? <PlayerList /> : <SessionList />}
@@ -51,13 +53,14 @@ const WindowDemo = (props: WindowArgs) => {
   );
 };
 
-const ARGS: Partial<WindowArgs> = { title: 'Sessions', subtitle: 'Profile: mira', withExtra: true, withFloating: false };
+const ARGS: Partial<WindowArgs> = { title: 'Sessions', subtitle: 'Profile: mira', withExtra: true, withFloating: false, square: false };
 
 const ARG_TYPES: PlaygroundArgTypes<WindowArgs> = {
   title: { group: 'Content', control: 'text' },
   subtitle: { group: 'Content', control: 'text' },
   withExtra: { group: 'Content', control: 'boolean' },
   withFloating: { group: 'Content', control: 'boolean' },
+  square: { group: 'Appearance', control: 'boolean', description: 'No corner radius and no outer border, for a window shown fullscreen.' },
 };
 
 const meta = {
@@ -101,6 +104,8 @@ const Overview = overviewStory({
     'An lg gap separates the title bar from the content.',
     'The content container is an empty column that fills the rest of the card. It does not scroll: the content picks how it scrolls.',
     'The card is a dialog named by the title.',
+    'square drops the corner radius and the outer border, for a window shown fullscreen; the host draws what surrounds it.',
+    'Every screen kind adds the ScreenPage header inside this window and cannot drop it. A screen without that header is a custom screen built here.',
   ],
   variants: [SiblingWindows, TitleOnly],
   code: CODE,
