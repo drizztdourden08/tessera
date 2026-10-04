@@ -82,11 +82,16 @@ type SyncRowProps = Required<Pick<WidgetOptionsProps, 'sync' | 'onSyncChange'>>;
 
 interface ShortcutEntry {
   keys?: ShortcutKey;
-  gesture?: WidgetWordKey;
+  gesture?: { icon: IconName; label: WidgetWordKey };
   does: WidgetWordKey;
+}
+
+interface ShortcutGroupEntry {
+  label: WidgetWordKey;
+  items: readonly ShortcutEntry[];
 }
 
 export type {
   ChoiceRowProps, IconChoice, LayoutRowsProps, OptionsHeaderProps, PlacementChoice, PlacementRowProps,
-  RoomChoice, ShortcutEntry, SnapChoice, SyncRowProps, WidgetOptionsProps, WidgetWords, WindowRowsProps,
+  RoomChoice, ShortcutGroupEntry, SnapChoice, SyncRowProps, WidgetOptionsProps, WidgetWords, WindowRowsProps,
 };

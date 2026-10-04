@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { PinMode, WidgetVisibility } from '../../Widget.type';
-import type { IconChoice, PlacementChoice, RoomChoice, ShortcutEntry, SnapChoice } from './WidgetOptions.type';
+import type { IconChoice, PlacementChoice, RoomChoice, ShortcutGroupEntry, SnapChoice } from './WidgetOptions.type';
 
 const PLACEMENT_CHOICES: readonly IconChoice<PlacementChoice>[] = [
   { value: 'left', icon: 'panel-left', label: 'dockLeft', hint: 'dockLeftHint' },
@@ -37,16 +37,26 @@ const OPACITY_MAX = 100;
 
 const OPACITY_STEP = 5;
 
-const SHORTCUTS: readonly ShortcutEntry[] = [
-  { gesture: 'shortcutDragTitle', does: 'shortcutDragTitleDoes' },
-  { keys: 'alt', does: 'shortcutPeekDoes' },
-  { keys: 'shift', gesture: 'shortcutPlusDrop', does: 'shortcutSwapDoes' },
-  { keys: 'ctrl', gesture: 'shortcutPlusDrop', does: 'shortcutOverlayDoes' },
-  { keys: 'esc', does: 'shortcutCancelDoes' },
-  { gesture: 'shortcutDragPastEdge', does: 'shortcutPopOutDoes' },
-  { gesture: 'shortcutDragGap', does: 'shortcutResizeDoes' },
+const SHORTCUT_GROUPS: readonly ShortcutGroupEntry[] = [
+  {
+    label: 'shortcutsAnyTime',
+    items: [
+      { gesture: { icon: 'move', label: 'shortcutDragTitle' }, does: 'shortcutDragTitleDoes' },
+      { keys: 'alt', does: 'shortcutPeekDoes' },
+      { gesture: { icon: 'arrow-left-right', label: 'shortcutDragGap' }, does: 'shortcutResizeDoes' },
+    ],
+  },
+  {
+    label: 'shortcutsWhileDragging',
+    items: [
+      { keys: 'shift', does: 'shortcutSwapDoes' },
+      { keys: 'ctrl', does: 'shortcutOverlayDoes' },
+      { keys: 'esc', does: 'shortcutCancelDoes' },
+      { gesture: { icon: 'external-link', label: 'shortcutDragPastEdge' }, does: 'shortcutPopOutDoes' },
+    ],
+  },
 ];
 
 export {
-  OPACITY_MAX, OPACITY_MIN, OPACITY_STEP, PIN_CHOICES, PLACEMENT_CHOICES, ROOM_CHOICES, SHORTCUTS, SHOW_CHOICES, SNAP_CHOICES,
+  OPACITY_MAX, OPACITY_MIN, OPACITY_STEP, PIN_CHOICES, PLACEMENT_CHOICES, ROOM_CHOICES, SHORTCUT_GROUPS, SHOW_CHOICES, SNAP_CHOICES,
 };

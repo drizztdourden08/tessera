@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
-import { Shortcut } from '../../../primitives/Shortcut';
+import { ShortcutList } from '../../../primitives/ShortcutList';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { Small, Span } from '../../../primitives/text-elements';
+import { Span } from '../../../primitives/text-elements';
 import { MODE_ICONS, MODE_ICON_SIZE, SNAP_ICON_SIZE } from '../WindowGuideOverlay.constants';
 import type { WindowGuideCardProps } from '../WindowGuideOverlay.type';
 import '../../../theme/glass-panel.css';
@@ -23,14 +23,7 @@ const WindowGuideCard = (props: WindowGuideCardProps) => {
         {snapping ? widgets.guideSnapping : widgets.guideSnappingOff}
       </Span>
       {hints.length > 0 && (
-        <Box className="window-guide__hints">
-          {hints.map((hint) => (
-            <Box key={`${hint.keys.join('+')} ${hint.label}`} className="window-guide__hint">
-              <Shortcut keys={hint.keys} size="xs" />
-              <Small tone="muted">{hint.label}</Small>
-            </Box>
-          ))}
-        </Box>
+        <ShortcutList items={hints.map((hint) => ({ keys: hint.keys, description: hint.label }))} className="window-guide__hints" />
       )}
     </Box>
   );

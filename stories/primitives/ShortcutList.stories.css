@@ -1,0 +1,9 @@
+/* @layer stories @kind style */
+.shortcut-list-story {
+  inline-size: 100%;
+  max-inline-size: var(--size-448);
+}
+
+.shortcut-list-story--narrow {
+  max-inline-size: var(--size-192);
+}

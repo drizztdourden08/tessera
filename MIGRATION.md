@@ -3196,3 +3196,54 @@ interface DialogShellProps {
 
 1. Nothing for most dialogs. Remove any app code that focused a field after opening a DialogShell, unless it picks a field other than the first; pass `initialFocusRef` for that.
 2. A dialog whose body has no control and should not start on an action passes `initialFocus="dialog"`.
+
+## 121. ShortcutList: keys in one column, what they do in the next
+
+`ShortcutList` is a new primitive, under Primitives · Display. It lists keys, clicks and drags and what each one does:
+
+- **Two columns.** The key cells share one column as wide as the widest of them, across every group, so all descriptions start at one left edge and wrap inside their own column. Each key cell is as tall as one line of text and its keys sit on that first line, so a key always lines up with the first line of its description, however many lines follow.
+- **Gestures look like keys.** A drag or a click is a `gesture`: an outlined cap with an icon and a short verb, such as Drag title, the same height, border and shading as a keycap. Keys and a gesture in one row are joined by a `+`. `mouse` draws a mouse button as `Shortcut` does.
+- **Groups.** `groups` puts a small uppercase heading over each group, such as Any time and While dragging, so rows under While dragging say Shift, not Shift + drop.
+- **Narrow.** When the description column would get under 160 pixels, each row stacks, its keys above its text, both at the left edge. The list measures this itself, so it also works inside a box sized to its content.
+
+```ts
+interface ShortcutGesture { icon: IconName; label: string }
+
+interface ShortcutListItem {
+  description: string;
+  keys?: ShortcutKeys;
+  mouse?: MouseButton;
+  gesture?: ShortcutGesture;
+}
+
+interface ShortcutListGroup { label?: string; items: readonly ShortcutListItem[] }
+
+type ShortcutListProps = {
+  size?: 'xs' | 'md'; // default xs
+  label?: string;
+  className?: string;
+} & ({ items: readonly ShortcutListItem[] } | { groups: readonly ShortcutListGroup[] });
+```
+
+Each group is a description list, the keys the term and the text its definition.
+
+Where it is used:
+
+- The Shortcuts sub-panel of `WidgetOptions` is a ShortcutList in two groups, Any time and While dragging, 320 pixels wide.
+- The rows of `WindowGuideOverlay` are a ShortcutList too.
+- `ShortcutTour` is left as it is: it walks one shortcut on a drawn keyboard, not a list.
+
+The widget title bar no longer carries a native `title` tooltip with the whole drag explanation; the Shortcuts sub-panel says it.
+
+| Before | Now |
+|---|---|
+| strings `widgets.titlebarHint`, `widgets.outHint` | removed; the title bar has no tooltip |
+| string `widgets.shortcutPlusDrop` | removed; the While dragging heading says it |
+| strings `widgets.shortcutDragPastEdge` `Drag past the edge`, `shortcutDragGap` `Drag the gap` | `Drag past edge`, `Drag gap`, short enough for a gesture cap |
+| | new strings `widgets.shortcutsAnyTime`, `widgets.shortcutsWhileDragging` |
+| class `window-guide__hint` | removed; the rows are `shortcut-list__row` |
+
+### What an app does
+
+1. An app that overrides `titlebarHint`, `outHint` or `shortcutPlusDrop` drops them.
+2. An app that lists its own shortcuts in a grid of `Shortcut` and text uses `ShortcutList` instead.

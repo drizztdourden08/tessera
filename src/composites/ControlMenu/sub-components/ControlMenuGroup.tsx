@@ -4,9 +4,9 @@ import { Small } from '../../../primitives/text-elements';
 import type { ControlMenuGroupProps } from '../ControlMenu.type';
 
 const ControlMenuGroup = (props: ControlMenuGroupProps) => {
-  const { label, children } = props;
+  const { label, shown, children } = props;
   return (
-    <Box className="control-menu__group" role="group" aria-label={label}>
+    <Box className="control-menu__group" role="group" aria-label={label} data-shown={shown === true ? '' : undefined}>
       {label && <Small tone="muted" className="control-menu__group-label">{label}</Small>}
       {children}
     </Box>

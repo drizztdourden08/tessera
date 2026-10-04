@@ -53,6 +53,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Terms and what they mean: no component yet.
   - A colour sample: no component yet.
   - A key or a shortcut: no component yet.
+  - A list of keys and what they do: [ShortcutList](components/ShortcutList.md). ShortcutList keeps every key in one column and every description at one edge, however long the text runs.
 - Something over the page. **What sits over the page?**
   - A hint on hover or focus: no component yet.
   - A question the user must answer: no component yet.

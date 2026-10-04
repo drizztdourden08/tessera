@@ -18,26 +18,10 @@
 }
 
 .widget-shortcuts {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
+  padding: 0 var(--space-md);
 }
 
-.widget-shortcuts .control-menu__row {
-  align-items: start;
-}
-
-.widget-shortcuts .control-menu__label {
-  line-height: var(--leading-normal);
-}
-
-.widget-shortcuts__gesture {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xs);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  line-height: var(--leading-normal);
-  color: var(--c-primary);
-  white-space: nowrap;
+.control-menu__sub-panel:has(.widget-shortcuts) {
+  inline-size: min(var(--size-320), 100vw - 2 * var(--space-xs));
+  max-inline-size: none;
 }

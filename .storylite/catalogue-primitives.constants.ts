@@ -38,6 +38,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Canvas', summary: 'A 2D drawing surface for charts and pixel art.' },
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
+        { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
       ],
     },
     {

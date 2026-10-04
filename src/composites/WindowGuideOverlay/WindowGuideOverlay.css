@@ -85,16 +85,8 @@
 }
 
 .window-guide__hints {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: var(--space-2xs) var(--space-sm);
   padding-block-start: var(--space-xs);
   border-block-start: var(--border-width-thin) solid var(--c-hairline);
-}
-
-.window-guide__hint {
-  display: contents;
 }
 
 .window-guide__status {

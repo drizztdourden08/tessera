@@ -28,8 +28,9 @@ const ControlMenuSub = (props: ControlMenuSubProps) => {
   const filtering = context.query.trim() !== '';
 
   if (filtering) {
-    const inner = matchesQuery(label, context.query) ? <ControlMenuContext value={whole}>{children}</ControlMenuContext> : children;
-    return <ControlMenuGroup label={label}>{inner}</ControlMenuGroup>;
+    const matched = matchesQuery(label, context.query);
+    const inner = matched ? <ControlMenuContext value={whole}>{children}</ControlMenuContext> : children;
+    return <ControlMenuGroup label={label} shown={matched}>{inner}</ControlMenuGroup>;
   }
 
   const back = (): void => {

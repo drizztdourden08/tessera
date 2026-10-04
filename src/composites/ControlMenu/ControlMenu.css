@@ -34,7 +34,7 @@
   border-radius: inherit;
 }
 
-.control-menu__body:has(:is(.control-menu__row, .control-menu__sub)) > .control-menu__empty {
+.control-menu__body:has(:is(.control-menu__row, .control-menu__sub, .control-menu__group[data-shown])) > .control-menu__empty {
   display: none;
 }
 
@@ -110,7 +110,7 @@
   border-top: var(--border-width-thin) solid var(--c-hairline);
 }
 
-.control-menu__group:not(:has(:is(.control-menu__row, .control-menu__sub))) {
+.control-menu__group:not([data-shown], :has(:is(.control-menu__row, .control-menu__sub))) {
   display: none;
 }
 

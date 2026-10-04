@@ -41,6 +41,7 @@ interface ControlMenuSubProps {
 
 interface ControlMenuGroupProps {
   label?: string;
+  shown?: boolean;
   children: ReactNode;
 }
 

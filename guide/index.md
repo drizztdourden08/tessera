@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 13 of 151 have their usage written; a linked name opens its page.
+One line per component. 14 of 152 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -56,6 +56,7 @@ One line per component. 13 of 151 have their usage written; a linked name opens 
 - `SegmentedControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Select`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Shortcut`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ShortcutList](components/ShortcutList.md): A list of keys, clicks and drags and what each one does, with the keys in one column and the descriptions in the next. Import from `@drizztdourden08/tessera`.
 - `Slider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Spacer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Sparkline](components/Sparkline.md): A small line or area chart of the latest samples, so a reader sees which way a value moves at a glance. Import from `@drizztdourden08/tessera`.

@@ -1,0 +1,70 @@
+/* @layer renderer-components @kind style */
+.shortcut-list {
+  --shortcut-list-line: var(--size-16);
+
+  color: var(--c-text-dim);
+  font-size: var(--text-xs);
+}
+
+.shortcut-list__grid {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-xs) var(--space-sm);
+}
+
+.shortcut-list--md {
+  --shortcut-list-line: var(--size-20);
+
+  font-size: var(--text-sm);
+}
+
+.shortcut-list__group,
+.shortcut-list__row {
+  display: contents;
+}
+
+.shortcut-list__heading {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-block-start: var(--space-2xs);
+  line-height: var(--leading-tight);
+}
+
+.shortcut-list__heading:not(:first-child) {
+  margin-block-start: var(--space-xs);
+}
+
+.shortcut-list__keys {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-block-size: var(--shortcut-list-line);
+  margin: 0;
+}
+
+.shortcut-list__keys .shortcut {
+  margin-block: 0;
+}
+
+.shortcut-list__does {
+  min-inline-size: 0;
+  margin: 0;
+  line-height: var(--shortcut-list-line);
+  overflow-wrap: anywhere;
+}
+
+.shortcut-list__gesture {
+  gap: var(--space-2xs);
+  font-family: var(--font-sans);
+  white-space: nowrap;
+}
+
+.shortcut-list--narrow .shortcut-list__grid {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-2xs);
+}
+
+.shortcut-list--narrow .shortcut-list__does {
+  margin-block-end: var(--space-xs);
+}
