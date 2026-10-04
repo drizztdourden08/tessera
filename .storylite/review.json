@@ -53,9 +53,9 @@
       "at": "2026-10-01"
     },
     "Mascot": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "25a0de31bbc56e20",
+      "at": "2026-10-04"
     }
   },
   "Core · Colours": {
@@ -304,7 +304,9 @@
       "at": "2026-10-01"
     },
     "Emphasis animation": {
-      "status": "new"
+      "status": "ok",
+      "hash": "0eef2a201702f250",
+      "at": "2026-10-04"
     }
   },
   "Core · Icons": {
@@ -535,9 +537,9 @@
       "at": "2026-10-01"
     },
     "ButtonRow": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "d5376aae501ffc8d",
+      "at": "2026-10-04"
     },
     "ButtonGroup": {
       "status": "ok",
@@ -1005,7 +1007,7 @@
     "WindowTitleBar": {
       "status": "seen",
       "hash": "flagged",
-      "at": "2026-10-03"
+      "at": "2026-10-04"
     },
     "WindowHeader": {
       "status": "seen",
@@ -1047,9 +1049,9 @@
   },
   "Data": {
     "Engine": {
-      "status": "seen",
-      "hash": "flagged",
-      "at": "2026-10-03"
+      "status": "ok",
+      "hash": "94d14c55a4b5d6e4",
+      "at": "2026-10-04"
     }
   }
 }
