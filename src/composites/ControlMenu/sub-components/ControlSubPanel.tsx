@@ -27,7 +27,7 @@ const ControlSubPanel = (props: ControlSubPanelProps) => {
       {...place}
     >
       <SubMenuJoinPieces {...pieces} />
-      <Box className="control-menu__body">{children}</Box>
+      <Box className="control-menu__body" data-join-scroller="">{children}</Box>
     </Anchored>
   );
 };

@@ -28,7 +28,7 @@ const WidgetOptions = (props: WidgetOptionsProps) => {
       <PlacementRow {...props} />
       <LayoutRows {...props} />
       {children != null && <ControlMenuGroup>{children}</ControlMenuGroup>}
-      <ControlMenuSub label={widgets.shortcutsSection} icon="keyboard" hint={{ label: widgets.shortcutsSection, description: widgets.shortcutsHint }}>
+      <ControlMenuSub label={widgets.shortcutsSection} icon="keyboard">
         <ShortcutsList />
       </ControlMenuSub>
     </ControlMenu>

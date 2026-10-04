@@ -17,8 +17,27 @@
   inline-size: var(--widget-options-slider-w);
 }
 
+.widget-shortcuts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.widget-shortcuts .control-menu__row {
+  align-items: start;
+}
+
+.widget-shortcuts .control-menu__label {
+  line-height: var(--leading-normal);
+}
+
 .widget-shortcuts__gesture {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
+  line-height: var(--leading-normal);
   color: var(--c-primary);
+  white-space: nowrap;
 }

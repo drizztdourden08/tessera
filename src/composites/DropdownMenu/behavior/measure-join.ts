@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind util */
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { cssZoomOf } from '../../../primitives/dom/css-zoom-of';
-import { MENU_ITEM_SELECTOR, MENU_SELECTOR } from './menu-items-of.constants';
+import { JOIN_ITEM, JOIN_SCROLLER } from '../DropdownMenu.constants';
 import { subMenuJoin } from './sub-menu-join';
 import { usedLine } from './used-line';
 import type { JoinCorners, JoinRect, SubMenuJoin } from './sub-menu-join.type';
@@ -24,9 +24,9 @@ const measureJoin = (row: HTMLElement, parent: HTMLElement, panel: HTMLElement):
   const zoom = cssZoomOf(panel);
   const box = panel.getBoundingClientRect();
   const style = view.getComputedStyle(panel);
-  const scroller = panel.querySelector<HTMLElement>(MENU_SELECTOR);
+  const scroller = panel.querySelector<HTMLElement>(JOIN_SCROLLER);
   const hidden = scroller ? scroller.scrollHeight - scroller.clientHeight : 0;
-  const first = panel.querySelector(MENU_ITEM_SELECTOR)?.getBoundingClientRect();
+  const first = panel.querySelector(JOIN_ITEM)?.getBoundingClientRect();
   return subMenuJoin({
     row: scaled(row.getBoundingClientRect(), zoom),
     parent: scaled(parent.getBoundingClientRect(), zoom),

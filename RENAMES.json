@@ -687,8 +687,7 @@
         "widget-options-aside": "removed; Shortcuts is a sub-panel, control-menu__sub-panel (see MIGRATION.md section 113)",
         "widget-shortcuts__row": "removed; each shortcut is a control-menu__row (see MIGRATION.md section 113)",
         "widget-shortcuts__keys": "removed; each shortcut is a control-menu__row (see MIGRATION.md section 113)",
-        "widget-shortcuts__does": "removed; each shortcut is a control-menu__row (see MIGRATION.md section 113)",
-        "widget-shortcuts": "removed; the shortcuts are rows of a sub-panel (see MIGRATION.md section 113)"
+        "widget-shortcuts__does": "removed; each shortcut is a control-menu__row (see MIGRATION.md section 113)"
       },
       "strings": {
         "widgets.showShortcuts": "removed; Shortcuts is a sub-panel (see MIGRATION.md section 113)",

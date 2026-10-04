@@ -2923,7 +2923,7 @@ The shared listbox drop under Select, Combobox and the DropdownMenu trigger take
 | `WidgetOptions` props `anchorRef`, `onClose` | removed; it opens and closes itself, and takes `defaultOpen` |
 | `OptionRow`, `OptionRowProps` | `ControlMenuRow`, `ControlMenuRowProps` |
 | classes `widget-option-row`, `widget-option-row__*` | `control-menu__row`, `control-menu__label`, `control-menu__control`, `control-menu__about`, `control-menu__about-icon` |
-| classes `widget-options-aside`, `widget-options__actions`, `__rows`, `__own`, `__section`, `widget-shortcuts`, `__row`, `__keys`, `__does` | removed; the panel is a ControlMenu with `widget-options` on it |
+| classes `widget-options-aside`, `widget-options__actions`, `__rows`, `__own`, `__section`, `widget-shortcuts__row`, `__keys`, `__does` | removed; the panel is a ControlMenu with `widget-options` on it, and each shortcut is a row in `widget-shortcuts`: what it does on the left, wrapping, and its keycaps or drag on the right |
 | class `widget-options__hint` | `control-menu__hint` |
 | token `--widget-options-aside-w` | removed |
 | strings `widgets.showShortcuts`, `hideShortcuts`, `closeHint` | removed; `shortcutsHint` describes the Shortcuts row |

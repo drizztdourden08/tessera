@@ -15,4 +15,8 @@ const SUB_MENU_SELECTOR = '.dropdown-menu--sub';
 
 const TUNNEL_SELECTOR = ':scope > .dropdown__tunnel';
 
-export { JOIN_FLUSH, JOIN_MARGIN, PATH_JOIN, SAFE_AREA_GRACE, SAFE_AREA_SLACK, SUB_MENU_SELECTOR, SURFACE_SELECTOR, TUNNEL_SELECTOR };
+const JOIN_SCROLLER = '[role="menu"], [data-join-scroller]';
+
+const JOIN_ITEM = '[role^="menuitem"], [data-join-item]';
+
+export { JOIN_FLUSH, JOIN_ITEM, JOIN_MARGIN, JOIN_SCROLLER, PATH_JOIN, SAFE_AREA_GRACE, SAFE_AREA_SLACK, SUB_MENU_SELECTOR, SURFACE_SELECTOR, TUNNEL_SELECTOR };

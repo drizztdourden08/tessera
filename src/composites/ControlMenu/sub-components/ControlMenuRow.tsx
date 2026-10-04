@@ -20,7 +20,7 @@ const ControlMenuRow = (props: ControlMenuRowProps) => {
   const described = about === undefined ? {} : { role: 'group', 'aria-label': label, 'aria-describedby': aboutId };
 
   return (
-    <Box className="control-menu__row" {...hintHandlers}>
+    <Box className="control-menu__row" data-join-item="" {...hintHandlers}>
       {about === undefined ? text : (
         <Tooltip content={about} className="control-menu__about">
           {text}
