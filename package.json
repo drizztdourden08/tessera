@@ -81,7 +81,7 @@
     "lint:md": "markdownlint-cli2",
     "test": "vitest run",
     "storylite": "storylite dev --port 4400",
-    "storylite:build": "storylite build",
+    "storylite:build": "storylite build && node scripts/storylite/check-build.mjs",
     "structure": "standards structure --check",
     "prose": "standards prose",
     "sync": "standards sync --check",

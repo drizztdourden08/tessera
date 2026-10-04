@@ -34,12 +34,6 @@ const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {}, notes: {} };
     queued = true;
     requestAnimationFrame(decorate);
   };
-  var refresh = function () {
-    fetch(ROUTE, { cache: 'no-store' })
-      .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (next) { if (next && next.pages) window.dispatchEvent(new CustomEvent(EVENT, { detail: next })); })
-      .catch(function () { /* a built gallery has no review route: no colours */ });
-  };
   window.addEventListener(EVENT, function (e) {
     colours = Object.assign({ notes: {} }, e.detail);
     noted = {};
@@ -47,12 +41,20 @@ const SIDEBAR_BODY = `  var colours = { pages: {}, groups: {}, notes: {} };
     schedule();
   });
   new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
+  schedule();
+`;
+
+const SIDEBAR_POLL = `  var refresh = function () {
+    fetch(ROUTE, { cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (next) { if (next && next.pages) window.dispatchEvent(new CustomEvent(EVENT, { detail: next })); })
+      .catch(function () { /* the review route is down: no colours */ });
+  };
   window.addEventListener('focus', refresh);
   setInterval(refresh, POLL_MS);
   refresh();
-  schedule();
 `;
 
 const SIDEBAR_POLL_MS = 3000;
 
-export { SIDEBAR_BODY, SIDEBAR_POLL_MS };
+export { SIDEBAR_BODY, SIDEBAR_POLL, SIDEBAR_POLL_MS };
