@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { useWizardExit, WizardExitGuard } from '../../src/composites';
 import { Box, Button, Checkbox, Field, Span, TextInput } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -21,12 +22,12 @@ const ARGS: Partial<GuardArgs> = {
   stayLabel: 'Keep editing',
 };
 
-const ARG_TYPES: StoryLiteArgTypes<GuardArgs> = {
-  blocked: { control: 'boolean', description: 'Something runs, so leaving waits.' },
-  title: { control: 'text' },
-  message: { control: 'textarea' },
-  discardLabel: { control: 'text' },
-  stayLabel: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<GuardArgs> = {
+  title: { group: 'Content', control: 'text' },
+  message: { group: 'Content', control: 'textarea' },
+  discardLabel: { group: 'Content', control: 'text' },
+  stayLabel: { group: 'Content', control: 'text' },
+  blocked: { group: 'State', control: 'boolean', description: 'Something runs, so leaving waits.' },
 };
 
 const meta = {
@@ -68,7 +69,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <GuardDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<GuardArgs>;
+} satisfies PlaygroundStory<GuardArgs>;
 
 const Blocked = {
   name: 'While something runs',

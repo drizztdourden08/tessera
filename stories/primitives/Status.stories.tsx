@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Card, Flex, Stack, Status, Text } from '../../src/primitives';
 import type { StatusTone, StatusVariant } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -38,12 +39,12 @@ const SCREENS: readonly { id: string; status: string; tone: StatusTone }[] = [
 
 const ARGS: Partial<StatusArgs> = { label: 'Connected', tone: 'success', variant: 'text', dot: false, pulse: false };
 
-const ARG_TYPES: StoryLiteArgTypes<StatusArgs> = {
-  label: { control: 'text' },
-  tone: { control: 'select', options: [...TONES] },
-  variant: { control: 'select', options: ['text', 'pill'] },
-  dot: { control: 'boolean', description: 'Leads the word with a dot in its tone.' },
-  pulse: { control: 'boolean', description: 'Fades in and out, for a state that is still changing. With a dot, only the dot fades.' },
+const ARG_TYPES: PlaygroundArgTypes<StatusArgs> = {
+  label: { group: 'Content', control: 'text' },
+  tone: { group: 'Appearance', control: 'select', options: [...TONES] },
+  variant: { group: 'Appearance', control: 'select', options: ['text', 'pill'] },
+  dot: { group: 'Appearance', control: 'boolean', description: 'Leads the word with a dot in its tone.' },
+  pulse: { group: 'Motion', control: 'boolean', description: 'Fades in and out, for a state that is still changing. With a dot, only the dot fades.' },
 };
 
 const meta = {
@@ -58,7 +59,7 @@ const Playground = {
   render: (args) => (
     <Status tone={args.tone} variant={args.variant} dot={args.dot} pulse={args.pulse}>{args.label}</Status>
   ),
-} satisfies StoryLiteStoryDefinition<StatusArgs>;
+} satisfies PlaygroundStory<StatusArgs>;
 
 const Tones = {
   name: 'Every tone and look',

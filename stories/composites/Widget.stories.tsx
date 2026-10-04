@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -33,16 +34,16 @@ const ARGS: Partial<WidgetArgs> = {
   makeRoomHint: 'The session view shrinks to fit this widget',
 };
 
-const ARG_TYPES: StoryLiteArgTypes<WidgetArgs> = {
-  tabbed: { control: 'boolean', description: 'The pane holds two widgets, shown as tab chips.' },
-  mode: { control: 'select', options: ['in', 'out'], description: 'out draws the frame as its own window: a pop in button and a pin.' },
-  peek: { control: 'boolean', description: 'Folded to its title strip.' },
-  opacity: { control: 'number', description: 'Frame opacity, 0 to 1. The content stays opaque; hover makes the frame solid.' },
-  canPopOut: { control: 'boolean' },
-  contextActive: { control: 'boolean', description: 'Dock only: a session is running. Players and Hints show only in context.' },
-  disabledWidget: { control: 'select', options: ['none', 'players', 'log', 'hints', 'console'], description: 'Dock only: covered through resolveDisabled' },
-  disabledMessage: { control: 'text' },
-  makeRoomHint: { control: 'text', description: 'Dock only: the hint under Make room in each widget\'s options' },
+const ARG_TYPES: PlaygroundArgTypes<WidgetArgs> = {
+  tabbed: { group: 'Content', control: 'boolean', description: 'The pane holds two widgets, shown as tab chips.' },
+  disabledMessage: { group: 'Content', control: 'text' },
+  makeRoomHint: { group: 'Content', control: 'text', description: 'Dock only: the hint under Make room in each widget\'s options' },
+  opacity: { group: 'Appearance', control: 'range', min: 0, max: 1, step: 0.05, description: 'Frame opacity, 0 to 1. The content stays opaque; hover makes the frame solid.' },
+  mode: { group: 'Layout', control: 'select', options: ['in', 'out'], description: 'out draws the frame as its own window: a pop in button and a pin.' },
+  peek: { group: 'State', control: 'boolean', description: 'Folded to its title strip.' },
+  contextActive: { group: 'State', control: 'boolean', description: 'Dock only: a session is running. Players and Hints show only in context.' },
+  disabledWidget: { group: 'State', control: 'select', options: ['none', 'players', 'log', 'hints', 'console'], description: 'Dock only: covered through resolveDisabled' },
+  canPopOut: { group: 'Behaviour', control: 'boolean' },
 };
 
 const meta = {
@@ -55,7 +56,7 @@ const story = (name: string, patch: Partial<WidgetArgs>) => ({
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <FrameDemo {...args} {...patch} />,
-} satisfies StoryLiteStoryDefinition<WidgetArgs>);
+} satisfies PlaygroundStory<WidgetArgs>);
 
 const Playground = story('Playground', {});
 const Single = story('One widget', {});
@@ -68,7 +69,7 @@ const Dock = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <WidgetDock {...args} />,
-} satisfies StoryLiteStoryDefinition<WidgetArgs>;
+} satisfies PlaygroundStory<WidgetArgs>;
 
 const renderState = (props: StateProps) => (
   <FrameDemo {...(ARGS as WidgetArgs)} tabbed peek={props.peek === true} optionsOpen={props.open === true} />

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DialogShell } from '../../src/composites';
 import { Box, Button, Spinner, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -61,11 +62,11 @@ const ShellDemo = (props: ShellDemoProps) => {
 
 const ARGS: Partial<DialogShellArgs> = { title: 'Friday async', dismissable: true, withActions: true, withHeaderExtra: false };
 
-const ARG_TYPES: StoryLiteArgTypes<DialogShellArgs> = {
-    title: { control: 'text' },
-    dismissable: { control: 'boolean' },
-    withActions: { control: 'boolean' },
-    withHeaderExtra: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<DialogShellArgs> = {
+    title: { group: 'Content', control: 'text' },
+    withActions: { group: 'Content', control: 'boolean' },
+    withHeaderExtra: { group: 'Content', control: 'boolean' },
+    dismissable: { group: 'Behaviour', control: 'boolean' },
   };
 
 const meta = {
@@ -78,14 +79,14 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <ShellDemo {...args} openLabel="Open dialog" />,
-} satisfies StoryLiteStoryDefinition<DialogShellArgs>;
+} satisfies PlaygroundStory<DialogShellArgs>;
 
 const HeaderStatus = {
   name: 'Status in the header',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <ShellDemo {...args} withHeaderExtra openLabel="Session details" />,
-} satisfies StoryLiteStoryDefinition<DialogShellArgs>;
+} satisfies PlaygroundStory<DialogShellArgs>;
 
 const NotDismissable = {
   name: 'Not dismissable',
@@ -94,7 +95,7 @@ const NotDismissable = {
   render: (args) => (
     <ShellDemo {...args} title="Creating room" dismissable={false} withActions waiting openLabel="Host session" />
   ),
-} satisfies StoryLiteStoryDefinition<DialogShellArgs>;
+} satisfies PlaygroundStory<DialogShellArgs>;
 
 const CODE = `import { Button, DialogShell } from '@drizztdourden08/tessera';
 

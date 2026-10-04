@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS, InteractiveTessera } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
 import { overviewStory } from '../_template/overview-story';
@@ -10,8 +11,8 @@ type InteractiveTesseraArgs = {
 
 const ARGS: Partial<InteractiveTesseraArgs> = { start: 'none' };
 
-const ARG_TYPES: StoryLiteArgTypes<InteractiveTesseraArgs> = {
-  start: { control: 'select', options: ['none', ...BRAND_APPS], description: 'The project picked when the logo first draws' },
+const ARG_TYPES: PlaygroundArgTypes<InteractiveTesseraArgs> = {
+  start: { group: 'Content', control: 'select', options: ['none', ...BRAND_APPS], description: 'The project picked when the logo first draws' },
 };
 
 const meta = {
@@ -24,7 +25,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <InteractiveTessera key={args.start} defaultSelected={args.start === 'none' ? null : args.start} />,
-} satisfies StoryLiteStoryDefinition<InteractiveTesseraArgs>;
+} satisfies PlaygroundStory<InteractiveTesseraArgs>;
 
 const Interactive = {
   name: 'Interactive',

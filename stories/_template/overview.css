@@ -75,10 +75,3 @@
   background-image: conic-gradient(var(--checker) 25%, transparent 0 50%, var(--checker) 0 75%, transparent 0);
   background-size: var(--space-lg) var(--space-lg);
 }
-
-.overview__showcase--stage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-block-size: 8rem;
-}

@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SettingsRow, SettingsSection } from '../../src/composites';
 import type { SettingsInputKind } from '../../src/composites';
 import { Box } from '../../src/primitives';
@@ -41,12 +42,12 @@ const EveryKind = (props: { compact?: boolean; readOnly?: boolean }) => {
 
 const ARGS: Partial<RowArgs> = { kind: 'segmented', compact: false, readOnly: false, disabled: false, description: true };
 
-const ARG_TYPES: StoryLiteArgTypes<RowArgs> = {
-  kind: { control: 'select', options: [...KIND_ORDER], description: 'The input the row draws on the right.' },
-  compact: { control: 'boolean', description: 'One line: the description moves to a tooltip on the title, the hint to a bubble under the control.' },
-  readOnly: { control: 'boolean', description: 'The value as text, with the hint of the current value.' },
-  disabled: { control: 'boolean' },
-  description: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
+  kind: { group: 'Content', control: 'select', options: [...KIND_ORDER], description: 'The input the row draws on the right.' },
+  description: { group: 'Content', control: 'boolean' },
+  compact: { group: 'Appearance', control: 'boolean', description: 'One line: the description moves to a tooltip on the title, the hint to a bubble under the control.' },
+  readOnly: { group: 'State', control: 'boolean', description: 'The value as text, with the hint of the current value.' },
+  disabled: { group: 'State', control: 'boolean' },
 };
 
 const meta = {
@@ -59,7 +60,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <KindDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<RowArgs>;
+} satisfies PlaygroundStory<RowArgs>;
 
 const Kinds = {
   name: 'Every input kind',

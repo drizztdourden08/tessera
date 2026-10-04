@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useCallback, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CreateRecordDialog } from '../../src/composites';
 import type { CreateOutcome } from '../../src/composites';
 import { Box, Button, Text } from '../../src/primitives';
@@ -60,12 +61,12 @@ const ARGS: Partial<CreateArgs> = {
     delayMs: 600,
   };
 
-const ARG_TYPES: StoryLiteArgTypes<CreateArgs> = {
-    title: { control: 'text' },
-    grouped: { control: 'boolean' },
-    rejectCreate: { control: 'boolean' },
-    rejection: { control: 'textarea' },
-    delayMs: { control: 'number' },
+const ARG_TYPES: PlaygroundArgTypes<CreateArgs> = {
+    title: { group: 'Content', control: 'text' },
+    grouped: { group: 'Layout', control: 'boolean' },
+    rejectCreate: { group: 'Behaviour', control: 'boolean' },
+    rejection: { group: 'Behaviour', control: 'textarea' },
+    delayMs: { group: 'Behaviour', control: 'number' },
   };
 
 const meta = {
@@ -78,21 +79,21 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <CreateDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<CreateArgs>;
+} satisfies PlaygroundStory<CreateArgs>;
 
 const GroupedFields = {
   name: 'Grouped fields',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <CreateDemo {...args} grouped />,
-} satisfies StoryLiteStoryDefinition<CreateArgs>;
+} satisfies PlaygroundStory<CreateArgs>;
 
 const Rejected = {
   name: 'Create rejected',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <CreateDemo {...args} grouped rejectCreate />,
-} satisfies StoryLiteStoryDefinition<CreateArgs>;
+} satisfies PlaygroundStory<CreateArgs>;
 
 const CODE = `import { CreateRecordDialog } from '@drizztdourden08/tessera';
 

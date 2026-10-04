@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { PressedGrid } from '../../src/composites';
 import type { PressedGridItem } from '../../src/composites';
 import type { InputIconFamily } from '../../src/primitives';
@@ -14,7 +15,7 @@ type FamilyChoice = 'none' | InputIconFamily;
 
 type GridArgs = {
   family: FamilyChoice;
-  pressed: string;
+  pressed: readonly string[];
   friendlyLabels: boolean;
 };
 
@@ -34,14 +35,12 @@ const gridItems = (args: GridArgs): readonly PressedGridItem[] => {
   return args.family === 'keyboard' ? KEYBOARD_KEYS : GAMEPAD_IDS;
 };
 
-const idList = (text: string): string[] => text.split(',').map((part) => part.trim()).filter(Boolean);
+const ARGS: Partial<GridArgs> = { family: 'xbox', pressed: ['a', 'dpup'], friendlyLabels: false };
 
-const ARGS: Partial<GridArgs> = { family: 'xbox', pressed: 'a, dpup', friendlyLabels: false };
-
-const ARG_TYPES: StoryLiteArgTypes<GridArgs> = {
-  family: { control: 'select', options: ['none', 'xbox', 'playstation', 'switch', 'gamecube', 'snes', 'generic', 'keyboard'], description: 'Draws each button as an InputIcon of that family, matched from its SDL button id or its KeyboardEvent.code.' },
-  pressed: { control: 'text', description: 'Button ids held down, comma separated: a, b, x, y, dpup, start and so on.' },
-  friendlyLabels: { control: 'boolean', description: 'Show a label per button, beside its icon. Off, a cell with no icon shows its id.' },
+const ARG_TYPES: PlaygroundArgTypes<GridArgs> = {
+  friendlyLabels: { group: 'Content', control: 'boolean', description: 'Show a label per button, beside its icon. Off, a cell with no icon shows its id.' },
+  family: { group: 'Appearance', control: 'select', options: ['none', 'xbox', 'playstation', 'switch', 'gamecube', 'snes', 'generic', 'keyboard'], description: 'Draws each button as an InputIcon of that family, matched from its SDL button id or its KeyboardEvent.code.' },
+  pressed: { group: 'State', control: 'multiselect', options: (args) => gridItems(args).map((item) => item.id), description: 'Buttons held down, by id: the ids of the cells the grid shows.' },
 };
 
 const meta = {
@@ -58,10 +57,10 @@ const Playground = {
       className="pressed-grid-story"
       family={args.family === 'none' ? undefined : args.family}
       items={gridItems(args)}
-      pressed={idList(args.pressed)}
+      pressed={args.pressed}
     />
   ),
-} satisfies StoryLiteStoryDefinition<GridArgs>;
+} satisfies PlaygroundStory<GridArgs>;
 
 const Live = {
   name: 'A pad being played',

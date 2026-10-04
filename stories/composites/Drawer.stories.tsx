@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { ComponentType } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { FilterPanelDrawer, ItemDetailsDrawer, NotificationsDrawer, SearchSheetDrawer } from './_samples/DrawerBodies';
@@ -37,9 +38,9 @@ const DrawerDemo = (props: DrawerDemoProps) => {
 
 const ARGS: Partial<DrawerArgs> = { side: 'right', label: 'File details' };
 
-const ARG_TYPES: StoryLiteArgTypes<DrawerArgs> = {
-  side: { control: 'select', options: ['left', 'right', 'top'] },
-  label: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<DrawerArgs> = {
+  label: { group: 'Content', control: 'text' },
+  side: { group: 'Layout', control: 'select', options: ['left', 'right', 'top'] },
 };
 
 const meta = {
@@ -54,7 +55,7 @@ const Playground = {
   render: (args) => (
     <DrawerDemo {...args} openLabel="Show details" Sample={ItemDetailsDrawer} />
   ),
-} satisfies StoryLiteStoryDefinition<DrawerArgs>;
+} satisfies PlaygroundStory<DrawerArgs>;
 
 const FilterPanel = {
   name: 'Filters from the left',
@@ -63,7 +64,7 @@ const FilterPanel = {
   render: (args) => (
     <DrawerDemo {...args} side="left" label="Filters" openLabel="Filters" Sample={FilterPanelDrawer} />
   ),
-} satisfies StoryLiteStoryDefinition<DrawerArgs>;
+} satisfies PlaygroundStory<DrawerArgs>;
 
 const Notifications = {
   name: 'Notifications from the right',
@@ -78,7 +79,7 @@ const Notifications = {
       Sample={NotificationsDrawer}
     />
   ),
-} satisfies StoryLiteStoryDefinition<DrawerArgs>;
+} satisfies PlaygroundStory<DrawerArgs>;
 
 const SearchSheet = {
   name: 'Search from the top',
@@ -87,7 +88,7 @@ const SearchSheet = {
   render: (args) => (
     <DrawerDemo {...args} side="top" label="Search files" openLabel="Search" Sample={SearchSheetDrawer} />
   ),
-} satisfies StoryLiteStoryDefinition<DrawerArgs>;
+} satisfies PlaygroundStory<DrawerArgs>;
 
 const CODE = `import { Button, Drawer } from '@drizztdourden08/tessera';
 

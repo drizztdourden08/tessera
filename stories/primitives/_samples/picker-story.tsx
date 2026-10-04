@@ -1,7 +1,8 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { StoryLiteArgs, StoryLiteArgTypes, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteArgs, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes } from '../../_template/controls/playground.type';
 import { Combobox, Field, Select } from '../../../src/primitives';
 import type { ControlSize } from '../../../src/primitives';
 import { SIZE_ARG } from '../../_template/control-sizes.constants';
@@ -25,13 +26,13 @@ type RegionPickerProps = { kind: PickerKind; initial: string | null; open?: bool
 
 type StateTargets = { field?: string; input?: string };
 
-const PICKER_ARG_TYPES: StoryLiteArgTypes<PickerArgs> = {
-  min: { control: 'number', description: 'How many must stay picked. 0 lets the user clear the field.' },
-  max: { control: 'number', description: 'How many can be picked. Above 1, each row gets a checkbox.' },
-  loading: { control: 'boolean' },
+const PICKER_ARG_TYPES: PlaygroundArgTypes<PickerArgs> = {
+  min: { group: 'Value', control: 'number', description: 'How many must stay picked. 0 lets the user clear the field.' },
+  max: { group: 'Value', control: 'number', description: 'How many can be picked. Above 1, each row gets a checkbox.' },
+  loading: { group: 'State', control: 'boolean' },
   size: SIZE_ARG,
-  disabled: { control: 'boolean' },
-  invalid: { control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
+  disabled: { group: 'State', control: 'boolean' },
+  invalid: { group: 'State', control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
 };
 
 const pickerVariant = <A extends StoryLiteArgs>(name: string, Render: () => ReactNode): StoryLiteStoryDefinition<A> => ({

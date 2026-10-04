@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Dialog } from '../../src/composites';
 import { Box, Button, Field, TextInput } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -49,14 +50,14 @@ const ARGS: Partial<DialogArgs> = {
     hideCancel: false,
   };
 
-const ARG_TYPES: StoryLiteArgTypes<DialogArgs> = {
-    title: { control: 'text' },
-    message: { control: 'textarea' },
-    confirmLabel: { control: 'text' },
-    cancelLabel: { control: 'text' },
-    variant: { control: 'select', options: ['default', 'danger'] },
-    confirmDisabled: { control: 'boolean' },
-    hideCancel: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<DialogArgs> = {
+    title: { group: 'Content', control: 'text' },
+    message: { group: 'Content', control: 'textarea' },
+    confirmLabel: { group: 'Content', control: 'text' },
+    cancelLabel: { group: 'Content', control: 'text' },
+    hideCancel: { group: 'Content', control: 'boolean' },
+    variant: { group: 'Appearance', control: 'select', options: ['default', 'danger'] },
+    confirmDisabled: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -69,7 +70,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <DialogDemo {...args} openLabel="Open dialog" />,
-} satisfies StoryLiteStoryDefinition<DialogArgs>;
+} satisfies PlaygroundStory<DialogArgs>;
 
 const DangerConfirm = {
   name: 'Danger confirm',
@@ -86,7 +87,7 @@ const DangerConfirm = {
       cancelLabel="Keep running"
     />
   ),
-} satisfies StoryLiteStoryDefinition<DialogArgs>;
+} satisfies PlaygroundStory<DialogArgs>;
 
 const Acknowledge = {
   name: 'Acknowledge only',
@@ -102,7 +103,7 @@ const Acknowledge = {
       confirmLabel="Got it"
     />
   ),
-} satisfies StoryLiteStoryDefinition<DialogArgs>;
+} satisfies PlaygroundStory<DialogArgs>;
 
 const WithBody = {
   name: 'With form body',
@@ -119,7 +120,7 @@ const WithBody = {
       <RenameBody />
     </DialogDemo>
   ),
-} satisfies StoryLiteStoryDefinition<DialogArgs>;
+} satisfies PlaygroundStory<DialogArgs>;
 
 const CODE = `import { Dialog } from '@drizztdourden08/tessera';
 

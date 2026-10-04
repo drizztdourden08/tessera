@@ -1965,3 +1965,36 @@ Every entry of the add menu shows its field's type from the schema as a coloured
 ### What an app does
 
 Pass `resolveIdRefHref` to a DataTable whose reference cells should open their record. Build a field picker as a `DropdownMenu` with `children` instead of `FieldPicker`. A style on `.filter-chip__dot` moves to `.filter-bar__kind`, and one on `.data-table__options` or `.data-table__caret` moves to the IconButton.
+
+## 78. The gallery Playground groups its parameters, and every story declares them
+
+The Playground is one card: the live component on a stage at the top and its Parameters panel below, sharing one border with no gap. The panel draws each parameter in a titled group the story names: Content, Value, Appearance, Layout, State, Behaviour, Motion or Data, always in that order. Every control is the small size and one row high, with the names in one column. A changed parameter takes a primary accent on its left edge, a primary name and a dot, and a reset button of its own; Reset in the panel head still puts every parameter back.
+
+A story types its Playground with the gallery's own types, from `stories/_template/controls/playground.type.ts`:
+
+```ts
+type PlaygroundGroup = 'Content' | 'Value' | 'Appearance' | 'Layout' | 'State' | 'Behaviour' | 'Motion' | 'Data';
+type PlaygroundControl = 'boolean' | 'text' | 'textarea' | 'number' | 'range' | 'color' | 'select' | 'multiselect';
+
+interface PlaygroundArgType<T, A> {
+  group: PlaygroundGroup;
+  control?: PlaygroundControl;
+  options?: readonly OptionOf<T>[] | ((args: A) => readonly OptionOf<T>[]);
+  optionView?: (option: OptionOf<T>, args: A) => ReactNode;
+  min?: number;
+  max?: number;
+  step?: number;
+  description?: string;
+}
+
+type PlaygroundArgTypes<A> = Partial<{ readonly [Name in keyof A & string]: PlaygroundArgType<A[Name], A> }>;
+type PlaygroundStory<A> = Omit<StoryLiteStoryDefinition<A>, 'argTypes'> & { argTypes?: PlaygroundArgTypes<A> };
+```
+
+A choice from a known set is a select, a segmented control for up to three short options, or a `multiselect` for a list; text boxes are left for free text. `options` can be a function of the current args, and a value that leaves its options returns to its default or to the first option. InputIcon's family and name pickers are back in Parameters, with the names following the family; `stories/icons/InputIconPlayground.tsx` is gone. Shortcut, ShortcutTour, KeyboardLayout and PressedGrid pick their keys and buttons from lists, and DynamicInput's counter lists the text slots of the pattern. `stories/_template/README.md` describes the convention.
+
+`tessera add` in a Tessera checkout scaffolds the story with these types and a `Content` group on its first parameter. In an app it keeps Storylite's own types.
+
+### What an app does
+
+Nothing.

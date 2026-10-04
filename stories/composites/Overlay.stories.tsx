@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Overlay } from '../../src/composites';
 import { Box, Button, Spinner, StatRow, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -46,10 +47,10 @@ const OverlayDemo = (props: OverlayArgs) => {
 
 const ARGS: Partial<OverlayArgs> = { message: 'Reconnecting to eu-west-2...', withSpinner: true, startVisible: false };
 
-const ARG_TYPES: StoryLiteArgTypes<OverlayArgs> = {
-    message: { control: 'text' },
-    withSpinner: { control: 'boolean' },
-    startVisible: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<OverlayArgs> = {
+    message: { group: 'Content', control: 'text' },
+    withSpinner: { group: 'Content', control: 'boolean' },
+    startVisible: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -62,7 +63,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <OverlayDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<OverlayArgs>;
+} satisfies PlaygroundStory<OverlayArgs>;
 
 const Paused = {
   name: 'Session paused',
@@ -71,7 +72,7 @@ const Paused = {
   render: (args) => (
     <OverlayDemo {...args} withSpinner={false} startVisible message="The host paused the session. Items resume when play does." />
   ),
-} satisfies StoryLiteStoryDefinition<OverlayArgs>;
+} satisfies PlaygroundStory<OverlayArgs>;
 
 const CODE = `import { Box, Overlay, Spinner, Text } from '@drizztdourden08/tessera';
 

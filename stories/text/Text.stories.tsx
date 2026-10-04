@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Stack, TEXT_ELEMENT_SPECS, Text } from '../../src/primitives';
 import type { TextVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -42,12 +43,12 @@ const MEMBERS: readonly Member[] = [
 
 const ARGS: Partial<TextArgs> = { text: 'Items found in your world are sent to their owner.', variant: 'body', as: 'p', weight: 400, italic: false };
 
-const ARG_TYPES: StoryLiteArgTypes<TextArgs> = {
-  text: { control: 'text' },
-  variant: { control: 'select', options: ['none', ...VARIANTS] },
-  as: { control: 'select', options: ['span', 'p', 'div', 'h2', 'h3', 'strong', 'label'] },
-  weight: { control: 'number', description: 'Any whole number from 100 to 900.' },
-  italic: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<TextArgs> = {
+  text: { group: 'Content', control: 'text' },
+  variant: { group: 'Appearance', control: 'select', options: ['none', ...VARIANTS] },
+  weight: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Any whole number from 100 to 900.' },
+  italic: { group: 'Appearance', control: 'boolean' },
+  as: { group: 'Behaviour', control: 'select', options: ['span', 'p', 'div', 'h2', 'h3', 'strong', 'label'] },
 };
 
 const meta = {
@@ -69,7 +70,7 @@ const Playground = {
       {args.text}
     </Text>
   ),
-} satisfies StoryLiteStoryDefinition<TextArgs>;
+} satisfies PlaygroundStory<TextArgs>;
 
 const Passage = {
   name: 'A passage from dot members',

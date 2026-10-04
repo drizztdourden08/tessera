@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SettingsPage, SettingsSection } from '../../src/composites';
 import { Box, Button, Icon, Paragraph } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -57,10 +58,10 @@ const TabsDemo = () => {
 
 const ARGS: Partial<PageArgs> = { title: 'General', withBackdrop: true, withActions: false };
 
-const ARG_TYPES: StoryLiteArgTypes<PageArgs> = {
-  title: { control: 'text' },
-  withBackdrop: { control: 'boolean' },
-  withActions: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<PageArgs> = {
+  title: { group: 'Content', control: 'text' },
+  withActions: { group: 'Content', control: 'boolean' },
+  withBackdrop: { group: 'Appearance', control: 'boolean' },
 };
 
 const meta = {
@@ -73,14 +74,14 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PageDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<PageArgs>;
+} satisfies PlaygroundStory<PageArgs>;
 
 const PlainWithActions = {
   name: 'No backdrop, with actions',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PageDemo {...args} withBackdrop={false} withActions />,
-} satisfies StoryLiteStoryDefinition<PageArgs>;
+} satisfies PlaygroundStory<PageArgs>;
 
 const ViewTabs = {
   name: 'View tabs, fixed body',

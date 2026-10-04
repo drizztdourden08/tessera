@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { FilterBar } from '../../src/composites';
 import { createClause } from '../../src/data';
 import type { FilterClause } from '../../src/data';
@@ -16,9 +17,9 @@ type FilterBarArgs = Omit<FilterDemoProps, 'startWith'>;
 
 const ARGS: Partial<FilterBarArgs> = { withClauses: true, placeholder: 'Search players, games, tags...' };
 
-const ARG_TYPES: StoryLiteArgTypes<FilterBarArgs> = {
-    withClauses: { control: 'boolean', description: 'Pass a schema so filters can be added with +' },
-    placeholder: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<FilterBarArgs> = {
+    placeholder: { group: 'Content', control: 'text' },
+    withClauses: { group: 'Behaviour', control: 'boolean', description: 'Pass a schema so filters can be added with +' },
   };
 
 const meta = {
@@ -31,7 +32,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <FilterDemo withClauses={args.withClauses === true} placeholder={args.placeholder} />,
-} satisfies StoryLiteStoryDefinition<FilterBarArgs>;
+} satisfies PlaygroundStory<FilterBarArgs>;
 
 const SearchOnly = {
   name: 'Search only',

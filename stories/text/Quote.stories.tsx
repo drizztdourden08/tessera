@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
@@ -11,10 +12,10 @@ type QuoteArgs = {
 
 const LONG_QUOTE = 'It is dangerous to go alone. Take this sword, and keep it close while you cross the fields to the castle. The rain will not stop tonight, and the guards will not let you pass the gate, so look for the way in under the moat. Your uncle went ahead of you. Find him before the soldiers do.';
 
-const ARG_TYPES: StoryLiteArgTypes<QuoteArgs> = {
-  text: { control: 'text', description: 'Long text wraps and switches to the large floating mark.' },
-  cite: { control: 'text', description: 'A link to the source of the quotation.' },
-  inline: { control: 'boolean', description: 'Forces the in-sentence look outside a paragraph.' },
+const ARG_TYPES: PlaygroundArgTypes<QuoteArgs> = {
+  text: { group: 'Content', control: 'text', description: 'Long text wraps and switches to the large floating mark.' },
+  cite: { group: 'Content', control: 'text', description: 'A link to the source of the quotation.' },
+  inline: { group: 'Layout', control: 'boolean', description: 'Forces the in-sentence look outside a paragraph.' },
 };
 
 const meta = {
@@ -27,7 +28,7 @@ const Playground = {
   args: { text: 'It is dangerous to go alone. Take this.', cite: 'https://archipelago.gg', inline: false },
   argTypes: ARG_TYPES,
   render: (args) => <Text.Q cite={args.cite || undefined} inline={args.inline || undefined}>{args.text}</Text.Q>,
-} satisfies StoryLiteStoryDefinition<QuoteArgs>;
+} satisfies PlaygroundStory<QuoteArgs>;
 
 const InSentence = {
   name: 'Inside a sentence',

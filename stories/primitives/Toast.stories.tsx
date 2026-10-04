@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useCallback, useRef, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Text, Toast, ToastContainer } from '../../src/primitives';
 import type { ToastItem, ToastPosition, ToastVariant } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -24,11 +25,11 @@ const SAMPLE_MESSAGES: Record<ToastVariant, string> = {
 
 const ARGS: Partial<ToastArgs> = { message: SAMPLE_MESSAGES.success, variant: 'success', duration: 4000, position: 'bottom-right' };
 
-const ARG_TYPES: StoryLiteArgTypes<ToastArgs> = {
-    message: { control: 'text' },
-    variant: { control: 'select', options: [...VARIANTS] },
-    duration: { control: 'number', description: 'Milliseconds before it leaves. Zero keeps it until dismissed.' },
-    position: { control: 'select', options: ['bottom-right', 'bottom-left'] },
+const ARG_TYPES: PlaygroundArgTypes<ToastArgs> = {
+    message: { group: 'Content', control: 'text' },
+    variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
+    position: { group: 'Layout', control: 'select', options: ['bottom-right', 'bottom-left'] },
+    duration: { group: 'Behaviour', control: 'number', description: 'Milliseconds before it leaves. Zero keeps it until dismissed.' },
   };
 
 const meta = {
@@ -97,7 +98,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <ToastLauncher {...args} />,
-} satisfies StoryLiteStoryDefinition<ToastArgs>;
+} satisfies PlaygroundStory<ToastArgs>;
 
 const Variants = {
   name: 'Variants',

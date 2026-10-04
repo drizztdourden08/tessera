@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, ToggleGroup } from '../../src/primitives';
@@ -32,10 +33,10 @@ const WITH_LOCKED: ToggleOption<Overlay>[] = OVERLAYS.map((opt) =>
 
 const ARGS: Partial<ToggleGroupArgs> = { label: 'Map overlays', description: 'Pick any number of layers to draw.', disabled: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<ToggleGroupArgs> = {
-    label: { control: 'text' },
-    description: { control: 'text' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<ToggleGroupArgs> = {
+    label: { group: 'Content', control: 'text' },
+    description: { group: 'Content', control: 'text' },
+    disabled: { group: 'State', control: 'boolean' },
     size: SIZE_ARG,
   };
 
@@ -69,7 +70,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatefulGroup initial={['grid', 'sprites']} {...args} />,
-} satisfies StoryLiteStoryDefinition<ToggleGroupArgs>;
+} satisfies PlaygroundStory<ToggleGroupArgs>;
 
 const Header = {
   name: 'Label and description',

@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS, BRAND_FAMILY, Logo } from '../../src/brand';
 import type { BrandApp, BrandMarkSize, BrandMarkVariant, BrandRim, IconArtFiles, LogoProps } from '../../src/brand';
 import { axis } from '../_template/axis';
@@ -23,11 +24,11 @@ const APPS_WITH_ICONS = BRAND_APPS.filter((app) => BRAND_FAMILY[app].appIcon !==
 const isBrandFile = (app: BrandApp, files: IconArtFiles): boolean =>
   files.kind === 'icon' || (files.kind === 'mark' && BRAND_FAMILY[app].appIcon === null);
 
-const ARG_TYPES: StoryLiteArgTypes<LogoArgs> = {
-  brand: { control: 'select', options: [...BRAND_APPS] },
-  size: { control: 'select', options: [...SIZES] },
-  variant: { control: 'select', options: ['mark', 'app-icon'], description: 'The app icon as the brand data describes it: straight or on its tile. A brand with no app icon draws its mark.' },
-  rim: { control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
+const ARG_TYPES: PlaygroundArgTypes<LogoArgs> = {
+  brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
+  size: { group: 'Appearance', control: 'select', options: [...SIZES] },
+  variant: { group: 'Appearance', control: 'select', options: ['mark', 'app-icon'], description: 'The app icon as the brand data describes it: straight or on its tile. A brand with no app icon draws its mark.' },
+  rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
 };
 
 const meta = {
@@ -40,7 +41,7 @@ const Playground = {
   args: { brand: 'rotp', size: 'xl', variant: 'mark', rim: 'none' },
   argTypes: ARG_TYPES,
   render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} rim={args.rim} />,
-} satisfies StoryLiteStoryDefinition<LogoArgs>;
+} satisfies PlaygroundStory<LogoArgs>;
 
 const sizeGrid = (apps: readonly BrandApp[], extra: Partial<LogoProps>) => (
   <Demonstrator

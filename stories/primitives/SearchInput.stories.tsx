@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { SearchInput, type ControlSize } from '../../src/primitives';
@@ -19,10 +20,10 @@ type SearchInputArgs = {
 
 const ARGS: Partial<SearchInputArgs> = { initialValue: 'Master Sword', placeholder: 'Search items', disabled: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<SearchInputArgs> = {
-  initialValue: { control: 'text' },
-  placeholder: { control: 'text' },
-  disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<SearchInputArgs> = {
+  initialValue: { group: 'Content', control: 'text' },
+  placeholder: { group: 'Content', control: 'text' },
+  disabled: { group: 'State', control: 'boolean' },
   size: SIZE_ARG,
 };
 
@@ -38,7 +39,7 @@ const Playground = {
   render: (args) => (
     <StatefulSearch key={args.initialValue} initial={args.initialValue} placeholder={args.placeholder} disabled={args.disabled} size={args.size} />
   ),
-} satisfies StoryLiteStoryDefinition<SearchInputArgs>;
+} satisfies PlaygroundStory<SearchInputArgs>;
 
 const Sizes = sizesStory<SearchInputArgs>((size) => <StatefulSearch size={size} initial="Hookshot" />, { align: 'stretch' });
 

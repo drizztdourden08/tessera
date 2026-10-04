@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import './Box.stories.css';
@@ -21,10 +22,10 @@ const CHANGELOG = [
 
 const ARGS: Partial<BoxArgs> = { as: 'section', content: 'A plain structural element. Pick the tag with `as`.', framed: true };
 
-const ARG_TYPES: StoryLiteArgTypes<BoxArgs> = {
-    as: { control: 'select', options: [...ELEMENTS] },
-    content: { control: 'text' },
-    framed: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<BoxArgs> = {
+    content: { group: 'Content', control: 'text' },
+    framed: { group: 'Appearance', control: 'boolean' },
+    as: { group: 'Behaviour', control: 'select', options: [...ELEMENTS] },
   };
 
 const meta = {
@@ -41,7 +42,7 @@ const Playground = {
       {args.content}
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<BoxArgs>;
+} satisfies PlaygroundStory<BoxArgs>;
 
 const SemanticElements = {
   name: 'Semantic elements',

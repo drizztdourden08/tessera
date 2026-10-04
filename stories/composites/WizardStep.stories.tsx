@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { WizardStep } from '../../src/composites';
 import { Field, TextInput } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -20,10 +21,10 @@ const ARGS: Partial<StepArgs> = {
   error: '',
 };
 
-const ARG_TYPES: StoryLiteArgTypes<StepArgs> = {
-  title: { control: 'text' },
-  description: { control: 'textarea' },
-  error: { control: 'text', description: 'A problem with the whole step. Empty hides it.' },
+const ARG_TYPES: PlaygroundArgTypes<StepArgs> = {
+  title: { group: 'Content', control: 'text' },
+  description: { group: 'Content', control: 'textarea' },
+  error: { group: 'State', control: 'text', description: 'A problem with the whole step. Empty hides it.' },
 };
 
 const meta = {
@@ -52,7 +53,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => draw(args),
-} satisfies StoryLiteStoryDefinition<StepArgs>;
+} satisfies PlaygroundStory<StepArgs>;
 
 const FORMS = ['Heading only', 'With description', 'With an error'] as const;
 

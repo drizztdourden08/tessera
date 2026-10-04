@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { InlineCreateForm } from '../../src/composites';
 import { Box, Field, Select, Text } from '../../src/primitives';
 import type { ControlSize } from '../../src/primitives';
@@ -59,13 +60,13 @@ const ExtraFieldsDemo = () => {
 
 const ARGS: Partial<FormArgs> = { placeholder: 'Profile name', submitLabel: 'Create', cancellable: true, compact: false, size: 'md', error: '' };
 
-const ARG_TYPES: StoryLiteArgTypes<FormArgs> = {
-  placeholder: { control: 'text' },
-  submitLabel: { control: 'text' },
-  cancellable: { control: 'boolean' },
-  compact: { control: 'boolean', description: 'One line, unboxed: the fields, then icon buttons to create and cancel.' },
+const ARG_TYPES: PlaygroundArgTypes<FormArgs> = {
+  placeholder: { group: 'Content', control: 'text' },
+  submitLabel: { group: 'Content', control: 'text' },
+  compact: { group: 'Appearance', control: 'boolean', description: 'One line, unboxed: the fields, then icon buttons to create and cancel.' },
+  cancellable: { group: 'Behaviour', control: 'boolean' },
   size: SIZE_ARG,
-  error: { control: 'text' },
+  error: { group: 'State', control: 'text' },
 };
 
 const meta = {
@@ -78,7 +79,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <FormDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<FormArgs>;
+} satisfies PlaygroundStory<FormArgs>;
 
 const ExtraFields = {
   name: 'Extra fields that gate submit',

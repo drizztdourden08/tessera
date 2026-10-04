@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useRef, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Floating, Text, useAnchorTracking } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import './Floating.stories.css';
@@ -13,10 +14,10 @@ type FloatingArgs = {
 
 const ARGS: Partial<FloatingArgs> = { top: 120, left: 160, label: 'Pinned to the window' };
 
-const ARG_TYPES: StoryLiteArgTypes<FloatingArgs> = {
-  top: { control: 'number', description: 'Distance from the top of the window, in pixels.' },
-  left: { control: 'number', description: 'Distance from the left of the window, in pixels.' },
-  label: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<FloatingArgs> = {
+  label: { group: 'Content', control: 'text' },
+  top: { group: 'Layout', control: 'number', description: 'Distance from the top of the window, in pixels.' },
+  left: { group: 'Layout', control: 'number', description: 'Distance from the left of the window, in pixels.' },
 };
 
 const meta = {
@@ -36,7 +37,7 @@ const Playground = {
       </Floating>
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<FloatingArgs>;
+} satisfies PlaygroundStory<FloatingArgs>;
 
 const UnderItsButtonDemo = () => {
   const [open, setOpen] = useState(false);

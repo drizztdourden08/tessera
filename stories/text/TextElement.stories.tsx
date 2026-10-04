@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { TEXT_TONES, TextElement } from '../../src/primitives';
 import type { TextTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -18,12 +19,12 @@ type TextElementArgs = {
 
 const ARGS: Partial<TextElementArgs> = { as: 'span', text: 'Hyrule Castle', tone: 'none', weight: 400, italic: false };
 
-const ARG_TYPES: StoryLiteArgTypes<TextElementArgs> = {
-  as: { control: 'select', options: [...SHOWN_TAGS], description: 'Any HTML tag. The ones listed here have a Tessera look.' },
-  text: { control: 'text' },
-  tone: { control: 'select', options: ['none', ...TEXT_TONES] },
-  weight: { control: 'number', description: 'Any whole number from 100 to 900.' },
-  italic: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<TextElementArgs> = {
+  text: { group: 'Content', control: 'text' },
+  tone: { group: 'Appearance', control: 'select', options: ['none', ...TEXT_TONES] },
+  weight: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Any whole number from 100 to 900.' },
+  italic: { group: 'Appearance', control: 'boolean' },
+  as: { group: 'Behaviour', control: 'select', options: [...SHOWN_TAGS], description: 'Any HTML tag. The ones listed here have a Tessera look.' },
 };
 
 const meta = {
@@ -45,7 +46,7 @@ const Playground = {
       {args.text}
     </TextElement>
   ),
-} satisfies StoryLiteStoryDefinition<TextElementArgs>;
+} satisfies PlaygroundStory<TextElementArgs>;
 
 const Tags = {
   name: 'One element, any tag',

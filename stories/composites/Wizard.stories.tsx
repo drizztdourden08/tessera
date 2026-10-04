@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Wizard } from '../../src/composites';
 import { Box } from '../../src/primitives';
 import type { StepperOrientation } from '../../src/primitives';
@@ -11,6 +12,7 @@ import { ProfileWizardDemo } from './_samples/ProfileWizardDemo';
 import { INITIAL_ROM_IMPORT, ROM_FILE, ROM_IMPORT_STEPS } from './_samples/rom-import-data';
 import { RomImportPanel } from './_samples/RomImportPanel';
 import { RomImportBody } from './_samples/RomImportWizard';
+import { WIZARD_LOOK_ARG_TYPES } from './_samples/wizard-look-arg-types';
 import './Wizard.stories.css';
 
 type WizardArgs = {
@@ -21,10 +23,9 @@ type WizardArgs = {
 
 const ARGS: Partial<WizardArgs> = { title: 'Import a ROM', orientation: 'horizontal', compactProgress: false };
 
-const ARG_TYPES: StoryLiteArgTypes<WizardArgs> = {
-  title: { control: 'text' },
-  orientation: { control: 'select', options: ['horizontal', 'vertical'], description: 'Steps on top, or in a column on the left.' },
-  compactProgress: { control: 'boolean', description: 'Step 2 of 4 and a bar, for tight spaces.' },
+const ARG_TYPES: PlaygroundArgTypes<WizardArgs> = {
+  title: { group: 'Content', control: 'text' },
+  ...WIZARD_LOOK_ARG_TYPES,
 };
 
 const meta = {
@@ -39,7 +40,7 @@ const Playground = {
   render: (args) => (
     <RomImportPanel title={args.title} orientation={args.orientation} compact={args.compactProgress} />
   ),
-} satisfies StoryLiteStoryDefinition<WizardArgs>;
+} satisfies PlaygroundStory<WizardArgs>;
 
 const ProfileInScreen = {
   name: 'Relic of the Past: a new profile in the Profiles screen',

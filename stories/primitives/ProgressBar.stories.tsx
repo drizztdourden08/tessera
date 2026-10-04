@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, ProgressBar, Text } from '../../src/primitives';
 import type { ProgressTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -25,13 +26,13 @@ const TONES: readonly ProgressTone[] = ['primary', 'secondary', 'tertiary', 'suc
 
 const ARGS: Partial<ProgressBarArgs> = { value: 42, max: 216, tone: 'primary', secondaryValue: 0, secondaryTone: 'none', live: false };
 
-const ARG_TYPES: StoryLiteArgTypes<ProgressBarArgs> = {
-    value: { control: 'number' },
-    max: { control: 'number' },
-    tone: { control: 'select', options: [...TONES] },
-    secondaryValue: { control: 'number', description: 'Zero hides the second fill.' },
-    secondaryTone: { control: 'select', options: ['none', ...TONES] },
-    live: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<ProgressBarArgs> = {
+    value: { group: 'Value', control: 'number' },
+    max: { group: 'Value', control: 'number' },
+    secondaryValue: { group: 'Value', control: 'number', description: 'Zero hides the second fill.' },
+    tone: { group: 'Appearance', control: 'select', options: [...TONES] },
+    secondaryTone: { group: 'Appearance', control: 'select', options: ['none', ...TONES] },
+    live: { group: 'Behaviour', control: 'boolean' },
   };
 
 const meta = {
@@ -87,7 +88,7 @@ const Playground = {
       live={args.live}
     />
   ),
-} satisfies StoryLiteStoryDefinition<ProgressBarArgs>;
+} satisfies PlaygroundStory<ProgressBarArgs>;
 
 const BARS: Readonly<Record<string, ReactNode>> = {
   ...Object.fromEntries(TONES.map((tone) => [tone, <ProgressBar key={tone} value={60} tone={tone} />])),

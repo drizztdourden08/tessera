@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Flex, Text } from '../../src/primitives';
 import type { FlexAlign, FlexJustify, SpaceToken } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -23,13 +24,13 @@ const PLAYERS = ['Aria', 'Brom', 'Cadence', 'Dov', 'Esker', 'Fen'];
 
 const ARGS: Partial<FlexArgs> = { direction: 'row', gap: 'sm', align: 'center', justify: 'start', wrap: true, inline: false };
 
-const ARG_TYPES: StoryLiteArgTypes<FlexArgs> = {
-    direction: { control: 'select', options: ['row', 'column'] },
-    gap: { control: 'select', options: [...GAPS] },
-    align: { control: 'select', options: [...ALIGNS] },
-    justify: { control: 'select', options: [...JUSTIFIES] },
-    wrap: { control: 'boolean' },
-    inline: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<FlexArgs> = {
+    direction: { group: 'Layout', control: 'select', options: ['row', 'column'] },
+    gap: { group: 'Layout', control: 'select', options: [...GAPS] },
+    align: { group: 'Layout', control: 'select', options: [...ALIGNS] },
+    justify: { group: 'Layout', control: 'select', options: [...JUSTIFIES] },
+    wrap: { group: 'Layout', control: 'boolean' },
+    inline: { group: 'Layout', control: 'boolean' },
   };
 
 const meta = {
@@ -58,7 +59,7 @@ const Playground = {
       ))}
     </Flex>
   ),
-} satisfies StoryLiteStoryDefinition<FlexArgs>;
+} satisfies PlaygroundStory<FlexArgs>;
 
 const Justify = {
   name: 'Justify values',

@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, Slider, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -42,16 +43,16 @@ const ARGS: Partial<SliderArgs> = {
     size: 'md',
   };
 
-const ARG_TYPES: StoryLiteArgTypes<SliderArgs> = {
-    label: { control: 'text' },
-    description: { control: 'text' },
-    range: { control: 'boolean', description: 'Two thumbs, and the value becomes [low, high].' },
-    min: { control: 'number' },
-    max: { control: 'number' },
-    step: { control: 'number' },
-    labels: { control: 'text', description: 'A value rule, read live. Try every 10, count 5 | {p}%, ends + 50=Half or [Low, Medium, High]. The ScaleLabels page lists the whole syntax.' },
-    showValue: { control: 'boolean' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<SliderArgs> = {
+    label: { group: 'Content', control: 'text' },
+    description: { group: 'Content', control: 'text' },
+    labels: { group: 'Content', control: 'text', description: 'A value rule, read live. Try every 10, count 5 | {p}%, ends + 50=Half or [Low, Medium, High]. The ScaleLabels page lists the whole syntax.' },
+    range: { group: 'Value', control: 'boolean', description: 'Two thumbs, and the value becomes [low, high].' },
+    min: { group: 'Value', control: 'number' },
+    max: { group: 'Value', control: 'number' },
+    step: { group: 'Value', control: 'number' },
+    showValue: { group: 'Appearance', control: 'boolean' },
+    disabled: { group: 'State', control: 'boolean' },
     size: SIZE_ARG,
   };
 
@@ -72,7 +73,7 @@ const Playground = {
       </Box>
     );
   },
-} satisfies StoryLiteStoryDefinition<SliderArgs>;
+} satisfies PlaygroundStory<SliderArgs>;
 
 const Kinds = {
   name: 'Kinds',

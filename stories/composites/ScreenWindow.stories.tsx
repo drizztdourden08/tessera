@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ListItemRow, ScreenWindow } from '../../src/composites';
 import { Button, ScrollArea } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -52,11 +53,11 @@ const WindowDemo = (props: WindowArgs) => {
 
 const ARGS: Partial<WindowArgs> = { title: 'Sessions', subtitle: 'Profile: mira', withExtra: true, withFloating: false };
 
-const ARG_TYPES: StoryLiteArgTypes<WindowArgs> = {
-  title: { control: 'text' },
-  subtitle: { control: 'text' },
-  withExtra: { control: 'boolean' },
-  withFloating: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<WindowArgs> = {
+  title: { group: 'Content', control: 'text' },
+  subtitle: { group: 'Content', control: 'text' },
+  withExtra: { group: 'Content', control: 'boolean' },
+  withFloating: { group: 'Content', control: 'boolean' },
 };
 
 const meta = {
@@ -69,21 +70,21 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <WindowDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<WindowArgs>;
+} satisfies PlaygroundStory<WindowArgs>;
 
 const SiblingWindows = {
   name: 'Sibling windows with a floating switch',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <WindowDemo {...args} withFloating />,
-} satisfies StoryLiteStoryDefinition<WindowArgs>;
+} satisfies PlaygroundStory<WindowArgs>;
 
 const TitleOnly = {
   name: 'Title only',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <WindowDemo {...args} subtitle="" withExtra={false} />,
-} satisfies StoryLiteStoryDefinition<WindowArgs>;
+} satisfies PlaygroundStory<WindowArgs>;
 
 const CODE = `import { ScreenWindow } from '@drizztdourden08/tessera';
 

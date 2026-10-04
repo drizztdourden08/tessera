@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { registeredKitKinds, resolveFieldKit } from '../../src/composites/field-kits';
 import { Box } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -46,8 +47,8 @@ const KitTable = ({ disabled }: FieldKitsArgs) => {
 
 const ARGS: Partial<FieldKitsArgs> = { disabled: false };
 
-const ARG_TYPES: StoryLiteArgTypes<FieldKitsArgs> = {
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<FieldKitsArgs> = {
+    disabled: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -60,7 +61,7 @@ const AllKits = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <KitTable {...args} />,
-} satisfies StoryLiteStoryDefinition<FieldKitsArgs>;
+} satisfies PlaygroundStory<FieldKitsArgs>;
 
 const CODE = `// Importing the field-kits module registers the nine built-in kits.
 import { resolveFieldKit } from '@drizztdourden08/tessera/field-kits';

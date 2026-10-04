@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { WorkspaceDemo } from './_samples/WorkspaceDemo';
 
@@ -14,13 +15,12 @@ type WorkspaceArgs = {
 
 const ARGS: Partial<WorkspaceArgs> = { pageHeader: true, search: true, compactRows: false, readOnly: false, narrow: false, withSwitch: true };
 
-const ARG_TYPES: StoryLiteArgTypes<WorkspaceArgs> = {
-  pageHeader: { control: 'boolean', description: 'The page header: icon, title, section pills and the fading backdrop. It compacts once the page scrolls.' },
-  search: { control: 'boolean', description: 'The search in the side nav. It searches every row of every page and shows the matches in the pane.' },
-  compactRows: { control: 'boolean', description: 'One line per setting. The description moves to a tooltip on the title, the hint to a bubble under the control.' },
-  readOnly: { control: 'boolean', description: 'Every value as text, with the hint of the current value.' },
-  narrow: { control: 'boolean', description: 'For a narrow window: the side nav stays a strip of icons and opens over the page.' },
-  withSwitch: { control: 'boolean', description: 'A floating switch between sibling workspaces on the top edge.' },
+const ARG_TYPES: PlaygroundArgTypes<WorkspaceArgs> = {
+  search: { group: 'Content', control: 'boolean', description: 'The search in the side nav. It searches every row of every page and shows the matches in the pane.' },
+  withSwitch: { group: 'Content', control: 'boolean', description: 'A floating switch between sibling workspaces on the top edge.' },
+  compactRows: { group: 'Appearance', control: 'boolean', description: 'One line per setting. The description moves to a tooltip on the title, the hint to a bubble under the control.' },
+  narrow: { group: 'Layout', control: 'boolean', description: 'For a narrow window: the side nav stays a strip of icons and opens over the page.' },
+  readOnly: { group: 'State', control: 'boolean', description: 'Every value as text, with the hint of the current value.' },
 };
 
 const meta = {
@@ -33,7 +33,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <WorkspaceDemo {...args} key={JSON.stringify(args)} />,
-} satisfies StoryLiteStoryDefinition<WorkspaceArgs>;
+} satisfies PlaygroundStory<WorkspaceArgs>;
 
 const Searching = {
   name: 'Searching every page',

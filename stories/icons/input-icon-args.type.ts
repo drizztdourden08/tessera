@@ -1,11 +1,13 @@
 /* @layer stories @kind types */
-import type { IconEffectKind, InputIconTone } from '../../src/primitives';
+import type { IconEffectKind, InputIconFamily, InputIconTone } from '../../src/primitives';
 
 type InkChoice = 'text' | 'primary' | 'secondary' | 'muted';
 
 type EffectChoice = 'none' | IconEffectKind;
 
-type InputIconPlaygroundProps = {
+type InputIconArgs = {
+  family: InputIconFamily;
+  name: string;
   size: number;
   tone: InputIconTone;
   ink: InkChoice;
@@ -13,4 +15,4 @@ type InputIconPlaygroundProps = {
   effect: EffectChoice;
 };
 
-export type { InputIconPlaygroundProps };
+export type { InputIconArgs };

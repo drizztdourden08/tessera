@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { WindowHeader } from '../../src/composites';
 import { Box, Button, Icon, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -51,11 +52,11 @@ const SaveFilesWindow = (props: WindowHeaderArgs) => {
 
 const ARGS: Partial<WindowHeaderArgs> = { title: 'Save files', subtitle: "Mira's profile", withClose: true, withExtra: true };
 
-const ARG_TYPES: StoryLiteArgTypes<WindowHeaderArgs> = {
-  title: { control: 'text' },
-  subtitle: { control: 'text' },
-  withClose: { control: 'boolean' },
-  withExtra: { control: 'boolean', description: 'A Status and a button before the close button.' },
+const ARG_TYPES: PlaygroundArgTypes<WindowHeaderArgs> = {
+  title: { group: 'Content', control: 'text' },
+  subtitle: { group: 'Content', control: 'text' },
+  withClose: { group: 'Content', control: 'boolean' },
+  withExtra: { group: 'Content', control: 'boolean', description: 'A Status and a button before the close button.' },
 };
 
 const meta = {
@@ -77,14 +78,14 @@ const Playground = {
       />
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<WindowHeaderArgs>;
+} satisfies PlaygroundStory<WindowHeaderArgs>;
 
 const InWindow = {
   name: 'On top of a window',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <SaveFilesWindow {...args} />,
-} satisfies StoryLiteStoryDefinition<WindowHeaderArgs>;
+} satisfies PlaygroundStory<WindowHeaderArgs>;
 
 const Narrow = {
   name: 'Less room: the subtitle shortens, the extras go, then the title shortens',
@@ -99,14 +100,14 @@ const Narrow = {
       ))}
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<WindowHeaderArgs>;
+} satisfies PlaygroundStory<WindowHeaderArgs>;
 
 const TitleOnly = {
   name: 'Title only',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <SaveFilesWindow {...args} subtitle="" withClose={false} withExtra={false} />,
-} satisfies StoryLiteStoryDefinition<WindowHeaderArgs>;
+} satisfies PlaygroundStory<WindowHeaderArgs>;
 
 const Overview = overviewStory({
   component: 'WindowHeader',

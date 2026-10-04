@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ListItemList, ListItemRow } from '../../src/composites';
 import type { ListItemColumn } from '../../src/composites';
 import { Box, Button, Icon, Status, Text } from '../../src/primitives';
@@ -59,14 +60,14 @@ const SessionList = ({ selectable }: { selectable: boolean }) => {
 
 const ARGS: Partial<RowArgs> = { name: 'Friday async', meta: '8 players, eu-west-2', columns: 2, twoLines: true, withIcon: true, selected: false, withAction: true };
 
-const ARG_TYPES: StoryLiteArgTypes<RowArgs> = {
-    name: { control: 'text', description: 'First line of the main column' },
-    meta: { control: 'text', description: 'Second line of the main column' },
-    columns: { control: 'number', description: 'Columns after the main one, from 0 to 3' },
-    twoLines: { control: 'boolean', description: 'Give each extra column a second line' },
-    withIcon: { control: 'boolean' },
-    selected: { control: 'boolean' },
-    withAction: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
+    name: { group: 'Content', control: 'text', description: 'First line of the main column' },
+    meta: { group: 'Content', control: 'text', description: 'Second line of the main column' },
+    withIcon: { group: 'Content', control: 'boolean' },
+    withAction: { group: 'Content', control: 'boolean' },
+    columns: { group: 'Layout', control: 'select', options: [0, 1, 2, 3], description: 'Columns after the main one.' },
+    twoLines: { group: 'Layout', control: 'boolean', description: 'Give each extra column a second line' },
+    selected: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -91,7 +92,7 @@ const Playground = {
       />
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<RowArgs>;
+} satisfies PlaygroundStory<RowArgs>;
 
 const FORMS = ['name only', 'icon and meta', 'one column', 'two-line columns', 'with action'] as const;
 

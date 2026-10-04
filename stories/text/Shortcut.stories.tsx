@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, CAP_WIDTHS, SHORTCUT_LEGENDS, SHORTCUT_SIZES, SHORTCUT_STATES, Shortcut, Text } from '../../src/primitives';
 import type { CapWidth, MouseButton, ShortcutKey, ShortcutLegend, ShortcutSize, ShortcutState } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -7,7 +8,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import {
-  ANIMATED_ROWS, CAP_WIDTH_ROWS, COMBINATION_ROWS, KEYS_AND_MOUSE_ROWS, MOUSE_BUTTONS, PRINTABLE_KEYS,
+  ANIMATED_ROWS, CAP_WIDTH_ROWS, COMBINATION_ROWS, KEYS_AND_MOUSE_ROWS, MOUSE_BUTTONS, PRINTABLE_KEYS, SHORTCUT_KEY_OPTIONS,
 } from './_samples/shortcut-samples';
 import type { ShortcutRow } from './_samples/shortcut-samples';
 import { ShortcutFillDemo } from './_samples/ShortcutFillDemo';
@@ -15,7 +16,7 @@ import { ShortcutLegendTable } from './_samples/ShortcutLegendTable';
 import { ShortcutRows } from './_samples/ShortcutRows';
 
 type ShortcutArgs = {
-  keys: string;
+  keys: readonly ShortcutKey[];
   mouse: MouseButton | 'none';
   legend: ShortcutLegend;
   width: CapWidth | 'natural';
@@ -25,15 +26,15 @@ type ShortcutArgs = {
   size: ShortcutSize;
 };
 
-const ARG_TYPES: StoryLiteArgTypes<ShortcutArgs> = {
-  keys: { control: 'text', description: 'Key names, comma separated. More than one makes a combination.' },
-  mouse: { control: 'select', options: ['none', ...MOUSE_BUTTONS], description: 'One mouse button, placed after the keys.' },
-  legend: { control: 'select', options: [...SHORTCUT_LEGENDS], description: 'The printed word, the key symbol or the plain arrow. A key without it falls back to its label.' },
-  width: { control: 'select', options: ['natural', ...CAP_WIDTHS], description: 'The cap width. Natural keeps each key at its own width.' },
-  animate: { control: 'boolean', description: 'Presses and releases in a loop. It wins over state while it runs.' },
-  state: { control: 'select', options: ['none', ...SHORTCUT_STATES], description: 'Idle, lit in the primary colour, or pressed down.' },
-  fill: { control: 'boolean', description: 'Stretches the caps to fill their box, shown here in a fixed box.' },
-  size: { control: 'select', options: [...SHORTCUT_SIZES], description: 'md for text and lists, xs for compact panels.' },
+const ARG_TYPES: PlaygroundArgTypes<ShortcutArgs> = {
+  keys: { group: 'Content', control: 'multiselect', options: SHORTCUT_KEY_OPTIONS, description: 'Keys in the order you pick them. More than one makes a combination.' },
+  mouse: { group: 'Content', control: 'select', options: ['none', ...MOUSE_BUTTONS], description: 'One mouse button, placed after the keys.' },
+  legend: { group: 'Appearance', control: 'select', options: [...SHORTCUT_LEGENDS], description: 'The printed word, the key symbol or the plain arrow. A key without it falls back to its label.' },
+  size: { group: 'Appearance', control: 'select', options: [...SHORTCUT_SIZES], description: 'md for text and lists, xs for compact panels.' },
+  width: { group: 'Layout', control: 'select', options: ['natural', ...CAP_WIDTHS], description: 'The cap width. Natural keeps each key at its own width.' },
+  fill: { group: 'Layout', control: 'boolean', description: 'Stretches the caps to fill their box, shown here in a fixed box.' },
+  state: { group: 'State', control: 'select', options: ['none', ...SHORTCUT_STATES], description: 'Idle, lit in the primary colour, or pressed down.' },
+  animate: { group: 'Motion', control: 'boolean', description: 'Presses and releases in a loop. It wins over state while it runs.' },
 };
 
 const meta = {
@@ -43,9 +44,6 @@ const meta = {
 
 const STATE_NAMES: Readonly<Record<ShortcutState, string>> = { idle: 'Idle', lit: 'Lit', pressed: 'Pressed' };
 
-const keyList = (text: string): ShortcutKey[] =>
-  text.split(',').map((part) => part.trim()).filter(Boolean) as ShortcutKey[];
-
 const rowsStory = (name: string, rows: readonly ShortcutRow[]) => ({
   name,
   render: () => <ShortcutRows rows={rows} />,
@@ -53,7 +51,7 @@ const rowsStory = (name: string, rows: readonly ShortcutRow[]) => ({
 
 const Playground = {
   name: 'Playground',
-  args: { keys: 'ctrl, shift', mouse: 'left', legend: 'label', width: 'natural', animate: false, state: 'none', fill: false, size: 'md' },
+  args: { keys: ['ctrl', 'shift'], mouse: 'left', legend: 'label', width: 'natural', animate: false, state: 'none', fill: false, size: 'md' },
   argTypes: ARG_TYPES,
   render: (args) => {
     const look = {
@@ -65,11 +63,11 @@ const Playground = {
       size: args.size,
     };
     const shortcut = args.mouse === 'none'
-      ? <Shortcut keys={keyList(args.keys)} {...look} />
-      : <Shortcut keys={keyList(args.keys)} mouse={args.mouse} {...look} />;
+      ? <Shortcut keys={args.keys} {...look} />
+      : <Shortcut keys={args.keys} mouse={args.mouse} {...look} />;
     return args.fill ? <Box className="shortcut-fill__stage">{shortcut}</Box> : shortcut;
   },
-} satisfies StoryLiteStoryDefinition<ShortcutArgs>;
+} satisfies PlaygroundStory<ShortcutArgs>;
 
 const Legends = {
   name: 'Legends',

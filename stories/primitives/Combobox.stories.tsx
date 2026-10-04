@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import {
   CategoryList, ColumnsHighlight, ComboboxPlayground, Filtering, FullItem, MultiChips, PrefixFilter, ServerSearch,
@@ -23,10 +24,10 @@ const ARGS: Partial<ComboboxArgs> = {
   invalid: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<ComboboxArgs> = {
-  placeholder: { control: 'text' },
-  grouped: { control: 'boolean', description: 'Split the games by kind, under headers with an icon or an emoji.' },
-  highlight: { control: 'boolean', description: 'Mark the typed text inside each row.' },
+const ARG_TYPES: PlaygroundArgTypes<ComboboxArgs> = {
+  placeholder: { group: 'Content', control: 'text' },
+  highlight: { group: 'Appearance', control: 'boolean', description: 'Mark the typed text inside each row.' },
+  grouped: { group: 'Layout', control: 'boolean', description: 'Split the games by kind, under headers with an icon or an emoji.' },
   ...PICKER_ARG_TYPES,
 };
 
@@ -40,7 +41,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <ComboboxPlayground {...args} />,
-} satisfies Story;
+} satisfies PlaygroundStory<ComboboxArgs>;
 
 const VARIANTS: readonly Story[] = [
   pickerVariant('Filtering', Filtering),

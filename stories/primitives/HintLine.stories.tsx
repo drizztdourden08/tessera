@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, HintLine } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -23,12 +24,12 @@ const ARGS: Partial<HintLineArgs> = {
   pointed: true,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<HintLineArgs> = {
-  label: { control: 'text', description: 'The value, in the text colour.' },
-  description: { control: 'text', description: 'What it does, muted.' },
-  idle: { control: 'text', description: 'The line shown while nothing is pointed at.' },
-  lines: { control: 'select', options: [1, 2], description: 'The fixed height, in lines. Longer text is cut with an ellipsis.' },
-  pointed: { control: 'boolean', description: 'Off passes hint={null}, so the idle line shows.' },
+const ARG_TYPES: PlaygroundArgTypes<HintLineArgs> = {
+  label: { group: 'Content', control: 'text', description: 'The value, in the text colour.' },
+  description: { group: 'Content', control: 'text', description: 'What it does, muted.' },
+  idle: { group: 'Content', control: 'text', description: 'The line shown while nothing is pointed at.' },
+  lines: { group: 'Layout', control: 'select', options: [1, 2], description: 'The fixed height, in lines. Longer text is cut with an ellipsis.' },
+  pointed: { group: 'State', control: 'boolean', description: 'Off passes hint={null}, so the idle line shows.' },
 };
 
 const meta = {
@@ -45,7 +46,7 @@ const Playground = {
       <HintLine hint={args.pointed ? { label: args.label, description: args.description } : null} idle={args.idle} lines={args.lines} />
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<HintLineArgs>;
+} satisfies PlaygroundStory<HintLineArgs>;
 
 const LONG = { label: 'With app', description: 'On top exactly when the app is, and comes forward with it whenever the app is brought to the front' };
 

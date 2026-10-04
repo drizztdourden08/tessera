@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import swordsIcon from '@iconify-icons/lucide/swords';
 import { Box, Icon, ICONS } from '../../src/primitives';
 import type { IconEffectColor, IconEffectKind, IconEffectSize, IconFlip, IconName, IconRotation } from '../../src/primitives';
@@ -38,19 +39,19 @@ const ROTATIONS: readonly IconRotation[] = [0, 90, 180, 270];
 const FLIPS: readonly IconFlip[] = ['horizontal', 'vertical', 'both'];
 const namesOf = (group: object): IconName[] => Object.keys(group) as IconName[];
 
-const ARG_TYPES: StoryLiteArgTypes<IconArgs> = {
-  name: { control: 'select', options: NAMES, description: 'A name from the named set.' },
-  size: { control: 'number', description: 'Width and height in pixels, or any CSS length.' },
-  rotate: { control: 'select', options: [0, 90, 180, 270] },
-  flip: { control: 'select', options: ['none', 'horizontal', 'vertical', 'both'] },
-  tone: { control: 'select', options: ['text', 'primary', 'secondary', 'warning', 'danger', 'muted'], description: 'Icons draw in currentColor.' },
-  label: { control: 'text', description: 'Accessible name. Leave empty for a decorative icon, which is hidden from assistive tech.' },
-  effect: { control: 'select', options: ['none', 'twinkle', 'glint', 'ping', 'burst', 'dot', 'comet', 'shimmer'], description: 'A pop that lands on a random drawn point of the icon.' },
-  every: { control: 'number', description: 'Milliseconds between pops.' },
-  color: { control: 'select', options: ['current', 'primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'info'], description: 'Colour of the pop.' },
-  count: { control: 'number', description: 'Pops at each beat, each on its own point.' },
-  popSize: { control: 'select', options: ['sm', 'md', 'lg'], description: 'The effect size option: how big each pop draws. The line weight stays the same.' },
-  showSamples: { control: 'boolean', description: 'Dots every sampled point, so you can see that pops land only on drawn parts.' },
+const ARG_TYPES: PlaygroundArgTypes<IconArgs> = {
+  name: { group: 'Content', control: 'select', options: NAMES, optionView: (name) => <Icon name={name} size={16} />, description: 'A name from the named set.' },
+  label: { group: 'Content', control: 'text', description: 'Accessible name. Leave empty for a decorative icon, which is hidden from assistive tech.' },
+  size: { group: 'Appearance', control: 'number', description: 'Width and height in pixels, or any CSS length.' },
+  rotate: { group: 'Appearance', control: 'select', options: [0, 90, 180, 270] },
+  flip: { group: 'Appearance', control: 'select', options: ['none', 'horizontal', 'vertical', 'both'] },
+  tone: { group: 'Appearance', control: 'select', options: ['text', 'primary', 'secondary', 'warning', 'danger', 'muted'], description: 'Icons draw in currentColor.' },
+  effect: { group: 'Motion', control: 'select', options: ['none', 'twinkle', 'glint', 'ping', 'burst', 'dot', 'comet', 'shimmer'], description: 'A pop that lands on a random drawn point of the icon.' },
+  every: { group: 'Motion', control: 'number', description: 'Milliseconds between pops.' },
+  color: { group: 'Motion', control: 'select', options: ['current', 'primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'info'], description: 'Colour of the pop.' },
+  count: { group: 'Motion', control: 'number', description: 'Pops at each beat, each on its own point.' },
+  popSize: { group: 'Motion', control: 'select', options: ['sm', 'md', 'lg'], description: 'The effect size option: how big each pop draws. The line weight stays the same.' },
+  showSamples: { group: 'Motion', control: 'boolean', description: 'Dots every sampled point, so you can see that pops land only on drawn parts.' },
 };
 
 const meta = {
@@ -85,7 +86,7 @@ const Playground = {
       )}
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<IconArgs>;
+} satisfies PlaygroundStory<IconArgs>;
 
 const NamedSet = {
   name: 'Named set',

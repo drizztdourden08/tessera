@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Text, Video } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -27,14 +28,14 @@ const BROKEN_SOURCE = 'data:video/webm;base64,AAAA';
 
 const ARGS: Partial<VideoArgs> = { source: 'Sample clip', poster: true, autoPlay: false, muted: false, loop: false, controls: true, theater: false };
 
-const ARG_TYPES: StoryLiteArgTypes<VideoArgs> = {
-  source: { control: 'select', options: [...SOURCES] },
-  poster: { control: 'boolean' },
-  autoPlay: { control: 'boolean' },
-  muted: { control: 'boolean' },
-  loop: { control: 'boolean' },
-  controls: { control: 'boolean' },
-  theater: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<VideoArgs> = {
+  source: { group: 'Content', control: 'select', options: [...SOURCES] },
+  poster: { group: 'Content', control: 'boolean' },
+  theater: { group: 'Layout', control: 'boolean' },
+  autoPlay: { group: 'Behaviour', control: 'boolean' },
+  muted: { group: 'Behaviour', control: 'boolean' },
+  loop: { group: 'Behaviour', control: 'boolean' },
+  controls: { group: 'Behaviour', control: 'boolean' },
 };
 
 const meta = {
@@ -62,7 +63,7 @@ const Playground = {
       playsInline
     />
   )),
-} satisfies StoryLiteStoryDefinition<VideoArgs>;
+} satisfies PlaygroundStory<VideoArgs>;
 
 const LiveStream = {
   name: 'Live stream',

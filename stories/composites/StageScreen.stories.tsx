@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { StageScreen } from '../../src/composites';
 import { Box, Button, Icon, Span, Status } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -48,9 +49,9 @@ const StageDemo = (props: StageArgs) => {
 
 const ARGS: Partial<StageArgs> = { withToolbar: true, withDone: true };
 
-const ARG_TYPES: StoryLiteArgTypes<StageArgs> = {
-  withToolbar: { control: 'boolean', description: 'A row above the stage for status and tools.' },
-  withDone: { control: 'boolean', description: 'A Done button at the end of the toolbar row.' },
+const ARG_TYPES: PlaygroundArgTypes<StageArgs> = {
+  withToolbar: { group: 'Content', control: 'boolean', description: 'A row above the stage for status and tools.' },
+  withDone: { group: 'Content', control: 'boolean', description: 'A Done button at the end of the toolbar row.' },
 };
 
 const meta = {
@@ -63,14 +64,14 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StageDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<StageArgs>;
+} satisfies PlaygroundStory<StageArgs>;
 
 const StageOnly = {
   name: 'The stage alone',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: () => <StageDemo withToolbar={false} withDone={false} />,
-} satisfies StoryLiteStoryDefinition<StageArgs>;
+} satisfies PlaygroundStory<StageArgs>;
 
 const CODE = `import { Card, SectionHeader, StageScreen, Status, StickPlot } from '@drizztdourden08/tessera';
 

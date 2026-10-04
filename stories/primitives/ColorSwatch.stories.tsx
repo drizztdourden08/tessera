@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, ColorSwatch, Text, type ControlSize } from '../../src/primitives';
@@ -31,13 +32,13 @@ const EDITED_SLOTS = new Set([5, 6]);
 
 const ARGS: Partial<ColorSwatchArgs> = { hex: TUNIC_GREEN, caption: '5', selected: false, edited: false, transparent: false, disabled: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<ColorSwatchArgs> = {
-    hex: { control: 'color' },
-    caption: { control: 'text' },
-    selected: { control: 'boolean' },
-    edited: { control: 'boolean' },
-    transparent: { control: 'boolean' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<ColorSwatchArgs> = {
+    caption: { group: 'Content', control: 'text' },
+    hex: { group: 'Value', control: 'color' },
+    transparent: { group: 'Appearance', control: 'boolean' },
+    selected: { group: 'State', control: 'boolean' },
+    edited: { group: 'State', control: 'boolean' },
+    disabled: { group: 'State', control: 'boolean' },
     size: SIZE_ARG,
   };
 
@@ -88,7 +89,7 @@ const Playground = {
       aria-label="Palette slot"
     />
   ),
-} satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
+} satisfies PlaygroundStory<ColorSwatchArgs>;
 
 const Fills = {
   name: 'Fills',

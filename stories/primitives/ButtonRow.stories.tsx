@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Button, ButtonRow, Card, Icon, Span, Stack, Text } from '../../src/primitives';
 import type { ButtonRowVariant, FlexJustify, SpaceToken } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -18,10 +19,10 @@ const ALIGNS: readonly FlexJustify[] = ['start', 'center', 'end', 'between', 'ar
 
 const ARGS: Partial<ButtonRowArgs> = { align: 'end', gap: 'sm', variant: 'plain' };
 
-const ARG_TYPES: StoryLiteArgTypes<ButtonRowArgs> = {
-    align: { control: 'select', options: [...ALIGNS] },
-    gap: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
-    variant: { control: 'select', options: ['plain', 'bar'], description: 'bar is the dark action bar at the foot of a panel.' },
+const ARG_TYPES: PlaygroundArgTypes<ButtonRowArgs> = {
+    variant: { group: 'Appearance', control: 'select', options: ['plain', 'bar'], description: 'bar is the dark action bar at the foot of a panel.' },
+    align: { group: 'Layout', control: 'select', options: [...ALIGNS] },
+    gap: { group: 'Layout', control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
   };
 
 const meta = {
@@ -39,7 +40,7 @@ const Playground = {
       <Button variant="primary">Save changes</Button>
     </ButtonRow>
   ),
-} satisfies StoryLiteStoryDefinition<ButtonRowArgs>;
+} satisfies PlaygroundStory<ButtonRowArgs>;
 
 const Alignments = {
   name: 'Alignments',

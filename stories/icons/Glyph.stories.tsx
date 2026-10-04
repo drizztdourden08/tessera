@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Glyph, GLYPHS, Text } from '../../src/primitives';
 import type { GlyphName } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -12,9 +13,9 @@ type GlyphArgs = {
 
 const NAMES = Object.keys(GLYPHS) as GlyphName[];
 
-const ARG_TYPES: StoryLiteArgTypes<GlyphArgs> = {
-  name: { control: 'select', options: NAMES },
-  size: { control: 'number' },
+const ARG_TYPES: PlaygroundArgTypes<GlyphArgs> = {
+  name: { group: 'Content', control: 'select', options: NAMES, optionView: (name) => <Glyph name={name} size={16} /> },
+  size: { group: 'Appearance', control: 'number' },
 };
 
 const meta = {
@@ -27,7 +28,7 @@ const Playground = {
   args: { name: 'chevronRight', size: 24 },
   argTypes: ARG_TYPES,
   render: (args) => <Glyph name={args.name} size={args.size} />,
-} satisfies StoryLiteStoryDefinition<GlyphArgs>;
+} satisfies PlaygroundStory<GlyphArgs>;
 
 const Set = {
   name: 'The set',

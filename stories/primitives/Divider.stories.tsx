@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Button, Divider, Flex, Stack, StatRow, Text } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -11,8 +12,8 @@ type DividerArgs = {
 
 const ARGS: Partial<DividerArgs> = { orientation: 'horizontal' };
 
-const ARG_TYPES: StoryLiteArgTypes<DividerArgs> = {
-    orientation: { control: 'select', options: ['horizontal', 'vertical'] },
+const ARG_TYPES: PlaygroundArgTypes<DividerArgs> = {
+    orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
   };
 
 const meta = {
@@ -36,7 +37,7 @@ const Playground = {
       <Text>Spectators</Text>
     </Flex>
   ),
-} satisfies StoryLiteStoryDefinition<DividerArgs>;
+} satisfies PlaygroundStory<DividerArgs>;
 
 const InContext = {
   name: 'Horizontal and vertical in context',

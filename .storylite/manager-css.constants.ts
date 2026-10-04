@@ -9,6 +9,9 @@ const MANAGER_CSS = `
 @media (width >= 940px) {
   .storylite-shell, .storylite-shell--no-controls { grid-template-columns: minmax(280px, 310px) minmax(0, 1fr); }
 }
+/* With the menu hidden, or a story alone on its canvas, the page takes the whole width:
+   one column, never the menu's 310px one. */
+.storylite-shell.storylite-shell--no-sidebar, .storylite-shell.storylite-shell--canvas { grid-template-columns: minmax(0, 1fr); }
 .story-group__toggle { text-transform: none; font-size: 0.8rem; letter-spacing: 0; }
 
 /* The header shows the Tessera mark itself, not a mark inside a box. */

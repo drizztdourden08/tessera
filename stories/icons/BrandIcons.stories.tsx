@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Icon } from '../../src/primitives';
 import type { BrandIconName, BrandIconTone, IconFlip, IconRotation } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -19,12 +20,12 @@ const BRANDS: readonly BrandIconName[] = ['tessera', 'rotp', 'rotp-mascot', 'arc
 const SIZES = [16, 24, 48] as const;
 const TONES = ['colour', 'mono'] as const;
 
-const ARG_TYPES: StoryLiteArgTypes<BrandIconArgs> = {
-  name: { control: 'select', options: [...BRANDS] },
-  tone: { control: 'select', options: ['color', 'mono'], description: 'color keeps the brand inks; mono draws in currentColor like any icon.' },
-  size: { control: 'number' },
-  rotate: { control: 'select', options: [0, 90, 180, 270] },
-  flip: { control: 'select', options: ['none', 'horizontal', 'vertical', 'both'] },
+const ARG_TYPES: PlaygroundArgTypes<BrandIconArgs> = {
+  name: { group: 'Content', control: 'select', options: [...BRANDS] },
+  tone: { group: 'Appearance', control: 'select', options: ['color', 'mono'], description: 'color keeps the brand inks; mono draws in currentColor like any icon.' },
+  size: { group: 'Appearance', control: 'number' },
+  rotate: { group: 'Appearance', control: 'select', options: [0, 90, 180, 270] },
+  flip: { group: 'Appearance', control: 'select', options: ['none', 'horizontal', 'vertical', 'both'] },
 };
 
 const meta = {
@@ -39,7 +40,7 @@ const Playground = {
   render: (args) => (
     <Icon.Brand name={args.name} tone={args.tone} size={args.size} rotate={args.rotate} flip={args.flip === 'none' ? undefined : args.flip} />
   ),
-} satisfies StoryLiteStoryDefinition<BrandIconArgs>;
+} satisfies PlaygroundStory<BrandIconArgs>;
 
 const EveryBrand = {
   name: 'Every brand',

@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
 import { Hero } from '../../src/composites';
@@ -42,15 +43,15 @@ const ARGS: Partial<HeroArgs> = {
   brand: 'rotp', eyebrow: 'Mode', title: 'Randomizer', withArt: true, withTools: true, withFacts: true, withAside: true, withPanel: true,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<HeroArgs> = {
-  brand: { control: 'select', options: [...BRAND_APPS], description: 'The brand whose backdrop draws behind everything.' },
-  eyebrow: { control: 'text' },
-  title: { control: 'text' },
-  withArt: { control: 'boolean', description: 'A piece of art beside the intro, drawn at whole pixels.' },
-  withTools: { control: 'boolean', description: 'Buttons along the top right.' },
-  withFacts: { control: 'boolean', description: 'Rows of facts on glass along the bottom.' },
-  withAside: { control: 'boolean', description: 'A glass tile on the right of the intro.' },
-  withPanel: { control: 'boolean', description: 'A glass panel beside the facts.' },
+const ARG_TYPES: PlaygroundArgTypes<HeroArgs> = {
+  eyebrow: { group: 'Content', control: 'text' },
+  title: { group: 'Content', control: 'text' },
+  withArt: { group: 'Content', control: 'boolean', description: 'A piece of art beside the intro, drawn at whole pixels.' },
+  withTools: { group: 'Content', control: 'boolean', description: 'Buttons along the top right.' },
+  withFacts: { group: 'Content', control: 'boolean', description: 'Rows of facts on glass along the bottom.' },
+  withAside: { group: 'Content', control: 'boolean', description: 'A glass tile on the right of the intro.' },
+  withPanel: { group: 'Content', control: 'boolean', description: 'A glass panel beside the facts.' },
+  brand: { group: 'Appearance', control: 'select', options: [...BRAND_APPS], description: 'The brand whose backdrop draws behind everything.' },
 };
 
 const meta = {
@@ -63,7 +64,7 @@ const story = (name: string, patch: Partial<HeroArgs>) => ({
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => draw({ ...args, ...patch }),
-} satisfies StoryLiteStoryDefinition<HeroArgs>);
+} satisfies PlaygroundStory<HeroArgs>);
 
 const Playground = story('Playground', {});
 const Profile = story('Profile overview', {});
@@ -81,7 +82,7 @@ const Brands = {
       cell={(brand) => draw({ ...args, brand, withArt: false, withAside: false, withPanel: false })}
     />
   ),
-} satisfies StoryLiteStoryDefinition<HeroArgs>;
+} satisfies PlaygroundStory<HeroArgs>;
 
 const CODE = `import { Hero } from '@drizztdourden08/tessera';
 

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { FloatingSwitch } from '../../src/composites';
 import type { FloatingSwitchItem } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
@@ -46,9 +47,9 @@ const SwitchDemo = (props: SwitchArgs & { items: FloatingSwitchItem[] }) => {
 
 const ARGS: Partial<SwitchArgs> = { label: 'Switch window', disableLast: false };
 
-const ARG_TYPES: StoryLiteArgTypes<SwitchArgs> = {
-    label: { control: 'text' },
-    disableLast: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<SwitchArgs> = {
+    label: { group: 'Content', control: 'text' },
+    disableLast: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -61,14 +62,14 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <SwitchDemo {...args} items={TWO} />,
-} satisfies StoryLiteStoryDefinition<SwitchArgs>;
+} satisfies PlaygroundStory<SwitchArgs>;
 
 const ThreePlaces = {
   name: 'Three places',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <SwitchDemo {...args} items={THREE} />,
-} satisfies StoryLiteStoryDefinition<SwitchArgs>;
+} satisfies PlaygroundStory<SwitchArgs>;
 
 const renderState = (props: StateProps) => (
   <FloatingSwitch

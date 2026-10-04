@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Button } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { BreakDemo, ProviderFallbackDemo, ResetKeyDemo, SameMarkupDemo } from './_samples/error-boundary-demos';
@@ -19,10 +20,10 @@ const ARGS: Partial<BoundaryArgs> = {
   withAction: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<BoundaryArgs> = {
-  label: { control: 'text', description: 'The headline of the notice. Empty uses the sectionFailed string.' },
-  errorMessage: { control: 'text', description: 'What the section throws when you press Break this section.' },
-  withAction: { control: 'boolean', description: 'Adds a button under the notice.' },
+const ARG_TYPES: PlaygroundArgTypes<BoundaryArgs> = {
+  label: { group: 'Content', control: 'text', description: 'The headline of the notice. Empty uses the sectionFailed string.' },
+  errorMessage: { group: 'Content', control: 'text', description: 'What the section throws when you press Break this section.' },
+  withAction: { group: 'Content', control: 'boolean', description: 'Adds a button under the notice.' },
 };
 
 const meta = {
@@ -41,7 +42,7 @@ const Playground = {
       action={args.withAction ? <Button size="sm" variant="secondary">Contact support</Button> : undefined}
     />
   ),
-} satisfies StoryLiteStoryDefinition<BoundaryArgs>;
+} satisfies PlaygroundStory<BoundaryArgs>;
 
 const Healthy = {
   name: 'Healthy: no markup of its own',

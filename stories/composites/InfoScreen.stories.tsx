@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Logo } from '../../src/brand';
 import { InfoScreen } from '../../src/composites';
 import type { InfoScreenWidth } from '../../src/composites';
@@ -52,10 +53,10 @@ const InfoDemo = (props: InfoArgs) => {
 
 const ARGS: Partial<InfoArgs> = { page: 'about', width: 'readable', withFooter: true };
 
-const ARG_TYPES: StoryLiteArgTypes<InfoArgs> = {
-  page: { control: 'select', options: ['about', 'credits'] },
-  width: { control: 'select', options: ['readable', 'wide'], description: 'readable keeps lines short; wide fits a grid of cards.' },
-  withFooter: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<InfoArgs> = {
+  page: { group: 'Content', control: 'select', options: ['about', 'credits'] },
+  withFooter: { group: 'Content', control: 'boolean' },
+  width: { group: 'Layout', control: 'select', options: ['readable', 'wide'], description: 'readable keeps lines short; wide fits a grid of cards.' },
 };
 
 const meta = {
@@ -68,14 +69,14 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <InfoDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<InfoArgs>;
+} satisfies PlaygroundStory<InfoArgs>;
 
 const Credits = {
   name: 'Credits',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: () => <InfoDemo page="credits" width="wide" withFooter={false} />,
-} satisfies StoryLiteStoryDefinition<InfoArgs>;
+} satisfies PlaygroundStory<InfoArgs>;
 
 const CODE = `import { FactsPanel, InfoScreen, Logo, Title } from '@drizztdourden08/tessera';
 

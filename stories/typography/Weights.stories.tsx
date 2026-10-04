@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { SPECIMEN, WEIGHTS } from './type-lists';
@@ -13,10 +14,10 @@ type WeightArgs = {
   text: string;
 };
 
-const ARG_TYPES: StoryLiteArgTypes<WeightArgs> = {
-  weight: { control: 'number', description: 'Any whole number from 100 to 900. Inter draws every one.' },
-  italic: { control: 'boolean' },
-  text: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<WeightArgs> = {
+  text: { group: 'Content', control: 'text' },
+  weight: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Any whole number from 100 to 900. Inter draws every one.' },
+  italic: { group: 'Appearance', control: 'boolean' },
 };
 
 const meta = {
@@ -51,7 +52,7 @@ const Playground = {
   render: (args) => (
     <Text className="variable-type__display" weight={args.weight} italic={args.italic}>{args.text}</Text>
   ),
-} satisfies StoryLiteStoryDefinition<WeightArgs>;
+} satisfies PlaygroundStory<WeightArgs>;
 
 const Overview = overviewStory({
   component: 'Weights',

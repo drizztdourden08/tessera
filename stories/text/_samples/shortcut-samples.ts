@@ -19,6 +19,8 @@ const FUNCTION_KEYS = Array.from({ length: FUNCTION_KEY_COUNT }, (_, index) => `
 
 const PRINTABLE_KEYS = [...LETTER_KEYS, ...CHARACTER_KEYS, ...FUNCTION_KEYS] as ShortcutKey[];
 
+const SHORTCUT_KEY_OPTIONS: readonly ShortcutKey[] = [...(Object.keys(KEY_SPECS) as KeyName[]), ...PRINTABLE_KEYS];
+
 const legendsOf = (key: KeyName): ShortcutLegend[] => SHORTCUT_LEGENDS.filter((legend) => legend in KEY_SPECS[key]);
 
 const MULTI_LEGEND_KEYS = (Object.keys(KEY_SPECS) as KeyName[]).filter((key) => legendsOf(key).length > 1);
@@ -62,6 +64,6 @@ const ANIMATED_ROWS: readonly ShortcutRow[] = [
 
 export {
   ANIMATED_ROWS, CAP_WIDTH_ROWS, COMBINATION_ROWS, KEYS_AND_MOUSE_ROWS, legendsOf, MOUSE_BUTTONS,
-  MULTI_LEGEND_KEYS, PRINTABLE_KEYS,
+  MULTI_LEGEND_KEYS, PRINTABLE_KEYS, SHORTCUT_KEY_OPTIONS,
 };
 export type { ShortcutRow };

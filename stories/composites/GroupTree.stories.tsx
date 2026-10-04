@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { GroupTree } from '../../src/composites';
 import type { TreeNode } from '../../src/composites';
 import { Box, Icon, Span, Text } from '../../src/primitives';
@@ -82,11 +83,11 @@ const ControlledDemo = () => {
 
 const ARGS: Partial<TreeArgs> = { expandToDepth: 2, showCounts: true, icons: true, emptyLabel: 'No players in this session yet.' };
 
-const ARG_TYPES: StoryLiteArgTypes<TreeArgs> = {
-    expandToDepth: { control: 'number', description: 'Levels open on mount' },
-    showCounts: { control: 'boolean', description: 'Item count on each group' },
-    icons: { control: 'boolean', description: 'Icons per group and per item' },
-    emptyLabel: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<TreeArgs> = {
+    icons: { group: 'Content', control: 'boolean', description: 'Icons per group and per item' },
+    emptyLabel: { group: 'Content', control: 'text' },
+    showCounts: { group: 'Appearance', control: 'boolean', description: 'Item count on each group' },
+    expandToDepth: { group: 'Behaviour', control: 'number', description: 'Levels open on mount' },
   };
 
 const meta = {
@@ -99,7 +100,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TreeDemo {...args} root={ICON_TREE} />,
-} satisfies StoryLiteStoryDefinition<TreeArgs>;
+} satisfies PlaygroundStory<TreeArgs>;
 
 const FullyExpanded = {
   name: 'Players by server and session',

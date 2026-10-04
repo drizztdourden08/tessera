@@ -6,6 +6,7 @@ import { elementToJsx } from './element-to-jsx';
 import { OverviewPage } from './OverviewPage';
 import type { OverviewSection } from './OverviewPage';
 import type { OverviewStates } from './states/states.type';
+import type { PlaygroundArgTypes, PlaygroundStory } from './controls/playground.type';
 
 type Story<A extends StoryLiteArgs> = StoryLiteStoryDefinition<A>;
 type StoryContext<A extends StoryLiteArgs> = Parameters<NonNullable<Story<A>['render']>>[1];
@@ -15,10 +16,10 @@ interface OverviewParams<A extends StoryLiteArgs> {
   importName?: string;
   description: string;
   points?: readonly string[];
-  variants: readonly Story<A>[];
+  variants: readonly (Story<A> | PlaygroundStory<A>)[];
   sections?: readonly OverviewSection[];
   states?: OverviewStates;
-  playground?: Story<A>;
+  playground?: PlaygroundStory<A>;
   code?: string | false;
 }
 
@@ -29,7 +30,7 @@ const snippetFor = (component: string, node: ReactNode): string => {
   return `import { ${component} } from '${PACKAGE}';\n\n${jsx}`;
 };
 
-const draw = <A extends StoryLiteArgs>(story: Story<A>, args: StoryLiteArgs, context: StoryContext<A>): ReactNode =>
+const draw = <A extends StoryLiteArgs>(story: Pick<Story<A>, 'render' | 'args'>, args: StoryLiteArgs, context: StoryContext<A>): ReactNode =>
   story.render?.({ ...(story.args ?? {}), ...args } as A, context) as ReactNode;
 
 const overviewStory = <A extends StoryLiteArgs>(params: OverviewParams<A>): Story<A> => {
@@ -49,7 +50,7 @@ const overviewStory = <A extends StoryLiteArgs>(params: OverviewParams<A>): Stor
         variants={variants.map((story) => ({ title: story.name ?? '', node: draw(story, defaults, context) }))}
         states={states ?? null}
         playground={playground ? {
-          argTypes: playground.argTypes ?? {},
+          argTypes: (playground.argTypes ?? {}) as PlaygroundArgTypes,
           defaults,
           draw: (args) => draw(playground, args, context),
           snippet,

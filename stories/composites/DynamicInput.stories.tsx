@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { DynamicInput } from '../../src/composites';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
+import { DynamicInput, parsePattern } from '../../src/composites';
 import { Code, Field } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
@@ -25,13 +26,18 @@ const ARGS: Partial<PatternPlaygroundArgs> = {
   pattern: PLAYGROUND_PATTERN, label: 'Randomizer seed', counter: '', size: 'md', disabled: false, invalid: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<PatternPlaygroundArgs> = {
-  pattern: { control: 'text', description: 'Type a pattern and the field rebuilds. Lists countries and months, actions send and reroll, and the wallet and dices icons are on hand.' },
-  label: { control: 'text' },
-  counter: { control: 'text', description: 'The name of a text slot to count, such as comment.' },
+const ARG_TYPES: PlaygroundArgTypes<PatternPlaygroundArgs> = {
+  pattern: { group: 'Content', control: 'text', description: 'Type a pattern and the field rebuilds. Lists countries and months, actions send and reroll, and the wallet and dices icons are on hand.' },
+  label: { group: 'Content', control: 'text' },
+  counter: {
+    group: 'Content',
+    control: 'select',
+    options: (args) => ['', ...parsePattern(args.pattern).slots.filter((slot) => slot.type === 'text').map((slot) => slot.name)],
+    description: 'A text slot of the pattern to count. The list follows the pattern.',
+  },
   size: SIZE_ARG,
-  disabled: { control: 'boolean' },
-  invalid: { control: 'boolean', description: 'Sets an error on the Field around it.' },
+  disabled: { group: 'State', control: 'boolean' },
+  invalid: { group: 'State', control: 'boolean', description: 'Sets an error on the Field around it.' },
 };
 
 const meta = {
@@ -72,7 +78,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PatternPlayground {...args} />,
-} satisfies Story;
+} satisfies PlaygroundStory<PatternPlaygroundArgs>;
 
 const StateDemo = (props: StateProps & { error?: string }) => {
   const { disabled, error } = props;

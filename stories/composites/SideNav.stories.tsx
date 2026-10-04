@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useMemo, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SideNav } from '../../src/composites';
 import type { SideNavConfig, SideNavItem, SideNavVariant } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
@@ -69,13 +70,13 @@ const NavDemo = (props: SideNavArgs) => {
 
 const ARGS: Partial<SideNavArgs> = { variant: 'panel', collapsed: false, defaultOpen: false, withSearch: true, withHome: true, searchPlaceholder: 'Search sessions and presets' };
 
-const ARG_TYPES: StoryLiteArgTypes<SideNavArgs> = {
-    variant: { control: 'select', options: ['panel', 'rail'] },
-    collapsed: { control: 'boolean' },
-    defaultOpen: { control: 'boolean' },
-    withSearch: { control: 'boolean' },
-    withHome: { control: 'boolean' },
-    searchPlaceholder: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<SideNavArgs> = {
+    withSearch: { group: 'Content', control: 'boolean' },
+    withHome: { group: 'Content', control: 'boolean' },
+    searchPlaceholder: { group: 'Content', control: 'text' },
+    variant: { group: 'Appearance', control: 'select', options: ['panel', 'rail'] },
+    collapsed: { group: 'State', control: 'boolean' },
+    defaultOpen: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -88,21 +89,21 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <NavDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<SideNavArgs>;
+} satisfies PlaygroundStory<SideNavArgs>;
 
 const OpenWithSearch = {
   name: 'Open with search',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <NavDemo {...args} defaultOpen withSearch />,
-} satisfies StoryLiteStoryDefinition<SideNavArgs>;
+} satisfies PlaygroundStory<SideNavArgs>;
 
 const GroupsOnly = {
   name: 'Groups only',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <NavDemo {...args} withSearch={false} withHome={false} />,
-} satisfies StoryLiteStoryDefinition<SideNavArgs>;
+} satisfies PlaygroundStory<SideNavArgs>;
 
 const FirstRows = {
   name: 'Chevron beside the first row',
@@ -139,14 +140,14 @@ const Rail = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RailDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<SideNavArgs>;
+} satisfies PlaygroundStory<SideNavArgs>;
 
 const RailCollapsed = {
   name: 'Rail, collapsed',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RailDemo {...args} collapsed />,
-} satisfies StoryLiteStoryDefinition<SideNavArgs>;
+} satisfies PlaygroundStory<SideNavArgs>;
 
 const STATE_ITEMS = [item('sessions', 'Sessions', 'sessions')];
 

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useRef, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, ButtonRow, Floating, Portal, ScrollArea, Text, useAnchorTracking } from '../../src/primitives';
 import type { PortalLayer } from '../../src/primitives';
 import { dropPanelPositionFor } from '../../src/primitives/Portal';
@@ -19,10 +20,10 @@ const PANEL_OPTIONS = { roomForDropDown: 200, gap: 4, minPanelWidth: 240 };
 
 const ARGS: Partial<PortalArgs> = { layer: 'toast', open: true, message: 'Aria found the Hookshot in your world.' };
 
-const ARG_TYPES: StoryLiteArgTypes<PortalArgs> = {
-    layer: { control: 'select', options: [...LAYERS] },
-    open: { control: 'boolean' },
-    message: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<PortalArgs> = {
+    message: { group: 'Content', control: 'text' },
+    layer: { group: 'Layout', control: 'select', options: [...LAYERS] },
+    open: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -49,7 +50,7 @@ const Playground = {
       )}
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<PortalArgs>;
+} satisfies PlaygroundStory<PortalArgs>;
 
 const AnchoredPopoverDemo = () => {
   const [open, setOpen] = useState(false);

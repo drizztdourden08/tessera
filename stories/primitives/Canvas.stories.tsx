@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useEffect, useRef } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Canvas, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import './Canvas.stories.css';
@@ -107,10 +108,10 @@ const PixelSprite = () => {
 
 const ARGS: Partial<CanvasArgs> = { width: 420, height: 220, showValues: true };
 
-const ARG_TYPES: StoryLiteArgTypes<CanvasArgs> = {
-    width: { control: 'number', description: 'Bitmap width in px.' },
-    height: { control: 'number', description: 'Bitmap height in px.' },
-    showValues: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<CanvasArgs> = {
+    showValues: { group: 'Appearance', control: 'boolean' },
+    width: { group: 'Layout', control: 'number', description: 'Bitmap width in px.' },
+    height: { group: 'Layout', control: 'number', description: 'Bitmap height in px.' },
   };
 
 const meta = {
@@ -128,7 +129,7 @@ const Playground = {
       <BarChart width={args.width} height={args.height} showValues={args.showValues} />
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<CanvasArgs>;
+} satisfies PlaygroundStory<CanvasArgs>;
 
 const PixelArt = {
   name: 'Pixel art',

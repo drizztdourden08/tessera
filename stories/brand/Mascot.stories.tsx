@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { AnimatedMascot, BRAND_FAMILY, ChosenMascot, Mascot } from '../../src/brand';
 import type { BrandApp, BrandMarkSize, ChosenMascotProps, MascotPose, SentriAnimation } from '../../src/brand';
 import { Stack, Text } from '../../src/primitives';
@@ -35,18 +36,18 @@ const POSES: Readonly<Record<string, MascotPose>> = {
   'Pods raised': { podAngles: { left: 25, right: -25 } },
 };
 
-const ARG_TYPES: StoryLiteArgTypes<MascotArgs> = {
-  animation: { control: 'select', options: ['none', ...SENTRI_ANIMATIONS], description: 'Sentri\'s animation, drawn with AnimatedMascot. none draws the still Mascot with the variant and pose below.' },
-  speed: { control: 'number', description: 'Playback speed: 1 is normal, 0.5 half, 2 double.' },
-  loop: { control: 'boolean', description: 'Plays the animation again and again. Off plays it once; turn playing off and on to see it again.' },
-  playing: { control: 'boolean', description: 'Off pauses the animation where it is.' },
-  brand: { control: 'select', options: [...MASCOT_BRANDS] },
-  variant: { control: 'select', options: [...MASCOT_VARIANT_IDS], description: 'A variant id from the brand\'s mascot data. An unknown one draws the mascot itself.' },
-  scale: { control: 'number', description: 'Screen pixels per art pixel. Whole numbers keep every pixel square.' },
-  lookX: { control: 'number', description: 'Where the eyes look across, from -2 to 2 art pixels.' },
-  lookY: { control: 'number', description: 'Where the eyes look up or down, from -1 to 1 art pixels.' },
-  podLeft: { control: 'number', description: 'The left pod\'s turn in degrees, around the point where it meets the body.' },
-  podRight: { control: 'number', description: 'The right pod\'s turn in degrees.' },
+const ARG_TYPES: PlaygroundArgTypes<MascotArgs> = {
+  brand: { group: 'Content', control: 'select', options: [...MASCOT_BRANDS] },
+  variant: { group: 'Appearance', control: 'select', options: [...MASCOT_VARIANT_IDS], description: 'A variant id from the brand\'s mascot data. An unknown one draws the mascot itself.' },
+  scale: { group: 'Appearance', control: 'number', description: 'Screen pixels per art pixel. Whole numbers keep every pixel square.' },
+  lookX: { group: 'State', control: 'range', min: -2, max: 2, step: 1, description: 'Where the eyes look across, from -2 to 2 art pixels.' },
+  lookY: { group: 'State', control: 'range', min: -1, max: 1, step: 1, description: 'Where the eyes look up or down, from -1 to 1 art pixels.' },
+  podLeft: { group: 'State', control: 'number', description: 'The left pod\'s turn in degrees, around the point where it meets the body.' },
+  podRight: { group: 'State', control: 'number', description: 'The right pod\'s turn in degrees.' },
+  animation: { group: 'Motion', control: 'select', options: ['none', ...SENTRI_ANIMATIONS], description: 'Sentri\'s animation, drawn with AnimatedMascot. none draws the still Mascot with the variant and pose below.' },
+  speed: { group: 'Motion', control: 'range', min: 0.25, max: 4, step: 0.25, description: 'Playback speed: 1 is normal, 0.5 half, 2 double.' },
+  loop: { group: 'Motion', control: 'boolean', description: 'Plays the animation again and again. Off plays it once; turn playing off and on to see it again.' },
+  playing: { group: 'Motion', control: 'boolean', description: 'Off pauses the animation where it is.' },
 };
 
 const meta = {
@@ -68,7 +69,7 @@ const Playground = {
   ) : (
     <AnimatedMascot brand="rotp" animation={args.animation} speed={args.speed} loop={args.loop} playing={args.playing} scale={args.scale} />
   )),
-} satisfies StoryLiteStoryDefinition<MascotArgs>;
+} satisfies PlaygroundStory<MascotArgs>;
 
 const Animations = {
   name: 'Animations',

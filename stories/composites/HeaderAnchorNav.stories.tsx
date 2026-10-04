@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { HeaderAnchorNav, WindowHeader } from '../../src/composites';
 import type { HeaderAnchorNavItem } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
@@ -41,9 +42,9 @@ const InHeaderDemo = (props: HeaderAnchorNavArgs) => {
 
 const ARGS: Partial<HeaderAnchorNavArgs> = { ariaLabel: 'Session sections', withBadges: true };
 
-const ARG_TYPES: StoryLiteArgTypes<HeaderAnchorNavArgs> = {
-    ariaLabel: { control: 'text' },
-    withBadges: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<HeaderAnchorNavArgs> = {
+    ariaLabel: { group: 'Content', control: 'text' },
+    withBadges: { group: 'Content', control: 'boolean' },
   };
 
 const meta = {
@@ -56,14 +57,14 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <AnchorDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<HeaderAnchorNavArgs>;
+} satisfies PlaygroundStory<HeaderAnchorNavArgs>;
 
 const InWindowHeader = {
   name: 'In a window header',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <InHeaderDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<HeaderAnchorNavArgs>;
+} satisfies PlaygroundStory<HeaderAnchorNavArgs>;
 
 const STATE_ITEMS: readonly HeaderAnchorNavItem[] = [{ id: 'players', label: 'Players', badge: 8 }];
 

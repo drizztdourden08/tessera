@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { PixelWordmark } from '../../src/composites';
 import type { PixelWordmarkColors, PixelWordmarkSize } from '../../src/composites';
 import { BRAND_APPS, BRAND_FAMILY, BrandWordmark } from '../../src/brand';
@@ -20,13 +21,13 @@ const GOLD: PixelWordmarkColors = ['#ffe26e', '#ffd639', '#fcbb28', '#ffa200'];
 
 const ARGS: Partial<PixelWordmarkArgs> = { text: 'Hello World', top: GOLD[0], upper: GOLD[1], lower: GOLD[2], bottom: GOLD[3], size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<PixelWordmarkArgs> = {
-  text: { control: 'text', description: 'Uppercase letters draw at capital size, lowercase smaller' },
-  top: { control: 'color', description: 'Top band' },
-  upper: { control: 'color' },
-  lower: { control: 'color' },
-  bottom: { control: 'color', description: 'Bottom band; the outline and shadow are drawn from it' },
-  size: { control: 'select', options: ['sm', 'md', 'lg'] },
+const ARG_TYPES: PlaygroundArgTypes<PixelWordmarkArgs> = {
+  text: { group: 'Content', control: 'text', description: 'Uppercase letters draw at capital size, lowercase smaller' },
+  top: { group: 'Appearance', control: 'color', description: 'Top band' },
+  upper: { group: 'Appearance', control: 'color' },
+  lower: { group: 'Appearance', control: 'color' },
+  bottom: { group: 'Appearance', control: 'color', description: 'Bottom band; the outline and shadow are drawn from it' },
+  size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg'] },
 };
 
 const meta = {
@@ -45,7 +46,7 @@ const Playground = {
       size={args.size}
     />
   ),
-} satisfies StoryLiteStoryDefinition<PixelWordmarkArgs>;
+} satisfies PlaygroundStory<PixelWordmarkArgs>;
 
 const ALPHABET_UPPER = ['ABCDEFGHIJKLM', 'NOPQRSTUVWXYZ'];
 

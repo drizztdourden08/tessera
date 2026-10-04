@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Spinner, Text } from '../../src/primitives';
 import type { SpinnerSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -15,9 +16,9 @@ const SIZES: readonly SpinnerSize[] = ['sm', 'md', 'lg'];
 
 const ARGS: Partial<SpinnerArgs> = { size: 'md', label: 'Loading' };
 
-const ARG_TYPES: StoryLiteArgTypes<SpinnerArgs> = {
-    size: { control: 'select', options: [...SIZES] },
-    label: { control: 'text', description: 'What a screen reader announces.' },
+const ARG_TYPES: PlaygroundArgTypes<SpinnerArgs> = {
+    label: { group: 'Content', control: 'text', description: 'What a screen reader announces.' },
+    size: { group: 'Appearance', control: 'select', options: [...SIZES] },
   };
 
 const meta = {
@@ -30,7 +31,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <Spinner size={args.size} label={args.label} />,
-} satisfies StoryLiteStoryDefinition<SpinnerArgs>;
+} satisfies PlaygroundStory<SpinnerArgs>;
 
 const Sizes = {
   name: 'Sizes',

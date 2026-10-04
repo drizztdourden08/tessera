@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { PinnedPanel, Placements, ScrollBox } from './_samples/anchored-demos';
 import type { AnchoredArgs } from './_samples/anchored-demos';
@@ -9,10 +10,10 @@ type Story = StoryLiteStoryDefinition<AnchoredArgs>;
 
 const ARGS: Partial<AnchoredArgs> = { placement: 'bottom-start', flip: true, open: true };
 
-const ARG_TYPES: StoryLiteArgTypes<AnchoredArgs> = {
-  placement: { control: 'select', options: ['bottom-start', 'bottom-center', 'bottom-end', 'top-start', 'top-center', 'top-end', 'right-start'] },
-  flip: { control: 'boolean', description: 'Let the browser flip the panel to the other side when it runs out of room.' },
-  open: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<AnchoredArgs> = {
+  placement: { group: 'Layout', control: 'select', options: ['bottom-start', 'bottom-center', 'bottom-end', 'top-start', 'top-center', 'top-end', 'right-start'] },
+  open: { group: 'State', control: 'boolean' },
+  flip: { group: 'Behaviour', control: 'boolean', description: 'Let the browser flip the panel to the other side when it runs out of room.' },
 };
 
 const meta = {
@@ -25,7 +26,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PinnedPanel {...args} />,
-} satisfies Story;
+} satisfies PlaygroundStory<AnchoredArgs>;
 
 const PlacementGrid = { name: 'Placements', render: () => <Placements /> } satisfies Story;
 

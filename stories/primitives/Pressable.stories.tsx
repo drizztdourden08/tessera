@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Pressable } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -15,9 +16,9 @@ type PressableArgs = {
 
 const ARGS: Partial<PressableArgs> = { text: 'Load the Saturday save', disabled: false };
 
-const ARG_TYPES: StoryLiteArgTypes<PressableArgs> = {
-  text: { control: 'text' },
-  disabled: { control: 'boolean', description: 'Stops clicks and focus, and drops the pointer cursor.' },
+const ARG_TYPES: PlaygroundArgTypes<PressableArgs> = {
+  text: { group: 'Content', control: 'text' },
+  disabled: { group: 'State', control: 'boolean', description: 'Stops clicks and focus, and drops the pointer cursor.' },
 };
 
 const meta = {
@@ -32,7 +33,7 @@ const Playground = {
   render: (args) => (
     <Pressable className="pressable-demo__row" disabled={args.disabled}>{args.text}</Pressable>
   ),
-} satisfies StoryLiteStoryDefinition<PressableArgs>;
+} satisfies PlaygroundStory<PressableArgs>;
 
 const Surfaces = {
   name: 'Surfaces drawn by the caller',

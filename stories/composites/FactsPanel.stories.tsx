@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { FactsPanel } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import { BUILD_FACTS, PROFILE_FACTS } from './_samples/data-facts';
@@ -11,9 +12,9 @@ type FactsArgs = {
 
 const ARGS: Partial<FactsArgs> = { label: 'Profile', secondGroup: true };
 
-const ARG_TYPES: StoryLiteArgTypes<FactsArgs> = {
-  label: { control: 'text', description: 'The accessible name of the panel.' },
-  secondGroup: { control: 'boolean', description: 'Adds the second group under a hairline.' },
+const ARG_TYPES: PlaygroundArgTypes<FactsArgs> = {
+  label: { group: 'Content', control: 'text', description: 'The accessible name of the panel.' },
+  secondGroup: { group: 'Content', control: 'boolean', description: 'Adds the second group under a hairline.' },
 };
 
 const meta = {
@@ -28,7 +29,7 @@ const Playground = {
   render: (args) => (
     <FactsPanel label={args.label || undefined} groups={args.secondGroup ? PROFILE_FACTS : PROFILE_FACTS.slice(0, 1)} />
   ),
-} satisfies StoryLiteStoryDefinition<FactsArgs>;
+} satisfies PlaygroundStory<FactsArgs>;
 
 const TwoGroups = {
   name: 'Two groups under a hairline',

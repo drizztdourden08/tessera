@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SearchResultHit } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -34,12 +35,12 @@ const HitDemo = (props: HitArgs) => {
 
 const ARGS: Partial<HitArgs> = { label: 'Search', description: 'Ctrl+K opens the search from any screen.', path: 'Reference / Keyboard', query: 'sea', withIcon: true };
 
-const ARG_TYPES: StoryLiteArgTypes<HitArgs> = {
-  label: { control: 'text' },
-  description: { control: 'text' },
-  path: { control: 'text', description: 'Where the match lives, one name per step, split here on /.' },
-  query: { control: 'text', description: 'The text to mark in the label and the description.' },
-  withIcon: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<HitArgs> = {
+  label: { group: 'Content', control: 'text' },
+  description: { group: 'Content', control: 'text' },
+  path: { group: 'Content', control: 'text', description: 'Where the match lives, one name per step, split here on /.' },
+  query: { group: 'Content', control: 'text', description: 'The text to mark in the label and the description.' },
+  withIcon: { group: 'Content', control: 'boolean' },
 };
 
 const meta = {
@@ -52,7 +53,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <HitDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<HitArgs>;
+} satisfies PlaygroundStory<HitArgs>;
 
 const LabelOnly = {
   name: 'Label only',

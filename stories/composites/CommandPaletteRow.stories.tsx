@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CommandPaletteRow } from '../../src/composites';
 import type { CommandPaletteItem } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
@@ -21,12 +22,12 @@ const ARGS: Partial<RowArgs> = {
   label: 'Play sounds', description: 'Chimes when an item arrives', breadcrumb: 'Settings / Audio', end: 'toggle', disabled: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<RowArgs> = {
-  label: { control: 'text' },
-  description: { control: 'text' },
-  breadcrumb: { control: 'text', description: 'Parts split on a slash.' },
-  end: { control: 'select', options: ['none', 'check', 'toggle'] },
-  disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<RowArgs> = {
+  label: { group: 'Content', control: 'text' },
+  description: { group: 'Content', control: 'text' },
+  breadcrumb: { group: 'Content', control: 'text', description: 'Parts split on a slash.' },
+  end: { group: 'Content', control: 'select', options: ['none', 'check', 'toggle'] },
+  disabled: { group: 'State', control: 'boolean' },
 };
 
 const RowDemo = (props: RowArgs) => {
@@ -61,28 +62,28 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RowDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<RowArgs>;
+} satisfies PlaygroundStory<RowArgs>;
 
 const Plain = {
   name: 'Label only',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RowDemo {...args} description="" breadcrumb="" end="none" />,
-} satisfies StoryLiteStoryDefinition<RowArgs>;
+} satisfies PlaygroundStory<RowArgs>;
 
 const WithCheck = {
   name: 'Breadcrumb and check dot',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RowDemo {...args} label="Show developer tools" description="" breadcrumb="Actions" end="check" />,
-} satisfies StoryLiteStoryDefinition<RowArgs>;
+} satisfies PlaygroundStory<RowArgs>;
 
 const WithToggle = {
   name: 'Inline toggle',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RowDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<RowArgs>;
+} satisfies PlaygroundStory<RowArgs>;
 
 const STATE_ITEM: CommandPaletteItem = {
   id: 'logs', label: 'Logs', icon: <Icon name="file-text" size={16} />, description: 'Everything the app has said', breadcrumb: ['Tools'],

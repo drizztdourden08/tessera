@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useEffect, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Image } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -53,16 +54,17 @@ const ARGS: Partial<ImageArgs> = {
   withFallback: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<ImageArgs> = {
+const ARG_TYPES: PlaygroundArgTypes<ImageArgs> = {
     picture: {
+      group: 'Content',
       control: 'select',
       options: ['valley', 'dusk', 'broken', 'on its way', 'none'],
       description: 'A source that fails, one still on its way (pending, never arrives), or none at all.',
     },
-    alt: { control: 'text' },
-    ratio: { control: 'select', options: ['from the image', '16 / 9', '4 / 3', '1 / 1'], description: 'The box the picture takes before it loads.' },
-    placeholder: { control: 'select', options: ['auto', 'none'], description: 'Draw the picture outline while loading and when broken.' },
-    withFallback: { control: 'boolean', description: 'Custom node drawn when the source fails or is missing.' },
+    alt: { group: 'Content', control: 'text' },
+    withFallback: { group: 'Content', control: 'boolean', description: 'Custom node drawn when the source fails or is missing.' },
+    placeholder: { group: 'Appearance', control: 'select', options: ['auto', 'none'], description: 'Draw the picture outline while loading and when broken.' },
+    ratio: { group: 'Layout', control: 'select', options: ['from the image', '16 / 9', '4 / 3', '1 / 1'], description: 'The box the picture takes before it loads.' },
   };
 
 const meta = {
@@ -86,7 +88,7 @@ const Playground = {
       fallback={args.withFallback ? fallbackNode : undefined}
     />
   ),
-} satisfies StoryLiteStoryDefinition<ImageArgs>;
+} satisfies PlaygroundStory<ImageArgs>;
 
 const renderState = (props: StateProps) => (
   <Image className="image-demo" src={DUSK_URI} alt="Screenshot of the ridge at dusk" {...props} />

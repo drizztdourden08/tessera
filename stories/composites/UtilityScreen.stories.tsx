@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { UtilityScreen } from '../../src/composites';
 import { Button, Callout, Icon, SegmentedControl } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -66,8 +67,8 @@ const UpdateDemo = (props: UtilityArgs) => {
 
 const ARGS: Partial<UtilityArgs> = { step: 'available' };
 
-const ARG_TYPES: StoryLiteArgTypes<UtilityArgs> = {
-  step: { control: 'select', options: [...UPDATE_STEPS], description: 'The first step shown. The buttons move between steps.' },
+const ARG_TYPES: PlaygroundArgTypes<UtilityArgs> = {
+  step: { group: 'State', control: 'select', options: [...UPDATE_STEPS], description: 'The first step shown. The buttons move between steps.' },
 };
 
 const meta = {
@@ -80,28 +81,28 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <UpdateDemo key={args.step} step={args.step} />,
-} satisfies StoryLiteStoryDefinition<UtilityArgs>;
+} satisfies PlaygroundStory<UtilityArgs>;
 
 const Checking = {
   name: 'Checking',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: () => <UpdateDemo step="checking" />,
-} satisfies StoryLiteStoryDefinition<UtilityArgs>;
+} satisfies PlaygroundStory<UtilityArgs>;
 
 const Downloading = {
   name: 'Downloading, with progress',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: () => <UpdateDemo step="downloading" />,
-} satisfies StoryLiteStoryDefinition<UtilityArgs>;
+} satisfies PlaygroundStory<UtilityArgs>;
 
 const Failed = {
   name: 'Failed',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: () => <UpdateDemo step="failed" />,
-} satisfies StoryLiteStoryDefinition<UtilityArgs>;
+} satisfies PlaygroundStory<UtilityArgs>;
 
 const CODE = `import { Button, Card, Field, Paragraph, SectionHeader, Select, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
 

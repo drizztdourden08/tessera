@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -21,14 +22,14 @@ const ARGS: Partial<DockArgs> = {
   peek: false, swap: false, overlay: false, floating: true, mainLabel: 'Main view', gripLabel: 'Main', mainGrip: 'always',
 };
 
-const ARG_TYPES: StoryLiteArgTypes<DockArgs> = {
-  peek: { control: 'boolean', description: 'Every pane folds to its title strip and the main view takes the room. Holding Alt does the same.' },
-  swap: { control: 'boolean', description: 'A drop on a pane swaps the two. Holding Shift does the same.' },
-  overlay: { control: 'boolean', description: 'A drop lands over the main view instead of making room. Holding Ctrl does the same.' },
-  floating: { control: 'boolean', description: 'Start with the Console floating over the main view.' },
-  mainLabel: { control: 'text', description: 'Names the main view in the drag label.' },
-  gripLabel: { control: 'text', description: 'The word on the grip at the top of the main view.' },
-  mainGrip: { control: 'select', options: ['always', 'dragging', 'hidden'], description: 'When the grip shows: always, only while a widget is dragged, or never, for an app whose main view never moves.' },
+const ARG_TYPES: PlaygroundArgTypes<DockArgs> = {
+  mainLabel: { group: 'Content', control: 'text', description: 'Names the main view in the drag label.' },
+  gripLabel: { group: 'Content', control: 'text', description: 'The word on the grip at the top of the main view.' },
+  peek: { group: 'State', control: 'boolean', description: 'Every pane folds to its title strip and the main view takes the room. Holding Alt does the same.' },
+  floating: { group: 'State', control: 'boolean', description: 'Start with the Console floating over the main view.' },
+  swap: { group: 'Behaviour', control: 'boolean', description: 'A drop on a pane swaps the two. Holding Shift does the same.' },
+  overlay: { group: 'Behaviour', control: 'boolean', description: 'A drop lands over the main view instead of making room. Holding Ctrl does the same.' },
+  mainGrip: { group: 'Behaviour', control: 'select', options: ['always', 'dragging', 'hidden'], description: 'When the grip shows: always, only while a widget is dragged, or never, for an app whose main view never moves.' },
 };
 
 const meta = {
@@ -41,28 +42,28 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <DockDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<DockArgs>;
+} satisfies PlaygroundStory<DockArgs>;
 
 const Tiled = {
   name: 'Tiled around the main view',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <DockDemo {...args} floating={false} />,
-} satisfies StoryLiteStoryDefinition<DockArgs>;
+} satisfies PlaygroundStory<DockArgs>;
 
 const Floating = {
   name: 'With a floating widget',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <DockDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<DockArgs>;
+} satisfies PlaygroundStory<DockArgs>;
 
 const Peek = {
   name: 'Peek',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <DockDemo {...args} peek />,
-} satisfies StoryLiteStoryDefinition<DockArgs>;
+} satisfies PlaygroundStory<DockArgs>;
 
 const renderState = (props: StateProps) => (
   <DockDemo className="dock-story--state" floating={false} peek={props.peek === true} />

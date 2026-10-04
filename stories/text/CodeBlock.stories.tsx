@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CodeBlock } from '../../src/primitives';
 import type { CodeBlockLanguage } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -35,13 +36,13 @@ const ARGS: Partial<CodeBlockArgs> = {
   language: 'typescript', highlightedLines: '12-13', showLineNumbers: true, copyable: true, wrap: false, capped: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<CodeBlockArgs> = {
-    language: { control: 'select', options: ['typescript', 'tsx', 'json', 'text'] },
-    showLineNumbers: { control: 'boolean' },
-    copyable: { control: 'boolean' },
-    wrap: { control: 'boolean', description: 'Wraps long lines in place of scrolling sideways.' },
-    capped: { control: 'boolean', description: 'Stops growing at a fixed height and scrolls inside.' },
-    highlightedLines: { control: 'text', description: 'Lines to mark as changed, for example 3, 5-7' },
+const ARG_TYPES: PlaygroundArgTypes<CodeBlockArgs> = {
+    language: { group: 'Content', control: 'select', options: ['typescript', 'tsx', 'json', 'text'] },
+    showLineNumbers: { group: 'Appearance', control: 'boolean' },
+    highlightedLines: { group: 'Appearance', control: 'text', description: 'Lines to mark as changed, for example 3, 5-7' },
+    wrap: { group: 'Layout', control: 'boolean', description: 'Wraps long lines in place of scrolling sideways.' },
+    capped: { group: 'Layout', control: 'boolean', description: 'Stops growing at a fixed height and scrolls inside.' },
+    copyable: { group: 'Behaviour', control: 'boolean' },
   };
 
 const meta = {
@@ -64,7 +65,7 @@ const Playground = {
       capped={args.capped}
     />
   ),
-} satisfies StoryLiteStoryDefinition<CodeBlockArgs>;
+} satisfies PlaygroundStory<CodeBlockArgs>;
 
 const SideBySide = {
   name: 'Both languages',

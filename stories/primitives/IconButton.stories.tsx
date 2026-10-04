@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Flex, Icon, IconButton, Text } from '../../src/primitives';
 import type { IconName } from '../../src/primitives';
 import type { IconButtonSize, IconButtonTone, IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
@@ -55,15 +56,15 @@ const ARGS: Partial<IconButtonArgs> = {
   label: 'Close panel', glyph: 'close', variant: 'ghost', tone: 'none', size: 'sm', active: false, loading: false, disabled: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<IconButtonArgs> = {
-    label: { control: 'text', description: 'Accessible name, read by screen readers.' },
-    glyph: { control: 'select', options: Object.keys(GLYPHS) as GlyphName[] },
-    variant: { control: 'select', options: [...VARIANTS] },
-    tone: { control: 'select', options: ['none', 'danger'], description: 'Draws a ghost button in a status colour with a soft glow.' },
-    size: { control: 'select', options: ['xs', 'sm', 'md'] },
-    active: { control: 'boolean' },
-    loading: { control: 'boolean', description: 'Shows the spinner in place of the icon and disables the button.' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<IconButtonArgs> = {
+    label: { group: 'Content', control: 'text', description: 'Accessible name, read by screen readers.' },
+    glyph: { group: 'Content', control: 'select', options: Object.keys(GLYPHS) as GlyphName[], optionView: (name) => <Icon name={GLYPHS[name]} size={16} /> },
+    variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
+    tone: { group: 'Appearance', control: 'select', options: ['none', 'danger'], description: 'Draws a ghost button in a status colour with a soft glow.' },
+    size: { group: 'Appearance', control: 'select', options: ['xs', 'sm', 'md'] },
+    active: { group: 'State', control: 'boolean' },
+    loading: { group: 'State', control: 'boolean', description: 'Shows the spinner in place of the icon and disables the button.' },
+    disabled: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -88,7 +89,7 @@ const Playground = {
       {glyph(args.glyph, args.size)}
     </IconButton>
   ),
-} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+} satisfies PlaygroundStory<IconButtonArgs>;
 
 const SIZES = ['md', 'sm', 'xs'] as const;
 

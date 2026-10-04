@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Svg, SvgCircle, SvgGroup, SvgLine, SvgPath, SvgPolygon, SvgRect, SvgText } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -38,11 +39,11 @@ const GRID_ROWS = [0, 0.25, 0.5, 0.75, 1].map((fraction) => PAD + fraction * (HE
 
 const ARGS: Partial<SvgArgs> = { strokeWidth: 2, showArea: true, showPoints: true, showGrid: true };
 
-const ARG_TYPES: StoryLiteArgTypes<SvgArgs> = {
-    strokeWidth: { control: 'number' },
-    showArea: { control: 'boolean' },
-    showPoints: { control: 'boolean' },
-    showGrid: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<SvgArgs> = {
+    strokeWidth: { group: 'Appearance', control: 'number' },
+    showArea: { group: 'Appearance', control: 'boolean' },
+    showPoints: { group: 'Appearance', control: 'boolean' },
+    showGrid: { group: 'Appearance', control: 'boolean' },
   };
 
 const meta = {
@@ -76,7 +77,7 @@ const Playground = {
       <SvgText className="svg-demo__label" x={WIDTH - PAD} y={HEIGHT - 8} textAnchor="end">2 hours</SvgText>
     </Svg>
   ),
-} satisfies StoryLiteStoryDefinition<SvgArgs>;
+} satisfies PlaygroundStory<SvgArgs>;
 
 const SWATCHES: Readonly<Record<string, ReactNode>> = {
   SvgRect: <SvgRect className="svg-demo__shape" x={10} y={10} width={40} height={40} rx={4} />,

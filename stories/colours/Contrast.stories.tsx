@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { Box, Text } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -44,10 +45,10 @@ const ContrastTable = (args: ContrastArgs) => {
 
 const ARGS: Partial<ContrastArgs> = { sample: '14 of 386 checks', textThreshold: 4.5, largeThreshold: 3 };
 
-const ARG_TYPES: StoryLiteArgTypes<ContrastArgs> = {
-    sample: { control: 'text' },
-    textThreshold: { control: 'number', description: 'WCAG AA for body text is 4.5' },
-    largeThreshold: { control: 'number', description: 'WCAG AA for large text is 3' },
+const ARG_TYPES: PlaygroundArgTypes<ContrastArgs> = {
+    sample: { group: 'Content', control: 'text' },
+    textThreshold: { group: 'Value', control: 'number', description: 'WCAG AA for body text is 4.5' },
+    largeThreshold: { group: 'Value', control: 'number', description: 'WCAG AA for large text is 3' },
   };
 
 const meta = {
@@ -60,7 +61,7 @@ const Pairs = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <ContrastTable {...args} />,
-} satisfies StoryLiteStoryDefinition<ContrastArgs>;
+} satisfies PlaygroundStory<ContrastArgs>;
 
 const Overview = overviewStory({
   component: 'Contrast',

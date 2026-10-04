@@ -1,9 +1,11 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { StepperOrientation } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { CalibrationWizard } from './_samples/CalibrationWizard';
 import { RomImportDialogDemo } from './_samples/RomImportDialogDemo';
+import { WIZARD_LOOK_ARG_TYPES } from './_samples/wizard-look-arg-types';
 
 type WizardDialogArgs = {
   title: string;
@@ -13,10 +15,9 @@ type WizardDialogArgs = {
 
 const ARGS: Partial<WizardDialogArgs> = { title: 'Import a ROM', orientation: 'horizontal', compactProgress: false };
 
-const ARG_TYPES: StoryLiteArgTypes<WizardDialogArgs> = {
-  title: { control: 'text', description: 'The title in the dialog header.' },
-  orientation: { control: 'select', options: ['horizontal', 'vertical'], description: 'Steps on top, or in a column on the left.' },
-  compactProgress: { control: 'boolean', description: 'Step 2 of 4 and a bar, for tight spaces.' },
+const ARG_TYPES: PlaygroundArgTypes<WizardDialogArgs> = {
+  title: { group: 'Content', control: 'text', description: 'The title in the dialog header.' },
+  ...WIZARD_LOOK_ARG_TYPES,
 };
 
 const meta = {
@@ -29,7 +30,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RomImportDialogDemo title={args.title} orientation={args.orientation} compact={args.compactProgress} />,
-} satisfies StoryLiteStoryDefinition<WizardDialogArgs>;
+} satisfies PlaygroundStory<WizardDialogArgs>;
 
 const Calibration = {
   name: 'Calibrating a controller',

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
 import type {
   TagCategoryColor, TagColor, TagLook, TagNormalColor, TagUrgencyColor, TagVariant,
@@ -35,12 +36,12 @@ const GAMES: readonly { name: string; tags: readonly { label: string; look: TagL
 
 const ARGS: Partial<TagArgs> = { label: 'Zelda', variant: 'category', color: 'green', removable: false, disabled: false };
 
-const ARG_TYPES: StoryLiteArgTypes<TagArgs> = {
-  label: { control: 'text' },
-  variant: { control: 'select', options: ['normal', 'urgency', 'category'] },
-  color: { control: 'select', options: [...NORMAL, ...URGENCY, ...CATEGORY], description: 'Only the colours of the variant apply; the types refuse the others.' },
-  removable: { control: 'boolean' },
-  disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<TagArgs> = {
+  label: { group: 'Content', control: 'text' },
+  variant: { group: 'Appearance', control: 'select', options: ['normal', 'urgency', 'category'] },
+  color: { group: 'Appearance', control: 'select', options: [...NORMAL, ...URGENCY, ...CATEGORY], description: 'Only the colours of the variant apply; the types refuse the others.' },
+  disabled: { group: 'State', control: 'boolean' },
+  removable: { group: 'Behaviour', control: 'boolean' },
 };
 
 const meta = {
@@ -65,7 +66,7 @@ const Playground = {
   render: (args) => (
     <Tag {...lookOf(args.variant, args.color)} disabled={args.disabled} onRemove={args.removable ? noop : undefined}>{args.label}</Tag>
   ),
-} satisfies StoryLiteStoryDefinition<TagArgs>;
+} satisfies PlaygroundStory<TagArgs>;
 
 const Variants = {
   name: 'Three variants, every colour',

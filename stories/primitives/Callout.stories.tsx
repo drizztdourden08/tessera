@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Callout, Icon, IconButton } from '../../src/primitives';
 import type { CalloutTone, CalloutVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -24,12 +25,12 @@ const BUG_BUTTON = <IconButton tone="danger" size="sm" label="Report a bug"><Ico
 
 const ARGS: Partial<CalloutArgs> = { text: PRERELEASE, tone: 'primary', variant: 'box', withIcon: false, withAction: false };
 
-const ARG_TYPES: StoryLiteArgTypes<CalloutArgs> = {
-  text: { control: 'text' },
-  tone: { control: 'select', options: [...TONES] },
-  variant: { control: 'select', options: ['box', 'footnote'] },
-  withIcon: { control: 'boolean' },
-  withAction: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<CalloutArgs> = {
+  text: { group: 'Content', control: 'text' },
+  withIcon: { group: 'Content', control: 'boolean' },
+  withAction: { group: 'Content', control: 'boolean' },
+  tone: { group: 'Appearance', control: 'select', options: [...TONES] },
+  variant: { group: 'Appearance', control: 'select', options: ['box', 'footnote'] },
 };
 
 const meta = {
@@ -53,7 +54,7 @@ const Playground = {
       </Callout>
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<CalloutArgs>;
+} satisfies PlaygroundStory<CalloutArgs>;
 
 const Tones = {
   name: 'Box, every tone',

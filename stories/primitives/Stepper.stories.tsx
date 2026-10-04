@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Stepper } from '../../src/primitives';
 import type { StepperOrientation, StepperTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -25,15 +26,15 @@ const COLOURS: readonly StepperArgs['colour'][] = ['primary', 'secondary', 'tert
 
 const ARGS: Partial<StepperArgs> = { orientation: 'horizontal', compact: false, step: 3, summaries: true, subSteps: true, error: false, doneIcon: 'check', colour: 'primary' };
 
-const ARG_TYPES: StoryLiteArgTypes<StepperArgs> = {
-  orientation: { control: 'select', options: ['horizontal', 'vertical'] },
-  compact: { control: 'boolean', description: 'Step 3 of 6 and a bar.' },
-  doneIcon: { control: 'select', options: ['check', 'per step', 'numbers'], description: 'What a done circle shows. The number flips over to the icon.' },
-  colour: { control: 'select', options: COLOURS, description: 'The fill, border, glow and arriving line of each step.' },
-  step: { control: 'number', description: 'The current step, from 1. Change it to watch the sequence.' },
-  summaries: { control: 'boolean', description: 'What was chosen, under each done step.' },
-  subSteps: { control: 'boolean', description: 'The option tabs of Randomizer options.' },
-  error: { control: 'boolean', description: 'Mode needs attention.' },
+const ARG_TYPES: PlaygroundArgTypes<StepperArgs> = {
+  summaries: { group: 'Content', control: 'boolean', description: 'What was chosen, under each done step.' },
+  subSteps: { group: 'Content', control: 'boolean', description: 'The option tabs of Randomizer options.' },
+  compact: { group: 'Appearance', control: 'boolean', description: 'Step 3 of 6 and a bar.' },
+  doneIcon: { group: 'Appearance', control: 'select', options: ['check', 'per step', 'numbers'], description: 'What a done circle shows. The number flips over to the icon.' },
+  colour: { group: 'Appearance', control: 'select', options: COLOURS, description: 'The fill, border, glow and arriving line of each step.' },
+  orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
+  step: { group: 'State', control: 'select', options: STEPPER_STEPS.map((_, index) => index + 1), description: 'The current step, from 1. Change it to watch the sequence.' },
+  error: { group: 'State', control: 'boolean', description: 'Mode needs attention.' },
 };
 
 const meta = {
@@ -73,7 +74,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => strip(args),
-} satisfies StoryLiteStoryDefinition<StepperArgs>;
+} satisfies PlaygroundStory<StepperArgs>;
 
 const StepByStep = {
   name: 'Step by step',

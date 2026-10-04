@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Status, Text, Tooltip } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
@@ -13,10 +14,10 @@ type TooltipArgs = {
 
 const ARGS: Partial<TooltipArgs> = { content: 'Costs 25% of your rupees', placement: 'top', trigger: 'Buy a hint' };
 
-const ARG_TYPES: StoryLiteArgTypes<TooltipArgs> = {
-    content: { control: 'text' },
-    placement: { control: 'select', options: ['top', 'bottom'] },
-    trigger: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<TooltipArgs> = {
+    content: { group: 'Content', control: 'text' },
+    trigger: { group: 'Content', control: 'text' },
+    placement: { group: 'Layout', control: 'select', options: ['top', 'bottom'] },
   };
 
 const meta = {
@@ -33,7 +34,7 @@ const Playground = {
       <Button variant="secondary">{args.trigger}</Button>
     </Tooltip>
   ),
-} satisfies StoryLiteStoryDefinition<TooltipArgs>;
+} satisfies PlaygroundStory<TooltipArgs>;
 
 const Placements = {
   name: 'Placements and triggers',

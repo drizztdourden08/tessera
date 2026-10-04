@@ -1,6 +1,8 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { KEYBOARD_SIZES, KeyboardLayout } from '../../src/composites';
+import { KEYBOARD_KEYS } from '../../src/composites/KeyboardLayout/KeyboardLayout.constants';
 import type { KeyboardSize, KeyboardTarget } from '../../src/composites';
 import { ScrollArea } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -9,15 +11,17 @@ import type { StateProps } from '../_template/states/states.type';
 import './KeyboardLayout.stories.css';
 
 type KeyboardArgs = {
-  highlight: string;
-  pressed: string;
+  highlight: readonly KeyboardTarget[];
+  pressed: readonly KeyboardTarget[];
   size: KeyboardSize;
 };
 
-const ARG_TYPES: StoryLiteArgTypes<KeyboardArgs> = {
-  highlight: { control: 'text', description: 'Key names to light, comma separated. A modifier lights both sides; ctrl-left picks one.' },
-  pressed: { control: 'text', description: 'Key names to draw pressed, comma separated.' },
-  size: { control: 'select', options: [...KEYBOARD_SIZES], description: 'Full size, or tenkeyless without the keypad.' },
+const KEY_OPTIONS: readonly KeyboardTarget[] = ['ctrl', 'shift', 'alt', 'win', ...KEYBOARD_KEYS.map((key) => key.id)];
+
+const ARG_TYPES: PlaygroundArgTypes<KeyboardArgs> = {
+  size: { group: 'Appearance', control: 'select', options: [...KEYBOARD_SIZES], description: 'Full size, or tenkeyless without the keypad.' },
+  highlight: { group: 'State', control: 'multiselect', options: KEY_OPTIONS, description: 'Keys to light. A modifier lights both sides; ctrl-left picks one.' },
+  pressed: { group: 'State', control: 'multiselect', options: KEY_OPTIONS, description: 'Keys to draw pressed.' },
 };
 
 const meta = {
@@ -25,19 +29,16 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<KeyboardArgs>;
 
-const keyList = (text: string): KeyboardTarget[] =>
-  text.split(',').map((part) => part.trim()).filter(Boolean) as KeyboardTarget[];
-
 const Playground = {
   name: 'Playground',
-  args: { highlight: 'ctrl, shift, P', pressed: 'ctrl-left', size: 'full' },
+  args: { highlight: ['ctrl', 'shift', 'P'], pressed: ['ctrl-left'], size: 'full' },
   argTypes: ARG_TYPES,
   render: (args) => (
     <ScrollArea axis="x" className="keyboard-story">
-      <KeyboardLayout highlight={keyList(args.highlight)} pressed={keyList(args.pressed)} size={args.size} />
+      <KeyboardLayout highlight={args.highlight} pressed={args.pressed} size={args.size} />
     </ScrollArea>
   ),
-} satisfies StoryLiteStoryDefinition<KeyboardArgs>;
+} satisfies PlaygroundStory<KeyboardArgs>;
 
 const keyboardStory = (name: string, highlight: readonly KeyboardTarget[], pressed: readonly KeyboardTarget[], size: KeyboardSize = 'full') => ({
   name,

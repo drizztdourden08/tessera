@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { WizardNav } from '../../src/composites';
 import type { WizardStepButtons } from '../../src/composites';
 import { Button, Icon } from '../../src/primitives';
@@ -33,16 +34,16 @@ const ARGS: Partial<NavArgs> = {
   withExtra: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<NavArgs> = {
-  isFirst: { control: 'boolean', description: 'Back is off on the first step.' },
-  isLast: { control: 'boolean', description: 'Next becomes the finish button.' },
-  canGoNext: { control: 'boolean', description: 'The step is valid.' },
-  busy: { control: 'boolean', description: 'The finish runs.' },
-  hint: { control: 'text', description: 'What the step says in the bar.' },
-  nextLabel: { control: 'text', description: 'The step overrides the label of Next. Empty keeps Next or Finish.' },
-  nextIcon: { control: 'select', options: ['default', 'none', 'plus'], description: 'The step overrides the icon of Next, apart from its label.' },
-  withCancel: { control: 'boolean' },
-  withExtra: { control: 'boolean', description: 'Something of the step\'s own in the bar.' },
+const ARG_TYPES: PlaygroundArgTypes<NavArgs> = {
+  hint: { group: 'Content', control: 'text', description: 'What the step says in the bar.' },
+  nextLabel: { group: 'Content', control: 'text', description: 'The step overrides the label of Next. Empty keeps Next or Finish.' },
+  nextIcon: { group: 'Content', control: 'select', options: ['default', 'none', 'plus'], description: 'The step overrides the icon of Next, apart from its label.' },
+  withCancel: { group: 'Content', control: 'boolean' },
+  withExtra: { group: 'Content', control: 'boolean', description: 'Something of the step\'s own in the bar.' },
+  isFirst: { group: 'State', control: 'boolean', description: 'Back is off on the first step.' },
+  isLast: { group: 'State', control: 'boolean', description: 'Next becomes the finish button.' },
+  canGoNext: { group: 'State', control: 'boolean', description: 'The step is valid.' },
+  busy: { group: 'State', control: 'boolean', description: 'The finish runs.' },
 };
 
 const meta = {
@@ -78,7 +79,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => draw(args),
-} satisfies StoryLiteStoryDefinition<NavArgs>;
+} satisfies PlaygroundStory<NavArgs>;
 
 const MOMENTS = ['First step', 'Middle step', 'Step not ready', 'With an extra', 'Last step', 'Finishing'] as const;
 

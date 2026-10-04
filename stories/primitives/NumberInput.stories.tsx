@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, Field, NumberInput, Text, type ControlSize } from '../../src/primitives';
@@ -22,12 +23,12 @@ type NumberInputArgs = {
 
 const ARGS: Partial<NumberInputArgs> = { min: 0, max: 100, step: 5, disabled: false, sizeToContent: true, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<NumberInputArgs> = {
-    min: { control: 'number' },
-    max: { control: 'number' },
-    step: { control: 'number' },
-    disabled: { control: 'boolean' },
-    sizeToContent: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<NumberInputArgs> = {
+    min: { group: 'Value', control: 'number' },
+    max: { group: 'Value', control: 'number' },
+    step: { group: 'Value', control: 'number' },
+    sizeToContent: { group: 'Layout', control: 'boolean' },
+    disabled: { group: 'State', control: 'boolean' },
     size: SIZE_ARG,
   };
 
@@ -66,7 +67,7 @@ const Playground = {
       <StatefulNumber initial={25} {...args} />
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<NumberInputArgs>;
+} satisfies PlaygroundStory<NumberInputArgs>;
 
 const SIZINGS: Readonly<Record<string, ReactNode>> = {
   'sized to max 100': <StatefulNumber initial={25} min={0} max={100} step={5} sizeToContent />,

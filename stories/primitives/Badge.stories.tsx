@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Badge, Flex, Icon, IconButton, Text } from '../../src/primitives';
 import type { BadgeAnchor, BadgeColor } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -29,14 +30,14 @@ const ARGS: Partial<BadgeArgs> = {
   variant: 'number', value: '7', max: 99, color: 'normal', translucent: false, anchored: true, anchor: 'top-end',
 };
 
-const ARG_TYPES: StoryLiteArgTypes<BadgeArgs> = {
-  variant: { control: 'select', options: ['inline', 'number', 'dot'] },
-  value: { control: 'text', description: 'Letters and digits only. A number above max shows as max+.' },
-  max: { control: 'number' },
-  color: { control: 'select', options: [...COLORS] },
-  translucent: { control: 'boolean', description: 'Lets a little of what is behind show through.' },
-  anchored: { control: 'boolean', description: 'Pins a number or a dot to the corner of an icon.' },
-  anchor: { control: 'select', options: [...ANCHORS] },
+const ARG_TYPES: PlaygroundArgTypes<BadgeArgs> = {
+  value: { group: 'Content', control: 'text', description: 'Letters and digits only. A number above max shows as max+.' },
+  max: { group: 'Value', control: 'number' },
+  variant: { group: 'Appearance', control: 'select', options: ['inline', 'number', 'dot'] },
+  color: { group: 'Appearance', control: 'select', options: [...COLORS] },
+  translucent: { group: 'Appearance', control: 'boolean', description: 'Lets a little of what is behind show through.' },
+  anchored: { group: 'Layout', control: 'boolean', description: 'Pins a number or a dot to the corner of an icon.' },
+  anchor: { group: 'Layout', control: 'select', options: [...ANCHORS] },
 };
 
 const meta = {
@@ -61,7 +62,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PlaygroundBadge args={args} />,
-} satisfies StoryLiteStoryDefinition<BadgeArgs>;
+} satisfies PlaygroundStory<BadgeArgs>;
 
 const SHAPES: Readonly<Record<string, ReactNode>> = {
   'inline, after text': (

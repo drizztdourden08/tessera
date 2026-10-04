@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Card, Stack, TermList, Text } from '../../src/primitives';
 import type { TermListItem } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -31,8 +32,8 @@ const parseEntries = (text: string): TermListItem[] => text.split('\n').flatMap(
 
 const ARGS: Partial<TermListArgs> = { entries: SHORTCUTS.map(({ term, detail }) => `${term}: ${detail}`).join('\n') };
 
-const ARG_TYPES: StoryLiteArgTypes<TermListArgs> = {
-    entries: { control: 'textarea', description: 'One entry per line, as "term: detail".' },
+const ARG_TYPES: PlaygroundArgTypes<TermListArgs> = {
+    entries: { group: 'Content', control: 'textarea', description: 'One entry per line, as "term: detail".' },
   };
 
 const meta = {
@@ -45,7 +46,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TermList items={parseEntries(args.entries)} />,
-} satisfies StoryLiteStoryDefinition<TermListArgs>;
+} satisfies PlaygroundStory<TermListArgs>;
 
 const InCards = {
   name: 'Inside cards',

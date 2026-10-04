@@ -77,7 +77,7 @@ How Tessera is built, its tiers and where an app's own parts go: [docs/design-sy
 ## The gallery
 
 - **Menu.** One folder per tier and group, like `Primitives · Inputs`, in the order of `.storylite/catalogue.constants.ts`. The home page shows the interactive logo and how to find your way; it does not repeat the menu.
-- **Adding a component.** Add its entry to the catalogue, write `stories/<tier>/<Name>.stories.tsx` with the title `<Tier> · <Group>/<Name>`, and put its controls (`args`, `argTypes`) on the stories whose render reads them, never on the file's `meta`: a control on `meta` shows up, dead, on every story in the file.
+- **Adding a component.** Add its entry to the catalogue, write `stories/<tier>/<Name>.stories.tsx` with the title `<Tier> · <Group>/<Name>`, and put its controls (`args`, `argTypes`) on the stories whose render reads them, never on the file's `meta`: a control on `meta` shows up, dead, on every story in the file. Type the Playground's `argTypes` with `PlaygroundArgTypes` and give each one its group; `stories/_template/README.md` lists the groups and the controls.
 - **Looks.** The logo buttons at the top of the menu redraw every story as Tessera's own greys, Relic of the Past or Archipelia. There is no light and dark switch: each look is shown on its dark ground.
 
 ## Credits

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, TagPicker } from '../../src/primitives';
@@ -55,10 +56,10 @@ const GOALS: TagPickerGroup[] = [
 
 const ARGS: Partial<TagPickerArgs> = { label: 'Games in the multiworld', single: false, disabled: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<TagPickerArgs> = {
-    label: { control: 'text' },
-    single: { control: 'boolean', description: 'One pick at a time, the tags act as radios.' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<TagPickerArgs> = {
+    label: { group: 'Content', control: 'text' },
+    disabled: { group: 'State', control: 'boolean' },
+    single: { group: 'Behaviour', control: 'boolean', description: 'One pick at a time, the tags act as radios.' },
     size: SIZE_ARG,
   };
 
@@ -84,7 +85,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatefulPicker initial={['alttp', 'sm']} groups={GAME_GROUPS} {...args} />,
-} satisfies StoryLiteStoryDefinition<TagPickerArgs>;
+} satisfies PlaygroundStory<TagPickerArgs>;
 
 const Layouts = {
   name: 'Layouts',

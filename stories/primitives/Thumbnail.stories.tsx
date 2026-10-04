@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Flex, Stack, Text, Thumbnail } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -51,15 +52,16 @@ const SLOTS: readonly { name: string; detail: string; src: string | null; pendin
 
 const ARGS: Partial<ThumbnailArgs> = { picture: 'cellar', size: 'lg', alt: 'Castle cellar', placeholder: 'No screenshot' };
 
-const ARG_TYPES: StoryLiteArgTypes<ThumbnailArgs> = {
+const ARG_TYPES: PlaygroundArgTypes<ThumbnailArgs> = {
     picture: {
+      group: 'Content',
       control: 'select',
       options: ['cellar', 'ruins', 'broken', 'on its way', 'none'],
       description: 'A source that fails, one still on its way (pending, never arrives), or none at all.',
     },
-    size: { control: 'select', options: ['sm', 'md', 'lg'], description: 'Frame size is set by the caller.' },
-    alt: { control: 'text' },
-    placeholder: { control: 'text', description: 'Drawn in an empty frame, with no source.' },
+    alt: { group: 'Content', control: 'text' },
+    placeholder: { group: 'Content', control: 'text', description: 'Drawn in an empty frame, with no source.' },
+    size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg'], description: 'Frame size is set by the caller.' },
   };
 
 const meta = {
@@ -83,7 +85,7 @@ const Playground = {
       placeholder={args.placeholder ? placeholderNode(args.placeholder) : undefined}
     />
   ),
-} satisfies StoryLiteStoryDefinition<ThumbnailArgs>;
+} satisfies PlaygroundStory<ThumbnailArgs>;
 
 const renderState = (props: StateProps) => (
   <Thumbnail className="thumb-demo--md" src={RUINS_URI} alt="Eastern ruins" {...props} />

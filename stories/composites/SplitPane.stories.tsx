@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SplitPane } from '../../src/composites';
 import type { CollapsedSide, SplitOrientation } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
@@ -38,16 +39,16 @@ const ARGS: Partial<SplitArgs> = {
   orientation: 'horizontal', defaultRatio: 0.34, minRatio: 0.2, maxRatio: 0.8, snapAt: 0.14, defaultCollapsed: 'none',
 };
 
-const ARG_TYPES: StoryLiteArgTypes<SplitArgs> = {
-    orientation: { control: 'select', options: ['horizontal', 'vertical'] },
-    defaultRatio: { control: 'number' },
-    minRatio: { control: 'number' },
-    maxRatio: { control: 'number' },
-    snapAt: { control: 'number' },
-    defaultCollapsed: { control: 'select', options: ['none', 'start', 'end'] },
+const ARG_TYPES: PlaygroundArgTypes<SplitArgs> = {
+    defaultRatio: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05 },
+    minRatio: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05 },
+    maxRatio: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05 },
+    snapAt: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05 },
+    orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
+    defaultCollapsed: { group: 'State', control: 'select', options: ['none', 'start', 'end'] },
   };
 
-const EDITOR_ARG_TYPES: StoryLiteArgTypes<SplitArgs> = {
+const EDITOR_ARG_TYPES: PlaygroundArgTypes<SplitArgs> = {
   minRatio: ARG_TYPES.minRatio,
   maxRatio: ARG_TYPES.maxRatio,
   snapAt: ARG_TYPES.snapAt,
@@ -64,14 +65,14 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <SplitFrame scene="files" settings={args} />,
-} satisfies StoryLiteStoryDefinition<SplitArgs>;
+} satisfies PlaygroundStory<SplitArgs>;
 
 const EditorAndConsole = {
   name: 'Editor and console',
   args: ARGS,
   argTypes: EDITOR_ARG_TYPES,
   render: (args) => <SplitFrame scene="editor" settings={{ ...args, orientation: 'vertical', defaultRatio: 0.7 }} />,
-} satisfies StoryLiteStoryDefinition<SplitArgs>;
+} satisfies PlaygroundStory<SplitArgs>;
 
 const renderState = (props: StateProps) => (
   <Box className="story-frame split-pane-story__state">

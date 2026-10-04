@@ -23,19 +23,36 @@ const overviewLines = ({ names }) => [
   '',
 ];
 
+const typesOf = (overview, args) => (overview
+  ? {
+    storylite: 'StoryLiteMeta, StoryLiteStoryDefinition',
+    imports: ['import { overviewStory } from \'../_template/overview-story\';', 'import type { PlaygroundArgTypes, PlaygroundStory } from \'../_template/controls/playground.type\';'],
+    argTypes: `PlaygroundArgTypes<${args}>`,
+    title: '{ group: \'Content\', control: \'text\' }',
+    playground: `PlaygroundStory<${args}>`,
+  }
+  : {
+    storylite: 'StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition',
+    imports: [],
+    argTypes: `StoryLiteArgTypes<${args}>`,
+    title: '{ control: \'text\' }',
+    playground: `StoryLiteStoryDefinition<${args}>`,
+  });
+
 const storySource = (spec) => {
   const { name, human } = spec.names;
   const args = `${name}Args`;
   const overview = spec.mode === 'tessera';
+  const types = typesOf(overview, args);
   return [
     '/* @layer stories @kind story */',
-    'import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from \'@storylite/storylite\';',
+    `import type { ${types.storylite} } from '@storylite/storylite';`,
     ...importsOf(spec),
-    ...(overview ? ['import { overviewStory } from \'../_template/overview-story\';'] : []),
+    ...types.imports,
     '',
     `type ${args} = {\n  title: string;\n};`,
     '',
-    `const ARG_TYPES: StoryLiteArgTypes<${args}> = {\n  title: { control: 'text' },\n};`,
+    `const ARG_TYPES: ${types.argTypes} = {\n  title: ${types.title},\n};`,
     '',
     `const meta = {\n  title: ${quoteText(spec.storyTitle)},\n  parameters: { renderer: 'react' },\n} satisfies StoryLiteMeta<${args}>;`,
     '',
@@ -48,7 +65,7 @@ const storySource = (spec) => {
     `      <Text>The content ${name} holds.</Text>`,
     `    </${name}>`,
     '  ),',
-    `} satisfies StoryLiteStoryDefinition<${args}>;`,
+    `} satisfies ${types.playground};`,
     '',
     `const Default = {\n  name: 'Default',\n  render: () => <${name} title=${JSON.stringify(human)} />,\n} satisfies StoryLiteStoryDefinition<${args}>;`,
     '',

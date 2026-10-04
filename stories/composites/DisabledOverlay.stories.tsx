@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DisabledOverlay, ListItemRow } from '../../src/composites';
 import { Box, Text, Toggle } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -64,12 +65,12 @@ const ARGS: Partial<DisabledArgs> = {
     withAction: true,
   };
 
-const ARG_TYPES: StoryLiteArgTypes<DisabledArgs> = {
-    active: { control: 'boolean' },
-    message: { control: 'text' },
-    actionLabel: { control: 'text' },
-    contained: { control: 'boolean' },
-    withAction: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<DisabledArgs> = {
+    message: { group: 'Content', control: 'text' },
+    actionLabel: { group: 'Content', control: 'text' },
+    withAction: { group: 'Content', control: 'boolean' },
+    contained: { group: 'Layout', control: 'boolean' },
+    active: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -92,14 +93,14 @@ const Playground = {
       <HostingControls />
     </DisabledOverlay>
   ),
-} satisfies StoryLiteStoryDefinition<DisabledArgs>;
+} satisfies PlaygroundStory<DisabledArgs>;
 
 const ContainedList = {
   name: 'Contained in a scrolling list',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <ContainedDemo {...args} message="The player list is hidden while the session is private." />,
-} satisfies StoryLiteStoryDefinition<DisabledArgs>;
+} satisfies PlaygroundStory<DisabledArgs>;
 
 const NoAction = {
   name: 'Lock with no way out here',
@@ -108,7 +109,7 @@ const NoAction = {
   render: (args) => (
     <OverlayDemo {...args} withAction={false} message="Read-only while the session is running." />
   ),
-} satisfies StoryLiteStoryDefinition<DisabledArgs>;
+} satisfies PlaygroundStory<DisabledArgs>;
 
 const DefaultMessage = {
   name: 'Default message',

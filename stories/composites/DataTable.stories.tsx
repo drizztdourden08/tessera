@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DataTable } from '../../src/composites';
 import { MEMORY_VIEW_STORAGE } from '../../src/data';
 import type { TableColumn, ViewStorage } from '../../src/data';
@@ -92,11 +93,11 @@ const HintsDemo = () => {
 
 const ARGS: Partial<DataTableArgs> = { selectable: false, groupBy: 'none', persistLayout: true, emptyMessage: 'No players have joined this session yet.' };
 
-const ARG_TYPES: StoryLiteArgTypes<DataTableArgs> = {
-    selectable: { control: 'boolean', description: 'Checkbox column with Ctrl, Shift and Escape selection' },
-    groupBy: { control: 'select', options: ['none', 'game', 'status'], description: 'Grouping the table opens with' },
-    persistLayout: { control: 'boolean', description: 'Bind a view key so column changes survive a remount' },
-    emptyMessage: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<DataTableArgs> = {
+    emptyMessage: { group: 'Content', control: 'text' },
+    selectable: { group: 'Behaviour', control: 'boolean', description: 'Checkbox column with Ctrl, Shift and Escape selection' },
+    persistLayout: { group: 'Behaviour', control: 'boolean', description: 'Bind a view key so column changes survive a remount' },
+    groupBy: { group: 'Data', control: 'select', options: ['none', 'game', 'status'], description: 'Grouping the table opens with' },
   };
 
 const meta = {
@@ -109,7 +110,7 @@ const Players = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PlayersDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+} satisfies PlaygroundStory<DataTableArgs>;
 
 const References = {
   name: 'Reference columns',

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { WindowTitleBar } from '../../src/composites';
 import type { WindowControl, WindowControlsConfig, WindowTitleBarProps } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
@@ -98,18 +99,18 @@ const ARGS: Partial<TitleBarArgs> = {
   maximizeButton: true,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<TitleBarArgs> = {
-  title: { control: 'text' },
-  withLogo: { control: 'boolean' },
-  instanceName: { control: 'text', description: 'Names a second copy of the app, such as a dev build, in a Status pill.' },
-  withMenu: { control: 'boolean', description: 'Pass menu groups; the bar draws the hamburger and its menu.' },
-  withActions: { control: 'boolean', description: 'Pass actions: Report a bug as a button and Check for updates as a status pill.' },
-  updateAvailable: { control: 'boolean', description: 'Sets the status of Check for updates, which shows the pill and the menu subtitle.' },
-  concealed: { control: 'boolean' },
-  fullscreenButton: { control: 'boolean', description: 'controls.fullscreen' },
-  pinButton: { control: 'boolean', description: 'controls.pin' },
-  minimizeButton: { control: 'boolean', description: 'controls.minimize' },
-  maximizeButton: { control: 'boolean', description: 'controls.maximize' },
+const ARG_TYPES: PlaygroundArgTypes<TitleBarArgs> = {
+  title: { group: 'Content', control: 'text' },
+  withLogo: { group: 'Content', control: 'boolean' },
+  instanceName: { group: 'Content', control: 'text', description: 'Names a second copy of the app, such as a dev build, in a Status pill.' },
+  withMenu: { group: 'Content', control: 'boolean', description: 'Pass menu groups; the bar draws the hamburger and its menu.' },
+  withActions: { group: 'Content', control: 'boolean', description: 'Pass actions: Report a bug as a button and Check for updates as a status pill.' },
+  fullscreenButton: { group: 'Content', control: 'boolean', description: 'controls.fullscreen' },
+  pinButton: { group: 'Content', control: 'boolean', description: 'controls.pin' },
+  minimizeButton: { group: 'Content', control: 'boolean', description: 'controls.minimize' },
+  maximizeButton: { group: 'Content', control: 'boolean', description: 'controls.maximize' },
+  updateAvailable: { group: 'State', control: 'boolean', description: 'Sets the status of Check for updates, which shows the pill and the menu subtitle.' },
+  concealed: { group: 'State', control: 'boolean' },
 };
 
 const meta = {
@@ -122,49 +123,49 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+} satisfies PlaygroundStory<TitleBarArgs>;
 
 const AppWindow = {
   name: 'App window with a menu from config',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+} satisfies PlaygroundStory<TitleBarArgs>;
 
 const FewerButtons = {
   name: 'Buttons removed by config',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} withActions={false} fullscreenButton={false} pinButton={false} maximizeButton={false} />,
-} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+} satisfies PlaygroundStory<TitleBarArgs>;
 
 const SecondInstance = {
   name: 'Second instance',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} instanceName="Dev" withActions={false} />,
-} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+} satisfies PlaygroundStory<TitleBarArgs>;
 
 const Maximized = {
   name: 'Maximized, no menu or actions',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} maximized withMenu={false} withActions={false} />,
-} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+} satisfies PlaygroundStory<TitleBarArgs>;
 
 const Concealed = {
   name: 'Concealed until the pointer nears it',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} concealed />,
-} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+} satisfies PlaygroundStory<TitleBarArgs>;
 
 const Narrow = {
   name: 'Narrow windows move the items to the menu, then shrink the brand',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarWidths title={args.title} logo={LOGO} menu={STATE_MENU} actions={STATE_ACTIONS} />,
-} satisfies StoryLiteStoryDefinition<TitleBarArgs>;
+} satisfies PlaygroundStory<TitleBarArgs>;
 
 const renderState = (props: StateProps) => (
   <Box className="window-title-bar-story__strip">

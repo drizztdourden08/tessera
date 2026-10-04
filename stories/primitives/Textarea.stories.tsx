@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Field, Textarea, type ControlSize, type TextareaResize } from '../../src/primitives';
@@ -28,14 +29,14 @@ const SESSION_NOTES = 'Picked up the lamp early.\nSkipped the sewer route and we
 
 const ARGS: Partial<TextareaArgs> = { initialValue: SESSION_NOTES, placeholder: 'Notes for this session', rows: 4, disabled: false, readOnly: false, invalid: false, resize: 'vertical', size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<TextareaArgs> = {
-    initialValue: { control: 'textarea' },
-    placeholder: { control: 'text' },
-    rows: { control: 'number' },
-    disabled: { control: 'boolean' },
-    readOnly: { control: 'boolean' },
-    invalid: { control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
-    resize: { control: 'select', options: [...RESIZES], description: 'Which way the corner handle drags. none locks the size.' },
+const ARG_TYPES: PlaygroundArgTypes<TextareaArgs> = {
+    initialValue: { group: 'Content', control: 'textarea' },
+    placeholder: { group: 'Content', control: 'text' },
+    rows: { group: 'Layout', control: 'number' },
+    resize: { group: 'Layout', control: 'select', options: [...RESIZES], description: 'Which way the corner handle drags. none locks the size.' },
+    disabled: { group: 'State', control: 'boolean' },
+    readOnly: { group: 'State', control: 'boolean' },
+    invalid: { group: 'State', control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
     size: SIZE_ARG,
   };
 
@@ -66,7 +67,7 @@ const Playground = {
       size={args.size}
     />
   ),
-} satisfies StoryLiteStoryDefinition<TextareaArgs>;
+} satisfies PlaygroundStory<TextareaArgs>;
 
 const Sizes = sizesStory<TextareaArgs>((size) => <Textarea size={size} rows={1} defaultValue="One line of notes" />, { align: 'stretch' });
 

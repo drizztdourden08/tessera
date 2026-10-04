@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ScreenLayer } from '../../src/composites';
 import type { ScreenLayerSize } from '../../src/composites';
 import { Box, Button, Text } from '../../src/primitives';
@@ -47,9 +48,9 @@ const LayerDemo = (props: LayerArgs) => {
 
 const ARGS: Partial<LayerArgs> = { size: 'fill', withFloating: true };
 
-const ARG_TYPES: StoryLiteArgTypes<LayerArgs> = {
-  size: { control: 'select', options: ['fill', 'compact'], description: 'fill takes the room inside the gap; compact fits the content, up to a readable width.' },
-  withFloating: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<LayerArgs> = {
+  withFloating: { group: 'Content', control: 'boolean' },
+  size: { group: 'Layout', control: 'select', options: ['fill', 'compact'], description: 'fill takes the room inside the gap; compact fits the content, up to a readable width.' },
 };
 
 const meta = {
@@ -62,28 +63,28 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <LayerDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<LayerArgs>;
+} satisfies PlaygroundStory<LayerArgs>;
 
 const Breakpoints = {
   name: 'Breakpoints',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: () => <LayerBreakpoints />,
-} satisfies StoryLiteStoryDefinition<LayerArgs>;
+} satisfies PlaygroundStory<LayerArgs>;
 
 const FitsItsRoom = {
   name: 'Fits its room',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: () => <RoomDemo />,
-} satisfies StoryLiteStoryDefinition<LayerArgs>;
+} satisfies PlaygroundStory<LayerArgs>;
 
 const Compact = {
   name: 'Compact size',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <LayerDemo {...args} size="compact" withFloating={false} />,
-} satisfies StoryLiteStoryDefinition<LayerArgs>;
+} satisfies PlaygroundStory<LayerArgs>;
 
 const CODE = `import { ScreenLayer, ScreenWindow } from '@drizztdourden08/tessera';
 

@@ -1,7 +1,8 @@
 /* @layer stories @kind logic */
 import { createElement } from 'react';
 import type { ComponentType, ReactNode } from 'react';
-import type { StoryLiteArgType, StoryLiteArgs, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteArgs, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgType, PlaygroundStory } from '../_template/controls/playground.type';
 import { TEXT_ELEMENT_SPECS, TYPE_FEATURES } from '../../src/primitives';
 import type { TextElementSpec, TypeFeature, Typesetting } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -17,17 +18,17 @@ interface TextElementStoriesParams {
   variants?: readonly StoryLiteStoryDefinition[];
 }
 
-type LookArg = { value: unknown; argType: StoryLiteArgType };
+type LookArg = { value: unknown; argType: PlaygroundArgType };
 
 const LOOK_ARGS: Readonly<Record<keyof Typesetting, LookArg>> = {
-  weight: { value: 400, argType: { control: 'number', description: 'Any whole number from 100 to 900.' } },
-  italic: { value: false, argType: { control: 'boolean' } },
-  opticalSize: { value: 'auto', argType: { control: 'select', options: ['auto', 'text', 'display'] } },
-  features: { value: '', argType: { control: 'text', description: 'OpenType features by name, comma separated: slashedZero, tabularNumbers.' } },
+  weight: { value: 400, argType: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Any whole number from 100 to 900.' } },
+  italic: { value: false, argType: { group: 'Appearance', control: 'boolean' } },
+  opticalSize: { value: 'auto', argType: { group: 'Appearance', control: 'select', options: ['auto', 'text', 'display'] } },
+  features: { value: [], argType: { group: 'Appearance', control: 'multiselect', options: Object.keys(TYPE_FEATURES), description: 'OpenType features, by name.' } },
 };
 
-const featureList = (text: unknown): TypeFeature[] =>
-  String(text).split(',').map((part) => part.trim()).filter((part): part is TypeFeature => part in TYPE_FEATURES);
+const featureList = (picked: unknown): TypeFeature[] =>
+  (Array.isArray(picked) ? picked : []).filter((part): part is TypeFeature => typeof part === 'string' && part in TYPE_FEATURES);
 
 const IS_DEFAULT: Readonly<Record<string, (value: unknown) => boolean>> = {
   weight: (value) => value === 400,
@@ -53,20 +54,20 @@ const textElementStories = (params: TextElementStoriesParams) => {
   const attributeNames = Object.keys(attributes);
   const tones: readonly string[] = spec.tones;
   const controls: Record<string, LookArg> = Object.fromEntries(spec.looks.map((look) => [look, LOOK_ARGS[look]]));
-  if (tones.length) controls.tone = { value: 'none', argType: { control: 'select', options: ['none', ...tones] } };
+  if (tones.length) controls.tone = { value: 'none', argType: { group: 'Appearance', control: 'select', options: ['none', ...tones] } };
   const Playground = {
     name: 'Playground',
     args: { text, ...attributes, ...Object.fromEntries(Object.entries(controls).map(([key, entry]) => [key, entry.value])) },
     argTypes: {
-      text: { control: 'text' },
-      ...Object.fromEntries(attributeNames.map((key) => [key, { control: 'text' }])),
+      text: { group: 'Content', control: 'text' },
+      ...Object.fromEntries(attributeNames.map((key) => [key, { group: 'Content', control: 'text' }])),
       ...Object.fromEntries(Object.entries(controls).map(([key, entry]) => [key, entry.argType])),
     },
     render: (args) => createElement(Element, {
       ...Object.fromEntries(attributeNames.map((key) => [key, args[key]])),
       ...lookProps(spec.looks, args),
     }, String(args.text)),
-  } satisfies StoryLiteStoryDefinition;
+  } satisfies PlaygroundStory;
   const InContext = { name: 'In context', render: () => context } satisfies StoryLiteStoryDefinition;
   const variants = tones.length ? [InContext, ...extra, tonesStory(Element, text, tones, attributes)] : [InContext, ...extra];
   const Overview = overviewStory({ component: name === spec.short ? name : `${name} (${spec.short})`, importName: spec.short, description, playground: Playground, variants });

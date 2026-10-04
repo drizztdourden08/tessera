@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useRef, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ColorPickerPopover } from '../../src/composites/ColorPickerPopover';
 import { Box, ColorSwatch, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -59,8 +60,8 @@ const TeamPalette = ({ disableAlpha }: Pick<PopoverArgs, 'disableAlpha'>) => {
 
 const ARGS: Partial<PopoverArgs> = { disableAlpha: true };
 
-const ARG_TYPES: StoryLiteArgTypes<PopoverArgs> = {
-    disableAlpha: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<PopoverArgs> = {
+    disableAlpha: { group: 'Behaviour', control: 'boolean' },
   };
 
 const meta = {
@@ -72,13 +73,13 @@ const PLAYGROUND_ARGS: Partial<PopoverArgs> = {
   title: 'Team Lanterns', start: '#e0a13c', disableAlpha: true, showOriginal: true, showSwatches: true, startOpen: false,
 };
 
-const PLAYGROUND_ARG_TYPES: StoryLiteArgTypes<PopoverArgs> = {
-  title: { control: 'text', description: 'The heading inside the panel.' },
-  start: { control: 'color', description: 'The colour the swatch holds when the page loads; also the Reset target.' },
-  disableAlpha: { control: 'boolean', description: 'Hide the alpha slider and field.' },
-  showOriginal: { control: 'boolean', description: 'Pass original and onReset, so the panel shows the start colour and a Reset button.' },
-  showSwatches: { control: 'boolean', description: 'Pass swatchGroups for quick picks.' },
-  startOpen: { control: 'boolean', description: 'Open the panel on load, without a press on the swatch.' },
+const PLAYGROUND_ARG_TYPES: PlaygroundArgTypes<PopoverArgs> = {
+  title: { group: 'Content', control: 'text', description: 'The heading inside the panel.' },
+  start: { group: 'Value', control: 'color', description: 'The colour the swatch holds when the page loads; also the Reset target.' },
+  showOriginal: { group: 'Appearance', control: 'boolean', description: 'Pass original and onReset, so the panel shows the start colour and a Reset button.' },
+  showSwatches: { group: 'Appearance', control: 'boolean', description: 'Pass swatchGroups for quick picks.' },
+  startOpen: { group: 'State', control: 'boolean', description: 'Open the panel on load, without a press on the swatch.' },
+  disableAlpha: { group: 'Behaviour', control: 'boolean', description: 'Hide the alpha slider and field.' },
 };
 
 const Playground = {
@@ -86,14 +87,14 @@ const Playground = {
   args: PLAYGROUND_ARGS,
   argTypes: PLAYGROUND_ARG_TYPES,
   render: (args) => <ColorPopoverPlayground key={`${args.start}-${args.startOpen ? 'open' : 'shut'}`} {...args} />,
-} satisfies StoryLiteStoryDefinition<PopoverArgs>;
+} satisfies PlaygroundStory<PopoverArgs>;
 
 const TeamColours = {
   name: 'Team colours',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TeamPalette {...args} />,
-} satisfies StoryLiteStoryDefinition<PopoverArgs>;
+} satisfies PlaygroundStory<PopoverArgs>;
 
 const CODE = `// Left out of the package barrel, so react-color loads only where a picker is used.
 import { ColorPickerPopover } from '@drizztdourden08/tessera/color-picker-popover';

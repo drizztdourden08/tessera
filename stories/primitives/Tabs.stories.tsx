@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Glyph, Tabs, Text } from '../../src/primitives';
 import type { TabItem } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -36,9 +37,9 @@ const DUNGEON_TABS: TabItem[] = [
 
 const ARGS: Partial<TabsArgs> = { iconOnly: false, withBadges: true };
 
-const ARG_TYPES: StoryLiteArgTypes<TabsArgs> = {
-    iconOnly: { control: 'boolean', description: 'Hides labels; each label becomes the tab title.' },
-    withBadges: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<TabsArgs> = {
+    withBadges: { group: 'Content', control: 'boolean' },
+    iconOnly: { group: 'Appearance', control: 'boolean', description: 'Hides labels; each label becomes the tab title.' },
   };
 
 const meta = {
@@ -68,7 +69,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PlaygroundDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<TabsArgs>;
+} satisfies PlaygroundStory<TabsArgs>;
 
 const LAYOUTS: Readonly<Record<string, ReactNode>> = {
   'labels only': <StatefulTabs tabs={SETTINGS_TABS.map(({ id, label }) => ({ id, label }))} />,

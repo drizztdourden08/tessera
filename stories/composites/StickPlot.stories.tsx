@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { StickPlot } from '../../src/composites';
 import type { StickPlotPoint, StickPlotRange, StickPlotSize } from '../../src/composites';
 import { Flex } from '../../src/primitives';
@@ -29,16 +30,16 @@ const ARGS: Partial<StickArgs> = {
   innerDeadzone: 0, outerDeadzone: 1, showCalibration: false, size: 'md',
 };
 
-const ARG_TYPES: StoryLiteArgTypes<StickArgs> = {
-  x: { control: 'number', description: 'Across, from -1 at the left to 1 at the right.' },
-  y: { control: 'number', description: 'Down, from -1 at the top to 1 at the bottom.' },
-  label: { control: 'text' },
-  calibrated: { control: 'boolean', description: 'Marks the reading as calibrated after the numbers.' },
-  showValue: { control: 'boolean' },
-  innerDeadzone: { control: 'number', description: 'Radius of the inner dead zone. Zero hides it.' },
-  outerDeadzone: { control: 'number', description: 'Radius past which the stick reads full. One hides it.' },
-  showCalibration: { control: 'boolean', description: 'Draws a measured range and a recorded center.' },
-  size: { control: 'select', options: [...SIZES] },
+const ARG_TYPES: PlaygroundArgTypes<StickArgs> = {
+  label: { group: 'Content', control: 'text' },
+  x: { group: 'Value', control: 'range', min: -1, max: 1, step: 0.05, description: 'Across, from -1 at the left to 1 at the right.' },
+  y: { group: 'Value', control: 'range', min: -1, max: 1, step: 0.05, description: 'Down, from -1 at the top to 1 at the bottom.' },
+  innerDeadzone: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05, description: 'Radius of the inner dead zone. Zero hides it.' },
+  outerDeadzone: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05, description: 'Radius past which the stick reads full. One hides it.' },
+  showValue: { group: 'Appearance', control: 'boolean' },
+  showCalibration: { group: 'Appearance', control: 'boolean', description: 'Draws a measured range and a recorded center.' },
+  size: { group: 'Appearance', control: 'select', options: [...SIZES] },
+  calibrated: { group: 'State', control: 'boolean', description: 'Marks the reading as calibrated after the numbers.' },
 };
 
 const meta = {
@@ -64,7 +65,7 @@ const Playground = {
       size={args.size}
     />
   ),
-} satisfies StoryLiteStoryDefinition<StickArgs>;
+} satisfies PlaygroundStory<StickArgs>;
 
 const Live = {
   name: 'A stick being moved',

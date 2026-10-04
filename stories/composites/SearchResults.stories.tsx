@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SearchResults } from '../../src/composites';
 import { Box, Icon, SearchInput, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -41,9 +42,9 @@ const HitsDemo = (props: { query: string }) => {
 
 const ARGS: Partial<ResultsArgs> = { query: 'o', idleMessage: 'Type to search every setting, on every page.' };
 
-const ARG_TYPES: StoryLiteArgTypes<ResultsArgs> = {
-  query: { control: 'text' },
-  idleMessage: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<ResultsArgs> = {
+  query: { group: 'Content', control: 'text' },
+  idleMessage: { group: 'Content', control: 'text' },
 };
 
 const meta = {
@@ -56,7 +57,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <LiveDemo key={args.query} {...args} />,
-} satisfies StoryLiteStoryDefinition<ResultsArgs>;
+} satisfies PlaygroundStory<ResultsArgs>;
 
 const LiveSettings = {
   name: 'Settings from every page, with their controls',

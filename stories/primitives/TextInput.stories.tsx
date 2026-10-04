@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Field, TextInput, type ControlSize } from '../../src/primitives';
@@ -25,13 +26,13 @@ type TextInputArgs = {
 
 const ARGS: Partial<TextInputArgs> = { initialValue: 'Link', placeholder: 'Player name', type: 'text', disabled: false, readOnly: false, invalid: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<TextInputArgs> = {
-    initialValue: { control: 'text' },
-    placeholder: { control: 'text' },
-    type: { control: 'select', options: ['text', 'password', 'email', 'search'] },
-    disabled: { control: 'boolean' },
-    readOnly: { control: 'boolean' },
-    invalid: { control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
+const ARG_TYPES: PlaygroundArgTypes<TextInputArgs> = {
+    initialValue: { group: 'Content', control: 'text' },
+    placeholder: { group: 'Content', control: 'text' },
+    disabled: { group: 'State', control: 'boolean' },
+    readOnly: { group: 'State', control: 'boolean' },
+    invalid: { group: 'State', control: 'boolean', description: 'Draws the error look. A Field with an error sets it on its own.' },
+    type: { group: 'Behaviour', control: 'select', options: ['text', 'password', 'email', 'search'] },
     size: SIZE_ARG,
   };
 
@@ -65,7 +66,7 @@ const Playground = {
       size={args.size}
     />
   ),
-} satisfies StoryLiteStoryDefinition<TextInputArgs>;
+} satisfies PlaygroundStory<TextInputArgs>;
 
 const Types = {
   name: 'Types',

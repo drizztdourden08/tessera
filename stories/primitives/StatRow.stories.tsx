@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Card, Stack, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
@@ -11,10 +12,10 @@ type StatRowArgs = {
 
 const ARGS: Partial<StatRowArgs> = { label: 'Seed', value: '48213-HOOK-VALE', mono: true };
 
-const ARG_TYPES: StoryLiteArgTypes<StatRowArgs> = {
-    label: { control: 'text' },
-    value: { control: 'text' },
-    mono: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<StatRowArgs> = {
+    label: { group: 'Content', control: 'text' },
+    value: { group: 'Content', control: 'text' },
+    mono: { group: 'Appearance', control: 'boolean' },
   };
 
 const meta = {
@@ -27,7 +28,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatRow label={args.label} value={args.value} mono={args.mono} />,
-} satisfies StoryLiteStoryDefinition<StatRowArgs>;
+} satisfies PlaygroundStory<StatRowArgs>;
 
 const SessionDetails = {
   name: 'Session details',

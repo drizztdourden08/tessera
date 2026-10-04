@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useEffect, useRef, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, DropZone, Text } from '../../src/primitives';
 import type { ControlSize, DropZoneProps, DropZoneVariant } from '../../src/primitives';
@@ -33,12 +34,12 @@ const ARGS: Partial<DropZoneArgs> = {
     size: 'md',
   };
 
-const ARG_TYPES: StoryLiteArgTypes<DropZoneArgs> = {
-    label: { control: 'text' },
-    hint: { control: 'text' },
-    variant: { control: 'select', options: ['block', 'inline'] },
-    romsOnly: { control: 'boolean', description: 'Passes accept, so other files are dropped silently.' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<DropZoneArgs> = {
+    label: { group: 'Content', control: 'text' },
+    hint: { group: 'Content', control: 'text' },
+    variant: { group: 'Appearance', control: 'select', options: ['block', 'inline'] },
+    disabled: { group: 'State', control: 'boolean' },
+    romsOnly: { group: 'Behaviour', control: 'boolean', description: 'Passes accept, so other files are dropped silently.' },
     size: SIZE_ARG,
   };
 
@@ -90,7 +91,7 @@ const Playground = {
       onDrop={ignoreDrop}
     />
   ),
-} satisfies StoryLiteStoryDefinition<DropZoneArgs>;
+} satisfies PlaygroundStory<DropZoneArgs>;
 
 const Kinds = {
   name: 'Kinds',

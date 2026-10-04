@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { NumberStepper, type ControlSize } from '../../src/primitives';
@@ -11,6 +11,7 @@ import { overviewStory } from '../_template/overview-story';
 import { ValueReadout } from '../_template/ValueReadout';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 
 type NumberStepperArgs = {
   min: number;
@@ -22,11 +23,11 @@ type NumberStepperArgs = {
 
 const ARGS: Partial<NumberStepperArgs> = { min: 1, max: 20, step: 1, disabled: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<NumberStepperArgs> = {
-    min: { control: 'number' },
-    max: { control: 'number' },
-    step: { control: 'number' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<NumberStepperArgs> = {
+    min: { group: 'Value', control: 'number' },
+    max: { group: 'Value', control: 'number' },
+    step: { group: 'Value', control: 'number' },
+    disabled: { group: 'State', control: 'boolean' },
     size: SIZE_ARG,
   };
 
@@ -55,7 +56,7 @@ const Playground = {
       cell={(caption) => <StatefulNumberStepper initial={4} caption={caption} {...args} />}
     />
   ),
-} satisfies StoryLiteStoryDefinition<NumberStepperArgs>;
+} satisfies PlaygroundStory<NumberStepperArgs>;
 
 const VALUES: Readonly<Record<string, ReactNode>> = {
   'At the minimum': <StatefulNumberStepper initial={1} min={1} max={20} caption="At the minimum" />,

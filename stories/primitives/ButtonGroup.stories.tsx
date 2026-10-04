@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, ButtonGroup, Icon, IconButton } from '../../src/primitives';
 import type { ButtonGroupOrientation, ButtonSize, ButtonVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -22,11 +23,11 @@ const SIZES: readonly ButtonSize[] = ['md', 'sm'];
 
 const ARGS: Partial<ButtonGroupArgs> = { variant: 'tertiary', size: 'md', orientation: 'horizontal', disabled: false };
 
-const ARG_TYPES: StoryLiteArgTypes<ButtonGroupArgs> = {
-  variant: { control: 'select', options: [...VARIANTS], description: 'Set on each button; the group keeps the look of its buttons.' },
-  size: { control: 'select', options: [...SIZES], description: 'Set on each button.' },
-  orientation: { control: 'select', options: ['horizontal', 'vertical'] },
-  disabled: { control: 'boolean', description: 'Disables the middle button.' },
+const ARG_TYPES: PlaygroundArgTypes<ButtonGroupArgs> = {
+  variant: { group: 'Appearance', control: 'select', options: [...VARIANTS], description: 'Set on each button; the group keeps the look of its buttons.' },
+  size: { group: 'Appearance', control: 'select', options: [...SIZES], description: 'Set on each button.' },
+  orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
+  disabled: { group: 'State', control: 'boolean', description: 'Disables the middle button.' },
 };
 
 const meta = {
@@ -45,7 +46,7 @@ const Playground = {
       <Button variant={args.variant} size={args.size}>Reset</Button>
     </ButtonGroup>
   ),
-} satisfies StoryLiteStoryDefinition<ButtonGroupArgs>;
+} satisfies PlaygroundStory<ButtonGroupArgs>;
 
 const AllVariants = {
   name: 'All variants',

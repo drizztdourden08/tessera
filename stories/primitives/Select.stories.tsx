@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, NativeSelect, Text, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -34,13 +35,13 @@ const ARGS: Partial<SelectArgs> = {
   invalid: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<SelectArgs> = {
-  placeholder: { control: 'text' },
-  look: { control: 'select', options: ['columns', 'status emoji', 'custom item'], description: 'Plain columns with a header, columns that react to the status, or a multi-line item component.' },
-  grouped: { control: 'boolean', description: 'Group the builds by status, under category headers with an emoji.' },
-  valueDisplay: { control: 'select', options: ['label', 'full'], description: 'What the trigger shows: the label, or the item drawn in full.' },
-  multiDisplay: { control: 'select', options: ['count', 'tags'], description: 'With max above 1: the count of picks, or a tag per pick that collapses into +N.' },
-  searchable: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<SelectArgs> = {
+  placeholder: { group: 'Content', control: 'text' },
+  look: { group: 'Appearance', control: 'select', options: ['columns', 'status emoji', 'custom item'], description: 'Plain columns with a header, columns that react to the status, or a multi-line item component.' },
+  valueDisplay: { group: 'Appearance', control: 'select', options: ['label', 'full'], description: 'What the trigger shows: the label, or the item drawn in full.' },
+  multiDisplay: { group: 'Appearance', control: 'select', options: ['count', 'tags'], description: 'With max above 1: the count of picks, or a tag per pick that collapses into +N.' },
+  grouped: { group: 'Layout', control: 'boolean', description: 'Group the builds by status, under category headers with an emoji.' },
+  searchable: { group: 'Behaviour', control: 'boolean' },
   ...PICKER_ARG_TYPES,
 };
 
@@ -54,7 +55,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <SelectPlayground {...args} />,
-} satisfies Story;
+} satisfies PlaygroundStory<SelectArgs>;
 
 const VARIANTS: readonly Story[] = [
   pickerVariant('Plain strings', PlainStrings),

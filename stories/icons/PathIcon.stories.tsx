@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, PathIcon } from '../../src/primitives';
 import type { PathIconProps } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -34,10 +35,10 @@ const toneClass = (tone: IconTone) => (tone === 'text' ? undefined : `icon-demo-
 
 const ARGS: Partial<IconArgs> = { glyph: 'folder', size: 24, tone: 'primary' };
 
-const ARG_TYPES: StoryLiteArgTypes<IconArgs> = {
-    glyph: { control: 'select', options: NAMES },
-    size: { control: 'number' },
-    tone: { control: 'select', options: [...TONES], description: 'Icons fill with currentColor.' },
+const ARG_TYPES: PlaygroundArgTypes<IconArgs> = {
+    glyph: { group: 'Content', control: 'select', options: NAMES, optionView: (name) => <PathIcon {...GLYPHS[name]} size={16} aria-hidden="true" /> },
+    size: { group: 'Appearance', control: 'number' },
+    tone: { group: 'Appearance', control: 'select', options: [...TONES], description: 'Icons fill with currentColor.' },
   };
 
 const meta = {
@@ -52,7 +53,7 @@ const Playground = {
   render: (args) => (
     <PathIcon {...GLYPHS[args.glyph]} size={args.size} className={toneClass(args.tone)} aria-hidden="true" />
   ),
-} satisfies StoryLiteStoryDefinition<IconArgs>;
+} satisfies PlaygroundStory<IconArgs>;
 
 const SIZES = ['12px', '16px', '24px', '32px'] as const;
 

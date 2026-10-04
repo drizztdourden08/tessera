@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { OptionsDemo } from './_samples/OptionsDemo';
 import type { OptionsDemoProps } from './_samples/OptionsDemo';
@@ -16,13 +17,13 @@ const ARGS: Partial<OptionsArgs> = {
   ownRows: true,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<OptionsArgs> = {
-  title: { control: 'text' },
-  placement: { control: 'select', options: ['docked', 'floating', 'popped'], description: 'Where the widget lives when the panel opens.' },
-  canPopOut: { control: 'boolean', description: 'Shows the own window option; a widget that cannot leave the app hides it.' },
-  makeRoomHint: { control: 'text', description: 'The hint line text for Make room.' },
-  contextLabel: { control: 'text', description: 'The Show choice for a widget seen only in context.' },
-  ownRows: { control: 'boolean', description: 'The widget adds its own OptionRows: a sort SegmentedControl and two sm Toggles, each with a hint. They change the player list.' },
+const ARG_TYPES: PlaygroundArgTypes<OptionsArgs> = {
+  title: { group: 'Content', control: 'text' },
+  makeRoomHint: { group: 'Content', control: 'text', description: 'The hint line text for Make room.' },
+  contextLabel: { group: 'Content', control: 'text', description: 'The Show choice for a widget seen only in context.' },
+  ownRows: { group: 'Content', control: 'boolean', description: 'The widget adds its own OptionRows: a sort SegmentedControl and two sm Toggles, each with a hint. They change the player list.' },
+  placement: { group: 'Layout', control: 'select', options: ['docked', 'floating', 'popped'], description: 'Where the widget lives when the panel opens.' },
+  canPopOut: { group: 'Behaviour', control: 'boolean', description: 'Shows the own window option; a widget that cannot leave the app hides it.' },
 };
 
 const meta = {
@@ -35,7 +36,7 @@ const story = (name: string, patch: Partial<OptionsArgs>) => ({
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <OptionsDemo {...args} {...patch} />,
-} satisfies StoryLiteStoryDefinition<OptionsArgs>);
+} satisfies PlaygroundStory<OptionsArgs>);
 
 const Playground = story('Playground', {});
 const Docked = story('Docked on the right, with its own rows', {});

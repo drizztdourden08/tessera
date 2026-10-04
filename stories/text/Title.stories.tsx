@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { HEADING_LEVELS, TITLE_TONES, Title } from '../../src/primitives';
 import type { HeadingLevel, TitleTone } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -14,12 +15,12 @@ type TitleArgs = {
   italic: boolean;
 };
 
-const ARG_TYPES: StoryLiteArgTypes<TitleArgs> = {
-  level: { control: 'select', options: [...HEADING_LEVELS] },
-  text: { control: 'text' },
-  tone: { control: 'select', options: ['none', ...TITLE_TONES], description: 'A colour from the theme roles.' },
-  weight: { control: 'number', description: 'Any whole number from 100 to 900. The title face snaps to its nearest cut.' },
-  italic: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<TitleArgs> = {
+  text: { group: 'Content', control: 'text' },
+  tone: { group: 'Appearance', control: 'select', options: ['none', ...TITLE_TONES], description: 'A colour from the theme roles.' },
+  weight: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Any whole number from 100 to 900. The title face snaps to its nearest cut.' },
+  italic: { group: 'Appearance', control: 'boolean' },
+  level: { group: 'Behaviour', control: 'select', options: [...HEADING_LEVELS] },
 };
 
 const meta = {
@@ -36,7 +37,7 @@ const Playground = {
       {args.text}
     </Title>
   ),
-} satisfies StoryLiteStoryDefinition<TitleArgs>;
+} satisfies PlaygroundStory<TitleArgs>;
 
 const Levels = {
   name: 'Levels',

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, namespacedTag, TagInput } from '../../src/primitives';
@@ -46,13 +47,13 @@ const ARGS: Partial<TagInputArgs> = {
     size: 'md',
   };
 
-const ARG_TYPES: StoryLiteArgTypes<TagInputArgs> = {
-    label: { control: 'text' },
-    placeholder: { control: 'text' },
-    maxSuggestions: { control: 'number' },
-    enforce: { control: 'boolean', description: 'Refuse a new tag that breaks the convention.' },
-    namespaced: { control: 'boolean', description: 'Check that each tag reads namespace:value (namespacedTag). Off accepts anything.' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<TagInputArgs> = {
+    label: { group: 'Content', control: 'text' },
+    placeholder: { group: 'Content', control: 'text' },
+    disabled: { group: 'State', control: 'boolean' },
+    maxSuggestions: { group: 'Behaviour', control: 'number' },
+    enforce: { group: 'Behaviour', control: 'boolean', description: 'Refuse a new tag that breaks the convention.' },
+    namespaced: { group: 'Behaviour', control: 'boolean', description: 'Check that each tag reads namespace:value (namespacedTag). Off accepts anything.' },
     size: SIZE_ARG,
   };
 
@@ -94,7 +95,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatefulTags initial={['game:a-link-to-the-past', 'mode:open']} {...args} />,
-} satisfies StoryLiteStoryDefinition<TagInputArgs>;
+} satisfies PlaygroundStory<TagInputArgs>;
 
 const Validation = {
   name: 'Validation',

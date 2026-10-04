@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useId, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, RadioGroup } from '../../src/primitives';
@@ -32,11 +33,11 @@ const SHORT: RadioOption<Difficulty>[] = DIFFICULTIES.map(({ value, label }) => 
 
 const ARGS: Partial<RadioGroupArgs> = { label: 'Difficulty', description: 'Applies to new sessions only.', direction: 'vertical', disabled: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<RadioGroupArgs> = {
-    label: { control: 'text' },
-    description: { control: 'text' },
-    direction: { control: 'select', options: ['horizontal', 'vertical'] },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<RadioGroupArgs> = {
+    label: { group: 'Content', control: 'text' },
+    description: { group: 'Content', control: 'text' },
+    direction: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
+    disabled: { group: 'State', control: 'boolean' },
     size: SIZE_ARG,
   };
 
@@ -72,7 +73,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatefulRadio name="radio-playground" {...args} />,
-} satisfies StoryLiteStoryDefinition<RadioGroupArgs>;
+} satisfies PlaygroundStory<RadioGroupArgs>;
 
 const Layouts = {
   name: 'Layouts',

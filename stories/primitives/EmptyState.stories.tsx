@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { ReactNode } from 'react';
 import { Button, Card, EmptyState, Glyph } from '../../src/primitives';
 import type { GlyphName } from '../../src/primitives';
@@ -17,10 +18,10 @@ const GLYPH_OPTIONS: readonly EmptyStateArgs['glyph'][] = ['none', 'box', 'gear'
 
 const ARGS: Partial<EmptyStateArgs> = { message: 'No save states yet. Press F1 in game to make one.', glyph: 'box', actionLabel: 'Import a save' };
 
-const ARG_TYPES: StoryLiteArgTypes<EmptyStateArgs> = {
-    message: { control: 'text' },
-    glyph: { control: 'select', options: GLYPH_OPTIONS, description: 'Pick none to hide the icon.' },
-    actionLabel: { control: 'text', description: 'Leave empty to hide the action.' },
+const ARG_TYPES: PlaygroundArgTypes<EmptyStateArgs> = {
+    message: { group: 'Content', control: 'text' },
+    glyph: { group: 'Content', control: 'select', options: GLYPH_OPTIONS, optionView: (name) => (name === 'none' ? null : <Glyph name={name} size={16} />), description: 'Pick none to hide the icon.' },
+    actionLabel: { group: 'Content', control: 'text', description: 'Leave empty to hide the action.' },
   };
 
 const VARIANT_DEMOS: Record<string, ReactNode> = {
@@ -52,7 +53,7 @@ const Playground = {
       action={args.actionLabel ? <Button size="sm" variant="secondary">{args.actionLabel}</Button> : undefined}
     />
   ),
-} satisfies StoryLiteStoryDefinition<EmptyStateArgs>;
+} satisfies PlaygroundStory<EmptyStateArgs>;
 
 const Variants = {
   name: 'Variants',

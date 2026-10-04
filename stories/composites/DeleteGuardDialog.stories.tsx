@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DeleteGuardDialog } from '../../src/composites';
 import { Box, Button } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -38,10 +39,10 @@ const ARGS: Partial<DeleteGuardArgs> = {
     showError: false,
   };
 
-const ARG_TYPES: StoryLiteArgTypes<DeleteGuardArgs> = {
-    subjectLabel: { control: 'text' },
-    error: { control: 'textarea' },
-    showError: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<DeleteGuardArgs> = {
+    subjectLabel: { group: 'Content', control: 'text' },
+    error: { group: 'State', control: 'textarea' },
+    showError: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -54,14 +55,14 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <GuardDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<DeleteGuardArgs>;
+} satisfies PlaygroundStory<DeleteGuardArgs>;
 
 const RefusedDelete = {
   name: 'Delete refused',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <GuardDemo {...args} showError />,
-} satisfies StoryLiteStoryDefinition<DeleteGuardArgs>;
+} satisfies PlaygroundStory<DeleteGuardArgs>;
 
 const VARIANTS = [
   { key: 'referenced', label: 'Still referenced' },

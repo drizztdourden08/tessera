@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { MouseEvent } from 'react';
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Link, Paragraph } from '../../src/primitives';
 import type { LinkTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -20,11 +21,11 @@ type LinkArgs = {
 
 const ARGS: Partial<LinkArgs> = { text: 'the patch notes', href: '/notes/2-3-1', tone: 'primary', external: false };
 
-const ARG_TYPES: StoryLiteArgTypes<LinkArgs> = {
-  text: { control: 'text' },
-  href: { control: 'text' },
-  tone: { control: 'select', options: [...LINK_TONES] },
-  external: { control: 'boolean', description: 'Opens in a new tab with rel="noopener noreferrer" and an icon that says so.' },
+const ARG_TYPES: PlaygroundArgTypes<LinkArgs> = {
+  text: { group: 'Content', control: 'text' },
+  href: { group: 'Content', control: 'text' },
+  tone: { group: 'Appearance', control: 'select', options: [...LINK_TONES] },
+  external: { group: 'Behaviour', control: 'boolean', description: 'Opens in a new tab with rel="noopener noreferrer" and an icon that says so.' },
 };
 
 const meta = {
@@ -43,7 +44,7 @@ const Playground = {
       </Paragraph>
     </LinkSandbox>
   ),
-} satisfies StoryLiteStoryDefinition<LinkArgs>;
+} satisfies PlaygroundStory<LinkArgs>;
 
 const Tones = {
   name: 'Tones',

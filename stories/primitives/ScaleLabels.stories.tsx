@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Code, Glyph, Text, type ScaleLabelEntry, type ScaleOrientation } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -22,14 +23,14 @@ type ScaleLabelsArgs = {
 
 const ARGS: Partial<ScaleLabelsArgs> = { labels: 'every 25 | {v}%', min: 0, max: 100, step: 5, orientation: 'horizontal', thin: true, ticks: true };
 
-const ARG_TYPES: StoryLiteArgTypes<ScaleLabelsArgs> = {
-  labels: { control: 'text', description: 'A value rule, read as you type. The marks it makes are listed under the scale.' },
-  min: { control: 'number' },
-  max: { control: 'number' },
-  step: { control: 'number' },
-  orientation: { control: 'select', options: ['horizontal', 'vertical'] },
-  thin: { control: 'boolean', description: 'Hides labels that would overlap, keeping an even stride and both ends.' },
-  ticks: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<ScaleLabelsArgs> = {
+  labels: { group: 'Content', control: 'text', description: 'A value rule, read as you type. The marks it makes are listed under the scale.' },
+  min: { group: 'Value', control: 'number' },
+  max: { group: 'Value', control: 'number' },
+  step: { group: 'Value', control: 'number' },
+  thin: { group: 'Appearance', control: 'boolean', description: 'Hides labels that would overlap, keeping an even stride and both ends.' },
+  ticks: { group: 'Appearance', control: 'boolean' },
+  orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
 };
 
 const meta = {
@@ -47,7 +48,7 @@ const Playground = {
       <RuleMarks rule={args.labels} scale={{ min: args.min, max: args.max, step: args.step }} />
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<ScaleLabelsArgs>;
+} satisfies PlaygroundStory<ScaleLabelsArgs>;
 
 const Syntax = {
   name: 'Value rule syntax',

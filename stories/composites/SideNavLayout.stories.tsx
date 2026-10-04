@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SearchResults, SideNavLayout } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -57,10 +58,10 @@ const LayoutDemo = (props: LayoutArgs & { query?: string }) => {
 
 const ARGS: Partial<LayoutArgs> = { withSearch: true, narrow: false, searchPlaceholder: 'Search the guides' };
 
-const ARG_TYPES: StoryLiteArgTypes<LayoutArgs> = {
-  withSearch: { control: 'boolean', description: 'A search field in the side nav. It searches the content of every page, never the menu.' },
-  narrow: { control: 'boolean', description: 'For a narrow window: the menu slides over the page, which keeps its width.' },
-  searchPlaceholder: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<LayoutArgs> = {
+  withSearch: { group: 'Content', control: 'boolean', description: 'A search field in the side nav. It searches the content of every page, never the menu.' },
+  searchPlaceholder: { group: 'Content', control: 'text' },
+  narrow: { group: 'Layout', control: 'boolean', description: 'For a narrow window: the menu slides over the page, which keeps its width.' },
 };
 
 const meta = {
@@ -73,7 +74,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <LayoutDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<LayoutArgs>;
+} satisfies PlaygroundStory<LayoutArgs>;
 
 const Searching = {
   name: 'Searching every page',

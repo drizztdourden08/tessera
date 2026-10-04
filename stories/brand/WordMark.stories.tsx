@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS, Logo } from '../../src/brand';
 import type { BrandApp, BrandRim, LogoWordmarkProps } from '../../src/brand';
 import { Flex } from '../../src/primitives';
@@ -19,10 +20,10 @@ type WordMarkArgs = {
 
 const SIZES: readonly WordmarkSize[] = ['sm', 'md', 'lg'];
 
-const ARG_TYPES: StoryLiteArgTypes<WordMarkArgs> = {
-  brand: { control: 'select', options: [...BRAND_APPS] },
-  size: { control: 'select', options: [...SIZES] },
-  rim: { control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
+const ARG_TYPES: PlaygroundArgTypes<WordMarkArgs> = {
+  brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
+  size: { group: 'Appearance', control: 'select', options: [...SIZES] },
+  rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
 };
 
 const meta = {
@@ -35,7 +36,7 @@ const Playground = {
   args: { brand: 'rotp', size: 'md', rim: 'none' },
   argTypes: ARG_TYPES,
   render: (args) => <Logo.Wordmark brand={args.brand} size={args.size} rim={args.rim} />,
-} satisfies StoryLiteStoryDefinition<WordMarkArgs>;
+} satisfies PlaygroundStory<WordMarkArgs>;
 
 const Wordmarks = {
   name: 'Wordmarks',

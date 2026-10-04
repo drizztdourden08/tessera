@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Card, SectionHeader, Stack, StatRow, Status } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -14,10 +15,10 @@ type SectionHeaderArgs = {
 
 const ARGS: Partial<SectionHeaderArgs> = { title: 'Save states', subtitle: 'Stored in this profile only', showAction: true };
 
-const ARG_TYPES: StoryLiteArgTypes<SectionHeaderArgs> = {
-    title: { control: 'text' },
-    subtitle: { control: 'text', description: 'Leave empty to hide.' },
-    showAction: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<SectionHeaderArgs> = {
+    title: { group: 'Content', control: 'text' },
+    subtitle: { group: 'Content', control: 'text', description: 'Leave empty to hide.' },
+    showAction: { group: 'Content', control: 'boolean' },
   };
 
 const meta = {
@@ -36,7 +37,7 @@ const Playground = {
       action={args.showAction ? <Button size="sm" variant="secondary">New save</Button> : undefined}
     />
   ),
-} satisfies StoryLiteStoryDefinition<SectionHeaderArgs>;
+} satisfies PlaygroundStory<SectionHeaderArgs>;
 
 const HEADERS: Readonly<Record<string, ReactNode>> = {
   'title only': <SectionHeader title="Audio" />,

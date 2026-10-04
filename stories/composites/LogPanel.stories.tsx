@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { LogPanel } from '../../src/composites';
 import type { LogRow } from '../../src/composites';
 import { createClause } from '../../src/data';
@@ -47,10 +48,10 @@ const PROBLEMS: readonly FilterClause[] = [createClause('kind', 'anyOf', ['Error
 
 const ARGS: Partial<LogPanelArgs> = { toolbar: true, countLabel: 'lines', emptyLabel: 'The server has not said anything yet.' };
 
-const ARG_TYPES: StoryLiteArgTypes<LogPanelArgs> = {
-    toolbar: { control: 'boolean', description: 'Search, filters, the line count and Copy all' },
-    countLabel: { control: 'text' },
-    emptyLabel: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<LogPanelArgs> = {
+    toolbar: { group: 'Content', control: 'boolean', description: 'Search, filters, the line count and Copy all' },
+    countLabel: { group: 'Content', control: 'text' },
+    emptyLabel: { group: 'Content', control: 'text' },
   };
 
 const meta = {
@@ -63,7 +64,7 @@ const ServerLog = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <LogDemo {...args} rows={LOG_ROWS} />,
-} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+} satisfies PlaygroundStory<LogPanelArgs>;
 
 const Filtered = {
   name: 'Filtered to errors and hints',

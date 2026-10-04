@@ -1,16 +1,14 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, INPUT_ICON_FAMILIES, InputIcon } from '../../src/primitives';
-import type { InputIconSource } from '../../src/primitives';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
+import { Box, INPUT_ICON_FAMILIES, INPUT_ICON_NAMES, InputIcon } from '../../src/primitives';
+import type { InputIconFamily, InputIconSource } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { InputIconGallery } from './InputIconGallery';
-import { InputIconPlayground } from './InputIconPlayground';
-import type { InputIconPlaygroundProps } from './InputIconPlayground.type';
+import type { InputIconArgs } from './input-icon-args.type';
 import { INPUT_ICON_TITLES } from './input-icon-titles.constants';
 import './icons.stories.css';
-
-type InputIconArgs = InputIconPlaygroundProps;
 
 const HIGHLIGHTED: readonly InputIconSource[] = [
   { family: 'xbox', name: 'dpad-up' }, { family: 'playstation', name: 'dpad-left' }, { family: 'switch', name: 'dpad-right' },
@@ -25,12 +23,22 @@ const SIZED: readonly InputIconSource[] = [
 
 const keyOf = (source: InputIconSource): string => `${source.family}/${source.name}`;
 
-const ARG_TYPES: StoryLiteArgTypes<InputIconArgs> = {
-  size: { control: 'number', description: 'Width and height in pixels, or any CSS length, as for Icon.' },
-  tone: { control: 'select', options: ['color', 'theme'], description: 'color keeps the pack highlight colours; theme paints them in the primary colour with a thin gap around them.' },
-  ink: { control: 'select', options: ['text', 'primary', 'secondary', 'muted'], description: 'The text colour around it. The glyph draws in currentColor.' },
-  label: { control: 'text', description: 'Accessible name. Leave empty for a decorative glyph.' },
-  effect: { control: 'select', options: ['none', 'twinkle', 'glint', 'ping', 'burst', 'dot', 'comet', 'shimmer'], description: 'A pop that lands on a drawn point of the glyph, as for Icon.' },
+const sourceOf = (family: InputIconFamily, name: string): InputIconSource => ({ family, name }) as InputIconSource;
+
+const ARG_TYPES: PlaygroundArgTypes<InputIconArgs> = {
+  family: { group: 'Content', control: 'select', options: INPUT_ICON_FAMILIES, description: 'Every family, from INPUT_ICON_FAMILIES.' },
+  name: {
+    group: 'Content',
+    control: 'select',
+    options: (args) => INPUT_ICON_NAMES[args.family],
+    optionView: (name, args) => <InputIcon {...sourceOf(args.family, name)} size={20} tone={args.tone} />,
+    description: 'The names INPUT_ICON_NAMES lists for the family. A new family keeps the name when it has one.',
+  },
+  label: { group: 'Content', control: 'text', description: 'Accessible name. Leave empty for a decorative glyph.' },
+  size: { group: 'Appearance', control: 'number', min: 8, description: 'Width and height in pixels, as for Icon.' },
+  tone: { group: 'Appearance', control: 'select', options: ['color', 'theme'], description: 'color keeps the pack highlight colours; theme paints them in the primary colour with a thin gap around them.' },
+  ink: { group: 'Appearance', control: 'select', options: ['text', 'primary', 'secondary', 'muted'], description: 'The text colour around it. The glyph draws in currentColor.' },
+  effect: { group: 'Motion', control: 'select', options: ['none', 'twinkle', 'glint', 'ping', 'burst', 'dot', 'comet', 'shimmer'], description: 'A pop that lands on a drawn point of the glyph, as for Icon.' },
 };
 
 const meta = {
@@ -40,10 +48,20 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { size: 48, tone: 'color', ink: 'text', label: '', effect: 'none' },
+  args: { family: 'xbox', name: 'a', size: 48, tone: 'color', ink: 'text', label: '', effect: 'none' },
   argTypes: ARG_TYPES,
-  render: (args) => <InputIconPlayground {...args} />,
-} satisfies StoryLiteStoryDefinition<InputIconArgs>;
+  render: (args) => (
+    <Box className={args.ink === 'text' ? undefined : `icon-demo--${args.ink}`}>
+      <InputIcon
+        {...sourceOf(args.family, args.name)}
+        size={args.size}
+        tone={args.tone}
+        label={args.label || undefined}
+        effect={args.effect === 'none' ? undefined : args.effect}
+      />
+    </Box>
+  ),
+} satisfies PlaygroundStory<InputIconArgs>;
 
 const EveryIcon = {
   name: 'Every icon, by family',

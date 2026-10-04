@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Text } from '../../src/primitives';
 import type { OpticalSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -15,11 +16,11 @@ type OpticalArgs = {
   text: string;
 };
 
-const ARG_TYPES: StoryLiteArgTypes<OpticalArgs> = {
-  opticalSize: { control: 'select', options: ['auto', 'text', 'display'] },
-  weight: { control: 'number', description: 'Any whole number from 100 to 900.' },
-  italic: { control: 'boolean' },
-  text: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<OpticalArgs> = {
+  text: { group: 'Content', control: 'text' },
+  opticalSize: { group: 'Appearance', control: 'select', options: ['auto', 'text', 'display'] },
+  weight: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Any whole number from 100 to 900.' },
+  italic: { group: 'Appearance', control: 'boolean' },
 };
 
 const SIZES = [14, 20, 32, 48, 64] as const;
@@ -79,7 +80,7 @@ const Playground = {
   render: (args) => (
     <Text className="variable-type__size-32" opticalSize={args.opticalSize} weight={args.weight} italic={args.italic}>{args.text}</Text>
   ),
-} satisfies StoryLiteStoryDefinition<OpticalArgs>;
+} satisfies PlaygroundStory<OpticalArgs>;
 
 const Overview = overviewStory({
   component: 'Optical size and italic',

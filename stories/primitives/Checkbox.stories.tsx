@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, Checkbox, Text, type ControlSize } from '../../src/primitives';
@@ -19,10 +20,10 @@ const GAMES = ['A Link to the Past', "Link's Awakening", 'Ocarina of Time'] as c
 
 const ARGS: Partial<CheckboxArgs> = { label: 'Show hints on the map', disabled: false, indeterminate: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<CheckboxArgs> = {
-    label: { control: 'text' },
-    disabled: { control: 'boolean' },
-    indeterminate: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<CheckboxArgs> = {
+    label: { group: 'Content', control: 'text' },
+    disabled: { group: 'State', control: 'boolean' },
+    indeterminate: { group: 'State', control: 'boolean' },
     size: SIZE_ARG,
   };
 
@@ -76,7 +77,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatefulCheckbox initial {...args} />,
-} satisfies StoryLiteStoryDefinition<CheckboxArgs>;
+} satisfies PlaygroundStory<CheckboxArgs>;
 
 const Labels = {
   name: 'Labels',

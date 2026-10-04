@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, Field, NumberInput, PasswordInput, Text, TextInput, Toggle, type ControlSize } from '../../src/primitives';
@@ -27,12 +28,12 @@ const ARGS: Partial<FieldArgs> = {
     size: 'md',
   };
 
-const ARG_TYPES: StoryLiteArgTypes<FieldArgs> = {
-    label: { control: 'text' },
-    hint: { control: 'text' },
-    error: { control: 'text', description: 'Replaces the hint while set.' },
-    required: { control: 'boolean' },
-    inline: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<FieldArgs> = {
+    label: { group: 'Content', control: 'text' },
+    hint: { group: 'Content', control: 'text' },
+    inline: { group: 'Layout', control: 'boolean' },
+    error: { group: 'State', control: 'text', description: 'Replaces the hint while set.' },
+    required: { group: 'State', control: 'boolean' },
     size: { ...SIZE_ARG, description: 'Sets the size of the control inside, unless the control sets its own.' },
   };
 
@@ -102,7 +103,7 @@ const Playground = {
       <TextInput id="field-player-name" defaultValue="Link" />
     </Field>
   ),
-} satisfies StoryLiteStoryDefinition<FieldArgs>;
+} satisfies PlaygroundStory<FieldArgs>;
 
 const Form = {
   name: 'In a form',

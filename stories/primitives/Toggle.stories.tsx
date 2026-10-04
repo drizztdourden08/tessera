@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, Text, Toggle, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -25,11 +26,11 @@ const ARGS: Partial<ToggleArgs> = {
     size: 'md',
   };
 
-const ARG_TYPES: StoryLiteArgTypes<ToggleArgs> = {
-    label: { control: 'text' },
-    description: { control: 'text' },
-    link: { control: 'text' },
-    disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<ToggleArgs> = {
+    label: { group: 'Content', control: 'text' },
+    description: { group: 'Content', control: 'text' },
+    link: { group: 'Content', control: 'text' },
+    disabled: { group: 'State', control: 'boolean' },
     size: SIZE_ARG,
   };
 
@@ -62,7 +63,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatefulToggle initial {...args} />,
-} satisfies StoryLiteStoryDefinition<ToggleArgs>;
+} satisfies PlaygroundStory<ToggleArgs>;
 
 const Labels = {
   name: 'Label and description',

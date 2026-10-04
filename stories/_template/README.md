@@ -111,3 +111,78 @@ The States section rewrites the preview stylesheets once, then again each time a
 Each row marks one element, the way a real pointer or keyboard would: the component's root, or the element `target` names. The forced state then follows browser rules. Hover and active also hold on that element's ancestors, as a real hover does, and focus holds on the element with focus-within on its ancestors. Children never take the state, so a button inside a hovered row stays idle.
 
 To mark an element from the entry's own `render`, spread `forceAttributes` from `states/force-attributes.ts` on it: `<Button {...forceAttributes('hover')}>Load</Button>`. The element must pass unknown props through. Styles set from script on real pointer or focus events do not follow, since only stylesheet rules are rewritten.
+
+## Playground
+
+The Playground is one card: the live component on a stage at the top, its Parameters panel below, sharing one border with no gap between them. The Overview page and the Playground story draw the same card.
+
+A story declares its parameters on its Playground story, typed `PlaygroundStory<Args>`, with `argTypes` typed `PlaygroundArgTypes<Args>`, both from `controls/playground.type.ts`. Each parameter names its group, and the panel draws one titled group per name:
+
+```tsx
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
+
+const ARG_TYPES: PlaygroundArgTypes<ButtonArgs> = {
+  label: { group: 'Content', control: 'text' },
+  variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
+  size: { group: 'Appearance', control: 'select', options: ['sm', 'md'] },
+  disabled: { group: 'State', control: 'boolean' },
+};
+
+const Playground = {
+  name: 'Playground',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <Button variant={args.variant} size={args.size}>{args.label}</Button>,
+} satisfies PlaygroundStory<ButtonArgs>;
+```
+
+### Groups
+
+A story picks the groups its parameters fall in and the order of the parameters inside each. The groups themselves always come in this order, so every panel reads the same way:
+
+| Group | Holds |
+|---|---|
+| `Content` | What the component shows: text, labels, an icon name, which parts it draws. |
+| `Value` | The value and its bounds: `value`, `min`, `max`, `step`. |
+| `Appearance` | How it looks: variant, size, tone, colour, weight. |
+| `Layout` | Where things sit: orientation, alignment, gap, placement, width. |
+| `State` | A moment of the component: disabled, loading, invalid, open, selected. |
+| `Behaviour` | What it does: searchable, closes on select, persists, rejects a save. |
+| `Motion` | Animation: an effect, its speed, its timing, whether it loops. |
+| `Data` | The data a data component works on: grouping, sorting, filters. |
+
+### Controls
+
+Every control is the small size, and every row is one control high, so the labels and the controls line up in one grid. `control` picks the control:
+
+| `control` | Draws | Takes |
+|---|---|---|
+| `text` | a TextInput | free text only: a label, a title, a placeholder |
+| `textarea` | a Textarea one row high that drags taller | free text over several lines |
+| `number` | a NumberInput | `min`, `max`, `step` |
+| `range` | a Slider with its value | `min`, `max`, `step` |
+| `boolean` | a Toggle | |
+| `color` | a ColorSwatch and a TextInput | |
+| `select` | a SegmentedControl for up to three short options, a Select for more | `options` |
+| `multiselect` | a Select with several picks, kept in the order they are picked | `options`; the value is a list |
+
+A parameter whose values are a known set is never a text box. Sizes, variants, tones, icon names and key names are a `select` or a `multiselect`; a bounded number is a `range`. Text stays only for text the user writes. A Select with more than twelve options takes a search box. An empty option shows as `none`.
+
+`optionView(option, args)` draws something before each option's label in the Select list, such as the glyph for an icon name.
+
+### Options that depend on another parameter
+
+`options` can be a function of the current args. The panel asks again on every change, and a value that falls outside its new options returns to its default when the default fits, or to the first option. A `multiselect` drops the picks that left.
+
+```tsx
+const ARG_TYPES: PlaygroundArgTypes<InputIconArgs> = {
+  family: { group: 'Content', control: 'select', options: INPUT_ICON_FAMILIES },
+  name: { group: 'Content', control: 'select', options: (args) => INPUT_ICON_NAMES[args.family] },
+};
+```
+
+### Changed parameters
+
+A parameter that differs from the story's args is marked: a primary accent on its left edge, its name in the primary colour and a dot after it. A reset button after its control puts it back and returns the focus to the control. Reset, in the panel head, puts every parameter back.
+
+Each name is the label of its control, the description is the control's hint, and each group is a fieldset with its title as the legend.

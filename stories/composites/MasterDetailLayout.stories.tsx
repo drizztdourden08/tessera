@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ListItemRow, MasterDetailLayout } from '../../src/composites';
 import { Box, EmptyState, Icon, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -58,9 +59,9 @@ const LayoutDemo = (props: MasterDetailArgs) => {
 
 const ARGS: Partial<MasterDetailArgs> = { startSelected: true, emptyMessage: 'Pick a session to see its details.' };
 
-const ARG_TYPES: StoryLiteArgTypes<MasterDetailArgs> = {
-    startSelected: { control: 'boolean' },
-    emptyMessage: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<MasterDetailArgs> = {
+    emptyMessage: { group: 'Content', control: 'text' },
+    startSelected: { group: 'State', control: 'boolean' },
   };
 
 const meta = {
@@ -73,7 +74,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <LayoutDemo key={String(args.startSelected)} {...args} />,
-} satisfies StoryLiteStoryDefinition<MasterDetailArgs>;
+} satisfies PlaygroundStory<MasterDetailArgs>;
 
 const renderState = (props: StateProps) => (
   <LayoutDemo startSelected={props.empty !== true} emptyMessage="Pick a session to see its details." />

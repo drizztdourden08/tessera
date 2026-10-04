@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Text, TYPE_FEATURE_GROUPS } from '../../src/primitives';
 import type { TypeFeature } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -13,9 +14,9 @@ const PLAYABLE = [
 
 type FeatureArgs = { text: string } & Record<(typeof PLAYABLE)[number], boolean>;
 
-const ARG_TYPES: StoryLiteArgTypes<FeatureArgs> = {
-  text: { control: 'text' },
-  ...Object.fromEntries(PLAYABLE.map((feature) => [feature, { control: 'boolean' }])),
+const ARG_TYPES: PlaygroundArgTypes<FeatureArgs> = {
+  text: { group: 'Content', control: 'text' },
+  ...Object.fromEntries(PLAYABLE.map((feature) => [feature, { group: 'Appearance', control: 'boolean' }])),
 };
 
 const INITIAL: FeatureArgs = {
@@ -48,7 +49,7 @@ const Playground = {
     const features = PLAYABLE.filter((feature) => args[feature]);
     return <Text className="variable-type__size-32" features={features}>{args.text}</Text>;
   },
-} satisfies StoryLiteStoryDefinition<FeatureArgs>;
+} satisfies PlaygroundStory<FeatureArgs>;
 
 const Overview = overviewStory({
   component: 'OpenType features',

@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { LinkTone } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { LINK_TONES } from './_samples/link-tones.constants';
@@ -14,10 +15,10 @@ type RouterLinkArgs = {
 
 const ARGS: Partial<RouterLinkArgs> = { text: 'Open slot 2', to: '/saves/slot-2', tone: 'primary' };
 
-const ARG_TYPES: StoryLiteArgTypes<RouterLinkArgs> = {
-  text: { control: 'text' },
-  to: { control: 'text', description: 'The destination handed to onNavigate, and the href unless href is set.' },
-  tone: { control: 'select', options: [...LINK_TONES] },
+const ARG_TYPES: PlaygroundArgTypes<RouterLinkArgs> = {
+  text: { group: 'Content', control: 'text' },
+  to: { group: 'Content', control: 'text', description: 'The destination handed to onNavigate, and the href unless href is set.' },
+  tone: { group: 'Appearance', control: 'select', options: [...LINK_TONES] },
 };
 
 const meta = {
@@ -30,7 +31,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RouterDemo routes={[{ to: args.to, label: args.text }]} tone={args.tone} />,
-} satisfies StoryLiteStoryDefinition<RouterLinkArgs>;
+} satisfies PlaygroundStory<RouterLinkArgs>;
 
 const Nav = {
   name: 'An app nav',

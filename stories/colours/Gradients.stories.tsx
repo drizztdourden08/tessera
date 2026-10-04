@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS, BRAND_FAMILY, BrandMark, brandGradientCss } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
 import { Box, Card, Stack, Text } from '../../src/primitives';
@@ -10,8 +11,8 @@ type GradientArgs = {
   brand: BrandApp;
 };
 
-const ARG_TYPES: StoryLiteArgTypes<GradientArgs> = {
-  brand: { control: 'select', options: [...BRAND_APPS], description: 'The brand whose gradient and backdrop are drawn.' },
+const ARG_TYPES: PlaygroundArgTypes<GradientArgs> = {
+  brand: { group: 'Content', control: 'select', options: [...BRAND_APPS], description: 'The brand whose gradient and backdrop are drawn.' },
 };
 
 const meta = {
@@ -56,7 +57,7 @@ const Playground = {
       <BackdropCard app={args.brand} />
     </Box>
   ),
-} satisfies StoryLiteStoryDefinition<GradientArgs>;
+} satisfies PlaygroundStory<GradientArgs>;
 
 const Gradients = {
   name: 'Gradients',

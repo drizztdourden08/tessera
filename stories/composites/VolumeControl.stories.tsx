@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { ReactNode } from 'react';
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { VolumeControl } from '../../src/composites';
 import type { ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -24,12 +25,12 @@ type VolumeArgs = {
 
 const ARGS: Partial<VolumeArgs> = { label: 'Music volume', description: 'Plays under every screen.', flag: false, showValue: true, disabled: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<VolumeArgs> = {
-  label: { control: 'text' },
-  description: { control: 'text' },
-  flag: { control: 'boolean', description: 'Passes muted and onMutedChange, so muting keeps the level instead of dropping it to zero.' },
-  showValue: { control: 'boolean' },
-  disabled: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<VolumeArgs> = {
+  label: { group: 'Content', control: 'text' },
+  description: { group: 'Content', control: 'text' },
+  showValue: { group: 'Appearance', control: 'boolean' },
+  disabled: { group: 'State', control: 'boolean' },
+  flag: { group: 'Behaviour', control: 'boolean', description: 'Passes muted and onMutedChange, so muting keeps the level instead of dropping it to zero.' },
   size: SIZE_ARG,
 };
 
@@ -43,7 +44,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatefulVolume key={String(args.flag)} initial={60} {...args} />,
-} satisfies StoryLiteStoryDefinition<VolumeArgs>;
+} satisfies PlaygroundStory<VolumeArgs>;
 
 const LEVELS: Readonly<Record<string, ReactNode>> = {
   Silent: <StatefulVolume initial={0} label="Music volume" />,

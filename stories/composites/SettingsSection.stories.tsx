@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SettingsSection } from '../../src/composites';
 import { Box, Paragraph } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -37,11 +38,11 @@ const SectionsDemo = (props: SectionArgs & { audio?: boolean }) => {
 
 const ARGS: Partial<SectionArgs> = { compact: false, readOnly: false, withReset: true, flash: '' };
 
-const ARG_TYPES: StoryLiteArgTypes<SectionArgs> = {
-  compact: { control: 'boolean', description: 'One line per row, for a dense page or a side panel.' },
-  readOnly: { control: 'boolean', description: 'Every value as text.' },
-  withReset: { control: 'boolean', description: 'The reset button in the heading, faint until the heading is hovered.' },
-  flash: { control: 'select', options: ['', 'restore', 'language', 'tray-icon', 'startup'], description: 'A row key, group id or section id to pulse, as a search does when it jumps.' },
+const ARG_TYPES: PlaygroundArgTypes<SectionArgs> = {
+  withReset: { group: 'Content', control: 'boolean', description: 'The reset button in the heading, faint until the heading is hovered.' },
+  compact: { group: 'Appearance', control: 'boolean', description: 'One line per row, for a dense page or a side panel.' },
+  readOnly: { group: 'State', control: 'boolean', description: 'Every value as text.' },
+  flash: { group: 'State', control: 'select', options: ['', 'restore', 'language', 'tray-icon', 'startup'], description: 'A row key, group id or section id to pulse, as a search does when it jumps.' },
 };
 
 const meta = {
@@ -54,7 +55,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <SectionsDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<SectionArgs>;
+} satisfies PlaygroundStory<SectionArgs>;
 
 const Audio = {
   name: 'Sliders, segments and a pattern',

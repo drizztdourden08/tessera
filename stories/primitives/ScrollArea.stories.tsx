@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, ScrollArea, Text } from '../../src/primitives';
 import type { ScrollAreaScrollbar, ScrollAxis, ScrollPosition } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -31,10 +32,10 @@ const configLines = (suffix: string) =>
 
 const ARGS: Partial<ScrollAreaArgs> = { axis: 'y', scrollbar: 'native', entries: 24 };
 
-const ARG_TYPES: StoryLiteArgTypes<ScrollAreaArgs> = {
-    axis: { control: 'select', options: ['y', 'x', 'both'] },
-    scrollbar: { control: 'select', options: ['native', 'slim'] },
-    entries: { control: 'number' },
+const ARG_TYPES: PlaygroundArgTypes<ScrollAreaArgs> = {
+    entries: { group: 'Content', control: 'number' },
+    scrollbar: { group: 'Appearance', control: 'select', options: ['native', 'slim'] },
+    axis: { group: 'Layout', control: 'select', options: ['y', 'x', 'both'] },
   };
 
 const meta = {
@@ -56,7 +57,7 @@ const Playground = {
       ))}
     </ScrollArea>
   ),
-} satisfies StoryLiteStoryDefinition<ScrollAreaArgs>;
+} satisfies PlaygroundStory<ScrollAreaArgs>;
 
 const AXES: readonly ScrollAxis[] = ['y', 'x', 'both'];
 

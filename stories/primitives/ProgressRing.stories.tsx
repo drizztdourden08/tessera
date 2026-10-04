@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, ProgressRing } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -22,12 +23,12 @@ const STEPS = [0, 0.25, 0.5, 0.75, 1] as const;
 
 const ARGS: Partial<ProgressRingArgs> = { progress: 0.6, showFill: true, radius: 15, strokeWidth: 2.5, size: 'lg' };
 
-const ARG_TYPES: StoryLiteArgTypes<ProgressRingArgs> = {
-    progress: { control: 'number', description: 'Fill fraction, 0 to 1.' },
-    showFill: { control: 'boolean', description: 'Off omits progress, which draws the track alone.' },
-    radius: { control: 'number' },
-    strokeWidth: { control: 'number' },
-    size: { control: 'select', options: [...SIZES], description: 'Story wrapper width; the ring fills its box.' },
+const ARG_TYPES: PlaygroundArgTypes<ProgressRingArgs> = {
+    progress: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05, description: 'Fill fraction, 0 to 1.' },
+    showFill: { group: 'Appearance', control: 'boolean', description: 'Off omits progress, which draws the track alone.' },
+    radius: { group: 'Appearance', control: 'number' },
+    strokeWidth: { group: 'Appearance', control: 'number' },
+    size: { group: 'Appearance', control: 'select', options: [...SIZES], description: 'Story wrapper width; the ring fills its box.' },
   };
 
 const meta = {
@@ -47,7 +48,7 @@ const Playground = {
       strokeWidth={args.strokeWidth}
     />
   ),
-} satisfies StoryLiteStoryDefinition<ProgressRingArgs>;
+} satisfies PlaygroundStory<ProgressRingArgs>;
 
 const STEP_COLUMNS = [...STEPS.map((step) => ({ key: String(step), label: `${step * 100}%` })), { key: 'track', label: 'track only' }];
 

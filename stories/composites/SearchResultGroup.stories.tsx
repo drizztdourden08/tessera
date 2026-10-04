@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { filterSettingsSections, SearchResultGroup, SearchResultHit, SettingsSection } from '../../src/composites';
 import { Box, Icon } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -26,10 +27,10 @@ const LiveRows = (props: GroupArgs) => {
 
 const ARGS: Partial<GroupArgs> = { label: 'Audio', count: 1, withOpen: true };
 
-const ARG_TYPES: StoryLiteArgTypes<GroupArgs> = {
-  label: { control: 'text' },
-  count: { control: 'number' },
-  withOpen: { control: 'boolean', description: 'The Open page button on the right of the heading.' },
+const ARG_TYPES: PlaygroundArgTypes<GroupArgs> = {
+  label: { group: 'Content', control: 'text' },
+  count: { group: 'Content', control: 'number' },
+  withOpen: { group: 'Content', control: 'boolean', description: 'The Open page button on the right of the heading.' },
 };
 
 const meta = {
@@ -42,7 +43,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <LiveRows {...args} />,
-} satisfies StoryLiteStoryDefinition<GroupArgs>;
+} satisfies PlaygroundStory<GroupArgs>;
 
 const WithHits = {
   name: 'Holding hits',

@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Grid, Stack, Text } from '../../src/primitives';
 import type { SpaceToken } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -28,11 +29,11 @@ const FILES = [
 
 const ARGS: Partial<GridArgs> = { columns: 3, minColWidth: 0, gap: 'sm', count: 8 };
 
-const ARG_TYPES: StoryLiteArgTypes<GridArgs> = {
-    columns: { control: 'number', description: 'Fixed column count.' },
-    minColWidth: { control: 'number', description: 'Auto-fill minimum width in px. 0 turns it off.' },
-    gap: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
-    count: { control: 'number' },
+const ARG_TYPES: PlaygroundArgTypes<GridArgs> = {
+    count: { group: 'Content', control: 'number' },
+    columns: { group: 'Layout', control: 'number', description: 'Fixed column count.' },
+    minColWidth: { group: 'Layout', control: 'number', description: 'Auto-fill minimum width in px. 0 turns it off.' },
+    gap: { group: 'Layout', control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
   };
 
 const meta = {
@@ -60,7 +61,7 @@ const Playground = {
       <FileTiles count={args.count} />
     </Grid>
   ),
-} satisfies StoryLiteStoryDefinition<GridArgs>;
+} satisfies PlaygroundStory<GridArgs>;
 
 const FixedColumns = {
   name: 'Fixed columns',

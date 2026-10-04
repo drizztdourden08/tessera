@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ColorPicker } from '../../src/composites/ColorPicker';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -38,12 +39,12 @@ const PickerDemo = (args: ColorPickerArgs) => {
 
 const ARGS: Partial<ColorPickerArgs> = { title: 'Team Harbor', start: '#3f8fd2', disableAlpha: false, showOriginal: true, showSwatches: true };
 
-const ARG_TYPES: StoryLiteArgTypes<ColorPickerArgs> = {
-    title: { control: 'text' },
-    start: { control: 'color', description: 'The colour the slot started at' },
-    disableAlpha: { control: 'boolean' },
-    showOriginal: { control: 'boolean', description: 'Show the starting colour as a reference and reset target' },
-    showSwatches: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<ColorPickerArgs> = {
+    title: { group: 'Content', control: 'text' },
+    start: { group: 'Value', control: 'color', description: 'The colour the slot started at' },
+    showOriginal: { group: 'Appearance', control: 'boolean', description: 'Show the starting colour as a reference and reset target' },
+    showSwatches: { group: 'Appearance', control: 'boolean' },
+    disableAlpha: { group: 'Behaviour', control: 'boolean' },
   };
 
 const meta = {
@@ -56,7 +57,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PickerDemo key={args.start} {...args} />,
-} satisfies StoryLiteStoryDefinition<ColorPickerArgs>;
+} satisfies PlaygroundStory<ColorPickerArgs>;
 
 const AllVariants = {
   name: 'All variants',

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, Glyph, SegmentedControl, Text } from '../../src/primitives';
 import type { ControlSize, SegmentOption } from '../../src/primitives';
@@ -43,11 +44,11 @@ const ALIGN_ICONS: SegmentOption<Align>[] = [
 
 const ARGS: Partial<SegmentedControlArgs> = { label: 'Window scale', description: 'How large the game picture is drawn.', disabled: false, deselectable: false, size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<SegmentedControlArgs> = {
-    label: { control: 'text' },
-    description: { control: 'text' },
-    disabled: { control: 'boolean' },
-    deselectable: { control: 'boolean', description: 'Wires onDeselect, so a re-click clears the value.' },
+const ARG_TYPES: PlaygroundArgTypes<SegmentedControlArgs> = {
+    label: { group: 'Content', control: 'text' },
+    description: { group: 'Content', control: 'text' },
+    disabled: { group: 'State', control: 'boolean' },
+    deselectable: { group: 'Behaviour', control: 'boolean', description: 'Wires onDeselect, so a re-click clears the value.' },
     size: SIZE_ARG,
   };
 
@@ -83,7 +84,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <StatefulSegments<Scale> initial="2x" options={SCALES} {...args} />,
-} satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
+} satisfies PlaygroundStory<SegmentedControlArgs>;
 
 const Kinds = {
   name: 'Kinds',

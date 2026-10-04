@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Center, Flex, Text } from '../../src/primitives';
 import type { SpaceToken } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -19,10 +20,10 @@ const PLAYERS = [
 
 const ARGS: Partial<CenterArgs> = { direction: 'column', gap: 'sm', message: 'Waiting for the host to start the session' };
 
-const ARG_TYPES: StoryLiteArgTypes<CenterArgs> = {
-    direction: { control: 'select', options: ['row', 'column'] },
-    gap: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
-    message: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<CenterArgs> = {
+    message: { group: 'Content', control: 'text' },
+    direction: { group: 'Layout', control: 'select', options: ['row', 'column'] },
+    gap: { group: 'Layout', control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
   };
 
 const meta = {
@@ -40,7 +41,7 @@ const Playground = {
       <Text variant="subtitle">{args.message}</Text>
     </Center>
   ),
-} satisfies StoryLiteStoryDefinition<CenterArgs>;
+} satisfies PlaygroundStory<CenterArgs>;
 
 const InlineAvatars = {
   name: 'Inline avatars',

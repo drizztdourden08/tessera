@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { EmphasisAnchor, EmphasisOrder, EmphasisTrigger } from '../../src/primitives';
 import { Box, Emphasis, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -29,19 +30,19 @@ const ARGS: EmphasisArgs = {
   anchor: 'center', order: 'anchor', customOrder: '0, 7, 1, 6, 2, 5, 3, 4', seed: 7, stable: true,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<EmphasisArgs> = {
-  text: { control: 'text' },
-  trigger: { control: 'select', options: ['hover', 'active', 'pulse', 'loop'], description: 'What swells the weight: hovering, the active prop, one pulse, or a loop.' },
-  active: { control: 'boolean', description: 'Holds the heavy weight while true, with trigger active.' },
-  from: { control: 'number', description: 'Resting weight, 100 to 900.' },
-  to: { control: 'number', description: 'Emphasized weight, 100 to 900.' },
-  duration: { control: 'number', description: 'Milliseconds for one swell.' },
-  stagger: { control: 'number', description: 'Milliseconds between letters. 0 moves the whole text at once; more makes a wave.' },
-  anchor: { control: 'select', options: ['left', 'center', 'right'], description: 'Where the text grows from inside its reserved width, and where a wave starts.' },
-  order: { control: 'select', options: ['anchor', 'random', 'custom'], description: 'Letter order of a wave: out from the anchor, shuffled, or the custom list below.' },
-  customOrder: { control: 'text', description: 'Letter positions in firing order, from 0. Letters left out follow in reading order.' },
-  seed: { control: 'number', description: 'Shuffle seed for a random order. The same seed always gives the same order.' },
-  stable: { control: 'boolean', description: 'Reserves the width of the heavy weight so nothing around it moves.' },
+const ARG_TYPES: PlaygroundArgTypes<EmphasisArgs> = {
+  text: { group: 'Content', control: 'text' },
+  from: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Resting weight, 100 to 900.' },
+  to: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Emphasized weight, 100 to 900.' },
+  stable: { group: 'Layout', control: 'boolean', description: 'Reserves the width of the heavy weight so nothing around it moves.' },
+  active: { group: 'State', control: 'boolean', description: 'Holds the heavy weight while true, with trigger active.' },
+  trigger: { group: 'Motion', control: 'select', options: ['hover', 'active', 'pulse', 'loop'], description: 'What swells the weight: hovering, the active prop, one pulse, or a loop.' },
+  duration: { group: 'Motion', control: 'number', description: 'Milliseconds for one swell.' },
+  stagger: { group: 'Motion', control: 'number', description: 'Milliseconds between letters. 0 moves the whole text at once; more makes a wave.' },
+  anchor: { group: 'Motion', control: 'select', options: ['left', 'center', 'right'], description: 'Where the text grows from inside its reserved width, and where a wave starts.' },
+  order: { group: 'Motion', control: 'select', options: ['anchor', 'random', 'custom'], description: 'Letter order of a wave: out from the anchor, shuffled, or the custom list below.' },
+  customOrder: { group: 'Motion', control: 'text', description: 'Letter positions in firing order, from 0. Letters left out follow in reading order.' },
+  seed: { group: 'Motion', control: 'number', description: 'Shuffle seed for a random order. The same seed always gives the same order.' },
 };
 
 const orderOf = (args: EmphasisArgs): EmphasisOrder => {
@@ -77,7 +78,7 @@ const Playground = {
       </Emphasis>
     </Text>
   ),
-} satisfies StoryLiteStoryDefinition<EmphasisArgs>;
+} satisfies PlaygroundStory<EmphasisArgs>;
 
 const Anchors = {
   name: 'Anchors',

@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { Button, Flex, Glyph } from '../../src/primitives';
 import type { ButtonSize, ButtonVariant } from '../../src/primitives/Button/Button.type';
 import { overviewStory } from '../_template/overview-story';
@@ -33,19 +34,19 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: {
-    label: { control: 'text' },
-    variant: { control: 'select', options: [...VARIANTS] },
-    size: { control: 'select', options: ['sm', 'md'] },
-    disabled: { control: 'boolean' },
-    loading: { control: 'boolean', description: 'Shows the spinner in place of the icon, or over the label, and disables the button.' },
-    active: { control: 'boolean' },
+    label: { group: 'Content', control: 'text' },
+    variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
+    size: { group: 'Appearance', control: 'select', options: ['sm', 'md'] },
+    disabled: { group: 'State', control: 'boolean' },
+    loading: { group: 'State', control: 'boolean', description: 'Shows the spinner in place of the icon, or over the label, and disables the button.' },
+    active: { group: 'State', control: 'boolean' },
   },
   render: (args) => (
     <Button variant={args.variant} size={args.size} disabled={args.disabled} loading={args.loading} active={args.active}>
       {args.label}
     </Button>
   ),
-} satisfies StoryLiteStoryDefinition<ButtonArgs>;
+} satisfies PlaygroundStory<ButtonArgs>;
 
 const SIZES: readonly ButtonSize[] = ['md', 'sm'];
 

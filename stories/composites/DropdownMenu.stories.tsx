@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DropdownMenu } from '../../src/composites';
 import type { MenuIntensity, MenuSize, MenuTrigger, MenuVariant } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
@@ -33,14 +34,14 @@ const ARGS: Partial<MenuDemoArgs> = {
   variant: 'primary', intensity: 'strong', size: 'sm', iconOnly: true, iconSide: 'end', filter: false, closeOnSelect: true,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<MenuDemoArgs> = {
-  variant: { control: 'select', options: [...VARIANTS], description: 'The colour of the trigger and of the edge' },
-  intensity: { control: 'select', options: [...INTENSITIES], description: 'strong adds the halo, medium keeps the coloured edge, subtle uses the plain border' },
-  size: { control: 'select', options: [...SIZES] },
-  iconOnly: { control: 'boolean', description: 'An icon button, the hamburger by default' },
-  iconSide: { control: 'select', options: ['start', 'end'], description: 'Which side of the label the icon sits on' },
-  filter: { control: 'boolean', description: 'A search field that finds items at every level' },
-  closeOnSelect: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<MenuDemoArgs> = {
+  variant: { group: 'Appearance', control: 'select', options: [...VARIANTS], description: 'The colour of the trigger and of the edge' },
+  size: { group: 'Appearance', control: 'select', options: [...SIZES] },
+  iconOnly: { group: 'Appearance', control: 'boolean', description: 'An icon button, the hamburger by default' },
+  iconSide: { group: 'Layout', control: 'select', options: ['start', 'end'], description: 'Which side of the label the icon sits on' },
+  intensity: { group: 'Behaviour', control: 'select', options: [...INTENSITIES], description: 'strong adds the halo, medium keeps the coloured edge, subtle uses the plain border' },
+  filter: { group: 'Behaviour', control: 'boolean', description: 'A search field that finds items at every level' },
+  closeOnSelect: { group: 'Behaviour', control: 'boolean' },
 };
 
 const meta = {
@@ -53,7 +54,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <MenuDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+} satisfies PlaygroundStory<MenuDemoArgs>;
 
 const Variants = {
   name: 'Variants and intensity',

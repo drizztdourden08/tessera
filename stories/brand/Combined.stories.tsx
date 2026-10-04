@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_APPS, Logo } from '../../src/brand';
 import type { BrandApp, BrandMarkSize, BrandRim, LogoDirection } from '../../src/brand';
 import { axis } from '../_template/axis';
@@ -15,11 +16,11 @@ type CombinedArgs = {
   rim: BrandRim;
 };
 
-const ARG_TYPES: StoryLiteArgTypes<CombinedArgs> = {
-  brand: { control: 'select', options: [...BRAND_APPS] },
-  direction: { control: 'select', options: ['inline', 'stacked'] },
-  size: { control: 'select', options: ['sm', 'md', 'lg', 'xl'], description: 'The mark size; the wordmark follows it.' },
-  rim: { control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
+const ARG_TYPES: PlaygroundArgTypes<CombinedArgs> = {
+  brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
+  size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg', 'xl'], description: 'The mark size; the wordmark follows it.' },
+  rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
+  direction: { group: 'Layout', control: 'select', options: ['inline', 'stacked'] },
 };
 
 const meta = {
@@ -32,7 +33,7 @@ const Playground = {
   args: { brand: 'archipelia', direction: 'inline', size: 'lg', rim: 'none' },
   argTypes: ARG_TYPES,
   render: (args) => <Logo.Combined brand={args.brand} direction={args.direction} size={args.size} rim={args.rim} />,
-} satisfies StoryLiteStoryDefinition<CombinedArgs>;
+} satisfies PlaygroundStory<CombinedArgs>;
 
 const Inline = {
   name: 'Inline',

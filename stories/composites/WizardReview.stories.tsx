@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { WizardReview } from '../../src/composites';
 import type { WizardReviewSection } from '../../src/composites';
 import { Code, Tag } from '../../src/primitives';
@@ -37,10 +38,10 @@ const SECTIONS: readonly WizardReviewSection[] = [
 
 const ARGS: Partial<ReviewArgs> = { withEdit: true, editLabel: 'Edit', disabled: false };
 
-const ARG_TYPES: StoryLiteArgTypes<ReviewArgs> = {
-  withEdit: { control: 'boolean', description: 'An Edit button per block, back to its step.' },
-  editLabel: { control: 'text' },
-  disabled: { control: 'boolean', description: 'While the finish runs.' },
+const ARG_TYPES: PlaygroundArgTypes<ReviewArgs> = {
+  withEdit: { group: 'Content', control: 'boolean', description: 'An Edit button per block, back to its step.' },
+  editLabel: { group: 'Content', control: 'text' },
+  disabled: { group: 'State', control: 'boolean', description: 'While the finish runs.' },
 };
 
 const meta = {
@@ -57,7 +58,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => draw(args),
-} satisfies StoryLiteStoryDefinition<ReviewArgs>;
+} satisfies PlaygroundStory<ReviewArgs>;
 
 const ReadOnly = {
   name: 'Without Edit',

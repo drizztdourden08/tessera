@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { RecordEditor } from '../../src/composites';
 import type { SchemaConfig } from '../../src/data';
 import { Box, Text } from '../../src/primitives';
@@ -70,13 +71,13 @@ const ARGS: Partial<RecordEditorArgs> = {
     slot: 'slot-1', readOnly: false, disabled: false, showReferencedBy: true, markServerChanges: false, failSave: false, size: 'md',
   };
 
-const ARG_TYPES: StoryLiteArgTypes<RecordEditorArgs> = {
-    slot: { control: 'select', options: SLOTS },
-    readOnly: { control: 'boolean', description: 'Omit onSave: every control renders disabled, no footer' },
-    disabled: { control: 'boolean' },
-    showReferencedBy: { control: 'boolean', description: 'List the hints that point at this slot' },
-    markServerChanges: { control: 'boolean', description: 'Mark fields the server changed before any edit here' },
-    failSave: { control: 'boolean', description: 'Make the next save reject, to see the error line' },
+const ARG_TYPES: PlaygroundArgTypes<RecordEditorArgs> = {
+    slot: { group: 'Content', control: 'select', options: SLOTS },
+    showReferencedBy: { group: 'Appearance', control: 'boolean', description: 'List the hints that point at this slot' },
+    readOnly: { group: 'State', control: 'boolean', description: 'Omit onSave: every control renders disabled, no footer' },
+    disabled: { group: 'State', control: 'boolean' },
+    markServerChanges: { group: 'Behaviour', control: 'boolean', description: 'Mark fields the server changed before any edit here' },
+    failSave: { group: 'Behaviour', control: 'boolean', description: 'Make the next save reject, to see the error line' },
     size: SIZE_ARG,
   };
 
@@ -90,7 +91,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <EditorDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<RecordEditorArgs>;
+} satisfies PlaygroundStory<RecordEditorArgs>;
 
 const STATE_PATHS: string[] = ['status', 'checked', 'total'];
 const STATE_SCHEMA = PLAYER_SCHEMA.filter((field) => STATE_PATHS.includes(field.path));

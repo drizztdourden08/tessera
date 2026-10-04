@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, EmojiIcon, IconButton, Text } from '../../src/primitives';
 import type { EmojiIconSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -16,9 +17,9 @@ const GLYPHS = ['🎮', '💾', '🗺️', '🔊', '⚙️', '🏆', '🧭', '�
 
 const ARGS: Partial<EmojiIconArgs> = { glyph: '🎮', size: 'md' };
 
-const ARG_TYPES: StoryLiteArgTypes<EmojiIconArgs> = {
-    glyph: { control: 'text' },
-    size: { control: 'select', options: [...SIZES] },
+const ARG_TYPES: PlaygroundArgTypes<EmojiIconArgs> = {
+    glyph: { group: 'Content', control: 'text' },
+    size: { group: 'Appearance', control: 'select', options: [...SIZES] },
   };
 
 const meta = {
@@ -31,7 +32,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <EmojiIcon glyph={args.glyph} size={args.size} />,
-} satisfies StoryLiteStoryDefinition<EmojiIconArgs>;
+} satisfies PlaygroundStory<EmojiIconArgs>;
 
 const Sizes = {
   name: 'Sizes',

@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { EnginePlayground } from './_samples/engine-playground';
 import type { EnginePlaygroundProps } from './_samples/engine-playground.type';
@@ -18,17 +19,17 @@ const ARGS: Partial<EngineArgs> = {
 
 const SCHEMA_ARGS: Partial<EngineArgs> = { applyConfig: true };
 
-const ARG_TYPES: StoryLiteArgTypes<EngineArgs> = {
-    grouping: { control: 'select', options: GROUPING_NAMES, description: 'groupBy, one level or two' },
-    sortBy: { control: 'select', options: ['none', 'name', 'game', 'sphere'], description: 'The sort entry' },
-    descending: { control: 'boolean', description: 'Sort direction' },
-    search: { control: 'text', description: 'Free text, compiled with compileTextSearch' },
-    minSphere: { control: 'number', description: 'Operand of the sphere is at least clause' },
-    progressionOnly: { control: 'boolean', description: 'Adds a progression is true clause' },
+const ARG_TYPES: PlaygroundArgTypes<EngineArgs> = {
+    grouping: { group: 'Data', control: 'select', options: GROUPING_NAMES, description: 'groupBy, one level or two' },
+    sortBy: { group: 'Data', control: 'select', options: ['none', 'name', 'game', 'sphere'], description: 'The sort entry' },
+    descending: { group: 'Data', control: 'boolean', description: 'Sort direction' },
+    search: { group: 'Data', control: 'text', description: 'Free text, compiled with compileTextSearch' },
+    minSphere: { group: 'Data', control: 'number', description: 'Operand of the sphere is at least clause' },
+    progressionOnly: { group: 'Data', control: 'boolean', description: 'Adds a progression is true clause' },
   };
 
-const SCHEMA_ARG_TYPES: StoryLiteArgTypes<EngineArgs> = {
-    applyConfig: { control: 'boolean', description: 'Layer the SchemaConfig over the derived schema' },
+const SCHEMA_ARG_TYPES: PlaygroundArgTypes<EngineArgs> = {
+    applyConfig: { group: 'Data', control: 'boolean', description: 'Layer the SchemaConfig over the derived schema' },
   };
 
 const meta = {
@@ -41,7 +42,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <EnginePlayground {...args} />,
-} satisfies StoryLiteStoryDefinition<EngineArgs>;
+} satisfies PlaygroundStory<EngineArgs>;
 
 const Explorer = {
   name: 'Example: a spoiler log explorer',
@@ -53,7 +54,7 @@ const Schema = {
   args: SCHEMA_ARGS,
   argTypes: SCHEMA_ARG_TYPES,
   render: (args) => <SchemaDemo applyConfig={args.applyConfig === true} />,
-} satisfies StoryLiteStoryDefinition<EngineArgs>;
+} satisfies PlaygroundStory<EngineArgs>;
 
 const Filters = {
   name: 'Filter clauses',
@@ -62,7 +63,7 @@ const Filters = {
   render: (args) => (
     <EngineFilterDemo search={args.search} minSphere={args.minSphere} progressionOnly={args.progressionOnly === true} />
   ),
-} satisfies StoryLiteStoryDefinition<EngineArgs>;
+} satisfies PlaygroundStory<EngineArgs>;
 
 const Storage = {
   name: 'ViewStorageProvider',

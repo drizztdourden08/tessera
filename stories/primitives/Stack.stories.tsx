@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Stack, StatRow, Text } from '../../src/primitives';
 import type { FlexAlign, SpaceToken } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -22,9 +23,9 @@ const SETTINGS = [
 
 const ARGS: Partial<StackArgs> = { gap: 'md', align: 'stretch' };
 
-const ARG_TYPES: StoryLiteArgTypes<StackArgs> = {
-    gap: { control: 'select', options: [...GAPS] },
-    align: { control: 'select', options: ['start', 'center', 'end', 'stretch', 'baseline'] },
+const ARG_TYPES: PlaygroundArgTypes<StackArgs> = {
+    gap: { group: 'Layout', control: 'select', options: [...GAPS] },
+    align: { group: 'Layout', control: 'select', options: ['start', 'center', 'end', 'stretch', 'baseline'] },
   };
 
 const meta = {
@@ -45,7 +46,7 @@ const Playground = {
       <StatRow label="Frame skip" value="Off" />
     </Stack>
   ),
-} satisfies StoryLiteStoryDefinition<StackArgs>;
+} satisfies PlaygroundStory<StackArgs>;
 
 const GapScale = {
   name: 'Gap scale',

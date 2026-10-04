@@ -5,6 +5,7 @@ import { renderStory as renderReact } from '@storylite/renderer-react/client';
 import type { StoryLiteClientRenderer } from '@storylite/storylite';
 import { TesseraProvider } from '../../src/primitives';
 import { ControlledStory } from '../../stories/_template/controls/ControlledStory';
+import type { PlaygroundArgTypes } from '../../stories/_template/controls/playground.type';
 
 const renderStory: StoryLiteClientRenderer = (story, args, context) => {
   const { render, argTypes } = story;
@@ -15,7 +16,7 @@ const renderStory: StoryLiteClientRenderer = (story, args, context) => {
     TesseraProvider,
     { overrides },
     (controlled
-      ? createElement(ControlledStory, { render, argTypes, initialArgs: args, context })
+      ? createElement(ControlledStory, { render, argTypes: argTypes as PlaygroundArgTypes, initialArgs: args, context })
       : render(storyArgs, storyContext)) as ReactNode,
   );
   return renderReact({ ...story, render: inPreview }, args, context);

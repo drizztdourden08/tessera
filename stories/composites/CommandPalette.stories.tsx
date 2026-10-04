@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useMemo, useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { MascotChoice } from '../../src/brand';
 import { CommandPalette } from '../../src/composites';
 import { Box, Button, Text } from '../../src/primitives';
@@ -59,11 +60,11 @@ const PaletteDemo = (props: PaletteArgs) => {
 
 const ARGS: Partial<PaletteArgs> = { defaultOpen: true, defaultQuery: '', placeholder: 'Search screens, settings and actions', mascot: 'none' };
 
-const ARG_TYPES: StoryLiteArgTypes<PaletteArgs> = {
-  defaultOpen: { control: 'boolean' },
-  defaultQuery: { control: 'text' },
-  placeholder: { control: 'text', description: 'Leave it empty to hear the mascot ask' },
-  mascot: { control: 'select', options: ['none', 'auto', 'sentri'], description: 'auto picks the mascot of the app palette' },
+const ARG_TYPES: PlaygroundArgTypes<PaletteArgs> = {
+  defaultQuery: { group: 'Content', control: 'text' },
+  placeholder: { group: 'Content', control: 'text', description: 'Leave it empty to hear the mascot ask' },
+  mascot: { group: 'Appearance', control: 'select', options: ['none', 'auto', 'sentri'], description: 'auto picks the mascot of the app palette' },
+  defaultOpen: { group: 'State', control: 'boolean' },
 };
 
 const meta = {
@@ -76,35 +77,35 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PaletteDemo key={`${String(args.defaultOpen)}-${args.defaultQuery}`} {...args} />,
-} satisfies StoryLiteStoryDefinition<PaletteArgs>;
+} satisfies PlaygroundStory<PaletteArgs>;
 
 const Idle = {
   name: 'Before typing, screens first',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" />,
-} satisfies StoryLiteStoryDefinition<PaletteArgs>;
+} satisfies PlaygroundStory<PaletteArgs>;
 
 const Results = {
   name: 'Grouped results with toggle rows',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="s" />,
-} satisfies StoryLiteStoryDefinition<PaletteArgs>;
+} satisfies PlaygroundStory<PaletteArgs>;
 
 const WithMascot = {
   name: 'With a mascot',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" placeholder="" mascot="auto" />,
-} satisfies StoryLiteStoryDefinition<PaletteArgs>;
+} satisfies PlaygroundStory<PaletteArgs>;
 
 const Closed = {
   name: 'Closed, opens from a button',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PaletteDemo {...args} defaultOpen={false} defaultQuery="" />,
-} satisfies StoryLiteStoryDefinition<PaletteArgs>;
+} satisfies PlaygroundStory<PaletteArgs>;
 
 const renderState = (props: StateProps) => {
   const query = typeof props.query === 'string' ? props.query : 'se';

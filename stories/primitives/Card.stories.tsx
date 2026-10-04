@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, ButtonRow, Card, Flex, Stack, Status, Text } from '../../src/primitives';
 import type { CardProps } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -32,10 +33,10 @@ const SESSIONS = [
 
 const ARGS: Partial<CardArgs> = { variant: 'default', ...SAMPLES.default };
 
-const ARG_TYPES: StoryLiteArgTypes<CardArgs> = {
-    variant: { control: 'select', options: [...VARIANTS] },
-    title: { control: 'text' },
-    body: { control: 'textarea' },
+const ARG_TYPES: PlaygroundArgTypes<CardArgs> = {
+    title: { group: 'Content', control: 'text' },
+    body: { group: 'Content', control: 'textarea' },
+    variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
   };
 
 const meta = {
@@ -55,7 +56,7 @@ const Playground = {
       </Stack>
     </Card>
   ),
-} satisfies StoryLiteStoryDefinition<CardArgs>;
+} satisfies PlaygroundStory<CardArgs>;
 
 const AllVariants = {
   name: 'All variants',

@@ -1,26 +1,22 @@
 /* @layer stories @kind component */
 import type { ReactNode } from 'react';
-import type { StoryLiteArgs, StoryLiteArgType, StoryLiteStoryContext } from '@storylite/storylite';
-import { Box } from '../../../src/primitives';
-import { ArgControls } from './ArgControls';
+import type { StoryLiteArgs, StoryLiteStoryContext } from '@storylite/storylite';
+import { PlaygroundCard } from './PlaygroundCard';
+import type { PlaygroundArgTypes } from './playground.type';
 import { useStoryArgs } from './useStoryArgs';
 
 interface ControlledStoryProps {
   render: (args: StoryLiteArgs, context: StoryLiteStoryContext) => unknown;
-  argTypes: Readonly<Record<string, StoryLiteArgType | undefined>>;
+  argTypes: PlaygroundArgTypes;
   initialArgs: StoryLiteArgs;
   context: StoryLiteStoryContext;
 }
 
 const ControlledStory = (props: ControlledStoryProps) => {
   const { render, argTypes, initialArgs, context } = props;
-  const { args, setArg, reset } = useStoryArgs(initialArgs);
-  return (
-    <Box className="controlled-story">
-      {render(args, context) as ReactNode}
-      <ArgControls argTypes={argTypes} args={args} onChange={setArg} onReset={reset} />
-    </Box>
-  );
+  const { args, baseline, setArg, reset } = useStoryArgs(initialArgs, argTypes);
+  const live = render(args, context) as ReactNode;
+  return <PlaygroundCard live={live} argTypes={argTypes} args={args} defaults={baseline} onChange={setArg} onReset={reset} />;
 };
 
 export { ControlledStory };

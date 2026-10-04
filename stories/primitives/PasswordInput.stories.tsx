@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Field, FieldControlBoundary, Flex, TextInput, type ControlSize, type PasswordMode } from '../../src/primitives';
 import { CapsLockDemo, SignUpForm, StatefulPassword } from './_samples/password-input-demos';
 import { lengthScore, MASK_CASES, MASK_CHARS, type MaskCase } from './_samples/password-samples.constants';
@@ -30,17 +31,17 @@ const ARGS: Partial<PasswordInputArgs> = {
   capsLockWarning: true, disabled: false, readOnly: false, invalid: false, size: 'md',
 };
 
-const ARG_TYPES: StoryLiteArgTypes<PasswordInputArgs> = {
-  initialValue: { control: 'text' },
-  placeholder: { control: 'text' },
-  mode: { control: 'select', options: ['current', 'new'], description: 'current signs in, new picks a password. new sets autoComplete to new-password.' },
-  mask: { control: 'select', options: [...MASK_CASES], description: 'native keeps the browser dots; the others pass maskChar.' },
-  monospace: { control: 'boolean', description: 'Draws the text in the mono font, hidden or shown.' },
-  hideOnBlur: { control: 'boolean', description: 'Hides the password again when the focus leaves the field.' },
-  capsLockWarning: { control: 'boolean' },
-  disabled: { control: 'boolean' },
-  readOnly: { control: 'boolean' },
-  invalid: { control: 'boolean' },
+const ARG_TYPES: PlaygroundArgTypes<PasswordInputArgs> = {
+  initialValue: { group: 'Content', control: 'text' },
+  placeholder: { group: 'Content', control: 'text' },
+  mask: { group: 'Appearance', control: 'select', options: [...MASK_CASES], description: 'native keeps the browser dots; the others pass maskChar.' },
+  monospace: { group: 'Appearance', control: 'boolean', description: 'Draws the text in the mono font, hidden or shown.' },
+  disabled: { group: 'State', control: 'boolean' },
+  readOnly: { group: 'State', control: 'boolean' },
+  invalid: { group: 'State', control: 'boolean' },
+  mode: { group: 'Behaviour', control: 'select', options: ['current', 'new'], description: 'current signs in, new picks a password. new sets autoComplete to new-password.' },
+  hideOnBlur: { group: 'Behaviour', control: 'boolean', description: 'Hides the password again when the focus leaves the field.' },
+  capsLockWarning: { group: 'Behaviour', control: 'boolean' },
   size: SIZE_ARG,
 };
 
@@ -69,7 +70,7 @@ const Playground = {
       size={args.size}
     />
   ),
-} satisfies StoryLiteStoryDefinition<PasswordInputArgs>;
+} satisfies PlaygroundStory<PasswordInputArgs>;
 
 const SHOWN_ROWS = ['hidden', 'shown', 'hides on blur'] as const;
 

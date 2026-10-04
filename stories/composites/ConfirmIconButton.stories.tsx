@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ConfirmIconButton, ListItemRow } from '../../src/composites';
 import type { ConfirmIconButtonPlacement } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
@@ -53,16 +54,17 @@ const ARGS: Partial<ConfirmArgs> = {
   label: 'Remove session', confirmLabel: 'Yes, remove it', cancelLabel: 'Keep it', placement: 'start', disabled: false,
 };
 
-const ARG_TYPES: StoryLiteArgTypes<ConfirmArgs> = {
-  label: { control: 'text' },
-  confirmLabel: { control: 'text' },
-  cancelLabel: { control: 'text' },
+const ARG_TYPES: PlaygroundArgTypes<ConfirmArgs> = {
+  label: { group: 'Content', control: 'text' },
+  confirmLabel: { group: 'Content', control: 'text' },
+  cancelLabel: { group: 'Content', control: 'text' },
   placement: {
+    group: 'Layout',
     control: 'select',
     options: ['start', 'center', 'end'],
     description: 'Which edge stays put when the question opens: the start, the centre or the end.',
   },
-  disabled: { control: 'boolean' },
+  disabled: { group: 'State', control: 'boolean' },
 };
 
 const meta = {
@@ -85,14 +87,14 @@ const Playground = {
       onConfirm={() => undefined}
     />
   ),
-} satisfies StoryLiteStoryDefinition<ConfirmArgs>;
+} satisfies PlaygroundStory<ConfirmArgs>;
 
 const InListRows = {
   name: 'At the end of a list row',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <RowsDemo {...args} />,
-} satisfies StoryLiteStoryDefinition<ConfirmArgs>;
+} satisfies PlaygroundStory<ConfirmArgs>;
 
 const InToolbar = {
   name: 'At the start of a toolbar',

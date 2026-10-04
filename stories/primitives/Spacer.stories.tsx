@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Flex, Spacer, Text } from '../../src/primitives';
 import type { SpaceToken } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -19,9 +20,9 @@ const SIZES: readonly SpaceToken[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
 
 const ARGS: Partial<SpacerArgs> = { size: 'flexible', direction: 'row' };
 
-const ARG_TYPES: StoryLiteArgTypes<SpacerArgs> = {
-    size: { control: 'select', options: ['flexible', ...SIZES] },
-    direction: { control: 'select', options: ['row', 'column'] },
+const ARG_TYPES: PlaygroundArgTypes<SpacerArgs> = {
+    size: { group: 'Layout', control: 'select', options: ['flexible', ...SIZES] },
+    direction: { group: 'Layout', control: 'select', options: ['row', 'column'] },
   };
 
 const meta = {
@@ -40,7 +41,7 @@ const Playground = {
       <Box className="spacer-demo__block">After</Box>
     </Flex>
   ),
-} satisfies StoryLiteStoryDefinition<SpacerArgs>;
+} satisfies PlaygroundStory<SpacerArgs>;
 
 const FixedSizes = {
   name: 'Fixed sizes',

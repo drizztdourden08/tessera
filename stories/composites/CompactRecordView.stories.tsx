@@ -1,5 +1,6 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta, StoryLiteStoryDefinition, StoryLiteArgTypes } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CompactRecordView } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { PLAYERS, PLAYER_CONFIG, PLAYER_SCHEMA } from './_samples/data-players';
@@ -31,10 +32,10 @@ const LIVE_DIFFS = new Map([
 
 const ARGS: Partial<CompactArgs> = { slot: 'slot-1', groups: 'everything', showLiveDiffs: false };
 
-const ARG_TYPES: StoryLiteArgTypes<CompactArgs> = {
-    slot: { control: 'select', options: SLOTS },
-    groups: { control: 'select', options: ['everything', 'progress only', 'name and progress'], description: 'Allow-list of group ids or field paths' },
-    showLiveDiffs: { control: 'boolean', description: 'Bracket the live value beside fields that disagree' },
+const ARG_TYPES: PlaygroundArgTypes<CompactArgs> = {
+    slot: { group: 'Content', control: 'select', options: SLOTS },
+    groups: { group: 'Content', control: 'select', options: ['everything', 'progress only', 'name and progress'], description: 'Allow-list of group ids or field paths' },
+    showLiveDiffs: { group: 'Appearance', control: 'boolean', description: 'Bracket the live value beside fields that disagree' },
   };
 
 const meta = {
@@ -60,7 +61,7 @@ const Player = {
       </Box>
     );
   },
-} satisfies StoryLiteStoryDefinition<CompactArgs>;
+} satisfies PlaygroundStory<CompactArgs>;
 
 const Hint = {
   name: 'Hint with references',
