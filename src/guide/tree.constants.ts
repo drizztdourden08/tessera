@@ -13,6 +13,7 @@ const ACTIONS = {
         'irreversible, for a whole view': null,
         'goes to a URL': null,
         'copies a text': null,
+        'tries a failed step again': null,
         'a whole area the user presses': null,
       },
     },

@@ -1,0 +1,13 @@
+/* @layer renderer-components @kind style */
+.retry-button {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs) var(--space-sm);
+}
+
+.retry-button__line {
+  color: var(--c-text-dim);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}

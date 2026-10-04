@@ -34,6 +34,13 @@ const COMMON_STRINGS = {
   selectedCount: (count: number) => `${count} selected`,
   removeNamed: (name: string) => `Remove ${name}`,
   reportIssue: 'Report an issue',
+  retry: 'Retry',
+  retryNow: 'Retry now',
+  nextTryIn: (wait: string) => `Next try in ${wait}`,
+  tryOfIn: (attempt: number, attempts: number, wait: string) => `Try ${attempt} of ${attempts} in ${wait}`,
+  tryOf: (attempt: number, attempts: number) => `Try ${attempt} of ${attempts}`,
+  waitSeconds: (seconds: number) => `${seconds} s`,
+  waitMinutes: (minutes: number, seconds: number) => (seconds > 0 ? `${minutes} min ${seconds} s` : `${minutes} min`),
 };
 
 export { COMMON_STRINGS };

@@ -56,7 +56,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     CopyValue: 'copy',
     StatusOf: 'list-checks',
   },
-  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', CopyButton: 'clipboard-copy' },
+  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Primitives · Inputs': {
     TextInput: 'text-cursor-input', SearchInput: 'scan-search', PasswordInput: 'lock-keyhole', Textarea: 'letter-text', NumberInput: 'hash', NumberStepper: 'diff', Checkbox: 'square-check',
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',

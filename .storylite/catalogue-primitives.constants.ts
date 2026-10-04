@@ -61,6 +61,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Pressable', summary: 'A button with no look, for a clickable surface the caller draws.' },
         { name: 'Link', summary: 'A link to a URL in the Tessera look, with tones and an external variant.' },
         { name: 'CopyButton', summary: 'Copies a text to the clipboard and says Copied.' },
+        { name: 'RetryButton', summary: 'Tries a failed step again and counts down to the next automatic try.' },
       ],
     },
     {

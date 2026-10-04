@@ -3961,3 +3961,37 @@ interface ValidationSummaryProps {
 
 1. Archipelia: the SessionBuilder ProblemList, the PresetEditor summary line, the ServerManager problem captions and the CreatePresetDialog error become one ValidationSummary each, with `field` set to the id the editor uses to focus and scroll to the input.
 2. A Wizard step that lists its problems can pass them the same way.
+
+## 152. RetryButton: try again, with a countdown to the next try
+
+`RetryButton` is a new primitive, under Primitives · Actions. It is the Tessera part of the connection status that Archipelia asked for (T-17, tessera-02). The owner split that request: Tessera builds the generic parts, and Archipelia builds `ConnectionStatus` as its own compound from them. The other parts that compound needs are already in Tessera:
+
+- **The phase** is a `defineStatuses` table drawn with `StatusOf`: idle, connecting, live, reconnecting, closed, failed and auth, each with its label, tone and pulse.
+- **The row** is a `Card` holding the status, a caption for the detail and the `RetryButton` at its end.
+- **The password slot** is a `PasswordInput` with `onEnter` and a primary `Button` in the same `Card`.
+
+`RetryButton` itself:
+
+- **A small secondary Retry button** with the refresh icon. `label` replaces the word.
+- **A countdown.** `retryAt` is the time of the next automatic try, in milliseconds since 1970 as `Date.now()` gives it. While it is ahead, a line before the button reads Next try in 4 s (1 min 35 s past a minute), the button reads Retry now and the line describes the button for screen readers. The line counts down on its own and goes away at zero.
+- **Tries.** `attempt` and `attempts` make the line read Try 2 of 5 in 4 s, and Try 5 of 5 once nothing more waits.
+- **retrying** shows the spinner of `Button`, disables it and hides the countdown while a try runs.
+- **The app owns the timer.** The button never starts a try by itself, so two widgets that show the same connection never try twice.
+
+New strings in `common`: `retry`, `retryNow`, `nextTryIn(wait)`, `tryOfIn(attempt, attempts, wait)`, `tryOf(attempt, attempts)`, `waitSeconds(seconds)` and `waitMinutes(minutes, seconds)`.
+
+```ts
+interface RetryButtonProps extends Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'> {
+  onRetry: () => void;
+  retryAt?: number | null;
+  attempt?: number;
+  attempts?: number;
+  retrying?: boolean;
+  label?: string;
+}
+```
+
+### What an app does
+
+1. Archipelia: declare the live room phases once with `defineStatuses` and build a `ConnectionStatus` compound from `Card`, `StatusOf`, a caption and `RetryButton`, with the `PasswordInput` form in its body for the auth phase. It replaces `LiveNotice`, `PHASE_TEXT` and `PasswordPrompt` in the Players and Hints widgets; the compact form in a title bar or the session bar is `StatusOf` alone.
+2. When the room drops, the live room store sets the next try time and the try count, starts the try itself when the time comes, and passes them to `RetryButton`.

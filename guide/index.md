@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 21 of 159 have their usage written; a linked name opens its page.
+One line per component. 22 of 160 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -50,6 +50,7 @@ One line per component. 21 of 159 have their usage written; a linked name opens 
 - `ProgressRing`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Quote`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RadioGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
 - `RouterLink`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ScaleLabels`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ScrollArea`: usage not written yet. Import from `@drizztdourden08/tessera`.

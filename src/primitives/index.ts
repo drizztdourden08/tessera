@@ -182,3 +182,5 @@ export { CopyValue } from './CopyValue';
 export type { CopyValueProps, CopyValueSize, CopyValueTruncate } from './CopyValue';
 export { defineStatuses, StatusOf } from './StatusOf';
 export type { StatusDef, StatusKey, StatusMap, StatusOfProps } from './StatusOf';
+export { RetryButton } from './RetryButton';
+export type { RetryButtonProps } from './RetryButton';

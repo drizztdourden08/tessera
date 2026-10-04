@@ -1,0 +1,38 @@
+/* @layer stories @kind style */
+.connection-story {
+  inline-size: 100%;
+  max-inline-size: var(--size-640);
+}
+
+.connection-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.connection-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  min-block-size: var(--size-40);
+}
+
+.connection-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.connection-card__auth {
+  display: flex;
+  gap: var(--space-xs);
+  max-inline-size: var(--field-w-md);
+}
+
+.connection-card__auth > :first-child {
+  flex: 1;
+  min-inline-size: 0;
+}

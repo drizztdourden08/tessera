@@ -12,6 +12,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Irreversible, for a whole view: no component yet.
     - Goes to a URL: no component yet.
     - Copies a text: [CopyButton](components/CopyButton.md). CopyButton writes to the clipboard through the one copy path every Tessera part uses, with the same check and announcement.
+    - Tries a failed step again: [RetryButton](components/RetryButton.md). RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry.
     - A whole area the user presses: no component yet.
   - Several related buttons. **How do the buttons relate?**
     - Only one can be on: no component yet.
