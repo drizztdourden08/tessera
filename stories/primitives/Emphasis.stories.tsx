@@ -136,7 +136,15 @@ const CODE = `import { Emphasis } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Emphasis',
-  description: 'Puts weight on a word by moving it along Inter\'s weight axis, which runs continuously from 100 to 900. It can swell on hover (its own, or any ancestor marked data-emphasis-scope, such as the button it labels), hold while active, pulse once each time pulseKey changes, or breathe in a loop. A stagger turns the swell into a wave that runs letter by letter: out from the anchor (left, center or right), in a seeded random order, or in any order you list. The anchor also sets where the word grows from inside its reserved width, so a word in the middle of a sentence swells from its center by default. By default it reserves the width of the heavy weight, so the words around it never shift, and it stands still for anyone who asks for reduced motion.',
+  description: 'Puts weight on a word by moving it along the font\'s weight axis, smoothly from thin to heavy.',
+  points: [
+    '`trigger` picks when it swells: on hover, while `active`, once per `pulseKey` change, or in a loop.',
+    'Hover works on the word or on any ancestor marked `data-emphasis-scope`, such as the button it labels.',
+    '`stagger` runs the swell letter by letter: out from the `anchor`, in a seeded random order or your own.',
+    'It reserves the width of the heavy weight, so the words around it never shift.',
+    'It stands still for anyone who asks for reduced motion.',
+  ],
+  instead: '[Strong] for weight that stays put.',
   playground: Playground,
   variants: [Triggers, Anchors, LetterWave, WaveOrders, InContext],
   code: CODE,
