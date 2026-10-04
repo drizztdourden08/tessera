@@ -4565,3 +4565,29 @@ interface FormGroupTabsProps {
 
 1. Archipelia: OptionField becomes `FormRow` and OptionGroupTabs `FormGroupTabs`; the OptionControl JsonControl becomes `JsonInput` with `onProblem` holding the preset Save, CounterControl, CounterRow and CounterAdd become one `KeyValueEditor` with `keys` from the valid items, the named range control becomes `NamedRange` and the set picker `SetPicker`. Dict options that fell back to JSON move to `KeyValueEditor` where they are one level deep.
 2. Brock dev tools and the raw fields of RecordEditor can use `JsonInput` in place of a Textarea.
+
+## 167. Drawer traps focus and closes on Escape, a FormRow name is a label, ErrorBoundary is a primitive only
+
+`Drawer` said it was a modal (`aria-modal`) but let focus leave it and had no Escape. It now uses the focus and Escape code of `DialogShell`, so it behaves as `Dialog` does. Its props and look do not change.
+
+- Escape calls `onClose`, as the scrim and the close button do. With a dialog open on top of the drawer, Escape closes that dialog first.
+- On open, focus moves to the drawer title, or to its first control when it has no `title`. Tab and Shift+Tab wrap inside the panel, and focus that lands outside is brought back.
+- On close, focus goes back to the control that opened it.
+- While closed the drawer is `inert`, so Tab no longer reaches the controls of a panel parked off screen.
+
+The name of a `FormRow` is now a `label` for its control. A click on the name focuses a text field or a textarea, flips a `Toggle` and opens a `Select`, as a click on the label of a `Field` does. A control drawn as a group, such as `NamedRange`, `SetPicker` or `KeyValueEditor`, has no single element a label can point at; a click on the name focuses its first stop.
+
+`ErrorBoundary` lives in `src/primitives` and was exported from both barrels. The composites barrel no longer exports it.
+
+| Before | After |
+|---|---|
+| `@drizztdourden08/tessera/composites` exports `ErrorBoundary` and `ErrorBoundaryProps` | `@drizztdourden08/tessera/primitives` exports them, as before |
+
+- The root import `@drizztdourden08/tessera` works as before.
+- The ContentHeader entry of the gallery catalogue gets its summary in place of the placeholder sentence.
+
+### What an app does
+
+1. An import of `ErrorBoundary` or `ErrorBoundaryProps` from `@drizztdourden08/tessera/composites` moves to `@drizztdourden08/tessera/primitives`, or to the root.
+2. An app that closed a `Drawer` on Escape with its own key listener removes it, or `onClose` runs twice.
+3. An app that focused the first control of a `Drawer` itself after opening it can drop that code.

@@ -993,8 +993,7 @@
       "source": "src/primitives/ErrorBoundary/ErrorBoundary.tsx",
       "imports": [
         "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives",
-        "@drizztdourden08/tessera/composites"
+        "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
     },

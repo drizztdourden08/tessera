@@ -49,7 +49,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'MasterDetailLayout', summary: 'A list beside the detail of the selected item.' },
         { name: 'MasterDetail', summary: 'A ManagedList beside an editor that asks before unsaved edits are lost.' },
         { name: 'SideNavLayout', summary: 'A side nav beside a content pane; its search shows results in the pane.' },
-        { name: 'ContentHeader', summary: 'Write the one job of ContentHeader in one sentence.' },
+        { name: 'ContentHeader', summary: 'The header of a page, card or panel: an icon and a title over a fading backdrop.' },
       ],
     },
     {

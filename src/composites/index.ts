@@ -110,8 +110,6 @@ export type {
 } from './CommandPalette';
 export { Overlay } from './Overlay';
 export { DisabledOverlay } from './DisabledOverlay';
-export { ErrorBoundary } from '../primitives/ErrorBoundary';
-export type { ErrorBoundaryProps } from '../primitives/ErrorBoundary';
 export type { DisabledOverlayProps } from './DisabledOverlay';
 export {
   Widget, WidgetManager, WidgetOptions, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,

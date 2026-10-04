@@ -16,6 +16,8 @@ interface FormRowProps {
 interface FormRowHeadProps {
   label: string;
   labelId: string;
+  controlId: string;
+  onNameClick: () => void;
   description?: ReactNode;
   descriptionId: string;
   changed: boolean;
