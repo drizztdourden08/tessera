@@ -95,7 +95,14 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'Tabs',
-  description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page. Each tab has a label and can carry an icon and a count badge. iconOnly hides the labels and keeps each one as the tab title. When the tabs run out of room the strip scrolls sideways. A left arrow shows once the strip has scrolled away from the start and a right arrow while more tabs wait to the right; each sits over a faded edge and takes no room. The arrow keys, Home and End move the selection. A hovered tab brightens its label, the focused tab draws a ring inside its edges and the selected tab is underlined in the primary colour.',
+  description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page.',
+  points: [
+    'Each tab has a label and can carry an icon and a count badge.',
+    '`iconOnly` hides the labels and keeps each one as the tab title.',
+    'When the tabs run out of room the strip scrolls sideways, with an arrow at each edge that has more.',
+    'The arrow keys, [[Home]] and [[End]] move the selection.',
+  ],
+  instead: '[SegmentedControl] for a choice that sets a value instead of switching views.',
   playground: Playground,
   variants: [Layouts],
   states: {

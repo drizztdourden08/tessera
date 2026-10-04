@@ -178,7 +178,16 @@ const CODE = `import { Stepper } from '@drizztdourden08/tessera';
 
 const Overview = overviewStory({
   component: 'Stepper',
-  description: 'The steps of a task in order: a numbered circle per step, joined by lines, with the label under it, or beside it when the steps run down the left. Each step forward plays one sequence: the circle fills from the side the line leaves, the line runs to the next circle, the colour reaches that circle where the line meets it and spreads both ways round its border until the two ends meet, then the current circle glows and breathes. A jump over several steps plays the same sequence for each step in turn, at a faster pace. Going back plays the forward sequence in exact reverse, a little faster, once per step. A done circle flips its number over to a check, or to an icon of your choice per step, or keeps the number when doneIcon is false. Every step can take its own colour, from the Tessera tones or the tag colours: it colours the fill, the border, the glow and the line arriving at it. Reduced motion shows the end state at once. Done and current circles glow. A step can show what was chosen under its label, in a line kept free under every step by default so the Stepper keeps its size from the first step to the last (reserve="none" drops that room), sub-steps with a count under the line that follows it, and an error state. Only steps the host allows can be clicked, and the current step carries aria-current. The compact form is Step 2 of 5 with a ProgressBar. Not to be confused with NumberStepper, the number input.',
+  description: 'The steps of a task in order, a numbered circle per step joined by lines, that shows where the user is.',
+  points: [
+    'Pass `steps` and `currentId`; `orientation="vertical"` runs the steps down the left.',
+    'Moving between steps animates the circles and lines; reduced motion shows the end state at once.',
+    'A step can carry a `summary` of what was chosen, sub-steps, an `error` state and its own `tone`.',
+    'Every step keeps room for a summary, so the Stepper keeps its size; `reserve="none"` drops it.',
+    'Only steps that `canSelect` allows can be clicked.',
+    '`compact` shows Step 2 of 5 with a [ProgressBar].',
+  ],
+  instead: '[NumberStepper] for a number input with plus and minus buttons.',
   playground: Playground,
   variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact],
   states: {

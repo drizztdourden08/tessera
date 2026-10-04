@@ -54,7 +54,15 @@ const AppLink = (props: AppLinkProps) => {
 
 const Overview = overviewStory({
   component: 'RouterLink',
-  description: 'A link to a route inside the app. It draws a real anchor with an href, so middle click, Ctrl click and Copy link work. A plain click does not load the page: it calls onNavigate(to), and the app router moves. It works with any router because the app hands it the navigate function; nothing goes through TesseraProvider. href is the address the anchor shows, and defaults to to; set it when the router adds a base path or a hash. Wrap it once in an app compound such as AppLink that passes the router navigate, then use that everywhere. It looks like Link and takes the same tones.',
+  description: 'A link to a route inside the app, which moves the app router instead of loading the page.',
+  points: [
+    'It draws a real anchor, so middle click, [[Ctrl]] click and Copy link work.',
+    'A plain click calls `onNavigate(to)`, so it works with any router.',
+    '`href` is the address the anchor shows, and defaults to `to`; set it for a base path or a hash.',
+    'Wrap it once in your own `AppLink` that passes the router navigate, then use that everywhere.',
+    'It looks like [Link] and takes the same tones.',
+  ],
+  instead: '[Link] for an address outside the app.',
   playground: Playground,
   variants: [Nav],
   code: CODE,
