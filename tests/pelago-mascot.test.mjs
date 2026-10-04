@@ -91,3 +91,20 @@ describe('Pelago in depth', () => {
     expect(sceneMarkup(mascot.variants[0].compose(), { idPrefix: 'pelago' })).toContain('clip-path="url(#pelago-clip-1)"');
   });
 });
+
+describe('Pelago states', () => {
+  it('shows each state symbol in the resting picture of the clip that names it, and no symbol in idle', () => {
+    const at = (animation) => renderToString(h(AnimatedMascot, { brand: 'archipelia', animation, scale: 2 }));
+    for (const [clip, still] of Object.entries({ sleep: ['lidsShut', 'zeeBig'], idea: ['bulb', 'rays'], 'low-power': ['battery', 'lidsTired'], working: ['laptop'] })) {
+      const html = at(clip);
+      for (const part of still) expect(html, `${clip}: ${part}`).toMatch(new RegExp(`data-motion-part="${part}"(?! opacity="0")`));
+    }
+    expect(at('idle')).not.toContain('data-motion-part="bulb"');
+  });
+
+  it('names only effects it draws, and loops every state that holds', () => {
+    const ids = new Set(motion.effects.map((e) => e.id));
+    for (const clip of Object.values(motion.animations)) for (const id of clip.still ?? []) expect(ids.has(id), `${clip.name}: ${id}`).toBe(true);
+    for (const name of ['default', 'content', 'curious', 'focused', 'sleep', 'love', 'working', 'idea', 'confused', 'worried', 'low-power', 'resting']) expect(motion.animations[name].loop, name).toBe(true);
+  });
+});

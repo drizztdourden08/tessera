@@ -3017,6 +3017,30 @@ interface MascotAnimation { name: string; summary: string; duration: number; loo
 | Interactions | `low-power` | a red battery blinks above while it slumps with heavy lids and jerks half awake |
 | Interactions | `resting` | settles low and wide with its hands flat out, flat closed eyes, two z drifting up |
 
+**Pelago's states.** Pelago draws all 19 new clips in its smooth facets and keeps its depth rule: anything that orbits passes behind the island on the upper half and in front of it on the lower half. Its four islets are its hands and its mood: they race round the ring for `spin` and `success`, droop low for `low-power` and set down on the ground for `resting`, and huddle in close for `worried`. The threads show the mood too, flashing bright for `idea` and `love` and dimming for `sleep`, and the crystal glow is the expression light. Its symbols are flat vector pieces in Pelago's violets with the sheet's accents (a yellow bulb that sits on the spire, a pink heart, a red battery), and its eye overlays are drawn in the crystal's own violet, so the reduced motion picture shows the symbol and shut, smiling, narrowed or worried eyes.
+
+| Group | Clip | What Pelago does |
+|---|---|---|
+| Motion | `idle-bounce` | bounces lightly on the air, squashing as it lands, the islets swinging a beat behind |
+| Motion | `move-wobble` | waddles, rocking side to side with a hop per step, lower islets lifting like feet |
+| Motion | `jump-hop` | two quick hops, the islets tucking in on short threads in the air and springing out on landing |
+| Motion | `spin` | rises and turns right round, face edge on and back, while the islets race twice round it; sparkles pop |
+| Expressions | `default` | hovers calmly, islets resting, glow steady, one slow blink |
+| Expressions | `happy-grin` | happy arch eyes over a wide grin, giggling bobs, the lower islets clapping three times in front |
+| Expressions | `content` | soft smiling arch eyes, a slow sway with the islets swinging behind |
+| Expressions | `curious` | tilts its head at a rocking question mark while the upper right islet scratches its head |
+| Expressions | `focused` | narrowed eyes, leaning in and still, a spark circling the ring, the glow bright |
+| Expressions | `sleep` | shut eyes, sinking and breathing slowly, islets drooping on dim threads, three Zs rising |
+| Expressions | `alert-exclaim` | an exclamation mark jumps over the spire, islets thrown up like hands, eyes wide, glow flashing |
+| Expressions | `love` | a beating heart, a blushing crystal, threads flashing bright on each beat, islets drawn in like a hug |
+| Interactions | `working` | leans over a laptop in front of it, eyes reading, the lower islets tapping keys in turn |
+| Interactions | `idea` | ponders on dim threads until a bulb lights on the spire with rays, threads bright, a spark round the ring |
+| Interactions | `success` | happy arch eyes, a leap as the islets whirl once round it, confetti bursting on both sides |
+| Interactions | `confused` | tips one way then the other under a big and a small question mark, eyes darting, islets out of step |
+| Interactions | `worried` | brows tipped up, sweat drops running down, shrinking and trembling with the islets huddled in |
+| Interactions | `low-power` | a red battery blinks above, lids droop, it sags with islets hanging on dim threads, the glow nearly out |
+| Interactions | `resting` | settles low onto its ring with islets set down around it, eyes shut, two Zs drifting up |
+
 ### What an app does
 
 Nothing changes for an app that plays the ten clips. Pass any new name to `animation` to use a state, for example `<AnimatedMascot brand="rotp" animation="low-power" />`. A test that read the hidden effects of a mascot from its idle markup renders the clip that uses them instead.
