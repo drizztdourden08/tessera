@@ -5,11 +5,12 @@ import { describe, expect, it } from 'vitest';
 import { backdropGradientCss } from '../src/brand/backdrop-gradient-css';
 import { brandGradientCss } from '../src/brand/brand-gradient-css';
 import { BRAND_APPS, BRAND_FAMILY } from '../src/brand/family.constants';
+import { BRAND_RIM } from '../src/brand/rim.constants';
 import { evaluateColourMix } from '../scripts/tokens/evaluate-colour-mix.mjs';
 import { tokenFiles } from '../scripts/tokens/token-files.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const BRANDS = { family: BRAND_FAMILY, apps: BRAND_APPS, gradientCss: brandGradientCss, backdropCss: backdropGradientCss };
+const BRANDS = { family: BRAND_FAMILY, apps: BRAND_APPS, gradientCss: brandGradientCss, backdropCss: backdropGradientCss, rim: BRAND_RIM };
 const FILES = tokenFiles(ROOT, BRANDS);
 const committed = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const OPAQUE_HEX = /^#[0-9a-f]{6}$/;

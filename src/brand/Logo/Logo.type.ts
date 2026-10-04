@@ -2,6 +2,7 @@
 import type { PixelWordmarkSize } from '../../composites/PixelWordmark';
 import type { BrandMarkSize, BrandMarkVariant } from '../BrandMark';
 import type { BrandApp } from '../brand.type';
+import type { BrandRim } from '../rim.type';
 
 type LogoDirection = 'stacked' | 'inline';
 
@@ -9,6 +10,7 @@ interface LogoProps {
   brand?: BrandApp;
   size?: BrandMarkSize;
   variant?: BrandMarkVariant;
+  rim?: BrandRim;
   title?: string;
   className?: string;
 }
@@ -16,6 +18,7 @@ interface LogoProps {
 interface LogoWordmarkProps {
   brand?: BrandApp;
   size?: PixelWordmarkSize;
+  rim?: BrandRim;
   title?: string;
   className?: string;
 }

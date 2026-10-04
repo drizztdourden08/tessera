@@ -1,16 +1,19 @@
 /* @layer stories @kind story */
 import type { StoryLiteArgTypes, StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { BRAND_APPS, BRAND_FAMILY, Logo } from '../../src/brand';
-import type { BrandApp, BrandMarkSize, BrandMarkVariant, IconArtFiles, LogoProps } from '../../src/brand';
+import type { BrandApp, BrandMarkSize, BrandMarkVariant, BrandRim, IconArtFiles, LogoProps } from '../../src/brand';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { IconFileRows } from './_samples/IconFileRows';
+import { RimGrid } from './_samples/RimGrid';
+import { RIMS } from './_samples/RimGrid.constants';
 
 type LogoArgs = {
   brand: BrandApp;
   size: BrandMarkSize;
   variant: BrandMarkVariant;
+  rim: BrandRim;
 };
 
 const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
@@ -24,6 +27,7 @@ const ARG_TYPES: StoryLiteArgTypes<LogoArgs> = {
   brand: { control: 'select', options: [...BRAND_APPS] },
   size: { control: 'select', options: [...SIZES] },
   variant: { control: 'select', options: ['mark', 'app-icon'], description: 'The app icon as the brand data describes it: straight or on its tile. A brand with no app icon draws its mark.' },
+  rim: { control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
 };
 
 const meta = {
@@ -33,9 +37,9 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { brand: 'rotp', size: 'xl', variant: 'mark' },
+  args: { brand: 'rotp', size: 'xl', variant: 'mark', rim: 'none' },
   argTypes: ARG_TYPES,
-  render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} />,
+  render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} rim={args.rim} />,
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
 
 const sizeGrid = (apps: readonly BrandApp[], extra: Partial<LogoProps>) => (
@@ -61,12 +65,24 @@ const IconFiles = {
   render: () => <IconFileRows pick={isBrandFile} />,
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
 
+const SMALL_SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg'];
+
+const Rims = {
+  name: 'Rims',
+  render: () => <RimGrid draw={(brand, rim) => SMALL_SIZES.map((size) => <Logo key={size} brand={brand} size={size} rim={rim} title="" />)} />,
+} satisfies StoryLiteStoryDefinition<LogoArgs>;
+
+const RimFiles = {
+  name: 'Rimmed icon files',
+  render: () => <IconFileRows pick={isBrandFile} rims={['light', 'dark']} />,
+} satisfies StoryLiteStoryDefinition<LogoArgs>;
+
 const Overview = overviewStory({
   component: 'Logo',
-  description: 'An app\'s mark alone, drawn inline from path data so it stays sharp at any size. Use it where there is room for a mark but not a name: a title bar, a tab, a list of projects. It comes in four sizes, and variant="app-icon" draws the app icon the brand data describes: Relic of the Past and Brock use the mark straight, Archipelia sits on its tile, and Tessera has none because it is not an app. `pnpm icons` turns every mark, app icon and mascot into the files an app ships: a PNG at each size from 16 to 512, crisp whole pixels where pixel art fits, and a Windows .ico from 16 to 256. Tessera gets a mark.ico, the gallery favicon. Icon files shows each brand\'s own files as generated, every size and the .ico in one row that scrolls sideways. Mascots and their files have their own page.',
+  description: 'An app\'s mark alone, drawn inline from path data so it stays sharp at any size. Use it where there is room for a mark but not a name: a title bar, a tab, a list of projects. It comes in four sizes, and variant="app-icon" draws the app icon the brand data describes: Relic of the Past and Brock use the mark straight, Archipelia sits on its tile, and Tessera has none because it is not an app. `pnpm icons` turns every mark, app icon and mascot into the files an app ships: a PNG at each size from 16 to 512, crisp whole pixels where pixel art fits, and a Windows .ico from 16 to 256. Tessera gets a mark.ico, the gallery favicon. Icon files shows each brand\'s own files as generated, every size and the .ico in one row that scrolls sideways. Mascots and their files have their own page. rim="light" or rim="dark" draws a thin outline that follows the silhouette, so a dark mark such as Brock\'s reads on a dark title bar; Rims shows every brand with each rim on a dark and a light ground. `pnpm icons` also writes every brand\'s files again with each rim, under brand/light-rim and brand/dark-rim, always without a tile, and Rimmed icon files shows them.',
   playground: Playground,
-  variants: [Sizes, AppIcon, IconFiles],
+  variants: [Sizes, AppIcon, Rims, IconFiles, RimFiles],
 });
 
 export default meta;
-export { AppIcon, IconFiles, Overview, Playground, Sizes };
+export { AppIcon, IconFiles, Overview, Playground, RimFiles, Rims, Sizes };

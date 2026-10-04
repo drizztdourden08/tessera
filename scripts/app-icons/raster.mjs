@@ -25,6 +25,6 @@ const icon = (art, size) => {
   return render(frame(nested(art, { x: at(w), y: at(h), w, h }, sharp), size, size));
 };
 
-const ico = (art, sizes) => pngToIco(sizes.map((size) => icon(art, size)));
+const ico = (artAt, sizes) => pngToIco(sizes.map((size) => icon(artAt(size), size)));
 
 export { crisp, ico, icon, render };

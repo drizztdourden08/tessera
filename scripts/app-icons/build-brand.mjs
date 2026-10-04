@@ -1,33 +1,12 @@
 /* @layer tooling-scripts @kind logic */
-import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { CANVAS, LARGE_ICON, MASKABLE_SIZE, OUTPUT_FOLDERS, SPLASH_SIZE } from './app-icons.constants.mjs';
-import { appArt, svgOf } from './app-art.mjs';
+import { rmSync } from 'node:fs';
+import { join } from 'node:path';
+import { OUTPUT_FOLDERS } from './app-icons.constants.mjs';
+import { appArt } from './app-art.mjs';
+import { buildApp, ladder, writer } from './app-files.mjs';
 import { artFile, markArt, sceneArt } from './art.mjs';
-import { crisp, ico, icon, render } from './raster.mjs';
-
-const writer = (root) => (path, data) => {
-  const file = join(root, 'brand', path);
-  mkdirSync(dirname(file), { recursive: true });
-  writeFileSync(file, data);
-  return path;
-};
-
-const ladder = async (write, art, files, sizes) => {
-  const written = sizes.ladder.map((size) => write(files.ladder(size), icon(art, size)));
-  if (files.ico) written.push(write(files.ico, await ico(art, sizes.ico)));
-  return written;
-};
-
-const buildApp = (write, id, art) => [
-  write(`${id}/icon/icon.svg`, svgOf(art.iconFile)),
-  write(`${id}/icon/png/icon-${LARGE_ICON}.png`, icon(art.icon, LARGE_ICON)),
-  write(`${id}/icon/maskable-${MASKABLE_SIZE}.png`, icon(art.maskable, MASKABLE_SIZE)),
-  write(`${id}/icon/android/icon-foreground.png`, icon(art.foreground, CANVAS)),
-  write(`${id}/icon/android/icon-background.png`, icon(art.background, CANVAS)),
-  write(`${id}/splash/splash.svg`, svgOf(art.splash)),
-  write(`${id}/splash/splash-${SPLASH_SIZE}.png`, render(svgOf(art.splash))),
-];
+import { buildRim } from './build-rim.mjs';
+import { crisp } from './raster.mjs';
 
 const variantArt = (variant, loaded) => {
   const scene = variant.compose();
@@ -52,7 +31,11 @@ const buildBrand = async (root, id, loaded) => {
   if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, mark)));
   if (brand.mascot) written.push(...buildMascot(write, id, brand, loaded));
   const artFor = { icon: () => appArt(brand, mark).icon, mark: () => mark, mascot: () => variantArt(brand.mascot.variants[0], loaded) };
-  for (const files of loaded.iconFiles(id)) written.push(...await ladder(write, artFor[files.kind](), files, loaded.sizes));
+  for (const files of loaded.iconFiles(id)) {
+    const art = artFor[files.kind]();
+    written.push(...await ladder(write, () => art, files, loaded.sizes));
+  }
+  for (const tone of loaded.rimTones) written.push(...await buildRim({ root, write, loaded }, id, tone));
   return written;
 };
 

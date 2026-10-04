@@ -2578,6 +2578,13 @@
       "usage": false
     },
     {
+      "name": "BrandRimPaths",
+      "tier": "brand",
+      "source": "src/brand/BrandRimPaths/BrandRimPaths.tsx",
+      "imports": [],
+      "usage": false
+    },
+    {
       "name": "BrandScene",
       "tier": "brand",
       "source": "src/brand/BrandScene/BrandScene.tsx",

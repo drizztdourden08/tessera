@@ -1776,6 +1776,21 @@ import { useWizard, Wizard } from '@drizztdourden08/tessera';
 
 An app renames `WizardFrame`, `WizardFrameProps` and the `wizard-frame` classes as RENAMES.json lists, under the release named next. `WizardDialog`, `useWizard` and the other wizard parts keep their names.
 
+## 69. Every logo takes a light or a dark rim, and every brand has rimmed icon files
+
+`BrandMark`, `Logo`, `Logo.Combined`, `Logo.Wordmark`, `BrandWordmark` and `PixelWordmark` take `rim?: 'none' | 'light' | 'dark'`. A rim is a thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark title bar and a light one on a light panel. `'none'` is the default, so nothing changes until an app asks for one. The colours are the tokens `--brand-rim-light` and `--brand-rim-dark`, the widths `--brand-rim-sm` to `--brand-rim-xl`, and `BRAND_RIM`, `BRAND_RIM_TONES` and the types `BrandRim`, `BrandRimTone` and `BrandRimSpec` are exported from `/brand`. `iconFiles(app, rim)` takes the rim as a second argument.
+
+```tsx
+<Logo brand="brock" size="sm" rim="light" />
+<Logo.Combined brand="archipelia" rim="light" />
+```
+
+`pnpm icons` also writes `brand/light-rim/` and `brand/dark-rim/`. Each copies the layout of the brand folders, `<app>.svg` and `<app>/icon`, `mark` and `splash`, with the rim and never a tile. brand/LOGO.md lists them.
+
+### What an app does
+
+An app whose mark is hard to see on its title bar, taskbar or splash passes `rim="light"` to its logo, or reads its icon files from `brand/light-rim/<app>/` in place of `brand/<app>/`. Archipelia can use its bare mark with a light rim there instead of its tile.
+
 ## 70. WindowTitleBar takes actions, puts every bar item in its menu, and gives way one item at a time
 
 `WindowTitleBar` drops `left` and takes `actions`, a list of `WindowTitleBarAction`. The host declares each action once, and the bar draws both its button and its menu item from it.

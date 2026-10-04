@@ -7,7 +7,25 @@
   vertical-align: middle;
 }
 
-.brand-mark--sm { --brand-mark-size: var(--brand-mark-sm); }
-.brand-mark--md { --brand-mark-size: var(--brand-mark-md); }
-.brand-mark--lg { --brand-mark-size: var(--brand-mark-lg); }
-.brand-mark--xl { --brand-mark-size: var(--brand-mark-xl); }
+.brand-mark--rimmed { overflow: visible; }
+
+.brand-mark--sm {
+  --brand-mark-size: var(--brand-mark-sm);
+  --brand-rim-width: var(--brand-rim-sm);
+}
+
+.brand-mark--md {
+  --brand-mark-size: var(--brand-mark-md);
+  --brand-rim-width: var(--brand-rim-sm);
+}
+
+.brand-mark--lg {
+  --brand-mark-size: var(--brand-mark-lg);
+  --brand-rim-width: var(--brand-rim-md);
+}
+
+.brand-mark--xl {
+  --brand-mark-size: var(--brand-mark-xl);
+  --brand-rim-width: var(--brand-rim-xl);
+}
+

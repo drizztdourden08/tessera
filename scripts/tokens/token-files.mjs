@@ -9,7 +9,7 @@ import { splashCss } from './splash-css.mjs';
 import { tokensJson } from './tokens-json.mjs';
 import { BRAND_CSS, SPLASH_CSS, TOKENS_JSON } from './tokens.constants.mjs';
 
-const isBrandLine = ([name]) => /^--brand-[\w-]+-(?:gradient|backdrop)$/.test(name);
+const isBrandLine = ([name]) => /^--brand-(?:[\w-]+-(?:gradient|backdrop)|rim-(?:light|dark))$/.test(name);
 const STRING_LIST = /\[\n\s+("[^"\n]*"(?:,\n\s+"[^"\n]*")*)\n\s+\]/g;
 
 const jsonText = (value) => `${JSON.stringify(value, null, 2).replace(STRING_LIST, (_, items) => `[${items.replace(/,\n\s+/g, ', ')}]`)}\n`;

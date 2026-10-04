@@ -23,6 +23,8 @@ export type { BackdropGlow, BackdropGradient } from './backdrop-gradient.type';
 export { brandGradientCss } from './brand-gradient-css';
 export { iconFiles } from './icon-files';
 export { ICON_SIZES } from './icon-sizes.constants';
+export { BRAND_RIM, BRAND_RIM_TONES } from './rim.constants';
+export type { BrandRim, BrandRimSpec, BrandRimTone } from './rim.type';
 export type { IconArtFiles, IconArtKind, IconSizes } from './icon-files.type';
 export { groupNode } from './scene/group-node';
 export { placePiece } from './scene/place-piece';

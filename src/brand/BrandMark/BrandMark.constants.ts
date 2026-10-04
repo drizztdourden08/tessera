@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind data */
 const TILE_SCALE = 0.72;
 
-export { TILE_SCALE };
+const TILE_RADIUS = 0.2;
+
+export { TILE_RADIUS, TILE_SCALE };

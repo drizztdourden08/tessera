@@ -1,0 +1,9 @@
+/* @layer renderer-components @kind style */
+.brand-rim {
+  stroke-width: calc(2 * var(--brand-rim-width, var(--brand-rim-sm)));
+  stroke-linejoin: round;
+}
+
+.brand-rim--light { stroke: var(--brand-rim-light); }
+.brand-rim--dark { stroke: var(--brand-rim-dark); }
+.brand-rim--pixel { stroke-linejoin: miter; }

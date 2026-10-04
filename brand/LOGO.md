@@ -36,9 +36,44 @@ The brand data says how each app shows as an app icon, in its `appIcon` field. T
 - `brand/<app>.svg`: the mark as a file.
 - `brand/<app>/mark/mark-<size>.png`: the mark on a transparent square, at 16, 24, 32, 48, 64, 128, 256 and 512 pixels. A brand with no app icon, Tessera, also gets `mark.ico` holding 16 to 256; it is the gallery favicon.
 - `brand/<app>/icon/`, for an app only: the app icon as `icon.svg`, `png/icon-<size>.png` at the same sizes plus `icon-1024.png` for the installer builder, `icon.ico` holding 16 to 256, `maskable-512.png` and the two Android layers. `brand/<app>/splash/` holds the splash. A `tile` app draws the maskable icon and the Android background on its tile colour and the splash on the dark splash ground. A `straight` app draws all of them on transparent ground: the maskable icon and the splash are the mark alone, and the Android background layer is empty.
+- `brand/light-rim/` and `brand/dark-rim/`: every file above except the mascot, with a rim and no tile. See Rims below.
 - `brand/<app>/mascot/`, for a brand with a mascot: each variant as `<variant>.svg` and as crisp transparent renders at 1, 2 and 4 times, and the mascot itself as a PNG ladder and `<variant>.ico`.
 
 Every square PNG follows one rule, taken from Relic of the Past. Pixel art that fits at two or more screen pixels per art pixel is scaled by a whole number and centred, so every pixel stays square. Smaller than that, or for a drawn mark, the art is drawn smooth to fit. The sizes live in `src/brand/icon-sizes.constants.ts` and the file names in `src/brand/icon-files.ts`. The gallery's **Logo / Icon files** story shows each brand's own ladder and .ico as generated, in one row, and **Mascot / Icon files** shows each mascot's.
+
+## Rims
+
+A dark mark such as Brock's nearly disappears on a dark title bar or taskbar, and a light one on a light surface. Every logo takes a rim for that: a thin outline in a light or a dark colour that follows the silhouette, holes included. It is a stroke on the mark's own paths, drawn behind the mark, so it stays crisp at 16 pixels.
+
+```tsx
+<BrandMark app="brock" size="sm" rim="light" />
+<Logo brand="archipelia" rim="light" />
+<Logo.Combined brand="brock" rim="light" />
+<Logo.Wordmark brand="archipelia" rim="dark" />
+```
+
+`rim` is `'none'` (the default), `'light'` or `'dark'`, on `BrandMark`, `Logo`, `Logo.Combined`, `Logo.Wordmark`, `BrandWordmark` and `PixelWordmark`. In code the rim sits outside the mark's box and never shrinks the mark. With `variant="app-icon"` on a tile app the rim outlines the tile; a rim is meant for the mark alone, so use `variant="mark"`. There is no automatic rim: every Tessera theme is dark, so it would always pick light, and only the app knows when a mark sits on a light panel.
+
+| Token | Value | Use |
+|---|---|---|
+| `--brand-rim-light` | `#ececf0` | The light rim, for dark surfaces |
+| `--brand-rim-dark` | `#0e0e12` | The dark rim, for light surfaces, the splash ground colour |
+| `--brand-rim-sm` | 1 px | Marks at `sm` and `md`, the `sm` wordmark |
+| `--brand-rim-md` | 1.5 px | Marks at `lg`, the `md` wordmark |
+| `--brand-rim-lg` | 2 px | The `lg` wordmark |
+| `--brand-rim-xl` | 3 px | Marks at `xl` |
+
+The colours live in `src/brand/rim.constants.ts` (`BRAND_RIM`) and `pnpm tokens` writes them into `src/tokens/brand.css` and `splash-tokens.css`. The files follow the same data: the rim is a fortieth of the drawn art's side (`ratio`), never under 1 pixel (`minPx`), and a whole art pixel for pixel art.
+
+### Rimmed files
+
+`pnpm icons` writes every brand's files again with each rim, in two trees beside the brand folders that copy their layout:
+
+- `brand/light-rim/` and `brand/dark-rim/`, each holding `<app>.svg` and `<app>/` with the same `icon/`, `mark/` and `splash/` files and names as `brand/<app>/`.
+- A rimmed set is always the mark without a tile, whatever the app's `appIcon`: Archipelia's rimmed icon, `.ico`, splash and Android layers are its bare mark with the rim, on a transparent ground. Mascots have no rimmed files.
+- Each PNG of the ladder is drawn for its size, so the 16 pixel file has a whole 1 pixel rim and the mark shrinks a little to make room for it.
+
+An app that reads `brand/<app>/` switches to the rimmed set by reading `brand/light-rim/<app>/` instead; `../<app>.svg` then resolves to the rimmed mark too. The original files do not change.
 
 ## Mascots
 

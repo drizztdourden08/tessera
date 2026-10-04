@@ -2,31 +2,33 @@
 import { Svg, SvgGroup, SvgRect } from '../../primitives/Svg';
 import { BrandPaths } from '../BrandPaths';
 import { BRAND_FAMILY } from '../family.constants';
+import { markClass } from './behavior/mark-class';
 import { markLabelProps } from './behavior/mark-label-props';
 import { squareBox } from './behavior/square-box';
-import { TILE_SCALE } from './BrandMark.constants';
+import { tileTransform } from './behavior/tile-transform';
+import { TILE_RADIUS } from './BrandMark.constants';
 import type { BrandMarkProps } from './BrandMark.type';
+import { BrandMarkRim } from './sub-components/BrandMarkRim';
 import './BrandMark.css';
 
 const BrandMark = (props: BrandMarkProps) => {
-  const { app, size = 'md', variant = 'mark', title, className = '' } = props;
+  const { app, size = 'md', variant = 'mark', rim = 'none', title, className = '' } = props;
   const brand = BRAND_FAMILY[app];
   const { viewBox, paths, pixelArt } = brand.mark;
   const tile = variant === 'app-icon' && brand.appIcon === 'tile';
-  const { x, y, w, h } = squareBox(viewBox);
-  const cls = ['brand-mark', `brand-mark--${size}`, className].filter(Boolean).join(' ');
-  const cx = x + w / 2;
-  const cy = y + h / 2;
+  const box = squareBox(viewBox);
+  const { x, y, w, h } = box;
 
   return (
     <Svg
-      className={cls}
+      className={markClass(size, rim, className)}
       viewBox={`${x} ${y} ${w} ${h}`}
       {...markLabelProps(title ?? brand.name)}
       shapeRendering={pixelArt ? 'crispEdges' : undefined}
     >
-      {tile && <SvgRect x={x} y={y} width={w} height={h} rx={w * 0.2} fill={brand.tile} />}
-      <SvgGroup transform={tile ? `translate(${cx} ${cy}) scale(${TILE_SCALE}) translate(${-cx} ${-cy})` : undefined}>
+      <BrandMarkRim rim={rim} paths={paths} box={box} tile={tile} pixelArt={pixelArt} />
+      {tile && <SvgRect x={x} y={y} width={w} height={h} rx={w * TILE_RADIUS} fill={brand.tile} />}
+      <SvgGroup transform={tile ? tileTransform(box) : undefined}>
         <BrandPaths paths={paths} />
       </SvgGroup>
     </Svg>

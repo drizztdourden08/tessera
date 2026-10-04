@@ -4,6 +4,7 @@ import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
 import { BRAND_APPS, BRAND_FAMILY, BrandMark, BrandWordmark, Mascot } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
 import { overviewStory } from '../_template/overview-story';
+import { RimGrid } from './_samples/RimGrid';
 import './Brand.stories.css';
 
 const meta = {
@@ -58,11 +59,16 @@ const Family = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
+const Rims = {
+  name: 'Rims',
+  render: () => <RimGrid draw={(app, rim) => <BrandMark app={app} size="xl" rim={rim} title="" />} />,
+} satisfies StoryLiteStoryDefinition;
+
 const Overview = overviewStory({
   component: 'Brand',
-  description: 'Every app and package in the family on one page: its mark at each size and as its app icon, its mascot where it has one, its wordmark, what it is and how to import it. The Logo, WordMark, Combined and Mascot pages show each part on its own, and the Gradients page under Colours shows each brand gradient.',
-  variants: [Family],
+  description: 'Every app and package in the family on one page: its mark at each size and as its app icon, its mascot where it has one, its wordmark, what it is and how to import it. The Logo, WordMark, Combined and Mascot pages show each part on its own, and the Gradients page under Colours shows each brand gradient. Rims shows each mark with no rim, a light rim and a dark rim, on a dark and a light ground.',
+  variants: [Family, Rims],
 });
 
 export default meta;
-export { Family, Overview };
+export { Family, Overview, Rims };

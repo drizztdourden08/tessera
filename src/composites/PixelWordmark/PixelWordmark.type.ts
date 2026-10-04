@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { BrandRim } from '../../brand/rim.type';
+
 interface PixelGlyph {
   upper: readonly string[];
   lower: readonly string[];
@@ -24,6 +26,7 @@ interface PixelWordmarkProps {
   text: string;
   colors: PixelWordmarkColors;
   size?: PixelWordmarkSize;
+  rim?: BrandRim;
   title?: string;
   className?: string;
 }

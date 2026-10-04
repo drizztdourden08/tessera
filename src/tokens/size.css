@@ -8,6 +8,10 @@
   --brand-mark-md: var(--size-24);
   --brand-mark-lg: var(--size-48);
   --brand-mark-xl: var(--size-128);
+  --brand-rim-sm: var(--size-1);
+  --brand-rim-md: calc(1.5 * var(--size-1));
+  --brand-rim-lg: var(--size-2);
+  --brand-rim-xl: calc(3 * var(--size-1));
   --pixel-wordmark-sm: calc(29 * var(--size-1));
   --pixel-wordmark-md: calc(58 * var(--size-1));
   --pixel-wordmark-lg: calc(87 * var(--size-1));

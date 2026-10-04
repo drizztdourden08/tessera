@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.rim-grid__ground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+}
+
+.rim-grid__ground--dark { background: var(--c-surface); }
+.rim-grid__ground--light { background: var(--p-white); }
