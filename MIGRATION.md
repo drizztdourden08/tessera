@@ -4019,3 +4019,36 @@ The owner picked 12 px with no forced upper case for small text (Archipelia revi
 
 1. Write Field labels and Text labels in sentence case (Server name, not SERVER NAME); they now show as written.
 2. Check any fixed size of your own built around 10 px small text, such as a 16 px row of tags, a narrow column of hints, or a width measured from a caption.
+
+## 155. CheckList: pass, advice and failure no longer look the same
+
+`CheckList` is a new composite, under Composites · Content (Archipelia review T-16, tessera-04). Archipelia's server test showed each check as a StatRow whose value read "ok: ...", "advice: ..." or "failed: ...", so a pass, a warning and a failure looked alike, and Brock's diagnostics had no part for a list of checks.
+
+- **States.** `pass`, `warn`, `fail`, `pending` and `skip`, declared once with `defineStatuses`: a green circle check, an amber triangle, a red circle cross (the row border turns danger), a Spinner while pending and a grey ring when skipped. Each icon is named by its state word.
+- **A row.** `label`, then `detail` under it (what was found), and `action` at the end, such as Pick another port.
+- **The counts.** On top, after an optional `summary`: 3 passed, 1 advice, 2 failed, 1 checking, each a Status with a dot in its tone, in a status region so a screen reader hears them change. Skipped checks are not counted.
+- **Compact.** `compact` draws one line per check, the detail after the label, with hairlines in place of boxes.
+- **Strings.** `items.checks` (the section name), `checkPassed`, `checkAdvice`, `checkFailed`, `checkChecking`, `checkSkipped` and `checkCount(count, word)`.
+
+```ts
+type CheckState = 'pass' | 'warn' | 'fail' | 'pending' | 'skip';
+interface Check {
+  id: string;
+  label: string;
+  state: CheckState;
+  detail?: ReactNode;
+  action?: ReactNode;
+}
+interface CheckListProps {
+  checks: readonly Check[];
+  summary?: ReactNode;
+  compact?: boolean;
+  label?: string; // default items.checks
+  className?: string;
+}
+```
+
+### What an app does
+
+1. Archipelia: ServerTestPanel maps each result to a `Check` (ok to `pass`, advice to `warn`, failed to `fail`) in place of its StatRows, with the server name in `summary`.
+2. Brock: the bug report diagnostics and review checks can use the same list.

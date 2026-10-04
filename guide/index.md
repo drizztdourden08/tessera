@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 22 of 160 have their usage written; a linked name opens its page.
+One line per component. 23 of 161 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -92,6 +92,7 @@ One line per component. 22 of 160 have their usage written; a linked name opens 
 ## Composites
 
 - [ActionBar](components/ActionBar.md): The actions on one item in a single row: the primary action last, the ones that do not fit folded into a More menu. Import from `@drizztdourden08/tessera`.
+- [CheckList](components/CheckList.md): The results of a list of checks, such as a connection test or a diagnostics report, each with its state, what was found and an optional fix. Import from `@drizztdourden08/tessera`.
 - `ColorPicker`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker`.
 - `ColorPickerPopover`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker-popover`.
 - `CommandPalette`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -171,3 +171,5 @@ export { ActionBar } from './ActionBar';
 export type { ActionBarAlign, ActionBarProps, ActionConfirm, ActionItem, ActionKind } from './ActionBar';
 export { ValidationSummary } from './ValidationSummary';
 export type { ValidationProblem, ValidationSummaryProps, ValidationTone } from './ValidationSummary';
+export { CheckList } from './CheckList';
+export type { Check, CheckListProps, CheckState } from './CheckList';

@@ -122,6 +122,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'Hero', summary: 'The top of a home screen: backdrop, art, title, actions and facts on glass.' },
         { name: 'PixelWordmark', summary: 'A wordmark set in the pixel alphabet from a text and four colours.' },
         { name: 'TaskProgress', summary: 'One long job: a bar, the current line, its steps, the error and a folded log.' },
+        { name: 'CheckList', summary: 'The results of a list of checks: pass, advice, failure, checking or skipped, with counts on top.' },
       ],
     },
     {

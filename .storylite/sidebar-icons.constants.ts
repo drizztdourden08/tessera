@@ -96,6 +96,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     LogPanel: 'logs', FactsPanel: 'table-properties', Hero: 'mountain-snow',
     PixelWordmark: 'type-outline',
     TaskProgress: 'list-todo',
+    CheckList: 'clipboard-check',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x' },
