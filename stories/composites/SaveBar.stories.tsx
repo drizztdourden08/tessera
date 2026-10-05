@@ -8,7 +8,7 @@ import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { PresetsDemo } from './_samples/PresetsDemo';
 import { SaveBarPresetDemo } from './_samples/SaveBarPresetDemo';
-import './MasterDetail.stories.css';
+import './ListDetail.stories.css';
 import './SaveBar.stories.css';
 
 type SaveBarArgs = {
@@ -53,7 +53,7 @@ const Preset = {
 } satisfies StoryLiteStoryDefinition<SaveBarArgs>;
 
 const Beside = {
-  name: 'In MasterDetail: the bar at the foot of the editor, the question over it on a pick',
+  name: 'In ListDetail: the bar at the foot of the editor, the question over it on a pick',
   render: () => <PresetsDemo startDirty />,
 } satisfies StoryLiteStoryDefinition<SaveBarArgs>;
 
@@ -73,7 +73,7 @@ const Overview = overviewStory({
     'In the `error` state the bar says Not saved and shows the reason from `error` beside it.',
     'Save and Discard are off while there is nothing to save, and Save spins while it saves.',
     '`onDiscard` adds Discard; `saveLabel` and `discardLabel` rename the buttons.',
-    '**Leaving is another question:** [MasterDetail] asks before a pick throws the edits away.',
+    '**Leaving is another question:** [ListDetail] asks before a pick throws the edits away.',
   ],
   instead: '[WizardNav] for the steps of one task, or [SettingsRow] for settings that apply at once.',
   playground: Playground,

@@ -22,6 +22,7 @@ const NAVIGATION_STRINGS = {
   back: 'Back',
   backTo: (page: string) => `Back to ${page}`,
   showPane: (pane: string) => `Show ${pane}`,
+  hidePane: (pane: string) => `Hide ${pane}`,
   resizePanes: (start: string, end: string) => `Resize ${start} and ${end}`,
   resizeHint: 'Drag to resize · double-click to reset',
   pageViews: (title: string) => `${title} views`,

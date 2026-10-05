@@ -1,5 +1,5 @@
 /* @layer stories @kind types */
-import type { ManagedListProps } from '../../../src/composites';
+import type { ItemListProps } from '../../../src/composites';
 
 interface SampleProfile {
   id: string;
@@ -8,12 +8,12 @@ interface SampleProfile {
   template: string;
 }
 
-interface ManagedListCreateDemoProps {
+interface ItemListCreateDemoProps {
   firstRun?: boolean;
 }
 
 type SampleProfileList = Pick<
-  ManagedListProps<SampleProfile>,
+  ItemListProps<SampleProfile>,
   'title' | 'items' | 'getId' | 'getName' | 'render' | 'createLabel' | 'createOpen' | 'onCreateOpenChange' | 'empty' | 'create'
 > & { selectedId: string | null };
 
@@ -24,4 +24,4 @@ interface SampleProfiles {
   remove: (id: string) => void;
 }
 
-export type { ManagedListCreateDemoProps, SampleProfile, SampleProfiles };
+export type { ItemListCreateDemoProps, SampleProfile, SampleProfiles };

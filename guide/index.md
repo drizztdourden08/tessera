@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 47 of 172 have their usage written; a linked name opens its page.
+One line per component. 48 of 172 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -118,14 +118,14 @@ One line per component. 47 of 172 have their usage written; a linked name opens 
 - [InfoScreen](components/InfoScreen.md): A screen to read, such as About or credits: the window title bar with the close button, then wide margins and one centred column that scrolls. Import from `@drizztdourden08/tessera`.
 - `InlineCreateForm`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ItemCard](components/ItemCard.md): One item of a catalogue as a card: media, a small line above the title, a status, the title, tags, details and its actions. Import from `@drizztdourden08/tessera`.
+- [ItemList](components/ItemList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.
 - [JobDialog](components/JobDialog.md): A long job in a dialog: its TaskProgress, with Cancel and Hide while it runs and Close once it ends. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [KeyValueEditor](components/KeyValueEditor.md): A map of names to values, row by row: a name, a value control and Remove, then an add row, with a check for names listed twice. Import from `@drizztdourden08/tessera`.
+- [ListDetail](components/ListDetail.md): An ItemList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
+- [ListDetailLayout](components/ListDetailLayout.md): The two panes of a list and detail screen: the list on the left and the detail of the picked item beside it, each on its own surface. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `LogPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [ManagedList](components/ManagedList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.
-- [MasterDetail](components/MasterDetail.md): A ManagedList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
-- `MasterDetailLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.

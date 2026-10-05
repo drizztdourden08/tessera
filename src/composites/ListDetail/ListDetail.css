@@ -1,0 +1,15 @@
+/* @layer renderer-components @kind style */
+.list-detail__guard {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-sticky);
+  margin-block-end: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width-thin) solid var(--c-warning);
+  border-radius: var(--radius-md);
+  background: var(--c-warning-dim);
+}
+
+.list-detail__guard .button-row__lead {
+  flex-basis: var(--size-256);
+}

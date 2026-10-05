@@ -5598,3 +5598,69 @@ The moves since 0.16.0, read from the barrels at each release tag:
 ### What an app does
 
 Nothing. `brock upgrade` reads `moves` once Brock replays them, and an app that imports from the package root never needed a change.
+
+## 186. ItemList, ListDetailLayout and ListDetail: one family, real surfaces and a list that folds
+
+From the owner's review of the three list and editor parts. ManagedList, MasterDetailLayout and MasterDetail are renamed into one family, each says what it is, the list folds away for more room to edit, and both panes draw on real surfaces.
+
+| Before | Now | What it is |
+|---|---|---|
+| `ManagedList` | `ItemList` | the list of the user's items: count, New, filter, groups, rename, delete and the states |
+| `MasterDetailLayout` | `ListDetailLayout` | the two panes: surfaces, resize, fold, Back on a small window |
+| `MasterDetail` | `ListDetail` | an `ItemList` in a `ListDetailLayout`, with the unsaved edits question |
+
+The props types, classes, usage files and gallery pages follow: `ManagedListProps` is `ItemListProps`, `ManagedListCreate` is `ItemListCreate`, `ManagedListFilter` is `ItemListFilter`, `ManagedListRowParts` is `ItemListRowParts`, `MasterDetailLayoutProps` is `ListDetailLayoutProps`, `MasterDetailProps` is `ListDetailProps`, `MasterDetailList` is `ListDetailListProps`, `MasterDetailGuardLook` is `ListDetailGuardLook` and `MasterDetailSave` is `ListDetailSave`. The classes `managed-list*` are `item-list*`, `master-detail*` of the layout are `list-detail-layout*`, `master-detail-editor` is `list-detail` and `master-detail-guard` is `list-detail__guard`. RENAMES.json lists each one. The `lists` strings keep their name, since they already name the family.
+
+### One job each
+
+- **ItemList** draws the list and no background: it sits in the list pane, a card or a panel.
+- **ListDetailLayout** owns every pane concern: the surfaces, the scroll, the width, the fold, the placeholder while nothing is picked and Back under 768 px.
+- **ListDetail** adds only the selection and the question. Its props extend `ListDetailLayoutProps` less the slots it fills, so every layout prop, the fold ones too, passes through without a second list of names.
+
+What was written twice is gone:
+
+- `MasterDetail` listed eight layout props by hand, and drew its own placeholder while the layout had `detailEmpty` to centre one. The placeholder now lives in the layout: `detail` left out, `null` or `false` means nothing is picked, and `emptyDetail` replaces the default Pick an item from the list. `detailEmpty` is removed.
+- The width kept in browser storage reads and writes through the shared `readStored` and `writeStored` of section 181, and is kept in bounds by its `clampNumber`; `readStoredWidth` and `writeStoredWidth` are removed. The fold is kept through the same open state hook as the SideNav panel.
+
+### The list folds to a rail
+
+```ts
+interface ListDetailLayoutProps {
+  list: ReactNode;
+  detail?: ReactNode; // left out, null or false: nothing is picked
+  emptyDetail?: ReactNode; // default: an EmptyState, Pick an item from the list.
+  onBack?: () => void;
+  backLabel?: string;
+  resizable?: boolean; // default true
+  listWidth?: number; // 320
+  minListWidth?: number; // 240
+  maxListWidth?: number; // 480
+  collapsible?: boolean; // default true: the fold button shows
+  collapsed?: boolean; // the app holds the fold
+  defaultCollapsed?: boolean; // where the part holds it, how it starts
+  onCollapsedChange?: (collapsed: boolean) => void;
+  storageKey?: string; // the width, and the fold under storageKey:collapsed
+  listLabel?: string;
+  detailLabel?: string;
+  className?: string;
+}
+```
+
+- A button at the top of the divider folds the list. Folded, the list pane gives its room to the detail and a narrow rail stays on the list surface, with the same button and the name of the list down it; the button or a click on the rail brings the list back at the width it had.
+- Tessera has no app wide shortcut, so the keys follow the window splitter pattern the divider already uses: Enter on the divider folds the list and moves focus to the button that brings it back. Space and a double click reset the width; with `collapsible={false}`, Enter resets it too, as before. An app that wants its own shortcut, such as Ctrl+B, holds `collapsed` and `onCollapsedChange`.
+- The button is named for the list, Hide presets or Show presets, with `aria-expanded` and `aria-controls` on the list pane. `navigation.hidePane` is the new string beside `navigation.showPane`.
+- Under 768 px the fold is ignored: the panes stack as before, the list, then the detail with Back.
+
+### Real surfaces
+
+The list pane draws on `--c-sunken` and the detail pane on `--c-surface`, each with a thin border and a large radius, with the fold rail on the list surface. A SaveBar last in the detail sits flush with the foot of the pane, on its surface, over the content that scrolls under it. The unsaved edits bar of ListDetail stays at the top of the editor while it scrolls.
+
+The ListDetail page opens with a real preset editor: name, game and notes, the goal with its crystals, keysanity, the item pool and progression balancing, built from TextInput, Select, Textarea, SegmentedControl, NumberInput, Toggle and NamedRange in FormRows with their resets, and a SaveBar at the foot. The ListDetailLayout page shows a session with its facts and its players. ListDetailLayout has a usage file now.
+
+### What an app does
+
+1. Rename the imports, types and classes as RENAMES.json lists.
+2. Replace `detailEmpty` with no `detail`: pass `detail={selected && <Editor />}` and the placeholder as `emptyDetail`.
+3. Drop any background the app drew behind the panes; drop a SaveBar bleed it wrote by hand.
+4. Pass `collapsible={false}` where the list must stay open, or `collapsed` with `onCollapsedChange` to drive the fold from a menu or a shortcut.
+5. A stored fold sits beside the stored width; nothing moves for the width.

@@ -1,0 +1,29 @@
+/* @layer stories @kind style */
+.session-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.session-detail__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.session-detail__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.session-detail > .section-header {
+  margin-block-start: var(--space-md);
+}
+
+.session-detail__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}

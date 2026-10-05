@@ -13,7 +13,7 @@ const NO_TOWER = 'The tower needs at least one crystal. Raise it and save again.
 const SaveBarPresetDemo = () => {
   const [saved, setSaved] = useState(START);
   const [draft, setDraft] = useState(START);
-  const saving = useSaveDemo(draft.tower !== saved.tower || draft.ganon !== saved.ganon);
+  const saving = useSaveDemo(JSON.stringify(draft) !== JSON.stringify(saved));
   const save = () => void saving.run(() => {
     if (draft.tower === 0) return NO_TOWER;
     setSaved(draft);

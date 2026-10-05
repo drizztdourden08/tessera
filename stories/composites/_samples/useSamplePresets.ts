@@ -1,6 +1,6 @@
 /* @layer stories @kind hook */
 import { useState } from 'react';
-import { PRESETS } from './preset-samples.constants';
+import { PRESET_DEFAULTS, PRESETS } from './preset-samples.constants';
 import type { SamplePreset } from './preset-samples.type';
 
 const useSamplePresets = (start: readonly SamplePreset[] = PRESETS) => {
@@ -9,7 +9,7 @@ const useSamplePresets = (start: readonly SamplePreset[] = PRESETS) => {
   const remove = (id: string) => setItems((list) => list.filter((p) => p.id !== id));
   const create = (): string => {
     const id = `new-${Date.now()}`;
-    setItems((list) => [{ id, name: 'New preset', game: 'A Link to the Past', changes: 0, tower: 7, ganon: 7 }, ...list]);
+    setItems((list) => [{ ...PRESET_DEFAULTS, id, name: 'New preset', game: 'A Link to the Past', notes: '', changes: 0 }, ...list]);
     return id;
   };
   const save = (preset: SamplePreset) => setItems((list) => list.map((p) => (p.id === preset.id ? preset : p)));

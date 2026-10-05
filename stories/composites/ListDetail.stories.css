@@ -1,0 +1,19 @@
+/* @layer stories @kind style */
+.list-detail-story {
+  display: flex;
+  flex-direction: column;
+  block-size: var(--size-512);
+  padding: var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-bg);
+}
+
+.list-detail-story--tall {
+  block-size: var(--size-640);
+}
+
+.list-detail-story--narrow {
+  inline-size: var(--size-512);
+  max-inline-size: 100%;
+}

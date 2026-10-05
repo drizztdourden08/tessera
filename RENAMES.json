@@ -1098,11 +1098,45 @@
         "WindowHeader.backLabel": "back.label, now the name of the page it goes back to: the button reads Back to and the label (see MIGRATION.md section 181)",
         "ScreenWindow.onBack": "back, as { onSelect: onBack } (see MIGRATION.md section 181)",
         "ScreenWindow.backLabel": "back.label, now the name of the page it goes back to (see MIGRATION.md section 181)",
-        "ScreenWindowHeader.back": "removed; pass back on ScreenWindow itself, which draws it in the page header too (see MIGRATION.md section 181)"
+        "ScreenWindowHeader.back": "removed; pass back on ScreenWindow itself, which draws it in the page header too (see MIGRATION.md section 181)",
+        "MasterDetailLayout.detailEmpty": "removed; leave ListDetailLayout.detail out, or pass null, while nothing is picked, and pass the placeholder as emptyDetail (see MIGRATION.md section 186)"
       },
       "components": {
         "ContentHeaderBack": "BackAction",
-        "ActionTileVariant": "ActionTileTone"
+        "ActionTileVariant": "ActionTileTone",
+        "MasterDetailLayoutProps": "ListDetailLayoutProps",
+        "MasterDetailGuardLook": "ListDetailGuardLook",
+        "ManagedListRowParts": "ItemListRowParts",
+        "MasterDetailLayout": "ListDetailLayout",
+        "ManagedListCreate": "ItemListCreate",
+        "ManagedListFilter": "ItemListFilter",
+        "MasterDetailProps": "ListDetailProps",
+        "ManagedListProps": "ItemListProps",
+        "MasterDetailList": "ListDetailListProps",
+        "MasterDetailSave": "ListDetailSave",
+        "MasterDetail": "ListDetail",
+        "ManagedList": "ItemList"
+      },
+      "cssClasses": {
+        "master-detail__detail--empty": "list-detail-layout__detail--empty",
+        "managed-list__rename-input": "item-list__rename-input",
+        "master-detail--resizable": "list-detail-layout--resizable",
+        "master-detail--dragging": "list-detail-layout--dragging",
+        "managed-list__loading": "item-list__loading",
+        "master-detail__detail": "list-detail-layout__detail",
+        "master-detail__panes": "list-detail-layout__panes",
+        "managed-list__create": "item-list__create",
+        "managed-list__rename": "item-list__rename",
+        "master-detail-editor": "list-detail",
+        "master-detail__back": "list-detail-layout__back",
+        "master-detail__list": "list-detail-layout__list",
+        "managed-list__title": "item-list__title",
+        "managed-list__tools": "item-list__tools",
+        "master-detail-guard": "list-detail__guard",
+        "managed-list__body": "item-list__body",
+        "managed-list__head": "item-list__head",
+        "master-detail": "list-detail-layout",
+        "managed-list": "item-list"
       }
     }
   ]

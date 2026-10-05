@@ -24,8 +24,8 @@ export { ListItemList, ListItemRow } from './ListItemRow';
 export type {
   ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole,
 } from './ListItemRow';
-export { MasterDetailLayout } from './MasterDetailLayout';
-export type { MasterDetailLayoutProps } from './MasterDetailLayout';
+export { ListDetailLayout } from './ListDetailLayout';
+export type { ListDetailLayoutProps } from './ListDetailLayout';
 export { SplitPane } from './SplitPane';
 export type { CollapsedSide, SplitOrientation, SplitPaneProps } from './SplitPane';
 export { SettingsRow } from './SettingsRow';
@@ -157,10 +157,10 @@ export { ValidationSummary } from './ValidationSummary';
 export type { ValidationProblem, ValidationSummaryProps, ValidationTone } from './ValidationSummary';
 export { CheckList } from './CheckList';
 export type { Check, CheckListProps, CheckState } from './CheckList';
-export { ManagedList } from './ManagedList';
-export type { ManagedListCreate, ManagedListFilter, ManagedListProps, ManagedListRowParts } from './ManagedList';
-export { MasterDetail } from './MasterDetail';
-export type { MasterDetailGuardLook, MasterDetailList, MasterDetailProps, MasterDetailSave } from './MasterDetail';
+export { ItemList } from './ItemList';
+export type { ItemListCreate, ItemListFilter, ItemListProps, ItemListRowParts } from './ItemList';
+export { ListDetail } from './ListDetail';
+export type { ListDetailGuardLook, ListDetailListProps, ListDetailProps, ListDetailSave } from './ListDetail';
 export { FileList } from './FileList';
 export type { FileEntry, FileListProps } from './FileList';
 export { ItemCard } from './ItemCard';

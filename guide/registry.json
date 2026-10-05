@@ -380,14 +380,16 @@
             "components": []
           },
           "a list beside its detail": {
-            "components": []
+            "components": [
+              "ListDetailLayout"
+            ]
           },
           "two panes the user resizes": {
             "components": []
           },
           "a list beside an editor, with unsaved edits guarded": {
             "components": [
-              "MasterDetail"
+              "ListDetail"
             ]
           },
           "an app frame with its navigation": {
@@ -536,7 +538,7 @@
           },
           "a list the user adds to, renames and deletes from": {
             "components": [
-              "ManagedList"
+              "ItemList"
             ]
           },
           "one record, compact and read only": {
@@ -5197,6 +5199,222 @@
       "parts": []
     },
     {
+      "name": "ItemList",
+      "tier": "composites",
+      "source": "src/composites/ItemList/ItemList.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states.",
+      "useWhen": [
+        "The user keeps a set of named things, such as presets, servers or profiles, and adds, renames, deletes and picks them.",
+        "The list loads from disk or the network, so it needs a loading line and an error in place of the rows."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The list sits beside an editor whose edits can be lost when the user picks another item.",
+          "use": "ListDetail"
+        },
+        {
+          "case": "The rows are read only, or each row has its own set of actions.",
+          "use": "ListItemRow"
+        },
+        {
+          "case": "The items need columns to sort, group and filter.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Pass getId and getName; the name feeds the filter, the rename box and the labels of the row buttons.",
+        "Pass create to open a form at the top of the list, such as an InlineCreateForm with more fields, and call its close after a create or a cancel.",
+        "Pass onCreate in place of create when the app opens its own flow, such as a dialog or a wizard.",
+        "Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.",
+        "Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.",
+        "Leave actionVisibility on hover to show rename and delete on the picked row and on any row under the pointer; always shows them on every row.",
+        "Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.",
+        "Write empty as what to do next, such as Install a game from Games, then make a preset for it.",
+        "Write error as what failed and why, such as Could not read servers.json: unexpected end of input.",
+        "Put it on a surface: the list pane of ListDetailLayout, a card or a panel. It draws no background of its own."
+      ],
+      "a11y": [
+        "The list is a section named by its title, and each group is a list named by its heading.",
+        "The arrow keys, Home and End move the selection between rows, or only the focus with onActivate; F2 renames the focused row.",
+        "With onActivate the rows are one Tab stop on the focused row; a click, Enter or Space activates it, and Tab reaches its actions.",
+        "In the rename box, Enter keeps the name and Escape cancels; focus goes back to the row.",
+        "New moves focus into the create form; Escape or Cancel closes it and focus goes back to New.",
+        "After a create, focus goes to the new row when the app picks it, and back to New when it does not.",
+        "Delete asks once with its own Cancel, and the error is an alert."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a list the user adds to, renames and deletes from"
+        ],
+        "rule": "ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app."
+      },
+      "example": "import { ItemList } from '@drizztdourden08/tessera';\n\ninterface Server {\n  id: string;\n  name: string;\n  host: string;\n}\n\nconst ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, loading, error }: {\n  servers: Server[];\n  selectedId: string | null;\n  onSelect: (id: string) => void;\n  onAdd: () => void;\n  onRename: (id: string, name: string) => void;\n  onDelete: (id: string) => void;\n  loading: boolean;\n  error?: string;\n}) => (\n  <ItemList\n    title=\"Servers\"\n    items={servers}\n    getId={(server) => server.id}\n    getName={(server) => server.name}\n    render={(server) => ({ meta: server.host })}\n    selectedId={selectedId}\n    onSelect={onSelect}\n    onCreate={onAdd}\n    createLabel=\"Add\"\n    onRename={onRename}\n    onDelete={onDelete}\n    loading={loading}\n    error={error}\n    empty=\"Add a server to host sessions on.\"\n  />\n);\n",
+      "propsHash": "ef7621fdaecc7da2",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly T[]"
+          },
+          {
+            "name": "getId",
+            "optional": false,
+            "text": "(item: T) => string"
+          },
+          {
+            "name": "getName",
+            "optional": false,
+            "text": "(item: T) => string"
+          },
+          {
+            "name": "render",
+            "optional": true,
+            "text": "(item: T) => ItemListRowParts"
+          },
+          {
+            "name": "groupBy",
+            "optional": true,
+            "text": "(item: T) => string | undefined"
+          },
+          {
+            "name": "selectedId",
+            "optional": true,
+            "text": "string | null"
+          },
+          {
+            "name": "onSelect",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onActivate",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onCreate",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "create",
+            "optional": true,
+            "text": "ItemListCreate"
+          },
+          {
+            "name": "createOpen",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onCreateOpenChange",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "createLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onRename",
+            "optional": true,
+            "text": "(id: string, name: string) => void"
+          },
+          {
+            "name": "onDelete",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "actionVisibility",
+            "optional": true,
+            "text": "ListItemRowActionVisibility",
+            "literals": [
+              "'hover'",
+              "'always'"
+            ]
+          },
+          {
+            "name": "filter",
+            "optional": true,
+            "text": "ItemListFilter",
+            "literals": [
+              "'auto'",
+              "false",
+              "true"
+            ]
+          },
+          {
+            "name": "filterPlaceholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "loading",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "error",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "emptyIcon",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-primary",
+        "--c-selected",
+        "--c-text",
+        "--radius-md",
+        "--size-32",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--weight-medium"
+      ],
+      "gallery": {
+        "title": "Composites · Lists/ItemList",
+        "route": "#/story/composites-itemlist--overview",
+        "file": "stories/composites/ItemList.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "JobDialog",
       "tier": "composites",
       "source": "src/composites/JobDialog/JobDialog.tsx",
@@ -5518,250 +5736,15 @@
       "parts": []
     },
     {
-      "name": "ListItemRow",
+      "name": "ListDetail",
       "tier": "composites",
-      "source": "src/composites/ListItemRow/ListItemRow.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "LogPanel",
-      "tier": "composites",
-      "source": "src/composites/LogPanel/LogPanel.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
-      "name": "ManagedList",
-      "tier": "composites",
-      "source": "src/composites/ManagedList/ManagedList.tsx",
+      "source": "src/composites/ListDetail/ListDetail.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states.",
-      "useWhen": [
-        "The user keeps a set of named things, such as presets, servers or profiles, and adds, renames, deletes and picks them.",
-        "The list loads from disk or the network, so it needs a loading line and an error in place of the rows."
-      ],
-      "avoidWhen": [
-        {
-          "case": "The list sits beside an editor whose edits can be lost when the user picks another item.",
-          "use": "MasterDetail"
-        },
-        {
-          "case": "The rows are read only, or each row has its own set of actions.",
-          "use": "ListItemRow"
-        },
-        {
-          "case": "The items need columns to sort, group and filter.",
-          "use": "DataTable"
-        }
-      ],
-      "rules": [
-        "Pass getId and getName; the name feeds the filter, the rename box and the labels of the row buttons.",
-        "Pass create to open a form at the top of the list, such as an InlineCreateForm with more fields, and call its close after a create or a cancel.",
-        "Pass onCreate in place of create when the app opens its own flow, such as a dialog or a wizard.",
-        "Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.",
-        "Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.",
-        "Leave actionVisibility on hover to show rename and delete on the picked row and on any row under the pointer; always shows them on every row.",
-        "Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.",
-        "Write empty as what to do next, such as Install a game from Games, then make a preset for it.",
-        "Write error as what failed and why, such as Could not read servers.json: unexpected end of input."
-      ],
-      "a11y": [
-        "The list is a section named by its title, and each group is a list named by its heading.",
-        "The arrow keys, Home and End move the selection between rows, or only the focus with onActivate; F2 renames the focused row.",
-        "With onActivate the rows are one Tab stop on the focused row; a click, Enter or Space activates it, and Tab reaches its actions.",
-        "In the rename box, Enter keeps the name and Escape cancels; focus goes back to the row.",
-        "New moves focus into the create form; Escape or Cancel closes it and focus goes back to New.",
-        "After a create, focus goes to the new row when the app picks it, and back to New when it does not.",
-        "Delete asks once with its own Cancel, and the error is an alert."
-      ],
-      "tree": {
-        "path": [
-          "data",
-          "a list the user adds to, renames and deletes from"
-        ],
-        "rule": "ManagedList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app."
-      },
-      "example": "import { ManagedList } from '@drizztdourden08/tessera';\n\ninterface Server {\n  id: string;\n  name: string;\n  host: string;\n}\n\nconst ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, loading, error }: {\n  servers: Server[];\n  selectedId: string | null;\n  onSelect: (id: string) => void;\n  onAdd: () => void;\n  onRename: (id: string, name: string) => void;\n  onDelete: (id: string) => void;\n  loading: boolean;\n  error?: string;\n}) => (\n  <ManagedList\n    title=\"Servers\"\n    items={servers}\n    getId={(server) => server.id}\n    getName={(server) => server.name}\n    render={(server) => ({ meta: server.host })}\n    selectedId={selectedId}\n    onSelect={onSelect}\n    onCreate={onAdd}\n    createLabel=\"Add\"\n    onRename={onRename}\n    onDelete={onDelete}\n    loading={loading}\n    error={error}\n    empty=\"Add a server to host sessions on.\"\n  />\n);\n",
-      "propsHash": "2b555bdd0d7f3a2a",
-      "props": {
-        "own": [
-          {
-            "name": "title",
-            "optional": false,
-            "text": "string"
-          },
-          {
-            "name": "items",
-            "optional": false,
-            "text": "readonly T[]"
-          },
-          {
-            "name": "getId",
-            "optional": false,
-            "text": "(item: T) => string"
-          },
-          {
-            "name": "getName",
-            "optional": false,
-            "text": "(item: T) => string"
-          },
-          {
-            "name": "render",
-            "optional": true,
-            "text": "(item: T) => ManagedListRowParts"
-          },
-          {
-            "name": "groupBy",
-            "optional": true,
-            "text": "(item: T) => string | undefined"
-          },
-          {
-            "name": "selectedId",
-            "optional": true,
-            "text": "string | null"
-          },
-          {
-            "name": "onSelect",
-            "optional": true,
-            "text": "(id: string) => void"
-          },
-          {
-            "name": "onActivate",
-            "optional": true,
-            "text": "(id: string) => void"
-          },
-          {
-            "name": "onCreate",
-            "optional": true,
-            "text": "() => void"
-          },
-          {
-            "name": "create",
-            "optional": true,
-            "text": "ManagedListCreate"
-          },
-          {
-            "name": "createOpen",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "onCreateOpenChange",
-            "optional": true,
-            "text": "(open: boolean) => void"
-          },
-          {
-            "name": "createLabel",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "onRename",
-            "optional": true,
-            "text": "(id: string, name: string) => void"
-          },
-          {
-            "name": "onDelete",
-            "optional": true,
-            "text": "(id: string) => void"
-          },
-          {
-            "name": "actionVisibility",
-            "optional": true,
-            "text": "ListItemRowActionVisibility",
-            "literals": [
-              "'hover'",
-              "'always'"
-            ]
-          },
-          {
-            "name": "filter",
-            "optional": true,
-            "text": "ManagedListFilter",
-            "literals": [
-              "'auto'",
-              "false",
-              "true"
-            ]
-          },
-          {
-            "name": "filterPlaceholder",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "loading",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "error",
-            "optional": true,
-            "text": "ReactNode"
-          },
-          {
-            "name": "empty",
-            "optional": true,
-            "text": "ReactNode"
-          },
-          {
-            "name": "emptyIcon",
-            "optional": true,
-            "text": "ReactNode"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--border-width-thin",
-        "--c-primary",
-        "--c-selected",
-        "--c-text",
-        "--radius-md",
-        "--size-32",
-        "--space-2xs",
-        "--space-md",
-        "--space-sm",
-        "--space-xs",
-        "--weight-medium"
-      ],
-      "gallery": {
-        "title": "Composites · Lists/ManagedList",
-        "route": "#/story/composites-managedlist--overview",
-        "file": "stories/composites/ManagedList.stories.tsx"
-      },
-      "parts": []
-    },
-    {
-      "name": "MasterDetail",
-      "tier": "composites",
-      "source": "src/composites/MasterDetail/MasterDetail.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": true,
-      "job": "A ManagedList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away.",
+      "job": "An ItemList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away.",
       "useWhen": [
         "A screen lists saved things on the left and edits the picked one on the right, such as presets or servers.",
         "The editor holds edits until the user saves, so moving away must ask first."
@@ -5769,42 +5752,43 @@
       "avoidWhen": [
         {
           "case": "The detail is read only, or every edit saves at once.",
-          "use": "MasterDetailLayout"
+          "use": "ListDetailLayout"
         },
         {
           "case": "Only the list is needed, with no editor beside it.",
-          "use": "ManagedList"
+          "use": "ItemList"
         }
       ],
       "rules": [
         "Set dirty from the editor: true while its value differs from the saved one.",
         "Pass onSave so the question offers Save and open; return false, or reject, when the save fails.",
         "Pass onDiscard to throw the draft away; onSelect runs after it.",
-        "Keep the list props in list; MasterDetail adds the selection and guards New.",
+        "Keep the list props in list; ListDetail adds the selection and guards New.",
         "A create form in list opens without the question, since it throws no edits away; picking the new item is up to the app.",
         "The question is a bar over the editor by default; pass guard dialog to ask in a modal dialog instead.",
-        "Put a SaveBar at the foot of the editor, for Save and Discard while the user stays on the item."
+        "Put a SaveBar at the foot of the editor, for Save and Discard while the user stays on the item.",
+        "Every prop of ListDetailLayout passes through, such as storageKey, collapsed and emptyDetail; detail shows only while an item is picked."
       ],
       "a11y": [
         "The question takes focus on Stay here, and Escape stays; focus goes back where it was.",
         "By default the question is an alertdialog over the editor; with guard dialog it is a modal dialog.",
-        "The list keeps every key of ManagedList, and under 768 px Back sits at the top of the editor."
+        "The list keeps every key of ItemList; the panes keep every key of ListDetailLayout, with Enter on the divider to fold the list."
       ],
       "tree": {
         "path": [
           "layout",
           "a list beside an editor, with unsaved edits guarded"
         ],
-        "rule": "MasterDetail joins ManagedList and MasterDetailLayout and asks the same question before edits are lost in every app."
+        "rule": "ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app."
       },
-      "example": "import { MasterDetail } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Preset {\n  id: string;\n  name: string;\n  options: Record<string, number>;\n}\n\nconst PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Preset) => Promise<void> }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const [draft, setDraft] = useState<Preset | null>(null);\n  const saved = presets.find((preset) => preset.id === selectedId);\n  return (\n    <MasterDetail\n      list={{ title: 'Presets', items: presets, getId: (preset) => preset.id, getName: (preset) => preset.name }}\n      selectedId={selectedId}\n      onSelect={(id) => { setDraft(null); setSelectedId(id); }}\n      detail={saved ? <pre>{JSON.stringify(draft ?? saved)}</pre> : null}\n      dirty={draft !== null}\n      onSave={async () => { if (draft) await save(draft); }}\n      onDiscard={() => setDraft(null)}\n      storageKey=\"presets.list-width\"\n    />\n  );\n};\n",
-      "propsHash": "5986387546342875",
+      "example": "import { ListDetail } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Preset {\n  id: string;\n  name: string;\n  options: Record<string, number>;\n}\n\nconst PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Preset) => Promise<void> }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const [draft, setDraft] = useState<Preset | null>(null);\n  const saved = presets.find((preset) => preset.id === selectedId);\n  return (\n    <ListDetail\n      list={{ title: 'Presets', items: presets, getId: (preset) => preset.id, getName: (preset) => preset.name }}\n      selectedId={selectedId}\n      onSelect={(id) => { setDraft(null); setSelectedId(id); }}\n      detail={saved && <pre>{JSON.stringify(draft ?? saved)}</pre>}\n      dirty={draft !== null}\n      onSave={async () => { if (draft) await save(draft); }}\n      onDiscard={() => setDraft(null)}\n      storageKey=\"presets.list\"\n    />\n  );\n};\n",
+      "propsHash": "1d776bc2f6d7abee",
       "props": {
         "own": [
           {
             "name": "list",
             "optional": false,
-            "text": "MasterDetailList<T>"
+            "text": "ListDetailListProps<T>"
           },
           {
             "name": "selectedId",
@@ -5822,11 +5806,6 @@
             "text": "ReactNode"
           },
           {
-            "name": "emptyDetail",
-            "optional": true,
-            "text": "ReactNode"
-          },
-          {
             "name": "dirty",
             "optional": true,
             "text": "boolean",
@@ -5835,7 +5814,7 @@
           {
             "name": "onSave",
             "optional": true,
-            "text": "MasterDetailSave"
+            "text": "ListDetailSave"
           },
           {
             "name": "onDiscard",
@@ -5845,7 +5824,7 @@
           {
             "name": "guard",
             "optional": true,
-            "text": "MasterDetailGuardLook",
+            "text": "ListDetailGuardLook",
             "literals": [
               "'dialog'",
               "'inline'"
@@ -5854,6 +5833,16 @@
           },
           {
             "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "emptyDetail",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "backLabel",
             "optional": true,
             "text": "string"
           },
@@ -5878,12 +5867,27 @@
             "text": "number"
           },
           {
-            "name": "storageKey",
+            "name": "collapsible",
             "optional": true,
-            "text": "string"
+            "text": "boolean"
           },
           {
-            "name": "backLabel",
+            "name": "collapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onCollapsedChange",
+            "optional": true,
+            "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "storageKey",
             "optional": true,
             "text": "string"
           },
@@ -5902,30 +5906,214 @@
           "count": 0,
           "from": [],
           "extends": [
-            "MasterDetailLayoutLook"
+            "Omit<ListDetailLayoutProps, 'list' | 'detail' | 'onBack'>"
           ]
         }
       },
       "tokens": [
         "--border-width-thin",
         "--c-warning",
-        "--c-warning-soft",
+        "--c-warning-dim",
         "--radius-md",
         "--size-256",
         "--space-md",
-        "--space-sm"
+        "--space-sm",
+        "--z-sticky"
       ],
       "gallery": {
-        "title": "Composites · Layout/MasterDetail",
-        "route": "#/story/composites-masterdetail--overview",
-        "file": "stories/composites/MasterDetail.stories.tsx"
+        "title": "Composites · Layout/ListDetail",
+        "route": "#/story/composites-listdetail--overview",
+        "file": "stories/composites/ListDetail.stories.tsx"
       },
       "parts": []
     },
     {
-      "name": "MasterDetailLayout",
+      "name": "ListDetailLayout",
       "tier": "composites",
-      "source": "src/composites/MasterDetailLayout/MasterDetailLayout.tsx",
+      "source": "src/composites/ListDetailLayout/ListDetailLayout.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The two panes of a list and detail screen: the list on the left and the detail of the picked item beside it, each on its own surface.",
+      "useWhen": [
+        "A screen lists things on the left and shows the picked one on the right, such as sessions, servers or saves.",
+        "The user needs more room for the detail now and then, so the list folds away to a rail."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The detail is an editor whose edits can be lost when the user picks another item.",
+          "use": "ListDetail"
+        },
+        {
+          "case": "Two panes of equal weight split the room by share.",
+          "use": "SplitPane"
+        },
+        {
+          "case": "The left side is the navigation of the app.",
+          "use": "SideNavLayout"
+        }
+      ],
+      "rules": [
+        "Pass the list and the detail as content; the layout draws the panes, their surfaces and their scroll.",
+        "Leave detail out, or pass null, while nothing is picked; emptyDetail replaces the default placeholder.",
+        "Pass onBack to clear the selection; under 768 px it shows the list again.",
+        "Pass storageKey to keep the width and the fold between visits; the fold is kept under storageKey:collapsed.",
+        "Pass collapsed with onCollapsedChange when the app holds the fold, such as from a menu or its own shortcut.",
+        "Put a SaveBar last in the detail: it sits flush with the foot of the pane.",
+        "Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor."
+      ],
+      "a11y": [
+        "The divider is a separator: the arrow keys resize it, Home and End jump to the limits, Space and a double click reset it.",
+        "Enter on the divider folds the list and moves focus to the button that brings it back.",
+        "The fold button names the list, Hide presets or Show presets, and reports aria-expanded on the list pane.",
+        "Under 768 px the panes stack and Back sits at the top of the detail."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a list beside its detail"
+        ],
+        "rule": "ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way."
+      },
+      "example": "import { ListDetailLayout, ListItemList, ListItemRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Session {\n  id: string;\n  name: string;\n}\n\nconst SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; renderSession: (session: Session) => React.ReactNode }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const selected = sessions.find((session) => session.id === selectedId);\n  return (\n    <ListDetailLayout\n      list={(\n        <ListItemList heading=\"Sessions\">\n          {sessions.map((session) => (\n            <ListItemRow key={session.id} name={session.name} selected={session.id === selectedId} onClick={() => setSelectedId(session.id)} />\n          ))}\n        </ListItemList>\n      )}\n      detail={selected && renderSession(selected)}\n      onBack={() => setSelectedId(null)}\n      listLabel=\"sessions\"\n      storageKey=\"sessions.list\"\n    />\n  );\n};\n",
+      "propsHash": "fdcf07fa45ab4c80",
+      "props": {
+        "own": [
+          {
+            "name": "list",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "detail",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "emptyDetail",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onBack",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "backLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "resizable",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "listWidth",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "minListWidth",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "maxListWidth",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "collapsible",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "collapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onCollapsedChange",
+            "optional": true,
+            "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "storageKey",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "listLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "detailLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-sunken",
+        "--c-surface",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--radius-lg",
+        "--size-320",
+        "--space-2xs",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xl",
+        "--space-xs",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-wide",
+        "--z-sticky"
+      ],
+      "gallery": {
+        "title": "Composites · Layout/ListDetailLayout",
+        "route": "#/story/composites-listdetaillayout--overview",
+        "file": "stories/composites/ListDetailLayout.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "ListItemRow",
+      "tier": "composites",
+      "source": "src/composites/ListItemRow/ListItemRow.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "LogPanel",
+      "tier": "composites",
+      "source": "src/composites/LogPanel/LogPanel.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"

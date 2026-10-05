@@ -1,21 +1,33 @@
 /* @layer stories @kind types */
-import type { MasterDetailGuardLook, SaveBarState } from '../../../src/composites';
+import type { ListDetailGuardLook, SaveBarState } from '../../../src/composites';
 
-interface SamplePreset {
+type PresetGoal = 'ganon' | 'triforce' | 'pedestal';
+
+type PresetPool = 'normal' | 'hard' | 'expert';
+
+interface PresetOptions {
+  tower: number;
+  ganon: number;
+  goal: PresetGoal;
+  keysanity: boolean;
+  pool: PresetPool;
+  balancing: number;
+}
+
+interface SamplePreset extends PresetOptions {
   id: string;
   name: string;
   game: string;
+  notes: string;
   changes: number;
   edited?: string;
   missing?: boolean;
-  tower: number;
-  ganon: number;
 }
 
-type ManagedListDemoState = 'ready' | 'loading' | 'empty' | 'error';
+type ItemListDemoState = 'ready' | 'loading' | 'empty' | 'error';
 
-interface ManagedListDemoProps {
-  state?: ManagedListDemoState;
+interface ItemListDemoProps {
+  state?: ItemListDemoState;
   grouped?: boolean;
   filter?: boolean;
   actions?: boolean;
@@ -24,19 +36,26 @@ interface ManagedListDemoProps {
 }
 
 interface PresetsDemoProps {
-  guard?: MasterDetailGuardLook;
+  guard?: ListDetailGuardLook;
   narrow?: boolean;
+  tall?: boolean;
+  startCollapsed?: boolean;
   startDirty?: boolean;
   startEmpty?: boolean;
 }
 
-interface PresetEditorProps {
+interface PresetRowsProps {
   preset: SamplePreset;
+  onChange: (patch: Partial<SamplePreset>) => void;
+}
+
+interface PresetEditorProps extends PresetRowsProps {
   state: SaveBarState;
   error?: string;
-  onChange: (patch: Partial<SamplePreset>) => void;
   onSave: () => void;
   onDiscard: () => void;
 }
 
-export type { ManagedListDemoProps, ManagedListDemoState, PresetEditorProps, PresetsDemoProps, SamplePreset };
+export type {
+  ItemListDemoProps, ItemListDemoState, PresetEditorProps, PresetGoal, PresetOptions, PresetPool, PresetRowsProps, PresetsDemoProps, SamplePreset,
+};

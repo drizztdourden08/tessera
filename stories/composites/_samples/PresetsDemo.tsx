@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { MasterDetail } from '../../../src/composites';
+import { ListDetail } from '../../../src/composites';
 import { Box } from '../../../src/primitives';
 import { presetGroup } from './preset-group';
 import { presetRow } from './preset-row';
@@ -13,7 +13,11 @@ import { useSaveDemo } from './useSaveDemo';
 const idOf = (preset: SamplePreset) => preset.id;
 const nameOf = (preset: SamplePreset) => preset.name;
 
-const PresetsDemo = ({ guard, narrow, startDirty, startEmpty }: PresetsDemoProps) => {
+const frameClass = ({ narrow, tall }: PresetsDemoProps): string =>
+  ['list-detail-story', tall && 'list-detail-story--tall', narrow && 'list-detail-story--narrow'].filter(Boolean).join(' ');
+
+const PresetsDemo = (props: PresetsDemoProps) => {
+  const { guard, startDirty, startEmpty, startCollapsed } = props;
   const presets = useSamplePresets();
   const [selectedId, setSelectedId] = useState<string | null>(startEmpty ? null : 'p2');
   const edit = usePresetDraft(presets.items.find((p) => p.id === selectedId), startDirty === true);
@@ -29,8 +33,8 @@ const PresetsDemo = ({ guard, narrow, startDirty, startEmpty }: PresetsDemoProps
   };
   const current = edit.draft;
   return (
-    <Box className={narrow ? 'master-detail-editor-story master-detail-editor-story--narrow' : 'master-detail-editor-story'}>
-      <MasterDetail
+    <Box className={frameClass(props)}>
+      <ListDetail
         list={{
           title: 'Presets', items: presets.items, getId: idOf, getName: nameOf, render: presetRow, groupBy: presetGroup,
           onCreate: () => setSelectedId(presets.create()), onRename: presets.rename, onDelete: presets.remove, filter: true,
@@ -44,7 +48,7 @@ const PresetsDemo = ({ guard, narrow, startDirty, startEmpty }: PresetsDemoProps
         onSave={save}
         onDiscard={drop}
         guard={guard}
-        storageKey="tessera-stories:master-detail-editor-width"
+        defaultCollapsed={startCollapsed}
         listLabel="presets"
         detailLabel="preset editor"
       />
