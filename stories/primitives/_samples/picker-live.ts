@@ -1,5 +1,6 @@
 /* @layer stories @kind logic */
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { matchesText } from '../../../src/data';
 import { BUILDS, GAMES } from './picker-data';
 import type { Build, Game } from './picker-data';
 
@@ -41,8 +42,7 @@ const useGameSearch = () => {
   const search = (query: string) => {
     latest.current = query;
     setLoading(true);
-    const needle = query.trim().toLowerCase();
-    const hits = GAMES.filter((game) => `${game.title} ${game.platform}`.toLowerCase().includes(needle));
+    const hits = GAMES.filter((game) => matchesText(`${game.title} ${game.platform}`, query));
     void later(hits, SEARCH_DELAY_MS).then((found) => {
       if (latest.current !== query) return;
       setGames(found);

@@ -22,6 +22,8 @@ export {
 } from './filter/tester-registry';
 export { compileTextSearch } from './filter/text-search';
 export type { FieldTester, FilterTestOptions } from './filter/tester-registry';
+export { foldText, matchParts, matchesText } from './text';
+export type { MatchPart } from './text';
 
 export {
   addColumn, fitAllColumns, fitColumn, indexOfColumn, insertColumnAt, moveColumn, removeColumn,

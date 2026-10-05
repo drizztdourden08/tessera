@@ -1,12 +1,12 @@
 /* @layer renderer-components @kind component */
 import { useContext, useId } from 'react';
+import { matchesText } from '../../../data/text/matches-text';
 import { Box } from '../../../primitives/Box';
 import { useHintTarget } from '../../../primitives/hint/useHintTarget';
 import { Icon } from '../../../primitives/Icon';
 import { Tooltip } from '../../../primitives/Tooltip';
 import { Span } from '../../../primitives/text-elements';
 import { ControlMenuContext } from '../behavior/control-menu-context';
-import { matchesQuery } from '../behavior/matches-query';
 import { ABOUT_ICON_SIZE } from '../ControlMenu.constants';
 import type { ControlMenuRowProps } from '../ControlMenu.type';
 
@@ -15,7 +15,7 @@ const ControlMenuRow = (props: ControlMenuRowProps) => {
   const { query } = useContext(ControlMenuContext);
   const aboutId = useId();
   const hintHandlers = useHintTarget<HTMLElement>({ hint });
-  if (!matchesQuery(label, query)) return null;
+  if (!matchesText(label, query)) return null;
   const text = <Span tone="dim" className="control-menu__label">{label}</Span>;
   const described = about === undefined ? {} : { role: 'group', 'aria-label': label, 'aria-describedby': aboutId };
 

@@ -4,6 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SideNav } from '../../src/composites';
 import type { SideNavConfig, SideNavItem, SideNavVariant } from '../../src/composites';
+import { matchesText } from '../../src/data';
 import { Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -43,8 +44,7 @@ const NavDemo = (props: SideNavArgs) => {
   const [active, setActive] = useState('sessions');
   const [query, setQuery] = useState('');
   const config = useMemo<SideNavConfig>(() => ({ home: withHome ? HOME : undefined, groups: GROUPS }), [withHome]);
-  const q = query.trim().toLowerCase();
-  const matches = ALL_ITEMS.filter((i) => i.label.toLowerCase().includes(q));
+  const matches = ALL_ITEMS.filter((i) => matchesText(i.label, query));
   const current = ALL_ITEMS.find((i) => i.id === active);
   return (
     <Box className="story-frame side-nav-story__frame">
@@ -59,7 +59,7 @@ const NavDemo = (props: SideNavArgs) => {
         search={withSearch ? { value: query, onChange: setQuery, placeholder: searchPlaceholder } : undefined}
       />
       <Box className="side-nav-story__pane">
-        {q
+        {query.trim() !== ''
           ? <Text className="story-label">{matches.length} matches: {matches.map((m) => m.label).join(', ') || 'none'}</Text>
           : <Text variant="title">{current?.label ?? active}</Text>}
         <Text>The chevron on the nav edge opens it to show group and item labels.</Text>

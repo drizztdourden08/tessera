@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import { filterSettingsSections, SearchResults, SettingsSection } from '../../../src/composites';
 import type { WorkspacePage } from '../../../src/composites';
+import { matchesText } from '../../../src/data';
 import { useSampleSettings } from './settings-sample-state';
 import { workspaceSample } from './workspace-sample';
 
@@ -11,7 +12,7 @@ const SettingsResultsDemo = (props: { query: string; onOpen?: (id: string) => vo
   const { query, onOpen, idleMessage } = props;
   const content = workspaceSample(useSampleSettings());
   const pages = content.groups.flatMap((group) => group.pages);
-  const needle = query.trim().toLowerCase();
+  const needle = query.trim();
   const matched = pages.filter((page) => needle !== '' && rowCount(page, needle) > 0);
   const total = matched.reduce((sum, page) => sum + rowCount(page, needle), 0);
   return (
@@ -19,7 +20,7 @@ const SettingsResultsDemo = (props: { query: string; onOpen?: (id: string) => vo
       query={query}
       count={total}
       summary={total > 0 ? `${total} ${total === 1 ? 'setting matches' : 'settings match'} "${query.trim()}"` : undefined}
-      jumps={pages.filter((page) => needle !== '' && page.title.toLowerCase().includes(needle)).map((page) => ({ id: page.id, label: page.title, icon: page.icon }))}
+      jumps={pages.filter((page) => needle !== '' && matchesText(page.title, needle)).map((page) => ({ id: page.id, label: page.title, icon: page.icon }))}
       onJump={onOpen}
       groups={matched.map((page) => ({
         id: page.id,

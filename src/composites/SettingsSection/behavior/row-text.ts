@@ -11,7 +11,7 @@ const inputText = (input: SettingsInput | undefined): string[] => {
 const rowText = (row: SettingsSectionRow): string => {
   const words = [row.title ?? '', row.description ?? '', row.hint, row.keywords ?? ''];
   const parts = isSettingsItem(row) ? [...inputText(row.input), ...(row.actions ?? []).map((action) => action.label)] : [];
-  return [...words, ...parts].join(' ').toLowerCase();
+  return [...words, ...parts].join(' ');
 };
 
 export { rowText };

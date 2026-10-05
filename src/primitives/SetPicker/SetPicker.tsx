@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useState } from 'react';
+import { matchesText } from '../../data/text/matches-text';
 import { Box } from '../Box';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { FieldControlBoundary } from '../FieldControlBoundary';
@@ -18,7 +19,7 @@ const SetPicker = (props: SetPickerProps) => {
   const { options: words, common } = useTesseraStrings();
   const [query, setQuery] = useState('');
   const control = useFieldControl();
-  const shown = options.filter((option) => option.toLowerCase().includes(query.trim().toLowerCase()));
+  const shown = options.filter((option) => matchesText(option, query));
   const set = (option: string, on: boolean) => onChange(toggleIn(options, value, option, on));
   return (
     <Box className={['set-picker', className].filter(Boolean).join(' ')} role="group" aria-label={props['aria-label']} aria-labelledby={props['aria-label'] ? undefined : control.labelId}>

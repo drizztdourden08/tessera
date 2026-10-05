@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { ManagedList } from '../src/composites/ManagedList';
 import { groupItems } from '../src/composites/ManagedList/behavior/group-items';
-import { matchName } from '../src/composites/ManagedList/behavior/match-name';
+import { matchesText } from '../src/data/text/matches-text';
 import { MasterDetail } from '../src/composites/MasterDetail';
 import { guardMessage } from '../src/composites/MasterDetail/behavior/guard-message';
 import { TESSERA_STRINGS } from '../src/primitives/strings';
@@ -64,8 +64,8 @@ describe('ManagedList', () => {
       ['A Link to the Past', 2], ['Timespinner', 1],
     ]);
     expect(groupItems([], undefined)).toEqual([]);
-    expect(matchName('Open, fast Ganon', 'fast open')).toBe(true);
-    expect(matchName('Open, fast Ganon', 'slow')).toBe(false);
+    expect(matchesText('Open, fast Ganon', 'fast open')).toBe(true);
+    expect(matchesText('Open, fast Ganon', 'slow')).toBe(false);
   });
 });
 

@@ -97,6 +97,7 @@ const Overview = overviewStory({
   points: [
     '`buildSchema(rows)` reads the rows and describes every field.',
     '`compile` and `compileTextSearch` turn filter clauses and a search into a test for each row.',
+    '`matchesText` and `matchParts` match a search as every Tessera part does: each word, case and accents ignored.',
     '`useDataTable` keeps the columns, sort and grouping, and returns `groupedRows` to draw with any markup.',
     'Rows sit one step in from their group, so a two-level grouping reads as a tree.',
     'The table state is plain data: a view key and `ViewStorageProvider` keep it between visits.',

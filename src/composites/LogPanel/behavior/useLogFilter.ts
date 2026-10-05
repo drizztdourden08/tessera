@@ -1,15 +1,12 @@
 /* @layer renderer-components @kind hook */
 import { useMemo, useState } from 'react';
 import { compile } from '../../../data/filter/clause';
+import { matchesText } from '../../../data/text/matches-text';
 import type { FilterClause } from '../../../data/filter/clause';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { logSchema } from './log-schema';
 import { NO_FILTERS } from './useLogFilter.constants';
-import type { LogRow } from '../LogPanel.type';
 import type { LogFilter, LogFilterInput } from './useLogFilter.type';
-
-const matchesQuery = (row: LogRow, query: string): boolean =>
-  row.message.toLowerCase().includes(query) || row.tag.toLowerCase().includes(query);
 
 const useLogFilter = (input: LogFilterInput): LogFilter => {
   const { rows, kinds } = input;
@@ -26,8 +23,7 @@ const useLogFilter = (input: LogFilterInput): LogFilter => {
   const shown = useMemo(() => {
     const labelOf = new Map(kinds?.map((kind) => [kind.id, kind.label]));
     const test = compile(filters, schema);
-    const query = search.trim().toLowerCase();
-    return rows.filter((row) => (!query || matchesQuery(row, query)) && test({ ...row, kind: labelOf.get(row.kind) ?? row.kind }));
+    return rows.filter((row) => matchesText(`${row.message} ${row.tag}`, search) && test({ ...row, kind: labelOf.get(row.kind) ?? row.kind }));
   }, [rows, kinds, filters, schema, search]);
 
   return {

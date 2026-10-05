@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-import { foldText } from './fold-text';
+import { foldText } from '../../data/text/fold-text';
 
 const typeaheadIndex = (labels: readonly string[], enabled: readonly boolean[], current: number, buffer: string): number => {
   const cycling = [...buffer].every((char) => char === buffer[0]);

@@ -5,7 +5,7 @@ import type { ManagedListProps, ManagedListView } from '../ManagedList.type';
 import { focusRow } from './focus-row';
 import { groupItems } from './group-items';
 import { listKey } from './list-key';
-import { matchName } from './match-name';
+import { matchesText } from '../../../data/text/matches-text';
 import { rowButtons } from './row-buttons';
 import { tabRow } from './tab-row';
 
@@ -15,7 +15,7 @@ const useManagedList = <T,>(props: ManagedListProps<T>): ManagedListView<T> => {
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const listRef = useRef<HTMLElement>(null);
-  const shown = useMemo(() => (query ? items.filter((item) => matchName(getName(item), query)) : items), [items, getName, query]);
+  const shown = useMemo(() => (query ? items.filter((item) => matchesText(getName(item), query)) : items), [items, getName, query]);
   const groups = useMemo(() => groupItems(shown, groupBy), [shown, groupBy]);
   const rowIds = useMemo(() => groups.flatMap((group) => group.items.map(getId)).filter((id) => id !== renamingId), [groups, getId, renamingId]);
   const tabId = tabRow(rowIds, focusedId, selectedId);

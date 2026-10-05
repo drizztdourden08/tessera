@@ -5350,3 +5350,37 @@ Tessera draws no gradient with a white glow in its centre: no `radial-gradient` 
 2. An app theme that changes the palette seeds sets `--p-gradient-light-from` and `--p-gradient-light-to` too.
 3. An import of `Splash` or its types from `@drizztdourden08/tessera/primitives` moves to `@drizztdourden08/tessera/composites`, or to the root.
 4. Brock: drop the `radial-gradient(circle at 50% 40%, …)` layer from `.splash` in `splash-page.css` and from `BootFailureSplash.css`, and the light drop shadow on the mark, keeping the plain gradient under it. Its splash takes the dark pair (section 171); where it keeps the bright look, it reads `palettes.<palette>.dark.gradientLightFrom` and `gradientLightTo` from `tokens.json`.
+
+## 181. One shared helper for each piece of logic written twice
+
+From TX-38. The owner approved one shared helper for each piece of logic the design system wrote in two or more places, listed in the last section of the component audit. Each helper sits in the lowest tier its users can import, every copy moved onto it, and the copies are gone. Looks do not change. Behaviour changes are listed under each helper.
+
+Four of the nineteen were already shared before this section: the ticking clock (`useRepeatTick`, section 177), the file drag (`useFileDrag`, section 177), the question inside a row (`useConfirmAsk`, section 179) and the scrims (`Overlay`, section 175).
+
+### One text match for every search
+
+Search matched about ten ways: some parts ignored accents, some split the query into words, some did neither. Every search in Tessera now goes through one matcher in the data tier, `src/data/text`: the query is split into words, and a text matches when every word is somewhere in it, in any order, with case and accents ignored. An empty query matches everything.
+
+```ts
+foldText(text: string): string; // 'Été' reads 'ete'
+matchesText(text: string, query: string): boolean;
+matchParts(text: string, query: string): MatchPart[]; // the text cut into marked and plain parts
+interface MatchPart { text: string; match: boolean }
+```
+
+- **Accents.** Only combining accents come off, one character at a time, so `^` and `` ` `` in a query stay, and the folded text keeps the length the marks need.
+- **Marks.** `matchParts` marks each word of the query wherever it appears, in the text as written, so `resume` marks `Résumé`. Overlapping words join into one mark. The listbox, DropdownMenu and SearchResultHit all draw their marks with the same `HighlightedText`, which takes a `markClassName`.
+- **Public.** `foldText`, `matchesText`, `matchParts` and `MatchPart` are exported from `@drizztdourden08/tessera/data` and the root, so an app that filters its own list, such as the groups of a CommandPalette, matches the same way.
+- The copies are removed: `matchesQuery` of ControlMenu, `matchName` of ManagedList, `splitMatch` and `MatchText` of SearchResultHit, and `foldText` and `highlightParts` of the listbox. None was exported.
+
+| Where | Before | Now |
+|---|---|---|
+| Combobox and the other listbox parts | accents ignored, the whole query as one phrase | every word, in any order |
+| DropdownMenu search | every word, accents ignored; marked only the whole query | the same match; each word is marked |
+| ControlMenu, LogPanel, SetPicker, TagInput suggestions | case ignored, the whole query as one phrase | every word, accents ignored |
+| ManagedList | every word, case ignored | accents ignored too |
+| SettingsSection (`filterSettingsSections`) and WorkspaceScreen search | case ignored, the whole query as one phrase | every word, accents ignored; the words of a row may sit in its title, hint or options |
+| `compileTextSearch` | one value of the row held the whole query | each word is in some value of the row, accents ignored |
+| SearchResultHit | marked the first place of the whole query | marks every word wherever it appears, accents ignored |
+
+The filter operators of the field kits (`contains`, `startsWith` and the rest) are not search: they keep their own case option and compare the operand as written.

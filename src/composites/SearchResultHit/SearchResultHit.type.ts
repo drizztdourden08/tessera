@@ -11,9 +11,4 @@ interface SearchResultHitProps {
   className?: string;
 }
 
-interface MatchPart {
-  text: string;
-  match: boolean;
-}
-
-export type { MatchPart, SearchResultHitProps };
+export type { SearchResultHitProps };

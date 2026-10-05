@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
 import { Icon } from '../../primitives/Icon';
+import { HighlightedText } from '../../primitives/listbox/HighlightedText';
 import { Pressable } from '../../primitives/Pressable';
 import { Span } from '../../primitives/text-elements';
-import { PATH_ICON_SIZE } from './SearchResultHit.constants';
-import { MatchText } from './sub-components/MatchText';
+import { MATCH_CLASS, PATH_ICON_SIZE } from './SearchResultHit.constants';
 import type { SearchResultHitProps } from './SearchResultHit.type';
 import './SearchResultHit.css';
 
@@ -14,8 +14,10 @@ const SearchResultHit = (props: SearchResultHitProps) => {
     <Pressable className={`search-result-hit${className ? ` ${className}` : ''}`} onClick={onOpen}>
       {icon != null && <Box as="span" className="search-result-hit__icon" aria-hidden="true">{icon}</Box>}
       <Box as="span" className="search-result-hit__text">
-        <MatchText className="search-result-hit__label" text={label} query={query} />
-        {description !== undefined && <MatchText className="search-result-hit__description" text={description} query={query} />}
+        <Span className="search-result-hit__label"><HighlightedText text={label} query={query} markClassName={MATCH_CLASS} /></Span>
+        {description !== undefined && (
+          <Span className="search-result-hit__description"><HighlightedText text={description} query={query} markClassName={MATCH_CLASS} /></Span>
+        )}
       </Box>
       {path !== undefined && path.length > 0 && (
         <Span className="search-result-hit__path">

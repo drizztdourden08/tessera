@@ -1,4 +1,5 @@
 /* @layer stories @kind data */
+import { matchesText } from '../../../src/data';
 import { Icon } from '../../../src/primitives';
 import type { IconName } from '../../../src/primitives';
 import type { CommandPaletteGroup, CommandPaletteItem } from '../../../src/composites';
@@ -43,12 +44,11 @@ const ACTIONS: readonly PaletteEntry[] = [
 const KIND_LABELS: Record<PaletteKind, string> = { screen: 'Screens', setting: 'Settings', action: 'Actions' };
 
 const matches = (entry: PaletteEntry, query: string): boolean =>
-  [entry.label, ...(entry.breadcrumb ?? [])].some((text) => text.toLowerCase().includes(query));
+  matchesText([entry.label, ...(entry.breadcrumb ?? [])].join(' '), query);
 
 const paletteGroups = (query: string, flags: Flags, flip: (id: string) => void): CommandPaletteGroup<PaletteEntry>[] => {
-  const q = query.trim().toLowerCase();
-  if (!q) return [{ id: 'screens', label: KIND_LABELS.screen, items: SCREENS }];
-  const hits = [...SCREENS, ...settings(flags, flip), ...ACTIONS].filter((entry) => matches(entry, q));
+  if (query.trim() === '') return [{ id: 'screens', label: KIND_LABELS.screen, items: SCREENS }];
+  const hits = [...SCREENS, ...settings(flags, flip), ...ACTIONS].filter((entry) => matches(entry, query));
   return (['screen', 'setting', 'action'] as const).map((kind) => ({
     id: kind, label: KIND_LABELS[kind], items: hits.filter((entry) => entry.kind === kind),
   }));

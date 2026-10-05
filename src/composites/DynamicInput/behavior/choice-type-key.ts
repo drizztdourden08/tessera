@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-import { foldText } from '../../../primitives/listbox/fold-text';
+import { foldText } from '../../../data/text/fold-text';
 import { typeaheadIndex } from '../../../primitives/listbox/typeahead-index';
 import type { KeyboardEvent } from 'react';
 import type { ChoiceKeyContext } from './choice-segment.type';

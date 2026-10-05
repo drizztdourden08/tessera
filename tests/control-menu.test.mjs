@@ -3,7 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { ControlMenu, ControlMenuRow } from '../src/composites/ControlMenu';
-import { matchesQuery } from '../src/composites/ControlMenu/behavior/matches-query';
+import { matchesText } from '../src/data/text/matches-text';
 import { shiftInto } from '../src/composites/ControlMenu/behavior/shift-into';
 import { dropPlacement } from '../src/primitives/listbox/drop-placement';
 
@@ -19,9 +19,9 @@ describe('ControlMenu', () => {
   });
 
   it('filters rows by label, ignoring case and spaces around the query', () => {
-    expect(matchesQuery('Main view', '  VIEW ')).toBe(true);
-    expect(matchesQuery('Main view', '')).toBe(true);
-    expect(matchesQuery('Opacity', 'pin')).toBe(false);
+    expect(matchesText('Main view', '  VIEW ')).toBe(true);
+    expect(matchesText('Main view', '')).toBe(true);
+    expect(matchesText('Opacity', 'pin')).toBe(false);
   });
 
   it('shifts a fallback panel back inside the window, start edge first', () => {

@@ -68,6 +68,7 @@ interface ListboxStatusProps {
 interface HighlightedTextProps {
   text: string;
   query: string;
+  markClassName?: string;
 }
 
 interface ListboxDropViewProps {

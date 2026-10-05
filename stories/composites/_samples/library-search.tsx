@@ -1,5 +1,6 @@
 /* @layer stories @kind logic */
 import type { SearchResultsGroup, SideNavConfig } from '../../../src/composites';
+import { matchesText } from '../../../src/data';
 import { Icon } from '../../../src/primitives';
 import { LIBRARY_GROUPS, LIBRARY_PAGES } from './library-pages';
 
@@ -12,11 +13,10 @@ const LIBRARY_NAV: SideNavConfig = {
 };
 
 const searchLibrary = (query: string): SearchResultsGroup[] => {
-  const needle = query.trim().toLowerCase();
-  if (needle === '') return [];
+  if (query.trim() === '') return [];
   return LIBRARY_PAGES.flatMap((page) => {
     const hits = page.entries
-      .filter((entry) => `${entry.title} ${entry.text}`.toLowerCase().includes(needle))
+      .filter((entry) => matchesText(`${entry.title} ${entry.text}`, query))
       .map((entry) => ({ id: `${page.id}/${entry.id}`, label: entry.title, description: entry.text, path: [page.title] }));
     return hits.length === 0 ? [] : [{ id: page.id, label: page.title, icon: <Icon name={page.icon} />, count: hits.length, hits }];
   });

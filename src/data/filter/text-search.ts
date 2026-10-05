@@ -1,20 +1,19 @@
 /* @layer renderer-components @kind logic */
+import { matchesText } from '../text/matches-text';
+import { queryWords } from '../text/query-words';
 import { MAX_TEXT_DEPTH } from './text-search.constants';
 
-const matchesValue = (value: unknown, query: string, depth: number): boolean => {
-  if (value == null) return false;
-  if (typeof value === 'string') return value.toLowerCase().includes(query);
-  if (typeof value === 'number' || typeof value === 'boolean') return String(value).includes(query);
-  if (depth <= 0) return false;
-  if (Array.isArray(value)) return value.some((item) => matchesValue(item, query, depth - 1));
-  if (typeof value === 'object') return Object.values(value).some((item) => matchesValue(item, query, depth - 1));
-  return false;
+const textsOf = (value: unknown, depth: number): string[] => {
+  if (value == null) return [];
+  if (typeof value === 'string') return [value];
+  if (typeof value === 'number' || typeof value === 'boolean') return [String(value)];
+  if (depth <= 0 || typeof value !== 'object') return [];
+  return (Array.isArray(value) ? value : Object.values(value)).flatMap((item) => textsOf(item, depth - 1));
 };
 
 const compileTextSearch = (query: string): ((row: unknown) => boolean) | null => {
-  const folded = query.trim().toLowerCase();
-  if (!folded) return null;
-  return (row) => matchesValue(row, folded, MAX_TEXT_DEPTH);
+  if (queryWords(query).length === 0) return null;
+  return (row) => matchesText(textsOf(row, MAX_TEXT_DEPTH).join(' '), query);
 };
 
 export { compileTextSearch };

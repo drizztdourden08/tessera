@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
 import { useContext, useId, useMemo, useRef, useState } from 'react';
+import { matchesText } from '../../../data/text/matches-text';
 import { Box } from '../../../primitives/Box';
 import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
 import { useHintTarget } from '../../../primitives/hint/useHintTarget';
 import { ControlMenuContext } from '../behavior/control-menu-context';
-import { matchesQuery } from '../behavior/matches-query';
 import { subRoom } from '../behavior/sub-room';
 import { SUB_MIN_ROOM } from '../ControlMenu.constants';
 import type { ControlMenuSubProps } from '../ControlMenu.type';
@@ -28,7 +28,7 @@ const ControlMenuSub = (props: ControlMenuSubProps) => {
   const filtering = context.query.trim() !== '';
 
   if (filtering) {
-    const matched = matchesQuery(label, context.query);
+    const matched = matchesText(label, context.query);
     const inner = matched ? <ControlMenuContext value={whole}>{children}</ControlMenuContext> : children;
     return <ControlMenuGroup label={label} shown={matched}>{inner}</ControlMenuGroup>;
   }
