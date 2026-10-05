@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useRef, useState } from 'react';
 import { Button } from '../Button';
-import { Glyph } from '../Glyph';
+import { Icon } from '../Icon';
 import { Span } from '../text-elements';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { useToastTimer } from './behavior/useToastTimer';
@@ -35,7 +35,7 @@ const Toast = (props: ToastProps) => {
       <Span className="toast__message">{item.message}</Span>
       {action && <Button variant={variant} size="sm" className="toast__action" onClick={run}>{action.label}</Button>}
       <button type="button" className="toast__close" onClick={dismiss} aria-label={fields.dismiss}>
-        <Glyph name="close" />
+        <Icon name="x" />
       </button>
     </div>
   );

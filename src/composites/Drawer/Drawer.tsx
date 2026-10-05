@@ -2,6 +2,7 @@
 import { useId } from 'react';
 import { Box } from '../../primitives/Box';
 import { ButtonRow } from '../../primitives/ButtonRow';
+import { Overlay } from '../../primitives/Overlay';
 import { ScrollArea } from '../../primitives/ScrollArea';
 import { useDialogEscape } from '../DialogShell/behavior/useDialogEscape';
 import { useDialogFocus } from '../DialogShell/behavior/useDialogFocus';
@@ -19,7 +20,7 @@ const Drawer = (props: DrawerProps) => {
 
   return (
     <Box className={`drawer drawer--${side}${open ? ' drawer--open' : ''}`} aria-hidden={!open} inert={!open}>
-      <Box className="drawer__scrim" onClick={onClose} />
+      <Overlay visible={open} keepMounted tone="scrim" onClick={onClose} className="drawer__scrim" />
       <Box
         ref={focus.ref}
         className="drawer__panel"

@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { FactsPanel } from '../src/composites/FactsPanel';
 import { LogPanel } from '../src/composites/LogPanel';
-import { CodeBlock } from '../src/primitives/CodeBlock';
+import { CodeBlock } from '../src/composites/CodeBlock';
 import { CopyButton } from '../src/composites/CopyButton';
 import { CopyValue } from '../src/composites/CopyValue';
 import { StatRow } from '../src/primitives/StatRow';
@@ -41,6 +41,13 @@ describe('CopyValue', () => {
     expect(html).toContain(`title="${KEY}"`);
   });
 
+  it('shows any node and copies the text it is given, or draws no button with no text to copy', () => {
+    const html = renderToString(h(CopyValue, { value: h('b', null, 'Room 4'), text: 'https://archipelago.gg/room/4', label: 'room page' }));
+    expect(html).toContain('<span class="copy-value__text"><b>Room 4</b></span>');
+    expect(html).toContain('aria-label="Copy room page"');
+    expect(renderToString(h(CopyValue, { value: h('b', null, 'Room 4'), label: 'room page' }))).not.toContain('copy-button');
+  });
+
   it('leaves a short value whole and takes a copy label of its own', () => {
     const html = renderToString(h(CopyValue, { value: 'seed 42', truncate: 'middle', copyLabel: 'Copy the seed' }));
     expect(html).not.toContain('copy-value__tail');
@@ -57,14 +64,14 @@ describe('one copy path', () => {
     expect(code).toContain('aria-label="Copy code"');
   });
 
-  it('StatRow and FactsPanel copy through CopyButton, named after the row', () => {
-    const row = renderToString(h(StatRow, { label: 'Seed', value: '2193', copyable: true }));
-    expect(row).toContain('class="copy-button stat-row__copy"');
-    expect(row).toContain('aria-label="Copy Seed" title="Copy Seed"');
-    expect(row).toContain('role="status"');
-    expect(row).toContain('icon-btn--xs');
+  it('StatRow copies nothing itself and a FactsPanel fact copies through CopyValue, named after the row', () => {
+    expect(renderToString(h(StatRow, { label: 'Seed', value: '2193' }))).not.toContain('copy-button');
+    const row = renderToString(h(StatRow, { label: 'Seed', value: h(CopyValue, { value: '2193', label: 'Seed' }) }));
+    expect(row).toContain('stat-row__value"><span class="copy-value copy-value--sm" role="group" aria-label="Seed">');
     const facts = renderToString(h(FactsPanel, { groups: [[{ label: 'Port', value: '38281', copyable: true }]] }));
-    expect(facts).toContain('class="copy-button stat-row__copy"');
-    expect(facts).toContain('aria-label="Copy Port"');
+    expect(facts).toContain('class="copy-value copy-value--sm copy-value--end facts-panel__copy"');
+    expect(facts).toContain('aria-label="Copy Port" title="Copy Port"');
+    expect(facts).toContain('role="status"');
+    expect(facts).toContain('icon-btn--xs');
   });
 });

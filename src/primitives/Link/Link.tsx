@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../Glyph';
+import { Icon } from '../Icon';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { navigateClick } from './behavior/navigate-click';
 import { EXTERNAL_LINK } from './Link.constants';
@@ -13,13 +13,11 @@ const Link = (props: LinkProps) => {
     <a {...(external ? EXTERNAL_LINK : undefined)} {...rest} onClick={navigateClick(rest.href, navigate, onClick)} className={className ? `link ${className}` : 'link'} data-tone={tone} data-variant={variant}>
       {children}
       {external && (
-        <Glyph
-          name="external"
+        <Icon
+          name="external-link"
           size={12}
           className={children ? 'link__external link__external--spaced' : 'link__external'}
-          role="img"
-          aria-hidden={false}
-          aria-label={navigation.opensInNewTab}
+          label={navigation.opensInNewTab}
         />
       )}
     </a>

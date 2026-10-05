@@ -13,7 +13,6 @@ const ELEMENTS: readonly { label: string; node: ReactNode }[] = [
   })),
   { label: 'Text.Shortcut · Text.Sc', node: <Text.Sc keys="ctrl" mouse="left" /> },
   { label: 'Text.Quote · Text.Q', node: <Text.Quote>It is dangerous to go alone.</Text.Quote> },
-  { label: 'Text.CodeBlock', node: <Text.CodeBlock code="const hero = 'Link';" language="typescript" /> },
 ];
 
 const meta = {

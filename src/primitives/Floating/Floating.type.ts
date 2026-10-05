@@ -16,4 +16,4 @@ interface FloatingProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
 }
 
-export type { FloatingLength, FloatingPlacement, FloatingProps };
+export type { FloatingPlacement, FloatingProps };

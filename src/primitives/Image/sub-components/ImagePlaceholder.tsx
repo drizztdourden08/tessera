@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../../Glyph';
 import { Icon } from '../../Icon';
 import {
   BROKEN_BADGE_STROKE,
+  BROKEN_CROSS_PATHS,
   IMAGE_GLYPH_CIRCLES,
   IMAGE_GLYPH_PATHS,
   IMAGE_GLYPH_STROKE,
@@ -27,7 +27,16 @@ const ImagePlaceholder = (props: ImagePlaceholderProps) => {
       />
       {status === 'broken' ? (
         <span className="image-placeholder__badge">
-          <Glyph name="close" className="image-placeholder__cross" strokeWidth={BROKEN_BADGE_STROKE} focusable="false" />
+          <Icon
+            className="image-placeholder__cross"
+            path={{ d: BROKEN_CROSS_PATHS }}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={BROKEN_BADGE_STROKE}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            focusable="false"
+          />
         </span>
       ) : null}
     </span>

@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { CopyValue } from '../../src/composites';
 import type { CopyValueSize } from '../../src/composites';
-import { Box, Flex, Status } from '../../src/primitives';
+import { Box, Flex, StatRow, Status } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -111,10 +111,27 @@ const InStatusBar = {
   ),
 } satisfies StoryLiteStoryDefinition<CopyValueArgs>;
 
+const OTHER_TEXTS = {
+  'A short name': <CopyValue value="Room 4" text={ROOM} label="room page" />,
+  'A node': <CopyValue value={<Status tone="success">Hosting</Status>} text={ADDRESS} label="room address" />,
+  'In a StatRow': <StatRow label="Host" value={<CopyValue value={ADDRESS} label="host" />} mono />,
+} as const;
+
+const OtherText = {
+  name: 'Copies another text',
+  render: () => (
+    <Demonstrator
+      rows={axis(Object.keys(OTHER_TEXTS) as (keyof typeof OTHER_TEXTS)[])}
+      cell={(key) => <Box className="copy-value-story">{OTHER_TEXTS[key]}</Box>}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<CopyValueArgs>;
+
 const CODE = `import { CopyValue } from '@drizztdourden08/tessera';
 
 <CopyValue value={address} label="room address" mono />
-<CopyValue value={fingerprint} label="host key" mono truncate="middle" />`;
+<CopyValue value={fingerprint} label="host key" mono truncate="middle" />
+<CopyValue value="Room 4" text={roomLink} label="room page" />`;
 
 const Overview = overviewStory({
   component: 'CopyValue',
@@ -124,11 +141,12 @@ const Overview = overviewStory({
     '`mono` sets codes, keys and addresses in the monospace face.',
     '`truncate` cuts a long value at its `end` or in its `middle`, which keeps the last characters in view.',
     'A cut value shows the whole text on hover, and a screen reader reads it whole.',
+    '`text` is the string to copy when it differs from what is shown; `value` can then be any node.',
     'Its button is a [CopyButton], so it copies, confirms and announces like every other copy.',
   ],
-  instead: 'A [StatRow] with `copyable` for a label and its value on one row.',
+  instead: 'A [FactsPanel] with `copyable` facts for labelled values in a panel.',
   playground: Playground,
-  variants: [Values, Truncation, Sizes, InStatusBar],
+  variants: [Values, Truncation, Sizes, InStatusBar, OtherText],
   states: {
     render: (props: StateProps) => <CopyValue value={ADDRESS} label="room address" mono {...props} />,
     list: [STATE.idle, { ...STATE.hover, target: 'button' }, { ...STATE.focus, target: 'button' }],
@@ -137,4 +155,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { InStatusBar, Overview, Playground, Sizes, Truncation, Values };
+export { InStatusBar, OtherText, Overview, Playground, Sizes, Truncation, Values };

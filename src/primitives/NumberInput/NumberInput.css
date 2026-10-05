@@ -118,3 +118,11 @@
 .number-input__field:has(+ .number-input__slot) {
   padding-inline-end: 0;
 }
+
+.number-input__chevron path {
+  stroke-width: 3;
+}
+
+.number-input__plus path {
+  stroke-width: 2.25;
+}

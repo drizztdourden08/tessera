@@ -1,8 +1,8 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { SplitPane } from '../../../src/composites';
+import { CodeBlock, SplitPane } from '../../../src/composites';
 import type { SplitPaneProps } from '../../../src/composites';
-import { Box, CodeBlock, Icon, Pressable, Text } from '../../../src/primitives';
+import { Box, Icon, Pressable, Text } from '../../../src/primitives';
 import { CONSOLE_LINES, EDITOR_CODE, FILES } from './split-pane-data';
 
 type SplitSettings = Omit<SplitPaneProps, 'start' | 'end'>;

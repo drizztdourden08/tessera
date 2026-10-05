@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
 import { Button } from '../../../primitives/Button';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toSchemaIndex } from '../../../data/schema/build-schema';
 import { DropdownMenu } from '../../DropdownMenu';
@@ -33,7 +33,7 @@ const AddFilterButton = (props: AddFilterButtonProps) => {
         variant="tertiary"
         size="sm"
         className="filter-bar__add"
-        icon={<Glyph name="plus" />}
+        icon={<Icon name="plus" />}
         aria-haspopup="menu"
         aria-expanded={menu.open}
         aria-label={filters.addFilter}

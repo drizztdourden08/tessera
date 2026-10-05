@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta } from '@storylite/storylite';
-import { Box, ShortcutList } from '../../src/primitives';
-import type { ShortcutListGroup, ShortcutListItem } from '../../src/primitives';
+import { ShortcutList } from '../../src/composites';
+import type { ShortcutListGroup, ShortcutListItem } from '../../src/composites';
+import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import './ShortcutList.stories.css';
@@ -58,7 +59,7 @@ const Demo = (args: ShortcutListArgs) => {
 };
 
 const meta = {
-  title: 'Primitives · Display/ShortcutList',
+  title: 'Composites · Content/ShortcutList',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<ShortcutListArgs>;
 

@@ -27,17 +27,17 @@ const buildColumnMenuItems = (input: ColumnMenuInput): MenuNode[] => {
   });
 
   return [
-    { id: 'add-before', icon: menuGlyph('plus'), label: strings.addColumnBefore, children: addAt(index) },
-    { id: 'add-after', icon: menuGlyph('plus'), label: strings.addColumnAfter, children: addAt(index + 1) },
+    { id: 'add-before', icon: menuIcon('plus'), label: strings.addColumnBefore, children: addAt(index) },
+    { id: 'add-after', icon: menuIcon('plus'), label: strings.addColumnAfter, children: addAt(index + 1) },
     { separator: true },
-    { id: 'remove', icon: menuGlyph('close'), label: strings.removeColumn, onSelect: act(() => actions.onRemove(path)) },
-    { id: 'rename', icon: menuGlyph('edit'), label: strings.rename, onSelect: act(onStartRename) },
+    { id: 'remove', icon: menuIcon('x'), label: strings.removeColumn, onSelect: act(() => actions.onRemove(path)) },
+    { id: 'rename', icon: menuIcon('pencil'), label: strings.rename, onSelect: act(onStartRename) },
     ...buildColumnDisplayItems({
       path, field: columnField, displayField, resolveTargetFields, actions, act, strings,
     }),
     { separator: true },
-    { id: 'move-left', icon: menuGlyph('chevronLeft'), label: strings.moveLeft, disabled: isFirst, onSelect: act(() => actions.onMove(path, 'left')) },
-    { id: 'move-right', icon: menuGlyph('chevronRight'), label: strings.moveRight, disabled: isLast, onSelect: act(() => actions.onMove(path, 'right')) },
+    { id: 'move-left', icon: menuIcon('chevron-left'), label: strings.moveLeft, disabled: isFirst, onSelect: act(() => actions.onMove(path, 'left')) },
+    { id: 'move-right', icon: menuIcon('chevron-right'), label: strings.moveRight, disabled: isLast, onSelect: act(() => actions.onMove(path, 'right')) },
     { id: 'move-first', icon: menuIcon('arrow-left-to-line'), label: strings.moveToFirst, disabled: isFirst, onSelect: act(() => actions.onMove(path, 'first')) },
     { id: 'move-last', icon: menuIcon('arrow-right-to-line'), label: strings.moveToLast, disabled: isLast, onSelect: act(() => actions.onMove(path, 'last')) },
     { separator: true },

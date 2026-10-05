@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { HIT_AREA_CLASS } from '../dom/hit-area.constants';
-import { Glyph } from '../Glyph';
+import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 import { Pressable } from '../Pressable';
 import { Span } from '../text-elements';
@@ -53,7 +53,7 @@ const Tag = (props: TagProps) => {
           tabIndex={disabled ? -1 : 0}
           onClick={onRemove}
         >
-          <Glyph name="close" />
+          <Icon name="x" />
         </IconButton>
       )}
     </span>

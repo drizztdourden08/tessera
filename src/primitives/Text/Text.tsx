@@ -2,7 +2,6 @@
 import '../../theme/text-tone.css';
 import './Text.css';
 import { TEXT_MEMBERS } from '../text-elements/text-elements.constants';
-import { CodeBlock } from '../CodeBlock';
 import { Quote } from '../Quote';
 import { Shortcut } from '../Shortcut';
 import { textClassName } from './behavior/text-class-name';
@@ -25,6 +24,6 @@ const TextBase = (props: TextProps) => {
 
 TextBase.displayName = 'Text';
 
-const Text = Object.assign(TextBase, TEXT_MEMBERS, { CodeBlock, Quote, Q: Quote, Shortcut, Sc: Shortcut });
+const Text = Object.assign(TextBase, TEXT_MEMBERS, { Quote, Q: Quote, Shortcut, Sc: Shortcut });
 
 export { Text };

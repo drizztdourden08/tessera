@@ -2,7 +2,7 @@
 import { useId } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { LogPanel } from '../../LogPanel';
 import type { TaskLogProps } from '../TaskProgress.type';
@@ -16,7 +16,7 @@ const TaskLog = (props: TaskLogProps) => {
       <Button
         variant="ghost"
         size="sm"
-        icon={<Glyph name={open ? 'chevronDown' : 'chevronRight'} />}
+        icon={<Icon name={open ? 'chevron-down' : 'chevron-right'} />}
         aria-expanded={open}
         aria-controls={id}
         onClick={() => onToggle(!open)}

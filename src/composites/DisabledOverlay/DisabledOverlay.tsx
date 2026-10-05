@@ -2,6 +2,7 @@
 import { Box } from '../../primitives/Box';
 import { Text } from '../../primitives/Text';
 import { Button } from '../../primitives/Button';
+import { Overlay } from '../../primitives/Overlay';
 import './DisabledOverlay.css';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { DisabledOverlayProps } from './DisabledOverlay.type';
@@ -24,12 +25,12 @@ const DisabledOverlay = (props: DisabledOverlayProps) => {
       <Box className="disabled-overlay__content" aria-disabled="true" inert>
         {children}
       </Box>
-      <Box className="disabled-overlay__scrim">
+      <Overlay visible tone="secondary" blur className="disabled-overlay__scrim">
         <Text className="disabled-overlay__message">{message}</Text>
         {onOpenSettings && (
           <Button variant="secondary" size="sm" onClick={onOpenSettings}>{actionLabel}</Button>
         )}
-      </Box>
+      </Overlay>
     </Box>
   );
 };

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
-import { Box, Glyph, SegmentedControl, Text } from '../../src/primitives';
+import { Box, Glyph, Icon, SegmentedControl, Text } from '../../src/primitives';
 import type { ControlSize, SegmentOption } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -37,9 +37,9 @@ const WITH_LOCKED: SegmentOption<Scale>[] = SCALES.map((opt) =>
 type Align = 'left' | 'center' | 'right';
 
 const ALIGN_ICONS: SegmentOption<Align>[] = [
-  { value: 'left', label: <Glyph name="chevronLeft" />, title: 'Align left' },
+  { value: 'left', label: <Icon name="chevron-left" />, title: 'Align left' },
   { value: 'center', label: <Glyph name="widen" />, title: 'Align center' },
-  { value: 'right', label: <Glyph name="chevronRight" />, title: 'Align right' },
+  { value: 'right', label: <Icon name="chevron-right" />, title: 'Align right' },
 ];
 
 const ARGS: Partial<SegmentedControlArgs> = { label: 'Window scale', description: 'How large the game picture is drawn.', disabled: false, deselectable: false, size: 'md' };

@@ -1,26 +1,20 @@
 /* @layer renderer-components @kind component */
 import { Highlight } from 'prism-react-renderer';
 import { Box } from '../Box';
-import { CopyButton } from '../../composites/CopyButton';
-import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
-import { codeBlockClass } from './behavior/code-block-class';
-import { tokenClass } from './behavior/token-class';
-import { CODE_THEME } from './CodeBlock.constants';
-import './CodeBlock.css';
-import type { CodeBlockProps } from './CodeBlock.type';
+import { codeViewClass } from './code-view-class';
+import { CODE_THEME } from './code-view.constants';
+import { tokenClass } from './token-class';
+import './CodeView.css';
+import type { CodeViewProps } from './code-view.type';
 
-const CodeBlock = (props: CodeBlockProps) => {
-  const {
-    code, language, className = '', highlightedLines, showLineNumbers = false, copyable = false, wrap = false, capped = false,
-  } = props;
-  const { fields } = useTesseraStrings();
+const CodeView = (props: CodeViewProps) => {
+  const { code, language, className = '', highlightedLines, showLineNumbers = false, wrap = false, capped = false, copy } = props;
   const highlighted = highlightedLines ? new Set(highlightedLines) : undefined;
-  const text = code.trimEnd();
-  const cls = codeBlockClass({ showLineNumbers, copyable, wrap, capped, className });
+  const cls = codeViewClass({ showLineNumbers, copyable: copy !== undefined, wrap, capped, className });
   return (
     <Box className={cls}>
-      {copyable && <CopyButton text={text} label={fields.copyCode} className="code-block__copy" />}
-      <Highlight code={text} language={language} theme={CODE_THEME}>
+      {copy}
+      <Highlight code={code.trimEnd()} language={language} theme={CODE_THEME}>
         {({ tokens, getLineProps, getTokenProps }) => (
           <Box as="pre" className="code-block__pre">
             <Box as="code" className="code-block__code">
@@ -54,4 +48,4 @@ const CodeBlock = (props: CodeBlockProps) => {
   );
 };
 
-export { CodeBlock };
+export { CodeView };

@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { FactsPanel } from '../src/composites/FactsPanel';
 import { Slider } from '../src/primitives/Slider';
 import { StatRow } from '../src/primitives/StatRow';
-import { copyText } from '../src/primitives/StatRow/behavior/copy-text';
+import { copyText } from '../src/composites/CopyValue/behavior/copy-text';
 import { enterKeyDown } from '../src/primitives/TextInput/behavior/enter-key-down';
 
 const keyEvent = (key, extra = {}) => ({ key, defaultPrevented: false, nativeEvent: { isComposing: false }, currentTarget: { value: 'say hi' }, ...extra });
@@ -40,18 +40,17 @@ describe('Slider input', () => {
 });
 
 describe('StatRow and FactsPanel values', () => {
-  it('copies the text value, or the string copyable names', () => {
-    expect(copyText('127.0.0.1', true)).toBe('127.0.0.1');
-    expect(copyText(42, true)).toBe('42');
-    expect(copyText(h('b', null, 'x'), true)).toBeUndefined();
+  it('copies the text value, or the string it is given', () => {
+    expect(copyText('127.0.0.1', undefined)).toBe('127.0.0.1');
+    expect(copyText(42, undefined)).toBe('42');
+    expect(copyText(h('b', null, 'x'), undefined)).toBeUndefined();
     expect(copyText(h('b', null, 'x'), 'seed 12')).toBe('seed 12');
-    expect(copyText('x', undefined)).toBeUndefined();
   });
 
-  it('draws a copy button named after the row', () => {
-    const html = renderToString(h(StatRow, { label: 'Seed', value: '2193', copyable: true }));
+  it('copies a fact through a CopyValue named after the row, and a titled fact still copies its value', () => {
+    const html = renderToString(h(FactsPanel, { groups: [[{ label: 'Seed', value: '2193', title: 'The seed', copyable: true }]] }));
     expect(html).toContain('aria-label="Copy Seed"');
-    expect(renderToString(h(StatRow, { label: 'Seed', value: '2193' }))).not.toContain('stat-row__copy');
+    expect(html).toContain('facts-panel__copy');
   });
 
   it('draws a StatRow at md by default, or at the size it is given', () => {

@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
+import { CopyValue } from '../../src/composites';
 import { Box, Card, Stack, StatRow, Status, Text } from '../../src/primitives';
 import type { GaugeSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
@@ -44,8 +45,8 @@ const SessionDetails = {
       <Card>
         <Stack gap="xs">
           <Text variant="title">Session</Text>
-          <StatRow label="Host" value="archipelago.local:38281" mono copyable />
-          <StatRow label="Seed" value="48213-HOOK-VALE" mono copyable />
+          <StatRow label="Host" value={<CopyValue value="archipelago.local:38281" label="host" />} mono />
+          <StatRow label="Seed" value={<CopyValue value="48213-HOOK-VALE" label="seed" />} mono />
           <StatRow label="Players" value="4 of 6" />
           <StatRow label="Checks" value="212 / 640" />
           <StatRow label="Status" value={<Status tone="success">Connected</Status>} />
@@ -68,7 +69,7 @@ const Sizes = {
       className="story-column"
       cell={(size) => (
         <Stack gap="xs">
-          <StatRow size={size} label="Host" value="archipelago.local:38281" mono copyable />
+          <StatRow size={size} label="Host" value={<CopyValue value="archipelago.local:38281" label="host" />} mono />
           <StatRow size={size} label="Players" value="4 of 6" />
           <StatRow size={size} label="Status" value={<Status tone="success">Connected</Status>} />
         </Stack>
@@ -95,7 +96,7 @@ const Overview = overviewStory({
     'Stack a few in a [Card] for session details, stats or settings at a glance.',
     '`value` can be text or any node, such as a [Status].',
     '`mono` draws the value in a monospace font, for addresses, ids and coordinates.',
-    'The value can be selected; `copyable` adds a button that copies it, or the string it is given.',
+    'The value can be selected; to copy it, pass a [CopyValue] as the value, which takes the size of the row.',
     'A row stops at 512 px, so on a wide page the value stays near its label.',
     '`size` takes the scale of [StatTile] and [Gauge]: `sm` packs rows closer, `md` by default, `lg` at 14 px.',
   ],

@@ -6,27 +6,22 @@
   pointer-events: none;
 }
 
-.window-guide__scrim {
-  position: absolute;
-  inset: 0;
+.overlay.window-guide__scrim {
   display: grid;
   place-items: center;
   padding: var(--space-lg);
-  background: var(--c-scrim);
 }
 
 .window-guide .window-guide__beside {
   pointer-events: none;
 }
 
-.window-guide__scrim,
 .window-guide__beside {
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--duration-normal) var(--ease-standard), visibility 0s linear var(--duration-normal);
 }
 
-.window-guide--open .window-guide__scrim,
 .window-guide--open .window-guide__beside {
   opacity: 1;
   visibility: visible;
@@ -101,9 +96,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .window-guide__scrim,
   .window-guide__beside,
-  .window-guide--open .window-guide__scrim,
   .window-guide--open .window-guide__beside {
     transition: none;
   }

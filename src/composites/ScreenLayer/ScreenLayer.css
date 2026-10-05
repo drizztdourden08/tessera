@@ -1,13 +1,10 @@
 /* @layer renderer-components @kind style */
-.screen-layer {
-  position: absolute;
-  inset: 0;
-  z-index: var(--z-backdrop);
+.overlay.screen-layer {
   animation: screen-layer-in 0.2s ease-out;
   container: screen-layer / size;
 }
 
-.screen-layer--hidden {
+.overlay.screen-layer--hidden {
   display: none;
 }
 

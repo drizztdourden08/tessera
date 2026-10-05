@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Badge } from '../../../primitives/Badge';
 import { Box } from '../../../primitives/Box';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { Pressable } from '../../../primitives/Pressable';
 import { Text } from '../../../primitives/Text';
 import { Span } from '../../../primitives/text-elements';
@@ -27,7 +27,7 @@ const GroupRow = (props: GroupRowProps) => {
           aria-expanded={expanded}
           onClick={onToggle}
         >
-          <Span tone="dim" className="data-table__chevron"><Glyph name={expanded ? 'chevronDown' : 'chevronRight'} /></Span>
+          <Span tone="dim" className="data-table__chevron"><Icon name={expanded ? 'chevron-down' : 'chevron-right'} /></Span>
           <Text className="data-table__group-key">{groupKeyContent(groupKey, field, display, strings)}</Text>
         </Pressable>
         <Box className="data-table__group-total">

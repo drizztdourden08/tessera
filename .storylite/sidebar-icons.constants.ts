@@ -36,7 +36,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     'Variable': 'variable', 'Abbreviation': 'whole-word', 'Citation': 'book-open', 'BlockQuote': 'text-quote',
     'Definition': 'book-a', 'Time': 'clock', 'Data': 'binary', 'Address': 'map-pin', 'Preformatted': 'file-code',
     'BidiIsolate': 'arrow-left-right', 'BidiOverride': 'arrow-right-left', 'Ruby': 'languages', 'RubyText': 'captions',
-    'RubyParenthesis': 'parentheses', 'Shortcut': 'keyboard', 'Quote': 'quote', 'CodeBlock': 'square-code', 'Emphasis animation': 'wand-sparkles',
+    'RubyParenthesis': 'parentheses', 'Shortcut': 'keyboard', 'Quote': 'quote', 'Emphasis animation': 'wand-sparkles',
   },
   'Core · Icons': { 'Icon': 'shapes', 'Brand icons': 'badge', 'Glyph': 'pen-tool', 'InputIcon': 'joystick', 'EmojiIcon': 'smile' },
   'Core · Tokens': {
@@ -47,12 +47,11 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Primitives · Layout': {
     Box: 'square', Flex: 'columns-3', Stack: 'rows-3', Inline: 'align-horizontal-distribute-center', Grid: 'grid-3x3',
     Spacer: 'space', Divider: 'separator-horizontal', Card: 'square-stack', ScrollArea: 'scroll', Portal: 'door-open',
-    Anchored: 'anchor', Floating: 'picture-in-picture-2',
+    Anchored: 'anchor', Overlay: 'layers-2',
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
     EmptyState: 'inbox', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
-    ShortcutList: 'keyboard',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', RetryButton: 'refresh-cw' },
   'Primitives · Inputs': {
@@ -77,7 +76,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WizardDialog: 'wand-sparkles',
     JobDialog: 'square-activity',
   },
-  'Composites · Overlays': { Overlay: 'layers-2', Drawer: 'panel-right', DisabledOverlay: 'ban' },
+  'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban' },
   'Composites · Actions': { ConfirmIconButton: 'circle-check', ActionBar: 'rectangle-ellipsis', CopyButton: 'clipboard-copy' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
@@ -104,6 +103,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     ActionTile: 'square-activity',
     CopyValue: 'copy',
     Video: 'video',
+    ShortcutList: 'keyboard',
+    CodeBlock: 'square-code',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },

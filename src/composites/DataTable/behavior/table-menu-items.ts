@@ -15,7 +15,7 @@ const buildTableMenuItems = (input: TableMenuInput): MenuNode[] => {
   return [
     {
       id: 'add-column',
-      icon: menuGlyph('plus'),
+      icon: menuIcon('plus'),
       label: strings.addColumn,
       children: buildFieldMenuItems({
         nodes: fieldNodes,

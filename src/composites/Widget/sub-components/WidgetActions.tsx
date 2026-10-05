@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { APP_REGION_ATTRIBUTE } from '../../../primitives/dom/app-region.constants';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { HIT_AREA_CLASS } from '../../../primitives/dom/hit-area.constants';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
@@ -22,7 +22,7 @@ const WidgetActions = (props: WidgetActionsProps) => {
       <PopButton out={out} canPopOut={canPopOut ?? true} onPopOut={onPopOut} name={name} />
       {options}
       <IconButton className={`widget__btn ${HIT_AREA_CLASS}`} label={close} title={close} onClick={onClose}>
-        <Glyph name="close" size={14} />
+        <Icon name="x" size={14} />
       </IconButton>
     </Box>
   );

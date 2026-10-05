@@ -11,16 +11,9 @@
   pointer-events: auto;
 }
 
-.drawer__scrim {
-  position: absolute;
-  inset: 0;
-  background: var(--c-scrim);
-  opacity: 0;
-  transition: opacity var(--duration-fast) var(--ease-standard);
-}
-
-.drawer--open .drawer__scrim {
-  opacity: 1;
+.overlay.drawer__scrim {
+  z-index: auto;
+  transition-duration: var(--duration-fast);
 }
 
 .drawer__panel {

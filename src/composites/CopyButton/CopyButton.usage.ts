@@ -9,7 +9,7 @@ const usage = {
   ],
   avoidWhen: [
     { case: 'The value itself is on screen and the copy belongs at its end.', use: 'CopyValue' },
-    { case: 'A label and its value sit on one row, as a readout.', use: 'StatRow' },
+    { case: 'Labelled values sit together in a panel, some of them to copy.', use: 'FactsPanel' },
   ],
   rules: [
     'Name the button after what it copies, such as Copy address or Copy debug info.',

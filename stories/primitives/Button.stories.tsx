@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
-import { Button, Flex, Glyph } from '../../src/primitives';
+import { Button, Flex, Icon } from '../../src/primitives';
 import type { ButtonSize, ButtonVariant } from '../../src/primitives/Button/Button.type';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
@@ -76,7 +76,7 @@ const Loading = {
 const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   <Flex gap="sm" align="center">
     {STATE_BUTTONS.map(({ variant, label, withIcon }) => (
-      <Button key={variant} variant={variant} icon={withIcon ? <Glyph name="copy" /> : undefined} {...forceAttributes(pseudo)} {...props}>{label}</Button>
+      <Button key={variant} variant={variant} icon={withIcon ? <Icon name="copy" /> : undefined} {...forceAttributes(pseudo)} {...props}>{label}</Button>
     ))}
   </Flex>
 );

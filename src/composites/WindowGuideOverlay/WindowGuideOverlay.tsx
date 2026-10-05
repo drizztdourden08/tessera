@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
+import { Overlay } from '../../primitives/Overlay';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Span } from '../../primitives/text-elements';
 import { guideHints } from './behavior/guide-hints';
@@ -21,7 +22,7 @@ const WindowGuideOverlay = (props: WindowGuideOverlayProps) => {
     <Box className={cls} data-mode={mode}>
       {pointer
         ? <WindowGuideBeside pointer={pointer}>{card}</WindowGuideBeside>
-        : <Box className="window-guide__scrim" aria-hidden>{card}</Box>}
+        : <Overlay visible={open} keepMounted tone="scrim" aria-hidden className="window-guide__scrim">{card}</Overlay>}
       <Span className="window-guide__status" role="status" aria-live="polite">
         {open ? widgets.guideAnnounce(title, snapping) : ''}
       </Span>

@@ -23,7 +23,7 @@ CopyValue keeps the value selectable and puts the copy button at its end, with t
 
 ## Use something else when
 
-- The value has a label beside it, as one row of a readout. Use `StatRow` instead.
+- Labelled values sit together in a panel, some of them to copy. Use `FactsPanel` instead.
 - The text to copy is not on screen, such as debug info. Use [CopyButton](CopyButton.md) instead.
 
 ## Rules
@@ -31,6 +31,8 @@ CopyValue keeps the value selectable and puts the copy button at its end, with t
 - Pass label as a short lower case name, such as room address, so the button reads Copy room address.
 - Set mono for codes, keys, addresses and numbers the user may read back character by character.
 - Use truncate middle for keys and fingerprints, where the last characters tell two values apart.
+- Pass text when the string to copy differs from what is shown, such as a full link behind a short name.
+- To copy the value of a StatRow, pass a CopyValue as its value; it takes the size of the row.
 
 ## Accessibility
 
@@ -50,7 +52,8 @@ const RoomAddress = ({ address }: { address: string }) => (
 
 ## Props
 
-- `value`: `string`.
+- `value`: `ReactNode`.
+- `text` (optional): `string`.
 - `label` (optional): `string`.
 - `mono` (optional): `boolean`. Default `false`.
 - `truncate` (optional): `CopyValueTruncate`, one of `'end'`, `'middle'`.

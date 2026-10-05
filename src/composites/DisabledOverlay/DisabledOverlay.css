@@ -10,25 +10,19 @@
   user-select: none;
 }
 
-.disabled-overlay__scrim {
-  position: absolute;
+.overlay.disabled-overlay__scrim {
   inset: calc(-1 * var(--size-10));
-  z-index: var(--z-backdrop);
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: var(--space-sm);
   padding: var(--space-md);
   text-align: center;
-  background: var(--c-secondary-scrim);
-  backdrop-filter: blur(var(--blur));
   border: var(--border-width-thin) solid var(--c-secondary-bright);
   border-radius: var(--radius-md);
   overflow: hidden;
+  animation: none;
 }
 
-.disabled-overlay--contained .disabled-overlay__scrim {
+.disabled-overlay--contained .overlay.disabled-overlay__scrim {
   inset: var(--space-xs);
 }
 

@@ -18,7 +18,6 @@ const TEXT_TIER: CatalogueTier = {
       })),
       { name: 'Shortcut', summary: 'Keycaps for a key, a key combination or a mouse button, also Sc.' },
       { name: 'Quote', summary: 'A quotation that follows where it sits, also Q: small marks in a sentence, a floating mark on its own.' },
-      { name: 'CodeBlock', summary: 'Highlighted code in a panel, with line marks, numbers and a copy button.' },
       { name: 'Emphasis animation', summary: 'Emphasis: a word that swells along the weight axis on hover, on a flag, once or in a loop.' },
     ],
   }],

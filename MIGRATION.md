@@ -4951,3 +4951,103 @@ interface MascotStageProps {
 3. Switch a mascot between states by changing `animation`; drop any `key` that remounted it to restart a clip.
 4. An app that waited for `onFinish` to set idle back can keep doing so; the mascot already blends into idle on its own.
 5. Import `PixelWordmark` from the brand entry if it used the composites entry. Drop any import of `InteractiveTessera`.
+
+## 175. Parts change tier: ShortcutList, CodeBlock and Overlay; StatRow drops copyable; Floating is internal; Glyph keeps only what Icon lacks
+
+From the component audit (TX-17, TX-19, TX-20, TX-21, TX-34, TX-09).
+
+| Before | After |
+|---|---|
+| `src/primitives/ShortcutList` | `src/composites/ShortcutList` |
+| `src/primitives/CodeBlock` | `src/composites/CodeBlock` |
+| `src/composites/Overlay` | `src/primitives/Overlay` |
+| `@drizztdourden08/tessera/primitives` exports `ShortcutList`, `ShortcutGesture`, `ShortcutListGroup`, `ShortcutListItem`, `ShortcutListProps` | `@drizztdourden08/tessera/composites` exports them |
+| `@drizztdourden08/tessera/primitives` exports `CodeBlock`, `CodeBlockLanguage`, `CodeBlockProps` | `@drizztdourden08/tessera/composites` exports them |
+| `@drizztdourden08/tessera/composites` exports `Overlay` | `@drizztdourden08/tessera/primitives` exports `Overlay`, `OverlayProps` and `OverlayTone` |
+| `Text.CodeBlock` | `CodeBlock` on its own |
+| `@drizztdourden08/tessera/primitives` exports `Floating`, `FloatingProps`, `FloatingPlacement`, `FloatingLength` | not exported; use `Anchored` |
+| Gallery page Primitives · Display/ShortcutList | Composites · Content/ShortcutList |
+| Gallery page Core · Text/CodeBlock | Composites · Content/CodeBlock |
+| Gallery page Composites · Overlays/Overlay | Primitives · Layout/Overlay |
+| Gallery page Primitives · Layout/Floating | gone |
+
+```ts
+type OverlayTone = 'glass' | 'scrim' | 'secondary' | 'clear';
+
+interface OverlayProps {
+  visible: boolean;
+  tone?: OverlayTone; // added, default 'glass'
+  blur?: boolean; // added
+  keepMounted?: boolean; // added
+  onClick?: MouseEventHandler<HTMLElement>; // added
+  'aria-hidden'?: boolean; // added
+  ref?: Ref<HTMLElement>; // added
+  className?: string; // added
+  children?: ReactNode; // now optional
+}
+
+interface CopyValueProps {
+  value: ReactNode; // was string
+  text?: string; // added: the string to copy when it differs from value
+}
+
+interface StatRowProps {
+  // removed: copyable?: boolean | string;
+}
+```
+
+- **ShortcutList** is built from Shortcut, Icon and Text and watches its own width to stack its rows, so it is a composite. Its props, classes and look do not change.
+- **CodeBlock** holds a CopyButton, a composite, so it is a composite too. Its props, classes and look do not change. The highlighted panel itself stays in the primitives, in `src/primitives/code-view`, which the package does not export: JsonInput draws its highlighting with it, and CodeBlock adds the copy button on top. `Text` no longer carries `CodeBlock` as a member, since a primitive cannot hold a composite.
+- **StatRow** drops `copyable` and draws only a label and its value. To copy a value, pass a `CopyValue` as the value: `<StatRow label="Seed" value={<CopyValue value={seed} label="seed" />} mono />`. Inside a StatRow, CopyValue takes the size and line height of the row. The `stat-row__copy` class is gone.
+- **CopyValue** does everything StatRow's copy did. `text` copies a string that differs from what is shown, and `value` can then be any node, such as a Status or a short name. With no `text` and a value that is not a string or a number, it draws no button, as StatRow did.
+- **FactsPanel** keeps `copyable`: a copyable fact draws its value as a CopyValue, cut at its end like every fact. A fact with a `title` and `copyable` set to true now copies its value as well; before, the tooltip around the value kept it from being copied.
+- **No primitive imports a composite** apart from PathField, which still holds a CopyButton and moves to the composites in its own change.
+- **Overlay** is a primitive and the one dimmed backdrop. Drawer, DisabledOverlay, WindowGuideOverlay and ScreenLayer draw their backdrop with it, each with the tone it had: Drawer and WindowGuideOverlay a `scrim` that stays mounted and fades out, DisabledOverlay the `secondary` tint with `blur`, ScreenLayer a `clear` layer under its card. `keepMounted` keeps the layer in the page while hidden; without it a hidden Overlay draws nothing, as before. Each part keeps its own class on the layer, so `drawer__scrim`, `disabled-overlay__scrim`, `window-guide__scrim` and `screen-layer` still apply, and the layer adds `overlay` and its modifiers.
+- **Floating** stays in Tessera as the fallback inside Anchored, menus, tooltips and lists, and the package no longer exports it. An app pins a popup to its trigger with `Anchored`; a fallback place is typed `AnchoredProps['fallback']`.
+- **Icon** with a `label` is no longer hidden from screen readers. It was `role="img"` with a name and `aria-hidden="true"` at once, so the name never reached a screen reader. The new tab mark of Link is read again.
+
+### Glyph keeps only the marks Icon lacks
+
+Eighteen of the Glyph marks were the same mark as an Icon, with the same meaning. They are gone from Glyph, and every Tessera part draws them with Icon, so an app icon set changes them too.
+
+| Glyph name | Icon name |
+|---|---|
+| `check` | `check` |
+| `close` | `x` |
+| `chevronDown`, `chevronUp`, `chevronLeft`, `chevronRight` | `chevron-down`, `chevron-up`, `chevron-left`, `chevron-right` |
+| `arrowUp`, `arrowDown` | `arrow-up`, `arrow-down` |
+| `edit` | `pencil` |
+| `copy` | `copy` |
+| `external` | `external-link` |
+| `gear` | `settings` |
+| `volume`, `mute` | `volume-2`, `volume-x` |
+| `plus` | `plus` |
+| `monitor` | `monitor` |
+| `gamepad` | `gamepad-2` |
+| `save` | `save` |
+
+Eight stay in Glyph, and so do `Glyph`, `GLYPHS` and `GlyphName`:
+
+| Glyph name | Why it stays |
+|---|---|
+| `sortBoth` | One upright line with a head at each end. The Icon marks `arrow-up-down` and `chevrons-up-down` draw two marks side by side or stacked, a different look. |
+| `widen` | One flat line with a head at each end, for fit to content and between. The Icon mark `arrow-left-right` draws two arrows apart. |
+| `box` | A box seen from a corner, the DropZone mark. Icon has no box; `package` adds a band and reads as a parcel. |
+| `minus` | Icon has no minus. |
+| `windowMinimize`, `windowMaximize`, `windowRestore`, `windowClose` | The window caption marks, drawn as one set to match the system caption buttons at one size and weight. Icon has no minimize, maximize or restore mark of that kind, and the close mark stays with its set. |
+
+### What changes in the look
+
+- Icon draws its line marks with a 2 unit stroke on a 24 unit grid, Glyph with 1.5 on 16, so a mark at 16 px is 1.33 px thick where it was 1.5 px. Where a part drew a bolder Glyph, its CSS sets the stroke so the weight stays: the NumberInput up and down buttons (2 on 16), its plus beside the Glyph minus, and the ConfirmIconButton and compact InlineCreateForm marks (1.8 on 16). The broken image badge keeps its 2.5 cross through `Icon` with `path`.
+- In a FactsPanel, a copy button sits 2 px further from its value, the gap CopyValue keeps between its text and its button.
+- The four backdrops measure the same as before: colour, opacity, blur, border, inset and the fades. Two rules follow Overlay now: the Drawer scrim also turns `visibility: hidden` when closed, and the Drawer scrim and a plain Overlay skip their fade when the system asks for reduced motion.
+
+RENAMES.json lists `StatRow.copyable`, `stat-row__copy`, `Text.CodeBlock`, the four Floating names and the eighteen Glyph names under the release named next.
+
+### What an app does
+
+1. Import `ShortcutList` and `CodeBlock` and their types from `@drizztdourden08/tessera/composites` or the root, and `Overlay` from `@drizztdourden08/tessera/primitives` or the root.
+2. Replace `Text.CodeBlock` with `CodeBlock`.
+3. Replace `<StatRow copyable />` with a `CopyValue` as the value, and `copyable="text"` with `<CopyValue value={shown} text="text" />`.
+4. Replace `Floating` with `Anchored`.
+5. Replace each removed Glyph name with the Icon in the table.

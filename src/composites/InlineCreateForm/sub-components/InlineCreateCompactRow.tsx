@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { COMPACT_GLYPH_SIZES } from '../InlineCreateForm.constants';
@@ -16,11 +16,11 @@ const InlineCreateCompactRow = (props: InlineCreateCompactRowProps) => {
     <Box className="inline-create-form__row">
       {children}
       <IconButton variant="primary" size={size} label={submit} title={submit} disabled={!ready} onClick={onSubmit}>
-        <Glyph name="plus" size={glyph} strokeWidth={1.8} />
+        <Icon name="plus" size={glyph} className="inline-create-form__mark" />
       </IconButton>
       {onCancel && (
         <IconButton size={size} label={cancel} title={cancel} onClick={onCancel}>
-          <Glyph name="close" size={glyph} strokeWidth={1.8} />
+          <Icon name="x" size={glyph} className="inline-create-form__mark" />
         </IconButton>
       )}
     </Box>

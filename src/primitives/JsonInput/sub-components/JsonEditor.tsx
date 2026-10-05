@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../Box';
-import { CodeBlock } from '../../CodeBlock';
+import { CodeView } from '../../code-view/CodeView';
 import { Textarea } from '../../Textarea';
 import { shownCode } from '../behavior/shown-code';
 import type { JsonEditorProps } from '../JsonInput.type';
@@ -10,7 +10,7 @@ const JsonEditor = ({ text, errorLine, inputRef, textarea }: JsonEditorProps) =>
   return (
     <Box className="json-input__editor" data-invalid={rest['aria-invalid'] ?? undefined}>
       <Box className="json-input__code" aria-hidden>
-        <CodeBlock code={shownCode(text)} language="json" wrap highlightedLines={errorLine ? [errorLine] : undefined} />
+        <CodeView code={shownCode(text)} language="json" wrap highlightedLines={errorLine ? [errorLine] : undefined} />
       </Box>
       <Textarea
         {...rest}

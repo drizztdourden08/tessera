@@ -117,3 +117,7 @@
 .facts-panel__term-value[data-mono] {
   font-family: var(--font-mono);
 }
+
+.facts-panel__fact .stat-row__value:has(> .facts-panel__copy) {
+  overflow: visible;
+}

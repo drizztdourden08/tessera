@@ -1,9 +1,9 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { CopyButton } from '../../src/composites';
+import { CodeBlock, CopyButton } from '../../src/composites';
 import type { CopyButtonSize } from '../../src/composites';
-import { CodeBlock, Flex } from '../../src/primitives';
+import { Flex } from '../../src/primitives';
 import type { ButtonVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -91,7 +91,7 @@ const Overview = overviewStory({
     '`text` is the string to copy, or a function that builds it at the moment of the click.',
     'Icon only by default, named by `label`; `showLabel` writes the word beside the icon.',
     'After a copy the icon turns to a check, the name reads Copied and a screen reader hears it.',
-    'Every Tessera copy goes through it, so [CopyValue], [StatRow] and [CodeBlock] copy alike.',
+    'Every Tessera copy goes through it, so [CopyValue], [FactsPanel] and [CodeBlock] copy alike.',
   ],
   instead: '[CopyValue] to show the value itself with its copy button.',
   playground: Playground,

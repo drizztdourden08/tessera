@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
-import type { IconName } from '../Icon/Icon.type';
-import type { MouseButton, ShortcutKeys, ShortcutSize } from '../Shortcut/Shortcut.type';
+import type { IconName } from '../../primitives/Icon/Icon.type';
+import type { MouseButton, ShortcutKeys, ShortcutSize } from '../../primitives/Shortcut/Shortcut.type';
 
 interface ShortcutGesture {
   icon: IconName;

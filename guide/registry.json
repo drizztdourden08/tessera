@@ -764,16 +764,6 @@
       "usage": false
     },
     {
-      "name": "CodeBlock",
-      "tier": "primitives",
-      "source": "src/primitives/CodeBlock/CodeBlock.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
       "name": "ColorSwatch",
       "tier": "primitives",
       "source": "src/primitives/ColorSwatch/ColorSwatch.tsx",
@@ -1037,10 +1027,7 @@
       "name": "Floating",
       "tier": "primitives",
       "source": "src/primitives/Floating/Floating.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
+      "imports": [],
       "usage": false
     },
     {
@@ -1713,6 +1700,16 @@
       "usage": false
     },
     {
+      "name": "Overlay",
+      "tier": "primitives",
+      "source": "src/primitives/Overlay/Overlay.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
       "name": "PasswordInput",
       "tier": "primitives",
       "source": "src/primitives/PasswordInput/PasswordInput.tsx",
@@ -2259,108 +2256,6 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
-    },
-    {
-      "name": "ShortcutList",
-      "tier": "primitives",
-      "source": "src/primitives/ShortcutList/ShortcutList.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": true,
-      "job": "A list of keys, clicks and drags and what each one does, with the keys in one column and the descriptions in the next.",
-      "useWhen": [
-        "A panel, a menu or a help screen lists the keys and gestures a tool answers to.",
-        "Some shortcuts only work at certain moments, such as while dragging, and read better under a heading of their own."
-      ],
-      "avoidWhen": [
-        {
-          "case": "One key or one combination sits inside a sentence, a button or a menu item.",
-          "use": "Shortcut"
-        },
-        {
-          "case": "The keys should be shown on a drawn keyboard, pressed in turn.",
-          "use": "ShortcutTour"
-        }
-      ],
-      "rules": [
-        "Lead each description with what happens, in a short phrase; keep the key cell to keys or one gesture.",
-        "Write a gesture as an icon and a short verb, such as Drag title or Drag gap, never as a sentence.",
-        "Group rows by when they work, with a short heading such as Any time or While dragging, and drop words the heading already says.",
-        "Use size xs in menus, panels and cards, and md on a page of its own."
-      ],
-      "a11y": [
-        "Each group is a description list: the keys are the term and the description its definition, so a screen reader reads them in pairs.",
-        "Keycaps read their full key names, and a gesture reads its label.",
-        "Pass label to name the whole list, and a group label names its group."
-      ],
-      "tree": {
-        "path": [
-          "a status, a count or a label",
-          "a list of keys and what they do"
-        ],
-        "rule": "ShortcutList keeps every key in one column and every description at one edge, however long the text runs."
-      },
-      "example": "import { ShortcutList } from '@drizztdourden08/tessera';\n\nconst DockShortcuts = () => (\n  <ShortcutList\n    label=\"Dock shortcuts\"\n    groups={[\n      {\n        label: 'Any time',\n        items: [\n          { gesture: { icon: 'move', label: 'Drag title' }, description: 'Move to a dock edge, a pane, a tab or over the main view' },\n          { keys: 'alt', description: 'Peek: widgets fold away while held' },\n        ],\n      },\n      {\n        label: 'While dragging',\n        items: [\n          { keys: 'shift', description: 'Swap with the pane under the pointer' },\n          { keys: 'esc', description: 'Cancel the drag' },\n        ],\n      },\n    ]}\n  />\n);\n",
-      "propsHash": "67fe9c40daba7312",
-      "props": {
-        "own": [
-          {
-            "name": "size",
-            "optional": true,
-            "text": "ShortcutSize",
-            "literals": [
-              "'md'",
-              "'xs'"
-            ],
-            "default": "'xs'"
-          },
-          {
-            "name": "label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "items",
-            "optional": true,
-            "text": "readonly ShortcutListItem[] | undefined"
-          },
-          {
-            "name": "groups",
-            "optional": true,
-            "text": "undefined | readonly ShortcutListGroup[]"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--c-text-dim",
-        "--font-sans",
-        "--leading-tight",
-        "--size-16",
-        "--size-20",
-        "--space-2xs",
-        "--space-sm",
-        "--space-xs",
-        "--text-sm",
-        "--text-xs"
-      ],
-      "gallery": {
-        "title": "Primitives · Display/ShortcutList",
-        "route": "#/story/primitives-shortcutlist--overview",
-        "file": "stories/primitives/ShortcutList.stories.tsx"
-      },
-      "parts": []
     },
     {
       "name": "Slider",
@@ -3734,6 +3629,16 @@
       "parts": []
     },
     {
+      "name": "CodeBlock",
+      "tier": "composites",
+      "source": "src/composites/CodeBlock/CodeBlock.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
       "name": "ColorPicker",
       "tier": "composites",
       "source": "src/composites/ColorPicker/ColorPicker.tsx",
@@ -4205,8 +4110,8 @@
           "use": "CopyValue"
         },
         {
-          "case": "A label and its value sit on one row, as a readout.",
-          "use": "StatRow"
+          "case": "Labelled values sit together in a panel, some of them to copy.",
+          "use": "FactsPanel"
         }
       ],
       "rules": [
@@ -4329,8 +4234,8 @@
       ],
       "avoidWhen": [
         {
-          "case": "The value has a label beside it, as one row of a readout.",
-          "use": "StatRow"
+          "case": "Labelled values sit together in a panel, some of them to copy.",
+          "use": "FactsPanel"
         },
         {
           "case": "The text to copy is not on screen, such as debug info.",
@@ -4340,7 +4245,9 @@
       "rules": [
         "Pass label as a short lower case name, such as room address, so the button reads Copy room address.",
         "Set mono for codes, keys, addresses and numbers the user may read back character by character.",
-        "Use truncate middle for keys and fingerprints, where the last characters tell two values apart."
+        "Use truncate middle for keys and fingerprints, where the last characters tell two values apart.",
+        "Pass text when the string to copy differs from what is shown, such as a full link behind a short name.",
+        "To copy the value of a StatRow, pass a CopyValue as its value; it takes the size of the row."
       ],
       "a11y": [
         "The value and its button form a group named by label.",
@@ -4355,12 +4262,17 @@
         "rule": "CopyValue keeps the value selectable and puts the copy button at its end, with the same check and announcement as every copy."
       },
       "example": "import { CopyValue } from '@drizztdourden08/tessera';\n\nconst RoomAddress = ({ address }: { address: string }) => (\n  <CopyValue value={address} label=\"room address\" mono truncate=\"middle\" />\n);\n",
-      "propsHash": "2de5d1a6247cdda9",
+      "propsHash": "f58e85124205a3c6",
       "props": {
         "own": [
           {
             "name": "value",
             "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "text",
+            "optional": true,
             "text": "string"
           },
           {
@@ -5999,16 +5911,6 @@
       "usage": false
     },
     {
-      "name": "Overlay",
-      "tier": "composites",
-      "source": "src/composites/Overlay/Overlay.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "PressedGrid",
       "tier": "composites",
       "source": "src/composites/PressedGrid/PressedGrid.tsx",
@@ -6450,7 +6352,6 @@
         "--space-lg",
         "--space-sm",
         "--space-xl",
-        "--z-backdrop",
         "--z-base"
       ],
       "gallery": {
@@ -6817,6 +6718,108 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "ShortcutList",
+      "tier": "composites",
+      "source": "src/composites/ShortcutList/ShortcutList.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A list of keys, clicks and drags and what each one does, with the keys in one column and the descriptions in the next.",
+      "useWhen": [
+        "A panel, a menu or a help screen lists the keys and gestures a tool answers to.",
+        "Some shortcuts only work at certain moments, such as while dragging, and read better under a heading of their own."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One key or one combination sits inside a sentence, a button or a menu item.",
+          "use": "Shortcut"
+        },
+        {
+          "case": "The keys should be shown on a drawn keyboard, pressed in turn.",
+          "use": "ShortcutTour"
+        }
+      ],
+      "rules": [
+        "Lead each description with what happens, in a short phrase; keep the key cell to keys or one gesture.",
+        "Write a gesture as an icon and a short verb, such as Drag title or Drag gap, never as a sentence.",
+        "Group rows by when they work, with a short heading such as Any time or While dragging, and drop words the heading already says.",
+        "Use size xs in menus, panels and cards, and md on a page of its own."
+      ],
+      "a11y": [
+        "Each group is a description list: the keys are the term and the description its definition, so a screen reader reads them in pairs.",
+        "Keycaps read their full key names, and a gesture reads its label.",
+        "Pass label to name the whole list, and a group label names its group."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a list of keys and what they do"
+        ],
+        "rule": "ShortcutList keeps every key in one column and every description at one edge, however long the text runs."
+      },
+      "example": "import { ShortcutList } from '@drizztdourden08/tessera';\n\nconst DockShortcuts = () => (\n  <ShortcutList\n    label=\"Dock shortcuts\"\n    groups={[\n      {\n        label: 'Any time',\n        items: [\n          { gesture: { icon: 'move', label: 'Drag title' }, description: 'Move to a dock edge, a pane, a tab or over the main view' },\n          { keys: 'alt', description: 'Peek: widgets fold away while held' },\n        ],\n      },\n      {\n        label: 'While dragging',\n        items: [\n          { keys: 'shift', description: 'Swap with the pane under the pointer' },\n          { keys: 'esc', description: 'Cancel the drag' },\n        ],\n      },\n    ]}\n  />\n);\n",
+      "propsHash": "67fe9c40daba7312",
+      "props": {
+        "own": [
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ShortcutSize",
+            "literals": [
+              "'md'",
+              "'xs'"
+            ],
+            "default": "'xs'"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "items",
+            "optional": true,
+            "text": "readonly ShortcutListItem[] | undefined"
+          },
+          {
+            "name": "groups",
+            "optional": true,
+            "text": "undefined | readonly ShortcutListGroup[]"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-text-dim",
+        "--font-sans",
+        "--leading-tight",
+        "--size-16",
+        "--size-20",
+        "--space-2xs",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--text-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Content/ShortcutList",
+        "route": "#/story/composites-shortcutlist--overview",
+        "file": "stories/composites/ShortcutList.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "ShortcutTour",

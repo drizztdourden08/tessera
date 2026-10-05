@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
-import { ShortcutList } from '../../../../../primitives/ShortcutList';
-import type { ShortcutListGroup } from '../../../../../primitives/ShortcutList';
+import { ShortcutList } from '../../../../ShortcutList';
+import type { ShortcutListGroup } from '../../../../ShortcutList';
 import { useTesseraStrings } from '../../../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { SHORTCUT_GROUPS } from '../WidgetOptions.constants';
 

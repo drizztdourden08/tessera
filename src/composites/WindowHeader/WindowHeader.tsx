@@ -2,7 +2,6 @@
 import { useRef } from 'react';
 import { Box } from '../../primitives/Box';
 import { Text } from '../../primitives/Text';
-import { Glyph } from '../../primitives/Glyph';
 import { Icon } from '../../primitives/Icon';
 import { IconButton } from '../../primitives/IconButton';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
@@ -30,7 +29,7 @@ const WindowHeader = (props: WindowHeaderProps) => {
         <Box className={`window-header__extra${extraFits ? '' : ' window-header__extra--away'}`} aria-hidden={extraFits ? undefined : true}>{extra}</Box>
       )}
       {onClose && (
-        <IconButton variant="ghost" size="md" label={common.close} className="window-header__close" onClick={onClose}><Glyph name="close" size={20} /></IconButton>
+        <IconButton variant="ghost" size="md" label={common.close} className="window-header__close" onClick={onClose}><Icon name="x" size={20} /></IconButton>
       )}
     </Box>
   );

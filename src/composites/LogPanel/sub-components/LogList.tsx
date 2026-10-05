@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useLogWindow } from '../behavior/useLogWindow';
@@ -22,7 +22,7 @@ const LogList = (props: LogListProps) => {
       <Box ref={win.scrollRef} className="log-panel__list focus-ring-inset" role="log" tabIndex={0} onScroll={win.handleScroll}>
         {win.hiddenOlder > 0 && (
           <Box className="log-panel__older">
-            <Button variant="ghost" size="sm" icon={<Glyph name="arrowUp" />} onClick={win.loadOlder}>
+            <Button variant="ghost" size="sm" icon={<Icon name="arrow-up" />} onClick={win.loadOlder}>
               {panels.loadOlder(Math.min(OLDER_CHUNK, win.hiddenOlder))}
             </Button>
             <Text className="log-panel__older-note">{panels.olderHidden(win.hiddenOlder)}</Text>
@@ -31,7 +31,7 @@ const LogList = (props: LogListProps) => {
         {rows.slice(first).map((row) => <LogLine key={row.id} row={row} kind={kindById.get(row.kind)} />)}
       </Box>
       {!win.pinned && (
-        <Button variant="secondary" size="sm" className="log-panel__to-bottom" icon={<Glyph name="arrowDown" />} onClick={win.jumpToBottom}>
+        <Button variant="secondary" size="sm" className="log-panel__to-bottom" icon={<Icon name="arrow-down" />} onClick={win.jumpToBottom}>
           {panels.newest}
         </Button>
       )}

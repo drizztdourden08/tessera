@@ -24,7 +24,7 @@ CopyButton writes to the clipboard through the one copy path every Tessera part 
 ## Use something else when
 
 - The value itself is on screen and the copy belongs at its end. Use [CopyValue](CopyValue.md) instead.
-- A label and its value sit on one row, as a readout. Use `StatRow` instead.
+- Labelled values sit together in a panel, some of them to copy. Use `FactsPanel` instead.
 
 ## Rules
 

@@ -1,18 +1,20 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
+
 type CodeBlockLanguage = 'typescript' | 'tsx' | 'json' | 'text';
 
-interface CodeBlockProps {
+interface CodeViewProps {
   code: string;
   language: CodeBlockLanguage;
   className?: string;
   highlightedLines?: readonly number[];
   showLineNumbers?: boolean;
-  copyable?: boolean;
   wrap?: boolean;
   capped?: boolean;
+  copy?: ReactNode;
 }
 
-interface CodeBlockLooks {
+interface CodeViewLooks {
   showLineNumbers: boolean;
   copyable: boolean;
   wrap: boolean;
@@ -20,4 +22,4 @@ interface CodeBlockLooks {
   className: string;
 }
 
-export type { CodeBlockLanguage, CodeBlockLooks, CodeBlockProps };
+export type { CodeBlockLanguage, CodeViewLooks, CodeViewProps };

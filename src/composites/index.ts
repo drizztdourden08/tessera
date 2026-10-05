@@ -102,7 +102,6 @@ export { CommandPalette, CommandPaletteRow } from './CommandPalette';
 export type {
   CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle,
 } from './CommandPalette';
-export { Overlay } from './Overlay';
 export { DisabledOverlay } from './DisabledOverlay';
 export type { DisabledOverlayProps } from './DisabledOverlay';
 export {
@@ -175,10 +174,11 @@ export { ItemCard } from './ItemCard';
 export type { ItemCardLayout, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from './ItemCard';
 export { CopyButton } from './CopyButton';
 export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
-export { CopyValue } from './CopyValue';
-export type { CopyValueProps, CopyValueSize, CopyValueTruncate } from './CopyValue';
+export { CopyValue, type CopyValueProps, type CopyValueSize, type CopyValueTruncate } from './CopyValue';
 export { Video } from './Video';
 export type { VideoProps } from './Video';
+export { ShortcutList, type ShortcutGesture, type ShortcutListGroup, type ShortcutListItem, type ShortcutListProps } from './ShortcutList';
+export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from './CodeBlock';
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,

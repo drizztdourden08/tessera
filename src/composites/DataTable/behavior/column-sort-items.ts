@@ -1,5 +1,4 @@
 /* @layer renderer-components @kind logic */
-import { menuGlyph } from './menu-glyph';
 import { menuIcon } from './menu-icon';
 import { directionWord } from './direction-word';
 import { SORT_DIR_ICON } from './column-sort-items.constants';
@@ -9,7 +8,7 @@ import type { ColumnSortInput } from './column-sort-items.type';
 
 const directionEntry = (input: ColumnSortInput, dir: SortEntry['dir']): MenuNode => ({
   id: `sort-${dir}`,
-  icon: menuGlyph(SORT_DIR_ICON[dir]),
+  icon: menuIcon(SORT_DIR_ICON[dir]),
   label: dir === 'asc' ? input.strings.sortAscending : input.strings.sortDescending,
   onSelect: input.act(() => input.actions.onSortDir(input.path, dir)),
 });

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ContentHeader } from '../../ContentHeader';
@@ -10,7 +10,7 @@ const WindowContentHeader = (props: WindowContentHeaderProps) => {
   const { common } = useTesseraStrings();
   const close = (
     <IconButton variant="ghost" size="md" label={common.close} className="screen-window__close" onClick={onClose}>
-      <Glyph name="close" size={20} />
+      <Icon name="x" size={20} />
     </IconButton>
   );
 

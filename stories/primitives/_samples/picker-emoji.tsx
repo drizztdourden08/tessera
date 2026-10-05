@@ -1,5 +1,5 @@
 /* @layer stories @kind data */
-import { Glyph } from '../../../src/primitives';
+import { Icon } from '../../../src/primitives';
 import type { ListboxCategories, ListboxColumn } from '../../../src/primitives';
 import type { Build, Game } from './picker-data';
 
@@ -43,7 +43,7 @@ const GAME_CATEGORIES: ListboxCategories = {
   adventure: { label: 'Adventure', icon: '🗡️' },
   action: { label: 'Action', icon: '💥' },
   puzzle: { label: 'Puzzle', icon: '🧩' },
-  handheld: { label: 'Handheld', icon: <Glyph name="gamepad" size={14} /> },
+  handheld: { label: 'Handheld', icon: <Icon name="gamepad-2" size={14} /> },
 };
 
 const BUILD_CATEGORIES: ListboxCategories = {

@@ -1,6 +1,6 @@
 /* @layer stories @kind logic */
 import type { StoryLiteStoryDefinition } from '@storylite/storylite';
-import { CodeBlock } from '../../../src/primitives';
+import { CodeBlock } from '../../../src/composites';
 import { overviewStory } from '../../_template/overview-story';
 import type { Guide } from './guide.type';
 import { GuideTopicView } from './GuideTopicView';

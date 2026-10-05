@@ -8,13 +8,15 @@ const usage = {
     'A long value has to fit one line and still be copied whole.',
   ],
   avoidWhen: [
-    { case: 'The value has a label beside it, as one row of a readout.', use: 'StatRow' },
+    { case: 'Labelled values sit together in a panel, some of them to copy.', use: 'FactsPanel' },
     { case: 'The text to copy is not on screen, such as debug info.', use: 'CopyButton' },
   ],
   rules: [
     'Pass label as a short lower case name, such as room address, so the button reads Copy room address.',
     'Set mono for codes, keys, addresses and numbers the user may read back character by character.',
     'Use truncate middle for keys and fingerprints, where the last characters tell two values apart.',
+    'Pass text when the string to copy differs from what is shown, such as a full link behind a short name.',
+    'To copy the value of a StatRow, pass a CopyValue as its value; it takes the size of the row.',
   ],
   a11y: [
     'The value and its button form a group named by label.',
@@ -31,7 +33,7 @@ const RoomAddress = ({ address }: { address: string }) => (
   <CopyValue value={address} label="room address" mono truncate="middle" />
 );
 `,
-  propsHash: '2de5d1a6247cdda9',
+  propsHash: 'f58e85124205a3c6',
 } satisfies ComponentUsage;
 
 export { usage };

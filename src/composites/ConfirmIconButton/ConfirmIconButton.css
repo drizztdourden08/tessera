@@ -19,3 +19,7 @@
 .confirm-icon-btn--center > :first-child {
   grid-column: 2;
 }
+
+.confirm-icon-btn__mark path {
+  stroke-width: 2.7;
+}

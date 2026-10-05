@@ -41,6 +41,8 @@ describe('Link', () => {
     expect(html).toContain('target="_blank"');
     expect(html).toContain('rel="noopener noreferrer"');
     expect(html).toContain('aria-label="opens in a new tab"');
+    expect(html).toMatch(/<svg[^>]*role="img"[^>]*aria-label="opens in a new tab"/);
+    expect(html).not.toMatch(/<svg[^>]*aria-hidden="true"[^>]*aria-label="opens in a new tab"/);
   });
 
   it('is not what Box draws for an href any more', () => {

@@ -2,7 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
 import { Span } from '../../../primitives/text-elements';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { findOperator } from '../../../data/filter/operators';
@@ -47,7 +47,7 @@ const FilterChip = (props: FilterChipProps) => {
         label={filters.removeFilterNamed(field.label)}
         onClick={onRemove}
       >
-        <Glyph name="close" />
+        <Icon name="x" />
       </IconButton>
     </Box>
   );

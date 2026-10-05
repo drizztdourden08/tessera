@@ -5,7 +5,9 @@ import { describe, expect, it, vi } from 'vitest';
 import { ErrorBoundary } from '../src/primitives/ErrorBoundary';
 import { LogPanel } from '../src/composites/LogPanel';
 import { Button } from '../src/primitives/Button';
-import { CodeBlock } from '../src/primitives/CodeBlock';
+import { CodeBlock } from '../src/composites/CodeBlock';
+import { CopyValue } from '../src/composites/CopyValue';
+import { FactsPanel } from '../src/composites/FactsPanel';
 import { DropZone } from '../src/primitives/DropZone';
 import { EmptyState } from '../src/primitives/EmptyState';
 import { Icon } from '../src/primitives/Icon';
@@ -96,9 +98,11 @@ describe('TesseraProvider clipboard, placeholders and wording', () => {
     draw({ writeText: (text) => { written.push(text); } },
       h(CodeBlock, { code: 'pnpm build', language: 'text', copyable: true }),
       h(CopyProbe, { text: 'Brock 1.4.0' }),
-      h(LogPanel, { rows: [], copyText: () => 'log text' }));
+      h(LogPanel, { rows: [], copyText: () => 'log text' }),
+      h(CopyValue, { value: 'Room 4', text: 'https://archipelago.gg/room/4', label: 'room page' }),
+      h(FactsPanel, { groups: [[{ label: 'Status', value: h('b', null, 'Hosting'), copyable: 'archipelago.gg:38281' }, { label: 'Seed', value: '2193', copyable: true }]] }));
     await Promise.all(seen.clicks.filter(Boolean).map((click) => click()));
-    expect(written.sort()).toEqual(['Brock 1.4.0', 'log text', 'pnpm build']);
+    expect(written.sort()).toEqual(['2193', 'Brock 1.4.0', 'archipelago.gg:38281', 'https://archipelago.gg/room/4', 'log text', 'pnpm build']);
   });
 
   it('draws the app placeholder for loading and empty images, framed or not', () => {

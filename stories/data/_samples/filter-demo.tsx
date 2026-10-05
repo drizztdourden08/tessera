@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import '../../../src/composites/field-kits';
-import { Box, CodeBlock, Text } from '../../../src/primitives';
+import { CodeBlock } from '../../../src/composites';
+import { Box, Text } from '../../../src/primitives';
 import { LOCATIONS } from './data-locations';
 import { useLocationRows } from './use-location-rows';
 import { useSphereClauses } from './use-sphere-clauses';

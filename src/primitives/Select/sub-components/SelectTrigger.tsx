@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../../Glyph';
+import { Icon } from '../../Icon';
 import { activeOptionId } from '../../listbox/active-option-id';
 import { ListboxValue } from '../../listbox/ListboxValue';
 import { Span } from '../../text-elements';
@@ -43,7 +43,7 @@ const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
           tags={setup.max > 1 && look.multiDisplay === 'tags'}
         />
       </Span>
-      <Glyph name="chevronDown" className="select-trigger__chevron" />
+      <Icon name="chevron-down" className="select-trigger__chevron" />
     </button>
   );
 };

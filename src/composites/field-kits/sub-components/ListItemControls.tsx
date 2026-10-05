@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { IconButton } from '../../../primitives/IconButton';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { moved } from '../moved';
 import { removedAt } from '../removed-at';
@@ -16,14 +16,14 @@ const ListItemControls = ({ list, index, disabled, onChange }: ListItemControlsP
         disabled={disabled || index === 0}
         onClick={() => onChange(moved(list, index, index - 1))}
       >
-        <Glyph name="arrowUp" />
+        <Icon name="arrow-up" />
       </IconButton>
       <IconButton
         label={records.moveDown}
         disabled={disabled || index === list.length - 1}
         onClick={() => onChange(moved(list, index, index + 1))}
       >
-        <Glyph name="arrowDown" />
+        <Icon name="arrow-down" />
       </IconButton>
       <RemoveItemButton disabled={disabled} onRemove={() => onChange(removedAt(list, index))} />
     </>

@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Code, Glyph, Text, type ScaleLabelEntry, type ScaleOrientation } from '../../src/primitives';
+import { Box, Code, Icon, Text, type ScaleLabelEntry, type ScaleOrientation } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -80,7 +80,7 @@ const Rules = {
   ),
 } satisfies StoryLiteStoryDefinition<ScaleLabelsArgs>;
 
-const VOLUME: readonly ScaleLabelEntry[] = [[0, <Glyph key="mute" name="mute" />], [50, 'Half'], [100, <Glyph key="loud" name="volume" />]];
+const VOLUME: readonly ScaleLabelEntry[] = [[0, <Icon key="mute" name="volume-x" />], [50, 'Half'], [100, <Icon key="loud" name="volume-2" />]];
 
 const degrees = (value: number): ReactNode => (value % 45 === 0 ? `${value}°` : null);
 

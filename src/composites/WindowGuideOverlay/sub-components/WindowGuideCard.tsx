@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
-import { ShortcutList } from '../../../primitives/ShortcutList';
+import { ShortcutList } from '../../ShortcutList';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Span } from '../../../primitives/text-elements';
 import { MODE_ICONS, MODE_ICON_SIZE, SNAP_ICON_SIZE } from '../WindowGuideOverlay.constants';

@@ -1,5 +1,6 @@
 /* @layer stories @kind component */
-import { Box, CodeBlock, Text } from '../../src/primitives';
+import { CodeBlock } from '../../src/composites';
+import { Box, Text } from '../../src/primitives';
 import { OverviewHead } from './description/OverviewHead';
 import { OverviewPlayground } from './OverviewPlayground';
 import { StatesSection } from './states/StatesSection';

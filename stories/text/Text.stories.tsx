@@ -39,7 +39,6 @@ const SAMPLES: Record<TextVariant, string> = {
 const EXTRA_MEMBERS: readonly Member[] = [
   { name: 'Shortcut', short: 'Sc', renders: 'keycaps' },
   { name: 'Quote', short: 'Q', renders: '<q> or <blockquote>' },
-  { name: 'CodeBlock', short: 'CodeBlock', renders: 'a code panel' },
 ];
 
 const MEMBERS: readonly Member[] = [
@@ -95,7 +94,6 @@ const Passage = {
         to send the rest. The old seed is <Text.Del>closed</Text.Del> <Text.Ins>archived</Text.Ins>.
       </Text.P>
       <Text.Quote>It is dangerous to go alone.</Text.Quote>
-      <Text.CodeBlock code={'const hero = \'Link\';'} language="typescript" />
       <Text.Small tone="muted">Every piece of this passage is a member of Text.</Text.Small>
     </Box>
   ),

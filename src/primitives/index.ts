@@ -9,8 +9,6 @@ export * from './TextElement';
 export * from './Title';
 export { Quote, Quote as Q, type QuoteProps } from './Quote';
 export * from './Shortcut';
-export { CodeBlock } from './CodeBlock';
-export type { CodeBlockLanguage, CodeBlockProps } from './CodeBlock';
 export { Emphasis } from './Emphasis';
 export type { EmphasisAnchor, EmphasisOrder, EmphasisProps, EmphasisTrigger } from './Emphasis';
 export { Flex, type FlexProps, type SpaceToken, type FlexAlign, type FlexJustify } from './Flex';
@@ -69,10 +67,10 @@ export type { SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedCont
 export { ToggleGroup } from './ToggleGroup';
 export type { ToggleOption, ToggleGroupProps } from './ToggleGroup';
 export { Tabs, type TabItem } from './Tabs';
-export { Floating } from './Floating';
 export { Anchored, useAnchorSupport } from './Anchored';
+export { Overlay } from './Overlay';
+export type { OverlayProps, OverlayTone } from './Overlay';
 export type { AnchoredPlacement, AnchoredProps } from './Anchored';
-export type { FloatingLength, FloatingPlacement, FloatingProps } from './Floating';
 export { Portal, useAnchorTracking, dropPanelPositionFor } from './Portal';
 export type {
   DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult,
@@ -162,8 +160,6 @@ export type { GaugeProps, GaugeSize, GaugeThresholds } from './Gauge';
 export { StackedBar } from './StackedBar';
 export type { StackedBarColor, StackedBarOrientation, StackedBarProps, StackedBarSegment, StackedBarSize } from './StackedBar';
 export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from './dom/app-region.constants';
-export { ShortcutList } from './ShortcutList';
-export type { ShortcutGesture, ShortcutListGroup, ShortcutListItem, ShortcutListProps } from './ShortcutList';
 export { RetryButton } from './RetryButton';
 export type { RetryButtonProps } from './RetryButton';
 export { CommandInput } from './CommandInput';

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
+import { Overlay } from '../../primitives/Overlay';
 import { useLayerFocus } from './behavior/useLayerFocus';
 import type { ScreenLayerProps } from './ScreenLayer.type';
 import './ScreenLayer.css';
@@ -10,7 +11,7 @@ const ScreenLayer = (props: ScreenLayerProps) => {
   const focus = useLayerFocus(!hidden, labelledBy);
 
   return (
-    <Box ref={focus.layerRef} className={classes}>
+    <Overlay ref={focus.layerRef} visible tone="clear" className={classes}>
       <Box className="screen-layer__inset">
         <Box
           ref={focus.ref}
@@ -28,7 +29,7 @@ const ScreenLayer = (props: ScreenLayerProps) => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Overlay>
   );
 };
 

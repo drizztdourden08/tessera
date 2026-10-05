@@ -1,9 +1,8 @@
 /* @layer stories @kind component */
 import type { ReactNode } from 'react';
 import { Logo } from '../../../src/brand';
-import {
-  Button, CodeBlock, DropZone, EmptyState, Flex, Icon, Image, Select, Spinner,
-} from '../../../src/primitives';
+import { CodeBlock } from '../../../src/composites';
+import { Button, DropZone, EmptyState, Flex, Icon, Image, Select, Spinner } from '../../../src/primitives';
 import type { TesseraOverrides, TesseraPart } from '../../../src/primitives';
 import { axis } from '../../_template/axis';
 import { Demonstrator } from '../../_template/Demonstrator';

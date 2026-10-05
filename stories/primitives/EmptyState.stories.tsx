@@ -2,8 +2,8 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { ReactNode } from 'react';
-import { Button, Card, EmptyState, Glyph, Shortcut } from '../../src/primitives';
-import type { GlyphName } from '../../src/primitives';
+import { Button, Card, EmptyState, Glyph, Icon, Shortcut } from '../../src/primitives';
+import type { IconName } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -11,17 +11,17 @@ import './EmptyState.stories.css';
 
 type EmptyStateArgs = {
   message: string;
-  glyph: GlyphName | 'none';
+  glyph: IconName | 'none';
   actionLabel: string;
 };
 
-const GLYPH_OPTIONS: readonly EmptyStateArgs['glyph'][] = ['none', 'box', 'gear', 'check', 'external'];
+const GLYPH_OPTIONS: readonly EmptyStateArgs['glyph'][] = ['none', 'package', 'settings', 'check', 'external-link'];
 
-const ARGS: Partial<EmptyStateArgs> = { message: 'No save states yet. Press F1 in game to make one.', glyph: 'box', actionLabel: 'Import a save' };
+const ARGS: Partial<EmptyStateArgs> = { message: 'No save states yet. Press F1 in game to make one.', glyph: 'package', actionLabel: 'Import a save' };
 
 const ARG_TYPES: PlaygroundArgTypes<EmptyStateArgs> = {
     message: { group: 'Content', control: 'text' },
-    glyph: { group: 'Content', control: 'select', options: GLYPH_OPTIONS, optionView: (name) => (name === 'none' ? null : <Glyph name={name} size={16} />), description: 'Pick none to hide the icon.' },
+    glyph: { group: 'Content', control: 'select', options: GLYPH_OPTIONS, optionView: (name) => (name === 'none' ? null : <Icon name={name} size={16} />), description: 'Pick none to hide the icon.' },
     actionLabel: { group: 'Content', control: 'text', description: 'Leave empty to hide the action.' },
   };
 
@@ -30,7 +30,7 @@ const VARIANT_DEMOS: Record<string, ReactNode> = {
   'with icon': <EmptyState icon={<Glyph name="box" size={24} />} message="No rooms mapped in this dungeon." />,
   'with icon and action': (
     <EmptyState
-      icon={<Glyph name="gear" size={24} />}
+      icon={<Icon name="settings" size={24} />}
       message="No controller detected."
       action={<Button size="sm" variant="primary">Scan again</Button>}
     />
@@ -73,7 +73,7 @@ const Playground = {
   render: (args) => (
     <EmptyState
       message={args.message}
-      icon={args.glyph === 'none' ? undefined : <Glyph name={args.glyph} size={24} />}
+      icon={args.glyph === 'none' ? undefined : <Icon name={args.glyph} size={24} />}
       action={args.actionLabel ? <Button size="sm" variant="secondary">{args.actionLabel}</Button> : undefined}
     />
   ),

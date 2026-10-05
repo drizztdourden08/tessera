@@ -1,5 +1,5 @@
 /* @layer stories @kind types */
-import type { CodeBlockLanguage } from '../../../src/primitives';
+import type { CodeBlockLanguage } from '../../../src/composites';
 
 interface GuideTopic {
   title: string;

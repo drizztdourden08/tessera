@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind component */
+import { Glyph } from '../../Glyph';
+import { Icon } from '../../Icon';
 import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { SIDE_GLYPH_SIZES, SPIN_GLYPH_SIZES } from '../NumberInput.constants';
 import type { NumberInputStepsProps } from '../NumberInput.type';
@@ -10,8 +12,20 @@ const NumberInputSteps = (props: NumberInputStepsProps) => {
   if (at === 'stack') {
     return (
       <div className="number-input__spin">
-        <NumberInputButton className="number-input__btn" glyph="chevronUp" glyphSize={SPIN_GLYPH_SIZES[size]} stroke={2} label={fields.increase} disabled={disabled} onStep={() => onStep(1)} />
-        <NumberInputButton className="number-input__btn" glyph="chevronDown" glyphSize={SPIN_GLYPH_SIZES[size]} stroke={2} label={fields.decrease} disabled={disabled} onStep={() => onStep(-1)} />
+        <NumberInputButton
+          className="number-input__btn"
+          mark={<Icon name="chevron-up" size={SPIN_GLYPH_SIZES[size]} className="number-input__chevron" />}
+          label={fields.increase}
+          disabled={disabled}
+          onStep={() => onStep(1)}
+        />
+        <NumberInputButton
+          className="number-input__btn"
+          mark={<Icon name="chevron-down" size={SPIN_GLYPH_SIZES[size]} className="number-input__chevron" />}
+          label={fields.decrease}
+          disabled={disabled}
+          onStep={() => onStep(-1)}
+        />
       </div>
     );
   }
@@ -19,9 +33,7 @@ const NumberInputSteps = (props: NumberInputStepsProps) => {
   return (
     <NumberInputButton
       className="number-input__side"
-      glyph={down ? 'minus' : 'plus'}
-      glyphSize={SIDE_GLYPH_SIZES[size]}
-      stroke={1.5}
+      mark={down ? <Glyph name="minus" size={SIDE_GLYPH_SIZES[size]} /> : <Icon name="plus" size={SIDE_GLYPH_SIZES[size]} className="number-input__plus" />}
       label={down ? fields.decrease : fields.increase}
       disabled={disabled}
       onStep={() => onStep(down ? -1 : 1)}

@@ -1,10 +1,13 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
+
 type CopyValueTruncate = 'end' | 'middle';
 
 type CopyValueSize = 'sm' | 'md';
 
 interface CopyValueProps {
-  value: string;
+  value: ReactNode;
+  text?: string;
   label?: string;
   mono?: boolean;
   truncate?: CopyValueTruncate;
@@ -16,7 +19,7 @@ interface CopyValueProps {
 }
 
 interface CopyValueTextProps {
-  value: string;
+  value: ReactNode;
   truncate?: CopyValueTruncate;
 }
 

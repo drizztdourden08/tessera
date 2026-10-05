@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Glyph, Tabs, Text } from '../../src/primitives';
+import { Box, Icon, Tabs, Text } from '../../src/primitives';
 import type { TabItem } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -17,11 +17,11 @@ type TabsArgs = {
 };
 
 const SETTINGS_TABS: TabItem[] = [
-  { id: 'general', label: 'General', icon: <Glyph name="gear" /> },
-  { id: 'video', label: 'Video', icon: <Glyph name="monitor" /> },
-  { id: 'audio', label: 'Audio', icon: <Glyph name="volume" /> },
-  { id: 'controls', label: 'Controls', icon: <Glyph name="gamepad" /> },
-  { id: 'saves', label: 'Saves', icon: <Glyph name="save" /> },
+  { id: 'general', label: 'General', icon: <Icon name="settings" /> },
+  { id: 'video', label: 'Video', icon: <Icon name="monitor" /> },
+  { id: 'audio', label: 'Audio', icon: <Icon name="volume-2" /> },
+  { id: 'controls', label: 'Controls', icon: <Icon name="gamepad-2" /> },
+  { id: 'saves', label: 'Saves', icon: <Icon name="save" /> },
 ];
 
 const BADGES: Record<string, number> = { controls: 2, saves: 12 };
@@ -85,7 +85,7 @@ const Layouts = {
   ),
 } satisfies StoryLiteStoryDefinition<TabsArgs>;
 
-const STATE_TAB: TabItem = { id: 'audio', label: 'Audio', icon: <Glyph name="volume" />, badge: 2 };
+const STATE_TAB: TabItem = { id: 'audio', label: 'Audio', icon: <Icon name="volume-2" />, badge: 2 };
 
 const ignoreTabChange = (): void => undefined;
 

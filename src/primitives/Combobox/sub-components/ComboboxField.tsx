@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../../Glyph';
+import { Icon } from '../../Icon';
 import { InputAdornmentView } from '../../field-control/InputAdornmentView';
 import { ListboxValue } from '../../listbox/ListboxValue';
 import { Spinner } from '../../Spinner';
@@ -47,12 +47,12 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
       {clearable && (
         <InputAdornmentView
           className="combobox__clear"
-          adornment={{ icon: <Glyph name="close" />, label: fields.clear, onClick: box.clear }}
+          adornment={{ icon: <Icon name="x" />, label: fields.clear, onClick: box.clear }}
           size={field.size}
           focusable={false}
         />
       )}
-      <Glyph name="chevronDown" className="combobox__chevron" />
+      <Icon name="chevron-down" className="combobox__chevron" />
     </div>
   );
 };

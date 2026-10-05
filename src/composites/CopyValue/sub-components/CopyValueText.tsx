@@ -5,6 +5,7 @@ import type { CopyValueTextProps } from '../CopyValue.type';
 
 const CopyValueText = (props: CopyValueTextProps) => {
   const { value, truncate } = props;
+  if (typeof value !== 'string') return <Box as="span" className="copy-value__text">{value}</Box>;
   if (truncate !== 'middle' || value.length <= MIDDLE_TAIL * 2) {
     return <Box as="span" className="copy-value__text" title={truncate ? value : undefined}>{value}</Box>;
   }

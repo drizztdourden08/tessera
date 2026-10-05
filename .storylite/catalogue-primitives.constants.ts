@@ -19,7 +19,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'ScrollArea', summary: 'A scroll box with styled bars and scroll syncing.' },
         { name: 'Portal', summary: 'Renders into a shared layer, for overlays not tied to a trigger.' },
         { name: 'Anchored', summary: 'A popup the browser pins to its trigger, with no scroll lag.' },
-        { name: 'Floating', summary: 'A panel pinned to the window at a measured place.' },
+        { name: 'Overlay', summary: 'A dimmed layer over a panel or the window, with content on top.' },
       ],
     },
     {
@@ -35,7 +35,6 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Canvas', summary: 'A 2D drawing surface for charts and pixel art.' },
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
-        { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
       ],
     },
     {

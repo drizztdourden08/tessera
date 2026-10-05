@@ -1,0 +1,8 @@
+/* @layer renderer-components @kind style */
+.code-block--copyable { position: relative; }
+
+.code-block__copy {
+  position: absolute;
+  inset-block-start: var(--space-xs);
+  inset-inline-end: var(--space-xs);
+}

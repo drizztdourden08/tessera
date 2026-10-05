@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import type { MouseEvent } from 'react';
-import { Glyph } from '../../Glyph';
+import { Icon } from '../../Icon';
 import { IconButton } from '../../IconButton';
 import type { TabsPagerProps } from '../Tabs.type';
 
@@ -15,7 +15,7 @@ const TabsPager = (props: TabsPagerProps) => (
     onMouseDown={keepFocus}
     onClick={props.onPage}
   >
-    <Glyph name={props.side === 'back' ? 'chevronLeft' : 'chevronRight'} />
+    <Icon name={props.side === 'back' ? 'chevron-left' : 'chevron-right'} />
   </IconButton>
 );
 

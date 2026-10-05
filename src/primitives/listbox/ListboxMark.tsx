@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Checkbox } from '../Checkbox';
-import { Glyph } from '../Glyph';
+import { Icon } from '../Icon';
 import type { ListboxMarkProps } from './listbox-view.type';
 
 const ignoreChange = () => undefined;
@@ -8,7 +8,7 @@ const ignoreChange = () => undefined;
 const ListboxMark = (props: ListboxMarkProps) => {
   const { multi, state } = props;
   if (!multi) {
-    return <span className="listbox-option__mark">{state.selected && <Glyph name="check" size={14} />}</span>;
+    return <span className="listbox-option__mark">{state.selected && <Icon name="check" size={14} />}</span>;
   }
   return (
     <span className="listbox-option__mark" inert>

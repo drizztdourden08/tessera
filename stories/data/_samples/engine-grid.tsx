@@ -2,7 +2,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { getPath } from '../../../src/data';
 import type { DataTableState, GroupedRow } from '../../../src/data';
-import { Badge, Box, Glyph, Pressable, Span } from '../../../src/primitives';
+import { Badge, Box, Icon, Pressable, Span } from '../../../src/primitives';
 import type { LocationRow } from './data-locations';
 import type { EngineColumn } from './engine-grid.type';
 
@@ -44,7 +44,7 @@ const renderNodes = (nodes: readonly GroupedRow<LocationRow>[], columns: readonl
 const sortGlyph = (table: EngineGridProps['table'], path: string): ReactNode => {
   const dir = table.sort.find((entry) => entry.path === path)?.dir;
   if (dir === undefined) return null;
-  return <Glyph name={dir === 'asc' ? 'arrowUp' : 'arrowDown'} size={10} />;
+  return <Icon name={dir === 'asc' ? 'arrow-up' : 'arrow-down'} size={10} />;
 };
 
 const EngineGrid = ({ table, columns }: EngineGridProps) => (

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { DropdownMenu } from '../../DropdownMenu';
@@ -27,7 +27,7 @@ const TableOptionsMenu = (props: TableOptionsMenuProps) => {
         title={table.tableOptions}
         onClick={menu.toggle}
       >
-        <Glyph name="gear" />
+        <Icon name="settings" />
       </IconButton>
       {menu.open && <DropdownMenu groups={[{ id: 'table', items }]} anchorRef={menu.anchorRef} side="above" align="end" onClose={menu.close} />}
     </>

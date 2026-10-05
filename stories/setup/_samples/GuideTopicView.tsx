@@ -1,5 +1,6 @@
 /* @layer stories @kind component */
-import { Box, CodeBlock } from '../../../src/primitives';
+import { CodeBlock } from '../../../src/composites';
+import { Box } from '../../../src/primitives';
 import type { GuideTopicViewProps } from './guide.type';
 import { GuideText } from './GuideText';
 import './GuideTopicView.css';

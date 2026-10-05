@@ -49,3 +49,8 @@
 .copy-value__tail {
   flex: none;
 }
+
+.stat-row__value > .copy-value {
+  font-size: inherit;
+  line-height: inherit;
+}

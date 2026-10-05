@@ -25,7 +25,7 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { name: 'chevronRight', size: 24 },
+  args: { name: 'sortBoth', size: 24 },
   argTypes: ARG_TYPES,
   render: (args) => <Glyph name={args.name} size={args.size} />,
 } satisfies PlaygroundStory<GlyphArgs>;
@@ -46,9 +46,11 @@ const Set = {
 
 const Overview = overviewStory({
   component: 'Glyph',
-  description: 'The small stroke glyphs the components draw themselves: chevrons, check, close, sort arrows, the gear.',
+  description: 'The few stroke glyphs Icon has no match for: a two way sort arrow, a widen arrow, a box, a minus and the window caption marks.',
   points: [
     'They sit on a 16 unit grid with a 1.5 stroke in `currentColor`.',
+    'A chevron, a check, a close mark or any mark [Icon] has is drawn with [Icon], so an app icon set swaps it.',
+    'The four window marks match the window caption buttons and stay together as one set.',
     'They are sized to sit beside dense interface text.',
     '`name` picks the glyph and `size` sets its size.',
   ],

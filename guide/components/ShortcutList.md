@@ -2,13 +2,13 @@
 
 A list of keys, clicks and drags and what each one does, with the keys in one column and the descriptions in the next.
 
-Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/primitives`.
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
 import { ShortcutList } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/primitives/ShortcutList/ShortcutList.tsx`. Its gallery page is Primitives · Display/ShortcutList (`#/story/primitives-shortcutlist--overview`).
+The source is `src/composites/ShortcutList/ShortcutList.tsx`. Its gallery page is Composites · Content/ShortcutList (`#/story/composites-shortcutlist--overview`).
 
 ## Where the questions lead here
 

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Box, Glyph, Span } from '../../../primitives';
+import { Box, Icon, Span } from '../../../primitives';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { hiddenLabelOf } from '../behavior/hidden-label-of';
 import type { SplitDividerProps } from './SplitDivider.type';
@@ -31,7 +31,7 @@ const SplitDivider = (props: SplitDividerProps) => {
       title={hidden !== null ? navigation.showPane(hidden) : navigation.resizeHint}
     >
       {hidden !== null
-        ? <Span tone="dim" className="split-pane__rail-label"><Glyph name="chevronDown" size={10} /> {hidden}</Span>
+        ? <Span tone="dim" className="split-pane__rail-label"><Icon name="chevron-down" size={10} /> {hidden}</Span>
         : <Box className="split-pane__grip" />}
     </Box>
   );

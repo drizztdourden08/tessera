@@ -2,7 +2,7 @@
 import { useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { Box } from '../../../primitives/Box';
-import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import { Pressable } from '../../../primitives/Pressable';
 import { Span } from '../../../primitives/text-elements';
 import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
@@ -48,7 +48,7 @@ const SubMenu = (props: SubMenuProps) => {
         onClick={() => setStart('first')}
         onKeyDown={onKeyDown}
       >
-        <MenuItemBody item={item} end={<Span className="dropdown__chevron"><Glyph name="chevronRight" size={12} /></Span>} />
+        <MenuItemBody item={item} end={<Span className="dropdown__chevron"><Icon name="chevron-right" size={12} /></Span>} />
       </Pressable>
       {open && <SubMenuPanel id={menuId} anchorRef={ref} label={item.label} start={start} nodes={nodes} onBack={back} />}
     </Box>

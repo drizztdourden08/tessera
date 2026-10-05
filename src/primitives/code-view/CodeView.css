@@ -29,14 +29,6 @@
   box-shadow: inset var(--border-width-thick) 0 0 0 var(--c-secondary-bright);
 }
 
-.code-block--copyable { position: relative; }
-
-.code-block__copy {
-  position: absolute;
-  inset-block-start: var(--space-xs);
-  inset-inline-end: var(--space-xs);
-}
-
 .code-block__number {
   display: inline-block;
   min-inline-size: 3ch;

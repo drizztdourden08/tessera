@@ -2,7 +2,8 @@
 import { useRef, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Button, ButtonRow, Floating, Portal, ScrollArea, Text, useAnchorTracking } from '../../src/primitives';
+import { Box, Button, ButtonRow, Portal, ScrollArea, Text, useAnchorTracking } from '../../src/primitives';
+import { Floating } from '../../src/primitives/Floating';
 import type { PortalLayer } from '../../src/primitives';
 import { dropPanelPositionFor } from '../../src/primitives/Portal';
 import { overviewStory } from '../_template/overview-story';

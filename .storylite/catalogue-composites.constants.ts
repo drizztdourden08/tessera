@@ -19,7 +19,6 @@ const COMPOSITES_TIER: CatalogueTier = {
     {
       group: 'Overlays',
       entries: [
-        { name: 'Overlay', summary: 'A scrim over the page with content on top.' },
         { name: 'Drawer', summary: 'A panel that slides in from an edge.' },
         { name: 'DisabledOverlay', summary: 'Covers a disabled area and says why.' },
       ],
@@ -139,6 +138,8 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ActionTile', summary: 'One headline value in a tile that also does one thing: an action, a copy or a way in.' },
         { name: 'CopyValue', summary: 'A value to copy, such as an address or a key, with a copy button at its end.' },
         { name: 'Video', summary: 'A video player with its own control bar, keys and error state.' },
+        { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
+        { name: 'CodeBlock', summary: 'Highlighted code in a panel, with line marks, numbers and a copy button.' },
       ],
     },
     {

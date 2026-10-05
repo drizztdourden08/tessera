@@ -90,7 +90,7 @@ const Overview = overviewStory({
     '`groups` holds the facts; each group runs along one row, with a hairline between groups.',
     '`layout` lays the facts `inline` along a line, as `rows`, or `boxed` in sunken rows.',
     '`layout="terms"` drops the box for a list of terms, each label in gold with its colon, then its value.',
-    '`mono` sets a value in the monospace font; `copyable` adds a copy button. Every value can be selected.',
+    '`mono` sets the monospace font; `copyable` draws the value as a [CopyValue], copying it or the string given.',
     'A long value is cut short; its `title` shows the full text in a tooltip.',
     '[Hero] draws its facts with it, on glass.',
   ],

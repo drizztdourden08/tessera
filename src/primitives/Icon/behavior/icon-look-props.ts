@@ -14,7 +14,7 @@ const iconLookProps = (look: IconLook) => {
     className: className ? `icon ${className}` : 'icon',
     role: label ? 'img' : undefined,
     'aria-label': label,
-    'aria-hidden': label ? undefined : true,
+    'aria-hidden': label === undefined,
   };
 };
 

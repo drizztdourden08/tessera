@@ -741,7 +741,8 @@
         "PathIcon.circles": "Icon.path, as path={{ circles }} (see MIGRATION.md section 172)",
         "PathIcon.paths": "Icon.path, as path={{ d: paths }} (see MIGRATION.md section 172)",
         "ChosenMascot.mascot": "AnimatedMascot.brand, a brand id: sentri is rotp, flint is brock, pelago is archipelia, and auto stays auto (see MIGRATION.md section 174)",
-        "ChosenMascot.brand": "AnimatedMascot.brand, the brand itself; auto reads data-palette (see MIGRATION.md section 174)"
+        "ChosenMascot.brand": "AnimatedMascot.brand, the brand itself; auto reads data-palette (see MIGRATION.md section 174)",
+        "StatRow.copyable": "removed; pass a CopyValue as the value, as value={<CopyValue value={seed} label=\"seed\" />}, with text for a string to copy that differs from what is shown (see MIGRATION.md section 175)"
       },
       "strings": {
         "fields.increment": "fields.increase",
@@ -757,7 +758,8 @@
         "term-list__item": "facts-panel__term",
         "term-list": "facts-panel facts-panel--terms",
         "thumbnail": "image image--framed",
-        "chosen-mascot": "animated-mascot-auto"
+        "chosen-mascot": "animated-mascot-auto",
+        "stat-row__copy": "removed; a value to copy is a CopyValue inside stat-row__value, with its copy-button (see MIGRATION.md section 175)"
       },
       "cssCustomProperties": {
         "--number-stepper-button-w": "--number-input-side-w",
@@ -768,13 +770,38 @@
           "sentri": "rotp",
           "flint": "brock",
           "pelago": "archipelia"
+        },
+        "Glyph.name": {
+          "check": "removed; draw <Icon name=\"check\" /> in place of <Glyph name=\"check\" /> (see MIGRATION.md section 175)",
+          "close": "removed; draw <Icon name=\"x\" /> in place of <Glyph name=\"close\" /> (see MIGRATION.md section 175)",
+          "chevronDown": "removed; draw <Icon name=\"chevron-down\" /> in place of <Glyph name=\"chevronDown\" /> (see MIGRATION.md section 175)",
+          "chevronUp": "removed; draw <Icon name=\"chevron-up\" /> in place of <Glyph name=\"chevronUp\" /> (see MIGRATION.md section 175)",
+          "chevronRight": "removed; draw <Icon name=\"chevron-right\" /> in place of <Glyph name=\"chevronRight\" /> (see MIGRATION.md section 175)",
+          "chevronLeft": "removed; draw <Icon name=\"chevron-left\" /> in place of <Glyph name=\"chevronLeft\" /> (see MIGRATION.md section 175)",
+          "arrowUp": "removed; draw <Icon name=\"arrow-up\" /> in place of <Glyph name=\"arrowUp\" /> (see MIGRATION.md section 175)",
+          "arrowDown": "removed; draw <Icon name=\"arrow-down\" /> in place of <Glyph name=\"arrowDown\" /> (see MIGRATION.md section 175)",
+          "edit": "removed; draw <Icon name=\"pencil\" /> in place of <Glyph name=\"edit\" /> (see MIGRATION.md section 175)",
+          "copy": "removed; draw <Icon name=\"copy\" /> in place of <Glyph name=\"copy\" /> (see MIGRATION.md section 175)",
+          "external": "removed; draw <Icon name=\"external-link\" /> in place of <Glyph name=\"external\" /> (see MIGRATION.md section 175)",
+          "gear": "removed; draw <Icon name=\"settings\" /> in place of <Glyph name=\"gear\" /> (see MIGRATION.md section 175)",
+          "volume": "removed; draw <Icon name=\"volume-2\" /> in place of <Glyph name=\"volume\" /> (see MIGRATION.md section 175)",
+          "mute": "removed; draw <Icon name=\"volume-x\" /> in place of <Glyph name=\"mute\" /> (see MIGRATION.md section 175)",
+          "plus": "removed; draw <Icon name=\"plus\" /> in place of <Glyph name=\"plus\" /> (see MIGRATION.md section 175)",
+          "monitor": "removed; draw <Icon name=\"monitor\" /> in place of <Glyph name=\"monitor\" /> (see MIGRATION.md section 175)",
+          "gamepad": "removed; draw <Icon name=\"gamepad-2\" /> in place of <Glyph name=\"gamepad\" /> (see MIGRATION.md section 175)",
+          "save": "removed; draw <Icon name=\"save\" /> in place of <Glyph name=\"save\" /> (see MIGRATION.md section 175)"
         }
       },
       "removedExports": {
         "mascotForBrand": "removed; AnimatedMascot brand=\"auto\" picks the mascot of the palette, and a brand id names its own mascot (see MIGRATION.md section 174)",
         "InteractiveTessera": "removed from the package; it lives in the gallery only (see MIGRATION.md section 174)",
         "InteractiveTesseraProps": "removed with InteractiveTessera (see MIGRATION.md section 174)",
-        "PixelWordmark": "still exported from the root; from a subpath, import it, buildPixelWordmark, PIXEL_FONT and their types from @drizztdourden08/tessera/brand, no longer /composites (see MIGRATION.md section 174)"
+        "PixelWordmark": "still exported from the root; from a subpath, import it, buildPixelWordmark, PIXEL_FONT and their types from @drizztdourden08/tessera/brand, no longer /composites (see MIGRATION.md section 174)",
+        "Text.CodeBlock": "CodeBlock, imported on its own from @drizztdourden08/tessera or /composites; Text no longer carries it (see MIGRATION.md section 175)",
+        "Floating": "removed from the exports; use Anchored, which pins a popup to its trigger (see MIGRATION.md section 175)",
+        "FloatingProps": "removed from the exports; use AnchoredProps (see MIGRATION.md section 175)",
+        "FloatingPlacement": "removed from the exports; type a fallback place as AnchoredProps['fallback'] (see MIGRATION.md section 175)",
+        "FloatingLength": "removed from the exports; a fallback place takes a number of pixels or a CSS length (see MIGRATION.md section 175)"
       }
     }
   ]

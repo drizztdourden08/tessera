@@ -1,5 +1,6 @@
 /* @layer stories @kind component */
-import { Box, CodeBlock, Text } from '../../../src/primitives';
+import { CodeBlock } from '../../../src/composites';
+import { Box, Text } from '../../../src/primitives';
 import { PROVIDER_SETUP_CODE } from './provider-setup-code';
 import './ProviderPart.css';
 

@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import type { ReactNode } from 'react';
-import { Code, Glyph } from '../../../src/primitives';
+import { Code, Icon } from '../../../src/primitives';
 import type { ScaleLabelEntry } from '../../../src/primitives';
 import { axis } from '../../_template/axis';
 import { Demonstrator } from '../../_template/Demonstrator';
@@ -13,7 +13,7 @@ const percent = (value: number): string => `${value}%`;
 const times = (value: number): string => `${value}x`;
 const millis = (value: number): string => `${value} ms`;
 
-const VOLUME: readonly ScaleLabelEntry[] = [[0, <Glyph key="mute" name="mute" />], [50, 'Half'], [100, <Glyph key="loud" name="volume" />]];
+const VOLUME: readonly ScaleLabelEntry[] = [[0, <Icon key="mute" name="volume-x" />], [50, 'Half'], [100, <Icon key="loud" name="volume-2" />]];
 
 const angle = (value: number): ReactNode => (value % 45 === 0 ? `${value}°` : null);
 
@@ -47,7 +47,7 @@ const EXAMPLES: Readonly<Record<string, LabelExample>> = {
     node: <StatefulSlider initial={50} step={5} format={percent} labels="every 25 + 0=Off | {v}%" ariaLabel="Rumble" />,
   },
   'Pairs, with icons': {
-    labels: "[[0, <Glyph />], [50, 'Half'], [100, <Glyph />]]",
+    labels: "[[0, <Icon />], [50, 'Half'], [100, <Icon />]]",
     node: <StatefulSlider initial={80} format={percent} labels={VOLUME} ariaLabel="Music volume" />,
   },
   'A function': {

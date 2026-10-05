@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import { useMemo, useState } from 'react';
-import { Box, CodeBlock, SegmentedControl, TesseraProvider, Text } from '../../../src/primitives';
+import { CodeBlock } from '../../../src/composites';
+import { Box, SegmentedControl, TesseraProvider, Text } from '../../../src/primitives';
 import { PART_TEXT } from './provider-part-text.constants';
 import { ProviderReportContext } from './provider-report-context';
 import { providerSnippet } from './provider-snippet';

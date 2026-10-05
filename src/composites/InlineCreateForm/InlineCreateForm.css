@@ -40,3 +40,7 @@
   flex: 1;
   min-inline-size: 0;
 }
+
+.inline-create-form__mark path {
+  stroke-width: 2.7;
+}

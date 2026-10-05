@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useState } from 'react';
 import type { RefObject } from 'react';
-import { ownerWindowOf } from '../../dom/owner-window';
+import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { COLUMN_GAP, MIN_DESCRIPTION_WIDTH } from '../ShortcutList.constants';
 import { widestKeys } from './widest-keys';
 

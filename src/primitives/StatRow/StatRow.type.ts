@@ -6,7 +6,6 @@ interface StatRowProps {
   label: ReactNode;
   value: ReactNode;
   mono?: boolean;
-  copyable?: boolean | string;
   size?: GaugeSize;
   className?: string;
 }

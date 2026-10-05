@@ -14,7 +14,6 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `Canvas`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Card`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Checkbox`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Combobox`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [CommandInput](components/CommandInput.md): A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line. Import from `@drizztdourden08/tessera`.
@@ -27,7 +26,7 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `Field`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FieldControlBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Flex`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Floating`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `Floating`: usage not written yet. Not exported; Tessera uses it inside.
 - [Gauge](components/Gauge.md): A small round meter that shows one value against its limit, coloured by the zone the value is in. Import from `@drizztdourden08/tessera`.
 - `Glyph`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Grid`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -42,6 +41,7 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `Link`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [NamedRange](components/NamedRange.md): A number from a range whose common values have names: the names as joined buttons, then Custom for any other number. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathField](components/PathField.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one field, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -59,7 +59,6 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `Select`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [SetPicker](components/SetPicker.md): Several choices from a long list: the chosen ones as removable tags, a search, and a checklist that scrolls. Import from `@drizztdourden08/tessera`.
 - `Shortcut`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [ShortcutList](components/ShortcutList.md): A list of keys, clicks and drags and what each one does, with the keys in one column and the descriptions in the next. Import from `@drizztdourden08/tessera`.
 - `Slider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Spacer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Sparkline](components/Sparkline.md): A small line or area chart of the latest samples, so a reader sees which way a value moves at a glance. Import from `@drizztdourden08/tessera`.
@@ -91,6 +90,7 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - [ActionBar](components/ActionBar.md): The actions on one item in a single row: the primary action last, the ones that do not fit folded into a More menu. Import from `@drizztdourden08/tessera`.
 - [ActionTile](components/ActionTile.md): A tile with one headline value that also does one thing: runs an action, copies a text, or leads to the full view. Import from `@drizztdourden08/tessera`.
 - [CheckList](components/CheckList.md): The results of a list of checks, such as a connection test or a diagnostics report, each with its state, what was found and an optional fix. Import from `@drizztdourden08/tessera`.
+- `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorPicker`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker`.
 - `ColorPickerPopover`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker-popover`.
 - `CommandPalette`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -130,7 +130,6 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - [ManagedList](components/ManagedList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.
 - [MasterDetail](components/MasterDetail.md): A ManagedList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
 - `MasterDetailLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.
@@ -144,6 +143,7 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `SettingsPage`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsSection`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ShortcutList](components/ShortcutList.md): A list of keys, clicks and drags and what each one does, with the keys in one column and the descriptions in the next. Import from `@drizztdourden08/tessera`.
 - `ShortcutTour`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.

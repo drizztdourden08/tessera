@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind data */
 import { createElement } from 'react';
 import { Glyph } from '../../../primitives/Glyph';
+import { Icon } from '../../../primitives/Icon';
 import type { ReactNode } from 'react';
 import type { OperatorIcon } from '../../../data/filter/operators';
 
@@ -19,8 +20,8 @@ const OPERATOR_GLYPHS: Record<OperatorIcon, ReactNode> = {
   'is-not-empty': '!{}',
   'any-of': 'in',
   'none-of': '!in',
-  'is-true': createElement(Glyph, { name: 'check' }),
-  'is-false': createElement(Glyph, { name: 'close' }),
+  'is-true': createElement(Icon, { name: 'check' }),
+  'is-false': createElement(Icon, { name: 'x' }),
   'length-eq': '#=',
   'length-gt': '#>',
   'length-lt': '#<',

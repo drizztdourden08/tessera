@@ -1,8 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { CodeBlock } from '../../src/primitives';
-import type { CodeBlockLanguage } from '../../src/primitives';
+import { CodeBlock } from '../../src/composites';
+import type { CodeBlockLanguage } from '../../src/composites';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { DIAGNOSTICS_SAMPLE, JSON_SAMPLE, TS_SAMPLE } from './_samples/data-code';
@@ -46,7 +46,7 @@ const ARG_TYPES: PlaygroundArgTypes<CodeBlockArgs> = {
   };
 
 const meta = {
-  title: 'Core · Text/CodeBlock',
+  title: 'Composites · Content/CodeBlock',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<CodeBlockArgs>;
 
