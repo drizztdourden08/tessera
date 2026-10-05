@@ -70,7 +70,7 @@
 
 .content-header--compact {
   min-height: var(--content-header-h-compact);
-  padding-block: var(--space-xs);
+  padding-block: 0;
 }
 
 .content-header--compact .content-header__icon {

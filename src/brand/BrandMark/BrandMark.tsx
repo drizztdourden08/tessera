@@ -14,10 +14,10 @@ import { BrandMarkRim } from './sub-components/BrandMarkRim';
 import './BrandMark.css';
 
 const BrandMark = (props: BrandMarkProps) => {
-  const { app, size = 'md', variant = 'mark', rim = 'none', ground, inks, title, className = '' } = props;
+  const { app, size = 'md', variant = 'mark', rim = 'none', ground, title, className = '' } = props;
   const brand = BRAND_FAMILY[app];
   const tile = variant === 'app-icon' && brand.appIcon === 'tile';
-  const look = markLook(brand.mark, useMarkGround(ground, tile), rim, inks);
+  const look = markLook(brand.mark, useMarkGround(ground, tile), rim);
   const { viewBox, pixelArt } = brand.mark;
   const box = squareBox(viewBox);
   const { x, y, w, h } = box;

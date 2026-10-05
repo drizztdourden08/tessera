@@ -90,10 +90,9 @@ A mark stands on one of two gradients of its palette: the light pair, `--c-gradi
 ```tsx
 <BrandMark app="brock" ground="dark" />
 <Logo brand="tessera" ground="light" />
-<BrandMark app="brock" ground="dark" inks="onDark" />
 ```
 
-`ground` is `'light'` or `'dark'`, on `BrandMark`, `Logo` and `Logo.Combined`; left out, the mark is drawn as drawn with no outline. Inside `Splash` every mark takes `'dark'` by itself; a `ground` prop still wins. A path sets its second colour in `onDark`, beside `ink`: Archipelia's lilac ring, and Brock's lighter stone faces, `#7d7e81` to `#b8b9bb`. `grounds.<ground>.inks` set to `'onDark'` draws them on that ground, and the `inks` prop draws either set on any ground. `grounds.<ground>.outline`, `'light'` or `'dark'`, outlines the mark in the rim colour: half the width of the `rim` prop's, never under 1 pixel. A `rim` prop keeps its own width and wins. An app icon on its tile keeps its colours, since the tile is its ground.
+`ground` is `'light'` or `'dark'`, on `BrandMark`, `Logo` and `Logo.Combined`; left out, the mark is drawn as drawn with no outline. Inside `Splash` every mark takes `'dark'` by itself; a `ground` prop still wins. A path sets its second colour in `onDark`, beside `ink`; only Archipelia has one, its lilac ring. `grounds.<ground>.inks` set to `'onDark'` draws the second colours on that ground. Brock has one set of colours, its charcoal stone, on both gradients: only its outline changes, black on the light gradient and white on the dark. `grounds.<ground>.outline`, `'light'` or `'dark'`, outlines the mark in the rim colour: half the width of the `rim` prop's, never under 1 pixel. A `rim` prop keeps its own width and wins. An app icon on its tile keeps its colours, since the tile is its ground.
 
 `pnpm icons` writes each look as files, for a static page that shows the mark as an image: `brand/light-ground/<app>.svg` and `brand/dark-ground/<app>.svg`, each with `<app>/mark/mark-<size>.png` at the sizes of the mark ladder, and no `.ico`. The static splash page reads `brand/dark-ground/`.
 

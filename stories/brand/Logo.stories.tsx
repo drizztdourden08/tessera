@@ -67,7 +67,6 @@ const AppIcon = {
 const GROUND_COLUMNS = [
   { key: 'light', label: 'ground="light", on the light gradient' },
   { key: 'dark', label: 'ground="dark", on the dark gradient of the splash' },
-  { key: 'onDark', label: 'inks="onDark", the second colours' },
 ] as const;
 
 const OnGradients = {
@@ -76,9 +75,7 @@ const OnGradients = {
     <Demonstrator
       rows={axis(BRAND_APPS)}
       columns={GROUND_COLUMNS}
-      cell={(brand, column) => (column === 'onDark'
-        ? <MarkOnGround brand={brand} ground="dark" inks="onDark" />
-        : <MarkOnGround brand={brand} ground={column} />)}
+      cell={(brand, column) => <MarkOnGround brand={brand} ground={column} />}
     />
   ),
 } satisfies StoryLiteStoryDefinition<LogoArgs>;

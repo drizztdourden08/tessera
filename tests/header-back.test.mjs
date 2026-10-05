@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { ContentHeader } from '../src/composites/ContentHeader';
 import { backFits } from '../src/composites/ContentHeader/behavior/back-fits';
+import { ContentHeaderBack } from '../src/composites/ContentHeader/sub-components/ContentHeaderBack';
 import { ScreenPage } from '../src/composites/ScreenPage';
 import { ScreenWindow } from '../src/composites/ScreenWindow';
 import { SettingsPage } from '../src/composites/SettingsPage';
@@ -52,6 +53,21 @@ describe('ContentHeader back', () => {
 
   it('reads Back alone when back has no label', () => {
     expect(renderToString(h(ContentHeader, { title: 'Startup', back: { onSelect: ignore } }))).toContain('>Back</span>');
+  });
+});
+
+describe('header button size', () => {
+  const buttons = (html) => [...html.matchAll(/<button[^>]*class="([^"]*)"[^>]*aria-label="(Back[^"]*|Close)"|<button[^>]*class="([^"]*content-header__back[^"]*)"/g)]
+    .map((match) => (match[1] ?? match[3]).split(' ').find((name) => /^(icon-)?btn--(xs|sm|md)$/.test(name)));
+
+  it('draws every back and close button of a header at md, as tall as a md Button', () => {
+    const drawn = [
+      renderToString(h(WindowHeader, { title: 'Save files', back: { onSelect: ignore }, onClose: ignore })),
+      renderToString(h(ContentHeaderBack, { back: BACK, folded: false })),
+      renderToString(h(ContentHeaderBack, { back: BACK, folded: true })),
+      renderToString(h(ScreenWindow, { title: 'Players', header: {}, back: BACK, onClose: ignore }, 'body')),
+    ].flatMap(buttons);
+    expect(drawn).toEqual(['icon-btn--md', 'icon-btn--md', 'btn--md', 'icon-btn--md', 'btn--md', 'icon-btn--md']);
   });
 });
 

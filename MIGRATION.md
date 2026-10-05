@@ -6129,3 +6129,37 @@ interface TourSpotProps {
 ### What an app does
 
 Nothing for a tour that already works: an `onEnter` that takes no argument still fits. A Brock tour passes `keep={[{ tour: 'title-bar' }]}`, uses `advance: 'wait'` and `tour.next()` for steps that end on an event, and draws `TourSpot` in a popped widget window for a target that lives there. An app that styled `.guided-tour__veil` or `.guided-tour__ring` moves to the new class names.
+
+## 196. Header back and close buttons are md, and Brock has one set of colours
+
+From two owner decisions. The owner keeps the sizes of section 194 and brings the back and close buttons of every header to them. Brock's light grey stone of section 182 was never approved: only its outline changes with the ground.
+
+### Header buttons
+
+| Header | Button | Before | Now |
+| --- | --- | --- | --- |
+| WindowHeader, so DialogShell, Dialog, Drawer, ScreenWindow, InfoScreen and StageScreen | back and close | 39 px square | unchanged |
+| ScreenWindow with `header`, so UtilityScreen | close | 39 px square | unchanged |
+| ContentHeader, so ScreenPage, SettingsPage and ScreenWindow with `header` | back, Back to and the page name | 28 px tall, `sm` Button | 39 px tall, `md` Button |
+| ContentHeader, folded to an arrow | back | 28 px square | 39 px square |
+| Widget title bar | pin, pop, options and close | 20 px square | unchanged |
+| WindowTitleBar | actions and window controls | 28 px, and 48 by 40 px | unchanged: a title bar, not a header |
+
+- **ContentHeader.** Its back button is a `md` Button, or a `md` IconButton once folded, with the 18 px arrow of WindowHeader. A full header stays 64 px. A compact header drops its block padding of 4 px, so with a back button it stays 40 px, where it would grow to 48.
+- **Widget.** At `md` its title bar would grow from 30 to 44 px, a 39 px button beside 12 px titles, and a widget would lose a line of content. Its buttons keep the 20 px of `--widget-btn-d` until the owner decides.
+- The IconButton page says that the back and close buttons of a window or page header are `md`. A test renders WindowHeader, ContentHeader, folded and not, and a ScreenWindow header, and holds each back and close button at `md`.
+
+### Brock's colours
+
+```ts
+// BrandMark, Logo and Logo.Combined
+inks?: BrandInks; // removed
+```
+
+- Brock's stone faces lose their `onDark` colours, `#7d7e81` to `#b8b9bb`. Brock draws its charcoal stone on both gradients, with a black outline on the light one, 8.71:1, and a white outline on the dark one, 13.74:1, as before.
+- The `inks` prop is removed from BrandMark, Logo and Logo.Combined: it only reached Brock's light grey stone. Archipelia keeps its lilac colours in `onDark` and `grounds: { dark: { inks: 'onDark' } }`, so `BrandInks`, `BrandMarkGround.inks` and `BrandMarkPath.onDark` stay. RENAMES.json lists the removed prop.
+- The Logo page drops its `inks="onDark"` column. `pnpm icons` writes the same files as before, since they never drew the light grey stone.
+
+### What an app does
+
+Drop `inks` from a BrandMark or a Logo: `ground="dark"` draws Brock as the owner approved it. An app that set its own height on a ContentHeader back button drops that rule.

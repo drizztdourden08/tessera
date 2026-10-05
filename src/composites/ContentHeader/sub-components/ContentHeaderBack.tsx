@@ -11,11 +11,11 @@ const ContentHeaderBack = (props: ContentHeaderBackProps) => {
   const { back, folded } = props;
   const { navigation } = useTesseraStrings();
   const text = back.label === undefined ? navigation.back : navigation.backTo(back.label);
-  const arrow = <Icon name="arrow-left" size={16} />;
-  if (!folded) return <Button variant="ghost" size="sm" icon={arrow} className={BACK_CLASS} onClick={back.onSelect}>{text}</Button>;
+  const arrow = <Icon name="arrow-left" size={18} />;
+  if (!folded) return <Button variant="ghost" size="md" icon={arrow} className={BACK_CLASS} onClick={back.onSelect}>{text}</Button>;
   return (
     <Tooltip content={text} placement="bottom" className={`${BACK_CLASS} ${BACK_CLASS}--folded`}>
-      <IconButton variant="ghost" size="sm" label={text} onClick={back.onSelect}>{arrow}</IconButton>
+      <IconButton variant="ghost" size="md" label={text} onClick={back.onSelect}>{arrow}</IconButton>
     </Tooltip>
   );
 };

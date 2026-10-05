@@ -72,4 +72,4 @@ const GeneralHeader = ({ section, onSection }: { section: string; onSection: (id
 
 ## Tokens
 
-It draws on `--blur-glow`, `--border-width-thin`, `--c-border`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-secondary`, `--c-text`, `--c-text-dim`, `--size-40`, `--size-64`, `--space-md`, `--space-xl`, `--space-xs`, `--text-2xl`, `--text-lg`, `--text-xl`, `--transition-fast`, `--weight-bold`.
+It draws on `--blur-glow`, `--border-width-thin`, `--c-border`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-secondary`, `--c-text`, `--c-text-dim`, `--size-40`, `--size-64`, `--space-md`, `--space-xl`, `--text-2xl`, `--text-lg`, `--text-xl`, `--transition-fast`, `--weight-bold`.
