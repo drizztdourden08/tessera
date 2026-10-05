@@ -1,0 +1,36 @@
+/* @layer renderer-components @kind style */
+.row-grid__cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.row-grid__control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.row-grid__error {
+  font-size: var(--text-xs);
+}
+
+.row-grid__label--inline,
+.row-grid--cards .row-grid__label {
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.row-grid__cell--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.row-grid--cards .row-grid__cell--inline {
+  grid-column: 1 / -1;
+}

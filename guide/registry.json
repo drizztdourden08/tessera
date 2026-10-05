@@ -144,6 +144,11 @@
               "KeyValueEditor"
             ]
           },
+          "a short list of items with the same few fields": {
+            "components": [
+              "RowGrid"
+            ]
+          },
           "on or off": {
             "question": "When does the change apply?",
             "answers": {
@@ -474,6 +479,11 @@
           "what blocks a save, with a jump to each field": {
             "components": [
               "ValidationSummary"
+            ]
+          },
+          "whether the edits are saved, with Save and Discard": {
+            "components": [
+              "SaveBar"
             ]
           }
         }
@@ -5837,11 +5847,13 @@
         "Pass onSave so the question offers Save and open; return false, or reject, when the save fails.",
         "Pass onDiscard to throw the draft away; onSelect runs after it.",
         "Keep the list props in list; MasterDetail adds the selection and guards New.",
-        "A create form in list opens without the question, since it throws no edits away; picking the new item is up to the app."
+        "A create form in list opens without the question, since it throws no edits away; picking the new item is up to the app.",
+        "The question is a bar over the editor by default; pass guard dialog to ask in a modal dialog instead.",
+        "Put a SaveBar at the foot of the editor, for Save and Discard while the user stays on the item."
       ],
       "a11y": [
         "The question takes focus on Stay here, and Escape stays; focus goes back where it was.",
-        "With guard dialog the question is a modal dialog; with guard inline it is an alertdialog over the editor.",
+        "By default the question is an alertdialog over the editor; with guard dialog it is a modal dialog.",
         "The list keeps every key of ManagedList, and under 768 px Back sits at the top of the editor."
       ],
       "tree": {
@@ -5904,7 +5916,7 @@
               "'dialog'",
               "'inline'"
             ],
-            "default": "'dialog'"
+            "default": "'inline'"
           },
           {
             "name": "className",
@@ -5967,8 +5979,7 @@
         "--radius-md",
         "--size-256",
         "--space-md",
-        "--space-sm",
-        "--space-xs"
+        "--space-sm"
       ],
       "gallery": {
         "title": "Composites · Layout/MasterDetail",
@@ -6026,6 +6037,306 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "RowGrid",
+      "tier": "composites",
+      "source": "src/composites/RowGrid/RowGrid.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A short list the user edits in place, one row per item and one input per column, such as the players of a session.",
+      "useWhen": [
+        "Each item has the same few fields, and the user adds, removes and reorders the items.",
+        "The list is short, tens of rows at most, and every row stays editable."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user browses, sorts or picks from many records.",
+          "use": "DataTable"
+        },
+        {
+          "case": "Each item has many fields or a nested shape.",
+          "use": "RecordEditor"
+        },
+        {
+          "case": "Each row is a name and one value of a map.",
+          "use": "KeyValueEditor"
+        },
+        {
+          "case": "The rows are read only with a few actions.",
+          "use": "ListItemRow"
+        }
+      ],
+      "rules": [
+        "Give each column a min and a max in pixels; the grid stays a table while every min fits.",
+        "Mark the least needed column fold, so it moves to a second line before the rows turn into cards.",
+        "Put the field that names the row first: in cards it heads the card.",
+        "Keep the rows in the app and change them in onAdd, onRemove and onMove; the grid only draws them.",
+        "Pass error per column as a sentence that says how to fix it."
+      ],
+      "a11y": [
+        "Each row is a group named after rowLabel, and each input is named by its column.",
+        "Ctrl and Up or Down moves to the same column in the row above or below.",
+        "The grip moves its row with Up and Down; the row menu has Move up and Move down too.",
+        "Adding, removing and moving a row is announced, and focus lands on the next useful control."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a short list of items with the same few fields"
+        ],
+        "rule": "RowGrid edits a short list row by row, a table when wide and cards when narrow, the same way in every app."
+      },
+      "example": "import { RowGrid, TextInput } from '@drizztdourden08/tessera';\nimport type { RowGridColumn } from '@drizztdourden08/tessera';\n\ninterface Player {\n  id: string;\n  name: string;\n}\n\ninterface PlayersProps {\n  players: Player[];\n  rename: (id: string, name: string) => void;\n  add: () => void;\n  remove: (id: string) => void;\n  move: (from: number, to: number) => void;\n}\n\nconst Players = ({ players, rename, add, remove, move }: PlayersProps) => {\n  const columns: RowGridColumn<Player>[] = [{\n    id: 'name',\n    label: 'Name',\n    min: 120,\n    max: 260,\n    error: (player) => (player.name.trim() === '' ? 'Give the player a name.' : undefined),\n    cell: (player) => <TextInput value={player.name} onChange={(event) => rename(player.id, event.currentTarget.value)} />,\n  }];\n  return (\n    <RowGrid\n      label=\"Players\"\n      rows={players}\n      columns={columns}\n      rowKey={(player) => player.id}\n      rowLabel={(player) => player.name}\n      numbered\n      onAdd={add}\n      addLabel=\"Add player\"\n      onRemove={remove}\n      onMove={move}\n    />\n  );\n};\n",
+      "propsHash": "9331047efc2c0e60",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "rows",
+            "optional": false,
+            "text": "readonly Row[]"
+          },
+          {
+            "name": "columns",
+            "optional": false,
+            "text": "readonly RowGridColumn<Row>[]"
+          },
+          {
+            "name": "rowKey",
+            "optional": false,
+            "text": "(row: Row) => string"
+          },
+          {
+            "name": "rowLabel",
+            "optional": true,
+            "text": "(row: Row, index: number) => string"
+          },
+          {
+            "name": "numbered",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "density",
+            "optional": true,
+            "text": "RowGridDensity",
+            "literals": [
+              "'comfortable'",
+              "'compact'"
+            ]
+          },
+          {
+            "name": "onAdd",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "addLabel",
+            "optional": true,
+            "text": "string",
+            "default": "rowGrid.add"
+          },
+          {
+            "name": "onRemove",
+            "optional": true,
+            "text": "(key: string) => void"
+          },
+          {
+            "name": "onMove",
+            "optional": true,
+            "text": "(from: number, to: number) => void"
+          },
+          {
+            "name": "rowMenu",
+            "optional": true,
+            "text": "(row: Row, index: number) => readonly MenuItem[]"
+          },
+          {
+            "name": "summary",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode",
+            "default": "rowGrid.empty"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-border-strong",
+        "--c-danger-bright",
+        "--c-hairline",
+        "--c-hover",
+        "--c-layer",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-soft",
+        "--c-surface",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--control-h-md",
+        "--control-h-sm",
+        "--opacity-muted",
+        "--radius-md",
+        "--row-grid-max",
+        "--row-grid-tracks",
+        "--size-1",
+        "--size-160",
+        "--size-2",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xl",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-wide",
+        "--transition-fast"
+      ],
+      "gallery": {
+        "title": "Composites · Forms/RowGrid",
+        "route": "#/story/composites-rowgrid--overview",
+        "file": "stories/composites/RowGrid.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "SaveBar",
+      "tier": "composites",
+      "source": "src/composites/SaveBar/SaveBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The bar at the foot of an editor: whether its edits are saved, the reason a save failed, and Save and Discard.",
+      "useWhen": [
+        "A screen edits one thing, such as a preset or a session, and keeps the edits until the user saves.",
+        "The user needs to see at a glance whether the edits are saved, and to save or drop them from one place."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Each setting applies the moment it changes.",
+          "use": "SettingsRow"
+        },
+        {
+          "case": "A new thing is named before it exists.",
+          "use": "InlineCreateForm"
+        },
+        {
+          "case": "The edits are steps of one task with Back and Next.",
+          "use": "WizardNav"
+        }
+      ],
+      "rules": [
+        "Put the bar last in the editor, so it stays at the foot of the scrolling area.",
+        "Move state through clean, dirty, saving, then saved or error; the app owns it and the bar only draws it.",
+        "Pass error as a sentence that says what to do, such as Free some space and save again.",
+        "Pass onDiscard to offer Discard; leave it out when the edits cannot be dropped."
+      ],
+      "a11y": [
+        "The save state is a status region, so a screen reader hears Saving, Saved or Not saved with the reason.",
+        "Save and Discard are off while there is nothing to save, and Save shows a spinner while it saves."
+      ],
+      "tree": {
+        "path": [
+          "feedback",
+          "whether the edits are saved, with Save and Discard"
+        ],
+        "rule": "SaveBar says whether an editor is saved and holds Save and Discard at its foot, the same way in every app."
+      },
+      "example": "import { SaveBar } from '@drizztdourden08/tessera';\nimport type { SaveBarState } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\ninterface PresetEditorProps {\n  fields: ReactNode;\n  state: SaveBarState;\n  error?: string;\n  save: () => void;\n  discard: () => void;\n}\n\nconst PresetEditor = ({ fields, state, error, save, discard }: PresetEditorProps) => (\n  <section>\n    {fields}\n    <SaveBar state={state} error={error} onSave={save} onDiscard={discard} />\n  </section>\n);\n",
+      "propsHash": "c2b4fc1e412d6956",
+      "props": {
+        "own": [
+          {
+            "name": "state",
+            "optional": false,
+            "text": "SaveBarState",
+            "literals": [
+              "'clean'",
+              "'dirty'",
+              "'saving'",
+              "'saved'",
+              "'error'"
+            ]
+          },
+          {
+            "name": "error",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onSave",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "onDiscard",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "saveLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "discardLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-danger-soft",
+        "--c-warning-soft",
+        "--size-256",
+        "--space-2xs",
+        "--space-sm",
+        "--text-sm",
+        "--transition-normal"
+      ],
+      "gallery": {
+        "title": "Composites · Forms/SaveBar",
+        "route": "#/story/composites-savebar--overview",
+        "file": "stories/composites/SaveBar.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "ScreenLayer",

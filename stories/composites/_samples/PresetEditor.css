@@ -1,0 +1,18 @@
+/* @layer stories @kind style */
+.preset-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-block-size: 100%;
+}
+
+.preset-editor__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.preset-editor__bar {
+  margin-block-start: auto;
+}

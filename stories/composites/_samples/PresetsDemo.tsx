@@ -8,6 +8,7 @@ import type { PresetsDemoProps, SamplePreset } from './preset-samples.type';
 import { PresetEditor } from './PresetEditor';
 import { usePresetDraft } from './usePresetDraft';
 import { useSamplePresets } from './useSamplePresets';
+import { useSaveDemo } from './useSaveDemo';
 
 const idOf = (preset: SamplePreset) => preset.id;
 const nameOf = (preset: SamplePreset) => preset.name;
@@ -16,9 +17,15 @@ const PresetsDemo = ({ guard, narrow, startDirty, startEmpty }: PresetsDemoProps
   const presets = useSamplePresets();
   const [selectedId, setSelectedId] = useState<string | null>(startEmpty ? null : 'p2');
   const edit = usePresetDraft(presets.items.find((p) => p.id === selectedId), startDirty === true);
-  const save = () => {
+  const saving = useSaveDemo(edit.dirty);
+  const save = () => saving.run(() => {
     if (edit.draft) presets.save(edit.draft);
     edit.clear();
+    return undefined;
+  });
+  const drop = () => {
+    edit.clear();
+    saving.reset();
   };
   const current = edit.draft;
   return (
@@ -29,11 +36,13 @@ const PresetsDemo = ({ guard, narrow, startDirty, startEmpty }: PresetsDemoProps
           onCreate: () => setSelectedId(presets.create()), onRename: presets.rename, onDelete: presets.remove, filter: true,
         }}
         selectedId={selectedId}
-        onSelect={(id) => { edit.clear(); setSelectedId(id); }}
-        detail={current && <PresetEditor preset={current} dirty={edit.dirty} onChange={(patch) => edit.setDraft({ ...current, ...patch })} onSave={save} />}
+        onSelect={(id) => { drop(); setSelectedId(id); }}
+        detail={current && (
+          <PresetEditor preset={current} state={saving.state} onChange={(patch) => edit.setDraft({ ...current, ...patch })} onSave={() => void save()} onDiscard={drop} />
+        )}
         dirty={edit.dirty}
         onSave={save}
-        onDiscard={edit.clear}
+        onDiscard={drop}
         guard={guard}
         storageKey="tessera-stories:master-detail-editor-width"
         listLabel="presets"

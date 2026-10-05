@@ -14,10 +14,10 @@ type MasterDetailArgs = {
   narrow: boolean;
 };
 
-const ARGS: Partial<MasterDetailArgs> = { guard: 'dialog', startDirty: true, narrow: false };
+const ARGS: Partial<MasterDetailArgs> = { guard: 'inline', startDirty: true, narrow: false };
 
 const ARG_TYPES: PlaygroundArgTypes<MasterDetailArgs> = {
-  guard: { group: 'Behaviour', control: 'select', options: ['dialog', 'inline'], description: 'Ask in a dialog, or in a bar at the top of the editor.' },
+  guard: { group: 'Behaviour', control: 'select', options: ['inline', 'dialog'], description: 'Ask in a bar at the top of the editor, or in a dialog.' },
   startDirty: { group: 'State', control: 'boolean', description: 'Keysanity starts with two edits not saved: pick another preset to see the question.' },
   narrow: { group: 'Layout', control: 'boolean', description: 'A 512 px frame: the list, then the editor with Back, which asks too.' },
 };
@@ -34,22 +34,22 @@ const Playground = {
   render: (args) => <PresetsDemo key={`${args.guard}-${String(args.startDirty)}`} {...args} />,
 } satisfies PlaygroundStory<MasterDetailArgs>;
 
-const Dialog = {
-  name: 'Unsaved edits: the question in a dialog',
+const Inline = {
+  name: 'Unsaved edits: the question over the editor, the default',
   render: () => <PresetsDemo startDirty />,
 } satisfies StoryLiteStoryDefinition<MasterDetailArgs>;
 
-const Inline = {
-  name: 'Unsaved edits: the question over the editor',
-  render: () => <PresetsDemo startDirty guard="inline" />,
+const Dialog = {
+  name: 'Unsaved edits: the question in a dialog',
+  render: () => <PresetsDemo startDirty guard="dialog" />,
 } satisfies StoryLiteStoryDefinition<MasterDetailArgs>;
 
 const Narrow = {
   name: 'A small window: Back asks too',
-  render: () => <PresetsDemo startDirty narrow guard="inline" />,
+  render: () => <PresetsDemo startDirty narrow />,
 } satisfies StoryLiteStoryDefinition<MasterDetailArgs>;
 
-const CODE = `import { MasterDetail } from '@drizztdourden08/tessera';
+const CODE = `import { MasterDetail, SaveBar } from '@drizztdourden08/tessera';
 
 <MasterDetail
   list={{
@@ -64,7 +64,12 @@ const CODE = `import { MasterDetail } from '@drizztdourden08/tessera';
   }}
   selectedId={selectedId}
   onSelect={setSelectedId}
-  detail={<PresetEditor preset={draft} onChange={setDraft} />}
+  detail={(
+    <>
+      <PresetFields preset={draft} onChange={setDraft} />
+      <SaveBar state={saveState} onSave={savePreset} onDiscard={() => setDraft(saved)} />
+    </>
+  )}
   dirty={draft !== saved}
   onSave={savePreset}
   onDiscard={() => setDraft(saved)}
@@ -78,12 +83,13 @@ const Overview = overviewStory({
     '`list` takes the [ManagedList] props; `selectedId` and `onSelect` pick the item the editor shows.',
     'With `dirty`, a pick, New or Back asks first: Stay here, Discard, or Save and open with `onSave`.',
     '`onSave` may return a promise; false, or a failure, keeps the user on the edited item.',
-    '`guard` is `dialog`, the confirm dialog of Tessera, or `inline`, a bar at the top of the editor.',
+    '`guard` is `inline`, a bar over the editor, by default, or `dialog`, the confirm dialog of Tessera.',
+    'A [SaveBar] at the foot of the editor holds Save and Discard while the user stays on the item.',
     'The layout is [MasterDetailLayout]: it stacks under 768 px, with Back, and `storageKey` keeps its width.',
   ],
   instead: '[MasterDetailLayout] for a list and a detail with nothing to save.',
   playground: Playground,
-  variants: [Dialog, Inline, Narrow],
+  variants: [Inline, Dialog, Narrow],
   states: {
     render: (props: StateProps) => <PresetsDemo {...(props as PresetsDemoProps)} />,
     list: [

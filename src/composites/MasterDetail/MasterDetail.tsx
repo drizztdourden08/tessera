@@ -12,7 +12,7 @@ import { MasterDetailGuardDialog } from './sub-components/MasterDetailGuardDialo
 import './MasterDetail.css';
 
 const MasterDetail = <T,>(props: MasterDetailProps<T>) => {
-  const { list, selectedId, onSelect, detail, emptyDetail, dirty = false, onSave, onDiscard, guard: look = 'dialog', className, ...layout } = props;
+  const { list, selectedId, onSelect, detail, emptyDetail, dirty = false, onSave, onDiscard, guard: look = 'inline', className, ...layout } = props;
   const strings = useTesseraStrings();
   const stayRef = useRef<HTMLButtonElement>(null);
   const { onCreate } = list;

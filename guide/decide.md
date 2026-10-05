@@ -39,6 +39,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Several choices from a long list: [SetPicker](components/SetPicker.md). SetPicker shows what is chosen on top and searches the rest, the same way in every app.
   - A number with named steps: [NamedRange](components/NamedRange.md). NamedRange puts the named values first and a number second, the same way in every app.
   - Pairs of a name and a value: [KeyValueEditor](components/KeyValueEditor.md). KeyValueEditor edits a map row by row and holds it back while it has a duplicate, the same way in every app.
+  - A short list of items with the same few fields: [RowGrid](components/RowGrid.md). RowGrid edits a short list row by row, a table when wide and cards when narrow, the same way in every app.
   - On or off. **When does the change apply?**
     - At once: no component yet.
     - When the form is sent: no component yet.
@@ -129,6 +130,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - The app is starting, or starting again: [Splash](components/Splash.md). Splash draws the classes of splash.css, so it looks the same as the static splash page.
   - The results of a list of checks: [CheckList](components/CheckList.md). CheckList gives pass, advice and failure their own icon and colour, so a test result reads the same in every app.
   - What blocks a save, with a jump to each field: [ValidationSummary](components/ValidationSummary.md). ValidationSummary lists what blocks a save in one place and takes the user to each field, the same way in every editor.
+  - Whether the edits are saved, with Save and Discard: [SaveBar](components/SaveBar.md). SaveBar says whether an editor is saved and holds Save and Discard at its foot, the same way in every app.
 - Text. **What kind of text?**
   - A heading: no component yet.
   - A section heading with an action: no component yet.

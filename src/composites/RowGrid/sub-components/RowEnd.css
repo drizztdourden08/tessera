@@ -1,0 +1,15 @@
+/* @layer renderer-components @kind style */
+.row-grid__end {
+  grid-row: 1;
+  grid-column: end / stop;
+  justify-content: flex-end;
+  gap: var(--space-2xs);
+}
+
+.row-grid .row-grid__remove {
+  color: var(--c-text-muted);
+}
+
+.row-grid .row-grid__remove:hover:not(:disabled) {
+  color: var(--c-danger-bright);
+}

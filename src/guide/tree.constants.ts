@@ -49,6 +49,7 @@ const VALUES = {
     },
     'several choices': null,
     'several choices from a long list': null, 'a number with named steps': null, 'pairs of a name and a value': null,
+    'a short list of items with the same few fields': null,
     'on or off': {
       question: 'When does the change apply?',
       answers: { 'at once': null, 'when the form is sent': null },
@@ -131,7 +132,7 @@ const FEEDBACK = {
     'a part of the page failed': null, 'a long job with steps, a log or a failure': null,
     'the app is starting, or starting again': null,
     'the results of a list of checks': null,
-    'what blocks a save, with a jump to each field': null,
+    'what blocks a save, with a jump to each field': null, 'whether the edits are saved, with Save and Discard': null,
   },
 } as const;
 

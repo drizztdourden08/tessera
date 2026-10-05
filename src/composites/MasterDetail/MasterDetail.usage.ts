@@ -17,10 +17,12 @@ const usage = {
     'Pass onDiscard to throw the draft away; onSelect runs after it.',
     'Keep the list props in list; MasterDetail adds the selection and guards New.',
     'A create form in list opens without the question, since it throws no edits away; picking the new item is up to the app.',
+    'The question is a bar over the editor by default; pass guard dialog to ask in a modal dialog instead.',
+    'Put a SaveBar at the foot of the editor, for Save and Discard while the user stays on the item.',
   ],
   a11y: [
     'The question takes focus on Stay here, and Escape stays; focus goes back where it was.',
-    'With guard dialog the question is a modal dialog; with guard inline it is an alertdialog over the editor.',
+    'By default the question is an alertdialog over the editor; with guard dialog it is a modal dialog.',
     'The list keeps every key of ManagedList, and under 768 px Back sits at the top of the editor.',
   ],
   tree: {

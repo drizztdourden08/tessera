@@ -1,0 +1,19 @@
+/* @layer renderer-components @kind style */
+.row-grid__grip {
+  justify-content: center;
+}
+
+.row-grid .row-grid__handle {
+  color: var(--c-text-muted);
+  cursor: grab;
+  touch-action: none;
+}
+
+.row-grid__row:hover .row-grid__handle,
+.row-grid .row-grid__handle:focus-visible {
+  color: var(--c-text-dim);
+}
+
+.row-grid__row[data-dragging='yes'] .row-grid__handle {
+  cursor: grabbing;
+}

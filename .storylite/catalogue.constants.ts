@@ -102,8 +102,6 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
       group: 'For approval',
       entries: [
         { name: 'Mascot stage', summary: 'Prototype: the mascots on a stage of any width, walking, turning and moving between clips, by command or on their own.' },
-        { name: 'EditorHeader', summary: 'For approval: the strip that names an editor, says if it is saved and holds its buttons.' },
-        { name: 'RowGrid', summary: 'For approval: rows of inputs edited in place, a table when wide and labelled cards when narrow.' },
       ],
     }],
   },

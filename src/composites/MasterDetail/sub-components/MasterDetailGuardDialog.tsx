@@ -17,7 +17,7 @@ const MasterDetailGuardDialog = (props: MasterDetailGuardProps) => {
       actions={<MasterDetailGuardActions {...props} />}
       initialFocusRef={stayRef}
     >
-      <Paragraph tone="dim" className="master-detail-guard__message">{message}</Paragraph>
+      <Paragraph tone="dim">{message}</Paragraph>
     </DialogShell>
   );
 };

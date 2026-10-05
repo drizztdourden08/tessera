@@ -2,6 +2,7 @@
 import { useEffect, useId } from 'react';
 import type { KeyboardEvent } from 'react';
 import { Box } from '../../../primitives/Box';
+import { ButtonRow } from '../../../primitives/ButtonRow';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { MasterDetailGuardProps } from '../MasterDetail.type';
@@ -27,10 +28,9 @@ const MasterDetailGuardBar = (props: MasterDetailGuardProps) => {
   };
   return (
     <Box className="master-detail-guard" role="alertdialog" aria-label={lists.unsavedTitle} aria-describedby={messageId} onKeyDown={handleKeyDown}>
-      <Text id={messageId} variant="body" className="master-detail-guard__message">{message}</Text>
-      <Box className="master-detail-guard__actions">
+      <ButtonRow gap="xs" lead={<Text id={messageId} variant="body">{message}</Text>}>
         <MasterDetailGuardActions {...props} size="sm" />
-      </Box>
+      </ButtonRow>
     </Box>
   );
 };

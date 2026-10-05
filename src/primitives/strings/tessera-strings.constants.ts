@@ -15,6 +15,8 @@ import { PANEL_STRINGS } from './panels-strings.constants';
 import { PASSWORD_STRINGS } from './password-strings.constants';
 import { PATH_STRINGS } from './paths-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
+import { ROW_GRID_STRINGS } from './row-grid-strings.constants';
+import { SAVE_BAR_STRINGS } from './save-bar-strings.constants';
 import { SETTINGS_STRINGS } from './settings-strings.constants';
 import { STEPPER_STRINGS } from './stepper-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
@@ -47,6 +49,8 @@ const TESSERA_STRINGS = {
   lists: LIST_STRINGS,
   paths: PATH_STRINGS,
   options: OPTION_STRINGS,
+  rowGrid: ROW_GRID_STRINGS,
+  saveBar: SAVE_BAR_STRINGS,
 };
 
 export { TESSERA_STRINGS };

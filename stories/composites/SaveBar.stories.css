@@ -1,0 +1,23 @@
+/* @layer stories @kind style */
+.save-bar-story {
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+  block-size: var(--size-384);
+  overflow: auto;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-bg);
+}
+
+.save-bar-story > .preset-editor {
+  padding: var(--space-lg) var(--space-xl) 0;
+}
+
+.save-bar-story .save-bar {
+  margin-inline: calc(-1 * var(--space-xl));
+}
+
+.save-bar-story--strip {
+  block-size: auto;
+  overflow: visible;
+}

@@ -1,5 +1,5 @@
 /* @layer stories @kind types */
-import type { MasterDetailGuardLook } from '../../../src/composites';
+import type { MasterDetailGuardLook, SaveBarState } from '../../../src/composites';
 
 interface SamplePreset {
   id: string;
@@ -32,9 +32,11 @@ interface PresetsDemoProps {
 
 interface PresetEditorProps {
   preset: SamplePreset;
-  dirty: boolean;
+  state: SaveBarState;
+  error?: string;
   onChange: (patch: Partial<SamplePreset>) => void;
   onSave: () => void;
+  onDiscard: () => void;
 }
 
 export type { ManagedListDemoProps, ManagedListDemoState, PresetEditorProps, PresetsDemoProps, SamplePreset };

@@ -1,10 +1,5 @@
 /* @layer renderer-components @kind style */
 .master-detail-guard {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm) var(--space-md);
   margin-block-end: var(--space-md);
   padding: var(--space-sm) var(--space-md);
   border: var(--border-width-thin) solid var(--c-warning);
@@ -12,14 +7,6 @@
   background: var(--c-warning-soft);
 }
 
-.master-detail-guard__message {
-  min-inline-size: 0;
-  flex: 1 1 var(--size-256);
-}
-
-.master-detail-guard__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-xs);
+.master-detail-guard .button-row__lead {
+  flex-basis: var(--size-256);
 }

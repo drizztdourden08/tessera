@@ -20,10 +20,8 @@ export type {
   WizardApi, WizardButtonLook, WizardDialogProps, WizardExit, WizardExitGuardProps, WizardExitOptions, WizardNavProps,
   WizardOptions, WizardProblem, WizardProps, WizardReviewProps, WizardReviewSection, WizardStepButtons, WizardStepDef, WizardStepProps, WizardValues,
 } from './Wizard';
-export { GroupTree } from './GroupTree';
-export type { GroupTreeProps, TreeNode } from './GroupTree';
-export { HeaderAnchorNav } from './HeaderAnchorNav';
-export type { HeaderAnchorNavItem, HeaderAnchorNavProps } from './HeaderAnchorNav';
+export { GroupTree, type GroupTreeProps, type TreeNode } from './GroupTree';
+export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } from './HeaderAnchorNav';
 export { LogPanel } from './LogPanel';
 export type { LogKindDef, LogPanelProps, LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
@@ -196,3 +194,5 @@ export { FormRow } from './FormRow';
 export type { FormRowProps } from './FormRow';
 export { FormGroupTabs } from './FormGroupTabs';
 export type { FormGroupTab, FormGroupTabsProps } from './FormGroupTabs';
+export { RowGrid, type RowGridColumn, type RowGridDensity, type RowGridProps } from './RowGrid';
+export { SaveBar, type SaveBarProps, type SaveBarState } from './SaveBar';

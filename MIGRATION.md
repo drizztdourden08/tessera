@@ -4802,3 +4802,78 @@ RENAMES.json lists every removed name, prop, string, class and custom property u
 4. Rename `fields.increment` and `fields.decrement` overrides to `fields.increase` and `fields.decrease`.
 5. Replace hand-made rows of `<Flex align="center" gap="sm">` with `Inline` where it reads better.
 6. Use `tone="faint"` only for decoration and secondary hints; keep `muted` for anything a user reads.
+
+## 173. SaveBar and RowGrid are composites, and MasterDetail asks over the editor
+
+Two designs the owner approved in the Preview · For approval group become composites under Composites · Forms, and the default question of MasterDetail changes. The EditorHeader and RowGrid previews, their comparison sections and the shared preview helpers are removed; the Mascot stage stays in the group.
+
+### SaveBar
+
+The owner picked option C of EditorHeader: a save bar at the foot of the editor. Options A and B, a bar under the page header with the name in it and the name in the page header, are dropped.
+
+- **The state.** `state` is `clean`, `dirty`, `saving`, `saved` or `error`. The app owns it; the bar draws it as a `Status` in a status region: No changes, Unsaved changes, Saving (pulsing), Saved and Not saved.
+- **The reason.** With `error` the reason shows beside Not saved and is read with it. Outside the error state `error` is not shown.
+- **The buttons.** Save, and Discard when `onDiscard` is passed. Both are off while the state is `clean` or `saved`; Save spins and Discard is off while it saves; in the error state both work, so the user can save again.
+- **The place.** The bar sticks to the foot of the scrolling area it sits in, with a warning tinted top rule while there are edits and a danger tinted one after a failed save.
+- **Shared parts.** The bar is a `ButtonRow` with `variant="bar"`, the row WizardNav uses, with the state as its `lead`. The inline question of MasterDetail is drawn on the same `ButtonRow`, its message as the `lead`, inside its warning box: the two bars share one part and no third bar was written.
+- **Strings.** A new group `saveBar` holds `clean`, `saving`, `saved` and `failed`. Unsaved changes is `lists.unsavedTitle`, Discard is `lists.discard` and Save is `common.save`.
+
+```ts
+type SaveBarState = 'clean' | 'dirty' | 'saving' | 'saved' | 'error';
+interface SaveBarProps {
+  state: SaveBarState;
+  error?: ReactNode; // shown with state 'error'
+  onSave: () => void;
+  onDiscard?: () => void; // adds Discard
+  saveLabel?: string; // default common.save
+  discardLabel?: string; // default lists.discard
+  className?: string;
+}
+```
+
+### RowGrid
+
+The preview moves to `src/composites/RowGrid` with its API unchanged: a short list edited in place, one row per item and one input per column, a table when wide, a folded column, then cards when narrow. The explanation sections in the middle of its gallery page (each width, the keys, the options weighed and the usage) are removed; the examples stay, and the session builder example now ends in a SaveBar.
+
+- **Strings.** A new group `rowGrid` holds the row names, the grip, More for, the announcements, `empty` and `add`. Move up and Move down are `records.moveUp` and `records.moveDown`, and Remove is `common.removeNamed`.
+- **Styles.** Each sub-component has its own sheet; the cards rules sit beside the rules they change.
+
+```ts
+type RowGridDensity = 'comfortable' | 'compact';
+interface RowGridColumn<Row> {
+  id: string;
+  label: string;
+  cell: (row: Row, index: number) => ReactNode;
+  min?: number; // px, default 160
+  max?: number; // px
+  fold?: boolean; // moves to a second line first
+  error?: (row: Row) => string | undefined;
+}
+interface RowGridProps<Row> {
+  label: string;
+  rows: readonly Row[];
+  columns: readonly RowGridColumn<Row>[];
+  rowKey: (row: Row) => string;
+  rowLabel?: (row: Row, index: number) => string;
+  numbered?: boolean;
+  density?: RowGridDensity; // default 'comfortable'
+  onAdd?: () => void;
+  addLabel?: string; // default rowGrid.add
+  onRemove?: (key: string) => void;
+  onMove?: (from: number, to: number) => void;
+  rowMenu?: (row: Row, index: number) => readonly MenuItem[];
+  summary?: ReactNode;
+  empty?: ReactNode; // default rowGrid.empty
+  className?: string;
+}
+```
+
+### MasterDetail asks over the editor by default
+
+The default of `guard` changes from `'dialog'` to `'inline'`: a pick, New or Back with unsaved edits now asks in the bar over the editor. `guard="dialog"` keeps the modal dialog.
+
+### What an app does
+
+1. Archipelia: the preset editor, the server editor and the session builder put a SaveBar last in the editor and drop their own save state text and Save buttons; the session builder draws its players with RowGrid.
+2. An app that wants the modal question of MasterDetail passes `guard="dialog"`.
+3. An app that styled `.master-detail-guard__message` or `.master-detail-guard__actions` styles the `.button-row__lead` of `.master-detail-guard` instead; both classes are gone.

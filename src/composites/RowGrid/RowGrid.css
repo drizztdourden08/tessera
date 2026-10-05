@@ -1,0 +1,40 @@
+/* @layer renderer-components @kind style */
+.row-grid {
+  --row-grid-gap: var(--space-sm);
+  --row-grid-pad-block: var(--space-sm);
+  --row-grid-pad-inline: var(--space-md);
+
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: var(--row-grid-max, none);
+  background: var(--c-bg);
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  overflow: clip;
+}
+
+.row-grid--compact {
+  --row-grid-pad-block: var(--space-xs);
+  --row-grid-pad-inline: var(--space-sm);
+}
+
+.row-grid__rows {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row-grid--cards {
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.row-grid--cards .row-grid__rows {
+  gap: var(--space-sm);
+}

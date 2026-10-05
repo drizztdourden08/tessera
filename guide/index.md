@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 40 of 169 have their usage written; a linked name opens its page.
+One line per component. 42 of 171 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -134,6 +134,8 @@ One line per component. 40 of 169 have their usage written; a linked name opens 
 - `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.
+- [SaveBar](components/SaveBar.md): The bar at the foot of an editor: whether its edits are saved, the reason a save failed, and Save and Discard. Import from `@drizztdourden08/tessera`.
 - [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenPage](components/ScreenPage.md): Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title bar or a page header at its top, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.

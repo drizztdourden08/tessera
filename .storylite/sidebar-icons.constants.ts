@@ -107,7 +107,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Video: 'video',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus' },
-  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban' },
+  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },
   'Composites · Input devices': {
     PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
@@ -120,7 +120,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Data': { Engine: 'cpu' },
   'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge', StackedBar: 'chart-bar-stacked' },
   'Composites · Charts': { StatTile: 'trending-up' },
-  'Preview · For approval': { 'Mascot stage': 'theater', EditorHeader: 'panel-top-dashed', RowGrid: 'rows-4' },
+  'Preview · For approval': { 'Mascot stage': 'theater' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };

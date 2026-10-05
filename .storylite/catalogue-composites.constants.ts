@@ -107,6 +107,8 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ValidationSummary', summary: 'What blocks a save, each problem a link to its field, the rest under and N more.' },
         { name: 'FormRow', summary: 'One option of a long form: name and help, its control, changed mark and reset.' },
         { name: 'FormGroupTabs', summary: 'The top of a long form in groups: search, Show advanced and tabs with counts.' },
+        { name: 'RowGrid', summary: 'A short list edited in place, a row per item: a table when wide and labelled cards when narrow.' },
+        { name: 'SaveBar', summary: 'The foot of an editor: whether it is saved, why a save failed, and Save and Discard.' },
       ],
     },
     {

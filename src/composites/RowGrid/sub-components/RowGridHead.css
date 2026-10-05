@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind style */
+.row-grid__head {
+  display: grid;
+  grid-template-columns: var(--row-grid-tracks);
+  column-gap: var(--row-grid-gap);
+  align-items: center;
+  padding: var(--space-xs) var(--row-grid-pad-inline);
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+  background: var(--c-surface);
+}
+
+.row-grid__head > * {
+  min-inline-size: 0;
+  overflow: hidden;
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.row-grid__head-number {
+  text-align: center;
+}

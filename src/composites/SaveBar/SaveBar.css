@@ -1,0 +1,36 @@
+/* @layer renderer-components @kind style */
+.save-bar {
+  position: sticky;
+  inset-block-end: 0;
+  transition: border-color var(--transition-normal);
+}
+
+.save-bar.save-bar--dirty {
+  border-block-start-color: var(--c-warning-soft);
+}
+
+.save-bar.save-bar--error {
+  border-block-start-color: var(--c-danger-soft);
+}
+
+.save-bar .button-row__lead {
+  flex-basis: var(--size-256);
+}
+
+.save-bar__status {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-sm);
+  min-inline-size: 0;
+}
+
+.save-bar__reason {
+  font-size: var(--text-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .save-bar {
+    transition: none;
+  }
+}
