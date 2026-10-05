@@ -1265,7 +1265,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.24.0",
       "cssCustomProperties": {
         "--widget-btn-d": "--control-h-xs",
         "--menu-trigger-width": "--control-h-xs"
