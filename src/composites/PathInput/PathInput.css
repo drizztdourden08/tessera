@@ -28,6 +28,7 @@
 }
 
 .path-input__frame[data-dropping] {
+  transition: none;
   border-style: dashed;
   border-color: var(--c-primary);
   background: var(--c-primary-soft);

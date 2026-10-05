@@ -49,4 +49,14 @@ describe('ConfirmIconButton on the shared ask', () => {
     expect(renderToString(h(ConfirmIconButton, props))).toContain('aria-label="Delete it"');
     expect(renderToString(h(ConfirmIconButton, { ...props, disabled: true }))).not.toContain('aria-label="Delete it"');
   });
+
+  it('draws a green confirm and a quiet cancel at every size', () => {
+    const props = { icon: h('i'), label: 'Delete', confirmLabel: 'Delete it', cancelLabel: 'Keep it', onConfirm: () => undefined, defaultArmed: true };
+    for (const size of ['sm', 'xs']) {
+      const html = renderToString(h(ConfirmIconButton, { ...props, size }));
+      expect(html).toMatch(new RegExp(`class="icon-btn icon-btn--success icon-btn--toned icon-btn--${size}" aria-label="Delete it"`));
+      expect(html).toMatch(new RegExp(`class="icon-btn icon-btn--ghost icon-btn--${size}" aria-label="Keep it"`));
+      expect(html).not.toContain('icon-btn--danger');
+    }
+  });
 });

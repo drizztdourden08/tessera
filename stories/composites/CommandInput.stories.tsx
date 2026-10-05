@@ -9,7 +9,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
-import { CONSOLE_HISTORY } from './_samples/console-samples.constants';
+import { CONSOLE_COMMANDS, CONSOLE_HISTORY } from './_samples/console-samples.constants';
 import { ConsoleDemo } from './_samples/ConsoleDemo';
 import './CommandInput.stories.css';
 
@@ -18,17 +18,19 @@ type CommandInputArgs = {
   sendLabel: string;
   keyHints: boolean;
   quick: boolean;
+  suggest: boolean;
   disabled: boolean;
   size: ControlSize;
 };
 
-const ARGS: Partial<CommandInputArgs> = { placeholder: '/hint Bram Moon Pearl', sendLabel: '', keyHints: true, quick: true, disabled: false, size: 'md' };
+const ARGS: Partial<CommandInputArgs> = { placeholder: '/hint Bram Moon Pearl', sendLabel: '', keyHints: true, quick: true, suggest: true, disabled: false, size: 'md' };
 
 const ARG_TYPES: PlaygroundArgTypes<CommandInputArgs> = {
   placeholder: { group: 'Content', control: 'text' },
   sendLabel: { group: 'Content', control: 'text', description: 'Replaces Send on the button.' },
   keyHints: { group: 'Appearance', control: 'boolean', description: 'The Up, Down and Esc keys at the end of the row under the input.' },
   quick: { group: 'Content', control: 'boolean', description: 'Two quick command buttons in actions.' },
+  suggest: { group: 'Content', control: 'boolean', description: 'Passes the known commands, so typing lists the closest ones.' },
   disabled: { group: 'State', control: 'boolean' },
   size: { group: 'Appearance', control: 'select', options: ['sm', 'md'] },
 };
@@ -49,9 +51,9 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: ({ quick, sendLabel, ...args }) => (
+  render: ({ quick, suggest, sendLabel, ...args }) => (
     <Box className="command-input-story">
-      <CommandInput {...args} sendLabel={sendLabel === '' ? undefined : sendLabel} storageKey="tessera-gallery.command-input" actions={quick ? QUICK : undefined} onSubmit={() => undefined} />
+      <CommandInput {...args} commands={suggest ? CONSOLE_COMMANDS : undefined} sendLabel={sendLabel === '' ? undefined : sendLabel} storageKey="tessera-gallery.command-input" actions={quick ? QUICK : undefined} onSubmit={() => undefined} />
     </Box>
   ),
 } satisfies PlaygroundStory<CommandInputArgs>;
@@ -79,6 +81,15 @@ const Shapes = {
   ),
 } satisfies StoryLiteStoryDefinition<CommandInputArgs>;
 
+const Suggestions = {
+  name: 'Closest commands while typing',
+  render: () => (
+    <Box className="command-input-story">
+      <CommandInput placeholder="Type /s or /re" history={CONSOLE_HISTORY} commands={CONSOLE_COMMANDS} onSubmit={() => undefined} />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<CommandInputArgs>;
+
 const Console = {
   name: 'In a console',
   render: () => <ConsoleDemo />,
@@ -91,22 +102,23 @@ const Off = {
 
 const CODE = `import { CommandInput } from '@drizztdourden08/tessera';
 
-<CommandInput placeholder="/players" storageKey="console.history" onSubmit={send} />
+<CommandInput placeholder="/players" storageKey="console.history" commands={['/players', '/hint', '/save']} onSubmit={send} />
 <CommandInput history={sent} onSubmit={send} actions={<Button size="sm" onClick={save}>Save</Button>} />`;
 
 const Overview = overviewStory({
   component: 'CommandInput',
-  description: 'A command line: Enter sends, Up and Down walk the past commands, Escape clears.',
+  description: 'A command line: Enter sends, Tab completes a known command, Up and Down walk the past commands, Escape clears.',
   points: [
     '[[Enter]] calls `onSubmit` with the trimmed text and empties the line; return false to keep it.',
-    '[[Up]] and [[Down]] walk the history; Down past the newest brings back what was typed.',
+    '`commands` lists the closest known commands under the line as you type; [[Tab]] or [[Right]] completes one.',
+    '[[Up]] and [[Down]] move through that list while it is open, else walk the history, back to what was typed.',
     '[[Esc]] clears the line; on an empty line it passes on, so a dialog can close.',
     '`history` comes from the app, or the input keeps its own, kept under `storageKey`.',
     '`actions` sits under the input, such as quick commands, with the key hints at its end.',
   ],
   instead: 'A [TextInput] for text that is not a command, or a [SearchInput] to filter a list.',
   playground: Playground,
-  variants: [Shapes, Console, Off],
+  variants: [Suggestions, Shapes, Console, Off],
   states: {
     render: (props: StateProps) => <CommandInput placeholder="/players" onSubmit={() => undefined} {...props} />,
     list: [STATE.idle, { ...STATE.hover, target: 'input' }, { ...STATE.focus, target: 'input' }, STATE.disabled],
@@ -115,4 +127,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Console, Off, Overview, Playground, Shapes };
+export { Console, Off, Overview, Playground, Shapes, Suggestions };

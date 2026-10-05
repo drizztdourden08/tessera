@@ -124,7 +124,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Work is running, length unknown: no component yet.
   - Progress toward an end, as a bar: no component yet.
   - Progress toward an end, in a small round space: no component yet.
-  - A short message that passes: no component yet.
+  - A short message that passes: [Toast](components/Toast.md). Toast keeps one queue per app: every part raises through toast(), the stack caps how many show and the same message shows once with a count.
   - A note that stays on the page: no component yet.
   - Nothing is here yet: no component yet.
   - A hint for what is under the pointer: no component yet.

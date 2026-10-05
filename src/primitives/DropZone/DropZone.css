@@ -25,6 +25,7 @@
 }
 
 .dropzone--active {
+  transition: none;
   border-color: var(--c-primary-bright);
   background: var(--c-primary-soft);
   border-style: solid;

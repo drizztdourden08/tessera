@@ -5739,3 +5739,79 @@ The FormRow preset editor uses CodeBlock `editable` for Plando Texts, checked wi
 2. Replace `<NamedRange names min max />` with `<Slider min max labels={[[0, 'Disabled'], [50, 'Normal']]} input />`.
 3. Replace `<SetPicker options value onChange />` with `<Combobox items={options} min={0} max={options.length} values={value} onValuesChange={onChange} />`.
 4. Drop overrides of the removed `options` strings. RENAMES.json lists every removed name.
+
+## 188. One toast queue, command suggestions, a drop target at once and five fixes from the review
+
+From the owner's review: two toast sources drew two stacks on top of each other, CommandInput gave no help with the commands it knows, a file dragged in from Windows did not mark PathInput straight away, the More button of ActionBar was smaller than the buttons beside it, CopyButton xs crowded its icon, the Splash pages spilled out of their frames, and a compact ConfirmIconButton made its cancel look like the main action.
+
+### Toast: one queue and one stack per app
+
+`ToastContainer` drew whatever list of toasts it was given, so each part that kept its own list drew its own stack, and two of them drew over each other. The queue now lives in one store per app, `toast()` raises from any part, and `ToastStack` draws it.
+
+```ts
+interface ToastInput {
+  message: string;
+  variant?: ToastVariant; // default 'info'
+  duration?: number; // default 5000 ms; 0 stays until dismissed
+  action?: ToastAction;
+  id?: string; // joins the toasts that share it; default variant and message
+}
+
+declare const toast: {
+  (input: ToastInput): string; // the id of the toast it raised or joined
+  dismiss: (id: string) => void;
+  clear: () => void;
+};
+
+interface ToastStackProps {
+  position?: ToastPosition; // default 'bottom-right'
+  max?: number; // default 3: how many show at once, the rest wait
+}
+```
+
+- Mount one `ToastStack` at the root of the app. A second one draws nothing while another is mounted: the one mounted last draws, and the one before takes over when it unmounts. So two sources can never draw two stacks.
+- `max` caps how many toasts show at once; the rest wait in the queue, in order, and a toast waiting does not run its timer.
+- The same message raised again, same variant and same text or the same `id`, joins the toast already queued: it shows a count such as ×3, named Shown 3 times, and its timer starts over.
+- A toast raised with `toast()` leaves after 5 s unless it sets `duration`.
+- `ToastItem` gains `count`. `Toast` still draws one toast from an item, for a page that shows one in place.
+
+RENAMES.json maps `ToastContainer` to `ToastStack` and `ToastContainerProps` to `ToastStackProps`. Toast has a usage file now.
+
+### CommandInput suggests the commands it knows
+
+```ts
+type CommandOption = string | { command: string; description?: string };
+
+interface CommandInputProps {
+  commands?: readonly CommandOption[];
+  maxSuggestions?: number; // default 6
+}
+```
+
+- While the user types, the closest registered commands show in a list under the input, drawn with the listbox popup of Combobox and marked with the one text matcher of section 181. A command that starts with the typed text comes first. The list closes once the line holds a whole command and a space, so the arguments are free.
+- **Tab** or **Right** at the end of the line completes the active row, or the top one, and adds a space. **Up** and **Down** move through the list while it is open. **Enter** completes a row picked with the arrows, and sends otherwise. **Escape** closes the list first, then clears the line.
+- The arrow keys walk the history when the list is closed: on an empty line, after Escape, or while a walk is under way, since a command brought back from the history opens no list.
+- With `commands` the input is a combobox with `aria-autocomplete="list"`, the list a listbox and the active row its active descendant. The key hints add Tab, complete. `common.complete`, `common.commands`, `common.repeated` and `common.repeatedShort` are new strings.
+
+### A file dragged in shows the drop target at once
+
+`useFileDrag`, under PathInput and DropZone, now:
+
+- takes a drag as files from its types, `Files` or `application/x-moz-file`, or from a file item when the types are empty. Chromium hides the files themselves until the drop;
+- lights the target on dragover too, so a drag whose dragenter was lost or came with no types still shows at once;
+- turns the target off when the drag moves to an element outside it, and when the enter and leave count reaches zero, so a lost dragleave cannot leave it lit;
+- draws the drop look of PathInput and DropZone with no fade in, where it used to fade in over 150 ms.
+
+### Smaller fixes
+
+- **ActionBar:** at `md`, More is now as tall as the buttons beside it, 39 px square with a 16 px icon, where it was 32 px. At `sm` both are 28 px, as before.
+- **CopyButton xs:** the icon is 12 px in the 20 px button, like an xs IconButton, where it was 16 px with 1 px to spare. A 24 px hit area sits around it. sm and md keep their 16 px icon.
+- **ConfirmIconButton:** while it asks, the check is the success button and the cross a quiet ghost button, at every size, where the check was secondary and the cross filled red. The marks hold at least 3:1 against the row in each palette. ActionBar asks the same way.
+- **Splash and Static splash pages:** the frames side by side shrink with the page, so nothing spills from 1000 to 1920 px wide, and the brand mark frames are 288 px tall, so a title on two lines still fits.
+- **CommandPalette page:** the Logs row carries an xs ConfirmIconButton, Clear the logs, in its `action` slot.
+
+### What an app does
+
+1. Replace each `ToastContainer` and its list of toasts with one `<ToastStack />` at the root, and each push to that list with `toast({ ... })`. Drop the ids made only to tell toasts apart.
+2. Pass `commands` to a CommandInput that has a known set of commands.
+3. Nothing for the drag, ActionBar, CopyButton or ConfirmIconButton changes.

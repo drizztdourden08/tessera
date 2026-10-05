@@ -147,8 +147,10 @@ const Overview = overviewStory({
   points: [
     '`block` is the tall target with a glyph, a label and a hint.',
     '`inline` is a one line dashed box that fits a header row.',
+    'A file dragged in from the desktop lights the box at once; a drag of text or a link leaves it alone.',
     '**With `accept` set, other files are dropped silently:** `onDrop` gets only the files that pass.',
     '`md` and `sm` set the height of the inline box; `sm` also tightens the block.',
+    'A click opens the file dialog of the browser, and so does [[Enter]] on the inline box.',
   ],
   playground: Playground,
   variants: [Kinds, Sizes],

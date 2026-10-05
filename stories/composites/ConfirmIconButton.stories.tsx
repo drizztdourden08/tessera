@@ -127,10 +127,11 @@ const Overview = overviewStory({
   component: 'ConfirmIconButton',
   description: 'An icon button that asks before it acts, for a row action that cannot be undone, such as removing an entry.',
   points: [
-    'A press swaps the icon for a red cancel and a green confirm, with focus on cancel.',
+    'A press swaps the icon for a green confirm and a quiet cancel, with focus on cancel.',
     'Cancel takes the place of the icon, so a second click backs out, and so does [[Esc]].',
     '`placement` picks the edge that stays put: `start`, `center` or `end`.',
-    '`size="xs"` is the compact one, for a [CommandPaletteRow] `action` or a [ControlMenu] row: the row keeps its height.',
+    '`size="xs"` fits a [CommandPaletteRow] `action` or a [ControlMenu] row without making the row taller.',
+    'Both marks keep 3:1 against the row: the check in the success colour, the cross in the muted text colour.',
     'Disabling it drops a question that is waiting.',
   ],
   instead: '[Dialog] when the action needs a message to explain it.',

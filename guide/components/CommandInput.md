@@ -1,6 +1,6 @@
 # CommandInput
 
-A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line.
+A command line: Enter sends the command, Up and Down walk the past commands, Tab completes a known one and Escape clears the line.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -30,6 +30,7 @@ CommandInput gives every command line the same keys: Enter to send, Up and Down 
 ## Rules
 
 - Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.
+- Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the top one.
 - Return false from onSubmit when the command was not sent, so the text stays in the line.
 - Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.
 - Disable it while there is nothing to send to, and say why in the text near it.
@@ -38,7 +39,8 @@ CommandInput gives every command line the same keys: Enter to send, Up and Down 
 
 - The input is named Command, or label, and the key hints under it describe it.
 - Escape on an empty line passes on, so it still closes a dialog or a popup.
-- Up and Down only take over the arrow keys while there is a history to walk.
+- Up and Down move through the suggestions while their list is open, and walk the history once it is closed or the line is empty.
+- With commands the input is a combobox: the list is a listbox and the active row is its active descendant.
 
 ## Example
 
@@ -46,7 +48,7 @@ CommandInput gives every command line the same keys: Enter to send, Up and Down 
 import { CommandInput } from '@drizztdourden08/tessera';
 
 const ServerConsole = ({ send }: { send: (command: string) => void }) => (
-  <CommandInput placeholder="/players" storageKey="console.history" onSubmit={send} />
+  <CommandInput placeholder="/players" storageKey="console.history" commands={['/players', '/hint', '/save']} onSubmit={send} />
 );
 ```
 
@@ -54,6 +56,8 @@ const ServerConsole = ({ send }: { send: (command: string) => void }) => (
 
 - `onSubmit`: `CommandSubmit`.
 - `history` (optional): `readonly string[]`.
+- `commands` (optional): `readonly CommandOption[]`.
+- `maxSuggestions` (optional): `number`.
 - `storageKey` (optional): `string`.
 - `historyLimit` (optional): `number`.
 - `value` (optional): `string`.
@@ -70,4 +74,4 @@ It also takes the 303 attributes it inherits through `Omit<TextInputProps, 'valu
 
 ## Tokens
 
-It draws on `--c-text-dim`, `--font-mono`, `--space-md`, `--space-xs`, `--text-sm`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-soft`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--font-mono`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--shadow-2`, `--size-1`, `--size-14`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--weight-medium`, `--z-popover`, `--z-sticky`.

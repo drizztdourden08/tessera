@@ -20,6 +20,7 @@ const staticPage = (app: string, name: string): string => `<main class="ts-stage
 const SplashMarks = () => (
   <Demonstrator
     className="splash-marks"
+    fill
     rows={axis(BRAND_APPS)}
     columns={axis(SIDES)}
     cell={(app, side) => (side === 'Static HTML, dark-ground file'

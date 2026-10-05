@@ -38,6 +38,7 @@ PathInput takes a typed, dropped or browsed path in one box and cuts a long one 
 - The input takes the label, hint and error of its Field, and typing edits the path.
 - Copy, Reveal, Clear and Browse are buttons with names, in that order after the input.
 - A drop that is turned away marks the input invalid and says why in an alert under it.
+- A file dragged in from the desktop marks the box as a drop target at once, before the drop.
 
 ## Example
 

@@ -5,7 +5,7 @@ import { focusLeft } from '../../../primitives/dom/focus-left';
 import { isHTMLElement } from '../../../primitives/dom/is-html-element';
 import type { ToastTimer } from './useToastTimer.type';
 
-const useToastTimer = (duration: number | undefined, dismiss: () => void): ToastTimer => {
+const useToastTimer = (duration: number | undefined, dismiss: () => void, shown: number): ToastTimer => {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const backRef = useRef<Element | null>(null);
@@ -15,7 +15,7 @@ const useToastTimer = (duration: number | undefined, dismiss: () => void): Toast
     if (held || !duration || duration <= 0) return undefined;
     const timer = setTimeout(dismiss, duration);
     return () => clearTimeout(timer);
-  }, [held, duration, dismiss]);
+  }, [held, duration, dismiss, shown]);
 
   const onFocus = (event: FocusEvent<HTMLElement>) => {
     if (focusLeft(event)) backRef.current = event.relatedTarget;

@@ -1,161 +1,118 @@
 /* @layer stories @kind story */
-import { useCallback, useRef, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Text } from '../../src/primitives';
-import { Toast, ToastContainer } from '../../src/composites';
+import { Toast, ToastStack, toast } from '../../src/composites';
 import type { ToastItem, ToastPosition, ToastVariant } from '../../src/composites';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { SAMPLE_MESSAGES, TOAST_VARIANTS } from './_samples/toast-samples.constants';
+import { ToastSources } from './_samples/ToastSources';
 
 type ToastArgs = {
   message: string;
   variant: ToastVariant;
   duration: number;
+  max: number;
   position: ToastPosition;
 };
 
-const VARIANTS: readonly ToastVariant[] = ['info', 'success', 'warning', 'danger'];
-
-const SAMPLE_MESSAGES: Record<ToastVariant, string> = {
-  info: 'A new player joined the session.',
-  success: 'Save state written to slot 3.',
-  warning: 'The tracker lost sync. Retrying.',
-  danger: 'This ROM does not match a supported version.',
-};
-
-const ARGS: Partial<ToastArgs> = { message: SAMPLE_MESSAGES.success, variant: 'success', duration: 4000, position: 'bottom-right' };
+const ARGS: Partial<ToastArgs> = { message: SAMPLE_MESSAGES.success, variant: 'success', duration: 4000, max: 3, position: 'bottom-right' };
 
 const ARG_TYPES: PlaygroundArgTypes<ToastArgs> = {
-    message: { group: 'Content', control: 'text' },
-    variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
-    position: { group: 'Layout', control: 'select', options: ['bottom-right', 'bottom-left'] },
-    duration: { group: 'Behaviour', control: 'number', description: 'Milliseconds before it leaves. Zero keeps it until dismissed.' },
-  };
+  message: { group: 'Content', control: 'text' },
+  variant: { group: 'Appearance', control: 'select', options: [...TOAST_VARIANTS] },
+  position: { group: 'Layout', control: 'select', options: ['bottom-right', 'bottom-left'] },
+  max: { group: 'Layout', control: 'number', description: 'How many show at once; the rest wait in the queue.' },
+  duration: { group: 'Behaviour', control: 'number', description: 'Milliseconds before it leaves. Zero keeps it until dismissed.' },
+};
 
 const meta = {
   title: 'Composites · Feedback/Toast',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<ToastArgs>;
 
-const useToastQueue = (initial: ToastItem[] = []) => {
-  const [toasts, setToasts] = useState<ToastItem[]>(initial);
-  const nextId = useRef(initial.length);
-  const push = useCallback((item: Omit<ToastItem, 'id'>) => {
-    nextId.current += 1;
-    const id = `toast-${nextId.current}`;
-    setToasts((current) => [...current, { ...item, id }]);
-  }, []);
-  const dismiss = useCallback((id: string) => setToasts((current) => current.filter((t) => t.id !== id)), []);
-  return { toasts, push, dismiss };
-};
+const noop = () => undefined;
 
-const ToastLauncher = (props: ToastArgs) => {
-  const { message, variant, duration, position } = props;
-  const { toasts, push, dismiss } = useToastQueue();
-  return (
-    <Box className="story-column">
-      <Box className="story-row">
-        <Button onClick={() => push({ message, variant, duration })}>Show toast</Button>
-        <Text className="story-label">{toasts.length} on screen</Text>
-      </Box>
-      <ToastContainer toasts={toasts} onDismiss={dismiss} position={position} />
-    </Box>
-  );
-};
-
-const EVERY_VARIANT: ToastItem[] = VARIANTS.map((variant) => ({ id: variant, variant, message: SAMPLE_MESSAGES[variant] }));
-
-const VariantList = () => {
-  const { toasts, dismiss } = useToastQueue(EVERY_VARIANT);
-  if (toasts.length === 0) {
-    return <Text className="story-label">All dismissed. Reload the story to bring them back.</Text>;
-  }
-  return (
-    <Demonstrator
-      rows={toasts.map((item) => ({ key: item.id, label: item.variant ?? item.id }))}
-      align="stretch"
-      cell={(id) => toasts.filter((item) => item.id === id).map((item) => <Toast key={item.id} item={item} onDismiss={dismiss} />)}
-    />
-  );
-};
-
-const ToastStack = () => {
-  const { toasts, push, dismiss } = useToastQueue();
-  return (
-    <Box className="story-row">
-      {VARIANTS.map((variant) => (
-        <Button key={variant} variant="secondary" onClick={() => push({ variant, message: SAMPLE_MESSAGES[variant], duration: 5000 })}>
-          {variant}
-        </Button>
-      ))}
-      <ToastContainer toasts={toasts} onDismiss={dismiss} />
-    </Box>
-  );
-};
-
-const RetryDemo = () => {
-  const { toasts, push, dismiss } = useToastQueue();
-  const fail = () => push({
-    variant: 'danger',
-    message: 'Settings could not be saved.',
-    action: { label: 'Retry', onSelect: () => push({ variant: 'success', message: 'Settings saved.', duration: 3000 }) },
-  });
-  return (
-    <Box className="story-row">
-      <Button variant="secondary" onClick={fail}>Save settings</Button>
-      <ToastContainer toasts={toasts} onDismiss={dismiss} />
-    </Box>
-  );
-};
+const EVERY_VARIANT: ToastItem[] = TOAST_VARIANTS.map((variant) => ({ id: variant, variant, message: SAMPLE_MESSAGES[variant] }));
 
 const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <ToastLauncher {...args} />,
+  render: ({ message, variant, duration, max, position }) => (
+    <Box className="story-row">
+      <Button onClick={() => toast({ message, variant, duration, id: `${variant}:${message}:${duration}` })}>Show toast</Button>
+      <Button variant="secondary" onClick={() => toast.clear()}>Clear the queue</Button>
+      <ToastStack position={position} max={max} />
+    </Box>
+  ),
 } satisfies PlaygroundStory<ToastArgs>;
 
 const Variants = {
   name: 'Variants',
-  render: () => <VariantList />,
+  render: () => (
+    <Demonstrator
+      rows={EVERY_VARIANT.map((item) => ({ key: item.id, label: item.variant ?? item.id }))}
+      align="stretch"
+      cell={(id) => EVERY_VARIANT.filter((item) => item.id === id).map((item) => <Toast key={item.id} item={item} onDismiss={noop} />)}
+    />
+  ),
 } satisfies StoryLiteStoryDefinition<ToastArgs>;
 
-const Stacked = {
-  name: 'Stacked in the container',
-  render: () => <ToastStack />,
+const Repeated = {
+  name: 'The same message shown three times',
+  render: () => <Toast item={{ id: 'saved', variant: 'success', message: SAMPLE_MESSAGES.success, count: 3 }} onDismiss={noop} />,
+} satisfies StoryLiteStoryDefinition<ToastArgs>;
+
+const Sources = {
+  name: 'Two parts raise toasts, one stack',
+  render: () => <ToastSources />,
 } satisfies StoryLiteStoryDefinition<ToastArgs>;
 
 const WithAction = {
   name: 'With an action',
-  render: () => <RetryDemo />,
+  render: () => (
+    <Box className="story-row">
+      <Button
+        variant="secondary"
+        onClick={() => toast({
+          variant: 'danger',
+          message: 'Settings could not be saved.',
+          duration: 0,
+          action: { label: 'Retry', onSelect: () => toast({ variant: 'success', message: 'Settings saved.', duration: 3000 }) },
+        })}
+      >
+        Save settings
+      </Button>
+      <Text className="story-label">Every press adds to the count of the same toast.</Text>
+      <ToastStack />
+    </Box>
+  ),
 } satisfies StoryLiteStoryDefinition<ToastArgs>;
 
 const Overview = overviewStory({
   component: 'Toast',
   description: 'Short messages that pop up in a corner of the window and leave on their own, such as a save written.',
   points: [
-    '`ToastContainer` draws the queue at the bottom right or the bottom left.',
-    '`variant` sets the colour: `info`, `success`, `warning` or `danger`.',
-    'A toast leaves after its `duration`, or stays when it is 0; it waits while the pointer or focus is on it.',
-    '`action` adds a button, such as Retry, that runs `onSelect` and closes the toast, beside the close button.',
-    'Screen readers announce each toast: the queue is a polite status region, and a `danger` toast is an alert.',
+    '`toast()` raises one from any part of the app; `ToastStack`, mounted once at the root, draws the one queue.',
+    'A second `ToastStack` draws nothing while the first is mounted, so two sources never make two stacks.',
+    '`max` on the stack caps how many show at once, 3 by default; the rest wait and show as others leave.',
+    'The same message raised again joins its toast and shows a count, and its timer starts over.',
+    'A toast leaves after `duration`, 5 s by default, or stays at 0; it waits while the pointer or focus is on it.',
+    '`action` adds a button such as Retry; the stack is a polite status region and a `danger` toast is an alert.',
   ],
   instead: '[Callout] for a note that stays in the page.',
   playground: Playground,
-  variants: [Variants, WithAction],
-  code: `import { useState } from 'react';
-import { Button, ToastContainer } from '@drizztdourden08/tessera';
-import type { ToastItem } from '@drizztdourden08/tessera';
+  variants: [Sources, Variants, Repeated, WithAction],
+  code: `import { Button, ToastStack, toast } from '@drizztdourden08/tessera';
 
-const [toasts, setToasts] = useState<ToastItem[]>([]);
-const dismiss = (id: string) => setToasts((all) => all.filter((t) => t.id !== id));
+// Once, at the root of the app
+<ToastStack position="bottom-right" max={3} />
 
-<Button onClick={() => setToasts((all) => [...all, { id: 'saved', variant: 'success', message: 'Save state written to slot 3.', duration: 4000 }])}>
-  Show toast
-</Button>
-<ToastContainer toasts={toasts} onDismiss={dismiss} position="bottom-right" />`,
+// Anywhere else
+<Button onClick={() => toast({ variant: 'success', message: 'Save state written to slot 3.' })}>Save</Button>`,
 });
 
 export default meta;
-export { Overview, Playground, Stacked, Variants, WithAction };
+export { Overview, Playground, Repeated, Sources, Variants, WithAction };

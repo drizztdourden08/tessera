@@ -104,8 +104,9 @@ const Overview = overviewStory({
   points: [
     '`actions` keep their order; a `primary` action sits last and never folds.',
     'When the row runs out of width, the last actions move into More, a [DropdownMenu] under the bar.',
+    'More takes the height, look and icon size of the buttons beside it, at `sm` and at `md`.',
     '`keep` caps how many actions show before More, such as one in a list row.',
-    'A `danger` action takes the danger look and always asks first, in place, with a check and a cross.',
+    'A `danger` action takes the danger look and always asks first, in place, with a green check and a cross.',
     '`confirm` sets the question and the name of the check, and makes any other action ask too.',
   ],
   instead: '[ConfirmIconButton] for one icon action that asks, or [ButtonRow] for buttons that never fold.',

@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { CommandInput } from './CommandInput';
-export type { CommandInputProps, CommandSubmit } from './CommandInput.type';
+export type { CommandEntry, CommandInputProps, CommandOption, CommandSubmit } from './CommandInput.type';

@@ -1122,7 +1122,9 @@
         "NamedRangeProps": "SliderProps (see MIGRATION.md section 187)",
         "NamedStep": "ScaleLabelEntry, written as [value, label] (see MIGRATION.md section 187)",
         "SetPicker": "Combobox with min={0}, max and values, which draws the picks as removable tags and searches the rest as it is typed (see MIGRATION.md section 187)",
-        "SetPickerProps": "ComboboxProps (see MIGRATION.md section 187)"
+        "SetPickerProps": "ComboboxProps (see MIGRATION.md section 187)",
+        "ToastContainerProps": "ToastStackProps, which holds only position and max (see MIGRATION.md section 188)",
+        "ToastContainer": "ToastStack, mounted once at the root with no list; raise each toast with toast() (see MIGRATION.md section 188)"
       },
       "cssClasses": {
         "master-detail__detail--empty": "list-detail-layout__detail--empty",

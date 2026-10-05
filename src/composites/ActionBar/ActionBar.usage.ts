@@ -19,8 +19,8 @@ const usage = {
     'Set keep in a list row, often to one, so every row folds the same way.',
   ],
   a11y: [
-    'The bar is a group named by label, and More is an icon button named More that opens a keyboard menu.',
-    'An action that asks shows the question with a check and a cross, focus on the cross; Escape or the cross puts focus back on the action.',
+    'The bar is a group named by label, and More is an icon button named More, as tall as the action buttons, that opens a keyboard menu.',
+    'An action that asks shows the question with a green check and a quiet cross, focus on the cross; Escape or the cross puts focus back on the action.',
     'The hidden copies used to measure the row are inert and out of the Tab order.',
   ],
   tree: {

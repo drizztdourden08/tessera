@@ -30,7 +30,7 @@ const PaletteDemo = (props: PaletteArgs) => {
   const [flags, setFlags] = useState(NO_FLAGS);
   const [said, setSaid] = useState('Press the button, then type. Arrows move, Enter opens, Ctrl+Enter flips a toggle row.');
   const groups = useMemo(
-    () => paletteGroups(query, flags, (id) => setFlags((all) => ({ ...all, [id]: all[id] !== true }))),
+    () => paletteGroups(query, flags, (id) => setFlags((all) => ({ ...all, [id]: all[id] !== true })), () => setSaid('Cleared the logs.')),
     [query, flags],
   );
   const handleSelect = (item: PaletteEntry) => {
@@ -116,7 +116,7 @@ const renderState = (props: StateProps) => {
         onClose={ignore}
         query={query}
         onQueryChange={ignore}
-        groups={paletteGroups(query, NO_FLAGS, ignore)}
+        groups={paletteGroups(query, NO_FLAGS, ignore, ignore)}
         onSelect={ignore}
         activeIndex={typeof props.activeIndex === 'number' ? props.activeIndex : -1}
       />
@@ -151,7 +151,9 @@ const Overview = overviewStory({
     'The host owns `query` and the results, passed as `groups` of [CommandPaletteRow] items.',
     'The arrow keys move the active row, [[Enter]] picks it and [[Ctrl+Enter]] flips a toggle row.',
     '[[Esc]] or a click on the scrim closes it, and focus goes back where it was.',
-    '`mascot` adds a small mascot to the field, named by its brand; `auto` picks the one of the app palette, or none.',
+    'An item takes an `action` at the end of its row, such as an xs [ConfirmIconButton] to clear the logs.',
+    '`mascot` adds a small brand mascot to the field; `auto` picks the one of the app palette, or none.',
+    'Rows sit under group headers, each with its icon, its description and its breadcrumb.',
   ],
   instead: '[DropdownMenu] for a short list of actions on one button.',
   playground: Playground,

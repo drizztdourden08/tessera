@@ -6,11 +6,13 @@
 }
 
 .splash-marks .splash-frame {
-  inline-size: var(--size-384);
-  block-size: var(--size-256);
+  inline-size: 100%;
+  max-inline-size: var(--size-384);
+  block-size: var(--size-288);
 }
 
 .splash-pair .splash-frame {
-  inline-size: var(--size-448);
+  inline-size: 100%;
+  max-inline-size: var(--size-448);
   block-size: var(--size-384);
 }

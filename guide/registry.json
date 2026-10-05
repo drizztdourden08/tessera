@@ -455,7 +455,9 @@
             "components": []
           },
           "a short message that passes": {
-            "components": []
+            "components": [
+              "Toast"
+            ]
           },
           "a note that stays on the page": {
             "components": []
@@ -2385,8 +2387,8 @@
         "Set keep in a list row, often to one, so every row folds the same way."
       ],
       "a11y": [
-        "The bar is a group named by label, and More is an icon button named More that opens a keyboard menu.",
-        "An action that asks shows the question with a check and a cross, focus on the cross; Escape or the cross puts focus back on the action.",
+        "The bar is a group named by label, and More is an icon button named More, as tall as the action buttons, that opens a keyboard menu.",
+        "An action that asks shows the question with a green check and a quiet cross, focus on the cross; Escape or the cross puts focus back on the action.",
         "The hidden copies used to measure the row are inert and out of the Tab order."
       ],
       "tree": {
@@ -2455,7 +2457,9 @@
         }
       },
       "tokens": [
-        "--space-xs"
+        "--control-h-md",
+        "--space-xs",
+        "--text-lg"
       ],
       "gallery": {
         "title": "Composites · Actions/ActionBar",
@@ -2782,7 +2786,7 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line.",
+      "job": "A command line: Enter sends the command, Up and Down walk the past commands, Tab completes a known one and Escape clears the line.",
       "useWhen": [
         "The user types commands for a server, a game or a debug tool.",
         "The user often sends the same command again and should find it with the arrow keys."
@@ -2803,6 +2807,7 @@
       ],
       "rules": [
         "Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.",
+        "Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the top one.",
         "Return false from onSubmit when the command was not sent, so the text stays in the line.",
         "Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.",
         "Disable it while there is nothing to send to, and say why in the text near it."
@@ -2810,7 +2815,8 @@
       "a11y": [
         "The input is named Command, or label, and the key hints under it describe it.",
         "Escape on an empty line passes on, so it still closes a dialog or a popup.",
-        "Up and Down only take over the arrow keys while there is a history to walk."
+        "Up and Down move through the suggestions while their list is open, and walk the history once it is closed or the line is empty.",
+        "With commands the input is a combobox: the list is a listbox and the active row is its active descendant."
       ],
       "tree": {
         "path": [
@@ -2820,8 +2826,8 @@
         ],
         "rule": "CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear."
       },
-      "example": "import { CommandInput } from '@drizztdourden08/tessera';\n\nconst ServerConsole = ({ send }: { send: (command: string) => void }) => (\n  <CommandInput placeholder=\"/players\" storageKey=\"console.history\" onSubmit={send} />\n);\n",
-      "propsHash": "52374af4c24f7c70",
+      "example": "import { CommandInput } from '@drizztdourden08/tessera';\n\nconst ServerConsole = ({ send }: { send: (command: string) => void }) => (\n  <CommandInput placeholder=\"/players\" storageKey=\"console.history\" commands={['/players', '/hint', '/save']} onSubmit={send} />\n);\n",
+      "propsHash": "b9f8881fbf13251e",
       "props": {
         "own": [
           {
@@ -2833,6 +2839,16 @@
             "name": "history",
             "optional": true,
             "text": "readonly string[]"
+          },
+          {
+            "name": "commands",
+            "optional": true,
+            "text": "readonly CommandOption[]"
+          },
+          {
+            "name": "maxSuggestions",
+            "optional": true,
+            "text": "number"
           },
           {
             "name": "storageKey",
@@ -2910,11 +2926,40 @@
         }
       },
       "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-danger-soft",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-surface",
+        "--c-text",
         "--c-text-dim",
+        "--c-text-muted",
         "--font-mono",
+        "--listbox-attach",
+        "--listbox-columns",
+        "--listbox-space",
+        "--opacity-disabled",
+        "--radius-md",
+        "--shadow-2",
+        "--size-1",
+        "--size-14",
+        "--size-288",
+        "--size-48",
+        "--space-2xs",
         "--space-md",
+        "--space-sm",
         "--space-xs",
-        "--text-sm"
+        "--text-sm",
+        "--text-xs",
+        "--tracking-wide",
+        "--transition-fast",
+        "--weight-medium",
+        "--z-popover",
+        "--z-sticky"
       ],
       "gallery": {
         "title": "Composites · Inputs/CommandInput",
@@ -3384,7 +3429,8 @@
       "rules": [
         "Name the button after what it copies, such as Copy address or Copy debug info.",
         "Pass a function as text when the text is costly to build or changes often, so it is built at the click.",
-        "Keep it icon only in tight rows and toolbars; show the word where the button stands alone."
+        "Keep it icon only in tight rows and toolbars; show the word where the button stands alone.",
+        "Use size xs only in a dense row such as a tile tool strip: it draws a 12 px icon with a 24 px hit area."
       ],
       "a11y": [
         "An icon only button is named by its label and shows the same name as a tooltip.",
@@ -5775,7 +5821,8 @@
       "a11y": [
         "The input takes the label, hint and error of its Field, and typing edits the path.",
         "Copy, Reveal, Clear and Browse are buttons with names, in that order after the input.",
-        "A drop that is turned away marks the input invalid and says why in an alert under it."
+        "A drop that is turned away marks the input invalid and says why in an alert under it.",
+        "A file dragged in from the desktop marks the box as a drop target at once, before the drop."
       ],
       "tree": {
         "path": [
@@ -7623,7 +7670,99 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A short message in a corner of the window that leaves on its own, raised with toast() from any part of the app and drawn by the one ToastStack.",
+      "useWhen": [
+        "Something finished or failed out of view, such as a save written or a sync lost, and the user should hear of it once.",
+        "A failure can be tried again from the message itself, with an action such as Retry."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The note must stay on the page until the user acts.",
+          "use": "Callout"
+        },
+        {
+          "case": "The user must answer before the app goes on.",
+          "use": "Dialog"
+        }
+      ],
+      "rules": [
+        "Mount one ToastStack at the root of the app and raise every toast with toast(); never draw a stack of your own.",
+        "Keep the message to one short sentence that says what happened, such as Save state written to slot 3.",
+        "Raise the same message again, not a new one: it joins the toast on screen and shows a count.",
+        "Pass an id when the text changes but it is the same event, such as a sync count, so it still joins one toast.",
+        "Set duration to 0 only when the toast carries an action the user must see."
+      ],
+      "a11y": [
+        "The stack is a polite status region, so a screen reader reads each toast once.",
+        "A danger toast is an alert and is read at once.",
+        "A toast waits while the pointer or focus is on it, and gives focus back when it leaves."
+      ],
+      "tree": {
+        "path": [
+          "feedback",
+          "a short message that passes"
+        ],
+        "rule": "Toast keeps one queue per app: every part raises through toast(), the stack caps how many show and the same message shows once with a count."
+      },
+      "example": "import { Button, ToastStack, toast } from '@drizztdourden08/tessera';\n\nconst AppRoot = ({ children }: { children: React.ReactNode }) => (\n  <>\n    {children}\n    <ToastStack position=\"bottom-right\" max={3} />\n  </>\n);\n\nconst SaveButton = ({ save }: { save: () => Promise<void> }) => (\n  <Button\n    onClick={() => save().then(\n      () => toast({ variant: 'success', message: 'Save state written to slot 3.' }),\n      () => toast({ variant: 'danger', message: 'The save could not be written.', duration: 0, action: { label: 'Retry', onSelect: () => void save() } }),\n    )}\n  >\n    Save\n  </Button>\n);\n",
+      "propsHash": "83c08bd9a360dfea",
+      "props": {
+        "own": [
+          {
+            "name": "item",
+            "optional": false,
+            "text": "ToastItem"
+          },
+          {
+            "name": "onDismiss",
+            "optional": false,
+            "text": "(id: string) => void"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-danger",
+        "--c-danger-dim",
+        "--c-info",
+        "--c-secondary",
+        "--c-secondary-bright",
+        "--c-secondary-dim",
+        "--c-surface",
+        "--c-warning",
+        "--c-warning-dim",
+        "--font-mono",
+        "--font-sans",
+        "--leading-tight",
+        "--radius-md",
+        "--radius-pill",
+        "--shadow-dropdown",
+        "--size-384",
+        "--size-8",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--z-toast"
+      ],
+      "gallery": {
+        "title": "Composites · Feedback/Toast",
+        "route": "#/story/composites-toast--overview",
+        "file": "stories/composites/Toast.stories.tsx"
+      },
+      "parts": [
+        "ToastStack",
+        "toast"
+      ]
     },
     {
       "name": "UtilityScreen",

@@ -6,16 +6,18 @@ import { useCommandInput } from './behavior/useCommandInput';
 import { CommandInputRow } from './sub-components/CommandInputRow';
 import { CommandKeyHints } from './sub-components/CommandKeyHints';
 import type { CommandInputProps } from './CommandInput.type';
+import '../../theme/listbox.css';
+import '../../theme/listbox-drop.css';
 import './CommandInput.css';
 
 const CommandInput = (props: CommandInputProps) => {
   const {
-    onSubmit, history, storageKey, historyLimit, value, defaultValue, onValueChange,
+    onSubmit, history, commands, maxSuggestions, storageKey, historyLimit, value, defaultValue, onValueChange,
     label, sendLabel, actions, keyHints = true, size, disabled, className, onKeyDown, ...field
   } = props;
   const keysId = useId();
   const controlSize = useControlSize(size);
-  const command = useCommandInput({ onSubmit, history, storageKey, historyLimit, value, defaultValue, onValueChange });
+  const command = useCommandInput({ onSubmit, history, commands, maxSuggestions, storageKey, historyLimit, value, defaultValue, onValueChange });
   return (
     <Box className={className ? `command-input ${className}` : 'command-input'}>
       <CommandInputRow
@@ -31,7 +33,7 @@ const CommandInput = (props: CommandInputProps) => {
       {(actions !== undefined || keyHints) && (
         <Box className="command-input__footer">
           {actions !== undefined && <Box className="command-input__actions">{actions}</Box>}
-          {keyHints && <CommandKeyHints id={keysId} />}
+          {keyHints && <CommandKeyHints id={keysId} completes={command.suggest.known} />}
         </Box>
       )}
     </Box>

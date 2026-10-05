@@ -4,7 +4,7 @@ import { LogPanel } from '../../../src/composites';
 import type { LogRow } from '../../../src/composites';
 import { Box, Button } from '../../../src/primitives';
 import { CommandInput } from '../../../src/composites';
-import { CONSOLE_HISTORY, CONSOLE_KINDS, CONSOLE_REPLIES, QUICK_COMMANDS } from './console-samples.constants';
+import { CONSOLE_COMMANDS, CONSOLE_HISTORY, CONSOLE_KINDS, CONSOLE_REPLIES, QUICK_COMMANDS } from './console-samples.constants';
 
 const replyTo = (command: string, at: number): LogRow[] => {
   const known = CONSOLE_REPLIES[command.split(' ')[0] ?? ''];
@@ -27,7 +27,7 @@ const ConsoleDemo = ({ disabled = false }: { disabled?: boolean }) => {
   return (
     <Box className="console-story">
       <LogPanel rows={rows} kinds={CONSOLE_KINDS} height={160} toolbar={false} emptyLabel="Replies from the server show here." />
-      <CommandInput placeholder="/hint Bram Moon Pearl" history={history} disabled={disabled} onSubmit={send} actions={quick} />
+      <CommandInput placeholder="/hint Bram Moon Pearl" history={history} commands={CONSOLE_COMMANDS} disabled={disabled} onSubmit={send} actions={quick} />
     </Box>
   );
 };

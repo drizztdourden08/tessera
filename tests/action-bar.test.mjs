@@ -1,6 +1,7 @@
 /* @layer tooling-scripts @kind test */
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { ActionBar } from '../src/composites/ActionBar';
 import { confirmOf } from '../src/composites/ActionBar/behavior/confirm-of';
@@ -74,5 +75,14 @@ describe('ActionBar render', () => {
     const folded = renderToString(h(ActionBar, { actions: ACTIONS, keep: 1, size: 'sm' })).split('action-bar__measure')[0];
     expect([...folded.matchAll(/data-action-id="(\w+)"/g)].map((match) => match[1])).toEqual(['reset', 'save']);
     expect(folded).toContain('aria-label="More"');
+  });
+});
+
+describe('ActionBar More button', () => {
+  it('takes the height of a md button and its icon size, and is measured with the same class', () => {
+    const css = readFileSync(new URL('../src/composites/ActionBar/ActionBar.css', import.meta.url), 'utf8');
+    expect(css).toMatch(/\.action-bar\[data-size='md'\] \.action-bar__more \{\s+inline-size: var\(--control-h-md\);\s+block-size: var\(--control-h-md\);\s+font-size: var\(--text-lg\);/);
+    const measured = renderToString(h(ActionBar, { actions: ACTIONS, keep: 1 })).split('action-bar__measure').slice(1).join('');
+    expect(measured).toMatch(/class="icon-btn icon-btn--secondary icon-btn--toned icon-btn--md action-bar__more"/);
   });
 });

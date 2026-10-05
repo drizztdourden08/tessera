@@ -75,3 +75,19 @@ describe('one copy path', () => {
     expect(facts).toContain('icon-btn--xs');
   });
 });
+
+describe('CopyButton xs', () => {
+  it('draws a 12 px icon in its 20 px button and widens the hit area to 24 px', () => {
+    const html = renderToString(h(CopyButton, { text: 'a', label: 'Copy address', size: 'xs' }));
+    expect(html).toMatch(/class="icon-btn icon-btn--ghost icon-btn--xs hit-area"/);
+    expect(html).toMatch(/<svg[^>]*width="12"[^>]*height="12"/);
+  });
+
+  it('keeps the 16 px icon at sm and md', () => {
+    for (const size of ['sm', 'md']) {
+      const html = renderToString(h(CopyButton, { text: 'a', label: 'Copy address', size }));
+      expect(html).toMatch(/<svg[^>]*width="16"/);
+      expect(html).not.toContain('hit-area');
+    }
+  });
+});

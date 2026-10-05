@@ -19,6 +19,7 @@ const SplashPair = (props: SplashPairProps) => {
   return (
     <Demonstrator
       className="splash-pair"
+      fill
       columns={axis(SIDES)}
       cell={(_row, side) => (side === 'Static HTML'
         ? <SplashFrame body={staticSplashHtml(sample)} palette="archipelia" label={`Static splash page, ${state}`} />

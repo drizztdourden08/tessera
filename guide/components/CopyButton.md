@@ -31,6 +31,7 @@ CopyButton writes to the clipboard through the one copy path every Tessera part 
 - Name the button after what it copies, such as Copy address or Copy debug info.
 - Pass a function as text when the text is costly to build or changes often, so it is built at the click.
 - Keep it icon only in tight rows and toolbars; show the word where the button stands alone.
+- Use size xs only in a dense row such as a tile tool strip: it draws a 12 px icon with a 24 px hit area.
 
 ## Accessibility
 

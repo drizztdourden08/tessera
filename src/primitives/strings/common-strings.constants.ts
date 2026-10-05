@@ -46,6 +46,10 @@ const COMMON_STRINGS = {
   command: 'Command',
   history: 'history',
   clear: 'clear',
+  complete: 'complete',
+  commands: 'Commands',
+  repeated: (count: number) => `Shown ${count} times`,
+  repeatedShort: (count: number) => `×${count}`,
 };
 
 export { COMMON_STRINGS };

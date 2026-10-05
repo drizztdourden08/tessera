@@ -90,7 +90,9 @@ const Overview = overviewStory({
   points: [
     '`text` is the string to copy, or a function that builds it at the moment of the click.',
     'Icon only by default, named by `label`; `showLabel` writes the word beside the icon.',
+    '`xs` draws a 12 px icon in a 20 px button, like an xs [IconButton], and keeps a 24 px hit area.',
     'After a copy the icon turns to a check, the name reads Copied and a screen reader hears it.',
+    '`onCopied` runs after a copy that worked, such as to close the menu the button sits in.',
     'Every Tessera copy goes through it, so [CopyValue], [FactsPanel] and [CodeBlock] copy alike.',
   ],
   instead: '[CopyValue] to show the value itself with its copy button.',

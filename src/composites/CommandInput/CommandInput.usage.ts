@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line.',
+  job: 'A command line: Enter sends the command, Up and Down walk the past commands, Tab completes a known one and Escape clears the line.',
   useWhen: [
     'The user types commands for a server, a game or a debug tool.',
     'The user often sends the same command again and should find it with the arrow keys.',
@@ -14,6 +14,7 @@ const usage = {
   ],
   rules: [
     'Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.',
+    'Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the top one.',
     'Return false from onSubmit when the command was not sent, so the text stays in the line.',
     'Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.',
     'Disable it while there is nothing to send to, and say why in the text near it.',
@@ -21,7 +22,8 @@ const usage = {
   a11y: [
     'The input is named Command, or label, and the key hints under it describe it.',
     'Escape on an empty line passes on, so it still closes a dialog or a popup.',
-    'Up and Down only take over the arrow keys while there is a history to walk.',
+    'Up and Down move through the suggestions while their list is open, and walk the history once it is closed or the line is empty.',
+    'With commands the input is a combobox: the list is a listbox and the active row is its active descendant.',
   ],
   tree: {
     path: ['a value the user sets', 'free text or a number', 'a command, with its history'],
@@ -30,10 +32,10 @@ const usage = {
   example: `import { CommandInput } from '@drizztdourden08/tessera';
 
 const ServerConsole = ({ send }: { send: (command: string) => void }) => (
-  <CommandInput placeholder="/players" storageKey="console.history" onSubmit={send} />
+  <CommandInput placeholder="/players" storageKey="console.history" commands={['/players', '/hint', '/save']} onSubmit={send} />
 );
 `,
-  propsHash: '52374af4c24f7c70',
+  propsHash: 'b9f8881fbf13251e',
 } satisfies ComponentUsage;
 
 export { usage };

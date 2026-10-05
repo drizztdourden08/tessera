@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind barrel */
 export { Toast } from './Toast';
-export { ToastContainer } from './sub-components/ToastContainer';
-export type { ToastAction, ToastItem, ToastVariant, ToastPosition, ToastProps, ToastContainerProps } from './Toast.type';
+export { ToastStack } from './sub-components/ToastStack';
+export { toast } from './behavior/toast';
+export type { ToastAction, ToastApi, ToastInput, ToastItem, ToastVariant, ToastPosition, ToastProps, ToastStackProps } from './Toast.type';

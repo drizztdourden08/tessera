@@ -102,6 +102,7 @@ const Overview = overviewStory({
   description: 'A file or folder path the user can type, drop from the desktop or pick with Browse, all in one box.',
   points: [
     'Typing edits the path; a drop sets it; `onBrowse` opens the dialog of the app and its result is used.',
+    'A file dragged in from the desktop turns the box into a drop target at once, before the drop.',
     '`kind` and `accept` say what a drop must be; anything else is turned away with a line that says why.',
     '`resolvePath` reads the full path of a dropped file, such as `webUtils.getPathForFile` in Electron.',
     'A long path is cut in the middle, so the file name stays in view; the whole path is its title.',

@@ -2,6 +2,7 @@
 import { matchesText } from '../../../src/data';
 import { Icon } from '../../../src/primitives';
 import type { IconName } from '../../../src/primitives';
+import { ConfirmIconButton } from '../../../src/composites';
 import type { CommandPaletteGroup, CommandPaletteItem } from '../../../src/composites';
 
 type PaletteKind = 'screen' | 'setting' | 'action';
@@ -14,10 +15,22 @@ type Flags = Readonly<Record<string, boolean>>;
 
 const icon = (name: IconName) => <Icon name={name} size={16} />;
 
-const SCREENS: readonly PaletteEntry[] = [
+const clearLogs = (onClear: () => void) => (
+  <ConfirmIconButton
+    size="xs"
+    placement="end"
+    icon={<Icon name="trash-2" size={12} />}
+    label="Clear the logs"
+    confirmLabel="Yes, clear the logs"
+    cancelLabel="Keep the logs"
+    onConfirm={onClear}
+  />
+);
+
+const screens = (onClear: () => void): readonly PaletteEntry[] => [
   { id: 'home', kind: 'screen', label: 'Home', icon: icon('house'), description: 'Profiles and recent sessions' },
   { id: 'tracker', kind: 'screen', label: 'Item tracker', icon: icon('layout-grid'), description: 'What each player has found' },
-  { id: 'logs', kind: 'screen', label: 'Logs', icon: icon('file-text'), description: 'Everything the app has said' },
+  { id: 'logs', kind: 'screen', label: 'Logs', icon: icon('file-text'), description: 'Everything the app has said', action: clearLogs(onClear) },
   { id: 'input', kind: 'screen', label: 'Input tester', icon: icon('gamepad-2'), breadcrumb: ['Tools'] },
   { id: 'settings', kind: 'screen', label: 'Settings', icon: icon('settings') },
 ];
@@ -46,9 +59,10 @@ const KIND_LABELS: Record<PaletteKind, string> = { screen: 'Screens', setting: '
 const matches = (entry: PaletteEntry, query: string): boolean =>
   matchesText([entry.label, ...(entry.breadcrumb ?? [])].join(' '), query);
 
-const paletteGroups = (query: string, flags: Flags, flip: (id: string) => void): CommandPaletteGroup<PaletteEntry>[] => {
-  if (query.trim() === '') return [{ id: 'screens', label: KIND_LABELS.screen, items: SCREENS }];
-  const hits = [...SCREENS, ...settings(flags, flip), ...ACTIONS].filter((entry) => matches(entry, query));
+const paletteGroups = (query: string, flags: Flags, flip: (id: string) => void, onClear: () => void): CommandPaletteGroup<PaletteEntry>[] => {
+  const shown = screens(onClear);
+  if (query.trim() === '') return [{ id: 'screens', label: KIND_LABELS.screen, items: shown }];
+  const hits = [...shown, ...settings(flags, flip), ...ACTIONS].filter((entry) => matches(entry, query));
   return (['screen', 'setting', 'action'] as const).map((kind) => ({
     id: kind, label: KIND_LABELS[kind], items: hits.filter((entry) => entry.kind === kind),
   }));
