@@ -9,7 +9,6 @@ const SETTINGS_STRINGS = {
   pickColour: (title: string) => `Pick a colour for ${title}`,
   aboutSetting: (title: string) => `About ${title}`,
   changed: 'Changed',
-  resetRow: (title: string) => `Reset ${title}`,
   resetHint: 'Puts back the default value.',
   showMore: 'More',
   showLess: 'Less',

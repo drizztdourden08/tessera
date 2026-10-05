@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useRef } from 'react';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { useUnsavedGuard } from '../../primitives/unsaved-guard/useUnsavedGuard';
 import { ItemList } from '../ItemList';
 import { ListDetailLayout } from '../ListDetailLayout';
 import { guardMessage } from './behavior/guard-message';
-import { useDirtyGuard } from './behavior/useDirtyGuard';
 import type { ListDetailMove, ListDetailProps } from './ListDetail.type';
 import { ListDetailGuardBar } from './sub-components/ListDetailGuardBar';
 import { ListDetailGuardDialog } from './sub-components/ListDetailGuardDialog';
@@ -20,7 +20,7 @@ const ListDetail = <T,>(props: ListDetailProps<T>) => {
     else if (move.kind === 'back') onSelect(null);
     else onCreate?.();
   }, [onSelect, onCreate]);
-  const guard = useDirtyGuard({ dirty, onSave, onDiscard, perform });
+  const guard = useUnsavedGuard<ListDetailMove>({ dirty, onSave, onDiscard, perform });
   const words = guardMessage(strings, list, selectedId, guard.pending);
   const guardProps = {
     open: guard.pending !== null, ...words, saving: guard.saving, onStay: guard.stay, onDiscard: guard.discard, onSave: guard.save, stayRef,

@@ -12,7 +12,7 @@ const keepFocus = (e: MouseEvent) => e.preventDefault();
 const TagSuggestionPanel = (props: TagSuggestionPanelProps) => {
   const { listId, optionId, panelRef, anchorRef, pos, suggestions, highlightIdx, createText, inline, onPick } = props;
   const detached = useRef<HTMLElement>(null);
-  const { fields } = useTesseraStrings();
+  const { common, fields } = useTesseraStrings();
 
   const isEmpty = suggestions.length === 0 && createText === null;
 
@@ -41,7 +41,7 @@ const TagSuggestionPanel = (props: TagSuggestionPanelProps) => {
           onMouseDown={keepFocus}
           onClick={() => onPick(createText)}
         >
-          <Span className="tag-input__create-verb">{fields.createTag}</Span>
+          <Span className="tag-input__create-verb">{common.create}</Span>
           <Span className="tag-input__create-value">{createText}</Span>
         </Box>
       )}

@@ -10,7 +10,7 @@ import { ListDetailGuardActions } from './ListDetailGuardActions';
 
 const ListDetailGuardBar = (props: ListDetailGuardProps) => {
   const { open, message, onStay, stayRef, saving } = props;
-  const { lists } = useTesseraStrings();
+  const { common } = useTesseraStrings();
   const messageId = useId();
   useEffect(() => {
     if (!open) return undefined;
@@ -27,7 +27,7 @@ const ListDetailGuardBar = (props: ListDetailGuardProps) => {
     onStay();
   };
   return (
-    <Box className="list-detail__guard" role="alertdialog" aria-label={lists.unsavedTitle} aria-describedby={messageId} onKeyDown={handleKeyDown}>
+    <Box className="list-detail__guard" role="alertdialog" aria-label={common.unsavedTitle} aria-describedby={messageId} onKeyDown={handleKeyDown}>
       <ButtonRow gap="xs" lead={<Text id={messageId} variant="body">{message}</Text>}>
         <ListDetailGuardActions {...props} size="sm" />
       </ButtonRow>

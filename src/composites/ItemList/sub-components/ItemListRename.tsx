@@ -1,7 +1,6 @@
 /* @layer renderer-components @kind component */
-import { useState } from 'react';
-import type { KeyboardEvent } from 'react';
 import { Box } from '../../../primitives/Box';
+import { useNameEdit } from '../../../primitives/field-control/useNameEdit';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { TextInput } from '../../../primitives/TextInput';
@@ -11,32 +10,23 @@ import type { ItemListRenameProps } from '../ItemList.type';
 const ItemListRename = (props: ItemListRenameProps) => {
   const { id, name, onEnd } = props;
   const { lists } = useTesseraStrings();
-  const [draft, setDraft] = useState(name);
-  const next = draft.trim();
-  const commit = () => {
-    if (next) onEnd(id, next === name ? null : next);
-  };
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') commit();
-    if (event.key !== 'Escape') return;
-    event.stopPropagation();
-    onEnd(id, null);
-  };
+  const undo = () => onEnd(id, null);
+  const edit = useNameEdit({ name, onKeep: (next) => onEnd(id, next === name ? null : next), onUndo: undo });
   return (
     <Box className="item-list__rename" role="listitem">
       <TextInput
         className="item-list__rename-input"
         aria-label={lists.newName}
-        value={draft}
-        onChange={(event) => setDraft(event.target.value)}
-        onKeyDown={handleKeyDown}
+        value={edit.draft}
+        onChange={(event) => edit.setDraft(event.target.value)}
+        onKeyDown={edit.onKeyDown}
         onFocus={(event) => event.target.select()}
         autoFocus
       />
-      <IconButton size="sm" variant="primary" label={lists.keepName} title={lists.keepName} disabled={!next} onClick={commit}>
+      <IconButton size="sm" variant="primary" label={lists.keepName} title={lists.keepName} disabled={!edit.ready} onClick={edit.keep}>
         <Icon name="check" />
       </IconButton>
-      <IconButton size="sm" variant="ghost" label={lists.cancelRename} title={lists.cancelRename} onClick={() => onEnd(id, null)}>
+      <IconButton size="sm" variant="ghost" label={lists.cancelRename} title={lists.cancelRename} onClick={undo}>
         <Icon name="x" />
       </IconButton>
     </Box>

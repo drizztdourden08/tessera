@@ -22,7 +22,7 @@ const HeaderCell = (props: HeaderCellProps) => {
   const menu = useMenuOpen<HTMLButtonElement>();
   const ghostRef = useRef<HTMLElement>(null);
   const cellRef = useRef<HTMLElement>(null);
-  const rename = useColumnRename({ path, label: column.label, onRename: actions.onRename });
+  const rename = useColumnRename({ path, onRename: actions.onRename });
 
   const label = column.label ?? field?.label ?? path;
   const resize = useColumnResize({
@@ -39,7 +39,7 @@ const HeaderCell = (props: HeaderCellProps) => {
       ref={cellRef}
       className={classes}
       role="columnheader"
-      draggable={rename.draft === null && !resize.resizing}
+      draggable={!rename.renaming && !resize.resizing}
       title={path}
       data-column-head={path}
       onDragStart={handleDragStart}
@@ -50,10 +50,10 @@ const HeaderCell = (props: HeaderCellProps) => {
       <ColumnDragGhost ref={ghostRef} label={label} path={path} field={field} rows={ghostRows} total={rowTotal} />
       <HeaderLabel
         label={label}
-        draft={rename.draft}
-        onDraft={rename.setDraft}
-        onKeyDown={rename.handleRenameKey}
-        onCommit={rename.commitRename}
+        name={column.label ?? ''}
+        renaming={rename.renaming}
+        onKeep={rename.keepRename}
+        onUndo={rename.undoRename}
       />
       <Box className="data-table__header-chrome">
         <SortToggle label={label} sortDir={sortDir} onToggle={() => actions.onToggleSort(path)} />

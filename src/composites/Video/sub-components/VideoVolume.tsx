@@ -12,7 +12,7 @@ import { VideoTrack } from '../../../primitives/media/VideoTrack';
 
 const VideoVolume = (props: VideoVolumeProps) => {
   const { volume, muted, onVolume, onToggleMute } = props;
-  const { common, video } = useTesseraStrings();
+  const { common } = useTesseraStrings();
   const level = muted ? 0 : volume;
 
   return (
@@ -27,7 +27,7 @@ const VideoVolume = (props: VideoVolumeProps) => {
         step={VOLUME_STEP}
         value={level}
         fill={toPercent(level, 1)}
-        aria-label={video.volume}
+        aria-label={common.volume}
         aria-valuetext={`${Math.round(level * 100)}%`}
         onChange={(event) => onVolume(Number(event.target.value))}
       />

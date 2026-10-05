@@ -11,7 +11,7 @@ import { FileButton } from './FileButton';
 
 const FileRow = (props: FileRowProps) => {
   const { file, onOpen, onReveal } = props;
-  const { items } = useTesseraStrings();
+  const { items, navigation } = useTesseraStrings();
   const name = fileName(file);
   const { path, size, modified } = file;
   return (
@@ -23,7 +23,7 @@ const FileRow = (props: FileRowProps) => {
         {modified === undefined ? null : <Time dateTime={new Date(modified).toISOString()}>{formatValue(modified, 'datetime')}</Time>}
       </Span>
       <Box className="file-list__actions">
-        {onOpen && <FileButton label={items.openFile(name)} icon="external-link" onPress={() => onOpen(path)} />}
+        {onOpen && <FileButton label={navigation.openNamed(name)} icon="external-link" onPress={() => onOpen(path)} />}
         {onReveal && <FileButton label={items.revealFile(name)} icon="folder-open" onPress={() => onReveal(path)} />}
       </Box>
     </Box>

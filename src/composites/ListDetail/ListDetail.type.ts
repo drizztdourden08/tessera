@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
+import type { UnsavedSave } from '../../primitives/unsaved-guard/unsaved-guard.type';
 import type { ItemListProps } from '../ItemList/ItemList.type';
 import type { ListDetailLayoutProps } from '../ListDetailLayout/ListDetailLayout.type';
 
@@ -7,7 +8,7 @@ type ListDetailListProps<T> = Omit<ItemListProps<T>, 'selectedId' | 'onSelect' |
 
 type ListDetailGuardLook = 'dialog' | 'inline';
 
-type ListDetailSave = () => boolean | void | Promise<boolean | void>;
+type ListDetailSave = UnsavedSave;
 
 type ListDetailMove = { kind: 'select'; id: string } | { kind: 'back' } | { kind: 'create' };
 
@@ -20,22 +21,6 @@ interface ListDetailProps<T> extends Omit<ListDetailLayoutProps, 'list' | 'detai
   onSave?: ListDetailSave;
   onDiscard?: () => void;
   guard?: ListDetailGuardLook;
-}
-
-interface DirtyGuardOptions {
-  dirty: boolean;
-  onSave?: ListDetailSave;
-  onDiscard?: () => void;
-  perform: (move: ListDetailMove) => void;
-}
-
-interface DirtyGuard {
-  pending: ListDetailMove | null;
-  saving: boolean;
-  request: (move: ListDetailMove) => void;
-  stay: () => void;
-  discard: () => void;
-  save: (() => void) | undefined;
 }
 
 interface ListDetailGuardProps {
@@ -54,7 +39,7 @@ interface ListDetailGuardActionsProps extends Omit<ListDetailGuardProps, 'open' 
 }
 
 export type {
-  DirtyGuard, DirtyGuardOptions, ListDetailGuardActionsProps, ListDetailGuardLook,
+  ListDetailGuardActionsProps, ListDetailGuardLook,
   ListDetailGuardProps, ListDetailListProps,
   ListDetailMove, ListDetailProps, ListDetailSave,
 };

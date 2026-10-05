@@ -130,7 +130,7 @@ const Overview = overviewStory({
     'The name field takes focus, and [[Enter]] sends the name to `onCreate`.',
     'Create stays off until there is a name and `canSubmit` holds.',
     '`extraFields` sit under the name; `error` shows under them and marks the field.',
-    '`onCancel` adds a Cancel button.',
+    '`onCancel` adds a Cancel button, and [[Escape]] in the name field calls it too.',
     '`compact` draws it on one line, unboxed, with icon buttons to create and cancel.',
     'Without `size`, it follows the size of the [Field] around it.',
   ],

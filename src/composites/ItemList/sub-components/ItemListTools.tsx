@@ -8,11 +8,11 @@ import type { ItemListToolsProps } from '../ItemList.type';
 
 const ItemListTools = (props: ItemListToolsProps) => {
   const { id, name, onStartRename, onDelete, tabIndex } = props;
-  const { lists } = useTesseraStrings();
+  const { common, lists } = useTesseraStrings();
   return (
     <Box className="item-list__tools">
       {onStartRename && (
-        <IconButton size="sm" variant="ghost" label={lists.rename(name)} title={lists.rename(name)} tabIndex={tabIndex} onClick={() => onStartRename(id)}>
+        <IconButton size="sm" variant="ghost" label={common.renameNamed(name)} title={common.renameNamed(name)} tabIndex={tabIndex} onClick={() => onStartRename(id)}>
           <Icon name="pencil" />
         </IconButton>
       )}
@@ -20,7 +20,7 @@ const ItemListTools = (props: ItemListToolsProps) => {
         <ConfirmIconButton
           icon={<Icon name="trash-2" />}
           label={lists.deleteNamed(name)}
-          confirmLabel={lists.deleteConfirm}
+          confirmLabel={common.delete}
           cancelLabel={lists.deleteCancel}
           placement="end"
           tabIndex={tabIndex}

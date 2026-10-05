@@ -1,13 +1,13 @@
 /* @layer renderer-components @kind hook */
 import { useState } from 'react';
 import type { KeyboardEvent } from 'react';
+import { writeStored } from '../../../primitives/dom/write-stored';
 import { HISTORY_LIMIT, IDLE_WALK, SUGGESTION_LIMIT } from '../CommandInput.constants';
 import type { CommandControl, CommandEntry, CommandState, HistoryWalk } from '../CommandInput.type';
 import { addToHistory } from './add-to-history';
 import { commandKey } from './command-key';
 import { runSuggestKey } from './run-suggest-key';
 import { readStoredHistory } from './stored-history';
-import { storeHistory } from './store-history';
 import { useCommandSuggest } from './useCommandSuggest';
 import { walkHistory } from './walk-history';
 
@@ -33,7 +33,7 @@ const useCommandInput = (props: CommandState): CommandControl => {
     if (given === undefined) {
       const next = addToHistory(own, command, historyLimit);
       setOwn(next);
-      storeHistory(storageKey, next);
+      writeStored(storageKey, next);
     }
     setValue('');
   };

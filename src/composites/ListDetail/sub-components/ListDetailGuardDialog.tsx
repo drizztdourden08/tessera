@@ -7,13 +7,13 @@ import { ListDetailGuardActions } from './ListDetailGuardActions';
 
 const ListDetailGuardDialog = (props: ListDetailGuardProps) => {
   const { open, message, onStay, stayRef, saving } = props;
-  const { lists } = useTesseraStrings();
+  const { common } = useTesseraStrings();
   return (
     <DialogShell
       open={open}
       onClose={onStay}
       dismissable={!saving}
-      title={lists.unsavedTitle}
+      title={common.unsavedTitle}
       actions={<ListDetailGuardActions {...props} />}
       initialFocusRef={stayRef}
     >

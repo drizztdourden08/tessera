@@ -25,7 +25,6 @@ const PANEL_STRINGS = {
   calibrated: 'cal',
   keyboard: 'Keyboard',
   taskProgress: 'Progress',
-  taskSteps: 'Steps',
   taskRunning: 'Running',
   taskDone: 'Done',
   taskFailed: 'Failed',

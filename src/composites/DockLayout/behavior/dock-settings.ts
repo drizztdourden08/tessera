@@ -8,7 +8,7 @@ const dockSettings = (props: DockLayoutProps, strings: TesseraStrings['widgets']
   peek: props.peek ?? false,
   modifiers: props.modifiers ?? NO_MODIFIERS,
   externalDrag: props.externalDrag ?? null,
-  mainLabel: props.mainLabel ?? strings.mainLabel,
+  mainLabel: props.mainLabel ?? strings.mainView,
   gripLabel: props.gripLabel ?? strings.gripLabel,
   mainGrip: props.mainGrip ?? 'always',
   floatingMin: props.floatingMin ?? FLOAT_MIN,

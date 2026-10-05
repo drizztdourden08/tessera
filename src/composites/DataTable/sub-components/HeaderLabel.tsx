@@ -1,25 +1,13 @@
 /* @layer renderer-components @kind component */
 import { Text } from '../../../primitives/Text';
-import { TextInput } from '../../../primitives/TextInput';
-import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { HeaderRename } from './HeaderRename';
 import type { HeaderLabelProps } from './HeaderLabel.type';
 
-const HeaderLabel = ({ label, draft, onDraft, onKeyDown, onCommit }: HeaderLabelProps) => {
-  const { table } = useTesseraStrings();
-  if (draft === null) {
+const HeaderLabel = ({ label, renaming, ...rename }: HeaderLabelProps) => {
+  if (!renaming) {
     return <Text variant="label" className="data-table__header-label" data-column-label="">{label}</Text>;
   }
-  return (
-    <TextInput
-      autoFocus
-      value={draft}
-      className="data-table__rename"
-      aria-label={table.renameNamed(label)}
-      onChange={(event) => onDraft(event.target.value)}
-      onKeyDown={onKeyDown}
-      onBlur={onCommit}
-    />
-  );
+  return <HeaderRename label={label} {...rename} />;
 };
 
 export { HeaderLabel };

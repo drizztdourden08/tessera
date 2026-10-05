@@ -13,7 +13,7 @@ const navLooks = (buttons: WizardStepButtons | undefined, isLast: boolean, strin
   const forward = isLast ? { label: strings.wizard.finish, icon: 'check' as const } : { label: strings.wizard.next, icon: 'arrow-right' as const };
   return {
     cancel: cancel === false ? null : lookOf({ label: strings.common.cancel, icon: null }, cancel),
-    back: back === false ? null : lookOf({ label: strings.wizard.back, icon: 'arrow-left' }, back),
+    back: back === false ? null : lookOf({ label: strings.navigation.back, icon: 'arrow-left' }, back),
     next: lookOf(forward, next),
   };
 };

@@ -4,7 +4,7 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import type { InlineCreateNameProps } from './InlineCreateName.type';
 
 const InlineCreateName = (props: InlineCreateNameProps) => {
-  const { value, onChange, onSubmit, placeholder, label, errorId } = props;
+  const { value, onChange, onKeyDown, placeholder, label, errorId } = props;
   const { records } = useTesseraStrings();
   const shownPlaceholder = placeholder ?? records.namePlaceholder;
   return (
@@ -17,7 +17,7 @@ const InlineCreateName = (props: InlineCreateNameProps) => {
       value={value}
       invalid={errorId != null}
       onChange={(e) => onChange(e.target.value)}
-      onKeyDown={(e) => { if (e.key === 'Enter') onSubmit(); }}
+      onKeyDown={onKeyDown}
       autoFocus
     />
   );

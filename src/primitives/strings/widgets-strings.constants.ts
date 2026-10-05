@@ -72,7 +72,6 @@ const WIDGET_STRINGS = {
   shortcutPopOutDoes: 'Pop out into its own window',
   shortcutDragGap: 'Drag gap',
   shortcutResizeDoes: 'Resize neighbours; double-click evens them',
-  mainLabel: 'Main view',
   gripLabel: 'Main',
   moveMainHint: (mainLabel: string) => `Drag to move the ${mainLabel.toLowerCase()}`,
   dragSwapLabel: (label: string) => `${label} · swap`,

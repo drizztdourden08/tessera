@@ -15,7 +15,6 @@ const ITEM_STRINGS = {
   checkCount: (count: number, word: string) => `${count} ${word}`,
   files: 'Files',
   noFiles: 'No files yet.',
-  openFile: (name: string) => `Open ${name}`,
   revealFile: (name: string) => `Show ${name} in its folder`,
 };
 

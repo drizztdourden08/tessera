@@ -10,7 +10,7 @@ import type { SettingsRowHeadProps } from './SettingsRowHead.type';
 
 const SettingsRowHead = (props: SettingsRowHeadProps) => {
   const { lead, title, badge, changed = false, onReset } = props;
-  const { settings } = useTesseraStrings();
+  const { common, settings } = useTesseraStrings();
   return (
     <Box className="settings-row__head">
       {lead}
@@ -20,7 +20,7 @@ const SettingsRowHead = (props: SettingsRowHeadProps) => {
         <IconButton
           size="xs"
           className={`settings-row__reset ${HIT_AREA_CLASS}`}
-          label={settings.resetRow(title)}
+          label={common.resetNamed(title)}
           hint={{ label: '', description: settings.resetHint }}
           onClick={onReset}
         >

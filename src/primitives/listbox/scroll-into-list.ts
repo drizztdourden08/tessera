@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind util */
 import { cssZoomOf } from '../dom/css-zoom-of';
 
-const scrollIntoList = (drop: HTMLElement, index: number): void => {
-  const option = drop.querySelector(`[data-index="${index}"]`);
-  const scroller = option?.closest<HTMLElement>('.listbox-drop__scroll');
+const scrollIntoList = (root: HTMLElement, index: number): void => {
+  const option = root.querySelector(`[data-index="${index}"]`);
+  const scroller = option?.closest<HTMLElement>('.scroll-area');
   if (!option || !scroller) return;
   const zoom = cssZoomOf(scroller);
   const header = scroller.querySelector('.listbox-header')?.getBoundingClientRect().height ?? 0;

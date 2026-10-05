@@ -5889,3 +5889,106 @@ On the four surfaces every tone is 5.5:1 or more, so icons and borders clear 3:1
 ### What an app does
 
 Nothing, unless the app set its own status seeds: keep each tone at 4.5:1 as text on the surfaces and on its own `-dim`, as the test checks here. An app that marked a box `data-palette="tessera"` inside another palette now gets Tessera's colours there.
+
+## 191. The last shared helpers: a name edited in place, the unsaved changes question, the active row, the clamps and the words said twice
+
+From TX-38, after section 181, which left five cases for later because their parts were being reworked. Each case now has one helper in the primitives, every copy moved onto it, and the copies are gone. Looks and behaviour stay unless listed.
+
+### One edit of a name in place
+
+ItemList's rename, the DataTable column rename and InlineCreateForm's name each read Enter and Escape their own way. They share an internal hook in `src/primitives/field-control`.
+
+```ts
+useNameEdit(options: NameEditOptions): NameEdit;
+interface NameEditOptions {
+  name: string; // the name the draft starts from
+  onKeep: (name: string) => void; // gets the trimmed draft
+  onUndo?: () => void;
+  allowEmpty?: boolean; // an empty name may be kept
+  canKeep?: boolean; // more the part checks before a keep
+}
+interface NameEdit {
+  draft: string;
+  setDraft: (draft: string) => void;
+  ready: boolean; // whether a keep goes through
+  keep: () => void;
+  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+  onBlur: () => void; // keeps, unless Enter or Escape already ended the edit
+}
+```
+
+- **Keys.** Enter keeps the trimmed draft when it is ready. Escape undoes when the part gives `onUndo`, and stops there, so a dialog or list around the field does not also take it. A key typed while an input method composes is left alone.
+- **ItemList** keeps a name only when it is not empty, and an unchanged name ends the rename with no change, as before.
+- **DataTable** keeps an empty name, which clears the column label, and keeps the draft when the field loses focus, as before. The field is a new internal `HeaderRename`, drawn while the column is being renamed.
+- **InlineCreateForm** creates only with a name and `canSubmit`, as before. `onCancel` now also runs on Escape in the name field.
+- Escape in a DataTable rename no longer reaches the parts around the table, and Enter while an input method composes no longer keeps, in all three.
+
+### One question before unsaved changes are lost
+
+Wizard's exit guard and ListDetail's guard each decided when to ask and ran stay, discard and save their own way. They share an internal hook in `src/primitives/unsaved-guard`.
+
+```ts
+useUnsavedGuard<M>(options: UnsavedGuardOptions<M>): UnsavedGuard<M>;
+interface UnsavedGuardOptions<M> {
+  dirty: boolean;
+  busy?: boolean;
+  onSave?: UnsavedSave;
+  onDiscard?: () => void;
+  perform: (move: M) => void; // the move the question holds back
+}
+interface UnsavedGuard<M> {
+  pending: M | null; // the move waiting on an answer
+  blocked: boolean; // busy: the question says wait
+  saving: boolean;
+  request: (move: M) => void;
+  stay: () => void;
+  discard: () => void;
+  save: (() => void) | undefined; // undefined without onSave
+}
+type UnsavedSave = () => boolean | void | Promise<boolean | void>;
+```
+
+- **When to ask.** A move goes at once when nothing changed, waits while something runs, and asks when there are unsaved changes.
+- **The answers.** Stay closes the question. Discard runs `onDiscard`, then the move. Save waits for `onSave` and makes the move unless the save returns false, fails or throws.
+- **Each keeps its look.** `useWizardExit` asks about the one move out of the wizard, and WizardExitGuard asks in its danger Dialog. ListDetail asks about a pick, New or Back, in its bar by default or in a dialog. ListDetail's `useDirtyGuard` is removed, and `ListDetailSave` is the shared `UnsavedSave`, the same type as before.
+- A save that throws now counts as not saved, as a failed promise did; the error left the handler before.
+
+### One scroll to the active row
+
+The listbox and CommandPalette each scrolled the active row into view. CommandPalette's `scrollOptionIntoList` is removed, and both use `scrollIntoList(root, index)` in `src/primitives/listbox`: it finds the row by its `data-index`, scrolls the ScrollArea around it, keeps the row below a sticky listbox header, and divides by the CSS zoom. CommandPalette now follows the CSS zoom too; nothing changes at a zoom of 1.
+
+### The clamps left from section 181
+
+- Slider's value, its point on the track and the two thumbs of a range, the Splash meter and the first value KeyValueEditor adds keep their numbers in bounds with `clampNumber`. ListDetailLayout already did.
+- When `min` is above `max`, a new KeyValueEditor value starts at `min`, as `clampNumber` lets the lower bound win; it started at `max` before.
+- CommandInput reads and writes its history through `readStored` and `writeStored`. Its own `storeHistory` is removed; `readStoredHistory` keeps only the check that the stored value is a list of commands.
+- Stepping stays in each part, which rounds its own way.
+
+### The same words once
+
+Strings that said the same thing in two places are one string now. Every move is in RENAMES.json, in `next`.
+
+| Was | Now | Says |
+|---|---|---|
+| `lists.discard`, `wizard.discard` | `common.discard` | Discard |
+| `lists.unsavedTitle`, `wizard.discardTitle` | `common.unsavedTitle` | Unsaved changes |
+| `lists.stayHere`, `wizard.keepEditing` | `common.keepEditing` | Keep editing |
+| `lists.deleteConfirm` | `common.delete` | Delete |
+| `lists.rename`, `table.renameNamed` | `common.renameNamed` | Rename and the name |
+| `options.reset`, `settings.resetRow` | `common.resetNamed` | Reset and the name |
+| `options.removeKey` | `common.removeNamed` | Remove and the name |
+| `fields.createTag` | `common.create` | Create |
+| `video.volume` | `common.volume` | Volume |
+| `items.openFile` | `navigation.openNamed` | Open and the name |
+| `wizard.back` | `navigation.back` | Back |
+| `stepper.sections` | `navigation.pageSections` | the name and sections |
+| `panels.taskSteps` | `stepper.steps` | Steps |
+| `widgets.mainLabel` | `widgets.mainView` | Main view |
+
+- **Two changes on screen.** The Wizard's question is titled Unsaved changes where it read Discard your changes?, and the button that stays in ListDetail reads Keep editing where it read Stay here. SaveBar already said Unsaved changes and Discard.
+- **Kept apart**, because they say different things, or say them in a different place and case: `common.done` and `panels.taskDone` (an action and a state), `panels.taskFailed` and `items.checkFailed` (a state and a word in a count), `settings.changed` and `options.changed` (a tooltip and a word in the row), `settings.showMore` and `items.more` (more text and more actions), `settings.off` and `widgets.pinOff`, `widgets.snapOff` and `charts.free`, `records.otherGroup` and `charts.other`, `records.namePlaceholder` and `options.keyName`, `records.itemsNone` and `settings.none`, `common.clear` and `fields.clear`, `common.cancel` and `widgets.ghostCancel`, the label and placeholder pairs of `records.rangeFrom` and `records.rangeTo`, and the drag words of `widgets` against their hints.
+- TaskProgress names its steps through Stepper's own `stepper.steps`, so it passes no label.
+
+### What an app does
+
+An app that overrides any of the strings in the table moves its text to the new key. Nothing else changes for an app: every helper in this section is internal.

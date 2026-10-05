@@ -12,7 +12,7 @@ import type { TourBubbleCardProps } from './TourBubble.type';
 
 const TourBubbleCard = (props: TourBubbleCardProps) => {
   const { tour, step, id } = props;
-  const { common, stepper, tour: words, wizard } = useTesseraStrings();
+  const { common, navigation, stepper, tour: words, wizard } = useTesseraStrings();
   const click = step.advance === 'click';
   const last = tour.index >= tour.total - 1;
 
@@ -36,7 +36,7 @@ const TourBubbleCard = (props: TourBubbleCardProps) => {
         <Span className="guided-tour__keys" aria-hidden>
           {SHOWN_KEYS.map((binding) => <Shortcut key={binding.key} keys={binding.keys} size="xs" />)}
         </Span>
-        <Button variant="ghost" size="sm" onClick={tour.back} disabled={tour.index === 0}>{wizard.back}</Button>
+        <Button variant="ghost" size="sm" onClick={tour.back} disabled={tour.index === 0}>{navigation.back}</Button>
         {!click && <Button variant="primary" size="sm" onClick={tour.next}>{last ? common.done : wizard.next}</Button>}
       </Box>
     </>

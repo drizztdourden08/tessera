@@ -9,9 +9,9 @@ import type { KeyValueRowProps } from '../KeyValueEditor.type';
 import { KeyValueValue } from './KeyValueValue';
 
 const KeyValueLine = ({ row, look, invalid, onKey, onValue, onRemove }: KeyValueRowProps) => {
-  const { options } = useTesseraStrings();
+  const { common, options } = useTesseraStrings();
   const keyLabel = look.keyLabel ?? options.keyName;
-  const remove = options.removeKey(row.key);
+  const remove = common.removeNamed(row.key);
   return (
     <Box className="key-value-editor__row" role="listitem" data-invalid={invalid || undefined}>
       {look.keys?.length ? (

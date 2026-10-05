@@ -9,7 +9,7 @@ import './SaveBar.css';
 
 const SaveBar = (props: SaveBarProps) => {
   const { state, error, onSave, onDiscard, saveLabel, discardLabel, className } = props;
-  const { common, lists } = useTesseraStrings();
+  const { common } = useTesseraStrings();
   const idle = state === 'clean' || state === 'saved';
   const saving = state === 'saving';
   const classes = ['save-bar', `save-bar--${state}`, className].filter(Boolean).join(' ');
@@ -17,7 +17,7 @@ const SaveBar = (props: SaveBarProps) => {
     <ButtonRow variant="bar" className={classes} lead={<SaveBarStatus state={state} error={error} />}>
       {onDiscard && (
         <Button variant="ghost" icon={<Icon name="rotate-ccw" />} disabled={idle || saving} onClick={onDiscard}>
-          {discardLabel ?? lists.discard}
+          {discardLabel ?? common.discard}
         </Button>
       )}
       <Button variant="primary" icon={<Icon name="save" />} loading={saving} disabled={idle} onClick={onSave}>

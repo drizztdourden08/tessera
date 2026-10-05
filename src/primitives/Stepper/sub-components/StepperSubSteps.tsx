@@ -9,9 +9,9 @@ import './StepperSubSteps.css';
 
 const StepperSubSteps = (props: StepperSubStepsProps) => {
   const { step, enabled, activeId, onSelect } = props;
-  const { stepper } = useTesseraStrings();
+  const { navigation, stepper } = useTesseraStrings();
   return (
-    <Box as="ul" className="stepper-sub-steps" aria-label={stepper.sections(step.label)}>
+    <Box as="ul" className="stepper-sub-steps" aria-label={navigation.pageSections(step.label)}>
       {(step.subSteps ?? []).map((sub) => (
         <Box as="li" key={sub.id}>
           <Pressable

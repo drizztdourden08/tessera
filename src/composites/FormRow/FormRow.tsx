@@ -14,7 +14,7 @@ import './FormRow.css';
 
 const FormRow = (props: FormRowProps) => {
   const { label, description, changed = false, advanced = false, problem, onReset, children, className } = props;
-  const { options } = useTesseraStrings();
+  const { common } = useTesseraStrings();
   const auto = useId();
   const controlId = props.id ?? `form-row-${auto}`;
   const { control, descriptionId, problemId } = rowControl(props, controlId);
@@ -28,7 +28,7 @@ const FormRow = (props: FormRowProps) => {
       </Box>
       <Box className="form-row__reset">
         {onReset && (
-          <IconButton size="sm" variant="ghost" label={options.reset(label)} title={options.reset(label)} disabled={!changed} onClick={onReset}>
+          <IconButton size="sm" variant="ghost" label={common.resetNamed(label)} title={common.resetNamed(label)} disabled={!changed} onClick={onReset}>
             <Icon name="rotate-ccw" />
           </IconButton>
         )}

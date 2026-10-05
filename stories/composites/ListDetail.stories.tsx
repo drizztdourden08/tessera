@@ -93,7 +93,7 @@ const Overview = overviewStory({
   description: 'An [ItemList] beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away.',
   points: [
     '`list` takes the [ItemList] props; `selectedId` and `onSelect` pick the item the editor shows.',
-    'With `dirty`, a pick, New or Back asks first: Stay here, Discard, or Save and open with `onSave`.',
+    'With `dirty`, a pick, New or Back asks first: Keep editing, Discard, or Save and open with `onSave`.',
     '`onSave` may return a promise; false, or a failure, keeps the user on the edited item.',
     '`guard` is `inline`, a bar over the editor, by default, or `dialog`, the confirm dialog of Tessera.',
     'Put a [SaveBar] at the foot of the editor for Save and Discard while the user stays on the item.',

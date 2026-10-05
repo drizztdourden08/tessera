@@ -12,7 +12,6 @@ const FIELD_STRINGS = {
   earlierTabs: 'Show earlier tabs',
   laterTabs: 'Show later tabs',
   tagPlaceholder: 'Add a tag...',
-  createTag: 'Create',
   noMatchingTags: 'No matching tags',
   dismiss: 'Dismiss',
   learnMore: 'Learn more',

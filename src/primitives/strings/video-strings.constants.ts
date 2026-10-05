@@ -13,7 +13,6 @@ const VIDEO_STRINGS = {
   exitFullScreen: 'Exit full screen',
   seek: 'Seek',
   timeOf: (current: string, total: string) => `${current} of ${total}`,
-  volume: 'Volume',
 };
 
 export { VIDEO_STRINGS };

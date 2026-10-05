@@ -1,14 +1,9 @@
 /* @layer renderer-components @kind logic */
-const isCommandList = (stored: unknown): stored is string[] => Array.isArray(stored) && stored.every((entry) => typeof entry === 'string');
+import { readStored } from '../../../primitives/dom/read-stored';
 
-const readStoredHistory = (storageKey: string | undefined): readonly string[] => {
-  if (storageKey === undefined || typeof localStorage === 'undefined') return [];
-  try {
-    const stored: unknown = JSON.parse(localStorage.getItem(storageKey) ?? '[]');
-    return isCommandList(stored) ? stored : [];
-  } catch {
-    return [];
-  }
-};
+const commandList = (stored: unknown): readonly string[] | undefined =>
+  (Array.isArray(stored) && stored.every((entry) => typeof entry === 'string') ? stored : undefined);
+
+const readStoredHistory = (storageKey: string | undefined): readonly string[] => readStored(storageKey, commandList) ?? [];
 
 export { readStoredHistory };

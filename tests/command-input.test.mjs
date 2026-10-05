@@ -5,9 +5,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { CommandInput } from '../src/composites/CommandInput';
 import { addToHistory } from '../src/composites/CommandInput/behavior/add-to-history';
 import { commandKey } from '../src/composites/CommandInput/behavior/command-key';
-import { storeHistory } from '../src/composites/CommandInput/behavior/store-history';
 import { readStoredHistory } from '../src/composites/CommandInput/behavior/stored-history';
 import { walkHistory } from '../src/composites/CommandInput/behavior/walk-history';
+import { writeStored } from '../src/primitives/dom/write-stored';
 
 const HISTORY = ['/players', '/hint Ana Wheel', '/save'];
 
@@ -86,7 +86,7 @@ describe('CommandInput storageKey', () => {
 
   it('keeps the history under its key and reads it back', () => {
     const items = stubStorage();
-    storeHistory('console.history', ['/players', '/save']);
+    writeStored('console.history', ['/players', '/save']);
     expect(items.get('console.history')).toBe('["/players","/save"]');
     expect(readStoredHistory('console.history')).toEqual(['/players', '/save']);
   });

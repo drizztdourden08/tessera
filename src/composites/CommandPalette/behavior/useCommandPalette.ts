@@ -3,10 +3,10 @@ import { useEffect, useMemo, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 import { navIndex } from '../../../primitives/listbox/nav-index';
 import { navTarget } from '../../../primitives/listbox/nav-target';
+import { scrollIntoList } from '../../../primitives/listbox/scroll-into-list';
 import type { CommandPaletteItem, CommandPaletteModel, CommandPaletteProps } from '../CommandPalette.type';
 import { flatItems } from './flat-items';
 import { runItem } from './run-item';
-import { scrollOptionIntoList } from './scroll-option-into-list';
 import { useActiveIndex } from './useActiveIndex';
 import { usePaletteFocus } from './usePaletteFocus';
 
@@ -22,7 +22,7 @@ const useCommandPalette = <T extends CommandPaletteItem>(props: CommandPalettePr
   usePaletteFocus(open, inputRef);
 
   useEffect(() => {
-    if (listRef.current && active >= 0) scrollOptionIntoList(listRef.current, active);
+    if (listRef.current && active >= 0) scrollIntoList(listRef.current, active);
   }, [active]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {

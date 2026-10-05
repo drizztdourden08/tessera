@@ -1,24 +1,20 @@
 /* @layer renderer-components @kind hook */
 import { useState } from 'react';
-import type { KeyboardEvent } from 'react';
 import type { UseColumnRenameInput } from './useColumnRename.type';
 
-const useColumnRename = ({ path, label, onRename }: UseColumnRenameInput) => {
-  const [draft, setDraft] = useState<string | null>(null);
+const useColumnRename = ({ path, onRename }: UseColumnRenameInput) => {
+  const [renaming, setRenaming] = useState(false);
 
-  const commitRename = (): void => {
-    if (draft !== null) onRename(path, draft.trim());
-    setDraft(null);
+  const keepRename = (label: string): void => {
+    onRename(path, label);
+    setRenaming(false);
   };
 
-  const handleRenameKey = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter') commitRename();
-    if (event.key === 'Escape') setDraft(null);
-  };
+  const undoRename = (): void => setRenaming(false);
 
-  const startRename = (): void => setDraft(label ?? '');
+  const startRename = (): void => setRenaming(true);
 
-  return { draft, setDraft, commitRename, handleRenameKey, startRename };
+  return { renaming, keepRename, undoRename, startRename };
 };
 
 export { useColumnRename };

@@ -23,7 +23,7 @@ describe('the unsaved changes question of ListDetail', () => {
     expect(html).toMatch(/^<div[^>]*class="list-detail__guard"[^>]*role="alertdialog"[^>]*aria-label="Unsaved changes"/);
     expect(html).toMatch(/class="[^"]*button-row button-row--plain/);
     expect(html).toMatch(/button-row__lead"><[^>]*id="([^"]+)"[^>]*>Keysanity has unsaved changes/);
-    expect(html).toContain('Stay here');
+    expect(html).toContain('Keep editing');
     expect(html).toContain('Discard');
     expect(html).toContain('Save and open');
   });

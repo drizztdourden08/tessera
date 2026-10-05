@@ -1,21 +1,17 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+import { useUnsavedGuard } from '../../../../primitives/unsaved-guard/useUnsavedGuard';
 import type { WizardExit, WizardExitOptions } from './useWizardExit.type';
 
 const useWizardExit = (options: WizardExitOptions): WizardExit => {
   const { dirty, busy, onExit } = options;
-  const [asking, setAsking] = useState<'discard' | 'blocked' | null>(null);
-  const requestExit = useCallback(() => {
-    if (busy) setAsking('blocked');
-    else if (dirty) setAsking('discard');
-    else onExit();
-  }, [busy, dirty, onExit]);
-  const onDiscard = useCallback(() => {
-    setAsking(null);
-    onExit();
-  }, [onExit]);
-  const onStay = useCallback(() => setAsking(null), []);
-  return { requestExit, guard: { open: asking !== null, blocked: asking === 'blocked', onDiscard, onStay } };
+  const guard = useUnsavedGuard<'exit'>({ dirty, busy, perform: onExit });
+  const { request } = guard;
+  const requestExit = useCallback(() => request('exit'), [request]);
+  return {
+    requestExit,
+    guard: { open: guard.pending !== null || guard.blocked, blocked: guard.blocked, onDiscard: guard.discard, onStay: guard.stay },
+  };
 };
 
 export { useWizardExit };

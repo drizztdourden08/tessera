@@ -4,10 +4,10 @@ import { Dialog } from '../../Dialog';
 import type { WizardExitGuardProps } from './WizardExitGuard.type';
 
 const WizardExitGuard = (props: WizardExitGuardProps) => {
-  const { wizard } = useTesseraStrings();
+  const { common, wizard } = useTesseraStrings();
   const {
     open, blocked = false, onDiscard, onStay,
-    title = wizard.discardTitle, message = wizard.discardMessage, discardLabel = wizard.discard, stayLabel = wizard.keepEditing,
+    title = common.unsavedTitle, message = wizard.discardMessage, discardLabel = common.discard, stayLabel = common.keepEditing,
   } = props;
   if (blocked) {
     return (

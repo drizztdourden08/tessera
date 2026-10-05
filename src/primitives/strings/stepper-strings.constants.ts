@@ -5,7 +5,6 @@ const STEPPER_STRINGS = {
   stepName: (step: number, label: string) => `Step ${step}, ${label}`,
   stepDone: (step: number, label: string) => `Step ${step}, ${label}, done`,
   stepError: (step: number, label: string) => `Step ${step}, ${label}, needs attention`,
-  sections: (label: string) => `${label} sections`,
   changedCount: (count: number) => `${count} changed`,
 };
 

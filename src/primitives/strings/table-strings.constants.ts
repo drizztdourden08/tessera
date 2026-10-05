@@ -48,7 +48,6 @@ const TABLE_STRINGS = {
   dropToRemove: 'Drop to remove',
   releaseToRemove: 'Release to remove',
   resizeNamed: (label: string) => `Resize ${label}`,
-  renameNamed: (label: string) => `Rename ${label}`,
   columnOptionsNamed: (label: string) => `Column options for ${label}`,
   sortByNamed: (label: string) => `Sort by ${label}`,
   selectRow: 'Select row',

@@ -1189,7 +1189,26 @@
         "options.customValue": "removed; NamedRange is gone, and Slider writes its labels from labels (see MIGRATION.md section 187)",
         "options.searchItems": "removed; SetPicker is gone, and Combobox writes its own words (see MIGRATION.md section 187)",
         "options.chosen": "removed; SetPicker is gone, and Combobox writes its own words (see MIGRATION.md section 187)",
-        "options.noMatch": "removed; SetPicker is gone, and Combobox writes its own words (see MIGRATION.md section 187)"
+        "options.noMatch": "removed; SetPicker is gone, and Combobox writes its own words (see MIGRATION.md section 187)",
+        "lists.discard": "common.discard",
+        "wizard.discard": "common.discard",
+        "lists.unsavedTitle": "common.unsavedTitle",
+        "wizard.discardTitle": "common.unsavedTitle",
+        "lists.stayHere": "common.keepEditing",
+        "wizard.keepEditing": "common.keepEditing",
+        "lists.deleteConfirm": "common.delete",
+        "lists.rename": "common.renameNamed",
+        "table.renameNamed": "common.renameNamed",
+        "options.reset": "common.resetNamed",
+        "settings.resetRow": "common.resetNamed",
+        "options.removeKey": "common.removeNamed",
+        "fields.createTag": "common.create",
+        "video.volume": "common.volume",
+        "items.openFile": "navigation.openNamed",
+        "wizard.back": "navigation.back",
+        "stepper.sections": "navigation.pageSections",
+        "panels.taskSteps": "stepper.steps",
+        "widgets.mainLabel": "widgets.mainView"
       }
     }
   ]
