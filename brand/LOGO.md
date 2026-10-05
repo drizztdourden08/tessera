@@ -35,9 +35,9 @@ The brand data says how each app shows as an app icon, in its `appIcon` field. T
 
 - `brand/<app>.svg`: the mark as a file.
 - `brand/<app>/mark/mark-<size>.png`: the mark on a transparent square, at 16, 24, 32, 48, 64, 128, 256 and 512 pixels. A brand with no app icon, Tessera, also gets `mark.ico` holding 16 to 256; it is the gallery favicon.
-- `brand/<app>/icon/`, for an app only: the app icon as `icon.svg`, `png/icon-<size>.png` at the same sizes plus `icon-1024.png` for the installer builder, `icon.ico` holding 16 to 256, `maskable-512.png` and the two Android layers. `brand/<app>/splash/` holds the splash. A `tile` app draws the maskable icon and the Android background on its tile colour and the splash on the dark splash ground, with the mark in its dark ground colours. A `straight` app draws all of them on transparent ground: the maskable icon and the splash are the mark alone, and the Android background layer is empty.
+- `brand/<app>/icon/`, for an app only: the app icon as `icon.svg`, `png/icon-<size>.png` at the same sizes plus `icon-1024.png` for the installer builder, `icon.ico` holding 16 to 256, `maskable-512.png` and the two Android layers. `brand/<app>/splash/` holds the splash. A `tile` app draws the maskable icon and the Android background on its tile colour and the splash on the dark splash ground, with the mark in its dark ground look. A `straight` app draws all of them on transparent ground: the maskable icon and the splash are the mark alone, and the Android background layer is empty.
 - `brand/light-rim/` and `brand/dark-rim/`: every file above except the mascot, with a rim and no tile. See Rims below.
-- `brand/dark-ground/<app>.svg` and `brand/dark-ground/<app>/mark/mark-<size>.png`: the mark in its dark ground colours. See Dark ground below.
+- `brand/light-ground/<app>.svg`, `brand/dark-ground/<app>.svg` and `mark/mark-<size>.png` beside each: the mark in its look for the light or the dark gradient. See Light and dark grounds below.
 - `brand/<app>/mascot/`, for a brand with a mascot: each variant as `<variant>.svg` and as crisp transparent renders at 1, 2 and 4 times, and the mascot itself as a PNG ladder and `<variant>.ico`.
 
 Every square PNG follows one rule, taken from Relic of the Past. Pixel art that fits at two or more screen pixels per art pixel is scaled by a whole number and centred, so every pixel stays square. Smaller than that, or for a drawn mark, the art is drawn smooth to fit. The sizes live in `src/brand/icon-sizes.constants.ts` and the file names in `src/brand/icon-files.ts`. The gallery's **Logo / Icon files** story shows each brand's own ladder and .ico as generated, in one row, and **Mascot / Icon files** shows each mascot's.
@@ -76,25 +76,30 @@ The colours live in `src/brand/rim.constants.ts` (`BRAND_RIM`) and `pnpm tokens`
 
 An app that reads `brand/<app>/` switches to the rimmed set by reading `brand/light-rim/<app>/` instead; `../<app>.svg` then resolves to the rimmed mark too. The original files do not change.
 
-## Dark ground
+## Light and dark grounds
 
-The splash draws every mark on the dark gradient of its palette, where Brock's charcoal stone and Archipelia's dark purple ring nearly disappear. Each mark has a second set of colours for a dark ground, kept in the same path data, so the shape never changes:
+A mark stands on one of two gradients of its palette: the light pair, `--c-gradient-light-*`, or the dark pair of the splash, `--c-gradient-dark-*`. Each mark names its look for each ground in its data, `grounds`: which colours it draws in and the outline around it. The shape never changes.
 
-| Brand | On a dark ground |
-|---|---|
-| Tessera | As drawn: its greys and coloured tiles already read on dark |
-| Relic of the Past | The black outline turns bronze, `#a8641a`, and the bottom row brighter red, `#d9480f` |
-| Archipelia | The ring and its dots turn lilac, `#b9a3ff`; the large purple dot stays |
-| Brock | Lighter stone faces, `#7d7e81` to `#b8b9bb`, the orange stays, with a fine light rim |
+| Brand | On the light gradient | On the dark gradient |
+|---|---|---|
+| Tessera | As drawn, with a black outline | As drawn: its greys and coloured tiles already read on dark |
+| Relic of the Past | As drawn: its own black outline is its edge | As drawn, the same mark |
+| Archipelia | As drawn, with a black outline | Its second colours: the ring and its dots turn lilac, `#b9a3ff`; the large purple dot stays |
+| Brock | As drawn, with a black outline | As drawn, the charcoal stone, with a white outline |
 
 ```tsx
 <BrandMark app="brock" ground="dark" />
-<Logo brand="archipelia" ground="dark" />
+<Logo brand="tessera" ground="light" />
+<BrandMark app="brock" ground="dark" inks="onDark" />
 ```
 
-`ground` is `'light'` (the default, the colours as drawn) or `'dark'`, on `BrandMark`, `Logo` and `Logo.Combined`. Inside `Splash` every mark takes `'dark'` by itself; a `ground` prop still wins. A path sets its dark colour in `onDark`, beside `ink`, and a mark that needs a rim on dark sets `onDarkRim`. That rim is half the width of the `rim` prop's, never under 1 pixel. An app icon on its tile keeps its colours, since the tile is its ground.
+`ground` is `'light'` or `'dark'`, on `BrandMark`, `Logo` and `Logo.Combined`; left out, the mark is drawn as drawn with no outline. Inside `Splash` every mark takes `'dark'` by itself; a `ground` prop still wins. A path sets its second colour in `onDark`, beside `ink`: Archipelia's lilac ring, and Brock's lighter stone faces, `#7d7e81` to `#b8b9bb`. `grounds.<ground>.inks` set to `'onDark'` draws them on that ground, and the `inks` prop draws either set on any ground. `grounds.<ground>.outline`, `'light'` or `'dark'`, outlines the mark in the rim colour: half the width of the `rim` prop's, never under 1 pixel. A `rim` prop keeps its own width and wins. An app icon on its tile keeps its colours, since the tile is its ground.
 
-`pnpm icons` writes the same look as files, for a static page that shows the mark as an image: `brand/dark-ground/<app>.svg` and `brand/dark-ground/<app>/mark/mark-<size>.png`, at the sizes of the mark ladder, with no `.ico`. A test holds every shape of every mark, in its dark colours, at 3:1 or more against each sampled point of its palette's dark gradient.
+`pnpm icons` writes each look as files, for a static page that shows the mark as an image: `brand/light-ground/<app>.svg` and `brand/dark-ground/<app>.svg`, each with `<app>/mark/mark-<size>.png` at the sizes of the mark ladder, and no `.ico`. The static splash page reads `brand/dark-ground/`.
+
+A test holds each mark at 3:1 or more against each sampled point of both gradients of its palette. With an outline, the outline is the edge that has to reach 3:1, as WCAG allows for a shape with a border; Relic of the Past's own black outline is its edge on the light gradient. Without one, every shape has to. Relic of the Past on the dark gradient is kept as drawn: its black outline is 1.08:1 and its bottom row 2.87:1 there, while its gold and orange fill reads at 4.89:1 to 11.70:1.
+
+Brock's stone faces meet with no gap: the body path covers the whole stone outline, less the hole of the b, and every face shares its edges with the faces beside it, so no ground shows between them at any size.
 
 ## Mascots
 

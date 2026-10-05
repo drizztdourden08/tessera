@@ -2,6 +2,6 @@
 import { createContext } from 'react';
 import type { Ground } from './ground.type';
 
-const GroundContext = createContext<Ground>('light');
+const GroundContext = createContext<Ground | undefined>(undefined);
 
 export { GroundContext };

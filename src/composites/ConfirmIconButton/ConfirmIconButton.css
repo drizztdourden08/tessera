@@ -23,3 +23,7 @@
 .confirm-icon-btn__mark path {
   stroke-width: 2.7;
 }
+
+.confirm-icon-btn--xs {
+  min-inline-size: calc(2 * var(--size-20) + var(--space-2xs));
+}

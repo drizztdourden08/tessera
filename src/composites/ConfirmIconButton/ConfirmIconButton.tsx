@@ -9,7 +9,8 @@ import { ConfirmIconButtonAsk } from './sub-components/ConfirmIconButtonAsk';
 
 const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   const {
-    icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, defaultArmed = false, placement = 'start', tabIndex, className = '',
+    icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, defaultArmed = false, placement = 'start', size = 'sm', tabIndex,
+    className = '',
   } = props;
   const ask = useConfirmAsk<true>({ onConfirm, disabled, initial: defaultArmed ? true : null });
   const [asked, setAsked] = useState(false);
@@ -20,15 +21,16 @@ const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   };
 
   return (
-    <Box className={`confirm-icon-btn confirm-icon-btn--${placement} ${className}`} onKeyDown={ask.onKeyDown}>
+    <Box className={`confirm-icon-btn confirm-icon-btn--${placement} confirm-icon-btn--${size} ${className}`} onKeyDown={ask.onKeyDown}>
       {ask.asking === null && (
-        <IconButton label={label} title={label} disabled={disabled} tabIndex={tabIndex} onClick={handleArm}>
+        <IconButton label={label} title={label} size={size} disabled={disabled} tabIndex={tabIndex} onClick={handleArm}>
           {icon}
         </IconButton>
       )}
       {ask.asking !== null && (
         <ConfirmIconButtonAsk
           placement={placement}
+          size={size}
           focusCancel={asked}
           confirmLabel={confirmLabel}
           cancelLabel={cancelLabel}

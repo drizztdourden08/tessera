@@ -2,6 +2,7 @@
 import type { PixelWordmarkColors } from './PixelWordmark';
 import type { BackdropGradient } from './backdrop-gradient.type';
 import type { MascotMotion } from './motion/motion.type';
+import type { Ground } from '../primitives/ground/ground.type';
 import type { BrandRimTone } from './rim.type';
 
 type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp';
@@ -15,11 +16,18 @@ interface BrandMarkPath {
   opacity?: number;
 }
 
+type BrandInks = 'drawn' | 'onDark';
+
+interface BrandMarkGround {
+  inks?: BrandInks;
+  outline?: BrandRimTone;
+}
+
 interface BrandMarkData {
   viewBox: string;
   paths: readonly BrandMarkPath[];
   pixelArt?: boolean;
-  onDarkRim?: BrandRimTone;
+  grounds?: Readonly<Partial<Record<Ground, BrandMarkGround>>>;
 }
 
 type BrandGradientStops = readonly [from: string, to: string] | readonly [from: string, via: string, to: string];
@@ -119,7 +127,7 @@ interface BrandInfo {
 }
 
 export type {
-  BrandApp, BrandAppIcon, BrandGradient, BrandGradientStops, BrandInfo, BrandMarkData, BrandMarkPath, BrandMascot,
-  BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
+  BrandApp, BrandAppIcon, BrandGradient, BrandGradientStops, BrandInfo, BrandInks, BrandMarkData, BrandMarkGround, BrandMarkPath,
+  BrandMascot, BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
   ScenePoint, SceneTurn,
 };

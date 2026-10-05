@@ -2,12 +2,13 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { BRAND_APPS, BRAND_FAMILY } from '../src/brand/family.constants';
-import { groundPaths } from '../src/brand/ground-paths';
+import { groundLook } from '../src/brand/ground-look';
+import { BRAND_RIM } from '../src/brand/rim.constants';
 import { declarationsOf } from '../scripts/tokens/declarations-of.mjs';
 import { ruleDeclarations } from '../scripts/tokens/rule-declarations.mjs';
 import { splashContrast } from '../scripts/tokens/splash-contrast.mjs';
 import { splashMarkContrast } from '../scripts/tokens/splash-mark-contrast.mjs';
-import { SPLASH_GRADIENT } from '../scripts/tokens/splash-contrast.constants.mjs';
+import { GROUND_GRADIENTS, SPLASH_GRADIENT } from '../scripts/tokens/splash-contrast.constants.mjs';
 import { DEFAULT_PALETTE, PALETTES_DIR } from '../scripts/tokens/tokens.constants.mjs';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
@@ -25,10 +26,33 @@ const CASES = PALETTES.flatMap((palette) => splashContrast(SPLASH_CSS, tokensOf(
 const GRAPHIC = 3;
 const GRADIENT_SEEDS = ['--p-gradient-light-from', '--p-gradient-light-to', '--p-gradient-dark-from', '--p-gradient-dark-to'];
 
-const MARK_CASES = BRAND_APPS.flatMap((app) => {
-  const palette = app === 'tessera' ? DEFAULT_PALETTE : app;
-  const shapes = splashMarkContrast(groundPaths(BRAND_FAMILY[app].mark.paths, 'dark'), tokensOf(palette));
-  return shapes.map(({ ink, ratio }, shape) => ({ app, shape: shape + 1, ink, shown: ratio.toFixed(2), ratio }));
+const OUTLINE_DRAWN_INTO_THE_ART = { rotp: '#000000' };
+
+const KEPT_AS_DRAWN_WITH_ITS_OUTLINE_UNDER_3 = [{ app: 'rotp', ground: 'dark' }];
+
+const isKept = (app, ground) => KEPT_AS_DRAWN_WITH_ITS_OUTLINE_UNDER_3.some((kept) => kept.app === app && kept.ground === ground);
+
+const markEdges = (app, ground) => {
+  const { paths, outline } = groundLook(BRAND_FAMILY[app].mark, ground);
+  if (outline) return { edge: 'outline', paths: [{ ink: BRAND_RIM.colours[outline] }] };
+  const drawn = OUTLINE_DRAWN_INTO_THE_ART[app];
+  return drawn && !isKept(app, ground) ? { edge: 'drawn outline', paths: [{ ink: drawn }] } : { edge: 'shape', paths };
+};
+
+const MARK_GROUNDS = BRAND_APPS.flatMap((app) => Object.keys(GROUND_GRADIENTS).map((ground) => {
+  const tokens = tokensOf(app === 'tessera' ? DEFAULT_PALETTE : app);
+  const { edge, paths } = markEdges(app, ground);
+  return { app, ground, edge, shapes: splashMarkContrast(paths, tokens, GROUND_GRADIENTS[ground]) };
+}));
+
+const shown = (ratio) => ratio.toFixed(2);
+
+const MARK_CASES = MARK_GROUNDS.filter(({ app, ground }) => !isKept(app, ground)).flatMap(({ app, ground, edge, shapes }) =>
+  shapes.map(({ ink, ratio }, at) => ({ app, ground, edge: `${edge === 'shape' ? `shape ${at + 1}` : edge} in ${ink}`, shown: shown(ratio), ratio })));
+
+const KEPT_CASES = MARK_GROUNDS.filter(({ app, ground }) => isKept(app, ground)).map(({ app, ground, shapes }) => {
+  const ratios = shapes.map(({ ratio }) => ratio);
+  return { app, ground, lowest: shown(Math.min(...ratios)), highest: Math.max(...ratios), shownHighest: shown(Math.max(...ratios)) };
 });
 
 describe('the splash on its dark gradient', () => {
@@ -48,8 +72,14 @@ describe('the splash on its dark gradient', () => {
   it.each(CASES)('$palette: the $part reaches AA on every point of the gradient, $shown:1 at the lowest', ({ ratio, need }) => {
     expect(ratio).toBeGreaterThanOrEqual(need);
   });
+});
 
-  it.each(MARK_CASES)('$app mark, shape $shape in $ink: 3:1 on every point of its gradient, $shown:1 at the lowest', ({ ratio }) => {
+describe('each brand mark on the light and the dark gradient of its palette', () => {
+  it.each(MARK_CASES)('$app mark on the $ground gradient, $edge: 3:1 on every point, $shown:1 at the lowest', ({ ratio }) => {
     expect(ratio).toBeGreaterThanOrEqual(GRAPHIC);
+  });
+
+  it.each(KEPT_CASES)('$app mark on the $ground gradient, kept as drawn: its fill reads at $shownHighest:1, its lowest shape is $lowest:1', ({ highest }) => {
+    expect(highest).toBeGreaterThanOrEqual(GRAPHIC);
   });
 });

@@ -3,9 +3,9 @@ import { useContext } from 'react';
 import { GroundContext } from '../../../primitives/ground/ground-context';
 import type { Ground } from '../../../primitives/ground/ground.type';
 
-const useMarkGround = (ground: Ground | undefined, tile: boolean): Ground => {
+const useMarkGround = (ground: Ground | undefined, tile: boolean): Ground | undefined => {
   const around = useContext(GroundContext);
-  return tile ? 'light' : (ground ?? around);
+  return tile ? undefined : (ground ?? around);
 };
 
 export { useMarkGround };

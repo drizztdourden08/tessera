@@ -5,6 +5,11 @@ const GRADIENT_SAMPLES = 32;
 
 const SPLASH_GRADIENT = { selector: '.ts-splash', from: '--c-gradient-dark-from', to: '--c-gradient-dark-to' };
 
+const GROUND_GRADIENTS = {
+  light: { from: '--c-gradient-light-from', to: '--c-gradient-light-to' },
+  dark: SPLASH_GRADIENT,
+};
+
 const BUTTON = ['.ts-button'];
 const PRIMARY_BUTTON = ['.ts-button', '.ts-button--primary'];
 const TRACK = { selectors: ['.ts-progress'], property: 'background' };
@@ -23,4 +28,4 @@ const SPLASH_PARTS = [
   { part: 'failed progress bar', selectors: ['.ts-progress::before', '.ts-progress--danger::before'], property: 'background', on: TRACK, need: AA.graphic },
 ];
 
-export { GRADIENT_SAMPLES, SPLASH_GRADIENT, SPLASH_PARTS };
+export { GRADIENT_SAMPLES, GROUND_GRADIENTS, SPLASH_GRADIENT, SPLASH_PARTS };

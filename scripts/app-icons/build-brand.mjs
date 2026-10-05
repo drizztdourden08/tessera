@@ -1,13 +1,13 @@
 /* @layer tooling-scripts @kind logic */
 import { rmSync } from 'node:fs';
 import { join } from 'node:path';
-import { OUTPUT_FOLDERS } from './app-icons.constants.mjs';
+import { GROUNDS, OUTPUT_FOLDERS } from './app-icons.constants.mjs';
 import { appArt } from './app-art.mjs';
 import { buildApp, ladder, writer } from './app-files.mjs';
 import { artFile, markArt, sceneArt } from './art.mjs';
-import { buildDarkGround } from './build-dark-ground.mjs';
+import { buildGround } from './build-ground.mjs';
 import { buildRim } from './build-rim.mjs';
-import { darkGroundArt } from './dark-ground-art.mjs';
+import { groundArt } from './ground-art.mjs';
 import { crisp } from './raster.mjs';
 
 const variantArt = (variant, loaded) => {
@@ -29,7 +29,7 @@ const buildBrand = async (root, id, loaded) => {
   const write = writer(root);
   for (const folder of OUTPUT_FOLDERS) rmSync(join(root, 'brand', id, folder), { recursive: true, force: true });
   const mark = markArt(brand.mark);
-  const dark = darkGroundArt(brand, loaded);
+  const dark = groundArt(brand, loaded, 'dark');
   const written = [write(`${id}.svg`, artFile(mark, brand.name))];
   if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, mark, dark.mark)));
   if (brand.mascot) written.push(...buildMascot(write, id, brand, loaded));
@@ -39,7 +39,9 @@ const buildBrand = async (root, id, loaded) => {
     written.push(...await ladder(write, () => art, files, loaded.sizes));
   }
   for (const tone of loaded.rimTones) written.push(...await buildRim({ root, write, loaded }, id, tone));
-  written.push(...await buildDarkGround({ root, write, loaded }, id, dark));
+  for (const ground of GROUNDS) {
+    written.push(...await buildGround({ root, write, loaded }, id, ground, groundArt(brand, loaded, ground)));
+  }
   return written;
 };
 

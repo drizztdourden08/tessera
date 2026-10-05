@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { PixelWordmarkSize } from '../PixelWordmark';
 import type { BrandMarkSize, BrandMarkVariant } from '../BrandMark';
-import type { BrandApp } from '../brand.type';
+import type { BrandApp, BrandInks } from '../brand.type';
 import type { BrandRim } from '../rim.type';
 import type { Ground } from '../../primitives/ground/ground.type';
 
@@ -13,6 +13,7 @@ interface LogoProps {
   variant?: BrandMarkVariant;
   rim?: BrandRim;
   ground?: Ground;
+  inks?: BrandInks;
   title?: string;
   className?: string;
 }

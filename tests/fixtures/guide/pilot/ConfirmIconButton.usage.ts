@@ -17,6 +17,7 @@ const usage = {
     'The icon prop names the action. The component draws the confirm and cancel glyphs itself.',
     'Write confirmLabel and cancelLabel as outcomes, such as Delete row and Keep row.',
     'Set placement to the edge the button sits on: end for a row action, start for a toolbar, center for a centred footer.',
+    'Set size to xs in a search result row or a menu row, so the row keeps its height.',
   ],
   a11y: [
     'The label, confirmLabel and cancelLabel props each name a button, so all three are required.',
@@ -40,7 +41,7 @@ const DeleteRow = ({ onDelete }: { onDelete: () => void }) => (
   />
 );
 `,
-  propsHash: '91387c42c2daf297',
+  propsHash: '8a2875acdf135e87',
 } satisfies ComponentUsage;
 
 export { usage };

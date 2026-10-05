@@ -11,7 +11,7 @@ const loadBrandArt = async (root) => {
     load('/src/brand/icon-files.ts'),
     load('/src/brand/icon-sizes.constants.ts'),
     load('/src/brand/rim.constants.ts'),
-    load('/src/brand/ground-paths.ts'),
+    load('/src/brand/ground-look.ts'),
   ]);
   return {
     family: family.BRAND_FAMILY,
@@ -21,7 +21,7 @@ const loadBrandArt = async (root) => {
     sizes: sizes.ICON_SIZES,
     rim: rim.BRAND_RIM,
     rimTones: rim.BRAND_RIM_TONES,
-    groundPaths: ground.groundPaths,
+    groundLook: ground.groundLook,
   };
 };
 

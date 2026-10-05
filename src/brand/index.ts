@@ -37,7 +37,7 @@ export type { IconArtFiles, IconArtKind, IconSizes } from './icon-files.type';
 export { sceneMarkup } from './scene/scene-markup';
 export type { SceneMarkupOptions } from './scene/scene.type';
 export type {
-  BrandApp, BrandAppIcon, BrandGradient, BrandGradientStops, BrandInfo, BrandMarkData, BrandMarkPath, BrandMascot,
-  BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
+  BrandApp, BrandAppIcon, BrandGradient, BrandGradientStops, BrandInfo, BrandInks, BrandMarkData, BrandMarkGround, BrandMarkPath,
+  BrandMascot, BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
   ScenePoint, SceneTurn,
 } from './brand.type';

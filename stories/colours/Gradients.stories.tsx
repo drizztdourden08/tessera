@@ -51,7 +51,7 @@ const PaletteGradientCard = ({ app }: { app: BrandApp }) => (
   <Card className="brand-gradients__card">
     <Box className="palette-gradient" data-palette={app === 'tessera' ? undefined : app}>
       <Box className="palette-gradient__ground palette-gradient__ground--light">
-        <BrandMark app={app} size="xl" title="" />
+        <BrandMark app={app} size="xl" ground="light" title="" />
       </Box>
       <Box className="palette-gradient__ground palette-gradient__ground--dark">
         <BrandMark app={app} size="xl" ground="dark" title="" />

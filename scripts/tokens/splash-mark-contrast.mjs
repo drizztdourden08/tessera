@@ -5,8 +5,8 @@ import { parseColour } from './parse-colour.mjs';
 import { relativeLuminance } from './relative-luminance.mjs';
 import { splashGradientPoints } from './splash-gradient-points.mjs';
 
-const splashMarkContrast = (paths, tokens) => {
-  const points = splashGradientPoints(tokens);
+const splashMarkContrast = (paths, tokens, gradient) => {
+  const points = splashGradientPoints(tokens, gradient);
   return paths.map(({ ink, opacity = 1 }) => {
     const { rgb, alpha } = parseColour(ink);
     const shape = { rgb, alpha: alpha * opacity };

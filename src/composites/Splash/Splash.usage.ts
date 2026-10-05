@@ -15,7 +15,7 @@ const usage = {
   rules: [
     'Before the bundle loads, write the same page in static HTML with splash.css; give both the same title, mark, status and version, so the hand-over shows no change.',
     'Keep status to one short line that says what runs now; put the error text of a failure in detail.',
-    'Pass a BrandMark or Logo as mark and it takes its dark ground colours by itself; an image URL points at brand/dark-ground/<app>.svg or a mark PNG beside it, and an app mark of its own keeps every shape at 3:1 on the gradient.',
+    'Pass a BrandMark or Logo as mark and it takes its dark ground look by itself; an image URL points at brand/dark-ground/<app>.svg or a mark PNG beside it, and an app mark of its own keeps its edge at 3:1 on the gradient, every shape or an outline around them.',
     'It sits on the dark gradient of the palette; an app theme that changes the palette seeds sets --p-gradient-dark-from and --p-gradient-dark-to too, dark enough that the text stays at WCAG AA.',
     'Pass progress as a fraction from 0 to 1 when the steps are known, and indeterminate when they are not.',
     'Show actions only when the user has something to do, such as Retry and Report a bug after a failure; mark Retry primary.',

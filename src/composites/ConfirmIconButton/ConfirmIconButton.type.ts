@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 
 type ConfirmIconButtonPlacement = 'start' | 'center' | 'end';
 
+type ConfirmIconButtonSize = 'sm' | 'xs';
+
 interface ConfirmIconButtonProps {
   icon: ReactNode;
   label: string;
@@ -12,6 +14,7 @@ interface ConfirmIconButtonProps {
   disabled?: boolean;
   defaultArmed?: boolean;
   placement?: ConfirmIconButtonPlacement;
+  size?: ConfirmIconButtonSize;
   tabIndex?: number;
   className?: string;
 }
@@ -19,4 +22,5 @@ interface ConfirmIconButtonProps {
 export type {
   ConfirmIconButtonPlacement,
   ConfirmIconButtonProps,
+  ConfirmIconButtonSize,
 };

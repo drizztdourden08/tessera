@@ -3,11 +3,12 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ConfirmIconButton, ListItemRow } from '../../src/composites';
-import type { ConfirmIconButtonPlacement } from '../../src/composites';
+import type { ConfirmIconButtonPlacement, ConfirmIconButtonSize } from '../../src/composites';
 import { Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { CompactConfirmRows } from './_samples/CompactConfirmRows';
 import { LogToolbarDemo, PresetCardDemo } from './_samples/ConfirmPlacementDemos';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS } from './_samples/sessions';
@@ -19,6 +20,7 @@ type ConfirmArgs = {
   confirmLabel: string;
   cancelLabel: string;
   placement: ConfirmIconButtonPlacement;
+  size: ConfirmIconButtonSize;
   disabled: boolean;
 };
 
@@ -50,7 +52,7 @@ const RowsDemo = (props: ConfirmArgs) => {
 };
 
 const ARGS: Partial<ConfirmArgs> = {
-  label: 'Remove session', confirmLabel: 'Yes, remove it', cancelLabel: 'Keep it', placement: 'start', disabled: false,
+  label: 'Remove session', confirmLabel: 'Yes, remove it', cancelLabel: 'Keep it', placement: 'start', size: 'sm', disabled: false,
 };
 
 const ARG_TYPES: PlaygroundArgTypes<ConfirmArgs> = {
@@ -62,6 +64,12 @@ const ARG_TYPES: PlaygroundArgTypes<ConfirmArgs> = {
     control: 'select',
     options: ['start', 'center', 'end'],
     description: 'Which edge stays put when the question opens: the start, the centre or the end.',
+  },
+  size: {
+    group: 'Appearance',
+    control: 'select',
+    options: ['sm', 'xs'],
+    description: 'sm for a list row or a toolbar; xs, compact, for a search result row or a menu row.',
   },
   disabled: { group: 'State', control: 'boolean' },
 };
@@ -81,6 +89,7 @@ const Playground = {
       confirmLabel={args.confirmLabel}
       cancelLabel={args.cancelLabel}
       placement={args.placement}
+      size={args.size}
       disabled={args.disabled}
       icon={trash}
       onConfirm={() => undefined}
@@ -105,6 +114,11 @@ const InCardFooter = {
   render: () => <PresetCardDemo />,
 } satisfies StoryLiteStoryDefinition<ConfirmArgs>;
 
+const Compact = {
+  name: 'Compact, in a search row and a menu row',
+  render: () => <CompactConfirmRows />,
+} satisfies StoryLiteStoryDefinition<ConfirmArgs>;
+
 const renderState = (props: StateProps) => (
   <ConfirmIconButton label="Remove session" confirmLabel="Yes, remove it" cancelLabel="Keep it" icon={trash} onConfirm={() => undefined} {...props} />
 );
@@ -116,11 +130,12 @@ const Overview = overviewStory({
     'A press swaps the icon for a red cancel and a green confirm, with focus on cancel.',
     'Cancel takes the place of the icon, so a second click backs out, and so does [[Esc]].',
     '`placement` picks the edge that stays put: `start`, `center` or `end`.',
+    '`size="xs"` is the compact one, for a [CommandPaletteRow] `action` or a [ControlMenu] row: the row keeps its height.',
     'Disabling it drops a question that is waiting.',
   ],
   instead: '[Dialog] when the action needs a message to explain it.',
   playground: Playground,
-  variants: [InListRows, InToolbar, InCardFooter],
+  variants: [InListRows, InToolbar, InCardFooter, Compact],
   states: {
     render: renderState,
     list: [
@@ -133,4 +148,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { InCardFooter, InListRows, InToolbar, Overview, Playground };
+export { Compact, InCardFooter, InListRows, InToolbar, Overview, Playground };

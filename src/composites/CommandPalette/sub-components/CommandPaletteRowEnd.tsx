@@ -7,7 +7,7 @@ import type { CommandPaletteRowEndProps } from './CommandPaletteRowEnd.type';
 
 const CommandPaletteRowEnd = (props: CommandPaletteRowEndProps) => {
   const { item } = props;
-  const { label, breadcrumb = [], checked, toggle } = item;
+  const { label, breadcrumb = [], checked, toggle, action } = item;
 
   return (
     <>
@@ -19,6 +19,9 @@ const CommandPaletteRowEnd = (props: CommandPaletteRowEndProps) => {
         <Box className="command-palette-row__toggle" onClick={(event) => event.stopPropagation()}>
           <Toggle checked={toggle.checked} onChange={toggle.onChange} disabled={item.disabled} aria-label={label} />
         </Box>
+      )}
+      {action != null && (
+        <Box className="command-palette-row__action" onClick={(event) => event.stopPropagation()}>{action}</Box>
       )}
     </>
   );

@@ -5,7 +5,7 @@ export type {
   IdRefTargetField, IdRefTargetFieldResolver, PickerNode,
 } from './DataTable';
 export { ConfirmIconButton } from './ConfirmIconButton';
-export type { ConfirmIconButtonPlacement, ConfirmIconButtonProps } from './ConfirmIconButton';
+export type { ConfirmIconButtonPlacement, ConfirmIconButtonProps, ConfirmIconButtonSize } from './ConfirmIconButton';
 export { Dialog } from './Dialog';
 export { DialogShell } from './DialogShell';
 export type { DialogInitialFocus, DialogShellProps } from './DialogShell';

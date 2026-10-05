@@ -16,7 +16,7 @@ type LogoArgs = {
   size: BrandMarkSize;
   variant: BrandMarkVariant;
   rim: BrandRim;
-  ground: NonNullable<LogoProps['ground']>;
+  ground: NonNullable<LogoProps['ground']> | 'none';
 };
 
 const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
@@ -31,7 +31,7 @@ const ARG_TYPES: PlaygroundArgTypes<LogoArgs> = {
   size: { group: 'Appearance', control: 'select', options: [...SIZES] },
   variant: { group: 'Appearance', control: 'select', options: ['mark', 'app-icon'], description: 'The app icon as the brand data describes it: straight or on its tile. A brand with no app icon draws its mark.' },
   rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
-  ground: { group: 'Appearance', control: 'select', options: ['light', 'dark'], description: 'The colours of the mark: as drawn, or lighter for a dark ground such as the splash. Inside Splash it is dark by itself.' },
+  ground: { group: 'Appearance', control: 'select', options: ['none', 'light', 'dark'], description: 'The ground the mark stands on: none draws it as drawn; light or dark gives the colours and outline the brand picks for that gradient. Inside Splash it is dark by itself.' },
 };
 
 const meta = {
@@ -41,9 +41,9 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { brand: 'rotp', size: 'xl', variant: 'mark', rim: 'none', ground: 'light' },
+  args: { brand: 'rotp', size: 'xl', variant: 'mark', rim: 'none', ground: 'none' },
   argTypes: ARG_TYPES,
-  render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} rim={args.rim} ground={args.ground} />,
+  render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} rim={args.rim} ground={args.ground === 'none' ? undefined : args.ground} />,
 } satisfies PlaygroundStory<LogoArgs>;
 
 const sizeGrid = (apps: readonly BrandApp[], extra: Partial<LogoProps>) => (
@@ -64,15 +64,21 @@ const AppIcon = {
   render: () => sizeGrid(APPS_WITH_ICONS, { variant: 'app-icon' }),
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
 
-const GROUNDS = ['light', 'dark'] as const;
+const GROUND_COLUMNS = [
+  { key: 'light', label: 'ground="light", on the light gradient' },
+  { key: 'dark', label: 'ground="dark", on the dark gradient of the splash' },
+  { key: 'onDark', label: 'inks="onDark", the second colours' },
+] as const;
 
-const DarkGround = {
-  name: 'On the dark ground',
+const OnGradients = {
+  name: 'On the light and dark gradients',
   render: () => (
     <Demonstrator
       rows={axis(BRAND_APPS)}
-      columns={GROUNDS.map((ground) => ({ key: ground, label: `ground="${ground}", on the splash gradient` }))}
-      cell={(brand, ground) => <MarkOnGround brand={brand} ground={ground} />}
+      columns={GROUND_COLUMNS}
+      cell={(brand, column) => (column === 'onDark'
+        ? <MarkOnGround brand={brand} ground="dark" inks="onDark" />
+        : <MarkOnGround brand={brand} ground={column} />)}
     />
   ),
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
@@ -103,12 +109,12 @@ const Overview = overviewStory({
     '`rim="light"` or `"dark"` outlines the silhouette, so a dark mark reads on a dark title bar.',
     '`pnpm icons` writes every mark and app icon as PNG files from 16 to 512 and a Windows `.ico`.',
     'It writes them again with each rim, under `brand/light-rim` and `brand/dark-rim`, always without a tile.',
-    '`ground="dark"` lightens a mark for a dark ground such as the splash; `brand/dark-ground` holds its files.',
+    '`ground="light"` or `"dark"` draws each brand look for that gradient; `brand/<ground>-ground` holds its files.',
   ],
   instead: '[Combined] for the mark with the app name.',
   playground: Playground,
-  variants: [Sizes, AppIcon, Rims, DarkGround, IconFiles, RimFiles],
+  variants: [Sizes, AppIcon, Rims, OnGradients, IconFiles, RimFiles],
 });
 
 export default meta;
-export { AppIcon, DarkGround, IconFiles, Overview, Playground, RimFiles, Rims, Sizes };
+export { AppIcon, IconFiles, OnGradients, Overview, Playground, RimFiles, Rims, Sizes };

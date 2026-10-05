@@ -37,3 +37,12 @@
   padding-block-start: var(--space-sm);
   border-block-start: var(--border-width-thin) solid var(--c-border);
 }
+
+.compact-confirm-rows {
+  align-items: flex-start;
+}
+
+.compact-confirm-rows__search {
+  inline-size: var(--size-384);
+  max-inline-size: 100%;
+}

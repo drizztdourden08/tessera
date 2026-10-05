@@ -3,6 +3,13 @@
   display: grid;
   padding: var(--space-xl);
   border-radius: var(--radius-md);
-  background: linear-gradient(var(--c-gradient-dark-from), var(--c-gradient-dark-to));
   place-items: center;
+}
+
+.mark-on-ground--light {
+  background: linear-gradient(var(--c-gradient-light-from), var(--c-gradient-light-to));
+}
+
+.mark-on-ground--dark {
+  background: linear-gradient(var(--c-gradient-dark-from), var(--c-gradient-dark-to));
 }

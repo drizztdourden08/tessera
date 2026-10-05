@@ -5384,3 +5384,50 @@ interface MatchPart { text: string; match: boolean }
 | SearchResultHit | marked the first place of the whole query | marks every word wherever it appears, accents ignored |
 
 The filter operators of the field kits (`contains`, `startsWith` and the rest) are not search: they keep their own case option and compare the operand as written.
+
+## 182. Each brand mark has a look for the light and the dark gradient, and a compact ConfirmIconButton
+
+From the owner's answers on the brand marks. Section 176 gave every mark one dark ground look, its second colours plus a rim. Each mark now names its look for each of the two gradients of its palette, section 180's light pair and the dark pair of the splash, and the rim of section 176 becomes that look's outline.
+
+```ts
+type BrandInks = 'drawn' | 'onDark';
+interface BrandMarkGround { inks?: BrandInks; outline?: BrandRimTone }
+interface BrandMarkData { viewBox: string; paths: readonly BrandMarkPath[]; pixelArt?: boolean; grounds?: Partial<Record<Ground, BrandMarkGround>> }
+// BrandMark, Logo and Logo.Combined
+ground?: 'light' | 'dark'; // left out: as drawn, no outline
+inks?: BrandInks; // draws either colour set on any ground
+```
+
+| Mark | Light gradient | Dark gradient |
+|---|---|---|
+| Tessera | as drawn, black outline: 7.98:1 | as drawn, every tile: 3.37:1 at the lowest |
+| Relic of the Past | the original, its own black outline: 9.17:1 | the original, kept as drawn: outline 1.08:1, bottom row 2.87:1, gold and orange 4.89 to 11.70:1 |
+| Archipelia | as drawn, black outline: 9.46:1 | lilac ring 8.08:1, large dot 3.62:1 |
+| Brock | as drawn, black outline: 8.71:1 | as drawn, the charcoal stone, white outline: 13.74:1 |
+
+- `onDarkRim` is removed, and RENAMES.json lists it. A mark sets `grounds.dark.outline` or `grounds.light.outline`, `'light'` or `'dark'`, drawn in the rim colours, `#ececf0` and `#0e0e12`, at the fine width of section 176: half the `rim` prop's, never under 1 pixel. A `rim` prop still wins.
+- `ground` left out now draws the mark as drawn. Before, it meant `'light'`, which drew the same; `'light'` now adds the light gradient's outline, so pass nothing where a mark sits on an ordinary surface. `Splash` still gives its marks `'dark'` through context.
+- Archipelia and Brock keep both colour sets. Archipelia's dark gradient draws its lilac set; Brock's draws the charcoal stone, so its lighter stone of section 176 is reached with `inks="onDark"`.
+- Relic of the Past has one mark: its `onDark` colours are gone, and it draws the same on both gradients.
+- Brock's stone faces met with slivers between them, up to about 2 units wide, where the ground showed through. The body path now covers the whole stone outline, less the hole of the b, and the faces share their edge points, so nothing shows between them, in the component and in every file.
+- `pnpm icons` writes `brand/light-ground/<app>.svg` and its mark PNG ladder beside `brand/dark-ground/`, each from its ground's look. `brand/dark-ground/brock.svg` is now the charcoal mark with a white outline, and `brand/dark-ground/rotp.svg` the original mark.
+- The contrast test holds each mark on both gradients of its palette. With an outline, the outline is the edge that has to reach 3:1, as WCAG allows for a shape with a border, and Relic of the Past's own black outline counts as its edge. Without one, every shape has to. Relic of the Past on the dark gradient is held only by its fill, since it stays as drawn.
+
+### ConfirmIconButton in a search row or a menu row
+
+```ts
+type ConfirmIconButtonSize = 'sm' | 'xs';
+interface ConfirmIconButtonProps { /* … */ size?: ConfirmIconButtonSize }
+interface CommandPaletteItem { /* … */ action?: ReactNode }
+```
+
+- `size="xs"` is the compact one: 20 pixel buttons with a smaller check and cross, for a search result or a menu row. The row keeps its height: 37 pixels for a CommandPaletteRow and 24 for a ControlMenu row, before and while it asks.
+- It asks with the same `useConfirmAsk` and the same check and cross as `ConfirmIconButtonQuestion`.
+- A `CommandPaletteItem` takes `action`, drawn at the end of its row; a click on it does not pick the row.
+
+### What an app does
+
+1. Replace `onDarkRim` in a mark of its own with `grounds: { dark: { outline } }`, and `onDark` colours it draws on dark with `grounds: { dark: { inks: 'onDark' } }`.
+2. Drop `ground="light"` where a mark sits on an ordinary surface; keep it on the light gradient.
+3. A static page on the light gradient reads `brand/light-ground/<app>.svg`.
+4. Brock: put Reset layout in the Ctrl+K search as a `CommandPaletteItem` with `action: <ConfirmIconButton size="xs" … />`.
