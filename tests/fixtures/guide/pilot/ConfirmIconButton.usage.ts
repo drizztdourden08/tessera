@@ -18,6 +18,7 @@ const usage = {
     'Write confirmLabel and cancelLabel as outcomes, such as Delete row and Keep row.',
     'Set placement to the edge the button sits on: end for a row action, start for a toolbar, center for a centred footer.',
     'Set size to xs in a search result row or a menu row, so the row keeps its height.',
+    'Pass onCancel instead of tracking the question: it runs when the question closes without the check, by the cross, Escape or disabled. onAsk runs when the press opens it.',
   ],
   a11y: [
     'The label, confirmLabel and cancelLabel props each name a button, so all three are required.',
@@ -41,7 +42,7 @@ const DeleteRow = ({ onDelete }: { onDelete: () => void }) => (
   />
 );
 `,
-  propsHash: '8a2875acdf135e87',
+  propsHash: 'aa1d801870a49033',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -29,7 +29,7 @@ interface UtilityScreenReport {
   footnote?: ReactNode;
 }
 
-interface UtilityScreenAction extends Omit<ActionData<ButtonVariant>, 'confirm'> {
+interface UtilityScreenAction extends Omit<ActionData<ButtonVariant>, 'confirm' | 'onCancel'> {
   loading?: boolean;
 }
 

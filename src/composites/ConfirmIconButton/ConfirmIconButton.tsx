@@ -9,10 +9,10 @@ import { ConfirmIconButtonAsk } from './sub-components/ConfirmIconButtonAsk';
 
 const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   const {
-    icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, defaultArmed = false, placement = 'start', size = 'sm', tabIndex,
-    className = '',
+    icon, label, confirmLabel, cancelLabel, onConfirm, onCancel, onAsk, disabled = false, defaultArmed = false, placement = 'start', size = 'sm',
+    tabIndex, className = '',
   } = props;
-  const ask = useConfirmAsk<true>({ onConfirm, disabled, initial: defaultArmed ? true : null });
+  const ask = useConfirmAsk<true>({ onConfirm, onCancel, onAsk, disabled, initial: defaultArmed ? true : null });
   const [asked, setAsked] = useState(false);
 
   const handleArm = (): void => {

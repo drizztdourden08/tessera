@@ -20,6 +20,7 @@ interface ActionItem {
   kind?: ActionKind;
   disabled?: boolean;
   confirm?: ActionConfirm;
+  onCancel?: () => void;
 }
 
 interface ActionBarProps {

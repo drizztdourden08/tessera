@@ -14,6 +14,7 @@ const useAsk = (barRef: RefObject<HTMLElement | null>) => {
   const backTo = useRef<string | null>(null);
   const ask = useConfirmAsk<ActionItem>({
     onConfirm: (action) => action.onSelect(),
+    onCancel: (action) => action.onCancel?.(),
     onSettle: (action) => {
       backTo.current = action.id;
     },

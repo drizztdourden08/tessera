@@ -5,6 +5,7 @@ interface ActionData<Tone extends string = string> {
   tone?: Tone;
   disabled?: boolean;
   confirm?: string;
+  onCancel?: () => void;
 }
 
 interface BackAction {

@@ -3,6 +3,8 @@ import type { KeyboardEvent } from 'react';
 
 interface ConfirmAskOptions<T> {
   onConfirm: (value: T) => void;
+  onCancel?: (value: T) => void;
+  onAsk?: (value: T) => void;
   onSettle?: (value: T, ran: boolean) => void;
   disabled?: boolean;
   timeout?: number;

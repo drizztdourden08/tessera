@@ -132,7 +132,7 @@ const Overview = overviewStory({
     '`placement` picks the edge that stays put: `start`, `center` or `end`.',
     '`size="xs"` fits a [CommandPaletteRow] `action` or a [ControlMenu] row without making the row taller.',
     'Both marks keep 3:1 against the row: the check in the success colour, the cross in the muted text colour.',
-    'Disabling it drops a question that is waiting.',
+    'Disabling it drops a waiting question. Any end without the check runs `onCancel`; the press runs `onAsk`.',
   ],
   instead: '[Dialog] when the action needs a message to explain it.',
   playground: Playground,

@@ -5992,3 +5992,26 @@ Strings that said the same thing in two places are one string now. Every move is
 ### What an app does
 
 An app that overrides any of the strings in the table moves its text to the new key. Nothing else changes for an app: every helper in this section is internal.
+
+## 192. ConfirmIconButton says when its question closes without the check
+
+From the Brock app, which tracked the question itself to know when the user backed out. The ask logic of ConfirmIconButton, ActionBar, the SettingsRow action and the DropdownMenu confirm item is one internal hook, `useConfirmAsk`; the callbacks are added there once, and each part passes them on.
+
+```ts
+interface ConfirmIconButtonProps {
+  // ...as before
+  onCancel?: () => void; // the question closed without the check
+  onAsk?: () => void; // a press opened the question
+}
+interface ActionItem { onCancel?: () => void } // ActionBar
+interface ActionData { onCancel?: () => void } // the SettingsRow action
+interface MenuItem { onCancel?: () => void } // a DropdownMenu item of kind confirm
+```
+
+- **When `onCancel` runs.** Whenever a question ends without the check, by any route a part offers. ConfirmIconButton ends it by the cross, Escape or turning disabled; ActionBar by the cross, Escape or a second question taking the place of the first; the SettingsRow action by the cross or Escape; a DropdownMenu confirm item by Escape, its timeout, or focus or the pointer leaving. It never runs when the user confirms, and not when the part unmounts.
+- **`onAsk`** is on ConfirmIconButton only. It runs when a press opens the question, not for a question opened by `defaultArmed`.
+- **ActionData.** `onCancel` sits beside `confirm`, so ActionTile and UtilityScreen leave it out with `confirm`, as they ask nothing.
+
+### What an app does
+
+Nothing. An app that kept its own flag to know a question was cancelled can pass `onCancel` and drop the flag. Looks stay the same.

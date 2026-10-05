@@ -10,7 +10,7 @@ type ActionTileSize = 'sm' | 'md';
 
 type ActionTileTone = Extract<ButtonVariant, 'primary' | 'secondary' | 'danger'>;
 
-interface ActionTileRun extends Omit<ActionData<ActionTileTone>, 'confirm'> {
+interface ActionTileRun extends Omit<ActionData<ActionTileTone>, 'confirm' | 'onCancel'> {
   icon?: IconName;
   copy?: never;
 }

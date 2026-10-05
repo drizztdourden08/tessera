@@ -6,7 +6,7 @@ import type { SettingsRowActionButtonProps } from './SettingsRowActionButton.typ
 
 const SettingsRowActionButton = (props: SettingsRowActionButtonProps) => {
   const { action, disabled } = props;
-  const ask = useConfirmAsk<true>({ onConfirm: action.onSelect });
+  const ask = useConfirmAsk<true>({ onConfirm: action.onSelect, onCancel: action.onCancel });
 
   if (ask.asking !== null) {
     return (

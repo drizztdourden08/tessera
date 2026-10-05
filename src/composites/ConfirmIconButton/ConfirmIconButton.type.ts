@@ -11,6 +11,8 @@ interface ConfirmIconButtonProps {
   confirmLabel: string;
   cancelLabel: string;
   onConfirm: () => void;
+  onCancel?: () => void;
+  onAsk?: () => void;
   disabled?: boolean;
   defaultArmed?: boolean;
   placement?: ConfirmIconButtonPlacement;
