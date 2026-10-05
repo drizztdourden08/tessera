@@ -15,6 +15,8 @@ const usage = {
   rules: [
     'Give it an icon and a heading for the page header, which StageScreen always shows and nothing turns off.',
     'Keep the toolbar to a status and a few tools; it sits in the header after the heading and is not a place for navigation.',
+    'Short of room, the toolbar moves to a row under the heading and wraps its items, while Done stays beside the heading.',
+    'Lay out the stage with intrinsic sizes, such as minmax(min(100%, 384px), 1fr) columns, so it fits a narrow window without sideways scroll.',
     'Set done when the work ends with a clear finish; the close button still closes without it.',
     'Put each calibration step on the stage in its own Card, with a SectionHeader that says what to do.',
     'The stage scrolls when its content is larger; a canvas that pans itself sets its own size to fill the stage.',

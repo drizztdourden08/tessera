@@ -6,6 +6,11 @@
   padding: var(--space-md);
 }
 
+.settings-page-story__frame--narrow {
+  width: var(--size-384);
+  max-width: 100%;
+}
+
 .settings-page-story__state {
   display: flex;
   flex-direction: column;

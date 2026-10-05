@@ -6234,3 +6234,43 @@ type MenuSize = 'xs' | 'sm' | 'md';    // was 'sm' | 'md', the trigger of Dropdo
 ### What an app does
 
 A button passed to a Widget through `titleBarActions` or `widgetActions` with the class `widget__btn` was drawn at 20 px by the removed rule: give it `size="xs"`. Replace `--widget-btn-d` and `--menu-trigger-width` with `--control-h-xs`.
+
+## 199. Screens fit the room they are given
+
+The owner's call: screens should behave responsive with the space that they have, and keep the look they were approved with. A screen can sit in a gallery frame, a split pane or a window of its own, so each one follows its own box, never the viewport.
+
+### What was measured
+
+Every screen story, 25 in all, was drawn in boxes 1600, 1280, 1024, 800, 640, 480 and 360 px wide, each 900, 700 and 500 px tall, and checked for content past the box, sideways scroll, clipped text or controls, truncated text with no title, and controls over each other.
+
+| | Findings before | After |
+| --- | --- | --- |
+| StageScreen | 165: the toolbar clipped Rescan from 640 px and lay under Done; at 360 px the stage cards were cut | 0 |
+| SettingsPage | 15: with view tabs the title was cut to five letters from 640 px | 0 |
+| ScreenWindow | 9: the subtitle cut at 360 px | 0 |
+| ScreenPage | 6: the title cut at 480 and 360 px | 0 |
+| WorkspaceScreen | 3: a compact SettingsRow title cut at 360 px | 3, the row's own ellipsis |
+| InfoScreen, UtilityScreen, ScreenLayer | 0 | 0 |
+
+At the size the gallery shows today every screen draws the same pixels as before; only the live stick plot of the StageScreen stage moves between shots.
+
+### ScreenPage, so SettingsPage, StageScreen and WorkspaceScreen pages
+
+- **The header stacks when it runs out of room.** While the back button, the icon, the whole title, the strip at its least width and the actions fit on one row, the header is the row it was. Once they do not, it takes the class `screen-page__header--stacked`: the strip moves to a row of its own under the title, and the actions move under the title too when the title needs the room. The title is never cut while it fits the width alone.
+- **How it measures.** A ResizeObserver on the header adds up the widths of its parts as one row: the title at its full width and the strip at its min-content width. CSS cannot ask whether a row of parts fits beside a whole title, so this is the one place a screen measures itself.
+- **SettingsPage** keeps its tabs on one line beside the title, and wraps them once they sit on their own row, without the rule before them.
+- **StageScreen** wraps its toolbar items once the toolbar sits on its own row, without the rule before it; Done stays beside the heading.
+
+### ScreenWindow, so every screen kind
+
+- The window is a container named `screen-window`, with `container-type: inline-size`. Content inside a screen can fit itself with `@container screen-window (width < 480px)` in place of a media query.
+- The title bar puts the subtitle on a line under the title when both do not fit, in place of cutting it.
+- ScreenPage stays without a container: a host may size it from its content, and inline-size containment would collapse it to nothing there.
+
+### Gallery
+
+The InfoScreen, UtilityScreen, StageScreen, ScreenWindow, ScreenPage and SettingsPage pages gain In a narrow box, a 384 px wide frame. The StageScreen stage grid uses `minmax(min(100%, 384px), 1fr)` columns, so it fits a 360 px box. WorkspaceScreen keeps A narrow window, and ScreenLayer its Breakpoints.
+
+### What an app does
+
+Nothing. A page header that hid its strip or its actions for a narrow window can drop that code. Content that followed the viewport with a media query inside a screen can follow the window with `@container screen-window` instead.

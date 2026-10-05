@@ -1,7 +1,22 @@
 /* @layer renderer-components @kind data */
+import type { HeaderStack } from './behavior/stack-of.type';
 import type { ScreenKind } from './ScreenPage.type';
 
 const COMPACT_AFTER = 24;
+
+const HEADER_PARTS: readonly string[] = ['content-header__backdrop', 'content-header__back', 'content-header__icon', 'content-header__title', 'content-header__actions'];
+
+const STACKED_CLASS = 'screen-page__header--stacked';
+
+const ACTIONS_BELOW_CLASS = 'screen-page__header--actions-below';
+
+const STACK_CLASSES: Readonly<Record<HeaderStack, readonly string[]>> = {
+  row: [],
+  strip: [STACKED_CLASS],
+  all: [STACKED_CLASS, ACTIONS_BELOW_CLASS],
+};
+
+const HEADER_SELECTOR = ':scope > .content-header';
 
 const EXPAND_AT = 4;
 
@@ -28,4 +43,4 @@ const HEADER_KEYS: Readonly<Record<ScreenKind, readonly string[]>> = {
 const headerOptOut = (owner: ScreenKind, keys: readonly string[]) =>
   `${owner} ${HEADER_RULE[owner]}, so ${keys.join(', ')} ${keys.length > 1 ? 'do' : 'does'} nothing. ${CUSTOM_SCREEN}`;
 
-export { COMPACT_AFTER, EXPAND_AT, HEADER_GAIN, HEADER_KEYS, headerOptOut, MISSING_HEADER };
+export { COMPACT_AFTER, EXPAND_AT, HEADER_GAIN, HEADER_KEYS, HEADER_PARTS, HEADER_SELECTOR, headerOptOut, MISSING_HEADER, STACK_CLASSES };

@@ -8,6 +8,27 @@
   overflow: hidden;
 }
 
+.content-header.screen-page__header--stacked {
+  flex-wrap: wrap;
+  row-gap: var(--space-xs);
+}
+
+.content-header--compact.screen-page__header--stacked {
+  padding-block: var(--space-xs);
+}
+
+.screen-page__header--stacked::after {
+  content: '';
+  flex-basis: 100%;
+  order: 1;
+}
+
+.screen-page__header--stacked > :not(.content-header__backdrop, .content-header__back, .content-header__icon, .content-header__title, .content-header__actions),
+.screen-page__header--actions-below > .content-header__actions {
+  order: 2;
+  min-width: 0;
+}
+
 .screen-page__body {
   flex: 1;
   min-height: 0;

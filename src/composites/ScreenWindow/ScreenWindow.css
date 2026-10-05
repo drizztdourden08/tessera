@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind style */
 .screen-window {
+  container: screen-window / inline-size;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -11,6 +12,11 @@
 
 .screen-window__header {
   flex-shrink: 0;
+}
+
+.screen-window__header .window-header__titles {
+  flex-wrap: wrap;
+  row-gap: var(--space-2xs);
 }
 
 .screen-window__header .window-header__title {

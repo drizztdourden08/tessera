@@ -7,6 +7,11 @@
   padding: var(--space-md);
 }
 
+.screen-page-story__frame--narrow {
+  width: var(--size-384);
+  max-width: 100%;
+}
+
 .screen-page-story__lines {
   display: flex;
   flex-direction: column;

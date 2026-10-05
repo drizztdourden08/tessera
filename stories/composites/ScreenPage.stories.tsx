@@ -26,10 +26,10 @@ const SessionLines = () => (
 
 const ignore = () => undefined;
 
-const HeaderDemo = (props: HeaderArgs & { compact?: boolean }) => {
-  const { title, backdrop, strip, actions, footer, back, compact } = props;
+const HeaderDemo = (props: HeaderArgs & { compact?: boolean; narrow?: boolean }) => {
+  const { title, backdrop, strip, actions, footer, back, compact, narrow } = props;
   return (
-    <Box className="story-frame screen-page-story__frame">
+    <Box className={`story-frame screen-page-story__frame${narrow === true ? ' screen-page-story__frame--narrow' : ''}`}>
       <ScreenPage
         icon={<Icon name="layers" />}
         title={title}
@@ -83,6 +83,13 @@ const SubPage = {
   render: (args) => <HeaderDemo {...args} back />,
 } satisfies PlaygroundStory<HeaderArgs>;
 
+const Narrow = {
+  name: 'In a narrow box',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <HeaderDemo {...args} back narrow />,
+} satisfies PlaygroundStory<HeaderArgs>;
+
 const renderState = (props: StateProps) => (
   <HeaderDemo title="Friday async" backdrop strip={false} actions={false} footer={false} back={false} compact={props.compact === true} />
 );
@@ -102,13 +109,13 @@ const Overview = overviewStory({
     '`icon` and `title` are required; with either missing it warns in development.',
     'The header compacts once the body scrolls; `compact` holds either look.',
     '`back` leads to the parent page before the icon; `strip` follows the title, `actions` sit at the far end.',
-    '`footer` is a row under the body that stays in view.',
+    'Short of room the header stacks: `strip` moves under the title, `actions` too when the title needs it.',
     'Leave `backdrop` out for the default art, pass a scene of your own, or `null` for a plain header.',
-    '`scroll={false}` leaves the scrolling to the content, and the header stays full size.',
+    '`footer` stays in view under the body; `scroll={false}` leaves the scrolling to the content.',
   ],
   instead: '[ScreenWindow] for a custom screen with no page header.',
   playground: Playground,
-  variants: [Plain, SubPage],
+  variants: [Plain, SubPage, Narrow],
   states: {
     render: renderState,
     list: [
@@ -120,4 +127,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Plain, Playground, SubPage };
+export { Narrow, Overview, Plain, Playground, SubPage };

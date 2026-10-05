@@ -25,11 +25,11 @@ const STATE_ANCHORS = [{ id: 'startup', label: 'Startup' }, { id: 'tray', label:
 
 const ignore = () => undefined;
 
-const PageDemo = (props: PageArgs) => {
-  const { title, withBackdrop, withActions, withBack } = props;
+const PageDemo = (props: PageArgs & { narrow?: boolean }) => {
+  const { title, withBackdrop, withActions, withBack, narrow } = props;
   const sections = generalSections(useSampleSettings());
   return (
-    <Box className="story-frame settings-page-story__frame">
+    <Box className={`story-frame settings-page-story__frame${narrow === true ? ' settings-page-story__frame--narrow' : ''}`}>
       <SettingsPage
         icon={<Icon name="settings" />}
         title={title}
@@ -100,6 +100,13 @@ const ViewTabs = {
   render: () => <TabsDemo />,
 } satisfies StoryLiteStoryDefinition<PageArgs>;
 
+const InNarrowBox = {
+  name: 'In a narrow box',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <PageDemo {...args} withActions narrow />,
+} satisfies PlaygroundStory<PageArgs>;
+
 const renderState = (props: StateProps) => (
   <Box className="settings-page-story__state">
     <SettingsPage icon={<Icon name="settings" />} title="General" backdrop={backdrop} anchors={STATE_ANCHORS} compact={props.compact === true}>
@@ -128,10 +135,11 @@ const Overview = overviewStory({
     'The header compacts once the body scrolls; `compact` holds either look.',
     '`actions` sit at the far end of the header; `back` leads to the parent page, as on [ScreenPage].',
     '`scroll={false}` leaves the scrolling to the content of the body.',
+    'Short of room the tabs move to a row under the title and wrap there, so the title stays whole.',
   ],
   instead: '[WorkspaceScreen] to build a whole settings screen with its side list and search.',
   playground: Playground,
-  variants: [PlainWithActions, SubPage, ViewTabs],
+  variants: [PlainWithActions, SubPage, ViewTabs, InNarrowBox],
   states: {
     render: renderState,
     list: [
@@ -143,4 +151,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, PlainWithActions, Playground, SubPage, ViewTabs };
+export { InNarrowBox, Overview, PlainWithActions, Playground, SubPage, ViewTabs };

@@ -36,6 +36,7 @@ A side list of pages beside the current page.
 - Give options a hint, toggles hints for on and off and sliders hintOf, so the live hint says what each value does.
 - Pass activeId and onActiveChange, or search.query and search.onQueryChange, only when the host must own them.
 - Use the floating slot for a switch between sibling workspaces, and hidden to keep the screen mounted while it is closed.
+- The screen follows the room it has, not the viewport: under 640 px the side nav turns into a bar with a menu, and each page header moves its tabs under the title when they no longer fit.
 
 ## Accessibility
 

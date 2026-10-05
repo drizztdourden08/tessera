@@ -22,6 +22,7 @@ const usage = {
     'Set progress only when the task can say how far it is.',
     'Pass report to offer a way to report a problem: one red bug icon button over a rule, with report.footnote as a short line beside it.',
     'Put the main action last in actions, with tone primary, and keep one primary action.',
+    'In a narrow or short window the card fills the room: the body scrolls, and the footer with the actions stays in view.',
   ],
   a11y: [
     'The status title and the message are live regions: a screen reader reads each new one.',

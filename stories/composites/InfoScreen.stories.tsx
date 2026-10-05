@@ -31,12 +31,12 @@ const lead = (name: string, line: string) => (
 const ABOUT_LEAD = lead('Relic of the Past', 'Tracks your randomizer runs, from the first seed to the last boss.');
 const CREDITS_LEAD = lead('Thank you', 'Made by a small team, with help from these people and projects.');
 
-const InfoDemo = (props: InfoArgs) => {
-  const { page, width, withFooter } = props;
+const InfoDemo = (props: InfoArgs & { phone?: boolean }) => {
+  const { page, width, withFooter, phone } = props;
   const [hidden, setHidden] = useState(false);
   const about = page === 'about';
   return (
-    <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="The close button hides the screen">
+    <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="The close button hides the screen" phone={phone}>
       <InfoScreen
         title={about ? 'About' : 'Credits'}
         width={width}
@@ -78,6 +78,13 @@ const Credits = {
   render: () => <InfoDemo page="credits" width="wide" withFooter={false} />,
 } satisfies PlaygroundStory<InfoArgs>;
 
+const Narrow = {
+  name: 'In a narrow box',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <InfoDemo {...args} phone />,
+} satisfies PlaygroundStory<InfoArgs>;
+
 const CODE = `import { FactsPanel, H2, InfoScreen, Logo } from '@drizztdourden08/tessera';
 
 <InfoScreen
@@ -98,12 +105,13 @@ const Overview = overviewStory({
     'The children are the sections; `footer` closes the column with small text, for legal lines.',
     '`width="readable"` keeps lines short; `width="wide"` fits a grid of cards, as credits need.',
     'An About screen puts the build facts in a [FactsPanel].',
+    'In a narrow box the card fills it and the column takes its width; only the column scrolls.',
   ],
   instead: '[WorkspaceScreen] for settings and pages with a side list, or [UtilityScreen] for a task with a status.',
   playground: Playground,
-  variants: [Credits],
+  variants: [Credits, Narrow],
   code: CODE,
 });
 
 export default meta;
-export { Credits, Overview, Playground };
+export { Credits, Narrow, Overview, Playground };

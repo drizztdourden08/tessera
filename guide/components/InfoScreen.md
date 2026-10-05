@@ -33,6 +33,7 @@ One centred column to read.
 - Put a logo, the app name, a wordmark or a hero in lead, and the sections in the children.
 - Keep width="readable" for text; use width="wide" for a grid of cards, as credits need.
 - Put legal text in footer, never in the last section.
+- In a narrow window the column takes the full width of the card and only the column scrolls; lay out lead and sections so they wrap.
 - On an About screen, put the logo and the app name in lead and the build facts in a FactsPanel.
 
 ## Accessibility

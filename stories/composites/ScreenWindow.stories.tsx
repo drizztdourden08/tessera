@@ -19,6 +19,7 @@ type WindowArgs = {
   withHeader: boolean;
   withBack: boolean;
   square: boolean;
+  phone?: boolean;
 };
 
 type WindowTop = { withHeader: boolean; players: boolean; subtitle: string; extra: ReactNode; goBack?: () => void };
@@ -43,7 +44,7 @@ const windowTop = (top: WindowTop) => {
 };
 
 const WindowDemo = (props: WindowArgs) => {
-  const { title, subtitle, withExtra, withFloating, withHeader, withBack, square } = props;
+  const { title, subtitle, withExtra, withFloating, withHeader, withBack, square, phone } = props;
   const [hidden, setHidden] = useState(false);
   const { view, floating } = useWindowSwitch(withFloating);
   const players = withFloating && view === 'players';
@@ -52,7 +53,7 @@ const WindowDemo = (props: WindowArgs) => {
   const goBack = withBack ? () => setHidden(true) : undefined;
   const top = windowTop({ withHeader, players, subtitle, extra, goBack });
   return (
-    <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="The close button hides the window">
+    <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="The close button hides the window" phone={phone}>
       <ScreenWindow
         title={withFloating ? shownTitle : title}
         {...top}
@@ -119,6 +120,13 @@ const TitleOnly = {
   render: (args) => <WindowDemo {...args} subtitle="" withExtra={false} />,
 } satisfies PlaygroundStory<WindowArgs>;
 
+const Narrow = {
+  name: 'In a narrow box',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <WindowDemo {...args} phone />,
+} satisfies PlaygroundStory<WindowArgs>;
+
 const CODE = `import { Button, Icon, ScreenWindow } from '@drizztdourden08/tessera';
 
 <ScreenWindow title="Sessions" subtitle="Profile: mira" onClose={close}>
@@ -138,12 +146,13 @@ const Overview = overviewStory({
     'The padding is xl, lg under 960 by 600 px, and md once the card fills the layer; `header` drops it.',
     'The content is an empty column that fills the card and never scrolls: the content picks how it scrolls.',
     '`floating`, `hidden` and `size` pass through to the [ScreenLayer]; `square` drops the corners for fullscreen.',
+    'Short of room the subtitle moves under the title; content can query the `screen-window` container.',
   ],
   instead: '[WorkspaceScreen], [InfoScreen], [UtilityScreen] or [StageScreen] first; this only when none of them fits.',
   playground: Playground,
-  variants: [WithHeader, SiblingWindows, WithBack, TitleOnly],
+  variants: [WithHeader, SiblingWindows, WithBack, TitleOnly, Narrow],
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, SiblingWindows, TitleOnly, WithBack, WithHeader };
+export { Narrow, Overview, Playground, SiblingWindows, TitleOnly, WithBack, WithHeader };

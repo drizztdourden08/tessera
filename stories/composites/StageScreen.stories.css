@@ -1,7 +1,7 @@
 /* @layer stories @kind style */
 .stage-screen-story__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--size-384), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--size-384)), 1fr));
   gap: var(--space-lg);
   align-items: start;
 }

@@ -24,11 +24,11 @@ const TOOLBAR = (
   </>
 );
 
-const StageDemo = (props: StageArgs) => {
-  const { withToolbar, withDone } = props;
+const StageDemo = (props: StageArgs & { phone?: boolean }) => {
+  const { withToolbar, withDone, phone } = props;
   const [hidden, setHidden] = useState(false);
   return (
-    <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="Done and the close button both hide the screen">
+    <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="Done and the close button both hide the screen" phone={phone}>
       <StageScreen
         title="Input calibration"
         subtitle="Player 1"
@@ -75,6 +75,13 @@ const StageOnly = {
   render: () => <StageDemo withToolbar={false} withDone={false} />,
 } satisfies PlaygroundStory<StageArgs>;
 
+const Narrow = {
+  name: 'In a narrow box',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <StageDemo {...args} phone />,
+} satisfies PlaygroundStory<StageArgs>;
+
 const CODE = `import { Card, Icon, SectionHeader, StageScreen, Status, StickPlot } from '@drizztdourden08/tessera';
 
 <StageScreen
@@ -99,12 +106,13 @@ const Overview = overviewStory({
     '`toolbar` sits in the header after the heading, for a status and a few tools.',
     '`done` adds a primary button at the end of the header; it reads Done unless its `label` says otherwise.',
     'The stage scrolls when its content is larger, and its content can place layers inside it.',
+    'Short of room, the toolbar moves to a row under the heading and wraps its items there.',
   ],
   instead: '[WorkspaceScreen] for pages the user moves between, or [UtilityScreen] for a task with a status.',
   playground: Playground,
-  variants: [StageOnly],
+  variants: [StageOnly, Narrow],
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, StageOnly };
+export { Narrow, Overview, Playground, StageOnly };

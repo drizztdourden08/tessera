@@ -28,7 +28,7 @@ const REPORT = {
   footnote: 'Any earlier version can be picked above if something stops working. Please report it either way, so it gets fixed.',
 };
 
-const UpdateDemo = (props: UtilityArgs) => {
+const UpdateDemo = (props: UtilityArgs & { phone?: boolean }) => {
   const [step, setStep] = useState<UpdateStep>(props.step);
   const [hidden, setHidden] = useState(false);
   const [prereleases, setPrereleases] = useState(false);
@@ -47,6 +47,7 @@ const UpdateDemo = (props: UtilityArgs) => {
       onReopen={() => setHidden(false)}
       note="The buttons move between the steps"
       tall
+      phone={props.phone}
       tools={<SegmentedControl aria-label="Update step" size="sm" options={STEP_OPTIONS} value={step} onChange={setStep} />}
     >
       <UtilityScreen
@@ -104,6 +105,13 @@ const Failed = {
   render: () => <UpdateDemo step="failed" />,
 } satisfies PlaygroundStory<UtilityArgs>;
 
+const Narrow = {
+  name: 'In a narrow box',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: () => <UpdateDemo step="available" phone />,
+} satisfies PlaygroundStory<UtilityArgs>;
+
 const CODE = `import { Field, Icon, Select, Strong, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
 
 <UtilityScreen
@@ -130,12 +138,13 @@ const Overview = overviewStory({
     '`notes` is a framed box with its own scroll, for release notes or a log; `progress` adds a bar.',
     '`report` adds a red bug button over a rule, with an optional `footnote`; `actions` sit under it, main action last.',
     'The layout copies the rotp update dialog: one column with one gap, and no card inside the window.',
+    'In a narrow or short box the card fills it, the body scrolls and the actions stay in view.',
   ],
   instead: '[Dialog] for a question with two answers, or [WorkspaceScreen] for pages with a side list.',
   playground: Playground,
-  variants: [Checking, Downloading, Failed],
+  variants: [Checking, Downloading, Failed, Narrow],
   code: CODE,
 });
 
 export default meta;
-export { Checking, Downloading, Failed, Overview, Playground };
+export { Checking, Downloading, Failed, Narrow, Overview, Playground };

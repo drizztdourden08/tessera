@@ -37,6 +37,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - On a sub-page, pass back with the name of the parent page and what returns to it; the header draws Back to and that name before the icon.
 - Put buttons that stay in view in footer; the body scrolls between the header and the footer.
 - Set scroll={false} when the content scrolls by itself; the header then stays full size.
+- The header stays one row while its parts fit beside the whole title. Short of room it stacks: the strip moves to a row of its own under the title, and actions follow when the title needs the room. Never hide the strip yourself for a narrow window.
 
 ## Accessibility
 
@@ -76,4 +77,4 @@ const SessionsScreen = ({ onClose }: { onClose: () => void }) => (
 
 ## Tokens
 
-It draws on `--blur`, `--border-width-thin`, `--c-border`, `--c-hairline`, `--c-panel`, `--radius-xl`, `--space-md`, `--space-xl`.
+It draws on `--blur`, `--border-width-thin`, `--c-border`, `--c-hairline`, `--c-panel`, `--radius-xl`, `--space-md`, `--space-xl`, `--space-xs`.
