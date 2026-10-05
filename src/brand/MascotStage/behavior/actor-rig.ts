@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind logic */
 import type { AnimatedMascotBrand } from '../../AnimatedMascot/AnimatedMascot.type';
-import { motionPivots } from '../../AnimatedMascot/behavior/motion-pivots';
-import { stageScene } from '../../AnimatedMascot/behavior/stage-scene';
+import { motionPivots } from './motion-pivots';
+import { stageScene } from './stage-scene';
 import { BRAND_FAMILY } from '../../family.constants';
 import type { MascotClip } from '../../motion/mascot-clip.type';
 import { compileClip } from './compile-clip';

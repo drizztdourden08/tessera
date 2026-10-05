@@ -4,6 +4,7 @@ import type { RefObject } from 'react';
 import { useReducedMotion } from '../../../primitives/dom/useReducedMotion';
 import { createStageEngine } from './stage-engine';
 import type { StageEngine } from './stage-engine.type';
+import { useEngineClock } from './useEngineClock';
 import type { EngineOptions } from './useStageEngine.type';
 
 const useStageEngine = (stageRef: RefObject<HTMLElement | null>, options: EngineOptions): StageEngine => {
@@ -15,9 +16,6 @@ const useStageEngine = (stageRef: RefObject<HTMLElement | null>, options: Engine
   useEffect(() => {
     engine.listener.current = onEvent;
   }, [engine, onEvent]);
-  useEffect(() => engine.setPlaying(playing), [engine, playing]);
-  useEffect(() => engine.setSpeed(speed), [engine, speed]);
-  useEffect(() => engine.setReduced(reduced), [engine, reduced]);
   useLayoutEffect(() => {
     const stage = stageRef.current;
     if (!stage) return undefined;
@@ -27,10 +25,7 @@ const useStageEngine = (stageRef: RefObject<HTMLElement | null>, options: Engine
     observer.observe(stage);
     return () => observer.disconnect();
   }, [engine, stageRef, height]);
-  useEffect(() => {
-    engine.start();
-    return () => engine.stop();
-  }, [engine]);
+  useEngineClock(engine, { playing, speed, reduced });
   return engine;
 };
 

@@ -3,9 +3,9 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { AnimatedMascot, BRAND_FAMILY, BRAND_APPS, MASCOT_CLIP_GROUPS, MASCOT_CLIP_VARIANTS, MASCOT_CLIPS } from '../src/brand';
-import { motionKeyframes } from '../src/brand/AnimatedMascot/behavior/motion-keyframes';
-import { motionPivots } from '../src/brand/AnimatedMascot/behavior/motion-pivots';
-import { stageScene } from '../src/brand/AnimatedMascot/behavior/stage-scene';
+import { motionKeyframes } from '../src/brand/MascotStage/behavior/motion-keyframes';
+import { motionPivots } from '../src/brand/MascotStage/behavior/motion-pivots';
+import { stageScene } from '../src/brand/MascotStage/behavior/stage-scene';
 
 const motions = BRAND_APPS.flatMap((app) => {
   const motion = BRAND_FAMILY[app].mascot?.motion;

@@ -1,9 +1,10 @@
 /* @layer renderer-components @kind hook */
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { useReducedMotion } from '../../../primitives/dom/useReducedMotion';
 import { reducedNow } from '../../MascotStage/behavior/reduced-now';
 import { createStageEngine } from '../../MascotStage/behavior/stage-engine';
+import { useEngineClock } from '../../MascotStage/behavior/useEngineClock';
 import { SOLO_ACTOR } from '../AnimatedMascot.constants';
 import type { MascotActorOptions } from './useMascotActor.type';
 import { useMascotState } from './useMascotState';
@@ -19,13 +20,7 @@ const useMascotActor = (ref: RefObject<SVGSVGElement | null>, options: MascotAct
     if (!svg || !scene) return undefined;
     return engine.attach(SOLO_ACTOR, undefined, svg, reducedNow(svg));
   }, [engine, ref, scene]);
-  useEffect(() => {
-    engine.start();
-    return () => engine.stop();
-  }, [engine]);
-  useEffect(() => engine.setPlaying(playing), [engine, playing]);
-  useEffect(() => engine.setSpeed(speed), [engine, speed]);
-  useEffect(() => engine.setReduced(reduced), [engine, reduced]);
+  useEngineClock(engine, { playing, speed, reduced });
   useMascotState(engine.handle, options);
 };
 

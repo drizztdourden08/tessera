@@ -9,7 +9,6 @@ import { StageFlips } from './StageFlips';
 import { StageFollow } from './StageFollow';
 import { StageLab } from './StageLab';
 import { StageReduced } from './StageReduced';
-import { StageSideBySide } from './StageSideBySide';
 import { StageSpeed } from './StageSpeed';
 import { StageStress } from './StageStress';
 import { StageTour } from './StageTour';
@@ -26,7 +25,6 @@ const DEMOS: readonly { id: string; label: string; draw: () => ReactNode }[] = [
   { id: 'speed', label: 'Speed', draw: () => <StageSpeed /> },
   { id: 'reduced', label: 'Reduced motion', draw: () => <StageReduced /> },
   { id: 'stress', label: 'Stress', draw: () => <StageStress /> },
-  { id: 'side-by-side', label: 'Side by side', draw: () => <StageSideBySide /> },
   { id: 'crowd', label: 'Crowd', draw: () => <StageCrowd /> },
 ];
 

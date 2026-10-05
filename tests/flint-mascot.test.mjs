@@ -71,3 +71,13 @@ describe('Flint, the Brock mascot', () => {
     expect(renderToString(h(AnimatedMascot, { brand: 'brock', animation: 'spin', scale: 2 }))).toContain('data-motion-part="twinkles" opacity="0"');
   });
 });
+
+describe('Flint at work', () => {
+  it('works at a laptop seen straight on, centred under its face', () => {
+    const laptop = flint.motion.effects.find((e) => e.id === 'laptop');
+    const { w, paths } = laptop.piece;
+    expect(laptop.at[0] + w / 2).toBe(flint.motion.pivot[0]);
+    const xs = (d) => (d.match(/-?\d+(\.\d+)?/g) ?? []).filter((_, i) => i % 2 === 0).map((x) => Number(x).toFixed(2));
+    for (const { d } of paths.slice(0, -2)) expect(new Set(xs(d).map((x) => (w - x).toFixed(2)))).toEqual(new Set(xs(d)));
+  });
+});

@@ -5511,3 +5511,24 @@ ARCHIPELIA_MARK.grounds = { dark: { inks: 'onDark' } };
 ### What an app does
 
 Nothing. An app that draws `ground="dark"` on the Tessera mark, or `ground="light"` on the Archipelia mark, gets the new look by itself.
+
+## 184. One mascot engine, and Flint works at a laptop seen straight on
+
+From the owner's review of the Mascot page. Section 174 moved the state machine into `MascotStage` and had `AnimatedMascot` run one actor on it, but the clip player the stage engine plays settled clips with still sat in the `AnimatedMascot` folder, and the gallery kept two comparisons of the old and the new engine.
+
+- One engine moves every mascot. The clip player, its keyframes, its pivots and the stage scene move from `src/brand/AnimatedMascot/behavior` into `src/brand/MascotStage/behavior`: `play-clip.ts`, `motion-keyframes.ts`, `motion-pivots.ts` and `stage-scene.ts`. `AnimatedMascot` keeps no motion code: it puts one actor on the stage engine, turns its `animation` and `face` into that actor's `play` and `turn`, and draws it at a brand mark size or a `scale`.
+- `MascotStage` and `AnimatedMascot` share one internal `useEngineClock`, which starts and stops the engine and passes on `playing`, `speed` and reduced motion.
+- The engine is Tessera's own code, with no animation library: a settled clip plays through the browser's Web Animations API, `element.animate` with additive keyframes, and a blend between clips is sampled on one shared `requestAnimationFrame` loop and held in place the same way. `package.json` lists no animation package.
+- The Stage page drops its Side by side tab, which set `AnimatedMascot` beside a one-actor stage, and the Crowd tab drops its switch between the stage engine and a row of `AnimatedMascot`s.
+- Flint's laptop is drawn straight on: the back of the lid faces the viewer, square and level with the Brock chip in its middle, over the front edge of the base, with the screen's glow along the top of the lid. It is centred under Flint's face, so it reads the same facing right or left, and it fades in and out with the clip as before. Sentri's and Pelago's laptops are unchanged.
+
+```ts
+// before
+FLINT_PROPS.laptop: { w: 22, h: 10.5 } // three quarter view, at [9.5, 17.8]
+// after
+FLINT_PROPS.laptop: { w: 22, h: 10 }   // straight on, at [9.25, 18.3], centred on the body at x 20.25
+```
+
+### What an app does
+
+Nothing. `AnimatedMascot` and `MascotStage` keep their props, and no public name changes.

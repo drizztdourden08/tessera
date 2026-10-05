@@ -3,8 +3,8 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { AnimatedMascot, BRAND_FAMILY, Mascot, sceneMarkup } from '../src/brand';
-import { motionKeyframes } from '../src/brand/AnimatedMascot/behavior/motion-keyframes';
-import { motionPivots } from '../src/brand/AnimatedMascot/behavior/motion-pivots';
+import { motionKeyframes } from '../src/brand/MascotStage/behavior/motion-keyframes';
+import { motionPivots } from '../src/brand/MascotStage/behavior/motion-pivots';
 import { mascotBrandOf } from '../src/brand/AnimatedMascot/behavior/mascot-brand-of';
 
 const mascot = BRAND_FAMILY.archipelia.mascot;

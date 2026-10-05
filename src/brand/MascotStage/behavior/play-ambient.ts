@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { playClip } from '../../AnimatedMascot/behavior/play-clip';
+import { playClip } from './play-clip';
 import type { ActorCore } from './actor.type';
 import type { ClockState } from './clock-state.type';
 import { syncAnimations } from './sync-animations';
