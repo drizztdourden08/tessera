@@ -11,14 +11,14 @@ import { MASCOT_BOX, MASCOT_GAP, MASCOT_HEIGHT, MASCOT_ID } from '../GuidedTour.
 import type { TourMascotProps } from './TourMascot.type';
 
 const TourMascot = (props: TourMascotProps) => {
-  const { choice, bubble, hole, view, clip } = props;
+  const { choice, bubble, hole, view, cue } = props;
   const ref = useRef<HTMLElement>(null);
   const stageRef = useRef<MascotStageHandle>(null);
   const palette = usePaletteName(ref, choice === 'auto');
   const brand = choice === 'auto' ? mascotBrandOf(palette) : choice;
   const spot = bubble && view.width > 0 ? mascotSpot({ bubble, hole }, view, MASCOT_BOX, MASCOT_GAP) : null;
   const cast = useMemo<MascotStageCast[]>(() => (brand ? [{ id: MASCOT_ID, brand, clip: 'idle' }] : []), [brand]);
-  useMascotPresenter(stageRef, { brand, spot, clip });
+  useMascotPresenter(stageRef, { brand, spot, ...cue });
 
   return (
     <Box

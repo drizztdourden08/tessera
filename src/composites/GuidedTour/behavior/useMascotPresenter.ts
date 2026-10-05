@@ -6,7 +6,7 @@ import { MASCOT_ID, MASCOT_SPEED } from '../GuidedTour.constants';
 import type { MascotPresenting } from './tour-internal.type';
 
 const useMascotPresenter = (stageRef: RefObject<MascotStageHandle | null>, presenting: MascotPresenting): void => {
-  const { brand, spot, clip } = presenting;
+  const { brand, spot, clip, walk } = presenting;
   const x = spot?.x ?? null;
   const face = spot?.face ?? 'right';
 
@@ -14,11 +14,11 @@ const useMascotPresenter = (stageRef: RefObject<MascotStageHandle | null>, prese
     const actor = stageRef.current?.actor(MASCOT_ID);
     if (!actor || x === null) return undefined;
     let live = true;
-    void actor.moveTo(x, { speed: MASCOT_SPEED }).then((result) => {
+    void actor.moveTo(x, { speed: MASCOT_SPEED, clip: walk }).then((result) => {
       if (live && result === 'done') void actor.play(clip, { face });
     });
     return () => { live = false; };
-  }, [stageRef, brand, x, face, clip]);
+  }, [stageRef, brand, x, face, clip, walk]);
 };
 
 export { useMascotPresenter };

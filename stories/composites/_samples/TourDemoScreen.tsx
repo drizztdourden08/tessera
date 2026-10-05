@@ -1,4 +1,5 @@
 /* @layer stories @kind component */
+import { useState } from 'react';
 import { ShortcutList } from '../../../src/composites';
 import { Box, Button, Card, Icon, IconButton, StatRow, Text, Toggle } from '../../../src/primitives';
 import type { IconName } from '../../../src/primitives';
@@ -12,11 +13,20 @@ const PAGES: readonly { icon: IconName; label: string }[] = [
 ];
 
 const TourDemoScreen = (props: TourDemoScreenProps) => {
-  const { parts, tour, settingsOpen, startAt } = props;
+  const { parts, tour, settingsOpen, startAt, lifted } = props;
+  const [pinned, setPinned] = useState(false);
   return (
     <Box className="tour-demo">
+      <Box ref={parts.titlebar} as="header" className={lifted ? 'tour-demo__titlebar tour-demo__titlebar--lifted' : 'tour-demo__titlebar'}>
+        <Text variant="label">Relay</Text>
+        <IconButton label="Keep on top" variant="ghost" size="xs" active={pinned} onClick={() => setPinned(!pinned)}>
+          <Icon name={pinned ? 'pin' : 'pin-off'} size={14} />
+        </IconButton>
+        <IconButton label="Close the window" variant="ghost" size="xs" onClick={() => undefined}>
+          <Icon name="x" size={14} />
+        </IconButton>
+      </Box>
       <Box ref={parts.nav} as="nav" className="tour-demo__nav" aria-label="Pages">
-        <Text variant="label" className="tour-demo__brand">Relay</Text>
         {PAGES.map((page, index) => (
           <Box key={page.label} as="span" className={index === 0 ? 'tour-demo__page tour-demo__page--on' : 'tour-demo__page'}>
             <Icon name={page.icon} size={16} />

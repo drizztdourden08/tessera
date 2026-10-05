@@ -1,30 +1,40 @@
 /* @layer renderer-components @kind component */
-import { useId, useMemo } from 'react';
-import { Anchored } from '../../../primitives/Anchored';
+import { useCallback, useId } from 'react';
+import type { CSSProperties } from 'react';
 import { Box } from '../../../primitives/Box';
-import { bubbleFallback } from '../behavior/bubble-fallback';
+import type { BubblePlace } from '../behavior/tour-internal.type';
+import { useTopLayer } from '../behavior/useTopLayer';
 import { TourBubbleCard } from './TourBubbleCard';
 import type { TourBubbleProps } from './TourBubble.type';
 
-const TourBubble = (props: TourBubbleProps) => {
-  const { tour, step, anchor, hole, nodeRef } = props;
-  const id = useId();
-  const anchorRef = useMemo(() => ({ current: anchor }), [anchor]);
-  const dialog = { ref: nodeRef, role: 'dialog', 'aria-labelledby': `${id}-title`, 'aria-describedby': `${id}-body`, tabIndex: -1 } as const;
-  const card = <TourBubbleCard tour={tour} step={step} id={id} />;
+const placed = (place: BubblePlace | null, centred: boolean): CSSProperties | undefined => {
+  if (place) return { top: place.box.y, left: place.box.x };
+  return centred ? undefined : { opacity: 0 };
+};
 
-  if (!anchor) return <Box {...dialog} className="guided-tour__bubble guided-tour__bubble--center">{card}</Box>;
+const TourBubble = (props: TourBubbleProps) => {
+  const { tour, step, place, centred, nodeRef } = props;
+  const id = useId();
+  const layerRef = useTopLayer<HTMLElement>();
+  const attach = useCallback((node: HTMLElement | null) => {
+    layerRef.current = node;
+    nodeRef(node);
+  }, [layerRef, nodeRef]);
+
   return (
-    <Anchored
-      {...dialog}
-      anchorRef={anchorRef}
-      placement={step.placement ?? 'bottom-start'}
-      portal={false}
-      fallback={bubbleFallback(hole)}
-      className="guided-tour__bubble"
+    <Box
+      ref={attach}
+      popover="manual"
+      role="dialog"
+      aria-labelledby={`${id}-title`}
+      aria-describedby={`${id}-body`}
+      tabIndex={-1}
+      className={centred ? 'guided-tour__bubble guided-tour__bubble--center' : 'guided-tour__bubble'}
+      data-side={place?.side}
+      style={placed(place, centred)}
     >
-      {card}
-    </Anchored>
+      <TourBubbleCard tour={tour} step={step} id={id} />
+    </Box>
   );
 };
 

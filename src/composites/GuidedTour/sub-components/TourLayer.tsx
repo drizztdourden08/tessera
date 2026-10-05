@@ -11,17 +11,24 @@ import { TourSpotlight } from './TourSpotlight';
 import '../../../theme/visually-hidden.css';
 
 const TourLayer = (props: GuidedTourProps) => {
-  const { tour, mascot = 'auto', className } = props;
+  const { tour, keep, mascot = 'auto', className } = props;
   const { tour: words } = useTesseraStrings();
-  const stage = useTourStage(tour);
-  const { step } = stage;
+  const stage = useTourStage(tour, keep);
+  const { step, spot } = stage;
 
   return (
     <Portal layer="modal">
-      <Box ref={stage.attach} className={['guided-tour', className].filter(Boolean).join(' ')} data-step={step?.id}>
-        <TourSpotlight hole={stage.hole} view={stage.view} ringRef={stage.ringRef} />
-        {mascot !== false && <TourMascot choice={mascot} bubble={stage.bubbleBox} hole={stage.hole} view={stage.view} clip={stage.clip} />}
-        {step && <TourBubble key={tour.index} tour={tour} step={step} anchor={stage.target} hole={stage.hole} nodeRef={stage.setBubble} />}
+      <Box
+        ref={stage.attach}
+        className={['guided-tour', className].filter(Boolean).join(' ')}
+        data-step={step?.id}
+        data-shown={tour.shown ? 'true' : undefined}
+      >
+        <TourSpotlight spot={spot} />
+        {mascot !== false && <TourMascot choice={mascot} bubble={stage.bubbleBox} hole={spot.hole} view={spot.view} cue={stage.cue} />}
+        {step && (
+          <TourBubble key={tour.index} tour={tour} step={step} place={stage.place} centred={stage.centred} nodeRef={stage.setBubble} />
+        )}
         <Span className="visually-hidden" role="status" aria-live="polite">
           {step ? words.announce(tour.index + 1, tour.total, step.title) : ''}
         </Span>

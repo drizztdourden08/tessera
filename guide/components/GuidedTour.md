@@ -31,8 +31,12 @@ GuidedTour lights one target per step, runs the step onEnter first, and lets the
 
 - Write the steps as data and keep them in a memo, since onEnter runs each time its step shows.
 - Mark a target with data-tour and point at it with { tour }, or pass a ref; a step without a target sits in the middle.
-- Change the state of the app in onEnter, such as opening a panel or a tab, and make it safe to run twice.
-- Use advance: 'click' only when the click itself does what the step teaches, such as opening the settings.
+- Change the state of the app in onEnter, such as opening a panel or a tab, and make it safe to run twice; stop when its signal aborts.
+- Use advance: 'click' only when the click itself does what the step teaches; add clickTarget when one entry of the lit part goes on.
+- Use advance: 'wait' when the step ends on an event of the app, and call tour.next() from it; say what to do in hint.
+- Pass keep for parts that must stay usable all along, such as the title bar of the window.
+- Draw TourSpot in a second window that holds a target, such as a popped widget; it draws the spotlight only.
+- Treat placement as a wish: the bubble flips to the side that fits, stays in the window, or sits inside a hole that fills it.
 - Keep a tour short, five or six steps, with a title of a few words and a body of one or two lines.
 - Pass step and open with onStepChange and onOpenChange when the app must keep where the tour is.
 
@@ -40,8 +44,8 @@ GuidedTour lights one target per step, runs the step onEnter first, and lets the
 
 - The bubble is a dialog named by its title; focus moves to it on each step and goes back where it was on close.
 - A status line reads each step as Step 2 of 6 and the title.
-- The rest of the page is inert; on a click step the lit part stays reachable by Tab, Enter and a click.
-- Right or Enter goes on, Left goes back and Escape closes; tour.shortcuts lists them for a ShortcutList.
+- The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.
+- Right or Enter goes on, Left goes back and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.
 - With reduced motion the highlight and the mascot move at once and nothing fades.
 
 ## Example
@@ -62,7 +66,7 @@ const HomeTour = ({ openSettings }: { openSettings: () => void }) => {
   return (
     <>
       <Button onClick={() => tour.start()}>Take the tour</Button>
-      <GuidedTour tour={tour} mascot="auto" />
+      <GuidedTour tour={tour} mascot="auto" keep={[{ tour: 'title-bar' }]} />
     </>
   );
 };
@@ -71,13 +75,14 @@ const HomeTour = ({ openSettings }: { openSettings: () => void }) => {
 ## Props
 
 - `tour`: `GuidedTourApi`.
+- `keep` (optional): `readonly TourTarget[]`.
 - `mascot` (optional): `AnimatedMascotChoice | false`, one of `'archipelia'`, `'auto'`, `'brock'`, `'rotp'`, `false`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-primary`, `--c-primary-bright`, `--c-surface`, `--c-text`, `--c-text-dim`, `--duration-drawer`, `--duration-normal`, `--duration-slow`, `--ease-emphasized`, `--ease-standard`, `--leading-normal`, `--radius-lg`, `--radius-xl`, `--shadow-lg`, `--size-1`, `--size-24`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-medium`, `--z-floating`, `--z-popover`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-primary`, `--c-primary-bright`, `--c-surface`, `--c-text`, `--c-text-dim`, `--duration-drawer`, `--duration-normal`, `--duration-slow`, `--ease-emphasized`, `--ease-standard`, `--leading-normal`, `--radius-lg`, `--radius-xl`, `--shadow-lg`, `--size-1`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-medium`, `--z-floating`, `--z-popover`.
 
 ## Also exported from this folder
 
-`useGuidedTour`.
+`TourSpot`, `useGuidedTour`.

@@ -4,6 +4,7 @@ import type { AnimatedMascotChoice } from '../../../src/brand';
 import type { GuidedTourApi } from '../../../src/composites';
 
 interface TourDemoParts {
+  titlebar: RefObject<HTMLElement | null>;
   nav: RefObject<HTMLElement | null>;
   cards: RefObject<HTMLElement | null>;
   gear: RefObject<HTMLButtonElement | null>;
@@ -12,9 +13,13 @@ interface TourDemoParts {
   setSettings: (open: boolean) => void;
 }
 
-interface TourDemoProps {
+interface TourSampleProps {
   mascot: AnimatedMascotChoice | false;
+}
+
+interface TourDemoProps extends TourSampleProps {
   startAt?: number;
+  keepTitle?: boolean;
 }
 
 interface TourDemoScreenProps {
@@ -22,6 +27,7 @@ interface TourDemoScreenProps {
   tour: GuidedTourApi;
   settingsOpen: boolean;
   startAt: number;
+  lifted: boolean;
 }
 
-export type { TourDemoParts, TourDemoProps, TourDemoScreenProps };
+export type { TourDemoParts, TourDemoProps, TourDemoScreenProps, TourSampleProps };

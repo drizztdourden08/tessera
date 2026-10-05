@@ -6062,3 +6062,70 @@ The owner's call (TX-45): a `md` IconButton was 32 px beside a 39 px `md` Button
 ### What an app does
 
 Nothing, unless it set its own height on a `md` IconButton to match a Button: drop that rule. A part that wants a smaller button in a dense row or a title bar passes `size="sm"` or `size="xs"`.
+
+## 195. GuidedTour keeps parts live, waits for the app and draws its spotlight on its own
+
+From the Brock app, which runs its guided tours on GuidedTour, first in base Brock and then in Archipelia. Its list, checked against 0.21.0, asked for parts that stay usable for the whole tour, steps that end on an event of the app, a click target apart from the lit part, step events, an abort for `onEnter`, the spotlight as its own part for popped widget windows, keys that go ahead of the app, a bubble that fits the window beside a tall or large target, a mascot that keeps off the lit part, and a glow ring that stays above a kept part.
+
+```ts
+type AnchoredPlacement =
+  | 'bottom-start' | 'bottom-end' | 'bottom-center' | 'top-start' | 'top-end' | 'top-center'
+  | 'right-start' | 'right-center' | 'left-start' | 'left-center'; // right-center, left-start and left-center are new
+
+type TourAdvance = 'next' | 'click' | 'wait'; // 'wait' is new
+interface TourEnterContext { readonly signal: AbortSignal }
+interface TourMascotMove { readonly walk?: 'move' | 'move-wobble'; readonly arrive: MascotClip }
+type TourStepMascot = MascotClip | TourMascotMove;
+
+interface TourStep {
+  // ...as before
+  readonly clickTarget?: TourTarget; // on a click step: the element whose click goes on
+  readonly hint?: ReactNode; // on a click or wait step: replaces the line under the body
+  readonly mascot?: TourStepMascot; // was MascotClip
+  readonly onEnter?: (context: TourEnterContext) => void | Promise<void>; // was () => void | Promise<void>
+}
+
+interface GuidedTourOptions {
+  // ...as before
+  onStepShown?: (step: TourStep, index: number, target: HTMLElement | null) => void;
+  onStepLeave?: (step: TourStep, index: number) => void;
+}
+
+interface GuidedTourApi {
+  // ...as before
+  readonly entering: boolean; // onEnter or the target search is running
+  readonly shown: boolean; // the step is drawn
+  readonly target: HTMLElement | null; // the lit element of the drawn step
+}
+
+interface GuidedTourProps {
+  // ...as before
+  keep?: readonly TourTarget[];
+}
+
+type TourSpotTarget = TourTarget | HTMLElement;
+interface TourSpotProps {
+  target: TourSpotTarget | null;
+  keep?: readonly TourSpotTarget[];
+  className?: string;
+}
+```
+
+- **`keep`.** The parts it names stay usable for the whole tour, such as the title bar of the window. They are not made inert, and the veil cuts a plain hole over each, with no ring and no blur, so the pointer reaches them. Inert now works per element: the tour makes inert only the siblings along the path to each kept part, so a title bar inside the app root stays live while the rest of the root goes inert. Before, the whole root went inert and the title bar was dim and dead. The parts are looked up again on each step.
+- **`onStepShown` and `onStepLeave`.** `onStepShown` runs once `onEnter` has resolved and the search for the target has ended, in the commit that draws the bubble, with the target found or `null`. `onStepLeave` runs when the tour leaves a step it was on, by any move or by closing, also when the step was still entering. `.guided-tour` carries `data-shown="true"` while a step is drawn.
+- **`advance: 'wait'`.** Like a click step it hides Next and Right and Enter do nothing, but the tour listens for no click: the app calls `tour.next()` when its own event happens. The lit part stays reachable. The line under the body asks the user to do what the step says, beside a clock, unless the step gives `hint`; on a click step `hint` replaces the line that asks for a click on the lit part.
+- **`clickTarget`.** On a click step, the element whose click goes on, when it differs from the lit part, such as one entry of a lit menu. It stays reachable beside the lit part, and the rest of the lit part stays usable. A click target outside the lit part gets a plain hole in the veil as well.
+- **The abort.** The tour runs `onEnter` and the target search in `useGuidedTour` now, not in the drawn layer. `onEnter` gets `{ signal }`, aborted when the step changes or the tour closes first; an aborted step is never shown, and the search stops at once. `tour.entering` is true while either runs. The document searched is the `portalDocument` of `TesseraProvider`, or the page document.
+- **`TourSpot`.** The veil, the hole and the glow ring on their own, with no bubble, inert handling, keys or focus, for a target in a second browser window such as a popped widget: draw `<TourSpot target={...} />` in that window, and the bubble stays in the main window. It looks for a target given by name for 30 frames, takes an element as is, and carries `data-lit="true"` once it found one. GuidedTour draws its spotlight through the same `TourSpotlight` part and `useSpotlight` hook, so the two cannot drift. The veil and ring classes move with it: `.guided-tour__veil` and `.guided-tour__ring` are now `.tour-spotlight__veil` and `.tour-spotlight__ring`, in their own sheet.
+- **Keys.** While the tour is open its key listener sits on the document in the capture phase, so it runs before the handlers of the app. It stops the key only when it acts on it: Right, Left, Enter and Escape. Enter on a focused button and the arrows in a text field are left alone, as before, and so are Right and Enter on a click or wait step.
+- **The mascot of a step.** `mascot` takes `{ walk, arrive }`: the mascot walks to the bubble with `walk`, one of the two move clips of `MascotStage` (`'move'` by default, or `'move-wobble'`), and plays `arrive` once there. A plain clip works as before.
+- **The bubble fits the window.** A step `placement` is the side the bubble tries first. When the bubble would leave the window there, it tries the opposite side and then the other two, and keeps a 12 px margin from each edge on the side it takes. When no side fits, as beside a docked widget the height of the window or a card that fills it, the bubble sits inside the hole, near its foot. The tour places the bubble itself now, as a `popover` in the top layer at a measured position, in place of `Anchored`; `data-side` on `.guided-tour__bubble` names the side it took, or `inside`.
+- **`Anchored` on the left.** `AnchoredPlacement` gains `left-start`, `left-center` and `right-center`, for the native popup and the fallback; a side placement flips across first.
+- **The mascot keeps off the lit part.** It tries beside the bubble, then under and over it, then beside the hole, and takes the first place in the window that does not touch the hole. Standing on the dim area beside the hole is fine; when no place is clear, it stays hidden for that step.
+- **The ring stays on top.** The glow ring is a `popover` in the top layer, like the bubble, so a kept part that the app lifts above the tour, such as a title bar at `--z-top`, never covers the ring when it is the lit part too. The ring takes no pointer events. The veil and the mascot stay in the tour layer.
+- New string: `tour.waitToGo`.
+- The gallery page gains four variants: the demo with its title bar kept live, lifted to `--z-top` as Brock lifts its own, with a first step that lights the title bar, a wait step finished by the Save of a form, a lit menu that goes on from its Settings entry, and `TourSpot` alone, lighting one card after another with its toolbar kept. The demo screen of every variant now has a window title bar, with the app name, a pin and a close button, in place of the name at the head of the side list.
+
+### What an app does
+
+Nothing for a tour that already works: an `onEnter` that takes no argument still fits. A Brock tour passes `keep={[{ tour: 'title-bar' }]}`, uses `advance: 'wait'` and `tour.next()` for steps that end on an event, and draws `TourSpot` in a popped widget window for a target that lives there. An app that styled `.guided-tour__veil` or `.guided-tour__ring` moves to the new class names.

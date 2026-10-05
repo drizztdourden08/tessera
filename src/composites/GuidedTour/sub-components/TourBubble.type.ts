@@ -1,13 +1,13 @@
 /* @layer renderer-components @kind types */
 import type { RefCallback } from 'react';
-import type { HoleRect } from '../behavior/tour-internal.type';
+import type { BubblePlace } from '../behavior/tour-internal.type';
 import type { GuidedTourApi, TourStep } from '../GuidedTour.type';
 
 interface TourBubbleProps {
   tour: GuidedTourApi;
   step: TourStep;
-  anchor: HTMLElement | null;
-  hole: HoleRect | null;
+  place: BubblePlace | null;
+  centred: boolean;
   nodeRef: RefCallback<HTMLElement>;
 }
 

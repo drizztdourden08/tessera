@@ -4,13 +4,23 @@ import type { TourDemoParts } from './TourDemo.type';
 
 const settle = (ms: number): Promise<void> => new Promise((resolve) => { setTimeout(resolve, ms); });
 
-const tourDemoSteps = (parts: TourDemoParts): TourStep[] => [
+const windowStep = (parts: TourDemoParts): TourStep[] => [{
+  id: 'window',
+  target: parts.titlebar,
+  placement: 'bottom-center',
+  title: 'The window stays yours',
+  body: 'The title bar stays live through the whole tour: pin the window or close it at any time.',
+  mascot: { walk: 'move-wobble', arrive: 'happy' },
+}];
+
+const tourDemoSteps = (parts: TourDemoParts, keepTitle: boolean): TourStep[] => [
   {
     id: 'welcome',
     title: 'Welcome to Relay',
     body: 'A short walk through the screen. Use the arrow keys or the buttons, and Escape to leave at any time.',
     mascot: 'wave',
   },
+  ...(keepTitle ? windowStep(parts) : []),
   {
     id: 'nav',
     target: parts.nav,

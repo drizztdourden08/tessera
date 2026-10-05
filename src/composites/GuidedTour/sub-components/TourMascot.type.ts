@@ -1,14 +1,13 @@
 /* @layer renderer-components @kind types */
 import type { AnimatedMascotChoice } from '../../../brand/AnimatedMascot/AnimatedMascot.type';
-import type { MascotClip } from '../../../brand/motion/mascot-clip.type';
-import type { TourBox, TourSize } from '../behavior/tour-internal.type';
+import type { MascotCue, TourBox, TourSize } from '../behavior/tour-internal.type';
 
 interface TourMascotProps {
   choice: AnimatedMascotChoice;
   bubble: TourBox | null;
   hole: TourBox | null;
   view: TourSize;
-  clip: MascotClip;
+  cue: MascotCue;
 }
 
 export type { TourMascotProps };

@@ -3,9 +3,11 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { GuidedTourApi, GuidedTourOptions } from '../GuidedTour.type';
 import { clampIndex } from './clamp-index';
+import { entryState } from './entry-state';
 import type { TourMove, TourPosition } from './tour-internal.type';
 import { tourMove } from './tour-move';
 import { tourShortcuts } from './tour-shortcuts';
+import { useTourEntry } from './useTourEntry';
 
 const useGuidedTour = (options: GuidedTourOptions): GuidedTourApi => {
   const { steps, step, open } = options;
@@ -14,6 +16,8 @@ const useGuidedTour = (options: GuidedTourOptions): GuidedTourApi => {
   const position: TourPosition = { open: (open ?? own.open) && steps.length > 0, index: clampIndex(step ?? own.index, steps.length) };
   const latest = useRef({ position, options });
   latest.current = { position, options };
+  const current = position.open ? steps[position.index] ?? null : null;
+  const entry = entryState(useTourEntry(position, current?.id, latest), position.index, current);
 
   const apply = useCallback((move: TourMove) => {
     const { position: at, options: given } = latest.current;
@@ -39,10 +43,13 @@ const useGuidedTour = (options: GuidedTourOptions): GuidedTourApi => {
     steps,
     open: position.open,
     index: position.index,
-    current: position.open ? steps[position.index] ?? null : null,
+    current,
     total: steps.length,
     shortcuts,
-  }), [moves, steps, position.open, position.index, shortcuts]);
+    entering: entry.entering,
+    shown: entry.shown,
+    target: entry.target,
+  }), [moves, steps, position.open, position.index, current, shortcuts, entry.entering, entry.shown, entry.target]);
 };
 
 export { useGuidedTour };

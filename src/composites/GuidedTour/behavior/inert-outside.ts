@@ -8,7 +8,9 @@ const ancestorsOf = (node: Element, body: Element): Element[] => {
 };
 
 const inertOutside = (keep: readonly Element[], body: Element): (() => void) => {
-  const ancestors = new Set(keep.flatMap((node) => ancestorsOf(node, body)));
+  const kept = new Set(keep);
+  const inside = (node: Element): boolean => kept.has(node) || ancestorsOf(node, body).some((parent) => kept.has(parent));
+  const ancestors = new Set(keep.flatMap((node) => ancestorsOf(node, body)).filter((parent) => !inside(parent)));
   const onPath = new Set<Element>([...ancestors, ...keep]);
   const made: HTMLElement[] = [];
   ancestors.forEach((parent) => {

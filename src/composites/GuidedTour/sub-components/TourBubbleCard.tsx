@@ -13,7 +13,7 @@ import type { TourBubbleCardProps } from './TourBubble.type';
 const TourBubbleCard = (props: TourBubbleCardProps) => {
   const { tour, step, id } = props;
   const { common, navigation, stepper, tour: words, wizard } = useTesseraStrings();
-  const click = step.advance === 'click';
+  const advance = step.advance ?? 'next';
   const last = tour.index >= tour.total - 1;
 
   return (
@@ -26,10 +26,10 @@ const TourBubbleCard = (props: TourBubbleCardProps) => {
       </Box>
       <H3 id={`${id}-title`} className="guided-tour__title">{step.title}</H3>
       <Box id={`${id}-body`} className="guided-tour__body">{step.body}</Box>
-      {click && (
-        <Span className="guided-tour__click">
-          <Icon name="mouse" size={ICON_SIZE} />
-          {words.clickToGo}
+      {advance !== 'next' && (
+        <Span className="guided-tour__hint">
+          <Icon name={advance === 'click' ? 'mouse' : 'clock'} size={ICON_SIZE} />
+          <Span>{step.hint ?? (advance === 'click' ? words.clickToGo : words.waitToGo)}</Span>
         </Span>
       )}
       <Box className="guided-tour__actions">
@@ -37,7 +37,7 @@ const TourBubbleCard = (props: TourBubbleCardProps) => {
           {SHOWN_KEYS.map((binding) => <Shortcut key={binding.key} keys={binding.keys} size="xs" />)}
         </Span>
         <Button variant="ghost" size="sm" onClick={tour.back} disabled={tour.index === 0}>{navigation.back}</Button>
-        {!click && <Button variant="primary" size="sm" onClick={tour.next}>{last ? common.done : wizard.next}</Button>}
+        {advance === 'next' && <Button variant="primary" size="sm" onClick={tour.next}>{last ? common.done : wizard.next}</Button>}
       </Box>
     </>
   );

@@ -70,7 +70,7 @@ describe('the controller', () => {
 });
 
 describe('the keys', () => {
-  const plain = { modified: false, editable: false, interactive: false, clickStep: false };
+  const plain = { modified: false, editable: false, interactive: false, waits: false };
 
   it('goes on with Right or Enter, back with Left and closes with Escape', () => {
     expect(tourKeyAction('ArrowRight', plain)).toBe('next');
@@ -87,8 +87,8 @@ describe('the keys', () => {
     expect(tourKeyAction('Escape', { ...plain, editable: true })).toBe('close');
   });
 
-  it('waits for the click on a click step, while Back and Escape still work', () => {
-    const click = { ...plain, clickStep: true };
+  it('waits for the click or the app on a click or wait step, while Back and Escape still work', () => {
+    const click = { ...plain, waits: true };
     expect(tourKeyAction('ArrowRight', click)).toBeNull();
     expect(tourKeyAction('Enter', click)).toBeNull();
     expect(tourKeyAction('ArrowLeft', click)).toBe('back');
@@ -102,32 +102,33 @@ describe('the keys', () => {
 
 describe('entering a step', () => {
   const frame = () => Promise.resolve();
+  const { signal } = new globalThis.AbortController();
 
   it('waits for an async onEnter before it looks for the target', async () => {
     const order = [];
     const step = { ...STEPS[1], onEnter: async () => { await Promise.resolve(); order.push('enter'); } };
-    const found = await enterStep({ step, find: () => { order.push('find'); return 'panel'; }, frame, tries: 3 });
+    const found = await enterStep({ step, find: () => { order.push('find'); return 'panel'; }, frame, tries: 3, signal });
     expect(found).toBe('panel');
     expect(order).toEqual(['enter', 'find']);
   });
 
   it('looks again each frame until the target shows', async () => {
     const find = vi.fn().mockReturnValueOnce(null).mockReturnValueOnce(null).mockReturnValue('late');
-    expect(await enterStep({ step: STEPS[1], find, frame, tries: 5 })).toBe('late');
+    expect(await enterStep({ step: STEPS[1], find, frame, tries: 5, signal })).toBe('late');
     expect(find).toHaveBeenCalledTimes(3);
   });
 
   it('shows the step in the middle when the target never shows or onEnter fails', async () => {
     const warn = vi.fn();
     const step = { ...STEPS[1], onEnter: () => { throw new Error('closed'); } };
-    expect(await enterStep({ step, find: () => null, frame, tries: 2, warn })).toBeNull();
+    expect(await enterStep({ step, find: () => null, frame, tries: 2, warn, signal })).toBeNull();
     expect(warn).toHaveBeenCalledTimes(2);
   });
 
   it('skips the search for a step with no target', async () => {
     const find = vi.fn();
     const onEnter = vi.fn();
-    expect(await enterStep({ step: { ...STEPS[0], onEnter }, find, frame, tries: 2 })).toBeNull();
+    expect(await enterStep({ step: { ...STEPS[0], onEnter }, find, frame, tries: 2, signal })).toBeNull();
     expect(onEnter).toHaveBeenCalledOnce();
     expect(find).not.toHaveBeenCalled();
   });
@@ -158,6 +159,7 @@ describe('focus and the rest of the page', () => {
     const tour = el('tour', [el('bubble')]);
     const body = el('body', [app, tour]);
     const undo = inertOutside([tour, target], body);
+    expect(body.children.map((node) => node.inert)).toEqual([false, false]);
     const inert = (node) => node.inert;
     expect([app, tour, target, header].map(inert)).toEqual([false, false, false, false]);
     expect(app.children[0].inert).toBe(true);
@@ -219,7 +221,7 @@ describe('the spotlight and the mascot', () => {
     const veil = zOf(read('../src/primitives/Overlay/Overlay.css'), '.overlay');
     expect(veil).toBeGreaterThan(0);
     expect(zOf(tour, '.guided-tour__mascot')).toBeGreaterThan(veil);
-    expect(zOf(tour, '.guided-tour__ring')).toBeGreaterThan(veil);
+    expect(zOf(read('../src/composites/GuidedTour/sub-components/TourSpotlight.css'), '.tour-spotlight__ring')).toBeGreaterThan(veil);
     expect(zOf(tour, '.guided-tour__bubble--center')).toBeGreaterThan(zOf(tour, '.guided-tour__mascot'));
     expect(tour.slice(tour.indexOf('.guided-tour {'), tour.indexOf('}'))).toContain('isolation: isolate');
   });

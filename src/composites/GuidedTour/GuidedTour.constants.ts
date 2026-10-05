@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind constants */
-import type { TourKeyBinding } from './behavior/tour-internal.type';
+import type { SpotHoles, TourKeyBinding, TourSide } from './behavior/tour-internal.type';
 
 const TOUR_KEYS: readonly TourKeyBinding[] = [
   { key: 'ArrowLeft', keys: ['left'], action: 'back' },
@@ -32,11 +32,24 @@ const MASCOT_GAP = 12;
 
 const BUBBLE_GAP = 16;
 
+const VIEW_MARGIN = 12;
+
+const SIDE_ORDER: Readonly<Record<TourSide, readonly TourSide[]>> = {
+  bottom: ['bottom', 'top', 'right', 'left'],
+  top: ['top', 'bottom', 'right', 'left'],
+  right: ['right', 'left', 'bottom', 'top'],
+  left: ['left', 'right', 'bottom', 'top'],
+};
+
 const ICON_SIZE = 14;
 
 const MASCOT_BOX = { width: MASCOT_HEIGHT, height: MASCOT_HEIGHT } as const;
 
+const NO_HOLES: SpotHoles = { hole: null, kept: [] };
+
+const NO_NODES: readonly HTMLElement[] = [];
+
 export {
-  BUBBLE_GAP, CORNER_POINTS, EDITABLE, ICON_SIZE, MASCOT_BOX, MASCOT_GAP, MASCOT_HEIGHT, MASCOT_ID, MASCOT_SPEED, QUARTER_TURN, QUOTED,
-  SHOWN_KEYS, TARGET_TRIES, TOUR_ATTRIBUTE, TOUR_KEYS,
+  BUBBLE_GAP, CORNER_POINTS, EDITABLE, ICON_SIZE, MASCOT_BOX, MASCOT_GAP, MASCOT_HEIGHT, MASCOT_ID, MASCOT_SPEED, NO_HOLES, NO_NODES,
+  QUARTER_TURN, QUOTED, SHOWN_KEYS, SIDE_ORDER, TARGET_TRIES, TOUR_ATTRIBUTE, TOUR_KEYS, VIEW_MARGIN,
 };

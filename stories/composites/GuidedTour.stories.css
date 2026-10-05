@@ -1,15 +1,40 @@
 /* @layer stories @kind style */
+.tour-demo,
+.tour-mini {
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-bg);
+}
+
 .tour-demo {
   position: relative;
   display: grid;
+  grid-template-rows: auto 1fr;
   grid-template-columns: var(--size-160) 1fr;
   inline-size: var(--size-768);
   max-inline-size: 100%;
   min-block-size: var(--size-448);
-  border: var(--border-width-thin) solid var(--c-border);
-  border-radius: var(--radius-lg);
-  background: var(--c-bg);
   overflow: clip;
+}
+
+.tour-demo__titlebar {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: var(--space-2xs);
+  block-size: var(--size-40);
+  padding-inline: var(--space-md) var(--space-xs);
+  border-block-end: var(--border-width-thin) solid var(--c-border);
+  background: var(--c-panel);
+}
+
+.tour-demo__titlebar--lifted {
+  position: relative;
+  z-index: var(--z-top);
+}
+
+.tour-demo__titlebar > :first-child {
+  margin-inline-end: auto;
 }
 
 .tour-demo__nav {
@@ -19,10 +44,6 @@
   padding: var(--space-md) var(--space-sm);
   border-inline-end: var(--border-width-thin) solid var(--c-border);
   background: var(--c-surface);
-}
-
-.tour-demo__brand {
-  padding: var(--space-xs) var(--space-sm) var(--space-md);
 }
 
 .tour-demo__page {
@@ -65,7 +86,7 @@
 
 .tour-demo__settings {
   position: absolute;
-  inset-block-start: var(--size-56);
+  inset-block-start: var(--size-96);
   inset-inline-end: var(--space-lg);
   inline-size: var(--size-256);
 }
@@ -74,4 +95,60 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+}
+
+.tour-mini {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+  padding: var(--space-md) var(--space-lg);
+}
+
+.tour-mini--menu {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.tour-mini__bar,
+.tour-mini__form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.tour-mini__bar > :first-child {
+  margin-inline-end: auto;
+}
+
+.tour-mini__form > :first-child {
+  flex: 1;
+}
+
+.tour-mini__menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  inline-size: var(--size-160);
+  padding: var(--space-xs);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+}
+
+.tour-mini__menu > * {
+  justify-content: flex-start;
+}
+
+.tour-mini__page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.tour-mini__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
 }
