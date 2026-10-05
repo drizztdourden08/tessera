@@ -61,6 +61,6 @@
 }
 
 .btn-group > .icon-btn--md {
-  min-width: var(--size-32);
-  min-height: var(--size-32);
+  min-width: var(--control-h-md);
+  min-height: var(--control-h-md);
 }

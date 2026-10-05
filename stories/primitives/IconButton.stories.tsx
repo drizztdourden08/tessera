@@ -179,7 +179,8 @@ const Overview = overviewStory({
   description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit.',
   points: [
     '**`label` is required:** it becomes the name screen readers announce.',
-    'It takes the same variants as [Button], and three sizes: `md`, `sm` and `xs` for compact panels.',
+    'It takes the same variants as [Button]. `md` and `sm` match a Button of the same size: 39 and 28 px square.',
+    '`xs` is 20 px, for dense rows and compact panels. An unsized icon draws at 16 px in `md`, 12 px below.',
     '`active` marks a toggle as on; `loading` swaps the icon for a [Spinner] and stops clicks.',
     '`tone="danger"` draws a ghost button in red, for a remove or a report a bug button.',
     '`hint` reports a one-line description to the [HintScope] around it, for a [HintLine] to show.',

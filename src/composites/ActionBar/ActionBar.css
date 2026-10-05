@@ -39,9 +39,3 @@
   inline-size: max-content;
   gap: var(--space-xs);
 }
-
-.action-bar[data-size='md'] .action-bar__more {
-  inline-size: var(--control-h-md);
-  block-size: var(--control-h-md);
-  font-size: var(--text-lg);
-}

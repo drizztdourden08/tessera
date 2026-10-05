@@ -86,7 +86,8 @@ const Overview = overviewStory({
   description: 'The control for an action the user starts, such as saving, opening or confirming.',
   points: [
     '`primary` marks the main action of a view; `secondary` and `tertiary` sit beside it, `ghost` in toolbars.',
-    '`danger`, `warning`, `info` and `success` carry an urgency. Two sizes: `md` and `sm`.',
+    '`danger`, `warning`, `info` and `success` carry an urgency.',
+    'Two sizes: `md` is 39 px tall and `sm` 28 px, the same as an [IconButton] of that size.',
     '`active` marks a toggle button as on, and it is announced as pressed.',
     '`loading` swaps the icon for a [Spinner] while the action runs; the button keeps its width and ignores clicks.',
     '**Loading is not disabled:** a `disabled` button fades and never spins.',

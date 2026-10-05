@@ -79,9 +79,9 @@ describe('ActionBar render', () => {
 });
 
 describe('ActionBar More button', () => {
-  it('takes the height of a md button and its icon size, and is measured with the same class', () => {
+  it('takes the shared IconButton size with no rule of its own, and is measured with the same class', () => {
     const css = readFileSync(new URL('../src/composites/ActionBar/ActionBar.css', import.meta.url), 'utf8');
-    expect(css).toMatch(/\.action-bar\[data-size='md'\] \.action-bar__more \{\s+inline-size: var\(--control-h-md\);\s+block-size: var\(--control-h-md\);\s+font-size: var\(--text-lg\);/);
+    expect(css).not.toContain('.action-bar__more');
     const measured = renderToString(h(ActionBar, { actions: ACTIONS, keep: 1 })).split('action-bar__measure').slice(1).join('');
     expect(measured).toMatch(/class="icon-btn icon-btn--secondary icon-btn--toned icon-btn--md action-bar__more"/);
   });

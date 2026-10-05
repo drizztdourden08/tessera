@@ -5,11 +5,13 @@
 }
 
 .btn--md {
+  min-block-size: var(--control-h-md);
   padding: var(--space-sm) var(--space-md);
   font-size: var(--text-base);
 }
 
 .btn--sm {
+  min-block-size: var(--control-h-sm);
   padding: var(--space-xs) var(--space-sm);
   font-size: var(--text-sm);
 }

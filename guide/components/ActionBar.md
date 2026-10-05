@@ -75,4 +75,4 @@ const PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps
 
 ## Tokens
 
-It draws on `--control-h-md`, `--space-xs`, `--text-lg`.
+It draws on `--space-xs`.

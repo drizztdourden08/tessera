@@ -2457,9 +2457,7 @@
         }
       },
       "tokens": [
-        "--control-h-md",
-        "--space-xs",
-        "--text-lg"
+        "--space-xs"
       ],
       "gallery": {
         "title": "Composites · Actions/ActionBar",

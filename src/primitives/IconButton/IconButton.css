@@ -18,9 +18,9 @@
 }
 
 .icon-btn--md {
-  width: var(--size-32);
-  height: var(--size-32);
-  font-size: var(--text-base);
+  width: var(--control-h-md);
+  height: var(--control-h-md);
+  font-size: var(--text-lg);
 }
 
 .icon-btn__spinner {

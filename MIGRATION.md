@@ -6040,3 +6040,25 @@ interface ListDetailListProps<T> {
 
 1. Nothing, for an app that passes `create` without `createOpen`: New now asks while edits are unsaved.
 2. An app that holds `createOpen` keeps opening the form from `onCreateOpenChange(true)`; it is called after the answer now. Where it sets `createOpen` to true from its own code while the editor may hold edits, it asks first or saves.
+
+## 194. IconButton is as tall as Button at every size
+
+The owner's call (TX-45): a `md` IconButton was 32 px beside a 39 px `md` Button, so a row with both did not line up. Section 188 fixed this for the More button of ActionBar only.
+
+| Size | Button | IconButton, before | IconButton, now | Icon with no size of its own |
+| --- | --- | --- | --- | --- |
+| `md` | 39 px | 32 px | 39 px square | 16 px, was 14 px |
+| `sm` | 28 px | 28 px | 28 px square | 12 px |
+| `xs` | none | 20 px | 20 px square | 12 px |
+
+- **One pair of tokens.** IconButton `md` and `sm` take their width and height from `--control-h-md` and `--control-h-sm`, and Button `md` and `sm` now set `min-block-size` from the same two, so the two cannot drift apart. A Button looks the same as before: its padding already came to 39 and 28 px.
+- **Icons.** An icon passed with a size keeps it. One with no size follows the button text size, now `--text-lg` at `md`.
+- **ActionBar** drops its own rule for More: More takes the shared size, 39 px at `md` and 28 px at `sm` as before.
+- **ButtonGroup** keeps a `md` IconButton at least 39 px.
+- **What grows.** Only `md` IconButtons: the back and close buttons of WindowHeader, which ScreenWindow, Drawer and the screens built on them draw, so its row of buttons and titles grows from 32 to 39 px tall; the SideNavLayout menu button; an icon only `md` DropdownMenu or ControlMenu trigger; and an icon only `md` CopyButton.
+- **What stays.** WindowTitleBar keeps its 40 px bar: its actions are `sm`, and its window controls keep their 48 by 40 px caption shape. ContentHeader, ItemList rows, LogPanel and the other toolbars, ConfirmIconButton, SettingsRow, CodeBlock, DataTable, FormRow, RowGrid and the Widget headers use `sm` or `xs` and do not move. The Toast close is a Pressable.
+- A new test reads both sheets and the tokens and holds each IconButton size to the height of the Button of the same size.
+
+### What an app does
+
+Nothing, unless it set its own height on a `md` IconButton to match a Button: drop that rule. A part that wants a smaller button in a dense row or a title bar passes `size="sm"` or `size="xs"`.
