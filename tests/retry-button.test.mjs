@@ -2,9 +2,9 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { RetryButton } from '../src/primitives/RetryButton';
-import { retryLine } from '../src/primitives/RetryButton/behavior/retry-line';
-import { secondsUntil } from '../src/primitives/RetryButton/behavior/seconds-until';
+import { RetryButton } from '../src/composites/RetryButton';
+import { retryLine } from '../src/composites/RetryButton/behavior/retry-line';
+import { secondsUntil } from '../src/composites/RetryButton/behavior/seconds-until';
 import { COMMON_STRINGS } from '../src/primitives/strings/common-strings.constants';
 
 const noop = () => undefined;

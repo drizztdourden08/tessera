@@ -98,7 +98,7 @@ The splash draws every mark on the dark gradient of its palette, where Brock's c
 
 ## Mascots
 
-A mascot is built in code from separate SVG pieces and is never kept flattened. Each piece is data (`BrandPiece`: its pixel grid and paths), and a composition function places, turns and clips the pieces into a scene (`BrandSceneData`). `BrandScene` draws a scene inline, `sceneMarkup` writes it as SVG markup, and `Mascot` draws a brand's mascot from the brand data.
+A mascot is built in code from separate SVG pieces and is never kept flattened. Each piece is data (`BrandPiece`: its pixel grid and paths), and a composition function places, turns and clips the pieces into a scene (`BrandSceneData`). `sceneMarkup` writes a scene as SVG markup, and `Mascot` draws a brand's mascot from the brand data. Inside Tessera, `BrandScene` draws a scene inline for `Mascot`, `AnimatedMascot` and the gallery; it is not exported.
 
 Relic of the Past's mascot is Sentri: body, visor, eyes and two pods, in `src/brand/sentri/`. Its Hookshop variant has Sentri pull a shop bag in with its hookshot. The bag, the stamp (the logo itself), the hookshot's handle, links and head, and the star, sparkle and speed line are in `src/brand/hookshop/`. The rigs (`*-rig.constants.ts`) hold where each piece sits, in the numbers Relic of the Past measured on the art.
 

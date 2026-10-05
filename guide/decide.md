@@ -48,7 +48,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Behind a swatch button: no component yet.
   - A range: no component yet.
   - A file: no component yet.
-  - A path to a file or folder: [PathField](components/PathField.md). PathField takes a typed, dropped or browsed path in one field and cuts a long one in the middle, the same way in every app.
+  - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
     - Edit it in place: no component yet.
     - Create one in the page: no component yet.
@@ -92,7 +92,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Between a few modes, from a floating switch: no component yet.
 - Layout. **What are you arranging?**
   - A plain block: no component yet.
-  - Items in a row or a column: [Inline](components/Inline.md). Inline lays its children side by side in a row, with a token gap and the items centred across it.
+  - Items in a row or a column:
+    - [Center](components/Center.md). Center puts its children in the middle of its box on both axes, with the gap and direction of a Flex.
+    - [Inline](components/Inline.md). Inline lays its children side by side in a row, with a token gap and the items centred across it.
   - Blocks stacked in a column: no component yet.
   - Items on a grid: no component yet.
   - One item in the centre: no component yet.

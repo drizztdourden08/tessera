@@ -4733,7 +4733,7 @@ Six parts only wrapped another part and set a prop or two. Each is gone, and the
 | `NumberStepper` | `NumberInput` with `buttons="sides"` |
 | `Thumbnail` | `Image` with `frame` |
 | `RouterLink` | `Link` with `navigate` |
-| `Center` | `Flex` with `align="center"` and `justify="center"` |
+| `Center` | `Flex` with `align="center"` and `justify="center"`; Center is back in section 177, so this row no longer applies |
 | `TermList` | `FactsPanel` with `layout="terms"` |
 | `PathIcon` | `Icon` with `path` |
 
@@ -5091,3 +5091,45 @@ interface BrandRimSpec { colours: Readonly<Record<BrandRimTone, string>>; ratio:
 1. A static splash page shows its mark as an image, which `splash.css` cannot recolour. Point the `ts-mark` image at `brand/dark-ground/<app>.svg`, or at `brand/dark-ground/<app>/mark/mark-256.png`. Brock: read the splash mark from `brand/dark-ground/` when the app takes its mark from the brand files.
 2. A React splash passes `BrandMark` or `Logo` as `mark`, or an image URL from `brand/dark-ground/`.
 3. An app that injects a mark of its own, image or node, draws it for the dark gradient of its palette, or of its `--look-dark-from` and `--look-dark-to`, with every main shape at 3:1 or more against each end, and adds a light rim if a dark shape needs one.
+
+## 177. Six input and feedback parts are composites, PathField is PathInput, Center is back, BrandScene is internal
+
+`RetryButton`, `CommandInput`, `PasswordInput`, `TagInput`, `Toast` with `ToastContainer`, and `PathField` move from the primitives to the composites. Each carries behaviour: a countdown, a command history kept in storage, a strength score and a Caps Lock timer, a suggestion popup, a timer that closes the toast, or drag tracking and a file dialog. A primitive is one visual element with little logic. Their props and look do not change. `PathField` is renamed `PathInput`, since every other one line control is an Input; `Field` stays the label, hint and error around a control.
+
+| Before | After |
+|---|---|
+| `src/primitives/RetryButton` | `src/composites/RetryButton` |
+| `src/primitives/CommandInput` | `src/composites/CommandInput` |
+| `src/primitives/PasswordInput` | `src/composites/PasswordInput` |
+| `src/primitives/TagInput` | `src/composites/TagInput` |
+| `src/primitives/Toast` | `src/composites/Toast` |
+| `src/primitives/PathField` | `src/composites/PathInput` |
+| `@drizztdourden08/tessera/primitives` exports `RetryButton`, `CommandInput`, `PasswordInput`, `TagInput`, `namespacedTag`, `Toast`, `ToastContainer` and their types | `@drizztdourden08/tessera/composites` exports them |
+| `PathField`, `PathFieldProps`, `PathBrowse` and `PathKind` from `@drizztdourden08/tessera/primitives` | `PathInput`, `PathInputProps`, `PathBrowse` and `PathKind` from `@drizztdourden08/tessera/composites` |
+
+| Renamed | Now |
+|---|---|
+| `PathField` | `PathInput` |
+| `PathFieldProps` | `PathInputProps`, with the same fields |
+| `.path-field` and its elements `__frame`, `__icon`, `__box`, `__input`, `__shown`, `__head`, `__tail`, `__drop`, `__problem` | `.path-input` and the same elements |
+
+```ts
+type CenterProps = Omit<FlexProps, 'align' | 'justify'>; // back, a Flex with align and justify at center
+```
+
+- The root import `@drizztdourden08/tessera` works as before for every moved part.
+- The gallery pages move with them: RetryButton to Composites · Actions; CommandInput, PasswordInput, TagInput and PathInput to Composites · Inputs; Toast, whose page also shows ToastContainer, to a new Composites · Feedback group.
+- The parts draw with `Box` and `Pressable` in place of raw elements. The bare entry of TagInput and PathInput is `PlainInput`, a raw input that stays in `src/primitives/field-control` and is not exported. Measured in the gallery before and after, every frame, row, rule list, strength bar and close button keeps its size, font and colour.
+- One clock: `useRepeatTick` moves from WindowTitleBar to `src/primitives/dom` and takes `null` to stop. The title bar status pulse and the RetryButton countdown both run on it. The countdown reads the time on each tick and stops at zero, as before.
+- One drag tracker: `useFileDrag`, beside `useDropZone`, counts enter and leave so a child does not end the drag, takes only a drag that carries files, shows the copy cursor and keeps the drop from the page. DropZone and PathInput both use it. DropZone now ignores a drag with no files, such as dragged text, and takes no drop while disabled.
+- PasswordInput keeps its own rule list. `CheckList` draws counts on top and boxed rows 48 pixels high with 18 pixel marks, while the rules are a plain 12 pixel list with 14 pixel marks whose whole line turns green once met, so drawing them with CheckList would change the look.
+- Naming check: `PathField` was the only part that named a single input Field. `Field` and `FieldControlBoundary` wrap controls and stay. `ComboboxField` is the closed box around `ComboboxInput`, `ColorFields` holds several inputs, and `CompactField` and the data names such as `FieldDescriptor` mean a field of a record, so none of them is renamed.
+- `Center` is back as a thin shortcut over `Flex`, beside `Stack` and `Inline`: it fixes `align` and `justify` at `center` and takes every other Flex prop. Its page sits in Primitives · Layout with the avatar and lobby examples, which leave the Flex page, and it has a usage file. The Center row of section 172 no longer applies.
+- `BrandScene`, `placePiece`, `groupNode`, and their types `BrandSceneProps`, `PieceSpot` and `GroupSpot` are no longer exported. `Mascot` and `AnimatedMascot` still draw with BrandScene, and the gallery's mascot Breakdown imports it from its folder. `sceneMarkup` stays exported.
+
+### What an app does
+
+1. An import of a moved part or its types from `@drizztdourden08/tessera/primitives` moves to `@drizztdourden08/tessera/composites`, or to the root. Brock: `ToastHost` and `SettingPathField`. Archipelia: the server form, the session password prompt, the room password and `TagsControl`.
+2. Rename `PathField` to `PathInput` and `PathFieldProps` to `PathInputProps`, and any CSS that reaches `.path-field` to `.path-input`. Brock: `SettingPathField` draws `PathInput`.
+3. An app that replaced `Center` with `Flex align="center" justify="center"` for section 172 may keep the Flex or go back to `Center`.
+4. An app that drew `BrandScene` draws `Mascot` or `AnimatedMascot`, or writes the scene as markup with `sceneMarkup`.

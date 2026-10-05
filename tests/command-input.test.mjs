@@ -2,12 +2,12 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { CommandInput } from '../src/primitives/CommandInput';
-import { addToHistory } from '../src/primitives/CommandInput/behavior/add-to-history';
-import { commandKey } from '../src/primitives/CommandInput/behavior/command-key';
-import { storeHistory } from '../src/primitives/CommandInput/behavior/store-history';
-import { readStoredHistory } from '../src/primitives/CommandInput/behavior/stored-history';
-import { walkHistory } from '../src/primitives/CommandInput/behavior/walk-history';
+import { CommandInput } from '../src/composites/CommandInput';
+import { addToHistory } from '../src/composites/CommandInput/behavior/add-to-history';
+import { commandKey } from '../src/composites/CommandInput/behavior/command-key';
+import { storeHistory } from '../src/composites/CommandInput/behavior/store-history';
+import { readStoredHistory } from '../src/composites/CommandInput/behavior/stored-history';
+import { walkHistory } from '../src/composites/CommandInput/behavior/walk-history';
 
 const HISTORY = ['/players', '/hint Ana Wheel', '/save'];
 

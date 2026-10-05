@@ -23,17 +23,14 @@ const DropZone = (props: DropZoneProps) => {
     icon,
     onDrop,
   } = props;
-  const zone = useDropZone(accept, onDrop);
+  const zone = useDropZone(accept, !disabled, onDrop);
   const controlSize = useControlSize(size);
   const inline = variant === 'inline';
 
   return (
     <div
       className={dropZoneClass(controlSize, inline, zone.active, disabled)}
-      onDragEnter={zone.handleDragEnter}
-      onDragLeave={zone.handleDragLeave}
-      onDragOver={zone.handleDragOver}
-      onDrop={zone.handleDrop}
+      {...zone.dragHandlers}
       onClick={zone.handleClick}
       {...(inline ? { role: 'button', tabIndex: disabled ? -1 : 0, title: hint, onKeyDown: zone.handleKeyDown } : {})}
     >

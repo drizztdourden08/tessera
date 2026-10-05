@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.path-input-story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  inline-size: var(--size-512);
+  max-inline-size: 100%;
+}
+
+.path-input-story__note {
+  overflow-wrap: anywhere;
+}

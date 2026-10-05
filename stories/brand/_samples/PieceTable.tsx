@@ -1,5 +1,6 @@
 /* @layer stories @kind component */
-import { BrandScene, placePiece } from '../../../src/brand';
+import { BrandScene } from '../../../src/brand/BrandScene';
+import { placePiece } from '../../../src/brand/scene/place-piece';
 import type { BrandPiece } from '../../../src/brand';
 import { Text } from '../../../src/primitives';
 import { Demonstrator } from '../../_template/Demonstrator';

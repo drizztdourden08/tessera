@@ -1,13 +1,11 @@
 /* @layer renderer-components @kind types */
-import type { ChangeEvent, DragEvent, KeyboardEvent, RefObject } from 'react';
+import type { ChangeEvent, KeyboardEvent, RefObject } from 'react';
+import type { FileDragHandlers } from './useFileDrag.type';
 
 interface DropZoneBehavior {
   active: boolean;
+  dragHandlers: FileDragHandlers;
   inputRef: RefObject<HTMLInputElement | null>;
-  handleDragEnter: (e: DragEvent) => void;
-  handleDragLeave: (e: DragEvent) => void;
-  handleDragOver: (e: DragEvent) => void;
-  handleDrop: (e: DragEvent) => void;
   handleClick: () => void;
   handleFileInput: (e: ChangeEvent<HTMLInputElement>) => void;
   handleKeyDown: (e: KeyboardEvent<HTMLDivElement>) => void;

@@ -2,13 +2,13 @@
 
 A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line.
 
-Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/primitives`.
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
 import { CommandInput } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/primitives/CommandInput/CommandInput.tsx`. Its gallery page is Primitives · Inputs/CommandInput (`#/story/primitives-commandinput--overview`).
+The source is `src/composites/CommandInput/CommandInput.tsx`. Its gallery page is Composites · Inputs/CommandInput (`#/story/composites-commandinput--overview`).
 
 ## Where the questions lead here
 

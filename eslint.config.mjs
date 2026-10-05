@@ -18,7 +18,7 @@ export default standardsEslint({
   glyphContent: [
     { files: ['src/primitives/EmojiIcon/**', 'stories/icons/EmojiIcon.stories.tsx'], why: 'EmojiIcon is the primitive that draws an emoji' },
     { files: ['stories/primitives/_samples/picker-emoji.tsx'], why: 'the Select and Combobox samples map build states and categories to emoji' },
-    { files: ['stories/primitives/_samples/password-samples.constants.ts'], why: 'the PasswordInput samples list the mask characters a host can pick, which are glyphs by nature' },
+    { files: ['stories/composites/_samples/password-samples.constants.ts'], why: 'the PasswordInput samples list the mask characters a host can pick, which are glyphs by nature' },
   ],
   inlineStyle: [
     { files: ['src/composites/Widget/Widget.tsx'], why: 'the frame opacity is set per widget and turns solid on hover' },

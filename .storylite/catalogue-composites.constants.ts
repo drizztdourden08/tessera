@@ -24,6 +24,12 @@ const COMPOSITES_TIER: CatalogueTier = {
       ],
     },
     {
+      group: 'Feedback',
+      entries: [
+        { name: 'Toast', summary: 'A short message that dismisses itself.' },
+      ],
+    },
+    {
       group: 'Wizard',
       entries: [
         { name: 'Wizard', summary: 'A task done in steps inside a screen, driven by its step definitions, with useWizard behind it.' },
@@ -86,6 +92,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' },
         { name: 'ActionBar', summary: 'The actions on one item in a row that folds the rest into More when narrow.' },
         { name: 'CopyButton', summary: 'Copies a text to the clipboard and says Copied.' },
+        { name: 'RetryButton', summary: 'Tries a failed step again and counts down to the next automatic try.' },
       ],
     },
     {
@@ -96,6 +103,10 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
         { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
         { name: 'KeyValueEditor', summary: 'A map of names to values, row by row, with a duplicate check and an add row.' },
+        { name: 'CommandInput', summary: 'A command line with Enter to send, Up and Down through past commands and Escape to clear.' },
+        { name: 'PasswordInput', summary: 'A password with a show button, any mask character, a Caps Lock warning and an optional checklist.' },
+        { name: 'TagInput', summary: 'Free tags with suggestions and validation.' },
+        { name: 'PathInput', summary: 'A file or folder path to type, drop or browse for, with copy, reveal and clear.' },
       ],
     },
     {

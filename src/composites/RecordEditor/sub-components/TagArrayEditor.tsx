@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useMemo, useState } from 'react';
-import { namespacedTag, TagInput } from '../../../primitives/TagInput';
+import { namespacedTag, TagInput } from '../../TagInput';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toList } from '../../field-kits/to-list';
 import { toText } from '../../field-kits/to-text';

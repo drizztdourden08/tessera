@@ -55,12 +55,12 @@ const SessionRow = () => (
 
 ## Props
 
-- `children` (optional): `ReactNode`.
-- `gap` (optional): `SpaceToken`, one of `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`. Default `'sm'`.
 - `align` (optional): `FlexAlign`, one of `'start'`, `'center'`, `'end'`, `'stretch'`, `'baseline'`. Default `'center'`.
 - `justify` (optional): `FlexJustify`, one of `'start'`, `'center'`, `'end'`, `'between'`, `'around'`.
+- `gap` (optional): `SpaceToken`, one of `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`. Default `'sm'`.
 - `wrap` (optional): `boolean`.
 - `inline` (optional): `boolean`.
 - `as` (optional): `ElementType`.
+- `children` (optional): `ReactNode`.
 
 It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLElement>`.

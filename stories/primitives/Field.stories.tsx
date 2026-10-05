@@ -4,7 +4,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
-import { Box, Field, NumberInput, PasswordInput, Text, TextInput, Toggle, type ControlSize, type FieldWidth } from '../../src/primitives';
+import { Box, Field, NumberInput, Text, TextInput, Toggle, type ControlSize, type FieldWidth } from '../../src/primitives';
+import { PasswordInput } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';

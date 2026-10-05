@@ -133,7 +133,10 @@ const DraggedOver = () => {
   useEffect(() => {
     const zone = ref.current?.firstElementChild;
     const view = zone?.ownerDocument.defaultView;
-    if (zone && view) zone.dispatchEvent(new view.DragEvent('dragenter', { bubbles: true }));
+    if (!zone || !view) return;
+    const dataTransfer = new view.DataTransfer();
+    dataTransfer.items.add(new view.File([''], 'Chrono Trigger.sfc'));
+    zone.dispatchEvent(new view.DragEvent('dragenter', { bubbles: true, dataTransfer }));
   }, []);
   return <Box ref={ref}>{renderState({})}</Box>;
 };

@@ -6,7 +6,6 @@ import type { FlexAlign, FlexJustify, SpaceToken } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import { FlexCentred } from './_samples/FlexCentred';
 import './Flex.stories.css';
 
 type FlexArgs = {
@@ -112,11 +111,6 @@ const GapScale = {
   ),
 } satisfies StoryLiteStoryDefinition<FlexArgs>;
 
-const Centred = {
-  name: 'Centred on both axes',
-  render: () => <FlexCentred />,
-} satisfies StoryLiteStoryDefinition<FlexArgs>;
-
 const Overview = overviewStory({
   component: 'Flex',
   description: 'Lays items out in a row or a column, such as a toolbar, a list entry or a label beside its value.',
@@ -124,13 +118,12 @@ const Overview = overviewStory({
     '`direction`, `gap`, `align` and `justify` each take a small fixed set of values.',
     '`gap` takes a space token, so spacing stays on the scale.',
     '`wrap` lets items flow onto new lines; `inline` makes it sit in a line of text.',
-    '`align` and `justify` both at `center` put its children in the middle, such as initials in an avatar.',
     '`as` picks the element it renders.',
   ],
-  instead: '[Stack] for a plain column, [Inline] for a plain row, or [Grid] for equal columns.',
+  instead: '[Stack] for a plain column, [Inline] for a plain row, [Center] for content in the middle, or [Grid] for equal columns.',
   playground: Playground,
-  variants: [Justify, Align, GapScale, Centred],
+  variants: [Justify, Align, GapScale],
 });
 
 export default meta;
-export { Align, Centred, GapScale, Justify, Overview, Playground };
+export { Align, GapScale, Justify, Overview, Playground };

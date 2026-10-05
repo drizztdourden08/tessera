@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
+import { useRepeatTick } from '../../../primitives/dom/useRepeatTick';
 import { Emphasis } from '../../../primitives/Emphasis';
 import { Pressable } from '../../../primitives/Pressable';
 import { Status } from '../../../primitives/Status';
 import { actionItem } from '../behavior/action-item';
 import { barItemProps } from '../behavior/bar-item-props';
-import { useRepeatTick } from '../behavior/useRepeatTick';
 import { STATUS_REPEAT_MS, STATUS_STAGGER_MS } from '../WindowTitleBar.constants';
 import type { TitleBarCommandProps } from './TitleBarAction.type';
 

@@ -724,12 +724,12 @@
         "PathIconCircle": "IconPathCircle",
         "PathIconProps": "IconProps, with path (see MIGRATION.md section 172)",
         "PathIcon": "Icon, with path={{ d: paths, circles, viewBox }} (see MIGRATION.md section 172)",
-        "CenterProps": "FlexProps, with align and justify set to center (see MIGRATION.md section 172)",
-        "Center": "Flex, with align=\"center\" and justify=\"center\" (see MIGRATION.md section 172)",
         "ChosenMascotProps": "AnimatedMascotProps",
         "ChosenMascot": "AnimatedMascot",
         "MascotChoice": "AnimatedMascotChoice",
-        "MascotName": "AnimatedMascotBrand"
+        "MascotName": "AnimatedMascotBrand",
+        "PathFieldProps": "PathInputProps",
+        "PathField": "PathInput"
       },
       "props": {
         "NumberStepper.ariaLabel": "NumberInput.aria-label",
@@ -759,7 +759,17 @@
         "term-list": "facts-panel facts-panel--terms",
         "thumbnail": "image image--framed",
         "chosen-mascot": "animated-mascot-auto",
-        "stat-row__copy": "removed; a value to copy is a CopyValue inside stat-row__value, with its copy-button (see MIGRATION.md section 175)"
+        "stat-row__copy": "removed; a value to copy is a CopyValue inside stat-row__value, with its copy-button (see MIGRATION.md section 175)",
+        "path-field__problem": "path-input__problem",
+        "path-field__shown": "path-input__shown",
+        "path-field__frame": "path-input__frame",
+        "path-field__input": "path-input__input",
+        "path-field__head": "path-input__head",
+        "path-field__icon": "path-input__icon",
+        "path-field__tail": "path-input__tail",
+        "path-field__drop": "path-input__drop",
+        "path-field__box": "path-input__box",
+        "path-field": "path-input"
       },
       "cssCustomProperties": {
         "--number-stepper-button-w": "--number-input-side-w",
@@ -801,7 +811,13 @@
         "Floating": "removed from the exports; use Anchored, which pins a popup to its trigger (see MIGRATION.md section 175)",
         "FloatingProps": "removed from the exports; use AnchoredProps (see MIGRATION.md section 175)",
         "FloatingPlacement": "removed from the exports; type a fallback place as AnchoredProps['fallback'] (see MIGRATION.md section 175)",
-        "FloatingLength": "removed from the exports; a fallback place takes a number of pixels or a CSS length (see MIGRATION.md section 175)"
+        "FloatingLength": "removed from the exports; a fallback place takes a number of pixels or a CSS length (see MIGRATION.md section 175)",
+        "BrandScene": "removed from the exports; draw a mascot with Mascot or AnimatedMascot, and a scene as SVG markup with sceneMarkup (see MIGRATION.md section 177)",
+        "BrandSceneProps": "removed with BrandScene (see MIGRATION.md section 177)",
+        "placePiece": "removed from the exports with BrandScene; a brand's compose function places its pieces (see MIGRATION.md section 177)",
+        "groupNode": "removed from the exports with BrandScene (see MIGRATION.md section 177)",
+        "PieceSpot": "removed with placePiece (see MIGRATION.md section 177)",
+        "GroupSpot": "removed with groupNode (see MIGRATION.md section 177)"
       }
     }
   ]

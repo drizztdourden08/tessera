@@ -1,5 +1,5 @@
 /* @layer stories @kind component */
-import { BrandScene } from '../../../src/brand';
+import { BrandScene } from '../../../src/brand/BrandScene';
 import type { BrandSceneData } from '../../../src/brand';
 import { Demonstrator } from '../../_template/Demonstrator';
 import { BREAKDOWN_SCALE } from './mascot-brands.constants';

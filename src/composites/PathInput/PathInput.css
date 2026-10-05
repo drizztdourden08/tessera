@@ -1,0 +1,113 @@
+/* @layer renderer-components @kind style */
+.path-input {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.path-input__frame {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  box-sizing: border-box;
+  min-block-size: var(--size-40);
+  padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-inset);
+  transition: border-color var(--transition-normal), background var(--transition-normal);
+}
+
+.path-input__frame:focus-within {
+  border-color: var(--c-primary);
+}
+
+.path-input__frame[data-invalid] {
+  border-color: var(--c-danger);
+}
+
+.path-input__frame[data-dropping] {
+  border-style: dashed;
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+}
+
+.path-input__frame[data-disabled] {
+  opacity: var(--opacity-disabled);
+}
+
+.path-input__icon {
+  flex: none;
+  color: var(--c-text-muted);
+}
+
+.path-input__box {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+  align-items: center;
+}
+
+.path-input__input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  outline: none;
+}
+
+.path-input__input::placeholder {
+  color: var(--c-text-muted);
+  font-family: var(--font-sans);
+}
+
+.path-input__box[data-masked] > .path-input__input {
+  color: transparent;
+}
+
+.path-input__shown {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  white-space: pre;
+  pointer-events: none;
+}
+
+.path-input__head {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.path-input__tail {
+  flex: none;
+  max-inline-size: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.path-input__drop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  background: var(--c-primary-soft);
+  color: var(--c-text);
+  font-size: var(--text-sm);
+  pointer-events: none;
+}
+
+.path-input__problem {
+  margin: 0;
+}

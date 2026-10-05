@@ -1,0 +1,17 @@
+/* @layer stories @kind style */
+
+.center-demo {
+  min-height: 12rem;
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+  color: var(--c-text-muted);
+}
+
+.center-demo__avatar {
+  width: var(--avatar-d);
+  height: var(--avatar-d);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-dim);
+  color: var(--c-primary-bright);
+  font-weight: var(--weight-semi);
+}

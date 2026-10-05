@@ -1,44 +1,19 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useRef, useState } from 'react';
-import type { ChangeEvent, DragEvent, KeyboardEvent } from 'react';
+import { useCallback, useRef } from 'react';
+import type { ChangeEvent, KeyboardEvent } from 'react';
 import { filterFiles } from './filter-files';
+import { useFileDrag } from './useFileDrag';
 import type { DropZoneBehavior } from './useDropZone.type';
 
-const stop = (e: DragEvent) => {
-  e.preventDefault();
-  e.stopPropagation();
-};
-
-const useDropZone = (accept: readonly string[] | undefined, onDrop: (files: File[]) => void): DropZoneBehavior => {
-  const [active, setActive] = useState(false);
-  const dragCounter = useRef(0);
+const useDropZone = (accept: readonly string[] | undefined, enabled: boolean, onDrop: (files: File[]) => void): DropZoneBehavior => {
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleDragEnter = useCallback((e: DragEvent) => {
-    stop(e);
-    dragCounter.current++;
-    setActive(true);
-  }, []);
-
-  const handleDragLeave = useCallback((e: DragEvent) => {
-    stop(e);
-    dragCounter.current--;
-    if (dragCounter.current === 0) setActive(false);
-  }, []);
-
-  const handleDragOver = useCallback((e: DragEvent) => { stop(e); }, []);
 
   const deliver = useCallback((files: File[]) => {
     const accepted = filterFiles(files, accept);
     if (accepted.length > 0) onDrop(accepted);
   }, [accept, onDrop]);
 
-  const handleDrop = useCallback((e: DragEvent) => {
-    stop(e);
-    dragCounter.current = 0;
-    setActive(false);
-    deliver(Array.from(e.dataTransfer.files));
-  }, [deliver]);
+  const drag = useFileDrag({ enabled, onDrop: (data) => deliver(Array.from(data.files)) });
 
   const handleClick = () => inputRef.current?.click();
 
@@ -53,10 +28,7 @@ const useDropZone = (accept: readonly string[] | undefined, onDrop: (files: File
     handleClick();
   };
 
-  return {
-    active, inputRef, handleDragEnter, handleDragLeave, handleDragOver, handleDrop,
-    handleClick, handleFileInput, handleKeyDown,
-  };
+  return { active: drag.active, dragHandlers: drag.handlers, inputRef, handleClick, handleFileInput, handleKeyDown };
 };
 
 export { useDropZone };

@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind data */
 import { createElement as h } from 'react';
 import { NumberInput } from '../../../primitives/NumberInput';
-import { PasswordInput } from '../../../primitives/PasswordInput';
+import { PasswordInput } from '../../PasswordInput';
 import { RadioGroup } from '../../../primitives/RadioGroup';
 import { Slider } from '../../../primitives/Slider';
-import { TagInput } from '../../../primitives/TagInput';
+import { TagInput } from '../../TagInput';
 import { TextInput } from '../../../primitives/TextInput';
 import { Toggle } from '../../../primitives/Toggle';
 import { ToggleGroup } from '../../../primitives/ToggleGroup';

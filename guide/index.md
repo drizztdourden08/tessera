@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 42 of 170 have their usage written; a linked name opens its page.
+One line per component. 43 of 171 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -13,10 +13,10 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `Callout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Canvas`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Card`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Center](components/Center.md): Puts its children in the middle on both axes, such as initials in an avatar, an icon in a tile or a message in an empty pane. Import from `@drizztdourden08/tessera`.
 - `Checkbox`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Combobox`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [CommandInput](components/CommandInput.md): A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line. Import from `@drizztdourden08/tessera`.
 - `Divider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DropZone`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `EmojiIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -42,15 +42,12 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - [NamedRange](components/NamedRange.md): A number from a range whose common values have names: the names as joined buttons, then Custom for any other number. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [PathField](components/PathField.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one field, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Pressable`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ProgressBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ProgressRing`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Quote`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RadioGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
 - `ScaleLabels`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ScrollArea`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -72,7 +69,6 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `Svg`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Tabs`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Tag`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TagPicker`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TesseraProvider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Text](components/Text.md): Interface text in a role, such as a title, a caption or an overline, and the namespace for every text element, such as Text.P or Text.Strong. Import from `@drizztdourden08/tessera`.
@@ -80,7 +76,6 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `TextElement`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TextInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Title`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Toast`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Toggle`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ToggleGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Tooltip`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -93,6 +88,7 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorPicker`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker`.
 - `ColorPickerPopover`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker-popover`.
+- [CommandInput](components/CommandInput.md): A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line. Import from `@drizztdourden08/tessera`.
 - `CommandPalette`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `CompactRecordView`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -130,8 +126,11 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - [ManagedList](components/ManagedList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.
 - [MasterDetail](components/MasterDetail.md): A ManagedList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
 - `MasterDetailLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
 - [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.
 - [SaveBar](components/SaveBar.md): The bar at the foot of an editor: whether its edits are saved, the reason a save failed, and Save and Discard. Import from `@drizztdourden08/tessera`.
 - [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
@@ -151,7 +150,9 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
 - [StatTile](components/StatTile.md): A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
+- `Toast`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
 - [Video](components/Video.md): A video player with its own control bar: seek with a time preview, volume, speed, picture in picture, theater mode and full screen. Import from `@drizztdourden08/tessera`.
@@ -174,7 +175,7 @@ One line per component. 42 of 170 have their usage written; a linked name opens 
 - `BrandMark`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `BrandPaths`: usage not written yet. Not exported; Tessera uses it inside.
 - `BrandRimPaths`: usage not written yet. Not exported; Tessera uses it inside.
-- `BrandScene`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `BrandScene`: usage not written yet. Not exported; Tessera uses it inside.
 - `BrandWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Logo`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Mascot`: usage not written yet. Import from `@drizztdourden08/tessera`.

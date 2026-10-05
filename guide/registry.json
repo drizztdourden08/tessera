@@ -179,7 +179,7 @@
           },
           "a path to a file or folder": {
             "components": [
-              "PathField"
+              "PathInput"
             ]
           },
           "a whole record": {
@@ -347,6 +347,7 @@
           },
           "items in a row or a column": {
             "components": [
+              "Center",
               "Inline"
             ]
           },
@@ -754,6 +755,114 @@
       "usage": false
     },
     {
+      "name": "Center",
+      "tier": "primitives",
+      "source": "src/primitives/Center/Center.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "Puts its children in the middle on both axes, such as initials in an avatar, an icon in a tile or a message in an empty pane.",
+      "useWhen": [
+        "One item or a short group sits in the middle of a box, such as a waiting message in an empty area.",
+        "Initials or an icon sit in the middle of a round or square badge."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The items line up along a column from the top.",
+          "use": "Stack"
+        },
+        {
+          "case": "The items sit side by side from the start of a row.",
+          "use": "Inline"
+        },
+        {
+          "case": "Only one axis is centred, or the alignment changes at run time.",
+          "use": "Flex"
+        }
+      ],
+      "rules": [
+        "Give it a size, through a class or its parent, so there is room to centre in; it fits its content otherwise.",
+        "direction defaults to row; set column to stack a title over its message in the middle.",
+        "Set inline to sit it in a line of text, sized to its content, such as initials in an avatar.",
+        "It is a Flex with align and justify fixed to center and takes every other Flex prop, such as gap, as and className."
+      ],
+      "a11y": [
+        "It adds no role; set as to the element the content needs, such as section for an empty pane with a heading.",
+        "Centring changes only the look, so the reading order stays the order of the children."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "items in a row or a column"
+        ],
+        "rule": "Center puts its children in the middle of its box on both axes, with the gap and direction of a Flex."
+      },
+      "example": "import { Center, Text } from '@drizztdourden08/tessera';\n\nconst LobbyWaiting = () => (\n  <Center direction=\"column\" gap=\"sm\" className=\"lobby-empty\">\n    <Text variant=\"title\">Lobby</Text>\n    <Text variant=\"subtitle\">Waiting for the host to start the session</Text>\n  </Center>\n);\n",
+      "propsHash": "c06baae80c8fe002",
+      "props": {
+        "own": [
+          {
+            "name": "direction",
+            "optional": true,
+            "text": "'row' | 'column'"
+          },
+          {
+            "name": "gap",
+            "optional": true,
+            "text": "SpaceToken",
+            "literals": [
+              "'xs'",
+              "'sm'",
+              "'md'",
+              "'lg'",
+              "'xl'",
+              "'2xl'"
+            ]
+          },
+          {
+            "name": "wrap",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "inline",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "as",
+            "optional": true,
+            "text": "ElementType"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 277,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "HTMLAttributes<HTMLElement>"
+          ]
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Primitives · Layout/Center",
+        "route": "#/story/primitives-center--overview",
+        "file": "stories/primitives/Center.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "Checkbox",
       "tier": "primitives",
       "source": "src/primitives/Checkbox/Checkbox.tsx",
@@ -782,156 +891,6 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
-    },
-    {
-      "name": "CommandInput",
-      "tier": "primitives",
-      "source": "src/primitives/CommandInput/CommandInput.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": true,
-      "job": "A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line.",
-      "useWhen": [
-        "The user types commands for a server, a game or a debug tool.",
-        "The user often sends the same command again and should find it with the arrow keys."
-      ],
-      "avoidWhen": [
-        {
-          "case": "The text is a value to keep, such as a name or a note.",
-          "use": "TextInput"
-        },
-        {
-          "case": "The text filters a list as the user types.",
-          "use": "SearchInput"
-        },
-        {
-          "case": "The user picks one command from a list of every command.",
-          "use": "CommandPalette"
-        }
-      ],
-      "rules": [
-        "Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.",
-        "Return false from onSubmit when the command was not sent, so the text stays in the line.",
-        "Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.",
-        "Disable it while there is nothing to send to, and say why in the text near it."
-      ],
-      "a11y": [
-        "The input is named Command, or label, and the key hints under it describe it.",
-        "Escape on an empty line passes on, so it still closes a dialog or a popup.",
-        "Up and Down only take over the arrow keys while there is a history to walk."
-      ],
-      "tree": {
-        "path": [
-          "a value the user sets",
-          "free text or a number",
-          "a command, with its history"
-        ],
-        "rule": "CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear."
-      },
-      "example": "import { CommandInput } from '@drizztdourden08/tessera';\n\nconst ServerConsole = ({ send }: { send: (command: string) => void }) => (\n  <CommandInput placeholder=\"/players\" storageKey=\"console.history\" onSubmit={send} />\n);\n",
-      "propsHash": "52374af4c24f7c70",
-      "props": {
-        "own": [
-          {
-            "name": "onSubmit",
-            "optional": false,
-            "text": "CommandSubmit"
-          },
-          {
-            "name": "history",
-            "optional": true,
-            "text": "readonly string[]"
-          },
-          {
-            "name": "storageKey",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "historyLimit",
-            "optional": true,
-            "text": "number"
-          },
-          {
-            "name": "value",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "defaultValue",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "onValueChange",
-            "optional": true,
-            "text": "(value: string) => void"
-          },
-          {
-            "name": "label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "sendLabel",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "actions",
-            "optional": true,
-            "text": "ReactNode"
-          },
-          {
-            "name": "keyHints",
-            "optional": true,
-            "text": "boolean",
-            "default": "true"
-          },
-          {
-            "name": "size",
-            "optional": true,
-            "text": "ControlSize",
-            "literals": [
-              "'sm'",
-              "'md'"
-            ]
-          },
-          {
-            "name": "invalid",
-            "optional": true,
-            "text": "boolean"
-          }
-        ],
-        "inherited": {
-          "count": 303,
-          "from": [
-            "AriaAttributes",
-            "DOMAttributes",
-            "HTMLAttributes",
-            "InputHTMLAttributes"
-          ],
-          "extends": [
-            "Omit<TextInputProps, 'value' | 'defaultValue' | 'onChange' | 'onEnter' | 'onSubmit' | 'start' | 'end'>",
-            "Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>"
-          ]
-        }
-      },
-      "tokens": [
-        "--c-text-dim",
-        "--font-mono",
-        "--space-md",
-        "--space-xs",
-        "--text-sm"
-      ],
-      "gallery": {
-        "title": "Primitives · Inputs/CommandInput",
-        "route": "#/story/primitives-commandinput--overview",
-        "file": "stories/primitives/CommandInput.stories.tsx"
-      },
-      "parts": []
     },
     {
       "name": "Divider",
@@ -1309,25 +1268,6 @@
       "props": {
         "own": [
           {
-            "name": "children",
-            "optional": true,
-            "text": "ReactNode"
-          },
-          {
-            "name": "gap",
-            "optional": true,
-            "text": "SpaceToken",
-            "literals": [
-              "'xs'",
-              "'sm'",
-              "'md'",
-              "'lg'",
-              "'xl'",
-              "'2xl'"
-            ],
-            "default": "'sm'"
-          },
-          {
             "name": "align",
             "optional": true,
             "text": "FlexAlign",
@@ -1353,6 +1293,20 @@
             ]
           },
           {
+            "name": "gap",
+            "optional": true,
+            "text": "SpaceToken",
+            "literals": [
+              "'xs'",
+              "'sm'",
+              "'md'",
+              "'lg'",
+              "'xl'",
+              "'2xl'"
+            ],
+            "default": "'sm'"
+          },
+          {
             "name": "wrap",
             "optional": true,
             "text": "boolean"
@@ -1366,6 +1320,11 @@
             "name": "as",
             "optional": true,
             "text": "ElementType"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
           }
         ],
         "inherited": {
@@ -1710,181 +1669,6 @@
       "usage": false
     },
     {
-      "name": "PasswordInput",
-      "tier": "primitives",
-      "source": "src/primitives/PasswordInput/PasswordInput.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
-      "name": "PathField",
-      "tier": "primitives",
-      "source": "src/primitives/PathField/PathField.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": true,
-      "job": "A file or folder path the user can type, drop from the desktop or pick with Browse in one field, with copy, reveal and clear.",
-      "useWhen": [
-        "A setting holds the path of a file or a folder, such as an SSH key, a ROM, a save folder or an output zip.",
-        "The app shows a path it made, read only, and the user may copy it or open its folder."
-      ],
-      "avoidWhen": [
-        {
-          "case": "The app needs the contents of the files, not their path.",
-          "use": "DropZone"
-        },
-        {
-          "case": "The value is free text that is not a path.",
-          "use": "TextInput"
-        }
-      ],
-      "rules": [
-        "Pass onBrowse to open the dialog of the app, such as the native dialog through Electron, and return the picked path or null.",
-        "Pass resolvePath in Electron, such as webUtils.getPathForFile, so a drop gives the full path and not only the name.",
-        "Set kind and accept to what the setting takes, so a wrong drop is turned away with a reason.",
-        "Pass onReveal only when the app can show the file in its folder."
-      ],
-      "a11y": [
-        "The input takes the label, hint and error of its Field, and typing edits the path.",
-        "Copy, Reveal, Clear and Browse are buttons with names, in that order after the input.",
-        "A drop that is turned away marks the input invalid and says why in an alert under it."
-      ],
-      "tree": {
-        "path": [
-          "a value the user sets",
-          "a path to a file or folder"
-        ],
-        "rule": "PathField takes a typed, dropped or browsed path in one field and cuts a long one in the middle, the same way in every app."
-      },
-      "example": "import { Field, PathField } from '@drizztdourden08/tessera';\n\ninterface Bridge {\n  pickFile: () => Promise<string | null>;\n  showInFolder: (path: string) => void;\n  pathOf: (file: File) => string;\n}\n\nconst KeyFileField = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPath: string | null; setKeyPath: (path: string | null) => void }) => (\n  <Field label=\"Key file\" hint=\"Only the path is stored.\">\n    <PathField\n      value={keyPath}\n      onChange={setKeyPath}\n      onBrowse={bridge.pickFile}\n      onReveal={bridge.showInFolder}\n      resolvePath={bridge.pathOf}\n      placeholder=\"No key file yet\"\n    />\n  </Field>\n);\n",
-      "propsHash": "0347fa9da023f2e0",
-      "props": {
-        "own": [
-          {
-            "name": "value",
-            "optional": false,
-            "text": "string | null"
-          },
-          {
-            "name": "onChange",
-            "optional": true,
-            "text": "(path: string | null) => void"
-          },
-          {
-            "name": "onBrowse",
-            "optional": true,
-            "text": "PathBrowse"
-          },
-          {
-            "name": "onReveal",
-            "optional": true,
-            "text": "(path: string) => void"
-          },
-          {
-            "name": "kind",
-            "optional": true,
-            "text": "PathKind",
-            "literals": [
-              "'file'",
-              "'folder'",
-              "'any'"
-            ]
-          },
-          {
-            "name": "accept",
-            "optional": true,
-            "text": "readonly string[]"
-          },
-          {
-            "name": "resolvePath",
-            "optional": true,
-            "text": "(file: File) => string | null | undefined"
-          },
-          {
-            "name": "placeholder",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "readOnly",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "disabled",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "invalid",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "copyable",
-            "optional": true,
-            "text": "boolean",
-            "default": "true"
-          },
-          {
-            "name": "id",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "aria-label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "aria-describedby",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--border-width-thin",
-        "--c-border",
-        "--c-danger",
-        "--c-inset",
-        "--c-primary",
-        "--c-primary-soft",
-        "--c-text",
-        "--c-text-muted",
-        "--font-mono",
-        "--font-sans",
-        "--opacity-disabled",
-        "--radius-md",
-        "--size-40",
-        "--space-2xs",
-        "--space-sm",
-        "--text-sm",
-        "--transition-normal"
-      ],
-      "gallery": {
-        "title": "Primitives · Inputs/PathField",
-        "route": "#/story/primitives-pathfield--overview",
-        "file": "stories/primitives/PathField.stories.tsx"
-      },
-      "parts": []
-    },
-    {
       "name": "Portal",
       "tier": "primitives",
       "source": "src/primitives/Portal/Portal.tsx",
@@ -1943,147 +1727,6 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
-    },
-    {
-      "name": "RetryButton",
-      "tier": "primitives",
-      "source": "src/primitives/RetryButton/RetryButton.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": true,
-      "job": "Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try.",
-      "useWhen": [
-        "A connection closed or failed and the user can start it again.",
-        "The app tries again by itself after a wait and the user should see how long, or skip the wait."
-      ],
-      "avoidWhen": [
-        {
-          "case": "The action is not a second try of something that failed.",
-          "use": "Button"
-        },
-        {
-          "case": "The failure belongs to a long job with steps and a log.",
-          "use": "TaskProgress"
-        }
-      ],
-      "rules": [
-        "Keep the timer in the app: pass retryAt, the time of the next automatic try, and start that try from the app, never from the button.",
-        "Pass attempt and attempts only when the app stops after a fixed number of tries.",
-        "Set retrying while a try runs, so the button shows a spinner and takes no second click.",
-        "Put it at the end of the row that says what failed, with the reason in the text before it."
-      ],
-      "a11y": [
-        "The button is named Retry, or Retry now while a countdown runs.",
-        "The countdown line describes the button, so it is read on focus and not every second."
-      ],
-      "tree": {
-        "path": [
-          "actions",
-          "one action",
-          "tries a failed step again"
-        ],
-        "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
-      },
-      "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
-      "propsHash": "c9ef07d747804ddb",
-      "props": {
-        "own": [
-          {
-            "name": "onRetry",
-            "optional": false,
-            "text": "() => void"
-          },
-          {
-            "name": "retryAt",
-            "optional": true,
-            "text": "number | null"
-          },
-          {
-            "name": "attempt",
-            "optional": true,
-            "text": "number"
-          },
-          {
-            "name": "attempts",
-            "optional": true,
-            "text": "number"
-          },
-          {
-            "name": "retrying",
-            "optional": true,
-            "text": "boolean",
-            "default": "false"
-          },
-          {
-            "name": "label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "size",
-            "optional": true,
-            "text": "ButtonSize",
-            "literals": [
-              "'sm'",
-              "'md'"
-            ],
-            "default": "'sm'"
-          },
-          {
-            "name": "variant",
-            "optional": true,
-            "text": "ButtonVariant",
-            "literals": [
-              "'primary'",
-              "'secondary'",
-              "'tertiary'",
-              "'danger'",
-              "'warning'",
-              "'info'",
-              "'success'",
-              "'ghost'"
-            ],
-            "default": "'secondary'"
-          },
-          {
-            "name": "fullWidth",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "active",
-            "optional": true,
-            "text": "boolean"
-          }
-        ],
-        "inherited": {
-          "count": 286,
-          "from": [
-            "AriaAttributes",
-            "ButtonHTMLAttributes",
-            "DOMAttributes",
-            "HTMLAttributes"
-          ],
-          "extends": [
-            "Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'>",
-            "ButtonHTMLAttributes<HTMLButtonElement>"
-          ]
-        }
-      },
-      "tokens": [
-        "--c-text-dim",
-        "--space-sm",
-        "--space-xs",
-        "--text-sm"
-      ],
-      "gallery": {
-        "title": "Primitives · Actions/RetryButton",
-        "route": "#/story/primitives-retrybutton--overview",
-        "file": "stories/primitives/RetryButton.stories.tsx"
-      },
-      "parts": []
     },
     {
       "name": "ScaleLabels",
@@ -2966,16 +2609,6 @@
       "usage": false
     },
     {
-      "name": "TagInput",
-      "tier": "primitives",
-      "source": "src/primitives/TagInput/TagInput.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
       "name": "TagPicker",
       "tier": "primitives",
       "source": "src/primitives/TagPicker/TagPicker.tsx",
@@ -3188,16 +2821,6 @@
       "name": "Title",
       "tier": "primitives",
       "source": "src/primitives/Title/Title.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
-      "name": "Toast",
-      "tier": "primitives",
-      "source": "src/primitives/Toast/Toast.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
@@ -3656,6 +3279,156 @@
         "@drizztdourden08/tessera/color-picker-popover"
       ],
       "usage": false
+    },
+    {
+      "name": "CommandInput",
+      "tier": "composites",
+      "source": "src/composites/CommandInput/CommandInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A command line: Enter sends the command, Up and Down walk the past commands and Escape clears the line.",
+      "useWhen": [
+        "The user types commands for a server, a game or a debug tool.",
+        "The user often sends the same command again and should find it with the arrow keys."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The text is a value to keep, such as a name or a note.",
+          "use": "TextInput"
+        },
+        {
+          "case": "The text filters a list as the user types.",
+          "use": "SearchInput"
+        },
+        {
+          "case": "The user picks one command from a list of every command.",
+          "use": "CommandPalette"
+        }
+      ],
+      "rules": [
+        "Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.",
+        "Return false from onSubmit when the command was not sent, so the text stays in the line.",
+        "Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.",
+        "Disable it while there is nothing to send to, and say why in the text near it."
+      ],
+      "a11y": [
+        "The input is named Command, or label, and the key hints under it describe it.",
+        "Escape on an empty line passes on, so it still closes a dialog or a popup.",
+        "Up and Down only take over the arrow keys while there is a history to walk."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "a command, with its history"
+        ],
+        "rule": "CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear."
+      },
+      "example": "import { CommandInput } from '@drizztdourden08/tessera';\n\nconst ServerConsole = ({ send }: { send: (command: string) => void }) => (\n  <CommandInput placeholder=\"/players\" storageKey=\"console.history\" onSubmit={send} />\n);\n",
+      "propsHash": "52374af4c24f7c70",
+      "props": {
+        "own": [
+          {
+            "name": "onSubmit",
+            "optional": false,
+            "text": "CommandSubmit"
+          },
+          {
+            "name": "history",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "storageKey",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "historyLimit",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "value",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "defaultValue",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onValueChange",
+            "optional": true,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "sendLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "keyHints",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "invalid",
+            "optional": true,
+            "text": "boolean"
+          }
+        ],
+        "inherited": {
+          "count": 303,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes",
+            "InputHTMLAttributes"
+          ],
+          "extends": [
+            "Omit<TextInputProps, 'value' | 'defaultValue' | 'onChange' | 'onEnter' | 'onSubmit' | 'start' | 'end'>",
+            "Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--c-text-dim",
+        "--font-mono",
+        "--space-md",
+        "--space-xs",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/CommandInput",
+        "route": "#/story/composites-commandinput--overview",
+        "file": "stories/composites/CommandInput.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "CommandPalette",
@@ -5912,6 +5685,181 @@
       "usage": false
     },
     {
+      "name": "PasswordInput",
+      "tier": "composites",
+      "source": "src/composites/PasswordInput/PasswordInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
+      "name": "PathInput",
+      "tier": "composites",
+      "source": "src/composites/PathInput/PathInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear.",
+      "useWhen": [
+        "A setting holds the path of a file or a folder, such as an SSH key, a ROM, a save folder or an output zip.",
+        "The app shows a path it made, read only, and the user may copy it or open its folder."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The app needs the contents of the files, not their path.",
+          "use": "DropZone"
+        },
+        {
+          "case": "The value is free text that is not a path.",
+          "use": "TextInput"
+        }
+      ],
+      "rules": [
+        "Pass onBrowse to open the dialog of the app, such as the native dialog through Electron, and return the picked path or null.",
+        "Pass resolvePath in Electron, such as webUtils.getPathForFile, so a drop gives the full path and not only the name.",
+        "Set kind and accept to what the setting takes, so a wrong drop is turned away with a reason.",
+        "Pass onReveal only when the app can show the file in its folder."
+      ],
+      "a11y": [
+        "The input takes the label, hint and error of its Field, and typing edits the path.",
+        "Copy, Reveal, Clear and Browse are buttons with names, in that order after the input.",
+        "A drop that is turned away marks the input invalid and says why in an alert under it."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a path to a file or folder"
+        ],
+        "rule": "PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app."
+      },
+      "example": "import { Field, PathInput } from '@drizztdourden08/tessera';\n\ninterface Bridge {\n  pickFile: () => Promise<string | null>;\n  showInFolder: (path: string) => void;\n  pathOf: (file: File) => string;\n}\n\nconst KeyFileSetting = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPath: string | null; setKeyPath: (path: string | null) => void }) => (\n  <Field label=\"Key file\" hint=\"Only the path is stored.\">\n    <PathInput\n      value={keyPath}\n      onChange={setKeyPath}\n      onBrowse={bridge.pickFile}\n      onReveal={bridge.showInFolder}\n      resolvePath={bridge.pathOf}\n      placeholder=\"No key file yet\"\n    />\n  </Field>\n);\n",
+      "propsHash": "0347fa9da023f2e0",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string | null"
+          },
+          {
+            "name": "onChange",
+            "optional": true,
+            "text": "(path: string | null) => void"
+          },
+          {
+            "name": "onBrowse",
+            "optional": true,
+            "text": "PathBrowse"
+          },
+          {
+            "name": "onReveal",
+            "optional": true,
+            "text": "(path: string) => void"
+          },
+          {
+            "name": "kind",
+            "optional": true,
+            "text": "PathKind",
+            "literals": [
+              "'file'",
+              "'folder'",
+              "'any'"
+            ]
+          },
+          {
+            "name": "accept",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "resolvePath",
+            "optional": true,
+            "text": "(file: File) => string | null | undefined"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "readOnly",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "invalid",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "copyable",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "id",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-describedby",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-inset",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-text",
+        "--c-text-muted",
+        "--font-mono",
+        "--font-sans",
+        "--opacity-disabled",
+        "--radius-md",
+        "--size-40",
+        "--space-2xs",
+        "--space-sm",
+        "--text-sm",
+        "--transition-normal"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/PathInput",
+        "route": "#/story/composites-pathinput--overview",
+        "file": "stories/composites/PathInput.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "PressedGrid",
       "tier": "composites",
       "source": "src/composites/PressedGrid/PressedGrid.tsx",
@@ -5930,6 +5878,147 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "RetryButton",
+      "tier": "composites",
+      "source": "src/composites/RetryButton/RetryButton.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try.",
+      "useWhen": [
+        "A connection closed or failed and the user can start it again.",
+        "The app tries again by itself after a wait and the user should see how long, or skip the wait."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The action is not a second try of something that failed.",
+          "use": "Button"
+        },
+        {
+          "case": "The failure belongs to a long job with steps and a log.",
+          "use": "TaskProgress"
+        }
+      ],
+      "rules": [
+        "Keep the timer in the app: pass retryAt, the time of the next automatic try, and start that try from the app, never from the button.",
+        "Pass attempt and attempts only when the app stops after a fixed number of tries.",
+        "Set retrying while a try runs, so the button shows a spinner and takes no second click.",
+        "Put it at the end of the row that says what failed, with the reason in the text before it."
+      ],
+      "a11y": [
+        "The button is named Retry, or Retry now while a countdown runs.",
+        "The countdown line describes the button, so it is read on focus and not every second."
+      ],
+      "tree": {
+        "path": [
+          "actions",
+          "one action",
+          "tries a failed step again"
+        ],
+        "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
+      },
+      "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
+      "propsHash": "c9ef07d747804ddb",
+      "props": {
+        "own": [
+          {
+            "name": "onRetry",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "retryAt",
+            "optional": true,
+            "text": "number | null"
+          },
+          {
+            "name": "attempt",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "attempts",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "retrying",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ButtonSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ],
+            "default": "'sm'"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "ButtonVariant",
+            "literals": [
+              "'primary'",
+              "'secondary'",
+              "'tertiary'",
+              "'danger'",
+              "'warning'",
+              "'info'",
+              "'success'",
+              "'ghost'"
+            ],
+            "default": "'secondary'"
+          },
+          {
+            "name": "fullWidth",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "active",
+            "optional": true,
+            "text": "boolean"
+          }
+        ],
+        "inherited": {
+          "count": 286,
+          "from": [
+            "AriaAttributes",
+            "ButtonHTMLAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'>",
+            "ButtonHTMLAttributes<HTMLButtonElement>"
+          ]
+        }
+      },
+      "tokens": [
+        "--c-text-dim",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Actions/RetryButton",
+        "route": "#/story/composites-retrybutton--overview",
+        "file": "stories/composites/RetryButton.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "RowGrid",
@@ -7195,6 +7284,16 @@
       "usage": false
     },
     {
+      "name": "TagInput",
+      "tier": "composites",
+      "source": "src/composites/TagInput/TagInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
+    },
+    {
       "name": "TaskProgress",
       "tier": "composites",
       "source": "src/composites/TaskProgress/TaskProgress.tsx",
@@ -7341,6 +7440,16 @@
         "file": "stories/composites/TaskProgress.stories.tsx"
       },
       "parts": []
+    },
+    {
+      "name": "Toast",
+      "tier": "composites",
+      "source": "src/composites/Toast/Toast.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": false
     },
     {
       "name": "UtilityScreen",
@@ -8061,10 +8170,7 @@
       "name": "BrandScene",
       "tier": "brand",
       "source": "src/brand/BrandScene/BrandScene.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/brand"
-      ],
+      "imports": [],
       "usage": false
     },
     {

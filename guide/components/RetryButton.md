@@ -2,13 +2,13 @@
 
 Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try.
 
-Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/primitives`.
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
 import { RetryButton } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/primitives/RetryButton/RetryButton.tsx`. Its gallery page is Primitives · Actions/RetryButton (`#/story/primitives-retrybutton--overview`).
+The source is `src/composites/RetryButton/RetryButton.tsx`. Its gallery page is Composites · Actions/RetryButton (`#/story/composites-retrybutton--overview`).
 
 ## Where the questions lead here
 
