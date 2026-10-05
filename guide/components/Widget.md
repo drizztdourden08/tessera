@@ -32,6 +32,7 @@ Widget and WidgetManager give every tool panel the same frame, dock and options,
 - Answer contextActive with one flag, or with a function that reads each definition, such as its own context field.
 - Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.
 - Give a log or a chart fill in its definition, and leave the other widgets on the default padding.
+- Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.
 
 ## Accessibility
 
@@ -94,7 +95,7 @@ const Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-hover`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-text`, `--c-text-dim`, `--duration-normal`, `--font-mono`, `--radius-lg`, `--radius-sm`, `--scroll-thumb-edge`, `--scrollbar-slim-active`, `--size-20`, `--size-320`, `--size-4`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`, `--widget-btn-d`, `--widget-frame-opacity`, `--widget-options-slider-w`, `--widget-options-w`, `--widget-titlebar-h`, `--z-panel`.
+It draws on `--border-width-thin`, `--c-hover`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-text`, `--c-text-dim`, `--control-h-xs`, `--duration-normal`, `--font-mono`, `--radius-lg`, `--radius-sm`, `--scroll-thumb-edge`, `--scrollbar-slim-active`, `--size-20`, `--size-320`, `--size-4`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`, `--widget-frame-opacity`, `--widget-options-slider-w`, `--widget-options-w`, `--widget-titlebar-h`, `--z-panel`.
 
 ## Also exported from this folder
 

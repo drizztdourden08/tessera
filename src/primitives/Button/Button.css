@@ -16,6 +16,13 @@
   font-size: var(--text-sm);
 }
 
+.btn--xs {
+  min-block-size: var(--control-h-xs);
+  padding: 0 var(--space-sm);
+  gap: var(--space-xs);
+  font-size: var(--text-xs);
+}
+
 .btn--full {
   width: 100%;
 }
@@ -62,7 +69,8 @@
   color: var(--tone-bright, var(--c-text-dim));
 }
 
-.btn--sm .btn__icon {
+.btn--sm .btn__icon,
+.btn--xs .btn__icon {
   width: auto;
   font-size: inherit;
 }

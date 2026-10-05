@@ -6206,3 +6206,31 @@ interface ComboboxProps<T> {
 
 1. CommandInput: nothing, unless it passed other input attributes such as `name` or `autoFocus`; drop them.
 2. Combobox: nothing.
+
+## 198. Button and IconButton share an xs size of 20 px, and widget title bar buttons use it
+
+The owner's call: the size scale stays `md` 39 px and `sm` 28 px, and `xs` becomes a real size of 20 px that shows in the gallery. Before, only IconButton had an `xs`, read from `--size-20`, and the Widget title bar reached 20 px with a rule of its own on `sm` buttons.
+
+| Size | Token | Button | IconButton |
+| --- | --- | --- | --- |
+| `md` | `--control-h-md`, 39 px | 39 px tall, padding 8 and 12 px, 14 px text | 39 px square, 16 px icon |
+| `sm` | `--control-h-sm`, 28 px | 28 px tall, padding 4 and 8 px, 12 px text | 28 px square, 12 px icon |
+| `xs` | `--control-h-xs`, 20 px, new | 20 px tall, padding 0 and 8 px, 12 px text, 4 px gap, icon at the text size | 20 px square, 12 px icon |
+
+```ts
+type ButtonSize = 'xs' | 'sm' | 'md';  // was 'sm' | 'md'
+type MenuSize = 'xs' | 'sm' | 'md';    // was 'sm' | 'md', the trigger of DropdownMenu and ControlMenu
+```
+
+- **One token per size.** Button and IconButton read `--control-h-xs`, `--control-h-sm` and `--control-h-md`, and the IconButton height test now holds all three sizes.
+- **ButtonGroup and ButtonRow** keep an `xs` button at 20 px, as they do for `sm` and `md`. ActionBar takes `size="xs"` through ButtonSize.
+- **Menus.** DropdownMenu and ControlMenu take `size="xs"` for their trigger. The panel opens at `sm`, as rows of 20 px would be too small to read.
+- **Widget.** Pop out, pin, options and close are `xs` IconButtons, and the rule `.widget__btn.icon-btn--sm` is removed. The title bar stays 30 px with its buttons at 20 px. The title bar tabs take their height from `--control-h-xs`.
+- **Other 20 px rules** now read the token: the ConfirmIconButton `xs` width, the ActionTile head height and the DataTable sort arrow shift, the width of the column menu button. None of them moves.
+- **Tokens removed.** `--widget-btn-d` and `--menu-trigger-width`, both 20 px, give way to `--control-h-xs`. RENAMES.json maps them.
+- **Gallery.** The Button and ButtonGroup pages show `xs` beside `md` and `sm` in All variants and Sizes, and their Playgrounds offer it. The Button, IconButton and ButtonGroup overviews name all three sizes. The Widget page looks the same.
+- The usage of Widget, DropdownMenu and ControlMenu says when to pass `xs`.
+
+### What an app does
+
+A button passed to a Widget through `titleBarActions` or `widgetActions` with the class `widget__btn` was drawn at 20 px by the removed rule: give it `size="xs"`. Replace `--widget-btn-d` and `--menu-trigger-width` with `--control-h-xs`.

@@ -36,7 +36,7 @@ const WidgetDock = (props: WidgetDockProps) => {
   );
 
   const widgetActions = useCallback((id: string) => (id === 'log' ? (
-    <IconButton className="widget__btn" label="Clear log" title="Clear log" onClick={() => setNotice('Would clear the log')}>
+    <IconButton size="xs" className="widget__btn" label="Clear log" title="Clear log" onClick={() => setNotice('Would clear the log')}>
       <Icon name="trash-2" size={12} />
     </IconButton>
   ) : null), []);

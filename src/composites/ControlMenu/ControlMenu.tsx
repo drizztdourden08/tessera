@@ -3,6 +3,7 @@ import { useId, useState } from 'react';
 import { ListboxPanel } from '../../primitives/listbox/ListboxPanel';
 import { useListboxDrop } from '../../primitives/listbox/useListboxDrop';
 import { menuLookClass } from '../DropdownMenu/behavior/menu-look-class';
+import { menuPanelSize } from '../DropdownMenu/behavior/menu-panel-size';
 import { useOpenReport } from '../DropdownMenu/behavior/useOpenReport';
 import { MenuTriggerButton } from '../DropdownMenu/sub-components/MenuTriggerButton';
 import { controlTriggerAttributes } from './behavior/control-trigger-attributes';
@@ -43,7 +44,7 @@ const ControlMenu = (props: ControlMenuProps) => {
         onClick={() => (drop.open ? drop.close() : show())}
       />
       {drop.open && (
-        <ListboxPanel drop={drop} invalid={false} size={size} className={['dropdown-drop dropdown-surface control-menu', look, className].filter(Boolean).join(' ')}>
+        <ListboxPanel drop={drop} invalid={false} size={menuPanelSize(size)} className={['dropdown-drop dropdown-surface control-menu', look, className].filter(Boolean).join(' ')}>
           <ControlMenuPanel
             id={panelId}
             label={label ?? trigger.label}

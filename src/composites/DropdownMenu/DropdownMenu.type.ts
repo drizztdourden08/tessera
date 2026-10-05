@@ -41,7 +41,7 @@ type MenuVariant = ButtonVariant;
 
 type MenuIntensity = 'strong' | 'medium' | 'subtle';
 
-type MenuSize = 'sm' | 'md';
+type MenuSize = 'xs' | 'sm' | 'md';
 
 type MenuIconSide = 'start' | 'end';
 

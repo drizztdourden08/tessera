@@ -21,7 +21,7 @@ const WidgetActions = (props: WidgetActionsProps) => {
       {out && onPinChange && <PinMenu pin={pin ?? 'off'} onChange={onPinChange} />}
       <PopButton out={out} canPopOut={canPopOut ?? true} onPopOut={onPopOut} name={name} />
       {options}
-      <IconButton className={`widget__btn ${HIT_AREA_CLASS}`} label={close} title={close} onClick={onClose}>
+      <IconButton size="xs" className={`widget__btn ${HIT_AREA_CLASS}`} label={close} title={close} onClick={onClose}>
         <Icon name="x" size={14} />
       </IconButton>
     </Box>

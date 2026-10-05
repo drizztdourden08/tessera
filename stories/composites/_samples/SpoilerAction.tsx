@@ -10,7 +10,7 @@ const SpoilerAction = (props: SpoilerActionProps) => {
   const { shown, onToggle } = props;
   const label = shown ? 'Hide spoilers' : 'Show spoilers';
   return (
-    <IconButton className="widget__btn" label={label} title={label} active={shown} onClick={onToggle}>
+    <IconButton size="xs" className="widget__btn" label={label} title={label} active={shown} onClick={onToggle}>
       <Icon name={shown ? 'eye' : 'eye-off'} size={12} />
     </IconButton>
   );

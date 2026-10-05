@@ -6,8 +6,8 @@
 }
 
 .icon-btn--xs {
-  width: var(--size-20);
-  height: var(--size-20);
+  width: var(--control-h-xs);
+  height: var(--control-h-xs);
   font-size: var(--text-xs);
 }
 

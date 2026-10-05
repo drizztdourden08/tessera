@@ -28,20 +28,13 @@ const BUTTON = css('src/primitives/Button/Button.css');
 const ICON_BUTTON = css('src/primitives/IconButton/IconButton.css');
 
 describe('IconButton height', () => {
-  it.each([['sm', 28], ['md', 39]])('is as tall as a Button at %s, %i px, from the same token, and square', (size, height) => {
+  it.each([['xs', 20], ['sm', 28], ['md', 39]])('is as tall as a Button at %s, %i px, from the same token, and square', (size, height) => {
     const button = rule(BUTTON, `.btn--${size}`)['min-block-size'];
     const icon = rule(ICON_BUTTON, `.icon-btn--${size}`);
     expect(button).toBe(`var(--control-h-${size})`);
     expect(icon.height).toBe(button);
     expect(icon.width).toBe(button);
     expect(px(button)).toBe(height);
-  });
-
-  it('keeps xs at 20 px for compact panels, where Button has no size', () => {
-    expect(rule(BUTTON, '.btn--xs')).toEqual({});
-    const icon = rule(ICON_BUTTON, '.icon-btn--xs');
-    expect(px(icon.height)).toBe(20);
-    expect(icon.width).toBe(icon.height);
   });
 
   it('draws an icon with no size of its own at 12, 12 and 16 px', () => {

@@ -7,6 +7,10 @@
   block-size: var(--control-h-sm);
 }
 
+.button-row .btn--xs {
+  block-size: var(--control-h-xs);
+}
+
 .button-row__lead {
   display: flex;
   flex: 1 1 auto;

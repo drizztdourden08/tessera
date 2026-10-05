@@ -20,6 +20,7 @@ const WidgetMenu = (props: WidgetMenuProps) => {
     <>
       <IconButton
         ref={triggerRef}
+        size="xs"
         className={['widget__btn', HIT_AREA_CLASS, className].filter(Boolean).join(' ')}
         label={label}
         title={label}

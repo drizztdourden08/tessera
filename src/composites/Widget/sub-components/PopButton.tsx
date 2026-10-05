@@ -11,7 +11,7 @@ const PopButton = (props: PopButtonProps) => {
   if (!onPopOut || (!out && !canPopOut)) return null;
   const label = out ? widgets.popInNamed(name) : widgets.popOutNamed(name);
   return (
-    <IconButton className={`widget__btn ${HIT_AREA_CLASS}`} label={label} title={label} onClick={onPopOut}>
+    <IconButton size="xs" className={`widget__btn ${HIT_AREA_CLASS}`} label={label} title={label} onClick={onPopOut}>
       <Icon name={out ? 'minimize-2' : 'maximize-2'} size={12} />
     </IconButton>
   );

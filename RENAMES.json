@@ -1263,6 +1263,13 @@
         "CommandInput.on*": "removed, every DOM event handler but onKeyDown, such as onFocus, onBlur, onInput, onKeyUp, onPaste and onClick; listen on an element around CommandInput, where React events from the field bubble up, and read each change of the text with onValueChange (see MIGRATION.md section 197)",
         "CommandInput.*": "removed, every other HTML attribute TextInputProps passed to the input, such as accessKey, children, the microdata, RDFa and popover attributes, part and slot; CommandInput takes only the props of CommandInputProps (see MIGRATION.md section 197)"
       }
+    },
+    {
+      "version": "next",
+      "cssCustomProperties": {
+        "--widget-btn-d": "--control-h-xs",
+        "--menu-trigger-width": "--control-h-xs"
+      }
     }
   ]
 }

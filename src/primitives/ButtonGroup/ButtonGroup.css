@@ -55,6 +55,11 @@
   width: auto;
 }
 
+.btn-group > .icon-btn--xs {
+  min-width: var(--control-h-xs);
+  min-height: var(--control-h-xs);
+}
+
 .btn-group > .icon-btn--sm {
   min-width: var(--control-h-sm);
   min-height: var(--control-h-sm);

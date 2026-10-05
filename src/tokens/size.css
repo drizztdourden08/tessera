@@ -19,6 +19,7 @@
   --pixel-wordmark-sm: calc(29 * var(--size-1));
   --pixel-wordmark-md: calc(58 * var(--size-1));
   --pixel-wordmark-lg: calc(87 * var(--size-1));
+  --control-h-xs: var(--size-20);
   --control-h-sm: var(--size-28);
   --control-h-md: calc(39 * var(--size-1));
   --dropzone-inline-w: var(--size-288);
@@ -27,7 +28,6 @@
   --filter-clause-width: var(--size-192);
   --badge-d-xs: var(--size-20);
   --sort-caret-width: var(--size-8);
-  --menu-trigger-width: var(--size-20);
   --avatar-d: var(--size-40);
   --side-nav-w: var(--size-56);
   --side-nav-w-open: var(--size-224);
@@ -38,7 +38,6 @@
   --dock-grip-h: calc(18 * var(--size-1));
   --dock-divider-bar: calc(3 * var(--size-1));
   --widget-titlebar-h: calc(30 * var(--size-1));
-  --widget-btn-d: var(--size-20);
   --widget-options-w: var(--size-256);
   --widget-options-slider-w: var(--size-128);
   --hero-h: calc(408 * var(--size-1));

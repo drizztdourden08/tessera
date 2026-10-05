@@ -75,7 +75,7 @@
 }
 
 .widget__tab {
-  height: var(--widget-btn-d);
+  height: var(--control-h-xs);
   padding: 0 var(--space-sm);
   border: var(--border-width-thin) solid transparent;
   border-radius: var(--radius-sm);
@@ -105,11 +105,6 @@
   align-items: center;
   gap: var(--space-xs);
   flex-shrink: 0;
-}
-
-.widget__btn.icon-btn--sm {
-  width: var(--widget-btn-d);
-  height: var(--widget-btn-d);
 }
 
 .widget__pin--top,

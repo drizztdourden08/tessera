@@ -80,4 +80,4 @@ const SessionTiles = ({ address, onShowPlayers, onStop }: { address: string; onS
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-inset`, `--c-text`, `--c-text-muted`, `--radius-md`, `--size-20`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-lg`, `--text-sm`, `--text-xl`, `--text-xs`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-border`, `--c-inset`, `--c-text`, `--c-text-muted`, `--control-h-xs`, `--radius-md`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-lg`, `--text-sm`, `--text-xl`, `--text-xs`, `--weight-semi`.

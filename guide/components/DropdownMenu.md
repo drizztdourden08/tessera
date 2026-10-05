@@ -35,6 +35,7 @@ DropdownMenu keeps rare and secondary actions one click away, and asks before th
 - Give an action that undoes work kind confirm: the first press reads Click again to and the label, in the danger tone; the second runs it.
 - Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.
 - Split groups by meaning with a label or a separator; turn on filter past about a dozen items.
+- Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.
 
 ## Accessibility
 
@@ -86,7 +87,7 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
 - `align` (optional): `MenuAlign`, one of `'start'`, `'end'`.
 - `inline` (optional): `boolean`.
 - `onClose` (optional): `() => void`.
-- `size` (optional): `MenuSize`, one of `'sm'`, `'md'`.
+- `size` (optional): `MenuSize`, one of `'xs'`, `'sm'`, `'md'`.
 - `disabled` (optional): `boolean`.
 - `onOpenChange` (optional): `(open: boolean) => void`.
 

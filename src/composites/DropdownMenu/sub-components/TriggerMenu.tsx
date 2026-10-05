@@ -5,6 +5,7 @@ import { ListboxPanel } from '../../../primitives/listbox/ListboxPanel';
 import { useListboxDrop } from '../../../primitives/listbox/useListboxDrop';
 import { closeMenu } from '../behavior/close-menu';
 import { menuLookClass } from '../behavior/menu-look-class';
+import { menuPanelSize } from '../behavior/menu-panel-size';
 import { tidyGroups } from '../behavior/tidy-groups';
 import { triggerAttributes } from '../behavior/trigger-attributes';
 import { triggerSettings } from '../behavior/trigger-settings';
@@ -55,7 +56,7 @@ const TriggerMenu = (props: TriggerMenuProps) => {
         onKeyDown={onKeyDown}
       />
       {drop.open && (
-        <ListboxPanel drop={drop} invalid={false} size={size} className={`dropdown-drop dropdown-surface ${look}`}>
+        <ListboxPanel drop={drop} invalid={false} size={menuPanelSize(size)} className={`dropdown-drop dropdown-surface ${look}`}>
           <MenuRoot
             id={menuId}
             groups={shown}

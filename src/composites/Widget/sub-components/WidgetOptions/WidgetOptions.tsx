@@ -22,6 +22,7 @@ const WidgetOptions = (props: WidgetOptionsProps) => {
       filter
       variant="ghost"
       intensity="medium"
+      size="xs"
       defaultOpen={defaultOpen}
       className="widget-options"
       triggerClassName={`widget__btn widget__options ${HIT_AREA_CLASS}`}

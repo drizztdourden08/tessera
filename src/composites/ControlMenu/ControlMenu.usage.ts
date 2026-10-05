@@ -19,6 +19,7 @@ const usage = {
     'Group related rows with ControlMenuGroup, and move rows used less often into a ControlMenuSub.',
     'Turn filter on when the panel holds more than about eight rows; it narrows rows by label, and rows of a sub-panel show inline under its name.',
     'Name the panel with label when the trigger is an icon, such as "Players options".',
+    'size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.',
   ],
   a11y: [
     'The trigger is a button with aria-haspopup="dialog" and aria-expanded; the panel is a dialog named by label.',
@@ -50,7 +51,7 @@ const ViewOptions = (props: { density: string; zoom: number; sounds: boolean; on
   </ControlMenu>
 );
 `,
-  propsHash: '7755bb9c69c10d24',
+  propsHash: '89b7a4b6b6960750',
 } satisfies ComponentUsage;
 
 export { usage };

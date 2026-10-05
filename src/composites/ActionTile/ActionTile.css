@@ -28,7 +28,7 @@
   align-items: center;
   gap: var(--space-xs);
   min-inline-size: 0;
-  min-block-size: var(--size-20);
+  min-block-size: var(--control-h-xs);
 }
 
 .action-tile__icon {

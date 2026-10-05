@@ -46,7 +46,7 @@ const PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps
   return <ActionBar label={name} actions={actions} />;
 };
 `,
-  propsHash: 'd85bd3cf444eb9a9',
+  propsHash: '3ea44d39ee726791',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -16,6 +16,7 @@ const usage = {
     'Answer contextActive with one flag, or with a function that reads each definition, such as its own context field.',
     'Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.',
     'Give a log or a chart fill in its definition, and leave the other widgets on the default padding.',
+    'Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.',
   ],
   a11y: [
     'The title bar names the widget; pop out, options and close are icon buttons named with it.',

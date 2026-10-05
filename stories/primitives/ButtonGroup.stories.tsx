@@ -19,7 +19,7 @@ type ButtonGroupArgs = {
 
 const VARIANTS: readonly ButtonVariant[] = ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'info', 'success', 'ghost'];
 
-const SIZES: readonly ButtonSize[] = ['md', 'sm'];
+const SIZES: readonly ButtonSize[] = ['md', 'sm', 'xs'];
 
 const ARGS: Partial<ButtonGroupArgs> = { variant: 'tertiary', size: 'md', orientation: 'horizontal', disabled: false };
 
@@ -149,6 +149,7 @@ const Overview = overviewStory({
   points: [
     'It takes [Button] and [IconButton] children; neighbours share one border and only the outer corners round.',
     'Each button keeps its own variant, size and disabled state; a `ghost` button gains a border.',
+    'Buttons come in three sizes, `md` 39 px, `sm` 28 px and `xs` 20 px; give every button of a group the same one.',
     '`orientation="vertical"` stacks the buttons in a column.',
     '**Give the group an `aria-label`:** screen readers announce it with the buttons.',
   ],

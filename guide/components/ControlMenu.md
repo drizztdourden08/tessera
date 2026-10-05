@@ -35,6 +35,7 @@ ControlMenu keeps several small settings one click away without a page or a dial
 - Group related rows with ControlMenuGroup, and move rows used less often into a ControlMenuSub.
 - Turn filter on when the panel holds more than about eight rows; it narrows rows by label, and rows of a sub-panel show inline under its name.
 - Name the panel with label when the trigger is an icon, such as "Players options".
+- Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.
 
 ## Accessibility
 
@@ -79,7 +80,7 @@ const ViewOptions = (props: { density: string; zoom: number; sounds: boolean; on
 - `align` (optional): `DropAlign`, one of `'start'`, `'end'`, `'auto'`. Default `'auto'`.
 - `variant` (optional): `MenuVariant`, one of `'danger'`, `'ghost'`, `'info'`, `'primary'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
 - `intensity` (optional): `MenuIntensity`, one of `'strong'`, `'medium'`, `'subtle'`.
-- `size` (optional): `MenuSize`, one of `'sm'`, `'md'`.
+- `size` (optional): `MenuSize`, one of `'xs'`, `'sm'`, `'md'`.
 - `disabled` (optional): `boolean`.
 - `defaultOpen` (optional): `boolean`.
 - `onOpenChange` (optional): `(open: boolean) => void`.

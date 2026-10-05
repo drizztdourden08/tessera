@@ -36,7 +36,7 @@ const Playground = {
   argTypes: {
     label: { group: 'Content', control: 'text' },
     variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
-    size: { group: 'Appearance', control: 'select', options: ['sm', 'md'] },
+    size: { group: 'Appearance', control: 'select', options: ['xs', 'sm', 'md'] },
     disabled: { group: 'State', control: 'boolean' },
     loading: { group: 'State', control: 'boolean', description: 'Shows the spinner in place of the icon, or over the label, and disables the button.' },
     active: { group: 'State', control: 'boolean' },
@@ -48,7 +48,7 @@ const Playground = {
   ),
 } satisfies PlaygroundStory<ButtonArgs>;
 
-const SIZES: readonly ButtonSize[] = ['md', 'sm'];
+const SIZES: readonly ButtonSize[] = ['md', 'sm', 'xs'];
 
 const STATE_BUTTONS: readonly { variant: ButtonVariant; label: string; withIcon?: boolean }[] = [
   { variant: 'primary', label: 'Save changes' },
@@ -87,7 +87,7 @@ const Overview = overviewStory({
   points: [
     '`primary` marks the main action of a view; `secondary` and `tertiary` sit beside it, `ghost` in toolbars.',
     '`danger`, `warning`, `info` and `success` carry an urgency.',
-    'Two sizes: `md` is 39 px tall and `sm` 28 px, the same as an [IconButton] of that size.',
+    '`md` is 39 px tall, `sm` 28 px and `xs` 20 px, as tall as an [IconButton] of the same size.',
     '`active` marks a toggle button as on, and it is announced as pressed.',
     '`loading` swaps the icon for a [Spinner] while the action runs; the button keeps its width and ignores clicks.',
     '**Loading is not disabled:** a `disabled` button fades and never spins.',

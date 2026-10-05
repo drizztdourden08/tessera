@@ -57,7 +57,7 @@ const Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () =
 - `retrying` (optional): `boolean`. Default `false`.
 - `label` (optional): `string`.
 - `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`. Default `'secondary'`.
-- `size` (optional): `ButtonSize`, one of `'sm'`, `'md'`. Default `'sm'`.
+- `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`. Default `'sm'`.
 - `fullWidth` (optional): `boolean`.
 - `active` (optional): `boolean`.
 

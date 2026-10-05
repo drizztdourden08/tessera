@@ -2400,7 +2400,7 @@
         "rule": "ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and always asks before it."
       },
       "example": "import { ActionBar } from '@drizztdourden08/tessera';\nimport type { ActionItem } from '@drizztdourden08/tessera';\n\ninterface PresetHeaderProps {\n  name: string;\n  onDuplicate: () => void;\n  onDelete: () => void;\n  onSave: () => void;\n}\n\nconst PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps) => {\n  const actions: ActionItem[] = [\n    { id: 'duplicate', label: 'Duplicate', icon: 'copy', onSelect: onDuplicate },\n    { id: 'delete', label: 'Delete', icon: 'trash-2', kind: 'danger', onSelect: onDelete, confirm: { title: `Delete ${name}?`, confirmLabel: `Delete ${name}` } },\n    { id: 'save', label: 'Save', icon: 'save', kind: 'primary', onSelect: onSave },\n  ];\n  return <ActionBar label={name} actions={actions} />;\n};\n",
-      "propsHash": "d85bd3cf444eb9a9",
+      "propsHash": "3ea44d39ee726791",
       "props": {
         "own": [
           {
@@ -2413,6 +2413,7 @@
             "optional": true,
             "text": "ButtonSize",
             "literals": [
+              "'xs'",
               "'sm'",
               "'md'"
             ],
@@ -2612,8 +2613,8 @@
         "--c-inset",
         "--c-text",
         "--c-text-muted",
+        "--control-h-xs",
         "--radius-md",
-        "--size-20",
         "--space-2xs",
         "--space-md",
         "--space-sm",
@@ -3179,7 +3180,8 @@
         "Every control applies at once; a ControlMenu has no Save or Cancel.",
         "Group related rows with ControlMenuGroup, and move rows used less often into a ControlMenuSub.",
         "Turn filter on when the panel holds more than about eight rows; it narrows rows by label, and rows of a sub-panel show inline under its name.",
-        "Name the panel with label when the trigger is an icon, such as \"Players options\"."
+        "Name the panel with label when the trigger is an icon, such as \"Players options\".",
+        "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar."
       ],
       "a11y": [
         "The trigger is a button with aria-haspopup=\"dialog\" and aria-expanded; the panel is a dialog named by label.",
@@ -3195,7 +3197,7 @@
         "rule": "ControlMenu keeps several small settings one click away without a page or a dialog."
       },
       "example": "import { ControlMenu, ControlMenuRow, ControlMenuSub, SegmentedControl, Slider, Toggle } from '@drizztdourden08/tessera';\n\nconst DENSITY = [{ value: 'cozy', label: 'Cozy' }, { value: 'compact', label: 'Compact' }];\n\nconst ViewOptions = (props: { density: string; zoom: number; sounds: boolean; onChange: (patch: object) => void }) => (\n  <ControlMenu trigger={{ label: 'View options', icon: 'sliders-horizontal' }} filter>\n    <ControlMenuRow label=\"Density\" hint={{ label: 'Density', description: 'How much room each row takes' }}>\n      <SegmentedControl size=\"sm\" aria-label=\"Density\" value={props.density} options={DENSITY} onChange={(density) => props.onChange({ density })} />\n    </ControlMenuRow>\n    <ControlMenuRow label=\"Zoom\">\n      <Slider size=\"sm\" value={props.zoom} min={50} max={200} onChange={(zoom) => props.onChange({ zoom })} />\n    </ControlMenuRow>\n    <ControlMenuSub label=\"Sounds\" icon=\"volume-2\">\n      <ControlMenuRow label=\"Play sounds\">\n        <Toggle size=\"sm\" checked={props.sounds} onChange={(sounds) => props.onChange({ sounds })} aria-label=\"Play sounds\" />\n      </ControlMenuRow>\n    </ControlMenuSub>\n  </ControlMenu>\n);\n",
-      "propsHash": "7755bb9c69c10d24",
+      "propsHash": "89b7a4b6b6960750",
       "props": {
         "own": [
           {
@@ -3276,6 +3278,7 @@
             "optional": true,
             "text": "MenuSize",
             "literals": [
+              "'xs'",
               "'sm'",
               "'md'"
             ]
@@ -3774,7 +3777,8 @@
         "The app owns every checked value and every action; the menu only calls onSelect and draws what it is given.",
         "Give an action that undoes work kind confirm: the first press reads Click again to and the label, in the danger tone; the second runs it.",
         "Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.",
-        "Split groups by meaning with a label or a separator; turn on filter past about a dozen items."
+        "Split groups by meaning with a label or a separator; turn on filter past about a dozen items.",
+        "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar."
       ],
       "a11y": [
         "The menu is role menu named by label; items are menuitem, menuitemcheckbox or menuitemradio, and a confirm item stays a menuitem.",
@@ -3790,7 +3794,7 @@
         "rule": "DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work."
       },
       "example": "import { DropdownMenu } from '@drizztdourden08/tessera';\nimport type { MenuGroup } from '@drizztdourden08/tessera';\n\ninterface LayoutMenuProps {\n  locked: boolean;\n  onLock: () => void;\n  onSave: () => void;\n  onReset: () => void;\n}\n\nconst LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {\n  const groups: MenuGroup[] = [{\n    id: 'layout',\n    label: 'Layout',\n    items: [\n      { id: 'lock', icon: 'lock', label: 'Lock widgets', checked: locked, onSelect: onLock },\n      { id: 'save', icon: 'save', label: 'Save layout', onSelect: onSave },\n      { separator: true },\n      { id: 'reset', icon: 'rotate-ccw', label: 'Reset layout', kind: 'confirm', onSelect: onReset },\n    ],\n  }];\n  return <DropdownMenu trigger={{ label: 'Layout', icon: 'layout-grid' }} groups={groups} />;\n};\n",
-      "propsHash": "5bbeecc62f70147f",
+      "propsHash": "be7ad223d1a3e429",
       "props": {
         "own": [
           {
@@ -3891,6 +3895,7 @@
             "optional": true,
             "text": "MenuSize",
             "literals": [
+              "'xs'",
               "'sm'",
               "'md'"
             ]
@@ -6021,7 +6026,7 @@
         "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
       },
       "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
-      "propsHash": "c9ef07d747804ddb",
+      "propsHash": "629c0d7a8b838eec",
       "props": {
         "own": [
           {
@@ -6076,6 +6081,7 @@
             "optional": true,
             "text": "ButtonSize",
             "literals": [
+              "'xs'",
               "'sm'",
               "'md'"
             ],
@@ -8224,7 +8230,8 @@
         "Draw a dock with WidgetManager and keep the layout in the app: it hands every change to onLayoutChange.",
         "Answer contextActive with one flag, or with a function that reads each definition, such as its own context field.",
         "Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.",
-        "Give a log or a chart fill in its definition, and leave the other widgets on the default padding."
+        "Give a log or a chart fill in its definition, and leave the other widgets on the default padding.",
+        "Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons."
       ],
       "a11y": [
         "The title bar names the widget; pop out, options and close are icon buttons named with it.",
@@ -8371,6 +8378,7 @@
         "--c-primary-soft",
         "--c-text",
         "--c-text-dim",
+        "--control-h-xs",
         "--duration-normal",
         "--font-mono",
         "--radius-lg",
@@ -8388,7 +8396,6 @@
         "--text-xs",
         "--tracking-wide",
         "--weight-semi",
-        "--widget-btn-d",
         "--widget-frame-opacity",
         "--widget-options-slider-w",
         "--widget-options-w",

@@ -240,6 +240,7 @@
   --pixel-wordmark-sm: calc(29 * 1px);
   --pixel-wordmark-md: calc(58 * 1px);
   --pixel-wordmark-lg: calc(87 * 1px);
+  --control-h-xs: 20px;
   --control-h-sm: 28px;
   --control-h-md: calc(39 * 1px);
   --dropzone-inline-w: 288px;
@@ -248,7 +249,6 @@
   --filter-clause-width: 192px;
   --badge-d-xs: 20px;
   --sort-caret-width: 8px;
-  --menu-trigger-width: 20px;
   --avatar-d: 40px;
   --side-nav-w: 56px;
   --side-nav-w-open: 224px;
@@ -259,7 +259,6 @@
   --dock-grip-h: calc(18 * 1px);
   --dock-divider-bar: calc(3 * 1px);
   --widget-titlebar-h: calc(30 * 1px);
-  --widget-btn-d: 20px;
   --widget-options-w: 256px;
   --widget-options-slider-w: 128px;
   --hero-h: calc(408 * 1px);

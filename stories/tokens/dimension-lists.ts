@@ -44,6 +44,7 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
   {
     title: 'Controls and chrome',
     entries: [
+      { token: '--control-h-xs' },
       { token: '--control-h-sm' },
       { token: '--control-h-md' },
       { token: '--titlebar-height' },
@@ -51,7 +52,6 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
       { token: '--avatar-d' },
       { token: '--badge-d-xs' },
       { token: '--sort-caret-width' },
-      { token: '--menu-trigger-width' },
       { token: '--table-select-w' },
       { token: '--open-entry-width' },
       { token: '--filter-clause-width' },
@@ -71,7 +71,6 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
     title: 'Widgets and dock',
     entries: [
       { token: '--widget-titlebar-h' },
-      { token: '--widget-btn-d' },
       { token: '--widget-options-w' },
       { token: '--widget-options-slider-w' },
       { token: '--dock-grip-h' },
