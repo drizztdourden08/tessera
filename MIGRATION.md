@@ -6177,6 +6177,7 @@ The owner's call: with its suggestions open, CommandInput drew a thick ring arou
 - **What changed in the keys.** No row is active when the list opens, as before, and Up and Down now stop at the first and the last row where they wrapped. The rows sit in the columns of Combobox, so each command starts under the typed text.
 - **The input is a combobox** with or without `commands`; with none the list never opens. The list is a listbox named Commands.
 - **Props.** `CommandInputProps` no longer extends `TextInputProps`. Beside its own props it takes `placeholder`, `disabled`, `invalid`, `size`, `id`, `className`, `aria-describedby` and `onKeyDown`.
+- **The props it dropped** are in RENAMES.json under the 0.23.0 release, each with what to do instead: the input attributes one by one, such as `CommandInput.name` and `CommandInput.autoFocus`, and the rest as `CommandInput.aria-*`, `CommandInput.on*` and `CommandInput.*`.
 
 ### Combobox
 

@@ -18,8 +18,11 @@ const older = (a, b) => {
   return at !== -1 && x[at] < y[at];
 };
 const maps = (release) => Object.entries(release).filter(([key]) => key !== 'version');
+const keyOf = (group, from, to) => (group === 'props' ? `${from.slice(0, from.indexOf('.'))}.${to}` : to);
 const chainsIn = (version, group, map) =>
-  Object.entries(map).filter(([, to]) => typeof to === 'string' && Object.hasOwn(map, to)).map(([from, to]) => `${version} ${group}: ${from} -> ${to}`);
+  Object.entries(map)
+    .filter(([from, to]) => typeof to === 'string' && Object.hasOwn(map, keyOf(group, from, to)))
+    .map(([from, to]) => `${version} ${group}: ${from} -> ${keyOf(group, from, to)}`);
 const releaseChains = (release) => maps(release).flatMap(([group, map]) => chainsIn(release.version, group, map));
 
 const ENTRIES = new Map(codeEntries(manifest).filter(([key]) => key !== '.').map(([key, target]) => [key.slice(2), target]));
