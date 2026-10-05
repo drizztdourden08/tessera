@@ -1084,7 +1084,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.21.0",
       "props": {
         "BrandMarkData.onDarkRim": "removed; the mark sets grounds: { dark: { outline } }, and grounds: { dark: { inks: 'onDark' } } to draw its onDark colours there (see MIGRATION.md section 182)",
         "SettingsRowAction.onClick": "onSelect",
