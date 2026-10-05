@@ -2,12 +2,14 @@
 import type { PixelWordmarkColors } from './PixelWordmark';
 import type { BackdropGradient } from './backdrop-gradient.type';
 import type { MascotMotion } from './motion/motion.type';
+import type { BrandRimTone } from './rim.type';
 
 type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp';
 
 interface BrandMarkPath {
   d: string;
   ink: string;
+  onDark?: string;
   group?: BrandApp;
   evenOdd?: boolean;
   opacity?: number;
@@ -17,6 +19,7 @@ interface BrandMarkData {
   viewBox: string;
   paths: readonly BrandMarkPath[];
   pixelArt?: boolean;
+  onDarkRim?: BrandRimTone;
 }
 
 type BrandGradientStops = readonly [from: string, to: string] | readonly [from: string, via: string, to: string];

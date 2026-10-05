@@ -61,7 +61,7 @@ const CODE = `<link rel="stylesheet" href="node_modules/@drizztdourden08/tessera
 
 <body class="ts-splash">
   <main class="ts-stage">
-    <img class="ts-mark" src="mark.svg" alt="" />
+    <img class="ts-mark" src="node_modules/@drizztdourden08/tessera/brand/dark-ground/archipelia.svg" alt="" />
     <h1 class="ts-title">Archipelia</h1>
     <p class="ts-status" aria-live="polite">Loading the engine</p>
     <div class="ts-actions" hidden>
@@ -78,7 +78,7 @@ const Overview = overviewStory({
   description: 'Plain CSS classes for a splash page in static HTML that shows before the app bundle loads, in the look of the app.',
   points: [
     'Load `splash-tokens.css`, then `splash.css`; no React and no bundle, so the page draws at once.',
-    '`ts-splash` paints the dark gradient of the palette and centres a `ts-stage` of mark, title and status.',
+    '`ts-splash` paints the dark gradient behind a `ts-stage`; take its `ts-mark` image from `brand/dark-ground/`.',
     'A page may set `--look-dark-from`, `--look-dark-to` and `--look-angle`, with stops that keep text at AA.',
     '`ts-button` is the secondary [Button] look, `ts-button--primary` the primary one.',
     '`ts-progress` fills to `--value`, 0 to 1, or sweeps with `ts-progress--indeterminate`; `--edge` runs at the bottom.',

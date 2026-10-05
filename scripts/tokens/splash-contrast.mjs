@@ -1,9 +1,11 @@
 /* @layer tooling-scripts @kind logic */
+import { colourOver } from './colour-over.mjs';
 import { luminanceRatio } from './luminance-ratio.mjs';
-import { parseColour } from './parse-colour.mjs';
 import { relativeLuminance } from './relative-luminance.mjs';
 import { ruleDeclarations } from './rule-declarations.mjs';
-import { GRADIENT_SAMPLES, SPLASH_GRADIENT, SPLASH_PARTS } from './splash-contrast.constants.mjs';
+import { SPLASH_PARTS } from './splash-contrast.constants.mjs';
+import { splashGradientPoints } from './splash-gradient-points.mjs';
+import { tokenColour } from './token-colour.mjs';
 
 const COLOUR_VAR = /var\((--(?:c|ts)-[\w-]+)\)/g;
 
@@ -17,25 +19,12 @@ const tokenOf = (css, selectors, property) => {
   return name;
 };
 
-const colourOf = (tokens, name) => {
-  const value = tokens.get(name);
-  if (value === undefined) throw new Error(`the splash reads ${name}, which the tokens do not set`);
-  return parseColour(value);
-};
-
-const over = ({ rgb, alpha }, ground) => rgb.map((c, i) => c * alpha + ground[i] * (1 - alpha));
-
-const gradientPoints = (tokens) => {
-  const [from, to] = [SPLASH_GRADIENT.from, SPLASH_GRADIENT.to].map((name) => colourOf(tokens, name).rgb);
-  return Array.from({ length: GRADIENT_SAMPLES + 1 }, (_, step) => from.map((c, i) => c + (to[i] - c) * (step / GRADIENT_SAMPLES)));
-};
-
 const splashContrast = (css, tokens) => {
-  const points = gradientPoints(tokens);
+  const points = splashGradientPoints(tokens);
   return SPLASH_PARTS.map(({ part, selectors, property, on, need }) => {
-    const ink = colourOf(tokens, tokenOf(css, selectors, property));
-    const grounds = on ? points.map((point) => over(colourOf(tokens, tokenOf(css, on.selectors, on.property)), point)) : points;
-    const front = (ground) => relativeLuminance(over(ink, ground));
+    const ink = tokenColour(tokens, tokenOf(css, selectors, property));
+    const grounds = on ? points.map((point) => colourOver(tokenColour(tokens, tokenOf(css, on.selectors, on.property)), point)) : points;
+    const front = (ground) => relativeLuminance(colourOver(ink, ground));
     const ratio = Math.min(...grounds.map((ground) => luminanceRatio(front(ground), relativeLuminance(ground))));
     return { part, ratio, need };
   });

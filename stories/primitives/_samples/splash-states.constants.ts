@@ -1,9 +1,9 @@
 /* @layer stories @kind data */
 import type { SplashSample, SplashState } from './splash-states.type';
 
-const MARK_URLS = import.meta.glob<string>('../../../brand/archipelia/mark/mark-256.png', { eager: true, query: '?url', import: 'default' });
+const MARK_URLS = import.meta.glob<string>('../../../brand/dark-ground/archipelia/mark/mark-256.png', { eager: true, query: '?url', import: 'default' });
 
-const SPLASH_MARK = MARK_URLS['../../../brand/archipelia/mark/mark-256.png'] ?? '';
+const SPLASH_MARK = MARK_URLS['../../../brand/dark-ground/archipelia/mark/mark-256.png'] ?? '';
 
 const SPLASH_STATES: readonly SplashState[] = ['starting', 'failed', 'update', 'reconnecting'];
 

@@ -7,6 +7,7 @@ import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { IconFileRows } from './_samples/IconFileRows';
+import { MarkOnGround } from './_samples/MarkOnGround';
 import { RimGrid } from './_samples/RimGrid';
 import { RIMS } from './_samples/RimGrid.constants';
 
@@ -15,6 +16,7 @@ type LogoArgs = {
   size: BrandMarkSize;
   variant: BrandMarkVariant;
   rim: BrandRim;
+  ground: NonNullable<LogoProps['ground']>;
 };
 
 const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
@@ -29,6 +31,7 @@ const ARG_TYPES: PlaygroundArgTypes<LogoArgs> = {
   size: { group: 'Appearance', control: 'select', options: [...SIZES] },
   variant: { group: 'Appearance', control: 'select', options: ['mark', 'app-icon'], description: 'The app icon as the brand data describes it: straight or on its tile. A brand with no app icon draws its mark.' },
   rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
+  ground: { group: 'Appearance', control: 'select', options: ['light', 'dark'], description: 'The colours of the mark: as drawn, or lighter for a dark ground such as the splash. Inside Splash it is dark by itself.' },
 };
 
 const meta = {
@@ -38,9 +41,9 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { brand: 'rotp', size: 'xl', variant: 'mark', rim: 'none' },
+  args: { brand: 'rotp', size: 'xl', variant: 'mark', rim: 'none', ground: 'light' },
   argTypes: ARG_TYPES,
-  render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} rim={args.rim} />,
+  render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} rim={args.rim} ground={args.ground} />,
 } satisfies PlaygroundStory<LogoArgs>;
 
 const sizeGrid = (apps: readonly BrandApp[], extra: Partial<LogoProps>) => (
@@ -59,6 +62,19 @@ const Sizes = {
 const AppIcon = {
   name: 'App icon',
   render: () => sizeGrid(APPS_WITH_ICONS, { variant: 'app-icon' }),
+} satisfies StoryLiteStoryDefinition<LogoArgs>;
+
+const GROUNDS = ['light', 'dark'] as const;
+
+const DarkGround = {
+  name: 'On the dark ground',
+  render: () => (
+    <Demonstrator
+      rows={axis(BRAND_APPS)}
+      columns={GROUNDS.map((ground) => ({ key: ground, label: `ground="${ground}", on the splash gradient` }))}
+      cell={(brand, ground) => <MarkOnGround brand={brand} ground={ground} />}
+    />
+  ),
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
 
 const IconFiles = {
@@ -87,11 +103,12 @@ const Overview = overviewStory({
     '`rim="light"` or `"dark"` outlines the silhouette, so a dark mark reads on a dark title bar.',
     '`pnpm icons` writes every mark and app icon as PNG files from 16 to 512 and a Windows `.ico`.',
     'It writes them again with each rim, under `brand/light-rim` and `brand/dark-rim`, always without a tile.',
+    '`ground="dark"` lightens a mark for a dark ground such as the splash; `brand/dark-ground` holds its files.',
   ],
   instead: '[Combined] for the mark with the app name.',
   playground: Playground,
-  variants: [Sizes, AppIcon, Rims, IconFiles, RimFiles],
+  variants: [Sizes, AppIcon, Rims, DarkGround, IconFiles, RimFiles],
 });
 
 export default meta;
-export { AppIcon, IconFiles, Overview, Playground, RimFiles, Rims, Sizes };
+export { AppIcon, DarkGround, IconFiles, Overview, Playground, RimFiles, Rims, Sizes };

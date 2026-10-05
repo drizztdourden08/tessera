@@ -5,6 +5,7 @@ interface BrandRimPathsProps {
   paths: readonly { d: string }[];
   tone: BrandRimTone;
   pixelArt?: boolean;
+  fine?: boolean;
 }
 
 export type { BrandRimPathsProps };

@@ -7,3 +7,7 @@
 .brand-rim--light { stroke: var(--brand-rim-light); }
 .brand-rim--dark { stroke: var(--brand-rim-dark); }
 .brand-rim--pixel { stroke-linejoin: miter; }
+
+.brand-rim--fine {
+  stroke-width: max(var(--brand-rim-width, var(--brand-rim-sm)), calc(2 * var(--brand-rim-sm)));
+}

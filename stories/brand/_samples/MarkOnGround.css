@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.mark-on-ground {
+  display: grid;
+  padding: var(--space-xl);
+  border-radius: var(--radius-md);
+  background: linear-gradient(var(--c-gradient-dark-from), var(--c-gradient-dark-to));
+  place-items: center;
+}

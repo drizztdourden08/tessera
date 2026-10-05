@@ -5,7 +5,9 @@ import { OUTPUT_FOLDERS } from './app-icons.constants.mjs';
 import { appArt } from './app-art.mjs';
 import { buildApp, ladder, writer } from './app-files.mjs';
 import { artFile, markArt, sceneArt } from './art.mjs';
+import { buildDarkGround } from './build-dark-ground.mjs';
 import { buildRim } from './build-rim.mjs';
+import { darkGroundArt } from './dark-ground-art.mjs';
 import { crisp } from './raster.mjs';
 
 const variantArt = (variant, loaded) => {
@@ -27,8 +29,9 @@ const buildBrand = async (root, id, loaded) => {
   const write = writer(root);
   for (const folder of OUTPUT_FOLDERS) rmSync(join(root, 'brand', id, folder), { recursive: true, force: true });
   const mark = markArt(brand.mark);
+  const dark = darkGroundArt(brand, loaded);
   const written = [write(`${id}.svg`, artFile(mark, brand.name))];
-  if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, mark)));
+  if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, mark, dark.mark)));
   if (brand.mascot) written.push(...buildMascot(write, id, brand, loaded));
   const artFor = { icon: () => appArt(brand, mark).icon, mark: () => mark, mascot: () => variantArt(brand.mascot.variants[0], loaded) };
   for (const files of loaded.iconFiles(id)) {
@@ -36,6 +39,7 @@ const buildBrand = async (root, id, loaded) => {
     written.push(...await ladder(write, () => art, files, loaded.sizes));
   }
   for (const tone of loaded.rimTones) written.push(...await buildRim({ root, write, loaded }, id, tone));
+  written.push(...await buildDarkGround({ root, write, loaded }, id, dark));
   return written;
 };
 

@@ -8,7 +8,7 @@ import type { LogoCombinedProps } from '../Logo.type';
 import './LogoCombined.css';
 
 const LogoCombined = (props: LogoCombinedProps) => {
-  const { brand = 'tessera', direction = 'inline', size = 'md', variant, rim, title, className = '' } = props;
+  const { brand = 'tessera', direction = 'inline', size = 'md', variant, rim, ground, title, className = '' } = props;
   const label = title ?? BRAND_FAMILY[brand].name;
   return (
     <Box
@@ -17,7 +17,7 @@ const LogoCombined = (props: LogoCombinedProps) => {
       role="img"
       aria-label={label}
     >
-      <BrandMark app={brand} size={size} variant={variant} rim={rim} title={label} />
+      <BrandMark app={brand} size={size} variant={variant} rim={rim} ground={ground} title={label} />
       <BrandWordmark app={brand} size={WORDMARK_SIZE_FOR[size]} rim={rim} title={label} />
     </Box>
   );

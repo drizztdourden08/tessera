@@ -9,6 +9,7 @@ interface BrandMarkRimProps {
   box: ViewBoxRect;
   tile: boolean;
   pixelArt?: boolean;
+  fine?: boolean;
 }
 
 export type { BrandMarkRimProps };

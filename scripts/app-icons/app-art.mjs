@@ -18,13 +18,13 @@ const iconArt = (brand, mark) => (brand.appIcon === 'tile'
 
 const groundOf = (brand, size, fill) => (brand.appIcon === 'tile' ? `<rect width="${size}" height="${size}" fill="${fill}"/>` : '');
 
-const appArt = (brand, mark) => ({
+const appArt = (brand, mark, darkMark = mark) => ({
   icon: iconArt(brand, mark),
   iconFile: brand.appIcon === 'tile' ? iconArt(brand, mark) : square(placed(mark, 1)),
   maskable: square(`${groundOf(brand, CANVAS, brand.tile)}${placed(mark, MASKABLE_SCALE)}`),
   foreground: square(placed(mark, FOREGROUND_SCALE)),
   background: square(groundOf(brand, CANVAS, brand.tile)),
-  splash: square(`${groundOf(brand, SPLASH_SIZE, SPLASH_GROUND)}${placed(mark, SPLASH_SCALE, SPLASH_SIZE)}`, SPLASH_SIZE),
+  splash: square(`${groundOf(brand, SPLASH_SIZE, SPLASH_GROUND)}${placed(brand.appIcon === 'tile' ? darkMark : mark, SPLASH_SCALE, SPLASH_SIZE)}`, SPLASH_SIZE),
 });
 
 export { appArt, svgOf };

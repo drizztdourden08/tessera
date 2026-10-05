@@ -23,6 +23,7 @@ interface SplashPairProps {
 
 interface LiveSplashProps {
   label: string;
+  palette?: string;
   children: ReactNode;
 }
 

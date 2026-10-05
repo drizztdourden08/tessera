@@ -5,6 +5,11 @@
   contain: layout paint;
 }
 
+.splash-marks .splash-frame {
+  inline-size: var(--size-384);
+  block-size: var(--size-256);
+}
+
 .splash-pair .splash-frame {
   inline-size: var(--size-448);
   block-size: var(--size-384);

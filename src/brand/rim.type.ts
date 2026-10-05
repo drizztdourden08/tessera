@@ -6,6 +6,7 @@ type BrandRimTone = Exclude<BrandRim, 'none'>;
 interface BrandRimSpec {
   colours: Readonly<Record<BrandRimTone, string>>;
   ratio: number;
+  fineRatio: number;
   minPx: number;
 }
 

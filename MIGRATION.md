@@ -5051,3 +5051,43 @@ RENAMES.json lists `StatRow.copyable`, `stat-row__copy`, `Text.CodeBlock`, the f
 3. Replace `<StatRow copyable />` with a `CopyValue` as the value, and `copyable="text"` with `<CopyValue value={shown} text="text" />`.
 4. Replace `Floating` with `Anchored`.
 5. Replace each removed Glyph name with the Icon in the table.
+
+## 176. Every brand mark has a look for the dark splash ground
+
+On the dark gradient of section 171 the marks got lost: Brock's charcoal stone fell to 1.17:1 on its dark brown, Archipelia's dark purple ring to 1.49:1, and the black outline of Relic of the Past to 1.08:1. Each mark now carries a second set of colours for a dark ground, in the same path data, and the splash picks it by itself.
+
+```tsx
+<BrandMark app="brock" ground="dark" />
+<Logo brand="archipelia" ground="dark" />
+<Splash title="Brock" mark={<BrandMark app="brock" size="lg" />} /> // dark by itself
+```
+
+```ts
+interface BrandMarkPath { d: string; ink: string; onDark?: string; /* … */ }
+interface BrandMarkData { viewBox: string; paths: readonly BrandMarkPath[]; pixelArt?: boolean; onDarkRim?: BrandRimTone }
+interface BrandRimSpec { colours: Readonly<Record<BrandRimTone, string>>; ratio: number; fineRatio: number; minPx: number }
+```
+
+- `ground` is a prop, `'light'` (the default, the colours as drawn) or `'dark'`, on `BrandMark`, `Logo` and `Logo.Combined`. No SVG is copied: a path names its dark colour in `onDark`, and a mark that needs a rim on dark names it in `onDarkRim`.
+- `Splash` gives everything inside it the dark ground through context, so a `BrandMark` or `Logo` passed as `mark` takes its dark colours with no prop. A `ground` prop still wins.
+- The rim that `onDarkRim` adds is fine: half the width of the `rim` prop's, never under 1 pixel (`brand-rim--fine`, and `fineRatio` in the files). A `rim` prop keeps its own width.
+- An app icon on its tile keeps its colours, since the tile is its ground.
+- `pnpm icons` writes the dark look as files: `brand/dark-ground/<app>.svg` and `brand/dark-ground/<app>/mark/mark-<size>.png`, 16 to 512, with no `.ico`. Archipelia's native splash, `brand/archipelia/splash/`, drawn on the dark splash ground, now uses its dark ground mark.
+- The splash contrast test holds every shape of every mark, in its dark colours, at 3:1 against each sampled point of its palette's dark gradient. It failed on ten shapes before the change.
+
+| Mark | Shape | Before | After |
+|---|---|---|---|
+| Tessera | all 21 tiles, unchanged | 3.37 lowest | 3.37 lowest |
+| Relic of the Past | outline `#000000` to `#a8641a` | 1.08 | 3.40 |
+| Relic of the Past | bottom row `#c13600` to `#d9480f` | 2.87 | 3.69 |
+| Archipelia | ring `#3b2a7a` to `#b9a3ff` | 1.49 | 8.08 |
+| Archipelia | large dot `#7c4dff`, unchanged | 3.62 | 3.62 |
+| Brock | body `#2c2d2f` to `#7d7e81` | 1.17 | 3.99 |
+| Brock | faces `#38383a`, `#474849`, `#606162` to `#8b8c8f`, `#9d9ea0`, `#b8b9bb` | 1.38 to 2.61 | 4.81 to 8.24 |
+| Brock | orange `#f0862b`, unchanged, plus a fine light rim | 6.28 | 6.28 |
+
+### What an app does
+
+1. A static splash page shows its mark as an image, which `splash.css` cannot recolour. Point the `ts-mark` image at `brand/dark-ground/<app>.svg`, or at `brand/dark-ground/<app>/mark/mark-256.png`. Brock: read the splash mark from `brand/dark-ground/` when the app takes its mark from the brand files.
+2. A React splash passes `BrandMark` or `Logo` as `mark`, or an image URL from `brand/dark-ground/`.
+3. An app that injects a mark of its own, image or node, draws it for the dark gradient of its palette, or of its `--look-dark-from` and `--look-dark-to`, with every main shape at 3:1 or more against each end, and adds a light rim if a dark shape needs one.

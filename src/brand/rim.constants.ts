@@ -4,6 +4,7 @@ import type { BrandRimSpec, BrandRimTone } from './rim.type';
 const BRAND_RIM: BrandRimSpec = {
   colours: { light: '#ececf0', dark: '#0e0e12' },
   ratio: 0.025,
+  fineRatio: 0.0125,
   minPx: 1,
 };
 

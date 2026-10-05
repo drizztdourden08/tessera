@@ -8,6 +8,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { LiveSplash } from './_samples/LiveSplash';
 import { SPLASH_MARK, SPLASH_SAMPLES, SPLASH_STATES, SPLASH_TITLE, SPLASH_VERSION } from './_samples/splash-states.constants';
 import type { SplashState } from './_samples/splash-states.type';
+import { SplashMarks } from './_samples/SplashMarks';
 import { SplashPair } from './_samples/SplashPair';
 
 type SplashArgs = {
@@ -83,11 +84,17 @@ const Reconnecting = {
   render: () => <SplashPair state="reconnecting" />,
 } satisfies StoryLiteStoryDefinition<SplashArgs>;
 
+const Marks = {
+  name: 'Each brand mark, on its gradient',
+  render: () => <SplashMarks />,
+} satisfies StoryLiteStoryDefinition<SplashArgs>;
+
 const CODE = `import { Splash } from '@drizztdourden08/tessera';
+import { BrandMark } from '@drizztdourden08/tessera/brand';
 
 <Splash
   title="Archipelia"
-  mark="/logos/mark.svg"
+  mark={<BrandMark app="archipelia" size="lg" />}
   status={failure ? \`\${failure.label} failed\` : progress.label}
   detail={failure?.message}
   failed={failure !== null}
@@ -105,16 +112,16 @@ const Overview = overviewStory({
   points: [
     'It draws the `ts-` classes of `splash.css`, so it matches the [Static splash](#/story/setup-staticsplash--overview) page.',
     'It sits on the dark gradient of the palette; a test holds its text, borders and bar at WCAG AA.',
-    '`mark` takes an image URL or a node; `status` is one line, `detail` the longer text under it.',
+    '`mark` takes an image URL or a node; a [Logo] or BrandMark in it takes its dark ground colours by itself.',
     '`progress` fills the bar from 0 to 1, or sweeps with `indeterminate`; `bar` puts it on the edge or inline.',
-    '`failed` turns the status and the bar red and focuses the first primary action.',
+    '`status` is one line, `detail` the text under it; `failed` turns them red and focuses the primary action.',
     'It covers the window; set `inert` on a mounted app behind it.',
   ],
   instead: '[ProgressBar] or [Spinner] for work inside a page the user can still use.',
   playground: Playground,
-  variants: [Starting, Failed, Update, Reconnecting],
+  variants: [Starting, Failed, Update, Reconnecting, Marks],
   code: CODE,
 });
 
 export default meta;
-export { Failed, Overview, Playground, Reconnecting, Starting, Update };
+export { Failed, Marks, Overview, Playground, Reconnecting, Starting, Update };
