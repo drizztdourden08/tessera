@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import { readFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
@@ -193,10 +194,33 @@ describe('the spotlight and the mascot', () => {
     expect(far).toContain('500px 312px');
   });
 
-  it('stands left of the target facing it, or right when there is no room', () => {
+  it('stands beside the bubble, clear of the lit part, and faces the lit part', () => {
     const box = { width: 80, height: 80 };
-    expect(mascotSpot({ x: 400, y: 100, width: 200, height: 100 }, view, box, 10)).toEqual({ x: 350, y: 120, face: 'right' });
-    expect(mascotSpot({ x: 20, y: 100, width: 200, height: 300 }, view, box, 10)).toMatchObject({ x: 270, face: 'left' });
-    expect(mascotSpot({ x: 0, y: 0, width: 1000, height: 60 }, view, box, 10)).toMatchObject({ y: 70, face: 'left' });
+    const bubble = { x: 400, y: 100, width: 300, height: 150 };
+    expect(mascotSpot({ bubble, hole: { x: 800, y: 40, width: 50, height: 50 } }, view, box, 10)).toEqual({ x: 350, y: 170, face: 'right' });
+    expect(mascotSpot({ bubble, hole: { x: 200, y: 40, width: 200, height: 400 } }, view, box, 10)).toEqual({ x: 750, y: 170, face: 'left' });
+    expect(mascotSpot({ bubble, hole: null }, view, box, 10)).toMatchObject({ x: 350, face: 'right' });
+  });
+
+  it('goes under the bubble when neither side has room', () => {
+    const wide = { x: 20, y: 100, width: 960, height: 100 };
+    expect(mascotSpot({ bubble: wide, hole: null }, view, { width: 80, height: 80 }, 10)).toMatchObject({ x: 60, y: 210 });
+  });
+
+  it('draws the mascot and the ring above the dim layer, and the centred bubble above both', () => {
+    const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
+    const tokens = Object.fromEntries([...read('../src/tokens/z-index.css').matchAll(/--(z-[a-z-]+):\s*(\d+);/g)].map((m) => [m[1], Number(m[2])]));
+    const zOf = (css, selector) => {
+      const block = css.slice(css.indexOf(`${selector} {`));
+      const name = /z-index:\s*var\(--(z-[a-z-]+)\)/.exec(block.slice(0, block.indexOf('}')))?.[1];
+      return tokens[name] ?? 0;
+    };
+    const tour = read('../src/composites/GuidedTour/GuidedTour.css');
+    const veil = zOf(read('../src/primitives/Overlay/Overlay.css'), '.overlay');
+    expect(veil).toBeGreaterThan(0);
+    expect(zOf(tour, '.guided-tour__mascot')).toBeGreaterThan(veil);
+    expect(zOf(tour, '.guided-tour__ring')).toBeGreaterThan(veil);
+    expect(zOf(tour, '.guided-tour__bubble--center')).toBeGreaterThan(zOf(tour, '.guided-tour__mascot'));
+    expect(tour.slice(tour.indexOf('.guided-tour {'), tour.indexOf('}'))).toContain('isolation: isolate');
   });
 });

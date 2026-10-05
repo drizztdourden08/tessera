@@ -4911,7 +4911,7 @@
           "something over the page",
           "a guided tour of the screen, one part at a time"
         ],
-        "rule": "GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside it."
+        "rule": "GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target."
       },
       "example": "import { useMemo } from 'react';\nimport { Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';\nimport type { TourStep } from '@drizztdourden08/tessera';\n\nconst HomeTour = ({ openSettings }: { openSettings: () => void }) => {\n  const steps = useMemo<TourStep[]>(() => [\n    { id: 'welcome', title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },\n    { id: 'pages', target: { tour: 'pages' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },\n    { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear to open the settings.' },\n    { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: openSettings },\n  ], [openSettings]);\n  const tour = useGuidedTour({ steps });\n  return (\n    <>\n      <Button onClick={() => tour.start()}>Take the tour</Button>\n      <GuidedTour tour={tour} mascot=\"auto\" />\n    </>\n  );\n};\n",
       "propsHash": "b8ebf6642435adad",
@@ -4976,7 +4976,9 @@
         "--text-base",
         "--text-sm",
         "--text-xs",
-        "--weight-medium"
+        "--weight-medium",
+        "--z-floating",
+        "--z-popover"
       ],
       "gallery": {
         "title": "Composites · Overlays/GuidedTour",

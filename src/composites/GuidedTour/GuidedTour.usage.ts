@@ -29,7 +29,7 @@ const usage = {
   ],
   tree: {
     path: ['something over the page', 'a guided tour of the screen, one part at a time'],
-    rule: 'GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside it.',
+    rule: 'GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.',
   },
   example: `import { useMemo } from 'react';
 import { Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';

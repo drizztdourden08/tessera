@@ -76,7 +76,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A cover over a part that is off: no component yet.
   - A dim backdrop: no component yet.
   - A long job the user can hide or cancel: [JobDialog](components/JobDialog.md). JobDialog puts TaskProgress in a dialog whose buttons follow the state of the job.
-  - A guided tour of the screen, one part at a time: [GuidedTour](components/GuidedTour.md). GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside it.
+  - A guided tour of the screen, one part at a time: [GuidedTour](components/GuidedTour.md). GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.
 - A full screen view. **What is the screen for?**
   - Working across pages, picked from a side list: [WorkspaceScreen](components/WorkspaceScreen.md). A side list of pages beside the current page.
   - Reading, such as About or credits: [InfoScreen](components/InfoScreen.md). One centred column to read.

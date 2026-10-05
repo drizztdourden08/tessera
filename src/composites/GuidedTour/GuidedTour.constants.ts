@@ -24,7 +24,7 @@ const CORNER_POINTS = 6;
 
 const MASCOT_ID = 'guide';
 
-const MASCOT_HEIGHT = 88;
+const MASCOT_HEIGHT = 128;
 
 const MASCOT_SPEED = 900;
 

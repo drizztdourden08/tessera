@@ -1,8 +1,9 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useState } from 'react';
+import { sameBox } from './same-box';
 import type { TourBox } from './tour-internal.type';
 
-const useNodeBox = (node: HTMLElement | null): TourBox | null => {
+const useNodeBox = (node: HTMLElement | null, moved: unknown): TourBox | null => {
   const [box, setBox] = useState<TourBox | null>(null);
 
   useLayoutEffect(() => {
@@ -11,8 +12,9 @@ const useNodeBox = (node: HTMLElement | null): TourBox | null => {
       return;
     }
     const rect = node.getBoundingClientRect();
-    setBox({ x: rect.left, y: rect.top, width: rect.width, height: rect.height });
-  }, [node]);
+    const next = { x: rect.left, y: rect.top, width: rect.width, height: rect.height };
+    setBox((last) => (sameBox(last, next) ? last : next));
+  }, [node, moved]);
 
   return box;
 };

@@ -26,14 +26,14 @@ const useTourStage = (tour: GuidedTourApi) => {
   const clickTarget = stage.click ? stage.target : null;
   const view = useViewSize(root);
   const hole = useHoleRect(stage.target, ringRef);
-  const bubbleBox = useNodeBox(stage.target ? null : bubble);
+  const bubbleBox = useNodeBox(bubble, hole);
   useScrollTarget(stage.target, useReducedMotion(rootRef));
   useTourInert(root, clickTarget);
   useTourFocus(root, bubble);
   useTourKeys(tour, root, bubble, stage.click);
   useClickAdvance(clickTarget, tour.next);
 
-  return { ...stage, attach, ringRef, setBubble, view, hole, area: hole ?? bubbleBox };
+  return { ...stage, attach, ringRef, setBubble, view, hole, bubbleBox };
 };
 
 export { useTourStage };

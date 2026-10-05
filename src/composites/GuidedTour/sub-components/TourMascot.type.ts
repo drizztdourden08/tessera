@@ -5,7 +5,8 @@ import type { TourBox, TourSize } from '../behavior/tour-internal.type';
 
 interface TourMascotProps {
   choice: AnimatedMascotChoice;
-  area: TourBox | null;
+  bubble: TourBox | null;
+  hole: TourBox | null;
   view: TourSize;
   clip: MascotClip;
 }

@@ -14,7 +14,7 @@ The source is `src/composites/GuidedTour/GuidedTour.tsx`. Its gallery page is Co
 
 What are you placing? Something over the page. What sits over the page? A guided tour of the screen, one part at a time.
 
-GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside it.
+GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.
 
 ## Use it when
 
@@ -76,7 +76,7 @@ const HomeTour = ({ openSettings }: { openSettings: () => void }) => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-primary`, `--c-primary-bright`, `--c-surface`, `--c-text`, `--c-text-dim`, `--duration-drawer`, `--duration-normal`, `--duration-slow`, `--ease-emphasized`, `--ease-standard`, `--leading-normal`, `--radius-lg`, `--radius-xl`, `--shadow-lg`, `--size-1`, `--size-24`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-medium`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-primary`, `--c-primary-bright`, `--c-surface`, `--c-text`, `--c-text-dim`, `--duration-drawer`, `--duration-normal`, `--duration-slow`, `--ease-emphasized`, `--ease-standard`, `--leading-normal`, `--radius-lg`, `--radius-xl`, `--shadow-lg`, `--size-1`, `--size-24`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-medium`, `--z-floating`, `--z-popover`.
 
 ## Also exported from this folder
 

@@ -20,7 +20,7 @@ const TourLayer = (props: GuidedTourProps) => {
     <Portal layer="modal">
       <Box ref={stage.attach} className={['guided-tour', className].filter(Boolean).join(' ')} data-step={step?.id}>
         <TourSpotlight hole={stage.hole} view={stage.view} ringRef={stage.ringRef} />
-        {mascot !== false && <TourMascot choice={mascot} area={stage.area} view={stage.view} clip={stage.clip} />}
+        {mascot !== false && <TourMascot choice={mascot} bubble={stage.bubbleBox} hole={stage.hole} view={stage.view} clip={stage.clip} />}
         {step && <TourBubble key={tour.index} tour={tour} step={step} anchor={stage.target} hole={stage.hole} nodeRef={stage.setBubble} />}
         <Span className="visually-hidden" role="status" aria-live="polite">
           {step ? words.announce(tour.index + 1, tour.total, step.title) : ''}

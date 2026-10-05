@@ -5138,7 +5138,7 @@ type CenterProps = Omit<FlexProps, 'align' | 'justify'>; // back, a Flex with al
 
 From the owner's ask for a guided tour system.
 
-`GuidedTour` and `useGuidedTour` are new composites. A tour is a list of steps written as data. Each step lights one part of the screen: the rest of the page dims and blurs through `Overlay`, and the lit part keeps a rounded hole with a primary glow. The hole glides from one target to the next and follows a resize or a scroll. The mascot walks across the screen on `MascotStage` to stand beside each lit part, turns to face it and plays the state the step names.
+`GuidedTour` and `useGuidedTour` are new composites. A tour is a list of steps written as data. Each step lights one part of the screen: the rest of the page dims and blurs through `Overlay`, and the lit part keeps a rounded hole with a primary glow. The hole glides from one target to the next and follows a resize or a scroll. The mascot walks across the screen on `MascotStage` to stand beside the bubble of each step, clear of the lit part, turns to face the lit part and plays the state the step names.
 
 ```ts
 type TourTarget = { readonly tour: string } | { readonly selector: string } | RefObject<HTMLElement | null>;
@@ -5194,6 +5194,8 @@ interface GuidedTourProps {
 - The bubble is a dialog named by its title, placed with `Anchored`. Focus moves to it on each step and goes back where it was on close. A status line reads `Step 2 of 6: Pages`.
 - The rest of the page is inert. On a click step the lit part and its parents stay reachable, so Tab, Enter and a click all reach it.
 - With reduced motion the hole and the ring jump, the mascot stands at once and nothing fades.
+- The mascot and the glow ring draw above the dim layer, sharp and at full colour: `.guided-tour` isolates its own stacking, `Overlay` keeps `--z-backdrop`, the ring and the mascot take `--z-floating`, and the bubble sits on top, in the top layer as a popover beside a target or at `--z-popover` in the middle. A test reads the three z-index values from the CSS and the tokens.
+- The mascot stands on a 128 px stage, so a pixel mascot draws at a whole scale of about 114 px, large enough to read its face and its state. It stands left of the bubble, or right of it when the left side has no room or would cover the lit part, level with the foot of the bubble. When neither side fits it stands under the bubble. The tour layer covers the whole window, so the mascot is never cut by the frame of the page.
 - New strings: `tour.closeTour`, `tour.clickToGo`, `tour.announce`, `tour.nextKey` and `tour.backKey`. The bubble also uses `wizard.back`, `wizard.next`, `common.done` and `stepper.stepOf`.
 
 ### Which Tessera parts the tour uses
@@ -5202,7 +5204,7 @@ interface GuidedTourProps {
 |---|---|---|
 | The dimmed, blurred page | `Overlay` with `tone="scrim"` and `blur` | Reused. The tour cuts the hole with a `clip-path` on it, set through its ref. |
 | The bubble beside the target | `Anchored` | Reused, with `portal={false}` so the bubble stays in the tour layer. Without a target the bubble sits in the middle. |
-| The mascot that walks | `MascotStage` and its actor | Reused. `moveTo` walks it along the screen, `play` sets the state with `face` toward the target. The stage itself slides up or down to the row of the target, since the stage walks on one line. |
+| The mascot that walks | `MascotStage` and its actor | Reused. `moveTo` walks it along the screen to the side of the bubble, `play` sets the state with `face` toward the target. The stage itself slides up or down to the row of the target, since the stage walks on one line. |
 | Focus back on close | `restoreFocus` of `DialogShell` | Reused. |
 | The keys | `Shortcut` and `ShortcutListItem` | Reused. |
 | `ShortcutTour` | | Kept apart. It is a looping lesson for one shortcut on a drawn keyboard, with a camera and no steps, focus or app state. The two share only `useReducedMotion`. |
