@@ -72,6 +72,7 @@ const COLUMNS = [{ key: 'labels', label: 'labels' }, { key: 'slider', label: 'Sl
 
 const LabelsDemo = () => (
   <Demonstrator
+    className="slider-labels-story"
     corner="Kind"
     rows={axis(Object.keys(EXAMPLES))}
     columns={COLUMNS}

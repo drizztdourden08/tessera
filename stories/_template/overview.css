@@ -3,12 +3,26 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2xl);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+:where(.overview, .overview__section, .overview__variant) > * {
+  min-inline-size: 0;
+  max-inline-size: 100%;
 }
 
 .overview__section {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+}
+
+.overview__fit {
+  max-inline-size: none;
+  margin: calc(var(--space-xs) * -1);
+  padding: var(--space-xs);
+  overflow-x: auto;
 }
 
 .overview__heading {
@@ -38,6 +52,7 @@
   --checker: color-mix(in srgb, var(--c-surface) 45%, var(--c-bg));
 
   padding: var(--space-xl);
+  overflow-x: auto;
   border: 1px solid var(--c-border-strong);
   border-radius: var(--radius-lg);
   background-color: color-mix(in srgb, var(--c-surface) 20%, var(--c-bg));

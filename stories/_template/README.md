@@ -99,6 +99,24 @@ Give it rows and columns for a grid, rows alone for a list of labelled rows, or 
 
 `Demonstrator.css` holds the look. `--demonstrator-gap` sets the gap between cells and `--demonstrator-rule` the rules; both are declared once on `.demonstrator`, so changing either changes every story.
 
+### Narrow frames
+
+The columns shrink to their content first: long labels and text wrap, and a `fill` column takes what the others leave. When the columns still do not fit, the Demonstrator stacks: each row label becomes a heading over its row, and each cell sits under it beside its column label. When even the stacked rows are too wide, such as a 1024 px sample, it keeps its columns and its frame scrolls sideways. It goes back to columns as soon as they fit again.
+
+A `fill` cell gives no width of its own, so a fixed width inside it can shrink to the cell. When a `fill` column holds something that needs room, such as a slider, give its cells a minimum through the Demonstrator's `className`, as Slider, ScaleLabels and DynamicInput do.
+
+## Overflow
+
+An Overview page only scrolls down. The page, its sections and every frame shrink to the content column, every frame scrolls sideways inside its own box when its content cannot shrink, and every extra section and the `switcher` sit in a frame too. A story frame with a fixed width takes `max-inline-size: 100%` so it fits a narrow window.
+
+`tests/overview-overflow.test.mjs` fails when the template loses one of these guards. To check the pages themselves, start the gallery and run:
+
+```sh
+PLAYWRIGHT_MODULE=<path to an installed playwright package> pnpm check:overflow
+```
+
+It opens every Overview at 1920, 1440, 1280, 1100 and 1000 px wide and lists each page that scrolls sideways or draws something past its frame. `GALLERY_URL` picks another server than `http://localhost:4400`, `OVERFLOW_WIDTHS` other widths, and story ids after the command check only those pages.
+
 ## States
 
 A state is how one component looks at a given moment: hovered, focused, disabled, in error. A variant is a different version of the component: a size, a tone, an icon or no icon. A state is not a variant. Keep variants in `variants` and list states in `states`, never the other way round.

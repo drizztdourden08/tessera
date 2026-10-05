@@ -22,6 +22,10 @@
 .variable-type__size-48 { font-size: var(--size-48); }
 .variable-type__size-64 { font-size: var(--size-64); }
 
+.variable-type__table > .demonstrator__cell--fill {
+  grid-template-columns: minmax(min-content, 1fr);
+}
+
 .feature-table {
   display: flex;
   flex-direction: column;

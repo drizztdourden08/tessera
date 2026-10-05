@@ -10,6 +10,7 @@ import { RuleMarks } from './_samples/RuleMarks';
 import { ScaleStage } from './_samples/ScaleStage';
 import { VALUE_RULE_EXAMPLES } from './_samples/value-rule-examples.constants';
 import { VALUE_RULE_SYNTAX } from './_samples/value-rule-syntax.constants';
+import './ScaleLabels.stories.css';
 
 type ScaleLabelsArgs = {
   labels: string;
@@ -76,7 +77,7 @@ const exampleCell = (row: string, column: string): ReactNode => {
 const Rules = {
   name: 'Rules',
   render: () => (
-    <Demonstrator rows={axis(Object.keys(VALUE_RULE_EXAMPLES))} columns={RULE_COLUMNS} align="stretch" cell={exampleCell} />
+    <Demonstrator className="scale-labels-story__rules" rows={axis(Object.keys(VALUE_RULE_EXAMPLES))} columns={RULE_COLUMNS} align="stretch" cell={exampleCell} />
   ),
 } satisfies StoryLiteStoryDefinition<ScaleLabelsArgs>;
 

@@ -55,6 +55,7 @@ const Examples = {
   name: 'Ten fields',
   render: () => (
     <Demonstrator
+      className="pattern-story__examples"
       corner="Field"
       rows={axis(EXAMPLE_KEYS)}
       columns={[{ key: 'live', label: 'Try it', fill: true }, { key: 'pattern', label: 'Pattern' }]}

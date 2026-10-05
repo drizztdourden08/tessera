@@ -1,0 +1,4 @@
+/* @layer stories @kind style */
+.scale-labels-story__rules > .demonstrator__cell--fill {
+  min-inline-size: var(--size-160);
+}

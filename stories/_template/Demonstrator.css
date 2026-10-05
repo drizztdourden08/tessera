@@ -3,6 +3,7 @@
   --demonstrator-gap: var(--space-xl);
   --demonstrator-rule: var(--border-width-thin) solid var(--c-border);
 
+  display: grid;
   gap: var(--demonstrator-gap);
   justify-content: start;
   align-items: stretch;
@@ -17,6 +18,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   text-align: center;
+  overflow-wrap: break-word;
 }
 
 .demonstrator__label--row {
@@ -31,9 +33,16 @@
 
 .demonstrator__cell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  place-items: center;
+  grid-template-columns: minmax(min-content, 1fr);
+  place-items: safe center;
   min-inline-size: 0;
+}
+
+.demonstrator__cell--fill { grid-template-columns: minmax(0, 1fr); }
+
+:where(.demonstrator__cell) > * {
+  min-inline-size: 0;
+  max-inline-size: 100%;
 }
 
 .demonstrator[data-align='start'] > .demonstrator__cell { justify-items: start; }
@@ -50,3 +59,16 @@
   inset-block-start: calc(var(--demonstrator-gap) / -2);
   border-block-start: var(--demonstrator-rule);
 }
+
+.demonstrator[data-layout='stacked'] { inline-size: 100%; }
+
+.demonstrator[data-layout='stacked'] > .demonstrator__label--row {
+  grid-column: 1 / -1;
+  justify-content: start;
+  padding-block-end: var(--space-xs);
+  padding-inline: 0;
+  border-block-end: var(--demonstrator-rule);
+  border-inline-end: 0;
+}
+
+.demonstrator__label--aside { justify-content: end; }

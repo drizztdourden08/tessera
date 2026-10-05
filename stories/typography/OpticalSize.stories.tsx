@@ -46,6 +46,7 @@ const OpticalSizes = {
         Inter's second axis. Small text gets looser spacing and sturdier details, display text gets tighter and finer. With auto, the browser picks it from the font size.
       </Text>
       <Demonstrator
+        className="variable-type__table"
         corner="Size"
         rows={SIZES.map((size) => ({ key: String(size), label: `${size}px` }))}
         columns={OPTICAL.map((column) => ({ key: String(column.value), label: column.label }))}

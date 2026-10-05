@@ -37,7 +37,7 @@ const OverviewPage = (props: OverviewPageProps) => {
   return (
     <Box className="overview">
       <OverviewHead name={name} description={description} points={points} instead={instead} />
-      {switcher}
+      {switcher !== null && <Box className="overview__fit">{switcher}</Box>}
       {variants.length > 0 && (
       <Box as="section" className="overview__section">
         <Text as="h2" className="overview__heading">Variants</Text>
@@ -52,7 +52,7 @@ const OverviewPage = (props: OverviewPageProps) => {
       {sections.map((section) => (
       <Box as="section" key={section.title} className="overview__section">
         <Text as="h2" className="overview__heading">{section.title}</Text>
-        {section.node}
+        <Box className="overview__fit">{section.node}</Box>
       </Box>
       ))}
       {states !== null && <StatesSection {...states} />}

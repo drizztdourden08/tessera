@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: var(--space-md);
   max-inline-size: var(--size-768);
+  overflow-wrap: break-word;
 }
 
 .overview__name {

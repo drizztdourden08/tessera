@@ -8,11 +8,11 @@
 }
 
 .side-nav-layout-story__frame--narrow {
-  max-width: var(--size-768);
+  max-width: min(var(--size-768), 100%);
 }
 
 .side-nav-layout-story__frame--phone {
-  max-width: var(--size-384);
+  max-width: min(var(--size-384), 100%);
 }
 
 .side-nav-layout-story__state {

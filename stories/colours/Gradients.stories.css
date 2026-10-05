@@ -2,12 +2,12 @@
 .brand-gradients {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(var(--size-288), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--size-288), 100%), 1fr));
   gap: var(--space-md);
 }
 
 .brand-gradients--wide {
-  grid-template-columns: repeat(auto-fill, minmax(var(--size-512), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--size-512), 100%), 1fr));
 }
 
 .brand-gradients--pair {
@@ -82,4 +82,10 @@
 
 .palette-gradient__ground--dark {
   background: linear-gradient(160deg, var(--c-gradient-dark-from), var(--c-gradient-dark-to));
+}
+
+@media (width < 960px) {
+  .brand-gradients--pair {
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--size-288), 100%), 1fr));
+  }
 }

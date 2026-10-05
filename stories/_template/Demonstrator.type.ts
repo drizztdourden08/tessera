@@ -5,6 +5,13 @@ type DemonstratorAlign = 'start' | 'center' | 'stretch';
 
 type DemonstratorValign = 'start' | 'center' | 'end';
 
+type DemonstratorLayout = 'grid' | 'stacked' | 'scroll';
+
+interface DemonstratorNeed {
+  grid: number;
+  stacked: number;
+}
+
 interface DemonstratorAxis<K extends string> {
   key: K;
   label: string;
@@ -24,8 +31,11 @@ interface DemonstratorProps<R extends string, C extends string> {
 
 interface DemonstratorBody {
   labelled: boolean;
+  stacked: boolean;
+  named: boolean;
+  fill: boolean;
   columns: readonly DemonstratorAxis<string>[];
   draw: (row: string, column: string) => ReactNode;
 }
 
-export type { DemonstratorAxis, DemonstratorBody, DemonstratorProps };
+export type { DemonstratorAxis, DemonstratorBody, DemonstratorLayout, DemonstratorNeed, DemonstratorProps };

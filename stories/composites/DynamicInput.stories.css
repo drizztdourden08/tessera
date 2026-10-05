@@ -42,3 +42,7 @@
   width: var(--size-512);
   max-width: 100%;
 }
+
+.pattern-story__examples > .demonstrator__cell--fill {
+  grid-template-columns: minmax(min-content, 1fr);
+}

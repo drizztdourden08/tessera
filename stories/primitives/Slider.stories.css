@@ -3,3 +3,7 @@
   width: var(--size-512);
   max-width: 100%;
 }
+
+.slider-labels-story > .demonstrator__cell--fill {
+  min-inline-size: var(--size-224);
+}
