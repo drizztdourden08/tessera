@@ -2,7 +2,6 @@
 import { useId, useRef } from 'react';
 import { Anchored } from '../Anchored';
 import { useDescribedBy } from './behavior/useDescribedBy';
-import { useFallbackPos } from './behavior/useFallbackPos';
 import { useTooltipOpen } from './behavior/useTooltipOpen';
 import './Tooltip.css';
 import type { TooltipProps } from './Tooltip.type';
@@ -13,7 +12,6 @@ const Tooltip = (props: TooltipProps) => {
   const bubbleRef = useRef<HTMLDivElement>(null);
   const bubbleId = useId();
   const { open, handlers } = useTooltipOpen(anchorRef, bubbleRef, content != null);
-  const pos = useFallbackPos(anchorRef, open, placement);
   const describedBy = open ? bubbleId : undefined;
   useDescribedBy(anchorRef, describedBy, focusable);
   const stop = focusable ? { tabIndex: 0, 'aria-describedby': describedBy } : {};
@@ -34,7 +32,6 @@ const Tooltip = (props: TooltipProps) => {
           anchorRef={anchorRef}
           placement={placement === 'top' ? 'top-center' : 'bottom-center'}
           layer="tooltip"
-          fallback={pos}
           className="tooltip"
           data-placement={placement}
         >

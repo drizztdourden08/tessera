@@ -27,7 +27,6 @@ const ControlSubUnder = (props: ControlSubPanelProps) => {
       anchorRef={anchorRef}
       placement="bottom-start"
       flip
-      fallback={row ? { top: row.bottom, left: row.left } : null}
       style={anchor && row ? subWidthStyle(row.width / cssZoomOf(anchor)) : undefined}
       className={`dropdown-menu dropdown-surface control-menu__sub-panel control-menu__sub-panel--under ${look}`}
     >

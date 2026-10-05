@@ -5416,6 +5416,17 @@ writeStored(key: string | undefined, value: unknown): boolean; // false when it 
 - A Widget key that holds the JSON `null` now gives the preset, as a missing key does; it gave the default layout before.
 - The view state of the data engine keeps its own `ViewStorage`, which an app hands in and which is not tied to `localStorage`.
 
+### Anchored places its own popup where the browser cannot
+
+Where the browser has no CSS anchor positioning, a popup needs a place worked out by script. Tooltip, DynamicInput, DropdownMenu, FilterBar and the under panel of ControlMenu each worked it out their own way, and SettingsRow, the ControlMenu and DropdownMenu sub panels and others gave none, so their popup sat at the corner of the window. Anchored now does it itself.
+
+- **Its own place.** When `fallback` is not given, Anchored tracks its anchor and places the popup from its `placement`, the same way the CSS anchors do: below or above the anchor, at its start, end or centre, or to its right for `right-start`. The place follows scrolling and resizing, and takes the CSS zoom of the anchor into account.
+- **The same gap.** The popup it places carries `data-anchor-place`, so `--anchored-gap` and the centring apply to it as they do to the native popup. Tooltip drops its own fallback transforms and sets `--anchored-gap` on `.tooltip`.
+- **One function.** `anchoredFallback(anchor, rect, view, placement)` in `src/primitives/Anchored/behavior` is that place. DropdownMenu and FilterBar, which also close the popup when the anchor scrolls out of view, track the anchor themselves and use it. It is internal.
+- **Still overridable.** A `fallback` given by the part wins, as before. The listbox, TagInput, ColorPickerPopover and GuidedTour keep theirs: they flip the panel up when there is no room below, size it, or place it by something other than the anchor.
+- The copies are removed: `useFallbackPos` of Tooltip, `popoverFallback` and `POPOVER_GAP` of DynamicInput and `menuPlacement` of DropdownMenu.
+- In a browser with no anchor positioning, the DynamicInput panel now sits `--space-xs` below its field, as it does natively, where it sat 6 pixels below; FilterBar's value panel follows the CSS zoom; and the SettingsRow bubble and the ControlMenu panels are placed by their anchor. Nothing changes where the browser positions popups itself, which is every current Chromium.
+
 ## 182. Each brand mark has a look for the light and the dark gradient, and a compact ConfirmIconButton
 
 From the owner's answers on the brand marks. Section 176 gave every mark one dark ground look, its second colours plus a rim. Each mark now names its look for each of the two gradients of its palette, section 180's light pair and the dark pair of the splash, and the rim of section 176 becomes that look's outline.

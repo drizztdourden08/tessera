@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 import { Anchored } from '../../../primitives/Anchored';
+import { anchoredFallback } from '../../../primitives/Anchored/behavior/anchored-fallback';
 import { useAnchorTracking } from '../../../primitives/Portal';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
@@ -23,7 +24,7 @@ const ValuePopover = (props: ValuePopoverProps) => {
   const { position } = useAnchorTracking({
     active: true,
     anchorRef,
-    compute: (rect) => ({ top: rect.bottom, left: rect.left }),
+    compute: (rect, view) => anchoredFallback(anchorRef.current, rect, view, 'bottom-start'),
     onOutOfView: onClose,
   });
 

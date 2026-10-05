@@ -54,3 +54,19 @@
   position: fixed;
   pointer-events: auto;
 }
+
+.anchored-fallback[data-anchor-place^='bottom'] {
+  margin-top: var(--anchored-gap, 0);
+}
+
+.anchored-fallback[data-anchor-place^='top'] {
+  margin-bottom: var(--anchored-gap, 0);
+}
+
+.anchored-fallback[data-anchor-place$='-center'] {
+  translate: -50% 0;
+}
+
+.anchored-fallback[data-anchor-place='right-start'] {
+  margin-left: var(--anchored-gap, 0);
+}

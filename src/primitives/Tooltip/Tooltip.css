@@ -10,6 +10,8 @@
 }
 
 .tooltip {
+  --anchored-gap: var(--size-6);
+
   position: fixed;
   max-width: var(--size-256);
   padding: var(--space-xs) var(--space-sm);
@@ -22,16 +24,4 @@
   line-height: var(--leading-normal);
   pointer-events: none;
   white-space: nowrap;
-}
-
-.tooltip.anchored {
-  --anchored-gap: var(--size-6);
-}
-
-.tooltip.anchored-fallback[data-placement='top'] {
-  transform: translate(-50%, calc(-100% - var(--size-6)));
-}
-
-.tooltip.anchored-fallback[data-placement='bottom'] {
-  transform: translate(-50%, var(--size-6));
 }

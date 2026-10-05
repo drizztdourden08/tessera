@@ -4,6 +4,7 @@ import { setNodeOnRef } from '../ScrollArea/behavior/set-node-on-ref';
 import { anchorIdent } from './behavior/anchor-ident';
 import { useAnchorName } from './behavior/useAnchorName';
 import { useAnchorSupport } from './behavior/useAnchorSupport';
+import { useOwnFallback } from './behavior/useOwnFallback';
 import { useShownPopover } from './behavior/useShownPopover';
 import { AnchoredFallback } from './sub-components/AnchoredFallback';
 import type { AnchoredProps, AnchoredStyle } from './Anchored.type';
@@ -16,6 +17,7 @@ const Anchored = (props: AnchoredProps) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   useAnchorName(native, anchorRef, name);
   useShownPopover(native, popupRef);
+  const own = useOwnFallback(!native && fallback === undefined, anchorRef, placement);
 
   const attach = useCallback((node: HTMLDivElement | null) => {
     popupRef.current = node;
@@ -24,7 +26,16 @@ const Anchored = (props: AnchoredProps) => {
 
   if (!native) {
     return (
-      <AnchoredFallback nodeRef={attach} layer={layer} portal={portal} fallback={fallback} className={className} style={style} {...rest}>
+      <AnchoredFallback
+        nodeRef={attach}
+        layer={layer}
+        portal={portal}
+        fallback={fallback === undefined ? own : fallback}
+        place={fallback === undefined ? placement : undefined}
+        className={className}
+        style={style}
+        {...rest}
+      >
         {children}
       </AnchoredFallback>
     );
