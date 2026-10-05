@@ -84,8 +84,8 @@ const OVERLAYS = {
   question: 'What sits over the page?',
   answers: {
     'a hint on hover or focus': null, 'a question the user must answer': null, 'a dialog with its own layout': null,
-    'a panel from the edge of the window': null, 'a search over every command': null,
-    'a cover over a part that is off': null, 'a dim backdrop': null, 'a long job the user can hide or cancel': null,
+    'a panel from the edge of the window': null, 'a search over every command': null, 'a cover over a part that is off': null,
+    'a dim backdrop': null, 'a long job the user can hide or cancel': null, 'a guided tour of the screen, one part at a time': null,
   },
 } as const;
 

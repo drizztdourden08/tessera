@@ -5133,3 +5133,81 @@ type CenterProps = Omit<FlexProps, 'align' | 'justify'>; // back, a Flex with al
 2. Rename `PathField` to `PathInput` and `PathFieldProps` to `PathInputProps`, and any CSS that reaches `.path-field` to `.path-input`. Brock: `SettingPathField` draws `PathInput`.
 3. An app that replaced `Center` with `Flex align="center" justify="center"` for section 172 may keep the Flex or go back to `Center`.
 4. An app that drew `BrandScene` draws `Mascot` or `AnimatedMascot`, or writes the scene as markup with `sceneMarkup`.
+
+## 178. GuidedTour walks a user through a screen, presented by the mascot
+
+From the owner's ask for a guided tour system.
+
+`GuidedTour` and `useGuidedTour` are new composites. A tour is a list of steps written as data. Each step lights one part of the screen: the rest of the page dims and blurs through `Overlay`, and the lit part keeps a rounded hole with a primary glow. The hole glides from one target to the next and follows a resize or a scroll. The mascot walks across the screen on `MascotStage` to stand beside each lit part, turns to face it and plays the state the step names.
+
+```ts
+type TourTarget = { readonly tour: string } | { readonly selector: string } | RefObject<HTMLElement | null>;
+type TourAdvance = 'next' | 'click';
+
+interface TourStep {
+  readonly id: string;
+  readonly title: string;
+  readonly body: ReactNode;
+  readonly target?: TourTarget; // none: the bubble sits in the middle
+  readonly placement?: AnchoredPlacement; // default 'bottom-start'
+  readonly advance?: TourAdvance; // default 'next'
+  readonly mascot?: MascotClip; // default 'point', or 'wave' with no target
+  readonly onEnter?: () => void | Promise<void>;
+}
+
+interface GuidedTourOptions {
+  steps: readonly TourStep[];
+  step?: number;
+  onStepChange?: (step: number) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  onFinish?: () => void;
+}
+
+interface GuidedTourApi {
+  readonly steps: readonly TourStep[];
+  readonly open: boolean;
+  readonly index: number;
+  readonly current: TourStep | null;
+  readonly total: number;
+  readonly shortcuts: readonly ShortcutListItem[];
+  start: (at?: number) => void;
+  next: () => void;
+  back: () => void;
+  goTo: (index: number) => void;
+  close: () => void;
+}
+
+interface GuidedTourProps {
+  tour: GuidedTourApi;
+  mascot?: AnimatedMascotChoice | false; // default 'auto'
+  className?: string;
+}
+```
+
+- `{ tour: 'nav' }` finds `[data-tour="nav"]`, `{ selector }` takes any selector, and a ref points at the element itself. The tour looks for a target for 30 frames after `onEnter`, so a panel that `onEnter` opens has time to draw.
+- `onEnter` runs before its step shows, each time the step shows, also on Back. It may return a promise; the step waits for it.
+- `advance: 'click'` hides Next and goes on when the user clicks the lit part. The app's own click handler runs first, so the click can open what the next step shows.
+- Next on the last step closes the tour and calls `onFinish`. Escape, the close button and `close()` close it at any step.
+- `useGuidedTour` holds the step and the open state. Pass `step` and `open` with their handlers to keep them in the app.
+- Right arrow or Enter goes on, Left arrow goes back and Escape closes. `tour.shortcuts` lists the four keys as `ShortcutListItem` rows for the app's `ShortcutList`; the bubble shows Left, Right and Esc as `Shortcut` caps.
+- The bubble is a dialog named by its title, placed with `Anchored`. Focus moves to it on each step and goes back where it was on close. A status line reads `Step 2 of 6: Pages`.
+- The rest of the page is inert. On a click step the lit part and its parents stay reachable, so Tab, Enter and a click all reach it.
+- With reduced motion the hole and the ring jump, the mascot stands at once and nothing fades.
+- New strings: `tour.closeTour`, `tour.clickToGo`, `tour.announce`, `tour.nextKey` and `tour.backKey`. The bubble also uses `wizard.back`, `wizard.next`, `common.done` and `stepper.stepOf`.
+
+### Which Tessera parts the tour uses
+
+| Need | Tessera part | Result |
+|---|---|---|
+| The dimmed, blurred page | `Overlay` with `tone="scrim"` and `blur` | Reused. The tour cuts the hole with a `clip-path` on it, set through its ref. |
+| The bubble beside the target | `Anchored` | Reused, with `portal={false}` so the bubble stays in the tour layer. Without a target the bubble sits in the middle. |
+| The mascot that walks | `MascotStage` and its actor | Reused. `moveTo` walks it along the screen, `play` sets the state with `face` toward the target. The stage itself slides up or down to the row of the target, since the stage walks on one line. |
+| Focus back on close | `restoreFocus` of `DialogShell` | Reused. |
+| The keys | `Shortcut` and `ShortcutListItem` | Reused. |
+| `ShortcutTour` | | Kept apart. It is a looping lesson for one shortcut on a drawn keyboard, with a camera and no steps, focus or app state. The two share only `useReducedMotion`. |
+| `WindowGuideOverlay` | | Kept apart. It is a guide shown while a window moves, with no steps or target. It dims the window with its own scrim. |
+
+### What an app does
+
+Nothing has to change. To add a tour, mark the parts with `data-tour`, write the steps in a memo, call `useGuidedTour({ steps })` and draw `<GuidedTour tour={tour} />`. Make `onEnter` safe to run twice.

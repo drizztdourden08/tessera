@@ -75,7 +75,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WizardDialog: 'wand-sparkles',
     JobDialog: 'square-activity',
   },
-  'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban' },
+  'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban', GuidedTour: 'signpost' },
   'Composites · Feedback': { Toast: 'bell' },
   'Composites · Actions': { ConfirmIconButton: 'circle-check', ActionBar: 'rectangle-ellipsis', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Composites · Wizard': {

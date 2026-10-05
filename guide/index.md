@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 43 of 171 have their usage written; a linked name opens its page.
+One line per component. 44 of 172 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -113,6 +113,7 @@ One line per component. 43 of 171 have their usage written; a linked name opens 
 - [FormGroupTabs](components/FormGroupTabs.md): The top of a long form split into groups: a search over the options, Show advanced, and a tab per group with how many options changed. Import from `@drizztdourden08/tessera`.
 - [FormRow](components/FormRow.md): One option of a long form: its name and help on the left, its control in the middle, a changed mark and a reset at the end. Import from `@drizztdourden08/tessera`.
 - `GroupTree`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [GuidedTour](components/GuidedTour.md): A tour of a screen, step by step: one part stays lit with a glow while the rest dims and blurs, a bubble explains it and the mascot presents it. Import from `@drizztdourden08/tessera`.
 - `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [InfoScreen](components/InfoScreen.md): A screen to read, such as About or credits: the window title bar with the close button, then wide margins and one centred column that scrolls. Import from `@drizztdourden08/tessera`.

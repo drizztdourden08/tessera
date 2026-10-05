@@ -93,6 +93,8 @@ export { CommandPalette, CommandPaletteRow } from './CommandPalette';
 export type {
   CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle,
 } from './CommandPalette';
+export { GuidedTour, useGuidedTour } from './GuidedTour';
+export type { GuidedTourApi, GuidedTourOptions, GuidedTourProps, TourAdvance, TourStep, TourTarget } from './GuidedTour';
 export { DisabledOverlay } from './DisabledOverlay';
 export type { DisabledOverlayProps } from './DisabledOverlay';
 export {

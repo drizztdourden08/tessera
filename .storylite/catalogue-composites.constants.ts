@@ -21,6 +21,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'Drawer', summary: 'A panel that slides in from an edge.' },
         { name: 'DisabledOverlay', summary: 'Covers a disabled area and says why.' },
+        { name: 'GuidedTour', summary: 'A tour of a screen: one part lit at a time, steps from config, presented by the mascot.' },
       ],
     },
     {

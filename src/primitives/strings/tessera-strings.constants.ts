@@ -20,6 +20,7 @@ import { SAVE_BAR_STRINGS } from './save-bar-strings.constants';
 import { SETTINGS_STRINGS } from './settings-strings.constants';
 import { STEPPER_STRINGS } from './stepper-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
+import { TOUR_STRINGS } from './tour-strings.constants';
 import { VIDEO_STRINGS } from './video-strings.constants';
 import { WIDGET_STRINGS } from './widgets-strings.constants';
 import { WINDOW_STRINGS } from './windows-strings.constants';
@@ -44,6 +45,7 @@ const TESSERA_STRINGS = {
   stepper: STEPPER_STRINGS,
   windows: WINDOW_STRINGS,
   wizard: WIZARD_STRINGS,
+  tour: TOUR_STRINGS,
   charts: CHART_STRINGS,
   items: ITEM_STRINGS,
   lists: LIST_STRINGS,

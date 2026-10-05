@@ -282,6 +282,11 @@
             "components": [
               "JobDialog"
             ]
+          },
+          "a guided tour of the screen, one part at a time": {
+            "components": [
+              "GuidedTour"
+            ]
           }
         }
       },
@@ -4609,6 +4614,130 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "GuidedTour",
+      "tier": "composites",
+      "source": "src/composites/GuidedTour/GuidedTour.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A tour of a screen, step by step: one part stays lit with a glow while the rest dims and blurs, a bubble explains it and the mascot presents it.",
+      "useWhen": [
+        "A first run shows a new user around a screen, one part at a time.",
+        "A new feature needs a short walk through the parts it touches, such as a panel that opens."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One shortcut is taught on a drawn keyboard.",
+          "use": "ShortcutTour"
+        },
+        {
+          "case": "A hint explains one control on hover or focus.",
+          "use": "Tooltip"
+        },
+        {
+          "case": "A task is done in steps, with values the user enters.",
+          "use": "Wizard"
+        }
+      ],
+      "rules": [
+        "Write the steps as data and keep them in a memo, since onEnter runs each time its step shows.",
+        "Mark a target with data-tour and point at it with { tour }, or pass a ref; a step without a target sits in the middle.",
+        "Change the state of the app in onEnter, such as opening a panel or a tab, and make it safe to run twice.",
+        "Use advance: 'click' only when the click itself does what the step teaches, such as opening the settings.",
+        "Keep a tour short, five or six steps, with a title of a few words and a body of one or two lines.",
+        "Pass step and open with onStepChange and onOpenChange when the app must keep where the tour is."
+      ],
+      "a11y": [
+        "The bubble is a dialog named by its title; focus moves to it on each step and goes back where it was on close.",
+        "A status line reads each step as Step 2 of 6 and the title.",
+        "The rest of the page is inert; on a click step the lit part stays reachable by Tab, Enter and a click.",
+        "Right or Enter goes on, Left goes back and Escape closes; tour.shortcuts lists them for a ShortcutList.",
+        "With reduced motion the highlight and the mascot move at once and nothing fades."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a guided tour of the screen, one part at a time"
+        ],
+        "rule": "GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside it."
+      },
+      "example": "import { useMemo } from 'react';\nimport { Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';\nimport type { TourStep } from '@drizztdourden08/tessera';\n\nconst HomeTour = ({ openSettings }: { openSettings: () => void }) => {\n  const steps = useMemo<TourStep[]>(() => [\n    { id: 'welcome', title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },\n    { id: 'pages', target: { tour: 'pages' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },\n    { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear to open the settings.' },\n    { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: openSettings },\n  ], [openSettings]);\n  const tour = useGuidedTour({ steps });\n  return (\n    <>\n      <Button onClick={() => tour.start()}>Take the tour</Button>\n      <GuidedTour tour={tour} mascot=\"auto\" />\n    </>\n  );\n};\n",
+      "propsHash": "b8ebf6642435adad",
+      "props": {
+        "own": [
+          {
+            "name": "tour",
+            "optional": false,
+            "text": "GuidedTourApi"
+          },
+          {
+            "name": "mascot",
+            "optional": true,
+            "text": "AnimatedMascotChoice | false",
+            "literals": [
+              "'archipelia'",
+              "'auto'",
+              "'brock'",
+              "'rotp'",
+              "false"
+            ]
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-surface",
+        "--c-text",
+        "--c-text-dim",
+        "--duration-drawer",
+        "--duration-normal",
+        "--duration-slow",
+        "--ease-emphasized",
+        "--ease-standard",
+        "--leading-normal",
+        "--radius-lg",
+        "--radius-xl",
+        "--shadow-lg",
+        "--size-1",
+        "--size-24",
+        "--size-320",
+        "--space-2xs",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xl",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--weight-medium"
+      ],
+      "gallery": {
+        "title": "Composites · Overlays/GuidedTour",
+        "route": "#/story/composites-guidedtour--overview",
+        "file": "stories/composites/GuidedTour.stories.tsx"
+      },
+      "parts": [
+        "useGuidedTour"
+      ]
     },
     {
       "name": "HeaderAnchorNav",
