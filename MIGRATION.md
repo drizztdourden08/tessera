@@ -5835,3 +5835,57 @@ From Brock's request. Brock's installer splash sets the app name in Chakra Petch
 ### What an app does
 
 Brock points its splash renderer at `chakra-petch-latin-600-normal.ttf` and drops its converter. The file names its family `Chakra Petch SemiBold` at weight 600, as the `.woff2` does, so the name the splash asks for today still matches. Other apps change nothing.
+
+## 190. Status tones mean the same thing in every palette
+
+From the owner's review: a success Toast took the palette's secondary colour, so it was grey in Tessera and Brock, lilac in Archipelia and the brand green in Relic of the Past. Success, warning, danger and info now read as what they are in every palette, apart from the accents.
+
+### The cause
+
+- `.toast--success` drew from `--c-secondary`, `-dim` and `-bright`. Every other part that means a status already read the status tokens.
+- The status seeds were set once, in `palette.css`, and no palette set its own, so they were never tuned to a palette's surfaces. Tessera's danger, `#e5556e`, fell to 4.06:1 as text on its own `-dim` in Archipelia and 4.17:1 in Tessera, and the danger and warning Toasts drew text in the base tone on the `-dim` fill.
+- A cancelled TaskProgress bar drew in the secondary, so it read green, a success, in Relic of the Past.
+
+### The seeds per palette
+
+| Palette | `--p-success` | `--p-warning` | `--p-danger` | `--p-info` |
+|---|---|---|---|---|
+| Tessera (`palette.css`) | `#5cb87a` | `#e0b341` | `#ec6279`, was `#e5556e` | `#5b9bd5` |
+| Relic of the Past | `#4cc98c` | `#eb9a3a` | `#ee6272` | `#5b9bd5` |
+| Archipelia | `#4cc38a` | `#e9b949` | `#f2655f` | `#4fb0e8` |
+| Brock | `#58bd78` | `#e6c23a` | `#ef5a6e` | `#5ba0dc` |
+
+- Brock's warning leans yellow and its danger cool, away from its orange primary. Archipelia's danger leans warm and its info toward sky blue, away from its violet. Relic of the Past's warning leans orange, away from its gold, and its success toward emerald, away from its green secondary.
+- The `--c-*` roles and their `-dim`, `-soft` and `-bright` steps derive from the seeds as before. No token is renamed.
+- The Tessera seeds now apply on `:root, [data-palette="tessera"]`, so a box marked `data-palette="tessera"` inside another palette shows Tessera's colours, as the other palettes already did.
+- `tokens.json` lists `success`, `warning`, `danger` and `info` in `theme.dark` and in each `palettes.<palette>.dark`, and `splash-tokens.css` carries each palette's values.
+
+### Contrast
+
+A new test, `tests/status-tones.test.mjs`, resolves the tokens of each palette and holds, for each tone:
+
+- the tone and its `-bright` step at 4.5:1 or more as text on `--c-surface`, `--c-sunken`, `--c-bg`, `--c-layer` and the tone's own `-dim` and `-soft`;
+- the tone at 3:1 or more as an icon or border on the four surfaces;
+- `--c-on-<tone>` at 4.5:1 or more on a fill of the tone.
+
+The lowest text ratio per palette, each on the tone's own `-dim` or `-soft`:
+
+| Palette | Success | Warning | Danger | Info |
+|---|---|---|---|---|
+| Tessera | 5.80 | 6.95 | 4.63 | 4.90 |
+| Relic of the Past | 6.63 | 6.14 | 4.66 | 4.90 |
+| Archipelia | 6.13 | 7.20 | 4.63 | 5.73 |
+| Brock | 6.25 | 8.00 | 4.64 | 5.35 |
+
+On the four surfaces every tone is 5.5:1 or more, so icons and borders clear 3:1 with room to spare. The test also checks that each palette file sets the four seeds, that the four tones differ from each other and from the primary and secondary, and that no CSS rule named for success, warning, danger or info reads `--c-primary` or `--c-secondary`.
+
+### The parts
+
+- **Toast:** each variant sets `--toast-tone`, `--toast-dim` and `--toast-bright` from its status tokens, and the toast draws a full tone border, the `-dim` fill and text in the `-bright` step. Success is green where it was the secondary; danger and warning text is the lighter step; info has the `-dim` fill and a full border where it had its own mix and a 40% border.
+- **TaskProgress:** a cancelled bar is the tertiary, the neutral seed the surfaces and dim text come from, where it was the secondary.
+- **Status, Callout, Badge, Tag, CheckList, SaveBar, ConfirmIconButton's check, Splash's failed state and form error text** already read the status tokens and only take the new seeds. RetryButton is a secondary button, an action and not a status, and keeps it. Tessera has no StatusBar part.
+- **Gallery:** the Status page gains Status tones in every palette, the four tones as a pill and as text on each palette's surface.
+
+### What an app does
+
+Nothing, unless the app set its own status seeds: keep each tone at 4.5:1 as text on the surfaces and on its own `-dim`, as the test checks here. An app that marked a box `data-palette="tessera"` inside another palette now gets Tessera's colours there.

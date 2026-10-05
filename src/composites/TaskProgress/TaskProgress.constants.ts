@@ -8,7 +8,7 @@ const BAR_TONE: Readonly<Record<TaskState, ProgressTone>> = {
   running: 'primary',
   done: 'success',
   failed: 'danger',
-  cancelled: 'secondary',
+  cancelled: 'tertiary',
 };
 
 export { BAR_TONE, LOG_HEIGHT };

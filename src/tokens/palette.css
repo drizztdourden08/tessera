@@ -1,6 +1,6 @@
 /* @layer renderer-design-system @kind style */
 @layer ds.palette {
-  :root {
+  :root, [data-palette="tessera"] {
     --p-primary:      #8a8a96;
     --p-secondary:    #6e6e7a;
     --p-tertiary:     #9a9aa4;
@@ -12,7 +12,7 @@
     --p-gradient-dark-to:   #0b0b0e;
     --p-pure-white:   #fff;
     --p-pure-black:   #000;
-    --p-danger:       #e5556e;
+    --p-danger:       #ec6279;
     --p-warning:      #e0b341;
     --p-info:         #5b9bd5;
     --p-success:      #5cb87a;

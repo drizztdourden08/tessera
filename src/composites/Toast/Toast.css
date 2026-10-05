@@ -29,30 +29,33 @@
   animation: toast-in 0.25s ease-out;
   box-shadow: var(--shadow-dropdown);
   max-width: var(--size-384);
+  border: var(--border-width-thin) solid var(--toast-tone);
+  background: var(--toast-dim);
+  color: var(--toast-bright);
 }
 
 .toast--danger {
-  background: var(--c-danger-dim);
-  border: var(--border-width-thin) solid var(--c-danger);
-  color: var(--c-danger);
+  --toast-tone: var(--c-danger);
+  --toast-dim: var(--c-danger-dim);
+  --toast-bright: var(--c-danger-bright);
 }
 
 .toast--warning {
-  background: var(--c-warning-dim);
-  border: var(--border-width-thin) solid var(--c-warning);
-  color: var(--c-warning);
+  --toast-tone: var(--c-warning);
+  --toast-dim: var(--c-warning-dim);
+  --toast-bright: var(--c-warning-bright);
 }
 
 .toast--info {
-  background: color-mix(in srgb, var(--c-info) 12%, var(--c-surface));
-  border: var(--border-width-thin) solid color-mix(in srgb, var(--c-info) 40%, transparent);
-  color: var(--c-info);
+  --toast-tone: var(--c-info);
+  --toast-dim: var(--c-info-dim);
+  --toast-bright: var(--c-info-bright);
 }
 
 .toast--success {
-  background: var(--c-secondary-dim);
-  border: var(--border-width-thin) solid var(--c-secondary);
-  color: var(--c-secondary-bright);
+  --toast-tone: var(--c-success);
+  --toast-dim: var(--c-success-dim);
+  --toast-bright: var(--c-success-bright);
 }
 
 .toast__message {

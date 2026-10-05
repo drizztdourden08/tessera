@@ -6,6 +6,7 @@ import type { StatusKey, StatusTone, StatusVariant } from '../../src/primitives'
 import { overviewStory } from '../_template/overview-story';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
+import { StatusPalettes } from './_samples/StatusPalettes';
 import { ENGINE_STATES, PLAYER_STATUSES, SESSION_STATUSES } from './_samples/status-tables.constants';
 
 type SessionKey = StatusKey<typeof SESSION_STATUSES>;
@@ -85,6 +86,11 @@ const Tones = {
   ),
 } satisfies StoryLiteStoryDefinition<StatusArgs>;
 
+const EveryPalette = {
+  name: 'Status tones in every palette',
+  render: () => <StatusPalettes />,
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
 const Pulsing = {
   name: 'Pulsing',
   render: () => (
@@ -158,8 +164,8 @@ const Overview = overviewStory({
   ],
   instead: '[Badge] for a count, or [Tag] for a value that sorts an item into a group.',
   playground: Playground,
-  variants: [Tones, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
+  variants: [Tones, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
 });
 
 export default meta;
-export { Fallback, OneTable, Overview, Playground, Pulsing, ScreenList, Tones, WithIcons };
+export { EveryPalette, Fallback, OneTable, Overview, Playground, Pulsing, ScreenList, Tones, WithIcons };

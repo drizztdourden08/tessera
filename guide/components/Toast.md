@@ -71,7 +71,7 @@ const SaveButton = ({ save }: { save: () => Promise<void> }) => (
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-danger`, `--c-danger-dim`, `--c-info`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-dim`, `--c-surface`, `--c-warning`, `--c-warning-dim`, `--font-mono`, `--font-sans`, `--leading-tight`, `--radius-md`, `--radius-pill`, `--shadow-dropdown`, `--size-384`, `--size-8`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--z-toast`.
+It draws on `--border-width-thin`, `--c-danger`, `--c-danger-bright`, `--c-danger-dim`, `--c-info`, `--c-info-bright`, `--c-info-dim`, `--c-success`, `--c-success-bright`, `--c-success-dim`, `--c-warning`, `--c-warning-bright`, `--c-warning-dim`, `--font-mono`, `--font-sans`, `--leading-tight`, `--radius-md`, `--radius-pill`, `--shadow-dropdown`, `--size-384`, `--size-8`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--z-toast`.
 
 ## Also exported from this folder
 

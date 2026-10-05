@@ -1,0 +1,10 @@
+/* @layer stories @kind style */
+.status-palettes__cell {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+}

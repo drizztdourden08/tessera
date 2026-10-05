@@ -14,5 +14,9 @@
     --p-on-primary: var(--p-pure-white);
     --p-on-secondary: #3b2a7a;
     --p-on-tertiary: var(--p-black);
+    --p-danger: #f2655f;
+    --p-warning: #e9b949;
+    --p-info: #4fb0e8;
+    --p-success: #4cc38a;
   }
 }

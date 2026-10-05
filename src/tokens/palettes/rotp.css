@@ -11,5 +11,9 @@
     --p-gradient-dark-to: #0f0d0a;
     --p-on-primary: var(--p-pure-black);
     --p-on-secondary: var(--p-pure-black);
+    --p-danger: #ee6272;
+    --p-warning: #eb9a3a;
+    --p-info: #5b9bd5;
+    --p-success: #4cc98c;
   }
 }
