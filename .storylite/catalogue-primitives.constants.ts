@@ -34,7 +34,6 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'EmptyState', summary: 'What to show when a list or panel has nothing yet.' },
         { name: 'Image', summary: 'An image that holds its box, with loading and broken placeholders.' },
         { name: 'Thumbnail', summary: 'A small framed picture for lists and cards, with the same placeholders.' },
-        { name: 'Video', summary: 'A video player with its own control bar, keys and error state.' },
         { name: 'Canvas', summary: 'A 2D drawing surface for charts and pixel art.' },
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },

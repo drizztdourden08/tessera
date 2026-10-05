@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useState } from 'react';
-import { ownerDocumentOf } from '../../dom/owner-document';
+import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
 import { FULLSCREEN_EVENTS, FULLSCREEN_GRACE_MS } from '../Video.constants';
 import type { FullscreenMode } from '../Video.type';
 import { fullscreenApi } from './fullscreen-api';

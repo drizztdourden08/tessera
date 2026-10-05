@@ -157,7 +157,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A picture or a video. **Which one?**
     - A picture that holds its box: no component yet.
     - A small framed picture: no component yet.
-    - A video: no component yet.
+    - A video: [Video](components/Video.md). Video draws its bar over the video in white on black in every theme, and keeps its speed menu and volume inside the frame so they work in full screen.
   - Controller or keyboard input. **What about the input?**
     - A keyboard with keys marked: no component yet.
     - A tour of shortcuts: no component yet.

@@ -136,6 +136,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ItemCard', summary: 'One item of a catalogue as a card: media, eyebrow, status, title, tags, details and actions.' },
         { name: 'ActionTile', summary: 'One headline value in a tile that also does one thing: an action, a copy or a way in.' },
         { name: 'CopyValue', summary: 'A value to copy, such as an address or a key, with a copy button at its end.' },
+        { name: 'Video', summary: 'A video player with its own control bar, keys and error state.' },
       ],
     },
     {

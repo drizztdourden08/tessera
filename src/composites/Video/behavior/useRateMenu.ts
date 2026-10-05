@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
-import { ownerDocumentOf } from '../../dom/owner-document';
-import { useDismissListeners } from '../../Portal';
+import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
+import { useDismissListeners } from '../../../primitives/Portal';
 import { nextMenuIndex } from './next-menu-index';
 
 const useRateMenu = (onRate: (rate: number) => void) => {

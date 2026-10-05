@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useState } from 'react';
-import { ownerDocumentOf } from '../../dom/owner-document';
+import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
 import { PIP_EVENTS } from '../Video.constants';
 import type { ScreenMode } from '../Video.type';
 

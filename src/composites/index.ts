@@ -183,6 +183,8 @@ export { CopyButton } from './CopyButton';
 export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
 export { CopyValue } from './CopyValue';
 export type { CopyValueProps, CopyValueSize, CopyValueTruncate } from './CopyValue';
+export { Video } from './Video';
+export type { VideoProps } from './Video';
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,

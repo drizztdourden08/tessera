@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind component */
+import { Box } from '../../primitives/Box';
+import { VideoElement } from '../../primitives/media/VideoElement';
 import './Video.css';
-import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { VideoProps } from './Video.type';
 import { useVideoPlayer } from './behavior/useVideoPlayer';
 import { VideoBar } from './sub-components/VideoBar';
@@ -26,8 +28,8 @@ const Video = (props: VideoProps) => {
   const { media, actions } = player;
 
   return (
-    <div {...player.frame} style={style} aria-label={label ?? video.playerLabel}>
-      <video className="video__media" preload={preload} {...native} {...player.video} controls={false} />
+    <Box {...player.frame} style={style} aria-label={label ?? video.playerLabel}>
+      <VideoElement className="video__media" preload={preload} {...native} {...player.video} controls={false} />
       <VideoOverlay media={media} controls={controls} errorMessage={errorMessage ?? video.errorMessage} onPlay={actions.togglePlay} />
       {player.interactive && (
         <VideoBar
@@ -38,7 +40,7 @@ const Video = (props: VideoProps) => {
           theater={player.theater}
         />
       )}
-    </div>
+    </Box>
   );
 };
 

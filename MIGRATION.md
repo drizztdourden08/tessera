@@ -4656,3 +4656,32 @@ interface ConfirmIconButtonProps {
 1. Brock: ProfilesPanel passes the active profile as `selectedId`, switches profile in `onActivate` and drops `onSelect`.
 2. An app whose users delete often passes `actionVisibility: 'always'`.
 3. A test that expected rename and delete on the picked row only now finds them on every row, out of the Tab order on the rows that are not picked.
+
+## 170. Video is a composite
+
+`Video` moves from the primitives to the composites. It is a whole player: a control bar, its own keys, full screen, theater mode and an idle timer that fades the bar. A primitive is one visual element with little logic, so it now sits beside the other parts built from primitives. Its props, class names, keys and look do not change.
+
+| Before | After |
+|---|---|
+| `src/primitives/Video` | `src/composites/Video` |
+| `@drizztdourden08/tessera/primitives` exports `Video` and `VideoProps` | `@drizztdourden08/tessera/composites` exports them |
+| Gallery page Primitives · Display/Video | Composites · Content/Video |
+
+- The root import `@drizztdourden08/tessera` works as before.
+- `Video` now has a usage file, so the guide answer for a video leads to it.
+- The raw elements stay in the primitives. `VideoElement` draws the `<video>` element and `VideoTrack` the range input of the seek bar and the volume, both in `src/primitives/media`, which the package does not export. The rest of the player is drawn with `Box`, `Pressable`, `IconButton` and `Icon`.
+
+### Which Tessera parts the player uses
+
+The player drew its own volume, seek bar and speed menu. Each one was held against the Tessera part it looks like, and against what a player needs.
+
+| Player piece | Tessera part | Result | Why |
+|---|---|---|---|
+| Volume icon (`volume-icon.ts`) | `volumeIconName` of `VolumeControl` | Reused | The same rule: crossed out when muted or at zero, one wave below half, two above. The player calls it with a range of 0 to 1, and its own copy is removed. |
+| Volume (`VideoVolume`) | `VolumeControl` | Kept | The player shows only the mute button at rest and opens a 64 px track on hover or focus, so the bar stays short. `VolumeControl` always shows a full `Slider` with its value, in the colours of the app theme, while the player draws white on black in every theme. Neither one has a vertical pop up for full screen: the player keeps the same track in and out of full screen, and `Slider` has no vertical form. |
+| Seek bar and volume track (`VideoTrack`, `VideoSeek`) | `Slider` | Kept | The seek bar draws what is buffered in a lighter band behind the played part, and shows the time under the pointer above the bar. `Slider` draws one filled span, a value readout and scale labels, and has neither. The seek bar also stays disabled until the video has a length, as for a live stream, and jumps 10 seconds on Page Up and Page Down. |
+| Speed menu (`VideoRateMenu`) | `DropdownMenu` | Kept | The menu must show in full screen, where the browser draws only the full screen element and the top layer. `DropdownMenu` opens through `Anchored`: as a popover where the browser has anchor positioning, and in a portal on the page body where it does not, such as older Firefox and Safari. A portal on the body is not drawn in full screen. The player's menu sits inside the player, so it shows in full screen in every browser, and the idle timer keeps the bar up while it is open. Its dark look also holds in a light theme, where `DropdownMenu` takes the app surface. |
+
+### What an app does
+
+1. An import of `Video` or `VideoProps` from `@drizztdourden08/tessera/primitives` moves to `@drizztdourden08/tessera/composites`, or to the root.

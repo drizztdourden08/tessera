@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { Box, Text, Video } from '../../../src/primitives';
+import { Video } from '../../../src/composites';
+import { Box, Text } from '../../../src/primitives';
 import { UP_NEXT } from './theater-queue';
 import { VIDEO_CLIP, VIDEO_POSTER } from './video-clip';
 

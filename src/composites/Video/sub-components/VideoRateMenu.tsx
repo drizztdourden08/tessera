@@ -1,8 +1,10 @@
 /* @layer renderer-components @kind component */
 import { useId } from 'react';
-import { Icon } from '../../Icon';
-import { IconButton } from '../../IconButton';
-import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
+import { Box } from '../../../primitives/Box';
+import { Icon } from '../../../primitives/Icon';
+import { IconButton } from '../../../primitives/IconButton';
+import { Pressable } from '../../../primitives/Pressable';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { rateLabel } from '../behavior/rate-label';
 import { useRateMenu } from '../behavior/useRateMenu';
 import { PLAYBACK_RATES } from '../Video.constants';
@@ -17,7 +19,7 @@ const VideoRateMenu = (props: VideoRateMenuProps) => {
   const { open, rootRef, menuRef, toggle, choose, handleMenuKeyDown } = useRateMenu(onRate);
 
   return (
-    <div ref={rootRef} className="video-rate">
+    <Box ref={rootRef} className="video-rate">
       <IconButton
         className="video-bar__button video-rate__trigger"
         label={video.playbackSpeedAt(rateLabel(rate))}
@@ -29,11 +31,10 @@ const VideoRateMenu = (props: VideoRateMenuProps) => {
         {rateLabel(rate)}
       </IconButton>
       {open && (
-        <div ref={menuRef} id={menuId} role="menu" aria-label={video.playbackSpeed} className="video-rate__menu" onKeyDown={handleMenuKeyDown}>
+        <Box ref={menuRef} id={menuId} role="menu" aria-label={video.playbackSpeed} className="video-rate__menu" onKeyDown={handleMenuKeyDown}>
           {PLAYBACK_RATES.map((value) => (
-            <button
+            <Pressable
               key={value}
-              type="button"
               role="menuitemradio"
               aria-checked={value === rate}
               tabIndex={value === rate ? 0 : -1}
@@ -42,11 +43,11 @@ const VideoRateMenu = (props: VideoRateMenuProps) => {
             >
               {rateLabel(value)}
               {value === rate && <Icon name="check" size={14} />}
-            </button>
+            </Pressable>
           ))}
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -1,7 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Text, Video } from '../../src/primitives';
+import { Video } from '../../src/composites';
+import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -39,7 +40,7 @@ const ARG_TYPES: PlaygroundArgTypes<VideoArgs> = {
 };
 
 const meta = {
-  title: 'Primitives · Display/Video',
+  title: 'Composites · Content/Video',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<VideoArgs>;
 

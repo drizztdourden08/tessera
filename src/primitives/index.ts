@@ -143,8 +143,6 @@ export { Thumbnail } from './Thumbnail';
 export type { ThumbnailProps } from './Thumbnail';
 export { Image } from './Image';
 export type { ImagePlaceholderProps, ImageProps } from './Image';
-export { Video } from './Video';
-export type { VideoProps } from './Video';
 export { Icon, ICONS } from './Icon';
 export { Glyph, GLYPHS } from './Glyph';
 export type { GlyphName, GlyphProps } from './Glyph';

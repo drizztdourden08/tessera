@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
-import { Icon } from '../../Icon';
-import { IconButton } from '../../IconButton';
-import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
+import { Icon } from '../../../primitives/Icon';
+import { IconButton } from '../../../primitives/IconButton';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { VideoScreenButtonsProps } from './VideoBar.type';
 
 const VideoScreenButtons = (props: VideoScreenButtonsProps) => {

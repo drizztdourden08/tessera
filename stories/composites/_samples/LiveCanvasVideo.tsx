@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import { useEffect, useRef } from 'react';
-import { Video } from '../../../src/primitives';
+import { Video } from '../../../src/composites';
 import { ownerDocumentOf } from '../../../src/primitives/dom/owner-document';
 import { ownerWindowOf } from '../../../src/primitives/dom/owner-window';
 

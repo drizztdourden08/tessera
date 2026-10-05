@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 37 of 174 have their usage written; a linked name opens its page.
+One line per component. 38 of 174 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -90,7 +90,6 @@ One line per component. 37 of 174 have their usage written; a linked name opens 
 - `Toggle`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ToggleGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Tooltip`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Video`: usage not written yet. Import from `@drizztdourden08/tessera`.
 
 ## Composites
 
@@ -159,6 +158,7 @@ One line per component. 37 of 174 have their usage written; a linked name opens 
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
+- [Video](components/Video.md): A video player with its own control bar: seek with a time preview, volume, speed, picture in picture, theater mode and full screen. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowGuideOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.

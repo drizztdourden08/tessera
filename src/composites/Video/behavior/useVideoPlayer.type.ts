@@ -15,7 +15,7 @@ interface FramePropsParams {
   theater: boolean;
   filled: boolean;
   className: string;
-  attach: (node: HTMLDivElement | null) => void;
+  attach: (node: HTMLElement | null) => void;
   onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
   wake: () => void;
   sleep: () => void;

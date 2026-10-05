@@ -52,7 +52,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', TermList: 'book-text', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
-    EmptyState: 'inbox', Image: 'image', Thumbnail: 'gallery-thumbnails', Video: 'video', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
+    EmptyState: 'inbox', Image: 'image', Thumbnail: 'gallery-thumbnails', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
     ShortcutList: 'keyboard',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link', RetryButton: 'refresh-cw' },
@@ -104,6 +104,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     ItemCard: 'square-library',
     ActionTile: 'square-activity',
     CopyValue: 'copy',
+    Video: 'video',
   },
   'Composites · Inputs': { DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus' },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban' },

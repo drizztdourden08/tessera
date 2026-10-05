@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { formatTime } from '../behavior/format-time';
 import { hasTimeline } from '../behavior/has-timeline';
-import { Span } from '../../text-elements';
+import { Span } from '../../../primitives/text-elements';
 import './VideoTime.css';
 import type { VideoTimeProps } from './VideoTime.type';
 

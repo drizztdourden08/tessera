@@ -16,7 +16,7 @@ import type { UseVideoPlayerParams } from './useVideoPlayer.type';
 const useVideoPlayer = (params: UseVideoPlayerParams) => {
   const { ref, controls, className, onClick, ...theaterParams } = params;
   const { video, attach } = useVideoElement(ref);
-  const [frame, setFrame] = useState<HTMLDivElement | null>(null);
+  const [frame, setFrame] = useState<HTMLElement | null>(null);
   const media = useMediaState(video);
   const actions = useVideoActions(video);
   const fullscreen = useFullscreen(frame);

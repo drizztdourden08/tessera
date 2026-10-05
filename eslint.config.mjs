@@ -35,6 +35,8 @@ export default standardsEslint({
     { files: ['src/primitives/CodeBlock/CodeBlock.tsx'], why: 'the highlighter returns each line and token style' },
     { files: ['src/composites/Hero/sub-components/HeroBackdropLayer.tsx'], why: 'the backdrop image, its place and its colour are passed in by the host' },
     { files: ['src/composites/LogPanel/LogPanel.tsx'], why: 'a fixed panel height in pixels is passed in by the host' },
+    { files: ['src/composites/Video/Video.tsx'], why: 'the style the host passes, such as a size, lands on the player frame' },
+    { files: ['src/composites/Video/sub-components/VideoSeek.tsx'], why: 'the time preview sits above the seek bar where the pointer is' },
     { files: ['src/composites/SettingsRow/sub-components/SettingsRowDescription.tsx'], why: 'a long description folds to the number of lines the host passes in' },
     { files: ['src/composites/PixelWordmark/PixelWordmark.tsx'], why: 'the aspect ratio comes from the laid out letters' },
     { files: ['src/composites/Emphasis/**'], why: 'the weights, timing and each letter delay are set per instance' },
