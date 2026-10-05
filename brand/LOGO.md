@@ -82,9 +82,9 @@ A mark stands on one of two gradients of its palette: the light pair, `--c-gradi
 
 | Brand | On the light gradient | On the dark gradient |
 |---|---|---|
-| Tessera | As drawn, with a black outline | As drawn: its greys and coloured tiles already read on dark |
+| Tessera | As drawn, with a black outline | As drawn, with a white outline |
 | Relic of the Past | As drawn: its own black outline is its edge | As drawn, the same mark |
-| Archipelia | As drawn, with a black outline | Its second colours: the ring and its dots turn lilac, `#b9a3ff`; the large purple dot stays |
+| Archipelia | As drawn, with no outline | Its second colours: the ring and its dots turn lilac, `#b9a3ff`; the large purple dot stays |
 | Brock | As drawn, with a black outline | As drawn, the charcoal stone, with a white outline |
 
 ```tsx
@@ -97,7 +97,7 @@ A mark stands on one of two gradients of its palette: the light pair, `--c-gradi
 
 `pnpm icons` writes each look as files, for a static page that shows the mark as an image: `brand/light-ground/<app>.svg` and `brand/dark-ground/<app>.svg`, each with `<app>/mark/mark-<size>.png` at the sizes of the mark ladder, and no `.ico`. The static splash page reads `brand/dark-ground/`.
 
-A test holds each mark at 3:1 or more against each sampled point of both gradients of its palette. With an outline, the outline is the edge that has to reach 3:1, as WCAG allows for a shape with a border; Relic of the Past's own black outline is its edge on the light gradient. Without one, every shape has to. Relic of the Past on the dark gradient is kept as drawn: its black outline is 1.08:1 and its bottom row 2.87:1 there, while its gold and orange fill reads at 4.89:1 to 11.70:1.
+A test holds each mark at 3:1 or more against each sampled point of both gradients of its palette. With an outline, the outline is the edge that has to reach 3:1, as WCAG allows for a shape with a border; Relic of the Past's own black outline is its edge on the light gradient. Without one, every shape has to. Relic of the Past on the dark gradient is kept as drawn: its black outline is 1.08:1 and its bottom row 2.87:1 there, while its gold and orange fill reads at 4.89:1 to 11.70:1. Archipelia on the light gradient has no outline by the owner's choice: its dark purple ring reads at 5.74:1, and its large purple dot at 2.36:1 is the one shape the test accepts under 3:1. The test still fails if that dot drops under 2.36:1, or if any other shape drops under 3:1.
 
 Brock's stone faces meet with no gap: the body path covers the whole stone outline, less the hole of the b, and every face shares its edges with the faces beside it, so no ground shows between them at any size.
 

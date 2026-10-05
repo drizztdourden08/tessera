@@ -32,6 +32,19 @@ const KEPT_AS_DRAWN_WITH_ITS_OUTLINE_UNDER_3 = [{ app: 'rotp', ground: 'dark' }]
 
 const isKept = (app, ground) => KEPT_AS_DRAWN_WITH_ITS_OUTLINE_UNDER_3.some((kept) => kept.app === app && kept.ground === ground);
 
+const SHAPES_THE_OWNER_ACCEPTED_UNDER_3 = [
+  {
+    app: 'archipelia',
+    ground: 'light',
+    ink: '#7c4dff',
+    floor: 2.36,
+    reason: 'the owner chose it with no outline',
+  },
+];
+
+const acceptedShape = (app, ground, ink) =>
+  SHAPES_THE_OWNER_ACCEPTED_UNDER_3.find((shape) => shape.app === app && shape.ground === ground && shape.ink === ink);
+
 const markEdges = (app, ground) => {
   const { paths, outline } = groundLook(BRAND_FAMILY[app].mark, ground);
   if (outline) return { edge: 'outline', paths: [{ ink: BRAND_RIM.colours[outline] }] };
@@ -47,8 +60,15 @@ const MARK_GROUNDS = BRAND_APPS.flatMap((app) => Object.keys(GROUND_GRADIENTS).m
 
 const shown = (ratio) => ratio.toFixed(2);
 
-const MARK_CASES = MARK_GROUNDS.filter(({ app, ground }) => !isKept(app, ground)).flatMap(({ app, ground, edge, shapes }) =>
-  shapes.map(({ ink, ratio }, at) => ({ app, ground, edge: `${edge === 'shape' ? `shape ${at + 1}` : edge} in ${ink}`, shown: shown(ratio), ratio })));
+const MARK_SHAPES = MARK_GROUNDS.filter(({ app, ground }) => !isKept(app, ground)).flatMap(({ app, ground, edge, shapes }) =>
+  shapes.map(({ ink, ratio }, at) => ({ app, ground, ink, edge: `${edge === 'shape' ? `shape ${at + 1}` : edge} in ${ink}`, shown: shown(ratio), ratio })));
+
+const MARK_CASES = MARK_SHAPES.filter(({ app, ground, ink }) => !acceptedShape(app, ground, ink));
+
+const ACCEPTED_CASES = MARK_SHAPES.flatMap((shape) => {
+  const accepted = acceptedShape(shape.app, shape.ground, shape.ink);
+  return accepted ? [{ ...shape, floor: accepted.floor, reason: accepted.reason }] : [];
+});
 
 const KEPT_CASES = MARK_GROUNDS.filter(({ app, ground }) => isKept(app, ground)).map(({ app, ground, shapes }) => {
   const ratios = shapes.map(({ ratio }) => ratio);
@@ -77,6 +97,15 @@ describe('the splash on its dark gradient', () => {
 describe('each brand mark on the light and the dark gradient of its palette', () => {
   it.each(MARK_CASES)('$app mark on the $ground gradient, $edge: 3:1 on every point, $shown:1 at the lowest', ({ ratio }) => {
     expect(ratio).toBeGreaterThanOrEqual(GRAPHIC);
+  });
+
+  it('records every shape the owner accepted under 3:1 against a shape the marks draw', () => {
+    expect(ACCEPTED_CASES).toHaveLength(SHAPES_THE_OWNER_ACCEPTED_UNDER_3.length);
+  });
+
+  it.each(ACCEPTED_CASES)('$app mark on the $ground gradient, $edge, accepted under 3:1 because $reason: $shown:1 at the lowest, never under $floor:1', ({ ratio, floor }) => {
+    expect(ratio).toBeLessThan(GRAPHIC);
+    expect(ratio).toBeGreaterThanOrEqual(floor);
   });
 
   it.each(KEPT_CASES)('$app mark on the $ground gradient, kept as drawn: its fill reads at $shownHighest:1, its lowest shape is $lowest:1', ({ highest }) => {

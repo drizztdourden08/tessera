@@ -3,7 +3,7 @@ import type { BrandMarkData } from '../brand.type';
 
 const TESSERA_MARK: BrandMarkData = {
   viewBox: '228 226 799 799',
-  grounds: { light: { outline: 'dark' } },
+  grounds: { light: { outline: 'dark' }, dark: { outline: 'light' } },
   paths: [
     { ink: '#e2e2e2', group: 'tessera', d: 'M693 331L703 333L725 347L739 353L741 356L753 361L757 370L759 391L761 393L760 398L762 400L764 422L767 430L766 439L762 443L716 442L715 440L704 441L701 439L689 440L687 438L655 437L624 427L610 425L603 421L605 380L608 367L614 362L621 361L629 356L636 355L644 350Z' },
     { ink: '#adadad', group: 'tessera', d: 'M544 325L553 325L558 328L595 368L594 396L590 421L576 427L515 442L442 441L440 435L463 366L467 362Z' },

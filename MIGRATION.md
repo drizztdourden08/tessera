@@ -5473,3 +5473,25 @@ interface CommandPaletteItem { /* … */ action?: ReactNode }
 2. Drop `ground="light"` where a mark sits on an ordinary surface; keep it on the light gradient.
 3. A static page on the light gradient reads `brand/light-ground/<app>.svg`.
 4. Brock: put Reset layout in the Ctrl+K search as a `CommandPaletteItem` with `action: <ConfirmIconButton size="xs" … />`.
+
+## 183. Tessera takes a light outline on the dark gradient, and Archipelia none on the light
+
+From the owner's answer on the brand marks. Every other look of section 182 stays as it is.
+
+| Mark | Light gradient | Dark gradient |
+|---|---|---|
+| Tessera | as drawn, black outline: 7.98:1 | as drawn, white outline: 13.75:1 |
+| Archipelia | as drawn, no outline: ring 5.74:1, large dot 2.36:1 | unchanged: lilac ring 8.08:1, large dot 3.62:1 |
+
+```ts
+TESSERA_MARK.grounds = { light: { outline: 'dark' }, dark: { outline: 'light' } };
+ARCHIPELIA_MARK.grounds = { dark: { inks: 'onDark' } };
+```
+
+- Tessera's outline on the dark gradient is the light rim colour, `#ececf0`, at the fine width of section 176. It also shows in the gaps between its tiles, the way Brock's does.
+- Archipelia's large purple dot reads at 2.36:1 on the light gradient. The owner accepted it knowingly, so the contrast test records it by name with its reason and holds it at 2.36:1 or more; it fails if that dot drops lower, and for any other shape under 3:1. Its dark purple ring still has to reach 3:1, and does.
+- `pnpm icons` writes `brand/dark-ground/tessera.svg` with the white outline and `brand/light-ground/archipelia.svg` without one, with their mark PNG ladders. The static splash page, which reads `brand/dark-ground/`, shows Tessera with the outline.
+
+### What an app does
+
+Nothing. An app that draws `ground="dark"` on the Tessera mark, or `ground="light"` on the Archipelia mark, gets the new look by itself.
