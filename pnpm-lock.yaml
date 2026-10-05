@@ -90,6 +90,9 @@ importers:
       vitest:
         specifier: ^4.1.7
         version: 4.1.11(@types/node@24.19.0)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(yaml@2.9.1))
+      wawoff2:
+        specifier: ^2.0.1
+        version: 2.0.1
 
 packages:
 
@@ -2375,6 +2378,10 @@ packages:
   walk-up-path@4.0.0:
     resolution: {integrity: sha512-3hu+tD8YzSLGuFYtPRb48vdhKMi0KQV5sn+uWr8+7dMEq/2G/dtLrdDinkLjqq5TIbIBjYJ4Ax/n3YiaW7QM8A==}
     engines: {node: 20 || >=22}
+
+  wawoff2@2.0.1:
+    resolution: {integrity: sha512-r0CEmvpH63r4T15ebFqeOjGqU4+EgTx4I510NtK35EMciSdcTxCw3Byy3JnBonz7iyIFZ0AbVo0bbFpEVuhCYA==}
+    hasBin: true
 
   which@1.3.1:
     resolution: {integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==}
@@ -4736,6 +4743,10 @@ snapshots:
       - msw
 
   walk-up-path@4.0.0: {}
+
+  wawoff2@2.0.1:
+    dependencies:
+      argparse: 2.0.1
 
   which@1.3.1:
     dependencies:

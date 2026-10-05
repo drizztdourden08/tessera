@@ -5816,3 +5816,22 @@ interface CommandInputProps {
 1. Replace each `ToastContainer` and its list of toasts with one `<ToastStack />` at the root, and each push to that list with `toast({ ... })`. Drop the ids made only to tell toasts apart.
 2. Pass `commands` to a CommandInput that has a known set of commands.
 3. Drop any `--scale-labels-overhang` the app set. Nothing for the drag, ActionBar, CopyButton or ConfirmIconButton changes.
+
+## 189. A TrueType copy of the title face, for tools that cannot read WOFF2
+
+From Brock's request. Brock's installer splash sets the app name in Chakra Petch 600 and draws it to a PNG with resvg, which cannot read WOFF2, so Brock carried its own WOFF2 to TrueType converter. Tessera now ships the TrueType files beside the `.woff2` ones:
+
+| File | Weight | Family in the file | Size |
+|---|---|---|---|
+| `fonts/chakra-petch/chakra-petch-latin-600-normal.ttf` | 600, every title | `Chakra Petch SemiBold` | 24,556 bytes |
+| `fonts/chakra-petch/chakra-petch-latin-700-normal.ttf` | 700, the display title | `Chakra Petch` | 24,560 bytes |
+
+- The `.woff2` files came from `@fontsource/chakra-petch`, cut into a Latin and a Latin Extended subset. Each `.ttf` is its Latin `.woff2` unpacked by `wawoff2`, Google's WOFF2 decoder, a new dev dependency, so it holds the same glyphs, the same subset and the same names, byte for byte. `pnpm fonts` writes them again.
+- `LICENSE.txt`, the SIL Open Font License, sits beside them, and `fonts/` is already in the published files.
+- `exports` gains `./fonts/*`, so a tool resolves a file with `import.meta.resolve('@drizztdourden08/tessera/fonts/chakra-petch/chakra-petch-latin-600-normal.ttf')`.
+- A test checks that each `.ttf` starts with the TrueType signature, carries the family and weight of its `.woff2`, and matches it once unpacked.
+- Pages keep loading the `.woff2` files through `tokens.css`. Nothing in the CSS changes.
+
+### What an app does
+
+Brock points its splash renderer at `chakra-petch-latin-600-normal.ttf` and drops its converter. The file names its family `Chakra Petch SemiBold` at weight 600, as the `.woff2` does, so the name the splash asks for today still matches. Other apps change nothing.

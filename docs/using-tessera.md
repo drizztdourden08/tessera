@@ -132,6 +132,8 @@ The gallery's Colours and Tokens sections show every token with its value.
 
 `tokens.json` (`@drizztdourden08/tessera/tokens.json`) holds the same theme as plain values, for code that cannot read CSS custom properties, such as an Electron main process or a native splash window. `brands.<app>` holds each brand's gradient and backdrop, `theme.dark` the main colours as opaque hex, `theme.radius` and `theme.space` the scales, and `palettes.<palette>` the colours for each palette. `splash-tokens.css` sets the same values as literal custom properties, for a static page that loads before the app, and `splash.css` adds the classes that page draws with: a centred stage, a mark, a title, a status line and its detail, buttons, a progress bar that fills or sweeps, and the version, all on the dark gradient pair, which `theme.dark` also holds as `gradientDarkFrom` and `gradientDarkTo` (the Static splash page of the gallery shows them). The `Splash` component draws the same classes from React, so an app can show the splash again, or take over from the static page with no jump. The static page shows its mark as an image, so point it at the dark ground file of the brand, `brand/dark-ground/<app>.svg`; `Splash` gives a `BrandMark` or `Logo` inside it the same dark ground look by itself. On the light gradient, pass `ground="light"`, or read `brand/light-ground/<app>.svg`. An app with its own mark draws it for the gradient, with every shape at 3:1 or more against it.
 
+The faces ship in `fonts/` and load with `tokens.css`, so a page reads the `.woff2` files through the CSS. A tool that cannot read WOFF2, such as resvg drawing an SVG to a PNG, takes the TrueType copy beside the title face: `@drizztdourden08/tessera/fonts/chakra-petch/chakra-petch-latin-600-normal.ttf` for titles, and `chakra-petch-latin-700-normal.ttf` for the display title. Each holds the same Latin glyphs as its `.woff2`. The 600 file names its family `Chakra Petch SemiBold`, and the 700 file `Chakra Petch`.
+
 ## TesseraProvider
 
 An app that draws some parts its own way hands them to `TesseraProvider` once, at the root. It takes eight overrides, each optional:
@@ -205,6 +207,7 @@ const AppLink = (props: Omit<LinkProps, 'navigate'>) => {
 | `/tokens.json`, `/splash-tokens.css` | the theme as plain values |
 | `/splash.css` | the static splash kit: plain CSS classes for a page that loads before the app |
 | `/brand/*` | the brand files: SVG marks, icons, PNGs and `.ico` |
+| `/fonts/*` | the font files: `.woff2` for pages, and a `.ttf` of the title face for tools that cannot read WOFF2 |
 | `/config` | `loadTesseraConfig` and `findTesseraConfig`, for Node tools that read `tessera.config.json` |
 | `/tessera.config.schema.json` | the schema of `tessera.config.json` |
 

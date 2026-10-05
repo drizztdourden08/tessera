@@ -30,6 +30,7 @@
     "./splash.css": "./splash.css",
     "./palettes/*": "./src/tokens/palettes/*",
     "./brand/*": "./brand/*",
+    "./fonts/*": "./fonts/*",
     "./guide/*": "./guide/*",
     "./config": {
       "types": "./scripts/config/index.d.mts",
@@ -95,7 +96,8 @@
     "review": "node scripts/review/review.mjs",
     "guide": "node scripts/guide/build-guide.mjs",
     "tessera": "node scripts/cli/tessera.mjs",
-    "release:version": "changeset version && node scripts/renames/stamp-renames.mjs"
+    "release:version": "changeset version && node scripts/renames/stamp-renames.mjs",
+    "fonts": "node scripts/fonts/build-ttf.mjs"
   },
   "standards": {
     "extension": "./standards.extension.mjs"
@@ -139,6 +141,7 @@
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
     "vite": "8.3.1",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.7",
+    "wawoff2": "^2.0.1"
   }
 }
