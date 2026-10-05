@@ -10,6 +10,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { BalancingSlider } from './_samples/BalancingSlider';
 import { LabelsDemo } from './_samples/slider-labels';
 import { DUNGEONS, PRICES, SPEEDS } from './_samples/slider-stops.constants';
 import { StatefulSlider } from './_samples/StatefulSlider';
@@ -131,6 +132,17 @@ const WithInput = {
   render: () => <Box className="story-column"><WithInputDemo /></Box>,
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
+const BALANCING_ROWS: Readonly<Record<string, ReactNode>> = {
+  'A named value': <BalancingSlider start={50} />,
+  'Any value between': <BalancingSlider start={65} />,
+  'The readout names a named value': <BalancingSlider start={50} names />,
+};
+
+const Balancing = {
+  name: 'Named values, and any number between',
+  render: () => <Demonstrator rows={axis(Object.keys(BALANCING_ROWS))} align="stretch" cell={(row) => BALANCING_ROWS[row]} />,
+} satisfies StoryLiteStoryDefinition<SliderArgs>;
+
 const HintCost = (props: { disabled: boolean }) => {
   const { disabled } = props;
   const [value, setValue] = useState(60);
@@ -160,11 +172,11 @@ const Overview = overviewStory({
     '`labels` writes labels under the track; [ScaleLabels] lists the whole rule syntax.',
     '`formatValue` sets how the value reads, and `keyStep` sets a coarser stride for the arrow keys.',
     'It runs controlled with `value` and `onChange`, or on its own from `defaultValue`.',
-    '`input` puts a [NumberInput] at its end, bound to the same value and bounds.',
+    '`input` puts a [NumberInput] at its end, for an exact value such as one between two named `labels`.',
   ],
   instead: '[VolumeControl] for a volume slider with a mute button.',
   playground: Playground,
-  variants: [Kinds, Stops, Labels, Sizes, WithInput],
+  variants: [Kinds, Stops, Labels, Balancing, Sizes, WithInput],
   states: {
     render: renderState,
     list: [
@@ -178,4 +190,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Kinds, Labels, Overview, Playground, Sizes, Stops, WithInput };
+export { Balancing, Kinds, Labels, Overview, Playground, Sizes, Stops, WithInput };

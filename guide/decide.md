@@ -29,15 +29,15 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - A number stepped up or down: no component yet.
     - Text that follows a pattern: no component yet.
     - Free words, as tags: no component yet.
-    - Structured data, as JSON: [JsonInput](components/JsonInput.md). JsonInput checks JSON as it is typed and only hands on a value that parses, the same way in every app.
+    - Structured data, as JSON: no component yet.
     - A command, with its history: [CommandInput](components/CommandInput.md). CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear.
   - One choice. **How many options are there?**
     - A few, all in view: no component yet.
     - Many, in a list: no component yet.
     - Many, found by typing: no component yet.
   - Several choices: no component yet.
-  - Several choices from a long list: [SetPicker](components/SetPicker.md). SetPicker shows what is chosen on top and searches the rest, the same way in every app.
-  - A number with named steps: [NamedRange](components/NamedRange.md). NamedRange puts the named values first and a number second, the same way in every app.
+  - Several choices from a long list: no component yet.
+  - A number with named steps: no component yet.
   - Pairs of a name and a value: [KeyValueEditor](components/KeyValueEditor.md). KeyValueEditor edits a map row by row and holds it back while it has a duplicate, the same way in every app.
   - A short list of items with the same few fields: [RowGrid](components/RowGrid.md). RowGrid edits a short list row by row, a table when wide and cards when narrow, the same way in every app.
   - On or off. **When does the change apply?**

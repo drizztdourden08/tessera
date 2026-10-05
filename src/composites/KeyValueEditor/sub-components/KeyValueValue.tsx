@@ -13,7 +13,7 @@ const KeyValueValue = ({ value, name, look, onChange }: KeyValueValueProps) => {
     return <NumberInput buttons="sides" value={Number(value)} min={min} max={max} disabled={disabled} aria-label={label} onChange={onChange} />;
   }
   if (valueKind === 'number') {
-    return <NumberInput value={Number(value)} min={min} max={max} disabled={disabled} aria-label={label} onChange={onChange} />;
+    return <NumberInput value={Number(value)} min={min} max={max} sizeToContent disabled={disabled} aria-label={label} onChange={onChange} />;
   }
   if (valueKind === 'select') {
     const choices = (look.options ?? []).map((option) => ({ value: option, label: option }));

@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import { FormRow } from '../../../src/composites';
-import { NamedRange, SectionHeader, Select, Toggle } from '../../../src/primitives';
+import { SectionHeader, Select, Slider, Toggle } from '../../../src/primitives';
 import { BALANCING } from '../../primitives/_samples/option-samples.constants';
 import { POOL_OPTIONS } from './preset-form.constants';
 import { presetOptionRow } from './preset-option-row';
@@ -16,7 +16,7 @@ const PresetItemRows = ({ preset, onChange }: PresetRowsProps) => (
       <Select options={POOL_OPTIONS} value={preset.pool} onChange={(pool) => onChange({ pool: pool as PresetPool })} />
     </FormRow>
     <FormRow label="Progression balancing" description="Moves the items a player needs earlier, so nobody waits." {...presetOptionRow(preset, onChange, 'balancing')}>
-      <NamedRange value={preset.balancing} onChange={(balancing) => onChange({ balancing })} names={BALANCING} min={0} max={99} />
+      <Slider value={preset.balancing} onChange={(balancing) => onChange({ balancing })} min={0} max={99} labels={BALANCING} input />
     </FormRow>
   </>
 );

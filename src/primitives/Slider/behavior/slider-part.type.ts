@@ -6,6 +6,8 @@ interface SliderPartProps<P> {
   scale: ValueScale;
   disabled: boolean;
   accessibleName?: string;
+  labelledBy?: string;
+  describedBy?: string;
 }
 
 export type { SliderPartProps };

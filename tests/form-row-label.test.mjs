@@ -2,9 +2,10 @@
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
+import { CodeBlock } from '../src/composites/CodeBlock';
 import { FormRow } from '../src/composites/FormRow';
 import { focusRowControl } from '../src/composites/FormRow/behavior/focus-row-control';
-import { JsonInput } from '../src/primitives/JsonInput';
+import { Slider } from '../src/primitives/Slider';
 import { Toggle } from '../src/primitives/Toggle';
 
 const ignore = () => undefined;
@@ -12,10 +13,17 @@ const labelOf = (html) => html.match(/<label[^>]*class="[^"]*form-row__label[^"]
 
 describe('FormRow name', () => {
   it('is a label for the control, so a click on the name focuses it', () => {
-    const html = renderToStaticMarkup(h(FormRow, { label: 'Death Link', id: 'death-link' }, h(JsonInput, { value: {}, onChange: ignore })));
+    const html = renderToStaticMarkup(h(FormRow, { label: 'Death Link', id: 'death-link' }, h(CodeBlock, { editable: true, language: 'json', value: '{}', onChange: ignore })));
     expect(labelOf(html)).toContain('for="death-link"');
     expect(labelOf(html)).toContain('id="death-link-label"');
     expect(html).toMatch(/<textarea[^>]*id="death-link"/);
+  });
+
+  it('points at the slider thumb and names its number field, so the slider takes the option name', () => {
+    const html = renderToStaticMarkup(h(FormRow, { label: 'Progression Balancing', id: 'balancing' }, h(Slider, { value: 65, onChange: ignore, min: 0, max: 99, input: true })));
+    expect(html).toMatch(/<input[^>]*type="range"[^>]*id="balancing"/);
+    expect(html.match(/id="balancing"/g)).toHaveLength(1);
+    expect(html).toMatch(/class="number-input__field[^"]*"[^>]*aria-labelledby="balancing-label"|aria-labelledby="balancing-label"[^>]*class="number-input__field/);
   });
 
   it('points at the switch input, so a click on the name flips it', () => {

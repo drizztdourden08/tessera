@@ -23,8 +23,8 @@ KeyValueEditor edits a map row by row and holds it back while it has a duplicate
 
 ## Use something else when
 
-- The value nests deeper than one name and one value. Use [JsonInput](JsonInput.md) instead.
-- The value is a set of names with nothing attached. Use [SetPicker](SetPicker.md) instead.
+- The value nests deeper than one name and one value. Use `CodeBlock` instead.
+- The value is a set of names with nothing attached. Use `Combobox` instead.
 
 ## Rules
 
@@ -58,7 +58,7 @@ const StartInventory = ({ items, value, onChange }: {
 - `value`: `KeyValueRecord`.
 - `onChange`: `(value: Record<string, KeyValueEntry>) => void`.
 - `keys` (optional): `readonly string[]`.
-- `valueKind` (optional): `KeyValueKind`, one of `'count'`, `'number'`, `'text'`, `'select'`.
+- `valueKind` (optional): `KeyValueKind`, one of `'count'`, `'number'`, `'text'`, `'select'`. Default `'count'`.
 - `options` (optional): `readonly string[]`.
 - `min` (optional): `number`.
 - `max` (optional): `number`.

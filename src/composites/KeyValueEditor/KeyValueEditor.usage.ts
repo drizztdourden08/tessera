@@ -8,8 +8,8 @@ const usage = {
     'The names come from a list of valid items, or are typed freely, and each has a number, a word or a choice.',
   ],
   avoidWhen: [
-    { case: 'The value nests deeper than one name and one value.', use: 'JsonInput' },
-    { case: 'The value is a set of names with nothing attached.', use: 'SetPicker' },
+    { case: 'The value nests deeper than one name and one value.', use: 'CodeBlock' },
+    { case: 'The value is a set of names with nothing attached.', use: 'Combobox' },
   ],
   rules: [
     'Pass keys whenever the valid names are known, so the add row searches them and a wrong name is caught.',

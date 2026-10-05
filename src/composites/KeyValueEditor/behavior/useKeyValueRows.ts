@@ -19,7 +19,8 @@ const useKeyValueRows = (props: KeyValueEditorProps): KeyValueRows => {
   useEffect(() => {
     if (same(value, held.current)) return;
     held.current = value;
-    setRows(rowsOf(value, `${stamp}-${String(count.current += 1)}`));
+    const fresh = `${stamp}-${String(count.current += 1)}`;
+    setRows((before) => rowsOf(value, fresh, before));
   }, [value, stamp]);
   const problem = useMemo(() => rowsProblem(rows, keys, strings), [rows, keys, strings]);
   const commit = (next: readonly KeyValueRow[]) => {

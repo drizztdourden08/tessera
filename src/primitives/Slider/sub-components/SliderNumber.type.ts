@@ -6,6 +6,7 @@ interface SliderNumberProps {
   scale: ValueScale;
   disabled: boolean;
   label?: string;
+  labelledBy?: string;
   onValue: (value: number) => void;
 }
 

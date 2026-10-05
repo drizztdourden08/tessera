@@ -77,9 +77,6 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'DropZone', summary: 'Drop or browse for a file.' },
         { name: 'Field', summary: 'A label, hint and error around any input.' },
         { name: 'FieldControlBoundary', summary: 'Keeps the id and error of a Field off the inner inputs of a control made of several.' },
-        { name: 'JsonInput', summary: 'JSON typed over code highlighting, checked as it is typed, with its line and column and Format.' },
-        { name: 'NamedRange', summary: 'A number from a range whose common values have names, with Custom for any other.' },
-        { name: 'SetPicker', summary: 'Several choices from a long list: chosen tags, a search and a checklist.' },
       ],
     },
     {

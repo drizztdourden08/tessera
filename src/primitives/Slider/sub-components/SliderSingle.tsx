@@ -8,16 +8,16 @@ import { SliderThumb } from './SliderThumb';
 import { SliderTrack } from './SliderTrack';
 
 const SliderSingle = (part: SliderPartProps<SliderSingleProps>) => {
-  const { props, scale, disabled, accessibleName } = part;
+  const { props, scale, disabled, accessibleName, labelledBy, describedBy } = part;
   const { value: given, defaultValue, onChange, keyStep, labels, showValue = true, input = false, id, name } = props;
   const [value, setValue] = useSliderValue(given, defaultValue ?? scale.min, onChange);
 
   return (
     <>
       <SliderTrack scale={scale} labels={labels} span={[scale.min, value]} readout={showValue && !input ? valueText(value, scale) : null} range={false}>
-        <SliderThumb value={value} scale={scale} disabled={disabled} label={accessibleName} id={id} name={name} keyStep={keyStep} onValue={setValue} />
+        <SliderThumb value={value} scale={scale} disabled={disabled} label={accessibleName} labelledBy={labelledBy} describedBy={describedBy} id={id} name={name} keyStep={keyStep} onValue={setValue} />
       </SliderTrack>
-      {input && <SliderNumber value={value} scale={scale} disabled={disabled} label={accessibleName} onValue={setValue} />}
+      {input && <SliderNumber value={value} scale={scale} disabled={disabled} label={accessibleName} labelledBy={labelledBy} onValue={setValue} />}
     </>
   );
 };

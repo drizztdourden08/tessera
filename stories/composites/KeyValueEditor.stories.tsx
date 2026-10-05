@@ -1,6 +1,9 @@
 /* @layer stories @kind story */
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { KeyValueKind } from '../../src/composites';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { STATE } from '../_template/states/states.constants';
@@ -28,6 +31,13 @@ const meta = {
 
 const FREE = { region: 'eu', mode: 'race' } as const;
 
+const LISTED_WORDS = { 'Moon Pearl': 'eu', Hookshot: 'race' } as const;
+
+const startFor = (kind: KeyValueKind, listed: boolean) => {
+  if (kind === 'count' || kind === 'number') return START_INVENTORY;
+  return listed ? LISTED_WORDS : FREE;
+};
+
 const CHOICES = ['eu', 'us', 'race', 'coop'] as const;
 
 const Playground = {
@@ -37,7 +47,7 @@ const Playground = {
   render: (args) => (
     <KeyValueEditorDemo
       key={`${args.valueKind}-${String(args.listed)}`}
-      start={args.valueKind === 'count' || args.valueKind === 'number' ? START_INVENTORY : FREE}
+      start={startFor(args.valueKind, args.listed)}
       valueKind={args.valueKind}
       keys={args.listed ? ITEMS : undefined}
       options={CHOICES}
@@ -56,6 +66,18 @@ const Words = {
   render: () => <KeyValueEditorDemo start={FREE} valueKind="text" keyLabel="Setting" aria-label="Server settings" />,
 } satisfies StoryLiteStoryDefinition<KeyValueEditorArgs>;
 
+const KINDS: Readonly<Record<KeyValueKind, ReactNode>> = {
+  count: <KeyValueEditorDemo start={START_INVENTORY} keys={ITEMS} min={0} max={99} />,
+  number: <KeyValueEditorDemo start={{ 'Progressive Sword': 40, Hookshot: 15 }} valueKind="number" keys={ITEMS} min={0} max={100} aria-label="Item weights" />,
+  text: <KeyValueEditorDemo start={FREE} valueKind="text" keyLabel="Setting" aria-label="Server settings" />,
+  select: <KeyValueEditorDemo start={FREE} valueKind="select" options={CHOICES} keyLabel="Setting" aria-label="Server settings" />,
+};
+
+const Kinds = {
+  name: 'Each value kind',
+  render: () => <Demonstrator rows={axis(Object.keys(KINDS) as KeyValueKind[])} align="stretch" cell={(kind) => KINDS[kind]} />,
+} satisfies StoryLiteStoryDefinition<KeyValueEditorArgs>;
+
 const CODE = `import { KeyValueEditor } from '@drizztdourden08/tessera';
 
 <KeyValueEditor value={startInventory} onChange={setStartInventory} keys={validItems} min={0} max={99} aria-label="Start inventory" />`;
@@ -69,9 +91,9 @@ const Overview = overviewStory({
     'A name listed twice, an empty name or one not in `keys` is marked; `onChange` waits for a fix.',
     'The add row searches the items not used yet; Add puts the new row at the end.',
   ],
-  instead: '[JsonInput] for nested values that do not fit one row per name.',
+  instead: '[CodeBlock] with `editable` for nested values that do not fit one row per name.',
   playground: Playground,
-  variants: [Counts, Words],
+  variants: [Counts, Words, Kinds],
   states: {
     render: (props: StateProps) => <KeyValueEditorDemo start={START_INVENTORY} keys={ITEMS} {...(props as Partial<KeyValueEditorDemoProps>)} />,
     list: [STATE.idle, { name: 'Empty', props: { start: {} } }, STATE.disabled],
@@ -80,4 +102,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Counts, Overview, Playground, Words };
+export { Counts, Kinds, Overview, Playground, Words };

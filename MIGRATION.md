@@ -5677,3 +5677,65 @@ The ListDetail page opens with a real preset editor: name, game and notes, the g
 3. Drop any background the app drew behind the panes; drop a SaveBar bleed it wrote by hand.
 4. Pass `collapsible={false}` where the list must stay open, or `collapsed` with `onCollapsedChange` to drive the fold from a menu or a shortcut.
 5. A stored fold sits beside the stored width; nothing moves for the width.
+
+## 187. JsonInput, NamedRange and SetPicker give way to CodeBlock, Slider and Combobox, and KeyValueEditor lines up its two inputs
+
+From the owner's review of the option inputs. Three parts did a job an existing part already does, and Tessera keeps no JSON reader of its own.
+
+```ts
+// CodeBlock: the shown block is unchanged; editable adds a field
+type CodeBlockProps = CodeBlockShowProps | CodeBlockEditProps;
+interface CodeBlockEditProps {
+  editable: true;
+  value: string;
+  onChange: (value: string) => void;
+  language: CodeBlockLanguage;
+  invalid?: boolean; // marks the field
+  problemLine?: number; // tints that line in the danger colour
+  readOnly?: boolean;
+  disabled?: boolean;
+  id?: string;
+  'aria-label'?: string;
+  'aria-describedby'?: string;
+  className?: string;
+}
+```
+
+### CodeBlock edits text in any language
+
+- `editable` turns CodeBlock into a field. The text is typed in a textarea over the same highlighting; the field grows with its text, wraps long lines and takes the label, hint and error of its Field or FormRow.
+- `invalid` and `problemLine` show what the app's own check found, drawn as JsonInput drew it: a danger border, and the line tinted with a bar at its start.
+- Tessera does not check the text. For JSON the app calls `JSON.parse`, which the browser has built in. The error it throws says what is wrong, and in Chromium and Firefox it ends with the line and column; the CodeBlock page reads the line with `/line (\d+)/` for `problemLine`. No library is added.
+- JsonInput is removed with its JSON reader, `JsonProblem`, `JsonReason`, `JsonShape`, its Format button, its status line and the `options.json*` and `options.format` strings.
+- The CodeBlock page shows Editable JSON, checked with JSON.parse, and What the browser says for each problem. Its playground takes `editable` for any language.
+
+### Slider holds named values
+
+- Named values are `labels` at those values, such as `[[0, 'Disabled'], [50, 'Normal'], [99, 'Extreme']]`. `input` adds a number field for any value between, and `formatValue` can name the readout at a named value.
+- Slider now takes the id, label and notes of its Field or FormRow: the range input gets the id the label points at, and the number field of `input` is named by the same label. Before, a FormRow label pointed at the number field and left the range unnamed.
+- NamedRange, `NamedStep` and the strings `options.custom`, `options.namedValue`, `options.range` and `options.customValue` are removed.
+- The progression balancing example is on the Slider page: Named values, and any number between.
+
+### Combobox picks several from a long list
+
+- Select has a multiple mode with search and tags, but its trigger is one button, so its tags cannot hold a remove button. Combobox with `min={0}`, `max` and `values` draws each pick as a tag with a remove button, narrows the list as the user types, and Backspace in an empty field removes the last pick. Nothing is added to Select.
+- SetPicker and the strings `options.searchItems`, `options.chosen` and `options.noMatch` are removed. The Start hints example is on the Combobox page.
+
+### KeyValueEditor
+
+- With two inputs, a free name and a text value, the name input shrank to an empty box 26 pixels wide, since the value input took the whole row. Each row is now a grid: the name takes the first column, a text or select value an equal second one, and a count or a number keeps its own width. In the 640 pixel gallery sample the name and the value are 302 pixels each for text and select, and the name is 490 pixels beside a 114 pixel count.
+- The garbled name in the owner's screenshot came from that box. Only the first letter showed, so a click put the caret after it and the typed letters went into the middle of the hidden name. Typing kept every key press; now the whole name shows and a click lands at its end.
+- When the app hands back a value that differs from the last one sent, such as the same names in another order, the rows keep their ids, so the input being typed in is not built again and keeps its focus. Before, every row was built again.
+- The editor carries `key-value-editor--<valueKind>`, a `number` value sizes to its `max`, and Add has the height of the inputs.
+- Tests check the grid columns, the class per kind and that rows keep their ids. The page adds Each value kind, and its playground starts listed text and select values from listed names.
+
+### The preset editor sample
+
+The FormRow preset editor uses CodeBlock `editable` for Plando Texts, checked with `JSON.parse`, Slider with `labels` and `input` for Progression Balancing, and Combobox for Start Hints. The preset editor that ListDetail and SaveBar share draws its Progression balancing row with the same Slider.
+
+### What an app does
+
+1. Replace `<JsonInput value onChange shape />` with a text state and `<CodeBlock editable language="json" value={text} onChange={setText} />`. Call `JSON.parse` in a `try` block: store the parsed value when it parses; otherwise pass `invalid`, pass the line read from the error as `problemLine`, and write the problem under the field.
+2. Replace `<NamedRange names min max />` with `<Slider min max labels={[[0, 'Disabled'], [50, 'Normal']]} input />`.
+3. Replace `<SetPicker options value onChange />` with `<Combobox items={options} min={0} max={options.length} values={value} onValuesChange={onChange} />`.
+4. Drop overrides of the removed `options` strings. RENAMES.json lists every removed name.

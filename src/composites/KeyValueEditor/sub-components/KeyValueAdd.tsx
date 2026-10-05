@@ -32,7 +32,7 @@ const KeyValueAdd = ({ keys, used, placeholder, disabled, onAdd }: KeyValueAddPr
           onChange={(event) => setDraft(event.target.value)} onEnter={add}
         />
       )}
-      <Button size="sm" variant="secondary" icon={<Icon name="plus" />} disabled={disabled === true || !ready} onClick={add}>{options.add}</Button>
+      <Button variant="secondary" icon={<Icon name="plus" />} disabled={disabled === true || !ready} onClick={add}>{options.add}</Button>
     </Box>
   );
 };

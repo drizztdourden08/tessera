@@ -12,7 +12,7 @@ import { KeyValueLine } from './sub-components/KeyValueLine';
 import './KeyValueEditor.css';
 
 const KeyValueEditor = (props: KeyValueEditorProps) => {
-  const { keys, addPlaceholder, empty, disabled, className } = props;
+  const { keys, addPlaceholder, empty, disabled, valueKind = 'count', className } = props;
   const { options } = useTesseraStrings();
   const problemId = useId();
   const control = useFieldControl();
@@ -20,7 +20,7 @@ const KeyValueEditor = (props: KeyValueEditorProps) => {
   const message = state.problem.message;
   return (
     <Box
-      className={['key-value-editor', className].filter(Boolean).join(' ')}
+      className={['key-value-editor', `key-value-editor--${valueKind}`, className].filter(Boolean).join(' ')}
       role="group"
       aria-label={props['aria-label']}
       aria-labelledby={props['aria-label'] ? undefined : control.labelId}

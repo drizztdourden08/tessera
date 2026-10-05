@@ -5,7 +5,11 @@ import { CodeBlock } from '../../src/composites';
 import type { CodeBlockLanguage } from '../../src/composites';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { axis } from '../_template/axis';
+import { BROKEN, BROKEN_CASES, PLANDO } from '../primitives/_samples/option-samples.constants';
 import { DIAGNOSTICS_SAMPLE, JSON_SAMPLE, TS_SAMPLE } from './_samples/data-code';
+import { EditableCode } from './_samples/EditableCode';
+import { JsonCodeDemo } from './_samples/JsonCodeDemo';
 
 type CodeBlockArgs = {
   language: CodeBlockLanguage;
@@ -14,6 +18,7 @@ type CodeBlockArgs = {
   copyable: boolean;
   wrap: boolean;
   capped: boolean;
+  editable: boolean;
 };
 
 const TSX_SAMPLE = `import { Button } from '@drizztdourden08/tessera';
@@ -33,7 +38,7 @@ const parseLines = (text: string): number[] =>
   });
 
 const ARGS: Partial<CodeBlockArgs> = {
-  language: 'typescript', highlightedLines: '12-13', showLineNumbers: true, copyable: true, wrap: false, capped: false,
+  language: 'typescript', highlightedLines: '12-13', showLineNumbers: true, copyable: true, wrap: false, capped: false, editable: false,
 };
 
 const ARG_TYPES: PlaygroundArgTypes<CodeBlockArgs> = {
@@ -43,6 +48,7 @@ const ARG_TYPES: PlaygroundArgTypes<CodeBlockArgs> = {
     wrap: { group: 'Layout', control: 'boolean', description: 'Wraps long lines in place of scrolling sideways.' },
     capped: { group: 'Layout', control: 'boolean', description: 'Stops growing at a fixed height and scrolls inside.' },
     copyable: { group: 'Behaviour', control: 'boolean' },
+    editable: { group: 'Behaviour', control: 'boolean', description: 'Turns the block into a field: the text is typed over the highlighting.' },
   };
 
 const meta = {
@@ -54,7 +60,7 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => (
+  render: (args) => (args.editable ? <EditableCode key={args.language} start={SAMPLES[args.language]} language={args.language} /> : (
     <CodeBlock
       code={SAMPLES[args.language]}
       language={args.language}
@@ -64,7 +70,7 @@ const Playground = {
       wrap={args.wrap}
       capped={args.capped}
     />
-  ),
+  )),
 } satisfies PlaygroundStory<CodeBlockArgs>;
 
 const SideBySide = {
@@ -85,6 +91,26 @@ const Diagnostics = {
   render: () => <CodeBlock code={DIAGNOSTICS_SAMPLE} language="text" wrap capped copyable />,
 } satisfies StoryLiteStoryDefinition<CodeBlockArgs>;
 
+const JSON_ROWS = { 'valid JSON': undefined, 'a missing comma': BROKEN } as const;
+
+const Editable = {
+  name: 'Editable JSON, checked with JSON.parse',
+  render: () => (
+    <Demonstrator
+      rows={axis(Object.keys(JSON_ROWS) as (keyof typeof JSON_ROWS)[])}
+      align="stretch"
+      cell={(row) => <JsonCodeDemo start={PLANDO} draft={JSON_ROWS[row]} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<CodeBlockArgs>;
+
+const Problems = {
+  name: 'What the browser says for each problem',
+  render: () => (
+    <Demonstrator rows={axis(Object.keys(BROKEN_CASES))} align="stretch" cell={(name) => <JsonCodeDemo start={{}} draft={BROKEN_CASES[name]} />} />
+  ),
+} satisfies StoryLiteStoryDefinition<CodeBlockArgs>;
+
 const Overview = overviewStory({
   component: 'CodeBlock',
   description: 'A panel of highlighted code for a snippet, a config file or a diff in docs and settings.',
@@ -93,11 +119,13 @@ const Overview = overviewStory({
     '`highlightedLines` marks changed lines; `showLineNumbers` adds a gutter.',
     '`copyable` adds a copy button.',
     'Long lines scroll sideways; `wrap` wraps them, and `capped` stops at a fixed height and scrolls inside.',
+    '`editable` makes it a field for any language; `value` and `onChange` hold the text, which grows and wraps.',
+    '`invalid` marks the field and `problemLine` tints a line, to show what a check such as `JSON.parse` found.',
   ],
   instead: '[Code] for a fragment inside a sentence, or [Preformatted] for plain text with no panel tools.',
   playground: Playground,
-  variants: [SideBySide, Diagnostics],
+  variants: [SideBySide, Diagnostics, Editable, Problems],
 });
 
 export default meta;
-export { Diagnostics, Overview, Playground, SideBySide };
+export { Diagnostics, Editable, Overview, Playground, Problems, SideBySide };

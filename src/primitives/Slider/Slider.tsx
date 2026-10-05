@@ -2,7 +2,9 @@
 import '../../theme/control-size.css';
 import '../../theme/slider-thumb.css';
 import './Slider.css';
+import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { useControlSize } from '../field-control/useControlSize';
+import { FieldControlBoundary } from '../FieldControlBoundary';
 import { useHintTarget } from '../hint/useHintTarget';
 import { sliderScale } from './behavior/slider-scale';
 import type { SliderProps } from './Slider.type';
@@ -14,13 +16,17 @@ const Slider = (props: SliderProps) => {
   const { label, description, disabled = false, size, hint, onHint, className, 'aria-label': ariaLabel } = props;
   const controlSize = useControlSize(size);
   const hintHandlers = useHintTarget<HTMLDivElement>({ hint, onHint });
-  const part = { scale: sliderScale(props), disabled, accessibleName: ariaLabel ?? label ?? hint?.label };
+  const control = useFieldControl(props.id);
+  const accessibleName = ariaLabel ?? label ?? hint?.label;
+  const part = { scale: sliderScale(props), disabled, accessibleName, labelledBy: accessibleName ? undefined : control.labelId, describedBy: control.describedBy };
   const classes = ['slider', `control-size--${controlSize}`, props.range && 'slider--range', disabled && 'slider--disabled', className];
 
   return (
     <div className={classes.filter(Boolean).join(' ')} {...hintHandlers}>
       <SliderHeader label={label} description={description} />
-      {props.range ? <SliderRange {...part} props={props} /> : <SliderSingle {...part} props={props} />}
+      <FieldControlBoundary>
+        {props.range ? <SliderRange {...part} props={{ ...props, id: control.id }} /> : <SliderSingle {...part} props={{ ...props, id: control.id }} />}
+      </FieldControlBoundary>
     </div>
   );
 };

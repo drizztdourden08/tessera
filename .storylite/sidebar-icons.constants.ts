@@ -60,9 +60,6 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal',
     TagPicker: 'tags', ColorSwatch: 'paint-bucket',
     DropZone: 'upload', Field: 'form-input', FieldControlBoundary: 'square-dashed',
-    JsonInput: 'braces',
-    NamedRange: 'list-ordered',
-    SetPicker: 'list-checks',
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Tooltip: 'message-square',

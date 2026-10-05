@@ -12,14 +12,25 @@
   gap: var(--space-xs);
 }
 
-.key-value-editor__row,
+.key-value-editor__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.key-value-editor--text .key-value-editor__row,
+.key-value-editor--select .key-value-editor__row {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+}
+
 .key-value-editor__add {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--space-xs);
 }
 
 .key-value-editor__key {
-  flex: 1;
   min-inline-size: 0;
 }

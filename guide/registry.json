@@ -103,9 +103,7 @@
                 "components": []
               },
               "structured data, as JSON": {
-                "components": [
-                  "JsonInput"
-                ]
+                "components": []
               },
               "a command, with its history": {
                 "components": [
@@ -132,14 +130,10 @@
             "components": []
           },
           "several choices from a long list": {
-            "components": [
-              "SetPicker"
-            ]
+            "components": []
           },
           "a number with named steps": {
-            "components": [
-              "NamedRange"
-            ]
+            "components": []
           },
           "pairs of a name and a value": {
             "components": [
@@ -1371,161 +1365,6 @@
       "usage": false
     },
     {
-      "name": "JsonInput",
-      "tier": "primitives",
-      "source": "src/primitives/JsonInput/JsonInput.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": true,
-      "job": "JSON typed over the code highlighting of CodeBlock, checked as the user types, with the problem, its line and its column, and Format.",
-      "useWhen": [
-        "An option or a record field holds free JSON, such as plando texts, and no form fits its shape.",
-        "A tool screen lets a developer edit a raw value and must never save text that does not parse."
-      ],
-      "avoidWhen": [
-        {
-          "case": "The value is a map of names to numbers or words.",
-          "use": "KeyValueEditor"
-        },
-        {
-          "case": "The value is plain text over several lines.",
-          "use": "Textarea"
-        },
-        {
-          "case": "The JSON is only shown, never edited.",
-          "use": "CodeBlock"
-        }
-      ],
-      "rules": [
-        "Store the value from onChange; it only comes while the text parses, so a typo never reaches the saved value.",
-        "Pass onProblem when a form must hold its Save, and say so in the row, such as Not saved: fix the JSON first.",
-        "Set shape to object or array when the option needs one, so a valid value of the wrong kind is turned away too.",
-        "Pass defaultText only to bring back a draft that did not parse; otherwise the text is the formatted value."
-      ],
-      "a11y": [
-        "The text is a real textarea that takes the label, hint and error of its Field or FormRow.",
-        "The status line under it, valid or the problem with its line and column, describes the textarea.",
-        "A problem marks the textarea invalid; Format is a button with its name, after the textarea."
-      ],
-      "tree": {
-        "path": [
-          "a value the user sets",
-          "free text or a number",
-          "structured data, as JSON"
-        ],
-        "rule": "JsonInput checks JSON as it is typed and only hands on a value that parses, the same way in every app."
-      },
-      "example": "import { JsonInput } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst PlandoTexts = ({ value, save }: { value: Record<string, string>; save: (value: unknown) => void }) => {\n  const [blocked, setBlocked] = useState(false);\n  return (\n    <>\n      <JsonInput value={value} onChange={save} onProblem={(problem) => setBlocked(problem !== null)} shape=\"object\" aria-label=\"Plando texts\" />\n      {blocked && <p>Not saved: fix the JSON first.</p>}\n    </>\n  );\n};\n",
-      "propsHash": "404daf41a735a427",
-      "props": {
-        "own": [
-          {
-            "name": "value",
-            "optional": false,
-            "text": "unknown"
-          },
-          {
-            "name": "onChange",
-            "optional": false,
-            "text": "(value: unknown) => void"
-          },
-          {
-            "name": "onProblem",
-            "optional": true,
-            "text": "(problem: JsonProblem | null) => void"
-          },
-          {
-            "name": "shape",
-            "optional": true,
-            "text": "JsonShape",
-            "literals": [
-              "'object'",
-              "'array'",
-              "'any'"
-            ]
-          },
-          {
-            "name": "defaultText",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "indent",
-            "optional": true,
-            "text": "number",
-            "default": "INDENT"
-          },
-          {
-            "name": "readOnly",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "disabled",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "invalid",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "id",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "aria-label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "aria-describedby",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--border-width-thick",
-        "--border-width-thin",
-        "--c-border",
-        "--c-danger",
-        "--c-danger-soft",
-        "--c-primary",
-        "--c-primary-soft",
-        "--c-sunken",
-        "--c-text",
-        "--font-mono",
-        "--leading-normal",
-        "--radius-md",
-        "--space-2xs",
-        "--space-md",
-        "--space-sm",
-        "--text-sm",
-        "--transition-normal"
-      ],
-      "gallery": {
-        "title": "Primitives · Inputs/JsonInput",
-        "route": "#/story/primitives-jsoninput--overview",
-        "file": "stories/primitives/JsonInput.stories.tsx"
-      },
-      "parts": []
-    },
-    {
       "name": "Link",
       "tier": "primitives",
       "source": "src/primitives/Link/Link.tsx",
@@ -1534,132 +1373,6 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
-    },
-    {
-      "name": "NamedRange",
-      "tier": "primitives",
-      "source": "src/primitives/NamedRange/NamedRange.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": true,
-      "job": "A number from a range whose common values have names: the names as joined buttons, then Custom for any other number.",
-      "useWhen": [
-        "An option is a number, but most people pick one of a few named values, such as progression balancing.",
-        "The named values matter more than the exact number, and a custom number is still allowed."
-      ],
-      "avoidWhen": [
-        {
-          "case": "The number has no named values.",
-          "use": "Slider"
-        },
-        {
-          "case": "Only the named values are allowed.",
-          "use": "SegmentedControl"
-        }
-      ],
-      "rules": [
-        "Keep names to three or four, in the order of their values, and write each name as a word, such as Normal.",
-        "Set min and max to the full range; Custom holds its number between them.",
-        "Leave showValues on unless the numbers mean nothing to the user."
-      ],
-      "a11y": [
-        "The control is a group named by its Field or FormRow label, or by aria-label.",
-        "The names are the buttons of a SegmentedControl, and the custom number a NumberInput with its buttons on the sides, named Custom value."
-      ],
-      "tree": {
-        "path": [
-          "a value the user sets",
-          "a number with named steps"
-        ],
-        "rule": "NamedRange puts the named values first and a number second, the same way in every app."
-      },
-      "example": "import { NamedRange } from '@drizztdourden08/tessera';\n\nconst BALANCING = [{ label: 'Disabled', value: 0 }, { label: 'Normal', value: 50 }, { label: 'Extreme', value: 99 }];\n\nconst Balancing = ({ value, onChange }: { value: number; onChange: (value: number) => void }) => (\n  <NamedRange value={value} onChange={onChange} names={BALANCING} min={0} max={99} aria-label=\"Progression balancing\" />\n);\n",
-      "propsHash": "13c9358e5b644594",
-      "props": {
-        "own": [
-          {
-            "name": "value",
-            "optional": false,
-            "text": "number"
-          },
-          {
-            "name": "onChange",
-            "optional": false,
-            "text": "(value: number) => void"
-          },
-          {
-            "name": "names",
-            "optional": false,
-            "text": "readonly NamedStep[]"
-          },
-          {
-            "name": "min",
-            "optional": false,
-            "text": "number"
-          },
-          {
-            "name": "max",
-            "optional": false,
-            "text": "number"
-          },
-          {
-            "name": "step",
-            "optional": true,
-            "text": "number"
-          },
-          {
-            "name": "showValues",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "customLabel",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "disabled",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "size",
-            "optional": true,
-            "text": "ControlSize",
-            "literals": [
-              "'sm'",
-              "'md'"
-            ]
-          },
-          {
-            "name": "aria-label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--space-sm",
-        "--space-xs"
-      ],
-      "gallery": {
-        "title": "Primitives · Inputs/NamedRange",
-        "route": "#/story/primitives-namedrange--overview",
-        "file": "stories/primitives/NamedRange.stories.tsx"
-      },
-      "parts": []
     },
     {
       "name": "NumberInput",
@@ -1800,108 +1513,6 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
-    },
-    {
-      "name": "SetPicker",
-      "tier": "primitives",
-      "source": "src/primitives/SetPicker/SetPicker.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": true,
-      "job": "Several choices from a long list: the chosen ones as removable tags, a search, and a checklist that scrolls.",
-      "useWhen": [
-        "An option is a set picked from dozens or hundreds of names, such as the items to hint at the start.",
-        "The user should see every choice made so far while looking for the next one."
-      ],
-      "avoidWhen": [
-        {
-          "case": "The choices are few and fit in view.",
-          "use": "ToggleGroup"
-        },
-        {
-          "case": "The choices are tags from a small grouped list.",
-          "use": "TagPicker"
-        },
-        {
-          "case": "Several choices are picked by typing, in a dropdown.",
-          "use": "Combobox"
-        }
-      ],
-      "rules": [
-        "Pass every valid choice in options; value keeps their order, whatever order they were checked in.",
-        "Keep each choice to a short name, since it shows as a tag and a checkbox label."
-      ],
-      "a11y": [
-        "The picker is a group named by its Field or FormRow label, or by aria-label.",
-        "Each choice is a Checkbox, so Space checks it, and each tag has a Remove button with the name.",
-        "The search box is named after the number of choices it searches."
-      ],
-      "tree": {
-        "path": [
-          "a value the user sets",
-          "several choices from a long list"
-        ],
-        "rule": "SetPicker shows what is chosen on top and searches the rest, the same way in every app."
-      },
-      "example": "import { SetPicker } from '@drizztdourden08/tessera';\n\nconst StartHints = ({ items, value, onChange }: { items: string[]; value: string[]; onChange: (value: string[]) => void }) => (\n  <SetPicker options={items} value={value} onChange={onChange} aria-label=\"Start hints\" />\n);\n",
-      "propsHash": "e665eed432fa8512",
-      "props": {
-        "own": [
-          {
-            "name": "options",
-            "optional": false,
-            "text": "readonly string[]"
-          },
-          {
-            "name": "value",
-            "optional": false,
-            "text": "readonly string[]"
-          },
-          {
-            "name": "onChange",
-            "optional": false,
-            "text": "(value: string[]) => void"
-          },
-          {
-            "name": "placeholder",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "disabled",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
-            "name": "aria-label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--size-192",
-        "--space-2xs",
-        "--space-xs"
-      ],
-      "gallery": {
-        "title": "Primitives · Inputs/SetPicker",
-        "route": "#/story/primitives-setpicker--overview",
-        "file": "stories/primitives/SetPicker.stories.tsx"
-      },
-      "parts": []
     },
     {
       "name": "Shortcut",
@@ -4649,7 +4260,7 @@
         ],
         "rule": "FormRow lays out the name, the control, the changed mark and the reset of an option the same way in every app."
       },
-      "example": "import { FormRow, NamedRange } from '@drizztdourden08/tessera';\n\nconst BALANCING = [{ label: 'Disabled', value: 0 }, { label: 'Normal', value: 50 }, { label: 'Extreme', value: 99 }];\n\nconst BalancingRow = ({ value, onChange }: { value: number; onChange: (value: number) => void }) => (\n  <FormRow label=\"Progression Balancing\" description=\"Moves progression earlier.\" changed={value !== 50} onReset={() => onChange(50)}>\n    <NamedRange value={value} onChange={onChange} names={BALANCING} min={0} max={99} />\n  </FormRow>\n);\n",
+      "example": "import { FormRow, Slider } from '@drizztdourden08/tessera';\nimport type { ScaleLabelEntry } from '@drizztdourden08/tessera';\n\nconst BALANCING: ScaleLabelEntry[] = [[0, 'Disabled'], [50, 'Normal'], [99, 'Extreme']];\n\nconst BalancingRow = ({ value, onChange }: { value: number; onChange: (value: number) => void }) => (\n  <FormRow label=\"Progression Balancing\" description=\"Moves progression earlier.\" changed={value !== 50} onReset={() => onChange(50)}>\n    <Slider value={value} onChange={onChange} min={0} max={99} labels={BALANCING} input />\n  </FormRow>\n);\n",
       "propsHash": "c299e3cf8283e31e",
       "props": {
         "own": [
@@ -5614,11 +5225,11 @@
       "avoidWhen": [
         {
           "case": "The value nests deeper than one name and one value.",
-          "use": "JsonInput"
+          "use": "CodeBlock"
         },
         {
           "case": "The value is a set of names with nothing attached.",
-          "use": "SetPicker"
+          "use": "Combobox"
         }
       ],
       "rules": [
@@ -5666,7 +5277,8 @@
               "'number'",
               "'text'",
               "'select'"
-            ]
+            ],
+            "default": "'count'"
           },
           {
             "name": "options",

@@ -1,72 +1,49 @@
 /* @layer tooling-scripts @kind test */
+import { readFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
+import { CodeBlock } from '../src/composites/CodeBlock';
 import { FormGroupTabs } from '../src/composites/FormGroupTabs';
 import { FormRow } from '../src/composites/FormRow';
 import { KeyValueEditor } from '../src/composites/KeyValueEditor';
 import { newEntry } from '../src/composites/KeyValueEditor/behavior/new-entry';
+import { rowsOf } from '../src/composites/KeyValueEditor/behavior/rows-of';
 import { rowsProblem } from '../src/composites/KeyValueEditor/behavior/rows-problem';
-import { JsonInput } from '../src/primitives/JsonInput';
-import { checkJson } from '../src/primitives/JsonInput/behavior/check-json';
-import { jsonProblem } from '../src/primitives/JsonInput/behavior/json-problem';
-import { scanJson } from '../src/primitives/JsonInput/behavior/scan-json';
-import { NamedRange } from '../src/primitives/NamedRange';
-import { SetPicker } from '../src/primitives/SetPicker';
-import { toggleIn } from '../src/primitives/SetPicker/behavior/toggle-in';
 import { TESSERA_STRINGS } from '../src/primitives/strings';
 import { TextInput } from '../src/primitives/TextInput';
 
 const BROKEN = '{\n  "uncle_leaving_text": "Have fun, Bram"\n  "ganon_phase_3_alt": "Got wax in your ears?"\n}';
-const SAMPLES = [
-  '{}', '[]', '0', '-0.5e+3', 'true', 'null', '"a\\u00e9\\n"', '{"a": [1, 2, {"b": null}]}', ' [ "x" , false ] ',
-  '', '{', '[1,]', '{"a":1,}', '{"a" 1}', '{a: 1}', '01', '1.', '.5', '"abc', '"a\\x"', 'tru', '[1 2]', '{"a":1} x', '"tab\there"',
-];
+const css = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+const ignore = () => {};
 
-const parses = (text) => {
-  try {
-    JSON.parse(text);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-describe('JsonInput checks', () => {
-  it('agrees with JSON.parse on what is valid', () => {
-    SAMPLES.forEach((text) => expect([text, scanJson(text) === null]).toEqual([text, parses(text)]));
+describe('CodeBlock editable', () => {
+  it('types over the highlighting in a textarea that holds the text', () => {
+    const html = renderToString(h(CodeBlock, { editable: true, language: 'json', value: '{"a": 1}', onChange: ignore, 'aria-label': 'Plando texts' }));
+    expect(html).toMatch(/<textarea[^>]*aria-label="Plando texts"/);
+    expect(html).toContain('{&quot;a&quot;: 1}</textarea>');
+    expect(html).toContain('code-block__line');
+    expect(html).not.toContain('aria-invalid');
+    expect(html).not.toContain('data-invalid');
   });
 
-  it('names each problem and where it is', () => {
-    expect(scanJson(BROKEN)).toEqual({ at: 42, reason: 'objectNext' });
-    expect(scanJson('{"a":1,}')).toEqual({ at: 6, reason: 'trailingComma' });
-    expect(scanJson('[1 2]')).toEqual({ at: 2, reason: 'arrayNext' });
-    expect(scanJson('{"a" 1}')).toEqual({ at: 5, reason: 'colon' });
-    expect(scanJson('{a: 1}')).toEqual({ at: 1, reason: 'key' });
-    expect(scanJson('{"a": "b\n}')).toEqual({ at: 6, reason: 'unclosed' });
-    expect(scanJson('  ')).toEqual({ at: 0, reason: 'empty' });
-    expect(scanJson('1 2')).toEqual({ at: 2, reason: 'extra' });
+  it('marks the field and tints the problem line the app found', () => {
+    const html = renderToString(h(CodeBlock, { editable: true, language: 'json', value: BROKEN, onChange: ignore, invalid: true, problemLine: 3 }));
+    expect(html).toContain('aria-invalid="true"');
+    expect(html).toContain('data-invalid="true"');
+    const lines = html.match(/class="code-block__line[^"]*"/g);
+    expect(lines).toHaveLength(4);
+    expect(lines.map((line) => line.includes('--changed'))).toEqual([false, false, true, false]);
   });
 
-  it('gives the line and column and checks the shape', () => {
-    const problem = jsonProblem(BROKEN, scanJson(BROKEN), TESSERA_STRINGS);
-    expect(problem).toMatchObject({ line: 2, column: 41 });
-    expect(problem.message).toBe("Expected ',' or '}' after the value on line 2, column 41.");
-    expect(checkJson('[1]', 'object').fault).toEqual({ at: 0, reason: 'wantObject' });
-    expect(checkJson(' {"a": 1}', 'array').fault).toEqual({ at: 1, reason: 'wantArray' });
-    expect(checkJson('{"a": 1}', 'object')).toEqual({ value: { a: 1 }, fault: null });
+  it('keeps an empty last line, so the field grows as soon as Enter is pressed', () => {
+    const html = renderToString(h(CodeBlock, { editable: true, language: 'text', value: 'one\n', onChange: ignore }));
+    expect(html.match(/class="code-block__line[^"]*"/g)).toHaveLength(2);
   });
 
-  it('draws the code, the summary and Format, and marks the line of a problem', () => {
-    const valid = renderToString(h(JsonInput, { value: { a: 1, b: 2 }, onChange: () => {} }));
-    expect(valid).toContain('Valid JSON object, 2 keys');
-    expect(valid).toContain('code-block');
-    expect(valid).not.toContain('aria-invalid');
-    const broken = renderToString(h(JsonInput, { value: {}, onChange: () => {}, defaultText: BROKEN }));
-    expect(broken).toContain('aria-invalid="true"');
-    expect(broken).toContain('on line 2, column 41.');
-    expect(broken.match(/code-block__line code-block__line--changed/g)).toHaveLength(1);
-    expect(broken).toMatch(/<button[^>]*disabled=""[^>]*>.*Format/);
+  it('works for any language and keeps the plain block as it was', () => {
+    expect(renderToString(h(CodeBlock, { editable: true, language: 'typescript', value: 'const a = 1;', onChange: ignore }))).toContain('<textarea');
+    expect(renderToString(h(CodeBlock, { code: 'const a = 1;', language: 'typescript' }))).not.toContain('<textarea');
   });
 });
 
@@ -87,32 +64,31 @@ describe('KeyValueEditor', () => {
     expect(newEntry({ value: {}, onChange: () => {}, valueKind: 'text' })).toBe('');
   });
 
+  it('keeps the row of each name when the value comes back reordered, so a name being typed keeps its field', () => {
+    const before = [{ id: 'a', key: 'region', value: 'eu' }, { id: 'b', key: 'mode', value: 'race' }];
+    expect(rowsOf({ mode: 'race', region: 'eu' }, 'x', before).map((row) => row.id)).toEqual(['b', 'a']);
+    expect(rowsOf({ server: 'eu', mode: 'race' }, 'x', before).map((row) => row.id)).toEqual(['a', 'b']);
+    expect(rowsOf({ mode: 'coop', lang: 'fr', extra: 1 }, 'x', before).map((row) => row.id)).toEqual(['b', 'x-1', 'x-2']);
+  });
+
+  it('gives the name its own column, as wide as a text or select value and wider than a count', () => {
+    const sheet = css('src/composites/KeyValueEditor/KeyValueEditor.css');
+    expect(sheet).toMatch(/\.key-value-editor__row \{[^}]*display: grid;[^}]*grid-template-columns: minmax\(0, 1fr\) auto auto;/);
+    expect(sheet).toMatch(/\.key-value-editor--text \.key-value-editor__row,\s*\.key-value-editor--select \.key-value-editor__row \{\s*grid-template-columns: minmax\(0, 1fr\) minmax\(0, 1fr\) auto;/);
+    expect(sheet).not.toMatch(/\.key-value-editor__key \{[^}]*flex/);
+    ['count', 'number', 'text', 'select'].forEach((valueKind) => {
+      const html = renderToString(h(KeyValueEditor, { value: { region: 'eu' }, onChange: ignore, valueKind, options: ['eu'] }));
+      expect(html).toContain(`key-value-editor--${valueKind}`);
+      expect(html).toMatch(/class="key-value-editor__row"[^>]*><input[^>]*class="text-input[^"]*key-value-editor__key"[^>]*value="region"/);
+    });
+  });
+
   it('draws a row per name with its value and Remove, then the add row', () => {
     const html = renderToString(h(KeyValueEditor, { value: { 'Moon Pearl': 1, Hookshot: 2 }, onChange: () => {}, keys: ['Moon Pearl', 'Hookshot', 'Lamp'] }));
     expect(html.match(/class="key-value-editor__row"/g)).toHaveLength(2);
     expect(html).toContain('aria-label="Remove Hookshot"');
     expect(html).toContain('aria-label="Value of Moon Pearl"');
     expect(html).toContain('Add an item: type to search 3 items');
-  });
-});
-
-describe('NamedRange and SetPicker', () => {
-  const names = [{ label: 'Normal', value: 50 }];
-
-  it('opens Custom with a stepper for a value with no name', () => {
-    const custom = renderToString(h(NamedRange, { value: 65, onChange: () => {}, names, min: 0, max: 99 }));
-    expect(custom).toContain('Normal (50)');
-    expect(custom).toContain('0 to 99');
-    expect(custom).toContain('aria-label="Custom value"');
-    expect(renderToString(h(NamedRange, { value: 50, onChange: () => {}, names, min: 0, max: 99 }))).not.toContain('Custom value');
-  });
-
-  it('keeps the order of the options and draws the chosen ones as tags', () => {
-    expect(toggleIn(['a', 'b', 'c'], ['c'], 'a', true)).toEqual(['a', 'c']);
-    expect(toggleIn(['a', 'b', 'c'], ['a', 'c'], 'a', false)).toEqual(['c']);
-    const html = renderToString(h(SetPicker, { options: ['Lamp', 'Hookshot'], value: ['Hookshot'], onChange: () => {} }));
-    expect(html).toContain('aria-label="Remove Hookshot"');
-    expect(html).toContain('placeholder="Search 2 items"');
   });
 });
 

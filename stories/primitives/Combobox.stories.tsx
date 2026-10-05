@@ -5,6 +5,7 @@ import { overviewStory } from '../_template/overview-story';
 import {
   CategoryList, ColumnsHighlight, ComboboxPlayground, Filtering, FullItem, MultiChips, PrefixFilter, ServerSearch,
 } from './_samples/combobox-variants';
+import { StartHints } from './_samples/StartHints';
 import { PICKER_ARG_TYPES, pickerSizes, pickerStates, pickerVariant } from './_samples/picker-story';
 import type { ComboboxArgs } from './_samples/combobox-variants';
 import './Select.stories.css';
@@ -49,6 +50,7 @@ const VARIANTS: readonly Story[] = [
   pickerVariant('Columns and highlight', ColumnsHighlight),
   pickerVariant('Categories', CategoryList),
   pickerVariant('Multi select, as tags', MultiChips),
+  pickerVariant('Start hints: several from a long list, as removable tags', StartHints),
   pickerVariant('Custom filter', PrefixFilter),
   pickerVariant('Server search', ServerSearch),
   pickerVariant('Full item when not typing', FullItem),

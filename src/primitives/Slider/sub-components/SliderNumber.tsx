@@ -5,7 +5,7 @@ import { snapValue } from '../behavior/snap-value';
 import type { SliderNumberProps } from './SliderNumber.type';
 
 const SliderNumber = (props: SliderNumberProps) => {
-  const { value, scale, disabled, label, onValue } = props;
+  const { value, scale, disabled, label, labelledBy, onValue } = props;
   const [draft, setDraft] = useState<number | undefined>(undefined);
   const change = (next: number) => {
     setDraft(next);
@@ -22,6 +22,7 @@ const SliderNumber = (props: SliderNumberProps) => {
       disabled={disabled}
       sizeToContent
       aria-label={label}
+      aria-labelledby={labelledBy}
       onChange={change}
       onBlur={() => setDraft(undefined)}
     />

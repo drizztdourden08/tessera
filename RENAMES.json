@@ -1115,7 +1115,14 @@
         "MasterDetailList": "ListDetailListProps",
         "MasterDetailSave": "ListDetailSave",
         "MasterDetail": "ListDetail",
-        "ManagedList": "ItemList"
+        "ManagedList": "ItemList",
+        "JsonInput": "CodeBlock with editable, value and onChange; the app checks the text with JSON.parse and passes invalid and problemLine (see MIGRATION.md section 187)",
+        "JsonInputProps": "CodeBlockProps, with editable: true (see MIGRATION.md section 187)",
+        "NamedRange": "Slider with labels at the named values, such as [[0, 'Disabled'], [50, 'Normal']], and input for any other number (see MIGRATION.md section 187)",
+        "NamedRangeProps": "SliderProps (see MIGRATION.md section 187)",
+        "NamedStep": "ScaleLabelEntry, written as [value, label] (see MIGRATION.md section 187)",
+        "SetPicker": "Combobox with min={0}, max and values, which draws the picks as removable tags and searches the rest as it is typed (see MIGRATION.md section 187)",
+        "SetPickerProps": "ComboboxProps (see MIGRATION.md section 187)"
       },
       "cssClasses": {
         "master-detail__detail--empty": "list-detail-layout__detail--empty",
@@ -1136,7 +1143,51 @@
         "managed-list__body": "item-list__body",
         "managed-list__head": "item-list__head",
         "master-detail": "list-detail-layout",
-        "managed-list": "item-list"
+        "managed-list": "item-list",
+        "json-input__editor": "code-block-editor",
+        "json-input__code": "code-block-editor__code",
+        "json-input__text": "code-block-editor__text",
+        "json-input": "code-block-editor",
+        "json-input__foot": "removed with JsonInput; the app draws its own status line (see MIGRATION.md section 187)",
+        "json-input__status": "removed with JsonInput (see MIGRATION.md section 187)",
+        "named-range__custom": "removed with NamedRange (see MIGRATION.md section 187)",
+        "named-range": "slider, drawn by Slider (see MIGRATION.md section 187)",
+        "set-picker__chosen": "removed with SetPicker; Combobox draws its tags in the field (see MIGRATION.md section 187)",
+        "set-picker__list": "removed with SetPicker (see MIGRATION.md section 187)",
+        "set-picker": "combobox, drawn by Combobox (see MIGRATION.md section 187)"
+      },
+      "removedExports": {
+        "JsonProblem": "removed with JsonInput; read the problem from the error JSON.parse throws (see MIGRATION.md section 187)",
+        "JsonReason": "removed with JsonInput (see MIGRATION.md section 187)",
+        "JsonShape": "removed with JsonInput; check the parsed value in the app (see MIGRATION.md section 187)"
+      },
+      "strings": {
+        "options.jsonObject": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonArray": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonValue": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonAt": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonEmpty": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonValueMissing": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonUnclosed": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonEscape": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonControl": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonNumber": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonKey": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonColon": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonObjectNext": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonArrayNext": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonTrailingComma": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonExtra": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonWantObject": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.jsonWantArray": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.format": "removed; JsonInput is gone, and the app writes its own JSON status (see MIGRATION.md section 187)",
+        "options.custom": "removed; NamedRange is gone, and Slider writes its labels from labels (see MIGRATION.md section 187)",
+        "options.namedValue": "removed; NamedRange is gone, and Slider writes its labels from labels (see MIGRATION.md section 187)",
+        "options.range": "removed; NamedRange is gone, and Slider writes its labels from labels (see MIGRATION.md section 187)",
+        "options.customValue": "removed; NamedRange is gone, and Slider writes its labels from labels (see MIGRATION.md section 187)",
+        "options.searchItems": "removed; SetPicker is gone, and Combobox writes its own words (see MIGRATION.md section 187)",
+        "options.chosen": "removed; SetPicker is gone, and Combobox writes its own words (see MIGRATION.md section 187)",
+        "options.noMatch": "removed; SetPicker is gone, and Combobox writes its own words (see MIGRATION.md section 187)"
       }
     }
   ]

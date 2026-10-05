@@ -7,6 +7,8 @@ interface SliderThumbProps {
   scale: ValueScale;
   disabled: boolean;
   label?: string;
+  labelledBy?: string;
+  describedBy?: string;
   id?: string;
   name?: string;
   keyStep?: number;

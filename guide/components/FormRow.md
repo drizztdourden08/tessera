@@ -40,13 +40,14 @@ FormRow lays out the name, the control, the changed mark and the reset of an opt
 ## Example
 
 ```tsx
-import { FormRow, NamedRange } from '@drizztdourden08/tessera';
+import { FormRow, Slider } from '@drizztdourden08/tessera';
+import type { ScaleLabelEntry } from '@drizztdourden08/tessera';
 
-const BALANCING = [{ label: 'Disabled', value: 0 }, { label: 'Normal', value: 50 }, { label: 'Extreme', value: 99 }];
+const BALANCING: ScaleLabelEntry[] = [[0, 'Disabled'], [50, 'Normal'], [99, 'Extreme']];
 
 const BalancingRow = ({ value, onChange }: { value: number; onChange: (value: number) => void }) => (
   <FormRow label="Progression Balancing" description="Moves progression earlier." changed={value !== 50} onReset={() => onChange(50)}>
-    <NamedRange value={value} onChange={onChange} names={BALANCING} min={0} max={99} />
+    <Slider value={value} onChange={onChange} min={0} max={99} labels={BALANCING} input />
   </FormRow>
 );
 ```

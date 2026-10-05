@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 48 of 172 have their usage written; a linked name opens its page.
+One line per component. 45 of 169 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -37,9 +37,7 @@ One line per component. 48 of 172 have their usage written; a linked name opens 
 - `Image`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Inline](components/Inline.md): A row of children side by side with even space between them, such as an icon and its label, a set of tags or a title with its actions. Import from `@drizztdourden08/tessera`.
 - `InputIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [JsonInput](components/JsonInput.md): JSON typed over the code highlighting of CodeBlock, checked as the user types, with the problem, its line and its column, and Format. Import from `@drizztdourden08/tessera`.
 - `Link`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [NamedRange](components/NamedRange.md): A number from a range whose common values have names: the names as joined buttons, then Custom for any other number. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -54,7 +52,6 @@ One line per component. 48 of 172 have their usage written; a linked name opens 
 - `SectionHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SegmentedControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Select`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [SetPicker](components/SetPicker.md): Several choices from a long list: the chosen ones as removable tags, a search, and a checklist that scrolls. Import from `@drizztdourden08/tessera`.
 - `Shortcut`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Slider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Spacer`: usage not written yet. Import from `@drizztdourden08/tessera`.
