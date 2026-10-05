@@ -1,5 +1,5 @@
 {
-  "$comment": "Every rename and removal in Tessera, grouped by the release it ships in, oldest first. An upgrade replays each release between the old and the new version, in order; inside a release every key maps straight to its final name, so one pass is enough. Unreleased entries sit in the release named next, which the release step renames to the new version. Inside a map, replace longer keys first. components holds every renamed export, components and their types. props keys are Component.prop under the old component name. A value with words after the name, or any removedExports value, is a note for a person, not a name to write. A cssClasses value may hold several classes separated by spaces; write them all. configKeys maps setting paths inside the JSON files a project keeps, grouped by file name, such as tessera.config.json and package.json: each key is a dotted path into that file, where * stands for any one key such as an apps folder, and the value is the path the same value moves to, unchanged.",
+  "$comment": "Every rename and removal in Tessera, grouped by the release it ships in, oldest first. An upgrade replays each release between the old and the new version, in order; inside a release every key maps straight to its final name, so one pass is enough. Unreleased entries sit in the release named next, which the release step renames to the new version. Inside a map, replace longer keys first. components holds every renamed export, components and their types. props keys are Component.prop under the old component name. A value with words after the name, or any removedExports value, is a note for a person, not a name to write. A cssClasses value may hold several classes separated by spaces; write them all. configKeys maps setting paths inside the JSON files a project keeps, grouped by file name, such as tessera.config.json and package.json: each key is a dotted path into that file, where * stands for any one key such as an apps folder, and the value is the path the same value moves to, unchanged. moves holds every export that changed entry point, under its final name, so a part renamed in the same release is listed under its new name; a type moves with its part and is listed too. from and to are subpaths of the package.json exports, such as primitives, composites or brand. Replay the moves of a release after its renames: an import of the name from @drizztdourden08/tessera/<from> takes it from @drizztdourden08/tessera/<to>, and an import from the package root stays.",
   "releases": [
     {
       "version": "0.4.0",
@@ -707,6 +707,48 @@
       "components": {
         "StatusOfProps": "StatusProps",
         "StatusOf": "Status"
+      },
+      "moves": {
+        "CopyButton": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CopyButtonProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CopyButtonSize": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CopyText": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CopyValue": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CopyValueProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CopyValueSize": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CopyValueTruncate": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ErrorBoundary": {
+          "from": "composites",
+          "to": "primitives"
+        },
+        "ErrorBoundaryProps": {
+          "from": "composites",
+          "to": "primitives"
+        }
       }
     },
     {
@@ -806,7 +848,6 @@
         "mascotForBrand": "removed; AnimatedMascot brand=\"auto\" picks the mascot of the palette, and a brand id names its own mascot (see MIGRATION.md section 174)",
         "InteractiveTessera": "removed from the package; it lives in the gallery only (see MIGRATION.md section 174)",
         "InteractiveTesseraProps": "removed with InteractiveTessera (see MIGRATION.md section 174)",
-        "PixelWordmark": "still exported from the root; from a subpath, import it, buildPixelWordmark, PIXEL_FONT and their types from @drizztdourden08/tessera/brand, no longer /composites (see MIGRATION.md section 174)",
         "Text.CodeBlock": "CodeBlock, imported on its own from @drizztdourden08/tessera or /composites; Text no longer carries it (see MIGRATION.md section 175)",
         "Floating": "removed from the exports; use Anchored, which pins a popup to its trigger (see MIGRATION.md section 175)",
         "FloatingProps": "removed from the exports; use AnchoredProps (see MIGRATION.md section 175)",
@@ -818,6 +859,228 @@
         "groupNode": "removed from the exports with BrandScene (see MIGRATION.md section 177)",
         "PieceSpot": "removed with placePiece (see MIGRATION.md section 177)",
         "GroupSpot": "removed with groupNode (see MIGRATION.md section 177)"
+      },
+      "moves": {
+        "buildPixelWordmark": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "CodeBlock": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CodeBlockLanguage": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CodeBlockProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CommandInput": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CommandInputProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "CommandSubmit": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "namespacedTag": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "Overlay": {
+          "from": "composites",
+          "to": "primitives"
+        },
+        "PasswordInput": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PasswordInputProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PasswordMode": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PasswordRule": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PasswordScore": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PasswordStrength": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PasswordStrengthLevel": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PathBrowse": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PathInput": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PathInputProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PathKind": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "PIXEL_FONT": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "PixelGlyph": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "PixelWordmark": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "PixelWordmarkArt": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "PixelWordmarkColors": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "PixelWordmarkPath": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "PixelWordmarkProps": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "PixelWordmarkSize": {
+          "from": "composites",
+          "to": "brand"
+        },
+        "RetryButton": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "RetryButtonProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ShortcutGesture": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ShortcutList": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ShortcutListGroup": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ShortcutListItem": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ShortcutListProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "Splash": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "SplashAction": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "SplashBar": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "SplashProgress": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "SplashProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "TagAdvice": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "TagInput": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "TagInputProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "TagValidationResult": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "TagValidator": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "Toast": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ToastAction": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ToastContainer": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ToastContainerProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ToastItem": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ToastPosition": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ToastProps": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ToastVariant": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "Video": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "VideoProps": {
+          "from": "primitives",
+          "to": "composites"
+        }
       }
     },
     {

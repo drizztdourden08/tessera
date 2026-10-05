@@ -475,7 +475,9 @@ Other tools run the same commands through `@drizztdourden08/tessera/cli`: `runTe
 
 ## Upgrading
 
-`CHANGELOG.md` lists what changed in each version. `MIGRATION.md` explains each breaking change and what a consuming app does about it. `RENAMES.json` is the machine-readable part: every renamed custom property, component, prop, prop value and CSS class, and every removed export, grouped by the release it shipped in. When upgrading, replay each release between the old and the new version, oldest first, longer keys first inside a map. `brock upgrade` does this for a Brock app.
+`CHANGELOG.md` lists what changed in each version. `MIGRATION.md` explains each breaking change and what a consuming app does about it. `RENAMES.json` is the machine-readable part: every renamed custom property, component, prop, prop value and CSS class, every removed export, and every export that moved between entry points, grouped by the release it shipped in. When upgrading, replay each release between the old and the new version, oldest first, longer keys first inside a map. `brock upgrade` does this for a Brock app.
+
+A release's `moves` maps an export to the entry points it left and joined, as subpaths of the package `exports`, under its name after that release's renames: `"CopyButton": { "from": "primitives", "to": "composites" }` means an import of `CopyButton` from `@drizztdourden08/tessera/primitives` now comes from `@drizztdourden08/tessera/composites`. Replay the moves after the renames of the same release. An import from the package root never moves. Each type that moves with its part has its own entry. A change that moves a public export to another entry point adds it to `moves` in the release named `next`, and the test of `RENAMES.json` checks that the name is exported from its new entry point.
 
 ## Asking for a missing part
 

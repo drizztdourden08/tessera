@@ -1,7 +1,7 @@
 <!-- @layer docs @kind doc -->
 # Migrating relic-of-the-past onto Tessera
 
-Every change Tessera made to the design system after it was copied out of relic-of-the-past, and what rotp does about each one when it becomes a consumer. The machine-readable part is `RENAMES.json`; `DRIFT.md` lists the rotp-side changes made after the copy.
+Every change Tessera made to the design system after it was copied out of relic-of-the-past, and what rotp does about each one when it becomes a consumer. The machine-readable part is `RENAMES.json`, which also lists each export that moved between entry points under `moves`; `DRIFT.md` lists the rotp-side changes made after the copy.
 
 ## 1. Colour tokens are named by role
 
@@ -5532,3 +5532,34 @@ FLINT_PROPS.laptop: { w: 22, h: 10 }   // straight on, at [9.25, 18.3], centred 
 ### What an app does
 
 Nothing. `AnimatedMascot` and `MascotStage` keep their props, and no public name changes.
+
+## 185. RENAMES.json lists the exports that moved between entry points
+
+From Brock's request. A part that only changed entry point, such as `CopyButton` leaving `@drizztdourden08/tessera/primitives` for `/composites`, had no entry in `RENAMES.json`, so Brock wrote its own migration for each move. Each release now holds a `moves` map, and an upgrade tool replays it like the renames.
+
+```json
+"moves": {
+  "CopyButton": { "from": "primitives", "to": "composites" },
+  "CopyButtonProps": { "from": "primitives", "to": "composites" }
+}
+```
+
+- A key is the exported name after that release's renames, so `PathInput` and `PathInputProps` sit under 0.20.0 beside the `PathField` rename. Each type that moves with its part has its own entry.
+- `from` and `to` are subpaths of the package `exports`. An import of the name from `@drizztdourden08/tessera/<from>` takes it from `@drizztdourden08/tessera/<to>`. An import from the package root stays as it is.
+- Replay a release's moves after its renames.
+- The test of `RENAMES.json` fails when a moved name is also renamed or removed in the same release, when `to` is not an entry point of `exports`, or when the name, followed through the later releases, is not exported from its entry point.
+
+The moves since 0.16.0, read from the barrels at each release tag:
+
+| Release | Moves | Parts |
+|---|---|---|
+| 0.17.0 | 10 | `CopyButton`, `CopyText` and `CopyValue` from /primitives to /composites (section 165); `ErrorBoundary` from /composites to /primitives, which already exported it (section 167) |
+| 0.18.0, 0.19.0 | 0 | none |
+| 0.20.0 | 55 | `Video`, `ShortcutList`, `CodeBlock`, `RetryButton`, `CommandInput`, `PasswordInput`, `TagInput` with `namespacedTag`, `Toast`, `ToastContainer`, `PathInput` and `Splash` from /primitives to /composites (sections 170, 175, 177 and 180); `Overlay` from /composites to /primitives (section 175); `PixelWordmark`, `buildPixelWordmark` and `PIXEL_FONT` from /composites to /brand (section 174) |
+| next | 0 | none |
+
+`OverlayProps` and `OverlayTone` were first exported in 0.20.0, so they have no move. `Floating` left the exports and stays in `removedExports`. The `removedExports` note on `PixelWordmark` is gone, since its move now says the same.
+
+### What an app does
+
+Nothing. `brock upgrade` reads `moves` once Brock replays them, and an app that imports from the package root never needed a change.
