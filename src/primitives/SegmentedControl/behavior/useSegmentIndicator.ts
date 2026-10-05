@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
+import { observeResize } from '../../dom/observe-resize';
 import type { SegmentIndicator } from './useSegmentIndicator.type';
 
 const useSegmentIndicator = (value: string, options: readonly unknown[]): SegmentIndicator => {
@@ -26,11 +27,7 @@ const useSegmentIndicator = (value: string, options: readonly unknown[]): Segmen
     updateIndicator();
   }, [value, options, updateIndicator]);
 
-  useEffect(() => {
-    const observer = new ResizeObserver(updateIndicator);
-    if (trackRef.current) observer.observe(trackRef.current);
-    return () => observer.disconnect();
-  }, [updateIndicator]);
+  useEffect(() => observeResize([trackRef.current], updateIndicator), [updateIndicator]);
 
   return { trackRef, indicatorStyle };
 };

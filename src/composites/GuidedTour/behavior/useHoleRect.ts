@@ -2,6 +2,7 @@
 import { useLayoutEffect, useState } from 'react';
 import type { RefObject } from 'react';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import { measureHole } from './measure-hole';
 import { sameBox } from './same-box';
 import type { HoleRect } from './tour-internal.type';
@@ -26,14 +27,12 @@ const useHoleRect = (target: HTMLElement | null, ringRef: RefObject<HTMLElement 
       if (frame === 0) frame = view.requestAnimationFrame(measure);
     };
     measure();
-    const observer = new view.ResizeObserver(soon);
-    observer.observe(target);
-    observer.observe(view.document.body);
+    const stopResize = observeResize([target, view.document.body], soon);
     view.addEventListener('resize', soon);
     view.document.addEventListener('scroll', soon, true);
     return () => {
       view.cancelAnimationFrame(frame);
-      observer.disconnect();
+      stopResize();
       view.removeEventListener('resize', soon);
       view.document.removeEventListener('scroll', soon, true);
     };

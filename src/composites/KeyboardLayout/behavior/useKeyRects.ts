@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import { measureKeys } from './measure-keys';
 import type { KeyboardSize, KeyRects } from '../KeyboardLayout.type';
 
@@ -18,10 +18,7 @@ const useKeyRects = (onKeyRects: ((rects: KeyRects) => void) | undefined, size: 
     if (!root || !listening) return undefined;
     const measure = (): void => reportRef.current?.(measureKeys(root));
     measure();
-    const Observer = (ownerWindowOf(root) as Window & typeof globalThis).ResizeObserver;
-    const observer = new Observer(measure);
-    observer.observe(root);
-    return () => observer.disconnect();
+    return observeResize([root], measure);
   }, [size, listening]);
 
   return rootRef;

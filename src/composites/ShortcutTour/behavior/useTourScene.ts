@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useRef, useState } from 'react';
-import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import { measureScene } from './measure-scene';
 import type { KeyRects } from '../../KeyboardLayout';
 import type { TourScene } from '../ShortcutTour.type';
@@ -18,11 +18,7 @@ const useTourScene = () => {
     if (!viewport || !world) return undefined;
     const measure = (): void => setScene(measureScene(viewport, world, mouseRef.current));
     measure();
-    const Observer = (ownerWindowOf(viewport) as Window & typeof globalThis).ResizeObserver;
-    const observer = new Observer(measure);
-    observer.observe(viewport);
-    observer.observe(world);
-    return () => observer.disconnect();
+    return observeResize([viewport, world], measure);
   }, []);
 
   return { viewportRef, worldRef, mouseRef, keyRects, onKeyRects: setKeyRects, scene };

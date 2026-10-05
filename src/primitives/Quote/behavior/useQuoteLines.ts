@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { ownerWindowOf } from '../../dom/owner-window';
+import { observeResize } from '../../dom/observe-resize';
 import { needsMultiline } from './needs-multiline';
 import { quoteLayoutOf } from './quote-layout-of';
 
@@ -26,12 +26,7 @@ const useQuoteLines = (children: ReactNode) => {
   useLayoutEffect(measure, [measure, children]);
 
   useEffect(() => {
-    const root = rootRef.current;
-    const Observer = root ? (ownerWindowOf(root) as Window & typeof globalThis).ResizeObserver : undefined;
-    if (!root || !Observer) return undefined;
-    const observer = new Observer(measure);
-    observer.observe(root);
-    return () => observer.disconnect();
+    return observeResize([rootRef.current], measure);
   }, [measure]);
 
   return { rootRef, textRef, isMultiline };

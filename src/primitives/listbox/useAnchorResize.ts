@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useRef } from 'react';
 import type { RefObject } from 'react';
-import { ownerWindowOf } from '../dom/owner-window';
+import { observeResize } from '../dom/observe-resize';
 
 const useAnchorResize = (active: boolean, anchorRef: RefObject<HTMLElement | null>, onResize: () => void): void => {
   const resizeRef = useRef(onResize);
@@ -10,10 +10,7 @@ const useAnchorResize = (active: boolean, anchorRef: RefObject<HTMLElement | nul
   useEffect(() => {
     const anchor = anchorRef.current;
     if (!active || !anchor) return undefined;
-    const view = ownerWindowOf(anchor) as Window & typeof globalThis;
-    const observer = new view.ResizeObserver(() => resizeRef.current());
-    observer.observe(anchor);
-    return () => observer.disconnect();
+    return observeResize([anchor], () => resizeRef.current());
   }, [active, anchorRef]);
 };
 

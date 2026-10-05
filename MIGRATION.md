@@ -5385,6 +5385,23 @@ interface MatchPart { text: string; match: boolean }
 
 The filter operators of the field kits (`contains`, `startsWith` and the rest) are not search: they keep their own case option and compare the operand as written.
 
+### One watch for a change of size
+
+About twenty hooks wrote the same block to check a layout again when an element changed size: take the element's window, check it has a `ResizeObserver`, observe one or more elements, and disconnect on clean up. The block is now one internal function in `src/primitives/dom`.
+
+```ts
+observeResize(
+  elements: readonly (Element | null | undefined)[],
+  onResize: (entries: readonly ResizeObserverEntry[]) => void,
+): () => void; // stops watching
+```
+
+- It makes one observer from the window of the first element, so a part in a frame or a popped out window watches with that window's observer. Missing elements are skipped.
+- With no element, or in a window with no `ResizeObserver`, it watches nothing and returns a stop that does nothing. Some hooks checked this and some did not; none throws now.
+- Each hook still checks once itself when it starts, as before, and keeps its own measure.
+- The users are the fit of ActionBar, ContentHeader, WindowHeader, WindowTitleBar, SettingsRow (choices and clamped text), the listbox tags and anchor, ScaleLabels, Quote, Tabs, SegmentedControl, FloatingSwitch, ScrollArea, ShortcutList, RowGrid, SideNavLayout, DockLayout, KeyboardLayout, ShortcutTour, GuidedTour and the grow fallback of DataTable.
+- MascotStage keeps its own observer in this section, because its brand files were being changed at the same time.
+
 ## 182. Each brand mark has a look for the light and the dark gradient, and a compact ConfirmIconButton
 
 From the owner's answers on the brand marks. Section 176 gave every mark one dark ground look, its second colours plus a rim. Each mark now names its look for each of the two gradients of its palette, section 180's light pair and the dark pair of the splash, and the rim of section 176 becomes that look's outline.

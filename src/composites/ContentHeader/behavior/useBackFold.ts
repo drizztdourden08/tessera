@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import { BACK_CLASS } from '../ContentHeader.constants';
 import type { ContentHeaderBack } from '../ContentHeader.type';
 import { backFits } from './back-fits';
@@ -27,11 +27,7 @@ const useBackFold = (headerRef: RefObject<HTMLElement | null>, back: ContentHead
       setFolded(next);
     };
     update();
-    const view = ownerWindowOf(header) as Window & typeof globalThis;
-    if (typeof view.ResizeObserver === 'undefined') return undefined;
-    const observer = new view.ResizeObserver(update);
-    [header, ...header.children].forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    return observeResize([header, ...header.children], update);
   }, [headerRef, label]);
 
   return folded;

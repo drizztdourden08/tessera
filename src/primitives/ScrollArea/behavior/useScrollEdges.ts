@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect } from 'react';
 import type { RefObject } from 'react';
+import { observeResize } from '../../dom/observe-resize';
 import type { ScrollAxis } from '../ScrollArea.type';
 import { applySlimThumbs } from './apply-slim-thumbs';
 import { scrollFadeSides } from './scroll-fade-sides';
@@ -21,10 +22,10 @@ const useScrollEdges = (nodeRef: RefObject<HTMLDivElement | null>, axis: ScrollA
       setData(node, 'fade', fade ? scrollFadeSides(node, axis) : '');
       if (slim) applySlimThumbs(node, slimThumbs(node, axis));
     };
-    const observer = new ResizeObserver(update);
+    let stopResize = (): void => undefined;
     const watchChildren = (): void => {
-      observer.observe(node);
-      for (const child of Array.from(node.children)) observer.observe(child);
+      stopResize();
+      stopResize = observeResize([node, ...node.children], update);
       update();
     };
     const mutations = new MutationObserver(watchChildren);
@@ -32,7 +33,7 @@ const useScrollEdges = (nodeRef: RefObject<HTMLDivElement | null>, axis: ScrollA
     node.addEventListener('scroll', update, { passive: true });
     watchChildren();
     return () => {
-      observer.disconnect();
+      stopResize();
       mutations.disconnect();
       node.removeEventListener('scroll', update);
       setData(node, 'overflow', '');

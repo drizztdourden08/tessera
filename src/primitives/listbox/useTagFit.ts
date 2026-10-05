@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useState } from 'react';
 import type { RefObject } from 'react';
-import { ownerWindowOf } from '../dom/owner-window';
+import { observeResize } from '../dom/observe-resize';
 import { measureTags } from './measure-tags';
 
 const useTagFit = (rowRef: RefObject<HTMLElement | null>, measureRef: RefObject<HTMLElement | null>, contentKey: string): number => {
@@ -13,10 +13,7 @@ const useTagFit = (rowRef: RefObject<HTMLElement | null>, measureRef: RefObject<
     if (!row || !measure) return undefined;
     const update = () => setFit(measureTags(row, measure));
     update();
-    const view = ownerWindowOf(row) as Window & typeof globalThis;
-    const observer = new view.ResizeObserver(update);
-    observer.observe(row);
-    return () => observer.disconnect();
+    return observeResize([row], update);
   }, [rowRef, measureRef, contentKey]);
 
   return fit;

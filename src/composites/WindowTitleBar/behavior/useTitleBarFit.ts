@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import { CONTROLS_SELECTOR, FULL_FIT, ITEM_SELECTOR, PROBE_SELECTOR, START_SELECTOR } from '../WindowTitleBar.constants';
 import type { BarFit } from './bar-fit.type';
 import { fitStep } from './fit-step';
@@ -32,12 +32,8 @@ const useTitleBarFit = (
       setFit(next);
     };
     update(false);
-    const view = ownerWindowOf(bar) as Window & typeof globalThis;
-    if (typeof view.ResizeObserver === 'undefined') return undefined;
-    const observer = new view.ResizeObserver(() => update(true));
     const parts = bar.querySelectorAll<HTMLElement>(`${START_SELECTOR}, ${CONTROLS_SELECTOR}, ${ITEM_SELECTOR}, ${PROBE_SELECTOR}`);
-    [bar, brand, ...parts].forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    return observeResize([bar, brand, ...parts], () => update(true));
   }, [barRef, brandRef, orderKey, beforeChange]);
 
   return fit;

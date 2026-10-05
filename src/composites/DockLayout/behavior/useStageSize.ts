@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useState } from 'react';
 import type { RefObject } from 'react';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import type { Size } from '../DockLayout.type';
 
 const useStageSize = (ref: RefObject<HTMLElement | null>): Size | null => {
@@ -8,15 +9,13 @@ const useStageSize = (ref: RefObject<HTMLElement | null>): Size | null => {
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el) return undefined;
     const read = (): void => {
       const { width, height } = el.getBoundingClientRect();
       setSize((prev) => (prev?.width === width && prev.height === height ? prev : { width, height }));
     };
     read();
-    const observer = new ResizeObserver(read);
-    observer.observe(el);
-    return () => observer.disconnect();
+    return observeResize([el], read);
   }, [ref]);
 
   return size;

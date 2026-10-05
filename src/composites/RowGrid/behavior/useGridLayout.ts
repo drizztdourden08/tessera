@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useState } from 'react';
 import type { RefObject } from 'react';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { MAX_PROPERTY, TRACKS_PROPERTY } from '../RowGrid.constants';
 import type { GridShape, RowGridLayout } from '../RowGrid.type';
@@ -18,12 +19,9 @@ const useGridLayout = (ref: RefObject<HTMLElement | null>, shape: GridShape): Ro
   useLayoutEffect(() => {
     const element = ref.current;
     if (!element) return undefined;
-    const view = ownerWindowOf(element) as Window & typeof globalThis;
     const check = (): void => setLayout(layoutFor(element.getBoundingClientRect().width, shape, sizeScale(element)));
     check();
-    const observer = new view.ResizeObserver(check);
-    observer.observe(element);
-    return () => observer.disconnect();
+    return observeResize([element], check);
   }, [ref, shape]);
   useLayoutEffect(() => {
     const element = ref.current;

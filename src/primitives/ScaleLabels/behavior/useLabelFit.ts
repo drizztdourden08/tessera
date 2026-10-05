@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useState } from 'react';
 import type { RefObject } from 'react';
+import { observeResize } from '../../dom/observe-resize';
 import { thinLabels } from '../../value-rule/thin-labels';
 import { LABEL_GAP_PX, MARK_TEXT_SELECTOR } from '../ScaleLabels.constants';
 import type { ScaleOrientation } from '../ScaleLabels.type';
@@ -22,10 +23,7 @@ const useLabelFit = (ref: RefObject<HTMLDivElement | null>, layoutKey: string, o
       setShown((previous) => (sameFlags(previous, next) ? previous : next));
     };
     measure();
-    if (typeof ResizeObserver === 'undefined') return undefined;
-    const observer = new ResizeObserver(measure);
-    [root, ...texts].forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    return observeResize([root, ...texts], measure);
   }, [ref, layoutKey, orientation, thin]);
 
   return shown;

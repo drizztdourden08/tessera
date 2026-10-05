@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import type { SwitchThumb, ThumbBox } from './useSwitchThumb.type';
 import { thumbBoxOf } from './thumb-box-of';
 
@@ -20,10 +21,7 @@ const useSwitchThumb = (activeId: string, itemsKey: string): SwitchThumb => {
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return undefined;
-    const observer = new ResizeObserver(measure);
-    observer.observe(track);
-    track.querySelectorAll('.floating-switch__item').forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
+    return observeResize([track, ...track.querySelectorAll('.floating-switch__item')], measure);
   }, [itemsKey, measure]);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { observeResize } from '../../dom/observe-resize';
 import { NO_OVERFLOW } from './strip-geometry.constants';
 import { edgesForMetrics } from './strip-geometry';
 import { pageDeltaFor } from './page-delta-for';
@@ -29,11 +30,7 @@ const useTabStripOverflow = (tabCount: number) => {
     const node = stripRef.current;
     if (!node) return undefined;
     measure();
-    if (typeof ResizeObserver === 'undefined') return undefined;
-    const observer = new ResizeObserver(measure);
-    observer.observe(node);
-    for (const child of Array.from(node.children)) observer.observe(child);
-    return () => observer.disconnect();
+    return observeResize([node, ...node.children], measure);
   }, [measure, tabCount]);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useRef } from 'react';
+import { observeResize } from '../../../primitives/dom/observe-resize';
 import { renderedHeaderWidth } from './rendered-header-width';
 import { isOverflowing } from './overflow-probe';
 import { useMeasuredFallback } from './useMeasuredFallback';
@@ -21,16 +22,11 @@ const fittedWhenOverflowing: FallbackResolver = (root, paths, fitted) => {
   return overflowing ? fitted : null;
 };
 
-const watchWidth = (root: HTMLElement, seenWidthRef: RefObject<number>, onChange: () => void) => {
-  if (typeof ResizeObserver === 'undefined') return undefined;
-  const observer = new ResizeObserver(() => {
-    if (root.clientWidth === seenWidthRef.current) return;
-    seenWidthRef.current = root.clientWidth;
-    onChange();
-  });
-  observer.observe(root);
-  return () => observer.disconnect();
-};
+const watchWidth = (root: HTMLElement, seenWidthRef: RefObject<number>, onChange: () => void) => observeResize([root], () => {
+  if (root.clientWidth === seenWidthRef.current) return;
+  seenWidthRef.current = root.clientWidth;
+  onChange();
+});
 
 const useGrowFallback = ({ columns, rootRef }: UseGrowFallbackInput): GrowFallback => {
   const seenWidthRef = useRef(-1);
