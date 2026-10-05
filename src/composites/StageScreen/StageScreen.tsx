@@ -27,7 +27,7 @@ const StageScreen = (props: StageScreenProps) => {
         title={heading}
         backdrop={backdrop}
         strip={toolbar != null && <Box className="stage-screen__toolbar">{toolbar}</Box>}
-        actions={done && <Button variant="primary" disabled={done.disabled} onClick={done.onClick}>{done.label ?? common.done}</Button>}
+        actions={done && <Button variant="primary" disabled={done.disabled} onClick={done.onSelect}>{done.label ?? common.done}</Button>}
         bodyClassName="stage-screen__stage"
       >
         {children}

@@ -68,8 +68,8 @@ describe('a SettingsSection of changed rows', () => {
 });
 
 describe('row actions', () => {
-  const forget = { id: 'forget', label: 'Forget the owner id', tone: 'danger', confirm: 'Forget it?', onClick: noop };
-  const rebuild = { id: 'rebuild', label: 'Rebuild', onClick: noop };
+  const forget = { id: 'forget', label: 'Forget the owner id', tone: 'danger', confirm: 'Forget it?', onSelect: noop };
+  const rebuild = { id: 'rebuild', label: 'Rebuild', onSelect: noop };
 
   it('sit after the control in one end area, the danger one in the danger look', () => {
     const html = draw({ actions: [rebuild, forget] });

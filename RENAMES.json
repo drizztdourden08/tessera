@@ -1086,7 +1086,23 @@
     {
       "version": "next",
       "props": {
-        "BrandMarkData.onDarkRim": "removed; the mark sets grounds: { dark: { outline } }, and grounds: { dark: { inks: 'onDark' } } to draw its onDark colours there (see MIGRATION.md section 182)"
+        "BrandMarkData.onDarkRim": "removed; the mark sets grounds: { dark: { outline } }, and grounds: { dark: { inks: 'onDark' } } to draw its onDark colours there (see MIGRATION.md section 182)",
+        "SettingsRowAction.onClick": "onSelect",
+        "UtilityScreenAction.onClick": "onSelect",
+        "UtilityScreenAction.variant": "tone",
+        "UtilityScreenReport.onClick": "onSelect",
+        "StageScreenDone.onClick": "onSelect",
+        "ActionTileRun.variant": "tone",
+        "ActionTileCopy.variant": "tone",
+        "WindowHeader.onBack": "back, as { onSelect: onBack }; with backLabel, add label: the name of the page it goes back to (see MIGRATION.md section 181)",
+        "WindowHeader.backLabel": "back.label, now the name of the page it goes back to: the button reads Back to and the label (see MIGRATION.md section 181)",
+        "ScreenWindow.onBack": "back, as { onSelect: onBack } (see MIGRATION.md section 181)",
+        "ScreenWindow.backLabel": "back.label, now the name of the page it goes back to (see MIGRATION.md section 181)",
+        "ScreenWindowHeader.back": "removed; pass back on ScreenWindow itself, which draws it in the page header too (see MIGRATION.md section 181)"
+      },
+      "components": {
+        "ContentHeaderBack": "BackAction",
+        "ActionTileVariant": "ActionTileTone"
       }
     }
   ]

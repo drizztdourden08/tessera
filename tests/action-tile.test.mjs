@@ -28,7 +28,7 @@ describe('ActionTile', () => {
     expect(html).toContain('action-tile__action');
     expect(html).toContain('btn--secondary');
     expect(html).toContain('>Stop</span>');
-    expect(render({ action: { label: 'Stop', onSelect: noop, variant: 'danger', disabled: true } })).toMatch(/btn--danger[^>]*disabled=""/);
+    expect(render({ action: { label: 'Stop', onSelect: noop, tone: 'danger', disabled: true } })).toMatch(/btn--danger[^>]*disabled=""/);
   });
 
   it('copies through CopyButton when the action or a tool takes copy', () => {

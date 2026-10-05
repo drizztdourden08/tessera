@@ -16,21 +16,21 @@ const BACK_CLASS = /content-header__back(?!drop)/;
 
 const before = (html, first, second) => html.search(first) > -1 && html.search(first) < html.indexOf(second);
 
-describe('WindowHeader onBack', () => {
-  it('draws a Back button before the title and outside the heading, only with onBack', () => {
-    const html = renderToString(h(WindowHeader, { title: 'Save files', onBack: ignore, onClose: ignore }));
+describe('WindowHeader back', () => {
+  it('draws a Back button before the title and outside the heading, only with back', () => {
+    const html = renderToString(h(WindowHeader, { title: 'Save files', back: { onSelect: ignore }, onClose: ignore }));
     expect(html).toContain('aria-label="Back"');
     expect(before(html, 'window-header__back', '<h3')).toBe(true);
     expect(html).not.toMatch(/<h3[^>]*>[^<]*<button/);
     expect(renderToString(h(WindowHeader, { title: 'Save files' }))).not.toContain('window-header__back');
   });
 
-  it('takes backLabel in place of the Back string', () => {
-    expect(renderToString(h(WindowHeader, { title: 'Save files', onBack: ignore, backLabel: 'Back to profiles' }))).toContain('aria-label="Back to profiles"');
+  it('names the page it goes back to, as ContentHeader does', () => {
+    expect(renderToString(h(WindowHeader, { title: 'Save files', back: { label: 'profiles', onSelect: ignore } }))).toContain('aria-label="Back to profiles"');
   });
 
   it('is passed on by ScreenWindow to its title bar', () => {
-    const html = renderToString(h(ScreenWindow, { title: 'Sessions', onBack: ignore, onClose: ignore }, 'body'));
+    const html = renderToString(h(ScreenWindow, { title: 'Sessions', back: { onSelect: ignore }, onClose: ignore }, 'body'));
     expect(html).toContain('window-header__back');
   });
 });
@@ -47,7 +47,11 @@ describe('ContentHeader back', () => {
   it('is passed on by ScreenPage, SettingsPage and a ScreenWindow header', () => {
     expect(renderToString(h(ScreenPage, { icon: 'i', title: 'Friday async', back: { label: 'Sessions', onSelect: ignore } }, 'body'))).toContain('Back to Sessions');
     expect(renderToString(h(SettingsPage, { icon: 'i', title: 'Startup', back: BACK }, 'body'))).toContain('Back to Settings');
-    expect(renderToString(h(ScreenWindow, { title: 'Players', header: { back: BACK }, onClose: ignore }, 'body'))).toContain('Back to Settings');
+    expect(renderToString(h(ScreenWindow, { title: 'Players', header: {}, back: BACK, onClose: ignore }, 'body'))).toContain('Back to Settings');
+  });
+
+  it('reads Back alone when back has no label', () => {
+    expect(renderToString(h(ContentHeader, { title: 'Startup', back: { onSelect: ignore } }))).toContain('>Back</span>');
   });
 });
 

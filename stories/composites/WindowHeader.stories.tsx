@@ -36,7 +36,7 @@ const narrowRows = (args: WindowHeaderArgs, onBack: (() => void) | undefined) =>
   <Box className="story-column">
     {NARROW_WIDTHS.map((width) => (
       <Box key={width} className={`window-header-story__strip window-header-story__strip--${width}`}>
-        <WindowHeader title={args.title} subtitle={args.subtitle || undefined} extra={HEADER_EXTRA} onBack={onBack} onClose={ignoreClose} />
+        <WindowHeader title={args.title} subtitle={args.subtitle || undefined} extra={HEADER_EXTRA} back={onBack && { onSelect: onBack }} onClose={ignoreClose} />
       </Box>
     ))}
   </Box>
@@ -52,7 +52,7 @@ const SaveFilesWindow = (props: WindowHeaderArgs) => {
         title={title}
         subtitle={subtitle || undefined}
         extra={withExtra ? HEADER_EXTRA : undefined}
-        onBack={withBack ? () => setBack(back + 1) : undefined}
+        back={withBack ? { onSelect: () => setBack(back + 1) } : undefined}
         onClose={withClose ? () => setClosed(closed + 1) : undefined}
       />
       <Box className="window-header-story__body">
@@ -71,7 +71,7 @@ const ARG_TYPES: PlaygroundArgTypes<WindowHeaderArgs> = {
   subtitle: { group: 'Content', control: 'text' },
   withClose: { group: 'Content', control: 'boolean' },
   withExtra: { group: 'Content', control: 'boolean', description: 'A Status and a button before the close button.' },
-  withBack: { group: 'Content', control: 'boolean', description: 'Pass onBack: a back button before the title.' },
+  withBack: { group: 'Content', control: 'boolean', description: 'Pass back: a back button before the title.' },
 };
 
 const meta = {
@@ -89,7 +89,7 @@ const Playground = {
         title={args.title}
         subtitle={args.subtitle || undefined}
         extra={args.withExtra ? HEADER_EXTRA : undefined}
-        onBack={args.withBack ? ignoreClose : undefined}
+        back={args.withBack ? { onSelect: ignoreClose } : undefined}
         onClose={args.withClose ? ignoreClose : undefined}
       />
     </Box>
@@ -137,7 +137,7 @@ const Overview = overviewStory({
   points: [
     'The close button shows only when `onClose` is set.',
     '`extra` takes content such as a [Status] or a button, before the close button.',
-    '`onBack` draws a back button before the title; the host wires [[Alt+Left]] and the mouse back button.',
+    '`back` draws a back button before the title; the host wires [[Alt+Left]] and the mouse back button.',
     'It stays one row: the subtitle shortens first, then `extra` hides, then the title shortens.',
   ],
   instead: '[WindowTitleBar] for the title bar of a whole app window.',

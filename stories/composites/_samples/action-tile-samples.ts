@@ -11,7 +11,7 @@ const actionTileSamples = (say: (text: string) => void): Readonly<Record<ActionT
     { label: 'Hints', icon: 'sparkles', value: '4', unit: 'open', meta: '2 found', onOpen: () => say('Opened the Hints widget'), openLabel: 'Show the Hints widget' },
     {
       label: 'Uptime', icon: 'clock', value: '42 min', status: { label: 'hosting', tone: 'success' }, meta: 'Auto shutdown after 2 h idle',
-      action: { label: 'Stop', icon: 'square', variant: 'danger', onSelect: () => say('Stopped the room') },
+      action: { label: 'Stop', icon: 'square', tone: 'danger', onSelect: () => say('Stopped the room') },
     },
   ],
   storage: [
@@ -23,12 +23,12 @@ const actionTileSamples = (say: (text: string) => void): Readonly<Record<ActionT
     {
       label: 'Installed worlds', icon: 'gamepad-2', value: '512 MB', meta: '9 worlds, 3 with updates',
       tools: [{ label: 'Open the worlds folder', icon: 'folder-open', onSelect: () => say('Opened the worlds folder') }],
-      action: { label: 'Update all', icon: 'download', variant: 'primary', onSelect: () => say('Updating 3 worlds') },
+      action: { label: 'Update all', icon: 'download', tone: 'primary', onSelect: () => say('Updating 3 worlds') },
     },
     {
       label: 'Engine', icon: 'cpu', value: '288 MB', meta: 'Archipelago 0.6.7', status: { label: 'ready', tone: 'success' },
       tools: [{ label: 'Open the engine folder', icon: 'folder-open', onSelect: () => say('Opened the engine folder') }],
-      action: { label: 'Rebuild engine', icon: 'refresh-cw', variant: 'danger', onSelect: () => say('Rebuilding the engine') },
+      action: { label: 'Rebuild engine', icon: 'refresh-cw', tone: 'danger', onSelect: () => say('Rebuilding the engine') },
     },
     {
       label: 'Presets', icon: 'sliders-horizontal', value: '23', unit: 'presets', meta: '410 KB',

@@ -1,10 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ActionData } from '../../primitives/action-data';
 
-interface StageScreenDone {
-  onClick: () => void;
+interface StageScreenDone extends Pick<ActionData, 'onSelect' | 'disabled'> {
   label?: string;
-  disabled?: boolean;
 }
 
 interface StageScreenProps {

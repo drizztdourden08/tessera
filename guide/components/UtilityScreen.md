@@ -37,7 +37,7 @@ A status, details and actions in a compact window.
 - Put long text, such as release notes, in notes: a framed box with its own scroll.
 - Set progress only when the task can say how far it is.
 - Pass report to offer a way to report a problem: one red bug icon button over a rule, with report.footnote as a short line beside it.
-- Put the main action last in actions, with variant primary, and keep one primary action.
+- Put the main action last in actions, with tone primary, and keep one primary action.
 
 ## Accessibility
 
@@ -62,10 +62,10 @@ const UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) 
     onClose={onClose}
     status={{ tone: 'info', icon: <Icon name="download" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> }}
     notes={{ title: 'What is new in 0.10.0', children: notes }}
-    report={{ onClick: onReport, footnote: 'Any earlier version can be picked above if something stops working.' }}
+    report={{ onSelect: onReport, footnote: 'Any earlier version can be picked above if something stops working.' }}
     actions={[
-      { label: 'Later', variant: 'tertiary', onClick: onClose },
-      { label: 'Install', variant: 'primary', onClick: onInstall },
+      { label: 'Later', tone: 'tertiary', onSelect: onClose },
+      { label: 'Install', tone: 'primary', onSelect: onInstall },
     ]}
   />
 );

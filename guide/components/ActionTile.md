@@ -32,7 +32,7 @@ ActionTile reads like a StatTile and adds one action, tools and a way to the ful
 
 - Give each tile one action at most; put small extras, such as open the folder or copy the path, in tools.
 - Name the action after what it does to the value, such as Clean old runs or Copy address, not OK or Go.
-- Use the danger variant for an action that stops or deletes, and primary for the one action the row is about.
+- Use the danger tone for an action that stops or deletes, and primary for the one action the row is about.
 - Pass onOpen when the tile sums up a view, with openLabel naming that view, such as Show the Players widget.
 - Write the label in sentence case; it shows as written, at 12 px.
 
@@ -56,7 +56,7 @@ const SessionTiles = ({ address, onShowPlayers, onStop }: { address: string; onS
       icon="clock"
       value="42 min"
       status={{ label: 'hosting', tone: 'success' }}
-      action={{ label: 'Stop', icon: 'square', variant: 'danger', onSelect: onStop }}
+      action={{ label: 'Stop', icon: 'square', tone: 'danger', onSelect: onStop }}
     />
   </>
 );

@@ -24,7 +24,7 @@ const PICKABLE: readonly UpdateStep[] = ['available', 'downloading', 'current'];
 const PRERELEASE_NOTE = 'This is a pre-release. It ships before the usual testing, so expect rough edges the stable builds do not have.';
 
 const REPORT = {
-  onClick: () => undefined,
+  onSelect: () => undefined,
   footnote: 'Any earlier version can be picked above if something stops working. Please report it either way, so it gets fixed.',
 };
 
@@ -114,10 +114,10 @@ const CODE = `import { Field, Icon, Select, Strong, Toggle, UtilityScreen } from
     <Field label="Version to install"><Select value={version} onChange={setVersion} groups={versions} /></Field>
   </>}
   notes={{ title: 'What is new in 0.10.0', children: <ReleaseNotes /> }}
-  report={{ onClick: openBugReport, footnote: 'Any earlier version can be picked above if something stops working.' }}
+  report={{ onSelect: openBugReport, footnote: 'Any earlier version can be picked above if something stops working.' }}
   actions={[
-    { label: 'Later', variant: 'tertiary', onClick: close },
-    { label: 'Install', variant: 'primary', onClick: install },
+    { label: 'Later', tone: 'tertiary', onSelect: close },
+    { label: 'Install', tone: 'primary', onSelect: install },
   ]}
 />`;
 

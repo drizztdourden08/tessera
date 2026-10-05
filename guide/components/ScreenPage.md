@@ -62,7 +62,7 @@ const SessionsScreen = ({ onClose }: { onClose: () => void }) => (
 - `icon`: `ReactNode`.
 - `title`: `ReactNode`.
 - `children`: `ReactNode`.
-- `back` (optional): `ContentHeaderBack`.
+- `back` (optional): `BackAction`.
 - `backdrop` (optional): `ReactNode`.
 - `strip` (optional): `ReactNode`.
 - `actions` (optional): `ReactNode`.

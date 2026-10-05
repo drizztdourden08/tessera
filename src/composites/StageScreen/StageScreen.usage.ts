@@ -36,7 +36,7 @@ const Calibration = ({ onClose }: { onClose: () => void }) => (
     heading="Xbox controller"
     onClose={onClose}
     toolbar={<Status tone="success" variant="pill">Controller connected</Status>}
-    done={{ onClick: onClose }}
+    done={{ onSelect: onClose }}
   >
     Calibration steps
   </StageScreen>

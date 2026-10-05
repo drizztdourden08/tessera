@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { ContentHeaderBack } from '../ContentHeader';
+import type { BackAction } from '../../primitives/action-data';
 import type { HeaderAnchorNavItem } from '../HeaderAnchorNav';
 
 interface SettingsPageAnchor {
@@ -17,7 +17,7 @@ interface SettingsPageTabs {
 interface SettingsPageProps {
   icon: ReactNode;
   title: string;
-  back?: ContentHeaderBack;
+  back?: BackAction;
   backdrop?: ReactNode;
   anchors?: readonly SettingsPageAnchor[];
   tabs?: SettingsPageTabs;

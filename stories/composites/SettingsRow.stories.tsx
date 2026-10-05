@@ -26,8 +26,8 @@ type RowArgs = {
 };
 
 const sampleActions = (busy: boolean): SettingsItem['actions'] => [
-  { id: 'rebuild', label: 'Rebuild', loading: busy, onClick: () => undefined },
-  { id: 'forget', label: 'Forget', tone: 'danger', confirm: 'Forget it?', onClick: () => undefined },
+  { id: 'rebuild', label: 'Rebuild', loading: busy, onSelect: () => undefined },
+  { id: 'forget', label: 'Forget', tone: 'danger', confirm: 'Forget it?', onSelect: () => undefined },
 ];
 
 const KindDemo = (props: RowArgs) => {

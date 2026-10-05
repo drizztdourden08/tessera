@@ -37,8 +37,9 @@ const PlayerList = ({ padded }: { padded: boolean }) => (
 
 const windowTop = (top: WindowTop) => {
   const { withHeader, players, subtitle, extra, goBack } = top;
-  if (!withHeader) return { subtitle: subtitle || undefined, extra, onBack: goBack };
-  return { header: { icon: <Icon name={players ? 'users' : 'layers'} />, actions: extra, back: goBack && { label: 'Home', onSelect: goBack } } };
+  const back = goBack && { label: 'Home', onSelect: goBack };
+  if (!withHeader) return { subtitle: subtitle || undefined, extra, back };
+  return { back, header: { icon: <Icon name={players ? 'users' : 'layers'} />, actions: extra } };
 };
 
 const WindowDemo = (props: WindowArgs) => {
@@ -73,7 +74,7 @@ const ARG_TYPES: PlaygroundArgTypes<WindowArgs> = {
   subtitle: { group: 'Content', control: 'text' },
   withExtra: { group: 'Content', control: 'boolean' },
   withFloating: { group: 'Content', control: 'boolean' },
-  withBack: { group: 'Content', control: 'boolean', description: 'onBack, or header.back with a page header: here it goes back to the page behind.' },
+  withBack: { group: 'Content', control: 'boolean', description: 'back, in the title bar or in the page header: here it goes back to the page behind.' },
   withHeader: { group: 'Appearance', control: 'boolean', description: 'A page header with an icon is the top of the window, in place of the title bar.' },
   square: { group: 'Appearance', control: 'boolean', description: 'No corner radius and no outer border, for a window shown fullscreen.' },
 };
@@ -132,7 +133,7 @@ const Overview = overviewStory({
   component: 'ScreenWindow',
   description: 'A building block: a ScreenLayer with a title, a close button and an empty container, the window of every screen kind.',
   points: [
-    'The title bar takes a `subtitle`, `extra` controls before the close button and `onBack` for a back button.',
+    'The title bar takes a `subtitle`, `extra` controls before the close button and `back` for a back button.',
     '`header` swaps the title bar for a [ContentHeader] at the top edge, with the close button at its end.',
     'The padding is xl, lg under 960 by 600 px, and md once the card fills the layer; `header` drops it.',
     'The content is an empty column that fills the card and never scrolls: the content picks how it scrolls.',

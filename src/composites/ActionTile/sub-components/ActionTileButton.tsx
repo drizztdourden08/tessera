@@ -7,7 +7,7 @@ import type { ActionTileButtonProps } from '../ActionTile.type';
 
 const ActionTileButton = (props: ActionTileButtonProps) => {
   const { action } = props;
-  const variant = action.variant ?? 'secondary';
+  const variant = action.tone ?? 'secondary';
   return (
     <Box className="action-tile__action">
       {action.copy === undefined

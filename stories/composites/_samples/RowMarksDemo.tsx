@@ -41,11 +41,11 @@ const RowMarksDemo = (props: { compact?: boolean }) => {
     {
       id: 'cache', title: 'World cache', description: 'Generated worlds kept on disk.', hint: 'Rebuild after a game update.', ...mark('cache'),
       input: { kind: 'select', value: s.cache, onChange: (v) => set({ cache: v }), options: [{ value: '256', label: '256 MB' }, { value: '512', label: '512 MB' }] },
-      actions: [{ id: 'rebuild', label: 'Rebuild', icon: <Icon name="rotate-ccw" />, onClick: () => set({ cache: DEFAULTS.cache }) }],
+      actions: [{ id: 'rebuild', label: 'Rebuild', icon: <Icon name="rotate-ccw" />, onSelect: () => set({ cache: DEFAULTS.cache }) }],
     },
     {
       id: 'owner', title: 'Owner id', description: s.owner === '' ? 'No owner: the next player to join claims the server.' : `Held by ${s.owner}.`, hint: 'The owner may change server options.',
-      actions: [{ id: 'forget', label: 'Forget the owner id', tone: 'danger', confirm: 'Forget it?', disabled: s.owner === '', onClick: () => set({ owner: '' }) }],
+      actions: [{ id: 'forget', label: 'Forget the owner id', tone: 'danger', confirm: 'Forget it?', disabled: s.owner === '', onSelect: () => set({ owner: '' }) }],
     },
   ];
   return (

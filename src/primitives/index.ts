@@ -122,6 +122,7 @@ export { useHint, useHintReport, useHintTarget } from './hint';
 export type {
   Hint, HintHandlers, HintReport, HintReporter, HintTargetHandlers, UseHintReportParams, UseHintTargetParams,
 } from './hint';
+export type { ActionData, BackAction } from './action-data';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 export { Image } from './Image';

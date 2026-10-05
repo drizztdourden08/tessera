@@ -2883,7 +2883,7 @@
       "rules": [
         "Give each tile one action at most; put small extras, such as open the folder or copy the path, in tools.",
         "Name the action after what it does to the value, such as Clean old runs or Copy address, not OK or Go.",
-        "Use the danger variant for an action that stops or deletes, and primary for the one action the row is about.",
+        "Use the danger tone for an action that stops or deletes, and primary for the one action the row is about.",
         "Pass onOpen when the tile sums up a view, with openLabel naming that view, such as Show the Players widget.",
         "Write the label in sentence case; it shows as written, at 12 px."
       ],
@@ -2899,7 +2899,7 @@
         ],
         "rule": "ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app."
       },
-      "example": "import { ActionTile } from '@drizztdourden08/tessera';\n\nconst SessionTiles = ({ address, onShowPlayers, onStop }: { address: string; onShowPlayers: () => void; onStop: () => void }) => (\n  <>\n    <ActionTile label=\"Players\" icon=\"users\" value=\"2 / 3\" unit=\"connected\" onOpen={onShowPlayers} openLabel=\"Show the Players widget\" />\n    <ActionTile label=\"Address\" icon=\"link\" value={address} action={{ label: 'Copy address', copy: address }} />\n    <ActionTile\n      label=\"Uptime\"\n      icon=\"clock\"\n      value=\"42 min\"\n      status={{ label: 'hosting', tone: 'success' }}\n      action={{ label: 'Stop', icon: 'square', variant: 'danger', onSelect: onStop }}\n    />\n  </>\n);\n",
+      "example": "import { ActionTile } from '@drizztdourden08/tessera';\n\nconst SessionTiles = ({ address, onShowPlayers, onStop }: { address: string; onShowPlayers: () => void; onStop: () => void }) => (\n  <>\n    <ActionTile label=\"Players\" icon=\"users\" value=\"2 / 3\" unit=\"connected\" onOpen={onShowPlayers} openLabel=\"Show the Players widget\" />\n    <ActionTile label=\"Address\" icon=\"link\" value={address} action={{ label: 'Copy address', copy: address }} />\n    <ActionTile\n      label=\"Uptime\"\n      icon=\"clock\"\n      value=\"42 min\"\n      status={{ label: 'hosting', tone: 'success' }}\n      action={{ label: 'Stop', icon: 'square', tone: 'danger', onSelect: onStop }}\n    />\n  </>\n);\n",
       "propsHash": "bfd57a652b5af170",
       "props": {
         "own": [
@@ -3372,7 +3372,7 @@
         "Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header.",
         "Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.",
         "Set compact once the content under it scrolls; it shrinks to a slim row.",
-        "On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, before the icon, and folds to an arrow when the row has no room for it.",
+        "On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.",
         "level sets the heading tag, h2 by default; pick the level that fits the page outline."
       ],
       "a11y": [
@@ -3389,7 +3389,7 @@
         "rule": "ContentHeader is the header with an icon, a title and a backdrop that any container can carry."
       },
       "example": "import { ContentHeader, HeaderAnchorNav, Icon } from '@drizztdourden08/tessera';\n\nconst GeneralHeader = ({ section, onSection }: { section: string; onSection: (id: string) => void }) => (\n  <ContentHeader\n    icon={<Icon name=\"settings\" />}\n    title=\"General\"\n    strip={<HeaderAnchorNav items={[{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }]} activeId={section} onSelect={onSection} ariaLabel=\"General sections\" />}\n  />\n);\n",
-      "propsHash": "f2d20f6c7092dc07",
+      "propsHash": "5ce7aa90f11760b4",
       "props": {
         "own": [
           {
@@ -3405,7 +3405,7 @@
           {
             "name": "back",
             "optional": true,
-            "text": "ContentHeaderBack"
+            "text": "BackAction"
           },
           {
             "name": "backdrop",
@@ -6754,7 +6754,7 @@
       ],
       "buildingBlock": true,
       "example": "import { Icon, ScreenPage, ScreenWindow } from '@drizztdourden08/tessera';\n\nconst SessionsScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Sessions\" onClose={onClose}>\n    <ScreenPage icon={<Icon name=\"layers\" />} title=\"Friday async\">\n      Sessions list\n    </ScreenPage>\n  </ScreenWindow>\n);\n",
-      "propsHash": "a6296922f42a613e",
+      "propsHash": "f2961d164b031fe1",
       "props": {
         "own": [
           {
@@ -6775,7 +6775,7 @@
           {
             "name": "back",
             "optional": true,
-            "text": "ContentHeaderBack"
+            "text": "BackAction"
           },
           {
             "name": "backdrop",
@@ -6889,8 +6889,8 @@
         "Reach for a screen kind first. Use ScreenWindow alone only when none of them fits.",
         "The title bar is the default top. Pass header to make a ContentHeader the top edge of the window instead: title is its title, and the close button sits at the end of its actions.",
         "With header the window has no padding and no card inside: the children pad themselves, so a scrolling body reaches the window edge.",
-        "With header, subtitle, extra and onBack do not show; put such controls in header.strip or header.actions, and a way back in header.back.",
-        "Pass onBack to draw a back button before the title, for a screen opened from another one. The host wires Alt+Left and the mouse back button to the same call.",
+        "With header, subtitle and extra do not show; put such controls in header.strip or header.actions.",
+        "Pass back to draw a back button before the title, in the title bar or in the page header, for a screen opened from another one. The host wires Alt+Left and the mouse back button to the same call.",
         "Without header, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.",
         "UtilityScreen uses header; WorkspaceScreen and StageScreen put a ScreenPage inside the title bar window; InfoScreen keeps the title bar alone.",
         "The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.",
@@ -6903,7 +6903,7 @@
       ],
       "buildingBlock": true,
       "example": "import { Button, Icon, ScreenWindow, ScrollArea } from '@drizztdourden08/tessera';\n\nconst SessionsScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Sessions\" subtitle=\"Profile: mira\" onClose={onClose}>\n    <ScrollArea>Sessions list</ScrollArea>\n  </ScreenWindow>\n);\n\nconst PlayersScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Players\" header={{ icon: <Icon name=\"users\" />, actions: <Button size=\"sm\">Invite</Button> }} onClose={onClose}>\n    <ScrollArea>Players list</ScrollArea>\n  </ScreenWindow>\n);\n",
-      "propsHash": "9b8537582c0db7d2",
+      "propsHash": "d8f3d7f12b75a0c6",
       "props": {
         "own": [
           {
@@ -6917,14 +6917,9 @@
             "text": "() => void"
           },
           {
-            "name": "onBack",
+            "name": "back",
             "optional": true,
-            "text": "() => void"
-          },
-          {
-            "name": "backLabel",
-            "optional": true,
-            "text": "string"
+            "text": "BackAction"
           },
           {
             "name": "children",
@@ -7376,7 +7371,7 @@
         ],
         "rule": "One open stage with an optional toolbar."
       },
-      "example": "import { Icon, StageScreen, Status } from '@drizztdourden08/tessera';\n\nconst Calibration = ({ onClose }: { onClose: () => void }) => (\n  <StageScreen\n    title=\"Input calibration\"\n    icon={<Icon name=\"gamepad-2\" />}\n    heading=\"Xbox controller\"\n    onClose={onClose}\n    toolbar={<Status tone=\"success\" variant=\"pill\">Controller connected</Status>}\n    done={{ onClick: onClose }}\n  >\n    Calibration steps\n  </StageScreen>\n);\n",
+      "example": "import { Icon, StageScreen, Status } from '@drizztdourden08/tessera';\n\nconst Calibration = ({ onClose }: { onClose: () => void }) => (\n  <StageScreen\n    title=\"Input calibration\"\n    icon={<Icon name=\"gamepad-2\" />}\n    heading=\"Xbox controller\"\n    onClose={onClose}\n    toolbar={<Status tone=\"success\" variant=\"pill\">Controller connected</Status>}\n    done={{ onSelect: onClose }}\n  >\n    Calibration steps\n  </StageScreen>\n);\n",
       "propsHash": "8dfca7f27af47d7a",
       "props": {
         "own": [
@@ -7870,7 +7865,7 @@
         "Put long text, such as release notes, in notes: a framed box with its own scroll.",
         "Set progress only when the task can say how far it is.",
         "Pass report to offer a way to report a problem: one red bug icon button over a rule, with report.footnote as a short line beside it.",
-        "Put the main action last in actions, with variant primary, and keep one primary action."
+        "Put the main action last in actions, with tone primary, and keep one primary action."
       ],
       "a11y": [
         "The status title and the message are live regions: a screen reader reads each new one.",
@@ -7884,7 +7879,7 @@
         ],
         "rule": "A status, details and actions in a compact window."
       },
-      "example": "import { Icon, Strong, UtilityScreen } from '@drizztdourden08/tessera';\n\ninterface UpdateCheckProps {\n  notes: string;\n  onClose: () => void;\n  onInstall: () => void;\n  onReport: () => void;\n}\n\nconst UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) => (\n  <UtilityScreen\n    onClose={onClose}\n    status={{ tone: 'info', icon: <Icon name=\"download\" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> }}\n    notes={{ title: 'What is new in 0.10.0', children: notes }}\n    report={{ onClick: onReport, footnote: 'Any earlier version can be picked above if something stops working.' }}\n    actions={[\n      { label: 'Later', variant: 'tertiary', onClick: onClose },\n      { label: 'Install', variant: 'primary', onClick: onInstall },\n    ]}\n  />\n);\n",
+      "example": "import { Icon, Strong, UtilityScreen } from '@drizztdourden08/tessera';\n\ninterface UpdateCheckProps {\n  notes: string;\n  onClose: () => void;\n  onInstall: () => void;\n  onReport: () => void;\n}\n\nconst UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) => (\n  <UtilityScreen\n    onClose={onClose}\n    status={{ tone: 'info', icon: <Icon name=\"download\" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> }}\n    notes={{ title: 'What is new in 0.10.0', children: notes }}\n    report={{ onSelect: onReport, footnote: 'Any earlier version can be picked above if something stops working.' }}\n    actions={[\n      { label: 'Later', tone: 'tertiary', onSelect: onClose },\n      { label: 'Install', tone: 'primary', onSelect: onInstall },\n    ]}\n  />\n);\n",
       "propsHash": "55c8ccffeed3e8b7",
       "props": {
         "own": [

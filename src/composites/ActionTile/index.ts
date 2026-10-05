@@ -2,5 +2,5 @@
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,
-  ActionTileToolRun, ActionTileVariant,
+  ActionTileTone, ActionTileToolRun,
 } from './ActionTile.type';

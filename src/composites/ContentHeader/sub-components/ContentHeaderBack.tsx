@@ -10,7 +10,7 @@ import type { ContentHeaderBackProps } from './ContentHeaderBack.type';
 const ContentHeaderBack = (props: ContentHeaderBackProps) => {
   const { back, folded } = props;
   const { navigation } = useTesseraStrings();
-  const text = navigation.backTo(back.label);
+  const text = back.label === undefined ? navigation.back : navigation.backTo(back.label);
   const arrow = <Icon name="arrow-left" size={16} />;
   if (!folded) return <Button variant="ghost" size="sm" icon={arrow} className={BACK_CLASS} onClick={back.onSelect}>{text}</Button>;
   return (

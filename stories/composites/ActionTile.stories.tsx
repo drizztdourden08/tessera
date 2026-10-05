@@ -31,7 +31,7 @@ const noop = () => undefined;
 const ACTIONS: Readonly<Record<Exclude<ActionKind, 'none'>, ActionTileAction>> = {
   run: { label: 'Clean old runs', icon: 'trash-2', onSelect: noop },
   copy: { label: 'Copy size', copy: '1.6 GB' },
-  danger: { label: 'Stop', icon: 'square', variant: 'danger', onSelect: noop },
+  danger: { label: 'Stop', icon: 'square', tone: 'danger', onSelect: noop },
 };
 
 const ARGS: Partial<ActionTileArgs> = {

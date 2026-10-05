@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ActionData } from '../../primitives/action-data';
 import type { ShortcutKey } from '../../primitives/Shortcut/Shortcut.type';
 import type { PatternSetup, PatternValue } from '../DynamicInput/DynamicInput.type';
 
@@ -87,15 +88,10 @@ type SettingsInputKind = SettingsInput['kind'];
 
 type SettingsInputOf<K extends SettingsInputKind> = Extract<SettingsInput, { kind: K }>;
 
-interface SettingsRowAction {
+interface SettingsRowAction extends ActionData<'danger'> {
   id: string;
-  label: string;
-  onClick: () => void;
   icon?: ReactNode;
-  tone?: 'danger';
-  disabled?: boolean;
   loading?: boolean;
-  confirm?: string;
 }
 
 type SettingsDescription =

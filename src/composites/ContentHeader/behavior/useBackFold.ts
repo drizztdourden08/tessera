@@ -3,11 +3,11 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { observeResize } from '../../../primitives/dom/observe-resize';
 import { BACK_CLASS } from '../ContentHeader.constants';
-import type { ContentHeaderBack } from '../ContentHeader.type';
+import type { BackAction } from '../../../primitives/action-data';
 import { backFits } from './back-fits';
 
-const useBackFold = (headerRef: RefObject<HTMLElement | null>, back: ContentHeaderBack | undefined): boolean => {
-  const label = back?.label ?? null;
+const useBackFold = (headerRef: RefObject<HTMLElement | null>, back: BackAction | undefined): boolean => {
+  const label = back === undefined ? null : back.label ?? '';
   const [folded, setFolded] = useState(false);
   const foldedRef = useRef(false);
   const fullRef = useRef(0);

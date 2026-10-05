@@ -39,7 +39,7 @@ const SessionsScreen = ({ onClose }: { onClose: () => void }) => (
   </ScreenWindow>
 );
 `,
-  propsHash: 'a6296922f42a613e',
+  propsHash: 'f2961d164b031fe1',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -37,7 +37,7 @@ const StageDemo = (props: StageArgs) => {
         hidden={hidden}
         onClose={() => setHidden(true)}
         toolbar={withToolbar ? TOOLBAR : undefined}
-        done={withDone ? { onClick: () => setHidden(true) } : undefined}
+        done={withDone ? { onSelect: () => setHidden(true) } : undefined}
       >
         <Box className="stage-screen-story__grid">
           <StickCalibrationDemo />

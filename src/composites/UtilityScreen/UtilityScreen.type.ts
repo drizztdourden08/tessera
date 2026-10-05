@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ActionData } from '../../primitives/action-data';
 import type { ButtonVariant } from '../../primitives/Button/Button.type';
 
 type UtilityScreenTone = 'busy' | 'info' | 'success' | 'warning' | 'danger';
@@ -23,16 +24,12 @@ interface UtilityScreenNotes {
 }
 
 interface UtilityScreenReport {
-  onClick: () => void;
+  onSelect: () => void;
   label?: string;
   footnote?: ReactNode;
 }
 
-interface UtilityScreenAction {
-  label: string;
-  onClick: () => void;
-  variant?: ButtonVariant;
-  disabled?: boolean;
+interface UtilityScreenAction extends Omit<ActionData<ButtonVariant>, 'confirm'> {
   loading?: boolean;
 }
 

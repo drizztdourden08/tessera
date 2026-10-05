@@ -6,7 +6,7 @@ import { ContentHeader } from '../../ContentHeader';
 import type { WindowContentHeaderProps } from './WindowContentHeader.type';
 
 const WindowContentHeader = (props: WindowContentHeaderProps) => {
-  const { header, title, titleId, onClose } = props;
+  const { header, back, title, titleId, onClose } = props;
   const { common } = useTesseraStrings();
   const close = (
     <IconButton variant="ghost" size="md" label={common.close} className="screen-window__close" onClick={onClose}>
@@ -14,7 +14,7 @@ const WindowContentHeader = (props: WindowContentHeaderProps) => {
     </IconButton>
   );
 
-  return <ContentHeader {...header} title={title} titleId={titleId} actions={<>{header.actions}{close}</>} className="screen-window__header" />;
+  return <ContentHeader {...header} back={back} title={title} titleId={titleId} actions={<>{header.actions}{close}</>} className="screen-window__header" />;
 };
 
 export { WindowContentHeader };

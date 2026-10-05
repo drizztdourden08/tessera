@@ -16,7 +16,7 @@ const usage = {
     'Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header.',
     'Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.',
     'Set compact once the content under it scrolls; it shrinks to a slim row.',
-    'On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, before the icon, and folds to an arrow when the row has no room for it.',
+    'On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.',
     'level sets the heading tag, h2 by default; pick the level that fits the page outline.',
   ],
   a11y: [
@@ -39,7 +39,7 @@ const GeneralHeader = ({ section, onSection }: { section: string; onSection: (id
   />
 );
 `,
-  propsHash: 'f2d20f6c7092dc07',
+  propsHash: '5ce7aa90f11760b4',
 } satisfies ComponentUsage;
 
 export { usage };

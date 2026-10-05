@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { ContentHeaderBack } from '../ContentHeader.type';
+import type { BackAction } from '../../../primitives/action-data';
 
 interface ContentHeaderBackProps {
-  back: ContentHeaderBack;
+  back: BackAction;
   folded: boolean;
 }
 

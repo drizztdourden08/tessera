@@ -142,7 +142,7 @@ export type {
   PatternSlotType, PatternSlotValue, PatternValue,
 } from './DynamicInput';
 export { ContentHeader } from './ContentHeader';
-export type { ContentHeaderBack, ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';
+export type { ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';
 export { StatTile } from './StatTile';
 export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning } from './StatTile';
 export { ControlMenu, ControlMenuGroup, ControlMenuRow, ControlMenuSub } from './ControlMenu';
@@ -177,7 +177,7 @@ export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from './CodeBl
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,
-  ActionTileToolRun, ActionTileVariant,
+  ActionTileTone, ActionTileToolRun,
 } from './ActionTile';
 export { KeyValueEditor } from './KeyValueEditor';
 export type { KeyValueEditorProps, KeyValueEntry, KeyValueKind, KeyValueRecord } from './KeyValueEditor';

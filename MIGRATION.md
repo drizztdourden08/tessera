@@ -5443,6 +5443,41 @@ interface DecimalFormat { minDecimals: number; maxDecimals: number; grouping: bo
 - Stepping stays in each part: NumberInput rounds a step to six places, DynamicInput to the places of its slot, and each wraps or clamps its own way.
 - Gauge keeps its own reading, a whole number from `Math.round`, which is not the locale format. The listbox formats, Slider, MasterDetailLayout, KeyValueEditor, Splash and the column moves of the data engine keep their own clamp in this section, because those parts are being reworked at the same time or sit in a tier below the primitives.
 
+### One shape for an action written as data, and one for a way back
+
+An action handed to a part as data was shaped several ways: the handler was `onSelect` in some parts and `onClick` in others, and the look was `tone` in some and `variant` in others. A back button in a header was `onBack` with `backLabel` in WindowHeader and `back` in ContentHeader, and ScreenWindow took both. Both are now one shape each, exported as types from `@drizztdourden08/tessera/primitives` and the root.
+
+```ts
+interface ActionData<Tone extends string = string> {
+  label: string;
+  onSelect: () => void;
+  tone?: Tone;
+  disabled?: boolean;
+  confirm?: string; // the question of an action that asks first
+}
+interface BackAction {
+  onSelect: () => void;
+  label?: string; // the page it goes back to: the button reads Back to and the label, or Back alone
+}
+```
+
+| Part | Before | Now |
+|---|---|---|
+| SettingsRow `actions` | `onClick` | `onSelect`, typed `ActionData<'danger'>` with `id`, `icon` and `loading` |
+| UtilityScreen `actions` | `onClick`, `variant` | `onSelect`, `tone` (a button look, as `variant` was) |
+| UtilityScreen `report` | `onClick` | `onSelect` |
+| StageScreen `done` | `onClick` | `onSelect` |
+| ActionTile `action` | `variant`, typed `ActionTileVariant` | `tone`, typed `ActionTileTone` |
+| ContentHeader, ScreenPage, SettingsPage `back` | `ContentHeaderBack`, with a `label` | `BackAction`, the `label` optional |
+| WindowHeader | `onBack`, `backLabel` | `back` |
+| ScreenWindow | `onBack` and `backLabel` for the title bar, `header.back` for the page header | `back` for either |
+
+- **The label of a way back.** WindowHeader's `backLabel` was the whole label of its arrow. `back.label` is now the name of the page it goes back to, as in ContentHeader, so the arrow reads Back to and the label; with no label it reads Back, as before.
+- **ScreenWindow.** `back` is drawn in the title bar, or in the page header when `header` is given, so `header` no longer takes `back`, and the warning about props a page header drops no longer names it.
+- **Already in shape.** The actions of WindowTitleBar and the items of DropdownMenu already take `label`, `onSelect`, `tone`, `disabled` and, for a menu item, `confirm`, so they do not change.
+- **Not in this section.** ActionBar, with its `kind` and its confirm object, and Splash are being reworked at the same time, so their actions keep their shape here.
+- Every rename is in RENAMES.json, in `next`.
+
 ## 182. Each brand mark has a look for the light and the dark gradient, and a compact ConfirmIconButton
 
 From the owner's answers on the brand marks. Section 176 gave every mark one dark ground look, its second colours plus a rim. Each mark now names its look for each of the two gradients of its palette, section 180's light pair and the dark pair of the splash, and the rim of section 176 becomes that look's outline.

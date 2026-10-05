@@ -19,7 +19,7 @@ const UtilityFooter = (props: UtilityFooterProps) => {
         <Box className="utility-screen__footnote">
           {report.footnote != null && <Paragraph className="utility-screen__footnote-text">{report.footnote}</Paragraph>}
           <Tooltip content={label}>
-            <IconButton variant="ghost" tone="danger" size="sm" label={label} className="utility-screen__report" onClick={report.onClick}>
+            <IconButton variant="ghost" tone="danger" size="sm" label={label} className="utility-screen__report" onClick={report.onSelect}>
               <Icon name="bug" size={14} />
             </IconButton>
           </Tooltip>
@@ -28,7 +28,7 @@ const UtilityFooter = (props: UtilityFooterProps) => {
       {actions.length > 0 && (
         <Box className="utility-screen__actions">
           {actions.map((action) => (
-            <Button key={action.label} variant={action.variant ?? 'secondary'} disabled={action.disabled} loading={action.loading} onClick={action.onClick}>
+            <Button key={action.label} variant={action.tone ?? 'secondary'} disabled={action.disabled} loading={action.loading} onClick={action.onSelect}>
               {action.label}
             </Button>
           ))}

@@ -6,7 +6,7 @@ import type { SettingsRowActionButtonProps } from './SettingsRowActionButton.typ
 
 const SettingsRowActionButton = (props: SettingsRowActionButtonProps) => {
   const { action, disabled } = props;
-  const ask = useConfirmAsk<true>({ onConfirm: action.onClick });
+  const ask = useConfirmAsk<true>({ onConfirm: action.onSelect });
 
   if (ask.asking !== null) {
     return (
@@ -27,7 +27,7 @@ const SettingsRowActionButton = (props: SettingsRowActionButtonProps) => {
       icon={action.icon}
       disabled={disabled || action.disabled === true}
       loading={action.loading === true}
-      onClick={action.confirm === undefined ? action.onClick : () => ask.ask(true)}
+      onClick={action.confirm === undefined ? action.onSelect : () => ask.ask(true)}
     >
       {action.label}
     </Button>
