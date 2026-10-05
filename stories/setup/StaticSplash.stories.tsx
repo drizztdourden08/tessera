@@ -49,7 +49,9 @@ const Parts = {
   render: () => (
     <Flex direction="column" gap="md">
       <SplashFrame body={PARTS} label="Splash classes in the Tessera palette" />
+      <SplashFrame body={PARTS} palette="archipelia" label="Splash classes in the Archipelia palette" />
       <SplashFrame body={PARTS} palette="brock" label="Splash classes in the Brock palette" />
+      <SplashFrame body={PARTS} palette="rotp" label="Splash classes in the RotP palette" />
     </Flex>
   ),
 } satisfies StoryLiteStoryDefinition<SplashArgs>;
@@ -76,11 +78,11 @@ const Overview = overviewStory({
   description: 'Plain CSS classes for a splash page in static HTML that shows before the app bundle loads, in the look of the app.',
   points: [
     'Load `splash-tokens.css`, then `splash.css`; no React and no bundle, so the page draws at once.',
-    '`ts-splash` on the body centres a `ts-stage`; `ts-mark`, `ts-title`, `ts-status` and `ts-actions` stack in it.',
+    '`ts-splash` paints the dark gradient of the palette and centres a `ts-stage` of mark, title and status.',
+    'A page may set `--look-dark-from`, `--look-dark-to` and `--look-angle`, with stops that keep text at AA.',
     '`ts-button` is the secondary [Button] look, `ts-button--primary` the primary one.',
     '`ts-progress` fills to `--value`, 0 to 1, or sweeps with `ts-progress--indeterminate`; `--edge` runs at the bottom.',
-    '`ts-status--danger` and `ts-progress--danger` mark a failed start; `ts-detail` holds the error text.',
-    '`ts-version` sits in the corner.',
+    '`ts-status--danger` and `ts-progress--danger` mark a failure, `ts-detail` its text; `ts-version` sits in the corner.',
   ],
   instead: '[Splash] draws the same page from React once the bundle has loaded, to show it again or take over.',
   playground: Playground,

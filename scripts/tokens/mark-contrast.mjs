@@ -1,13 +1,10 @@
 /* @layer tooling-scripts @kind logic */
 import { Resvg } from '@resvg/resvg-js';
+import { luminanceRatio } from './luminance-ratio.mjs';
 import { parseColour } from './parse-colour.mjs';
+import { relativeLuminance } from './relative-luminance.mjs';
 
 const SAMPLE_WIDTH = 256;
-const WEIGHTS = [0.2126, 0.7152, 0.0722];
-
-const linear = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
-const relativeLuminance = (rgb) => rgb.reduce((sum, c, i) => sum + WEIGHTS[i] * linear(c), 0);
-const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 
 const markLuminance = (svg) => {
   const { pixels } = new Resvg(svg, { fitTo: { mode: 'width', value: SAMPLE_WIDTH } }).render();
@@ -23,7 +20,7 @@ const markLuminance = (svg) => {
 
 const markContrast = (svg, stops) => {
   const mark = markLuminance(svg);
-  return stops.map((stop) => ratio(mark, relativeLuminance(parseColour(stop).rgb)));
+  return stops.map((stop) => luminanceRatio(mark, relativeLuminance(parseColour(stop).rgb)));
 };
 
 export { markContrast };

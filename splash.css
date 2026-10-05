@@ -5,7 +5,13 @@
   place-items: center;
   margin: 0;
   overflow: hidden;
-  background: var(--c-bg);
+  background:
+    linear-gradient(
+      var(--look-angle, 160deg),
+      var(--look-dark-from, var(--c-gradient-dark-from)),
+      var(--look-dark-to, var(--c-gradient-dark-to))
+    )
+    var(--c-gradient-dark-to);
   color: var(--c-text);
   font-family: var(--font-sans);
   font-size: var(--text-base);
@@ -77,7 +83,7 @@
   max-block-size: calc(var(--text-sm) * var(--leading-normal) * 3);
   margin: 0;
   overflow: hidden;
-  color: var(--c-text-muted);
+  color: var(--c-text-dim);
   font-size: var(--text-sm);
   user-select: text;
 }
@@ -179,7 +185,7 @@
   position: fixed;
   inset-block-end: var(--space-md);
   inset-inline-end: var(--space-md);
-  color: var(--c-text-muted);
+  color: var(--c-text-dim);
   font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
   letter-spacing: var(--tracking-wide);

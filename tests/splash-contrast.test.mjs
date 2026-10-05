@@ -1,0 +1,37 @@
+/* @layer tooling-scripts @kind test */
+import { readdirSync, readFileSync } from 'node:fs';
+import { describe, expect, it } from 'vitest';
+import { declarationsOf } from '../scripts/tokens/declarations-of.mjs';
+import { ruleDeclarations } from '../scripts/tokens/rule-declarations.mjs';
+import { splashContrast } from '../scripts/tokens/splash-contrast.mjs';
+import { SPLASH_GRADIENT } from '../scripts/tokens/splash-contrast.constants.mjs';
+import { DEFAULT_PALETTE, PALETTES_DIR } from '../scripts/tokens/tokens.constants.mjs';
+
+const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+const SPLASH_CSS = read('splash.css');
+const TOKENS_CSS = read('splash-tokens.css');
+const PALETTE_FILES = readdirSync(new URL(`../${PALETTES_DIR}`, import.meta.url)).filter((file) => file.endsWith('.css'));
+const PALETTES = [DEFAULT_PALETTE, ...PALETTE_FILES.map((file) => file.replace(/\.css$/, ''))];
+const ROOT_TOKENS = declarationsOf(TOKENS_CSS, (selector) => selector === ':root');
+
+const tokensOf = (palette) =>
+  new Map([...ROOT_TOKENS, ...declarationsOf(TOKENS_CSS, (selector) => selector === `[data-palette="${palette}"]`)]);
+
+const CASES = PALETTES.flatMap((palette) => splashContrast(SPLASH_CSS, tokensOf(palette)).map(({ part, ratio, need }) => ({ palette, part, shown: ratio.toFixed(2), ratio, need })));
+
+describe('the splash on its dark gradient', () => {
+  it('paints the dark gradient pair behind the page', () => {
+    const background = ruleDeclarations(SPLASH_CSS, [SPLASH_GRADIENT.selector]).get('background');
+    expect(background).toContain(`var(${SPLASH_GRADIENT.from})`);
+    expect(background).toContain(`var(${SPLASH_GRADIENT.to})`);
+  });
+
+  it.each(PALETTE_FILES)('the %s palette sets its own dark gradient pair', (file) => {
+    const seeds = new Map(declarationsOf(read(`${PALETTES_DIR}/${file}`), (selector) => selector.startsWith('[data-palette=')));
+    expect(seeds.has('--p-gradient-dark-from') && seeds.has('--p-gradient-dark-to')).toBe(true);
+  });
+
+  it.each(CASES)('$palette: the $part reaches AA on every point of the gradient, $shown:1 at the lowest', ({ ratio, need }) => {
+    expect(ratio).toBeGreaterThanOrEqual(need);
+  });
+});

@@ -4685,3 +4685,39 @@ The player drew its own volume, seek bar and speed menu. Each one was held again
 ### What an app does
 
 1. An import of `Video` or `VideoProps` from `@drizztdourden08/tessera/primitives` moves to `@drizztdourden08/tessera/composites`, or to the root.
+
+## 171. The splash sits on a dark gradient of each palette
+
+The splash text missed WCAG AA. In a Brock app the static page painted the bright brand gradient, so the status, the detail, the buttons and the bar on the Archipelia lavender or the Brock orange fell as low as 1:1. Every palette now has a dark gradient pair built from its own hues, and the splash paints it.
+
+```css
+/* seeds, in palette.css and in each src/tokens/palettes file */
+--p-gradient-dark-from: #1c1438; /* archipelia */
+--p-gradient-dark-to:   #0b0912;
+
+/* roles, in canonical.css, for :root and every [data-palette] */
+--c-gradient-dark-from: var(--p-gradient-dark-from);
+--c-gradient-dark-to:   var(--p-gradient-dark-to);
+```
+
+| Palette | From | To |
+|---|---|---|
+| tessera | `#202026` | `#0b0b0e` |
+| archipelia | `#1c1438` | `#0b0912` |
+| brock | `#2e1d0c` | `#0f0a06` |
+| rotp | `#2a2110` | `#0f0d0a` |
+
+- The family is `gradient-dark`, not `splash-bg`: it names a role, so a Hero, a sign in screen or an empty window can paint the same ground.
+- `.ts-splash` in `splash.css`, and so `Splash`, paints `linear-gradient(var(--look-angle, 160deg), var(--look-dark-from, var(--c-gradient-dark-from)), var(--look-dark-to, var(--c-gradient-dark-to)))` over `--c-gradient-dark-to`.
+- The static page keeps working with `splash-tokens.css` and `splash.css` alone. A page that injects `--look-dark-from` and `--look-dark-to` replaces the pair, and `--look-angle` turns it; with none of them set the palette's pair applies.
+- `ts-detail` and `ts-version` move from `--c-text-muted` to `--c-text-dim`, since the muted grey fell under 4.5:1 on the lighter end of the gradient.
+- `tokens.json` lists the pair in `theme.dark` and in each `palettes.<palette>.dark`, as `gradientDarkFrom` and `gradientDarkTo`.
+- A test reads the rules of `splash.css` and the literal tokens of each palette, samples the gradient from end to end, and fails when a part falls under AA: the title at 3:1 as large text (24 px, semi bold), the status, the failure status, the detail, the version and both button labels on their fill at 4.5:1, and both button borders and both progress fills on the track at 3:1. The lowest ratio in any palette is now 3.18:1 for the Archipelia progress fill and 4.75:1 for the Brock status.
+- The helpers for relative luminance and luminance ratio move out of `mark-contrast.mjs`, so the mark check and the splash check share them.
+- The Splash and Static splash pages say which gradient the splash paints, and the class page shows every class in each of the four palettes.
+
+### What an app does
+
+1. Brock: drop the `background` of `.splash` and the `color` of `.splash__name` from `splash-page.css`, which paint the bright look over the dark pair and pick a dark ink for it. Inject `--look-dark-from` and `--look-dark-to` only for a product look of its own, and only with stops dark enough that `--c-text-dim` stays at 4.5:1 on them.
+2. An app theme that changes the palette seeds sets `--p-gradient-dark-from` and `--p-gradient-dark-to` too.
+3. An app that styled the splash detail or version itself checks it against the pair.

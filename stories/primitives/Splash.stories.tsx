@@ -104,6 +104,7 @@ const Overview = overviewStory({
   description: 'The splash of the static page as a React part, for a start, an update or a reconnect once the app has loaded.',
   points: [
     'It draws the `ts-` classes of `splash.css`, so it matches the [Static splash](#/story/setup-staticsplash--overview) page.',
+    'It sits on the dark gradient of the palette; a test holds its text, borders and bar at WCAG AA.',
     '`mark` takes an image URL or a node; `status` is one line, `detail` the longer text under it.',
     '`progress` fills the bar from 0 to 1, or sweeps with `indeterminate`; `bar` puts it on the edge or inline.',
     '`failed` turns the status and the bar red and focuses the first primary action.',

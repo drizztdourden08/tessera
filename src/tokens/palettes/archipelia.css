@@ -7,6 +7,8 @@
     --p-tertiary: #a79fc8;
     --p-white: #ece8ff;
     --p-black: #0d0b14;
+    --p-gradient-dark-from: #1c1438;
+    --p-gradient-dark-to: #0b0912;
     --p-on-primary: var(--p-pure-white);
     --p-on-secondary: #3b2a7a;
     --p-on-tertiary: var(--p-black);

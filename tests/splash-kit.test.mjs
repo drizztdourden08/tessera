@@ -7,7 +7,7 @@ const TOKENS = fs.readFileSync('splash-tokens.css', 'utf8');
 const PACKAGE = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 const defined = new Set([...TOKENS.matchAll(/^\s*(--[\w-]+):/gm)].map((match) => match[1]));
-const OWN = new Set(['--value', '--ts-tone', '--ts-tone-dim', '--ts-tone-bright', '--ts-tone-ink']);
+const OWN = new Set(['--value', '--ts-tone', '--ts-tone-dim', '--ts-tone-bright', '--ts-tone-ink', '--look-angle', '--look-dark-from', '--look-dark-to']);
 const CLASSES = [
   'ts-splash', 'ts-splash--layer', 'ts-stage', 'ts-mark', 'ts-title', 'ts-status', 'ts-status--danger', 'ts-detail', 'ts-actions', 'ts-button',
   'ts-button--primary', 'ts-progress', 'ts-progress--edge', 'ts-progress--danger', 'ts-progress--indeterminate', 'ts-version',
