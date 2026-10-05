@@ -1,5 +1,14 @@
 # @drizztdourden08/tessera
 
+## 0.22.0
+
+### Minor Changes
+
+- ef4a50b: ConfirmIconButton takes `onCancel`, which runs when its question closes without the check, and `onAsk`, which runs when a press opens it. The same `onCancel` is on an ActionBar action, a SettingsRow action and a DropdownMenu confirm item, and runs from the cross, Escape, focus or the pointer leaving, the timeout, disabling, or a second ActionBar question taking the place of the first.
+- 6b71cbf: GuidedTour takes `keep` for parts that stay usable all along, `advance: 'wait'` for steps the app ends with `tour.next()`, `clickTarget` and `hint` on a step, `onStepShown` and `onStepLeave`, an abort signal for `onEnter`, and `entering`, `shown` and `target` on the api. Its keys go ahead of the app's, its bubble flips to the side that fits and stays in the window, its mascot keeps off the lit part, its ring and bubble draw in the top layer, a step mascot can name its walk and arrive clips, and `TourSpot` draws the spotlight alone for a second window. `AnchoredPlacement` gains `left-start`, `left-center` and `right-center`.
+- dbf5e1f: IconButton is as tall as Button at every size: `md` is 39 px square, where it was 32 px, and `sm` stays 28 px, both from the `--control-h-md` and `--control-h-sm` tokens that Button now sets as its height too. An icon with no size of its own draws at 16 px in `md`. ActionBar drops its own rule for More.
+- d0bd880: ListDetail asks before New opens the create form of its list while the editor holds unsaved edits, in the same bar or dialog. Discard opens the form, Save opens it once the save works, and Keep editing leaves it shut. An app that holds `createOpen` gets `onCreateOpenChange(true)` after the answer.
+
 ## 0.21.0
 
 ### Minor Changes
