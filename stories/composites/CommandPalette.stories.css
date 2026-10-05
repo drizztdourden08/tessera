@@ -1,12 +1,20 @@
 /* @layer stories @kind style */
 .command-palette-story__frame {
+  width: 100%;
   min-height: 38rem;
   transform: translateZ(0);
 }
 
+.command-palette-story__frame .command-palette--open {
+  max-width: calc(100% - 2 * var(--space-md));
+}
+
 .command-palette-story__frame--state {
-  min-width: 44rem;
   min-height: 22rem;
+}
+
+.demonstrator__cell > :has(> .command-palette-story__frame--state) {
+  justify-self: stretch;
 }
 
 .command-palette-story__page {
