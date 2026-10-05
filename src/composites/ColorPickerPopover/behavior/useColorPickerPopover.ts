@@ -2,10 +2,9 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { dropPanelPositionFor, useAnchorTracking, useDismissListeners, viewportBounds } from '../../../primitives/Portal';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { clampNumber } from '../../../primitives/value-rule/clamp-number';
 import { ANCHOR_GAP, EDGE_MARGIN, ESTIMATED_HEIGHT, ESTIMATED_WIDTH } from './useColorPickerPopover.constants';
 import type { Position, UseColorPickerPopoverParams } from './useColorPickerPopover.type';
-
-const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(value, min), max);
 
 const popoverPositionFor = (rect: DOMRect, view: Window) => {
   const base = dropPanelPositionFor(rect, {
@@ -16,8 +15,8 @@ const popoverPositionFor = (rect: DOMRect, view: Window) => {
   const bounds = viewportBounds(view);
   return {
     ...base,
-    left: clamp(base.left, bounds.left + EDGE_MARGIN, bounds.right - ESTIMATED_WIDTH - EDGE_MARGIN),
-    top: clamp(base.top, bounds.top + EDGE_MARGIN, bounds.bottom - ESTIMATED_HEIGHT - EDGE_MARGIN),
+    left: clampNumber(base.left, bounds.left + EDGE_MARGIN, bounds.right - ESTIMATED_WIDTH - EDGE_MARGIN),
+    top: clampNumber(base.top, bounds.top + EDGE_MARGIN, bounds.bottom - ESTIMATED_HEIGHT - EDGE_MARGIN),
   };
 };
 

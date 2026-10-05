@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind logic */
+import { clampNumber } from '../../../primitives/value-rule/clamp-number';
 import type { Rgb } from './color-math.type';
 
-const clampChannel = (n: number): number => Math.min(255, Math.max(0, Math.round(n)));
+const clampChannel = (n: number): number => clampNumber(Math.round(n), 0, 255);
 
 const rgbToHex = (rgb: Rgb): string => {
   const { r, g, b } = rgb;

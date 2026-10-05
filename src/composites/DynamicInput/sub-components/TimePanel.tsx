@@ -2,7 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { NumberInput } from '../../../primitives/NumberInput';
 import { asNumber } from '../behavior/as-number';
-import { clampToRange } from '../behavior/clamp-to-range';
+import { clampNumber } from '../../../primitives/value-rule/clamp-number';
 import { slotLabel } from '../behavior/slot-label';
 import { TIME_TYPES } from '../DynamicInput.constants';
 import { PanelSection } from './PanelSection';
@@ -20,7 +20,7 @@ const TimePanel = (props: SlotPanelProps) => {
       {parts.map((slot) => {
         const label = slotLabel(slot, field);
         const set = (next: number) => {
-          if (Number.isFinite(next)) field.setSlot(slot.name, clampToRange(next, slot));
+          if (Number.isFinite(next)) field.setSlot(slot.name, clampNumber(next, slot.min, slot.max));
         };
         return (
           <PanelSection key={slot.name} title={label}>

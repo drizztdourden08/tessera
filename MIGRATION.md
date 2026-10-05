@@ -5418,14 +5418,30 @@ writeStored(key: string | undefined, value: unknown): boolean; // false when it 
 
 ### Anchored places its own popup where the browser cannot
 
-Where the browser has no CSS anchor positioning, a popup needs a place worked out by script. Tooltip, DynamicInput, DropdownMenu, FilterBar and the under panel of ControlMenu each worked it out their own way, and SettingsRow, the ControlMenu and DropdownMenu sub panels and others gave none, so their popup sat at the corner of the window. Anchored now does it itself.
+Where the browser has no CSS anchor positioning, a popup needs a place worked out by script. Tooltip, DynamicInput, DropdownMenu, FilterBar and the under panel of ControlMenu each worked it out their own way, and the SettingsRow bubble gave none, so it sat at the corner of the window. Anchored now does it itself.
 
 - **Its own place.** When `fallback` is not given, Anchored tracks its anchor and places the popup from its `placement`, the same way the CSS anchors do: below or above the anchor, at its start, end or centre, or to its right for `right-start`. The place follows scrolling and resizing, and takes the CSS zoom of the anchor into account.
 - **The same gap.** The popup it places carries `data-anchor-place`, so `--anchored-gap` and the centring apply to it as they do to the native popup. Tooltip drops its own fallback transforms and sets `--anchored-gap` on `.tooltip`.
 - **One function.** `anchoredFallback(anchor, rect, view, placement)` in `src/primitives/Anchored/behavior` is that place. DropdownMenu and FilterBar, which also close the popup when the anchor scrolls out of view, track the anchor themselves and use it. It is internal.
 - **Still overridable.** A `fallback` given by the part wins, as before. The listbox, TagInput, ColorPickerPopover and GuidedTour keep theirs: they flip the panel up when there is no room below, size it, or place it by something other than the anchor.
 - The copies are removed: `useFallbackPos` of Tooltip, `popoverFallback` and `POPOVER_GAP` of DynamicInput and `menuPlacement` of DropdownMenu.
-- In a browser with no anchor positioning, the DynamicInput panel now sits `--space-xs` below its field, as it does natively, where it sat 6 pixels below; FilterBar's value panel follows the CSS zoom; and the SettingsRow bubble and the ControlMenu panels are placed by their anchor. Nothing changes where the browser positions popups itself, which is every current Chromium.
+- In a browser with no anchor positioning, the DynamicInput panel now sits `--space-xs` below its field, as it does natively, where it sat 6 pixels below; FilterBar's value panel follows the CSS zoom; and the SettingsRow bubble is placed by its control. Nothing changes where the browser positions popups itself, which is every current Chromium.
+
+### One clamp and one number format
+
+A number was kept in bounds by hand about fifteen times, and written for display with the same `toLocaleString` options in the value rules and in DynamicInput. Both are now internal functions in `src/primitives/value-rule`, beside `roundValue`.
+
+```ts
+clampNumber(value: number, min?: number, max?: number): number; // a bound left out does not limit
+formatDecimal(value: number, format: DecimalFormat): string; // en-US, as before
+interface DecimalFormat { minDecimals: number; maxDecimals: number; grouping: boolean; pad?: number; sign?: boolean }
+```
+
+- `clampNumber` is used by NumberInput's step, the DynamicInput number, decimal and time slots and their panels, ColorPicker's channels, ColorPickerPopover, DockLayout's resize and its float clamp, GuidedTour, the DataTable column width, PasswordInput's score, ShortcutTour, the DropdownMenu safe area and ProgressBar's value. `clampToRange` of DynamicInput is removed.
+- When the bounds cross, the lower bound wins, as DockLayout and the second pass of ColorPickerPopover already did. ColorPickerPopover's first pass let the upper bound win, so a picker wider than the window now starts at the left margin from its first frame; it ended there after the second pass before.
+- `formatDecimal` writes the value rules' number patterns and DynamicInput's numbers, and `NumberPattern` extends `DecimalFormat`. Their text does not change.
+- Stepping stays in each part: NumberInput rounds a step to six places, DynamicInput to the places of its slot, and each wraps or clamps its own way.
+- Gauge keeps its own reading, a whole number from `Math.round`, which is not the locale format. The listbox formats, Slider, MasterDetailLayout, KeyValueEditor, Splash and the column moves of the data engine keep their own clamp in this section, because those parts are being reworked at the same time or sit in a tier below the primitives.
 
 ## 182. Each brand mark has a look for the light and the dark gradient, and a compact ConfirmIconButton
 

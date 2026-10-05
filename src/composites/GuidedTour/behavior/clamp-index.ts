@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind util */
-const clampIndex = (index: number, total: number): number => Math.min(Math.max(0, Math.trunc(index)), Math.max(0, total - 1));
+import { clampNumber } from '../../../primitives/value-rule/clamp-number';
+const clampIndex = (index: number, total: number): number => clampNumber(Math.trunc(index), 0, Math.max(0, total - 1));
 
 export { clampIndex };

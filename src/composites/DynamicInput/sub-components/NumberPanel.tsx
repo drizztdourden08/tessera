@@ -2,7 +2,7 @@
 import { NumberInput } from '../../../primitives/NumberInput';
 import { Slider } from '../../../primitives/Slider';
 import { asNumber } from '../behavior/as-number';
-import { clampToRange } from '../behavior/clamp-to-range';
+import { clampNumber } from '../../../primitives/value-rule/clamp-number';
 import { roundTo } from '../behavior/round-to';
 import { slotLabel } from '../behavior/slot-label';
 import { PanelSection } from './PanelSection';
@@ -14,7 +14,7 @@ const NumberPanel = (props: NumberPanelProps) => {
   const current = asNumber(field.value[slot.name]);
   const { min, max, step, size } = { ...slot, size: field.size };
   const set = (next: number) => {
-    if (Number.isFinite(next)) field.setSlot(slot.name, roundTo(clampToRange(next, slot), slot.places));
+    if (Number.isFinite(next)) field.setSlot(slot.name, roundTo(clampNumber(next, slot.min, slot.max), slot.places));
   };
 
   return (

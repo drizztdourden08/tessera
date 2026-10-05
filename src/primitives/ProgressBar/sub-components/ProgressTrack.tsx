@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { clampNumber } from '../../value-rule/clamp-number';
 import { share } from '../behavior/share';
 import type { ProgressTrackProps } from './ProgressTrack.type';
 import { SecondaryFill } from './SecondaryFill';
@@ -12,7 +13,7 @@ const ProgressTrack = (props: ProgressTrackProps) => {
       aria-label={label}
       aria-valuemin={0}
       aria-valuemax={max}
-      aria-valuenow={indeterminate ? undefined : Math.min(Math.max(0, value), Math.max(0, max))}
+      aria-valuenow={indeterminate ? undefined : clampNumber(value, 0, Math.max(0, max))}
       aria-valuetext={valueText}
       data-live={live ? 'yes' : undefined}
       data-indeterminate={indeterminate ? 'yes' : undefined}

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
 import { asNumber } from './as-number';
-import { clampToRange } from './clamp-to-range';
+import { clampNumber } from '../../../primitives/value-rule/clamp-number';
 import { cleanDecimal } from './clean-decimal';
 import { isInRange } from './is-in-range';
 import { roundTo } from './round-to';
@@ -14,7 +14,7 @@ const numberIn = (text: string): number | null => {
   return /\d/.test(text) && Number.isFinite(value) ? value : null;
 };
 
-const settled = (value: number, slot: PatternSlotSpec): number => roundTo(clampToRange(value, slot), slot.places);
+const settled = (value: number, slot: PatternSlotSpec): number => roundTo(clampNumber(value, slot.min, slot.max), slot.places);
 
 const decimalKind: SlotKind = {
   inputMode: 'decimal',

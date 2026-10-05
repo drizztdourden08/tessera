@@ -3,8 +3,6 @@ import type { PatternSlotChars } from './parse-pattern.type';
 
 const FLOAT_PLACES = 6;
 
-const NUMBER_LOCALE = 'en-US';
-
 const MAX_DIGITS = 15;
 
 const MINUS = '-';
@@ -33,6 +31,6 @@ const CHAR_FILTERS: Readonly<Record<PatternSlotChars, RegExp>> = {
 };
 
 export {
-  CHAR_FILTERS, DOT, FLOAT_PLACES, HEX_DIGITS, HEX_PREFIX, MAX_DIGITS, MINUS, NON_DECIMAL, NON_DIGITS, NON_HEX, NUMBER_LOCALE,
+  CHAR_FILTERS, DOT, FLOAT_PLACES, HEX_DIGITS, HEX_PREFIX, MAX_DIGITS, MINUS, NON_DECIMAL, NON_DIGITS, NON_HEX,
   SHORT_HEX_DIGITS,
 };

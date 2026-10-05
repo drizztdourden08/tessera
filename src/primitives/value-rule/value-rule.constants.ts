@@ -3,6 +3,8 @@ import type { RulePlacement } from './value-rule.type';
 
 const MAX_RULE_MARKS = 500;
 
+const NUMBER_LOCALE = 'en-US';
+
 const NUMBER_TEXT = /^-?(?:\d+(?:\.\d+)?|\.\d+)$/;
 
 const PLACEMENT_KEYWORDS: ReadonlyMap<string, RulePlacement> = new Map<string, RulePlacement>([
@@ -19,4 +21,4 @@ const GROUP_OPENERS = new Set(['{', '[']);
 
 const GROUP_CLOSERS = new Set(['}', ']']);
 
-export { GROUP_CLOSERS, MAX_RULE_MARKS, GROUP_OPENERS, NUMBER_FORMAT, NUMBER_TEXT, PLACEHOLDER, PLACEMENT_KEYWORDS };
+export { GROUP_CLOSERS, MAX_RULE_MARKS, GROUP_OPENERS, NUMBER_FORMAT, NUMBER_LOCALE, NUMBER_TEXT, PLACEHOLDER, PLACEMENT_KEYWORDS };

@@ -20,10 +20,15 @@ type RulePlacement =
   | { kind: 'none' }
   | { kind: 'at'; points: readonly RulePoint[] };
 
-interface NumberPattern {
+interface DecimalFormat {
   minDecimals: number;
   maxDecimals: number;
   grouping: boolean;
+  pad?: number;
+  sign?: boolean;
+}
+
+interface NumberPattern extends DecimalFormat {
   sign: boolean;
 }
 
@@ -67,6 +72,7 @@ interface LabelBox {
 }
 
 export type {
+  DecimalFormat,
   LabelBox,
   NumberOperator,
   NumberPattern,

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
 import { asNumber } from './as-number';
-import { clampToRange } from './clamp-to-range';
+import { clampNumber } from '../../../primitives/value-rule/clamp-number';
 import { digitLimit } from './digit-limit';
 import { isInRange } from './is-in-range';
 import { numberFull } from './number-full';
@@ -24,12 +24,12 @@ const numberKind: SlotKind = {
   show: (value, slot) => showNumber(value, slot),
   edit: (value, slot) => showNumber(value, slot, false),
   full: numberFull,
-  settle: (text, slot) => (isBlank(text) ? null : clampToRange(Number(text), slot)),
+  settle: (text, slot) => (isBlank(text) ? null : clampNumber(Number(text), slot.min, slot.max)),
   step: (value, slot, by) => {
     const number = asNumber(value);
     if (number === null) return slot.min ?? 0;
     const next = roundTo(number + by * (slot.step ?? 1));
-    return slot.wrap === true ? wrapToRange(next, slot) : clampToRange(next, slot);
+    return slot.wrap === true ? wrapToRange(next, slot) : clampNumber(next, slot.min, slot.max);
   },
 };
 
