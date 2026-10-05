@@ -5402,6 +5402,20 @@ observeResize(
 - The users are the fit of ActionBar, ContentHeader, WindowHeader, WindowTitleBar, SettingsRow (choices and clamped text), the listbox tags and anchor, ScaleLabels, Quote, Tabs, SegmentedControl, FloatingSwitch, ScrollArea, ShortcutList, RowGrid, SideNavLayout, DockLayout, KeyboardLayout, ShortcutTour, GuidedTour and the grow fallback of DataTable.
 - MascotStage keeps its own observer in this section, because its brand files were being changed at the same time.
 
+### One read and one write for browser storage
+
+SideNav and the Widget layout each read a value from `localStorage`, parsed it and fell back, and each wrote it back the same way. They now share two internal functions in `src/primitives/dom`. CommandInput and MasterDetailLayout keep their own copies in this section, because they are being reworked at the same time; they move onto the shared pair later.
+
+```ts
+readStored<T>(key: string | undefined, accept: (stored: unknown) => T | undefined): T | undefined;
+writeStored(key: string | undefined, value: unknown): boolean; // false when it could not write
+```
+
+- `accept` gets the parsed value, or `null` for a missing key, and returns it when it is the right shape. A missing key, broken JSON, a refused value or no storage at all reads as `undefined`. Each part keeps its own check: a boolean for SideNav, a layout for Widget.
+- `loadLayoutLocal` and `saveLayoutLocal` keep their names and signatures.
+- A Widget key that holds the JSON `null` now gives the preset, as a missing key does; it gave the default layout before.
+- The view state of the data engine keeps its own `ViewStorage`, which an app hands in and which is not tied to `localStorage`.
+
 ## 182. Each brand mark has a look for the light and the dark gradient, and a compact ConfirmIconButton
 
 From the owner's answers on the brand marks. Section 176 gave every mark one dark ground look, its second colours plus a rim. Each mark now names its look for each of the two gradients of its palette, section 180's light pair and the dark pair of the splash, and the rim of section 176 becomes that look's outline.

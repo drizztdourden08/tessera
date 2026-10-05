@@ -3,8 +3,9 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SideNav } from '../src/composites/SideNav';
-import { readStoredOpen } from '../src/composites/SideNav/behavior/read-stored-open';
-import { writeStoredOpen } from '../src/composites/SideNav/behavior/write-stored-open';
+import { storedOpen } from '../src/composites/SideNav/behavior/stored-open';
+import { readStored } from '../src/primitives/dom/read-stored';
+import { writeStored } from '../src/primitives/dom/write-stored';
 import { SideNavLayout } from '../src/composites/SideNavLayout';
 
 const CONFIG = { groups: [{ id: 'main', items: [{ id: 'home', label: 'Home', icon: null }] }] };
@@ -46,14 +47,14 @@ describe('SideNavLayout open state', () => {
   });
 
   it('starts from the stored choice when storageKey is set', () => {
-    writeStoredOpen(KEY, false);
+    writeStored(KEY, false);
     expect(navOpen(layout({ storageKey: KEY }))).toBe(false);
-    writeStoredOpen(KEY, true);
+    writeStored(KEY, true);
     expect(navOpen(renderToString(h(SideNav, { ...NAV, storageKey: KEY })))).toBe(true);
   });
 
   it('ignores the stored choice on a narrow layout, where the open nav floats over the page', () => {
-    writeStoredOpen(KEY, true);
+    writeStored(KEY, true);
     expect(navOpen(layout({ storageKey: KEY }, { narrow: true }))).toBe(false);
   });
 });
@@ -65,17 +66,17 @@ describe('the stored nav choice', () => {
 
   it('reads back only a boolean', () => {
     globalThis.localStorage = memoryStorage();
-    writeStoredOpen(KEY, true);
-    expect(readStoredOpen(KEY)).toBe(true);
+    writeStored(KEY, true);
+    expect(readStored(KEY, storedOpen)).toBe(true);
     globalThis.localStorage.setItem(KEY, '"yes"');
-    expect(readStoredOpen(KEY)).toBeUndefined();
+    expect(readStored(KEY, storedOpen)).toBeUndefined();
     globalThis.localStorage.setItem(KEY, '{');
-    expect(readStoredOpen(KEY)).toBeUndefined();
+    expect(readStored(KEY, storedOpen)).toBeUndefined();
   });
 
   it('does nothing without a key or without storage', () => {
-    expect(readStoredOpen(undefined)).toBeUndefined();
-    expect(readStoredOpen(KEY)).toBeUndefined();
-    expect(() => writeStoredOpen(KEY, true)).not.toThrow();
+    expect(readStored(undefined, storedOpen)).toBeUndefined();
+    expect(readStored(KEY, storedOpen)).toBeUndefined();
+    expect(() => writeStored(KEY, true)).not.toThrow();
   });
 });
