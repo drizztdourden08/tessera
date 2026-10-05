@@ -3,5 +3,5 @@ export { Icon } from './Icon';
 export { ICONS } from './Icon.constants';
 export type {
   BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions, IconEffectSize,
-  IconFlip, IconName, IconProps, IconRotation, IconSet,
+  IconFlip, IconName, IconPath, IconPathCircle, IconProps, IconRotation, IconSet,
 } from './Icon.type';

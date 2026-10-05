@@ -10,6 +10,11 @@
   background: var(--image-box);
 }
 
+:where(.image--framed) {
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
+
 :where(.image--loaded) {
   background: transparent;
 }

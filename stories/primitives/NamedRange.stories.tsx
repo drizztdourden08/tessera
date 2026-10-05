@@ -56,7 +56,7 @@ const Overview = overviewStory({
   description: 'A number from a range whose common values have names: the names first, then Custom for any other number.',
   points: [
     '`names` become joined buttons, each with its value, such as Normal (50); a pick sets that value.',
-    'Custom opens a [NumberStepper] held between `min` and `max`, with the range written beside it.',
+    'Custom opens a [NumberInput] held between `min` and `max`, with the range written beside it.',
     'A value that matches no name opens on Custom; `showValues` leaves the numbers off the names.',
   ],
   instead: '[Slider] for a range with no named values, or [SegmentedControl] when only the names are allowed.',

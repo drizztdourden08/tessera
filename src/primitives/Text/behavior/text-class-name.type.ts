@@ -4,7 +4,7 @@ import type { TextVariant } from '../Text.type';
 
 interface TextClassParams {
   variant?: TextVariant;
-  tone?: TextTone;
+  tone?: TextTone | 'faint';
   mono?: boolean;
   numeric?: boolean;
   className?: string;

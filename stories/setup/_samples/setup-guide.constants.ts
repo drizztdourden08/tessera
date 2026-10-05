@@ -76,7 +76,7 @@ const SETUP_GUIDE: Guide = {
         'Wrap the root once in `TesseraProvider`. Name only the parts the app draws its own way; the rest keep the Tessera default.',
         'Keep the overrides object a module constant, so Tessera does not render again on every app render.',
         `Every override, with a demo: ${GUIDE_LINKS.provider}.`,
-        `Links are not an override. Use ${GUIDE_LINKS.link} for a URL and ${GUIDE_LINKS.routerLink} for a route in the app.`,
+        `Links are not an override. Use ${GUIDE_LINKS.link} for a URL, and ${GUIDE_LINKS.link} with \`navigate\` for a route in the app.`,
       ],
     },
     {

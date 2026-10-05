@@ -1,5 +1,5 @@
 /* @layer stories @kind component */
-import { Box, Button, Icon, ProgressBar, Text, Thumbnail } from '../../../src/primitives';
+import { Box, Button, Icon, Image, ProgressBar, Text } from '../../../src/primitives';
 
 const HeroTools = () => (
   <>
@@ -12,7 +12,7 @@ const HeroPlay = () => <Button variant="primary" icon={<Icon name="play" size={1
 
 const HeroLastSave = () => (
   <Box className="hero-story__save">
-    <Thumbnail className="hero-story__thumb" alt="Hyrule Castle" placeholder={<Text className="story-label">No screenshot</Text>} />
+    <Image frame className="hero-story__thumb" alt="Hyrule Castle" fallback={<Text className="story-label">No screenshot</Text>} />
     <Box className="hero-story__save-body">
       <Text className="story-label">Last save</Text>
       <Text>Hyrule Castle, before Agahnim</Text>

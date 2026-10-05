@@ -65,7 +65,7 @@ const Overview = overviewStory({
   description: 'A map of names to values, row by row: a name, a value control and Remove, then an add row.',
   points: [
     '`keys` makes each name a [Combobox] of valid items; without it any name can be typed.',
-    '`valueKind` picks the value control: `count` a [NumberStepper], `number`, `text` or `select`.',
+    '`valueKind` picks the value control: `count` a [NumberInput] with its buttons on the sides, `number`, `text` or `select`.',
     'A name listed twice, an empty name or one not in `keys` is marked; `onChange` waits for a fix.',
     'The add row searches the items not used yet; Add puts the new row at the end.',
   ],

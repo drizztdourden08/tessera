@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 38 of 174 have their usage written; a linked name opens its page.
+One line per component. 40 of 169 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -13,7 +13,6 @@ One line per component. 38 of 174 have their usage written; a linked name opens 
 - `Callout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Canvas`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Card`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Center`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Checkbox`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -37,15 +36,14 @@ One line per component. 38 of 174 have their usage written; a linked name opens 
 - `Icon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `IconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Image`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Inline](components/Inline.md): A row of children side by side with even space between them, such as an icon and its label, a set of tags or a title with its actions. Import from `@drizztdourden08/tessera`.
 - `InputIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [JsonInput](components/JsonInput.md): JSON typed over the code highlighting of CodeBlock, checked as the user types, with the problem, its line and its column, and Format. Import from `@drizztdourden08/tessera`.
 - `Link`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [NamedRange](components/NamedRange.md): A number from a range whose common values have names: the names as joined buttons, then Custom for any other number. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `NumberStepper`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathField](components/PathField.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one field, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
-- `PathIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Pressable`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ProgressBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -53,7 +51,6 @@ One line per component. 38 of 174 have their usage written; a linked name opens 
 - `Quote`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RadioGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
-- `RouterLink`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ScaleLabels`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ScrollArea`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -78,13 +75,11 @@ One line per component. 38 of 174 have their usage written; a linked name opens 
 - `Tag`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TagPicker`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `TermList`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TesseraProvider`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Text`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Text](components/Text.md): Interface text in a role, such as a title, a caption or an overline, and the namespace for every text element, such as Text.P or Text.Strong. Import from `@drizztdourden08/tessera`.
 - `Textarea`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TextElement`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TextInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Thumbnail`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Title`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Toast`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Toggle`: usage not written yet. Import from `@drizztdourden08/tessera`.

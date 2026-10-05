@@ -43,8 +43,8 @@ const VIEWS_GUIDE: Guide = {
     {
       title: 'Links and routes',
       points: [
-        `${GUIDE_LINKS.routerLink} for a route inside the app, ${GUIDE_LINKS.link} for a URL.`,
-        'Wrap `RouterLink` once in an `AppLink` compound that passes the router navigate. Views use `AppLink`.',
+        `${GUIDE_LINKS.link} for a URL, and ${GUIDE_LINKS.link} with \`navigate\` for a route inside the app.`,
+        'Wrap `Link` once in an `AppLink` compound that passes the router navigate. Views use `AppLink`.',
         'Never import the router into a compound. A compound takes an `onOpen` callback or an `AppLink` child.',
       ],
     },

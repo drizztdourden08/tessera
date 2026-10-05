@@ -99,7 +99,7 @@ const Overview = overviewStory({
     'A row stops at 512 px, so on a wide page the value stays near its label.',
     '`size` takes the scale of [StatTile] and [Gauge]: `sm` packs rows closer, `md` by default, `lg` at 14 px.',
   ],
-  instead: '[TermList] for terms and what they mean.',
+  instead: '[FactsPanel] with `layout="terms"` for terms and what they mean.',
   playground: Playground,
   variants: [SessionDetails, Sizes, WidePage],
 });

@@ -8,6 +8,8 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { ImageFrames } from './_samples/ImageFrames';
+import { ImageSaveSlots } from './_samples/ImageSaveSlots';
 import './Image.stories.css';
 
 type Picture = 'valley' | 'dusk' | 'broken' | 'on its way' | 'none';
@@ -158,6 +160,16 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<ImageArgs>;
 
+const Framed = {
+  name: 'Framed, at three sizes',
+  render: () => <ImageFrames />,
+} satisfies StoryLiteStoryDefinition<ImageArgs>;
+
+const SaveSlots = {
+  name: 'Framed, in a list of save slots',
+  render: () => <ImageSaveSlots />,
+} satisfies StoryLiteStoryDefinition<ImageArgs>;
+
 const Overview = overviewStory({
   component: 'Image',
   description: 'The image element of the design system, which holds its space so the layout never jumps while it loads.',
@@ -166,10 +178,11 @@ const Overview = overviewStory({
     'While the source loads it draws a picture outline that pulses.',
     'A source that fails shows the outline in the danger colour with a cross; `fallback` replaces it.',
     '`pending` marks a source that is still on its way.',
+    '`frame` rounds the corners and keeps a small picture from shrinking in a row; set its size with a class.',
   ],
-  instead: '[Thumbnail] for a small image in a fixed frame.',
+  instead: '[Video] for moving pictures.',
   playground: Playground,
-  variants: [SlowSource, WithFallback, Sizes],
+  variants: [SlowSource, WithFallback, Sizes, Framed, SaveSlots],
   states: {
     render: renderState,
     list: [
@@ -182,4 +195,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Playground, Sizes, SlowSource, WithFallback };
+export { Framed, Overview, Playground, SaveSlots, Sizes, SlowSource, WithFallback };

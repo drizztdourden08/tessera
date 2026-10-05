@@ -18,7 +18,7 @@ const usage = {
   ],
   a11y: [
     'The control is a group named by its Field or FormRow label, or by aria-label.',
-    'The names are the buttons of a SegmentedControl, and the custom number a NumberStepper named Custom value.',
+    'The names are the buttons of a SegmentedControl, and the custom number a NumberInput with its buttons on the sides, named Custom value.',
   ],
   tree: {
     path: ['a value the user sets', 'a number with named steps'],

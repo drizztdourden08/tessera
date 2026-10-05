@@ -1,27 +1,17 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { StatRow } from '../../primitives/StatRow';
-import { Tooltip } from '../../primitives/Tooltip';
 import type { FactsPanelProps } from './FactsPanel.type';
+import { FactsPanelRows } from './sub-components/FactsPanelRows';
+import { FactsPanelTerms } from './sub-components/FactsPanelTerms';
 import './FactsPanel.css';
 
 const FactsPanel = (props: FactsPanelProps) => {
   const { groups, layout = 'inline', label, className } = props;
+  const Group = layout === 'terms' ? FactsPanelTerms : FactsPanelRows;
   return (
     <Box className={['facts-panel', `facts-panel--${layout}`, className].filter(Boolean).join(' ')} role="group" aria-label={label}>
       {groups.map((group, i) => (
-        <Box key={group.map((fact) => fact.label).join('|') || i} className="facts-panel__group">
-          {group.map((fact) => (
-            <StatRow
-              key={fact.label}
-              className="facts-panel__fact"
-              label={fact.label}
-              value={fact.title ? <Tooltip content={fact.title} focusable>{fact.value}</Tooltip> : fact.value}
-              mono={fact.mono}
-              copyable={fact.copyable}
-            />
-          ))}
-        </Box>
+        <Group key={group.map((fact) => fact.label).join('|') || i} group={group} />
       ))}
     </Box>
   );

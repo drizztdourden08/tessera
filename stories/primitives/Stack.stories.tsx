@@ -74,7 +74,7 @@ const Overview = overviewStory({
     '`align` sets how the children sit across the column.',
     'It is a [Flex] fixed to the column direction, so it takes every other Flex prop.',
   ],
-  instead: '[Flex] for a row.',
+  instead: '[Inline] for a row.',
   playground: Playground,
   variants: [GapScale],
 });

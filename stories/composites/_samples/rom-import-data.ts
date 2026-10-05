@@ -5,10 +5,10 @@ import { ROM_FILE } from './rotp-profiles';
 type RomImportDraft = { file: string; label: string; extractMusic: boolean; backupCopy: boolean };
 
 const ROM_CHECKS = [
-  { term: 'Internal title', detail: 'THE LEGEND OF ZELDA' },
-  { term: 'Region', detail: 'USA, version 1.0' },
-  { term: 'Size', detail: '1 MB (8 Mbit), no copier header' },
-  { term: 'CRC32', detail: '777AAC2F' },
+  { label: 'Internal title', value: 'THE LEGEND OF ZELDA' },
+  { label: 'Region', value: 'USA, version 1.0' },
+  { label: 'Size', value: '1 MB (8 Mbit), no copier header' },
+  { label: 'CRC32', value: '777AAC2F' },
 ];
 
 const INITIAL_ROM_IMPORT: RomImportDraft = { file: '', label: 'A Link to the Past (USA)', extractMusic: true, backupCopy: true };
@@ -27,11 +27,11 @@ const ROM_IMPORT_STEPS: readonly WizardStepDef<RomImportDraft>[] = [
 ];
 
 const romImportReview = (draft: RomImportDraft): readonly WizardReviewSection[] => [
-  { stepId: 'file', title: 'ROM file', rows: [{ term: 'File', detail: draft.file }] },
+  { stepId: 'file', title: 'ROM file', rows: [{ label: 'File', value: draft.file }] },
   { stepId: 'assets', title: 'Assets', rows: [
-    { term: 'Name', detail: draft.label },
-    { term: 'Music', detail: draft.extractMusic ? 'Extracted' : 'Played from the ROM' },
-    { term: 'Backup', detail: draft.backupCopy ? 'A copy is kept in the data folder' : 'No copy' },
+    { label: 'Name', value: draft.label },
+    { label: 'Music', value: draft.extractMusic ? 'Extracted' : 'Played from the ROM' },
+    { label: 'Backup', value: draft.backupCopy ? 'A copy is kept in the data folder' : 'No copy' },
   ] },
 ];
 

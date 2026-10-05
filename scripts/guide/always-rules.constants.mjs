@@ -18,7 +18,7 @@ const ALWAYS_RULES = [
   },
   {
     title: 'App-wide swaps through TesseraProvider',
-    text: 'Strings, icons, the spinner, the clipboard and the error fallback are swapped through the `overrides` of one `TesseraProvider`, set once at the app root. Links are not an override: use `Link` for URLs and `RouterLink` for app routes.',
+    text: 'Strings, icons, the spinner, the clipboard and the error fallback are swapped through the `overrides` of one `TesseraProvider`, set once at the app root. Links are not an override: use `Link` for URLs, and `Link` with `navigate` for app routes.',
   },
   {
     title: 'Accessibility',

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Box } from '../Box';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { FieldControlBoundary } from '../FieldControlBoundary';
-import { NumberStepper } from '../NumberStepper';
+import { NumberInput } from '../NumberInput';
 import { SegmentedControl } from '../SegmentedControl';
 import { Text } from '../Text';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
@@ -33,7 +33,7 @@ const NamedRange = (props: NamedRangeProps) => {
         <SegmentedControl value={picked} options={namedOptions(strings, props)} onChange={choose} disabled={disabled} size={size} aria-label={props['aria-label']} />
         {picked === CUSTOM && (
           <Box className="named-range__custom">
-            <NumberStepper value={value} min={min} max={max} step={props.step} onChange={step} disabled={disabled} size={size} ariaLabel={strings.options.customValue} />
+            <NumberInput buttons="sides" value={value} min={min} max={max} step={props.step} onChange={step} disabled={disabled} size={size} aria-label={strings.options.customValue} />
             <Text variant="caption" tone="dim">{strings.options.range(min, max)}</Text>
           </Box>
         )}

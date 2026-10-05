@@ -20,7 +20,7 @@ Every icon is an `Icon` by name. A new icon joins the set through `TesseraProvid
 
 ## 5. App-wide swaps through TesseraProvider
 
-Strings, icons, the spinner, the clipboard and the error fallback are swapped through the `overrides` of one `TesseraProvider`, set once at the app root. Links are not an override: use `Link` for URLs and `RouterLink` for app routes.
+Strings, icons, the spinner, the clipboard and the error fallback are swapped through the `overrides` of one `TesseraProvider`, set once at the app root. Links are not an override: use `Link` for URLs, and `Link` with `navigate` for app routes.
 
 ## 6. Accessibility
 

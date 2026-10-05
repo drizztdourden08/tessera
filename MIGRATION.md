@@ -4721,3 +4721,84 @@ The splash text missed WCAG AA. In a Brock app the static page painted the brigh
 1. Brock: drop the `background` of `.splash` and the `color` of `.splash__name` from `splash-page.css`, which paint the bright look over the dark pair and pick a dark ink for it. Inject `--look-dark-from` and `--look-dark-to` only for a product look of its own, and only with stops dark enough that `--c-text-dim` stays at 4.5:1 on them.
 2. An app theme that changes the palette seeds sets `--p-gradient-dark-from` and `--p-gradient-dark-to` too.
 3. An app that styled the splash detail or version itself checks it against the pair.
+
+## 172. Six parts fold into their base parts, Inline joins Stack, and Text takes faint again
+
+From the component audit (TX-24, TX-25, TX-26, TX-27, TX-29, TX-31), the owner's note on Stack (TX-28) and the owner's ask for faint text (TX-05).
+
+Six parts only wrapped another part and set a prop or two. Each is gone, and the part it wrapped takes the prop.
+
+| Removed | Use instead |
+|---|---|
+| `NumberStepper` | `NumberInput` with `buttons="sides"` |
+| `Thumbnail` | `Image` with `frame` |
+| `RouterLink` | `Link` with `navigate` |
+| `Center` | `Flex` with `align="center"` and `justify="center"` |
+| `TermList` | `FactsPanel` with `layout="terms"` |
+| `PathIcon` | `Icon` with `path` |
+
+```ts
+type NumberInputButtons = 'stacked' | 'sides';
+
+interface NumberInputProps {
+  // added
+  buttons?: NumberInputButtons; // default 'stacked'
+}
+
+interface ImageProps {
+  // added
+  frame?: boolean;
+}
+
+interface LinkProps {
+  // added
+  navigate?: (href: string) => void;
+}
+
+type FactsPanelLayout = 'rows' | 'inline' | 'boxed' | 'terms';
+
+interface IconPathCircle {
+  cx: number;
+  cy: number;
+  r: number;
+}
+
+interface IconPath {
+  d?: string | readonly string[];
+  circles?: readonly IconPathCircle[];
+  viewBox?: string; // default '0 0 16 16'
+}
+
+type IconSource =
+  | { name: IconName }
+  | { icon: IconifyIcon }
+  | { path: IconPath }; // added
+
+type InlineProps = Omit<FlexProps, 'direction'>; // new part, gap 'sm' and align 'center' by default
+
+interface TextProps {
+  tone?: TextTone | 'faint'; // faint added
+}
+```
+
+- **NumberInput** takes `buttons`. `'stacked'`, the default, keeps the up and down buttons at the end. `'sides'` puts a minus before the field and a plus after it, around a short centred field, 48 px wide at `md` and 40 px at `sm`, with 32 px and 24 px buttons, as NumberStepper drew it. Both step and clamp through one rule: from the value, or `min`, or 0, move by `step` and hold between `min` and `max`. Both name their buttons Increase and Decrease, so `fields.increment` and `fields.decrement` are gone. The field is a number field either way: the arrow keys step it, the buttons stay out of the Tab order, and a value of `NaN` shows an empty field.
+- **Image** takes `frame`, which rounds the corners and keeps the picture from shrinking in a row, as Thumbnail did. Its size comes from a class or from `width` and `height`. Thumbnail's `placeholder` is Image's `fallback`, which also shows for a source that fails, and a missing `src` is `undefined`, not `null`.
+- **Link** takes `navigate`. A plain click calls `navigate(href)` and keeps the page; a click with a modifier, a middle click, `target="_blank"` or `download` stays with the browser, and the link's own `onClick` runs first and can stop it. RouterLink's `to` is `href`. An app whose router shows a different address, such as a hash router, passes that address as `href` and closes over its route: `navigate={() => navigate(to)}`.
+- **Center** had no prop of its own: `Flex` with `align="center"` and `justify="center"` draws the same, `inline` included.
+- **FactsPanel** takes `layout="terms"`: no box, each group a definition list, each label in the accent colour with its colon and the value after it, as TermList drew it. A `TermListItem` `{ term, detail }` is a `FactsPanelFact` `{ label, value }`, so `<TermList items={items} />` is `<FactsPanel layout="terms" groups={[items]} />`. `WizardReviewSection.rows` takes `FactsPanelFact` rows and WizardReview draws them this way.
+- **Icon** takes `path`, for an app's own icon: `d` is one path or several, `circles` adds circles, and `viewBox` sets the grid. It fills with `currentColor` and takes every other Icon prop: `size`, `label`, `rotate`, `flip` and `effect`. Glyph and the Image placeholder draw through it, so their svg now carries the `icon` class.
+- **Inline** is new: a row shortcut over Flex, the mirror of Stack, as thin as Stack. `gap` defaults to `sm` and `align` to `center`, so an icon lines up with its text; every other Flex prop applies. Its page sits beside Stack's.
+- **Text takes `tone="faint"` again**, the `--c-text-faint` colour, for decoration and secondary hints only, such as a keyboard hint or a watermark. It measures about 1.6:1 on `--c-surface` (1.52:1 with the Brock palette, 1.63:1 with RotP, 1.70:1 with Archipelia), far under the 4.5:1 that body text needs, so never use it for text people must read. Every part of Tessera stays on `muted`, so nothing in Tessera changes look.
+- The stylelint rule **`tessera/no-faint-text`** now counts `--tone-ink` as a text colour too, and lets the one Text faint tone rule, `.text-el--tone-faint`, set it. Every other `color`, `caret-color`, `-webkit-text-fill-color` or `--tone-ink` set to `--c-text-faint` is still an error.
+- The gallery pages of the six parts are gone. Their examples moved: sides buttons onto NumberInput, framed images and save slots onto Image, the app nav onto Link, centred content onto Flex, terms in cards onto FactsPanel, and your own path data onto Icon.
+
+RENAMES.json lists every removed name, prop, string, class and custom property under the release named next.
+
+### What an app does
+
+1. Replace each removed part as the table says. For NumberStepper, also rename `ariaLabel` to `aria-label`; for RouterLink, `to` to `href` and `onNavigate` to `navigate`; for Thumbnail, `placeholder` to `fallback`; for PathIcon, pass `path={{ d: paths, circles, viewBox }}`.
+2. Rename `term` and `detail` to `label` and `value` in WizardReview rows and in any TermList items.
+3. Wrap `Link` once in an `AppLink` that passes the router's navigate, in place of the RouterLink wrapper.
+4. Rename `fields.increment` and `fields.decrement` overrides to `fields.increase` and `fields.decrease`.
+5. Replace hand-made rows of `<Flex align="center" gap="sm">` with `Inline` where it reads better.
+6. Use `tone="faint"` only for decoration and secondary hints; keep `muted` for anything a user reads.

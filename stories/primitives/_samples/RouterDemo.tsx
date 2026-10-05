@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { Box, Flex, RouterLink, Text } from '../../../src/primitives';
+import { Box, Flex, Link, Text } from '../../../src/primitives';
 import { START_PATH } from './router-demo.constants';
 import type { RouterDemoProps } from './RouterDemo.type';
 
@@ -11,9 +11,9 @@ const RouterDemo = (props: RouterDemoProps) => {
     <Box className="story-column">
       <Flex as="nav" gap="lg" wrap aria-label="App">
         {routes.map((route) => (
-          <RouterLink key={route.to} to={route.to} tone={tone} onNavigate={setPath} aria-current={path === route.to ? 'page' : undefined}>
+          <Link key={route.to} href={route.to} tone={tone} navigate={setPath} aria-current={path === route.to ? 'page' : undefined}>
             {route.label}
-          </RouterLink>
+          </Link>
         ))}
       </Flex>
       <Text className="story-label">The app router is at {path}. The page did not reload.</Text>

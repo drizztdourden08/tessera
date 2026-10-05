@@ -11,7 +11,7 @@ const ARGS: Partial<ControlMenuArgs> = { label: 'View options', filter: false, s
 
 const ARG_TYPES: PlaygroundArgTypes<ControlMenuArgs> = {
   label: { group: 'Content', control: 'text', description: 'The trigger label, and the name of the panel for screen readers.' },
-  every: { group: 'Content', control: 'boolean', description: 'Adds a Board group with a NumberStepper and a Select.' },
+  every: { group: 'Content', control: 'boolean', description: 'Adds a Board group with a NumberInput and a Select.' },
   sub: { group: 'Content', control: 'boolean', description: 'Adds a Sounds row that opens a sub-panel beside the panel.' },
   filter: { group: 'Behaviour', control: 'boolean', description: 'A filter field at the top narrows the rows by label; rows in sub-panels show inline.' },
   align: { group: 'Layout', control: 'select', options: ['auto', 'start', 'end'], description: 'Which edge of the trigger the panel lines up with; auto takes the side with more room.' },
@@ -57,7 +57,7 @@ const Overview = overviewStory({
   component: 'ControlMenu',
   description: 'A dropdown of settings, each a compact control with a label, opened from a button it joins like a [DropdownMenu].',
   points: [
-    'A `ControlMenuRow` holds one small control: [SegmentedControl], [Toggle], [Slider], [Select] or [NumberStepper].',
+    'A `ControlMenuRow` holds one small control: [SegmentedControl], [Toggle], [Slider], [Select] or [NumberInput].',
     'A row takes a `hint` for the hint line at the bottom, and `about` for an info tooltip by its label.',
     '`ControlMenuSub` opens a sub-panel beside the panel, joined at its row like a sub-menu.',
     '`filter` adds a field at the top that narrows the rows by label; rows in sub-panels show inline.',

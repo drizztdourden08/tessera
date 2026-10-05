@@ -19,7 +19,7 @@ ControlMenu keeps several small settings one click away without a page or a dial
 ## Use it when
 
 - A tool, a panel or a widget has several settings that are not worth a page of their own, such as the options behind a gear.
-- The settings take richer controls than a menu item: a SegmentedControl, a Slider, a Select or a NumberStepper.
+- The settings take richer controls than a menu item: a SegmentedControl, a Slider, a Select or a NumberInput with its buttons on the sides.
 - Some settings belong together and can wait one step further, in a sub-panel beside the panel.
 
 ## Use something else when

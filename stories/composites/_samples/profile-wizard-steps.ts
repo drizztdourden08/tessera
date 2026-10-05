@@ -67,18 +67,18 @@ const profileSteps = (seedExtra: SeedExtra): readonly WizardStepDef<ProfileDraft
 const optionRows = (draft: ProfileDraft) => {
   const names = changedNames(draft.options);
   return names.length === 0
-    ? [{ term: 'Changed', detail: 'None, every tab is on its defaults' }]
-    : names.map((name) => ({ term: name.split(': ')[0] ?? name, detail: name.split(': ')[1] ?? '' }));
+    ? [{ label: 'Changed', value: 'None, every tab is on its defaults' }]
+    : names.map((name) => ({ label: name.split(': ')[0] ?? name, value: name.split(': ')[1] ?? '' }));
 };
 
 const seedRows = (draft: ProfileDraft) => [
-  { term: 'Seed', detail: draft.seed },
-  ...(draft.mode === 'online' ? [{ term: 'Server URL', detail: draft.server }, { term: 'Slot name', detail: draft.slot }] : []),
+  { label: 'Seed', value: draft.seed },
+  ...(draft.mode === 'online' ? [{ label: 'Server URL', value: draft.server }, { label: 'Slot name', value: draft.slot }] : []),
 ];
 
 const profileReview = (draft: ProfileDraft): readonly WizardReviewSection[] => [
-  { stepId: 'basics', title: 'Basics', rows: [{ term: 'Profile name', detail: draft.name }, { term: 'ROM', detail: draft.rom }] },
-  { stepId: 'mode', title: 'Mode', rows: [{ term: 'Mode', detail: MODE_LABEL[draft.mode] }] },
+  { stepId: 'basics', title: 'Basics', rows: [{ label: 'Profile name', value: draft.name }, { label: 'ROM', value: draft.rom }] },
+  { stepId: 'mode', title: 'Mode', rows: [{ label: 'Mode', value: MODE_LABEL[draft.mode] }] },
   ...(randomizer(draft) ? [
     { stepId: 'seed', title: 'Seed and connection', rows: seedRows(draft) },
     { stepId: 'options', title: 'Randomizer options', rows: optionRows(draft) },
@@ -87,9 +87,9 @@ const profileReview = (draft: ProfileDraft): readonly WizardReviewSection[] => [
     stepId: 'settings',
     title: 'Settings',
     rows: [
-      { term: 'Preset', detail: labelOf(PRESETS, draft.preset) },
-      { term: 'Language', detail: labelOf(LANGUAGES, draft.language) },
-      { term: 'MSU pack', detail: labelOf(MSU_PACKS, draft.msu) },
+      { label: 'Preset', value: labelOf(PRESETS, draft.preset) },
+      { label: 'Language', value: labelOf(LANGUAGES, draft.language) },
+      { label: 'MSU pack', value: labelOf(MSU_PACKS, draft.msu) },
     ],
   },
 ];

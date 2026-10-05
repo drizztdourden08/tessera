@@ -341,7 +341,9 @@
             "components": []
           },
           "items in a row or a column": {
-            "components": []
+            "components": [
+              "Inline"
+            ]
           },
           "blocks stacked in a column": {
             "components": []
@@ -486,7 +488,9 @@
             "components": []
           },
           "running text": {
-            "components": []
+            "components": [
+              "Text"
+            ]
           },
           "a quotation": {
             "components": []
@@ -733,16 +737,6 @@
       "name": "Card",
       "tier": "primitives",
       "source": "src/primitives/Card/Card.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
-      "name": "Center",
-      "tier": "primitives",
-      "source": "src/primitives/Center/Center.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
@@ -1269,6 +1263,135 @@
       "usage": false
     },
     {
+      "name": "Inline",
+      "tier": "primitives",
+      "source": "src/primitives/Inline/Inline.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A row of children side by side with even space between them, such as an icon and its label, a set of tags or a title with its actions.",
+      "useWhen": [
+        "A few items sit on one line, such as an icon beside its text or a name beside its status.",
+        "A title and its actions share a line, with the actions pushed to the far end."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The items run down a column.",
+          "use": "Stack"
+        },
+        {
+          "case": "The direction changes at run time, or the row needs a setting Inline does not default.",
+          "use": "Flex"
+        },
+        {
+          "case": "The items line up in equal columns across several rows.",
+          "use": "Grid"
+        }
+      ],
+      "rules": [
+        "Leave gap at its default of sm for an icon beside its text; pick a larger space token for separate items.",
+        "align defaults to center, so an icon lines up with its text; set baseline for words of different sizes.",
+        "Set justify to between to push the last item to the far end, and wrap to let a long row flow onto new lines.",
+        "It is a Flex fixed to the row direction and takes every other Flex prop, such as as and className."
+      ],
+      "a11y": [
+        "It adds no role; set as to ul or nav when the row is a list or a set of links, so screen readers hear the structure.",
+        "The visual order is the reading order, so put the items in the order a keyboard user tabs through them."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "items in a row or a column"
+        ],
+        "rule": "Inline lays its children side by side in a row, with a token gap and the items centred across it."
+      },
+      "example": "import { Icon, Inline, Status, Text } from '@drizztdourden08/tessera';\n\nconst SessionRow = () => (\n  <Inline>\n    <Icon name=\"gamepad-2\" />\n    <Text>Session 4</Text>\n    <Status tone=\"success\" dot>Connected</Status>\n  </Inline>\n);\n",
+      "propsHash": "ac8cfbcd623049ee",
+      "props": {
+        "own": [
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "gap",
+            "optional": true,
+            "text": "SpaceToken",
+            "literals": [
+              "'xs'",
+              "'sm'",
+              "'md'",
+              "'lg'",
+              "'xl'",
+              "'2xl'"
+            ],
+            "default": "'sm'"
+          },
+          {
+            "name": "align",
+            "optional": true,
+            "text": "FlexAlign",
+            "literals": [
+              "'start'",
+              "'center'",
+              "'end'",
+              "'stretch'",
+              "'baseline'"
+            ],
+            "default": "'center'"
+          },
+          {
+            "name": "justify",
+            "optional": true,
+            "text": "FlexJustify",
+            "literals": [
+              "'start'",
+              "'center'",
+              "'end'",
+              "'between'",
+              "'around'"
+            ]
+          },
+          {
+            "name": "wrap",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "inline",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "as",
+            "optional": true,
+            "text": "ElementType"
+          }
+        ],
+        "inherited": {
+          "count": 277,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "HTMLAttributes<HTMLElement>"
+          ]
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Primitives · Layout/Inline",
+        "route": "#/story/primitives-inline--overview",
+        "file": "stories/primitives/Inline.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "InputIcon",
       "tier": "primitives",
       "source": "src/primitives/InputIcon/InputIcon.tsx",
@@ -1474,7 +1597,7 @@
       ],
       "a11y": [
         "The control is a group named by its Field or FormRow label, or by aria-label.",
-        "The names are the buttons of a SegmentedControl, and the custom number a NumberStepper named Custom value."
+        "The names are the buttons of a SegmentedControl, and the custom number a NumberInput with its buttons on the sides, named Custom value."
       ],
       "tree": {
         "path": [
@@ -1573,16 +1696,6 @@
       "name": "NumberInput",
       "tier": "primitives",
       "source": "src/primitives/NumberInput/NumberInput.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
-      "name": "NumberStepper",
-      "tier": "primitives",
-      "source": "src/primitives/NumberStepper/NumberStepper.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
@@ -1763,16 +1876,6 @@
         "file": "stories/primitives/PathField.stories.tsx"
       },
       "parts": []
-    },
-    {
-      "name": "PathIcon",
-      "tier": "primitives",
-      "source": "src/primitives/PathIcon/PathIcon.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
     },
     {
       "name": "Portal",
@@ -1974,16 +2077,6 @@
         "file": "stories/primitives/RetryButton.stories.tsx"
       },
       "parts": []
-    },
-    {
-      "name": "RouterLink",
-      "tier": "primitives",
-      "source": "src/primitives/RouterLink/RouterLink.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
     },
     {
       "name": "ScaleLabels",
@@ -2987,16 +3080,6 @@
       "usage": false
     },
     {
-      "name": "TermList",
-      "tier": "primitives",
-      "source": "src/primitives/TermList/TermList.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
       "name": "TesseraProvider",
       "tier": "primitives",
       "source": "src/primitives/TesseraProvider/TesseraProvider.tsx",
@@ -3014,7 +3097,156 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
+      "usage": true,
+      "job": "Interface text in a role, such as a title, a caption or an overline, and the namespace for every text element, such as Text.P or Text.Strong.",
+      "useWhen": [
+        "A label, a caption or a short line of interface copy needs a size and a colour from the scale.",
+        "Running text uses the elements under Text, such as Text.P, Text.Strong or Text.Code."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A heading that names a page or a section.",
+          "use": "Title"
+        },
+        {
+          "case": "A section title with an action beside it.",
+          "use": "SectionHeader"
+        }
+      ],
+      "rules": [
+        "Pick the role with variant: title, subtitle, body, label, caption, or overline over a group; with no variant it takes the size and colour of its parent.",
+        "Colour it with tone, as on Span: muted for quiet captions, danger for an error.",
+        "Use the faint tone for decoration and secondary hints only, such as a keyboard hint beside a field or a watermark; never for text people must read. It measures about 1.6:1 on the surface (1.5:1 to 1.7:1 across the app palettes), under the 4.5:1 that body text needs, so the quietest tone for text is muted.",
+        "The parts of Tessera use muted, never faint; faint is there only for an app that asks for it.",
+        "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
+      ],
+      "a11y": [
+        "It renders a span unless as names another element; pick p, label or a heading element when the text has that role.",
+        "Faint text fails the contrast a reader needs, so nothing a user must read or act on may use it."
+      ],
+      "tree": {
+        "path": [
+          "text",
+          "running text"
+        ],
+        "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
+      },
+      "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
+      "propsHash": "f727b6a67ffcbd3d",
+      "props": {
+        "own": [
+          {
+            "name": "as",
+            "optional": true,
+            "text": "ElementType"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "TextVariant",
+            "literals": [
+              "'body'",
+              "'label'",
+              "'title'",
+              "'subtitle'",
+              "'caption'",
+              "'overline'"
+            ]
+          },
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "TextTone | 'faint'",
+            "literals": [
+              "'danger'",
+              "'dim'",
+              "'faint'",
+              "'info'",
+              "'muted'",
+              "'primary'",
+              "'secondary'",
+              "'success'",
+              "'tertiary'",
+              "'warning'"
+            ]
+          },
+          {
+            "name": "mono",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "numeric",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "weight",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "italic",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "opticalSize",
+            "optional": true,
+            "text": "OpticalSize"
+          },
+          {
+            "name": "features",
+            "optional": true,
+            "text": "readonly TypeFeature[]"
+          }
+        ],
+        "inherited": {
+          "count": 277,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "HTMLAttributes<HTMLElement>"
+          ]
+        }
+      },
+      "tokens": [
+        "--c-danger",
+        "--c-info",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-tertiary",
+        "--c-text",
+        "--c-text-dim",
+        "--c-text-faint",
+        "--c-text-muted",
+        "--c-warning",
+        "--font-mono",
+        "--text-base",
+        "--text-lg",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-caps",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Core · Text/Text",
+        "route": "#/story/text-text--overview",
+        "file": "stories/text/Text.stories.tsx"
+      },
+      "parts": [
+        "featureSettings",
+        "typesettingStyle"
+      ]
     },
     {
       "name": "Textarea",
@@ -3040,16 +3272,6 @@
       "name": "TextInput",
       "tier": "primitives",
       "source": "src/primitives/TextInput/TextInput.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/primitives"
-      ],
-      "usage": false
-    },
-    {
-      "name": "Thumbnail",
-      "tier": "primitives",
-      "source": "src/primitives/Thumbnail/Thumbnail.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
@@ -3713,7 +3935,7 @@
       "job": "A dropdown of settings behind one button: each row is a label with one compact control, and the panel joins its button like a DropdownMenu.",
       "useWhen": [
         "A tool, a panel or a widget has several settings that are not worth a page of their own, such as the options behind a gear.",
-        "The settings take richer controls than a menu item: a SegmentedControl, a Slider, a Select or a NumberStepper.",
+        "The settings take richer controls than a menu item: a SegmentedControl, a Slider, a Select or a NumberInput with its buttons on the sides.",
         "Some settings belong together and can wait one step further, in a sub-panel beside the panel."
       ],
       "avoidWhen": [
@@ -5119,6 +5341,11 @@
             "text": "string"
           },
           {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
             "name": "line",
             "optional": true,
             "text": "ReactNode"
@@ -5178,11 +5405,6 @@
             "name": "logHeight",
             "optional": true,
             "text": "number"
-          },
-          {
-            "name": "label",
-            "optional": true,
-            "text": "string"
           }
         ],
         "inherited": {
@@ -7109,8 +7331,8 @@
           "use": "Image"
         },
         {
-          "case": "A small framed preview stands for the video in a list.",
-          "use": "Thumbnail"
+          "case": "A small framed preview stands for the video in a list, as an Image with frame.",
+          "use": "Image"
         }
       ],
       "rules": [

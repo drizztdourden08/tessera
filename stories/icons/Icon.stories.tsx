@@ -12,6 +12,7 @@ import { overviewStory } from '../_template/overview-story';
 import { IconEffectSpecimen } from './IconEffectSpecimen';
 import { IconEffectsGallery } from './IconEffectsGallery';
 import { IconGallery } from './IconGallery';
+import { IconOwnPaths } from './IconOwnPaths';
 import './icons.stories.css';
 
 type IconTone = 'text' | 'primary' | 'secondary' | 'warning' | 'danger' | 'muted';
@@ -131,6 +132,11 @@ const AnyIcon = {
   ),
 } satisfies StoryLiteStoryDefinition<IconArgs>;
 
+const OwnPaths = {
+  name: 'Your own path data',
+  render: () => <IconOwnPaths />,
+} satisfies StoryLiteStoryDefinition<IconArgs>;
+
 const CODE = `import { Icon } from '@drizztdourden08/tessera';
 import swordsIcon from '@iconify-icons/lucide/swords';
 
@@ -141,6 +147,7 @@ import swordsIcon from '@iconify-icons/lucide/swords';
 <Icon name="settings" effect={{ kind: 'ping', every: 2000, color: 'secondary' }} />
 <Icon name="star" effect={{ kind: 'comet', size: 'lg' }} />
 <Icon icon={swordsIcon} />
+<Icon path={{ d: 'M1 3h5l2 2h7v8H1z' }} label="Folder" />
 <Icon.Brand name="rotp" size={32} />`;
 
 const Overview = overviewStory({
@@ -148,16 +155,17 @@ const Overview = overviewStory({
   description: 'The icon every app shares: a named Lucide icon, or any @iconify icon, drawn from data bundled with the app.',
   points: [
     '`name` picks from the named set; `icon` takes any @iconify icon you import.',
+    '`path` draws an icon of your own: `d` takes path data, `circles` circles, `viewBox` the grid, 16 by default.',
     'It draws in `currentColor`, so it takes the colour of the text around it.',
     '`size`, `rotate` in quarter turns and `flip` set how it sits.',
     '**Label it when it stands alone:** without a `label`, assistive tech skips it.',
     '`effect` lands a small pop every few seconds, such as a twinkle; reduced motion turns it off.',
   ],
-  instead: '[EmojiIcon] for a colour emoji, or [PathIcon] for a one-off shape no set has.',
+  instead: '[EmojiIcon] for a colour emoji.',
   playground: Playground,
-  variants: [NamedSet, Transforms, Effects, AnyIcon],
+  variants: [NamedSet, Transforms, Effects, AnyIcon, OwnPaths],
   code: CODE,
 });
 
 export default meta;
-export { AnyIcon, Effects, NamedSet, Overview, Playground, Transforms };
+export { AnyIcon, Effects, NamedSet, Overview, OwnPaths, Playground, Transforms };

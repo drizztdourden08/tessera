@@ -7,7 +7,6 @@ import { Combobox } from '../src/primitives/Combobox';
 import { Field } from '../src/primitives/Field';
 import { NumberInput } from '../src/primitives/NumberInput';
 import { Select } from '../src/primitives/Select';
-import { NumberStepper } from '../src/primitives/NumberStepper';
 import { TextInput } from '../src/primitives/TextInput';
 
 const noop = () => undefined;
@@ -18,7 +17,7 @@ describe('control sizes', () => {
     const controls = [
       h(TextInput, {}),
       h(NumberInput, { value: 4, onChange: noop }),
-      h(NumberStepper, { value: 4, onChange: noop }),
+      h(NumberInput, { buttons: 'sides', value: 4, onChange: noop }),
       h(Select, { items: ITEMS, value: null, onChange: noop }),
       h(Combobox, { items: ITEMS, value: null, onChange: noop }),
       h(Checkbox, { checked: true, onChange: noop }),

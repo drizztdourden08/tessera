@@ -4,8 +4,8 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Box } from '../src/primitives/Box';
 import { Link } from '../src/primitives/Link';
-import { RouterLink } from '../src/primitives/RouterLink';
-import { isPlainClick } from '../src/primitives/RouterLink/behavior/is-plain-click';
+import { isPlainClick } from '../src/primitives/Link/behavior/is-plain-click';
+import { navigateClick } from '../src/primitives/Link/behavior/navigate-click';
 import { Toggle } from '../src/primitives/Toggle';
 
 const anchor = (attributes = {}) => ({
@@ -22,11 +22,10 @@ const click = (overrides = {}) => {
   return event;
 };
 
-const follow = (props, event) => {
+const follow = (href, event, onClick) => {
   const went = [];
-  const element = RouterLink({ onNavigate: (to) => went.push(to), ...props });
-  element.props.onClick(event);
-  return { went, element };
+  navigateClick(href, (to) => went.push(to), onClick)(event);
+  return { went };
 };
 
 describe('Link', () => {
@@ -55,15 +54,19 @@ describe('Link', () => {
   });
 });
 
-describe('RouterLink', () => {
-  it('renders a real href, the destination unless href says otherwise', () => {
-    expect(renderToString(h(RouterLink, { to: '/saves/2', onNavigate: () => undefined }, 'Slot 2'))).toContain('href="/saves/2"');
-    expect(renderToString(h(RouterLink, { to: '/saves/2', href: '#/saves/2', onNavigate: () => undefined }, 'Slot 2'))).toContain('href="#/saves/2"');
+describe('Link with navigate', () => {
+  it('still renders a real href', () => {
+    expect(renderToString(h(Link, { href: '/saves/2', navigate: () => undefined }, 'Slot 2'))).toContain('href="/saves/2"');
   });
 
-  it('hands a plain click to onNavigate instead of loading the page', () => {
+  it('keeps the plain onClick when it has no navigate', () => {
+    const onClick = () => undefined;
+    expect(navigateClick('/saves/2', undefined, onClick)).toBe(onClick);
+  });
+
+  it('hands a plain click to navigate instead of loading the page', () => {
     const event = click();
-    const { went } = follow({ to: '/saves/2' }, event);
+    const { went } = follow('/saves/2', event);
     expect(went).toEqual(['/saves/2']);
     expect(event.prevented).toBe(true);
   });
@@ -72,14 +75,14 @@ describe('RouterLink', () => {
     const cases = [{ ctrlKey: true }, { metaKey: true }, { shiftKey: true }, { altKey: true }, { button: 1 }, { currentTarget: anchor({ target: '_blank' }) }, { currentTarget: anchor({ download: '' }) }];
     for (const overrides of cases) {
       const event = click(overrides);
-      expect(follow({ to: '/saves/2' }, event).went).toEqual([]);
+      expect(follow('/saves/2', event).went).toEqual([]);
       expect(event.prevented).toBe(false);
     }
   });
 
   it('runs its own onClick first, which can stop the navigation', () => {
     const event = click();
-    const { went } = follow({ to: '/saves/2', onClick: (e) => e.preventDefault() }, event);
+    const { went } = follow('/saves/2', event, (e) => e.preventDefault());
     expect(went).toEqual([]);
     expect(isPlainClick(click({ defaultPrevented: true }))).toBe(false);
   });

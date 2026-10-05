@@ -7,8 +7,6 @@ const FIELD_STRINGS = {
   clear: 'Clear',
   dropFiles: 'Drop files here',
   browseFiles: 'or click to browse files',
-  increment: 'Increment',
-  decrement: 'Decrement',
   increase: 'Increase',
   decrease: 'Decrease',
   earlierTabs: 'Show earlier tabs',

@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind types */
-import type { TermListItem } from '../../../primitives/TermList';
+import type { FactsPanelFact } from '../../FactsPanel';
 
 interface WizardReviewSection {
   stepId: string;
   title: string;
-  rows: readonly TermListItem[];
+  rows: readonly FactsPanelFact[];
 }
 
 interface WizardReviewProps {

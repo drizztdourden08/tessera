@@ -15,23 +15,23 @@ type ReviewArgs = {
 };
 
 const SECTIONS: readonly WizardReviewSection[] = [
-  { stepId: 'basics', title: 'Basics', rows: [{ term: 'Profile name', detail: 'Weekly async' }, { term: 'ROM', detail: 'The Legend of Zelda: A Link to the Past (USA).sfc' }] },
-  { stepId: 'mode', title: 'Mode', rows: [{ term: 'Mode', detail: 'Randomizer, online (Archipelago)' }] },
+  { stepId: 'basics', title: 'Basics', rows: [{ label: 'Profile name', value: 'Weekly async' }, { label: 'ROM', value: 'The Legend of Zelda: A Link to the Past (USA).sfc' }] },
+  { stepId: 'mode', title: 'Mode', rows: [{ label: 'Mode', value: 'Randomizer, online (Archipelago)' }] },
   {
     stepId: 'seed',
     title: 'Seed and connection',
     rows: [
-      { term: 'Seed', detail: <Code>3f9a0c71be42d580</Code> },
-      { term: 'Server URL', detail: 'archipelago.gg:38281' },
-      { term: 'Slot name', detail: 'Mira' },
+      { label: 'Seed', value: <Code>3f9a0c71be42d580</Code> },
+      { label: 'Server URL', value: 'archipelago.gg:38281' },
+      { label: 'Slot name', value: 'Mira' },
     ],
   },
   {
     stepId: 'options',
     title: 'Randomizer options',
     rows: [
-      { term: 'Changed', detail: <><Tag>Big Key Shuffle: Any World</Tag> <Tag>Small Key Shuffle: Universal</Tag> <Tag>Retro Bow: On</Tag></> },
-      { term: 'Defaults', detail: 'Every other row on the 14 tabs' },
+      { label: 'Changed', value: <><Tag>Big Key Shuffle: Any World</Tag> <Tag>Small Key Shuffle: Universal</Tag> <Tag>Retro Bow: On</Tag></> },
+      { label: 'Defaults', value: 'Every other row on the 14 tabs' },
     ],
   },
 ];
@@ -71,8 +71,8 @@ const CODE = `import { WizardReview } from '@drizztdourden08/tessera';
 
 <WizardReview
   sections={[
-    { stepId: 'basics', title: 'Basics', rows: [{ term: 'Name', detail: draft.name }] },
-    { stepId: 'seed', title: 'Seed and connection', rows: [{ term: 'Seed', detail: <Code>{draft.seed}</Code> }] },
+    { stepId: 'basics', title: 'Basics', rows: [{ label: 'Name', value: draft.name }] },
+    { stepId: 'seed', title: 'Seed and connection', rows: [{ label: 'Seed', value: <Code>{draft.seed}</Code> }] },
   ]}
   onEdit={wizard.goTo}
   disabled={wizard.busy}
@@ -82,7 +82,7 @@ const Overview = overviewStory({
   component: 'WizardReview',
   description: 'The last step of a wizard: what was chosen on each step, with an Edit button that goes back to it.',
   points: [
-    '`sections` holds one block per step, with label and value rows drawn by a [TermList].',
+    '`sections` holds one block per step, with label and value rows drawn by a [FactsPanel] with `layout="terms"`.',
     'A value can be text or any node, such as a [Tag].',
     'Pass the wizard\'s `goTo` as `onEdit`.',
     '`disabled` holds the Edit buttons while the finish runs.',

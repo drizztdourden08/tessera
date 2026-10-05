@@ -74,7 +74,7 @@ import { Demonstrator } from '../_template/Demonstrator';
   corner="Glyph"
   rows={axis(NAMES)}
   columns={axis(['12px', '16px', '24px'])}
-  cell={(name, size) => <PathIcon {...GLYPHS[name]} size={Number.parseInt(size, 10)} />}
+  cell={(name, size) => <Glyph name={name} size={Number.parseInt(size, 10)} />}
 />
 ```
 

@@ -708,6 +708,54 @@
         "StatusOfProps": "StatusProps",
         "StatusOf": "Status"
       }
+    },
+    {
+      "version": "next",
+      "components": {
+        "NumberStepperProps": "NumberInputProps, with buttons: 'sides'; ariaLabel is aria-label (see MIGRATION.md section 172)",
+        "NumberStepper": "NumberInput, with buttons=\"sides\"; ariaLabel is aria-label (see MIGRATION.md section 172)",
+        "ThumbnailProps": "ImageProps, with frame (see MIGRATION.md section 172)",
+        "Thumbnail": "Image, with frame; placeholder is fallback, and a missing src is undefined, not null (see MIGRATION.md section 172)",
+        "RouterLinkProps": "LinkProps, with navigate (see MIGRATION.md section 172)",
+        "RouterLink": "Link, with navigate; to is href and onNavigate is navigate (see MIGRATION.md section 172)",
+        "TermListItem": "FactsPanelFact; term is label and detail is value (see MIGRATION.md section 172)",
+        "TermListProps": "FactsPanelProps, with layout: 'terms'; items is groups: [items] (see MIGRATION.md section 172)",
+        "TermList": "FactsPanel, with layout=\"terms\"; items is groups={[items]} (see MIGRATION.md section 172)",
+        "PathIconCircle": "IconPathCircle",
+        "PathIconProps": "IconProps, with path (see MIGRATION.md section 172)",
+        "PathIcon": "Icon, with path={{ d: paths, circles, viewBox }} (see MIGRATION.md section 172)",
+        "CenterProps": "FlexProps, with align and justify set to center (see MIGRATION.md section 172)",
+        "Center": "Flex, with align=\"center\" and justify=\"center\" (see MIGRATION.md section 172)"
+      },
+      "props": {
+        "NumberStepper.ariaLabel": "NumberInput.aria-label",
+        "Thumbnail.placeholder": "Image.fallback",
+        "RouterLink.onNavigate": "Link.navigate, called with the href (see MIGRATION.md section 172)",
+        "RouterLink.to": "Link.href; an app that showed a different href closes over its route in navigate (see MIGRATION.md section 172)",
+        "TermList.items": "FactsPanel.groups, as groups={[items]} (see MIGRATION.md section 172)",
+        "PathIcon.viewBox": "Icon.path, as path={{ viewBox }} (see MIGRATION.md section 172)",
+        "PathIcon.circles": "Icon.path, as path={{ circles }} (see MIGRATION.md section 172)",
+        "PathIcon.paths": "Icon.path, as path={{ d: paths }} (see MIGRATION.md section 172)"
+      },
+      "strings": {
+        "fields.increment": "fields.increase",
+        "fields.decrement": "fields.decrease"
+      },
+      "cssClasses": {
+        "number-stepper--disabled": "number-input--disabled",
+        "number-stepper__field": "number-input__field",
+        "number-stepper__btn": "number-input__side",
+        "number-stepper": "number-input number-input--sides",
+        "term-list__detail": "facts-panel__term-value",
+        "term-list__term": "facts-panel__term-label",
+        "term-list__item": "facts-panel__term",
+        "term-list": "facts-panel facts-panel--terms",
+        "thumbnail": "image image--framed"
+      },
+      "cssCustomProperties": {
+        "--number-stepper-button-w": "--number-input-side-w",
+        "--number-stepper-field-w": "--number-input-sides-field-w"
+      }
     }
   ]
 }

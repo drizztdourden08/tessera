@@ -2,9 +2,9 @@
 import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
 import { Icon } from '../../../primitives/Icon';
-import { TermList } from '../../../primitives/TermList';
 import { H3 } from '../../../primitives/Title';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { FactsPanel } from '../../FactsPanel';
 import type { WizardReviewProps } from './WizardReview.type';
 import './WizardReview.css';
 
@@ -29,7 +29,7 @@ const WizardReview = (props: WizardReviewProps) => {
               </Button>
             )}
           </Box>
-          <TermList items={section.rows} className="wizard-review__rows" />
+          <FactsPanel layout="terms" groups={[section.rows]} className="wizard-review__rows" />
         </Box>
       ))}
     </Box>

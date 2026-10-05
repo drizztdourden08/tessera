@@ -40,6 +40,10 @@
   color: var(--tone-ink);
 }
 
+.text-el--tone-faint {
+  --tone-ink: var(--c-text-faint);
+}
+
 .text--mono {
   font-family: var(--font-mono);
 }

@@ -91,7 +91,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Between a few modes, from a floating switch: no component yet.
 - Layout. **What are you arranging?**
   - A plain block: no component yet.
-  - Items in a row or a column: no component yet.
+  - Items in a row or a column: [Inline](components/Inline.md). Inline lays its children side by side in a row, with a token gap and the items centred across it.
   - Blocks stacked in a column: no component yet.
   - Items on a grid: no component yet.
   - One item in the centre: no component yet.
@@ -132,7 +132,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 - Text. **What kind of text?**
   - A heading: no component yet.
   - A section heading with an action: no component yet.
-  - Running text: no component yet.
+  - Running text: [Text](components/Text.md). Text sets interface copy in a role from the scale, and its members draw each text element.
   - A quotation: no component yet.
   - A block of code: no component yet.
   - Words that draw the eye, animated: no component yet.

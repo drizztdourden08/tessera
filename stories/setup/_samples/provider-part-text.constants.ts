@@ -17,7 +17,7 @@ const PART_TEXT: Readonly<Record<TesseraPart, ProviderPartText>> = {
   },
   imagePlaceholder: {
     title: 'Image placeholder',
-    note: 'Image and Thumbnail draw the app placeholder until the picture loads.',
+    note: 'Image draws the app placeholder until the picture loads, framed or not.',
   },
   strings: {
     title: 'Wording',

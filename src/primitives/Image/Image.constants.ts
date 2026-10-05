@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind constants */
-import type { PathIconCircle } from '../PathIcon';
+import type { IconPathCircle } from '../Icon';
 
 const DEFAULT_ASPECT_RATIO = '16 / 9';
 
@@ -10,7 +10,7 @@ const IMAGE_GLYPH_PATHS: string[] = [
   'M2 16l5-5 3.5 3.5 4-4.5 7.5 7',
 ];
 
-const IMAGE_GLYPH_CIRCLES: PathIconCircle[] = [{ cx: 18, cy: 8, r: 1.5 }];
+const IMAGE_GLYPH_CIRCLES: IconPathCircle[] = [{ cx: 18, cy: 8, r: 1.5 }];
 
 const IMAGE_GLYPH_STROKE = 1.5;
 

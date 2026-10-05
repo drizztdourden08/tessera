@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Glyph } from '../../Glyph';
-import { PathIcon } from '../../PathIcon';
+import { Icon } from '../../Icon';
 import {
   BROKEN_BADGE_STROKE,
   IMAGE_GLYPH_CIRCLES,
@@ -15,11 +15,9 @@ const ImagePlaceholder = (props: ImagePlaceholderProps) => {
   const { status } = props;
   return (
     <span className={`image-placeholder image-placeholder--${status}`} aria-hidden>
-      <PathIcon
+      <Icon
         className="image-placeholder__icon"
-        viewBox={IMAGE_GLYPH_VIEWBOX}
-        paths={IMAGE_GLYPH_PATHS}
-        circles={IMAGE_GLYPH_CIRCLES}
+        path={{ d: IMAGE_GLYPH_PATHS, circles: IMAGE_GLYPH_CIRCLES, viewBox: IMAGE_GLYPH_VIEWBOX }}
         fill="none"
         stroke="currentColor"
         strokeWidth={IMAGE_GLYPH_STROKE}

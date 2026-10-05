@@ -67,7 +67,7 @@ const Body = ({ wizard }: BodyProps) => {
           <Slider label="Outer Deadzone" description="Reach full tilt before physical edge" value={values.outer} min={70} max={100} onChange={(v) => setValue('outer', v)} showValue formatValue={percent} />
         </Box>
       </Box>
-      <WizardReview sections={[{ stepId: 'center', title: 'Calibration', rows: [{ term: 'Center', detail: 'Sampled' }, { term: 'Range', detail: 'Full circle on both sticks' }] }]} onEdit={wizard.goTo} disabled={wizard.busy} />
+      <WizardReview sections={[{ stepId: 'center', title: 'Calibration', rows: [{ label: 'Center', value: 'Sampled' }, { label: 'Range', value: 'Full circle on both sticks' }] }]} onEdit={wizard.goTo} disabled={wizard.busy} />
     </>
   );
 };

@@ -18,6 +18,11 @@ describe('Text', () => {
     expect(html).toContain('class="text text--caption text--toned text-el--tone-danger"');
   });
 
+  it('takes the faint tone, for decoration and secondary hints only', () => {
+    const html = renderToString(h(Text, { variant: 'caption', tone: 'faint' }, 'Hold Shift to snap'));
+    expect(html).toContain('class="text text--caption text--toned text-el--tone-faint"');
+  });
+
   it('sets the code face and tabular figures', () => {
     expect(renderToString(h(Text, { mono: true, numeric: true }, '01:12'))).toContain('class="text text--mono text--numeric"');
   });
@@ -31,5 +36,10 @@ describe('the faint text rule of the standards extension', () => {
   it('refuses faint text colour and keeps faint borders', async () => {
     expect(await lintCss('.a { color: var(--c-text-faint); }')).toEqual(['tessera/no-faint-text']);
     expect(await lintCss('.a { border-color: var(--c-text-faint); background: var(--c-text-faint); color: var(--c-text-muted); }')).toEqual([]);
+  });
+
+  it('lets only the faint tone of Text route faint into the tone ink', async () => {
+    expect(await lintCss('.a { --tone-ink: var(--c-text-faint); }')).toEqual(['tessera/no-faint-text']);
+    expect(await lintCss('.text-el--tone-faint { --tone-ink: var(--c-text-faint); }')).not.toContain('tessera/no-faint-text');
   });
 });

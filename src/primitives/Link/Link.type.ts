@@ -10,6 +10,7 @@ interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   tone?: LinkTone;
   variant?: LinkVariant;
   external?: boolean;
+  navigate?: (href: string) => void;
   ref?: Ref<HTMLAnchorElement>;
 }
 

@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { ControlMenu, ControlMenuGroup, ControlMenuRow, ControlMenuSub } from '../../../src/composites';
-import { Box, NumberStepper, SegmentedControl, Select, Slider, Text, Toggle } from '../../../src/primitives';
+import { Box, NumberInput, SegmentedControl, Select, Slider, Text, Toggle } from '../../../src/primitives';
 import type { SegmentOption } from '../../../src/primitives';
 
 type ControlMenuDemoProps = {
@@ -46,7 +46,7 @@ const ControlMenuDemo = (props: ControlMenuDemoProps) => {
         {every && (
           <ControlMenuGroup label="Board">
             <ControlMenuRow label="Columns" hint={{ label: 'Columns', description: 'How many cards side by side' }}>
-              <NumberStepper size="sm" value={columns} min={1} max={6} onChange={setColumns} ariaLabel="Columns" />
+              <NumberInput buttons="sides" size="sm" value={columns} min={1} max={6} onChange={setColumns} aria-label="Columns" />
             </ControlMenuRow>
             <ControlMenuRow label="Theme">
               <Select size="sm" aria-label="Theme" options={THEMES} value={theme} onChange={setTheme} />
@@ -59,7 +59,7 @@ const ControlMenuDemo = (props: ControlMenuDemoProps) => {
               <Toggle size="sm" checked={sounds} onChange={setSounds} aria-label="Play sounds" />
             </ControlMenuRow>
             <ControlMenuRow label="Columns">
-              <NumberStepper size="sm" value={columns} min={1} max={6} onChange={setColumns} ariaLabel="Columns" />
+              <NumberInput buttons="sides" size="sm" value={columns} min={1} max={6} onChange={setColumns} aria-label="Columns" />
             </ControlMenuRow>
           </ControlMenuSub>
         )}

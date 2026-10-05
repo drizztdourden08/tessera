@@ -8,7 +8,7 @@ type TextVariant = 'body' | 'label' | 'title' | 'subtitle' | 'caption' | 'overli
 interface TextProps extends HTMLAttributes<HTMLElement>, Typesetting {
   as?: ElementType;
   variant?: TextVariant;
-  tone?: TextTone;
+  tone?: TextTone | 'faint';
   mono?: boolean;
   numeric?: boolean;
   children?: ReactNode;

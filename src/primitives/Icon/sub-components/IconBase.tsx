@@ -8,9 +8,10 @@ import type { IconProps } from '../Icon.type';
 import { IconEffectHost } from './IconEffectHost';
 
 const IconBase = (props: IconProps) => {
-  const { name: _name, icon: _icon, effect, ...look } = props;
+  const { name: _name, icon: _icon, path, effect, ...own } = props;
   const set = useTesseraOverride('icons') ?? ICONS;
   const data = iconDataFor(props, set);
+  const look = path === undefined ? own : { fill: 'currentColor', ...own };
   if (effect) return <IconEffectHost icon={data} effect={effect} look={look} />;
   return <Iconify icon={data} {...iconLookProps(look)} />;
 };

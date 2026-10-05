@@ -15,8 +15,8 @@ export { Emphasis } from './Emphasis';
 export type { EmphasisAnchor, EmphasisOrder, EmphasisProps, EmphasisTrigger } from './Emphasis';
 export { Flex, type FlexProps, type SpaceToken, type FlexAlign, type FlexJustify } from './Flex';
 export { Stack, type StackProps } from './Stack';
+export { Inline, type InlineProps } from './Inline';
 export { Grid, type GridProps } from './Grid';
-export { Center, type CenterProps } from './Center';
 export { Divider, type DividerProps } from './Divider';
 export { Spacer, type SpacerProps } from './Spacer';
 export { Button } from './Button';
@@ -35,8 +35,6 @@ export { Tag } from './Tag';
 export type {
   TagCategoryColor, TagColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 } from './Tag';
-export { NumberStepper } from './NumberStepper';
-export type { NumberStepperProps } from './NumberStepper';
 export { DropZone } from './DropZone';
 export type { DropZoneProps, DropZoneVariant } from './DropZone';
 export { TextInput } from './TextInput';
@@ -96,7 +94,7 @@ export type {
   InputAdornment, InputAdornmentAction, InputAdornmentIcon, InputAdornmentMark,
 } from './field-control/input-adornment.type';
 export { NumberInput } from './NumberInput';
-export type { NumberInputProps } from './NumberInput';
+export type { NumberInputButtons, NumberInputProps } from './NumberInput';
 export { Checkbox } from './Checkbox';
 export type { CheckboxProps } from './Checkbox';
 export { SectionHeader } from './SectionHeader';
@@ -113,8 +111,6 @@ export { ButtonGroup } from './ButtonGroup';
 export type { ButtonGroupOrientation, ButtonGroupProps } from './ButtonGroup';
 export { StatRow } from './StatRow';
 export type { StatRowProps } from './StatRow';
-export { TermList } from './TermList';
-export type { TermListItem, TermListProps } from './TermList';
 export { ProgressBar } from './ProgressBar';
 export type { ProgressBarProps, ProgressTone } from './ProgressBar';
 export { Spinner } from './Spinner';
@@ -127,8 +123,6 @@ export { TESSERA_STRINGS } from './strings';
 export type { TesseraStringGroup, TesseraStrings, TesseraStringsOverride } from './strings';
 export { Link } from './Link';
 export type { LinkProps, LinkTone, LinkVariant } from './Link';
-export { RouterLink } from './RouterLink';
-export type { RouterLinkProps } from './RouterLink';
 export { HintLine } from './HintLine';
 export type { HintLineProps } from './HintLine';
 export { HintScope } from './HintScope';
@@ -139,8 +133,6 @@ export type {
 } from './hint';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
-export { Thumbnail } from './Thumbnail';
-export type { ThumbnailProps } from './Thumbnail';
 export { Image } from './Image';
 export type { ImagePlaceholderProps, ImageProps } from './Image';
 export { Icon, ICONS } from './Icon';
@@ -148,14 +140,12 @@ export { Glyph, GLYPHS } from './Glyph';
 export type { GlyphName, GlyphProps } from './Glyph';
 export type {
   BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions, IconEffectSize,
-  IconFlip, IconName, IconProps, IconRotation, IconSet,
+  IconFlip, IconName, IconPath, IconPathCircle, IconProps, IconRotation, IconSet,
 } from './Icon';
 export {
   GAMEPAD_INPUT_ICONS, INPUT_ICON_FAMILIES, INPUT_ICON_NAMES, INPUT_ICONS, InputIcon, gamepadInputIcon, inputIconData, isInputIconName,
 } from './InputIcon';
 export type { InputIconFamily, InputIconName, InputIconProps, InputIconSource, InputIconTone } from './InputIcon';
-export { PathIcon } from './PathIcon';
-export type { PathIconCircle, PathIconProps } from './PathIcon';
 export { EmojiIcon } from './EmojiIcon';
 export type { EmojiIconProps, EmojiIconSize } from './EmojiIcon';
 export { ProgressRing } from './ProgressRing';

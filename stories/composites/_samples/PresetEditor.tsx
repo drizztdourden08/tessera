@@ -1,5 +1,5 @@
 /* @layer stories @kind component */
-import { Box, Button, Field, Icon, NumberStepper, Status, Tag, Text } from '../../../src/primitives';
+import { Box, Button, Field, Icon, NumberInput, Status, Tag, Text } from '../../../src/primitives';
 import type { PresetEditorProps } from './preset-samples.type';
 
 const PresetEditor = ({ preset, dirty, onChange, onSave }: PresetEditorProps) => (
@@ -11,10 +11,10 @@ const PresetEditor = ({ preset, dirty, onChange, onSave }: PresetEditorProps) =>
       <Button className="preset-editor__save" size="sm" variant="primary" icon={<Icon name="save" />} disabled={!dirty} onClick={onSave}>Save</Button>
     </Box>
     <Field label="Crystals for Ganon's Tower" hint="Default 7.">
-      <NumberStepper value={preset.tower} min={0} max={7} onChange={(tower) => onChange({ tower })} />
+      <NumberInput buttons="sides" value={preset.tower} min={0} max={7} onChange={(tower) => onChange({ tower })} />
     </Field>
     <Field label="Crystals for Ganon" hint="Default 7.">
-      <NumberStepper value={preset.ganon} min={0} max={7} onChange={(ganon) => onChange({ ganon })} />
+      <NumberInput buttons="sides" value={preset.ganon} min={0} max={7} onChange={(ganon) => onChange({ ganon })} />
     </Field>
   </Box>
 );

@@ -11,7 +11,6 @@ const GUIDE_LINKS = {
   views: '[Building views](#/story/setup-buildingviews--overview)',
   appParts: '[App primitives and composites](#/story/setup-appparts--overview)',
   link: '[Link](#/story/primitives-link--overview)',
-  routerLink: '[RouterLink](#/story/primitives-routerlink--overview)',
 } as const;
 
 export { GUIDE_LINKS };

@@ -9,7 +9,7 @@ const usage = {
   ],
   avoidWhen: [
     { case: 'A still picture holds its box, such as a poster or a screenshot.', use: 'Image' },
-    { case: 'A small framed preview stands for the video in a list.', use: 'Thumbnail' },
+    { case: 'A small framed preview stands for the video in a list, as an Image with frame.', use: 'Image' },
   ],
   rules: [
     'Give it a label that names the video, such as Boss fight replay; the player is a group named by it.',

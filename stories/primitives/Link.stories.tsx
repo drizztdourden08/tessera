@@ -11,6 +11,8 @@ import { STATE } from '../_template/states/states.constants';
 import { LINK_TONES } from './_samples/link-tones.constants';
 import { LINK_VARIANTS } from './_samples/link-variants.constants';
 import { LinkSandbox } from './_samples/LinkSandbox';
+import { NAV_ROUTES } from './_samples/router-demo.constants';
+import { RouterDemo } from './_samples/RouterDemo';
 
 type LinkArgs = {
   text: string;
@@ -79,13 +81,26 @@ const External = {
   ),
 } satisfies StoryLiteStoryDefinition<LinkArgs>;
 
+const InApp = {
+  name: 'A route inside the app',
+  render: () => <RouterDemo routes={NAV_ROUTES} />,
+} satisfies StoryLiteStoryDefinition<LinkArgs>;
+
 const stayHere = (event: MouseEvent<HTMLAnchorElement>) => event.preventDefault();
 
-const CODE = `import { Link } from '@drizztdourden08/tessera';
+const CODE = `import { useNavigate } from 'react-router';
+import { Link } from '@drizztdourden08/tessera';
+import type { LinkProps } from '@drizztdourden08/tessera';
 
 <Link href="/notes/2-3-1">the patch notes</Link>
 <Link href="/players/slot-3" variant="subtle">slot-3</Link>
-<Link href="https://example.com/alttpr" external>the community guide</Link>`;
+<Link href="https://example.com/alttpr" external>the community guide</Link>
+
+// A route inside the app: wrap Link once with the router navigate.
+const AppLink = (props: Omit<LinkProps, 'navigate'>) => {
+  const navigate = useNavigate();
+  return <Link {...props} navigate={navigate} />;
+};`;
 
 const Overview = overviewStory({
   component: 'Link',
@@ -93,12 +108,13 @@ const Overview = overviewStory({
   points: [
     '`external` opens it in a new tab with a small icon that tells screen readers so.',
     '`variant="subtle"` keeps a dotted underline at rest, for a link among dense data such as a table cell.',
-    'A click loads the page, as any anchor does.',
+    'A click loads the page; with `navigate`, a plain click calls `navigate(href)` and the page stays.',
+    'With `navigate`, middle click, [[Ctrl]] click and Copy link still work. Wrap it once in your own `AppLink`.',
     'A `className` you pass wins over its look.',
   ],
-  instead: '[RouterLink] for a route inside the app, or [Button] for an action that stays on the page.',
+  instead: '[Button] for an action that stays on the page.',
   playground: Playground,
-  variants: [Tones, Variants, External],
+  variants: [Tones, Variants, External, InApp],
   states: {
     render: (props) => <Link href="/saves/slot-2" onClick={stayHere} {...props}>Open slot 2</Link>,
     list: [STATE.idle, STATE.hover, STATE.focus],
@@ -107,4 +123,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { External, Overview, Playground, Tones, Variants };
+export { External, InApp, Overview, Playground, Tones, Variants };

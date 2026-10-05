@@ -2,53 +2,39 @@
 import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
 import './NumberInput.css';
-import { preventTextSelection } from '../dom/prevent-text-selection';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { InputAdornmentSlot } from '../field-control/InputAdornmentSlot';
 import { useControlSize } from '../field-control/useControlSize';
-import { Glyph } from '../Glyph';
-import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import type { NumberInputProps } from './NumberInput.type';
 import { columnVars } from './behavior/column-vars';
 import { digitColumns } from './behavior/digit-columns';
-import { toNumber } from './behavior/to-number';
-import { SPIN_GLYPH_SIZES } from './NumberInput.constants';
+import { numberInputClass } from './behavior/number-input-class';
+import { shownValue } from './behavior/shown-value';
+import { stepValue } from './behavior/step-value';
+import { NumberInputSteps } from './sub-components/NumberInputSteps';
 
 const NumberInput = (props: NumberInputProps) => {
   const {
-    onChange, className = '', value, min, max, step, disabled = false, sizeToContent = false,
+    onChange, className, value, min, max, step, disabled = false, buttons, sizeToContent = false,
     invalid, size, start, end, id, 'aria-describedby': ownDescribedBy, ...rest
   } = props;
   const control = useFieldControl(id, ownDescribedBy);
   const controlSize = useControlSize(size);
-  const glyphSize = SPIN_GLYPH_SIZES[controlSize];
-  const { fields } = useTesseraStrings();
   const isInvalid = invalid ?? control.invalid ?? false;
   const locked = disabled || rest.readOnly === true;
-
-  const stepBy = (dir: 1 | -1): void => {
-    const stepN = toNumber(step) ?? 1;
-    const minN = toNumber(min);
-    const maxN = toNumber(max);
-    const cur = toNumber(value) ?? minN ?? 0;
-    let next = cur + dir * stepN;
-    if (minN !== undefined && next < minN) next = minN;
-    if (maxN !== undefined && next > maxN) next = maxN;
-    onChange?.(Number(next.toFixed(6)));
-  };
-
+  const sides = buttons === 'sides';
+  const stepBy = (dir: 1 | -1): void => onChange?.(stepValue(value, dir, { step, min, max }));
+  const steps = { size: controlSize, disabled, onStep: stepBy };
   const columns = digitColumns(sizeToContent, max, step);
 
   return (
-    <div
-      className={`number-input control-size--${controlSize} ${columns === undefined ? '' : 'number-input--auto'} ${disabled ? 'number-input--disabled' : ''} ${className}`}
-      style={columnVars(columns)}
-    >
+    <div className={numberInputClass({ size: controlSize, sides, auto: columns !== undefined, disabled, className })} style={columnVars(columns)}>
+      {sides && <NumberInputSteps at="start" {...steps} />}
       <InputAdornmentSlot className="number-input__slot" adornment={start} size={controlSize} disabled={locked} />
       <input
         type="number"
         className="number-input__field"
-        value={value}
+        value={shownValue(value)}
         min={min}
         max={max}
         step={step}
@@ -60,14 +46,7 @@ const NumberInput = (props: NumberInputProps) => {
         {...rest}
       />
       <InputAdornmentSlot className="number-input__slot" adornment={end} size={controlSize} disabled={locked} />
-      <div className="number-input__spin">
-        <button type="button" className="number-input__btn" tabIndex={-1} aria-label={fields.increment} disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(1)}>
-          <Glyph name="chevronUp" size={glyphSize} strokeWidth={2} />
-        </button>
-        <button type="button" className="number-input__btn" tabIndex={-1} aria-label={fields.decrement} disabled={disabled} onMouseDown={preventTextSelection} onClick={() => stepBy(-1)}>
-          <Glyph name="chevronDown" size={glyphSize} strokeWidth={2} />
-        </button>
-      </div>
+      <NumberInputSteps at={sides ? 'end' : 'stack'} {...steps} />
     </div>
   );
 };

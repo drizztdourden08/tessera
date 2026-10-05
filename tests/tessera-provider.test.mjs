@@ -17,7 +17,6 @@ import { portalDocumentFor } from '../src/primitives/Portal/behavior/portal-docu
 import { Spinner } from '../src/primitives/Spinner';
 import { TesseraProvider, useCopy, useTesseraStrings } from '../src/primitives/TesseraProvider';
 import { TESSERA_STRINGS } from '../src/primitives/strings';
-import { Thumbnail } from '../src/primitives/Thumbnail';
 
 const { seen, recordClicks } = vi.hoisted(() => {
   const state = { clicks: [], inBrowser: false, containers: [] };
@@ -102,8 +101,8 @@ describe('TesseraProvider clipboard, placeholders and wording', () => {
     expect(written.sort()).toEqual(['Brock 1.4.0', 'log text', 'pnpm build']);
   });
 
-  it('draws the app placeholder for loading and empty images and thumbnails', () => {
-    const html = draw({ imagePlaceholder: AppPlaceholder }, h(Image, { pending: true, alt: '' }), h(Thumbnail, { src: null, alt: '' }));
+  it('draws the app placeholder for loading and empty images, framed or not', () => {
+    const html = draw({ imagePlaceholder: AppPlaceholder }, h(Image, { pending: true, alt: '' }), h(Image, { frame: true, alt: '' }));
     expect(html).toContain('data-app-placeholder="loading"');
     expect(html).toContain('data-app-placeholder="empty"');
     expect(html).not.toContain('image-placeholder');

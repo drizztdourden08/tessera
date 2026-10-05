@@ -20,6 +20,20 @@
   font-size: var(--text-sm);
 }
 
+.flex-demo--centre {
+  min-height: 12rem;
+  color: var(--c-text-muted);
+}
+
+.flex-demo__avatar {
+  width: var(--avatar-d);
+  height: var(--avatar-d);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-dim);
+  color: var(--c-primary-bright);
+  font-weight: var(--weight-semi);
+}
+
 .flex-demo__item--tall {
   padding-block: var(--space-lg);
 }

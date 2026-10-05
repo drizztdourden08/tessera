@@ -5,7 +5,7 @@ const usage = {
   job: 'A dropdown of settings behind one button: each row is a label with one compact control, and the panel joins its button like a DropdownMenu.',
   useWhen: [
     'A tool, a panel or a widget has several settings that are not worth a page of their own, such as the options behind a gear.',
-    'The settings take richer controls than a menu item: a SegmentedControl, a Slider, a Select or a NumberStepper.',
+    'The settings take richer controls than a menu item: a SegmentedControl, a Slider, a Select or a NumberInput with its buttons on the sides.',
     'Some settings belong together and can wait one step further, in a sub-panel beside the panel.',
   ],
   avoidWhen: [

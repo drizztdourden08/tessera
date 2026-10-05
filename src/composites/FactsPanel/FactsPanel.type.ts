@@ -11,7 +11,7 @@ interface FactsPanelFact {
 
 type FactsPanelGroup = readonly FactsPanelFact[];
 
-type FactsPanelLayout = 'rows' | 'inline' | 'boxed';
+type FactsPanelLayout = 'rows' | 'inline' | 'boxed' | 'terms';
 
 interface FactsPanelProps {
   groups: readonly FactsPanelGroup[];
@@ -20,4 +20,12 @@ interface FactsPanelProps {
   className?: string;
 }
 
-export type { FactsPanelFact, FactsPanelGroup, FactsPanelProps };
+interface FactsPanelGroupProps {
+  group: FactsPanelGroup;
+}
+
+interface FactsPanelValueProps {
+  fact: FactsPanelFact;
+}
+
+export type { FactsPanelFact, FactsPanelGroup, FactsPanelGroupProps, FactsPanelLayout, FactsPanelProps, FactsPanelValueProps };

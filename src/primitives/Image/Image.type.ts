@@ -14,6 +14,7 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   aspectRatio?: ImageLength;
   placeholder?: ImagePlaceholderMode;
   pending?: boolean;
+  frame?: boolean;
 }
 
 interface SettledImage {

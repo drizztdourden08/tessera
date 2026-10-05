@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind types */
-import type { PathIconProps } from '../PathIcon';
+import type { IconLook } from '../Icon/Icon.type';
 import type { GLYPHS } from './Glyph.constants';
 
 type GlyphName = keyof typeof GLYPHS;
 
-interface GlyphProps extends Omit<PathIconProps, 'paths' | 'circles' | 'viewBox'> {
+interface GlyphProps extends Omit<IconLook, 'effect'> {
   name: GlyphName;
 }
 

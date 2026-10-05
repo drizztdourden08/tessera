@@ -3,8 +3,26 @@
   width: 100%;
 }
 
-.number-input--auto {
+.number-input--auto,
+.number-input--sides {
   width: auto;
+}
+
+.number-input--sides.control-size--md {
+  --number-input-side-w: var(--size-32);
+  --number-input-sides-field-w: var(--size-48);
+}
+
+.number-input--sides.control-size--sm {
+  --number-input-side-w: var(--size-24);
+  --number-input-sides-field-w: var(--size-40);
+}
+
+.number-input--sides .number-input__field {
+  flex: 0 0 auto;
+  width: var(--number-input-sides-field-w);
+  padding-inline: 0;
+  text-align: center;
 }
 
 .number-input--auto .number-input__field {
@@ -51,12 +69,36 @@
   border-top: var(--border-width-thin) solid var(--c-border);
 }
 
-.number-input__btn:hover {
+.number-input__side {
+  flex: none;
+  width: var(--number-input-side-w);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--c-text-dim);
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.number-input__side:first-child {
+  border-right: var(--border-width-thin) solid var(--c-border);
+}
+
+.number-input__side:last-child {
+  border-left: var(--border-width-thin) solid var(--c-border);
+}
+
+.number-input__btn:hover,
+.number-input__side:hover {
   color: var(--c-text);
   background: var(--c-hover);
 }
 
-.number-input__btn:disabled {
+.number-input__btn:disabled,
+.number-input__side:disabled {
   cursor: default;
   opacity: 0.4;
 }

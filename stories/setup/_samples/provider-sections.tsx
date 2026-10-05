@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 import { Logo } from '../../../src/brand';
 import {
-  Button, CodeBlock, DropZone, EmptyState, Flex, Icon, Image, Select, Spinner, Thumbnail,
+  Button, CodeBlock, DropZone, EmptyState, Flex, Icon, Image, Select, Spinner,
 } from '../../../src/primitives';
 import type { TesseraOverrides, TesseraPart } from '../../../src/primitives';
 import { axis } from '../../_template/axis';
@@ -29,7 +29,7 @@ const SPINNER_CELLS: Readonly<Record<string, ReactNode>> = {
 const IMAGE_CELLS: Readonly<Record<string, ReactNode>> = {
   loading: <Image pending alt="Map art" width={120} height={80} />,
   broken: <Image src="data:image/png;base64,AAAA" alt="Boss art" width={120} height={80} />,
-  empty: <Thumbnail src={null} alt="Save slot" width={80} />,
+  empty: <Image frame alt="Save slot" width={80} />,
 };
 
 const section = (part: TesseraPart, app: AppOverrides | undefined, demo: ReactNode, reports = false): OverviewSection => ({

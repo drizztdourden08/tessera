@@ -6,6 +6,35 @@
   border: var(--border-width-thin) solid var(--c-border);
 }
 
+.image-demo--sm {
+  width: 4rem;
+  height: 2.25rem;
+}
+
+.image-demo--md {
+  width: 8rem;
+  height: 4.5rem;
+}
+
+.image-demo--lg {
+  width: 16rem;
+  height: 9rem;
+  border-radius: var(--radius-md);
+}
+
+.image-demo__placeholder {
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.image-demo__slot {
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+}
+
 .image-demo__fallback {
   display: flex;
   align-items: center;

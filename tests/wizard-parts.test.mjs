@@ -189,8 +189,8 @@ describe('WizardReview', () => {
     const html = renderToString(h(WizardReview, {
       onEdit: noop,
       sections: [
-        { stepId: 'basics', title: 'Basics', rows: [{ term: 'Name', detail: 'Speedrun seed' }] },
-        { stepId: 'seed', title: 'Seed', rows: [{ term: 'Seed', detail: h('code', null, '3fa9c1') }] },
+        { stepId: 'basics', title: 'Basics', rows: [{ label: 'Name', value: 'Speedrun seed' }] },
+        { stepId: 'seed', title: 'Seed', rows: [{ label: 'Seed', value: h('code', null, '3fa9c1') }] },
       ],
     }));
     expect(html).toContain('aria-label="Edit Basics"');

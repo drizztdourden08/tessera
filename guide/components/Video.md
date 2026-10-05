@@ -24,7 +24,7 @@ Video draws its bar over the video in white on black in every theme, and keeps i
 ## Use something else when
 
 - A still picture holds its box, such as a poster or a screenshot. Use `Image` instead.
-- A small framed preview stands for the video in a list. Use `Thumbnail` instead.
+- A small framed preview stands for the video in a list, as an Image with frame. Use `Image` instead.
 
 ## Rules
 

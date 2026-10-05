@@ -74,6 +74,7 @@ const GenerateButton = ({ state, percent, cancel }: { state: TaskState; percent:
 - `cancelling` (optional): `boolean`. Default `false`.
 - `actions` (optional): `ReactNode`.
 - `className` (optional): `string`.
+- `label` (optional): `string`.
 - `line` (optional): `ReactNode`.
 - `log` (optional): `readonly LogRow[]`.
 - `state`: `TaskState`, one of `'running'`, `'done'`, `'failed'`, `'cancelled'`.
@@ -85,7 +86,6 @@ const GenerateButton = ({ state, percent, cancel }: { state: TaskState; percent:
 - `logOpen` (optional): `boolean`.
 - `onLogToggle` (optional): `(open: boolean) => void`.
 - `logHeight` (optional): `number`.
-- `label` (optional): `string`.
 
 ## Tokens
 

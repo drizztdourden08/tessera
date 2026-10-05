@@ -138,7 +138,7 @@ An app that draws some parts its own way hands them to `TesseraProvider` once, a
 |---|---|
 | `spinner` | the loading spinner, also inside buttons and fields |
 | `writeText` | what every copy button calls |
-| `imagePlaceholder` | what `Image` and `Thumbnail` show while loading, broken or empty |
+| `imagePlaceholder` | what `Image` shows while loading, broken or empty, framed or not |
 | `strings` | Tessera's wording, whole or key by key |
 | `errorFallback` | the crash screen of `ErrorBoundary` |
 | `emptyArt` | the art of `EmptyState` |
@@ -174,17 +174,17 @@ const CopyLogButton = ({ text }: { text: string }) => {
 
 ## Links and the router
 
-Links are not an override. Two primitives draw them:
+Links are not an override. `Link` draws them:
 
 - `Link` draws a URL in the Tessera look. `external` opens it in a new tab.
-- `RouterLink` draws a route in the app. It renders a real `href`, so middle click and Copy link work, and a plain click calls `onNavigate(to)` instead of loading the page.
+- `navigate` makes it a route in the app. It still renders a real `href`, so middle click and Copy link work, and a plain click calls `navigate(href)` instead of loading the page.
 
-Wrap `RouterLink` once in an app compound that passes the router's navigate, then use that compound everywhere:
+Wrap `Link` once in an app compound that passes the router's navigate, then use that compound everywhere:
 
 ```tsx
-const AppLink = (props: Omit<RouterLinkProps, 'onNavigate' | 'href'>) => {
+const AppLink = (props: Omit<LinkProps, 'navigate'>) => {
   const navigate = useNavigate();
-  return <RouterLink {...props} href={useHref(props.to)} onNavigate={navigate} />;
+  return <Link {...props} navigate={navigate} />;
 };
 ```
 

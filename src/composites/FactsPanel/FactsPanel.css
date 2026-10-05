@@ -76,3 +76,44 @@
 .facts-panel--boxed .facts-panel__group + .facts-panel__group {
   border-top: none;
 }
+
+.facts-panel--terms {
+  gap: var(--space-xs);
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+}
+
+.facts-panel--terms .facts-panel__group {
+  flex-flow: column nowrap;
+  align-items: stretch;
+  gap: var(--space-xs);
+  margin: 0;
+  min-width: 0;
+}
+
+.facts-panel--terms .facts-panel__group + .facts-panel__group {
+  padding-top: var(--space-xs);
+}
+
+.facts-panel__term {
+  min-width: 0;
+  line-height: var(--leading-normal);
+  overflow-wrap: break-word;
+}
+
+.facts-panel__term-label {
+  display: inline;
+  color: var(--c-primary);
+  font-weight: var(--weight-semi);
+}
+
+.facts-panel__term-value {
+  display: inline;
+  margin: 0 0 0 var(--space-xs);
+}
+
+.facts-panel__term-value[data-mono] {
+  font-family: var(--font-mono);
+}

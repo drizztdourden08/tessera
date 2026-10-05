@@ -187,7 +187,7 @@ const Overview = overviewStory({
     'Only steps that `canSelect` allows can be clicked.',
     '`compact` shows Step 2 of 5 with a [ProgressBar].',
   ],
-  instead: '[NumberStepper] for a number input with plus and minus buttons.',
+  instead: '[NumberInput] for a number with plus and minus buttons.',
   playground: Playground,
   variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact],
   states: {

@@ -32,7 +32,7 @@ const OVERRIDES: TesseraOverrides = { spinner: AppSpinner, strings: { common: { 
 <TesseraProvider overrides={OVERRIDES}><App /></TesseraProvider>
 ```
 
-Links are not an override: `Link` draws a URL and `RouterLink` a route in the app, taking the router's navigate as a prop. The gallery's Core · Setup pages walk through the setup, the provider and where the app's own compounds and views go.
+Links are not an override: `Link` draws a URL, and with `navigate` a route in the app, taking the router's navigate as a prop. The gallery's Core · Setup pages walk through the setup, the provider and where the app's own compounds and views go.
 
 The package ships TypeScript and CSS source: its consumers are Vite apps, which compile it like their own code. That also means a sibling checkout can stand in for the installed package with one Vite alias while editing both.
 

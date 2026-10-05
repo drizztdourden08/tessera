@@ -103,7 +103,7 @@ export type {
 export { Hero } from './Hero';
 export type { HeroArt, HeroBackdrop, HeroImageFit, HeroProps, HeroShade } from './Hero';
 export { FactsPanel } from './FactsPanel';
-export type { FactsPanelFact, FactsPanelGroup, FactsPanelProps } from './FactsPanel';
+export type { FactsPanelFact, FactsPanelGroup, FactsPanelLayout, FactsPanelProps } from './FactsPanel';
 export { CommandPalette, CommandPaletteRow } from './CommandPalette';
 export type {
   CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle,

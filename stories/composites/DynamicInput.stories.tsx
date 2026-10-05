@@ -109,7 +109,7 @@ const Overview = overviewStory({
   points: [
     'Write slots in braces, such as `{hh:hour 12h}`; the value is one object keyed by slot name.',
     'Typing fills a slot, and a full slot moves on to the next.',
-    'The slot in focus opens the control its type calls for, such as a [NumberStepper] or a [ColorPicker].',
+    'The slot in focus opens the control its type calls for, such as a [NumberInput] or a [ColorPicker].',
     '[[Tab]] and [[Shift+Tab]] move between slots, and [[Backspace]] in an empty slot goes back.',
     '**A bad pattern never throws:** the part it cannot read shows as text, with a warning.',
     'Put it in a [Field] for its label, hint, error and size.',

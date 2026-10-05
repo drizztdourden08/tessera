@@ -1,8 +1,8 @@
 /* @layer stories @kind story */
 import { useCallback } from 'react';
-import { useWizard, Wizard, WizardDialog, WizardReview } from '../../../src/composites';
+import { FactsPanel, useWizard, Wizard, WizardDialog, WizardReview } from '../../../src/composites';
 import type { CreateOutcome, WizardApi } from '../../../src/composites';
-import { Button, Callout, DropZone, Field, Icon, TermList, TextInput, Toggle } from '../../../src/primitives';
+import { Button, Callout, DropZone, Field, Icon, TextInput, Toggle } from '../../../src/primitives';
 import type { StepperOrientation } from '../../../src/primitives';
 import { INITIAL_ROM_IMPORT, ROM_CHECKS, ROM_FILE, ROM_IMPORT_STEPS, romImportReview } from './rom-import-data';
 import type { RomImportDraft } from './rom-import-data';
@@ -29,7 +29,7 @@ const RomImportBody = ({ wizard }: { wizard: WizardApi<RomImportDraft> }) => {
     case 'check':
       return (
         <>
-          <TermList items={ROM_CHECKS} />
+          <FactsPanel layout="terms" groups={[ROM_CHECKS]} />
           <Callout tone="success" icon={<Icon name="circle-check" />}>This is the ROM Relic of the Past expects. Every check passed.</Callout>
         </>
       );

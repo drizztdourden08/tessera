@@ -6,6 +6,7 @@ import type { FactsPanelProps } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { BUILD_FACTS, PROFILE_FACTS, SERVER_FACTS } from './_samples/data-facts';
+import { FactsPanelTermCards } from './_samples/FactsPanelTermCards';
 
 type FactsArgs = {
   label: string;
@@ -18,7 +19,7 @@ const ARGS: Partial<FactsArgs> = { label: 'Profile', secondGroup: true, layout: 
 const ARG_TYPES: PlaygroundArgTypes<FactsArgs> = {
   label: { group: 'Content', control: 'text', description: 'The accessible name of the panel.' },
   secondGroup: { group: 'Content', control: 'boolean', description: 'Adds the second group under a hairline.' },
-  layout: { group: 'Layout', control: 'select', options: ['inline', 'rows', 'boxed'], description: 'Facts along a line, one per row, or one per sunken box.' },
+  layout: { group: 'Layout', control: 'select', options: ['inline', 'rows', 'boxed', 'terms'], description: 'Facts along a line, one per row, one per sunken box, or terms and what they mean.' },
 };
 
 const meta = {
@@ -61,6 +62,11 @@ const Layouts = {
   ),
 } satisfies StoryLiteStoryDefinition<FactsArgs>;
 
+const Terms = {
+  name: 'Terms and what they mean, inside cards',
+  render: () => <FactsPanelTermCards />,
+} satisfies StoryLiteStoryDefinition<FactsArgs>;
+
 const CODE = `import { FactsPanel } from '@drizztdourden08/tessera';
 
 <FactsPanel
@@ -83,14 +89,15 @@ const Overview = overviewStory({
   points: [
     '`groups` holds the facts; each group runs along one row, with a hairline between groups.',
     '`layout` lays the facts `inline` along a line, as `rows`, or `boxed` in sunken rows.',
+    '`layout="terms"` drops the box for a list of terms, each label in gold with its colon, then its value.',
     '`mono` sets a value in the monospace font; `copyable` adds a copy button. Every value can be selected.',
     'A long value is cut short; its `title` shows the full text in a tooltip.',
     '[Hero] draws its facts with it, on glass.',
   ],
   playground: Playground,
-  variants: [TwoGroups, OneGroup, Layouts],
+  variants: [TwoGroups, OneGroup, Layouts, Terms],
   code: CODE,
 });
 
 export default meta;
-export { Layouts, OneGroup, Overview, Playground, TwoGroups };
+export { Layouts, OneGroup, Overview, Playground, Terms, TwoGroups };

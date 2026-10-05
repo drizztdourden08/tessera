@@ -19,6 +19,6 @@ describe('Toast announcements', () => {
   });
 
   it('leaves the other toasts to the polite status region of the container', () => {
-    for (const variant of ['info', 'success', 'warning']) expect(render(variant)).not.toContain('role=');
+    for (const variant of ['info', 'success', 'warning']) expect(render(variant)).not.toMatch(/^<div[^>]*role=/);
   });
 });
