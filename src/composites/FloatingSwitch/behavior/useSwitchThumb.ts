@@ -1,28 +1,13 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { observeResize } from '../../../primitives/dom/observe-resize';
-import type { SwitchThumb, ThumbBox } from './useSwitchThumb.type';
-import { thumbBoxOf } from './thumb-box-of';
+import { useEffect, useRef, useState } from 'react';
+import { useActiveMarker } from '../../../primitives/dom/useActiveMarker';
+import { ACTIVE_ITEM } from '../FloatingSwitch.constants';
+import type { SwitchThumb } from './useSwitchThumb.type';
 
 const useSwitchThumb = (activeId: string, itemsKey: string): SwitchThumb => {
   const trackRef = useRef<HTMLElement>(null);
-  const [box, setBox] = useState<ThumbBox | null>(null);
   const [gliding, setGliding] = useState(false);
-
-  const measure = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const next = thumbBoxOf(track, track.querySelector<HTMLElement>('[aria-current="page"]'));
-    setBox((previous) => (previous?.start === next?.start && previous?.size === next?.size ? previous : next));
-  }, []);
-
-  useLayoutEffect(measure, [activeId, itemsKey, measure]);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return undefined;
-    return observeResize([track, ...track.querySelectorAll('.floating-switch__item')], measure);
-  }, [itemsKey, measure]);
+  const { box, shown } = useActiveMarker(trackRef, ACTIVE_ITEM, `${activeId}\n${itemsKey}`);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setGliding(true));
@@ -32,7 +17,7 @@ const useSwitchThumb = (activeId: string, itemsKey: string): SwitchThumb => {
   return {
     trackRef,
     thumbStyle: box ? { insetInlineStart: box.start, inlineSize: box.size } : {},
-    shown: box !== null,
+    shown,
     gliding,
   };
 };

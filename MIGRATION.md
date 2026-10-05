@@ -5478,6 +5478,19 @@ interface BackAction {
 - **Not in this section.** ActionBar, with its `kind` and its confirm object, and Splash are being reworked at the same time, so their actions keep their shape here.
 - Every rename is in RENAMES.json, in `next`.
 
+### One sliding marker and one toggle in a list
+
+- **The marker under the chosen item.** SegmentedControl's indicator and FloatingSwitch's thumb each measured the chosen item and watched the track. They now share an internal hook in `src/primitives/dom`, `useActiveMarker(trackRef, activeSelector, changeKey)`, which measures the item from the left and from the start of the track, so a right to left track places FloatingSwitch's thumb as before. It measures before the browser paints, so SegmentedControl's indicator no longer shows one frame at its last place when the value changes. When no item is chosen, both markers fade out where they were; FloatingSwitch's thumb lost its place while it faded before.
+- **Turning one value on or off.** ToggleGroup and TagPicker share `toggleValue(values, value)` in `src/primitives/field-control`, which takes a value out when it is in and adds it at the end when it is out. TagPicker with `single` keeps at most the one value, as before.
+
+### Left for later
+
+- **Editing a name in place.** The EditorHeader preview is gone, and InlineCreateForm only submits on Enter, so the copies left are ManagedList's rename and the column rename of DataTable. ManagedList is being reworked at the same time, so the shared hook waits for it.
+- **Asking before unsaved changes are lost.** The other copy is MasterDetail's guard, which is being reworked at the same time.
+- **Scrolling the active row into view.** The other copy is the listbox's, under Select, which is being reworked at the same time. CommandPalette's copy does not divide by the CSS zoom as the listbox's does, so it moves onto the listbox one then.
+- **The same words twice.** `fields.increment` is gone already. `items.revealFile` and `paths.revealFile` say different things, one with the file name. `lists.discard` and `wizard.discard` both read Discard, and `lists` belongs to MasterDetail.
+- **CommandInput, MasterDetailLayout, Slider, the listbox formats and ActionBar** keep their copies of the storage, clamp, format and action shapes above for the same reason.
+
 ## 182. Each brand mark has a look for the light and the dark gradient, and a compact ConfirmIconButton
 
 From the owner's answers on the brand marks. Section 176 gave every mark one dark ground look, its second colours plus a rim. Each mark now names its look for each of the two gradients of its palette, section 180's light pair and the dark pair of the splash, and the rim of section 176 becomes that look's outline.

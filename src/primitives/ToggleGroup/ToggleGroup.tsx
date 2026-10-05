@@ -3,6 +3,7 @@ import '../../theme/control-size.css';
 import '../../theme/focus-ring.css';
 import '../../theme/segment-group.css';
 import './ToggleGroup.css';
+import { toggleValue } from '../field-control/toggle-value';
 import { useControlSize } from '../field-control/useControlSize';
 import { useHintReport } from '../hint/useHintReport';
 import { Small, Span } from '../text-elements';
@@ -13,13 +14,7 @@ const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
   const controlSize = useControlSize(size);
   const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
 
-  const toggle = (v: T) => {
-    if (value.includes(v)) {
-      onChange(value.filter((x) => x !== v));
-    } else {
-      onChange([...value, v]);
-    }
-  };
+  const toggle = (v: T) => onChange(toggleValue(value, v));
 
   return (
     <div className={`toggle-group control-size--${controlSize} ${disabled ? 'toggle-group--disabled' : ''}`}>

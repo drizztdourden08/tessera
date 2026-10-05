@@ -1,34 +1,18 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import type { CSSProperties } from 'react';
-import { observeResize } from '../../dom/observe-resize';
+import { useActiveMarker } from '../../dom/useActiveMarker';
+import { ACTIVE_SEGMENT, INDICATOR_INSET } from '../SegmentedControl.constants';
 import type { SegmentIndicator } from './useSegmentIndicator.type';
 
 const useSegmentIndicator = (value: string, options: readonly unknown[]): SegmentIndicator => {
   const trackRef = useRef<HTMLDivElement>(null);
-  const [indicatorStyle, setIndicatorStyle] = useState<CSSProperties>({});
-
-  const updateIndicator = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const activeBtn = track.querySelector<HTMLButtonElement>('[aria-checked="true"]');
-    if (!activeBtn) {
-      setIndicatorStyle((previous) => ({ ...previous, opacity: 0 }));
-      return;
-    }
-    setIndicatorStyle({
-      width: activeBtn.offsetWidth,
-      transform: `translateX(${activeBtn.offsetLeft - 2}px)`,
-      opacity: 1,
-    });
-  }, []);
-
-  useEffect(() => {
-    updateIndicator();
-  }, [value, options, updateIndicator]);
-
-  useEffect(() => observeResize([trackRef.current], updateIndicator), [updateIndicator]);
-
+  const changeKey = useMemo(() => ({ value, options }), [value, options]);
+  const { box, shown } = useActiveMarker(trackRef, ACTIVE_SEGMENT, changeKey);
+  const indicatorStyle = useMemo<CSSProperties>(() => ({
+    ...(box ? { width: box.size, transform: `translateX(${box.left - INDICATOR_INSET}px)` } : {}),
+    ...(box || shown ? { opacity: shown ? 1 : 0 } : {}),
+  }), [box, shown]);
   return { trackRef, indicatorStyle };
 };
 
