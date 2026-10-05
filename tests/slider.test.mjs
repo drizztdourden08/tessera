@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import { readFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
@@ -95,3 +96,14 @@ describe('VolumeControl', () => {
   });
 });
 
+describe('Slider scale labels at the ends', () => {
+  const css = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
+
+  it('starts the first label at the start of the track and ends the last at its end, with no reach past them', () => {
+    const scale = css('../src/primitives/ScaleLabels/ScaleLabels.css');
+    expect(scale).toMatch(/\.scale-labels--horizontal \.scale-labels__mark--start \.scale-labels__text \{\s+transform: none;/);
+    expect(scale).toMatch(/\.scale-labels--horizontal \.scale-labels__mark--end \.scale-labels__text \{\s+transform: translateX\(-100%\);/);
+    expect(scale).not.toContain('overhang');
+    expect(css('../src/primitives/Slider/Slider.css')).not.toContain('overhang');
+  });
+});

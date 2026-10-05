@@ -90,7 +90,6 @@
 
 .slider__scale {
   --scale-labels-tick: var(--slider-tick);
-  --scale-labels-overhang: var(--slider-thumb-half);
 
   margin-inline: var(--slider-thumb-half);
 }

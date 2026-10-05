@@ -5740,9 +5740,9 @@ The FormRow preset editor uses CodeBlock `editable` for Plando Texts, checked wi
 3. Replace `<SetPicker options value onChange />` with `<Combobox items={options} min={0} max={options.length} values={value} onValuesChange={onChange} />`.
 4. Drop overrides of the removed `options` strings. RENAMES.json lists every removed name.
 
-## 188. One toast queue, command suggestions, a drop target at once and five fixes from the review
+## 188. One toast queue, command suggestions, a drop target at once and six fixes from the review
 
-From the owner's review: two toast sources drew two stacks on top of each other, CommandInput gave no help with the commands it knows, a file dragged in from Windows did not mark PathInput straight away, the More button of ActionBar was smaller than the buttons beside it, CopyButton xs crowded its icon, the Splash pages spilled out of their frames, and a compact ConfirmIconButton made its cancel look like the main action.
+From the owner's review: two toast sources drew two stacks on top of each other, CommandInput gave no help with the commands it knows, a file dragged in from Windows did not mark PathInput straight away, the More button of ActionBar was smaller than the buttons beside it, CopyButton xs crowded its icon, the Splash pages spilled out of their frames, a compact ConfirmIconButton made its cancel look like the main action, and the first scale label of a Slider sat on the edge of its row.
 
 ### Toast: one queue and one stack per app
 
@@ -5809,9 +5809,10 @@ interface CommandInputProps {
 - **ConfirmIconButton:** while it asks, the check is the success button and the cross a quiet ghost button, at every size, where the check was secondary and the cross filled red. The marks hold at least 3:1 against the row in each palette. ActionBar asks the same way.
 - **Splash and Static splash pages:** the frames side by side shrink with the page, so nothing spills from 1000 to 1920 px wide, and the brand mark frames are 288 px tall, so a title on two lines still fits.
 - **CommandPalette page:** the Logs row carries an xs ConfirmIconButton, Clear the logs, in its `action` slot.
+- **Slider scale labels:** the first label starts at the start of the track and the last ends at its end, so Disabled no longer sits on the left edge of a FormRow. ScaleLabels drops `--scale-labels-overhang`, which let the end labels reach past the ends, and Slider no longer sets it.
 
 ### What an app does
 
 1. Replace each `ToastContainer` and its list of toasts with one `<ToastStack />` at the root, and each push to that list with `toast({ ... })`. Drop the ids made only to tell toasts apart.
 2. Pass `commands` to a CommandInput that has a known set of commands.
-3. Nothing for the drag, ActionBar, CopyButton or ConfirmIconButton changes.
+3. Drop any `--scale-labels-overhang` the app set. Nothing for the drag, ActionBar, CopyButton or ConfirmIconButton changes.

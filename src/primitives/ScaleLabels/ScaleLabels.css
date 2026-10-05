@@ -1,7 +1,6 @@
 /* @layer renderer-components @kind style */
 .scale-labels {
   --scale-labels-tick-size: var(--scale-labels-tick, var(--size-4));
-  --scale-labels-reach: var(--scale-labels-overhang, 0%);
 
   position: relative;
   font-family: var(--font-mono);
@@ -78,11 +77,11 @@
 }
 
 .scale-labels--horizontal .scale-labels__mark--start .scale-labels__text {
-  transform: translateX(calc(var(--scale-labels-reach) * -1));
+  transform: none;
 }
 
 .scale-labels--horizontal .scale-labels__mark--end .scale-labels__text {
-  transform: translateX(calc(var(--scale-labels-reach) - 100%));
+  transform: translateX(-100%);
 }
 
 .scale-labels--vertical .scale-labels__text {
@@ -92,11 +91,11 @@
 }
 
 .scale-labels--vertical .scale-labels__mark--start .scale-labels__text {
-  transform: translateY(calc(var(--scale-labels-reach) - 100%));
+  transform: translateY(-100%);
 }
 
 .scale-labels--vertical .scale-labels__mark--end .scale-labels__text {
-  transform: translateY(calc(var(--scale-labels-reach) * -1));
+  transform: none;
 }
 
 .scale-labels__mark--in::before {
