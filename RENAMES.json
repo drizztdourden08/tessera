@@ -1212,7 +1212,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.23.0",
       "props": {
         "BrandMark.inks": "removed; Brock draws its charcoal stone on both grounds, and ground picks each mark's colours (see MIGRATION.md section 196)",
         "Logo.inks": "removed, on Logo.Combined too; ground picks each mark's colours (see MIGRATION.md section 196)"
