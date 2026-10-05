@@ -710,7 +710,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.20.0",
       "components": {
         "NumberStepperProps": "NumberInputProps, with buttons: 'sides'; ariaLabel is aria-label (see MIGRATION.md section 172)",
         "NumberStepper": "NumberInput, with buttons=\"sides\"; ariaLabel is aria-label (see MIGRATION.md section 172)",
