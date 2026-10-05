@@ -170,6 +170,8 @@ export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
 export { CopyValue, type CopyValueProps, type CopyValueSize, type CopyValueTruncate } from './CopyValue';
 export { Video } from './Video';
 export type { VideoProps } from './Video';
+export { Splash } from './Splash';
+export type { SplashAction, SplashBar, SplashProgress, SplashProps } from './Splash';
 export { ShortcutList, type ShortcutGesture, type ShortcutListGroup, type ShortcutListItem, type ShortcutListProps } from './ShortcutList';
 export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from './CodeBlock';
 export { ActionTile } from './ActionTile';

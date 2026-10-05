@@ -23,6 +23,7 @@ const tokensOf = (palette) =>
 const CASES = PALETTES.flatMap((palette) => splashContrast(SPLASH_CSS, tokensOf(palette)).map(({ part, ratio, need }) => ({ palette, part, shown: ratio.toFixed(2), ratio, need })));
 
 const GRAPHIC = 3;
+const GRADIENT_SEEDS = ['--p-gradient-light-from', '--p-gradient-light-to', '--p-gradient-dark-from', '--p-gradient-dark-to'];
 
 const MARK_CASES = BRAND_APPS.flatMap((app) => {
   const palette = app === 'tessera' ? DEFAULT_PALETTE : app;
@@ -35,11 +36,13 @@ describe('the splash on its dark gradient', () => {
     const background = ruleDeclarations(SPLASH_CSS, [SPLASH_GRADIENT.selector]).get('background');
     expect(background).toContain(`var(${SPLASH_GRADIENT.from})`);
     expect(background).toContain(`var(${SPLASH_GRADIENT.to})`);
+    expect(background).not.toContain('radial-gradient');
   });
 
-  it.each(PALETTE_FILES)('the %s palette sets its own dark gradient pair', (file) => {
-    const seeds = new Map(declarationsOf(read(`${PALETTES_DIR}/${file}`), (selector) => selector.startsWith('[data-palette=')));
-    expect(seeds.has('--p-gradient-dark-from') && seeds.has('--p-gradient-dark-to')).toBe(true);
+  it.each(['palette.css', ...PALETTE_FILES])('the %s palette sets its own light and dark gradient pairs', (file) => {
+    const path = file === 'palette.css' ? 'src/tokens/palette.css' : `${PALETTES_DIR}/${file}`;
+    const seeds = new Map(declarationsOf(read(path), (selector) => selector === ':root' || selector.startsWith('[data-palette=')));
+    expect(GRADIENT_SEEDS.every((seed) => seeds.has(seed))).toBe(true);
   });
 
   it.each(CASES)('$palette: the $part reaches AA on every point of the gradient, $shown:1 at the lowest', ({ ratio, need }) => {

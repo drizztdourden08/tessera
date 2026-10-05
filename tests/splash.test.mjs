@@ -3,20 +3,21 @@ import fs from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { Splash } from '../src/primitives/Splash';
+import { Splash } from '../src/composites/Splash';
 
 const KIT = fs.readFileSync('splash.css', 'utf8');
 const noop = () => undefined;
 const draw = (props) => renderToStaticMarkup(h(Splash, { title: 'Archipelia', ...props }));
+const PRESSABLE = 'pressable';
 const classesIn = (html) => new Set([...html.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')));
 
 describe('Splash', () => {
-  it('draws only classes that splash.css defines', () => {
+  it('draws only classes that splash.css defines, besides the zero weight reset of Pressable', () => {
     const html = draw({
       mark: '/mark.svg', status: 'Failed', detail: 'Port taken', failed: true, progress: 0.5, version: 'v1',
       actions: [{ label: 'Retry', primary: true, onSelect: noop }, { label: 'Quit', onSelect: noop }],
     });
-    for (const name of classesIn(html)) expect(KIT).toMatch(new RegExp(`\\.${name}[ :,{]`));
+    for (const name of [...classesIn(html)].filter((cls) => cls !== PRESSABLE)) expect(KIT).toMatch(new RegExp(`\\.${name}[ :,{]`));
   });
 
   it('lays out a starting splash as the static page does', () => {
@@ -50,7 +51,7 @@ describe('Splash', () => {
   it('draws the actions as buttons, the primary one first in look, and a node mark in a hidden box', () => {
     const html = draw({ mark: h('svg', { width: 48 }), actions: [{ label: 'Retry', primary: true, onSelect: noop }, { label: 'Quit', onSelect: noop, disabled: true }] });
     expect(html).toContain('<div class="ts-mark" aria-hidden="true"><svg width="48"></svg></div>');
-    expect(html).toContain('<div class="ts-actions"><button type="button" class="ts-button ts-button--primary">Retry</button><button type="button" class="ts-button" disabled="">Quit</button></div>');
+    expect(html).toContain('<div class="ts-actions"><button type="button" class="pressable ts-button ts-button--primary">Retry</button><button type="button" class="pressable ts-button" disabled="">Quit</button></div>');
   });
 
   it('names the bar with progressLabel and passes other props to the root', () => {

@@ -93,7 +93,6 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'HintScope', summary: 'Collects the hints of the controls inside it for a HintLine or useHint.' },
         { name: 'Callout', summary: 'A note set apart: a toned box or a footnote, with an action.' },
         { name: 'ErrorBoundary', summary: 'Catches a crash in its children and shows a notice in their place.' },
-        { name: 'Splash', summary: 'The static splash page as a React part, for a start, an update or a reconnect.' },
       ],
     },
     {

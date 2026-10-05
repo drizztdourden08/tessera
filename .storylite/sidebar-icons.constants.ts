@@ -17,7 +17,7 @@ const GROUP_ICONS: Record<string, string> = {
 const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Core · Setup': {
     'Setup': 'package-plus', 'TesseraProvider': 'replace', 'Building compounds': 'component',
-    'Building views': 'layout-panel-top', 'App primitives and composites': 'puzzle', 'Static splash': 'power',
+    'Building views': 'layout-panel-top', 'App primitives and composites': 'puzzle',
   },
   'Core · Brand': {
     Brand: 'stamp', InteractiveTessera: 'grid-2x2',
@@ -67,7 +67,6 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Tooltip: 'message-square',
     HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone', ErrorBoundary: 'bug',
-    Splash: 'rocket',
   },
   'Primitives · Navigation': { Tabs: 'panels-top-left', Stepper: 'git-commit-horizontal' },
   'Composites · Dialogs': {
@@ -76,7 +75,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     JobDialog: 'square-activity',
   },
   'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban', GuidedTour: 'signpost' },
-  'Composites · Feedback': { Toast: 'bell' },
+  'Composites · Feedback': { Toast: 'bell', Splash: 'rocket', 'Static splash': 'power' },
   'Composites · Actions': { ConfirmIconButton: 'circle-check', ActionBar: 'rectangle-ellipsis', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',

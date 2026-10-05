@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import type { CSSProperties } from 'react';
+import { Box } from '../../../primitives/Box';
 import { meterClass } from '../behavior/meter-class';
 import type { SplashMeterProps } from './SplashMeter.type';
 
@@ -8,7 +9,7 @@ const SplashMeter = (props: SplashMeterProps) => {
   const determinate = progress !== 'indeterminate';
   const value = determinate ? Math.min(Math.max(progress, 0), 1) : 0;
   return (
-    <div
+    <Box
       className={meterClass(bar, determinate, failed)}
       role="progressbar"
       aria-label={label}

@@ -34,7 +34,7 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
         { name: 'Palettes', summary: 'Each seed as eleven steps, and the grey scale.' },
         { name: 'Roles', summary: 'Every colour role with the value the page paints right now.' },
         { name: 'Contrast', summary: 'Text-on-fill pairs measured live, with a pass or fail per pair.' },
-        { name: 'Gradients', summary: 'Each brand\'s gradient behind its mark and its backdrop, with their tokens.' },
+        { name: 'Gradients', summary: 'Each brand\'s gradient behind its mark and its backdrop, and each palette\'s light and dark pairs, with their tokens.' },
       ],
     }],
   },

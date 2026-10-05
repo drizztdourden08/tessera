@@ -5285,3 +5285,68 @@ interface WindowTitleBarActionBase {
 ### What an app does
 
 Nothing has to change. To gate widgets by their own context, pass `contextActive={(definition) => …}` and drop the app's own filter. Give Reset layout and other menu actions that undo work `kind: 'confirm'`. Move a look you drew by hand on a dropdown title bar action to `tone` and `effect`.
+
+## 180. Every palette keeps a light and a dark gradient pair, and Splash is a composite
+
+From the owner's answer on the splash (S-01) and the placement of Splash (TX-40).
+
+The owner approved the dark splash and asked to keep the light gradient beside the dark one, and to drop the gradient with a white glow in its centre.
+
+### A light gradient pair beside the dark one
+
+Every palette, the default one too, now sets a light pair next to the dark pair of section 171.
+
+```css
+/* seeds, in palette.css and in each src/tokens/palettes file */
+--p-gradient-light-from: #ece6ff; /* archipelia */
+--p-gradient-light-to:   #c1a8ff;
+
+/* roles, in canonical.css, for :root and every [data-palette] */
+--c-gradient-light-from: var(--p-gradient-light-from);
+--c-gradient-light-to:   var(--p-gradient-light-to);
+```
+
+| Palette | Light from | Light to | Dark from | Dark to |
+|---|---|---|---|---|
+| tessera | `#ededf1` | `#a6a6b0` | `#202026` | `#0b0b0e` |
+| archipelia | `#ece6ff` | `#c1a8ff` | `#1c1438` | `#0b0912` |
+| brock | `#ffc66e` | `#ff9416` | `#2e1d0c` | `#0f0a06` |
+| rotp | `#f4e6bd` | `#c8a84e` | `#2a2110` | `#0f0d0a` |
+
+- The bright gradient an app showed before was the brand gradient, `brands.<app>.gradient` in `tokens.json`, which Brock reads into `--look-from`, `--look-via` and `--look-to` for its splash page. The Archipelia and Brock light pairs are the two ends of their brand gradient, so that look stays at hand per palette. The Tessera and RotP brand gradients are dark, so their light pairs are new: a light grey and a parchment gold from their own hues.
+- The Hero backdrops and the brand backdrops are dark glows over a dark ground, and the ContentHeader art runs from the layer colour to the dim primary. None of them is bright, so they do not change.
+- `tokens.json` lists the light pair as `gradientLightFrom` and `gradientLightTo` in `theme.dark` and in each `palettes.<palette>.dark`, beside `gradientDarkFrom` and `gradientDarkTo`. `splash-tokens.css` sets both pairs.
+- No token is renamed, so RENAMES.json has no entry for this section.
+- The splash still paints the dark pair, and the splash contrast test passes as before. It now also checks that each palette, the default one too, sets both pairs, and that the splash background holds no radial gradient.
+- The Gradients page under Colours has a Palette pairs variant: each palette's light pair beside its dark pair, with its mark as drawn on the light side and in its dark ground colours on the dark side.
+
+### No white glow in the centre
+
+Tessera draws no gradient with a white glow in its centre: no `radial-gradient` in the package CSS, the splash, the Hero, the backdrops or the brand art has one. The one the owner saw is in Brock, in two rules that paint a 14% white circle at 50% 40% over the bright look: `.splash` in `packages/build/src/splash/splash-page.css` and the failure splash in `packages/react/src/boot/BootFailureSplash/BootFailureSplash.css`. The mark on that page also casts a light drop shadow from `--look-shade`, which reads as the same halo.
+
+### Splash and Static splash move to Composites · Feedback
+
+`Splash` moves from the primitives to the composites. It holds a stage, a mark, a live status, a bar, buttons and their focus on failure, so it now sits beside the other parts built from primitives. Its props, the `ts-` classes it draws and its look do not change.
+
+| Before | After |
+|---|---|
+| `src/primitives/Splash` | `src/composites/Splash` |
+| `@drizztdourden08/tessera/primitives` exports `Splash`, `SplashAction`, `SplashBar`, `SplashProgress` and `SplashProps` | `@drizztdourden08/tessera/composites` exports them |
+| Gallery page Primitives · Feedback/Splash | Composites · Feedback/Splash |
+| Gallery page Core · Setup/Static splash | Composites · Feedback/Static splash |
+
+- The root import `@drizztdourden08/tessera` works as before, and `splash.css` stays at the root of the package.
+- The splash is drawn with `Box` for its blocks, its title and its status lines, and `Pressable` for its buttons. The image of a mark given as a URL is drawn by `ImageElement`, a raw `<img>` kept in `src/primitives/media` beside `VideoElement`, which the package does not export. `Image` frames its picture, fades it in and crops it, while the splash must match the static page with no change at the hand over.
+- A button now carries the class `pressable` beside `ts-button`. Its rules sit in `:where()`, with no weight, so `splash.css` still sets the whole look. The buttons measure the same in the Splash and on the static page: 56, 99 and 49 by 28 pixels for Retry, Report a bug and Quit.
+- The Static splash page is the same splash in static HTML, so it moves beside Splash, and its samples move with it to `stories/composites/_samples`.
+
+### Stale RotP mascot files
+
+`pnpm icons` rewrote `sentri.svg`, `hookshop.svg`, the five Sentri PNGs, `sentri.ico` and `hookshop-2x.png` under `brand/rotp/mascot`. Sentri's pods became whole rounded hands on October 1, and these files were not drawn again then: they still showed the old cut pods, seven pixels wide where the pieces are now eight. Two runs give the same bytes, every other brand file comes out the same, and the 64 pixel PNG differs only in the rows of the pods, so the new files are the output of the current sources. They are committed on their own.
+
+### What an app does
+
+1. Nothing has to change for the splash. A bright ground of the app's own reads `--c-gradient-light-from` and `--c-gradient-light-to`, with a dark ink for its text.
+2. An app theme that changes the palette seeds sets `--p-gradient-light-from` and `--p-gradient-light-to` too.
+3. An import of `Splash` or its types from `@drizztdourden08/tessera/primitives` moves to `@drizztdourden08/tessera/composites`, or to the root.
+4. Brock: drop the `radial-gradient(circle at 50% 40%, …)` layer from `.splash` in `splash-page.css` and from `BootFailureSplash.css`, and the light drop shadow on the mark, keeping the plain gradient under it. Its splash takes the dark pair (section 171); where it keeps the bright look, it reads `palettes.<palette>.dark.gradientLightFrom` and `gradientLightTo` from `tokens.json`.

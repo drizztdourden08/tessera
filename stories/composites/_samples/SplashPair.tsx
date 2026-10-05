@@ -1,8 +1,8 @@
 /* @layer stories @kind component */
-import { Splash } from '../../../src/primitives';
+import { Splash } from '../../../src/composites';
 import { axis } from '../../_template/axis';
 import { Demonstrator } from '../../_template/Demonstrator';
-import { SplashFrame } from '../../setup/_samples/SplashFrame';
+import { SplashFrame } from './SplashFrame';
 import { LiveSplash } from './LiveSplash';
 import { SPLASH_MARK, SPLASH_SAMPLES, SPLASH_TITLE, SPLASH_VERSION } from './splash-states.constants';
 import type { SplashPairProps } from './splash-states.type';

@@ -1,9 +1,9 @@
 /* @layer stories @kind component */
 import { BRAND_APPS, BRAND_FAMILY, BrandMark } from '../../../src/brand';
-import { Splash } from '../../../src/primitives';
+import { Splash } from '../../../src/composites';
 import { axis } from '../../_template/axis';
 import { Demonstrator } from '../../_template/Demonstrator';
-import { SplashFrame } from '../../setup/_samples/SplashFrame';
+import { SplashFrame } from './SplashFrame';
 import { DARK_GROUND_MARKS } from './dark-ground-marks.constants';
 import { LiveSplash } from './LiveSplash';
 

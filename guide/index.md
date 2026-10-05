@@ -60,7 +60,6 @@ One line per component. 47 of 172 have their usage written; a linked name opens 
 - `Spacer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Sparkline](components/Sparkline.md): A small line or area chart of the latest samples, so a reader sees which way a value moves at a glance. Import from `@drizztdourden08/tessera`.
 - `Spinner`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.
 - `Stack`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StackedBar](components/StackedBar.md): One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend. Import from `@drizztdourden08/tessera`.
 - `StatRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -147,6 +146,7 @@ One line per component. 47 of 172 have their usage written; a linked name opens 
 - `ShortcutTour`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
 - [StatTile](components/StatTile.md): A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart. Import from `@drizztdourden08/tessera`.

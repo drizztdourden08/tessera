@@ -1,6 +1,6 @@
 /* @layer stories @kind types */
 import type { ReactNode } from 'react';
-import type { SplashProgress } from '../../../src/primitives';
+import type { SplashProgress } from '../../../src/composites';
 
 type SplashState = 'starting' | 'failed' | 'update' | 'reconnecting';
 

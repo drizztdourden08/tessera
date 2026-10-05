@@ -21,7 +21,7 @@ const ARG_TYPES: PlaygroundArgTypes<SplashArgs> = {
 };
 
 const meta = {
-  title: 'Core · Setup/Static splash',
+  title: 'Composites · Feedback/Static splash',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SplashArgs>;
 

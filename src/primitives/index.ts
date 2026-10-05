@@ -153,8 +153,6 @@ export type { GaugeProps, GaugeSize, GaugeThresholds } from './Gauge';
 export { StackedBar } from './StackedBar';
 export type { StackedBarColor, StackedBarOrientation, StackedBarProps, StackedBarSegment, StackedBarSize } from './StackedBar';
 export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from './dom/app-region.constants';
-export { Splash } from './Splash';
-export type { SplashAction, SplashBar, SplashProgress, SplashProps } from './Splash';
 export { JsonInput } from './JsonInput';
 export type { JsonInputProps, JsonProblem, JsonReason, JsonShape } from './JsonInput';
 export { NamedRange } from './NamedRange';

@@ -1,8 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { BrandMark } from '../../src/brand';
-import { Splash } from '../../src/primitives';
-import type { SplashBar } from '../../src/primitives';
+import { Splash } from '../../src/composites';
+import type { SplashBar } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { LiveSplash } from './_samples/LiveSplash';
@@ -36,7 +36,7 @@ const ARG_TYPES: PlaygroundArgTypes<SplashArgs> = {
 };
 
 const meta = {
-  title: 'Primitives · Feedback/Splash',
+  title: 'Composites · Feedback/Splash',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SplashArgs>;
 
@@ -110,7 +110,7 @@ const Overview = overviewStory({
   component: 'Splash',
   description: 'The splash of the static page as a React part, for a start, an update or a reconnect once the app has loaded.',
   points: [
-    'It draws the `ts-` classes of `splash.css`, so it matches the [Static splash](#/story/setup-staticsplash--overview) page.',
+    'It draws the `ts-` classes of `splash.css`, so it matches the [Static splash](#/story/composites-staticsplash--overview) page.',
     'It sits on the dark gradient of the palette; a test holds its text, borders and bar at WCAG AA.',
     '`mark` takes an image URL or a node; a [Logo] or BrandMark in it takes its dark ground colours by itself.',
     '`progress` fills the bar from 0 to 1, or sweeps with `indeterminate`; `bar` puts it on the edge or inline.',

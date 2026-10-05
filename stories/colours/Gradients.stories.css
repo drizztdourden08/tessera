@@ -11,7 +11,7 @@
 }
 
 .brand-gradients--pair {
-  grid-template-columns: minmax(var(--size-256), 1fr) minmax(var(--size-288), 2fr);
+  grid-template-columns: minmax(var(--size-256), 1fr) minmax(var(--size-288), 2fr) minmax(var(--size-288), 2fr);
 }
 
 .brand-gradients__card {
@@ -61,4 +61,25 @@
 
 .brand-backdrop--brock {
   background: var(--brand-brock-backdrop);
+}
+
+.palette-gradient {
+  display: grid;
+  overflow: hidden;
+  min-height: var(--size-192);
+  border-radius: var(--radius-lg);
+  grid-template-columns: 1fr 1fr;
+}
+
+.palette-gradient__ground {
+  display: grid;
+  place-items: center;
+}
+
+.palette-gradient__ground--light {
+  background: linear-gradient(160deg, var(--c-gradient-light-from), var(--c-gradient-light-to));
+}
+
+.palette-gradient__ground--dark {
+  background: linear-gradient(160deg, var(--c-gradient-dark-from), var(--c-gradient-dark-to));
 }

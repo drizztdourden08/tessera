@@ -8,6 +8,8 @@
     --c-surface:       var(--p-tertiary-900);
     --c-sunken:        var(--p-tertiary-950);
     --c-layer:         var(--p-black);
+    --c-gradient-light-from: var(--p-gradient-light-from);
+    --c-gradient-light-to:   var(--p-gradient-light-to);
     --c-gradient-dark-from: var(--p-gradient-dark-from);
     --c-gradient-dark-to:   var(--p-gradient-dark-to);
     --c-glass:         color-mix(in srgb, var(--c-layer) 92%, transparent);

@@ -18,6 +18,8 @@ const THEME_COLOURS = {
   textFaint: '--c-text-faint',
   primary: '--c-primary',
   onPrimary: '--c-on-primary',
+  gradientLightFrom: '--c-gradient-light-from',
+  gradientLightTo: '--c-gradient-light-to',
   gradientDarkFrom: '--c-gradient-dark-from',
   gradientDarkTo: '--c-gradient-dark-to',
 };
