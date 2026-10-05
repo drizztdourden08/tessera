@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
-import type { UnsavedSave } from '../../primitives/unsaved-guard/unsaved-guard.type';
+import type { UnsavedGuard, UnsavedSave } from '../../primitives/unsaved-guard/unsaved-guard.type';
 import type { ItemListProps } from '../ItemList/ItemList.type';
 import type { ListDetailLayoutProps } from '../ListDetailLayout/ListDetailLayout.type';
 
@@ -23,6 +23,12 @@ interface ListDetailProps<T> extends Omit<ListDetailLayoutProps, 'list' | 'detai
   guard?: ListDetailGuardLook;
 }
 
+interface ListDetailGuardView<T> {
+  guard: UnsavedGuard<ListDetailMove>;
+  items: ItemListProps<T>;
+  back: () => void;
+}
+
 interface ListDetailGuardProps {
   open: boolean;
   message: string;
@@ -40,6 +46,6 @@ interface ListDetailGuardActionsProps extends Omit<ListDetailGuardProps, 'open' 
 
 export type {
   ListDetailGuardActionsProps, ListDetailGuardLook,
-  ListDetailGuardProps, ListDetailListProps,
+  ListDetailGuardProps, ListDetailGuardView, ListDetailListProps,
   ListDetailMove, ListDetailProps, ListDetailSave,
 };

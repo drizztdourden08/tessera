@@ -1,6 +1,6 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { ListDetail } from '../../../src/composites';
+import { InlineCreateForm, ListDetail } from '../../../src/composites';
 import { Box } from '../../../src/primitives';
 import { presetGroup } from './preset-group';
 import { presetRow } from './preset-row';
@@ -37,7 +37,10 @@ const PresetsDemo = (props: PresetsDemoProps) => {
       <ListDetail
         list={{
           title: 'Presets', items: presets.items, getId: idOf, getName: nameOf, render: presetRow, groupBy: presetGroup,
-          onCreate: () => setSelectedId(presets.create()), onRename: presets.rename, onDelete: presets.remove, filter: true,
+          onRename: presets.rename, onDelete: presets.remove, filter: true, createLabel: 'New preset',
+          create: (close) => (
+            <InlineCreateForm placeholder="Preset name" onCreate={(name) => { drop(); setSelectedId(presets.create(name)); close(); }} onCancel={close} />
+          ),
         }}
         selectedId={selectedId}
         onSelect={(id) => { drop(); setSelectedId(id); }}

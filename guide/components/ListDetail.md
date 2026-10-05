@@ -31,15 +31,16 @@ ListDetail joins ItemList and ListDetailLayout and asks the same question before
 - Set dirty from the editor: true while its value differs from the saved one.
 - Pass onSave so the question offers Save and open; return false, or reject, when the save fails.
 - Pass onDiscard to throw the draft away; onSelect runs after it.
-- Keep the list props in list; ListDetail adds the selection and guards New.
-- A create form in list opens without the question, since it throws no edits away; picking the new item is up to the app.
+- Keep the list props in list; ListDetail adds the selection and guards New, with create or onCreate.
+- New asks before a create form in list opens, and opens it after Discard or a save that worked; picking the new item is up to the app.
+- With createOpen in list, New reaches onCreateOpenChange only after the answer; a createOpen the app sets on its own skips the question.
 - The question is a bar over the editor by default; pass guard dialog to ask in a modal dialog instead.
 - Put a SaveBar at the foot of the editor, for Save and Discard while the user stays on the item.
 - Every prop of ListDetailLayout passes through, such as storageKey, collapsed and emptyDetail; detail shows only while an item is picked.
 
 ## Accessibility
 
-- The question takes focus on Stay here, and Escape stays; focus goes back where it was.
+- The question takes focus on Keep editing, and Escape stays; focus goes back where it was, such as to New.
 - By default the question is an alertdialog over the editor; with guard dialog it is a modal dialog.
 - The list keeps every key of ItemList; the panes keep every key of ListDetailLayout, with Enter on the divider to fold the list.
 
@@ -80,7 +81,7 @@ const PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Pr
 - `selectedId`: `string | null`.
 - `onSelect`: `(id: string | null) => void`.
 - `detail`: `ReactNode`.
-- `dirty` (optional): `boolean`. Default `false`.
+- `dirty` (optional): `boolean`.
 - `onSave` (optional): `ListDetailSave`.
 - `onDiscard` (optional): `() => void`.
 - `guard` (optional): `ListDetailGuardLook`, one of `'dialog'`, `'inline'`. Default `'inline'`.

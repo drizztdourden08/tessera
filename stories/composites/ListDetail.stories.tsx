@@ -19,7 +19,7 @@ const ARGS: Partial<ListDetailArgs> = { guard: 'inline', startDirty: true, start
 
 const ARG_TYPES: PlaygroundArgTypes<ListDetailArgs> = {
   guard: { group: 'Behaviour', control: 'select', options: ['inline', 'dialog'], description: 'Ask in a bar at the top of the editor, or in a dialog.' },
-  startDirty: { group: 'State', control: 'boolean', description: 'Keysanity starts with three edits not saved: pick another preset to see the question.' },
+  startDirty: { group: 'State', control: 'boolean', description: 'Keysanity starts with three edits not saved: pick another preset or press New preset to see the question.' },
   startCollapsed: { group: 'State', control: 'boolean', description: 'The list starts folded to a rail; its button brings it back.' },
   narrow: { group: 'Layout', control: 'boolean', description: 'A 512 px frame: the list, then the editor with Back, which asks too.' },
 };
@@ -61,7 +61,7 @@ const Narrow = {
   render: () => <PresetsDemo startDirty narrow />,
 } satisfies StoryLiteStoryDefinition<ListDetailArgs>;
 
-const CODE = `import { ListDetail, SaveBar } from '@drizztdourden08/tessera';
+const CODE = `import { InlineCreateForm, ListDetail, SaveBar } from '@drizztdourden08/tessera';
 
 <ListDetail
   list={{
@@ -70,7 +70,10 @@ const CODE = `import { ListDetail, SaveBar } from '@drizztdourden08/tessera';
     getId: (preset) => preset.id,
     getName: (preset) => preset.name,
     groupBy: (preset) => preset.game,
-    onCreate: createPreset,
+    createLabel: 'New preset',
+    create: (close) => (
+      <InlineCreateForm placeholder="Preset name" onCreate={(name) => { setSelectedId(addPreset(name)); close(); }} onCancel={close} />
+    ),
     onRename: renamePreset,
     onDelete: deletePreset,
   }}
@@ -93,8 +96,8 @@ const Overview = overviewStory({
   description: 'An [ItemList] beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away.',
   points: [
     '`list` takes the [ItemList] props; `selectedId` and `onSelect` pick the item the editor shows.',
-    'With `dirty`, a pick, New or Back asks first: Keep editing, Discard, or Save and open with `onSave`.',
-    '`onSave` may return a promise; false, or a failure, keeps the user on the edited item.',
+    'With `dirty`, a pick, Back or New, which opens the `create` form, asks first: Keep editing, Discard or Save.',
+    '`onSave` may return a promise; false, or a failure, keeps the user on the edited item with the form shut.',
     '`guard` is `inline`, a bar over the editor, by default, or `dialog`, the confirm dialog of Tessera.',
     'Put a [SaveBar] at the foot of the editor for Save and Discard while the user stays on the item.',
     'The panes, the resize, the fold to a rail and the small window are [ListDetailLayout]: its props pass through.',

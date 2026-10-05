@@ -4614,7 +4614,7 @@ interface ManagedListProps<T> {
 - Without `createOpen` the list tracks whether the form is open. With it, the app decides: New and `close` call `onCreateOpenChange`, and the form shows while `createOpen` is true. An app starts the form open on a first run with no items, and leaves Cancel out of its form while nothing can be cancelled.
 - The focus rules hold either way. When the app shuts the form itself, focus moves only when it went down with the form, so a form shut from elsewhere never pulls focus.
 - `onCreate` works as before for an app that opens its own flow, such as a dialog. With `create` set, New opens the form and `onCreate` is not called.
-- `MasterDetail` passes `create`, `createOpen` and `onCreateOpenChange` through `list`. The form opens without the unsaved changes question, since it throws no edits away.
+- `MasterDetail` passes `create`, `createOpen` and `onCreateOpenChange` through `list`. The form opened without the unsaved changes question here; since section 193 New asks first while edits are unsaved.
 - The ManagedList page shows a profile form with a name, a game and a template, built from `InlineCreateForm`, and a first run where that form starts open.
 
 ### What an app does
@@ -6015,3 +6015,28 @@ interface MenuItem { onCancel?: () => void } // a DropdownMenu item of kind conf
 ### What an app does
 
 Nothing. An app that kept its own flag to know a question was cancelled can pass `onCancel` and drop the flag. Looks stay the same.
+
+## 193. ListDetail asks before New opens the create form
+
+From AX-06. Section 168 let ListDetail open the create form of `list` without the unsaved changes question, since the form throws no edits away. A user who pressed New while the editor held unsaved edits then lost them when the app picked the new item. New now asks first, in the same bar or dialog, with the same words as New with `onCreate`.
+
+```ts
+// No new props. ListDetail now holds createOpen for its ItemList:
+interface ListDetailListProps<T> {
+  create?: ItemListCreate;
+  createOpen?: boolean; // the app's own, when it holds the form
+  onCreateOpenChange?: (open: boolean) => void; // runs after the answer
+}
+```
+
+- **When it asks.** While `dirty` is true, New asks before the form opens, whether `list` has `create` or `onCreate`. With nothing unsaved the form opens at once, as before. Closing the form never asks.
+- **The answers.** Discard runs `onDiscard`, then opens the form. Save waits for `onSave` and opens the form when the save works; when it returns false, fails or throws, the form stays shut. Keep editing leaves the form shut, and focus goes back to New.
+- **How the request flows.** ListDetail passes its own `createOpen` and `onCreateOpenChange` to ItemList. New calls that `onCreateOpenChange(true)`, which goes through the shared `useUnsavedGuard`; after the answer, ListDetail opens the form itself, or calls the app's `onCreateOpenChange(true)` when the app holds `createOpen`.
+- **An app that holds `createOpen`** gets the request only after the answer, so New never opens the form past the question. A `createOpen` the app sets to true on its own, such as on a first run, opens the form without asking; the app checks for unsaved edits on that path.
+- **ItemList on its own** has no unsaved edits and opens the form at once, as before. Without `create` or `onCreate` there is no New and nothing changes.
+- The ListDetail page creates presets in a form under the title: with the unsaved edits of Keysanity, New preset asks first. The SaveBar page shows the same demo, so its New preset opens the form too.
+
+### What an app does
+
+1. Nothing, for an app that passes `create` without `createOpen`: New now asks while edits are unsaved.
+2. An app that holds `createOpen` keeps opening the form from `onCreateOpenChange(true)`; it is called after the answer now. Where it sets `createOpen` to true from its own code while the editor may hold edits, it asks first or saves.

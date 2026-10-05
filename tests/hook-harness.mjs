@@ -22,6 +22,8 @@ const hooks = {
     return [cell.value, set];
   },
   useRef: (initial) => slot(() => ({ current: initial })),
+  useCallback: (callback) => callback,
+  useMemo: (make) => make(),
   useEffect: (effect, deps) => {
     const cell = slot(() => ({}));
     if (sameDeps(cell.deps, deps)) return;
