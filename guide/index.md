@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 44 of 172 have their usage written; a linked name opens its page.
+One line per component. 47 of 172 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -104,7 +104,7 @@ One line per component. 44 of 172 have their usage written; a linked name opens 
 - `DisabledOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DockLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `DropdownMenu`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
 - `DynamicInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FileList](components/FileList.md): The files a job made or an app keeps, one row each with its type icon, name, size and date, and buttons to open it or show it in its folder. Import from `@drizztdourden08/tessera`.
@@ -158,10 +158,10 @@ One line per component. 44 of 172 have their usage written; a linked name opens 
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
 - [Video](components/Video.md): A video player with its own control bar: seek with a time preview, volume, speed, picture in picture, theater mode and full screen. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Widget`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Widget](components/Widget.md): The frame of a tool panel, such as a player list or a log, that the user docks, floats or pops out; WidgetManager places a whole dock. Import from `@drizztdourden08/tessera`.
 - `WindowGuideOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WindowHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `WindowTitleBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [WindowTitleBar](components/WindowTitleBar.md): The title bar of a frameless desktop window: the brand in the middle, the main menu at the start and the window buttons at the end. Import from `@drizztdourden08/tessera`.
 - `Wizard`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardExitGuard`: usage not written yet. Import from `@drizztdourden08/tessera`.

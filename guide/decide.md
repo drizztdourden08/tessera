@@ -19,7 +19,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Each on or off by itself: no component yet.
     - Peer actions on one thing, read as one tool: no component yet.
     - Separate decisions, with space between: no component yet.
-    - Too many, or secondary: no component yet.
+    - Too many, or secondary: [DropdownMenu](components/DropdownMenu.md). DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work.
     - Actions on one item, folding into More when narrow: [ActionBar](components/ActionBar.md). ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and always asks before it.
 - A value the user sets. **What does the user set?**
   - Free text or a number. **What shape is it?**
@@ -107,14 +107,14 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Two panes the user resizes: no component yet.
   - A list beside an editor, with unsaved edits guarded: [MasterDetail](components/MasterDetail.md). MasterDetail joins ManagedList and MasterDetailLayout and asks the same question before edits are lost in every app.
   - An app frame with its navigation: no component yet.
-  - Panels the user docks and moves: no component yet.
+  - Panels the user docks and moves: [Widget](components/Widget.md). Widget and WidgetManager give every tool panel the same frame, dock and options, with the app holding the layout.
   - A header with an icon and a title over a block: [ContentHeader](components/ContentHeader.md). ContentHeader is the header with an icon, a title and a backdrop that any container can carry.
   - A settings screen. **Which part of it?**
     - The whole page: no component yet.
     - One section of rows: no component yet.
     - A list of groups: no component yet.
   - Window chrome. **Which part of the window?**
-    - The title bar: no component yet.
+    - The title bar: [WindowTitleBar](components/WindowTitleBar.md). WindowTitleBar is the one title bar of a frameless window, with the same brand, menu and controls in every app.
     - A header inside the window: no component yet.
   - A ready-made app panel. **Which panel?**
     - Facts in groups: no component yet.

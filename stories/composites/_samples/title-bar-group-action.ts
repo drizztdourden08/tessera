@@ -1,15 +1,16 @@
 /* @layer stories @kind data */
 import type { WindowTitleBarAction } from '../../../src/composites';
-import type { TitleBarGroupState } from './title-bar-group.type';
+import type { TitleBarGroupLook, TitleBarGroupState } from './title-bar-group.type';
 
 const GROUPS = [0, 1, 2, 3, 4] as const;
 
-const groupActions = (state: TitleBarGroupState): WindowTitleBarAction[] => [
+const groupActions = (state: TitleBarGroupState, look: TitleBarGroupLook = {}): WindowTitleBarAction[] => [
   {
     id: 'window-group',
     icon: 'group',
     label: 'Window group',
     bar: 'dropdown',
+    ...look,
     groups: [
       {
         id: 'group',

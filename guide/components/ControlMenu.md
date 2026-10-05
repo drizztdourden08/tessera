@@ -24,7 +24,7 @@ ControlMenu keeps several small settings one click away without a page or a dial
 
 ## Use something else when
 
-- Every entry is an action, an on or off check, or one choice from a short list. Use `DropdownMenu` instead.
+- Every entry is an action, an on or off check, or one choice from a short list. Use [DropdownMenu](DropdownMenu.md) instead.
 - The settings are many, need explanations, or are saved with the profile. Use `SettingsPage` instead.
 - The settings should stay on screen while the user works. Use `SettingsSection` instead.
 

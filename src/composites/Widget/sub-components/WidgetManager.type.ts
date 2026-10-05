@@ -2,12 +2,13 @@
 import type { ReactNode } from 'react';
 import type { DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, ScreenPoint, Size, WidgetId } from '../../DockLayout';
 import type { WidgetDefinition, WidgetDisabledState, WidgetLayout, WidgetWindowOptions } from '../Widget.type';
+import type { WidgetContextActive } from '../behavior/widget-layout.type';
 
 interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   definitions: readonly D[];
   layout: WidgetLayout;
   onLayoutChange: (layout: WidgetLayout) => void;
-  contextActive: boolean;
+  contextActive: WidgetContextActive<D>;
   children: Record<string, ReactNode>;
   settingsContent?: Record<string, ReactNode>;
   pageOpen?: boolean;

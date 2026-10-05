@@ -8,7 +8,7 @@ export type {
   PinMode, PoppedWidget, SnapLink, SnapSide, WidgetBodyLook, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
   WidgetPadding, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds,
 } from './Widget.type';
-export type { DockPlace, FlatWidgetLayout, FlatWidgetState, ResolvedSplit, WidgetGates } from './behavior/widget-layout.type';
+export type { DockPlace, FlatWidgetLayout, FlatWidgetState, ResolvedSplit, WidgetContextActive, WidgetGates } from './behavior/widget-layout.type';
 export { DEFAULT_LAYOUT_STORAGE_KEY } from './Widget.constants';
 export { createDefaultLayout } from './behavior/create-default-layout';
 export { getDevOnlyWidgetIds } from './behavior/get-dev-only-widget-ids';

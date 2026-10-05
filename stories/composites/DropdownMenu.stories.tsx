@@ -11,6 +11,7 @@ import type { StateProps } from '../_template/states/states.type';
 import { buildTitleMenu } from './_samples/data-title-menu';
 import { CATEGORY_MENU, EDIT_MENU, NESTED_MENU, SUBTITLE_MENU } from './_samples/data-menu-features';
 import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
+import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
 import { JoinDemos, MarksDemo, NestedDemo } from './_samples/menu-join-demos';
 import type { MenuDemoArgs } from './_samples/menu-demos';
 
@@ -110,6 +111,17 @@ const Commands = {
   ),
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const Confirm = {
+  name: 'An item that asks before it runs',
+  render: () => (
+    <Demonstrator
+      columns={axis(['In place', 'From a button'])}
+      valign="start"
+      cell={(_row, where) => <MenuConfirmDemo inline={where === 'In place'} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const SubMenus = {
   name: 'Sub-menus and filter',
   render: () => (
@@ -168,13 +180,13 @@ const Overview = overviewStory({
     '`groups` lists the items; each has a `label` and can add an `icon`, a `shortcut` and `onSelect`.',
     '`trigger` draws the button: a [Button] with its label, or an [IconButton] with `iconOnly`.',
     '`kind="radio"` or `checked` turns an item into a choice, and `children` opens a sub-menu.',
-    '`filter` adds a search field that finds items on every level.',
+    '`kind="confirm"` asks first: one press shows Click again to in the danger tone, a second press runs it.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
-    '`anchorRef` hangs it from something that is not a button, such as a table header.',
+    '`filter` adds a search field over every level; `anchorRef` hangs the menu from a table header or a row.',
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, Inside, Commands, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, Inside, Commands, Confirm, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -189,4 +201,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Inside, Joins, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };
+export { Commands, Confirm, Inside, Joins, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };

@@ -23,15 +23,15 @@ interface WindowTitleBarActionBase {
   label: string;
   icon: IconName;
   shortcut?: MenuItem['shortcut'];
+  tone?: StatusTone;
+  effect?: IconEffect;
 }
 
 interface WindowTitleBarCommandAction extends WindowTitleBarActionBase {
   bar?: Exclude<WindowTitleBarActionBar, 'dropdown'>;
   onSelect: () => void;
   status?: string;
-  tone?: StatusTone;
   pulse?: boolean;
-  effect?: IconEffect;
 }
 
 interface WindowTitleBarDropdownAction extends WindowTitleBarActionBase {

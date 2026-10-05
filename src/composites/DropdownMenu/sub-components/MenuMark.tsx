@@ -2,6 +2,7 @@
 import { useContext } from 'react';
 import { Icon } from '../../../primitives/Icon';
 import { Span } from '../../../primitives/text-elements';
+import { isChoice } from '../behavior/is-choice';
 import { MenuColumnsContext } from '../behavior/menu-columns-context';
 import type { MenuMarkProps } from './MenuMark.type';
 
@@ -9,7 +10,7 @@ const MenuMark = (props: MenuMarkProps) => {
   const { kind, checked } = props;
   const { marks } = useContext(MenuColumnsContext);
   if (!marks) return null;
-  const state = kind !== 'action' && !checked ? ' dropdown__mark--off' : '';
+  const state = isChoice(kind) && !checked ? ' dropdown__mark--off' : '';
   return (
     <Span className={`dropdown__mark dropdown__mark--${kind}${state}`} aria-hidden="true">
       {kind === 'check' && <Icon name="check" />}

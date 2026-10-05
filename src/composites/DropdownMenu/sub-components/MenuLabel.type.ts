@@ -1,14 +1,11 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
 import type { MenuItem } from '../DropdownMenu.type';
 
-interface MenuItemBodyProps {
+interface MenuLabelProps {
   item: MenuItem;
-  end?: ReactNode;
   query?: string;
-  path?: readonly string[];
   ask?: string;
   asking?: boolean;
 }
 
-export type { MenuItemBodyProps };
+export type { MenuLabelProps };

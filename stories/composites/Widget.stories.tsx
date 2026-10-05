@@ -4,6 +4,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { ContextDock } from './_samples/ContextDock';
 import { WidgetDock } from './_samples/data-widget-dock';
 import { PerformanceWidget } from './_samples/PerformanceWidget';
 import { WidgetBodyDemo } from './_samples/WidgetBodyDemo';
@@ -85,6 +86,13 @@ const Dock = {
   render: (args) => <WidgetDock {...args} />,
 } satisfies PlaygroundStory<WidgetArgs>;
 
+const PerWidget = {
+  name: 'Session dashboard dock, a context per widget',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <ContextDock {...args} />,
+} satisfies PlaygroundStory<WidgetArgs>;
+
 const Bodies = {
   name: 'Body padding and fill',
   render: () => <WidgetBodyDemo />,
@@ -128,12 +136,12 @@ const Overview = overviewStory({
     'The title bar is the drag handle, with the name or tabs; pop out, options and close name the widget.',
     '`titleBarActions` adds buttons; in its own window `pin` keeps it on top and `dragRegion` lets the strip move it.',
     'Each widget carries `data-widget-id` and each [DockLayout] pane `data-pane-id`, for tests.',
-    'The body scrolls in a gutter of its own and takes `padding`, `sm` by default, or `none` or `md`.',
-    '`fill`, here or in the widget definition, makes the body a full-height column for a log or a chart.',
+    'The body scrolls in its gutter with `padding`, `sm` by default, or `none` or `md`; `fill` makes a full height column.',
     '`options` puts [WidgetOptions], a [ControlMenu], on the gear; `WidgetManager` places a whole dock from a layout.',
+    '`WidgetManager` hides context only widgets by `contextActive`: one flag, or a function per widget definition.',
   ],
   playground: Playground,
-  variants: [Single, Tabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, Folded, Bodies, Dock, Performance],
+  variants: [Single, Tabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, Folded, Bodies, Dock, PerWidget, Performance],
   states: {
     render: renderState,
     list: [
@@ -147,4 +155,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Bodies, Dock, DragStrip, Folded, Fullscreen, OwnActions, OwnWindow, Overview, Performance, Playground, Single, Tabbed };
+export { Bodies, Dock, DragStrip, Folded, Fullscreen, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };

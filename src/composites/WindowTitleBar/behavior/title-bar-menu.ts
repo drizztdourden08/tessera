@@ -18,11 +18,9 @@ const viewItems = (input: TitleBarMenuInput): MenuItem[] => {
 };
 
 const actionMenuItem = (action: WindowTitleBarAction): MenuItem[] => {
-  const { id, icon, label, shortcut } = action;
-  if (action.bar !== 'dropdown') {
-    const look = action.tone !== undefined || action.effect !== undefined ? createElement(TitleBarActionIcon, { action }) : icon;
-    return [{ id, icon: look, label, description: action.status, shortcut, onSelect: action.onSelect }];
-  }
+  const { id, label, shortcut } = action;
+  const icon = action.tone !== undefined || action.effect !== undefined ? createElement(TitleBarActionIcon, { action }) : action.icon;
+  if (action.bar !== 'dropdown') return [{ id, icon, label, description: action.status, shortcut, onSelect: action.onSelect }];
   const children = dropdownNodes(action.groups);
   return children.length > 0 ? [{ id, icon, label, shortcut, children }] : [];
 };

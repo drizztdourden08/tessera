@@ -1,10 +1,11 @@
 /* @layer stories @kind data */
 import { createDefaultLayout, dockOnEdge } from '../../../src/composites';
-import type { DockEdge, WidgetDefinition, WidgetLayout, WidgetPersistenceIO } from '../../../src/composites';
+import type { DockEdge, WidgetLayout, WidgetPersistenceIO } from '../../../src/composites';
+import type { DemoWidgetDefinition } from './data-widgets.type';
 
-const WIDGET_DEFINITIONS: readonly WidgetDefinition[] = [
+const WIDGET_DEFINITIONS: readonly DemoWidgetDefinition[] = [
   {
-    id: 'players', label: 'Players', defaultVisibility: 'context-only', defaultSide: 'left',
+    id: 'players', label: 'Players', context: 'session', defaultVisibility: 'context-only', defaultSide: 'left',
     defaultDockedSize: 260, defaultFloatingSize: { width: 280, height: 320 },
   },
   {
@@ -12,7 +13,7 @@ const WIDGET_DEFINITIONS: readonly WidgetDefinition[] = [
     defaultDockedSize: 170, defaultFloatingSize: { width: 480, height: 220 }, popOut: true, padding: 'none', fill: true,
   },
   {
-    id: 'hints', label: 'Hints', defaultVisibility: 'context-only', defaultSide: 'right',
+    id: 'hints', label: 'Hints', context: 'race', defaultVisibility: 'context-only', defaultSide: 'right',
     defaultDockedSize: 280, defaultFloatingSize: { width: 300, height: 280 },
   },
   {

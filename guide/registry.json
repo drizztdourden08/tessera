@@ -65,7 +65,9 @@
                 "components": []
               },
               "too many, or secondary": {
-                "components": []
+                "components": [
+                  "DropdownMenu"
+                ]
               },
               "actions on one item, folding into More when narrow": {
                 "components": [
@@ -392,7 +394,9 @@
             "components": []
           },
           "panels the user docks and moves": {
-            "components": []
+            "components": [
+              "Widget"
+            ]
           },
           "a header with an icon and a title over a block": {
             "components": [
@@ -417,7 +421,9 @@
             "question": "Which part of the window?",
             "answers": {
               "the title bar": {
-                "components": []
+                "components": [
+                  "WindowTitleBar"
+                ]
               },
               "a header inside the window": {
                 "components": []
@@ -4216,7 +4222,249 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor.",
+      "useWhen": [
+        "A view has more actions than its toolbar can show, or actions used too rarely to earn a button, such as Export or Reset layout.",
+        "A few on or off checks or one choice from a short list sit with those actions, such as which panels show.",
+        "An action undoes work and the menu is where the user finds it: kind confirm asks with a second press, without a dialog."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The entries are settings with richer controls, such as a slider or a number.",
+          "use": "ControlMenu"
+        },
+        {
+          "case": "The user picks one value for a form field.",
+          "use": "Select"
+        },
+        {
+          "case": "The actions belong to one item and should show while there is room.",
+          "use": "ActionBar"
+        },
+        {
+          "case": "The user looks for any action in the app by name.",
+          "use": "CommandPalette"
+        }
+      ],
+      "rules": [
+        "The app owns every checked value and every action; the menu only calls onSelect and draws what it is given.",
+        "Give an action that undoes work kind confirm: the first press reads Click again to and the label, in the danger tone; the second runs it.",
+        "Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.",
+        "Split groups by meaning with a label or a separator; turn on filter past about a dozen items."
+      ],
+      "a11y": [
+        "The menu is role menu named by label; items are menuitem, menuitemcheckbox or menuitemradio, and a confirm item stays a menuitem.",
+        "The arrow keys, Home, End and typing move through the items; Escape closes the menu, or first returns an asking item to its label.",
+        "The label of a confirm item is a polite live region, so the question is read when it shows, and the item keeps its width."
+      ],
+      "tree": {
+        "path": [
+          "actions",
+          "several related buttons",
+          "too many, or secondary"
+        ],
+        "rule": "DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work."
+      },
+      "example": "import { DropdownMenu } from '@drizztdourden08/tessera';\nimport type { MenuGroup } from '@drizztdourden08/tessera';\n\ninterface LayoutMenuProps {\n  locked: boolean;\n  onLock: () => void;\n  onSave: () => void;\n  onReset: () => void;\n}\n\nconst LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {\n  const groups: MenuGroup[] = [{\n    id: 'layout',\n    label: 'Layout',\n    items: [\n      { id: 'lock', icon: 'lock', label: 'Lock widgets', checked: locked, onSelect: onLock },\n      { id: 'save', icon: 'save', label: 'Save layout', onSelect: onSave },\n      { separator: true },\n      { id: 'reset', icon: 'rotate-ccw', label: 'Reset layout', kind: 'confirm', onSelect: onReset },\n    ],\n  }];\n  return <DropdownMenu trigger={{ label: 'Layout', icon: 'layout-grid' }} groups={groups} />;\n};\n",
+      "propsHash": "5bbeecc62f70147f",
+      "props": {
+        "own": [
+          {
+            "name": "trigger",
+            "optional": true,
+            "text": "undefined | MenuTrigger"
+          },
+          {
+            "name": "groups",
+            "optional": false,
+            "text": "readonly MenuGroup[]"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "MenuVariant",
+            "literals": [
+              "'danger'",
+              "'ghost'",
+              "'info'",
+              "'primary'",
+              "'secondary'",
+              "'success'",
+              "'tertiary'",
+              "'warning'"
+            ]
+          },
+          {
+            "name": "intensity",
+            "optional": true,
+            "text": "MenuIntensity",
+            "literals": [
+              "'strong'",
+              "'medium'",
+              "'subtle'"
+            ]
+          },
+          {
+            "name": "closeOnSelect",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "filter",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "filterPlaceholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "anchorRef",
+            "optional": true,
+            "text": "RefObject<HTMLElement | null>"
+          },
+          {
+            "name": "side",
+            "optional": true,
+            "text": "MenuSide",
+            "literals": [
+              "'below'",
+              "'above'"
+            ]
+          },
+          {
+            "name": "align",
+            "optional": true,
+            "text": "MenuAlign",
+            "literals": [
+              "'start'",
+              "'end'"
+            ]
+          },
+          {
+            "name": "inline",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onClose",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "MenuSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onOpenChange",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-danger",
+        "--c-danger-bright",
+        "--c-danger-soft",
+        "--c-hairline",
+        "--c-hover",
+        "--c-info",
+        "--c-info-bright",
+        "--c-info-soft",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-dim",
+        "--c-primary-soft",
+        "--c-secondary",
+        "--c-secondary-bright",
+        "--c-secondary-soft",
+        "--c-success",
+        "--c-success-bright",
+        "--c-success-soft",
+        "--c-surface",
+        "--c-tertiary",
+        "--c-tertiary-bright",
+        "--c-tertiary-soft",
+        "--c-text",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--c-warning",
+        "--c-warning-bright",
+        "--c-warning-soft",
+        "--duration-fast",
+        "--duration-normal",
+        "--ease-emphasized",
+        "--ease-standard",
+        "--listbox-attach",
+        "--listbox-space",
+        "--menu-no-halo",
+        "--radius-md",
+        "--radius-pill",
+        "--shadow-2",
+        "--shadow-dropdown",
+        "--size-1",
+        "--size-12",
+        "--size-16",
+        "--size-160",
+        "--size-2",
+        "--size-288",
+        "--size-4",
+        "--size-48",
+        "--size-6",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-caps",
+        "--transition-fast",
+        "--tunnel-fillet",
+        "--tunnel-lit-height",
+        "--tunnel-lit-top",
+        "--tunnel-open",
+        "--weight-semi",
+        "--z-modal",
+        "--z-popover"
+      ],
+      "gallery": {
+        "title": "Composites · Menus/DropdownMenu",
+        "route": "#/story/composites-dropdownmenu--overview",
+        "file": "stories/composites/DropdownMenu.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "DynamicInput",
@@ -8013,7 +8261,236 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "The frame of a tool panel, such as a player list or a log, that the user docks, floats or pops out; WidgetManager places a whole dock.",
+      "useWhen": [
+        "An app shows several tool panels around its main view and lets the user arrange them, as a dashboard of a session.",
+        "Some panels only make sense in a context, such as a running session or a race, and step aside outside it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Two fixed panes share the space and the user only moves the line between them.",
+          "use": "SplitPane"
+        },
+        {
+          "case": "One panel slides in from the edge for a moment.",
+          "use": "Drawer"
+        }
+      ],
+      "rules": [
+        "Draw a dock with WidgetManager and keep the layout in the app: it hands every change to onLayoutChange.",
+        "Answer contextActive with one flag, or with a function that reads each definition, such as its own context field.",
+        "Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.",
+        "Give a log or a chart fill in its definition, and leave the other widgets on the default padding."
+      ],
+      "a11y": [
+        "The title bar names the widget; pop out, options and close are icon buttons named with it.",
+        "Each widget carries data-widget-id and each pane data-pane-id, for tests.",
+        "A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "panels the user docks and moves"
+        ],
+        "rule": "Widget and WidgetManager give every tool panel the same frame, dock and options, with the app holding the layout."
+      },
+      "example": "import { useCallback } from 'react';\nimport type { ReactNode } from 'react';\nimport { WidgetManager, useWidgetLayout } from '@drizztdourden08/tessera';\nimport type { WidgetDefinition, WidgetPersistenceIO } from '@drizztdourden08/tessera';\n\ninterface AppWidget extends WidgetDefinition {\n  context?: 'session' | 'race';\n}\n\ninterface DashboardProps {\n  definitions: readonly AppWidget[];\n  running: Record<'session' | 'race', boolean>;\n  io: WidgetPersistenceIO;\n  panels: Record<string, ReactNode>;\n}\n\nconst Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {\n  const { layout, setLayout } = useWidgetLayout({ definitions, profileId: 'main', io, storageKey: 'dashboard' });\n  const contextActive = useCallback((widget: AppWidget) => widget.context === undefined || running[widget.context], [running]);\n  return (\n    <WidgetManager definitions={definitions} layout={layout} onLayoutChange={setLayout} contextActive={contextActive}>\n      {panels}\n    </WidgetManager>\n  );\n};\n",
+      "propsHash": "77dab66a0099de6b",
+      "props": {
+        "own": [
+          {
+            "name": "id",
+            "optional": false,
+            "text": "WidgetId"
+          },
+          {
+            "name": "tabs",
+            "optional": false,
+            "text": "WidgetTab[]"
+          },
+          {
+            "name": "activeId",
+            "optional": false,
+            "text": "WidgetId"
+          },
+          {
+            "name": "paneKey",
+            "optional": false,
+            "text": "string | null"
+          },
+          {
+            "name": "opacity",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "onActivateTab",
+            "optional": false,
+            "text": "(id: WidgetId) => void"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "options",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "peek",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "onPopOut",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "canPopOut",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "mode",
+            "optional": true,
+            "text": "'in' | 'out'"
+          },
+          {
+            "name": "pin",
+            "optional": true,
+            "text": "PinMode",
+            "literals": [
+              "'off'",
+              "'top'"
+            ]
+          },
+          {
+            "name": "onPinChange",
+            "optional": true,
+            "text": "(mode: PinMode) => void"
+          },
+          {
+            "name": "titleBarActions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "square",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "dragRegion",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "padding",
+            "optional": true,
+            "text": "WidgetPadding",
+            "literals": [
+              "'none'",
+              "'sm'",
+              "'md'"
+            ],
+            "default": "'sm'"
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-hover",
+        "--c-layer",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-dim",
+        "--c-primary-soft",
+        "--c-text",
+        "--c-text-dim",
+        "--duration-normal",
+        "--font-mono",
+        "--radius-lg",
+        "--radius-sm",
+        "--scroll-thumb-edge",
+        "--scrollbar-slim-active",
+        "--size-20",
+        "--size-320",
+        "--size-4",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-wide",
+        "--weight-semi",
+        "--widget-btn-d",
+        "--widget-frame-opacity",
+        "--widget-options-slider-w",
+        "--widget-options-w",
+        "--widget-titlebar-h",
+        "--z-panel"
+      ],
+      "gallery": {
+        "title": "Composites · Widgets/Widget",
+        "route": "#/story/composites-widget--overview",
+        "file": "stories/composites/Widget.stories.tsx"
+      },
+      "parts": [
+        "DEFAULT_LAYOUT_STORAGE_KEY",
+        "WidgetManager",
+        "WidgetOptions",
+        "applyEdit",
+        "createDefaultLayout",
+        "dockOnEdge",
+        "dockWidget",
+        "dropFrame",
+        "edgeOf",
+        "floatInMain",
+        "floatWidget",
+        "frameOf",
+        "getDevOnlyWidgetIds",
+        "getWidgetDefinition",
+        "isWidgetOpen",
+        "loadLayoutForProfile",
+        "loadLayoutLocal",
+        "migrateLayout",
+        "moveMain",
+        "openStartupWidgets",
+        "openWidget",
+        "placementOf",
+        "popOutWidget",
+        "removeEverywhere",
+        "resolveSplit",
+        "saveLayoutForProfile",
+        "saveLayoutLocal",
+        "setFrame",
+        "setMakeRoom",
+        "setPopped",
+        "useWidgetLayout",
+        "visibleLayoutOf"
+      ]
     },
     {
       "name": "WindowGuideOverlay",
@@ -8043,7 +8520,173 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "The title bar of a frameless desktop window: the brand in the middle, the main menu at the start and the window buttons at the end.",
+      "useWhen": [
+        "A desktop app draws its own window frame and needs a title bar that drags the window and holds its buttons.",
+        "A few app wide actions earn a place beside the brand, such as Search, Report a bug, or a menu of window groups."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The header belongs to one view inside the window, with its own title and actions.",
+          "use": "ContentHeader"
+        },
+        {
+          "case": "The window is a page or a dialog of the app, not the frame of the app itself.",
+          "use": "ScreenWindow"
+        }
+      ],
+      "rules": [
+        "The app owns the window state: pass maximized, fullscreen and pinned, and act on each control in onControl.",
+        "Every action has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.",
+        "Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.",
+        "Keep the actions few: narrow windows move them into the main menu, then shrink the brand."
+      ],
+      "a11y": [
+        "Each action is an icon button named by its label, with a tooltip and aria-keyshortcuts for its shortcut.",
+        "A dropdown action is a menu button with aria-haspopup; its menu takes the keys of DropdownMenu.",
+        "A concealed bar opens on focus and on Alt, so the keyboard always reaches it."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "window chrome",
+          "the title bar"
+        ],
+        "rule": "WindowTitleBar is the one title bar of a frameless window, with the same brand, menu and controls in every app."
+      },
+      "example": "import { WindowTitleBar } from '@drizztdourden08/tessera';\nimport type { MenuGroup, WindowControl, WindowTitleBarAction } from '@drizztdourden08/tessera';\n\ninterface AppTitleBarProps {\n  menu: MenuGroup[];\n  grouped: boolean;\n  maximized: boolean;\n  onGroup: (grouped: boolean) => void;\n  onSearch: () => void;\n  onControl: (control: WindowControl) => void;\n}\n\nconst AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }: AppTitleBarProps) => {\n  const actions: WindowTitleBarAction[] = [\n    { id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K', tone: 'primary', onSelect: onSearch },\n    {\n      id: 'group',\n      icon: 'group',\n      label: 'Window group',\n      bar: 'dropdown',\n      tone: grouped ? 'info' : undefined,\n      effect: grouped ? 'ping' : undefined,\n      groups: [{\n        id: 'group',\n        items: [\n          { id: 'alone', kind: 'radio', label: 'No group', checked: !grouped, onSelect: () => onGroup(false) },\n          { id: 'grouped', kind: 'radio', label: 'Group with the main window', checked: grouped, onSelect: () => onGroup(true) },\n        ],\n      }],\n    },\n  ];\n  return <WindowTitleBar title=\"Brock\" menu={menu} actions={actions} maximized={maximized} onControl={onControl} />;\n};\n",
+      "propsHash": "a243049f1f4c1c38",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "logo",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "instance",
+            "optional": true,
+            "text": "WindowTitleBarInstance | null"
+          },
+          {
+            "name": "menu",
+            "optional": true,
+            "text": "readonly MenuGroup[]"
+          },
+          {
+            "name": "menuLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onMenuOpenChange",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "readonly WindowTitleBarAction[]"
+          },
+          {
+            "name": "controls",
+            "optional": true,
+            "text": "WindowControlsConfig"
+          },
+          {
+            "name": "maximized",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "fullscreen",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "pinned",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onControl",
+            "optional": false,
+            "text": "(control: WindowControl) => void"
+          },
+          {
+            "name": "concealed",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "peek",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-hover",
+        "--c-info",
+        "--c-on-danger",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-surface",
+        "--c-tertiary",
+        "--c-text",
+        "--c-text-dim",
+        "--c-warning",
+        "--duration-slow",
+        "--duration-status-breathe",
+        "--ease-in-out",
+        "--ease-standard",
+        "--font-mono",
+        "--opacity-glow",
+        "--radius-sm",
+        "--size-14",
+        "--size-20",
+        "--size-48",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--titlebar-height",
+        "--tracking-caps",
+        "--tracking-wide",
+        "--transition-normal",
+        "--weight-medium",
+        "--z-panel"
+      ],
+      "gallery": {
+        "title": "Composites · Windows/WindowTitleBar",
+        "route": "#/story/composites-windowtitlebar--overview",
+        "file": "stories/composites/WindowTitleBar.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Wizard",

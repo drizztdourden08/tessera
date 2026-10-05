@@ -3,6 +3,7 @@ const ITEM_STRINGS = {
   more: 'More',
   asksFirst: (label: string) => `${label}...`,
   confirmQuestion: (label: string) => `${label}?`,
+  confirmAgain: (label: string) => `Click again to ${label.replace(/^\p{Lu}(?=\p{Ll})/u, (first) => first.toLowerCase())}`,
   fixBeforeSaving: (count: number) => (count === 1 ? '1 thing to fix before saving' : `${count} things to fix before saving`),
   andMore: (count: number) => `and ${count} more`,
   checks: 'Checks',

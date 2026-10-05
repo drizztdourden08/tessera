@@ -6,17 +6,19 @@ import { titleBarMenu } from '../../../src/composites/WindowTitleBar/behavior/ti
 import { Box, Text } from '../../../src/primitives';
 import { useTesseraStrings } from '../../../src/primitives/TesseraProvider/behavior/useTesseraStrings';
 import { groupActions } from './title-bar-group-action';
+import type { TitleBarGroupLook } from './title-bar-group.type';
 
 interface TitleBarGroupDemoProps {
   title: string;
   logo: string;
   menu: readonly MenuGroup[];
+  look?: TitleBarGroupLook;
 }
 
 const ignore = () => undefined;
 
 const TitleBarGroupDemo = (props: TitleBarGroupDemoProps) => {
-  const { title, logo, menu } = props;
+  const { title, logo, menu, look } = props;
   const { windows } = useTesseraStrings();
   const [group, setGroup] = useState(0);
   const [sync, setSync] = useState(true);
@@ -32,7 +34,7 @@ const TitleBarGroupDemo = (props: TitleBarGroupDemoProps) => {
     onSync: () => setSync((on) => !on),
     onBug: () => setSaid('Report a bug picked.'),
     onSaves: () => setSaid('Cloud saves picked.'),
-  });
+  }, look);
   const groups = titleBarMenu({ menu: [], actions, pin: false, fullscreenButton: false, pinned: false, fullscreen: false, onControl: ignore, strings: windows });
   const folded = groups.flatMap((entry) => entry.items).find((node) => 'children' in node && node.id === 'window-group');
 
@@ -48,6 +50,7 @@ const TitleBarGroupDemo = (props: TitleBarGroupDemoProps) => {
         <WindowTitleBar title={title} logo={logo} menu={menu} actions={actions} pinned onControl={ignore} />
       </Box>
       <Box className="window-title-bar-story__menus">
+        {look && <DropdownMenu inline label={windows.view} groups={groups} />}
         {folded && 'children' in folded && <DropdownMenu inline label={folded.label} groups={[{ id: 'folded', label: folded.label, items: folded.children ?? [] }]} />}
       </Box>
     </Box>

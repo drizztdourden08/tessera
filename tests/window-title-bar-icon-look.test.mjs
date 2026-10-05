@@ -2,12 +2,17 @@
 import { createElement, isValidElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
+import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-bar-menu';
 import { TitleBarActionIcon } from '../src/composites/WindowTitleBar/sub-components/TitleBarActionIcon';
 
 const SEARCH = { id: 'search', icon: 'search', label: 'Search', tone: 'primary', effect: 'twinkle', onSelect: () => undefined };
 const BUG = { id: 'bug', icon: 'bug', label: 'Report a bug', tone: 'danger', effect: 'ping', onSelect: () => undefined };
 const PLAIN = { id: 'plain', icon: 'flag', label: 'Plain', onSelect: () => undefined };
+const GROUP = {
+  id: 'group', icon: 'group', label: 'Window group', bar: 'dropdown', tone: 'warning', effect: 'ping',
+  groups: [{ id: 'pick', items: [{ id: 'none', label: 'No group', kind: 'radio', checked: true, onSelect: () => undefined }] }],
+};
 const STRINGS = { view: 'View', pinOnTop: 'Pin on top', fullscreen: 'Fullscreen' };
 
 const menuIcon = (action) => {
@@ -27,5 +32,20 @@ describe('title bar action icons', () => {
     expect(isValidElement(menuIcon(SEARCH))).toBe(true);
     expect(isValidElement(menuIcon(BUG))).toBe(true);
     expect(menuIcon(PLAIN)).toBe('flag');
+  });
+});
+
+describe('title bar dropdown actions', () => {
+  it('draw their icon with tone and effect on the bar, like a command action', () => {
+    const html = renderToStaticMarkup(createElement(WindowTitleBar, { title: 'App', actions: [GROUP], controls: { fullscreen: false, pin: false }, onControl: () => undefined }));
+    const item = html.slice(html.indexOf('data-bar-item="action:group"'));
+    expect(item).toMatch(/^[^]*?aria-haspopup="menu"[^]*?icon-effect[^]*?window-title-bar__icon--warning/);
+  });
+
+  it('keep the tone and effect on the sub-menu item when folded into the main menu', () => {
+    const icon = menuIcon(GROUP);
+    expect(isValidElement(icon)).toBe(true);
+    expect(renderToStaticMarkup(icon)).toContain('window-title-bar__icon--warning');
+    expect(menuIcon({ ...GROUP, tone: undefined, effect: undefined })).toBe('group');
   });
 });

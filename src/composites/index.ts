@@ -105,9 +105,9 @@ export {
 } from './Widget';
 export type {
   DockPlace, FlatWidgetLayout, FlatWidgetState, PinMode, PoppedWidget, ResolvedSplit, SnapLink, SnapSide, StartupOverride,
-  UseWidgetLayoutParams, WidgetBodyLook, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetGates, WidgetLayout, WidgetManagerProps,
-  WidgetOptionsProps, WidgetPadding, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions,
-  WindowBounds,
+  UseWidgetLayoutParams, WidgetBodyLook, WidgetContextActive, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetGates, WidgetLayout,
+  WidgetManagerProps, WidgetOptionsProps, WidgetPadding, WidgetPersistenceIO, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility,
+  WidgetWindowOptions, WindowBounds,
 } from './Widget';
 export { WindowGuideOverlay } from './WindowGuideOverlay';
 export type { WindowGuideHint, WindowGuideMode, WindowGuideOverlayProps, WindowGuidePointer } from './WindowGuideOverlay';

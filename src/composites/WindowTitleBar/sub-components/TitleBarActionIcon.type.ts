@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { WindowTitleBarCommandAction } from '../WindowTitleBar.type';
+import type { WindowTitleBarAction } from '../WindowTitleBar.type';
 
 interface TitleBarActionIconProps {
-  action: WindowTitleBarCommandAction;
+  action: WindowTitleBarAction;
   size?: number;
 }
 

@@ -4,7 +4,7 @@ import type { ButtonVariant } from '../../primitives/Button/Button.type';
 import type { IconName } from '../../primitives/Icon';
 import type { ShortcutKey } from '../../primitives/Shortcut';
 
-type MenuItemKind = 'action' | 'check' | 'radio';
+type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm';
 
 interface MenuItem {
   id: string;
@@ -15,6 +15,7 @@ interface MenuItem {
   disabled?: boolean;
   kind?: MenuItemKind;
   checked?: boolean;
+  confirm?: string;
   children?: readonly MenuNode[];
   onSelect?: () => void;
 }

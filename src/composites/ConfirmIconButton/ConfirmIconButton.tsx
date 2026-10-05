@@ -1,55 +1,39 @@
 /* @layer renderer-components @kind component */
-import { useCallback, useEffect, useState, type KeyboardEvent } from 'react';
+import { useState } from 'react';
 import { Box } from '../../primitives/Box';
 import { IconButton } from '../../primitives/IconButton';
 import './ConfirmIconButton.css';
 import { type ConfirmIconButtonProps } from './ConfirmIconButton.type';
+import { useConfirmAsk } from './behavior/useConfirmAsk';
 import { ConfirmIconButtonAsk } from './sub-components/ConfirmIconButtonAsk';
 
 const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   const {
     icon, label, confirmLabel, cancelLabel, onConfirm, disabled = false, defaultArmed = false, placement = 'start', tabIndex, className = '',
   } = props;
-  const [armed, setArmed] = useState(defaultArmed && !disabled);
+  const ask = useConfirmAsk<true>({ onConfirm, disabled, initial: defaultArmed ? true : null });
   const [asked, setAsked] = useState(false);
 
-  useEffect(() => {
-    if (disabled) setArmed(false);
-  }, [disabled]);
-
-  const handleConfirm = useCallback(() => {
-    setArmed(false);
-    onConfirm();
-  }, [onConfirm]);
-
-  const handleArm = useCallback(() => {
+  const handleArm = (): void => {
     setAsked(true);
-    setArmed(true);
-  }, []);
-
-  const handleCancel = useCallback(() => setArmed(false), []);
-
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (event.key !== 'Escape') return;
-    event.stopPropagation();
-    setArmed(false);
-  }, []);
+    ask.ask(true);
+  };
 
   return (
-    <Box className={`confirm-icon-btn confirm-icon-btn--${placement} ${className}`} onKeyDown={handleKeyDown}>
-      {!armed && (
+    <Box className={`confirm-icon-btn confirm-icon-btn--${placement} ${className}`} onKeyDown={ask.onKeyDown}>
+      {ask.asking === null && (
         <IconButton label={label} title={label} disabled={disabled} tabIndex={tabIndex} onClick={handleArm}>
           {icon}
         </IconButton>
       )}
-      {armed && (
+      {ask.asking !== null && (
         <ConfirmIconButtonAsk
           placement={placement}
           focusCancel={asked}
           confirmLabel={confirmLabel}
           cancelLabel={cancelLabel}
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
+          onConfirm={ask.confirm}
+          onCancel={ask.cancel}
         />
       )}
     </Box>

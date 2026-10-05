@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind util */
+import { isChoice } from './is-choice';
 import { isSeparator } from './is-separator';
 import { itemKind } from './item-kind';
 import type { MenuItem, MenuNode } from '../DropdownMenu.type';
@@ -8,7 +9,7 @@ const menuColumns = (nodes: readonly MenuNode[]): MenuColumns => {
   const items = nodes.filter((node): node is MenuItem => !isSeparator(node));
   return {
     icons: items.some((item) => item.icon !== undefined),
-    marks: items.some((item) => itemKind(item) !== 'action'),
+    marks: items.some((item) => isChoice(itemKind(item))),
   };
 };
 

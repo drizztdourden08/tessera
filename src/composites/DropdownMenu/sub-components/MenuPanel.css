@@ -45,6 +45,18 @@
   grid-area: 1 / 3;
 }
 
+.dropdown__label--ask {
+  display: inline-grid;
+}
+
+.dropdown__label--ask > * {
+  grid-area: 1 / 1;
+}
+
+.dropdown__label-room {
+  visibility: hidden;
+}
+
 .dropdown__menu .dropdown__description {
   grid-area: 2 / 3 / auto / span 2;
 }
@@ -66,6 +78,13 @@
 
 .dropdown__menu .dropdown__item[aria-checked='true'] {
   color: var(--menu-tone-bright, var(--c-primary-bright));
+}
+
+.dropdown__menu .dropdown__item.dropdown__item--asking,
+.dropdown__menu .dropdown__item.dropdown__item--asking:is(:hover, :focus-visible):not(:disabled) {
+  border-left-color: var(--c-danger);
+  background: var(--c-danger-soft);
+  color: var(--c-danger-bright);
 }
 
 .dropdown__filter {

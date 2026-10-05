@@ -25,7 +25,7 @@ ActionBar keeps the actions of one item on one line, styles danger the same way 
 
 - The row holds one icon action that asks before it acts. Use `ConfirmIconButton` instead.
 - The buttons are separate decisions that never fold, such as Cancel and Save in a dialog. Use `ButtonRow` instead.
-- Every action is secondary and none needs to show. Use `DropdownMenu` instead.
+- Every action is secondary and none needs to show. Use [DropdownMenu](DropdownMenu.md) instead.
 
 ## Rules
 

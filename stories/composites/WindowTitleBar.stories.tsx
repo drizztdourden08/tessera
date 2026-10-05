@@ -12,6 +12,7 @@ import { brandLogoUri } from './_samples/brand-logo';
 import { buildTitleMenu } from './_samples/data-title-menu';
 import { titleBarActions } from './_samples/title-bar-actions';
 import type { TitleBarArgs } from './_samples/title-bar-args.type';
+import type { TitleBarGroupLook } from './_samples/title-bar-group.type';
 import { TitleBarGroupDemo } from './_samples/TitleBarGroupDemo';
 import { TitleBarWidths } from './_samples/TitleBarWidths';
 import { TITLE_BAR_CODE } from './_samples/title-bar-code.constants';
@@ -171,12 +172,16 @@ const Narrow = {
   render: (args) => <TitleBarWidths title={args.title} logo={LOGO} menu={STATE_MENU} actions={STATE_ACTIONS} />,
 } satisfies PlaygroundStory<TitleBarArgs>;
 
-const OwnMenu = {
-  name: 'An action with its own menu, and a status that pulses',
+const groupStory = (name: string, look?: TitleBarGroupLook) => ({
+  name,
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <TitleBarGroupDemo title={args.title} logo={LOGO} menu={STATE_MENU} />,
-} satisfies PlaygroundStory<TitleBarArgs>;
+  render: (args) => <TitleBarGroupDemo title={args.title} logo={LOGO} menu={STATE_MENU} look={look} />,
+} satisfies PlaygroundStory<TitleBarArgs>);
+
+const OwnMenu = groupStory('An action with its own menu, and a status that pulses');
+
+const MarkedMenu = groupStory('A dropdown action with a tone and an effect, on the bar and folded', { tone: 'warning', effect: 'ping' });
 
 const renderState = (props: StateProps) => (
   <Box className="window-title-bar-story__strip">
@@ -189,14 +194,14 @@ const Overview = overviewStory({
   description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
   points: [
     '`menu` takes [DropdownMenu] groups for the hamburger; `onControl` hears the window buttons, `controls` hides some.',
-    '`actions` add icon buttons, each with a tooltip of its label and `shortcut`, on hover and on focus.',
-    "An action with `bar: 'dropdown'` opens a menu of its own, built from `groups`, under its button.",
+    '`actions` add icon buttons with a tooltip of their label and `shortcut`; `tone` and `effect` mark the icon.',
+    "An action with `bar: 'dropdown'` opens a menu of its own from `groups`, its icon marked the same way.",
     "A `bar: 'status'` action shows its `status` as text; `pulse` adds a beating dot while work runs.",
     'Narrow windows move items into the menu, a dropdown as a sub-menu; minimize, maximize and close stay.',
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, Narrow, OwnMenu, Resizable, FewerButtons, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, Narrow, OwnMenu, MarkedMenu, Resizable, FewerButtons, SecondInstance, Maximized, Concealed],
   states: {
     render: renderState,
     list: [
@@ -217,4 +222,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AppWindow, Concealed, FewerButtons, Maximized, Narrow, Overview, OwnMenu, Playground, Resizable, SecondInstance };
+export { AppWindow, Concealed, FewerButtons, MarkedMenu, Maximized, Narrow, Overview, OwnMenu, Playground, Resizable, SecondInstance };

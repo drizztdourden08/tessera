@@ -1,33 +1,23 @@
 /* @layer renderer-components @kind component */
-import { useState } from 'react';
-import type { KeyboardEvent } from 'react';
-import { Box } from '../../../primitives/Box';
 import { Button } from '../../../primitives/Button';
-import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { Small } from '../../../primitives/text-elements';
-import { ConfirmIconButtonAsk } from '../../ConfirmIconButton/sub-components/ConfirmIconButtonAsk';
+import { useConfirmAsk } from '../../ConfirmIconButton/behavior/useConfirmAsk';
+import { ConfirmIconButtonQuestion } from '../../ConfirmIconButton/sub-components/ConfirmIconButtonQuestion';
 import type { SettingsRowActionButtonProps } from './SettingsRowActionButton.type';
 
 const SettingsRowActionButton = (props: SettingsRowActionButtonProps) => {
   const { action, disabled } = props;
-  const { common } = useTesseraStrings();
-  const [armed, setArmed] = useState(false);
-  const run = () => {
-    setArmed(false);
-    action.onClick();
-  };
-  const escape = (event: KeyboardEvent) => {
-    if (event.key !== 'Escape') return;
-    event.stopPropagation();
-    setArmed(false);
-  };
+  const ask = useConfirmAsk<true>({ onConfirm: action.onClick });
 
-  if (armed) {
+  if (ask.asking !== null) {
     return (
-      <Box className="settings-row__confirm" role="group" aria-label={action.label} onKeyDown={escape}>
-        <Small tone={action.tone === 'danger' ? 'danger' : 'dim'}>{action.confirm}</Small>
-        <ConfirmIconButtonAsk placement="end" focusCancel confirmLabel={action.label} cancelLabel={common.cancel} onConfirm={run} onCancel={() => setArmed(false)} />
-      </Box>
+      <ConfirmIconButtonQuestion
+        className="settings-row__confirm"
+        label={action.label}
+        question={action.confirm}
+        danger={action.tone === 'danger'}
+        confirmLabel={action.label}
+        ask={ask}
+      />
     );
   }
   return (
@@ -37,7 +27,7 @@ const SettingsRowActionButton = (props: SettingsRowActionButtonProps) => {
       icon={action.icon}
       disabled={disabled || action.disabled === true}
       loading={action.loading === true}
-      onClick={action.confirm === undefined ? action.onClick : () => setArmed(true)}
+      onClick={action.confirm === undefined ? action.onClick : () => ask.ask(true)}
     >
       {action.label}
     </Button>

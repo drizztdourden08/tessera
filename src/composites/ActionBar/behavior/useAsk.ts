@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import type { RefObject } from 'react';
+import { useConfirmAsk } from '../../ConfirmIconButton/behavior/useConfirmAsk';
 import { ACTION_ID_ATTRIBUTE, MORE_CLASS } from '../ActionBar.constants';
 import type { ActionItem } from '../ActionBar.type';
 
@@ -10,23 +11,21 @@ const focusBack = (bar: HTMLElement | null, id: string): void => {
 };
 
 const useAsk = (barRef: RefObject<HTMLElement | null>) => {
-  const [asking, setAsking] = useState<ActionItem | null>(null);
   const backTo = useRef<string | null>(null);
+  const ask = useConfirmAsk<ActionItem>({
+    onConfirm: (action) => action.onSelect(),
+    onSettle: (action) => {
+      backTo.current = action.id;
+    },
+  });
 
   useEffect(() => {
-    if (asking || backTo.current === null) return;
+    if (ask.asking || backTo.current === null) return;
     focusBack(barRef.current, backTo.current);
     backTo.current = null;
-  }, [asking, barRef]);
+  }, [ask.asking, barRef]);
 
-  const settle = (run: boolean): void => {
-    if (!asking) return;
-    backTo.current = asking.id;
-    setAsking(null);
-    if (run) asking.onSelect();
-  };
-
-  return { asking, ask: setAsking, confirm: () => settle(true), cancel: () => settle(false) };
+  return ask;
 };
 
 export { useAsk };

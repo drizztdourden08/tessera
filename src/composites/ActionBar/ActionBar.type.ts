@@ -44,13 +44,6 @@ interface ActionBarButtonProps {
   onPress?: (action: ActionItem) => void;
 }
 
-interface ActionBarAskProps {
-  action: ActionItem;
-  confirm: ActionConfirm;
-  onConfirm: () => void;
-  onCancel: () => void;
-}
-
 interface ActionBarMoreProps {
   folded: readonly ActionItem[];
   size: ButtonSize;
@@ -68,6 +61,6 @@ interface ActionBarMeasureProps {
 }
 
 export type {
-  ActionBarAlign, ActionBarAskProps, ActionBarButtonProps, ActionBarMeasureProps, ActionBarMoreProps, ActionBarProps, ActionConfirm,
+  ActionBarAlign, ActionBarButtonProps, ActionBarMeasureProps, ActionBarMoreProps, ActionBarProps, ActionConfirm,
   ActionItem, ActionKind, ActionSplit,
 };

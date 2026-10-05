@@ -2,9 +2,11 @@
 import type { LayoutEdit, SplitNode, WidgetId } from '../../DockLayout';
 import type { SnapSide, WidgetDefinition, WidgetVisibility } from '../Widget.type';
 
-interface WidgetGates {
-  definitions: readonly WidgetDefinition[];
-  contextActive: boolean;
+type WidgetContextActive<D extends WidgetDefinition = WidgetDefinition> = boolean | ((definition: D) => boolean);
+
+interface WidgetGates<D extends WidgetDefinition = WidgetDefinition> {
+  definitions: readonly D[];
+  contextActive: WidgetContextActive<D>;
   pageOpen: boolean;
   developerToolsEnabled: boolean;
   forcedIds: readonly WidgetId[];
@@ -43,4 +45,4 @@ interface DockPlace {
   size?: number;
 }
 
-export type { DockPlace, FlatWidgetLayout, FlatWidgetState, ResolvedSplit, SplitEdit, WidgetGates };
+export type { DockPlace, FlatWidgetLayout, FlatWidgetState, ResolvedSplit, SplitEdit, WidgetContextActive, WidgetGates };

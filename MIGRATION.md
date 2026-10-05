@@ -5211,3 +5211,75 @@ interface GuidedTourProps {
 ### What an app does
 
 Nothing has to change. To add a tour, mark the parts with `data-tour`, write the steps in a memo, call `useGuidedTour({ steps })` and draw `<GuidedTour tour={tour} />`. Make `onEnter` safe to run twice.
+
+## 179. A context per widget, a menu item that asks first, and a look for dropdown title bar actions
+
+Three asks from Brock.
+
+### WidgetManager takes a context per widget
+
+Brock keeps a registry of contexts, and its widgets name theirs in their definition, such as `context: 'session'`. With one flag, Brock passed `contextActive: true` and hid those widgets itself. `contextActive` now also takes a function: it gets the definition of each widget the user shows in context only and answers for that widget, so the gate lives in WidgetManager again.
+
+- **One prop.** The flag and the function are one prop, so there is no order between two answers to learn. A boolean still works for an app with one context.
+- **The app owns the contexts.** Tessera reads no field of its own: the function gets the app's own definition type, so it reads `context`, or any field, from the app's registry.
+- **When it is called.** Only for widgets shown in context only, and never for a widget forced at startup. While a page is open, every context only widget still steps aside. Keep the function stable with `useCallback`.
+- `WidgetGates` and `visibleLayoutOf` take the same answer, and the type is exported as `WidgetContextActive`.
+
+```ts
+type WidgetContextActive<D extends WidgetDefinition = WidgetDefinition> = boolean | ((definition: D) => boolean);
+interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
+  contextActive: WidgetContextActive<D>; // was boolean
+}
+interface WidgetGates<D extends WidgetDefinition = WidgetDefinition> {
+  definitions: readonly D[];
+  contextActive: WidgetContextActive<D>;
+}
+```
+
+### DropdownMenu items that ask first
+
+`kind: 'confirm'` is the menu version of ConfirmIconButton. The first press keeps the menu open and turns the item to the danger tone with Click again to and its label, such as Click again to reset layout. The second press runs `onSelect` and closes the menu. Escape, leaving the item with the pointer or the focus, or four seconds return it to its label.
+
+- **Words.** `confirm` sets words of your own. By default the new string `items.confirmAgain(label)` writes them, with the first letter of the label lowered unless the label starts with a capital word, such as API.
+- **Screen readers.** The item stays a `menuitem`, never a checkbox. Its label is a polite live region, so the question is read when it shows. A hidden copy of the other words keeps the width of the item, so the menu does not grow.
+- **No mark column.** A confirm item adds no mark column; only check and radio items do.
+
+```ts
+type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm';
+interface MenuItem {
+  kind?: MenuItemKind;
+  confirm?: string; // the question of a confirm item; default items.confirmAgain(label)
+}
+```
+
+### One ask for every part that asks first
+
+The handling of a pending question was written three times: in ConfirmIconButton, in the ask of ActionBar and in the actions of SettingsRow. It is now one hook beside ConfirmIconButton, `useConfirmAsk`, that holds what is asked, runs it on confirm, drops it on cancel, Escape, a timeout or when the part is disabled, and hands focus back through `onSettle`. ConfirmIconButton, ActionBar, SettingsRow and the confirm item of DropdownMenu all use it. The question with its check and cross, which ActionBar and SettingsRow drew the same way, is one part too, and `ActionBarAsk` is removed. The hook and the part are internal.
+
+- Escape on a ConfirmIconButton that is not asking now goes on to the parts around it, such as a dialog, as it does on any button.
+
+### Tone and effect on dropdown title bar actions
+
+`tone` and `effect` move to the base of every WindowTitleBar action, so an action with `bar: 'dropdown'` takes them too. Its icon is drawn through `TitleBarActionIcon`, the same as a command action, on the bar and on its sub-menu item when the bar folds into the main menu.
+
+```ts
+interface WindowTitleBarActionBase {
+  id: string;
+  label: string;
+  icon: IconName;
+  shortcut?: MenuItem['shortcut'];
+  tone?: StatusTone; // was on command actions only
+  effect?: IconEffect; // was on command actions only
+}
+```
+
+### Gallery and guide
+
+- Widget has the variant Session dashboard dock, a context per widget, with a Session and a Race switch.
+- DropdownMenu has the variant An item that asks before it runs, in place and from a button.
+- WindowTitleBar has the variant A dropdown action with a tone and an effect, on the bar and folded.
+- DropdownMenu, WindowTitleBar and Widget get usage files, and their Overview points name the new props.
+
+### What an app does
+
+Nothing has to change. To gate widgets by their own context, pass `contextActive={(definition) => …}` and drop the app's own filter. Give Reset layout and other menu actions that undo work `kind: 'confirm'`. Move a look you drew by hand on a dropdown title bar action to `tone` and `effect`.
