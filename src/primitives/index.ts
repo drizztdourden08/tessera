@@ -45,7 +45,7 @@ export type { TextareaProps, TextareaResize } from './Textarea';
 export { Select, NativeSelect } from './Select';
 export type { MultiDisplay, SelectOption, SelectGroup, SelectItemsProps, SelectOptionsProps, SelectProps } from './Select';
 export { Combobox } from './Combobox';
-export type { ComboboxProps } from './Combobox';
+export type { ComboboxKeyHandler, ComboboxKeyState, ComboboxProps } from './Combobox';
 export type {
   ColumnAlign, ColumnCondition, ColumnEvaluator, ColumnFormat, ColumnRule, ColumnWidth, FieldOf, ItemAccessor, ItemContext,
   ItemPlace, ListboxCategories, ListboxCategory, ListboxColumn, ListboxItemProps, ListboxTone, ValueDisplay, ValueOf,

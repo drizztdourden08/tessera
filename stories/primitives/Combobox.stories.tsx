@@ -3,7 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import {
-  CategoryList, ColumnsHighlight, ComboboxPlayground, Filtering, FullItem, MultiChips, PrefixFilter, ServerSearch,
+  CategoryList, ColumnsHighlight, ComboboxPlayground, Filtering, FreeText, FullItem, MultiChips, PrefixFilter, ServerSearch,
 } from './_samples/combobox-variants';
 import { StartHints } from './_samples/StartHints';
 import { PICKER_ARG_TYPES, pickerSizes, pickerStates, pickerVariant } from './_samples/picker-story';
@@ -54,6 +54,7 @@ const VARIANTS: readonly Story[] = [
   pickerVariant('Custom filter', PrefixFilter),
   pickerVariant('Server search', ServerSearch),
   pickerVariant('Full item when not typing', FullItem),
+  pickerVariant('Free text with suggestions', FreeText),
 ];
 
 const CODE = `import { useState } from 'react';
@@ -83,6 +84,7 @@ const Overview = overviewStory({
     'With `max` above 1 the picks show as tags, and [[Backspace]] in an empty field removes the last one.',
     '`onQueryChange` hands each change of text to a server search; `loading` shows a spinner meanwhile.',
     '`min={0}` adds a clear button.',
+    '`freeText` keeps whatever is typed and the list only suggests, as in [CommandInput]; `start` adds a mark.',
   ],
   instead: '[Select] when the list is short enough to scan.',
   playground: Playground,

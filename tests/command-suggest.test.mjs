@@ -38,17 +38,18 @@ describe('CommandInput suggestions', () => {
 });
 
 describe('CommandInput suggestion keys', () => {
-  it('moves with Up and Down, completes with Tab, and closes with Escape', () => {
-    expect(suggestKey(key('ArrowDown'), true, false)).toBe('next');
-    expect(suggestKey(key('ArrowUp'), true, false)).toBe('previous');
+  it('completes with Tab, and leaves Up, Down and the page keys to the list', () => {
     expect(suggestKey(key('Tab'), false, false)).toBe('complete');
-    expect(suggestKey(key('Escape'), true, false)).toBe('close');
+    expect(suggestKey(key('ArrowDown'), true, false)).toBe('list');
+    expect(suggestKey(key('ArrowUp'), true, false)).toBe('list');
+    expect(suggestKey(key('PageDown'), true, false)).toBe('list');
+    expect(suggestKey(key('Escape'), true, false)).toBeNull();
   });
 
-  it('completes with Right only with the caret at the end, and with Enter only on a row picked with the arrows', () => {
+  it('completes with Right only with the caret at the end, and leaves Enter to the list only on a row picked with the arrows', () => {
     expect(suggestKey(key('ArrowRight'), true, false)).toBe('complete');
     expect(suggestKey(key('ArrowRight'), false, false)).toBeNull();
-    expect(suggestKey(key('Enter'), true, true)).toBe('complete');
+    expect(suggestKey(key('Enter'), true, true)).toBe('list');
     expect(suggestKey(key('Enter'), true, false)).toBeNull();
   });
 
@@ -67,9 +68,8 @@ describe('CommandInput with commands', () => {
     expect(html).toContain('complete</span>');
   });
 
-  it('stays a plain field with no commands', () => {
+  it('leaves the Tab hint out with no commands', () => {
     const html = renderToString(h(CommandInput, { onSubmit: () => undefined }));
-    expect(html).not.toContain('role="combobox"');
     expect(html).not.toContain('complete</span>');
   });
 });

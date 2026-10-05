@@ -8,6 +8,7 @@ const ComboboxInput = <T,>(props: ComboboxFieldProps<T>) => {
   const { drop, model, control, field } = box;
   const chipsShown = box.multi && box.displays.length > 0;
   const { fields } = useTesseraStrings();
+  const hint = box.free ? undefined : fields.comboboxPlaceholder;
 
   return (
     <input
@@ -17,6 +18,7 @@ const ComboboxInput = <T,>(props: ComboboxFieldProps<T>) => {
       type="text"
       role="combobox"
       autoComplete="off"
+      spellCheck={box.free ? false : undefined}
       aria-autocomplete="list"
       aria-expanded={drop.open}
       aria-controls={drop.open ? model.listId : undefined}
@@ -25,14 +27,14 @@ const ComboboxInput = <T,>(props: ComboboxFieldProps<T>) => {
       aria-describedby={control.describedBy}
       aria-label={look['aria-label']}
       aria-labelledby={look['aria-labelledby']}
-      placeholder={chipsShown ? '' : look.placeholder ?? fields.comboboxPlaceholder}
+      placeholder={chipsShown ? '' : look.placeholder ?? hint}
       value={box.inputValue}
       disabled={field.disabled}
       onChange={(event) => box.type(event.target.value)}
       onKeyDown={box.onKeyDown}
       onFocus={(event) => {
         box.focusChange(true);
-        if (!box.multi) event.currentTarget.select();
+        if (!box.multi && !box.free) event.currentTarget.select();
       }}
       onBlur={() => box.focusChange(false)}
     />

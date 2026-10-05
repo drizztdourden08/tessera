@@ -10,7 +10,7 @@ import { useStartActive } from './useStartActive';
 import type { ListboxField, UseListboxFieldParams } from './listbox-field.type';
 
 const useListboxField = <T, V, E extends HTMLElement>(params: UseListboxFieldParams<T, V>): ListboxField<T, E> => {
-  const { setup, look, query, filter, prefix, focusRef, onClose } = params;
+  const { setup, look, query, filter, prefix, focusRef, onClose, pickFirst } = params;
   const control = useFieldControl(look.id, look['aria-describedby']);
   const field = fieldState(look, control);
   const idBase = useId();
@@ -24,7 +24,7 @@ const useListboxField = <T, V, E extends HTMLElement>(params: UseListboxFieldPar
   });
   const model = useListbox({ setup, query, filter, idBase: `${prefix}${idBase}` });
   const displays = useSelectedDisplays(setup);
-  useStartActive(drop.open, model);
+  useStartActive(drop.open, model, pickFirst);
   useActiveScroll(drop.dropRef, model.active.index);
 
   const activeEntry = () => {

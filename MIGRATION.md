@@ -6163,3 +6163,45 @@ inks?: BrandInks; // removed
 ### What an app does
 
 Drop `inks` from a BrandMark or a Logo: `ground="dark"` draws Brock as the owner approved it. An app that set its own height on a ContentHeader back button drops that rule.
+
+## 197. CommandInput is drawn with Combobox, and Combobox takes free text
+
+The owner's call: with its suggestions open, CommandInput drew a thick ring around the input and the list together, with Send outside it. The ring was the focus outline of TextInput, 2 px of the primary colour, drawn around a field that kept its round corners above a list with its own halo. CommandInput now draws its line with Combobox and overrides only what a command line needs.
+
+### CommandInput
+
+- **One Combobox.** The line is a `Combobox` with `freeText`. The field, the list, the active row, the keys of the list and the place of the popup are Combobox's own. Focus shows the border and soft halo of a Combobox field, with no outline, and the open list joins the field as a Combobox list does.
+- **What CommandInput still does.** The mono face, the prompt mark, which commands to list (those that start with the text first, at most `maxSuggestions`, none once the arguments start), Tab or Right completing, Enter sending, the history on Up and Down while the list is shut, Escape clearing, `storageKey`, the actions row and the key hints.
+- **Send** is as tall as the field and lines up with its top: 39 px at `md`, 28 px at `sm`.
+- **Kept from sections 159, 177 and 188:** history, `storageKey`, `historyLimit`, `onSubmit` returning false, the controlled `value`, the actions row and the key hints. Escape closes the list first, then clears the line, and passes on from an empty one.
+- **What changed in the keys.** No row is active when the list opens, as before, and Up and Down now stop at the first and the last row where they wrapped. The rows sit in the columns of Combobox, so each command starts under the typed text.
+- **The input is a combobox** with or without `commands`; with none the list never opens. The list is a listbox named Commands.
+- **Props.** `CommandInputProps` no longer extends `TextInputProps`. Beside its own props it takes `placeholder`, `disabled`, `invalid`, `size`, `id`, `className`, `aria-describedby` and `onKeyDown`.
+
+### Combobox
+
+```ts
+interface ComboboxKeyState<T> {
+  open: boolean;
+  active: T | undefined;
+}
+
+type ComboboxKeyHandler<T> = (event: KeyboardEvent<HTMLInputElement>, list: ComboboxKeyState<T>) => void;
+
+interface ComboboxProps<T> {
+  freeText?: boolean; // the text is the value, the list only suggests
+  query?: string; // with freeText: the text in the input, held by the app with onQueryChange
+  start?: InputAdornment; // a mark or a button before the input, as on TextInput
+  listLabel?: string; // names the list apart from the field
+  onKeyDown?: ComboboxKeyHandler<T>; // runs before the Combobox keys; preventDefault skips them
+}
+```
+
+- **`freeText`.** The input keeps what is typed. Closing the list leaves the text alone, and picking a row calls `onChange` and leaves the text to the app. No row is active until the arrows or the pointer reach one, and Enter with no active row passes on, so the app or a form takes it. The list stays shut while no row matches, unless `loading`. There is no chevron, no Type to search placeholder, no spell check, and focus does not select the text.
+- **The filter.** With `freeText`, `onQueryChange` no longer turns the local filter off; pass `filter={false}` for a server search.
+- A Combobox without the new props draws and acts as before. The Combobox page gains Free text with suggestions.
+
+### What an app does
+
+1. CommandInput: nothing, unless it passed other input attributes such as `name` or `autoFocus`; drop them.
+2. Combobox: nothing.

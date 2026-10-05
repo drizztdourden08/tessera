@@ -27,8 +27,8 @@ const Combobox = <T = string, F extends FieldOf<T> = never>(props: ComboboxProps
         size={box.field.size}
         loading={setup.loading}
         emptyText={setup.emptyText}
-        labelledBy={box.field.labelledBy}
-        label={props['aria-label']}
+        labelledBy={props.listLabel === undefined ? box.field.labelledBy : undefined}
+        label={props.listLabel ?? props['aria-label']}
       />
     </>
   );

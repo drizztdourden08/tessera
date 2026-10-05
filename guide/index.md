@@ -84,7 +84,7 @@ One line per component. 46 of 169 have their usage written; a linked name opens 
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorPicker`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker`.
 - `ColorPickerPopover`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker-popover`.
-- [CommandInput](components/CommandInput.md): A command line: Enter sends the command, Up and Down walk the past commands, Tab completes a known one and Escape clears the line. Import from `@drizztdourden08/tessera`.
+- [CommandInput](components/CommandInput.md): A command line on a free text Combobox: Enter sends the command, Up and Down walk the past commands, Tab completes a known one and Escape clears the line. Import from `@drizztdourden08/tessera`.
 - `CommandPalette`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `CompactRecordView`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.

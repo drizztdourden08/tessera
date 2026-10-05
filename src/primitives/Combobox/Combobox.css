@@ -68,3 +68,7 @@
 .combobox--open .combobox__chevron {
   transform: rotate(180deg);
 }
+
+.combobox__start {
+  margin-inline-start: var(--space-xs);
+}

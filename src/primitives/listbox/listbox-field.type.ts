@@ -16,6 +16,7 @@ interface UseListboxFieldParams<T, V> {
   prefix: string;
   focusRef?: RefObject<HTMLElement | null>;
   onClose?: () => void;
+  pickFirst?: boolean;
 }
 
 interface ListboxField<T, E extends HTMLElement> {

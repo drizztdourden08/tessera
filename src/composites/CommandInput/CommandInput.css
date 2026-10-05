@@ -8,22 +8,16 @@
 
 .command-input__row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-xs);
 }
 
-.command-input__anchor {
-  display: flex;
+.combobox.command-input__field {
   flex: 1;
   min-inline-size: 0;
 }
 
-.command-input__field {
-  flex: 1;
-  min-inline-size: 0;
-}
-
-.command-input__field .text-input {
+.command-input__field .combobox__input {
   font-family: var(--font-mono);
 }
 
@@ -62,15 +56,7 @@
   margin-inline-end: 0;
 }
 
-.listbox.command-input__list {
-  grid-template-columns: max-content minmax(0, 1fr);
-}
-
 .command-input__command {
   color: var(--c-text);
   font-family: var(--font-mono);
-}
-
-.command-input__about {
-  color: var(--c-text-muted);
 }

@@ -12,11 +12,14 @@ const onNavKey = <T>(event: KeyboardEvent, params: ComboboxKeyParams<T>): boolea
   return true;
 };
 
+const onEnterKey = <T>(event: KeyboardEvent, params: ComboboxKeyParams<T>) => {
+  if (params.pickActive() || !params.free) event.preventDefault();
+};
+
 const onActionKey = <T>(event: KeyboardEvent, params: ComboboxKeyParams<T>) => {
   const { key } = event;
   if (key === 'Enter' && params.drop.open) {
-    event.preventDefault();
-    params.pickActive();
+    onEnterKey(event, params);
   } else if (key === 'Escape' && !params.drop.open && params.editing) {
     event.preventDefault();
     params.revert();

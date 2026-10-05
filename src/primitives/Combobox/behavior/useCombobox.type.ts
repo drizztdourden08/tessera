@@ -9,6 +9,7 @@ interface ComboboxState<T> extends ListboxField<T, HTMLDivElement> {
   view: ListboxView<T>;
   valueLook: ValueLook<T>;
   multi: boolean;
+  free: boolean;
   min: number;
   inputRef: RefObject<HTMLInputElement | null>;
   inputValue: string;
@@ -24,10 +25,17 @@ interface ComboboxKeyParams<T> {
   drop: ListboxDrop<HTMLDivElement>;
   model: ListboxModel<T>;
   editing: boolean;
+  free: boolean;
   emptyInput: boolean;
-  pickActive: () => void;
+  pickActive: () => boolean;
   removeLast: () => void;
   revert: () => void;
 }
 
-export type { ComboboxKeyParams, ComboboxState };
+interface ComboboxText {
+  text: string | null;
+  set: (text: string) => void;
+  revert: () => void;
+}
+
+export type { ComboboxKeyParams, ComboboxState, ComboboxText };

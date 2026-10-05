@@ -106,7 +106,8 @@ describe('CommandInput', () => {
     expect(html).toContain('aria-label="Command"');
     expect(html).toContain('placeholder="/players"');
     expect(html).toContain('autoComplete="off"');
-    expect(html).toContain('text-input-frame--start');
+    expect(html).toContain('spellCheck="false"');
+    expect(html).toContain('combobox__start');
     expect(html).toContain('>Send</span>');
     const id = /<span id="([^"]+)" class="command-input__keys">/.exec(html)[1];
     expect(html).toContain(`aria-describedby="${id}"`);

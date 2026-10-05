@@ -4,7 +4,7 @@ import type { ComboboxLookProps } from '../Combobox.type';
 
 interface ComboboxFieldProps<T> {
   box: ComboboxState<T>;
-  look: ComboboxLookProps;
+  look: ComboboxLookProps<T>;
 }
 
 export type { ComboboxFieldProps };

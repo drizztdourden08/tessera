@@ -1,8 +1,7 @@
 /* @layer renderer-components @kind types */
-import type { InputHTMLAttributes, KeyboardEvent, KeyboardEventHandler, ReactNode } from 'react';
+import type { KeyboardEventHandler, ReactNode } from 'react';
+import type { ComboboxKeyHandler } from '../../primitives/Combobox/Combobox.type';
 import type { ControlSize } from '../../primitives/field-control/field-control.type';
-import type { ListboxDrop } from '../../primitives/listbox/listbox-drop.type';
-import type { TextInputProps } from '../../primitives/TextInput/TextInput.type';
 
 type CommandSubmit = (command: string) => boolean | void;
 
@@ -13,7 +12,7 @@ interface CommandEntry {
 
 type CommandOption = string | CommandEntry;
 
-interface CommandInputProps extends Omit<TextInputProps, 'value' | 'defaultValue' | 'onChange' | 'onEnter' | 'onSubmit' | 'start' | 'end'> {
+interface CommandInputProps {
   onSubmit: CommandSubmit;
   history?: readonly string[];
   commands?: readonly CommandOption[];
@@ -27,6 +26,14 @@ interface CommandInputProps extends Omit<TextInputProps, 'value' | 'defaultValue
   sendLabel?: string;
   actions?: ReactNode;
   keyHints?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+  invalid?: boolean;
+  size?: ControlSize;
+  id?: string;
+  className?: string;
+  'aria-describedby'?: string;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
 
 interface HistoryWalk {
@@ -41,7 +48,7 @@ interface HistoryStep {
 
 type CommandKeyAction = 'send' | 'older' | 'newer' | 'clear' | null;
 
-type SuggestKeyAction = 'next' | 'previous' | 'complete' | 'close' | null;
+type SuggestKeyAction = 'complete' | 'list' | null;
 
 interface CommandKeyEvent {
   key: string;
@@ -56,58 +63,25 @@ type CommandState = Pick<
   CommandInputProps, 'onSubmit' | 'history' | 'commands' | 'maxSuggestions' | 'storageKey' | 'historyLimit' | 'value' | 'defaultValue' | 'onValueChange'
 >;
 
-interface CommandSuggest {
-  known: boolean;
-  hits: readonly CommandEntry[];
-  open: boolean;
-  active: number;
-  listId: string;
-  optionId: (index: number) => string;
-  drop: ListboxDrop<HTMLDivElement>;
-  move: (step: 1 | -1) => void;
-  point: (index: number) => void;
-  dismiss: () => void;
-  reset: () => void;
-  setFocused: (focused: boolean) => void;
-}
-
 interface CommandControl {
   value: string;
   ready: boolean;
-  suggest: CommandSuggest;
+  known: boolean;
+  hits: readonly CommandEntry[];
   change: (value: string) => void;
-  complete: (entry: CommandEntry) => void;
+  complete: (command: string | null) => void;
   send: () => void;
-  onKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
-}
-
-interface CommandSuggestParams {
-  commands: readonly CommandOption[] | undefined;
-  limit: number;
-  value: string;
-  walking: boolean;
-}
-
-interface CommandSuggestionsProps {
-  suggest: CommandSuggest;
-  query: string;
-  size: ControlSize;
-  label: string;
-  onPick: (entry: CommandEntry) => void;
+  onKeyDown: ComboboxKeyHandler<CommandEntry>;
 }
 
 interface CommandInputRowProps {
   command: CommandControl;
   size: ControlSize;
-  label?: string;
   sendLabel?: string;
-  describedBy?: string;
-  disabled?: boolean;
-  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
-  field: Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'value' | 'defaultValue' | 'onChange' | 'onSubmit'> & { invalid?: boolean };
+  field: Pick<CommandInputProps, 'label' | 'placeholder' | 'disabled' | 'invalid' | 'id' | 'onKeyDown'> & { describedBy?: string };
 }
 
 export type {
   CommandControl, CommandEntry, CommandInputProps, CommandInputRowProps, CommandKeyAction, CommandKeyEvent, CommandOption, CommandState, CommandSubmit,
-  CommandSuggest, CommandSuggestParams, CommandSuggestionsProps, HistoryStep, HistoryWalk, SuggestKeyAction,
+  HistoryStep, HistoryWalk, SuggestKeyAction,
 };

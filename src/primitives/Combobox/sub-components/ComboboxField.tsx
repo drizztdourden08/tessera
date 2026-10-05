@@ -1,13 +1,11 @@
 /* @layer renderer-components @kind component */
-import { Icon } from '../../Icon';
 import { InputAdornmentView } from '../../field-control/InputAdornmentView';
 import { ListboxValue } from '../../listbox/ListboxValue';
-import { Spinner } from '../../Spinner';
 import { Span } from '../../text-elements';
 import { Tag } from '../../Tag';
-import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { comboboxClass } from '../behavior/combobox-class';
 import { fieldPress } from '../behavior/field-press';
+import { ComboboxEnd } from './ComboboxEnd';
 import { ComboboxInput } from './ComboboxInput';
 import type { ComboboxFieldProps } from './ComboboxField.type';
 
@@ -15,8 +13,6 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
   const { box, look } = props;
   const { drop, displays, field } = box;
   const editable = !field.disabled;
-  const clearable = editable && box.min === 0 && displays.length > 0;
-  const { fields } = useTesseraStrings();
 
   return (
     <div
@@ -26,6 +22,7 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
       data-fillet={(drop.open && drop.fillet) || undefined}
       onMouseDown={(event) => fieldPress(event, box, field.disabled)}
     >
+      {look.start !== undefined && <InputAdornmentView className="combobox__start" adornment={look.start} size={field.size} disabled={!editable} />}
       {box.multi && displays.map((display, index) => (
         <Tag
           key={display.key}
@@ -43,16 +40,7 @@ const ComboboxField = <T,>(props: ComboboxFieldProps<T>) => {
         </Span>
       )}
       <ComboboxInput box={box} look={look} />
-      {look.loading === true && <Spinner size="sm" className="combobox__spinner" />}
-      {clearable && (
-        <InputAdornmentView
-          className="combobox__clear"
-          adornment={{ icon: <Icon name="x" />, label: fields.clear, onClick: box.clear }}
-          size={field.size}
-          focusable={false}
-        />
-      )}
-      <Icon name="chevron-down" className="combobox__chevron" />
+      <ComboboxEnd box={box} look={look} />
     </div>
   );
 };

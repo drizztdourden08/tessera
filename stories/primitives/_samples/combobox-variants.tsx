@@ -88,5 +88,25 @@ const FullItem = () => {
   );
 };
 
-export { CategoryList, ColumnsHighlight, ComboboxPlayground, Filtering, FullItem, MultiChips, PrefixFilter, ServerSearch };
+const FreeText = () => {
+  const [text, setText] = useState('');
+  return (
+    <ValueReadout value={text === '' ? 'none' : text}>
+      <Combobox<Game>
+        className="combobox-narrow"
+        items={GAMES}
+        columns={GAME_COLUMNS}
+        freeText
+        query={text}
+        onQueryChange={setText}
+        value={null}
+        onChange={(game) => setText(game?.title ?? text)}
+        start={{ icon: 'search' }}
+        placeholder="Type any title"
+      />
+    </ValueReadout>
+  );
+};
+
+export { CategoryList, ColumnsHighlight, ComboboxPlayground, Filtering, FreeText, FullItem, MultiChips, PrefixFilter, ServerSearch };
 export type { ComboboxArgs };
