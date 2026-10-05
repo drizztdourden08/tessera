@@ -20,7 +20,7 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
         { name: 'Logo', summary: 'An app\'s mark alone at each size, its app icon, and the PNG and .ico files built from it.' },
         { name: 'WordMark', summary: 'An app\'s name in the pixel alphabet, in the brand\'s own colours.' },
         { name: 'Combined', summary: 'Mark and wordmark together, inline for a header or stacked for a splash.' },
-        { name: 'Mascot', summary: 'An app\'s mascot built in code from its pieces, its variants and poses, and the assembly step by step.' },
+        { name: 'Mascot', summary: 'An app\'s mascot built in code from its pieces: its variants and poses, its states, the stage where several act, and the assembly step by step.' },
       ],
     }],
   },
@@ -94,16 +94,6 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
     tier: 'Data',
     intro: 'The headless engine under the data composites: schema, tables, filters and view state.',
     groups: [{ group: '', entries: [{ name: 'Engine', summary: 'Schema derivation, the table hook, filters and view storage.' }] }],
-  },
-  {
-    tier: 'Preview',
-    intro: 'Prototypes waiting for approval. They live in the gallery only and are not part of the package.',
-    groups: [{
-      group: 'For approval',
-      entries: [
-        { name: 'Mascot stage', summary: 'Prototype: the mascots on a stage of any width, walking, turning and moving between clips, by command or on their own.' },
-      ],
-    }],
   },
 ]);
 

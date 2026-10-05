@@ -5,6 +5,7 @@ import { BRAND_APPS, BRAND_FAMILY, BrandMark, BrandWordmark } from '../../src/br
 import type { BrandApp } from '../../src/brand';
 import { overviewStory } from '../_template/overview-story';
 import { BrandMascotRow } from './_samples/BrandMascotRow';
+import { FamilyMascots } from './_samples/FamilyMascots';
 import { MascotTabbed } from './_samples/MascotTabbed';
 import { RimGrid } from './_samples/RimGrid';
 import './Brand.stories.css';
@@ -37,6 +38,7 @@ const Family = {
               <BrandMark app={app} size="lg" title="" />
               <BrandMark app={app} size="md" title="" />
               <BrandMark app={app} size="sm" title="" />
+              <FamilyMascots app={app} />
             </Flex>
             <BrandWordmark app={app} size="md" />
             <Stack gap="xs">
@@ -68,7 +70,7 @@ const Overview = overviewStory({
   component: 'Brand',
   description: 'Every app and package in the family on one page: its mark at each size, its app icon, its mascot and its wordmark.',
   points: [
-    'Each row says what the app is and shows the import line for its parts.',
+    'Each row says what the app is, with its mascot small beside its marks and the import line for its parts.',
     'Mascots shows one mascot at a time: the tabs pick it, and the [Mascot] page shares the pick.',
     '[Logo], [WordMark], [Combined] and [Mascot] show each part on its own, with a playground.',
     'Rims shows every mark with no rim, a light rim and a dark rim, on a dark and a light ground.',

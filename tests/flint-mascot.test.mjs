@@ -3,7 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { AnimatedMascot, BRAND_FAMILY, MASCOT_CLIPS, Mascot, sceneMarkup } from '../src/brand';
-import { mascotFor } from '../src/brand/ChosenMascot/behavior/mascot-for';
+import { mascotBrandOf } from '../src/brand/AnimatedMascot/behavior/mascot-brand-of';
 import { composeFlint } from '../src/brand/flint/compose-flint';
 
 const flint = BRAND_FAMILY.brock.mascot;
@@ -54,11 +54,9 @@ describe('Flint, the Brock mascot', () => {
     expect(byLabel.get('Mouth').left).toBeCloseTo(18.05 + 1);
   });
 
-  it('is picked by name, by the brock brand and by the brock palette', () => {
-    expect(mascotFor('flint')).toBe('flint');
-    expect(mascotFor('auto', 'brock')).toBe('flint');
-    expect(mascotFor('auto', undefined, 'brock')).toBe('flint');
-    expect(mascotFor('auto', undefined, 'rotp')).toBe('sentri');
+  it('is the mascot brand="auto" picks inside the brock palette', () => {
+    expect(mascotBrandOf('brock')).toBe('brock');
+    expect(mascotBrandOf('rotp')).toBe('rotp');
   });
 
   it('draws its own clip for every new state, and keeps each state symbol in the resting picture', () => {

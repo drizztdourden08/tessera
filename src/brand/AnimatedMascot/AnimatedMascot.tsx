@@ -1,24 +1,23 @@
 /* @layer renderer-components @kind component */
-import { useMemo, useRef } from 'react';
-import { BrandScene } from '../BrandScene';
-import { BRAND_FAMILY } from '../family.constants';
+import { useRef } from 'react';
+import { Span } from '../../primitives/text-elements';
 import type { AnimatedMascotProps } from './AnimatedMascot.type';
-import { animatedMascotClass } from './behavior/animated-mascot-class';
-import { mascotStage } from './behavior/mascot-stage';
-import { pickClip } from './behavior/pick-clip';
-import { useMascotMotion } from './behavior/useMascotMotion';
+import { mascotBrandOf } from './behavior/mascot-brand-of';
+import { usePaletteName } from './behavior/usePaletteName';
+import { AnimatedMascotActor } from './sub-components/AnimatedMascotActor';
 import './AnimatedMascot.css';
 
 const AnimatedMascot = (props: AnimatedMascotProps) => {
-  const { brand, animation, playing = true, speed = 1, loop, scale, title, onFinish } = props;
-  const { mascot } = BRAND_FAMILY[brand];
-  const motion = mascot?.motion;
-  const ref = useRef<SVGSVGElement>(null);
-  const clip = pickClip(motion, animation);
-  const scene = useMemo(() => mascotStage(mascot, clip), [mascot, clip]);
-  useMascotMotion(ref, { motion, clip, loop, playing, speed, onFinish });
-  if (!mascot || !scene) return null;
-  return <BrandScene ref={ref} scene={scene} scale={scale} title={title ?? mascot.name} className={animatedMascotClass(props)} />;
+  const { brand } = props;
+  const ref = useRef<HTMLElement>(null);
+  const palette = usePaletteName(ref, brand === 'auto');
+  if (brand !== 'auto') return <AnimatedMascotActor {...props} brand={brand} />;
+  const picked = mascotBrandOf(palette);
+  return (
+    <Span ref={ref} className="animated-mascot-auto" data-mascot={picked ?? 'none'}>
+      {picked !== null && <AnimatedMascotActor {...props} brand={picked} />}
+    </Span>
+  );
 };
 
 export { AnimatedMascot };

@@ -3,3 +3,7 @@
 .animated-mascot--md { block-size: var(--brand-mark-md); }
 .animated-mascot--lg { block-size: var(--brand-mark-lg); }
 .animated-mascot--xl { block-size: var(--brand-mark-xl); }
+
+.animated-mascot-auto {
+  display: contents;
+}

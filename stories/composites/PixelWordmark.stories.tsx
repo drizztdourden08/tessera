@@ -1,9 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { PixelWordmark } from '../../src/composites';
-import type { PixelWordmarkColors, PixelWordmarkSize } from '../../src/composites';
-import { BRAND_APPS, BRAND_FAMILY, BrandWordmark } from '../../src/brand';
+import { BRAND_APPS, BRAND_FAMILY, BrandWordmark, PixelWordmark } from '../../src/brand';
+import type { PixelWordmarkColors, PixelWordmarkSize } from '../../src/brand';
 import { Stack, Text } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';

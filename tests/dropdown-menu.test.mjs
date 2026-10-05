@@ -7,7 +7,6 @@ import { menuShortcutKeys } from '../src/composites/DropdownMenu/behavior/menu-s
 import { closesOnPick } from '../src/composites/DropdownMenu/behavior/closes-on-pick';
 import { menuMatches } from '../src/composites/DropdownMenu/behavior/menu-matches';
 import { nodeRuns } from '../src/composites/DropdownMenu/behavior/node-runs';
-import { mascotFor } from '../src/brand/ChosenMascot/behavior/mascot-for';
 import { tidyGroups } from '../src/composites/DropdownMenu/behavior/tidy-groups';
 import { tidyNodes } from '../src/composites/DropdownMenu/behavior/tidy-nodes';
 
@@ -140,15 +139,5 @@ describe('menuMatches', () => {
   it('needs every word and returns nothing for an empty query', () => {
     expect(menuMatches(groups, 'json export')).toHaveLength(1);
     expect(menuMatches(groups, '  ')).toEqual([]);
-  });
-});
-
-describe('mascotFor', () => {
-  it('takes a name as it is and picks by brand, then palette, for auto', () => {
-    expect(mascotFor('sentri')).toBe('sentri');
-    expect(mascotFor('auto', 'rotp')).toBe('sentri');
-    expect(mascotFor('auto', undefined, 'rotp')).toBe('sentri');
-    expect(mascotFor('auto', 'tessera', 'archipelia')).toBe('pelago');
-    expect(mascotFor('auto', 'tessera', 'tessera')).toBeNull();
   });
 });

@@ -1,5 +1,5 @@
 /* @layer stories @kind data */
-import type { AnimatedMascotBrand, MascotName, MascotPose } from '../../../src/brand';
+import type { MascotPose } from '../../../src/brand';
 
 const MASCOT_POSES: Readonly<Record<string, MascotPose>> = {
   'At rest': {},
@@ -10,6 +10,4 @@ const MASCOT_POSES: Readonly<Record<string, MascotPose>> = {
   'Waving': { look: [1, 0], podAngles: { right: -75 }, handAngles: { right: -70 } },
 };
 
-const MASCOT_NAME_OF: Readonly<Record<AnimatedMascotBrand, MascotName>> = { rotp: 'sentri', brock: 'flint', archipelia: 'pelago' };
-
-export { MASCOT_NAME_OF, MASCOT_POSES };
+export { MASCOT_POSES };

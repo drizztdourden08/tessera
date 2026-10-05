@@ -4877,3 +4877,77 @@ The default of `guard` changes from `'dialog'` to `'inline'`: a pick, New or Bac
 1. Archipelia: the preset editor, the server editor and the session builder put a SaveBar last in the editor and drop their own save state text and Save buttons; the session builder draws its players with RowGrid.
 2. An app that wants the modal question of MasterDetail passes `guard="dialog"`.
 3. An app that styled `.master-detail-guard__message` or `.master-detail-guard__actions` styles the `.button-row__lead` of `.master-detail-guard` instead; both classes are gone.
+
+## 174. AnimatedMascot changes state smoothly, MascotStage joins the package, ChosenMascot folds in
+
+The mascot stage of section 153 is approved (TX-03). Its engine moves from the gallery into `src/brand/MascotStage/`, and `AnimatedMascot` runs on it, so one mascot standing in place changes state the way the stage prototype does. The same change folds `ChosenMascot` into `AnimatedMascot` (TX-32), moves `PixelWordmark` to the brand tier (TX-22) and stops exporting `InteractiveTessera` (TX-37).
+
+```ts
+type MascotFacing = 'left' | 'right';
+type AnimatedMascotChoice = AnimatedMascotBrand | 'auto'; // 'rotp' | 'brock' | 'archipelia' | 'auto'
+
+interface AnimatedMascotProps {
+  brand: AnimatedMascotChoice;
+  animation?: MascotClip;   // the state; idle when left out
+  face?: MascotFacing;      // new
+  playing?: boolean;
+  speed?: number;
+  loop?: boolean;
+  size?: BrandMarkSize;
+  scale?: number;
+  title?: string;
+  className?: string;
+  onFinish?: () => void;
+}
+
+interface MascotStageProps {
+  cast: readonly MascotStageCast[]; // { id, brand, x?, face?, clip?, rest?, size?, autonomy?, hidden? }
+  height?: number;
+  playing?: boolean;
+  speed?: number;
+  motion?: 'system' | 'full' | 'reduced';
+  className?: string;
+  label?: string;
+  onEvent?: (event: MascotStageEvent) => void;
+  ref?: Ref<MascotStageHandle>; // actor(id) gives play, moveTo, face, turn, queue, stop, effect, effects, autonomy, setVisible, state
+}
+```
+
+### AnimatedMascot is a state machine
+
+- `animation` is the state of the mascot. Change it at any moment, even in the middle of a clip, and the mascot blends from the pose it is in. Each clip keeps the blend time the owner approved on the stage: 220 ms by default, 320 ms into idle or default, 110 ms into an alert, 600 ms into sleep.
+- A jump, a hop or a spin finishes its leap before the next state starts; an alert, alert-exclaim or worried cuts in at once.
+- Symbols and Sentri's eye overlays cross-fade over at least 320 ms, never shorter than the body blend, so a face never pops.
+- `face` turns the mascot round on the spot in 240 ms without leaving its state. Question marks, z letters, the laptop, the battery and the bulb stay upright and readable.
+- A clip that plays once goes back to idle when it ends and then calls `onFinish`. Before, it stopped on its resting drawing. A state that another one replaces does not call `onFinish`.
+- Every clip still plays through the Web Animations API once it settles, so the 29 approved clips look the same; only the blends are computed frame by frame. Every mascot shares one frame loop.
+- The drawing now holds every effect of the mascot, hidden until a state fades it in, so any state can show its symbols. Reduced motion shows each state as its still picture, and pictures cross-fade.
+- `brand="auto"` does what `ChosenMascot` did: it draws the mascot of the nearest `data-palette`, and none for a palette without one, such as Tessera.
+
+### MascotStage
+
+- `MascotStage` is the stage prototype, unchanged: several mascots on a stage of any width that walk to a spot, turn, play clips by command or in a queue, and pick small things to do on their own with `autonomy`. `MASCOT_AUTONOMY_RULES` is the default list of those things.
+- Its handle adds `turn(facing)`, which turns an actor without stopping what it plays. `face(facing)` is still a step in the queue.
+- The types are exported with a Mascot prefix: `MascotFacing`, `MascotPlayOptions`, `MascotMoveOptions`, `MascotStep`, `MascotStepResult`, `MascotEffectMode`, `MascotActorHandle`, `MascotActorState`, `MascotStageCast`, `MascotStageEvent`, `MascotStageEventType`, `MascotStageHandle`, `MascotStageProps`, `MascotAutonomyConfig`, `MascotAutonomyRule` and `MascotAutonomyContext`.
+
+### Moves and removals
+
+- `ChosenMascot` is removed: use `AnimatedMascot`. `mascot="sentri"` becomes `brand="rotp"`, `flint` becomes `brock`, `pelago` becomes `archipelia`, and `mascot="auto"` becomes `brand="auto"`. Its `brand` prop with auto is the brand itself.
+- `MascotName` and `MascotChoice` are removed for `AnimatedMascotBrand` and `AnimatedMascotChoice`; `mascotForBrand` is removed. The `chosen-mascot` wrapper class is `animated-mascot-auto`, and only `brand="auto"` draws it.
+- `CommandPalette` takes the same brand values for `mascot`: `'auto'`, `'rotp'`, `'brock'` or `'archipelia'`.
+- `PixelWordmark`, `buildPixelWordmark`, `PIXEL_FONT` and their types move from `@drizztdourden08/tessera/composites` to `@drizztdourden08/tessera/brand`, beside `BrandWordmark`. The root import is unchanged.
+- `InteractiveTessera` is no longer exported. It lives in the gallery, which shows it on its home page and its own page.
+
+### Gallery
+
+- Mascot stage leaves the Preview group, and the group, now empty, leaves the gallery. Its twelve demos are the Stage page of Mascot, one tab each: Stage, Director, Dialogue, Follow the pointer, Guided tour, Autonomy tuning, Flip every clip, Speed, Reduced motion, Stress, Side by side and Crowd.
+- The Mascot page gets a States section: pick a state at any moment and turn the mascot; the playground takes `face`. Picked by name or palette is Picked by brand or palette.
+- The Family cards of the Brand page show each app's mascot small beside its marks (TX-04), and the Mascots section keeps its tabs.
+
+### What an app does
+
+1. Replace `ChosenMascot` with `AnimatedMascot`: `<ChosenMascot mascot="auto" />` becomes `<AnimatedMascot brand="auto" />`, and a named mascot becomes its brand id.
+2. A `CommandPalette` with `mascot="sentri"` passes `mascot="rotp"`.
+3. Switch a mascot between states by changing `animation`; drop any `key` that remounted it to restart a clip.
+4. An app that waited for `onFinish` to set idle back can keep doing so; the mascot already blends into idle on its own.
+5. Import `PixelWordmark` from the brand entry if it used the composites entry. Drop any import of `InteractiveTessera`.

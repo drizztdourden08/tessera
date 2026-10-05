@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 42 of 171 have their usage written; a linked name opens its page.
+One line per component. 42 of 170 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -131,7 +131,6 @@ One line per component. 42 of 171 have their usage written; a linked name opens 
 - [MasterDetail](components/MasterDetail.md): A ManagedList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
 - `MasterDetailLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.
@@ -177,7 +176,7 @@ One line per component. 42 of 171 have their usage written; a linked name opens 
 - `BrandRimPaths`: usage not written yet. Not exported; Tessera uses it inside.
 - `BrandScene`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `BrandWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `ChosenMascot`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `InteractiveTessera`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Logo`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Mascot`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `MascotStage`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.

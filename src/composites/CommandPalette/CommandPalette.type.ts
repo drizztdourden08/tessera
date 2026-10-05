@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, ReactNode, RefObject } from 'react';
-import type { MascotChoice } from '../../brand/ChosenMascot';
+import type { AnimatedMascotChoice } from '../../brand/AnimatedMascot';
 
 interface CommandPaletteToggle {
   checked: boolean;
@@ -36,7 +36,7 @@ interface CommandPaletteProps<T extends CommandPaletteItem = CommandPaletteItem>
   placeholder?: string;
   emptyText?: ReactNode;
   label?: string;
-  mascot?: MascotChoice;
+  mascot?: AnimatedMascotChoice;
   className?: string;
 }
 

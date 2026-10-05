@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { PixelWordmarkColors } from '../composites/PixelWordmark';
+import type { PixelWordmarkColors } from './PixelWordmark';
 import type { BackdropGradient } from './backdrop-gradient.type';
 import type { MascotMotion } from './motion/motion.type';
 

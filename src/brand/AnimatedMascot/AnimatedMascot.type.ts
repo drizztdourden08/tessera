@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { BrandMarkSize } from '../BrandMark';
 import type { MascotClip } from '../motion/mascot-clip.type';
+import type { MascotFacing } from '../motion/mascot-facing.type';
 
 interface MascotAnimationNames {
   rotp: MascotClip;
@@ -10,9 +11,12 @@ interface MascotAnimationNames {
 
 type AnimatedMascotBrand = keyof MascotAnimationNames;
 
+type AnimatedMascotChoice = AnimatedMascotBrand | 'auto';
+
 interface AnimatedMascotProps {
-  brand: AnimatedMascotBrand;
+  brand: AnimatedMascotChoice;
   animation?: MascotClip;
+  face?: MascotFacing;
   playing?: boolean;
   speed?: number;
   loop?: boolean;
@@ -23,4 +27,4 @@ interface AnimatedMascotProps {
   onFinish?: () => void;
 }
 
-export type { AnimatedMascotBrand, AnimatedMascotProps, MascotAnimationNames };
+export type { AnimatedMascotBrand, AnimatedMascotChoice, AnimatedMascotProps, MascotAnimationNames };

@@ -1,0 +1,18 @@
+/* @layer renderer-components @kind style */
+.mascot-stage {
+  position: relative;
+  inline-size: 100%;
+  overflow: hidden;
+}
+
+.mascot-stage__actor {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  line-height: 0;
+}
+
+.mascot-stage__actor > .brand-scene {
+  display: block;
+  max-inline-size: none;
+}

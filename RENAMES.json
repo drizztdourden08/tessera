@@ -725,7 +725,11 @@
         "PathIconProps": "IconProps, with path (see MIGRATION.md section 172)",
         "PathIcon": "Icon, with path={{ d: paths, circles, viewBox }} (see MIGRATION.md section 172)",
         "CenterProps": "FlexProps, with align and justify set to center (see MIGRATION.md section 172)",
-        "Center": "Flex, with align=\"center\" and justify=\"center\" (see MIGRATION.md section 172)"
+        "Center": "Flex, with align=\"center\" and justify=\"center\" (see MIGRATION.md section 172)",
+        "ChosenMascotProps": "AnimatedMascotProps",
+        "ChosenMascot": "AnimatedMascot",
+        "MascotChoice": "AnimatedMascotChoice",
+        "MascotName": "AnimatedMascotBrand"
       },
       "props": {
         "NumberStepper.ariaLabel": "NumberInput.aria-label",
@@ -735,7 +739,9 @@
         "TermList.items": "FactsPanel.groups, as groups={[items]} (see MIGRATION.md section 172)",
         "PathIcon.viewBox": "Icon.path, as path={{ viewBox }} (see MIGRATION.md section 172)",
         "PathIcon.circles": "Icon.path, as path={{ circles }} (see MIGRATION.md section 172)",
-        "PathIcon.paths": "Icon.path, as path={{ d: paths }} (see MIGRATION.md section 172)"
+        "PathIcon.paths": "Icon.path, as path={{ d: paths }} (see MIGRATION.md section 172)",
+        "ChosenMascot.mascot": "AnimatedMascot.brand, a brand id: sentri is rotp, flint is brock, pelago is archipelia, and auto stays auto (see MIGRATION.md section 174)",
+        "ChosenMascot.brand": "AnimatedMascot.brand, the brand itself; auto reads data-palette (see MIGRATION.md section 174)"
       },
       "strings": {
         "fields.increment": "fields.increase",
@@ -750,11 +756,25 @@
         "term-list__term": "facts-panel__term-label",
         "term-list__item": "facts-panel__term",
         "term-list": "facts-panel facts-panel--terms",
-        "thumbnail": "image image--framed"
+        "thumbnail": "image image--framed",
+        "chosen-mascot": "animated-mascot-auto"
       },
       "cssCustomProperties": {
         "--number-stepper-button-w": "--number-input-side-w",
         "--number-stepper-field-w": "--number-input-sides-field-w"
+      },
+      "propValues": {
+        "CommandPalette.mascot": {
+          "sentri": "rotp",
+          "flint": "brock",
+          "pelago": "archipelia"
+        }
+      },
+      "removedExports": {
+        "mascotForBrand": "removed; AnimatedMascot brand=\"auto\" picks the mascot of the palette, and a brand id names its own mascot (see MIGRATION.md section 174)",
+        "InteractiveTessera": "removed from the package; it lives in the gallery only (see MIGRATION.md section 174)",
+        "InteractiveTesseraProps": "removed with InteractiveTessera (see MIGRATION.md section 174)",
+        "PixelWordmark": "still exported from the root; from a subpath, import it, buildPixelWordmark, PIXEL_FONT and their types from @drizztdourden08/tessera/brand, no longer /composites (see MIGRATION.md section 174)"
       }
     }
   ]

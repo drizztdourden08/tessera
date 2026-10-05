@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { AnimatedMascot } from './AnimatedMascot';
-export type { AnimatedMascotBrand, AnimatedMascotProps, MascotAnimationNames } from './AnimatedMascot.type';
+export type { AnimatedMascotBrand, AnimatedMascotChoice, AnimatedMascotProps, MascotAnimationNames } from './AnimatedMascot.type';

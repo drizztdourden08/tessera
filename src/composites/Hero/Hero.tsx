@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useRef } from 'react';
-import { usePaletteName } from '../../brand/ChosenMascot/behavior/usePaletteName';
+import { usePaletteName } from '../../brand/AnimatedMascot/behavior/usePaletteName';
 import { Box } from '../../primitives/Box';
 import { ButtonRow } from '../../primitives/ButtonRow';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';

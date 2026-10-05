@@ -5,16 +5,22 @@ export { BrandScene } from './BrandScene';
 export type { BrandSceneProps } from './BrandScene';
 export { BrandWordmark } from './BrandWordmark';
 export type { BrandWordmarkProps } from './BrandWordmark';
-export { InteractiveTessera } from './InteractiveTessera';
-export type { InteractiveTesseraProps } from './InteractiveTessera';
+export { PixelWordmark, buildPixelWordmark, PIXEL_FONT } from './PixelWordmark';
+export type {
+  PixelGlyph, PixelWordmarkArt, PixelWordmarkColors, PixelWordmarkPath, PixelWordmarkProps, PixelWordmarkSize,
+} from './PixelWordmark';
 export { Logo } from './Logo';
 export type { LogoCombinedProps, LogoDirection, LogoProps, LogoWordmarkProps } from './Logo';
 export { Mascot } from './Mascot';
 export type { MascotProps } from './Mascot';
 export { AnimatedMascot } from './AnimatedMascot';
-export type { AnimatedMascotBrand, AnimatedMascotProps, MascotAnimationNames } from './AnimatedMascot';
-export { ChosenMascot, mascotForBrand } from './ChosenMascot';
-export type { ChosenMascotProps, MascotChoice, MascotName } from './ChosenMascot';
+export type { AnimatedMascotBrand, AnimatedMascotChoice, AnimatedMascotProps, MascotAnimationNames } from './AnimatedMascot';
+export { MascotStage, MASCOT_AUTONOMY_RULES } from './MascotStage';
+export type {
+  MascotActorHandle, MascotActorState, MascotAutonomyConfig, MascotAutonomyContext, MascotAutonomyRule, MascotEffectMode, MascotFacing,
+  MascotMoveOptions, MascotPlayOptions, MascotStageCast, MascotStageEvent, MascotStageEventType, MascotStageHandle, MascotStageProps, MascotStep,
+  MascotStepResult,
+} from './MascotStage';
 export type { MascotAnimation, MascotMotion, MotionEffect, MotionFrame, MotionPart, MotionShadow, MotionStage, MotionTrack } from './motion/motion.type';
 export type { MascotClip } from './motion/mascot-clip.type';
 export { MASCOT_CLIPS } from './motion/mascot-clips.constants';

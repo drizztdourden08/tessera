@@ -2,7 +2,7 @@
 import { useMemo, useState } from 'react';
 import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import type { MascotChoice } from '../../src/brand';
+import type { AnimatedMascotChoice } from '../../src/brand';
 import { CommandPalette } from '../../src/composites';
 import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
@@ -16,7 +16,7 @@ type PaletteArgs = {
   defaultOpen: boolean;
   defaultQuery: string;
   placeholder: string;
-  mascot: 'none' | MascotChoice;
+  mascot: 'none' | AnimatedMascotChoice;
 };
 
 const NO_FLAGS: Readonly<Record<string, boolean>> = { sound: true };
@@ -63,7 +63,7 @@ const ARGS: Partial<PaletteArgs> = { defaultOpen: true, defaultQuery: '', placeh
 const ARG_TYPES: PlaygroundArgTypes<PaletteArgs> = {
   defaultQuery: { group: 'Content', control: 'text' },
   placeholder: { group: 'Content', control: 'text', description: 'Leave it empty to hear the mascot ask' },
-  mascot: { group: 'Appearance', control: 'select', options: ['none', 'auto', 'sentri', 'flint', 'pelago'], description: 'auto picks the mascot of the app palette, and none when it has no mascot' },
+  mascot: { group: 'Appearance', control: 'select', options: ['none', 'auto', 'rotp', 'brock', 'archipelia'], description: 'A brand draws its mascot: rotp is Sentri, brock Flint and archipelia Pelago. auto picks the mascot of the app palette, and none when it has no mascot' },
   defaultOpen: { group: 'State', control: 'boolean' },
 };
 
@@ -97,7 +97,7 @@ const WithMascot = {
   name: 'With a mascot',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" placeholder="" mascot="sentri" />,
+  render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" placeholder="" mascot="rotp" />,
 } satisfies PlaygroundStory<PaletteArgs>;
 
 const Closed = {
@@ -151,7 +151,7 @@ const Overview = overviewStory({
     'The host owns `query` and the results, passed as `groups` of [CommandPaletteRow] items.',
     'The arrow keys move the active row, [[Enter]] picks it and [[Ctrl+Enter]] flips a toggle row.',
     '[[Esc]] or a click on the scrim closes it, and focus goes back where it was.',
-    '`mascot` adds a small mascot to the field; `auto` picks the one of the app palette, or none.',
+    '`mascot` adds a small mascot to the field, named by its brand; `auto` picks the one of the app palette, or none.',
   ],
   instead: '[DropdownMenu] for a short list of actions on one button.',
   playground: Playground,

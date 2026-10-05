@@ -2,7 +2,7 @@
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { Root } from 'react-dom/client';
-import { InteractiveTessera } from '../src/brand';
+import { InteractiveTessera } from '../stories/brand/InteractiveTessera';
 import type { CssRegistry } from './home-logo-mount.type';
 import '../src/tokens/size.css';
 import '../src/tokens/radius.css';

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { PixelWordmark } from '../../composites/PixelWordmark';
+import { PixelWordmark } from '../PixelWordmark';
 import { BRAND_FAMILY } from '../family.constants';
 import type { BrandWordmarkProps } from './BrandWordmark.type';
 

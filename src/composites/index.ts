@@ -1,8 +1,4 @@
 /* @layer renderer-components @kind barrel */
-export { PixelWordmark, buildPixelWordmark, PIXEL_FONT } from './PixelWordmark';
-export type {
-  PixelGlyph, PixelWordmarkArt, PixelWordmarkColors, PixelWordmarkPath, PixelWordmarkProps, PixelWordmarkSize,
-} from './PixelWordmark';
 export { DataTable } from './DataTable';
 export type {
   ColumnActions, ColumnDragBinding, DataTableProps, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver,

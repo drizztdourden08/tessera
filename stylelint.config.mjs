@@ -10,7 +10,7 @@ const base = standardsStylelint({
 });
 
 const logoScalesByEm = {
-  files: ['src/brand/InteractiveTessera/**/*.css'],
+  files: ['stories/brand/InteractiveTessera/**/*.css'],
   rules: {
     'unit-disallowed-list': [['px', 'rem'], { ignoreMediaFeatureNames: { rem: ['width', 'min-width', 'max-width'] } }],
     'declaration-property-value-disallowed-list': {

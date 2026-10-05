@@ -1,10 +1,11 @@
 /* @layer stories @kind types */
-import type { MascotClip } from '../../../src/brand';
+import type { MascotClip, MascotFacing } from '../../../src/brand';
 
 type MascotPlaygroundArgs = {
   animation: MascotClip | 'none';
   speed: number;
   loop: boolean;
+  face: MascotFacing;
   playing: boolean;
   variant: string;
   scale: number;

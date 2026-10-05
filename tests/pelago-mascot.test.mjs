@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { AnimatedMascot, BRAND_FAMILY, Mascot, sceneMarkup } from '../src/brand';
 import { motionKeyframes } from '../src/brand/AnimatedMascot/behavior/motion-keyframes';
 import { motionPivots } from '../src/brand/AnimatedMascot/behavior/motion-pivots';
-import { mascotFor } from '../src/brand/ChosenMascot/behavior/mascot-for';
+import { mascotBrandOf } from '../src/brand/AnimatedMascot/behavior/mascot-brand-of';
 
 const mascot = BRAND_FAMILY.archipelia.mascot;
 const { motion } = mascot;
@@ -73,10 +73,8 @@ describe('Pelago, the Archipelia island spirit', () => {
     expect(faded.opacity).toBeCloseTo(-0.4);
   });
 
-  it('is the mascot ChosenMascot picks for Archipelia', () => {
-    expect(mascotFor('auto', 'archipelia')).toBe('pelago');
-    expect(mascotFor('auto', undefined, 'archipelia')).toBe('pelago');
-    expect(mascotFor('pelago', 'rotp')).toBe('pelago');
+  it('is the mascot brand="auto" picks inside the archipelia palette', () => {
+    expect(mascotBrandOf('archipelia')).toBe('archipelia');
   });
 });
 
@@ -99,7 +97,7 @@ describe('Pelago states', () => {
       const html = at(clip);
       for (const part of still) expect(html, `${clip}: ${part}`).toMatch(new RegExp(`data-motion-part="${part}"(?! opacity="0")`));
     }
-    expect(at('idle')).not.toContain('data-motion-part="bulb"');
+    expect(at('idle')).toContain('data-motion-part="bulb" opacity="0"');
   });
 
   it('names only effects it draws, and loops every state that holds', () => {

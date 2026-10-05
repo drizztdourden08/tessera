@@ -1,6 +1,6 @@
 /* @layer root-config @kind logic */
 import { BRAND_FAMILY } from '../src/brand/family.constants';
-import { buildPixelWordmark } from '../src/composites/PixelWordmark/behavior/build-pixel-wordmark';
+import { buildPixelWordmark } from '../src/brand/PixelWordmark/behavior/build-pixel-wordmark';
 import type { BrandApp } from '../src/brand/brand.type';
 import { artSvg } from './art-svg';
 

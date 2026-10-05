@@ -5,7 +5,6 @@ import { describe, expect, it } from 'vitest';
 import { AnimatedMascot, BRAND_FAMILY, BRAND_APPS, MASCOT_CLIP_GROUPS, MASCOT_CLIP_VARIANTS, MASCOT_CLIPS } from '../src/brand';
 import { motionKeyframes } from '../src/brand/AnimatedMascot/behavior/motion-keyframes';
 import { motionPivots } from '../src/brand/AnimatedMascot/behavior/motion-pivots';
-import { pickClip } from '../src/brand/AnimatedMascot/behavior/pick-clip';
 import { stageScene } from '../src/brand/AnimatedMascot/behavior/stage-scene';
 
 const motions = BRAND_APPS.flatMap((app) => {
@@ -48,8 +47,7 @@ describe('mascot motion data', () => {
     const idle = JSON.stringify(motion.animations.idle.tracks);
     const seen = new Map();
     for (const id of MASCOT_CLIPS) {
-      const clip = pickClip(motion, id);
-      expect(clip).toBe(motion.animations[id]);
+      const clip = motion.animations[id];
       expect(moves(clip)).toBe(true);
       const tracks = JSON.stringify(clip.tracks);
       if (id !== 'idle') expect(tracks, `${id} moves like idle`).not.toBe(idle);
@@ -98,12 +96,12 @@ describe('mascot effects', () => {
     expect(stageScene(BRAND_FAMILY.rotp.mascot.variants[0].compose(), motion).nodes[0].children.at(-1).hidden).toBe(true);
   });
 
-  it('draws only the effects the playing clip names, so a clip without symbols carries none', () => {
+  it('draws every effect hidden but the symbols of the clip it starts in, so a new state can fade any of them in', () => {
     const idle = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'idle' }));
     const sleep = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'sleep' }));
-    expect(idle).not.toContain('data-motion-part="spark"');
-    for (const part of ['closed', 'zSmall', 'zMid', 'zBig']) expect(sleep).toContain(`data-motion-part="${part}"`);
-    expect(sleep).not.toContain('data-motion-part="heart"');
+    expect(idle).toContain('data-motion-part="spark" opacity="0"');
+    for (const part of ['closed', 'zSmall', 'zMid', 'zBig']) expect(sleep).toMatch(new RegExp(`data-motion-part="${part}"(?! opacity="0")`));
+    expect(sleep).toContain('data-motion-part="heart" opacity="0"');
   });
 
   it("counts an effect's opacity from 0, so a frame without one keeps it hidden", () => {

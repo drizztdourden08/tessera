@@ -6009,16 +6009,6 @@
       "usage": false
     },
     {
-      "name": "PixelWordmark",
-      "tier": "composites",
-      "source": "src/composites/PixelWordmark/PixelWordmark.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "PressedGrid",
       "tier": "composites",
       "source": "src/composites/PressedGrid/PressedGrid.tsx",
@@ -8084,26 +8074,6 @@
       "usage": false
     },
     {
-      "name": "ChosenMascot",
-      "tier": "brand",
-      "source": "src/brand/ChosenMascot/ChosenMascot.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/brand"
-      ],
-      "usage": false
-    },
-    {
-      "name": "InteractiveTessera",
-      "tier": "brand",
-      "source": "src/brand/InteractiveTessera/InteractiveTessera.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/brand"
-      ],
-      "usage": false
-    },
-    {
       "name": "Logo",
       "tier": "brand",
       "source": "src/brand/Logo/Logo.tsx",
@@ -8117,6 +8087,26 @@
       "name": "Mascot",
       "tier": "brand",
       "source": "src/brand/Mascot/Mascot.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
+      "name": "MascotStage",
+      "tier": "brand",
+      "source": "src/brand/MascotStage/MascotStage.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/brand"
+      ],
+      "usage": false
+    },
+    {
+      "name": "PixelWordmark",
+      "tier": "brand",
+      "source": "src/brand/PixelWordmark/PixelWordmark.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/brand"

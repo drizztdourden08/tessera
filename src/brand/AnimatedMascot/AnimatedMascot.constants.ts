@@ -1,4 +1,10 @@
 /* @layer renderer-components @kind constants */
-const MIN_SPEED = 0.05;
+import type { AnimatedMascotBrand } from './AnimatedMascot.type';
 
-export { MIN_SPEED };
+const MASCOT_BRANDS: readonly AnimatedMascotBrand[] = ['rotp', 'brock', 'archipelia'];
+
+const PALETTE_ATTRIBUTE = 'data-palette';
+
+const SOLO_ACTOR = 'mascot';
+
+export { MASCOT_BRANDS, PALETTE_ATTRIBUTE, SOLO_ACTOR };

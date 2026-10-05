@@ -1,9 +1,10 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { BRAND_APPS, InteractiveTessera } from '../../src/brand';
+import { BRAND_APPS } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
 import { overviewStory } from '../_template/overview-story';
+import { InteractiveTessera } from './InteractiveTessera';
 
 type InteractiveTesseraArgs = {
   start: BrandApp | 'none';
@@ -41,7 +42,9 @@ const Overview = overviewStory({
     'Picking one slides the T aside to show what that project is.',
     'A grey tile, the empty space or [[Esc]] puts the T back in the middle.',
     '`start` picks a project when the logo first draws.',
+    'It lives in the gallery only, for the home page and this page; the package does not export it.',
   ],
+  code: false,
   playground: Playground,
   variants: [Interactive],
 });

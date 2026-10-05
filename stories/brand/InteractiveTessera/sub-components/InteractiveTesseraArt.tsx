@@ -1,0 +1,40 @@
+/* @layer stories @kind component */
+import type { CSSProperties } from 'react';
+import { Svg, SvgCircle, SvgGroup, SvgLine, SvgPath } from '../../../../src/primitives/Svg';
+import { BRAND_FAMILY } from '../../../../src/brand/family.constants';
+import type { BrandApp } from '../../../../src/brand/brand.type';
+import { CALLOUT_EDGE } from '../InteractiveTessera.constants';
+import { PATHS, VIEW_BOX } from './InteractiveTesseraArt.constants';
+import type { InteractiveTesseraArtProps } from './InteractiveTesseraArt.type';
+
+const inkOf = (app: BrandApp): CSSProperties => ({ '--interactive-tessera-ink': BRAND_FAMILY[app].colour } as CSSProperties);
+
+const InteractiveTesseraArt = (props: InteractiveTesseraArtProps) => {
+  const { spots, isLit } = props;
+  return (
+    <Svg className="interactive-tessera__art" viewBox={VIEW_BOX} role="group" aria-label="Tessera logo: a T laid from mosaic tiles, one coloured tile per project">
+      <SvgGroup className="interactive-tessera__leads">
+        {spots.map(({ app, centre, side }) => (
+          <SvgGroup key={app} className="interactive-tessera__lead" data-lit={isLit(app) || undefined} style={inkOf(app)}>
+            <SvgLine x1={CALLOUT_EDGE[side]} y1={centre.y} x2={centre.x} y2={centre.y} />
+            <SvgCircle cx={centre.x} cy={centre.y} r={9} />
+          </SvgGroup>
+        ))}
+      </SvgGroup>
+      <SvgGroup className="interactive-tessera__t">
+        {PATHS.map((p, i) => {
+          const app = p.group && p.group !== 'tessera' ? p.group : null;
+          return app
+            ? <SvgPath key={i} className="interactive-tessera__tile" d={p.d} fill={p.ink} data-pick={app} tabIndex={0} role="button" aria-label={BRAND_FAMILY[app].name} />
+            : <SvgPath key={i} className="interactive-tessera__tile" d={p.d} fill={p.ink} />;
+        })}
+        {spots.map(({ app }) => {
+          const tile = PATHS.find((p) => p.group === app);
+          return tile && <SvgPath key={app} className="interactive-tessera__glow" d={tile.d} fill={tile.ink} data-lit={isLit(app) || undefined} style={inkOf(app)} aria-hidden />;
+        })}
+      </SvgGroup>
+    </Svg>
+  );
+};
+
+export { InteractiveTesseraArt };

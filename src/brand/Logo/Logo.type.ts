@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { PixelWordmarkSize } from '../../composites/PixelWordmark';
+import type { PixelWordmarkSize } from '../PixelWordmark';
 import type { BrandMarkSize, BrandMarkVariant } from '../BrandMark';
 import type { BrandApp } from '../brand.type';
 import type { BrandRim } from '../rim.type';
