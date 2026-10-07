@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.25.0
+
+### Minor Changes
+
+- 7a42af6: The WidgetOptions panel and every panel it opens, such as Shortcuts, carry `data-widget-options`, exported as `WIDGET_OPTIONS_ATTRIBUTE`, so an app can tell them from any other ControlMenu; ControlMenu gains `panelData`, data attributes it sets on its panel and on each sub-panel.
+
 ## 0.24.1
 
 ### Patch Changes
