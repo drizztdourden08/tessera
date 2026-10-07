@@ -8,4 +8,13 @@ interface RowFrame {
   style: CSSProperties | undefined;
 }
 
-export type { RowFrame };
+interface RowClassParts {
+  selected: boolean;
+  interactive: boolean;
+  inList: boolean;
+  inline: boolean;
+  shown: boolean;
+  className: string;
+}
+
+export type { RowClassParts, RowFrame };

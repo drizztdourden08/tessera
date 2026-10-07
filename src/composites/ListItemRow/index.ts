@@ -2,5 +2,5 @@
 export { ListItemRow } from './ListItemRow';
 export { ListItemList } from './sub-components/ListItemList';
 export type {
-  ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole,
+  ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape,
 } from './ListItemRow.type';

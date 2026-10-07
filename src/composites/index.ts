@@ -22,7 +22,7 @@ export { LogPanel } from './LogPanel';
 export type { LogKindDef, LogPanelProps, LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
 export type {
-  ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole,
+  ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape,
 } from './ListItemRow';
 export { ListDetailLayout } from './ListDetailLayout';
 export type { ListDetailLayoutProps } from './ListDetailLayout';

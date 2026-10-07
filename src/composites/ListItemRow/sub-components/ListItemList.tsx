@@ -10,10 +10,12 @@ import type { ListItemListProps } from '../ListItemRow.type';
 import './ListItemList.css';
 
 const ListItemList = (props: ListItemListProps) => {
-  const { children, label, heading, count, className } = props;
+  const { children, label, heading, count, shape, className } = props;
   const headingId = useId();
-  const tracks = listItemTracks(shapeOfRows(children));
+  const read = shape ?? shapeOfRows(children);
+  const tracks = listItemTracks(read);
   const style = useMemo(() => ({ gridTemplateColumns: tracks }), [tracks]);
+  const context = useMemo(() => ({ icon: read.icon, columns: read.columns, action: read.action }), [read.icon, read.columns, read.action]);
   const titled = heading !== undefined && heading !== null;
   const list = (
     <Box
@@ -23,7 +25,7 @@ const ListItemList = (props: ListItemListProps) => {
       className={`list-item-list${!titled && className ? ` ${className}` : ''}`}
       style={style}
     >
-      <ListItemContext.Provider value>{children}</ListItemContext.Provider>
+      <ListItemContext.Provider value={context}>{children}</ListItemContext.Provider>
     </Box>
   );
   if (!titled) return list;

@@ -6406,3 +6406,24 @@ Reported against 0.24.1 and still in 0.25.0. In a monorepo whose root config nam
 ### What an app does
 
 Run `tessera guide` once. Nothing else changes; a guide run followed by a check is clean from the root and from each app.
+
+## 205. ItemList rows sit on one line again
+
+Reported against 0.26.0. Since section 202, every ItemList row was about 84 px tall at any width: the name and meta sat on a first line, and a second line held the rename and delete buttons, hidden or not. A row with a note column, such as not installed, was 102 px tall with the note on a line of its own. ItemList draws each row through an inner part, and ListItemList read the icon, columns and action from its direct children only, so it found none and gave the list a single column; each piece that had no column went to a new line.
+
+### What changed
+
+- **ItemList gives each group the shape of its rows,** read from `render` and from `onRename` or `onDelete`, so the name, the meta and a note column share one line. A row is 56 px tall again.
+- **Rename and delete take no room until they show.** With `actionVisibility="hover"`, the default, a row keeps no space for them. On hover, on focus inside the row and on the picked row, they sit at the end of the row and the name and meta end in an ellipsis before them. On a screen without hover they show on every row, as before. With `actionVisibility="always"`, every row keeps a column for them, as before 202.
+- **ListItemList takes `shape`,** the icon, column count and action of its rows, for rows drawn through a component of the app's own, where it cannot read them from the children. `ListItemShape` is exported.
+- **A name or meta written as text carries a `title`** with the full text, for a row too narrow to show it.
+
+### Row heights
+
+| ItemList width | Before | After |
+| --- | --- | --- |
+| 280, 358, 480 and 640 px | 84 px, 102 px with a note | 56 px, with or without a note |
+
+### What an app does
+
+Nothing for ItemList. An app that draws ListItemList rows through its own component passes `shape`, as ItemList now does.

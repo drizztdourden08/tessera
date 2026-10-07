@@ -35,6 +35,7 @@ interface ListItemListProps {
   label?: string;
   heading?: ReactNode;
   count?: number;
+  shape?: ListItemShape;
   className?: string;
 }
 
