@@ -6392,3 +6392,17 @@ Reported against 0.24.1 and still in 0.25.0. LogPanel mounts only the newest 400
 ### What an app does
 
 Nothing. An app that worked around the bug by remounting LogPanel, or by passing a `key` that changed with the row count, can drop that.
+
+## 204. tessera check from an app agrees with tessera guide on the parts modules
+
+Reported against 0.24.1 and still in 0.25.0. In a monorepo whose root config names design parts with their own `guide.parts` file, and whose `apps` entry names the app's views with another, `tessera check` run from inside the app reported `parts-module` on the app's file right after `tessera guide` wrote it. Run from inside the app, Tessera read only the app's config, which holds the root folders too, so it put the design parts in the app's file as well.
+
+### What changed
+
+- **Each part folder keeps the parts file of the config that names it,** wherever the command runs. The folders of the root config go to the root's `guide.parts` file, and the folders of an `apps` entry go to that app's file.
+- **Run from inside an app,** `tessera guide` and `tessera check` write and compare the root's parts file and the app's, each with the content a run from the root gives it, including the parts of another app that shares the root's file.
+- Run from inside an app, the usage check also reads the root config first, the same order as a run from the root: a root part takes the root's `guide.tsconfig`, and the root's `guide.tree` is read beside the app's.
+
+### What an app does
+
+Run `tessera guide` once. Nothing else changes; a guide run followed by a check is clean from the root and from each app.

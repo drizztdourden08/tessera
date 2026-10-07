@@ -1,12 +1,10 @@
 /* @layer tooling-scripts @kind logic */
 import { appFiles } from './app-files.mjs';
 import { appModel } from './app-model.mjs';
-import { appScopes } from './app-scopes.mjs';
+import { appPartsModules } from './app-parts-modules.mjs';
 import { appVerdict } from './app-verdict.mjs';
 import { collectApp } from './collect-app.mjs';
 import { comparePartsModules } from './compare-parts-modules.mjs';
-import { findAppParts } from './find-app-parts.mjs';
-import { partsModuleFiles } from './parts-module-files.mjs';
 import { printFindings } from './print-findings.mjs';
 import { APP_PRINT } from './print-words.constants.mjs';
 import { writeGuide } from './write-guide.mjs';
@@ -25,7 +23,7 @@ const writeParts = (root, parts, log) => {
 };
 
 const runAppGuide = async (config, { write, verbose, log = console.log }) => {
-  const parts = partsModuleFiles(config.root, findAppParts(config.root, appScopes(config)));
+  const parts = appPartsModules(config);
   if (write) writeParts(config.root, parts, log);
   const model = appModel(await collectApp(config));
   if (write) writeAppGuide(model, log);
