@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.24.1
+
+### Patch Changes
+
+- 242285d: A ScreenLayer or Drawer title that takes focus on open draws no focus outline, so the white box Chrome drew around it after a key press or at start up is gone; controls keep their focus ring.
+
 ## 0.24.0
 
 ### Minor Changes
