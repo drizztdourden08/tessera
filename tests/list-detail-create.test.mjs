@@ -98,3 +98,57 @@ describe('ListDetail asks only while edits are unsaved, and only for its own New
     expect(mount({}, {}).view.current.items.onCreate).toBeUndefined();
   });
 });
+
+const activeList = () => ({
+  onActivate: vi.fn(),
+  groups: [{ name: 'Super Metroid', action: { label: 'New preset', onSelect: vi.fn() } }, { name: 'Timespinner' }],
+});
+
+describe('ListDetail passes onActivate to its list', () => {
+  it('asks before another row is activated while the editor holds unsaved edits, then picks and activates it', () => {
+    const list = activeList();
+    const { view, calls } = mount({}, list);
+    expect(view.current.items.onSelect).toBeUndefined();
+    view.act((current) => current.items.onActivate('p2'));
+    expect(view.current.guard.pending).toEqual({ kind: 'select', id: 'p2', activate: true });
+    expect(list.onActivate).not.toHaveBeenCalled();
+    view.act((current) => current.guard.discard());
+    expect(calls.onSelect).toHaveBeenCalledWith('p2');
+    expect(list.onActivate).toHaveBeenCalledWith('p2');
+  });
+
+  it('activates the row the editor holds at once, and any row with nothing unsaved', () => {
+    const list = activeList();
+    const { view, calls } = mount({}, list);
+    view.act((current) => current.items.onActivate('p1'));
+    expect(view.current.guard.pending).toBeNull();
+    expect(list.onActivate).toHaveBeenCalledWith('p1');
+    expect(calls.onSelect).not.toHaveBeenCalled();
+    const clean = mount({ dirty: false }, list);
+    clean.view.act((current) => current.items.onActivate('p2'));
+    expect(clean.calls.onSelect).toHaveBeenCalledWith('p2');
+    expect(list.onActivate).toHaveBeenLastCalledWith('p2');
+  });
+
+  it('keeps onSelect on the list without onActivate', () => {
+    const { view } = mount({}, {});
+    expect(view.current.items.onActivate).toBeUndefined();
+    view.act((current) => current.items.onSelect('p2'));
+    expect(view.current.guard.pending).toEqual({ kind: 'select', id: 'p2' });
+  });
+});
+
+describe('ListDetail guards the action of a group', () => {
+  it('asks before the action runs, and runs it after Discard', () => {
+    const list = activeList();
+    const { view, calls } = mount({}, list);
+    expect(view.current.items.groups[1]).toEqual({ name: 'Timespinner' });
+    view.act((current) => current.items.groups[0].action.onSelect());
+    expect(view.current.guard.pending?.kind).toBe('run');
+    expect(list.groups[0].action.onSelect).not.toHaveBeenCalled();
+    view.act((current) => current.guard.discard());
+    expect(calls.onDiscard).toHaveBeenCalledTimes(1);
+    expect(list.groups[0].action.onSelect).toHaveBeenCalledTimes(1);
+    expect(calls.onSelect).not.toHaveBeenCalled();
+  });
+});

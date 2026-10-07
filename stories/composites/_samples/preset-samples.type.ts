@@ -31,6 +31,7 @@ interface ItemListDemoProps {
   grouped?: boolean;
   filter?: boolean;
   actions?: boolean;
+  emptyGame?: boolean;
   title?: string;
   createLabel?: string;
 }
@@ -42,6 +43,7 @@ interface PresetsDemoProps {
   startCollapsed?: boolean;
   startDirty?: boolean;
   startEmpty?: boolean;
+  emptyGame?: boolean;
 }
 
 interface PresetRowsProps {

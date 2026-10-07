@@ -10,13 +10,13 @@ import { rowButtons } from './row-buttons';
 import { tabRow } from './tab-row';
 
 const useItemList = <T,>(props: ItemListProps<T>): ItemListView<T> => {
-  const { items, getId, getName, groupBy, selectedId = null, onSelect, onActivate, onRename } = props;
+  const { items, getId, getName, groupBy, groups: listed, selectedId = null, onSelect, onActivate, onRename } = props;
   const [query, setQuery] = useState('');
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const listRef = useRef<HTMLElement>(null);
   const shown = useMemo(() => (query ? items.filter((item) => matchesText(getName(item), query)) : items), [items, getName, query]);
-  const groups = useMemo(() => groupItems(shown, groupBy), [shown, groupBy]);
+  const groups = useMemo(() => groupItems(shown, groupBy, listed, query === ''), [shown, groupBy, listed, query]);
   const rowIds = useMemo(() => groups.flatMap((group) => group.items.map(getId)).filter((id) => id !== renamingId), [groups, getId, renamingId]);
   const tabId = tabRow(rowIds, focusedId, selectedId);
 

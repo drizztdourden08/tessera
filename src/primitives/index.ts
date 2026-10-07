@@ -154,3 +154,4 @@ export type { GaugeProps, GaugeSize, GaugeThresholds } from './Gauge';
 export { StackedBar } from './StackedBar';
 export type { StackedBarColor, StackedBarOrientation, StackedBarProps, StackedBarSegment, StackedBarSize } from './StackedBar';
 export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from './dom/app-region.constants';
+export type { DataAttributes } from './dom/data-attributes.type';

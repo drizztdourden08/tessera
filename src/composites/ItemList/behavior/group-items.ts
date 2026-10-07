@@ -1,16 +1,23 @@
 /* @layer renderer-components @kind logic */
-import type { ItemListGroup } from '../ItemList.type';
+import type { ItemListGroup, ItemListGroupRows } from '../ItemList.type';
 
-const groupItems = <T,>(items: readonly T[], groupBy: ((item: T) => string | undefined) | undefined): ItemListGroup<T>[] => {
-  if (!groupBy) return items.length ? [{ name: '', items }] : [];
-  const groups = new Map<string, T[]>();
+const groupItems = <T,>(
+  items: readonly T[],
+  groupBy: ((item: T) => string | undefined) | undefined,
+  listed: readonly ItemListGroup[] = [],
+  keepEmpty = true,
+): ItemListGroupRows<T>[] => {
+  const groups = new Map<string, { group: ItemListGroup; items: T[] }>();
+  listed.forEach((group) => groups.set(group.name, { group, items: [] }));
   items.forEach((item) => {
-    const name = groupBy(item) ?? '';
-    const group = groups.get(name);
-    if (group) group.push(item);
-    else groups.set(name, [item]);
+    const name = groupBy?.(item) ?? '';
+    const entry = groups.get(name);
+    if (entry) entry.items.push(item);
+    else groups.set(name, { group: { name }, items: [item] });
   });
-  return [...groups].map(([name, members]) => ({ name, items: members }));
+  return [...groups.values()]
+    .filter((entry) => entry.items.length > 0 || keepEmpty)
+    .map((entry) => ({ ...entry.group, items: entry.items }));
 };
 
 export { groupItems };

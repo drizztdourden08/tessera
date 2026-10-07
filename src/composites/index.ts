@@ -162,7 +162,7 @@ export type { ValidationProblem, ValidationSummaryProps, ValidationTone } from '
 export { CheckList } from './CheckList';
 export type { Check, CheckListProps, CheckState } from './CheckList';
 export { ItemList } from './ItemList';
-export type { ItemListCreate, ItemListFilter, ItemListProps, ItemListRowParts } from './ItemList';
+export type { ItemListCreate, ItemListFilter, ItemListGroup, ItemListGroupAction, ItemListProps, ItemListRowParts } from './ItemList';
 export { ListDetail } from './ListDetail';
 export type { ListDetailGuardLook, ListDetailListProps, ListDetailProps, ListDetailSave } from './ListDetail';
 export { FileList } from './FileList';

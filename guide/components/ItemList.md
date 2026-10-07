@@ -34,6 +34,10 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - Pass onCreate in place of create when the app opens its own flow, such as a dialog or a wizard.
 - Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.
 - Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.
+- Pass groups with groupBy to set the order of the groups and keep the empty ones, such as an installed game with no preset yet.
+- An empty group draws its heading, its empty line and the button of its action, such as New preset; while the filter holds text, it hides.
+- Each row carries data-item-id with its id, so app search can find the row and scroll to it; rowData adds more data attributes.
+- New carries data-tour="item-list-new" for a GuidedTour step; pass createTour to tell two lists on one screen apart.
 - Leave actionVisibility on hover to show rename and delete on the picked row and on any row under the pointer; always shows them on every row.
 - Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.
 - Write empty as what to do next, such as Install a game from Games, then make a preset for it.
@@ -45,6 +49,7 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - The list is a section named by its title, and each group is a list named by its heading.
 - The arrow keys, Home and End move the selection between rows, or only the focus with onActivate; F2 renames the focused row.
 - With onActivate the rows are one Tab stop on the focused row; a click, Enter or Space activates it, and Tab reaches its actions.
+- An empty group is a group named by its heading; its action is a Tab stop of its own, and the arrow keys skip it.
 - In the rename box, Enter keeps the name and Escape cancels; focus goes back to the row.
 - New moves focus into the create form; Escape or Cancel closes it and focus goes back to New.
 - After a create, focus goes to the new row when the app picks it, and back to New when it does not.
@@ -98,6 +103,8 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 - `getName`: `(item: T) => string`.
 - `render` (optional): `(item: T) => ItemListRowParts`.
 - `groupBy` (optional): `(item: T) => string | undefined`.
+- `groups` (optional): `readonly ItemListGroup[]`.
+- `rowData` (optional): `(item: T) => DataAttributes`.
 - `selectedId` (optional): `string | null`.
 - `onSelect` (optional): `(id: string) => void`.
 - `onActivate` (optional): `(id: string) => void`.
@@ -106,6 +113,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 - `createOpen` (optional): `boolean`.
 - `onCreateOpenChange` (optional): `(open: boolean) => void`.
 - `createLabel` (optional): `string`.
+- `createTour` (optional): `string`. Default `'item-list-new'`.
 - `onRename` (optional): `(id: string, name: string) => void`.
 - `onDelete` (optional): `(id: string) => void`.
 - `actionVisibility` (optional): `ListItemRowActionVisibility`, one of `'hover'`, `'always'`.
@@ -119,4 +127,4 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-primary`, `--c-selected`, `--c-text`, `--radius-md`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-medium`.
+It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-selected`, `--c-text`, `--radius-md`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-medium`.

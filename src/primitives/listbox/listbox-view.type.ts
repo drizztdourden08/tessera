@@ -4,6 +4,7 @@ import type { ItemContext, ListboxColumn, ListboxItemProps } from './listbox.typ
 import type { EntryState, ListboxBlock, ListboxDisplay, ListboxEntry, ListboxSetup } from './listbox-model.type';
 import type { ListboxDrop } from './listbox-drop.type';
 import type { ListboxModel } from './listbox-state.type';
+import type { DataAttributes } from '../dom/data-attributes.type';
 import type { ControlSize } from '../field-control/field-control.type';
 
 interface ListboxView<T> {
@@ -17,8 +18,6 @@ interface ListboxView<T> {
 }
 
 type GridStyle = CSSProperties & Record<'--listbox-columns', string>;
-
-type DropData = Readonly<Partial<Record<`data-${string}`, string>>>;
 
 type DropStyle = CSSProperties & Partial<Record<'--listbox-attach' | '--listbox-space', string>>;
 
@@ -78,7 +77,7 @@ interface ListboxDropViewProps {
   invalid: boolean;
   size: ControlSize;
   className?: string;
-  data?: DropData;
+  data?: DataAttributes;
   children: ReactNode;
 }
 
@@ -111,7 +110,6 @@ interface ListboxValueRowProps<T> {
 }
 
 export type {
-  DropData,
   DropStyle,
   GridStyle,
   HighlightedTextProps,

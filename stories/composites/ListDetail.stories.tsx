@@ -13,14 +13,16 @@ type ListDetailArgs = {
   startDirty: boolean;
   startCollapsed: boolean;
   narrow: boolean;
+  emptyGame: boolean;
 };
 
-const ARGS: Partial<ListDetailArgs> = { guard: 'inline', startDirty: true, startCollapsed: false, narrow: false };
+const ARGS: Partial<ListDetailArgs> = { guard: 'inline', startDirty: true, startCollapsed: false, narrow: false, emptyGame: false };
 
 const ARG_TYPES: PlaygroundArgTypes<ListDetailArgs> = {
   guard: { group: 'Behaviour', control: 'select', options: ['inline', 'dialog'], description: 'Ask in a bar at the top of the editor, or in a dialog.' },
   startDirty: { group: 'State', control: 'boolean', description: 'Keysanity starts with three edits not saved: pick another preset or press New preset to see the question.' },
   startCollapsed: { group: 'State', control: 'boolean', description: 'The list starts folded to a rail; its button brings it back.' },
+  emptyGame: { group: 'Layout', control: 'boolean', description: 'Super Metroid is installed with no preset: its group shows New preset, which asks too.' },
   narrow: { group: 'Layout', control: 'boolean', description: 'A 512 px frame: the list, then the editor with Back, which asks too.' },
 };
 
@@ -33,12 +35,17 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <PresetsDemo key={`${args.guard}-${String(args.startDirty)}-${String(args.startCollapsed)}`} {...args} />,
+  render: (args) => <PresetsDemo key={`${args.guard}-${String(args.startDirty)}-${String(args.startCollapsed)}-${String(args.emptyGame)}`} {...args} />,
 } satisfies PlaygroundStory<ListDetailArgs>;
 
 const Presets = {
   name: 'Presets: the list, the editor of the picked preset and its SaveBar',
   render: () => <PresetsDemo tall />,
+} satisfies StoryLiteStoryDefinition<ListDetailArgs>;
+
+const EmptyGame = {
+  name: 'Presets: an installed game with no preset yet, and New preset for it',
+  render: () => <PresetsDemo tall emptyGame />,
 } satisfies StoryLiteStoryDefinition<ListDetailArgs>;
 
 const Collapsed = {
@@ -70,6 +77,7 @@ const CODE = `import { InlineCreateForm, ListDetail, SaveBar } from '@drizztdour
     getId: (preset) => preset.id,
     getName: (preset) => preset.name,
     groupBy: (preset) => preset.game,
+    groups: games.map((game) => ({ name: game, action: { label: 'New preset', onSelect: () => setSelectedId(addPreset('New preset', game)) } })),
     createLabel: 'New preset',
     create: (close) => (
       <InlineCreateForm placeholder="Preset name" onCreate={(name) => { setSelectedId(addPreset(name)); close(); }} onCancel={close} />
@@ -96,15 +104,15 @@ const Overview = overviewStory({
   description: 'An [ItemList] beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away.',
   points: [
     '`list` takes the [ItemList] props; `selectedId` and `onSelect` pick the item the editor shows.',
-    'With `dirty`, a pick, Back or New, which opens the `create` form, asks first: Keep editing, Discard or Save.',
+    'With `dirty`, a pick, Back, New or the action of a group asks first: Keep editing, Discard or Save.',
+    '`onActivate` in `list` picks and acts in one go, after the same question; the arrow keys move the focus.',
     '`onSave` may return a promise; false, or a failure, keeps the user on the edited item with the form shut.',
     '`guard` is `inline`, a bar over the editor, by default, or `dialog`, the confirm dialog of Tessera.',
-    'Put a [SaveBar] at the foot of the editor for Save and Discard while the user stays on the item.',
-    'The panes, the resize, the fold to a rail and the small window are [ListDetailLayout]: its props pass through.',
+    'Put a [SaveBar] at the foot of the editor; every prop of [ListDetailLayout] passes through.',
   ],
   instead: '[ListDetailLayout] for a list and a detail with nothing to save.',
   playground: Playground,
-  variants: [Presets, Collapsed, Inline, Dialog, Narrow],
+  variants: [Presets, EmptyGame, Collapsed, Inline, Dialog, Narrow],
   states: {
     render: (props: StateProps) => <PresetsDemo {...(props as PresetsDemoProps)} />,
     list: [
@@ -118,4 +126,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Collapsed, Dialog, Inline, Narrow, Overview, Playground, Presets };
+export { Collapsed, Dialog, EmptyGame, Inline, Narrow, Overview, Playground, Presets };

@@ -8,12 +8,12 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import type { ItemListRenameProps } from '../ItemList.type';
 
 const ItemListRename = (props: ItemListRenameProps) => {
-  const { id, name, onEnd } = props;
+  const { id, name, data, onEnd } = props;
   const { lists } = useTesseraStrings();
   const undo = () => onEnd(id, null);
   const edit = useNameEdit({ name, onKeep: (next) => onEnd(id, next === name ? null : next), onUndo: undo });
   return (
-    <Box className="item-list__rename" role="listitem">
+    <Box className="item-list__rename" role="listitem" {...data}>
       <TextInput
         className="item-list__rename-input"
         aria-label={lists.newName}

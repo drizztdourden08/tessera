@@ -4,13 +4,17 @@ import type { UnsavedGuard, UnsavedSave } from '../../primitives/unsaved-guard/u
 import type { ItemListProps } from '../ItemList/ItemList.type';
 import type { ListDetailLayoutProps } from '../ListDetailLayout/ListDetailLayout.type';
 
-type ListDetailListProps<T> = Omit<ItemListProps<T>, 'selectedId' | 'onSelect' | 'onActivate'>;
+type ListDetailListProps<T> = Omit<ItemListProps<T>, 'selectedId' | 'onSelect'>;
 
 type ListDetailGuardLook = 'dialog' | 'inline';
 
 type ListDetailSave = UnsavedSave;
 
-type ListDetailMove = { kind: 'select'; id: string } | { kind: 'back' } | { kind: 'create' };
+type ListDetailMove =
+  | { kind: 'select'; id: string; activate?: boolean }
+  | { kind: 'back' }
+  | { kind: 'create' }
+  | { kind: 'run'; run: () => void };
 
 interface ListDetailProps<T> extends Omit<ListDetailLayoutProps, 'list' | 'detail' | 'onBack'> {
   list: ListDetailListProps<T>;

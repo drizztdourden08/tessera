@@ -52,7 +52,7 @@ const ViewOptions = (props: { density: string; zoom: number; sounds: boolean; on
   </ControlMenu>
 );
 `,
-  propsHash: '8d711ba277ad67d2',
+  propsHash: '92d011012bd92f8c',
 } satisfies ComponentUsage;
 
 export { usage };

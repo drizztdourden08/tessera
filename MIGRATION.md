@@ -6320,3 +6320,56 @@ const WIDGET_OPTIONS_ATTRIBUTE = 'data-widget-options';
 ### What an app does
 
 Nothing. A guard that looked for `.widget-options` can match `target.closest('[data-widget-options]')` instead, built from `WIDGET_OPTIONS_ATTRIBUTE`, which also finds the sub-panels.
+
+## 202. ItemList draws empty groups with an action, marks its rows and New, and ListDetail takes onActivate
+
+Archipelia needs four things from the presets screen: an installed game with no preset yet shows its group with New preset (AX-05), a row can be activated inside ListDetail, app search can find a row and scroll to it, and a guided tour can point at New without a class name.
+
+### What changed
+
+- **ItemList `groups`.** A list of groups in order, empty ones included. Rows go to the group `groupBy` names; a group the list does not name comes after the listed ones, in first seen order. A group with no rows draws its heading, its `empty` line (Nothing here yet. by default) and the button of its `action`, a secondary button. A group with rows draws as before, without its action.
+- **Keys.** The action is a Tab stop of its own; the arrow keys, Home and End move between rows only, so they skip an empty group.
+- **The filter.** While the filter holds text, empty groups hide: they hold nothing that matches, and the list shows only what matches.
+- **The empty state.** With `groups` and no items, the list draws the groups in place of `empty`.
+- **ItemList `rowData`.** Each row carries `data-item-id` with its id, on the list item, the rename box included. `rowData` adds more data attributes; `data-item-id` wins over a key of the same name.
+- **ItemList `createTour`.** New carries `data-tour="item-list-new"`, the mark a GuidedTour step reaches with `{ tour: 'item-list-new' }`. Pass `createTour` to name it apart when a screen shows two lists.
+- **ListDetail `list.onActivate`.** `ListDetailListProps` keeps `onActivate`. A click, Enter or Space on another row asks first while the editor holds unsaved edits, the same question as a pick, then runs `onSelect` and `onActivate`. The row the editor holds activates at once. The arrow keys move only the focus, as in ItemList with `onActivate`.
+- **ListDetail groups.** The action of a group asks first too, like New, with the leave question.
+- **ListItemRow `data`.** Data attributes set on the row.
+- **DataAttributes.** The type of data attributes, `DropData` before, moves to the primitives and is exported. ControlMenu `panelData` takes it; `DropData` was never exported.
+
+```ts
+type DataAttributes = Readonly<Partial<Record<`data-${string}`, string>>>;
+
+type ItemListGroupAction = Pick<ActionData, 'label' | 'onSelect' | 'disabled'>;
+
+interface ItemListGroup {
+  name: string;
+  empty?: ReactNode;
+  action?: ItemListGroupAction;
+}
+
+interface ItemListProps<T> {
+  // ...
+  groups?: readonly ItemListGroup[];          // new
+  rowData?: (item: T) => DataAttributes;      // new
+  createTour?: string;                        // new, 'item-list-new' by default
+}
+
+type ListDetailListProps<T> = Omit<ItemListProps<T>, 'selectedId' | 'onSelect'>;  // onActivate passes through
+
+interface ListItemRowProps {
+  // ...
+  data?: DataAttributes;  // new
+}
+```
+
+### Gallery
+
+- ItemList gains Presets with an installed game that has no preset yet, and an emptyGame switch on its Playground.
+- ListDetail gains Presets: an installed game with no preset yet, and New preset for it, and an emptyGame switch on its Playground.
+- The Overviews of ItemList and ListDetail list the new props. Every other page looks the same.
+
+### What an app does
+
+Nothing for a list that keeps its props. Archipelia passes `groups` built from its installed games, each with `action: { label: 'New preset', onSelect }`, finds a row with `list.querySelector('[data-item-id="…"]')`, and points a tour step at `{ tour: 'item-list-new' }`.

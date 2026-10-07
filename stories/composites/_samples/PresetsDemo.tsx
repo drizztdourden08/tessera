@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { InlineCreateForm, ListDetail } from '../../../src/composites';
 import { Box } from '../../../src/primitives';
+import { presetGames } from './preset-games';
 import { presetGroup } from './preset-group';
 import { presetRow } from './preset-row';
 import type { PresetsDemoProps, SamplePreset } from './preset-samples.type';
@@ -17,7 +18,7 @@ const frameClass = ({ narrow, tall }: PresetsDemoProps): string =>
   ['list-detail-story', tall && 'list-detail-story--tall', narrow && 'list-detail-story--narrow'].filter(Boolean).join(' ');
 
 const PresetsDemo = (props: PresetsDemoProps) => {
-  const { guard, startDirty, startEmpty, startCollapsed } = props;
+  const { guard, startDirty, startEmpty, startCollapsed, emptyGame } = props;
   const presets = useSamplePresets();
   const [selectedId, setSelectedId] = useState<string | null>(startEmpty ? null : 'p2');
   const edit = usePresetDraft(presets.items.find((p) => p.id === selectedId), startDirty === true);
@@ -38,6 +39,7 @@ const PresetsDemo = (props: PresetsDemoProps) => {
         list={{
           title: 'Presets', items: presets.items, getId: idOf, getName: nameOf, render: presetRow, groupBy: presetGroup,
           onRename: presets.rename, onDelete: presets.remove, filter: true, createLabel: 'New preset',
+          groups: emptyGame ? presetGames((game) => { drop(); setSelectedId(presets.create('New preset', game)); }) : undefined,
           create: (close) => (
             <InlineCreateForm placeholder="Preset name" onCreate={(name) => { drop(); setSelectedId(presets.create(name)); close(); }} onCancel={close} />
           ),

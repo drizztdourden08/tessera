@@ -14,12 +14,14 @@ const PRESETS: readonly SamplePreset[] = [
   { ...PRESET_DEFAULTS, id: 'p5', name: 'Bottle hunt', game: 'Ocarina of Time', changes: 11, missing: true, notes: '', goal: 'triforce' },
 ];
 
+const INSTALLED_GAMES: readonly string[] = ['A Link to the Past', 'Timespinner', 'Super Metroid'];
+
 const SERVERS_ERROR = 'Could not read servers.json: unexpected end of input';
 
 const PRESETS_EMPTY = 'Install a game from Games, then make a preset for it.';
 
 const LIST_DEMO: Required<Omit<ItemListDemoProps, 'createLabel'>> = {
-  state: 'ready', grouped: true, filter: true, actions: true, title: 'Presets',
+  state: 'ready', grouped: true, filter: true, actions: true, emptyGame: false, title: 'Presets',
 };
 
-export { LIST_DEMO, PRESET_DEFAULTS, PRESETS, PRESETS_EMPTY, SERVERS_ERROR };
+export { INSTALLED_GAMES, LIST_DEMO, PRESET_DEFAULTS, PRESETS, PRESETS_EMPTY, SERVERS_ERROR };

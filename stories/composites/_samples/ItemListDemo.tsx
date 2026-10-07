@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { ItemList } from '../../../src/composites';
 import { Card, Icon } from '../../../src/primitives';
+import { presetGames } from './preset-games';
 import { presetGroup } from './preset-group';
 import { presetRow } from './preset-row';
 import { LIST_DEMO, PRESETS_EMPTY, SERVERS_ERROR } from './preset-samples.constants';
@@ -12,7 +13,7 @@ const idOf = (preset: SamplePreset) => preset.id;
 const nameOf = (preset: SamplePreset) => preset.name;
 
 const ItemListDemo = (props: ItemListDemoProps) => {
-  const { state, grouped, filter, actions, title, createLabel } = { ...LIST_DEMO, ...props };
+  const { state, grouped, filter, actions, emptyGame, title, createLabel } = { ...LIST_DEMO, ...props };
   const presets = useSamplePresets();
   const [selectedId, setSelectedId] = useState<string | null>('p2');
   const items = state === 'ready' ? presets.items : [];
@@ -25,6 +26,7 @@ const ItemListDemo = (props: ItemListDemoProps) => {
         getName={nameOf}
         render={presetRow}
         groupBy={grouped ? presetGroup : undefined}
+        groups={grouped && emptyGame ? presetGames((game) => setSelectedId(presets.create('New preset', game))) : undefined}
         selectedId={selectedId}
         onSelect={setSelectedId}
         onCreate={() => setSelectedId(presets.create())}

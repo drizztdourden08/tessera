@@ -5,17 +5,14 @@ import { EmptyState } from '../../../primitives/EmptyState';
 import { Spinner } from '../../../primitives/Spinner';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { ListItemList, ListItemRow } from '../../ListItemRow';
-import { rowPick } from '../behavior/row-pick';
-import { rowTabs } from '../behavior/row-tabs';
+import { ListItemList } from '../../ListItemRow';
 import type { ItemListBodyProps } from '../ItemList.type';
-import { ItemListRename } from './ItemListRename';
-import { ItemListTools } from './ItemListTools';
+import { ItemListEmptyGroup } from './ItemListEmptyGroup';
+import { ItemListRow } from './ItemListRow';
 
 const ItemListBody = <T,>({ list, view }: ItemListBodyProps<T>) => {
-  const { title, items, getId, getName, render, selectedId, onRename, onDelete, actionVisibility = 'hover', loading, error, empty, emptyIcon } = list;
+  const { title, items, getId, loading, error, empty, emptyIcon } = list;
   const { lists } = useTesseraStrings();
-  const tools = onRename !== undefined || onDelete !== undefined;
   if (loading) {
     return (
       <Box className="item-list__loading" role="status">
@@ -25,31 +22,14 @@ const ItemListBody = <T,>({ list, view }: ItemListBodyProps<T>) => {
     );
   }
   if (error) return <Box role="alert"><Callout tone="danger">{error}</Callout></Box>;
-  if (!items.length) return <EmptyState size="sm" icon={emptyIcon} message={empty ?? lists.empty} />;
-  if (!view.shown.length) return <EmptyState size="sm" message={lists.noMatch(view.query)} />;
-  return view.groups.map((group) => (
+  if (!view.groups.length) {
+    return items.length ? <EmptyState size="sm" message={lists.noMatch(view.query)} /> : <EmptyState size="sm" icon={emptyIcon} message={empty ?? lists.empty} />;
+  }
+  return view.groups.map((group) => (group.items.length ? (
     <ListItemList key={group.name} heading={group.name || undefined} label={group.name ? undefined : title}>
-      {group.items.map((item) => {
-        const id = getId(item);
-        const name = getName(item);
-        if (id === view.renamingId) return <ItemListRename key={id} id={id} name={name} onEnd={view.endRename} />;
-        const selected = id === selectedId;
-        const tabs = rowTabs(list, view.tabId, id);
-        return (
-          <ListItemRow
-            key={id}
-            name={name}
-            {...render?.(item)}
-            selected={selected}
-            tabIndex={tabs.row}
-            onClick={rowPick(id, list)}
-            action={tools ? <ItemListTools id={id} name={name} onStartRename={onRename && view.startRename} onDelete={onDelete} tabIndex={tabs.tools} /> : undefined}
-            actionVisibility={selected ? 'always' : actionVisibility}
-          />
-        );
-      })}
+      {group.items.map((item) => <ItemListRow key={getId(item)} list={list} view={view} item={item} />)}
     </ListItemList>
-  ));
+  ) : <ItemListEmptyGroup key={group.name} name={group.name} empty={group.empty} action={group.action} />));
 };
 
 export { ItemListBody };

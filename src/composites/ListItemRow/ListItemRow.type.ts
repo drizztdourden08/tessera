@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 
 type ListItemRowRole = 'listitem' | 'row';
 
@@ -25,6 +26,7 @@ interface ListItemRowProps {
   onClick?: () => void;
   onDoubleClick?: () => void;
   role?: ListItemRowRole;
+  data?: DataAttributes;
   className?: string;
 }
 

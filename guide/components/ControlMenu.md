@@ -87,7 +87,7 @@ const ViewOptions = (props: { density: string; zoom: number; sounds: boolean; on
 - `onOpenChange` (optional): `(open: boolean) => void`.
 - `className` (optional): `string`.
 - `triggerClassName` (optional): `string`.
-- `panelData` (optional): `DropData`.
+- `panelData` (optional): `DataAttributes`.
 
 ## Tokens
 

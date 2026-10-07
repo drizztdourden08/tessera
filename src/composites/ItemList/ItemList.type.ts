@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { FocusEvent, KeyboardEvent, ReactNode, RefObject } from 'react';
+import type { ActionData } from '../../primitives/action-data';
+import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { ListItemRowActionVisibility, ListItemRowProps } from '../ListItemRow/ListItemRow.type';
 
 type ItemListRowParts = Pick<ListItemRowProps, 'meta' | 'icon' | 'columns'>;
@@ -8,6 +10,14 @@ type ItemListFilter = boolean | 'auto';
 
 type ItemListCreate = (close: () => void) => ReactNode;
 
+type ItemListGroupAction = Pick<ActionData, 'label' | 'onSelect' | 'disabled'>;
+
+interface ItemListGroup {
+  name: string;
+  empty?: ReactNode;
+  action?: ItemListGroupAction;
+}
+
 interface ItemListProps<T> {
   title: string;
   items: readonly T[];
@@ -15,6 +25,8 @@ interface ItemListProps<T> {
   getName: (item: T) => string;
   render?: (item: T) => ItemListRowParts;
   groupBy?: (item: T) => string | undefined;
+  groups?: readonly ItemListGroup[];
+  rowData?: (item: T) => DataAttributes;
   selectedId?: string | null;
   onSelect?: (id: string) => void;
   onActivate?: (id: string) => void;
@@ -23,6 +35,7 @@ interface ItemListProps<T> {
   createOpen?: boolean;
   onCreateOpenChange?: (open: boolean) => void;
   createLabel?: string;
+  createTour?: string;
   onRename?: (id: string, name: string) => void;
   onDelete?: (id: string) => void;
   actionVisibility?: ListItemRowActionVisibility;
@@ -35,8 +48,7 @@ interface ItemListProps<T> {
   className?: string;
 }
 
-interface ItemListGroup<T> {
-  name: string;
+interface ItemListGroupRows<T> extends ItemListGroup {
   items: readonly T[];
 }
 
@@ -44,7 +56,7 @@ interface ItemListView<T> {
   query: string;
   setQuery: (query: string) => void;
   shown: readonly T[];
-  groups: readonly ItemListGroup<T>[];
+  groups: readonly ItemListGroupRows<T>[];
   rowIds: readonly string[];
   renamingId: string | null;
   tabId: string | null;
@@ -99,6 +111,7 @@ interface ItemListHeadProps {
   newRef: RefObject<HTMLButtonElement | null>;
   creating: boolean;
   createLabel?: string;
+  createTour: string;
 }
 
 interface ItemListToolsProps {
@@ -109,14 +122,19 @@ interface ItemListToolsProps {
   tabIndex?: number;
 }
 
+interface ItemListRowProps<T> extends ItemListBodyProps<T> {
+  item: T;
+}
+
 interface ItemListRenameProps {
   id: string;
   name: string;
+  data: DataAttributes;
   onEnd: (id: string, name: string | null) => void;
 }
 
 export type {
-  ItemListBodyProps, ItemListCreate, ItemListCreateView, ItemListFilter, ItemListGroup, ItemListHeadProps, ItemListKey,
-  ItemListPick, ItemListProps, ItemListRenameProps, ItemListRowParts, ItemListRowTabs, ItemListSettle, ItemListToolsProps,
-  ItemListView,
+  ItemListBodyProps, ItemListCreate, ItemListCreateView, ItemListFilter, ItemListGroup, ItemListGroupAction, ItemListGroupRows,
+  ItemListHeadProps, ItemListKey, ItemListPick, ItemListProps, ItemListRenameProps, ItemListRowParts, ItemListRowProps,
+  ItemListRowTabs, ItemListSettle, ItemListToolsProps, ItemListView,
 };

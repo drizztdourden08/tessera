@@ -17,6 +17,8 @@ const usage = {
     'Pass onDiscard to throw the draft away; onSelect runs after it.',
     'Keep the list props in list; ListDetail adds the selection and guards New, with create or onCreate.',
     'New asks before a create form in list opens, and opens it after Discard or a save that worked; picking the new item is up to the app.',
+    'Pass onActivate in list when a pick also acts; another row asks first, like a pick, and the arrow keys then move only the focus.',
+    'The action of a group in list asks first too, like New.',
     'With createOpen in list, New reaches onCreateOpenChange only after the answer; a createOpen the app sets on its own skips the question.',
     'The question is a bar over the editor by default; pass guard dialog to ask in a modal dialog instead.',
     'Put a SaveBar at the foot of the editor, for Save and Discard while the user stays on the item.',

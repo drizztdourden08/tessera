@@ -3198,7 +3198,7 @@
         "rule": "ControlMenu keeps several small settings one click away without a page or a dialog."
       },
       "example": "import { ControlMenu, ControlMenuRow, ControlMenuSub, SegmentedControl, Slider, Toggle } from '@drizztdourden08/tessera';\n\nconst DENSITY = [{ value: 'cozy', label: 'Cozy' }, { value: 'compact', label: 'Compact' }];\n\nconst ViewOptions = (props: { density: string; zoom: number; sounds: boolean; onChange: (patch: object) => void }) => (\n  <ControlMenu trigger={{ label: 'View options', icon: 'sliders-horizontal' }} filter>\n    <ControlMenuRow label=\"Density\" hint={{ label: 'Density', description: 'How much room each row takes' }}>\n      <SegmentedControl size=\"sm\" aria-label=\"Density\" value={props.density} options={DENSITY} onChange={(density) => props.onChange({ density })} />\n    </ControlMenuRow>\n    <ControlMenuRow label=\"Zoom\">\n      <Slider size=\"sm\" value={props.zoom} min={50} max={200} onChange={(zoom) => props.onChange({ zoom })} />\n    </ControlMenuRow>\n    <ControlMenuSub label=\"Sounds\" icon=\"volume-2\">\n      <ControlMenuRow label=\"Play sounds\">\n        <Toggle size=\"sm\" checked={props.sounds} onChange={(sounds) => props.onChange({ sounds })} aria-label=\"Play sounds\" />\n      </ControlMenuRow>\n    </ControlMenuSub>\n  </ControlMenu>\n);\n",
-      "propsHash": "8d711ba277ad67d2",
+      "propsHash": "92d011012bd92f8c",
       "props": {
         "own": [
           {
@@ -3312,7 +3312,7 @@
           {
             "name": "panelData",
             "optional": true,
-            "text": "DropData"
+            "text": "DataAttributes"
           }
         ],
         "inherited": {
@@ -4905,6 +4905,10 @@
         "Pass onCreate in place of create when the app opens its own flow, such as a dialog or a wizard.",
         "Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.",
         "Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.",
+        "Pass groups with groupBy to set the order of the groups and keep the empty ones, such as an installed game with no preset yet.",
+        "An empty group draws its heading, its empty line and the button of its action, such as New preset; while the filter holds text, it hides.",
+        "Each row carries data-item-id with its id, so app search can find the row and scroll to it; rowData adds more data attributes.",
+        "New carries data-tour=\"item-list-new\" for a GuidedTour step; pass createTour to tell two lists on one screen apart.",
         "Leave actionVisibility on hover to show rename and delete on the picked row and on any row under the pointer; always shows them on every row.",
         "Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.",
         "Write empty as what to do next, such as Install a game from Games, then make a preset for it.",
@@ -4915,6 +4919,7 @@
         "The list is a section named by its title, and each group is a list named by its heading.",
         "The arrow keys, Home and End move the selection between rows, or only the focus with onActivate; F2 renames the focused row.",
         "With onActivate the rows are one Tab stop on the focused row; a click, Enter or Space activates it, and Tab reaches its actions.",
+        "An empty group is a group named by its heading; its action is a Tab stop of its own, and the arrow keys skip it.",
         "In the rename box, Enter keeps the name and Escape cancels; focus goes back to the row.",
         "New moves focus into the create form; Escape or Cancel closes it and focus goes back to New.",
         "After a create, focus goes to the new row when the app picks it, and back to New when it does not.",
@@ -4928,7 +4933,7 @@
         "rule": "ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app."
       },
       "example": "import { ItemList } from '@drizztdourden08/tessera';\n\ninterface Server {\n  id: string;\n  name: string;\n  host: string;\n}\n\nconst ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, loading, error }: {\n  servers: Server[];\n  selectedId: string | null;\n  onSelect: (id: string) => void;\n  onAdd: () => void;\n  onRename: (id: string, name: string) => void;\n  onDelete: (id: string) => void;\n  loading: boolean;\n  error?: string;\n}) => (\n  <ItemList\n    title=\"Servers\"\n    items={servers}\n    getId={(server) => server.id}\n    getName={(server) => server.name}\n    render={(server) => ({ meta: server.host })}\n    selectedId={selectedId}\n    onSelect={onSelect}\n    onCreate={onAdd}\n    createLabel=\"Add\"\n    onRename={onRename}\n    onDelete={onDelete}\n    loading={loading}\n    error={error}\n    empty=\"Add a server to host sessions on.\"\n  />\n);\n",
-      "propsHash": "ef7621fdaecc7da2",
+      "propsHash": "db10f57804883924",
       "props": {
         "own": [
           {
@@ -4960,6 +4965,16 @@
             "name": "groupBy",
             "optional": true,
             "text": "(item: T) => string | undefined"
+          },
+          {
+            "name": "groups",
+            "optional": true,
+            "text": "readonly ItemListGroup[]"
+          },
+          {
+            "name": "rowData",
+            "optional": true,
+            "text": "(item: T) => DataAttributes"
           },
           {
             "name": "selectedId",
@@ -5000,6 +5015,12 @@
             "name": "createLabel",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "createTour",
+            "optional": true,
+            "text": "string",
+            "default": "'item-list-new'"
           },
           {
             "name": "onRename",
@@ -5069,6 +5090,7 @@
       },
       "tokens": [
         "--border-width-thin",
+        "--c-border",
         "--c-primary",
         "--c-selected",
         "--c-text",
@@ -5439,6 +5461,8 @@
         "Pass onDiscard to throw the draft away; onSelect runs after it.",
         "Keep the list props in list; ListDetail adds the selection and guards New, with create or onCreate.",
         "New asks before a create form in list opens, and opens it after Discard or a save that worked; picking the new item is up to the app.",
+        "Pass onActivate in list when a pick also acts; another row asks first, like a pick, and the arrow keys then move only the focus.",
+        "The action of a group in list asks first too, like New.",
         "With createOpen in list, New reaches onCreateOpenChange only after the answer; a createOpen the app sets on its own skips the question.",
         "The question is a bar over the editor by default; pass guard dialog to ask in a modal dialog instead.",
         "Put a SaveBar at the foot of the editor, for Save and Discard while the user stays on the item.",

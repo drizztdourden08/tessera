@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode, RefObject } from 'react';
 import type { Hint } from '../../primitives/hint/hint.type';
 import type { IconName } from '../../primitives/Icon';
 import type { DropAlign } from '../../primitives/listbox/drop-placement.type';
-import type { DropData } from '../../primitives/listbox/listbox-view.type';
+import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { MenuIntensity, MenuSize, MenuTrigger, MenuVariant } from '../DropdownMenu';
 
 interface ControlMenuProps {
@@ -23,7 +23,7 @@ interface ControlMenuProps {
   onOpenChange?: (open: boolean) => void;
   className?: string;
   triggerClassName?: string;
-  panelData?: DropData;
+  panelData?: DataAttributes;
 }
 
 interface ControlMenuRowProps {
@@ -50,7 +50,7 @@ interface ControlMenuGroupProps {
 interface ControlMenuContextValue {
   query: string;
   look: string;
-  data?: DropData;
+  data?: DataAttributes;
 }
 
 interface ControlMenuPanelProps {
@@ -62,7 +62,7 @@ interface ControlMenuPanelProps {
   hints: boolean;
   query: string;
   look: string;
-  data?: DropData;
+  data?: DataAttributes;
   onQueryChange: (query: string) => void;
   children: ReactNode;
 }

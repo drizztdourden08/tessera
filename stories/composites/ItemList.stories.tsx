@@ -14,19 +14,21 @@ type ItemListArgs = {
   grouped: boolean;
   filter: boolean;
   actions: boolean;
+  emptyGame: boolean;
   title: string;
   createLabel: string;
 };
 
 const STATES: readonly ItemListDemoState[] = ['ready', 'loading', 'empty', 'error'];
 
-const ARGS: Partial<ItemListArgs> = { state: 'ready', grouped: true, filter: true, actions: true, title: 'Presets', createLabel: 'New' };
+const ARGS: Partial<ItemListArgs> = { state: 'ready', grouped: true, filter: true, actions: true, emptyGame: false, title: 'Presets', createLabel: 'New' };
 
 const ARG_TYPES: PlaygroundArgTypes<ItemListArgs> = {
   state: { group: 'State', control: 'select', options: [...STATES], description: 'Ready shows the rows; loading, empty and error replace them.' },
   grouped: { group: 'Layout', control: 'boolean', description: 'Sort the rows under one heading per game.' },
   filter: { group: 'Behaviour', control: 'boolean', description: 'A filter box over the rows; off, it shows from 8 items.' },
   actions: { group: 'Behaviour', control: 'boolean', description: 'Rename and delete on every row.' },
+  emptyGame: { group: 'Layout', control: 'boolean', description: 'Super Metroid is installed with no preset: its group shows New preset. Needs grouped.' },
   title: { group: 'Content', control: 'text' },
   createLabel: { group: 'Content', control: 'text', description: 'The word on the New button.' },
 };
@@ -46,6 +48,11 @@ const Playground = {
 const Grouped = {
   name: 'Presets in groups, with rename and delete',
   render: () => <ItemListDemo />,
+} satisfies StoryLiteStoryDefinition<ItemListArgs>;
+
+const EmptyGame = {
+  name: 'Presets with an installed game that has no preset yet',
+  render: () => <ItemListDemo emptyGame />,
 } satisfies StoryLiteStoryDefinition<ItemListArgs>;
 
 const Plain = {
@@ -77,6 +84,7 @@ const CODE = `import { ItemList } from '@drizztdourden08/tessera';
   getName={(preset) => preset.name}
   render={(preset) => ({ meta: \`\${preset.changes} changes\` })}
   groupBy={(preset) => preset.game}
+  groups={games.map((game) => ({ name: game, action: { label: 'New preset', onSelect: () => createPreset(game) } }))}
   selectedId={selectedId}
   onSelect={setSelectedId}
   onCreate={createPreset}
@@ -124,16 +132,16 @@ const Overview = overviewStory({
   component: 'ItemList',
   description: 'The list side of a list and editor screen: a title with its count, New, a filter, groups and rows to rename or delete.',
   points: [
-    '`getId` and `getName` read each item; `render` adds the meta, an icon or end columns to its row.',
-    '`create` draws a form such as [InlineCreateForm] under the title; `createOpen` lets the app hold it open.',
-    '`groupBy` puts the rows under headings; the arrow keys, Home and End move the selection across groups.',
+    '`getId` and `getName` read each item; `render` adds meta, an icon or columns; rows carry `data-item-id`.',
+    '`create` draws a form such as [InlineCreateForm] under the title; New carries `data-tour="item-list-new"`.',
+    '`groupBy` sorts rows under headings; `groups` orders them and draws empty ones with a line and an action.',
     '`onActivate` runs on a click, [[Enter]] or [[Space]]; the arrow keys then move the focus, not the selection.',
     '`onRename` ([[F2]]) and `onDelete` add a pencil and a trash; `actionVisibility` shows them on hover or always.',
     '`loading`, `error` and `empty` take the place of the rows; the filter shows from 8 items, or with `filter`.',
   ],
   instead: '[ListDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,
-  variants: [Grouped, Plain, CreateForm, FirstRun, PickToSwitch],
+  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch],
   states: {
     render: (props: StateProps) => <ItemListDemo {...(props as ItemListDemoProps)} />,
     list: STATES.map((state) => ({ name: state, props: { state, title: state === 'ready' ? 'Presets' : 'Servers' } })),
@@ -142,4 +150,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { CreateForm, FirstRun, Grouped, Overview, PickToSwitch, Plain, Playground };
+export { CreateForm, EmptyGame, FirstRun, Grouped, Overview, PickToSwitch, Plain, Playground };
