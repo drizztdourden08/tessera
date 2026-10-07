@@ -6373,3 +6373,22 @@ interface ListItemRowProps {
 ### What an app does
 
 Nothing for a list that keeps its props. Archipelia passes `groups` built from its installed games, each with `action: { label: 'New preset', onSelect }`, finds a row with `list.querySelector('[data-item-id="…"]')`, and points a tour step at `{ tour: 'item-list-new' }`.
+
+## 203. LogPanel shows each new line of a log that starts empty
+
+Reported against 0.24.1 and still in 0.25.0. LogPanel mounts only the newest 400 lines of a log, with older lines behind Load older. When the log had fewer than 400 lines, the window shrank to that count and never grew back. A log that started empty showed its first line, and every line after it went behind Load older; a log that started with 3 lines kept showing 3. A filter that matched few lines did the same once it was cleared.
+
+### What changed
+
+- **At the newest line.** The window grows with the log up to 400 lines, then keeps the newest 400, and older lines go behind Load older as before.
+- **Scrolled up, or after Load older.** New lines add below the lines already shown, so the lines being read stay in place and the older lines loaded stay loaded. Before, each new line pushed one line out at the top. Once the reader is back at the newest line, the next line brings the window back to the newest 400.
+- **When the rows are replaced,** as by a filter or a clear, the window goes back to the newest 400.
+- Load older, the Newest button and the 400 line window are unchanged.
+
+### Gallery
+
+- The LogPanel page gains the variant **Starts empty, rows arrive**: a line arrives every 0.7 s, Add 400 lines takes the log past the window, and Start over clears it.
+
+### What an app does
+
+Nothing. An app that worked around the bug by remounting LogPanel, or by passing a `key` that changed with the row count, can drop that.

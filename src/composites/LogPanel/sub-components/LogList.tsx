@@ -14,7 +14,7 @@ const LogList = (props: LogListProps) => {
   const { rows, kinds } = props;
   const { panels } = useTesseraStrings();
   const kindById = useMemo(() => new Map(kinds?.map((kind) => [kind.id, kind])), [kinds]);
-  const win = useLogWindow(rows.length);
+  const win = useLogWindow(rows);
   const first = rows.length - win.shownCount;
 
   return (

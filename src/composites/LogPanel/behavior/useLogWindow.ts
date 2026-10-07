@@ -1,17 +1,28 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import type { LogRow } from '../LogPanel.type';
+import { appendedSince } from './appended-since';
+import { nextLogWindow } from './next-log-window';
 import { BOTTOM_SLACK, CHUNK } from './useLogWindow.constants';
 
-const useLogWindow = (total: number) => {
+const newest = (rows: readonly LogRow[]) => ({ id: rows[rows.length - 1]?.id, total: rows.length });
+
+const useLogWindow = (rows: readonly LogRow[]) => {
+  const total = rows.length;
   const scrollRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(CHUNK);
   const [pinned, setPinned] = useState(true);
   const atBottom = useRef(true);
   const pendingAnchor = useRef<number | null>(null);
+  const last = useRef(newest(rows));
 
-  useEffect(() => {
-    if (total < visible) setVisible(Math.min(CHUNK, Math.max(total, 1)));
-  }, [total, visible]);
+  useLayoutEffect(() => {
+    const before = last.current;
+    last.current = newest(rows);
+    if (before.id === last.current.id && before.total === total) return;
+    const appended = appendedSince(rows, before.id, before.total);
+    setVisible((v) => nextLogWindow(v, appended, total, atBottom.current));
+  }, [rows, total]);
 
   const loadOlder = useCallback(() => {
     const el = scrollRef.current;

@@ -33,6 +33,7 @@ const hooks = {
       cell.cleanup = effect();
     });
   },
+  useLayoutEffect: (effect, deps) => hooks.useEffect(effect, deps),
   useEffectEvent: (callback) => {
     const cell = slot(() => ({}));
     cell.callback = callback;

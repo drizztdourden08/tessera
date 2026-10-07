@@ -11,6 +11,7 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { LOG_KINDS, LOG_ROWS, longSession } from './_samples/data-log';
+import { LogArrivalDemo } from './_samples/LogArrivalDemo';
 import './LogPanel.stories.css';
 
 type LogPanelArgs = {
@@ -81,6 +82,16 @@ const LongSession = {
   ),
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
+const Arriving = {
+  name: 'Starts empty, rows arrive',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">A line arrives every 0.7 s; each one shows below the last, and past 400 the oldest go behind Load older.</Text>
+      <LogArrivalDemo />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
 const Bare = {
   name: 'Without a toolbar',
   render: () => <LogDemo {...(ARGS as LogPanelArgs)} toolbar={false} rows={LOG_ROWS} />,
@@ -142,7 +153,7 @@ const Overview = overviewStory({
     '`height="fill"` takes the height of its parent; a number fixes it in pixels.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Bare, Heights],
+  variants: [Filtered, LongSession, Arriving, Bare, Heights],
   states: {
     render: renderState,
     list: [
@@ -155,4 +166,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Bare, Filtered, Heights, LongSession, Overview, ServerLog };
+export { Arriving, Bare, Filtered, Heights, LongSession, Overview, ServerLog };
