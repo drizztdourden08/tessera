@@ -18,7 +18,7 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
   const {
     open, title, schema, config, initialRecord, requiredPaths,
     resolveIdRefOptions, resolveTagSuggestions, onCreateTag, resolveNumberBounds,
-    onCreate, onCreated, onCancel,
+    onCreate, onCreated, onCancel, id, data,
   } = props;
   const {
     working, setValue, isComplete, saving, error, handleCreate,
@@ -60,7 +60,7 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
   );
 
   return (
-    <DialogShell open={open} onClose={onCancel} title={title} actions={actions}>
+    <DialogShell open={open} onClose={onCancel} title={title} actions={actions} id={id} data={data}>
       <Box className="create-record-dialog">
         {groups.length === 0 && <Text variant="caption" className="record-editor__empty">{records.noFieldsToFill}</Text>}
         {groups.map((group) => (

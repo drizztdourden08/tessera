@@ -15,7 +15,7 @@ const keepFocus = (event: MouseEvent<HTMLElement>): void => {
 
 const DialogShell = (props: DialogShellProps) => {
   const {
-    open, onClose, title, headerExtra, actions, className = '', dismissable = true, initialFocusRef, initialFocus = 'first', children,
+    open, onClose, title, headerExtra, actions, className = '', dismissable = true, initialFocusRef, initialFocus = 'first', id, data, children,
   } = props;
 
   const titleId = useId();
@@ -28,7 +28,9 @@ const DialogShell = (props: DialogShellProps) => {
     <Portal layer="modal">
       <Box className="dialog-backdrop" onMouseDown={keepFocus} onClick={dismissable ? onClose : undefined}>
         <Box
+          {...data}
           ref={focus.ref}
+          id={id}
           className={`dialog${className ? ` ${className}` : ''}`}
           role="dialog"
           aria-modal="true"

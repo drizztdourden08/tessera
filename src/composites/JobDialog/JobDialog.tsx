@@ -7,7 +7,7 @@ import type { JobDialogProps } from './JobDialog.type';
 import './JobDialog.css';
 
 const JobDialog = (props: JobDialogProps) => {
-  const { open, title, onHide, onCancel, onClose = onHide, cancelling = false, actions, className, ...task } = props;
+  const { open, title, onHide, onCancel, onClose = onHide, cancelling = false, actions, className, id, data, ...task } = props;
   const mainRef = useRef<HTMLButtonElement>(null);
   const running = task.state === 'running';
   const footer = (
@@ -21,6 +21,8 @@ const JobDialog = (props: JobDialogProps) => {
       actions={footer}
       initialFocusRef={mainRef}
       className={className ? `job-dialog ${className}` : 'job-dialog'}
+      id={id}
+      data={data}
     >
       <TaskProgress {...task} />
     </DialogShell>

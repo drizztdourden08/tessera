@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
+import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 
 type DialogInitialFocus = 'first' | 'dialog';
 
@@ -13,6 +14,8 @@ interface DialogShellProps {
   className?: string;
   initialFocusRef?: RefObject<HTMLElement | null>;
   initialFocus?: DialogInitialFocus;
+  id?: string;
+  data?: DataAttributes;
   children?: ReactNode;
 }
 

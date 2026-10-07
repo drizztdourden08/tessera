@@ -32,6 +32,7 @@ JobDialog puts TaskProgress in a dialog whose buttons follow the state of the jo
 - Keep the job running when the dialog hides, and give the user a way back to it, such as a button with the percent.
 - Pass onCancel only when the job can stop; set cancelling while it stops.
 - Add Try again through actions after a failure, beside Close.
+- Mark the dialog with id and data, such as data-job-id, to find it from the app; both go on the element with role dialog.
 
 ## Accessibility
 
@@ -74,6 +75,8 @@ const GenerateButton = ({ state, percent, cancel }: { state: TaskState; percent:
 - `cancelling` (optional): `boolean`. Default `false`.
 - `actions` (optional): `ReactNode`.
 - `className` (optional): `string`.
+- `id` (optional): `string`.
+- `data` (optional): `DataAttributes`.
 - `label` (optional): `string`.
 - `line` (optional): `ReactNode`.
 - `log` (optional): `readonly LogRow[]`.

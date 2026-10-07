@@ -20,6 +20,8 @@ const Dialog = (props: DialogProps) => {
     variant = 'default',
     onConfirm,
     onCancel,
+    id,
+    data,
     children,
   } = props;
 
@@ -45,6 +47,8 @@ const Dialog = (props: DialogProps) => {
       actions={actions}
       initialFocusRef={start.ref}
       initialFocus={start.mode}
+      id={id}
+      data={data}
     >
       {message && <Paragraph tone="dim" className="dialog__message">{message}</Paragraph>}
       {children}

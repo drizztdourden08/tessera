@@ -6523,3 +6523,32 @@ selectedKey?: string;
 - Name a `TagInput`, `Toggle` or field kit editor by its row with `aria-labelledby`, or let a `Field` or `FormRow` name it.
 - Give Delete and the like `tone: 'danger'` in a menu.
 - A host stylesheet that targets `.settings-row__more` or `.settings-row__about-text` targets `.fold-text__more` or `.fold-text`.
+
+## 207. Dialogs take id and data
+
+Brock marks each job dialog with `data-job-id` so it can find it, and had to set the attribute on the dialog element itself after it opened: DialogShell and the dialogs built on it took no `id` and no data attributes.
+
+### What changed
+
+- **DialogShell** takes `id` and `data`. Both go on its root element, the one with `role="dialog"`, and on nothing else.
+- **Dialog, JobDialog, CreateRecordDialog, DeleteGuardDialog and WizardDialog** take the same two props and pass them to DialogShell.
+- **The title keeps its own id.** `aria-labelledby` points at the title, whose id DialogShell makes itself, so an `id` passed to the dialog never replaces it and the dialog keeps its name.
+- `data` takes `DataAttributes`, the type section 202 exported from the primitives: keys that start with `data-`, so it cannot set `role` or an `aria-` attribute.
+
+```ts
+type DataAttributes = Readonly<Partial<Record<`data-${string}`, string>>>;
+
+interface DialogShellProps {
+  // ...
+  id?: string;            // new, on the element with role="dialog"
+  data?: DataAttributes;  // new, on the same element
+}
+
+// Dialog, JobDialog, CreateRecordDialog, DeleteGuardDialog and WizardDialog gain the same two props.
+```
+
+- Nothing changes on screen.
+
+### What an app does
+
+Nothing for a dialog that keeps its props. Brock passes `data={{ 'data-job-id': job.id }}` to JobDialog and drops the code that set the attribute on the dialog element.

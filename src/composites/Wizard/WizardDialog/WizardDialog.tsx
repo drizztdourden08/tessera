@@ -8,7 +8,7 @@ import type { WizardDialogProps } from './WizardDialog.type';
 import './WizardDialog.css';
 
 const WizardDialog = <V extends WizardValues>(props: WizardDialogProps<V>) => {
-  const { open, onExit, title, headerExtra, className = '', ...frame } = props;
+  const { open, onExit, title, headerExtra, className = '', id, data, ...frame } = props;
   const { wizard } = frame;
   const exit = useWizardExit({ dirty: wizard.dirty, busy: wizard.busy, onExit });
   const close = () => {
@@ -16,7 +16,7 @@ const WizardDialog = <V extends WizardValues>(props: WizardDialogProps<V>) => {
   };
   return (
     <>
-      <DialogShell open={open} onClose={close} dismissable={!wizard.busy} title={title} headerExtra={headerExtra} className={`wizard-dialog${className ? ` ${className}` : ''}`}>
+      <DialogShell open={open} onClose={close} dismissable={!wizard.busy} title={title} headerExtra={headerExtra} className={`wizard-dialog${className ? ` ${className}` : ''}`} id={id} data={data}>
         <WizardContent {...frame} onCancel={exit.requestExit} showTitle={false} />
       </DialogShell>
       <WizardExitGuard {...exit.guard} />

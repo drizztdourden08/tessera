@@ -8,7 +8,7 @@ import type { DeleteGuardDialogProps } from './DeleteGuardDialog.type';
 import './DeleteGuardDialog.css';
 
 const DeleteGuardDialog = (props: DeleteGuardDialogProps) => {
-  const { open, subjectLabel, hits, error, onConfirm, onCancel } = props;
+  const { open, subjectLabel, hits, error, onConfirm, onCancel, id, data } = props;
   const { records } = useTesseraStrings();
   return (
     <Dialog
@@ -19,6 +19,8 @@ const DeleteGuardDialog = (props: DeleteGuardDialogProps) => {
       variant="danger"
       onConfirm={onConfirm}
       onCancel={onCancel}
+      id={id}
+      data={data}
     >
       <Box className="delete-guard-dialog__hits">
         {error != null

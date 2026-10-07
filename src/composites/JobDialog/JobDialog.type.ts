@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
+import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { TaskProgressProps } from '../TaskProgress/TaskProgress.type';
 
 interface JobDialogProps extends Omit<TaskProgressProps, 'actions' | 'className'> {
@@ -11,6 +12,8 @@ interface JobDialogProps extends Omit<TaskProgressProps, 'actions' | 'className'
   cancelling?: boolean;
   actions?: ReactNode;
   className?: string;
+  id?: string;
+  data?: DataAttributes;
 }
 
 interface JobDialogActionsProps {
