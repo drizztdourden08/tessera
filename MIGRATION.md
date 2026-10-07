@@ -6427,3 +6427,99 @@ Reported against 0.26.0. Since section 202, every ItemList row was about 84 px t
 ### What an app does
 
 Nothing for ItemList. An app that draws ListItemList rows through its own component passes `shape`, as ItemList now does.
+
+## 206. Names for TagInput, Toggle and the field kit editors, a region per Widget, a danger menu item, and four form additions
+
+From the Archipelia hand-off, items 6 and 21 to 25. Each one lets the app drop code of its own.
+
+### Names for controls (item 6)
+
+`TagInput`, `Toggle` and the field kit `EditorControlProps` take `aria-label` and `aria-labelledby`, the way `Slider` and `Combobox` take them, so the name of a `FormRow` or a `Field` can name the control. Each lands on the element that takes focus:
+
+- `TagInput`: the text field, `role="combobox"`. Inside a `Field` or a `FormRow`, the field also takes the id and the notes of the row, so the row's name labels it with no prop at all.
+- `Toggle`: the switch input. `aria-labelledby` wins over `aria-label`; a visible `label` still wins over both.
+- Field kit editors: the input of a string, number or reference, the switch of a boolean, the radio group or the select of an enum, and the select of a reference with options. A boolean without a name is still named by its field label. Array and object editors hold one control per element or child, each named as before.
+- To get there, `SegmentedControl` takes `aria-labelledby` beside `aria-label`, and `TagPicker` takes both for its radio group when `single` is set.
+
+```ts
+interface ControlName {
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+}
+
+interface TagInputProps extends ControlName { /* ... */ }
+interface ToggleProps extends ControlName { /* ... */ }
+interface EditorControlProps<V = unknown> extends ControlName { /* ... */ }
+```
+
+### Widget is a region (item 24)
+
+A `Widget` is `role="region"`. With one tab it is named by its title through `aria-labelledby`; in a tabbed pane, where no single title shows, `aria-label` holds the name of the open tab. Nothing changes on screen.
+
+### A danger menu item (item 25)
+
+`MenuItem` takes `tone: 'danger'` for an action such as Delete in a `DropdownMenu`. The item reads in `--c-danger-bright` at rest, and its edge turns `--c-danger` under the pointer or focus, the status tokens of section 190. It stays apart from `kind: 'confirm'`: a confirm item reads like any other until its first press, and only then turns red while it asks. A disabled danger item fades like any other.
+
+```ts
+type MenuItemTone = 'danger';
+
+interface MenuItem {
+  // ...
+  tone?: MenuItemTone;  // new
+}
+```
+
+### PathInput onBlur (item 22)
+
+`PathInput` takes `onBlur`, called with the blur event of its input, as on a `TextInput`, so an app can check or save a typed path when the user leaves the box.
+
+```ts
+onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+```
+
+### FormRow folds a long description (item 23)
+
+A `FormRow` description past `descriptionLines` lines, 2 by default, folds behind More, and Less folds it again. Pass `0` to show the whole description. The fold is the one `SettingsRow` already had: it moves to a shared part that both draw, so More and Less look and work the same in each. The SettingsRow page is pixel for pixel the same.
+
+- More and Less is a button with `aria-expanded` that controls the folded text. The description keeps its id, so the control is still described by it.
+- **Class names.** The fold draws `fold-text`, `fold-text__text` and `fold-text__more`. In SettingsRow, `settings-row__about-text` becomes `fold-text` and `settings-row__more` becomes `fold-text__more`; `settings-row__description` stays on the text. RENAMES.json maps both.
+
+```ts
+interface FormRowProps {
+  // ...
+  descriptionLines?: number;  // new, 2 by default
+}
+```
+
+### KeyValueEditor onProblem (item 23)
+
+`KeyValueEditor` takes `onProblem`. While a row is wrong it is called with the line the editor shows under the rows, for a name repeated, an empty name or a name not in `keys`, such as `Lamp oil is not on the list.`; once the rows are fixed it is called with `null`. It is called on mount and each time the problem changes. A form holds its Save on it. CodeBlock's editable mode left the JSON check to the app in section 187, so the shape follows the `onProblem` JsonInput had.
+
+```ts
+onProblem?: (problem: string | null) => void;
+```
+
+### RowGrid selectedKey (item 21)
+
+`RowGrid` takes `selectedKey`, the `rowKey` of the row the app has open, such as the row whose Edit button is pressed. That row carries `aria-current="true"` and draws on `--c-selected` with a bar of `--c-primary` at its start, or a `--c-primary` border as a card. The app keeps the key; a pressed button inside the row works as before.
+
+```ts
+selectedKey?: string;
+```
+
+### Gallery
+
+- TagInput, Toggle and Field kits: **Named by the label of a FormRow, through aria-labelledby**.
+- Widget: **One widget** and **Tabbed pane** say how each region is named.
+- DropdownMenu: **A danger item for Delete, beside a confirm item that only turns red while it asks**.
+- PathInput: **onBlur checks a typed player file when the user leaves the box**.
+- FormRow: **A long description folds after two lines, with More and Less**. In the **Preset editor** variant, the Progression Balancing description now folds.
+- KeyValueEditor: **onProblem holds the Save of the form while a name is not on the list**.
+- RowGrid: **Edit opens the overrides of a player: selectedKey marks that row**.
+
+### What an app does
+
+- Archipelia drops its own fold under FormRow descriptions, its own duplicate check before Save, its own selected row marking around RowGrid, and its blur listener around PathInput.
+- Name a `TagInput`, `Toggle` or field kit editor by its row with `aria-labelledby`, or let a `Field` or `FormRow` name it.
+- Give Delete and the like `tone: 'danger'` in a menu.
+- A host stylesheet that targets `.settings-row__more` or `.settings-row__about-text` targets `.fold-text__more` or `.fold-text`.

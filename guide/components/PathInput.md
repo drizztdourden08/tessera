@@ -32,6 +32,7 @@ PathInput takes a typed, dropped or browsed path in one box and cuts a long one 
 - Pass resolvePath in Electron, such as webUtils.getPathForFile, so a drop gives the full path and not only the name.
 - Set kind and accept to what the setting takes, so a wrong drop is turned away with a reason.
 - Pass onReveal only when the app can show the file in its folder.
+- Pass onBlur to check or save a typed path when the user leaves the box, as on a TextInput.
 
 ## Accessibility
 
@@ -69,6 +70,7 @@ const KeyFileSetting = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPa
 
 - `value`: `string | null`.
 - `onChange` (optional): `(path: string | null) => void`.
+- `onBlur` (optional): `(event: FocusEvent<HTMLInputElement>) => void`.
 - `onBrowse` (optional): `PathBrowse`.
 - `onReveal` (optional): `(path: string) => void`.
 - `kind` (optional): `PathKind`, one of `'file'`, `'folder'`, `'any'`.

@@ -37,6 +37,18 @@ describe('test hooks', () => {
   });
 });
 
+describe('the widget region', () => {
+  it('makes the widget a region named by its title, or by its open tab in a tabbed pane', () => {
+    const one = widget();
+    const titleId = one.match(/<span class="[^"]*widget__title" id="([^"]+)">Players</)?.[1];
+    expect(titleId).toMatch(/\S/);
+    expect(one).toMatch(new RegExp(`<div[^>]*role="region"[^>]*aria-labelledby="${titleId}"`));
+    const tabbed = widget({ tabs: [{ id: 'players', label: 'Players' }, { id: 'hints', label: 'Hints' }], activeId: 'hints' });
+    expect(tabbed).toMatch(/<div[^>]*role="region"[^>]*aria-label="Hints"/);
+    expect(tabbed).not.toContain('aria-labelledby');
+  });
+});
+
 describe('the Hero brand', () => {
   it('takes its own brand, else the nearest palette when it names a brand, else tessera', () => {
     expect(heroBrand('rotp', 'brock')).toBe('rotp');

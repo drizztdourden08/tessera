@@ -6,6 +6,8 @@ import type { ShortcutKey } from '../../primitives/Shortcut';
 
 type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm';
 
+type MenuItemTone = 'danger';
+
 interface MenuItem {
   id: string;
   label: string;
@@ -14,6 +16,7 @@ interface MenuItem {
   shortcut?: string | readonly ShortcutKey[];
   disabled?: boolean;
   kind?: MenuItemKind;
+  tone?: MenuItemTone;
   checked?: boolean;
   confirm?: string;
   children?: readonly MenuNode[];
@@ -84,6 +87,6 @@ interface TriggerMenuProps extends MenuBaseProps {
 type DropdownMenuProps = AnchoredMenuProps | TriggerMenuProps;
 
 export type {
-  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemKind, MenuNode,
+  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemKind, MenuItemTone, MenuNode,
   MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant, TriggerMenuProps,
 };

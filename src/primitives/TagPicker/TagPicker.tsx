@@ -20,7 +20,7 @@ const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
       {groups.map(group => (
         <div key={group.id} className="tag-picker__group">
           {group.label && <Span tone="dim" className="tag-picker__group-label">{group.label}</Span>}
-          <div className="tag-picker__tags" role={single ? 'radiogroup' : undefined} aria-label={single ? label : undefined}>
+          <div className="tag-picker__tags" role={single ? 'radiogroup' : undefined} aria-label={single ? label ?? props['aria-label'] : undefined} aria-labelledby={single && !label ? props['aria-labelledby'] : undefined}>
             {group.options.map(opt => (
               <Tag
                 key={opt.value}

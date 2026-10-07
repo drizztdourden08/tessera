@@ -51,6 +51,13 @@ const Playground = {
   render: (args) => row(args),
 } satisfies PlaygroundStory<FormRowArgs>;
 
+const LONG_HELP = 'Items the player starts the game with, on top of what the world gives. Each name must be an item of the game, and a count above the item limit is cut down to it. Leave the list empty to start with nothing extra.';
+
+const Folded = {
+  name: 'A long description folds after two lines, with More and Less',
+  render: () => row({ label: 'Start Inventory', description: LONG_HELP }),
+} satisfies StoryLiteStoryDefinition<FormRowArgs>;
+
 const Editor = {
   name: 'Preset editor with FormGroupTabs and FormRow: changed counts per tab, reset per row',
   render: () => <PresetOptionsDemo />,
@@ -75,10 +82,11 @@ const Overview = overviewStory({
     '`advanced` tags an option most people leave alone; `problem` writes an alert under the control.',
     'The control gets the id, label and notes of the row, as inside a [Field].',
     'Under 640 px the control goes under the name, with the reset kept on the first line.',
+    'A description past `descriptionLines` lines, 2 by default, folds behind More and Less.',
   ],
   instead: '[SettingsRow] for an app setting with a live hint, or [Field] for a plain form.',
   playground: Playground,
-  variants: [Editor],
+  variants: [Editor, Folded],
   states: {
     render: (props: StateProps) => row(props as Partial<FormRowArgs>),
     list: [
@@ -92,4 +100,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Editor, Overview, Playground };
+export { Editor, Folded, Overview, Playground };

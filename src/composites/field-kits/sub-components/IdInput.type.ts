@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
-interface IdInputProps {
+import type { ControlName } from '../../../primitives/field-control/control-name.type';
+interface IdInputProps extends ControlName {
   placeholder: string;
   value: unknown;
   disabled?: boolean;

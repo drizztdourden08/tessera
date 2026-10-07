@@ -48,7 +48,7 @@ describe('the other marks', () => {
 
   it('folds a long description to descriptionLines lines', () => {
     const html = draw({ descriptionLines: 2 });
-    expect(html).toMatch(/settings-row__description" style="-webkit-line-clamp:2"[^>]*data-folded="true"/);
+    expect(html).toMatch(/class="fold-text__text" data-folded="true" style="-webkit-line-clamp:2"><small[^>]*settings-row__description/);
     expect(draw()).not.toContain('data-folded');
   });
 

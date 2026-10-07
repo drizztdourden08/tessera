@@ -2,13 +2,14 @@
 import { Box } from '../../../primitives/Box';
 import { APP_REGION_ATTRIBUTE } from '../../../primitives/dom/app-region.constants';
 import { Span } from '../../../primitives/text-elements';
+import { widgetName } from '../behavior/widget-name';
 import { WidgetActions } from './WidgetActions';
 import { WidgetTabChip } from './WidgetTabChip';
 import type { WidgetTitlebarProps } from './WidgetTitlebar.type';
 
 const WidgetTitlebar = (props: WidgetTitlebarProps) => {
-  const { id, tabs, activeId, paneKey, onActivateTab, dragRegion = false } = props;
-  const label = tabs.find((tab) => tab.id === activeId)?.label ?? tabs[0]?.label ?? id;
+  const { tabs, activeId, paneKey, onActivateTab, titleId, dragRegion = false } = props;
+  const label = widgetName(props);
 
   return (
     <Box
@@ -22,7 +23,7 @@ const WidgetTitlebar = (props: WidgetTitlebarProps) => {
           {tabs.map((tab) => <WidgetTabChip key={tab.id} tab={tab} active={tab.id === activeId} onActivate={onActivateTab} />)}
         </Box>
       ) : (
-        <Span className="widget__title">{label}</Span>
+        <Span id={titleId} className="widget__title">{label}</Span>
       )}
       <WidgetActions {...props} name={label} />
     </Box>

@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import { readFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
@@ -103,6 +104,16 @@ describe('DropdownMenu', () => {
     expect(html.match(/class="[^"]*dropdown__mark /g)).toHaveLength(3);
     expect(html.match(/class="[^"]*dropdown__icon"/g)).toHaveLength(3);
     expect(html).toMatch(/dropdown__mark--check dropdown__mark--off"[^>]*><svg/);
+  });
+
+  it('draws a danger item in the danger tone, apart from a confirm item that only turns red while it asks', () => {
+    const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'row', items: [
+      { id: 'reset', label: 'Reset', kind: 'confirm' }, { id: 'delete', label: 'Delete', tone: 'danger' },
+    ] }] }));
+    expect(html).toMatch(/class="[^"]*dropdown__item--danger"[^>]*><span[^>]*>Delete</);
+    expect(html).not.toMatch(/dropdown__item--danger"[^>]*>(?:(?!<\/button>).)*Reset/);
+    const sheet = readFileSync(new URL('../src/composites/DropdownMenu/sub-components/MenuPanel.css', import.meta.url), 'utf8');
+    expect(sheet).toMatch(/\.dropdown__item--danger:not\(:disabled\) \{\s*color: var\(--c-danger-bright\);/);
   });
 });
 

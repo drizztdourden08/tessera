@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
-interface EnumTagSelectProps {
+import type { ControlName } from '../../../primitives/field-control/control-name.type';
+interface EnumTagSelectProps extends ControlName {
   id: string;
   options: readonly string[];
   selected: readonly string[];

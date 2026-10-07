@@ -3782,6 +3782,7 @@
       "rules": [
         "The app owns every checked value and every action; the menu only calls onSelect and draws what it is given.",
         "Give an action that undoes work kind confirm: the first press reads Click again to and the label, in the danger tone; the second runs it.",
+        "Give an action that deletes, such as Delete in a row menu, tone danger, so it reads in the danger tone at rest; a confirm item turns red only while it asks.",
         "Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.",
         "Split groups by meaning with a label or a separator; turn on filter past about a dozen items.",
         "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar."
@@ -4299,11 +4300,13 @@
       "rules": [
         "Set changed when the value differs from its default, and pass onReset to put the default back.",
         "Write problem as what blocks the save and what to do, such as Not saved: fix the JSON first.",
-        "Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs."
+        "Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs.",
+        "Write the whole description: past descriptionLines lines, 2 by default, it folds behind More and Less, so the app needs no fold of its own."
       ],
       "a11y": [
         "The control gets the id, label and notes of the row, as inside a Field, so it is named by the option.",
-        "A problem is an alert and marks the control invalid; Reset is named Reset and the option."
+        "A problem is an alert and marks the control invalid; Reset is named Reset and the option.",
+        "More and Less is a button with aria-expanded that controls the folded text."
       ],
       "tree": {
         "path": [
@@ -4313,7 +4316,7 @@
         "rule": "FormRow lays out the name, the control, the changed mark and the reset of an option the same way in every app."
       },
       "example": "import { FormRow, Slider } from '@drizztdourden08/tessera';\nimport type { ScaleLabelEntry } from '@drizztdourden08/tessera';\n\nconst BALANCING: ScaleLabelEntry[] = [[0, 'Disabled'], [50, 'Normal'], [99, 'Extreme']];\n\nconst BalancingRow = ({ value, onChange }: { value: number; onChange: (value: number) => void }) => (\n  <FormRow label=\"Progression Balancing\" description=\"Moves progression earlier.\" changed={value !== 50} onReset={() => onChange(50)}>\n    <Slider value={value} onChange={onChange} min={0} max={99} labels={BALANCING} input />\n  </FormRow>\n);\n",
-      "propsHash": "c299e3cf8283e31e",
+      "propsHash": "b5fe52025eb352f7",
       "props": {
         "own": [
           {
@@ -4325,6 +4328,12 @@
             "name": "description",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "descriptionLines",
+            "optional": true,
+            "text": "number",
+            "default": "2"
           },
           {
             "name": "changed",
@@ -5319,7 +5328,8 @@
       "rules": [
         "Pass keys whenever the valid names are known, so the add row searches them and a wrong name is caught.",
         "Pick valueKind for the values: count for small whole numbers, number, text or select with options.",
-        "Store the value from onChange; it waits while a name is empty, listed twice or not in keys."
+        "Store the value from onChange; it waits while a name is empty, listed twice or not in keys.",
+        "Pass onProblem to hold the Save of the form: it gets the problem while a row is wrong, and null once it is fixed."
       ],
       "a11y": [
         "The editor is a group named by its Field or FormRow label, or by aria-label, and its rows are a list.",
@@ -5334,7 +5344,7 @@
         "rule": "KeyValueEditor edits a map row by row and holds it back while it has a duplicate, the same way in every app."
       },
       "example": "import { KeyValueEditor } from '@drizztdourden08/tessera';\nimport type { KeyValueEntry } from '@drizztdourden08/tessera';\n\nconst StartInventory = ({ items, value, onChange }: {\n  items: string[];\n  value: Record<string, number>;\n  onChange: (value: Record<string, KeyValueEntry>) => void;\n}) => (\n  <KeyValueEditor value={value} onChange={onChange} keys={items} min={0} max={99} aria-label=\"Start inventory\" />\n);\n",
-      "propsHash": "52d4e706fa4c0f99",
+      "propsHash": "975ce0a9e04c80e9",
       "props": {
         "own": [
           {
@@ -5346,6 +5356,11 @@
             "name": "onChange",
             "optional": false,
             "text": "(value: Record<string, KeyValueEntry>) => void"
+          },
+          {
+            "name": "onProblem",
+            "optional": true,
+            "text": "(problem: string | null) => void"
           },
           {
             "name": "keys",
@@ -5856,7 +5871,8 @@
         "Pass onBrowse to open the dialog of the app, such as the native dialog through Electron, and return the picked path or null.",
         "Pass resolvePath in Electron, such as webUtils.getPathForFile, so a drop gives the full path and not only the name.",
         "Set kind and accept to what the setting takes, so a wrong drop is turned away with a reason.",
-        "Pass onReveal only when the app can show the file in its folder."
+        "Pass onReveal only when the app can show the file in its folder.",
+        "Pass onBlur to check or save a typed path when the user leaves the box, as on a TextInput."
       ],
       "a11y": [
         "The input takes the label, hint and error of its Field, and typing edits the path.",
@@ -5872,7 +5888,7 @@
         "rule": "PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app."
       },
       "example": "import { Field, PathInput } from '@drizztdourden08/tessera';\n\ninterface Bridge {\n  pickFile: () => Promise<string | null>;\n  showInFolder: (path: string) => void;\n  pathOf: (file: File) => string;\n}\n\nconst KeyFileSetting = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPath: string | null; setKeyPath: (path: string | null) => void }) => (\n  <Field label=\"Key file\" hint=\"Only the path is stored.\">\n    <PathInput\n      value={keyPath}\n      onChange={setKeyPath}\n      onBrowse={bridge.pickFile}\n      onReveal={bridge.showInFolder}\n      resolvePath={bridge.pathOf}\n      placeholder=\"No key file yet\"\n    />\n  </Field>\n);\n",
-      "propsHash": "0347fa9da023f2e0",
+      "propsHash": "ae0457e26a17f5a2",
       "props": {
         "own": [
           {
@@ -5884,6 +5900,11 @@
             "name": "onChange",
             "optional": true,
             "text": "(path: string | null) => void"
+          },
+          {
+            "name": "onBlur",
+            "optional": true,
+            "text": "(event: FocusEvent<HTMLInputElement>) => void"
           },
           {
             "name": "onBrowse",
@@ -6193,10 +6214,11 @@
         "Mark the least needed column fold, so it moves to a second line before the rows turn into cards.",
         "Put the field that names the row first: in cards it heads the card.",
         "Keep the rows in the app and change them in onAdd, onRemove and onMove; the grid only draws them.",
-        "Pass error per column as a sentence that says how to fix it."
+        "Pass error per column as a sentence that says how to fix it.",
+        "Pass selectedKey for the row the app has open, such as the row whose Edit button is pressed; the app keeps it."
       ],
       "a11y": [
-        "Each row is a group named after rowLabel, and each input is named by its column.",
+        "Each row is a group named after rowLabel, and each input is named by its column; the selected row carries aria-current.",
         "Ctrl and Up or Down moves to the same column in the row above or below.",
         "The grip moves its row with Up and Down; the row menu has Move up and Move down too.",
         "Adding, removing and moving a row is announced, and focus lands on the next useful control."
@@ -6209,7 +6231,7 @@
         "rule": "RowGrid edits a short list row by row, a table when wide and cards when narrow, the same way in every app."
       },
       "example": "import { RowGrid, TextInput } from '@drizztdourden08/tessera';\nimport type { RowGridColumn } from '@drizztdourden08/tessera';\n\ninterface Player {\n  id: string;\n  name: string;\n}\n\ninterface PlayersProps {\n  players: Player[];\n  rename: (id: string, name: string) => void;\n  add: () => void;\n  remove: (id: string) => void;\n  move: (from: number, to: number) => void;\n}\n\nconst Players = ({ players, rename, add, remove, move }: PlayersProps) => {\n  const columns: RowGridColumn<Player>[] = [{\n    id: 'name',\n    label: 'Name',\n    min: 120,\n    max: 260,\n    error: (player) => (player.name.trim() === '' ? 'Give the player a name.' : undefined),\n    cell: (player) => <TextInput value={player.name} onChange={(event) => rename(player.id, event.currentTarget.value)} />,\n  }];\n  return (\n    <RowGrid\n      label=\"Players\"\n      rows={players}\n      columns={columns}\n      rowKey={(player) => player.id}\n      rowLabel={(player) => player.name}\n      numbered\n      onAdd={add}\n      addLabel=\"Add player\"\n      onRemove={remove}\n      onMove={move}\n    />\n  );\n};\n",
-      "propsHash": "9331047efc2c0e60",
+      "propsHash": "ee479e46d8df7e7e",
       "props": {
         "own": [
           {
@@ -6236,6 +6258,11 @@
             "name": "rowLabel",
             "optional": true,
             "text": "(row: Row, index: number) => string"
+          },
+          {
+            "name": "selectedKey",
+            "optional": true,
+            "text": "string"
           },
           {
             "name": "numbered",
@@ -6301,6 +6328,7 @@
         }
       },
       "tokens": [
+        "--border-width-thick",
         "--border-width-thin",
         "--c-bg",
         "--c-border",
@@ -6312,6 +6340,7 @@
         "--c-primary",
         "--c-primary-bright",
         "--c-primary-soft",
+        "--c-selected",
         "--c-surface",
         "--c-text-dim",
         "--c-text-muted",
@@ -8275,7 +8304,7 @@
         "To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest."
       ],
       "a11y": [
-        "The title bar names the widget; pop out, options and close are icon buttons named with it.",
+        "Each widget is a region named by its title, or by its open tab in a tabbed pane; pop out, options and close are icon buttons named with it.",
         "Each widget carries data-widget-id and each pane data-pane-id, for tests.",
         "A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown."
       ],

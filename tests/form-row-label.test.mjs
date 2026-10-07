@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import { readFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
@@ -40,5 +41,26 @@ describe('FormRow name', () => {
     expect(first.focus).toHaveBeenCalledTimes(1);
     focusRowControl(boxOf({ labels: [] }), 'balancing');
     expect(first.focus).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('FormRow description', () => {
+  const draw = (extra = {}) => renderToStaticMarkup(h(FormRow, { label: 'Start Inventory', id: 'inventory', description: 'Items the player starts with.', ...extra }, h(Toggle, { checked: false, onChange: ignore })));
+
+  it('folds after two lines by default and keeps its id for the control notes', () => {
+    const html = draw();
+    expect(html).toMatch(/class="fold-text__text" data-folded="true" style="-webkit-line-clamp:2"><span [^>]*id="inventory-description"/);
+    expect(html).toContain('aria-describedby="inventory-description"');
+  });
+
+  it('folds after descriptionLines lines, and never with 0', () => {
+    expect(draw({ descriptionLines: 3 })).toContain('-webkit-line-clamp:3');
+    expect(draw({ descriptionLines: 0 })).not.toContain('data-folded');
+  });
+
+  it('shares the fold of SettingsRow, with More and Less drawn by the same part', () => {
+    const sheet = readFileSync(new URL('../src/primitives/fold-text/FoldText.css', import.meta.url), 'utf8');
+    expect(sheet).toMatch(/\.fold-text__text\[data-folded\] \{\s*display: -webkit-box;/);
+    expect(readFileSync(new URL('../src/composites/SettingsRow/SettingsRow.css', import.meta.url), 'utf8')).not.toContain('data-folded');
   });
 });

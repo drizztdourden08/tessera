@@ -50,6 +50,11 @@ const Compact = {
   render: () => <RowGridFrame width="full" rows="six" density="compact" />,
 } satisfies StoryLiteStoryDefinition<RowGridArgs>;
 
+const Selected = {
+  name: 'Edit opens the overrides of a player: selectedKey marks that row',
+  render: () => <RowGridFrame width="full" selectable />,
+} satisfies StoryLiteStoryDefinition<RowGridArgs>;
+
 const STATE_SETS: readonly { name: string; rows: RowSet }[] = [
   { name: 'filled', rows: 'three' },
   { name: 'with errors', rows: 'invalid' },
@@ -65,11 +70,11 @@ const Overview = overviewStory({
     'The app keeps the rows: `onAdd`, `onRemove` and `onMove` change them, and the grid draws them.',
     'The grip and the row menu reorder; [[Ctrl+Up]] and [[Ctrl+Down]] move to the same column in the next row.',
     '`error` per column marks the input and writes the fix under it, in every layout.',
-    '`density` `compact` fits more rows in a short panel; `numbered` adds a row number.',
+    '`compact` `density` fits more rows; `numbered` adds a number; `selectedKey` marks the row the app has open.',
   ],
   instead: '[DataTable] for many records to browse, sort and pick; [RecordEditor] for one record with many fields.',
   playground: Playground,
-  variants: [Players, Widths, Session, Checks, Compact],
+  variants: [Players, Widths, Session, Checks, Compact, Selected],
   states: {
     render: (props: StateProps) => <RowGridFrame width="1024" rows={(props.rows as RowSet | undefined) ?? 'three'} />,
     list: STATE_SETS.map(({ name, rows }) => ({ name, props: { rows } })),
@@ -78,4 +83,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Checks, Compact, Overview, Players, Playground, Session, Widths };
+export { Checks, Compact, Overview, Players, Playground, Selected, Session, Widths };

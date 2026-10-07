@@ -35,10 +35,11 @@ RowGrid edits a short list row by row, a table when wide and cards when narrow, 
 - Put the field that names the row first: in cards it heads the card.
 - Keep the rows in the app and change them in onAdd, onRemove and onMove; the grid only draws them.
 - Pass error per column as a sentence that says how to fix it.
+- Pass selectedKey for the row the app has open, such as the row whose Edit button is pressed; the app keeps it.
 
 ## Accessibility
 
-- Each row is a group named after rowLabel, and each input is named by its column.
+- Each row is a group named after rowLabel, and each input is named by its column; the selected row carries aria-current.
 - Ctrl and Up or Down moves to the same column in the row above or below.
 - The grip moves its row with Up and Down; the row menu has Move up and Move down too.
 - Adding, removing and moving a row is announced, and focus lands on the next useful control.
@@ -95,6 +96,7 @@ const Players = ({ players, rename, add, remove, move }: PlayersProps) => {
 - `columns`: `readonly RowGridColumn<Row>[]`.
 - `rowKey`: `(row: Row) => string`.
 - `rowLabel` (optional): `(row: Row, index: number) => string`.
+- `selectedKey` (optional): `string`.
 - `numbered` (optional): `boolean`.
 - `density` (optional): `RowGridDensity`, one of `'comfortable'`, `'compact'`.
 - `onAdd` (optional): `() => void`.
@@ -108,4 +110,4 @@ const Players = ({ players, rename, add, remove, move }: PlayersProps) => {
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-bg`, `--c-border`, `--c-border-strong`, `--c-danger-bright`, `--c-hairline`, `--c-hover`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--opacity-muted`, `--radius-md`, `--row-grid-max`, `--row-grid-tracks`, `--size-1`, `--size-160`, `--size-2`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-border-strong`, `--c-danger-bright`, `--c-hairline`, `--c-hover`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-soft`, `--c-selected`, `--c-surface`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--opacity-muted`, `--radius-md`, `--row-grid-max`, `--row-grid-tracks`, `--size-1`, `--size-160`, `--size-2`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`.

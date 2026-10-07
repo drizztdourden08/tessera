@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { FieldDescriptor, FieldKind } from '../../data/schema/field-descriptor';
+import type { ControlName } from '../../primitives/field-control/control-name.type';
 
 interface FilterControlProps {
   field: FieldDescriptor;
@@ -26,7 +27,7 @@ interface NumberBounds {
   step?: number;
 }
 
-interface EditorControlProps<V = unknown> {
+interface EditorControlProps<V = unknown> extends ControlName {
   field: FieldDescriptor;
   value: V;
   onChange: (value: V) => void;

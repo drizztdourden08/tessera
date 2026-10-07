@@ -30,7 +30,7 @@ const SegmentedControl = <T extends string = string>(props: SegmentedControlProp
           {description && <Small tone="dim" className="segmented__description">{description}</Small>}
         </div>
       )}
-      <div className="segmented__track" role="radiogroup" aria-label={label ?? props['aria-label']} ref={trackRef}>
+      <div className="segmented__track" role="radiogroup" aria-label={label ?? props['aria-label']} aria-labelledby={label ? undefined : props['aria-labelledby']} ref={trackRef}>
         <span className="segmented__indicator" style={indicatorStyle} />
         {options.map((opt) => (
           <SegmentButton<T>

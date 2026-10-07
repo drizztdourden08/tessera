@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { registerFieldTester } from '../../data/filter/tester-registry';
 import { registerComparator, registerGroupKey } from '../../data/table/strategy-registry';
+import { controlName } from '../../primitives/field-control/control-name';
 import { Text } from '../../primitives/Text';
 import { Toggle } from '../../primitives/Toggle';
 import { BooleanCell } from './sub-components/BooleanCell';
@@ -29,7 +30,8 @@ const FilterControl = () => null;
 
 const EditorControl = (props: EditorControlProps) => {
   const { field, value, onChange, disabled } = props;
-  return <Toggle checked={value === true} disabled={disabled} onChange={onChange} aria-label={field.label} />;
+  const name = controlName(props);
+  return <Toggle checked={value === true} disabled={disabled} onChange={onChange} {...name} aria-label={name['aria-label'] ?? field.label} />;
 };
 
 const renderCell = (value: unknown): ReactNode => {

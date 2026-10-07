@@ -20,6 +20,11 @@
   background: color-mix(in srgb, var(--c-primary) 6%, transparent);
 }
 
+.row-grid__row[aria-current='true'] {
+  background: var(--c-selected);
+  box-shadow: inset var(--border-width-thick) 0 0 0 var(--c-primary);
+}
+
 .row-grid__row[data-dragging='yes'] {
   background: var(--c-primary-soft);
   opacity: var(--opacity-muted);
@@ -83,6 +88,12 @@
 
 .row-grid--cards .row-grid__row:focus-within {
   border-color: var(--c-border-strong);
+}
+
+.row-grid--cards .row-grid__row[aria-current='true'] {
+  border-color: var(--c-primary);
+  background: var(--c-selected);
+  box-shadow: none;
 }
 
 .row-grid--cards .row-grid__below {

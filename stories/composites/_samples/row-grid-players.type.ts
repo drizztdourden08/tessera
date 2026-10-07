@@ -16,13 +16,20 @@ interface PlayersGridProps {
   numbered?: boolean;
   className?: string;
   onEdit?: () => void;
+  selectable?: boolean;
 }
 
 interface PlayerCellProps {
   player: Player;
   onChange: (patch: Partial<Player>) => void;
+  pick?: PlayerPick;
+}
+
+interface PlayerPick {
+  selected?: string;
+  toggle: (id: string) => void;
 }
 
 type PlayerUpdate = (id: string, patch: Partial<Player>) => void;
 
-export type { Player, PlayerCellProps, PlayersGridProps, PlayerUpdate };
+export type { Player, PlayerCellProps, PlayerPick, PlayersGridProps, PlayerUpdate };

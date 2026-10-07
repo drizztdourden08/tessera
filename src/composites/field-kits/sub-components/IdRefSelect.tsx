@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
 import { Select } from '../../../primitives/Select';
+import { controlName } from '../../../primitives/field-control/control-name';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { IdRefOption } from '../registry.type';
 import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
@@ -27,6 +28,7 @@ const IdRefSelect = (props: IdRefSelectProps) => {
   const selectOptions = useMemo(() => withCurrent(options, value, records), [options, value, records]);
   return (
     <Select
+      {...controlName(props)}
       options={selectOptions}
       value={value}
       placeholder={placeholder}

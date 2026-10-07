@@ -10,6 +10,7 @@ import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { ITEMS, START_INVENTORY } from '../primitives/_samples/option-samples.constants';
 import { KeyValueEditorDemo } from './_samples/KeyValueEditorDemo';
+import { KeyValueSaveDemo } from './_samples/KeyValueSaveDemo';
 import type { KeyValueEditorDemoProps } from './_samples/option-editor-demos.type';
 
 type KeyValueEditorArgs = {
@@ -66,6 +67,11 @@ const Words = {
   render: () => <KeyValueEditorDemo start={FREE} valueKind="text" keyLabel="Setting" aria-label="Server settings" />,
 } satisfies StoryLiteStoryDefinition<KeyValueEditorArgs>;
 
+const HeldSave = {
+  name: 'onProblem holds the Save of the form while a name is not on the list',
+  render: () => <KeyValueSaveDemo />,
+} satisfies StoryLiteStoryDefinition<KeyValueEditorArgs>;
+
 const KINDS: Readonly<Record<KeyValueKind, ReactNode>> = {
   count: <KeyValueEditorDemo start={START_INVENTORY} keys={ITEMS} min={0} max={99} />,
   number: <KeyValueEditorDemo start={{ 'Progressive Sword': 40, Hookshot: 15 }} valueKind="number" keys={ITEMS} min={0} max={100} aria-label="Item weights" />,
@@ -90,10 +96,11 @@ const Overview = overviewStory({
     '`valueKind` picks the value control: `count` a [NumberInput] with its buttons on the sides, `number`, `text` or `select`.',
     'A name listed twice, an empty name or one not in `keys` is marked; `onChange` waits for a fix.',
     'The add row searches the items not used yet; Add puts the new row at the end.',
+    '`onProblem` reports that problem, or null once fixed, so the form can hold its Save.',
   ],
   instead: '[CodeBlock] with `editable` for nested values that do not fit one row per name.',
   playground: Playground,
-  variants: [Counts, Words, Kinds],
+  variants: [Counts, Words, HeldSave, Kinds],
   states: {
     render: (props: StateProps) => <KeyValueEditorDemo start={START_INVENTORY} keys={ITEMS} {...(props as Partial<KeyValueEditorDemoProps>)} />,
     list: [STATE.idle, { name: 'Empty', props: { start: {} } }, STATE.disabled],
@@ -102,4 +109,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Counts, Kinds, Overview, Playground, Words };
+export { Counts, HeldSave, Kinds, Overview, Playground, Words };

@@ -17,6 +17,7 @@ interface RowGridFrameProps {
   rows?: RowSet;
   density?: RowGridDensity;
   numbered?: boolean;
+  selectable?: boolean;
 }
 
 export type { RowGridFrameProps, RowGridArgs, RowSet, StoryWidth };

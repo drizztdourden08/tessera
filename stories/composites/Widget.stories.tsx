@@ -71,8 +71,8 @@ const story = (name: string, patch: Partial<WidgetArgs>) => ({
 } satisfies PlaygroundStory<WidgetArgs>);
 
 const Playground = story('Playground', {});
-const Single = story('One widget', {});
-const Tabbed = story('Tabbed pane', { tabbed: true });
+const Single = story('One widget, a region named by its title', {});
+const Tabbed = story('Tabbed pane, a region named by its open tab', { tabbed: true });
 const OwnWindow = story('Own window', { mode: 'out' });
 const OwnActions = story('Own window, with a title bar action', { mode: 'out', titleBarActions: true });
 const Fullscreen = story('Own window, fullscreen', { mode: 'out', square: true });
@@ -135,7 +135,7 @@ const Overview = overviewStory({
   points: [
     'The title bar is the drag handle, with the name or tabs; pop out, options and close name the widget.',
     '`titleBarActions` adds buttons; in its own window `pin` keeps it on top and `dragRegion` lets the strip move it.',
-    'Each widget carries `data-widget-id` and each [DockLayout] pane `data-pane-id`, for tests.',
+    'Each widget is a region named by its title or open tab, with `data-widget-id`; a pane has `data-pane-id`.',
     'The body scrolls in its gutter with `padding`, `sm` by default, or `none` or `md`; `fill` makes a full height column.',
     '`options` puts [WidgetOptions], a [ControlMenu], on the gear; `WidgetManager` places a whole dock from a layout.',
     '`WidgetManager` hides context only widgets by `contextActive`: one flag, or a function per widget definition.',

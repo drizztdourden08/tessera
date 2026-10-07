@@ -9,7 +9,7 @@ import { ToggleText } from './sub-components/ToggleText';
 import type { ToggleProps } from './Toggle.type';
 
 const Toggle = (props: ToggleProps) => {
-  const { checked, onChange, label, description, disabled = false, id, link, size, hint, onHint, 'aria-label': ariaLabel } = props;
+  const { checked, onChange, label, description, disabled = false, id, link, size, hint, onHint, 'aria-label': ariaLabel, 'aria-labelledby': labelledBy } = props;
   const generatedId = useId();
   const control = useFieldControl(id);
   const controlSize = useControlSize(size);
@@ -29,7 +29,8 @@ const Toggle = (props: ToggleProps) => {
         disabled={disabled}
         role="switch"
         aria-checked={checked}
-        aria-label={label ? undefined : ariaLabel ?? hint?.label}
+        aria-label={label || labelledBy ? undefined : ariaLabel ?? hint?.label}
+        aria-labelledby={label ? undefined : labelledBy}
         aria-describedby={control.describedBy}
       />
       <span className="toggle__track">

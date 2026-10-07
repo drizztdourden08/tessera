@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { controlName } from '../../../primitives/field-control/control-name';
 import { TagPicker } from '../../../primitives/TagPicker';
 import type { TagPickerGroup } from '../../../primitives/TagPicker';
 import type { EnumTagSelectProps } from './EnumTagSelect.type';
@@ -10,6 +11,7 @@ const EnumTagSelect = (props: EnumTagSelectProps) => {
   ];
   return (
     <TagPicker
+      {...controlName(props)}
       groups={groups}
       value={[...selected]}
       single={single}

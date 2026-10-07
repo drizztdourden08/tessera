@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useId } from 'react';
 import { Box } from '../../primitives/Box';
+import { useFieldControl } from '../../primitives/Field/behavior/useFieldControl';
 import { useControlSize } from '../../primitives/field-control/useControlSize';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useTagInput } from './behavior/useTagInput';
@@ -22,26 +23,20 @@ const TagInput = (props: TagInputProps) => {
     placeholder = fields.tagPlaceholder, disabled = false, label, maxSuggestions, defaultOpen, inline, size, className = '', id,
   } = props;
   const controlSize = useControlSize(size);
-
+  const control = useFieldControl(id);
   const generatedId = useId();
-  const fieldId = id ?? `tag-input-${generatedId}`;
+  const fieldId = control.id ?? `tag-input-${generatedId}`;
   const listId = `${fieldId}-list`;
   const optionId = (idx: number) => `${fieldId}-opt-${idx}`;
-
   const tags = useTagInput({
     value, onChange, suggestions, maxSuggestions, disabled, validate, enforce, createError, defaultOpen, inline,
   });
   const { popup } = tags;
-
   const rootCls = tagInputClass({ disabled, invalid: tags.blocked || tags.createError != null, size: controlSize, className });
 
   return (
     <Box className={rootCls}>
-      {label != null && (
-        <Box as="label" className="tag-input__label" {...{ htmlFor: fieldId }}>
-          {label}
-        </Box>
-      )}
+      {label != null && <Box as="label" className="tag-input__label" {...{ htmlFor: fieldId }}>{label}</Box>}
 
       <Box ref={popup.anchorRef} className="tag-input__field">
         {value.map((tag, idx) => (
@@ -57,6 +52,8 @@ const TagInput = (props: TagInputProps) => {
         <TagEntry
           tags={tags}
           fieldId={fieldId}
+          naming={props}
+          describedBy={control.describedBy}
           listId={listId}
           optionId={optionId}
           placeholder={value.length === 0 ? placeholder : ''}

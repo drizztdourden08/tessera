@@ -71,4 +71,13 @@ describe('RowGrid', () => {
     expect(html).not.toContain('row-grid__remove');
     expect(html).not.toContain('row-grid__end');
   });
+
+  it('marks the selected row with aria-current and keeps a pressed button in it', () => {
+    const pressed = { id: 'edit', label: 'Edit', cell: (row) => h('button', { type: 'button', 'aria-pressed': row.id === 'b' }, 'Edit') };
+    const html = draw({ selectedKey: 'b', columns: [...COLUMNS, pressed] });
+    expect(html.match(/aria-current="true"/g)).toHaveLength(1);
+    expect(html).toMatch(/data-row-key="b"><div role="group" aria-label="Ana, row 2" aria-current="true"/);
+    expect(html).toContain('aria-pressed="true"');
+    expect(draw()).not.toContain('aria-current');
+  });
 });

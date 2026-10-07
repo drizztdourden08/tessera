@@ -30,7 +30,7 @@ const MenuItemButton = (props: MenuItemButtonProps) => {
       aria-checked={isChoice(kind) ? item.checked === true : undefined}
       aria-keyshortcuts={keys && ariaKeyShortcuts(keys)}
       tabIndex={-1}
-      className={`dropdown__item focus-ring-inset${confirm.asking ? ' dropdown__item--asking' : ''}`}
+      className={['dropdown__item', 'focus-ring-inset', item.tone && `dropdown__item--${item.tone}`, confirm.asking && 'dropdown__item--asking'].filter(Boolean).join(' ')}
       disabled={item.disabled}
       onClick={confirm.press}
     >

@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 interface FormRowProps {
   label: string;
   description?: ReactNode;
+  descriptionLines?: number;
   changed?: boolean;
   advanced?: boolean;
   problem?: ReactNode;
@@ -19,6 +20,7 @@ interface FormRowHeadProps {
   controlId: string;
   onNameClick: () => void;
   description?: ReactNode;
+  descriptionLines: number;
   descriptionId: string;
   changed: boolean;
   advanced: boolean;

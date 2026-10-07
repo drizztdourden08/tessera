@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useState } from 'react';
 import type { RefObject } from 'react';
-import { observeResize } from '../../../primitives/dom/observe-resize';
+import { observeResize } from '../dom/observe-resize';
 
 const useClamped = (textRef: RefObject<HTMLElement | null>, active: boolean): boolean => {
   const [clamped, setClamped] = useState(false);

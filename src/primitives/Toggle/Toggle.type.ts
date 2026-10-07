@@ -1,8 +1,9 @@
 /* @layer renderer-components @kind types */
+import type { ControlName } from '../field-control/control-name.type';
 import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintReport } from '../hint/hint.type';
 
-interface ToggleProps {
+interface ToggleProps extends ControlName {
   checked: boolean;
   onChange: (checked: boolean) => void;
   label?: string;
@@ -13,7 +14,6 @@ interface ToggleProps {
   size?: ControlSize;
   hint?: Hint;
   onHint?: HintReport;
-  'aria-label'?: string;
 }
 
 type ToggleTextProps = Pick<ToggleProps, 'label' | 'description' | 'link'>;

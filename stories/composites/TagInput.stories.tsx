@@ -12,6 +12,7 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { ValueReadout } from '../_template/ValueReadout';
+import { NamedByRow } from './_samples/NamedByRow';
 
 type TagInputArgs = {
   label: string;
@@ -68,10 +69,11 @@ type StatefulTagsProps = {
   initial: readonly string[];
   validate?: TagValidator;
   createError?: string;
+  labelledBy?: string;
 } & Partial<TagInputArgs>;
 
 const StatefulTags = (props: StatefulTagsProps) => {
-  const { initial, validate, createError, label, placeholder, maxSuggestions, enforce, namespaced, disabled, size } = props;
+  const { initial, validate, createError, labelledBy, label, placeholder, maxSuggestions, enforce, namespaced, disabled, size } = props;
   const [value, setValue] = useState(initial);
   return (
     <ValueReadout value={value}>
@@ -83,6 +85,7 @@ const StatefulTags = (props: StatefulTagsProps) => {
         enforce={enforce}
         createError={createError}
         label={label}
+        aria-labelledby={labelledBy}
         placeholder={placeholder}
         maxSuggestions={maxSuggestions}
         disabled={disabled}
@@ -124,6 +127,15 @@ const SessionGames = (props: SessionGamesProps) => {
 
 const FILLED: readonly string[] = ['game:a-link-to-the-past', 'mode:open'];
 
+const Named = {
+  name: 'Named by the label of a FormRow, through aria-labelledby',
+  render: () => (
+    <NamedByRow
+      rows={[{ id: 'session-games', label: 'Games', description: 'The games this session runs.', control: (labelId) => <StatefulTags initial={FILLED} labelledBy={labelId} namespaced /> }]}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TagInputArgs>;
+
 const renderState = (props: StateProps) => (
   <SessionGames
     initial={props.filled === true ? FILLED : []}
@@ -141,10 +153,11 @@ const Overview = overviewStory({
     '`validate` checks each tag; one that fails gets a hint but is kept, unless `enforce` is on.',
     '`createError` shows a refusal from the server and draws the error look.',
     '`inline` draws the suggestions right under the field instead of as a floating panel.',
+    '`aria-label` or `aria-labelledby` names it when it has no `label`, such as the name of a [FormRow].',
   ],
   instead: '[TagPicker] when the options are a short, known list.',
   playground: Playground,
-  variants: [Validation, Sizes],
+  variants: [Validation, Named, Sizes],
   states: {
     render: renderState,
     list: [
@@ -171,4 +184,4 @@ const [tags, setTags] = useState<readonly string[]>(['mode:open']);
 });
 
 export default meta;
-export { Overview, Playground, Sizes, Validation };
+export { Named, Overview, Playground, Sizes, Validation };

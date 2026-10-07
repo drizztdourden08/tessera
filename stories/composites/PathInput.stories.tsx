@@ -6,6 +6,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { DATA_PATH, KEY_PATH, ZIP_PATH } from './_samples/path-samples.constants';
+import { PathInputBlurDemo } from './_samples/PathInputBlurDemo';
 import { PathInputDemo } from './_samples/PathInputDemo';
 import type { PathInputDemoProps } from './_samples/PathInputDemo.type';
 import './PathInput.stories.css';
@@ -84,6 +85,11 @@ const ReadOnly = {
   ),
 } satisfies StoryLiteStoryDefinition<PathInputArgs>;
 
+const Blur = {
+  name: 'onBlur checks a typed player file when the user leaves the box',
+  render: () => <PathInputBlurDemo />,
+} satisfies StoryLiteStoryDefinition<PathInputArgs>;
+
 const CODE = `import { Field, PathInput } from '@drizztdourden08/tessera';
 
 <Field label="Key file" hint="Only the path is stored.">
@@ -101,7 +107,7 @@ const Overview = overviewStory({
   component: 'PathInput',
   description: 'A file or folder path the user can type, drop from the desktop or pick with Browse, all in one box.',
   points: [
-    'Typing edits the path; a drop sets it; `onBrowse` opens the dialog of the app and its result is used.',
+    'Typing edits the path, and `onBlur` runs when the user leaves it; a drop sets it; `onBrowse` opens a dialog.',
     'A file dragged in from the desktop turns the box into a drop target at once, before the drop.',
     '`kind` and `accept` say what a drop must be; anything else is turned away with a line that says why.',
     '`resolvePath` reads the full path of a dropped file, such as `webUtils.getPathForFile` in Electron.',
@@ -110,7 +116,7 @@ const Overview = overviewStory({
   ],
   instead: '[DropZone] for a box that takes the files themselves, not their path.',
   playground: Playground,
-  variants: [KeyFile, NoKey, PlayerFile, Folder, ReadOnly],
+  variants: [KeyFile, NoKey, PlayerFile, Folder, ReadOnly, Blur],
   states: {
     render: (props: StateProps) => <PathInputDemo start={KEY_PATH} aria-label="Key file" {...(props as Partial<PathInputDemoProps>)} />,
     list: [
@@ -126,4 +132,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Folder, KeyFile, NoKey, Overview, PlayerFile, Playground, ReadOnly };
+export { Blur, Folder, KeyFile, NoKey, Overview, PlayerFile, Playground, ReadOnly };

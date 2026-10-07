@@ -1,14 +1,16 @@
 /* @layer stories @kind component */
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { RowGrid } from '../../../src/composites';
 import { playerColumns } from './player-columns';
 import { PLAYERS } from './row-grid-players.constants';
 import type { Player, PlayersGridProps } from './row-grid-players.type';
 import { usePlayers } from './usePlayers';
 
-const PlayersGrid = ({ initial = PLAYERS, density, numbered = true, className, onEdit }: PlayersGridProps) => {
+const PlayersGrid = ({ initial = PLAYERS, density, numbered = true, className, onEdit, selectable = false }: PlayersGridProps) => {
   const { players, update, add, remove, move, duplicate } = usePlayers(initial, onEdit);
-  const columns = useMemo(() => playerColumns(players, update), [players, update]);
+  const [selected, setSelected] = useState(selectable ? initial[1]?.id : undefined);
+  const pick = useMemo(() => (selectable ? { selected, toggle: (id: string) => setSelected((now) => (now === id ? undefined : id)) } : undefined), [selectable, selected]);
+  const columns = useMemo(() => playerColumns(players, update, pick), [players, update, pick]);
   return (
     <RowGrid<Player>
       label="Players"
@@ -16,6 +18,7 @@ const PlayersGrid = ({ initial = PLAYERS, density, numbered = true, className, o
       columns={columns}
       rowKey={(player) => player.id}
       rowLabel={(player, index) => player.name || `Player ${String(index + 1)}`}
+      selectedKey={selected}
       numbered={numbered}
       density={density}
       onAdd={add}

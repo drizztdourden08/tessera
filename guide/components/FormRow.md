@@ -31,11 +31,13 @@ FormRow lays out the name, the control, the changed mark and the reset of an opt
 - Set changed when the value differs from its default, and pass onReset to put the default back.
 - Write problem as what blocks the save and what to do, such as Not saved: fix the JSON first.
 - Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs.
+- Write the whole description: past descriptionLines lines, 2 by default, it folds behind More and Less, so the app needs no fold of its own.
 
 ## Accessibility
 
 - The control gets the id, label and notes of the row, as inside a Field, so it is named by the option.
 - A problem is an alert and marks the control invalid; Reset is named Reset and the option.
+- More and Less is a button with aria-expanded that controls the folded text.
 
 ## Example
 
@@ -56,6 +58,7 @@ const BalancingRow = ({ value, onChange }: { value: number; onChange: (value: nu
 
 - `label`: `string`.
 - `description` (optional): `ReactNode`.
+- `descriptionLines` (optional): `number`. Default `2`.
 - `changed` (optional): `boolean`. Default `false`.
 - `advanced` (optional): `boolean`. Default `false`.
 - `problem` (optional): `ReactNode`.

@@ -15,6 +15,7 @@ const usage = {
     'Pass keys whenever the valid names are known, so the add row searches them and a wrong name is caught.',
     'Pick valueKind for the values: count for small whole numbers, number, text or select with options.',
     'Store the value from onChange; it waits while a name is empty, listed twice or not in keys.',
+    'Pass onProblem to hold the Save of the form: it gets the problem while a row is wrong, and null once it is fixed.',
   ],
   a11y: [
     'The editor is a group named by its Field or FormRow label, or by aria-label, and its rows are a list.',
@@ -36,7 +37,7 @@ const StartInventory = ({ items, value, onChange }: {
   <KeyValueEditor value={value} onChange={onChange} keys={items} min={0} max={99} aria-label="Start inventory" />
 );
 `,
-  propsHash: '52d4e706fa4c0f99',
+  propsHash: '975ce0a9e04c80e9',
 } satisfies ComponentUsage;
 
 export { usage };

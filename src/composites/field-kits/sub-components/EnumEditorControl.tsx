@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { SegmentedControl } from '../../../primitives/SegmentedControl';
 import { Select } from '../../../primitives/Select';
+import { controlName } from '../../../primitives/field-control/control-name';
 import { withCurrentValue } from '../open-set';
 import { toText } from '../to-text';
 import { SEGMENT_MAX, TAG_MAX } from './EnumEditorControl.constants';
@@ -20,10 +21,12 @@ const segmentsOf = (options: readonly string[]): SegmentOption[] =>
 
 const closedSetControl = (props: ClosedSetProps): ReactNode => {
   const { field, options, current, disabled, onChange } = props;
+  const name = controlName(props);
 
   if (options.length > 0 && options.length <= SEGMENT_MAX) {
     return (
       <SegmentedControl
+        {...name}
         value={current}
         options={segmentsOf(options)}
         disabled={disabled}
@@ -36,6 +39,7 @@ const closedSetControl = (props: ClosedSetProps): ReactNode => {
   if (options.length > 0 && options.length <= TAG_MAX) {
     return (
       <EnumTagSelect
+        {...name}
         id={field.path}
         options={options}
         selected={current ? [current] : []}
@@ -51,6 +55,7 @@ const closedSetControl = (props: ClosedSetProps): ReactNode => {
 
   return (
     <Select
+      {...name}
       value={current}
       options={optionsOf(options)}
       placeholder={field.label}
@@ -64,7 +69,7 @@ const EnumEditorControl = (props: EditorControlProps) => {
   const { field, value, onChange, disabled } = props;
   const current = toText(value);
   const options = withCurrentValue(field.options ?? [], current);
-  const control = closedSetControl({ field, options, current, disabled, onChange });
+  const control = closedSetControl({ ...controlName(props), field, options, current, disabled, onChange });
   if (field.closed) return control;
 
   return (

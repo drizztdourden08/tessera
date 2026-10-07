@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useReport } from '../../../primitives/dom/useReport';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { KeyValueEditorProps, KeyValueEntry, KeyValueRow, KeyValueRows } from '../KeyValueEditor.type';
 import { newEntry } from './new-entry';
@@ -23,6 +24,7 @@ const useKeyValueRows = (props: KeyValueEditorProps): KeyValueRows => {
     setRows((before) => rowsOf(value, fresh, before));
   }, [value, stamp]);
   const problem = useMemo(() => rowsProblem(rows, keys, strings), [rows, keys, strings]);
+  useReport(problem.message, props.onProblem);
   const commit = (next: readonly KeyValueRow[]) => {
     setRows(next);
     if (rowsProblem(next, keys, strings).message !== null) return;

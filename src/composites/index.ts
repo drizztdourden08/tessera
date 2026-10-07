@@ -53,7 +53,7 @@ export type { InlineCreateFormProps } from './InlineCreateForm';
 export { Drawer, type DrawerProps } from './Drawer';
 export { DropdownMenu } from './DropdownMenu';
 export type {
-  DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemKind, MenuNode, MenuSeparator, MenuSide,
+  DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from './DropdownMenu';
 export { ScreenLayer } from './ScreenLayer';

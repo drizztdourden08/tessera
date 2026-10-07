@@ -8,6 +8,7 @@ import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
+import { NamedByRow } from '../composites/_samples/NamedByRow';
 import type { StateProps } from '../_template/states/states.type';
 
 type ToggleArgs = {
@@ -93,6 +94,23 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<ToggleArgs>;
 
+const NamedSwitch = ({ labelledBy }: { labelledBy: string }) => {
+  const [checked, setChecked] = useState(true);
+  return <Toggle checked={checked} onChange={setChecked} aria-labelledby={labelledBy} />;
+};
+
+const Named = {
+  name: 'Named by the label of a FormRow, through aria-labelledby',
+  render: () => (
+    <NamedByRow
+      rows={[
+        { id: 'death-link', label: 'Death Link', description: 'When one player dies, everyone dies.', control: (labelId) => <NamedSwitch labelledBy={labelId} /> },
+        { id: 'hints', label: 'Hints', control: (labelId) => <NamedSwitch labelledBy={labelId} /> },
+      ]}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ToggleArgs>;
+
 const AutoSave = (props: { initial: boolean; disabled?: boolean }) => {
   const { initial, disabled } = props;
   const [checked, setChecked] = useState(initial);
@@ -109,10 +127,11 @@ const Overview = overviewStory({
     'The whole row is one label, so a click anywhere on it flips the switch.',
     '`sm` is the compact switch, for widget panels and dense rows.',
     '`hint` reports a one-line description to a [HintLine] while it is pointed at or focused.',
+    '`aria-label` or `aria-labelledby` names it when it has no `label`, such as the name of a [FormRow].',
   ],
   instead: '[Checkbox] for a choice saved with a form.',
   playground: Playground,
-  variants: [Labels, Sizes],
+  variants: [Labels, Named, Sizes],
   states: {
     render: renderState,
     list: [
@@ -137,4 +156,4 @@ const [autoSave, setAutoSave] = useState(true);
 });
 
 export default meta;
-export { Labels, Overview, Playground, Sizes };
+export { Labels, Named, Overview, Playground, Sizes };

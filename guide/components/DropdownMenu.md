@@ -33,6 +33,7 @@ DropdownMenu keeps rare and secondary actions one click away, and asks before th
 
 - The app owns every checked value and every action; the menu only calls onSelect and draws what it is given.
 - Give an action that undoes work kind confirm: the first press reads Click again to and the label, in the danger tone; the second runs it.
+- Give an action that deletes, such as Delete in a row menu, tone danger, so it reads in the danger tone at rest; a confirm item turns red only while it asks.
 - Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.
 - Split groups by meaning with a label or a separator; turn on filter past about a dozen items.
 - Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.

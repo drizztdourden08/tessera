@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { ControlName } from '../field-control/control-name.type';
 import type { ControlSize } from '../field-control/field-control.type';
 import type { TagLook } from '../Tag';
 
@@ -13,7 +14,7 @@ interface TagPickerGroup<T extends string = string> {
   options: TagPickerOption<T>[];
 }
 
-interface TagPickerProps<T extends string = string> {
+interface TagPickerProps<T extends string = string> extends ControlName {
   value: T[];
   groups: TagPickerGroup<T>[];
   onChange: (value: T[]) => void;

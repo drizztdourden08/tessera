@@ -10,6 +10,7 @@ type KeyValueRecord = Readonly<Record<string, KeyValueEntry>>;
 interface KeyValueEditorProps {
   value: KeyValueRecord;
   onChange: (value: Record<string, KeyValueEntry>) => void;
+  onProblem?: (problem: string | null) => void;
   keys?: readonly string[];
   valueKind?: KeyValueKind;
   options?: readonly string[];

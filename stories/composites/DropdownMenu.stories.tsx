@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DropdownMenu } from '../../src/composites';
-import type { MenuIntensity, MenuSize, MenuTrigger, MenuVariant } from '../../src/composites';
+import type { MenuGroup, MenuIntensity, MenuSize, MenuTrigger, MenuVariant } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -31,6 +31,17 @@ const INSIDE = {
   'Subtitles and shortcuts': SUBTITLE_MENU,
 } as const;
 const ignore = (): void => undefined;
+
+const DANGER_MENU: MenuGroup[] = [{
+  id: 'session',
+  items: [
+    { id: 'rename', icon: 'pencil', label: 'Rename' },
+    { id: 'duplicate', icon: 'copy', label: 'Duplicate' },
+    { id: 'reset', icon: 'rotate-ccw', label: 'Reset options', kind: 'confirm' },
+    { separator: true },
+    { id: 'delete', icon: 'trash-2', label: 'Delete session', tone: 'danger', shortcut: 'Del' },
+  ],
+}];
 
 const ARGS: Partial<MenuDemoArgs> = {
   variant: 'primary', intensity: 'strong', size: 'sm', iconOnly: true, iconSide: 'end', filter: false, closeOnSelect: true,
@@ -122,6 +133,11 @@ const Confirm = {
   ),
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const Danger = {
+  name: 'A danger item for Delete, beside a confirm item that only turns red while it asks',
+  render: () => <DropdownMenu inline groups={DANGER_MENU} />,
+} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const SubMenus = {
   name: 'Sub-menus and filter',
   render: () => (
@@ -180,13 +196,13 @@ const Overview = overviewStory({
     '`groups` lists the items; each has a `label` and can add an `icon`, a `shortcut` and `onSelect`.',
     '`trigger` draws the button: a [Button] with its label, or an [IconButton] with `iconOnly`.',
     '`kind="radio"` or `checked` turns an item into a choice, and `children` opens a sub-menu.',
-    '`kind="confirm"` asks first: one press shows Click again to in the danger tone, a second press runs it.',
+    '`tone="danger"` draws an action such as Delete in red; `kind="confirm"` asks Click again to before it runs.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
     '`filter` adds a search field over every level; `anchorRef` hangs the menu from a table header or a row.',
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, Inside, Commands, Confirm, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, Inside, Commands, Confirm, Danger, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -201,4 +217,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Confirm, Inside, Joins, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };
+export { Commands, Confirm, Danger, Inside, Joins, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };

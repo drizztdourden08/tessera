@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ControlName } from '../field-control/control-name.type';
 import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintHandlers, HintReport } from '../hint/hint.type';
 import type { IconName } from '../Icon/Icon.type';
@@ -24,7 +25,7 @@ interface SegmentIconOption<T extends string> extends SegmentOptionBase<T> {
 
 type SegmentOption<T extends string = string> = SegmentTextOption<T> | SegmentIconOption<T>;
 
-interface SegmentedControlProps<T extends string = string> {
+interface SegmentedControlProps<T extends string = string> extends ControlName {
   value: T;
   options: SegmentOption<T>[];
   onChange: (value: T) => void;
@@ -34,7 +35,6 @@ interface SegmentedControlProps<T extends string = string> {
   description?: string;
   size?: ControlSize;
   disabled?: boolean;
-  'aria-label'?: string;
 }
 
 interface SegmentButtonProps<T extends string> {

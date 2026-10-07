@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind types */
+import type { ControlName } from '../../../primitives/field-control/control-name.type';
 import type { IdRefOption } from '../registry.type';
 
-interface IdRefSelectProps {
+interface IdRefSelectProps extends ControlName {
   options: readonly IdRefOption[];
   value: string;
   placeholder: string;

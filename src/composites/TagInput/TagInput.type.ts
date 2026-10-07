@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { RefObject } from 'react';
+import type { ControlName } from '../../primitives/field-control/control-name.type';
 import type { ControlSize } from '../../primitives/field-control/field-control.type';
 
 type TagValidationResult = boolean | string;
@@ -18,7 +19,7 @@ interface PopupPosition {
   dropUp: boolean;
 }
 
-interface TagInputProps {
+interface TagInputProps extends ControlName {
   value: readonly string[];
   onChange: (next: readonly string[]) => void;
   suggestions?: readonly string[];

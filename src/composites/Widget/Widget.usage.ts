@@ -20,7 +20,7 @@ const usage = {
     'To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest.',
   ],
   a11y: [
-    'The title bar names the widget; pop out, options and close are icon buttons named with it.',
+    'Each widget is a region named by its title, or by its open tab in a tabbed pane; pop out, options and close are icon buttons named with it.',
     'Each widget carries data-widget-id and each pane data-pane-id, for tests.',
     'A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown.',
   ],

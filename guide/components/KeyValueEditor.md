@@ -31,6 +31,7 @@ KeyValueEditor edits a map row by row and holds it back while it has a duplicate
 - Pass keys whenever the valid names are known, so the add row searches them and a wrong name is caught.
 - Pick valueKind for the values: count for small whole numbers, number, text or select with options.
 - Store the value from onChange; it waits while a name is empty, listed twice or not in keys.
+- Pass onProblem to hold the Save of the form: it gets the problem while a row is wrong, and null once it is fixed.
 
 ## Accessibility
 
@@ -57,6 +58,7 @@ const StartInventory = ({ items, value, onChange }: {
 
 - `value`: `KeyValueRecord`.
 - `onChange`: `(value: Record<string, KeyValueEntry>) => void`.
+- `onProblem` (optional): `(problem: string | null) => void`.
 - `keys` (optional): `readonly string[]`.
 - `valueKind` (optional): `KeyValueKind`, one of `'count'`, `'number'`, `'text'`, `'select'`. Default `'count'`.
 - `options` (optional): `readonly string[]`.

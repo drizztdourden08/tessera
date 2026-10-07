@@ -19,9 +19,10 @@ const usage = {
     'Put the field that names the row first: in cards it heads the card.',
     'Keep the rows in the app and change them in onAdd, onRemove and onMove; the grid only draws them.',
     'Pass error per column as a sentence that says how to fix it.',
+    'Pass selectedKey for the row the app has open, such as the row whose Edit button is pressed; the app keeps it.',
   ],
   a11y: [
-    'Each row is a group named after rowLabel, and each input is named by its column.',
+    'Each row is a group named after rowLabel, and each input is named by its column; the selected row carries aria-current.',
     'Ctrl and Up or Down moves to the same column in the row above or below.',
     'The grip moves its row with Up and Down; the row menu has Move up and Move down too.',
     'Adding, removing and moving a row is announced, and focus lands on the next useful control.',
@@ -71,7 +72,7 @@ const Players = ({ players, rename, add, remove, move }: PlayersProps) => {
   );
 };
 `,
-  propsHash: '9331047efc2c0e60',
+  propsHash: 'ee479e46d8df7e7e',
 } satisfies ComponentUsage;
 
 export { usage };

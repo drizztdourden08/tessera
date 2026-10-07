@@ -24,6 +24,7 @@ interface RowGridProps<Row> {
   columns: readonly RowGridColumn<Row>[];
   rowKey: (row: Row) => string;
   rowLabel?: (row: Row, index: number) => string;
+  selectedKey?: string;
   numbered?: boolean;
   density?: RowGridDensity;
   onAdd?: () => void;
@@ -95,6 +96,7 @@ interface RowShared<Row> {
   total: number;
   rowKey: (row: Row) => string;
   rowLabel?: (row: Row, index: number) => string;
+  selectedKey?: string;
   onRemove?: (key: string) => void;
   onMove?: (from: number, to: number) => void;
   rowMenu?: (row: Row, index: number) => readonly MenuItem[];

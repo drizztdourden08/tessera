@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { FocusEvent } from 'react';
 import type { FileDragHandlers } from '../../primitives/DropZone/behavior/useFileDrag.type';
 
 type PathKind = 'file' | 'folder' | 'any';
@@ -10,6 +11,7 @@ type PathProblem = 'file' | 'folder' | 'type';
 interface PathInputProps {
   value: string | null;
   onChange?: (path: string | null) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   onBrowse?: PathBrowse;
   onReveal?: (path: string) => void;
   kind?: PathKind;
@@ -68,6 +70,7 @@ interface PathInputView {
   describedBy: string | undefined;
   problemId: string;
   setFocused: (focused: boolean) => void;
+  blur: (event: FocusEvent<HTMLInputElement>) => void;
   change: (text: string) => void;
   clear: () => void;
   browse: (() => void) | undefined;

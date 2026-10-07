@@ -1270,6 +1270,13 @@
         "--widget-btn-d": "--control-h-xs",
         "--menu-trigger-width": "--control-h-xs"
       }
+    },
+    {
+      "version": "next",
+      "cssClasses": {
+        "settings-row__about-text": "fold-text",
+        "settings-row__more": "fold-text__more"
+      }
     }
   ]
 }

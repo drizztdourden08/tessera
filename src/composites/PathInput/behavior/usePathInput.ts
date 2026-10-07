@@ -23,6 +23,7 @@ const usePathInput = (props: PathInputProps): PathInputView => {
     inputId: control.id,
     labelId: control.labelId,
     describedBy: [control.describedBy, drop.problem ? problemId : undefined].filter(Boolean).join(' ') || undefined,
+    blur: (event) => { setFocused(false); props.onBlur?.(event); },
     change: (text) => { drop.clearProblem(); set(text || null); },
     clear: () => { drop.clearProblem(); set(null); },
     browse: flags.editable && onBrowse ? browseWith(onBrowse, set) : undefined,

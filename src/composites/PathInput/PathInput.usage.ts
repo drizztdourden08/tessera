@@ -16,6 +16,7 @@ const usage = {
     'Pass resolvePath in Electron, such as webUtils.getPathForFile, so a drop gives the full path and not only the name.',
     'Set kind and accept to what the setting takes, so a wrong drop is turned away with a reason.',
     'Pass onReveal only when the app can show the file in its folder.',
+    'Pass onBlur to check or save a typed path when the user leaves the box, as on a TextInput.',
   ],
   a11y: [
     'The input takes the label, hint and error of its Field, and typing edits the path.',
@@ -48,7 +49,7 @@ const KeyFileSetting = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPa
   </Field>
 );
 `,
-  propsHash: '0347fa9da023f2e0',
+  propsHash: 'ae0457e26a17f5a2',
 } satisfies ComponentUsage;
 
 export { usage };

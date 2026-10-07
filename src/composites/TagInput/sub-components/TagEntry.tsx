@@ -3,7 +3,7 @@ import { PlainInput } from '../../../primitives/field-control/PlainInput';
 import type { TagEntryProps } from './TagEntry.type';
 
 const TagEntry = (props: TagEntryProps) => {
-  const { tags, fieldId, listId, optionId, placeholder, disabled } = props;
+  const { tags, fieldId, naming, describedBy, listId, optionId, placeholder, disabled } = props;
   const { popup } = tags;
 
   return (
@@ -14,6 +14,9 @@ const TagEntry = (props: TagEntryProps) => {
       role="combobox"
       className="tag-input__entry"
       autoComplete="off"
+      aria-label={naming['aria-label']}
+      aria-labelledby={naming['aria-labelledby']}
+      aria-describedby={describedBy}
       aria-invalid={tags.blocked || undefined}
       aria-expanded={popup.open}
       aria-controls={popup.open ? listId : undefined}

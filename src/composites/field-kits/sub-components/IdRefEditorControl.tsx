@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { controlName } from '../../../primitives/field-control/control-name';
 import { toText } from '../to-text';
 import { IdInput } from './IdInput';
 import { NO_OPTIONS } from './IdRefEditorControl.constants';
@@ -15,11 +16,13 @@ const lookup = (
 const IdRefEditorControl = (props: EditorControlProps) => {
   const { field, value, onChange, disabled, resolveIdRefOptions } = props;
   const options = lookup(field, resolveIdRefOptions);
+  const name = controlName(props);
   if (!options.length) {
-    return <IdInput placeholder={field.label} value={value} disabled={disabled} onChange={onChange} />;
+    return <IdInput {...name} placeholder={field.label} value={value} disabled={disabled} onChange={onChange} />;
   }
   return (
     <IdRefSelect
+      {...name}
       options={options}
       value={toText(value)}
       placeholder={field.label}

@@ -21,7 +21,7 @@ const PathInputBox = ({ view, value, label }: PathInputBoxProps) => (
       autoComplete="off"
       onChange={(event) => view.change(event.target.value)}
       onFocus={() => view.setFocused(true)}
-      onBlur={() => view.setFocused(false)}
+      onBlur={view.blur}
     />
     {view.masked && value && <PathInputShown path={value} />}
     {view.drop.dropping && <Box as="span" className="path-input__drop">{view.words.drop}</Box>}

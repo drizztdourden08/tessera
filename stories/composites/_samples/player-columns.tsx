@@ -3,7 +3,7 @@ import { Select, TextInput } from '../../../src/primitives';
 import type { RowGridColumn } from '../../../src/composites';
 import { OverridesCell } from './OverridesCell';
 import { GAMES, PLAYER_COLUMNS } from './row-grid-players.constants';
-import type { Player, PlayerUpdate } from './row-grid-players.type';
+import type { Player, PlayerPick, PlayerUpdate } from './row-grid-players.type';
 import { PresetCell } from './PresetCell';
 
 const nameError = (players: readonly Player[]) => (player: Player): string | undefined => {
@@ -11,7 +11,7 @@ const nameError = (players: readonly Player[]) => (player: Player): string | und
   return players.some((other) => other !== player && other.name.trim() === player.name.trim()) ? 'Two players share this name.' : undefined;
 };
 
-const playerColumns = (players: readonly Player[], update: PlayerUpdate): RowGridColumn<Player>[] => [
+const playerColumns = (players: readonly Player[], update: PlayerUpdate, pick?: PlayerPick): RowGridColumn<Player>[] => [
   {
     id: 'name',
     label: 'Name',
@@ -37,7 +37,7 @@ const playerColumns = (players: readonly Player[], update: PlayerUpdate): RowGri
     label: 'Overrides',
     ...PLAYER_COLUMNS.overrides,
     fold: true,
-    cell: (player) => <OverridesCell player={player} onChange={(patch) => update(player.id, patch)} />,
+    cell: (player) => <OverridesCell player={player} pick={pick} onChange={(patch) => update(player.id, patch)} />,
   },
 ];
 

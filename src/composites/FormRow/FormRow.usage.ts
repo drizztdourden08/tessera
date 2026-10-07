@@ -15,10 +15,12 @@ const usage = {
     'Set changed when the value differs from its default, and pass onReset to put the default back.',
     'Write problem as what blocks the save and what to do, such as Not saved: fix the JSON first.',
     'Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs.',
+    'Write the whole description: past descriptionLines lines, 2 by default, it folds behind More and Less, so the app needs no fold of its own.',
   ],
   a11y: [
     'The control gets the id, label and notes of the row, as inside a Field, so it is named by the option.',
     'A problem is an alert and marks the control invalid; Reset is named Reset and the option.',
+    'More and Less is a button with aria-expanded that controls the folded text.',
   ],
   tree: {
     path: ['a value the user sets', 'one option in a long form, with a reset'],
@@ -35,7 +37,7 @@ const BalancingRow = ({ value, onChange }: { value: number; onChange: (value: nu
   </FormRow>
 );
 `,
-  propsHash: 'c299e3cf8283e31e',
+  propsHash: 'b5fe52025eb352f7',
 } satisfies ComponentUsage;
 
 export { usage };

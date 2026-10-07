@@ -80,6 +80,14 @@
   color: var(--menu-tone-bright, var(--c-primary-bright));
 }
 
+.dropdown__menu .dropdown__item.dropdown__item--danger:not(:disabled) {
+  color: var(--c-danger-bright);
+}
+
+.dropdown__menu .dropdown__item.dropdown__item--danger:is(:hover, :focus-visible):not(:disabled) {
+  border-left-color: var(--c-danger);
+}
+
 .dropdown__menu .dropdown__item.dropdown__item--asking,
 .dropdown__menu .dropdown__item.dropdown__item--asking:is(:hover, :focus-visible):not(:disabled) {
   border-left-color: var(--c-danger);

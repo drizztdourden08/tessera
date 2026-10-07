@@ -4,7 +4,7 @@ import { ListboxPanel } from '../../primitives/listbox/ListboxPanel';
 import { useListboxDrop } from '../../primitives/listbox/useListboxDrop';
 import { menuLookClass } from '../DropdownMenu/behavior/menu-look-class';
 import { menuPanelSize } from '../DropdownMenu/behavior/menu-panel-size';
-import { useOpenReport } from '../DropdownMenu/behavior/useOpenReport';
+import { useReport } from '../../primitives/dom/useReport';
 import { MenuTriggerButton } from '../DropdownMenu/sub-components/MenuTriggerButton';
 import { controlTriggerAttributes } from './behavior/control-trigger-attributes';
 import { ControlMenuPanel } from './sub-components/ControlMenuPanel';
@@ -23,7 +23,7 @@ const ControlMenu = (props: ControlMenuProps) => {
   const panelId = useId();
   const [query, setQuery] = useState('');
   const drop = useListboxDrop<HTMLButtonElement>({ disabled, defaultOpen, contentKey: query, escape: true, fit: true, align });
-  useOpenReport(drop.open, onOpenChange);
+  useReport(drop.open, onOpenChange);
   const look = menuLookClass(variant, intensity);
   const show = (): void => {
     setQuery('');

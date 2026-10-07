@@ -13,7 +13,7 @@ import { FormRowHead } from './sub-components/FormRowHead';
 import './FormRow.css';
 
 const FormRow = (props: FormRowProps) => {
-  const { label, description, changed = false, advanced = false, problem, onReset, children, className } = props;
+  const { label, description, descriptionLines = 2, changed = false, advanced = false, problem, onReset, children, className } = props;
   const { common } = useTesseraStrings();
   const auto = useId();
   const controlId = props.id ?? `form-row-${auto}`;
@@ -21,7 +21,7 @@ const FormRow = (props: FormRowProps) => {
   const controlBox = useRef<HTMLElement>(null);
   return (
     <Box className={['form-row', className].filter(Boolean).join(' ')} data-changed={changed || undefined} data-problem={problem ? true : undefined}>
-      <FormRowHead label={label} labelId={control.labelId ?? ''} controlId={controlId} onNameClick={() => focusRowControl(controlBox.current, controlId)} description={description} descriptionId={descriptionId} changed={changed} advanced={advanced} />
+      <FormRowHead label={label} labelId={control.labelId ?? ''} controlId={controlId} onNameClick={() => focusRowControl(controlBox.current, controlId)} description={description} descriptionLines={descriptionLines} descriptionId={descriptionId} changed={changed} advanced={advanced} />
       <Box ref={controlBox} className="form-row__control">
         <FieldControlContext.Provider value={control}>{children}</FieldControlContext.Provider>
         {problem && <Text id={problemId} variant="caption" tone="danger" role="alert">{problem}</Text>}

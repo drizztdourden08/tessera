@@ -9,7 +9,7 @@ import { menuPanelSize } from '../behavior/menu-panel-size';
 import { tidyGroups } from '../behavior/tidy-groups';
 import { triggerAttributes } from '../behavior/trigger-attributes';
 import { triggerSettings } from '../behavior/trigger-settings';
-import { useOpenReport } from '../behavior/useOpenReport';
+import { useReport } from '../../../primitives/dom/useReport';
 import { MenuRoot } from './MenuRoot';
 import { MenuTriggerButton } from './MenuTriggerButton';
 import type { MenuFocusStart } from '../behavior/menu-context.type';
@@ -26,7 +26,7 @@ const TriggerMenu = (props: TriggerMenuProps) => {
   const shown = tidyGroups(groups);
   const contentKey = useMemo(() => ({ groups, query }), [groups, query]);
   const drop = useListboxDrop<HTMLButtonElement>({ disabled: disabled || shown.length === 0, contentKey, escape: false, fit: true });
-  useOpenReport(drop.open, onOpenChange);
+  useReport(drop.open, onOpenChange);
   if (shown.length === 0) return null;
 
   const look = menuLookClass(variant, intensity);

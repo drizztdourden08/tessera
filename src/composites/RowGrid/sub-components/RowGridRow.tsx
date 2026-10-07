@@ -11,14 +11,14 @@ import { RowHandle } from './RowHandle';
 import './RowGridRow.css';
 
 const RowGridRow = <Row,>({ row, index, shared }: RowGridRowProps<Row>) => {
-  const { columns, layout, numbered, total, drag } = shared;
+  const { columns, layout, numbered, total, drag, selectedKey } = shared;
   const rowId = useId();
   const { key, name, group, step, remove, menu } = useRowActions(shared, row, index);
   const { inRow, below } = splitColumns(columns, layout);
   const ended = remove !== undefined || step !== undefined || menu.length > 0;
   return (
     <Box as="li" className="row-grid__item" data-row-index={index} data-row-key={key} data-drop={drag.dropMark(index, total)}>
-      <Box role="group" aria-label={group} className="row-grid__row" data-dragging={drag.dragging === index ? 'yes' : undefined}>
+      <Box role="group" aria-label={group} aria-current={key === selectedKey || undefined} className="row-grid__row" data-dragging={drag.dragging === index ? 'yes' : undefined}>
         {step && <RowHandle name={name} index={index} total={total} drag={drag} onStep={step} />}
         {numbered && <Span className="row-grid__number" aria-hidden>{index + 1}</Span>}
         {inRow.map((column) => <RowGridCell key={column.id} column={column} row={row} index={index} rowId={rowId} look="hidden" />)}
