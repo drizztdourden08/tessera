@@ -11,7 +11,7 @@ import type { ControlSubPanelProps } from '../ControlMenu.type';
 const ControlSubPanel = (props: ControlSubPanelProps) => {
   const { id, anchorRef, label, focus, onBack, children } = props;
   const { panelRef, pieces, place } = useJoinedPanel(anchorRef);
-  const { look } = useContext(ControlMenuContext);
+  const { look, data } = useContext(ControlMenuContext);
   useSubPanelLife(panelRef, anchorRef, focus, onBack);
 
   return (
@@ -21,6 +21,7 @@ const ControlSubPanel = (props: ControlSubPanelProps) => {
       role="group"
       aria-label={label}
       anchorRef={anchorRef}
+      {...data}
       placement="right-start"
       flip={false}
       className={`dropdown-menu dropdown-menu--sub dropdown-surface control-menu__sub-panel ${look}`}

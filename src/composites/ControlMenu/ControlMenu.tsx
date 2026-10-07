@@ -19,7 +19,7 @@ import './ControlMenu.css';
 
 const ControlMenu = (props: ControlMenuProps) => {
   const { trigger, children, label, header, filter = false, filterPlaceholder, hints = true, align = 'auto' } = props;
-  const { variant = 'primary', intensity = 'strong', size = 'sm', disabled = false, defaultOpen, onOpenChange, className, triggerClassName } = props;
+  const { variant = 'primary', intensity = 'strong', size = 'sm', disabled = false, defaultOpen, onOpenChange, className, triggerClassName, panelData } = props;
   const panelId = useId();
   const [query, setQuery] = useState('');
   const drop = useListboxDrop<HTMLButtonElement>({ disabled, defaultOpen, contentKey: query, escape: true, fit: true, align });
@@ -44,7 +44,7 @@ const ControlMenu = (props: ControlMenuProps) => {
         onClick={() => (drop.open ? drop.close() : show())}
       />
       {drop.open && (
-        <ListboxPanel drop={drop} invalid={false} size={menuPanelSize(size)} className={['dropdown-drop dropdown-surface control-menu', look, className].filter(Boolean).join(' ')}>
+        <ListboxPanel drop={drop} invalid={false} size={menuPanelSize(size)} data={panelData} className={['dropdown-drop dropdown-surface control-menu', look, className].filter(Boolean).join(' ')}>
           <ControlMenuPanel
             id={panelId}
             label={label ?? trigger.label}
@@ -54,6 +54,7 @@ const ControlMenu = (props: ControlMenuProps) => {
             hints={hints}
             query={query}
             look={look}
+            data={panelData}
             onQueryChange={setQuery}
           >
             {children}

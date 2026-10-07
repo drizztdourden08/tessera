@@ -11,11 +11,11 @@ import { ControlMenuFilter } from './ControlMenuFilter';
 import type { ControlMenuPanelProps } from '../ControlMenu.type';
 
 const ControlMenuPanel = (props: ControlMenuPanelProps) => {
-  const { id, label, header, filter, filterPlaceholder, hints, query, look, onQueryChange, children } = props;
+  const { id, label, header, filter, filterPlaceholder, hints, query, look, data, onQueryChange, children } = props;
   const { navigation } = useTesseraStrings();
   const inputRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const context = useMemo(() => ({ query, look }), [query, look]);
+  const context = useMemo(() => ({ query, look, data }), [query, look, data]);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {

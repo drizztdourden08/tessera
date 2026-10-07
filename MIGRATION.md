@@ -6293,3 +6293,30 @@ ScreenLayer, so every screen kind, and Drawer move focus to their title when the
 ### What an app does
 
 Nothing. An app that focuses a heading of its own with `tabindex="-1"` can give it the same `outline: none` on `:focus`.
+
+## 201. The widget options panel carries data-widget-options
+
+Brock adds a guard so that a click in a widget does not leave keyboard focus there. The guard has to recognise the widget options panel without matching every ControlMenu, and the `widget-options` class sits only on the main panel, not on the sub-panels it opens.
+
+### What changed
+
+- **WidgetOptions.** Its panel and every sub-panel it opens, such as Shortcuts, carry `data-widget-options=""` on their root element: the drop surface of the panel, and the side or under panel of each ControlMenuSub. Each is drawn in its own popover or portal, so each carries the attribute itself.
+- **A public name.** `WIDGET_OPTIONS_ATTRIBUTE`, `'data-widget-options'`, is exported beside `WidgetOptions`.
+- **ControlMenu** gains `panelData`, data attributes it sets on its panel and passes to every sub-panel.
+
+```ts
+type DropData = Readonly<Partial<Record<`data-${string}`, string>>>;
+
+interface ControlMenuProps {
+  // ...
+  panelData?: DropData;  // new, set on the panel and on every sub-panel
+}
+
+const WIDGET_OPTIONS_ATTRIBUTE = 'data-widget-options';
+```
+
+- Nothing changes on screen.
+
+### What an app does
+
+Nothing. A guard that looked for `.widget-options` can match `target.closest('[data-widget-options]')` instead, built from `WIDGET_OPTIONS_ATTRIBUTE`, which also finds the sub-panels.

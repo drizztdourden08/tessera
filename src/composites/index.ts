@@ -105,6 +105,7 @@ export {
   migrateLayout, loadLayoutForProfile, loadLayoutLocal, saveLayoutForProfile, saveLayoutLocal, applyEdit, dockOnEdge, dockWidget,
   dropFrame, edgeOf, floatInMain, floatWidget, frameOf, isWidgetOpen, moveMain, openStartupWidgets, openWidget, placementOf,
   popOutWidget, removeEverywhere, resolveSplit, setFrame, setMakeRoom, setPopped, visibleLayoutOf, DEFAULT_LAYOUT_STORAGE_KEY,
+  WIDGET_OPTIONS_ATTRIBUTE,
 } from './Widget';
 export type {
   DockPlace, FlatWidgetLayout, FlatWidgetState, PinMode, PoppedWidget, ResolvedSplit, SnapLink, SnapSide, StartupOverride,

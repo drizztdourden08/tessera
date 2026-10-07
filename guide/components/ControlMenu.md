@@ -36,6 +36,7 @@ ControlMenu keeps several small settings one click away without a page or a dial
 - Turn filter on when the panel holds more than about eight rows; it narrows rows by label, and rows of a sub-panel show inline under its name.
 - Name the panel with label when the trigger is an icon, such as "Players options".
 - Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.
+- PanelData sets data attributes on the panel and on every sub-panel, so code outside can tell this menu from other ControlMenus; it changes nothing on screen.
 
 ## Accessibility
 
@@ -86,6 +87,7 @@ const ViewOptions = (props: { density: string; zoom: number; sounds: boolean; on
 - `onOpenChange` (optional): `(open: boolean) => void`.
 - `className` (optional): `string`.
 - `triggerClassName` (optional): `string`.
+- `panelData` (optional): `DropData`.
 
 ## Tokens
 

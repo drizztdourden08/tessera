@@ -12,7 +12,7 @@ import type { ControlSubPanelProps } from '../ControlMenu.type';
 const ControlSubUnder = (props: ControlSubPanelProps) => {
   const { id, anchorRef, label, focus, onBack, children } = props;
   const panelRef = useRef<HTMLDivElement>(null);
-  const { look } = useContext(ControlMenuContext);
+  const { look, data } = useContext(ControlMenuContext);
   useSubPanelLife(panelRef, anchorRef, focus, onBack);
   useFitFallback(() => panelRef.current);
   const anchor = anchorRef.current;
@@ -25,6 +25,7 @@ const ControlSubUnder = (props: ControlSubPanelProps) => {
       role="group"
       aria-label={label}
       anchorRef={anchorRef}
+      {...data}
       placement="bottom-start"
       flip
       style={anchor && row ? subWidthStyle(row.width / cssZoomOf(anchor)) : undefined}

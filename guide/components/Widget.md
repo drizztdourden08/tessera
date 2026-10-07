@@ -33,6 +33,7 @@ Widget and WidgetManager give every tool panel the same frame, dock and options,
 - Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.
 - Give a log or a chart fill in its definition, and leave the other widgets on the default padding.
 - Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.
+- To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest.
 
 ## Accessibility
 
@@ -99,4 +100,4 @@ It draws on `--border-width-thin`, `--c-hover`, `--c-layer`, `--c-primary`, `--c
 
 ## Also exported from this folder
 
-`DEFAULT_LAYOUT_STORAGE_KEY`, `WidgetManager`, `WidgetOptions`, `applyEdit`, `createDefaultLayout`, `dockOnEdge`, `dockWidget`, `dropFrame`, `edgeOf`, `floatInMain`, `floatWidget`, `frameOf`, `getDevOnlyWidgetIds`, `getWidgetDefinition`, `isWidgetOpen`, `loadLayoutForProfile`, `loadLayoutLocal`, `migrateLayout`, `moveMain`, `openStartupWidgets`, `openWidget`, `placementOf`, `popOutWidget`, `removeEverywhere`, `resolveSplit`, `saveLayoutForProfile`, `saveLayoutLocal`, `setFrame`, `setMakeRoom`, `setPopped`, `useWidgetLayout`, `visibleLayoutOf`.
+`DEFAULT_LAYOUT_STORAGE_KEY`, `WIDGET_OPTIONS_ATTRIBUTE`, `WidgetManager`, `WidgetOptions`, `applyEdit`, `createDefaultLayout`, `dockOnEdge`, `dockWidget`, `dropFrame`, `edgeOf`, `floatInMain`, `floatWidget`, `frameOf`, `getDevOnlyWidgetIds`, `getWidgetDefinition`, `isWidgetOpen`, `loadLayoutForProfile`, `loadLayoutLocal`, `migrateLayout`, `moveMain`, `openStartupWidgets`, `openWidget`, `placementOf`, `popOutWidget`, `removeEverywhere`, `resolveSplit`, `saveLayoutForProfile`, `saveLayoutLocal`, `setFrame`, `setMakeRoom`, `setPopped`, `useWidgetLayout`, `visibleLayoutOf`.

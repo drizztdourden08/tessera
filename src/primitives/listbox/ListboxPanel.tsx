@@ -5,7 +5,7 @@ import { dropStyle } from './drop-style';
 import type { ListboxDropViewProps } from './listbox-view.type';
 
 const ListboxPanel = (props: ListboxDropViewProps) => {
-  const { drop, invalid, size, className = '', children } = props;
+  const { drop, invalid, size, className = '', data, children } = props;
   const { placement } = drop;
   const look = {
     ref: drop.dropRef,
@@ -19,7 +19,7 @@ const ListboxPanel = (props: ListboxDropViewProps) => {
   };
 
   const anchoring = dropAnchoring(drop);
-  if (drop.inline) return <div className={`listbox-drop listbox-drop--inline ${className}`} {...look}>{children}</div>;
+  if (drop.inline) return <div className={`listbox-drop listbox-drop--inline ${className}`} {...data} {...look}>{children}</div>;
   return (
     <Anchored
       anchorRef={drop.anchorRef}
@@ -27,6 +27,7 @@ const ListboxPanel = (props: ListboxDropViewProps) => {
       flip={false}
       fallback={anchoring.fallback}
       className={`listbox-drop ${className}`}
+      {...data}
       {...look}
     >
       {children}

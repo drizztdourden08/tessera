@@ -18,6 +18,8 @@ interface ListboxView<T> {
 
 type GridStyle = CSSProperties & Record<'--listbox-columns', string>;
 
+type DropData = Readonly<Partial<Record<`data-${string}`, string>>>;
+
 type DropStyle = CSSProperties & Partial<Record<'--listbox-attach' | '--listbox-space', string>>;
 
 interface ListboxListProps<T> {
@@ -76,6 +78,7 @@ interface ListboxDropViewProps {
   invalid: boolean;
   size: ControlSize;
   className?: string;
+  data?: DropData;
   children: ReactNode;
 }
 
@@ -108,6 +111,7 @@ interface ListboxValueRowProps<T> {
 }
 
 export type {
+  DropData,
   DropStyle,
   GridStyle,
   HighlightedTextProps,

@@ -2,6 +2,10 @@
 import type { PinMode, WidgetVisibility } from '../../Widget.type';
 import type { IconChoice, PlacementChoice, RoomChoice, ShortcutGroupEntry, SnapChoice } from './WidgetOptions.type';
 
+const WIDGET_OPTIONS_ATTRIBUTE = 'data-widget-options';
+
+const WIDGET_OPTIONS_DATA = { [WIDGET_OPTIONS_ATTRIBUTE]: '' } as const;
+
 const PLACEMENT_CHOICES: readonly IconChoice<PlacementChoice>[] = [
   { value: 'left', icon: 'panel-left', label: 'dockLeft', hint: 'dockLeftHint' },
   { value: 'right', icon: 'panel-right', label: 'dockRight', hint: 'dockRightHint' },
@@ -59,4 +63,5 @@ const SHORTCUT_GROUPS: readonly ShortcutGroupEntry[] = [
 
 export {
   OPACITY_MAX, OPACITY_MIN, OPACITY_STEP, PIN_CHOICES, PLACEMENT_CHOICES, ROOM_CHOICES, SHORTCUT_GROUPS, SHOW_CHOICES, SNAP_CHOICES,
+  WIDGET_OPTIONS_ATTRIBUTE, WIDGET_OPTIONS_DATA,
 };

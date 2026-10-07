@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind barrel */
 export { Widget } from './Widget';
 export { WidgetManager } from './sub-components/WidgetManager';
-export { WidgetOptions } from './sub-components/WidgetOptions';
+export { WIDGET_OPTIONS_ATTRIBUTE, WidgetOptions } from './sub-components/WidgetOptions';
 export type { WidgetOptionsProps } from './sub-components/WidgetOptions';
 export type { WidgetManagerProps } from './sub-components/WidgetManager.type';
 export type {

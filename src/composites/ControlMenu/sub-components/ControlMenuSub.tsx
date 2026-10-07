@@ -1,11 +1,11 @@
 /* @layer renderer-components @kind component */
-import { useContext, useId, useMemo, useRef, useState } from 'react';
+import { useContext, useId, useMemo, useRef } from 'react';
 import { matchesText } from '../../../data/text/matches-text';
 import { Box } from '../../../primitives/Box';
-import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
 import { useHintTarget } from '../../../primitives/hint/useHintTarget';
 import { ControlMenuContext } from '../behavior/control-menu-context';
 import { subRoom } from '../behavior/sub-room';
+import { useSubOpen } from '../behavior/useSubOpen';
 import { SUB_MIN_ROOM } from '../ControlMenu.constants';
 import type { ControlMenuSubProps } from '../ControlMenu.type';
 import { ControlMenuGroup } from './ControlMenuGroup';
@@ -18,12 +18,8 @@ const ControlMenuSub = (props: ControlMenuSubProps) => {
   const context = useContext(ControlMenuContext);
   const panelId = useId();
   const rowRef = useRef<HTMLElement>(null);
-  const [open, setOpen] = useState<'hover' | 'focus' | null>(null);
-  const leave = (): void => {
-    const doc = ownerDocumentOf(rowRef.current);
-    if (!doc.getElementById(panelId)?.contains(doc.activeElement)) setOpen(null);
-  };
-  const handlers = useHintTarget<HTMLElement>({ hint, handlers: { onMouseEnter: () => setOpen((now) => now ?? 'hover'), onMouseLeave: leave } });
+  const { open, hover, focus, leave, back } = useSubOpen(rowRef, panelId);
+  const handlers = useHintTarget<HTMLElement>({ hint, handlers: { onMouseEnter: hover, onMouseLeave: leave } });
   const whole = useMemo(() => ({ ...context, query: '' }), [context]);
   const filtering = context.query.trim() !== '';
 
@@ -33,17 +29,11 @@ const ControlMenuSub = (props: ControlMenuSubProps) => {
     return <ControlMenuGroup label={label} shown={matched}>{inner}</ControlMenuGroup>;
   }
 
-  const back = (): void => {
-    const doc = ownerDocumentOf(rowRef.current);
-    const inside = doc.getElementById(panelId)?.contains(doc.activeElement) === true;
-    setOpen(null);
-    if (inside) rowRef.current?.querySelector<HTMLElement>('.control-menu__sub-row')?.focus();
-  };
   const Panel = open && subRoom(rowRef.current) < SUB_MIN_ROOM ? ControlSubUnder : ControlSubPanel;
 
   return (
     <Box ref={rowRef} className="dropdown__submenu-trigger control-menu__sub" {...handlers}>
-      <ControlSubRow label={label} icon={icon} description={description} open={open !== null} panelId={panelId} onOpen={() => setOpen('focus')} />
+      <ControlSubRow label={label} icon={icon} description={description} open={open !== null} panelId={panelId} onOpen={focus} />
       {open && <Panel id={panelId} anchorRef={rowRef} label={label} focus={open === 'focus'} onBack={back}>{children}</Panel>}
     </Box>
   );

@@ -3181,7 +3181,8 @@
         "Group related rows with ControlMenuGroup, and move rows used less often into a ControlMenuSub.",
         "Turn filter on when the panel holds more than about eight rows; it narrows rows by label, and rows of a sub-panel show inline under its name.",
         "Name the panel with label when the trigger is an icon, such as \"Players options\".",
-        "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar."
+        "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
+        "panelData sets data attributes on the panel and on every sub-panel, so code outside can tell this menu from other ControlMenus; it changes nothing on screen."
       ],
       "a11y": [
         "The trigger is a button with aria-haspopup=\"dialog\" and aria-expanded; the panel is a dialog named by label.",
@@ -3197,7 +3198,7 @@
         "rule": "ControlMenu keeps several small settings one click away without a page or a dialog."
       },
       "example": "import { ControlMenu, ControlMenuRow, ControlMenuSub, SegmentedControl, Slider, Toggle } from '@drizztdourden08/tessera';\n\nconst DENSITY = [{ value: 'cozy', label: 'Cozy' }, { value: 'compact', label: 'Compact' }];\n\nconst ViewOptions = (props: { density: string; zoom: number; sounds: boolean; onChange: (patch: object) => void }) => (\n  <ControlMenu trigger={{ label: 'View options', icon: 'sliders-horizontal' }} filter>\n    <ControlMenuRow label=\"Density\" hint={{ label: 'Density', description: 'How much room each row takes' }}>\n      <SegmentedControl size=\"sm\" aria-label=\"Density\" value={props.density} options={DENSITY} onChange={(density) => props.onChange({ density })} />\n    </ControlMenuRow>\n    <ControlMenuRow label=\"Zoom\">\n      <Slider size=\"sm\" value={props.zoom} min={50} max={200} onChange={(zoom) => props.onChange({ zoom })} />\n    </ControlMenuRow>\n    <ControlMenuSub label=\"Sounds\" icon=\"volume-2\">\n      <ControlMenuRow label=\"Play sounds\">\n        <Toggle size=\"sm\" checked={props.sounds} onChange={(sounds) => props.onChange({ sounds })} aria-label=\"Play sounds\" />\n      </ControlMenuRow>\n    </ControlMenuSub>\n  </ControlMenu>\n);\n",
-      "propsHash": "89b7a4b6b6960750",
+      "propsHash": "8d711ba277ad67d2",
       "props": {
         "own": [
           {
@@ -3307,6 +3308,11 @@
             "name": "triggerClassName",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "panelData",
+            "optional": true,
+            "text": "DropData"
           }
         ],
         "inherited": {
@@ -8241,7 +8247,8 @@
         "Answer contextActive with one flag, or with a function that reads each definition, such as its own context field.",
         "Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.",
         "Give a log or a chart fill in its definition, and leave the other widgets on the default padding.",
-        "Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons."
+        "Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.",
+        "To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest."
       ],
       "a11y": [
         "The title bar names the widget; pop out, options and close are icon buttons named with it.",
@@ -8419,6 +8426,7 @@
       },
       "parts": [
         "DEFAULT_LAYOUT_STORAGE_KEY",
+        "WIDGET_OPTIONS_ATTRIBUTE",
         "WidgetManager",
         "WidgetOptions",
         "applyEdit",

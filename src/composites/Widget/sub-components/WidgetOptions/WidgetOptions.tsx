@@ -7,6 +7,7 @@ import { LayoutRows } from './sub-components/LayoutRows';
 import { OptionsHeader } from './sub-components/OptionsHeader';
 import { PlacementRow } from './sub-components/PlacementRow';
 import { ShortcutsList } from './sub-components/ShortcutsList';
+import { WIDGET_OPTIONS_DATA } from './WidgetOptions.constants';
 import type { WidgetOptionsProps } from './WidgetOptions.type';
 import './WidgetOptions.css';
 
@@ -25,6 +26,7 @@ const WidgetOptions = (props: WidgetOptionsProps) => {
       size="xs"
       defaultOpen={defaultOpen}
       className="widget-options"
+      panelData={WIDGET_OPTIONS_DATA}
       triggerClassName={`widget__btn widget__options ${HIT_AREA_CLASS}`}
     >
       <PlacementRow {...props} />
