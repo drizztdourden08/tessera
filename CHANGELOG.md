@@ -1,5 +1,15 @@
 # @drizztdourden08/tessera
 
+## 0.26.0
+
+### Minor Changes
+
+- 6335a34: ItemList takes `groups`, which keeps empty groups with an empty line and an action such as New preset, marks each row with `data-item-id` plus `rowData`, and marks New with `data-tour="item-list-new"` or `createTour`; ListDetail passes `onActivate` to its list behind the unsaved question, and guards the action of a group too.
+
+### Patch Changes
+
+- 7b697f5: LogPanel shows every new line of a log that starts empty or short: while it sits at the newest line, its window grows with the log up to 400 lines and then keeps the newest 400, with older lines behind Load older. Scrolled up, or after Load older, new lines add below the rows already shown, so the lines being read stay in place.
+
 ## 0.25.0
 
 ### Minor Changes
