@@ -6274,3 +6274,22 @@ The InfoScreen, UtilityScreen, StageScreen, ScreenWindow, ScreenPage and Setting
 ### What an app does
 
 Nothing. A page header that hid its strip or its actions for a narrow window can drop that code. Content that followed the viewport with a media query inside a screen can follow the window with `@container screen-window` instead.
+
+## 200. A screen or drawer title takes focus without a ring
+
+ScreenLayer, so every screen kind, and Drawer move focus to their title when they open, so a screen reader reads it first. The title is a heading with `tabindex="-1"`, and Chrome drew its default focus outline on it, a white box around the title: after a key press, and when the screen opened before any input, such as an update screen at start up or a gallery capture. A mouse user who clicked to open the screen saw no box.
+
+### What changed
+
+- A heading with `tabindex="-1"` inside a ScreenLayer frame or a Drawer panel draws no outline when it holds focus, as the WizardStep title already did. Focus still lands on the title, and the next Tab moves to the first control with its own ring.
+- Buttons, inputs and every other control keep their focus ring.
+
+### Gallery
+
+- The screen pages, InfoScreen, UtilityScreen, StageScreen, WorkspaceScreen, ScreenWindow, ScreenLayer and Drawer, lose the white box around the title in captures.
+- The ListDetail page draws its States and its Playground: the presets demo had no width of its own in a Demonstrator cell or the Playground stage, and its container query left it 18 px wide.
+- The DockLayout Playground draws the dock: its frame was 2 px wide on the Playground stage.
+
+### What an app does
+
+Nothing. An app that focuses a heading of its own with `tabindex="-1"` can give it the same `outline: none` on `:focus`.

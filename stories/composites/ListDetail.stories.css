@@ -2,6 +2,7 @@
 .list-detail-story {
   display: flex;
   flex-direction: column;
+  inline-size: 100%;
   block-size: var(--size-512);
   padding: var(--space-sm);
   border: var(--border-width-thin) solid var(--c-border);
@@ -16,4 +17,8 @@
 .list-detail-story--narrow {
   inline-size: var(--size-512);
   max-inline-size: 100%;
+}
+
+.demonstrator__cell > :has(> .list-detail-story) {
+  justify-self: stretch;
 }
