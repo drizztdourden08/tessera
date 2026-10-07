@@ -12,6 +12,7 @@ const GROUP_ICONS: Record<string, string> = {
   'Composites · Inputs': 'text-cursor-input', 'Composites · Forms': 'clipboard-pen-line',
   'Composites · Data views': 'table', 'Composites · Charts': 'chart-column', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Windows': 'app-window-mac', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
+  'Preview · For approval': 'clipboard-check',
 };
 
 const PAGE_ICONS: Record<string, Record<string, string>> = {
@@ -119,6 +120,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Data': { Engine: 'cpu' },
   'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge', StackedBar: 'chart-bar-stacked' },
   'Composites · Charts': { StatTile: 'trending-up' },
+  'Preview · For approval': { LoadError: 'circle-alert', Disclosure: 'list-collapse' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };
