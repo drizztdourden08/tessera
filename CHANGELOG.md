@@ -1,5 +1,17 @@
 # @drizztdourden08/tessera
 
+## 0.27.0
+
+### Minor Changes
+
+- ca91a7a: TagInput, Toggle and the field kit editors take aria-label and aria-labelledby; Widget is a region named by its title; MenuItem takes tone danger; PathInput takes onBlur; FormRow folds a long description behind More and Less; KeyValueEditor reports its problem through onProblem; RowGrid marks the row of selectedKey.
+- e2edd34: DialogShell, Dialog, JobDialog, CreateRecordDialog, DeleteGuardDialog and WizardDialog take `id` and `data`, set on the element with `role="dialog"`; the title keeps its own id, so `aria-labelledby` still names the dialog.
+
+### Patch Changes
+
+- 23feda7: `tessera guide` and `tessera check` run from inside an app keep each part folder in the parts file of the config that names it, so the root's design parts stay in the root's `guide.parts` file and a guide run followed by a check is clean from the root and from each app.
+- 344f641: ItemList rows sit on one line again: each row is as tall as its name and meta, a note column such as not installed stays on that line, and rename and delete take no room until the row is hovered, focused or picked, then sit at its end. ListItemList takes `shape` for rows drawn through a component of the app's own, and ListItemRow gives a name or meta written as text a `title` with the full text.
+
 ## 0.26.0
 
 ### Minor Changes

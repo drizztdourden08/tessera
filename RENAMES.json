@@ -1272,7 +1272,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.27.0",
       "cssClasses": {
         "settings-row__about-text": "fold-text",
         "settings-row__more": "fold-text__more"
