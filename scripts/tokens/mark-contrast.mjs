@@ -5,9 +5,11 @@ import { parseColour } from './parse-colour.mjs';
 import { relativeLuminance } from './relative-luminance.mjs';
 
 const SAMPLE_WIDTH = 256;
+const PATHS_ONLY_SKIPS_SYSTEM_FONTS = { loadSystemFonts: false };
 
 const markLuminance = (svg) => {
-  const { pixels } = new Resvg(svg, { fitTo: { mode: 'width', value: SAMPLE_WIDTH } }).render();
+  if (svg.includes('<text')) throw new Error('mark-contrast: a mark with text needs the system fonts');
+  const { pixels } = new Resvg(svg, { fitTo: { mode: 'width', value: SAMPLE_WIDTH }, font: PATHS_ONLY_SKIPS_SYSTEM_FONTS }).render();
   let total = 0;
   let cover = 0;
   for (let i = 0; i < pixels.length; i += 4) {
