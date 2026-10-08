@@ -17,6 +17,7 @@ interface SplashProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   mark?: ReactNode;
   status?: ReactNode;
   detail?: ReactNode;
+  error?: unknown;
   failed?: boolean;
   progress?: SplashProgress;
   bar?: SplashBar;

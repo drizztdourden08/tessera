@@ -103,7 +103,7 @@ const LAYOUT = {
   answers: {
     'a plain block': null, 'items in a row or a column': null, 'blocks stacked in a column': null, 'items on a grid': null,
     'one item in the centre': null, 'one raised item': null, 'empty space': null, 'a line between sections': null,
-    'content that scrolls': null, 'a list beside its detail': null, 'two panes the user resizes': null,
+    'content that scrolls': null, 'more content behind a line that shows or hides it': null, 'a list beside its detail': null, 'two panes the user resizes': null,
     'a list beside an editor, with unsaved edits guarded': null,
     'an app frame with its navigation': null, 'panels the user docks and moves': null,
     'a header with an icon and a title over a block': null,
@@ -129,7 +129,7 @@ const FEEDBACK = {
     'work is running, length unknown': null, 'progress toward an end, as a bar': null,
     'progress toward an end, in a small round space': null, 'a short message that passes': null,
     'a note that stays on the page': null, 'nothing is here yet': null, 'a hint for what is under the pointer': null,
-    'a part of the page failed': null, 'a long job with steps, a log or a failure': null,
+    'a part of the page failed': null, 'something failed to load, with Retry': null, 'a long job with steps, a log or a failure': null,
     'the app is starting, or starting again': null,
     'the results of a list of checks': null,
     'what blocks a save, with a jump to each field': null, 'whether the edits are saved, with Save and Discard': null,

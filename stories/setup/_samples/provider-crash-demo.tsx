@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { Button, ErrorBoundary, Flex, Text } from '../../../src/primitives';
+import { ErrorBoundary } from '../../../src/composites';
+import { Button, Flex, Text } from '../../../src/primitives';
 
 const Crashing = (props: { armed: boolean }) => {
   if (props.armed) throw new Error('The sample threw on purpose.');

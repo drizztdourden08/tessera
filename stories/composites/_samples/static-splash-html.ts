@@ -12,6 +12,10 @@ const actionRow = (sample: SplashSample): string => {
   return `\n  <div class="ts-actions">${buttons.join('')}</div>`;
 };
 
+const errorDetails = (sample: SplashSample): string => (sample.error
+  ? `\n  <details class="ts-error"><summary>Details</summary><pre class="ts-error__text" tabindex="0">${sample.error}</pre></details>`
+  : '');
+
 const progressBar = (sample: SplashSample): string => {
   const { progress, failed } = sample;
   const indeterminate = progress === 'indeterminate';
@@ -23,7 +27,7 @@ const progressBar = (sample: SplashSample): string => {
 const staticSplashHtml = (sample: SplashSample): string => `<main class="ts-stage">
   <img class="ts-mark" src="${SPLASH_MARK}" alt="" />
   <h1 class="ts-title">${SPLASH_TITLE}</h1>
-  ${statusLine(sample)}${sample.detail ? `\n  <p class="ts-detail">${sample.detail}</p>` : ''}${actionRow(sample)}
+  ${statusLine(sample)}${sample.detail ? `\n  <p class="ts-detail">${sample.detail}</p>` : ''}${errorDetails(sample)}${actionRow(sample)}
 </main>
 <span class="ts-version">${SPLASH_VERSION}</span>
 ${progressBar(sample)}`;

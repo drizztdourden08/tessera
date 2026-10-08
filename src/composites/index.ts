@@ -30,14 +30,11 @@ export { SplitPane } from './SplitPane';
 export type { CollapsedSide, SplitOrientation, SplitPaneProps } from './SplitPane';
 export { SettingsRow } from './SettingsRow';
 export type {
-  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowAction, SettingsRowLook,
-  SettingsRowProps,
+  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsLoadProblem, SettingsOption, SettingsRowAction,
+  SettingsRowLook, SettingsRowProps,
 } from './SettingsRow';
 export { filterSettingsSections, SettingsSection } from './SettingsSection';
-export type {
-  SettingsContentRow, SettingsGroupData, SettingsLock, SettingsLockRenderer, SettingsSectionData, SettingsSectionLook, SettingsSectionProps,
-  SettingsSectionRow,
-} from './SettingsSection';
+export type { SettingsContentRow, SettingsGroupData, SettingsLock, SettingsLockRenderer, SettingsSectionData, SettingsSectionLook, SettingsSectionProps, SettingsSectionRow } from './SettingsSection';
 export { SettingsPage } from './SettingsPage';
 export type { SettingsPageAnchor, SettingsPageProps, SettingsPageTabs } from './SettingsPage';
 export { SideNavLayout } from './SideNavLayout';
@@ -192,6 +189,8 @@ export type { FormGroupTab, FormGroupTabsProps } from './FormGroupTabs';
 export { RowGrid, type RowGridColumn, type RowGridDensity, type RowGridProps } from './RowGrid';
 export { SaveBar, type SaveBarProps, type SaveBarState } from './SaveBar';
 export { RetryButton, type RetryButtonProps } from './RetryButton';
+export { LoadError, type LoadErrorProps, type LoadErrorVariant } from './LoadError';
+export { ErrorBoundary, type ErrorBoundaryProps } from './ErrorBoundary';
 export { CommandInput, type CommandEntry, type CommandInputProps, type CommandOption, type CommandSubmit } from './CommandInput';
 export { PasswordInput, type PasswordInputProps, type PasswordMode, type PasswordRule, type PasswordScore, type PasswordStrength, type PasswordStrengthLevel } from './PasswordInput';
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from './TagInput';

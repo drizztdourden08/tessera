@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Callout, Icon, IconButton } from '../../src/primitives';
+import { Box, Callout, Disclosure, Icon, IconButton, Paragraph } from '../../src/primitives';
 import type { CalloutTone, CalloutVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -20,6 +20,8 @@ const TONES: readonly CalloutTone[] = ['primary', 'secondary', 'info', 'success'
 const PRERELEASE = 'This is a pre-release. It ships before the usual testing, so expect rough edges the stable builds do not have.';
 
 const FOOTNOTE = 'Any earlier version can be picked above if something stops working. Please report it either way, so it gets fixed.';
+
+const CHANGES = 'Sessions keep their players when the server restarts, and the map loads twice as fast on large seeds.';
 
 const BUG_BUTTON = <IconButton tone="danger" size="sm" label="Report a bug"><Icon name="bug" size={14} /></IconButton>;
 
@@ -75,6 +77,19 @@ const Footnote = {
   render: () => <Callout variant="footnote" action={BUG_BUTTON}>{FOOTNOTE}</Callout>,
 } satisfies StoryLiteStoryDefinition<CalloutArgs>;
 
+const WithDetails = {
+  name: 'With details under the line',
+  render: () => (
+    <Callout
+      tone="info"
+      icon={<Icon name="info" size={16} />}
+      details={<Disclosure summary="What changed"><Paragraph tone="dim">{CHANGES}</Paragraph></Disclosure>}
+    >
+      {PRERELEASE}
+    </Callout>
+  ),
+} satisfies StoryLiteStoryDefinition<CalloutArgs>;
+
 const Overview = overviewStory({
   component: 'Callout',
   description: 'A short note set apart from the text around it, such as a pre-release notice or the fine print of a dialog.',
@@ -82,12 +97,13 @@ const Overview = overviewStory({
     '`box` sits on a soft fill inside a border in its tone, for a warning.',
     '`footnote` is small muted text under a hairline, for the fine print at the end of a dialog.',
     'Either can lead with an `icon` and end with an `action`, such as a report a bug button.',
+    '`details` sits under the line across the whole box, such as a [Disclosure]; [LoadError] puts its Details there.',
     'Screen readers read it out as a note.',
   ],
   instead: '[Toast] for a message that comes and goes on its own.',
   playground: Playground,
-  variants: [Tones, WithIcon, Footnote],
+  variants: [Tones, WithIcon, WithDetails, Footnote],
 });
 
 export default meta;
-export { Footnote, Overview, Playground, Tones, WithIcon };
+export { Footnote, Overview, Playground, Tones, WithDetails, WithIcon };

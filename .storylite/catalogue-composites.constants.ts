@@ -28,6 +28,8 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Feedback',
       entries: [
         { name: 'Toast', summary: 'A short message that dismisses itself.' },
+        { name: 'LoadError', summary: 'What to show when something fails to load: a sentence, Retry and the raw error behind Details.' },
+        { name: 'ErrorBoundary', summary: 'Catches a crash in its children and shows a notice in their place.' },
         { name: 'Splash', summary: 'The static splash page as a React part, for a start, an update or a reconnect.' },
         { name: 'Static splash', summary: 'Plain CSS classes for a splash page in static HTML, before the app bundle loads.' },
       ],

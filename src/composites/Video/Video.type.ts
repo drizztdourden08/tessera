@@ -31,6 +31,7 @@ interface VideoActions {
   setVolume: (volume: number) => void;
   toggleMute: () => void;
   setRate: (rate: number) => void;
+  reload: () => void;
 }
 
 interface ScreenMode {

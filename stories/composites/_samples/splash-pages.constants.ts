@@ -10,6 +10,7 @@ const FAILED = `<main class="ts-stage">
   <h1 class="ts-title">Archipelia</h1>
   <p class="ts-status ts-status--danger" role="alert">The engine did not start</p>
   <p class="ts-detail">Port 38281 is taken by another program.</p>
+  <details class="ts-error"><summary>Details</summary><pre class="ts-error__text" tabindex="0">Error: listen EADDRINUSE: address already in use 127.0.0.1:38281</pre></details>
   <div class="ts-actions">
     <button class="ts-button ts-button--primary" type="button">Retry</button>
     <button class="ts-button" type="button">Open logs</button>
@@ -23,6 +24,7 @@ const PARTS = `<main class="ts-stage">
   <p class="ts-status">ts-status: Checking for updates</p>
   <p class="ts-status ts-status--danger">ts-status--danger: Download failed</p>
   <p class="ts-detail">ts-detail: the longer text under the status, up to three lines</p>
+  <details class="ts-error" open><summary>ts-error</summary><pre class="ts-error__text">ts-error__text: the raw error behind Details</pre></details>
   <div class="ts-progress" style="--value: 0.35" role="progressbar" aria-label="Download" aria-valuenow="35"></div>
   <div class="ts-progress ts-progress--indeterminate" role="progressbar" aria-label="Waiting"></div>
   <div class="ts-actions">

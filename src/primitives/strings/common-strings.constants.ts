@@ -42,6 +42,7 @@ const COMMON_STRINGS = {
   reportIssue: 'Report an issue',
   retry: 'Retry',
   retryNow: 'Retry now',
+  details: 'Details',
   nextTryIn: (wait: string) => `Next try in ${wait}`,
   tryOfIn: (attempt: number, attempts: number, wait: string) => `Try ${attempt} of ${attempts} in ${wait}`,
   tryOf: (attempt: number, attempts: number) => `Try ${attempt} of ${attempts}`,

@@ -92,6 +92,7 @@ const CODE = `import { ItemList } from '@drizztdourden08/tessera';
   onDelete={deletePreset}
   loading={loading}
   error={error}
+  onRetry={reload}
   empty="Install a game from Games, then make a preset for it."
 />
 
@@ -137,7 +138,7 @@ const Overview = overviewStory({
     '`groupBy` sorts rows under headings; `groups` orders them and draws empty ones with a line and an action.',
     '`onActivate` runs on a click, [[Enter]] or [[Space]]; the arrow keys then move the focus, not the selection.',
     '`onRename` ([[F2]]) and `onDelete` add a pencil and a trash; `actionVisibility` shows them on hover or always.',
-    '`loading`, `error` and `empty` take the place of the rows; the filter shows from 8 items, or with `filter`.',
+    '`loading`, `error` (a [LoadError], with `onRetry`) and `empty` replace the rows; a filter shows from 8 items.',
   ],
   instead: '[ListDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,

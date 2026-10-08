@@ -6,6 +6,7 @@ import { IconButton } from '../../../primitives/IconButton';
 import { Paragraph } from '../../../primitives/text-elements';
 import { Tooltip } from '../../../primitives/Tooltip';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { RetryButton } from '../../RetryButton';
 import type { UtilityFooterProps } from './UtilityFooter.type';
 
 const UtilityFooter = (props: UtilityFooterProps) => {
@@ -27,11 +28,21 @@ const UtilityFooter = (props: UtilityFooterProps) => {
       )}
       {actions.length > 0 && (
         <Box className="utility-screen__actions">
-          {actions.map((action) => (
+          {actions.map((action) => (action.retry ? (
+            <RetryButton
+              key={action.label}
+              label={action.label}
+              variant={action.tone ?? 'secondary'}
+              size="md"
+              disabled={action.disabled}
+              retrying={action.loading}
+              onRetry={action.onSelect}
+            />
+          ) : (
             <Button key={action.label} variant={action.tone ?? 'secondary'} disabled={action.disabled} loading={action.loading} onClick={action.onSelect}>
               {action.label}
             </Button>
-          ))}
+          )))}
         </Box>
       )}
     </Box>

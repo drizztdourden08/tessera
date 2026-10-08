@@ -10,6 +10,7 @@ interface CalloutProps {
   variant?: CalloutVariant;
   icon?: ReactNode;
   action?: ReactNode;
+  details?: ReactNode;
   className?: string;
   children: ReactNode;
 }

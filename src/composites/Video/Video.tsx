@@ -30,7 +30,7 @@ const Video = (props: VideoProps) => {
   return (
     <Box {...player.frame} style={style} aria-label={label ?? video.playerLabel}>
       <VideoElement className="video__media" preload={preload} {...native} {...player.video} controls={false} />
-      <VideoOverlay media={media} controls={controls} errorMessage={errorMessage ?? video.errorMessage} onPlay={actions.togglePlay} />
+      <VideoOverlay media={media} controls={controls} errorMessage={errorMessage ?? video.errorMessage} onPlay={actions.togglePlay} onRetry={actions.reload} />
       {player.interactive && (
         <VideoBar
           media={media}

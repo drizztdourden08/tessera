@@ -42,7 +42,8 @@ interface ItemListProps<T> {
   filter?: ItemListFilter;
   filterPlaceholder?: string;
   loading?: boolean;
-  error?: ReactNode;
+  error?: unknown;
+  onRetry?: () => void;
   empty?: ReactNode;
   emptyIcon?: ReactNode;
   className?: string;

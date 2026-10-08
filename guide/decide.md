@@ -103,6 +103,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Empty space: no component yet.
   - A line between sections: no component yet.
   - Content that scrolls: no component yet.
+  - More content behind a line that shows or hides it: [Disclosure](components/Disclosure.md). Disclosure shows or hides what is under one line with the browser details element, with one look for every app.
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.
   - A list beside an editor, with unsaved edits guarded: [ListDetail](components/ListDetail.md). ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app.
@@ -129,6 +130,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Nothing is here yet: no component yet.
   - A hint for what is under the pointer: no component yet.
   - A part of the page failed: no component yet.
+  - Something failed to load, with Retry: [LoadError](components/LoadError.md). LoadError draws every failed load the same way: a sentence, Retry and the raw error behind Details.
   - A long job with steps, a log or a failure: [TaskProgress](components/TaskProgress.md). TaskProgress draws a bar, the steps, the failure and the log of one job the same way in every app.
   - The app is starting, or starting again: [Splash](components/Splash.md). Splash draws the classes of splash.css, so it looks the same as the static splash page.
   - The results of a list of checks: [CheckList](components/CheckList.md). CheckList gives pass, advice and failure their own icon and colour, so a test result reads the same in every app.

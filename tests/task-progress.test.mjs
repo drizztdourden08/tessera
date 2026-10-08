@@ -20,7 +20,7 @@ describe('TaskProgress', () => {
     expect(html).toContain('>52%<');
     expect(html).toContain('Placing items');
     expect(statuses(html)).toEqual(['done', 'current', 'upcoming']);
-    expect(html).toContain('aria-expanded="false"');
+    expect(html).toMatch(/<details class="disclosure disclosure--md task-progress__log">/);
     expect(html).toContain('Show log (1)');
     expect(html).not.toContain('class="log-panel');
     expect(html).not.toContain('role="alert"');
@@ -35,7 +35,9 @@ describe('TaskProgress', () => {
   it('marks the current step, shows the error and opens the log when it fails', () => {
     const html = renderToString(h(TaskProgress, { state: 'failed', percent: 52, steps: STEPS, currentId: 'b', error: 'No reachable location', log: LOG }));
     expect(statuses(html)).toEqual(['done', 'error', 'upcoming']);
-    expect(html).toMatch(/role="alert">.*callout.*No reachable location/);
+    expect(html).toMatch(/callout--danger load-error load-error--box.*load-error__message" role="alert">No reachable location/);
+    expect(html).toMatch(/<details open="" class="disclosure disclosure--md task-progress__log">/);
+    expect(html).toContain('Hide log');
     expect(html).toContain('data-tone="danger"');
     expect(html).toContain('class="log-panel log-panel--fixed" style="block-size:224px"');
     expect(renderToString(h(TaskProgress, { state: 'failed', log: LOG, logOpen: false }))).not.toContain('class="log-panel');

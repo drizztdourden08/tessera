@@ -1,18 +1,18 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Callout } from '../../../primitives/Callout';
 import { EmptyState } from '../../../primitives/EmptyState';
 import { Spinner } from '../../../primitives/Spinner';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ListItemList } from '../../ListItemRow';
+import { LoadError } from '../../LoadError';
 import { rowsShape } from '../behavior/rows-shape';
 import type { ItemListBodyProps } from '../ItemList.type';
 import { ItemListEmptyGroup } from './ItemListEmptyGroup';
 import { ItemListRow } from './ItemListRow';
 
 const ItemListBody = <T,>({ list, view }: ItemListBodyProps<T>) => {
-  const { title, items, getId, loading, error, empty, emptyIcon } = list;
+  const { title, items, getId, loading, error, onRetry, empty, emptyIcon } = list;
   const { lists } = useTesseraStrings();
   if (loading) {
     return (
@@ -22,7 +22,7 @@ const ItemListBody = <T,>({ list, view }: ItemListBodyProps<T>) => {
       </Box>
     );
   }
-  if (error) return <Box role="alert"><Callout tone="danger">{error}</Callout></Box>;
+  if (error) return <LoadError message={lists.loadFailed(title)} error={error} onRetry={onRetry} />;
   if (!view.groups.length) {
     return items.length ? <EmptyState size="sm" message={lists.noMatch(view.query)} /> : <EmptyState size="sm" icon={emptyIcon} message={empty ?? lists.empty} />;
   }

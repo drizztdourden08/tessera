@@ -2,6 +2,8 @@
 import { Paragraph } from '../../primitives/text-elements';
 import { ScrollArea } from '../../primitives/ScrollArea';
 import { Box } from '../../primitives/Box';
+import { rawError } from '../LoadError/behavior/raw-error';
+import { LoadErrorDetails } from '../LoadError/sub-components/LoadErrorDetails';
 import { useHeaderOptOutCheck } from '../ScreenPage/behavior/useHeaderOptOutCheck';
 import { ScreenWindow } from '../ScreenWindow';
 import { NO_ACTIONS } from './UtilityScreen.constants';
@@ -15,6 +17,7 @@ import './UtilityScreen.css';
 const UtilityScreen = (props: UtilityScreenProps) => {
   const { onClose, status, progress, settings, notes, children, report, actions = NO_ACTIONS, backdrop, hidden, className = '' } = props;
   useHeaderOptOutCheck('UtilityScreen', props);
+  const raw = rawError(status.error);
 
   return (
     <ScreenWindow
@@ -27,6 +30,7 @@ const UtilityScreen = (props: UtilityScreenProps) => {
     >
       <ScrollArea className="utility-screen__body">
         {status.message != null && <Paragraph className="utility-screen__message" aria-live="polite">{status.message}</Paragraph>}
+        {raw !== null && <LoadErrorDetails raw={raw} center />}
         {settings != null && <Box className="utility-screen__settings">{settings}</Box>}
         {children}
         {notes && <UtilityNotes notes={notes} />}

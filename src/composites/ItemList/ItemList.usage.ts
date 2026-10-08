@@ -25,7 +25,8 @@ const usage = {
     'Leave actionVisibility on hover to show rename and delete on the picked row and on any row under the pointer; always shows them on every row.',
     'Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.',
     'Write empty as what to do next, such as Install a game from Games, then make a preset for it.',
-    'Write error as what failed and why, such as Could not read servers.json: unexpected end of input.',
+    'Pass the raw failure as error, such as an Error or its message: the list shows Could not load followed by its title, with the raw text behind Details.',
+    'Pass onRetry with error to add a Retry button, and set loading while the new try runs.',
     'Put it on a surface: the list pane of ListDetailLayout, a card or a panel. It draws no background of its own.',
   ],
   a11y: [
@@ -78,7 +79,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
   />
 );
 `,
-  propsHash: 'db10f57804883924',
+  propsHash: '3602e1bd9cf173b0',
 } satisfies ComponentUsage;
 
 export { usage };

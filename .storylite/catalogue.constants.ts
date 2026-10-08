@@ -95,17 +95,6 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
     intro: 'The headless engine under the data composites: schema, tables, filters and view state.',
     groups: [{ group: '', entries: [{ name: 'Engine', summary: 'Schema derivation, the table hook, filters and view storage.' }] }],
   },
-  {
-    tier: 'Preview',
-    intro: 'Designs waiting for approval. They live in the gallery only and are not part of the package.',
-    groups: [{
-      group: 'For approval',
-      entries: [
-        { name: 'LoadError', summary: 'For approval: what to show when something fails to load, with a sentence, Retry and Details.' },
-        { name: 'Disclosure', summary: 'For approval: a line that shows or hides more content under it.' },
-      ],
-    }],
-  },
 ]);
 
 export { CATALOGUE };

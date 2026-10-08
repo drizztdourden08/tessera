@@ -12,6 +12,7 @@ interface SplashSampleAction {
 interface SplashSample {
   status: string;
   detail?: string;
+  error?: string;
   failed?: boolean;
   progress: SplashProgress;
   actions: readonly SplashSampleAction[];

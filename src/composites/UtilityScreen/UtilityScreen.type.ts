@@ -9,6 +9,7 @@ interface UtilityScreenStatus {
   tone: UtilityScreenTone;
   title: ReactNode;
   message?: ReactNode;
+  error?: unknown;
   icon?: ReactNode;
 }
 
@@ -31,6 +32,7 @@ interface UtilityScreenReport {
 
 interface UtilityScreenAction extends Omit<ActionData<ButtonVariant>, 'confirm' | 'onCancel'> {
   loading?: boolean;
+  retry?: boolean;
 }
 
 interface UtilityScreenProps {

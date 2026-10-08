@@ -32,6 +32,7 @@ Video draws its bar over the video in white on black in every theme, and keeps i
 - Size the player through its class with an aspect ratio, since the bar sits over the bottom of the video.
 - Let the page own theater mode through theater and onTheaterChange when the layout around the player changes with it.
 - Set controls to false for a background or a preview with no bar.
+- A video that fails to load shows errorMessage over the player with a Retry that loads the source again; with controls off, the Retry is left out.
 
 ## Accessibility
 

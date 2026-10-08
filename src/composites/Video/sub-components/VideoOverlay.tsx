@@ -5,11 +5,12 @@ import { IconButton } from '../../../primitives/IconButton';
 import { Spinner } from '../../../primitives/Spinner';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Paragraph } from '../../../primitives/text-elements';
+import { RetryButton } from '../../RetryButton';
 import './VideoOverlay.css';
 import type { VideoOverlayProps } from './VideoOverlay.type';
 
 const VideoOverlay = (props: VideoOverlayProps) => {
-  const { media, controls, errorMessage, onPlay } = props;
+  const { media, controls, errorMessage, onPlay, onRetry } = props;
   const { common, video } = useTesseraStrings();
 
   if (media.failed) {
@@ -17,6 +18,7 @@ const VideoOverlay = (props: VideoOverlayProps) => {
       <Box className="video-overlay video-overlay--error" role="alert">
         <Icon name="circle-alert" size={28} className="video-overlay__error-icon" />
         <Paragraph className="video-overlay__message">{errorMessage}</Paragraph>
+        {controls && <RetryButton onRetry={onRetry} />}
       </Box>
     );
   }

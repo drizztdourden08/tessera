@@ -11,6 +11,7 @@ import { useSamplePresets } from './useSamplePresets';
 
 const idOf = (preset: SamplePreset) => preset.id;
 const nameOf = (preset: SamplePreset) => preset.name;
+const ignore = () => undefined;
 
 const ItemListDemo = (props: ItemListDemoProps) => {
   const { state, grouped, filter, actions, emptyGame, title, createLabel } = { ...LIST_DEMO, ...props };
@@ -35,6 +36,7 @@ const ItemListDemo = (props: ItemListDemoProps) => {
         filter={filter || 'auto'}
         loading={state === 'loading'}
         error={state === 'error' && SERVERS_ERROR}
+        onRetry={ignore}
         empty={PRESETS_EMPTY}
         emptyIcon={<Icon name="sliders-horizontal" />}
       />

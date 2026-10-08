@@ -38,7 +38,7 @@ TaskProgress draws a bar, the steps, the failure and the log of one job the same
 
 - The section is named by label, and the bar by the same name.
 - The state word is a status region, so a screen reader hears Done, Failed or Cancelled when it changes.
-- The error is an alert, and the log toggle says whether the log is open.
+- The error is an alert, and the log sits behind a Disclosure that says whether it is open.
 
 ## Example
 
@@ -88,4 +88,4 @@ const EngineSetup = ({ job }: { job: Job }) => (
 
 ## Tokens
 
-It draws on `--c-text-dim`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`.
+It draws on `--c-text-dim`, `--space-md`, `--space-sm`, `--text-sm`.

@@ -1,0 +1,63 @@
+/* @layer renderer-components @kind style */
+.load-error--center,
+.load-error--inline {
+  display: flex;
+  min-inline-size: 0;
+  color: var(--c-text);
+}
+
+.load-error__lead {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+}
+
+.load-error__icon {
+  flex: none;
+  color: var(--c-danger);
+}
+
+.load-error__message {
+  min-inline-size: 0;
+  line-height: var(--leading-normal);
+}
+
+.load-error--center {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.load-error--center .load-error__lead {
+  flex-direction: column;
+  align-items: center;
+}
+
+.load-error--center .load-error__icon {
+  inline-size: var(--size-28);
+  block-size: var(--size-28);
+}
+
+.load-error--inline {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-sm);
+  font-size: var(--text-sm);
+}
+
+.load-error--inline .load-error__message {
+  color: var(--c-danger-bright);
+}
+
+.load-error--inline .load-error__icon {
+  margin-block-start: var(--space-2xs);
+}
+
+.load-error--inline .load-error__details[open] {
+  flex-basis: 100%;
+}

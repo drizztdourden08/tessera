@@ -53,6 +53,7 @@ const Playground = {
           mark={MARKS[args.mark]}
           status={sample.status}
           detail={sample.detail}
+          error={sample.error}
           failed={sample.failed}
           progress={args.indeterminate ? 'indeterminate' : args.progress}
           bar={args.bar}
@@ -96,7 +97,8 @@ import { BrandMark } from '@drizztdourden08/tessera/brand';
   title="Archipelia"
   mark={<BrandMark app="archipelia" size="lg" />}
   status={failure ? \`\${failure.label} failed\` : progress.label}
-  detail={failure?.message}
+  detail={failure?.hint}
+  error={failure?.error}
   failed={failure !== null}
   progress={progress.fraction}
   actions={failure ? [
@@ -114,7 +116,7 @@ const Overview = overviewStory({
     'It sits on the dark gradient of the palette; a test holds its text, borders and bar at WCAG AA.',
     '`mark` takes an image URL or a node; a [Logo] or BrandMark in it takes its dark ground colours by itself.',
     '`progress` fills the bar from 0 to 1, or sweeps with `indeterminate`; `bar` puts it on the edge or inline.',
-    '`status` is one line, `detail` the text under it; `failed` turns them red and focuses the primary action.',
+    '`detail` sits under `status`, `error` behind Details; `failed` turns them red and focuses the primary action.',
     'It covers the window; set `inert` on a mounted app behind it.',
   ],
   instead: '[ProgressBar] or [Spinner] for work inside a page the user can still use.',

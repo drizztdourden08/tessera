@@ -21,7 +21,7 @@ const usage = {
   a11y: [
     'The section is named by label, and the bar by the same name.',
     'The state word is a status region, so a screen reader hears Done, Failed or Cancelled when it changes.',
-    'The error is an alert, and the log toggle says whether the log is open.',
+    'The error is an alert, and the log sits behind a Disclosure that says whether it is open.',
   ],
   tree: {
     path: ['feedback', 'a long job with steps, a log or a failure'],

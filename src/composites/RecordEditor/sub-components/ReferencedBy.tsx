@@ -1,7 +1,6 @@
 /* @layer renderer-components @kind component */
-import { useState } from 'react';
 import { Box } from '../../../primitives/Box';
-import { Button } from '../../../primitives/Button';
+import { Disclosure } from '../../../primitives/Disclosure';
 import { Text } from '../../../primitives/Text';
 import { Paragraph } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
@@ -23,55 +22,34 @@ const groupByKind = (hits: readonly ReferencedByHit[]): readonly KindGroup[] => 
 
 const ReferencedBy = (props: ReferencedByProps) => {
   const { hits } = props;
-  const [expanded, setExpanded] = useState<ReadonlySet<string>>(new Set());
   const { records } = useTesseraStrings();
 
   if (hits.length === 0) {
     return <Text variant="caption" className="referenced-by__empty">{records.notReferenced}</Text>;
   }
 
-  const toggle = (kind: string): void => {
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      if (next.has(kind)) next.delete(kind); else next.add(kind);
-      return next;
-    });
-  };
-
   return (
     <Box className="referenced-by">
       <Paragraph tone="dim" className="referenced-by__title">{records.referencedBy}</Paragraph>
       {groupByKind(hits).map((group) => (
-        <Box key={group.kind} className="referenced-by__group">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="referenced-by__toggle"
-            aria-expanded={expanded.has(group.kind)}
-            onClick={() => toggle(group.kind)}
-          >
-            {group.kind} ({group.hits.length})
-          </Button>
-          {expanded.has(group.kind) && (
-            <Box as="ul" className="referenced-by__list">
-              {group.hits.map((hit) => (
-                <Box as="li" key={`${hit.id}.${hit.field}`} className="referenced-by__item">
-                  <Text
-                    as="span"
-                    className="referenced-by__link"
-                    title={`${hit.kind}: ${hit.id}`}
-                    data-id-ref={hit.id}
-                    data-target-kind={hit.kind}
-                  >
-                    {hit.label}
-                  </Text>
-                  <Text as="span" className="referenced-by__field">{records.via(hit.field)}</Text>
-                </Box>
-              ))}
-            </Box>
-          )}
-        </Box>
+        <Disclosure key={group.kind} summary={`${group.kind} (${group.hits.length})`} className="referenced-by__group">
+          <Box as="ul" className="referenced-by__list">
+            {group.hits.map((hit) => (
+              <Box as="li" key={`${hit.id}.${hit.field}`} className="referenced-by__item">
+                <Text
+                  as="span"
+                  className="referenced-by__link"
+                  title={`${hit.kind}: ${hit.id}`}
+                  data-id-ref={hit.id}
+                  data-target-kind={hit.kind}
+                >
+                  {hit.label}
+                </Text>
+                <Text as="span" className="referenced-by__field">{records.via(hit.field)}</Text>
+              </Box>
+            ))}
+          </Box>
+        </Disclosure>
       ))}
     </Box>
   );

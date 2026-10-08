@@ -30,6 +30,7 @@ const SplashPair = (props: SplashPairProps) => {
               mark={SPLASH_MARK}
               status={sample.status}
               detail={sample.detail}
+              error={sample.error}
               failed={sample.failed}
               progress={sample.progress}
               actions={actions}

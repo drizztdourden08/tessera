@@ -23,14 +23,3 @@
 .task-progress__state {
   flex: none;
 }
-
-.task-progress__log {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-xs);
-}
-
-.task-progress__log-body {
-  align-self: stretch;
-}

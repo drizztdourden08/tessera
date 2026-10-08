@@ -6552,3 +6552,62 @@ interface DialogShellProps {
 ### What an app does
 
 Nothing for a dialog that keeps its props. Brock passes `data={{ 'data-job-id': job.id }}` to JobDialog and drops the code that set the attribute on the dialog element.
+
+## 208. One look for a failed load: LoadError and Disclosure
+
+The owner approved TX-52, option A. A failed load showed five different ways across Tessera: the raw error in a red box copied between ItemList and TaskProgress, the raw error always in view under ErrorBoundary with a Retry slot that could not restart it, an icon and a sentence on a failed Video, a raw red line in a settings row. Two new parts give it one look, and the show and hide toggles built by hand in TaskProgress and RecordEditor go.
+
+### New parts
+
+- **Disclosure** (primitives) is a line, such as Details or Show log, that shows or hides what is under it. It is the browser `details` element with a chevron, so the keyboard and screen readers work, and it keeps no state: `defaultOpen` starts it open, a later change to it opens or closes it, and `onOpenChange` reports each toggle.
+- **LoadError** (composites) is one plain sentence, read once as an alert, a `RetryButton` when `onRetry` is passed, and the raw error behind a Disclosure named Details. `variant` is `center` for a list pane or a screen, `box` inside a section, `inline` in a row. `error` takes an Error (its stack), a string, or any value, written as JSON.
+- **Callout** takes `details`, block content under its line across the whole box. The `box` variant of LoadError is a danger Callout with Retry as its action and Details there, so the red box lives in Callout alone.
+
+```ts
+interface DisclosureProps {
+  summary: ReactNode;
+  children: ReactNode;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  size?: 'sm' | 'md';
+  className?: string;
+}
+
+interface LoadErrorProps {
+  message: ReactNode;
+  error?: unknown;
+  onRetry?: () => void;
+  retrying?: boolean;
+  retryAt?: number | null;
+  variant?: 'center' | 'box' | 'inline';
+  className?: string;
+}
+
+interface CalloutProps {
+  // ...
+  details?: ReactNode; // new
+}
+```
+
+### What each part does now
+
+- **ItemList**, and **ListDetail** through it, take the raw failure as `error`. In place of the rows the list shows a centred LoadError, the sentence Could not load followed by the title, the raw text behind Details. A new `onRetry` adds Retry; set `loading` while the new try runs.
+- **TaskProgress** shows a failed job's `error` as a LoadError box, the same red box with an alert icon. Show log is a Disclosure; `logOpen` and `onLogToggle` work as before.
+- **ErrorBoundary** moves from the primitives to the composites, since it holds state and now draws a LoadError. Its notice is a LoadError box: `label` is the sentence and the caught error waits behind Details. A new `onRetry` adds Retry, which calls it and then renders the children again; `action` still adds a node under the notice, and an app `errorFallback` gets `reset` as before.
+- **SettingsRow** `problem` keeps taking a string or a node, drawn as one red line. It also takes `{ message, error, onRetry, retrying, retryAt }`, the new `SettingsLoadProblem` type, drawn as an inline LoadError under the row.
+- **UtilityScreen** keeps its look. `status.error` puts a raw error behind Details under the message, and an action with `retry: true` draws as a RetryButton with its label and tone, spinning while `loading`.
+- **Splash** keeps its look. `error` puts a raw error behind Details under `detail`, drawn in the new `ts-error` and `ts-error__text` classes of `splash.css`, so a static splash page can show the same. Its Retry stays a `ts-button`, the static page look; a RetryButton would change it.
+- **Video** offers Retry when the video fails to load, under its message, and loads the source again. With `controls` off there is no Retry.
+- **RecordEditor** draws each Referenced by group as a Disclosure, so it holds no open state of its own.
+- SettingsRow's Show more is a text fold, a different thing, and stays.
+
+### Gallery
+
+LoadError sits in Composites · Feedback beside ErrorBoundary, which moves there from Primitives · Feedback; Disclosure sits in Primitives · Display. The preview pages and the Preview · For approval group are gone. Callout gains a variant with details.
+
+### What an app does
+
+- Import `ErrorBoundary` and `ErrorBoundaryProps` from `@drizztdourden08/tessera/composites` in place of `/primitives`; the package root still exports them.
+- Pass ItemList the raw failure as `error`, not a sentence, and `onRetry` to offer Retry.
+- Replace a hand-built failed load with `LoadError`, a hand-built show and hide with `Disclosure`.
+- The classes `error-boundary__label`, `error-boundary__detail`, `task-progress__log-body` and `referenced-by__toggle` are gone; RENAMES.json maps each to its LoadError or Disclosure class.

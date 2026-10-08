@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { SettingsRowProps } from '../SettingsRow.type';
 
 interface SettingsRowProblemProps {
-  problem: ReactNode;
+  problem: NonNullable<SettingsRowProps['problem']>;
 }
 
 export type { SettingsRowProblemProps };

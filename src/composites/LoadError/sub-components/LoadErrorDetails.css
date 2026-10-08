@@ -1,0 +1,33 @@
+/* @layer renderer-components @kind style */
+.load-error__raw {
+  max-block-size: var(--size-192);
+  margin: 0;
+  padding: var(--space-xs) var(--space-sm);
+  overflow: auto;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-sunken);
+  color: var(--c-text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  text-align: start;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+
+.load-error__raw:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thin);
+}
+
+.load-error__details--center {
+  inline-size: 100%;
+  max-inline-size: var(--size-512);
+}
+
+.load-error__details--center > .disclosure__summary {
+  align-self: center;
+  margin-inline-start: 0;
+}

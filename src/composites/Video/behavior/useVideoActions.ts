@@ -8,7 +8,7 @@ const noop = () => undefined;
 
 const useVideoActions = (video: HTMLVideoElement | null): VideoActions => useMemo(() => {
   if (!video) {
-    return { togglePlay: noop, seekTo: noop, seekBy: noop, setVolume: noop, toggleMute: noop, setRate: noop };
+    return { togglePlay: noop, seekTo: noop, seekBy: noop, setVolume: noop, toggleMute: noop, setRate: noop, reload: noop };
   }
   const seekTo = (time: number) => {
     if (hasTimeline(video.duration)) video.currentTime = Math.min(video.duration, Math.max(0, time));
@@ -31,6 +31,7 @@ const useVideoActions = (video: HTMLVideoElement | null): VideoActions => useMem
     setRate: (rate: number) => {
       video.playbackRate = rate;
     },
+    reload: () => video.load(),
   };
 }, [video]);
 

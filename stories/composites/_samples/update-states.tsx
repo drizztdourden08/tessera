@@ -15,7 +15,12 @@ const UPDATE_STATUS: Readonly<Record<UpdateStep, UtilityScreenStatus>> = {
   available: { tone: 'info', icon: <Icon name="download" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> },
   downloading: { tone: 'busy', title: 'Downloading 0.10.0', message: 'The app closes and starts again on the new version once the download ends.' },
   current: { tone: 'success', title: 'Up to date', message: <>Version <Strong>0.9.2</Strong> is the latest</> },
-  failed: { tone: 'danger', title: 'The update failed', message: 'The update server did not answer. Check your connection, then try again.' },
+  failed: {
+    tone: 'danger',
+    title: 'The update failed',
+    message: 'The update server did not answer. Check your connection, then try again.',
+    error: 'GET https://updates.archipelia.gg/latest.yml failed: connect ETIMEDOUT 104.21.48.12:443',
+  },
 };
 
 export { UPDATE_STATUS, UPDATE_STEP_LABEL, UPDATE_STEPS };

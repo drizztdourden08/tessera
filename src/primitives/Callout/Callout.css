@@ -67,3 +67,13 @@
 .callout__action {
   flex: none;
 }
+
+.callout--details {
+  flex-wrap: wrap;
+  row-gap: var(--space-xs);
+}
+
+.callout__details {
+  flex-basis: 100%;
+  min-inline-size: 0;
+}

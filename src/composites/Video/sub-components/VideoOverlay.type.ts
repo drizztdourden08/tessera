@@ -7,6 +7,7 @@ interface VideoOverlayProps {
   controls: boolean;
   errorMessage: ReactNode;
   onPlay: () => void;
+  onRetry: () => void;
 }
 
 export type { VideoOverlayProps };

@@ -77,6 +77,10 @@
   line-height: var(--leading-normal);
 }
 
+.settings-row__load-problem {
+  flex-basis: 100%;
+}
+
 .settings-row__problem-icon {
   flex-shrink: 0;
   margin-block-start: var(--space-2xs);
@@ -295,7 +299,7 @@
   flex-wrap: nowrap;
 }
 
-.settings-row--compact .settings-row__problem {
+.settings-row--compact :is(.settings-row__problem, .settings-row__load-problem) {
   grid-column: 1 / -1;
 }
 

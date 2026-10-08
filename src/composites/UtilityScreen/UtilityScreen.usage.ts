@@ -17,6 +17,8 @@ const usage = {
     'The status is the header at the top of the window, with the close button at its end: status.title is its title and names the window, and the tone picks its icon. There is no card inside the window.',
     'Set status.tone to busy while the task runs; it shows a spinner in place of the icon. Use status.icon for a closer icon, such as a download arrow.',
     'Write the status title as the state, such as Update available, and the message as one short line, such as the version.',
+    'When the task fails, pass the raw error in status.error: it waits behind Details under the message.',
+    'Mark the action that tries a failed task again with retry, so it shows as a RetryButton with the label of the action.',
     'Put choices that shape the task, such as a pre-release toggle or a version picker, in settings, not in the children.',
     'Put long text, such as release notes, in notes: a framed box with its own scroll.',
     'Set progress only when the task can say how far it is.',

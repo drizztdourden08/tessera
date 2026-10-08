@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 46 of 169 have their usage written; a linked name opens its page.
+One line per component. 48 of 171 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -17,12 +17,12 @@ One line per component. 46 of 169 have their usage written; a linked name opens 
 - `Checkbox`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Combobox`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Disclosure](components/Disclosure.md): A line, such as Details or Show log, that shows or hides the content under it when clicked. Import from `@drizztdourden08/tessera`.
 - `Divider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DropZone`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `EmojiIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Emphasis`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `EmptyState`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `ErrorBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Field`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FieldControlBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Flex`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -102,6 +102,7 @@ One line per component. 46 of 169 have their usage written; a linked name opens 
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
 - `DynamicInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `ErrorBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FileList](components/FileList.md): The files a job made or an app keeps, one row each with its type icon, name, size and date, and buttons to open it or show it in its folder. Import from `@drizztdourden08/tessera`.
 - `FilterBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -122,6 +123,7 @@ One line per component. 46 of 169 have their usage written; a linked name opens 
 - [ListDetail](components/ListDetail.md): An ItemList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
 - [ListDetailLayout](components/ListDetailLayout.md): The two panes of a list and detail screen: the list on the left and the detail of the picked item beside it, each on its own surface. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [LoadError](components/LoadError.md): What to show when something fails to load: one plain sentence, a Retry button and the raw error behind Details. Import from `@drizztdourden08/tessera`.
 - `LogPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.

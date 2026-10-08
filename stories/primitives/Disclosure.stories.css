@@ -1,0 +1,7 @@
+/* @layer stories @kind style */
+.disclosure-story__frame {
+  display: flex;
+  flex-direction: column;
+  inline-size: var(--size-448);
+  max-inline-size: 100%;
+}

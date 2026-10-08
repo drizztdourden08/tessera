@@ -82,7 +82,7 @@ const Overview = overviewStory({
     'A page may set `--look-dark-from`, `--look-dark-to` and `--look-angle`, with stops that keep text at AA.',
     '`ts-button` is the secondary [Button] look, `ts-button--primary` the primary one.',
     '`ts-progress` fills to `--value`, 0 to 1, or sweeps with `ts-progress--indeterminate`; `--edge` runs at the bottom.',
-    '`ts-status--danger` and `ts-progress--danger` mark a failure, `ts-detail` its text; `ts-version` sits in the corner.',
+    '`ts-status--danger` and `ts-progress--danger` mark a failure, `ts-detail` its text, `ts-error` the raw error.',
   ],
   instead: '[Splash] draws the same page from React once the bundle has loaded, to show it again or take over.',
   playground: Playground,

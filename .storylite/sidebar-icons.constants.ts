@@ -12,7 +12,6 @@ const GROUP_ICONS: Record<string, string> = {
   'Composites · Inputs': 'text-cursor-input', 'Composites · Forms': 'clipboard-pen-line',
   'Composites · Data views': 'table', 'Composites · Charts': 'chart-column', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Windows': 'app-window-mac', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
-  'Preview · For approval': 'clipboard-check',
 };
 
 const PAGE_ICONS: Record<string, Record<string, string>> = {
@@ -52,7 +51,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
-    EmptyState: 'inbox', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
+    EmptyState: 'inbox', Disclosure: 'list-collapse', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link' },
   'Primitives · Inputs': {
@@ -64,7 +63,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Tooltip: 'message-square',
-    HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone', ErrorBoundary: 'bug',
+    HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone',
   },
   'Primitives · Navigation': { Tabs: 'panels-top-left', Stepper: 'git-commit-horizontal' },
   'Composites · Dialogs': {
@@ -73,7 +72,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     JobDialog: 'square-activity',
   },
   'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban', GuidedTour: 'signpost' },
-  'Composites · Feedback': { Toast: 'bell', Splash: 'rocket', 'Static splash': 'power' },
+  'Composites · Feedback': { Toast: 'bell', LoadError: 'circle-alert', ErrorBoundary: 'bug', Splash: 'rocket', 'Static splash': 'power' },
   'Composites · Actions': { ConfirmIconButton: 'circle-check', ActionBar: 'rectangle-ellipsis', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
@@ -120,7 +119,6 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Data': { Engine: 'cpu' },
   'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge', StackedBar: 'chart-bar-stacked' },
   'Composites · Charts': { StatTile: 'trending-up' },
-  'Preview · For approval': { LoadError: 'circle-alert', Disclosure: 'list-collapse' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };

@@ -32,6 +32,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Status', summary: 'A read-only word for the state something is in, as text or a pill, or drawn from a table of states.' },
         { name: 'Tag', summary: 'A value that sorts an item into a group: removable, selectable or plain.' },
         { name: 'EmptyState', summary: 'What to show when a list or panel has nothing yet.' },
+        { name: 'Disclosure', summary: 'A line that shows or hides more content under it.' },
         { name: 'Image', summary: 'An image that holds its box, with loading and broken placeholders, plain or in a small frame.' },
         { name: 'Canvas', summary: 'A 2D drawing surface for charts and pixel art.' },
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
@@ -89,7 +90,6 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'HintLine', summary: 'A fixed line that shows the value and meaning of the option under the pointer or focus.' },
         { name: 'HintScope', summary: 'Collects the hints of the controls inside it for a HintLine or useHint.' },
         { name: 'Callout', summary: 'A note set apart: a toned box or a footnote, with an action.' },
-        { name: 'ErrorBoundary', summary: 'Catches a crash in its children and shows a notice in their place.' },
       ],
     },
     {

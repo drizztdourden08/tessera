@@ -1277,6 +1277,28 @@
         "settings-row__about-text": "fold-text",
         "settings-row__more": "fold-text__more"
       }
+    },
+    {
+      "version": "next",
+      "cssClasses": {
+        "error-boundary__label": "load-error__message",
+        "error-boundary__detail": "load-error__raw",
+        "task-progress__log-body": "disclosure__body",
+        "referenced-by__toggle": "disclosure__summary"
+      },
+      "props": {
+        "ItemList.error": "ItemList.error (now the raw failure, an Error, a string or any value: the list shows Could not load and its title, with the raw text behind Details; pass onRetry for a Retry button; see MIGRATION.md section 208)"
+      },
+      "moves": {
+        "ErrorBoundary": {
+          "from": "primitives",
+          "to": "composites"
+        },
+        "ErrorBoundaryProps": {
+          "from": "primitives",
+          "to": "composites"
+        }
+      }
     }
   ]
 }

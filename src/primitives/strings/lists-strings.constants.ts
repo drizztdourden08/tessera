@@ -4,6 +4,7 @@ const LIST_STRINGS = {
   count: (title: string, shown: number, total: number) => (shown === total ? `${title} · ${total}` : `${title} · ${shown} of ${total}`),
   filterOf: (title: string) => `Filter ${title.toLowerCase()}`,
   loadingOf: (title: string) => `Loading ${title.toLowerCase()}`,
+  loadFailed: (title: string) => `Could not load ${title.toLowerCase()}.`,
   empty: 'Nothing here yet.',
   noMatch: (query: string) => `Nothing matches "${query}".`,
   newName: 'New name',

@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
 import { ButtonRow } from '../../primitives/ButtonRow';
-import { Callout } from '../../primitives/Callout';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { LoadError } from '../LoadError';
 import { useLogOpen } from './behavior/useLogOpen';
 import { TaskLog } from './sub-components/TaskLog';
 import { TaskMeter } from './sub-components/TaskMeter';
@@ -20,7 +20,7 @@ const TaskProgress = (props: TaskProgressProps) => {
     <Box as="section" className={className ? `task-progress ${className}` : 'task-progress'} data-state={state} aria-label={name}>
       <TaskMeter state={state} percent={percent} line={line} name={name} />
       {steps && steps.length > 0 && <TaskSteps steps={steps} currentId={currentId} state={state} />}
-      {state === 'failed' && error && <Box role="alert"><Callout tone="danger">{error}</Callout></Box>}
+      {state === 'failed' && error && <LoadError variant="box" message={error} />}
       {log && <TaskLog rows={log} kinds={logKinds} open={logState.open} onToggle={logState.toggle} height={logHeight} />}
       {actions && <ButtonRow align="end" className="task-progress__actions">{actions}</ButtonRow>}
     </Box>

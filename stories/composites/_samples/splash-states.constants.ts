@@ -16,6 +16,7 @@ const SPLASH_SAMPLES: Readonly<Record<SplashState, SplashSample>> = {
   failed: {
     status: 'Loading the engine failed',
     detail: 'Port 38281 is taken by another program.',
+    error: 'Error: listen EADDRINUSE: address already in use 127.0.0.1:38281',
     failed: true,
     progress: 0.42,
     actions: [{ label: 'Retry', primary: true }, { label: 'Report a bug' }, { label: 'Quit' }],

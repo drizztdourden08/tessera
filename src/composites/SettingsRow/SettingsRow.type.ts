@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import type { ActionData } from '../../primitives/action-data';
 import type { ShortcutKey } from '../../primitives/Shortcut/Shortcut.type';
 import type { PatternSetup, PatternValue } from '../DynamicInput/DynamicInput.type';
+import type { LoadErrorProps } from '../LoadError/LoadError.type';
 
 interface SettingsOption {
   value: string;
@@ -94,6 +95,8 @@ interface SettingsRowAction extends ActionData<'danger'> {
   loading?: boolean;
 }
 
+type SettingsLoadProblem = Omit<LoadErrorProps, 'variant' | 'className'>;
+
 type SettingsDescription =
   | { description: string; noDescription?: never }
   | { noDescription: true; description?: never };
@@ -109,7 +112,7 @@ interface SettingsItemFields {
   lock?: string | null;
   changed?: boolean;
   onReset?: () => void;
-  problem?: ReactNode;
+  problem?: ReactNode | SettingsLoadProblem;
   badge?: ReactNode;
   descriptionLines?: number;
 }
@@ -126,6 +129,6 @@ interface SettingsRowLook {
 type SettingsRowProps = SettingsItem & SettingsRowLook;
 
 export type {
-  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsOption, SettingsRowAction, SettingsRowLook,
-  SettingsRowProps,
+  SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsLoadProblem, SettingsOption, SettingsRowAction,
+  SettingsRowLook, SettingsRowProps,
 };
