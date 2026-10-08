@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect } from 'react';
 import type { RefObject } from 'react';
+import { isHTMLElement } from '../../../primitives/dom/is-html-element';
 
 const usePaletteFocus = (open: boolean, inputRef: RefObject<HTMLInputElement | null>): void => {
   useEffect(() => {
@@ -9,7 +10,7 @@ const usePaletteFocus = (open: boolean, inputRef: RefObject<HTMLInputElement | n
     const previous = input.ownerDocument.activeElement;
     input.focus({ preventScroll: true });
     return () => {
-      if (previous instanceof HTMLElement) previous.focus({ preventScroll: true });
+      if (isHTMLElement(previous) && previous.isConnected) previous.focus({ preventScroll: true });
     };
   }, [open, inputRef]);
 };

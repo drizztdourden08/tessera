@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useMemo, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
+import { useEscapeStack } from '../../../primitives/escape-stack/useEscapeStack';
 import { navIndex } from '../../../primitives/listbox/nav-index';
 import { navTarget } from '../../../primitives/listbox/nav-target';
 import { scrollIntoList } from '../../../primitives/listbox/scroll-into-list';
@@ -20,17 +21,13 @@ const useCommandPalette = <T extends CommandPaletteItem>(props: CommandPalettePr
   const listRef = useRef<HTMLDivElement>(null);
 
   usePaletteFocus(open, inputRef);
+  useEscapeStack({ level: 'dialog', onEscape: onClose, active: open });
 
   useEffect(() => {
     if (listRef.current && active >= 0) scrollIntoList(listRef.current, active);
   }, [active]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      onClose();
-      return;
-    }
     const target = navTarget(event.key, false);
     if (target !== undefined) {
       event.preventDefault();

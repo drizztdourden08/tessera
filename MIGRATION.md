@@ -7028,3 +7028,19 @@ Brock's standard keeps views that two or more apps share in the design package, 
 ### What an app does
 
 Nothing. Run `tessera guide` once after the upgrade; a guide run followed by a check is clean from the root and from each app. Rename a part that the new `duplicate-part` finding names.
+
+## 216. CommandPalette closes through the Escape stack
+
+CommandPalette closed from its own handler on an Escape in its search box, so the shared Escape stack of section 211 never saw that press. With focus in the box while a row's confirm question asked, one Escape closed the palette and the question at once. With focus anywhere else, Escape did nothing: once the cross of a row's question, such as Clear the logs in the gallery, took focus and went away, the palette stayed open until the person clicked back into the box. Brock kept a capture phase Escape listener for this.
+
+### What changed
+
+- **The palette registers at `dialog` while open**, the level of a modal, and its search box no longer handles Escape itself. A row's question asks at `popover`, so the first Escape cancels the question and the next one closes the palette, wherever focus is.
+- **Text in the search box clears first.** Without its own handler, the box does what every SearchInput does: an Escape with text clears the text and keeps the palette open, and the next one closes it. Before, one Escape closed the palette with the text still in the box. A searchable Select has worked this way since section 211.
+- **Focus returns to where it was on close, in a frame too.** The palette checked the element it came from with `instanceof HTMLElement`, which fails for an element of another window, such as the gallery's frame, so focus fell to the page body. It now uses the check DialogShell uses.
+
+Nothing looks different.
+
+### What an app does
+
+Brock drops its capture phase Escape listener for the palette's confirm questions. An app shortcut on Escape that asked whether the palette was open reads `useEscapeStack().depth()` instead.
