@@ -17,7 +17,7 @@ const useConfirmAsk = <T>(options: ConfirmAskOptions<T>): ConfirmAsk<T> => {
     const value = open.current;
     if (value === null) return;
     open.current = null;
-    const held = focus.leave(ran);
+    const held = focus.leave();
     setAsking(null);
     onSettle?.(value, ran, held);
     if (ran) onConfirm(value);

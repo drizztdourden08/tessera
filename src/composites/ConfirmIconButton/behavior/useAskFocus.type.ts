@@ -4,7 +4,7 @@ import type { RefObject } from 'react';
 interface AskFocus {
   holdRef: RefObject<HTMLElement | null>;
   triggerRef: RefObject<HTMLButtonElement | null>;
-  leave: (ran: boolean) => boolean;
+  leave: () => boolean;
 }
 
 export type { AskFocus };

@@ -16,10 +16,10 @@ const useAskFocus = (asking: unknown): AskFocus => {
     if (trigger && lost(trigger.ownerDocument)) trigger.focus();
   }, [asking]);
 
-  const leave = (ran: boolean): boolean => {
+  const leave = (): boolean => {
     const hold = holdRef.current;
     const held = hold?.contains(hold.ownerDocument.activeElement) === true;
-    back.current = held && !ran;
+    back.current = held;
     return held;
   };
 

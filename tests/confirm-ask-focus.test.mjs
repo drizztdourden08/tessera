@@ -40,7 +40,7 @@ const goneAfter = (dom, end) => (tree) => {
   if (dom.doc.activeElement === dom.cross) dom.doc.activeElement = dom.doc.body;
 };
 
-describe('a question that ends without the check gives focus back to its trigger', () => {
+describe('a question that ends gives focus back to its trigger', () => {
   let dom;
   let calls;
   beforeEach(() => {
@@ -85,11 +85,23 @@ describe('a question that ends without the check gives focus back to its trigger
     expect(dom.doc.activeElement).toBe(dom.field);
   });
 
-  it('but not after a confirm', () => {
+  it('after a confirm too, when the button is still there', () => {
     const ask = asked();
     ask.act(goneAfter(dom, (a) => a.confirm()));
     expect(calls.onConfirm).toHaveBeenCalledWith('row');
+    expect(dom.doc.activeElement).toBe(dom.trigger);
+  });
+
+  it('and leaves focus to the part when the confirmed action took the button away', () => {
+    const removed = { ask: null };
+    calls.onConfirm = vi.fn(() => {
+      removed.ask.current.triggerRef.current = null;
+    });
+    const ask = asked();
+    removed.ask = ask;
+    ask.act(goneAfter(dom, (a) => a.confirm()));
     expect(dom.trigger.focus).not.toHaveBeenCalled();
+    expect(dom.doc.activeElement).toBe(dom.doc.body);
   });
 });
 
