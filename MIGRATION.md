@@ -7014,3 +7014,17 @@ interface GridCellProps extends HTMLAttributes<HTMLDivElement> {
 - DashboardGrid becomes `<Grid minColWidth={340} gap="lg" dense>`, and each DashboardPanel a `Card` with `title`, `subtitle` and `actions`, wrapped in `Grid.Cell` when it spans two columns or the row. The Randomizer Run and Network tabs keep their `RUN_PANELS` and `NETWORK_PANELS` spans.
 
 The gallery's ResizeHandle page sits in Composites · Layout, and the Grid page has a Dashboard recipe. The two previews leave the gallery, and with them the Preview group.
+
+## 215. A views folder shared by several apps counts once in the guide
+
+Brock's standard keeps views that two or more apps share in the design package, for example `packages/design/src/views`, and `brock adopt` lists that folder in the root config's `parts.views` and again in each app's `apps.<app>.parts.views`. Tessera 0.30.0 already read such a folder once, but only because the root config came first, and nothing flagged two different folders that hold a part of the same name: both parts read one usage file and the guide wrote one page over the other.
+
+### What changed
+
+- **A parts folder is one source, whichever configs list it.** The guide compares folders by their full path, with `./`, a trailing slash and, on Windows, letter case set aside, so the same folder listed in the root, in several apps or twice in one list gives each of its parts once.
+- **The root owns a folder it lists.** A part found there goes into the root's `guide.parts` file, once, whether `tessera guide` or `tessera check` runs from the root or from any app, and an app's own parts file does not list it.
+- **A real duplicate is flagged.** Two different folders that hold a part of the same name give a `duplicate-part` finding that names both folders, and each part reads the usage file in its own folder.
+
+### What an app does
+
+Nothing. Run `tessera guide` once after the upgrade; a guide run followed by a check is clean from the root and from each app. Rename a part that the new `duplicate-part` finding names.

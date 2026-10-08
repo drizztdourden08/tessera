@@ -10,8 +10,8 @@ const withUsage = async (root, component, file) => {
 };
 
 const loadUsages = async (root, components, sources) => {
-  const { byName, stray } = usageSources(root, components, sources);
-  const loaded = await Promise.all(components.map((c) => withUsage(root, c, byName.get(c.name))));
+  const { byFolder, stray } = usageSources(root, components, sources);
+  const loaded = await Promise.all(components.map((c) => withUsage(root, c, byFolder.get(c.folder))));
   const strays = stray.map(({ file, name }) => ({ kind: 'unknown-usage', name, at: file, message: `${file} matches no component folder`, coverage: false }));
   return { components: loaded.map((entry) => entry.component), strays: [...strays, ...loaded.flatMap((entry) => entry.problem ?? [])] };
 };
