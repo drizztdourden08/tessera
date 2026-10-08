@@ -2,6 +2,7 @@
 import { Icon } from '../../../primitives/Icon';
 import type { StatusTone } from '../../../primitives/Status';
 import type { TitleBarActionIconProps } from './TitleBarActionIcon.type';
+import './TitleBarActionIcon.css';
 
 const toneClass = (tone?: StatusTone): string | undefined =>
   (tone === undefined || tone === 'neutral' ? undefined : `window-title-bar__icon--${tone}`);

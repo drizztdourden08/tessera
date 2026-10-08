@@ -6819,3 +6819,66 @@ import { REVIEW_MASK_ATTRIBUTE } from '@drizztdourden08/tessera';
 ```
 
 Brock's review can drop its own `.logs-widget .log-panel__gutter` mask: the gutter now carries the attribute.
+
+## 213. SiteHeader and SiteFooter: the framing of a website
+
+The owner approved TX-54, option B. A website such as RotP's Hookshop or Sanctuary is built from the same parts as the app; only its framing is new. Two composites give it: the band at the top and the line at the foot.
+
+### New parts
+
+- **SiteHeader** is the band at the top of every page of a site. `brand` holds the logo and the site title, drawn as one link home named by `brand.label`; the title hides under 320 px. `links` with `activeId` lead to the main pages, for a page with no side nav, with `aria-current` on the page shown; under 640 px they fold into one menu button, the hamburger DropdownMenu the title bar uses. `profile` is the signed-in person as a `WindowTitleBarDropdownAction`, drawn by WindowTitleBar's own action button, tooltip and menu, so the same action object works in an app title bar. Signed out, leave `profile` out and pass a Sign in Button in `actions`. `navigate` hands each local link to the app router; an `external` link opens a new tab.
+- **SiteFooter** is the foot of a page: `logo` and `note` at the start, `links` at the end, which wrap under the logo on a narrow screen. It is a `footer` landmark, and its links are a `nav` named by `label`.
+- Both take `SiteLink`, one type for a link in either part.
+
+```ts
+interface SiteHeaderBrand {
+  logo: ReactNode;
+  title?: ReactNode;
+  label: string;
+  href: string;
+}
+
+interface SiteLink {
+  id: string;
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+interface SiteHeaderProps {
+  brand: SiteHeaderBrand;
+  links?: readonly SiteLink[];
+  activeId?: string;
+  navigate?: (href: string) => void;
+  profile?: WindowTitleBarDropdownAction;
+  actions?: ReactNode;
+  label?: string;
+  className?: string;
+}
+
+interface SiteFooterProps {
+  logo?: ReactNode;
+  note?: ReactNode;
+  links?: readonly SiteLink[];
+  navigate?: (href: string) => void;
+  label?: string;
+  className?: string;
+}
+```
+
+The strings table `navigation` gains `siteLinks` (Main pages) and `siteFooterLinks` (More about the site), the default names of the two link lists.
+
+### The title bar's action parts
+
+WindowTitleBar's action icon tones, its tooltip text and its dropdown wrapper move from `WindowTitleBar.css` to CSS files beside `TitleBarActionIcon`, `TitleBarTip` and `TitleBarDropdown`, so SiteHeader draws the profile with its look without the whole title bar. The class names and the look stay the same.
+
+### Gallery
+
+SiteHeader and SiteFooter sit in Composites · Layout, and their preview pages leave Preview · For approval. SiteHeader's page holds three recipes, none of them a new part: a signed-in Hookshop page with each app part marked (SideNavLayout and SideNav, SettingsPage, ItemCard, a Card with FilterBar over DataTable, a Card beside the page), the same page on a phone, and sign in as a Card under the logo on the palette gradient of the Splash, `--c-gradient-dark-from` and `-to` beside the light pair.
+
+### What an app does
+
+- Put `SiteHeader` on top of every page of a site and build the rest from the app parts: SideNavLayout for the left menu and its search, SettingsPage for a page, Cards beside it, FilterBar over DataTable for a list.
+- Pass the signed-in person as `profile`, the same `WindowTitleBarDropdownAction` an app puts in WindowTitleBar's `actions`.
+- Draw sign in as a Card centred on `linear-gradient(160deg, var(--c-gradient-dark-from), var(--c-gradient-dark-to))`, or the light pair, under the logo, with no SiteHeader.
+- Put `SiteFooter` last in the page column of a public page.

@@ -1,0 +1,4 @@
+/* @layer renderer-components @kind style */
+.window-title-bar__dropdown {
+  display: inline-flex;
+}

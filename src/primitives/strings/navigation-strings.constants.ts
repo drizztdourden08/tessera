@@ -28,6 +28,8 @@ const NAVIGATION_STRINGS = {
   pageViews: (title: string) => `${title} views`,
   pageSections: (title: string) => `${title} sections`,
   opensInNewTab: 'opens in a new tab',
+  siteLinks: 'Main pages',
+  siteFooterLinks: 'More about the site',
 };
 
 export { NAVIGATION_STRINGS };

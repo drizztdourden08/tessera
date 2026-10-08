@@ -35,10 +35,10 @@ export type {
 } from './SettingsRow';
 export { filterSettingsSections, SettingsSection } from './SettingsSection';
 export type { SettingsContentRow, SettingsGroupData, SettingsLock, SettingsLockRenderer, SettingsSectionData, SettingsSectionLook, SettingsSectionProps, SettingsSectionRow } from './SettingsSection';
-export { SettingsPage } from './SettingsPage';
-export type { SettingsPageAnchor, SettingsPageProps, SettingsPageTabs } from './SettingsPage';
-export { SideNavLayout } from './SideNavLayout';
-export type { SideNavLayoutPaneScroll, SideNavLayoutProps } from './SideNavLayout';
+export { SettingsPage, type SettingsPageAnchor, type SettingsPageProps, type SettingsPageTabs } from './SettingsPage';
+export { SideNavLayout, type SideNavLayoutPaneScroll, type SideNavLayoutProps } from './SideNavLayout';
+export { SiteHeader, type SiteHeaderBrand, type SiteHeaderProps, type SiteLink } from './SiteHeader';
+export { SiteFooter, type SiteFooterProps } from './SiteFooter';
 export { SearchResults } from './SearchResults';
 export type { SearchResultsGroup, SearchResultsHit, SearchResultsJump, SearchResultsProps } from './SearchResults';
 export { SearchResultGroup } from './SearchResultGroup';

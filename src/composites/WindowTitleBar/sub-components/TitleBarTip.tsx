@@ -4,6 +4,7 @@ import { Span } from '../../../primitives/text-elements';
 import { Tooltip } from '../../../primitives/Tooltip';
 import { menuShortcutKeys } from '../../DropdownMenu/behavior/menu-shortcut-keys';
 import type { TitleBarTipProps } from './TitleBarTip.type';
+import './TitleBarTip.css';
 
 const TitleBarTip = (props: TitleBarTipProps) => {
   const { label, shortcut, away = false, quiet = false, children } = props;

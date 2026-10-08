@@ -431,6 +431,21 @@
               }
             }
           },
+          "website chrome": {
+            "question": "Which part of the site?",
+            "answers": {
+              "the band at the top": {
+                "components": [
+                  "SiteHeader"
+                ]
+              },
+              "the line at the foot": {
+                "components": [
+                  "SiteFooter"
+                ]
+              }
+            }
+          },
           "a ready-made app panel": {
             "question": "Which panel?",
             "answers": {
@@ -7518,6 +7533,235 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "SiteFooter",
+      "tier": "composites",
+      "source": "src/composites/SiteFooter/SiteFooter.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord.",
+      "useWhen": [
+        "A public page of a website ends with the same small line on every page.",
+        "A site needs a fixed place for its rules, its privacy page and its community links."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The buttons at the foot of a form that save or cancel.",
+          "use": "SaveBar"
+        },
+        {
+          "case": "The band at the top of the site with the main links.",
+          "use": "SiteHeader"
+        }
+      ],
+      "rules": [
+        "Keep it small: a Logo at sm, one line in note and a few links; the main pages belong in SiteHeader.",
+        "Mark a link to another site external, so it opens a new tab.",
+        "Put it last in the page column, under the content, and give navigate the app router."
+      ],
+      "a11y": [
+        "It is a footer landmark, and its links are a nav named by label.",
+        "An external link says it opens a new tab to a screen reader."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "website chrome",
+          "the line at the foot"
+        ],
+        "rule": "SiteFooter is the one line at the foot of a website page, under the app parts."
+      },
+      "example": "import { Logo, SiteFooter } from '@drizztdourden08/tessera';\nimport type { SiteLink } from '@drizztdourden08/tessera';\n\nconst LINKS: SiteLink[] = [\n  { id: 'rules', label: 'Publishing rules', href: '/rules' },\n  { id: 'privacy', label: 'Privacy', href: '/privacy' },\n  { id: 'discord', label: 'Discord', href: 'https://discord.com', external: true },\n];\n\nconst StoreFooter = ({ go }: { go: (href: string) => void }) => (\n  <SiteFooter logo={<Logo brand=\"rotp\" size=\"sm\" />} note=\"Made by players for Relic of the Past.\" links={LINKS} navigate={go} />\n);\n",
+      "propsHash": "505122ce17d6b89c",
+      "props": {
+        "own": [
+          {
+            "name": "logo",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "note",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "links",
+            "optional": true,
+            "text": "readonly SiteLink[]",
+            "default": "[]"
+          },
+          {
+            "name": "navigate",
+            "optional": true,
+            "text": "(href: string) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xl",
+        "--space-xs",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Layout/SiteFooter",
+        "route": "#/story/composites-sitefooter--overview",
+        "file": "stories/composites/SiteFooter.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "SiteHeader",
+      "tier": "composites",
+      "source": "src/composites/SiteHeader/SiteHeader.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The band at the top of every page of a website: the logo and the site title as the link home, the main links and the signed-in person.",
+      "useWhen": [
+        "A website such as a store or a community site needs the same band on every page, signed in or not.",
+        "A page has no side nav and needs a few links to the main pages, such as Home, Browse and Rules."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A desktop app draws the title bar of its own window.",
+          "use": "WindowTitleBar"
+        },
+        {
+          "case": "The header belongs to one view or card inside the page.",
+          "use": "ContentHeader"
+        },
+        {
+          "case": "The page needs a menu down the left with its own search.",
+          "use": "SideNavLayout"
+        }
+      ],
+      "rules": [
+        "Pass brand with the logo, the site title, a label for the link and its href; the title hides on a very narrow screen.",
+        "Pass links only for a page with no side nav, and activeId for the page shown; under 640 px they fold into one menu button.",
+        "Pass profile, a WindowTitleBar dropdown action, for the signed-in person: the same action object works in an app title bar.",
+        "Signed out, leave profile out and put a Sign in Button in actions.",
+        "Build the rest of the page from the app parts: SideNavLayout for the left menu, SettingsPage for a page, Card, FilterBar and DataTable.",
+        "Give navigate the app router so a link changes the page without a reload."
+      ],
+      "a11y": [
+        "It is a header landmark; the logo and the title are one link home named by brand.label.",
+        "The links are a nav named by label, with aria-current on the page shown.",
+        "The phone menu and the profile are menu buttons with aria-haspopup, and their menus take the keys of DropdownMenu."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "website chrome",
+          "the band at the top"
+        ],
+        "rule": "SiteHeader is the one site-only part on top of the page; everything under it is an app part."
+      },
+      "example": "import { BrandMark, SiteHeader } from '@drizztdourden08/tessera';\nimport type { MenuGroup, SiteLink, WindowTitleBarDropdownAction } from '@drizztdourden08/tessera';\n\ninterface StoreHeaderProps {\n  page: string;\n  person: string | null;\n  account: MenuGroup[];\n  links: SiteLink[];\n  go: (href: string) => void;\n}\n\nconst StoreHeader = ({ page, person, account, links, go }: StoreHeaderProps) => {\n  const profile: WindowTitleBarDropdownAction | undefined = person === null\n    ? undefined\n    : { id: 'profile', icon: 'user', label: person, bar: 'dropdown', groups: account };\n  return (\n    <SiteHeader\n      brand={{ logo: <BrandMark app=\"rotp\" size=\"md\" />, title: 'Hookshop', label: 'Hookshop home', href: '/' }}\n      links={links}\n      activeId={page}\n      navigate={go}\n      profile={profile}\n    />\n  );\n};\n",
+      "propsHash": "969b8aa4f98402c8",
+      "props": {
+        "own": [
+          {
+            "name": "brand",
+            "optional": false,
+            "text": "SiteHeaderBrand"
+          },
+          {
+            "name": "links",
+            "optional": true,
+            "text": "readonly SiteLink[]",
+            "default": "[]"
+          },
+          {
+            "name": "activeId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "navigate",
+            "optional": true,
+            "text": "(href: string) => void"
+          },
+          {
+            "name": "profile",
+            "optional": true,
+            "text": "WindowTitleBarDropdownAction"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-text",
+        "--c-text-dim",
+        "--radius-md",
+        "--size-48",
+        "--size-56",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--transition-fast",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Composites · Layout/SiteHeader",
+        "route": "#/story/composites-siteheader--overview",
+        "file": "stories/composites/SiteHeader.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Splash",

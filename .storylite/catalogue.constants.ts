@@ -101,8 +101,6 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
     groups: [{
       group: 'For approval',
       entries: [
-        { name: 'SiteHeader', summary: 'For approval: the band at the top of every page of a website, with the brand, links and buttons.' },
-        { name: 'SiteFooter', summary: 'For approval: the foot of a public page of a website, with a small logo, a line and links.' },
         { name: 'ResizeHandle', summary: 'For approval: one seam to drag between two panels, shared by every layout that resizes.' },
         { name: 'DashboardGrid', summary: 'For approval: titled cards on as many columns as fit, from Grid and Card with no new part.' },
       ],

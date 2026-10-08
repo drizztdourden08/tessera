@@ -80,7 +80,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
   'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend' },
-  'Composites · Layout': { SplitPane: 'columns-2', ListDetailLayout: 'layout-list', SideNavLayout: 'layout-template', ContentHeader: 'panel-top', ListDetail: 'panels-left-bottom' },
+  'Composites · Layout': { SplitPane: 'columns-2', ListDetailLayout: 'layout-list', SideNavLayout: 'layout-template', ContentHeader: 'panel-top', SiteHeader: 'panel-top-open', SiteFooter: 'panel-bottom', ListDetail: 'panels-left-bottom' },
   'Composites · Lists': {
     ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
     SearchResultHit: 'mouse-pointer-click', ItemList: 'list-checks',
@@ -121,7 +121,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Data': { Engine: 'cpu' },
   'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge', StackedBar: 'chart-bar-stacked' },
   'Composites · Charts': { StatTile: 'trending-up' },
-  'Preview · For approval': { SiteHeader: 'panel-top', SiteFooter: 'panel-bottom', ResizeHandle: 'grip-vertical', DashboardGrid: 'layout-dashboard' },
+  'Preview · For approval': { ResizeHandle: 'grip-vertical', DashboardGrid: 'layout-dashboard' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };

@@ -7,6 +7,7 @@ import { barItemProps } from '../behavior/bar-item-props';
 import type { TitleBarDropdownProps } from './TitleBarAction.type';
 import { TitleBarActionIcon } from './TitleBarActionIcon';
 import { TitleBarTip } from './TitleBarTip';
+import './TitleBarDropdown.css';
 
 const TitleBarDropdown = (props: TitleBarDropdownProps) => {
   const { action, away, onOpenChange } = props;

@@ -111,10 +111,8 @@ const LAYOUT = {
       question: 'Which part of it?',
       answers: { 'the whole page': null, 'one section of rows': null, 'a list of groups': null },
     },
-    'window chrome': {
-      question: 'Which part of the window?',
-      answers: { 'the title bar': null, 'a header inside the window': null },
-    },
+    'window chrome': { question: 'Which part of the window?', answers: { 'the title bar': null, 'a header inside the window': null } },
+    'website chrome': { question: 'Which part of the site?', answers: { 'the band at the top': null, 'the line at the foot': null } },
     'a ready-made app panel': {
       question: 'Which panel?',
       answers: { 'facts in groups': null, 'an opening banner with art': null },
