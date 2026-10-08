@@ -1,0 +1,15 @@
+/* @layer stories @kind style */
+.dashboard-story__frame {
+  max-inline-size: 100%;
+  padding: var(--space-lg);
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-lg);
+}
+
+.dashboard-story__frame--wide {
+  inline-size: var(--size-1024);
+}
+
+.dashboard-story__frame--narrow {
+  inline-size: var(--size-512);
+}

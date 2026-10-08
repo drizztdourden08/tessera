@@ -95,6 +95,19 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
     intro: 'The headless engine under the data composites: schema, tables, filters and view state.',
     groups: [{ group: '', entries: [{ name: 'Engine', summary: 'Schema derivation, the table hook, filters and view storage.' }] }],
   },
+  {
+    tier: 'Preview',
+    intro: 'Designs waiting for approval. They live in the gallery only and are not part of the package.',
+    groups: [{
+      group: 'For approval',
+      entries: [
+        { name: 'SiteHeader', summary: 'For approval: the band at the top of every page of a website, with the brand, links and buttons.' },
+        { name: 'SiteFooter', summary: 'For approval: the foot of a public page of a website, with a small logo, a line and links.' },
+        { name: 'ResizeHandle', summary: 'For approval: one seam to drag between two panels, shared by every layout that resizes.' },
+        { name: 'DashboardGrid', summary: 'For approval: titled cards on as many columns as fit, from Grid and Card with no new part.' },
+      ],
+    }],
+  },
 ]);
 
 export { CATALOGUE };

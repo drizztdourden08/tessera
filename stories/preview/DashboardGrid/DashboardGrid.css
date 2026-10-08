@@ -1,0 +1,31 @@
+/* @layer stories @kind style */
+.dense-grid {
+  container: dense-grid / inline-size;
+  min-inline-size: 0;
+}
+
+.dense-grid__cells {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--size-288)), 1fr));
+  grid-auto-flow: row dense;
+  align-items: stretch;
+}
+
+.dense-grid__cell {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.dense-grid__cell > * {
+  flex: 1;
+}
+
+.dense-grid__cell[data-span='full'] {
+  grid-column: 1 / -1;
+}
+
+@container dense-grid (width >= 592px) {
+  .dense-grid__cell[data-span='2'] {
+    grid-column: span 2;
+  }
+}

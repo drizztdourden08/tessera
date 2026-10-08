@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.resize-handle {
+  display: contents;
+}
+
+.resize-handle--line .split-pane__divider {
+  inline-size: var(--space-sm);
+}
+
+.resize-handle--line .split-pane__grip {
+  display: none;
+}
