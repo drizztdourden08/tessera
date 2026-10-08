@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 48 of 171 have their usage written; a linked name opens its page.
+One line per component. 49 of 172 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -125,6 +125,7 @@ One line per component. 48 of 171 have their usage written; a linked name opens 
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [LoadError](components/LoadError.md): What to show when something fails to load: one plain sentence, a Retry button and the raw error behind Details. Import from `@drizztdourden08/tessera`.
 - `LogPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.

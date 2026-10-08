@@ -101,6 +101,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Video: 'video',
     ShortcutList: 'keyboard',
     CodeBlock: 'square-code',
+    Markdown: 'scroll-text',
   },
   'Composites · Inputs': {
     DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',

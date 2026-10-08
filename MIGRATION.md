@@ -6611,3 +6611,42 @@ LoadError sits in Composites · Feedback beside ErrorBoundary, which moves there
 - Pass ItemList the raw failure as `error`, not a sentence, and `onRetry` to offer Retry.
 - Replace a hand-built failed load with `LoadError`, a hand-built show and hide with `Disclosure`.
 - The classes `error-boundary__label`, `error-boundary__detail`, `task-progress__log-body` and `referenced-by__toggle` are gone; RENAMES.json maps each to its LoadError or Disclosure class.
+
+## 209. Markdown shows a release note
+
+Every product writes its release notes the same way, after rotp: one hand-written `release-notes/v<version>.md` per version, with a `# <Product> v<version>` title, a summary paragraph, `##` sections and plain bullets. Each updater shows the note as formatted text, and Brock's update dialog will too. Tessera had no part for it, so the gallery drew its notes by hand.
+
+### What changed
+
+- **Markdown** is a new composite. It parses with `react-markdown` 10.1 (MIT), a maintained CommonMark parser that builds React elements and never sets HTML, now a dependency of the package. Tessera keeps no parser of its own.
+- It draws each element with a Tessera part: Text for headings, Paragraph, Strong, Em, Code for inline code, Link, CodeBlock for a fenced block (TypeScript, TSX and JSON keep their highlighting, any other language shows as plain text, with a copy button), BlockQuote, Divider for a rule, and its own list styling.
+- **What is dropped:** raw HTML, a script and an HTML comment, such as the header line of rotp's notes, are left out; a link whose address is not http, https or mailto shows its text with nothing to click; an image shows its alt text; a table, a strikethrough and a task list stay plain text.
+- **Links:** with `onLink`, a click calls it with the address and the page stays where it is. Without it, a link opens in a new tab with `rel="noopener noreferrer"`.
+- **Headings** move down by `headingOffset`, 1 by default, so a note's `#` is an h2 and never the page's h1. Their size follows the depth in the note, not the level, and stays compact. `hideTitle` drops the `#` title when the frame around the note already names the version.
+
+```ts
+type MarkdownSize = 'sm' | 'md';
+type MarkdownHeadingOffset = 0 | 1 | 2 | 3 | 4 | 5;
+type MarkdownLinkHandler = (href: string) => void;
+
+interface MarkdownProps {
+  children?: string;
+  source?: string;
+  onLink?: MarkdownLinkHandler;
+  headingOffset?: MarkdownHeadingOffset;
+  hideTitle?: boolean;
+  size?: MarkdownSize;
+  className?: string;
+}
+```
+
+- **UtilityScreen** keeps its props: `notes.children` already takes a node. Its usage and the gallery's Update available screen now pass a Markdown note with `size="sm"`, `headingOffset={2}` and `hideTitle`, so the sections are h4 under the h3 notes title.
+
+### Gallery
+
+Markdown sits in Composites · Content after CodeBlock: a release note in rotp's format beside its source, raw HTML and unsafe links dropped, a long note in a narrow dialog, and links handled by the app.
+
+### What an app does
+
+- Show a release note with `<Markdown source={note} size="sm" headingOffset={2} hideTitle onLink={openInBrowser} />`, with `onLink` opening the address in the system browser in a desktop app.
+- Drop any hand-written Markdown rendering, such as `marked` with `dangerouslySetInnerHTML`.

@@ -156,6 +156,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'Video', summary: 'A video player with its own control bar, keys and error state.' },
         { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
         { name: 'CodeBlock', summary: 'Highlighted code in a panel, with line marks, numbers and a copy button.' },
+        { name: 'Markdown', summary: 'A Markdown text, such as a release note, drawn with Tessera parts, with raw HTML dropped.' },
       ],
     },
     {

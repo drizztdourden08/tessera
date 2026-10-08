@@ -20,7 +20,7 @@ const usage = {
     'When the task fails, pass the raw error in status.error: it waits behind Details under the message.',
     'Mark the action that tries a failed task again with retry, so it shows as a RetryButton with the label of the action.',
     'Put choices that shape the task, such as a pre-release toggle or a version picker, in settings, not in the children.',
-    'Put long text, such as release notes, in notes: a framed box with its own scroll.',
+    'Put long text, such as release notes, in notes: a framed box with its own scroll. Draw a release note with Markdown, size sm, headingOffset 2 and hideTitle, since the box title names the version.',
     'Set progress only when the task can say how far it is.',
     'Pass report to offer a way to report a problem: one red bug icon button over a rule, with report.footnote as a short line beside it.',
     'Put the main action last in actions, with tone primary, and keep one primary action.',
@@ -35,7 +35,7 @@ const usage = {
     path: ['a full screen view', 'one short task with a status, such as an update check'],
     rule: 'A status, details and actions in a compact window.',
   },
-  example: `import { Icon, Strong, UtilityScreen } from '@drizztdourden08/tessera';
+  example: `import { Icon, Markdown, Strong, UtilityScreen } from '@drizztdourden08/tessera';
 
 interface UpdateCheckProps {
   notes: string;
@@ -48,7 +48,7 @@ const UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) 
   <UtilityScreen
     onClose={onClose}
     status={{ tone: 'info', icon: <Icon name="download" />, title: 'Update available', message: <>Version <Strong>0.10.0</Strong> is available</> }}
-    notes={{ title: 'What is new in 0.10.0', children: notes }}
+    notes={{ title: 'What is new in 0.10.0', children: <Markdown source={notes} size="sm" headingOffset={2} hideTitle /> }}
     report={{ onSelect: onReport, footnote: 'Any earlier version can be picked above if something stops working.' }}
     actions={[
       { label: 'Later', tone: 'tertiary', onSelect: onClose },

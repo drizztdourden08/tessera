@@ -1,18 +1,7 @@
 /* @layer stories @kind component */
-import { Box, Text } from '../../../src/primitives';
-import { RELEASE_NOTES } from './release-notes';
+import { Markdown } from '../../../src/composites';
+import { RELEASE_NOTE } from './markdown-notes.constants';
 
-const ReleaseNotes = () => (
-  <>
-    {RELEASE_NOTES.map((group) => (
-      <Box key={group.title}>
-        <Text as="h4">{group.title}</Text>
-        <Box as="ul">
-          {group.items.map((item) => <Box as="li" key={item}>{item}</Box>)}
-        </Box>
-      </Box>
-    ))}
-  </>
-);
+const ReleaseNotes = () => <Markdown source={RELEASE_NOTE} size="sm" headingOffset={2} hideTitle />;
 
 export { ReleaseNotes };

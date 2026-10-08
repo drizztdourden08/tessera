@@ -175,6 +175,7 @@ export { Splash } from './Splash';
 export type { SplashAction, SplashBar, SplashProgress, SplashProps } from './Splash';
 export { ShortcutList, type ShortcutGesture, type ShortcutListGroup, type ShortcutListItem, type ShortcutListProps } from './ShortcutList';
 export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from './CodeBlock';
+export { Markdown, type MarkdownHeadingOffset, type MarkdownLinkHandler, type MarkdownProps, type MarkdownSize } from './Markdown';
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,

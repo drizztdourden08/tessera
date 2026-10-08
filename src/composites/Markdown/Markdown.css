@@ -1,0 +1,92 @@
+/* @layer renderer-components @kind style */
+.markdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-inline-size: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  overflow-wrap: anywhere;
+}
+
+.markdown[data-size='sm'] {
+  gap: var(--space-xs);
+  font-size: var(--text-sm);
+}
+
+.markdown .markdown__heading {
+  margin: 0;
+  color: var(--c-text);
+  font-size: inherit;
+  font-weight: var(--weight-semi);
+  line-height: var(--leading-tight);
+  text-wrap: balance;
+}
+
+.markdown .markdown__heading:not(:first-child) {
+  margin-block-start: var(--space-sm);
+}
+
+.markdown .markdown__heading--1 {
+  font-size: var(--text-xl);
+}
+
+.markdown .markdown__heading--2 {
+  font-size: var(--text-lg);
+}
+
+.markdown[data-size='sm'] .markdown__heading--1 {
+  font-size: var(--text-lg);
+}
+
+.markdown[data-size='sm'] .markdown__heading--2 {
+  font-size: var(--text-base);
+}
+
+.markdown .markdown__paragraph,
+.markdown .markdown__quote {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.markdown .markdown__quote {
+  color: var(--c-text-dim);
+}
+
+.markdown .markdown__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin: 0;
+  padding-inline-start: var(--space-lg);
+}
+
+.markdown__list--bullets {
+  list-style: disc;
+}
+
+.markdown__list--numbers {
+  list-style: decimal;
+}
+
+.markdown__list .markdown__list--bullets {
+  list-style: circle;
+}
+
+.markdown .markdown__item {
+  display: list-item;
+  margin: 0;
+}
+
+.markdown__item::marker {
+  color: var(--c-text-dim);
+}
+
+.markdown__item > .markdown__list {
+  margin-block-start: var(--space-2xs);
+}
+
+.markdown .markdown__rule {
+  margin: 0;
+}

@@ -143,6 +143,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A quotation: no component yet.
   - A block of code: no component yet.
   - Words that draw the eye, animated: no component yet.
+  - Formatted text from Markdown, such as release notes: [Markdown](components/Markdown.md). Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped.
 - Data. **What data are you showing?**
   - Rows and columns to sort and filter: no component yet.
   - Filters over a collection: no component yet.

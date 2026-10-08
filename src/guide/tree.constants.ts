@@ -150,7 +150,7 @@ const TEXT = {
   question: 'What kind of text?',
   answers: {
     'a heading': null, 'a section heading with an action': null, 'running text': null, 'a quotation': null,
-    'a block of code': null, 'words that draw the eye, animated': null,
+    'a block of code': null, 'words that draw the eye, animated': null, 'formatted text from Markdown, such as release notes': null,
   },
 } as const;
 

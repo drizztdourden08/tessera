@@ -112,7 +112,7 @@ const Narrow = {
   render: () => <UpdateDemo step="available" phone />,
 } satisfies PlaygroundStory<UtilityArgs>;
 
-const CODE = `import { Field, Icon, Select, Strong, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
+const CODE = `import { Field, Icon, Markdown, Select, Strong, Toggle, UtilityScreen } from '@drizztdourden08/tessera';
 
 <UtilityScreen
   onClose={close}
@@ -121,7 +121,7 @@ const CODE = `import { Field, Icon, Select, Strong, Toggle, UtilityScreen } from
     <Toggle label="Include pre-releases" checked={prereleases} onChange={setPrereleases} />
     <Field label="Version to install"><Select value={version} onChange={setVersion} groups={versions} /></Field>
   </>}
-  notes={{ title: 'What is new in 0.10.0', children: <ReleaseNotes /> }}
+  notes={{ title: 'What is new in 0.10.0', children: <Markdown source={releaseNote} size="sm" headingOffset={2} hideTitle /> }}
   report={{ onSelect: openBugReport, footnote: 'Any earlier version can be picked above if something stops working.' }}
   actions={[
     { label: 'Later', tone: 'tertiary', onSelect: close },
@@ -135,7 +135,7 @@ const Overview = overviewStory({
   points: [
     '`status` is the window header, beside the close button: a spinner while `busy`, or the icon of its tone.',
     '`settings` holds the choices that shape the task; the children hold details such as a warning.',
-    '`notes` is a framed box with its own scroll, for release notes or a log; `progress` adds a bar.',
+    '`notes` is a framed box with its own scroll, for a log or a [Markdown] release note; `progress` adds a bar.',
     '`report` adds a red bug button over a rule, with an optional `footnote`; `actions` sit under it, main action last.',
     'The layout copies the rotp update dialog: one column with one gap, and no card inside the window.',
     'In a narrow or short box the card fills it, the body scrolls and the actions stay in view.',

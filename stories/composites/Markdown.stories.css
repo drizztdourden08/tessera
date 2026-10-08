@@ -1,0 +1,22 @@
+/* @layer stories @kind style */
+.markdown-story__note {
+  inline-size: 100%;
+  max-inline-size: var(--size-640);
+}
+
+.markdown-story__pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--size-288), 1fr));
+  gap: var(--space-lg);
+  inline-size: 100%;
+  max-inline-size: var(--size-896);
+}
+
+.markdown-story__dialog {
+  inline-size: 100%;
+  max-inline-size: var(--size-320);
+}
+
+.markdown-story__dialog-body {
+  max-block-size: var(--size-384);
+}
