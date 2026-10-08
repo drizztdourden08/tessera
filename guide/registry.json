@@ -824,7 +824,7 @@
         "rule": "Center puts its children in the middle of its box on both axes, with the gap and direction of a Flex."
       },
       "example": "import { Center, Text } from '@drizztdourden08/tessera';\n\nconst LobbyWaiting = () => (\n  <Center direction=\"column\" gap=\"sm\" className=\"lobby-empty\">\n    <Text variant=\"title\">Lobby</Text>\n    <Text variant=\"subtitle\">Waiting for the host to start the session</Text>\n  </Center>\n);\n",
-      "propsHash": "c06baae80c8fe002",
+      "propsHash": "6fce93c922c84fb7",
       "props": {
         "own": [
           {
@@ -837,6 +837,7 @@
             "optional": true,
             "text": "SpaceToken",
             "literals": [
+              "'2xs'",
               "'xs'",
               "'sm'",
               "'md'",
@@ -1392,7 +1393,7 @@
         "rule": "Inline lays its children side by side in a row, with a token gap and the items centred across it."
       },
       "example": "import { Icon, Inline, Status, Text } from '@drizztdourden08/tessera';\n\nconst SessionRow = () => (\n  <Inline>\n    <Icon name=\"gamepad-2\" />\n    <Text>Session 4</Text>\n    <Status tone=\"success\" dot>Connected</Status>\n  </Inline>\n);\n",
-      "propsHash": "ac8cfbcd623049ee",
+      "propsHash": "dd0ddca7ec51929e",
       "props": {
         "own": [
           {
@@ -1425,6 +1426,7 @@
             "optional": true,
             "text": "SpaceToken",
             "literals": [
+              "'2xs'",
               "'xs'",
               "'sm'",
               "'md'",

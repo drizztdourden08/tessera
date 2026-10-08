@@ -27,6 +27,11 @@
   width: 100%;
 }
 
+.btn--one-line {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .btn__icon {
   flex-shrink: 0;
   font-size: var(--text-lg);

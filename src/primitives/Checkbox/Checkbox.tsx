@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useEffect, useRef } from 'react';
+import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { useControlSize } from '../field-control/useControlSize';
 import { Span } from '../text-elements';
 import '../../theme/control-size.css';
@@ -9,6 +10,7 @@ import type { CheckboxProps } from './Checkbox.type';
 const Checkbox = (props: CheckboxProps) => {
   const { checked, onChange, label, ariaLabel, disabled, indeterminate = false, size, className = '' } = props;
   const controlSize = useControlSize(size);
+  const { invalid, describedBy } = useFieldControl();
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (inputRef.current) inputRef.current.indeterminate = indeterminate;
@@ -22,6 +24,8 @@ const Checkbox = (props: CheckboxProps) => {
         checked={checked}
         disabled={disabled}
         aria-label={ariaLabel}
+        aria-invalid={invalid ? true : undefined}
+        aria-describedby={describedBy}
         onChange={(e) => onChange(e.target.checked)}
       />
       {label != null && <Span tone="dim" className="checkbox__label">{label}</Span>}

@@ -15,3 +15,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.grid-demo__narrow {
+  inline-size: var(--size-160);
+  padding: var(--space-xs);
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+}

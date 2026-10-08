@@ -4,12 +4,13 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
-import { Box, Field, NumberInput, Text, TextInput, Toggle, type ControlSize, type FieldWidth } from '../../src/primitives';
+import { Box, Field, Flex, NumberInput, Text, TextInput, Toggle, type ControlSize, type FieldWidth } from '../../src/primitives';
 import { PasswordInput } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { SizesLineUp } from './_samples/SizesLineUp';
+import './Field.stories.css';
 
 type FieldArgs = {
   label: string;
@@ -138,6 +139,26 @@ const Widths = {
   ),
 } satisfies StoryLiteStoryDefinition<FieldArgs>;
 
+const NarrowRow = {
+  name: 'Inline in a narrow row',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">A 192 px column: the control shrinks to fit beside its label</Text>
+      <Box className="field-demo__narrow">
+        <Field label="Server address" inline size="sm">
+          <TextInput defaultValue="archipelago.gg" />
+        </Field>
+        <Field label="Players" inline size="sm">
+          <Flex gap="xs">
+            <NumberInput aria-label="Fewest players" value={2} min={1} max={16} onChange={() => undefined} />
+            <NumberInput aria-label="Most players" value={8} min={1} max={16} onChange={() => undefined} />
+          </Flex>
+        </Field>
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<FieldArgs>;
+
 const LineUp = {
   name: 'Sizes line up',
   render: () => <SizesLineUp />,
@@ -166,7 +187,7 @@ const Overview = overviewStory({
     '`width` caps the field on a wide page: `sm` 256 px, `md` 512 px by default, or `full`.',
   ],
   playground: Playground,
-  variants: [Form, Widths, Sizes, LineUp],
+  variants: [Form, Widths, NarrowRow, Sizes, LineUp],
   states: {
     render: renderState,
     list: [
@@ -177,4 +198,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Form, LineUp, Overview, Playground, Sizes, Validation, Widths };
+export { Form, LineUp, NarrowRow, Overview, Playground, Sizes, Validation, Widths };

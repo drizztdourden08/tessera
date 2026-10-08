@@ -27,6 +27,11 @@
   cursor: inherit;
 }
 
+.checkbox__input[aria-invalid='true'] {
+  outline: var(--border-width-thin) solid var(--c-danger);
+  outline-offset: var(--border-width-thin);
+}
+
 .checkbox__input:focus-visible {
   outline: var(--border-width-thick) solid var(--c-primary);
   outline-offset: var(--size-2);

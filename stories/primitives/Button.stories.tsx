@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
-import { Button, Flex, Icon } from '../../src/primitives';
+import { Box, Button, Flex, Icon, Text } from '../../src/primitives';
 import type { ButtonSize, ButtonVariant } from '../../src/primitives/Button/Button.type';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
@@ -11,6 +11,7 @@ import { BUTTON_STATES } from './_samples/button-states';
 import { markedStates } from './_samples/marked-states';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
+import './Button.stories.css';
 
 type ButtonArgs = {
   label: string;
@@ -73,6 +74,20 @@ const Loading = {
   render: () => <ButtonLoading />,
 } satisfies StoryLiteStoryDefinition<ButtonArgs>;
 
+const TightRow = {
+  name: 'In a tight row',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">A 224 px row: each label stays on one line, and a button that does not fit moves down</Text>
+      <Flex gap="sm" wrap className="button-demo__tight">
+        <Button variant="primary" size="sm">Save</Button>
+        <Button size="sm">Discard the draft</Button>
+        <Button variant="ghost" size="sm">Open the log</Button>
+      </Flex>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ButtonArgs>;
+
 const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   <Flex gap="sm" align="center">
     {STATE_BUTTONS.map(({ variant, label, withIcon }) => (
@@ -94,9 +109,9 @@ const Overview = overviewStory({
   ],
   instead: '[IconButton] for an icon alone, or [Pressable] for a clickable surface with a look of its own.',
   playground: Playground,
-  variants: [AllVariants, Loading],
+  variants: [AllVariants, Loading, TightRow],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, Loading, Overview, Playground };
+export { AllVariants, Loading, Overview, Playground, TightRow };

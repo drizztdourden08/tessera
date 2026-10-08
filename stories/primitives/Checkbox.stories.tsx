@@ -4,7 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
-import { Box, Checkbox, Text, type ControlSize } from '../../src/primitives';
+import { Box, Checkbox, Field, Text, type ControlSize } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -101,6 +101,12 @@ const renderState = (props: StateProps) => (
   <HintsOption initial={props.checked === true} indeterminate={props.indeterminate === true} disabled={props.disabled === true} />
 );
 
+const renderError = () => (
+  <Field error="A race seed needs hints on the map.">
+    <HintsOption initial={false} />
+  </Field>
+);
+
 const SelectAll = {
   name: 'Select all (mixed state)',
   render: () => <GamePicker />,
@@ -134,6 +140,7 @@ const Overview = overviewStory({
       { ...STATE.focus, target: '.checkbox__input' },
       STATE.checked,
       { name: 'Indeterminate', props: { indeterminate: true } },
+      { ...STATE.error, render: renderError },
       STATE.disabled,
     ],
   },

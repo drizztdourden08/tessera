@@ -12,7 +12,7 @@ type StackArgs = {
   align: FlexAlign;
 };
 
-const GAPS: readonly SpaceToken[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
+const GAPS: readonly SpaceToken[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'];
 
 const SETTINGS = [
   { label: 'Display scale', value: '3x' },

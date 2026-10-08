@@ -14,7 +14,7 @@ type InlineArgs = {
   wrap: boolean;
 };
 
-const GAPS: readonly SpaceToken[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
+const GAPS: readonly SpaceToken[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'];
 const TAGS = ['Randomizer', 'Multiworld', 'Glitchless', 'Keysanity'];
 
 const ARGS: Partial<InlineArgs> = { gap: 'sm', align: 'center', justify: 'start', wrap: false };

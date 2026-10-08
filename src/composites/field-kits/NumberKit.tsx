@@ -6,7 +6,7 @@ import { NumberInput } from '../../primitives/NumberInput';
 import { Text } from '../../primitives/Text';
 import { nullsLast } from './compare';
 import { inputValue } from './input-value';
-import { HEX_WIDTH } from './NumberKit.constants';
+import { hexText } from './hex-text';
 import { registerFieldKit } from './registry';
 import { toNumber } from './to-number';
 import { toPair } from './to-pair';
@@ -55,7 +55,7 @@ const formatCell = (raw: number, format: FieldDescriptor['format']): { text: str
     const text = String(raw);
     return { text, title: text };
   }
-  const hex = `0x${Math.trunc(raw).toString(16).toUpperCase().padStart(HEX_WIDTH[format], '0')}`;
+  const hex = hexText(raw, format);
   return { text: hex, title: `${hex} (${raw})` };
 };
 

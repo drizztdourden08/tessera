@@ -4,6 +4,10 @@
   pointer-events: auto;
 }
 
+.color-picker-popover.anchored-fallback[data-drop-up='true'] {
+  transform: translateY(-100%);
+}
+
 .color-picker-popover.anchored {
   --anchored-gap: var(--size-6);
 }

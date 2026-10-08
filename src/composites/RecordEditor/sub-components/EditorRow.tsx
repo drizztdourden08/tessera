@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Field } from '../../../primitives/Field';
+import { hexHint } from '../../field-kits/hex-hint';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { isIdentityField } from '../behavior/identity-field';
 import { kitFor } from '../behavior/kit-for';
@@ -84,7 +85,7 @@ const EditorRow = (props: EditorRowProps) => {
 
   const changed = binding.isChanged?.(field.path) ?? false;
   return (
-    <Field label={<FieldLabel field={field} />} className={rowClassName(changed, binding.isDirty(field.path))}>
+    <Field label={<FieldLabel field={field} />} hint={hexHint(field, value)} className={rowClassName(changed, binding.isDirty(field.path))}>
       {controlFor(field, value, binding, depth)}
     </Field>
   );

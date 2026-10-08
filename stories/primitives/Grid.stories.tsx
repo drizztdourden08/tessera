@@ -33,7 +33,7 @@ const ARG_TYPES: PlaygroundArgTypes<GridArgs> = {
     count: { group: 'Content', control: 'number' },
     columns: { group: 'Layout', control: 'number', description: 'Fixed column count.' },
     minColWidth: { group: 'Layout', control: 'number', description: 'Auto-fill minimum width in px. 0 turns it off.' },
-    gap: { group: 'Layout', control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
+    gap: { group: 'Layout', control: 'select', options: ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
   };
 
 const meta = {
@@ -90,6 +90,20 @@ const AutoFill = {
   ),
 } satisfies StoryLiteStoryDefinition<GridArgs>;
 
+const NarrowBox = {
+  name: 'One cell in a narrow box',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">minColWidth 240 in a 160 px box: the cell shrinks to the box</Text>
+      <Box className="grid-demo__narrow">
+        <Grid minColWidth={240} gap="sm">
+          <FileTiles count={2} />
+        </Grid>
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<GridArgs>;
+
 const Overview = overviewStory({
   component: 'Grid',
   description: 'Lays items out in equal columns, such as file tiles, cards or a gallery.',
@@ -101,8 +115,8 @@ const Overview = overviewStory({
   ],
   instead: '[Flex] when the items have their own widths.',
   playground: Playground,
-  variants: [FixedColumns, AutoFill],
+  variants: [FixedColumns, AutoFill, NarrowBox],
 });
 
 export default meta;
-export { AutoFill, FixedColumns, Overview, Playground };
+export { AutoFill, FixedColumns, NarrowBox, Overview, Playground };

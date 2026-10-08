@@ -55,7 +55,7 @@ const LobbyWaiting = () => (
 ## Props
 
 - `direction` (optional): `'row' | 'column'`.
-- `gap` (optional): `SpaceToken`, one of `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
+- `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
 - `wrap` (optional): `boolean`.
 - `inline` (optional): `boolean`.
 - `as` (optional): `ElementType`.

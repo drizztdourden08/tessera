@@ -23,7 +23,7 @@ const ARGS: Partial<CenterArgs> = { direction: 'column', gap: 'sm', message: 'Wa
 const ARG_TYPES: PlaygroundArgTypes<CenterArgs> = {
   message: { group: 'Content', control: 'text' },
   direction: { group: 'Layout', control: 'select', options: ['row', 'column'] },
-  gap: { group: 'Layout', control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
+  gap: { group: 'Layout', control: 'select', options: ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'] },
 };
 
 const meta = {

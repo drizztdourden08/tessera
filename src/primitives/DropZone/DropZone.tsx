@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import '../../theme/control-size.css';
 import './DropZone.css';
+import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { useControlSize } from '../field-control/useControlSize';
 import { Glyph } from '../Glyph';
 import { Span } from '../text-elements';
@@ -25,11 +26,13 @@ const DropZone = (props: DropZoneProps) => {
   } = props;
   const zone = useDropZone(accept, !disabled, onDrop);
   const controlSize = useControlSize(size);
+  const { invalid } = useFieldControl();
   const inline = variant === 'inline';
 
   return (
     <div
       className={dropZoneClass(controlSize, inline, zone.active, disabled)}
+      data-invalid={invalid ? '' : undefined}
       {...zone.dragHandlers}
       onClick={zone.handleClick}
       {...(inline ? { role: 'button', tabIndex: disabled ? -1 : 0, title: hint, onKeyDown: zone.handleKeyDown } : {})}

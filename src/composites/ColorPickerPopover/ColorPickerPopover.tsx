@@ -7,12 +7,12 @@ import type { ColorPickerPopoverProps } from './ColorPickerPopover.type';
 
 const ColorPickerPopover = (props: ColorPickerPopoverProps) => {
   const { open, anchorRef, onClose, ...pickerProps } = props;
-  const { position, panelRef } = useColorPickerPopover({ open, anchorRef, onClose });
+  const { fallback, dropUp, panelRef } = useColorPickerPopover({ open, anchorRef, onClose });
 
   if (!open) return null;
 
   return (
-    <Anchored ref={panelRef} anchorRef={anchorRef} fallback={position} className="color-picker-popover">
+    <Anchored ref={panelRef} anchorRef={anchorRef} fallback={fallback} className="color-picker-popover" data-drop-up={dropUp ? 'true' : undefined}>
       <ColorPicker {...pickerProps} onClose={onClose} />
     </Anchored>
   );

@@ -1,8 +1,9 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { RecordEditor } from '../../src/composites';
+import { buildSchema } from '../../src/data';
 import type { SchemaConfig } from '../../src/data';
 import { Box, Text } from '../../src/primitives';
 import type { ControlSize } from '../../src/primitives';
@@ -116,6 +117,23 @@ const Sizes = sizesStory<RecordEditorArgs>((size) => (
   />
 ), { align: 'stretch' });
 
+const ROOM = { flags: 260, door: 9, music: 17 };
+const ROOM_CONFIG: SchemaConfig = {
+  formats: { flags: 'hex4', door: 'hex2' },
+  groups: [{ id: 'room', label: 'Room', paths: ['flags', 'door', 'music'] }],
+};
+const ROOM_SCHEMA = buildSchema([ROOM], ROOM_CONFIG);
+
+const HexNumbers = {
+  name: 'Hex numbers',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">flags and door are formatted hex4 and hex2: the hint shows the hex text of the decimal value</Text>
+      <RecordEditor record={ROOM} schema={ROOM_SCHEMA} config={ROOM_CONFIG} onSave={saveNothing} />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<RecordEditorArgs>;
+
 const renderState = (props: StateProps) => (
   <RecordEditor
     record={PLAYERS[0]}
@@ -149,7 +167,7 @@ const Overview = overviewStory({
   ],
   instead: '[CreateRecordDialog] to add a new record.',
   playground: Playground,
-  variants: [Sizes],
+  variants: [Sizes, HexNumbers],
   states: {
     render: renderState,
     list: [
@@ -163,4 +181,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Playground, Sizes };
+export { HexNumbers, Overview, Playground, Sizes };

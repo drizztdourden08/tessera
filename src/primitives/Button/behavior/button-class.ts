@@ -2,13 +2,14 @@
 import type { ButtonClassInput } from './button-class.type';
 
 const buttonClass = (input: ButtonClassInput): string => {
-  const { variant, size, fullWidth, active, loading, className } = input;
+  const { variant, size, fullWidth, active, loading, oneLine, className } = input;
   return [
     'btn',
     `btn--${variant}`,
     variant !== 'ghost' && 'btn--toned',
     `btn--${size}`,
     fullWidth && 'btn--full',
+    oneLine && !fullWidth && 'btn--one-line',
     active && 'btn--active',
     loading && 'btn--loading',
     className,

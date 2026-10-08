@@ -6650,3 +6650,31 @@ Markdown sits in Composites · Content after CodeBlock: a release note in rotp's
 
 - Show a release note with `<Markdown source={note} size="sm" headingOffset={2} hideTitle onLink={openInBrowser} />`, with `onLink` opening the address in the system browser in a desktop app.
 - Drop any hand-written Markdown rendering, such as `marked` with `dangerouslySetInnerHTML`.
+
+## 210. Seven fixes from rotp's grand-merge branch
+
+DRIFT.md lists the fixes Tessera should take from rotp's unmerged `grand-merge` branch (`c84dd2189`). Seven of them land here, each in Tessera's own structure, so rotp keeps them when it moves onto Tessera.
+
+### What changed
+
+- **An inline Field lets its control shrink.** `.field--inline .field__control` gains `min-width: 0`, so a narrow inline row shrinks the control in place of running past its box. Two NumberInputs beside a label in a 192 px column ran 58 px past it; they now fit.
+- **ColorPickerPopover opens above its swatch where the browser has no anchor positioning.** When there is no room below, the place worked out by script now holds the bottom edge of the panel, 6 px above the swatch, and `data-drop-up` with `transform: translateY(-100%)` lifts the panel by its own height, as the TagInput panel already does. The second pass clamps from the swatch with the measured height of the panel, so the 480 px estimate no longer pushes a shorter panel down over the swatch, and a flipped panel keeps 8 px from the top of the window. The picker keeps its own fallback: since section 181 `Anchored` places a popup that passes no `fallback` at its `placement`, but it never flips it. Where the browser has anchor positioning, nothing changes.
+- **`2xs` joins `SpaceToken`.** Flex, Stack, Inline, Center, Grid and ButtonRow take `gap="2xs"`, and Spacer takes `size="2xs"`: the 2 px `--space-2xs` step the tokens already had.
+- **A hex number shows its hex text under its editor.** In RecordEditor and CreateRecordDialog, a number field formatted `hex2` or `hex4` keeps its decimal input and shows the hex text of its value as the Field hint, the same text its read only cell shows. The hint follows each edit.
+- **Checkbox and DropZone show the error of their Field.** Inside a Field with an `error`, Checkbox sets `aria-invalid` on its box, points `aria-describedby` at the error, and draws a 1 px red outline around the box. DropZone sets `data-invalid` and turns its edge red, on hover too; a file dragged over it still lights the edge as a drop target. The label of the Field keeps its colour.
+- **Grid `minColWidth` fits a narrow box.** The columns are `repeat(auto-fill, minmax(min(100%, Npx), 1fr))`, so a single cell shrinks to a box narrower than N in place of running past it. A box wider than N lays out as before.
+- **A plain Button label stays on one line.** A Button whose label is only text or numbers takes `btn--one-line`, with `white-space: nowrap` and `flex-shrink: 0`. It keeps its width: a row that wraps moves the button to the next line, and a row that does not wrap gives the room to its other items. A `fullWidth` button, and one with elements in its label, still wraps. Tessera keeps the width in place of cutting the label with an ellipsis, as rotp does: a cut label hides what the button does.
+
+```ts
+type SpaceToken = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'; // '2xs' is new
+```
+
+### On screen
+
+- **EmptyState:** Scan again and New preset sit on one line in their narrow cards, in place of two.
+- **Widget, at 1000 px:** Server log in the dock sample stays on one line, and the session label beside it takes a third line.
+- New gallery variants: Field Inline in a narrow row, Grid One cell in a narrow box, Button In a tight row, RecordEditor Hex numbers, an Error state on Checkbox and DropZone, and the `2xs` step on Flex, Stack, Inline, Spacer, Center and Grid.
+
+### What an app does
+
+Nothing. An app that drew its own red edge on a Checkbox or a DropZone under an erroring Field can drop it. A button whose text should wrap takes `fullWidth`, or wraps its label in an element such as `Span`.

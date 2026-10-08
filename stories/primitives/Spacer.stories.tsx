@@ -16,7 +16,7 @@ type SpacerArgs = {
   direction: 'row' | 'column';
 };
 
-const SIZES: readonly SpaceToken[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
+const SIZES: readonly SpaceToken[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'];
 
 const ARGS: Partial<SpacerArgs> = { size: 'flexible', direction: 'row' };
 

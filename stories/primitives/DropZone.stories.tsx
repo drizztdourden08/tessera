@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
-import { Box, DropZone, Text } from '../../src/primitives';
+import { Box, DropZone, Field, Text } from '../../src/primitives';
 import type { ControlSize, DropZoneProps, DropZoneVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -128,6 +128,12 @@ const renderState = (props: StateProps) => (
   <DropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" hint="A US or Japanese copy, as .sfc or .smc" disabled={props.disabled === true} onDrop={ignoreDrop} />
 );
 
+const renderError = () => (
+  <Field error="Drop a ROM before you start the session.">
+    {renderState({})}
+  </Field>
+);
+
 const DraggedOver = () => {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -160,6 +166,7 @@ const Overview = overviewStory({
       STATE.idle,
       STATE.hover,
       { name: 'Dragging over', render: () => <DraggedOver /> },
+      { ...STATE.error, render: renderError },
       STATE.disabled,
     ],
   },

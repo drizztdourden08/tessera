@@ -57,7 +57,7 @@ const SessionRow = () => (
 
 - `align` (optional): `FlexAlign`, one of `'start'`, `'center'`, `'end'`, `'stretch'`, `'baseline'`. Default `'center'`.
 - `justify` (optional): `FlexJustify`, one of `'start'`, `'center'`, `'end'`, `'between'`, `'around'`.
-- `gap` (optional): `SpaceToken`, one of `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`. Default `'sm'`.
+- `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`. Default `'sm'`.
 - `wrap` (optional): `boolean`.
 - `inline` (optional): `boolean`.
 - `as` (optional): `ElementType`.

@@ -36,7 +36,7 @@ const SessionRow = () => (
   </Inline>
 );
 `,
-  propsHash: 'ac8cfbcd623049ee',
+  propsHash: 'dd0ddca7ec51929e',
 } satisfies ComponentUsage;
 
 export { usage };

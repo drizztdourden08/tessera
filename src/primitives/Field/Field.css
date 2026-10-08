@@ -25,6 +25,7 @@
 
 .field--inline .field__control {
   flex: 1;
+  min-width: 0;
 }
 
 .field__label {

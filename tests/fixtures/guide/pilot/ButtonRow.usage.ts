@@ -36,7 +36,7 @@ const DialogActions = ({ onCancel, onSave }: { onCancel: () => void; onSave: () 
   </ButtonRow>
 );
 `,
-  propsHash: '2a33a8ce1b07b4fe',
+  propsHash: 'db3aa04f84859fe2',
 } satisfies ComponentUsage;
 
 export { usage };

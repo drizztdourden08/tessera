@@ -17,7 +17,7 @@ type FlexArgs = {
   inline: boolean;
 };
 
-const GAPS: readonly SpaceToken[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
+const GAPS: readonly SpaceToken[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'];
 const ALIGNS: readonly FlexAlign[] = ['start', 'center', 'end', 'stretch', 'baseline'];
 const JUSTIFIES: readonly FlexJustify[] = ['start', 'center', 'end', 'between', 'around'];
 const PLAYERS = ['Aria', 'Brom', 'Cadence', 'Dov', 'Esker', 'Fen'];
