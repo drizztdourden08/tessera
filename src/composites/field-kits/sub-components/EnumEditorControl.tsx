@@ -1,84 +1,36 @@
 /* @layer renderer-components @kind component */
-import type { ReactNode } from 'react';
-import { SegmentedControl } from '../../../primitives/SegmentedControl';
-import { Select } from '../../../primitives/Select';
 import { controlName } from '../../../primitives/field-control/control-name';
+import { declaredValue } from '../declared-value';
 import { withCurrentValue } from '../open-set';
+import { optionLabelOf } from '../option-label';
 import { toText } from '../to-text';
-import { SEGMENT_MAX, TAG_MAX } from './EnumEditorControl.constants';
-import { EnumTagSelect } from './EnumTagSelect';
+import { ClosedSetPicker } from './ClosedSetPicker';
 import { OpenSetControl } from './OpenSetControl';
 import type { EditorControlProps } from '../registry.type';
-import type { SegmentOption } from '../../../primitives/SegmentedControl';
-import type { SelectOption } from '../../../primitives/Select';
-import type { ClosedSetProps } from './EnumEditorControl.type';
-
-const optionsOf = (options: readonly string[] | undefined): SelectOption[] =>
-  (options ?? []).map((option) => ({ value: option, label: option }));
-
-const segmentsOf = (options: readonly string[]): SegmentOption[] =>
-  options.map((option) => ({ value: option, label: option }));
-
-const closedSetControl = (props: ClosedSetProps): ReactNode => {
-  const { field, options, current, disabled, onChange } = props;
-  const name = controlName(props);
-
-  if (options.length > 0 && options.length <= SEGMENT_MAX) {
-    return (
-      <SegmentedControl
-        {...name}
-        value={current}
-        options={segmentsOf(options)}
-        disabled={disabled}
-        onChange={onChange}
-        onDeselect={field.optional ? () => onChange('') : undefined}
-      />
-    );
-  }
-
-  if (options.length > 0 && options.length <= TAG_MAX) {
-    return (
-      <EnumTagSelect
-        {...name}
-        id={field.path}
-        options={options}
-        selected={current ? [current] : []}
-        disabled={disabled}
-        single
-        onChange={(selected) => {
-          const [next] = selected;
-          if (next !== undefined || field.optional) onChange(next ?? '');
-        }}
-      />
-    );
-  }
-
-  return (
-    <Select
-      {...name}
-      value={current}
-      options={optionsOf(options)}
-      placeholder={field.label}
-      disabled={disabled}
-      onChange={onChange}
-    />
-  );
-};
 
 const EnumEditorControl = (props: EditorControlProps) => {
   const { field, value, onChange, disabled } = props;
   const current = toText(value);
   const options = withCurrentValue(field.options ?? [], current);
-  const control = closedSetControl({ ...controlName(props), field, options, current, disabled, onChange });
+  const commit = (next: unknown): void => {
+    const text = toText(next);
+    onChange(text === '' ? '' : declaredValue(field, text));
+  };
+  const control = (
+    <ClosedSetPicker
+      {...controlName(props)}
+      field={field}
+      options={options}
+      labelOf={optionLabelOf(field)}
+      current={current}
+      disabled={disabled}
+      onChange={commit}
+    />
+  );
   if (field.closed) return control;
 
   return (
-    <OpenSetControl
-      current={current}
-      label={field.label}
-      disabled={disabled}
-      onSubmit={onChange}
-    >
+    <OpenSetControl current={current} label={field.label} disabled={disabled} onSubmit={commit}>
       {control}
     </OpenSetControl>
   );

@@ -10,6 +10,7 @@ import { Toggle } from '../src/primitives/Toggle';
 const ignore = () => undefined;
 const NAMED = { 'aria-labelledby': 'row-label' };
 const tagOf = (html, pattern) => html.match(new RegExp(`<[a-z]+[^>]*${pattern}[^>]*>`))?.[0] ?? '';
+const shownTagOf = (html, pattern) => [...html.matchAll(new RegExp(`<[a-z]+[^>]*${pattern}[^>]*>`, 'g'))].at(-1)?.[0] ?? '';
 const field = (kind, extra = {}) => ({ path: kind, label: `The ${kind}`, kind, optional: false, ...extra });
 const editor = (kind, value, extra = {}, props = NAMED) => {
   const { EditorControl } = resolveFieldKit(kind);
@@ -56,12 +57,15 @@ describe('field kit editors', () => {
     expect(tagOf(editor('boolean', true, {}, {}), 'role="switch"')).toContain('aria-label="The boolean"');
   });
 
-  it('put the name on the radio group or the select of an enum', () => {
-    expect(tagOf(editor('enum', 'idle', { options: ['idle', 'playing'], closed: true }), 'role="radiogroup"')).toContain('aria-labelledby="row-label"');
+  it('put the name on the radio group or the select of an enum, and none on the hidden copy it measures', () => {
+    const two = editor('enum', 'idle', { options: ['idle', 'playing'], closed: true });
+    expect(tagOf(two, 'role="radiogroup"')).not.toContain('aria-labelledby');
+    expect(two).toContain('class="fit-probe" aria-hidden="true" inert=""');
+    expect(shownTagOf(two, 'role="radiogroup"')).toContain('aria-labelledby="row-label"');
     const many = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'];
     expect(tagOf(editor('enum', 'a', { options: many, closed: true }), 'role="combobox"')).toContain('aria-labelledby="row-label"');
     const tags = ['a', 'b', 'c', 'd', 'e'];
-    expect(tagOf(editor('enum', 'a', { options: tags, closed: true }, { 'aria-label': 'Mode' }), 'role="radiogroup"')).toContain('aria-label="Mode"');
+    expect(shownTagOf(editor('enum', 'a', { options: tags, closed: true }, { 'aria-label': 'Mode' }), 'role="radiogroup"')).toContain('aria-label="Mode"');
   });
 
   it('put the name on the select of a reference with options', () => {

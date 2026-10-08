@@ -6678,3 +6678,102 @@ type SpaceToken = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'; // '2xs' is 
 ### What an app does
 
 Nothing. An app that drew its own red edge on a Checkbox or a DropZone under an erroring Field can drop it. A button whose text should wrap takes `fullWidth`, or wraps its label in an element such as `Span`.
+
+## 211. Escape by level, declared options, a measured enum editor and DropZone paste
+
+Six more items from DRIFT.md's list for rotp's `grand-merge` branch (`c84dd2189`), built Tessera's way so rotp keeps them when it moves onto Tessera.
+
+### Escape by level
+
+One Escape stack per document now serves every layered surface. Each surface registers a level: `drag`, `popover`, `menu`, `dialog` or `screen`, from innermost to outermost. One listener on the document, in the bubble phase, picks the highest level and, inside a level, the surface that registered last; only that one closes, and the key stops there. Mount order no longer decides anything.
+
+- **A key an inner editor already handled is left alone.** The listener runs after every `onKeyDown` in the tree, so a control that consumes Escape with `preventDefault`, such as a search box clearing its text, keeps the surface around it open.
+- **DialogShell** drops its own document listener and its capture phase swallow. A dialog registers at `dialog`; one that is not `dismissable` registers with nothing to do, which holds the key so nothing under it closes. Drawer, which shares the hook, registers at `dialog` while open.
+- **ScreenLayer** takes `onClose` and registers at `screen` while it is shown; ScreenWindow passes its own `onClose`, so every screen kind now closes on Escape once nothing is open above it. A screen takes only a key pressed inside it or on the page body, so two screens side by side, as in the gallery, each keep their own. A hidden layer takes no key.
+- **The popup stack** (`useDismissListeners` and the open popups session) keeps outside presses, window blur and the open popup flag, and hands Escape to the shared stack: a popover at `popover`; DropdownMenu, ControlMenu and its sub panels and the Video speed menu at `menu`; the floating SideNav panel and the SideNavLayout drawer at `dialog`. A DropdownMenu now also closes on Escape when focus is outside it.
+- **GuidedTour** closes on Escape through the stack at `menu`: a menu or popover opened during a step closes first, and the tour still closes ahead of any dialog or screen. Its other keys keep their capture phase listener.
+- **A confirm ask** (ConfirmIconButton, an ActionBar or SettingsRow action, a DropdownMenu confirm item) registers at `popover` while it asks, so Escape cancels the question wherever focus is; with focus on it, its own handler consumes the key.
+- **A DockLayout drag** ends on Escape at `drag`, ahead of everything, and a Video filling its frame leaves the fill at `dialog`.
+- **A searchable Select** with text in its search box clears the text on the first Escape and closes on the second.
+
+`useEscapeStack` lets an app take part. With a layer it registers one; with none it only reads. `depth` and `top` read the stack when called, so an app shortcut on Escape asks before acting:
+
+```ts
+type EscapeLevel = 'drag' | 'popover' | 'menu' | 'dialog' | 'screen';
+
+interface EscapeLayer {
+  level: EscapeLevel;
+  onEscape: () => void;
+  active?: boolean;
+}
+
+interface EscapeStack {
+  depth: () => number;
+  top: () => EscapeLevel | null;
+}
+
+const useEscapeStack: (layer?: EscapeLayer) => EscapeStack;
+
+interface ScreenLayerProps {
+  onClose?: () => void; // new
+}
+```
+
+### Records and declared sets
+
+- **`IdRefOptionResolver` gets the working record** as a third argument from RecordEditor and CreateRecordDialog, so a reference narrows its options by a sibling field: pick a region, and the place picker offers that region's places. A resolver that ignores it works as before.
+- **CompactRecordView takes `fieldRenderers`**, a map from a field path to a function that draws that field's whole row from the record. The row keeps its group and its place; other paths draw through their kit.
+- **CompactRecordView group headings** take `--c-secondary-bright`, so a heading no longer reads as a field label. The bright step keeps small uppercase text readable: 5.4:1 on the card in the default palette and 7.0:1 in rotp's, where it is rotp's green.
+- **`SchemaConfig.options` takes `{ value, label }`** beside plain strings and numbers. A declared field becomes an `enum`, keeps the set as `declaredOptions`, and shows the names in its editor, its filter, its FilterBar chip and its cell; a picked option is written back in its declared type, so a number stays a number.
+- **The enum editor measures its row.** It still prefers segments for up to 4 options and chips up to 12, but a hidden copy of that control is measured against the row, and when it does not fit, a searchable Select takes its place. Only the row and the hidden copy are measured, never the control on show, so the swap cannot loop. A set past 12 options is a searchable Select too. SettingsRow and the enum editor share one `useChoiceFit` hook and one `fit-probe` class.
+
+```ts
+type IdRefOptionResolver = (targetKind: string, field: FieldDescriptor, record?: unknown) => readonly IdRefOption[];
+
+type CompactFieldRenderer<T> = (record: T) => ReactNode;
+interface CompactRecordViewProps<T> {
+  fieldRenderers?: ReadonlyMap<string, CompactFieldRenderer<T>>; // new
+}
+
+interface FieldOption {
+  value: string | number;
+  label: string;
+}
+type SchemaOption = string | number | FieldOption;
+interface SchemaConfig {
+  options?: Record<string, readonly SchemaOption[]>; // was readonly string[]
+}
+interface FieldDescriptor {
+  declaredOptions?: readonly FieldOption[]; // new
+}
+```
+
+### DropZone
+
+- **`accept` takes media types** such as `image/png` and families such as `image/*`, beside extensions.
+- **`status`** draws a line under the label, green for `success` with a green edge, red for `error`. The block zone shows the line; the inline zone shows the edge.
+- **Ctrl+V pastes files** while the pointer is over the zone or the inline zone has focus. A paste of text only is left alone. The browse hint now reads "or click to browse, or point here and paste".
+
+```ts
+type DropZoneTone = 'success' | 'error';
+interface DropZoneStatus {
+  tone: DropZoneTone;
+  message: ReactNode;
+}
+interface DropZoneProps {
+  status?: DropZoneStatus; // new
+}
+```
+
+### On screen
+
+- **CompactRecordView:** group headings change colour, from the dim label grey to the secondary accent. In the default palette that accent is itself a grey, so the change is slight there; in rotp's palette the headings turn green.
+- **DropZone:** the browse hint under a block zone reads "or click to browse, or point here and paste".
+- New gallery variants: ScreenWindow Escape by level (a menu in a dialog in a screen), Field kits A declared closed set in a wide and a narrow row, RecordEditor A reference narrowed by a sibling field, CompactRecordView A field drawn by the app, DropZone Status and media types.
+
+### What an app does
+
+- An app shortcut bound to Escape on the document reads `useEscapeStack().depth()` and stands down while it is above 0. A screen the app closed through that shortcut now closes through its own `onClose`; drop the shortcut's screen case.
+- A surface the app draws itself registers with `useEscapeStack({ level, onEscape, active })` in place of its own key listener.
+- A control that consumes Escape calls `preventDefault`, so the surface around it stays open.
+- A selector that hid `.settings-row__fit` or `.settings-row__fit-probe` uses `.fit-probe` and `.fit-probe__content`.

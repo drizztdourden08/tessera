@@ -11,6 +11,7 @@ import { overviewStory } from '../_template/overview-story';
 import { sizesStory } from '../_template/sizes-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { NarrowedReference } from './_samples/NarrowedReference';
 import { PLAYERS, PLAYER_CONFIG, PLAYER_SCHEMA } from './_samples/data-players';
 import type { PlayerRow } from './_samples/data-players';
 import {
@@ -134,6 +135,11 @@ const HexNumbers = {
   ),
 } satisfies StoryLiteStoryDefinition<RecordEditorArgs>;
 
+const Narrowed = {
+  name: 'A reference narrowed by a sibling field',
+  render: () => <NarrowedReference />,
+} satisfies StoryLiteStoryDefinition<RecordEditorArgs>;
+
 const renderState = (props: StateProps) => (
   <RecordEditor
     record={PLAYERS[0]}
@@ -162,12 +168,12 @@ const Overview = overviewStory({
     'With `onSave` it marks changed fields and offers Save and Revert; a failed save shows its error.',
     '**Without `onSave` it is read only:** every control is disabled and there is no footer.',
     '`changedPaths` marks fields another source changed; `referencedBy` lists what points at the record.',
-    'The resolvers turn reference fields into searchable pickers.',
+    'The resolvers make reference fields pickers; the options resolver gets the form, so a pick can narrow another.',
     'Without `size`, it follows the size of the [Field] around it.',
   ],
   instead: '[CreateRecordDialog] to add a new record.',
   playground: Playground,
-  variants: [Sizes, HexNumbers],
+  variants: [Sizes, HexNumbers, Narrowed],
   states: {
     render: renderState,
     list: [
@@ -181,4 +187,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { HexNumbers, Overview, Playground, Sizes };
+export { HexNumbers, Narrowed, Overview, Playground, Sizes };

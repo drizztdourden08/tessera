@@ -1,7 +1,10 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
 import type { FieldDescriptor, SchemaConfig } from '../../data/schema/field-descriptor';
 
 type CompactIdRefResolver = (id: string, targetKind?: string) => string | undefined;
+
+type CompactFieldRenderer<T> = (record: T) => ReactNode;
 
 interface FieldDifference {
   status: string;
@@ -16,6 +19,7 @@ interface CompactRecordViewProps<T> {
   groups?: readonly string[];
   resolveIdRefDisplay?: CompactIdRefResolver;
   diffs?: ReadonlyMap<string, FieldDifference>;
+  fieldRenderers?: ReadonlyMap<string, CompactFieldRenderer<T>>;
 }
 
 interface CompactFieldProps {
@@ -26,4 +30,4 @@ interface CompactFieldProps {
   diffs?: ReadonlyMap<string, FieldDifference>;
 }
 
-export type { CompactFieldProps, CompactIdRefResolver, CompactRecordViewProps, FieldDifference };
+export type { CompactFieldProps, CompactFieldRenderer, CompactIdRefResolver, CompactRecordViewProps, FieldDifference };

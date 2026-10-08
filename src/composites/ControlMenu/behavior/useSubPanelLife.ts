@@ -5,7 +5,7 @@ import { useDismissListeners } from '../../../primitives/Portal';
 import { focusFirst } from './focus-first';
 
 const useSubPanelLife = (panelRef: RefObject<HTMLElement | null>, anchorRef: RefObject<HTMLElement | null>, focus: boolean, onBack: () => void): void => {
-  useDismissListeners({ open: true, onClose: onBack, contentRef: panelRef, triggerRef: anchorRef });
+  useDismissListeners({ open: true, onClose: onBack, contentRef: panelRef, triggerRef: anchorRef, level: 'menu' });
   useEffect(() => {
     if (!focus) return undefined;
     const frame = requestAnimationFrame(() => focusFirst(panelRef.current));

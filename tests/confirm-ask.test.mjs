@@ -9,12 +9,18 @@ import { useConfirmItem } from '../src/composites/DropdownMenu/behavior/useConfi
 import { SettingsRowActionButton } from '../src/composites/SettingsRow/sub-components/SettingsRowActionButton';
 import { ITEM_STRINGS } from '../src/primitives/strings/items-strings.constants';
 import { mountHook } from './hook-harness.mjs';
+import { escapeStackOf } from '../src/primitives/escape-stack/escape-stack-of';
+import { pushEscape } from '../src/primitives/escape-stack/push-escape';
+import { escapeDocument } from './escape-document.mjs';
+
+const page = escapeDocument();
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
 vi.mock('../src/primitives/TesseraProvider/behavior/useTesseraStrings', () => ({ useTesseraStrings: () => ({ items: ITEM_STRINGS }) }));
+vi.mock('../src/primitives/TesseraProvider/behavior/useTesseraOverride', () => ({ useTesseraOverride: () => page }));
 
 const spies = () => ({ onConfirm: vi.fn(), onCancel: vi.fn(), onAsk: vi.fn() });
-const escape = () => ({ key: 'Escape', stopPropagation: vi.fn() });
+const escape = () => ({ key: 'Escape', stopPropagation: vi.fn(), preventDefault: vi.fn() });
 const askRow = (calls, extra = {}) => mountHook(() => useConfirmAsk({ ...calls, ...extra }));
 const menuItem = (onCancel, pick) => mountHook(() => useConfirmItem({ id: 'reset', label: 'Reset layout', kind: 'confirm', onCancel }, true, pick));
 
@@ -42,7 +48,22 @@ describe('an ask that ends without confirming runs onCancel', () => {
     ask.act((a) => a.onKeyDown({ key: 'Enter', stopPropagation: vi.fn() }));
     ask.act((a) => a.onKeyDown(key));
     expect(key.stopPropagation).toHaveBeenCalled();
+    expect(key.preventDefault).toHaveBeenCalled();
     expect(calls.onCancel).toHaveBeenCalledTimes(1);
+  });
+
+  it('on an Escape anywhere on the page while it asks, before the dialog around it', () => {
+    const ask = askRow(calls);
+    const dialog = vi.fn();
+    const leaveDialog = pushEscape(page, 'dialog', dialog);
+    expect(page.press('Escape').defaultPrevented).toBe(true);
+    expect(dialog).toHaveBeenCalledTimes(1);
+    ask.act((a) => a.ask('row'));
+    ask.act(() => page.press('Escape'));
+    expect(calls.onCancel).toHaveBeenCalledWith('row');
+    expect(dialog).toHaveBeenCalledTimes(1);
+    expect(escapeStackOf(page).depth()).toBe(1);
+    leaveDialog();
   });
 
   it('when focus or the pointer leaves a DropdownMenu confirm item', () => {

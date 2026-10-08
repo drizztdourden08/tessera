@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useRef } from 'react';
 import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
+import { useEscapeLayer } from '../../../primitives/escape-stack/useEscapeLayer';
 import type { GuidedTourApi } from '../GuidedTour.type';
 import { keyContext } from './key-context';
 import { tourKeyAction } from './tour-key-action';
@@ -8,6 +9,7 @@ import { tourKeyAction } from './tour-key-action';
 const useTourKeys = (tour: GuidedTourApi, root: HTMLElement | null, bubble: HTMLElement | null, waits: boolean): void => {
   const latest = useRef({ tour, bubble, waits });
   latest.current = { tour, bubble, waits };
+  useEscapeLayer(root ? ownerDocumentOf(root) : null, 'menu', () => latest.current.tour.close());
 
   useEffect(() => {
     if (!root) return undefined;
@@ -16,7 +18,7 @@ const useTourKeys = (tour: GuidedTourApi, root: HTMLElement | null, bubble: HTML
       if (event.defaultPrevented) return;
       const { tour: api, bubble: box, waits: wait } = latest.current;
       const action = tourKeyAction(event.key, keyContext(event, box, wait));
-      if (!action) return;
+      if (!action || action === 'close') return;
       event.preventDefault();
       event.stopPropagation();
       api[action]();

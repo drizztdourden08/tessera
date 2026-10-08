@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind types */
 interface DismissLayer {
-  escape: () => boolean;
   close: () => void;
   holds: (node: Node) => boolean;
 }

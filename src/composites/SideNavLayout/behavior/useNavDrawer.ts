@@ -28,7 +28,7 @@ const useNavDrawer = (onSelect: (id: string) => void): NavDrawer => {
     const drawer = drawerRef.current;
     if (open) (drawer?.querySelector<HTMLElement>(CURRENT_ITEM) ?? drawer?.querySelector<HTMLElement>(FIRST_ITEM))?.focus();
   }, [open]);
-  useDismissListeners({ open, onClose: close, contentRef: drawerRef, triggerRef: buttonRef });
+  useDismissListeners({ open, onClose: close, contentRef: drawerRef, triggerRef: buttonRef, level: 'dialog' });
 
   return { barRef, drawerRef, buttonRef, compact, open, toggle, select };
 };

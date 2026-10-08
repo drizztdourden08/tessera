@@ -15,7 +15,7 @@ const ScreenWindow = (props: ScreenWindowProps) => {
   const classes = ['screen-window', header && 'screen-window--header', className].filter(Boolean).join(' ');
 
   return (
-    <ScreenLayer floating={floating} hidden={hidden} size={size} square={square} labelledBy={titleId}>
+    <ScreenLayer onClose={onClose} floating={floating} hidden={hidden} size={size} square={square} labelledBy={titleId}>
       <Box className={classes}>
         {header
           ? <WindowContentHeader header={header} back={back} title={title} titleId={titleId} onClose={onClose} />

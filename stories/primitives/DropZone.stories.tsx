@@ -124,6 +124,40 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<DropZoneArgs>;
 
+const STATUS_ROWS: readonly DemonstratorAxis<'image' | 'success' | 'error'>[] = [
+  { key: 'image', label: 'pictures by media type, pasted or dropped' },
+  { key: 'success', label: 'status: success' },
+  { key: 'error', label: 'status: error' },
+];
+
+const PictureZone = () => {
+  const [name, setName] = useState<string | null>(null);
+  return (
+    <DropZone
+      accept={['image/*']}
+      label="Drop or paste a picture"
+      hint="Any image type, such as a screenshot"
+      status={name === null ? undefined : { tone: 'success', message: `Took ${name}` }}
+      onDrop={(files) => setName(files[0]?.name ?? null)}
+    />
+  );
+};
+
+const Status = {
+  name: 'Status and media types',
+  render: () => (
+    <Demonstrator
+      rows={STATUS_ROWS}
+      align="stretch"
+      cell={(kind) => {
+        if (kind === 'image') return <PictureZone />;
+        if (kind === 'success') return <DropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" status={{ tone: 'success', message: 'Chrono Trigger (US) is ready' }} onDrop={ignoreDrop} />;
+        return <DropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" status={{ tone: 'error', message: 'This file is not a ROM the game knows' }} onDrop={ignoreDrop} />;
+      }}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<DropZoneArgs>;
+
 const renderState = (props: StateProps) => (
   <DropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" hint="A US or Japanese copy, as .sfc or .smc" disabled={props.disabled === true} onDrop={ignoreDrop} />
 );
@@ -151,15 +185,15 @@ const Overview = overviewStory({
   component: 'DropZone',
   description: 'A target for files, dragged in or picked with a click that opens the file browser.',
   points: [
-    '`block` is the tall target with a glyph, a label and a hint.',
-    '`inline` is a one line dashed box that fits a header row.',
+    '`block` is the tall target with a glyph, a label and a hint; `inline` is a one line box for a header row.',
+    '`status` adds a success or error line under the label, and a success edge; the app sets it after a check.',
     'A file dragged in from the desktop lights the box at once; a drag of text or a link leaves it alone.',
-    '**With `accept` set, other files are dropped silently:** `onDrop` gets only the files that pass.',
+    '**`accept` takes extensions and media types such as `image/*`:** `onDrop` gets only the files that pass.',
     '`md` and `sm` set the height of the inline box; `sm` also tightens the block.',
-    'A click opens the file dialog of the browser, and so does [[Enter]] on the inline box.',
+    'A click or [[Enter]] on the inline box opens the file dialog; [[Ctrl+V]] pastes files while pointed at.',
   ],
   playground: Playground,
-  variants: [Kinds, Sizes],
+  variants: [Kinds, Status, Sizes],
   states: {
     render: renderState,
     list: [
@@ -173,4 +207,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Kinds, Overview, Playground, Sizes };
+export { Kinds, Overview, Playground, Sizes, Status };

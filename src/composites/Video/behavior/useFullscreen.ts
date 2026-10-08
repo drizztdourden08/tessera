@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useState } from 'react';
 import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
+import { useEscapeLayer } from '../../../primitives/escape-stack/useEscapeLayer';
 import { FULLSCREEN_EVENTS, FULLSCREEN_GRACE_MS } from '../Video.constants';
 import type { FullscreenMode } from '../Video.type';
 import { fullscreenApi } from './fullscreen-api';
@@ -17,15 +18,7 @@ const useFullscreen = (frame: HTMLElement | null): FullscreenMode => {
     return () => FULLSCREEN_EVENTS.forEach((name) => doc.removeEventListener(name, sync));
   }, [frame]);
 
-  useEffect(() => {
-    if (!frame || !filled) return undefined;
-    const doc = ownerDocumentOf(frame);
-    const leave = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setFilled(false);
-    };
-    doc.addEventListener('keydown', leave);
-    return () => doc.removeEventListener('keydown', leave);
-  }, [frame, filled]);
+  useEscapeLayer(frame && filled ? ownerDocumentOf(frame) : null, 'dialog', () => setFilled(false));
 
   const toggle = useCallback(() => {
     if (!frame) return;

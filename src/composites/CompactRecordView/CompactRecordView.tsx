@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { Text } from '../../primitives/Text';
 import { Span } from '../../primitives/text-elements';
@@ -11,7 +11,7 @@ import type { CompactRecordViewProps } from './CompactRecordView.type';
 import '../../theme/compact-record-view.css';
 
 const CompactRecordView = <T,>(props: CompactRecordViewProps<T>) => {
-  const { record, schema, config, groups, resolveIdRefDisplay, diffs } = props;
+  const { record, schema, config, groups, resolveIdRefDisplay, diffs, fieldRenderers } = props;
   const { records } = useTesseraStrings();
   const laidOut = useMemo(() => layoutGroups(schema, records, config), [schema, records, config]);
   const shown = useMemo(() => filterGroups(laidOut, groups), [laidOut, groups]);
@@ -23,18 +23,13 @@ const CompactRecordView = <T,>(props: CompactRecordViewProps<T>) => {
       {shown.map((group) => (
         <Box key={group.id} className="compact-record-view__group">
           {showLabels && (
-            <Span tone="dim" className="compact-record-view__group-label">{group.label ?? group.id}</Span>
+            <Span className="compact-record-view__group-label">{group.label ?? group.id}</Span>
           )}
-          {group.fields.map((field) => (
-            <CompactField
-              key={field.path}
-              record={record}
-              field={field}
-              depth={0}
-              resolveIdRefDisplay={resolveIdRefDisplay}
-              diffs={diffs}
-            />
-          ))}
+          {group.fields.map((field) => {
+            const render = fieldRenderers?.get(field.path);
+            if (render) return <Fragment key={field.path}>{render(record)}</Fragment>;
+            return <CompactField key={field.path} record={record} field={field} depth={0} resolveIdRefDisplay={resolveIdRefDisplay} diffs={diffs} />;
+          })}
         </Box>
       ))}
     </Box>

@@ -20,7 +20,7 @@ const AnchoredMenu = (props: AnchoredMenuProps) => {
   const look = menuLookClass(variant, intensity);
   const { anchor, placement, fallback } = useMenuAnchor({ anchorRef, side, align, inline, onOutOfView: onClose });
   useFocusReturn(menuRef, anchor);
-  useDismissListeners({ open: !inline, onClose, contentRef: menuRef, triggerRef: anchor, escape: false });
+  useDismissListeners({ open: !inline, onClose, contentRef: menuRef, triggerRef: anchor, level: 'menu' });
 
   const body = (
     <MenuRoot

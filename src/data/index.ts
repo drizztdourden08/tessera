@@ -6,7 +6,7 @@ export { deriveSchema } from './schema/derive-fields';
 export { labelFor } from './schema/label-for';
 export type { DeriveContext } from './schema/derive-fields.type';
 export type {
-  CollectionSource, FieldDescriptor, FieldGroup, FieldKind, NumberFormat, SchemaConfig,
+  CollectionSource, FieldDescriptor, FieldGroup, FieldKind, FieldOption, NumberFormat, SchemaConfig, SchemaOption,
 } from './schema/field-descriptor';
 export { ENUM_MAX, ID_RE, enumOptions, idTargetKind, inferKind } from './schema/infer-kind';
 export { getPath, setPath } from './schema/path';

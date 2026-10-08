@@ -31,7 +31,7 @@ describe('a segmented SettingsRow', () => {
   it('draws the segmented control first, with a hidden probe that measures it', () => {
     for (const compact of [false, true]) {
       const html = renderToString(row(compact));
-      expect(html).toContain('class="settings-row__fit" aria-hidden="true" inert=""');
+      expect(html).toContain('class="fit-probe" aria-hidden="true" inert=""');
       expect(html.match(/role="radiogroup"/g)).toHaveLength(2);
       expect(html).not.toContain('settings-row__fit-select');
     }

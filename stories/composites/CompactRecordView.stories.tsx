@@ -2,8 +2,9 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CompactRecordView } from '../../src/composites';
-import { Box, Text } from '../../src/primitives';
+import { Box, ProgressBar, Text } from '../../src/primitives';
 import { PLAYERS, PLAYER_CONFIG, PLAYER_SCHEMA } from './_samples/data-players';
+import type { PlayerRow } from './_samples/data-players';
 import { HINTS, HINT_CONFIG, HINT_SCHEMA, resolveSlotDefault } from './_samples/data-hints';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -28,6 +29,12 @@ const GROUPS_BY_CHOICE: Record<GroupChoice, readonly string[] | undefined> = {
 const LIVE_DIFFS = new Map([
   ['checked', { status: 'mismatch', shown: { dataset: '212', live: '219' }, source: 'tracker:locations' }],
   ['status', { status: 'mismatch', shown: { dataset: 'playing', live: 'idle' }, source: 'server:presence' }],
+]);
+
+const CHECKS_ROW = new Map([
+  ['checked', (player: PlayerRow | undefined) => (
+    <ProgressBar value={player?.checked ?? 0} max={player?.total ?? 0} label="Checks done" showValue formatValue={(value, max) => `${value} of ${max}`} />
+  )],
 ]);
 
 const ARGS: Partial<CompactArgs> = { slot: 'slot-1', groups: 'everything', showLiveDiffs: false };
@@ -85,6 +92,7 @@ const VARIANTS = [
   { key: 'progress', label: 'Progress only' },
   { key: 'diffs', label: 'Live differences' },
   { key: 'references', label: 'References resolved' },
+  { key: 'drawn', label: 'A field drawn by the app' },
 ] as const;
 
 type VariantKey = (typeof VARIANTS)[number]['key'];
@@ -100,6 +108,7 @@ const variantView = (key: VariantKey) => {
       config={PLAYER_CONFIG}
       groups={key === 'progress' ? GROUPS_BY_CHOICE['progress only'] : undefined}
       diffs={key === 'diffs' ? LIVE_DIFFS : undefined}
+      fieldRenderers={key === 'drawn' ? CHECKS_ROW : undefined}
     />
   );
 };
@@ -129,6 +138,8 @@ const Overview = overviewStory({
     '`groups` narrows it to a few groups or field paths.',
     '`resolveIdRefDisplay` shows a reference by its target\'s name instead of its id.',
     '`diffs` marks a field that disagrees with the live value, and shows that value beside it.',
+    '`fieldRenderers` lets the app draw one field by its path, and that field keeps its group and place.',
+    'Group headings take the secondary accent, so a scan tells a heading from a field label.',
   ],
   instead: '[RecordEditor] when the user edits the record.',
   playground: Player,

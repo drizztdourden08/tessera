@@ -30,6 +30,7 @@ const usage = {
   a11y: [
     'The card is a modal dialog named by the title.',
     'The close button carries the Close label from the strings.',
+    'Escape calls onClose once no menu, popover or dialog is open above the window, so one press closes one thing.',
   ],
   buildingBlock: true,
   example: `import { Button, Icon, ScreenWindow, ScrollArea } from '@drizztdourden08/tessera';

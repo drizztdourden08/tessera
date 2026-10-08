@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useEffectEvent, useState } from 'react';
 import type { KeyboardEvent } from 'react';
+import { useEscapeStack } from '../../../primitives/escape-stack/useEscapeStack';
 import type { ConfirmAsk, ConfirmAskOptions } from './useConfirmAsk.type';
 
 const useConfirmAsk = <T>(options: ConfirmAskOptions<T>): ConfirmAsk<T> => {
@@ -15,6 +16,7 @@ const useConfirmAsk = <T>(options: ConfirmAskOptions<T>): ConfirmAsk<T> => {
     else onCancel?.(asking);
   };
   const drop = useEffectEvent(() => settle(false));
+  useEscapeStack({ level: 'popover', onEscape: () => settle(false), active: asking !== null });
 
   useEffect(() => {
     if (disabled) drop();
@@ -28,6 +30,7 @@ const useConfirmAsk = <T>(options: ConfirmAskOptions<T>): ConfirmAsk<T> => {
 
   const onKeyDown = (event: KeyboardEvent): void => {
     if (event.key !== 'Escape' || asking === null) return;
+    event.preventDefault();
     event.stopPropagation();
     settle(false);
   };

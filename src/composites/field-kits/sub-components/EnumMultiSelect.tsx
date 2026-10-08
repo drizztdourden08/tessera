@@ -9,14 +9,14 @@ import type { TesseraStrings } from '../../../primitives/strings/tessera-strings
 import type { EnumMultiSelectProps } from './EnumMultiSelect.type';
 import '../../../theme/field-kits.css';
 
-const summarize = (selected: readonly string[], placeholder: string, strings: TesseraStrings['common']): string => {
+const summarize = (selected: readonly string[], placeholder: string, strings: TesseraStrings['common'], labelOf: (option: string) => string): string => {
   if (!selected.length) return placeholder;
-  if (selected.length <= SUMMARY_MAX) return selected.join(', ');
+  if (selected.length <= SUMMARY_MAX) return selected.map(labelOf).join(', ');
   return strings.selectedCount(selected.length);
 };
 
 const EnumMultiSelect = (props: EnumMultiSelectProps) => {
-  const { options, selected, placeholder, onChange } = props;
+  const { options, selected, placeholder, labelOf = String, onChange } = props;
   const menu = useMenuOpen<HTMLButtonElement>();
   const { common } = useTesseraStrings();
 
@@ -28,7 +28,7 @@ const EnumMultiSelect = (props: EnumMultiSelectProps) => {
 
   const items: MenuNode[] = options.map((option) => ({
     id: option,
-    label: option,
+    label: labelOf(option),
     checked: selected.includes(option),
     onSelect: () => toggle(option),
   }));
@@ -44,7 +44,7 @@ const EnumMultiSelect = (props: EnumMultiSelectProps) => {
         aria-expanded={menu.open}
         onClick={menu.toggle}
       >
-        {summarize(selected, placeholder, common)}
+        {summarize(selected, placeholder, common, labelOf)}
       </Button>
       {menu.open && items.length > 0 && (
         <DropdownMenu groups={[{ id: 'options', items }]} anchorRef={menu.anchorRef} closeOnSelect={false} onClose={menu.close} />

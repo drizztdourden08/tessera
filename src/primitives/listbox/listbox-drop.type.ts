@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { RefObject } from 'react';
+import type { EscapeLevel } from '../escape-stack/escape-stack.type';
 import type { DropAlign, DropPlacement } from './drop-placement.type';
 
 interface UseListboxDropParams {
@@ -8,7 +9,7 @@ interface UseListboxDropParams {
   inline?: boolean;
   contentKey: unknown;
   focusRef?: RefObject<HTMLElement | null>;
-  escape?: boolean;
+  level?: EscapeLevel;
   fit?: boolean;
   align?: DropAlign;
   onClose?: () => void;

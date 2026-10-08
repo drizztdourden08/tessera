@@ -15,6 +15,7 @@
 
 .compact-record-view__group-label {
   padding-bottom: var(--space-2xs);
+  color: var(--c-secondary-bright);
   font-size: var(--text-xs);
   font-weight: var(--weight-semi);
   letter-spacing: var(--tracking-wide);

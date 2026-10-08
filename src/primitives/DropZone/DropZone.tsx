@@ -9,6 +9,7 @@ import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings
 import type { DropZoneProps } from './DropZone.type';
 import { acceptAttribute } from './behavior/accept-list';
 import { dropZoneClass } from './behavior/drop-zone-class';
+import { inlineButtonProps } from './behavior/inline-button-props';
 import { useDropZone } from './behavior/useDropZone';
 import { DropZoneHints } from './sub-components/DropZoneHints';
 
@@ -22,6 +23,7 @@ const DropZone = (props: DropZoneProps) => {
     variant = 'block',
     size,
     icon,
+    status,
     onDrop,
   } = props;
   const zone = useDropZone(accept, !disabled, onDrop);
@@ -31,15 +33,17 @@ const DropZone = (props: DropZoneProps) => {
 
   return (
     <div
-      className={dropZoneClass(controlSize, inline, zone.active, disabled)}
+      ref={zone.zoneRef}
+      className={dropZoneClass(controlSize, { inline, active: zone.active, disabled, status: status?.tone })}
       data-invalid={invalid ? '' : undefined}
       {...zone.dragHandlers}
+      {...zone.pasteHandlers}
       onClick={zone.handleClick}
-      {...(inline ? { role: 'button', tabIndex: disabled ? -1 : 0, title: hint, onKeyDown: zone.handleKeyDown } : {})}
+      {...inlineButtonProps(inline, disabled, hint, zone.handleKeyDown)}
     >
       <span className="dropzone__icon" aria-hidden={inline || undefined}>{icon ?? <Glyph name="box" />}</span>
       <Span className="dropzone__label">{label}</Span>
-      {!inline && <DropZoneHints hint={hint} />}
+      {!inline && <DropZoneHints hint={hint} status={status} />}
       <input
         ref={zone.inputRef}
         type="file"

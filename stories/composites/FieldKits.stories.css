@@ -1,0 +1,15 @@
+/* @layer stories @kind style */
+.field-kits-story__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  inline-size: 100%;
+}
+
+.field-kits-story__row--wide {
+  max-inline-size: var(--size-640);
+}
+
+.field-kits-story__row--narrow {
+  max-inline-size: var(--size-224);
+}

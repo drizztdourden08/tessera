@@ -5,6 +5,7 @@ interface ClauseValueInput {
   op: string;
   value: unknown;
   strings: TesseraStrings['filters'];
+  labelOf?: (value: string) => string;
 }
 
 export type { ClauseValueInput };

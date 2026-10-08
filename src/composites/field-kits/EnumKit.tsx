@@ -5,11 +5,13 @@ import { Tag } from '../../primitives/Tag';
 import { Text } from '../../primitives/Text';
 import { isNullish } from './coerce';
 import { ABSENT } from './EnumKit.constants';
+import { optionLabelOf } from './option-label';
 import { registerFieldKit } from './registry';
 import { toText } from './to-text';
 import { EnumEditorControl } from './sub-components/EnumEditorControl';
 import { EnumMultiSelect } from './sub-components/EnumMultiSelect';
 import type { FieldTypeStrategy, FilterControlProps } from './registry.type';
+import type { FieldDescriptor } from '../../data/schema/field-descriptor';
 import '../../theme/field-kits.css';
 
 const toSelection = (operand: unknown): readonly string[] => {
@@ -33,14 +35,15 @@ const FilterControl = (props: FilterControlProps) => {
       options={field.options ?? []}
       selected={toSelection(value)}
       placeholder={field.label}
+      labelOf={optionLabelOf(field)}
       onChange={(selected) => onChange([...selected])}
     />
   );
 };
 
-const renderCell = (value: unknown): ReactNode => {
+const renderCell = (value: unknown, field: FieldDescriptor): ReactNode => {
   if (isNullish(value) || value === '') return <Text className="field-kit__muted">{ABSENT}</Text>;
-  return <Tag>{toText(value)}</Tag>;
+  return <Tag>{optionLabelOf(field)(toText(value))}</Tag>;
 };
 
 const enumKit: FieldTypeStrategy = { kind: 'enum', FilterControl, EditorControl: EnumEditorControl, renderCell };

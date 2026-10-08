@@ -3,6 +3,7 @@ import type { ControlName } from '../../../primitives/field-control/control-name
 interface EnumTagSelectProps extends ControlName {
   id: string;
   options: readonly string[];
+  labelOf?: (option: string) => string;
   selected: readonly string[];
   onChange: (selected: readonly string[]) => void;
   single?: boolean;

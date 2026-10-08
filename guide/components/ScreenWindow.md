@@ -45,6 +45,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 
 - The card is a modal dialog named by the title.
 - The close button carries the Close label from the strings.
+- Escape calls onClose once no menu, popover or dialog is open above the window, so one press closes one thing.
 
 ## Example
 

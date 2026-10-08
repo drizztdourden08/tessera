@@ -4582,6 +4582,7 @@
         "A status line reads each step as Step 2 of 6 and the title.",
         "The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.",
         "Right or Enter goes on, Left goes back and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.",
+        "A menu or popover opened during a step takes Escape first; the tour closes on the next press, before any dialog or screen.",
         "With reduced motion the highlight and the mascot move at once and nothing fades."
       ],
       "tree": {
@@ -6938,17 +6939,23 @@
         "On open focus moves to the labelledBy title, or to the first control without one; Tab stays inside, and on close focus returns to the opener.",
         "While open, the siblings of the layer in its parent are inert: put the page it covers beside it, and keep a title bar outside that parent.",
         "hidden takes the layer out of the page and out of the accessibility tree, and keeps its content mounted.",
+        "Pass onClose and Escape calls it, after every menu, popover and dialog above the layer; a hidden layer takes no Escape.",
         "floating comes before the card in the page order, so a switcher in it is the first Tab stop; it still draws on the top edge of the card."
       ],
       "buildingBlock": true,
       "example": "import type { ReactNode } from 'react';\nimport { ScreenLayer } from '@drizztdourden08/tessera';\n\nconst KioskScreen = ({ children }: { children: ReactNode }) => (\n  <ScreenLayer label=\"Kiosk\" className=\"kiosk-screen\">\n    {children}\n  </ScreenLayer>\n);\n",
-      "propsHash": "9aed0db4d9e61861",
+      "propsHash": "b24419ae35662fcb",
       "props": {
         "own": [
           {
             "name": "children",
             "optional": false,
             "text": "ReactNode"
+          },
+          {
+            "name": "onClose",
+            "optional": true,
+            "text": "() => void"
           },
           {
             "name": "floating",
@@ -7225,7 +7232,8 @@
       ],
       "a11y": [
         "The card is a modal dialog named by the title.",
-        "The close button carries the Close label from the strings."
+        "The close button carries the Close label from the strings.",
+        "Escape calls onClose once no menu, popover or dialog is open above the window, so one press closes one thing."
       ],
       "buildingBlock": true,
       "example": "import { Button, Icon, ScreenWindow, ScrollArea } from '@drizztdourden08/tessera';\n\nconst SessionsScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Sessions\" subtitle=\"Profile: mira\" onClose={onClose}>\n    <ScrollArea>Sessions list</ScrollArea>\n  </ScreenWindow>\n);\n\nconst PlayersScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Players\" header={{ icon: <Icon name=\"users\" />, actions: <Button size=\"sm\">Invite</Button> }} onClose={onClose}>\n    <ScrollArea>Players list</ScrollArea>\n  </ScreenWindow>\n);\n",

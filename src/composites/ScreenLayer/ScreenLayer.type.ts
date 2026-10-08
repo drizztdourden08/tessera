@@ -5,6 +5,7 @@ type ScreenLayerSize = 'fill' | 'compact';
 
 interface ScreenLayerProps {
   children: ReactNode;
+  onClose?: () => void;
   floating?: ReactNode;
   hidden?: boolean;
   size?: ScreenLayerSize;

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind logic */
 import type { FieldDescriptor, SchemaConfig } from '../field-descriptor';
 import { deriveSchema } from '../derive-fields';
+import { fieldOptions } from './field-options';
 
 const groupOf = (config: SchemaConfig | undefined): Record<string, string> => {
   const byPath: Record<string, string> = {};
@@ -32,7 +33,9 @@ const overlayConfig = (field: FieldDescriptor, config: SchemaConfig | undefined)
   if (format !== undefined) next.format = format;
   const options = config?.options?.[field.path];
   if (options !== undefined) {
-    next.options = options;
+    next.kind = 'enum';
+    next.declaredOptions = fieldOptions(options);
+    next.options = next.declaredOptions.map((option) => String(option.value));
     next.closed = true;
   }
   return next;

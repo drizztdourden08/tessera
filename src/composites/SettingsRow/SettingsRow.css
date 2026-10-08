@@ -123,19 +123,6 @@
   position: relative;
 }
 
-.settings-row__fit {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.settings-row__fit-probe {
-  display: inline-flex;
-  inline-size: max-content;
-}
-
 .settings-row__fit-select {
   display: flex;
   inline-size: var(--settings-row-control-w);

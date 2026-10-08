@@ -12,12 +12,20 @@ type FieldKind =
 
 type NumberFormat = 'hex2' | 'hex4';
 
+interface FieldOption {
+  value: string | number;
+  label: string;
+}
+
+type SchemaOption = string | number | FieldOption;
+
 interface FieldDescriptor {
   path: string;
   label: string;
   kind: FieldKind;
   optional: boolean;
   options?: readonly string[];
+  declaredOptions?: readonly FieldOption[];
   closed?: boolean;
   targetKind?: string;
   of?: FieldDescriptor;
@@ -41,7 +49,7 @@ interface SchemaConfig {
   kinds?: Record<string, FieldKind>;
   idPattern?: RegExp;
   formats?: Record<string, NumberFormat>;
-  options?: Record<string, readonly string[]>;
+  options?: Record<string, readonly SchemaOption[]>;
   defaultColumns?: readonly string[];
 }
 
@@ -55,4 +63,6 @@ interface CollectionSource<T> {
   onSave?: (row: T) => Promise<void>;
 }
 
-export type { CollectionSource, FieldDescriptor, FieldGroup, FieldKind, NumberFormat, SchemaConfig };
+export type {
+  CollectionSource, FieldDescriptor, FieldGroup, FieldKind, FieldOption, NumberFormat, SchemaConfig, SchemaOption,
+};

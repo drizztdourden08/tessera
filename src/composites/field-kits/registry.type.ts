@@ -19,6 +19,7 @@ interface IdRefOption {
 type IdRefOptionResolver = (
   targetKind: string,
   field: FieldDescriptor,
+  record?: unknown,
 ) => readonly IdRefOption[];
 
 interface NumberBounds {

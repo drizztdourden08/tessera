@@ -25,7 +25,7 @@ const TriggerMenu = (props: TriggerMenuProps) => {
   const [query, setQuery] = useState('');
   const shown = tidyGroups(groups);
   const contentKey = useMemo(() => ({ groups, query }), [groups, query]);
-  const drop = useListboxDrop<HTMLButtonElement>({ disabled: disabled || shown.length === 0, contentKey, escape: false, fit: true });
+  const drop = useListboxDrop<HTMLButtonElement>({ disabled: disabled || shown.length === 0, contentKey, level: 'menu', fit: true });
   useReport(drop.open, onOpenChange);
   if (shown.length === 0) return null;
 

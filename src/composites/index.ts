@@ -133,7 +133,7 @@ export type { DeleteGuardDialogProps } from './DeleteGuardDialog';
 export { CreateRecordDialog } from './CreateRecordDialog';
 export type { CreateOutcome, CreateRecordDialogProps } from './CreateRecordDialog';
 export { CompactRecordView } from './CompactRecordView';
-export type { CompactIdRefResolver, CompactRecordViewProps, FieldDifference } from './CompactRecordView';
+export type { CompactFieldRenderer, CompactIdRefResolver, CompactRecordViewProps, FieldDifference } from './CompactRecordView';
 export { DynamicInput, escapePatternText, parsePattern } from './DynamicInput';
 export { VolumeControl } from './VolumeControl';
 export type { VolumeControlProps } from './VolumeControl';

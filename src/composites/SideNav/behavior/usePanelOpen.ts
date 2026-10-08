@@ -23,7 +23,7 @@ const usePanelOpen = (params: UsePanelOpenParams) => {
     if (floating) close();
   }, [onSelect, floating, close]);
 
-  useDismissListeners({ open: floating && panelOpen, onClose: close, contentRef: navRef, triggerRef: navRef });
+  useDismissListeners({ open: floating && panelOpen, onClose: close, contentRef: navRef, triggerRef: navRef, level: 'dialog' });
 
   return { navRef, toggleRef, open: rail ? !collapsed : panelOpen, floating, toggle, openPanel, select };
 };

@@ -16,7 +16,7 @@ const useRateMenu = (onRate: (rate: number) => void) => {
     setOpen(false);
   }, []);
 
-  useDismissListeners({ open, onClose: close, contentRef: menuRef, triggerRef: rootRef });
+  useDismissListeners({ open, onClose: close, contentRef: menuRef, triggerRef: rootRef, level: 'menu' });
 
   useEffect(() => {
     if (open) menuRef.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus();

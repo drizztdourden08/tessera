@@ -46,6 +46,7 @@ GuidedTour lights one target per step, runs the step onEnter first, and lets the
 - A status line reads each step as Step 2 of 6 and the title.
 - The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.
 - Right or Enter goes on, Left goes back and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.
+- A menu or popover opened during a step takes Escape first; the tour closes on the next press, before any dialog or screen.
 - With reduced motion the highlight and the mascot move at once and nothing fades.
 
 ## Example

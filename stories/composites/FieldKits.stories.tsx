@@ -7,7 +7,9 @@ import { Box } from '../../src/primitives';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { KIT_START, resolveKitOptions, sampleFieldFor } from './_samples/data-kits';
+import { DeclaredEnums } from './_samples/DeclaredEnums';
 import { NamedByRow } from './_samples/NamedByRow';
+import './FieldKits.stories.css';
 
 type FieldKitsArgs = {
   disabled: boolean;
@@ -90,6 +92,11 @@ const Named = {
   render: () => <NamedKits />,
 } satisfies StoryLiteStoryDefinition<FieldKitsArgs>;
 
+const Declared = {
+  name: 'A declared closed set, in a wide and a narrow row',
+  render: () => <DeclaredEnums />,
+} satisfies StoryLiteStoryDefinition<FieldKitsArgs>;
+
 const CODE = `// Importing the field-kits module registers the nine built-in kits.
 import { resolveFieldKit } from '@drizztdourden08/tessera/field-kits';
 
@@ -112,10 +119,11 @@ const Overview = overviewStory({
     '[RecordEditor], [DataTable], [CompactRecordView] and [FilterBar] all draw fields through the kits.',
     '`resolveFieldKit(kind)` returns the kit for a kind; `registerFieldKit` adds a new kind.',
     '`EditorControl` takes `aria-label` or `aria-labelledby`, so the name of a [FormRow] can name the control.',
+    'An enum shows declared names, keeps numbers as numbers and turns into a searchable select in a narrow row.',
   ],
-  variants: [AllKits, Named],
+  variants: [AllKits, Named, Declared],
   code: CODE,
 });
 
 export default meta;
-export { AllKits, Named, Overview };
+export { AllKits, Declared, Named, Overview };

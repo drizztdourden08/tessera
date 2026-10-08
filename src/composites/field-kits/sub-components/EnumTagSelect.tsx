@@ -5,9 +5,9 @@ import type { TagPickerGroup } from '../../../primitives/TagPicker';
 import type { EnumTagSelectProps } from './EnumTagSelect.type';
 
 const EnumTagSelect = (props: EnumTagSelectProps) => {
-  const { id, options, selected, onChange, single = false, disabled = false } = props;
+  const { id, options, labelOf = String, selected, onChange, single = false, disabled = false } = props;
   const groups: TagPickerGroup[] = [
-    { id, options: options.map((option) => ({ value: option, label: option })) },
+    { id, options: options.map((option) => ({ value: option, label: labelOf(option) })) },
   ];
   return (
     <TagPicker

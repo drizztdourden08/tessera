@@ -92,3 +92,8 @@
   padding-inline-start: var(--space-sm);
   border-inline-start: var(--border-width-thin) solid var(--c-border);
 }
+
+.field-kit__closed-set {
+  position: relative;
+  min-inline-size: 0;
+}

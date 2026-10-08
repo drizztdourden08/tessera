@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind logic */
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { pushEscape } from '../../../primitives/escape-stack/push-escape';
 import type { PressWiring } from './dock-hooks.type';
 import { movedEnough } from './moved-enough';
 import { releasePress } from './release-press';
@@ -28,18 +29,15 @@ const listenPress = (wiring: PressWiring): (() => void) => {
     finish();
     releasePress(p, latest.current, { screenX: ev.screenX, screenY: ev.screenY });
   };
-  const onKey = (ev: KeyboardEvent): void => {
-    if (ev.key === 'Escape') finish();
-  };
   view.addEventListener('pointermove', onMove);
   view.addEventListener('pointerup', onUp);
   view.addEventListener('pointercancel', finish);
-  view.addEventListener('keydown', onKey);
+  const leaveEscape = pushEscape(view.document, 'drag', finish);
   return () => {
     view.removeEventListener('pointermove', onMove);
     view.removeEventListener('pointerup', onUp);
     view.removeEventListener('pointercancel', finish);
-    view.removeEventListener('keydown', onKey);
+    leaveEscape();
   };
 };
 

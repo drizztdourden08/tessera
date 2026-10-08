@@ -1,14 +1,16 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
 import { Overlay } from '../../primitives/Overlay';
+import { useLayerEscape } from './behavior/useLayerEscape';
 import { useLayerFocus } from './behavior/useLayerFocus';
 import type { ScreenLayerProps } from './ScreenLayer.type';
 import './ScreenLayer.css';
 
 const ScreenLayer = (props: ScreenLayerProps) => {
-  const { children, floating, hidden = false, size = 'fill', square = false, label, labelledBy, className = '' } = props;
+  const { children, onClose, floating, hidden = false, size = 'fill', square = false, label, labelledBy, className = '' } = props;
   const classes = ['screen-layer', `screen-layer--${size}`, hidden ? 'screen-layer--hidden' : '', square ? 'screen-layer--square' : ''].filter(Boolean).join(' ');
   const focus = useLayerFocus(!hidden, labelledBy);
+  useLayerEscape(hidden ? null : focus.node, onClose);
 
   return (
     <Overlay ref={focus.layerRef} visible tone="clear" className={classes}>

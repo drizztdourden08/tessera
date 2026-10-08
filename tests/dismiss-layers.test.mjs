@@ -17,39 +17,14 @@ const fakeDocument = () => {
   };
 };
 
-const layer = (escape = true, held = []) => ({ escape: () => escape, close: vi.fn(), holds: (node) => held.includes(node) });
+const layer = (held = []) => ({ close: vi.fn(), holds: (node) => held.includes(node) });
 
-describe('Escape with popups inside popups', () => {
-  it('closes only the popup opened last, then the one under it', () => {
-    const doc = fakeDocument();
-    const panel = layer();
-    const select = layer();
-    enterLayer(doc, panel);
-    const leaveSelect = enterLayer(doc, select);
-    expect(doc.press('Escape').stopped).toBe(true);
-    expect(select.close).toHaveBeenCalledTimes(1);
-    expect(panel.close).not.toHaveBeenCalled();
-    leaveSelect();
-    doc.press('Escape');
-    expect(panel.close).toHaveBeenCalledTimes(1);
-  });
-
-  it('leaves Escape to a top popup that handles it itself, and keeps the one under it open', () => {
-    const doc = fakeDocument();
-    const panel = layer();
-    const menu = layer(false);
-    enterLayer(doc, panel);
-    enterLayer(doc, menu);
-    expect(doc.press('Escape').stopped).toBe(false);
-    expect(panel.close).not.toHaveBeenCalled();
-    expect(menu.close).not.toHaveBeenCalled();
-  });
-
-  it('ignores other keys and removes its listener once every popup has closed', () => {
+describe('the popup stack', () => {
+  it('leaves Escape to the shared Escape stack and binds no key of its own', () => {
     const doc = fakeDocument();
     const panel = layer();
     const leave = enterLayer(doc, panel);
-    doc.press('Enter');
+    expect(doc.press('Escape').stopped).toBe(false);
     expect(panel.close).not.toHaveBeenCalled();
     leave();
     expect(doc.count()).toBe(0);
@@ -61,7 +36,7 @@ describe('a press inside a nested popup', () => {
     const doc = fakeDocument();
     const option = {};
     const panel = layer();
-    const select = layer(true, [option]);
+    const select = layer([option]);
     enterLayer(doc, panel);
     enterLayer(doc, select);
     expect(heldAbove(doc, panel, option)).toBe(true);

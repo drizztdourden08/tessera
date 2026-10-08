@@ -35,7 +35,7 @@ export type {
   TagCategoryColor, TagColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 } from './Tag';
 export { DropZone } from './DropZone';
-export type { DropZoneProps, DropZoneVariant } from './DropZone';
+export type { DropZoneProps, DropZoneStatus, DropZoneTone, DropZoneVariant } from './DropZone';
 export { TextInput } from './TextInput';
 export type { TextInputProps } from './TextInput';
 export { SearchInput } from './SearchInput';
@@ -74,6 +74,8 @@ export type {
 } from './Portal';
 export { ScrollArea, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition } from './ScrollArea';
 export type { PortalLayer } from './Portal';
+export { useEscapeStack } from './escape-stack';
+export type { EscapeLayer, EscapeLevel, EscapeStack } from './escape-stack';
 export { TagPicker } from './TagPicker';
 export type { TagPickerGroup, TagPickerOption, TagPickerProps } from './TagPicker';
 export { Field, useFieldControl } from './Field';

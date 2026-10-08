@@ -1,11 +1,12 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { StoryLiteMeta } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ListItemRow, ScreenWindow } from '../../src/composites';
 import { Button, Icon, ScrollArea } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { EscapeLevels } from './_samples/EscapeLevels';
 import { ScreenDemo } from './_samples/ScreenDemo';
 import { PLAYERS, SESSIONS, STATUS_LABEL } from './_samples/sessions';
 import { useWindowSwitch } from './_samples/useWindowSwitch';
@@ -127,6 +128,11 @@ const Narrow = {
   render: (args) => <WindowDemo {...args} phone />,
 } satisfies PlaygroundStory<WindowArgs>;
 
+const EscapeOrder = {
+  name: 'Escape by level',
+  render: () => <EscapeLevels />,
+} satisfies StoryLiteStoryDefinition<WindowArgs>;
+
 const CODE = `import { Button, Icon, ScreenWindow } from '@drizztdourden08/tessera';
 
 <ScreenWindow title="Sessions" subtitle="Profile: mira" onClose={close}>
@@ -145,14 +151,14 @@ const Overview = overviewStory({
     '`header` swaps the title bar for a [ContentHeader] at the top edge, with the close button at its end.',
     'The padding is xl, lg under 960 by 600 px, and md once the card fills the layer; `header` drops it.',
     'The content is an empty column that fills the card and never scrolls: the content picks how it scrolls.',
-    '`floating`, `hidden` and `size` pass through to the [ScreenLayer]; `square` drops the corners for fullscreen.',
+    '`floating`, `hidden`, `size`, `square` go to the [ScreenLayer]; Escape calls `onClose` once nothing is above.',
     'Short of room the subtitle moves under the title; content can query the `screen-window` container.',
   ],
   instead: '[WorkspaceScreen], [InfoScreen], [UtilityScreen] or [StageScreen] first; this only when none of them fits.',
   playground: Playground,
-  variants: [WithHeader, SiblingWindows, WithBack, TitleOnly, Narrow],
+  variants: [WithHeader, SiblingWindows, WithBack, TitleOnly, Narrow, EscapeOrder],
   code: CODE,
 });
 
 export default meta;
-export { Narrow, Overview, Playground, SiblingWindows, TitleOnly, WithBack, WithHeader };
+export { EscapeOrder, Narrow, Overview, Playground, SiblingWindows, TitleOnly, WithBack, WithHeader };

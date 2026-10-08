@@ -41,6 +41,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - On open focus moves to the labelledBy title, or to the first control without one; Tab stays inside, and on close focus returns to the opener.
 - While open, the siblings of the layer in its parent are inert: put the page it covers beside it, and keep a title bar outside that parent.
 - Hidden takes the layer out of the page and out of the accessibility tree, and keeps its content mounted.
+- Pass onClose and Escape calls it, after every menu, popover and dialog above the layer; a hidden layer takes no Escape.
 - Floating comes before the card in the page order, so a switcher in it is the first Tab stop; it still draws on the top edge of the card.
 
 ## Example
@@ -59,6 +60,7 @@ const KioskScreen = ({ children }: { children: ReactNode }) => (
 ## Props
 
 - `children`: `ReactNode`.
+- `onClose` (optional): `() => void`.
 - `floating` (optional): `ReactNode`.
 - `hidden` (optional): `boolean`. Default `false`.
 - `size` (optional): `ScreenLayerSize`, one of `'fill'`, `'compact'`. Default `'fill'`.

@@ -22,7 +22,7 @@ const ControlMenu = (props: ControlMenuProps) => {
   const { variant = 'primary', intensity = 'strong', size = 'sm', disabled = false, defaultOpen, onOpenChange, className, triggerClassName, panelData } = props;
   const panelId = useId();
   const [query, setQuery] = useState('');
-  const drop = useListboxDrop<HTMLButtonElement>({ disabled, defaultOpen, contentKey: query, escape: true, fit: true, align });
+  const drop = useListboxDrop<HTMLButtonElement>({ disabled, defaultOpen, contentKey: query, level: 'menu', fit: true, align });
   useReport(drop.open, onOpenChange);
   const look = menuLookClass(variant, intensity);
   const show = (): void => {

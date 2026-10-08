@@ -6,7 +6,7 @@ const FIELD_STRINGS = {
   comboboxPlaceholder: 'Type to search...',
   clear: 'Clear',
   dropFiles: 'Drop files here',
-  browseFiles: 'or click to browse files',
+  browseFiles: 'or click to browse, or point here and paste',
   increase: 'Increase',
   decrease: 'Decrease',
   earlierTabs: 'Show earlier tabs',

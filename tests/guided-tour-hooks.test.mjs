@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { useTourEntry } from '../src/composites/GuidedTour/behavior/useTourEntry';
 import { useTourKeys } from '../src/composites/GuidedTour/behavior/useTourKeys';
 import { mountHook } from './hook-harness.mjs';
+import { escapeStackOf } from '../src/primitives/escape-stack/escape-stack-of';
 
 const listeners = [];
 const doc = {
@@ -20,16 +21,19 @@ const settle = () => new Promise((resolve) => { setTimeout(resolve, 5); });
 describe('the keys of an open tour', () => {
   const press = (key, target = null) => ({ key, target, defaultPrevented: false, preventDefault: vi.fn(), stopPropagation: vi.fn() });
 
-  it('listen in the capture phase and stop only the keys the tour acts on', () => {
+  it('listen in the capture phase and stop only the keys the tour acts on, and close on Escape through the Escape stack', () => {
     listeners.length = 0;
     const tour = { next: vi.fn(), back: vi.fn(), close: vi.fn() };
     mountHook(() => useTourKeys(tour, { ownerDocument: doc }, null, false));
-    const [{ type, listener, capture }] = listeners;
-    expect([type, capture]).toEqual(['keydown', true]);
+    const { listener } = listeners.find((entry) => entry.capture === true);
+    const stack = listeners.find((entry) => entry.capture !== true);
     const escape = press('Escape');
     listener(escape);
+    expect(tour.close).not.toHaveBeenCalled();
+    expect(escape.stopPropagation).not.toHaveBeenCalled();
+    stack.listener({ ...escape, stopImmediatePropagation: vi.fn() });
     expect(tour.close).toHaveBeenCalledOnce();
-    expect(escape.stopPropagation).toHaveBeenCalledOnce();
+    expect(escapeStackOf(doc).top()).toBe('menu');
     const letter = press('a');
     listener(letter);
     expect(letter.stopPropagation).not.toHaveBeenCalled();
@@ -45,7 +49,7 @@ describe('the keys of an open tour', () => {
     const tour = { next: vi.fn(), back: vi.fn(), close: vi.fn() };
     mountHook(() => useTourKeys(tour, { ownerDocument: doc }, null, true));
     const right = press('ArrowRight');
-    listeners[0].listener(right);
+    listeners.find((entry) => entry.capture === true).listener(right);
     expect(tour.next).not.toHaveBeenCalled();
     expect(right.stopPropagation).not.toHaveBeenCalled();
   });

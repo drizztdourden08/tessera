@@ -1299,6 +1299,13 @@
           "to": "composites"
         }
       }
+    },
+    {
+      "version": "next",
+      "cssClasses": {
+        "settings-row__fit": "fit-probe",
+        "settings-row__fit-probe": "fit-probe__content"
+      }
     }
   ]
 }

@@ -5,9 +5,9 @@ import { Button } from '../../primitives/Button';
 import { Text } from '../../primitives/Text';
 import { Paragraph } from '../../primitives/text-elements';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { getPath } from '../../data/schema/path';
 import { DialogShell } from '../DialogShell';
 import { EditorGroup, layoutGroups } from '../RecordEditor';
+import { useRecordReaders } from '../RecordEditor/behavior/useRecordReaders';
 import { useCreateFormState } from './behavior/useCreateFormState';
 import type { EditorBinding } from '../RecordEditor';
 import { NOT_DIRTY } from './CreateRecordDialog.constants';
@@ -28,22 +28,18 @@ const CreateRecordDialog = (props: CreateRecordDialogProps) => {
   const { common, records } = useTesseraStrings();
 
   const groups = useMemo(() => layoutGroups(schema, records, config), [schema, records, config]);
-  const readValue = useCallback((path: string) => getPath(working, path), [working]);
-  const readBounds = useCallback(
-    (path: string) => resolveNumberBounds?.(path, working),
-    [resolveNumberBounds, working],
-  );
+  const { readValue, readBounds, readIdRefOptions } = useRecordReaders(working, { resolveNumberBounds, resolveIdRefOptions });
 
   const binding = useMemo<EditorBinding>(() => ({
     value: readValue,
     onChange: setValue,
     isDirty: NOT_DIRTY,
     disabled: saving,
-    resolveIdRefOptions,
+    resolveIdRefOptions: readIdRefOptions,
     resolveTagSuggestions,
     onCreateTag,
     bounds: readBounds,
-  }), [readValue, setValue, saving, resolveIdRefOptions, resolveTagSuggestions, onCreateTag, readBounds]);
+  }), [readValue, setValue, saving, readIdRefOptions, resolveTagSuggestions, onCreateTag, readBounds]);
 
   const submit = useCallback(async () => {
     const id = await handleCreate();
