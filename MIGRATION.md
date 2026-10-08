@@ -7063,3 +7063,19 @@ Nothing looks different.
 ### What an app does
 
 Nothing. An app that put focus back on the button after `onCancel` can drop that code. An app whose `onCancel` assumed the part was still on screen checks that before it touches the part.
+
+## 218. The SiteHeader profile menu opens under the end of its button
+
+The profile of SiteHeader is a title bar dropdown action, and its menu lined up with the start of its button and opened to the right. At the right edge of a window that left the menu the few pixels between the button and the edge: about 90 px beside the gallery frame and 40 px when the button touched the edge, so My publications and Sign out were cut off. The link menu of a phone width SiteHeader did the same, and so did a WindowTitleBar dropdown action placed near the right edge, since all three are the same DropdownMenu.
+
+### What changed
+
+- **The title bar dropdown opens on the side with room.** A WindowTitleBar dropdown action asks its menu for `align: 'auto'`: a button in the right half of the window gets a menu under the end of the button that opens to the left, and a button in the left half keeps the menu under its start. The fix sits in the shared title bar dropdown, so the SiteHeader profile and every dropdown action of WindowTitleBar get it. The SiteHeader link menu asks for `auto` too.
+- **The menu keeps its own width.** With the end of the button as its edge, the room is the whole width to the left of the button, so the menu takes its natural width: 180 px for the profile of the gallery page at 1280, 800 and 400 px, where it was 89 to 93 px.
+- **DropdownMenu with a trigger takes `align`**, as ControlMenu does: `'start'` by default, `'end'`, or `'auto'` for the side with more room. A browser with anchor positioning places the menu with the anchor of that edge; another browser gets the same edge from the measured position. Any other DropdownMenu keeps the start of its trigger.
+
+The profile and link menus of SiteHeader and a title bar dropdown in the right half of a window now open to the left. The title bar dropdowns of the gallery sit at the left and look the same.
+
+### What an app does
+
+Nothing for SiteHeader or WindowTitleBar. A DropdownMenu button an app places at the right edge of a window, such as an account menu in its own header, passes `align="auto"` or `align="end"`.

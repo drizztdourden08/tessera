@@ -21,6 +21,7 @@ const usage = {
     'Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.',
     'Split groups by meaning with a label or a separator; turn on filter past about a dozen items.',
     'size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.',
+    'align sets the edge of the trigger the menu lines up with: start by default, end, or auto for the side with more room, which a trigger near the right edge of a window needs; the title bar dropdown actions and SiteHeader use auto.',
   ],
   a11y: [
     'The menu is role menu named by label; items are menuitem, menuitemcheckbox or menuitemradio, and a confirm item stays a menuitem.',
@@ -55,7 +56,7 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
   return <DropdownMenu trigger={{ label: 'Layout', icon: 'layout-grid' }} groups={groups} />;
 };
 `,
-  propsHash: 'be7ad223d1a3e429',
+  propsHash: '9f9e176c98cc9be7',
 } satisfies ComponentUsage;
 
 export { usage };

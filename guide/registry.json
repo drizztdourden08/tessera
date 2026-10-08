@@ -4031,7 +4031,8 @@
         "Give an action that deletes, such as Delete in a row menu, tone danger, so it reads in the danger tone at rest; a confirm item turns red only while it asks.",
         "Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.",
         "Split groups by meaning with a label or a separator; turn on filter past about a dozen items.",
-        "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar."
+        "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
+        "align sets the edge of the trigger the menu lines up with: start by default, end, or auto for the side with more room, which a trigger near the right edge of a window needs; the title bar dropdown actions and SiteHeader use auto."
       ],
       "a11y": [
         "The menu is role menu named by label; items are menuitem, menuitemcheckbox or menuitemradio, and a confirm item stays a menuitem.",
@@ -4047,13 +4048,23 @@
         "rule": "DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work."
       },
       "example": "import { DropdownMenu } from '@drizztdourden08/tessera';\nimport type { MenuGroup } from '@drizztdourden08/tessera';\n\ninterface LayoutMenuProps {\n  locked: boolean;\n  onLock: () => void;\n  onSave: () => void;\n  onReset: () => void;\n}\n\nconst LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {\n  const groups: MenuGroup[] = [{\n    id: 'layout',\n    label: 'Layout',\n    items: [\n      { id: 'lock', icon: 'lock', label: 'Lock widgets', checked: locked, onSelect: onLock },\n      { id: 'save', icon: 'save', label: 'Save layout', onSelect: onSave },\n      { separator: true },\n      { id: 'reset', icon: 'rotate-ccw', label: 'Reset layout', kind: 'confirm', onSelect: onReset },\n    ],\n  }];\n  return <DropdownMenu trigger={{ label: 'Layout', icon: 'layout-grid' }} groups={groups} />;\n};\n",
-      "propsHash": "be7ad223d1a3e429",
+      "propsHash": "9f9e176c98cc9be7",
       "props": {
         "own": [
           {
             "name": "trigger",
             "optional": true,
             "text": "undefined | MenuTrigger"
+          },
+          {
+            "name": "align",
+            "optional": true,
+            "text": "MenuAlign | DropAlign",
+            "literals": [
+              "'auto'",
+              "'end'",
+              "'start'"
+            ]
           },
           {
             "name": "groups",
@@ -4122,15 +4133,6 @@
             "literals": [
               "'below'",
               "'above'"
-            ]
-          },
-          {
-            "name": "align",
-            "optional": true,
-            "text": "MenuAlign",
-            "literals": [
-              "'start'",
-              "'end'"
             ]
           },
           {

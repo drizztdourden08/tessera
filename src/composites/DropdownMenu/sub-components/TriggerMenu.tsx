@@ -19,13 +19,13 @@ import '../../../theme/dropdown-trigger.css';
 
 const TriggerMenu = (props: TriggerMenuProps) => {
   const { groups, trigger, label, filterPlaceholder, onOpenChange, className } = props;
-  const { variant, intensity, size, disabled, closeOnSelect, filter } = triggerSettings(props);
+  const { variant, intensity, size, align, disabled, closeOnSelect, filter } = triggerSettings(props);
   const menuId = useId();
   const [start, setStart] = useState<MenuFocusStart>('first');
   const [query, setQuery] = useState('');
   const shown = tidyGroups(groups);
   const contentKey = useMemo(() => ({ groups, query }), [groups, query]);
-  const drop = useListboxDrop<HTMLButtonElement>({ disabled: disabled || shown.length === 0, contentKey, level: 'menu', fit: true });
+  const drop = useListboxDrop<HTMLButtonElement>({ disabled: disabled || shown.length === 0, contentKey, level: 'menu', fit: true, align });
   useReport(drop.open, onOpenChange);
   if (shown.length === 0) return null;
 

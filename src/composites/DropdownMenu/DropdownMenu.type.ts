@@ -2,6 +2,7 @@
 import type { ReactElement, RefObject } from 'react';
 import type { ButtonVariant } from '../../primitives/Button/Button.type';
 import type { IconName } from '../../primitives/Icon';
+import type { DropAlign } from '../../primitives/listbox/drop-placement.type';
 import type { ShortcutKey } from '../../primitives/Shortcut';
 
 type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm';
@@ -80,6 +81,7 @@ interface AnchoredMenuProps extends MenuBaseProps {
 interface TriggerMenuProps extends MenuBaseProps {
   trigger: MenuTrigger;
   size?: MenuSize;
+  align?: DropAlign;
   disabled?: boolean;
   onOpenChange?: (open: boolean) => void;
 }

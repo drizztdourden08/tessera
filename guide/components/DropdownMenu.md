@@ -37,6 +37,7 @@ DropdownMenu keeps rare and secondary actions one click away, and asks before th
 - Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.
 - Split groups by meaning with a label or a separator; turn on filter past about a dozen items.
 - Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.
+- Align sets the edge of the trigger the menu lines up with: start by default, end, or auto for the side with more room, which a trigger near the right edge of a window needs; the title bar dropdown actions and SiteHeader use auto.
 
 ## Accessibility
 
@@ -75,6 +76,7 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
 ## Props
 
 - `trigger` (optional): `undefined | MenuTrigger`.
+- `align` (optional): `MenuAlign | DropAlign`, one of `'auto'`, `'end'`, `'start'`.
 - `groups`: `readonly MenuGroup[]`.
 - `label` (optional): `string`.
 - `variant` (optional): `MenuVariant`, one of `'danger'`, `'ghost'`, `'info'`, `'primary'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
@@ -85,7 +87,6 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
 - `className` (optional): `string`.
 - `anchorRef` (optional): `RefObject<HTMLElement | null>`.
 - `side` (optional): `MenuSide`, one of `'below'`, `'above'`.
-- `align` (optional): `MenuAlign`, one of `'start'`, `'end'`.
 - `inline` (optional): `boolean`.
 - `onClose` (optional): `() => void`.
 - `size` (optional): `MenuSize`, one of `'xs'`, `'sm'`, `'md'`.
