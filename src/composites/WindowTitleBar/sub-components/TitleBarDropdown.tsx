@@ -22,7 +22,6 @@ const TitleBarDropdown = (props: TitleBarDropdownProps) => {
         <DropdownMenu
           trigger={{ label: action.label, icon: <TitleBarActionIcon action={action} size={14} />, iconOnly: true }}
           variant="ghost"
-          align="auto"
           groups={action.groups}
           onOpenChange={report}
         />

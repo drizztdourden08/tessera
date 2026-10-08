@@ -31,7 +31,8 @@ const LINKS = [{ id: 'home', label: 'Home', href: '/' }];
 const VIEW = { innerWidth: 1000, innerHeight: 800, getComputedStyle: () => ({}) };
 const NATURAL = 180;
 const trigger = (left) => ({ top: 10, bottom: 38, left, right: left + 28, width: 28, height: 28 });
-const alignOf = (label) => drawn.findLast((props) => props.trigger?.label === label)?.align;
+const drawnFor = (label) => drawn.findLast((props) => props.trigger?.label === label);
+const alignOf = (label) => triggerSettings(drawnFor(label)).align;
 
 const placed = (left, align) => {
   const placement = dropPlacement(null, trigger(left), VIEW, { fit: true, align });
@@ -40,17 +41,26 @@ const placed = (left, align) => {
 };
 
 describe('the title bar dropdown placement', () => {
-  it('asks for the side with room in the title bar, the SiteHeader profile and the SiteHeader link menu', () => {
+  it('opens the title bar, the SiteHeader profile and the SiteHeader link menu on the side with room by default', () => {
     renderToString(h(WindowTitleBar, { title: 'App', controls: { fullscreen: false, pin: false }, actions: [PROFILE], onControl: ignore }));
     expect(alignOf('Ganon Fan')).toBe('auto');
     drawn.length = 0;
     renderToString(h(SiteHeader, { brand: BRAND, links: LINKS, profile: PROFILE }));
     expect(alignOf('Ganon Fan')).toBe('auto');
     expect(alignOf('Menu')).toBe('auto');
+    expect(drawnFor('Ganon Fan').align).toBeUndefined();
+    expect(drawnFor('Menu').align).toBeUndefined();
   });
 
-  it('keeps the start of the trigger for any other DropdownMenu', () => {
-    expect(triggerSettings({ trigger: { label: 'Layout' }, groups: [] }).align).toBe('start');
+  it('opens any DropdownMenu with a trigger on the side with room unless the app asks for an edge', () => {
+    expect(triggerSettings({ trigger: { label: 'Layout' }, groups: [] }).align).toBe('auto');
+    expect(triggerSettings({ trigger: { label: 'Layout' }, groups: [], align: 'start' }).align).toBe('start');
+    expect(triggerSettings({ trigger: { label: 'Layout' }, groups: [], align: 'end' }).align).toBe('end');
+  });
+
+  it('keeps the start of the trigger when the app asks for it, even at the right edge', () => {
+    expect(placed(960, 'start').place).toBe('bottom-start');
+    expect(placed(960, 'end').place).toBe('bottom-end');
   });
 
   it('opens a trigger at the right edge to the left, under its end, at its natural width', () => {

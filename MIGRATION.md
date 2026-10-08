@@ -7101,3 +7101,20 @@ From Brock. The parts file that `tessera guide` writes for `guide.parts` held on
 ### What an app does
 
 Run `tessera guide` once to rewrite each parts file. Until then `tessera check` reports `parts-module` for it.
+
+## 220. Every menu opens on the side with room
+
+From the owner, TX-56. A DropdownMenu with a trigger lined up with the start of its button and opened to the right unless the app passed `align="auto"`, which only WindowTitleBar and SiteHeader did (section 218). Near the right edge of a window that squeezed the menu into the space left before the edge: on the ActionBar page at 1100 px the More menu was 90 px for a natural 104 px and cut off Show log, and the row menu of RowGrid was 116 px for a natural 118 px.
+
+### What changed
+
+- **`align` defaults to `auto`.** A DropdownMenu with a trigger now opens on the side with room by default: a button in the right half of the window gets its menu under the end of the button, opening to the left at its natural width, and a button in the left half, or exactly in the middle, keeps its menu under its start. The More menu of ActionBar and of ItemCard, the row menu of RowGrid and every other trigger menu get it.
+- **`start` and `end` still hold one edge.** An app that passes `align="start"` or `align="end"` gets that edge, as before.
+- **WindowTitleBar and SiteHeader drop their own `align="auto"`**, since it is now the default; they behave as before.
+- DropdownMenu with an `anchorRef` and no trigger keeps its own `align`, and ControlMenu keeps its own `auto`.
+
+In the gallery, every opened menu whose button sits in the right half of the frame now opens to the left at its full width, on the ActionBar, ItemCard, RowGrid and DropdownMenu pages, at 1100 and 1440 px. Closed pages look the same, and a menu whose button sits in the left half opens where it did.
+
+### What an app does
+
+Nothing. An app that wants a trigger menu to keep opening to the right at the right edge of a window passes `align="start"`.

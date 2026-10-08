@@ -21,7 +21,7 @@ const SiteHeaderMenu = (props: SiteHeaderMenuProps) => {
   }];
   return (
     <Box className="site-header__menu">
-      <DropdownMenu trigger={{ label: navigation.menu, icon: 'hamburger', iconOnly: true }} variant="ghost" align="auto" groups={groups} />
+      <DropdownMenu trigger={{ label: navigation.menu, icon: 'hamburger', iconOnly: true }} variant="ghost" groups={groups} />
     </Box>
   );
 };
