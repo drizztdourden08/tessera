@@ -5,6 +5,7 @@ import { useEscapeStack } from '../../../primitives/escape-stack/useEscapeStack'
 import { navIndex } from '../../../primitives/listbox/nav-index';
 import { navTarget } from '../../../primitives/listbox/nav-target';
 import { scrollIntoList } from '../../../primitives/listbox/scroll-into-list';
+import { isTypingKey } from '../../DropdownMenu/behavior/is-typing-key';
 import type { CommandPaletteItem, CommandPaletteModel, CommandPaletteProps } from '../CommandPalette.type';
 import { flatItems } from './flat-items';
 import { runItem } from './run-item';
@@ -27,7 +28,7 @@ const useCommandPalette = <T extends CommandPaletteItem>(props: CommandPalettePr
     if (listRef.current && active >= 0) scrollIntoList(listRef.current, active);
   }, [active]);
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     const target = navTarget(event.key, false);
     if (target !== undefined) {
       event.preventDefault();
@@ -40,7 +41,16 @@ const useCommandPalette = <T extends CommandPaletteItem>(props: CommandPalettePr
     runItem(item, event.ctrlKey || event.metaKey, onSelect);
   };
 
-  return { items, active, setActive, inputRef, listRef, handleKeyDown };
+  const handlePanelKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    const input = inputRef.current;
+    if (!input || event.target === input || event.defaultPrevented) return;
+    const moves = navTarget(event.key, false) !== undefined;
+    if (!moves && !isTypingKey(event)) return;
+    input.focus({ preventScroll: true });
+    if (moves) handleKeyDown(event);
+  };
+
+  return { items, active, setActive, inputRef, listRef, handleKeyDown, handlePanelKeyDown };
 };
 
 export { useCommandPalette };

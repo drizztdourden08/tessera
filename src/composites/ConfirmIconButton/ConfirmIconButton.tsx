@@ -21,9 +21,9 @@ const ConfirmIconButton = (props: ConfirmIconButtonProps) => {
   };
 
   return (
-    <Box className={`confirm-icon-btn confirm-icon-btn--${placement} confirm-icon-btn--${size} ${className}`} onKeyDown={ask.onKeyDown}>
+    <Box ref={ask.holdRef} className={`confirm-icon-btn confirm-icon-btn--${placement} confirm-icon-btn--${size} ${className}`} onKeyDown={ask.onKeyDown}>
       {ask.asking === null && (
-        <IconButton label={label} title={label} size={size} disabled={disabled} tabIndex={tabIndex} onClick={handleArm}>
+        <IconButton ref={ask.triggerRef} label={label} title={label} size={size} disabled={disabled} tabIndex={tabIndex} onClick={handleArm}>
           {icon}
         </IconButton>
       )}

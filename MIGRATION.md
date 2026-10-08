@@ -7044,3 +7044,22 @@ Nothing looks different.
 ### What an app does
 
 Brock drops its capture phase Escape listener for the palette's confirm questions. An app shortcut on Escape that asked whether the palette was open reads `useEscapeStack().depth()` instead.
+
+## 217. A confirm question gives focus back to its button
+
+When the question of ConfirmIconButton closed without the check, the focused cross went away with it and focus fell to the page body. In CommandPalette the arrow keys and typing then did nothing until the person clicked back into the search box. ActionBar, the SettingsRow action and the DropdownMenu confirm item share the same ask, `useConfirmAsk`.
+
+### What changed
+
+- **Focus goes back to the button that asked.** When a question ends without the check by the cross, Escape or a timeout, and focus was inside the question at that moment, focus moves to the button that opened it, which is back in its place. ConfirmIconButton at every size and the SettingsRow action do this. ActionBar already gave focus back to the action, or to More for a folded action, and keeps doing so.
+- **Focus stays where it is when it was elsewhere.** An Escape pressed in another field, a timeout while the person types somewhere else, or an `onCancel` that moves focus itself leaves focus alone. ActionBar used to take focus back to the action in that case too and no longer does.
+- **A confirm works as before.** After the check, ConfirmIconButton and the SettingsRow action leave focus to the part's own code and to `onConfirm`, and ActionBar gives it back to the action when the action is still there.
+- **The DropdownMenu confirm item keeps focus on itself.** Its question is the item's own text, so focus never left; the menu stays open after Escape or the timeout.
+- **CommandPalette takes arrows and typing from anywhere in its panel.** With focus on a row's button, such as the trash button after its question closes, or on a toggle, the arrow keys move focus to the search box and move the active row, and a letter or Backspace moves focus to the search box and types there. Enter and Space still press the focused button.
+- **`onCancel` runs when a question goes away with its part.** A question open when its part unmounts now runs `onCancel`, as section 192 did not. In CommandPalette, an Escape that clears the search box while a row asks redraws the list and unmounts the row; its question used to vanish without a word. The call comes once, after the part is gone, and not for a remount in React's strict mode, after a confirm or for a part that was not asking.
+
+Nothing looks different.
+
+### What an app does
+
+Nothing. An app that put focus back on the button after `onCancel` can drop that code. An app whose `onCancel` assumed the part was still on screen checks that before it touches the part.

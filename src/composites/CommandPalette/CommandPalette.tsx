@@ -17,7 +17,7 @@ const CommandPalette = <T extends CommandPaletteItem>(props: CommandPaletteProps
   const { common, navigation } = useTesseraStrings();
   const placeholder = placeholderProp ?? (mascot ? navigation.commandMascotPrompt : navigation.commandPlaceholder);
   const label = labelProp ?? common.search;
-  const { items, active, setActive, inputRef, listRef, handleKeyDown } = useCommandPalette(props);
+  const { items, active, setActive, inputRef, listRef, handleKeyDown, handlePanelKeyDown } = useCommandPalette(props);
   const listId = useId();
 
   return (
@@ -29,6 +29,7 @@ const CommandPalette = <T extends CommandPaletteItem>(props: CommandPaletteProps
         aria-label={label}
         aria-hidden={!open}
         inert={!open}
+        onKeyDown={handlePanelKeyDown}
       >
         <Box as="span" className="command-palette__edge" aria-hidden />
         <CommandPaletteInput

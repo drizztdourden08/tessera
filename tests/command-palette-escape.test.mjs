@@ -63,3 +63,41 @@ describe('CommandPalette on the shared Escape stack', () => {
     expect(onClose).not.toHaveBeenCalled();
   });
 });
+
+describe('CommandPalette takes arrows and typing from anywhere in its panel', () => {
+  const keyFrom = (target, key, extra = {}) => ({ key, target, defaultPrevented: false, preventDefault: vi.fn(), ctrlKey: false, metaKey: false, altKey: false, ...extra });
+  const paletteWithInput = () => {
+    const view = mountHook(paletteWithRow({ open: true }, vi.fn(), vi.fn()));
+    const input = { focus: vi.fn() };
+    view.current.palette.inputRef.current = input;
+    return { view, input };
+  };
+
+  it('moves the active row and focus to the search box on an arrow from a row button', () => {
+    const { view, input } = paletteWithInput();
+    const key = keyFrom({ name: 'trash' }, 'ArrowDown');
+    view.act((parts) => parts.palette.handlePanelKeyDown(key));
+    expect(input.focus).toHaveBeenCalledOnce();
+    expect(key.preventDefault).toHaveBeenCalled();
+    expect(view.current.palette.active).toBe(1);
+  });
+
+  it('sends a typed letter or Backspace to the search box', () => {
+    const { view, input } = paletteWithInput();
+    const letter = keyFrom({ name: 'trash' }, 'l');
+    view.act((parts) => parts.palette.handlePanelKeyDown(letter));
+    view.act((parts) => parts.palette.handlePanelKeyDown(keyFrom({ name: 'trash' }, 'Backspace')));
+    expect(input.focus).toHaveBeenCalledTimes(2);
+    expect(letter.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('leaves Enter, Space, shortcuts and keys in the search box itself alone', () => {
+    const { view, input } = paletteWithInput();
+    const button = { name: 'trash' };
+    for (const key of [keyFrom(button, 'Enter'), keyFrom(button, ' '), keyFrom(button, 'k', { ctrlKey: true }), keyFrom(input, 'ArrowDown')]) {
+      view.act((parts) => parts.palette.handlePanelKeyDown(key));
+    }
+    expect(input.focus).not.toHaveBeenCalled();
+    expect(view.current.palette.active).toBe(0);
+  });
+});

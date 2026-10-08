@@ -28,6 +28,7 @@ const hooks = {
     const cell = slot(() => ({}));
     if (sameDeps(cell.deps, deps)) return;
     cell.deps = deps;
+    cell.effect = effect;
     run.queued.push(() => {
       cell.cleanup?.();
       cell.cleanup = effect();
@@ -41,6 +42,15 @@ const hooks = {
     return cell.call;
   },
 };
+
+const cleanUp = () => run.slots.forEach((cell) => {
+  cell?.cleanup?.();
+  if (cell?.effect) cell.cleanup = undefined;
+});
+
+const setUp = () => run.slots.forEach((cell) => {
+  if (cell?.effect) cell.cleanup = cell.effect();
+});
 
 const mountHook = (first) => {
   let render = first;
@@ -69,6 +79,11 @@ const mountHook = (first) => {
     rerender: (next) => {
       render = next;
       draw();
+    },
+    unmount: cleanUp,
+    strictRemount: () => {
+      cleanUp();
+      setUp();
     },
   };
 };

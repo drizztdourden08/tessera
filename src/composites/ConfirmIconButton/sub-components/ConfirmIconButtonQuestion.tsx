@@ -9,7 +9,7 @@ const ConfirmIconButtonQuestion = (props: ConfirmIconButtonQuestionProps) => {
   const { className, label, question, danger, confirmLabel, ask } = props;
   const { common } = useTesseraStrings();
   return (
-    <Box className={className} role="group" aria-label={label} onKeyDown={ask.onKeyDown}>
+    <Box ref={ask.holdRef} className={className} role="group" aria-label={label} onKeyDown={ask.onKeyDown}>
       <Small tone={danger ? 'danger' : 'dim'}>{question}</Small>
       <ConfirmIconButtonAsk
         placement="end"

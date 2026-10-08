@@ -22,6 +22,7 @@ const SettingsRowActionButton = (props: SettingsRowActionButtonProps) => {
   }
   return (
     <Button
+      ref={ask.triggerRef}
       size="sm"
       variant={action.tone === 'danger' ? 'danger' : 'secondary'}
       icon={action.icon}

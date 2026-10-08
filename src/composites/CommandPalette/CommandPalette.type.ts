@@ -47,7 +47,8 @@ interface CommandPaletteModel<T extends CommandPaletteItem> {
   setActive: (index: number) => void;
   inputRef: RefObject<HTMLInputElement | null>;
   listRef: RefObject<HTMLDivElement | null>;
-  handleKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
+  handleKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+  handlePanelKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
 export type { CommandPaletteGroup, CommandPaletteItem, CommandPaletteModel, CommandPaletteProps, CommandPaletteToggle };
