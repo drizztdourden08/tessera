@@ -1,5 +1,0 @@
----
-"@drizztdourden08/tessera": patch
----
-
-The parts file `tessera guide` writes for `guide.parts` opens with `import type {} from '@drizztdourden08/tessera';`, so it adds the part names on its own, also in an app that imports only a subpath of Tessera, where it gave TS2664. A scope with no parts now gets a parts file with `parts: never` in place of the old list, and `tessera check` expects the same. Run `tessera guide` once to rewrite the file.
