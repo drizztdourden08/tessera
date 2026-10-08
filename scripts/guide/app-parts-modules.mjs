@@ -6,10 +6,6 @@ import { partsModuleFiles } from './parts-module-files.mjs';
 
 const projectScopes = (config) => appScopes(config.app ? loadTesseraConfig(config.root) : config);
 
-const appPartsModules = (config) => {
-  const named = new Set(appScopes(config).map((scope) => scope.guide.parts));
-  const parts = findAppParts(config.root, projectScopes(config)).filter((part) => named.has(part.scope.guide.parts));
-  return partsModuleFiles(config.root, parts);
-};
+const appPartsModules = (config) => partsModuleFiles(config.root, appScopes(config), findAppParts(config.root, projectScopes(config)));
 
 export { appPartsModules };

@@ -7079,3 +7079,25 @@ The profile and link menus of SiteHeader and a title bar dropdown in the right h
 ### What an app does
 
 Nothing for SiteHeader or WindowTitleBar. A DropdownMenu button an app places at the right edge of a window, such as an account menu in its own header, passes `align="auto"` or `align="end"`.
+
+## 219. The parts file stands on its own
+
+From Brock. The parts file that `tessera guide` writes for `guide.parts` held only a `declare module '@drizztdourden08/tessera'` block. TypeScript took that block as an addition to Tessera only once some other file of the program had loaded Tessera's main entry. An app that imports only a subpath, such as `@drizztdourden08/tessera/composites`, or whose linked packages reach another copy of Tessera, got TS2664: the module could not be found. A scope whose last part went away kept its old file, with the names of parts that were gone.
+
+### What changed
+
+- **The parts file imports Tessera first.** It opens with these lines, so it adds the part names by itself:
+
+  ```ts
+  /* @layer renderer-app @kind types */
+  import type {} from '@drizztdourden08/tessera';
+
+  declare module '@drizztdourden08/tessera' {
+  ```
+
+  The import is a type import and adds nothing to a bundle. The `export {};` at the end is gone, since the import already makes the file a module.
+- **A scope with no parts gets an empty list.** `tessera guide` writes the file for every `guide.parts` it reads, at the root and in each app, and a scope with no parts gets `parts: never;` under its key in place of the names. `tessera check` expects the same file, so a run with no parts leaves no stale names and no `parts-module` finding.
+
+### What an app does
+
+Run `tessera guide` once to rewrite each parts file. Until then `tessera check` reports `parts-module` for it.

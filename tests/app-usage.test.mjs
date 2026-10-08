@@ -176,7 +176,7 @@ describe('the parts module tessera guide writes', () => {
     expect(results.written.out).toContain(`tessera: wrote the part names to ${PARTS_FILES.app}.`);
     expect(results.files[0]).toContain(lines("    '@fixture/design': {", '      parts:', "        | 'RunePanel'", "        | 'SaveSlot';"));
     expect(results.files[1]).toContain(lines("    '@fixture/desktop': {", '      parts:', "        | 'BadView'", "        | 'Bare'", "        | 'Home'", "        | 'SaveList';"));
-    expect(results.files[1].startsWith(lines('/* @layer renderer-app @kind types */', "declare module '@drizztdourden08/tessera' {"))).toBe(true);
+    expect(results.files[1].startsWith(lines('/* @layer renderer-app @kind types */', "import type {} from '@drizztdourden08/tessera';", '', "declare module '@drizztdourden08/tessera' {"))).toBe(true);
     expect(results.fresh.out).not.toContain('parts-module');
     expect(results.stale.out).toContain(`parts-module: ${PARTS_FILES.app} does not list the parts of the app; run tessera guide to write it`);
   }, TIMEOUT);

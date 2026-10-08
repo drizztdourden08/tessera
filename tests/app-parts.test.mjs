@@ -1,6 +1,8 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { run as check } from '../scripts/cli/check-command.mjs';
 import { run as writeGuide } from '../scripts/cli/guide-command.mjs';
@@ -8,6 +10,8 @@ import { writeTree } from './config-fixture.mjs';
 import { appUsageFixture } from './app-usage-fixture.mjs';
 
 const TIMEOUT = 120_000;
+const ROOT = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '').split('\\').join('/');
+const TSC = join(ROOT, 'node_modules', 'typescript', 'bin', 'tsc');
 const PARTS_FILES = { root: 'packages/design/src/guide/parts.type.ts', app: 'apps/desktop/src/guide/parts.type.ts' };
 const SHARED = 'packages/design/src/views';
 const PLACES = ['.', 'apps/desktop', 'apps/web'];
@@ -107,5 +111,42 @@ describe('a views folder shared by the root and two apps', () => {
     expect(root.out).toContain(finding);
     expect(web.out).toContain(finding);
     expect(desktop.out).not.toContain('duplicate-part');
+  }, TIMEOUT);
+});
+
+describe('a parts file on its own', () => {
+  const tscErrors = (dir, project) => spawnSync(process.execPath, [TSC, '--noEmit', '-p', project], { cwd: dir, encoding: 'utf8' }).stdout
+    .split('\n').filter((line) => line.includes('error TS'));
+
+  it('imports the package first, so it type-checks in an app that imports only a subpath', async () => {
+    await command(writeGuide, state.split, '.');
+    expect(read(state.split, PARTS_FILES.app).split('\n').slice(0, 4)).toEqual([
+      '/* @layer renderer-app @kind types */', "import type {} from '@drizztdourden08/tessera';", '', "declare module '@drizztdourden08/tessera' {",
+    ]);
+    writeTree(state.split, {
+      'apps/desktop/src/subpath.ts': "export * from '@drizztdourden08/tessera/composites';\n",
+      'apps/desktop/tsconfig.parts.json': { extends: './tsconfig.json', include: ['src/guide/parts.type.ts', 'src/subpath.ts', `${ROOT}/types/**/*`] },
+    });
+    expect(tscErrors(join(state.split, 'apps/desktop'), 'tsconfig.parts.json')).toEqual([]);
+    rmSync(join(state.split, 'apps/desktop/src/subpath.ts'));
+  }, TIMEOUT);
+
+  it('lists no parts once a scope has none, and tessera check passes', async () => {
+    const file = join(state.split, 'tessera.config.json');
+    const original = read(state.split, 'tessera.config.json');
+    const config = JSON.parse(original);
+    mkdirSync(join(state.split, 'apps/desktop/src/no-views'), { recursive: true });
+    const apps = { ...config.apps, 'apps/desktop': { ...config.apps['apps/desktop'], parts: { views: 'apps/desktop/src/no-views' } } };
+    writeFileSync(file, JSON.stringify({ ...config, apps }));
+    try {
+      expect(read(state.split, PARTS_FILES.app)).toContain("'Home'");
+      expect((await command(writeGuide, state.split, '.')).status).toBe(0);
+      expect(read(state.split, PARTS_FILES.app)).toContain(["    '@fixture/desktop': {", '      parts: never;', '    };'].join('\n'));
+      const results = await checkEverywhere(state.split);
+      expect(results.map((result) => result.status)).toEqual([0, 0, 0]);
+      for (const result of results) expect(result.out).not.toContain('parts-module');
+    } finally {
+      writeFileSync(file, original);
+    }
   }, TIMEOUT);
 });
