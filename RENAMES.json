@@ -1301,7 +1301,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.29.0",
       "cssClasses": {
         "settings-row__fit": "fit-probe",
         "settings-row__fit-probe": "fit-probe__content"
