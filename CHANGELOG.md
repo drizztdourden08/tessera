@@ -1,5 +1,14 @@
 # @drizztdourden08/tessera
 
+## 0.30.1
+
+### Patch Changes
+
+- facd938: CommandPalette closes through the shared Escape stack at `dialog` while open, so Escape first cancels the confirm question of a row and closes the palette on the next press, wherever focus is. Escape in the search box with text clears the text first, as in every search box. Focus returns to where it was on close, in a frame too.
+- 08cdf54: A confirm question that closes gives focus back to the button that opened it when focus was inside the question, in ConfirmIconButton, ActionBar and the SettingsRow action, after a confirm too while the button is still there, so CommandPalette keeps its keys; CommandPalette takes the arrow keys and typing from a row's button, and `onCancel` runs when a question goes away because its part unmounts.
+- 28cb7ae: `tessera guide` and `tessera check` take a views folder shared by several apps, listed in the root's `parts.views` and in each app's own: its parts count once and go once into the root's `guide.parts` file, from the root and from every app. Two different folders that hold a part of the same name now give a `duplicate-part` finding.
+- 10efba6: The SiteHeader profile menu and every WindowTitleBar dropdown action open on the side with room, under the end of their button when it sits in the right half of the window, and keep their natural width instead of being squeezed against the right edge. The SiteHeader link menu does the same. DropdownMenu with a trigger takes `align`: `start` by default, `end` or `auto`.
+
 ## 0.30.0
 
 ### Minor Changes
