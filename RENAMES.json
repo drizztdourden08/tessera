@@ -1279,7 +1279,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.28.0",
       "cssClasses": {
         "error-boundary__label": "load-error__message",
         "error-boundary__detail": "load-error__raw",
