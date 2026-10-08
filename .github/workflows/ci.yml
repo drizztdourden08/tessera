@@ -5,9 +5,11 @@ on:
     branches: [main]
   pull_request:
 
+# The shared gate of @drizztdourden08/standards: standards sync --check, standards release-notes check,
+# then the scripts below. Pinned to v0.8.0, the first tag that runs the release note check.
 jobs:
   gate:
-    uses: drizztdourden08/standards/.github/workflows/ci.yml@v0
+    uses: drizztdourden08/standards/.github/workflows/ci.yml@v0.8.0
     permissions:
       contents: read
       packages: read

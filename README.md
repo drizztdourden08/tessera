@@ -70,7 +70,10 @@ pnpm lint        tsc, eslint, stylelint
 pnpm lint:md
 pnpm structure   the folder shape and the usage files
 pnpm sync        the shared files match @drizztdourden08/standards
+pnpm exec standards release-notes check   the release note of the current version
 ```
+
+Releases go through changesets and a hand-written note per version in `release-notes/`; the routine is in [.changeset/README.md](.changeset/README.md).
 
 How Tessera is built, its tiers and where an app's own parts go: [docs/design-system.md](docs/design-system.md). How code is written: [docs/coding-standards.md](docs/coding-standards.md).
 
