@@ -97,7 +97,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - [Center](components/Center.md). Center puts its children in the middle of its box on both axes, with the gap and direction of a Flex.
     - [Inline](components/Inline.md). Inline lays its children side by side in a row, with a token gap and the items centred across it.
   - Blocks stacked in a column: no component yet.
-  - Items on a grid: no component yet.
+  - Items on a grid: [Grid](components/Grid.md). Grid lays out equal columns from a count or a minimum width, with Grid.Cell spans and dense packing for dashboards.
   - One item in the centre: no component yet.
   - One raised item: no component yet.
   - Empty space: no component yet.
@@ -106,6 +106,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - More content behind a line that shows or hides it: [Disclosure](components/Disclosure.md). Disclosure shows or hides what is under one line with the browser details element, with one look for every app.
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.
+  - A side panel the user drags wider: [ResizeHandle](components/ResizeHandle.md). ResizeHandle is the one resize line of every Tessera layout: drag, keys, value and range, with usePaneSize to keep a width in pixels.
   - A list beside an editor, with unsaved edits guarded: [ListDetail](components/ListDetail.md). ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app.
   - An app frame with its navigation: no component yet.
   - Panels the user docks and moves: [Widget](components/Widget.md). Widget and WidgetManager give every tool panel the same frame, dock and options, with the app holding the layout.

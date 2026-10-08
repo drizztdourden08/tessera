@@ -3,10 +3,10 @@ import { useId } from 'react';
 import { Box } from '../../primitives/Box';
 import { EmptyState } from '../../primitives/EmptyState';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { usePaneSize } from '../ResizeHandle/behavior/usePaneSize';
 import { layoutClass } from './behavior/layout-class';
 import { layoutOptionsOf } from './behavior/layout-options-of';
 import { useListCollapse } from './behavior/useListCollapse';
-import { useListWidth } from './behavior/useListWidth';
 import { ListDetailLayoutBack } from './sub-components/ListDetailLayoutBack';
 import { ListDetailLayoutGutter } from './sub-components/ListDetailLayoutGutter';
 import type { ListDetailLayoutProps } from './ListDetailLayout.type';
@@ -18,7 +18,7 @@ const ListDetailLayout = (props: ListDetailLayoutProps) => {
   const listId = useId();
   const { width: limits, collapse: collapseOptions, view, empty, resizable } = layoutOptionsOf(props);
   const collapse = useListCollapse(collapseOptions);
-  const { width, dragging, handlers } = useListWidth(limits, collapse.collapse);
+  const { size: width, dragging, handle } = usePaneSize(limits);
   const { collapsed } = collapse;
   const columns = collapsed ? 'auto minmax(0, 1fr)' : `${width}px auto minmax(0, 1fr)`;
 
@@ -33,9 +33,7 @@ const ListDetailLayout = (props: ListDetailLayoutProps) => {
           listId={listId}
           listLabel={props.listLabel ?? navigation.listPane}
           detailLabel={props.detailLabel ?? navigation.detailPane}
-          width={width}
-          range={{ min: limits.min, max: limits.max }}
-          handlers={handlers}
+          handle={handle}
         />
         <Box className={`list-detail-layout__detail${empty ? ' list-detail-layout__detail--empty' : ''}`}>
           {onBack && !empty && <ListDetailLayoutBack label={props.backLabel ?? navigation.back} onBack={onBack} />}

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ListWidthOptions } from './list-width.type';
+import type { PaneSizeOptions } from '../../ResizeHandle/behavior/pane-size.type';
 
 type ListDetailView = 'list' | 'detail' | 'both';
 
@@ -12,7 +12,7 @@ interface ListCollapseOptions {
 }
 
 interface LayoutOptions {
-  width: ListWidthOptions;
+  width: PaneSizeOptions;
   collapse: ListCollapseOptions;
   view: ListDetailView;
   empty: boolean;

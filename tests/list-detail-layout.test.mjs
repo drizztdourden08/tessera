@@ -3,42 +3,13 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ListDetailLayout } from '../src/composites/ListDetailLayout';
-import { clampWidth } from '../src/composites/ListDetailLayout/behavior/clamp-width';
-import { keyWidthOf } from '../src/composites/ListDetailLayout/behavior/key-width-of';
 import { layoutOptionsOf } from '../src/composites/ListDetailLayout/behavior/layout-options-of';
-import { storedWidth } from '../src/composites/ListDetailLayout/behavior/stored-width';
 
-const limits = { initial: 320, min: 240, max: 480 };
 const draw = (extra = {}) => renderToString(h(ListDetailLayout, { list: h('p', null, 'Rows'), detail: h('p', null, 'Detail'), ...extra }));
-const key = (name, shiftKey = false) => ({ key: name, shiftKey, currentTarget: {} });
 
 afterEach(() => vi.unstubAllGlobals());
 
 describe('the ListDetailLayout list width', () => {
-  it('stays between its limits', () => {
-    expect(clampWidth(100, limits)).toBe(240);
-    expect(clampWidth(999, limits)).toBe(480);
-    expect(clampWidth(333.4, limits)).toBe(333);
-  });
-
-  it('steps by 16 px, 64 px with Shift, and jumps to the limits or back to the start', () => {
-    vi.stubGlobal('getComputedStyle', () => ({ direction: 'ltr' }));
-    expect(keyWidthOf(key('ArrowRight'), 320, limits)).toBe(336);
-    expect(keyWidthOf(key('ArrowLeft', true), 320, limits)).toBe(256);
-    expect(keyWidthOf(key('Home'), 320, limits)).toBe(240);
-    expect(keyWidthOf(key('End'), 320, limits)).toBe(480);
-    expect(keyWidthOf(key('Enter'), 400, limits)).toBe(320);
-    expect(keyWidthOf(key(' '), 400, limits)).toBe(320);
-    expect(keyWidthOf(key('a'), 320, limits)).toBeNull();
-  });
-
-  it('takes a stored width only when it is a number', () => {
-    expect(storedWidth(412)).toBe(412);
-    expect(storedWidth('wide')).toBeUndefined();
-    expect(storedWidth(Number.NaN)).toBeUndefined();
-    expect(storedWidth(null)).toBeUndefined();
-  });
-
   it('starts at a stored width, kept between its limits', () => {
     vi.stubGlobal('localStorage', { getItem: (name) => (name === 'presets.list' ? '999' : null) });
     expect(draw({ storageKey: 'presets.list' })).toContain('grid-template-columns:480px auto minmax(0, 1fr)');
@@ -50,7 +21,7 @@ describe('ListDetailLayout', () => {
     const html = draw();
     expect(html).toContain('grid-template-columns:320px auto minmax(0, 1fr)');
     expect(html).toMatch(/class="list-detail-layout__list".*class="list-detail-layout__gutter".*class="list-detail-layout__detail"/);
-    expect(html).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="240" aria-valuemax="480"/);
+    expect(html).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="240" aria-valuemax="480" aria-controls=/);
     expect(html).toContain('aria-label="Resize list and details"');
     expect(draw({ resizable: false })).not.toContain('role="separator"');
   });

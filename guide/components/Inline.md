@@ -25,7 +25,7 @@ Inline lays its children side by side in a row, with a token gap and the items c
 
 - The items run down a column. Use `Stack` instead.
 - The direction changes at run time, or the row needs a setting Inline does not default. Use `Flex` instead.
-- The items line up in equal columns across several rows. Use `Grid` instead.
+- The items line up in equal columns across several rows. Use [Grid](Grid.md) instead.
 
 ## Rules
 

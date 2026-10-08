@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 51 of 174 have their usage written; a linked name opens its page.
+One line per component. 53 of 175 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -29,7 +29,7 @@ One line per component. 51 of 174 have their usage written; a linked name opens 
 - `Floating`: usage not written yet. Not exported; Tessera uses it inside.
 - [Gauge](components/Gauge.md): A small round meter that shows one value against its limit, coloured by the zone the value is in. Import from `@drizztdourden08/tessera`.
 - `Glyph`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Grid`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Grid](components/Grid.md): Lays items out in equal columns, such as file tiles, a gallery or the Cards of a dashboard. Import from `@drizztdourden08/tessera`.
 - `HintLine`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `HintScope`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Icon`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -130,6 +130,7 @@ One line per component. 51 of 174 have their usage written; a linked name opens 
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ResizeHandle](components/ResizeHandle.md): The line between two panels that the user drags, or moves with the keys, to resize the panel beside it, such as the outline and inspector of an editor. Import from `@drizztdourden08/tessera`.
 - [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
 - [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.
 - [SaveBar](components/SaveBar.md): The bar at the foot of an editor: whether its edits are saved, the reason a save failed, and Save and Discard. Import from `@drizztdourden08/tessera`.

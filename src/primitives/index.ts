@@ -15,7 +15,7 @@ export { Flex, type FlexProps, type SpaceToken, type FlexAlign, type FlexJustify
 export { Stack, type StackProps } from './Stack';
 export { Inline, type InlineProps } from './Inline';
 export { Center, type CenterProps } from './Center';
-export { Grid, type GridProps } from './Grid';
+export { Grid, type GridCellProps, type GridProps, type GridSpan } from './Grid';
 export { Divider, type DividerProps } from './Divider';
 export { Spacer, type SpacerProps } from './Spacer';
 export { Button } from './Button';

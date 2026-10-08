@@ -104,6 +104,7 @@ const LAYOUT = {
     'a plain block': null, 'items in a row or a column': null, 'blocks stacked in a column': null, 'items on a grid': null,
     'one item in the centre': null, 'one raised item': null, 'empty space': null, 'a line between sections': null,
     'content that scrolls': null, 'more content behind a line that shows or hides it': null, 'a list beside its detail': null, 'two panes the user resizes': null,
+    'a side panel the user drags wider': null,
     'a list beside an editor, with unsaved edits guarded': null,
     'an app frame with its navigation': null, 'panels the user docks and moves': null,
     'a header with an icon and a title over a block': null,

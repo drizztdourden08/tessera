@@ -5,10 +5,10 @@ import { SplitPane } from '../../src/composites';
 import type { CollapsedSide, SplitOrientation } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { EditorSplit, FilesSplit } from './_samples/SplitPaneDemos';
 import type { SplitSettings } from './_samples/SplitPaneDemos';
+import { RESIZE_HANDLE_STATES } from './_samples/resize-handle-states.constants';
 import './SplitPane.stories.css';
 
 type SplitArgs = {
@@ -122,10 +122,7 @@ const Overview = overviewStory({
   states: {
     render: renderState,
     list: [
-      STATE.idle,
-      { ...STATE.hover, target: '.split-pane__divider' },
-      { ...STATE.focus, target: '.split-pane__divider' },
-      { ...STATE.active, name: 'Dragging', target: '.split-pane__divider' },
+      ...RESIZE_HANDLE_STATES,
       { name: 'Collapsed', props: { collapsed: true } },
     ],
   },

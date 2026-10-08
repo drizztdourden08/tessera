@@ -1,10 +1,9 @@
 /* @layer renderer-components @kind component */
-import { useRef } from 'react';
+import { useId, useRef, useState } from 'react';
 import { Box } from '../../../primitives/Box';
 import { useMenuOpen } from '../../field-kits/behavior/useMenuOpen';
 import { headerCellClasses } from '../behavior/header-cell-classes';
 import { useColumnRename } from '../behavior/useColumnRename';
-import { useColumnResize } from '../behavior/useColumnResize';
 import { useHeaderDrag } from '../behavior/useHeaderDrag';
 import { ColumnDragGhost } from './ColumnDragGhost';
 import { ColumnResizeHandle } from './ColumnResizeHandle';
@@ -25,9 +24,8 @@ const HeaderCell = (props: HeaderCellProps) => {
   const rename = useColumnRename({ path, onRename: actions.onRename });
 
   const label = column.label ?? field?.label ?? path;
-  const resize = useColumnResize({
-    path, cellRef, onPreview: actions.onPreviewResize, onResize: actions.onResize,
-  });
+  const headerId = useId();
+  const [resizing, setResizing] = useState(false);
   const dragState = useHeaderDrag({ path, index, drag, cellRef });
   const classes = headerCellClasses({ ...dragState, menuOpen: menu.open, sorted: sortDir !== undefined });
 
@@ -37,9 +35,10 @@ const HeaderCell = (props: HeaderCellProps) => {
   return (
     <Box
       ref={cellRef}
+      id={headerId}
       className={classes}
       role="columnheader"
-      draggable={!rename.renaming && !resize.resizing}
+      draggable={!rename.renaming && !resizing}
       title={path}
       data-column-head={path}
       onDragStart={handleDragStart}
@@ -61,8 +60,13 @@ const HeaderCell = (props: HeaderCellProps) => {
       </Box>
       <ColumnResizeHandle
         label={label}
+        path={path}
         index={index}
-        resize={resize}
+        width={column.width}
+        cellRef={cellRef}
+        headerId={headerId}
+        actions={actions}
+        onResizingChange={setResizing}
         onDragOver={drag.onDragOver}
         onDrop={drag.onDrop}
       />

@@ -107,45 +107,11 @@
 
 .dock-divider {
   z-index: var(--z-sticky);
-  touch-action: none;
 }
 
-.dock-divider--row {
-  cursor: col-resize;
-}
-
-.dock-divider--column {
-  cursor: row-resize;
-}
-
-.dock-divider::after {
-  content: "";
-  position: absolute;
-  background: var(--c-primary);
-  opacity: 0;
-  border-radius: var(--radius-pill);
-  transition: opacity var(--duration-fast) var(--ease-standard);
-}
-
-.dock-divider--row::after {
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: var(--dock-divider-bar);
-  transform: translateX(-50%);
-}
-
-.dock-divider--column::after {
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: var(--dock-divider-bar);
-  transform: translateY(-50%);
-}
-
-.dock-divider:hover::after,
-.dock-divider--dragging::after {
-  opacity: 1;
+.dock-divider > .resize-handle {
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .dock-layout__main-area {
@@ -310,7 +276,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dock-divider::after,
   .dock-grip {
     transition: none;
   }

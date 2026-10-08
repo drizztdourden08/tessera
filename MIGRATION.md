@@ -6882,3 +6882,135 @@ SiteHeader and SiteFooter sit in Composites · Layout, and their preview pages l
 - Pass the signed-in person as `profile`, the same `WindowTitleBarDropdownAction` an app puts in WindowTitleBar's `actions`.
 - Draw sign in as a Card centred on `linear-gradient(160deg, var(--c-gradient-dark-from), var(--c-gradient-dark-to))`, or the light pair, under the logo, with no SiteHeader.
 - Put `SiteFooter` last in the page column of a public page.
+
+## 214. ResizeHandle: one resize line for every layout, and dashboards from Grid and Card
+
+The owner approved TX-55, option A. Tessera drew four resize lines: SplitPane's divider (also borrowed by ListDetailLayout), a second copy inside DockLayout and the DataTable column line. They are now one composite, ResizeHandle, and RotP's DashboardGrid and DashboardPanel become a Grid recipe with no new part.
+
+### ResizeHandle
+
+ResizeHandle is the line between two panels that the user drags, or moves with the keys, to resize the panel beside it. It is a separator in the window splitter pattern: `role="separator"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax`, `aria-controls` from `controls`, and `tabIndex` 0.
+
+```ts
+type ResizeHandleLook = 'grip' | 'line' | 'ghost';
+type ResizeHandleEdge = 'start' | 'end';
+
+interface ResizeChange {
+  from: number;
+  by: 'drag' | 'key';
+}
+
+interface ResizeHandleProps {
+  label: string;
+  value?: number;
+  min: number;
+  max: number;
+  onResize: (next: number, change: ResizeChange) => void;
+  onResizeEnd?: (value: number) => void;
+  onDragChange?: (dragging: boolean) => void;
+  onReset?: () => void;
+  onCollapse?: () => void;
+  measure?: () => number;
+  pixelsPerUnit?: (handle: HTMLElement) => number;
+  orientation?: SplitOrientation;
+  edge?: ResizeHandleEdge;
+  look?: ResizeHandleLook;
+  step?: number;
+  largeStep?: number;
+  controls?: string;
+  title?: string;
+  className?: string;
+  onClick?: () => void;
+  onDragOver?: (event: DragEvent<HTMLElement>) => void;
+  onDrop?: (event: DragEvent<HTMLElement>) => void;
+  children?: ReactNode;
+}
+```
+
+- `value` is the size of the panel it resizes, kept between `min` and `max`. `onResize` gets each new size while a drag moves and on each key; `onResizeEnd` gets the size once a drag that moved is released, and after each key. `change.from` is the size before, and `change.by` tells a drag from a key, for a layout that snaps differently on each, as SplitPane does.
+- The arrow keys move it by `step` (16 by default), Shift by `largeStep` (64), and Home and End jump to `min` and `max`. Enter calls `onCollapse` when it is set and `onReset` otherwise; Space and a double click call `onReset`. A key a control already handled with `preventDefault` is left alone.
+- `orientation` is the way the panes sit, as on SplitPane: `horizontal` side by side, `vertical` stacked.
+- `edge="end"` is for a panel after the line, such as an inspector on the right or a console at the foot: dragging or pressing toward it shrinks it. Right to left text flips a horizontal line, as before.
+- `look` is `grip` between two panes (SplitPane's look), `line` where room is tight (the DataTable column look) or `ghost`, drawn only under the pointer, on focus and while dragging (DockLayout's look). `children` replace the look, as SplitPane's folded rail does.
+- `measure` reads the live size a drag or key starts from, for a panel the layout sizes, such as an auto column; `aria-valuenow` then shows once the line has focus. `pixelsPerUnit` scales the pointer for a value that is not in pixels, such as SplitPane's percent.
+
+### usePaneSize
+
+`usePaneSize` is ListDetailLayout's width hook, made public beside ResizeHandle. It keeps a panel size in whole pixels between its limits, reads and writes it under `storageKey`, and returns a `handle` to spread on the line.
+
+```ts
+interface PaneSizeOptions {
+  initial: number;
+  min: number;
+  max: number;
+  storageKey?: string;
+}
+
+interface PaneSize {
+  size: number;
+  dragging: boolean;
+  reset: () => void;
+  handle: PaneSizeHandle;
+}
+```
+
+```tsx
+import { Box, ResizeHandle, usePaneSize } from '@drizztdourden08/tessera';
+
+const inspector = usePaneSize({ initial: 256, min: 192, max: 400, storageKey: 'hud.inspector' });
+
+<ResizeHandle label="Resize inspector" controls="hud-inspector" edge="end" {...inspector.handle} />
+<Box as="aside" id="hud-inspector" style={{ inlineSize: inspector.size }}>{inspectorForm}</Box>
+```
+
+### The four parts on ResizeHandle
+
+Each part keeps its look and its behaviour. Measured before and after in the gallery, the line's box, its colours at rest and under the pointer, its grip and its `::before` and `::after` lines are the same in all four.
+
+- **SplitPane** draws the `grip` look in percent, with the arrow keys stepping 2 and Shift 10, a step past a limit folding the pane and a folded pane drawn as a rail, as before. The line now names its first pane in `aria-controls`.
+- **ListDetailLayout** draws the `grip` look through `usePaneSize`. Enter still folds the list, and Space and a double click reset its width. The line now names the list in `aria-controls`.
+- **DockLayout** draws the `ghost` look inside each `.dock-divider` box. It now takes the keys too, and has a name and a value; a double click still evens the split, and a drag still sends `resize` edits.
+- **DataTable** draws the `line` look on each column header. It now takes the arrow keys and names its header in `aria-controls`, and it still previews on each move and commits once on release.
+
+The divider, its grip and the DataTable and DockLayout copies are gone from those parts. RENAMES.json maps their classes:
+
+| Was | Now |
+|---|---|
+| `split-pane__divider`, `split-pane__divider--none` | `resize-handle`, `resize-handle--grip` |
+| `split-pane__divider--start`, `split-pane__divider--end` | `split-pane__rail split-pane__rail--start`, `split-pane__rail split-pane__rail--end` |
+| `split-pane__grip` | `resize-handle__grip` |
+| `dock-divider--row`, `dock-divider--column` | `resize-handle--horizontal`, `resize-handle--vertical` |
+| `dock-divider--dragging`, `data-table__resize--active` | `resize-handle--dragging` |
+| `--dock-divider-bar` | `--resize-handle-bar` |
+
+`dock-divider` and `data-table__resize` stay, as the boxes that place the line.
+
+### Grid: dense and Grid.Cell
+
+- `dense` packs the grid so a later small item fills the hole a wide one left.
+- `Grid.Cell` wraps one item. `span={2}` takes two columns once two fit, at any `minColWidth`: it measures the grid, so a narrow screen never gets a second column it has no room for. `span="full"` takes the whole row. A Card in a cell fills it.
+- Columns already never grow wider than the grid: `minColWidth` writes `minmax(min(100%, N px), 1fr)` since section 210.
+
+```ts
+type GridSpan = 1 | 2 | 'full';
+
+interface GridProps extends HTMLAttributes<HTMLDivElement> {
+  columns?: number;
+  minColWidth?: number;
+  gap?: SpaceToken;
+  dense?: boolean;
+  children?: ReactNode;
+}
+
+interface GridCellProps extends HTMLAttributes<HTMLDivElement> {
+  span?: GridSpan;
+  children?: ReactNode;
+}
+```
+
+### What RotP does
+
+- The HUD layout editor's outline and inspector rails take `usePaneSize` and ResizeHandle in place of `useResize` and its own ResizeHandle; the inspector passes `edge="end"` in place of `invert`. The rails gain the keys.
+- DashboardGrid becomes `<Grid minColWidth={340} gap="lg" dense>`, and each DashboardPanel a `Card` with `title`, `subtitle` and `actions`, wrapped in `Grid.Cell` when it spans two columns or the row. The Randomizer Run and Network tabs keep their `RUN_PANELS` and `NETWORK_PANELS` spans.
+
+The gallery's ResizeHandle page sits in Composites · Layout, and the Grid page has a Dashboard recipe. The two previews leave the gallery, and with them the Preview group.

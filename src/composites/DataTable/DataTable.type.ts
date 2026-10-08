@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { DragEvent, KeyboardEvent, MouseEvent, PointerEvent } from 'react';
+import type { DragEvent, KeyboardEvent, MouseEvent } from 'react';
 import type { SchemaIndex } from '../../data/schema/build-schema';
 import type { FieldDescriptor } from '../../data/schema/field-descriptor';
 import type { ColumnMove, SortEntry, TableColumn } from '../../data/table/types';
@@ -75,13 +75,6 @@ interface ColumnDragBinding {
   onSurfaceDrop: (event: DragEvent<HTMLElement>) => void;
 }
 
-interface ColumnResizeBinding {
-  resizing: boolean;
-  onPointerDown: (event: PointerEvent<HTMLElement>) => void;
-  onPointerMove: (event: PointerEvent<HTMLElement>) => void;
-  onPointerUp: (event: PointerEvent<HTMLElement>) => void;
-}
-
 type SelectAllState = 'none' | 'some' | 'all';
 
 interface RowSelectionBinding {
@@ -123,7 +116,7 @@ interface TrackFallbacks {
 }
 
 export type {
-  ColumnActions, ColumnDragBinding, ColumnDragStart, ColumnResizeBinding,
+  ColumnActions, ColumnDragBinding, ColumnDragStart,
   DataTableProps, RowRenderContext, RowSelectionBinding, SelectAllState, TableActions,
   TrackFallbacks, TrackOverride,
 };

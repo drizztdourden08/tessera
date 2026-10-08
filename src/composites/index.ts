@@ -26,8 +26,8 @@ export type {
 } from './ListItemRow';
 export { ListDetailLayout } from './ListDetailLayout';
 export type { ListDetailLayoutProps } from './ListDetailLayout';
-export { SplitPane } from './SplitPane';
-export type { CollapsedSide, SplitOrientation, SplitPaneProps } from './SplitPane';
+export { SplitPane, type CollapsedSide, type SplitOrientation, type SplitPaneProps } from './SplitPane';
+export { ResizeHandle, usePaneSize, type PaneSize, type PaneSizeHandle, type PaneSizeOptions, type ResizeChange, type ResizeHandleEdge, type ResizeHandleLook, type ResizeHandleProps } from './ResizeHandle';
 export { SettingsRow } from './SettingsRow';
 export type {
   SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsLoadProblem, SettingsOption, SettingsRowAction,

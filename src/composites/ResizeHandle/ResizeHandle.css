@@ -1,0 +1,163 @@
+/* @layer renderer-components @kind style */
+:where(.resize-handle) {
+  position: relative;
+}
+
+.resize-handle {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  cursor: col-resize;
+  touch-action: none;
+  user-select: none;
+}
+
+.resize-handle--vertical {
+  cursor: row-resize;
+}
+
+.resize-handle--grip {
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-normal);
+}
+
+.resize-handle--grip.resize-handle--horizontal {
+  inline-size: var(--space-md);
+}
+
+.resize-handle--grip.resize-handle--vertical {
+  block-size: var(--space-md);
+}
+
+.resize-handle--grip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  inline-size: var(--border-width-thin);
+  margin-inline: auto;
+  background: var(--c-border-strong);
+  transition: background var(--transition-normal);
+}
+
+.resize-handle--grip.resize-handle--vertical::before {
+  inline-size: auto;
+  block-size: var(--border-width-thin);
+  margin-inline: 0;
+  margin-block: auto;
+}
+
+.resize-handle__grip {
+  position: relative;
+  inline-size: var(--size-6);
+  block-size: var(--size-32);
+  border: var(--border-width-thin) solid var(--c-text-muted);
+  border-radius: var(--radius-pill);
+  background: var(--c-border-strong);
+  transition: background var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.resize-handle--vertical .resize-handle__grip {
+  inline-size: var(--size-32);
+  block-size: var(--size-6);
+}
+
+.resize-handle--grip:hover,
+.resize-handle--grip:focus-visible {
+  background: var(--c-primary-soft);
+}
+
+.resize-handle--grip:hover::before,
+.resize-handle--grip:focus-visible::before {
+  background: var(--c-primary);
+}
+
+.resize-handle--grip:hover .resize-handle__grip,
+.resize-handle--grip:focus-visible .resize-handle__grip {
+  border-color: var(--c-primary);
+  background: var(--c-primary);
+  box-shadow: 0 0 var(--blur-glow) var(--c-primary);
+}
+
+.resize-handle--grip.resize-handle--dragging::before,
+.resize-handle--grip:active::before {
+  background: var(--c-primary-bright);
+}
+
+.resize-handle--grip.resize-handle--dragging .resize-handle__grip,
+.resize-handle--grip:active .resize-handle__grip {
+  border-color: var(--c-primary-bright);
+  background: var(--c-primary-bright);
+}
+
+.resize-handle--line.resize-handle--horizontal,
+.resize-handle--ghost.resize-handle--horizontal {
+  inline-size: var(--space-sm);
+}
+
+.resize-handle--line.resize-handle--vertical,
+.resize-handle--ghost.resize-handle--vertical {
+  block-size: var(--space-sm);
+}
+
+.resize-handle--line::after {
+  content: '';
+  position: absolute;
+  inset-block: var(--space-xs);
+  inset-inline-start: 50%;
+  inline-size: var(--border-width-thick);
+  background: var(--c-border);
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+.resize-handle--line.resize-handle--vertical::after {
+  inset-block: 50% auto;
+  inset-inline: var(--space-xs);
+  inline-size: auto;
+  block-size: var(--border-width-thick);
+}
+
+.resize-handle--line:hover::after,
+.resize-handle--line:focus-visible::after {
+  background: var(--c-primary-dim);
+}
+
+.resize-handle--line.resize-handle--dragging::after {
+  background: var(--c-primary-bright);
+}
+
+.resize-handle--ghost::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  inline-size: var(--resize-handle-bar);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.resize-handle--ghost.resize-handle--vertical::after {
+  inset-block: 50% auto;
+  inset-inline: 0;
+  inline-size: auto;
+  block-size: var(--resize-handle-bar);
+  transform: translateY(-50%);
+}
+
+.resize-handle--ghost:hover::after,
+.resize-handle--ghost:focus-visible::after,
+.resize-handle--ghost.resize-handle--dragging::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resize-handle,
+  .resize-handle::before,
+  .resize-handle::after,
+  .resize-handle__grip {
+    transition: none;
+  }
+}

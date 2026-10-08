@@ -71,7 +71,7 @@
   min-inline-size: var(--space-md);
 }
 
-.list-detail-layout__gutter > .split-pane__divider {
+.list-detail-layout__gutter > .resize-handle {
   flex: 1;
 }
 

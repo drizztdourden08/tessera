@@ -2,12 +2,12 @@
 import { Box } from '../../../primitives/Box';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { rectStyle } from '../behavior/rect-style';
+import { DockDivider } from './DockDivider';
 import { DockFloating } from './DockFloating';
 import { DockPanes } from './DockPanes';
 import { DragGhost } from './DragGhost';
 import { DropHints } from './DropHints';
 import { MainGrip } from './MainGrip';
-import { SplitDivider } from './SplitDivider';
 import type { DockSceneProps } from './DockScene.type';
 
 const DockScene = (props: DockSceneProps) => {
@@ -22,7 +22,7 @@ const DockScene = (props: DockSceneProps) => {
       {mainRect && main != null && <Box className="dock-layout__main" style={rectStyle(mainRect)}>{main}</Box>}
       <DockPanes laid={laid} renderPane={renderPane} />
       {laid.dividers.map((divider, i) => (
-        <SplitDivider key={`${divider.node.axis}-${i}`} divider={divider} onEdit={onEdit} />
+        <DockDivider key={`${divider.node.axis}-${i}`} divider={divider} onEdit={onEdit} />
       ))}
       {mainRect && (
         <>

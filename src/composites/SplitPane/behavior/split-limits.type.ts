@@ -12,6 +12,4 @@ interface SplitState {
   ratio: number;
 }
 
-type SplitCommand = 'home' | 'end' | 'reset';
-
-export type { SplitCommand, SplitLimits, SplitState };
+export type { SplitLimits, SplitState };

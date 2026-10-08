@@ -4,11 +4,11 @@ import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { SplitDivider } from '../../SplitPane/sub-components/SplitDivider';
+import { ResizeHandle } from '../../ResizeHandle/ResizeHandle';
 import type { ListDetailLayoutGutterProps } from './ListDetailLayoutGutter.type';
 
 const ListDetailLayoutGutter = (props: ListDetailLayoutGutterProps) => {
-  const { collapse, collapsible, resizable, listId, listLabel, detailLabel, width, range, handlers } = props;
+  const { collapse, collapsible, resizable, listId, listLabel, detailLabel, handle } = props;
   const { navigation } = useTesseraStrings();
   const { collapsed } = collapse;
   const label = collapsed ? navigation.showPane(listLabel) : navigation.hidePane(listLabel);
@@ -31,14 +31,12 @@ const ListDetailLayoutGutter = (props: ListDetailLayoutGutterProps) => {
       )}
       {collapsed && <Span className="list-detail-layout__rail-label" aria-hidden="true" onClick={collapse.toggle}>{listLabel}</Span>}
       {resizable && !collapsed && (
-        <SplitDivider
-          collapsed="none"
-          orientation="horizontal"
-          value={width}
-          valueRange={range}
-          startLabel={listLabel}
-          endLabel={detailLabel}
-          handlers={handlers}
+        <ResizeHandle
+          {...handle}
+          label={navigation.resizePanes(listLabel, detailLabel)}
+          title={navigation.resizeHint}
+          controls={listId}
+          onCollapse={collapse.collapse}
         />
       )}
     </Box>

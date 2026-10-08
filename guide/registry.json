@@ -356,7 +356,9 @@
             "components": []
           },
           "items on a grid": {
-            "components": []
+            "components": [
+              "Grid"
+            ]
           },
           "one item in the centre": {
             "components": []
@@ -385,6 +387,11 @@
           },
           "two panes the user resizes": {
             "components": []
+          },
+          "a side panel the user drags wider": {
+            "components": [
+              "ResizeHandle"
+            ]
           },
           "a list beside an editor, with unsaved edits guarded": {
             "components": [
@@ -1310,7 +1317,110 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
+      "usage": true,
+      "job": "Lays items out in equal columns, such as file tiles, a gallery or the Cards of a dashboard.",
+      "useWhen": [
+        "Items of the same kind sit in equal columns, as many as fit or a fixed count.",
+        "A dashboard sets its panels as Cards on as many columns as fit, some two columns wide or the whole row."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The items have their own widths and sit in one row or one column.",
+          "use": "Flex"
+        },
+        {
+          "case": "Blocks stack in one column.",
+          "use": "Stack"
+        },
+        {
+          "case": "The user moves and resizes the panels.",
+          "use": "DockLayout"
+        }
+      ],
+      "rules": [
+        "Set minColWidth to fit as many columns of at least that width as the box allows; a column never grows wider than the box.",
+        "Set columns for a fixed count; when both are set, minColWidth wins.",
+        "Wrap an item in Grid.Cell with span={2} to take two columns once two fit, or span=\"full\" for the whole row.",
+        "Set dense so a later small item fills the hole a wide one left; the reading order then differs from the order on screen.",
+        "Items in a row share its height, and a Card in a Grid.Cell fills the cell."
+      ],
+      "a11y": [
+        "It adds no role; pass aria-label, or set it in a section with a heading, when the grid is one region of the page.",
+        "With dense, keep the order of the children the order a reader needs, since the keys and screen readers follow it."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "items on a grid"
+        ],
+        "rule": "Grid lays out equal columns from a count or a minimum width, with Grid.Cell spans and dense packing for dashboards."
+      },
+      "example": "import { Card, Grid, ProgressBar } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst RunDashboard = ({ activity, players }: { activity: ReactNode; players: ReactNode }) => (\n  <Grid minColWidth={288} gap=\"lg\" dense aria-label=\"Randomizer run\">\n    <Card title=\"Summary\" subtitle=\"Seed 48213, online\">Profile Hyrule run, 3 players.</Card>\n    <Card title=\"Progress\"><ProgressBar value={42} max={216} label=\"Checks taken\" /></Card>\n    <Card title=\"Recent activity\">{activity}</Card>\n    <Grid.Cell span={2}><Card title=\"Players\">{players}</Card></Grid.Cell>\n    <Card title=\"Item pool\">216 locations</Card>\n  </Grid>\n);\n",
+      "propsHash": "73fef41d35d1ad62",
+      "props": {
+        "own": [
+          {
+            "name": "columns",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "minColWidth",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "gap",
+            "optional": true,
+            "text": "SpaceToken",
+            "literals": [
+              "'2xs'",
+              "'xs'",
+              "'sm'",
+              "'md'",
+              "'lg'",
+              "'xl'",
+              "'2xl'"
+            ]
+          },
+          {
+            "name": "dense",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 277,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "HTMLAttributes<HTMLDivElement>"
+          ]
+        }
+      },
+      "tokens": [
+        "--space-2xl",
+        "--space-2xs",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xl",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Primitives · Layout/Grid",
+        "route": "#/story/primitives-grid--overview",
+        "file": "stories/primitives/Grid.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "HintLine",
@@ -6455,6 +6565,226 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "ResizeHandle",
+      "tier": "composites",
+      "source": "src/composites/ResizeHandle/ResizeHandle.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The line between two panels that the user drags, or moves with the keys, to resize the panel beside it, such as the outline and inspector of an editor.",
+      "useWhen": [
+        "A side panel keeps its own width in pixels and the user drags its edge to change it, such as an outline or an inspector.",
+        "A part draws its own panes and needs the one resize line every Tessera layout draws."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Two panes share the room by ratio and one can fold behind a rail.",
+          "use": "SplitPane"
+        },
+        {
+          "case": "A list sits beside the detail of the picked item.",
+          "use": "ListDetailLayout"
+        },
+        {
+          "case": "The user moves panels around and docks them.",
+          "use": "DockLayout"
+        }
+      ],
+      "rules": [
+        "Pair it with usePaneSize and spread its handle: the hook keeps the size, its limits and storageKey, and the handle wires the line.",
+        "Size the panel from usePaneSize size, as an inline width: the line moves nothing by itself.",
+        "Pass edge=\"end\" for a panel after the line, such as an inspector on the right, so dragging toward it shrinks it.",
+        "Pass orientation=\"vertical\" for panes stacked one above the other; the line then lies across and moves up and down.",
+        "Pick look grip between two panes, line where room is tight such as a header, and ghost where the panes already show their edges.",
+        "Pass onCollapse when the panel folds away; Enter then folds it, and onReset still runs on Space and a double click."
+      ],
+      "a11y": [
+        "It is a focusable separator with aria-valuenow, aria-valuemin and aria-valuemax; name the panel in label, such as Resize outline.",
+        "Pass controls with the id of the panel it resizes, for aria-controls.",
+        "The arrow keys move it by step, Shift by largeStep, and Home and End jump to the limits."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a side panel the user drags wider"
+        ],
+        "rule": "ResizeHandle is the one resize line of every Tessera layout: drag, keys, value and range, with usePaneSize to keep a width in pixels."
+      },
+      "example": "import { Box, ResizeHandle, usePaneSize } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst EditorRails = ({ outline, canvas, inspector }: { outline: ReactNode; canvas: ReactNode; inspector: ReactNode }) => {\n  const outlineSize = usePaneSize({ initial: 224, min: 160, max: 360, storageKey: 'hud.outline' });\n  const inspectorSize = usePaneSize({ initial: 256, min: 192, max: 400, storageKey: 'hud.inspector' });\n  return (\n    <Box className=\"hud-editor\">\n      <Box as=\"aside\" id=\"hud-outline\" style={{ inlineSize: outlineSize.size }}>{outline}</Box>\n      <ResizeHandle label=\"Resize outline\" controls=\"hud-outline\" {...outlineSize.handle} />\n      <Box as=\"main\" className=\"hud-editor__canvas\">{canvas}</Box>\n      <ResizeHandle label=\"Resize inspector\" controls=\"hud-inspector\" edge=\"end\" {...inspectorSize.handle} />\n      <Box as=\"aside\" id=\"hud-inspector\" style={{ inlineSize: inspectorSize.size }}>{inspector}</Box>\n    </Box>\n  );\n};\n",
+      "propsHash": "e69e5583c2063ff0",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "value",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "min",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "max",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "onResize",
+            "optional": false,
+            "text": "(next: number, change: ResizeChange) => void"
+          },
+          {
+            "name": "onResizeEnd",
+            "optional": true,
+            "text": "(value: number) => void"
+          },
+          {
+            "name": "onDragChange",
+            "optional": true,
+            "text": "(dragging: boolean) => void"
+          },
+          {
+            "name": "onReset",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "onCollapse",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "measure",
+            "optional": true,
+            "text": "() => number"
+          },
+          {
+            "name": "pixelsPerUnit",
+            "optional": true,
+            "text": "(handle: HTMLElement) => number"
+          },
+          {
+            "name": "orientation",
+            "optional": true,
+            "text": "SplitOrientation",
+            "literals": [
+              "'horizontal'",
+              "'vertical'"
+            ]
+          },
+          {
+            "name": "edge",
+            "optional": true,
+            "text": "ResizeHandleEdge",
+            "literals": [
+              "'start'",
+              "'end'"
+            ]
+          },
+          {
+            "name": "look",
+            "optional": true,
+            "text": "ResizeHandleLook",
+            "literals": [
+              "'grip'",
+              "'line'",
+              "'ghost'"
+            ],
+            "default": "'grip'"
+          },
+          {
+            "name": "step",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "largeStep",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "controls",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onClick",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "onDragOver",
+            "optional": true,
+            "text": "(event: DragEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "onDrop",
+            "optional": true,
+            "text": "(event: DragEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--blur-glow",
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-dim",
+        "--c-primary-soft",
+        "--c-text-muted",
+        "--duration-fast",
+        "--ease-standard",
+        "--radius-pill",
+        "--radius-sm",
+        "--resize-handle-bar",
+        "--size-32",
+        "--size-6",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--transition-normal"
+      ],
+      "gallery": {
+        "title": "Composites · Layout/ResizeHandle",
+        "route": "#/story/composites-resizehandle--overview",
+        "file": "stories/composites/ResizeHandle.stories.tsx"
+      },
+      "parts": [
+        "usePaneSize"
+      ]
     },
     {
       "name": "RetryButton",

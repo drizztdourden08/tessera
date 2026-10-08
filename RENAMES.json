@@ -1306,6 +1306,23 @@
         "settings-row__fit": "fit-probe",
         "settings-row__fit-probe": "fit-probe__content"
       }
+    },
+    {
+      "version": "next",
+      "cssClasses": {
+        "split-pane__divider--none": "resize-handle--grip",
+        "split-pane__divider--start": "split-pane__rail split-pane__rail--start",
+        "split-pane__divider--end": "split-pane__rail split-pane__rail--end",
+        "split-pane__divider": "resize-handle",
+        "split-pane__grip": "resize-handle__grip",
+        "dock-divider--row": "resize-handle--horizontal",
+        "dock-divider--column": "resize-handle--vertical",
+        "dock-divider--dragging": "resize-handle--dragging",
+        "data-table__resize--active": "resize-handle--dragging"
+      },
+      "cssCustomProperties": {
+        "--dock-divider-bar": "--resize-handle-bar"
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { SplitDividerProps } from '../../SplitPane/sub-components/SplitDivider.type';
+import type { PaneSizeHandle } from '../../ResizeHandle/behavior/pane-size.type';
 import type { ListCollapse } from '../behavior/useListCollapse.type';
 
 interface ListDetailLayoutGutterProps {
@@ -9,9 +9,7 @@ interface ListDetailLayoutGutterProps {
   listId: string;
   listLabel: string;
   detailLabel: string;
-  width: number;
-  range: { min: number; max: number };
-  handlers: SplitDividerProps['handlers'];
+  handle: PaneSizeHandle;
 }
 
 export type { ListDetailLayoutGutterProps };

@@ -36,7 +36,7 @@ describe('SplitPane', () => {
     expect(side).toContain('role="separator"');
     expect(side).toContain('aria-orientation="vertical"');
     expect(side).toContain('aria-valuenow="40"');
-    expect(side).toContain('split-pane__grip');
+    expect(side).toContain('resize-handle__grip');
     const stacked = renderToString(h(SplitPane, { start: 'a', end: 'b', orientation: 'vertical' }));
     expect(stacked).toContain('aria-orientation="horizontal"');
     expect(stacked).toContain('grid-template-rows');

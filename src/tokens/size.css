@@ -36,7 +36,7 @@
   --side-nav-toggle-hit: var(--size-28);
   --search-results-head-h: calc(52 * var(--size-1));
   --dock-grip-h: calc(18 * var(--size-1));
-  --dock-divider-bar: calc(3 * var(--size-1));
+  --resize-handle-bar: calc(3 * var(--size-1));
   --widget-titlebar-h: calc(30 * var(--size-1));
   --widget-options-w: var(--size-256);
   --widget-options-slider-w: var(--size-128);
