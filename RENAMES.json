@@ -1308,7 +1308,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.30.0",
       "cssClasses": {
         "split-pane__divider--none": "resize-handle--grip",
         "split-pane__divider--start": "split-pane__rail split-pane__rail--start",
