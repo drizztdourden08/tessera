@@ -12,10 +12,9 @@ concurrency: release
 # all in the "release: version packages" pull request. With none pending it checks the note of
 # the current version, refuses to publish while it is a draft or malformed, publishes to GitHub
 # Packages and writes the GitHub release v<version> from the note.
-# Pinned to v0.8.0, the first tag that carries the release note steps.
 jobs:
   release:
-    uses: drizztdourden08/standards/.github/workflows/release.yml@v0.8.0
+    uses: drizztdourden08/standards/.github/workflows/release.yml@v0
     permissions:
       contents: write
       packages: write
