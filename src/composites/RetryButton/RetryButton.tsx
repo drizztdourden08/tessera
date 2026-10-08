@@ -2,6 +2,7 @@
 import { useId } from 'react';
 import { Box } from '../../primitives/Box';
 import { Button } from '../../primitives/Button';
+import { REVIEW_MASK } from '../../primitives/dom/review-mask.constants';
 import { Icon } from '../../primitives/Icon';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { retryLine } from './behavior/retry-line';
@@ -21,7 +22,7 @@ const RetryButton = (props: RetryButtonProps) => {
   const waiting = secondsLeft > 0;
   return (
     <Box as="span" className={className ? `retry-button ${className}` : 'retry-button'} data-waiting={waiting || undefined}>
-      {line && <Box as="span" id={lineId} className="retry-button__line">{line}</Box>}
+      {line && <Box as="span" id={lineId} className="retry-button__line" {...(waiting ? REVIEW_MASK : undefined)}>{line}</Box>}
       <Button
         {...rest}
         variant={variant}

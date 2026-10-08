@@ -6777,3 +6777,45 @@ interface DropZoneProps {
 - A surface the app draws itself registers with `useEscapeStack({ level, onEscape, active })` in place of its own key listener.
 - A control that consumes Escape calls `preventDefault`, so the surface around it stays open.
 - A selector that hid `.settings-row__fit` or `.settings-row__fit-probe` uses `.fit-probe` and `.fit-probe__content`.
+
+## 212. Steady screenshots: the GuidedTour spotlight settles, live values carry a review mask
+
+Brock's review takes pixel exact screenshots of its screens and compares them run to run. Two Tessera parts made those runs differ.
+
+### The GuidedTour spotlight settles
+
+The spotlight measured its hole when the step showed, then again only when the target, the body or the window changed size, or the page scrolled. A web font that finished loading after that first measure could move the target by 2 or 3 px without changing its size: a heading above it grew by a few pixels, and the hole, the ring, the bubble and the mascot stayed at the old place. Whether the font won the race decided where they ended up, so two loads of one step could differ.
+
+The hole now measures again:
+
+- once `document.fonts.ready` resolves, and each time the document's fonts finish loading after that;
+- on the frame after each step shows, once its `onEnter` has settled and the effects it set off have run, even when the new step lights the same target as the last one;
+- on a resize of the target, the parts kept live, or the body, through the shared `observeResize` of section 181, as before.
+
+The ring, the veil, the bubble and the mascot all follow the hole. Five loads of one step, with the font held back on some loads and not on others, now end on the same rectangles to the pixel. `TourSpot` takes the same fix.
+
+### A review mask on live values
+
+`REVIEW_MASK_ATTRIBUTE` is the new name of the attribute, `data-review-mask`, the one Brock's review paints over before it compares two screenshots. Tessera sets it, with an empty value, on the values that change on every run:
+
+- each time cell of a `LogPanel` (`.log-panel__gutter`), so the log inside `TaskProgress` is covered too;
+- the line of a `RetryButton` while it counts down (`.retry-button__line`); the line without a countdown stays unmasked;
+- the dot, the stem and the readout of a `StickPlot` (`.stick-plot__dot`, `.stick-plot__stem`, `.stick-plot__value`), the live stick on a `StageScreen`.
+
+```ts
+const REVIEW_MASK_ATTRIBUTE = 'data-review-mask';
+```
+
+Nothing looks different: the attribute carries no style.
+
+### What an app does
+
+Text the app writes itself is not marked, because Tessera cannot tell a live value from a fixed one: a relative time in the `meta` of an `ItemList` row, an elapsed time in the `line` of a `TaskProgress`. Mark it with the attribute:
+
+```tsx
+import { REVIEW_MASK_ATTRIBUTE } from '@drizztdourden08/tessera';
+
+<Span {...{ [REVIEW_MASK_ATTRIBUTE]: '' }}>{elapsed}</Span>
+```
+
+Brock's review can drop its own `.logs-widget .log-panel__gutter` mask: the gutter now carries the attribute.

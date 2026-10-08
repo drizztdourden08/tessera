@@ -9,7 +9,7 @@ import { COMMON_STRINGS } from '../src/primitives/strings/common-strings.constan
 
 const noop = () => undefined;
 
-const LINE = /<span id="([^"]+)" class="retry-button__line">([^<]*)<\/span>/;
+const LINE = /<span id="([^"]+)" class="retry-button__line"( data-review-mask="")?>([^<]*)<\/span>/;
 
 describe('RetryButton countdown', () => {
   it('rounds the wait up to whole seconds and stops at zero', () => {
@@ -43,8 +43,9 @@ describe('RetryButton', () => {
   it('reads Retry now while it counts down, the line describing the button', () => {
     const html = renderToString(h(RetryButton, { onRetry: noop, retryAt: Date.now() + 30_000, attempt: 2, attempts: 5 }));
     expect(html).toContain('data-waiting="true"');
-    const [, id, text] = LINE.exec(html);
+    const [, id, mask, text] = LINE.exec(html);
     expect(text).toMatch(/^Try 2 of 5 in (30|29) s$/);
+    expect(mask).toBe(' data-review-mask=""');
     expect(html).toContain(`aria-describedby="${id}"`);
     expect(html).toContain('>Retry now</span>');
   });

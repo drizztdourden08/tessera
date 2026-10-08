@@ -24,12 +24,13 @@ const useTourStage = (tour: GuidedTourApi, keep: readonly TourTarget[] | undefin
     rootRef.current = node;
     setRoot(node);
   }, []);
-  const stage = stageOf(tour, useHeldStep(tour));
+  const held = useHeldStep(tour);
+  const stage = stageOf(tour, held);
   const kept = useFoundTargets(root, keep, tour.index);
   const clickAt = useClickAt(root, stage);
   const reach = tourReach(stage, kept, clickAt);
   const reachable = useSameNodes(reach.reachable);
-  const spot = useSpotlight(root, stage.target, useSameNodes(reach.holes));
+  const spot = useSpotlight(root, stage.target, useSameNodes(reach.holes), held && `${held.index} ${held.id}`);
   const bubbled = useBubblePlace(bubble, stage.step, stage.target, spot);
   useScrollTarget(stage.target, useReducedMotion(rootRef));
   useTourInert(root, reachable);
