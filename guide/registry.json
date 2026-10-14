@@ -581,7 +581,9 @@
             "components": []
           },
           "a stream of log lines": {
-            "components": []
+            "components": [
+              "LogPanel"
+            ]
           },
           "items of a catalogue, as cards": {
             "components": [
@@ -5798,7 +5800,7 @@
         "rule": "ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app."
       },
       "example": "import { ListDetail } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Preset {\n  id: string;\n  name: string;\n  options: Record<string, number>;\n}\n\nconst PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Preset) => Promise<void> }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const [draft, setDraft] = useState<Preset | null>(null);\n  const saved = presets.find((preset) => preset.id === selectedId);\n  return (\n    <ListDetail\n      list={{ title: 'Presets', items: presets, getId: (preset) => preset.id, getName: (preset) => preset.name }}\n      selectedId={selectedId}\n      onSelect={(id) => { setDraft(null); setSelectedId(id); }}\n      detail={saved && <pre>{JSON.stringify(draft ?? saved)}</pre>}\n      dirty={draft !== null}\n      onSave={async () => { if (draft) await save(draft); }}\n      onDiscard={() => setDraft(null)}\n      storageKey=\"presets.list\"\n    />\n  );\n};\n",
-      "propsHash": "1d776bc2f6d7abee",
+      "propsHash": "5158991207c50b2a",
       "props": {
         "own": [
           {
@@ -5882,6 +5884,11 @@
             "text": "number"
           },
           {
+            "name": "listRatio",
+            "optional": true,
+            "text": "number"
+          },
+          {
             "name": "collapsible",
             "optional": true,
             "text": "boolean"
@@ -5900,6 +5907,36 @@
             "name": "onCollapsedChange",
             "optional": true,
             "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "detailCollapsible",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "detailCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultDetailCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onDetailCollapsedChange",
+            "optional": true,
+            "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "listScroll",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "detailScroll",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "storageKey",
@@ -5954,7 +5991,8 @@
       "job": "The two panes of a list and detail screen: the list on the left and the detail of the picked item beside it, each on its own surface.",
       "useWhen": [
         "A screen lists things on the left and shows the picked one on the right, such as sessions, servers or saves.",
-        "The user needs more room for the detail now and then, so the list folds away to a rail."
+        "The user needs more room for the detail now and then, so the list folds away to a rail.",
+        "A table beside a wide detail shares the room by ratio, and the detail folds away to give the table the whole width."
       ],
       "avoidWhen": [
         {
@@ -5976,6 +6014,9 @@
         "Pass onBack to clear the selection; under 768 px it shows the list again.",
         "Pass storageKey to keep the width and the fold between visits; the fold is kept under storageKey:collapsed.",
         "Pass collapsed with onCollapsedChange when the app holds the fold, such as from a menu or its own shortcut.",
+        "Pass listRatio, such as 0.6, to give the list a share of the room in place of a width in pixels; the divider then drags the share, from 0.2 to 0.8.",
+        "Pass detailCollapsible to let the detail fold to a rail the same way, or detailCollapsed with onDetailCollapsedChange to hold it.",
+        "Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area.",
         "Put a SaveBar last in the detail: it sits flush with the foot of the pane.",
         "Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor."
       ],
@@ -5983,6 +6024,7 @@
         "The divider is a separator: the arrow keys resize it, Home and End jump to the limits, Space and a double click reset it.",
         "Enter on the divider folds the list and moves focus to the button that brings it back.",
         "The fold button names the list, Hide presets or Show presets, and reports aria-expanded on the list pane.",
+        "The detail fold button names the detail the same way, Hide preset editor or Show preset editor, on the detail pane.",
         "Under 768 px the panes stack and Back sits at the top of the detail."
       ],
       "tree": {
@@ -5993,7 +6035,7 @@
         "rule": "ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way."
       },
       "example": "import { ListDetailLayout, ListItemList, ListItemRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Session {\n  id: string;\n  name: string;\n}\n\nconst SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; renderSession: (session: Session) => React.ReactNode }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const selected = sessions.find((session) => session.id === selectedId);\n  return (\n    <ListDetailLayout\n      list={(\n        <ListItemList heading=\"Sessions\">\n          {sessions.map((session) => (\n            <ListItemRow key={session.id} name={session.name} selected={session.id === selectedId} onClick={() => setSelectedId(session.id)} />\n          ))}\n        </ListItemList>\n      )}\n      detail={selected && renderSession(selected)}\n      onBack={() => setSelectedId(null)}\n      listLabel=\"sessions\"\n      storageKey=\"sessions.list\"\n    />\n  );\n};\n",
-      "propsHash": "fdcf07fa45ab4c80",
+      "propsHash": "4a0931fa1557a047",
       "props": {
         "own": [
           {
@@ -6042,6 +6084,11 @@
             "text": "number"
           },
           {
+            "name": "listRatio",
+            "optional": true,
+            "text": "number"
+          },
+          {
             "name": "collapsible",
             "optional": true,
             "text": "boolean"
@@ -6060,6 +6107,36 @@
             "name": "onCollapsedChange",
             "optional": true,
             "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "detailCollapsible",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "detailCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultDetailCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onDetailCollapsedChange",
+            "optional": true,
+            "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "listScroll",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "detailScroll",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "storageKey",
@@ -6262,7 +6339,167 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A running log, such as a server log or a simulation trace, in one framed box with search, filters, a line count and Copy all.",
+      "useWhen": [
+        "Lines arrive over time and the user reads, searches and filters them, such as a server log or the trace of a run.",
+        "The user picks some lines to copy or act on, such as the lines to attach to a bug report."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The rows have columns to sort and resize.",
+          "use": "DataTable"
+        },
+        {
+          "case": "A job shows its steps, with a short log under them.",
+          "use": "TaskProgress"
+        },
+        {
+          "case": "The text is code or a fixed block to read and copy.",
+          "use": "CodeBlock"
+        }
+      ],
+      "rules": [
+        "Give each row a stable id: the window, the new line behaviour and the selection all follow it.",
+        "Pass kinds with a tone per type; toneMessage colours the message too, as for errors.",
+        "Pass selectedIds with onSelectionChange to let the user pick rows; the app holds the set and copies or acts on it.",
+        "Put the action on the picked rows in toolbarExtra, such as Copy selected or Report these lines, beside the line count.",
+        "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels."
+      ],
+      "a11y": [
+        "Without a selection the log is one focusable region that the arrow keys scroll.",
+        "With selectedIds the rows are options of a listbox: Up and Down move the pick, Shift extends it, and a click with Shift picks the rows between.",
+        "Each time cell carries the review mask, so screenshots of a running log compare run to run."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a stream of log lines"
+        ],
+        "rule": "LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick."
+      },
+      "example": "import { Button, LogPanel } from '@drizztdourden08/tessera';\nimport type { LogRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lines: readonly LogRow[]) => void }) => {\n  const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());\n  const picked = rows.filter((row) => selected.has(row.id));\n  return (\n    <LogPanel\n      rows={rows}\n      kinds={[{ id: 'error', label: 'Errors', tone: 'danger', toneMessage: true }]}\n      selectedIds={selected}\n      onSelectionChange={setSelected}\n      toolbarExtra={<Button size=\"sm\" disabled={picked.length === 0} onClick={() => onReport(picked)}>Report these lines</Button>}\n      height=\"fill\"\n    />\n  );\n};\n",
+      "propsHash": "51728d1123a811b8",
+      "props": {
+        "own": [
+          {
+            "name": "rows",
+            "optional": false,
+            "text": "readonly LogRow[]"
+          },
+          {
+            "name": "kinds",
+            "optional": true,
+            "text": "readonly LogKindDef[]"
+          },
+          {
+            "name": "search",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onSearchChange",
+            "optional": true,
+            "text": "(query: string) => void"
+          },
+          {
+            "name": "filters",
+            "optional": true,
+            "text": "readonly FilterClause[]"
+          },
+          {
+            "name": "onFiltersChange",
+            "optional": true,
+            "text": "(next: readonly FilterClause[]) => void"
+          },
+          {
+            "name": "toolbar",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "copyText",
+            "optional": true,
+            "text": "(shown: readonly LogRow[]) => string",
+            "default": "logAsText"
+          },
+          {
+            "name": "countLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "emptyLabel",
+            "optional": true,
+            "text": "string",
+            "default": "panels.logEmpty"
+          },
+          {
+            "name": "toolbarExtra",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "height",
+            "optional": true,
+            "text": "LogPanelHeight"
+          },
+          {
+            "name": "selectedIds",
+            "optional": true,
+            "text": "ReadonlySet<string>"
+          },
+          {
+            "name": "onSelectionChange",
+            "optional": true,
+            "text": "(ids: ReadonlySet<string>) => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-hairline",
+        "--c-hover",
+        "--c-inset",
+        "--c-primary",
+        "--c-selected",
+        "--c-surface",
+        "--c-text",
+        "--c-text-muted",
+        "--font-mono",
+        "--leading-normal",
+        "--log-gutter-w",
+        "--log-tag-w",
+        "--radius-md",
+        "--shadow-2",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--text-xs",
+        "--weight-semi",
+        "--z-base"
+      ],
+      "gallery": {
+        "title": "Composites · Content/LogPanel",
+        "route": "#/story/composites-logpanel--overview",
+        "file": "stories/composites/LogPanel.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Markdown",

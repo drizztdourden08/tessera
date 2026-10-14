@@ -7193,3 +7193,66 @@ In the gallery, the Icon page lists the new icons in its App set (48 icons, was 
 ### What an app does
 
 Nothing for the existing props. RotP can drop its own parts: pass `disabled` and `disabledReason` on its tabs, `open` on its Disclosure, `navigate` and `mediaHeight="auto"` on ItemCard in place of the `.item-card__media` override, `variant="custom"` for a tag in an app colour, and its iconify data straight to `MenuItem.icon`. An app that switches over `TagVariant` with no default case adds a `custom` branch.
+
+## 223. ListDetailLayout by share with a detail that folds, LogPanel rows the user picks, and three helpers made public
+
+From RotP's move to Tessera. RotP's DataInspector reached into ListDetailLayout's classes to set its columns, fold its detail and stop its panes from scrolling; LogPanel had no way to pick rows; and RotP copied three Tessera helpers it could not import. Each is now a real option or a public name.
+
+### ListDetailLayout
+
+```ts
+interface ListDetailLayoutProps {
+  // as before: list, detail, emptyDetail, onBack, backLabel, resizable, listWidth, minListWidth, maxListWidth,
+  // collapsible, collapsed, defaultCollapsed, onCollapsedChange, storageKey, listLabel, detailLabel, className
+  listRatio?: number; // the list's share of the room, 0 to 1, in place of listWidth
+  detailCollapsible?: boolean; // default false: a second button folds the detail
+  detailCollapsed?: boolean; // the app holds the detail fold
+  defaultDetailCollapsed?: boolean; // where the part holds it, how it starts
+  onDetailCollapsedChange?: (collapsed: boolean) => void;
+  listScroll?: boolean; // default true; false: the list pane clips and its content scrolls itself
+  detailScroll?: boolean; // default true; false: the same for the detail pane
+}
+```
+
+- **Columns by share.** `listRatio={0.6}` gives the list 60 % of the room and the detail the rest, at any window width. The divider then drags the share, from 20 % to 80 %; the arrow keys move it by 2 and Shift by 10, and Space or a double click puts it back at `listRatio`. `aria-valuenow` is the share in percent. When the app changes `listRatio`, the layout moves to it, so one screen can widen its detail while it compares two records. A changed `listWidth` now moves the list too. `storageKey` keeps the share under `storageKey:ratio`, apart from a width in pixels.
+- **The detail folds.** `detailCollapsible` puts a second button at the top of the divider, under the list's, named for the detail: Hide session details, Show session details, with `aria-expanded` and `aria-controls` on the detail pane. Folded, the detail gives its room to the list and a narrow rail stays at the right on the detail surface, with the button and the name of the detail down it; the button or a click on the rail brings it back at the share it had. It is the list fold of section 186 on the other side, with the same pattern: `detailCollapsed` with `onDetailCollapsedChange` where the app holds it, `defaultDetailCollapsed` where the part does, and `storageKey:detail-collapsed` to keep it. While one side is folded the other side's button hides and the divider, the ResizeHandle of section 214, goes. Enter on the divider folds the list, or the detail when only the detail folds. Under 768 px the fold is ignored and the panes stack as before.
+- **A pane whose content scrolls itself.** `listScroll={false}` or `detailScroll={false}` makes that pane clip in place of scrolling, for a DataTable with its own sticky header, or a tab strip over its own scroll area. The pane keeps its surface, border and padding.
+
+Without the new props nothing changes: measured on the gallery page at 1280 px before and after, the open layout is 320, 28 and 486 px wide, the folded one 34 and 796 px, with the same colours, and the small window and the states draw the same.
+
+### LogPanel
+
+```ts
+interface LogPanelProps {
+  // as before
+  selectedIds?: ReadonlySet<string>;
+  onSelectionChange?: (ids: ReadonlySet<string>) => void;
+}
+```
+
+- With `selectedIds` the user picks rows. A click picks one row; Shift and a click picks the rows between the last picked row and this one; Ctrl or Cmd and a click adds or drops one row. Up and Down move the pick one row, starting from the newest row, and Shift with Up or Down extends it. A range covers the rows the search and filters show, also the older ones not loaded yet.
+- The app holds the set, the same shape DataTable takes, and copies or acts on it, for example from a button in `toolbarExtra`.
+- Picked rows draw on `--c-selected`, as DataTable rows do. A drag that selects text in a row leaves the pick alone, so copying a few words still works.
+- The rows become options of a listbox named Log lines, with `aria-selected` and one tab stop that follows the pick; the new string is `panels.logLines`. Without `selectedIds` the log stays one focusable region, as before.
+- The new line behaviour of section 203 and the review mask on the time cells of section 212 are unchanged.
+
+### Three helpers made public
+
+| Name | Entry point | What it is |
+|---|---|---|
+| `blankValue(field: FieldDescriptor): unknown` | `/data` | The blank value a new record or list item starts from: each required field at its empty value, `0`, `false`, the first enum option, `[]` or `''`, and optional fields left out. It stops at a depth of four, so a schema that nests itself cannot loop. RecordEditor's Add buttons use it. |
+| `IDENTITY_PATH` | `/composites` | `'id'`, the path of the field RecordEditor treats as the record's identity and keeps read only, beside `isIdentityField`. |
+| `createScrollSyncController(getNode): ScrollSyncController` | `/primitives` | The engine behind ScrollArea's `scrollTo` and `onScroll`: `applyScrollTo` moves the box once, and `handleScroll` passes a scroll on unless it is the echo of that move. With the types `ScrollSyncController` and `ScrollSyncNode`. |
+
+`blankValue` moved from the field kits to the data layer, since it reads a schema and draws nothing; the root export has all three. An app syncing two ScrollAreas still passes `scrollTo` and `onScroll`; the controller is for a box that is not a ScrollArea, and for a test that drives two panes without a browser.
+
+### Gallery
+
+- ListDetailLayout gains **Columns by share: the list takes 60 %, and the detail folds too** and **The detail folded to a rail**, and the playground gains share, detail fold and folded detail controls.
+- LogPanel gains **Rows you select and copy**: three rows start picked, and Copy selected copies them.
+
+### What RotP does
+
+- **DataInspector** passes `listRatio` (0.63 for a record, 0.4 while it compares two), `resizable={false}` as now, `collapsible={false}`, `detailCollapsible` with `detailCollapsed` and `onDetailCollapsedChange` from its `detailCollapsed` and `toggleDetail`, `detailLabel` from the collection or Comparison, and `listScroll={false}` with `detailScroll={false}`. It drops the five `.list-detail-layout__*` rules in `DataInspector.css`, with their `!important`, and `CollapsibleDetail` with its CSS; the two modifier classes `--folded` and `--comparing` go too. Its detail content pads itself in place of resetting the pane's padding.
+- `blank-value.ts` and `MAX_BLANK_DEPTH` give way to `blankValue` from `@drizztdourden08/tessera/data`, the local `IDENTITY_PATH` to the one from `/composites`, and the test copy `scroll-sync-controller.ts` to `createScrollSyncController` from `/primitives`.
+- The simulator's LogDialog and the Randomizer's activity log can pass `selectedIds` and `onSelectionChange` where the user should pick lines to copy or report.

@@ -5,7 +5,7 @@ import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Span } from '../../../primitives/text-elements';
 import { countLabel } from '../../field-kits/count-label';
-import { blankFor } from '../../field-kits/blank-for';
+import { blankFor } from '../../../data/schema/blank-value/blank-for';
 import { replacedAt } from '../../field-kits/list-edits';
 import { removedAt } from '../../field-kits/removed-at';
 import { AddItemButton } from '../../field-kits/sub-components/AddItemButton';

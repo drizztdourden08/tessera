@@ -14,7 +14,7 @@ const LogPanel = (props: LogPanelProps) => {
   const { panels } = useTesseraStrings();
   const {
     rows, kinds, className, toolbar = true, copyText = logAsText,
-    countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height,
+    countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height, selectedIds, onSelectionChange,
   } = props;
   const filter = useLogFilter(props);
   const empty = rows.length === 0 ? emptyLabel : panels.logNoMatch;
@@ -26,7 +26,7 @@ const LogPanel = (props: LogPanelProps) => {
       )}
       {filter.shown.length === 0
         ? <Box className="log-panel__empty">{empty}</Box>
-        : <LogList rows={filter.shown} kinds={kinds} />}
+        : <LogList rows={filter.shown} kinds={kinds} selectedIds={selectedIds} onSelectionChange={onSelectionChange} />}
     </Box>
   );
 };

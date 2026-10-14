@@ -71,3 +71,67 @@ describe('ListDetailLayout', () => {
     expect(picked).toMatch(/list-detail-layout__back.*All servers.*Detail/);
   });
 });
+
+describe('ListDetailLayout columns by share', () => {
+  it('gives the list a share of the room, and the divider drags it in percent between 20 and 80', () => {
+    const html = draw({ listRatio: 0.6 });
+    expect(html).toContain('grid-template-columns:minmax(0, 60fr) auto minmax(0, 40fr)');
+    expect(html).toMatch(/role="separator"[^>]*aria-valuenow="60" aria-valuemin="20" aria-valuemax="80"/);
+    expect(draw({ listRatio: 0.95 })).toContain('grid-template-columns:minmax(0, 80fr) auto minmax(0, 20fr)');
+  });
+
+  it('keeps a stored share apart from a stored width', () => {
+    const options = layoutOptionsOf({ list: null, storageKey: 'records', listRatio: 0.6 });
+    expect(options.width).toEqual({ initial: 60, min: 20, max: 80, storageKey: 'records:ratio' });
+    expect(options.ratio).toBe(true);
+    expect(layoutOptionsOf({ list: null, storageKey: 'records' }).width.storageKey).toBe('records');
+    vi.stubGlobal('localStorage', { getItem: (name) => (name === 'records:ratio' ? '70' : null) });
+    expect(draw({ storageKey: 'records', listRatio: 0.6 })).toContain('minmax(0, 70fr) auto minmax(0, 30fr)');
+  });
+});
+
+describe('ListDetailLayout detail fold', () => {
+  it('draws no detail fold button unless detailCollapsible is set', () => {
+    expect(draw()).not.toContain('Hide details');
+    const open = draw({ detailCollapsible: true, detailLabel: 'record' });
+    const detailId = /id="([^"]+)" class="list-detail-layout__detail"/.exec(open)?.[1];
+    expect(detailId).toBeTruthy();
+    expect(open).toContain(`aria-label="Hide record" title="Hide record" aria-expanded="true" aria-controls="${detailId}"`);
+    expect(open).toContain('aria-label="Hide list"');
+  });
+
+  it('draws a folded detail as a rail: no divider, the list takes the room, the button shows the detail again', () => {
+    const folded = [
+      draw({ detailCollapsible: true, detailCollapsed: true, detailLabel: 'record' }),
+      draw({ detailCollapsible: true, defaultDetailCollapsed: true, detailLabel: 'record' }),
+    ];
+    for (const html of folded) {
+      expect(html).toContain('list-detail-layout--detail-collapsed');
+      expect(html).toContain('grid-template-columns:minmax(0, 1fr) auto');
+      expect(html).toContain('aria-label="Show record"');
+      expect(html).not.toContain('aria-label="Hide list"');
+      expect(html).toMatch(/list-detail-layout__rail-label" aria-hidden="true">record</);
+      expect(html).not.toContain('role="separator"');
+    }
+    expect(draw({ detailCollapsed: true })).not.toContain('list-detail-layout--detail-collapsed');
+  });
+
+  it('keeps the list fold when both are folded, and the detail fold under its own name', () => {
+    const both = draw({ collapsed: true, detailCollapsible: true, detailCollapsed: true });
+    expect(both).toContain('list-detail-layout--collapsed');
+    expect(both).not.toContain('list-detail-layout--detail-collapsed');
+    expect(both).toContain('grid-template-columns:auto minmax(0, 1fr)');
+    expect(layoutOptionsOf({ list: null, storageKey: 'records' }).detailCollapse.storageKey).toBe('records:detail-collapsed');
+    vi.stubGlobal('localStorage', { getItem: (name) => (name === 'records:detail-collapsed' ? 'true' : null) });
+    expect(draw({ storageKey: 'records', detailCollapsible: true })).toContain('list-detail-layout--detail-collapsed');
+  });
+});
+
+describe('ListDetailLayout pane scroll', () => {
+  it('lets a pane clip so its content scrolls by itself', () => {
+    expect(draw()).not.toContain('--clip');
+    const html = draw({ listScroll: false, detailScroll: false });
+    expect(html).toContain('class="list-detail-layout__list list-detail-layout__list--clip"');
+    expect(html).toContain('class="list-detail-layout__detail list-detail-layout__detail--clip"');
+  });
+});

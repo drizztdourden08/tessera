@@ -2,6 +2,7 @@
 interface LayoutLook {
   resizable: boolean;
   collapsed: boolean;
+  detailCollapsed: boolean;
   dragging: boolean;
 }
 

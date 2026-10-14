@@ -34,6 +34,8 @@ interface LogPanelProps {
   emptyLabel?: string;
   toolbarExtra?: ReactNode;
   height?: LogPanelHeight;
+  selectedIds?: ReadonlySet<string>;
+  onSelectionChange?: (ids: ReadonlySet<string>) => void;
   className?: string;
 }
 

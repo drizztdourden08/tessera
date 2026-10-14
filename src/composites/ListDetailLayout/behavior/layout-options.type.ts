@@ -3,7 +3,7 @@ import type { PaneSizeOptions } from '../../ResizeHandle/behavior/pane-size.type
 
 type ListDetailView = 'list' | 'detail' | 'both';
 
-interface ListCollapseOptions {
+interface PaneFoldOptions {
   collapsible: boolean;
   collapsed: boolean | undefined;
   defaultCollapsed: boolean;
@@ -11,12 +11,20 @@ interface ListCollapseOptions {
   storageKey: string | undefined;
 }
 
+interface PaneScroll {
+  list: boolean;
+  detail: boolean;
+}
+
 interface LayoutOptions {
   width: PaneSizeOptions;
-  collapse: ListCollapseOptions;
+  ratio: boolean;
+  collapse: PaneFoldOptions;
+  detailCollapse: PaneFoldOptions;
+  scroll: PaneScroll;
   view: ListDetailView;
   empty: boolean;
   resizable: boolean;
 }
 
-export type { LayoutOptions, ListCollapseOptions, ListDetailView };
+export type { LayoutOptions, ListDetailView, PaneFoldOptions };

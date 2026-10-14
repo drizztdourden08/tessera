@@ -1,32 +1,41 @@
 /* @layer renderer-components @kind logic */
-import {
-  COLLAPSED_KEY_SUFFIX, DEFAULT_LIST_WIDTH, DEFAULT_MAX_LIST_WIDTH, DEFAULT_MIN_LIST_WIDTH,
-} from '../ListDetailLayout.constants';
+import { COLLAPSED_KEY_SUFFIX, DETAIL_COLLAPSED_KEY_SUFFIX } from '../ListDetailLayout.constants';
 import type { ListDetailLayoutProps } from '../ListDetailLayout.type';
-import type { LayoutOptions, ListDetailView } from './layout-options.type';
+import type { LayoutOptions, ListDetailView, PaneFoldOptions } from './layout-options.type';
+import { listWidthOf } from './list-width-of';
 
 const viewOf = (onBack: (() => void) | undefined, empty: boolean): ListDetailView => {
   if (onBack === undefined) return 'both';
   return empty ? 'list' : 'detail';
 };
 
+const keyOf = (storageKey: string | undefined, suffix: string): string | undefined => (storageKey === undefined ? undefined : `${storageKey}${suffix}`);
+
+const listFoldOf = (props: ListDetailLayoutProps): PaneFoldOptions => ({
+  collapsible: props.collapsible !== false,
+  collapsed: props.collapsed,
+  defaultCollapsed: props.defaultCollapsed === true,
+  onCollapsedChange: props.onCollapsedChange,
+  storageKey: keyOf(props.storageKey, COLLAPSED_KEY_SUFFIX),
+});
+
+const detailFoldOf = (props: ListDetailLayoutProps): PaneFoldOptions => ({
+  collapsible: props.detailCollapsible === true,
+  collapsed: props.detailCollapsed,
+  defaultCollapsed: props.defaultDetailCollapsed === true,
+  onCollapsedChange: props.onDetailCollapsedChange,
+  storageKey: keyOf(props.storageKey, DETAIL_COLLAPSED_KEY_SUFFIX),
+});
+
 const layoutOptionsOf = (props: ListDetailLayoutProps): LayoutOptions => {
-  const { detail, storageKey } = props;
+  const { detail } = props;
   const empty = detail === undefined || detail === null || detail === false;
   return {
-    width: {
-      initial: props.listWidth ?? DEFAULT_LIST_WIDTH,
-      min: props.minListWidth ?? DEFAULT_MIN_LIST_WIDTH,
-      max: props.maxListWidth ?? DEFAULT_MAX_LIST_WIDTH,
-      storageKey,
-    },
-    collapse: {
-      collapsible: props.collapsible !== false,
-      collapsed: props.collapsed,
-      defaultCollapsed: props.defaultCollapsed === true,
-      onCollapsedChange: props.onCollapsedChange,
-      storageKey: storageKey === undefined ? undefined : `${storageKey}${COLLAPSED_KEY_SUFFIX}`,
-    },
+    width: listWidthOf(props),
+    ratio: props.listRatio !== undefined,
+    collapse: listFoldOf(props),
+    detailCollapse: detailFoldOf(props),
+    scroll: { list: props.listScroll !== false, detail: props.detailScroll !== false },
     view: viewOf(props.onBack, empty),
     empty,
     resizable: props.resizable !== false,

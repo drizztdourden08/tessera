@@ -94,10 +94,17 @@ const PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Pr
 - `listWidth` (optional): `number`.
 - `minListWidth` (optional): `number`.
 - `maxListWidth` (optional): `number`.
+- `listRatio` (optional): `number`.
 - `collapsible` (optional): `boolean`.
 - `collapsed` (optional): `boolean`.
 - `defaultCollapsed` (optional): `boolean`.
 - `onCollapsedChange` (optional): `(collapsed: boolean) => void`.
+- `detailCollapsible` (optional): `boolean`.
+- `detailCollapsed` (optional): `boolean`.
+- `defaultDetailCollapsed` (optional): `boolean`.
+- `onDetailCollapsedChange` (optional): `(collapsed: boolean) => void`.
+- `listScroll` (optional): `boolean`.
+- `detailScroll` (optional): `boolean`.
 - `storageKey` (optional): `string`.
 - `listLabel` (optional): `string`.
 - `detailLabel` (optional): `string`.

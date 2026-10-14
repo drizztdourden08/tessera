@@ -152,3 +152,8 @@
   min-width: 0;
   overflow-wrap: anywhere;
 }
+
+.log-panel__row--selected,
+.log-panel__row--selected:hover {
+  background: var(--c-selected);
+}

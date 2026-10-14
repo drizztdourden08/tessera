@@ -3,7 +3,7 @@ import { Field } from '../../../primitives/Field';
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { keyOf } from '../key-of';
+import { keyOf } from '../../../data/schema/path/key-of';
 import { resolveFieldKit } from '../resolve-field-kit';
 import type { EditorControlProps } from '../registry.type';
 

@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind logic */
 import { createScrollGuard } from './create-scroll-guard';
 import type { ScrollPosition } from '../ScrollArea.type';
-import type { ScrollNode } from './create-scroll-sync-controller.type';
+import type { ScrollSyncController, ScrollSyncNode } from './create-scroll-sync-controller.type';
 
-const createScrollSyncController = (getNode: () => ScrollNode | null) => {
+const createScrollSyncController = (getNode: () => ScrollSyncNode | null): ScrollSyncController => {
   const guard = createScrollGuard();
 
   const applyScrollTo = (target: Partial<ScrollPosition>): void => {

@@ -12,6 +12,7 @@ const PANEL_STRINGS = {
   logMessage: 'Message',
   logNoMatch: 'No lines match the search and filters.',
   filterLog: 'Filter the log',
+  logLines: 'Log lines',
   sectionFailed: 'This section could not be shown',
   settingsEmpty: 'Nothing to set here right now.',
   resetSection: (changed: number) => `Reset section to defaults (${changed} changed)`,

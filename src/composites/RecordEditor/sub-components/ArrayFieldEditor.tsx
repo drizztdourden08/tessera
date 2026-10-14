@@ -10,7 +10,7 @@ import { replacedAt } from '../../field-kits/list-edits';
 import { AddItemButton } from '../../field-kits/sub-components/AddItemButton';
 import { EnumTagSelect } from '../../field-kits/sub-components/EnumTagSelect';
 import { ListItemControls } from '../../field-kits/sub-components/ListItemControls';
-import { blankFor } from '../../field-kits/blank-for';
+import { blankFor } from '../../../data/schema/blank-value/blank-for';
 import { isTagsField } from '../behavior/tag-field';
 import { TagArrayEditor } from './TagArrayEditor';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';

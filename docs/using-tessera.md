@@ -242,6 +242,11 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | A count after a heading | `count` on `SectionHeader` or `ListItemList` |
 | Quiet, error or code text | `tone`, `mono` and `numeric` on `Text` |
 | A whole screen with nothing in it yet | `EmptyState` with `size="hero"`, `title`, `action` and `hint` |
+| A blank record or list item to start a create form from | `blankValue(field)` from `/data`: each required field at its empty value |
+| The identity field RecordEditor keeps read only | `IDENTITY_PATH`, the path `id` |
+| Two scroll boxes that follow each other | `scrollTo` and `onScroll` on `ScrollArea`; `createScrollSyncController` for a box that is not a ScrollArea, or in a test |
+| Rows of a log the user picks to copy | `selectedIds` and `onSelectionChange` on `LogPanel` |
+| A list and detail split by share, with a detail that folds | `listRatio` and `detailCollapsible` on `ListDetailLayout` |
 
 ## The gallery
 

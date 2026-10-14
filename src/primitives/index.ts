@@ -72,7 +72,10 @@ export { Portal, useAnchorTracking, useDismissListeners, dropPanelPositionFor } 
 export type {
   DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult, UseDismissListenersParams,
 } from './Portal';
-export { ScrollArea, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition } from './ScrollArea';
+export {
+  ScrollArea, createScrollSyncController, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition,
+  type ScrollSyncController, type ScrollSyncNode,
+} from './ScrollArea';
 export type { PortalLayer } from './Portal';
 export { useEscapeStack } from './escape-stack';
 export type { EscapeLayer, EscapeLevel, EscapeStack } from './escape-stack';

@@ -18,13 +18,23 @@ type ListDetailLayoutArgs = {
   resizable: boolean;
   collapsible: boolean;
   startCollapsed: boolean;
+  ratio: boolean;
+  detailCollapsible: boolean;
+  startDetailCollapsed: boolean;
   narrow: boolean;
 };
 
 const PICK = 'Pick a session to see who plays in it.';
 
+const ARGS: ListDetailLayoutArgs = {
+  startSelected: true, emptyMessage: PICK, resizable: true, collapsible: true, startCollapsed: false,
+  ratio: false, detailCollapsible: false, startDetailCollapsed: false, narrow: false,
+};
+
+const LIST_RATIO = 0.6;
+
 const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
-  const { startSelected = true, emptyMessage = PICK, resizable = true, collapsible = true, startCollapsed = false, narrow = false } = props;
+  const { startSelected, emptyMessage, resizable, collapsible, startCollapsed, ratio, detailCollapsible, startDetailCollapsed, narrow } = { ...ARGS, ...props };
   const [selectedId, setSelectedId] = useState<string | null>(startSelected ? SESSIONS[0].id : null);
   const selected = SESSIONS.find((s) => s.id === selectedId);
   const list = (
@@ -51,6 +61,9 @@ const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
         resizable={resizable}
         collapsible={collapsible}
         defaultCollapsed={startCollapsed}
+        listRatio={ratio ? LIST_RATIO : undefined}
+        detailCollapsible={detailCollapsible}
+        defaultDetailCollapsed={startDetailCollapsed}
         listLabel="sessions"
         detailLabel="session details"
       />
@@ -58,14 +71,15 @@ const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
   );
 };
 
-const ARGS: Partial<ListDetailLayoutArgs> = { startSelected: true, emptyMessage: PICK, resizable: true, collapsible: true, startCollapsed: false, narrow: false };
-
 const ARG_TYPES: PlaygroundArgTypes<ListDetailLayoutArgs> = {
   emptyMessage: { group: 'Content', control: 'text', description: 'The placeholder while nothing is picked, passed as emptyDetail.' },
   startSelected: { group: 'State', control: 'boolean' },
   resizable: { group: 'Behaviour', control: 'boolean', description: 'A divider between the panes drags the list width, from 240 to 480 px.' },
   collapsible: { group: 'Behaviour', control: 'boolean', description: 'A button at the top of the divider folds the list to a rail.' },
   startCollapsed: { group: 'State', control: 'boolean', description: 'The list starts folded, as defaultCollapsed.' },
+  ratio: { group: 'Layout', control: 'boolean', description: 'listRatio={0.6}: the list takes 60 % of the room and the divider drags the share.' },
+  detailCollapsible: { group: 'Behaviour', control: 'boolean', description: 'A second button at the top of the divider folds the detail to a rail.' },
+  startDetailCollapsed: { group: 'State', control: 'boolean', description: 'The detail starts folded, as defaultDetailCollapsed.' },
   narrow: { group: 'Layout', control: 'boolean', description: 'A 512 px frame: under 768 px the list and the detail stack, with Back in the detail.' },
 };
 
@@ -78,7 +92,7 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <LayoutDemo key={`${String(args.startSelected)}-${String(args.startCollapsed)}`} {...args} />,
+  render: (args) => <LayoutDemo key={`${String(args.startSelected)}-${String(args.startCollapsed)}-${String(args.startDetailCollapsed)}-${String(args.ratio)}`} {...args} />,
 } satisfies PlaygroundStory<ListDetailLayoutArgs>;
 
 const Resizable = {
@@ -89,6 +103,16 @@ const Resizable = {
 const Collapsed = {
   name: 'The list folded to a rail',
   render: () => <LayoutDemo startCollapsed />,
+} satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
+
+const RatioColumns = {
+  name: 'Columns by share: the list takes 60 %, and the detail folds too',
+  render: () => <LayoutDemo ratio detailCollapsible />,
+} satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
+
+const DetailFolded = {
+  name: 'The detail folded to a rail',
+  render: () => <LayoutDemo ratio detailCollapsible startDetailCollapsed />,
 } satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
 
 const Stacked = {
@@ -120,16 +144,16 @@ const Overview = overviewStory({
   component: 'ListDetailLayout',
   description: 'The two panes of a list and detail screen: the list on the left, the detail of the picked item beside it.',
   points: [
-    'Pass the `list` and the `detail` as content; each pane scrolls on its own surface.',
+    'Each pane scrolls on its own surface; `listScroll` or `detailScroll` false leaves the scroll to its content.',
     'No `detail` shows `emptyDetail`, or Pick an item from the list, and a small window shows the list.',
-    'Drag the divider between 240 and 480 px; `storageKey` keeps the width and whether the list is folded.',
+    'Drag the divider between 240 and 480 px, or give `listRatio` a share; `storageKey` keeps it and the folds.',
     'The button over the divider, or [[Enter]] on it, folds the list to a rail; `collapsed` lets the app hold it.',
+    '`detailCollapsible` folds the detail to a rail the same way; `detailCollapsed` lets the app hold it.',
     'Under 768 px the panes stack: the list, then the detail with a Back button that calls `onBack`.',
-    '**It is layout only:** the caller fills both panes and owns the selection, so `onBack` clears it.',
   ],
   instead: '[ListDetail] for an editor that asks before unsaved edits are lost, or [SplitPane] for two equal panes.',
   playground: Playground,
-  variants: [Resizable, Collapsed, Stacked],
+  variants: [Resizable, Collapsed, RatioColumns, DetailFolded, Stacked],
   states: {
     render: renderState,
     list: [
@@ -141,4 +165,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Collapsed, Overview, Playground, Resizable, Stacked };
+export { Collapsed, DetailFolded, Overview, Playground, RatioColumns, Resizable, Stacked };

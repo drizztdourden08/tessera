@@ -1,15 +1,19 @@
 /* @layer renderer-components @kind types */
-import type { PaneSizeHandle } from '../../ResizeHandle/behavior/pane-size.type';
-import type { ListCollapse } from '../behavior/useListCollapse.type';
+import type { ListHandle } from '../behavior/useListDetailPanes.type';
+import type { PaneFold } from '../behavior/usePaneFold.type';
 
-interface ListDetailLayoutGutterProps {
-  collapse: ListCollapse;
+interface GutterPane {
+  fold: PaneFold;
   collapsible: boolean;
-  resizable: boolean;
-  listId: string;
-  listLabel: string;
-  detailLabel: string;
-  handle: PaneSizeHandle;
+  id: string;
+  label: string;
 }
 
-export type { ListDetailLayoutGutterProps };
+interface ListDetailLayoutGutterProps {
+  list: GutterPane;
+  detail: GutterPane;
+  resizable: boolean;
+  handle: ListHandle;
+}
+
+export type { GutterPane, ListDetailLayoutGutterProps };

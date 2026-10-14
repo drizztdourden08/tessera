@@ -3,7 +3,7 @@ import { FieldControlBoundary } from '../../../primitives/FieldControlBoundary';
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { blankValue } from '../blank-value';
+import { blankValue } from '../../../data/schema/blank-value/blank-value';
 import { countLabel } from '../count-label';
 import { replacedAt } from '../list-edits';
 import { resolveFieldKit } from '../resolve-field-kit';

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { toList } from '../../field-kits/to-list';
-import { blankValue } from '../../field-kits/blank-value';
+import { blankValue } from '../../../data/schema/blank-value/blank-value';
 import { replacedAt } from '../../field-kits/list-edits';
 import { keyOf } from '../behavior/key-of';
 import { ArrayEditorShell } from './ArrayEditorShell';

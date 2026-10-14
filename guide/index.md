@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 53 of 175 have their usage written; a linked name opens its page.
+One line per component. 54 of 175 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -124,7 +124,7 @@ One line per component. 53 of 175 have their usage written; a linked name opens 
 - [ListDetailLayout](components/ListDetailLayout.md): The two panes of a list and detail screen: the list on the left and the detail of the picked item beside it, each on its own surface. Import from `@drizztdourden08/tessera`.
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [LoadError](components/LoadError.md): What to show when something fails to load: one plain sentence, a Retry button and the raw error behind Details. Import from `@drizztdourden08/tessera`.
-- `LogPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [LogPanel](components/LogPanel.md): A running log, such as a server log or a simulation trace, in one framed box with search, filters, a line count and Copy all. Import from `@drizztdourden08/tessera`.
 - [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.

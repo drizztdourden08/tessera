@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { keyOf } from '../../field-kits/key-of';
+import { keyOf } from '../../../data/schema/path/key-of';
 import { X_KEY, Y_KEY } from './position-shape.constants';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 import type { PositionPair } from '../RecordEditor.type';

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import type { FieldDescriptor } from '../../data/schema/field-descriptor';
+import type { FieldDescriptor } from '../field-descriptor';
 
 const blankFor = (element: FieldDescriptor): unknown => {
   if (element.kind === 'number') return 0;

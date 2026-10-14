@@ -123,7 +123,7 @@ export type {
 } from './DockLayout';
 export { FilterBar } from './FilterBar';
 export type { FilterBarProps } from './FilterBar';
-export { RecordEditor, ReferencedBy } from './RecordEditor';
+export { IDENTITY_PATH, RecordEditor, ReferencedBy } from './RecordEditor';
 export type {
   EditorGroupModel, IdRefOption, IdRefOptionResolver, NumberBounds, NumberBoundsResolver,
   RecordEditorProps, ReferencedByHit, ReferencedByProps, TagCreateResult, TagCreator, TagSuggestionResolver,

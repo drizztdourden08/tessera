@@ -154,7 +154,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
   - One record, compact and read only: no component yet.
   - A row in a list, with its actions: no component yet.
-  - A stream of log lines: no component yet.
+  - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
   - A headline number that does one thing: [ActionTile](components/ActionTile.md). ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app.

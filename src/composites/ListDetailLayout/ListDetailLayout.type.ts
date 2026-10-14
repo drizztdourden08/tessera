@@ -11,10 +11,17 @@ interface ListDetailLayoutProps {
   listWidth?: number;
   minListWidth?: number;
   maxListWidth?: number;
+  listRatio?: number;
   collapsible?: boolean;
   collapsed?: boolean;
   defaultCollapsed?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
+  detailCollapsible?: boolean;
+  detailCollapsed?: boolean;
+  defaultDetailCollapsed?: boolean;
+  onDetailCollapsedChange?: (collapsed: boolean) => void;
+  listScroll?: boolean;
+  detailScroll?: boolean;
   storageKey?: string;
   listLabel?: string;
   detailLabel?: string;

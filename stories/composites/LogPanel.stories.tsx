@@ -12,6 +12,7 @@ import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { LOG_KINDS, LOG_ROWS, longSession } from './_samples/data-log';
 import { LogArrivalDemo } from './_samples/LogArrivalDemo';
+import { LogSelectionDemo } from './_samples/LogSelectionDemo';
 import './LogPanel.stories.css';
 
 type LogPanelArgs = {
@@ -92,6 +93,16 @@ const Arriving = {
   ),
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
+const Selecting = {
+  name: 'Rows you select and copy',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">Click a row, Shift click another for the rows between, or use Up and Down with Shift.</Text>
+      <LogSelectionDemo />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
 const Bare = {
   name: 'Without a toolbar',
   render: () => <LogDemo {...(ARGS as LogPanelArgs)} toolbar={false} rows={LOG_ROWS} />,
@@ -148,12 +159,12 @@ const Overview = overviewStory({
     'Each of the `rows` has a gutter, a tag, a `kind` and a message; `indent` nests it under a guide.',
     'The toolbar is a [FilterBar]: search, filters on type, tag or message, a line count and Copy all.',
     '`kinds` gives each type a `tone`; `toneMessage` colours the message too, as for errors.',
-    'Only the newest lines are mounted and older ones load on demand, so a long session stays fast.',
-    'A Newest button shows once the user scrolls away from the end.',
+    'Only the newest lines are mounted, older ones load on demand, and Newest jumps back to the end.',
+    '`selectedIds` with `onSelectionChange` picks rows: a click, [[Shift]] and a click, [[Up]] and [[Down]].',
     '`height="fill"` takes the height of its parent; a number fixes it in pixels.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Arriving, Bare, Heights],
+  variants: [Filtered, LongSession, Arriving, Selecting, Bare, Heights],
   states: {
     render: renderState,
     list: [
@@ -166,4 +177,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Arriving, Bare, Filtered, Heights, LongSession, Overview, ServerLog };
+export { Arriving, Bare, Filtered, Heights, LongSession, Overview, Selecting, ServerLog };

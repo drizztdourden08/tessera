@@ -4,7 +4,7 @@ import { Flex } from '../../../primitives/Flex';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toList } from '../../field-kits/to-list';
-import { blankValue } from '../../field-kits/blank-value';
+import { blankValue } from '../../../data/schema/blank-value/blank-value';
 import { ListItemControls } from '../../field-kits/sub-components/ListItemControls';
 import { elementFields } from '../behavior/array-elements';
 import { ArrayEditorShell } from './ArrayEditorShell';
