@@ -10,7 +10,7 @@ interface CatalogueGroup {
 }
 
 interface CatalogueTier {
-  tier: 'Core' | 'Primitives' | 'Composites' | 'Data';
+  tier: 'Core' | 'Primitives' | 'Composites' | 'Data' | 'Preview';
   intro: string;
   groups: readonly CatalogueGroup[];
 }

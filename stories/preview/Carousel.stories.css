@@ -1,0 +1,9 @@
+/* @layer stories @kind style */
+.carousel-story__featured {
+  inline-size: var(--size-1024);
+  max-inline-size: 100%;
+}
+
+.carousel-story__tips {
+  max-inline-size: var(--size-384);
+}

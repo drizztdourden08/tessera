@@ -1,0 +1,63 @@
+/* @layer stories @kind style */
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-inline-size: 0;
+}
+
+.carousel__viewport {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.carousel__slide {
+  grid-area: 1 / 1;
+  min-inline-size: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-standard), visibility 0s linear var(--duration-normal);
+}
+
+.carousel__slide[data-active] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity var(--duration-normal) var(--ease-standard);
+}
+
+.carousel__dots {
+  display: inline-flex;
+  gap: var(--space-xs);
+}
+
+.carousel__dot {
+  inline-size: var(--size-8);
+  block-size: var(--size-8);
+  padding: 0;
+  border-radius: var(--radius-pill);
+  background: var(--c-text-muted);
+  cursor: pointer;
+  transition: inline-size var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard);
+}
+
+.carousel__dot:hover {
+  background: var(--c-text-dim);
+}
+
+.carousel__dot[aria-current] {
+  inline-size: var(--size-24);
+  background: var(--c-primary);
+}
+
+.carousel__dot:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thick);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__slide,
+  .carousel__slide[data-active],
+  .carousel__dot {
+    transition: none;
+  }
+}

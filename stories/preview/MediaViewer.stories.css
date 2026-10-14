@@ -1,0 +1,30 @@
+/* @layer stories @kind style */
+.viewer-story__file {
+  max-inline-size: var(--size-320);
+}
+
+.viewer-story__set {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--size-160)), 1fr));
+  gap: var(--space-sm);
+  inline-size: var(--size-768);
+  max-inline-size: 100%;
+}
+
+.viewer-story__thumb {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--c-sunken);
+  cursor: zoom-in;
+}
+
+.viewer-story__thumb:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--border-width-thin);
+}
+
+.viewer-story__pixels img {
+  image-rendering: pixelated;
+}
