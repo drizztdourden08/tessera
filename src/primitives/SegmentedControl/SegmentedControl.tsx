@@ -3,10 +3,13 @@ import '../../theme/control-size.css';
 import '../../theme/focus-ring.css';
 import '../../theme/segment-group.css';
 import './SegmentedControl.css';
+import { disabledReason } from '../field-control/disabled-reason';
+import { isDisabled } from '../field-control/is-disabled';
 import { useControlSize } from '../field-control/useControlSize';
 import { useHintReport } from '../hint/useHintReport';
 import { Small, Span } from '../text-elements';
 import { resolveClick } from './behavior/resolve-click';
+import { segmentKeys } from './behavior/segment-keys';
 import { useSegmentIndicator } from './behavior/useSegmentIndicator';
 import { SegmentButton } from './sub-components/SegmentButton';
 import type { SegmentedControlProps } from './SegmentedControl.type';
@@ -21,6 +24,8 @@ const SegmentedControl = <T extends string = string>(props: SegmentedControlProp
     if (outcome.kind === 'deselect') onDeselect?.();
     else onChange(outcome.value);
   };
+  const enabled = options.map((opt) => !disabled && !isDisabled(opt.disabled));
+  const keys = segmentKeys({ trackRef, options, enabled, value, pick: onChange });
 
   return (
     <div className={['segmented', `control-size--${controlSize}`, disabled && 'segmented--disabled'].filter(Boolean).join(' ')}>
@@ -32,15 +37,18 @@ const SegmentedControl = <T extends string = string>(props: SegmentedControlProp
       )}
       <div className="segmented__track" role="radiogroup" aria-label={label ?? props['aria-label']} aria-labelledby={label ? undefined : props['aria-labelledby']} ref={trackRef}>
         <span className="segmented__indicator" style={indicatorStyle} />
-        {options.map((opt) => (
+        {options.map((opt, index) => (
           <SegmentButton<T>
             key={opt.value}
             option={opt}
             active={value === opt.value}
-            disabled={disabled || opt.disabled === true}
+            disabled={enabled[index] !== true}
+            reason={disabledReason(opt.disabled)}
+            stop={index === keys.stop}
             size={controlSize}
             handlers={handlersFor(opt.value)}
             onSelect={() => choose(opt.value)}
+            onKeyDown={keys.onKeyDown}
           />
         ))}
       </div>

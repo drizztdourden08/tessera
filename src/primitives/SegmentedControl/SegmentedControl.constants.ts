@@ -7,4 +7,8 @@ const ACTIVE_SEGMENT = '[aria-checked="true"]';
 
 const INDICATOR_INSET = 2;
 
-export { ACTIVE_SEGMENT, INDICATOR_INSET, SEGMENT_ICON_SIZES };
+const SEGMENT_SELECTOR = '[role="radio"]';
+
+const SEGMENT_STEPS: Readonly<Record<string, number>> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+
+export { ACTIVE_SEGMENT, INDICATOR_INSET, SEGMENT_ICON_SIZES, SEGMENT_SELECTOR, SEGMENT_STEPS };

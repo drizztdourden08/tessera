@@ -31,7 +31,7 @@ const SCALES: SegmentOption<Scale>[] = [
 ];
 
 const WITH_LOCKED: SegmentOption<Scale>[] = SCALES.map((opt) =>
-  opt.value === '3x' ? { ...opt, disabled: true } : opt,
+  opt.value === '3x' ? { ...opt, disabled: 'The window is too small for 3x.' } : opt,
 );
 
 type Align = 'left' | 'center' | 'right';
@@ -149,6 +149,7 @@ const Overview = overviewStory({
     'Options can be text, or an icon named by its hint.',
     '`onDeselect` lets a second click on the active option clear the value.',
     'Each option can carry a `hint` that a [HintLine] shows while it is pointed at or focused.',
+    'The arrow keys pick; an option `disabled` with a string shows why in a tooltip, and the arrows skip it.',
   ],
   instead: '[ToggleGroup] to switch several options on, or [Tabs] to switch views.',
   playground: Playground,

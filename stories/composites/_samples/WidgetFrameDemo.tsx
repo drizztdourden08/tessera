@@ -17,11 +17,17 @@ type WidgetFrameDemoProps = {
   titleBarActions?: boolean;
   dragRegion?: boolean;
   optionsOpen?: boolean;
+  disabled?: boolean;
+  disabledMessage?: string;
 };
+
+const offOf = (props: WidgetFrameDemoProps): string | boolean | undefined =>
+  (props.disabled === true ? props.disabledMessage ?? true : undefined);
 
 const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
   const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false, dragRegion = false, optionsOpen = false } = props;
   const [active, setActive] = useState('hints');
+  const [settings, setSettings] = useState('');
   const [closed, setClosed] = useState(false);
   const spoilers = useSpoilerAction(titleBarActions);
   const { panel, summary } = useWidgetOptionsDemo(mode === 'out' ? 'popped' : 'docked', opacity);
@@ -49,8 +55,10 @@ const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
         onClose={() => setClosed(true)}
         titleBarActions={spoilers.action}
         dragRegion={dragRegion}
+        disabled={offOf(props)}
+        onOpenSettings={() => setSettings(' Open settings pressed.')}
       />
-      <Text className="story-label widget-story__summary">{`${view.label}: ${summary}${spoilers.note}`}</Text>
+      <Text className="story-label widget-story__summary">{`${view.label}: ${summary}${spoilers.note}${settings}`}</Text>
     </Box>
   );
 };

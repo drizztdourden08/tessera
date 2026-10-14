@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta } from '@storylite/storylite';
-import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
+import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { WindowTitleBar } from '../../src/composites';
 import type { WindowControl, WindowControlsConfig, WindowTitleBarProps } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
@@ -11,6 +11,7 @@ import type { StateProps } from '../_template/states/states.type';
 import { brandLogoUri } from './_samples/brand-logo';
 import { buildTitleMenu } from './_samples/data-title-menu';
 import { titleBarActions } from './_samples/title-bar-actions';
+import { ARGS, ARG_TYPES } from './_samples/title-bar-args.constants';
 import type { TitleBarArgs } from './_samples/title-bar-args.type';
 import type { TitleBarGroupLook } from './_samples/title-bar-group.type';
 import { TitleBarGroupDemo } from './_samples/TitleBarGroupDemo';
@@ -34,9 +35,10 @@ const controlsOf = (args: TitleBarArgs): WindowControlsConfig => ({
   pin: args.pinButton,
   minimize: args.minimizeButton,
   maximize: args.maximizeButton,
+  close: args.closeButton,
 });
 
-const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
+const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean; noControls?: boolean }) => {
   const { title, withLogo, instanceName, withMenu, withActions, updateAvailable, pulse, concealed } = props;
   const [pinned, setPinned] = useState(false);
   const [maximized, setMaximized] = useState(props.maximized === true);
@@ -59,7 +61,7 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
         instance={instanceName ? { name: instanceName, logo: DEV_LOGO } : null}
         menu={withMenu ? buildTitleMenu(pick, false) : undefined}
         actions={withActions ? titleBarActions(pick, updateAvailable ? 'Update available' : null, pulse) : undefined}
-        controls={controlsOf(props)}
+        controls={props.noControls === true ? false : controlsOf(props)}
         pinned={pinned}
         maximized={maximized}
         fullscreen={fullscreen}
@@ -75,36 +77,6 @@ const TitleBarDemo = (props: TitleBarArgs & { maximized?: boolean }) => {
       </Box>
     </Box>
   );
-};
-
-const ARGS: Partial<TitleBarArgs> = {
-  title: 'Brock Demo',
-  withLogo: true,
-  instanceName: '',
-  withMenu: true,
-  withActions: true,
-  updateAvailable: true,
-  pulse: false,
-  concealed: false,
-  fullscreenButton: true,
-  pinButton: true,
-  minimizeButton: true,
-  maximizeButton: true,
-};
-
-const ARG_TYPES: PlaygroundArgTypes<TitleBarArgs> = {
-  title: { group: 'Content', control: 'text' },
-  withLogo: { group: 'Content', control: 'boolean' },
-  instanceName: { group: 'Content', control: 'text', description: 'Names a second copy of the app, such as a dev build, in a Status pill.' },
-  withMenu: { group: 'Content', control: 'boolean', description: 'Pass menu groups; the bar draws the hamburger and its menu.' },
-  withActions: { group: 'Content', control: 'boolean', description: 'Pass actions: Report a bug as a button and Check for updates as green status text.' },
-  fullscreenButton: { group: 'Content', control: 'boolean', description: 'controls.fullscreen' },
-  pinButton: { group: 'Content', control: 'boolean', description: 'controls.pin' },
-  minimizeButton: { group: 'Content', control: 'boolean', description: 'controls.minimize' },
-  maximizeButton: { group: 'Content', control: 'boolean', description: 'controls.maximize' },
-  updateAvailable: { group: 'State', control: 'boolean', description: 'Sets the status of Check for updates, which shows the green text in the bar and the menu subtitle.' },
-  pulse: { group: 'State', control: 'boolean', description: 'Sets pulse on Check for updates: a beating dot before its status text.' },
-  concealed: { group: 'State', control: 'boolean' },
 };
 
 const meta = {
@@ -131,6 +103,13 @@ const FewerButtons = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <TitleBarDemo {...args} withActions={false} fullscreenButton={false} pinButton={false} maximizeButton={false} />,
+} satisfies PlaygroundStory<TitleBarArgs>;
+
+const NoControls = {
+  name: 'No window buttons, for a host without them',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <TitleBarDemo {...args} noControls />,
 } satisfies PlaygroundStory<TitleBarArgs>;
 
 const SecondInstance = {
@@ -193,7 +172,7 @@ const Overview = overviewStory({
   component: 'WindowTitleBar',
   description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
   points: [
-    '`menu` takes [DropdownMenu] groups for the hamburger; `onControl` hears the window buttons, `controls` hides some.',
+    '`menu` takes [DropdownMenu] groups; `onControl` hears the window buttons; `controls` hides some, `false` all.',
     '`actions` add icon buttons with a tooltip of their label and `shortcut`; `tone` and `effect` mark the icon.',
     "An action with `bar: 'dropdown'` opens a menu of its own from `groups`, its icon marked the same way.",
     "A `bar: 'status'` action shows its `status` as text; `pulse` adds a beating dot while work runs.",
@@ -201,7 +180,7 @@ const Overview = overviewStory({
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, Narrow, OwnMenu, MarkedMenu, Resizable, FewerButtons, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, Narrow, OwnMenu, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed],
   states: {
     render: renderState,
     list: [
@@ -222,4 +201,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AppWindow, Concealed, FewerButtons, MarkedMenu, Maximized, Narrow, Overview, OwnMenu, Playground, Resizable, SecondInstance };
+export { AppWindow, Concealed, FewerButtons, MarkedMenu, Maximized, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance };

@@ -9,6 +9,7 @@ import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { ChoiceFitDemo } from './_samples/ChoiceFitDemo';
 import { everyKind, KIND_ORDER, rowOfKind } from './_samples/every-kind';
+import { LockedOptionsDemo } from './_samples/LockedOptionsDemo';
 import { RowMarksDemo } from './_samples/RowMarksDemo';
 import { useSampleSettings } from './_samples/settings-sample-state';
 
@@ -136,6 +137,11 @@ const ChoiceFitCompact = {
   render: () => <ChoiceFitDemo compact />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
+const LockedOptions = {
+  name: 'Options that cannot be picked, with a reason',
+  render: () => <LockedOptionsDemo />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
 const StateRow = (props: StateProps) => {
   const row = rowOfKind(useSampleSettings(), 'segmented');
   if (row === undefined) return null;
@@ -168,7 +174,7 @@ const Overview = overviewStory({
   component: 'SettingsRow',
   description: 'One setting: its title, a line under it, and the input on the right.',
   points: [
-    'The input is data: a `kind` such as `toggle`, `select` or `slider`, its props, `value` and `onChange`.',
+    'The input is data: a `kind`, its props, `value` and `onChange`; an option `disabled` with a string says why.',
     '**It never changes height:** the hint line under the description keeps room for every hint it can show.',
     '`changed` adds a dot and, with `onReset`, a reset button; `badge` sits after the title, `problem` under the row.',
     '`actions` puts buttons after the control, or in its place, each `loading` while the app runs it.',
@@ -176,7 +182,7 @@ const Overview = overviewStory({
     'Rows sit in a [SettingsSection], which draws the box, counts the changed rows and holds the `lock`.',
   ],
   playground: Playground,
-  variants: [Kinds, Compact, ReadOnly, Marks, MarksCompact, Busy, ChoiceFit, ChoiceFitCompact],
+  variants: [Kinds, Compact, ReadOnly, Marks, MarksCompact, Busy, ChoiceFit, ChoiceFitCompact, LockedOptions],
   states: {
     render: (props) => <StateRow {...props} />,
     list: [
@@ -192,4 +198,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Busy, ChoiceFit, ChoiceFitCompact, Compact, Kinds, Marks, MarksCompact, Overview, Playground, ReadOnly };
+export { Busy, ChoiceFit, ChoiceFitCompact, Compact, Kinds, LockedOptions, Marks, MarksCompact, Overview, Playground, ReadOnly };

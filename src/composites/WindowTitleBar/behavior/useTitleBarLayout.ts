@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import type { RefObject } from 'react';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { ALL_CONTROLS, NO_ACTIONS, NO_MENU } from '../WindowTitleBar.constants';
+import { ALL_CONTROLS, NO_ACTIONS, NO_CONTROLS, NO_MENU } from '../WindowTitleBar.constants';
 import type { WindowTitleBarProps } from '../WindowTitleBar.type';
 import { hideOrder } from './hide-order';
 import type { TitleBarLayout } from './title-bar-layout.type';
@@ -14,7 +14,8 @@ const useTitleBarLayout = (
   barRef: RefObject<HTMLElement | null>,
   brandRef: RefObject<HTMLElement | null>,
 ): TitleBarLayout => {
-  const { menu = NO_MENU, actions = NO_ACTIONS, controls = ALL_CONTROLS, pinned = false, fullscreen = false, onControl } = props;
+  const { menu = NO_MENU, actions = NO_ACTIONS, pinned = false, fullscreen = false, onControl } = props;
+  const controls = props.controls === false ? NO_CONTROLS : props.controls ?? ALL_CONTROLS;
   const { windows } = useTesseraStrings();
   const captureSlide = useBarSlide(barRef);
   const fit = useTitleBarFit(barRef, brandRef, hideOrder(actions, controls), captureSlide);

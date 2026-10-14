@@ -7,6 +7,7 @@ import { toggleValue } from '../field-control/toggle-value';
 import { useControlSize } from '../field-control/useControlSize';
 import { useHintReport } from '../hint/useHintReport';
 import { Small, Span } from '../text-elements';
+import { ToggleGroupButton } from './sub-components/ToggleGroupButton';
 import type { ToggleGroupProps } from './ToggleGroup.type';
 
 const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
@@ -25,22 +26,18 @@ const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
         </div>
       )}
       <div className="toggle-group__track" role="group" aria-label={label}>
-        {options.map((opt) => {
-          const active = value.includes(opt.value);
-          return (
-            <button
-              key={opt.value}
-              type="button"
-              aria-pressed={active}
-              className={`toggle-group__btn focus-ring-inset ${active ? 'toggle-group__btn--active' : ''}`}
-              onClick={() => toggle(opt.value)}
-              disabled={disabled || opt.disabled}
-              {...handlersFor(opt.value)}
-            >
-              {opt.label}
-            </button>
-          );
-        })}
+        {options.map((opt, index) => (
+          <ToggleGroupButton<T>
+            key={opt.value}
+            option={opt}
+            active={value.includes(opt.value)}
+            groupDisabled={disabled}
+            first={index === 0}
+            last={index === options.length - 1}
+            handlers={handlersFor(opt.value)}
+            onToggle={toggle}
+          />
+        ))}
       </div>
     </div>
   );

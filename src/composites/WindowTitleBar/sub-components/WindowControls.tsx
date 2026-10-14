@@ -4,7 +4,7 @@ import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { barItemProps } from '../behavior/bar-item-props';
-import { CONTROL_CLASS, FULLSCREEN_ITEM } from '../WindowTitleBar.constants';
+import { CAPTION_CONTROLS, CONTROL_CLASS, FULLSCREEN_ITEM } from '../WindowTitleBar.constants';
 import { CaptionGlyph } from './CaptionGlyph';
 import { TitleBarTip } from './TitleBarTip';
 import type { WindowControlsProps } from './WindowControls.type';
@@ -14,6 +14,7 @@ const WindowControls = (props: WindowControlsProps) => {
   const { common, windows } = useTesseraStrings();
   const fullLabel = fullscreen ? windows.exitFullscreen : windows.fullscreen;
   const maxLabel = maximized ? windows.restore : windows.maximize;
+  if (CAPTION_CONTROLS.every((control) => controls[control] === false)) return null;
 
   return (
     <Box className="window-title-bar__controls">
@@ -38,11 +39,13 @@ const WindowControls = (props: WindowControlsProps) => {
           </IconButton>
         </TitleBarTip>
       )}
-      <TitleBarTip label={common.close}>
-        <IconButton className={`${CONTROL_CLASS} ${CONTROL_CLASS}--close`} label={common.close} onClick={() => onControl('close')}>
-          <CaptionGlyph name="windowClose" />
-        </IconButton>
-      </TitleBarTip>
+      {controls.close !== false && (
+        <TitleBarTip label={common.close}>
+          <IconButton className={`${CONTROL_CLASS} ${CONTROL_CLASS}--close`} label={common.close} onClick={() => onControl('close')}>
+            <CaptionGlyph name="windowClose" />
+          </IconButton>
+        </TitleBarTip>
+      )}
     </Box>
   );
 };

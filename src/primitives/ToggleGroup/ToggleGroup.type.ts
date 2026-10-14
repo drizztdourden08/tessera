@@ -1,12 +1,12 @@
 /* @layer renderer-components @kind types */
 import type { ControlSize } from '../field-control/field-control.type';
-import type { Hint, HintReport } from '../hint/hint.type';
+import type { Hint, HintHandlers, HintReport } from '../hint/hint.type';
 
 interface ToggleOption<T extends string = string> {
   value: T;
   label: string;
   hint?: Hint;
-  disabled?: boolean;
+  disabled?: boolean | string;
 }
 
 interface ToggleGroupProps<T extends string = string> {
@@ -20,4 +20,14 @@ interface ToggleGroupProps<T extends string = string> {
   size?: ControlSize;
 }
 
-export type { ToggleOption, ToggleGroupProps };
+interface ToggleGroupButtonProps<T extends string> {
+  option: ToggleOption<T>;
+  active: boolean;
+  groupDisabled: boolean;
+  first: boolean;
+  last: boolean;
+  handlers: HintHandlers;
+  onToggle: (value: T) => void;
+}
+
+export type { ToggleGroupButtonProps, ToggleOption, ToggleGroupProps };

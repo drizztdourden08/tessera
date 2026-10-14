@@ -9,6 +9,7 @@ interface SettingsOption {
   value: string;
   label: string;
   hint?: string;
+  disabled?: boolean | string;
 }
 
 interface SettingsInputBase<K extends string, V> {

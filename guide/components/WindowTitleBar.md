@@ -29,6 +29,7 @@ WindowTitleBar is the one title bar of a frameless window, with the same brand, 
 ## Rules
 
 - The app owns the window state: pass maximized, fullscreen and pinned, and act on each control in onControl.
+- Hide a control the host lacks in controls, such as close: false; controls={false} hides them all, for a host with no window buttons.
 - Every action has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.
 - Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.
 - Keep the actions few: narrow windows move them into the main menu, then shrink the brand.
@@ -86,7 +87,7 @@ const AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }:
 - `menuLabel` (optional): `string`.
 - `onMenuOpenChange` (optional): `(open: boolean) => void`.
 - `actions` (optional): `readonly WindowTitleBarAction[]`.
-- `controls` (optional): `WindowControlsConfig`.
+- `controls` (optional): `WindowControlsConfig | false`.
 - `maximized` (optional): `boolean`.
 - `fullscreen` (optional): `boolean`. Default `false`.
 - `pinned` (optional): `boolean`.

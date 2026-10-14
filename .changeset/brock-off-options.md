@@ -1,0 +1,5 @@
+---
+'@drizztdourden08/tessera': minor
+---
+
+Options that are off with a reason, a title bar with no window buttons, and a disabled widget in its own window, for Brock. An option of a settings choice, RadioGroup, SegmentedControl, ToggleGroup and Select takes `disabled`, where a string is the reason: the option greys out, cannot be picked, the keys skip it, and the reason shows as a tooltip and is read as its description. SegmentedControl gains one Tab stop and the arrow keys, Home and End. WindowTitleBar `controls` takes `close: false`, and `controls={false}` hides every window control, the space they took closing up. Widget takes `disabled` and `onOpenSettings`, so a widget in its own window shows the disabled state a docked one shows; the overlay now covers the visible body.

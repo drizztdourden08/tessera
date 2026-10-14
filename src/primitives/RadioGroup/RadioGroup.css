@@ -62,7 +62,7 @@
   transition: border-color var(--transition-normal), background var(--transition-normal);
 }
 
-.radio-group__option:hover:not(.radio-group__option--active) {
+.radio-group__option:hover:not(.radio-group__option--active, .radio-group__option--disabled) {
   border-color: var(--c-border-strong);
   background: var(--c-hover);
 }
@@ -70,6 +70,11 @@
 .radio-group__option--active {
   border-color: var(--c-primary);
   background: var(--c-primary-soft);
+}
+
+.radio-group__option--disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
 }
 
 .radio-group__input {

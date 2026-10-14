@@ -31,6 +31,9 @@ const DIFFICULTIES: RadioOption<Difficulty>[] = [
 
 const SHORT: RadioOption<Difficulty>[] = DIFFICULTIES.map(({ value, label }) => ({ value, label }));
 
+const LOCKED: RadioOption<Difficulty>[] = DIFFICULTIES.map((option) =>
+  (option.value === 'hard' ? { ...option, disabled: 'Finish the game once on Normal first.' } : option));
+
 const ARGS: Partial<RadioGroupArgs> = { label: 'Difficulty', description: 'Applies to new sessions only.', direction: 'vertical', disabled: false, size: 'md' };
 
 const ARG_TYPES: PlaygroundArgTypes<RadioGroupArgs> = {
@@ -87,6 +90,16 @@ const Layouts = {
   ),
 } satisfies StoryLiteStoryDefinition<RadioGroupArgs>;
 
+const LockedOption = {
+  name: 'An option that cannot be picked, with a reason',
+  render: () => (
+    <Box className="story-column">
+      <StatefulRadio options={LOCKED} label="Difficulty" direction="vertical" />
+      <StatefulRadio options={LOCKED.map(({ value, label, disabled }) => ({ value, label, disabled }))} direction="horizontal" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<RadioGroupArgs>;
+
 const Sizes = sizesStory<RadioGroupArgs>((size) => <StatefulRadio options={SHORT} direction="horizontal" size={size} />);
 
 const DifficultyPick = (props: { disabled: boolean }) => {
@@ -123,10 +136,11 @@ const Overview = overviewStory({
     'It takes a group `label`, its legend and name, and a `description`, and can be `disabled` as a whole.',
     'Each group gets its own `name` from `useId`, so two groups without one never mix.',
     '`sm` makes the options compact, with a smaller dot and text.',
+    'An option takes `disabled`; a string is the reason, shown as a tooltip and read out. The arrows skip it.',
   ],
   instead: '[Select] for a long list, or [SegmentedControl] for a short one on one line.',
   playground: Playground,
-  variants: [Layouts, Sizes],
+  variants: [Layouts, Sizes, LockedOption],
   states: {
     render: renderState,
     list: [
@@ -140,4 +154,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Layouts, Overview, Playground, Sizes };
+export { Layouts, LockedOption, Overview, Playground, Sizes };

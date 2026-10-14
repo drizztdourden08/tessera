@@ -2,7 +2,8 @@
 import '../../theme/focus-ring.css';
 import './Tabs.css';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
-import { tabIndexForKey } from './behavior/tab-index-for-key';
+import { rovingIndex } from '../field-control/roving-index';
+import { STEP_BY_KEY } from './behavior/tab-steps.constants';
 import { useTabStripOverflow } from './behavior/useTabStripOverflow';
 import type { TabsProps } from './Tabs.type';
 import { TabsPager } from './sub-components/TabsPager';
@@ -16,7 +17,7 @@ const Tabs = (props: TabsProps) => {
   const { fields } = useTesseraStrings();
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number): void => {
-    const next = tabIndexForKey(event.key, index, tabs.map((tab) => tab.disabled !== true));
+    const next = rovingIndex(event.key, index, tabs.map((tab) => tab.disabled !== true), STEP_BY_KEY);
     if (next === null || next === index) return;
     event.preventDefault();
     const target = tabs[next];

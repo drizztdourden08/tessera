@@ -13,17 +13,17 @@
   transition: color var(--transition-normal), background var(--transition-normal);
 }
 
-.toggle-group__btn:first-child {
+.toggle-group__btn[data-first] {
   border-start-start-radius: calc(var(--radius-md) - var(--border-width-thin));
   border-end-start-radius: calc(var(--radius-md) - var(--border-width-thin));
 }
 
-.toggle-group__btn:last-child {
+.toggle-group__btn[data-last] {
   border-start-end-radius: calc(var(--radius-md) - var(--border-width-thin));
   border-end-end-radius: calc(var(--radius-md) - var(--border-width-thin));
 }
 
-.toggle-group__btn + .toggle-group__btn {
+.toggle-group__btn:not([data-first]) {
   border-inline-start: var(--border-width-thin) solid var(--c-border);
 }
 
@@ -49,11 +49,11 @@
   pointer-events: none;
 }
 
-.toggle-group__btn--active:first-child::after {
+.toggle-group__btn--active[data-first]::after {
   inset-inline-start: 0;
 }
 
-.toggle-group__btn--active:last-child::after {
+.toggle-group__btn--active[data-last]::after {
   inset-inline-end: 0;
 }
 

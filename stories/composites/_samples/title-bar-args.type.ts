@@ -12,6 +12,7 @@ type TitleBarArgs = {
   pinButton: boolean;
   minimizeButton: boolean;
   maximizeButton: boolean;
+  closeButton: boolean;
 };
 
 export type { TitleBarArgs };

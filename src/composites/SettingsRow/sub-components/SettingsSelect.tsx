@@ -11,7 +11,7 @@ const SettingsSelect = (props: SettingsSelectProps) => {
     <Select
       value={input.value}
       onChange={input.onChange}
-      options={input.options.map((option) => ({ value: option.value, label: option.label }))}
+      options={input.options.map((option) => ({ value: option.value, label: option.label, disabled: option.disabled }))}
       searchable={input.searchable}
       disabled={disabled}
       aria-label={label}

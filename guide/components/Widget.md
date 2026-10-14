@@ -32,6 +32,7 @@ Widget and WidgetManager give every tool panel the same frame, dock and options,
 - Answer contextActive with one flag, or with a function that reads each definition, such as its own context field.
 - Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.
 - Give a log or a chart fill in its definition, and leave the other widgets on the default padding.
+- A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.
 - Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.
 - To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest.
 
@@ -40,6 +41,7 @@ Widget and WidgetManager give every tool panel the same frame, dock and options,
 - Each widget is a region named by its title, or by its open tab in a tabbed pane; pop out, options and close are icon buttons named with it.
 - Each widget carries data-widget-id and each pane data-pane-id, for tests.
 - A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown.
+- A disabled widget keeps its frame working; its body is inert and marked aria-disabled, with the reason over it.
 
 ## Example
 
@@ -91,8 +93,10 @@ const Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {
 - `titleBarActions` (optional): `ReactNode`.
 - `square` (optional): `boolean`.
 - `dragRegion` (optional): `boolean`.
-- `padding` (optional): `WidgetPadding`, one of `'none'`, `'sm'`, `'md'`. Default `'sm'`.
-- `fill` (optional): `boolean`. Default `false`.
+- `disabled` (optional): `boolean | string`.
+- `onOpenSettings` (optional): `() => void`.
+- `padding` (optional): `WidgetPadding`, one of `'none'`, `'sm'`, `'md'`.
+- `fill` (optional): `boolean`.
 
 ## Tokens
 

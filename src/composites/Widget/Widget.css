@@ -158,8 +158,7 @@
   padding: var(--space-md);
 }
 
-.widget__content[data-fill] > *,
-.widget__content[data-fill] > .disabled-overlay > .disabled-overlay__content {
+.widget__content[data-fill] > * {
   display: flex;
   flex: 1;
   flex-direction: column;

@@ -9559,13 +9559,15 @@
         "Answer contextActive with one flag, or with a function that reads each definition, such as its own context field.",
         "Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.",
         "Give a log or a chart fill in its definition, and leave the other widgets on the default padding.",
+        "A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.",
         "Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.",
         "To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest."
       ],
       "a11y": [
         "Each widget is a region named by its title, or by its open tab in a tabbed pane; pop out, options and close are icon buttons named with it.",
         "Each widget carries data-widget-id and each pane data-pane-id, for tests.",
-        "A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown."
+        "A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown.",
+        "A disabled widget keeps its frame working; its body is inert and marked aria-disabled, with the reason over it."
       ],
       "tree": {
         "path": [
@@ -9575,7 +9577,7 @@
         "rule": "Widget and WidgetManager give every tool panel the same frame, dock and options, with the app holding the layout."
       },
       "example": "import { useCallback } from 'react';\nimport type { ReactNode } from 'react';\nimport { WidgetManager, useWidgetLayout } from '@drizztdourden08/tessera';\nimport type { WidgetDefinition, WidgetPersistenceIO } from '@drizztdourden08/tessera';\n\ninterface AppWidget extends WidgetDefinition {\n  context?: 'session' | 'race';\n}\n\ninterface DashboardProps {\n  definitions: readonly AppWidget[];\n  running: Record<'session' | 'race', boolean>;\n  io: WidgetPersistenceIO;\n  panels: Record<string, ReactNode>;\n}\n\nconst Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {\n  const { layout, setLayout } = useWidgetLayout({ definitions, profileId: 'main', io, storageKey: 'dashboard' });\n  const contextActive = useCallback((widget: AppWidget) => widget.context === undefined || running[widget.context], [running]);\n  return (\n    <WidgetManager definitions={definitions} layout={layout} onLayoutChange={setLayout} contextActive={contextActive}>\n      {panels}\n    </WidgetManager>\n  );\n};\n",
-      "propsHash": "77dab66a0099de6b",
+      "propsHash": "89df5d7af7948561",
       "props": {
         "own": [
           {
@@ -9674,6 +9676,16 @@
             "text": "boolean"
           },
           {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean | string"
+          },
+          {
+            "name": "onOpenSettings",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
             "name": "padding",
             "optional": true,
             "text": "WidgetPadding",
@@ -9681,14 +9693,12 @@
               "'none'",
               "'sm'",
               "'md'"
-            ],
-            "default": "'sm'"
+            ]
           },
           {
             "name": "fill",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           }
         ],
         "inherited": {
@@ -9818,6 +9828,7 @@
       ],
       "rules": [
         "The app owns the window state: pass maximized, fullscreen and pinned, and act on each control in onControl.",
+        "Hide a control the host lacks in controls, such as close: false; controls={false} hides them all, for a host with no window buttons.",
         "Every action has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.",
         "Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.",
         "Keep the actions few: narrow windows move them into the main menu, then shrink the brand."
@@ -9836,7 +9847,7 @@
         "rule": "WindowTitleBar is the one title bar of a frameless window, with the same brand, menu and controls in every app."
       },
       "example": "import { WindowTitleBar } from '@drizztdourden08/tessera';\nimport type { MenuGroup, WindowControl, WindowTitleBarAction } from '@drizztdourden08/tessera';\n\ninterface AppTitleBarProps {\n  menu: MenuGroup[];\n  grouped: boolean;\n  maximized: boolean;\n  onGroup: (grouped: boolean) => void;\n  onSearch: () => void;\n  onControl: (control: WindowControl) => void;\n}\n\nconst AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }: AppTitleBarProps) => {\n  const actions: WindowTitleBarAction[] = [\n    { id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K', tone: 'primary', onSelect: onSearch },\n    {\n      id: 'group',\n      icon: 'group',\n      label: 'Window group',\n      bar: 'dropdown',\n      tone: grouped ? 'info' : undefined,\n      effect: grouped ? 'ping' : undefined,\n      groups: [{\n        id: 'group',\n        items: [\n          { id: 'alone', kind: 'radio', label: 'No group', checked: !grouped, onSelect: () => onGroup(false) },\n          { id: 'grouped', kind: 'radio', label: 'Group with the main window', checked: grouped, onSelect: () => onGroup(true) },\n        ],\n      }],\n    },\n  ];\n  return <WindowTitleBar title=\"Brock\" menu={menu} actions={actions} maximized={maximized} onControl={onControl} />;\n};\n",
-      "propsHash": "a243049f1f4c1c38",
+      "propsHash": "ac0e296f6c9a51c9",
       "props": {
         "own": [
           {
@@ -9877,7 +9888,7 @@
           {
             "name": "controls",
             "optional": true,
-            "text": "WindowControlsConfig"
+            "text": "WindowControlsConfig | false"
           },
           {
             "name": "maximized",

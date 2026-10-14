@@ -14,7 +14,7 @@ type BrandFit = 'full' | 'logo' | 'small' | 'none';
 
 type WindowControl = 'fullscreen' | 'pin' | 'minimize' | 'maximize' | 'close';
 
-type WindowControlsConfig = Partial<Record<Exclude<WindowControl, 'close'>, boolean>>;
+type WindowControlsConfig = Partial<Record<WindowControl, boolean>>;
 
 type WindowTitleBarActionBar = 'button' | 'status' | 'menu' | 'dropdown';
 
@@ -49,7 +49,7 @@ interface WindowTitleBarProps {
   menuLabel?: string;
   onMenuOpenChange?: (open: boolean) => void;
   actions?: readonly WindowTitleBarAction[];
-  controls?: WindowControlsConfig;
+  controls?: WindowControlsConfig | false;
   maximized?: boolean;
   fullscreen?: boolean;
   pinned?: boolean;

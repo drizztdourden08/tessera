@@ -28,14 +28,14 @@ const INPUT_RENDERERS: InputRenderers = {
     value: input.value,
     onChange: input.onChange,
     options: input.options.map((option) => (compact
-      ? { value: option.value, label: option.label, hint: optionHint(option) }
-      : { value: option.value, label: option.label, description: option.hint })),
+      ? { value: option.value, label: option.label, hint: optionHint(option), disabled: option.disabled }
+      : { value: option.value, label: option.label, description: option.hint, disabled: option.disabled })),
     disabled,
   }),
   multi: (input, { disabled }) => h(ToggleGroup, {
     value: [...input.value],
     onChange: input.onChange,
-    options: input.options.map((option) => ({ value: option.value, label: option.label, hint: optionHint(option) })),
+    options: input.options.map((option) => ({ value: option.value, label: option.label, hint: optionHint(option), disabled: option.disabled })),
     disabled,
   }),
   slider: (input, { label, disabled, strings }) => h(Slider, {

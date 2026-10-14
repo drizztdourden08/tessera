@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { ControlName } from '../field-control/control-name.type';
 import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintHandlers, HintReport } from '../hint/hint.type';
@@ -9,7 +9,7 @@ interface SegmentOptionBase<T extends string> {
   value: T;
   title?: string;
   hint?: Hint;
-  disabled?: boolean;
+  disabled?: boolean | string;
 }
 
 interface SegmentTextOption<T extends string> extends SegmentOptionBase<T> {
@@ -41,13 +41,31 @@ interface SegmentButtonProps<T extends string> {
   option: SegmentOption<T>;
   active: boolean;
   disabled: boolean;
+  reason?: string;
+  stop: boolean;
   size: ControlSize;
   handlers: HintHandlers;
   onSelect: () => void;
+  onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
+}
+
+interface SegmentKeysInput<T extends string> {
+  trackRef: RefObject<HTMLElement | null>;
+  options: readonly SegmentOption<T>[];
+  enabled: readonly boolean[];
+  value: T;
+  pick: (value: T) => void;
+}
+
+interface SegmentKeys {
+  stop: number;
+  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
 export type {
   SegmentButtonProps,
+  SegmentKeys,
+  SegmentKeysInput,
   SegmentIconOption,
   SegmentOption,
   SegmentTextOption,

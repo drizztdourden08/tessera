@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
-import { DisabledOverlay } from '../../DisabledOverlay';
 import { Widget } from '../Widget';
 import { frameOf } from '../behavior/frame-of';
 import type { WidgetPaneProps } from './WidgetPane.type';
@@ -29,10 +28,10 @@ const WidgetPane = (props: WidgetPaneProps) => {
       canPopOut={api.canPopOut(activeId)}
       onClose={() => api.close(activeId)}
       titleBarActions={api.actionsOf(activeId)}
+      disabled={disabled === null ? undefined : disabled.message || true}
+      onOpenSettings={onOpenSettings}
     >
-      <DisabledOverlay active={disabled !== null} message={disabled?.message} contained onOpenSettings={onOpenSettings}>
-        {api.contentOf(activeId)}
-      </DisabledOverlay>
+      {api.contentOf(activeId)}
     </Widget>
   );
 };

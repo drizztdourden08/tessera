@@ -7256,3 +7256,82 @@ interface LogPanelProps {
 - **DataInspector** passes `listRatio` (0.63 for a record, 0.4 while it compares two), `resizable={false}` as now, `collapsible={false}`, `detailCollapsible` with `detailCollapsed` and `onDetailCollapsedChange` from its `detailCollapsed` and `toggleDetail`, `detailLabel` from the collection or Comparison, and `listScroll={false}` with `detailScroll={false}`. It drops the five `.list-detail-layout__*` rules in `DataInspector.css`, with their `!important`, and `CollapsibleDetail` with its CSS; the two modifier classes `--folded` and `--comparing` go too. Its detail content pads itself in place of resetting the pane's padding.
 - `blank-value.ts` and `MAX_BLANK_DEPTH` give way to `blankValue` from `@drizztdourden08/tessera/data`, the local `IDENTITY_PATH` to the one from `/composites`, and the test copy `scroll-sync-controller.ts` to `createScrollSyncController` from `/primitives`.
 - The simulator's LogDialog and the Randomizer's activity log can pass `selectedIds` and `onSelectionChange` where the user should pick lines to copy or report.
+
+## 224. Options that are off with a reason, a title bar with no window buttons, and a disabled widget in its own window
+
+From Brock. Its display settings offer refresh rates and window modes that a given computer may not support, a mobile host keeps the title bar but has no window buttons, and a widget popped into its own window drew without the disabled state a docked one shows. Each is now an option any app can use.
+
+### Options that are off, with a reason
+
+```ts
+interface SettingsOption {
+  value: string;
+  label: string;
+  hint?: string;
+  disabled?: boolean | string; // added: a string is the reason
+}
+
+interface RadioOption<T extends string = string> {
+  disabled?: boolean | string; // added
+}
+
+interface SegmentOption<T extends string = string> {
+  disabled?: boolean | string; // was boolean
+}
+
+interface ToggleOption<T extends string = string> {
+  disabled?: boolean | string; // was boolean
+}
+
+interface SelectOption {
+  disabled?: boolean | string; // was boolean
+}
+```
+
+- **One shape everywhere.** An option takes `disabled`: `true` turns it off, and a string turns it off and says why. A `SettingsOption` passes it to every control a settings choice draws as: `SegmentedControl` for `segmented`, `Select` for `select` and for a segmented row too narrow for its segments, `RadioGroup` for `radio`, and the `ToggleGroup` chips for `multi`.
+- **Off means off.** The option draws at the disabled opacity, a click does nothing, and the keys skip it: the native radio and button keys in RadioGroup and ToggleGroup, the list keys in Select, and the new segment keys below.
+- **The reason, as on a tab.** As with `disabledReason` on a tab (section 222), the reason shows as a Tooltip while the pointer is on the option, and the option carries it as `aria-description`, so a screen reader reads it with the option. The tooltip follows the pointer (section 221) and its anchor takes no box of its own, so the controls keep their layout; in Select the option stays a row of the list grid.
+- **SegmentedControl takes the arrow keys.** It is a radio group, so it now has one Tab stop, the picked option or the first open one, and the arrow keys, Home and End pick the next open option and move focus to it, skipping the ones that are off. Before, each segment was its own Tab stop and the arrows did nothing.
+- **ToggleGroup marks its ends.** The first and last button carry `data-first` and `data-last`, and the rounded ends and the lines between buttons follow them in place of `:first-child`, `:last-child` and `+`, so a button inside its reason tooltip keeps its look.
+- **The arrow helper is shared.** The function behind the Tabs arrow keys moved to the field controls as `rovingIndex(key, current, enabled, steps)`, used by Tabs and SegmentedControl. It is internal; nothing public changes.
+
+### WindowTitleBar with no window controls
+
+```ts
+type WindowControlsConfig = Partial<Record<WindowControl, boolean>>; // close added
+
+interface WindowTitleBarProps {
+  controls?: WindowControlsConfig | false; // false added: no window controls at all
+}
+```
+
+- `controls` already hid single controls; it now takes `close: false` too, and `controls={false}` hides every window control: fullscreen, pin, minimize, maximize and close, with the pin and fullscreen items of the View menu.
+- With no control left, the controls box is not drawn, so the space it took closes up. The title stays centred, and the menu and the actions stay at the start; the narrow window fit measures the bar without the box.
+- Without `close`, the bar draws close as before.
+
+### A disabled Widget in its own window
+
+```ts
+interface WidgetProps {
+  disabled?: boolean | string; // added: a string is the reason
+  onOpenSettings?: () => void; // added: the Open Settings button on the disabled state
+}
+```
+
+- `Widget` takes `disabled`. It covers the body with the DisabledOverlay that WidgetManager draws over a docked widget: the content blurred, inert and `aria-disabled`, with the reason, or the default Disabled, over it, and Open Settings when `onOpenSettings` is set. The title bar keeps working, so pop in, the options and close still answer.
+- WidgetManager now draws its docked state through the same prop, so the two cannot drift apart.
+- The overlay now covers the body box, not the scrolling content. Before, a long body put the message in the middle of the whole content, often out of view; now it sits in the middle of the visible body, docked and popped alike.
+
+### Gallery
+
+- SettingsRow gains **Options that cannot be picked, with a reason**: a segmented rate, a select of window modes, a radio for frame sync and the overlay chips, each with one option off.
+- RadioGroup gains **An option that cannot be picked, with a reason**, and the SegmentedControl state One option disabled has a reason.
+- WindowTitleBar gains **No window buttons, for a host without them**, and the playground a close control.
+- Widget gains **Own window, disabled with a reason**, and the playground a disabled control.
+- The SettingsRow, RadioGroup, SegmentedControl, WindowTitleBar and Widget overviews name the new options.
+
+### What Brock does
+
+- The display settings pass `disabled` with the reason on the options the computer lacks, such as a refresh rate above what the display offers, in place of turning the whole row off.
+- The mobile host passes `controls={false}` to its title bar.
+- The popped widget window passes `disabled` to the `Widget` it draws, from the same answer `resolveDisabled` gives the dock, with `onOpenSettings` to open the setting, so a popped widget shows the same state as a docked one.

@@ -3,7 +3,8 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Tabs } from '../src/primitives/Tabs';
-import { tabIndexForKey } from '../src/primitives/Tabs/behavior/tab-index-for-key';
+import { rovingIndex } from '../src/primitives/field-control/roving-index';
+import { STEP_BY_KEY } from '../src/primitives/Tabs/behavior/tab-steps.constants';
 
 const noop = () => undefined;
 const TABS = [
@@ -14,22 +15,22 @@ const TABS = [
 ];
 const ENABLED = TABS.map((tab) => tab.disabled !== true);
 
-describe('tabIndexForKey', () => {
+describe('rovingIndex', () => {
   it('steps over disabled tabs and wraps round', () => {
-    expect(tabIndexForKey('ArrowRight', 0, ENABLED)).toBe(2);
-    expect(tabIndexForKey('ArrowRight', 2, ENABLED)).toBe(0);
-    expect(tabIndexForKey('ArrowLeft', 0, ENABLED)).toBe(2);
-    expect(tabIndexForKey('ArrowLeft', 1, ENABLED)).toBe(0);
+    expect(rovingIndex('ArrowRight', 0, ENABLED, STEP_BY_KEY)).toBe(2);
+    expect(rovingIndex('ArrowRight', 2, ENABLED, STEP_BY_KEY)).toBe(0);
+    expect(rovingIndex('ArrowLeft', 0, ENABLED, STEP_BY_KEY)).toBe(2);
+    expect(rovingIndex('ArrowLeft', 1, ENABLED, STEP_BY_KEY)).toBe(0);
   });
 
   it('sends Home and End to the first and last tab that can open', () => {
-    expect(tabIndexForKey('Home', 2, [false, true, true])).toBe(1);
-    expect(tabIndexForKey('End', 0, ENABLED)).toBe(2);
+    expect(rovingIndex('Home', 2, [false, true, true], STEP_BY_KEY)).toBe(1);
+    expect(rovingIndex('End', 0, ENABLED, STEP_BY_KEY)).toBe(2);
   });
 
   it('moves nowhere when no tab can open, or for a key that does not step', () => {
-    expect(tabIndexForKey('ArrowRight', 0, [false, false])).toBeNull();
-    expect(tabIndexForKey('Enter', 0, ENABLED)).toBeNull();
+    expect(rovingIndex('ArrowRight', 0, [false, false], STEP_BY_KEY)).toBeNull();
+    expect(rovingIndex('Enter', 0, ENABLED, STEP_BY_KEY)).toBeNull();
   });
 });
 

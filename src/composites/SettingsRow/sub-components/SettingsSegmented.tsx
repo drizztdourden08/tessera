@@ -14,7 +14,7 @@ const ignore = () => undefined;
 const SettingsSegmented = (props: SettingsSegmentedProps) => {
   const { input, label, disabled, compact } = props;
   const probeRef = useRef<HTMLElement>(null);
-  const options = input.options.map((option) => ({ value: option.value, label: option.label, hint: optionHint(option) }));
+  const options = input.options.map((option) => ({ value: option.value, label: option.label, hint: optionHint(option), disabled: option.disabled }));
   const fits = useChoiceFit(probeRef, settingsChoiceRoom(compact), [String(compact), ...options.map((option) => option.label)].join('\n'));
 
   return (

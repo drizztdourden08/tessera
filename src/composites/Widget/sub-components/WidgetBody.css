@@ -1,0 +1,12 @@
+/* @layer renderer-components @kind style */
+.disabled-overlay.widget__off,
+.widget__off > .disabled-overlay__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.disabled-overlay.widget__off {
+  padding: var(--space-xs);
+}

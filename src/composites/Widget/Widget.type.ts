@@ -93,6 +93,8 @@ interface WidgetProps extends WidgetBodyLook {
   titleBarActions?: ReactNode;
   square?: boolean;
   dragRegion?: boolean;
+  disabled?: boolean | string;
+  onOpenSettings?: () => void;
 }
 
 export type {

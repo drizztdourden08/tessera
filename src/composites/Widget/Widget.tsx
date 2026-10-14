@@ -2,15 +2,15 @@
 import { useId, useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { Box } from '../../primitives/Box';
-import { ScrollArea } from '../../primitives/ScrollArea';
 import { widgetClass } from './behavior/widget-class';
 import { widgetName } from './behavior/widget-name';
+import { WidgetBody } from './sub-components/WidgetBody';
 import { WidgetTitlebar } from './sub-components/WidgetTitlebar';
 import type { WidgetProps } from './Widget.type';
 import './Widget.css';
 
 const Widget = (props: WidgetProps) => {
-  const { id, tabs, opacity, peek = false, padding = 'sm', fill = false, children } = props;
+  const { id, tabs, opacity, peek = false, padding, fill, disabled, onOpenSettings, children } = props;
   const titleId = useId();
   const titled = tabs.length <= 1;
   const [hovered, setHovered] = useState(false);
@@ -29,17 +29,7 @@ const Widget = (props: WidgetProps) => {
       onMouseLeave={() => setHovered(false)}
     >
       <WidgetTitlebar {...props} titleId={titleId} />
-      {!peek && (
-        <ScrollArea
-          axis="both"
-          scrollbar="slim"
-          fade={false}
-          className={`widget__content widget__content--pad-${padding}`}
-          data-fill={fill || undefined}
-        >
-          {children}
-        </ScrollArea>
-      )}
+      {!peek && <WidgetBody padding={padding} fill={fill} disabled={disabled} onOpenSettings={onOpenSettings}>{children}</WidgetBody>}
     </Box>
   );
 };

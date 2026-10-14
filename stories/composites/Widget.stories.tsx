@@ -21,6 +21,7 @@ type WidgetArgs = {
   opacity: number;
   canPopOut: boolean;
   contextActive: boolean;
+  disabled: boolean;
   disabledWidget: string;
   disabledMessage: string;
   makeRoomHint: string;
@@ -38,6 +39,7 @@ const ARGS: Partial<WidgetArgs> = {
   opacity: 0.92,
   canPopOut: true,
   contextActive: true,
+  disabled: false,
   disabledWidget: 'none',
   disabledMessage: 'Hint sharing is off for this session.',
   makeRoomHint: 'The session view shrinks to fit this widget',
@@ -46,13 +48,14 @@ const ARGS: Partial<WidgetArgs> = {
 const ARG_TYPES: PlaygroundArgTypes<WidgetArgs> = {
   tabbed: { group: 'Content', control: 'boolean', description: 'The pane holds two widgets, shown as tab chips.' },
   titleBarActions: { group: 'Content', control: 'boolean', description: 'The widget adds a button of its own through titleBarActions: a spoiler toggle before the built-in buttons.' },
-  disabledMessage: { group: 'Content', control: 'text' },
+  disabledMessage: { group: 'Content', control: 'text', description: 'The reason on the disabled state, as disabled takes it.' },
   makeRoomHint: { group: 'Content', control: 'text', description: 'Dock only: the hint under Make room in each widget\'s options' },
   opacity: { group: 'Appearance', control: 'range', min: 0, max: 1, step: 0.05, description: 'Frame opacity, 0 to 1. The content stays opaque; hover makes the frame solid.' },
   mode: { group: 'Layout', control: 'select', options: ['in', 'out'], description: 'out draws the frame as its own window: a pop in button and the pin menu.' },
   square: { group: 'Layout', control: 'boolean', description: 'For a widget window shown fullscreen: no corner radius and no outer border.' },
   dragRegion: { group: 'Layout', control: 'boolean', description: 'In its own window: the title strip moves the window, its buttons stay clickable. Dashed here: the drag region; solid: kept clickable.' },
   peek: { group: 'State', control: 'boolean', description: 'Folded to its title strip.' },
+  disabled: { group: 'State', control: 'boolean', description: 'Covers the body with the disabled state, as a docked widget shows it.' },
   contextActive: { group: 'State', control: 'boolean', description: 'Dock only: a session is running. Players and Hints show only in context.' },
   disabledWidget: { group: 'State', control: 'select', options: ['none', 'players', 'log', 'hints', 'console'], description: 'Dock only: covered through resolveDisabled' },
   canPopOut: { group: 'Behaviour', control: 'boolean' },
@@ -78,6 +81,7 @@ const OwnActions = story('Own window, with a title bar action', { mode: 'out', t
 const Fullscreen = story('Own window, fullscreen', { mode: 'out', square: true });
 const DragStrip = story('Own window, the title strip moves the window', { mode: 'out', titleBarActions: true, dragRegion: true });
 const Folded = story('Peek', { peek: true });
+const OffInWindow = story('Own window, disabled with a reason', { mode: 'out', disabled: true });
 
 const Dock = {
   name: 'Session dashboard dock',
@@ -137,11 +141,11 @@ const Overview = overviewStory({
     '`titleBarActions` adds buttons; in its own window `pin` keeps it on top and `dragRegion` lets the strip move it.',
     'Each widget is a region named by its title or open tab, with `data-widget-id`; a pane has `data-pane-id`.',
     'The body scrolls in its gutter with `padding`, `sm` by default, or `none` or `md`; `fill` makes a full height column.',
-    '`options` puts [WidgetOptions], a [ControlMenu], on the gear; `WidgetManager` places a whole dock from a layout.',
-    '`WidgetManager` hides context only widgets by `contextActive`: one flag, or a function per widget definition.',
+    '`options` puts [WidgetOptions] on the gear; `WidgetManager` lays out a dock and hides widgets out of context.',
+    '`disabled` covers the body, a string as the reason; docked or in its own window, the look is the same.',
   ],
   playground: Playground,
-  variants: [Single, Tabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, Folded, Bodies, Dock, PerWidget, Performance],
+  variants: [Single, Tabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, OffInWindow, Folded, Bodies, Dock, PerWidget, Performance],
   states: {
     render: renderState,
     list: [
@@ -155,4 +159,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Bodies, Dock, DragStrip, Folded, Fullscreen, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };
+export { Bodies, Dock, DragStrip, Folded, Fullscreen, OffInWindow, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };

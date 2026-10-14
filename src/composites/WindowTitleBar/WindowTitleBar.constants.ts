@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { BarFit } from './behavior/bar-fit.type';
-import type { WindowControlsConfig, WindowTitleBarProps } from './WindowTitleBar.type';
+import type { WindowControl, WindowControlsConfig, WindowTitleBarProps } from './WindowTitleBar.type';
 
 const PEEK_ZONE_PX = 40;
 
@@ -44,6 +44,10 @@ const NO_MENU: NonNullable<WindowTitleBarProps['menu']> = [];
 
 const ALL_CONTROLS: WindowControlsConfig = {};
 
+const NO_CONTROLS: WindowControlsConfig = { fullscreen: false, pin: false, minimize: false, maximize: false, close: false };
+
+const CAPTION_CONTROLS: readonly WindowControl[] = ['fullscreen', 'minimize', 'maximize', 'close'];
+
 const BAR_GROUP_ID = 'window-title-bar';
 
 const VIEW_ITEM_ID = 'window-title-bar-view';
@@ -61,7 +65,7 @@ const STATUS_STAGGER_MS = 40;
 const STATUS_REPEAT_MS = 4000;
 
 export {
-  ACTION_ITEM_PREFIX, ALL_CONTROLS, NO_ACTIONS, NO_MENU, BAR_GROUP_ID, BRAND_CLEARANCE_PX, CAPTION_GLYPH_SIZE, CAPTION_STROKE, CONTROL_CLASS, CONTROLS_SELECTOR, FULL_FIT, FULLSCREEN_ITEM,
+  ACTION_ITEM_PREFIX, ALL_CONTROLS, CAPTION_CONTROLS, NO_ACTIONS, NO_CONTROLS, NO_MENU, BAR_GROUP_ID, BRAND_CLEARANCE_PX, CAPTION_GLYPH_SIZE, CAPTION_STROKE, CONTROL_CLASS, CONTROLS_SELECTOR, FULL_FIT, FULLSCREEN_ITEM,
   ITEM_ATTRIBUTE, ITEM_AWAY_CLASS, ITEM_SELECTOR, LOGO_SELECTOR, MAIN_MENU_ID, MARK_CLEARANCE_PX, MIN_SHIFT_PX, PEEK_ZONE_PX, PIN_ITEM, PROBE_SELECTOR,
   SLIDE_ANIMATION_ID, SLIDE_DURATION_TOKEN, SLIDE_EASE_TOKEN, START_SELECTOR, STATUS_REPEAT_MS, STATUS_STAGGER_MS, VIEW_ITEM_ID,
 };
