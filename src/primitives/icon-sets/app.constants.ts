@@ -47,6 +47,10 @@ import personStandingIcon from '@iconify-icons/lucide/person-standing';
 import languagesIcon from '@iconify-icons/lucide/languages';
 import musicIcon from '@iconify-icons/lucide/music';
 import layoutDashboardIcon from '@iconify-icons/lucide/layout-dashboard';
+import skullIcon from '@iconify-icons/lucide/skull';
+import shovelIcon from '@iconify-icons/lucide/shovel';
+import treeDeciduousIcon from '@iconify-icons/lucide/tree-deciduous';
+import wavesIcon from '@iconify-icons/lucide/waves';
 
 const APP_ICONS = {
   'house': houseIcon,
@@ -97,6 +101,12 @@ const APP_ICONS = {
   'languages': languagesIcon,
   'music': musicIcon,
   'layout-dashboard': layoutDashboardIcon,
+  'skull': skullIcon,
+  'shovel': shovelIcon,
+  'tree-deciduous': treeDeciduousIcon,
+  'tree': treeDeciduousIcon,
+  'waves': wavesIcon,
+  'water': wavesIcon,
 } as const;
 
 export { APP_ICONS };

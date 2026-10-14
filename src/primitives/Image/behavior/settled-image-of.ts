@@ -8,6 +8,7 @@ const settledImageOf = (source: string, img: HTMLImageElement, loaded: boolean):
     source,
     status: loaded ? 'loaded' : 'broken',
     ratio: loaded && hasSize ? `${naturalWidth} / ${naturalHeight}` : undefined,
+    natural: loaded && hasSize ? { width: naturalWidth, height: naturalHeight } : undefined,
   };
 };
 

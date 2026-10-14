@@ -989,7 +989,8 @@
         "Pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.",
         "A later change to defaultOpen opens or closes it, so a part can open it when a job fails.",
         "Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.",
-        "Use size sm for a line in small text, such as inside a settings row."
+        "Use size sm for a line in small text, such as inside a settings row.",
+        "Pass bodyClassName to lay out the body, such as a column of rows with a gap, in place of a selector on its class."
       ],
       "a11y": [
         "It is the browser details element: Enter and Space toggle the line, and screen readers say whether it is open.",
@@ -1003,7 +1004,7 @@
         "rule": "Disclosure shows or hides what is under one line with the browser details element, with one look for every app."
       },
       "example": "import { Disclosure, Paragraph } from '@drizztdourden08/tessera';\n\nconst ReleaseNotes = ({ notes }: { notes: string }) => (\n  <Disclosure summary=\"What is new\">\n    <Paragraph tone=\"dim\">{notes}</Paragraph>\n  </Disclosure>\n);\n",
-      "propsHash": "92d1053780b43caf",
+      "propsHash": "962e5c6e4acd7bf9",
       "props": {
         "own": [
           {
@@ -1044,6 +1045,11 @@
           },
           {
             "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "bodyClassName",
             "optional": true,
             "text": "string"
           }
@@ -6794,7 +6800,8 @@
         "Pass index and onIndexChange, or defaultIndex, to open on the item the user pressed.",
         "Draw the small picture with Expand as a recipe: an Image in a Pressable and a Button that set open.",
         "Pass startAt in seconds when a small video preview was playing, so the large one starts where it stopped.",
-        "Leave pixelated on auto: pictures of 256 pixels or less on their longest side stay sharp; pass true or false to force it."
+        "Leave pixelated on auto: pictures of 256 pixels or less on their longest side stay sharp; pass true or false to force it.",
+        "The small picture takes the same pixelated on Image, so a sprite looks the same before and after it opens."
       ],
       "a11y": [
         "It is a DialogShell named by the item name: Escape and the close button close it, and focus goes back to what opened it.",
@@ -6809,7 +6816,7 @@
         "rule": "MediaViewer opens a picture or a video large in a dialog, with zoom, dragging and arrows through a set."
       },
       "example": "import { useState } from 'react';\nimport { MediaViewer } from '@drizztdourden08/tessera';\nimport type { MediaViewerItem } from '@drizztdourden08/tessera';\n\nconst Screenshots = ({ shots }: { shots: readonly MediaViewerItem[] }) => {\n  const [opened, setOpened] = useState<number | null>(null);\n  return (\n    <>\n      {shots.map((shot, i) => <button key={shot.id} type=\"button\" onClick={() => setOpened(i)}>{shot.name}</button>)}\n      <MediaViewer open={opened !== null} items={shots} index={opened ?? 0} onIndexChange={setOpened} onClose={() => setOpened(null)} />\n    </>\n  );\n};\n",
-      "propsHash": "9e70400d7864e812",
+      "propsHash": "1d30142b558e458d",
       "props": {
         "own": [
           {
@@ -6847,7 +6854,7 @@
           {
             "name": "pixelated",
             "optional": true,
-            "text": "MediaViewerPixels",
+            "text": "ImagePixelated",
             "literals": [
               "'auto'",
               "false",
@@ -7488,7 +7495,7 @@
         "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
       },
       "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
-      "propsHash": "629c0d7a8b838eec",
+      "propsHash": "49a2fe88f3c60a17",
       "props": {
         "own": [
           {
@@ -7558,6 +7565,11 @@
             "name": "active",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "iconEnd",
+            "optional": true,
+            "text": "ReactNode"
           }
         ],
         "inherited": {

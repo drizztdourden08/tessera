@@ -43,6 +43,20 @@
   white-space: nowrap;
 }
 
+.window-header--wrap .window-header__titles {
+  flex-wrap: wrap;
+  row-gap: var(--space-2xs);
+}
+
+.window-header--wrap .window-header__title,
+.window-header--wrap .window-header__subtitle {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 .window-header__extra {
   display: flex;
   flex-shrink: 0;

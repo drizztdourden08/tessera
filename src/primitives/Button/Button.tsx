@@ -10,7 +10,7 @@ import { ButtonIcon } from './sub-components/ButtonIcon';
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
     variant = 'tertiary', size = 'md', fullWidth = false, active = false, loading = false, disabled,
-    icon, children, className = '', ...rest
+    icon, iconEnd, children, className = '', ...rest
   } = props;
   const cls = buttonClass({ variant, size, fullWidth, active, loading, oneLine: plainLabel(children), className });
 
@@ -25,6 +25,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     >
       <ButtonIcon icon={icon} loading={loading} />
       <span className="btn__label">{children}</span>
+      <ButtonIcon icon={iconEnd} loading={false} end />
     </button>
   );
 });

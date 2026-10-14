@@ -11,6 +11,7 @@ interface DisclosureProps {
   onOpenChange?: (open: boolean) => void;
   size?: DisclosureSize;
   className?: string;
+  bodyClassName?: string;
 }
 
 interface DisclosureHandlers {

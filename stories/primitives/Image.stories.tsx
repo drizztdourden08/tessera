@@ -8,7 +8,11 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { ImageFits } from './_samples/ImageFits';
 import { ImageFrames } from './_samples/ImageFrames';
+import { ImagePixels } from './_samples/ImagePixels';
+import { MISSING_URI as BROKEN_URI } from './_samples/image-frame-samples.constants';
+import { DUSK_URI, VALLEY_URI } from './_samples/image-scenes.constants';
 import { ImageSaveSlots } from './_samples/ImageSaveSlots';
 import './Image.stories.css';
 
@@ -23,19 +27,6 @@ type ImageArgs = {
   withFallback: boolean;
 };
 
-const sceneUri = (sky: string, ground: string, label: string) =>
-  `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90' width='320' height='180'>`
-    + `<rect width='160' height='90' fill='${sky}'/>`
-    + `<circle cx='124' cy='24' r='10' fill='#f4d35e'/>`
-    + `<path d='M0 70 L40 44 L70 62 L104 36 L160 68 V90 H0Z' fill='${ground}'/>`
-    + `<text x='8' y='84' font-family='monospace' font-size='8' fill='#ffffff'>${label}</text>`
-    + `</svg>`,
-  )}`;
-
-const BROKEN_URI = 'data:image/png;base64,bm90LWFuLWltYWdl';
-const VALLEY_URI = sceneUri('#7fb3d5', '#3d7a4a', 'Valley, 14:02');
-const DUSK_URI = sceneUri('#5b4a7a', '#2e3b4e', 'Ridge, 19:40');
 const ARRIVAL_MS = 2500;
 
 const SOURCES: Record<Picture, string | undefined> = {
@@ -170,6 +161,16 @@ const SaveSlots = {
   render: () => <ImageSaveSlots />,
 } satisfies StoryLiteStoryDefinition<ImageArgs>;
 
+const Fits = {
+  name: 'fit, in a 16 by 9 frame',
+  render: () => <ImageFits />,
+} satisfies StoryLiteStoryDefinition<ImageArgs>;
+
+const Pixels = {
+  name: 'pixelated, sharp sprites',
+  render: () => <ImagePixels />,
+} satisfies StoryLiteStoryDefinition<ImageArgs>;
+
 const Overview = overviewStory({
   component: 'Image',
   description: 'The image element of the design system, which holds its space so the layout never jumps while it loads.',
@@ -177,12 +178,13 @@ const Overview = overviewStory({
     'It takes its box from `width` and `height` or `aspectRatio`, and falls back to 16 / 9.',
     'While the source loads it draws a picture outline that pulses.',
     'A source that fails shows the outline in the danger colour with a cross; `fallback` replaces it.',
-    '`pending` marks a source that is still on its way.',
+    '`pending` marks a source that is still on its way; `fit` sets how it fills its box, `cover` by default.',
     '`frame` rounds the corners and keeps a small picture from shrinking in a row; set its size with a class.',
+    '`pixelated` keeps a sprite sharp, `auto` at 256 px or less; `usePixelArt` tells the same for your own img.',
   ],
   instead: '[Video] for moving pictures.',
   playground: Playground,
-  variants: [SlowSource, WithFallback, Sizes, Framed, SaveSlots],
+  variants: [SlowSource, WithFallback, Sizes, Fits, Pixels, Framed, SaveSlots],
   states: {
     render: renderState,
     list: [
@@ -195,4 +197,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Framed, Overview, Playground, SaveSlots, Sizes, SlowSource, WithFallback };
+export { Fits, Framed, Overview, Pixels, Playground, SaveSlots, Sizes, SlowSource, WithFallback };

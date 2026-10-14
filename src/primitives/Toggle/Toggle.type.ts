@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ControlName } from '../field-control/control-name.type';
 import type { ControlSize } from '../field-control/field-control.type';
+import type { ControlLabelSize } from '../field-control/label-size.type';
 import type { Hint, HintReport } from '../hint/hint.type';
 
 interface ToggleProps extends ControlName {
@@ -12,6 +13,7 @@ interface ToggleProps extends ControlName {
   id?: string;
   link?: string;
   size?: ControlSize;
+  labelSize?: ControlLabelSize;
   hint?: Hint;
   onHint?: HintReport;
 }

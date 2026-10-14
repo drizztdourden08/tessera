@@ -4,11 +4,12 @@ import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { useControlSize } from '../field-control/useControlSize';
 import { Span } from '../text-elements';
 import '../../theme/control-size.css';
+import '../../theme/label-size.css';
 import './Checkbox.css';
 import type { CheckboxProps } from './Checkbox.type';
 
 const Checkbox = (props: CheckboxProps) => {
-  const { checked, onChange, label, ariaLabel, disabled, indeterminate = false, size, className = '' } = props;
+  const { checked, onChange, label, ariaLabel, disabled, indeterminate = false, size, labelSize, className = '' } = props;
   const controlSize = useControlSize(size);
   const { invalid, describedBy } = useFieldControl();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,7 +17,7 @@ const Checkbox = (props: CheckboxProps) => {
     if (inputRef.current) inputRef.current.indeterminate = indeterminate;
   }, [indeterminate]);
   return (
-    <label className={`checkbox control-size--${controlSize}${disabled ? ' checkbox--disabled' : ''}${className ? ` ${className}` : ''}`}>
+    <label className={`checkbox control-size--${controlSize}${labelSize ? ` label-size--${labelSize}` : ''}${disabled ? ' checkbox--disabled' : ''}${className ? ` ${className}` : ''}`}>
       <input
         ref={inputRef}
         type="checkbox"

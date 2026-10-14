@@ -22,7 +22,7 @@
 }
 
 .toggle__label {
-  font-size: var(--control-font);
+  font-size: var(--label-font, var(--control-font));
   font-weight: var(--weight-medium);
   color: var(--c-text);
   line-height: var(--leading-tight);

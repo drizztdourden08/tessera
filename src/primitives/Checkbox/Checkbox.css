@@ -38,7 +38,7 @@
 }
 
 .checkbox__label {
-  font-size: var(--control-font);
+  font-size: var(--label-font, var(--control-font));
   transition: color var(--transition-fast);
 }
 

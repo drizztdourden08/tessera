@@ -5,6 +5,42 @@
   isolation: isolate;
 }
 
+.disabled-overlay--secondary {
+  --disabled-fill: var(--c-secondary-scrim);
+  --disabled-edge: var(--c-secondary-bright);
+  --disabled-ink: var(--c-text);
+}
+
+.disabled-overlay--primary {
+  --disabled-fill: var(--c-primary-soft);
+  --disabled-edge: var(--c-primary-bright);
+  --disabled-ink: var(--c-primary-bright);
+}
+
+.disabled-overlay--info {
+  --disabled-fill: var(--c-info-soft);
+  --disabled-edge: var(--c-info-bright);
+  --disabled-ink: var(--c-info-bright);
+}
+
+.disabled-overlay--success {
+  --disabled-fill: var(--c-success-soft);
+  --disabled-edge: var(--c-success-bright);
+  --disabled-ink: var(--c-success-bright);
+}
+
+.disabled-overlay--warning {
+  --disabled-fill: var(--c-warning-soft);
+  --disabled-edge: var(--c-warning-bright);
+  --disabled-ink: var(--c-warning-bright);
+}
+
+.disabled-overlay--danger {
+  --disabled-fill: var(--c-danger-soft);
+  --disabled-edge: var(--c-danger-bright);
+  --disabled-ink: var(--c-danger-bright);
+}
+
 .disabled-overlay__content {
   pointer-events: none;
   user-select: none;
@@ -16,7 +52,8 @@
   gap: var(--space-sm);
   padding: var(--space-md);
   text-align: center;
-  border: var(--border-width-thin) solid var(--c-secondary-bright);
+  border: var(--border-width-thin) solid var(--disabled-edge);
+  background: var(--disabled-fill);
   border-radius: var(--radius-md);
   overflow: hidden;
   animation: none;
@@ -27,7 +64,7 @@
 }
 
 .disabled-overlay__message {
-  color: var(--c-text);
+  color: var(--disabled-ink);
   font-weight: var(--weight-semi);
   font-size: var(--text-sm);
   text-shadow: var(--shadow-1);

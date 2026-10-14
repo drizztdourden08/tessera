@@ -1,7 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
 import { IconButton } from '../../../primitives/IconButton';
-import { Span } from '../../../primitives/text-elements';
 import { MenuTriggerGlyph } from './MenuTriggerGlyph';
 import type { MenuTriggerButtonProps } from './MenuTriggerButton.type';
 
@@ -15,9 +14,8 @@ const MenuTriggerButton = (props: MenuTriggerButtonProps) => {
     return <IconButton {...anchor} {...rest} variant={variant} size={size} label={label}>{glyph}</IconButton>;
   }
   return (
-    <Button ref={buttonRef} {...rest} variant={variant} size={size} icon={iconSide === 'start' ? glyph : undefined}>
+    <Button ref={buttonRef} {...rest} variant={variant} size={size} icon={iconSide === 'start' ? glyph : undefined} iconEnd={iconSide === 'end' ? glyph : undefined}>
       {label}
-      {iconSide === 'end' && glyph && <Span className="btn__icon dropdown-trigger__end">{glyph}</Span>}
     </Button>
   );
 };

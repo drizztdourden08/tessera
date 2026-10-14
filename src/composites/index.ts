@@ -90,7 +90,7 @@ export type {
   TourStepMascot, TourTarget,
 } from './GuidedTour';
 export { DisabledOverlay } from './DisabledOverlay';
-export type { DisabledOverlayProps } from './DisabledOverlay';
+export type { DisabledOverlayProps, DisabledOverlayTone } from './DisabledOverlay';
 export {
   Widget, WidgetManager, WidgetOptions, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,
   migrateLayout, loadLayoutForProfile, loadLayoutLocal, saveLayoutForProfile, saveLayoutLocal, applyEdit, dockOnEdge, dockWidget,
@@ -172,7 +172,7 @@ export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from './CodeBl
 export { Markdown, type MarkdownHeadingOffset, type MarkdownLinkHandler, type MarkdownProps, type MarkdownSize } from './Markdown';
 export { Rating, type RatingProps, type RatingSize } from './Rating';
 export { Carousel, type CarouselProps, type CarouselSlide } from './Carousel';
-export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaViewerPixels, type MediaViewerProps } from './MediaViewer';
+export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaViewerProps } from './MediaViewer';
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,

@@ -1,11 +1,10 @@
 /* @layer renderer-components @kind types */
 import type { PointerEventHandler, RefObject } from 'react';
+import type { ImagePixelated } from '../../primitives/Image/Image.type';
 
 type MediaViewerKind = 'image' | 'video';
 
 type MediaViewerZoom = 'fit' | number;
-
-type MediaViewerPixels = boolean | 'auto';
 
 interface MediaViewerItem {
   id: string;
@@ -22,7 +21,7 @@ interface MediaViewerProps {
   defaultIndex?: number;
   onIndexChange?: (index: number) => void;
   startAt?: number;
-  pixelated?: MediaViewerPixels;
+  pixelated?: ImagePixelated;
   onClose: () => void;
   className?: string;
 }
@@ -88,7 +87,7 @@ interface MediaViewerStageProps {
   item: MediaViewerItem;
   zoom: ZoomState;
   startAt: number;
-  pixelated: MediaViewerPixels;
+  pixelated: ImagePixelated;
   natural: NaturalSize | null;
   onNatural: (size: NaturalSize) => void;
   stageRef: RefObject<HTMLElement | null>;
@@ -105,6 +104,6 @@ interface MediaViewerToolsProps {
 }
 
 export type {
-  MediaViewerItem, MediaViewerKind, MediaViewerPixels, MediaViewerProps, MediaViewerStageProps, MediaViewerStepProps, MediaViewerToolsProps,
+  MediaViewerItem, MediaViewerKind, MediaViewerProps, MediaViewerStageProps, MediaViewerStepProps, MediaViewerToolsProps,
   MediaViewerZoom, MediaViewerZoomProps, NaturalSize, PanHandlers, PanStart, StageCentre, ViewerMedia, ViewerMediaParams, ZoomState,
 };

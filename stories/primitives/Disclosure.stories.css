@@ -5,3 +5,11 @@
   inline-size: var(--size-448);
   max-inline-size: 100%;
 }
+
+.disclosure-story__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-inline-start: var(--space-md);
+  border-inline-start: var(--border-width-thin) solid var(--c-border);
+}

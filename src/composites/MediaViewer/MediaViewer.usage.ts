@@ -18,6 +18,7 @@ const usage = {
     'Draw the small picture with Expand as a recipe: an Image in a Pressable and a Button that set open.',
     'Pass startAt in seconds when a small video preview was playing, so the large one starts where it stopped.',
     'Leave pixelated on auto: pictures of 256 pixels or less on their longest side stay sharp; pass true or false to force it.',
+    'The small picture takes the same pixelated on Image, so a sprite looks the same before and after it opens.',
   ],
   a11y: [
     'It is a DialogShell named by the item name: Escape and the close button close it, and focus goes back to what opened it.',
@@ -42,7 +43,7 @@ const Screenshots = ({ shots }: { shots: readonly MediaViewerItem[] }) => {
   );
 };
 `,
-  propsHash: '9e70400d7864e812',
+  propsHash: '1d30142b558e458d',
 } satisfies ComponentUsage;
 
 export { usage };

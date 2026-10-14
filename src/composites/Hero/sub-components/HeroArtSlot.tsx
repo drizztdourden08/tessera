@@ -16,7 +16,8 @@ const HeroArtSlot = (props: HeroArtSlotProps) => {
   }
   return (
     <Image
-      className={`hero__art${art.pixelated === true ? ' hero__art--pixelated' : ''}`}
+      className="hero__art"
+      pixelated={art.pixelated}
       src={art.src}
       alt={art.alt ?? ''}
       placeholder="none"

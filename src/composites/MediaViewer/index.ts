@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { MediaViewer } from './MediaViewer';
-export type { MediaViewerItem, MediaViewerKind, MediaViewerPixels, MediaViewerProps } from './MediaViewer.type';
+export type { MediaViewerItem, MediaViewerKind, MediaViewerProps } from './MediaViewer.type';

@@ -34,6 +34,7 @@ Disclosure shows or hides what is under one line with the browser details elemen
 - A later change to defaultOpen opens or closes it, so a part can open it when a job fails.
 - Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.
 - Use size sm for a line in small text, such as inside a settings row.
+- Pass bodyClassName to lay out the body, such as a column of rows with a gap, in place of a selector on its class.
 
 ## Accessibility
 
@@ -61,6 +62,7 @@ const ReleaseNotes = ({ notes }: { notes: string }) => (
 - `onOpenChange` (optional): `(open: boolean) => void`.
 - `size` (optional): `DisclosureSize`, one of `'sm'`, `'md'`. Default `'md'`.
 - `className` (optional): `string`.
+- `bodyClassName` (optional): `string`.
 
 ## Tokens
 

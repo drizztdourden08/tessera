@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useDialogEscape } from '../src/composites/DialogShell/behavior/useDialogEscape';
 import { useDialogFocus } from '../src/composites/DialogShell/behavior/useDialogFocus';
 import { MediaViewer } from '../src/composites/MediaViewer';
-import { crispOf } from '../src/composites/MediaViewer/behavior/crisp-of';
+import { pixelatedOf } from '../src/primitives/Image/behavior/pixelated-of';
 import { viewerKey } from '../src/composites/MediaViewer/behavior/viewer-key';
 import { zoomLevels } from '../src/composites/MediaViewer/behavior/zoom-levels';
 
@@ -85,11 +85,11 @@ describe('zoom steps', () => {
 
 describe('sharp pixels', () => {
   it('turn on by themselves for a picture of 256 pixels or less, or when asked', () => {
-    expect(crispOf('auto', { width: 240, height: 120 })).toBe(true);
-    expect(crispOf('auto', { width: 1280, height: 720 })).toBe(false);
-    expect(crispOf('auto', null)).toBe(false);
-    expect(crispOf(true, { width: 1280, height: 720 })).toBe(true);
-    expect(crispOf(false, { width: 16, height: 16 })).toBe(false);
+    expect(pixelatedOf('auto', { width: 240, height: 120 })).toBe(true);
+    expect(pixelatedOf('auto', { width: 1280, height: 720 })).toBe(false);
+    expect(pixelatedOf('auto', null)).toBe(false);
+    expect(pixelatedOf(true, { width: 1280, height: 720 })).toBe(true);
+    expect(pixelatedOf(false, { width: 16, height: 16 })).toBe(false);
   });
 });
 

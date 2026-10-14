@@ -34,6 +34,7 @@ MediaViewer opens a picture or a video large in a dialog, with zoom, dragging an
 - Draw the small picture with Expand as a recipe: an Image in a Pressable and a Button that set open.
 - Pass startAt in seconds when a small video preview was playing, so the large one starts where it stopped.
 - Leave pixelated on auto: pictures of 256 pixels or less on their longest side stay sharp; pass true or false to force it.
+- The small picture takes the same pixelated on Image, so a sprite looks the same before and after it opens.
 
 ## Accessibility
 
@@ -67,7 +68,7 @@ const Screenshots = ({ shots }: { shots: readonly MediaViewerItem[] }) => {
 - `defaultIndex` (optional): `number`. Default `0`.
 - `onIndexChange` (optional): `(index: number) => void`.
 - `startAt` (optional): `number`. Default `0`.
-- `pixelated` (optional): `MediaViewerPixels`, one of `'auto'`, `false`, `true`. Default `'auto'`.
+- `pixelated` (optional): `ImagePixelated`, one of `'auto'`, `false`, `true`. Default `'auto'`.
 - `onClose`: `() => void`.
 - `className` (optional): `string`.
 

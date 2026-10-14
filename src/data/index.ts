@@ -9,7 +9,7 @@ export type {
   CollectionSource, FieldDescriptor, FieldGroup, FieldKind, FieldOption, NumberFormat, SchemaConfig, SchemaOption,
 } from './schema/field-descriptor';
 export { ENUM_MAX, ID_RE, enumOptions, idTargetKind, inferKind } from './schema/infer-kind';
-export { getPath, setPath } from './schema/path';
+export { IDENTITY_PATH, getPath, setPath } from './schema/path';
 export { blankValue } from './schema/blank-value';
 
 export { compile, createClause } from './filter/clause';

@@ -81,7 +81,7 @@ describe('DropdownMenu', () => {
     expect(icon).toContain('hamburger-icon');
     const text = renderToString(h(DropdownMenu, { trigger: { label: 'View', icon: 'eye', iconSide: 'end' }, size: 'md', groups }));
     expect(text).toContain('btn--md');
-    expect(text.indexOf('View')).toBeLessThan(text.indexOf('dropdown-trigger__end'));
+    expect(text.indexOf('View')).toBeLessThan(text.indexOf('btn__icon--end'));
   });
 
   it('draws radio items in a group of their own and reserves the mark column', () => {

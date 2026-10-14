@@ -69,6 +69,26 @@ const AllVariants = {
   ),
 } satisfies StoryLiteStoryDefinition<ButtonArgs>;
 
+const Icons = {
+  name: 'An icon before or after the label',
+  render: () => (
+    <Demonstrator
+      rows={axis(['icon', 'iconEnd', 'both'] as const)}
+      columns={axis(SIZES)}
+      cell={(side, size) => (
+        <Button
+          variant="secondary"
+          size={size}
+          icon={side === 'iconEnd' ? undefined : <Icon name="save" />}
+          iconEnd={side === 'icon' ? undefined : <Icon name="chevron-down" />}
+        >
+          Save
+        </Button>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ButtonArgs>;
+
 const Loading = {
   name: 'Loading',
   render: () => <ButtonLoading />,
@@ -104,14 +124,14 @@ const Overview = overviewStory({
     '`danger`, `warning`, `info` and `success` carry an urgency.',
     '`md` is 39 px tall, `sm` 28 px and `xs` 20 px, as tall as an [IconButton] of the same size.',
     '`active` marks a toggle button as on, and it is announced as pressed.',
-    '`loading` swaps the icon for a [Spinner] while the action runs; the button keeps its width and ignores clicks.',
-    '**Loading is not disabled:** a `disabled` button fades and never spins.',
+    '`icon` sits before the label and `iconEnd` after it, such as a chevron on a button that opens a list.',
+    '`loading` shows a [Spinner], keeps the width and ignores clicks; a `disabled` button fades and never spins.',
   ],
   instead: '[IconButton] for an icon alone, or [Pressable] for a clickable surface with a look of its own.',
   playground: Playground,
-  variants: [AllVariants, Loading, TightRow],
+  variants: [AllVariants, Icons, Loading, TightRow],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, Loading, Overview, Playground, TightRow };
+export { AllVariants, Icons, Loading, Overview, Playground, TightRow };

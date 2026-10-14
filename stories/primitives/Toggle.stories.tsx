@@ -94,6 +94,19 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<ToggleArgs>;
 
+const LABEL_SIZES = ['md', 'sm'] as const;
+
+const LabelSizes = {
+  name: 'Label sizes, apart from the switch',
+  render: () => (
+    <Demonstrator
+      rows={axis(LABEL_SIZES)}
+      columns={axis(CONTROL_SIZES)}
+      cell={(labelSize, size) => <Toggle size={size} labelSize={labelSize} checked onChange={() => undefined} label="Music" description="Play the soundtrack during gameplay." />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ToggleArgs>;
+
 const NamedSwitch = ({ labelledBy }: { labelledBy: string }) => {
   const [checked, setChecked] = useState(true);
   return <Toggle checked={checked} onChange={setChecked} aria-labelledby={labelledBy} />;
@@ -128,10 +141,11 @@ const Overview = overviewStory({
     '`sm` is the compact switch, for widget panels and dense rows.',
     '`hint` reports a one-line description to a [HintLine] while it is pointed at or focused.',
     '`aria-label` or `aria-labelledby` names it when it has no `label`, such as the name of a [FormRow].',
+    '`labelSize` `sm` or `md` sets the label text apart from `size`, such as a small label by the full switch.',
   ],
   instead: '[Checkbox] for a choice saved with a form.',
   playground: Playground,
-  variants: [Labels, Named, Sizes],
+  variants: [Labels, Named, Sizes, LabelSizes],
   states: {
     render: renderState,
     list: [
@@ -156,4 +170,4 @@ const [autoSave, setAutoSave] = useState(true);
 });
 
 export default meta;
-export { Labels, Named, Overview, Playground, Sizes };
+export { LabelSizes, Labels, Named, Overview, Playground, Sizes };

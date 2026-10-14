@@ -1,0 +1,8 @@
+/* @layer renderer-components @kind style */
+.label-size--sm {
+  --label-font: var(--text-sm);
+}
+
+.label-size--md {
+  --label-font: var(--text-base);
+}

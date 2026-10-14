@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { SIZE_ARG } from '../_template/control-sizes.constants';
+import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
 import { sizesStory } from '../_template/sizes-story';
 import { Box, Checkbox, Field, Text, type ControlSize } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -91,6 +93,19 @@ const Labels = {
 
 const Sizes = sizesStory<CheckboxArgs>((size) => <StatefulCheckbox initial size={size} label="Show hints on the map" />);
 
+const LABEL_SIZES = ['md', 'sm'] as const;
+
+const LabelSizes = {
+  name: 'Label sizes, apart from the box',
+  render: () => (
+    <Demonstrator
+      rows={axis(LABEL_SIZES)}
+      columns={axis(CONTROL_SIZES)}
+      cell={(labelSize, size) => <Checkbox size={size} labelSize={labelSize} checked onChange={() => undefined} label="Show hints on the map" />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<CheckboxArgs>;
+
 const HintsOption = (props: { initial: boolean; indeterminate?: boolean; disabled?: boolean }) => {
   const { initial, indeterminate, disabled } = props;
   const [checked, setChecked] = useState(initial);
@@ -128,10 +143,11 @@ const Overview = overviewStory({
     '`indeterminate` draws the mixed state, for a box that stands for a partly checked set.',
     '`ariaLabel` names a box whose label is drawn somewhere else.',
     '`md` sits beside standard controls; `sm` is for dense lists and tables.',
+    '`labelSize` `sm` or `md` sets the label text apart from `size`, such as a small label in a list.',
   ],
   instead: '[Toggle] for a setting that takes effect at once.',
   playground: Playground,
-  variants: [Labels, Sizes],
+  variants: [Labels, Sizes, LabelSizes],
   states: {
     render: renderState,
     list: [
@@ -148,4 +164,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Labels, Overview, Playground, SelectAll, Sizes };
+export { LabelSizes, Labels, Overview, Playground, SelectAll, Sizes };

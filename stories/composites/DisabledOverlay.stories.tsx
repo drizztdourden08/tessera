@@ -3,7 +3,10 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DisabledOverlay, ListItemRow } from '../../src/composites';
+import type { DisabledOverlayTone } from '../../src/composites';
 import { Box, Text, Toggle } from '../../src/primitives';
+import { axis } from '../_template/axis';
+import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { PLAYERS } from './_samples/sessions';
 import './DisabledOverlay.stories.css';
@@ -11,12 +14,15 @@ import './DisabledOverlay.stories.css';
 type DisabledArgs = {
   active: boolean;
   message: string;
+  tone: DisabledOverlayTone;
   actionLabel: string;
   contained: boolean;
   withAction: boolean;
 };
 
 const noop = () => {};
+
+const TONES: readonly DisabledOverlayTone[] = ['secondary', 'primary', 'info', 'success', 'warning', 'danger'];
 
 const HostingControls = () => {
   const [relay, setRelay] = useState(true);
@@ -61,6 +67,7 @@ const ARGS: Partial<DisabledArgs> = {
     active: true,
     message: 'Hosting is off. Turn it on in Settings to change these options.',
     actionLabel: 'Open Settings',
+    tone: 'secondary',
     contained: false,
     withAction: true,
   };
@@ -69,6 +76,7 @@ const ARG_TYPES: PlaygroundArgTypes<DisabledArgs> = {
     message: { group: 'Content', control: 'text' },
     actionLabel: { group: 'Content', control: 'text' },
     withAction: { group: 'Content', control: 'boolean' },
+    tone: { group: 'Appearance', control: 'select', options: [...TONES], description: 'The colour of the scrim, its edge, the message and the button.' },
     contained: { group: 'Layout', control: 'boolean' },
     active: { group: 'State', control: 'boolean' },
   };
@@ -86,6 +94,7 @@ const Playground = {
     <DisabledOverlay
       active={args.active}
       message={args.message}
+      tone={args.tone}
       actionLabel={args.actionLabel}
       contained={args.contained}
       onOpenSettings={args.withAction ? noop : undefined}
@@ -111,6 +120,22 @@ const NoAction = {
   ),
 } satisfies PlaygroundStory<DisabledArgs>;
 
+const Tones = {
+  name: 'Tones',
+  render: () => (
+    <Demonstrator
+      rows={axis(TONES)}
+      cell={(tone) => (
+        <Box className="disabled-overlay-story__pad">
+          <DisabledOverlay active tone={tone} message="Build the language once to edit its strings." onOpenSettings={noop} actionLabel="Build now">
+            <HostingControls />
+          </DisabledOverlay>
+        </Box>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<DisabledArgs>;
+
 const DefaultMessage = {
   name: 'Default message',
   render: () => (
@@ -130,11 +155,12 @@ const Overview = overviewStory({
     '`active` shows the scrim and `message` says why.',
     '`actionLabel` and `onOpenSettings` add a button to the setting that turns the area on.',
     '`contained` insets the scrim for content inside a scrolling or clipped box.',
+    '`tone` colours the scrim, its edge, the message and the button; `secondary` by default, or `warning`.',
   ],
   instead: '[Overlay] to block a panel while something runs.',
   playground: Playground,
-  variants: [DefaultMessage, NoAction, ContainedList],
+  variants: [DefaultMessage, NoAction, ContainedList, Tones],
 });
 
 export default meta;
-export { ContainedList, DefaultMessage, NoAction, Overview, Playground };
+export { ContainedList, DefaultMessage, NoAction, Overview, Playground, Tones };

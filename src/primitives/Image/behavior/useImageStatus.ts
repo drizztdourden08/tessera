@@ -29,7 +29,7 @@ const useImageStatus = (params: UseImageStatusParams) => {
   const current = settled?.source === source ? settled : null;
   const status = imageStatusOf(source, pending, current);
 
-  return { imgRef, hasSource: source !== '', status, naturalRatio: current?.ratio, handleLoad, handleError };
+  return { imgRef, hasSource: source !== '', status, naturalRatio: current?.ratio, natural: current?.natural, handleLoad, handleError };
 };
 
 export { useImageStatus };

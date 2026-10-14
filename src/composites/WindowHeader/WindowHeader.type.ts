@@ -4,6 +4,7 @@ import type { BackAction } from '../../primitives/action-data';
 
 interface WindowHeaderProps {
   title?: ReactNode;
+  titleWrap?: boolean;
   titleId?: string;
   subtitle?: ReactNode;
   onClose?: () => void;

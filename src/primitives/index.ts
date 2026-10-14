@@ -86,6 +86,7 @@ export { FieldControlBoundary } from './FieldControlBoundary';
 export type { FieldProps, FieldWidth } from './Field';
 export { useControlSize } from './field-control/useControlSize';
 export type { ControlSize } from './field-control/field-control.type';
+export type { ControlLabelSize } from './field-control/label-size.type';
 export type {
   InputAdornment, InputAdornmentAction, InputAdornmentIcon, InputAdornmentMark,
 } from './field-control/input-adornment.type';
@@ -130,8 +131,8 @@ export type {
 export type { ActionData, BackAction } from './action-data';
 export { Tooltip } from './Tooltip';
 export type { TooltipFollow, TooltipProps } from './Tooltip';
-export { Image } from './Image';
-export type { ImagePlaceholderProps, ImageProps } from './Image';
+export { Image, isPixelArt, usePixelArt } from './Image';
+export type { ImageFit, ImagePixelated, ImagePlaceholderProps, ImageProps, ImageSize, PixelArt } from './Image';
 export { Icon, ICONS } from './Icon';
 export { Glyph, GLYPHS } from './Glyph';
 export type { GlyphName, GlyphProps } from './Glyph';

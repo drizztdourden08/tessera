@@ -31,7 +31,7 @@ const Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () =
   <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />
 );
 `,
-  propsHash: '629c0d7a8b838eec',
+  propsHash: '49a2fe88f3c60a17',
 } satisfies ComponentUsage;
 
 export { usage };

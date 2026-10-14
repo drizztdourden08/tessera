@@ -6,7 +6,7 @@ export { markedPaths } from './behavior/changed-paths';
 export { layoutGroups } from './behavior/layout-groups';
 export { detectUnionBranch } from './behavior/union-branch';
 export { isIdentityField } from './behavior/identity-field';
-export { IDENTITY_PATH } from './behavior/identity-field.constants';
+export { IDENTITY_PATH } from '../../data/schema/path/identity-path.constants';
 export type {
   EditorBinding, EditorGroupModel, NumberBoundsResolver, RecordEditorProps, ReferencedByHit,
   TagCreateResult, TagCreator, TagSuggestionResolver,

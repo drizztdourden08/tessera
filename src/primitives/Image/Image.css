@@ -30,6 +30,22 @@
   transition: opacity var(--duration-slow) var(--ease-standard);
 }
 
+.image--fit-contain > .image__img {
+  object-fit: contain;
+}
+
+.image--fit-fill > .image__img {
+  object-fit: fill;
+}
+
+.image--fit-none > .image__img {
+  object-fit: none;
+}
+
+.image--pixelated > .image__img {
+  image-rendering: pixelated;
+}
+
 .image--loaded > .image__img {
   opacity: 1;
 }

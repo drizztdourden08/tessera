@@ -18,6 +18,7 @@ const usage = {
     'A later change to defaultOpen opens or closes it, so a part can open it when a job fails.',
     'Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.',
     'Use size sm for a line in small text, such as inside a settings row.',
+    'Pass bodyClassName to lay out the body, such as a column of rows with a gap, in place of a selector on its class.',
   ],
   a11y: [
     'It is the browser details element: Enter and Space toggle the line, and screen readers say whether it is open.',
@@ -35,7 +36,7 @@ const ReleaseNotes = ({ notes }: { notes: string }) => (
   </Disclosure>
 );
 `,
-  propsHash: '92d1053780b43caf',
+  propsHash: '962e5c6e4acd7bf9',
 } satisfies ComponentUsage;
 
 export { usage };

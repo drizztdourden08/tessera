@@ -3,7 +3,6 @@ import type { SyntheticEvent } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Image } from '../../../primitives/Image';
 import { Video } from '../../Video';
-import { crispOf } from '../behavior/crisp-of';
 import { shownSize } from '../behavior/shown-size';
 import { usePan } from '../behavior/usePan';
 import type { MediaViewerStageProps } from '../MediaViewer.type';
@@ -27,7 +26,7 @@ const MediaViewerStage = (props: MediaViewerStageProps) => {
           src={item.src}
           alt={item.name}
           draggable={false}
-          data-pixelated={crispOf(pixelated, natural) || undefined}
+          pixelated={pixelated}
           className="media-viewer__media"
           {...shownSize(natural, zoom.scale)}
           onLoad={measure}

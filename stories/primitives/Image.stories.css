@@ -46,3 +46,8 @@
   color: var(--c-text-muted);
   font-size: var(--text-sm);
 }
+
+.image-demo__box {
+  background: var(--c-sunken);
+  outline: var(--border-width-thin) dashed var(--c-border);
+}

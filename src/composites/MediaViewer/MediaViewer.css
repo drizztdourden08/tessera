@@ -48,10 +48,6 @@
   cursor: grabbing;
 }
 
-.media-viewer__stage [data-pixelated] {
-  image-rendering: pixelated;
-}
-
 .media-viewer__stage[data-kind='video'] .media-viewer__media {
   inline-size: 100%;
   block-size: 100%;

@@ -10,12 +10,12 @@ import './WindowHeader.css';
 import { type WindowHeaderProps } from './WindowHeader.type';
 
 const WindowHeader = (props: WindowHeaderProps) => {
-  const { title, titleId, subtitle, onClose, back, extra, className = '' } = props;
+  const { title, titleWrap, titleId, subtitle, onClose, back, extra, className = '' } = props;
   const { common, navigation } = useTesseraStrings();
   const headerRef = useRef<HTMLElement>(null);
   const extraFits = useExtraFit(headerRef, extra != null);
   return (
-    <Box ref={headerRef} className={`window-header${className ? ` ${className}` : ''}`}>
+    <Box ref={headerRef} className={['window-header', titleWrap && 'window-header--wrap', className].filter(Boolean).join(' ')}>
       {back && (
         <IconButton variant="ghost" size="md" label={back.label === undefined ? navigation.back : navigation.backTo(back.label)} className="window-header__back" onClick={back.onSelect}>
           <Icon name="arrow-left" size={18} />

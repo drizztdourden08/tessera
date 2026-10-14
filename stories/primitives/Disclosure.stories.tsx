@@ -96,6 +96,17 @@ const Controlled = {
   render: () => <ControlledGroups />,
 } satisfies StoryLiteStoryDefinition<DisclosureArgs>;
 
+const Styled = {
+  name: 'A body with a class of its own',
+  render: () => (
+    <Box className="disclosure-story__frame">
+      <Disclosure summary="Recommended next" defaultOpen bodyClassName="disclosure-story__rows">
+        {FACTS.map(([label, value]) => <StatRow key={label} label={label} value={value} />)}
+      </Disclosure>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<DisclosureArgs>;
+
 const Sizes = {
   name: 'Sizes',
   render: () => <Demonstrator rows={axis(['md', 'sm'] as const)} cell={(size) => <Sample size={size} />} />,
@@ -118,13 +129,13 @@ const Overview = overviewStory({
     'Built on the browser details element: [[Enter]] and [[Space]] toggle it, and screen readers say open or closed.',
     '`defaultOpen` starts it open and `onOpenChange` reports each toggle; a later change opens or closes it.',
     '`open` with `onOpenChange` hands the state to the app, such as an Open all button over a list of groups.',
-    'Closed content stays in the page, so find in page still reaches it.',
-    '`size` `sm` sets the line in small text, for a row or a settings line.',
+    '`size` `sm` sets the line in small text; closed content stays in the page, so find in page reaches it.',
+    '`bodyClassName` styles the body, such as a column of rows with a gap, without reaching into its class.',
     '[LoadError] puts the raw error behind one; [TaskProgress] puts its log behind one.',
   ],
   instead: '[Tabs] to switch between views, or [Dialog] for content that needs the whole screen.',
   playground: Playground,
-  variants: [Uses, Controlled, Sizes],
+  variants: [Uses, Controlled, Sizes, Styled],
   states: {
     render: (props: StateProps) => <Sample {...(props as Partial<DisclosureArgs>)} />,
     list: [STATE.idle, { ...STATE.hover, target: 'summary' }, { ...STATE.focus, target: 'summary' }, { name: 'Open', props: { open: true } }],
@@ -133,4 +144,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Controlled, Overview, Playground, Sizes, Uses };
+export { Controlled, Overview, Playground, Sizes, Styled, Uses };

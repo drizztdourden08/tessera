@@ -7433,3 +7433,76 @@ From the `brock-migration` branch:
 - **The desktop app's Stars**, `apps/desktop/src/compounds/Stars/` (the same five files). `compounds/StoreItemCard/StoreItemCard.tsx` and `views/Store/sub-components/StoreDetail.tsx` pass `value={average}` with `count` and `showValue`.
 - **FeaturedHero's rotation**, `apps/store/src/components/FeaturedHero/behavior/useRotation.ts` and `useRotation.constants.ts`, with the dots in `FeaturedHero.tsx` and their `.featured-hero__dots` and `.featured-hero__dot` rules in `FeaturedHero.css`. `pages/Home/Home.tsx` draws a `Carousel` with `label="Featured"` and `turnEvery={8000}`, a slide per featured item: a `Hero`, or FeaturedHero's own picture and copy as the slide content.
 - **The media viewer**, `packages/design/src/compounds/MediaViewer/` (`MediaViewer.tsx`, `MediaViewer.css`, `MediaViewer.type.ts`, `index.ts`) and `packages/design/src/compounds/MediaPreview/` (`MediaPreview.tsx`, `MediaPreview.css`, `MediaPreview.type.ts`, `index.ts`, `behavior/usePixelArt.ts`, `behavior/usePixelArt.constants.ts`), with the `MediaPreview`, `usePixelArt` and `MediaViewer` exports in `packages/design/src/index.ts`. `apps/sanctuary/src/pages/Files/sub-components/FileMedia.tsx` draws the recipe and `<MediaViewer open items={[{ id: file.id, kind, src: url, name: file.name }]} startAt={viewerOpenAtSecond} onClose={...} />`.
+
+## 226. Small parts for RotP: four icons, a trailing button icon, label sizes, image fit and sharp pixels, overlay tones, a Disclosure body class, a wrapping window title and IDENTITY_PATH from /data
+
+From RotP's move to Tessera. RotP kept stand-ins for each of these: emoji or near icons for a boss, a dig spot and a tree, an end caret drawn inside the Button children, a stylesheet that shrank `.checkbox__label`, a local `usePixelArt` and `image-rendering` rules beside Image, a warning look painted over `.disabled-overlay__scrim`, a selector on `.disclosure__body`, a rule that undid the title ellipsis, and its own `IDENTITY_PATH`. Each is now an option or a public name.
+
+### What changed
+
+- **Four Lucide icons join the named set**, from the same `@iconify-icons/lucide` data as the rest: `skull`, `shovel`, `tree-deciduous` and `waves`. `tree` names `tree-deciduous` and `water` names `waves`, the short names RotP asked for. `save` was already in the set.
+- **Button takes `iconEnd`**, an icon after the label, beside `icon` before it. While `loading`, the spinner covers the label and the end icon alike. DropdownMenu draws a trigger with `iconSide: 'end'` through it, the same place as before.
+- **Toggle and Checkbox take `labelSize`**, `sm` (`--text-sm`, 12 px) or `md` (`--text-base`, 14 px), which sets the label text apart from `size`. Left out, the label follows `size` as before.
+- **Image takes `fit`**, `cover` by default, or `contain`, `fill` or `none`, as `object-fit` on the picture, **and `pixelated`**: `true` draws hard pixel edges, `false` (the default) smooth ones, and `auto` hard edges once a picture of 256 px or less on its longest side has loaded.
+- **The pixel art test is public.** `usePixelArt()` returns `{ pixelArt, onLoad }` for an `img` of the app: pass `onLoad` and read `pixelArt`. `isPixelArt(size)` gives the same answer for a `{ width, height }`. MediaViewer and Hero draw their pictures through Image `pixelated` now, so the test lives in one place. `MediaViewerPixels` is now `ImagePixelated`, from `/primitives`.
+- **DisabledOverlay takes `tone`**, `secondary`, the look it had, or `primary`, `info`, `success`, `warning` or `danger`. The tone sets the scrim (`--c-<tone>-soft`), its edge and the message (`--c-<tone>-bright`), and the settings button variant.
+- **Disclosure takes `bodyClassName`**, a class on the body beside `disclosure__body`, such as a column of rows with a gap.
+- **WindowHeader takes `titleWrap`**, so the title and the subtitle run onto more lines in place of the ellipsis. Measured in a 320 px strip with a close button, the title is 24 px tall and cut without it, and 96 px tall on four lines with it.
+- **`IDENTITY_PATH` is exported from `/data` too**, beside `/composites` and the package root, one constant for all three.
+
+```ts
+type IconName = /* … */ | 'skull' | 'shovel' | 'tree-deciduous' | 'tree' | 'waves' | 'water';
+
+interface ButtonProps {
+  iconEnd?: ReactNode; // added, after the label
+}
+
+type ControlLabelSize = 'sm' | 'md';
+
+interface ToggleProps { labelSize?: ControlLabelSize } // added
+interface CheckboxProps { labelSize?: ControlLabelSize } // added
+
+type ImageFit = 'cover' | 'contain' | 'fill' | 'none';
+type ImagePixelated = boolean | 'auto'; // was MediaViewerPixels, from /composites
+interface ImageSize { width: number; height: number }
+
+interface ImageProps {
+  fit?: ImageFit;            // added, 'cover' by default
+  pixelated?: ImagePixelated; // added, false by default
+}
+
+interface PixelArt {
+  pixelArt: boolean;
+  onLoad: ReactEventHandler<HTMLImageElement>;
+}
+const usePixelArt: () => PixelArt;
+const isPixelArt: (size: ImageSize | null | undefined) => boolean;
+
+type DisabledOverlayTone = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'danger';
+interface DisabledOverlayProps { tone?: DisabledOverlayTone } // added, 'secondary' by default
+
+interface DisclosureProps { bodyClassName?: string } // added
+interface WindowHeaderProps { titleWrap?: boolean } // added
+
+// @drizztdourden08/tessera/data
+export { IDENTITY_PATH }; // 'id', the same constant as /composites
+```
+
+In the gallery, the Icon page lists the new icons in its App set (54 icons, was 48). The Button, Toggle, Checkbox, Image, DisabledOverlay, Disclosure and WindowHeader pages each gain a section for the new prop, with an Overview point that names it. Nothing drawn before changes look: DisabledOverlay keeps the same secondary scrim, edge and message tokens, and Button heights stay 39, 28 and 20 px.
+
+### What an app does
+
+Rename `MediaViewerPixels` to `ImagePixelated` and import it from `/primitives` or the root. An app that styled `.dropdown-trigger__end` or `.hero__art--pixelated` targets `.btn__icon--end` or `.image--pixelated`. Nothing else changes for the existing props.
+
+### What RotP deletes
+
+From the `brock-migration` branch:
+
+- The near icons in `apps/desktop/src/views/SimulatorWidget/sub-components/StopAtCheckPicker/StopAtCheckPicker.constants.ts`: `boss` takes `skull`, `dig` takes `shovel` and `bonk` takes `tree`.
+- The caret in `StopAtCheckPicker.tsx`, its `.stop-picker__trigger-caret` rule and the flex rules on `.stop-picker__trigger`: the trigger passes `iconEnd={<Icon name={open ? 'chevron-up' : 'chevron-down'} />}`.
+- The `.checkbox__label` override in `apps/desktop/src/compounds/ProgressiveTiersBlock/sub-components/ProgressiveTierCard.css`: the Checkbox passes `labelSize="sm"`.
+- `packages/design/src/hooks/usePixelArt/`, its export in `packages/design/src/index.ts`, and the `[data-pixel-art]` rules in Sanctuary's `FileMedia.css` and `Files.css`: `FileMedia.tsx` and `SelectionImage.tsx` pass `fit="contain" pixelated="auto"` to Image, and a raw `img` takes `usePixelArt` from Tessera.
+- The `.disabled-overlay__scrim` and `.disabled-overlay__message` colours in `apps/desktop/src/language-editor/sub-components/UnbuiltPane.css`: the overlay passes `tone="warning"`.
+- The `.live-rec-list > .disclosure__body` selector in `apps/desktop/src/views/LiveDataInspector/sub-components/RecommendationList.css`: the rule moves to a class passed as `bodyClassName`.
+- The `.window-header__title` override in `DiagnosticsWizardDialog.css`, and the `white-space` and `overflow-wrap` lines of `.detail__title` in `packages/design/src/compounds/DetailPane/DetailPane.css`: the headers pass `titleWrap`.
+- The local `IDENTITY_PATH` in `apps/desktop/src/views/DataInspector/DataInspector.constants.ts`: `id-ref-options.ts` and `create-schema.ts` import it from `@drizztdourden08/tessera/data`.

@@ -65,8 +65,6 @@
   object-position: left bottom;
 }
 
-.hero__art--pixelated .image__img { image-rendering: pixelated; }
-
 .hero .hero__art--node {
   display: flex;
   align-items: flex-end;

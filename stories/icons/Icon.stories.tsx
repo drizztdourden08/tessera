@@ -154,7 +154,7 @@ const Overview = overviewStory({
   component: 'Icon',
   description: 'The icon every app shares: a named Lucide icon, or any @iconify icon, drawn from data bundled with the app.',
   points: [
-    '`name` picks from the named set; `icon` takes any @iconify icon you import.',
+    '`name` picks from the named set, with short names such as `tree` and `water`; `icon` takes any @iconify icon.',
     '`path` draws an icon of your own: `d` takes path data, `circles` circles, `viewBox` the grid, 16 by default.',
     'It draws in `currentColor`, so it takes the colour of the text around it.',
     '`size`, `rotate` in quarter turns and `flip` set how it sits.',

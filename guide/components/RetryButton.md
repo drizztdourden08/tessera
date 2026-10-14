@@ -60,6 +60,7 @@ const Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () =
 - `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`. Default `'sm'`.
 - `fullWidth` (optional): `boolean`.
 - `active` (optional): `boolean`.
+- `iconEnd` (optional): `ReactNode`.
 
 It also takes the 286 attributes it inherits through `Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'>`, `ButtonHTMLAttributes<HTMLButtonElement>`.
 

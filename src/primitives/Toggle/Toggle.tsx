@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import '../../theme/control-size.css';
+import '../../theme/label-size.css';
 import './Toggle.css';
 import { useId } from 'react';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
@@ -9,13 +10,13 @@ import { ToggleText } from './sub-components/ToggleText';
 import type { ToggleProps } from './Toggle.type';
 
 const Toggle = (props: ToggleProps) => {
-  const { checked, onChange, label, description, disabled = false, id, link, size, hint, onHint, 'aria-label': ariaLabel, 'aria-labelledby': labelledBy } = props;
+  const { checked, onChange, label, description, disabled = false, id, link, size, labelSize, hint, onHint, 'aria-label': ariaLabel, 'aria-labelledby': labelledBy } = props;
   const generatedId = useId();
   const control = useFieldControl(id);
   const controlSize = useControlSize(size);
   const toggleId = control.id ?? `toggle-${generatedId}`;
   const hintHandlers = useHintTarget<HTMLLabelElement>({ hint, onHint });
-  const classes = ['toggle', `control-size--${controlSize}`, disabled && 'toggle--disabled'].filter(Boolean).join(' ');
+  const classes = ['toggle', `control-size--${controlSize}`, labelSize && `label-size--${labelSize}`, disabled && 'toggle--disabled'].filter(Boolean).join(' ');
 
   return (
     <label className={classes} htmlFor={toggleId} {...hintHandlers}>

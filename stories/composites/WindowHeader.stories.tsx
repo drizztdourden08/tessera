@@ -1,6 +1,6 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
-import type { StoryLiteMeta } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { WindowHeader } from '../../src/composites';
 import { Box, Button, Icon, StatRow, Status, Text } from '../../src/primitives';
@@ -124,6 +124,21 @@ const NarrowBack = {
   render: (args) => narrowRows(args, ignoreClose),
 } satisfies PlaygroundStory<WindowHeaderArgs>;
 
+const LONG_TITLE = 'Hyrule Castle, before Agahnim: the second save of the run';
+
+const Wrapped = {
+  name: 'A long title that wraps instead of shortening',
+  render: () => (
+    <Box className="story-column">
+      {[false, true].map((wrap) => (
+        <Box key={String(wrap)} className="window-header-story__strip window-header-story__strip--narrow">
+          <WindowHeader title={LONG_TITLE} titleWrap={wrap} onClose={ignoreClose} />
+        </Box>
+      ))}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<WindowHeaderArgs>;
+
 const TitleOnly = {
   name: 'Title only',
   args: ARGS,
@@ -139,11 +154,12 @@ const Overview = overviewStory({
     '`extra` takes content such as a [Status] or a button, before the close button.',
     '`back` draws a back button before the title; the host wires [[Alt+Left]] and the mouse back button.',
     'It stays one row: the subtitle shortens first, then `extra` hides, then the title shortens.',
+    '`titleWrap` lets a long title run onto more lines in place of the ellipsis, such as a save name.',
   ],
   instead: '[WindowTitleBar] for the title bar of a whole app window.',
   playground: Playground,
-  variants: [InWindow, Narrow, WithBack, NarrowBack, TitleOnly],
+  variants: [InWindow, Narrow, WithBack, NarrowBack, Wrapped, TitleOnly],
 });
 
 export default meta;
-export { InWindow, Narrow, NarrowBack, Overview, Playground, TitleOnly, WithBack };
+export { InWindow, Narrow, NarrowBack, Overview, Playground, TitleOnly, WithBack, Wrapped };

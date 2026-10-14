@@ -1323,6 +1323,22 @@
       "cssCustomProperties": {
         "--dock-divider-bar": "--resize-handle-bar"
       }
+    },
+    {
+      "version": "next",
+      "components": {
+        "MediaViewerPixels": "ImagePixelated"
+      },
+      "cssClasses": {
+        "dropdown-trigger__end": "btn__icon--end",
+        "hero__art--pixelated": "image--pixelated"
+      },
+      "moves": {
+        "ImagePixelated": {
+          "from": "composites",
+          "to": "primitives"
+        }
+      }
     }
   ]
 }
