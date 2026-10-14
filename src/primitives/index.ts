@@ -68,9 +68,9 @@ export { Anchored, useAnchorSupport } from './Anchored';
 export { Overlay } from './Overlay';
 export type { OverlayProps, OverlayTone } from './Overlay';
 export type { AnchoredPlacement, AnchoredProps } from './Anchored';
-export { Portal, useAnchorTracking, dropPanelPositionFor } from './Portal';
+export { Portal, useAnchorTracking, useDismissListeners, dropPanelPositionFor } from './Portal';
 export type {
-  DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult,
+  DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult, UseDismissListenersParams,
 } from './Portal';
 export { ScrollArea, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition } from './ScrollArea';
 export type { PortalLayer } from './Portal';
@@ -126,7 +126,7 @@ export type {
 } from './hint';
 export type { ActionData, BackAction } from './action-data';
 export { Tooltip } from './Tooltip';
-export type { TooltipProps } from './Tooltip';
+export type { TooltipFollow, TooltipProps } from './Tooltip';
 export { Image } from './Image';
 export type { ImagePlaceholderProps, ImageProps } from './Image';
 export { Icon, ICONS } from './Icon';

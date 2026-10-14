@@ -7118,3 +7118,24 @@ In the gallery, every opened menu whose button sits in the right half of the fra
 ### What an app does
 
 Nothing. An app that wants a trigger menu to keep opening to the right at the right edge of a window passes `align="start"`.
+
+## 221. Dismissing, a hint that follows the pointer, segment descriptions and a drag
+
+From the RotP migration. RotP kept four small parts of its own beside Tessera: a hook that closed a popup on Escape and on a press outside, a hint card that followed the pointer, a pool bar whose parts lost their hover text when it moved to StackedBar, and a drag glyph drawn as a left click with a separate move icon. Tessera now covers each one.
+
+### What changed
+
+- **Anchored closes itself when asked.** `onDismiss?: () => void` runs on Escape and on a mouse press outside the popup and its anchor. Escape goes through the shared Escape stack at the `popover` level (section 211), and the press goes through the same popup stack as menus, so a press inside a nested popup counts as inside. `dismissOnEscape` and `dismissOnOutsidePress`, both `true` by default, turn either one off. Without `onDismiss` nothing changes.
+- **`useDismissListeners` is exported**, with its `UseDismissListenersParams` type, for an app popup that is not an Anchored: `{ open, onClose, contentRef, triggerRef, escape?, outsidePress?, level? }`. `outsidePress` is new and `true` by default.
+- **Tooltip takes `follow="pointer"`.** The tooltip then sits after and below the pointer, 14 px away, moves with it, and turns to the other side of the pointer near the right or bottom edge of the window, never closer than 6 px to an edge. It is still a `role="tooltip"` named on the anchor with `aria-describedby`. Opened from the keyboard, it sits on its anchor as before. `follow="anchor"` is the default.
+- **A StackedBar segment takes `description?: string`.** Its tooltip shows the name, value and share as before, with the description on a second, muted line that wraps at the tooltip width. A part grouped into Other drops its description.
+- **Shortcut draws `mouse="drag"`** as the mouse with its left button held, then the move arrows that the ShortcutList drag gesture uses, read as "Drag". It joins keys like any other mouse button, as in `<Shortcut keys="shift" mouse="drag" />`.
+
+In the gallery, the Anchored page has a new variant that closes on Escape or a press outside, the Tooltip page a variant where hints follow the pointer over three slots, the StackedBar page a variant with a description on each part, and the Shortcut page a drag row under Mouse buttons and a new A drag variant at both sizes. The other variants look the same.
+
+### What an app does
+
+- An app hook that closes a popup on Escape and an outside press passes `onDismiss` to its Anchored instead, or calls `useDismissListeners` for any other popup.
+- A hint card placed from the pointer by hand becomes `<Tooltip follow="pointer" content={card}>`.
+- Hover text written as a `title` per part goes in each segment's `description`.
+- A drag drawn as a left click plus a move icon becomes `mouse="drag"`.

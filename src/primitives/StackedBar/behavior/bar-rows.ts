@@ -8,7 +8,8 @@ const barRows = (
 ): StackedBarRow[] => parts.map((part) => {
   const label = part.grouped ? strings.otherCount(part.label, part.grouped) : part.label;
   const amount = format(part.value);
-  return { id: part.id, color: part.color, label, amount, tip: strings.segmentTip(label, amount, sharePercent(part.value, capacity)) };
+  const tip = strings.segmentTip(label, amount, sharePercent(part.value, capacity));
+  return { id: part.id, color: part.color, label, amount, tip, description: part.description };
 });
 
 export { barRows };

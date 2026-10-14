@@ -14,6 +14,9 @@ interface AnchoredProps extends HTMLAttributes<HTMLDivElement> {
   layer?: PortalLayer;
   portal?: boolean;
   fallback?: FloatingPlacement | null;
+  onDismiss?: () => void;
+  dismissOnEscape?: boolean;
+  dismissOnOutsidePress?: boolean;
   ref?: Ref<HTMLDivElement>;
   children?: ReactNode;
 }

@@ -13,6 +13,7 @@ interface StackedBarSegment {
   label: string;
   value: number;
   color?: StackedBarColor;
+  description?: string;
 }
 
 interface StackedBarPart {
@@ -21,6 +22,7 @@ interface StackedBarPart {
   value: number;
   color: StackedBarColor;
   grouped: number;
+  description?: string;
 }
 
 interface StackedBarRow {
@@ -29,6 +31,7 @@ interface StackedBarRow {
   label: string;
   amount: string;
   tip: string;
+  description?: string;
 }
 
 interface StackedBarProps {

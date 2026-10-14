@@ -7,7 +7,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
-import { CATEGORY_SEGMENTS } from './_samples/stacked-bar-samples.constants';
+import { CATEGORY_SEGMENTS, POOL_SEGMENTS } from './_samples/stacked-bar-samples.constants';
 import { MANY_SEGMENTS, MEMORY_SEGMENTS, TONED_SEGMENTS } from '../composites/_samples/chart-samples.constants';
 import { formatGigabytes } from '../composites/_samples/format-gigabytes';
 import { LiveMemoryBar } from './_samples/LiveMemoryBar';
@@ -99,6 +99,15 @@ const Colours = {
   ),
 } satisfies StoryLiteStoryDefinition<StackedBarArgs>;
 
+const Described = {
+  name: 'A description on each part',
+  render: () => (
+    <Box className="stacked-bar-story">
+      <StackedBar segments={POOL_SEGMENTS} limit={5} size="sm" legend label="Item pool" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<StackedBarArgs>;
+
 const Sizes = {
   name: 'Sizes',
   render: () => (
@@ -167,11 +176,11 @@ const Overview = overviewStory({
     '`total` sets the whole, so room the parts leave shows as free track.',
     '`legend` lists each part with its swatch and value; `format` writes the values.',
     '`orientation="vertical"` stacks the parts bottom to top in a column `height` tall, the legend beside it.',
-    'Point at a part for its name, value and share in a [Tooltip].',
+    'Point at a part for its name, value and share in a [Tooltip]; a segment `description` adds a line under them.',
   ],
   instead: '[ProgressBar] for one value toward an end.',
   playground: Playground,
-  variants: [Memory, Grouped, Colours, Sizes, Vertical, Live],
+  variants: [Memory, Grouped, Colours, Described, Sizes, Vertical, Live],
   states: {
     render: renderState,
     list: [
@@ -184,4 +193,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Colours, Grouped, Live, Memory, Overview, Playground, Sizes, Vertical };
+export { Colours, Described, Grouped, Live, Memory, Overview, Playground, Sizes, Vertical };

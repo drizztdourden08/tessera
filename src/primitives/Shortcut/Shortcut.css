@@ -150,6 +150,18 @@
   block-size: 100%;
 }
 
+.shortcut__mouse--drag {
+  gap: var(--size-1);
+  inline-size: auto;
+}
+
+.shortcut__drag {
+  flex: none;
+  inline-size: var(--size-14);
+  block-size: var(--size-14);
+  color: var(--shortcut-mark);
+}
+
 .shortcut__press {
   fill: var(--shortcut-mark);
 }
@@ -199,6 +211,15 @@
 .shortcut--xs .shortcut__mouse-icon {
   inline-size: var(--size-16);
   block-size: var(--size-16);
+}
+
+.shortcut--xs .shortcut__mouse--drag {
+  inline-size: auto;
+}
+
+.shortcut--xs .shortcut__drag {
+  inline-size: var(--size-10);
+  block-size: var(--size-10);
 }
 
 .shortcut--animate {

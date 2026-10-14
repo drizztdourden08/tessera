@@ -11,9 +11,9 @@ import type { UseDismissListenersParams } from './useDismissListeners.type';
 const stayOpen = (): void => undefined;
 
 const useDismissListeners = (params: UseDismissListenersParams): void => {
-  const { open, onClose, contentRef, triggerRef, escape = true, level = 'popover' } = params;
-  const latest = useRef({ onClose, contentRef, triggerRef, escape, level });
-  latest.current = { onClose, contentRef, triggerRef, escape, level };
+  const { open, onClose, contentRef, triggerRef, escape = true, outsidePress = true, level = 'popover' } = params;
+  const latest = useRef({ onClose, contentRef, triggerRef });
+  latest.current = { onClose, contentRef, triggerRef };
 
   useEffect(() => {
     if (!open) return;
@@ -26,19 +26,19 @@ const useDismissListeners = (params: UseDismissListenersParams): void => {
     const close = () => latest.current.onClose();
     const layer: DismissLayer = { close, holds };
     const leave = enterLayer(doc, layer);
-    const leaveEscape = latest.current.escape ? pushEscape(doc, latest.current.level, close) : stayOpen;
+    const leaveEscape = escape ? pushEscape(doc, level, close) : stayOpen;
     const press = (event: MouseEvent): void => {
       const path = event.composedPath().filter(isNode);
       if (path.some((node) => holds(node) || heldAbove(doc, layer, node))) return;
-      latest.current.onClose();
+      close();
     };
-    doc.addEventListener('mousedown', press);
+    if (outsidePress) doc.addEventListener('mousedown', press);
     return () => {
       leave();
       leaveEscape();
       doc.removeEventListener('mousedown', press);
     };
-  }, [open]);
+  }, [open, escape, outsidePress, level]);
 };
 
 export { useDismissListeners };

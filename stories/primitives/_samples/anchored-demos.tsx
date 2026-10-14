@@ -41,6 +41,29 @@ const Placements = () => (
   </Box>
 );
 
+const DismissPanel = (props: { label: string; outside: boolean }) => {
+  const { label, outside } = props;
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  const [shown, setShown] = useState(false);
+  return (
+    <Box>
+      <Button ref={anchorRef} variant="secondary" onClick={() => setShown((was) => !was)}>{label}</Button>
+      {shown && (
+        <Anchored anchorRef={anchorRef} onDismiss={() => setShown(false)} dismissOnOutsidePress={outside} className="anchored-demo__panel">
+          <Text>{outside ? 'Press Escape or anywhere outside to close.' : 'Only Escape or the button closes it.'}</Text>
+        </Anchored>
+      )}
+    </Box>
+  );
+};
+
+const DismissPanels = () => (
+  <ButtonRow className="anchored-demo__stage">
+    <DismissPanel label="Escape or outside" outside />
+    <DismissPanel label="Escape only" outside={false} />
+  </ButtonRow>
+);
+
 const ScrollBox = () => {
   const [region, setRegion] = useState<string | null>('Eastern Palace');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -64,5 +87,5 @@ const ScrollBox = () => {
   );
 };
 
-export { PinnedPanel, Placements, ScrollBox };
+export { DismissPanels, PinnedPanel, Placements, ScrollBox };
 export type { AnchoredArgs };

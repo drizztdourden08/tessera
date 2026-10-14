@@ -1,11 +1,13 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useState } from 'react';
-import type { FocusEvent, RefObject } from 'react';
+import type { FocusEvent, MouseEvent, RefObject } from 'react';
 import { focusLeft } from '../../dom/focus-left';
 import { useDismissListeners } from '../../Portal/behavior/useDismissListeners';
-import type { TooltipOpen } from './useTooltipOpen.type';
+import type { TooltipOpen, TooltipPointer } from './useTooltipOpen.type';
 
-const useTooltipOpen = (anchorRef: RefObject<HTMLElement | null>, bubbleRef: RefObject<HTMLElement | null>, hasContent: boolean): TooltipOpen => {
+const useTooltipOpen = (
+  anchorRef: RefObject<HTMLElement | null>, bubbleRef: RefObject<HTMLElement | null>, hasContent: boolean, onPointer?: TooltipPointer,
+): TooltipOpen => {
   const [hover, setHover] = useState(false);
   const [focus, setFocus] = useState(false);
   const [dismissed, setDismissed] = useState(false);
@@ -21,10 +23,17 @@ const useTooltipOpen = (anchorRef: RefObject<HTMLElement | null>, bubbleRef: Ref
     if (focusLeft(event)) setFocus(false);
   };
 
+  const onMouseEnter = (event: MouseEvent<HTMLElement>) => {
+    onPointer?.(event);
+    setHover(true);
+  };
+
   return {
     open,
+    hover,
     handlers: {
-      onMouseEnter: () => setHover(true),
+      onMouseEnter,
+      onMouseMove: onPointer,
       onMouseLeave: () => setHover(false),
       onFocus: () => setFocus(true),
       onBlur,

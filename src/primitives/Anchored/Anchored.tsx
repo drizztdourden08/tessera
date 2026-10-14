@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useId, useRef } from 'react';
+import { useDismissListeners } from '../Portal/behavior/useDismissListeners';
 import { setNodeOnRef } from '../ScrollArea/behavior/set-node-on-ref';
 import { anchorIdent } from './behavior/anchor-ident';
 import { useAnchorName } from './behavior/useAnchorName';
@@ -11,12 +12,15 @@ import type { AnchoredProps, AnchoredStyle } from './Anchored.type';
 import './Anchored.css';
 
 const Anchored = (props: AnchoredProps) => {
-  const { anchorRef, placement = 'bottom-start', flip = true, layer, portal, fallback, className, style, ref, children, ...rest } = props;
+  const { anchorRef, placement = 'bottom-start', flip = true, layer, portal, fallback, className, style, ref, children, ...popup } = props;
+  const { onDismiss, dismissOnEscape = true, dismissOnOutsidePress = true, ...rest } = popup;
   const name = anchorIdent(useId());
   const native = useAnchorSupport(anchorRef);
   const popupRef = useRef<HTMLDivElement | null>(null);
   useAnchorName(native, anchorRef, name);
   useShownPopover(native, popupRef);
+  const dismiss = { escape: dismissOnEscape, outsidePress: dismissOnOutsidePress };
+  useDismissListeners({ open: onDismiss !== undefined, onClose: () => onDismiss?.(), contentRef: popupRef, triggerRef: anchorRef, ...dismiss });
   const own = useOwnFallback(!native && fallback === undefined, anchorRef, placement);
 
   const attach = useCallback((node: HTMLDivElement | null) => {

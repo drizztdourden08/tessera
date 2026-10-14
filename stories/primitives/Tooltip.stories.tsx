@@ -3,6 +3,8 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Status, Text, Tooltip } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { TooltipPointerDemo } from './_samples/TooltipPointerDemo';
+import './Tooltip.stories.css';
 
 type Placement = 'top' | 'bottom';
 
@@ -62,6 +64,11 @@ const Placements = {
   ),
 } satisfies StoryLiteStoryDefinition<TooltipArgs>;
 
+const FollowPointer = {
+  name: 'Following the pointer',
+  render: () => <TooltipPointerDemo />,
+} satisfies StoryLiteStoryDefinition<TooltipArgs>;
+
 const Overview = overviewStory({
   component: 'Tooltip',
   description: 'A short note that appears while the pointer rests on an element or focus is on it, such as a cost or the full text of a label.',
@@ -69,13 +76,14 @@ const Overview = overviewStory({
     'Wrap any element in it and pass the note as `content`; it names the focused control with `aria-describedby`.',
     'It opens on focus too and [[Esc]] closes it; `focusable` puts plain text in the Tab order.',
     'It opens above by default, or below with `placement="bottom"`.',
+    '`follow="pointer"` sets it beside the pointer and keeps it inside the window, for a hint over a wide area.',
     'It draws above the page, so a clipped panel does not cut it off.',
     'With no `content` it draws nothing.',
   ],
   instead: '[HintLine] for a panel that explains every option in one place.',
   playground: Playground,
-  variants: [Placements],
+  variants: [Placements, FollowPointer],
 });
 
 export default meta;
-export { Overview, Placements, Playground };
+export { FollowPointer, Overview, Placements, Playground };

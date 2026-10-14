@@ -38,6 +38,16 @@
   filter: brightness(1.25);
 }
 
+.stacked-bar__tip {
+  display: block;
+}
+
+.stacked-bar__about {
+  display: block;
+  color: var(--c-text-muted);
+  white-space: normal;
+}
+
 .stacked-bar__fill[data-color='free'] {
   background: transparent;
 }

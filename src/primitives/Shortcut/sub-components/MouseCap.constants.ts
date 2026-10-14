@@ -2,6 +2,7 @@
 import type { IconifyIcon } from '@iconify/types';
 import mouse from '@iconify-icons/ph/mouse';
 import mouseMiddleClick from '@iconify-icons/ph/mouse-middle-click';
+import type { IconName } from '../../Icon/Icon.type';
 import { layeredIcon } from '../behavior/layered-icon';
 
 const OUTLINE = 'M144 16h-32a64.07 64.07 0 0 0-64 64v96a64.07 64.07 0 0 0 64 64h32a64.07 64.07 0 0 0 64-64V80a64.07 64.07 0 0 0-64-64m48 160a48.05 48.05 0 0 1-48 48h-32a48.05 48.05 0 0 1-48-48V80a48.05 48.05 0 0 1 48-48h32a48.05 48.05 0 0 1 48 48Z';
@@ -23,8 +24,12 @@ const pathsOf = (icon: IconifyIcon): string[] => [...icon.body.matchAll(/ d="([^
 
 const BUTTONS = pathsOf(mouse);
 
+const LEFT_CLICK = layeredIcon({ base: BUTTONS, press: [LEFT_BUTTON] });
+
+const DRAG_ICON: IconName = 'move';
+
 const MOUSE_SPECS = {
-  left: { name: 'Left click', icon: layeredIcon({ base: BUTTONS, press: [LEFT_BUTTON] }) },
+  left: { name: 'Left click', icon: LEFT_CLICK },
   right: { name: 'Right click', icon: layeredIcon({ base: BUTTONS, press: [RIGHT_BUTTON] }) },
   middle: { name: 'Middle click', icon: layeredIcon({ base: pathsOf(mouseMiddleClick), press: [WHEEL_BLOCK] }) },
   wheel: { name: 'Scroll wheel', icon: layeredIcon({ base: [OUTLINE], press: [SCROLL] }) },
@@ -35,6 +40,7 @@ const MOUSE_SPECS = {
   back: { name: 'Back button', icon: layeredIcon({ base: [...BUTTONS, FRONT_IDLE], press: [REAR_PRESSED, ARROW_LEFT] }) },
   forward: { name: 'Forward button', icon: layeredIcon({ base: [...BUTTONS, REAR_IDLE], press: [FRONT_PRESSED, ARROW_RIGHT] }) },
   any: { name: 'Any mouse button', icon: layeredIcon({ base: BUTTONS, press: [LEFT_BUTTON, RIGHT_BUTTON] }) },
+  drag: { name: 'Drag', icon: LEFT_CLICK },
 } as const;
 
-export { MOUSE_SPECS };
+export { DRAG_ICON, MOUSE_SPECS };

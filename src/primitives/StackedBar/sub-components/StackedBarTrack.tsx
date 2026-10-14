@@ -7,7 +7,7 @@ import type { StackedBarTrackProps } from './StackedBarTrack.type';
 
 const StackedBarTrack = (props: StackedBarTrackProps) => {
   const { rows, sizes, orientation, freeTip, summary } = props;
-  const pieces = rows.map((row) => <StackedBarPiece key={row.id} color={row.color} tip={row.tip} />);
+  const pieces = rows.map((row) => <StackedBarPiece key={row.id} color={row.color} tip={row.tip} description={row.description} />);
   if (freeTip) pieces.push(<StackedBarPiece key={FREE_ID} color="free" tip={freeTip} />);
   return (
     <Box

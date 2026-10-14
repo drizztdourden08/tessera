@@ -8,6 +8,7 @@ interface UseDismissListenersParams {
   contentRef: RefObject<HTMLElement | null>;
   triggerRef: RefObject<HTMLElement | null>;
   escape?: boolean;
+  outsidePress?: boolean;
   level?: EscapeLevel;
 }
 

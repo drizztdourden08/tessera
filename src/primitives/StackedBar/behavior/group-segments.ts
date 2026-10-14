@@ -8,6 +8,7 @@ const colourOf = (segment: StackedBarSegment, index: number): StackedBarPart => 
   value: segment.value,
   color: segment.color ?? AUTO_COLORS[index % AUTO_COLORS.length] ?? OTHER_COLOR,
   grouped: 0,
+  description: segment.description,
 });
 
 const groupSegments = (segments: readonly StackedBarSegment[], limit: number, otherLabel: string): StackedBarPart[] => {

@@ -120,6 +120,19 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<ShortcutArgs>;
 
+const DRAG_SAMPLES: Readonly<Record<string, readonly ShortcutKey[]>> = { Drag: [], 'Shift + drag': ['shift'], 'Alt + drag': ['alt'] };
+
+const Drag = {
+  name: 'A drag',
+  render: () => (
+    <Demonstrator
+      rows={axis(Object.keys(DRAG_SAMPLES))}
+      columns={axis(SHORTCUT_SIZES)}
+      cell={(sample, size) => <Shortcut keys={DRAG_SAMPLES[sample] ?? []} mouse="drag" size={size} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ShortcutArgs>;
+
 const Filled = {
   name: 'Filling a box',
   render: () => <ShortcutFillDemo />,
@@ -144,6 +157,7 @@ const Overview = overviewStory({
   description: 'Keycaps for a key, a key combination or a mouse button, such as [[Ctrl+S]].',
   points: [
     '`keys` takes a key name, or an array for a combination; `mouse` adds one mouse button after the keys.',
+    '`mouse="drag"` draws a held left button with the move arrows, for a gesture such as [[Shift]] and a drag.',
     '`legend` picks what a key shows: its label, its symbol or its plain arrow.',
     '`size="md"` suits text and lists; `xs` suits compact panels.',
     '`state` holds idle, lit or pressed; `animate` presses and releases in a loop and wins over `state`.',
@@ -151,7 +165,7 @@ const Overview = overviewStory({
   ],
   playground: Playground,
   variants: [
-    Legends, CapWidths, PrintableKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, Animated, Sizes, Filled, InSentence,
+    Legends, CapWidths, PrintableKeys, Arrows, Combinations, MouseButtons, KeysAndMouse, Drag, Animated, Sizes, Filled, InSentence,
   ],
   states: {
     render: renderState,
@@ -161,6 +175,6 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  Animated, Arrows, CapWidths, Combinations, Filled, InSentence, KeysAndMouse, Legends, MouseButtons, Overview,
+  Animated, Arrows, CapWidths, Combinations, Drag, Filled, InSentence, KeysAndMouse, Legends, MouseButtons, Overview,
   Playground, PrintableKeys, Sizes,
 };

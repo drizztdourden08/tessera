@@ -33,11 +33,13 @@ StackedBar shows how one total splits into named parts, in a single bar.
 - Pass total when the parts do not fill the whole, so the room left shows as free track.
 - Set orientation to vertical for a column beside other columns; give it a height, or a box with a height to fill.
 - Use status tones when the parts are states and tag colours when they are names; leave color out to cycle the tag colours.
+- Give a part a description when its name needs a line of meaning; it shows under the name, value and share in its tooltip.
 
 ## Accessibility
 
 - With a label, the bar is an image named with every part and its value.
 - The legend lists each part as text, so the values never live only in a tooltip.
+- A description shows only in the tooltip, so keep it to meaning and never put a value there alone.
 
 ## Example
 
