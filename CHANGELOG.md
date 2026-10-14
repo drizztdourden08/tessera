@@ -1,5 +1,13 @@
 # @drizztdourden08/tessera
 
+## 0.32.0
+
+### Minor Changes
+
+- eefa0f3: ListDetailLayout takes `listRatio` for columns by share, `detailCollapsible` with `detailCollapsed`, `defaultDetailCollapsed` and `onDetailCollapsedChange` for a detail that folds to a rail like the list, and `listScroll` and `detailScroll` for a pane whose content scrolls itself. LogPanel takes `selectedIds` and `onSelectionChange`: a click, Shift and a click, and Up and Down with Shift pick rows the app copies or acts on. `blankValue` is public from `/data`, `IDENTITY_PATH` from `/composites`, and `createScrollSyncController` with its types `ScrollSyncController` and `ScrollSyncNode` from `/primitives`.
+- e39c0f2: Four parts an app no longer keeps a copy of. Anchored takes `onDismiss` and closes on Escape, through the shared Escape stack at the popover level, or on a press outside; `dismissOnEscape` and `dismissOnOutsidePress` turn either off. `useDismissListeners` and its `UseDismissListenersParams` type are exported, with a new `outsidePress` option. Tooltip takes `follow="pointer"` to sit beside the pointer and stay inside the window. A StackedBar segment takes a `description`, shown under its name, value and share in its tooltip. Shortcut draws `mouse="drag"`: the held left button with the move arrows.
+- a02dd60: Small parts RotP asked for, so it can drop its own copies. The named icon set gains fifteen Lucide icons: shuffle, database, store, camera, joystick, smartphone, wrench, dices, list-checks, scroll-text, network, person-standing, languages, music and layout-dashboard. A tab takes `disabled` and `disabledReason`: it greys out, the arrow keys, Home and End skip it, and the reason shows as a tooltip and is read as its description. Disclosure takes a controlled `open` beside `defaultOpen`, with `onOpenChange`. ItemCard takes `navigate` for app routing, as Link does, and `mediaHeight="auto"` for a picture taller than the 96 px band. Tag takes `variant="custom"` with a hex `color` from app data, and picks black or white text, whichever reads best. A menu item icon, and a menu trigger icon, can be a name, iconify data, Icon path data or an element.
+
 ## 0.31.0
 
 ### Minor Changes
