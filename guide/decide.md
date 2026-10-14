@@ -67,6 +67,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A key or a shortcut: no component yet.
   - A list of keys and what they do: [ShortcutList](components/ShortcutList.md). ShortcutList keeps every key in one column and every description at one edge, however long the text runs.
   - A value to copy, such as an address or a key: [CopyValue](components/CopyValue.md). CopyValue keeps the value selectable and puts the copy button at its end, with the same check and announcement as every copy.
+  - A score in stars, or a rating to give: [Rating](components/Rating.md). Rating shows an average in half stars with its count, and with onChange is the star picker.
 - Something over the page. **What sits over the page?**
   - A hint on hover or focus: no component yet.
   - A question the user must answer: no component yet.
@@ -77,6 +78,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A dim backdrop: no component yet.
   - A long job the user can hide or cancel: [JobDialog](components/JobDialog.md). JobDialog puts TaskProgress in a dialog whose buttons follow the state of the job.
   - A guided tour of the screen, one part at a time: [GuidedTour](components/GuidedTour.md). GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.
+  - A picture or a video opened large, with zoom: [MediaViewer](components/MediaViewer.md). MediaViewer opens a picture or a video large in a dialog, with zoom, dragging and arrows through a set.
 - A full screen view. **What is the screen for?**
   - Working across pages, picked from a side list: [WorkspaceScreen](components/WorkspaceScreen.md). A side list of pages beside the current page.
   - Reading, such as About or credits: [InfoScreen](components/InfoScreen.md). One centred column to read.
@@ -107,6 +109,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.
   - A side panel the user drags wider: [ResizeHandle](components/ResizeHandle.md). ResizeHandle is the one resize line of every Tessera layout: drag, keys, value and range, with usePaneSize to keep a width in pixels.
+  - One slide at a time from a set: [Carousel](components/Carousel.md). Carousel shows one slide at a time with dots and arrows, and can turn by itself.
   - A list beside an editor, with unsaved edits guarded: [ListDetail](components/ListDetail.md). ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app.
   - An app frame with its navigation: no component yet.
   - Panels the user docks and moves: [Widget](components/Widget.md). Widget and WidgetManager give every tool panel the same frame, dock and options, with the app holding the layout.

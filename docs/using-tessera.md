@@ -247,6 +247,9 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | Two scroll boxes that follow each other | `scrollTo` and `onScroll` on `ScrollArea`; `createScrollSyncController` for a box that is not a ScrollArea, or in a test |
 | Rows of a log the user picks to copy | `selectedIds` and `onSelectionChange` on `LogPanel` |
 | A list and detail split by share, with a detail that folds | `listRatio` and `detailCollapsible` on `ListDetailLayout` |
+| Stars for a score, or a star picker | `Rating`, with `count` and `showValue`; `onChange` makes it the picker |
+| A few featured items that turn in one banner | `Carousel` with `turnEvery`, its slides any node such as a `Hero` |
+| A picture or a video opened large, with zoom | `MediaViewer`, with `items` for arrows through a set |
 
 ## The gallery
 

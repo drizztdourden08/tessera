@@ -14,6 +14,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'DeleteGuardDialog', summary: 'Confirms a delete and lists what still points at it.' },
         { name: 'WizardDialog', summary: 'A wizard in a dialog, under the standard dialog header.' },
         { name: 'JobDialog', summary: 'A long job in a dialog, with Cancel and Hide while it runs and Close once it ends.' },
+        { name: 'MediaViewer', summary: 'A picture or a video opened large over the page, with zoom and arrows through a set.' },
       ],
     },
     {
@@ -135,12 +136,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'Field kits', summary: 'The editor, cell and filter for each field kind.' },
       ],
     },
-    {
-      group: 'Charts',
-      entries: [
-        { name: 'StatTile', summary: 'One headline number with its unit, its change and a small chart.' },
-      ],
-    },
+    { group: 'Charts', entries: [{ name: 'StatTile', summary: 'One headline number with its unit, its change and a small chart.' }] },
     {
       group: 'Content',
       entries: [
@@ -157,6 +153,8 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
         { name: 'CodeBlock', summary: 'Highlighted code in a panel, with line marks, numbers and a copy button.' },
         { name: 'Markdown', summary: 'A Markdown text, such as a release note, drawn with Tessera parts, with raw HTML dropped.' },
+        { name: 'Rating', summary: 'Stars that show how well something is rated, and let a person rate it.' },
+        { name: 'Carousel', summary: 'One slide at a time from a set, with dots, arrows and an optional slow turn.' },
       ],
     },
     {

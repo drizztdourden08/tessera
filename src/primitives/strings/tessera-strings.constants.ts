@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind data */
+import { CAROUSEL_STRINGS } from './carousel-strings.constants';
 import { CHART_STRINGS } from './charts-strings.constants';
 import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
 import { COMMON_STRINGS } from './common-strings.constants';
@@ -9,11 +10,13 @@ import { FILTER_OPERATOR_STRINGS } from './filter-operators-strings.constants';
 import { FILTER_STRINGS } from './filters-strings.constants';
 import { ITEM_STRINGS } from './items-strings.constants';
 import { LIST_STRINGS } from './lists-strings.constants';
+import { MEDIA_VIEWER_STRINGS } from './media-viewer-strings.constants';
 import { NAVIGATION_STRINGS } from './navigation-strings.constants';
 import { OPTION_STRINGS } from './options-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
 import { PASSWORD_STRINGS } from './password-strings.constants';
 import { PATH_STRINGS } from './paths-strings.constants';
+import { RATING_STRINGS } from './rating-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
 import { ROW_GRID_STRINGS } from './row-grid-strings.constants';
 import { SAVE_BAR_STRINGS } from './save-bar-strings.constants';
@@ -53,6 +56,9 @@ const TESSERA_STRINGS = {
   options: OPTION_STRINGS,
   rowGrid: ROW_GRID_STRINGS,
   saveBar: SAVE_BAR_STRINGS,
+  rating: RATING_STRINGS,
+  carousel: CAROUSEL_STRINGS,
+  mediaViewer: MEDIA_VIEWER_STRINGS,
 };
 
 export { TESSERA_STRINGS };

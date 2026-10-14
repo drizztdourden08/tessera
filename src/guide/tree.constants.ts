@@ -76,7 +76,7 @@ const STATUS = {
   answers: {
     'the state something is in': null, 'a count, or a dot for news': null, 'a value that sorts an item into a group': null,
     'a label and its value': null, 'terms and what they mean': null, 'a colour sample': null, 'a key or a shortcut': null,
-    'a list of keys and what they do': null, 'a value to copy, such as an address or a key': null,
+    'a list of keys and what they do': null, 'a value to copy, such as an address or a key': null, 'a score in stars, or a rating to give': null,
   },
 } as const;
 
@@ -86,6 +86,7 @@ const OVERLAYS = {
     'a hint on hover or focus': null, 'a question the user must answer': null, 'a dialog with its own layout': null,
     'a panel from the edge of the window': null, 'a search over every command': null, 'a cover over a part that is off': null,
     'a dim backdrop': null, 'a long job the user can hide or cancel': null, 'a guided tour of the screen, one part at a time': null,
+    'a picture or a video opened large, with zoom': null,
   },
 } as const;
 
@@ -104,7 +105,7 @@ const LAYOUT = {
     'a plain block': null, 'items in a row or a column': null, 'blocks stacked in a column': null, 'items on a grid': null,
     'one item in the centre': null, 'one raised item': null, 'empty space': null, 'a line between sections': null,
     'content that scrolls': null, 'more content behind a line that shows or hides it': null, 'a list beside its detail': null, 'two panes the user resizes': null,
-    'a side panel the user drags wider': null,
+    'a side panel the user drags wider': null, 'one slide at a time from a set': null,
     'a list beside an editor, with unsaved edits guarded': null,
     'an app frame with its navigation': null, 'panels the user docks and moves': null,
     'a header with an icon and a title over a block': null,

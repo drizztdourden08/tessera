@@ -1,5 +1,5 @@
 /* @layer root-config @kind data */
-const TIER_ICONS: Record<string, string> = { Core: 'atom', Primitives: 'box', Composites: 'boxes', Data: 'database', Preview: 'flask-conical' };
+const TIER_ICONS: Record<string, string> = { Core: 'atom', Primitives: 'box', Composites: 'boxes', Data: 'database' };
 
 const GROUP_ICONS: Record<string, string> = {
   'Core · Setup': 'rocket', 'Core · Brand': 'gem', 'Core · Colours': 'palette', 'Core · Typography': 'type', 'Core · Text': 'pilcrow',
@@ -12,7 +12,6 @@ const GROUP_ICONS: Record<string, string> = {
   'Composites · Inputs': 'text-cursor-input', 'Composites · Forms': 'clipboard-pen-line',
   'Composites · Data views': 'table', 'Composites · Charts': 'chart-column', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Windows': 'app-window-mac', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
-  'Preview · For approval': 'clipboard-check',
 };
 
 const PAGE_ICONS: Record<string, Record<string, string>> = {
@@ -71,6 +70,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Dialog: 'app-window', DialogShell: 'app-window-mac', CreateRecordDialog: 'file-plus', DeleteGuardDialog: 'shield-alert',
     WizardDialog: 'wand-sparkles',
     JobDialog: 'square-activity',
+    MediaViewer: 'scan-search',
   },
   'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban', GuidedTour: 'signpost' },
   'Composites · Feedback': { Toast: 'bell', LoadError: 'circle-alert', ErrorBoundary: 'bug', Splash: 'rocket', 'Static splash': 'power' },
@@ -102,6 +102,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Video: 'video',
     ShortcutList: 'keyboard',
     CodeBlock: 'square-code',
+    Rating: 'star',
+    Carousel: 'gallery-horizontal',
     Markdown: 'scroll-text',
   },
   'Composites · Inputs': {
@@ -121,7 +123,6 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Data': { Engine: 'cpu' },
   'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge', StackedBar: 'chart-bar-stacked' },
   'Composites · Charts': { StatTile: 'trending-up' },
-  'Preview · For approval': { Rating: 'star', Carousel: 'gallery-horizontal', MediaViewer: 'scan-search' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };

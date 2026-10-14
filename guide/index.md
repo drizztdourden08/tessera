@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 54 of 175 have their usage written; a linked name opens its page.
+One line per component. 57 of 178 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -80,6 +80,7 @@ One line per component. 54 of 175 have their usage written; a linked name opens 
 
 - [ActionBar](components/ActionBar.md): The actions on one item in a single row: the primary action last, the ones that do not fit folded into a More menu. Import from `@drizztdourden08/tessera`.
 - [ActionTile](components/ActionTile.md): A tile with one headline value that also does one thing: runs an action, copies a text, or leads to the full view. Import from `@drizztdourden08/tessera`.
+- [Carousel](components/Carousel.md): Shows one slide at a time from a set, with dots and arrows to move between them, and can turn to the next slide by itself. Import from `@drizztdourden08/tessera`.
 - [CheckList](components/CheckList.md): The results of a list of checks, such as a connection test or a diagnostics report, each with its state, what was found and an optional fix. Import from `@drizztdourden08/tessera`.
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorPicker`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker`.
@@ -126,9 +127,11 @@ One line per component. 54 of 175 have their usage written; a linked name opens 
 - [LoadError](components/LoadError.md): What to show when something fails to load: one plain sentence, a Retry button and the raw error behind Details. Import from `@drizztdourden08/tessera`.
 - [LogPanel](components/LogPanel.md): A running log, such as a server log or a simulation trace, in one framed box with search, filters, a line count and Copy all. Import from `@drizztdourden08/tessera`.
 - [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
+- [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ResizeHandle](components/ResizeHandle.md): The line between two panels that the user drags, or moves with the keys, to resize the panel beside it, such as the outline and inspector of an editor. Import from `@drizztdourden08/tessera`.
 - [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.

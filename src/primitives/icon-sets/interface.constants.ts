@@ -57,6 +57,8 @@ import toggleLeftIcon from '@iconify-icons/lucide/toggle-left';
 import circleDotIcon from '@iconify-icons/lucide/circle-dot';
 import bracesIcon from '@iconify-icons/lucide/braces';
 import splitIcon from '@iconify-icons/lucide/split';
+import zoomInIcon from '@iconify-icons/lucide/zoom-in';
+import zoomOutIcon from '@iconify-icons/lucide/zoom-out';
 
 const INTERFACE_ICONS = {
   'check': checkIcon,
@@ -117,6 +119,8 @@ const INTERFACE_ICONS = {
   'circle-dot': circleDotIcon,
   'braces': bracesIcon,
   'split': splitIcon,
+  'zoom-in': zoomInIcon,
+  'zoom-out': zoomOutIcon,
 } as const;
 
 export { INTERFACE_ICONS };

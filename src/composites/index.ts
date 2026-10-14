@@ -21,9 +21,7 @@ export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } 
 export { LogPanel } from './LogPanel';
 export type { LogKindDef, LogPanelProps, LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
-export type {
-  ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape,
-} from './ListItemRow';
+export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from './ListItemRow';
 export { ListDetailLayout } from './ListDetailLayout';
 export type { ListDetailLayoutProps } from './ListDetailLayout';
 export { SplitPane, type CollapsedSide, type SplitOrientation, type SplitPaneProps } from './SplitPane';
@@ -59,9 +57,7 @@ export { ScreenWindow } from './ScreenWindow';
 export type { ScreenWindowHeader, ScreenWindowProps } from './ScreenWindow';
 export { ScreenPage, type ScreenPageProps } from './ScreenPage';
 export { WorkspaceScreen } from './WorkspaceScreen';
-export type {
-  WorkspaceContent, WorkspaceGroup, WorkspacePage, WorkspaceScreenProps, WorkspaceSearch,
-} from './WorkspaceScreen';
+export type { WorkspaceContent, WorkspaceGroup, WorkspacePage, WorkspaceScreenProps, WorkspaceSearch } from './WorkspaceScreen';
 export { InfoScreen, type InfoScreenProps, type InfoScreenWidth } from './InfoScreen';
 export { UtilityScreen } from './UtilityScreen';
 export type {
@@ -87,9 +83,7 @@ export type { HeroArt, HeroBackdrop, HeroImageFit, HeroProps, HeroShade } from '
 export { FactsPanel } from './FactsPanel';
 export type { FactsPanelFact, FactsPanelGroup, FactsPanelLayout, FactsPanelProps } from './FactsPanel';
 export { CommandPalette, CommandPaletteRow } from './CommandPalette';
-export type {
-  CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle,
-} from './CommandPalette';
+export type { CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle } from './CommandPalette';
 export { GuidedTour, TourSpot, useGuidedTour } from './GuidedTour';
 export type {
   GuidedTourApi, GuidedTourOptions, GuidedTourProps, TourAdvance, TourEnterContext, TourMascotMove, TourSpotProps, TourSpotTarget, TourStep,
@@ -176,6 +170,9 @@ export type { SplashAction, SplashBar, SplashProgress, SplashProps } from './Spl
 export { ShortcutList, type ShortcutGesture, type ShortcutListGroup, type ShortcutListItem, type ShortcutListProps } from './ShortcutList';
 export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from './CodeBlock';
 export { Markdown, type MarkdownHeadingOffset, type MarkdownLinkHandler, type MarkdownProps, type MarkdownSize } from './Markdown';
+export { Rating, type RatingProps, type RatingSize } from './Rating';
+export { Carousel, type CarouselProps, type CarouselSlide } from './Carousel';
+export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaViewerPixels, type MediaViewerProps } from './MediaViewer';
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,

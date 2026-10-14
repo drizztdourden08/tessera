@@ -1,5 +1,7 @@
 /* @layer tooling-scripts @kind test */
 import databaseIcon from '@iconify-icons/lucide/database';
+import zoomInIcon from '@iconify-icons/lucide/zoom-in';
+import zoomOutIcon from '@iconify-icons/lucide/zoom-out';
 import { describe, expect, it } from 'vitest';
 import { ICONS } from '../src/primitives/Icon/Icon.constants';
 
@@ -13,5 +15,10 @@ describe('the named icon set', () => {
     for (const name of ADDED) expect(ICONS[name]?.body, name).toMatch(/^<(path|g|circle|rect)/);
     expect(ICONS.database).toBe(databaseIcon);
     expect(new Set(ADDED.map((name) => ICONS[name])).size).toBe(ADDED.length);
+  });
+
+  it('names the Lucide zoom icons a viewer zooms with', () => {
+    expect(ICONS['zoom-in']).toBe(zoomInIcon);
+    expect(ICONS['zoom-out']).toBe(zoomOutIcon);
   });
 });

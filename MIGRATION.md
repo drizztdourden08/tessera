@@ -7335,3 +7335,101 @@ interface WidgetProps {
 - The display settings pass `disabled` with the reason on the options the computer lacks, such as a refresh rate above what the display offers, in place of turning the whole row off.
 - The mobile host passes `controls={false}` to its title bar.
 - The popped widget window passes `disabled` to the `Widget` it draws, from the same answer `resolveDisabled` gives the dock, with `onOpenSettings` to open the setting, so a popped widget shows the same state as a docked one.
+
+## 225. Rating, Carousel and MediaViewer: stars, one slide at a time, and a picture opened large
+
+The owner approved TX-57, TX-58 and TX-59, each option A, with no notes. The three previews of the Preview · For approval group are now composites in the package, with their pages in the gallery; the Preview group is gone again. Each has behaviour (picking, a timer, zoom and dragging), so each is a composite.
+
+### Rating (TX-57)
+
+```ts
+interface RatingProps {
+  value: number | null; // the average, drawn to the nearest half star; null: nobody has rated yet
+  count?: number; // the number of ratings, shown as (212) after the stars
+  showValue?: boolean; // default false: the average as 4.6 beside the stars
+  max?: number; // default 5
+  size?: 'sm' | 'md' | 'lg'; // default md: stars of 14, 18 and 26 px
+  onChange?: (value: number) => void; // makes it the picker
+  disabled?: boolean; // the picker only
+  label?: string; // names the picker, Your rating by default; prefixes the sentence of a shown rating
+  className?: string;
+}
+```
+
+- **Shown.** One image a screen reader hears as one sentence, such as 4.6 out of 5, from 212 ratings. `null` fades the stars and reads Not rated yet. The stars fill with `--c-primary`, so they are gold in RotP; a half star is the left half, the right half in a right to left page.
+- **Picked.** With `onChange` it is a radio group with a radio per star and one Tab stop, the picked star or the first one. The arrow keys move from the focused star and pick, Home and End go to the ends, and the pointer lights the stars it is over. `value` is then the whole star picked.
+- The ratings panel of an item page stays a recipe: Card, ProgressBar, Rating and a Button, on the gallery page.
+
+### Carousel (TX-58)
+
+```ts
+interface CarouselSlide {
+  id: string;
+  label: string; // what a screen reader hears for the slide, such as the name of the pack
+  content: ReactNode; // any node: a Hero, a Card, an Image
+}
+
+interface CarouselProps {
+  slides: readonly CarouselSlide[];
+  label: string; // names the region
+  index?: number; // the app holds the place
+  defaultIndex?: number; // default 0
+  onIndexChange?: (index: number) => void;
+  turnEvery?: number | null; // milliseconds on each slide; default null: turned by hand
+  className?: string;
+}
+```
+
+- One slide shows at a time; dots and arrows move between them, the current dot long. The slides share one grid cell, so the box keeps the height of the tallest and the page never jumps. Hidden slides are inert.
+- With `turnEvery` it turns by itself and shows a stop button that stops it for good, and starts it again. It never turns while the pointer is over it, while focus is inside, on a hidden tab, off screen, or with reduced motion (then the stop button does not show). The wait starts again after each move by hand.
+- The box is a region with the carousel role description; each slide is a group named 2 of 3 and its label. The slides are a polite live region only while it does not turn, so a screen reader hears a slide when a person moves it and never on the timer.
+- While it turns by itself, the slides and the dots carry the review mask of section 212, so Brock's review does not see a change on every run.
+
+### MediaViewer (TX-59)
+
+```ts
+interface MediaViewerItem {
+  id: string;
+  kind: 'image' | 'video';
+  src: string;
+  name: string; // the title of the dialog
+  poster?: string;
+}
+
+interface MediaViewerProps {
+  open: boolean;
+  items: readonly MediaViewerItem[];
+  index?: number; // the app holds the place in the set
+  defaultIndex?: number; // default 0
+  onIndexChange?: (index: number) => void;
+  startAt?: number; // seconds: where the first video starts, such as where a small preview stopped
+  pixelated?: boolean | 'auto'; // default auto: sharp pixels for a picture of 256 px or less
+  onClose: () => void;
+  className?: string;
+}
+```
+
+- Drawn in DialogShell, so Escape goes through the shared Escape stack, the close button and the focus trap work as in every dialog, and focus goes back to what opened it. Focus starts on the dialog, named by the item.
+- A picture opens at Fit, whole inside the window, larger or smaller. The zoom buttons, or the minus and plus keys, step through 100, 200, 400, 800 and 1600 % around Fit, keeping the middle of the view in place; 0 goes back to Fit. The middle button, or a double click on the picture, swaps Fit and 100 %. Zoomed in, the picture drags to look around. Measured on the 240 by 120 sprite in a 1280 by 860 window: Fit shows it 1190 by 595, whole, with `image-rendering: pixelated`; plus goes to 800 %, 1920 by 960.
+- With several items, arrows on the sides and the Left and Right keys move through them, wrapping round, with 2 of 6 at the top as a polite live region. A key a control has taken, a shortcut, or a key on a video, slider or field is left alone.
+- A video plays in Tessera's Video with its own controls, starting at `startAt`; the zoom tools hide for it.
+- The small picture with Expand stays a recipe, shown on the page: an Image in a Pressable and a Button.
+
+### Icons and strings
+
+- Two Lucide icons join the named set: `zoom-in` and `zoom-out`. MediaViewer's zoom buttons use them.
+- Three new string groups: `rating` (`pickLabel`, `none`, `outOf`, `from`, `star`), `carousel` (`carousel`, `slide`, `slides`, `previous`, `next`, `stop`, `start`, `show`, `position`) and `mediaViewer` (`fit`, `zoomIn`, `zoomOut`, `fitOrActual`, `previous`, `next`, `percent`, `position`), overridable through `TesseraProvider` as any other.
+
+### Gallery
+
+- Rating and Carousel are in Composites · Content, MediaViewer in Composites · Dialogs, each with a playground, an Overview, its usage and its decision tree answer: a score in stars, or a rating to give; one slide at a time from a set; a picture or a video opened large, with zoom.
+- Rating shows its sizes, half stars, Not rated yet, the picker and the picker off, store cards from ItemCard and the ratings panel. Carousel shows the Hookshop featured packs as Hero slides, turning every eight seconds, and tips in a card turned by hand. MediaViewer shows Sanctuary's file pane as the recipe, and a set of pictures with a video.
+
+### What RotP deletes
+
+From the `brock-migration` branch:
+
+- **The store's Stars**, `apps/store/src/components/Stars/` (`Stars.tsx`, `Stars.css`, `Stars.constants.ts`, `Stars.type.ts`, `index.ts`). Its users take `Rating`: `ItemCard`, `ItemHero`, `FeaturedHero` and `pages/Browse/sub-components/ItemSideCard` pass `value`, with `count` and `showValue` where a caption of the average and the count sits beside the stars, and `RatingPanel` passes `size="lg"`, and for Your rating `onChange` with `disabled={busy}`. Rating hands a `number`, so `onRate` takes `(stars) => onRate(stars as Stars)`.
+- **The desktop app's Stars**, `apps/desktop/src/compounds/Stars/` (the same five files). `compounds/StoreItemCard/StoreItemCard.tsx` and `views/Store/sub-components/StoreDetail.tsx` pass `value={average}` with `count` and `showValue`.
+- **FeaturedHero's rotation**, `apps/store/src/components/FeaturedHero/behavior/useRotation.ts` and `useRotation.constants.ts`, with the dots in `FeaturedHero.tsx` and their `.featured-hero__dots` and `.featured-hero__dot` rules in `FeaturedHero.css`. `pages/Home/Home.tsx` draws a `Carousel` with `label="Featured"` and `turnEvery={8000}`, a slide per featured item: a `Hero`, or FeaturedHero's own picture and copy as the slide content.
+- **The media viewer**, `packages/design/src/compounds/MediaViewer/` (`MediaViewer.tsx`, `MediaViewer.css`, `MediaViewer.type.ts`, `index.ts`) and `packages/design/src/compounds/MediaPreview/` (`MediaPreview.tsx`, `MediaPreview.css`, `MediaPreview.type.ts`, `index.ts`, `behavior/usePixelArt.ts`, `behavior/usePixelArt.constants.ts`), with the `MediaPreview`, `usePixelArt` and `MediaViewer` exports in `packages/design/src/index.ts`. `apps/sanctuary/src/pages/Files/sub-components/FileMedia.tsx` draws the recipe and `<MediaViewer open items={[{ id: file.id, kind, src: url, name: file.name }]} startAt={viewerOpenAtSecond} onClose={...} />`.

@@ -247,6 +247,11 @@
             "components": [
               "CopyValue"
             ]
+          },
+          "a score in stars, or a rating to give": {
+            "components": [
+              "Rating"
+            ]
           }
         }
       },
@@ -282,6 +287,11 @@
           "a guided tour of the screen, one part at a time": {
             "components": [
               "GuidedTour"
+            ]
+          },
+          "a picture or a video opened large, with zoom": {
+            "components": [
+              "MediaViewer"
             ]
           }
         }
@@ -391,6 +401,11 @@
           "a side panel the user drags wider": {
             "components": [
               "ResizeHandle"
+            ]
+          },
+          "one slide at a time from a set": {
+            "components": [
+              "Carousel"
             ]
           },
           "a list beside an editor, with unsaved edits guarded": {
@@ -2885,6 +2900,123 @@
         "title": "Composites · Content/ActionTile",
         "route": "#/story/composites-actiontile--overview",
         "file": "stories/composites/ActionTile.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "Carousel",
+      "tier": "composites",
+      "source": "src/composites/Carousel/Carousel.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Shows one slide at a time from a set, with dots and arrows to move between them, and can turn to the next slide by itself.",
+      "useWhen": [
+        "A home page shows a few featured items in one banner, such as the featured packs of a store.",
+        "A small card turns through tips, news or pictures of one pack."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Every item should be seen at once.",
+          "use": "ItemCard"
+        },
+        {
+          "case": "Each slide has a name the user picks.",
+          "use": "Tabs"
+        },
+        {
+          "case": "A picture or a video is opened large.",
+          "use": "MediaViewer"
+        }
+      ],
+      "rules": [
+        "Pass slides as id, label and content; content can be any node, such as a Hero, a Card or an Image.",
+        "Write label as the name a screen reader hears for the slide, such as the name of the pack.",
+        "Pass turnEvery in milliseconds to turn by itself, 8000 or more; leave it out for a set the user turns by hand.",
+        "Pass index and onIndexChange when the app keeps the place, or defaultIndex to start on another slide.",
+        "Keep slides about the same height: the box takes the tallest, so the page never jumps."
+      ],
+      "a11y": [
+        "The box is a region named by label, with the carousel role description; each slide is a group named 2 of 3 and its label.",
+        "It stops turning under the pointer, while focus is inside, on a hidden tab, off screen and with reduced motion; the stop button stops it for good.",
+        "Slides are a polite live region only while it does not turn, so a screen reader hears a slide when a person moves it.",
+        "Hidden slides are inert, so Tab never lands in a slide that is not shown."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "one slide at a time from a set"
+        ],
+        "rule": "Carousel shows one slide at a time with dots and arrows, and can turn by itself."
+      },
+      "example": "import { Carousel, Hero } from '@drizztdourden08/tessera';\n\ninterface Featured {\n  id: string;\n  name: string;\n  banner: string;\n}\n\nconst FeaturedPacks = ({ items }: { items: readonly Featured[] }) => (\n  <Carousel\n    label=\"Featured\"\n    turnEvery={8000}\n    slides={items.map((item) => ({\n      id: item.id,\n      label: item.name,\n      content: <Hero eyebrow=\"Featured\" title={item.name} backdrop={{ kind: 'image', src: item.banner }} />,\n    }))}\n  />\n);\n",
+      "propsHash": "f3fd5dbba3660b5d",
+      "props": {
+        "own": [
+          {
+            "name": "slides",
+            "optional": false,
+            "text": "readonly CarouselSlide[]"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "index",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "defaultIndex",
+            "optional": true,
+            "text": "number",
+            "default": "0"
+          },
+          {
+            "name": "onIndexChange",
+            "optional": true,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "turnEvery",
+            "optional": true,
+            "text": "number | null",
+            "default": "null"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--c-primary",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--duration-fast",
+        "--duration-normal",
+        "--ease-standard",
+        "--radius-pill",
+        "--size-24",
+        "--size-8",
+        "--space-sm",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Content/Carousel",
+        "route": "#/story/composites-carousel--overview",
+        "file": "stories/composites/Carousel.stories.tsx"
       },
       "parts": []
     },
@@ -6630,6 +6762,132 @@
       "parts": []
     },
     {
+      "name": "MediaViewer",
+      "tier": "composites",
+      "source": "src/composites/MediaViewer/MediaViewer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set.",
+      "useWhen": [
+        "A small picture of a file, a store item or a save opens large when the user presses it or an Expand button.",
+        "A sprite or a sprite sheet is looked at closely, pixel by pixel."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The picture stays in the page.",
+          "use": "Image"
+        },
+        {
+          "case": "The video stays in the page, with theatre mode and full screen.",
+          "use": "Video"
+        },
+        {
+          "case": "Slides turn in the page itself.",
+          "use": "Carousel"
+        }
+      ],
+      "rules": [
+        "Pass items as id, kind image or video, src and name; the name is the title of the dialog.",
+        "Pass index and onIndexChange, or defaultIndex, to open on the item the user pressed.",
+        "Draw the small picture with Expand as a recipe: an Image in a Pressable and a Button that set open.",
+        "Pass startAt in seconds when a small video preview was playing, so the large one starts where it stopped.",
+        "Leave pixelated on auto: pictures of 256 pixels or less on their longest side stay sharp; pass true or false to force it."
+      ],
+      "a11y": [
+        "It is a DialogShell named by the item name: Escape and the close button close it, and focus goes back to what opened it.",
+        "The zoom buttons, the minus and plus keys, and 0 for Fit work from anywhere in the dialog; the Left and Right keys move through a set.",
+        "The place in a set, such as 2 of 6, is a polite live region."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a picture or a video opened large, with zoom"
+        ],
+        "rule": "MediaViewer opens a picture or a video large in a dialog, with zoom, dragging and arrows through a set."
+      },
+      "example": "import { useState } from 'react';\nimport { MediaViewer } from '@drizztdourden08/tessera';\nimport type { MediaViewerItem } from '@drizztdourden08/tessera';\n\nconst Screenshots = ({ shots }: { shots: readonly MediaViewerItem[] }) => {\n  const [opened, setOpened] = useState<number | null>(null);\n  return (\n    <>\n      {shots.map((shot, i) => <button key={shot.id} type=\"button\" onClick={() => setOpened(i)}>{shot.name}</button>)}\n      <MediaViewer open={opened !== null} items={shots} index={opened ?? 0} onIndexChange={setOpened} onClose={() => setOpened(null)} />\n    </>\n  );\n};\n",
+      "propsHash": "9e70400d7864e812",
+      "props": {
+        "own": [
+          {
+            "name": "open",
+            "optional": false,
+            "text": "boolean"
+          },
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly MediaViewerItem[]"
+          },
+          {
+            "name": "index",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "defaultIndex",
+            "optional": true,
+            "text": "number",
+            "default": "0"
+          },
+          {
+            "name": "onIndexChange",
+            "optional": true,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "startAt",
+            "optional": true,
+            "text": "number",
+            "default": "0"
+          },
+          {
+            "name": "pixelated",
+            "optional": true,
+            "text": "MediaViewerPixels",
+            "literals": [
+              "'auto'",
+              "false",
+              "true"
+            ],
+            "default": "'auto'"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-sunken",
+        "--radius-md",
+        "--size-64",
+        "--space-2xl",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Dialogs/MediaViewer",
+        "route": "#/story/composites-mediaviewer--overview",
+        "file": "stories/composites/MediaViewer.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "PasswordInput",
       "tier": "composites",
       "source": "src/composites/PasswordInput/PasswordInput.tsx",
@@ -6820,6 +7078,142 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "Rating",
+      "tier": "composites",
+      "source": "src/composites/Rating/Rating.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with.",
+      "useWhen": [
+        "A store card, an item page or a list shows the average rating of a pack, a preset or a world.",
+        "A person gives their own rating, such as Your rating on an item page."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The number is picked on a track, such as a volume.",
+          "use": "Slider"
+        },
+        {
+          "case": "One of a few named options is picked.",
+          "use": "SegmentedControl"
+        },
+        {
+          "case": "A label sits beside a value that is not a score.",
+          "use": "StatRow"
+        }
+      ],
+      "rules": [
+        "Pass the average as value; pass null when nobody has rated yet, never 0, so the stars fade and read Not rated yet.",
+        "Pass count for the number of ratings and showValue for the average beside the stars, such as 4.6 (212).",
+        "Pass onChange to make it the picker; value is then the whole star the person picked, or null before they pick.",
+        "Set disabled on the picker while a rating is being saved.",
+        "Use size sm on cards and in rows, md in running text and lg in a ratings panel or for the picker.",
+        "Build a ratings panel from Card, ProgressBar, Rating and a Button: the panel is a recipe, not a part."
+      ],
+      "a11y": [
+        "A shown rating is one image with one sentence, such as 4.6 out of 5, from 212 ratings.",
+        "The picker is a radio group with a radio per star and one Tab stop; the arrow keys, Home and End move and pick.",
+        "label names the picker, Your rating by default, and prefixes the sentence of a shown rating."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a score in stars, or a rating to give"
+        ],
+        "rule": "Rating shows an average in half stars with its count, and with onChange is the star picker."
+      },
+      "example": "import { useState } from 'react';\nimport { Rating } from '@drizztdourden08/tessera';\n\nconst PackRating = ({ average, count }: { average: number | null; count: number }) => {\n  const [mine, setMine] = useState<number | null>(null);\n  return (\n    <>\n      <Rating value={average} count={count} showValue size=\"sm\" />\n      <Rating value={mine} size=\"lg\" onChange={setMine} />\n    </>\n  );\n};\n",
+      "propsHash": "18e32875f22e7b8c",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "number | null"
+          },
+          {
+            "name": "count",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "showValue",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "max",
+            "optional": true,
+            "text": "number",
+            "default": "RATING_MAX"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "RatingSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "onChange",
+            "optional": true,
+            "text": "(value: number) => void"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-primary",
+        "--c-text",
+        "--c-text-muted",
+        "--duration-fast",
+        "--ease-standard",
+        "--opacity-disabled",
+        "--opacity-muted",
+        "--radius-sm",
+        "--space-2xs",
+        "--text-lg",
+        "--text-sm",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Composites · Content/Rating",
+        "route": "#/story/composites-rating--overview",
+        "file": "stories/composites/Rating.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "RecordEditor",
