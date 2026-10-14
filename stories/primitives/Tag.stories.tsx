@@ -4,7 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
 import type {
-  TagCategoryColor, TagColor, TagLook, TagNormalColor, TagUrgencyColor, TagVariant,
+  TagCategoryColor, TagColor, TagCustomColor, TagLook, TagNormalColor, TagUrgencyColor, TagVariant,
 } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -12,9 +12,11 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 
+type NamedVariant = Exclude<TagVariant, 'custom'>;
+
 type TagArgs = {
   label: string;
-  variant: TagVariant;
+  variant: NamedVariant;
   color: TagColor;
   removable: boolean;
   disabled: boolean;
@@ -26,7 +28,7 @@ const URGENCY: readonly TagUrgencyColor[] = ['success', 'warning', 'danger', 'in
 
 const CATEGORY: readonly TagCategoryColor[] = ['rose', 'orange', 'amber', 'lime', 'green', 'teal', 'cyan', 'blue', 'violet', 'pink'];
 
-const COLORS: Readonly<Record<TagVariant, readonly TagColor[]>> = { normal: NORMAL, urgency: URGENCY, category: CATEGORY };
+const COLORS: Readonly<Record<NamedVariant, readonly TagColor[]>> = { normal: NORMAL, urgency: URGENCY, category: CATEGORY };
 
 const GAMES: readonly { name: string; tags: readonly { label: string; look: TagLook }[] }[] = [
   { name: 'A Link to the Past', tags: [{ label: 'Zelda', look: { variant: 'category', color: 'green' } }, { label: 'Stable', look: { variant: 'urgency', color: 'success' } }] },
@@ -49,7 +51,7 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<TagArgs>;
 
-const lookOf = (variant: TagVariant, color: TagColor): TagLook => {
+const lookOf = (variant: NamedVariant, color: TagColor): TagLook => {
   const urgency = URGENCY.find((c) => c === color);
   const category = CATEGORY.find((c) => c === color);
   if (variant === 'urgency') return { variant, color: urgency ?? 'info' };
@@ -75,6 +77,19 @@ const Variants = {
       rows={axis(['normal', 'urgency', 'category'] as const)}
       cell={(variant) => <Flex gap="xs" wrap>{COLORS[variant].map((color) => <Tag key={color} {...lookOf(variant, color)}>{color}</Tag>)}</Flex>}
     />
+  ),
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
+const PLAYER_COLOURS: readonly (readonly [string, TagCustomColor])[] = [
+  ['Link', '#2e8b57'], ['Zelda', '#f4c2d7'], ['Ganon', '#3b1f5c'], ['Navi', '#9fe3ff'], ['Epona', '#8b4513'], ['Midna', '#ffd23f'],
+];
+
+const Custom = {
+  name: 'Any colour the app passes',
+  render: () => (
+    <Flex gap="xs" align="center" wrap>
+      {PLAYER_COLOURS.map(([player, color]) => <Tag key={player} variant="custom" color={color}>{`${player} ${color}`}</Tag>)}
+    </Flex>
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
@@ -138,10 +153,11 @@ const Overview = overviewStory({
     '`variant` picks the palette and `color` picks from it: `normal`, `urgency` or `category`.',
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
     '`selected` with `onSelect` makes it a toggle, as in [TagPicker]: grey until it is picked.',
+    '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
   ],
   instead: '[Status] for a word that names a state.',
   playground: Playground,
-  variants: [Variants, Removable, Selectable, OnItems],
+  variants: [Variants, Custom, Removable, Selectable, OnItems],
   states: {
     render: renderState,
     list: [
@@ -158,8 +174,9 @@ const Overview = overviewStory({
 <Tag variant="category" color="green">Zelda</Tag>
 <Tag variant="urgency" color="warning">Beta</Tag>
 <Tag color="primary" onRemove={() => remove('ocarina')}>Ocarina of Time</Tag>
-<Tag selected={picked} onSelect={toggle}>Triforce hunt</Tag>`,
+<Tag selected={picked} onSelect={toggle}>Triforce hunt</Tag>
+<Tag variant="custom" color={player.color}>{player.name}</Tag>`,
 });
 
 export default meta;
-export { OnItems, Overview, Playground, Removable, Selectable, Variants };
+export { Custom, OnItems, Overview, Playground, Removable, Selectable, Variants };

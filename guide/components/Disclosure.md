@@ -30,8 +30,9 @@ Disclosure shows or hides what is under one line with the browser details elemen
 ## Rules
 
 - Write summary as what opens, such as Details, What is new or Show log (24).
-- It keeps no state: pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.
+- Pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.
 - A later change to defaultOpen opens or closes it, so a part can open it when a job fails.
+- Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.
 - Use size sm for a line in small text, such as inside a settings row.
 
 ## Accessibility
@@ -55,6 +56,7 @@ const ReleaseNotes = ({ notes }: { notes: string }) => (
 
 - `summary`: `ReactNode`.
 - `children`: `ReactNode`.
+- `open` (optional): `boolean`.
 - `defaultOpen` (optional): `boolean`. Default `false`.
 - `onOpenChange` (optional): `(open: boolean) => void`.
 - `size` (optional): `DisclosureSize`, one of `'sm'`, `'md'`. Default `'md'`.

@@ -35,6 +35,7 @@ DropdownMenu keeps rare and secondary actions one click away, and asks before th
 - Give an action that undoes work kind confirm: the first press reads Click again to and the label, in the danger tone; the second runs it.
 - Give an action that deletes, such as Delete in a row menu, tone danger, so it reads in the danger tone at rest; a confirm item turns red only while it asks.
 - Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.
+- An item icon is a name from the set, iconify data such as an imported Lucide icon, Icon path data, or any element.
 - Split groups by meaning with a label or a separator; turn on filter past about a dozen items.
 - Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.
 - Align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.

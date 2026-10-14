@@ -3,6 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { ItemCard } from '../src/composites/ItemCard';
+import { ItemCardTitle } from '../src/composites/ItemCard/sub-components/ItemCardTitle';
 
 const noop = () => {};
 const BASE = {
@@ -46,5 +47,16 @@ describe('ItemCard', () => {
     expect(html).toContain('data-layout="left"');
     expect([...live.matchAll(/data-action-id="(\w+)"/g)].map((match) => match[1])).toEqual(['preset', 'update']);
     expect(live).toContain('aria-label="More"');
+  });
+
+  it('hands navigate to the title link, so a plain click routes inside the app', () => {
+    const navigate = (href) => href;
+    const title = ItemCardTitle({ title: 'Timespinner', href: '/store/timespinner', navigate, level: 3 });
+    expect(title.props.children.props).toMatchObject({ href: '/store/timespinner', navigate });
+  });
+
+  it('lets the media keep its own height with mediaHeight auto, and keeps the band by default', () => {
+    expect(renderToString(h(ItemCard, BASE))).not.toContain('data-height');
+    expect(renderToString(h(ItemCard, { ...BASE, mediaHeight: 'auto' }))).toContain('class="item-card__media" data-tone="primary" data-height="auto"');
   });
 });

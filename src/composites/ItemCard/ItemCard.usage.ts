@@ -17,6 +17,8 @@ const usage = {
     'Write details as short facts, such as World 1.2.0 and For AP 0.6.7; they join with dots and stop at three lines.',
     'Give the main action kind primary; one other shows and the rest fold under More, danger ones asking first.',
     'Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list.',
+    'With href, pass navigate to route a plain click inside the app, as Link and SiteHeader take it.',
+    'Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover.',
   ],
   a11y: [
     'The title is a heading, level 3 by default, so a screen reader can jump from card to card.',
@@ -51,7 +53,7 @@ const GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) =>
   />
 );
 `,
-  propsHash: 'b8aee39c4a4e7c0c',
+  propsHash: 'fb62d4eece5bd99e',
 } satisfies ComponentUsage;
 
 export { usage };

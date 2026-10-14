@@ -6,6 +6,8 @@ import type { ActionItem } from '../ActionBar';
 
 type ItemCardLayout = 'top' | 'left';
 
+type ItemCardMediaHeight = 'band' | 'auto';
+
 type ItemCardMediaTone = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
 
 interface ItemCardStatus {
@@ -21,8 +23,10 @@ interface ItemCardProps {
   details?: readonly ReactNode[];
   media?: ReactNode;
   mediaTone?: ItemCardMediaTone;
+  mediaHeight?: ItemCardMediaHeight;
   layout?: ItemCardLayout;
   href?: string;
+  navigate?: (href: string) => void;
   actions?: readonly ActionItem[];
   selected?: boolean;
   onOpen?: () => void;
@@ -30,7 +34,7 @@ interface ItemCardProps {
   className?: string;
 }
 
-type ItemCardTitleProps = Pick<ItemCardProps, 'title' | 'href' | 'onOpen' | 'selected'> & { level: HeadingLevel };
+type ItemCardTitleProps = Pick<ItemCardProps, 'title' | 'href' | 'navigate' | 'onOpen' | 'selected'> & { level: HeadingLevel };
 
 interface ItemCardDetailsProps {
   details: readonly ReactNode[];
@@ -41,5 +45,5 @@ type ItemCardTopProps = Pick<ItemCardProps, 'eyebrow' | 'status'>;
 type ItemCardFootProps = Pick<ItemCardProps, 'tags' | 'details' | 'actions'>;
 
 export type {
-  ItemCardDetailsProps, ItemCardFootProps, ItemCardLayout, ItemCardMediaTone, ItemCardProps, ItemCardStatus, ItemCardTitleProps, ItemCardTopProps,
+  ItemCardDetailsProps, ItemCardFootProps, ItemCardLayout, ItemCardMediaHeight, ItemCardMediaTone, ItemCardProps, ItemCardStatus, ItemCardTitleProps, ItemCardTopProps,
 };

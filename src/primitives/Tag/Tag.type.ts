@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 
-type TagVariant = 'normal' | 'urgency' | 'category';
+type TagVariant = 'normal' | 'urgency' | 'category' | 'custom';
 
 type TagNormalColor = 'neutral' | 'primary' | 'secondary' | 'tertiary';
 
@@ -11,10 +11,15 @@ type TagCategoryColor = 'rose' | 'orange' | 'amber' | 'lime' | 'green' | 'teal' 
 
 type TagColor = TagNormalColor | TagUrgencyColor | TagCategoryColor;
 
+type TagCustomColor = `#${string}`;
+
+type TagInk = 'dark' | 'light';
+
 type TagLook =
   | { variant?: 'normal'; color?: TagNormalColor }
   | { variant: 'urgency'; color: TagUrgencyColor }
-  | { variant: 'category'; color: TagCategoryColor };
+  | { variant: 'category'; color: TagCategoryColor }
+  | { variant: 'custom'; color: TagCustomColor };
 
 type TagAction =
   | { onRemove?: () => void; name?: string; selected?: never; onSelect?: never; role?: never }
@@ -32,5 +37,5 @@ interface TagBase {
 type TagProps = TagLook & TagAction & TagBase & TagData;
 
 export type {
-  TagCategoryColor, TagColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
+  TagCategoryColor, TagColor, TagCustomColor, TagInk, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 };

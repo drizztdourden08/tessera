@@ -50,7 +50,7 @@ export type { InlineCreateFormProps } from './InlineCreateForm';
 export { Drawer, type DrawerProps } from './Drawer';
 export { DropdownMenu } from './DropdownMenu';
 export type {
-  DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
+  DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from './DropdownMenu';
 export { ScreenLayer } from './ScreenLayer';
@@ -165,7 +165,7 @@ export type { ListDetailGuardLook, ListDetailListProps, ListDetailProps, ListDet
 export { FileList } from './FileList';
 export type { FileEntry, FileListProps } from './FileList';
 export { ItemCard } from './ItemCard';
-export type { ItemCardLayout, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from './ItemCard';
+export type { ItemCardLayout, ItemCardMediaHeight, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from './ItemCard';
 export { CopyButton } from './CopyButton';
 export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
 export { CopyValue, type CopyValueProps, type CopyValueSize, type CopyValueTruncate } from './CopyValue';

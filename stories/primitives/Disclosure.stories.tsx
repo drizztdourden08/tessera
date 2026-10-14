@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
+import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, Disclosure, Paragraph, StatRow } from '../../src/primitives';
+import { Box, Button, Disclosure, Flex, Paragraph, StatRow, Stack } from '../../src/primitives';
 import type { DisclosureSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
@@ -67,6 +68,34 @@ const Uses = {
   ),
 } satisfies StoryLiteStoryDefinition<DisclosureArgs>;
 
+const GROUPS: readonly (readonly [string, string])[] = [
+  ['Light World', 'Hyrule Castle, Eastern Palace, Desert Palace and Tower of Hera.'],
+  ['Dark World', 'Palace of Darkness, Swamp Palace, Skull Woods and five more.'],
+];
+
+const ControlledGroups = () => {
+  const [open, setOpen] = useState<readonly string[]>(['Light World']);
+  const setOne = (name: string) => (next: boolean) => setOpen((now) => (next ? [...now, name] : now.filter((n) => n !== name)));
+  return (
+    <Stack gap="sm" className="disclosure-story__frame">
+      <Flex gap="xs">
+        <Button size="sm" onClick={() => setOpen(GROUPS.map(([name]) => name))}>Open all</Button>
+        <Button size="sm" onClick={() => setOpen([])}>Close all</Button>
+      </Flex>
+      {GROUPS.map(([name, text]) => (
+        <Disclosure key={name} summary={name} open={open.includes(name)} onOpenChange={setOne(name)}>
+          <Paragraph tone="dim">{text}</Paragraph>
+        </Disclosure>
+      ))}
+    </Stack>
+  );
+};
+
+const Controlled = {
+  name: 'Held open by the app',
+  render: () => <ControlledGroups />,
+} satisfies StoryLiteStoryDefinition<DisclosureArgs>;
+
 const Sizes = {
   name: 'Sizes',
   render: () => <Demonstrator rows={axis(['md', 'sm'] as const)} cell={(size) => <Sample size={size} />} />,
@@ -78,7 +107,7 @@ const CODE = `import { Disclosure } from '@drizztdourden08/tessera';
   <ReleaseNotes />
 </Disclosure>
 
-<Disclosure summary={open ? 'Hide log' : 'Show log'} defaultOpen={open} onOpenChange={setOpen}>
+<Disclosure summary={open ? 'Hide log' : 'Show log'} open={open} onOpenChange={setOpen}>
   {open && <LogPanel rows={rows} />}
 </Disclosure>`;
 
@@ -87,15 +116,15 @@ const Overview = overviewStory({
   description: 'A line that shows or hides more content under it when clicked, such as Details under an error.',
   points: [
     'Built on the browser details element: [[Enter]] and [[Space]] toggle it, and screen readers say open or closed.',
-    'It keeps no state of its own; `defaultOpen` starts it open and `onOpenChange` reports each toggle.',
-    'A later change to `defaultOpen` opens or closes it, so a part can open it when a job fails.',
+    '`defaultOpen` starts it open and `onOpenChange` reports each toggle; a later change opens or closes it.',
+    '`open` with `onOpenChange` hands the state to the app, such as an Open all button over a list of groups.',
     'Closed content stays in the page, so find in page still reaches it.',
     '`size` `sm` sets the line in small text, for a row or a settings line.',
     '[LoadError] puts the raw error behind one; [TaskProgress] puts its log behind one.',
   ],
   instead: '[Tabs] to switch between views, or [Dialog] for content that needs the whole screen.',
   playground: Playground,
-  variants: [Uses, Sizes],
+  variants: [Uses, Controlled, Sizes],
   states: {
     render: (props: StateProps) => <Sample {...(props as Partial<DisclosureArgs>)} />,
     list: [STATE.idle, { ...STATE.hover, target: 'summary' }, { ...STATE.focus, target: 'summary' }, { name: 'Open', props: { open: true } }],
@@ -104,4 +133,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Overview, Playground, Sizes, Uses };
+export { Controlled, Overview, Playground, Sizes, Uses };

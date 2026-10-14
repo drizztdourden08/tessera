@@ -7139,3 +7139,57 @@ In the gallery, the Anchored page has a new variant that closes on Escape or a p
 - A hint card placed from the pointer by hand becomes `<Tooltip follow="pointer" content={card}>`.
 - Hover text written as a `title` per part goes in each segment's `description`.
 - A drag drawn as a left click plus a move icon becomes `mouse="drag"`.
+
+## 222. Icons, disabled tabs, a held Disclosure, ItemCard routing, custom tags and menu icon data
+
+From RotP, the "For Archipelia - Tessera" asks. RotP kept small parts of its own for these: a tab button that set its own `title` for a reason, a Disclosure driven through `defaultOpen`, a stylesheet that reached into `.item-card__media` to undo the band height, and a menu icon part that drew iconify data. Each now lives in Tessera.
+
+### What changed
+
+- **Fifteen icons join the named set**, from the same Lucide data as the rest (`@iconify-icons/lucide`, ISC licence, already credited in the README): `shuffle`, `database`, `store`, `camera`, `joystick`, `smartphone`, `wrench`, `dices`, `list-checks`, `scroll-text`, `network`, `person-standing`, `languages`, `music` and `layout-dashboard`.
+- **A tab can be disabled and say why.** `TabItem` takes `disabled` and `disabledReason`. A disabled tab draws at the disabled opacity, a click does nothing, and the arrow keys, Home and End skip it. It stays in the Tab order, so a keyboard user can reach it and read the reason: the reason shows as a Tooltip under the tab on hover and focus, and the tab carries it as `aria-description`, which the Tooltip's `aria-describedby` takes over while it shows. With `iconOnly`, a tab that has a reason takes its label as `aria-label` in place of `title`, so the two tooltips do not stack.
+- **Disclosure takes `open`.** With `open` the app holds the state: a click or Enter on the line calls `onOpenChange` with the next state and the element waits for the new `open`. A toggle the browser makes on its own, such as find in page opening it, is reported through `onOpenChange` too. Without `open`, `defaultOpen` works as before.
+- **ItemCard takes `navigate`**, passed to the title link as Link and SiteHeader take it: with `href`, a plain click calls `navigate(href)`, while a middle click or a click with a modifier still opens the address.
+- **ItemCard takes `mediaHeight`**, `band` by default, the 96 px band that cuts the media, or `auto`, where the media keeps its own height, such as an `Image` at 16 by 9. The left layout keeps its 96 px column either way.
+- **Tag takes `variant="custom"`** with a hex `color` (`#rgb` or `#rrggbb`) from app data, such as a colour a player or an author picked. The tag fills with that colour and takes black or white text, whichever has the higher contrast, so the text is always at 4.5:1 or more. A value that is not an opaque hex colour draws a neutral tag. The colour is data the app passes at run time, as with Hero and ColorSwatch; a stylesheet still takes colours only from the tokens. A TagPicker option takes the same look.
+- **A menu item icon takes icon data.** `MenuItem.icon` is now `MenuItemIcon`: a name from the set, iconify data such as an imported Lucide icon, `IconPath` data as Icon `path` takes it (section 172), or any element. A trigger icon takes the same, beside `hamburger`.
+
+```ts
+interface TabItem {
+  disabled?: boolean;        // added
+  disabledReason?: string;   // added, shown when disabled
+}
+
+interface DisclosureProps {
+  open?: boolean;            // added, held by the app with onOpenChange
+}
+
+type ItemCardMediaHeight = 'band' | 'auto';
+
+interface ItemCardProps {
+  navigate?: (href: string) => void;  // added
+  mediaHeight?: ItemCardMediaHeight;   // added, 'band' by default
+}
+
+type TagVariant = 'normal' | 'urgency' | 'category' | 'custom'; // custom added
+type TagCustomColor = `#${string}`;
+type TagLook =
+  | { variant?: 'normal'; color?: TagNormalColor }
+  | { variant: 'urgency'; color: TagUrgencyColor }
+  | { variant: 'category'; color: TagCategoryColor }
+  | { variant: 'custom'; color: TagCustomColor }; // added
+
+type MenuItemIcon = IconName | IconifyIcon | IconPath | ReactElement;
+
+interface MenuItem {
+  icon?: MenuItemIcon; // was IconName | ReactElement
+}
+
+type MenuTriggerIcon = MenuItemIcon | 'hamburger'; // was IconName | ReactElement | 'hamburger'
+```
+
+In the gallery, the Icon page lists the new icons in its App set (48 icons, was 33), and the Tabs, Disclosure, ItemCard, Tag and DropdownMenu pages each gain a section for the new prop, with an Overview point that names it. The Tabs states gain a Disabled cell. Nothing drawn before changes look.
+
+### What an app does
+
+Nothing for the existing props. RotP can drop its own parts: pass `disabled` and `disabledReason` on its tabs, `open` on its Disclosure, `navigate` and `mediaHeight="auto"` on ItemCard in place of the `.item-card__media` override, `variant="custom"` for a tag in an app colour, and its iconify data straight to `MenuItem.icon`. An app that switches over `TagVariant` with no default case adds a `custom` branch.

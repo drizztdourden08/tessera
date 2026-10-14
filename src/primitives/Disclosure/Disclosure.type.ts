@@ -1,15 +1,21 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { MouseEvent, ReactNode, SyntheticEvent } from 'react';
 
 type DisclosureSize = 'sm' | 'md';
 
 interface DisclosureProps {
   summary: ReactNode;
   children: ReactNode;
+  open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   size?: DisclosureSize;
   className?: string;
 }
 
-export type { DisclosureProps, DisclosureSize };
+interface DisclosureHandlers {
+  onToggle?: (event: SyntheticEvent<HTMLElement>) => void;
+  onSummaryClick?: (event: MouseEvent<HTMLElement>) => void;
+}
+
+export type { DisclosureHandlers, DisclosureProps, DisclosureSize };

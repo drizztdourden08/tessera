@@ -33,6 +33,8 @@ ItemCard gives every catalogue the same card, with its media, facts and actions 
 - Write details as short facts, such as World 1.2.0 and For AP 0.6.7; they join with dots and stop at three lines.
 - Give the main action kind primary; one other shows and the rest fold under More, danger ones asking first.
 - Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list.
+- With href, pass navigate to route a plain click inside the app, as Link and SiteHeader take it.
+- Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover.
 
 ## Accessibility
 
@@ -77,8 +79,10 @@ const GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) =>
 - `details` (optional): `readonly ReactNode[]`.
 - `media` (optional): `ReactNode`.
 - `mediaTone` (optional): `ItemCardMediaTone`, one of `'neutral'`, `'primary'`, `'info'`, `'success'`, `'warning'`, `'danger'`. Default `'primary'`.
+- `mediaHeight` (optional): `ItemCardMediaHeight`, one of `'band'`, `'auto'`. Default `'band'`.
 - `layout` (optional): `ItemCardLayout`, one of `'top'`, `'left'`. Default `'top'`.
 - `href` (optional): `string`.
+- `navigate` (optional): `(href: string) => void`.
 - `actions` (optional): `readonly ActionItem[]`.
 - `selected` (optional): `boolean`.
 - `onOpen` (optional): `() => void`.

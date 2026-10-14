@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind types */
 import type { ReactElement, RefObject } from 'react';
+import type { IconifyIcon } from '@iconify/types';
 import type { ButtonVariant } from '../../primitives/Button/Button.type';
-import type { IconName } from '../../primitives/Icon';
+import type { IconName, IconPath } from '../../primitives/Icon';
 import type { DropAlign } from '../../primitives/listbox/drop-placement.type';
 import type { ShortcutKey } from '../../primitives/Shortcut';
 
@@ -9,10 +10,12 @@ type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm';
 
 type MenuItemTone = 'danger';
 
+type MenuItemIcon = IconName | IconifyIcon | IconPath | ReactElement;
+
 interface MenuItem {
   id: string;
   label: string;
-  icon?: IconName | ReactElement;
+  icon?: MenuItemIcon;
   description?: string;
   shortcut?: string | readonly ShortcutKey[];
   disabled?: boolean;
@@ -49,7 +52,7 @@ type MenuSize = 'xs' | 'sm' | 'md';
 
 type MenuIconSide = 'start' | 'end';
 
-type MenuTriggerIcon = IconName | ReactElement | 'hamburger';
+type MenuTriggerIcon = MenuItemIcon | 'hamburger';
 
 interface MenuTrigger {
   label: string;
@@ -89,6 +92,6 @@ interface TriggerMenuProps extends MenuBaseProps {
 type DropdownMenuProps = AnchoredMenuProps | TriggerMenuProps;
 
 export type {
-  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemKind, MenuItemTone, MenuNode,
-  MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant, TriggerMenuProps,
+  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone,
+  MenuNode, MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant, TriggerMenuProps,
 };

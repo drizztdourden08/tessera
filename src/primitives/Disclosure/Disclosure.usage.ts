@@ -14,8 +14,9 @@ const usage = {
   ],
   rules: [
     'Write summary as what opens, such as Details, What is new or Show log (24).',
-    'It keeps no state: pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.',
+    'Pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.',
     'A later change to defaultOpen opens or closes it, so a part can open it when a job fails.',
+    'Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.',
     'Use size sm for a line in small text, such as inside a settings row.',
   ],
   a11y: [
@@ -34,7 +35,7 @@ const ReleaseNotes = ({ notes }: { notes: string }) => (
   </Disclosure>
 );
 `,
-  propsHash: '3655ce98e34fde90',
+  propsHash: '92d1053780b43caf',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -58,6 +58,16 @@
   border-color: transparent;
 }
 
+.tag--custom {
+  --tag-ink: var(--p-pure-black);
+  --tag-fill: var(--tag-paint);
+  --tag-edge: var(--tag-paint);
+}
+
+.tag--custom.tag--ink-light {
+  --tag-ink: var(--p-pure-white);
+}
+
 .tag--urgency {
   font-weight: var(--weight-semi);
 }

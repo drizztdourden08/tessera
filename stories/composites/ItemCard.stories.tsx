@@ -1,8 +1,9 @@
 /* @layer stories @kind story */
+import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { ItemCard } from '../../src/composites';
 import type { ItemCardLayout, ItemCardMediaTone, ItemCardProps } from '../../src/composites';
-import { Box } from '../../src/primitives';
+import { Box, Icon, Image, Stack, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
@@ -84,6 +85,35 @@ const Linked = {
   render: () => one({ href: '#/story/composites-itemcard--overview', actions: undefined, onOpen: undefined }),
 } satisfies StoryLiteStoryDefinition<ItemCardArgs>;
 
+const TALL_MEDIA = (
+  <Image aspectRatio="16 / 9" fallback={<Icon name="music" size={40} />} />
+);
+
+const Tall = {
+  name: 'A picture taller than the band',
+  render: () => (
+    <Box className="item-card-story">
+      <ItemCard title="Hyrule Symphony" eyebrow="Music pack" media={TALL_MEDIA} mediaTone="neutral" details={['band, cut to 96 px']} />
+      <ItemCard title="Hyrule Symphony" eyebrow="Music pack" media={TALL_MEDIA} mediaTone="neutral" mediaHeight="auto" details={['auto, the picture keeps 16 by 9']} />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ItemCardArgs>;
+
+const RoutedCard = () => {
+  const [route, setRoute] = useState('/store');
+  return (
+    <Stack gap="sm" className="item-card-story item-card-story--one">
+      <ItemCard {...SAMPLE} actions={undefined} href="/store/timespinner" navigate={setRoute} />
+      <Text className="story-label">{`Route: ${route}`}</Text>
+    </Stack>
+  );
+};
+
+const Routed = {
+  name: 'Routed by the app, with navigate',
+  render: () => <RoutedCard />,
+} satisfies StoryLiteStoryDefinition<ItemCardArgs>;
+
 const CODE = `import { ItemCard } from '@drizztdourden08/tessera';
 
 <ItemCard
@@ -95,7 +125,9 @@ const CODE = `import { ItemCard } from '@drizztdourden08/tessera';
   details={['World 1.2.0', 'For AP 0.6.7', 'Installed 1.1.4']}
   actions={[{ id: 'update', label: 'Update', icon: 'download', kind: 'primary', onSelect: update }]}
   onOpen={() => openGame('timespinner')}
-/>`;
+/>
+
+<ItemCard title="Hyrule Symphony" media={<Image src={cover} aspectRatio="16 / 9" />} mediaHeight="auto" href="/store/hyrule-symphony" navigate={navigate} />`;
 
 const Overview = overviewStory({
   component: 'ItemCard',
@@ -104,12 +136,13 @@ const Overview = overviewStory({
     '`layout` puts the `media` on top for a grid of cards, or on the left for a list or an overview.',
     '`details` join with dots and stop at three lines; `tags` take [Tag] nodes.',
     '`actions` go through an [ActionBar] with one action in view, the rest under More.',
-    '`onOpen` or `href` makes a click anywhere on the card open it; the title takes the focus.',
+    '`onOpen` or `href` makes a click anywhere on the card open it; `navigate` routes `href` in the app.',
+    '`mediaHeight="auto"` lets a picture taller than the 96 px band keep its own height.',
     '`selected` draws the primary border, such as the item open beside the list.',
   ],
   instead: '[Card] for a box with a header row, or [ListItemRow] for one line per item.',
   playground: Playground,
-  variants: [Store, Left, Linked],
+  variants: [Store, Left, Linked, Routed, Tall],
   states: {
     render: (props: StateProps) => one(props as Partial<ItemCardProps>),
     list: [
@@ -123,4 +156,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Left, Linked, Overview, Playground, Store };
+export { Left, Linked, Overview, Playground, Routed, Store, Tall };

@@ -9,6 +9,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { buildTitleMenu } from './_samples/data-title-menu';
+import { ICON_SOURCE_MENU } from './_samples/data-menu-icon-sources';
 import { CATEGORY_MENU, EDIT_MENU, NESTED_MENU, SUBTITLE_MENU } from './_samples/data-menu-features';
 import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
 import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
@@ -111,6 +112,8 @@ const Inside = {
   ),
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const IconSources = { name: 'Icons from a name, iconify data, path data or any element', render: () => <DropdownMenu inline groups={ICON_SOURCE_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const Commands = {
   name: 'Check and radio',
   render: () => (
@@ -193,7 +196,7 @@ const Overview = overviewStory({
   component: 'DropdownMenu',
   description: 'A menu of actions, checks and sub-menus, built from data, that hangs from its own button.',
   points: [
-    '`groups` lists the items; each has a `label` and can add an `icon`, a `shortcut` and `onSelect`.',
+    '`groups` lists the items: a `label`, an `icon` (a name, iconify data, path data or an element), `onSelect`.',
     '`trigger` draws the button: a [Button] with its label, or an [IconButton] with `iconOnly`.',
     '`kind="radio"` or `checked` turns an item into a choice, and `children` opens a sub-menu.',
     '`tone="danger"` draws an action such as Delete in red; `kind="confirm"` asks Click again to before it runs.',
@@ -202,7 +205,7 @@ const Overview = overviewStory({
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, Inside, Commands, Confirm, Danger, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, Inside, IconSources, Commands, Confirm, Danger, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -217,4 +220,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Confirm, Danger, Inside, Joins, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };
+export { Commands, Confirm, Danger, IconSources, Inside, Joins, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };

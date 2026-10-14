@@ -62,6 +62,10 @@
   --item-card-tone: var(--c-danger-dim);
 }
 
+.item-card__media[data-height='auto'] {
+  block-size: auto;
+}
+
 .item-card[data-layout='left'] .item-card__media {
   inline-size: var(--size-96);
   block-size: auto;

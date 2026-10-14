@@ -1,10 +1,11 @@
 /* @layer renderer-components @kind util */
 import type { TagProps } from '../Tag.type';
+import { tagLookClasses } from './tag-look-classes';
 
 const tagClass = (props: TagProps): string => {
-  const { variant = 'normal', color = 'neutral', selected, onRemove, className } = props;
+  const { selected, onRemove, className } = props;
   return [
-    'tag', `tag--${variant}`, `tag--${color}`,
+    'tag', ...tagLookClasses(props),
     selected !== undefined && 'tag--selectable',
     selected === true && 'tag--selected',
     onRemove !== undefined && 'tag--removable',

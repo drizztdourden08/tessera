@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind component */
 import { useContext } from 'react';
-import { Icon } from '../../../primitives/Icon';
 import { Span } from '../../../primitives/text-elements';
 import { MenuColumnsContext } from '../behavior/menu-columns-context';
+import { MenuIconGlyph } from './MenuIconGlyph';
 import type { MenuIconProps } from './MenuIcon.type';
 
 const MenuIcon = (props: MenuIconProps) => {
@@ -11,7 +11,7 @@ const MenuIcon = (props: MenuIconProps) => {
   if (icon === undefined && !icons) return null;
   return (
     <Span className="dropdown__icon" aria-hidden="true">
-      {typeof icon === 'string' ? <Icon name={icon} /> : icon}
+      {icon !== undefined && <MenuIconGlyph icon={icon} />}
     </Span>
   );
 };

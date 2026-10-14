@@ -1,18 +1,16 @@
 /* @layer renderer-components @kind component */
-import type { SyntheticEvent } from 'react';
 import { Box } from '../Box';
 import { Icon } from '../Icon';
+import { disclosureHandlers } from './behavior/disclosure-handlers';
 import type { DisclosureProps } from './Disclosure.type';
 import './Disclosure.css';
 
 const Disclosure = (props: DisclosureProps) => {
-  const { summary, children, defaultOpen = false, onOpenChange, size = 'md', className } = props;
-  const toggled = onOpenChange
-    ? (event: SyntheticEvent<HTMLElement>) => onOpenChange((event.currentTarget as HTMLDetailsElement).open)
-    : undefined;
+  const { summary, children, open, defaultOpen = false, onOpenChange, size = 'md', className } = props;
+  const { onToggle, onSummaryClick } = disclosureHandlers(open, onOpenChange);
   return (
-    <Box as="details" open={defaultOpen} onToggle={toggled} className={['disclosure', `disclosure--${size}`, className].filter(Boolean).join(' ')}>
-      <Box as="summary" className="disclosure__summary">
+    <Box as="details" open={open ?? defaultOpen} onToggle={onToggle} className={['disclosure', `disclosure--${size}`, className].filter(Boolean).join(' ')}>
+      <Box as="summary" className="disclosure__summary" onClick={onSummaryClick}>
         <Icon name="chevron-right" className="disclosure__chevron" aria-hidden />
         {summary}
       </Box>

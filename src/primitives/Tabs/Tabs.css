@@ -88,6 +88,16 @@
   border-bottom-color: var(--c-primary);
 }
 
+.tabs__tab[aria-disabled='true'] {
+  color: var(--c-text-dim);
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.tabs__reason {
+  flex: none;
+}
+
 .tabs__icon {
   display: inline-flex;
   flex: none;

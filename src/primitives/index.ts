@@ -32,7 +32,7 @@ export { Stepper } from './Stepper';
 export type { StepperDoneIcon, StepperOrientation, StepperProps, StepperReserve, StepperStatus, StepperStep, StepperSubStep, StepperTone } from './Stepper';
 export { Tag } from './Tag';
 export type {
-  TagCategoryColor, TagColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
+  TagCategoryColor, TagColor, TagCustomColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 } from './Tag';
 export { DropZone } from './DropZone';
 export type { DropZoneProps, DropZoneStatus, DropZoneTone, DropZoneVariant } from './DropZone';

@@ -10,7 +10,7 @@ import './ItemCard.css';
 const flag = (on: boolean | undefined): '' | undefined => (on ? '' : undefined);
 
 const ItemCard = (props: ItemCardProps) => {
-  const { title, eyebrow, status, tags, details, media, mediaTone = 'primary', layout = 'top', href, actions, selected, onOpen, level = 3, className } = props;
+  const { title, eyebrow, status, tags, details, media, mediaTone = 'primary', mediaHeight = 'band', layout = 'top', href, navigate, actions, selected, onOpen, level = 3, className } = props;
   return (
     <Card
       className={className ? `item-card ${className}` : 'item-card'}
@@ -18,10 +18,10 @@ const ItemCard = (props: ItemCardProps) => {
       data-selected={flag(selected)}
       data-opens={flag(href !== undefined || onOpen !== undefined)}
     >
-      {media && <Box className="item-card__media" data-tone={mediaTone} aria-hidden>{media}</Box>}
+      {media && <Box className="item-card__media" data-tone={mediaTone} data-height={mediaHeight === 'band' ? undefined : mediaHeight} aria-hidden>{media}</Box>}
       <Box className="item-card__body">
         <ItemCardTop eyebrow={eyebrow} status={status} />
-        <ItemCardTitle title={title} href={href} onOpen={onOpen} selected={selected} level={level} />
+        <ItemCardTitle title={title} href={href} navigate={navigate} onOpen={onOpen} selected={selected} level={level} />
         <ItemCardFoot tags={tags} details={details} actions={actions} />
       </Box>
     </Card>

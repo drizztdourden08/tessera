@@ -969,8 +969,9 @@
       ],
       "rules": [
         "Write summary as what opens, such as Details, What is new or Show log (24).",
-        "It keeps no state: pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.",
+        "Pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.",
         "A later change to defaultOpen opens or closes it, so a part can open it when a job fails.",
+        "Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.",
         "Use size sm for a line in small text, such as inside a settings row."
       ],
       "a11y": [
@@ -985,7 +986,7 @@
         "rule": "Disclosure shows or hides what is under one line with the browser details element, with one look for every app."
       },
       "example": "import { Disclosure, Paragraph } from '@drizztdourden08/tessera';\n\nconst ReleaseNotes = ({ notes }: { notes: string }) => (\n  <Disclosure summary=\"What is new\">\n    <Paragraph tone=\"dim\">{notes}</Paragraph>\n  </Disclosure>\n);\n",
-      "propsHash": "3655ce98e34fde90",
+      "propsHash": "92d1053780b43caf",
       "props": {
         "own": [
           {
@@ -997,6 +998,11 @@
             "name": "children",
             "optional": false,
             "text": "ReactNode"
+          },
+          {
+            "name": "open",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "defaultOpen",
@@ -4032,6 +4038,7 @@
         "Give an action that undoes work kind confirm: the first press reads Click again to and the label, in the danger tone; the second runs it.",
         "Give an action that deletes, such as Delete in a row menu, tone danger, so it reads in the danger tone at rest; a confirm item turns red only while it asks.",
         "Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.",
+        "An item icon is a name from the set, iconify data such as an imported Lucide icon, Icon path data, or any element.",
         "Split groups by meaning with a label or a separator; turn on filter past about a dozen items.",
         "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
         "align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge."
@@ -4991,7 +4998,9 @@
         "Keep the title to the name of the item, and put the source or the kind in eyebrow, such as Official.",
         "Write details as short facts, such as World 1.2.0 and For AP 0.6.7; they join with dots and stop at three lines.",
         "Give the main action kind primary; one other shows and the rest fold under More, danger ones asking first.",
-        "Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list."
+        "Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list.",
+        "With href, pass navigate to route a plain click inside the app, as Link and SiteHeader take it.",
+        "Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover."
       ],
       "a11y": [
         "The title is a heading, level 3 by default, so a screen reader can jump from card to card.",
@@ -5006,7 +5015,7 @@
         "rule": "ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places."
       },
       "example": "import { ItemCard } from '@drizztdourden08/tessera';\nimport { Icon, Tag } from '@drizztdourden08/tessera';\n\ninterface GameCardProps {\n  name: string;\n  genre: string;\n  version: string;\n  onInstall: () => void;\n  onOpen: () => void;\n}\n\nconst GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) => (\n  <ItemCard\n    media={<Icon name=\"gamepad-2\" size={40} />}\n    eyebrow=\"Official\"\n    title={name}\n    status={{ label: 'stable', tone: 'info' }}\n    tags={[<Tag key=\"genre\" variant=\"category\" color=\"violet\">{genre}</Tag>]}\n    details={[`World ${version}`, 'For AP 0.6.7']}\n    actions={[{ id: 'install', label: 'Install', icon: 'download', kind: 'primary', onSelect: onInstall }]}\n    onOpen={onOpen}\n  />\n);\n",
-      "propsHash": "b8aee39c4a4e7c0c",
+      "propsHash": "fb62d4eece5bd99e",
       "props": {
         "own": [
           {
@@ -5054,6 +5063,16 @@
             "default": "'primary'"
           },
           {
+            "name": "mediaHeight",
+            "optional": true,
+            "text": "ItemCardMediaHeight",
+            "literals": [
+              "'band'",
+              "'auto'"
+            ],
+            "default": "'band'"
+          },
+          {
             "name": "layout",
             "optional": true,
             "text": "ItemCardLayout",
@@ -5067,6 +5086,11 @@
             "name": "href",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "navigate",
+            "optional": true,
+            "text": "(href: string) => void"
           },
           {
             "name": "actions",

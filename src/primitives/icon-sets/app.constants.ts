@@ -32,6 +32,21 @@ import saveIcon from '@iconify-icons/lucide/save';
 import refreshCwIcon from '@iconify-icons/lucide/refresh-cw';
 import searchIcon from '@iconify-icons/lucide/search';
 import ellipsisVerticalIcon from '@iconify-icons/lucide/ellipsis-vertical';
+import shuffleIcon from '@iconify-icons/lucide/shuffle';
+import databaseIcon from '@iconify-icons/lucide/database';
+import storeIcon from '@iconify-icons/lucide/store';
+import cameraIcon from '@iconify-icons/lucide/camera';
+import joystickIcon from '@iconify-icons/lucide/joystick';
+import smartphoneIcon from '@iconify-icons/lucide/smartphone';
+import wrenchIcon from '@iconify-icons/lucide/wrench';
+import dicesIcon from '@iconify-icons/lucide/dices';
+import listChecksIcon from '@iconify-icons/lucide/list-checks';
+import scrollTextIcon from '@iconify-icons/lucide/scroll-text';
+import networkIcon from '@iconify-icons/lucide/network';
+import personStandingIcon from '@iconify-icons/lucide/person-standing';
+import languagesIcon from '@iconify-icons/lucide/languages';
+import musicIcon from '@iconify-icons/lucide/music';
+import layoutDashboardIcon from '@iconify-icons/lucide/layout-dashboard';
 
 const APP_ICONS = {
   'house': houseIcon,
@@ -67,6 +82,21 @@ const APP_ICONS = {
   'refresh-cw': refreshCwIcon,
   'search': searchIcon,
   'ellipsis-vertical': ellipsisVerticalIcon,
+  'shuffle': shuffleIcon,
+  'database': databaseIcon,
+  'store': storeIcon,
+  'camera': cameraIcon,
+  'joystick': joystickIcon,
+  'smartphone': smartphoneIcon,
+  'wrench': wrenchIcon,
+  'dices': dicesIcon,
+  'list-checks': listChecksIcon,
+  'scroll-text': scrollTextIcon,
+  'network': networkIcon,
+  'person-standing': personStandingIcon,
+  'languages': languagesIcon,
+  'music': musicIcon,
+  'layout-dashboard': layoutDashboardIcon,
 } as const;
 
 export { APP_ICONS };

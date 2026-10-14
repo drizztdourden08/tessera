@@ -78,6 +78,18 @@ const LAYOUTS: Readonly<Record<string, ReactNode>> = {
   'overflowing, scroll or use the pagers and arrow keys': <StatefulTabs tabs={DUNGEON_TABS} />,
 };
 
+const LOCKED_TABS: TabItem[] = [
+  { id: 'general', label: 'General', icon: <Icon name="settings" /> },
+  { id: 'controls', label: 'Controls', icon: <Icon name="gamepad-2" />, disabled: true, disabledReason: 'Connect a controller to set its buttons.' },
+  { id: 'cheats', label: 'Cheats', icon: <Icon name="wrench" />, disabled: true, disabledReason: 'Cheats open once a game is running.' },
+  { id: 'saves', label: 'Saves', icon: <Icon name="save" /> },
+];
+
+const Disabled = {
+  name: 'Disabled, with a reason',
+  render: () => <StatefulTabs tabs={LOCKED_TABS} />,
+} satisfies StoryLiteStoryDefinition<TabsArgs>;
+
 const Layouts = {
   name: 'Layouts',
   render: () => (
@@ -90,7 +102,11 @@ const STATE_TAB: TabItem = { id: 'audio', label: 'Audio', icon: <Icon name="volu
 const ignoreTabChange = (): void => undefined;
 
 const renderState = (props: StateProps) => (
-  <Tabs tabs={[STATE_TAB]} activeTab={props.selected === true ? STATE_TAB.id : ''} onTabChange={ignoreTabChange} />
+  <Tabs
+    tabs={[{ ...STATE_TAB, disabled: props.disabled === true, disabledReason: 'Plug in headphones first.' }]}
+    activeTab={props.selected === true ? STATE_TAB.id : ''}
+    onTabChange={ignoreTabChange}
+  />
 );
 
 const Overview = overviewStory({
@@ -101,10 +117,11 @@ const Overview = overviewStory({
     '`iconOnly` hides the labels and keeps each one as the tab title.',
     'When the tabs run out of room the strip scrolls sideways, with an arrow at each edge that has more.',
     'The arrow keys, [[Home]] and [[End]] move the selection.',
+    '`disabled` greys a tab out and the arrows skip it; `disabledReason` shows on hover and focus and is read out.',
   ],
   instead: '[SegmentedControl] for a choice that sets a value instead of switching views.',
   playground: Playground,
-  variants: [Layouts],
+  variants: [Layouts, Disabled],
   states: {
     render: renderState,
     list: [
@@ -112,6 +129,7 @@ const Overview = overviewStory({
       { ...STATE.hover, target: '.tabs__tab' },
       { ...STATE.focus, target: '.tabs__tab' },
       STATE.selected,
+      STATE.disabled,
     ],
   },
   code: `import { useState } from 'react';
@@ -121,6 +139,7 @@ const TABS = [
   { id: 'general', label: 'General' },
   { id: 'video', label: 'Video' },
   { id: 'saves', label: 'Saves', badge: 12 },
+  { id: 'cheats', label: 'Cheats', disabled: true, disabledReason: 'Cheats open once a game is running.' },
 ];
 
 const [active, setActive] = useState('general');
@@ -129,4 +148,4 @@ const [active, setActive] = useState('general');
 });
 
 export default meta;
-export { Layouts, Overview, Playground };
+export { Disabled, Layouts, Overview, Playground };
