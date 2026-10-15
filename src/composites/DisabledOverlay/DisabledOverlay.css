@@ -69,3 +69,21 @@
   font-size: var(--text-sm);
   text-shadow: var(--shadow-1);
 }
+
+.disabled-overlay__notice {
+  display: contents;
+}
+
+.disabled-overlay--top .overlay.disabled-overlay__scrim {
+  justify-content: flex-start;
+  overflow: clip;
+}
+
+.disabled-overlay--top .disabled-overlay__notice {
+  position: sticky;
+  top: var(--density-pad, var(--space-md));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: inherit;
+}

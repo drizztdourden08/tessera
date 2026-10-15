@@ -3,10 +3,13 @@ import type { ReactNode } from 'react';
 
 type DisabledOverlayTone = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'danger';
 
+type DisabledOverlayPlacement = 'center' | 'top';
+
 interface DisabledOverlayProps {
   active: boolean;
   message?: string;
   tone?: DisabledOverlayTone;
+  placement?: DisabledOverlayPlacement;
   contained?: boolean;
   actionLabel?: string;
   onOpenSettings?: () => void;
@@ -14,4 +17,4 @@ interface DisabledOverlayProps {
   className?: string;
 }
 
-export type { DisabledOverlayProps, DisabledOverlayTone };
+export type { DisabledOverlayPlacement, DisabledOverlayProps, DisabledOverlayTone };

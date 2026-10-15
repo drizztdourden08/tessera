@@ -7609,3 +7609,43 @@ Paths are under `apps/desktop/src/` on the `brock-migration` branch. "Compact" m
 By kind: DensityScope alone covers 11 (6, 7, 8, 9, 12, 14, 15, 20, 21, 24, 25), and with a `className` 2 more (19, 28). An own `className` on the part covers 8 (10, 11, 13, 18, 27, 29, 35, 36). `strong` covers 1 (30) and DialogShell `titleWrap` 1 (39). The props of section 226 cover 6 (1, 3, 4, 5, 26, 34) and 33 with `labelSize`. Props and markup Tessera already had cover 5 (2, 16, 17, 31, 37), and 4 rules can go because they change nothing (22, 23, 32, 38).
 
 **Partly covered (3 and 4).** `tone="warning"` paints the unbuilt pane's overlay, but RotP also starts the scrim at the top (`justify-content: flex-start`) and keeps the message in view while the pane scrolls (`position: sticky`). DisabledOverlay has no placement option yet, so those two declarations stay until it takes one.
+
+## 228. DisabledOverlay places its message at the top of a long covered body
+
+RotP's unbuilt pane covers a list that scrolls to a thousand rows, so its scrim is as tall as the list and a centred message lands far below the fold. Section 227 left two of its rules standing (findings 3 and 4): the scrim started at the top with `justify-content: flex-start`, and the message stayed in view with `position: sticky`. DisabledOverlay now takes the placement as an option.
+
+### What changed
+
+```ts
+type DisabledOverlayPlacement = 'center' | 'top';
+interface DisabledOverlayProps { placement?: DisabledOverlayPlacement } // added, 'center' by default
+```
+
+- **`placement="top"`** puts the message, and the settings button when there is one, at the top of the scrim, and keeps them in view while the pane around the overlay scrolls the covered body. They stop at the scrim padding, 12 px below the top of the pane, or 4 px inside a compact DensityScope.
+- Under `top` the scrim clips with `overflow: clip` in place of `overflow: hidden`. That makes no scroll box of its own, so the message follows the pane that scrolls; a sticky rule inside an `overflow: hidden` scrim, as RotP had, has nothing to follow.
+- The message and the button now sit in a `.disabled-overlay__notice` box. With `center` it is `display: contents`, so the scrim lays them out as before.
+- The root takes `disabled-overlay--center` or `disabled-overlay--top`.
+
+### Where it works
+
+- **A pane that scrolls**, as in RotP: a scroller around `<DisabledOverlay contained placement="top">` over 30 rows. At rest the message is 18 px below the pane top; scrolled 300 px, 400 px with the wheel and to the end (1,422 px) it holds at 13 px, the pane border and the scrim padding.
+- **A body that scrolls inside**, as a disabled Widget draws it since section 224: the overlay covers the visible body and the ScrollArea scrolls inside it. The scrim stays 5 px inside the body on both ends and the message 18 px below its top while the list scrolls by 300 px.
+
+### What changes at the defaults
+
+Nothing. The 29 overlays on 12 gallery pages (the DisabledOverlay pages, DensityScope, SettingsSection and Widget) keep their size, scrim, message and button boxes, colours, gap, padding, weight and font size.
+
+### Gallery
+
+The DisabledOverlay page gains the section Message at the top of a long list, with the pane and the widget body side by side in the warning tone, the Playground takes `placement`, and the Overview names it.
+
+### What RotP deletes
+
+From `apps/desktop/src/language-editor/sub-components/UnbuiltPane.css` on the `brock-migration` branch, both rules on Tessera's classes go, and the overlay in `UnbuiltPane.tsx` passes `tone="warning" placement="top"`:
+
+| # | Line | Internal class | Use instead |
+| --- | --- | --- | --- |
+| 3 | 37 | `.disabled-overlay__scrim` | `tone="warning"` for the colours (section 226) and `placement="top"` for `justify-content` |
+| 4 | 43 | `.disabled-overlay__message` | `tone="warning"` for the colour (section 226) and `placement="top"` for `position: sticky` |
+
+Findings 3 and 4 of section 227 are now fully covered, so all 39 of RotP's stylelint findings have a public way.

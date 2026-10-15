@@ -10,13 +10,13 @@ import type { DisabledOverlayProps } from './DisabledOverlay.type';
 const DisabledOverlay = (props: DisabledOverlayProps) => {
   const { panels } = useTesseraStrings();
   const {
-    active, message = panels.disabled, tone = 'secondary', actionLabel = panels.openSettings,
+    active, message = panels.disabled, tone = 'secondary', placement = 'center', actionLabel = panels.openSettings,
     contained = false, onOpenSettings, children, className = '',
   } = props;
 
   if (!active) return <>{children}</>;
 
-  const rootClassName = ['disabled-overlay', contained && 'disabled-overlay--contained', `disabled-overlay--${tone}`, className]
+  const rootClassName = ['disabled-overlay', contained && 'disabled-overlay--contained', `disabled-overlay--${tone}`, `disabled-overlay--${placement}`, className]
     .filter(Boolean)
     .join(' ');
 
@@ -26,10 +26,12 @@ const DisabledOverlay = (props: DisabledOverlayProps) => {
         {children}
       </Box>
       <Overlay visible tone="clear" blur className="disabled-overlay__scrim">
-        <Text className="disabled-overlay__message">{message}</Text>
-        {onOpenSettings && (
-          <Button variant={tone} size="sm" onClick={onOpenSettings}>{actionLabel}</Button>
-        )}
+        <Box className="disabled-overlay__notice">
+          <Text className="disabled-overlay__message">{message}</Text>
+          {onOpenSettings && (
+            <Button variant={tone} size="sm" onClick={onOpenSettings}>{actionLabel}</Button>
+          )}
+        </Box>
       </Overlay>
     </Box>
   );

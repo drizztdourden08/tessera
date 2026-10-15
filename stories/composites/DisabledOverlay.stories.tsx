@@ -3,11 +3,12 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DisabledOverlay, ListItemRow } from '../../src/composites';
-import type { DisabledOverlayTone } from '../../src/composites';
+import type { DisabledOverlayPlacement, DisabledOverlayTone } from '../../src/composites';
 import { Box, Text, Toggle } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { OverlayTopDemo } from './_samples/OverlayTopDemo';
 import { PLAYERS } from './_samples/sessions';
 import './DisabledOverlay.stories.css';
 
@@ -15,6 +16,7 @@ type DisabledArgs = {
   active: boolean;
   message: string;
   tone: DisabledOverlayTone;
+  placement: DisabledOverlayPlacement;
   actionLabel: string;
   contained: boolean;
   withAction: boolean;
@@ -68,6 +70,7 @@ const ARGS: Partial<DisabledArgs> = {
     message: 'Hosting is off. Turn it on in Settings to change these options.',
     actionLabel: 'Open Settings',
     tone: 'secondary',
+    placement: 'center',
     contained: false,
     withAction: true,
   };
@@ -78,6 +81,7 @@ const ARG_TYPES: PlaygroundArgTypes<DisabledArgs> = {
     withAction: { group: 'Content', control: 'boolean' },
     tone: { group: 'Appearance', control: 'select', options: [...TONES], description: 'The colour of the scrim, its edge, the message and the button.' },
     contained: { group: 'Layout', control: 'boolean' },
+    placement: { group: 'Layout', control: 'select', options: ['center', 'top'], description: 'Where the message sits; top keeps it in view while the covered body scrolls.' },
     active: { group: 'State', control: 'boolean' },
   };
 
@@ -95,6 +99,7 @@ const Playground = {
       active={args.active}
       message={args.message}
       tone={args.tone}
+      placement={args.placement}
       actionLabel={args.actionLabel}
       contained={args.contained}
       onOpenSettings={args.withAction ? noop : undefined}
@@ -136,6 +141,11 @@ const Tones = {
   ),
 } satisfies StoryLiteStoryDefinition<DisabledArgs>;
 
+const TopOfLongList = {
+  name: 'Message at the top of a long list',
+  render: () => <OverlayTopDemo />,
+} satisfies StoryLiteStoryDefinition<DisabledArgs>;
+
 const DefaultMessage = {
   name: 'Default message',
   render: () => (
@@ -152,16 +162,16 @@ const Overview = overviewStory({
   description: 'A scrim over an area that a setting turns off, which keeps the area in sight and says why it is out of reach.',
   points: [
     'Use it where hiding the area would leave the user wondering where it went.',
-    '`active` shows the scrim and `message` says why.',
-    '`actionLabel` and `onOpenSettings` add a button to the setting that turns the area on.',
+    '`active` shows the scrim and `message` says why; `actionLabel` and `onOpenSettings` add a settings button.',
     '`contained` insets the scrim for content inside a scrolling or clipped box.',
     '`tone` colours the scrim, its edge, the message and the button; `secondary` by default, or `warning`.',
+    '`placement="top"` holds the message at the top, in view while a long covered body scrolls.',
     'Inside a compact [DensityScope] the scrim has less padding and the message is not bold.',
   ],
   instead: '[Overlay] to block a panel while something runs.',
   playground: Playground,
-  variants: [DefaultMessage, NoAction, ContainedList, Tones],
+  variants: [DefaultMessage, NoAction, ContainedList, TopOfLongList, Tones],
 });
 
 export default meta;
-export { ContainedList, DefaultMessage, NoAction, Overview, Playground, Tones };
+export { ContainedList, DefaultMessage, NoAction, Overview, Playground, Tones, TopOfLongList };

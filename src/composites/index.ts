@@ -90,7 +90,7 @@ export type {
   TourStepMascot, TourTarget,
 } from './GuidedTour';
 export { DisabledOverlay } from './DisabledOverlay';
-export type { DisabledOverlayProps, DisabledOverlayTone } from './DisabledOverlay';
+export type { DisabledOverlayPlacement, DisabledOverlayProps, DisabledOverlayTone } from './DisabledOverlay';
 export {
   Widget, WidgetManager, WidgetOptions, useWidgetLayout, createDefaultLayout, getDevOnlyWidgetIds, getWidgetDefinition,
   migrateLayout, loadLayoutForProfile, loadLayoutLocal, saveLayoutForProfile, saveLayoutLocal, applyEdit, dockOnEdge, dockWidget,
