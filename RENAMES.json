@@ -1325,7 +1325,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.35.0",
       "components": {
         "MediaViewerPixels": "ImagePixelated"
       },
