@@ -7506,3 +7506,106 @@ From the `brock-migration` branch:
 - The `.live-rec-list > .disclosure__body` selector in `apps/desktop/src/views/LiveDataInspector/sub-components/RecommendationList.css`: the rule moves to a class passed as `bodyClassName`.
 - The `.window-header__title` override in `DiagnosticsWizardDialog.css`, and the `white-space` and `overflow-wrap` lines of `.detail__title` in `packages/design/src/compounds/DetailPane/DetailPane.css`: the headers pass `titleWrap`.
 - The local `IDENTITY_PATH` in `apps/desktop/src/views/DataInspector/DataInspector.constants.ts`: `id-ref-options.ts` and `create-schema.ts` import it from `@drizztdourden08/tessera/data`.
+
+## 227. A compact density for a whole panel, and public options in place of internal classes
+
+RotP's HUD layout editor is a dense inspector: it passes `size="sm"` to almost every Field, input and Button, and its stylesheets reach into Tessera's classes for the rest. Stylelint's `tessera/no-tessera-internals` lists 39 such rules. Each now has a public way, listed in the table at the end.
+
+### DensityScope
+
+```ts
+type Density = 'comfortable' | 'compact';
+
+interface DensityScopeProps {
+  density: Density;
+  children: ReactNode;
+}
+
+const useDensity: () => Density; // 'comfortable' outside any scope
+```
+
+- Wrap a panel once with `<DensityScope density="compact">`. Every form part inside that sets no `size` draws at `sm`: TextInput, Textarea, NumberInput, Select, Combobox, Checkbox, Toggle, ToggleGroup, RadioGroup, SegmentedControl, Slider, ColorSwatch, DropZone, TagPicker, TagInput, PasswordInput, DynamicInput, Field, and Button.
+- A part's own `size`, and the `size` of a Field around it, still win. A `comfortable` scope inside a compact one brings its parts back to `md`.
+- The scope is a `div` with `display: contents` and `data-density`, so it never changes the layout around its children.
+- `useDensity()` reads the density, for an app part that should follow it.
+
+### Density tokens
+
+A compact scope sets three tokens, and the parts read each one with their usual value as the fallback. Outside a scope nothing changes.
+
+| Token | Compact | Read by | Usual value |
+| --- | --- | --- | --- |
+| `--density-gap` | `--space-xs`, 4 px | the gap of Slider, Checkbox, SegmentedControl, ToggleGroup and the DisabledOverlay scrim | 16 px for a `md` Slider, SegmentedControl and ToggleGroup, 8 px otherwise |
+| `--density-pad` | `--space-xs`, 4 px | the padding of the DisabledOverlay scrim | 12 px |
+| `--density-message-weight` | `--weight-normal` | the DisabledOverlay message | semibold |
+
+An app may set these tokens on its own box too; DensityScope is the usual way.
+
+### Other new options
+
+```ts
+interface SegmentedControlProps { className?: string } // on the root
+interface LogKindDef { strong?: boolean } // the messages of the kind in semibold
+interface DialogShellProps { titleWrap?: boolean } // passed to its WindowHeader
+```
+
+- **`titleWrap`** on DialogShell hands section 226's WindowHeader `titleWrap` through, so a dialog title runs onto more lines in place of the ellipsis.
+- The rest of RotP's list takes the props of section 226: Image `fit` and `pixelated`, DisabledOverlay `tone`, Checkbox `labelSize` and Disclosure `bodyClassName`.
+
+### What changes at the defaults
+
+Nothing. The 1,797 measured elements of 21 Overview pages (Slider, Checkbox, SegmentedControl, ToggleGroup, Toggle, RadioGroup, DisabledOverlay, Image, LogPanel, Disclosure, Button, Select, Combobox, TextInput, Field, IconButton, WidgetOptions, Hero, MediaViewer, DialogShell and SettingsRow) keep their size, gap, padding, font and `object-fit`; on the SegmentedControl and DisabledOverlay pages everything sits one line lower, under the added Overview point.
+
+### Gallery
+
+DensityScope has a page in Primitives · Inputs: a dense editor panel, the Health bar node of a layout editor with its layout, look and motion sections, and the same panel comfortable and compact side by side. The Overviews of SegmentedControl, LogPanel, DialogShell, DisabledOverlay, Checkbox, Field and Button name the new options.
+
+### What RotP uses instead
+
+Paths are under `apps/desktop/src/` on the `brock-migration` branch. "Compact" means the HUD layout editor, or the card, sits inside `<DensityScope density="compact">`; the `size="sm"` props it passes today can then go.
+
+| # | Where | Internal class | Use instead |
+| --- | --- | --- | --- |
+| 1 | `compounds/SpritePicker/SpritePicker.css:52` | `.image__img` | `fit="contain"` and `pixelated` on the Image (section 226) |
+| 2 | `compounds/SpritePicker/SpritePicker.css:77` | `.text` | `tone="dim"` on that Text |
+| 3 | `language-editor/sub-components/UnbuiltPane.css:37` | `.disabled-overlay__scrim` | `tone="warning"` for the colours (section 226); the message at the top is not covered, see below |
+| 4 | `language-editor/sub-components/UnbuiltPane.css:43` | `.disabled-overlay__message` | `tone="warning"` for the colour (section 226); the sticky top is not covered, see below |
+| 5 | `theme/hud-layout-editor/content.css:19` | `.image__img` | `fit="contain"` and `pixelated` on the Image (section 226) |
+| 6 | `theme/hud-layout-editor/content.css:76` | `.slider` | compact: the gap is 4 px |
+| 7 | `theme/hud-layout-editor/content.css:80` | `.slider__track` | compact: a `sm` track has a 4 px gap |
+| 8 | `theme/hud-layout-editor/content.css:84` | `.slider__input` | compact: the `sm` bar is 4 px; the input fills the rail, so drop the height |
+| 9 | `theme/hud-layout-editor/content.css:88` | `.slider__value` | compact: a `sm` value is 12 px and aligned to the end, as wide as its longest value |
+| 10 | `theme/hud-layout-editor/fields.css:7` | `.text-input` | an own `className` on the TextInput |
+| 11 | `theme/hud-layout-editor/fields.css:12` | `.select-trigger` | an own `className` on the Select, which lands on the trigger |
+| 12 | `theme/hud-layout-editor/fields.css:17` | `.checkbox` | compact: the gap is 4 px |
+| 13 | `theme/hud-layout-editor/geometry.css:3` | `.dynamic-input` | an own `className` on the DynamicInput |
+| 14 | `theme/hud-layout-editor/geometry.css:7` | `.disabled-overlay__scrim` | compact: gap and padding 4 px |
+| 15 | `theme/hud-layout-editor/geometry.css:12` | `.disabled-overlay__message` | compact: normal weight; the text is already 12 px |
+| 16 | `theme/hud-layout-editor/geometry.css:43` | `.field__control` | a `Stack gap="2xs"` as the child of the Field |
+| 17 | `theme/hud-layout-editor/layout.css:45` | `.icon-btn--active` | `:not([aria-pressed='true'])`, which IconButton sets when `active` |
+| 18 | `theme/hud-layout-editor/layout.css:87` | `.text-input` | an own `className` on the TextInput |
+| 19 | `theme/hud-layout-editor/motion.css:134` | `.slider` | an own `className` on the Slider for `flex: 1`, and compact for the gap |
+| 20 | `theme/hud-layout-editor/motion.css:146` | `.slider` | compact: the gap is 4 px |
+| 21 | `theme/hud-layout-editor/motion.css:146` | `.slider` | compact: the gap is 4 px |
+| 22 | `theme/hud-layout-editor/motion.css:151` | `.slider__input` | drop: the input fills the rail and never sets the width |
+| 23 | `theme/hud-layout-editor/motion.css:151` | `.slider__input` | drop: the same rule for the second selector |
+| 24 | `theme/hud-layout-editor/motion.css:156` | `.slider__value` | compact: a `sm` value is 12 px |
+| 25 | `theme/hud-layout-editor/motion.css:156` | `.slider__value` | compact: the same rule for the second selector |
+| 26 | `theme/hud-layout-editor/pickers.css:67` | `.image__img` | `fit="contain"` on the Image (section 226) |
+| 27 | `theme/hud-layout-editor/pickers.css:88` | `.number-input` | an own `className` on the NumberInput |
+| 28 | `views/HudLayoutEditor/HudLayoutEditor.css:57` | `.segmented` | the new `className` on the SegmentedControl for `flex: 0 0 auto`, and compact for the gap |
+| 29 | `views/Randomizer/Randomizer.css:30` | `.text-input` | an own `className` on the TextInput |
+| 30 | `views/Randomizer/Randomizer.css:59` | `.log-panel__msg--session` | `strong: true` on the `session` kind |
+| 31 | `compounds/ChecksTracker/sub-components/TrackerFilters.css:37` | `.segmented__btn` | `size="sm"` on the three SegmentedControls of FilterControls |
+| 32 | `compounds/ProgressiveTiersBlock/sub-components/ProgressiveTierCard.css:59` | `.checkbox__input` | drop: the box never shrinks already |
+| 33 | `compounds/ProgressiveTiersBlock/sub-components/ProgressiveTierCard.css:63` | `.checkbox__label` | `labelSize="sm"` (section 226), or `size="sm"` or compact; `line-height` and `overflow-wrap` inherit, so set them on an own `className` of the Checkbox |
+| 34 | `views/LiveDataInspector/sub-components/RecommendationList.css:8` | `.disclosure__body` | `bodyClassName` on the Disclosure (section 226), with the column, gap, `flex: 1` and `min-height: 0` in that class |
+| 35 | `views/HudLayoutEditor/sub-components/ValueInput/ValueInput.css:68` | `.pressable` | an own `className` on each Pressable |
+| 36 | `views/HudLayoutEditor/sub-components/ValueInput/ValueInput.css:77` | `.pressable` | the same own `className` with `:hover` |
+| 37 | `views/HudLayoutEditor/sub-components/ValueInput/ValueInput.css:135` | `.field__control` | an own Box around the control inside the Field; the Field root keeps `position: relative` |
+| 38 | `views/InputTester/sub-components/diagnostics-wizard/DiagnosticsWizardDialog.css:12` | `.dialog__header` | drop: WindowHeader moves `headerExtra` away when it does not fit; to always show the steps, put the StepIndicator at the top of the body |
+| 39 | `views/InputTester/sub-components/diagnostics-wizard/DiagnosticsWizardDialog.css:17` | `.window-header__title` | the new `titleWrap` on the DialogShell |
+
+By kind: DensityScope alone covers 11 (6, 7, 8, 9, 12, 14, 15, 20, 21, 24, 25), and with a `className` 2 more (19, 28). An own `className` on the part covers 8 (10, 11, 13, 18, 27, 29, 35, 36). `strong` covers 1 (30) and DialogShell `titleWrap` 1 (39). The props of section 226 cover 6 (1, 3, 4, 5, 26, 34) and 33 with `labelSize`. Props and markup Tessera already had cover 5 (2, 16, 17, 31, 37), and 4 rules can go because they change nothing (22, 23, 32, 38).
+
+**Partly covered (3 and 4).** `tone="warning"` paints the unbuilt pane's overlay, but RotP also starts the scrim at the top (`justify-content: flex-start`) and keeps the message in view while the pane scrolls (`position: sticky`). DisabledOverlay has no placement option yet, so those two declarations stay until it takes one.

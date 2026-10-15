@@ -142,7 +142,7 @@ const Overview = overviewStory({
     'It is controlled: `checked` comes in and `onChange` hands back the new value.',
     '`indeterminate` draws the mixed state, for a box that stands for a partly checked set.',
     '`ariaLabel` names a box whose label is drawn somewhere else.',
-    '`md` sits beside standard controls; `sm` is for dense lists and tables.',
+    '`md` sits beside standard controls; `sm` is for dense lists, tables and a compact [DensityScope].',
     '`labelSize` `sm` or `md` sets the label text apart from `size`, such as a small label in a list.',
   ],
   instead: '[Toggle] for a setting that takes effect at once.',

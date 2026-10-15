@@ -9,6 +9,7 @@ interface DialogShellProps {
   onClose: () => void;
   dismissable?: boolean;
   title?: ReactNode;
+  titleWrap?: boolean;
   headerExtra?: ReactNode;
   actions?: ReactNode;
   className?: string;

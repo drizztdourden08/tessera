@@ -183,7 +183,7 @@ const Overview = overviewStory({
     '`error` replaces the hint and draws the control inside in its error look.',
     '`required` adds a star to the label, and `inline` puts the label beside the control.',
     '`htmlFor` ties the label to the input it names.',
-    '`size` passes `md` or `sm` to the control inside, unless it sets its own.',
+    '`size` passes `md` or `sm` to the control inside; a [DensityScope] sets it for a whole panel.',
     '`width` caps the field on a wide page: `sm` 256 px, `md` 512 px by default, or `full`.',
   ],
   playground: Playground,

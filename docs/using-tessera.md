@@ -250,6 +250,8 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | Stars for a score, or a star picker | `Rating`, with `count` and `showValue`; `onChange` makes it the picker |
 | A few featured items that turn in one banner | `Carousel` with `turnEvery`, its slides any node such as a `Hero` |
 | A picture or a video opened large, with zoom | `MediaViewer`, with `items` for arrows through a set |
+| Small form parts for a whole panel, such as an inspector | `DensityScope` with `density="compact"` around the panel |
+| Log messages of one kind in semibold | `strong` on that kind in the `kinds` of `LogPanel` |
 
 ## The gallery
 

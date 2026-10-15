@@ -15,7 +15,7 @@ import { SegmentButton } from './sub-components/SegmentButton';
 import type { SegmentedControlProps } from './SegmentedControl.type';
 
 const SegmentedControl = <T extends string = string>(props: SegmentedControlProps<T>) => {
-  const { value, options, onChange, onDeselect, onHint, label, description, size, disabled = false } = props;
+  const { value, options, onChange, onDeselect, onHint, label, description, size, disabled = false, className } = props;
   const controlSize = useControlSize(size);
   const { trackRef, indicatorStyle } = useSegmentIndicator(value, options);
   const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
@@ -28,7 +28,7 @@ const SegmentedControl = <T extends string = string>(props: SegmentedControlProp
   const keys = segmentKeys({ trackRef, options, enabled, value, pick: onChange });
 
   return (
-    <div className={['segmented', `control-size--${controlSize}`, disabled && 'segmented--disabled'].filter(Boolean).join(' ')}>
+    <div className={['segmented', `control-size--${controlSize}`, disabled && 'segmented--disabled', className].filter(Boolean).join(' ')}>
       {[label, description].some(Boolean) && (
         <div className="segmented__header">
           {label && <Span className="segmented__label">{label}</Span>}

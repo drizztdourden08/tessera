@@ -66,7 +66,7 @@ const VALUES = {
       answers: { 'edit it in place': null, 'create one in the page': null, 'create one in a dialog': null },
     },
     'several settings, behind one button': null,
-    'the label and help around an input': null,
+    'the label and help around an input': null, 'smaller form parts for a whole panel': null,
     'one option in a long form, with a reset': null, 'a long form split into tabs': null,
   },
 } as const;

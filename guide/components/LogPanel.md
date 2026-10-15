@@ -31,6 +31,7 @@ LogPanel shows a running log with search, filters, the newest lines first in vie
 
 - Give each row a stable id: the window, the new line behaviour and the selection all follow it.
 - Pass kinds with a tone per type; toneMessage colours the message too, as for errors.
+- Set strong on a kind whose messages mark a step, such as a session that starts; they draw in semibold.
 - Pass selectedIds with onSelectionChange to let the user pick rows; the app holds the set and copies or acts on it.
 - Put the action on the picked rows in toolbarExtra, such as Copy selected or Report these lines, beside the line count.
 - Pass height="fill" inside a box that sets the height, or a number for a fixed height in pixels.

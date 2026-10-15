@@ -59,7 +59,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',
     Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal',
     TagPicker: 'tags', ColorSwatch: 'paint-bucket',
-    DropZone: 'upload', Field: 'form-input', FieldControlBoundary: 'square-dashed',
+    DropZone: 'upload', Field: 'form-input', FieldControlBoundary: 'square-dashed', DensityScope: 'rows-3',
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Tooltip: 'message-square',

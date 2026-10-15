@@ -158,7 +158,7 @@ const Overview = overviewStory({
   points: [
     'Each of the `rows` has a gutter, a tag, a `kind` and a message; `indent` nests it under a guide.',
     'The toolbar is a [FilterBar]: search, filters on type, tag or message, a line count and Copy all.',
-    '`kinds` gives each type a `tone`; `toneMessage` colours the message too, as for errors.',
+    '`kinds` gives each type a `tone`; `toneMessage` colours the message too, and `strong` sets it in semibold.',
     'Only the newest lines are mounted, older ones load on demand, and Newest jumps back to the end.',
     '`selectedIds` with `onSelectionChange` picks rows: a click, [[Shift]] and a click, [[Up]] and [[Down]].',
     '`height="fill"` takes the height of its parent; a number fixes it in pixels.',

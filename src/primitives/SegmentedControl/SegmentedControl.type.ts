@@ -35,6 +35,7 @@ interface SegmentedControlProps<T extends string = string> extends ControlName {
   description?: string;
   size?: ControlSize;
   disabled?: boolean;
+  className?: string;
 }
 
 interface SegmentButtonProps<T extends string> {

@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 
 type ControlSize = 'sm' | 'md';
 
+type Density = 'comfortable' | 'compact';
+
 interface FieldControl {
   id?: string;
   describedBy?: string;
@@ -15,4 +17,4 @@ interface FieldControlBoundaryProps {
   children: ReactNode;
 }
 
-export type { ControlSize, FieldControl, FieldControlBoundaryProps };
+export type { ControlSize, Density, FieldControl, FieldControlBoundaryProps };

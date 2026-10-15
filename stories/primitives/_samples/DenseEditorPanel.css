@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.dense-editor {
+  inline-size: var(--size-320);
+  max-inline-size: 100%;
+}
+
+.dense-editor__body,
+.dense-editor__motion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}

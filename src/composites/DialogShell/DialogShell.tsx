@@ -15,7 +15,7 @@ const keepFocus = (event: MouseEvent<HTMLElement>): void => {
 
 const DialogShell = (props: DialogShellProps) => {
   const {
-    open, onClose, title, headerExtra, actions, className = '', dismissable = true, initialFocusRef, initialFocus = 'first', id, data, children,
+    open, onClose, title, titleWrap, headerExtra, actions, className = '', dismissable = true, initialFocusRef, initialFocus = 'first', id, data, children,
   } = props;
 
   const titleId = useId();
@@ -39,7 +39,7 @@ const DialogShell = (props: DialogShellProps) => {
           onKeyDown={focus.onKeyDown}
           onClick={(e) => e.stopPropagation()}
         >
-          <WindowHeader title={title} titleId={titleId} extra={headerExtra} onClose={dismissable ? onClose : undefined} className="dialog__header" />
+          <WindowHeader title={title} titleWrap={titleWrap} titleId={titleId} extra={headerExtra} onClose={dismissable ? onClose : undefined} className="dialog__header" />
           {children}
           {actions && <Box className="dialog__actions">{actions}</Box>}
         </Box>

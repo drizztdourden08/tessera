@@ -17,6 +17,7 @@ interface LogKindDef {
   label: string;
   tone?: TextTone;
   toneMessage?: boolean;
+  strong?: boolean;
 }
 
 type LogPanelHeight = 'fill' | number;

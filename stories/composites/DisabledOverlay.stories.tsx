@@ -156,6 +156,7 @@ const Overview = overviewStory({
     '`actionLabel` and `onOpenSettings` add a button to the setting that turns the area on.',
     '`contained` insets the scrim for content inside a scrolling or clipped box.',
     '`tone` colours the scrim, its edge, the message and the button; `secondary` by default, or `warning`.',
+    'Inside a compact [DensityScope] the scrim has less padding and the message is not bold.',
   ],
   instead: '[Overlay] to block a panel while something runs.',
   playground: Playground,

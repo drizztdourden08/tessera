@@ -84,8 +84,11 @@ export type { TagPickerGroup, TagPickerOption, TagPickerProps } from './TagPicke
 export { Field, useFieldControl } from './Field';
 export { FieldControlBoundary } from './FieldControlBoundary';
 export type { FieldProps, FieldWidth } from './Field';
+export { DensityScope } from './DensityScope';
+export type { DensityScopeProps } from './DensityScope';
 export { useControlSize } from './field-control/useControlSize';
-export type { ControlSize } from './field-control/field-control.type';
+export { useDensity } from './field-control/useDensity';
+export type { ControlSize, Density } from './field-control/field-control.type';
 export type { ControlLabelSize } from './field-control/label-size.type';
 export type {
   InputAdornment, InputAdornmentAction, InputAdornmentIcon, InputAdornmentMark,

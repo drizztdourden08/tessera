@@ -55,6 +55,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Create one in a dialog: no component yet.
   - Several settings, behind one button: [ControlMenu](components/ControlMenu.md). ControlMenu keeps several small settings one click away without a page or a dialog.
   - The label and help around an input: no component yet.
+  - Smaller form parts for a whole panel: [DensityScope](components/DensityScope.md). DensityScope makes the form parts of one panel compact at once, with the same small size in every app.
   - One option in a long form, with a reset: [FormRow](components/FormRow.md). FormRow lays out the name, the control, the changed mark and the reset of an option the same way in every app.
   - A long form split into tabs: [FormGroupTabs](components/FormGroupTabs.md). FormGroupTabs shows where the changes are in a long form and how to find an option, the same way in every app.
 - A status, a count or a label. **What does it show?**

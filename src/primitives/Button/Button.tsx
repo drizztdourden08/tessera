@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind component */
 import { forwardRef } from 'react';
 import '../../theme/button-surface.css';
+import { DENSITY_SIZE } from '../field-control/density.constants';
+import { useDensity } from '../field-control/useDensity';
 import './Button.css';
 import type { ButtonProps } from './Button.type';
 import { buttonClass } from './behavior/button-class';
@@ -8,8 +10,9 @@ import { plainLabel } from './behavior/plain-label';
 import { ButtonIcon } from './sub-components/ButtonIcon';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const density = useDensity();
   const {
-    variant = 'tertiary', size = 'md', fullWidth = false, active = false, loading = false, disabled,
+    variant = 'tertiary', size = DENSITY_SIZE[density], fullWidth = false, active = false, loading = false, disabled,
     icon, iconEnd, children, className = '', ...rest
   } = props;
   const cls = buttonClass({ variant, size, fullWidth, active, loading, oneLine: plainLabel(children), className });

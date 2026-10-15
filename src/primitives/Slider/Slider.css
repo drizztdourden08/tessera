@@ -2,7 +2,7 @@
 .slider {
   display: flex;
   align-items: center;
-  gap: var(--space-lg);
+  gap: var(--density-gap, var(--space-lg));
 }
 
 .slider.control-size--md {
@@ -18,7 +18,7 @@
   --slider-bar: var(--size-4);
   --slider-tick: var(--size-2);
 
-  gap: var(--space-sm);
+  gap: var(--density-gap, var(--space-sm));
 }
 
 .slider--disabled {

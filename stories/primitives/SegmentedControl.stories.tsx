@@ -150,6 +150,7 @@ const Overview = overviewStory({
     '`onDeselect` lets a second click on the active option clear the value.',
     'Each option can carry a `hint` that a [HintLine] shows while it is pointed at or focused.',
     'The arrow keys pick; an option `disabled` with a string shows why in a tooltip, and the arrows skip it.',
+    'A compact [DensityScope] draws it at `sm` with a tighter gap; `className` lands on its root.',
   ],
   instead: '[ToggleGroup] to switch several options on, or [Tabs] to switch views.',
   playground: Playground,

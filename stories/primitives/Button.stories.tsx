@@ -122,7 +122,7 @@ const Overview = overviewStory({
   points: [
     '`primary` marks the main action of a view; `secondary` and `tertiary` sit beside it, `ghost` in toolbars.',
     '`danger`, `warning`, `info` and `success` carry an urgency.',
-    '`md` is 39 px tall, `sm` 28 px and `xs` 20 px, as tall as an [IconButton] of the same size.',
+    '`md` is 39 px tall, `sm` 28 px and `xs` 20 px; a compact [DensityScope] makes `sm` the default.',
     '`active` marks a toggle button as on, and it is announced as pressed.',
     '`icon` sits before the label and `iconEnd` after it, such as a chevron on a button that opens a list.',
     '`loading` shows a [Spinner], keeps the width and ignores clicks; a `disabled` button fades and never spins.',

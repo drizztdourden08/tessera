@@ -1,0 +1,16 @@
+/* @layer renderer-components @kind style */
+.density-scope {
+  display: contents;
+}
+
+.density-scope[data-density='compact'] {
+  --density-gap: var(--space-xs);
+  --density-pad: var(--space-xs);
+  --density-message-weight: var(--weight-normal);
+}
+
+.density-scope[data-density='comfortable'] {
+  --density-gap: var(--density-unset);
+  --density-pad: var(--density-unset);
+  --density-message-weight: var(--density-unset);
+}

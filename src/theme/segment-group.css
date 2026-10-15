@@ -4,12 +4,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-lg);
+  gap: var(--density-gap, var(--space-lg));
 }
 
 .segmented.control-size--sm,
 .toggle-group.control-size--sm {
-  gap: var(--space-sm);
+  gap: var(--density-gap, var(--space-sm));
 }
 
 .segmented--disabled,

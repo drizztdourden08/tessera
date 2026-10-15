@@ -153,6 +153,10 @@
   overflow-wrap: anywhere;
 }
 
+.log-panel__msg--strong {
+  font-weight: var(--weight-semi);
+}
+
 .log-panel__row--selected,
 .log-panel__row--selected:hover {
   background: var(--c-selected);

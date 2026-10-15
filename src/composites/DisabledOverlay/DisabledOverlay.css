@@ -49,8 +49,8 @@
 .overlay.disabled-overlay__scrim {
   inset: calc(-1 * var(--size-10));
   flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-md);
+  gap: var(--density-gap, var(--space-sm));
+  padding: var(--density-pad, var(--space-md));
   text-align: center;
   border: var(--border-width-thin) solid var(--disabled-edge);
   background: var(--disabled-fill);
@@ -65,7 +65,7 @@
 
 .disabled-overlay__message {
   color: var(--disabled-ink);
-  font-weight: var(--weight-semi);
+  font-weight: var(--density-message-weight, var(--weight-semi));
   font-size: var(--text-sm);
   text-shadow: var(--shadow-1);
 }

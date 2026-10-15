@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind hook */
 import { useId } from 'react';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
+import { DENSITY_SIZE } from '../field-control/density.constants';
+import { useDensity } from '../field-control/useDensity';
 import { fieldState } from './field-state';
 import { useActiveScroll } from './useActiveScroll';
 import { useListbox } from './useListbox';
@@ -12,7 +14,8 @@ import type { ListboxField, UseListboxFieldParams } from './listbox-field.type';
 const useListboxField = <T, V, E extends HTMLElement>(params: UseListboxFieldParams<T, V>): ListboxField<T, E> => {
   const { setup, look, query, filter, prefix, focusRef, onClose, pickFirst } = params;
   const control = useFieldControl(look.id, look['aria-describedby']);
-  const field = fieldState(look, control);
+  const density = useDensity();
+  const field = fieldState(look, control, DENSITY_SIZE[density]);
   const idBase = useId();
   const drop = useListboxDrop<E>({
     disabled: field.disabled,

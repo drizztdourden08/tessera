@@ -78,6 +78,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'DropZone', summary: 'Drop or browse for a file.' },
         { name: 'Field', summary: 'A label, hint and error around any input.' },
         { name: 'FieldControlBoundary', summary: 'Keeps the id and error of a Field off the inner inputs of a control made of several.' },
+        { name: 'DensityScope', summary: 'Sets compact or comfortable form parts once for a whole panel.' },
       ],
     },
     {

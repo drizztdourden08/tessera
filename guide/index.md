@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 57 of 178 have their usage written; a linked name opens its page.
+One line per component. 58 of 179 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -17,6 +17,7 @@ One line per component. 57 of 178 have their usage written; a linked name opens 
 - `Checkbox`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Combobox`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DensityScope](components/DensityScope.md): Sets how dense the form parts inside it are, once for a whole panel, such as an inspector beside a canvas. Import from `@drizztdourden08/tessera`.
 - [Disclosure](components/Disclosure.md): A line, such as Details or Show log, that shows or hides the content under it when clicked. Import from `@drizztdourden08/tessera`.
 - `Divider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DropZone`: usage not written yet. Import from `@drizztdourden08/tessera`.
