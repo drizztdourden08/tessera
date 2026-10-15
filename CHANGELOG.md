@@ -1,5 +1,13 @@
 # @drizztdourden08/tessera
 
+## 0.35.0
+
+### Minor Changes
+
+- a1c7d46: `DensityScope` sets a whole panel compact at once: every input, Field and Button inside without its own `size` draws at `sm`, and the gaps inside Slider, Checkbox, SegmentedControl, ToggleGroup and DisabledOverlay tighten through the `--density-gap`, `--density-pad` and `--density-message-weight` tokens; `useDensity` and the `Density` type are exported. Public options replace styling Tessera's classes: `className` on SegmentedControl, `strong` on a LogPanel kind, and `titleWrap` on DialogShell. Nothing changes where they are not used.
+- d5705e6: DisabledOverlay takes `placement`, `center` by default or `top`, which holds the message and its button at the top of the scrim and in view while the covered body scrolls; `DisabledOverlayPlacement` is exported.
+- bdbd7a1: Small parts for RotP's stand-ins: the Lucide icons `skull`, `shovel`, `tree-deciduous` and `waves` join the named set, with the short names `tree` and `water`; Button takes `iconEnd`; Toggle and Checkbox take `labelSize`; Image takes `fit` and `pixelated`, with `usePixelArt` and `isPixelArt` public and `MediaViewerPixels` renamed `ImagePixelated`; DisabledOverlay takes `tone`; Disclosure takes `bodyClassName`; WindowHeader takes `titleWrap`; and `IDENTITY_PATH` is exported from `/data` too.
+
 ## 0.34.0
 
 ### Minor Changes
