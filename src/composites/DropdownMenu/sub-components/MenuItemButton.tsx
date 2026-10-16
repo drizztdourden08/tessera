@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useContext } from 'react';
+import { useHighlight } from '../../../primitives/dom/useHighlight';
 import { Pressable } from '../../../primitives/Pressable';
 import { Shortcut } from '../../../primitives/Shortcut';
 import { ariaKeyShortcuts } from '../behavior/aria-key-shortcuts';
@@ -22,10 +23,16 @@ const MenuItemButton = (props: MenuItemButtonProps) => {
     item.onSelect?.();
     if (closesOnPick(kind, closeOnSelect)) close();
   });
+  const highlight = useHighlight({ onHighlight: item.onHighlight, disabled: item.disabled });
 
   return (
     <Pressable
       {...confirm.handlers}
+      {...highlight}
+      onBlur={(event) => {
+        highlight.onBlur();
+        confirm.handlers.onBlur?.(event);
+      }}
       role={ITEM_ROLES[kind]}
       aria-checked={isChoice(kind) ? item.checked === true : undefined}
       aria-keyshortcuts={keys && ariaKeyShortcuts(keys)}

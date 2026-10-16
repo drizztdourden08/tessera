@@ -17,6 +17,7 @@ interface CommandPaletteItem {
   checked?: boolean;
   toggle?: CommandPaletteToggle;
   action?: ReactNode;
+  onHighlight?: () => void;
 }
 
 interface CommandPaletteGroup<T extends CommandPaletteItem = CommandPaletteItem> {

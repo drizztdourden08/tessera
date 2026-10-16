@@ -37,6 +37,7 @@ DropdownMenu keeps rare and secondary actions one click away, and asks before th
 - Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.
 - An item icon is a name from the set, iconify data such as an imported Lucide icon, Icon path data, or any element.
 - Split groups by meaning with a label or a separator; turn on filter past about a dozen items.
+- Give an item onHighlight to start loading what it opens: it runs once each time the item is hovered, focused or reached with the arrow keys, and never while it is disabled.
 - The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.
 - Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.
 - Align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.

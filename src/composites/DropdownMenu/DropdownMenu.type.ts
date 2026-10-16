@@ -26,6 +26,7 @@ interface MenuItem {
   children?: readonly MenuNode[];
   onSelect?: () => void;
   onCancel?: () => void;
+  onHighlight?: () => void;
 }
 
 interface MenuSeparator {

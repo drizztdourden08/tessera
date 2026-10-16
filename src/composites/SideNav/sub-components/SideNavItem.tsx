@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
+import { useHighlight } from '../../../primitives/dom/useHighlight';
 import { Pressable } from '../../../primitives/Pressable';
 import { Icon } from '../../../primitives/Icon';
 import { Span } from '../../../primitives/text-elements';
@@ -10,8 +11,10 @@ import './SideNavItem.css';
 
 const SideNavItem = (props: SideNavItemProps) => {
   const { item, active, onSelect } = props;
+  const highlight = useHighlight({ onHighlight: item.onHighlight, disabled: item.disabled });
   return (
     <Pressable
+      {...highlight}
       className={`side-nav__item focus-ring-inset${active ? ' side-nav__item--active' : ''}`}
       onClick={() => onSelect(item.id)}
       disabled={item.disabled}

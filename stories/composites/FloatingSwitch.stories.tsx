@@ -102,6 +102,7 @@ const Overview = overviewStory({
     'The lit pill slides to the view you pick, and hovering another view gives it a soft glow.',
     'It holds no state: pass `activeId` and handle `onSelect`.',
     'Each item takes an `icon` and can be `disabled`; picking the lit item does nothing.',
+    'Give an item `onHighlight` to start loading its view once it is hovered or focused, before the pick.',
   ],
   instead: '[SegmentedControl] for a choice inside a form or a toolbar.',
   playground: Playground,

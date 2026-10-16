@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { Pressable } from '../../primitives/Pressable';
+import { FloatingSwitchOption } from './sub-components/FloatingSwitchOption';
 import { useSwitchThumb } from './behavior/useSwitchThumb';
 import type { FloatingSwitchProps } from './FloatingSwitch.type';
 import '../../theme/focus-ring.css';
@@ -15,21 +15,7 @@ const FloatingSwitch = (props: FloatingSwitchProps) => {
   return (
     <Box as="nav" ref={trackRef} className={`floating-switch${className ? ` ${className}` : ''}`} aria-label={label}>
       <Box as="span" className={thumbClass} style={thumbStyle} aria-hidden="true" />
-      {items.map((item) => {
-        const active = item.id === activeId;
-        return (
-          <Pressable
-            key={item.id}
-            className={`floating-switch__item focus-ring-inset${active ? ' floating-switch__item--active' : ''}`}
-            onClick={() => { if (!active) onSelect(item.id); }}
-            disabled={item.disabled}
-            aria-current={active ? 'page' : undefined}
-          >
-            <Box as="span" className={`floating-switch__icon${active ? ' icon-glow' : ''}`} aria-hidden="true">{item.icon}</Box>
-            <Box as="span" className="floating-switch__label">{item.label}</Box>
-          </Pressable>
-        );
-      })}
+      {items.map((item) => <FloatingSwitchOption key={item.id} item={item} active={item.id === activeId} onSelect={onSelect} />)}
     </Box>
   );
 };

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
+import { useHighlight } from '../../../primitives/dom/useHighlight';
 import { preventTextSelection } from '../../../primitives/dom/prevent-text-selection';
 import { Small, Span } from '../../../primitives/text-elements';
 import { CommandPaletteRowEnd } from './CommandPaletteRowEnd';
@@ -14,6 +15,7 @@ const rowClass = (active: boolean, disabled: boolean, className: string): string
 const CommandPaletteRow = (props: CommandPaletteRowProps) => {
   const { item, index, id, active = false, onSelect, onHover, className = '' } = props;
   const { label, icon, description, disabled = false } = item;
+  useHighlight({ onHighlight: item.onHighlight, disabled, active });
 
   return (
     <Box

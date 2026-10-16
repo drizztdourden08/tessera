@@ -6,6 +6,7 @@ import { Icon } from '../../../primitives/Icon';
 import { Pressable } from '../../../primitives/Pressable';
 import { Span } from '../../../primitives/text-elements';
 import { ownerDocumentOf } from '../../../primitives/dom/owner-document';
+import { useHighlight } from '../../../primitives/dom/useHighlight';
 import { MenuItemBody } from './MenuItemBody';
 import { SubMenuPanel } from './SubMenuPanel';
 import type { MenuFocusStart } from '../behavior/menu-context.type';
@@ -18,6 +19,7 @@ const SubMenu = (props: SubMenuProps) => {
   const menuId = useId();
   const [start, setStart] = useState<MenuFocusStart | null>(null);
   const open = start !== null;
+  const highlight = useHighlight({ onHighlight: item.onHighlight, disabled: item.disabled, active: open });
 
   const back = (): void => {
     setStart(null);
@@ -37,6 +39,7 @@ const SubMenu = (props: SubMenuProps) => {
   return (
     <Box ref={ref} className="dropdown__submenu-trigger" onMouseEnter={() => !item.disabled && setStart(start ?? 'none')} onMouseLeave={leave}>
       <Pressable
+        {...highlight}
         ref={triggerRef}
         role="menuitem"
         aria-haspopup="menu"

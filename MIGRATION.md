@@ -8325,3 +8325,58 @@ InfoScreen, Hero, ScreenPage and ContentHeader take any node as their title or l
 
 - **The static splash page.** Write `<img class="ts-wordmark" ...>` and drop `.splash__wordmark` from `packages/build/src/splash/splash-page.css`; `ts-wordmark` sets the same 48 px height, 384 px cap, block display and `object-fit`, and narrows by the title box in place of `100vw`.
 - **BootFailureSplash.** Pass `wordmark={product.icons.wordmark?.dark}` to Splash, and drop `BootFailureSplash.css` and `behavior/wordmark-props*`. The heading is a real image with the name as its alt text, so the forced colours rule that put the text back is no longer needed.
+
+## 241. onHighlight on menu, nav and palette items
+
+Brock loads a screen the first time it is used, and starts loading one when its row is hovered or focused. Tessera's items had no callback for that, so Brock listened for `pointerover` and `focusin` on the whole document, found the nearest `.dropdown__item`, `.side-nav__item` or `.floating-switch__item`, read its label text and looked the label up in its menu. That breaks when two rows share a label, when a label is translated, and when a class name changes.
+
+### What changed
+
+Every item Brock opens a screen from takes `onHighlight`. It runs once each time the item becomes highlighted: the pointer enters it, it takes focus, or the arrow keys move to it. It does not run again while the item stays highlighted, and never for a disabled item. All of it is one internal hook, `src/primitives/dom/useHighlight.ts`; no part copies it.
+
+```ts
+// DropdownMenu, so WindowTitleBar menu and dropdown actions too: on the item data
+interface MenuItem {
+  onHighlight?: () => void; // new; actions, check and radio items, confirm items and submenu triggers
+}
+
+// SideNav, so SideNavLayout too: on the item data
+interface SideNavItem {
+  onHighlight?: () => void; // new
+}
+
+// FloatingSwitch: on the item data
+interface FloatingSwitchItem {
+  onHighlight?: () => void; // new
+}
+
+// CommandPalette and CommandPaletteRow: on the item data
+interface CommandPaletteItem {
+  onHighlight?: () => void; // new
+}
+
+// the shared hook, internal
+const useHighlight: (params: { onHighlight?: () => void; disabled?: boolean; active?: boolean }) => {
+  onPointerEnter: () => void;
+  onPointerLeave: () => void;
+  onFocus: () => void;
+  onBlur: () => void;
+};
+```
+
+- **What highlighted means.** A DropdownMenu, SideNav or FloatingSwitch item is highlighted while the pointer is over it or it has focus, which is when it shows its hover or focus look. Moving within it, or focusing it while the pointer is already on it, does not call again; leaving it on both counts and coming back does.
+- **Submenu triggers** stay highlighted while their submenu is open, so moving the pointer from the submenu back to its trigger, or Left Arrow back to it, does not call again.
+- **CommandPalette rows** are highlighted while they are the active row of an open palette: the arrow keys, the pointer, and the first row when the palette opens or the query changes. A closed palette marks no row active; its rows are hidden then, so nothing shows.
+- Nothing looks different. On the DropdownMenu, SideNav, SideNavLayout, FloatingSwitch, CommandPalette and WindowTitleBar Overview pages every element keeps its box and markup, but for the hidden first row of the closed palette, which no longer reads `aria-selected="true"`.
+
+### Not covered
+
+ControlMenu rows hold a control each, such as a switch or a slider, and open no screen, so they take no `onHighlight`. Title bar actions placed in the bar as buttons, and WorkspaceScreen pages, take none either; WorkspaceScreen builds its SideNav from its own pages.
+
+### Gallery and tests
+
+The FloatingSwitch Overview gains a point on `onHighlight`, and the DropdownMenu usage file a rule. `tests/item-highlight.test.mjs` checks the hook (pointer enter, focus, no repeat while lit, a second call after leaving, the active row through a strict remount, disabled) and each part: DropdownMenu action, check, radio and confirm items and a submenu trigger, a SideNav entry, a FloatingSwitch item, CommandPalette rows, and that a closed palette marks no row active.
+
+### What Brock does
+
+Drop `usePreloadOnHover`, `routesForLabel`, `PRELOAD_TARGETS` and `PRELOAD_LABELS` from `packages/react/src/lazy`. Where Brock builds its menu, its SideNav config, its workspace switch and its palette groups, give each item that opens a screen `onHighlight: () => preloadRoute(registry, route)`, with the route that item opens. A hub page in SideNavLayout takes it the same way on its SideNavItem.

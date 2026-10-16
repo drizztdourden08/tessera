@@ -8,6 +8,7 @@ interface SideNavItem {
   label: string;
   icon: ReactNode;
   disabled?: boolean;
+  onHighlight?: () => void;
 }
 
 interface SideNavGroup {
