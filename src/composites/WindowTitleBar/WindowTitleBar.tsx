@@ -10,6 +10,7 @@ import { WindowTitleBarBrand } from './sub-components/WindowTitleBarBrand';
 import { WindowTitleBarStart } from './sub-components/WindowTitleBarStart';
 import { FULLSCREEN_ITEM, MAIN_MENU_ID } from './WindowTitleBar.constants';
 import type { WindowTitleBarProps } from './WindowTitleBar.type';
+import '../../theme/window-chrome.css';
 import './WindowTitleBar.css';
 
 const WindowTitleBar = (props: WindowTitleBarProps) => {

@@ -77,6 +77,7 @@ interface IconEffectHostProps {
   icon: IconifyIcon;
   effect: IconEffect;
   look: IconLook;
+  fit?: boolean;
 }
 
 interface IconEffectPopProps {

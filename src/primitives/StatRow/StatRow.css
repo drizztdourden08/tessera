@@ -21,6 +21,14 @@
   --stat-row-mono: var(--text-base);
 }
 
+.stat-row[data-align='start'] {
+  justify-content: flex-start;
+}
+
+.stat-row[data-align='end'] {
+  max-inline-size: none;
+}
+
 .stat-row__label {
   white-space: nowrap;
 }
@@ -31,6 +39,10 @@
   user-select: text;
   text-align: right;
   overflow-wrap: break-word;
+}
+
+.stat-row[data-align='start'] .stat-row__value {
+  text-align: left;
 }
 
 .stat-row__value[data-mono] {

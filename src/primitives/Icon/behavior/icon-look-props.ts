@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind logic */
 import type { IconLook } from '../Icon.type';
 
-const iconLookProps = (look: IconLook) => {
-  const { size = 16, rotate = 0, flip, inline = false, label, className, ...rest } = look;
+const iconLookProps = (look: IconLook, fit = false) => {
+  const { size = fit ? undefined : 16, rotate = 0, flip, inline = false, label, className, ...rest } = look;
   return {
     ...rest,
     width: size,

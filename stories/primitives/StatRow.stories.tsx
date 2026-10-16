@@ -89,6 +89,19 @@ const WidePage = {
   ),
 } satisfies StoryLiteStoryDefinition<StatRowArgs>;
 
+const ALIGNS = ['no align', 'start', 'end'] as const;
+
+const Align = {
+  name: 'Where the value sits',
+  render: () => (
+    <Demonstrator
+      rows={axis(ALIGNS)}
+      className="story-column"
+      cell={(align) => <StatRow align={align === 'no align' ? undefined : align} label="Archipelago" value="0.6.7" />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StatRowArgs>;
+
 const Overview = overviewStory({
   component: 'StatRow',
   description: 'One line of a readout, with a label on the left and its value on the right.',
@@ -97,13 +110,13 @@ const Overview = overviewStory({
     '`value` can be text or any node, such as a [Status].',
     '`mono` draws the value in a monospace font, for addresses, ids and coordinates.',
     'The value can be selected; to copy it, pass a [CopyValue] as the value, which takes the size of the row.',
-    'A row stops at 512 px, so on a wide page the value stays near its label.',
+    'A row stops at 512 px; `align="end"` sets the value on the right edge, `start` right after its label.',
     '`size` takes the scale of [StatTile] and [Gauge]: `sm` packs rows closer, `md` by default, `lg` at 14 px.',
   ],
   instead: '[FactsPanel] with `layout="terms"` for terms and what they mean.',
   playground: Playground,
-  variants: [SessionDetails, Sizes, WidePage],
+  variants: [SessionDetails, Sizes, WidePage, Align],
 });
 
 export default meta;
-export { Overview, Playground, SessionDetails, Sizes, WidePage };
+export { Align, Overview, Playground, SessionDetails, Sizes, WidePage };

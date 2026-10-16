@@ -1,0 +1,8 @@
+/* @layer renderer-components @kind style */
+.window-chrome {
+  user-select: none;
+}
+
+.window-chrome :is(input, textarea, [contenteditable]:not([contenteditable='false'])) {
+  user-select: text;
+}

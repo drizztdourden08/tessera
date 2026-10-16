@@ -8145,3 +8145,68 @@ What looks different from StudioFrame:
 - Each panel gets a line to drag it, from 224 to 448 px; pass `resizable: false` to keep a fixed 288 px.
 
 Every `.studio-frame*` class goes with the CSS file: `.studio-frame`, `__bar`, `__bar-head`, `__bar-title`, `__bar-status`, `__bar-groups`, `__group`, `__group-row`, `__action`, `__body`, `__panel`, `--collapsed`, `--right`, `__panel-head`, `__panel-title`, `__panel-body`, `__well`, `__editor`, `__toolbar` and `__surface`. RotP's own CSS then no longer names `--c-border-strong`, `--c-surface`, `--c-sunken`, `--shadow-1`, `--size-288`, `--size-40` or `--size-384` for the studios; they stay Tessera tokens.
+
+## 238. Even Button padding with an icon, window chrome that cannot be selected, and fact values on the right
+
+Three items from RotP, which paused testing until Tessera had them.
+
+### Button padding with an icon
+
+RotP's New Save, a `secondary` `xs` Button with a plus icon, looked cramped: a 16 px glyph in a 20 px button with a 4 px gap. At `md` the icon slot was a 20 px box around a 16 px glyph, so the icon side had 2 px more room than the label side, and the gap 2 px more than asked.
+
+- **The padding is the same on both sides.** The icon slot is as wide as the glyph; the button keeps its own padding, `--space-md` at `md` and `--space-sm` at `sm` and `xs`, on the icon side and the label side alike.
+- **An Icon passed without a `size` takes the size of the button**, 16 px at `md`, 14 px at `sm` and 12 px at `xs` (`--size-16`, `--size-14`, `--size-12`). An Icon given a `size` keeps it, and Icons outside a Button keep their 16 px default.
+- **The gap between icon and label** is 8 px at `md` (`--space-sm`), 6 px at `sm` (`--space-xs` plus `--space-2xs`, only on a button with an icon) and 4 px at `xs` (`--space-xs`).
+- Heights do not change: 39, 28 and 20 px. Every variant behaves the same; there is no `outline` variant or `lg` size, the toned variants (`primary`, `secondary`, `tertiary`, `danger`, `warning`, `info`, `success`) draw the coloured edge RotP calls outline.
+
+Measured on the new gallery section, in px, the icon side, the gap and the label side, before and after, the same in every variant:
+
+| Size | Glyph | `icon` | `iconEnd` | Width |
+| --- | --- | --- | --- | --- |
+| `md` | 16 to 16 | 14, 10, 12 to 12, 8, 12 | 12, 10, 14 to 12, 8, 12 | 4 px narrower |
+| `sm` | 16 to 14 | 8, 8, 8 to 8, 6, 8 | 8, 8, 8 to 8, 6, 8 | 4 px narrower |
+| `xs` | 16 to 12 | 8, 4, 8 to 8, 4, 8 | 8, 4, 8 to 8, 4, 8 | 4 px narrower |
+
+An `sm` button that passes `size={14}` itself, as RotP's toolbars do, only loses 2 px of gap. Across the gallery no Button changed height and no IconButton changed size; ButtonGroup, ButtonRow and DropdownMenu triggers keep their heights and line up as before, only narrower where they hold an icon.
+
+### Window chrome cannot be selected
+
+The app title in WindowTitleBar could be selected by a drag or a triple click. One shared stylesheet, `theme/window-chrome.css`, now sets `user-select: none` on the class `window-chrome`, and lets an `input`, a `textarea` or editable text inside take selection back with `user-select: text`. These parts carry it:
+
+- **WindowTitleBar**, its root, so the title, the instance name, status items, menu and action buttons, window controls and the drag area.
+- **WindowHeader**, so the DialogShell, Drawer and ScreenWindow headers.
+- **The Widget title strip**, which drops its own `user-select: none` line.
+- **DropdownMenu panels**, so the title bar menus and their group labels.
+
+Content that already opts in, such as a StatRow value or a CopyValue, still selects. Measured in the gallery: dragging across the title bar title selected Brock Demo before and selects nothing now, the same for the WindowHeader title SAVE FILES; an input placed in the title bar still takes typing, and Ctrl+A selects all 11 characters of its text.
+
+### Fact values on the right
+
+FactsPanel `layout="rows"` and `"boxed"` already set the label on the left and the value on the right, but inside a StatRow, which stops at 512 px, so in a wide panel the value sat in the middle. RotP uses `layout="rows"` on its data folder, profile facts and studio properties.
+
+```ts
+type StatRowAlign = 'start' | 'end'; // new, exported from primitives and the root
+interface StatRowProps { align?: StatRowAlign } // added
+interface FactsPanelProps { align?: StatRowAlign } // added
+```
+
+- **`align="end"`** sets each label on the left and its value on the right edge of the row, past the 512 px; on FactsPanel, one fact per row in every layout, the value on the right edge of the panel. In `terms` the term keeps its colon and its value moves to the right.
+- **`align="start"`** sets the value right after its label.
+- **Without `align`** every layout looks as it did: StatRow and FactsPanel `rows` and `boxed` stop at 512 px, `inline` sets each value beside its label.
+- The rule lives once, in StatRow. FactsPanel passes `align` to its rows, `start` for `inline` by default, and drops the copies of the StatRow alignment it kept.
+
+In RotP, add `align="end"` beside `layout="rows"`:
+
+```tsx
+<FactsPanel layout="rows" align="end" label="Data folder" groups={locationFacts(summary.location)} />
+```
+
+Measured in a 1016 px panel: with `align="end"` every value ends 0 px from the inner right edge (12 px in `boxed`, the padding of its box), where `rows` without it ends 470 px short.
+
+### What else changed in the gallery
+
+Every element under every Overview page was read before and after at 1440 px. Text selection changed only on the parts above. Nothing else changed in look but Buttons with an icon, which are narrower, and what sits beside them. The pages that change are ActionBar, ActionTile, Button, ButtonGroup, ButtonRow, CommandInput, ConfirmIconButton, ContentHeader, ControlMenu, CopyButton, DataEngine, DockLayout, DropdownMenu, FileList, FilterBar, FormRow, Hero, InfoScreen, ItemCard, ItemList, KeyValueEditor, ListDetail, ListDetailLayout, LoadError, LogPanel, RetryButton, RowGrid, SaveBar, ScreenPage, SettingsPage, SettingsRow, SiteFooter, SiteHeader, StageScreen, StickPlot, TaskProgress, ToolFrame, ToolGroups, UtilityScreen, Video, Widget, WindowHeader, Wizard, WizardDialog, WizardNav and WizardReview, and the Reset button of every Playground, 2 px narrower.
+
+### Gallery
+
+The Button page gains Every variant and size with an icon, the FactsPanel page Values on the right edge and the StatRow page Where the value sits. The Button, FactsPanel and StatRow Overviews name the change.

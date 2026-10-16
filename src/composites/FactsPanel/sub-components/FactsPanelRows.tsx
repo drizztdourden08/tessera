@@ -6,7 +6,7 @@ import { FactsPanelValue } from './FactsPanelValue';
 import type { FactsPanelGroupProps } from '../FactsPanel.type';
 
 const FactsPanelRows = (props: FactsPanelGroupProps) => {
-  const { group } = props;
+  const { group, align } = props;
   return (
     <Box className="facts-panel__group">
       {group.map((fact) => (
@@ -16,6 +16,7 @@ const FactsPanelRows = (props: FactsPanelGroupProps) => {
           label={fact.label}
           value={fact.copyable ? <FactsPanelCopy fact={fact} /> : <FactsPanelValue fact={fact} />}
           mono={fact.mono}
+          align={align}
         />
       ))}
     </Box>

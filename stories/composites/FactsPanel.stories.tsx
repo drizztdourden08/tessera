@@ -2,8 +2,9 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { FactsPanel } from '../../src/composites';
-import type { FactsPanelProps } from '../../src/composites';
+import type { FactsPanelLayout, FactsPanelProps } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
+import type { StatRowAlign } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { BUILD_FACTS, PROFILE_FACTS, SERVER_FACTS } from './_samples/data-facts';
 import { FactsPanelTermCards } from './_samples/FactsPanelTermCards';
@@ -62,6 +63,28 @@ const Layouts = {
   ),
 } satisfies StoryLiteStoryDefinition<FactsArgs>;
 
+const ALIGNED: readonly { layout: FactsPanelLayout; align?: StatRowAlign; note: string }[] = [
+  { layout: 'rows', note: 'layout="rows": each row stops at 512 px' },
+  { layout: 'rows', align: 'end', note: 'layout="rows" align="end": each value on the right edge of the panel' },
+  { layout: 'boxed', align: 'end', note: 'layout="boxed" align="end"' },
+  { layout: 'inline', align: 'end', note: 'layout="inline" align="end": one fact per row' },
+  { layout: 'terms', align: 'end', note: 'layout="terms" align="end"' },
+];
+
+const ValuesAtTheEnd = {
+  name: 'Values on the right edge',
+  render: () => (
+    <Box className="story-column">
+      {ALIGNED.map((entry) => (
+        <Box key={entry.note} className="story-column">
+          <Text className="story-label">{entry.note}</Text>
+          <FactsPanel label={`Profile, ${entry.note}`} layout={entry.layout} align={entry.align} groups={PROFILE_FACTS} />
+        </Box>
+      ))}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<FactsArgs>;
+
 const Terms = {
   name: 'Terms and what they mean, inside cards',
   render: () => <FactsPanelTermCards />,
@@ -88,16 +111,16 @@ const Overview = overviewStory({
   description: 'A bordered box of label and value pairs, for the facts about one thing, such as a profile, a save or a build.',
   points: [
     '`groups` holds the facts; each group runs along one row, with a hairline between groups.',
-    '`layout` lays the facts `inline` along a line, as `rows`, or `boxed` in sunken rows.',
+    '`layout` lays facts `inline` along a line, as `rows` or `boxed` in sunken rows.',
+    '`align="end"` sets each label on the left and its value on the right edge of the panel, one fact per row.',
     '`layout="terms"` drops the box for a list of terms, each label in gold with its colon, then its value.',
-    '`mono` sets the monospace font; `copyable` draws the value as a [CopyValue], copying it or the string given.',
-    'A long value is cut short; its `title` shows the full text in a tooltip.',
+    '`mono` sets the monospace font; `copyable` draws a [CopyValue]; a cut value shows its `title` in a tooltip.',
     '[Hero] draws its facts with it, on glass.',
   ],
   playground: Playground,
-  variants: [TwoGroups, OneGroup, Layouts, Terms],
+  variants: [TwoGroups, OneGroup, Layouts, ValuesAtTheEnd, Terms],
   code: CODE,
 });
 
 export default meta;
-export { Layouts, OneGroup, Overview, Playground, Terms, TwoGroups };
+export { Layouts, OneGroup, Overview, Playground, Terms, TwoGroups, ValuesAtTheEnd };

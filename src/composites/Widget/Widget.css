@@ -42,7 +42,6 @@
   padding: 0 var(--space-xs) 0 var(--space-sm);
   border-bottom: var(--border-width-thin) solid color-mix(in srgb, var(--c-text) calc(6% * var(--widget-frame-opacity, 1)), transparent);
   flex-shrink: 0;
-  user-select: none;
   cursor: grab;
   touch-action: none;
 }

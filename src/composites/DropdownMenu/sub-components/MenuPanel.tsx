@@ -5,6 +5,7 @@ import { MenuColumnsContext } from '../behavior/menu-columns-context';
 import { useMenuFocus } from '../behavior/useMenuFocus';
 import { useMenuKeys } from '../behavior/useMenuKeys';
 import type { MenuPanelProps } from './MenuPanel.type';
+import '../../../theme/window-chrome.css';
 import './MenuPanel.css';
 
 const MenuPanel = (props: MenuPanelProps) => {
@@ -22,7 +23,7 @@ const MenuPanel = (props: MenuPanelProps) => {
       aria-label={label}
       aria-orientation="vertical"
       tabIndex={-1}
-      className="dropdown__menu"
+      className="dropdown__menu window-chrome"
       onKeyDown={onKeyDown}
     >
       <MenuColumnsContext value={columns}>{children}</MenuColumnsContext>

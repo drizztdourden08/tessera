@@ -105,7 +105,6 @@
   width: auto;
   height: var(--size-20);
   pointer-events: none;
-  user-select: none;
 }
 
 .window-title-bar__brand .window-title-bar__instance {

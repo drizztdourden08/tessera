@@ -25,7 +25,7 @@ describe('the widget title strip as a drag region', () => {
 
   it('marks the strip drag and its buttons no-drag with dragRegion', () => {
     const html = draw({ dragRegion: true });
-    expect(html).toMatch(/class="widget__titlebar"[^>]*data-app-region="drag"/);
+    expect(html).toMatch(/class="widget__titlebar window-chrome"[^>]*data-app-region="drag"/);
     expect(html).toMatch(/class="widget__titlebar-actions" data-app-region="no-drag"/);
   });
 

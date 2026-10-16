@@ -6,6 +6,7 @@ import { Icon } from '../../primitives/Icon';
 import { IconButton } from '../../primitives/IconButton';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useExtraFit } from './behavior/useExtraFit';
+import '../../theme/window-chrome.css';
 import './WindowHeader.css';
 import { type WindowHeaderProps } from './WindowHeader.type';
 
@@ -15,7 +16,7 @@ const WindowHeader = (props: WindowHeaderProps) => {
   const headerRef = useRef<HTMLElement>(null);
   const extraFits = useExtraFit(headerRef, extra != null);
   return (
-    <Box ref={headerRef} className={['window-header', titleWrap && 'window-header--wrap', className].filter(Boolean).join(' ')}>
+    <Box ref={headerRef} className={['window-header', titleWrap && 'window-header--wrap', className, 'window-chrome'].filter(Boolean).join(' ')}>
       {back && (
         <IconButton variant="ghost" size="md" label={back.label === undefined ? navigation.back : navigation.backTo(back.label)} className="window-header__back" onClick={back.onSelect}>
           <Icon name="arrow-left" size={18} />

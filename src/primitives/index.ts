@@ -112,7 +112,7 @@ export type { ButtonGroupOrientation, ButtonGroupProps } from './ButtonGroup';
 export { ToolGroups, type ToolGroup, type ToolGroupsProps } from './ToolGroups';
 export { ToolFrame, type ToolFrameProps } from './ToolFrame';
 export { StatRow } from './StatRow';
-export type { StatRowProps } from './StatRow';
+export type { StatRowAlign, StatRowProps } from './StatRow';
 export { ProgressBar } from './ProgressBar';
 export type { ProgressBarProps, ProgressTone } from './ProgressBar';
 export { Spinner } from './Spinner';

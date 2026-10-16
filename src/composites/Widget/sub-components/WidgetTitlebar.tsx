@@ -6,6 +6,7 @@ import { widgetName } from '../behavior/widget-name';
 import { WidgetActions } from './WidgetActions';
 import { WidgetTabChip } from './WidgetTabChip';
 import type { WidgetTitlebarProps } from './WidgetTitlebar.type';
+import '../../../theme/window-chrome.css';
 
 const WidgetTitlebar = (props: WidgetTitlebarProps) => {
   const { tabs, activeId, paneKey, onActivateTab, titleId, dragRegion = false } = props;
@@ -13,7 +14,7 @@ const WidgetTitlebar = (props: WidgetTitlebarProps) => {
 
   return (
     <Box
-      className="widget__titlebar"
+      className="widget__titlebar window-chrome"
       data-drag-widget={activeId}
       data-pane-key={paneKey ?? ''}
       {...{ [APP_REGION_ATTRIBUTE]: dragRegion ? 'drag' : undefined }}

@@ -34,12 +34,22 @@
 
 .btn__icon {
   flex-shrink: 0;
-  font-size: var(--text-lg);
-  width: var(--size-20);
-  text-align: center;
+  font-size: var(--size-16);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn--sm .btn__icon {
+  font-size: var(--size-14);
+}
+
+.btn--xs .btn__icon {
+  font-size: var(--size-12);
+}
+
+.btn--sm:has(> .btn__icon) {
+  gap: calc(var(--space-xs) + var(--space-2xs));
 }
 
 .btn--loading,
@@ -73,10 +83,4 @@
 
 .btn--loading > .btn__spinner {
   color: var(--tone-bright, var(--c-text-dim));
-}
-
-.btn--sm .btn__icon,
-.btn--xs .btn__icon {
-  width: auto;
-  font-size: inherit;
 }

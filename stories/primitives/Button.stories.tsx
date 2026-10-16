@@ -90,6 +90,22 @@ const Icons = {
   ),
 } satisfies StoryLiteStoryDefinition<ButtonArgs>;
 
+const EveryIcon = {
+  name: 'Every variant and size with an icon',
+  render: () => (
+    <Demonstrator
+      rows={axis(VARIANTS)}
+      columns={axis(SIZES)}
+      cell={(variant, size) => (
+        <Flex gap="sm" align="center">
+          <Button variant={variant} size={size} icon={<Icon name="plus" />}>New save</Button>
+          <Button variant={variant} size={size} iconEnd={<Icon name="chevron-down" />}>Open</Button>
+        </Flex>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ButtonArgs>;
+
 const Loading = {
   name: 'Loading',
   render: () => <ButtonLoading />,
@@ -130,14 +146,14 @@ const Overview = overviewStory({
     '`danger`, `warning`, `info` and `success` carry an urgency.',
     '`md` is 39 px tall, `sm` 28 px and `xs` 20 px; a compact [DensityScope] makes `sm` the default.',
     '`active` marks a toggle button as on, announced as pressed; `hint` reports to a [HintScope], as on [IconButton].',
-    '`icon` sits before the label and `iconEnd` after it, such as a chevron on a button that opens a list.',
+    '`icon` sits before the label, `iconEnd` after it; an [Icon] with no `size` fits the button: 16, 14 or 12 px.',
     '`loading` shows a [Spinner], keeps the width and ignores clicks; a `disabled` button fades and never spins.',
   ],
   instead: '[IconButton] for an icon alone, or [Pressable] for a clickable surface with a look of its own.',
   playground: Playground,
-  variants: [AllVariants, Icons, Loading, TightRow, Hints],
+  variants: [AllVariants, Icons, EveryIcon, Loading, TightRow, Hints],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, Hints, Icons, Loading, Overview, Playground, TightRow };
+export { AllVariants, EveryIcon, Hints, Icons, Loading, Overview, Playground, TightRow };
