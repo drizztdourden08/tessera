@@ -1,5 +1,21 @@
 # @drizztdourden08/tessera
 
+## 0.36.0
+
+### Minor Changes
+
+- 5aaac38: Box takes `surface`, `sunken` or `raised`, for a well set into the page or a panel lifted off it: the fill, a thin border and the corner from the tokens, and for `raised` the first shadow, all at zero specificity so a part's own rules win. The `BoxSurface` type is exported. CodeView, the CodeBlock editor, ColorPicker's hex box and quick assign list, PressedGrid cells, RecordEditor array items and fallback, the ListDetailLayout list pane and ShortcutTour now draw on it and drop their own copies, with the same look. Box has a usage file, so the guide answers a plain block with it.
+- ead6b17: Button takes `hint` and `onHint`, as IconButton does, so it reports a one-line description to the HintScope around it without a `useHintTarget` wrapper. Both take them from the new public `HintTargetProps` type.
+- 6d131fd: The hamburger of the WindowTitleBar main menu button turns into an X and back with a visible motion: the middle bar fades out, the top and bottom bars slide to the middle and tilt to 45 degrees, in 200 ms, and at once under reduced motion. The new `--ease-out` token sets the curve. Every other hamburger, on a DropdownMenu `iconOnly` trigger, the SiteHeader phone menu or a ControlMenu, keeps its three bars while its menu is open; change `trigger.icon` from `onOpenChange` to show something else.
+- 5f10149: Informational windows open small: InfoScreen opens as a dialog sized to its content, centred, at most 512 px wide, and scrolls only when the window is too short for it. ScreenLayer and ScreenWindow take `size="info"` for the same card. InfoScreen drops `width` and the `InfoScreenWidth` type.
+- ead6b17: A SettingsRow toggle takes `hints: { on, off, atRest: true }` to show both lines under the row hint at all times, each after its gold On or Off label, with the current state's line brighter. Without `atRest` the hints show only while the toggle is pointed at, as before.
+
+### Patch Changes
+
+- 32f19ee: A file dropped on a disabled DropZone, or on a disabled or read only PathInput, is swallowed with the not allowed pointer, so Chromium no longer opens it in place of the app. No handler runs and no drop highlight shows.
+- 8234848: A WindowTitleBar status that counts, such as a frame rate, keeps its width as its digits change, so the items beside it stay put; Emphasis with a stagger also reserves room for the letters that lose their kerning mid swell. `pnpm check:steady` measures the box of every animated part in the gallery over a cycle.
+- ead6b17: A long Tooltip note, such as the reason on a disabled tab, wraps inside its 256 px box in place of running past it. A short note still sizes to its text on one line.
+
 ## 0.35.0
 
 ### Minor Changes

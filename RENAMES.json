@@ -1341,7 +1341,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.36.0",
       "props": {
         "InfoScreen.width": "removed; every InfoScreen opens as the small info dialog, at most 512 px wide (see MIGRATION.md section 230)"
       },
