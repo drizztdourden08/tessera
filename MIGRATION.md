@@ -7888,3 +7888,57 @@ Drop the `useHintTarget` wrapper around a Button and pass the hint straight to i
 ### Gallery
 
 The Button page gains Reporting a hint to a HintLine: three buttons in a HintScope over a HintLine. The Button Overview names `hint`, and the HintScope Overview lists Button among the parts that report on their own.
+
+## 235. A sunken or raised surface on Box, and a studio frame for approval
+
+RotP's Character, Language and Music Studios sit in its own `StudioFrame`, which paints a sunken well and raised panels in its CSS from `--c-sunken` and `--c-surface`. Inside Tessera, eight rules in six parts copied the same sunken fill and border, and ShortcutTour copied the raised look. Box now carries both as an option.
+
+### What changed
+
+```ts
+type BoxSurface = 'sunken' | 'raised';
+interface BoxProps { surface?: BoxSurface } // added; no surface adds no styles, as before
+```
+
+- **`surface="sunken"`** sets a well into the page: `background: var(--c-sunken)`, a thin `--c-border` border and `--radius-md` corners. The root takes `box--sunken`.
+- **`surface="raised"`** lifts a panel off it: `background: var(--c-surface)`, a thin `--c-border` border, `--radius-lg` corners and `--shadow-1`. The root takes `box--raised`.
+- Both rules sit in `:where()`, at zero specificity, so any class of the part wins: a smaller corner, a dashed or coloured border on focus, or no border. The surface sets no padding and no layout; those stay in your own class.
+- `BoxSurface` is exported from the root and from `primitives`.
+- Box has a usage file, so the guide answers *A plain block* with it, and the gallery's Box page has a section Sunken and raised surfaces, a `surface` control on the Playground and Overview points.
+
+### Tessera's own parts on it
+
+Each of these now passes `surface` to its Box and drops the lines it copied. Its look is the same:
+
+| Part | Element | Surface | Lines dropped |
+| --- | --- | --- | --- |
+| CodeView, and every code sample in the gallery | `.code-block` | sunken | fill, border, corner |
+| CodeBlock editor | `.code-block-editor` | sunken | fill, border, corner |
+| ColorPicker | `.color-picker__hex-box`, `.color-picker__quick-assign` | sunken | fill, border (keeps `--radius-sm`) |
+| PressedGrid | `.pressed-grid__cell` | sunken | fill, border (keeps `--radius-sm`) |
+| RecordEditor | `.record-editor__array-item`, `.record-editor__fallback` | sunken | fill, border (keeps `--radius-sm`; the fallback keeps `border-style: dashed`); the three array item headers are one internal frame now |
+| ListDetailLayout | `.list-detail-layout__list` | sunken | fill, border (keeps `--radius-lg`) |
+| ShortcutTour | `.shortcut-tour` | raised | fill, border, corner, shadow |
+
+Parts whose sunken fill has no border stay as they were: FactsPanel's boxed facts, MediaViewer's stage, KeyboardLayout (an inset line keeps its sized box), SplitPane's rail, UtilityScreen's notes, the readonly fields and the `pre` text element. LoadError's raw text keeps its own rule too: it is a `Pre`, not a Box.
+
+### Measured
+
+Every element under every Overview page, 238 pages and 158,943 elements at 1440 px, was read before and after: its box size, fill, the colour, width and style of each border, its corners, shadow, padding, display, direction, gap and SVG fill. Nothing changed but the Box page, which gains its new section, the DropZone page, changed by section 232, and the parts that move by themselves, such as spinners, mascots, icon effects, sparklines and the keys of ShortcutTour, which differ between any two readings. 527 elements now draw on a Box surface.
+
+### What RotP uses
+
+On the `brock-migration` branch, `apps/desktop/src/compounds/StudioFrame/StudioFrame.css` paints the surfaces itself. Use Box in place of those lines:
+
+| StudioFrame class | Today | Use instead |
+| --- | --- | --- |
+| `.studio-frame__well` (StudioWell) | sunken fill, thin border, `--radius-md` | `<Box surface="sunken" className="studio-frame__well">`, keep only `display`, `flex-direction`, `gap` and `padding` |
+| `.studio-frame__panel` | surface fill, `--c-border-strong` border, `--radius-lg`, `--shadow-1` | `<Box as="aside" surface="raised">`, keep the layout lines; add `border-color: var(--c-border-strong)` only if the stronger edge should stay |
+| `.studio-frame__bar` | the same raised look | `<Box as="header" surface="raised">` |
+| `.studio-frame__editor` | sunken fill, strong border, `--radius-lg`, `--shadow-1` | `<Box as="section" surface="sunken">` with `border-radius: var(--radius-lg)` in its own class |
+
+Tessera's raised panel uses the same thin `--c-border` edge as Card and ShortcutTour, so RotP's panels lose their stronger edge unless they keep the one `border-color` line.
+
+### The studio frame: for approval, not shipped
+
+The three-column frame itself (a list on the left, an editor in the centre, an inspector on the right, each side panel with a heading that folds to a rail, stacked below a breakpoint, with a raised top bar and an editor frame) is not covered by ListDetailLayout, SplitPane, ResizeHandle, DockLayout or WorkspaceScreen, alone or nested. A prototype, StudioLayout, is in the gallery under Preview · For approval, built on the new surfaces, and the owner decides between a third pane on ListDetailLayout and a new composite in TX-61. Until then RotP keeps `StudioFrame`, drawn on Box surfaces as above.

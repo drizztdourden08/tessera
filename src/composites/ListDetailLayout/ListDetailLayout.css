@@ -24,14 +24,12 @@
   min-height: 0;
 }
 
-.list-detail-layout__list,
 .list-detail-layout__detail,
 :is(.list-detail-layout--collapsed, .list-detail-layout--detail-collapsed) .list-detail-layout__gutter {
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-lg);
 }
 
-.list-detail-layout__list,
 .list-detail-layout--collapsed .list-detail-layout__gutter {
   background: var(--c-sunken);
 }
@@ -39,6 +37,7 @@
 .list-detail-layout__list {
   gap: var(--space-md);
   padding: var(--space-md);
+  border-radius: var(--radius-lg);
 }
 
 .list-detail-layout__detail {

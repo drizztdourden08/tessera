@@ -53,7 +53,7 @@ describe('the four parts on ResizeHandle', () => {
 
   it('ListDetailLayout draws the grip in pixels, controlling the list', () => {
     const html = renderToString(h(ListDetailLayout, { list: 'rows', detail: 'detail' }));
-    const listId = /id="([^"]+)" class="list-detail-layout__list"/.exec(html)?.[1];
+    const listId = /id="([^"]+)" class="box--sunken list-detail-layout__list"/.exec(html)?.[1];
     const tag = one(html);
     expect(tag).toContain('resize-handle--grip');
     expect(tag).toContain(`aria-valuenow="320" aria-valuemin="240" aria-valuemax="480" aria-controls="${listId}"`);

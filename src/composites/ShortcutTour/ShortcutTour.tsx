@@ -15,6 +15,7 @@ const ShortcutTour = (props: ShortcutTourProps) => {
   return (
     <Box
       ref={viewportRef}
+      surface="raised"
       role="img"
       aria-label={tourLabel(keys, mouse)}
       className={className ? `shortcut-tour ${className}` : 'shortcut-tour'}

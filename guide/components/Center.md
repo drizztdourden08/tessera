@@ -54,11 +54,11 @@ const LobbyWaiting = () => (
 
 ## Props
 
+- `as` (optional): `ElementType`.
+- `children` (optional): `ReactNode`.
 - `direction` (optional): `'row' | 'column'`.
 - `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
 - `wrap` (optional): `boolean`.
 - `inline` (optional): `boolean`.
-- `as` (optional): `ElementType`.
-- `children` (optional): `ReactNode`.
 
 It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLElement>`.

@@ -10,9 +10,6 @@
 .code-block-editor {
   display: grid;
   min-inline-size: 0;
-  border: var(--border-width-thin) solid var(--c-border);
-  border-radius: var(--radius-md);
-  background: var(--c-sunken);
   transition: border-color var(--transition-normal);
 }
 

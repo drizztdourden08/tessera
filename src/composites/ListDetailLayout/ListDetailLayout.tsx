@@ -26,7 +26,7 @@ const ListDetailLayout = (props: ListDetailLayoutProps) => {
   return (
     <Box className={layoutClass(look, className)}>
       <Box ref={panes.panesRef} className="list-detail-layout__panes" data-view={view} style={{ gridTemplateColumns: panes.columns }}>
-        <Box id={listId} className={paneClass('list', scroll.list)}>{list}</Box>
+        <Box id={listId} surface="sunken" className={paneClass('list', scroll.list)}>{list}</Box>
         <ListDetailLayoutGutter
           list={{ fold: listFold, collapsible: options.collapse.collapsible, id: listId, label: props.listLabel ?? navigation.listPane }}
           detail={{ fold: detailFold, collapsible: options.detailCollapse.collapsible, id: detailId, label: props.detailLabel ?? navigation.detailPane }}

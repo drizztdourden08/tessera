@@ -95,7 +95,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Through the steps of one task: no component yet.
   - Between a few modes, from a floating switch: no component yet.
 - Layout. **What are you arranging?**
-  - A plain block: no component yet.
+  - A plain block: [Box](components/Box.md). Box is the plain element; surface="sunken" makes it a well and surface="raised" a panel, with the fill, edge and corner from the tokens.
   - Items in a row or a column:
     - [Center](components/Center.md). Center puts its children in the middle of its box on both axes, with the gap and direction of a Flex.
     - [Inline](components/Inline.md). Inline lays its children side by side in a row, with a token gap and the items centred across it.

@@ -20,7 +20,7 @@ describe('ListDetailLayout', () => {
   it('draws the list pane, a gutter with the fold button and the divider, and the detail pane', () => {
     const html = draw();
     expect(html).toContain('grid-template-columns:320px auto minmax(0, 1fr)');
-    expect(html).toMatch(/class="list-detail-layout__list".*class="list-detail-layout__gutter".*class="list-detail-layout__detail"/);
+    expect(html).toMatch(/class="box--sunken list-detail-layout__list".*class="list-detail-layout__gutter".*class="list-detail-layout__detail"/);
     expect(html).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="240" aria-valuemax="480" aria-controls=/);
     expect(html).toContain('aria-label="Resize list and details"');
     expect(draw({ resizable: false })).not.toContain('role="separator"');
@@ -28,7 +28,7 @@ describe('ListDetailLayout', () => {
 
   it('folds the list with a button named for it, that controls the list pane', () => {
     const open = draw({ listLabel: 'presets' });
-    const listId = /id="([^"]+)" class="list-detail-layout__list"/.exec(open)?.[1];
+    const listId = /id="([^"]+)" class="box--sunken list-detail-layout__list"/.exec(open)?.[1];
     expect(listId).toBeTruthy();
     expect(open).toContain(`aria-label="Hide presets" title="Hide presets" aria-expanded="true" aria-controls="${listId}"`);
     expect(draw({ collapsible: false })).not.toContain('list-detail-layout__toggle');
@@ -131,7 +131,7 @@ describe('ListDetailLayout pane scroll', () => {
   it('lets a pane clip so its content scrolls by itself', () => {
     expect(draw()).not.toContain('--clip');
     const html = draw({ listScroll: false, detailScroll: false });
-    expect(html).toContain('class="list-detail-layout__list list-detail-layout__list--clip"');
+    expect(html).toContain('class="box--sunken list-detail-layout__list list-detail-layout__list--clip"');
     expect(html).toContain('class="list-detail-layout__detail list-detail-layout__detail--clip"');
   });
 });

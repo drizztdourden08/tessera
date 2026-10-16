@@ -11,7 +11,7 @@ const CodeEditor = (props: CodeBlockEditProps) => {
   const control = useFieldControl();
   const marked = invalid === true || control.invalid === true;
   return (
-    <Box className={['code-block-editor', className].filter(Boolean).join(' ')} data-invalid={marked || undefined} data-disabled={disabled === true || undefined}>
+    <Box surface="sunken" className={['code-block-editor', className].filter(Boolean).join(' ')} data-invalid={marked || undefined} data-disabled={disabled === true || undefined}>
       <Box className="code-block-editor__code" aria-hidden>
         <CodeView code={shownCode(value)} language={language} wrap highlightedLines={problemLine ? [problemLine] : undefined} />
       </Box>

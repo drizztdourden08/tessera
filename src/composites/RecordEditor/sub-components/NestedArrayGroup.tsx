@@ -1,15 +1,14 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
 import { Flex } from '../../../primitives/Flex';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { Span } from '../../../primitives/text-elements';
 import { countLabel } from '../../field-kits/count-label';
 import { blankFor } from '../../../data/schema/blank-value/blank-for';
 import { replacedAt } from '../../field-kits/list-edits';
 import { removedAt } from '../../field-kits/removed-at';
 import { AddItemButton } from '../../field-kits/sub-components/AddItemButton';
 import { RemoveItemButton } from '../../field-kits/sub-components/RemoveItemButton';
+import { ArrayItemFrame } from './ArrayItemFrame';
 import type { NestedArrayGroupProps } from './NestedArrayGroup.type';
 
 const NestedArrayGroup = (props: NestedArrayGroupProps) => {
@@ -18,11 +17,7 @@ const NestedArrayGroup = (props: NestedArrayGroupProps) => {
   const { records } = useTesseraStrings();
 
   return (
-    <Box className="record-editor__array-item">
-      <Flex className="record-editor__array-item-head" gap="xs" align="center">
-        <Span tone="muted" className="record-editor__array-index">{records.itemPosition(index + 1)}</Span>
-        <RemoveItemButton disabled={disabled} onRemove={onRemove} />
-      </Flex>
+    <ArrayItemFrame index={index} controls={<RemoveItemButton disabled={disabled} onRemove={onRemove} />}>
       <Flex direction="column" gap="xs" className="record-editor__nested">
         {!row.length && <Text variant="caption" className="record-editor__empty">{countLabel(0, records)}</Text>}
         {row.map((entry, innerIndex) => (
@@ -39,7 +34,7 @@ const NestedArrayGroup = (props: NestedArrayGroupProps) => {
         ))}
         <AddItemButton label={addLabel} disabled={disabled} onAdd={() => onRowChange([...row, blankFor(inner)])} />
       </Flex>
-    </Box>
+    </ArrayItemFrame>
   );
 };
 

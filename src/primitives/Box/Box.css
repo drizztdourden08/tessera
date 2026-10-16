@@ -1,0 +1,13 @@
+/* @layer renderer-components @kind style */
+:where(.box--sunken) {
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-sunken);
+}
+
+:where(.box--raised) {
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+}

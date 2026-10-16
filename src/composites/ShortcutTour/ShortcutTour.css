@@ -5,10 +5,6 @@
   inline-size: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: var(--border-width-thin) solid var(--c-border);
-  border-radius: var(--radius-lg);
-  background: var(--c-surface);
-  box-shadow: var(--shadow-1);
 }
 
 .shortcut-tour__world {

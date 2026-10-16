@@ -19,7 +19,7 @@ const ColorFields = (props: ColorFieldsProps) => {
   return (
     <Box className="color-picker__fields">
       <Box className="color-picker__field color-picker__field--hex">
-        <Box className="color-picker__hex-box">
+        <Box surface="sunken" className="color-picker__hex-box">
           <Span tone="muted" className="color-picker__hex-sigil" aria-hidden>#</Span>
           <TextInput
             className="color-picker__hex"

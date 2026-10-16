@@ -1,12 +1,12 @@
 # Tessera components
 
-One line per component. 58 of 179 have their usage written; a linked name opens its page.
+One line per component. 59 of 179 have their usage written; a linked name opens its page.
 
 ## Primitives
 
 - `Anchored`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Badge`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Box`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Box](components/Box.md): The plain element every block is built from, with an optional sunken or raised surface for a well or a panel. Import from `@drizztdourden08/tessera`.
 - `Button`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ButtonGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ButtonRow`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -11,9 +11,7 @@
   min-width: 0;
   min-height: var(--size-40);
   padding: var(--space-xs) var(--space-sm);
-  border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-sm);
-  background: var(--c-sunken);
   transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 

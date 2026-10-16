@@ -80,9 +80,8 @@
 
 .record-editor__fallback {
   padding: var(--space-xs) var(--space-sm);
-  border: var(--border-width-thin) dashed var(--c-border);
+  border-style: dashed;
   border-radius: var(--radius-sm);
-  background: var(--c-sunken);
 }
 
 .record-editor__array {
@@ -99,9 +98,7 @@
   flex-direction: column;
   gap: var(--space-xs);
   padding: var(--space-xs);
-  border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-sm);
-  background: var(--c-sunken);
 }
 
 .record-editor__array-item-head {

@@ -21,7 +21,7 @@ const EditorNest = ({ field, value, plan, pair, binding, depth }: EditorNestProp
       </Box>
     )}
     {!pair && plan.fields.length === 0 && (
-      <Box className="record-editor__fallback">{kitFor(field.kind).renderCell(value, field)}</Box>
+      <Box surface="sunken" className="record-editor__fallback">{kitFor(field.kind).renderCell(value, field)}</Box>
     )}
   </Box>
 );

@@ -2,11 +2,13 @@
 import { forwardRef } from 'react';
 import type { ElementType } from 'react';
 import type { BoxProps } from './Box.type';
+import './Box.css';
 
 const Box = forwardRef<HTMLElement, BoxProps>((props, ref) => {
-  const { as, children, ...rest } = props;
+  const { as, surface, children, ...rest } = props;
   const Tag: ElementType = as ?? 'div';
-  return <Tag ref={ref} {...rest}>{children}</Tag>;
+  const attributes = surface ? { ...rest, className: [`box--${surface}`, rest.className].filter(Boolean).join(' ') } : rest;
+  return <Tag ref={ref} {...attributes}>{children}</Tag>;
 });
 
 export { Box };

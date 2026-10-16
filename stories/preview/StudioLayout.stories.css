@@ -1,0 +1,41 @@
+/* @layer stories @kind style */
+.studio-demo-frame {
+  block-size: var(--size-640);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: var(--c-bg);
+}
+
+.studio-demo-frame--narrow {
+  inline-size: min(100%, var(--size-512) + var(--size-48));
+  block-size: auto;
+}
+
+.studio-demo {
+  block-size: 100%;
+}
+
+.studio-demo__well {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-xs);
+}
+
+.studio-demo__swatches {
+  flex-flow: row wrap;
+  gap: var(--space-xs);
+}
+
+.studio-demo__sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--size-64), 1fr));
+  gap: var(--space-xs);
+}
+
+.studio-demo__frame {
+  aspect-ratio: 1;
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--c-primary) 8%, transparent);
+}

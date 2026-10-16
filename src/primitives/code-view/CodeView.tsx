@@ -12,7 +12,7 @@ const CodeView = (props: CodeViewProps) => {
   const highlighted = highlightedLines ? new Set(highlightedLines) : undefined;
   const cls = codeViewClass({ showLineNumbers, copyable: copy !== undefined, wrap, capped, className });
   return (
-    <Box className={cls}>
+    <Box surface="sunken" className={cls}>
       {copy}
       <Highlight code={code.trimEnd()} language={language} theme={CODE_THEME}>
         {({ tokens, getLineProps, getTokenProps }) => (

@@ -12,7 +12,7 @@ const PressedGridCell = (props: PressedGridCellProps) => {
   const text = label ?? (icon ? null : id);
 
   return (
-    <Box title={title ?? id} className="pressed-grid__cell" data-pressed={down ? '' : undefined}>
+    <Box surface="sunken" title={title ?? id} className="pressed-grid__cell" data-pressed={down ? '' : undefined}>
       {icon && <InputIcon {...icon} size={PRESSED_GRID_ICON_SIZE} tone="theme" className="pressed-grid__icon" />}
       {text != null && <Span className="pressed-grid__label">{text}</Span>}
     </Box>

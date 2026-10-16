@@ -14,7 +14,7 @@ const QuickAssign = ({ value, onChange, swatchGroups }: QuickAssignProps) => {
   return (
     <Box className="color-picker__quick-assign-section">
       <Text variant="subtitle" className="color-picker__title">{colorPicker.quickAssign}</Text>
-      <Box className="color-picker__quick-assign">
+      <Box surface="sunken" className="color-picker__quick-assign">
         {swatchGroups.map((group) => (
           <Box key={group.label} className="color-picker__quick-group">
             <Span tone="muted" className="color-picker__quick-label">{group.label}</Span>

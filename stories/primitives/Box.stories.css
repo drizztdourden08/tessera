@@ -22,3 +22,23 @@
   color: var(--c-text);
   font-weight: var(--weight-semi);
 }
+
+.box-demo__pad {
+  padding: var(--space-md);
+  color: var(--c-text);
+}
+
+.box-demo__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-inline-size: var(--size-320);
+  padding: var(--space-md);
+}
+
+.box-demo__well {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+}
