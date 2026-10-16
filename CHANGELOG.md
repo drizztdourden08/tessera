@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.37.1
+
+### Patch Changes
+
+- adae458: Menu, nav and palette items take `onHighlight`, called once each time the item is hovered, focused or reached with the arrow keys, and never while it is disabled. DropdownMenu items (so WindowTitleBar menus), submenu triggers, SideNav and SideNavLayout entries, FloatingSwitch items and CommandPalette rows take it on their item data, so an app can start loading a screen before it is picked. Nothing looks different.
+- 0e7f2f3: A splash can show the app wordmark in place of its name. `splash.css` has a new class, `ts-wordmark`, for an image inside `ts-title`: 48 px high, at most 384 px wide and narrower in a narrow window, centred, with `object-fit: contain`. `Splash` takes `wordmark`, an image URL, and then draws `<img class="ts-wordmark" alt={title}>` in its h1 in place of the title text, so the heading keeps the app name and the React splash draws the same as the static page.
+
 ## 0.37.0
 
 ### Minor Changes
