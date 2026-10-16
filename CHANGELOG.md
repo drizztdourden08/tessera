@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.37.2
+
+### Patch Changes
+
+- ec543b7: WindowTitleBar takes `view`, which places its View sub-menu in the main menu. `view={false}` leaves it out; `view={{ group, position }}` puts it into the `menu` group with that id, at an index or at `'start'` or `'end'`. Without `view` the menu is the same as before.
+
 ## 0.37.1
 
 ### Patch Changes
