@@ -28,6 +28,8 @@ const NAVIGATION_STRINGS = {
   resizeHint: 'Drag to resize · double-click to reset',
   pageViews: (title: string) => `${title} views`,
   pageSections: (title: string) => `${title} sections`,
+  earlierItems: 'Show earlier items',
+  laterItems: 'Show later items',
   opensInNewTab: 'opens in a new tab',
   siteLinks: 'Main pages',
   siteFooterLinks: 'More about the site',

@@ -34,6 +34,7 @@ const part = (name, width, extra = {}) => {
     getAttribute: () => null,
     removeAttribute: () => undefined,
     setAttribute: () => undefined,
+    querySelector: () => null,
     getBoundingClientRect: () => ({ width: style.width === 'min-content' ? extra.least ?? width : width }),
     scrollWidth: extra.full ?? width,
     ...extra,

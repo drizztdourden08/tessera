@@ -5,16 +5,8 @@
   border-left: var(--border-width-thin) solid var(--c-border-strong);
 }
 
-.settings-page__tabs .header-anchor-nav__list {
-  flex-wrap: nowrap;
-}
-
 .screen-page__header--stacked .settings-page__tabs {
   margin-left: 0;
   padding-left: 0;
   border-left: 0;
-}
-
-.screen-page__header--stacked .settings-page__tabs .header-anchor-nav__list {
-  flex-wrap: wrap;
 }

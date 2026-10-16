@@ -1,15 +1,15 @@
 /* @layer renderer-components @kind component */
 import type { MouseEvent } from 'react';
-import { Icon } from '../../Icon';
-import { IconButton } from '../../IconButton';
-import type { TabsPagerProps } from '../Tabs.type';
+import { Icon } from '../Icon';
+import { IconButton } from '../IconButton';
+import type { ScrollStripPagerProps } from './scroll-strip.type';
 
 const keepFocus = (event: MouseEvent): void => event.preventDefault();
 
-const TabsPager = (props: TabsPagerProps) => (
+const ScrollStripPager = (props: ScrollStripPagerProps) => (
   <IconButton
     type="button"
-    className={`tabs__pager tabs__pager--${props.side}`}
+    className={`scroll-strip__pager scroll-strip__pager--${props.side}`}
     label={props.label}
     tabIndex={-1}
     onMouseDown={keepFocus}
@@ -19,4 +19,4 @@ const TabsPager = (props: TabsPagerProps) => (
   </IconButton>
 );
 
-export { TabsPager };
+export { ScrollStripPager };

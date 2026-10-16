@@ -25,3 +25,20 @@
     radial-gradient(circle at 85% 40%, var(--c-primary-soft), transparent 45%),
     linear-gradient(120deg, var(--c-secondary-dim), var(--c-primary-dim));
 }
+
+.story-frame.settings-page-story__chips {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: var(--size-160);
+}
+
+.settings-page-story__chips--medium {
+  width: var(--size-640);
+  max-width: 100%;
+}
+
+.settings-page-story__chips--narrow {
+  width: var(--size-384);
+  max-width: 100%;
+}

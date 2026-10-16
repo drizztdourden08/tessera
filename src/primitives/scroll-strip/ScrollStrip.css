@@ -1,0 +1,71 @@
+/* @layer renderer-components @kind style */
+.scroll-strip {
+  --scroll-strip-pager: var(--control-h-sm);
+  --scroll-strip-fade: var(--space-lg);
+
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.scroll-strip__track {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  overflow: auto hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: calc(var(--scroll-strip-clear-back, 0%) + var(--scroll-strip-fade-back, 0%)) calc(var(--scroll-strip-clear-forward, 0%) + var(--scroll-strip-fade-forward, 0%));
+  scrollbar-width: none;
+}
+
+.scroll-strip__track > * {
+  flex-shrink: 0;
+}
+
+.scroll-strip[data-back] {
+  --scroll-strip-clear-back: var(--scroll-strip-pager);
+  --scroll-strip-fade-back: var(--scroll-strip-fade);
+}
+
+.scroll-strip[data-forward] {
+  --scroll-strip-clear-forward: var(--scroll-strip-pager);
+  --scroll-strip-fade-forward: var(--scroll-strip-fade);
+}
+
+.scroll-strip[data-back] > .scroll-strip__track,
+.scroll-strip[data-forward] > .scroll-strip__track {
+  mask-image: linear-gradient(
+    to right,
+    transparent var(--scroll-strip-clear-back, 0%),
+    var(--c-bg) calc(var(--scroll-strip-clear-back, 0%) + var(--scroll-strip-fade-back, 0%)),
+    var(--c-bg) calc(100% - var(--scroll-strip-clear-forward, 0%) - var(--scroll-strip-fade-forward, 0%)),
+    transparent calc(100% - var(--scroll-strip-clear-forward, 0%))
+  );
+}
+
+.scroll-strip__track::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-strip__pager {
+  position: absolute;
+  inset-block: 0;
+  z-index: var(--z-base);
+  margin-block: auto;
+}
+
+.scroll-strip__pager--back {
+  inset-inline-start: 0;
+}
+
+.scroll-strip__pager--forward {
+  inset-inline-end: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-strip__track {
+    scroll-behavior: auto;
+  }
+}

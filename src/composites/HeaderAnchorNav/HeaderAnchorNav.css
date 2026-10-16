@@ -1,8 +1,6 @@
 /* @layer renderer-components @kind style */
 
 .header-anchor-nav__list {
-  display: flex;
-  flex-wrap: wrap;
   gap: var(--space-xs);
   margin: 0;
   padding: 0;
@@ -19,6 +17,7 @@
   background: color-mix(in srgb, var(--c-sunken) 55%, transparent);
   color: var(--c-text-dim);
   font-size: var(--text-sm);
+  white-space: nowrap;
   cursor: pointer;
 }
 

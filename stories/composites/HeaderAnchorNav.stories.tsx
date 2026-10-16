@@ -91,7 +91,7 @@ const Overview = overviewStory({
   description: 'A row of pill links beside a page title, each one jumping to a section of the page, with the current one lit.',
   points: [
     'Use it when a long page has a few named sections, as [SettingsPage] does.',
-    'Each item can carry a count in `badge`, and the row wraps when the header is narrow.',
+    'Each item can carry a count in `badge`; the row never wraps and scrolls sideways, as [Tabs] do.',
     'It holds no state: pass `activeId`, scroll on `onSelect`, and move `activeId` as the page scrolls.',
     'It is a nav of buttons, not tabs: [[Tab]] moves from one button to the next.',
   ],

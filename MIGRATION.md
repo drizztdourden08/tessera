@@ -8210,3 +8210,76 @@ Every element under every Overview page was read before and after at 1440 px. Te
 ### Gallery
 
 The Button page gains Every variant and size with an icon, the FactsPanel page Values on the right edge and the StatRow page Where the value sits. The Button, FactsPanel and StatRow Overviews name the change.
+
+## 239. Header chips never wrap: they scroll like Tabs
+
+RotP's Game settings page has nine chips in its header: Game Flow, Received Items, Movement, Combat, Dialog, Quality of Life, Cheats, Tracker and Vanilla Safe. Short of room, the labels broke onto two lines and the page title was cut to "Game...". The chip row is HeaderAnchorNav, which SettingsPage puts in the header strip for `anchors` and `tabs`, and which any ContentHeader or ScreenPage `strip` can hold.
+
+### What changed
+
+- **One shared strip.** Tabs scrolled its own strip: a hook measured the overflow, turned a vertical wheel into a sideways scroll, and drew an arrow and a fade at each edge that had more. That code moved out of Tabs into an internal piece, `src/primitives/scroll-strip/`, and Tabs and HeaderAnchorNav both draw on it. Nothing of it is copied.
+- **HeaderAnchorNav never wraps.** Its list is the scrolling track: chips keep `white-space: nowrap`, and no item on the track shrinks. The mouse wheel scrolls it sideways without Shift while it overflows and has room in that direction, and hands the wheel back to the page at either end, as Tabs does. The arrows (`Show earlier items`, `Show later items`, new strings `navigation.earlierItems` and `navigation.laterItems`) and the fade show only while chips are hidden on that side, and go when every chip fits.
+- **The title is never squeezed.** In a ContentHeader the chip row takes the room left after the icon, the whole title and the actions (`flex: 1 1 0`), and scrolls inside it.
+- **Narrow windows.** ScreenPage (so SettingsPage, WorkspaceScreen, StageScreen and UtilityScreen) keeps the chips beside the whole title while the room left fits two of its widest chips, or the whole row when that is shorter. With less room the chips move to a row of their own under the title, as other strips already did, and scroll there. When even the title does not fit, the actions follow below, as before.
+- **SettingsPage** loses its two rules that kept the row on one line beside the title and let it wrap under it.
+
+### The shared piece
+
+```ts
+// src/primitives/scroll-strip/ScrollStrip.tsx, internal
+interface ScrollStripProps {
+  pagerLabels: { back: string; forward: string };
+  children: ReactNode;            // the items, one per child
+  as?: ElementType;               // root element, 'div' by default
+  trackAs?: ElementType;          // track element, 'div' by default
+  className?: string;
+  trackClassName?: string;
+  trackRole?: AriaRole;           // 'tablist' for Tabs
+  trackRef?: Ref<HTMLElement>;
+  'aria-label'?: string;
+}
+
+// the logic under it
+const useScrollStrip: (itemCount: number) => {
+  rootRef: RefObject<HTMLElement | null>;
+  trackRef: RefObject<HTMLElement | null>;
+  canScrollBack: boolean;
+  canScrollForward: boolean;
+  handleScroll: () => void;
+  pageBy: (direction: -1 | 1) => void;
+};
+
+// the room a strip needs beside a title, read by ScreenPage
+const stripLeastWidth: (part: HTMLElement) => number | null;
+```
+
+The classes are `scroll-strip`, `scroll-strip__track` and `scroll-strip__pager` (`--back`, `--forward`), and the custom properties `--scroll-strip-pager` and `--scroll-strip-fade`. Tabs keeps `tabs` and `tabs__strip` beside them; `tabs__pager` is now `scroll-strip__pager`, and `--tabs-pager` and `--tabs-fade` are now `--scroll-strip-pager` and `--scroll-strip-fade`. None of these were public API.
+
+### Measured
+
+Every element on all 239 Overview pages was read at 1440 px, and the eleven header and tab pages again at 800 px, before and after, against a second reading before to rule out the parts that move by themselves.
+
+- On the Tabs, FormGroupTabs, Tooltip, FormRow, Brand and Mascot pages, which hold every Tabs in the gallery, every element keeps its box, display, overflow, mask and white space; only the pager and root class names changed.
+- On the HeaderAnchorNav, ContentHeader and WorkspaceScreen pages every chip and title keeps its place and size. The row's box now reaches the actions, which is not visible, and chips read `nowrap`. The HeaderAnchorNav Overview point that said the row wraps now says it scrolls.
+- On the SettingsPage page every chip and title of the existing examples keeps its place, including In a narrow box. The new example, Nine long chips at three widths, shows RotP's chips in frames of 1016, 640 and 384 px:
+
+| Frame | Title "Game" | Chips | Track, shown of full | Arrows |
+| --- | --- | --- | --- | --- |
+| 1016 px | 67 of 67 px | beside the title | 832 of 832 px | none |
+| 640 px | 67 of 67 px | beside the title | 456 of 784 px | forward, then both after a wheel |
+| 384 px | 67 of 67 px | under the title | 332 of 784 px | forward |
+
+Every chip is 28 px tall on one line in every frame. A wheel of 200 px down over the 640 px row moved it 200 px sideways and left the page where it was. Swept from 1000 px to 140 px, the title kept its 67 px at every width; the chips stayed beside it down to 440 px and moved under it from 400 px.
+
+### Gallery and tests
+
+The SettingsPage Overview point on short room now says the chips never wrap and scroll beside the whole title, and the new example shows it. `tests/header-chip-strip.test.mjs` checks the wheel (sideways without Shift, handed back at the end and when the row fits), that the arrows show only while the row overflows, that HeaderAnchorNav and Tabs render on the same strip, that no label or row wraps, and the room the chips need beside the title. `tests/screen-fit.test.mjs` gives its fake header parts `querySelector`.
+
+### Not changed
+
+- **WindowHeader** `extra` keeps its own rule: shown whole beside the title, or hidden when it does not fit. A HeaderAnchorNav placed there scrolls only if it is given less room than it needs, which WindowHeader never does.
+- **Widget** title bar tabs are dragged to move widgets, and stay clipped as before.
+
+### What Brock and RotP do
+
+Nothing. After the upgrade the Game page keeps "Game" whole and its nine chips on one scrolling row. A chip row RotP draws itself in a header can use HeaderAnchorNav to get the same.

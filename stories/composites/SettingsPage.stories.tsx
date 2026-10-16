@@ -10,6 +10,7 @@ import type { StateProps } from '../_template/states/states.type';
 import { SESSION_SECTIONS } from './_samples/nav';
 import { generalSections } from './_samples/settings-sample-sections';
 import { useSampleSettings } from './_samples/settings-sample-state';
+import { LongChipRows } from './_samples/LongChipRows';
 import './SettingsPage.stories.css';
 
 type PageArgs = {
@@ -107,6 +108,11 @@ const InNarrowBox = {
   render: (args) => <PageDemo {...args} withActions narrow />,
 } satisfies PlaygroundStory<PageArgs>;
 
+const LongChips = {
+  name: 'Nine long chips at three widths',
+  render: () => <LongChipRows />,
+} satisfies StoryLiteStoryDefinition<PageArgs>;
+
 const renderState = (props: StateProps) => (
   <Box className="settings-page-story__state">
     <SettingsPage icon={<Icon name="settings" />} title="General" backdrop={backdrop} anchors={STATE_ANCHORS} compact={props.compact === true}>
@@ -134,12 +140,12 @@ const Overview = overviewStory({
     '`tabs` shows the host\'s own views in the strip instead.',
     'The header compacts once the body scrolls; `compact` holds either look.',
     '`actions` sit at the far end of the header; `back` leads to the parent page, as on [ScreenPage].',
-    'Short of room the tabs move to a row under the title and wrap there, so the title stays whole.',
+    'Chips never wrap: the row scrolls beside the whole title, the wheel too, and moves under it when narrow.',
     '`backdrop` takes a scene or a `BackdropLayer`; `scroll={false}` leaves the scrolling to the body content.',
   ],
   instead: '[WorkspaceScreen] to build a whole settings screen with its side list and search.',
   playground: Playground,
-  variants: [PlainWithActions, SubPage, ViewTabs, InNarrowBox],
+  variants: [PlainWithActions, SubPage, ViewTabs, InNarrowBox, LongChips],
   states: {
     render: renderState,
     list: [
@@ -151,4 +157,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { InNarrowBox, Overview, PlainWithActions, Playground, SubPage, ViewTabs };
+export { InNarrowBox, LongChips, Overview, PlainWithActions, Playground, SubPage, ViewTabs };

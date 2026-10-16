@@ -17,12 +17,6 @@ interface TabsProps {
   iconOnly?: boolean;
 }
 
-interface TabsPagerProps {
-  side: 'back' | 'forward';
-  label: string;
-  onPage: () => void;
-}
-
 interface TabLabels {
   reason?: string;
   title?: string;
@@ -40,7 +34,6 @@ interface TabsTabProps {
 export type {
   TabItem,
   TabLabels,
-  TabsPagerProps,
   TabsProps,
   TabsTabProps,
 };

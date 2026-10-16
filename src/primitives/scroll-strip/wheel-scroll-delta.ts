@@ -1,9 +1,8 @@
 /* @layer renderer-components @kind logic */
-import { EDGE_EPSILON } from './strip-geometry.constants';
+import { EDGE_EPSILON } from './scroll-strip.constants';
 import { isOverflowing } from './is-overflowing';
 import { maxScrollOf } from './max-scroll-of';
-import type { StripMetrics } from './strip-geometry.type';
-import type { WheelGesture } from './wheel-scroll-delta.type';
+import type { StripMetrics, WheelGesture } from './scroll-strip.type';
 
 const wheelScrollDelta = (gesture: WheelGesture, metrics: StripMetrics): number | null => {
   const { deltaX, deltaY } = gesture;

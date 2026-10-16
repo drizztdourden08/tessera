@@ -1,13 +1,14 @@
 /* @layer renderer-components @kind logic */
 import { isHTMLElement } from '../../../primitives/dom/is-html-element';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
+import { stripLeastWidth } from '../../../primitives/scroll-strip/strip-least-width';
 import { TITLE_CLASS } from '../../ContentHeader/ContentHeader.constants';
 import { HEADER_PARTS, STACK_CLASSES } from '../ScreenPage.constants';
 import type { RowSpace } from './row-fits.type';
 
 const pixels = (value: string): number => Number.parseFloat(value) || 0;
 
-const leastWidth = (strip: HTMLElement): number => {
+const probeWidth = (strip: HTMLElement): number => {
   const inline = strip.getAttribute('style');
   strip.style.flex = 'none';
   strip.style.width = 'min-content';
@@ -16,6 +17,8 @@ const leastWidth = (strip: HTMLElement): number => {
   else strip.setAttribute('style', inline);
   return width;
 };
+
+const leastWidth = (strip: HTMLElement): number => stripLeastWidth(strip) ?? probeWidth(strip);
 
 const isStrip = (part: HTMLElement): boolean => !HEADER_PARTS.some((name) => part.classList.contains(name));
 

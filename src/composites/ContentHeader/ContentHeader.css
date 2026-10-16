@@ -61,6 +61,10 @@
   transition: font-size var(--transition-fast);
 }
 
+.content-header > .scroll-strip {
+  flex: 1 1 0;
+}
+
 .content-header__actions {
   display: flex;
   flex-shrink: 0;
