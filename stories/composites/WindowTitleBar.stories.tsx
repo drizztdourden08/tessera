@@ -18,6 +18,7 @@ import { TitleBarFrameRate } from './_samples/TitleBarFrameRate';
 import { TitleBarGroupDemo } from './_samples/TitleBarGroupDemo';
 import { TitleBarWidths } from './_samples/TitleBarWidths';
 import { TITLE_BAR_CODE } from './_samples/title-bar-code.constants';
+import { Morph } from './_samples/title-bar-morph-story';
 import './WindowTitleBar.stories.css';
 
 const LOGO = brandLogoUri('brock');
@@ -180,15 +181,15 @@ const Overview = overviewStory({
   component: 'WindowTitleBar',
   description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
   points: [
-    '`menu` takes [DropdownMenu] groups; `onControl` hears the window buttons; `controls` hides some, `false` all.',
+    '`menu` takes [DropdownMenu] groups; its hamburger turns into an X while open; `onControl` hears the buttons.',
     '`actions` add icon buttons with a tooltip of their label and `shortcut`; `tone` and `effect` mark the icon.',
     "An action with `bar: 'dropdown'` opens a menu of its own from `groups`, its icon marked the same way.",
     "A `bar: 'status'` action shows `status` as text with digits of one width; `pulse` adds a beating dot.",
-    'Narrow windows move items into the menu, a dropdown as a sub-menu; minimize, maximize and close stay.',
+    'Narrow windows move items into the menu, a dropdown as a sub-menu; `controls` hides buttons, `false` all.',
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed],
   states: {
     render: renderState,
     list: [
@@ -209,4 +210,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AppWindow, Concealed, FewerButtons, FrameRate, MarkedMenu, Maximized, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance };
+export { AppWindow, Concealed, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance };

@@ -1,0 +1,35 @@
+/* @layer renderer-components @kind style */
+.window-title-bar__menu .hamburger-icon__bar {
+  transition:
+    translate var(--duration-fast) var(--ease-out) calc(var(--duration-fast) / 2),
+    rotate var(--duration-normal) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.window-title-bar__menu[aria-expanded='true'] .hamburger-icon__bar {
+  transition:
+    translate var(--duration-fast) var(--ease-out),
+    rotate var(--duration-normal) var(--ease-out) calc(var(--duration-fast) / 2),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.window-title-bar__menu[aria-expanded='true'] .hamburger-icon__bar:nth-child(1) {
+  translate: 0 calc(var(--hamburger-icon-h) / 2 - var(--hamburger-icon-bar) / 2);
+  rotate: 45deg;
+}
+
+.window-title-bar__menu[aria-expanded='true'] .hamburger-icon__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.window-title-bar__menu[aria-expanded='true'] .hamburger-icon__bar:nth-child(3) {
+  translate: 0 calc(var(--hamburger-icon-bar) / 2 - var(--hamburger-icon-h) / 2);
+  rotate: -45deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window-title-bar__menu .hamburger-icon__bar,
+  .window-title-bar__menu[aria-expanded='true'] .hamburger-icon__bar {
+    transition: none;
+  }
+}

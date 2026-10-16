@@ -33,6 +33,7 @@ WindowTitleBar is the one title bar of a frameless window, with the same brand, 
 - Every action has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.
 - Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.
 - Keep the actions few: narrow windows move them into the main menu, then shrink the brand.
+- The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does.
 
 ## Accessibility
 
@@ -98,4 +99,4 @@ const AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }:
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-hover`, `--c-info`, `--c-on-danger`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-surface`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-warning`, `--duration-slow`, `--duration-status-breathe`, `--ease-in-out`, `--ease-standard`, `--font-mono`, `--opacity-glow`, `--radius-sm`, `--size-14`, `--size-20`, `--size-48`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--titlebar-height`, `--tracking-caps`, `--tracking-wide`, `--transition-normal`, `--weight-medium`, `--z-panel`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-hover`, `--c-info`, `--c-on-danger`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-surface`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-warning`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-status-breathe`, `--ease-in-out`, `--ease-out`, `--ease-standard`, `--font-mono`, `--hamburger-icon-bar`, `--hamburger-icon-h`, `--opacity-glow`, `--radius-sm`, `--size-14`, `--size-20`, `--size-48`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--titlebar-height`, `--tracking-caps`, `--tracking-wide`, `--transition-normal`, `--weight-medium`, `--z-panel`.

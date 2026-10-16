@@ -10,6 +10,7 @@ import { PIN_ITEM } from '../WindowTitleBar.constants';
 import { TitleBarAction } from './TitleBarAction';
 import { TitleBarTip } from './TitleBarTip';
 import type { WindowTitleBarStartProps } from './WindowTitleBarStart.type';
+import './WindowTitleBarStart.css';
 
 const WindowTitleBarStart = (props: WindowTitleBarStartProps) => {
   const { menu, menuLabel, onMenuOpenChange, onActionMenuChange, pin, pinned, onControl, actions, hidden } = props;
@@ -18,7 +19,7 @@ const WindowTitleBarStart = (props: WindowTitleBarStartProps) => {
 
   return (
     <Box className="window-title-bar__start">
-      {menu.length > 0 && <DropdownMenu trigger={{ label: menuLabel ?? navigation.menu, iconOnly: true }} groups={menu} onOpenChange={onMenuOpenChange} />}
+      {menu.length > 0 && <DropdownMenu trigger={{ label: menuLabel ?? navigation.menu, iconOnly: true }} groups={menu} className="window-title-bar__menu" onOpenChange={onMenuOpenChange} />}
       {pin && (
         <TitleBarTip label={pinLabel} away={hidden.has(PIN_ITEM)}>
           <IconButton {...barItemProps(PIN_ITEM, hidden.has(PIN_ITEM))} size="sm" active={pinned} label={pinLabel} onClick={() => onControl('pin')}>

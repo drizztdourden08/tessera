@@ -17,6 +17,7 @@ const usage = {
     'Every action has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.',
     'Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.',
     'Keep the actions few: narrow windows move them into the main menu, then shrink the brand.',
+    'The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does.',
   ],
   a11y: [
     'Each action is an icon button named by its label, with a tooltip and aria-keyshortcuts for its shortcut.',

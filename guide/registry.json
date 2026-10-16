@@ -4264,6 +4264,7 @@
         "Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.",
         "An item icon is a name from the set, iconify data such as an imported Lucide icon, Icon path data, or any element.",
         "Split groups by meaning with a label or a separator; turn on filter past about a dozen items.",
+        "The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.",
         "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
         "align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge."
       ],
@@ -4439,8 +4440,6 @@
         "--c-warning-bright",
         "--c-warning-soft",
         "--duration-fast",
-        "--duration-normal",
-        "--ease-out",
         "--ease-standard",
         "--listbox-attach",
         "--listbox-space",
@@ -10328,7 +10327,8 @@
         "Hide a control the host lacks in controls, such as close: false; controls={false} hides them all, for a host with no window buttons.",
         "Every action has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.",
         "Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.",
-        "Keep the actions few: narrow windows move them into the main menu, then shrink the brand."
+        "Keep the actions few: narrow windows move them into the main menu, then shrink the brand.",
+        "The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does."
       ],
       "a11y": [
         "Each action is an icon button named by its label, with a tooltip and aria-keyshortcuts for its shortcut.",
@@ -10448,11 +10448,16 @@
         "--c-text",
         "--c-text-dim",
         "--c-warning",
+        "--duration-fast",
+        "--duration-normal",
         "--duration-slow",
         "--duration-status-breathe",
         "--ease-in-out",
+        "--ease-out",
         "--ease-standard",
         "--font-mono",
+        "--hamburger-icon-bar",
+        "--hamburger-icon-h",
         "--opacity-glow",
         "--radius-sm",
         "--size-14",
