@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { DockLayout, applyEdit, removeEverywhere, useDockKeys } from '../../../src/composites';
-import type { DockMainGrip, FloatingWidget, LayoutEdit, PaneNode, Rect, WidgetId, WidgetLayout } from '../../../src/composites';
+import type { DockMainGrip, FloatingWidget, LayoutEdit, PaneNode, Rect, WidgetChrome, WidgetId, WidgetLayout } from '../../../src/composites';
 import { Box, Text } from '../../../src/primitives';
 import { kitDrop } from './data-dock-kit';
 import { dockDemoLayout } from './dock-demo-layouts';
@@ -21,12 +21,13 @@ type DockDemoProps = {
   floatSnap?: number;
   hint?: string;
   className?: string;
+  chromes?: Readonly<Record<WidgetId, WidgetChrome>>;
 };
 
 const labelOf = (id: WidgetId): string => DOCK_LABELS[id] ?? id;
 
 const DockDemo = (props: DockDemoProps) => {
-  const { peek = false, swap = false, overlay = false, floating = true, mainLabel, gripLabel, mainGrip, start, className = '' } = props;
+  const { peek = false, swap = false, overlay = false, floating = true, mainLabel, gripLabel, mainGrip, start, className = '', chromes } = props;
   const [layout, setLayout] = useState<WidgetLayout>(() => dockDemoLayout(floating, start));
   const keys = useDockKeys();
   const mainRef = useRef<Rect | null>(null);
@@ -35,7 +36,9 @@ const DockDemo = (props: DockDemoProps) => {
   const modifiers = useMemo(() => ({ swap: swap || keys.modifiers.swap, overlay: overlay || keys.modifiers.overlay }), [swap, overlay, keys.modifiers]);
   const folded = peek || keys.peek;
   const pane = (ids: WidgetId[], active: WidgetId, paneKey: string | null) => (
-    <DockDemoPane ids={ids} active={active} paneKey={paneKey} peek={folded && paneKey !== null} onEdit={onEdit} onClose={onClose} />
+    <DockDemoPane
+      ids={ids} active={active} paneKey={paneKey} peek={folded && paneKey !== null} onEdit={onEdit} onClose={onClose} chrome={chromes?.[active]}
+    />
   );
 
   return (

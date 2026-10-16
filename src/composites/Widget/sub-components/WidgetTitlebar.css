@@ -1,0 +1,86 @@
+/* @layer renderer-components @kind style */
+.widget--chrome-compact .widget__titlebar {
+  box-sizing: content-box;
+  height: var(--control-h-xs);
+  padding: 0 var(--space-2xs) 0 var(--space-sm);
+}
+
+.widget--chrome-compact :is(.widget__title, .widget__tab) {
+  font-size: var(--widget-title-compact-font);
+}
+
+.widget--chrome-compact .widget__tab {
+  padding: 0 var(--space-xs);
+}
+
+.widget--chrome-compact.widget--peek {
+  height: auto;
+}
+
+.widget--chrome-none .widget__titlebar {
+  position: absolute;
+  inset: var(--space-2xs) var(--space-2xs) auto;
+  z-index: var(--z-base);
+  height: auto;
+  padding: 0;
+  border-bottom: none;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.widget--chrome-none .widget__titlebar,
+.widget--chrome-none .widget__titlebar:active {
+  cursor: auto;
+}
+
+.widget--chrome-none:is(:hover, :focus-within, :has([aria-expanded='true'])) .widget__titlebar {
+  opacity: 1;
+}
+
+.widget--chrome-none:is(:hover, :focus-within, :has([aria-expanded='true'])) .widget__titlebar > * {
+  pointer-events: auto;
+}
+
+.widget__lead,
+.widget--chrome-none .widget__titlebar-actions {
+  padding: var(--space-2xs);
+  border: var(--border-width-thin) solid var(--c-hairline);
+  border-radius: var(--radius-md);
+  background: var(--c-glass);
+  backdrop-filter: blur(var(--blur));
+  box-shadow: var(--shadow-overlay);
+}
+
+.widget__lead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.widget__grip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--control-h-xs);
+  block-size: var(--control-h-xs);
+  flex-shrink: 0;
+  color: var(--c-text-dim);
+  cursor: grab;
+  touch-action: none;
+}
+
+.widget__grip:active {
+  cursor: grabbing;
+}
+
+.widget__grip > * {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .widget--chrome-none .widget__titlebar {
+    transition: none;
+  }
+}

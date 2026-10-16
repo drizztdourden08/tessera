@@ -15,6 +15,7 @@ type WidgetDockProps = {
   disabledWidget: string;
   disabledMessage: string;
   makeRoomHint: string;
+  definitions?: readonly DemoWidgetDefinition[];
 };
 
 const contextNote = (active: WidgetContextActive<DemoWidgetDefinition>): string => {
@@ -23,9 +24,9 @@ const contextNote = (active: WidgetContextActive<DemoWidgetDefinition>): string 
 };
 
 const WidgetDock = (props: WidgetDockProps) => {
-  const { contextActive, contextTools, disabledWidget, disabledMessage, makeRoomHint } = props;
+  const { contextActive, contextTools, disabledWidget, disabledMessage, makeRoomHint, definitions = WIDGET_DEFINITIONS } = props;
   const { layout, setLayout, toggle } = useWidgetLayout({
-    definitions: WIDGET_DEFINITIONS, profileId: PROFILE_ID, io: MEMORY_IO, storageKey: STORAGE_KEY,
+    definitions, profileId: PROFILE_ID, io: MEMORY_IO, storageKey: STORAGE_KEY,
   });
   const [notice, setNotice] = useState('');
 
@@ -54,7 +55,7 @@ const WidgetDock = (props: WidgetDockProps) => {
       <Box className="widget-dock-frame__titlebar">
         <Text className="story-label">Session: Friday async</Text>
         {contextTools}
-        {WIDGET_DEFINITIONS.map((definition) => (
+        {definitions.map((definition) => (
           <Button
             key={definition.id}
             size="sm"
@@ -68,7 +69,7 @@ const WidgetDock = (props: WidgetDockProps) => {
       </Box>
       <Box className="widget-dock-frame__stage">
         <WidgetManager
-          definitions={WIDGET_DEFINITIONS}
+          definitions={definitions}
           layout={layout}
           onLayoutChange={setLayout}
           contextActive={contextActive}

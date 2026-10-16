@@ -7,12 +7,16 @@ import type { StateProps } from '../_template/states/states.type';
 import { ContextDock } from './_samples/ContextDock';
 import { WidgetDock } from './_samples/data-widget-dock';
 import { PerformanceWidget } from './_samples/PerformanceWidget';
+import type { WidgetChrome } from '../../src/composites';
+import { CHROME_DEFINITIONS } from './_samples/data-widgets';
 import { WidgetBodyDemo } from './_samples/WidgetBodyDemo';
+import { WidgetChromeRow } from './_samples/WidgetChromeRow';
 import { WidgetFrameDemo } from './_samples/WidgetFrameDemo';
 import './Widget.stories.css';
 
 type WidgetArgs = {
   tabbed: boolean;
+  chrome: WidgetChrome;
   mode: 'in' | 'out';
   square: boolean;
   titleBarActions: boolean;
@@ -31,6 +35,7 @@ const FrameDemo = (props: WidgetArgs & { optionsOpen?: boolean }) => <WidgetFram
 
 const ARGS: Partial<WidgetArgs> = {
   tabbed: false,
+  chrome: 'full',
   mode: 'in',
   square: false,
   titleBarActions: false,
@@ -50,6 +55,7 @@ const ARG_TYPES: PlaygroundArgTypes<WidgetArgs> = {
   titleBarActions: { group: 'Content', control: 'boolean', description: 'The widget adds a button of its own through titleBarActions: a spoiler toggle before the built-in buttons.' },
   disabledMessage: { group: 'Content', control: 'text', description: 'The reason on the disabled state, as disabled takes it.' },
   makeRoomHint: { group: 'Content', control: 'text', description: 'Dock only: the hint under Make room in each widget\'s options' },
+  chrome: { group: 'Appearance', control: 'select', options: ['full', 'compact', 'none'], description: 'The frame: the full title bar, a 20 px strip, or none, with a grip and the buttons over the body on hover or focus.' },
   opacity: { group: 'Appearance', control: 'range', min: 0, max: 1, step: 0.05, description: 'Frame opacity, 0 to 1. The content stays opaque; hover makes the frame solid.' },
   mode: { group: 'Layout', control: 'select', options: ['in', 'out'], description: 'out draws the frame as its own window: a pop in button and the pin menu.' },
   square: { group: 'Layout', control: 'boolean', description: 'For a widget window shown fullscreen: no corner radius and no outer border.' },
@@ -97,6 +103,27 @@ const PerWidget = {
   render: (args) => <ContextDock {...args} />,
 } satisfies PlaygroundStory<WidgetArgs>;
 
+const Chromes = {
+  name: 'Three chromes side by side',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <WidgetChromeRow {...args} tabbed />,
+} satisfies PlaygroundStory<WidgetArgs>;
+
+const ChromeWindows = {
+  name: 'Three chromes in their own windows',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <WidgetChromeRow {...args} mode="out" dragRegion />,
+} satisfies PlaygroundStory<WidgetArgs>;
+
+const ChromeDock = {
+  name: 'Three chromes docked',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <WidgetDock {...args} disabledWidget="console" definitions={CHROME_DEFINITIONS} />,
+} satisfies PlaygroundStory<WidgetArgs>;
+
 const Bodies = {
   name: 'Body padding and fill',
   render: () => <WidgetBodyDemo />,
@@ -137,15 +164,18 @@ const Overview = overviewStory({
   component: 'Widget',
   description: 'The frame of a tool panel, such as a player list or a log, docked in a [DockLayout], floating, or in its own window.',
   points: [
-    'The title bar is the drag handle, with the name or tabs; pop out, options and close name the widget.',
+    'The title bar drags it and names the region, by its title or open tab; each button names the widget too.',
+    '`chrome` is `full`, a 20 px `compact` strip, or `none`: a grip and the buttons over the body on hover or focus.',
     '`titleBarActions` adds buttons; in its own window `pin` keeps it on top and `dragRegion` lets the strip move it.',
-    'Each widget is a region named by its title or open tab, with `data-widget-id`; a pane has `data-pane-id`.',
     'The body scrolls in its gutter with `padding`, `sm` by default, or `none` or `md`; `fill` makes a full height column.',
     '`options` puts [WidgetOptions] on the gear; `WidgetManager` lays out a dock and hides widgets out of context.',
     '`disabled` covers the body, a string as the reason; docked or in its own window, the look is the same.',
   ],
   playground: Playground,
-  variants: [Single, Tabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, OffInWindow, Folded, Bodies, Dock, PerWidget, Performance],
+  variants: [
+    Single, Tabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, OffInWindow, Folded, Chromes, ChromeWindows, ChromeDock, Bodies, Dock, PerWidget,
+    Performance,
+  ],
   states: {
     render: renderState,
     list: [
@@ -159,4 +189,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Bodies, Dock, DragStrip, Folded, Fullscreen, OffInWindow, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };
+export { Bodies, ChromeDock, ChromeWindows, Chromes, Dock, DragStrip, Folded, Fullscreen, OffInWindow, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };

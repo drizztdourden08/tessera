@@ -8687,3 +8687,51 @@ The DockLayout Overview rewrites its last two points, on `floatSnap` and `canDro
 - **Kits.** Give every widget definition of a kit the same `group`, such as `'developer-tools'` for RotP's tools, and leave ordinary widgets without one. WidgetManager does the rest. Where Brock draws DockLayout itself, pass `canDrop={(id, drop) => keepsGroups((w) => definitions[w]?.group, id, drop)}`.
 - **Kit layout.** Open a kit as one pane, or as its own split, beside the main view or at the stage edge: `dockOnEdge` for the first widget, then `dockWidget` with `{ at: 'tab', key }` or `{ at: 'leaf', key, edge }` on its pane for the rest. Users can then rearrange the kit inside itself but never mix it with other widgets.
 - **Snapping.** Pass `floatSnap` (8 to 12 px reads well) to WidgetManager or DockLayout where floating widgets should line up; leave it out to keep free placement.
+
+## 249. A lighter widget frame: chrome compact and none
+
+Brock's widget kits, such as RotP's developer tools, open and close together with a layout of their own, and the 30 px title bar on every one of them took more room than the tools. A widget now takes a lighter frame.
+
+### What changed
+
+`WidgetDefinition` and `WidgetProps` take `chrome`:
+
+```ts
+type WidgetChrome = 'full' | 'compact' | 'none'; // new, exported
+
+interface WidgetDefinition {
+  chrome?: WidgetChrome; // new: WidgetManager passes it to each docked or floating widget
+}
+
+interface WidgetProps {
+  chrome?: WidgetChrome; // new: 'full' when left out
+}
+```
+
+- **`full`** is the title bar as before and stays the default. A widget that names no chrome, or names `full`, renders the same markup as before.
+- **`compact`** draws a title strip one xs control high: 20 px of controls (`--control-h-xs`) above its 1 px rule, 21 px in all, where `full` takes 30. The name and the tab chips take the new token `--widget-title-compact-font` (10 px, where `full` uses 12). The buttons are the same xs IconButtons, 20 by 20 px with a 24 px hit area, 4 px apart, so no hit area overlaps another button.
+- **`none`** draws no strip, and the body fills the widget. A grip (Lucide `grip-vertical`, 20 by 20 px) with the tab chips beside it floats in a pill at the top left, and the buttons in a pill at the top right, both 2 px inside the border on `--c-glass` with the hairline border. They show on hover, while focus is inside the widget, and while one of their menus is open (`:has([aria-expanded='true'])`), so the options panel and the pin menu keep their trigger in view. They fade in over `--duration-fast` by opacity alone and sit over the body in a layer of their own, so showing them moves nothing in it; reduced motion shows them at once. While hidden they take no pointer, but they stay in the tab order and the accessibility tree: the buttons keep their names, the title stays on the page as a visually hidden label of the region, and a tabbed pane is still named by its open tab.
+- **Dragging.** In `none` the grip carries `data-drag-widget`, so DockLayout moves, docks, tabs and floats the widget from it as from a title bar, with no change to DockLayout. A press on the grip icon lands on the grip. In a window of its own with `dragRegion`, only the grip moves the window and the buttons stay clickable; its title is `Drag to move <name>` (`widgets.moveNamed`) and it is hidden from screen readers, like the title bar it stands for.
+- **Peek.** Folded with Alt, a `compact` widget is its 20 px strip, and a `none` widget folds to the same strip, so a folded widget always shows its name.
+- **Everywhere.** WidgetPane passes the definition's `chrome` to every docked and floating widget. A popped widget is drawn by the app with `<Widget mode="out">`, which takes the same `chrome`. The disabled overlay, the options panel, the pin menu, the tab chips and `titleBarActions` work in all three.
+
+One internal part, `WidgetGrip`, draws the grip; there is no new public component.
+
+### Measured
+
+At 1440 px against the gallery before the change, with no console errors on the Widget, DockLayout, WidgetOptions, WindowGuideOverlay and Sizes Overviews:
+
+- **`full` is unchanged.** With the new examples hidden every section starts at the same place, and 57 of the 61 `full` widgets on the Widget, DockLayout, WidgetOptions and WindowGuideOverlay Overviews match pixel for pixel, with every box in place. Of the other four, one is the live performance chart, and three differ by 1 to 5 colour levels on 5 to 11 pixels at their bottom corners, where the shadow meets the page; two runs of the gallery before the change differ the same way.
+- **`compact`:** the strip is 21 px, the body starts 9 px higher than in `full`, buttons are 20 by 20 with a 24 by 24 hit area, tab chips 20 px with 10 px text.
+- **`none`:** the bar is hidden at rest (opacity 0) and shown on hover, on Tab into the widget (tab chips, Pop out, options, Close, in that order) and with the options panel open and the pointer away. Every box in the body is the same before and after it shows. Dragging the grip of a floating `none` widget moves it by the drag, and dropping it at the stage edge docks it. On the DockLayout example, the grip of the `none` kit pane dropped on Players changes nothing, as its `group` says, and dropped in the main view floats Network; the `compact` strip of the log floats it the same way.
+- **Disabled** in all three: the overlay covers the body, the body is `aria-disabled`, and in `none` the bar shows over the overlay.
+
+### Gallery and tests
+
+The Widget Overview merges two points into one and adds one on `chrome`, adds a `chrome` control to the playground, and gains three examples after Peek: Three chromes side by side (tabbed), Three chromes in their own windows (with `dragRegion`, outlined), and Three chromes docked (Players `full`, Hints and the log `compact`, the Console `none` and disabled). The header and every example above them keep their boxes; the examples add 1479 px, so Body padding and fill and everything below move down by that. The DockLayout Overview gains Widgets in three chromes after Floating widgets that snap to edges: Players and Hints `full`, the log `compact`, and the Elements and Network kit `none`. Everything above it keeps its box, and the states, playground and code move down by 508 px. The Sizes token page lists `--widget-title-compact-font` (42 px). `tests/widget-chrome.test.mjs` checks the default markup, the buttons in every chrome, the compact strip and font, the grip as the drag handle, the region name, the tabs, the window drag region, peek, the disabled overlay, the bar CSS and the definition passed through WidgetPane. The Widget usage gains a rule and an accessibility note.
+
+### What Brock does
+
+- **Kits.** Give each kit widget `chrome: 'compact'` or `chrome: 'none'` in its definition, next to its `group`. WidgetManager does the rest for docked and floating widgets.
+- **Popped kit widgets.** Where Brock draws a popped widget with `<Widget mode="out">`, pass `chrome={definition.chrome}`, with `dragRegion` as today; in `none` the grip moves the window.
+- **Own title bar buttons.** Keep `titleBarActions` and `widgetActions` buttons at `size="xs"`; they sit in the strip or the floating pill unchanged.

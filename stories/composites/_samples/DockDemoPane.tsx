@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import type { ReactNode } from 'react';
 import { Widget } from '../../../src/composites';
-import type { LayoutEdit, WidgetId } from '../../../src/composites';
+import type { LayoutEdit, WidgetChrome, WidgetId } from '../../../src/composites';
 import { KIT_CONTENT } from './data-dock-kit';
 import { WIDGET_CONTENT } from './data-widget-panels';
 import { WIDGET_DEFINITIONS } from './data-widgets';
@@ -14,12 +14,13 @@ type DockDemoPaneProps = {
   peek: boolean;
   onEdit: (edit: LayoutEdit) => void;
   onClose: (id: WidgetId) => void;
+  chrome?: WidgetChrome;
 };
 
 const contentOf = (id: WidgetId) => (WIDGET_CONTENT as Record<string, ReactNode>)[id] ?? KIT_CONTENT[id];
 
 const DockDemoPane = (props: DockDemoPaneProps) => {
-  const { ids, active, paneKey, peek, onEdit, onClose } = props;
+  const { ids, active, paneKey, peek, onEdit, onClose, chrome } = props;
   const definition = WIDGET_DEFINITIONS.find((entry) => entry.id === active);
   return (
     <Widget
@@ -31,6 +32,7 @@ const DockDemoPane = (props: DockDemoPaneProps) => {
       peek={peek}
       padding={definition?.padding}
       fill={definition?.fill}
+      chrome={chrome}
       onActivateTab={(id) => { if (paneKey) onEdit({ type: 'activate-tab', key: paneKey, id }); }}
       onClose={() => onClose(active)}
     >

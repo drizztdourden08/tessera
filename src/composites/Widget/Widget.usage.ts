@@ -19,6 +19,7 @@ const usage = {
     'Give every widget of a kit, such as developer tools, the same group: it then never tabs or splits with a widget outside it.',
     'A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.',
     'Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.',
+    'Give the widgets of a kit chrome compact or none in their definition, and pass the same chrome to a Widget in its own window.',
     'To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest.',
   ],
   a11y: [
@@ -26,6 +27,7 @@ const usage = {
     'Each widget carries data-widget-id and each pane data-pane-id, for tests.',
     'A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown.',
     'A disabled widget keeps its frame working; its body is inert and marked aria-disabled, with the reason over it.',
+    'With chrome none the buttons stay in the tab order and the tree; focus inside the widget shows them, and the title still names it.',
   ],
   tree: {
     path: ['layout', 'panels the user docks and moves'],
@@ -57,7 +59,7 @@ const Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {
   );
 };
 `,
-  propsHash: '89df5d7af7948561',
+  propsHash: 'c9b55082127bbdfe',
 } satisfies ComponentUsage;
 
 export { usage };

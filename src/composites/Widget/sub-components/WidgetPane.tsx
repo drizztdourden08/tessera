@@ -21,6 +21,7 @@ const WidgetPane = (props: WidgetPaneProps) => {
       opacity={frameOf(api.layout, activeId, definition).opacity}
       padding={definition?.padding}
       fill={definition?.fill}
+      chrome={definition?.chrome}
       peek={api.peek}
       options={options}
       onActivateTab={(id) => { if (paneKey) api.apply({ type: 'activate-tab', key: paneKey, id }); }}

@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import type { ReactNode } from 'react';
 import { Widget } from '../../../src/composites';
+import type { WidgetChrome } from '../../../src/composites';
 import { Box } from '../../../src/primitives';
 import { WIDGET_CONTENT } from './data-widget-panels';
 import type { FrameTabs } from './frame-tabs';
@@ -19,10 +20,11 @@ type DemoWidgetProps = {
   dragRegion?: boolean;
   disabled?: boolean | string;
   onOpenSettings?: () => void;
+  chrome?: WidgetChrome;
 };
 
 const DemoWidget = (props: DemoWidgetProps) => {
-  const { view, panel, peek, square, canPopOut, options, onActivateTab, onClose, titleBarActions, dragRegion, disabled, onOpenSettings } = props;
+  const { view, panel, peek, square, canPopOut, options, onActivateTab, onClose, titleBarActions, dragRegion, disabled, onOpenSettings, chrome } = props;
   return (
     <Box className={`widget-story__box${peek ? ' widget-story__box--peek' : ''}`}>
       <Widget
@@ -41,6 +43,7 @@ const DemoWidget = (props: DemoWidgetProps) => {
         dragRegion={dragRegion}
         disabled={disabled}
         onOpenSettings={onOpenSettings}
+        chrome={chrome}
         canPopOut={canPopOut}
         onPopOut={panel.onPopOut}
         onActivateTab={onActivateTab}

@@ -71,6 +71,7 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
     title: 'Widgets and dock',
     entries: [
       { token: '--widget-titlebar-h' },
+      { token: '--widget-title-compact-font' },
       { token: '--widget-options-w' },
       { token: '--widget-options-slider-w' },
       { token: '--dock-grip-h' },

@@ -12,6 +12,8 @@ type PinMode = 'off' | 'top';
 
 type WidgetPadding = 'none' | 'sm' | 'md';
 
+type WidgetChrome = 'full' | 'compact' | 'none';
+
 interface WidgetBodyLook {
   padding?: WidgetPadding;
   fill?: boolean;
@@ -63,6 +65,7 @@ interface WidgetDefinition extends WidgetBodyLook {
   devOnly?: boolean;
   popOut?: boolean;
   group?: string;
+  chrome?: WidgetChrome;
 }
 
 interface WidgetDisabledState {
@@ -96,9 +99,10 @@ interface WidgetProps extends WidgetBodyLook {
   dragRegion?: boolean;
   disabled?: boolean | string;
   onOpenSettings?: () => void;
+  chrome?: WidgetChrome;
 }
 
 export type {
-  PinMode, PoppedWidget, SnapLink, SnapSide, WidgetBodyLook, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
+  PinMode, PoppedWidget, SnapLink, SnapSide, WidgetBodyLook, WidgetChrome, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
   WidgetPadding, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds,
 };

@@ -5,6 +5,7 @@ const WIDGET_STRINGS = {
   closeNamed: (name: string) => `Close ${name}`,
   popOutNamed: (name: string) => `Pop out ${name}`,
   popInNamed: (name: string) => `Pop in ${name}`,
+  moveNamed: (name: string) => `Drag to move ${name}`,
   shortcutsSection: 'Shortcuts',
   shortcutsHint: 'The keys and drags the dock answers to',
   resetWidget: 'Reset this widget',

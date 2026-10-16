@@ -1,6 +1,6 @@
 /* @layer stories @kind data */
 import { createDefaultLayout, dockOnEdge } from '../../../src/composites';
-import type { DockEdge, WidgetLayout, WidgetPersistenceIO } from '../../../src/composites';
+import type { DockEdge, WidgetChrome, WidgetLayout, WidgetPersistenceIO } from '../../../src/composites';
 import type { DemoWidgetDefinition } from './data-widgets.type';
 
 const WIDGET_DEFINITIONS: readonly DemoWidgetDefinition[] = [
@@ -21,6 +21,10 @@ const WIDGET_DEFINITIONS: readonly DemoWidgetDefinition[] = [
     defaultDockedSize: 300, defaultFloatingSize: { width: 340, height: 200 }, fill: true,
   },
 ];
+
+const CHROMES: Readonly<Record<string, WidgetChrome>> = { players: 'full', hints: 'compact', log: 'compact', console: 'none' };
+
+const CHROME_DEFINITIONS: readonly DemoWidgetDefinition[] = WIDGET_DEFINITIONS.map((definition) => ({ ...definition, chrome: CHROMES[definition.id] }));
 
 const PRESET_DOCKED: readonly [string, DockEdge, boolean][] = [['players', 'left', true], ['hints', 'right', false], ['log', 'bottom', true]];
 
@@ -44,4 +48,4 @@ const MEMORY_IO: WidgetPersistenceIO = {
 
 profiles.set(PROFILE_ID, { widgetLayout: presetLayout() });
 
-export { MEMORY_IO, PROFILE_ID, STORAGE_KEY, WIDGET_DEFINITIONS };
+export { CHROME_DEFINITIONS, MEMORY_IO, PROFILE_ID, STORAGE_KEY, WIDGET_DEFINITIONS };

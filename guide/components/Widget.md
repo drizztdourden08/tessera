@@ -35,6 +35,7 @@ Widget and WidgetManager give every tool panel the same frame, dock and options,
 - Give every widget of a kit, such as developer tools, the same group: it then never tabs or splits with a widget outside it.
 - A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.
 - Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.
+- Give the widgets of a kit chrome compact or none in their definition, and pass the same chrome to a Widget in its own window.
 - To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest.
 
 ## Accessibility
@@ -43,6 +44,7 @@ Widget and WidgetManager give every tool panel the same frame, dock and options,
 - Each widget carries data-widget-id and each pane data-pane-id, for tests.
 - A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown.
 - A disabled widget keeps its frame working; its body is inert and marked aria-disabled, with the reason over it.
+- With chrome none the buttons stay in the tab order and the tree; focus inside the widget shows them, and the title still names it.
 
 ## Example
 
@@ -96,12 +98,13 @@ const Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {
 - `dragRegion` (optional): `boolean`.
 - `disabled` (optional): `boolean | string`.
 - `onOpenSettings` (optional): `() => void`.
+- `chrome` (optional): `WidgetChrome`, one of `'full'`, `'compact'`, `'none'`.
 - `padding` (optional): `WidgetPadding`, one of `'none'`, `'sm'`, `'md'`.
 - `fill` (optional): `boolean`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-hover`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-text`, `--c-text-dim`, `--control-h-xs`, `--duration-normal`, `--font-mono`, `--radius-lg`, `--radius-sm`, `--scroll-thumb-edge`, `--scrollbar-slim-active`, `--size-20`, `--size-320`, `--size-4`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`, `--widget-frame-opacity`, `--widget-options-slider-w`, `--widget-options-w`, `--widget-titlebar-h`, `--z-panel`.
+It draws on `--blur`, `--border-width-thin`, `--c-glass`, `--c-hairline`, `--c-hover`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-text`, `--c-text-dim`, `--control-h-xs`, `--duration-fast`, `--duration-normal`, `--ease-standard`, `--font-mono`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--scroll-thumb-edge`, `--scrollbar-slim-active`, `--shadow-overlay`, `--size-1`, `--size-20`, `--size-320`, `--size-4`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`, `--widget-frame-opacity`, `--widget-options-slider-w`, `--widget-options-w`, `--widget-title-compact-font`, `--widget-titlebar-h`, `--z-base`, `--z-panel`.
 
 ## Also exported from this folder
 

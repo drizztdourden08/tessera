@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { WidgetOptions } from '../../../src/composites';
+import type { WidgetChrome } from '../../../src/composites';
 import { Box, Button, Text } from '../../../src/primitives';
 import { DemoWidget } from './DemoWidget';
 import { frameTabs } from './frame-tabs';
@@ -19,6 +20,7 @@ type WidgetFrameDemoProps = {
   optionsOpen?: boolean;
   disabled?: boolean;
   disabledMessage?: string;
+  chrome?: WidgetChrome;
 };
 
 const offOf = (props: WidgetFrameDemoProps): string | boolean | undefined =>
@@ -57,6 +59,7 @@ const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
         dragRegion={dragRegion}
         disabled={offOf(props)}
         onOpenSettings={() => setSettings(' Open settings pressed.')}
+        chrome={props.chrome}
       />
       <Text className="story-label widget-story__summary">{`${view.label}: ${summary}${spoilers.note}${settings}`}</Text>
     </Box>

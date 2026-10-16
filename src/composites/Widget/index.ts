@@ -5,7 +5,7 @@ export { WIDGET_OPTIONS_ATTRIBUTE, WidgetOptions } from './sub-components/Widget
 export type { WidgetOptionsProps } from './sub-components/WidgetOptions';
 export type { WidgetManagerProps } from './sub-components/WidgetManager.type';
 export type {
-  PinMode, PoppedWidget, SnapLink, SnapSide, WidgetBodyLook, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
+  PinMode, PoppedWidget, SnapLink, SnapSide, WidgetBodyLook, WidgetChrome, WidgetDefinition, WidgetDisabledState, WidgetFrame, WidgetLayout,
   WidgetPadding, WidgetPlacement, WidgetProps, WidgetTab, WidgetVisibility, WidgetWindowOptions, WindowBounds,
 } from './Widget.type';
 export type { DockPlace, FlatWidgetLayout, FlatWidgetState, ResolvedSplit, WidgetContextActive, WidgetGates } from './behavior/widget-layout.type';

@@ -10865,13 +10865,15 @@
         "Give every widget of a kit, such as developer tools, the same group: it then never tabs or splits with a widget outside it.",
         "A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.",
         "Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.",
+        "Give the widgets of a kit chrome compact or none in their definition, and pass the same chrome to a Widget in its own window.",
         "To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest."
       ],
       "a11y": [
         "Each widget is a region named by its title, or by its open tab in a tabbed pane; pop out, options and close are icon buttons named with it.",
         "Each widget carries data-widget-id and each pane data-pane-id, for tests.",
         "A hidden context only widget leaves the tree, so focus never lands in a panel that is not shown.",
-        "A disabled widget keeps its frame working; its body is inert and marked aria-disabled, with the reason over it."
+        "A disabled widget keeps its frame working; its body is inert and marked aria-disabled, with the reason over it.",
+        "With chrome none the buttons stay in the tab order and the tree; focus inside the widget shows them, and the title still names it."
       ],
       "tree": {
         "path": [
@@ -10881,7 +10883,7 @@
         "rule": "Widget and WidgetManager give every tool panel the same frame, dock and options, with the app holding the layout."
       },
       "example": "import { useCallback } from 'react';\nimport type { ReactNode } from 'react';\nimport { WidgetManager, useWidgetLayout } from '@drizztdourden08/tessera';\nimport type { WidgetDefinition, WidgetPersistenceIO } from '@drizztdourden08/tessera';\n\ninterface AppWidget extends WidgetDefinition {\n  context?: 'session' | 'race';\n}\n\ninterface DashboardProps {\n  definitions: readonly AppWidget[];\n  running: Record<'session' | 'race', boolean>;\n  io: WidgetPersistenceIO;\n  panels: Record<string, ReactNode>;\n}\n\nconst Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {\n  const { layout, setLayout } = useWidgetLayout({ definitions, profileId: 'main', io, storageKey: 'dashboard' });\n  const contextActive = useCallback((widget: AppWidget) => widget.context === undefined || running[widget.context], [running]);\n  return (\n    <WidgetManager definitions={definitions} layout={layout} onLayoutChange={setLayout} contextActive={contextActive}>\n      {panels}\n    </WidgetManager>\n  );\n};\n",
-      "propsHash": "89df5d7af7948561",
+      "propsHash": "c9b55082127bbdfe",
       "props": {
         "own": [
           {
@@ -10990,6 +10992,16 @@
             "text": "() => void"
           },
           {
+            "name": "chrome",
+            "optional": true,
+            "text": "WidgetChrome",
+            "literals": [
+              "'full'",
+              "'compact'",
+              "'none'"
+            ]
+          },
+          {
             "name": "padding",
             "optional": true,
             "text": "WidgetPadding",
@@ -11012,7 +11024,10 @@
         }
       },
       "tokens": [
+        "--blur",
         "--border-width-thin",
+        "--c-glass",
+        "--c-hairline",
         "--c-hover",
         "--c-layer",
         "--c-primary",
@@ -11022,12 +11037,17 @@
         "--c-text",
         "--c-text-dim",
         "--control-h-xs",
+        "--duration-fast",
         "--duration-normal",
+        "--ease-standard",
         "--font-mono",
         "--radius-lg",
+        "--radius-md",
         "--radius-sm",
         "--scroll-thumb-edge",
         "--scrollbar-slim-active",
+        "--shadow-overlay",
+        "--size-1",
         "--size-20",
         "--size-320",
         "--size-4",
@@ -11042,7 +11062,9 @@
         "--widget-frame-opacity",
         "--widget-options-slider-w",
         "--widget-options-w",
+        "--widget-title-compact-font",
         "--widget-titlebar-h",
+        "--z-base",
         "--z-panel"
       ],
       "gallery": {
