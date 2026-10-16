@@ -2,8 +2,9 @@
 export { DockLayout } from './DockLayout';
 export { EDGES, GAP, MAIN_NODE, STRIP } from './DockLayout.constants';
 export type {
-  DockEdge, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget, LayoutEdit,
-  LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis, SplitNode, WidgetId,
+  DockDrop, DockDropKind, DockDropSlot, DockEdge, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget,
+  ExternalDrag, FloatingWidget, LayoutEdit, LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis,
+  SplitNode, WidgetId,
 } from './DockLayout.type';
 export type { DividerRect, LaidOut, LeafRect } from './behavior/layout-tree.type';
 export { layoutTree } from './behavior/layout-tree';
@@ -13,6 +14,7 @@ export { createPane } from './behavior/create-pane';
 export { evenSplit } from './behavior/even-split';
 export { findLeaf } from './behavior/find-leaf';
 export { insertAt } from './behavior/insert-at';
+export { keepsGroups } from './behavior/keeps-groups';
 export { paneOf } from './behavior/pane-of';
 export { patchPane } from './behavior/patch-pane';
 export { removeLeaf } from './behavior/remove-leaf';

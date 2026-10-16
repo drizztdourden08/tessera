@@ -110,12 +110,12 @@ export type {
 export { WindowGuideOverlay } from './WindowGuideOverlay';
 export type { WindowGuideHint, WindowGuideMode, WindowGuideOverlayProps, WindowGuidePointer } from './WindowGuideOverlay';
 export {
-  DockLayout, EDGES, GAP, MAIN_NODE, STRIP, createPane, evenSplit, findLeaf, floatingRect, holdsMain, insertAt, layoutTree,
+  DockLayout, EDGES, GAP, MAIN_NODE, STRIP, createPane, evenSplit, findLeaf, floatingRect, holdsMain, insertAt, keepsGroups, layoutTree,
   mainRectOf, paneOf, patchPane, placeFloating, removeLeaf, removeWidget, resizeSplit, swapPanes, toFloating, useDockKeys,
   widgetsIn, wrapBeside,
 } from './DockLayout';
 export type {
-  DividerRect, DockEdge, DockKeys, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget,
+  DividerRect, DockDrop, DockDropKind, DockDropSlot, DockEdge, DockKeys, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget,
   LaidOut, LayoutEdit, LayoutNode, LeafNode, LeafRect, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis, SplitNode, WidgetId,
 } from './DockLayout';
 export { FilterBar } from './FilterBar';

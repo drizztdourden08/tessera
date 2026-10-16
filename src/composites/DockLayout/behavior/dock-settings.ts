@@ -12,6 +12,7 @@ const dockSettings = (props: DockLayoutProps, strings: TesseraStrings['widgets']
   gripLabel: props.gripLabel ?? strings.gripLabel,
   mainGrip: props.mainGrip ?? 'always',
   floatingMin: props.floatingMin ?? FLOAT_MIN,
+  floatSnap: Math.max(0, props.floatSnap ?? 0),
 });
 
 export { dockSettings };

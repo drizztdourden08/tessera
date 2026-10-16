@@ -9,6 +9,7 @@ import { rectStyle } from '../behavior/rect-style';
 import { DropHintZone } from './DropHintZone';
 import { DropPopZone } from './DropPopZone';
 import { DropPreview } from './DropPreview';
+import { SnapGuides } from './SnapGuides';
 import type { DropHintsProps } from './DropHints.type';
 
 const keyOf = (zone: DropZone): string => {
@@ -34,6 +35,7 @@ const DropHints = (props: DropHintsProps) => {
     <>
       {zones.map((zone) => <DropHintZone key={keyOf(zone)} zone={zone} hot={zone === view.hot} />)}
       {view.preview && !view.outside && <DropPreview rect={view.preview} refused={view.refused} />}
+      {!view.outside && <SnapGuides guides={view.guides} />}
       {swapRect && (
         <Box className="dock-layout__swap" style={rectStyle(swapRect)} aria-hidden="true">
           <Span className="dock-layout__swap-label">{widgets.hintSwap}</Span>

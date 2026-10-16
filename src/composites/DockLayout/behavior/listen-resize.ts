@@ -4,13 +4,15 @@ import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import type { Rect } from '../DockLayout.type';
 import type { ResizeWiring } from './float-resize.type';
 import { resizeRect } from './resize-rect';
+import { snapResizeOf } from './snap-resize-of';
 
 const listenResize = (wiring: ResizeWiring): (() => void) => {
-  const { handle, pointerId, origin, edge, start, bounds, min, onLive, onDone } = wiring;
+  const { handle, pointerId, origin, edge, start, bounds, min, snap, onLive, onDone } = wiring;
   const view = ownerWindowOf(handle);
   const zoom = cssZoomOf(handle);
   const listening = new AbortController();
   const { signal } = listening;
+  const snapTo = snapResizeOf(snap, edge, { bounds, min });
   let last: Rect = start;
   const detach = (): void => {
     listening.abort();
@@ -22,8 +24,9 @@ const listenResize = (wiring: ResizeWiring): (() => void) => {
   };
   view.addEventListener('pointermove', (ev) => {
     if (ev.pointerId !== pointerId) return;
-    last = resizeRect(start, edge, { x: (ev.clientX - origin.x) / zoom, y: (ev.clientY - origin.y) / zoom }, { bounds, min });
-    onLive(last);
+    const live = snapTo(resizeRect(start, edge, { x: (ev.clientX - origin.x) / zoom, y: (ev.clientY - origin.y) / zoom }, { bounds, min }));
+    last = live.rect;
+    onLive(live);
   }, { signal });
   view.addEventListener('pointerup', (ev) => { if (ev.pointerId === pointerId) end(last); }, { signal });
   view.addEventListener('pointercancel', (ev) => { if (ev.pointerId === pointerId) end(null); }, { signal });

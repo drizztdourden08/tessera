@@ -200,6 +200,21 @@
   border-color: var(--c-danger);
 }
 
+.dock-snap-guide {
+  position: absolute;
+  pointer-events: none;
+  z-index: var(--z-modal);
+  background: var(--c-primary-bright);
+}
+
+.dock-snap-guide--x {
+  width: var(--border-width-thin);
+}
+
+.dock-snap-guide--y {
+  height: var(--border-width-thin);
+}
+
 .dock-layout__swap {
   display: flex;
   align-items: center;

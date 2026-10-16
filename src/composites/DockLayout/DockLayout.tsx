@@ -40,6 +40,8 @@ const DockLayout = (props: DockLayoutProps) => {
           gripLabel={settings.gripLabel}
           mainGrip={settings.mainGrip}
           floatingMin={settings.floatingMin}
+          floatSnap={settings.floatSnap}
+          stage={context.stage}
           peek={settings.peek}
         />
       )}

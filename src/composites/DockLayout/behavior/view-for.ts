@@ -1,11 +1,12 @@
 /* @layer renderer-components @kind logic */
+import { allowsDrop } from './allows-drop';
 import type { DragContext, DragSource, DragSubject, DragView, HeldKeys, Point, PointerPlace } from './drag.type';
 import { dropZones } from './drop-zones';
 import { floatPreview } from './float-preview';
 import { hitTarget } from './hit-target';
 import { inRect } from './in-rect';
 import { isOutside } from './is-outside';
-import { wantedRect } from './wanted-rect';
+import { snapWanted } from './snap-wanted';
 
 const subjectOf = (source: DragSource): DragSubject =>
   ({ fromKey: source.fromKey, isMain: source.isMain, loneWidget: source.loneWidget });
@@ -33,7 +34,7 @@ const baseView = (ctx: DragContext, source: DragSource, place: PointerPlace, hel
   return {
     pointer: place.pointer, label: labelFor(ctx, source, { swap, overlay }), zones: [], hot: null, preview: null,
     refused: false, swapKey: null, outside: atEdge && canLeave, stays: atEdge && !canLeave, canPopOut: canLeave, swap,
-    overlay, floatingRect: source.floating ? wantedRect(source, place.pointer) : null,
+    overlay, floatingRect: source.floating ? snapWanted(ctx, source, place.pointer).rect : null, guides: [],
   };
 };
 
@@ -42,11 +43,13 @@ const viewFor = (ctx: DragContext, source: DragSource, place: PointerPlace, held
   if (!ctx.laid) return view;
   if (view.swap) return { ...view, swapKey: paneUnder(ctx, place.pointer, source.fromKey) };
   const subject = subjectOf(source);
-  const zones = dropZones(ctx.laid, ctx.stage, subject);
+  const every = dropZones(ctx.laid, ctx.stage, subject);
+  const zones = every.filter((zone) => allowsDrop(ctx, source, zone.target));
   const hot = hitTarget(place.pointer, zones, ctx.laid, subject);
   const aimed = { ...view, zones, hot };
   if (hot && hot.kind !== 'float') return { ...aimed, preview: hot.preview };
-  return { ...aimed, ...floatPreview(ctx, source, aimed) };
+  const barred = !hot && zones.length < every.length && hitTarget(place.pointer, every, ctx.laid, subject) !== null;
+  return barred ? aimed : { ...aimed, ...floatPreview(ctx, source, aimed) };
 };
 
 export { viewFor };

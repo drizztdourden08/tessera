@@ -62,6 +62,7 @@ interface WidgetDefinition extends WidgetBodyLook {
   defaultFloatingSize: { width: number; height: number };
   devOnly?: boolean;
   popOut?: boolean;
+  group?: string;
 }
 
 interface WidgetDisabledState {

@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, ScreenPoint, Size, WidgetId } from '../../DockLayout';
+import type {
+  DockDrop, DockMainGrip, DragModifiers, ExternalDrag, LayoutEdit, Rect, ScreenPoint, Size, WidgetId,
+} from '../../DockLayout';
 import type { WidgetDefinition, WidgetDisabledState, WidgetLayout, WidgetWindowOptions } from '../Widget.type';
 import type { WidgetContextActive } from '../behavior/widget-layout.type';
 
@@ -27,6 +29,8 @@ interface WidgetManagerProps<D extends WidgetDefinition = WidgetDefinition> {
   gripLabel?: string;
   mainGrip?: DockMainGrip;
   floatingMin?: Size;
+  canDrop?: (id: WidgetId, drop: DockDrop) => boolean;
+  floatSnap?: number;
   makeRoomHint?: string;
   contextLabel?: string;
   windowOptions?: (id: WidgetId) => WidgetWindowOptions | undefined;

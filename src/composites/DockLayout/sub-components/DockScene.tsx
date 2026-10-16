@@ -13,7 +13,7 @@ import type { DockSceneProps } from './DockScene.type';
 const DockScene = (props: DockSceneProps) => {
   const {
     laid, mainRect, main, floating, drag, ownDrag, dragId, stageRef, onEdit, renderPane, renderFloating, mainLabel, gripLabel, mainGrip,
-    floatingMin, peek,
+    floatingMin, floatSnap, stage, peek,
   } = props;
   const { widgets } = useTesseraStrings();
   const showGrip = mainGrip === 'always' || (mainGrip === 'dragging' && drag !== null);
@@ -30,6 +30,8 @@ const DockScene = (props: DockSceneProps) => {
           <DockFloating
             floating={floating}
             mainRect={mainRect}
+            stage={stage}
+            floatSnap={floatSnap}
             drag={drag}
             dragId={dragId}
             min={floatingMin}

@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { Widget } from '../../../src/composites';
 import type { LayoutEdit, WidgetId } from '../../../src/composites';
+import { KIT_CONTENT } from './data-dock-kit';
 import { WIDGET_CONTENT } from './data-widget-panels';
 import { WIDGET_DEFINITIONS } from './data-widgets';
 import { DOCK_LABELS } from './dock-demo.constants';
@@ -15,7 +16,7 @@ type DockDemoPaneProps = {
   onClose: (id: WidgetId) => void;
 };
 
-const contentOf = (id: WidgetId) => (WIDGET_CONTENT as Record<string, ReactNode>)[id];
+const contentOf = (id: WidgetId) => (WIDGET_CONTENT as Record<string, ReactNode>)[id] ?? KIT_CONTENT[id];
 
 const DockDemoPane = (props: DockDemoPaneProps) => {
   const { ids, active, paneKey, peek, onEdit, onClose } = props;

@@ -8633,3 +8633,57 @@ Measured at 1440 px against the gallery before the change; no console errors on 
 - **Menu separator.** WindowTitleBar adds no About or Quit; the app passes them. Brock builds them in `brock-react` `src/app/BrockApp/behavior/menu-groups.ts`, where the `end` group is `[Credits?, About, Quit]` with no separator, so About and Quit sit together. Put `'separator'` before `QUIT_ENTRY` in `end`, or give Quit its own group. WindowTitleBar keeps every group the app passes, puts a separator between groups, and slots its own group (View, or the tucked rows with `view={false}`) before the last one, so a Quit group of its own stays last with a separator above it in every configuration, `tucked` included.
 - **Help.** Pass `help` on a Field, FormRow, Checkbox or Toggle where RotP wants the explanation behind a question mark.
 - **Hints.** Nothing to change; a style that relied on a clicked tooltip staying open no longer gets it.
+
+## 248. DockLayout keeps widget groups apart, and floating widgets can snap
+
+Brock ships widget kits: widgets that open and close together with their own layout, such as RotP's developer tools. Two things were missing from DockLayout for them. A kit widget could be tabbed into, or split into, a pane of ordinary widgets, and the kit then lost its layout. Floating widgets also had nothing to line up against.
+
+### What changed
+
+`WidgetDefinition` takes `group`, and DockLayout and WidgetManager take `canDrop` and `floatSnap`:
+
+```ts
+interface WidgetDefinition {
+  group?: string; // new: widgets of different groups never share a pane
+}
+
+type DockDropKind = 'tab' | 'split' | 'float';
+type DockDropSlot = 'pane' | 'main' | 'stage';
+
+interface DockDrop {
+  kind: DockDropKind; // tab into a pane, split beside a leaf or at the stage edge, or float
+  slot: DockDropSlot; // 'pane': a pane of widgets; 'main': the main view; 'stage': the outer edge
+  pane: PaneNode | null; // the pane, when slot is 'pane'
+  edge: DockEdge | null; // the side, for a split
+}
+
+interface DockLayoutProps {
+  canDrop?: (id: WidgetId, drop: DockDrop) => boolean; // new
+  floatSnap?: number; // new: a distance in px, off when left out or 0
+}
+
+interface WidgetManagerProps {
+  canDrop?: (id: WidgetId, drop: DockDrop) => boolean; // new, asked after the groups
+  floatSnap?: number; // new, passed to DockLayout
+}
+
+const keepsGroups: (groupOf: (id: WidgetId) => string | undefined, id: WidgetId, drop: DockDrop) => boolean; // new
+```
+
+- **Groups.** WidgetManager never lets a widget tab into, or split beside, a pane that holds a widget of another group. Widgets with no `group` form one group of their own, so a dock with no groups works as before. A grouped widget still splits beside the main view, docks at the outer edge of the stage, and floats. A kit widget dropped beside the main view starts a pane of its own, where the rest of its kit can join it.
+- **`canDrop`** answers every drop of a widget, for any rule of the host. WidgetManager asks its own `canDrop` only after the groups allow the drop. DockLayout asks it while the widget moves, and leaves out each refused hint: no compass button, no edge band and no preview. Where the pointer rests on a refused spot, no hint shows and letting go does nothing; the widget stays where it was. Drop resolution asks again when the pointer lets go, and a widget arriving from another window is checked the same way, so a hint never promises a drop that then fails. Floating stays allowed unless `canDrop` refuses `kind: 'float'`; refusing it turns the main view into a dock target beside itself. Moving the main view and swapping panes with Shift are not widget drops and are not asked.
+- **Keyboard docking.** DockLayout has none: its keys only hold Alt, Shift and Ctrl to change a drag, and docking from a widget menu goes through `dockOnEdge`, which the app calls itself. A host that docks from the keyboard asks its own `canDrop` first.
+- **`keepsGroups`** is the group rule as a pure function, for an app that draws DockLayout without WidgetManager: `canDrop={(id, drop) => keepsGroups(groupOf, id, drop)}`.
+- **`floatSnap`** snaps a floating widget while it is moved or resized. Each moved edge snaps to the nearest edge of the stage, the main view or another floating widget within that many pixels, on each axis. A resize snaps only the edges it holds, and never below `floatingMin` or out of the main view. A moved widget is still placed clear of the others as before; the others never move. Thin guide lines, 1 px in `--c-primary-bright` (`.dock-snap-guide`, `--x` for a vertical line and `--y` for a horizontal one), run along each edge the widget sits on, over both boxes, while the move or resize lasts. Nothing animates, so reduced motion changes nothing.
+
+Without the new props DockLayout behaves and looks as before. Measured in a browser at 1440 px against the gallery before the change: the DockLayout Playground, Tiled, Floating and Peek pages and the Widget Overview and Dock pages keep every box (309, 287, 309, 158, 2296 and 531 boxes); five drags on the Tiled and Floating pages (a tab and a title bar into the main view, a tab onto a pane, a floating widget moved and docked) draw the same hints, previews and drag label, and leave the same panes. No console errors.
+
+### Gallery and tests
+
+The DockLayout Overview rewrites its last two points, on `floatSnap` and `canDrop`, and gains two examples: A kit kept apart from other widgets, where Elements and Network are one kit tabbed on the right beside Players, Hints and the log, and Floating widgets that snap to edges, with `floatSnap={12}`. On the Overview the header and the first three examples keep their boxes; the two examples add 1016 px, so the states, the playground and the code move down by that. Measured on the new examples: a kit widget over Players or the log shows no hint inside that pane and no preview, and letting go leaves the layout as it was; Players over the kit pane shows none either; the log over Players still shows its five compass buttons and its preview; Network beside the main view docks into a pane of its own. The Console moved with its left edge 7 px inside the main view lands on its edge (0.00 px), with a guide in the token colour; the Hints west edge resized to 6 px past the Console lands on its right edge (0.00 px) with its own right edge kept, and the Console does not move; the same holds under reduced motion. `tests/dock-groups.test.mjs` checks the drop description, the group rule, the hints left out, a release that does nothing, the check at resolution, an arriving widget, floating and the WidgetManager order. `tests/dock-float-snap.test.mjs` checks moves, resizes, the minimum and the main view, the guides, that other widgets never move, and that snapping is off by default. The Widget usage rules gain one on `group`.
+
+### What Brock does
+
+- **Kits.** Give every widget definition of a kit the same `group`, such as `'developer-tools'` for RotP's tools, and leave ordinary widgets without one. WidgetManager does the rest. Where Brock draws DockLayout itself, pass `canDrop={(id, drop) => keepsGroups((w) => definitions[w]?.group, id, drop)}`.
+- **Kit layout.** Open a kit as one pane, or as its own split, beside the main view or at the stage edge: `dockOnEdge` for the first widget, then `dockWidget` with `{ at: 'tab', key }` or `{ at: 'leaf', key, edge }` on its pane for the rest. Users can then rearrange the kit inside itself but never mix it with other widgets.
+- **Snapping.** Pass `floatSnap` (8 to 12 px reads well) to WidgetManager or DockLayout where floating widgets should line up; leave it out to keep free placement.

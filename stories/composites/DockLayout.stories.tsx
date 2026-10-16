@@ -1,5 +1,5 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -65,6 +65,23 @@ const Peek = {
   render: (args) => <DockDemo {...args} peek />,
 } satisfies PlaygroundStory<DockArgs>;
 
+const Kit = {
+  name: 'A kit kept apart from other widgets',
+  render: () => (
+    <DockDemo
+      start="kit"
+      hint="Elements and Network are one kit. Drag either onto Players or the log: no hint shows and the drop does nothing."
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<DockArgs>;
+
+const Snap = {
+  name: 'Floating widgets that snap to edges',
+  render: () => (
+    <DockDemo start="snap" floatSnap={12} hint="Move or resize a floating widget near an edge: within 12 px it snaps, and a guide line shows." />
+  ),
+} satisfies StoryLiteStoryDefinition<DockArgs>;
+
 const renderState = (props: StateProps) => (
   <DockDemo className="dock-story--state" floating={false} peek={props.peek === true} />
 );
@@ -94,11 +111,11 @@ const Overview = overviewStory({
     '**It owns no data:** every change leaves through `onEdit` as a `LayoutEdit` for the host to apply.',
     'Drag a title bar to dock, tab or float the widget, or past the window edge to pop it out through `onPopOut`.',
     'A small hint beside the pointer lists the keys: [[Shift]] swaps panes, [[Ctrl]] overlays, [[Esc]] cancels.',
-    'Drag a divider, or any edge of a floating widget down to `floatingMin`, to resize; double-click evens a divider.',
-    'The menus of a widget, its gear and its pin, open above the dock and are never clipped by a pane.',
+    'Drag a divider or a floating edge to resize, double-click to even a divider; `floatSnap` snaps to edges.',
+    '`canDrop` refuses a drop and its hint; WidgetManager uses it to keep each widget `group` in its own panes.',
   ],
   playground: Playground,
-  variants: [Tiled, Floating, Peek],
+  variants: [Tiled, Floating, Peek, Kit, Snap],
   states: {
     render: renderState,
     list: [
@@ -112,4 +129,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Floating, Overview, Peek, Playground, Tiled };
+export { Floating, Kit, Overview, Peek, Playground, Snap, Tiled };

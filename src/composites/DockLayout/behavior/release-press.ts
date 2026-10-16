@@ -10,7 +10,7 @@ const releasePress = (press: Press, latest: DockDragLatest, point?: ScreenPoint)
     return;
   }
   if (!view) return;
-  const result = resolveDrop(source, view);
+  const result = resolveDrop(source, view, latest.context);
   if (result.popOut) latest.onPopOut?.(result.popOut, point);
   else if (result.edit) latest.onEdit(result.edit);
 };

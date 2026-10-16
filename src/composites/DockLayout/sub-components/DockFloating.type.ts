@@ -6,6 +6,8 @@ import type { DragView } from '../behavior/drag.type';
 interface DockFloatingProps {
   floating: FloatingWidget[];
   mainRect: Rect;
+  stage: Rect;
+  floatSnap: number;
   drag: DragView | null;
   dragId: WidgetId | null;
   min: Size;

@@ -2,12 +2,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { Rect } from '../DockLayout.type';
-import type { FloatResizeParams, ResizeEdge } from './float-resize.type';
+import type { FloatResizeParams, LiveResize, ResizeEdge } from './float-resize.type';
 import { listenResize } from './listen-resize';
 import { sameRect } from './same-rect';
 
 const useFloatResize = (params: FloatResizeParams) => {
-  const [live, setLive] = useState<Rect | null>(null);
+  const [live, setLive] = useState<LiveResize | null>(null);
   const detach = useRef<(() => void) | null>(null);
   const latest = useRef(params);
   latest.current = params;
@@ -18,7 +18,7 @@ const useFloatResize = (params: FloatResizeParams) => {
     if (e.button !== 0 || detach.current) return;
     e.preventDefault();
     e.stopPropagation();
-    const { rect: start, bounds, min } = latest.current;
+    const { rect: start, bounds, min, snap } = latest.current;
     const onDone = (rect: Rect | null): void => {
       detach.current = null;
       setLive(null);
@@ -26,7 +26,8 @@ const useFloatResize = (params: FloatResizeParams) => {
       if (rect && !sameRect(rect, start)) onEdit({ type: 'float-widget', id, rect });
     };
     detach.current = listenResize({
-      handle: e.currentTarget, pointerId: e.pointerId, origin: { x: e.clientX, y: e.clientY }, edge, start, bounds, min, onLive: setLive, onDone,
+      handle: e.currentTarget, pointerId: e.pointerId, origin: { x: e.clientX, y: e.clientY }, edge, start, bounds, min, snap,
+      onLive: setLive, onDone,
     });
   }, []);
 

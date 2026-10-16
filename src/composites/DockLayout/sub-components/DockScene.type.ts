@@ -18,6 +18,8 @@ type DockSceneProps = Pick<DockLayoutProps, 'renderPane' | 'renderFloating'> & {
   gripLabel: string;
   mainGrip: DockMainGrip;
   floatingMin: Size;
+  floatSnap: number;
+  stage: Rect;
   peek: boolean;
 };
 

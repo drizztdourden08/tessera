@@ -61,6 +61,17 @@ type DockTarget = Exclude<DropTarget, { at: 'float' }>;
 
 type MainTarget = Exclude<DropTarget, { at: 'float' } | { at: 'tab' }>;
 
+type DockDropKind = 'tab' | 'split' | 'float';
+
+type DockDropSlot = 'pane' | 'main' | 'stage';
+
+interface DockDrop {
+  kind: DockDropKind;
+  slot: DockDropSlot;
+  pane: PaneNode | null;
+  edge: DockEdge | null;
+}
+
 interface DockTree {
   dock: LayoutNode;
   floating: FloatingWidget[];
@@ -113,10 +124,13 @@ interface DockLayoutProps {
   gripLabel?: string;
   mainGrip?: DockMainGrip;
   floatingMin?: Size;
+  canDrop?: (id: WidgetId, drop: DockDrop) => boolean;
+  floatSnap?: number;
   className?: string;
 }
 
 export type {
-  DockEdge, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget, LayoutEdit,
-  LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis, SplitNode, WidgetId,
+  DockDrop, DockDropKind, DockDropSlot, DockEdge, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget,
+  ExternalDrag, FloatingWidget, LayoutEdit, LayoutNode, LeafNode, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis,
+  SplitNode, WidgetId,
 };

@@ -13,6 +13,12 @@
   min-height: 0;
 }
 
+.dock-story__kit {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  white-space: pre;
+}
+
 .dock-story__main {
   display: flex;
   flex-direction: column;

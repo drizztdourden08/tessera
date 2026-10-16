@@ -7,6 +7,6 @@ import { externalView } from './external-view';
 import { resolveDrop } from './resolve-drop';
 
 const externalDrop = (ctx: DragContext, drag: ExternalPointer, view: Window, size: Size = FLOAT_BOX): DropResult =>
-  resolveDrop(externalSource(drag.id, drag.pointer, size), externalView(ctx, drag, view, size));
+  resolveDrop(externalSource(drag.id, drag.pointer, size), externalView(ctx, drag, view, size), ctx);
 
 export { externalDrop };

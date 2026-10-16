@@ -40,8 +40,9 @@ interface ExternalDragParams {
   sizeOf?: (id: WidgetId) => Size;
 }
 
-type DockStageParams = Pick<DockLayoutProps, 'layout' | 'labelOf' | 'canPopOut' | 'onMainRect'> & {
+type DockStageParams = Pick<DockLayoutProps, 'layout' | 'labelOf' | 'canPopOut' | 'onMainRect' | 'canDrop'> & {
   peek: boolean;
+  floatSnap: number;
   modifiers: DragModifiers;
   mainLabel: string;
   strings: TesseraStrings['widgets'];
@@ -61,6 +62,7 @@ interface DockSettings {
   gripLabel: string;
   mainGrip: DockMainGrip;
   floatingMin: Size;
+  floatSnap: number;
 }
 
 interface DockKeys {

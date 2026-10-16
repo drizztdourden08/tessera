@@ -3,8 +3,10 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { DockLayout, applyEdit, removeEverywhere, useDockKeys } from '../../../src/composites';
 import type { DockMainGrip, FloatingWidget, LayoutEdit, PaneNode, Rect, WidgetId, WidgetLayout } from '../../../src/composites';
 import { Box, Text } from '../../../src/primitives';
+import { kitDrop } from './data-dock-kit';
 import { dockDemoLayout } from './dock-demo-layouts';
 import { DOCK_LABELS, FALLBACK_MAIN } from './dock-demo.constants';
+import type { DockDemoStart } from './dock-demo.type';
 import { DockDemoPane } from './DockDemoPane';
 
 type DockDemoProps = {
@@ -15,14 +17,17 @@ type DockDemoProps = {
   mainLabel?: string;
   gripLabel?: string;
   mainGrip?: DockMainGrip;
+  start?: DockDemoStart;
+  floatSnap?: number;
+  hint?: string;
   className?: string;
 };
 
 const labelOf = (id: WidgetId): string => DOCK_LABELS[id] ?? id;
 
 const DockDemo = (props: DockDemoProps) => {
-  const { peek = false, swap = false, overlay = false, floating = true, mainLabel, gripLabel, mainGrip, className = '' } = props;
-  const [layout, setLayout] = useState<WidgetLayout>(() => dockDemoLayout(floating));
+  const { peek = false, swap = false, overlay = false, floating = true, mainLabel, gripLabel, mainGrip, start, className = '' } = props;
+  const [layout, setLayout] = useState<WidgetLayout>(() => dockDemoLayout(floating, start));
   const keys = useDockKeys();
   const mainRef = useRef<Rect | null>(null);
   const onEdit = useCallback((edit: LayoutEdit) => setLayout((prev) => applyEdit(prev, edit, mainRef.current ?? FALLBACK_MAIN)), []);
@@ -48,10 +53,12 @@ const DockDemo = (props: DockDemoProps) => {
         mainLabel={mainLabel}
         gripLabel={gripLabel}
         mainGrip={mainGrip}
+        canDrop={start === 'kit' ? kitDrop : undefined}
+        floatSnap={props.floatSnap}
         main={(
           <Box className="dock-story__main">
             <Text className="story-label">Main view</Text>
-            <Text>Drag a title bar, a tab or the grip on top of the main view.</Text>
+            <Text>{props.hint ?? 'Drag a title bar, a tab or the grip on top of the main view.'}</Text>
           </Box>
         )}
       />

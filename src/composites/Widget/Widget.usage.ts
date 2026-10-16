@@ -16,6 +16,7 @@ const usage = {
     'Answer contextActive with one flag, or with a function that reads each definition, such as its own context field.',
     'Keep that function stable with useCallback; Tessera calls it only for the widgets shown in context only.',
     'Give a log or a chart fill in its definition, and leave the other widgets on the default padding.',
+    'Give every widget of a kit, such as developer tools, the same group: it then never tabs or splits with a widget outside it.',
     'A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.',
     'Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.',
     'To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest.',

@@ -1,9 +1,10 @@
 /* @layer renderer-components @kind types */
 import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
 import type {
-  DockTree, DragModifiers, DropTarget, FloatingWidget, LayoutEdit, Rect, Size, WidgetId,
+  DockDrop, DockTree, DragModifiers, DropTarget, FloatingWidget, LayoutEdit, Rect, Size, WidgetId,
 } from '../DockLayout.type';
 import type { LaidOut } from './layout-tree.type';
+import type { SnapGuide } from './snap.type';
 
 interface Point {
   x: number;
@@ -49,6 +50,7 @@ interface DragView {
   swap: boolean;
   overlay: boolean;
   floatingRect: Rect | null;
+  guides: SnapGuide[];
 }
 
 interface DragContext {
@@ -61,7 +63,11 @@ interface DragContext {
   mainLabel: string;
   strings: TesseraStrings['widgets'];
   canPopOut?: (id: WidgetId) => boolean;
+  canDrop?: (id: WidgetId, drop: DockDrop) => boolean;
+  floatSnap: number;
 }
+
+type DropCheck = Pick<DragContext, 'canDrop' | 'laid'>;
 
 interface PointerPlace {
   pointer: Point;
@@ -86,5 +92,5 @@ interface ExternalPointer {
 }
 
 export type {
-  DragContext, DragSource, DragSubject, DragView, DropResult, DropZone, ExternalPointer, HeldKeys, Point, PointerPlace,
+  DragContext, DragSource, DropCheck, DragSubject, DragView, DropResult, DropZone, ExternalPointer, HeldKeys, Point, PointerPlace,
 };

@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind data */
 import type { IconName } from '../../primitives/Icon';
-import type { DockEdge, DragModifiers, MainNode, Size } from './DockLayout.type';
+import type { DockEdge, DragModifiers, DropTarget, MainNode, Size } from './DockLayout.type';
 import type { ResizeEdge, ResizeSides } from './behavior/float-resize.type';
+import type { SnapAxis, SnapLines } from './behavior/snap.type';
 
 const GAP = 8;
 
@@ -52,11 +53,20 @@ const HANDLE_SELECTOR = '[data-drag-tab],[data-drag-widget],[data-drag-main]';
 
 const NO_MODIFIERS: DragModifiers = { swap: false, overlay: false };
 
+const FLOAT_DROP: DropTarget = { at: 'float' };
+
+const SNAP_EPSILON = 0.5;
+
+const SNAP_AXES: readonly SnapAxis[] = ['x', 'y'];
+
+const NO_SNAP_LINES: SnapLines = { x: [], y: [] };
+
 const HINT_ICONS: Record<DockEdge | 'tab', IconName> = {
   left: 'panel-left', right: 'panel-right', top: 'panel-top', bottom: 'panel-bottom', tab: 'layers',
 };
 
 export {
-  COMPASS, COMPASS_STEPS, DRAG_THRESHOLD, EDGES, EXTERNAL_GRAB, FLOAT_BOX, FLOAT_MIN, GAP, GHOST_OFFSET, HANDLE_SELECTOR, HINT_ICONS,
-  MAIN_NODE, MAX_PUSHES, MIN_SIZE, NO_HELD_KEYS, NO_MODIFIERS, OUTER_STRIP, POP_MARGIN, RESIZE_EDGES, RESIZE_SIDES, SHARE, STRIP,
+  COMPASS, COMPASS_STEPS, DRAG_THRESHOLD, EDGES, EXTERNAL_GRAB, FLOAT_BOX, FLOAT_DROP, FLOAT_MIN, GAP, GHOST_OFFSET, HANDLE_SELECTOR,
+  HINT_ICONS, MAIN_NODE, MAX_PUSHES, MIN_SIZE, NO_HELD_KEYS, NO_MODIFIERS, NO_SNAP_LINES, OUTER_STRIP, POP_MARGIN, RESIZE_EDGES,
+  RESIZE_SIDES, SHARE, SNAP_AXES, SNAP_EPSILON, STRIP,
 };

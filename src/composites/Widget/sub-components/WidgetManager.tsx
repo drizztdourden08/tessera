@@ -6,6 +6,7 @@ import type { FloatingWidget, LayoutEdit, PaneNode, Rect, WidgetId } from '../..
 import { FALLBACK_FLOAT_SIZE } from '../Widget.constants';
 import type { WidgetDefinition } from '../Widget.type';
 import { applyEdit } from '../behavior/apply-edit';
+import { groupDrop } from '../behavior/group-drop';
 import { mainOrWindow } from '../behavior/main-or-window';
 import { removeEverywhere } from '../behavior/remove-everywhere';
 import { useDockApi } from '../behavior/useDockApi';
@@ -54,6 +55,7 @@ const WidgetManager = <D extends WidgetDefinition = WidgetDefinition>(props: Wid
     <WidgetPane api={api} widgets={[f.id]} activeId={f.id} paneKey={null} options={optionsOf(f.id, rect)} />
   );
   const sizeOf = useCallback((id: WidgetId) => api.definitionOf(id)?.defaultFloatingSize ?? FALLBACK_FLOAT_SIZE, [api]);
+  const canDrop = useMemo(() => groupDrop(api.definitionOf, props.canDrop), [api, props.canDrop]);
 
   return (
     <Box className={`widget-manager${className ? ` ${className}` : ''}`}>
@@ -73,6 +75,7 @@ const WidgetManager = <D extends WidgetDefinition = WidgetDefinition>(props: Wid
         onExternalDrop={dropIn}
         sizeOf={sizeOf}
         mainLabel={props.mainLabel} gripLabel={props.gripLabel} mainGrip={props.mainGrip} floatingMin={props.floatingMin}
+        canDrop={canDrop} floatSnap={props.floatSnap}
       />
     </Box>
   );
