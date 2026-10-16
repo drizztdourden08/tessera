@@ -35,7 +35,7 @@ const SaveBar = ({ saving, onSave }: { saving: boolean; onSave: () => void }) =>
   <Button variant="primary" loading={saving} onClick={onSave}>Save</Button>
 );
 `,
-  propsHash: '7b3ff9e719031974',
+  propsHash: 'f44f9bfc9d38ce6e',
 } satisfies ComponentUsage;
 
 export { usage };

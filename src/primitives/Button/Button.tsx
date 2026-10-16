@@ -3,6 +3,7 @@ import { forwardRef } from 'react';
 import '../../theme/button-surface.css';
 import { DENSITY_SIZE } from '../field-control/density.constants';
 import { useDensity } from '../field-control/useDensity';
+import { useHintTarget } from '../hint/useHintTarget';
 import './Button.css';
 import type { ButtonProps } from './Button.type';
 import { buttonClass } from './behavior/button-class';
@@ -13,8 +14,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const density = useDensity();
   const {
     variant = 'tertiary', size = DENSITY_SIZE[density], fullWidth = false, active = false, loading = false, disabled,
-    icon, iconEnd, children, className = '', ...rest
+    icon, iconEnd, hint, onHint, children, className = '', ...rest
   } = props;
+  const hintHandlers = useHintTarget({ hint, onHint, handlers: rest });
   const cls = buttonClass({ variant, size, fullWidth, active, loading, oneLine: plainLabel(children), className });
 
   return (
@@ -25,6 +27,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
       aria-busy={loading || undefined}
       disabled={loading || disabled}
       {...rest}
+      {...hintHandlers}
     >
       <ButtonIcon icon={icon} loading={loading} />
       <span className="btn__label">{children}</span>

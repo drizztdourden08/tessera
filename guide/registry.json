@@ -7570,7 +7570,7 @@
         "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
       },
       "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
-      "propsHash": "49a2fe88f3c60a17",
+      "propsHash": "9efc3f04cd1babc9",
       "props": {
         "own": [
           {
@@ -7603,6 +7603,11 @@
             "name": "label",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "hint",
+            "optional": true,
+            "text": "Hint"
           },
           {
             "name": "variant",
@@ -7645,6 +7650,11 @@
             "name": "iconEnd",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "onHint",
+            "optional": true,
+            "text": "HintReport"
           }
         ],
         "inherited": {

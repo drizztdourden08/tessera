@@ -86,6 +86,16 @@
   margin-block-start: var(--space-2xs);
 }
 
+.settings-row__rest {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.settings-row__rest-line {
+  line-height: var(--leading-normal);
+}
+
 .settings-row__hint-label {
   margin-inline-end: var(--space-2xs);
   font-weight: var(--weight-bold);

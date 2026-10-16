@@ -8,6 +8,8 @@ interface RowHints {
   resting: string;
   hints: readonly Hint[];
   whole: Hint;
+  rest: readonly Hint[];
+  current?: Hint;
 }
 
 export type { RowHints, Words };

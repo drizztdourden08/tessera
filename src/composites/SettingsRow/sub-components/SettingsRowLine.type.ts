@@ -6,6 +6,7 @@ interface SettingsRowLineProps {
   hints: readonly Hint[];
   pointed?: Hint;
   quiet?: boolean;
+  rest: readonly Hint[];
 }
 
 export type { SettingsRowLineProps };

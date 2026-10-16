@@ -3,11 +3,11 @@ import { Span, Strong } from '../../../primitives/text-elements';
 import type { SettingsRowHintTextProps } from './SettingsRowHintText.type';
 
 const SettingsRowHintText = (props: SettingsRowHintTextProps) => {
-  const { hint } = props;
+  const { hint, current = false } = props;
   return (
     <>
       {hint.label !== '' && <><Strong className="settings-row__hint-label">{hint.label}</Strong>{' '}</>}
-      <Span tone="muted">{hint.description}</Span>
+      <Span tone={current ? undefined : 'muted'}>{hint.description}</Span>
     </>
   );
 };

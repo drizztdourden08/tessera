@@ -7806,3 +7806,84 @@ The Overview points of DropZone and PathInput say that a disabled box swallows t
 ### What Brock and RotP do
 
 Nothing. A disabled DropZone in RotP stops opening a dropped file after the upgrade.
+
+## 233. A toggle's On and Off hints at rest, and long tooltips that wrap
+
+Two items from the RotP migration. RotP's bug-fix rows each explain what On and Off do, and the owner wants that always in view in the hint style with the gold labels; today a toggle's `hints` show only while the toggle is pointed at. And a long Tooltip note, such as a disabled tab's reason, ran past its box.
+
+### A toggle's hints at rest
+
+```ts
+interface SettingsToggleInput {
+  kind: 'toggle';
+  hints?: { on?: string; off?: string; atRest?: boolean }; // atRest added, false by default
+}
+```
+
+- **`atRest: true`** draws the On and Off lines under the row hint at all times, one line each: the gold On or Off label, the same `.settings-row__hint-label` the pointed hint uses, then its text. The line of the current state draws its text in the body colour and the other in the muted tone, so flipping the toggle moves the emphasis.
+- **The hint line stays the row hint.** Pointing at the toggle no longer repeats its On or Off text in the line above, since both are in view, and the line keeps room only for the hints it can still show (the row hint and the reset hint).
+- **A compact row** keeps its one line and its bubble; `atRest` does nothing there.
+- **The default is unchanged.** Without `atRest` the hints show in the line only while the toggle is pointed at or focused.
+- The lines sit in `.settings-row__rest`, each a `.settings-row__rest-line` with `data-current` on the current one.
+
+Measured on the new gallery section in the RotP palette: each line is 18 px at 12 px; the labels are the brand's primary bright gold at weight 700; the current text is the body colour and the other the muted tone. A row with a description grows from 82 to 120 px, the two lines and the gap.
+
+### What RotP changes
+
+On each bug-fix row, move the On and Off sentences out of the row `hint` and into the toggle:
+
+```ts
+input: {
+  kind: 'toggle', value, onChange,
+  hints: { on: 'The game uses the fixed behaviour.', off: 'It keeps the original bug.', atRest: true },
+},
+```
+
+The row `hint` then keeps whatever else the row has to say, such as when the change takes effect.
+
+### Long tooltips wrap
+
+`.tooltip` had `max-width: var(--size-256)` with `white-space: nowrap`, so a long note ran past the right edge of its box. It now takes `width: max-content` and `overflow-wrap: anywhere` in place of `nowrap`: a note shorter than the box sizes to its text on one line, as before, and a longer one wraps inside 256 px.
+
+Measured by pointing at 312 tooltips on 20 gallery pages before and after (Tooltip, Tabs, WindowTitleBar, SettingsRow, SettingsSection, RadioGroup, Carousel, ContentHeader, FactsPanel, FileList, RowGrid, UtilityScreen, StackedBar, Select and the disabled options of SettingsRow): 273 keep their width and height, among them every title bar tip, the disabled tab and option reasons, and the `follow="pointer"` tips. Five StackedBar tips differ only because the sample data changes on each load. The others that change were wider than the box:
+
+- **FileList**, 22 file button notes such as Show AP_48213907715260934413.zip in its folder: they ran out of the box, and now wrap to two or three lines (46 or 64 px tall), breaking inside the long file name where needed.
+- **SettingsRow, compact**, the description tooltips on the title: the long Hint policy description ran far out of its box and now wraps (208 px tall); three short descriptions that ran 1 to 2 px into the padding, such as A custom control: anything the host draws., now take two lines (46 px).
+- **Tooltip**, the new section below.
+
+The disabled tab on the new section shows a 256 by 64 px box, three lines, its text ending 11 px inside the right edge; the short note beside it is 93 by 28 px on one line.
+
+### Gallery
+
+The SettingsRow page gains A toggle that explains On and Off at rest: three bug-fix rows with the hints at rest, on and off, and one row with the default for comparison. The Tooltip page gains A long note wraps inside its box: a disabled tab with a long reason, a button with the same long note and one with a short note. Both Overviews name the change.
+
+## 234. Button reports a hint
+
+RotP wraps some Buttons in `useHintTarget` so they report a hint to the HintScope around them. IconButton has done this on its own through `hint` and `onHint`; Button now does the same.
+
+### What changed
+
+```ts
+interface HintTargetProps { hint?: Hint; onHint?: HintReport } // new public type
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, HintTargetProps {} // hint and onHint added
+interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, HintTargetProps { label: string } // same props as before
+interface UseHintTargetParams<E extends Element> extends HintTargetProps { handlers?: HintTargetHandlers<E> }
+```
+
+- **Pointing at the button or moving to it with Tab** reports the hint to the nearest HintScope and to `onHint`, and leaving or blurring clears it, exactly as on IconButton. Both run the same `useHintTarget` hook, and the caller's own `onMouseEnter`, `onMouseLeave`, `onFocus` and `onBlur` still run.
+- **The props come from one type.** `HintTargetProps` holds `hint` and `onHint` for Button, IconButton and `useHintTarget`, in place of three copies.
+- **A Button without `hint`** draws the same markup as before.
+
+Measured on the new gallery section: the HintLine reads Point at a button to read what it does. at rest, Load and its text while the pointer is on Load, the idle line again once it leaves, and Save and its text when Tab reaches Save.
+
+### What RotP changes
+
+Drop the `useHintTarget` wrapper around a Button and pass the hint straight to it:
+
+```tsx
+<Button hint={{ label: 'Load', description: 'Puts back the last saved slot.' }}>Load</Button>
+```
+
+### Gallery
+
+The Button page gains Reporting a hint to a HintLine: three buttons in a HintScope over a HintLine. The Button Overview names `hint`, and the HintScope Overview lists Button among the parts that report on their own.

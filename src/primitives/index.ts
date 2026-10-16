@@ -129,7 +129,7 @@ export { HintScope } from './HintScope';
 export type { HintScopeProps } from './HintScope';
 export { useHint, useHintReport, useHintTarget } from './hint';
 export type {
-  Hint, HintHandlers, HintReport, HintReporter, HintTargetHandlers, UseHintReportParams, UseHintTargetParams,
+  Hint, HintHandlers, HintReport, HintReporter, HintTargetHandlers, HintTargetProps, UseHintReportParams, UseHintTargetParams,
 } from './hint';
 export type { ActionData, BackAction } from './action-data';
 export { Tooltip } from './Tooltip';

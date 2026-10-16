@@ -13,6 +13,7 @@
   --anchored-gap: var(--size-6);
 
   position: fixed;
+  width: max-content;
   max-width: var(--size-256);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-sm);
@@ -23,5 +24,5 @@
   font-size: var(--text-xs);
   line-height: var(--leading-normal);
   pointer-events: none;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }

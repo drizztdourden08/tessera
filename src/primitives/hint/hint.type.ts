@@ -33,9 +33,12 @@ interface HintReporter<K extends string> {
 
 type HintTargetHandlers<E extends Element> = Pick<DOMAttributes<E>, 'onMouseEnter' | 'onMouseLeave' | 'onFocus' | 'onBlur'>;
 
-interface UseHintTargetParams<E extends Element> {
+interface HintTargetProps {
   hint?: Hint;
   onHint?: HintReport;
+}
+
+interface UseHintTargetParams<E extends Element> extends HintTargetProps {
   handlers?: HintTargetHandlers<E>;
 }
 
@@ -44,6 +47,6 @@ interface HintScopeProps {
 }
 
 export type {
-  Hint, HintEntry, HintHandlers, HintReport, HintReporter, HintScopeProps, HintSourceReport, HintTargetHandlers,
+  Hint, HintEntry, HintHandlers, HintReport, HintReporter, HintScopeProps, HintSourceReport, HintTargetHandlers, HintTargetProps,
   UseHintReportParams, UseHintTargetParams,
 };

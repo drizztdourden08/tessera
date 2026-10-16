@@ -56,11 +56,13 @@ const Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () =
 - `attempts` (optional): `number`.
 - `retrying` (optional): `boolean`. Default `false`.
 - `label` (optional): `string`.
+- `hint` (optional): `Hint`.
 - `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`. Default `'secondary'`.
 - `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`. Default `'sm'`.
 - `fullWidth` (optional): `boolean`.
 - `active` (optional): `boolean`.
 - `iconEnd` (optional): `ReactNode`.
+- `onHint` (optional): `HintReport`.
 
 It also takes the 286 attributes it inherits through `Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'>`, `ButtonHTMLAttributes<HTMLButtonElement>`.
 

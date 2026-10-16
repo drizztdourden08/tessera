@@ -6,6 +6,7 @@ import type { ButtonSize, ButtonVariant } from '../../src/primitives/Button/Butt
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
+import { ButtonHints } from './_samples/ButtonHints';
 import { ButtonLoading } from './_samples/button-loading';
 import { BUTTON_STATES } from './_samples/button-states';
 import { markedStates } from './_samples/marked-states';
@@ -108,6 +109,11 @@ const TightRow = {
   ),
 } satisfies StoryLiteStoryDefinition<ButtonArgs>;
 
+const Hints = {
+  name: 'Reporting a hint to a HintLine',
+  render: () => <ButtonHints />,
+} satisfies StoryLiteStoryDefinition<ButtonArgs>;
+
 const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   <Flex gap="sm" align="center">
     {STATE_BUTTONS.map(({ variant, label, withIcon }) => (
@@ -123,15 +129,15 @@ const Overview = overviewStory({
     '`primary` marks the main action of a view; `secondary` and `tertiary` sit beside it, `ghost` in toolbars.',
     '`danger`, `warning`, `info` and `success` carry an urgency.',
     '`md` is 39 px tall, `sm` 28 px and `xs` 20 px; a compact [DensityScope] makes `sm` the default.',
-    '`active` marks a toggle button as on, and it is announced as pressed.',
+    '`active` marks a toggle button as on, announced as pressed; `hint` reports to a [HintScope], as on [IconButton].',
     '`icon` sits before the label and `iconEnd` after it, such as a chevron on a button that opens a list.',
     '`loading` shows a [Spinner], keeps the width and ignores clicks; a `disabled` button fades and never spins.',
   ],
   instead: '[IconButton] for an icon alone, or [Pressable] for a clickable surface with a look of its own.',
   playground: Playground,
-  variants: [AllVariants, Icons, Loading, TightRow],
+  variants: [AllVariants, Icons, Loading, TightRow, Hints],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, Icons, Loading, Overview, Playground, TightRow };
+export { AllVariants, Hints, Icons, Loading, Overview, Playground, TightRow };

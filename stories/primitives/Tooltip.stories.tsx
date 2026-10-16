@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Button, Status, Text, Tooltip } from '../../src/primitives';
+import { Box, Button, Status, Tabs, Text, Tooltip } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { TooltipPointerDemo } from './_samples/TooltipPointerDemo';
 import './Tooltip.stories.css';
@@ -64,6 +64,32 @@ const Placements = {
   ),
 } satisfies StoryLiteStoryDefinition<TooltipArgs>;
 
+const LONG_REASON = 'Finish the Forest Temple first. The map opens once the Deku Tree is cleared and Saria has given you her song.';
+
+const LONG_TABS = [
+  { id: 'items', label: 'Items' },
+  { id: 'map', label: 'Map', disabled: true, disabledReason: LONG_REASON },
+  { id: 'quest', label: 'Quest' },
+];
+
+const LongNote = {
+  name: 'A long note wraps inside its box',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">Point at the Map tab or the button: the note wraps at 256 px, while a short one stays on one line</Text>
+      <Tabs tabs={LONG_TABS} activeTab="items" onTabChange={() => undefined} />
+      <Box className="story-row">
+        <Tooltip content={LONG_REASON}>
+          <Button variant="secondary">Long note</Button>
+        </Tooltip>
+        <Tooltip content="Opens above">
+          <Button variant="secondary">Short note</Button>
+        </Tooltip>
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<TooltipArgs>;
+
 const FollowPointer = {
   name: 'Following the pointer',
   render: () => <TooltipPointerDemo />,
@@ -78,12 +104,12 @@ const Overview = overviewStory({
     'It opens above by default, or below with `placement="bottom"`.',
     '`follow="pointer"` sets it beside the pointer and keeps it inside the window, for a hint over a wide area.',
     'It draws above the page, so a clipped panel does not cut it off.',
-    'With no `content` it draws nothing.',
+    'A long note wraps in a box at most 256 px wide; with no `content` it draws nothing.',
   ],
   instead: '[HintLine] for a panel that explains every option in one place.',
   playground: Playground,
-  variants: [Placements, FollowPointer],
+  variants: [Placements, LongNote, FollowPointer],
 });
 
 export default meta;
-export { FollowPointer, Overview, Placements, Playground };
+export { FollowPointer, LongNote, Overview, Placements, Playground };

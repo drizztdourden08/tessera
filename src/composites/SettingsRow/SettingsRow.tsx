@@ -20,7 +20,7 @@ const SettingsRow = (props: SettingsRowProps) => {
   const { settings } = useTesseraStrings();
   const { pointed, handlers } = useRowPointed();
   const context = { label: title, disabled, compact, strings: settings };
-  const { resting, hints, whole } = rowHints(props, settings);
+  const { resting, hints, whole, rest, current } = rowHints(props, settings);
   const shown = pointed ? whole : undefined;
   const head = { title, badge, changed, onReset: readOnly ? undefined : props.onReset };
 
@@ -29,7 +29,7 @@ const SettingsRow = (props: SettingsRowProps) => {
       <Box className={rowClass(props)} {...rowData(props)}>
         {compact
           ? <SettingsRowCompactText {...head} description={description} />
-          : <SettingsRowText {...head} description={description} descriptionLines={descriptionLines} resting={resting} hints={hints} pointed={shown} />}
+          : <SettingsRowText {...head} description={description} descriptionLines={descriptionLines} resting={resting} hints={hints} pointed={shown} rest={rest} current={current} />}
         <SettingsRowEnd actions={readOnly ? undefined : props.actions} disabled={disabled}>
           <SettingsRowInput input={input} readOnly={readOnly} context={context} handlers={handlers} pointed={shown} />
         </SettingsRowEnd>

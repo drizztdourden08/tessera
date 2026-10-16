@@ -19,7 +19,7 @@ interface SettingsInputBase<K extends string, V> {
 }
 
 interface SettingsToggleInput extends SettingsInputBase<'toggle', boolean> {
-  hints?: { on?: string; off?: string };
+  hints?: { on?: string; off?: string; atRest?: boolean };
 }
 
 interface SettingsChoiceInput<K extends string> extends SettingsInputBase<K, string> {

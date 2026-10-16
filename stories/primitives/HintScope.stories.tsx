@@ -37,7 +37,7 @@ const Overview = overviewStory({
   points: [
     'Put one around each panel that has a HintLine; it draws nothing and takes no props.',
     'A control reports to the nearest scope above it, so two panels never mix their hints.',
-    '[SegmentedControl], [ToggleGroup], [Toggle], [Slider] and [IconButton] report on their own.',
+    '[SegmentedControl], [ToggleGroup], [Toggle], [Slider], [Button] and [IconButton] report on their own.',
     '`useHintTarget` adds the same to any element, and `useHint` reads the current hint.',
   ],
   instead: '[Tooltip] for a hint on one control.',
