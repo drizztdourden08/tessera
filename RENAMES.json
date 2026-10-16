@@ -1339,6 +1339,19 @@
           "to": "primitives"
         }
       }
+    },
+    {
+      "version": "next",
+      "props": {
+        "InfoScreen.width": "removed; every InfoScreen opens as the small info dialog, at most 512 px wide (see MIGRATION.md section 230)"
+      },
+      "removedExports": {
+        "InfoScreenWidth": "removed with InfoScreen.width (see MIGRATION.md section 230)"
+      },
+      "cssClasses": {
+        "info-screen__column--readable": "info-screen__column",
+        "info-screen__column--wide": "info-screen__column"
+      }
     }
   ]
 }

@@ -1,6 +1,6 @@
 # InfoScreen
 
-A screen to read, such as About or credits: the window title bar with the close button, then wide margins and one centred column that scrolls.
+An informational window to read, such as About or credits: a small dialog sized to its content and centred, with the title bar, the close button and one column.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -12,14 +12,14 @@ The source is `src/composites/InfoScreen/InfoScreen.tsx`. Its gallery page is Co
 
 ## Where the questions lead here
 
-What are you placing? A full screen view. What is the screen for? Reading, such as About or credits.
+What are you placing? A full screen view. What is the screen for? An informational window with no tools, such as About or credits.
 
-One centred column to read.
+A small dialog sized to its content, one column to read.
 
 ## Use it when
 
 - About the app, credits, a licence or a welcome page.
-- The user reads and changes nothing.
+- The user reads and changes nothing: the window has no tools.
 
 ## Use something else when
 
@@ -29,11 +29,13 @@ One centred column to read.
 
 ## Rules
 
+- It opens small: the card fits its content, centred, at most 512 px wide, and only the column scrolls, once the window is too short for it.
+- Every informational window uses it, so About, credits and the like open at the same small size. A screen with tools is a WorkspaceScreen, a UtilityScreen or a StageScreen.
 - It has no page header and nothing adds one: the window title bar names it, and the column sits right under it.
 - Put a logo, the app name, a wordmark or a hero in lead, and the sections in the children.
-- Keep width="readable" for text; use width="wide" for a grid of cards, as credits need.
+- List credits one entry per line; never widen the window for a grid of cards.
 - Put legal text in footer, never in the last section.
-- In a narrow window the column takes the full width of the card and only the column scrolls; lay out lead and sections so they wrap.
+- In a window under 560 px wide the card fills it and the column takes its width; lay out lead and sections so they wrap.
 - On an About screen, put the logo and the app name in lead and the build facts in a FactsPanel.
 
 ## Accessibility
@@ -65,11 +67,10 @@ const AboutScreen = ({ onClose }: { onClose: () => void }) => (
 - `children`: `ReactNode`.
 - `lead` (optional): `ReactNode`.
 - `footer` (optional): `ReactNode`.
-- `width` (optional): `InfoScreenWidth`, one of `'readable'`, `'wide'`. Default `'readable'`.
 - `floating` (optional): `ReactNode`.
 - `hidden` (optional): `boolean`.
 - `className` (optional): `string`. Default `''`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-hairline`, `--c-text-dim`, `--dialog-w-md`, `--size-1024`, `--space-2xl`, `--space-lg`, `--space-md`, `--text-sm`.
+It draws on `--border-width-thin`, `--c-hairline`, `--c-text-dim`, `--space-lg`, `--space-md`, `--space-xl`, `--text-sm`.

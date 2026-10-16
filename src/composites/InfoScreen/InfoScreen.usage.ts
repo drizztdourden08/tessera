@@ -2,10 +2,10 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'A screen to read, such as About or credits: the window title bar with the close button, then wide margins and one centred column that scrolls.',
+  job: 'An informational window to read, such as About or credits: a small dialog sized to its content and centred, with the title bar, the close button and one column.',
   useWhen: [
     'About the app, credits, a licence or a welcome page.',
-    'The user reads and changes nothing.',
+    'The user reads and changes nothing: the window has no tools.',
   ],
   avoidWhen: [
     { case: 'The screen holds settings or several pages.', use: 'WorkspaceScreen' },
@@ -13,11 +13,13 @@ const usage = {
     { case: 'The screen is one big custom surface.', use: 'StageScreen' },
   ],
   rules: [
+    'It opens small: the card fits its content, centred, at most 512 px wide, and only the column scrolls, once the window is too short for it.',
+    'Every informational window uses it, so About, credits and the like open at the same small size. A screen with tools is a WorkspaceScreen, a UtilityScreen or a StageScreen.',
     'It has no page header and nothing adds one: the window title bar names it, and the column sits right under it.',
     'Put a logo, the app name, a wordmark or a hero in lead, and the sections in the children.',
-    'Keep width="readable" for text; use width="wide" for a grid of cards, as credits need.',
+    'List credits one entry per line; never widen the window for a grid of cards.',
     'Put legal text in footer, never in the last section.',
-    'In a narrow window the column takes the full width of the card and only the column scrolls; lay out lead and sections so they wrap.',
+    'In a window under 560 px wide the card fills it and the column takes its width; lay out lead and sections so they wrap.',
     'On an About screen, put the logo and the app name in lead and the build facts in a FactsPanel.',
   ],
   a11y: [
@@ -25,8 +27,8 @@ const usage = {
     'Give each section a heading, so a screen reader can jump between them.',
   ],
   tree: {
-    path: ['a full screen view', 'reading, such as About or credits'],
-    rule: 'One centred column to read.',
+    path: ['a full screen view', 'an informational window with no tools, such as About or credits'],
+    rule: 'A small dialog sized to its content, one column to read.',
   },
   example: `import { FactsPanel, H2, InfoScreen, Logo } from '@drizztdourden08/tessera';
 
@@ -41,7 +43,7 @@ const AboutScreen = ({ onClose }: { onClose: () => void }) => (
   </InfoScreen>
 );
 `,
-  propsHash: '2a8ecba5773d489b',
+  propsHash: 'c7adb144dd344a6b',
 } satisfies ComponentUsage;
 
 export { usage };

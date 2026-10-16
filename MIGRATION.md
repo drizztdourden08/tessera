@@ -7673,3 +7673,52 @@ Every DropdownMenu trigger with the hamburger: the WindowTitleBar main menu, the
 ### Gallery
 
 The DropdownMenu page gains The hamburger turns into an X while its menu is open: closed, open, a button to switch it back and forth with no menu, and the real menu, for the title bar and the site header looks. The Easings page lists `--ease-out`.
+
+## 230. Informational windows open small, sized to their content
+
+The owner found the About window "way too big", and the same for Credits: neither has any tools, yet both opened as a card that filled almost the whole window. The standard is now that an informational window, About, Credits or any other window with no tools, opens as a small dialog: sized to its content, centred, at most 512 px wide, and scrolling only when the window is too short for it.
+
+### Where the size came from
+
+- **About** is Tessera's. Brock's `AboutScreen` (`packages/react/src/screens/built-in/AboutScreen/AboutScreen.tsx`) draws an `InfoScreen`, and `InfoScreen` opened its `ScreenWindow` with no `size`, so the `ScreenLayer` took `fill`: the frame at 100% of the room inside the gap.
+- **Credits** is Brock's. RotP's `screens/credits.card.tsx` is a `card` screen, so Brock's `cardScreen` (`packages/react/src/screens/conventions/card-screen.ts`) sets `layer: 'fullscreen'`, and `ScreenHost` draws it through Brock's own `ScreenLayer` (`packages/react/src/screens/ScreenLayer/ScreenLayer.tsx`). That renders Tessera's `ScreenWindow` with no `size`, so `fill` again, with a `ScreenPage` header inside. Brock's built-in `createCreditsScreen` takes the same path. No change in Tessera reaches it; see What Brock and RotP do.
+
+### What changed
+
+```ts
+type ScreenLayerSize = 'fill' | 'compact' | 'info'; // 'info' added
+// ScreenWindow.size takes the same type and passes it to the ScreenLayer.
+
+interface InfoScreenProps {
+  // width removed, and the InfoScreenWidth type with it
+}
+```
+
+- **`size="info"`** on `ScreenLayer` and `ScreenWindow` sizes the card to its content, centred in the gap, at most `--size-512` wide and at most the height of the room. Under that height the window title bar stays and the body scrolls.
+- **`InfoScreen` always opens with `size="info"`.** Its column takes the width of the card, the gaps between lead, sections and footer drop from 2xl to xl, and the column lost its own block padding.
+- **`width` is gone** from `InfoScreen`, with `InfoScreenWidth` and the classes `info-screen__column--readable` and `info-screen__column--wide`. An informational window is never wide: list credits one entry per line. RENAMES.json notes all three.
+- **In a small window** the info card keeps a 12 px gutter and its border down to 560 px wide, where it fills the window like every other screen. On `.platform-mobile` it fills the window as `compact` does.
+- **Screens with tools keep their size.** `WorkspaceScreen` and `StageScreen` stay `fill`, `UtilityScreen` stays `compact` at 640 px.
+
+### Measured
+
+The InfoScreen gallery examples, with the gallery frame stretched to the whole window:
+
+| Example | Window | Card before | Card after | Share of the window | Scrolls |
+| --- | --- | --- | --- | --- | --- |
+| About | 1280 × 800 | 1182 × 702 | 512 × 532 | 81% to 27% | no |
+| About | 1920 × 1080 | 1746 × 906 | 512 × 532 | 76% to 13% | no |
+| Credits | 1280 × 800 | 1182 × 702 | 512 × 702 | 81% to 35% | yes, 949 px of content in 597 |
+| Credits | 1920 × 1080 | 1746 × 906 | 512 × 906 | 76% to 22% | yes, 949 px of content in 801 |
+
+The About column went from 640 px to 462 px, and its content from 475 px to 427 px tall. The Credits example now lists its entries one per line, so it is taller than both windows and scrolls inside the dialog.
+
+### Gallery and guide
+
+The InfoScreen page loses the `width` control; its Overview, the Credits variant and the usage file describe the small dialog. The ScreenLayer playground takes `size="info"`. The decision tree answer under A full screen view now reads An informational window with no tools, such as About or credits, and leads to InfoScreen; docs/using-tessera.md has the same row in Common needs.
+
+### What Brock and RotP do
+
+- **About** needs nothing: Brock's `AboutScreen` already draws an `InfoScreen` and opens small after the upgrade.
+- **Credits** needs Brock. Either a card screen gets a way to say it is informational, for example `meta.size: 'info'`, which Brock's `ScreenLayer` passes to `ScreenWindow` as `size` (with `header: 'none'`, since the title bar names it), or RotP's credits card draws an `InfoScreen` itself on `layer: 'own'`, as `AboutScreen` does. `createCreditsScreen` should take the same route.
+- RotP's `CreditsTab.css` then drops `overflow-y: auto` and `max-height: 100%` on `.credits-tab`: the InfoScreen column scrolls.

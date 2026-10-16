@@ -51,7 +51,7 @@ const ARGS: Partial<LayerArgs> = { size: 'fill', withFloating: true };
 
 const ARG_TYPES: PlaygroundArgTypes<LayerArgs> = {
   withFloating: { group: 'Content', control: 'boolean' },
-  size: { group: 'Layout', control: 'select', options: ['fill', 'compact'], description: 'fill takes the room inside the gap; compact fits the content, up to a readable width.' },
+  size: { group: 'Layout', control: 'select', options: ['fill', 'compact', 'info'], description: 'fill takes the room inside the gap; compact fits the content, up to a readable width; info is the small dialog of a screen to read, up to 512 px.' },
 };
 
 const meta = {
@@ -110,8 +110,8 @@ const Overview = overviewStory({
   points: [
     'The gap is 2xl plus 5% of the smaller side from 1280 by 800 px, and xl plus 3% under that.',
     'Under 960 by 600 px the gap stays at its minimum; under 840 by 560 px the card fills the layer, square.',
-    '`floating` sits centred on the top edge of the card, for a switch between sibling screens.',
-    '`size="compact"` fits the card to its content; `hidden` hides the layer and keeps it mounted.',
+    '`floating` sits centred on the top edge of the card, for a screen switch; `hidden` hides the layer, still mounted.',
+    '`size="compact"` fits the card to its content up to 640 px; `size="info"` up to 512 px, for a screen to read.',
     'The card and switch are one modal dialog: pass `label`, or `labelledBy` with the id of a visible title.',
     'On open focus moves to that title, or the first control; the page behind is inert; on close focus returns.',
   ],

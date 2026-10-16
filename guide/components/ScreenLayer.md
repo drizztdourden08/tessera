@@ -33,6 +33,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Never set a margin or a padding on the gap: the layer works it out from its room.
 - Draw the inside of the card yourself, including its padding, which is the same on all four sides.
 - Use size="compact" for a card that fits its content, up to a readable width.
+- Use size="info" for an informational window with no tools: a small card that fits its content, centred, up to 512 px wide. InfoScreen sets it.
 - Set square for a window shown fullscreen: the card drops its corner radius and its outer border, and the host draws what surrounds it.
 
 ## Accessibility
@@ -63,7 +64,7 @@ const KioskScreen = ({ children }: { children: ReactNode }) => (
 - `onClose` (optional): `() => void`.
 - `floating` (optional): `ReactNode`.
 - `hidden` (optional): `boolean`. Default `false`.
-- `size` (optional): `ScreenLayerSize`, one of `'fill'`, `'compact'`. Default `'fill'`.
+- `size` (optional): `ScreenLayerSize`, one of `'fill'`, `'compact'`, `'info'`. Default `'fill'`.
 - `square` (optional): `boolean`. Default `false`.
 - `label` (optional): `string`.
 - `labelledBy` (optional): `string`.
@@ -71,4 +72,4 @@ const KioskScreen = ({ children }: { children: ReactNode }) => (
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-hairline`, `--c-layer`, `--control-h-md`, `--dialog-w-md`, `--radius-xl`, `--shadow-3`, `--space-2xl`, `--space-lg`, `--space-sm`, `--space-xl`, `--z-base`.
+It draws on `--border-width-thin`, `--c-hairline`, `--c-layer`, `--control-h-md`, `--dialog-w-md`, `--radius-xl`, `--shadow-3`, `--size-512`, `--space-2xl`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--z-base`.

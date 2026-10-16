@@ -140,7 +140,7 @@ const SCREENS = {
   question: 'What is the screen for?',
   answers: {
     'working across pages, picked from a side list': null,
-    'reading, such as About or credits': null,
+    'an informational window with no tools, such as About or credits': null,
     'one short task with a status, such as an update check': null,
     'one big custom surface, such as calibration': null,
   },

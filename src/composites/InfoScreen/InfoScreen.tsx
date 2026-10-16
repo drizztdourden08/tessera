@@ -7,13 +7,13 @@ import type { InfoScreenProps } from './InfoScreen.type';
 import './InfoScreen.css';
 
 const InfoScreen = (props: InfoScreenProps) => {
-  const { title, onClose, children, lead, footer, width = 'readable', floating, hidden, className = '' } = props;
+  const { title, onClose, children, lead, footer, floating, hidden, className = '' } = props;
   useHeaderOptOutCheck('InfoScreen', props);
 
   return (
-    <ScreenWindow title={title} onClose={onClose} floating={floating} hidden={hidden} className={`info-screen${className ? ` ${className}` : ''}`}>
+    <ScreenWindow title={title} onClose={onClose} floating={floating} hidden={hidden} size="info" className={`info-screen${className ? ` ${className}` : ''}`}>
       <ScrollArea className="info-screen__body">
-        <Box className={`info-screen__column info-screen__column--${width}`}>
+        <Box className="info-screen__column">
           {lead != null && <Box className="info-screen__lead">{lead}</Box>}
           <Box className="info-screen__sections">{children}</Box>
           {footer != null && <Box as="footer" className="info-screen__footer">{footer}</Box>}

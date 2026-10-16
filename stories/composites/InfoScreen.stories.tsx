@@ -4,7 +4,6 @@ import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Logo } from '../../src/brand';
 import { InfoScreen } from '../../src/composites';
-import type { InfoScreenWidth } from '../../src/composites';
 import { H2, Span } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { AboutBody } from './_samples/AboutBody';
@@ -14,7 +13,6 @@ import './InfoScreen.stories.css';
 
 type InfoArgs = {
   page: 'about' | 'credits';
-  width: InfoScreenWidth;
   withFooter: boolean;
 };
 
@@ -32,14 +30,13 @@ const ABOUT_LEAD = lead('Relic of the Past', 'Tracks your randomizer runs, from 
 const CREDITS_LEAD = lead('Thank you', 'Made by a small team, with help from these people and projects.');
 
 const InfoDemo = (props: InfoArgs & { phone?: boolean }) => {
-  const { page, width, withFooter, phone } = props;
+  const { page, withFooter, phone } = props;
   const [hidden, setHidden] = useState(false);
   const about = page === 'about';
   return (
     <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="The close button hides the screen" phone={phone}>
       <InfoScreen
         title={about ? 'About' : 'Credits'}
-        width={width}
         hidden={hidden}
         onClose={() => setHidden(true)}
         lead={about ? ABOUT_LEAD : CREDITS_LEAD}
@@ -51,12 +48,11 @@ const InfoDemo = (props: InfoArgs & { phone?: boolean }) => {
   );
 };
 
-const ARGS: Partial<InfoArgs> = { page: 'about', width: 'readable', withFooter: true };
+const ARGS: Partial<InfoArgs> = { page: 'about', withFooter: true };
 
 const ARG_TYPES: PlaygroundArgTypes<InfoArgs> = {
   page: { group: 'Content', control: 'select', options: ['about', 'credits'] },
   withFooter: { group: 'Content', control: 'boolean' },
-  width: { group: 'Layout', control: 'select', options: ['readable', 'wide'], description: 'readable keeps lines short; wide fits a grid of cards.' },
 };
 
 const meta = {
@@ -75,7 +71,7 @@ const Credits = {
   name: 'Credits',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: () => <InfoDemo page="credits" width="wide" withFooter={false} />,
+  render: () => <InfoDemo page="credits" withFooter={false} />,
 } satisfies PlaygroundStory<InfoArgs>;
 
 const Narrow = {
@@ -98,14 +94,14 @@ const CODE = `import { FactsPanel, H2, InfoScreen, Logo } from '@drizztdourden08
 
 const Overview = overviewStory({
   component: 'InfoScreen',
-  description: 'A screen the user reads, such as About, credits, a licence or a welcome: one centred column under the window title.',
+  description: 'A screen the user reads, such as About, credits, a licence or a welcome: a small dialog sized to its content.',
   points: [
+    'The card fits its content, centred, at most 512 px wide; it scrolls only when the window is too short for it.',
     'No page header: the window title bar holds the title and the close button, and the column scrolls under it.',
-    '`lead` sits centred at the top of the column, for a logo, the app name or a hero.',
-    'The children are the sections; `footer` closes the column with small text, for legal lines.',
-    '`width="readable"` keeps lines short; `width="wide"` fits a grid of cards, as credits need.',
-    'An About screen puts the build facts in a [FactsPanel].',
-    'In a narrow box the card fills it and the column takes its width; only the column scrolls.',
+    '`lead` sits centred at the top, for a logo or the app name; `footer` closes the column with legal lines.',
+    'The children are the sections. An About screen puts the build facts in a [FactsPanel].',
+    'Credits list one card per line; a long list scrolls inside the dialog.',
+    'Under 560 px wide the card fills the box and the column takes its width; only the column scrolls.',
   ],
   instead: '[WorkspaceScreen] for settings and pages with a side list, or [UtilityScreen] for a task with a status.',
   playground: Playground,

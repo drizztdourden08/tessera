@@ -82,7 +82,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A picture or a video opened large, with zoom: [MediaViewer](components/MediaViewer.md). MediaViewer opens a picture or a video large in a dialog, with zoom, dragging and arrows through a set.
 - A full screen view. **What is the screen for?**
   - Working across pages, picked from a side list: [WorkspaceScreen](components/WorkspaceScreen.md). A side list of pages beside the current page.
-  - Reading, such as About or credits: [InfoScreen](components/InfoScreen.md). One centred column to read.
+  - An informational window with no tools, such as About or credits: [InfoScreen](components/InfoScreen.md). A small dialog sized to its content, one column to read.
   - One short task with a status, such as an update check: [UtilityScreen](components/UtilityScreen.md). A status, details and actions in a compact window.
   - One big custom surface, such as calibration: [StageScreen](components/StageScreen.md). One open stage with an optional toolbar.
 - Navigation. **Where does the user go?**

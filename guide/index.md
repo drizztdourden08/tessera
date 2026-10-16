@@ -115,7 +115,7 @@ One line per component. 58 of 179 have their usage written; a linked name opens 
 - [GuidedTour](components/GuidedTour.md): A tour of a screen, step by step: one part stays lit with a glow while the rest dims and blurs, a bubble explains it and the mascot presents it. Import from `@drizztdourden08/tessera`.
 - `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [InfoScreen](components/InfoScreen.md): A screen to read, such as About or credits: the window title bar with the close button, then wide margins and one centred column that scrolls. Import from `@drizztdourden08/tessera`.
+- [InfoScreen](components/InfoScreen.md): An informational window to read, such as About or credits: a small dialog sized to its content and centred, with the title bar, the close button and one column. Import from `@drizztdourden08/tessera`.
 - `InlineCreateForm`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ItemCard](components/ItemCard.md): One item of a catalogue as a card: media, a small line above the title, a status, the title, tags, details and its actions. Import from `@drizztdourden08/tessera`.
 - [ItemList](components/ItemList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.

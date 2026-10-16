@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 
-type ScreenLayerSize = 'fill' | 'compact';
+type ScreenLayerSize = 'fill' | 'compact' | 'info';
 
 interface ScreenLayerProps {
   children: ReactNode;

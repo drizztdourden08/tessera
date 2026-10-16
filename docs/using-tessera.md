@@ -252,6 +252,7 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | A picture or a video opened large, with zoom | `MediaViewer`, with `items` for arrows through a set |
 | Small form parts for a whole panel, such as an inspector | `DensityScope` with `density="compact"` around the panel |
 | Log messages of one kind in semibold | `strong` on that kind in the `kinds` of `LogPanel` |
+| An informational window with no tools, such as About or credits | `InfoScreen`: a small dialog sized to its content; `size="info"` on `ScreenWindow` for one built by hand |
 
 ## The gallery
 

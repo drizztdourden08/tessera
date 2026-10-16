@@ -309,7 +309,7 @@
               "WorkspaceScreen"
             ]
           },
-          "reading, such as About or credits": {
+          "an informational window with no tools, such as About or credits": {
             "components": [
               "InfoScreen"
             ]
@@ -5062,10 +5062,10 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "A screen to read, such as About or credits: the window title bar with the close button, then wide margins and one centred column that scrolls.",
+      "job": "An informational window to read, such as About or credits: a small dialog sized to its content and centred, with the title bar, the close button and one column.",
       "useWhen": [
         "About the app, credits, a licence or a welcome page.",
-        "The user reads and changes nothing."
+        "The user reads and changes nothing: the window has no tools."
       ],
       "avoidWhen": [
         {
@@ -5082,11 +5082,13 @@
         }
       ],
       "rules": [
+        "It opens small: the card fits its content, centred, at most 512 px wide, and only the column scrolls, once the window is too short for it.",
+        "Every informational window uses it, so About, credits and the like open at the same small size. A screen with tools is a WorkspaceScreen, a UtilityScreen or a StageScreen.",
         "It has no page header and nothing adds one: the window title bar names it, and the column sits right under it.",
         "Put a logo, the app name, a wordmark or a hero in lead, and the sections in the children.",
-        "Keep width=\"readable\" for text; use width=\"wide\" for a grid of cards, as credits need.",
+        "List credits one entry per line; never widen the window for a grid of cards.",
         "Put legal text in footer, never in the last section.",
-        "In a narrow window the column takes the full width of the card and only the column scrolls; lay out lead and sections so they wrap.",
+        "In a window under 560 px wide the card fills it and the column takes its width; lay out lead and sections so they wrap.",
         "On an About screen, put the logo and the app name in lead and the build facts in a FactsPanel."
       ],
       "a11y": [
@@ -5096,12 +5098,12 @@
       "tree": {
         "path": [
           "a full screen view",
-          "reading, such as About or credits"
+          "an informational window with no tools, such as About or credits"
         ],
-        "rule": "One centred column to read."
+        "rule": "A small dialog sized to its content, one column to read."
       },
       "example": "import { FactsPanel, H2, InfoScreen, Logo } from '@drizztdourden08/tessera';\n\nconst AboutScreen = ({ onClose }: { onClose: () => void }) => (\n  <InfoScreen\n    title=\"About\"\n    onClose={onClose}\n    lead={<><Logo brand=\"rotp\" variant=\"app-icon\" size=\"xl\" title=\"\" /><H2>Relic of the Past</H2></>}\n    footer=\"Names and marks belong to their owners.\"\n  >\n    <FactsPanel label=\"This build\" groups={[[{ label: 'Version', value: '0.9.2', mono: true }]]} />\n  </InfoScreen>\n);\n",
-      "propsHash": "2a8ecba5773d489b",
+      "propsHash": "c7adb144dd344a6b",
       "props": {
         "own": [
           {
@@ -5130,16 +5132,6 @@
             "text": "ReactNode"
           },
           {
-            "name": "width",
-            "optional": true,
-            "text": "InfoScreenWidth",
-            "literals": [
-              "'readable'",
-              "'wide'"
-            ],
-            "default": "'readable'"
-          },
-          {
             "name": "floating",
             "optional": true,
             "text": "ReactNode"
@@ -5166,11 +5158,9 @@
         "--border-width-thin",
         "--c-hairline",
         "--c-text-dim",
-        "--dialog-w-md",
-        "--size-1024",
-        "--space-2xl",
         "--space-lg",
         "--space-md",
+        "--space-xl",
         "--text-sm"
       ],
       "gallery": {
@@ -8033,6 +8023,7 @@
         "Never set a margin or a padding on the gap: the layer works it out from its room.",
         "Draw the inside of the card yourself, including its padding, which is the same on all four sides.",
         "Use size=\"compact\" for a card that fits its content, up to a readable width.",
+        "Use size=\"info\" for an informational window with no tools: a small card that fits its content, centred, up to 512 px wide. InfoScreen sets it.",
         "Set square for a window shown fullscreen: the card drops its corner radius and its outer border, and the host draws what surrounds it."
       ],
       "a11y": [
@@ -8045,7 +8036,7 @@
       ],
       "buildingBlock": true,
       "example": "import type { ReactNode } from 'react';\nimport { ScreenLayer } from '@drizztdourden08/tessera';\n\nconst KioskScreen = ({ children }: { children: ReactNode }) => (\n  <ScreenLayer label=\"Kiosk\" className=\"kiosk-screen\">\n    {children}\n  </ScreenLayer>\n);\n",
-      "propsHash": "b24419ae35662fcb",
+      "propsHash": "5f22bd8c9125eae2",
       "props": {
         "own": [
           {
@@ -8075,7 +8066,8 @@
             "text": "ScreenLayerSize",
             "literals": [
               "'fill'",
-              "'compact'"
+              "'compact'",
+              "'info'"
             ],
             "default": "'fill'"
           },
@@ -8116,8 +8108,10 @@
         "--dialog-w-md",
         "--radius-xl",
         "--shadow-3",
+        "--size-512",
         "--space-2xl",
         "--space-lg",
+        "--space-md",
         "--space-sm",
         "--space-xl",
         "--z-base"
@@ -8327,6 +8321,7 @@
         "UtilityScreen uses header; WorkspaceScreen and StageScreen put a ScreenPage inside the title bar window; InfoScreen keeps the title bar alone.",
         "The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.",
         "Keep extra to a few small controls; the close button always comes last.",
+        "size goes to the ScreenLayer: fill by default, compact for one short task, info for a small window to read with no tools, as InfoScreen sets.",
         "Set square for a window shown fullscreen: it drops the corner radius and the outer border.",
         "The window is a container named screen-window. Fit content to the window with @container screen-window, never with a media query on the viewport: the window can sit in a gallery frame, a split pane or a window of its own.",
         "Short of room, the title bar puts the subtitle on a line under the title, and extra folds away before the title shrinks."
@@ -8338,7 +8333,7 @@
       ],
       "buildingBlock": true,
       "example": "import { Button, Icon, ScreenWindow, ScrollArea } from '@drizztdourden08/tessera';\n\nconst SessionsScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Sessions\" subtitle=\"Profile: mira\" onClose={onClose}>\n    <ScrollArea>Sessions list</ScrollArea>\n  </ScreenWindow>\n);\n\nconst PlayersScreen = ({ onClose }: { onClose: () => void }) => (\n  <ScreenWindow title=\"Players\" header={{ icon: <Icon name=\"users\" />, actions: <Button size=\"sm\">Invite</Button> }} onClose={onClose}>\n    <ScrollArea>Players list</ScrollArea>\n  </ScreenWindow>\n);\n",
-      "propsHash": "d8f3d7f12b75a0c6",
+      "propsHash": "69f50ff4fa292c17",
       "props": {
         "own": [
           {
@@ -8392,7 +8387,8 @@
             "text": "ScreenLayerSize",
             "literals": [
               "'fill'",
-              "'compact'"
+              "'compact'",
+              "'info'"
             ]
           },
           {

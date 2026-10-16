@@ -3,7 +3,10 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { InfoScreen } from '../src/composites/InfoScreen';
 import { ScreenPage } from '../src/composites/ScreenPage';
+import { ScreenWindow } from '../src/composites/ScreenWindow';
+import { UtilityScreen } from '../src/composites/UtilityScreen';
 import { headerSpace } from '../src/composites/ScreenPage/behavior/header-space';
 import { rowFits } from '../src/composites/ScreenPage/behavior/row-fits';
 import { stackOf } from '../src/composites/ScreenPage/behavior/stack-of';
@@ -13,6 +16,9 @@ const rule = (source, selector) => {
   const start = source.indexOf(`${selector} {`);
   return start < 0 ? '' : source.slice(start, source.indexOf('}', start));
 };
+
+const layerClass = (html) => html.match(/class="overlay[^"]*"/)?.[0] ?? '';
+const close = () => undefined;
 
 const view = {
   getComputedStyle: (el) => el.computed ?? { position: 'static', display: 'flex' },
@@ -98,5 +104,44 @@ describe('the ScreenPage header row', () => {
     const html = renderToString(h(ScreenPage, { icon: h('i'), title: 'Sessions', strip: h('span', null, 'Live') }, 'Body'));
     expect(html).not.toContain('screen-page__header--stacked');
     expect(html).toContain('Live');
+  });
+});
+
+describe('an informational window', () => {
+  it('opens InfoScreen on the small info card', () => {
+    const html = renderToString(h(InfoScreen, { title: 'About', onClose: close }, h('p', null, 'Version 0.9.2')));
+    expect(layerClass(html)).toContain('screen-layer--info');
+    expect(html).toContain('class="info-screen__column"');
+    expect(html).not.toContain('info-screen__column--');
+  });
+
+  it('fits the card to its content, centred, at most 512 px wide, and caps it at the window height', () => {
+    const source = css('ScreenLayer');
+    expect(rule(source, '.screen-layer__inset')).toContain('align-items: center');
+    expect(rule(source, '.screen-layer__inset')).toContain('justify-content: center');
+    const frame = rule(source, '.screen-layer--info .screen-layer__frame');
+    expect(frame).toContain('width: min(100%, var(--size-512))');
+    expect(frame).toContain('height: auto');
+    expect(frame).toContain('max-height: 100%');
+  });
+
+  it('scrolls only its column, which takes the card width', () => {
+    const source = css('InfoScreen');
+    expect(rule(source, '.info-screen__body')).toContain('min-height: 0');
+    expect(rule(source, '.info-screen__column')).not.toContain('max-width');
+  });
+
+  it('keeps the frame of a dialog until the window is narrower than the card and its gutter', () => {
+    const source = css('ScreenLayer');
+    const narrow = source.slice(source.indexOf('@container screen-layer (width < 560px)'));
+    expect(narrow).toMatch(/\.screen-layer--info \.screen-layer__frame \{\s+width: 100%;\s+height: 100%;/);
+  });
+});
+
+describe('a screen with tools', () => {
+  it('keeps its size', () => {
+    const status = { tone: 'info', title: 'Updates', message: 'Checking' };
+    expect(layerClass(renderToString(h(UtilityScreen, { onClose: close, status })))).toContain('screen-layer--compact');
+    expect(layerClass(renderToString(h(ScreenWindow, { title: 'Settings', onClose: close }, 'Body')))).toContain('screen-layer--fill');
   });
 });

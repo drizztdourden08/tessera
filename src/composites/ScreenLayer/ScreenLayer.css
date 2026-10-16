@@ -39,6 +39,12 @@ html.booting .screen-layer {
   max-height: 100%;
 }
 
+.screen-layer--info .screen-layer__frame {
+  width: min(100%, var(--size-512));
+  height: auto;
+  max-height: 100%;
+}
+
 .screen-layer__floating {
   position: absolute;
   top: 0;
@@ -95,6 +101,27 @@ html.booting .screen-layer {
   .screen-layer__frame:has(> .screen-layer__floating) > .screen-layer__card {
     padding-block-start: calc(var(--control-h-md) + var(--space-sm));
   }
+
+  .screen-layer--info .screen-layer__inset { padding: var(--space-md); }
+
+  .screen-layer--info .screen-layer__card {
+    border: var(--border-width-thin) solid var(--c-hairline);
+    border-radius: var(--radius-xl);
+  }
+}
+
+@container screen-layer (width < 560px) {
+  .screen-layer--info .screen-layer__inset { padding: 0; }
+
+  .screen-layer--info .screen-layer__frame {
+    width: 100%;
+    height: 100%;
+  }
+
+  .screen-layer--info .screen-layer__card {
+    border: none;
+    border-radius: 0;
+  }
 }
 
 @keyframes screen-layer-in {
@@ -113,7 +140,8 @@ html.booting .screen-layer {
   padding: 0;
 }
 
-.platform-mobile .screen-layer--compact .screen-layer__frame {
+.platform-mobile .screen-layer--compact .screen-layer__frame,
+.platform-mobile .screen-layer--info .screen-layer__frame {
   width: 100%;
   height: 100%;
 }

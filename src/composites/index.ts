@@ -58,7 +58,7 @@ export type { ScreenWindowHeader, ScreenWindowProps } from './ScreenWindow';
 export { ScreenPage, type ScreenPageProps } from './ScreenPage';
 export { WorkspaceScreen } from './WorkspaceScreen';
 export type { WorkspaceContent, WorkspaceGroup, WorkspacePage, WorkspaceScreenProps, WorkspaceSearch } from './WorkspaceScreen';
-export { InfoScreen, type InfoScreenProps, type InfoScreenWidth } from './InfoScreen';
+export { InfoScreen, type InfoScreenProps } from './InfoScreen';
 export { UtilityScreen } from './UtilityScreen';
 export type {
   UtilityScreenAction, UtilityScreenNotes, UtilityScreenProgress, UtilityScreenProps, UtilityScreenReport, UtilityScreenStatus, UtilityScreenTone,

@@ -37,6 +37,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - UtilityScreen uses header; WorkspaceScreen and StageScreen put a ScreenPage inside the title bar window; InfoScreen keeps the title bar alone.
 - The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.
 - Keep extra to a few small controls; the close button always comes last.
+- Size goes to the ScreenLayer: fill by default, compact for one short task, info for a small window to read with no tools, as InfoScreen sets.
 - Set square for a window shown fullscreen: it drops the corner radius and the outer border.
 - The window is a container named screen-window. Fit content to the window with @container screen-window, never with a media query on the viewport: the window can sit in a gallery frame, a split pane or a window of its own.
 - Short of room, the title bar puts the subtitle on a line under the title, and extra folds away before the title shrinks.
@@ -76,7 +77,7 @@ const PlayersScreen = ({ onClose }: { onClose: () => void }) => (
 - `extra` (optional): `ReactNode`.
 - `floating` (optional): `ReactNode`.
 - `hidden` (optional): `boolean`.
-- `size` (optional): `ScreenLayerSize`, one of `'fill'`, `'compact'`.
+- `size` (optional): `ScreenLayerSize`, one of `'fill'`, `'compact'`, `'info'`.
 - `square` (optional): `boolean`.
 - `className` (optional): `string`.
 
