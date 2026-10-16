@@ -8380,3 +8380,46 @@ The FloatingSwitch Overview gains a point on `onHighlight`, and the DropdownMenu
 ### What Brock does
 
 Drop `usePreloadOnHover`, `routesForLabel`, `PRELOAD_TARGETS` and `PRELOAD_LABELS` from `packages/react/src/lazy`. Where Brock builds its menu, its SideNav config, its workspace switch and its palette groups, give each item that opens a screen `onHighlight: () => preloadRoute(registry, route)`, with the route that item opens. A hub page in SideNavLayout takes it the same way on its SideNavItem.
+
+## 242. WindowTitleBar places its View sub-menu where the app says
+
+Brock lets an app hide, rename and move any entry of its main menu. WindowTitleBar draws the View sub-menu itself, holding the pin and full screen, so Brock could only rename it through `windows.view`. It could not hide it or move it.
+
+### What changed
+
+WindowTitleBar takes `view`:
+
+```ts
+type WindowTitleBarViewPosition = number | 'start' | 'end';
+
+interface WindowTitleBarViewPlace {
+  group?: string; // the id of a group of `menu`
+  position?: WindowTitleBarViewPosition; // 'start' when left out
+}
+
+interface WindowTitleBarProps {
+  view?: WindowTitleBarViewPlace | false; // new
+}
+```
+
+- **Left out**, or `{}`, the menu is exactly as before: View opens the bar's own group, which sits above the last group of `menu`, or at the end when `menu` has fewer than two groups.
+- **`false`** leaves View out of the menu. The pin and full screen buttons stay on the bar, but a narrow window tucks them away into View, so with `false` they are out of reach there. When the bar has no actions either, its own group goes away with it.
+- **`{ group }`** puts View into the `menu` group with that id, in place of the bar's own group. A `group` that names no group of `menu` keeps the default place.
+- **`position`** is where View goes among the items of its group: `'start'`, `'end'`, or an index counted from 0, separators included, held between the start and the end. It applies in the bar's own group too, so `{ position: 'end' }` puts View after the actions.
+- The View label still comes from `windows.view`, so renaming works as before.
+
+Measured in a browser at 1440 px: the 13 existing WindowTitleBar story pages keep every element's box and markup, and the main menu of App window lists the same items in the same order. On the Overview page every element keeps its box but the reworded first point; the states and code below the examples move down by the 1200 px of the two new examples.
+
+### Gallery and tests
+
+Two new WindowTitleBar examples, View hidden from the main menu and View moved among the main menu items, each show a bar and its main menu beside the default one. The first Overview point now names `view`; the hamburger that turns into an X stays in the usage rules, which gain one on `view`. `tests/window-title-bar-view.test.mjs` checks the default, `false`, a group, positions and the bar buttons with View hidden.
+
+### What Brock does
+
+Where Brock builds the props of WindowTitleBar from its menu config, read the entry of the View item:
+
+- hidden: pass `view={false}`;
+- moved: pass `view={{ group, position }}` with the id of the menu group it moved to and its index there, or `'start'` or `'end'`;
+- untouched: pass nothing.
+
+Renaming View still goes through `windows.view`.

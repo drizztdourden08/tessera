@@ -10982,7 +10982,8 @@
         "Every action has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.",
         "Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.",
         "Keep the actions few: narrow windows move them into the main menu, then shrink the brand.",
-        "The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does."
+        "The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does.",
+        "view moves the View sub-menu to a group and position of menu; view={false} hides it, leaving pin and full screen on the bar only."
       ],
       "a11y": [
         "Each action is an icon button named by its label, with a tooltip and aria-keyshortcuts for its shortcut.",
@@ -10998,7 +10999,7 @@
         "rule": "WindowTitleBar is the one title bar of a frameless window, with the same brand, menu and controls in every app."
       },
       "example": "import { WindowTitleBar } from '@drizztdourden08/tessera';\nimport type { MenuGroup, WindowControl, WindowTitleBarAction } from '@drizztdourden08/tessera';\n\ninterface AppTitleBarProps {\n  menu: MenuGroup[];\n  grouped: boolean;\n  maximized: boolean;\n  onGroup: (grouped: boolean) => void;\n  onSearch: () => void;\n  onControl: (control: WindowControl) => void;\n}\n\nconst AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }: AppTitleBarProps) => {\n  const actions: WindowTitleBarAction[] = [\n    { id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K', tone: 'primary', onSelect: onSearch },\n    {\n      id: 'group',\n      icon: 'group',\n      label: 'Window group',\n      bar: 'dropdown',\n      tone: grouped ? 'info' : undefined,\n      effect: grouped ? 'ping' : undefined,\n      groups: [{\n        id: 'group',\n        items: [\n          { id: 'alone', kind: 'radio', label: 'No group', checked: !grouped, onSelect: () => onGroup(false) },\n          { id: 'grouped', kind: 'radio', label: 'Group with the main window', checked: grouped, onSelect: () => onGroup(true) },\n        ],\n      }],\n    },\n  ];\n  return <WindowTitleBar title=\"Brock\" menu={menu} actions={actions} maximized={maximized} onControl={onControl} />;\n};\n",
-      "propsHash": "ac0e296f6c9a51c9",
+      "propsHash": "0ec4633a7b23c003",
       "props": {
         "own": [
           {
@@ -11025,6 +11026,11 @@
             "name": "menuLabel",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "view",
+            "optional": true,
+            "text": "WindowTitleBarViewPlace | false"
           },
           {
             "name": "onMenuOpenChange",

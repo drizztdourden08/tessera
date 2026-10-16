@@ -18,6 +18,7 @@ const usage = {
     'Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.',
     'Keep the actions few: narrow windows move them into the main menu, then shrink the brand.',
     'The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does.',
+    'view moves the View sub-menu to a group and position of menu; view={false} hides it, leaving pin and full screen on the bar only.',
   ],
   a11y: [
     'Each action is an icon button named by its label, with a tooltip and aria-keyshortcuts for its shortcut.',
@@ -62,7 +63,7 @@ const AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }:
   return <WindowTitleBar title="Brock" menu={menu} actions={actions} maximized={maximized} onControl={onControl} />;
 };
 `,
-  propsHash: 'ac0e296f6c9a51c9',
+  propsHash: '0ec4633a7b23c003',
 } satisfies ComponentUsage;
 
 export { usage };

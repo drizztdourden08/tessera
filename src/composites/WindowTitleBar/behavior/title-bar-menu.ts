@@ -5,7 +5,9 @@ import { TitleBarActionIcon } from '../sub-components/TitleBarActionIcon';
 import { BAR_GROUP_ID, VIEW_ITEM_ID } from '../WindowTitleBar.constants';
 import type { WindowTitleBarAction } from '../WindowTitleBar.type';
 import { dropdownNodes } from './dropdown-nodes';
+import { insertNode } from './insert-node';
 import type { TitleBarMenuInput } from './title-bar-menu.type';
+import { viewPlace } from './view-place';
 
 const viewItems = (input: TitleBarMenuInput): MenuItem[] => {
   const { pin, fullscreenButton, pinned, fullscreen, onControl, strings } = input;
@@ -25,14 +27,20 @@ const actionMenuItem = (action: WindowTitleBarAction): MenuItem[] => {
   return children.length > 0 ? [{ id, icon, label, shortcut, children }] : [];
 };
 
+const viewMenuItem = (input: TitleBarMenuInput): MenuItem | undefined => {
+  const children = input.view === false ? [] : viewItems(input);
+  return children.length > 0 ? { id: VIEW_ITEM_ID, icon: 'app-window', label: input.strings.view, children } : undefined;
+};
+
 const titleBarMenu = (input: TitleBarMenuInput): MenuGroup[] => {
-  const view = viewItems(input);
-  const items: MenuNode[] = [
-    ...(view.length > 0 ? [{ id: VIEW_ITEM_ID, icon: 'app-window', label: input.strings.view, children: view } satisfies MenuItem] : []),
-    ...input.actions.flatMap(actionMenuItem),
-  ];
-  const { menu } = input;
-  if (items.length === 0) return [...menu];
+  const view = viewMenuItem(input);
+  const place = viewPlace(input.view);
+  const position = place.position ?? 'start';
+  const target = view ? input.menu.findIndex((group) => group.id === place.group) : -1;
+  const actions: MenuNode[] = input.actions.flatMap(actionMenuItem);
+  const items = view && target < 0 ? insertNode(actions, view, position) : actions;
+  const menu = input.menu.map((group, index) => (view && index === target ? { ...group, items: insertNode(group.items, view, position) } : group));
+  if (items.length === 0) return menu;
   const own: MenuGroup = { id: BAR_GROUP_ID, items };
   return menu.length < 2 ? [...menu, own] : [...menu.slice(0, -1), own, ...menu.slice(-1)];
 };

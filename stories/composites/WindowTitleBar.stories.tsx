@@ -16,6 +16,7 @@ import type { TitleBarArgs } from './_samples/title-bar-args.type';
 import type { TitleBarGroupLook } from './_samples/title-bar-group.type';
 import { TitleBarFrameRate } from './_samples/TitleBarFrameRate';
 import { TitleBarGroupDemo } from './_samples/TitleBarGroupDemo';
+import { TitleBarViewDemo } from './_samples/TitleBarViewDemo';
 import { TitleBarWidths } from './_samples/TitleBarWidths';
 import { TITLE_BAR_CODE } from './_samples/title-bar-code.constants';
 import { Morph } from './_samples/title-bar-morph-story';
@@ -171,6 +172,17 @@ const FrameRate = {
 
 const MarkedMenu = groupStory('A dropdown action with a tone and an effect, on the bar and folded', { tone: 'warning', effect: 'ping' });
 
+const viewStory = (name: string, view: WindowTitleBarProps['view'], code: string, caption: string) => ({
+  name,
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <TitleBarViewDemo title={args.title} logo={LOGO} menu={STATE_MENU} actions={STATE_ACTIONS} view={view} code={code} caption={caption} />,
+} satisfies PlaygroundStory<TitleBarArgs>);
+
+const ViewHidden = viewStory('View hidden from the main menu', false, 'view={false}', 'The pin and full screen stay on the bar; the main menu no longer lists them.');
+
+const ViewMoved = viewStory('View moved among the main menu items', { group: 'tools', position: 1 }, "view={{ group: 'tools', position: 1 }}", 'View becomes the second item of the tools group, between Tools and Settings.');
+
 const renderState = (props: StateProps) => (
   <Box className="window-title-bar-story__strip">
     <WindowTitleBar title="Brock Demo" logo={LOGO} menu={STATE_MENU} actions={STATE_ACTIONS} onControl={ignore} {...(props as Partial<WindowTitleBarProps>)} />
@@ -181,7 +193,7 @@ const Overview = overviewStory({
   component: 'WindowTitleBar',
   description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
   points: [
-    '`menu` takes [DropdownMenu] groups; its hamburger turns into an X while open; `onControl` hears the buttons.',
+    '`menu` takes [DropdownMenu] groups; `view` hides its View sub-menu or moves it; `onControl` hears the buttons.',
     '`actions` add icon buttons with a tooltip of their label and `shortcut`; `tone` and `effect` mark the icon.',
     "An action with `bar: 'dropdown'` opens a menu of its own from `groups`, its icon marked the same way.",
     "A `bar: 'status'` action shows `status` as text with digits of one width; `pulse` adds a beating dot.",
@@ -189,7 +201,7 @@ const Overview = overviewStory({
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed, ViewHidden, ViewMoved],
   states: {
     render: renderState,
     list: [
@@ -210,4 +222,7 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AppWindow, Concealed, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance };
+export {
+  AppWindow, Concealed, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance, ViewHidden,
+  ViewMoved,
+};

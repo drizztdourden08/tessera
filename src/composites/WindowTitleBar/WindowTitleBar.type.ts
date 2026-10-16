@@ -41,12 +41,20 @@ interface WindowTitleBarDropdownAction extends WindowTitleBarActionBase {
 
 type WindowTitleBarAction = WindowTitleBarCommandAction | WindowTitleBarDropdownAction;
 
+type WindowTitleBarViewPosition = number | 'start' | 'end';
+
+interface WindowTitleBarViewPlace {
+  group?: string;
+  position?: WindowTitleBarViewPosition;
+}
+
 interface WindowTitleBarProps {
   title: ReactNode;
   logo?: string;
   instance?: WindowTitleBarInstance | null;
   menu?: readonly MenuGroup[];
   menuLabel?: string;
+  view?: WindowTitleBarViewPlace | false;
   onMenuOpenChange?: (open: boolean) => void;
   actions?: readonly WindowTitleBarAction[];
   controls?: WindowControlsConfig | false;
@@ -61,5 +69,5 @@ interface WindowTitleBarProps {
 
 export type {
   BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
-  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarProps,
+  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarProps, WindowTitleBarViewPlace, WindowTitleBarViewPosition,
 };
