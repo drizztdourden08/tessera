@@ -2,6 +2,7 @@
 import type { ComponentType, ReactNode } from 'react';
 import type { TextTone } from '../TextElement/TextElement.type';
 import type { ControlSize } from '../field-control/field-control.type';
+import type { DatePreset } from '../date-format/date-format.type';
 
 type FieldOf<T> = T extends object ? Extract<keyof T, string> : never;
 
@@ -17,7 +18,7 @@ type ColumnAlign = 'start' | 'center' | 'end';
 
 type ColumnWidth = 'auto' | 'fill' | 'xs' | 'sm' | 'md' | 'lg';
 
-type ColumnFormat = 'text' | 'number' | 'integer' | 'percent' | 'bytes' | 'date' | 'datetime' | 'yesno';
+type ColumnFormat = 'text' | 'number' | 'integer' | 'percent' | 'bytes' | 'yesno' | DatePreset;
 
 type ItemPlace = 'list' | 'trigger';
 

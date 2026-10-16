@@ -18,8 +18,7 @@ export type {
 } from './Wizard';
 export { GroupTree, type GroupTreeProps, type TreeNode } from './GroupTree';
 export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } from './HeaderAnchorNav';
-export { LogPanel } from './LogPanel';
-export type { LogKindDef, LogPanelProps, LogRow } from './LogPanel';
+export { LogPanel, type LogKindDef, type LogPanelProps, type LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
 export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from './ListItemRow';
 export { ListDetailLayout, type ListDetailLayoutProps } from './ListDetailLayout';
@@ -83,8 +82,7 @@ export type {
 } from './WindowTitleBar';
 export { Hero } from './Hero';
 export type { HeroArt, HeroProps, HeroShade, HeroSize } from './Hero';
-export { FactsPanel } from './FactsPanel';
-export type { FactsPanelFact, FactsPanelGroup, FactsPanelLayout, FactsPanelProps } from './FactsPanel';
+export { FactsPanel, type FactsPanelFact, type FactsPanelGroup, type FactsPanelLayout, type FactsPanelProps } from './FactsPanel';
 export { CommandPalette, CommandPaletteRow } from './CommandPalette';
 export type { CommandPaletteGroup, CommandPaletteItem, CommandPaletteProps, CommandPaletteRowProps, CommandPaletteToggle } from './CommandPalette';
 export { GuidedTour, TourSpot, useGuidedTour } from './GuidedTour';
@@ -166,6 +164,7 @@ export type { ItemCardLayout, ItemCardMediaHeight, ItemCardMediaTone, ItemCardPr
 export { CopyButton } from './CopyButton';
 export type { CopyButtonProps, CopyButtonSize, CopyText } from './CopyButton';
 export { CopyValue, type CopyValueProps, type CopyValueSize, type CopyValueTruncate } from './CopyValue';
+export { DateText, type DateTextProps } from './DateText';
 export { Video } from './Video';
 export type { VideoProps } from './Video';
 export { Splash } from './Splash';

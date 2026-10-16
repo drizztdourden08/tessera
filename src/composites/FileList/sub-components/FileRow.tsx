@@ -3,7 +3,8 @@ import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { formatValue } from '../../../primitives/listbox/format-value';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { Span, Time } from '../../../primitives/text-elements';
+import { Span } from '../../../primitives/text-elements';
+import { DateText } from '../../DateText';
 import { fileIcon } from '../behavior/file-icon';
 import { fileName } from '../behavior/file-name';
 import type { FileRowProps } from '../FileList.type';
@@ -20,7 +21,7 @@ const FileRow = (props: FileRowProps) => {
       <Span className="file-list__name">{name}</Span>
       <Span className="file-list__size">{size === undefined ? null : formatValue(size, 'bytes')}</Span>
       <Span className="file-list__date">
-        {modified === undefined ? null : <Time dateTime={new Date(modified).toISOString()}>{formatValue(modified, 'datetime')}</Time>}
+        {modified === undefined ? null : <DateText value={modified} />}
       </Span>
       <Box className="file-list__actions">
         {onOpen && <FileButton label={navigation.openNamed(name)} icon="external-link" onPress={() => onOpen(path)} />}

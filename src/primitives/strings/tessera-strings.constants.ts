@@ -3,6 +3,7 @@ import { CAROUSEL_STRINGS } from './carousel-strings.constants';
 import { CHART_STRINGS } from './charts-strings.constants';
 import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
 import { COMMON_STRINGS } from './common-strings.constants';
+import { DATE_STRINGS } from './dates-strings.constants';
 import { DYNAMIC_INPUT_STRINGS } from './dynamic-input-strings.constants';
 import { FIELD_KIND_STRINGS } from './field-kinds-strings.constants';
 import { FIELD_STRINGS } from './fields-strings.constants';
@@ -31,6 +32,7 @@ import { WIZARD_STRINGS } from './wizard-strings.constants';
 
 const TESSERA_STRINGS = {
   common: COMMON_STRINGS,
+  dates: DATE_STRINGS,
   fields: FIELD_STRINGS,
   password: PASSWORD_STRINGS,
   video: VIDEO_STRINGS,

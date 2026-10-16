@@ -8822,3 +8822,53 @@ At 1440 px against the gallery before, with no console errors:
 ### What Brock does
 
 Nothing. A handle of Brock's own with `data-drag-widget`, `data-drag-tab` or `data-drag-main` now drags from its icons too; drop any `pointer-events: none` added to those icons for that reason.
+
+## 252. DateText shows dates and times in every common format, and formatDate gives the same text
+
+The owner approved a date part in TX-63: one simple part for every common date format, relative time among them. The gallery prototype RelativeTime under Preview · For approval is gone, with the Preview group, and its work lives on in `DateText`.
+
+### What's new
+
+```ts
+type DateValue = Date | string | number;
+type DatePreset = 'relative' | 'calendar' | 'date' | 'time' | 'datetime' | 'weekday' | 'month' | 'iso';
+type DateFormat = DatePreset | Intl.DateTimeFormatOptions;
+type DateLength = 'short' | 'medium' | 'long';
+
+interface DateTextProps {
+  value: DateValue;
+  format?: DateFormat;      // default 'datetime'
+  length?: DateLength;      // each preset starts at the length that reads best
+  tooltip?: boolean;        // the full date on hover; on by default for relative and calendar
+  focusable?: boolean;      // a Tab stop, so the keyboard reaches the Tooltip
+  className?: string;
+}
+
+formatDate(value: DateValue, format?: DateFormat, options?: { length?: DateLength; locale?: string; now?: number; strings?: Partial<DateStrings> }): string;
+```
+
+- **DateText** (composite) renders a `time` element whose `dateTime` holds the exact moment, in tabular figures, so a time that redraws keeps its width. Measured in the gallery: 5 minutes ago and 6 minutes ago are both 93.64 px wide, and no time whose words stayed the same moved over a 62 s wait.
+- **Presets.** `relative` reads Just now under a minute, then the whole units passed (5 minutes ago, Yesterday, Last week, In 3 days) from `Intl.RelativeTimeFormat`; short, medium and long are its narrow, short and long styles, long by default. `calendar` reads Today, 21:40, Yesterday, 22:18, a weekday within six days (Monday, 20:51), then the date and time. `date`, `time` and `datetime` use the Intl date and time styles, and `time` starts short; `weekday` is Fri, Friday or Friday, October 16; `month` is Oct, October or October 2026; `iso` is 2026-10-16, 2026-10-16 21:40 or 2026-10-16T21:40:12-04:00, in local time. An `Intl.DateTimeFormatOptions` object covers anything else.
+- **Updating.** Relative and calendar values read one shared clock that ticks every 10 seconds while at least one is on the page and stops with the last one. Each value redraws only when its words change, so Just now turns into 1 minute ago within 10 s of the minute instead of up to a minute late, for one cached Intl call per value per tick. Other presets never subscribe.
+- **No duration.** A duration is an amount of time, not a moment, so it does not fit `value`, and the browser's `Intl.DurationFormat` is outside the two Intl formatters this part is built on. Video and job times keep their own text.
+- **Strings.** A new group `dates`: `locale` (undefined, the browser's), `justNow`, `today`, `yesterday`, `tomorrow` and `dayAt(day, time)`, which joins a calendar day and its time (`${day}, ${time}`; French reads `${day} à ${time}`). Set them once in `TesseraProvider` `overrides.strings.dates`.
+- **One formatter everywhere.** `formatDate` is exported with `DATE_PRESETS` and `DATE_LENGTHS`. Select and Combobox columns take every preset as `format` (date and datetime already existed and now go through it). DataTable takes `SchemaConfig.dates?: Record<string, DateFormat>`, which `buildSchema` copies to `FieldDescriptor.date`; such a cell draws a `DateText`. FileList draws its modified date with `DateText`, with the same text and boxes as before. StatRow and FactsPanel take any node as a value, so they take a `DateText` directly; a format prop there would be a second way to do the same thing.
+
+### What RotP does
+
+| RotP | Tessera |
+|---|---|
+| `SaveRowTime` and `SaveRowTimeProps` | `<DateText value={save.timestamp} format="relative" />` as the row meta; render `Empty` yourself when the timestamp is null |
+| `behavior/relative-time.ts`, `JUST_NOW_LABEL`, `RELATIVE_UNITS`, `FULL_DATE_FORMAT` | built in; the Tooltip shows the full date (dateStyle full, timeStyle short) |
+| A list that shows Today, 21:40 | `format="calendar"` |
+| `HeroLastSaveTile`'s own `toLocaleString` options | `<DateText value={...} format={{ weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }} />`, or a preset |
+
+The age now updates by itself: a save no longer says 5 minutes ago until something else redraws the list. RotP rounded where DateText counts whole units, so 90 seconds reads 1 minute ago, not 2 minutes ago.
+
+### Gallery
+
+Composites · Content/DateText, measured at 1440 px with no console errors: every format in three lengths and in French (504 px), live values from 20 s ago to 14 months and ahead of now (549 px), RotP's save list (404 px), and a FactsPanel with a DataTable using `dates` (361 px); the Overview is 3103 px. Against the gallery before, the FileList, ItemList, Select, Combobox, DataTable and FactsPanel Overviews keep every box and text; FileList's dates only gain the `date-text` class.
+
+### Tests
+
+`tests/date-text.test.mjs` checks every preset in three lengths in English and French, the relative boundaries (59 s, 1 minute, 59 minutes, 1 hour, 23 hours, Yesterday, 6 days, Last week, 4 weeks, Last month, 12 months, Last year, ahead of now), calendar days, unreadable values, Select and DataTable columns through `formatDate`, the `time` element and its Tooltip, the strings, and the one shared clock.

@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { DateFormat } from '../../../primitives/date-format/date-format.type';
+
 type FieldKind =
   | 'string'
   | 'number'
@@ -33,6 +35,7 @@ interface FieldDescriptor {
   group?: string;
   hidden?: boolean;
   format?: NumberFormat;
+  date?: DateFormat;
 }
 
 interface FieldGroup {
@@ -49,6 +52,7 @@ interface SchemaConfig {
   kinds?: Record<string, FieldKind>;
   idPattern?: RegExp;
   formats?: Record<string, NumberFormat>;
+  dates?: Record<string, DateFormat>;
   options?: Record<string, readonly SchemaOption[]>;
   defaultColumns?: readonly string[];
 }

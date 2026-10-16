@@ -1,5 +1,5 @@
-/* @layer stories @kind logic */
-import { MINUTE } from '../relative-time.constants';
+/* @layer renderer-components @kind logic */
+import { LIVE_TICK_MS } from '../DateText.constants';
 
 const listeners = new Set<() => void>();
 let timer: ReturnType<typeof setInterval> | undefined;
@@ -10,11 +10,11 @@ const tick = () => {
   listeners.forEach((listener) => listener());
 };
 
-const minuteClock = {
+const liveClock = {
   subscribe: (listener: () => void): (() => void) => {
+    if (listeners.size === 0) now = Date.now();
     listeners.add(listener);
-    now = Date.now();
-    timer ??= setInterval(tick, MINUTE);
+    timer ??= setInterval(tick, LIVE_TICK_MS);
     return () => {
       listeners.delete(listener);
       if (listeners.size > 0 || timer === undefined) return;
@@ -22,8 +22,11 @@ const minuteClock = {
       timer = undefined;
     };
   },
-  read: (): number => now,
+  read: (): number => {
+    if (listeners.size === 0) now = Date.now();
+    return now;
+  },
   watchers: (): number => listeners.size,
 };
 
-export { minuteClock };
+export { liveClock };

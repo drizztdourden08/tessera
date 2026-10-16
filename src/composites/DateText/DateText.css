@@ -1,0 +1,5 @@
+/* @layer renderer-components @kind style */
+.date-text {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

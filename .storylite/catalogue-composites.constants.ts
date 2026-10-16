@@ -149,6 +149,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ItemCard', summary: 'One item of a catalogue as a card: media, eyebrow, status, title, tags, details and actions.' },
         { name: 'ActionTile', summary: 'One headline value in a tile that also does one thing: an action, a copy or a way in.' },
         { name: 'CopyValue', summary: 'A value to copy, such as an address or a key, with a copy button at its end.' },
+        { name: 'DateText', summary: 'A date or a time in any common format, such as 5 minutes ago, with the full date on hover.' },
         { name: 'Video', summary: 'A video player with its own control bar, keys and error state.' },
         { name: 'ShortcutList', summary: 'Keys, clicks and drags in one column, what each does in the next.' },
         { name: 'CodeBlock', summary: 'Highlighted code in a panel, with line marks, numbers and a copy button.' },

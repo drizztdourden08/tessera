@@ -1,5 +1,8 @@
 /* @layer renderer-components @kind logic */
+import { createElement } from 'react';
 import { resolveFieldKit } from '../../field-kits';
+import { asDate } from '../../../primitives/date-format/as-date';
+import { DateText } from '../../DateText';
 import { getPath } from '../../../data/schema/path';
 import { substituteDisplay } from './display-substitution';
 import type { ReactNode } from 'react';
@@ -22,6 +25,8 @@ const cellContent = (
 ): ReactNode => {
   const value = getPath(row, path);
   if (!field) return asText(value);
+  const at = field.date === undefined ? undefined : asDate(value);
+  if (at) return createElement(DateText, { value: at, format: field.date });
   const kit = resolveFieldKit(field.kind);
   if (!kit) return asText(value);
   return kit.renderCell(value, field, {

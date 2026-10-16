@@ -238,6 +238,7 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | A password field | `PasswordInput` |
 | Equal columns that wrap | `Grid` with `minColWidth` |
 | Label and value facts, on a line or in rows | `FactsPanel` with `layout`, or `StatRow` |
+| A date or a time, such as 5 minutes ago or Today, 21:40 | `DateText` with `format`; `formatDate` for text outside React; `SchemaConfig.dates` for a DataTable column |
 | Steps of a process | `Stepper` |
 | A count after a heading | `count` on `SectionHeader` or `ListItemList` |
 | Quiet, error or code text | `tone`, `mono` and `numeric` on `Text` |

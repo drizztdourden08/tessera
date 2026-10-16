@@ -57,6 +57,8 @@ export type { SliderPair, SliderProps } from './Slider';
 export { ScaleLabels } from './ScaleLabels';
 export type { ScaleLabelEntry, ScaleLabelSource, ScaleLabelsProps, ScaleOrientation } from './ScaleLabels';
 export { formatValueRule, parseValueRule, thinLabels } from './value-rule';
+export { DATE_LENGTHS, DATE_PRESETS, formatDate } from './date-format';
+export type { DateFormat, DateFormatOptions, DateLength, DatePreset, DateStrings, DateValue } from './date-format';
 export type { LabelBox, ValueMark, ValueRule, ValueRuleMarks, ValueRuleParse, ValueScale } from './value-rule';
 export { RadioGroup, type RadioOption } from './RadioGroup';
 export { SegmentedControl } from './SegmentedControl';
