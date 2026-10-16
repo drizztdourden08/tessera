@@ -17,7 +17,7 @@ const Terms = ({ agreed, onAgree }: { agreed: boolean; onAgree: (next: boolean) 
   <Checkbox label="I agree" ticked={agreed} onChange={onAgree} />
 );
 `,
-  propsHash: 'e0b89cd5b4c501ac',
+  propsHash: 'cc6402381a2edee4',
 } satisfies ComponentUsage;
 
 export { usage };

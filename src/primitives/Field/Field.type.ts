@@ -7,6 +7,7 @@ type FieldWidth = 'sm' | 'md' | 'full';
 interface FieldProps {
   label?: ReactNode;
   hint?: ReactNode;
+  help?: ReactNode;
   error?: ReactNode;
   htmlFor?: string;
   required?: boolean;

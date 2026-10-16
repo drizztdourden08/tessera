@@ -138,10 +138,10 @@ const Overview = overviewStory({
   points: [
     'It can carry a `label`, a line of `description` and a `link` to a page about the setting.',
     'The whole row is one label, so a click anywhere on it flips the switch.',
-    '`sm` is the compact switch, for widget panels and dense rows.',
     '`hint` reports a one-line description to a [HintLine] while it is pointed at or focused.',
     '`aria-label` or `aria-labelledby` names it when it has no `label`, such as the name of a [FormRow].',
-    '`labelSize` `sm` or `md` sets the label text apart from `size`, such as a small label by the full switch.',
+    '`sm` is the compact switch for dense rows; `labelSize` `sm` or `md` sets the label text apart from `size`.',
+    '`help` puts a ? after the label that shows its note on hover, focus or click, without flipping it.',
   ],
   instead: '[Checkbox] for a choice saved with a form.',
   playground: Playground,

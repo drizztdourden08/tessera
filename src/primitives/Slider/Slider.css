@@ -104,12 +104,12 @@
   transform: translateY(-50%);
   background: linear-gradient(
     to right,
-    var(--c-surface) 0%,
-    var(--c-surface) var(--slider-lo),
+    var(--c-border-strong) 0%,
+    var(--c-border-strong) var(--slider-lo),
     var(--c-primary) var(--slider-lo),
     var(--c-primary) var(--slider-hi),
-    var(--c-surface) var(--slider-hi),
-    var(--c-surface) 100%
+    var(--c-border-strong) var(--slider-hi),
+    var(--c-border-strong) 100%
   );
 }
 

@@ -58,6 +58,17 @@ const Folded = {
   render: () => row({ label: 'Start Inventory', description: LONG_HELP }),
 } satisfies StoryLiteStoryDefinition<FormRowArgs>;
 
+const Help = {
+  name: 'Help behind a question mark beside the name',
+  render: () => (
+    <Box className="option-editor-story option-editor-story--wide">
+      <FormRow label="Death Link" help="When you die, everyone in the room with Death Link on dies too, and the other way round.">
+        <TextInput defaultValue="Off" />
+      </FormRow>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<FormRowArgs>;
+
 const Editor = {
   name: 'Preset editor with FormGroupTabs and FormRow: changed counts per tab, reset per row',
   render: () => <PresetOptionsDemo />,
@@ -83,10 +94,11 @@ const Overview = overviewStory({
     'The control gets the id, label and notes of the row, as inside a [Field].',
     'Under 640 px the control goes under the name, with the reset kept on the first line.',
     'A description past `descriptionLines` lines, 2 by default, folds behind More and Less.',
+    '`help` puts a ? after the name that shows its note on hover, focus or click, for help kept off the page.',
   ],
   instead: '[SettingsRow] for an app setting with a live hint, or [Field] for a plain form.',
   playground: Playground,
-  variants: [Editor, Folded],
+  variants: [Editor, Folded, Help],
   states: {
     render: (props: StateProps) => row(props as Partial<FormRowArgs>),
     list: [
@@ -100,4 +112,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Editor, Folded, Overview, Playground };
+export { Editor, Folded, Help, Overview, Playground };

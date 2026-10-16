@@ -1,18 +1,20 @@
 /* @layer renderer-components @kind component */
-import { useEffect, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
+import { helpLabelId } from '../field-control/help-label-id';
 import { useControlSize } from '../field-control/useControlSize';
-import { Span } from '../text-elements';
+import { CheckboxText } from './sub-components/CheckboxText';
 import '../../theme/control-size.css';
 import '../../theme/label-size.css';
 import './Checkbox.css';
 import type { CheckboxProps } from './Checkbox.type';
 
 const Checkbox = (props: CheckboxProps) => {
-  const { checked, onChange, label, ariaLabel, disabled, indeterminate = false, size, labelSize, className = '' } = props;
+  const { checked, onChange, label, help, ariaLabel, disabled, indeterminate = false, size, labelSize, className = '' } = props;
   const controlSize = useControlSize(size);
   const { invalid, describedBy } = useFieldControl();
   const inputRef = useRef<HTMLInputElement>(null);
+  const labelledBy = helpLabelId(help, label, `checkbox-${useId()}`, ariaLabel);
   useEffect(() => {
     if (inputRef.current) inputRef.current.indeterminate = indeterminate;
   }, [indeterminate]);
@@ -25,11 +27,12 @@ const Checkbox = (props: CheckboxProps) => {
         checked={checked}
         disabled={disabled}
         aria-label={ariaLabel}
+        aria-labelledby={labelledBy}
         aria-invalid={invalid ? true : undefined}
         aria-describedby={describedBy}
         onChange={(e) => onChange(e.target.checked)}
       />
-      {label != null && <Span tone="dim" className="checkbox__label">{label}</Span>}
+      <CheckboxText id={labelledBy} label={label} help={help} />
     </label>
   );
 };

@@ -5,6 +5,7 @@ interface FormRowProps {
   label: string;
   description?: ReactNode;
   descriptionLines?: number;
+  help?: ReactNode;
   changed?: boolean;
   advanced?: boolean;
   problem?: ReactNode;
@@ -19,6 +20,7 @@ interface FormRowHeadProps {
   labelId: string;
   controlId: string;
   onNameClick: () => void;
+  help?: ReactNode;
   description?: ReactNode;
   descriptionLines: number;
   descriptionId: string;

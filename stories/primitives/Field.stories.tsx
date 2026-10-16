@@ -9,6 +9,7 @@ import { PasswordInput } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { HelpMarks } from './_samples/HelpMarks';
 import { SizesLineUp } from './_samples/SizesLineUp';
 import './Field.stories.css';
 
@@ -164,6 +165,11 @@ const LineUp = {
   render: () => <SizesLineUp />,
 } satisfies StoryLiteStoryDefinition<FieldArgs>;
 
+const Help = {
+  name: 'Help behind a question mark beside the label',
+  render: () => <HelpMarks />,
+} satisfies StoryLiteStoryDefinition<FieldArgs>;
+
 const Validation = {
   name: 'Live validation',
   render: () => <PlayerNameField />,
@@ -179,15 +185,15 @@ const Overview = overviewStory({
   component: 'Field',
   description: 'The frame around one form control, with a label above it and a hint or an error below it.',
   points: [
-    'Put it around any input so every form lines up the same way.',
+    'Put it around any input so every form lines up the same way; `htmlFor` ties the label to it.',
     '`error` replaces the hint and draws the control inside in its error look.',
     '`required` adds a star to the label, and `inline` puts the label beside the control.',
-    '`htmlFor` ties the label to the input it names.',
+    '`help` puts a ? after the label that shows its note on hover, focus or click, off the page.',
     '`size` passes `md` or `sm` to the control inside; a [DensityScope] sets it for a whole panel.',
     '`width` caps the field on a wide page: `sm` 256 px, `md` 512 px by default, or `full`.',
   ],
   playground: Playground,
-  variants: [Form, Widths, NarrowRow, Sizes, LineUp],
+  variants: [Form, Help, Widths, NarrowRow, Sizes, LineUp],
   states: {
     render: renderState,
     list: [
@@ -198,4 +204,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Form, LineUp, NarrowRow, Overview, Playground, Sizes, Validation, Widths };
+export { Form, Help, LineUp, NarrowRow, Overview, Playground, Sizes, Validation, Widths };

@@ -7,6 +7,7 @@ interface CheckboxProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
   label?: ReactNode;
+  help?: ReactNode;
   ariaLabel?: string;
   disabled?: boolean;
   indeterminate?: boolean;

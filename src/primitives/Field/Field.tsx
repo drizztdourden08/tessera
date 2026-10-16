@@ -2,14 +2,14 @@
 import { useId, useMemo } from 'react';
 import { FieldControlContext } from '../field-control/field-control-context';
 import { useControlSize } from '../field-control/useControlSize';
-import { Span } from '../text-elements';
+import { FieldLabel } from './sub-components/FieldLabel';
 import { FieldNote } from './sub-components/FieldNote';
 import '../../theme/control-size.css';
 import './Field.css';
 import type { FieldProps } from './Field.type';
 
 const Field = (props: FieldProps) => {
-  const { label, hint, error, htmlFor, required, inline, size, width = 'md', className = '', children } = props;
+  const { label, hint, help, error, htmlFor, required, inline, size, width = 'md', className = '', children } = props;
   const autoId = useId();
   const controlId = htmlFor ?? `field-${autoId}`;
   const noteId = `${controlId}-note`;
@@ -25,10 +25,7 @@ const Field = (props: FieldProps) => {
   return (
     <div className={[`field control-size--${fieldSize} field--width-${width}`, inline && 'field--inline', className].filter(Boolean).join(' ')}>
       {label != null && (
-        <label id={labelId} className="field__label" htmlFor={controlId}>
-          {label}
-          {required && <Span tone="danger" className="field__required">*</Span>}
-        </label>
+        <FieldLabel id={labelId} htmlFor={controlId} required={required} help={help}>{label}</FieldLabel>
       )}
       <div className="field__control">
         <FieldControlContext.Provider value={control}>{children}</FieldControlContext.Provider>

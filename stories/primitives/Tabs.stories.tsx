@@ -87,7 +87,12 @@ const LOCKED_TABS: TabItem[] = [
 
 const Disabled = {
   name: 'Disabled, with a reason',
-  render: () => <StatefulTabs tabs={LOCKED_TABS} />,
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">Click Controls or Cheats, then move away, press Esc or click elsewhere: the reason closes</Text>
+      <StatefulTabs tabs={LOCKED_TABS} />
+    </Box>
+  ),
 } satisfies StoryLiteStoryDefinition<TabsArgs>;
 
 const Layouts = {
@@ -118,6 +123,7 @@ const Overview = overviewStory({
     'When the tabs run out of room the strip scrolls sideways, with an arrow at each edge that has more.',
     'The arrow keys, [[Home]] and [[End]] move the selection.',
     '`disabled` greys a tab out and the arrows skip it; `disabledReason` shows on hover and focus and is read out.',
+    'The reason closes on pointer leave, blur, [[Esc]] or a click elsewhere; a click never pins it open.',
   ],
   instead: '[SegmentedControl] for a choice that sets a value instead of switching views.',
   playground: Playground,

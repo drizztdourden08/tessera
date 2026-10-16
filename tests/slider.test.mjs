@@ -107,3 +107,13 @@ describe('Slider scale labels at the ends', () => {
     expect(css('../src/primitives/Slider/Slider.css')).not.toContain('overhang');
   });
 });
+
+describe('Slider track', () => {
+  const rail = readFileSync(new URL('../src/primitives/Slider/Slider.css', import.meta.url), 'utf8').split('.slider__rail::before {')[1].split('}')[0];
+
+  it('draws the unfilled part in --c-border-strong, so it shows on a page, a card, a dialog or a panel', () => {
+    expect(rail.match(/var\(--c-border-strong\)/g)).toHaveLength(4);
+    expect(rail.match(/var\(--c-primary\)/g)).toHaveLength(2);
+    expect(rail).not.toContain('--c-surface');
+  });
+});

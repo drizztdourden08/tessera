@@ -1,0 +1,29 @@
+/* @layer renderer-components @kind style */
+.tooltip-anchor.help-tip {
+  flex: none;
+  align-self: center;
+  vertical-align: middle;
+}
+
+.help-tip__mark {
+  display: inline-flex;
+  border-radius: var(--radius-round);
+  color: var(--c-text-muted);
+  cursor: help;
+  transition: color var(--transition-fast);
+}
+
+.help-tip__mark svg {
+  inline-size: var(--size-14);
+  block-size: var(--size-14);
+}
+
+.help-tip__mark:hover,
+.help-tip__mark:focus-visible {
+  color: var(--c-text);
+}
+
+.help-tip__mark:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-1);
+}

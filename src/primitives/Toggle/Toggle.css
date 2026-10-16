@@ -28,6 +28,12 @@
   line-height: var(--leading-tight);
 }
 
+.toggle__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
 .toggle__description {
   line-height: var(--leading-normal);
 }

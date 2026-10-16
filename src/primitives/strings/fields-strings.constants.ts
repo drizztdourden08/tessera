@@ -15,6 +15,7 @@ const FIELD_STRINGS = {
   noMatchingTags: 'No matching tags',
   dismiss: 'Dismiss',
   learnMore: 'Learn more',
+  help: 'Help',
 };
 
 export { FIELD_STRINGS };

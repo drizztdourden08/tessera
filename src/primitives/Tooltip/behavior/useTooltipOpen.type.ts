@@ -10,6 +10,7 @@ interface TooltipOpen {
     onMouseEnter: MouseEventHandler<HTMLElement>;
     onMouseMove: TooltipPointer | undefined;
     onMouseLeave: MouseEventHandler<HTMLElement>;
+    onMouseDown: MouseEventHandler<HTMLElement>;
     onFocus: FocusEventHandler<HTMLElement>;
     onBlur: FocusEventHandler<HTMLElement>;
   };

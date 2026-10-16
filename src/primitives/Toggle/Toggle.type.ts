@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
 import type { ControlName } from '../field-control/control-name.type';
 import type { ControlSize } from '../field-control/field-control.type';
 import type { ControlLabelSize } from '../field-control/label-size.type';
@@ -9,6 +10,7 @@ interface ToggleProps extends ControlName {
   onChange: (checked: boolean) => void;
   label?: string;
   description?: string;
+  help?: ReactNode;
   disabled?: boolean;
   id?: string;
   link?: string;
@@ -18,7 +20,7 @@ interface ToggleProps extends ControlName {
   onHint?: HintReport;
 }
 
-type ToggleTextProps = Pick<ToggleProps, 'label' | 'description' | 'link'>;
+type ToggleTextProps = Pick<ToggleProps, 'label' | 'description' | 'help' | 'link'> & { labelId?: string };
 
 export type {
   ToggleProps,

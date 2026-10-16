@@ -144,6 +144,7 @@ const Overview = overviewStory({
     '`ariaLabel` names a box whose label is drawn somewhere else.',
     '`md` sits beside standard controls; `sm` is for dense lists, tables and a compact [DensityScope].',
     '`labelSize` `sm` or `md` sets the label text apart from `size`, such as a small label in a list.',
+    '`help` puts a ? after the label that shows its note on hover, focus or click, without checking the box.',
   ],
   instead: '[Toggle] for a setting that takes effect at once.',
   playground: Playground,

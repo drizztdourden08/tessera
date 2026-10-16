@@ -8592,3 +8592,44 @@ A new page, CollapseToggle, under Composites · Layout, shows a panel on each si
   Drop `sidebarCollapsed`, `devicesCollapsed`, their setters and the chevron IconButtons in `controls-settings__col-header`; pass `collapsed` with `onCollapsedChange` only when the page must hold the fold itself. The `SidebarProfileButton` icons go in `rail`, and `controls-settings__sidebar-icons` goes away. DeviceCard stays as it is: its `draggable` and `onDragStart` work inside the panel, and the resize line takes the pointer only while it is dragged. The device hint line can sit last in the body.
 - **In its own rails**, any panel RotP still folds by hand draws `CollapseToggle` on its inner edge, with `side`, `label`, `controls`, `collapsed` and `onToggle`, and its folded look is the rail of SidePanel: the `page-card` class, `--side-nav-w` wide. Drop the `--side-nav-w` override from the app styles. Prefer SidePanel itself wherever a panel has a title.
 - **In tests and styles**, a test that looks for Collapse navigation or Expand navigation on the SideNav edge now finds Hide navigation or Show navigation; a style aimed at `.pane-fold-button` or the two `--side-nav-toggle-*` tokens takes the new names.
+
+## 247. Slider track, hints that close, and a help mark beside a label
+
+Owner testing in RotP found three things: the grey, unfilled part of a Slider track was missing; the reason of a disabled tab stuck open after a click; and a form control had no way to keep its explanation off the page behind a small question mark.
+
+### What changed
+
+- **Slider track.** The unfilled part of the track drew in `--c-surface`, the background of Card, Dialog, Drawer, DataTable and most panels, so on any of them it vanished: a contrast of 1.00 on `--c-surface` in every palette, and 1.14 to 1.20 on `--c-bg`. It now draws in `--c-border-strong`, the colour of the scale ticks: 1.63 on `--c-surface` and 1.91 on `--c-bg` in the Tessera and RotP palettes, 1.52 and 1.73 in Brock, 1.70 and 2.04 in Archipelia. Every Slider shares the one rail, so single, range, named values (`stops`), `sm` and a compact DensityScope all change together. The filled part, the thumb and every box stay as they were. RotP has no style aimed at slider classes; the missing track came from Tessera.
+- **Hints close.** A Tooltip opened by a click stayed open, because the click focused its anchor, and only blur, Escape or a click elsewhere closed it. Now pointer leave and blur always close it, Escape and a click elsewhere dismiss it, and a click shows it without holding it: only keyboard focus (`:focus-visible`) keeps it open with the pointer away. This is the shared Tooltip, so the disabled reasons of Tabs, SegmentedControl, RadioGroup, ToggleGroup and Select options, and every other tooltip, behave the same. The logic is one pure step, `nextTooltipState` in `Tooltip/behavior`, and the anchor takes a new `onMouseDown`.
+- **Help mark.** Field, FormRow, Checkbox and Toggle take `help`:
+
+```ts
+interface FieldProps { help?: ReactNode }
+interface FormRowProps { help?: ReactNode }
+interface CheckboxProps { help?: ReactNode }
+interface ToggleProps { help?: ReactNode }
+```
+
+  It draws Lucide `circle-help` at 14 px in `--c-text-muted`, 4 px after the label and centred on it, and shows the note in the shared Tooltip on hover, keyboard focus or click; the note is not on the page. The mark is one Tab stop, a `role="button"` named Help (`fields.help`), described by the note while it is open, and it closes the same way as above. Inside a Checkbox or Toggle a click on the mark does not change the value, and the control is named by its label text alone through `aria-labelledby`. One internal part, `HelpTip` in `field-control`, draws it for all four; there is no new public component. Without `help` every part renders the same markup as before.
+
+### Gallery
+
+Measured at 1440 px against the gallery before the change; no console errors on any of the 199 Overviews.
+
+- The Tooltip Overview rewords two points and adds an example, Every disabled reason closes the same way, with a disabled tab, segment, Select option, radio option and chip; the states and code below move down by 581 px.
+- The Tabs Overview gains a sixth point, and its Disabled example a line of instructions; everything below the header moves down by 29 px, and below that example by 62 px.
+- The Field Overview rewords two points and adds an example, Help behind a question mark beside the label, after In a form; everything below it moves down by 268 px.
+- The FormRow Overview gains a sixth point and an example, Help behind a question mark beside the name; everything moves down by 29 px, and below the example by 181 px.
+- The Checkbox Overview gains a sixth point; everything below the header moves down by 30 px.
+- The Toggle Overview merges two points and adds one on help; every box keeps its place.
+- The Slider track changes colour, with no box change, on every page that draws a Slider, in an example or in the playground controls: Slider, DensityScope, VolumeControl, SettingsRow, SettingsSection, FormRow, ListDetail, SearchResults, SearchResultGroup, SplitPane, StickPlot, WorkspaceScreen, Widget, SaveBar, Splash, Carousel, FileList, Rating, ShortcutTour, Gauge, ProgressRing, Sparkline, StackedBar, HintLine and HintScope.
+
+### Tests
+
+`tests/tooltip-close.test.mjs` checks each way a hint closes: pointer leave, blur, Escape or a click elsewhere, after a click and after keyboard focus, that focus from a click does not open it, and that the next click shows it again. `tests/help-tip.test.mjs` checks the mark on all four parts, its one Tab stop, the note kept off the page, the label as the name, and the markup without `help`. `tests/slider.test.mjs` checks the track colour.
+
+### What Brock does
+
+- **Menu separator.** WindowTitleBar adds no About or Quit; the app passes them. Brock builds them in `brock-react` `src/app/BrockApp/behavior/menu-groups.ts`, where the `end` group is `[Credits?, About, Quit]` with no separator, so About and Quit sit together. Put `'separator'` before `QUIT_ENTRY` in `end`, or give Quit its own group. WindowTitleBar keeps every group the app passes, puts a separator between groups, and slots its own group (View, or the tucked rows with `view={false}`) before the last one, so a Quit group of its own stays last with a separator above it in every configuration, `tucked` included.
+- **Help.** Pass `help` on a Field, FormRow, Checkbox or Toggle where RotP wants the explanation behind a question mark.
+- **Hints.** Nothing to change; a style that relied on a clicked tooltip staying open no longer gets it.
