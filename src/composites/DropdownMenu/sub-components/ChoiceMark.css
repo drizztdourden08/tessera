@@ -1,0 +1,62 @@
+/* @layer renderer-components @kind style */
+.choice-mark {
+  flex: none;
+  width: var(--size-16);
+  height: var(--size-16);
+  overflow: visible;
+}
+
+.choice-mark__dot,
+.choice-mark__line {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.choice-mark__dot {
+  fill: var(--c-text-faint);
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    fill var(--duration-normal) var(--ease-out),
+    opacity var(--duration-normal) var(--ease-out);
+}
+
+.choice-mark__line {
+  fill: none;
+  stroke: currentcolor;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition:
+    stroke-dashoffset var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.choice-mark--radio .choice-mark__line {
+  transform: rotate(-90deg);
+}
+
+.choice-mark[data-on] .choice-mark__line {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transition-duration: var(--duration-normal), var(--duration-fast);
+}
+
+.choice-mark--check[data-on] .choice-mark__dot {
+  opacity: 0;
+  transform: scale(0);
+  transition-duration: var(--duration-fast);
+}
+
+.choice-mark--radio[data-on] .choice-mark__dot {
+  fill: currentcolor;
+  transform: scale(1.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice-mark__dot,
+  .choice-mark__line {
+    transition: none;
+  }
+}

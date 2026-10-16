@@ -58,15 +58,7 @@
 }
 
 .command-palette-row__check {
-  flex: none;
-  width: var(--size-8);
-  height: var(--size-8);
-  border-radius: var(--radius-round);
-  background: var(--c-text-faint);
-}
-
-.command-palette-row__check--on {
-  background: var(--c-primary);
+  color: var(--c-primary-bright);
 }
 
 .command-palette-row__toggle,

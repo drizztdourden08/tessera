@@ -88,13 +88,12 @@ describe('DropdownMenu', () => {
     const radios = [{ id: 'a', label: 'A', kind: 'radio', checked: true }, { id: 'b', label: 'B', kind: 'radio', checked: false }];
     const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'g', items: [item('plain'), ...radios] }] }));
     expect(html.match(/role="menuitemradio"/g)).toHaveLength(2);
-    expect(html.match(/dropdown__radio-ring/g)).toHaveLength(2);
-    expect(html.match(/dropdown__radio-dot/g)).toHaveLength(1);
-    expect(html.match(/dropdown__mark dropdown__mark--radio dropdown__mark--off/g)).toHaveLength(1);
+    expect(html.match(/choice-mark choice-mark--radio/g)).toHaveLength(2);
+    expect(html.match(/choice-mark choice-mark--radio" data-on=""/g)).toHaveLength(1);
     expect(html.match(/class="[^"]*dropdown__mark /g)).toHaveLength(3);
   });
 
-  it('gives every item the mark and icon slots, sub-menu rows too, and shows a dim check on an unchecked item', () => {
+  it('gives every item the mark and icon slots, sub-menu rows too, and shows a faint dot, not a dim check, on an unchecked item', () => {
     const view = [
       { id: 'pin', icon: 'pin', label: 'Pin', checked: false },
       { id: 'full', icon: 'maximize-2', label: 'Fullscreen' },
@@ -103,7 +102,8 @@ describe('DropdownMenu', () => {
     const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'view', items: view }] }));
     expect(html.match(/class="[^"]*dropdown__mark /g)).toHaveLength(3);
     expect(html.match(/class="[^"]*dropdown__icon"/g)).toHaveLength(3);
-    expect(html).toMatch(/dropdown__mark--check dropdown__mark--off"[^>]*><svg/);
+    expect(html).toMatch(/dropdown__mark--check"[^>]*><svg class="choice-mark choice-mark--check" viewBox/);
+    expect(html).not.toContain('dropdown__mark--off');
   });
 
   it('draws a danger item in the danger tone, apart from a confirm item that only turns red while it asks', () => {

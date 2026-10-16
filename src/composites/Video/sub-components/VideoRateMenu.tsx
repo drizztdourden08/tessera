@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
 import { useId } from 'react';
 import { Box } from '../../../primitives/Box';
-import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { Pressable } from '../../../primitives/Pressable';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { ChoiceMark } from '../../DropdownMenu/sub-components/ChoiceMark';
 import { rateLabel } from '../behavior/rate-label';
 import { useRateMenu } from '../behavior/useRateMenu';
 import { PLAYBACK_RATES } from '../Video.constants';
@@ -42,7 +42,7 @@ const VideoRateMenu = (props: VideoRateMenuProps) => {
               onClick={() => choose(value)}
             >
               {rateLabel(value)}
-              {value === rate && <Icon name="check" size={14} />}
+              <ChoiceMark kind="radio" checked={value === rate} />
             </Pressable>
           ))}
         </Box>

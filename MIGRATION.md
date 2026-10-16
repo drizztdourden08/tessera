@@ -8502,3 +8502,26 @@ Where Brock builds the props of WindowTitleBar from its menu config, map its `wi
 - untouched: leave the key out.
 
 Pass `tucked` alongside `view={false}`. Brock no longer needs `windows.pinOnTop` and the other strings to rename these rows; changing them still renames the bar buttons and View.
+
+## 245. Menu marks: a faint dot that morphs into a check or a radio
+
+A check item that was off drew a dim check mark, and on a dark menu that read as on. A radio item that was off drew an empty ring.
+
+### What changed
+
+- **Off**, a check or radio item shows a faint dot, 4 px across, centred in the mark column, in `--c-text-faint`.
+- **On**, a check item shows a check mark and a radio item a ring around a 6 px dot, both in the menu tone (`--menu-tone-bright`, which is `--c-primary-bright` for the primary variant), the colour a checked row already had.
+- **Changing state morphs** between the two. For a check, the dot shrinks away over `--duration-fast` while the check draws from its short arm over `--duration-normal`, with `--ease-out`; turned off, the check rubs out over `--duration-fast` and the dot grows back over `--duration-normal`. For a radio, the dot grows to the filled centre and takes the tone while the ring draws round from the top; the item that loses the choice morphs back the same way.
+- **Under reduced motion** the mark switches at once.
+- **Nothing moves around it.** The mark is a 16 px SVG in the 16 px mark column, so every row keeps its height and the column its width; the radio mark box grows from 12 to 16 px about the same centre. The morph animates only `transform`, `opacity`, `fill` and `stroke-dashoffset`.
+- **One shared mark.** The internal `ChoiceMark` part draws it for DropdownMenu and its sub-menus, the CommandPalette check (the end of a row, a 16 px mark in place of the 8 px dot that turned primary) and the Video speed menu (a radio mark at the end of each speed in place of a check on the chosen one). ControlMenu draws no marks. The `dropdown__mark--off`, `dropdown__radio-ring`, `dropdown__radio-dot` and `command-palette-row__check--on` classes are gone; style `.choice-mark`, `.choice-mark[data-on]`, `.choice-mark__dot` and `.choice-mark__line` instead.
+
+Measured in a browser at 1440 px, before and after: on the DropdownMenu, WindowTitleBar, CommandPalette, CommandPaletteRow, Video and ControlMenu Overviews every row keeps its box. On the DropdownMenu Overview every element above the new example keeps its box, and everything below it moves down by its 309 px. `pnpm check:steady` now samples the DropdownMenu Overview too, where two menus change by themselves, and every box holds.
+
+### Gallery and tests
+
+A new DropdownMenu example, Marks off and on, shows check and radio items off, on, changing by themselves every 1.2 seconds, and in a menu to click. The Overview point on choices says what off and on look like, and the usage rules gain one. `tests/choice-mark.test.mjs` checks the parts, the colours, the motion tokens, reduced motion and that every menu draws this mark; `tests/dropdown-menu.test.mjs` now expects it in place of the dim check and the ring.
+
+### What Brock does
+
+Nothing to change. Brock's menu items with `checked: false` now show the faint dot in place of the dim check that section 243 mentions. Any Brock style aimed at the removed classes should move to the `choice-mark` classes.

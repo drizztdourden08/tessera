@@ -16,6 +16,7 @@ const usage = {
   ],
   rules: [
     'The app owns every checked value and every action; the menu only calls onSelect and draws what it is given.',
+    'A check or radio item that is off shows a faint centred dot; turned on, the dot morphs into a check or a filled radio in the menu tone, so an off item never shows a mark.',
     'Give an action that undoes work kind confirm: the first press reads Click again to and the label, in the danger tone; the second runs it.',
     'Give an action that deletes, such as Delete in a row menu, tone danger, so it reads in the danger tone at rest; a confirm item turns red only while it asks.',
     'Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.',

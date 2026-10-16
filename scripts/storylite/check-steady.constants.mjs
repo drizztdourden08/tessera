@@ -10,6 +10,7 @@ const STEADY_PARTS = [
   { page: 'primitives-button--overview', parts: ['.btn--loading'] },
   { page: 'primitives-spinner--overview', parts: [':has(> .spinner)'] },
   { page: 'composites-splash--overview', parts: ['.ts-progress', '.ts-splash'] },
+  { page: 'composites-dropdownmenu--overview', parts: ['.dropdown__menu', '.dropdown__item', '.dropdown__mark', '.choice-mark'] },
 ];
 
 const STEADY_CYCLE_MS = 5000;
