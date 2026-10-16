@@ -8927,3 +8927,48 @@ Go back from StudioBody to StudioLayout, and drop StudioSearch:
 - **MSU panels** (`FileControls`, `SoundPanelControls`, `MsuEffectsPanel`): the tabs in one group, the search with `grow={false}` in a Find group, and the unreachable Checkbox in a Show group.
 
 With the States panel at 224 px and Properties at 288 px, the sprite studio needs 736 px side by side (544 px of panels and lines and a 192 px editor); fold one panel to its rail, or pass a smaller `editorMinWidth`, on narrower windows.
+
+## 254. A compact toolbar: one row of small tools with the group names hidden
+
+The owner wants the middle of a studio to hold only its toolbar at the top, in compact sizes, and counts every row of height. ToolGroups drew a small label above each group, about 18 px over the tools, so a StudioLayout toolbar was 65 px high, and RotP wrapped each group's content in `DensityScope density="compact"` by hand.
+
+### What changed
+
+```ts
+interface ToolGroupsProps {
+  compact?: boolean; // new: one row of small controls, the group names hidden
+}
+
+interface StudioLayoutProps {
+  compactToolbar?: boolean; // new: passes compact to the editor toolbar
+}
+```
+
+- **One row.** With `compact`, each group is a `role="group"` named by `aria-label`, its name, with no label drawn above it; a line still sits between groups. The groups sit 8 px apart in place of 12 px, and each group centres its tools in the row. The groups still wrap when the room runs out.
+- **Compact sizes.** `compact` wraps the groups in `DensityScope density="compact"`, so every Button, SegmentedControl, Toggle, Select or input inside without its own size draws at sm, 28 px. A size on a control still wins.
+- **No tooltip on the groups.** A group is not a focus stop, so a tooltip on it or on the line would reach the pointer only, and it would show over the hints of the tools inside. The name stays for screen readers; give every icon button its `label` and a `hint`, and the StudioLayout HintLine says what each tool does.
+- **StudioLayout.** `compactToolbar` passes `compact` to the toolbar of the editor only; the groups of `bar` keep their labels.
+- Left out, both draw the same markup as before.
+
+### Measured
+
+At 1440 px against the gallery before, with no console errors:
+
+- **Height.** The compact toolbar of the StudioLayout editor is 45 px: 8 px of frame padding, a 28 px control, 8 px of padding and the 1 px line under it. The labelled toolbar of the Wide example is 65 px, so the editor body gains 20 px (385 to 405 px). ToolGroups on its own is 28 px compact and 48 px labelled.
+- **New examples.** ToolGroups gains Compact: the tools of a sprite studio in one row, Draw, View, Zoom, Grid and History in a ToolFrame (one row, 45 px). StudioLayout gains Compact toolbar, with Draw, View and Zoom on one row over a 392 px editor.
+- **Unchanged.** The ToolGroups Editor and One examples, the StudioLayout Wide, Folded, Narrow, Beside a list and Playground, and the ToolFrame, SearchInput and DensityScope Overviews keep every box and colour. On the two Overviews every existing element keeps its size; each new point adds 29 px, the new ToolGroups example 180 px and the new StudioLayout one 728 px. The ToolGroups Playground gains a `compact` control (95 px in the controls).
+
+### Gallery and tests
+
+A point on each Overview, the two examples above and a `compact` control on the ToolGroups Playground. The ToolGroups and StudioLayout usage files say when to pass `compact` and `compactToolbar`. `tests/tool-groups-compact.test.mjs` checks the `aria-label` names, the compact scope, the sizes inside, the default markup and the pass through from StudioLayout.
+
+### What RotP does
+
+| RotP | Tessera |
+|---|---|
+| `toolbar` groups with each `content` wrapped in `<DensityScope density="compact">` | the same groups with plain `content`, and `compactToolbar` on StudioLayout |
+| a ToolFrame `toolbar={<ToolGroups groups={...} />}` with compact content | `toolbar={<ToolGroups compact groups={...} />}` |
+
+- **Sprite studio** (`ViewerToolbar`): `<StudioLayout compactToolbar toolbar={[{ id: 'view', label: 'View', ... }, { id: 'play', label: 'Playback', ... }, { id: 'wear', label: 'Wearing', ... }]}>`; the labels stay as the names a screen reader reads.
+- **Language studio** and the **MSU panels**: the same, with the search keeping `grow={false}`.
+- Give each icon button in those groups a `hint`, so the HintLine names the tool now that no label shows above it.

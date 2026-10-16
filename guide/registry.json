@@ -3039,11 +3039,13 @@
         "Keep labels short and in sentence case; they name what the tools do, such as View or Export a file.",
         "Pass label to name the whole set when it is not the only toolbar on the screen.",
         "The groups wrap to a new line when the room runs out, so keep each group small.",
+        "Pass compact for one row of small controls with the names hidden, such as the toolbar of a studio editor: every control without its own size draws at sm.",
         "Give a SearchInput, Select or Combobox in a group grow={false}: it fills the line otherwise."
       ],
       "a11y": [
         "Each group is a group named by its visible label, so a screen reader reads the label before the tools.",
-        "With label, the whole set is a group named by it."
+        "With label, the whole set is a group named by it.",
+        "With compact, each group keeps its name as aria-label; give every icon button a label, since no name shows above it."
       ],
       "tree": {
         "path": [
@@ -3054,7 +3056,7 @@
         "rule": "ToolGroups names each group of tools with a small label and draws a line between groups; StudioLayout uses it for its bar and its toolbar."
       },
       "example": "import { Button, ToolGroups } from '@drizztdourden08/tessera';\n\nconst FileActions = ({ onSave, onExport }: { onSave: () => void; onExport: () => void }) => (\n  <ToolGroups\n    groups={[\n      { id: 'save', label: 'Save to this app', content: <Button size=\"sm\" onClick={onSave}>Save</Button> },\n      { id: 'export', label: 'Export a file', content: <Button size=\"sm\" variant=\"secondary\" onClick={onExport}>Export PNG</Button> },\n    ]}\n  />\n);\n",
-      "propsHash": "f075de6326e0df7b",
+      "propsHash": "a051a0df0317c9fe",
       "props": {
         "own": [
           {
@@ -3066,6 +3068,12 @@
             "name": "label",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "compact",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
           },
           {
             "name": "className",
@@ -10184,6 +10192,7 @@
       "rules": [
         "Pass the editor as children and name it with editorLabel; it sits in a ToolFrame that scrolls.",
         "Pass toolbar as ToolGroups groups, { id, label, content }, for the tools on the top edge of the editor.",
+        "Pass compactToolbar to keep that toolbar to one row of small controls with the group names hidden, when every row of height counts.",
         "Pass start and end as { title, content } with any SidePanel prop, such as storageKey, width, rail or defaultCollapsed.",
         "Pass bar as { title, caption, status, groups, idleHint } for the raised top bar; its HintLine shows the hint of the control under the pointer.",
         "Put status and error lines in bar.notices, under the hint line, and a full width line, such as where an installed item came from, in banner.",
@@ -10196,7 +10205,7 @@
         "The bar is a header with the title as a heading, h1 unless bar.level says otherwise.",
         "Each side panel is an aside named by its title, with a heading; the editor is a section named by editorLabel.",
         "The fold buttons are CollapseToggles: they say Hide or Show and the title, report aria-expanded and keep focus when the panel folds.",
-        "Each group in the bar and the toolbar is a group named by its visible label."
+        "Each group in the bar and the toolbar is a group named by its label, shown above it unless compactToolbar hides it."
       ],
       "tree": {
         "path": [
@@ -10206,7 +10215,7 @@
         "rule": "StudioLayout draws every studio screen the same way: a raised bar, two SidePanels and a ToolFrame for the editor."
       },
       "example": "import { Button, StudioLayout } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst SpriteStudio = ({ name, list, sheet, facts }: { name: string; list: ReactNode; sheet: ReactNode; facts: ReactNode }) => (\n  <StudioLayout\n    bar={{\n      caption: 'Character Studio',\n      title: name,\n      idleHint: 'Save keeps the sprite in this app.',\n      groups: [{ id: 'save', label: 'Save to this app', content: <Button size=\"sm\" hint={{ label: 'Save', description: 'Keeps your changes.' }}>Save</Button> }],\n    }}\n    start={{ title: 'Sprites', content: list, storageKey: 'studio.sprites' }}\n    end={{ title: 'Properties', content: facts, storageKey: 'studio.properties' }}\n    editorLabel=\"Sprite sheet\"\n  >\n    {sheet}\n  </StudioLayout>\n);\n",
-      "propsHash": "ef5713ce58729f70",
+      "propsHash": "69fadfb8b1e1ea42",
       "props": {
         "own": [
           {
@@ -10245,10 +10254,14 @@
             "text": "readonly ToolGroup[]"
           },
           {
+            "name": "compactToolbar",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "editorMinWidth",
             "optional": true,
-            "text": "number",
-            "default": "DEFAULT_EDITOR_MIN_WIDTH"
+            "text": "number"
           },
           {
             "name": "className",

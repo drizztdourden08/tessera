@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { FactsPanel, ListItemRow, StudioLayout } from '../../../src/composites';
 import { Box, ColorSwatch, Icon, IconButton, SearchInput, Status, Text } from '../../../src/primitives';
+import { useSpriteTools } from '../../primitives/_samples/useSpriteTools';
 import { StudioAction } from './StudioAction';
 import { SpriteSheet } from './SpriteSheet';
 import { SpriteViewSwitch } from './SpriteViewSwitch';
@@ -9,10 +10,11 @@ import { IDLE_HINT, SPRITE_FACTS, SPRITES, TUNIC } from './studio-sample.constan
 import { usePickedSprite } from './usePickedSprite';
 import type { SpriteStudioSampleProps } from './studio-sample.type';
 
-const SpriteStudioSample = ({ folded = false, bar = true, resizable = true }: SpriteStudioSampleProps) => {
+const SpriteStudioSample = ({ folded = false, bar = true, resizable = true, compact = false }: SpriteStudioSampleProps) => {
   const { sprite, setPicked } = usePickedSprite();
   const [view, setView] = useState('sheet');
   const [query, setQuery] = useState('');
+  const spriteTools = useSpriteTools();
 
   const list = (
     <>
@@ -50,7 +52,8 @@ const SpriteStudioSample = ({ folded = false, bar = true, resizable = true }: Sp
       start={{ title: 'Sprites', content: list, defaultCollapsed: folded, resizable }}
       end={{ title: 'Properties', content: inspector, defaultCollapsed: folded, resizable }}
       editorLabel="Sprite sheet"
-      toolbar={[
+      compactToolbar={compact}
+      toolbar={compact ? spriteTools.slice(0, 3) : [
         { id: 'view', label: 'View', content: <SpriteViewSwitch value={view} onChange={setView} /> },
         { id: 'zoom', label: 'Zoom', content: <><IconButton size="sm" variant="ghost" label="Zoom out"><Icon name="zoom-out" /></IconButton><Text variant="label">400%</Text><IconButton size="sm" variant="ghost" label="Zoom in"><Icon name="zoom-in" /></IconButton></> },
       ]}

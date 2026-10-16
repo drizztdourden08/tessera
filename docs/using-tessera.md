@@ -258,6 +258,7 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | A side panel with a heading that folds to a rail and drags wider | `SidePanel`, with `side="end"` for one on the right |
 | An editor, a canvas or a log with its tools on its top edge | `ToolFrame`, with `toolbar` |
 | Tools in groups, each under a small label | `ToolGroups` |
+| A toolbar of one row of small tools, the group names hidden | `compact` on `ToolGroups`, `compactToolbar` on `StudioLayout` |
 | Delete a row at once, with an Undo for a few seconds | `undoDelete` on `ItemList`, and `deleteKey` for the Delete key |
 | Buttons of your own on each row of a list, such as Load | `rowActions` on `ItemList` |
 | Run something when a toast goes, such as the delete behind an Undo | `onClose` on `toast()`, told `expired`, `dismissed`, `action` or `replaced` |

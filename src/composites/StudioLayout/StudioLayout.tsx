@@ -19,7 +19,8 @@ const sideOf = (side: SidePanelSide, panel: StudioLayoutPanel | undefined) => {
 };
 
 const StudioLayout = (props: StudioLayoutProps) => {
-  const { editorLabel, children, bar, banner, start, end, toolbar, editorMinWidth = DEFAULT_EDITOR_MIN_WIDTH, className } = props;
+  const { editorLabel, children, bar, banner, start, end, toolbar, compactToolbar, className } = props;
+  const { editorMinWidth = DEFAULT_EDITOR_MIN_WIDTH } = props;
   const refs = { root: useRef<HTMLElement>(null), body: useRef<HTMLElement>(null), editor: useRef<HTMLElement>(null) };
   const stacked = useStudioStack(refs, editorMinWidth, `${start !== undefined}:${end !== undefined}`);
   const rootClass = ['studio-layout', stacked && STACKED_CLASS, className].filter(Boolean).join(' ');
@@ -36,7 +37,7 @@ const StudioLayout = (props: StudioLayoutProps) => {
             aria-label={editorLabel}
             padded
             className="studio-layout__editor"
-            toolbar={toolbar && toolbar.length > 0 && <ToolGroups groups={toolbar} />}
+            toolbar={toolbar && toolbar.length > 0 && <ToolGroups groups={toolbar} compact={compactToolbar} />}
           >
             {children}
           </ToolFrame>

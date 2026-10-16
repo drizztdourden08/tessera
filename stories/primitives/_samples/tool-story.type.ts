@@ -2,6 +2,7 @@
 interface ScriptToolsProps {
   count?: number;
   label?: string;
+  compact?: boolean;
 }
 
 interface ScriptFrameProps {

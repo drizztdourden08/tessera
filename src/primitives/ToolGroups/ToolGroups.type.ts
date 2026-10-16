@@ -10,6 +10,7 @@ interface ToolGroup {
 interface ToolGroupsProps {
   groups: readonly ToolGroup[];
   label?: string;
+  compact?: boolean;
   className?: string;
 }
 

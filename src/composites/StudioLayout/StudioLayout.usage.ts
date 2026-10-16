@@ -16,6 +16,7 @@ const usage = {
   rules: [
     'Pass the editor as children and name it with editorLabel; it sits in a ToolFrame that scrolls.',
     'Pass toolbar as ToolGroups groups, { id, label, content }, for the tools on the top edge of the editor.',
+    'Pass compactToolbar to keep that toolbar to one row of small controls with the group names hidden, when every row of height counts.',
     'Pass start and end as { title, content } with any SidePanel prop, such as storageKey, width, rail or defaultCollapsed.',
     'Pass bar as { title, caption, status, groups, idleHint } for the raised top bar; its HintLine shows the hint of the control under the pointer.',
     'Put status and error lines in bar.notices, under the hint line, and a full width line, such as where an installed item came from, in banner.',
@@ -28,7 +29,7 @@ const usage = {
     'The bar is a header with the title as a heading, h1 unless bar.level says otherwise.',
     'Each side panel is an aside named by its title, with a heading; the editor is a section named by editorLabel.',
     'The fold buttons are CollapseToggles: they say Hide or Show and the title, report aria-expanded and keep focus when the panel folds.',
-    'Each group in the bar and the toolbar is a group named by its visible label.',
+    'Each group in the bar and the toolbar is a group named by its label, shown above it unless compactToolbar hides it.',
   ],
   tree: {
     path: ['layout', 'a list, an editor and an inspector side by side'],
@@ -53,7 +54,7 @@ const SpriteStudio = ({ name, list, sheet, facts }: { name: string; list: ReactN
   </StudioLayout>
 );
 `,
-  propsHash: 'ef5713ce58729f70',
+  propsHash: '69fadfb8b1e1ea42',
 } satisfies ComponentUsage;
 
 export { usage };

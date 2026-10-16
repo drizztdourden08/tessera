@@ -20,3 +20,11 @@
   align-items: center;
   gap: var(--space-sm);
 }
+
+.tool-groups--compact {
+  gap: var(--space-sm);
+}
+
+.tool-groups--compact .tool-groups__group {
+  justify-content: center;
+}

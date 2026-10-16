@@ -4,12 +4,14 @@ import { Box } from '../../Box';
 import { Text } from '../../Text';
 import type { ToolGroupItemProps } from './ToolGroupItem.type';
 
-const ToolGroupItem = ({ group }: ToolGroupItemProps) => {
+const ToolGroupItem = ({ group, compact }: ToolGroupItemProps) => {
   const labelId = useId();
+  const row = <Box className="tool-groups__row">{group.content}</Box>;
+  if (compact) return <Box role="group" aria-label={group.label} className="tool-groups__group">{row}</Box>;
   return (
     <Box role="group" aria-labelledby={labelId} className="tool-groups__group">
       <Text id={labelId} variant="overline" tone="muted">{group.label}</Text>
-      <Box className="tool-groups__row">{group.content}</Box>
+      {row}
     </Box>
   );
 };
