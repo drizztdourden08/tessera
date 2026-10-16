@@ -11,9 +11,9 @@ const ROWS = [{ id: '1', gutter: '12:00', tag: 'srv', kind: 'info', message: 'St
 
 describe('LogPanel height', () => {
   it('fills its parent, keeps a fixed height, or sizes as before', () => {
-    expect(renderToString(h(LogPanel, { rows: ROWS, height: 'fill', toolbar: false }))).toContain('class="log-panel log-panel--fill"');
-    expect(renderToString(h(LogPanel, { rows: ROWS, height: 160, toolbar: false }))).toContain('class="log-panel log-panel--fixed" style="block-size:160px"');
-    expect(renderToString(h(LogPanel, { rows: ROWS, toolbar: false, className: 'host' }))).toContain('class="log-panel host"');
+    expect(renderToString(h(LogPanel, { rows: ROWS, height: 'fill', toolbar: false }))).toContain('class="box--sunken tool-frame log-panel log-panel--fill"');
+    expect(renderToString(h(LogPanel, { rows: ROWS, height: 160, toolbar: false }))).toContain('class="box--sunken tool-frame log-panel log-panel--fixed" style="block-size:160px"');
+    expect(renderToString(h(LogPanel, { rows: ROWS, toolbar: false, className: 'host' }))).toContain('class="box--sunken tool-frame log-panel host"');
   });
 });
 

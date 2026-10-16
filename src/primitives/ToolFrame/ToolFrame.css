@@ -1,0 +1,27 @@
+/* @layer renderer-components @kind style */
+.tool-frame {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: clip;
+}
+
+.tool-frame__toolbar {
+  flex: none;
+  padding: var(--space-sm);
+  border-block-end: var(--border-width-thin) solid var(--c-border);
+  background: var(--c-surface);
+}
+
+.tool-frame__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+  overflow: auto;
+}
+
+.tool-frame__body--padded {
+  padding: var(--space-md);
+}

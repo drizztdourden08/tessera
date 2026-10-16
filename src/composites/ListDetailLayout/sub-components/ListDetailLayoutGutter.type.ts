@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ListHandle } from '../behavior/useListDetailPanes.type';
-import type { PaneFold } from '../behavior/usePaneFold.type';
+import type { PaneFold } from '../../pane-fold/pane-fold.type';
 
 interface GutterPane {
   fold: PaneFold;
@@ -16,4 +16,4 @@ interface ListDetailLayoutGutterProps {
   handle: ListHandle;
 }
 
-export type { GutterPane, ListDetailLayoutGutterProps };
+export type { ListDetailLayoutGutterProps };

@@ -1,0 +1,6 @@
+/* @layer renderer-components @kind data */
+const DEFAULT_PANEL_WIDTH = 288;
+const DEFAULT_MIN_PANEL_WIDTH = 224;
+const DEFAULT_MAX_PANEL_WIDTH = 448;
+
+export { DEFAULT_MAX_PANEL_WIDTH, DEFAULT_MIN_PANEL_WIDTH, DEFAULT_PANEL_WIDTH };

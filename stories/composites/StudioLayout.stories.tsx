@@ -1,0 +1,67 @@
+/* @layer stories @kind story */
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import type { PlaygroundStory } from '../_template/controls/playground.type';
+import { overviewStory } from '../_template/overview-story';
+import { Box } from '../../src/primitives';
+import { SpriteStudioSample } from './_samples/SpriteStudioSample';
+import { STUDIO_CODE } from './_samples/studio-story.constants';
+import './StudioLayout.stories.css';
+
+type StudioArgs = { bar: boolean; folded: boolean; resizable: boolean; narrow: boolean };
+
+const meta = {
+  title: 'Composites · Layout/StudioLayout',
+  parameters: { renderer: 'react' },
+} satisfies StoryLiteMeta<StudioArgs>;
+
+const frameClass = (narrow: boolean) => (narrow ? 'studio-demo-frame studio-demo-frame--narrow' : 'studio-demo-frame');
+
+const Playground = {
+  name: 'Playground',
+  args: { bar: true, folded: false, resizable: true, narrow: false },
+  argTypes: {
+    bar: { group: 'Content', control: 'boolean', description: 'The raised top bar with the title, the action groups and the hint line.' },
+    folded: { group: 'State', control: 'boolean', description: 'Both side panels start folded to a rail.' },
+    resizable: { group: 'Behaviour', control: 'boolean', description: 'Each side panel has a line to drag it wider.' },
+    narrow: { group: 'Appearance', control: 'boolean', description: 'A 560 px wide frame, below the 768 px where the columns stack.' },
+  },
+  render: (args) => (
+    <Box className={frameClass(args.narrow)}>
+      <SpriteStudioSample key={String(args.folded)} folded={args.folded} bar={args.bar} resizable={args.resizable} />
+    </Box>
+  ),
+} satisfies PlaygroundStory<StudioArgs>;
+
+const Wide = {
+  name: 'A sprite studio: list, editor and inspector',
+  render: () => <Box className={frameClass(false)}><SpriteStudioSample /></Box>,
+} satisfies StoryLiteStoryDefinition<StudioArgs>;
+
+const Folded = {
+  name: 'Both side panels folded to a rail',
+  render: () => <Box className={frameClass(false)}><SpriteStudioSample folded /></Box>,
+} satisfies StoryLiteStoryDefinition<StudioArgs>;
+
+const Narrow = {
+  name: 'Narrow: the columns stack',
+  render: () => <Box className={frameClass(true)}><SpriteStudioSample /></Box>,
+} satisfies StoryLiteStoryDefinition<StudioArgs>;
+
+const Overview = overviewStory({
+  component: 'StudioLayout',
+  description: 'The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right.',
+  points: [
+    '`bar` adds a raised top bar: the title, labelled action groups and a [HintLine] for what is under the pointer.',
+    '`start` and `end` are [SidePanel]s: each has a heading, folds to a rail and is dragged wider.',
+    'The editor sits in a [ToolFrame]; `toolbar` puts [ToolGroups] on its top edge.',
+    'Below 768 px of its own width the columns stack: the list, the editor, then the inspector.',
+    'Give each panel a `storageKey` to keep its width and its fold between visits.',
+  ],
+  instead: '[ListDetailLayout] for a list of records beside one detail; [DockLayout] for panels the user moves.',
+  playground: Playground,
+  variants: [Wide, Folded, Narrow],
+  code: STUDIO_CODE,
+});
+
+export default meta;
+export { Folded, Narrow, Overview, Playground, Wide };

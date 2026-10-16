@@ -73,6 +73,11 @@
                 "components": [
                   "ActionBar"
                 ]
+              },
+              "tools in groups, each under a small label": {
+                "components": [
+                  "ToolGroups"
+                ]
               }
             }
           }
@@ -410,6 +415,11 @@
               "ResizeHandle"
             ]
           },
+          "a side panel with a heading that folds to a rail": {
+            "components": [
+              "SidePanel"
+            ]
+          },
           "one slide at a time from a set": {
             "components": [
               "Carousel"
@@ -418,6 +428,16 @@
           "a list beside an editor, with unsaved edits guarded": {
             "components": [
               "ListDetail"
+            ]
+          },
+          "a list, an editor and an inspector side by side": {
+            "components": [
+              "StudioLayout"
+            ]
+          },
+          "a frame with a toolbar on its top edge": {
+            "components": [
+              "ToolFrame"
             ]
           },
           "an app frame with its navigation": {
@@ -2875,6 +2895,189 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "ToolFrame",
+      "tier": "primitives",
+      "source": "src/primitives/ToolFrame/ToolFrame.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A sunken frame for the thing being worked on, with its toolbar on the top edge, such as an editor, a canvas or a log.",
+      "useWhen": [
+        "An editor or a canvas has tools that belong to it, such as View, Zoom or a filter, on its top edge.",
+        "A block of content scrolls inside a fixed frame under its own tools."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A well with no tools of its own.",
+          "use": "Box"
+        },
+        {
+          "case": "A raised item with a heading and actions.",
+          "use": "Card"
+        },
+        {
+          "case": "A stream of log lines with a filter and Copy.",
+          "use": "LogPanel"
+        }
+      ],
+      "rules": [
+        "Pass the tools in toolbar, such as ToolGroups or a FilterBar; it sits on the surface colour over a line.",
+        "The content scrolls under the toolbar; give the frame a height or a flex parent.",
+        "Pass padded for space around the content; leave it off when the content has its own, such as a list.",
+        "Pass as and aria-label to name it, such as as=\"section\" aria-label=\"Sprite sheet\"."
+      ],
+      "a11y": [
+        "It adds no role; name it with as and aria-label when it holds the main work of the screen.",
+        "The toolbar comes first in reading order, before the content."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a frame with a toolbar on its top edge"
+        ],
+        "rule": "ToolFrame is the one frame with tools on its top edge: StudioLayout holds its editor in it and LogPanel its lines."
+      },
+      "example": "import { Button, ToolFrame, ToolGroups } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst ScriptEditor = ({ script, onRun }: { script: ReactNode; onRun: () => void }) => (\n  <ToolFrame\n    as=\"section\"\n    aria-label=\"Intro script\"\n    padded\n    toolbar={<ToolGroups groups={[{ id: 'file', label: 'File', content: <Button size=\"sm\" onClick={onRun}>Run</Button> }]} />}\n  >\n    {script}\n  </ToolFrame>\n);\n",
+      "propsHash": "c23f4226e8e79e0d",
+      "props": {
+        "own": [
+          {
+            "name": "as",
+            "optional": true,
+            "text": "ElementType"
+          },
+          {
+            "name": "toolbar",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "padded",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 279,
+          "from": [
+            "AriaAttributes",
+            "Attributes",
+            "DOMAttributes",
+            "HTMLAttributes",
+            "RefAttributes"
+          ],
+          "extends": [
+            "HTMLAttributes<HTMLElement>"
+          ]
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-surface",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Primitives · Layout/ToolFrame",
+        "route": "#/story/primitives-toolframe--overview",
+        "file": "stories/primitives/ToolFrame.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "ToolGroups",
+      "tier": "primitives",
+      "source": "src/primitives/ToolGroups/ToolGroups.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "Tools in groups, each under a small label, with a line between groups, for the top bar of a studio or the toolbar of an editor.",
+      "useWhen": [
+        "A bar holds several kinds of actions that read better under a name, such as Save to this app and Export a file.",
+        "The toolbar of an editor mixes buttons, toggles and a segmented control, grouped by what they change."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Buttons joined into one control with shared borders.",
+          "use": "ButtonGroup"
+        },
+        {
+          "case": "Actions on one item that fold into More when the room runs out.",
+          "use": "ActionBar"
+        },
+        {
+          "case": "A plain row of buttons with no names over them.",
+          "use": "ButtonRow"
+        }
+      ],
+      "rules": [
+        "Pass groups as { id, label, content }; content holds any controls, such as buttons or a SegmentedControl.",
+        "Keep labels short and in sentence case; they name what the tools do, such as View or Export a file.",
+        "Pass label to name the whole set when it is not the only toolbar on the screen.",
+        "The groups wrap to a new line when the room runs out, so keep each group small."
+      ],
+      "a11y": [
+        "Each group is a group named by its visible label, so a screen reader reads the label before the tools.",
+        "With label, the whole set is a group named by it."
+      ],
+      "tree": {
+        "path": [
+          "actions",
+          "several related buttons",
+          "tools in groups, each under a small label"
+        ],
+        "rule": "ToolGroups names each group of tools with a small label and draws a line between groups; StudioLayout uses it for its bar and its toolbar."
+      },
+      "example": "import { Button, ToolGroups } from '@drizztdourden08/tessera';\n\nconst FileActions = ({ onSave, onExport }: { onSave: () => void; onExport: () => void }) => (\n  <ToolGroups\n    groups={[\n      { id: 'save', label: 'Save to this app', content: <Button size=\"sm\" onClick={onSave}>Save</Button> },\n      { id: 'export', label: 'Export a file', content: <Button size=\"sm\" variant=\"secondary\" onClick={onExport}>Export PNG</Button> },\n    ]}\n  />\n);\n",
+      "propsHash": "f075de6326e0df7b",
+      "props": {
+        "own": [
+          {
+            "name": "groups",
+            "optional": false,
+            "text": "readonly ToolGroup[]"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--space-2xs",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Primitives · Actions/ToolGroups",
+        "route": "#/story/primitives-toolgroups--overview",
+        "file": "stories/primitives/ToolGroups.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Tooltip",
@@ -6552,9 +6755,7 @@
       "tokens": [
         "--border-width-thin",
         "--c-border",
-        "--c-sunken",
         "--c-surface",
-        "--c-text-dim",
         "--c-text-muted",
         "--radius-lg",
         "--size-320",
@@ -6565,8 +6766,6 @@
         "--space-xl",
         "--space-xs",
         "--text-sm",
-        "--text-xs",
-        "--tracking-wide",
         "--z-sticky"
       ],
       "gallery": {
@@ -6855,20 +7054,17 @@
       "tokens": [
         "--border-width-thick",
         "--border-width-thin",
-        "--c-border",
         "--c-hairline",
         "--c-hover",
         "--c-inset",
         "--c-primary",
         "--c-selected",
-        "--c-surface",
         "--c-text",
         "--c-text-muted",
         "--font-mono",
         "--leading-normal",
         "--log-gutter-w",
         "--log-tag-w",
-        "--radius-md",
         "--shadow-2",
         "--space-lg",
         "--space-md",
@@ -8799,6 +8995,166 @@
       "usage": false
     },
     {
+      "name": "SidePanel",
+      "tier": "composites",
+      "source": "src/composites/SidePanel/SidePanel.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A raised panel beside the main view, with a heading, that folds to a rail and that the user drags wider.",
+      "useWhen": [
+        "A screen has an outline, a layer list or an inspector beside its main view.",
+        "The user needs the room of the panel now and then, so it folds to a rail with its title down the side."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A list, an editor and an inspector make one studio screen.",
+          "use": "StudioLayout"
+        },
+        {
+          "case": "A list sits beside the detail of the picked item.",
+          "use": "ListDetailLayout"
+        },
+        {
+          "case": "The left side is the navigation of the app.",
+          "use": "SideNavLayout"
+        }
+      ],
+      "rules": [
+        "Put it in a flex row beside the main view; it keeps its own width, and the main view takes the rest.",
+        "Pass side=\"end\" for a panel on the right; its line then sits on its left.",
+        "Pass actions for buttons in the heading, such as Add; the fold button comes after them.",
+        "Pass width, minWidth and maxWidth in pixels; resizable={false} drops the line.",
+        "Pass storageKey to keep the width, and the fold under storageKey:collapsed.",
+        "Pass collapsed with onCollapsedChange when the app holds the fold; collapsible={false} drops the fold button."
+      ],
+      "a11y": [
+        "It is an aside named by its title, with the title as a heading, h2 unless level says otherwise.",
+        "The fold button says Hide or Show and the title and reports aria-expanded; focus stays on it when the panel folds or opens.",
+        "The line is a separator: the arrow keys resize it, and Enter folds the panel and moves focus to the button that opens it."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a side panel with a heading that folds to a rail"
+        ],
+        "rule": "SidePanel is the one side panel of a work screen: the raised surface, the heading, the fold to a rail and the resize line."
+      },
+      "example": "import { Box, Flex, SidePanel } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: ReactNode; inspector: ReactNode }) => (\n  <Flex gap=\"2xs\" align=\"stretch\" className=\"hud-editor\">\n    <SidePanel title=\"Layers\" storageKey=\"hud.layers\">{layers}</SidePanel>\n    <Box className=\"hud-editor__canvas\">{canvas}</Box>\n    <SidePanel side=\"end\" title=\"Inspector\" storageKey=\"hud.inspector\">{inspector}</SidePanel>\n  </Flex>\n);\n",
+      "propsHash": "34f31ff455a98db6",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "side",
+            "optional": true,
+            "text": "SidePanelSide",
+            "literals": [
+              "'start'",
+              "'end'"
+            ],
+            "default": "'start'"
+          },
+          {
+            "name": "level",
+            "optional": true,
+            "text": "HeadingLevel",
+            "literals": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "default": "2"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "collapsible",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "collapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onCollapsedChange",
+            "optional": true,
+            "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "resizable",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "width",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "minWidth",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "maxWidth",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "storageKey",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--side-panel-width",
+        "--space-2xs",
+        "--space-md"
+      ],
+      "gallery": {
+        "title": "Composites · Layout/SidePanel",
+        "route": "#/story/composites-sidepanel--overview",
+        "file": "stories/composites/SidePanel.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "SiteFooter",
       "tier": "composites",
       "source": "src/composites/SiteFooter/SiteFooter.tsx",
@@ -9507,6 +9863,123 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "StudioLayout",
+      "tier": "composites",
+      "source": "src/composites/StudioLayout/StudioLayout.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right, under an optional bar of actions.",
+      "useWhen": [
+        "A screen edits one thing picked from a list, with its properties beside it, such as a sprite, a language or a song studio.",
+        "The editor needs tools on its top edge and the screen needs Save and Export actions above it.",
+        "The user folds the side panels away now and then to give the editor the room."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A list sits beside the detail of the picked item, with no inspector.",
+          "use": "ListDetailLayout"
+        },
+        {
+          "case": "The user moves panels around and docks them.",
+          "use": "DockLayout"
+        },
+        {
+          "case": "Only one side panel sits beside the main view.",
+          "use": "SidePanel"
+        }
+      ],
+      "rules": [
+        "Pass the editor as children and name it with editorLabel; it sits in a ToolFrame that scrolls.",
+        "Pass toolbar as ToolGroups groups, { id, label, content }, for the tools on the top edge of the editor.",
+        "Pass start and end as { title, content } with any SidePanel prop, such as storageKey, width or defaultCollapsed.",
+        "Pass bar as { title, caption, status, groups, idleHint } for the raised top bar; its HintLine shows the hint of the control under the pointer.",
+        "Put status and error lines in bar.notices, under the hint line, and a full width line, such as where an installed item came from, in banner.",
+        "Give the buttons in the bar and the toolbar a hint, { label, description }: the layout is one HintScope.",
+        "Give the layout a height, such as the window or a flex parent; the panels and the editor scroll inside it.",
+        "Below 768 px of its own width the columns stack, list, editor, then inspector, and the body scrolls."
+      ],
+      "a11y": [
+        "The bar is a header with the title as a heading, h1 unless bar.level says otherwise.",
+        "Each side panel is an aside named by its title, with a heading; the editor is a section named by editorLabel.",
+        "The fold buttons say Hide or Show and the title, report aria-expanded and keep focus when the panel folds.",
+        "Each group in the bar and the toolbar is a group named by its visible label."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a list, an editor and an inspector side by side"
+        ],
+        "rule": "StudioLayout draws every studio screen the same way: a raised bar, two SidePanels and a ToolFrame for the editor."
+      },
+      "example": "import { Button, StudioLayout } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst SpriteStudio = ({ name, list, sheet, facts }: { name: string; list: ReactNode; sheet: ReactNode; facts: ReactNode }) => (\n  <StudioLayout\n    bar={{\n      caption: 'Character Studio',\n      title: name,\n      idleHint: 'Save keeps the sprite in this app.',\n      groups: [{ id: 'save', label: 'Save to this app', content: <Button size=\"sm\" hint={{ label: 'Save', description: 'Keeps your changes.' }}>Save</Button> }],\n    }}\n    start={{ title: 'Sprites', content: list, storageKey: 'studio.sprites' }}\n    end={{ title: 'Properties', content: facts, storageKey: 'studio.properties' }}\n    editorLabel=\"Sprite sheet\"\n  >\n    {sheet}\n  </StudioLayout>\n);\n",
+      "propsHash": "96139af396969b59",
+      "props": {
+        "own": [
+          {
+            "name": "editorLabel",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "bar",
+            "optional": true,
+            "text": "StudioLayoutBar"
+          },
+          {
+            "name": "banner",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "start",
+            "optional": true,
+            "text": "StudioLayoutPanel"
+          },
+          {
+            "name": "end",
+            "optional": true,
+            "text": "StudioLayoutPanel"
+          },
+          {
+            "name": "toolbar",
+            "optional": true,
+            "text": "readonly ToolGroup[]"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--size-384",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Layout/StudioLayout",
+        "route": "#/story/composites-studiolayout--overview",
+        "file": "stories/composites/StudioLayout.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "TagInput",

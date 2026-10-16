@@ -1,0 +1,10 @@
+/* @layer stories @kind style */
+.tool-story__frame {
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+  block-size: var(--size-288);
+}
+
+.tool-story__line {
+  white-space: pre;
+}

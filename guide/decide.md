@@ -21,6 +21,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Separate decisions, with space between: no component yet.
     - Too many, or secondary: [DropdownMenu](components/DropdownMenu.md). DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work.
     - Actions on one item, folding into More when narrow: [ActionBar](components/ActionBar.md). ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and always asks before it.
+    - Tools in groups, each under a small label: [ToolGroups](components/ToolGroups.md). ToolGroups names each group of tools with a small label and draws a line between groups; StudioLayout uses it for its bar and its toolbar.
 - A value the user sets. **What does the user set?**
   - Free text or a number. **What shape is it?**
     - One line of text: no component yet.
@@ -110,8 +111,11 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.
   - A side panel the user drags wider: [ResizeHandle](components/ResizeHandle.md). ResizeHandle is the one resize line of every Tessera layout: drag, keys, value and range, with usePaneSize to keep a width in pixels.
+  - A side panel with a heading that folds to a rail: [SidePanel](components/SidePanel.md). SidePanel is the one side panel of a work screen: the raised surface, the heading, the fold to a rail and the resize line.
   - One slide at a time from a set: [Carousel](components/Carousel.md). Carousel shows one slide at a time with dots and arrows, and can turn by itself.
   - A list beside an editor, with unsaved edits guarded: [ListDetail](components/ListDetail.md). ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app.
+  - A list, an editor and an inspector side by side: [StudioLayout](components/StudioLayout.md). StudioLayout draws every studio screen the same way: a raised bar, two SidePanels and a ToolFrame for the editor.
+  - A frame with a toolbar on its top edge: [ToolFrame](components/ToolFrame.md). ToolFrame is the one frame with tools on its top edge: StudioLayout holds its editor in it and LogPanel its lines.
   - An app frame with its navigation: no component yet.
   - Panels the user docks and moves: [Widget](components/Widget.md). Widget and WidgetManager give every tool panel the same frame, dock and options, with the app holding the layout.
   - A header with an icon and a title over a block: [ContentHeader](components/ContentHeader.md). ContentHeader is the header with an icon, a title and a backdrop that any container can carry.

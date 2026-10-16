@@ -24,6 +24,8 @@ export { ListItemList, ListItemRow } from './ListItemRow';
 export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from './ListItemRow';
 export { ListDetailLayout } from './ListDetailLayout';
 export type { ListDetailLayoutProps } from './ListDetailLayout';
+export { SidePanel, type SidePanelProps, type SidePanelSide } from './SidePanel';
+export { StudioLayout, type StudioLayoutBar, type StudioLayoutPanel, type StudioLayoutProps } from './StudioLayout';
 export { SplitPane, type CollapsedSide, type SplitOrientation, type SplitPaneProps } from './SplitPane';
 export { ResizeHandle, usePaneSize, type PaneSize, type PaneSizeHandle, type PaneSizeOptions, type ResizeChange, type ResizeHandleEdge, type ResizeHandleLook, type ResizeHandleProps } from './ResizeHandle';
 export { SettingsRow } from './SettingsRow';

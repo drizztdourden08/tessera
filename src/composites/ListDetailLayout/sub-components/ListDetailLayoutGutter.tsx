@@ -1,9 +1,8 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
-import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { PaneFoldButton } from '../../pane-fold/PaneFoldButton';
+import { PaneRail } from '../../pane-fold/PaneRail';
 import { ResizeHandle } from '../../ResizeHandle/ResizeHandle';
-import { ListDetailLayoutFold } from './ListDetailLayoutFold';
 import type { ListDetailLayoutGutterProps } from './ListDetailLayoutGutter.type';
 
 const ListDetailLayoutGutter = (props: ListDetailLayoutGutterProps) => {
@@ -11,10 +10,17 @@ const ListDetailLayoutGutter = (props: ListDetailLayoutGutterProps) => {
   const { navigation } = useTesseraStrings();
   const folded = [list, detail].find((pane) => pane.fold.collapsed);
   return (
-    <Box className="list-detail-layout__gutter">
-      {list.collapsible && !detail.fold.collapsed && <ListDetailLayoutFold pane={list} icon="panel-left" />}
-      {detail.collapsible && !list.fold.collapsed && <ListDetailLayoutFold pane={detail} icon="panel-right" />}
-      {folded && <Span className="list-detail-layout__rail-label" aria-hidden="true" onClick={folded.fold.toggle}>{folded.label}</Span>}
+    <PaneRail
+      className="list-detail-layout__gutter"
+      rail={folded && { label: folded.label, onUnfold: folded.fold.toggle }}
+      surface={list.fold.collapsed ? 'sunken' : undefined}
+    >
+      {list.collapsible && !detail.fold.collapsed && (
+        <PaneFoldButton fold={list.fold} label={list.label} controls={list.id} icon="panel-left" className="list-detail-layout__toggle" />
+      )}
+      {detail.collapsible && !list.fold.collapsed && (
+        <PaneFoldButton fold={detail.fold} label={detail.label} controls={detail.id} icon="panel-right" className="list-detail-layout__toggle" />
+      )}
       {resizable && !folded && (
         <ResizeHandle
           {...handle}
@@ -24,7 +30,7 @@ const ListDetailLayoutGutter = (props: ListDetailLayoutGutterProps) => {
           onCollapse={list.fold.collapse ?? detail.fold.collapse}
         />
       )}
-    </Box>
+    </PaneRail>
   );
 };
 

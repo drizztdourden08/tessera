@@ -1,7 +1,9 @@
 /* @layer renderer-components @kind logic */
-import { COLLAPSED_KEY_SUFFIX, DETAIL_COLLAPSED_KEY_SUFFIX } from '../ListDetailLayout.constants';
+import { DETAIL_COLLAPSED_KEY_SUFFIX } from '../ListDetailLayout.constants';
+import { COLLAPSED_KEY_SUFFIX } from '../../pane-fold/pane-fold.constants';
 import type { ListDetailLayoutProps } from '../ListDetailLayout.type';
-import type { LayoutOptions, ListDetailView, PaneFoldOptions } from './layout-options.type';
+import type { PaneFoldOptions } from '../../pane-fold/pane-fold.type';
+import type { LayoutOptions, ListDetailView } from './layout-options.type';
 import { listWidthOf } from './list-width-of';
 
 const viewOf = (onBack: (() => void) | undefined, empty: boolean): ListDetailView => {

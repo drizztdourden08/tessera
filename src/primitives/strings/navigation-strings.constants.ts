@@ -24,6 +24,7 @@ const NAVIGATION_STRINGS = {
   showPane: (pane: string) => `Show ${pane}`,
   hidePane: (pane: string) => `Hide ${pane}`,
   resizePanes: (start: string, end: string) => `Resize ${start} and ${end}`,
+  resizePane: (pane: string) => `Resize ${pane}`,
   resizeHint: 'Drag to resize · double-click to reset',
   pageViews: (title: string) => `${title} views`,
   pageSections: (title: string) => `${title} sections`,

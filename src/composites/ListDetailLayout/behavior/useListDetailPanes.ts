@@ -6,7 +6,7 @@ import type { LayoutOptions } from './layout-options.type';
 import { sharePixels } from './share-pixels';
 import type { ListDetailPanes } from './useListDetailPanes.type';
 import { useListWidth } from './useListWidth';
-import { usePaneFold } from './usePaneFold';
+import { usePaneFold } from '../../pane-fold/usePaneFold';
 
 const useListDetailPanes = (options: LayoutOptions): ListDetailPanes => {
   const { ratio } = options;

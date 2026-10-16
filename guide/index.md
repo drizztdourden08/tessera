@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 60 of 180 have their usage written; a linked name opens its page.
+One line per component. 64 of 184 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -76,6 +76,8 @@ One line per component. 60 of 180 have their usage written; a linked name opens 
 - `Title`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Toggle`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ToggleGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ToolFrame](components/ToolFrame.md): A sunken frame for the thing being worked on, with its toolbar on the top edge, such as an editor, a canvas or a log. Import from `@drizztdourden08/tessera`.
+- [ToolGroups](components/ToolGroups.md): Tools in groups, each under a small label, with a line between groups, for the top bar of a studio or the toolbar of an editor. Import from `@drizztdourden08/tessera`.
 - `Tooltip`: usage not written yet. Import from `@drizztdourden08/tessera`.
 
 ## Composites
@@ -152,6 +154,7 @@ One line per component. 60 of 180 have their usage written; a linked name opens 
 - `ShortcutTour`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [SidePanel](components/SidePanel.md): A raised panel beside the main view, with a heading, that folds to a rail and that the user drags wider. Import from `@drizztdourden08/tessera`.
 - [SiteFooter](components/SiteFooter.md): The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord. Import from `@drizztdourden08/tessera`.
 - [SiteHeader](components/SiteHeader.md): The band at the top of every page of a website: the logo and the site title as the link home, the main links and the signed-in person. Import from `@drizztdourden08/tessera`.
 - [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.
@@ -159,6 +162,7 @@ One line per component. 60 of 180 have their usage written; a linked name opens 
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
 - [StatTile](components/StatTile.md): A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [StudioLayout](components/StudioLayout.md): The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right, under an optional bar of actions. Import from `@drizztdourden08/tessera`.
 - `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
 - [Toast](components/Toast.md): A short message in a corner of the window that leaves on its own, raised with toast() from any part of the app and drawn by the one ToastStack. Import from `@drizztdourden08/tessera`.

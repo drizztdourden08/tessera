@@ -20,7 +20,7 @@ describe('ListDetailLayout', () => {
   it('draws the list pane, a gutter with the fold button and the divider, and the detail pane', () => {
     const html = draw();
     expect(html).toContain('grid-template-columns:320px auto minmax(0, 1fr)');
-    expect(html).toMatch(/class="box--sunken list-detail-layout__list".*class="list-detail-layout__gutter".*class="list-detail-layout__detail"/);
+    expect(html).toMatch(/class="box--sunken list-detail-layout__list".*class="pane-rail list-detail-layout__gutter".*class="list-detail-layout__detail"/);
     expect(html).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="240" aria-valuemax="480" aria-controls=/);
     expect(html).toContain('aria-label="Resize list and details"');
     expect(draw({ resizable: false })).not.toContain('role="separator"');
@@ -40,7 +40,7 @@ describe('ListDetailLayout', () => {
       expect(html).toContain('grid-template-columns:auto minmax(0, 1fr)');
       expect(html).toContain('aria-label="Show presets"');
       expect(html).toContain('aria-expanded="false"');
-      expect(html).toMatch(/list-detail-layout__rail-label" aria-hidden="true">presets</);
+      expect(html).toMatch(/pane-rail__label" aria-hidden="true">presets</);
       expect(html).not.toContain('role="separator"');
     }
     expect(draw({ collapsed: true, collapsible: false })).not.toContain('list-detail-layout--collapsed');
@@ -110,7 +110,7 @@ describe('ListDetailLayout detail fold', () => {
       expect(html).toContain('grid-template-columns:minmax(0, 1fr) auto');
       expect(html).toContain('aria-label="Show record"');
       expect(html).not.toContain('aria-label="Hide list"');
-      expect(html).toMatch(/list-detail-layout__rail-label" aria-hidden="true">record</);
+      expect(html).toMatch(/pane-rail__label" aria-hidden="true">record</);
       expect(html).not.toContain('role="separator"');
     }
     expect(draw({ detailCollapsed: true })).not.toContain('list-detail-layout--detail-collapsed');

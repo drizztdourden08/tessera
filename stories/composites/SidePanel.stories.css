@@ -1,0 +1,21 @@
+/* @layer stories @kind style */
+.side-panel-story {
+  display: flex;
+  gap: var(--space-2xs);
+  inline-size: var(--size-1024);
+  max-inline-size: 100%;
+  block-size: var(--size-320);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: var(--c-bg);
+}
+
+.side-panel-story__canvas {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+  padding: var(--space-lg);
+  text-align: center;
+}

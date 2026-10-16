@@ -7941,7 +7941,7 @@ Tessera's raised panel uses the same thin `--c-border` edge as Card and Shortcut
 
 ### The studio frame: for approval, not shipped
 
-The three-column frame itself (a list on the left, an editor in the centre, an inspector on the right, each side panel with a heading that folds to a rail, stacked below a breakpoint, with a raised top bar and an editor frame) is not covered by ListDetailLayout, SplitPane, ResizeHandle, DockLayout or WorkspaceScreen, alone or nested. A prototype, StudioLayout, is in the gallery under Preview · For approval, built on the new surfaces, and the owner decides between a third pane on ListDetailLayout and a new composite in TX-61. Until then RotP keeps `StudioFrame`, drawn on Box surfaces as above.
+The three-column frame itself (a list on the left, an editor in the centre, an inspector on the right, each side panel with a heading that folds to a rail, stacked below a breakpoint, with a raised top bar and an editor frame) is not covered by ListDetailLayout, SplitPane, ResizeHandle, DockLayout or WorkspaceScreen, alone or nested. A prototype, StudioLayout, is in the gallery under Preview · For approval, built on the new surfaces, and the owner decides between a third pane on ListDetailLayout and a new composite in TX-61. Until then RotP keeps `StudioFrame`, drawn on Box surfaces as above. The owner picked the new composite: section 237 ships it and says how to replace `StudioFrame`.
 
 ## 236. BackdropLayer: one backdrop value, drawn anywhere, and a size for Hero
 
@@ -8026,3 +8026,122 @@ A node backdrop goes through the layer too, so the scene fills the header the sa
 - `import type { HeroBackdrop } from '@drizztdourden08/tessera/composites'` becomes `import type { Backdrop } from '@drizztdourden08/tessera/primitives'` in `screens/kinds/screen-kinds.type.ts`, `screens/kinds/hero-backdrop-of.ts` and `screens/conventions/screens-config.type.ts`. The upgrade does this from RENAMES.json. Brock's own `HeroBackdropProps` keeps its name.
 - `PaintedBackdrop` goes with `HubBackdrop`; where a painted value is still needed, write `Exclude<Backdrop, { kind: 'node' }>`.
 - `.hub-backdrop` and `.hub-backdrop--pixelated` go with it; style `.backdrop-layer` if a hub needs more.
+
+## 237. StudioLayout ships, drawn from shared pieces: SidePanel, ToolFrame and ToolGroups
+
+The owner picked option B of TX-61, a new composite for the studio screens, on one condition: every surface it draws is a shared part of the design system and is used by other parts too. StudioLayout leaves Preview · For approval and joins Composites · Layout. It paints nothing of its own: the bar is a raised Box, the side panels are the new SidePanel, the editor is the new ToolFrame, and the action groups are the new ToolGroups. ListDetailLayout and LogPanel moved onto the same pieces with no visible change.
+
+### What is new
+
+```ts
+interface ToolGroup { id: string; label: string; content: ReactNode }
+interface ToolGroupsProps { groups: readonly ToolGroup[]; label?: string; className?: string }
+
+interface ToolFrameProps extends HTMLAttributes<HTMLElement> {
+  as?: ElementType;
+  toolbar?: ReactNode;   // on the top edge, on the surface colour over a line
+  padded?: boolean;      // space around the content
+  children?: ReactNode;
+}
+
+type SidePanelSide = 'start' | 'end';
+interface SidePanelProps {
+  title: string;
+  children: ReactNode;
+  side?: SidePanelSide;            // 'start'
+  level?: HeadingLevel;            // 2
+  actions?: ReactNode;             // in the heading, before the fold button
+  collapsible?: boolean;           // true
+  collapsed?: boolean;
+  defaultCollapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
+  resizable?: boolean;             // true
+  width?: number;                  // 288
+  minWidth?: number;               // 224
+  maxWidth?: number;               // 448
+  storageKey?: string;             // the width; the fold under storageKey:collapsed
+  className?: string;
+}
+
+interface StudioLayoutBar {
+  title: ReactNode;
+  caption?: ReactNode;
+  status?: ReactNode;
+  groups?: readonly ToolGroup[];
+  idleHint?: string;
+  notices?: ReactNode;
+  level?: HeadingLevel;            // 1
+}
+type StudioLayoutPanel = Omit<SidePanelProps, 'side' | 'children' | 'className'> & { content: ReactNode };
+interface StudioLayoutProps {
+  editorLabel: string;
+  children: ReactNode;
+  bar?: StudioLayoutBar;
+  banner?: ReactNode;
+  start?: StudioLayoutPanel;
+  end?: StudioLayoutPanel;
+  toolbar?: readonly ToolGroup[];
+  className?: string;
+}
+```
+
+- **ToolGroups**, a primitive, draws tools in groups, each under a small label, with a vertical Divider between groups. Each group is a `role="group"` named by its visible label.
+- **ToolFrame**, a primitive, is a sunken Box with its toolbar on the top edge and a body that scrolls.
+- **SidePanel**, a composite, is a raised aside with a Card heading that folds to a rail and is dragged wider with ResizeHandle and `usePaneSize`. `side="end"` puts the line on its left. Enter on the line folds it.
+- **StudioLayout**, a composite, wraps all of it in one HintScope: the raised bar with the title, `ToolGroups` and a HintLine, an optional `banner`, then the `start` SidePanel, the editor in a padded ToolFrame named by `editorLabel`, and the `end` SidePanel. Below 768 px of its own width the columns stack, list, editor, then inspector, and the body scrolls.
+- A new string, `navigation.resizePane(name)`, names the line of a SidePanel, Resize Sprites.
+
+### What other parts now share
+
+| Part | Moves onto | What changes in the markup |
+| --- | --- | --- |
+| ListDetailLayout | the internal pane fold pieces SidePanel uses: one fold state hook, one fold button, one rail | the gutter takes `pane-rail` and, folded, `pane-rail--folded` and, for a folded list, `box--sunken`; the rail label is `.pane-rail__label` in place of `.list-detail-layout__rail-label`; the fold buttons add `pane-fold-button` |
+| LogPanel | ToolFrame | the root takes `box--sunken tool-frame`; the filter bar sits in `.tool-frame__toolbar` and the lines in `.tool-frame__body`; `.log-panel__toolbar` is gone |
+| Card | nothing new | the heading rules moved from `Card.css` to `CardHeader.css`, beside the heading SidePanel shares |
+
+A fold button that has focus keeps it when its panel folds or opens, even where the button is drawn again, as in a SidePanel; the check reads the document the button lives in, so it works in a gallery frame or a second window. ListDetailLayout's buttons stay in place, so nothing changes for it.
+
+### Measured
+
+ListDetailLayout, ListDetail, ResizeHandle, LogPanel, TaskProgress, Disclosure, Widget, DockLayout, WindowGuideOverlay and CommandInput, the pages that draw a ListDetailLayout or a LogPanel, were read before and after at 1440 and 700 px: every element's box, fill, borders, corners, shadow, padding, margins, gap, colour, type and writing mode, and a screenshot of the whole Overview. Every screenshot is the same to the pixel. ListDetailLayout and ListDetail were read again with every list folded and with every detail folded: the same to the pixel, and every element the same. The only element that reads differently is LogPanel's filter bar: its padding, line and fill moved to the toolbar box around it, which takes its old size and place.
+
+### Replacing StudioFrame in RotP
+
+`apps/desktop/src/compounds/StudioFrame` goes: `StudioFrame.tsx`, `StudioFrame.type.ts`, `StudioFrame.usage.ts`, `StudioFrame.css`, `index.ts` and the five sub-components `StudioTopBar`, `StudioActionButton`, `StudioPanel`, `StudioEditor` and `StudioWell`.
+
+| StudioFrame | StudioLayout |
+| --- | --- |
+| `caption`, `title`, `status`, `idleHint`, `notices` | the same names inside `bar` |
+| `groups: StudioActionGroup[]` with `actions` | `bar.groups: ToolGroup[]`, whose `content` is the buttons, as below. Button takes `hint` since section 234, so `StudioActionButton` goes |
+| `banner` | `banner` |
+| `left`, `right`: `{ title, content, defaultCollapsed }` | `start`, `end`, the same shape, and any SidePanel prop; add `storageKey` to keep the width and the fold |
+| `editorLabel`, `toolbar: StudioToolGroup[]`, `children` | the same; `StudioToolGroup` is `ToolGroup` |
+| `<StudioWell>` | `<Box surface="sunken" className="…">` with your own `display`, `gap` and `padding` |
+| the `.studio-frame` padding and `--c-bg` page fill | the screen's own container: StudioLayout sets no padding and no page fill |
+
+```tsx
+const toButton = (action: StudioAction) => (
+  <Button key={action.id} size="sm" variant={action.variant ?? 'secondary'} disabled={action.disabled} hint={action.hint} onClick={action.onSelect}>
+    {action.label}
+  </Button>
+);
+
+<StudioLayout
+  bar={{ caption, title, status, idleHint, notices, groups: groups.map((group) => ({ id: group.id, label: group.label, content: group.actions.map(toButton) })) }}
+  banner={banner}
+  start={left && { ...left, storageKey: 'sprite-studio.library' }}
+  end={right}
+  editorLabel={editorLabel}
+  toolbar={toolbar}
+>
+  {children}
+</StudioLayout>
+```
+
+What looks different from StudioFrame:
+
+- The panels, the bar and the editor take Tessera's thin `--c-border` edge in place of `--c-border-strong`; the editor is a sunken Box with medium corners and no shadow, and its toolbar has `--space-sm` padding on every side.
+- A folded panel is the same rail as ListDetailLayout's, its title read top to bottom on both sides; the 180 degree turn of the right title goes.
+- Each panel gets a line to drag it, from 224 to 448 px; pass `resizable: false` to keep a fixed 288 px.
+
+Every `.studio-frame*` class goes with the CSS file: `.studio-frame`, `__bar`, `__bar-head`, `__bar-title`, `__bar-status`, `__bar-groups`, `__group`, `__group-row`, `__action`, `__body`, `__panel`, `--collapsed`, `--right`, `__panel-head`, `__panel-title`, `__panel-body`, `__well`, `__editor`, `__toolbar` and `__surface`. RotP's own CSS then no longer names `--c-border-strong`, `--c-surface`, `--c-sunken`, `--shadow-1`, `--size-288`, `--size-40` or `--size-384` for the studios; they stay Tessera tokens.

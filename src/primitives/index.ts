@@ -109,6 +109,8 @@ export { ButtonRow } from './ButtonRow';
 export type { ButtonRowProps, ButtonRowVariant } from './ButtonRow';
 export { ButtonGroup } from './ButtonGroup';
 export type { ButtonGroupOrientation, ButtonGroupProps } from './ButtonGroup';
+export { ToolGroups, type ToolGroup, type ToolGroupsProps } from './ToolGroups';
+export { ToolFrame, type ToolFrameProps } from './ToolFrame';
 export { StatRow } from './StatRow';
 export type { StatRowProps } from './StatRow';
 export { ProgressBar } from './ProgressBar';

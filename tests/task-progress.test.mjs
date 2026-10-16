@@ -22,7 +22,7 @@ describe('TaskProgress', () => {
     expect(statuses(html)).toEqual(['done', 'current', 'upcoming']);
     expect(html).toMatch(/<details class="disclosure disclosure--md task-progress__log">/);
     expect(html).toContain('Show log (1)');
-    expect(html).not.toContain('class="log-panel');
+    expect(html).not.toContain('tool-frame log-panel');
     expect(html).not.toContain('role="alert"');
   });
 
@@ -39,8 +39,8 @@ describe('TaskProgress', () => {
     expect(html).toMatch(/<details open="" class="disclosure disclosure--md task-progress__log">/);
     expect(html).toContain('Hide log');
     expect(html).toContain('data-tone="danger"');
-    expect(html).toContain('class="log-panel log-panel--fixed" style="block-size:224px"');
-    expect(renderToString(h(TaskProgress, { state: 'failed', log: LOG, logOpen: false }))).not.toContain('class="log-panel');
+    expect(html).toContain('class="box--sunken tool-frame log-panel log-panel--fixed" style="block-size:224px"');
+    expect(renderToString(h(TaskProgress, { state: 'failed', log: LOG, logOpen: false }))).not.toContain('tool-frame log-panel');
   });
 
   it('ticks every step and fills the bar once done', () => {

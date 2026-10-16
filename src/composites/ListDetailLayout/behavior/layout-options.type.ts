@@ -1,15 +1,8 @@
 /* @layer renderer-components @kind types */
+import type { PaneFoldOptions } from '../../pane-fold/pane-fold.type';
 import type { PaneSizeOptions } from '../../ResizeHandle/behavior/pane-size.type';
 
 type ListDetailView = 'list' | 'detail' | 'both';
-
-interface PaneFoldOptions {
-  collapsible: boolean;
-  collapsed: boolean | undefined;
-  defaultCollapsed: boolean;
-  onCollapsedChange: ((collapsed: boolean) => void) | undefined;
-  storageKey: string | undefined;
-}
 
 interface PaneScroll {
   list: boolean;
@@ -27,4 +20,4 @@ interface LayoutOptions {
   resizable: boolean;
 }
 
-export type { LayoutOptions, ListDetailView, PaneFoldOptions };
+export type { LayoutOptions, ListDetailView };

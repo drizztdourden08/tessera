@@ -253,6 +253,10 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | Small form parts for a whole panel, such as an inspector | `DensityScope` with `density="compact"` around the panel |
 | Log messages of one kind in semibold | `strong` on that kind in the `kinds` of `LogPanel` |
 | An informational window with no tools, such as About or credits | `InfoScreen`: a small dialog sized to its content; `size="info"` on `ScreenWindow` for one built by hand |
+| A studio screen: a list, an editor and an inspector, with Save and Export on top | `StudioLayout`, with `bar`, `start`, `end` and `toolbar` |
+| A side panel with a heading that folds to a rail and drags wider | `SidePanel`, with `side="end"` for one on the right |
+| An editor, a canvas or a log with its tools on its top edge | `ToolFrame`, with `toolbar` |
+| Tools in groups, each under a small label | `ToolGroups` |
 
 ## The gallery
 

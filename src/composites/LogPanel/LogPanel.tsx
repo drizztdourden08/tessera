@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
+import { ToolFrame } from '../../primitives/ToolFrame';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { logAsText } from './behavior/log-as-text';
 import { logPanelClass } from './behavior/log-panel-class';
@@ -20,14 +21,17 @@ const LogPanel = (props: LogPanelProps) => {
   const empty = rows.length === 0 ? emptyLabel : panels.logNoMatch;
 
   return (
-    <Box className={logPanelClass(height, className)} style={typeof height === 'number' ? { blockSize: height } : undefined}>
-      {toolbar && (
+    <ToolFrame
+      className={logPanelClass(height, className)}
+      style={typeof height === 'number' ? { blockSize: height } : undefined}
+      toolbar={toolbar && (
         <LogToolbar filter={filter} total={rows.length} countLabel={countLabel ?? panels.logNoun(rows.length)} copyText={copyText} extra={toolbarExtra} />
       )}
+    >
       {filter.shown.length === 0
         ? <Box className="log-panel__empty">{empty}</Box>
         : <LogList rows={filter.shown} kinds={kinds} selectedIds={selectedIds} onSelectionChange={onSelectionChange} />}
-    </Box>
+    </ToolFrame>
   );
 };
 

@@ -1,14 +1,7 @@
 /* @layer renderer-components @kind style */
 .log-panel {
-  display: flex;
   flex: 1;
-  flex-direction: column;
-  min-width: 0;
-  min-height: 0;
-  overflow: clip;
   background: var(--c-inset);
-  border: var(--border-width-thin) solid var(--c-border);
-  border-radius: var(--radius-md);
 }
 
 .log-panel--fill {
@@ -18,13 +11,6 @@
 
 .log-panel--fixed {
   flex: none;
-}
-
-.log-panel .log-panel__toolbar {
-  flex: none;
-  padding: var(--space-sm);
-  background: var(--c-surface);
-  border-bottom: var(--border-width-thin) solid var(--c-border);
 }
 
 .log-panel__count {

@@ -11,7 +11,6 @@ const LogToolbar = (props: LogToolbarProps) => {
 
   return (
     <FilterBar
-      className="log-panel__toolbar"
       search={filter.search}
       onSearchChange={filter.setSearch}
       searchPlaceholder={common.filterPlaceholder}

@@ -1,5 +1,5 @@
 /* @layer root-config @kind data */
-const TIER_ICONS: Record<string, string> = { Core: 'atom', Primitives: 'box', Composites: 'boxes', Data: 'database', Preview: 'flask-conical' };
+const TIER_ICONS: Record<string, string> = { Core: 'atom', Primitives: 'box', Composites: 'boxes', Data: 'database' };
 
 const GROUP_ICONS: Record<string, string> = {
   'Core · Setup': 'rocket', 'Core · Brand': 'gem', 'Core · Colours': 'palette', 'Core · Typography': 'type', 'Core · Text': 'pilcrow',
@@ -12,7 +12,6 @@ const GROUP_ICONS: Record<string, string> = {
   'Composites · Inputs': 'text-cursor-input', 'Composites · Forms': 'clipboard-pen-line',
   'Composites · Data views': 'table', 'Composites · Charts': 'chart-column', 'Composites · Content': 'newspaper', 'Composites · Input devices': 'gamepad-2',
   'Composites · Widgets': 'blocks', 'Composites · Windows': 'app-window-mac', 'Composites · Screens': 'panels-top-left', 'Data': 'database',
-  'Preview · For approval': 'clipboard-check',
 };
 
 const PAGE_ICONS: Record<string, Record<string, string>> = {
@@ -47,14 +46,14 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Layout': {
     Box: 'square', Flex: 'columns-3', Stack: 'rows-3', Inline: 'align-horizontal-distribute-center', Center: 'align-horizontal-justify-center', Grid: 'grid-3x3',
-    Spacer: 'space', Divider: 'separator-horizontal', Card: 'square-stack', ScrollArea: 'scroll', Portal: 'door-open',
+    Spacer: 'space', Divider: 'separator-horizontal', Card: 'square-stack', ToolFrame: 'app-window', ScrollArea: 'scroll', Portal: 'door-open',
     Anchored: 'anchor', Overlay: 'layers-2',
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
     EmptyState: 'inbox', Disclosure: 'list-collapse', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
   },
-  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', Pressable: 'pointer', Link: 'link' },
+  'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', ToolGroups: 'group', Pressable: 'pointer', Link: 'link' },
   'Primitives · Inputs': {
     TextInput: 'text-cursor-input', SearchInput: 'scan-search', Textarea: 'letter-text', NumberInput: 'hash', Checkbox: 'square-check',
     Toggle: 'toggle-right', ToggleGroup: 'toggle-left', RadioGroup: 'circle-dot', SegmentedControl: 'gallery-horizontal',
@@ -81,7 +80,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
   'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend' },
-  'Composites · Layout': { SplitPane: 'columns-2', ListDetailLayout: 'layout-list', ResizeHandle: 'grip-vertical', SideNavLayout: 'layout-template', ContentHeader: 'panel-top', SiteHeader: 'panel-top-open', SiteFooter: 'panel-bottom', ListDetail: 'panels-left-bottom' },
+  'Composites · Layout': { SplitPane: 'columns-2', ListDetailLayout: 'layout-list', ResizeHandle: 'grip-vertical', SideNavLayout: 'layout-template', ContentHeader: 'panel-top', SiteHeader: 'panel-top-open', SiteFooter: 'panel-bottom', ListDetail: 'panels-left-bottom', SidePanel: 'panel-left', StudioLayout: 'columns-3' },
   'Composites · Lists': {
     ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
     SearchResultHit: 'mouse-pointer-click', ItemList: 'list-checks',
@@ -124,7 +123,6 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Data': { Engine: 'cpu' },
   'Primitives · Charts': { Sparkline: 'chart-spline', Gauge: 'gauge', StackedBar: 'chart-bar-stacked' },
   'Composites · Charts': { StatTile: 'trending-up' },
-  'Preview · For approval': { StudioLayout: 'columns-3' },
 };
 
 export { GROUP_ICONS, PAGE_ICONS, TIER_ICONS };

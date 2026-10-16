@@ -1,0 +1,43 @@
+/* @layer renderer-components @kind style */
+.side-panel {
+  display: flex;
+  gap: var(--space-2xs);
+  min-block-size: 0;
+}
+
+.side-panel__pane {
+  display: flex;
+  flex-direction: column;
+  inline-size: var(--side-panel-width);
+  min-block-size: 0;
+  overflow: hidden;
+}
+
+.side-panel--collapsed .side-panel__pane {
+  inline-size: auto;
+}
+
+.side-panel__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.side-panel__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-block-size: 0;
+  padding: var(--space-md);
+  overflow-y: auto;
+}
+
+.side-panel--dragging {
+  cursor: col-resize;
+  user-select: none;
+}
+
+.side-panel--dragging .side-panel__body {
+  pointer-events: none;
+}

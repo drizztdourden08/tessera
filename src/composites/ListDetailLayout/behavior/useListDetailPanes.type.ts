@@ -2,7 +2,7 @@
 import type { RefObject } from 'react';
 import type { PaneSizeHandle } from '../../ResizeHandle/behavior/pane-size.type';
 import type { ResizeHandleProps } from '../../ResizeHandle/ResizeHandle.type';
-import type { PaneFold } from './usePaneFold.type';
+import type { PaneFold } from '../../pane-fold/pane-fold.type';
 
 type ListHandle = PaneSizeHandle & Partial<Pick<ResizeHandleProps, 'pixelsPerUnit' | 'step' | 'largeStep'>>;
 

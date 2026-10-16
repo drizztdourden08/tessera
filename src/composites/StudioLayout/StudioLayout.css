@@ -1,0 +1,104 @@
+/* @layer renderer-components @kind style */
+.studio-layout {
+  container: studio-layout / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.studio-layout__bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}
+
+.studio-layout__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.studio-layout__title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.studio-layout__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.studio-layout__body {
+  display: flex;
+  gap: var(--space-2xs);
+  flex: 1;
+  min-block-size: 0;
+}
+
+.studio-layout__editor {
+  flex: 1;
+}
+
+.studio-layout__body > .side-panel--start.side-panel--collapsed {
+  margin-inline-end: calc(var(--space-sm) - var(--space-2xs));
+}
+
+.studio-layout__body > .side-panel--end.side-panel--collapsed {
+  margin-inline-start: calc(var(--space-sm) - var(--space-2xs));
+}
+
+@container studio-layout (width < 768px) {
+  .studio-layout__body {
+    flex-direction: column;
+    gap: var(--space-md);
+    overflow-y: auto;
+  }
+
+  .studio-layout__body > * {
+    flex: none;
+  }
+
+  .studio-layout__body > .side-panel--collapsed.side-panel {
+    margin-inline: 0;
+  }
+
+  .studio-layout .side-panel__pane {
+    flex: 1;
+    inline-size: auto;
+  }
+
+  .studio-layout .side-panel__handle {
+    display: none;
+  }
+
+  .studio-layout .side-panel__body {
+    overflow: visible;
+  }
+
+  .studio-layout .pane-rail--folded {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: var(--space-xs) var(--space-sm) var(--space-xs) var(--space-md);
+  }
+
+  .studio-layout .pane-rail--folded > .pane-fold-button {
+    margin-block-start: 0;
+  }
+
+  .studio-layout .pane-rail__label {
+    writing-mode: horizontal-tb;
+  }
+
+  .studio-layout__editor {
+    min-block-size: var(--size-384);
+  }
+}

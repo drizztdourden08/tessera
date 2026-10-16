@@ -110,4 +110,4 @@ const SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; rend
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-sunken`, `--c-surface`, `--c-text-dim`, `--c-text-muted`, `--radius-lg`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--z-sticky`.
+It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--c-text-muted`, `--radius-lg`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-sm`, `--z-sticky`.

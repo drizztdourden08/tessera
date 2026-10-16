@@ -57,6 +57,8 @@ const COMPOSITES_TIER: CatalogueTier = {
       { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
       { name: 'ListDetailLayout', summary: 'The two panes of a list and detail screen, with a resize, a fold to a rail and Back on a small window.' },
       { name: 'ResizeHandle', summary: 'The line you drag, or move with the keys, to resize the panel beside it.' },
+      { name: 'SidePanel', summary: 'A raised side panel with a heading, that folds to a rail and is dragged wider.' },
+      { name: 'StudioLayout', summary: 'A studio screen: a list, an editor and an inspector, under a bar of actions.' },
       { name: 'ListDetail', summary: 'An ItemList beside an editor that asks before unsaved edits are lost.' },
       { name: 'SideNavLayout', summary: 'A side nav beside a content pane; its search shows results in the pane.' },
       { name: 'ContentHeader', summary: 'The header of a page, card or panel: an icon and a title over a fading backdrop.' },

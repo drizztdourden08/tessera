@@ -1,0 +1,22 @@
+/* @layer renderer-components @kind style */
+.tool-groups {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--space-md);
+  min-inline-size: 0;
+}
+
+.tool-groups__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.tool-groups__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}

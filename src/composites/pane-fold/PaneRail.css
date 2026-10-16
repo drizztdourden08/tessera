@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind style */
+.pane-rail--folded {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-2xs);
+  border-radius: var(--radius-lg);
+}
+
+.pane-rail--folded > .pane-fold-button {
+  flex-shrink: 0;
+  margin-block-start: var(--space-xs);
+}
+
+.pane-rail__label {
+  display: block;
+  color: var(--c-text-dim);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  cursor: pointer;
+}
