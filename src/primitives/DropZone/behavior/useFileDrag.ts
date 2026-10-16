@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind hook */
 import { useRef, useState } from 'react';
 import type { DragEvent } from 'react';
-import { carriesFiles } from './carries-files';
 import { leftZone } from './left-zone';
+import { takeFileDrag } from './take-file-drag';
 import type { FileDrag, FileDragOptions } from './useFileDrag.type';
 
 const useFileDrag = (options: FileDragOptions): FileDrag => {
@@ -10,12 +10,6 @@ const useFileDrag = (options: FileDragOptions): FileDrag => {
   const [active, setActive] = useState(false);
   const depth = useRef(0);
   const shown = useRef(false);
-  const take = (event: DragEvent<HTMLElement>): boolean => {
-    if (!enabled || !carriesFiles(event.dataTransfer)) return false;
-    event.preventDefault();
-    event.stopPropagation();
-    return true;
-  };
   const show = () => {
     if (shown.current) return;
     shown.current = true;
@@ -26,6 +20,11 @@ const useFileDrag = (options: FileDragOptions): FileDrag => {
     depth.current = 0;
     shown.current = false;
     setActive(false);
+  };
+  const take = (event: DragEvent<HTMLElement>): boolean => {
+    const taken = takeFileDrag(event, enabled);
+    if (!enabled && shown.current) reset();
+    return taken;
   };
   const onDragEnter = (event: DragEvent<HTMLElement>) => {
     if (!take(event)) return;
@@ -48,7 +47,7 @@ const useFileDrag = (options: FileDragOptions): FileDrag => {
     reset();
     onDrop(event.dataTransfer);
   };
-  return { active, handlers: { onDragEnter, onDragOver, onDragLeave, onDrop: onDropEvent } };
+  return { active: enabled && active, handlers: { onDragEnter, onDragOver, onDragLeave, onDrop: onDropEvent } };
 };
 
 export { useFileDrag };

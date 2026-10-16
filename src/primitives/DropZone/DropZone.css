@@ -19,7 +19,7 @@
   padding: var(--space-md) var(--space-lg);
 }
 
-.dropzone:hover {
+.dropzone:not(.dropzone--disabled):hover {
   border-color: var(--c-primary);
   background: var(--c-primary-soft);
 }
@@ -38,7 +38,7 @@
 
 .dropzone--disabled {
   opacity: 0.5;
-  pointer-events: none;
+  cursor: default;
 }
 
 .dropzone__icon {

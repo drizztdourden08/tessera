@@ -7773,3 +7773,36 @@ The WindowTitleBar page gains the section A status that counts, like a frame rat
 ### What Brock and RotP do
 
 Nothing. The frame rate item keeps its code and stops moving the title bar after the upgrade.
+
+## 232. A disabled DropZone swallows a dropped file
+
+RotP disables a DropZone while it is busy or until a choice is made. DropZone called `preventDefault` on `dragover` and `drop` only while enabled, and `.dropzone--disabled` set `pointer-events: none`, so the drag went to the element under the zone. Nothing there took it, and Chromium opened the dropped file in place of the Electron window, which looked like a crash. A disabled or read only PathInput had the same hole, through the same file drag code.
+
+### What changed
+
+- **One shared piece.** `takeFileDrag` in `src/primitives/DropZone/behavior/take-file-drag.ts` decides every file drag for `useFileDrag`, which DropZone and PathInput both use. A drag that carries files is always swallowed: `preventDefault` and `stopPropagation` on `dragenter`, `dragover`, `dragleave` and `drop`. When the target is off it sets `dropEffect` to `none`, so the pointer shows not allowed and Chromium fires no `drop`, and it returns false, so `onDrop` and `onEnter` never run. A drag of text or a link is left alone, on or off.
+- **No highlight while off.** `useFileDrag` reports `active` only while enabled, and clears a highlight that was showing when the target turned off mid drag.
+- **DropZone stays a hit target when disabled.** `.dropzone--disabled` drops `pointer-events: none` and takes `cursor: default`; the hover look moves to `.dropzone:not(.dropzone--disabled):hover`. A click opens no file dialog while disabled, and the inline zone drops its `tabIndex` and `title` while disabled and gains `aria-disabled`. At rest and under the pointer the disabled zone keeps its look: border, background, opacity 0.5 and the arrow pointer read the same before and after.
+- **PathInput** needs no change of its own: it is off when `disabled` or when it is read only (`readOnly`, or no `onChange`), and a file dropped on it is now swallowed the same way.
+
+Tessera has no window wide file drag listener; DropZone and PathInput are its only file drop targets. DataTable's column drags carry no files and are untouched.
+
+### Measured
+
+In Chromium, with a real file drag sent through the DevTools protocol (`Input.dispatchDragEvent`) at the centre of each target on the gallery:
+
+| Target | `dragover` | `drop` |
+| --- | --- | --- |
+| DropZone, disabled | prevented, `dropEffect` none, no highlight | not fired |
+| DropZone, enabled | prevented, `dropEffect` copy, highlight on | prevented, file taken |
+| PathInput, disabled | prevented, `dropEffect` none, no highlight | not fired |
+| PathInput, read only | prevented, `dropEffect` none, no highlight | not fired |
+| PathInput, enabled | prevented, `dropEffect` copy, highlight on | prevented, path set |
+
+### Gallery and tests
+
+The Overview points of DropZone and PathInput say that a disabled box swallows the drop. `tests/file-drag-disabled.test.mjs` checks that a disabled target prevents `dragover` and `drop` with `dropEffect` none and runs no handler, that a highlight clears when the target turns off, that a drag of text is left alone, that a disabled DropZone opens no file dialog, and that its CSS keeps it a hit target.
+
+### What Brock and RotP do
+
+Nothing. A disabled DropZone in RotP stops opening a dropped file after the upgrade.

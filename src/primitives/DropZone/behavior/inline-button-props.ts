@@ -2,6 +2,6 @@
 import type { KeyboardEvent } from 'react';
 
 const inlineButtonProps = (inline: boolean, disabled: boolean, hint: string | undefined, onKeyDown: (e: KeyboardEvent<HTMLDivElement>) => void) =>
-  (inline ? { role: 'button', tabIndex: disabled ? -1 : 0, title: hint, onKeyDown } : {});
+  (inline ? { role: 'button', tabIndex: disabled ? undefined : 0, title: disabled ? undefined : hint, 'aria-disabled': disabled || undefined, onKeyDown } : {});
 
 export { inlineButtonProps };

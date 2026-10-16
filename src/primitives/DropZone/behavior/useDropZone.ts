@@ -18,7 +18,9 @@ const useDropZone = (accept: readonly string[] | undefined, enabled: boolean, on
   const drag = useFileDrag({ enabled, onDrop: (data) => deliver(Array.from(data.files)) });
   const pasteHandlers = usePasteFiles(zone, enabled, deliver);
 
-  const handleClick = () => inputRef.current?.click();
+  const handleClick = () => {
+    if (enabled) inputRef.current?.click();
+  };
 
   const handleFileInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     deliver(Array.from(e.target.files ?? []));
