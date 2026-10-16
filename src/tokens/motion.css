@@ -30,6 +30,7 @@
   --duration-step-skip: calc(var(--duration-step-skip-fill) + var(--duration-step-skip-line) + var(--duration-step-skip-ring));
   --ease-standard:    ease;
   --ease-in-out:      ease-in-out;
+  --ease-out:         cubic-bezier(0.33, 1, 0.68, 1);
   --ease-emphasized:  cubic-bezier(0.16, 1, 0.3, 1);
   --ease-step-fill:   cubic-bezier(0.3, 0.15, 0.75, 0.5);
   --ease-step-line:   cubic-bezier(0.3, 0.1, 0.7, 0.83);

@@ -4440,7 +4440,7 @@
         "--c-warning-soft",
         "--duration-fast",
         "--duration-normal",
-        "--ease-emphasized",
+        "--ease-out",
         "--ease-standard",
         "--listbox-attach",
         "--listbox-space",

@@ -7,7 +7,6 @@ interface MenuTriggerButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonEle
   trigger: MenuTrigger;
   variant: MenuVariant;
   size: MenuSize;
-  open: boolean;
 }
 
 export type { MenuTriggerButtonProps };

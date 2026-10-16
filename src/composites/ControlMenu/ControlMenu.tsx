@@ -37,7 +37,6 @@ const ControlMenu = (props: ControlMenuProps) => {
         trigger={trigger}
         variant={variant}
         size={size}
-        open={drop.open}
         disabled={disabled}
         className={['dropdown-trigger listbox-anchor control-menu__trigger', look, triggerClassName].filter(Boolean).join(' ')}
         {...controlTriggerAttributes(drop, panelId)}

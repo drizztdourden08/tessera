@@ -13,6 +13,7 @@ const { Overview, Values } = scaleStories({
   description: 'The curves motion follows.',
   points: [
     '`--ease-standard` suits most changes.',
+    '`--ease-out` starts at once and eases into place: the menu button turning into an X.',
     '`--ease-emphasized` suits a part entering the screen: it starts fast and settles slowly.',
     'Point at a track to play it.',
   ],

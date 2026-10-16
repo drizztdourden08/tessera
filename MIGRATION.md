@@ -7649,3 +7649,27 @@ From `apps/desktop/src/language-editor/sub-components/UnbuiltPane.css` on the `b
 | 4 | 43 | `.disabled-overlay__message` | `tone="warning"` for the colour (section 226) and `placement="top"` for `position: sticky` |
 
 Findings 3 and 4 of section 227 are now fully covered, so all 39 of RotP's stylelint findings have a public way.
+
+## 229. The menu button turns into an X with a motion you can see
+
+The owner asked for the main menu button to go from the hamburger to the X in a smooth, fast move: the middle bar fades out and the top and bottom bars tilt to form the X. The hamburger of a DropdownMenu trigger was already three bars with a transition, but on `--ease-emphasized` over 150 ms it covered 80% of the turn in the first painted frame, so it read as a swap.
+
+### What changed
+
+- **The steps.** Opening, the middle bar fades out over 100 ms while the top and bottom bars slide to the middle over 100 ms; from 50 ms they tilt to 45 degrees over 150 ms, so the X is whole at 200 ms. Closing runs it backwards: the bars tilt flat first and slide apart from 50 ms, done at 150 ms. Measured frames on the title bar menu: the bars meet at 2.9 px of 5 at 25 ms, 4.4 px at 50 ms, tilt 19 degrees at 75 ms, 32 at 100 ms and 43 at 150 ms.
+- **The curve.** A new token, `--ease-out: cubic-bezier(0.33, 1, 0.68, 1)`, starts at once and eases into place. The times are `--duration-fast` and `--duration-normal`.
+- **Transform and opacity only.** The bars move with the `translate` and `rotate` properties, so each can have its own delay, and the middle bar only fades.
+- **The open shape follows `aria-expanded="true"` on the button** in place of an `open` prop on the icon, so it can never disagree with what a screen reader hears. The button keeps its label and `aria-expanded` as before.
+- **Reduced motion** switches the shape at once, both ways.
+
+### What stays the same
+
+The closed and open shapes. The title bar menu and the SiteHeader links menu measure the same before and after with transitions off: a 16 by 12 px icon of three 2 px bars at 0, 5 and 10 px; open, the outer bars at 45 and -45 degrees moved 5 px to the middle, each 12.73 px square, and the middle bar at opacity 0.
+
+### Where it shows
+
+Every DropdownMenu trigger with the hamburger: the WindowTitleBar main menu, the SiteHeader links menu on a phone, an `iconOnly` trigger without its own icon, and a ControlMenu trigger drawn the same way. SideNavLayout's narrow window button still swaps the Lucide `menu` and `x` icons at 18 px with a 1.5 px stroke; it is left for the owner to decide, since the bars would change its look.
+
+### Gallery
+
+The DropdownMenu page gains The hamburger turns into an X while its menu is open: closed, open, a button to switch it back and forth with no menu, and the real menu, for the title bar and the site header looks. The Easings page lists `--ease-out`.

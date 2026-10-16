@@ -3,7 +3,6 @@ import type { MenuTriggerIcon } from '../DropdownMenu.type';
 
 interface MenuTriggerGlyphProps {
   icon: MenuTriggerIcon;
-  open: boolean;
 }
 
 export type { MenuTriggerGlyphProps };

@@ -5,9 +5,9 @@ import { MenuTriggerGlyph } from './MenuTriggerGlyph';
 import type { MenuTriggerButtonProps } from './MenuTriggerButton.type';
 
 const MenuTriggerButton = (props: MenuTriggerButtonProps) => {
-  const { buttonRef, trigger, variant, size, open, ...rest } = props;
+  const { buttonRef, trigger, variant, size, ...rest } = props;
   const { label, icon = trigger.iconOnly ? 'hamburger' : undefined, iconSide = 'start', iconOnly = false } = trigger;
-  const glyph = icon === undefined ? null : <MenuTriggerGlyph icon={icon} open={open} />;
+  const glyph = icon === undefined ? null : <MenuTriggerGlyph icon={icon} />;
   const anchor = { ref: buttonRef };
 
   if (iconOnly) {

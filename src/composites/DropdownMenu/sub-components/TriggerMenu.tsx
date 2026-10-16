@@ -48,7 +48,6 @@ const TriggerMenu = (props: TriggerMenuProps) => {
         trigger={trigger}
         variant={variant}
         size={size}
-        open={drop.open}
         disabled={disabled}
         className={['dropdown-trigger listbox-anchor', look, className].filter(Boolean).join(' ')}
         {...triggerAttributes(drop, menuId)}

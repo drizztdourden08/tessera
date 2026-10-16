@@ -4,8 +4,8 @@ import { MenuIconGlyph } from './MenuIconGlyph';
 import type { MenuTriggerGlyphProps } from './MenuTriggerGlyph.type';
 
 const MenuTriggerGlyph = (props: MenuTriggerGlyphProps) => {
-  const { icon, open } = props;
-  if (icon === 'hamburger') return <HamburgerIcon open={open} />;
+  const { icon } = props;
+  if (icon === 'hamburger') return <HamburgerIcon />;
   return <MenuIconGlyph icon={icon} />;
 };
 

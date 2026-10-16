@@ -45,7 +45,7 @@ const DURATIONS = [
   '--duration-fast', '--duration-normal', '--duration-slow', '--duration-drawer', '--duration-float',
   '--duration-glow-drift', '--duration-mascot-hop', '--duration-twinkle', '--duration-icon-pop',
 ];
-const EASINGS = ['--ease-standard', '--ease-emphasized'];
+const EASINGS = ['--ease-standard', '--ease-out', '--ease-emphasized'];
 const TRANSITIONS = ['--transition-fast', '--transition-normal'];
 
 export {
