@@ -4,19 +4,8 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-bar-menu';
+import { BOTH, ids, ignore, MENU_INPUT as base } from './title-bar-menu-fixture.mjs';
 
-const ignore = () => undefined;
-const BUG = { id: 'bug', icon: 'bug', label: 'Report a bug', onSelect: ignore };
-const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', unpin: 'Unpin window', fullscreen: 'Fullscreen', exitFullscreen: 'Exit fullscreen' };
-const item = (id) => ({ id, label: id, onSelect: ignore });
-const MENU = [
-  { id: 'screens', items: [item('home'), item('library')] },
-  { id: 'tools', items: [item('tools'), { separator: true }, item('settings')] },
-  { id: 'app', items: [item('about')] },
-];
-const base = { menu: MENU, actions: [BUG], pin: true, fullscreenButton: true, pinned: false, fullscreen: false, onControl: ignore, strings: STRINGS };
-const ids = (groups) => groups.map((group) => [group.id, group.items.map((node) => node.id ?? '---')]);
-const BOTH = ['control:pin', 'control:fullscreen'];
 const ownGroup = (groups) => groups.find((group) => group.id === 'window-title-bar');
 const rows = (nodes) => nodes.map((node) => [node.id, node.label, node.icon, node.checked]);
 

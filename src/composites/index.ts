@@ -78,7 +78,8 @@ export { WindowHeader, type WindowHeaderProps } from './WindowHeader';
 export { WindowTitleBar } from './WindowTitleBar';
 export type {
   WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
-  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarViewPlace, WindowTitleBarViewPosition,
+  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarTucked, WindowTitleBarTuckedItem, WindowTitleBarViewPlace,
+  WindowTitleBarViewPosition,
 } from './WindowTitleBar';
 export { Hero } from './Hero';
 export type { HeroArt, HeroProps, HeroShade, HeroSize } from './Hero';

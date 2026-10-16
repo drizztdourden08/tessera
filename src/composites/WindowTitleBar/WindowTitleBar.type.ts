@@ -50,6 +50,17 @@ interface WindowTitleBarViewPlace {
   position?: WindowTitleBarViewPosition;
 }
 
+interface WindowTitleBarTuckedItem extends WindowTitleBarViewPlace {
+  label?: string;
+  activeLabel?: string;
+  hidden?: boolean;
+}
+
+interface WindowTitleBarTucked {
+  pin?: WindowTitleBarTuckedItem;
+  fullscreen?: WindowTitleBarTuckedItem;
+}
+
 interface WindowTitleBarProps {
   title: ReactNode;
   logo?: string;
@@ -57,6 +68,7 @@ interface WindowTitleBarProps {
   menu?: readonly MenuGroup[];
   menuLabel?: string;
   view?: WindowTitleBarViewPlace | false;
+  tucked?: WindowTitleBarTucked;
   onFitChange?: (tucked: readonly WindowTitleBarItemId[]) => void;
   onMenuOpenChange?: (open: boolean) => void;
   actions?: readonly WindowTitleBarAction[];
@@ -72,5 +84,6 @@ interface WindowTitleBarProps {
 
 export type {
   BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
-  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarViewPlace, WindowTitleBarViewPosition,
+  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarTucked, WindowTitleBarTuckedItem, WindowTitleBarViewPlace,
+  WindowTitleBarViewPosition,
 };

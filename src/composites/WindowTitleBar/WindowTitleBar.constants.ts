@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { BarFit } from './behavior/bar-fit.type';
+import type { MenuControl, MenuControlRow } from './behavior/menu-control.type';
 import type { WindowControl, WindowControlsConfig, WindowTitleBarItemId, WindowTitleBarProps } from './WindowTitleBar.type';
 
 const PEEK_ZONE_PX = 40;
@@ -48,6 +49,13 @@ const NO_CONTROLS: WindowControlsConfig = { fullscreen: false, pin: false, minim
 
 const CAPTION_CONTROLS: readonly WindowControl[] = ['fullscreen', 'minimize', 'maximize', 'close'];
 
+const MENU_CONTROLS: readonly MenuControl[] = ['pin', 'fullscreen'];
+
+const MENU_CONTROL_ROWS: Record<MenuControl, readonly [off: MenuControlRow, on: MenuControlRow]> = {
+  pin: [{ icon: 'pin', label: 'pinOnTop' }, { icon: 'pin-off', label: 'unpin' }],
+  fullscreen: [{ icon: 'maximize-2', label: 'fullscreen' }, { icon: 'minimize-2', label: 'exitFullscreen' }],
+};
+
 const BAR_GROUP_ID = 'window-title-bar';
 
 const VIEW_ITEM_ID = 'window-title-bar-view';
@@ -66,6 +74,6 @@ const STATUS_REPEAT_MS = 4000;
 
 export {
   ACTION_ITEM_PREFIX, ALL_CONTROLS, CAPTION_CONTROLS, NO_ACTIONS, NO_CONTROLS, NO_MENU, BAR_GROUP_ID, BRAND_CLEARANCE_PX, CAPTION_GLYPH_SIZE, CAPTION_STROKE, CONTROL_CLASS, CONTROLS_SELECTOR, FULL_FIT, FULLSCREEN_ITEM,
-  ITEM_ATTRIBUTE, ITEM_AWAY_CLASS, ITEM_SELECTOR, LOGO_SELECTOR, MAIN_MENU_ID, MARK_CLEARANCE_PX, MIN_SHIFT_PX, PEEK_ZONE_PX, PIN_ITEM, PROBE_SELECTOR,
+  ITEM_ATTRIBUTE, ITEM_AWAY_CLASS, ITEM_SELECTOR, LOGO_SELECTOR, MAIN_MENU_ID, MARK_CLEARANCE_PX, MENU_CONTROL_ROWS, MENU_CONTROLS, MIN_SHIFT_PX, PEEK_ZONE_PX, PIN_ITEM, PROBE_SELECTOR,
   SLIDE_ANIMATION_ID, SLIDE_DURATION_TOKEN, SLIDE_EASE_TOKEN, START_SELECTOR, STATUS_REPEAT_MS, STATUS_STAGGER_MS, VIEW_ITEM_ID,
 };

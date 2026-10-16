@@ -20,6 +20,7 @@ import { TitleBarViewDemo } from './_samples/TitleBarViewDemo';
 import { TitleBarWidths } from './_samples/TitleBarWidths';
 import { TITLE_BAR_CODE } from './_samples/title-bar-code.constants';
 import { Morph } from './_samples/title-bar-morph-story';
+import { TuckedRowsPlaced } from './_samples/title-bar-tucked-rows-story';
 import { ViewHiddenNarrow } from './_samples/title-bar-tucked-story';
 import { ViewStates } from './_samples/title-bar-view-states-story';
 import './WindowTitleBar.stories.css';
@@ -203,7 +204,7 @@ const Overview = overviewStory({
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed, ViewHidden, ViewMoved, ViewHiddenNarrow, ViewStates],
+  variants: [AppWindow, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed, ViewHidden, ViewMoved, ViewHiddenNarrow, ViewStates, TuckedRowsPlaced],
   states: {
     render: renderState,
     list: [
@@ -225,6 +226,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AppWindow, Concealed, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance, ViewHidden,
-  ViewHiddenNarrow, ViewMoved, ViewStates,
+  AppWindow, Concealed, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance, TuckedRowsPlaced, ViewHidden, ViewHiddenNarrow, ViewMoved, ViewStates,
 };

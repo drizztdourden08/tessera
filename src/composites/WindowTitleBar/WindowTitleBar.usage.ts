@@ -19,6 +19,9 @@ const usage = {
     'Keep the actions few: narrow windows move them into the main menu, then shrink the brand.',
     'The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does.',
     'view moves the View sub-menu to a group and position of menu; view={false} hides it, and the main menu then lists pin and full screen while the bar tucks them away.',
+    'tucked renames, moves or hides the pin and full screen rows the main menu lists with view={false}; group and position work as in view.',
+    'A tucked label names its row in both states and activeLabel the pinned or full screen one; the bar buttons and View keep their names.',
+    'A row hidden with tucked is gone from the menu, so a narrow window that tucks its button leaves that button out of reach.',
     'onFitChange hears which bar items a narrow window tucks away, as control:pin, control:fullscreen or action: and the action id; never read the markup for it.',
     'Pin and full screen are menu actions whose label and icon say what a pick does; a check mark in a title bar menu means on.',
   ],
@@ -65,7 +68,7 @@ const AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }:
   return <WindowTitleBar title="Brock" menu={menu} actions={actions} maximized={maximized} onControl={onControl} />;
 };
 `,
-  propsHash: 'db433c9244ba6fe0',
+  propsHash: '2a1a843ed6fd8d94',
 } satisfies ComponentUsage;
 
 export { usage };

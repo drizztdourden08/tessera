@@ -8454,3 +8454,51 @@ Two new WindowTitleBar examples: View hidden on a narrow window, with a 400 px b
 ### What Brock does
 
 Drop the code that reads `[data-bar-item="control:pin"]`, `[data-bar-item="control:fullscreen"]` and the `window-title-bar__item--away` class, and the menu entries it built from them: with `view={false}` the bar lists a tucked pin and full screen in its main menu itself. Where Brock still needs to know what is tucked, pass `onFitChange` and keep the list it hands over. Brock's own menu items with `checked: false` still draw a dim check, as every DropdownMenu check item does.
+
+## 244. WindowTitleBar lets the app rename, move and hide the tucked pin and full screen rows
+
+Brock lets an app rename, move and hide every entry of its main menu. With `view={false}` (section 242) a narrow window lists a tucked pin and full screen in the main menu itself (section 243), as the rows `window-title-bar-pin` and `window-title-bar-fullscreen`. Those rows broke the rule: their only text came from `windows.pinOnTop`, `windows.unpin`, `windows.fullscreen` and `windows.exitFullscreen`, which also name the bar buttons and the View rows, and they always sat first in the bar's own group.
+
+### What changed
+
+WindowTitleBar takes `tucked`:
+
+```ts
+interface WindowTitleBarTuckedItem extends WindowTitleBarViewPlace {
+  label?: string; // the row's text, in both states
+  activeLabel?: string; // the row's text while pinned, or in full screen
+  hidden?: boolean; // true leaves the row out of the menu
+}
+
+interface WindowTitleBarTucked {
+  pin?: WindowTitleBarTuckedItem;
+  fullscreen?: WindowTitleBarTuckedItem;
+}
+
+interface WindowTitleBarProps {
+  tucked?: WindowTitleBarTucked; // new
+}
+```
+
+- **Left out**, or `{}`, the menu is exactly as before: a tucked pin and full screen sit first in the bar's own group, the pin above full screen.
+- **`label`** names that one row, in both states; **`activeLabel`** names it while the window is pinned, or in full screen, and falls back to `label`, then to the strings. The bar buttons, their tooltips and the View rows keep the names from `windows`. The icon still says what a pick does.
+- **`group`** and **`position`** place the row the way `view` places View, with the same type: `group` is the id of a `menu` group, an unknown id keeps the default place; `position` is `'start'` (when left out), `'end'`, or an index counted from 0 with separators, held between the two. An index counts the group's items before either row goes in. When both rows land on the same spot, the pin comes first. The bar's own group goes away when both rows move out and there are no actions.
+- **`hidden: true`** leaves the row out of the menu. The bar still tucks the button on a narrow window, so that button is then out of reach there, the same as with `view={false}` before section 243.
+- `tucked` applies only with `view={false}`. While View is shown it holds the pin and full screen, and `tucked` changes nothing.
+
+Measured in a browser at 1440 px, before and after: the 17 existing WindowTitleBar story pages besides the Overview keep every element's box and their markup, and App window's main menu lists the same 15 rows and its View the same two. On the Overview every element above the new example keeps its box (only the live frame rate text differs), and the states and code below it move down by the 653 px of the new example.
+
+### Gallery and tests
+
+A new WindowTitleBar example, Tucked buttons renamed and moved in the main menu, shows a 400 px bar with `view={false}` and a `tucked` that renames the pin to Keep on top at the end of the tools group, and full screen to Fill the screen at the end of the screens group, with the main menu by default beside the one with these rows. `tests/window-title-bar-tucked-rows.test.mjs` checks the defaults, labels in both states, the bar buttons' names, places, ties, clamping and hidden rows. The usage rules gain three on `tucked`.
+
+### What Brock does
+
+Where Brock builds the props of WindowTitleBar from its menu config, map its `window-pin` entry onto `tucked.pin` and its `window-fullscreen` entry onto `tucked.fullscreen`:
+
+- hidden: `{ hidden: true }`;
+- renamed: `{ label }`, and `activeLabel` when the config names the pinned or full screen state too;
+- moved: `{ group, position }`, with the id of the menu group it moved to and its index there, or `'start'` or `'end'`;
+- untouched: leave the key out.
+
+Pass `tucked` alongside `view={false}`. Brock no longer needs `windows.pinOnTop` and the other strings to rename these rows; changing them still renames the bar buttons and View.
