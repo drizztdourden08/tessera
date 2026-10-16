@@ -33,6 +33,7 @@ ToolGroups names each group of tools with a small label and draws a line between
 - Keep labels short and in sentence case; they name what the tools do, such as View or Export a file.
 - Pass label to name the whole set when it is not the only toolbar on the screen.
 - The groups wrap to a new line when the room runs out, so keep each group small.
+- Give a SearchInput, Select or Combobox in a group grow={false}: it fills the line otherwise.
 
 ## Accessibility
 

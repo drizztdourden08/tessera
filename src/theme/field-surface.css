@@ -117,3 +117,10 @@
   line-height: var(--leading-normal);
   outline: none;
 }
+
+:is(.select, .select-trigger, .combobox, .text-input, .text-input-frame).control-inline {
+  flex: 0 1 var(--field-w-inline);
+  inline-size: var(--field-w-inline);
+  min-inline-size: var(--field-w-inline-min);
+  max-inline-size: 100%;
+}

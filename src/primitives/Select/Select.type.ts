@@ -50,6 +50,7 @@ type SelectProps<T = string, F extends FieldOf<T> = never> = SelectItemsProps<T,
 
 interface NativeSelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
   size?: ControlSize;
+  grow?: boolean;
 }
 
 export type {

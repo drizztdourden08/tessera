@@ -11,4 +11,9 @@ interface SpriteStudioSampleProps {
   resizable?: boolean;
 }
 
-export type { SpriteStudioSampleProps, StudioActionProps };
+interface SpriteViewSwitchProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export type { SpriteStudioSampleProps, SpriteViewSwitchProps, StudioActionProps };

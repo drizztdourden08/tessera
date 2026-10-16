@@ -37,7 +37,8 @@ StudioLayout draws every studio screen the same way: a raised bar, two SidePanel
 - Put status and error lines in bar.notices, under the hint line, and a full width line, such as where an installed item came from, in banner.
 - Give the buttons in the bar and the toolbar a hint, { label, description }: the layout is one HintScope.
 - Give the layout a height, such as the window or a flex parent; the panels and the editor scroll inside it.
-- Below 768 px of its own width the columns stack, list, editor, then inspector, and the body scrolls.
+- The columns stack, list, editor, then inspector, only when the open panels, the folded rails and the editor do not fit side by side; the body then scrolls.
+- Pass editorMinWidth for the narrowest editor the screen can work with, 192 px when left out; fold a panel to keep the columns on a narrow window.
 
 ## Accessibility
 
@@ -78,6 +79,7 @@ const SpriteStudio = ({ name, list, sheet, facts }: { name: string; list: ReactN
 - `start` (optional): `StudioLayoutPanel`.
 - `end` (optional): `StudioLayoutPanel`.
 - `toolbar` (optional): `readonly ToolGroup[]`.
+- `editorMinWidth` (optional): `number`. Default `DEFAULT_EDITOR_MIN_WIDTH`.
 - `className` (optional): `string`.
 
 ## Tokens

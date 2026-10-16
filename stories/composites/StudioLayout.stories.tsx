@@ -4,6 +4,7 @@ import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { Box } from '../../src/primitives';
 import { SpriteStudioSample } from './_samples/SpriteStudioSample';
+import { StudioBesideListSample } from './_samples/StudioBesideListSample';
 import { STUDIO_CODE } from './_samples/studio-story.constants';
 import './StudioLayout.stories.css';
 
@@ -23,7 +24,7 @@ const Playground = {
     bar: { group: 'Content', control: 'boolean', description: 'The raised top bar with the title, the action groups and the hint line.' },
     folded: { group: 'State', control: 'boolean', description: 'Both side panels start folded to a rail.' },
     resizable: { group: 'Behaviour', control: 'boolean', description: 'Each side panel has a line to drag it wider.' },
-    narrow: { group: 'Appearance', control: 'boolean', description: 'A 560 px wide frame, below the 768 px where the columns stack.' },
+    narrow: { group: 'Appearance', control: 'boolean', description: 'A 560 px wide frame, where the columns stack.' },
   },
   render: (args) => (
     <Box className={frameClass(args.narrow)}>
@@ -47,6 +48,11 @@ const Narrow = {
   render: () => <Box className={frameClass(true)}><SpriteStudioSample /></Box>,
 } satisfies StoryLiteStoryDefinition<StudioArgs>;
 
+const BesideList = {
+  name: 'Beside a list: the studio in the detail of a ListDetailLayout',
+  render: () => <Box className="studio-demo-frame studio-demo-frame--list"><StudioBesideListSample /></Box>,
+} satisfies StoryLiteStoryDefinition<StudioArgs>;
+
 const Overview = overviewStory({
   component: 'StudioLayout',
   description: 'The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right.',
@@ -54,14 +60,14 @@ const Overview = overviewStory({
     '`bar` adds a raised top bar: the title, labelled action groups and a [HintLine] for what is under the pointer.',
     '`start` and `end` are [SidePanel]s: each has a heading, folds to a rail and is dragged wider.',
     'The editor sits in a [ToolFrame]; `toolbar` puts [ToolGroups] on its top edge.',
-    'Below 768 px of its own width the columns stack: the list, the editor, then the inspector.',
+    'The columns stack only when the open panels, the folded rails and `editorMinWidth` (192 px) do not fit.',
     'Give each panel a `storageKey` to keep its width and its fold between visits.',
   ],
   instead: '[ListDetailLayout] for a list of records beside one detail; [DockLayout] for panels the user moves.',
   playground: Playground,
-  variants: [Wide, Folded, Narrow],
+  variants: [Wide, Folded, Narrow, BesideList],
   code: STUDIO_CODE,
 });
 
 export default meta;
-export { Folded, Narrow, Overview, Playground, Wide };
+export { BesideList, Folded, Narrow, Overview, Playground, Wide };

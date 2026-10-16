@@ -1,23 +1,25 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { FactsPanel, ListItemRow, StudioLayout } from '../../../src/composites';
-import { Box, ColorSwatch, Icon, IconButton, SearchInput, SegmentedControl, Status, Text } from '../../../src/primitives';
+import { Box, ColorSwatch, Icon, IconButton, SearchInput, Status, Text } from '../../../src/primitives';
 import { StudioAction } from './StudioAction';
-import { FRAMES, IDLE_HINT, SPRITE_FACTS, SPRITES, TUNIC } from './studio-sample.constants';
+import { SpriteSheet } from './SpriteSheet';
+import { SpriteViewSwitch } from './SpriteViewSwitch';
+import { IDLE_HINT, SPRITE_FACTS, SPRITES, TUNIC } from './studio-sample.constants';
+import { usePickedSprite } from './usePickedSprite';
 import type { SpriteStudioSampleProps } from './studio-sample.type';
 
 const SpriteStudioSample = ({ folded = false, bar = true, resizable = true }: SpriteStudioSampleProps) => {
-  const [picked, setPicked] = useState<string>(SPRITES[0].id);
+  const { sprite, setPicked } = usePickedSprite();
   const [view, setView] = useState('sheet');
   const [query, setQuery] = useState('');
-  const sprite = SPRITES.find((item) => item.id === picked) ?? SPRITES[0];
 
   const list = (
     <>
       <SearchInput value={query} onChange={setQuery} placeholder="Find a sprite" size="sm" />
       <Box surface="sunken" className="studio-demo__well" role="list" aria-label="Sprites">
         {SPRITES.filter((item) => item.name.toLowerCase().includes(query.toLowerCase())).map((item) => (
-          <ListItemRow key={item.id} role="listitem" name={item.name} meta={item.meta} selected={picked === item.id} onClick={() => setPicked(item.id)} />
+          <ListItemRow key={item.id} role="listitem" name={item.name} meta={item.meta} selected={sprite.id === item.id} onClick={() => setPicked(item.id)} />
         ))}
       </Box>
     </>
@@ -49,13 +51,11 @@ const SpriteStudioSample = ({ folded = false, bar = true, resizable = true }: Sp
       end={{ title: 'Properties', content: inspector, defaultCollapsed: folded, resizable }}
       editorLabel="Sprite sheet"
       toolbar={[
-        { id: 'view', label: 'View', content: <SegmentedControl size="sm" value={view} onChange={setView} options={[{ value: 'sheet', label: 'Sheet' }, { value: 'pose', label: 'Poses' }]} /> },
+        { id: 'view', label: 'View', content: <SpriteViewSwitch value={view} onChange={setView} /> },
         { id: 'zoom', label: 'Zoom', content: <><IconButton size="sm" variant="ghost" label="Zoom out"><Icon name="zoom-out" /></IconButton><Text variant="label">400%</Text><IconButton size="sm" variant="ghost" label="Zoom in"><Icon name="zoom-in" /></IconButton></> },
       ]}
     >
-      <Box className="studio-demo__sheet" aria-label={`${FRAMES} frames`}>
-        {Array.from({ length: FRAMES }, (_, index) => <Box key={index} className="studio-demo__frame" />)}
-      </Box>
+      <SpriteSheet />
     </StudioLayout>
   );
 };

@@ -2936,6 +2936,7 @@
       ],
       "rules": [
         "Pass the tools in toolbar, such as ToolGroups or a FilterBar; it sits on the surface colour over a line.",
+        "Give a SearchInput, Select or Combobox in the toolbar grow={false}, so it keeps a set width and sits on one line with the other tools.",
         "The content scrolls under the toolbar; give the frame a height or a flex parent.",
         "Pass padded for space around the content; leave it off when the content has its own, such as a list.",
         "Pass as and aria-label to name it, such as as=\"section\" aria-label=\"Sprite sheet\"."
@@ -3037,7 +3038,8 @@
         "Pass groups as { id, label, content }; content holds any controls, such as buttons or a SegmentedControl.",
         "Keep labels short and in sentence case; they name what the tools do, such as View or Export a file.",
         "Pass label to name the whole set when it is not the only toolbar on the screen.",
-        "The groups wrap to a new line when the room runs out, so keep each group small."
+        "The groups wrap to a new line when the room runs out, so keep each group small.",
+        "Give a SearchInput, Select or Combobox in a group grow={false}: it fills the line otherwise."
       ],
       "a11y": [
         "Each group is a group named by its visible label, so a screen reader reads the label before the tools.",
@@ -10187,7 +10189,8 @@
         "Put status and error lines in bar.notices, under the hint line, and a full width line, such as where an installed item came from, in banner.",
         "Give the buttons in the bar and the toolbar a hint, { label, description }: the layout is one HintScope.",
         "Give the layout a height, such as the window or a flex parent; the panels and the editor scroll inside it.",
-        "Below 768 px of its own width the columns stack, list, editor, then inspector, and the body scrolls."
+        "The columns stack, list, editor, then inspector, only when the open panels, the folded rails and the editor do not fit side by side; the body then scrolls.",
+        "Pass editorMinWidth for the narrowest editor the screen can work with, 192 px when left out; fold a panel to keep the columns on a narrow window."
       ],
       "a11y": [
         "The bar is a header with the title as a heading, h1 unless bar.level says otherwise.",
@@ -10203,7 +10206,7 @@
         "rule": "StudioLayout draws every studio screen the same way: a raised bar, two SidePanels and a ToolFrame for the editor."
       },
       "example": "import { Button, StudioLayout } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst SpriteStudio = ({ name, list, sheet, facts }: { name: string; list: ReactNode; sheet: ReactNode; facts: ReactNode }) => (\n  <StudioLayout\n    bar={{\n      caption: 'Character Studio',\n      title: name,\n      idleHint: 'Save keeps the sprite in this app.',\n      groups: [{ id: 'save', label: 'Save to this app', content: <Button size=\"sm\" hint={{ label: 'Save', description: 'Keeps your changes.' }}>Save</Button> }],\n    }}\n    start={{ title: 'Sprites', content: list, storageKey: 'studio.sprites' }}\n    end={{ title: 'Properties', content: facts, storageKey: 'studio.properties' }}\n    editorLabel=\"Sprite sheet\"\n  >\n    {sheet}\n  </StudioLayout>\n);\n",
-      "propsHash": "96139af396969b59",
+      "propsHash": "ef5713ce58729f70",
       "props": {
         "own": [
           {
@@ -10240,6 +10243,12 @@
             "name": "toolbar",
             "optional": true,
             "text": "readonly ToolGroup[]"
+          },
+          {
+            "name": "editorMinWidth",
+            "optional": true,
+            "text": "number",
+            "default": "DEFAULT_EDITOR_MIN_WIDTH"
           },
           {
             "name": "className",

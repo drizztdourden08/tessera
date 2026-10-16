@@ -6,6 +6,7 @@ import type { InputAdornment } from '../field-control/input-adornment.type';
 interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   invalid?: boolean;
   size?: ControlSize;
+  grow?: boolean;
   start?: InputAdornment;
   end?: InputAdornment;
   onEnter?: (value: string) => void;

@@ -8872,3 +8872,58 @@ Composites · Content/DateText, measured at 1440 px with no console errors: ever
 ### Tests
 
 `tests/date-text.test.mjs` checks every preset in three lengths in English and French, the relative boundaries (59 s, 1 minute, 59 minutes, 1 hour, 23 hours, Yesterday, 6 days, Last week, 4 weeks, Last month, 12 months, Last year, ahead of now), calendar days, unreadable values, Select and DataTable columns through `formatDate`, the `time` element and its Tooltip, the strings, and the one shared clock.
+
+## 253. StudioLayout stacks only when its columns do not fit, and a search box fits in a toolbar
+
+RotP's studios put their item list in a ListDetailLayout to the left of the studio, so on an ordinary window StudioLayout's own width fell under 768 px and its columns stacked, taking the editor's height away. RotP dropped StudioLayout for its own StudioBody, and wrapped SearchInput as StudioSearch because a SearchInput takes the whole line and pushed the other tools of a toolbar onto a line of their own.
+
+### What changed
+
+```ts
+interface StudioLayoutProps {
+  editorMinWidth?: number; // new: the narrowest editor in px before the columns stack, 192 when left out
+}
+
+interface TextInputProps { grow?: boolean } // new, so SearchInput and PasswordInput take it too
+interface ListboxFieldProps { grow?: boolean } // new: Select and Combobox
+interface NativeSelectProps { grow?: boolean } // new
+```
+
+- **Stacking.** StudioLayout stacks its columns when the open side panels, the folded rails and `editorMinWidth` do not fit side by side, in place of below 768 px of its own width. It measures the editor as it would sit in the row: a folded panel counts as its rail (60 px and its toggle), an open one as its width and its line. It checks again when its width changes or a panel folds or opens; dragging a panel wider never stacks it, the next change of width does. While stacked, folding panels can bring the columns back: the Narrow example, 536 px wide, stacks with both panels open and sits side by side with both folded. The stacked look is the same as before, now set by the class `studio-layout--stacked`; the container query is gone and the root keeps `container: studio-layout / inline-size`. The body keeps its scroll position through a check.
+- **Default.** 192 px. With the default 288 px panels the columns stack below 800 px, where they stacked below 768 px before: the editor of the Wide example, 224 px at a 1280 px window, stays side by side.
+- **Height.** The root also takes `flex: 1` and `min-inline-size: 0`, so it fills a flex column such as StudioPane or a ListDetailLayout detail; side by side the editor takes the whole height of the body.
+- **`grow={false}`** on TextInput, SearchInput, Select, NativeSelect and Combobox keeps the control at `--field-w-inline` (256 px), lets it shrink to `--field-w-inline-min` (160 px) and keeps it beside other tools in a ToolFrame toolbar, ToolGroups or any flex row. It is one rule in `theme/field-surface.css` on the `control-inline` class, set by one helper, `growClass`. Left out, every control draws the same markup as before. NumberInput keeps `sizeToContent`, which already fits it to its digits in a toolbar.
+- New tokens `--field-w-inline` and `--field-w-inline-min`, listed on the Sizes page.
+
+### Measured
+
+At 1440 and 1280 px against the gallery before, with no console errors:
+
+- **StudioLayout.** The header, Wide, Folded, Narrow and the Playground keep every box at both widths; Narrow gains the stacked class with the same boxes, and the playground note on `narrow` is one line shorter at 1440 px (18 px). The new example adds 728 px. Wide stays side by side with a 384 px editor at 1440 px and 224 px at 1280 px, 452 px high, the full height of its body.
+- **Beside a list.** The new example puts the studio in the detail of a ListDetailLayout with a 240 px list: the studio is 674 px wide at 1440 px and 514 px at 1280 px, side by side at both, with Poses folded to its rail and Properties open at 224 px; the editor is 360 and 200 px wide and 582 px high, the height of the body.
+- **SearchInput.** The new point adds 29 px; Sizes, Clear button and Filtering keep their boxes; the new example adds 376 px. In its toolbar Find (256 px), Sort (256 px), View and Add sit on one line at both widths. In a 700 px wrapping row a plain TextInput, the Select trigger and a Combobox fill the row and drop to their own line; with `grow={false}` each is 256 px and on the line.
+- ToolFrame, ToolGroups, Select, Combobox, NumberInput, SidePanel and TextInput keep every box, colour and opacity.
+
+### Gallery and tests
+
+StudioLayout gains Beside a list: the studio in the detail of a ListDetailLayout, and its point on stacking is rewritten. SearchInput gains In a toolbar: one line with the other tools, and a point on `grow`. The StudioLayout, ToolFrame and ToolGroups usage files say when to pass `editorMinWidth` and `grow={false}`. `tests/studio-stack.test.mjs` checks the measure while stacked, the scroll kept, when it checks again and the default; `tests/control-grow.test.mjs` checks the class on each control, the default markup, the CSS rule and the tokens; `tests/studio-layout.test.mjs` checks the stacked class in place of the container query.
+
+### What RotP does
+
+Go back from StudioBody to StudioLayout, and drop StudioSearch:
+
+| RotP | Tessera |
+|---|---|
+| `<StudioBody editorLabel toolbar start end>` inside StudioPane | `<StudioLayout editorLabel toolbar start end>` inside StudioPane, with no `bar`; StudioPane keeps its action row and banner, or move them to `bar` and `banner` |
+| `start` and `end` as `{ title, storageKey, width, minWidth, maxWidth, content }` | the same objects: StudioLayout passes every SidePanel prop through |
+| `StudioSidePanel` wrapping the content in `DensityScope density="compact"` | keep the `DensityScope` around each panel's `content` |
+| `StudioSearch` | `<SearchInput grow={false} size="sm" aria-label={label} ... />` |
+| the `studio-body`, `studio-body__toolbar` and `studio-search` CSS | nothing |
+
+**The compact toolbar.** StudioBody drew `toolbar` as one wrapping row in `DensityScope density="compact"`, with Dividers between clusters. StudioLayout's `toolbar` takes ToolGroups groups, `{ id, label, content }`: give each cluster a group with a short label, drop the Dividers (ToolGroups draws a line between groups) and wrap each `content` in `DensityScope density="compact"` to keep the small controls. Each group adds its label over the tools, about 18 px of height.
+
+- **Sprite studio** (`ViewerToolbar`): `{ id: 'view', label: 'View', content: <ViewSwitch /> }`, `{ id: 'play', label: 'Playback', content: <><PlaybackControls /><ZoomControl /></> }`, `{ id: 'wear', label: 'Wearing', content: <WearingBar flat /> }`.
+- **Language studio** (`SectionToolbar`): `{ id: 'section', label: 'Section', content: <Tabs /> }`, and on the dialogue tab `{ id: 'find', label: 'Find', content: <SearchInput grow={false} /> }` and `{ id: 'show', label: 'Show', content: <SegmentedControl /> }`.
+- **MSU panels** (`FileControls`, `SoundPanelControls`, `MsuEffectsPanel`): the tabs in one group, the search with `grow={false}` in a Find group, and the unreachable Checkbox in a Show group.
+
+With the States panel at 224 px and Properties at 288 px, the sprite studio needs 736 px side by side (544 px of panels and lines and a 192 px editor); fold one panel to its rail, or pass a smaller `editorMinWidth`, on narrower windows.

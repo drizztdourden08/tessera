@@ -25,4 +25,6 @@ const SPRITE_FACTS = [
 
 const IDLE_HINT = 'Save keeps the sprite in this app. Export makes a file to share or to load in another game.';
 
-export { FRAMES, IDLE_HINT, SPRITE_FACTS, SPRITES, TUNIC };
+const VIEW_OPTIONS = [{ value: 'sheet', label: 'Sheet' }, { value: 'pose', label: 'Poses' }];
+
+export { FRAMES, IDLE_HINT, SPRITE_FACTS, SPRITES, TUNIC, VIEW_OPTIONS };

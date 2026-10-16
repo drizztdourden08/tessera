@@ -44,10 +44,12 @@ describe('StudioLayout', () => {
     expect(html).toContain('aria-label="Hide Sprites"');
   });
 
-  it('stacks the columns below 768 px of its own width', () => {
+  it('stacks the columns through a class it sets when they do not fit, not at a fixed width', () => {
     const css = sheet('src/composites/StudioLayout/StudioLayout.css');
     expect(css).toContain('container: studio-layout / inline-size;');
-    expect(css).toMatch(/@container studio-layout \(width < 768px\) \{\s+\.studio-layout__body \{\s+flex-direction: column;/);
+    expect(css).not.toMatch(/@container|768px/);
+    expect(css).toMatch(/\.studio-layout--stacked \.studio-layout__body \{\s+flex-direction: column;/);
+    expect(studio()).toMatch(/^<div class="studio-layout">/);
   });
 });
 

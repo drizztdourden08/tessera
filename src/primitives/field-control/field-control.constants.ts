@@ -3,4 +3,6 @@ import type { FieldControl } from './field-control.type';
 
 const NO_CONTROL: FieldControl = {};
 
-export { NO_CONTROL };
+const INLINE_CONTROL_CLASS = 'control-inline';
+
+export { INLINE_CONTROL_CLASS, NO_CONTROL };

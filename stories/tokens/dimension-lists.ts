@@ -47,6 +47,8 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
       { token: '--control-h-xs' },
       { token: '--control-h-sm' },
       { token: '--control-h-md' },
+      { token: '--field-w-inline' },
+      { token: '--field-w-inline-min' },
       { token: '--titlebar-height' },
       { token: '--scrollbar-size' },
       { token: '--avatar-d' },

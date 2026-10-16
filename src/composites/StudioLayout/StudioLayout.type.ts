@@ -24,6 +24,7 @@ interface StudioLayoutProps {
   start?: StudioLayoutPanel;
   end?: StudioLayoutPanel;
   toolbar?: readonly ToolGroup[];
+  editorMinWidth?: number;
   className?: string;
 }
 

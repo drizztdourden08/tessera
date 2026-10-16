@@ -52,6 +52,8 @@
   --settings-row-text-min: var(--size-192);
   --field-w-sm: var(--size-256);
   --field-w-md: var(--size-512);
+  --field-w-inline: var(--size-256);
+  --field-w-inline-min: var(--size-160);
   --stat-row-max-w: var(--size-512);
   --settings-row-compact-h: var(--size-40);
   --settings-row-compact-control-w: var(--size-160);

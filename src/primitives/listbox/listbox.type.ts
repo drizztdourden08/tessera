@@ -105,6 +105,7 @@ interface ListboxFieldProps {
   defaultOpen?: boolean;
   inline?: boolean;
   size?: ControlSize;
+  grow?: boolean;
   className?: string;
   id?: string;
   'aria-label'?: string;
