@@ -43,6 +43,8 @@ type WindowTitleBarAction = WindowTitleBarCommandAction | WindowTitleBarDropdown
 
 type WindowTitleBarViewPosition = number | 'start' | 'end';
 
+type WindowTitleBarItemId = `control:${'pin' | 'fullscreen'}` | `action:${string}`;
+
 interface WindowTitleBarViewPlace {
   group?: string;
   position?: WindowTitleBarViewPosition;
@@ -55,6 +57,7 @@ interface WindowTitleBarProps {
   menu?: readonly MenuGroup[];
   menuLabel?: string;
   view?: WindowTitleBarViewPlace | false;
+  onFitChange?: (tucked: readonly WindowTitleBarItemId[]) => void;
   onMenuOpenChange?: (open: boolean) => void;
   actions?: readonly WindowTitleBarAction[];
   controls?: WindowControlsConfig | false;
@@ -69,5 +72,5 @@ interface WindowTitleBarProps {
 
 export type {
   BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
-  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarProps, WindowTitleBarViewPlace, WindowTitleBarViewPosition,
+  WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarViewPlace, WindowTitleBarViewPosition,
 };

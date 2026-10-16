@@ -34,7 +34,9 @@ WindowTitleBar is the one title bar of a frameless window, with the same brand, 
 - Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.
 - Keep the actions few: narrow windows move them into the main menu, then shrink the brand.
 - The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does.
-- View moves the View sub-menu to a group and position of menu; view={false} hides it, leaving pin and full screen on the bar only.
+- View moves the View sub-menu to a group and position of menu; view={false} hides it, and the main menu then lists pin and full screen while the bar tucks them away.
+- OnFitChange hears which bar items a narrow window tucks away, as control:pin, control:fullscreen or action: and the action id; never read the markup for it.
+- Pin and full screen are menu actions whose label and icon say what a pick does; a check mark in a title bar menu means on.
 
 ## Accessibility
 
@@ -88,6 +90,7 @@ const AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }:
 - `menu` (optional): `readonly MenuGroup[]`.
 - `menuLabel` (optional): `string`.
 - `view` (optional): `WindowTitleBarViewPlace | false`.
+- `onFitChange` (optional): `(tucked: readonly WindowTitleBarItemId[]) => void`.
 - `onMenuOpenChange` (optional): `(open: boolean) => void`.
 - `actions` (optional): `readonly WindowTitleBarAction[]`.
 - `controls` (optional): `WindowControlsConfig | false`.

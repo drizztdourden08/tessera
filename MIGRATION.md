@@ -8423,3 +8423,34 @@ Where Brock builds the props of WindowTitleBar from its menu config, read the en
 - untouched: pass nothing.
 
 Renaming View still goes through `windows.view`.
+
+## 243. WindowTitleBar keeps tucked buttons in reach and draws no check mark that means off
+
+A narrow window tucks the pin and full screen buttons off the bar, and the View sub-menu was the only place left to reach them. With `view={false}` (section 242) they were out of reach, so Brock read Tessera's markup, `[data-bar-item="control:pin"]` and the `window-title-bar__item--away` class, to list them itself. That broke silently whenever those names changed. The View sub-menu also drew a check mark beside pin and full screen while the window was neither pinned nor in full screen.
+
+### What changed
+
+WindowTitleBar takes `onFitChange`:
+
+```ts
+type WindowTitleBarItemId = `control:${'pin' | 'fullscreen'}` | `action:${string}`;
+
+interface WindowTitleBarProps {
+  onFitChange?: (tucked: readonly WindowTitleBarItemId[]) => void; // new
+}
+```
+
+- **With `view={false}`**, a pin or full screen button the bar tucks away shows up in the main menu itself, in the bar's own group where View would have been: first, before the actions. It leaves the menu again once the bar has room for it. With View shown nothing changes, since View already holds both.
+- **`onFitChange`** hears the ids of the bar items a narrow window tucks away, in the order the bar tucks them: `control:pin`, `control:fullscreen`, or `action:` and the id of an action. It runs each time that list changes, and not on the first measure when nothing is tucked. It reads the fit the bar already measures, so nothing is measured twice.
+- **Pin and full screen are actions in the menu**, in View and in the main menu alike. Their label and icon say what a pick does, the way the bar buttons already did: Pin window on top with the pin icon, or Unpin window with the crossed pin while pinned; Fullscreen with the outward arrows, or Exit fullscreen with the inward arrows in full screen. They are `menuitem` rows with no check mark. DropdownMenu draws a dim check beside a check item that is off, so a check item could not show a mark only while on.
+- Every other item the bar adds to the menu is an action with no `checked`, so no other row had the same mark.
+
+Measured in a browser at 1440 px, before and after: 14 of the 16 existing WindowTitleBar story pages keep every element's box and their markup; App window's main menu lists the same 15 rows, and its View sub-menu the same two rows, now `menuitem` with no mark in place of `menuitemcheckbox` with a dim check. On Narrow only the View menu changes: Unpin window in place of a checked Pin window on top, both rows without the check mark, 20.39 px narrower. On the Overview every element keeps its box but that View menu, the live frame rate and the two new examples; the states and code below move down by the 911 px of the new examples.
+
+### Gallery and tests
+
+Two new WindowTitleBar examples: View hidden on a narrow window, with a 400 px bar, what `onFitChange` heard and the main menu that bar opens; and the View sub-menu with the pin off and on, beside a bar whose pin works. `tests/window-title-bar-view.test.mjs` now also checks the tucked entries, their place and labels, and that no row carries a check; `tests/window-title-bar.test.mjs` now expects the View rows as actions. The usage rules gain one on `onFitChange` and one on the labels, and the rule on `view` says where the tucked buttons go.
+
+### What Brock does
+
+Drop the code that reads `[data-bar-item="control:pin"]`, `[data-bar-item="control:fullscreen"]` and the `window-title-bar__item--away` class, and the menu entries it built from them: with `view={false}` the bar lists a tucked pin and full screen in its main menu itself. Where Brock still needs to know what is tucked, pass `onFitChange` and keep the list it hands over. Brock's own menu items with `checked: false` still draw a dim check, as every DropdownMenu check item does.

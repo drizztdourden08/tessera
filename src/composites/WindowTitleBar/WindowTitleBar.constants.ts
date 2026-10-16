@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { BarFit } from './behavior/bar-fit.type';
-import type { WindowControl, WindowControlsConfig, WindowTitleBarProps } from './WindowTitleBar.type';
+import type { WindowControl, WindowControlsConfig, WindowTitleBarItemId, WindowTitleBarProps } from './WindowTitleBar.type';
 
 const PEEK_ZONE_PX = 40;
 
@@ -28,9 +28,9 @@ const ITEM_SELECTOR = `[${ITEM_ATTRIBUTE}]`;
 
 const ITEM_AWAY_CLASS = 'window-title-bar__item--away';
 
-const PIN_ITEM = 'control:pin';
+const PIN_ITEM: WindowTitleBarItemId = 'control:pin';
 
-const FULLSCREEN_ITEM = 'control:fullscreen';
+const FULLSCREEN_ITEM: WindowTitleBarItemId = 'control:fullscreen';
 
 const ACTION_ITEM_PREFIX = 'action:';
 

@@ -4,20 +4,11 @@ import type { MenuGroup, MenuItem, MenuNode } from '../../DropdownMenu';
 import { TitleBarActionIcon } from '../sub-components/TitleBarActionIcon';
 import { BAR_GROUP_ID, VIEW_ITEM_ID } from '../WindowTitleBar.constants';
 import type { WindowTitleBarAction } from '../WindowTitleBar.type';
+import { controlItems } from './control-items';
 import { dropdownNodes } from './dropdown-nodes';
 import { insertNode } from './insert-node';
 import type { TitleBarMenuInput } from './title-bar-menu.type';
 import { viewPlace } from './view-place';
-
-const viewItems = (input: TitleBarMenuInput): MenuItem[] => {
-  const { pin, fullscreenButton, pinned, fullscreen, onControl, strings } = input;
-  const items: MenuItem[] = [];
-  if (pin) items.push({ id: 'pin', icon: 'pin', label: strings.pinOnTop, checked: pinned, onSelect: () => onControl('pin') });
-  if (fullscreenButton) {
-    items.push({ id: 'fullscreen', icon: 'maximize-2', label: strings.fullscreen, checked: fullscreen, onSelect: () => onControl('fullscreen') });
-  }
-  return items;
-};
 
 const actionMenuItem = (action: WindowTitleBarAction): MenuItem[] => {
   const { id, label, shortcut } = action;
@@ -28,16 +19,19 @@ const actionMenuItem = (action: WindowTitleBarAction): MenuItem[] => {
 };
 
 const viewMenuItem = (input: TitleBarMenuInput): MenuItem | undefined => {
-  const children = input.view === false ? [] : viewItems(input);
+  const children = input.view === false ? [] : controlItems(input, () => true);
   return children.length > 0 ? { id: VIEW_ITEM_ID, icon: 'app-window', label: input.strings.view, children } : undefined;
 };
+
+const tuckedItems = (input: TitleBarMenuInput): MenuItem[] =>
+  input.view === false ? controlItems(input, (item) => input.tucked?.includes(item) === true, `${BAR_GROUP_ID}-`) : [];
 
 const titleBarMenu = (input: TitleBarMenuInput): MenuGroup[] => {
   const view = viewMenuItem(input);
   const place = viewPlace(input.view);
   const position = place.position ?? 'start';
   const target = view ? input.menu.findIndex((group) => group.id === place.group) : -1;
-  const actions: MenuNode[] = input.actions.flatMap(actionMenuItem);
+  const actions: MenuNode[] = [...tuckedItems(input), ...input.actions.flatMap(actionMenuItem)];
   const items = view && target < 0 ? insertNode(actions, view, position) : actions;
   const menu = input.menu.map((group, index) => (view && index === target ? { ...group, items: insertNode(group.items, view, position) } : group));
   if (items.length === 0) return menu;

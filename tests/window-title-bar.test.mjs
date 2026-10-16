@@ -11,7 +11,7 @@ import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-ba
 const ignore = () => undefined;
 const BUG = { id: 'bug', icon: 'bug', label: 'Report a bug', onSelect: ignore };
 const UPDATES = { id: 'updates', icon: 'download', label: 'Check for updates', bar: 'status', status: 'Update available', onSelect: ignore };
-const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', fullscreen: 'Fullscreen' };
+const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', unpin: 'Unpin window', fullscreen: 'Fullscreen', exitFullscreen: 'Exit fullscreen' };
 
 describe('WindowTitleBar', () => {
   it('draws every control by default, with the hamburger for the View sub-menu', () => {
@@ -52,11 +52,11 @@ describe('hideOrder', () => {
 describe('titleBarMenu', () => {
   const base = { actions: [BUG, UPDATES], pin: true, fullscreenButton: true, pinned: true, fullscreen: false, onControl: ignore, strings: STRINGS };
 
-  it('puts a View sub-menu with check items and every action in a group above the last host group', () => {
+  it('puts a View sub-menu of pin and full screen actions and every action in a group above the last host group', () => {
     const groups = titleBarMenu({ ...base, menu: [{ id: 'screens', items: [] }, { id: 'app', items: [] }] });
     expect(groups.map((group) => group.id)).toEqual(['screens', 'window-title-bar', 'app']);
     const [view, bug, updates] = groups[1].items;
-    expect(view.children.map((item) => [item.label, item.checked])).toEqual([['Pin window on top', true], ['Fullscreen', false]]);
+    expect(view.children.map((item) => [item.label, item.checked])).toEqual([['Unpin window', undefined], ['Fullscreen', undefined]]);
     expect(bug.label).toBe('Report a bug');
     expect(updates.description).toBe('Update available');
   });
