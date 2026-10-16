@@ -1387,7 +1387,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.40.0",
       "strings": {
         "lists.undo": "common.undo"
       }
