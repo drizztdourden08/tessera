@@ -8283,3 +8283,45 @@ The SettingsPage Overview point on short room now says the chips never wrap and 
 ### What Brock and RotP do
 
 Nothing. After the upgrade the Game page keeps "Game" whole and its nine chips on one scrolling row. A chip row RotP draws itself in a header can use HeaderAnchorNav to get the same.
+
+## 240. A wordmark on the splash, in place of the product name
+
+Brock shows its wordmark on the splash in place of the product name. Its static splash page wrote `<img class="ts-wordmark splash__wordmark">` with its own sizing rules, and its React boot failure splash painted the wordmark as a background on `ts-title` with the text made transparent. Both now come from Tessera.
+
+### What changed
+
+- **`ts-wordmark` in `splash.css`.** An image inside `ts-title` takes the class: 48 px high (`--size-48`), at most 384 px wide (`--size-384`) and never wider than the title box, so it narrows with a narrow window, centred, with `object-fit: contain`. It is a block, so no line box adds height under it: the h1 is exactly 48 px tall.
+- **`Splash` takes `wordmark`.** When it is set, the h1 holds `<img class="ts-wordmark" src={wordmark} alt={title}>` in place of the title text. The title stays the accessible name of the heading through the image's alt text.
+
+```ts
+interface SplashProps {
+  title: string;
+  wordmark?: string; // new: an image URL drawn in the h1 in place of the title text, named by title
+  // every other prop as before
+}
+```
+
+```html
+<h1 class="ts-title"><img class="ts-wordmark" src="brand/brock-wordmark.svg" alt="Brock" /></h1>
+```
+
+### Measured
+
+Every Splash and Static splash demo was read at 1440 px before and after: 24 frames and live splashes, each with the box of its stage, mark, title, status, actions, bar and version, and an element screenshot.
+
+- Every part of every existing demo keeps its box to 0.01 px. The two playgrounds moved down the page by the new example above them, with their parts in the same place inside. No screenshot pixel differs by more than 2 of 255 in any channel, which is the gradient dither of a frame at another place on the page.
+- The new examples, with each brand's file wordmark: Tessera 253 by 48 px, Brock 187 by 48, Archipelia and Relic of the Past 318 by 48 in a 384 px frame, where the 32 px stage padding leaves 318. In a 640 px frame Relic of the Past stops at 384 by 48, centred; in a 288 px frame it narrows to 222 by 48.
+- The React splash and the static page beside it, both with the same mark file and wordmark, give the same box for the stage, mark, h1, image and status in all four brands.
+
+### Gallery and tests
+
+The Splash page gains A wordmark in place of the title, beside the static page (each brand, React beside static HTML); the Static splash page gains A wordmark in place of the title, wide and narrow (Brock and Relic of the Past in 640 and 288 px windows). One Overview point on each page names the new prop and class. `tests/splash.test.mjs` checks the h1 holds the image with the title as alt and no title text, and the class rules; `tests/splash-kit.test.mjs` lists `ts-wordmark`.
+
+### Other title spots
+
+InfoScreen, Hero, ScreenPage and ContentHeader take any node as their title or lead, so an app passes a BrandWordmark, a Logo.Wordmark or an image there today. None of them draws the `ts-` classes, so `ts-wordmark` does not reach them for free, and they gain no prop.
+
+### What Brock does
+
+- **The static splash page.** Write `<img class="ts-wordmark" ...>` and drop `.splash__wordmark` from `packages/build/src/splash/splash-page.css`; `ts-wordmark` sets the same 48 px height, 384 px cap, block display and `object-fit`, and narrows by the title box in place of `100vw`.
+- **BootFailureSplash.** Pass `wordmark={product.icons.wordmark?.dark}` to Splash, and drop `BootFailureSplash.css` and `behavior/wordmark-props*`. The heading is a real image with the name as its alt text, so the forced colours rule that put the text back is no longer needed.

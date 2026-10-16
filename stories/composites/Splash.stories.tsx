@@ -10,6 +10,7 @@ import { SPLASH_MARK, SPLASH_SAMPLES, SPLASH_STATES, SPLASH_TITLE, SPLASH_VERSIO
 import type { SplashState } from './_samples/splash-states.type';
 import { SplashMarks } from './_samples/SplashMarks';
 import { SplashPair } from './_samples/SplashPair';
+import { SplashWordmarks } from './_samples/SplashWordmarks';
 
 type SplashArgs = {
   state: SplashState;
@@ -90,6 +91,11 @@ const Marks = {
   render: () => <SplashMarks />,
 } satisfies StoryLiteStoryDefinition<SplashArgs>;
 
+const Wordmarks = {
+  name: 'A wordmark in place of the title, beside the static page',
+  render: () => <SplashWordmarks />,
+} satisfies StoryLiteStoryDefinition<SplashArgs>;
+
 const CODE = `import { Splash } from '@drizztdourden08/tessera';
 import { BrandMark } from '@drizztdourden08/tessera/brand';
 
@@ -114,16 +120,16 @@ const Overview = overviewStory({
   points: [
     'It draws the `ts-` classes of `splash.css`, so it matches the [Static splash](#/story/composites-staticsplash--overview) page.',
     'It sits on the dark gradient of the palette; a test holds its text, borders and bar at WCAG AA.',
-    '`mark` takes an image URL or a node; a [Logo] or BrandMark in it takes its dark ground colours by itself.',
+    '`mark` takes an image URL or a node, such as BrandMark; `wordmark` an image URL shown in place of the title.',
     '`progress` fills the bar from 0 to 1, or sweeps with `indeterminate`; `bar` puts it on the edge or inline.',
     '`detail` sits under `status`, `error` behind Details; `failed` turns them red and focuses the primary action.',
     'It covers the window; set `inert` on a mounted app behind it.',
   ],
   instead: '[ProgressBar] or [Spinner] for work inside a page the user can still use.',
   playground: Playground,
-  variants: [Starting, Failed, Update, Reconnecting, Marks],
+  variants: [Starting, Failed, Update, Reconnecting, Marks, Wordmarks],
   code: CODE,
 });
 
 export default meta;
-export { Failed, Marks, Overview, Playground, Reconnecting, Starting, Update };
+export { Failed, Marks, Overview, Playground, Reconnecting, Starting, Update, Wordmarks };

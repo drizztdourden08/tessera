@@ -5,6 +5,7 @@ import { overviewStory } from '../_template/overview-story';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { FAILED, PARTS, STARTING } from './_samples/splash-pages.constants';
 import { SplashFrame } from './_samples/SplashFrame';
+import { StaticSplashWordmarks } from './_samples/StaticSplashWordmarks';
 
 type SplashArgs = {
   page: 'starting' | 'failed' | 'parts';
@@ -56,6 +57,11 @@ const Parts = {
   ),
 } satisfies StoryLiteStoryDefinition<SplashArgs>;
 
+const Wordmark = {
+  name: 'A wordmark in place of the title, wide and narrow',
+  render: () => <StaticSplashWordmarks />,
+} satisfies StoryLiteStoryDefinition<SplashArgs>;
+
 const CODE = `<link rel="stylesheet" href="node_modules/@drizztdourden08/tessera/splash-tokens.css" />
 <link rel="stylesheet" href="node_modules/@drizztdourden08/tessera/splash.css" />
 
@@ -80,15 +86,15 @@ const Overview = overviewStory({
     'Load `splash-tokens.css`, then `splash.css`; no React and no bundle, so the page draws at once.',
     '`ts-splash` paints the dark gradient behind a `ts-stage`; take its `ts-mark` image from `brand/dark-ground/`.',
     'A page may set `--look-dark-from`, `--look-dark-to` and `--look-angle`, with stops that keep text at AA.',
-    '`ts-button` is the secondary [Button] look, `ts-button--primary` the primary one.',
+    '`ts-wordmark` sets an image in `ts-title`, 48 px high; `ts-button` and `ts-button--primary` look like [Button].',
     '`ts-progress` fills to `--value`, 0 to 1, or sweeps with `ts-progress--indeterminate`; `--edge` runs at the bottom.',
     '`ts-status--danger` and `ts-progress--danger` mark a failure, `ts-detail` its text, `ts-error` the raw error.',
   ],
   instead: '[Splash] draws the same page from React once the bundle has loaded, to show it again or take over.',
   playground: Playground,
-  variants: [Starting, Failed, Parts],
+  variants: [Starting, Failed, Parts, Wordmark],
   code: CODE,
 });
 
 export default meta;
-export { Failed, Overview, Parts, Playground, Starting };
+export { Failed, Overview, Parts, Playground, Starting, Wordmark };

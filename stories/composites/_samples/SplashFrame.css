@@ -7,3 +7,17 @@
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
 }
+
+.splash-wordmark-wide {
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+}
+
+.splash-wordmark-narrow {
+  inline-size: var(--size-288);
+}
+
+.splash-wordmark-widths .splash-frame {
+  inline-size: 100%;
+  block-size: var(--size-288);
+}

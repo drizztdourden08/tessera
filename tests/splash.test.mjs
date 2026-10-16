@@ -59,4 +59,11 @@ describe('Splash', () => {
     expect(html).toContain('aria-label="Updating"');
     expect(html).toContain('<div class="ts-splash ts-splash--layer app-splash" data-phase="update">');
   });
+
+  it('draws a wordmark image in the h1 in place of the title text, named by the title', () => {
+    const html = draw({ wordmark: '/wordmark.svg', status: 'Starting' });
+    expect(html).toContain('<h1 class="ts-title"><img class="ts-wordmark" src="/wordmark.svg" alt="Archipelia"/></h1>');
+    expect(html).not.toContain('>Archipelia<');
+    expect(KIT).toMatch(/\.ts-wordmark \{[^}]*block-size: var\(--size-48\);[^}]*object-fit: contain;/);
+  });
 });

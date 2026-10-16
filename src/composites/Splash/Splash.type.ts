@@ -14,6 +14,7 @@ type SplashBar = 'edge' | 'inline';
 
 interface SplashProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   title: string;
+  wordmark?: string;
   mark?: ReactNode;
   status?: ReactNode;
   detail?: ReactNode;

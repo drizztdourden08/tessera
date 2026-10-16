@@ -53,6 +53,15 @@
   line-height: var(--leading-tight);
 }
 
+.ts-wordmark {
+  display: block;
+  inline-size: auto;
+  max-inline-size: min(var(--size-384), 100%);
+  block-size: var(--size-48);
+  margin-inline: auto;
+  object-fit: contain;
+}
+
 .ts-mark {
   display: grid;
   inline-size: var(--size-96);
