@@ -1,5 +1,20 @@
 # @drizztdourden08/tessera
 
+## 0.37.0
+
+### Minor Changes
+
+- fdf5375: BackdropLayer draws an image, a colour or a scene of your own behind a block from one `Backdrop` value, the value Hero's `backdrop` takes, and `backdropStyle(backdrop)` returns its background style for an element you draw yourself. Pass a BackdropLayer as the `backdrop` of ScreenPage, SettingsPage or ContentHeader to show an image or a colour behind the header. Hero draws its backdrop through it, with the same look. `HeroBackdrop` is renamed `Backdrop` and `HeroImageFit` is renamed `BackdropFit`, both now exported from `primitives` and the package root; the layer classes `hero__backdrop--node`, `--image`, `--color` and `--pixelated` are now `backdrop-layer--node`, `--image`, `--color` and `--pixelated`. RENAMES.json carries all of these. BackdropLayer has a usage file, so the guide answers a picture, a colour or a scene behind a block with it.
+- 8029350: StatRow and FactsPanel take `align`, `start` or `end`, typed `StatRowAlign`. `align="end"` sets each label on the left and its value on the right edge of the row or panel, past the 512 px a row stops at, one fact per row in every FactsPanel layout; `start` sets the value right after its label. Without `align` each layout looks as before. FactsPanel passes it to its StatRows and no longer copies their alignment rules.
+- fdf5375: Hero takes `size`, `compact`, `default` or `tall`, so an app sets how tall it is. `default` keeps today's look. `compact` fits the content with tighter padding and gaps, for a home with a few facts and actions. `tall` grows to 80 percent of the window height, between 408 and 560 px. Each size stacks under 720 px wide as before. The `HeroSize` type is exported, and the token `--hero-h-tall` is new.
+- b7edb67: StudioLayout, a new composite, is the frame of a studio screen: a raised bar with the title, labelled action groups and a hint line, a list on the left, an editor with its toolbar on the top edge, and an inspector on the right, stacked below 768 px of its own width. It is drawn from three new shared parts: SidePanel, a raised side panel with a heading that folds to a rail and is dragged wider; ToolFrame, a sunken frame with a toolbar on its top edge; and ToolGroups, tools in groups under small labels. ListDetailLayout now folds to the same rail as SidePanel, and LogPanel is a ToolFrame, both with the same look; ListDetailLayout's rail label class is now `pane-rail__label`, and LogPanel's `log-panel__toolbar` class is gone.
+
+### Patch Changes
+
+- 8029350: A Button with `icon` or `iconEnd` has the same padding on the icon side as on the label side, in every variant and size: the icon slot no longer adds a 20 px box around a 16 px glyph, an Icon passed without a `size` takes the size of the button (16, 14 or 12 px for `md`, `sm` and `xs`), and the gap between icon and label is 8, 6 or 4 px. An Icon given a `size` keeps it. Heights do not change.
+- be4d768: A chip row in a page header never wraps and never squeezes the title. HeaderAnchorNav, the chip row of SettingsPage and of any ContentHeader or ScreenPage strip, now scrolls sideways on the same strip as Tabs: the mouse wheel scrolls it without Shift, and an arrow and a fade show at each edge only while chips are hidden there. Beside the title the row takes the room that is left; ScreenPage moves it under the title only when that room is less than two of its widest chips, and it scrolls there too.
+- 8029350: Window chrome can no longer be selected by accident: WindowTitleBar with its title, status items, buttons and drag area, every WindowHeader (so the DialogShell, Drawer and ScreenWindow headers), the Widget title strip and DropdownMenu panels share one rule, `user-select: none`, from `theme/window-chrome.css`. A text input, a text area or editable text inside them can still be selected and typed in.
+
 ## 0.36.0
 
 ### Minor Changes
