@@ -19,6 +19,7 @@
   flex: none;
   width: var(--side-nav-item-h);
   height: var(--side-nav-item-h);
+  margin-inline: auto;
   padding: 0;
   border: none;
   border-radius: var(--radius-md);

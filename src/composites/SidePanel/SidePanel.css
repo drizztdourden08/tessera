@@ -5,6 +5,34 @@
   min-block-size: 0;
 }
 
+.side-panel--overhang.side-panel--start {
+  margin-inline-end: calc(var(--collapse-toggle-d) / 2);
+}
+
+.side-panel--overhang.side-panel--end {
+  margin-inline-start: calc(var(--collapse-toggle-d) / 2);
+}
+
+.side-panel__frame {
+  position: relative;
+  display: flex;
+  min-block-size: 0;
+}
+
+.side-panel__toggle {
+  position: absolute;
+  top: calc((var(--size-40) - var(--collapse-toggle-d)) / 2);
+  z-index: var(--z-base);
+}
+
+.side-panel--start .side-panel__toggle {
+  inset-inline-end: calc(var(--collapse-toggle-d) / -2);
+}
+
+.side-panel--end .side-panel__toggle {
+  inset-inline-start: calc(var(--collapse-toggle-d) / -2);
+}
+
 .side-panel__pane {
   display: flex;
   flex-direction: column;
@@ -13,8 +41,24 @@
   overflow: hidden;
 }
 
+.side-panel--collapsible.side-panel--start .side-panel__pane > .card__header {
+  padding-inline-end: calc(var(--collapse-toggle-d) / 2 + var(--space-xs));
+}
+
+.side-panel--collapsible.side-panel--end .side-panel__pane > .card__header {
+  padding-inline-start: calc(var(--collapse-toggle-d) / 2 + var(--space-sm));
+}
+
 .side-panel--collapsed .side-panel__pane {
   inline-size: auto;
+}
+
+.side-panel--collapsed .side-panel__pane > :not(.pane-rail) {
+  display: none;
+}
+
+.side-panel__pane > .pane-rail--folded {
+  flex: 1;
 }
 
 .side-panel__tools {

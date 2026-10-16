@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import fs from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -13,38 +14,57 @@ afterEach(() => vi.unstubAllGlobals());
 describe('SidePanel', () => {
   it('is a raised aside named by its title, with a Card heading, the body and the resize line after it', () => {
     const html = draw();
-    expect(html).toMatch(/^<div class="side-panel side-panel--start" style="--side-panel-width:288px">/);
+    expect(html).toMatch(/^<div class="side-panel side-panel--start side-panel--collapsible" style="--side-panel-width:288px"><div class="side-panel__frame">/);
     expect(html).toContain('aria-label="Sprites" class="box--raised side-panel__pane"');
     expect(html).toMatch(/class="section-header card__header card__header--neutral"><div class="section-header__text"><h2[^>]*>Sprites/);
-    expect(html).toMatch(/class="side-panel__body"><p>Rows<\/p><\/div><\/aside><div class="resize-handle[^"]*side-panel__handle"/);
+    expect(html).toMatch(/class="side-panel__body"><p>Rows<\/p><\/div><\/aside><\/div><div class="resize-handle[^"]*side-panel__handle"/);
     expect(html).toMatch(/role="separator"[^>]*aria-label="Resize Sprites"[^>]*aria-valuenow="288" aria-valuemin="224" aria-valuemax="448"/);
   });
 
-  it('folds with a button in the heading that names it and controls the panel', () => {
+  it('folds with the shared CollapseToggle on its inner edge, which names it and controls the panel', () => {
     const html = draw();
-    expect(html).toContain(`aria-label="Hide Sprites" title="Hide Sprites" aria-expanded="true" aria-controls="${paneIdOf(html)}"`);
-    expect(draw({ collapsible: false })).not.toContain('pane-fold-button');
+    expect(html).toContain(`class="pressable collapse-toggle collapse-toggle--to-start hit-area side-panel__toggle" aria-label="Hide Sprites" title="Hide Sprites" aria-expanded="true" aria-controls="${paneIdOf(html)}"`);
+    expect(html).toMatch(/<div class="side-panel__frame"><button[^>]*collapse-toggle[^>]*>.*<\/button><aside/);
+    expect(draw({ collapsible: false })).not.toContain('collapse-toggle');
+    expect(draw({ collapsible: false })).not.toContain('side-panel--collapsible');
   });
 
-  it('puts its actions in the heading before the fold button', () => {
+  it('puts its actions alone in the heading', () => {
     const html = draw({ actions: h('button', { type: 'button', className: 'add' }, 'Add') });
-    expect(html).toMatch(/class="side-panel__tools"><button type="button" class="add">Add<\/button><button[^>]*pane-fold-button/);
+    expect(html).toContain('class="side-panel__tools"><button type="button" class="add">Add</button></div>');
+    expect(draw()).not.toContain('side-panel__tools');
   });
 
-  it('draws a folded panel as the shared rail: the button, the title down the side, no line', () => {
+  it('draws a folded panel as the shared rail with the toggle pointing out, keeps its content mounted, and has no line', () => {
     const html = draw({ defaultCollapsed: true });
-    expect(html).toContain('class="side-panel side-panel--start side-panel--collapsed"');
-    expect(html).toMatch(/class="box--raised side-panel__pane"><div class="pane-rail pane-rail--folded"><button[^>]*aria-label="Show Sprites"[^>]*aria-expanded="false"/);
-    expect(html).toContain('class="text-el text-el--span pane-rail__label" aria-hidden="true">Sprites</span>');
+    expect(html).toContain('class="side-panel side-panel--start side-panel--collapsible side-panel--overhang side-panel--collapsed"');
+    expect(html).toMatch(/collapse-toggle--to-end[^"]*" aria-label="Show Sprites" title="Show Sprites" aria-expanded="false"/);
+    expect(html).toMatch(/aria-label="Sprites" class="side-panel__pane"><div class="pane-rail pane-rail--folded page-card"><span class="text-el text-el--span pane-rail__label" aria-hidden="true">Sprites<\/span><\/div>/);
+    expect(html).toContain('class="side-panel__body"><p>Rows</p>');
     expect(html).not.toContain('role="separator"');
-    expect(html).not.toContain('side-panel__body');
   });
 
-  it('puts the line before an end panel and drags it from that edge', () => {
+  it('shows the rail content in place of the title while folded', () => {
+    const rail = h('button', { type: 'button', className: 'pick' }, 'P');
+    const html = draw({ defaultCollapsed: true, rail });
+    expect(html).toContain('class="pane-rail pane-rail--folded page-card"><div class="pane-rail__content"><button type="button" class="pick">P</button></div></div>');
+    expect(html).not.toContain('pane-rail__label');
+    expect(draw({ rail })).not.toContain('class="pick"');
+  });
+
+  it('puts the line before an end panel, its toggle pointing right while open', () => {
     const html = draw({ side: 'end' });
-    expect(html).toMatch(/^<div class="side-panel side-panel--end"[^>]*><div class="resize-handle[^"]*"[^>]*role="separator"/);
-    expect(html).toContain('aria-label="Hide Sprites"');
+    expect(html).toMatch(/^<div class="side-panel side-panel--end side-panel--collapsible"[^>]*><div class="resize-handle[^"]*"[^>]*role="separator"/);
+    expect(html).toContain('collapse-toggle--to-end hit-area side-panel__toggle" aria-label="Hide Sprites"');
+    expect(draw({ side: 'end', defaultCollapsed: true })).toContain('collapse-toggle--to-start hit-area side-panel__toggle" aria-label="Show Sprites"');
     expect(draw({ resizable: false })).not.toContain('role="separator"');
+    expect(draw({ resizable: false })).toContain('side-panel--overhang');
+  });
+
+  it('leaves the pointer to the content until a resize drag, then takes it from the body', () => {
+    const css = fs.readFileSync('src/composites/SidePanel/SidePanel.css', 'utf8');
+    expect(css).toMatch(/\.side-panel--dragging \.side-panel__body \{\s+pointer-events: none;/);
+    expect(css).toMatch(/\.side-panel__body \{[^}]*padding: var\(--space-md\);[^}]*overflow-y: auto;/);
   });
 
   it('keeps its width under storageKey and its fold under storageKey:collapsed', () => {

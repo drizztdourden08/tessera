@@ -10,6 +10,7 @@ interface SidePanelProps {
   side?: SidePanelSide;
   level?: HeadingLevel;
   actions?: ReactNode;
+  rail?: ReactNode;
   collapsible?: boolean;
   collapsed?: boolean;
   defaultCollapsed?: boolean;

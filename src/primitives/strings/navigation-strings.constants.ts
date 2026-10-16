@@ -4,6 +4,7 @@ const NAVIGATION_STRINGS = {
   menu: 'Menu',
   collapseNavigation: 'Collapse navigation',
   expandNavigation: 'Expand navigation',
+  navigationPane: 'navigation',
   clearSearch: 'Clear search',
   commandPlaceholder: 'Search screens, settings and actions',
   commandMascotPrompt: 'What are you looking for?',

@@ -8525,3 +8525,70 @@ A new DropdownMenu example, Marks off and on, shows check and radio items off, o
 ### What Brock does
 
 Nothing to change. Brock's menu items with `checked: false` now show the faint dot in place of the dim check that section 243 mentions. Any Brock style aimed at the removed classes should move to the `choice-mark` classes.
+
+## 246. One fold button on every panel, and SidePanel for any side panel
+
+Every panel that folded drew its own button. SideNav had a round chevron on its edge; SidePanel, StudioLayout and ListDetailLayout had a small ghost button with a panel icon in the heading or the gutter, which said nothing about where the panel went. Their folded rails differed too: SidePanel's rail was the raised surface, 34 px wide, and ListDetailLayout's was the sunken surface.
+
+### What changed
+
+A new part, `CollapseToggle`, is the one fold button:
+
+```ts
+type CollapseToggleSide = 'start' | 'end';
+
+interface CollapseToggleProps {
+  collapsed: boolean;
+  onToggle: () => void;
+  label: string; // the panel's name: Hide <label>, Show <label>
+  side?: CollapseToggleSide; // the edge the panel sits on, 'start' when left out
+  controls?: string; // the id of the panel, for aria-controls
+  ref?: Ref<HTMLButtonElement>;
+  className?: string;
+}
+```
+
+- **It is SideNav's toggle**, a 24 px round button with a black fill (`--c-layer`), a `--c-border-strong` ring and a primary chevron, that takes clicks on 28 by 28 px. The chevron points toward the panel's edge while it is open, to fold it there, and away from that edge while it is folded, to bring it back. It turns over `--transition-fast`, and at once under reduced motion. The class says where it points: `collapse-toggle--to-start` or `collapse-toggle--to-end`.
+- **It is a button** named Hide or Show and the panel name, with `aria-expanded` and `aria-controls`, and the same name as a tooltip.
+- **SideNav** draws it as before, on its right edge; every box keeps its place. Its name is now Hide navigation or Show navigation, from the new `navigation.navigationPane` string, in place of Collapse navigation and Expand navigation, which only the narrow SideNavLayout menu button still uses.
+- **SidePanel** (and StudioLayout's `start` and `end`) draws it on the inner edge of the panel, half over its border, centred on the 40 px heading, and no longer in the heading. The heading keeps room for it, so `actions` sit where they were. Folded, the toggle stays on the edge of the rail. A panel with no resize line, folded or `resizable={false}`, keeps 12 px of extra room on that side for the half of the button outside it.
+- **ListDetailLayout** draws it at the top of the gutter while both panes are open, one for the list and one for the detail when `detailCollapsible` is set, and on the edge of the rail while a pane is folded. The gutter is 24 px wide in place of 28.
+- **The folded rail** of SidePanel, StudioLayout and ListDetailLayout is the folded SideNav: the shared `page-card` look (`--c-panel` with the `--blur` backdrop, a thin `--c-border` and `--radius-xl`), `--side-nav-w` wide, with the title down the side below the toggle. Below 768 px StudioLayout's stacked panels fold to a full width bar with the toggle at its right end, its chevron pointing down to open and up to fold.
+- **SidePanel takes `rail`**, what the folded rail shows in place of the title, such as one IconButton for each profile. The rail scrolls when it holds more than fits.
+- **SidePanel keeps its content mounted** while folded. The heading and the body are hidden, so a list keeps its selection and scroll, a form its input, between a fold and an unfold. Before, they were unmounted.
+- **SidePanel holds anything.** Measured on the new Controls example: a device card dragged onto a binding drops; the resize line turns off pointer events on the body only while it is dragged, and a drag after a resize drops too; a button inside a card works from the keyboard; the focus ring of the first row has 9 px of room inside the body on each side; the body scrolls inside the panel when the page is short; Enter on the toggle folds and unfolds with focus kept on it; Enter on the resize line folds and moves focus to the toggle.
+- **SidePanel stands alone.** It needs only a flex row around it, so a page with a panel on each side and its own main view between needs no other part. StudioLayout's `bar` was already optional, so no new layout part was added.
+- **The collapsed SideNav is 60 px wide** in place of 56, and its icons sit in the middle. `--side-nav-w` is now `calc(var(--side-nav-item-h) + 2 * (var(--space-sm) + 2 * var(--border-width-thin)))`: the 40 px item, its 1 px borders, the 8 px gutters and the 1 px panel borders. The icon box of an item is `--text-xl` wide whatever the size of the icon, the search mark centres in its row, and the rail variant draws a clear 1 px border on its left to match the one on its right. Measured on every collapsed SideNav of the SideNav and SideNavLayout Overviews, panel, rail and overlay: each item icon and the search mark sit 0.00 px from the middle of the nav; before, the panel and overlay navs drew them 1 px right of it with the gallery's 18 px icons, 2 px with 20 px icons. RotP can drop its own `--side-nav-w` override. Every folded rail takes the same width.
+- **Two tokens are renamed**, `--side-nav-toggle-d` is now `--collapse-toggle-d` and `--side-nav-toggle-hit` is now `--collapse-toggle-hit`, at the same 24 and 28 px.
+- **The `pane-fold-button` class is gone**; the toggle is `.collapse-toggle`. Each host adds its own class: `.side-nav__toggle`, `.side-panel__toggle`, `.list-detail-layout__toggle` with `--start` or `--end`. A SidePanel also gains `.side-panel--collapsible`, `.side-panel--overhang` (no resize line beside it) and `.side-panel__frame` around the aside, and its folded aside no longer has `box--raised`. ListDetailLayout's folded gutter no longer has `box--sunken`. RENAMES.json maps the class and the two tokens.
+
+Measured in a browser at 1440 px, before and after:
+
+- **On the SideNav and SideNavLayout Overviews** every collapsed nav is 4 px wider, 60 px in place of 56, and what sits to its right moves 4 px right; rows keep their heights, and the toggle moves with the nav edge. With 18 px icons, an open item's label sits 2 px further right, after the 20 px icon box.
+- **On the SidePanel Overview** the open panels keep their boxes; the toggle is a 24 px round button on the inner edge in place of the 28 px ghost button in the heading. The folded rails are 60 px wide in place of 34 and take the rail fill. The sixth Overview point adds 29 px to the head, and the two new examples add 1072 px, so the playground and the code move down by 1101 px.
+- **On the StudioLayout Overview** the open panels keep their boxes; the folded rails are 60 px wide in place of 34 and keep 14 px to the editor in place of 8, so the folded editor is 64 px narrower. The narrow example keeps every box. The playground, whose frame had no width and drew the studio 0 px wide, now draws it 1016 px wide.
+- **On the ListDetailLayout Overview** the gutter is 24 px in place of 28, so the detail is 4 px wider; a folded list or detail rail is 60 px in place of 34, with a 16 px gap in place of 8, so the open pane beside it is 34 px narrower. The page keeps its height.
+
+### Gallery and tests
+
+A new page, CollapseToggle, under Composites · Layout, shows a panel on each side, open and folded, its states and a playground. SidePanel gains two examples, A controls page: profiles, bindings and devices to drag, and the same page with both panels folded, where the profiles rail shows one button for each profile; its Overview points and code show `rail` and the plain flex row. The SideNav Overview point on the toggle names CollapseToggle. `tests/collapse-toggle.test.mjs` checks the direction, the name, the look, the rail width and that SideNav, SidePanel and ListDetailLayout draw it; `tests/side-panel.test.mjs` checks the edge toggle, `rail`, the mounted content and the pointer rule; `tests/studio-layout.test.mjs` checks that the rail and SideNav paint the same fill, border and radius; `tests/hit-area.test.mjs` reads the hit area from CollapseToggle.
+
+### What RotP does
+
+- **On the Controls page**, replace the Profiles sidebar and the Devices column with two SidePanels in a flex row around the bindings:
+
+  ```tsx
+  <Flex gap="2xs" align="stretch" className="controls-settings">
+    <SidePanel title="Profiles" storageKey="controls.profiles" actions={<NewProfileButton />} rail={<SidebarProfileButtons />}>
+      <InputProfileList />
+    </SidePanel>
+    <ControlsMain />
+    <SidePanel side="end" title="Devices" storageKey="controls.devices" actions={<RescanButton />}>
+      <DeviceCards />
+    </SidePanel>
+  </Flex>
+  ```
+
+  Drop `sidebarCollapsed`, `devicesCollapsed`, their setters and the chevron IconButtons in `controls-settings__col-header`; pass `collapsed` with `onCollapsedChange` only when the page must hold the fold itself. The `SidebarProfileButton` icons go in `rail`, and `controls-settings__sidebar-icons` goes away. DeviceCard stays as it is: its `draggable` and `onDragStart` work inside the panel, and the resize line takes the pointer only while it is dragged. The device hint line can sit last in the body.
+- **In its own rails**, any panel RotP still folds by hand draws `CollapseToggle` on its inner edge, with `side`, `label`, `controls`, `collapsed` and `onToggle`, and its folded look is the rail of SidePanel: the `page-card` class, `--side-nav-w` wide. Drop the `--side-nav-w` override from the app styles. Prefer SidePanel itself wherever a panel has a title.
+- **In tests and styles**, a test that looks for Collapse navigation or Expand navigation on the SideNav edge now finds Hide navigation or Show navigation; a style aimed at `.pane-fold-button` or the two `--side-nav-toggle-*` tokens takes the new names.

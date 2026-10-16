@@ -4,6 +4,8 @@ import type { SidePanelLook } from './side-panel-look.type';
 const sidePanelClass = (look: SidePanelLook, className?: string): string => [
   'side-panel',
   `side-panel--${look.side}`,
+  look.collapsible && 'side-panel--collapsible',
+  look.collapsible && !look.handled && 'side-panel--overhang',
   look.collapsed && 'side-panel--collapsed',
   look.dragging && 'side-panel--dragging',
   className,

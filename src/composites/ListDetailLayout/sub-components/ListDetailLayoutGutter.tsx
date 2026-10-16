@@ -1,26 +1,31 @@
 /* @layer renderer-components @kind component */
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { PaneFoldButton } from '../../pane-fold/PaneFoldButton';
+import { CollapseToggle } from '../../CollapseToggle';
+import type { CollapseToggleSide } from '../../CollapseToggle/CollapseToggle.type';
 import { PaneRail } from '../../pane-fold/PaneRail';
 import { ResizeHandle } from '../../ResizeHandle/ResizeHandle';
-import type { ListDetailLayoutGutterProps } from './ListDetailLayoutGutter.type';
+import type { GutterPane, ListDetailLayoutGutterProps } from './ListDetailLayoutGutter.type';
+
+const toggleOf = (pane: GutterPane, side: CollapseToggleSide) => (
+  <CollapseToggle
+    ref={pane.fold.toggleRef}
+    collapsed={pane.fold.collapsed}
+    onToggle={pane.fold.toggle}
+    label={pane.label}
+    side={side}
+    controls={pane.id}
+    className={`list-detail-layout__toggle list-detail-layout__toggle--${side}`}
+  />
+);
 
 const ListDetailLayoutGutter = (props: ListDetailLayoutGutterProps) => {
   const { list, detail, resizable, handle } = props;
   const { navigation } = useTesseraStrings();
   const folded = [list, detail].find((pane) => pane.fold.collapsed);
   return (
-    <PaneRail
-      className="list-detail-layout__gutter"
-      rail={folded && { label: folded.label, onUnfold: folded.fold.toggle }}
-      surface={list.fold.collapsed ? 'sunken' : undefined}
-    >
-      {list.collapsible && !detail.fold.collapsed && (
-        <PaneFoldButton fold={list.fold} label={list.label} controls={list.id} icon="panel-left" className="list-detail-layout__toggle" />
-      )}
-      {detail.collapsible && !list.fold.collapsed && (
-        <PaneFoldButton fold={detail.fold} label={detail.label} controls={detail.id} icon="panel-right" className="list-detail-layout__toggle" />
-      )}
+    <PaneRail className="list-detail-layout__gutter" rail={folded && { label: folded.label, onUnfold: folded.fold.toggle }}>
+      {list.collapsible && !detail.fold.collapsed && toggleOf(list, 'start')}
+      {detail.collapsible && !list.fold.collapsed && toggleOf(detail, 'end')}
       {resizable && !folded && (
         <ResizeHandle
           {...handle}

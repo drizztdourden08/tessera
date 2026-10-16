@@ -1,5 +1,7 @@
 /* @layer stories @kind style */
 .studio-demo-frame {
+  inline-size: var(--size-1024);
+  max-inline-size: 100%;
   block-size: var(--size-640);
   padding: var(--space-md);
   border-radius: var(--radius-lg);

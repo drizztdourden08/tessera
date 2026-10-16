@@ -23,9 +23,9 @@ describe('hit areas', () => {
     expect(html).toMatch(/class="[^"]*tag__remove hit-area[^"]*"/);
   });
 
-  it('gives the SideNav toggle a 28 px hit area', () => {
+  it('gives the SideNav toggle, the shared CollapseToggle, a 28 px hit area', () => {
     const html = renderToString(h(SideNav, { config: CONFIG, activeId: 'home', onSelect: () => undefined }));
-    expect(html).toMatch(/class="pressable side-nav__toggle hit-area"/);
-    expect(css('src/composites/SideNav/SideNav.css')).toContain('--hit-area: var(--side-nav-toggle-hit);');
+    expect(html).toMatch(/class="pressable collapse-toggle collapse-toggle--to-end hit-area side-nav__toggle"/);
+    expect(css('src/composites/CollapseToggle/CollapseToggle.css')).toContain('--hit-area: var(--collapse-toggle-hit);');
   });
 });

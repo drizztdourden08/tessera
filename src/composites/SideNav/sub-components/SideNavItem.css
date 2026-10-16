@@ -21,6 +21,7 @@
   display: grid;
   place-items: center;
   flex-shrink: 0;
+  inline-size: var(--text-xl);
   font-size: var(--text-xl);
   color: var(--c-primary);
   opacity: 0.8;

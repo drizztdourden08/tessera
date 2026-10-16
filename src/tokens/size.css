@@ -29,11 +29,11 @@
   --badge-d-xs: var(--size-20);
   --sort-caret-width: var(--size-8);
   --avatar-d: var(--size-40);
-  --side-nav-w: var(--size-56);
+  --side-nav-w: calc(var(--side-nav-item-h) + 2 * (var(--space-sm) + 2 * var(--border-width-thin)));
   --side-nav-w-open: var(--size-224);
   --side-nav-item-h: var(--size-40);
-  --side-nav-toggle-d: var(--size-24);
-  --side-nav-toggle-hit: var(--size-28);
+  --collapse-toggle-d: var(--size-24);
+  --collapse-toggle-hit: var(--size-28);
   --search-results-head-h: calc(52 * var(--size-1));
   --dock-grip-h: calc(18 * var(--size-1));
   --resize-handle-bar: calc(3 * var(--size-1));

@@ -1,5 +1,6 @@
 /* @layer stories @kind style */
-.side-panel-story {
+.side-panel-story,
+.controls-story {
   display: flex;
   gap: var(--space-2xs);
   inline-size: var(--size-1024);
@@ -10,6 +11,10 @@
   background: var(--c-bg);
 }
 
+.controls-story {
+  block-size: var(--size-448);
+}
+
 .side-panel-story__canvas {
   display: flex;
   flex: 1;
@@ -18,4 +23,49 @@
   min-inline-size: 0;
   padding: var(--space-lg);
   text-align: center;
+}
+
+.controls-story__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-inline-size: 0;
+  padding: var(--space-lg);
+  overflow-y: auto;
+}
+
+.controls-story__slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width-thin) dashed var(--c-border-strong);
+  border-radius: var(--radius-md);
+}
+
+.controls-story__slot--over {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+}
+
+.controls-story__device {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  cursor: grab;
+}
+
+.controls-story__device-icon {
+  flex: none;
+  color: var(--c-primary);
+}
+
+.controls-story__device-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
 }

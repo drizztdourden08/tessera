@@ -45,19 +45,17 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'WizardExitGuard', summary: 'Asks before unsaved input is thrown away.' },
       ],
     },
-    {
-      group: 'Navigation',
-      entries: [
-        { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
-        { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
-        { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
-      ],
-    },
+    { group: 'Navigation', entries: [
+      { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
+      { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
+      { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
+    ] },
     { group: 'Layout', entries: [
       { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
       { name: 'ListDetailLayout', summary: 'The two panes of a list and detail screen, with a resize, a fold to a rail and Back on a small window.' },
       { name: 'ResizeHandle', summary: 'The line you drag, or move with the keys, to resize the panel beside it.' },
       { name: 'SidePanel', summary: 'A raised side panel with a heading, that folds to a rail and is dragged wider.' },
+      { name: 'CollapseToggle', summary: 'The round button on the edge of a panel that folds it, its chevron pointing where the panel goes.' },
       { name: 'StudioLayout', summary: 'A studio screen: a list, an editor and an inspector, under a bar of actions.' },
       { name: 'ListDetail', summary: 'An ItemList beside an editor that asks before unsaved edits are lost.' },
       { name: 'SideNavLayout', summary: 'A side nav beside a content pane; its search shows results in the pane.' },

@@ -1,11 +1,9 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { HIT_AREA_CLASS } from '../../primitives/dom/hit-area.constants';
-import { Pressable } from '../../primitives/Pressable';
-import { Icon } from '../../primitives/Icon';
 import { ScrollArea } from '../../primitives/ScrollArea';
 import { Span } from '../../primitives/text-elements';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { CollapseToggle } from '../CollapseToggle';
 import { leadRow } from './behavior/lead-row';
 import { navClassName } from './behavior/nav-class-name';
 import { usePanelOpen } from './behavior/usePanelOpen';
@@ -30,15 +28,7 @@ const SideNav = (props: SideNavProps) => {
     <Box as="nav" ref={navRef} className={classes} aria-label={ariaLabel ?? navigation.sections}>
       <Box className="side-nav__panel">
         {!rail && (
-          <Pressable
-            ref={toggleRef}
-            className={`side-nav__toggle ${HIT_AREA_CLASS}`}
-            onClick={toggle}
-            aria-expanded={open}
-            aria-label={open ? navigation.collapseNavigation : navigation.expandNavigation}
-          >
-            <Icon name="chevron-right" size={14} />
-          </Pressable>
+          <CollapseToggle ref={toggleRef} collapsed={!open} onToggle={toggle} label={navigation.navigationPane} className="side-nav__toggle" />
         )}
 
         <SideNavTop

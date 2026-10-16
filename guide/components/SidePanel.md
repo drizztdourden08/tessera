@@ -1,6 +1,6 @@
 # SidePanel
 
-A raised panel beside the main view, with a heading, that folds to a rail and that the user drags wider.
+A raised panel beside the main view, with a heading, that folds to a rail and that the user drags wider; it holds any content.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -20,6 +20,7 @@ SidePanel is the one side panel of a work screen: the raised surface, the headin
 
 - A screen has an outline, a layer list or an inspector beside its main view.
 - The user needs the room of the panel now and then, so it folds to a rail with its title down the side.
+- A page has pickers on its sides, such as a list of profiles on the left and device cards to drag on the right.
 
 ## Use something else when
 
@@ -29,9 +30,11 @@ SidePanel is the one side panel of a work screen: the raised surface, the headin
 
 ## Rules
 
-- Put it in a flex row beside the main view; it keeps its own width, and the main view takes the rest.
-- Pass side="end" for a panel on the right; its line then sits on its left.
-- Pass actions for buttons in the heading, such as Add; the fold button comes after them.
+- Put it in a flex row beside the main view, with no bar or frame around it; it keeps its own width, and the main view takes the rest.
+- Pass side="end" for a panel on the right; its line and its fold button then sit on its left.
+- Pass actions for buttons in the heading, such as Add; the fold button is the CollapseToggle on its inner edge.
+- Pass rail for what the folded rail shows in place of the title, such as one IconButton for each profile.
+- Put lists, cards, inputs and drag sources in it as they are: the body scrolls, and the content stays mounted while folded.
 - Pass width, minWidth and maxWidth in pixels; resizable={false} drops the line.
 - Pass storageKey to keep the width, and the fold under storageKey:collapsed.
 - Pass collapsed with onCollapsedChange when the app holds the fold; collapsible={false} drops the fold button.
@@ -40,6 +43,7 @@ SidePanel is the one side panel of a work screen: the raised surface, the headin
 
 - It is an aside named by its title, with the title as a heading, h2 unless level says otherwise.
 - The fold button says Hide or Show and the title and reports aria-expanded; focus stays on it when the panel folds or opens.
+- While folded the heading and the body are hidden from screen readers and the keyboard; the rail content takes their place.
 - The line is a separator: the arrow keys resize it, and Enter folds the panel and moves focus to the button that opens it.
 
 ## Example
@@ -64,6 +68,7 @@ const HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: R
 - `side` (optional): `SidePanelSide`, one of `'start'`, `'end'`. Default `'start'`.
 - `level` (optional): `HeadingLevel`, one of `1`, `2`, `3`, `4`, `5`, `6`. Default `2`.
 - `actions` (optional): `ReactNode`.
+- `rail` (optional): `ReactNode`.
 - `collapsible` (optional): `boolean`.
 - `collapsed` (optional): `boolean`.
 - `defaultCollapsed` (optional): `boolean`.
@@ -77,4 +82,4 @@ const HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: R
 
 ## Tokens
 
-It draws on `--side-panel-width`, `--space-2xs`, `--space-md`.
+It draws on `--collapse-toggle-d`, `--side-panel-width`, `--size-40`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--z-base`.

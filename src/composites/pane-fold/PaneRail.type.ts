@@ -1,17 +1,16 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { BoxSurface } from '../../primitives/Box/Box.type';
 
 interface PaneRailLabel {
   label: string;
   onUnfold: () => void;
+  content?: ReactNode;
 }
 
 interface PaneRailProps {
   rail?: PaneRailLabel;
-  surface?: BoxSurface;
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export type { PaneRailProps };

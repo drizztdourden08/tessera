@@ -39,7 +39,7 @@ describe('StudioLayout', () => {
 
   it('passes each panel its own props, such as a fold to start with', () => {
     const html = studio({ end: { title: 'Properties', content: 'Facts', defaultCollapsed: true } });
-    expect(html).toContain('class="side-panel side-panel--end side-panel--collapsed"');
+    expect(html).toContain('class="side-panel side-panel--end side-panel--collapsible side-panel--overhang side-panel--collapsed"');
     expect(html).toContain('aria-label="Show Properties"');
     expect(html).toContain('aria-label="Hide Sprites"');
   });
@@ -65,16 +65,23 @@ describe('the shared pieces StudioLayout is drawn from', () => {
     expect(renderToString(h(ToolFrame, { toolbar: false }, 'Body'))).not.toContain('tool-frame__toolbar');
   });
 
-  it('LogPanel is a ToolFrame, and ListDetailLayout folds to the same rail as SidePanel', () => {
+  it('LogPanel is a ToolFrame, and ListDetailLayout folds to the same rail and toggle as SidePanel', () => {
     expect(renderToString(h(LogPanel, { rows: [] }))).toMatch(/^<div class="box--sunken tool-frame log-panel"><div class="tool-frame__toolbar"><div class="filter-bar"/);
     const folded = renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', defaultCollapsed: true, listLabel: 'presets' }));
-    expect(folded).toContain('class="box--sunken pane-rail pane-rail--folded list-detail-layout__gutter"');
+    expect(folded).toContain('class="pane-rail pane-rail--folded page-card list-detail-layout__gutter"><button type="button" class="pressable collapse-toggle collapse-toggle--to-end');
     expect(folded).toContain('pane-rail__label" aria-hidden="true">presets</span>');
   });
 
-  it('paints no surface of its own: the fill, the edge and the shadow come from Box, Card and ToolFrame', () => {
-    ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/SidePanel/SidePanel.css', 'src/composites/pane-fold/PaneRail.css'].forEach((file) => {
+  it('paints no surface of its own: the fill, the edge and the shadow come from Box, Card, ToolFrame and the rail', () => {
+    ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/SidePanel/SidePanel.css'].forEach((file) => {
       expect(sheet(file), file).not.toMatch(/background|border:|border-block|box-shadow/);
+    });
+    const card = sheet('src/theme/page-card.css');
+    const nav = sheet('src/composites/SideNav/SideNav.css');
+    expect(sheet('src/composites/pane-fold/PaneRail.tsx')).toContain("'pane-rail--folded page-card'");
+    ['background: var(--c-panel);', 'backdrop-filter: blur(var(--blur));', 'border: var(--border-width-thin) solid var(--c-border);', 'border-radius: var(--radius-xl);'].forEach((rule) => {
+      expect(card, rule).toContain(rule);
+      expect(nav, rule).toContain(rule);
     });
     expect(sheet('src/composites/ListDetailLayout/ListDetailLayout.css')).not.toMatch(/rail-label|c-sunken/);
     expect(sheet('src/composites/LogPanel/LogPanel.css')).not.toMatch(/log-panel__toolbar|radius-md/);

@@ -28,7 +28,7 @@ const usage = {
   a11y: [
     'The divider is a separator: the arrow keys resize it, Home and End jump to the limits, Space and a double click reset it.',
     'Enter on the divider folds the list and moves focus to the button that brings it back.',
-    'The fold button names the list, Hide presets or Show presets, and reports aria-expanded on the list pane.',
+    'The fold button is the CollapseToggle: it names the list, Hide presets or Show presets, and reports aria-expanded on the list pane.',
     'The detail fold button names the detail the same way, Hide preset editor or Show preset editor, on the detail pane.',
     'Under 768 px the panes stack and Back sits at the top of the detail.',
   ],

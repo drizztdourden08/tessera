@@ -64,7 +64,7 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
       { token: '--side-nav-w' },
       { token: '--side-nav-w-open' },
       { token: '--side-nav-item-h' },
-      { token: '--side-nav-toggle-d' },
+      { token: '--collapse-toggle-d' },
     ],
   },
   {

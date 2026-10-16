@@ -1,0 +1,45 @@
+/* @layer stories @kind style */
+.collapse-story {
+  display: flex;
+  gap: var(--space-lg);
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+  block-size: var(--size-192);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: var(--c-bg);
+}
+
+.collapse-story__panel {
+  position: relative;
+  inline-size: var(--size-224);
+  padding: var(--space-md) calc(var(--collapse-toggle-d) / 2 + var(--space-sm));
+}
+
+.collapse-story__panel--folded {
+  inline-size: var(--side-nav-w);
+}
+
+.collapse-story__toggle {
+  position: absolute;
+  top: var(--space-sm);
+  z-index: var(--z-base);
+}
+
+.collapse-story__toggle--start {
+  inset-inline-end: calc(var(--collapse-toggle-d) / -2);
+}
+
+.collapse-story__toggle--end {
+  inset-inline-start: calc(var(--collapse-toggle-d) / -2);
+}
+
+.collapse-story__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+  padding: var(--space-md);
+  text-align: center;
+}

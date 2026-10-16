@@ -1375,6 +1375,16 @@
           "to": "primitives"
         }
       }
+    },
+    {
+      "version": "next",
+      "cssClasses": {
+        "pane-fold-button": "collapse-toggle"
+      },
+      "cssCustomProperties": {
+        "--side-nav-toggle-hit": "--collapse-toggle-hit",
+        "--side-nav-toggle-d": "--collapse-toggle-d"
+      }
     }
   ]
 }

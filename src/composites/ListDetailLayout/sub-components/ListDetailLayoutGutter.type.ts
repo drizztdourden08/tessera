@@ -16,4 +16,4 @@ interface ListDetailLayoutGutterProps {
   handle: ListHandle;
 }
 
-export type { ListDetailLayoutGutterProps };
+export type { GutterPane, ListDetailLayoutGutterProps };
