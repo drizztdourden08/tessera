@@ -1,5 +1,21 @@
 # @drizztdourden08/tessera
 
+## 0.38.0
+
+### Minor Changes
+
+- 9373034: Every panel that folds now folds with one button, CollapseToggle: the round chevron on the edge that SideNav already had, which points toward the panel's edge to fold it and away from it to unfold it. SidePanel, StudioLayout and ListDetailLayout use it in place of their panel icon buttons, and their folded rails look like the folded SideNav. SidePanel takes `rail` for what its folded rail shows, keeps its content mounted while folded, and works in a plain flex row for a page with a panel on each side.
+- 3d01dba: DockLayout keeps widget groups apart and can snap floating widgets. `WidgetDefinition` takes `group?: string`, and WidgetManager never lets widgets of different groups tab or split into each other's panes; widgets with no group form one group. DockLayout and WidgetManager take `canDrop?: (id, drop: DockDrop) => boolean` for any other rule, where `DockDrop` names the kind (`tab`, `split`, `float`), the slot (`pane`, `main`, `stage`), the pane and the side. A refused drop shows no hint and does nothing. `floatSnap?: number`, off by default, snaps the edges of a floating widget moved or resized within that many pixels of the stage, the main view or another floating widget, with thin guide lines in `--c-primary-bright`. `keepsGroups` is exported for hosts that draw DockLayout themselves.
+- d963a27: ItemList deletes at once with an inline Undo: `undoDelete` keeps the row as Deleted with an Undo button for that many milliseconds, waits while the pointer or focus is on it, then calls `onDelete`; Ctrl+Z undoes the latest. `deleteKey` binds the Delete key on the focused row, and `rowActions` adds buttons of your own before rename and delete. `toast()` takes `onClose`, called once with `expired`, `dismissed`, `action` or `replaced`, so an undo window can follow the toast. `useNameEdit`, the rename logic behind ItemList, is exported.
+- f14f9ad: Field, FormRow, Checkbox and Toggle take `help?: ReactNode`: a small circled question mark after the label that shows the note in a Tooltip on hover, keyboard focus or click, and keeps the note off the page. The mark is one Tab stop named Help, the note is its description while open, and it closes on pointer leave, blur, Escape or a click elsewhere. A click on the mark inside a Checkbox or Toggle does not change the value, and the control keeps its label text as its name.
+- 15ecfe1: Menu check and radio items that are off show a faint centred dot in place of a dim check or an empty ring; turned on, the dot morphs into a check or a filled radio in the menu tone, and back when turned off. DropdownMenu, its sub-menus, the CommandPalette check and the Video speed menu draw the same mark, which switches at once under reduced motion.
+- 40fc04f: A widget takes a lighter frame through `chrome`, on its definition or on Widget: `full` is the title bar as before and stays the default, `compact` draws a 20 px strip with a smaller label and the same buttons, and `none` gives the body the whole widget, with a drag grip and the buttons floating over its top edge on hover or keyboard focus. Docked, floating and popped widgets all take it, and the grip moves a widget in DockLayout or, with `dragRegion`, its own window.
+
+### Patch Changes
+
+- beec552: DockLayout starts a drag from a press on the icon inside a drag handle. It used to ignore any press whose target was an SVG element, so pressing the grip icon of the main view started nothing; it now finds the handle from any element inside it, SVG included, and a press on a button inside a handle still stays a click. The widget grip no longer needs its icon to let presses through.
+- f14f9ad: The unfilled part of a Slider track draws in `--c-border-strong`, the colour of its scale ticks, in place of `--c-surface`, so it shows on a card, a dialog, a drawer or any panel drawn in `--c-surface`, where it was missing. A Tooltip, and with it every disabled reason on tabs, segments, radio options, chips and Select options, now closes on pointer leave, blur, Escape or a click elsewhere; a click shows it but never holds it open, and only keyboard focus keeps it open with the pointer away.
+
 ## 0.37.4
 
 ### Patch Changes

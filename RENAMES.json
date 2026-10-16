@@ -1377,7 +1377,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.38.0",
       "cssClasses": {
         "pane-fold-button": "collapse-toggle"
       },
