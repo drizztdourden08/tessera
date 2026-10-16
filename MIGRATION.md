@@ -8798,3 +8798,27 @@ Measured at 1440 px against the gallery before the change, with no console error
 ### Tests
 
 `tests/item-list-undo.test.mjs` checks the row buttons and their tabIndex, the action track, the trash with and without `undoDelete`, the Delete key, Ctrl+Z, the next row after a delete, forgetting deletes whose item left, and the `useNameEdit` export. `tests/toast-close.test.mjs` checks each reason, that it runs once, `replaced` on a join and `clear`. `tests/relative-time-preview.test.mjs` checks the preview's wording, locale and its one shared timer.
+
+## 251. A press on a drag handle's icon starts the drag, and the Hints pane shows every letter
+
+Two bugs found while building the widget chrome.
+
+### What changed
+
+- **Icon presses.** DockLayout found the handle under a press with a check that took HTML elements only, so a press whose target was an SVG element, the icon inside a handle or one of its paths, started no drag. Pressing the grip icon of the main view did nothing; only its label worked. The handle is now found with `closest` from any element inside it, SVG included (`isElement` in `primitives/dom`, shared with the widget menu dismissal). A press on a button inside a handle stays a click, as before, and a tab chip still drags. The widget grip in `none` had worked around it by giving its icon `pointer-events: none`; that rule is gone.
+- **Hints pane.** The first letter of every line in the docked Hints pane of the Session dashboard examples was hidden. The cause was not in the widget body (its padding, scrollbar gutter and overflow were right): the floating Console of the gallery sample was placed at 34 % across the main view, and since Hints docks without making room, the Console's right edge sat 16 px over the Hints pane at 1440 px. Only the sample changes: the Console now starts at 6 % across and 30 % down, beside the main view text and clear of Hints. Tessera keeps letting a floating widget sit over a pane that floats over the main view.
+
+### Measured
+
+At 1440 px against the gallery before, with no console errors:
+
+- **Drags.** Pressing the main view grip icon now starts a drag (before: none). The widget grip icon in `none`, docked and floating, now takes the press itself and starts a drag, as the workaround did. Title strip text in `full` and `compact`, the ResizeHandle grip, the RowGrid handle icon and a DataTable column header start a drag before and after; the icon of a button in a title strip starts none. ShortcutTour has no drag handle.
+- **Boxes.** The Widget Overview keeps every box except the floating Console in Three chromes docked, Session dashboard dock and Session dashboard dock, a context per widget, which moves 230 px left and 68 px down (216 px left in the last); the DockLayout, WidgetOptions and WindowGuideOverlay Overviews keep every box. On the Widget Overview no floating widget overlaps a pane at 1280, 1440 and 1920 px, nor on the DockLayout Overview at 1440 px; at 1024 px the room beside Hints is narrower than the Console, so it still overlaps there.
+
+### Tests
+
+`tests/dock-handle.test.mjs` checks the handle found from an SVG icon and its path in a widget grip, the main view grip and a title strip, a tab chip pressed on its icon, a button icon in a strip, and targets that are not elements. `tests/widget-chrome.test.mjs` checks the grip icon takes presses.
+
+### What Brock does
+
+Nothing. A handle of Brock's own with `data-drag-widget`, `data-drag-tab` or `data-drag-main` now drags from its icons too; drop any `pointer-events: none` added to those icons for that reason.

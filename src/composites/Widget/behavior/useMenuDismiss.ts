@@ -1,10 +1,9 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useRef } from 'react';
+import { isElement } from '../../../primitives/dom/is-element';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { MENU_SELECTOR } from '../Widget.constants';
 import type { MenuDismissParams } from './useMenuDismiss.type';
-
-const isElement = (target: EventTarget): target is Element => 'closest' in target;
 
 const useMenuDismiss = (params: MenuDismissParams): void => {
   const { open } = params;

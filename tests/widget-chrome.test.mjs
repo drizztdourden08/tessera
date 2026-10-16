@@ -102,8 +102,8 @@ describe('the none chrome on screen', () => {
     expect(sheet).toMatch(/prefers-reduced-motion: reduce\) \{\s+\.widget--chrome-none \.widget__titlebar \{\s+transition: none;/);
   });
 
-  it('gives a press on the grip icon to the grip, which DockLayout takes as a widget handle', () => {
-    expect(rule('.widget__grip > *')).toMatch(/pointer-events: none;/);
+  it('leaves the grip icon pressable, since DockLayout finds the handle from the icon', () => {
+    expect(sheet).not.toContain('.widget__grip > *');
     expect(HANDLE_SELECTOR.split(',')).toContain('[data-drag-widget]');
   });
 });

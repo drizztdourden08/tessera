@@ -75,10 +75,6 @@
   cursor: grabbing;
 }
 
-.widget__grip > * {
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .widget--chrome-none .widget__titlebar {
     transition: none;

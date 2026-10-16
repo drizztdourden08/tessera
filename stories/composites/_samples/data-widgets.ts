@@ -30,7 +30,7 @@ const PRESET_DOCKED: readonly [string, DockEdge, boolean][] = [['players', 'left
 
 const presetLayout = (): WidgetLayout => {
   const docked = PRESET_DOCKED.reduce((acc, [id, edge, makeRoom]) => dockOnEdge(acc, id, edge, makeRoom), createDefaultLayout());
-  return { ...docked, floating: [{ id: 'console', x: 0.34, y: 0.1, width: 340, height: 200 }] };
+  return { ...docked, floating: [{ id: 'console', x: 0.06, y: 0.3, width: 340, height: 200 }] };
 };
 
 const PROFILE_ID = 'story-host';
