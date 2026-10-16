@@ -9038,3 +9038,29 @@ At 1440 px against the gallery before the change, with no console errors on any 
 ### Gallery and tests
 
 ItemList gains Saves: New needs a running game and says so (a Game running switch over the list) and Saves: Load, Save over and delete, each undone with Ctrl+Z. The ItemList and Toast usage files and docs/using-tessera.md (One Ctrl+Z for the app, two rows in Common needs) say when to pass `newDisabled`, `undo` and `useUndo`. `tests/undo-stack.test.mjs` checks the order, the keys left to text boxes and to Shift or Alt, `within`, `expires`, `useUndo`, the toast step and its close, and the ItemList delete steps through a remount. `tests/item-list-new-disabled.test.mjs` checks the markup of New in each state, the pass through ListDetail and the Undo of a toast.
+
+## 256. formatDate is the one way to write a date
+
+Since section 252, `formatDate` and `DateText` write every date and time in Tessera. One older path was left: the listbox turned a `Date` into text with the browser's `toLocaleDateString()`. It now goes through `formatDate`, and a test keeps every other path out.
+
+### What changed
+
+- **A Date in a Select or Combobox.** A `Date` in a column with no `format`, or as an option's text, tag or category, reads as the `date` preset, the same text as `format: 'date'`, in the `dates.locale` of the strings: Oct 16, 2026 in place of 10/16/2026 in English. Pass `format` on the column for another preset.
+- **Nothing else to remove.** No alias or old format name was kept for the past, and no copy of `asDate` or `formatDate` lives outside `date-format`. FileList, DataTable `dates` and Select and Combobox `format` already used `formatDate` or `DateText`. LogPanel writes no dates: `gutter` is text the app gives.
+- **Durations stay.** The Video time (`0:42 / 3:15`) is a length of time, not a moment, so it keeps its own text, as section 252 said. Carousel shows no time.
+- **Gallery.** The sample log clocks of LogPanel, TaskProgress, JobDialog and Widget and the RecordEditor save message go through `formatDate`. The Quiet hours text on SettingsPage stays its own: it writes the hour, minute and AM or PM of a DynamicInput pattern, not a date.
+
+### What an app does
+
+| Before | Now |
+|---|---|
+| a `Date` in a Select column with no `format`, which read 10/16/2026 | the same column reads Oct 16, 2026; for another form, set `format` to a preset, or `render` with `formatDate(value, 'date', { length: 'short' })` for 10/16/26 |
+| `toLocaleDateString()`, `toLocaleTimeString()` or `new Intl.DateTimeFormat()` in app code | `formatDate(value, preset)` or `<DateText value={value} format={preset} />` |
+
+### Measured
+
+Every page of Carousel, DataTable, DateText, FactsPanel, FileList, ItemList, JobDialog, ListDetail, LogPanel, RecordEditor, SettingsPage, TaskProgress, Video, Widget, Select and Combobox (98 stories) at 1440 px in en-US against the gallery before: the same text, apart from the DateText calendar times that follow the clock, with no console errors. The sample log clocks read 19:02:11 in en-US and en-CA as before; a browser in fr-CA now reads them as 19 h 02 min 11 s. The RecordEditor save message reads 7:02:11 PM, as `toLocaleTimeString()` did, in en-US, en-CA and fr-CA.
+
+### Tests
+
+`tests/date-format-only.test.mjs` fails when `src` or `stories` calls `toLocaleDateString`, `toLocaleTimeString`, `toLocaleString` with date options or on a new `Date`, `Intl.DateTimeFormat`, `Intl.RelativeTimeFormat` or `getHours`, `getMinutes` or `getSeconds` outside `src/primitives/date-format`, and checks that a `Date` in a list reads as `formatDate(value, 'date')`.

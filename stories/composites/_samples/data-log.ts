@@ -1,4 +1,5 @@
 /* @layer stories @kind data */
+import { logClock } from './log-clock';
 import type { LogKindDef, LogRow } from '../../../src/composites';
 
 const LOG_KINDS: readonly LogKindDef[] = [
@@ -40,13 +41,9 @@ const LOG_ROWS: LogRow[] = LINES.map(([time, kind, message, indent], i) => ({
   indent,
 }));
 
-const pad = (n: number): string => String(n).padStart(2, '0');
-
 const longSession = (count: number): LogRow[] =>
-  Array.from({ length: count }, (_, i) => {
-    const seconds = 19 * 3600 + i * 7;
-    const clock = `${pad(Math.floor(seconds / 3600))}:${pad(Math.floor(seconds / 60) % 60)}:${pad(seconds % 60)}`;
-    return { id: `long-${i}`, gutter: clock, tag: 'ITEM', kind: 'item', message: `Check ${i + 1}: item sent to slot ${(i % 14) + 1}` };
-  });
+  Array.from({ length: count }, (_, i) => (
+    { id: `long-${i}`, gutter: logClock(19 * 3600 + i * 7), tag: 'ITEM', kind: 'item', message: `Check ${i + 1}: item sent to slot ${(i % 14) + 1}` }
+  ));
 
 export { LOG_KINDS, LOG_ROWS, longSession };

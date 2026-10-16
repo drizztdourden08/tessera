@@ -5,7 +5,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { RecordEditor } from '../../src/composites';
 import { buildSchema } from '../../src/data';
 import type { SchemaConfig } from '../../src/data';
-import { Box, Text } from '../../src/primitives';
+import { Box, formatDate, Text } from '../../src/primitives';
 import type { ControlSize } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { sizesStory } from '../_template/sizes-story';
@@ -42,7 +42,7 @@ const EditorDemo = (args: RecordEditorArgs) => {
     await pretendSave(600);
     if (failSave) throw new Error('The server refused the update: slot is locked while the host is saving.');
     setRecords((prev) => prev.map((player) => (player.id === next.id ? next : player)));
-    setMessage(`Saved ${next.name} at ${new Date().toLocaleTimeString()}.`);
+    setMessage(`Saved ${next.name} at ${formatDate(Date.now(), 'time', { length: 'medium' })}.`);
   };
 
   if (!record) return null;

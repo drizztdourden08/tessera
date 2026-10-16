@@ -1,4 +1,5 @@
 /* @layer stories @kind data */
+import { logClock } from './log-clock';
 import type { LogKindDef, LogRow } from '../../../src/composites';
 import type { StepperStep } from '../../../src/primitives';
 
@@ -14,8 +15,10 @@ const RUN_LOG_KINDS: readonly LogKindDef[] = [
   { id: 'error', label: 'Error', tone: 'danger', toneMessage: true },
 ];
 
+const RUN_START_S = 14 * 3600 + 2 * 60 + 10;
+
 const row = (index: number, kind: string, message: string): LogRow => ({
-  id: String(index), gutter: `14:02:${String(10 + index).padStart(2, '0')}`, tag: 'gen', kind, message,
+  id: String(index), gutter: logClock(RUN_START_S + index), tag: 'gen', kind, message,
 });
 
 const RUN_LOG: readonly LogRow[] = [
