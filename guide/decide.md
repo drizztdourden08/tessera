@@ -115,6 +115,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - An app frame with its navigation: no component yet.
   - Panels the user docks and moves: [Widget](components/Widget.md). Widget and WidgetManager give every tool panel the same frame, dock and options, with the app holding the layout.
   - A header with an icon and a title over a block: [ContentHeader](components/ContentHeader.md). ContentHeader is the header with an icon, a title and a backdrop that any container can carry.
+  - A picture, a colour or a scene behind a block: [BackdropLayer](components/BackdropLayer.md). BackdropLayer draws an image, a colour or a scene behind a block from one backdrop value.
   - A settings screen. **Which part of it?**
     - The whole page: no component yet.
     - One section of rows: no component yet.

@@ -18,7 +18,7 @@ const usage = {
   rules: [
     'WorkspaceScreen and StageScreen render it, and neither can turn it off. UtilityScreen shows its header at the top of the window instead, and InfoScreen has none.',
     'Always pass an icon and a title; without them it warns in development.',
-    'Leave backdrop out for the default art, pass your own scene, or pass null for a plain header.',
+    'Leave backdrop out for the default art, pass your own scene, or pass null for a plain header. For an image or a colour, pass a BackdropLayer.',
     'Use strip for a few controls after the title, such as section pills or a status, and actions for the end of the header.',
     'On a sub-page, pass back with the name of the parent page and what returns to it; the header draws Back to and that name before the icon.',
     'Put buttons that stay in view in footer; the body scrolls between the header and the footer.',

@@ -433,6 +433,11 @@
               "ContentHeader"
             ]
           },
+          "a picture, a colour or a scene behind a block": {
+            "components": [
+              "BackdropLayer"
+            ]
+          },
           "a settings screen": {
             "question": "Which part of it?",
             "answers": {
@@ -743,6 +748,76 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "BackdropLayer",
+      "tier": "primitives",
+      "source": "src/primitives/BackdropLayer/BackdropLayer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A layer that fills its positioned parent with an image, a colour or a scene of your own, from one backdrop value.",
+      "useWhen": [
+        "A page header shows an image or a colour behind its title: pass the layer as the backdrop of ScreenPage, SettingsPage or ContentHeader.",
+        "An app stores a backdrop as data, such as a hub that can show an image, a colour or nothing, and draws it in more than one place.",
+        "A block of your own needs a covering, contained or tiled image behind its content."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The top of a home screen with art, actions and facts over a backdrop.",
+          "use": "Hero"
+        },
+        {
+          "case": "A picture that is content, with its own size, alt text and placeholders.",
+          "use": "Image"
+        }
+      ],
+      "rules": [
+        "backdrop is one of { kind: \"image\", src }, { kind: \"color\", color } or { kind: \"node\", node }.",
+        "An image covers by default; fit contain shows it whole, and fit tile repeats it from the top left at tileSize. position moves it and color fills behind it.",
+        "A color or an image color that starts with -- reads as a token, so \"--c-tag-violet-dim\" paints var(--c-tag-violet-dim).",
+        "The layer sits at inset 0 of the nearest positioned parent and takes no pointer events. Set its stacking order with className, as Hero does.",
+        "A node fills the layer, and the layer is a size container, so the scene can size itself with container queries.",
+        "backdropStyle(backdrop) returns the same background style for an element you draw yourself; a node returns an empty style."
+      ],
+      "a11y": [
+        "The layer is hidden from screen readers. A backdrop is decoration; put any picture that carries meaning in an Image with alt text.",
+        "Keep the text over a busy image readable with a shade or a scrim, as Hero and ContentHeader do."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a picture, a colour or a scene behind a block"
+        ],
+        "rule": "BackdropLayer draws an image, a colour or a scene behind a block from one backdrop value."
+      },
+      "example": "import { BackdropLayer, Icon, ScreenPage, Text } from '@drizztdourden08/tessera';\nimport type { Backdrop } from '@drizztdourden08/tessera';\n\nconst night: Backdrop = { kind: 'image', src: '/art/night.png', position: 'center bottom', pixelated: true };\n\nconst SavesPage = () => (\n  <ScreenPage icon={<Icon name=\"save\" />} title=\"Saves\" backdrop={<BackdropLayer backdrop={night} />}>\n    <Text>Three saves</Text>\n  </ScreenPage>\n);\n",
+      "propsHash": "8ec0719e2fcdf59c",
+      "props": {
+        "own": [
+          {
+            "name": "backdrop",
+            "optional": false,
+            "text": "Backdrop"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "parts": [
+        "backdropStyle"
+      ]
     },
     {
       "name": "Badge",
@@ -3600,7 +3675,7 @@
         }
       ],
       "rules": [
-        "Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header.",
+        "Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header. For an image or a colour, pass a BackdropLayer.",
         "Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.",
         "Set compact once the content under it scrolls; it shrinks to a slim row.",
         "On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.",
@@ -8273,7 +8348,7 @@
       "rules": [
         "WorkspaceScreen and StageScreen render it, and neither can turn it off. UtilityScreen shows its header at the top of the window instead, and InfoScreen has none.",
         "Always pass an icon and a title; without them it warns in development.",
-        "Leave backdrop out for the default art, pass your own scene, or pass null for a plain header.",
+        "Leave backdrop out for the default art, pass your own scene, or pass null for a plain header. For an image or a colour, pass a BackdropLayer.",
         "Use strip for a few controls after the title, such as section pills or a status, and actions for the end of the header.",
         "On a sub-page, pass back with the name of the parent page and what returns to it; the header draws Back to and that name before the icon.",
         "Put buttons that stay in view in footer; the body scrolls between the header and the footer.",

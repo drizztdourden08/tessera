@@ -7942,3 +7942,87 @@ Tessera's raised panel uses the same thin `--c-border` edge as Card and Shortcut
 ### The studio frame: for approval, not shipped
 
 The three-column frame itself (a list on the left, an editor in the centre, an inspector on the right, each side panel with a heading that folds to a rail, stacked below a breakpoint, with a raised top bar and an editor frame) is not covered by ListDetailLayout, SplitPane, ResizeHandle, DockLayout or WorkspaceScreen, alone or nested. A prototype, StudioLayout, is in the gallery under Preview · For approval, built on the new surfaces, and the owner decides between a third pane on ListDetailLayout and a new composite in TX-61. Until then RotP keeps `StudioFrame`, drawn on Box surfaces as above.
+
+## 236. BackdropLayer: one backdrop value, drawn anywhere, and a size for Hero
+
+Brock's hubs take a `backdrop` (a node, an image, a colour or none) and pass it to ScreenPage and SettingsPage. To draw an image or a colour, Brock repeated Hero's private logic that turns the value into a layer and a background style (`HubBackdrop` and its `backdropStyle`). Inside Tessera only Hero had that logic: ScreenPage, SettingsPage and ContentHeader take any node as their `backdrop` and wrap it in `.content-header__backdrop`, with no copy of their own. The logic is now a public part.
+
+RotP's Data home hero holds three facts and two actions, and the one Hero height was far too tall for it. Hero now takes a `size`.
+
+### What changed: BackdropLayer
+
+```ts
+type BackdropFit = 'cover' | 'contain' | 'tile'; // was HeroImageFit
+interface BackdropImage { kind: 'image'; src: string; fit?: BackdropFit; position?: string; tileSize?: string; color?: string; pixelated?: boolean }
+interface BackdropColor { kind: 'color'; color: string }
+interface BackdropNode { kind: 'node'; node: ReactNode }
+type Backdrop = BackdropImage | BackdropColor | BackdropNode; // was HeroBackdrop
+
+interface BackdropLayerProps { backdrop: Backdrop; className?: string }
+const BackdropLayer: (props: BackdropLayerProps) => JSX.Element;
+const backdropStyle: (backdrop: Backdrop) => CSSProperties;
+```
+
+- **BackdropLayer** fills its nearest positioned parent (`position: absolute`, `inset: 0`, `overflow: hidden`, no pointer events) and is hidden from screen readers. An image covers by default, `fit: 'contain'` shows it whole and `fit: 'tile'` repeats it from the top left at `tileSize`; `position` moves it, `color` fills behind it and `pixelated` keeps hard pixels. A colour, or an image `color`, that starts with `--` reads as a token. A node fills the layer, which is a size container named `backdrop-layer`. `className` adds the host's own class, such as a stacking order.
+- **backdropStyle** returns the background style the layer uses, for an element you draw yourself; a node returns an empty style.
+- All of these are exported from `primitives` and the package root. `HeroBackdrop` is renamed `Backdrop` and `HeroImageFit` `BackdropFit`; neither is exported from `composites` any more. Hero's `backdrop` prop takes `Backdrop | null`, as before.
+- **Hero** draws its backdrop through BackdropLayer. Its layer keeps `hero__backdrop` and its stacking order; the modifiers are now the layer's: `backdrop-layer--node`, `backdrop-layer--image`, `backdrop-layer--color` and `backdrop-layer--pixelated` in place of `hero__backdrop--node`, `--image`, `--color` and `--pixelated`. The brand gradient, drawn when `backdrop` is left out, keeps `hero__backdrop--brand`.
+- RENAMES.json, release `next`: the two type renames, the four class renames, and both types moved from `composites` to `primitives`.
+
+### What changed: Hero size
+
+```ts
+type HeroSize = 'compact' | 'default' | 'tall'; // new, exported from composites and the package root
+interface HeroProps { size?: HeroSize } // added, 'default' by default
+```
+
+- **`default`** is today's Hero, unchanged: `clamp(var(--hero-h-min), 60cqh, var(--hero-h))`, 288 to 408 px, and no class of its own.
+- **`compact`** (`hero--compact`) fits the content, the way a Hero with no art and no backdrop already does: the frame drops its fixed height and the grid starts at the top, with `--space-lg` padding in place of `--space-xl` and gaps of `--space-sm` by `--space-lg` in place of `--space-lg` by `--space-xl`.
+- **`tall`** (`hero--tall`) is larger than today's default, which was already the large look: `clamp(var(--hero-h), 80cqh, var(--hero-h-tall))`, 408 to 560 px, with the new token `--hero-h-tall: calc(560 * var(--size-1))`.
+- Under 720 px wide every size stacks as before; `default` and `tall` keep their height as a minimum and grow with the content, and `compact` has none.
+- The frame, the backdrop layer and the shade are one internal piece now, `HeroFrame`, with the frame rules in `HeroFrame.css`; the markup is the same.
+
+Measured on the new gallery section, Sizes: compact, default and tall, a Hero with crest art, the brand backdrop, the title, one action and two rows of facts:
+
+| Size | 1440 px window (hero 929 px wide) | 600 px window (hero 399 px wide, stacked) |
+| --- | --- | --- |
+| compact | 225 px; art 191 px tall, intro at 25 px, facts at 137 px | 285 px; art and intro 104 px at 25 px, facts at 146 px |
+| default | 408 px; art 256 px, intro at 192 px, facts at 312 px | 408 px; art 179 px at 41 px, facts at 252 px |
+| tall | 560 px; art 256 px, intro at 344 px, facts at 464 px | 560 px; art 256 px at 116 px, facts at 404 px |
+
+In each the backdrop fills the frame to its inner edge (frame height less 2 px of border), the art sits on the bottom edge behind the facts, and the facts span the width. The window was 1000 px tall, so 60 and 80 percent of it reached the 408 and 560 px caps.
+
+### What RotP changes
+
+On the Data home hero, pass `size="compact"`.
+
+### Measured
+
+Every element on the Hero, ScreenPage, SettingsPage and ContentHeader Overview pages at 1440 px, 36,294 of them, was read before and after both changes with motion off: its box, display, position, stacking order, inset, overflow, background image, colour, size, position and repeat, image rendering, container type, grid area, opacity and pointer events. Nothing changed on any of them but the name of the size container on Hero's three scene backdrops, `hero-backdrop` to `backdrop-layer`, which nothing in Tessera, Brock or RotP queries by name. Every Hero on the page before is still there after, at the same size and look; the page gains the Sizes section and a `size` control on the Playground. ScreenPage and SettingsPage gain no line, only reworded Overview points.
+
+### Gallery, guide and tests
+
+The Hero page gains Sizes: compact, default and tall, and a `size` control. BackdropLayer has a usage file, so the guide answers *A picture, a colour or a scene behind a block*, a new answer under layout, with it. The Overview points of Hero, ScreenPage and SettingsPage, and the usage rules of ScreenPage and ContentHeader, name BackdropLayer for an image or a colour. `tests/hero-height.test.mjs` checks the size classes and the frame and grid rules, and `tests/backdrop-layer.test.mjs` checks the exports, the image, colour and node layers, `backdropStyle`, that Hero draws through the layer and keeps its brand gradient, and the layer's stylesheet.
+
+### What Brock replaces
+
+Delete `packages/react/src/hub/Hub/sub-components/HubBackdrop/` (the part, its type, its `backdrop-style.ts` and its CSS) and draw the layer in `hub/Hub/behavior/backdrop-node.ts`:
+
+```ts
+import { createElement } from 'react';
+import type { ReactNode } from 'react';
+import { BackdropLayer } from '@drizztdourden08/tessera/primitives';
+import type { PageBackdrop } from '../../../screens/conventions/screens-config.type';
+
+const backdropNode = (backdrop: PageBackdrop | undefined): ReactNode => {
+  if (backdrop === undefined) return undefined;
+  if (backdrop.kind === 'none') return null;
+  return createElement(BackdropLayer, { backdrop });
+};
+```
+
+A node backdrop goes through the layer too, so the scene fills the header the same way it fills a Hero. The layer sits at `inset: 0` inside `.content-header__backdrop`, where `HubBackdrop` took `width` and `height` 100%; the box is the same. Then:
+
+- `import type { HeroBackdrop } from '@drizztdourden08/tessera/composites'` becomes `import type { Backdrop } from '@drizztdourden08/tessera/primitives'` in `screens/kinds/screen-kinds.type.ts`, `screens/kinds/hero-backdrop-of.ts` and `screens/conventions/screens-config.type.ts`. The upgrade does this from RENAMES.json. Brock's own `HeroBackdropProps` keeps its name.
+- `PaintedBackdrop` goes with `HubBackdrop`; where a painted value is still needed, write `Exclude<Backdrop, { kind: 'node' }>`.
+- `.hub-backdrop` and `.hub-backdrop--pixelated` go with it; style `.backdrop-layer` if a hub needs more.

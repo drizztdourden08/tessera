@@ -1,33 +1,12 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { BrandApp } from '../../brand/brand.type';
+import type { Backdrop } from '../../primitives/BackdropLayer';
 import type { FactsPanelGroup } from '../FactsPanel';
-
-type HeroImageFit = 'cover' | 'contain' | 'tile';
 
 type HeroShade = 'fade' | 'scrim' | 'none';
 
-interface HeroBackdropImage {
-  kind: 'image';
-  src: string;
-  fit?: HeroImageFit;
-  position?: string;
-  tileSize?: string;
-  color?: string;
-  pixelated?: boolean;
-}
-
-interface HeroBackdropColor {
-  kind: 'color';
-  color: string;
-}
-
-interface HeroBackdropNode {
-  kind: 'node';
-  node: ReactNode;
-}
-
-type HeroBackdrop = HeroBackdropImage | HeroBackdropColor | HeroBackdropNode;
+type HeroSize = 'compact' | 'default' | 'tall';
 
 interface HeroArtImage {
   kind: 'image';
@@ -48,8 +27,9 @@ interface HeroProps {
   title: ReactNode;
   eyebrow?: ReactNode;
   brand?: BrandApp;
-  backdrop?: HeroBackdrop | null;
+  backdrop?: Backdrop | null;
   shade?: HeroShade;
+  size?: HeroSize;
   art?: HeroArt | null;
   actions?: ReactNode;
   tools?: ReactNode;
@@ -61,7 +41,12 @@ interface HeroProps {
 }
 
 interface HeroBackdropLayerProps {
-  backdrop?: HeroBackdrop | null;
+  backdrop?: Backdrop | null;
+}
+
+interface HeroFrameProps extends HeroBackdropLayerProps {
+  shade: HeroShade;
+  children: ReactNode;
 }
 
 interface HeroArtSlotProps {
@@ -75,13 +60,11 @@ type HeroBottomProps = Pick<HeroProps, 'facts' | 'panel'>;
 export type {
   HeroArt,
   HeroArtSlotProps,
-  HeroBackdrop,
-  HeroBackdropColor,
-  HeroBackdropImage,
   HeroBackdropLayerProps,
   HeroBottomProps,
-  HeroImageFit,
+  HeroFrameProps,
   HeroIntroProps,
   HeroProps,
   HeroShade,
+  HeroSize,
 };

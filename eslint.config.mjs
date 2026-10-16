@@ -33,7 +33,7 @@ export default standardsEslint({
     { files: ['src/composites/GroupTree/sub-components/GroupTreeRow.tsx', 'src/composites/GroupTree/sub-components/GroupTreeGuides.tsx'], why: 'a tree row indents by its depth and draws a guide per ancestor' },
     { files: ['src/composites/ListItemRow/ListItemRow.tsx', 'src/composites/ListItemRow/sub-components/ListItemList.tsx'], why: 'the grid tracks follow the number of columns the rows pass in' },
     { files: ['src/primitives/code-view/CodeView.tsx'], why: 'the highlighter returns each line and token style' },
-    { files: ['src/composites/Hero/sub-components/HeroBackdropLayer.tsx'], why: 'the backdrop image, its place and its colour are passed in by the host' },
+    { files: ['src/primitives/BackdropLayer/BackdropLayer.tsx'], why: 'the backdrop image, its place and its colour are passed in by the host' },
     { files: ['src/primitives/Tag/Tag.tsx'], why: 'a custom tag fills with the colour the host passes in' },
     { files: ['src/composites/LogPanel/LogPanel.tsx'], why: 'a fixed panel height in pixels is passed in by the host' },
     { files: ['src/composites/Video/Video.tsx'], why: 'the style the host passes, such as a size, lands on the player frame' },

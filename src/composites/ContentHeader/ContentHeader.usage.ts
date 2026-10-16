@@ -13,7 +13,7 @@ const usage = {
     { case: 'A whole page with a header over a body that scrolls.', use: 'ScreenPage' },
   ],
   rules: [
-    'Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header.',
+    'Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header. For an image or a colour, pass a BackdropLayer.',
     'Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.',
     'Set compact once the content under it scrolls; it shrinks to a slim row.',
     'On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.',

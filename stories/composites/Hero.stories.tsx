@@ -4,7 +4,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { BRAND_APPS } from '../../src/brand';
 import type { BrandApp } from '../../src/brand';
 import { Hero } from '../../src/composites';
-import type { HeroShade } from '../../src/composites';
+import type { HeroShade, HeroSize } from '../../src/composites';
 import { Box } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -19,6 +19,7 @@ type HeroArgs = {
   brand: BrandApp;
   backdrop: HeroBackdropKey;
   shade: HeroShade;
+  size: HeroSize;
   art: HeroArtKey;
   eyebrow: string;
   title: string;
@@ -30,11 +31,14 @@ type HeroArgs = {
 
 const SHADES = ['fade', 'scrim', 'none'] as const satisfies readonly HeroShade[];
 
+const SIZES = ['compact', 'default', 'tall'] as const satisfies readonly HeroSize[];
+
 const draw = (args: HeroArgs) => (
   <Hero
     brand={args.brand}
     backdrop={HERO_BACKDROPS[args.backdrop]}
     shade={args.shade}
+    size={args.size}
     eyebrow={args.eyebrow || undefined}
     title={args.title}
     art={HERO_ARTS[args.art]}
@@ -47,7 +51,7 @@ const draw = (args: HeroArgs) => (
 );
 
 const ARGS: Partial<HeroArgs> = {
-  brand: 'rotp', backdrop: 'brand', shade: 'fade', art: 'image', eyebrow: 'Mode', title: 'Randomizer',
+  brand: 'rotp', backdrop: 'brand', shade: 'fade', size: 'default', art: 'image', eyebrow: 'Mode', title: 'Randomizer',
   withTools: true, withFacts: true, withAside: true, withPanel: true,
 };
 
@@ -60,6 +64,7 @@ const ARG_TYPES: PlaygroundArgTypes<HeroArgs> = {
   withAside: { group: 'Content', control: 'boolean', description: 'A glass tile on the right of the intro.' },
   withPanel: { group: 'Content', control: 'boolean', description: 'A glass panel beside the facts.' },
   backdrop: { group: 'Appearance', control: 'select', options: HERO_BACKDROP_KEYS, description: 'What fills the hero behind everything.' },
+  size: { group: 'Appearance', control: 'select', options: SIZES, description: 'How tall the hero is: compact fits its content, default, or tall.' },
   shade: { group: 'Appearance', control: 'select', options: SHADES, description: 'The dark fade that keeps the text readable over the backdrop.' },
   brand: { group: 'Appearance', control: 'select', options: [...BRAND_APPS], description: 'The brand whose gradient draws when there is no backdrop. Left out, the nearest data-palette names it, else tessera.' },
 };
@@ -110,6 +115,7 @@ const ART_OR_NOT = ['image', 'none'] as const satisfies readonly HeroArtKey[];
 const Backdrops = rowsStory('Backdrops', HERO_BACKDROP_KEYS, (backdrop) => ({ backdrop }));
 const Shades = rowsStory('Shades over a busy backdrop', SHADES, (shade) => ({ backdrop: 'svg', shade }));
 const Brands = rowsStory('Brand backdrops', BRAND_APPS, (brand) => ({ brand, backdrop: 'brand', art: 'none' }));
+const Sizes = rowsStory('Sizes: compact, default and tall', SIZES, (size) => ({ size, withTools: false }));
 const Bare = rowsStory('With art, and with no art or backdrop: the height follows the content', ART_OR_NOT, (art) => ({ backdrop: 'brand', art }));
 
 const CODE = `import { Hero } from '@drizztdourden08/tessera';
@@ -118,6 +124,7 @@ const CODE = `import { Hero } from '@drizztdourden08/tessera';
   brand="rotp"
   backdrop={{ kind: 'node', node: <SceneBackdrop /> }}
   shade="fade"
+  size="default"
   eyebrow="Mode"
   title="Randomizer"
   art={{ kind: 'image', src: heroArt, pixelated: true }}
@@ -156,17 +163,17 @@ const Overview = overviewStory({
   component: 'Hero',
   description: 'The top of a home screen: a backdrop and art, the title and its actions, with details on glass over them.',
   points: [
-    '`backdrop` takes a live scene `node`, an `image` URL that covers, contains or tiles, or a `color`.',
+    '`backdrop` takes a scene `node`, an `image` that covers, contains or tiles, or a `color`, as `BackdropLayer` does.',
     'Leave `backdrop` out for the gradient of `brand`, or of the nearest `data-palette`; `null` draws a plain hero.',
     '`art` is an `image` URL or any `node` beside the intro; with no art and no `backdrop` the hero fits its content.',
     '`shade` keeps the text readable: `fade` by default, `scrim` for a busy backdrop, or `none`.',
     '`tools` sit top right, `facts` along the bottom in a [FactsPanel], `aside` and `panel` on the right.',
-    'Under 720 px wide it stacks: the intro over the art, then the aside, facts and panel at full width.',
+    '`size` sets the height: `compact` fits the content, then `default` and `tall`. Under 720 px wide it stacks.',
   ],
   playground: Playground,
-  variants: [Profile, Backdrops, SceneArt, Shades, Narrow, FactsOnly, TitleOnly, Bare, Brands, FromPalette],
+  variants: [Profile, Backdrops, SceneArt, Shades, Sizes, Narrow, FactsOnly, TitleOnly, Bare, Brands, FromPalette],
   code: CODE,
 });
 
 export default meta;
-export { Backdrops, Bare, Brands, FactsOnly, FromPalette, Narrow, Overview, Playground, Profile, SceneArt, Shades, TitleOnly };
+export { Backdrops, Bare, Brands, FactsOnly, FromPalette, Narrow, Overview, Playground, Profile, SceneArt, Shades, Sizes, TitleOnly };

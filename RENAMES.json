@@ -1352,6 +1352,29 @@
         "info-screen__column--readable": "info-screen__column",
         "info-screen__column--wide": "info-screen__column"
       }
+    },
+    {
+      "version": "next",
+      "components": {
+        "HeroImageFit": "BackdropFit",
+        "HeroBackdrop": "Backdrop"
+      },
+      "cssClasses": {
+        "hero__backdrop--pixelated": "backdrop-layer--pixelated",
+        "hero__backdrop--image": "backdrop-layer--image",
+        "hero__backdrop--color": "backdrop-layer--color",
+        "hero__backdrop--node": "backdrop-layer--node"
+      },
+      "moves": {
+        "Backdrop": {
+          "from": "composites",
+          "to": "primitives"
+        },
+        "BackdropFit": {
+          "from": "composites",
+          "to": "primitives"
+        }
+      }
     }
   ]
 }

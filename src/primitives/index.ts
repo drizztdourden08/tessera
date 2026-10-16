@@ -136,6 +136,8 @@ export { Tooltip } from './Tooltip';
 export type { TooltipFollow, TooltipProps } from './Tooltip';
 export { Image, isPixelArt, usePixelArt } from './Image';
 export type { ImageFit, ImagePixelated, ImagePlaceholderProps, ImageProps, ImageSize, PixelArt } from './Image';
+export { BackdropLayer, backdropStyle } from './BackdropLayer';
+export type { Backdrop, BackdropColor, BackdropFit, BackdropImage, BackdropLayerProps, BackdropNode } from './BackdropLayer';
 export { Icon, ICONS } from './Icon';
 export { Glyph, GLYPHS } from './Glyph';
 export type { GlyphName, GlyphProps } from './Glyph';

@@ -1,5 +1,6 @@
 /* @layer stories @kind data */
-import type { HeroArt, HeroBackdrop } from '../../../src/composites';
+import type { HeroArt } from '../../../src/composites';
+import type { Backdrop } from '../../../src/primitives';
 import { brandLogoUri } from './brand-logo';
 import { HeroCrestArt } from './HeroCrestArt';
 import { HeroHillsScene } from './HeroHillsScene';
@@ -13,7 +14,7 @@ const HERO_ART_KEYS = ['image', 'node', 'none'] as const;
 
 type HeroArtKey = (typeof HERO_ART_KEYS)[number];
 
-const HERO_BACKDROPS: Record<HeroBackdropKey, HeroBackdrop | null | undefined> = {
+const HERO_BACKDROPS: Record<HeroBackdropKey, Backdrop | null | undefined> = {
   brand: undefined,
   scene: { kind: 'node', node: <HeroHillsScene /> },
   png: { kind: 'image', src: HERO_SAMPLE_URLS.night, fit: 'cover', position: 'center bottom', pixelated: true },

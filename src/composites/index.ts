@@ -79,7 +79,7 @@ export type {
   WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarProps,
 } from './WindowTitleBar';
 export { Hero } from './Hero';
-export type { HeroArt, HeroBackdrop, HeroImageFit, HeroProps, HeroShade } from './Hero';
+export type { HeroArt, HeroProps, HeroShade, HeroSize } from './Hero';
 export { FactsPanel } from './FactsPanel';
 export type { FactsPanelFact, FactsPanelGroup, FactsPanelLayout, FactsPanelProps } from './FactsPanel';
 export { CommandPalette, CommandPaletteRow } from './CommandPalette';

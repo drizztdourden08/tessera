@@ -110,7 +110,7 @@ const Overview = overviewStory({
     'The header compacts once the body scrolls; `compact` holds either look.',
     '`back` leads to the parent page before the icon; `strip` follows the title, `actions` sit at the far end.',
     'Short of room the header stacks: `strip` moves under the title, `actions` too when the title needs it.',
-    'Leave `backdrop` out for the default art, pass a scene of your own, or `null` for a plain header.',
+    'Leave `backdrop` out for the default art, pass a `BackdropLayer` or a scene, or `null` for a plain header.',
     '`footer` stays in view under the body; `scroll={false}` leaves the scrolling to the content.',
   ],
   instead: '[ScreenWindow] for a custom screen with no page header.',

@@ -1,0 +1,32 @@
+/* @layer renderer-components @kind style */
+.hero__frame {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  height: clamp(var(--hero-h-min), 60cqh, var(--hero-h));
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--c-layer);
+}
+
+.hero--bare .hero__frame,
+.hero--compact .hero__frame {
+  height: auto;
+  min-height: 0;
+}
+
+.hero--tall .hero__frame { height: clamp(var(--hero-h), 80cqh, var(--hero-h-tall)); }
+
+@container hero (width < 720px) {
+  .hero__frame {
+    height: auto;
+    min-height: clamp(var(--hero-h-min), 60cqh, var(--hero-h));
+  }
+
+  .hero--tall .hero__frame {
+    height: auto;
+    min-height: clamp(var(--hero-h), 80cqh, var(--hero-h-tall));
+  }
+}
