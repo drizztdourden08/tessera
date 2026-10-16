@@ -7,6 +7,7 @@ import { Pressable } from '../../primitives/Pressable';
 import { Span } from '../../primitives/text-elements';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useToastTimer } from './behavior/useToastTimer';
+import { useToastUndo } from './behavior/useToastUndo';
 import { TOAST_EXIT } from './Toast.constants';
 import type { ToastCloseReason, ToastProps } from './Toast.type';
 import './Toast.css';
@@ -17,7 +18,6 @@ const Toast = (props: ToastProps) => {
   const { fields, common } = useTesseraStrings();
   const count = item.count ?? 1;
   const variant = item.variant ?? 'info';
-  const { action } = item;
   const toastRef = useRef<HTMLElement>(null);
   const returnRef = useRef<(toast: HTMLElement | null) => void>(() => undefined);
   const closing = useRef(false);
@@ -31,6 +31,7 @@ const Toast = (props: ToastProps) => {
   }, [item.id, onDismiss]);
   const hold = useToastTimer(item.duration, () => dismiss('expired'), count);
   returnRef.current = hold.returnFocus;
+  const action = useToastUndo(item, !exiting, dismiss);
 
   const run = () => {
     action?.onSelect();

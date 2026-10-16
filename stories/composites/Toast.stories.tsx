@@ -105,7 +105,7 @@ const Overview = overviewStory({
     '`max` caps how many show, 3 by default; a second `ToastStack` draws nothing while the first is mounted.',
     'The stack is a polite status region and a `danger` toast is an alert; the same message joins with a count.',
     'It leaves after `duration` (5 s, 0 stays); it waits under the pointer or focus, then the full time starts again.',
-    '`action` adds a button such as Retry or Undo, which runs and closes the toast.',
+    '`action` adds a button such as Retry; `undo` adds Undo, which [[Ctrl+Z]] also runs while the toast shows.',
     '`onClose` runs once as it goes: `expired`, `dismissed`, `action`, or `replaced` when the same message joins.',
   ],
   instead: '[Callout] for a note that stays in the page.',
@@ -125,7 +125,10 @@ toast({
   duration: 8000,
   action: { label: 'Undo', onSelect: restoreSave },
   onClose: (reason) => { if (reason !== 'action') deleteSaveForGood(); },
-});`,
+});
+
+// An Undo that Ctrl+Z also runs while the toast shows, in the one stack of useUndo
+toast({ message: 'Save loaded.', duration: 8000, undo: () => restoreGame(before) });`,
 });
 
 export default meta;

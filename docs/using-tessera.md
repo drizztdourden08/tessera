@@ -263,6 +263,8 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | Buttons of your own on each row of a list, such as Load | `rowActions` on `ItemList` |
 | Run something when a toast goes, such as the delete behind an Undo | `onClose` on `toast()`, told `expired`, `dismissed`, `action` or `replaced` |
 | A rename box of your own: Enter keeps, Escape cancels, leaving keeps | `useNameEdit` |
+| New that cannot run yet, greyed out with the reason on hover and focus | `newDisabled` on `ItemList`, a string for the reason |
+| Ctrl+Z for an action of your own, such as a load or a save over | `undo` on `toast()`, or `useUndo().push` for one with no toast |
 
 ### A rename box of your own
 
@@ -281,6 +283,18 @@ const SaveName = ({ name, onEnd }: { name: string; onEnd: (next: string | null) 
       autoFocus
     />
   );
+};
+```
+
+### One Ctrl+Z for the app
+
+`useUndo()` returns `{ push, undo, latest }`, one stack per document. `push({ label, undo, expires, within })` adds a step and returns the function that drops it; the steps a component pushed drop when it unmounts. Ctrl+Z or Cmd+Z undoes the latest step, one a press, unless focus is in a text box, which keeps its own undo. A step with `within`, a ref to a region, runs only while focus is inside that region; ItemList puts its waiting deletes there, so Ctrl+Z reaches them from the list. `toast({ undo })` draws Undo and keeps its step while the toast shows: Ctrl+Z runs it and closes the toast with `action`, and a toast that goes for any other reason takes its step with it. `undo()` runs the latest step from a menu, and `latest()` gives its label.
+
+```tsx
+const loadSave = (id: string) => {
+  const before = captureGame();
+  load(id);
+  toast({ id: 'save-loaded', message: 'Save loaded.', duration: 8000, undo: () => restoreGame(before) });
 };
 ```
 

@@ -11,7 +11,7 @@ import { ItemListHead } from './sub-components/ItemListHead';
 import './ItemList.css';
 
 const ItemList = <T,>(props: ItemListProps<T>) => {
-  const { title, create, createLabel, createTour = 'item-list-new', filterPlaceholder, loading, className } = props;
+  const { title, create, createLabel, createTour = 'item-list-new', newDisabled, filterPlaceholder, loading, className } = props;
   const { lists } = useTesseraStrings();
   const view = useItemList(props);
   const form = useItemListCreate(props, view);
@@ -27,6 +27,7 @@ const ItemList = <T,>(props: ItemListProps<T>) => {
         creating={form.open}
         createLabel={createLabel}
         createTour={createTour}
+        newDisabled={newDisabled}
       />
       {form.open && (
         <Box ref={form.slotRef} role="group" aria-label={createLabel ?? lists.newItem} className="item-list__create" onKeyDown={form.onKeyDown}>

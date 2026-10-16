@@ -5,8 +5,10 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import type { StateProps } from '../_template/states/states.type';
 import { ItemListCreateDemo } from './_samples/ItemListCreateDemo';
 import { ItemListDemo } from './_samples/ItemListDemo';
+import { ItemListNewDisabledDemo } from './_samples/ItemListNewDisabledDemo';
 import { ItemListSwitchDemo } from './_samples/ItemListSwitchDemo';
 import { ItemListUndoDemo } from './_samples/ItemListUndoDemo';
+import { ItemListUndoStackDemo } from './_samples/ItemListUndoStackDemo';
 import type { ItemListDemoProps, ItemListDemoState } from './_samples/preset-samples.type';
 import './ItemList.stories.css';
 
@@ -81,7 +83,17 @@ const UndoDelete = {
   render: () => <ItemListUndoDemo />,
 } satisfies StoryLiteStoryDefinition<ItemListArgs>;
 
-const CODE = `import { ItemList } from '@drizztdourden08/tessera';
+const NeedsGame = {
+  name: 'Saves: New needs a running game and says so',
+  render: () => <ItemListNewDisabledDemo />,
+} satisfies StoryLiteStoryDefinition<ItemListArgs>;
+
+const UndoStack = {
+  name: 'Saves: Load, Save over and delete, each undone with Ctrl+Z',
+  render: () => <ItemListUndoStackDemo />,
+} satisfies StoryLiteStoryDefinition<ItemListArgs>;
+
+const CODE = `import { ItemList, toast } from '@drizztdourden08/tessera';
 
 <ItemList
   title="Presets"
@@ -146,27 +158,37 @@ const CODE = `import { ItemList } from '@drizztdourden08/tessera';
   onDelete={deleteSaveForGood}
   undoDelete={8000}
   deleteKey
+  onCreate={newSave}
+  createLabel="New save"
+  newDisabled={gameRunning ? false : 'Start a game to make a new save.'}
   rowActions={(save, row) => (
     <IconButton size="sm" variant="ghost" label={\`Load \${save.name}\`} tabIndex={row.tabIndex} onClick={() => loadSave(save.id)}>
       <Icon name="play" />
     </IconButton>
   )}
-/>`;
+/>
+
+// Load joins the same Ctrl+Z as the deletes of the list
+const loadSave = (id) => {
+  const before = captureGame();
+  load(id);
+  toast({ id: 'save-loaded', message: 'Save loaded.', duration: 8000, undo: () => restoreGame(before) });
+};`;
 
 const Overview = overviewStory({
   component: 'ItemList',
   description: 'The list side of a list and editor screen: a title with its count, New, a filter, groups and rows to rename or delete.',
   points: [
     '`render` adds meta, an icon or columns; `loading`, `error` and `empty` replace the rows; a filter shows from 8.',
-    '`create` draws a form such as [InlineCreateForm] under the title; New carries `data-tour="item-list-new"`.',
+    '`create` draws a form such as [InlineCreateForm]; `newDisabled` greys New out, and a string says why.',
     '`groupBy` sorts rows under headings; `groups` orders them and draws empty ones with a line and an action.',
     '`onActivate` runs on a click, [[Enter]] or [[Space]]; the arrow keys then move the focus, not the selection.',
     '`rowActions`, `onRename` ([[F2]]) and `onDelete` fill the row buttons, shown on hover or `"always"`.',
-    '`undoDelete` deletes at once with an Undo, waiting under the pointer; `deleteKey` binds [[Delete]].',
+    '`undoDelete` deletes at once with an Undo that [[Ctrl+Z]] reaches through `useUndo`; `deleteKey` binds [[Delete]].',
   ],
   instead: '[ListDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,
-  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch, UndoDelete],
+  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch, UndoDelete, NeedsGame, UndoStack],
   states: {
     render: (props: StateProps) => <ItemListDemo {...(props as ItemListDemoProps)} />,
     list: STATES.map((state) => ({ name: state, props: { state, title: state === 'ready' ? 'Presets' : 'Servers' } })),
@@ -175,4 +197,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { CreateForm, EmptyGame, FirstRun, Grouped, Overview, PickToSwitch, Plain, Playground, UndoDelete };
+export { CreateForm, EmptyGame, FirstRun, Grouped, NeedsGame, Overview, PickToSwitch, Plain, Playground, UndoDelete, UndoStack };

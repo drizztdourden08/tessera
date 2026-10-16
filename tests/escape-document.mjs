@@ -7,10 +7,11 @@ const escapeDocument = () => {
       const at = listeners.findIndex((entry) => entry.type === type && entry.fn === fn && entry.capture === (capture === true));
       if (at !== -1) listeners.splice(at, 1);
     },
-    press: (key, handled = false, target = null) => {
+    press: (key, handled = false, target = null, keys = {}) => {
       const event = {
         key,
         target,
+        ...keys,
         defaultPrevented: handled,
         stopped: false,
         preventDefault() { this.defaultPrevented = true; },

@@ -1,13 +1,12 @@
 /* @layer renderer-components @kind hook */
 import { useMemo } from 'react';
+import { pageDocument } from '../dom/page-document';
 import { useTesseraOverride } from '../TesseraProvider/behavior/useTesseraOverride';
 import { escapeStackOf } from './escape-stack-of';
 import { useEscapeLayer } from './useEscapeLayer';
 import type { EscapeLayer, EscapeStack } from './escape-stack.type';
 
 const ignore = (): void => undefined;
-
-const pageDocument = (): Document | undefined => (typeof document === 'undefined' ? undefined : document);
 
 const useEscapeStack = (layer?: EscapeLayer): EscapeStack => {
   const doc = useTesseraOverride('portalDocument') ?? pageDocument();

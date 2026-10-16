@@ -15,6 +15,7 @@ const COMMON_STRINGS = {
   resetNamed: (name: string) => `Reset ${name}`,
   renameNamed: (name: string) => `Rename ${name}`,
   save: 'Save',
+  undo: 'Undo',
   search: 'Search',
   searchPlaceholder: 'Search...',
   filterPlaceholder: 'Filter...',

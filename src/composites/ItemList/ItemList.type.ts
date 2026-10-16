@@ -3,6 +3,7 @@ import type { FocusEvent, KeyboardEvent, MouseEvent, ReactNode, RefObject } from
 import type { ItemListRemoval } from './behavior/item-list-deletes.type';
 import type { ActionData } from '../../primitives/action-data';
 import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
+import type { OptionDisabled } from '../../primitives/field-control/option-disabled.type';
 import type { ListItemRowActionVisibility, ListItemRowProps } from '../ListItemRow/ListItemRow.type';
 
 type ItemListRowParts = Pick<ListItemRowProps, 'meta' | 'icon' | 'columns'>;
@@ -44,6 +45,7 @@ interface ItemListProps<T> {
   onCreateOpenChange?: (open: boolean) => void;
   createLabel?: string;
   createTour?: string;
+  newDisabled?: OptionDisabled;
   onRename?: (id: string, name: string) => void;
   onDelete?: (id: string) => void;
   undoDelete?: number;
@@ -136,6 +138,7 @@ interface ItemListHeadProps {
   creating: boolean;
   createLabel?: string;
   createTour: string;
+  newDisabled?: OptionDisabled;
 }
 
 interface ItemListToolsProps {

@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": minor
+---
+
+One Ctrl+Z for the app, and a New that says why it is off. `useUndo()` returns `{ push, undo, latest }`, one undo stack per document: `push({ label, undo, expires, within })` adds a step, Ctrl+Z or Cmd+Z undoes the latest one a press, never while focus is in a text box, and a step with `within` runs only while focus is inside that region. ItemList puts its waiting deletes in that stack in place of its own Ctrl+Z, and `toast({ undo })` draws Undo and keeps its step while the toast shows, so Ctrl+Z runs it and closes the toast with `action`. ItemList and ListDetail take `newDisabled?: boolean | string`: New is greyed out and does nothing, and a string is its reason, shown on hover and keyboard focus and read as its description. A Button or IconButton with `aria-disabled="true"` now looks disabled. The string `lists.undo` moves to `common.undo`.

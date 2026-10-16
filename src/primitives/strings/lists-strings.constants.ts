@@ -13,7 +13,6 @@ const LIST_STRINGS = {
   deleteNamed: (name: string) => `Delete ${name}`,
   deleteCancel: 'Keep',
   deleted: 'Deleted',
-  undo: 'Undo',
   undoDeleteOf: (name: string) => `Undo the delete of ${name}`,
   unsavedOpen: (current: string, next: string) => `${current} has unsaved changes. Save them before you open ${next}?`,
   unsavedLeave: (current: string) => `${current} has unsaved changes. Save them before you leave it?`,

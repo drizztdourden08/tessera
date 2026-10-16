@@ -15,6 +15,7 @@ interface ToastInput {
   variant?: ToastVariant;
   duration?: number;
   action?: ToastAction;
+  undo?: () => void;
   id?: string;
   onClose?: (reason: ToastCloseReason) => void;
 }

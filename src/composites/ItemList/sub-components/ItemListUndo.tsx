@@ -9,7 +9,7 @@ import type { ItemListUndoProps } from '../behavior/item-list-deletes.type';
 
 const ItemListUndo = (props: ItemListUndoProps) => {
   const { id, name, held, undoFor, onUndo, onEnd } = props;
-  const { lists } = useTesseraStrings();
+  const { common, lists } = useTesseraStrings();
   const [focused, setFocused] = useState(false);
   useHeldTimeout(held || focused, undoFor, () => onEnd(id));
   return (
@@ -23,7 +23,7 @@ const ItemListUndo = (props: ItemListUndoProps) => {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       >
-        {lists.undo}
+        {common.undo}
       </Button>
     </Box>
   );

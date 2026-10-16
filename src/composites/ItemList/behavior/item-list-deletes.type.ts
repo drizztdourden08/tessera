@@ -26,7 +26,6 @@ interface ItemListRemoval {
   remove?: (id: string, from: ItemListDeleteFrom) => void;
   restore: (id: string) => void;
   commit: (id: string) => void;
-  restoreLatest: () => boolean;
   confirmed: (id: string) => void;
   kept: (id: string) => void;
 }

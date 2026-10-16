@@ -33,6 +33,7 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - Pass create to open a form at the top of the list, such as an InlineCreateForm with more fields, and call its close after a create or a cancel.
 - Pass onCreate in place of create when the app opens its own flow, such as a dialog or a wizard.
 - Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.
+- Pass newDisabled when New cannot run yet, with a string that says why, such as Start a game to make a new save; true greys it out with no reason.
 - Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.
 - Pass groups with groupBy to set the order of the groups and keep the empty ones, such as an installed game with no preset yet.
 - An empty group draws its heading, its empty line and the button of its action, such as New preset; while the filter holds text, it hides.
@@ -42,6 +43,7 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - Pass rowActions for buttons of your own before rename and delete, such as Load; give each the tabIndex it receives so the row keeps one Tab stop.
 - Pass undoDelete, such as 8000, when a delete should run at once: the row turns into Deleted with Undo, and onDelete runs when the time is up.
 - Write onDelete as the delete for good when undoDelete is set; it also runs for a row still waiting when the list unmounts.
+- Each waiting delete joins the one undo stack of useUndo, so Ctrl+Z in the list undoes it in turn with the toasts that carry undo.
 - Pass deleteKey to bind the Delete key on a focused row: with undoDelete it deletes at once, without it it opens the Delete question.
 - Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.
 - Write empty as what to do next, such as Install a game from Games, then make a preset for it.
@@ -59,7 +61,8 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - New moves focus into the create form; Escape or Cancel closes it and focus goes back to New.
 - After a create, focus goes to the new row when the app picks it, and back to New when it does not.
 - Delete asks once with its own Cancel, and the error is an alert.
-- With undoDelete, Undo is a status with its own Tab stop; Ctrl+Z in the list undoes the latest delete, and the time waits under the pointer or focus.
+- With undoDelete, Undo is a status with its own Tab stop; Ctrl+Z in the list undoes the latest step, and the time waits under the pointer or focus.
+- A New that is off with a reason stays a Tab stop marked disabled; its reason is its description and shows on hover and focus.
 - After the Delete key, focus and the selection move to the next row; after the trash button, focus goes to Undo, and after Undo back to the row.
 
 ## Example
@@ -121,6 +124,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 - `onCreateOpenChange` (optional): `(open: boolean) => void`.
 - `createLabel` (optional): `string`.
 - `createTour` (optional): `string`. Default `'item-list-new'`.
+- `newDisabled` (optional): `OptionDisabled`.
 - `onRename` (optional): `(id: string, name: string) => void`.
 - `onDelete` (optional): `(id: string) => void`.
 - `undoDelete` (optional): `number`.

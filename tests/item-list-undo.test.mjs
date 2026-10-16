@@ -3,7 +3,7 @@ import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { ItemList } from '../src/composites/ItemList';
-import { isUndoKey } from '../src/composites/ItemList/behavior/is-undo-key';
+import { isUndoKey } from '../src/primitives/undo-stack/is-undo-key';
 import { listKey } from '../src/composites/ItemList/behavior/list-key';
 import { nearRow } from '../src/composites/ItemList/behavior/near-row';
 import { pruneDeletes } from '../src/composites/ItemList/behavior/prune-deletes';

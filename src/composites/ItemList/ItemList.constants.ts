@@ -13,8 +13,6 @@ const DELETE_SELECTOR = '.item-list__tools > .confirm-icon-btn:last-child button
 
 const NO_DELETES = { pending: [], done: [] } as const;
 
-const TEXT_ENTRY = 'input, textarea, [contenteditable="true"]';
-
 const MOVE_KEYS: Readonly<Record<string, (index: number, last: number) => number>> = {
   ArrowDown: (index, last) => Math.min(index + 1, last),
   ArrowUp: (index) => Math.max(index - 1, 0),
@@ -22,4 +20,4 @@ const MOVE_KEYS: Readonly<Record<string, (index: number, last: number) => number
   End: (_index, last) => last,
 };
 
-export { DELETE_SELECTOR, FILTER_FROM, MOVE_KEYS, NO_DELETES, ROW_ID, ROW_KEYS, ROW_SELECTOR, TEXT_ENTRY, UNDO_SELECTOR };
+export { DELETE_SELECTOR, FILTER_FROM, MOVE_KEYS, NO_DELETES, ROW_ID, ROW_KEYS, ROW_SELECTOR, UNDO_SELECTOR };

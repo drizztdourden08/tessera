@@ -2,3 +2,7 @@
 .tooltip-anchor.reason-tip {
   display: contents;
 }
+
+.tooltip-anchor.reason-tip--stop {
+  display: inline-flex;
+}

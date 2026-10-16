@@ -81,6 +81,8 @@ export {
 export type { PortalLayer } from './Portal';
 export { useEscapeStack } from './escape-stack';
 export type { EscapeLayer, EscapeLevel, EscapeStack } from './escape-stack';
+export { useUndo } from './undo-stack';
+export type { UndoStack, UndoStep } from './undo-stack';
 export { TagPicker } from './TagPicker';
 export type { TagPickerGroup, TagPickerOption, TagPickerProps } from './TagPicker';
 export { Field, useFieldControl } from './Field';

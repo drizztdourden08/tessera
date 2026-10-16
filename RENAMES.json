@@ -1385,6 +1385,12 @@
         "--side-nav-toggle-hit": "--collapse-toggle-hit",
         "--side-nav-toggle-d": "--collapse-toggle-d"
       }
+    },
+    {
+      "version": "next",
+      "strings": {
+        "lists.undo": "common.undo"
+      }
     }
   ]
 }

@@ -19,6 +19,7 @@ const usage = {
     'Set duration to 0 only when the toast carries an action the user must see.',
     'Pass onClose to follow the life of the toast, such as a delete that runs unless Undo was pressed: it runs once, with expired, dismissed, action or replaced.',
     'Raise each undo toast with its own id when deletes can follow each other: a toast that joins the same message closes the one before with replaced.',
+    'Pass undo in place of action for an Undo, such as after a load: Ctrl+Z runs it too while the toast shows, through the one stack of useUndo.',
   ],
   a11y: [
     'The stack is a polite status region, so a screen reader reads each toast once.',

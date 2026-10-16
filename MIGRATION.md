@@ -8972,3 +8972,69 @@ A point on each Overview, the two examples above and a `compact` control on the 
 - **Sprite studio** (`ViewerToolbar`): `<StudioLayout compactToolbar toolbar={[{ id: 'view', label: 'View', ... }, { id: 'play', label: 'Playback', ... }, { id: 'wear', label: 'Wearing', ... }]}>`; the labels stay as the names a screen reader reads.
 - **Language studio** and the **MSU panels**: the same, with the search keeping `grow={false}`.
 - Give each icon button in those groups a `hint`, so the HintLine names the tool now that no label shows above it.
+
+## 255. One Ctrl+Z for the app, and a New that says why it is off
+
+RotP's "New save" needs a running game, so it hid New while no game ran, and nothing told the player why. Ctrl+Z only undid ItemList deletes, through a stack private to each list, so RotP's undo for Load and Save over lived only in toast actions (`offerUndo`, `useUndoableLoad`), out of reach of the keyboard.
+
+### What changed
+
+```ts
+// ItemList, and ListDetail through its list props
+interface ItemListProps<T> {
+  newDisabled?: boolean | string; // new: true greys New out; a string is the reason
+}
+
+// toast()
+interface ToastInput {
+  undo?: () => void; // new: draws Undo and joins the undo stack while the toast shows
+}
+
+// new hook, from @drizztdourden08/tessera/primitives
+interface UndoStep {
+  label: string;
+  undo: () => void;
+  expires?: number; // milliseconds, then the step drops
+  within?: RefObject<HTMLElement | null>; // Ctrl+Z runs it only while focus is inside
+}
+interface UndoStack {
+  push: (step: UndoStep) => () => void; // returns the drop
+  undo: () => boolean; // runs the latest step, such as from an Edit menu
+  latest: () => string | null; // the label of the latest step
+}
+const useUndo: () => UndoStack;
+```
+
+- **New off with a reason.** `newDisabled` takes the shape of the `disabled` of options and segments, `boolean | string`, read by the same `disabledReason` and drawn by the same ReasonTip. With a string, New is greyed out (the disabled opacity, no hover), does nothing on a click, Enter or Space, and stays a Tab stop with `aria-disabled="true"`: the reason shows on hover, beside the pointer, and on keyboard focus, above the button, and is the button's `aria-description`. It closes the way every hint closes: when the pointer leaves, on Tab, on Escape and on a click. With `true`, New is a plain disabled button with no reason. Left out or `false`, the markup is the same as before. ListDetail hands its `list` props to ItemList, so `newDisabled` works there with no change; ListDetailLayout has no New of its own.
+- **ReasonTip** takes `stop`, for a control that stays a Tab stop: its anchor then has a box, so the tip sits by the control on focus. The options and segments keep `display: contents`.
+- **aria-disabled buttons.** `.btn` and `.icon-btn` with `aria-disabled="true"` now take the disabled look and skip the hover and press colours, the same as `:disabled`.
+- **One undo stack.** `useUndo()` keeps one stack per document, the document of `TesseraProvider`'s `portalDocument` or the page, the way the Escape stack does; both now share one internal key stack, `keyStack`, in `primitives/dom`. Ctrl+Z or Cmd+Z, without Shift or Alt, undoes the latest step, one a press, and prevents the browser's own undo. It does nothing while focus is in an input, a textarea or an editable element, which keep their own undo, or when a part already handled the key. A step with `within` runs only while focus is inside that element, and Ctrl+Z from outside passes over it to the next step. The steps a component pushed drop when it unmounts.
+- **ItemList deletes** join that stack in place of the list's own Ctrl+Z: each waiting delete is a step, named `lists.undoDeleteOf(name)`, held `within` the rows, and it drops when the delete is undone, runs out or its item leaves `items`. Ctrl+Z in the list still undoes the latest delete when it is the latest step; a load undone through a toast after it comes first.
+- **toast({ undo })** draws Undo (`common.undo`) as the action and pushes a step named by the message while the toast shows. Ctrl+Z runs `undo` and closes the toast with `action`, the same as the button. **On close the step goes too**: when the toast expires, is dismissed, is cleared or is replaced, its step drops, so Ctrl+Z never undoes something whose offer the user saw leave. A replaced toast pushes the step of the new one. A toast still in the queue behind `max` joins the stack when it shows. Pass `undo` in place of `action`; with both, Undo wins.
+- **Strings.** `lists.undo` moves to `common.undo` (RENAMES.json, release next), as Toast now draws it too.
+
+### What RotP replaces
+
+| RotP | Tessera |
+|---|---|
+| `create={isGameRunning ? create : undefined}` on the save lists, which hides New | `create={create}` with `newDisabled={isGameRunning ? false : NO_GAME_REASON}` |
+| `offerUndo({ id, message, undo })` and its `toast({ action: { label: UNDO_LABEL, onSelect } })` | `toast({ id, message, duration: UNDO_WINDOW_MS, undo: () => void runQuietly(undo, 'undo the change') })` |
+| `useUndoableLoad` raising `offerUndo` after a load | the same hook, raising `toast({ id: LOADED_TOAST_ID, message, duration: UNDO_WINDOW_MS, undo: () => gameSnapshot.restore(before) })` |
+| `UNDO_LABEL` | `common.undo`, drawn by the toast |
+| an undo with no toast of its own, such as a key binding of a studio | `useUndo().push({ label, undo, within: regionRef })` |
+
+`undoDelete={UNDO_WINDOW_MS}` and `deleteKey` stay as they are; the deletes and the Load and Save over toasts now share one Ctrl+Z. `SaveOverButton` keeps its Tooltip and `disabledReason`. An app that overrides `strings.lists.undo` moves it to `strings.common.undo`.
+
+### Measured
+
+At 1440 px against the gallery before the change, with no console errors on any page touched:
+
+- **Unchanged.** The ItemList Playground and its seven examples (Presets in groups, the empty game, Servers, Profiles created in place, First run, Pick to switch, Saves with an Undo), the Toast Playground and its five examples, and the ListDetail, Button, IconButton, SegmentedControl, Tabs, ToggleGroup and RadioGroup Overviews keep every box, colour and opacity: 0 differences over 8,339 elements.
+- **ItemList Overview.** The points on `create` and `undoDelete` are rewritten to name `newDisabled` and `useUndo`, at the same 179 px; the seven examples keep their place and size, and the two new ones add 878 px (406 and 448 px), so the states, the playground and the code move down by 878 px; the code grows by 180 px.
+- **Toast Overview.** The point on `action` names `undo`, at the same height; the examples and the playground keep their place, and the code grows by 54 px.
+- **New off.** With the reason, New keeps its box, at opacity 0.4 with the default cursor and no hover colour; a click and Enter add no row; the reason shows on hover and on Tab, and leaves on pointer out and Escape. With the game running, New is back at opacity 1 and adds a save.
+- **Ctrl+Z.** In the new example, Load, Save over and a delete, then Ctrl+Z three times with focus in the list: the delete comes back, then the save over, then the load, and each toast closes as its step runs; a fourth press does nothing. With focus outside the list, Ctrl+Z undoes a load and leaves a waiting delete for the list. The Undo of a toast runs the same step, and a toast closed with its X leaves nothing for Ctrl+Z.
+
+### Gallery and tests
+
+ItemList gains Saves: New needs a running game and says so (a Game running switch over the list) and Saves: Load, Save over and delete, each undone with Ctrl+Z. The ItemList and Toast usage files and docs/using-tessera.md (One Ctrl+Z for the app, two rows in Common needs) say when to pass `newDisabled`, `undo` and `useUndo`. `tests/undo-stack.test.mjs` checks the order, the keys left to text boxes and to Shift or Alt, `within`, `expires`, `useUndo`, the toast step and its close, and the ItemList delete steps through a remount. `tests/item-list-new-disabled.test.mjs` checks the markup of New in each state, the pass through ListDetail and the Undo of a toast.

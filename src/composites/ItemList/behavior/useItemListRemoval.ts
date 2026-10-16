@@ -47,13 +47,6 @@ const useItemListRemoval = <T,>(
     if (focused && next !== undefined) focusInRow(listRef.current, next, ROW_SELECTOR);
   };
 
-  const restoreLatest = (): boolean => {
-    const latest = deletes.pending.at(-1);
-    if (latest === undefined) return false;
-    restore(latest);
-    return true;
-  };
-
   const confirmed = (id: string) => {
     const next = nearRow(order, rowIds, id);
     onDelete?.(id);
@@ -62,7 +55,7 @@ const useItemListRemoval = <T,>(
 
   const kept = (id: string) => focusIfLost(listRef.current, id);
 
-  return { remove: onDelete ? remove : undefined, restore, commit, restoreLatest, confirmed, kept };
+  return { remove: onDelete ? remove : undefined, restore, commit, confirmed, kept };
 };
 
 export { useItemListRemoval };

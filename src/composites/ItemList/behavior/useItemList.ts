@@ -3,14 +3,13 @@ import { useState, useRef } from 'react';
 import type { FocusEvent, KeyboardEvent } from 'react';
 import type { ItemListProps, ItemListView } from '../ItemList.type';
 import { focusRow } from './focus-row';
-import { isTextEntry } from './is-text-entry';
-import { isUndoKey } from './is-undo-key';
 import { listKey } from './list-key';
 import { rowButtons } from './row-buttons';
 import { tabRow } from './tab-row';
 import { useItemListDeletes } from './useItemListDeletes';
 import { useItemListRemoval } from './useItemListRemoval';
 import { useItemListRows } from './useItemListRows';
+import { useItemListUndo } from './useItemListUndo';
 
 const useItemList = <T,>(props: ItemListProps<T>): ItemListView<T> => {
   const { selectedId = null, onSelect, onActivate, onRename, deleteKey = false } = props;
@@ -22,6 +21,7 @@ const useItemList = <T,>(props: ItemListProps<T>): ItemListView<T> => {
   const rows = useItemListRows(props, query, deletes, renamingId);
   const { order, rowIds } = rows;
   const removal = useItemListRemoval(props, deletes, rows, listRef);
+  useItemListUndo(props, deletes.pending, removal.restore, listRef);
   const tabId = tabRow(rowIds, focusedId, selectedId);
   const { remove } = removal;
 
@@ -32,10 +32,6 @@ const useItemList = <T,>(props: ItemListProps<T>): ItemListView<T> => {
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (isUndoKey(event) && !isTextEntry(event.target) && removal.restoreLatest()) {
-      event.preventDefault();
-      return;
-    }
     listKey({
       event, buttons: rowButtons(listRef.current), rowIds, rename: onRename && setRenamingId,
       remove: deleteKey && remove ? (id) => remove(id, 'key') : undefined, onSelect, onActivate,

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 
 interface ReasonTipProps {
   reason: string | undefined;
+  stop?: boolean;
   children: ReactNode;
 }
 
