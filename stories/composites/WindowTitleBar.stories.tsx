@@ -14,6 +14,7 @@ import { titleBarActions } from './_samples/title-bar-actions';
 import { ARGS, ARG_TYPES } from './_samples/title-bar-args.constants';
 import type { TitleBarArgs } from './_samples/title-bar-args.type';
 import type { TitleBarGroupLook } from './_samples/title-bar-group.type';
+import { TitleBarFrameRate } from './_samples/TitleBarFrameRate';
 import { TitleBarGroupDemo } from './_samples/TitleBarGroupDemo';
 import { TitleBarWidths } from './_samples/TitleBarWidths';
 import { TITLE_BAR_CODE } from './_samples/title-bar-code.constants';
@@ -160,6 +161,13 @@ const groupStory = (name: string, look?: TitleBarGroupLook) => ({
 
 const OwnMenu = groupStory('An action with its own menu, and a status that pulses');
 
+const FrameRate = {
+  name: 'A status that counts, like a frame rate',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <TitleBarFrameRate title={args.title} logo={LOGO} menu={STATE_MENU} />,
+} satisfies PlaygroundStory<TitleBarArgs>;
+
 const MarkedMenu = groupStory('A dropdown action with a tone and an effect, on the bar and folded', { tone: 'warning', effect: 'ping' });
 
 const renderState = (props: StateProps) => (
@@ -175,12 +183,12 @@ const Overview = overviewStory({
     '`menu` takes [DropdownMenu] groups; `onControl` hears the window buttons; `controls` hides some, `false` all.',
     '`actions` add icon buttons with a tooltip of their label and `shortcut`; `tone` and `effect` mark the icon.',
     "An action with `bar: 'dropdown'` opens a menu of its own from `groups`, its icon marked the same way.",
-    "A `bar: 'status'` action shows its `status` as text; `pulse` adds a beating dot while work runs.",
+    "A `bar: 'status'` action shows `status` as text with digits of one width; `pulse` adds a beating dot.",
     'Narrow windows move items into the menu, a dropdown as a sub-menu; minimize, maximize and close stay.',
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, Narrow, OwnMenu, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed],
+  variants: [AppWindow, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed],
   states: {
     render: renderState,
     list: [
@@ -201,4 +209,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AppWindow, Concealed, FewerButtons, MarkedMenu, Maximized, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance };
+export { AppWindow, Concealed, FewerButtons, FrameRate, MarkedMenu, Maximized, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance };

@@ -60,3 +60,19 @@ The gallery's Core · Setup pages show how to build each one: the folder, the us
 - A pattern used twice gets extracted to the right tier.
 - Style in the component's own CSS file. Inline `style` is for values computed at run time, and each such file is listed with its reason in `eslint.config.mjs`.
 - Every exported part has a gallery page in `stories/`, registered in `.storylite/catalogue*.constants.ts`.
+
+## Animation never moves the layout
+
+An animated part keeps one box for its whole cycle, so nothing around it shifts while it plays. Only a change in the number of characters of its text may change its size.
+
+- Animate `transform` and `opacity`. A colour, a shadow, a filter or a clip draws over the box and is fine too.
+- When the look needs a property that takes room, such as weight, letter spacing or a scale that pushes its neighbours, reserve the space of the largest state the part reaches and keep it. Emphasis does this with a hidden copy of its text at the peak weight, laid in the same grid cell as the moving text.
+- A number that changes while the part animates uses tabular figures (`font-variant-numeric: tabular-nums`), so `59` and `60` take the same width.
+
+`tests/steady-motion.test.mjs` fails when a keyframe animates a property that takes room. To measure the parts themselves, start the gallery and run:
+
+```sh
+PLAYWRIGHT_MODULE=<path to an installed playwright package> pnpm check:steady
+```
+
+It reads the box of every animated part listed in `scripts/storylite/check-steady.constants.mjs` on each frame for five seconds and lists each box that changed while its text kept its length. Add a new animated part to that list.

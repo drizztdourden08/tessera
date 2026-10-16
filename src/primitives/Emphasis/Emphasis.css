@@ -30,6 +30,10 @@
   visibility: hidden;
 }
 
+.emphasis__ghost--apart {
+  font-kerning: none;
+}
+
 .emphasis__text,
 .emphasis__letter {
   font-weight: var(--emphasis-from);

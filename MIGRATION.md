@@ -7722,3 +7722,54 @@ The InfoScreen page loses the `width` control; its Overview, the Credits variant
 - **About** needs nothing: Brock's `AboutScreen` already draws an `InfoScreen` and opens small after the upgrade.
 - **Credits** needs Brock. Either a card screen gets a way to say it is informational, for example `meta.size: 'info'`, which Brock's `ScreenLayer` passes to `ScreenWindow` as `size` (with `header: 'none'`, since the title bar names it), or RotP's credits card draws an `InfoScreen` itself on `layer: 'own'`, as `AboutScreen` does. `createCreditsScreen` should take the same route.
 - RotP's `CreditsTab.css` then drops `overflow-y: auto` and `max-height: 100%` on `.credits-tab`: the InfoScreen column scrolls.
+
+## 231. Animated parts keep their box, and a title bar status that counts stays put
+
+RotP's title bar shows the frame rate, `60 FPS (120 Hz)`, through Brock's `useFrameRateTitleBarItem`, a `kind: 'status'` item that Brock passes to WindowTitleBar as a `bar: 'status'` action with no `pulse`, tone or effect. The reading changes every 500 ms. Each change swells the text through Emphasis, and Emphasis already held the box at the peak weight, but Inter draws its digits at different widths: at rest the item measured 93.28 px at 60, 92.58 at 59, 92.61 at 58 and 90.27 at 61, so the items after it slid by up to 3 px on each reading. The cause sat in Tessera, not in Brock.
+
+### The rule
+
+An animated part keeps one box for its whole cycle, so nothing around it moves while it plays. Only a change in the number of characters of its text may change its size.
+
+- Animate `transform` and `opacity`; a colour, a shadow, a filter or a clip draws over the box and is fine too.
+- When the look needs a property that takes room, such as weight, letter spacing or a scale that pushes its neighbours, reserve the space of the largest state and keep it, as Emphasis does with a hidden copy of its text at the peak weight.
+- A number that changes while the part animates uses tabular figures, so `59` and `60` take the same width.
+
+`docs/design-system.md` states the rule for new parts.
+
+### What changed
+
+- **WindowTitleBar** draws a status with `font-variant-numeric: tabular-nums`. Every two digit reading of `00 FPS (120 Hz)` now measures 96.50 px, at rest and through the swell, and the next item holds at one place.
+- **Emphasis** with a `stagger` gains a second hidden copy, `.emphasis__ghost--apart`, drawn at the peak weight with `font-kerning: none`. Letters at different weights are shaped apart and lose the kerning between them, so mid swell a word could run past the kerned copy: the Playground's Triforce at 300 to 900 measured 187.69 to 189.27 px over a cycle. The box now takes the wider copy and holds at 190.41 px. Other lettered boxes on that page grow by up to 3 px at rest; the text inside draws as before. Emphasis with no stagger is unchanged.
+
+### Measured over a cycle
+
+Every box read on each frame with `getBoundingClientRect` for 5 to 9 seconds, before and after:
+
+| Part | Before | After |
+| --- | --- | --- |
+| Title bar status, a frame rate from 58 to 61 | 90.27 to 93.28 px wide, the next item at 246.27 to 249.28 px | 96.50 px, the next item at 252.50 px |
+| Title bar status with fixed text, swelling every 4 s | 93.28 px, steady | 96.50 px, steady |
+| Emphasis Playground, Triforce lettered from 300 to 900 | 187.69 to 189.27 px | 190.41 px, steady |
+| Status with `pulse` | 91.86 px, steady | unchanged |
+| Icon effects: twinkle, glint, ping, burst, dot, comet and shimmer | 16 by 16 px, steady | unchanged |
+| RetryButton counting down | 204.14 px at 11 and 10 s, 196.36 px from 9 s, one character fewer | unchanged |
+| Button with `loading`, with and without an icon | 146.89 and 44.84 px, steady | unchanged |
+| Rating, shown and picked | 157.47 and 118.00 px, steady | unchanged |
+| Carousel turning every 1.5 s | viewport 400 by 80 px, dot track 60.00 px | unchanged |
+| Splash progress, indeterminate | 256 by 6 px, steady | unchanged |
+
+The Carousel's dots trade width inside their track, 8 px to 24 px for the current one, while the track holds 60.00 px within 0.02 px of layout rounding; the pill sliding between the dots is the animation itself, and nothing outside the track moves. A sweep of all 239 Overview pages, sampled for 4.6 s each, found no other part whose layout box changed while its text kept its length: the rest were boxes that turn or scale (Spinner, the mascots, the ShortcutTour keys) and bars fed live values.
+
+### The checks
+
+- `tests/steady-motion.test.mjs` fails when a keyframe in `src` or `splash.css` animates a property that takes room. Emphasis's `font-weight` swell is the one exception, held by its peak copy, and the test checks that copy and the title bar's tabular figures.
+- `pnpm check:steady` starts from a running gallery and reads the box of each animated part listed in `scripts/storylite/check-steady.constants.mjs` on every frame for 5 s, with digits folded so a reading that keeps its length must keep its width. It lists each box that moved and exits with 1. On the code before this section it listed the title bar status and the Triforce. `GALLERY_URL` and `PLAYWRIGHT_MODULE` work as for `check:overflow`, whose Playwright loading and page opening it now shares.
+
+### Gallery
+
+The WindowTitleBar page gains the section A status that counts, like a frame rate: a status that reads 60, 59, 61, 58 and 11 FPS twice a second beside a bug button that stays put. The Overview point on `bar: 'status'` names the digits of one width.
+
+### What Brock and RotP do
+
+Nothing. The frame rate item keeps its code and stops moving the title bar after the upgrade.

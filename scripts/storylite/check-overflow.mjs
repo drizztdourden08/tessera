@@ -1,24 +1,15 @@
 /* @layer tooling-scripts @kind entry */
-/* global document, getComputedStyle, location */
+/* global document, getComputedStyle */
 import { readdirSync, readFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { join, relative, sep } from 'node:path';
+import { loadPlaywright } from './load-playwright.mjs';
+import { openOverview } from './open-overview.mjs';
 
 const ROOT = process.cwd();
 const STORIES = join(ROOT, 'stories');
 const URL = process.env.GALLERY_URL ?? 'http://localhost:4400';
 const WIDTHS = (process.env.OVERFLOW_WIDTHS ?? '1920,1440,1280,1100,1000').split(',').map(Number);
 const FRAMES = '.overview__showcase, .overview__fit, .playground, .overview__section, .overview';
-
-const loadPlaywright = () => {
-  const from = process.env.PLAYWRIGHT_MODULE;
-  try {
-    return from ? createRequire(import.meta.url)(from) : createRequire(join(ROOT, 'package.json'))('playwright');
-  } catch {
-    console.error('check:overflow needs Playwright. Set PLAYWRIGHT_MODULE to the path of an installed playwright package.');
-    return process.exit(2);
-  }
-};
 
 const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) => (
   entry.isDirectory() ? walk(join(dir, entry.name)) : [join(dir, entry.name)]
@@ -56,32 +47,13 @@ const scrollsOrSpills = (frames) => {
   ];
 };
 
-const frameOf = async (page) => (await page.$('iframe'))?.contentFrame();
-
-const openPage = async (page, id) => {
-  const old = await frameOf(page);
-  await old?.evaluate(() => document.querySelectorAll('.overview').forEach((el) => { el.dataset.seen = ''; })).catch(() => undefined);
-  await page.evaluate((hash) => { location.hash = hash; }, `#/story/${id}`);
-  for (let tries = 0; tries < 60; tries += 1) {
-    await page.waitForTimeout(250);
-    const frame = await frameOf(page);
-    const ready = await frame?.evaluate(() => document.querySelector('.overview:not([data-seen])') !== null).catch(() => false);
-    if (ready) {
-      await frame.evaluate(() => document.fonts.ready);
-      await page.waitForTimeout(700);
-      return frame;
-    }
-  }
-  return null;
-};
-
 const checkWidth = async (browser, width, ids) => {
   const page = await browser.newPage({ viewport: { width, height: 1000 } });
   await page.goto(`${URL}/`, { waitUntil: 'load' });
   await page.waitForTimeout(3000);
   const found = [];
   for (const id of ids) {
-    const frame = await openPage(page, id);
+    const frame = await openOverview(page, id);
     const problems = frame ? await frame.evaluate(scrollsOrSpills, FRAMES) : ['the page did not load'];
     problems.forEach((problem) => found.push(`${width} px  ${id}: ${problem}`));
   }
@@ -90,7 +62,7 @@ const checkWidth = async (browser, width, ids) => {
 };
 
 const main = async () => {
-  const { chromium } = loadPlaywright();
+  const { chromium } = loadPlaywright(ROOT, 'check:overflow');
   const ids = process.argv.slice(2).length > 0 ? process.argv.slice(2) : overviewIds();
   const browser = await chromium.launch();
   const found = (await Promise.all(WIDTHS.map((width) => checkWidth(browser, width, ids)))).flat();

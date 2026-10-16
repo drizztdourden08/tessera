@@ -15,6 +15,7 @@ const Emphasis = (props: EmphasisProps) => {
   return (
     <Box as="span" className={emphasisClass(resolved, active)} style={emphasisVars(resolved)}>
       {resolved.stable && <Box as="span" className="emphasis__ghost" aria-hidden>{children}</Box>}
+      {resolved.stable && lettered && <Box as="span" className="emphasis__ghost emphasis__ghost--apart" aria-hidden>{children}</Box>}
       <Box as="span" key={pulseKey} className="emphasis__layer">
         {lettered
           ? <EmphasisLetters text={children} stagger={resolved.stagger} anchor={resolved.anchor} order={resolved.order} seed={seed} />

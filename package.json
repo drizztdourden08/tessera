@@ -87,6 +87,7 @@
     "storylite": "storylite dev --port 4400",
     "storylite:build": "storylite build && node scripts/storylite/check-build.mjs",
     "check:overflow": "node scripts/storylite/check-overflow.mjs",
+    "check:steady": "node scripts/storylite/check-steady.mjs",
     "structure": "standards structure --check",
     "prose": "standards prose",
     "sync": "standards sync --check",

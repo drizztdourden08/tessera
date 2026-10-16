@@ -76,6 +76,7 @@
   border: none;
   border-radius: var(--radius-sm);
   background: none;
+  font-variant-numeric: tabular-nums;
   cursor: pointer;
   animation: title-bar-status-breathe var(--duration-status-breathe) var(--ease-in-out) infinite;
 }
