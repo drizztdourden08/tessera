@@ -17,11 +17,13 @@ const usage = {
     'Raise the same message again, not a new one: it joins the toast on screen and shows a count.',
     'Pass an id when the text changes but it is the same event, such as a sync count, so it still joins one toast.',
     'Set duration to 0 only when the toast carries an action the user must see.',
+    'Pass onClose to follow the life of the toast, such as a delete that runs unless Undo was pressed: it runs once, with expired, dismissed, action or replaced.',
+    'Raise each undo toast with its own id when deletes can follow each other: a toast that joins the same message closes the one before with replaced.',
   ],
   a11y: [
     'The stack is a polite status region, so a screen reader reads each toast once.',
     'A danger toast is an alert and is read at once.',
-    'A toast waits while the pointer or focus is on it, and gives focus back when it leaves.',
+    'A toast waits while the pointer or focus is on it, then starts its full time again, and gives focus back when it leaves.',
   ],
   tree: {
     path: ['feedback', 'a short message that passes'],
@@ -47,7 +49,7 @@ const SaveButton = ({ save }: { save: () => Promise<void> }) => (
   </Button>
 );
 `,
-  propsHash: '83c08bd9a360dfea',
+  propsHash: '27ff0bd0a8e5bb1b',
 } satisfies ComponentUsage;
 
 export { usage };

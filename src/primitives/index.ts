@@ -88,6 +88,8 @@ export { DensityScope } from './DensityScope';
 export type { DensityScopeProps } from './DensityScope';
 export { useControlSize } from './field-control/useControlSize';
 export { useDensity } from './field-control/useDensity';
+export { useNameEdit } from './field-control/useNameEdit';
+export type { NameEdit, NameEditOptions } from './field-control/name-edit.type';
 export type { ControlSize, Density } from './field-control/field-control.type';
 export type { ControlLabelSize } from './field-control/label-size.type';
 export type {

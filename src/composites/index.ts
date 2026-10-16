@@ -156,7 +156,7 @@ export type { ValidationProblem, ValidationSummaryProps, ValidationTone } from '
 export { CheckList } from './CheckList';
 export type { Check, CheckListProps, CheckState } from './CheckList';
 export { ItemList } from './ItemList';
-export type { ItemListCreate, ItemListFilter, ItemListGroup, ItemListGroupAction, ItemListProps, ItemListRowParts } from './ItemList';
+export type { ItemListCreate, ItemListFilter, ItemListGroup, ItemListGroupAction, ItemListProps, ItemListRowActions, ItemListRowParts, ItemListRowState } from './ItemList';
 export { ListDetail } from './ListDetail';
 export type { ListDetailGuardLook, ListDetailListProps, ListDetailProps, ListDetailSave } from './ListDetail';
 export { FileList } from './FileList';
@@ -195,5 +195,5 @@ export { ErrorBoundary, type ErrorBoundaryProps } from './ErrorBoundary';
 export { CommandInput, type CommandEntry, type CommandInputProps, type CommandOption, type CommandSubmit } from './CommandInput';
 export { PasswordInput, type PasswordInputProps, type PasswordMode, type PasswordRule, type PasswordScore, type PasswordStrength, type PasswordStrengthLevel } from './PasswordInput';
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from './TagInput';
-export { Toast, ToastStack, toast, type ToastAction, type ToastApi, type ToastInput, type ToastItem, type ToastPosition, type ToastProps, type ToastStackProps, type ToastVariant } from './Toast';
+export { Toast, ToastStack, toast, type ToastAction, type ToastApi, type ToastCloseReason, type ToastInput, type ToastItem, type ToastPosition, type ToastProps, type ToastStackProps, type ToastVariant } from './Toast';
 export { PathInput, type PathBrowse, type PathInputProps, type PathKind } from './PathInput';

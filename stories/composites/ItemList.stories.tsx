@@ -6,6 +6,7 @@ import type { StateProps } from '../_template/states/states.type';
 import { ItemListCreateDemo } from './_samples/ItemListCreateDemo';
 import { ItemListDemo } from './_samples/ItemListDemo';
 import { ItemListSwitchDemo } from './_samples/ItemListSwitchDemo';
+import { ItemListUndoDemo } from './_samples/ItemListUndoDemo';
 import type { ItemListDemoProps, ItemListDemoState } from './_samples/preset-samples.type';
 import './ItemList.stories.css';
 
@@ -75,6 +76,11 @@ const PickToSwitch = {
   render: () => <ItemListSwitchDemo />,
 } satisfies StoryLiteStoryDefinition<ItemListArgs>;
 
+const UndoDelete = {
+  name: 'Saves: delete at once with an Undo, the Delete key and a Load button',
+  render: () => <ItemListUndoDemo />,
+} satisfies StoryLiteStoryDefinition<ItemListArgs>;
+
 const CODE = `import { ItemList } from '@drizztdourden08/tessera';
 
 <ItemList
@@ -127,22 +133,40 @@ const CODE = `import { ItemList } from '@drizztdourden08/tessera';
   onRename={renameProfile}
   onDelete={deleteProfile}
   actionVisibility="always"
+/>
+
+<ItemList
+  title="Saves"
+  items={saves}
+  getId={(save) => save.id}
+  getName={(save) => save.name}
+  selectedId={selectedId}
+  onSelect={setSelectedId}
+  onRename={renameSave}
+  onDelete={deleteSaveForGood}
+  undoDelete={8000}
+  deleteKey
+  rowActions={(save, row) => (
+    <IconButton size="sm" variant="ghost" label={\`Load \${save.name}\`} tabIndex={row.tabIndex} onClick={() => loadSave(save.id)}>
+      <Icon name="play" />
+    </IconButton>
+  )}
 />`;
 
 const Overview = overviewStory({
   component: 'ItemList',
   description: 'The list side of a list and editor screen: a title with its count, New, a filter, groups and rows to rename or delete.',
   points: [
-    '`getId` and `getName` read each item; `render` adds meta, an icon or columns; rows carry `data-item-id`.',
+    '`render` adds meta, an icon or columns; `loading`, `error` and `empty` replace the rows; a filter shows from 8.',
     '`create` draws a form such as [InlineCreateForm] under the title; New carries `data-tour="item-list-new"`.',
     '`groupBy` sorts rows under headings; `groups` orders them and draws empty ones with a line and an action.',
     '`onActivate` runs on a click, [[Enter]] or [[Space]]; the arrow keys then move the focus, not the selection.',
-    '`onRename` ([[F2]]) and `onDelete` add a pencil and a trash; `actionVisibility` shows them on hover or always.',
-    '`loading`, `error` (a [LoadError], with `onRetry`) and `empty` replace the rows; a filter shows from 8 items.',
+    '`rowActions`, `onRename` ([[F2]]) and `onDelete` fill the row buttons, shown on hover or `"always"`.',
+    '`undoDelete` deletes at once with an Undo, waiting under the pointer; `deleteKey` binds [[Delete]].',
   ],
   instead: '[ListDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,
-  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch],
+  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch, UndoDelete],
   states: {
     render: (props: StateProps) => <ItemListDemo {...(props as ItemListDemoProps)} />,
     list: STATES.map((state) => ({ name: state, props: { state, title: state === 'ready' ? 'Presets' : 'Servers' } })),
@@ -151,4 +175,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { CreateForm, EmptyGame, FirstRun, Grouped, Overview, PickToSwitch, Plain, Playground };
+export { CreateForm, EmptyGame, FirstRun, Grouped, Overview, PickToSwitch, Plain, Playground, UndoDelete };

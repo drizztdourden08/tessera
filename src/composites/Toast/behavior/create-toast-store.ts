@@ -21,11 +21,22 @@ const createToastStore = (): ToastStore => {
     read: () => queue,
     show: (input) => {
       const id = toastKey(input);
+      const joined = queue.items.find((item) => item.id === id);
       write({ items: queueToast(queue.items, input, id) });
+      joined?.onClose?.('replaced');
       return id;
     },
-    dismiss: (id) => write({ items: queue.items.filter((item) => item.id !== id) }),
-    clear: () => write({ items: [] }),
+    dismiss: (id, reason = 'dismissed') => {
+      const gone = queue.items.find((item) => item.id === id);
+      if (!gone) return;
+      write({ items: queue.items.filter((item) => item !== gone) });
+      gone.onClose?.(reason);
+    },
+    clear: () => {
+      const gone = queue.items;
+      write({ items: [] });
+      gone.forEach((item) => item.onClose?.('dismissed'));
+    },
     mint: () => {
       minted += 1;
       return `toast-stack-${minted}`;

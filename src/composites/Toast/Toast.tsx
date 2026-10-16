@@ -8,7 +8,7 @@ import { Span } from '../../primitives/text-elements';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useToastTimer } from './behavior/useToastTimer';
 import { TOAST_EXIT } from './Toast.constants';
-import type { ToastProps } from './Toast.type';
+import type { ToastCloseReason, ToastProps } from './Toast.type';
 import './Toast.css';
 
 const Toast = (props: ToastProps) => {
@@ -20,18 +20,21 @@ const Toast = (props: ToastProps) => {
   const { action } = item;
   const toastRef = useRef<HTMLElement>(null);
   const returnRef = useRef<(toast: HTMLElement | null) => void>(() => undefined);
+  const closing = useRef(false);
 
-  const dismiss = useCallback(() => {
+  const dismiss = useCallback((reason: ToastCloseReason) => {
+    if (closing.current) return;
+    closing.current = true;
     returnRef.current(toastRef.current);
     setExiting(true);
-    setTimeout(() => onDismiss(item.id), TOAST_EXIT);
+    setTimeout(() => onDismiss(item.id, reason), TOAST_EXIT);
   }, [item.id, onDismiss]);
-  const hold = useToastTimer(item.duration, dismiss, count);
+  const hold = useToastTimer(item.duration, () => dismiss('expired'), count);
   returnRef.current = hold.returnFocus;
 
   const run = () => {
     action?.onSelect();
-    dismiss();
+    dismiss('action');
   };
 
   return (
@@ -39,7 +42,7 @@ const Toast = (props: ToastProps) => {
       <Span className="toast__message">{item.message}</Span>
       {count > 1 && <Span className="toast__count" title={common.repeated(count)}>{common.repeatedShort(count)}</Span>}
       {action && <Button variant={variant} size="sm" className="toast__action" onClick={run}>{action.label}</Button>}
-      <Pressable className="toast__close" onClick={dismiss} aria-label={fields.dismiss}>
+      <Pressable className="toast__close" onClick={() => dismiss('dismissed')} aria-label={fields.dismiss}>
         <Icon name="x" />
       </Pressable>
     </Box>

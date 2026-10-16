@@ -39,6 +39,10 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - Each row carries data-item-id with its id, so app search can find the row and scroll to it; rowData adds more data attributes.
 - New carries data-tour="item-list-new" for a GuidedTour step; pass createTour to tell two lists on one screen apart.
 - Leave actionVisibility on hover to show rename and delete on the picked row and on any row under the pointer; always shows them on every row.
+- Pass rowActions for buttons of your own before rename and delete, such as Load; give each the tabIndex it receives so the row keeps one Tab stop.
+- Pass undoDelete, such as 8000, when a delete should run at once: the row turns into Deleted with Undo, and onDelete runs when the time is up.
+- Write onDelete as the delete for good when undoDelete is set; it also runs for a row still waiting when the list unmounts.
+- Pass deleteKey to bind the Delete key on a focused row: with undoDelete it deletes at once, without it it opens the Delete question.
 - Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.
 - Write empty as what to do next, such as Install a game from Games, then make a preset for it.
 - Pass the raw failure as error, such as an Error or its message: the list shows Could not load followed by its title, with the raw text behind Details.
@@ -55,6 +59,8 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - New moves focus into the create form; Escape or Cancel closes it and focus goes back to New.
 - After a create, focus goes to the new row when the app picks it, and back to New when it does not.
 - Delete asks once with its own Cancel, and the error is an alert.
+- With undoDelete, Undo is a status with its own Tab stop; Ctrl+Z in the list undoes the latest delete, and the time waits under the pointer or focus.
+- After the Delete key, focus and the selection move to the next row; after the trash button, focus goes to Undo, and after Undo back to the row.
 
 ## Example
 
@@ -117,6 +123,9 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 - `createTour` (optional): `string`. Default `'item-list-new'`.
 - `onRename` (optional): `(id: string, name: string) => void`.
 - `onDelete` (optional): `(id: string) => void`.
+- `undoDelete` (optional): `number`.
+- `deleteKey` (optional): `boolean`.
+- `rowActions` (optional): `ItemListRowActions<T>`.
 - `actionVisibility` (optional): `ListItemRowActionVisibility`, one of `'hover'`, `'always'`.
 - `filter` (optional): `ItemListFilter`, one of `'auto'`, `false`, `true`.
 - `filterPlaceholder` (optional): `string`.
@@ -129,4 +138,4 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-selected`, `--c-text`, `--radius-md`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-medium`.
+It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-selected`, `--c-text`, `--opacity-muted`, `--radius-md`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-medium`.

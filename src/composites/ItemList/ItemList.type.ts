@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
-import type { FocusEvent, KeyboardEvent, ReactNode, RefObject } from 'react';
+import type { FocusEvent, KeyboardEvent, MouseEvent, ReactNode, RefObject } from 'react';
+import type { ItemListRemoval } from './behavior/item-list-deletes.type';
 import type { ActionData } from '../../primitives/action-data';
 import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { ListItemRowActionVisibility, ListItemRowProps } from '../ListItemRow/ListItemRow.type';
@@ -11,6 +12,13 @@ type ItemListFilter = boolean | 'auto';
 type ItemListCreate = (close: () => void) => ReactNode;
 
 type ItemListGroupAction = Pick<ActionData, 'label' | 'onSelect' | 'disabled'>;
+
+interface ItemListRowState {
+  tabIndex?: number;
+  selected: boolean;
+}
+
+type ItemListRowActions<T> = (item: T, row: ItemListRowState) => ReactNode;
 
 interface ItemListGroup {
   name: string;
@@ -38,6 +46,9 @@ interface ItemListProps<T> {
   createTour?: string;
   onRename?: (id: string, name: string) => void;
   onDelete?: (id: string) => void;
+  undoDelete?: number;
+  deleteKey?: boolean;
+  rowActions?: ItemListRowActions<T>;
   actionVisibility?: ListItemRowActionVisibility;
   filter?: ItemListFilter;
   filterPlaceholder?: string;
@@ -53,12 +64,23 @@ interface ItemListGroupRows<T> extends ItemListGroup {
   items: readonly T[];
 }
 
-interface ItemListView<T> {
+interface ItemListRows<T> {
+  shown: readonly T[];
+  shownCount: number;
+  total: number;
+  groups: readonly ItemListGroupRows<T>[];
+  order: readonly string[];
+  rowIds: readonly string[];
+}
+
+interface ItemListView<T> extends ItemListRows<T> {
   query: string;
   setQuery: (query: string) => void;
-  shown: readonly T[];
-  groups: readonly ItemListGroupRows<T>[];
-  rowIds: readonly string[];
+  pending: readonly string[];
+  hoverId: string | null;
+  removal: ItemListRemoval;
+  onMouseOver: (event: MouseEvent<HTMLElement>) => void;
+  onMouseLeave: () => void;
   renamingId: string | null;
   tabId: string | null;
   startRename: (id: string) => void;
@@ -75,6 +97,7 @@ interface ItemListKey extends Pick<ItemListPick, 'onSelect' | 'onActivate'> {
   buttons: readonly HTMLElement[];
   rowIds: readonly string[];
   rename?: (id: string) => void;
+  remove?: (id: string) => void;
 }
 
 interface ItemListRowTabs {
@@ -118,8 +141,11 @@ interface ItemListHeadProps {
 interface ItemListToolsProps {
   id: string;
   name: string;
+  actions?: ReactNode;
   onStartRename?: (id: string) => void;
   onDelete?: (id: string) => void;
+  onKeep?: (id: string) => void;
+  undoable: boolean;
   tabIndex?: number;
 }
 
@@ -136,6 +162,6 @@ interface ItemListRenameProps {
 
 export type {
   ItemListBodyProps, ItemListCreate, ItemListCreateView, ItemListFilter, ItemListGroup, ItemListGroupAction, ItemListGroupRows,
-  ItemListHeadProps, ItemListKey, ItemListPick, ItemListProps, ItemListRenameProps, ItemListRowParts, ItemListRowProps,
-  ItemListRowTabs, ItemListSettle, ItemListToolsProps, ItemListView,
+  ItemListHeadProps, ItemListKey, ItemListPick, ItemListProps, ItemListRenameProps, ItemListRowActions, ItemListRowParts,
+  ItemListRowProps, ItemListRows, ItemListRowState, ItemListRowTabs, ItemListSettle, ItemListToolsProps, ItemListView,
 };

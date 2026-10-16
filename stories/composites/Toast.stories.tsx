@@ -8,6 +8,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { SAMPLE_MESSAGES, TOAST_VARIANTS } from './_samples/toast-samples.constants';
 import { ToastSources } from './_samples/ToastSources';
+import { ToastUndoDemo } from './_samples/ToastUndoDemo';
 
 type ToastArgs = {
   message: string;
@@ -91,28 +92,41 @@ const WithAction = {
   ),
 } satisfies StoryLiteStoryDefinition<ToastArgs>;
 
+const UndoWindow = {
+  name: 'An Undo that lasts as long as the toast',
+  render: () => <ToastUndoDemo />,
+} satisfies StoryLiteStoryDefinition<ToastArgs>;
+
 const Overview = overviewStory({
   component: 'Toast',
   description: 'Short messages that pop up in a corner of the window and leave on their own, such as a save written.',
   points: [
     '`toast()` raises one from any part of the app; `ToastStack`, mounted once at the root, draws the one queue.',
-    'A second `ToastStack` draws nothing while the first is mounted, so two sources never make two stacks.',
-    '`max` on the stack caps how many show at once, 3 by default; the rest wait and show as others leave.',
-    'The same message raised again joins its toast and shows a count, and its timer starts over.',
-    'A toast leaves after `duration`, 5 s by default, or stays at 0; it waits while the pointer or focus is on it.',
-    '`action` adds a button such as Retry; the stack is a polite status region and a `danger` toast is an alert.',
+    '`max` caps how many show, 3 by default; a second `ToastStack` draws nothing while the first is mounted.',
+    'The stack is a polite status region and a `danger` toast is an alert; the same message joins with a count.',
+    'It leaves after `duration` (5 s, 0 stays); it waits under the pointer or focus, then the full time starts again.',
+    '`action` adds a button such as Retry or Undo, which runs and closes the toast.',
+    '`onClose` runs once as it goes: `expired`, `dismissed`, `action`, or `replaced` when the same message joins.',
   ],
   instead: '[Callout] for a note that stays in the page.',
   playground: Playground,
-  variants: [Sources, Variants, Repeated, WithAction],
+  variants: [Sources, Variants, Repeated, WithAction, UndoWindow],
   code: `import { Button, ToastStack, toast } from '@drizztdourden08/tessera';
 
 // Once, at the root of the app
 <ToastStack position="bottom-right" max={3} />
 
 // Anywhere else
-<Button onClick={() => toast({ variant: 'success', message: 'Save state written to slot 3.' })}>Save</Button>`,
+<Button onClick={() => toast({ variant: 'success', message: 'Save state written to slot 3.' })}>Save</Button>
+
+// An undo window that follows the toast: the delete runs when the toast goes for any reason but its action
+toast({
+  message: 'Save deleted.',
+  duration: 8000,
+  action: { label: 'Undo', onSelect: restoreSave },
+  onClose: (reason) => { if (reason !== 'action') deleteSaveForGood(); },
+});`,
 });
 
 export default meta;
-export { Overview, Playground, Repeated, Sources, Variants, WithAction };
+export { Overview, Playground, Repeated, Sources, UndoWindow, Variants, WithAction };

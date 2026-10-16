@@ -33,12 +33,14 @@ Toast keeps one queue per app: every part raises through toast(), the stack caps
 - Raise the same message again, not a new one: it joins the toast on screen and shows a count.
 - Pass an id when the text changes but it is the same event, such as a sync count, so it still joins one toast.
 - Set duration to 0 only when the toast carries an action the user must see.
+- Pass onClose to follow the life of the toast, such as a delete that runs unless Undo was pressed: it runs once, with expired, dismissed, action or replaced.
+- Raise each undo toast with its own id when deletes can follow each other: a toast that joins the same message closes the one before with replaced.
 
 ## Accessibility
 
 - The stack is a polite status region, so a screen reader reads each toast once.
 - A danger toast is an alert and is read at once.
-- A toast waits while the pointer or focus is on it, and gives focus back when it leaves.
+- A toast waits while the pointer or focus is on it, then starts its full time again, and gives focus back when it leaves.
 
 ## Example
 
@@ -67,7 +69,7 @@ const SaveButton = ({ save }: { save: () => Promise<void> }) => (
 ## Props
 
 - `item`: `ToastItem`.
-- `onDismiss`: `(id: string) => void`.
+- `onDismiss`: `(id: string, reason: ToastCloseReason) => void`.
 
 ## Tokens
 

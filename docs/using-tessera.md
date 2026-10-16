@@ -257,6 +257,30 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | A side panel with a heading that folds to a rail and drags wider | `SidePanel`, with `side="end"` for one on the right |
 | An editor, a canvas or a log with its tools on its top edge | `ToolFrame`, with `toolbar` |
 | Tools in groups, each under a small label | `ToolGroups` |
+| Delete a row at once, with an Undo for a few seconds | `undoDelete` on `ItemList`, and `deleteKey` for the Delete key |
+| Buttons of your own on each row of a list, such as Load | `rowActions` on `ItemList` |
+| Run something when a toast goes, such as the delete behind an Undo | `onClose` on `toast()`, told `expired`, `dismissed`, `action` or `replaced` |
+| A rename box of your own: Enter keeps, Escape cancels, leaving keeps | `useNameEdit` |
+
+### A rename box of your own
+
+`useNameEdit({ name, onKeep, onUndo, allowEmpty, canKeep })` is the rename logic ItemList, DataTable headers and InlineCreateForm share. It returns `{ draft, setDraft, ready, keep, onKeyDown, onBlur }`: Enter keeps the trimmed name when `ready`, Escape calls `onUndo`, and leaving the box keeps it unless a key already ended the edit. An empty name is never ready unless `allowEmpty` is set, so call `onUndo` yourself on blur when you want an empty box to cancel.
+
+```tsx
+const SaveName = ({ name, onEnd }: { name: string; onEnd: (next: string | null) => void }) => {
+  const edit = useNameEdit({ name, onKeep: (next) => onEnd(next === name ? null : next), onUndo: () => onEnd(null) });
+  return (
+    <TextInput
+      aria-label="Save name"
+      value={edit.draft}
+      onChange={(event) => edit.setDraft(event.target.value)}
+      onKeyDown={edit.onKeyDown}
+      onBlur={edit.ready ? edit.onBlur : () => onEnd(null)}
+      autoFocus
+    />
+  );
+};
+```
 
 ## The gallery
 

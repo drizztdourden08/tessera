@@ -11,7 +11,7 @@ import { ItemListHead } from './sub-components/ItemListHead';
 import './ItemList.css';
 
 const ItemList = <T,>(props: ItemListProps<T>) => {
-  const { title, items, create, createLabel, createTour = 'item-list-new', filterPlaceholder, loading, className } = props;
+  const { title, create, createLabel, createTour = 'item-list-new', filterPlaceholder, loading, className } = props;
   const { lists } = useTesseraStrings();
   const view = useItemList(props);
   const form = useItemListCreate(props, view);
@@ -20,8 +20,8 @@ const ItemList = <T,>(props: ItemListProps<T>) => {
     <Box as="section" className={['item-list', className].filter(Boolean).join(' ')} aria-label={title} aria-busy={loading === true ? true : undefined}>
       <ItemListHead
         title={title}
-        shown={view.shown.length}
-        total={items.length}
+        shown={view.shownCount}
+        total={view.total}
         onNew={form.onNew}
         newRef={form.newRef}
         creating={form.open}
@@ -34,7 +34,14 @@ const ItemList = <T,>(props: ItemListProps<T>) => {
         </Box>
       )}
       {showsFilter(props) && <SearchInput value={view.query} onChange={view.setQuery} placeholder={placeholder} aria-label={placeholder} />}
-      <Box ref={view.listRef} className="item-list__body" onKeyDown={view.onKeyDown} onFocus={view.onFocus}>
+      <Box
+        ref={view.listRef}
+        className="item-list__body"
+        onKeyDown={view.onKeyDown}
+        onFocus={view.onFocus}
+        onMouseOver={view.onMouseOver}
+        onMouseLeave={view.onMouseLeave}
+      >
         <ItemListBody list={props} view={view} />
       </Box>
     </Box>

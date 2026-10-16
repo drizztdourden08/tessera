@@ -3,6 +3,8 @@ type ToastVariant = 'danger' | 'warning' | 'info' | 'success';
 
 type ToastPosition = 'bottom-right' | 'bottom-left';
 
+type ToastCloseReason = 'expired' | 'dismissed' | 'action' | 'replaced';
+
 interface ToastAction {
   label: string;
   onSelect: () => void;
@@ -14,6 +16,7 @@ interface ToastInput {
   duration?: number;
   action?: ToastAction;
   id?: string;
+  onClose?: (reason: ToastCloseReason) => void;
 }
 
 interface ToastItem extends ToastInput {
@@ -23,7 +26,7 @@ interface ToastItem extends ToastInput {
 
 interface ToastProps {
   item: ToastItem;
-  onDismiss: (id: string) => void;
+  onDismiss: (id: string, reason: ToastCloseReason) => void;
 }
 
 interface ToastStackProps {
@@ -40,7 +43,7 @@ interface ToastStore {
   subscribe: (listener: () => void) => () => void;
   read: () => ToastQueue;
   show: (input: ToastInput) => string;
-  dismiss: (id: string) => void;
+  dismiss: (id: string, reason?: ToastCloseReason) => void;
   clear: () => void;
   mint: () => string;
   claim: (stack: string) => () => void;
@@ -55,6 +58,7 @@ interface ToastApi {
 export type {
   ToastAction,
   ToastApi,
+  ToastCloseReason,
   ToastInput,
   ToastItem,
   ToastPosition,

@@ -44,6 +44,20 @@
   gap: var(--space-2xs);
 }
 
+.item-list__removed .list-item-row__icon,
+.item-list__removed .list-item-row__cell {
+  opacity: var(--opacity-muted);
+}
+
+.item-list__removed .list-item-row__cell--main .list-item-row__primary {
+  text-decoration: line-through;
+}
+
+.item-list__undo {
+  display: flex;
+  align-items: center;
+}
+
 .item-list__rename {
   display: flex;
   grid-column: 1 / -1;

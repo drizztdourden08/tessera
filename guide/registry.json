@@ -5929,6 +5929,10 @@
         "Each row carries data-item-id with its id, so app search can find the row and scroll to it; rowData adds more data attributes.",
         "New carries data-tour=\"item-list-new\" for a GuidedTour step; pass createTour to tell two lists on one screen apart.",
         "Leave actionVisibility on hover to show rename and delete on the picked row and on any row under the pointer; always shows them on every row.",
+        "Pass rowActions for buttons of your own before rename and delete, such as Load; give each the tabIndex it receives so the row keeps one Tab stop.",
+        "Pass undoDelete, such as 8000, when a delete should run at once: the row turns into Deleted with Undo, and onDelete runs when the time is up.",
+        "Write onDelete as the delete for good when undoDelete is set; it also runs for a row still waiting when the list unmounts.",
+        "Pass deleteKey to bind the Delete key on a focused row: with undoDelete it deletes at once, without it it opens the Delete question.",
         "Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.",
         "Write empty as what to do next, such as Install a game from Games, then make a preset for it.",
         "Pass the raw failure as error, such as an Error or its message: the list shows Could not load followed by its title, with the raw text behind Details.",
@@ -5943,7 +5947,9 @@
         "In the rename box, Enter keeps the name and Escape cancels; focus goes back to the row.",
         "New moves focus into the create form; Escape or Cancel closes it and focus goes back to New.",
         "After a create, focus goes to the new row when the app picks it, and back to New when it does not.",
-        "Delete asks once with its own Cancel, and the error is an alert."
+        "Delete asks once with its own Cancel, and the error is an alert.",
+        "With undoDelete, Undo is a status with its own Tab stop; Ctrl+Z in the list undoes the latest delete, and the time waits under the pointer or focus.",
+        "After the Delete key, focus and the selection move to the next row; after the trash button, focus goes to Undo, and after Undo back to the row."
       ],
       "tree": {
         "path": [
@@ -5953,7 +5959,7 @@
         "rule": "ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app."
       },
       "example": "import { ItemList } from '@drizztdourden08/tessera';\n\ninterface Server {\n  id: string;\n  name: string;\n  host: string;\n}\n\nconst ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, loading, error }: {\n  servers: Server[];\n  selectedId: string | null;\n  onSelect: (id: string) => void;\n  onAdd: () => void;\n  onRename: (id: string, name: string) => void;\n  onDelete: (id: string) => void;\n  loading: boolean;\n  error?: string;\n}) => (\n  <ItemList\n    title=\"Servers\"\n    items={servers}\n    getId={(server) => server.id}\n    getName={(server) => server.name}\n    render={(server) => ({ meta: server.host })}\n    selectedId={selectedId}\n    onSelect={onSelect}\n    onCreate={onAdd}\n    createLabel=\"Add\"\n    onRename={onRename}\n    onDelete={onDelete}\n    loading={loading}\n    error={error}\n    empty=\"Add a server to host sessions on.\"\n  />\n);\n",
-      "propsHash": "3602e1bd9cf173b0",
+      "propsHash": "cdb3131ed3f73c6b",
       "props": {
         "own": [
           {
@@ -6053,6 +6059,21 @@
             "text": "(id: string) => void"
           },
           {
+            "name": "undoDelete",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "deleteKey",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "rowActions",
+            "optional": true,
+            "text": "ItemListRowActions<T>"
+          },
+          {
             "name": "actionVisibility",
             "optional": true,
             "text": "ListItemRowActionVisibility",
@@ -6119,6 +6140,7 @@
         "--c-primary",
         "--c-selected",
         "--c-text",
+        "--opacity-muted",
         "--radius-md",
         "--size-32",
         "--space-2xs",
@@ -10328,12 +10350,14 @@
         "Keep the message to one short sentence that says what happened, such as Save state written to slot 3.",
         "Raise the same message again, not a new one: it joins the toast on screen and shows a count.",
         "Pass an id when the text changes but it is the same event, such as a sync count, so it still joins one toast.",
-        "Set duration to 0 only when the toast carries an action the user must see."
+        "Set duration to 0 only when the toast carries an action the user must see.",
+        "Pass onClose to follow the life of the toast, such as a delete that runs unless Undo was pressed: it runs once, with expired, dismissed, action or replaced.",
+        "Raise each undo toast with its own id when deletes can follow each other: a toast that joins the same message closes the one before with replaced."
       ],
       "a11y": [
         "The stack is a polite status region, so a screen reader reads each toast once.",
         "A danger toast is an alert and is read at once.",
-        "A toast waits while the pointer or focus is on it, and gives focus back when it leaves."
+        "A toast waits while the pointer or focus is on it, then starts its full time again, and gives focus back when it leaves."
       ],
       "tree": {
         "path": [
@@ -10343,7 +10367,7 @@
         "rule": "Toast keeps one queue per app: every part raises through toast(), the stack caps how many show and the same message shows once with a count."
       },
       "example": "import { Button, ToastStack, toast } from '@drizztdourden08/tessera';\n\nconst AppRoot = ({ children }: { children: React.ReactNode }) => (\n  <>\n    {children}\n    <ToastStack position=\"bottom-right\" max={3} />\n  </>\n);\n\nconst SaveButton = ({ save }: { save: () => Promise<void> }) => (\n  <Button\n    onClick={() => save().then(\n      () => toast({ variant: 'success', message: 'Save state written to slot 3.' }),\n      () => toast({ variant: 'danger', message: 'The save could not be written.', duration: 0, action: { label: 'Retry', onSelect: () => void save() } }),\n    )}\n  >\n    Save\n  </Button>\n);\n",
-      "propsHash": "83c08bd9a360dfea",
+      "propsHash": "27ff0bd0a8e5bb1b",
       "props": {
         "own": [
           {
@@ -10354,7 +10378,7 @@
           {
             "name": "onDismiss",
             "optional": false,
-            "text": "(id: string) => void"
+            "text": "(id: string, reason: ToastCloseReason) => void"
           }
         ],
         "inherited": {

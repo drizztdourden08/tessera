@@ -8735,3 +8735,66 @@ The Widget Overview merges two points into one and adds one on `chrome`, adds a 
 - **Kits.** Give each kit widget `chrome: 'compact'` or `chrome: 'none'` in its definition, next to its `group`. WidgetManager does the rest for docked and floating widgets.
 - **Popped kit widgets.** Where Brock draws a popped widget with `<Widget mode="out">`, pass `chrome={definition.chrome}`, with `dragRegion` as today; in `none` the grip moves the window.
 - **Own title bar buttons.** Keep `titleBarActions` and `widgetActions` buttons at `size="xs"`; they sit in the strip or the floating pill unchanged.
+
+## 250. ItemList deletes with an Undo, toast onClose, and useNameEdit for RotP's save lists
+
+RotP rebuilt its save lists as rows with no dialogs: actions run at once, with an inline Undo for 8 s. It wrote SaveList, SaveRow's removed state and its own rename hook because ItemList had no row buttons of the app's own, no delete with an Undo and no Delete key, and toast() could not tell the app how it closed.
+
+### What changed
+
+- **ItemList** takes three options; left out, every list draws and behaves as before:
+
+```ts
+interface ItemListRowState { tabIndex?: number; selected: boolean }
+type ItemListRowActions<T> = (item: T, row: ItemListRowState) => ReactNode;
+
+interface ItemListProps<T> {
+  rowActions?: ItemListRowActions<T>;
+  undoDelete?: number;
+  deleteKey?: boolean;
+}
+```
+
+- `rowActions` draws buttons of the app's own before rename and delete. Pass `row.tabIndex` to each button so the row keeps one Tab stop; `row.selected` is true on the picked row.
+- `undoDelete` (milliseconds, such as `8000`) swaps the Delete question for a plain trash button. A delete runs at once: the row stays in place, its icon and text faded, the name struck through, its meta reading Deleted (`lists.deleted`), with an Undo button (`lists.undo`, named `lists.undoDeleteOf(name)`) in a status region. When the time is up `onDelete(id)` runs; Undo puts the row back and calls nothing. The time waits while the pointer is on the row or focus is on Undo, then starts in full again, the way a toast waits. Ctrl+Z or Cmd+Z in the list, outside a text box, undoes the latest delete. A row still waiting when the list unmounts is deleted then, so a delete is never lost by leaving the page. The row stays hidden after `onDelete` until its item leaves `items`, and a waiting row whose item leaves `items` is dropped without a call. Waiting rows stay in the list through the filter, and the title counts neither them nor the deleted ones.
+- `deleteKey` binds Delete on the focused row: with `undoDelete` it deletes at once, without it it opens the row's Delete question.
+- Focus: after the Delete key, focus moves to the next row (the one before at the end) and, without `onActivate`, so does the selection; after the trash button focus goes to Undo; after Undo it goes back to the row; when the time is up with focus on Undo it goes to the next row. In the Delete question, Keep or Escape now gives focus back to the row when the trash button is hidden, and Delete gives it to the next row; before, focus fell to the page.
+- The undo time is one shared internal hook, `useHeldTimeout(held, duration, onEnd, restart)` in `primitives/dom`, which Toast's timer now uses too.
+- **toast()** takes `onClose`:
+
+```ts
+type ToastCloseReason = 'expired' | 'dismissed' | 'action' | 'replaced';
+interface ToastInput { onClose?: (reason: ToastCloseReason) => void }
+interface ToastProps { onDismiss: (id: string, reason: ToastCloseReason) => void }
+```
+
+It runs once, when the toast leaves the queue: `expired` when its time ran out, `dismissed` for the close button, `toast.dismiss(id)` or `toast.clear()`, `action` after its action ran, and `replaced` when the same message (or the same `id`) was raised again and joined it, so the toast it offered is gone. The close button and the timer wait for the 200 ms exit before they report. **Timing:** a toast leaves `duration` after it shows; while the pointer or focus is on it, it waits, and when they leave the full `duration` starts again, as it did before. Raising the same message again also starts it again. So an undo window that follows `onClose` lasts at least `duration` and stretches while the user looks at it; measured, a toast held 9 s under the pointer was still there and expired 8.4 s after the pointer left, with an 8 s `duration`.
+
+- **useNameEdit** is exported, with `NameEdit` and `NameEditOptions`: `useNameEdit({ name, onKeep, onUndo?, allowEmpty?, canKeep? })` returns `{ draft, setDraft, ready, keep, onKeyDown, onBlur }`. Enter keeps the trimmed name when `ready`, Escape calls `onUndo`, and leaving the box keeps it unless a key already ended the edit. docs/using-tessera.md has the recipe. Usage files exist only for component folders, so the hook is documented there and in the Common needs table, not in a usage file of its own.
+- New strings `lists.deleted`, `lists.undo` and `lists.undoDeleteOf`.
+
+### What replaces RotP's pieces
+
+| RotP | Tessera |
+|---|---|
+| `SaveList`, `useSaveListKeys`, `row-key-action`, `focus-row`, `row-id-of`, `is-undo-key` | `ItemList` with `onSelect`, `onRename`, `onDelete`, `undoDelete={8000}` and `deleteKey`: the arrows, Home, End, F2, Delete and Ctrl+Z are built in |
+| `SaveRowRemoved`, the `deleted` notice and `SaveRowNoticeLine` for a delete | the waiting row ItemList draws itself |
+| `useUndoWindow` for deletes (`offer`, `undo`, `undoLatest`, commit on unmount) | `undoDelete`, with the delete for good in `onDelete` |
+| `SaveRowActions` (Load, Overwrite) | `rowActions`, passing `row.tabIndex` to each IconButton; keep each Tooltip and `disabledReason` as they are |
+| `SaveRowRename` and `useRename` | ItemList's own rename with `onRename`; for a rename box of your own, `useNameEdit` with `onBlur` |
+| `SaveRowThumb` and the screenshot | `render={(save) => ({ icon: <SaveRowThumb src={...} />, meta: <SaveRowTime timestamp={save.timestamp} /> })}` |
+| `SaveRowTime` and `relative-time` | stays in RotP until the owner decides on a RelativeTime part (TX-63) |
+
+The `saved` and `loaded` notices (overwrite and load with Undo) are not deletes and stay with RotP's `useUndoWindow`; draw their Undo through `rowActions`, or raise a toast with `action: { label: 'Undo' }` and run the commit from `onClose` when the reason is not `action`.
+
+### Gallery
+
+Measured at 1440 px against the gallery before the change, with no console errors on any page touched.
+
+- ItemList: the Playground and the seven examples (Presets in groups, the empty game, Servers, Profiles created in place, First run, Pick to switch) keep every box, colour and opacity: 0 differences over 546 elements. On the Overview, the points on `render`, the row buttons and the loading states are rewritten to make room for `rowActions` and `undoDelete`, and a new example, Saves: delete at once with an Undo, the Delete key and a Load button, comes after Pick to switch; every example above it keeps its box, the states below it move down by 416 px and the code grows by 324 px. A waiting row keeps the 56 px of a live row.
+- Toast: the Playground and the four examples keep every box: 0 differences over 180 elements. On the Overview the points are regrouped around `onClose` and end 29 px shorter, and a new example, An Undo that lasts as long as the toast, moves the code down by 160 px.
+- Preview · For approval comes back with RelativeTime, gallery only: "5 minutes ago" from `Intl.RelativeTimeFormat`, the full date in a Tooltip, one timer for every RelativeTime on the page that redraws them each minute (four on a page made one 60 s interval), and the locale and Just now from the strings. It is not in the package; the owner picks in TX-63.
+
+### Tests
+
+`tests/item-list-undo.test.mjs` checks the row buttons and their tabIndex, the action track, the trash with and without `undoDelete`, the Delete key, Ctrl+Z, the next row after a delete, forgetting deletes whose item left, and the `useNameEdit` export. `tests/toast-close.test.mjs` checks each reason, that it runs once, `replaced` on a join and `clear`. `tests/relative-time-preview.test.mjs` checks the preview's wording, locale and its one shared timer.
