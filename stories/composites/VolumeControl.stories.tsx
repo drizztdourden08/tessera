@@ -113,7 +113,7 @@ const Overview = overviewStory({
   points: [
     'With `value` and `onChange` alone, mute drops the level to the minimum and a second press brings it back.',
     'Pass `muted` and `onMutedChange` to keep the level while muted; dragging the slider while muted unmutes.',
-    'The icon grows gold waves in three steps as the level rises and turns into a red X at 0 or muted.',
+    'The icon grows primary colour waves in four steps as the level rises, and a red X at 0 or muted.',
     '`slider="popover"` opens the slider on hover or focus, vertical unless `orientation` is horizontal.',
     'In the popover the wheel and the arrows change the level; it closes on leave, blur, Escape or a click away.',
     'The readout shows percent of the range unless `formatValue` says otherwise, and both parts report hints.',

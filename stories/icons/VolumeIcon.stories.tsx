@@ -49,13 +49,13 @@ const Live = {
 
 const Overview = overviewStory({
   component: 'VolumeIcon',
-  description: 'The speaker of a sound level: gold waves that grow in steps as the level rises, and a red X at 0 or muted.',
+  description: 'A sound level icon: a white speaker, waves in the primary colour that grow in four steps as the level rises, and a red X at 0 or muted.',
   points: [
-    '`level` runs from 0 to 1: up to a third draws one wave, up to two thirds two, and above that three.',
-    'Each wave is larger and reaches further; a new one grows out of the speaker as the old ones stay.',
-    'At 0 or with `muted` the waves fade out as a red X draws in; the speaker keeps the text colour.',
-    'Every change morphs over 390 ms on transform, opacity and stroke offset, so the box never moves.',
-    'Under reduced motion the icon switches at once.',
+    '`level` runs from 0 to 1: one wave up to 25%, two up to 50%, three up to 75% and four above that.',
+    'Each step makes the shown waves taller, as every arc draws out from its middle toward its tips.',
+    'Waves take `--c-volume-wave`, the primary colour; the speaker takes `--c-text`, white on the dark ground.',
+    'At 0 or with `muted` the waves fade out as a red X draws in.',
+    'Every change morphs over 390 ms on transform, opacity and stroke offset; reduced motion switches at once.',
     '[VolumeControl] and the [Video] bar draw it; use it alone beside a level shown somewhere else.',
   ],
   playground: Playground,

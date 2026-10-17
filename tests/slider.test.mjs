@@ -89,8 +89,8 @@ describe('VolumeControl', () => {
     expect(html).toContain('aria-label="Unmute"');
     expect(html).toContain('aria-label="Music"');
     expect(html).toContain('data-step="0"');
-    expect(renderToString(h(VolumeControl, { value: 30, onChange: noop }))).toContain('data-step="1"');
-    expect(renderToString(h(VolumeControl, { value: 80, onChange: noop }))).toContain('data-step="3"');
+    expect(renderToString(h(VolumeControl, { value: 20, onChange: noop }))).toContain('data-step="1"');
+    expect(renderToString(h(VolumeControl, { value: 80, onChange: noop }))).toContain('data-step="4"');
     expect(renderToString(h(VolumeControl, { value: 80, onChange: noop, muted: true, onMutedChange: noop }))).toContain('data-step="0"');
   });
 

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-type VolumeStep = 0 | 1 | 2 | 3;
+type VolumeStep = 0 | 1 | 2 | 3 | 4;
 
 interface VolumeIconProps {
   level: number;

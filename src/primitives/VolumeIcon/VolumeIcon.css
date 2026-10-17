@@ -8,7 +8,7 @@
 }
 
 .volume-icon__speaker {
-  stroke: currentcolor;
+  stroke: var(--c-text);
 }
 
 .volume-icon__wave,
@@ -41,17 +41,28 @@
 }
 
 .volume-icon[data-step='0'] .volume-icon__cross,
-.volume-icon:is([data-step='1'], [data-step='2'], [data-step='3']) .volume-icon__wave--1,
-.volume-icon:is([data-step='2'], [data-step='3']) .volume-icon__wave--2,
-.volume-icon[data-step='3'] .volume-icon__wave--3 {
+.volume-icon:not([data-step='0']) .volume-icon__wave--1,
+.volume-icon:is([data-step='2'], [data-step='3'], [data-step='4']) .volume-icon__wave--2,
+.volume-icon:is([data-step='3'], [data-step='4']) .volume-icon__wave--3,
+.volume-icon[data-step='4'] .volume-icon__wave--4 {
   opacity: 1;
   transform: none;
 }
 
+.volume-icon[data-step='1'] .volume-icon__wave--1 path {
+  stroke-dashoffset: 0.4;
+}
+
+.volume-icon[data-step='2'] :is(.volume-icon__wave--1, .volume-icon__wave--2) path {
+  stroke-dashoffset: 0.27;
+}
+
+.volume-icon[data-step='3'] :is(.volume-icon__wave--1, .volume-icon__wave--2, .volume-icon__wave--3) path {
+  stroke-dashoffset: 0.13;
+}
+
 .volume-icon[data-step='0'] .volume-icon__cross path,
-.volume-icon:is([data-step='1'], [data-step='2'], [data-step='3']) .volume-icon__wave--1 path,
-.volume-icon:is([data-step='2'], [data-step='3']) .volume-icon__wave--2 path,
-.volume-icon[data-step='3'] .volume-icon__wave--3 path {
+.volume-icon[data-step='4'] .volume-icon__wave path {
   stroke-dashoffset: 0;
 }
 

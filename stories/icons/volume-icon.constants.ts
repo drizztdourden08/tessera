@@ -11,13 +11,15 @@ const VOLUME_CASES: Readonly<Record<string, VolumeCase>> = {
 };
 
 const VOLUME_CYCLE: readonly VolumeCase[] = [
-  { level: 0.2, muted: false },
+  { level: 0.25, muted: false },
   { level: 0.5, muted: false },
-  { level: 0.9, muted: false },
-  { level: 0.9, muted: true },
-  { level: 0.9, muted: false },
+  { level: 0.75, muted: false },
+  { level: 1, muted: false },
+  { level: 1, muted: true },
+  { level: 1, muted: false },
+  { level: 0.75, muted: false },
   { level: 0.5, muted: false },
-  { level: 0.2, muted: false },
+  { level: 0.25, muted: false },
   { level: 0, muted: false },
 ];
 

@@ -65,7 +65,7 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
         { name: 'Glyph', summary: 'The small stroke glyphs the components draw.' },
         { name: 'InputIcon', summary: 'Controller buttons, sticks, triggers and keyboard keys by family, for button prompts.' },
         { name: 'EmojiIcon', summary: 'An emoji at a fixed size and baseline.' },
-        { name: 'VolumeIcon', summary: 'A speaker whose gold waves grow with the sound level, and a red X when muted.' },
+        { name: 'VolumeIcon', summary: 'A white speaker whose waves in the primary colour grow in four steps with the sound level, and a red X when muted.' },
       ],
     }],
   },

@@ -9274,3 +9274,40 @@ The Splash page gains A pixel art wordmark, scaled up sharp, and a very wide one
 - **BootFailureSplash.** Pass `wordmarkPixelated={wordmark?.rendering === 'pixelated'}` to Splash, and drop `BootFailureSplash.css` and the `boot-failure-splash--pixelated` class name.
 - **The static splash page.** In `render-splash-page.mjs` write `ts-wordmark ts-wordmark--pixelated` in place of `ts-wordmark splash__pixelated`, and drop `.splash__pixelated` from `splash-page.css`.
 - **A smooth PNG wordmark under 48 px high** now draws at its own height on the splashes; give it at least 48 px of height. A pixel art wordmark with `rendering: 'pixelated'` scales up as before, now to the full row width with no band.
+
+## 260. VolumeIcon in four steps, with waves that grow taller
+
+The owner looked at VolumeIcon (section 257) and asked for four steps, each with its own height, waves in the primary colour, a white speaker and a red X.
+
+### What changed
+
+- **Four steps.** `volumeStep` rounds the level up to the next quarter: above 0 up to 25% draws one wave, up to 50% two, up to 75% three, and above 75% four. So 25, 50, 75 and 100% draw one, two, three and four waves, and 0 or `muted` draws the X.
+
+```ts
+type VolumeStep = 0 | 1 | 2 | 3 | 4;
+```
+
+- **Taller waves at every step.** Each half of an arc starts at its middle, so `stroke-dashoffset` trims it from the tips: at step 1 the shown waves draw 60% of their length, at step 2 73%, at step 3 87% and at step 4 all of it. A change between steps morphs the arcs in height over `--duration-volume-morph` (390 ms, `--ease-in-out`), on `transform`, `opacity` and `stroke-dashoffset` only, so the 24 unit box never changes; under reduced motion it switches at once.
+- **New drawing.** Four arcs around a point 1 unit left of the old one, radii 4, 7, 10 and 13, each spanning 50 degrees either side of the middle. The speaker moves 1 unit left to make room, and the X 1 unit left with it.
+- **Colours.** The waves take `--c-volume-wave`, now `--c-primary` in place of `--c-primary-bright`: grey `#8a8a96` in Tessera, violet `#7c4dff` in Archipelia, orange `#f0862b` in Brock and gold `#c8a84e` in RotP. The speaker takes `--c-text` in place of `currentcolor`, white in every palette (`#f0f0f2` in Tessera and RotP, `#f2f1f7` in Archipelia, `#eeeeee` in Brock), so it no longer follows the colour of the button around it. The X keeps `--c-danger`.
+
+### Measured
+
+At 1440 px on the VolumeIcon Overview, the 32 px icons keep a 32 by 32 box at every step, and `check:steady` keeps every box on its 12 pages. The shown height of each wave, in units of the 24 unit box with the stroke:
+
+| Step | Wave 1 | Wave 2 | Wave 3 | Wave 4 |
+|---|---|---|---|---|
+| 1 (25%) | 6 | | | |
+| 2 (50%) | 6.8 | 10.3 | | |
+| 3 (75%) | 7.5 | 11.6 | 15.8 | |
+| 4 (100%) | 8.1 | 12.7 | 17.3 | 21.9 |
+
+Contrast on the dark ground of the gallery: waves 5.98:1 in Tessera, 4.23:1 in Archipelia, 7.96:1 in Brock and 8.90:1 in RotP; the speaker 17.7 to 18.1:1; the X 6.2 to 6.6:1. No console errors.
+
+### Gallery and tests
+
+The step row keeps 0, 25, 50, 75 and 100% and muted, now four different drawings. The cycle example walks 25, 50, 75 and 100%, mutes, and walks back down to 0. The Overview, the VolumeControl point and the catalogue line name the four steps and the colours. `tests/volume-icon.test.mjs` checks the quarters, the four waves, the offset of each step and the three colours.
+
+### What apps do
+
+Nothing to change. An app that set `--c-volume-wave` keeps its value. An app that relied on the speaker taking the colour of its button now gets `--c-text`.
