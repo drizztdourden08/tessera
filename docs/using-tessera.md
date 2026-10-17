@@ -234,13 +234,14 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | Show an error or a warning in a page | `Callout` with `tone="danger"` or `tone="warning"` |
 | Search a list | `SearchInput`, or `FilterBar` for search and filters together |
 | Row buttons always visible | `actionVisibility="always"` on `ListItemRow` |
-| Colour log lines by type | `kinds` on `LogPanel`, with `tone` and `toneMessage` |
+| Colour log lines by type | `kinds` on `LogPanel`, with `tone` and `toneMessage`: a text tone, a tag tint or a hex colour |
 | A password field | `PasswordInput` |
 | Equal columns that wrap | `Grid` with `minColWidth` |
 | Label and value facts, on a line or in rows | `FactsPanel` with `layout`, or `StatRow` |
 | A date or a time, such as 5 minutes ago or Today, 21:40 | `DateText` with `format`; `formatDate` for text outside React; `SchemaConfig.dates` for a DataTable column |
 | Steps of a process | `Stepper` |
 | A count after a heading | `count` on `SectionHeader` or `ListItemList` |
+| A count that shows nothing at 0 | `hideZero` on `Badge`, `Tabs`, `Card`, `SectionHeader` or `HeaderAnchorNav` |
 | Quiet, error or code text | `tone`, `mono` and `numeric` on `Text` |
 | A whole screen with nothing in it yet | `EmptyState` with `size="hero"`, `title`, `action` and `hint` |
 | A blank record or list item to start a create form from | `blankValue(field)` from `/data`: each required field at its empty value |
@@ -252,7 +253,7 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | A few featured items that turn in one banner | `Carousel` with `turnEvery`, its slides any node such as a `Hero` |
 | A picture or a video opened large, with zoom | `MediaViewer`, with `items` for arrows through a set |
 | Small form parts for a whole panel, such as an inspector | `DensityScope` with `density="compact"` around the panel |
-| Log messages of one kind in semibold | `strong` on that kind in the `kinds` of `LogPanel` |
+| Log messages of one kind in semibold or in capitals | `strong` or `uppercase` on that kind in the `kinds` of `LogPanel` |
 | An informational window with no tools, such as About or credits | `InfoScreen`: a small dialog sized to its content; `size="info"` on `ScreenWindow` for one built by hand |
 | A studio screen: a list, an editor and an inspector, with Save and Export on top | `StudioLayout`, with `bar`, `start`, `end` and `toolbar` |
 | A side panel with a heading that folds to a rail and drags wider | `SidePanel`, with `side="end"` for one on the right |

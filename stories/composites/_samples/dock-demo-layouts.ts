@@ -1,7 +1,8 @@
 /* @layer stories @kind data */
-import { createDefaultLayout, dockOnEdge, dockWidget, paneOf } from '../../../src/composites';
+import { createDefaultLayout, dockOnEdge, dockWidget, migrateLayout, paneOf } from '../../../src/composites';
 import type { WidgetLayout } from '../../../src/composites';
 import type { DockDemoStart } from './dock-demo.type';
+import { SAVED_WITHOUT_MAKE_ROOM } from './dock-saved-layout.constants';
 
 const tabbedWith = (layout: WidgetLayout, host: string, id: string): WidgetLayout => {
   const pane = paneOf(layout.dock, host);
@@ -9,6 +10,7 @@ const tabbedWith = (layout: WidgetLayout, host: string, id: string): WidgetLayou
 };
 
 const dockDemoLayout = (withFloating: boolean, start?: DockDemoStart): WidgetLayout => {
+  if (start === 'saved') return migrateLayout(SAVED_WITHOUT_MAKE_ROOM);
   const left = dockOnEdge(createDefaultLayout(), 'players', 'left');
   if (start === 'snap') {
     const consoleBox = { id: 'console', x: 0.06, y: 0.08, width: 280, height: 170 };

@@ -7,6 +7,7 @@ interface SectionHeaderProps {
   subtitle?: ReactNode;
   action?: ReactNode;
   count?: number;
+  hideZero?: boolean;
   level?: HeadingLevel;
   className?: string;
 }

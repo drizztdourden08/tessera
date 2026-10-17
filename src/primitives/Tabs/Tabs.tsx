@@ -12,7 +12,7 @@ import type { KeyboardEvent } from 'react';
 import { isHTMLElement } from '../dom/is-html-element';
 
 const Tabs = (props: TabsProps) => {
-  const { tabs, activeTab, onTabChange, iconOnly = false } = props;
+  const { tabs, activeTab, onTabChange, iconOnly = false, hideZero = false } = props;
   const trackRef = useRef<HTMLElement | null>(null);
   const { fields } = useTesseraStrings();
 
@@ -43,6 +43,7 @@ const Tabs = (props: TabsProps) => {
           tab={tab}
           active={activeTab === tab.id}
           iconOnly={iconOnly}
+          hideZero={hideZero}
           onTabChange={onTabChange}
           onKeyDown={(event) => handleKeyDown(event, index)}
         />

@@ -11,6 +11,8 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { LOG_KINDS, LOG_ROWS, longSession } from './_samples/data-log';
+import { CHANNEL_KINDS, CHANNEL_ROWS } from './_samples/data-log-channels';
+import { SIM_KINDS, SIM_ROWS } from './_samples/data-log-kinds';
 import { LogArrivalDemo } from './_samples/LogArrivalDemo';
 import { LogSelectionDemo } from './_samples/LogSelectionDemo';
 import './LogPanel.stories.css';
@@ -126,6 +128,16 @@ const Heights = {
   ),
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
+const Kinds = {
+  name: 'Fifteen kinds, as a simulator trace',
+  render: () => <LogPanel rows={SIM_ROWS} kinds={SIM_KINDS} height={440} className="sim-log" />,
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const Channels = {
+  name: 'A colour per channel',
+  render: () => <LogPanel rows={CHANNEL_ROWS} kinds={CHANNEL_KINDS} height={200} toolbar={false} className="channel-log" />,
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
 const ONE_ROW = LOG_ROWS.slice(0, 3);
 
 const renderState = (props: StateProps) => (
@@ -158,13 +170,13 @@ const Overview = overviewStory({
   points: [
     'Each of the `rows` has a gutter, a tag, a `kind` and a message; `indent` nests it under a guide.',
     'The toolbar is a [FilterBar]: search, filters on type, tag or message, a line count and Copy all.',
-    '`kinds` gives each type a `tone`; `toneMessage` colours the message too, and `strong` sets it in semibold.',
+    '`kinds` give each type a `tone`, tint or hex colour; `toneMessage`, `strong` and `uppercase` set the message.',
     'Only the newest lines are mounted, older ones load on demand, and Newest jumps back to the end.',
     '`selectedIds` with `onSelectionChange` picks rows: a click, [[Shift]] and a click, [[Up]] and [[Down]].',
     '`height="fill"` takes the height of its parent; a number fixes it in pixels.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Arriving, Selecting, Bare, Heights],
+  variants: [Filtered, LongSession, Arriving, Selecting, Bare, Heights, Kinds, Channels],
   states: {
     render: renderState,
     list: [
@@ -177,4 +189,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Arriving, Bare, Filtered, Heights, LongSession, Overview, Selecting, ServerLog };
+export { Arriving, Bare, Channels, Filtered, Heights, Kinds, LongSession, Overview, Selecting, ServerLog };

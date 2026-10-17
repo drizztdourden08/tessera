@@ -10,6 +10,7 @@ interface HeaderAnchorNavProps {
   activeId: string;
   onSelect: (id: string) => void;
   ariaLabel: string;
+  hideZero?: boolean;
   className?: string;
 }
 

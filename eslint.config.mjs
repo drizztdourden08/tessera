@@ -37,6 +37,7 @@ export default standardsEslint({
     { files: ['src/primitives/BackdropLayer/BackdropLayer.tsx'], why: 'the backdrop image, its place and its colour are passed in by the host' },
     { files: ['src/primitives/Tag/Tag.tsx'], why: 'a custom tag fills with the colour the host passes in' },
     { files: ['src/composites/LogPanel/LogPanel.tsx'], why: 'a fixed panel height in pixels is passed in by the host' },
+    { files: ['src/composites/LogPanel/sub-components/LogLine.tsx'], why: 'a kind in a tag tint or a hex colour from the host sets the ink of its rows' },
     { files: ['src/composites/Video/Video.tsx'], why: 'the style the host passes, such as a size, lands on the player frame' },
     { files: ['src/composites/Video/sub-components/VideoSeek.tsx'], why: 'the time preview sits above the seek bar where the pointer is' },
     { files: ['src/composites/Splash/sub-components/SplashMeter.tsx'], why: 'the bar fills to the progress the host passes in' },

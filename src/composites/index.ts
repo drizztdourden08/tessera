@@ -18,7 +18,7 @@ export type {
 } from './Wizard';
 export { GroupTree, type GroupTreeProps, type TreeNode } from './GroupTree';
 export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } from './HeaderAnchorNav';
-export { LogPanel, type LogKindDef, type LogPanelProps, type LogRow } from './LogPanel';
+export { LogPanel, type LogKindDef, type LogKindTone, type LogPanelProps, type LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
 export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from './ListItemRow';
 export { ListDetailLayout, type ListDetailLayoutProps } from './ListDetailLayout';

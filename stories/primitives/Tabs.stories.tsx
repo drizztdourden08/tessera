@@ -118,7 +118,7 @@ const Overview = overviewStory({
   component: 'Tabs',
   description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page.',
   points: [
-    'Each tab has a label and can carry an icon and a count badge.',
+    'Each tab has a label and can carry an icon and a count badge; `hideZero` hides a count of 0.',
     '`iconOnly` hides the labels and keeps each one as the tab title.',
     'When the tabs run out of room the strip scrolls sideways, with an arrow at each edge that has more.',
     'The arrow keys, [[Home]] and [[End]] move the selection.',

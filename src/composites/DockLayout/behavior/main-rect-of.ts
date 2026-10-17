@@ -2,19 +2,22 @@
 import { GAP } from '../DockLayout.constants';
 import type { Rect } from '../DockLayout.type';
 import type { LaidOut } from './layout-tree.type';
+import { makesRoom } from './makes-room';
 
-const touching = (a: Rect, b: Rect): boolean => {
-  const besides = Math.abs(a.x + a.width + GAP - b.x) < 1 || Math.abs(b.x + b.width + GAP - a.x) < 1;
-  const stacked = Math.abs(a.y + a.height + GAP - b.y) < 1 || Math.abs(b.y + b.height + GAP - a.y) < 1;
-  const overlapY = a.y < b.y + b.height && b.y < a.y + a.height;
-  const overlapX = a.x < b.x + b.width && b.x < a.x + a.width;
-  return (besides && overlapY) || (stacked && overlapX);
+const besides = (a: Rect, b: Rect): boolean =>
+  (Math.abs(a.x + a.width + GAP - b.x) < 1 || Math.abs(b.x + b.width + GAP - a.x) < 1) && a.y < b.y + b.height && b.y < a.y + a.height;
+
+const stacked = (a: Rect, b: Rect): boolean =>
+  (Math.abs(a.y + a.height + GAP - b.y) < 1 || Math.abs(b.y + b.height + GAP - a.y) < 1) && a.x < b.x + b.width && b.x < a.x + a.width;
+
+const widen = (main: Rect, pane: Rect): Rect => {
+  const x = Math.min(main.x, pane.x);
+  return { ...main, x, width: Math.max(main.x + main.width, pane.x + pane.width) - x };
 };
 
-const union = (a: Rect, b: Rect): Rect => {
-  const x = Math.min(a.x, b.x);
-  const y = Math.min(a.y, b.y);
-  return { x, y, width: Math.max(a.x + a.width, b.x + b.width) - x, height: Math.max(a.y + a.height, b.y + b.height) - y };
+const deepen = (main: Rect, pane: Rect): Rect => {
+  const y = Math.min(main.y, pane.y);
+  return { ...main, y, height: Math.max(main.y + main.height, pane.y + pane.height) - y };
 };
 
 const mainRectOf = (laid: LaidOut): Rect | null => {
@@ -22,8 +25,9 @@ const mainRectOf = (laid: LaidOut): Rect | null => {
   if (!main) return null;
   let rect = main.rect;
   for (const leaf of laid.leaves) {
-    if (leaf.node.kind !== 'pane' || leaf.node.makeRoom || !touching(rect, leaf.rect)) continue;
-    rect = union(rect, leaf.rect);
+    if (leaf.node.kind !== 'pane' || makesRoom(leaf.node)) continue;
+    if (besides(rect, leaf.rect)) rect = widen(rect, leaf.rect);
+    else if (stacked(rect, leaf.rect)) rect = deepen(rect, leaf.rect);
   }
   return rect;
 };

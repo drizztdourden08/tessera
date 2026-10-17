@@ -154,7 +154,7 @@ const Overview = overviewStory({
   description: 'A bordered surface that groups related content, such as a summary, a list entry or a settings block.',
   points: [
     '`default` is the plain panel; `danger` frames a destructive choice.',
-    '`title` draws a header row in the [SectionHeader] look, with `subtitle`, `count` and `actions`.',
+    '`title` draws a header row in the [SectionHeader] look, with `subtitle`, `count`, `hideZero` and `actions`.',
     '`tone` tints the header row, such as `warning` for a card of problems.',
     '`interactive` is for a card clicked as a whole: it lights its border on hover and shows a focus ring.',
     '**An interactive card needs a `tabIndex` and a `role`** when it acts as a button.',

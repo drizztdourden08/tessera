@@ -7,9 +7,10 @@ const countText = (value: number, max: number | undefined): string => {
   return max !== undefined && count > max ? `${Math.max(0, Math.trunc(max))}+` : String(count);
 };
 
-const badgeText = (value: number | string | undefined, max: number | undefined): string => {
+const badgeText = (value: number | string | undefined, max: number | undefined, hideZero = false): string => {
   if (value === undefined) return '';
-  return sanitiseBadgeText(typeof value === 'number' ? countText(value, max) : value);
+  const text = sanitiseBadgeText(typeof value === 'number' ? countText(value, max) : value);
+  return hideZero && text === '0' ? '' : text;
 };
 
 export { badgeText };

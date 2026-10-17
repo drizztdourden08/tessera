@@ -143,6 +143,14 @@
   font-weight: var(--weight-semi);
 }
 
+.log-panel__msg--upper {
+  text-transform: uppercase;
+}
+
+.log-panel__content .log-panel__ink {
+  color: var(--log-ink);
+}
+
 .log-panel__row--selected,
 .log-panel__row--selected:hover {
   background: var(--c-selected);

@@ -129,6 +129,24 @@ const Anchors = {
   ),
 } satisfies StoryLiteStoryDefinition<BadgeArgs>;
 
+const ZERO_LOOKS = ['inline', 'number on an icon'] as const;
+
+const Zero = {
+  name: 'A count of 0, shown and hidden',
+  render: () => (
+    <Demonstrator
+      rows={axis(ZERO_LOOKS)}
+      columns={axis(['0', '0 with hideZero', '3 with hideZero'] as const)}
+      cell={(look, column) => {
+        const value = column.startsWith('3') ? 3 : 0;
+        const hideZero = column.endsWith('hideZero');
+        if (look === 'inline') return <Text>Errors <Badge variant="inline" value={value} hideZero={hideZero} /></Text>;
+        return <Badge value={value} hideZero={hideZero}>{BELL}</Badge>;
+      }}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<BadgeArgs>;
+
 const Overview = overviewStory({
   component: 'Badge',
   description: 'A count or a dot attached to something, such as the unread messages on a bell or a dot that says something is new.',
@@ -136,12 +154,13 @@ const Overview = overviewStory({
     '`inline` sits after text, `number` is a solid count on a corner of its host, and `dot` is a plain dot.',
     'A `number` or a `dot` wraps its host, such as an icon; `anchor` picks the corner.',
     '`max` caps a count, so 120 with a `max` of 99 reads 99+.',
-    '**It renders nothing** when the value is empty or a count is below 0.',
+    '**It renders nothing** when the value is empty or undefined, a count is below 0, or 0 with `hideZero`.',
     '`normal`, a pastel red, is the default colour; `tame` is the quiet one.',
+    '[Tabs], [Card], [SectionHeader] and [HeaderAnchorNav] take `hideZero` too and pass it to their counts.',
   ],
   instead: '[Status] for a word that names a state, or [Tag] for a group.',
   playground: Playground,
-  variants: [Shapes, Colors, Anchors],
+  variants: [Shapes, Colors, Anchors, Zero],
   code: `import { Badge, Icon } from '@drizztdourden08/tessera';
 
 <Badge variant="inline" value={3} color="tame" />
@@ -156,4 +175,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Anchors, Colors, Overview, Playground, Shapes };
+export { Anchors, Colors, Overview, Playground, Shapes, Zero };

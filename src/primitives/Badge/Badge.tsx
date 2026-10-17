@@ -6,9 +6,9 @@ import type { BadgeProps } from './Badge.type';
 import './Badge.css';
 
 const Badge = <S extends string = string>(props: BadgeProps<S>) => {
-  const { label, value, max, children } = props;
+  const { label, value, max, hideZero, children } = props;
   warnBadgeText(value);
-  const text = badgeText(value, max);
+  const text = badgeText(value, max, hideZero);
   const hosted = children !== undefined && children !== null;
   if (text === '' && props.variant !== 'dot') return hosted ? <>{children}</> : null;
   const badge = (

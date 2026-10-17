@@ -5,6 +5,7 @@ import type { WidgetFrame, WidgetLayout } from '../Widget.type';
 import { createDefaultLayout } from './create-default-layout';
 import { dockedShare } from './docked-share';
 import type { FlatWidgetLayout, FlatWidgetState } from './widget-layout.type';
+import { withMakeRoom } from './with-make-room';
 
 const isRecord = (raw: unknown): raw is Record<string, unknown> => typeof raw === 'object' && raw !== null;
 
@@ -37,7 +38,7 @@ const stackOf = (panes: PaneNode[], side: DockEdge): LayoutNode => {
 const dockSide = (dock: LayoutNode, visible: FlatWidgetState[], side: DockEdge): LayoutNode => {
   const docked = visible.filter((w) => w.mode === 'docked' && w.side === side).sort((a, b) => a.order - b.order);
   if (docked.length === 0) return dock;
-  const panes = docked.map((w) => createPane([w.id], w.exclusive));
+  const panes = docked.map((w) => createPane([w.id], w.exclusive !== false));
   const widest = Math.max(...docked.map((w) => w.dockedSize));
   return wrapBeside(dock, side, stackOf(panes, side), dockedShare(side, widest));
 };
@@ -55,7 +56,7 @@ const fromFlat = (flat: FlatWidgetLayout): WidgetLayout => {
 };
 
 const migrateLayout = (raw: unknown): WidgetLayout => {
-  if (isCurrent(raw)) return raw;
+  if (isCurrent(raw)) return { ...raw, dock: withMakeRoom(raw.dock) };
   if (isFlat(raw)) return fromFlat(raw);
   return createDefaultLayout();
 };

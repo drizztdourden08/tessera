@@ -92,7 +92,7 @@ const Overview = overviewStory({
   points: [
     'Use it at the top of a settings group, a list or a card.',
     '`subtitle` sits beneath the title.',
-    '`count` draws a [Badge] after the title, so the number is not part of the title text.',
+    '`count` draws a [Badge] after the title, outside the title text; `hideZero` hides a count of 0.',
     'The title is a heading, `h3` unless `level` says otherwise.',
     '`action` sits on the right and takes anything, most often a button or a [Status].',
   ],

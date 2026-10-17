@@ -9164,3 +9164,60 @@ Measured at 1440 px against the gallery before, with no console errors.
 - Add a volume kind to `TitleBarItemSpec` and map it to `bar: 'volume'` with the fields above; `onMutedChange` is the name, not `onMuteToggle`.
 - Menu config: the action gives two rows, ids `<id>-mute` and `<id>-level`.
 - BQ-11: the answer is one line, the value of `--c-volume-wave` in `src/tokens/canonical.css`.
+
+## 258. LogPanel kinds in any tone, a count that hides at 0, and saved dock panes that make room
+
+From RotP's widget audit: the Logs widget lost its colour per channel and the Simulator log its fifteen kinds, some in capitals or bold, when both moved to LogPanel; a count of 0 still drew a Badge; and the owner reported "panels cut off behind the game".
+
+### What changed
+
+- **A LogPanel kind takes any tone of the set.** `tone` takes a text tone as before, a tag tint (`rose` to `pink`, the `--c-tag-*` tokens that Tag `category` uses) or a hex colour from app data (`#rgb` or `#rrggbb`, as Tag `custom` takes since section 222). `toneMessage` takes `true` for the kind tone, as before, or a tone of its own for the message. `uppercase` sets the messages of the kind in capitals, beside `strong` from section 227.
+
+```ts
+type LogKindTone = TextTone | TagCategoryColor | TagCustomColor;
+
+interface LogKindDef {
+  tone?: LogKindTone;                    // was TextTone
+  toneMessage?: boolean | LogKindTone;   // was boolean
+  uppercase?: boolean;                   // added
+}
+```
+
+  A hex colour always reads: the hex helpers Tag used for its ink moved to `src/primitives/hex-ink`, Tag and LogPanel both use them, and a colour under 4.5:1 on a dark ground is lifted toward white in steps of 5% until it reaches 4.5:1, keeping its hue; `#2b3a8c` draws as `#8a93c0`, while every colour of the old Logs widget keeps its value but `#e94560`, which draws as `#ec6178`. A value that is not a hex colour draws as a kind with no tone. A kind with a text tone or none keeps the markup it had, so every log looks the same.
+
+- **`hideZero`** turns a count that reads 0 into nothing. It is one rule, in Badge's text: Badge takes it on a count, and Tabs, Card, SectionHeader and HeaderAnchorNav take it and pass it to their counts. The Stepper sub-step count, which hid 0 on its own, goes through the same rule.
+
+```ts
+interface BadgeCount { hideZero?: boolean }          // inline and number badges
+interface TabsProps { hideZero?: boolean }            // every tab badge
+interface CardProps { hideZero?: boolean }            // the header count
+interface SectionHeaderProps { hideZero?: boolean }
+interface HeaderAnchorNavProps { hideZero?: boolean } // every item badge
+```
+
+  `value={undefined}` already hides a Badge at run time, as an empty value or a count below 0 does: it draws nothing, or only the host it wraps. The types do not take it, since `value` is required on a count, so an app with a count that can be missing renders the Badge only when there is one.
+
+- **A docked pane with no `makeRoom` makes room.** `DockLayout` read a pane without `makeRoom` as an overlay: it drew the pane at `--z-panel` (z 100) and `mainRectOf` widened the main view under it, so the game ran under the panes and an app that sizes its own view from `onMainRect` covered them. `migrateLayout` now sets `makeRoom: true` on every docked pane of a saved layout that lacks it, and a pane read straight from a preset or a store makes room too. A pane with `makeRoom: false` still overlays, and a flat layout keeps `exclusive: false` as an overlay.
+
+- **An overlay pane widens the main view only on its side.** `mainRectOf` took the box around the main view and each overlay pane, so a tall overlay on the left stretched the main view over a pane below it that makes room. The main view now grows sideways under a pane beside it and up or down under a pane above or below it, and never over a pane that makes room.
+
+### Gallery
+
+Measured at 1440 px against the gallery before, block by block, with no console errors.
+
+- LogPanel Overview: the third point names the new tones; two new examples, Fifteen kinds, as a simulator trace (516 px) and A colour per channel (276 px); the page grows from 4736 to 5552 px. Every other example keeps every box and colour.
+- Badge Overview: the fourth point names `hideZero` and a sixth names the parts that pass it on (29 px); a new example, A count of 0, shown and hidden (188 px); the page grows from 2390 to 2619 px.
+- Tabs, Card, SectionHeader and HeaderAnchorNav Overviews: one point each names `hideZero`, on the same line count, so the pages keep their height.
+- DockLayout Overview: a new example, A layout saved before makeRoom (496 px), drawn from a saved layout whose panes have no `makeRoom`; before the fix its main view ran under both panes, now it sits between them. The page grows from 5927 to 6435 px.
+- Tag, TagPicker, Stepper, TaskProgress, JobDialog, Widget, WidgetOptions, SettingsPage and ContentHeader keep every box and colour.
+
+### Tests
+
+`tests/log-kind-tone.test.mjs` checks the tones, the lifted hex colours over a grid of colours, the message tone and the markup of a kind with a text tone. `tests/badge-hide-zero.test.mjs` checks the rule and each part that passes it on. `tests/dock-make-room.test.mjs` lays out a saved layout without `makeRoom`, migrated and read straight, a pane with `makeRoom: false`, and a flat layout. `tests/tag-custom.test.mjs` reads the ink from the shared helper.
+
+### What RotP does
+
+- Simulator log: give `LOG_KINDS` their tones again, such as `{ id: 'seq', label: 'Sequences', tone: 'primary', toneMessage: true, strong: true, uppercase: true }` and `{ id: 'pos', label: 'Positions', tone: 'muted', toneMessage: 'dim' }`; the gallery example lists all fifteen.
+- Logs widget: one kind per channel with its old colour, `{ id: 'core', label: 'Core', tone: '#44aa99' }`, and `toneMessage: true` on the error channel.
+- Counts that should vanish at 0: pass `hideZero` in place of a `count > 0 &&` guard.
+- Saved layouts need nothing: they make room on the next load. A pane meant to overlay keeps `makeRoom: false`.

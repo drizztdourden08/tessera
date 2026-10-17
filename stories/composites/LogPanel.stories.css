@@ -35,3 +35,11 @@
   padding: var(--space-sm);
   border: var(--border-width-thin) dashed var(--c-border);
 }
+
+.sim-log {
+  --log-tag-w: 10ch;
+}
+
+.channel-log {
+  --log-tag-w: 12ch;
+}

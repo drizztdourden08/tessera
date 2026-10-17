@@ -15,6 +15,7 @@ interface TabsProps {
   activeTab: string;
   onTabChange: (tabId: string) => void;
   iconOnly?: boolean;
+  hideZero?: boolean;
 }
 
 interface TabLabels {
@@ -27,6 +28,7 @@ interface TabsTabProps {
   tab: TabItem;
   active: boolean;
   iconOnly: boolean;
+  hideZero: boolean;
   onTabChange: (tabId: string) => void;
   onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
 }

@@ -3,7 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Tag } from '../src/primitives/Tag';
-import { tagInk } from '../src/primitives/Tag/behavior/tag-ink';
+import { hexInk } from '../src/primitives/hex-ink/hex-ink';
 import { optionLook } from '../src/primitives/TagPicker/behavior/option-look';
 
 const WEIGHTS = [0.2126, 0.7152, 0.0722];
@@ -15,14 +15,14 @@ const luminance = (hex) => [1, 3, 5].reduce((sum, at, i) => sum + WEIGHTS[i] * c
 const contrast = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 const hexOf = (r, g, b) => `#${[r, g, b].map((c) => c.toString(16).padStart(2, '0')).join('')}`;
 
-describe('tagInk', () => {
+describe('hexInk', () => {
   it('picks black text on a light colour and white on a dark one, from three or six digits', () => {
-    expect(tagInk('#ffd23f')).toBe('dark');
-    expect(tagInk('#fff')).toBe('dark');
-    expect(tagInk('#3b1f5c')).toBe('light');
-    expect(tagInk('#000')).toBe('light');
-    expect(tagInk('#2E8B57')).toBe('dark');
-    expect(tagInk('#5C3B9A')).toBe('light');
+    expect(hexInk('#ffd23f')).toBe('dark');
+    expect(hexInk('#fff')).toBe('dark');
+    expect(hexInk('#3b1f5c')).toBe('light');
+    expect(hexInk('#000')).toBe('light');
+    expect(hexInk('#2E8B57')).toBe('dark');
+    expect(hexInk('#5C3B9A')).toBe('light');
   });
 
   it('always lands at 4.5:1 or more against the fill', () => {
@@ -30,7 +30,7 @@ describe('tagInk', () => {
       for (let g = 0; g < 256; g += 17) {
         for (let b = 0; b < 256; b += 51) {
           const hex = hexOf(r, g, b);
-          const ink = tagInk(hex) === 'dark' ? 0 : 1;
+          const ink = hexInk(hex) === 'dark' ? 0 : 1;
           expect(contrast(luminance(hex), ink), hex).toBeGreaterThanOrEqual(4.5);
         }
       }
@@ -38,9 +38,9 @@ describe('tagInk', () => {
   });
 
   it('reads nothing from a value that is not an opaque hex colour', () => {
-    expect(tagInk('red')).toBeNull();
-    expect(tagInk('#12345678')).toBeNull();
-    expect(tagInk('var(--c-primary)')).toBeNull();
+    expect(hexInk('red')).toBeNull();
+    expect(hexInk('#12345678')).toBeNull();
+    expect(hexInk('var(--c-primary)')).toBeNull();
   });
 });
 

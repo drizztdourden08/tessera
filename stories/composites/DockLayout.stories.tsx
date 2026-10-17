@@ -7,6 +7,7 @@ import type { StateProps } from '../_template/states/states.type';
 import type { DockMainGrip } from '../../src/composites';
 import { DockDemo } from './_samples/DockDemo';
 import { CHROMES_HINT, DOCK_CHROMES } from './_samples/dock-demo.constants';
+import { SAVED_HINT } from './_samples/dock-saved-layout.constants';
 import './DockLayout.stories.css';
 
 type DockArgs = {
@@ -90,6 +91,11 @@ const Chromes = {
   render: (args) => <DockDemo {...args} start="kit" chromes={DOCK_CHROMES} hint={CHROMES_HINT} />,
 } satisfies PlaygroundStory<DockArgs>;
 
+const Saved = {
+  name: 'A layout saved before makeRoom',
+  render: () => <DockDemo start="saved" hint={SAVED_HINT} />,
+} satisfies StoryLiteStoryDefinition<DockArgs>;
+
 const renderState = (props: StateProps) => (
   <DockDemo className="dock-story--state" floating={false} peek={props.peek === true} />
 );
@@ -123,7 +129,7 @@ const Overview = overviewStory({
     '`canDrop` refuses a drop and its hint; WidgetManager uses it to keep each widget `group` in its own panes.',
   ],
   playground: Playground,
-  variants: [Tiled, Floating, Peek, Kit, Snap, Chromes],
+  variants: [Tiled, Floating, Peek, Kit, Snap, Chromes, Saved],
   states: {
     render: renderState,
     list: [
@@ -137,4 +143,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Chromes, Floating, Kit, Overview, Peek, Playground, Snap, Tiled };
+export { Chromes, Floating, Kit, Overview, Peek, Playground, Saved, Snap, Tiled };

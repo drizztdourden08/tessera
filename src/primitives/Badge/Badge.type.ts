@@ -29,6 +29,7 @@ interface BadgeLook {
 interface BadgeCount<S extends string> extends BadgeLook {
   value: BadgeValue<S>;
   max?: number;
+  hideZero?: boolean;
 }
 
 interface BadgeInlineProps<S extends string> extends BadgeCount<S> {
@@ -47,6 +48,7 @@ interface BadgeDotProps extends BadgeLook {
   variant: 'dot';
   value?: never;
   max?: never;
+  hideZero?: never;
   anchor?: BadgeAnchor;
   children?: ReactNode;
 }

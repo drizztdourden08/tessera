@@ -21,8 +21,8 @@ const StepperSubSteps = (props: StepperSubStepsProps) => {
             onClick={() => onSelect?.(step.id, sub.id)}
           >
             <Span className="stepper-sub-steps__label">{sub.label}</Span>
-            {sub.count !== undefined && sub.count > 0 && (
-              <Badge variant="inline" value={sub.count} color="primary" translucent label={stepper.changedCount(sub.count)} />
+            {sub.count !== undefined && (
+              <Badge variant="inline" value={sub.count} hideZero color="primary" translucent label={stepper.changedCount(sub.count)} />
             )}
           </Pressable>
         </Box>

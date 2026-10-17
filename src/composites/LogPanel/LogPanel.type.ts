@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { FilterClause } from '../../data/filter/clause';
+import type { TagCategoryColor, TagCustomColor } from '../../primitives/Tag';
 import type { TextTone } from '../../primitives/TextElement';
 
 interface LogRow {
@@ -12,12 +13,15 @@ interface LogRow {
   indent?: number;
 }
 
+type LogKindTone = TextTone | TagCategoryColor | TagCustomColor;
+
 interface LogKindDef {
   id: string;
   label: string;
-  tone?: TextTone;
-  toneMessage?: boolean;
+  tone?: LogKindTone;
+  toneMessage?: boolean | LogKindTone;
   strong?: boolean;
+  uppercase?: boolean;
 }
 
 type LogPanelHeight = 'fill' | number;
@@ -40,4 +44,4 @@ interface LogPanelProps {
   className?: string;
 }
 
-export type { LogKindDef, LogPanelHeight, LogPanelProps, LogRow };
+export type { LogKindDef, LogKindTone, LogPanelHeight, LogPanelProps, LogRow };

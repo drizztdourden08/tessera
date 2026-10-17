@@ -12,7 +12,7 @@ const itemClass = (active: boolean): string =>
   `header-anchor-nav__item focus-ring-inset${active ? ' header-anchor-nav__item--active' : ''}`;
 
 const HeaderAnchorNav = (props: HeaderAnchorNavProps) => {
-  const { items, activeId, onSelect, ariaLabel, className = '' } = props;
+  const { items, activeId, onSelect, ariaLabel, hideZero = false, className = '' } = props;
   const { navigation } = useTesseraStrings();
   return (
     <ScrollStrip
@@ -29,7 +29,7 @@ const HeaderAnchorNav = (props: HeaderAnchorNavProps) => {
           <Box as="li" key={item.id}>
             <Pressable className={itemClass(active)} aria-current={active ? 'location' : undefined} onClick={() => onSelect(item.id)}>
               {item.label}
-              {item.badge != null && <Badge variant="inline" color={active ? 'primary' : 'tame'} value={item.badge} />}
+              {item.badge != null && <Badge variant="inline" color={active ? 'primary' : 'tame'} value={item.badge} hideZero={hideZero} />}
             </Pressable>
           </Box>
         );

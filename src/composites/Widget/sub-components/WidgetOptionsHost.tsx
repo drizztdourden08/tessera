@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { paneOf } from '../../DockLayout';
 import type { DockEdge } from '../../DockLayout';
+import { makesRoom } from '../../DockLayout/behavior/makes-room';
 import type { LayoutUpdater } from '../behavior/useWidgetLayout.type';
 import { dockOnEdge } from '../behavior/dock-on-edge';
 import { dropFrame } from '../behavior/drop-frame';
@@ -20,6 +21,7 @@ const WidgetOptionsHost = (props: WidgetOptionsHostProps) => {
   const def = api.definitionOf(id);
   const placement = placementOf(api.layout, id) ?? 'docked';
   const frame = frameOf(api.layout, id, def);
+  const pane = paneOf(api.layout.dock, id);
   const move = (fn: LayoutUpdater) => api.change(fn);
 
   return (
@@ -27,7 +29,7 @@ const WidgetOptionsHost = (props: WidgetOptionsHostProps) => {
       title={api.labelOf(id)}
       placement={placement}
       dockEdge={placement === 'docked' ? edgeOf(paneRect, mainRect) : undefined}
-      makeRoom={paneOf(api.layout.dock, id)?.makeRoom ?? true}
+      makeRoom={pane ? makesRoom(pane) : true}
       opacity={frame.opacity}
       show={frame.show}
       onDock={(edge: DockEdge) => move((l) => dockOnEdge(l, id, edge))}

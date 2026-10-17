@@ -30,8 +30,9 @@ LogPanel shows a running log with search, filters, the newest lines first in vie
 ## Rules
 
 - Give each row a stable id: the window, the new line behaviour and the selection all follow it.
-- Pass kinds with a tone per type; toneMessage colours the message too, as for errors.
-- Set strong on a kind whose messages mark a step, such as a session that starts; they draw in semibold.
+- Pass kinds with a tone per type: a text tone, a tag tint such as teal, or an app hex colour, lifted until it reads.
+- Set toneMessage to colour the message in the same tone, as for errors, or to a tone of its own, such as dim.
+- Set strong on a kind whose messages mark a step, such as a session that starts, and uppercase to set them in capitals.
 - Pass selectedIds with onSelectionChange to let the user pick rows; the app holds the set and copies or acts on it.
 - Put the action on the picked rows in toolbarExtra, such as Copy selected or Report these lines, beside the line count.
 - Pass height="fill" inside a box that sets the height, or a number for a fixed height in pixels.
@@ -85,4 +86,4 @@ const ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lin
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-hairline`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-selected`, `--c-text`, `--c-text-muted`, `--font-mono`, `--leading-normal`, `--log-gutter-w`, `--log-tag-w`, `--shadow-2`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--weight-semi`, `--z-base`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-hairline`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-selected`, `--c-text`, `--c-text-muted`, `--font-mono`, `--leading-normal`, `--log-gutter-w`, `--log-ink`, `--log-tag-w`, `--shadow-2`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--weight-semi`, `--z-base`.

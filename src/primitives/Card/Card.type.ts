@@ -11,6 +11,7 @@ interface CardHeading {
   subtitle?: ReactNode;
   actions?: ReactNode;
   count?: number;
+  hideZero?: boolean;
   tone?: CardTone;
   level?: HeadingLevel;
 }

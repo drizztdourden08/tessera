@@ -13,8 +13,6 @@ type TagColor = TagNormalColor | TagUrgencyColor | TagCategoryColor;
 
 type TagCustomColor = `#${string}`;
 
-type TagInk = 'dark' | 'light';
-
 type TagLook =
   | { variant?: 'normal'; color?: TagNormalColor }
   | { variant: 'urgency'; color: TagUrgencyColor }
@@ -37,5 +35,5 @@ interface TagBase {
 type TagProps = TagLook & TagAction & TagBase & TagData;
 
 export type {
-  TagCategoryColor, TagColor, TagCustomColor, TagInk, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
+  TagCategoryColor, TagColor, TagCustomColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 };
