@@ -232,6 +232,7 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | Need | Use |
 |---|---|
 | Show an error or a warning in a page | `Callout` with `tone="danger"` or `tone="warning"` |
+| A mascot or guide that speaks, with a tail toward it | `SpeechBubble` with `pointer` |
 | Search a list | `SearchInput`, or `FilterBar` for search and filters together |
 | Row buttons always visible | `actionVisibility="always"` on `ListItemRow` |
 | Colour log lines by type | `kinds` on `LogPanel`, with `tone` and `toneMessage`: a text tone, a tag tint or a hex colour |

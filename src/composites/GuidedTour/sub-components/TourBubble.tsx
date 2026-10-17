@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useId } from 'react';
 import type { CSSProperties } from 'react';
-import { Box } from '../../../primitives/Box';
+import { SpeechBubble } from '../../../primitives/SpeechBubble';
 import type { BubblePlace } from '../behavior/tour-internal.type';
 import { useTopLayer } from '../behavior/useTopLayer';
 import { TourBubbleCard } from './TourBubbleCard';
@@ -22,7 +22,7 @@ const TourBubble = (props: TourBubbleProps) => {
   }, [layerRef, nodeRef]);
 
   return (
-    <Box
+    <SpeechBubble
       ref={attach}
       popover="manual"
       role="dialog"
@@ -34,7 +34,7 @@ const TourBubble = (props: TourBubbleProps) => {
       style={placed(place, centred)}
     >
       <TourBubbleCard tour={tour} step={step} id={id} />
-    </Box>
+    </SpeechBubble>
   );
 };
 

@@ -32,12 +32,8 @@
   max-inline-size: min(calc(100vw - var(--space-xl)), var(--size-320));
   margin: 0;
   padding: var(--space-md);
-  border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-lg);
-  background: var(--c-surface);
   box-shadow: var(--shadow-lg);
-  color: var(--c-text);
-  overflow: visible;
   pointer-events: auto;
   animation: guided-tour-in var(--duration-slow) var(--ease-standard);
 }

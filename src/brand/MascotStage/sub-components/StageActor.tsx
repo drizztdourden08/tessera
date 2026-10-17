@@ -4,7 +4,7 @@ import { BrandScene } from '../../BrandScene';
 import { actorRig } from '../behavior/actor-rig';
 import { actorScale } from '../behavior/actor-scale';
 import { actorStartScene } from '../behavior/actor-start-scene';
-import { reducedNow } from '../behavior/reduced-now';
+import { reducedNow } from '../../../primitives/dom/reduced-now';
 import type { StageActorProps } from './StageActor.type';
 import { Box } from '../../../primitives/Box';
 

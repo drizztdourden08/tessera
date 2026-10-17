@@ -3,6 +3,7 @@ import { useCallback, useSyncExternalStore } from 'react';
 import type { RefObject } from 'react';
 import { ownerWindowOf } from './owner-window';
 import { REDUCED_MOTION_QUERY } from './reduced-motion.constants';
+import { reducedNow } from './reduced-now';
 
 const useReducedMotion = (ref: RefObject<Element | null>): boolean => {
   const subscribe = useCallback((notify: () => void) => {
@@ -14,7 +15,7 @@ const useReducedMotion = (ref: RefObject<Element | null>): boolean => {
   }, [ref]);
   const snapshot = (): boolean => {
     const node = ref.current;
-    return node ? ownerWindowOf(node).matchMedia(REDUCED_MOTION_QUERY).matches : false;
+    return node ? reducedNow(node) : false;
   };
   return useSyncExternalStore(subscribe, snapshot, () => false);
 };

@@ -107,6 +107,8 @@ export { SectionHeader } from './SectionHeader';
 export type { SectionHeaderProps } from './SectionHeader';
 export { Callout } from './Callout';
 export type { CalloutProps, CalloutTone, CalloutVariant } from './Callout';
+export { SpeechBubble } from './SpeechBubble';
+export type { SpeechBubblePointer, SpeechBubbleProps } from './SpeechBubble';
 export { Disclosure } from './Disclosure';
 export type { DisclosureProps, DisclosureSize } from './Disclosure';
 export { EmptyState } from './EmptyState';
@@ -179,3 +181,4 @@ export type { StackedBarColor, StackedBarOrientation, StackedBarProps, StackedBa
 export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from './dom/app-region.constants';
 export type { DataAttributes } from './dom/data-attributes.type';
 export { REVIEW_MASK_ATTRIBUTE } from './dom/review-mask.constants';
+export { useReducedMotion } from './dom/useReducedMotion';

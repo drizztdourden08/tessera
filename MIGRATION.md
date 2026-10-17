@@ -9596,3 +9596,36 @@ interface ItemListProps<T> {
 ### What apps do
 
 In RotP, pass `maxRows={6}` to the Saves `ItemList` (and to the `list` props of `ListDetail`, which forwards them). Remove any height or overflow your own wrapper put on the list.
+## 267. SpeechBubble: one box that speaks, with a tail, and useReducedMotion exported
+
+The owner wants the mascot to stand beside the Ctrl+K palette with a speech bubble that explains the search. Brock asked for the bubble as a part, and GuidedTour already drew one without a tail, so it now draws it through the same part.
+
+### What changed
+
+- **New `SpeechBubble`** in the primitives entry point. It is an opaque `--c-surface` box with the tone's border and tint, `--radius-md` and `--shadow-overlay`, plus an optional tail on one side in the same border and fill.
+
+```ts
+type SpeechBubblePointer = 'top' | 'bottom' | 'left' | 'right' | 'none';
+
+interface SpeechBubbleProps extends Omit<HTMLAttributes<HTMLElement>, 'className' | 'children'> {
+  tone?: CalloutTone;
+  pointer?: SpeechBubblePointer; // default 'none'
+  pointerOffset?: number; // pixels from the start of the edge, default the middle
+  maxWidth?: number; // pixels, default 320
+  className?: string;
+  children?: ReactNode;
+}
+```
+
+- **The tail sits on the pointer side.** `pointer="left"` puts it on the left edge, pointing left. `pointerOffset` moves it along that edge from the start (left for top and bottom, top for left and right). It hangs outside the box by about 7 px, so leave room. Without `tone` the border is `--c-border` and there is no tint; with a Callout tone the border and tail take its colour and the fill is tinted.
+- **It takes a ref and the other attributes** of the box, so a bubble can be a popover, a dialog (`role`, `aria-*`, `tabIndex`) or `role="status"`. It sets no role and no position.
+- **GuidedTour's bubble is drawn by SpeechBubble** with `pointer="none"`. Its fill, border and text colour come from the part; the tour keeps only its position, size, padding, `--radius-lg` corner and `--shadow-lg` shadow, so it looks as it did. The mascot stage and the tour mascot draw no bubble of their own.
+- **`useReducedMotion(ref)` is exported** from the package. It returns true while the system asks for reduced motion, read in the window that owns `ref.current`, and updates when the setting changes. The one-time read the mascot code made on its own is now `reducedNow` in `primitives/dom`, which the hook shares; the copy in `MascotStage/behavior` is gone.
+
+### Gallery and tests
+
+SpeechBubble sits in Primitives · Feedback with its Overview, a Playground, the four pointer sides, five tones, a moved tail and a mascot (RotP's Sentri) standing beside the open search palette with a bubble over it. `tests/speech-bubble.test.mjs` checks the classes, the custom properties, the passed attributes, the surface, the tail rules on every side, that the tour bubble is drawn by SpeechBubble, and the hook export.
+
+### What apps do
+
+Use `SpeechBubble` for a mascot's words instead of a styled `div`. Nothing to change for GuidedTour. An app that styled the `background` or `border` of `.guided-tour__bubble` now sets `--speech-ink` or its own rule on the same class.

@@ -82,7 +82,7 @@ const HomeTour = ({ openSettings }: { openSettings: () => void }) => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-primary`, `--c-primary-bright`, `--c-surface`, `--c-text`, `--c-text-dim`, `--duration-drawer`, `--duration-normal`, `--duration-slow`, `--ease-emphasized`, `--ease-standard`, `--leading-normal`, `--radius-lg`, `--radius-xl`, `--shadow-lg`, `--size-1`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-medium`, `--z-floating`, `--z-popover`.
+It draws on `--border-width-thick`, `--c-primary`, `--c-primary-bright`, `--c-text-dim`, `--duration-drawer`, `--duration-normal`, `--duration-slow`, `--ease-emphasized`, `--ease-standard`, `--leading-normal`, `--radius-lg`, `--radius-xl`, `--shadow-lg`, `--size-1`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-medium`, `--z-floating`, `--z-popover`.
 
 ## Also exported from this folder
 

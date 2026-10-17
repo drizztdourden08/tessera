@@ -142,6 +142,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Progress toward an end, in a small round space: no component yet.
   - A short message that passes: [Toast](components/Toast.md). Toast keeps one queue per app: every part raises through toast(), the stack caps how many show and the same message shows once with a count.
   - A note that stays on the page: no component yet.
+  - A note in a bubble with a tail: [SpeechBubble](components/SpeechBubble.md). SpeechBubble is the one bubble with a tail: GuidedTour draws its step card on it, and a mascot speaks through it.
   - Nothing is here yet: no component yet.
   - A hint for what is under the pointer: no component yet.
   - A part of the page failed: no component yet.

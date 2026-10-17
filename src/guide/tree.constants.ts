@@ -127,7 +127,7 @@ const FEEDBACK = {
   answers: {
     'work is running, length unknown': null, 'progress toward an end, as a bar': null,
     'progress toward an end, in a small round space': null, 'a short message that passes': null,
-    'a note that stays on the page': null, 'nothing is here yet': null, 'a hint for what is under the pointer': null,
+    'a note that stays on the page': null, 'a note in a bubble with a tail': null, 'nothing is here yet': null, 'a hint for what is under the pointer': null,
     'a part of the page failed': null, 'something failed to load, with Retry': null, 'a long job with steps, a log or a failure': null,
     'the app is starting, or starting again': null,
     'the results of a list of checks': null,

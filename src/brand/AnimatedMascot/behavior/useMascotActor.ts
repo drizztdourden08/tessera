@@ -2,7 +2,7 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { useReducedMotion } from '../../../primitives/dom/useReducedMotion';
-import { reducedNow } from '../../MascotStage/behavior/reduced-now';
+import { reducedNow } from '../../../primitives/dom/reduced-now';
 import { createStageEngine } from '../../MascotStage/behavior/stage-engine';
 import { useEngineClock } from '../../MascotStage/behavior/useEngineClock';
 import { SOLO_ACTOR } from '../AnimatedMascot.constants';

@@ -1,0 +1,28 @@
+/* @layer stories @kind style */
+.speech-bubble-story__room {
+  padding: var(--space-md);
+}
+
+.speech-bubble-story__frame {
+  inline-size: 100%;
+  min-block-size: var(--size-512);
+  transform: translateZ(0);
+}
+
+.speech-bubble-story__frame .command-palette--open {
+  inset-inline-start: var(--space-lg);
+  inline-size: min(var(--size-448), 60%);
+  max-block-size: calc(100% - 2 * var(--space-sm));
+  transform: none;
+}
+
+.speech-bubble-story__guide {
+  position: absolute;
+  z-index: var(--z-popover);
+  inset-block-end: var(--space-lg);
+  inset-inline-end: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}

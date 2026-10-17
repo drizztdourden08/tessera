@@ -1,0 +1,96 @@
+/* @layer renderer-components @kind style */
+:where(.speech-bubble) {
+  --speech-ink: var(--c-border);
+  --speech-tail: var(--size-10);
+
+  position: relative;
+  box-sizing: border-box;
+  inline-size: max-content;
+  max-inline-size: var(--speech-max, var(--size-320));
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width-thin) solid var(--speech-ink);
+  border-radius: var(--radius-md);
+  background: linear-gradient(var(--speech-soft, var(--c-surface)), var(--speech-soft, var(--c-surface))) var(--c-surface);
+  box-shadow: var(--shadow-overlay);
+  color: var(--c-text);
+  overflow: visible;
+}
+
+.speech-bubble--primary {
+  --speech-ink: var(--c-primary);
+  --speech-soft: var(--c-primary-soft);
+}
+
+.speech-bubble--secondary {
+  --speech-ink: var(--c-secondary);
+  --speech-soft: var(--c-secondary-soft);
+}
+
+.speech-bubble--info {
+  --speech-ink: var(--c-info);
+  --speech-soft: var(--c-info-soft);
+}
+
+.speech-bubble--success {
+  --speech-ink: var(--c-success);
+  --speech-soft: var(--c-success-soft);
+}
+
+.speech-bubble--warning {
+  --speech-ink: var(--c-warning);
+  --speech-soft: var(--c-warning-soft);
+}
+
+.speech-bubble--danger {
+  --speech-ink: var(--c-danger);
+  --speech-soft: var(--c-danger-soft);
+}
+
+.speech-bubble--top::after,
+.speech-bubble--bottom::after,
+.speech-bubble--left::after,
+.speech-bubble--right::after {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  inline-size: var(--speech-tail);
+  block-size: var(--speech-tail);
+  border: 0 solid var(--speech-ink);
+  background: inherit;
+  rotate: 45deg;
+  pointer-events: none;
+}
+
+.speech-bubble--top::after,
+.speech-bubble--bottom::after {
+  inset-inline-start: var(--speech-offset, 50%);
+}
+
+.speech-bubble--left::after,
+.speech-bubble--right::after {
+  inset-block-start: var(--speech-offset, 50%);
+}
+
+.speech-bubble--top::after {
+  inset-block-start: calc(-1 * var(--border-width-thin));
+  border-width: var(--border-width-thin) 0 0 var(--border-width-thin);
+  translate: -50% -50%;
+}
+
+.speech-bubble--bottom::after {
+  inset-block-end: calc(-1 * var(--border-width-thin));
+  border-width: 0 var(--border-width-thin) var(--border-width-thin) 0;
+  translate: -50% 50%;
+}
+
+.speech-bubble--left::after {
+  inset-inline-start: calc(-1 * var(--border-width-thin));
+  border-width: 0 0 var(--border-width-thin) var(--border-width-thin);
+  translate: -50% -50%;
+}
+
+.speech-bubble--right::after {
+  inset-inline-end: calc(-1 * var(--border-width-thin));
+  border-width: var(--border-width-thin) var(--border-width-thin) 0 0;
+  translate: 50% -50%;
+}

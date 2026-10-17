@@ -63,7 +63,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Tooltip: 'message-square',
-    HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone',
+    HintLine: 'text-quote', HintScope: 'scan-text', Callout: 'megaphone', SpeechBubble: 'message-circle',
   },
   'Primitives · Navigation': { Tabs: 'panels-top-left', Stepper: 'git-commit-horizontal' },
   'Composites · Dialogs': {

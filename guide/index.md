@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 67 of 189 have their usage written; a linked name opens its page.
+One line per component. 68 of 190 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -59,6 +59,7 @@ One line per component. 67 of 189 have their usage written; a linked name opens 
 - `Slider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Spacer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Sparkline](components/Sparkline.md): A small line or area chart of the latest samples, so a reader sees which way a value moves at a glance. Import from `@drizztdourden08/tessera`.
+- [SpeechBubble](components/SpeechBubble.md): A box that speaks, with an optional tail toward whoever says it or the part it is about, such as a mascot beside the search palette. Import from `@drizztdourden08/tessera`.
 - `Spinner`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Stack`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StackedBar](components/StackedBar.md): One horizontal bar split into the parts of a whole, such as memory by process, with a tooltip and a legend. Import from `@drizztdourden08/tessera`.
