@@ -11,6 +11,7 @@ const STEADY_PARTS = [
   { page: 'primitives-spinner--overview', parts: [':has(> .spinner)'] },
   { page: 'composites-splash--overview', parts: ['.ts-progress', '.ts-splash'] },
   { page: 'composites-dropdownmenu--overview', parts: ['.dropdown__menu', '.dropdown__item', '.dropdown__mark', '.choice-mark'] },
+  { page: 'icons-volumeicon--overview', parts: ['.volume-icon'] },
 ];
 
 const STEADY_CYCLE_MS = 5000;

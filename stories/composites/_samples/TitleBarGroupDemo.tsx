@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { DropdownMenu, WindowTitleBar } from '../../../src/composites';
 import type { MenuGroup } from '../../../src/composites';
 import { titleBarMenu } from '../../../src/composites/WindowTitleBar/behavior/title-bar-menu';
+import { titleBarStrings } from '../../../src/composites/WindowTitleBar/behavior/title-bar-strings';
 import { Box, Text } from '../../../src/primitives';
 import { useTesseraStrings } from '../../../src/primitives/TesseraProvider/behavior/useTesseraStrings';
 import { groupActions } from './title-bar-group-action';
@@ -19,7 +20,7 @@ const ignore = () => undefined;
 
 const TitleBarGroupDemo = (props: TitleBarGroupDemoProps) => {
   const { title, logo, menu, look } = props;
-  const { windows } = useTesseraStrings();
+  const { windows, common } = useTesseraStrings();
   const [group, setGroup] = useState(0);
   const [sync, setSync] = useState(true);
   const [said, setSaid] = useState('Nothing picked yet.');
@@ -35,7 +36,7 @@ const TitleBarGroupDemo = (props: TitleBarGroupDemoProps) => {
     onBug: () => setSaid('Report a bug picked.'),
     onSaves: () => setSaid('Cloud saves picked.'),
   }, look);
-  const groups = titleBarMenu({ menu: [], actions, pin: false, fullscreenButton: false, pinned: false, fullscreen: false, onControl: ignore, strings: windows });
+  const groups = titleBarMenu({ menu: [], actions, pin: false, fullscreenButton: false, pinned: false, fullscreen: false, onControl: ignore, strings: titleBarStrings(windows, common) });
   const folded = groups.flatMap((entry) => entry.items).find((node) => 'children' in node && node.id === 'window-group');
 
   return (

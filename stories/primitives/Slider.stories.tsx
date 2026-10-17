@@ -14,6 +14,7 @@ import { BalancingSlider } from './_samples/BalancingSlider';
 import { LabelsDemo } from './_samples/slider-labels';
 import { DUNGEONS, PRICES, SPEEDS } from './_samples/slider-stops.constants';
 import { StatefulSlider } from './_samples/StatefulSlider';
+import { UprightSliders } from './_samples/UprightSliders';
 import './Slider.stories.css';
 
 type SliderArgs = {
@@ -143,6 +144,11 @@ const Balancing = {
   render: () => <Demonstrator rows={axis(Object.keys(BALANCING_ROWS))} align="stretch" cell={(row) => BALANCING_ROWS[row]} />,
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
+const Upright = {
+  name: 'Upright, with orientation vertical',
+  render: () => <UprightSliders />,
+} satisfies StoryLiteStoryDefinition<SliderArgs>;
+
 const HintCost = (props: { disabled: boolean }) => {
   const { disabled } = props;
   const [value, setValue] = useState(60);
@@ -167,8 +173,8 @@ const Overview = overviewStory({
   component: 'Slider',
   description: 'A labelled slider with its value written beside the track.',
   points: [
-    'One thumb gives a number; `range` gives two thumbs and a low and high pair.',
-    '`stops` turns the track into named positions, and the value into an index.',
+    'One thumb gives a number and `range` a low and high pair; `stops` names positions, and the value is an index.',
+    'With one thumb, `orientation="vertical"` stands it upright, the low end at the bottom and the value on top.',
     '`labels` writes labels under the track; [ScaleLabels] lists the whole rule syntax.',
     '`formatValue` sets how the value reads, and `keyStep` sets a coarser stride for the arrow keys.',
     'It runs controlled with `value` and `onChange`, or on its own from `defaultValue`.',
@@ -176,7 +182,7 @@ const Overview = overviewStory({
   ],
   instead: '[VolumeControl] for a volume slider with a mute button.',
   playground: Playground,
-  variants: [Kinds, Stops, Labels, Balancing, Sizes, WithInput],
+  variants: [Kinds, Stops, Labels, Balancing, Upright, Sizes, WithInput],
   states: {
     render: renderState,
     list: [
@@ -190,4 +196,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Balancing, Kinds, Labels, Overview, Playground, Sizes, Stops, WithInput };
+export { Balancing, Kinds, Labels, Overview, Playground, Sizes, Stops, Upright, WithInput };

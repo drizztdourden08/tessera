@@ -27,6 +27,7 @@
   --duration-step-skip-line: calc(var(--duration-step-line) * 0.4);
   --duration-step-skip-ring: calc(var(--duration-step-ring) * 0.4);
   --duration-step-skip-flip: calc(var(--duration-step-flip) * 0.4);
+  --duration-volume-morph: calc(var(--duration-slow) * 1.5);
   --duration-step-skip: calc(var(--duration-step-skip-fill) + var(--duration-step-skip-line) + var(--duration-step-skip-ring));
   --ease-standard:    ease;
   --ease-in-out:      ease-in-out;

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-const MENU_ITEM_SELECTOR = '[role^="menuitem"]';
+const MENU_ITEM_SELECTOR = '[role^="menuitem"], .dropdown__slider .slider__input';
 
 const MENU_SELECTOR = '[role="menu"]';
 

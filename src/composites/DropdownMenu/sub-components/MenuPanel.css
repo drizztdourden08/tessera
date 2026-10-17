@@ -50,7 +50,7 @@
   font-size: var(--text-xs);
 }
 
-.dropdown__menu .dropdown__item:is(:hover, :focus-visible):not(:disabled),
+.dropdown__menu .dropdown__item:is(:hover, :focus-visible, :has(:focus-visible)):not(:disabled),
 .dropdown__menu .dropdown__item[aria-expanded='true'] {
   border-left-color: var(--menu-tone, var(--c-primary-dim));
 }
@@ -72,6 +72,15 @@
   border-left-color: var(--c-danger);
   background: var(--c-danger-soft);
   color: var(--c-danger-bright);
+}
+
+.dropdown__menu .dropdown__slider {
+  cursor: default;
+}
+
+.dropdown__menu .dropdown__slider-track {
+  grid-area: 2 / 3 / auto / span 2;
+  min-width: var(--size-160);
 }
 
 .dropdown__filter {

@@ -49,3 +49,12 @@
   fill: currentcolor;
   pointer-events: none;
 }
+
+.volume-icon-demo__readout {
+  min-width: var(--size-56);
+  font-variant-numeric: tabular-nums;
+}
+
+.volume-icon-demo__slider {
+  width: var(--size-256);
+}

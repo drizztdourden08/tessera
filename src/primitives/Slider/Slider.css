@@ -142,3 +142,50 @@
 .slider__number {
   flex: none;
 }
+
+.slider--vertical {
+  --slider-length: var(--size-96);
+
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider--vertical .slider__track {
+  flex: none;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.slider--vertical .slider__body {
+  flex: none;
+  flex-direction: row;
+  min-width: 0;
+  height: var(--slider-length);
+}
+
+.slider--vertical .slider__rail {
+  width: var(--slider-thumb);
+  height: 100%;
+}
+
+.slider--vertical .slider__rail::before {
+  left: 50%;
+  width: calc(var(--slider-length) - var(--slider-thumb));
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.slider--vertical .slider__scale {
+  height: auto;
+  margin-inline: 0;
+  margin-block: var(--slider-thumb-half);
+}
+
+.slider--vertical .slider__input {
+  writing-mode: vertical-lr;
+  direction: rtl;
+}
+
+.slider--vertical .slider__value {
+  line-height: var(--leading-normal);
+  text-align: center;
+}

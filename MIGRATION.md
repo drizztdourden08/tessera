@@ -9064,3 +9064,103 @@ Every page of Carousel, DataTable, DateText, FactsPanel, FileList, ItemList, Job
 ### Tests
 
 `tests/date-format-only.test.mjs` fails when `src` or `stories` calls `toLocaleDateString`, `toLocaleTimeString`, `toLocaleString` with date options or on a new `Date`, `Intl.DateTimeFormat`, `Intl.RelativeTimeFormat` or `getHours`, `getMinutes` or `getSeconds` outside `src/primitives/date-format`, and checks that a `Date` in a list reads as `formatDate(value, 'date')`.
+
+## 257. A volume icon that morphs with the level, a slider in a popover, and a volume action on the title bar
+
+The owner asked, through RotP, for a volume icon whose sound waves grow with the level, a small popup to slide the volume on hover, a red X at 0, golden waves, and a click that still mutes. Brock asked for the same control as a title bar action, with a slider row for its place in the main menu, and for the wave colour behind one token.
+
+### What changed
+
+- **VolumeIcon** (primitives) is the one volume icon. VolumeControl, the Video bar and the title bar menu all draw it.
+
+```ts
+interface VolumeIconProps {
+  level: number;     // 0 to 1
+  muted?: boolean;
+  size?: number;     // 16 by default
+  className?: string;
+}
+type VolumeStep = 0 | 1 | 2 | 3;
+```
+
+  Above 0 it draws one wave, above a third two and above two thirds three, so 25, 50, 75 and 100% draw one, two, three and three waves. Each wave is larger and reaches further than the one before. At 0 or with `muted` the waves fade out and a red X draws in. Every change morphs over `--duration-volume-morph` (390 ms, `--ease-in-out`) on `transform`, `opacity` and `stroke-dashoffset` only, so the 24 unit box never changes size; under reduced motion it switches at once. The speaker keeps the text colour, the waves take `--c-volume-wave` and the X `--c-danger`. `check:steady` samples it on its gallery page.
+
+- **The wave colour** is one token, `--c-volume-wave`, set to `--c-primary-bright`: gold `#d4bb79` in RotP, grey `#a3a3ac` in Tessera, orange `#f6a265` in Brock and violet `#947cff` in Archipelia. To make it gold in every palette, set it to another value in `canonical.css`, or override it in an app theme.
+
+- **VolumeControl** takes two props. `onMutedChange` keeps its name, so nothing is renamed: Brock's `onMuteToggle` maps to it.
+
+```ts
+interface VolumeControlProps {
+  slider?: 'inline' | 'popover';            // 'inline' by default
+  orientation?: 'vertical' | 'horizontal';  // the popover slider, 'vertical' by default
+}
+```
+
+  With `popover` it is the icon button alone: a click mutes and unmutes, and hover or keyboard focus opens a small panel under it with a Slider and its value. The wheel over the button or the panel moves the level by a twentieth of the range, and so do the arrow keys on the button; Tab reaches the slider. The panel closes the way a hint has closed since section 247, through the same `useTooltipOpen`: on pointer leave, blur, Escape (the Escape stack) or a click away, and a click never holds it open. It stays open while the pointer crosses from the button into it, and after Escape focus goes back to the button. The panel is an `Anchored` popup that flips above the button when there is no room below, and it is never a window drag area. Without `slider` the control is the same mute button beside a slider as before.
+
+- **The mute button** no longer turns red with a border when muted: only the X is red. Its glyph follows the button sizes of section 238, 14 px at md and 12 px at sm, in place of 16 and 14.
+
+- **Slider** takes `orientation?: 'horizontal' | 'vertical'` on a single thumb. Vertical stands it upright at `--slider-length` (96 px), the low end at the bottom and the value on top, with `aria-orientation="vertical"`; scale labels sit beside it.
+
+- **DropdownMenu** items take `kind: 'slider'`:
+
+```ts
+interface MenuItem {
+  kind?: 'action' | 'check' | 'radio' | 'confirm' | 'slider';
+  value?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  formatValue?: (value: number) => string;
+  onChange?: (value: number) => void;
+}
+```
+
+  The row shows the label over a small Slider. Up and Down reach it like any item, Left, Right, Page Up and Page Down move the value, and changing it never closes the menu. It shows in filter results as a slider too.
+
+- **WindowTitleBar** actions take `bar: 'volume'`:
+
+```ts
+interface WindowTitleBarVolumeAction {
+  id: string;
+  label: string;
+  bar: 'volume';
+  value: number;
+  muted: boolean;
+  onChange: (value: number) => void;
+  onMutedChange: (muted: boolean) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  shortcut?: MenuItem['shortcut'];
+}
+```
+
+  The bar draws VolumeControl with `slider="popover"` at the bar button size, a 28 px box with a 14 px glyph like every other action. Like every action it is also in the main menu, as two rows: Mute or Unmute (`common.mute`, `common.unmute`) with the shortcut, and a slider row named by `label`. A narrow window tucks it with the buttons. `titleBarMenu` now takes the mute words in `strings`; `titleBarStrings(windows, common)` builds them.
+
+### Gallery
+
+Measured at 1440 px against the gallery before, with no console errors.
+
+- New page Core · Icons/VolumeIcon: every step at 0, 25, 50, 75 and 100% and muted, the level rising and falling by itself, and a level to drag.
+- VolumeControl Overview: rewritten points, two new examples (In a popover on hover or focus, 137 px; In a title bar, 149 px) and a popover line in the code; the page grows from 2564 to 3013 px. On every VolumeControl page the button glyph is 2 px smaller and 1 px further in, and the muted button loses its red colour, glow and border.
+- Video: the volume button draws VolumeIcon in the same 18 px box; every box keeps its place on all five pages.
+- Slider Overview: two points merged into one, a point and an example for orientation (198 px); everything below moves down by 210 px.
+- DropdownMenu Overview: a reworded point and an example, A slider row (137 px).
+- WindowTitleBar Overview: the third point names the volume action; the page keeps its height.
+
+### Tests
+
+`tests/volume-icon.test.mjs` checks the steps, the same parts at every step, the colours and token, the transitions and reduced motion, and that VolumeControl, Video and the title bar menu draw the icon. `tests/volume-control.test.mjs` checks the popover markup, the nudge and the unmute on a raised level; `tests/volume-popover-hooks.test.mjs` the wheel and the focus return; `tests/menu-slider.test.mjs` the slider row and the volume action on the bar and in the menu; `tests/slider.test.mjs` the vertical slider.
+
+### What RotP does
+
+- The settings rows (`VolumeRow`) need nothing: they keep the slider beside the button; the icon now morphs, and the muted button shows a red X in place of a red button.
+- For the title bar mute (`useMuteTitleBarItem`), replace the button item with a volume action once Brock passes it through, `{ id: 'volume', label: 'Volume', bar: 'volume', value, muted, onChange, onMutedChange }`, so a click still mutes and hover opens the slider.
+- In your own screens, replace `<Icon name="volume-2" />` or `volume-x` beside a level with `<VolumeIcon level={level / 100} muted={muted} />`.
+
+### What Brock does
+
+- Add a volume kind to `TitleBarItemSpec` and map it to `bar: 'volume'` with the fields above; `onMutedChange` is the name, not `onMuteToggle`.
+- Menu config: the action gives two rows, ids `<id>-mute` and `<id>-level`.
+- BQ-11: the answer is one line, the value of `--c-volume-wave` in `src/tokens/canonical.css`.

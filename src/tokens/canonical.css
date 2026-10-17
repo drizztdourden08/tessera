@@ -84,6 +84,7 @@
     --c-primary-soft:   color-mix(in srgb, var(--p-primary) 14%, transparent);
     --c-on-primary:     var(--p-on-primary);
     --c-selected:       color-mix(in srgb, var(--p-primary) 12%, transparent);
+    --c-volume-wave:    var(--c-primary-bright);
     --c-secondary:        var(--p-secondary);
     --c-secondary-bright: color-mix(in oklab, var(--p-secondary), var(--c-lift) 22%);
     --c-secondary-dim:    color-mix(in oklab, var(--p-secondary) 18%, var(--c-bg));

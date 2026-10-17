@@ -2,6 +2,16 @@
 import type { MenuGroup } from '../../DropdownMenu';
 import type { WindowControl, WindowTitleBarAction, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarTucked } from '../WindowTitleBar.type';
 
+interface TitleBarMenuStrings {
+  view: string;
+  pinOnTop: string;
+  unpin: string;
+  fullscreen: string;
+  exitFullscreen: string;
+  mute: string;
+  unmute: string;
+}
+
 interface TitleBarMenuInput {
   menu: readonly MenuGroup[];
   actions: readonly WindowTitleBarAction[];
@@ -13,7 +23,7 @@ interface TitleBarMenuInput {
   pinned: boolean;
   fullscreen: boolean;
   onControl: (control: WindowControl) => void;
-  strings: { view: string; pinOnTop: string; unpin: string; fullscreen: string; exitFullscreen: string };
+  strings: TitleBarMenuStrings;
 }
 
-export type { TitleBarMenuInput };
+export type { TitleBarMenuInput, TitleBarMenuStrings };

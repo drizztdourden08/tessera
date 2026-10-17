@@ -198,7 +198,7 @@ const Overview = overviewStory({
   points: [
     '`menu` takes [DropdownMenu] groups; `view` hides its View sub-menu or moves it; `onControl` hears the buttons.',
     '`actions` add icon buttons with a tooltip of their label and `shortcut`; `tone` and `effect` mark the icon.',
-    "An action with `bar: 'dropdown'` opens a menu of its own from `groups`, its icon marked the same way.",
+    "`bar: 'dropdown'` opens a menu of its own from `groups`; `bar: 'volume'` draws a [VolumeControl].",
     "A `bar: 'status'` action shows `status` as text with digits of one width; `pulse` adds a beating dot.",
     'Narrow windows move items into the menu, a dropdown as a sub-menu; `controls` hides buttons, `false` all.',
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',

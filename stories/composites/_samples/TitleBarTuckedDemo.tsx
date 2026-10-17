@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { DropdownMenu, WindowTitleBar } from '../../../src/composites';
 import type { MenuGroup, WindowTitleBarAction, WindowTitleBarItemId, WindowTitleBarTucked } from '../../../src/composites';
 import { titleBarMenu } from '../../../src/composites/WindowTitleBar/behavior/title-bar-menu';
+import { titleBarStrings } from '../../../src/composites/WindowTitleBar/behavior/title-bar-strings';
 import { Box, Text } from '../../../src/primitives';
 import { useTesseraStrings } from '../../../src/primitives/TesseraProvider/behavior/useTesseraStrings';
 
@@ -20,11 +21,11 @@ const CAPTION = 'At 400 px the bar tucks the pin and full screen away; with view
 
 const TitleBarTuckedDemo = (props: TitleBarTuckedDemoProps) => {
   const { title, logo, menu, actions, rows } = props;
-  const { windows } = useTesseraStrings();
+  const { windows, common } = useTesseraStrings();
   const [heard, setHeard] = useState<{ tucked: readonly WindowTitleBarItemId[]; calls: number }>({ tucked: [], calls: 0 });
   const { tucked, calls } = heard;
   const onFitChange = (list: readonly WindowTitleBarItemId[]) => setHeard((last) => ({ tucked: list, calls: last.calls + 1 }));
-  const input = { menu, actions, view: false, tucked, pin: true, fullscreenButton: true, pinned: false, fullscreen: false, onControl: ignore, strings: windows } as const;
+  const input = { menu, actions, view: false, tucked, pin: true, fullscreenButton: true, pinned: false, fullscreen: false, onControl: ignore, strings: titleBarStrings(windows, common) } as const;
 
   return (
     <Box className="story-column">

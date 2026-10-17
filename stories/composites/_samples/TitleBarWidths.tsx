@@ -2,6 +2,7 @@
 import { DropdownMenu, WindowTitleBar } from '../../../src/composites';
 import type { MenuGroup, WindowTitleBarAction } from '../../../src/composites';
 import { titleBarMenu } from '../../../src/composites/WindowTitleBar/behavior/title-bar-menu';
+import { titleBarStrings } from '../../../src/composites/WindowTitleBar/behavior/title-bar-strings';
 import { Box, Text } from '../../../src/primitives';
 import { useTesseraStrings } from '../../../src/primitives/TesseraProvider/behavior/useTesseraStrings';
 import { TITLE_BAR_STEPS } from './title-bar-steps.constants';
@@ -17,8 +18,8 @@ const ignore = () => undefined;
 
 const TitleBarWidths = (props: TitleBarWidthsProps) => {
   const { title, logo, menu, actions } = props;
-  const { windows } = useTesseraStrings();
-  const groups = titleBarMenu({ menu, actions, pin: true, fullscreenButton: true, pinned: true, fullscreen: false, onControl: ignore, strings: windows });
+  const { windows, common } = useTesseraStrings();
+  const groups = titleBarMenu({ menu, actions, pin: true, fullscreenButton: true, pinned: true, fullscreen: false, onControl: ignore, strings: titleBarStrings(windows, common) });
   const view = groups.flatMap((group) => group.items).find((node) => 'children' in node && node.label === windows.view);
 
   return (

@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { WindowTitleBarAction } from '../WindowTitleBar.type';
+import type { WindowTitleBarCommandAction, WindowTitleBarDropdownAction } from '../WindowTitleBar.type';
 
 interface TitleBarActionIconProps {
-  action: WindowTitleBarAction;
+  action: WindowTitleBarCommandAction | WindowTitleBarDropdownAction;
   size?: number;
 }
 

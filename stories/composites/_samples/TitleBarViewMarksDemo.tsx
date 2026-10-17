@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { DropdownMenu, WindowTitleBar } from '../../../src/composites';
 import type { MenuGroup, MenuNode, WindowControl, WindowTitleBarAction } from '../../../src/composites';
 import { titleBarMenu } from '../../../src/composites/WindowTitleBar/behavior/title-bar-menu';
+import { titleBarStrings } from '../../../src/composites/WindowTitleBar/behavior/title-bar-strings';
 import { VIEW_ITEM_ID } from '../../../src/composites/WindowTitleBar/WindowTitleBar.constants';
 import { Box, Text } from '../../../src/primitives';
 import { useTesseraStrings } from '../../../src/primitives/TesseraProvider/behavior/useTesseraStrings';
@@ -24,11 +25,11 @@ const VIEW_STATES = [
 
 const TitleBarViewMarksDemo = (props: TitleBarViewMarksDemoProps) => {
   const { title, logo, menu, actions } = props;
-  const { windows } = useTesseraStrings();
+  const { windows, common } = useTesseraStrings();
   const [pinned, setPinned] = useState(false);
   const onControl = (control: WindowControl) => control === 'pin' && setPinned((on) => !on);
   const viewOf = (state: (typeof VIEW_STATES)[number]): readonly MenuNode[] => {
-    const groups = titleBarMenu({ menu, actions, pin: true, fullscreenButton: true, pinned: state.pinned, fullscreen: state.fullscreen, onControl: ignore, strings: windows });
+    const groups = titleBarMenu({ menu, actions, pin: true, fullscreenButton: true, pinned: state.pinned, fullscreen: state.fullscreen, onControl: ignore, strings: titleBarStrings(windows, common) });
     const view = groups.flatMap((group) => group.items).find((node) => 'id' in node && node.id === VIEW_ITEM_ID);
     return view && 'children' in view ? view.children ?? [] : [];
   };

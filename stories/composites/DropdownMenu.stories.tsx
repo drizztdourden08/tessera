@@ -13,6 +13,7 @@ import { ICON_SOURCE_MENU } from './_samples/data-menu-icon-sources';
 import { CATEGORY_MENU, EDIT_MENU, NESTED_MENU, SUBTITLE_MENU } from './_samples/data-menu-features';
 import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
 import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
+import { MenuSliderDemo } from './_samples/MenuSliderDemo';
 import { JoinDemos, MarksDemo, NestedDemo } from './_samples/menu-join-demos';
 import { MarkMorphDemo } from './_samples/menu-mark-demos';
 import type { MenuDemoArgs } from './_samples/menu-demos';
@@ -192,6 +193,8 @@ const groups: MenuGroup[] = [
 <DropdownMenu trigger={{ label: 'Menu', iconOnly: true }} groups={groups} />
 <DropdownMenu trigger={{ label: 'View', icon: 'chevron-down', iconSide: 'end' }} variant="secondary" intensity="medium" filter groups={groups} />`;
 
+const Sliders = { name: 'A slider row, moved with Left and Right', render: () => <MenuSliderDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const Overview = overviewStory({
   component: 'DropdownMenu',
   description: 'A menu of actions, checks and sub-menus, built from data, that hangs from its own button.',
@@ -199,13 +202,13 @@ const Overview = overviewStory({
     '`groups` lists the items: a `label`, an `icon` (a name, iconify data, path data or an element), `onSelect`.',
     '`trigger` draws a [Button], or an [IconButton] with `iconOnly`; its icon keeps its shape while open.',
     '`checked` or `kind="radio"` shows a faint dot that turns into a check or radio; `children` opens a sub-menu.',
-    '`tone="danger"` draws an action such as Delete in red; `kind="confirm"` asks Click again to before it runs.',
+    '`tone="danger"` draws Delete in red, `kind="confirm"` asks Click again to, `kind="slider"` sets a level.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
     '`filter` adds a search field over every level; `anchorRef` hangs the menu from a table header or a row.',
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, Inside, IconSources, Commands, MarkMorph, Confirm, Danger, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Danger, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -220,4 +223,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Confirm, Danger, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };
+export { Commands, Confirm, Danger, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };

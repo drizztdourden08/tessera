@@ -142,6 +142,8 @@ export type {
 export type { ActionData, BackAction } from './action-data';
 export { Tooltip } from './Tooltip';
 export type { TooltipFollow, TooltipProps } from './Tooltip';
+export { VolumeIcon } from './VolumeIcon';
+export type { VolumeIconProps, VolumeStep } from './VolumeIcon';
 export { Image, isPixelArt, usePixelArt } from './Image';
 export type { ImageFit, ImagePixelated, ImagePlaceholderProps, ImageProps, ImageSize, PixelArt } from './Image';
 export { BackdropLayer, backdropStyle } from './BackdropLayer';

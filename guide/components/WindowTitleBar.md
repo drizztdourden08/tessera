@@ -30,7 +30,8 @@ WindowTitleBar is the one title bar of a frameless window, with the same brand, 
 
 - The app owns the window state: pass maximized, fullscreen and pinned, and act on each control in onControl.
 - Hide a control the host lacks in controls, such as close: false; controls={false} hides them all, for a host with no window buttons.
-- Every action has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.
+- Every action but a volume has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.
+- Use bar volume for a sound level: the bar draws VolumeControl, and the main menu lists a Mute or Unmute row and a slider row named by label.
 - Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.
 - Keep the actions few: narrow windows move them into the main menu, then shrink the brand.
 - The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does.

@@ -4,7 +4,6 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { VolumeControl } from '../src/composites/VolumeControl';
-import { volumeIconName } from '../src/composites/VolumeControl/behavior/volume-icon-name';
 import { Slider } from '../src/primitives/Slider';
 import { grabThumb } from '../src/primitives/Slider/behavior/grab-thumb';
 import { nearestThumb } from '../src/primitives/Slider/behavior/nearest-thumb';
@@ -85,14 +84,26 @@ describe('the readout width', () => {
 });
 
 describe('VolumeControl', () => {
-  it('draws a mute button beside a slider, with the icon from the level', () => {
+  it('draws a mute button beside a slider, with the volume icon at the step of the level', () => {
     const html = renderToString(h(VolumeControl, { value: 0, onChange: noop, label: 'Music' }));
     expect(html).toContain('aria-label="Unmute"');
     expect(html).toContain('aria-label="Music"');
-    expect(volumeIconName(0, 0, 100, false)).toBe('volume-x');
-    expect(volumeIconName(30, 0, 100, false)).toBe('volume-1');
-    expect(volumeIconName(80, 0, 100, false)).toBe('volume-2');
-    expect(volumeIconName(80, 0, 100, true)).toBe('volume-x');
+    expect(html).toContain('data-step="0"');
+    expect(renderToString(h(VolumeControl, { value: 30, onChange: noop }))).toContain('data-step="1"');
+    expect(renderToString(h(VolumeControl, { value: 80, onChange: noop }))).toContain('data-step="3"');
+    expect(renderToString(h(VolumeControl, { value: 80, onChange: noop, muted: true, onMutedChange: noop }))).toContain('data-step="0"');
+  });
+
+  it('stands a single slider upright with orientation vertical, and leaves the horizontal markup alone', () => {
+    const upright = renderToString(h(Slider, { value: 40, onChange: noop, orientation: 'vertical', 'aria-label': 'Music' }));
+    expect(upright).toContain('slider--vertical');
+    expect(upright).toContain('aria-orientation="vertical"');
+    const flat = renderToString(h(Slider, { value: 40, onChange: noop, 'aria-label': 'Music' }));
+    expect(flat).not.toContain('slider--vertical');
+    expect(flat).not.toContain('aria-orientation');
+    const css = readFileSync(new URL('../src/primitives/Slider/Slider.css', import.meta.url), 'utf8');
+    expect(css).toMatch(/\.slider--vertical \.slider__rail::before \{[^}]*transform: translate\(-50%, -50%\) rotate\(-90deg\);/);
+    expect(css).toMatch(/\.slider--vertical \.slider__input \{\s+writing-mode: vertical-lr;\s+direction: rtl;/);
   });
 });
 

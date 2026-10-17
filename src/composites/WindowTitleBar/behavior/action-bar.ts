@@ -4,6 +4,7 @@ import type { WindowTitleBarAction, WindowTitleBarActionBar } from '../WindowTit
 
 const actionBar = (action: WindowTitleBarAction): WindowTitleBarActionBar | null => {
   if (action.bar === 'dropdown') return tidyGroups(action.groups).length > 0 ? 'dropdown' : null;
+  if (action.bar === 'volume') return 'volume';
   const bar = action.bar ?? 'button';
   if (bar === 'menu') return null;
   return bar === 'status' && !action.status ? null : bar;

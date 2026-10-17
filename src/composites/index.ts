@@ -78,7 +78,7 @@ export { WindowTitleBar } from './WindowTitleBar';
 export type {
   WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
   WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarTucked, WindowTitleBarTuckedItem, WindowTitleBarViewPlace,
-  WindowTitleBarViewPosition,
+  WindowTitleBarViewPosition, WindowTitleBarVolumeAction,
 } from './WindowTitleBar';
 export { Hero } from './Hero';
 export type { HeroArt, HeroProps, HeroShade, HeroSize } from './Hero';
@@ -131,7 +131,7 @@ export { CompactRecordView } from './CompactRecordView';
 export type { CompactFieldRenderer, CompactIdRefResolver, CompactRecordViewProps, FieldDifference } from './CompactRecordView';
 export { DynamicInput, escapePatternText, parsePattern } from './DynamicInput';
 export { VolumeControl } from './VolumeControl';
-export type { VolumeControlProps } from './VolumeControl';
+export type { VolumeControlProps, VolumeSlider } from './VolumeControl';
 export type {
   DynamicInputProps, ParsedPattern, PatternAction, PatternActions, PatternChoice, PatternIcons, PatternLists, PatternPart,
   PatternSetup, PatternSlotCase, PatternSlotChars, PatternSlotConfig, PatternSlotConfigs, PatternSlotControl, PatternSlotSpec,

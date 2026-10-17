@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 66 of 186 have their usage written; a linked name opens its page.
+One line per component. 66 of 187 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -79,6 +79,7 @@ One line per component. 66 of 186 have their usage written; a linked name opens 
 - [ToolFrame](components/ToolFrame.md): A sunken frame for the thing being worked on, with its toolbar on the top edge, such as an editor, a canvas or a log. Import from `@drizztdourden08/tessera`.
 - [ToolGroups](components/ToolGroups.md): Tools in groups, each under a small label, with a line between groups, for the top bar of a studio or the toolbar of an editor. Import from `@drizztdourden08/tessera`.
 - `Tooltip`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `VolumeIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 
 ## Composites
 

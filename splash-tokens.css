@@ -191,6 +191,7 @@
   --c-primary-soft: #8a8a9624;
   --c-on-primary: #0e0e12;
   --c-selected: #8a8a961f;
+  --c-volume-wave: #a3a3ac;
   --c-secondary: #6e6e7a;
   --c-secondary-bright: #8c8c96;
   --c-secondary-dim: #030304;
@@ -343,6 +344,7 @@
   --duration-step-skip-line: calc(0.38s * 0.4);
   --duration-step-skip-ring: calc(0.46s * 0.4);
   --duration-step-skip-flip: calc(0.4s * 0.4);
+  --duration-volume-morph: calc(0.26s * 1.5);
   --duration-step-skip: calc(calc(0.52s * 0.4) + calc(0.38s * 0.4) + calc(0.46s * 0.4));
   --ease-standard: ease;
   --ease-in-out: ease-in-out;
@@ -495,6 +497,7 @@
   --c-primary-soft: #7c4dff24;
   --c-on-primary: #fff;
   --c-selected: #7c4dff1f;
+  --c-volume-wave: #947cff;
   --c-secondary: #ece6ff;
   --c-secondary-bright: #f0ecff;
   --c-secondary-dim: #0f0f12;
@@ -609,6 +612,7 @@
   --c-primary-soft: #f0862b24;
   --c-on-primary: #000;
   --c-selected: #f0862b1f;
+  --c-volume-wave: #f6a265;
   --c-secondary: #b9babc;
   --c-secondary-bright: #c8c9ca;
   --c-secondary-dim: #09090a;
@@ -680,6 +684,7 @@
   --c-primary-soft: #c8a84e24;
   --c-on-primary: #000;
   --c-selected: #c8a84e1f;
+  --c-volume-wave: #d4bb79;
   --c-secondary: #4a9966;
   --c-secondary-bright: #74af86;
   --c-secondary-dim: #010603;

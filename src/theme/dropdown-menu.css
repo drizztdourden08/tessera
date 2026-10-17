@@ -103,7 +103,7 @@
   white-space: nowrap;
 }
 
-.dropdown__item:is(:hover, :focus-visible):not(:disabled),
+.dropdown__item:is(:hover, :focus-visible, :has(:focus-visible)):not(:disabled),
 .dropdown__item[aria-expanded='true'] {
   background: var(--c-hover);
   border-left-color: var(--c-primary-dim);

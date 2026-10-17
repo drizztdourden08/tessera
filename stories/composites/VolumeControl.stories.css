@@ -1,0 +1,7 @@
+/* @layer stories @kind style */
+.volume-story__bar {
+  position: relative;
+  width: var(--size-640);
+  height: var(--titlebar-height);
+  border: var(--border-width-thin) dashed var(--c-border);
+}

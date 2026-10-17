@@ -1,7 +1,8 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { VolumeControl } from '../../../src/composites';
-import type { ControlSize } from '../../../src/primitives';
+import type { VolumeSlider } from '../../../src/composites';
+import type { ControlSize, ScaleOrientation } from '../../../src/primitives';
 import { ValueReadout } from '../../_template/ValueReadout';
 
 type StatefulVolumeProps = {
@@ -12,6 +13,8 @@ type StatefulVolumeProps = {
   showValue?: boolean;
   disabled?: boolean;
   size?: ControlSize;
+  slider?: VolumeSlider;
+  orientation?: ScaleOrientation;
 };
 
 const StatefulVolume = (props: StatefulVolumeProps) => {

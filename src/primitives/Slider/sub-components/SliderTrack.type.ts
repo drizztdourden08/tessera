@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { ScaleLabelSource } from '../../ScaleLabels/ScaleLabels.type';
+import type { ScaleLabelSource, ScaleOrientation } from '../../ScaleLabels/ScaleLabels.type';
 import type { ValueScale } from '../../value-rule/value-rule.type';
 import type { RailHandlers } from '../behavior/useRangeDrag.type';
 
@@ -10,6 +10,7 @@ interface SliderTrackProps {
   span: readonly [number, number];
   readout: ReactNode;
   range: boolean;
+  orientation?: ScaleOrientation;
   rail?: RailHandlers;
   children: ReactNode;
 }

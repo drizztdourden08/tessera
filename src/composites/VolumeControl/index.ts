@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { VolumeControl } from './VolumeControl';
-export type { VolumeControlProps } from './VolumeControl.type';
+export type { VolumeControlProps, VolumeSlider } from './VolumeControl.type';

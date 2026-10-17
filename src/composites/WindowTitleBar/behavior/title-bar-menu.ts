@@ -12,8 +12,10 @@ import type { PlacedNode } from './placed-node.type';
 import type { TitleBarMenuInput } from './title-bar-menu.type';
 import { tuckedNodes } from './tucked-nodes';
 import { viewPlace } from './view-place';
+import { volumeMenuItems } from './volume-menu-items';
 
-const actionMenuItem = (action: WindowTitleBarAction): MenuItem[] => {
+const actionMenuItem = (action: WindowTitleBarAction, strings: TitleBarMenuInput['strings']): MenuItem[] => {
+  if (action.bar === 'volume') return volumeMenuItems(action, strings);
   const { id, label, shortcut } = action;
   const icon = action.tone !== undefined || action.effect !== undefined ? createElement(TitleBarActionIcon, { action }) : action.icon;
   if (action.bar !== 'dropdown') return [{ id, icon, label, description: action.status, shortcut, onSelect: action.onSelect }];
@@ -31,7 +33,7 @@ const titleBarMenu = (input: TitleBarMenuInput): MenuGroup[] => {
   const placed = placedNodes(input);
   const groupOf = ({ place }: PlacedNode): number => input.menu.findIndex((group) => group.id === place.group);
   const into = (index: number): PlacedNode[] => placed.filter((entry) => groupOf(entry) === index);
-  const items = insertNodes(input.actions.flatMap(actionMenuItem), into(-1));
+  const items = insertNodes(input.actions.flatMap((action) => actionMenuItem(action, input.strings)), into(-1));
   const menu = input.menu.map((group, index) => {
     const here = into(index);
     return here.length > 0 ? { ...group, items: insertNodes(group.items, here) } : group;

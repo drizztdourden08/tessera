@@ -1,0 +1,65 @@
+/* @layer renderer-components @kind style */
+.volume-icon {
+  flex: none;
+  overflow: visible;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.volume-icon__speaker {
+  stroke: currentcolor;
+}
+
+.volume-icon__wave,
+.volume-icon__cross {
+  transform-box: fill-box;
+  opacity: 0;
+  transition:
+    transform var(--duration-volume-morph) var(--ease-in-out),
+    opacity var(--duration-volume-morph) var(--ease-in-out);
+}
+
+.volume-icon__wave {
+  stroke: var(--c-volume-wave);
+  transform-origin: left center;
+  transform: scale(0.5);
+}
+
+.volume-icon__cross {
+  stroke: var(--c-danger);
+  transform-origin: center;
+  transform: rotate(-90deg) scale(0.4);
+}
+
+.volume-icon__wave path,
+.volume-icon__cross path {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  transition:
+    stroke-dashoffset var(--duration-volume-morph) var(--ease-in-out);
+}
+
+.volume-icon[data-step='0'] .volume-icon__cross,
+.volume-icon:is([data-step='1'], [data-step='2'], [data-step='3']) .volume-icon__wave--1,
+.volume-icon:is([data-step='2'], [data-step='3']) .volume-icon__wave--2,
+.volume-icon[data-step='3'] .volume-icon__wave--3 {
+  opacity: 1;
+  transform: none;
+}
+
+.volume-icon[data-step='0'] .volume-icon__cross path,
+.volume-icon:is([data-step='1'], [data-step='2'], [data-step='3']) .volume-icon__wave--1 path,
+.volume-icon:is([data-step='2'], [data-step='3']) .volume-icon__wave--2 path,
+.volume-icon[data-step='3'] .volume-icon__wave--3 path {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .volume-icon__wave,
+  .volume-icon__cross,
+  .volume-icon__wave path,
+  .volume-icon__cross path {
+    transition: none;
+  }
+}

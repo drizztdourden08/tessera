@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintReport } from '../hint/hint.type';
-import type { ScaleLabelSource } from '../ScaleLabels/ScaleLabels.type';
+import type { ScaleLabelSource, ScaleOrientation } from '../ScaleLabels/ScaleLabels.type';
 
 type SliderPair = readonly [number, number];
 
@@ -29,6 +29,7 @@ interface SliderCommonProps {
 interface SliderSingleProps extends SliderCommonProps {
   range?: false;
   input?: boolean;
+  orientation?: ScaleOrientation;
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;

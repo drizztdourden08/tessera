@@ -1,28 +1,28 @@
 /* @layer renderer-components @kind component */
-import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { VolumeIcon } from '../../../primitives/VolumeIcon';
 import type { VolumeMuteButtonProps } from './VolumeMuteButton.type';
 
 const VolumeMuteButton = (props: VolumeMuteButtonProps) => {
-  const { muted, icon, size, disabled, onToggle, onHint } = props;
+  const { muted, level, size, disabled, onToggle, onHint, onKeyDown, ref } = props;
   const { common } = useTesseraStrings();
   const compact = size === 'sm';
   const label = muted ? common.unmute : common.mute;
 
   return (
     <IconButton
+      ref={ref}
       size={compact ? 'xs' : 'sm'}
       variant="ghost"
-      tone={muted ? 'danger' : undefined}
-      active={muted}
       label={label}
       hint={{ label, description: muted ? common.unmuteHint : common.muteHint }}
       onHint={onHint}
       disabled={disabled}
       onClick={onToggle}
+      onKeyDown={onKeyDown}
     >
-      <Icon name={icon} size={compact ? 14 : 16} />
+      <VolumeIcon level={level} muted={muted} size={compact ? 12 : 14} />
     </IconButton>
   );
 };

@@ -8,7 +8,7 @@ const shownAs = (actions: readonly WindowTitleBarAction[], bars: readonly Window
   actions.filter((action) => bars.includes(actionBar(action) ?? 'menu')).map((action) => actionItem(action.id)).reverse();
 
 const hideOrder = (actions: readonly WindowTitleBarAction[], controls: WindowControlsConfig): WindowTitleBarItemId[] => [
-  ...shownAs(actions, ['button', 'dropdown']),
+  ...shownAs(actions, ['button', 'dropdown', 'volume']),
   ...(controls.pin === false ? [] : [PIN_ITEM]),
   ...shownAs(actions, ['status']),
   ...(controls.fullscreen === false ? [] : [FULLSCREEN_ITEM]),

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { WindowTitleBarAction, WindowTitleBarCommandAction, WindowTitleBarDropdownAction } from '../WindowTitleBar.type';
+import type { WindowTitleBarAction, WindowTitleBarCommandAction, WindowTitleBarDropdownAction, WindowTitleBarVolumeAction } from '../WindowTitleBar.type';
 
 interface TitleBarActionProps {
   action: WindowTitleBarAction;
@@ -18,4 +18,9 @@ interface TitleBarDropdownProps {
   onOpenChange: (id: string, open: boolean) => void;
 }
 
-export type { TitleBarActionProps, TitleBarCommandProps, TitleBarDropdownProps };
+interface TitleBarVolumeProps {
+  action: WindowTitleBarVolumeAction;
+  away: boolean;
+}
+
+export type { TitleBarActionProps, TitleBarCommandProps, TitleBarDropdownProps, TitleBarVolumeProps };

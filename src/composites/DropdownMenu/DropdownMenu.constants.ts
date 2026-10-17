@@ -21,7 +21,9 @@ const JOIN_SCROLLER = '[role="menu"], [data-join-scroller]';
 
 const JOIN_ITEM = '[role^="menuitem"], [data-join-item]';
 
+const SLIDER_OWN_KEYS: readonly string[] = ['ArrowLeft', 'ArrowRight', 'PageUp', 'PageDown'];
+
 export {
   CONFIRM_ITEM_MS, JOIN_FLUSH, JOIN_ITEM, JOIN_MARGIN, JOIN_SCROLLER, PATH_JOIN, SAFE_AREA_GRACE, SAFE_AREA_SLACK, SUB_MENU_SELECTOR,
-  SURFACE_SELECTOR, TUNNEL_SELECTOR,
+  SLIDER_OWN_KEYS, SURFACE_SELECTOR, TUNNEL_SELECTOR,
 };

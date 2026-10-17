@@ -16,7 +16,7 @@ type WindowControl = 'fullscreen' | 'pin' | 'minimize' | 'maximize' | 'close';
 
 type WindowControlsConfig = Partial<Record<WindowControl, boolean>>;
 
-type WindowTitleBarActionBar = 'button' | 'status' | 'menu' | 'dropdown';
+type WindowTitleBarActionBar = 'button' | 'status' | 'menu' | 'dropdown' | 'volume';
 
 interface WindowTitleBarActionBase {
   id: string;
@@ -28,7 +28,7 @@ interface WindowTitleBarActionBase {
 }
 
 interface WindowTitleBarCommandAction extends WindowTitleBarActionBase {
-  bar?: Exclude<WindowTitleBarActionBar, 'dropdown'>;
+  bar?: Exclude<WindowTitleBarActionBar, 'dropdown' | 'volume'>;
   onSelect: () => void;
   status?: string;
   pulse?: boolean;
@@ -39,7 +39,21 @@ interface WindowTitleBarDropdownAction extends WindowTitleBarActionBase {
   groups: readonly MenuGroup[];
 }
 
-type WindowTitleBarAction = WindowTitleBarCommandAction | WindowTitleBarDropdownAction;
+interface WindowTitleBarVolumeAction {
+  id: string;
+  label: string;
+  bar: 'volume';
+  value: number;
+  muted: boolean;
+  onChange: (value: number) => void;
+  onMutedChange: (muted: boolean) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  shortcut?: MenuItem['shortcut'];
+}
+
+type WindowTitleBarAction = WindowTitleBarCommandAction | WindowTitleBarDropdownAction | WindowTitleBarVolumeAction;
 
 type WindowTitleBarViewPosition = number | 'start' | 'end';
 
@@ -85,5 +99,5 @@ interface WindowTitleBarProps {
 export type {
   BrandFit, WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
   WindowTitleBarDropdownAction, WindowTitleBarInstance, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarTucked, WindowTitleBarTuckedItem, WindowTitleBarViewPlace,
-  WindowTitleBarViewPosition,
+  WindowTitleBarViewPosition, WindowTitleBarVolumeAction,
 };

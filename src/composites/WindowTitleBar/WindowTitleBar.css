@@ -70,6 +70,11 @@
   pointer-events: none;
 }
 
+.window-title-bar__volume {
+  display: inline-flex;
+  align-items: center;
+}
+
 .window-title-bar__status {
   display: inline-flex;
   padding: 0;

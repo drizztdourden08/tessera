@@ -2,6 +2,7 @@
 import { DropdownMenu, WindowTitleBar } from '../../../src/composites';
 import type { MenuGroup, WindowTitleBarAction, WindowTitleBarProps } from '../../../src/composites';
 import { titleBarMenu } from '../../../src/composites/WindowTitleBar/behavior/title-bar-menu';
+import { titleBarStrings } from '../../../src/composites/WindowTitleBar/behavior/title-bar-strings';
 import { Box, Text } from '../../../src/primitives';
 import { useTesseraStrings } from '../../../src/primitives/TesseraProvider/behavior/useTesseraStrings';
 
@@ -19,8 +20,8 @@ const ignore = () => undefined;
 
 const TitleBarViewDemo = (props: TitleBarViewDemoProps) => {
   const { title, logo, menu, actions, view, caption, code } = props;
-  const { windows } = useTesseraStrings();
-  const input = { menu, actions, pin: true, fullscreenButton: true, pinned: false, fullscreen: false, onControl: ignore, strings: windows };
+  const { windows, common } = useTesseraStrings();
+  const input = { menu, actions, pin: true, fullscreenButton: true, pinned: false, fullscreen: false, onControl: ignore, strings: titleBarStrings(windows, common) };
 
   return (
     <Box className="story-column">

@@ -1,10 +1,9 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { VolumeIcon } from '../../../primitives/VolumeIcon';
 import { toPercent } from '../behavior/to-percent';
-import { volumeIconName } from '../../VolumeControl/behavior/volume-icon-name';
 import { VOLUME_STEP } from '../Video.constants';
 import './VideoVolume.css';
 import type { VideoVolumeProps } from './VideoVolume.type';
@@ -18,7 +17,7 @@ const VideoVolume = (props: VideoVolumeProps) => {
   return (
     <Box className="video-volume">
       <IconButton className="video-bar__button" label={level === 0 ? common.unmute : common.mute} onClick={onToggleMute}>
-        <Icon name={volumeIconName(volume, 0, 1, muted)} size={18} />
+        <VolumeIcon level={volume} muted={muted} size={18} />
       </IconButton>
       <VideoTrack
         className="video-volume__input"

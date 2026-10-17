@@ -6,7 +6,7 @@ import type { IconName, IconPath } from '../../primitives/Icon';
 import type { DropAlign } from '../../primitives/listbox/drop-placement.type';
 import type { ShortcutKey } from '../../primitives/Shortcut';
 
-type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm';
+type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm' | 'slider';
 
 type MenuItemTone = 'danger';
 
@@ -23,6 +23,12 @@ interface MenuItem {
   tone?: MenuItemTone;
   checked?: boolean;
   confirm?: string;
+  value?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  formatValue?: (value: number) => string;
+  onChange?: (value: number) => void;
   children?: readonly MenuNode[];
   onSelect?: () => void;
   onCancel?: () => void;

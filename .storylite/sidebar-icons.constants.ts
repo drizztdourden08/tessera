@@ -38,7 +38,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     'BidiIsolate': 'arrow-left-right', 'BidiOverride': 'arrow-right-left', 'Ruby': 'languages', 'RubyText': 'captions',
     'RubyParenthesis': 'parentheses', 'Shortcut': 'keyboard', 'Quote': 'quote', 'Emphasis animation': 'wand-sparkles',
   },
-  'Core · Icons': { 'Icon': 'shapes', 'Brand icons': 'badge', 'Glyph': 'pen-tool', 'InputIcon': 'joystick', 'EmojiIcon': 'smile' },
+  'Core · Icons': { 'Icon': 'shapes', 'Brand icons': 'badge', 'Glyph': 'pen-tool', 'InputIcon': 'joystick', 'EmojiIcon': 'smile', 'VolumeIcon': 'volume-1' },
   'Core · Tokens': {
     'Size scale': 'ruler', 'Sizes': 'move-diagonal', 'Margin': 'expand', 'Padding': 'shrink', 'Gap': 'separator-vertical',
     'Radius': 'square-round-corner', 'Shadows': 'layers', 'Z-index': 'layers-3', 'Durations': 'timer',

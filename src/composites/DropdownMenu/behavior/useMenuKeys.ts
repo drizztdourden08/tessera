@@ -20,7 +20,7 @@ const leaveKey = (event: KeyboardEvent<HTMLElement>, current: number, params: Us
 const useMenuKeys = (params: UseMenuKeysParams) => {
   const typed = useTypeaheadText();
 
-  const moveFocus = (event: KeyboardEvent<HTMLElement>, items: HTMLButtonElement[], current: number): boolean => {
+  const moveFocus = (event: KeyboardEvent<HTMLElement>, items: readonly HTMLElement[], current: number): boolean => {
     const stepped = items.length > 0 ? stepTarget(event.key, current, items.length) : -1;
     const text = stepped === -1 ? typed(event.key, event.timeStamp) : null;
     const target = text === null ? stepped : typeaheadIndex(items.map(labelOf), items.map(() => true), current, text);
