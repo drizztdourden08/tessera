@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { rectStyle } from '../behavior/rect-style';
+import { rectStyle } from '../../rect-drag/rect-style';
 import { DockDivider } from './DockDivider';
 import { DockFloating } from './DockFloating';
 import { DockPanes } from './DockPanes';

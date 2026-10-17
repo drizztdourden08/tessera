@@ -3,8 +3,9 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Widget } from '../src/composites/Widget';
-import { FLOAT_MIN, RESIZE_EDGES } from '../src/composites/DockLayout/DockLayout.constants';
-import { resizeRect } from '../src/composites/DockLayout/behavior/resize-rect';
+import { FLOAT_MIN } from '../src/composites/DockLayout/DockLayout.constants';
+import { RESIZE_EDGES } from '../src/composites/rect-drag/rect-drag.constants';
+import { resizeRect } from '../src/composites/rect-drag/resize-rect';
 
 const START = { x: 100, y: 100, width: 300, height: 200 };
 const LIMITS = { bounds: { x: 50, y: 40, width: 800, height: 500 }, min: FLOAT_MIN };

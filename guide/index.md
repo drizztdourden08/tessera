@@ -146,7 +146,7 @@ One line per component. 66 of 187 have their usage written; a linked name opens 
 - [SaveBar](components/SaveBar.md): The bar at the foot of an editor: whether its edits are saved, the reason a save failed, and Save and Discard. Import from `@drizztdourden08/tessera`.
 - [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenPage](components/ScreenPage.md): Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls. A building block. Import from `@drizztdourden08/tessera`.
-- [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title bar or a page header at its top, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.
+- [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.
 - `SearchResultGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResultHit`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResults`: usage not written yet. Import from `@drizztdourden08/tessera`.

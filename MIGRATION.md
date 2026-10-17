@@ -9311,3 +9311,69 @@ The step row keeps 0, 25, 50, 75 and 100% and muted, now four different drawings
 ### What apps do
 
 Nothing to change. An app that set `--c-volume-wave` keeps its value. An app that relied on the speaker taking the colour of its button now gets `--c-text`.
+
+## 261. A window with no title row, a corner X and a lock that frees it to move and resize
+
+The owner picked option C of the WindowClose preview for Brock's hub: no title row under the switch, and a small round X on the top right corner of the card, half over its edge. The owner then asked for a lock left of the X, grey while unlocked and golden while locked: locked is today's centred window, unlocked lets the user move and resize it. The owner also asked for tighter gaps around and inside the window, with about 8 to 10 px between the switch and the content.
+
+### What changed
+
+- **ScreenWindow** takes new props:
+
+```ts
+interface ScreenWindowProps {
+  titleRow?: boolean;          // true by default; false drops the title row
+  movable?: boolean;           // with titleRow={false}: the lock left of the X
+  locked?: boolean;            // controlled lock
+  defaultLocked?: boolean;     // true by default
+  onLockChange?: (locked: boolean) => void;
+  defaultRect?: Rect;          // where an unlocked window sits before any move
+  onRectChange?: (rect: Rect) => void;
+  minSize?: Size;              // 480 by 320 px by default
+  storageKey?: string;         // remembers the lock at <key>:locked and the rect at <key>:rect
+}
+```
+
+- **No title row.** With `titleRow={false}` the title names the dialog (`aria-label` for plain text, a hidden title for any other node), Escape still closes, and the X shows a tooltip with Close and the Esc key. `back`, `subtitle` and `extra` need the title row; `header` wins over `titleRow={false}`, with a warning in development.
+- **Corner buttons.** The X, and the lock with `movable`, are 24 px round buttons with a 28 px hit area, drawn by the same piece as CollapseToggle, set 8 px out of the top right corner of the card, 4 px apart. The lock is a toggle button named Lock window position with `aria-pressed`; its tooltip reads Unlock window position while locked and Lock window position while unlocked. Its shackle lifts 2 units and swings open 14 degrees, its right leg trimmed, on `transform` and `stroke-dashoffset` over `--duration-slow` (260 ms); the stroke is `--c-text-muted` unlocked and `--c-primary` locked (gold `#c8a84e` in RotP). Under reduced motion it switches at once.
+- **Locked** is the centred window. **Unlocked**, a 24 px band across the top of the card, named Move window, moves it by drag or by the arrow keys (16 px, 64 px with Shift); eight edges and corners resize it. The window, its switch and its corner buttons stay inside the screen, and the card never shrinks below `minSize`. Locking snaps it back to the centre; unlocking again puts it back at the last moved rect. Under 840 by 560 px, and on phones, the card fills the screen as before, and the lock and the move handles hide.
+- **Tighter.** With `titleRow={false}` the gap around the card takes the next smaller space token at each size, and the padding inside is lg (16 px) on the sides and bottom, md (12 px) under 960 by 600 px and sm (8 px) once the card fills the screen. The top is `--space-sm` under the switch, or under the corner buttons with no switch.
+- **ScreenLayer** takes `corner?: ReactNode`, `tight?: boolean` and `move?: ScreenLayerMove` (`{ rect: Rect | null; min?: Size; onChange: (rect: Rect) => void }`, exported). Its floating slot now sits on `--z-sticky` so the move band and the resize edges pass under it.
+- **DockLayout** shares its floating resize with ScreenLayer: the edges are now `rect-resize` and `rect-resize--<edge>` in place of `dock-resize` (RENAMES.json, release `next`).
+
+### Measured
+
+At 1440 by 900 in the gallery frame (a 1022 by 638 px layer), before is the preview C window, after is `titleRow={false}`:
+
+| | Before | After |
+|---|---|---|
+| Gap around the card | 43.1 px (`--space-xl` + 3cqmin) | 35.1 px (`--space-lg` + 3cqmin) |
+| Padding, sides and bottom | 25 px | 17 px (16 plus the border) |
+| Switch to content | 6.5 px | 9 px (`--space-sm` plus the border) |
+| Corner buttons to content | 9 px | 11.5 px |
+| Content | 885.8 by 501.8 px | 917.8 by 523.3 px |
+
+On a 1440 by 900 layer the gap goes from 77 to 69 px (`--space-2xl` to `--space-xl`, plus 5cqmin); under 960 by 600 px it loses 4 px (`--space-lg` to `--space-md`). Dragging the band 120 px left stops the card at the left edge of the layer; dragging past the top stops it with the switch at the top edge; the se corner dragged 900 px in stops at 480 by 320 px; two Right presses and one Shift+Down move it 32 and 64 px; locking puts it back at its centred 951.8 by 567.8 px box. Windows with a title row keep every box: ScreenLayer, CollapseToggle, SidePanel, ListDetailLayout, SideNav, SideNavLayout, StudioLayout, DockLayout, Widget, FloatingSwitch and the four screen kinds measure the same as before. No console errors.
+
+### Gallery and tests
+
+The ScreenWindow page gains three examples on Brock's hub in the RotP palette: locked, unlocked, and unlocked, moved and resized; the Playground gains titleRow and movable. Two Overview points name them. The WindowClose preview and the Preview group are gone. `tests/screen-window-corner.test.mjs` checks the dialog name, the corner buttons, the lock state, the move handles and the CSS; `tests/screen-window-move.test.mjs` checks the arrow keys, the bounds, the minimum size, the lock with its storage and the snap back, and Escape.
+
+### What Brock does
+
+On each hub screen whose floating switch names the page, drop the title row and let the user free the window:
+
+```tsx
+<ScreenWindow
+  title="Data"
+  titleRow={false}
+  movable
+  storageKey="brock.hub.data"
+  floating={<FloatingSwitch items={HUBS} activeId={hub} onSelect={setHub} label="Switch hub" />}
+  onClose={close}
+>
+  <DataPages />
+</ScreenWindow>
+```
+
+`storageKey` keeps the lock and the rect in `localStorage` under `brock.hub.data:locked` and `brock.hub.data:rect`. To keep them in Brock's own settings instead, pass `locked` and `onLockChange`, and `defaultRect` with `onRectChange`, which gets `{ x, y, width, height }` in px from the top left of the layer after each move, resize or arrow key. Use one key for all three hubs so the window keeps its place when the switch changes page. Any style that targeted `.dock-resize` now targets `.rect-resize`.

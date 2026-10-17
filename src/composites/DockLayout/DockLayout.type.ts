@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { Rect, Size } from '../rect-drag/rect-drag.type';
 
 type WidgetId = string;
 
@@ -35,18 +36,6 @@ interface FloatingWidget {
   id: WidgetId;
   x: number;
   y: number;
-  width: number;
-  height: number;
-}
-
-interface Rect {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-interface Size {
   width: number;
   height: number;
 }

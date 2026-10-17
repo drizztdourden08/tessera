@@ -5,7 +5,7 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import { ResizeHandle } from '../../ResizeHandle/ResizeHandle';
 import type { ResizeChange } from '../../ResizeHandle/ResizeHandle.type';
 import { dividerRange } from '../behavior/divider-range';
-import { rectStyle } from '../behavior/rect-style';
+import { rectStyle } from '../../rect-drag/rect-style';
 import type { DockDividerProps } from './DockDivider.type';
 
 const DockDivider = (props: DockDividerProps) => {

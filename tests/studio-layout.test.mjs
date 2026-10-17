@@ -70,7 +70,7 @@ describe('the shared pieces StudioLayout is drawn from', () => {
   it('LogPanel is a ToolFrame, and ListDetailLayout folds to the same rail and toggle as SidePanel', () => {
     expect(renderToString(h(LogPanel, { rows: [] }))).toMatch(/^<div class="box--sunken tool-frame log-panel"><div class="tool-frame__toolbar"><div class="filter-bar"/);
     const folded = renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', defaultCollapsed: true, listLabel: 'presets' }));
-    expect(folded).toContain('class="pane-rail pane-rail--folded page-card list-detail-layout__gutter"><button type="button" class="pressable collapse-toggle collapse-toggle--to-end');
+    expect(folded).toContain('class="pane-rail pane-rail--folded page-card list-detail-layout__gutter"><button type="button" class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-end');
     expect(folded).toContain('pane-rail__label" aria-hidden="true">presets</span>');
   });
 

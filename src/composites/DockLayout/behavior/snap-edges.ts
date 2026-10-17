@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
 import type { Rect } from '../DockLayout.type';
-import type { ResizeSide, ResizeSides } from './float-resize.type';
+import type { ResizeSide, ResizeSides } from '../../rect-drag/rect-drag.type';
 import type { SnapEdges } from './snap.type';
 
 const sideEdges = (from: number, size: number, side: ResizeSide | null): number[] => {

@@ -1391,6 +1391,20 @@
       "strings": {
         "lists.undo": "common.undo"
       }
+    },
+    {
+      "version": "next",
+      "cssClasses": {
+        "dock-resize--n": "rect-resize--n",
+        "dock-resize--s": "rect-resize--s",
+        "dock-resize--e": "rect-resize--e",
+        "dock-resize--w": "rect-resize--w",
+        "dock-resize--ne": "rect-resize--ne",
+        "dock-resize--nw": "rect-resize--nw",
+        "dock-resize--se": "rect-resize--se",
+        "dock-resize--sw": "rect-resize--sw",
+        "dock-resize": "rect-resize"
+      }
     }
   ]
 }

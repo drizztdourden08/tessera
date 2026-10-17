@@ -1,37 +1,29 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
-import type { Rect } from '../DockLayout.type';
-import type { FloatResizeParams, LiveResize, ResizeEdge } from './float-resize.type';
-import { listenResize } from './listen-resize';
-import { sameRect } from './same-rect';
+import { resizeRect } from '../../rect-drag/resize-rect';
+import type { ResizeEdge } from '../../rect-drag/rect-drag.type';
+import { sameRect } from '../../rect-drag/same-rect';
+import { useRectDrag } from '../../rect-drag/useRectDrag';
+import type { FloatResizeParams, LiveResize } from './float-resize.type';
+import { snapResizeOf } from './snap-resize-of';
 
 const useFloatResize = (params: FloatResizeParams) => {
-  const [live, setLive] = useState<LiveResize | null>(null);
-  const detach = useRef<(() => void) | null>(null);
+  const drag = useRectDrag<LiveResize>();
   const latest = useRef(params);
   latest.current = params;
-
-  useEffect(() => () => detach.current?.(), []);
+  const { begin } = drag;
 
   const onPointerDown = useCallback((edge: ResizeEdge, e: ReactPointerEvent<HTMLElement>) => {
-    if (e.button !== 0 || detach.current) return;
-    e.preventDefault();
-    e.stopPropagation();
     const { rect: start, bounds, min, snap } = latest.current;
-    const onDone = (rect: Rect | null): void => {
-      detach.current = null;
-      setLive(null);
+    const snapTo = snapResizeOf(snap, edge, { bounds, min });
+    begin(e, (delta) => snapTo(resizeRect(start, edge, delta, { bounds, min })), (last) => {
       const { id, onEdit } = latest.current;
-      if (rect && !sameRect(rect, start)) onEdit({ type: 'float-widget', id, rect });
-    };
-    detach.current = listenResize({
-      handle: e.currentTarget, pointerId: e.pointerId, origin: { x: e.clientX, y: e.clientY }, edge, start, bounds, min, snap,
-      onLive: setLive, onDone,
+      if (last && !sameRect(last.rect, start)) onEdit({ type: 'float-widget', id, rect: last.rect });
     });
-  }, []);
+  }, [begin]);
 
-  return { live, onPointerDown };
+  return { live: drag.live, onPointerDown };
 };
 
 export { useFloatResize };

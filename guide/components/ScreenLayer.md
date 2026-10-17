@@ -35,6 +35,9 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Use size="compact" for a card that fits its content, up to a readable width.
 - Use size="info" for an informational window with no tools: a small card that fits its content, centred, up to 512 px wide. InfoScreen sets it.
 - Set square for a window shown fullscreen: the card drops its corner radius and its outer border, and the host draws what surrounds it.
+- Pass corner for small round buttons on the top right corner of the card, half over its edge, such as the X of a window with no title row.
+- Set tight for a window with no title row: the gap around the card takes the next smaller space token at every size.
+- Pass move to let the user move the card by its top edge and resize it from its edges and corners: rect is where it sits, null for its snapped spot, and onChange gets each new rect. The card stays inside the layer, floating and corner included, and no smaller than min.
 
 ## Accessibility
 
@@ -44,6 +47,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Hidden takes the layer out of the page and out of the accessibility tree, and keeps its content mounted.
 - Pass onClose and Escape calls it, after every menu, popover and dialog above the layer; a hidden layer takes no Escape.
 - Floating comes before the card in the page order, so a switcher in it is the first Tab stop; it still draws on the top edge of the card.
+- Corner comes after floating, and the Move window handle of move after corner, both before the card.
 
 ## Example
 
@@ -63,13 +67,16 @@ const KioskScreen = ({ children }: { children: ReactNode }) => (
 - `children`: `ReactNode`.
 - `onClose` (optional): `() => void`.
 - `floating` (optional): `ReactNode`.
+- `corner` (optional): `ReactNode`.
+- `move` (optional): `ScreenLayerMove`.
+- `tight` (optional): `boolean`.
 - `hidden` (optional): `boolean`. Default `false`.
-- `size` (optional): `ScreenLayerSize`, one of `'fill'`, `'compact'`, `'info'`. Default `'fill'`.
-- `square` (optional): `boolean`. Default `false`.
+- `size` (optional): `ScreenLayerSize`, one of `'fill'`, `'compact'`, `'info'`.
+- `square` (optional): `boolean`.
 - `label` (optional): `string`.
 - `labelledBy` (optional): `string`.
 - `className` (optional): `string`. Default `''`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-hairline`, `--c-layer`, `--control-h-md`, `--dialog-w-md`, `--radius-xl`, `--shadow-3`, `--size-512`, `--space-2xl`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--z-base`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-hairline`, `--c-layer`, `--c-primary`, `--collapse-toggle-d`, `--control-h-md`, `--dialog-w-md`, `--radius-xl`, `--screen-layer-h`, `--screen-layer-w`, `--screen-layer-x`, `--screen-layer-y`, `--shadow-3`, `--size-512`, `--space-2xl`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--z-base`, `--z-sticky`.

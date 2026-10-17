@@ -1,0 +1,66 @@
+/* @layer renderer-components @kind style */
+.screen-window__tip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.screen-layer__corner .tooltip-anchor {
+  display: inline-flex;
+}
+
+.screen-layer__corner .edge-button {
+  color: var(--c-text-dim);
+  box-shadow: var(--shadow-lg);
+}
+
+.screen-layer__corner .edge-button:hover {
+  color: var(--c-text);
+  border-color: var(--c-primary);
+}
+
+.lock-glyph {
+  overflow: visible;
+  fill: none;
+  stroke: var(--c-text-muted);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke var(--duration-slow) var(--ease-in-out);
+}
+
+.lock-glyph[data-locked='true'] {
+  stroke: var(--c-primary);
+}
+
+.lock-glyph__shackle {
+  transform-box: fill-box;
+  transform-origin: left bottom;
+  transform: translateY(calc(-1 * var(--size-2))) rotate(-14deg);
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0.17;
+  transition:
+    transform var(--duration-slow) var(--ease-in-out),
+    stroke-dashoffset var(--duration-slow) var(--ease-in-out);
+}
+
+.lock-glyph[data-locked='true'] .lock-glyph__shackle {
+  transform: none;
+  stroke-dashoffset: 0;
+}
+
+@container screen-layer (width < 840px) or (height < 560px) {
+  .screen-layer__corner .tooltip-anchor:has(> .screen-window__lock) {
+    display: none;
+  }
+}
+
+.platform-mobile .screen-layer__corner .tooltip-anchor:has(> .screen-window__lock) {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lock-glyph,
+  .lock-glyph__shackle {
+    transition: none;
+  }
+}

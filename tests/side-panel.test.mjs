@@ -23,7 +23,7 @@ describe('SidePanel', () => {
 
   it('folds with the shared CollapseToggle on its inner edge, which names it and controls the panel', () => {
     const html = draw();
-    expect(html).toContain(`class="pressable collapse-toggle collapse-toggle--to-start hit-area side-panel__toggle" aria-label="Hide Sprites" title="Hide Sprites" aria-expanded="true" aria-controls="${paneIdOf(html)}"`);
+    expect(html).toContain(`class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-start side-panel__toggle" aria-label="Hide Sprites" title="Hide Sprites" aria-expanded="true" aria-controls="${paneIdOf(html)}"`);
     expect(html).toMatch(/<div class="side-panel__frame"><button[^>]*collapse-toggle[^>]*>.*<\/button><aside/);
     expect(draw({ collapsible: false })).not.toContain('collapse-toggle');
     expect(draw({ collapsible: false })).not.toContain('side-panel--collapsible');
@@ -55,8 +55,8 @@ describe('SidePanel', () => {
   it('puts the line before an end panel, its toggle pointing right while open', () => {
     const html = draw({ side: 'end' });
     expect(html).toMatch(/^<div class="side-panel side-panel--end side-panel--collapsible"[^>]*><div class="resize-handle[^"]*"[^>]*role="separator"/);
-    expect(html).toContain('collapse-toggle--to-end hit-area side-panel__toggle" aria-label="Hide Sprites"');
-    expect(draw({ side: 'end', defaultCollapsed: true })).toContain('collapse-toggle--to-start hit-area side-panel__toggle" aria-label="Show Sprites"');
+    expect(html).toContain('collapse-toggle--to-end side-panel__toggle" aria-label="Hide Sprites"');
+    expect(draw({ side: 'end', defaultCollapsed: true })).toContain('collapse-toggle--to-start side-panel__toggle" aria-label="Show Sprites"');
     expect(draw({ resizable: false })).not.toContain('role="separator"');
     expect(draw({ resizable: false })).toContain('side-panel--overhang');
   });

@@ -5,7 +5,7 @@ import { Span } from '../../../primitives/text-elements';
 import type { Rect } from '../DockLayout.type';
 import type { DragView, DropZone } from '../behavior/drag.type';
 import type { LaidOut } from '../behavior/layout-tree.type';
-import { rectStyle } from '../behavior/rect-style';
+import { rectStyle } from '../../rect-drag/rect-style';
 import { DropHintZone } from './DropHintZone';
 import { DropPopZone } from './DropPopZone';
 import { DropPreview } from './DropPreview';

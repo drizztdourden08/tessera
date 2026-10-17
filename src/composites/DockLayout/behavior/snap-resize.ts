@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind logic */
 import type { Rect } from '../DockLayout.type';
-import type { AxisLimits, AxisSpan, ResizeSide, SnapResize } from './float-resize.type';
+import type { AxisLimits, AxisSpan, ResizeSide } from '../../rect-drag/rect-drag.type';
+import type { SnapResize } from './float-resize.type';
 import { snapShifts } from './snap-shifts';
 import type { SnapLine, SnapLines } from './snap.type';
 

@@ -26,6 +26,7 @@ export default standardsEslint({
     { files: ['src/composites/SplitPane/SplitPane.tsx'], why: 'the split share is dragged by the user' },
     { files: ['src/composites/ListDetailLayout/ListDetailLayout.tsx'], why: 'the list width is dragged by the user' },
     { files: ['src/composites/SidePanel/SidePanel.tsx'], why: 'the panel width is dragged by the user' },
+    { files: ['src/composites/ScreenLayer/ScreenLayer.tsx'], why: 'an unlocked window sits where the user moved and sized it' },
     { files: ['src/composites/FloatingSwitch/FloatingSwitch.tsx'], why: 'the thumb is placed and sized from the measured lit item' },
     { files: ['src/composites/DropdownMenu/sub-components/SubMenuPanel.tsx', 'src/composites/DropdownMenu/sub-components/SubMenuJoinPieces.tsx'], why: 'a sub-menu and the pieces that join it to its parent sit where the measured parent edge and trigger row put them' },
     { files: ['src/composites/ControlMenu/sub-components/ControlSubPanel.tsx', 'src/composites/ControlMenu/sub-components/ControlSubUnder.tsx'], why: 'a ControlMenu sub-panel joins its row the way a DropdownMenu sub-menu does, from the measured join, or takes the width of its row' },

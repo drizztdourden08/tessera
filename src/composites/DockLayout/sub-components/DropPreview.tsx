@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { rectStyle } from '../behavior/rect-style';
+import { rectStyle } from '../../rect-drag/rect-style';
 import type { DropPreviewProps } from './DropPreview.type';
 
 const DropPreview = (props: DropPreviewProps) => {

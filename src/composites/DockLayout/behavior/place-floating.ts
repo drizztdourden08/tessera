@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { GAP, MAX_PUSHES } from '../DockLayout.constants';
 import type { Rect } from '../DockLayout.type';
-import { clampInto } from './clamp-into';
+import { clampInto } from '../../rect-drag/clamp-into';
 
 const overlaps = (a: Rect, b: Rect): boolean =>
   a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;

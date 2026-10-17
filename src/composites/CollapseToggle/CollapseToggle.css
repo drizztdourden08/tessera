@@ -1,20 +1,4 @@
 /* @layer renderer-components @kind style */
-.collapse-toggle {
-  --hit-area: var(--collapse-toggle-hit);
-
-  display: grid;
-  flex: none;
-  place-items: center;
-  inline-size: var(--collapse-toggle-d);
-  block-size: var(--collapse-toggle-d);
-  padding: 0;
-  border: var(--border-width-thin) solid var(--c-border-strong);
-  border-radius: var(--radius-round);
-  background: var(--c-layer);
-  color: var(--c-primary);
-  cursor: pointer;
-}
-
 .collapse-toggle svg {
   transition: transform var(--transition-fast);
 }

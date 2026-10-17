@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'Building block: the plain screen window, a ScreenLayer with a title bar or a page header at its top, a close button and an empty container.',
+  job: 'Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container.',
   useWhen: [
     'You build a new kind of screen on the window every screen kind shares.',
     'A screen fits none of the four kinds and needs only a title, a close button and its own content.',
@@ -19,7 +19,11 @@ const usage = {
     'With header the window has no padding and no card inside: the children pad themselves, so a scrolling body reaches the window edge.',
     'With header, subtitle and extra do not show; put such controls in header.strip or header.actions.',
     'Pass back to draw a back button before the title, in the title bar or in the page header, for a screen opened from another one. The host wires Alt+Left and the mouse back button to the same call.',
-    'Without header, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.',
+    'With the title row, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.',
+    'Pass titleRow={false} when a floating switch already names the screen: the title row goes, the title names the dialog, and a round X sits half over the top right corner of the card.',
+    'With titleRow={false}, pass the title as plain text, keep back for windows with a title row, and expect a tighter window: a smaller gap around the card, lg padding on the sides and bottom, and 8 px between the switch and the content.',
+    'Pass movable with titleRow={false} to add a lock left of the X. Locked, the default, the window sits centred; unlocked, it moves by the top edge of the card and resizes from every edge and corner, inside the screen and down to minSize.',
+    'Pass storageKey to remember the lock and the moved rect, or keep them in the app with locked, onLockChange, defaultRect and onRectChange. Locking snaps the window back to the centre; unlocking puts it back where it was moved.',
     'UtilityScreen uses header; WorkspaceScreen and StageScreen put a ScreenPage inside the title bar window; InfoScreen keeps the title bar alone.',
     'The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.',
     'Keep extra to a few small controls; the close button always comes last.',
@@ -32,6 +36,8 @@ const usage = {
     'The card is a modal dialog named by the title.',
     'The close button carries the Close label from the strings.',
     'Escape calls onClose once no menu, popover or dialog is open above the window, so one press closes one thing.',
+    'With titleRow={false}, the corner X keeps the Close label and shows a tooltip with the Esc key; the lock is a toggle button with aria-pressed, named Lock window position.',
+    'Unlocked, the top edge is a Move window button after the corner buttons in the Tab order: the arrow keys move the window by 16 px, and by 64 px with Shift.',
   ],
   buildingBlock: true,
   example: `import { Button, Icon, ScreenWindow, ScrollArea } from '@drizztdourden08/tessera';
@@ -48,7 +54,7 @@ const PlayersScreen = ({ onClose }: { onClose: () => void }) => (
   </ScreenWindow>
 );
 `,
-  propsHash: '69f50ff4fa292c17',
+  propsHash: '5089fe2100f622e4',
 } satisfies ComponentUsage;
 
 export { usage };

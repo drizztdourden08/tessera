@@ -7,6 +7,10 @@ const WINDOW_STRINGS = {
   restore: 'Restore',
   pinOnTop: 'Pin window on top',
   unpin: 'Unpin window',
+  lockPosition: 'Lock window position',
+  unlockPosition: 'Unlock window position',
+  moveWindow: 'Move window',
+  moveHint: 'Drag it, or press the arrow keys',
   view: 'View',
 };
 

@@ -1,0 +1,64 @@
+/* @layer renderer-components @kind style */
+.rect-resize {
+  position: absolute;
+  z-index: var(--z-sticky);
+  touch-action: none;
+}
+
+.rect-resize--n,
+.rect-resize--s {
+  left: var(--size-8);
+  right: var(--size-8);
+  height: var(--size-8);
+  cursor: ns-resize;
+}
+
+.rect-resize--e,
+.rect-resize--w {
+  top: var(--size-8);
+  bottom: var(--size-8);
+  width: var(--size-8);
+  cursor: ew-resize;
+}
+
+.rect-resize--ne,
+.rect-resize--nw,
+.rect-resize--se,
+.rect-resize--sw {
+  width: var(--size-12);
+  height: var(--size-12);
+}
+
+.rect-resize--n,
+.rect-resize--ne,
+.rect-resize--nw {
+  top: calc(-1 * var(--size-4));
+}
+
+.rect-resize--s,
+.rect-resize--se,
+.rect-resize--sw {
+  bottom: calc(-1 * var(--size-4));
+}
+
+.rect-resize--e,
+.rect-resize--ne,
+.rect-resize--se {
+  right: calc(-1 * var(--size-4));
+}
+
+.rect-resize--w,
+.rect-resize--nw,
+.rect-resize--sw {
+  left: calc(-1 * var(--size-4));
+}
+
+.rect-resize--nw,
+.rect-resize--se {
+  cursor: nwse-resize;
+}
+
+.rect-resize--ne,
+.rect-resize--sw {
+  cursor: nesw-resize;
+}

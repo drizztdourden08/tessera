@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { Span } from '../../../primitives/text-elements';
-import { rectStyle } from '../behavior/rect-style';
+import { rectStyle } from '../../rect-drag/rect-style';
 import { useMainHover } from '../behavior/useMainHover';
 import type { MainGripProps } from './MainGrip.type';
 

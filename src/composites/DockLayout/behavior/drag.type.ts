@@ -1,15 +1,11 @@
 /* @layer renderer-components @kind types */
 import type { TesseraStrings } from '../../../primitives/strings/tessera-strings.type';
+import type { Point } from '../../rect-drag/rect-drag.type';
 import type {
   DockDrop, DockTree, DragModifiers, DropTarget, FloatingWidget, LayoutEdit, Rect, Size, WidgetId,
 } from '../DockLayout.type';
 import type { LaidOut } from './layout-tree.type';
 import type { SnapGuide } from './snap.type';
-
-interface Point {
-  x: number;
-  y: number;
-}
 
 interface DragSource {
   id: WidgetId | null;

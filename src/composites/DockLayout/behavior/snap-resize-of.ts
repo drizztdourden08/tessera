@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind logic */
-import { RESIZE_SIDES } from '../DockLayout.constants';
+import { RESIZE_SIDES } from '../../rect-drag/rect-drag.constants';
 import type { Rect } from '../DockLayout.type';
-import type { LiveResize, ResizeEdge, ResizeLimits } from './float-resize.type';
+import type { ResizeEdge, ResizeLimits } from '../../rect-drag/rect-drag.type';
+import type { LiveResize } from './float-resize.type';
 import { snapEdgesOf } from './snap-edges';
 import { snapGuidesOf } from './snap-guides';
 import { snapLinesOf } from './snap-lines';

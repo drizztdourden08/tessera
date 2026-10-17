@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { RESIZE_EDGES } from '../DockLayout.constants';
-import { rectStyle } from '../behavior/rect-style';
+import { rectStyle } from '../../rect-drag/rect-style';
+import { ResizeEdges } from '../../rect-drag/ResizeEdges';
 import { useFloatResize } from '../behavior/useFloatResize';
 import { SnapGuides } from './SnapGuides';
 import type { FloatingFrameProps } from './FloatingFrame.type';
@@ -16,15 +16,7 @@ const FloatingFrame = (props: FloatingFrameProps) => {
     <>
       <Box className={cls} data-floating-id={entry.id} style={rectStyle(shown)}>
         {renderFloating(entry, shown)}
-        {resizable && RESIZE_EDGES.map((edge) => (
-          <Box
-            key={edge}
-            className={`dock-resize dock-resize--${edge}`}
-            data-resize-edge={edge}
-            aria-hidden="true"
-            onPointerDown={(e) => resize.onPointerDown(edge, e)}
-          />
-        ))}
+        {resizable && <ResizeEdges onPointerDown={resize.onPointerDown} />}
       </Box>
       {resize.live && <SnapGuides guides={resize.live.guides} />}
     </>

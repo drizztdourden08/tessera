@@ -53,7 +53,7 @@ export type {
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from './DropdownMenu';
 export { ScreenLayer } from './ScreenLayer';
-export type { ScreenLayerProps, ScreenLayerSize } from './ScreenLayer';
+export type { ScreenLayerMove, ScreenLayerProps, ScreenLayerSize } from './ScreenLayer';
 export { ScreenWindow } from './ScreenWindow';
 export type { ScreenWindowHeader, ScreenWindowProps } from './ScreenWindow';
 export { ScreenPage, type ScreenPageProps } from './ScreenPage';

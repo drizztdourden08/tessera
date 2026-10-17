@@ -1,6 +1,6 @@
 # ScreenWindow
 
-Building block: the plain screen window, a ScreenLayer with a title bar or a page header at its top, a close button and an empty container.
+Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -33,7 +33,11 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - With header the window has no padding and no card inside: the children pad themselves, so a scrolling body reaches the window edge.
 - With header, subtitle and extra do not show; put such controls in header.strip or header.actions.
 - Pass back to draw a back button before the title, in the title bar or in the page header, for a screen opened from another one. The host wires Alt+Left and the mouse back button to the same call.
-- Without header, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.
+- With the title row, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.
+- Pass titleRow={false} when a floating switch already names the screen: the title row goes, the title names the dialog, and a round X sits half over the top right corner of the card.
+- With titleRow={false}, pass the title as plain text, keep back for windows with a title row, and expect a tighter window: a smaller gap around the card, lg padding on the sides and bottom, and 8 px between the switch and the content.
+- Pass movable with titleRow={false} to add a lock left of the X. Locked, the default, the window sits centred; unlocked, it moves by the top edge of the card and resizes from every edge and corner, inside the screen and down to minSize.
+- Pass storageKey to remember the lock and the moved rect, or keep them in the app with locked, onLockChange, defaultRect and onRectChange. Locking snaps the window back to the centre; unlocking puts it back where it was moved.
 - UtilityScreen uses header; WorkspaceScreen and StageScreen put a ScreenPage inside the title bar window; InfoScreen keeps the title bar alone.
 - The container does not scroll: the children pick how they scroll, with a ScrollArea or their own layout.
 - Keep extra to a few small controls; the close button always comes last.
@@ -47,6 +51,8 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - The card is a modal dialog named by the title.
 - The close button carries the Close label from the strings.
 - Escape calls onClose once no menu, popover or dialog is open above the window, so one press closes one thing.
+- With titleRow={false}, the corner X keeps the Close label and shows a tooltip with the Esc key; the lock is a toggle button with aria-pressed, named Lock window position.
+- Unlocked, the top edge is a Move window button after the corner buttons in the Tab order: the arrow keys move the window by 16 px, and by 64 px with Shift.
 
 ## Example
 
@@ -73,6 +79,15 @@ const PlayersScreen = ({ onClose }: { onClose: () => void }) => (
 - `back` (optional): `BackAction`.
 - `children`: `ReactNode`.
 - `header` (optional): `ScreenWindowHeader`.
+- `titleRow` (optional): `boolean`. Default `true`.
+- `movable` (optional): `boolean`.
+- `locked` (optional): `boolean`.
+- `defaultLocked` (optional): `boolean`.
+- `onLockChange` (optional): `(locked: boolean) => void`.
+- `defaultRect` (optional): `Rect`.
+- `onRectChange` (optional): `(rect: Rect) => void`.
+- `minSize` (optional): `Size`.
+- `storageKey` (optional): `string`.
 - `subtitle` (optional): `ReactNode`.
 - `extra` (optional): `ReactNode`.
 - `floating` (optional): `ReactNode`.
@@ -83,4 +98,4 @@ const PlayersScreen = ({ onClose }: { onClose: () => void }) => (
 
 ## Tokens
 
-It draws on `--c-text-dim`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--text-xl`.
+It draws on `--border-width-thin`, `--c-primary`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--collapse-toggle-d`, `--control-h-md`, `--duration-slow`, `--ease-in-out`, `--shadow-lg`, `--size-1`, `--size-2`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-xl`.

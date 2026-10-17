@@ -1,7 +1,8 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it } from 'vitest';
 import { layoutTree, mainRectOf } from '../src/composites/DockLayout';
-import { FLOAT_MIN, NO_MODIFIERS, RESIZE_SIDES } from '../src/composites/DockLayout/DockLayout.constants';
+import { FLOAT_MIN, NO_MODIFIERS } from '../src/composites/DockLayout/DockLayout.constants';
+import { RESIZE_SIDES } from '../src/composites/rect-drag/rect-drag.constants';
 import { dockSettings } from '../src/composites/DockLayout/behavior/dock-settings';
 import { floatTargets } from '../src/composites/DockLayout/behavior/float-targets';
 import { snapEdgesOf } from '../src/composites/DockLayout/behavior/snap-edges';

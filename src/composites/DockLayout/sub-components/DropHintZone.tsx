@@ -3,7 +3,7 @@ import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { HINT_ICONS } from '../DockLayout.constants';
 import type { DropZone } from '../behavior/drag.type';
-import { rectStyle } from '../behavior/rect-style';
+import { rectStyle } from '../../rect-drag/rect-style';
 import type { DropHintZoneProps } from './DropHintZone.type';
 
 const iconOf = (zone: DropZone) => {

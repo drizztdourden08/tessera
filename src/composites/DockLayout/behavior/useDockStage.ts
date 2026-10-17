@@ -7,7 +7,7 @@ import type { DockStage, DockStageParams } from './dock-hooks.type';
 import type { DragContext } from './drag.type';
 import { layoutTree } from './layout-tree';
 import { mainRectOf } from './main-rect-of';
-import { sameRect } from './same-rect';
+import { sameRect } from '../../rect-drag/same-rect';
 import { useStageSize } from './useStageSize';
 
 const useDockStage = (stageRef: RefObject<HTMLElement | null>, params: DockStageParams): DockStage => {

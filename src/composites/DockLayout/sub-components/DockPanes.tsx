@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { makesRoom } from '../behavior/makes-room';
-import { rectStyle } from '../behavior/rect-style';
+import { rectStyle } from '../../rect-drag/rect-style';
 import type { DockPanesProps } from './DockPanes.type';
 
 const DockPanes = (props: DockPanesProps) => {

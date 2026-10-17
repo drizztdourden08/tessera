@@ -67,3 +67,37 @@
   gap: 0;
   padding: 0;
 }
+
+.screen-window.screen-window--bare {
+  gap: 0;
+  padding: calc(var(--collapse-toggle-d) / 2 + var(--space-xs) + var(--space-sm)) var(--space-lg) var(--space-lg);
+}
+
+.screen-layer__frame:has(> .screen-layer__floating) .screen-window--bare {
+  padding-block-start: calc(var(--control-h-md) / 2 + var(--space-sm) - var(--border-width-thin));
+}
+
+@container screen-layer (width < 960px) or (height < 600px) {
+  .screen-window.screen-window--bare {
+    padding-inline: var(--space-md);
+    padding-block-end: var(--space-md);
+  }
+}
+
+@container screen-layer (width < 840px) or (height < 560px) {
+  .screen-window.screen-window--bare {
+    padding: calc(var(--collapse-toggle-d) + 2 * var(--space-sm)) var(--space-sm) var(--space-sm);
+  }
+
+  .screen-layer__frame:has(> .screen-layer__floating) .screen-window--bare {
+    padding-block-start: var(--space-sm);
+  }
+}
+
+.platform-mobile .screen-window.screen-window--bare {
+  padding: calc(var(--collapse-toggle-d) + 2 * var(--space-sm)) var(--space-sm) var(--space-sm);
+}
+
+.platform-mobile .screen-layer__frame:has(> .screen-layer__floating) .screen-window--bare {
+  padding-block-start: var(--space-sm);
+}

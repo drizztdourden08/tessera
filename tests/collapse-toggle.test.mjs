@@ -23,16 +23,16 @@ describe('CollapseToggle', () => {
 
   it('is a button that names the panel, says Hide or Show, and reports aria-expanded and aria-controls', () => {
     expect(draw({ controls: 'pane' })).toBe(
-      '<button type="button" class="pressable collapse-toggle collapse-toggle--to-start hit-area" aria-label="Hide Profiles" title="Hide Profiles" aria-expanded="true" aria-controls="pane">'
+      '<button type="button" class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-start" aria-label="Hide Profiles" title="Hide Profiles" aria-expanded="true" aria-controls="pane">'
       + '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon" width="14" height="14" viewBox="0 0 24 24">'
       + '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18l6-6l-6-6"/></svg></button>',
     );
-    expect(draw({ collapsed: true, side: 'end', className: 'host__toggle' })).toContain('class="pressable collapse-toggle collapse-toggle--to-start hit-area host__toggle" aria-label="Show Profiles" title="Show Profiles" aria-expanded="false"');
+    expect(draw({ collapsed: true, side: 'end', className: 'host__toggle' })).toContain('class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-start host__toggle" aria-label="Show Profiles" title="Show Profiles" aria-expanded="false"');
   });
 
   it('draws one look: a round black button with a chevron that turns, still under reduced motion', () => {
     const css = sheet('src/composites/CollapseToggle/CollapseToggle.css');
-    expect(css).toMatch(/\.collapse-toggle \{[^}]*border-radius: var\(--radius-round\);[^}]*background: var\(--c-layer\);/);
+    expect(sheet('src/composites/edge-button/EdgeButton.css')).toMatch(/\.edge-button \{[^}]*border-radius: var\(--radius-round\);[^}]*background: var\(--c-layer\);/);
     expect(css).toMatch(/\.collapse-toggle--to-start svg \{\s+transform: rotate\(180deg\);/);
     expect(css).toMatch(/prefers-reduced-motion: reduce\) \{\s+\.collapse-toggle svg \{\s+transition: none;/);
   });
@@ -50,7 +50,7 @@ describe('CollapseToggle', () => {
       renderToString(h(SideNav, { config: NAV, activeId: 'home', onSelect: () => undefined })),
       renderToString(h(SidePanel, { title: 'Profiles' }, 'Rows')),
       renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', detailCollapsible: true })),
-    ].map((html) => html.match(/class="pressable collapse-toggle[^"]*"/g) ?? []);
+    ].map((html) => html.match(/class="pressable edge-button hit-area collapse-toggle[^"]*"/g) ?? []);
     expect(toggles.map((found) => found.length)).toEqual([1, 1, 2]);
     expect(toggles.flat().every((found) => found.includes('collapse-toggle--to-'))).toBe(true);
     ['SideNav/SideNav.tsx', 'SidePanel/SidePanel.tsx', 'ListDetailLayout/sub-components/ListDetailLayoutGutter.tsx'].forEach((file) => {

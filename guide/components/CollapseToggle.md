@@ -74,4 +74,4 @@ const ProfileRail = ({ children }: { children: ReactNode }) => {
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border-strong`, `--c-layer`, `--c-primary`, `--collapse-toggle-d`, `--collapse-toggle-hit`, `--radius-round`, `--transition-fast`.
+It draws on `--transition-fast`.
