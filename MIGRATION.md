@@ -9545,3 +9545,32 @@ Brock's host worked around two things in the title bar: Escape pressed while the
 - Drop the Escape guard that stops the host acting on Escape while the title bar peeks. The bar now prevents it itself.
 - Remove `isolation: isolate` from the host that holds the title bar.
 - One thing to know: a floating pane that is being resized lifts to `--z-modal` (200) while the drag lasts, so it still shows above a revealed bar at that moment.
+
+## 265. List rows start at the inset of a Button, the dropdown and its trigger read as one shape, and ItemList rows take a flush picture and a rename in place
+
+RotP asked for three things: the content of a list row should start where the content of a Button in the same column starts, the open Select should have no line where the trigger meets the list and a highlight that fills the row, and a save row should show its screenshot flush on the left with a pen to rename it in place.
+
+### What changed
+
+- **One row inset.** New tokens `--control-pad-sm` (8 px) and `--control-pad-md` (12 px) hold the inline padding of a Button; Button and `control-size` read them. `--row-inset` is `--control-pad-md` by default and `--control-pad-sm` inside `DensityScope density="compact"`, a compact CheckList, a dense FileList and the list of an sm Select or Combobox. One rule, `.row-inset` in `src/theme/row-inset.css`, sets `padding-inline: var(--row-inset)` on ListItemRow (and so ItemList and ListDetail), CheckList, FileList, GroupTree (plus the 1 px a Button border takes, since tree rows have no border) and the options and headings of the Select and Combobox list. A compact CheckList row keeps a clear 1 px side border for the same reason.
+- **Select and dropdown as one shape.** The list scrolls with the slim scrollbar of ScrollArea, so it keeps no empty gutter and the highlighted option fills the whole row. Where the trigger meets the list, the trigger edge is now clear in every state (hover, focus, invalid) and is no longer clipped, and the strip that hides the top edge of the list covers it with room to spare. This holds for Select, Combobox, DropdownMenu and ControlMenu, opening down or up. Focus stays visible as the halo around the joined shape.
+- **ListItemRow slots.**
+
+```ts
+interface ListItemRowProps {
+  media?: ReactNode;        // drawn flush on the left at the full row height, clipped to the left corners
+  mediaAspect?: number;     // width from the row height, 16 / 9 by default
+  mediaWidth?: number;      // a set width in px, wins over mediaAspect
+  nameAction?: ReactNode;   // a control right after the name, outside the row button, shown on hover or focus
+}
+```
+
+- **ItemList.** `render` may return `media`, `mediaAspect` and `mediaWidth`. `renameInline?: boolean` with `onRename` puts a pen after the name in place of the rename button; the pen or F2 turns the name into a field inside the row (through `useNameEdit`), Enter keeps, Escape cancels, and the focus returns to the row. A click on the name still selects the row, so the pen is the only pointer way in.
+
+### Measured
+
+At 1440 px, from the outer edge of the frame to the first icon or text: a md Button 13 px, a sm Button 9 px. ListItemRow, ItemList and ListDetail rows stay at 13. CheckList rows go from 10 to 13 to the box of the mark (5 to 9 compact), FileList rows from 9 to 13 (dense stays 9), GroupTree rows from 8 to 13. The ListItemRow example New Profile over two profile rows lines the person icons up with the plus at 0 px; in its compact panel the rows Walk 36 and Stairs 12 start at 9 px, as the sm New state button does. The highlighted option of an open Select spanned 1004 of 1014 px and now spans all 1014. At device scales 1.25 and 1.5 the join of Select, Combobox, DropdownMenu and ControlMenu showed a line up to 49 levels off the surface colour; now no pixel across the join is more than 1 level off, at scales 1, 1.25, 1.5 and 2, opening down and up. The save rows of the ItemList example are 60 px tall from their title, date and two rows of buttons, with a 103 by 58 picture.
+
+### What apps do
+
+Nothing to change for the inset or the dropdown. An app that set its own padding on a row should check it, since rows now take `padding-inline` from `.row-inset`. To show a save screenshot flush, return `media` from `render` in place of a thumbnail `icon`; to rename in place, add `renameInline`.

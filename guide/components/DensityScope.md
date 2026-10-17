@@ -72,4 +72,4 @@ const Inspector = () => {
 
 ## Tokens
 
-It draws on `--density-unset`, `--space-xs`, `--weight-normal`.
+It draws on `--control-pad-md`, `--control-pad-sm`, `--density-unset`, `--space-xs`, `--weight-normal`.

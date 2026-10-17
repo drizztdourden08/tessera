@@ -8,7 +8,7 @@ import type { GroupTreeRowProps } from './GroupTreeRow.type';
 
 const GroupTreeRow = <T,>(props: GroupTreeRowProps<T>) => {
   const { row, selected, focusable, activeBranch, showCounts, renderItem, itemIcon, onChoose, onActivate } = props;
-  const classes = `group-tree__row focus-ring-inset group-tree__row--${row.kind}${selected ? ' group-tree__row--selected' : ''}`;
+  const classes = `group-tree__row row-inset focus-ring-inset group-tree__row--${row.kind}${selected ? ' group-tree__row--selected' : ''}`;
 
   return (
     <Box

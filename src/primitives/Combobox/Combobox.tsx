@@ -9,6 +9,7 @@ import type { ComboboxProps } from './Combobox.type';
 import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
 import '../../theme/listbox.css';
+import '../../theme/row-inset.css';
 import '../../theme/listbox-drop.css';
 import './Combobox.css';
 

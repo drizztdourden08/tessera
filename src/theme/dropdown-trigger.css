@@ -6,6 +6,16 @@
   color: var(--menu-tone-bright);
 }
 
+.dropdown-trigger.listbox-anchor[data-drop='down'],
+.dropdown-trigger.listbox-anchor[data-drop='down']:hover:not(:disabled) {
+  border-bottom-color: transparent;
+}
+
+.dropdown-trigger.listbox-anchor[data-drop='up'],
+.dropdown-trigger.listbox-anchor[data-drop='up']:hover:not(:disabled) {
+  border-top-color: transparent;
+}
+
 .dropdown-trigger[data-drop] .hamburger-icon {
   filter: drop-shadow(0 0 var(--size-2) var(--menu-tone));
 }

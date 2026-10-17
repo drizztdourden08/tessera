@@ -13,6 +13,9 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS, STATUS_LABEL } from './_samples/sessions';
 import type { SampleSession } from './_samples/sessions';
+import { ListItemRowInsetDemo } from './_samples/ListItemRowInsetDemo';
+import { ListItemRowMediaDemo } from './_samples/ListItemRowMediaDemo';
+import { LIST_ITEM_ROW_CODE } from './_samples/list-item-row-story.constants';
 import './ListItemRow.stories.css';
 
 type RowArgs = {
@@ -134,6 +137,16 @@ const Selectable = {
   render: () => <SessionList selectable />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
+const ButtonInset = {
+  name: 'Rows start where a button above them starts, in the usual size and in a compact panel',
+  render: () => <ListItemRowInsetDemo />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
+const MediaAndPen = {
+  name: 'A picture flush on the left, and a pen next to the name',
+  render: () => <ListItemRowMediaDemo />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
 const renderState = (props: StateProps) => (
   <ListItemRow
     name="Friday async"
@@ -146,39 +159,20 @@ const renderState = (props: StateProps) => (
   />
 );
 
-const CODE = `import { ListItemList, ListItemRow } from '@drizztdourden08/tessera';
-
-<ListItemList label="Sessions">
-  {sessions.map((session) => (
-    <ListItemRow
-      key={session.id}
-      icon={<Icon name="layers" />}
-      name={session.name}
-      meta={session.status}
-      columns={[
-        { primary: \`\${session.players} players\`, secondary: session.preset, align: 'end' },
-        { primary: session.server, secondary: \`host \${session.host}\` },
-      ]}
-      selected={session.id === selectedId}
-      onClick={() => setSelectedId(session.id)}
-    />
-  ))}
-</ListItemList>`;
-
 const Overview = overviewStory({
   component: 'ListItemRow',
   description: 'One row of a list: an icon, a name with a meta line under it, extra columns, and an action on the right.',
   points: [
     'Each of the `columns` takes a `primary` line, an optional `secondary` line and an `align`.',
-    'Put rows in a `ListItemList` and their columns line up, each as wide as its widest cell.',
-    '`heading` and `count` title the list in the overline look and name it for screen readers.',
+    'In a `ListItemList` the columns line up, and `heading` and `count` title the list.',
     '`onClick` picks a row on a click, [[Enter]] or [[Space]]; `onDoubleClick` opens it.',
     'The `action` always shows; `actionVisibility="hover"` waits for hover or focus, except on touch.',
-    'Every line takes any content, such as a [Status].',
+    'Content starts at the inset of a [Button] of the same size; a compact [DensityScope] uses the sm inset.',
+    '`media` fills the left of the row at full height; `nameAction` sits after the name on hover.',
   ],
   instead: '[DataTable] for many rows the user sorts and filters by column.',
   playground: Playground,
-  variants: [AllVariants, AlignedList, Selectable],
+  variants: [AllVariants, AlignedList, Selectable, ButtonInset, MediaAndPen],
   states: {
     render: renderState,
     list: [
@@ -188,8 +182,8 @@ const Overview = overviewStory({
       STATE.selected,
     ],
   },
-  code: CODE,
+  code: LIST_ITEM_ROW_CODE,
 });
 
 export default meta;
-export { AlignedList, AllVariants, Overview, Playground, Selectable };
+export { AlignedList, AllVariants, ButtonInset, MediaAndPen, Overview, Playground, Selectable };

@@ -3,6 +3,7 @@ import { Box } from '../../primitives/Box';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { FileRow } from './sub-components/FileRow';
 import type { FileListProps } from './FileList.type';
+import '../../theme/row-inset.css';
 import './FileList.css';
 
 const FileList = (props: FileListProps) => {

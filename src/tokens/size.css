@@ -22,6 +22,9 @@
   --control-h-xs: var(--size-20);
   --control-h-sm: var(--size-28);
   --control-h-md: calc(39 * var(--size-1));
+  --control-pad-sm: var(--space-sm);
+  --control-pad-md: var(--space-md);
+  --row-inset: var(--control-pad-md);
   --dropzone-inline-w: var(--size-288);
   --table-select-w: var(--size-28);
   --open-entry-width: var(--size-128);

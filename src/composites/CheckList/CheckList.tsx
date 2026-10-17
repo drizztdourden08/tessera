@@ -6,6 +6,7 @@ import { checkStatuses } from './behavior/check-statuses';
 import { CheckCounts } from './sub-components/CheckCounts';
 import { CheckRow } from './sub-components/CheckRow';
 import type { CheckListProps } from './CheckList.type';
+import '../../theme/row-inset.css';
 import './CheckList.css';
 
 const CheckList = (props: CheckListProps) => {

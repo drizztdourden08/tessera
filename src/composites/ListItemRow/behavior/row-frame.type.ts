@@ -14,6 +14,8 @@ interface RowClassParts {
   inList: boolean;
   inline: boolean;
   shown: boolean;
+  media: boolean;
+  nameAction: boolean;
   className: string;
 }
 

@@ -68,7 +68,7 @@ describe('ItemList onActivate', () => {
     expect(onActivate).toHaveBeenLastCalledWith('c');
     expect(rowPick('a', {})).toBeUndefined();
     const html = draw({ selectedId: 'a', onActivate });
-    expect(html.match(/<button[^>]*class="pressable list-item-row__main"/g)).toHaveLength(3);
+    expect(html.match(/<button[^>]*class="pressable list-item-row__main row-inset"/g)).toHaveLength(3);
   });
 
   it('keeps one Tab stop on the focused row, else the current one, else the first', () => {
@@ -109,7 +109,7 @@ describe('ItemList actionVisibility', () => {
 describe('ListDetail with the activation of ItemList', () => {
   it('keeps every row a Tab stop and the arrow keys moving the selection', () => {
     const html = renderToStaticMarkup(h(ListDetail, { list: base, selectedId: 'a', onSelect: () => {}, detail: 'The editor' }));
-    expect(html.match(/<button[^>]*class="pressable list-item-row__main"[^>]*>/g).join('')).not.toContain('tabindex');
+    expect(html.match(/<button[^>]*class="pressable list-item-row__main row-inset"[^>]*>/g).join('')).not.toContain('tabindex');
     expect(html.match(/list-item-row__action--always/g)).toHaveLength(1);
     const onSelect = vi.fn();
     press('ArrowDown', buttons(), 1, { onSelect });

@@ -40,6 +40,6 @@ describe('ListItemRow keys', () => {
 
   it('draws the main part as a native button, so Enter and Space both press it', () => {
     const html = renderToString(h(ListItemRow, { name: 'Friday async', onClick: () => undefined }));
-    expect(html).toMatch(/<button type="button" class="pressable list-item-row__main"/);
+    expect(html).toMatch(/<button type="button" class="pressable list-item-row__main row-inset"/);
   });
 });

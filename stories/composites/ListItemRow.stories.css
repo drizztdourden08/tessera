@@ -3,3 +3,20 @@
   inline-size: 100%;
   max-inline-size: 48rem;
 }
+
+.list-item-row-story__inset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+}
+
+.list-item-row-story__inset-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  inline-size: var(--size-288);
+  padding: var(--space-md);
+  border: var(--border-width-thin) solid var(--c-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--c-sunken);
+}

@@ -67,4 +67,4 @@ const ServerTest = ({ server, checks }: ServerTestProps) => {
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-hairline`, `--c-inset`, `--c-success`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--radius-md`, `--size-20`, `--size-32`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xs`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-hairline`, `--c-inset`, `--c-success`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--control-pad-sm`, `--radius-md`, `--size-20`, `--size-32`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xs`, `--weight-semi`.

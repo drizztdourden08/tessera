@@ -8,8 +8,15 @@ interface SampleSave {
   minutesAgo: number;
 }
 
+interface ShotSave {
+  id: string;
+  name: string;
+  when: number;
+  shot: string;
+}
+
 interface ItemListUndoDemoProps {
   meta?: (save: SampleSave) => ReactNode;
 }
 
-export type { ItemListUndoDemoProps, SampleSave };
+export type { ItemListUndoDemoProps, SampleSave, ShotSave };

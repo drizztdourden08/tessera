@@ -10,7 +10,7 @@ const CheckRow = (props: CheckRowProps) => {
   const { label, state, detail, action } = check;
   const def = statuses[state];
   return (
-    <Box as="li" className="check-list__row" data-state={state}>
+    <Box as="li" className="check-list__row row-inset" data-state={state}>
       {def.icon ? (
         <Span className="check-list__mark" data-tone={def.tone} role="img" aria-label={def.label}><Icon name={def.icon} size={18} aria-hidden /></Span>
       ) : (

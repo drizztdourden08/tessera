@@ -29,6 +29,8 @@ const usage = {
     'Write onDelete as the delete for good when undoDelete is set; it also runs for a row still waiting when the list unmounts.',
     'Each waiting delete joins the one undo stack of useUndo, so Ctrl+Z in the list undoes it in turn with the toasts that carry undo.',
     'Pass deleteKey to bind the Delete key on a focused row: with undoDelete it deletes at once, without it it opens the Delete question.',
+    'Return media from render, such as a save screenshot, to draw it flush on the left of the row at the full row height; mediaWidth or mediaAspect sets its width.',
+    'Pass renameInline with onRename to rename in place: a pen shows next to the name on hover or focus, and the name turns into a field inside the row in place of the separate rename button.',
     'Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.',
     'Write empty as what to do next, such as Install a game from Games, then make a preset for it.',
     'Pass the raw failure as error, such as an Error or its message: the list shows Could not load followed by its title, with the raw text behind Details.',
@@ -88,7 +90,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
   />
 );
 `,
-  propsHash: '60a1e181009c30b5',
+  propsHash: 'ea0c1d408922c37e',
 } satisfies ComponentUsage;
 
 export { usage };

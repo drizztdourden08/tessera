@@ -13,7 +13,7 @@ const ListboxList = <T,>(props: ListboxListProps<T>) => {
   const withHeader = columns.some((column) => column.header !== undefined);
 
   return (
-    <ScrollArea className="listbox-drop__scroll">
+    <ScrollArea scrollbar="slim" className="listbox-drop__scroll">
       <div
         role="listbox"
         id={model.listId}

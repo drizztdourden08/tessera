@@ -16,7 +16,7 @@
   align-items: center;
   column-gap: var(--space-sm);
   min-block-size: var(--size-40);
-  padding: var(--space-xs) var(--space-sm);
+  padding-block: var(--space-xs);
 }
 
 .file-list__row + .file-list__row {
@@ -55,9 +55,14 @@
 
 .file-list--empty {
   display: block;
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) var(--row-inset);
   color: var(--c-text-dim);
   font-size: var(--text-sm);
+}
+
+.file-list[data-dense] {
+  /* stylelint-disable-next-line brock/no-token-override -- dense rows take the sm Button inset */
+  --row-inset: var(--control-pad-sm);
 }
 
 .file-list[data-dense] .file-list__row {

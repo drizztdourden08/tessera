@@ -10,6 +10,11 @@
   --listbox-soft: var(--size-1);
 }
 
+.listbox-drop[data-size='sm'] {
+  /* stylelint-disable-next-line brock/no-token-override -- the options of an sm list start where the sm trigger text starts */
+  --row-inset: var(--control-pad-sm);
+}
+
 .listbox-anchor[data-drop] {
   border-color: var(--listbox-edge);
   box-shadow: 0 0 0 var(--listbox-ring) var(--listbox-halo);
@@ -21,16 +26,26 @@
   --listbox-halo: var(--c-danger-soft);
 }
 
+.listbox-anchor[data-drop='down'],
+.listbox-anchor[data-drop='down']:is(:hover, :focus, :focus-within) {
+  border-bottom-color: transparent;
+}
+
+.listbox-anchor[data-drop='up'],
+.listbox-anchor[data-drop='up']:is(:hover, :focus, :focus-within) {
+  border-top-color: transparent;
+}
+
 .listbox-anchor[data-drop='down'] {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  clip-path: inset(calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)) var(--listbox-line));
+  clip-path: inset(calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)) 0);
 }
 
 .listbox-anchor[data-drop='up'] {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  clip-path: inset(var(--listbox-line) calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)));
+  clip-path: inset(0 calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)));
 }
 
 .listbox-anchor[data-drop='down'][data-fillet] {
@@ -39,15 +54,15 @@
     calc(100% + var(--listbox-ring)) calc(-1 * var(--listbox-ring)),
     calc(100% + var(--listbox-ring)) calc(100% - var(--listbox-line) - var(--listbox-radius)),
     100% calc(100% - var(--listbox-line) - var(--listbox-radius)),
-    100% calc(100% - var(--listbox-line)),
-    calc(-1 * var(--listbox-ring)) calc(100% - var(--listbox-line))
+    100% 100%,
+    calc(-1 * var(--listbox-ring)) 100%
   );
 }
 
 .listbox-anchor[data-drop='up'][data-fillet] {
   clip-path: polygon(
-    calc(-1 * var(--listbox-ring)) var(--listbox-line),
-    100% var(--listbox-line),
+    calc(-1 * var(--listbox-ring)) 0,
+    100% 0,
     100% calc(var(--listbox-line) + var(--listbox-radius)),
     calc(100% + var(--listbox-ring)) calc(var(--listbox-line) + var(--listbox-radius)),
     calc(100% + var(--listbox-ring)) calc(100% + var(--listbox-ring)),
@@ -61,15 +76,15 @@
     calc(-1 * var(--listbox-ring)) calc(-1 * var(--listbox-ring)),
     calc(-1 * var(--listbox-ring)) calc(100% - var(--listbox-line) - var(--listbox-radius)),
     0 calc(100% - var(--listbox-line) - var(--listbox-radius)),
-    0 calc(100% - var(--listbox-line)),
-    calc(100% + var(--listbox-ring)) calc(100% - var(--listbox-line))
+    0 100%,
+    calc(100% + var(--listbox-ring)) 100%
   );
 }
 
 .listbox-anchor[data-drop='up'][data-fillet][data-align='end'] {
   clip-path: polygon(
-    calc(100% + var(--listbox-ring)) var(--listbox-line),
-    0 var(--listbox-line),
+    calc(100% + var(--listbox-ring)) 0,
+    0 0,
     0 calc(var(--listbox-line) + var(--listbox-radius)),
     calc(-1 * var(--listbox-ring)) calc(var(--listbox-line) + var(--listbox-radius)),
     calc(-1 * var(--listbox-ring)) calc(100% + var(--listbox-ring)),
@@ -78,6 +93,9 @@
 }
 
 .listbox-drop {
+  /* stylelint-disable-next-line brock/no-token-override -- a list portaled out of a compact scope keeps the inset of its own trigger */
+  --row-inset: var(--control-pad-md);
+
   position: fixed;
   z-index: var(--z-popover);
   display: flex;
@@ -187,7 +205,7 @@
   position: absolute;
   right: calc(-1 * var(--listbox-line));
   left: calc(-1 * var(--listbox-line));
-  height: var(--listbox-line);
+  height: calc(2 * var(--listbox-line) + var(--listbox-ring));
   background: linear-gradient(
     to right,
     var(--listbox-edge) var(--listbox-line),
@@ -199,11 +217,11 @@
 }
 
 .listbox-drop[data-attach='down']::before {
-  top: calc(-1 * var(--listbox-line));
+  top: calc(-1 * (var(--listbox-line) + var(--listbox-ring)));
 }
 
 .listbox-drop[data-attach='up']::before {
-  bottom: calc(-1 * var(--listbox-line));
+  bottom: calc(-1 * (var(--listbox-line) + var(--listbox-ring)));
 }
 
 .listbox-drop[data-fillet]::before {
@@ -265,5 +283,4 @@
   flex: 1 1 auto;
   min-height: 0;
   border-radius: inherit;
-  scrollbar-gutter: stable;
 }

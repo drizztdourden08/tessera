@@ -1244,6 +1244,8 @@
         }
       },
       "tokens": [
+        "--control-pad-md",
+        "--control-pad-sm",
         "--density-unset",
         "--space-xs",
         "--weight-normal"
@@ -3785,6 +3787,7 @@
         "--c-text-dim",
         "--c-text-muted",
         "--c-warning",
+        "--control-pad-sm",
         "--radius-md",
         "--size-20",
         "--size-32",
@@ -4525,6 +4528,8 @@
         "--c-warning",
         "--c-warning-bright",
         "--c-warning-soft",
+        "--control-pad-md",
+        "--control-pad-sm",
         "--control-sub-width",
         "--duration-fast",
         "--ease-standard",
@@ -5235,6 +5240,8 @@
         "--c-warning",
         "--c-warning-bright",
         "--c-warning-soft",
+        "--control-pad-md",
+        "--control-pad-sm",
         "--duration-fast",
         "--duration-normal",
         "--ease-out",
@@ -5408,11 +5415,11 @@
         "--c-text",
         "--c-text-dim",
         "--c-text-muted",
+        "--control-pad-sm",
         "--radius-md",
         "--size-32",
         "--size-40",
         "--space-2xs",
-        "--space-md",
         "--space-sm",
         "--space-xs",
         "--text-base",
@@ -6227,6 +6234,8 @@
         "Write onDelete as the delete for good when undoDelete is set; it also runs for a row still waiting when the list unmounts.",
         "Each waiting delete joins the one undo stack of useUndo, so Ctrl+Z in the list undoes it in turn with the toasts that carry undo.",
         "Pass deleteKey to bind the Delete key on a focused row: with undoDelete it deletes at once, without it it opens the Delete question.",
+        "Return media from render, such as a save screenshot, to draw it flush on the left of the row at the full row height; mediaWidth or mediaAspect sets its width.",
+        "Pass renameInline with onRename to rename in place: a pen shows next to the name on hover or focus, and the name turns into a field inside the row in place of the separate rename button.",
         "Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.",
         "Write empty as what to do next, such as Install a game from Games, then make a preset for it.",
         "Pass the raw failure as error, such as an Error or its message: the list shows Could not load followed by its title, with the raw text behind Details.",
@@ -6254,7 +6263,7 @@
         "rule": "ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app."
       },
       "example": "import { ItemList } from '@drizztdourden08/tessera';\n\ninterface Server {\n  id: string;\n  name: string;\n  host: string;\n}\n\nconst ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, loading, error }: {\n  servers: Server[];\n  selectedId: string | null;\n  onSelect: (id: string) => void;\n  onAdd: () => void;\n  onRename: (id: string, name: string) => void;\n  onDelete: (id: string) => void;\n  loading: boolean;\n  error?: string;\n}) => (\n  <ItemList\n    title=\"Servers\"\n    items={servers}\n    getId={(server) => server.id}\n    getName={(server) => server.name}\n    render={(server) => ({ meta: server.host })}\n    selectedId={selectedId}\n    onSelect={onSelect}\n    onCreate={onAdd}\n    createLabel=\"Add\"\n    onRename={onRename}\n    onDelete={onDelete}\n    loading={loading}\n    error={error}\n    empty=\"Add a server to host sessions on.\"\n  />\n);\n",
-      "propsHash": "60a1e181009c30b5",
+      "propsHash": "ea0c1d408922c37e",
       "props": {
         "own": [
           {
@@ -6354,6 +6363,11 @@
             "text": "(id: string, name: string) => void"
           },
           {
+            "name": "renameInline",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "onDelete",
             "optional": true,
             "text": "(id: string) => void"
@@ -6440,8 +6454,10 @@
         "--c-primary",
         "--c-selected",
         "--c-text",
+        "--control-pad-sm",
         "--opacity-muted",
         "--radius-md",
+        "--row-inset",
         "--size-32",
         "--space-2xs",
         "--space-md",
@@ -8685,6 +8701,8 @@
         "--c-text-muted",
         "--control-h-md",
         "--control-h-sm",
+        "--control-pad-md",
+        "--control-pad-sm",
         "--opacity-muted",
         "--radius-md",
         "--row-grid-max",

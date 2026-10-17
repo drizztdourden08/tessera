@@ -18,7 +18,7 @@ const ListboxOption = <T,>(props: ListboxOptionProps<T>) => {
       <div
         id={model.optionId(entry.index)}
         role="option"
-        className="listbox-option"
+        className="listbox-option row-inset"
         data-index={entry.index}
         data-active={context.active || undefined}
         data-picked={(!view.multi && state.selected) || undefined}

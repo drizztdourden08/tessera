@@ -86,7 +86,25 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-xs) var(--space-sm);
-  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-md);
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--row-inset);
   border: var(--border-width-thin) dashed var(--c-border);
   border-radius: var(--radius-md);
+}
+
+.list-item-row.item-list__rename-inline {
+  padding-block: 0;
+}
+
+.item-list__rename-inline > :is(.list-item-row__icon, .list-item-row__cell) {
+  padding-block: var(--space-sm);
+}
+
+.item-list__rename-inline .list-item-row__primary {
+  overflow: visible;
+}
+
+.item-list__name-input {
+  inline-size: calc(100% + var(--control-pad-sm) + var(--border-width-thin));
+  margin-block: calc(-1 * var(--space-xs));
+  margin-inline-start: calc(-1 * (var(--control-pad-sm) + var(--border-width-thin)));
 }

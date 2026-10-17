@@ -41,7 +41,7 @@
   align-items: center;
   gap: var(--space-sm);
   min-block-size: var(--size-48);
-  padding: var(--space-xs) var(--space-sm);
+  padding-block: var(--space-xs);
   background: var(--c-inset);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
@@ -95,14 +95,20 @@
   flex: none;
 }
 
+.check-list[data-compact] {
+  /* stylelint-disable-next-line brock/no-token-override -- compact rows take the sm Button inset */
+  --row-inset: var(--control-pad-sm);
+}
+
 .check-list[data-compact] .check-list__rows {
   gap: 0;
 }
 
 .check-list[data-compact] .check-list__row {
   min-block-size: var(--size-32);
-  padding: var(--space-2xs) var(--space-xs);
-  border: none;
+  padding-block: var(--space-2xs);
+  border-width: 0 var(--border-width-thin);
+  border-color: transparent;
   border-radius: 0;
   background: none;
 }

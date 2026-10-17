@@ -1,0 +1,4 @@
+/* @layer renderer-components @kind style */
+.row-inset {
+  padding-inline: var(--row-inset);
+}

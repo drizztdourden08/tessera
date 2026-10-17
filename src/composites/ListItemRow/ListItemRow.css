@@ -4,7 +4,7 @@
   column-gap: var(--space-xl);
   align-items: center;
   min-width: 0;
-  padding: var(--space-sm) var(--space-md);
+  padding-block: var(--space-sm);
   background: var(--c-hover);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
@@ -26,7 +26,7 @@
   grid-template-columns: subgrid;
   align-items: center;
   min-width: 0;
-  padding: var(--space-sm) var(--space-md);
+  padding-block: var(--space-sm);
   border-radius: var(--radius-md);
   text-align: start;
 }
@@ -108,7 +108,7 @@
 }
 
 .list-item-row--interactive .list-item-row__action {
-  padding-inline-end: var(--space-md);
+  padding-inline-end: var(--row-inset);
 }
 
 .list-item-row__action--always,

@@ -16,7 +16,7 @@ const FileRow = (props: FileRowProps) => {
   const name = fileName(file);
   const { path, size, modified } = file;
   return (
-    <Box as="li" className="file-list__row">
+    <Box as="li" className="file-list__row row-inset">
       <Icon name={fileIcon(name, file.icon)} size={18} className="file-list__icon" aria-hidden />
       <Span className="file-list__name">{name}</Span>
       <Span className="file-list__size">{size === undefined ? null : formatValue(size, 'bytes')}</Span>

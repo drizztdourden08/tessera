@@ -3,9 +3,9 @@ import { Box } from '../../../primitives/Box';
 import { useNameEdit } from '../../../primitives/field-control/useNameEdit';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
-import { TextInput } from '../../../primitives/TextInput';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import type { ItemListRenameProps } from '../ItemList.type';
+import { ItemListNameInput } from './ItemListNameInput';
 
 const ItemListRename = (props: ItemListRenameProps) => {
   const { id, name, data, onEnd } = props;
@@ -14,15 +14,7 @@ const ItemListRename = (props: ItemListRenameProps) => {
   const edit = useNameEdit({ name, onKeep: (next) => onEnd(id, next === name ? null : next), onUndo: undo });
   return (
     <Box className="item-list__rename" role="listitem" {...data}>
-      <TextInput
-        className="item-list__rename-input"
-        aria-label={lists.newName}
-        value={edit.draft}
-        onChange={(event) => edit.setDraft(event.target.value)}
-        onKeyDown={edit.onKeyDown}
-        onFocus={(event) => event.target.select()}
-        autoFocus
-      />
+      <ItemListNameInput edit={edit} className="item-list__rename-input" />
       <IconButton size="sm" variant="primary" label={lists.keepName} title={lists.keepName} disabled={!edit.ready} onClick={edit.keep}>
         <Icon name="check" />
       </IconButton>

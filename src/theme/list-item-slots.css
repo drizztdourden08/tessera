@@ -1,0 +1,60 @@
+/* @layer renderer-components @kind style */
+.list-item-row--media,
+.list-item-row--name-action {
+  position: relative;
+}
+
+.list-item-row--media:not(.list-item-row--interactive),
+.list-item-row--media .list-item-row__main {
+  padding-inline-start: calc(var(--list-item-media-w) + var(--row-inset));
+}
+
+.list-item-row__media {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: var(--list-item-media-w);
+  overflow: hidden;
+  border-start-start-radius: calc(var(--radius-md) - var(--border-width-thin));
+  border-end-start-radius: calc(var(--radius-md) - var(--border-width-thin));
+  background: var(--c-inset);
+  pointer-events: none;
+}
+
+.list-item-row__media > *,
+.list-item-row__media img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.list-item-row--name-action .list-item-row__cell--main {
+  padding-inline-end: calc(var(--control-h-sm) + var(--space-xs));
+}
+
+.list-item-row--name-action .list-item-row__cell--main > .list-item-row__primary {
+  inline-size: fit-content;
+  anchor-name: var(--list-item-name-anchor);
+}
+
+.list-item-row__name-action {
+  position: absolute;
+  top: anchor(center);
+  left: calc(anchor(right) + var(--space-xs));
+  display: flex;
+  opacity: 0;
+  position-anchor: var(--list-item-name-anchor);
+  translate: 0 -50%;
+  transition: opacity var(--transition-fast);
+}
+
+.list-item-row:is(:hover, :focus-within) > .list-item-row__name-action {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .list-item-row__name-action {
+    opacity: 1;
+  }
+}

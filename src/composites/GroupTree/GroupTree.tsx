@@ -10,6 +10,7 @@ import { useTreeNavigation } from './behavior/useTreeNavigation';
 import { GroupTreeRow } from './sub-components/GroupTreeRow';
 import type { GroupTreeProps } from './GroupTree.type';
 import '../../theme/focus-ring.css';
+import '../../theme/row-inset.css';
 import './GroupTree.css';
 
 const GroupTree = <T,>(props: GroupTreeProps<T>) => {

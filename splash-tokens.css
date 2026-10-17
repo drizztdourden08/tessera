@@ -244,6 +244,9 @@
   --control-h-xs: 20px;
   --control-h-sm: 28px;
   --control-h-md: calc(39 * 1px);
+  --control-pad-sm: 8px;
+  --control-pad-md: 12px;
+  --row-inset: 12px;
   --dropzone-inline-w: 288px;
   --table-select-w: 28px;
   --open-entry-width: 128px;

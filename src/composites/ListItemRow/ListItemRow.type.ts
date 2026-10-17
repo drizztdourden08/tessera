@@ -18,6 +18,10 @@ interface ListItemRowProps {
   name: ReactNode;
   meta?: ReactNode;
   icon?: ReactNode;
+  media?: ReactNode;
+  mediaAspect?: number;
+  mediaWidth?: number;
+  nameAction?: ReactNode;
   columns?: readonly ListItemColumn[];
   action?: ReactNode;
   actionVisibility?: ListItemRowActionVisibility;

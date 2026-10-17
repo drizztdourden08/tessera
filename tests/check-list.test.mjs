@@ -16,7 +16,7 @@ const CHECKS = [
 ];
 
 const counts = (html) => [...html.matchAll(/data-state="(\w+)">(?:<span[^>]*><\/span>)?(\d+ \w+)</g)].map((match) => `${match[1]} ${match[2]}`);
-const rows = (html) => [...html.matchAll(/class="check-list__row" data-state="(\w+)"/g)].map((match) => match[1]);
+const rows = (html) => [...html.matchAll(/class="check-list__row row-inset" data-state="(\w+)"/g)].map((match) => match[1]);
 
 describe('CheckList', () => {
   const html = renderToString(h(CheckList, { checks: CHECKS, summary: 'Home NAS is not ready' }));

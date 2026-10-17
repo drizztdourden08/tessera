@@ -31,9 +31,9 @@ describe('a Button icon', () => {
   });
 
   it('keeps the padding even on both sides and sets the gap per size', () => {
-    expect(ruleOf('.btn--md')).toContain('padding: var(--space-sm) var(--space-md);');
-    expect(ruleOf('.btn--sm')).toContain('padding: var(--space-xs) var(--space-sm);');
-    expect(ruleOf('.btn--xs')).toContain('padding: 0 var(--space-sm);');
+    expect(ruleOf('.btn--md')).toContain('padding: var(--space-sm) var(--control-pad-md);');
+    expect(ruleOf('.btn--sm')).toContain('padding: var(--space-xs) var(--control-pad-sm);');
+    expect(ruleOf('.btn--xs')).toContain('padding: 0 var(--control-pad-sm);');
     expect(ruleOf('.btn--sm:has(> .btn__icon)')).toContain('gap: calc(var(--space-xs) + var(--space-2xs));');
     expect(css).not.toMatch(/padding-inline-(start|end)/);
   });

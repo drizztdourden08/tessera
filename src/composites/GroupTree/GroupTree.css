@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind style */
 .group-tree {
-  --group-tree-pad: var(--space-sm);
+  --group-tree-pad: var(--row-inset);
   --group-tree-twisty: var(--size-16);
   --group-tree-indent: var(--size-20);
 
@@ -24,7 +24,6 @@
   gap: var(--space-xs);
   min-width: 0;
   min-height: var(--control-h-sm);
-  padding-inline-end: var(--space-sm);
   border-radius: var(--radius-sm);
   color: var(--c-text-dim);
   cursor: pointer;

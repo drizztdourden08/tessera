@@ -32,7 +32,7 @@ describe('FileList', () => {
   it('draws one named list item per file with its size and date', () => {
     const html = renderToString(h(FileList, { files: FILES, label: 'Output', onOpen: noop, onReveal: noop }));
     expect(html).toMatch(/^<ul class="file-list" aria-label="Output"/);
-    expect(html.match(/class="file-list__row"/g)).toHaveLength(3);
+    expect(html.match(/class="file-list__row row-inset"/g)).toHaveLength(3);
     expect(html).toContain('>18.4 MB<');
     expect(html).toContain('>307 KB<');
     expect(html).toContain('dateTime="2026-10-04T19:02:00.000Z"');

@@ -75,4 +75,4 @@ const RunOutput = ({ files, openPath, showInFolder }: RunOutputProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-hairline`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--radius-md`, `--size-32`, `--size-40`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`.
+It draws on `--border-width-thin`, `--c-border`, `--c-hairline`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-pad-sm`, `--radius-md`, `--size-32`, `--size-40`, `--space-2xs`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`.

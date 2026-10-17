@@ -45,6 +45,8 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - Write onDelete as the delete for good when undoDelete is set; it also runs for a row still waiting when the list unmounts.
 - Each waiting delete joins the one undo stack of useUndo, so Ctrl+Z in the list undoes it in turn with the toasts that carry undo.
 - Pass deleteKey to bind the Delete key on a focused row: with undoDelete it deletes at once, without it it opens the Delete question.
+- Return media from render, such as a save screenshot, to draw it flush on the left of the row at the full row height; mediaWidth or mediaAspect sets its width.
+- Pass renameInline with onRename to rename in place: a pen shows next to the name on hover or focus, and the name turns into a field inside the row in place of the separate rename button.
 - Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.
 - Write empty as what to do next, such as Install a game from Games, then make a preset for it.
 - Pass the raw failure as error, such as an Error or its message: the list shows Could not load followed by its title, with the raw text behind Details.
@@ -126,6 +128,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 - `createTour` (optional): `string`. Default `'item-list-new'`.
 - `newDisabled` (optional): `OptionDisabled`.
 - `onRename` (optional): `(id: string, name: string) => void`.
+- `renameInline` (optional): `boolean`.
 - `onDelete` (optional): `(id: string) => void`.
 - `undoDelete` (optional): `number`.
 - `deleteKey` (optional): `boolean`.
@@ -142,4 +145,4 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-selected`, `--c-text`, `--opacity-muted`, `--radius-md`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-medium`.
+It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-selected`, `--c-text`, `--control-pad-sm`, `--opacity-muted`, `--radius-md`, `--row-inset`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-medium`.

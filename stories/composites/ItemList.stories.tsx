@@ -6,6 +6,8 @@ import type { StateProps } from '../_template/states/states.type';
 import { ItemListCreateDemo } from './_samples/ItemListCreateDemo';
 import { ItemListDemo } from './_samples/ItemListDemo';
 import { ItemListNewDisabledDemo } from './_samples/ItemListNewDisabledDemo';
+import { ItemListSaveRowDemo } from './_samples/ItemListSaveRowDemo';
+import { ITEM_LIST_CODE } from './_samples/item-list-story.constants';
 import { ItemListSwitchDemo } from './_samples/ItemListSwitchDemo';
 import { ItemListUndoDemo } from './_samples/ItemListUndoDemo';
 import { ItemListUndoStackDemo } from './_samples/ItemListUndoStackDemo';
@@ -93,87 +95,10 @@ const UndoStack = {
   render: () => <ItemListUndoStackDemo />,
 } satisfies StoryLiteStoryDefinition<ItemListArgs>;
 
-const CODE = `import { ItemList, toast } from '@drizztdourden08/tessera';
-
-<ItemList
-  title="Presets"
-  items={presets}
-  getId={(preset) => preset.id}
-  getName={(preset) => preset.name}
-  render={(preset) => ({ meta: \`\${preset.changes} changes\` })}
-  groupBy={(preset) => preset.game}
-  groups={games.map((game) => ({ name: game, action: { label: 'New preset', onSelect: () => createPreset(game) } }))}
-  selectedId={selectedId}
-  onSelect={setSelectedId}
-  onCreate={createPreset}
-  onRename={renamePreset}
-  onDelete={deletePreset}
-  loading={loading}
-  error={error}
-  onRetry={reload}
-  empty="Install a game from Games, then make a preset for it."
-/>
-
-<ItemList
-  title="Profiles"
-  items={profiles}
-  getId={(profile) => profile.id}
-  getName={(profile) => profile.name}
-  selectedId={selectedId}
-  onSelect={setSelectedId}
-  createLabel="New profile"
-  createOpen={creating || profiles.length === 0}
-  onCreateOpenChange={setCreating}
-  create={(close) => (
-    <InlineCreateForm
-      placeholder="Profile name"
-      canSubmit={game !== ''}
-      onCreate={(name) => { setSelectedId(addProfile(name, game)); close(); }}
-      onCancel={profiles.length ? close : undefined}
-      extraFields={<Field label="Game"><Select value={game} onChange={setGame} options={GAMES} /></Field>}
-    />
-  )}
-/>
-
-<ItemList
-  title="Profiles"
-  items={profiles}
-  getId={(profile) => profile.id}
-  getName={(profile) => profile.name}
-  selectedId={activeId}
-  onActivate={switchProfile}
-  onRename={renameProfile}
-  onDelete={deleteProfile}
-  actionVisibility="always"
-/>
-
-<ItemList
-  title="Saves"
-  items={saves}
-  getId={(save) => save.id}
-  getName={(save) => save.name}
-  selectedId={selectedId}
-  onSelect={setSelectedId}
-  onRename={renameSave}
-  onDelete={deleteSaveForGood}
-  undoDelete={8000}
-  deleteKey
-  onCreate={newSave}
-  createLabel="New save"
-  newDisabled={gameRunning ? false : 'Start a game to make a new save.'}
-  rowActions={(save, row) => (
-    <IconButton size="sm" variant="ghost" label={\`Load \${save.name}\`} tabIndex={row.tabIndex} onClick={() => loadSave(save.id)}>
-      <Icon name="play" />
-    </IconButton>
-  )}
-/>
-
-// Load joins the same Ctrl+Z as the deletes of the list
-const loadSave = (id) => {
-  const before = captureGame();
-  load(id);
-  toast({ id: 'save-loaded', message: 'Save loaded.', duration: 8000, undo: () => restoreGame(before) });
-};`;
+const SaveRows = {
+  name: 'Saves: the screenshot flush on the left, renamed in place with the pen',
+  render: () => <ItemListSaveRowDemo />,
+} satisfies StoryLiteStoryDefinition<ItemListArgs>;
 
 const Overview = overviewStory({
   component: 'ItemList',
@@ -184,17 +109,18 @@ const Overview = overviewStory({
     '`groupBy` sorts rows under headings; `groups` orders them and draws empty ones with a line and an action.',
     '`onActivate` runs on a click, [[Enter]] or [[Space]]; the arrow keys then move the focus, not the selection.',
     '`rowActions`, `onRename` ([[F2]]) and `onDelete` fill the row buttons, shown on hover or `"always"`.',
+    '`media` in `render` draws a flush picture; `renameInline` renames in place with a pen.',
     '`undoDelete` deletes at once with an Undo that [[Ctrl+Z]] reaches through `useUndo`; `deleteKey` binds [[Delete]].',
   ],
   instead: '[ListDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,
-  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch, UndoDelete, NeedsGame, UndoStack],
+  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch, UndoDelete, NeedsGame, UndoStack, SaveRows],
   states: {
     render: (props: StateProps) => <ItemListDemo {...(props as ItemListDemoProps)} />,
     list: STATES.map((state) => ({ name: state, props: { state, title: state === 'ready' ? 'Presets' : 'Servers' } })),
   },
-  code: CODE,
+  code: ITEM_LIST_CODE,
 });
 
 export default meta;
-export { CreateForm, EmptyGame, FirstRun, Grouped, NeedsGame, Overview, PickToSwitch, Plain, Playground, UndoDelete, UndoStack };
+export { CreateForm, EmptyGame, FirstRun, Grouped, NeedsGame, Overview, PickToSwitch, Plain, Playground, SaveRows, UndoDelete, UndoStack };
