@@ -23,7 +23,7 @@ const ListDetailLayoutGutter = (props: ListDetailLayoutGutterProps) => {
   const { navigation } = useTesseraStrings();
   const folded = [list, detail].find((pane) => pane.fold.collapsed);
   return (
-    <PaneRail className="list-detail-layout__gutter" rail={folded && { label: folded.label, onUnfold: folded.fold.toggle }}>
+    <PaneRail className="list-detail-layout__gutter" rail={folded && { label: folded.label, side: folded === list ? 'start' : 'end', onUnfold: folded.fold.toggle }}>
       {list.collapsible && !detail.fold.collapsed && toggleOf(list, 'start')}
       {detail.collapsible && !list.fold.collapsed && toggleOf(detail, 'end')}
       {resizable && !folded && (

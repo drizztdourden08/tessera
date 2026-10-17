@@ -4,13 +4,12 @@ import { CollapseToggle } from '../../../src/composites';
 import { Box, Paragraph } from '../../../src/primitives';
 import { COLLAPSE_TEXT as T } from './collapse-toggle-story.constants';
 import type { CollapseToggleSampleProps } from './collapse-toggle-story.type';
-import '../../../src/theme/page-card.css';
 
 const CollapseToggleSample = ({ side = 'start', folded = false }: CollapseToggleSampleProps) => {
   const [collapsed, setCollapsed] = useState(folded);
   const id = useId();
   const panel = (
-    <Box id={id} surface={collapsed ? undefined : 'raised'} className={collapsed ? 'collapse-story__panel collapse-story__panel--folded page-card' : 'collapse-story__panel'}>
+    <Box id={id} surface="sunken" className={collapsed ? 'collapse-story__panel collapse-story__panel--folded' : 'collapse-story__panel'}>
       <CollapseToggle
         collapsed={collapsed}
         onToggle={() => setCollapsed(!collapsed)}

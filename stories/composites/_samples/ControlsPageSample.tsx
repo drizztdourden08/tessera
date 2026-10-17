@@ -4,6 +4,7 @@ import { ListItemList, ListItemRow, SidePanel } from '../../../src/composites';
 import { Box, Icon, IconButton } from '../../../src/primitives';
 import { ControlsBindings } from './ControlsBindings';
 import { ControlsDeviceCard } from './ControlsDeviceCard';
+import { ControlsDeviceRailButton } from './ControlsDeviceRailButton';
 import { CONTROLS_ACTIONS, CONTROLS_DEVICES, CONTROLS_FIRST_PROFILE, CONTROLS_PROFILES, CONTROLS_TEXT as T } from './controls-page.constants';
 import type { ControlsBindings as Bindings, ControlsPageSampleProps } from './controls-page.type';
 
@@ -22,9 +23,10 @@ const ControlsPageSample = ({ folded = false }: ControlsPageSampleProps) => {
   ));
   const add = <IconButton size="sm" variant="ghost" label={T.newProfile}><Icon name="plus" /></IconButton>;
   const rescan = <IconButton size="sm" variant="ghost" label={T.rescan}><Icon name="refresh-cw" /></IconButton>;
+  const devices = CONTROLS_DEVICES.map((device) => <ControlsDeviceRailButton key={device.id} device={device} onAssign={assign} />);
   return (
     <Box className="controls-story">
-      <SidePanel title={T.profiles} actions={add} rail={rail} defaultCollapsed={folded} width={240} minWidth={192} maxWidth={360}>
+      <SidePanel title={T.profiles} actions={add} rail={rail} defaultCollapsed={folded} resizable={false} width={240}>
         <ListItemList label={T.profiles}>
           {CONTROLS_PROFILES.map((item) => (
             <ListItemRow
@@ -39,7 +41,7 @@ const ControlsPageSample = ({ folded = false }: ControlsPageSampleProps) => {
         </ListItemList>
       </SidePanel>
       <ControlsBindings profile={profile} bindings={bindings} onBind={bind} />
-      <SidePanel side="end" title={T.devices} actions={rescan} defaultCollapsed={folded} width={288} minWidth={224} maxWidth={400}>
+      <SidePanel side="end" title={T.devices} actions={rescan} rail={devices} defaultCollapsed={folded} resizable={false} width={288}>
         {CONTROLS_DEVICES.map((device) => <ControlsDeviceCard key={device.id} device={device} onAssign={assign} />)}
       </SidePanel>
     </Box>

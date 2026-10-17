@@ -40,6 +40,7 @@ ListDetailLayout draws the panes, the resize, the fold and the small window of e
 - Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area.
 - Put a SaveBar last in the detail: it sits flush with the foot of the pane.
 - Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor.
+- A folded pane is the rail of SidePanel: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right.
 
 ## Accessibility
 
@@ -110,4 +111,4 @@ const SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; rend
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--c-text-muted`, `--collapse-toggle-d`, `--radius-lg`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-sm`, `--z-base`, `--z-sticky`.
+It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--c-text-muted`, `--collapse-toggle-d`, `--radius-lg`, `--side-nav-item-h`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-sm`, `--z-base`, `--z-sticky`.

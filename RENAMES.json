@@ -1403,7 +1403,9 @@
         "dock-resize--nw": "rect-resize--nw",
         "dock-resize--se": "rect-resize--se",
         "dock-resize--sw": "rect-resize--sw",
-        "dock-resize": "rect-resize"
+        "dock-resize": "rect-resize",
+        "side-panel--overhang": "removed; every SidePanel has its edge line, so none keeps extra room for the toggle (see MIGRATION.md section 262)",
+        "side-panel__frame": "removed; the toggle, the pane and the line sit straight in the SidePanel grid (see MIGRATION.md section 262)"
       }
     }
   ]

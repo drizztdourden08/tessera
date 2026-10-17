@@ -13,6 +13,11 @@ interface ControlsDevice {
   name: string;
   meta: string;
   icon: IconName;
+  ready: boolean;
+}
+
+interface ControlsDeviceIconProps {
+  device: ControlsDevice;
 }
 
 interface ControlsAction {
@@ -38,5 +43,6 @@ interface ControlsPageSampleProps {
 }
 
 export type {
-  ControlsAction, ControlsBindings, ControlsBindingsProps, ControlsDevice, ControlsDeviceCardProps, ControlsPageSampleProps, ControlsProfile,
+  ControlsAction, ControlsBindings, ControlsBindingsProps, ControlsDevice, ControlsDeviceCardProps, ControlsDeviceIconProps, ControlsPageSampleProps,
+  ControlsProfile,
 };

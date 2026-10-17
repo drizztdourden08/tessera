@@ -21,32 +21,28 @@ const SidePanel = (props: SidePanelProps) => {
   const size = usePaneSize(options.width);
   const { collapsed } = fold;
   const handled = options.resizable && !collapsed;
-  const handle = handled && (
-    <SidePanelHandle handle={size.handle} side={side} title={title} controls={paneId} onCollapse={fold.collapse} />
-  );
   const width = { '--side-panel-width': `${size.size}px` } as CSSProperties;
-  const look = { side, collapsible, collapsed, handled, dragging: size.dragging };
+  const look = { side, collapsible, collapsed, dragging: size.dragging };
 
   return (
     <Box className={sidePanelClass(look, className)} style={width}>
-      {side === 'end' && handle}
-      <Box className="side-panel__frame">
-        {collapsible && (
-          <CollapseToggle
-            ref={fold.toggleRef}
-            collapsed={collapsed}
-            onToggle={fold.toggle}
-            label={title}
-            side={side}
-            controls={paneId}
-            className="side-panel__toggle"
-          />
-        )}
-        <SidePanelPane id={paneId} title={title} level={level} actions={actions} rail={rail} fold={fold}>
-          {children}
-        </SidePanelPane>
-      </Box>
-      {side === 'start' && handle}
+      {collapsible && (
+        <CollapseToggle
+          ref={fold.toggleRef}
+          collapsed={collapsed}
+          onToggle={fold.toggle}
+          label={title}
+          side={side}
+          controls={paneId}
+          className="side-panel__toggle"
+        />
+      )}
+      <SidePanelPane id={paneId} title={title} side={side} level={level} actions={actions} rail={rail} fold={fold}>
+        {children}
+      </SidePanelPane>
+      {handled
+        ? <SidePanelHandle handle={size.handle} side={side} title={title} controls={paneId} onCollapse={fold.collapse} />
+        : <Box className="side-panel__line" aria-hidden="true" />}
     </Box>
   );
 };

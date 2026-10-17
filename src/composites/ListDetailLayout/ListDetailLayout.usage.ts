@@ -24,6 +24,7 @@ const usage = {
     'Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area.',
     'Put a SaveBar last in the detail: it sits flush with the foot of the pane.',
     'Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor.',
+    'A folded pane is the rail of SidePanel: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right.',
   ],
   a11y: [
     'The divider is a separator: the arrow keys resize it, Home and End jump to the limits, Space and a double click reset it.',

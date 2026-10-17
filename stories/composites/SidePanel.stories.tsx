@@ -27,35 +27,35 @@ const Playground = {
 } satisfies PlaygroundStory<SidePanelArgs>;
 
 const Open = {
-  name: 'A layer list and an inspector around a canvas',
+  name: 'A studio: layers and an inspector that resize and fold',
   render: () => <OutlinePanelSample actions />,
 } satisfies StoryLiteStoryDefinition<SidePanelArgs>;
 
 const Folded = {
-  name: 'Folded to a rail',
+  name: 'The studio folded: each title written down its rail',
   render: () => <OutlinePanelSample folded />,
 } satisfies StoryLiteStoryDefinition<SidePanelArgs>;
 
 const Controls = {
-  name: 'A controls page: profiles, bindings and devices to drag',
+  name: 'A controls page: panels that only fold, and devices that glow',
   render: () => <ControlsPageSample />,
 } satisfies StoryLiteStoryDefinition<SidePanelArgs>;
 
 const ControlsFolded = {
-  name: 'The controls page with both panels folded',
+  name: 'The controls page folded: actions, title and icons, the glow past the edge',
   render: () => <ControlsPageSample folded />,
 } satisfies StoryLiteStoryDefinition<SidePanelArgs>;
 
 const Overview = overviewStory({
   component: 'SidePanel',
-  description: 'A raised panel beside the main view, with a heading, that folds to a rail and is dragged wider.',
+  description: 'A sunken panel beside the main view, with a heading, that folds to a rail and is dragged wider.',
   points: [
-    'The heading names the panel and holds `actions`; the round CollapseToggle on its inner edge folds it.',
-    'Folded, it is the rail of SideNav with its title down the side, or `rail` in its place, such as icons.',
-    'It holds anything: lists, inputs and drag sources keep working, and stay mounted while it is folded.',
-    '`side="end"` puts the line and the toggle on its left; a plain flex row is all it needs around it.',
-    '`width`, `minWidth` and `maxWidth` set its width in pixels; `storageKey` keeps the width and the fold.',
-    '[[Enter]] on the line folds the panel and moves focus to the button that opens it.',
+    'The body sits on the sunken surface; the heading names the panel and holds `actions`.',
+    'A line runs down its inner edge, with the round [CollapseToggle] on it, level with the heading.',
+    '`resizable` puts a grip on that line to drag; with `resizable={false}` the line and toggle stay the same.',
+    'Folded, it is a 60 px rail: `actions`, the title written sideways, then `rail`, such as icons.',
+    'A glow around a rail icon spreads past the rail; `side="end"` mirrors the line, the toggle and the title.',
+    '`width`, `minWidth` and `maxWidth` set the width; `storageKey` keeps it and the fold.',
   ],
   instead: '[ListDetailLayout] for a list beside its detail; [StudioLayout] for a list, an editor and an inspector.',
   playground: Playground,

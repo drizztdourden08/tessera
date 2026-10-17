@@ -26,10 +26,10 @@ const CONTROLS_PROFILES: readonly ControlsProfile[] = [
 ];
 
 const CONTROLS_DEVICES: readonly ControlsDevice[] = [
-  { id: 'kb', name: 'Keyboard', meta: 'USB · ready', icon: 'keyboard' },
-  { id: 'xbox', name: 'Xbox Series controller', meta: 'Bluetooth · rumble', icon: 'gamepad-2' },
-  { id: 'pro', name: 'Switch Pro controller', meta: 'USB · gyro', icon: 'gamepad-2' },
-  { id: 'ds', name: 'DualSense', meta: 'Bluetooth · rumble and gyro', icon: 'gamepad-2' },
+  { id: 'kb', name: 'Keyboard', meta: 'USB · ready', icon: 'keyboard', ready: true },
+  { id: 'xbox', name: 'Xbox Series controller', meta: 'Bluetooth · rumble', icon: 'gamepad-2', ready: true },
+  { id: 'pro', name: 'Switch Pro controller', meta: 'USB · asleep', icon: 'gamepad-2', ready: false },
+  { id: 'ds', name: 'DualSense', meta: 'Bluetooth · rumble and gyro', icon: 'gamepad-2', ready: true },
 ];
 
 const CONTROLS_ACTIONS: readonly ControlsAction[] = [

@@ -9377,3 +9377,85 @@ On each hub screen whose floating switch names the page, drop the title row and 
 ```
 
 `storageKey` keeps the lock and the rect in `localStorage` under `brock.hub.data:locked` and `brock.hub.data:rect`. To keep them in Brock's own settings instead, pass `locked` and `onLockChange`, and `defaultRect` with `onRectChange`, which gets `{ x, y, width, height }` in px from the top left of the layer after each move, resize or arrow key. Use one key for all three hubs so the window keeps its place when the switch changes page. Any style that targeted `.dock-resize` now targets `.rect-resize`.
+
+## 262. One side panel standard: SidePanel, sunken, with its toggle on the edge line and a rail that shows its actions
+
+RotP showed several side panels: the raised SidePanel of the studios, whose fold button sat 8 px below the top on the assumption of a 40 px heading and so missed Music Studio's heading, and its own sunken ListPanel on the Controls page, whose folded rail showed the actions and the icons but clipped the glow of a ready device and dropped the title. The owner asked for one standard, SidePanel, for every panel that folds or resizes beside a main view, other than the navigation of the app.
+
+### What changed
+
+The props of SidePanel stay the same; what they draw changes:
+
+```ts
+interface SidePanelProps {
+  title: string;
+  children: ReactNode;
+  side?: 'start' | 'end';
+  level?: HeadingLevel;
+  actions?: ReactNode; // in the heading while open, at the top of the rail while folded
+  rail?: ReactNode; // the item icons of the folded rail, under the sideways title
+  collapsible?: boolean;
+  collapsed?: boolean;
+  defaultCollapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
+  resizable?: boolean; // true: the line has a grip and drags; false: the same line and toggle, no drag
+  width?: number; // with resizable={false}, taken as it is
+  minWidth?: number;
+  maxWidth?: number;
+  storageKey?: string;
+  className?: string;
+}
+```
+
+- **A sunken body.** The aside is `Box surface="sunken"` (`--c-sunken`, a thin `--c-border`) with `--radius-lg`, in place of the raised surface (`--c-surface`, `--shadow-1`). The heading is the Card heading as before.
+- **An edge line with the toggle on it.** SidePanel is a two column grid: the pane, then a 12 px column on its inner edge. While it is open and `resizable`, that column is the ResizeHandle grip, as before. Folded, or with `resizable={false}`, it is `.side-panel__line`, the same 1 px `--c-border-strong` line with no grip, hidden from screen readers. The CollapseToggle sits on the line, centred on it, in place of half over the pane border.
+- **The toggle lines up with the heading.** The grid has two rows, `minmax(var(--size-40), auto)` and the rest; the pane and the rail are subgrids, so the heading, the toggle and the rail actions share the first row. The toggle is centred on that row, below the 1 px pane border, so it sits level with the heading whatever its height: density, a tall action or a wrapped title. Before, it sat at a fixed `(40 px - 24 px) / 2` from the top.
+- **The folded rail.** Folded, the panel is a 60 px (`--side-nav-w`) rail on the sunken surface with `--radius-lg`, in place of the `page-card` look. From the top: the `actions` in the first row, level with the toggle; then the title written sideways, which unfolds the panel on a click; then the `rail` icons. Before, the rail showed the title or the `rail` content, never both, and no actions. The actions render once: in the heading while open and in the rail while folded.
+- **The sideways title reads toward the outer edge.** On a left panel (`side="start"`) it reads from bottom to top, the tops of the letters toward the left edge; on a right panel it reads from top to bottom, the tops toward the right edge. Both sit with their baseline toward the main view, as tool window bars in desktop editors do. Before, both read top to bottom.
+- **A glow is not clipped.** The rail no longer scrolls by default: the pane, the rail and the icon list draw what spills out of them, such as a `drop-shadow` or a radial glow behind a device icon, past the rail edges. Only when the icons do not fit does the list become a scroll area (`.pane-rail__content--scroll`), and only then does it clip. A ResizeObserver on the list and its box decides.
+- **`resizable={false}` takes `width` as it is.** A panel that does not resize keeps `width` exactly, with no `minWidth` or `maxWidth` clamp and no stored width; its fold is still kept under `storageKey:collapsed`. Before, a `width` of 192 was raised to the 224 px default minimum.
+- **StudioLayout** passes `start` and `end` to SidePanel as before, so its panels take all of this. In the stacked view, below `editorMinWidth`, the line is hidden, the toggle sits at the right end of the heading row, and a folded panel is a full width bar with its actions, title and icons in one row.
+- **ListDetailLayout keeps its own split.** Its list pane is the list half of a list and detail screen: it can share the room by ratio, its detail folds too, and below 768 px the panes stack with Back. It is not a side panel beside a main view, so it keeps its gutter, which already draws the grip line with the toggle at its top. Its folded rails take the same sunken rail and the same reading direction: the list rail reads up and the detail rail reads down.
+- **Classes.** `.side-panel__frame` and `.side-panel--overhang` are gone; the toggle, the pane and the line are direct children of `.side-panel`. `.side-panel__line` is new. The folded rail gains `.pane-rail--start` or `.pane-rail--end`, `.pane-rail__actions`, `.pane-rail__items` and `.pane-rail__list`, and loses `page-card`.
+
+Measured in a browser at 1440 px, before and after, box by box:
+
+- **Every Overview keeps its height.** SidePanel 3430 px, StudioLayout 6174 px, ListDetailLayout 7300 px, ListDetail 8315 px, CollapseToggle 2625 px. No console errors.
+- **Open panels keep their boxes:** the pane, heading, body and resize grip. The toggle moves 8 px toward the main view, onto the line (left panel 256 to 264, right panel 776 to 768 on the SidePanel studio example), and 1 px down: its centre and the heading centre now match to the pixel on every open panel (65 and 65 on the SidePanel examples, 229 and 229 on the StudioLayout studio).
+- **Folded panels are 74 px wide in place of 60 px with 12 px of margin**: the 60 px rail, the 2 px gap and the 12 px line. The main view beside two folded panels is 4 px narrower (852 to 848 px on the SidePanel and StudioLayout folded examples), and 2 px beside one (368 to 366 px in the studio beside a list). The folded toggle centre and the rail actions centre match (64.5 and 64.5).
+- **The controls page** no longer resizes: its two grips become lines in the same 12 by 424 px boxes. Folded, each rail gains its action at the top (New profile, Rescan devices) and its title, so the profile icons start 67 px lower (93 to 160); the devices rail gains its four device icons, three with a green radial glow 72 px across that spills 6 px past each side of the 60 px rail. Forced back to the old scrolling list, the same glow is cut at the edges of the 39 px wide icon list.
+- **A rail too long to fit scrolls.** With the controls page 200 px tall, the two icon lists turn into scroll areas, 51 of 148 px and 57 of 179 px shown.
+- **ListDetailLayout and ListDetail** keep every box; the folded rails change from the `page-card` fill to the sunken one, and the folded list rail title now reads up.
+- **The stacked studio** keeps every box; the toggles move 1 px down, to the middle of the heading row.
+- Keyboard, as before: Enter on the toggle folds and unfolds with focus kept on it, Enter on the grip folds and moves focus to the toggle, and a 40 px drag on the grip of a right panel widens it from 256 to 296 px.
+
+### Gallery and tests
+
+The SidePanel Overview describes the sunken body, the line and its toggle, `resizable`, the rail and the glow. Its examples: a studio whose layers and inspector resize and fold, the same studio folded with each title down its rail, a controls page whose panels only fold and whose ready devices glow, and that page folded, with the actions, the sideways titles and the icons on each rail and the glow past the rail edges. The CollapseToggle demo panel takes the sunken surface. `tests/side-panel.test.mjs` checks the sunken pane, the line without `resizable`, the grid rows that line the toggle up with the heading, the actions in the heading or the rail, the order of the rail, the reading direction, the unclipped rail and its scroll rule, the mirrored end panel and the exact width of a panel that does not resize. `tests/studio-layout.test.mjs` checks the stacked rules and the sunken rails of ListDetailLayout.
+
+### What RotP does
+
+- **Music Studio and the other studios** (`MsuMusicTab`, `MsuFilePanel`, `MsuEffectsPanel`, `MsuSoundPanel`, `LanguageEditor`, `SpriteWorkArea`): nothing to pass. `end={{ ...DETAILS_PANEL, content }}` now draws the sunken panel with the toggle level with the Details heading. To put a button in the heading that stays on the folded rail, add `actions` to the panel object; to show icons on the rail, add `rail`.
+- **On the Controls page**, replace `ListPanel` with SidePanel in `ControlsProfiles` and `ControlsDevices`, and keep `useStoredFold` so New profile can open the panel before it creates one:
+
+  ```tsx
+  const { collapsed, toggle, expand } = useStoredFold(PROFILES_FOLD_KEY, true);
+  <SidePanel
+    title="Profiles"
+    resizable={false}
+    width={192}
+    actions={add}
+    rail={rail}
+    collapsed={collapsed}
+    onCollapsedChange={toggle}
+  >
+    <InputProfileList ... />
+  </SidePanel>
+
+  <SidePanel side="end" title="Devices" resizable={false} width={192} actions={rescan} rail={rail} collapsed={collapsed} onCollapsedChange={toggle}>
+    {entries.map(...)}
+  </SidePanel>
+  ```
+
+  `DeviceRailButton` and its `device-icon--ready` drop-shadow stay as they are: the glow now spreads past the rail. Then delete `compounds/ListPanel` (its component, CSS and usage) and keep `useStoredFold` where the pages import it. The rail now shows the Profiles and Devices titles sideways between the action and the icons. ListPanel laid an open panel over the work area below 640 px through the `list-panel-row` container; SidePanel has no such mode, so either drop the container rule or keep a page rule on `.side-panel:not(.side-panel--collapsed)`.
+- **In styles and tests**, a style aimed at `.side-panel__frame` or `.side-panel--overhang` goes; a test that finds `box--raised side-panel__pane` now finds `box--sunken side-panel__pane`, and a folded rail is `box--sunken pane-rail pane-rail--folded pane-rail--start` (or `--end`).

@@ -5,7 +5,6 @@ interface SidePanelLook {
   side: SidePanelSide;
   collapsible: boolean;
   collapsed: boolean;
-  handled: boolean;
   dragging: boolean;
 }
 

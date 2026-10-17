@@ -157,7 +157,7 @@ One line per component. 66 of 187 have their usage written; a linked name opens 
 - `ShortcutTour`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [SidePanel](components/SidePanel.md): A raised panel beside the main view, with a heading, that folds to a rail and that the user drags wider; it holds any content. Import from `@drizztdourden08/tessera`.
+- [SidePanel](components/SidePanel.md): The one side panel of Tessera: a sunken panel beside the main view, with a heading, that folds to a rail and that the user may drag wider. Import from `@drizztdourden08/tessera`.
 - [SiteFooter](components/SiteFooter.md): The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord. Import from `@drizztdourden08/tessera`.
 - [SiteHeader](components/SiteHeader.md): The band at the top of every page of a website: the logo and the site title as the link home, the main links and the signed-in person. Import from `@drizztdourden08/tessera`.
 - [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.

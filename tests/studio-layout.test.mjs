@@ -26,7 +26,7 @@ describe('StudioLayout', () => {
     const html = studio();
     expect(html).toMatch(/<header class="box--raised studio-layout__bar">.*<h1[^>]*>Link<\/h1>/);
     expect(html).toMatch(/class="hint-line hint-line--1" role="status"[^>]*>.*Save keeps the sprite\./);
-    expect(html).toMatch(/aria-label="Sprites" class="box--raised side-panel__pane".*<section class="box--sunken tool-frame studio-layout__editor" aria-label="Sprite sheet">.*aria-label="Properties" class="box--raised side-panel__pane"/);
+    expect(html).toMatch(/aria-label="Sprites" class="box--sunken side-panel__pane".*<section class="box--sunken tool-frame studio-layout__editor" aria-label="Sprite sheet">.*aria-label="Properties" class="box--sunken side-panel__pane"/);
     expect(html).toMatch(/class="tool-frame__toolbar"><div class="tool-groups">.*>Zoom<.*class="tool-frame__body tool-frame__body--padded"><p>Sheet<\/p>/);
   });
 
@@ -39,7 +39,7 @@ describe('StudioLayout', () => {
 
   it('passes each panel its own props, such as a fold to start with', () => {
     const html = studio({ end: { title: 'Properties', content: 'Facts', defaultCollapsed: true } });
-    expect(html).toContain('class="side-panel side-panel--end side-panel--collapsible side-panel--overhang side-panel--collapsed"');
+    expect(html).toContain('class="side-panel side-panel--end side-panel--collapsible side-panel--collapsed"');
     expect(html).toContain('aria-label="Show Properties"');
     expect(html).toContain('aria-label="Hide Sprites"');
   });
@@ -49,6 +49,9 @@ describe('StudioLayout', () => {
     expect(css).toContain('container: studio-layout / inline-size;');
     expect(css).not.toMatch(/@container|768px/);
     expect(css).toMatch(/\.studio-layout--stacked \.studio-layout__body \{\s+flex-direction: column;/);
+    expect(css).toMatch(/\.studio-layout--stacked \.side-panel :is\(\.side-panel__pane, \.side-panel__toggle\) \{\s+grid-column: 1;/);
+    expect(css).toMatch(/\.studio-layout--stacked \.side-panel__toggle \{\s+justify-self: end;/);
+    expect(css).toMatch(/\.studio-layout--stacked :is\(\.side-panel__handle, \.side-panel__line\) \{\s+display: none;/);
     expect(studio()).toMatch(/^<div class="studio-layout">/);
   });
 });
@@ -70,21 +73,20 @@ describe('the shared pieces StudioLayout is drawn from', () => {
   it('LogPanel is a ToolFrame, and ListDetailLayout folds to the same rail and toggle as SidePanel', () => {
     expect(renderToString(h(LogPanel, { rows: [] }))).toMatch(/^<div class="box--sunken tool-frame log-panel"><div class="tool-frame__toolbar"><div class="filter-bar"/);
     const folded = renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', defaultCollapsed: true, listLabel: 'presets' }));
-    expect(folded).toContain('class="pane-rail pane-rail--folded page-card list-detail-layout__gutter"><button type="button" class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-end');
-    expect(folded).toContain('pane-rail__label" aria-hidden="true">presets</span>');
+    expect(folded).toContain('class="box--sunken pane-rail pane-rail--folded pane-rail--start list-detail-layout__gutter"><button type="button" class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-end');
+    expect(folded).toContain('<div class="pane-rail__items"><span class="text-el text-el--span pane-rail__label" aria-hidden="true">presets</span></div>');
+    const detail = renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', detailCollapsible: true, defaultDetailCollapsed: true, detailLabel: 'editor' }));
+    expect(detail).toContain('pane-rail--folded pane-rail--end list-detail-layout__gutter');
   });
 
-  it('paints no surface of its own: the fill, the edge and the shadow come from Box, Card, ToolFrame and the rail', () => {
-    ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/SidePanel/SidePanel.css'].forEach((file) => {
-      expect(sheet(file), file).not.toMatch(/background|border:|border-block|box-shadow/);
+  it('paints no surface of its own: the fill and the edge come from Box, Card, ToolFrame and the sunken rail', () => {
+    const line = /\.side-panel__line::before \{[^}]*\}/;
+    expect(sheet('src/composites/SidePanel/SidePanel.css')).toMatch(/\.side-panel__line::before \{[^}]*background: var\(--c-border-strong\);/);
+    ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/SidePanel/SidePanel.css', 'src/composites/pane-fold/PaneRail.css'].forEach((file) => {
+      expect(sheet(file).replace(line, ''), file).not.toMatch(/background|border:|border-block|box-shadow/);
     });
-    const card = sheet('src/theme/page-card.css');
-    const nav = sheet('src/composites/SideNav/SideNav.css');
-    expect(sheet('src/composites/pane-fold/PaneRail.tsx')).toContain("'pane-rail--folded page-card'");
-    ['background: var(--c-panel);', 'backdrop-filter: blur(var(--blur));', 'border: var(--border-width-thin) solid var(--c-border);', 'border-radius: var(--radius-xl);'].forEach((rule) => {
-      expect(card, rule).toContain(rule);
-      expect(nav, rule).toContain(rule);
-    });
+    expect(sheet('src/composites/pane-fold/PaneRail.tsx')).toContain("surface={rail ? 'sunken' : undefined}");
+    expect(sheet('src/composites/SidePanel/sub-components/SidePanelPane.tsx')).toContain("surface={collapsed ? undefined : 'sunken'}");
     expect(sheet('src/composites/ListDetailLayout/ListDetailLayout.css')).not.toMatch(/rail-label|c-sunken/);
     expect(sheet('src/composites/LogPanel/LogPanel.css')).not.toMatch(/log-panel__toolbar|radius-md/);
   });

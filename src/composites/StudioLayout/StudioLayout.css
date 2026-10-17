@@ -60,20 +60,19 @@
   flex: none;
 }
 
-.studio-layout--stacked .studio-layout__body > .side-panel--overhang.side-panel {
-  margin-inline: 0;
+.studio-layout--stacked .side-panel {
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.studio-layout--stacked .side-panel__frame {
-  flex: 1;
+.studio-layout--stacked .side-panel :is(.side-panel__pane, .side-panel__toggle) {
+  grid-column: 1;
 }
 
 .studio-layout--stacked .side-panel__pane {
-  flex: 1;
   inline-size: auto;
 }
 
-.studio-layout--stacked .side-panel__handle {
+.studio-layout--stacked :is(.side-panel__handle, .side-panel__line) {
   display: none;
 }
 
@@ -82,7 +81,12 @@
 }
 
 .studio-layout--stacked .side-panel__toggle {
-  inset-inline: auto var(--space-sm);
+  justify-self: end;
+  margin-inline: 0 var(--space-sm);
+}
+
+.studio-layout--stacked .side-panel--collapsed .side-panel__toggle {
+  margin-block-start: 0;
 }
 
 .studio-layout--stacked .side-panel__toggle[aria-expanded='false'] svg {
@@ -93,11 +97,20 @@
   transform: rotate(-90deg);
 }
 
-.studio-layout--stacked .pane-rail--folded {
+.studio-layout--stacked .side-panel__pane > .pane-rail--folded {
+  display: flex;
   flex-direction: row;
+  grid-row: 1;
   inline-size: auto;
-  min-block-size: var(--size-40);
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-xs) calc(var(--collapse-toggle-d) + var(--space-md)) var(--space-xs) var(--space-md);
+}
+
+.studio-layout--stacked :is(.pane-rail__actions, .pane-rail__items, .pane-rail__list) {
+  flex-direction: row;
+}
+
+.studio-layout--stacked .side-panel__pane .pane-rail__items {
+  padding-block-start: 0;
 }
 
 .studio-layout--stacked .side-panel--collapsible .side-panel__pane > .card__header {
@@ -105,6 +118,7 @@
 }
 
 .studio-layout--stacked .pane-rail__label {
+  rotate: none;
   writing-mode: horizontal-tb;
 }
 

@@ -80,6 +80,10 @@
   margin-block-start: 0;
 }
 
+.list-detail-layout__gutter.pane-rail--folded {
+  padding-block-start: calc(var(--space-sm) + var(--side-nav-item-h));
+}
+
 .pane-rail--folded > .list-detail-layout__toggle {
   position: absolute;
   top: var(--space-sm);
