@@ -365,6 +365,7 @@
   --z-backdrop: 50;
   --z-panel: 100;
   --z-floating: 110;
+  --z-title-bar: 120;
   --z-modal: 200;
   --z-popover: 250;
   --z-toast: 300;

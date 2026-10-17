@@ -36,6 +36,7 @@ const usePeek = (tucked: boolean, barRef: RefObject<HTMLElement | null>, follow:
 
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key !== 'Escape' || event.defaultPrevented || !tucked) return;
+    event.preventDefault();
     const back = returnRef.current;
     returnRef.current = null;
     if (isHTMLElement(back) && back.isConnected) back.focus();

@@ -9530,3 +9530,18 @@ import { ArmedIconButton } from '@drizztdourden08/tessera';
 ```
 
 Later, the quick save cards take the same buttons. Where a still icon is enough, such as a menu item that acts at once, use `<Icon name="load-state" />` or `<Icon name="save-state" />`.
+
+## 264. WindowTitleBar's peek takes Escape alone, and a revealed bar sits above the widgets
+
+Brock's host worked around two things in the title bar: Escape pressed while the bar was peeking also reached the host, and the revealed bar had to be lifted with `isolation: isolate` on the host to show above the docked and floating widgets. Both are fixed in the bar.
+
+### What changed
+
+- **Escape is handled once.** When the concealed bar handles Escape, it calls `preventDefault()`, so the host does not act on the same key. Other keys are untouched, and an Escape the bar does not handle, such as while it is not concealed, is left alone as before.
+- **The revealed bar has its own layer.** `.window-title-bar--concealed` sets `z-index: var(--z-title-bar)`, a new token of `120` in `src/tokens/z-index.css`, above `--z-floating` (110) and so above the docked and floating widgets. It needs no `isolation` on the host.
+
+### What Brock does
+
+- Drop the Escape guard that stops the host acting on Escape while the title bar peeks. The bar now prevents it itself.
+- Remove `isolation: isolate` from the host that holds the title bar.
+- One thing to know: a floating pane that is being resized lifts to `--z-modal` (200) while the drag lasts, so it still shows above a revealed bar at that moment.

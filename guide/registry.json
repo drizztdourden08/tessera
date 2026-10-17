@@ -11772,7 +11772,8 @@
         "--tracking-wide",
         "--transition-normal",
         "--weight-medium",
-        "--z-panel"
+        "--z-panel",
+        "--z-title-bar"
       ],
       "gallery": {
         "title": "Composites · Windows/WindowTitleBar",
