@@ -86,7 +86,7 @@ const Overview = overviewStory({
     'Load `splash-tokens.css`, then `splash.css`; no React and no bundle, so the page draws at once.',
     '`ts-splash` paints the dark gradient behind a `ts-stage`; take its `ts-mark` image from `brand/dark-ground/`.',
     'A page may set `--look-dark-from`, `--look-dark-to` and `--look-angle`, with stops that keep text at AA.',
-    '`ts-wordmark` sets an image in `ts-title`, 48 px high; `ts-button` and `ts-button--primary` look like [Button].',
+    '`ts-wordmark` fits an image in `ts-title`, `--pixelated` keeps pixel art sharp; `ts-button` looks like [Button].',
     '`ts-progress` fills to `--value`, 0 to 1, or sweeps with `ts-progress--indeterminate`; `--edge` runs at the bottom.',
     '`ts-status--danger` and `ts-progress--danger` mark a failure, `ts-detail` its text, `ts-error` the raw error.',
   ],

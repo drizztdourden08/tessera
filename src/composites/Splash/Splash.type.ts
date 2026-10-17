@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { HTMLAttributes, ReactNode } from 'react';
+import type { ImagePixelated } from '../../primitives/Image/Image.type';
 
 interface SplashAction {
   label: string;
@@ -15,6 +16,7 @@ type SplashBar = 'edge' | 'inline';
 interface SplashProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   title: string;
   wordmark?: string;
+  wordmarkPixelated?: ImagePixelated;
   mark?: ReactNode;
   status?: ReactNode;
   detail?: ReactNode;

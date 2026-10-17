@@ -8,13 +8,13 @@ import { SplashStage } from './sub-components/SplashStage';
 import type { SplashProps } from './Splash.type';
 
 const Splash = (props: SplashProps) => {
-  const { title, wordmark, mark, status, detail, error, failed = false, progress, bar = 'edge', progressLabel, actions, version, className, ...rest } = props;
+  const { title, wordmark, wordmarkPixelated = false, mark, status, detail, error, failed = false, progress, bar = 'edge', progressLabel, actions, version, className, ...rest } = props;
   const { common } = useTesseraStrings();
   const meter = progress === undefined ? null : <SplashMeter progress={progress} bar={bar} failed={failed} label={progressLabel ?? common.loading} />;
   return (
     <Box className={className ? `ts-splash ts-splash--layer ${className}` : 'ts-splash ts-splash--layer'} {...rest}>
       <GroundContext.Provider value="dark">
-        <SplashStage title={title} wordmark={wordmark} mark={mark} status={status} detail={detail} error={error} actions={actions} failed={failed} meter={bar === 'inline' ? meter : null} />
+        <SplashStage title={title} wordmark={wordmark} wordmarkPixelated={wordmarkPixelated} mark={mark} status={status} detail={detail} error={error} actions={actions} failed={failed} meter={bar === 'inline' ? meter : null} />
       </GroundContext.Provider>
       {version !== undefined && <Box as="span" className="ts-version">{version}</Box>}
       {bar === 'edge' && meter}

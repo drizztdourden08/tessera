@@ -64,6 +64,37 @@ describe('Splash', () => {
     const html = draw({ wordmark: '/wordmark.svg', status: 'Starting' });
     expect(html).toContain('<h1 class="ts-title"><img class="ts-wordmark" src="/wordmark.svg" alt="Archipelia"/></h1>');
     expect(html).not.toContain('>Archipelia<');
-    expect(KIT).toMatch(/\.ts-wordmark \{[^}]*block-size: var\(--size-48\);[^}]*object-fit: contain;/);
+    expect(KIT).toMatch(/\.ts-wordmark \{[^}]*max-block-size: var\(--size-48\);[^}]*object-fit: contain;/);
+  });
+});
+
+describe('the splash wordmark', () => {
+  const ruleOf = (selector) => KIT.match(new RegExp(`\\n${selector.replace(/[.-]/g, '\\$&')} \\{([^}]*)\\}`))?.[1] ?? '';
+  const mark = (wordmarkPixelated) => draw({ wordmark: '/sprite.png', status: 'Starting', wordmarkPixelated });
+  const PLAIN = '<img class="ts-wordmark" src="/sprite.png" alt="Archipelia"/>';
+  const SHARP = '<img class="ts-wordmark ts-wordmark--pixelated" src="/sprite.png" alt="Archipelia"/>';
+
+  it('draws smooth by default and with false, and sharp with wordmarkPixelated true', () => {
+    expect(mark(undefined)).toContain(PLAIN);
+    expect(mark(false)).toContain(PLAIN);
+    expect(mark(true)).toContain(SHARP);
+  });
+
+  it('waits for the picture to load before auto turns sharp, so the server draws it smooth', () => {
+    expect(mark('auto')).toContain(PLAIN);
+  });
+
+  it('keeps the height of the picture up to 48 px and its width up to 384 px, so a wide one leaves no band', () => {
+    const rule = ruleOf('.ts-wordmark');
+    expect(rule).toContain('inline-size: auto;');
+    expect(rule).toContain('max-inline-size: min(var(--size-384), 100%);');
+    expect(rule).toMatch(/\n {2}block-size: auto;/);
+    expect(rule).toContain('max-block-size: var(--size-48);');
+  });
+
+  it('scales a pixel art wordmark up to the 384 px row with hard pixel edges in ts-wordmark--pixelated', () => {
+    const rule = ruleOf('.ts-wordmark--pixelated');
+    expect(rule).toContain('inline-size: var(--size-384);');
+    expect(rule).toContain('image-rendering: pixelated;');
   });
 });

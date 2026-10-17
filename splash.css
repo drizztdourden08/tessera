@@ -57,9 +57,15 @@
   display: block;
   inline-size: auto;
   max-inline-size: min(var(--size-384), 100%);
-  block-size: var(--size-48);
+  block-size: auto;
+  max-block-size: var(--size-48);
   margin-inline: auto;
   object-fit: contain;
+}
+
+.ts-wordmark--pixelated {
+  inline-size: var(--size-384);
+  image-rendering: pixelated;
 }
 
 .ts-mark {

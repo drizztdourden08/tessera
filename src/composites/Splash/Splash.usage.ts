@@ -17,6 +17,8 @@ const usage = {
     'Keep status to one short line that says what runs now; put a readable reason for a failure in detail and the raw error in error, which waits behind Details.',
     'Pass a BrandMark or Logo as mark and it takes its dark ground look by itself; an image URL points at brand/dark-ground/<app>.svg or a mark PNG beside it, and an app mark of its own keeps its edge at 3:1 on the gradient, every shape or an outline around them.',
     'Pass wordmark, an image URL such as brand/<app>-wordmark.svg, to show the app wordmark in place of the title text; on the static page put an img of class ts-wordmark inside ts-title, with the title as its alt.',
+    'The wordmark keeps its own size up to 48 px high and 384 px wide, keeping its proportions, so a wide one takes less height; draw it at least 48 px high.',
+    'For a pixel art wordmark, a small sprite, set wordmarkPixelated and add ts-wordmark--pixelated on the static img: it scales up to the 384 px row with hard pixel edges; auto decides once the picture loads, as on Image.',
     'It sits on the dark gradient of the palette; an app theme that changes the palette seeds sets --p-gradient-dark-from and --p-gradient-dark-to too, dark enough that the text stays at WCAG AA.',
     'Pass progress as a fraction from 0 to 1 when the steps are known, and indeterminate when they are not.',
     'Show actions only when the user has something to do, such as Retry and Report a bug after a failure; mark Retry primary.',
@@ -46,7 +48,7 @@ const Reconnecting = ({ quit }: { quit: () => void }) => (
   />
 );
 `,
-  propsHash: '2bae6aa1ca329e1b',
+  propsHash: 'd7dbe08ea12118cf',
 } satisfies ComponentUsage;
 
 export { usage };

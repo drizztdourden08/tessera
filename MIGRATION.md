@@ -9221,3 +9221,56 @@ Measured at 1440 px against the gallery before, block by block, with no console 
 - Logs widget: one kind per channel with its old colour, `{ id: 'core', label: 'Core', tone: '#44aa99' }`, and `toneMessage: true` on the error channel.
 - Counts that should vanish at 0: pass `hideZero` in place of a `count > 0 &&` guard.
 - Saved layouts need nothing: they make room on the next load. A pane meant to overlay keeps `makeRoom: false`.
+
+## 259. A sharp pixel art wordmark on the splash, and a wide wordmark with no empty band
+
+Brock asked for two things about the splash wordmark of section 240. Its wordmark can be pixel art (`product.icons.wordmark.rendering: 'pixelated'`), and today it hangs its own descendant rule on `.ts-wordmark` for the failure splash and a `splash__pixelated` class on the static page. And a very wide wordmark sat in a 48 px box with empty space above and below it.
+
+### What changed
+
+- **`ts-wordmark` keeps the height of the picture, up to 48 px.** It was `block-size: var(--size-48)`; it is now `block-size: auto; max-block-size: var(--size-48)`, with the same `max-inline-size: min(var(--size-384), 100%)`, `object-fit: contain` and centring. A wordmark that reaches the 384 px cap, or the title box in a narrow window, now draws a box only as high as the picture at that width, so there is no empty band above and below. The picture itself draws at the same size as before.
+- **A smooth wordmark is never scaled up.** With `block-size: auto` a picture smaller than 48 px high draws at its own size. Draw a smooth wordmark at least 48 px high, or 96 for sharp high density screens; the brand files are 116 px high.
+- **`ts-wordmark--pixelated` in `splash.css`.** For pixel art: it sets `image-rendering: pixelated` and `inline-size: var(--size-384)`, so a small sprite scales up with hard pixel edges to fill the 384 px row (never wider than the title box), its height following its proportions up to 48 px, centred by `object-fit: contain`. A 52 by 8 sprite draws 312 by 48 in a 318 by 48 box; a 118 by 8 sprite draws 318 by 21.5 with no band.
+- **`Splash` takes `wordmarkPixelated`.** It is `ImagePixelated`, the same three way option as Image and MediaViewer (section 226), and `false` by default. With `true` the image takes `ts-wordmark--pixelated`. With `'auto'` it takes it once the picture has loaded and its longest side is 256 px or less, through `usePixelArt` and `isPixelArt`, as on Image.
+
+```ts
+interface SplashProps {
+  title: string;
+  wordmark?: string;
+  wordmarkPixelated?: ImagePixelated; // new: boolean | 'auto', false by default
+  // every other prop as before
+}
+```
+
+```html
+<h1 class="ts-title"><img class="ts-wordmark ts-wordmark--pixelated" src="logos/wordmark.png" alt="Moss Keep" /></h1>
+```
+
+`SplashStage` is a part inside Splash, not exported; it passes the option to a new inner `SplashWordmark`.
+
+### Measured
+
+At 1440 px, the wordmark of each brand in the two existing examples, before and after, with the size the picture draws inside its box:
+
+| Example | Wordmark | Box before | Box now | Picture, before and now |
+|---|---|---|---|---|
+| Splash, each brand, 318 px stage | Tessera | 253.2 by 48 | 253.2 by 48 | 253.2 by 48 |
+| | Brock | 187 by 48 | 187 by 48 | 187 by 48 |
+| | Archipelia | 318 by 48 | 317.9 by 44.3 | 318 by 44.3 |
+| | Relic of the Past | 318 by 48 | 317.9 by 28.7 | 318 by 28.7 |
+| Static splash, 640 px window | Brock | 187 by 48 | 187 by 48 | 187 by 48 |
+| | Relic of the Past | 384 by 48 | 384 by 34.7 | 384 by 34.7 |
+| Static splash, 288 px window | Brock | 187 by 48 | 187 by 48 | 187 by 48 |
+| | Relic of the Past | 222 by 48 | 221.9 by 20 | 222 by 20 |
+
+Tessera and Brock keep their box. Archipelia and Relic of the Past were wider than the row at 48 px high, so their box loses the empty band: the h1, and so the stage column, is 3.7 to 28 px shorter. Every picture draws at the same size as before. The React splash and the static page beside it give the same boxes. No console errors.
+
+### Gallery and tests
+
+The Splash page gains A pixel art wordmark, scaled up sharp, and a very wide one: a 52 by 8 sprite and a 118 by 8 sprite, the Splash with `wordmarkPixelated="auto"` beside the static page with `ts-wordmark--pixelated`, on the Brock palette. One Overview point on Splash and one on Static splash name the option and the class, and two usage rules say how the wordmark is sized and when to set the option. `tests/splash.test.mjs` checks the class for `false`, `true` and `'auto'` before load, and the two rules of the kit.
+
+### What Brock does
+
+- **BootFailureSplash.** Pass `wordmarkPixelated={wordmark?.rendering === 'pixelated'}` to Splash, and drop `BootFailureSplash.css` and the `boot-failure-splash--pixelated` class name.
+- **The static splash page.** In `render-splash-page.mjs` write `ts-wordmark ts-wordmark--pixelated` in place of `ts-wordmark splash__pixelated`, and drop `.splash__pixelated` from `splash-page.css`.
+- **A smooth PNG wordmark under 48 px high** now draws at its own height on the splashes; give it at least 48 px of height. A pixel art wordmark with `rendering: 'pixelated'` scales up as before, now to the full row width with no band.
