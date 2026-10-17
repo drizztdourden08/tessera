@@ -8,7 +8,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - One action. **What does the action look like?**
     - A visible word: no component yet.
     - An icon only: no component yet.
-    - Irreversible, on a row: no component yet.
+    - Irreversible, on a row: [ArmedIconButton](components/ArmedIconButton.md). ArmedIconButton shares the one ask of ConfirmIconButton: the same timeout, Escape, blur and focus return.
     - Irreversible, for a whole view: no component yet.
     - Goes to a URL: no component yet.
     - Copies a text: [CopyButton](components/CopyButton.md). CopyButton writes to the clipboard through the one copy path every Tessera part uses, with the same check and announcement.

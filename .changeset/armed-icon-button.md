@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": minor
+---
+
+Load state, save state and delete buttons pressed twice, with an icon that loops while it waits. The named set gains `load-state` and `save-state`: a platform seen from three quarters with an arrow rising out of it or coming down into it, in the 2 unit line of the Lucide icons. `ArmedIcon` draws them and `trash-2` in parts and, with `armed`, morphs into an armed pose and loops over `--duration-armed-loop` (1.4 s): the load arrow keeps lifting, the save arrow keeps sinking while the platform squashes and ripples, and the trash lid keeps lifting; only `transform` and `opacity` move, and reduced motion shows the armed pose still. `ArmedIconButton` is a ghost icon button on the shared confirm ask of ConfirmIconButton: the first press arms it, the second runs `onConfirm`, and a 4 second timeout, a blur or Escape disarms it; armed, its name and tooltip read Click again to and the label, `tone` colours the icon and `timeout={false}` waits for blur or Escape. The 4 second wait of the DropdownMenu confirm item is now the shared `CONFIRM_AGAIN_MS`.

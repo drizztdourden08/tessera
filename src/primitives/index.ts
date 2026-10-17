@@ -144,6 +144,8 @@ export { Tooltip } from './Tooltip';
 export type { TooltipFollow, TooltipProps } from './Tooltip';
 export { VolumeIcon } from './VolumeIcon';
 export type { VolumeIconProps, VolumeStep } from './VolumeIcon';
+export { ArmedIcon } from './ArmedIcon';
+export type { ArmedIconName, ArmedIconProps } from './ArmedIcon';
 export { Image, isPixelArt, usePixelArt } from './Image';
 export type { ImageFit, ImagePixelated, ImagePlaceholderProps, ImageProps, ImageSize, PixelArt } from './Image';
 export { BackdropLayer, backdropStyle } from './BackdropLayer';

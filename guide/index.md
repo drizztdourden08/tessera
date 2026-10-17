@@ -1,10 +1,11 @@
 # Tessera components
 
-One line per component. 66 of 187 have their usage written; a linked name opens its page.
+One line per component. 67 of 189 have their usage written; a linked name opens its page.
 
 ## Primitives
 
 - `Anchored`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- `ArmedIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [BackdropLayer](components/BackdropLayer.md): A layer that fills its positioned parent with an image, a colour or a scene of your own, from one backdrop value. Import from `@drizztdourden08/tessera`.
 - `Badge`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Box](components/Box.md): The plain element every block is built from, with an optional sunken or raised surface for a well or a panel. Import from `@drizztdourden08/tessera`.
@@ -85,6 +86,7 @@ One line per component. 66 of 187 have their usage written; a linked name opens 
 
 - [ActionBar](components/ActionBar.md): The actions on one item in a single row: the primary action last, the ones that do not fit folded into a More menu. Import from `@drizztdourden08/tessera`.
 - [ActionTile](components/ActionTile.md): A tile with one headline value that also does one thing: runs an action, copies a text, or leads to the full view. Import from `@drizztdourden08/tessera`.
+- [ArmedIconButton](components/ArmedIconButton.md): An icon button pressed twice: the first press arms it and its icon loops a short motion, the second press acts. Import from `@drizztdourden08/tessera`.
 - [Carousel](components/Carousel.md): Shows one slide at a time from a set, with dots and arrows to move between them, and can turn to the next slide by itself. Import from `@drizztdourden08/tessera`.
 - [CheckList](components/CheckList.md): The results of a list of checks, such as a connection test or a diagnostics report, each with its state, what was found and an optional fix. Import from `@drizztdourden08/tessera`.
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.

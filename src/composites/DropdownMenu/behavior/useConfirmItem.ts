@@ -1,13 +1,13 @@
 /* @layer renderer-components @kind hook */
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useConfirmAsk } from '../../ConfirmIconButton/behavior/useConfirmAsk';
-import { CONFIRM_ITEM_MS } from '../DropdownMenu.constants';
+import { CONFIRM_AGAIN_MS } from '../../ConfirmIconButton/behavior/useConfirmAsk.constants';
 import type { MenuItem } from '../DropdownMenu.type';
 import type { ConfirmItem } from './useConfirmItem.type';
 
 const useConfirmItem = (item: MenuItem, asks: boolean, pick: () => void): ConfirmItem => {
   const { items } = useTesseraStrings();
-  const ask = useConfirmAsk<true>({ onConfirm: pick, onCancel: item.onCancel, timeout: CONFIRM_ITEM_MS });
+  const ask = useConfirmAsk<true>({ onConfirm: pick, onCancel: item.onCancel, timeout: CONFIRM_AGAIN_MS });
   if (!asks) return { press: pick, asking: false, handlers: {} };
   const asking = ask.asking !== null;
   return {

@@ -38,7 +38,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     'BidiIsolate': 'arrow-left-right', 'BidiOverride': 'arrow-right-left', 'Ruby': 'languages', 'RubyText': 'captions',
     'RubyParenthesis': 'parentheses', 'Shortcut': 'keyboard', 'Quote': 'quote', 'Emphasis animation': 'wand-sparkles',
   },
-  'Core · Icons': { 'Icon': 'shapes', 'Brand icons': 'badge', 'Glyph': 'pen-tool', 'InputIcon': 'joystick', 'EmojiIcon': 'smile', 'VolumeIcon': 'volume-1' },
+  'Core · Icons': { 'Icon': 'shapes', 'Brand icons': 'badge', 'Glyph': 'pen-tool', 'InputIcon': 'joystick', 'EmojiIcon': 'smile', 'VolumeIcon': 'volume-1', 'ArmedIcon': 'hard-drive-download' },
   'Core · Tokens': {
     'Size scale': 'ruler', 'Sizes': 'move-diagonal', 'Margin': 'expand', 'Padding': 'shrink', 'Gap': 'separator-vertical',
     'Radius': 'square-round-corner', 'Shadows': 'layers', 'Z-index': 'layers-3', 'Durations': 'timer',
@@ -74,7 +74,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban', GuidedTour: 'signpost' },
   'Composites · Feedback': { Toast: 'bell', LoadError: 'circle-alert', ErrorBoundary: 'bug', Splash: 'rocket', 'Static splash': 'power' },
-  'Composites · Actions': { ConfirmIconButton: 'circle-check', ActionBar: 'rectangle-ellipsis', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
+  'Composites · Actions': { ConfirmIconButton: 'circle-check', ArmedIconButton: 'hard-drive-upload', ActionBar: 'rectangle-ellipsis', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',

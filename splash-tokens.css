@@ -345,6 +345,7 @@
   --duration-step-skip-ring: calc(0.46s * 0.4);
   --duration-step-skip-flip: calc(0.4s * 0.4);
   --duration-volume-morph: calc(0.26s * 1.5);
+  --duration-armed-loop: 1.4s;
   --duration-step-skip: calc(calc(0.52s * 0.4) + calc(0.38s * 0.4) + calc(0.46s * 0.4));
   --ease-standard: ease;
   --ease-in-out: ease-in-out;

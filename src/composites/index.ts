@@ -4,8 +4,8 @@ export type {
   ColumnActions, ColumnDragBinding, DataTableProps, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver,
   IdRefTargetField, IdRefTargetFieldResolver, PickerNode,
 } from './DataTable';
-export { ConfirmIconButton } from './ConfirmIconButton';
-export type { ConfirmIconButtonPlacement, ConfirmIconButtonProps, ConfirmIconButtonSize } from './ConfirmIconButton';
+export { ConfirmIconButton, type ConfirmIconButtonPlacement, type ConfirmIconButtonProps, type ConfirmIconButtonSize } from './ConfirmIconButton';
+export { ArmedIconButton, type ArmedIconButtonProps, type ArmedIconButtonTone } from './ArmedIconButton';
 export { Dialog } from './Dialog';
 export { DialogShell } from './DialogShell';
 export type { DialogInitialFocus, DialogShellProps } from './DialogShell';

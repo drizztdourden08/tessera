@@ -12,6 +12,8 @@ const STEADY_PARTS = [
   { page: 'composites-splash--overview', parts: ['.ts-progress', '.ts-splash'] },
   { page: 'composites-dropdownmenu--overview', parts: ['.dropdown__menu', '.dropdown__item', '.dropdown__mark', '.choice-mark'] },
   { page: 'icons-volumeicon--overview', parts: ['.volume-icon'] },
+  { page: 'icons-armedicon--overview', parts: ['.armed-icon'] },
+  { page: 'composites-armediconbutton--overview', parts: ['.armed-icon-btn', '.armed-icon-btn .icon-btn'] },
 ];
 
 const STEADY_CYCLE_MS = 5000;

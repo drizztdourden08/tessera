@@ -51,6 +51,7 @@ import skullIcon from '@iconify-icons/lucide/skull';
 import shovelIcon from '@iconify-icons/lucide/shovel';
 import treeDeciduousIcon from '@iconify-icons/lucide/tree-deciduous';
 import wavesIcon from '@iconify-icons/lucide/waves';
+import { armedIconData } from '../ArmedIcon/behavior/armed-icon-data';
 
 const APP_ICONS = {
   'house': houseIcon,
@@ -83,6 +84,8 @@ const APP_ICONS = {
   'key-round': keyRoundIcon,
   'file-text': fileTextIcon,
   'save': saveIcon,
+  'load-state': armedIconData('load-state'),
+  'save-state': armedIconData('save-state'),
   'refresh-cw': refreshCwIcon,
   'search': searchIcon,
   'ellipsis-vertical': ellipsisVerticalIcon,

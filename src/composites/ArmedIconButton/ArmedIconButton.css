@@ -1,0 +1,17 @@
+/* @layer renderer-components @kind style */
+.armed-icon-btn {
+  position: relative;
+  display: inline-flex;
+}
+
+.armed-icon-btn .armed-icon {
+  color: var(--armed-tone, currentcolor);
+}
+
+.armed-icon-btn--primary { --armed-tone: var(--c-primary); }
+.armed-icon-btn--secondary { --armed-tone: var(--c-secondary); }
+.armed-icon-btn--tertiary { --armed-tone: var(--c-tertiary); }
+.armed-icon-btn--success { --armed-tone: var(--c-success); }
+.armed-icon-btn--warning { --armed-tone: var(--c-warning); }
+.armed-icon-btn--danger { --armed-tone: var(--c-danger); }
+.armed-icon-btn--info { --armed-tone: var(--c-info); }

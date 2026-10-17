@@ -66,6 +66,7 @@ const CATALOGUE: readonly CatalogueTier[] = withUsageJobs(ROOT, [
         { name: 'InputIcon', summary: 'Controller buttons, sticks, triggers and keyboard keys by family, for button prompts.' },
         { name: 'EmojiIcon', summary: 'An emoji at a fixed size and baseline.' },
         { name: 'VolumeIcon', summary: 'A white speaker whose waves in the primary colour grow in four steps with the sound level, and a red X when muted.' },
+        { name: 'ArmedIcon', summary: 'Load state, save state and trash, still or armed with a short loop that waits for a second press.' },
       ],
     }],
   },

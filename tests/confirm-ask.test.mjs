@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useAsk } from '../src/composites/ActionBar/behavior/useAsk';
 import { ConfirmIconButton } from '../src/composites/ConfirmIconButton';
 import { useConfirmAsk } from '../src/composites/ConfirmIconButton/behavior/useConfirmAsk';
-import { CONFIRM_ITEM_MS } from '../src/composites/DropdownMenu/DropdownMenu.constants';
+import { CONFIRM_AGAIN_MS } from '../src/composites/ConfirmIconButton/behavior/useConfirmAsk.constants';
 import { useConfirmItem } from '../src/composites/DropdownMenu/behavior/useConfirmItem';
 import { SettingsRowActionButton } from '../src/composites/SettingsRow/sub-components/SettingsRowActionButton';
 import { ITEM_STRINGS } from '../src/primitives/strings/items-strings.constants';
@@ -90,7 +90,7 @@ describe('onCancel also runs', () => {
     vi.useFakeTimers();
     const item = menuItem(calls.onCancel, calls.onConfirm);
     item.act((c) => c.press());
-    item.act(() => vi.advanceTimersByTime(CONFIRM_ITEM_MS - 1));
+    item.act(() => vi.advanceTimersByTime(CONFIRM_AGAIN_MS - 1));
     expect(item.current.asking).toBe(true);
     item.act(() => vi.advanceTimersByTime(1));
     expect(item.current.asking).toBe(false);

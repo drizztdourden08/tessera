@@ -9459,3 +9459,74 @@ The SidePanel Overview describes the sunken body, the line and its toggle, `resi
 
   `DeviceRailButton` and its `device-icon--ready` drop-shadow stay as they are: the glow now spreads past the rail. Then delete `compounds/ListPanel` (its component, CSS and usage) and keep `useStoredFold` where the pages import it. The rail now shows the Profiles and Devices titles sideways between the action and the icons. ListPanel laid an open panel over the work area below 640 px through the `list-panel-row` container; SidePanel has no such mode, so either drop the container rule or keep a page rule on `.side-panel:not(.side-panel--collapsed)`.
 - **In styles and tests**, a style aimed at `.side-panel__frame` or `.side-panel--overhang` goes; a test that finds `box--raised side-panel__pane` now finds `box--sunken side-panel__pane`, and a folded rail is `box--sunken pane-rail pane-rail--folded pane-rail--start` (or `--end`).
+
+## 263. Load state, save state and delete buttons pressed twice, with an icon that loops while it waits
+
+From RotP. The owner sent a load state and a save state icon: a flat round platform seen from three quarters, with an arrow rising out of it or coming down into it, and short light streaks beside the arrow. The owner asked for them as line icons with thinner lines than the reference, no gradient and no glow, for icon buttons with no text that are pressed twice: the first press morphs the icon into its armed pose and loops a short motion until the second press, a timeout, a blur or Escape. The owner also asked for a delete button in the same line, a trash whose lid keeps lifting.
+
+### What changed
+
+- **Two named icons.** `load-state` and `save-state` join the named set, in the 24 unit grid and the 2 unit line of the Lucide icons, in `currentColor`: a platform (a 9 by 3 unit ellipse with a 3.5 unit rim), an arrow out of or into its centre, and two streaks in a 1.25 unit line. The named set builds both from the drawing of ArmedIcon, so the still and the armed icon never drift apart. Delete keeps `trash-2`.
+- **ArmedIcon**, a new primitive in Core · Icons. It draws `load-state`, `save-state` or `trash-2` in parts; `armed` moves them into the armed pose over `--duration-slow`, then loops over the new `--duration-armed-loop` (1.4 s). Load: the arrow keeps lifting out of the platform and the streaks rise. Save: the arrow keeps sinking into the platform, which squashes as it lands while a thin ring ripples out, and the streaks fall. Delete: the lid lifts and tilts, and keeps lifting. Only `transform` and `opacity` move, so the box never changes; under reduced motion the armed pose shows still, with no morph and no loop.
+
+```ts
+type ArmedIconName = 'load-state' | 'save-state' | 'trash-2';
+
+interface ArmedIconProps {
+  name: ArmedIconName;
+  armed?: boolean;
+  size?: number | string; // 16 by default
+  className?: string;
+}
+```
+
+- **ArmedIconButton**, a new composite in Composites · Actions: a ghost icon button that draws ArmedIcon. The first press arms it and runs `onArm`; the second runs `onConfirm`. It disarms after 4 seconds, on blur (so a press on another button disarms it), on Escape at the button or anywhere on the page, or when it turns disabled, and runs `onCancel`. Armed, its accessible name and its tooltip read the armed label, Click again to and the label by default, and a polite status region says it once. Focus stays on the button.
+
+```ts
+type ArmedIconButtonTone = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'info';
+
+interface ArmedIconButtonProps {
+  icon: ArmedIconName;
+  label: string;
+  armedLabel?: string;      // Click again to <label> by default
+  onConfirm: () => void;
+  onCancel?: () => void;
+  onArm?: () => void;
+  tone?: ArmedIconButtonTone; // the icon colour; currentColor without it
+  timeout?: number | false; // 4000 ms by default; false waits for blur or Escape
+  size?: 'xs' | 'sm' | 'md'; // icons of 12, 16 and 20 px
+  disabled?: boolean;
+  defaultArmed?: boolean;
+  tabIndex?: number;
+  className?: string;
+}
+```
+
+- **One ask for every press that waits.** ArmedIconButton runs on `useConfirmAsk`, the ask of ConfirmIconButton, ActionBar, the SettingsRow action and the DropdownMenu confirm item (section 217), so the timeout, Escape, the cancel on unmount and the focus return are the same code. The 4 second wait moves from the DropdownMenu constants to the shared ask as `CONFIRM_AGAIN_MS`; the confirm item keeps the same 4 seconds. ArmedIconButton is a sibling of ConfirmIconButton, not a variant: ConfirmIconButton swaps its button for a cross and a check with two labels and a placement, while ArmedIconButton keeps one button and changes its icon, so a variant would have made every prop of ConfirmIconButton depend on the mode.
+
+### Measured
+
+At 1440 px:
+
+- **The box never moves.** An ArmedIconButton is 28 by 28 px before the first press and while armed; `pnpm check:steady` now samples the ArmedIcon and ArmedIconButton Overviews, and every animated part on its 14 pages kept its box for 5 seconds.
+- **Reduced motion.** With reduced motion the ArmedIcon page runs no animation and no transition; the load arrow sits 1 unit up, the save arrow 1 unit down, and the lid 1.4 units up, turned 8 degrees.
+- **The press.** On the save row, the first press on Load Slot 1 names it Click again to load Slot 1, shows the same tooltip and keeps focus on it; the second press loads; Escape disarms it with focus kept; a press on Overwrite disarms Load and arms Overwrite; Overwrite disarms by itself after 4 seconds; Delete twice removes the row.
+- **ConfirmIconButton is unchanged.** Its Overview keeps its 2790 px height and all 41 boxes and colours of its buttons and icons, measured before and after. No console errors.
+
+### Gallery and tests
+
+Core · Icons gains the ArmedIcon page: each icon still at 16 and 24 px and armed at 16, 24 and 48 px. The Icon page lists `load-state` and `save-state` in the named set. Composites · Actions gains the ArmedIconButton page: a save row with Load in `info`, Overwrite in `warning` and Delete in `danger` on three slots, each icon in each tone, and the armed states. `tests/armed-icon.test.mjs` checks the named icons, the parts, the moving properties and the reduced motion rules; `tests/armed-icon-button.test.mjs` checks that the first press arms and the second confirms, the timeout, blur and both Escapes, the disabled drop and the names.
+
+### What RotP does
+
+On the normal save rows, replace the Load, Overwrite and Delete buttons with ArmedIconButton and drop their own confirm state:
+
+```tsx
+import { ArmedIconButton } from '@drizztdourden08/tessera';
+
+<ArmedIconButton icon="load-state" tone="info" label={`Load ${slot.name}`} onConfirm={() => loadState(slot)} />
+<ArmedIconButton icon="save-state" tone="warning" label={`Overwrite ${slot.name}`} onConfirm={() => saveState(slot)} />
+<ArmedIconButton icon="trash-2" tone="danger" label={`Delete ${slot.name}`} onConfirm={() => deleteState(slot)} />
+```
+
+Later, the quick save cards take the same buttons. Where a still icon is enough, such as a menu item that acts at once, use `<Icon name="load-state" />` or `<Icon name="save-state" />`.

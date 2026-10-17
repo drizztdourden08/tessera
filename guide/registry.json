@@ -26,7 +26,9 @@
                 "components": []
               },
               "irreversible, on a row": {
-                "components": []
+                "components": [
+                  "ArmedIconButton"
+                ]
               },
               "irreversible, for a whole view": {
                 "components": []
@@ -773,6 +775,16 @@
       "name": "Anchored",
       "tier": "primitives",
       "source": "src/primitives/Anchored/Anchored.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": false
+    },
+    {
+      "name": "ArmedIcon",
+      "tier": "primitives",
+      "source": "src/primitives/ArmedIcon/ArmedIcon.tsx",
       "imports": [
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
@@ -3396,6 +3408,168 @@
         "title": "Composites · Content/ActionTile",
         "route": "#/story/composites-actiontile--overview",
         "file": "stories/composites/ActionTile.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "ArmedIconButton",
+      "tier": "composites",
+      "source": "src/composites/ArmedIconButton/ArmedIconButton.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "An icon button pressed twice: the first press arms it and its icon loops a short motion, the second press acts.",
+      "useWhen": [
+        "A row action replaces or removes something, such as loading a save state, saving over one or deleting one.",
+        "Several such actions sit side by side on a row and each needs its own second press."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The second press should be a separate check with a cancel beside it.",
+          "use": "ConfirmIconButton"
+        },
+        {
+          "case": "The action needs a message to explain what it does.",
+          "use": "Dialog"
+        },
+        {
+          "case": "Several actions on one item fold into More when narrow.",
+          "use": "ActionBar"
+        }
+      ],
+      "rules": [
+        "Pick the icon by what the action does: load-state to load, save-state to save over, trash-2 to delete.",
+        "Name the action and its target in label, such as Load Slot 1: armed, it reads Click again to load Slot 1.",
+        "Give load the info tone, overwrite the warning tone and delete the danger tone, as in a save row.",
+        "Leave the timeout at 4 seconds; pass timeout={false} only where the button must wait until focus leaves.",
+        "Run the action in onConfirm only; onCancel runs when the press times out, loses focus or meets Escape."
+      ],
+      "a11y": [
+        "Armed, its name and its tooltip change to the armed label, and a polite status region says it once.",
+        "Escape, a blur or the timeout disarms it, and focus stays on the button.",
+        "Reduced motion shows the armed pose still, without the loop."
+      ],
+      "tree": {
+        "path": [
+          "actions",
+          "one action",
+          "irreversible, on a row"
+        ],
+        "rule": "ArmedIconButton shares the one ask of ConfirmIconButton: the same timeout, Escape, blur and focus return."
+      },
+      "example": "import { ArmedIconButton } from '@drizztdourden08/tessera';\n\nconst SaveSlotTools = ({ slot, onLoad, onSave, onDelete }: { slot: string; onLoad: () => void; onSave: () => void; onDelete: () => void }) => (\n  <>\n    <ArmedIconButton icon=\"load-state\" tone=\"info\" label={`Load ${slot}`} onConfirm={onLoad} />\n    <ArmedIconButton icon=\"save-state\" tone=\"warning\" label={`Overwrite ${slot}`} onConfirm={onSave} />\n    <ArmedIconButton icon=\"trash-2\" tone=\"danger\" label={`Delete ${slot}`} onConfirm={onDelete} />\n  </>\n);\n",
+      "propsHash": "dbad7a84d57edcd8",
+      "props": {
+        "own": [
+          {
+            "name": "icon",
+            "optional": false,
+            "text": "ArmedIconName",
+            "literals": [
+              "'load-state'",
+              "'save-state'",
+              "'trash-2'"
+            ]
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "armedLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onConfirm",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "onArm",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "ArmedIconButtonTone",
+            "literals": [
+              "'danger'",
+              "'info'",
+              "'primary'",
+              "'secondary'",
+              "'success'",
+              "'tertiary'",
+              "'warning'"
+            ]
+          },
+          {
+            "name": "timeout",
+            "optional": true,
+            "text": "number | false"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "IconButtonSize",
+            "literals": [
+              "'xs'",
+              "'sm'",
+              "'md'"
+            ],
+            "default": "'sm'"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "defaultArmed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "tabIndex",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-danger",
+        "--c-info",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-tertiary",
+        "--c-warning",
+        "--size-1"
+      ],
+      "gallery": {
+        "title": "Composites · Actions/ArmedIconButton",
+        "route": "#/story/composites-armediconbutton--overview",
+        "file": "stories/composites/ArmedIconButton.stories.tsx"
       },
       "parts": []
     },
