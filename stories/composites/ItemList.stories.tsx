@@ -109,7 +109,6 @@ const Overview = overviewStory({
     '`groupBy` sorts rows under headings; `groups` orders them and draws empty ones with a line and an action.',
     '`onActivate` runs on a click, [[Enter]] or [[Space]]; the arrow keys then move the focus, not the selection.',
     '`rowActions`, `onRename` ([[F2]]) and `onDelete` fill the row buttons, shown on hover or `"always"`.',
-    '`media` in `render` draws a flush picture; `renameInline` renames in place with a pen.',
     '`undoDelete` deletes at once with an Undo that [[Ctrl+Z]] reaches through `useUndo`; `deleteKey` binds [[Delete]].',
   ],
   instead: '[ListDetail] for the same list beside an editor that asks before unsaved edits are lost.',
