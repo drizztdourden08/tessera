@@ -1409,7 +1409,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.45.0",
       "props": {
         "SidePanel.resizable": "removed; every SidePanel resizes and folds by drag. To keep a width, pass the same number to minWidth and maxWidth (see MIGRATION.md section 269)",
         "ListDetailLayout.resizable": "removed; the divider always resizes and folds by drag (see MIGRATION.md section 269)",
