@@ -8,7 +8,7 @@ import { StudioBesideListSample } from './_samples/StudioBesideListSample';
 import { STUDIO_CODE } from './_samples/studio-story.constants';
 import './StudioLayout.stories.css';
 
-type StudioArgs = { bar: boolean; folded: boolean; resizable: boolean; narrow: boolean };
+type StudioArgs = { bar: boolean; folded: boolean; narrow: boolean };
 
 const meta = {
   title: 'Composites · Layout/StudioLayout',
@@ -19,16 +19,15 @@ const frameClass = (narrow: boolean) => (narrow ? 'studio-demo-frame studio-demo
 
 const Playground = {
   name: 'Playground',
-  args: { bar: true, folded: false, resizable: true, narrow: false },
+  args: { bar: true, folded: false, narrow: false },
   argTypes: {
     bar: { group: 'Content', control: 'boolean', description: 'The raised top bar with the title, the action groups and the hint line.' },
     folded: { group: 'State', control: 'boolean', description: 'Both side panels start folded to a rail.' },
-    resizable: { group: 'Behaviour', control: 'boolean', description: 'Each side panel has a line to drag it wider.' },
     narrow: { group: 'Appearance', control: 'boolean', description: 'A 560 px wide frame, where the columns stack.' },
   },
   render: (args) => (
     <Box className={frameClass(args.narrow)}>
-      <SpriteStudioSample key={String(args.folded)} folded={args.folded} bar={args.bar} resizable={args.resizable} />
+      <SpriteStudioSample key={String(args.folded)} folded={args.folded} bar={args.bar} />
     </Box>
   ),
 } satisfies PlaygroundStory<StudioArgs>;
@@ -63,7 +62,7 @@ const Overview = overviewStory({
   description: 'The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right.',
   points: [
     '`bar` adds a raised top bar: the title, labelled action groups and a [HintLine] for what is under the pointer.',
-    '`start` and `end` are [SidePanel]s: each has a heading, folds to a rail and is dragged wider.',
+    '`start` and `end` are [SidePanel]s: each has a heading, folds to a rail and resizes on the same edge as the list beside it.',
     'The editor sits in a [ToolFrame]; `toolbar` puts [ToolGroups] on its top edge.',
     '`compactToolbar` keeps that toolbar to one row of small controls, 45 px high, with the group names hidden.',
     'The columns stack only when the open panels, the folded rails and `editorMinWidth` (192 px) do not fit.',

@@ -20,12 +20,13 @@ const usePaneFold = (options: PaneFoldOptions): PaneFold => {
     change(true);
     toggleRef.current?.focus();
   }, [change]);
+  const expand = useCallback(() => change(false), [change]);
   const toggle = useCallback(() => {
     const button = toggleRef.current;
     refocus.current = button !== null && button === button.ownerDocument.activeElement;
     change((was) => !was);
   }, [change]);
-  return { collapsed: collapsible && shown, toggleRef, toggle, collapse: collapsible ? collapse : undefined };
+  return { collapsed: collapsible && shown, toggleRef, toggle, collapse: collapsible ? collapse : undefined, expand: collapsible ? expand : undefined };
 };
 
 export { usePaneFold };

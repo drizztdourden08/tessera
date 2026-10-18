@@ -77,7 +77,6 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
       { token: '--widget-options-w' },
       { token: '--widget-options-slider-w' },
       { token: '--dock-grip-h' },
-      { token: '--resize-handle-bar' },
     ],
   },
   {

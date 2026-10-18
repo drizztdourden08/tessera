@@ -17,66 +17,75 @@ const one = (html) => {
   return found[0];
 };
 
-const handle = (extra = {}, ...children) => renderToString(h(ResizeHandle, { label: 'r', value: 1, min: 0, max: 2, onResize: noop, ...extra }, ...children));
+const handle = (extra = {}) => renderToString(h(ResizeHandle, { label: 'r', value: 1, min: 0, max: 2, onResize: noop, ...extra }));
+const fold = (extra = {}) => ({ sides: ['low', 'high'], folded: null, onFold: noop, onUnfold: noop, ...extra });
 
 describe('ResizeHandle', () => {
   it('is a focusable separator across the axis it moves on, with its value, range and the pane it controls', () => {
     const tag = one(handle({ label: 'Resize outline', value: 224.4, min: 160, max: 360, controls: 'outline' }));
-    expect(tag).toContain('class="resize-handle resize-handle--horizontal resize-handle--grip focus-ring-inset"');
+    expect(tag).toContain('class="resize-handle resize-handle--horizontal focus-ring-inset"');
     expect(tag).toContain('aria-orientation="vertical" aria-label="Resize outline" aria-valuenow="224" aria-valuemin="160" aria-valuemax="360" aria-controls="outline" tabindex="0"');
-    const stacked = one(handle({ orientation: 'vertical', look: 'line' }));
-    expect(stacked).toContain('resize-handle--vertical resize-handle--line');
+    const stacked = one(handle({ orientation: 'vertical' }));
+    expect(stacked).toContain('resize-handle--vertical');
     expect(stacked).toContain('aria-orientation="horizontal"');
   });
 
-  it('draws a grip only in the grip look, and children in place of any look', () => {
-    expect(handle()).toContain('resize-handle__grip');
-    expect(handle({ look: 'ghost' })).not.toContain('resize-handle__grip');
-    const filled = handle({}, 'files');
-    expect(filled).not.toContain('resize-handle--grip');
-    expect(filled).toContain('>files</div>');
+  it('draws one thin line, whatever the use: no grip, no ghost, no children', () => {
+    for (const html of [handle(), handle({ orientation: 'vertical' }), handle({ fold: fold() })]) {
+      expect(html).not.toMatch(/resize-handle--(grip|line|ghost)|resize-handle__grip/);
+      expect(html).toMatch(/<div[^>]*role="separator"[^>]*><\/div>$/);
+    }
+  });
+
+  it('reports 0 as its lowest value when it can fold the low side, and its end value while folded', () => {
+    const open = { value: 300, min: 240, max: 480 };
+    expect(one(handle({ ...open, fold: fold() }))).toContain('aria-valuenow="300" aria-valuemin="0" aria-valuemax="480"');
+    expect(one(handle({ ...open, fold: fold({ sides: ['high'] }) }))).toContain('aria-valuemin="240"');
+    expect(one(handle({ ...open, fold: fold({ folded: 'low' }) }))).toContain('aria-valuenow="0" aria-valuemin="0"');
+    expect(one(handle({ ...open, fold: fold({ folded: 'high' }) }))).toContain('aria-valuenow="480"');
   });
 });
 
 describe('the four parts on ResizeHandle', () => {
-  it('SplitPane draws the grip in percent, controlling its first pane, and a rail when a pane is folded', () => {
+  it('SplitPane draws the line in percent, controlling its first pane, and a rail in the folded pane', () => {
     const html = renderToString(h(SplitPane, { start: 'a', end: 'b', defaultRatio: 0.4 }));
     const tag = one(html);
-    expect(tag).toContain('resize-handle--grip');
-    expect(tag).toContain('aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"');
+    expect(tag).toContain('resize-handle--horizontal');
+    expect(tag).toContain('aria-valuenow="40" aria-valuemin="0" aria-valuemax="80"');
     const paneId = /id="([^"]+)" class="split-pane__pane"/.exec(html)?.[1];
     expect(tag).toContain(`aria-controls="${paneId}"`);
-    const folded = one(renderToString(h(SplitPane, { start: 'a', end: 'b', startLabel: 'files', defaultCollapsed: 'start' })));
-    expect(folded).toContain('split-pane__rail split-pane__rail--start');
+    const folded = renderToString(h(SplitPane, { start: 'a', end: 'b', startLabel: 'files', defaultCollapsed: 'start' }));
+    expect(one(folded)).toContain('aria-label="Resize files and second pane"');
+    expect(folded).toMatch(/split-pane__pane split-pane__pane--folded"[^>]*><div class="box--sunken pane-rail pane-rail--folded pane-rail--start">/);
     expect(folded).toContain('aria-label="Show files"');
   });
 
-  it('ListDetailLayout draws the grip in pixels, controlling the list', () => {
+  it('ListDetailLayout draws the line in pixels, controlling the list', () => {
     const html = renderToString(h(ListDetailLayout, { list: 'rows', detail: 'detail' }));
     const listId = /id="([^"]+)" class="box--sunken list-detail-layout__list"/.exec(html)?.[1];
     const tag = one(html);
-    expect(tag).toContain('resize-handle--grip');
-    expect(tag).toContain(`aria-valuenow="320" aria-valuemin="240" aria-valuemax="480" aria-controls="${listId}"`);
+    expect(tag).toContain('resize-handle--horizontal');
+    expect(tag).toContain(`aria-valuenow="320" aria-valuemin="0" aria-valuemax="480" aria-controls="${listId}"`);
   });
 
-  it('DockLayout draws the ghost line at its divider rectangle, in pixels of the pair it splits', () => {
+  it('DockLayout draws the line at its divider rectangle, in pixels of the pair it splits', () => {
     const divider = { node: { kind: 'split', axis: 'row', sizes: [0.25, 0.5, 0.25], children: [] }, index: 1, rect: { x: 200, y: 0, width: 8, height: 300 }, along: 800 };
     const html = renderToString(h(DockDivider, { divider, onEdit: noop }));
     expect(html).toMatch(/^<div class="dock-divider" style="left:200px;top:0;width:8px;height:300px">/);
     const tag = one(html);
-    expect(tag).toContain('class="resize-handle resize-handle--horizontal resize-handle--ghost focus-ring-inset"');
+    expect(tag).toContain('class="resize-handle resize-handle--horizontal focus-ring-inset"');
     expect(tag).toContain('aria-valuenow="400" aria-valuemin="64" aria-valuemax="536"');
     const column = one(renderToString(h(DockDivider, { divider: { ...divider, node: { ...divider.node, axis: 'column' } }, onEdit: noop })));
-    expect(column).toContain('resize-handle--vertical resize-handle--ghost');
+    expect(column).toContain('resize-handle--vertical');
   });
 
-  it('DataTable draws the line look on each column, controlling its header', () => {
+  it('DataTable draws the same line on each column, controlling its header', () => {
     const props = {
       label: 'Slot', path: 'slot', index: 0, width: 180, cellRef: { current: null }, headerId: 'head-slot',
       actions: { onResize: noop, onPreviewResize: noop }, onResizingChange: noop,
     };
     const tag = one(renderToString(h(ColumnResizeHandle, props)));
-    expect(tag).toContain('resize-handle--line focus-ring-inset data-table__resize');
+    expect(tag).toContain('class="resize-handle resize-handle--horizontal focus-ring-inset data-table__resize"');
     expect(tag).toContain('aria-label="Resize Slot" aria-valuenow="180" aria-valuemin="64" aria-valuemax="720" aria-controls="head-slot"');
     expect(one(renderToString(h(ColumnResizeHandle, { ...props, width: undefined })))).not.toContain('aria-valuenow');
   });

@@ -4006,7 +4006,7 @@
         "Pass side=\"start\" for a panel on the left and side=\"end\" for one on the right: the chevron points toward that edge to fold and away from it to unfold.",
         "Pass label with the name of the panel, such as profiles: the button reads Hide profiles or Show profiles.",
         "Pass controls with the id of the panel, and collapsed with onToggle from the state that folds it.",
-        "Place it on the inner edge of the panel, half over its border, near the top: give the panel position: relative and the button position: absolute.",
+        "In a pane, place it beside the edge line of the panel, level with its heading, with a 4 px gap (--space-xs) between the line and the button; SidePanel, ListDetailLayout and SplitPane do this for you through their edge. Only the navigation panel SideNav keeps it half over its border.",
         "Prefer SidePanel; a panel of your own folds to its rail: the sunken surface, --side-nav-w wide, the title written sideways.",
         "Use it as it is: it draws at 24 px and takes clicks on 28 by 28 px, and the chevron turns on its own."
       ],
@@ -7016,7 +7016,7 @@
         "rule": "ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app."
       },
       "example": "import { ListDetail } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Preset {\n  id: string;\n  name: string;\n  options: Record<string, number>;\n}\n\nconst PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Preset) => Promise<void> }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const [draft, setDraft] = useState<Preset | null>(null);\n  const saved = presets.find((preset) => preset.id === selectedId);\n  return (\n    <ListDetail\n      list={{ title: 'Presets', items: presets, getId: (preset) => preset.id, getName: (preset) => preset.name }}\n      selectedId={selectedId}\n      onSelect={(id) => { setDraft(null); setSelectedId(id); }}\n      detail={saved && <pre>{JSON.stringify(draft ?? saved)}</pre>}\n      dirty={draft !== null}\n      onSave={async () => { if (draft) await save(draft); }}\n      onDiscard={() => setDraft(null)}\n      storageKey=\"presets.list\"\n    />\n  );\n};\n",
-      "propsHash": "5158991207c50b2a",
+      "propsHash": "4a8dd53038f62150",
       "props": {
         "own": [
           {
@@ -7078,11 +7078,6 @@
             "name": "backLabel",
             "optional": true,
             "text": "string"
-          },
-          {
-            "name": "resizable",
-            "optional": true,
-            "text": "boolean"
           },
           {
             "name": "listWidth",
@@ -7232,14 +7227,15 @@
         "Pass collapsed with onCollapsedChange when the app holds the fold, such as from a menu or its own shortcut.",
         "Pass listRatio, such as 0.6, to give the list a share of the room in place of a width in pixels; the divider then drags the share, from 0.2 to 0.8.",
         "Pass detailCollapsible to let the detail fold to a rail the same way, or detailCollapsed with onDetailCollapsedChange to hold it.",
+        "The divider always resizes; pulling the list about 32 px narrower than its minimum folds it to a rail, and dragging the rail outward opens it. With detailCollapsible, pulling the divider past the largest list folds the detail the same way.",
         "Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area.",
         "Put a SaveBar last in the detail: it sits flush with the foot of the pane.",
         "Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor.",
-        "A folded pane is the rail of SidePanel: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right."
+        "A folded pane is the rail of SidePanel, drawn by the same part: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right. The fold buttons sit beside the divider with a 4 px gap, the list button on its detail side and the detail button on its list side."
       ],
       "a11y": [
         "The divider is a separator: the arrow keys resize it, Home and End jump to the limits, Space and a double click reset it.",
-        "Enter on the divider folds the list and moves focus to the button that brings it back.",
+        "Enter on the divider, or an arrow key at the end of the range, folds the list and moves focus to the button that brings it back; Enter or the outward arrow key on a folded divider opens it.",
         "The fold button is the CollapseToggle: it names the list, Hide presets or Show presets, and reports aria-expanded on the list pane.",
         "The detail fold button names the detail the same way, Hide preset editor or Show preset editor, on the detail pane.",
         "Under 768 px the panes stack and Back sits at the top of the detail."
@@ -7252,7 +7248,7 @@
         "rule": "ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way."
       },
       "example": "import { ListDetailLayout, ListItemList, ListItemRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Session {\n  id: string;\n  name: string;\n}\n\nconst SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; renderSession: (session: Session) => React.ReactNode }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const selected = sessions.find((session) => session.id === selectedId);\n  return (\n    <ListDetailLayout\n      list={(\n        <ListItemList heading=\"Sessions\">\n          {sessions.map((session) => (\n            <ListItemRow key={session.id} name={session.name} selected={session.id === selectedId} onClick={() => setSelectedId(session.id)} />\n          ))}\n        </ListItemList>\n      )}\n      detail={selected && renderSession(selected)}\n      onBack={() => setSelectedId(null)}\n      listLabel=\"sessions\"\n      storageKey=\"sessions.list\"\n    />\n  );\n};\n",
-      "propsHash": "4a0931fa1557a047",
+      "propsHash": "e4beb99c838d8775",
       "props": {
         "own": [
           {
@@ -7279,11 +7275,6 @@
             "name": "backLabel",
             "optional": true,
             "text": "string"
-          },
-          {
-            "name": "resizable",
-            "optional": true,
-            "text": "boolean"
           },
           {
             "name": "listWidth",
@@ -7387,18 +7378,12 @@
         "--c-border",
         "--c-surface",
         "--c-text-muted",
-        "--collapse-toggle-d",
         "--radius-lg",
-        "--side-nav-item-h",
-        "--size-320",
-        "--space-2xs",
         "--space-lg",
         "--space-md",
         "--space-sm",
         "--space-xl",
-        "--space-xs",
         "--text-sm",
-        "--z-base",
         "--z-sticky"
       ],
       "gallery": {
@@ -8319,7 +8304,7 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "The line between two panels that the user drags, or moves with the keys, to resize the panel beside it, such as the outline and inspector of an editor.",
+      "job": "The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range.",
       "useWhen": [
         "A side panel keeps its own width in pixels and the user drags its edge to change it, such as an outline or an inspector.",
         "A part draws its own panes and needs the one resize line every Tessera layout draws."
@@ -8341,25 +8326,28 @@
       "rules": [
         "Pair it with usePaneSize and spread its handle: the hook keeps the size, its limits and storageKey, and the handle wires the line.",
         "Size the panel from usePaneSize size, as an inline width: the line moves nothing by itself.",
+        "For a side panel, a list beside its detail or two panes, draw the edge with SidePanel, ListDetailLayout or SplitPane: they put the fold button beside this line for you.",
         "Pass edge=\"end\" for a panel after the line, such as an inspector on the right, so dragging toward it shrinks it.",
         "Pass orientation=\"vertical\" for panes stacked one above the other; the line then lies across and moves up and down.",
-        "Pick look grip between two panes, line where room is tight such as a header, and ghost where the panes already show their edges.",
-        "Pass onCollapse when the panel folds away; Enter then folds it, and onReset still runs on Space and a double click."
+        "It draws one line, a thin --c-border-strong that brightens a little to --c-text-muted on hover, focus and drag; there is no other look.",
+        "Pass fold when the panel can fold: { sides, folded, onFold, onUnfold }. A drag past the end of the range by about 32 px, or an arrow key at the end, calls onFold; dragging out from a folded panel, or the opposite arrow key, calls onUnfold with the value to open at.",
+        "Enter folds an open panel and opens a folded one, and onReset still runs on Space and a double click."
       ],
       "a11y": [
         "It is a focusable separator with aria-valuenow, aria-valuemin and aria-valuemax; name the panel in label, such as Resize outline.",
         "Pass controls with the id of the panel it resizes, for aria-controls.",
-        "The arrow keys move it by step, Shift by largeStep, and Home and End jump to the limits."
+        "The arrow keys move it by step, Shift by largeStep, and Home and End jump to the limits; at the end of the range an arrow key folds the panel when fold allows it.",
+        "While a panel is folded the value reads as zero, and the minimum reads as zero when the panel can fold."
       ],
       "tree": {
         "path": [
           "layout",
           "a side panel the user drags wider"
         ],
-        "rule": "ResizeHandle is the one resize line of every Tessera layout: drag, keys, value and range, with usePaneSize to keep a width in pixels."
+        "rule": "ResizeHandle is the one resize line of every Tessera layout: drag, keys, value, range and drag to fold, with usePaneSize to keep a width in pixels."
       },
       "example": "import { Box, ResizeHandle, usePaneSize } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst EditorRails = ({ outline, canvas, inspector }: { outline: ReactNode; canvas: ReactNode; inspector: ReactNode }) => {\n  const outlineSize = usePaneSize({ initial: 224, min: 160, max: 360, storageKey: 'hud.outline' });\n  const inspectorSize = usePaneSize({ initial: 256, min: 192, max: 400, storageKey: 'hud.inspector' });\n  return (\n    <Box className=\"hud-editor\">\n      <Box as=\"aside\" id=\"hud-outline\" style={{ inlineSize: outlineSize.size }}>{outline}</Box>\n      <ResizeHandle label=\"Resize outline\" controls=\"hud-outline\" {...outlineSize.handle} />\n      <Box as=\"main\" className=\"hud-editor__canvas\">{canvas}</Box>\n      <ResizeHandle label=\"Resize inspector\" controls=\"hud-inspector\" edge=\"end\" {...inspectorSize.handle} />\n      <Box as=\"aside\" id=\"hud-inspector\" style={{ inlineSize: inspectorSize.size }}>{inspector}</Box>\n    </Box>\n  );\n};\n",
-      "propsHash": "e69e5583c2063ff0",
+      "propsHash": "058a1db3c9089696",
       "props": {
         "own": [
           {
@@ -8403,9 +8391,9 @@
             "text": "() => void"
           },
           {
-            "name": "onCollapse",
+            "name": "fold",
             "optional": true,
-            "text": "() => void"
+            "text": "HandleFold"
           },
           {
             "name": "measure",
@@ -8436,17 +8424,6 @@
             ]
           },
           {
-            "name": "look",
-            "optional": true,
-            "text": "ResizeHandleLook",
-            "literals": [
-              "'grip'",
-              "'line'",
-              "'ghost'"
-            ],
-            "default": "'grip'"
-          },
-          {
             "name": "step",
             "optional": true,
             "text": "number"
@@ -8472,11 +8449,6 @@
             "text": "string"
           },
           {
-            "name": "onClick",
-            "optional": true,
-            "text": "() => void"
-          },
-          {
             "name": "onDragOver",
             "optional": true,
             "text": "(event: DragEvent<HTMLElement>) => void"
@@ -8485,11 +8457,6 @@
             "name": "onDrop",
             "optional": true,
             "text": "(event: DragEvent<HTMLElement>) => void"
-          },
-          {
-            "name": "children",
-            "optional": true,
-            "text": "ReactNode"
           }
         ],
         "inherited": {
@@ -8499,27 +8466,15 @@
         }
       },
       "tokens": [
-        "--blur-glow",
         "--border-width-thick",
         "--border-width-thin",
-        "--c-border",
         "--c-border-strong",
         "--c-primary",
-        "--c-primary-bright",
-        "--c-primary-dim",
-        "--c-primary-soft",
         "--c-text-muted",
         "--duration-fast",
         "--ease-standard",
-        "--radius-pill",
-        "--radius-sm",
-        "--resize-handle-bar",
-        "--size-32",
-        "--size-6",
-        "--space-md",
-        "--space-sm",
-        "--space-xs",
-        "--transition-normal"
+        "--space-2xl",
+        "--space-sm"
       ],
       "gallery": {
         "title": "Composites · Layout/ResizeHandle",
@@ -9730,7 +9685,7 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "The one side panel of Tessera: a sunken panel beside the main view, with a heading, that folds to a rail and that the user may drag wider.",
+      "job": "The one side panel of Tessera: a sunken panel beside the main view, with a heading, that the user drags wider or narrower and that folds to a rail.",
       "useWhen": [
         "A screen has an outline, a layer list or an inspector beside its main view.",
         "The user needs the room of the panel now and then, so it folds to a rail with its actions, its title and its icons.",
@@ -9754,30 +9709,32 @@
         "Use it for every panel that folds or resizes beside a main view, other than the navigation of the app; draw no panel of your own.",
         "Put it in a flex row beside the main view, with no bar or frame around it; it keeps its own width, and the main view takes the rest.",
         "Pass side=\"end\" for a panel on the right; its line, its fold button and its rail mirror to its left.",
+        "Every panel resizes: there is no switch to turn it off. To hold a width, pass the same number to minWidth and maxWidth; the line still folds the panel.",
+        "Dragging the line about 32 px narrower than minWidth folds the panel to its rail, and dragging the line of a rail outward opens it; the arrow keys at the end of the range do the same.",
         "Pass actions for buttons in the heading, such as Add or Rescan; the folded rail shows them at its top, level with the fold button.",
         "Pass rail for the icons of the items, such as one IconButton for each profile; the folded rail shows them under the title.",
         "A glow around a rail icon, such as a drop-shadow on a ready device, spreads past the rail; only a rail too long to fit scrolls and clips it.",
         "Put lists, cards, inputs and drag sources in it as they are: the body scrolls, and the content stays mounted while folded.",
-        "Pass width, minWidth and maxWidth in pixels; resizable={false} keeps the line and the fold button, drops the grip and the drag, and takes width as it is.",
+        "Pass width, minWidth and maxWidth in pixels; when width is outside the default 224 to 448 range the range grows to take it, so a width of 192 stays 192.",
         "Pass storageKey to keep the width, and the fold under storageKey:collapsed.",
         "Pass collapsed with onCollapsedChange when the app holds the fold; collapsible={false} drops the fold button."
       ],
       "a11y": [
         "It is an aside named by its title, with the title as a heading, h2 unless level says otherwise.",
-        "The fold button says Hide or Show and the title and reports aria-expanded; focus stays on it when the panel folds or opens.",
+        "The fold button says Hide or Show and the title and reports aria-expanded; focus moves to it when the panel folds, by the button, Enter, an arrow key or a drag, and stays on it when the panel opens.",
         "While folded the heading and the body are hidden from screen readers and the keyboard; the actions and the rail take their place, and the sideways title is hidden from screen readers.",
-        "A resizable line is a separator: the arrow keys resize it, and Enter folds the panel and moves focus to the button that opens it.",
-        "A line that does not resize is hidden from screen readers and the keyboard."
+        "The line is a separator: the arrow keys resize it, an arrow key at the end of the range folds or opens the panel, and Enter folds or opens it.",
+        "While the panel is folded the separator reads a value of zero."
       ],
       "tree": {
         "path": [
           "layout",
           "a side panel with a heading that folds to a rail"
         ],
-        "rule": "SidePanel is the one side panel of a work screen: the sunken surface, the heading, the line with its fold button, the rail and the resize grip."
+        "rule": "SidePanel is the one side panel of a work screen: the sunken surface, the heading, the edge with its line and fold button, the rail and the drag to resize or fold."
       },
       "example": "import { Box, Flex, SidePanel } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: ReactNode; inspector: ReactNode }) => (\n  <Flex gap=\"2xs\" align=\"stretch\" className=\"hud-editor\">\n    <SidePanel title=\"Layers\" storageKey=\"hud.layers\">{layers}</SidePanel>\n    <Box className=\"hud-editor__canvas\">{canvas}</Box>\n    <SidePanel side=\"end\" title=\"Inspector\" storageKey=\"hud.inspector\">{inspector}</SidePanel>\n  </Flex>\n);\n",
-      "propsHash": "80b8953ccf0d58b1",
+      "propsHash": "76bdeea90aaed43d",
       "props": {
         "own": [
           {
@@ -9845,11 +9802,6 @@
             "text": "(collapsed: boolean) => void"
           },
           {
-            "name": "resizable",
-            "optional": true,
-            "text": "boolean"
-          },
-          {
             "name": "width",
             "optional": true,
             "text": "number"
@@ -9882,16 +9834,11 @@
         }
       },
       "tokens": [
-        "--border-width-thin",
-        "--c-border-strong",
-        "--collapse-toggle-d",
         "--radius-lg",
         "--side-panel-width",
-        "--size-40",
         "--space-2xs",
         "--space-md",
-        "--space-sm",
-        "--z-base"
+        "--space-sm"
       ],
       "gallery": {
         "title": "Composites · Layout/SidePanel",
@@ -10663,7 +10610,7 @@
         "Pass the editor as children and name it with editorLabel; it sits in a ToolFrame that scrolls.",
         "Pass toolbar as ToolGroups groups, { id, label, content }, for the tools on the top edge of the editor.",
         "Pass compactToolbar to keep that toolbar to one row of small controls with the group names hidden, when every row of height counts.",
-        "Pass start and end as { title, content } with any SidePanel prop, such as storageKey, width, actions, rail, resizable or defaultCollapsed.",
+        "Pass start and end as { title, content } with any SidePanel prop, such as storageKey, width, actions, rail or defaultCollapsed; every panel resizes and folds by drag.",
         "Pass bar as { title, caption, status, groups, idleHint } for the raised top bar; its HintLine shows the hint of the control under the pointer.",
         "Put status and error lines in bar.notices, under the hint line, and a full width line, such as where an installed item came from, in banner.",
         "Give the buttons in the bar and the toolbar a hint, { label, description }: the layout is one HintScope.",

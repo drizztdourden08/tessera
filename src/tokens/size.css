@@ -39,7 +39,6 @@
   --collapse-toggle-hit: var(--size-28);
   --search-results-head-h: calc(52 * var(--size-1));
   --dock-grip-h: calc(18 * var(--size-1));
-  --resize-handle-bar: calc(3 * var(--size-1));
   --widget-titlebar-h: calc(30 * var(--size-1));
   --widget-title-compact-font: var(--size-10);
   --widget-options-w: var(--size-256);

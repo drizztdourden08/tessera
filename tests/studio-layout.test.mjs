@@ -39,7 +39,7 @@ describe('StudioLayout', () => {
 
   it('passes each panel its own props, such as a fold to start with', () => {
     const html = studio({ end: { title: 'Properties', content: 'Facts', defaultCollapsed: true } });
-    expect(html).toContain('class="side-panel side-panel--end side-panel--collapsible side-panel--collapsed"');
+    expect(html).toContain('class="side-panel pane-edge-host side-panel--end side-panel--collapsible side-panel--collapsed"');
     expect(html).toContain('aria-label="Show Properties"');
     expect(html).toContain('aria-label="Hide Sprites"');
   });
@@ -49,9 +49,9 @@ describe('StudioLayout', () => {
     expect(css).toContain('container: studio-layout / inline-size;');
     expect(css).not.toMatch(/@container|768px/);
     expect(css).toMatch(/\.studio-layout--stacked \.studio-layout__body \{\s+flex-direction: column;/);
-    expect(css).toMatch(/\.studio-layout--stacked \.side-panel :is\(\.side-panel__pane, \.side-panel__toggle\) \{\s+grid-column: 1;/);
-    expect(css).toMatch(/\.studio-layout--stacked \.side-panel__toggle \{\s+justify-self: end;/);
-    expect(css).toMatch(/\.studio-layout--stacked :is\(\.side-panel__handle, \.side-panel__line\) \{\s+display: none;/);
+    expect(css).toMatch(/\.studio-layout--stacked \.side-panel :is\(\.side-panel__pane, \.pane-edge__toggle\) \{\s+grid-column: 1;/);
+    expect(css).toMatch(/\.studio-layout--stacked \.pane-edge__toggle \{\s+justify-self: end;/);
+    expect(css).toMatch(/\.studio-layout--stacked \.side-panel__edge > \.resize-handle \{\s+display: none;/);
     expect(studio()).toMatch(/^<div class="studio-layout">/);
   });
 });
@@ -73,19 +73,21 @@ describe('the shared pieces StudioLayout is drawn from', () => {
   it('LogPanel is a ToolFrame, and ListDetailLayout folds to the same rail and toggle as SidePanel', () => {
     expect(renderToString(h(LogPanel, { rows: [] }))).toMatch(/^<div class="box--sunken tool-frame log-panel"><div class="tool-frame__toolbar"><div class="filter-bar"/);
     const folded = renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', defaultCollapsed: true, listLabel: 'presets' }));
-    expect(folded).toContain('class="box--sunken pane-rail pane-rail--folded pane-rail--start list-detail-layout__gutter"><button type="button" class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-end');
+    expect(folded).toContain('list-detail-layout__list list-detail-layout__list--folded');
+    expect(folded).toContain('class="box--sunken pane-rail pane-rail--folded pane-rail--start"');
+    expect(folded).toMatch(/class="pane-edge pane-edge--horizontal".*class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-end pane-edge__toggle pane-edge__toggle--start"/);
     expect(folded).toContain('<div class="pane-rail__items"><span class="text-el text-el--span pane-rail__label" aria-hidden="true">presets</span></div>');
     const detail = renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', detailCollapsible: true, defaultDetailCollapsed: true, detailLabel: 'editor' }));
-    expect(detail).toContain('pane-rail--folded pane-rail--end list-detail-layout__gutter');
+    expect(detail).toContain('box--sunken pane-rail pane-rail--folded pane-rail--end');
+    expect(detail).toContain('pane-edge__toggle pane-edge__toggle--end');
   });
 
   it('paints no surface of its own: the fill and the edge come from Box, Card, ToolFrame and the sunken rail', () => {
-    const line = /\.side-panel__line::before \{[^}]*\}/;
-    expect(sheet('src/composites/SidePanel/SidePanel.css')).toMatch(/\.side-panel__line::before \{[^}]*background: var\(--c-border-strong\);/);
-    ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/SidePanel/SidePanel.css', 'src/composites/pane-fold/PaneRail.css'].forEach((file) => {
-      expect(sheet(file).replace(line, ''), file).not.toMatch(/background|border:|border-block|box-shadow/);
+    expect(sheet('src/composites/ResizeHandle/ResizeHandle.css')).toMatch(/\.resize-handle::after \{[^}]*background: var\(--c-border-strong\);/);
+    ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/SidePanel/SidePanel.css', 'src/composites/pane-edge/PaneRail.css'].forEach((file) => {
+      expect(sheet(file), file).not.toMatch(/background|border:|border-block|box-shadow/);
     });
-    expect(sheet('src/composites/pane-fold/PaneRail.tsx')).toContain("surface={rail ? 'sunken' : undefined}");
+    expect(sheet('src/composites/pane-edge/PaneRail.tsx')).toContain("surface={rail ? 'sunken' : undefined}");
     expect(sheet('src/composites/SidePanel/sub-components/SidePanelPane.tsx')).toContain("surface={collapsed ? undefined : 'sunken'}");
     expect(sheet('src/composites/ListDetailLayout/ListDetailLayout.css')).not.toMatch(/rail-label|c-sunken/);
     expect(sheet('src/composites/LogPanel/LogPanel.css')).not.toMatch(/log-panel__toolbar|radius-md/);

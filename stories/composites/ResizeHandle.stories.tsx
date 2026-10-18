@@ -1,22 +1,16 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { ResizeHandle } from '../../src/composites';
-import type { ResizeHandleLook } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
-import { axis } from '../_template/axis';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
-import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import type { StateProps } from '../_template/states/states.type';
 import { EditorConsole } from './_samples/EditorConsole';
 import { HudEditorRails } from './_samples/HudEditorRails';
 import { RESIZE_HANDLE_STATES } from './_samples/resize-handle-states.constants';
 import { RAILS, RESIZE_CODE, RESIZE_TEXT as T } from './_samples/resize-handle-story.constants';
 import './ResizeHandle.stories.css';
 
-type ResizeArgs = { look: ResizeHandleLook };
-
-const LOOKS = ['grip', 'line', 'ghost'] as const;
+type ResizeArgs = { step: number };
 
 const meta = {
   title: 'Composites · Layout/ResizeHandle',
@@ -25,11 +19,11 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { look: 'grip' },
+  args: { step: 16 },
   argTypes: {
-    look: { group: 'Appearance', control: 'select', options: [...LOOKS], description: 'grip between two panes, line where room is tight, ghost where the panes show their own edges.' },
+    step: { group: 'Behaviour', control: 'range', min: 4, max: 64, step: 4, description: 'Pixels an arrow key moves the line; Shift moves four times as far.' },
   },
-  render: (args) => <HudEditorRails key={args.look} look={args.look} />,
+  render: (args) => <HudEditorRails key={args.step} step={args.step} />,
 } satisfies PlaygroundStory<ResizeArgs>;
 
 const Rails = {
@@ -37,17 +31,12 @@ const Rails = {
   render: () => <HudEditorRails />,
 } satisfies StoryLiteStoryDefinition<ResizeArgs>;
 
-const Looks = {
-  name: 'Grip, line and ghost',
-  render: () => <Demonstrator rows={axis(LOOKS)} align="stretch" cell={(look) => <HudEditorRails look={look} />} />,
-} satisfies StoryLiteStoryDefinition<ResizeArgs>;
-
 const Stacked = {
   name: 'A console under the editor',
   render: () => <EditorConsole />,
 } satisfies StoryLiteStoryDefinition<ResizeArgs>;
 
-const renderState = (props: StateProps) => (
+const renderState = () => (
   <Box className="resize-story__editor resize-story__editor--state">
     <Box className="resize-story__canvas"><Text tone="dim">{T.outline}</Text></Box>
     <ResizeHandle
@@ -56,7 +45,6 @@ const renderState = (props: StateProps) => (
       min={RAILS.outline.min}
       max={RAILS.outline.max}
       onResize={() => undefined}
-      look={props.look === 'line' ? 'line' : 'grip'}
     />
     <Box className="resize-story__canvas"><Text tone="dim">{T.canvas}</Text></Box>
   </Box>
@@ -66,24 +54,21 @@ const Overview = overviewStory({
   component: 'ResizeHandle',
   description: 'The line between two panels that the user drags, or moves with the keys, to resize the panel beside it.',
   points: [
-    'SplitPane, ListDetailLayout, DockLayout and the DataTable column line all draw it.',
+    'It draws one thin line, brightened a little on hover, focus and drag. SidePanel, SplitPane, ListDetailLayout, DockLayout and the DataTable column line all draw it.',
     '`usePaneSize` keeps a width in pixels between `min` and `max`, and in storage with `storageKey`.',
     'The arrow keys move it, [[Shift]] for bigger steps; [[Home]] and [[End]] jump to the limits.',
-    '[[Enter]] folds the pane when `onCollapse` is set, and resets it otherwise; a double click resets it.',
+    '`fold` lets a drag past the end of the range, or an arrow key at the end, fold the pane; [[Enter]] folds and unfolds it, and a double click resets it.',
     '`edge="end"` is for a panel after the line, such as an inspector: dragging toward it shrinks it.',
   ],
   instead: '[SplitPane] when two panes share the room by ratio; [ListDetailLayout] for a list beside its detail.',
   playground: Playground,
-  variants: [Rails, Looks, Stacked],
+  variants: [Rails, Stacked],
   states: {
     render: renderState,
-    list: [
-      ...RESIZE_HANDLE_STATES,
-      { name: 'Line', props: { look: 'line' } },
-    ],
+    list: RESIZE_HANDLE_STATES,
   },
   code: RESIZE_CODE,
 });
 
 export default meta;
-export { Looks, Overview, Playground, Rails, Stacked };
+export { Overview, Playground, Rails, Stacked };

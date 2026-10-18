@@ -17,13 +17,14 @@ describe('the ListDetailLayout list width', () => {
 });
 
 describe('ListDetailLayout', () => {
-  it('draws the list pane, a gutter with the fold button and the divider, and the detail pane', () => {
+  it('draws the list pane, the pane edge with the divider and the fold button, and the detail pane', () => {
     const html = draw();
     expect(html).toContain('grid-template-columns:320px auto minmax(0, 1fr)');
-    expect(html).toMatch(/class="box--sunken list-detail-layout__list".*class="pane-rail list-detail-layout__gutter".*class="list-detail-layout__detail"/);
-    expect(html).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="240" aria-valuemax="480" aria-controls=/);
+    expect(html).toMatch(/class="box--sunken list-detail-layout__list".*class="pane-edge pane-edge--horizontal".*class="list-detail-layout__detail"/);
+    expect(html.match(/role="separator"/g)).toHaveLength(1);
+    expect(html).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="0" aria-valuemax="480" aria-controls=/);
     expect(html).toContain('aria-label="Resize list and details"');
-    expect(draw({ resizable: false })).not.toContain('role="separator"');
+    expect(draw({ collapsible: false })).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="240" aria-valuemax="480"/);
   });
 
   it('folds the list with a button named for it, that controls the list pane', () => {
@@ -31,17 +32,19 @@ describe('ListDetailLayout', () => {
     const listId = /id="([^"]+)" class="box--sunken list-detail-layout__list"/.exec(open)?.[1];
     expect(listId).toBeTruthy();
     expect(open).toContain(`aria-label="Hide presets" title="Hide presets" aria-expanded="true" aria-controls="${listId}"`);
-    expect(draw({ collapsible: false })).not.toContain('list-detail-layout__toggle');
+    expect(draw({ collapsible: false })).not.toContain('pane-edge__toggle');
   });
 
-  it('draws a folded list as a rail: no divider, the detail takes the room, the button shows the list again', () => {
+  it('draws a folded list as a rail in its pane: the one divider stays, the detail takes the room, the button shows the list again', () => {
     for (const html of [draw({ collapsed: true, listLabel: 'presets' }), draw({ defaultCollapsed: true, listLabel: 'presets' })]) {
-      expect(html).toContain('class="list-detail-layout list-detail-layout--resizable list-detail-layout--collapsed"');
-      expect(html).toContain('grid-template-columns:auto minmax(0, 1fr)');
+      expect(html).toContain('class="list-detail-layout list-detail-layout--collapsed"');
+      expect(html).toContain('grid-template-columns:auto auto minmax(0, 1fr)');
+      expect(html).toMatch(/list-detail-layout__list list-detail-layout__list--folded"[^>]*><div class="box--sunken pane-rail pane-rail--folded pane-rail--start">/);
       expect(html).toContain('aria-label="Show presets"');
       expect(html).toContain('aria-expanded="false"');
       expect(html).toMatch(/pane-rail__label" aria-hidden="true">presets</);
-      expect(html).not.toContain('role="separator"');
+      expect(html.match(/role="separator"/g)).toHaveLength(1);
+      expect(html).toMatch(/role="separator"[^>]*aria-valuenow="0" aria-valuemin="0"/);
     }
     expect(draw({ collapsed: true, collapsible: false })).not.toContain('list-detail-layout--collapsed');
   });
@@ -76,7 +79,8 @@ describe('ListDetailLayout columns by share', () => {
   it('gives the list a share of the room, and the divider drags it in percent between 20 and 80', () => {
     const html = draw({ listRatio: 0.6 });
     expect(html).toContain('grid-template-columns:minmax(0, 60fr) auto minmax(0, 40fr)');
-    expect(html).toMatch(/role="separator"[^>]*aria-valuenow="60" aria-valuemin="20" aria-valuemax="80"/);
+    expect(html).toMatch(/role="separator"[^>]*aria-valuenow="60" aria-valuemin="0" aria-valuemax="80"/);
+    expect(draw({ listRatio: 0.6, collapsible: false })).toMatch(/role="separator"[^>]*aria-valuenow="60" aria-valuemin="20" aria-valuemax="80"/);
     expect(draw({ listRatio: 0.95 })).toContain('grid-template-columns:minmax(0, 80fr) auto minmax(0, 20fr)');
   });
 
@@ -100,18 +104,21 @@ describe('ListDetailLayout detail fold', () => {
     expect(open).toContain('aria-label="Hide list"');
   });
 
-  it('draws a folded detail as a rail: no divider, the list takes the room, the button shows the detail again', () => {
+  it('draws a folded detail as a rail in its pane: the one divider stays, the list takes the room, the button shows the detail again', () => {
     const folded = [
       draw({ detailCollapsible: true, detailCollapsed: true, detailLabel: 'record' }),
       draw({ detailCollapsible: true, defaultDetailCollapsed: true, detailLabel: 'record' }),
     ];
     for (const html of folded) {
       expect(html).toContain('list-detail-layout--detail-collapsed');
-      expect(html).toContain('grid-template-columns:minmax(0, 1fr) auto');
+      expect(html).toContain('grid-template-columns:minmax(0, 1fr) auto auto');
       expect(html).toContain('aria-label="Show record"');
       expect(html).not.toContain('aria-label="Hide list"');
       expect(html).toMatch(/pane-rail__label" aria-hidden="true">record</);
-      expect(html).not.toContain('role="separator"');
+      expect(html).toContain('list-detail-layout__detail list-detail-layout__detail--folded');
+      expect(html).toContain('box--sunken pane-rail pane-rail--folded pane-rail--end');
+      expect(html.match(/role="separator"/g)).toHaveLength(1);
+      expect(html).toMatch(/role="separator"[^>]*aria-valuenow="480"/);
     }
     expect(draw({ detailCollapsed: true })).not.toContain('list-detail-layout--detail-collapsed');
   });
@@ -120,7 +127,7 @@ describe('ListDetailLayout detail fold', () => {
     const both = draw({ collapsed: true, detailCollapsible: true, detailCollapsed: true });
     expect(both).toContain('list-detail-layout--collapsed');
     expect(both).not.toContain('list-detail-layout--detail-collapsed');
-    expect(both).toContain('grid-template-columns:auto minmax(0, 1fr)');
+    expect(both).toContain('grid-template-columns:auto auto minmax(0, 1fr)');
     expect(layoutOptionsOf({ list: null, storageKey: 'records' }).detailCollapse.storageKey).toBe('records:detail-collapsed');
     vi.stubGlobal('localStorage', { getItem: (name) => (name === 'records:detail-collapsed' ? 'true' : null) });
     expect(draw({ storageKey: 'records', detailCollapsible: true })).toContain('list-detail-layout--detail-collapsed');

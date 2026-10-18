@@ -16,11 +16,11 @@ type SplitArgs = {
   defaultRatio: number;
   minRatio: number;
   maxRatio: number;
-  snapAt: number;
+  collapsible: boolean;
   defaultCollapsed: CollapsedSide;
 };
 
-const HOW_TO = 'Drag the bar between the panes to resize them. Once it has focus the arrow keys move it, and a double-click resets it';
+const HOW_TO = 'Drag the line between the panes to resize them; pull a pane narrower than its minimum and it folds to a rail, then drag the rail outward to open it. Once the line has focus the arrow keys move it, and a double-click resets it';
 
 const SplitFrame = (props: { settings: SplitSettings; scene: 'files' | 'editor' }) => {
   const { settings, scene } = props;
@@ -36,14 +36,14 @@ const SplitFrame = (props: { settings: SplitSettings; scene: 'files' | 'editor' 
 };
 
 const ARGS: Partial<SplitArgs> = {
-  orientation: 'horizontal', defaultRatio: 0.34, minRatio: 0.2, maxRatio: 0.8, snapAt: 0.14, defaultCollapsed: 'none',
+  orientation: 'horizontal', defaultRatio: 0.34, minRatio: 0.2, maxRatio: 0.8, collapsible: true, defaultCollapsed: 'none',
 };
 
 const ARG_TYPES: PlaygroundArgTypes<SplitArgs> = {
     defaultRatio: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05 },
     minRatio: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05 },
     maxRatio: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05 },
-    snapAt: { group: 'Value', control: 'range', min: 0, max: 1, step: 0.05 },
+    collapsible: { group: 'Behaviour', control: 'boolean', description: 'A pane dragged past its minimum folds to a rail, and a round button beside the bar folds it too.' },
     orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
     defaultCollapsed: { group: 'State', control: 'select', options: ['none', 'start', 'end'] },
   };
@@ -51,7 +51,7 @@ const ARG_TYPES: PlaygroundArgTypes<SplitArgs> = {
 const EDITOR_ARG_TYPES: PlaygroundArgTypes<SplitArgs> = {
   minRatio: ARG_TYPES.minRatio,
   maxRatio: ARG_TYPES.maxRatio,
-  snapAt: ARG_TYPES.snapAt,
+  collapsible: ARG_TYPES.collapsible,
   defaultCollapsed: ARG_TYPES.defaultCollapsed,
 };
 
@@ -113,8 +113,9 @@ const Overview = overviewStory({
   points: [
     '`orientation` puts the panes side by side or one above the other.',
     '`minRatio` and `maxRatio` keep both panes usable; `defaultRatio` sets the first split.',
-    'Dragging past `snapAt` hides a pane behind a labelled rail; a click or a drag brings it back.',
-    'The bar takes the arrow keys, [[Home]] and [[End]]; a double click or [[Enter]] resets it.',
+    'Dragging a pane narrower than its minimum, or pressing an arrow key at the end of the range, folds it to a labelled rail; dragging the rail outward opens it.',
+    'A round [CollapseToggle] beside the line folds either pane too; `collapsible={false}` drops folding.',
+    'The line takes the arrow keys, [[Home]] and [[End]]; [[Enter]] folds or opens a pane and a double click resets it.',
     '**The parent needs a size:** the split fills it.',
   ],
   playground: Playground,

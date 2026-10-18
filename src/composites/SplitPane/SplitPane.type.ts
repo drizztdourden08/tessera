@@ -12,7 +12,7 @@ interface SplitPaneProps {
   defaultRatio?: number;
   minRatio?: number;
   maxRatio?: number;
-  snapAt?: number;
+  collapsible?: boolean;
   defaultCollapsed?: CollapsedSide;
   startLabel?: string;
   endLabel?: string;

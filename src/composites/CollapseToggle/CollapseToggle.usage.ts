@@ -17,7 +17,7 @@ const usage = {
     'Pass side="start" for a panel on the left and side="end" for one on the right: the chevron points toward that edge to fold and away from it to unfold.',
     'Pass label with the name of the panel, such as profiles: the button reads Hide profiles or Show profiles.',
     'Pass controls with the id of the panel, and collapsed with onToggle from the state that folds it.',
-    'Place it on the inner edge of the panel, half over its border, near the top: give the panel position: relative and the button position: absolute.',
+    'In a pane, place it beside the edge line of the panel, level with its heading, with a 4 px gap (--space-xs) between the line and the button; SidePanel, ListDetailLayout and SplitPane do this for you through their edge. Only the navigation panel SideNav keeps it half over its border.',
     'Prefer SidePanel; a panel of your own folds to its rail: the sunken surface, --side-nav-w wide, the title written sideways.',
     'Use it as it is: it draws at 24 px and takes clicks on 28 by 28 px, and the chevron turns on its own.',
   ],

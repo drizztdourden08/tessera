@@ -1,12 +1,15 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
-import { clampNumber } from '../../../primitives/value-rule/clamp-number';
+import { applyDragOutcome } from './apply-drag-outcome';
 import type { DragOrigin } from './drag-origin.type';
 import { dragSignOf } from './drag-sign-of';
+import { dragStep } from './drag-step';
 import { pointerOf } from './pointer-of';
 import type { ResizeOptions } from './resize-options.type';
+import { snapDistanceOf } from './snap-distance-of';
 import { startValueOf } from './start-value-of';
+import { NO_SIDES } from './useResizeDrag.constants';
 
 const useResizeDrag = (options: ResizeOptions) => {
   const latest = useRef(options);
@@ -22,12 +25,12 @@ const useResizeDrag = (options: ResizeOptions) => {
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     setDragging(false);
     latest.current.onDragChange?.(false);
-    if (origin.last !== origin.start) latest.current.onResizeEnd?.(origin.last);
+    if (origin.moved && origin.folded === null) latest.current.onResizeEnd?.(origin.last);
   }, []);
 
   const onPointerDown = useCallback((event: ReactPointerEvent<HTMLElement>) => {
     if (event.button !== 0) return;
-    const { orientation, edge, pixelsPerUnit, onDragChange } = latest.current;
+    const { orientation, edge, pixelsPerUnit, onDragChange, fold } = latest.current;
     const handle = event.currentTarget;
     const scale = pixelsPerUnit ? pixelsPerUnit(handle) : 1;
     if (!(scale > 0)) return;
@@ -36,7 +39,16 @@ const useResizeDrag = (options: ResizeOptions) => {
     handle.focus();
     handle.setPointerCapture(event.pointerId);
     const start = startValueOf(latest.current);
-    originRef.current = { pointer: pointerOf(event, orientation), start, last: start, pixelsPerUnit: scale, sign: dragSignOf(handle, orientation, edge) };
+    originRef.current = {
+      pointer: pointerOf(event, orientation),
+      start,
+      last: start,
+      pixelsPerUnit: scale,
+      sign: dragSignOf(handle, orientation, edge),
+      snap: fold ? snapDistanceOf(handle) / scale : 0,
+      folded: fold?.folded ?? null,
+      moved: false,
+    };
     setDragging(true);
     onDragChange?.(true);
   }, []);
@@ -49,13 +61,10 @@ const useResizeDrag = (options: ResizeOptions) => {
       onPointerUp(event);
       return;
     }
-    const { orientation, min, max, onResize } = latest.current;
-    const moved = (pointerOf(event, orientation) - origin.pointer) / origin.pixelsPerUnit;
-    const next = clampNumber(origin.start + origin.sign * moved, min, max);
-    if (next === origin.last) return;
-    const from = origin.last;
-    origin.last = next;
-    onResize(next, { from, by: 'drag' });
+    const { orientation, min, max, fold } = latest.current;
+    const step = dragStep(origin, pointerOf(event, orientation), { min, max, sides: fold?.sides ?? NO_SIDES });
+    originRef.current = step.origin;
+    applyDragOutcome(step.outcome, latest.current);
   }, [onPointerUp]);
 
   return { dragging, onPointerDown, onPointerMove, onPointerUp };

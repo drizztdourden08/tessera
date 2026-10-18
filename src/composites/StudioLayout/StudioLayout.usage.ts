@@ -17,7 +17,7 @@ const usage = {
     'Pass the editor as children and name it with editorLabel; it sits in a ToolFrame that scrolls.',
     'Pass toolbar as ToolGroups groups, { id, label, content }, for the tools on the top edge of the editor.',
     'Pass compactToolbar to keep that toolbar to one row of small controls with the group names hidden, when every row of height counts.',
-    'Pass start and end as { title, content } with any SidePanel prop, such as storageKey, width, actions, rail, resizable or defaultCollapsed.',
+    'Pass start and end as { title, content } with any SidePanel prop, such as storageKey, width, actions, rail or defaultCollapsed; every panel resizes and folds by drag.',
     'Pass bar as { title, caption, status, groups, idleHint } for the raised top bar; its HintLine shows the hint of the control under the pointer.',
     'Put status and error lines in bar.notices, under the hint line, and a full width line, such as where an installed item came from, in banner.',
     'Give the buttons in the bar and the toolbar a hint, { label, description }: the layout is one HintScope.',

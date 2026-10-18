@@ -10,7 +10,7 @@ import { IDLE_HINT, SPRITE_FACTS, SPRITES, TUNIC } from './studio-sample.constan
 import { usePickedSprite } from './usePickedSprite';
 import type { SpriteStudioSampleProps } from './studio-sample.type';
 
-const SpriteStudioSample = ({ folded = false, bar = true, resizable = true, compact = false }: SpriteStudioSampleProps) => {
+const SpriteStudioSample = ({ folded = false, bar = true, compact = false }: SpriteStudioSampleProps) => {
   const { sprite, setPicked } = usePickedSprite();
   const [view, setView] = useState('sheet');
   const [query, setQuery] = useState('');
@@ -49,8 +49,8 @@ const SpriteStudioSample = ({ folded = false, bar = true, resizable = true, comp
           { id: 'export', label: 'Export a file', content: <><StudioAction label="Export .zspr" hint="Makes a sprite file to share or load in another game." /><StudioAction label="Export PNG" hint="Makes a picture of the whole sheet." /></> },
         ],
       } : undefined}
-      start={{ title: 'Sprites', content: list, defaultCollapsed: folded, resizable }}
-      end={{ title: 'Properties', content: inspector, defaultCollapsed: folded, resizable }}
+      start={{ title: 'Sprites', content: list, defaultCollapsed: folded }}
+      end={{ title: 'Properties', content: inspector, defaultCollapsed: folded }}
       editorLabel="Sprite sheet"
       compactToolbar={compact}
       toolbar={compact ? spriteTools.slice(0, 3) : [

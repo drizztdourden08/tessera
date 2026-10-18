@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { CardHeader } from '../../../primitives/Card/sub-components/CardHeader';
-import { PaneRail } from '../../pane-fold/PaneRail';
+import { PaneRail } from '../../pane-edge/PaneRail';
 import type { SidePanelPaneProps } from './SidePanelPane.type';
 
 const SidePanelPane = (props: SidePanelPaneProps) => {

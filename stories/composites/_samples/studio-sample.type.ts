@@ -8,7 +8,6 @@ interface StudioActionProps {
 interface SpriteStudioSampleProps {
   folded?: boolean;
   bar?: boolean;
-  resizable?: boolean;
   compact?: boolean;
 }
 

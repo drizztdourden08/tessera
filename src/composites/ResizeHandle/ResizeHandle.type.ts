@@ -1,10 +1,17 @@
 /* @layer renderer-components @kind types */
-import type { DragEvent, ReactNode } from 'react';
+import type { DragEvent } from 'react';
 import type { SplitOrientation } from '../SplitPane/SplitPane.type';
 
-type ResizeHandleLook = 'grip' | 'line' | 'ghost';
-
 type ResizeHandleEdge = 'start' | 'end';
+
+type FoldSide = 'low' | 'high';
+
+interface HandleFold {
+  sides: readonly FoldSide[];
+  folded: FoldSide | null;
+  onFold: (side: FoldSide) => void;
+  onUnfold: (side: FoldSide, to: number) => void;
+}
 
 interface ResizeChange {
   from: number;
@@ -20,21 +27,18 @@ interface ResizeHandleProps {
   onResizeEnd?: (value: number) => void;
   onDragChange?: (dragging: boolean) => void;
   onReset?: () => void;
-  onCollapse?: () => void;
+  fold?: HandleFold;
   measure?: () => number;
   pixelsPerUnit?: (handle: HTMLElement) => number;
   orientation?: SplitOrientation;
   edge?: ResizeHandleEdge;
-  look?: ResizeHandleLook;
   step?: number;
   largeStep?: number;
   controls?: string;
   title?: string;
   className?: string;
-  onClick?: () => void;
   onDragOver?: (event: DragEvent<HTMLElement>) => void;
   onDrop?: (event: DragEvent<HTMLElement>) => void;
-  children?: ReactNode;
 }
 
-export type { ResizeChange, ResizeHandleEdge, ResizeHandleLook, ResizeHandleProps };
+export type { FoldSide, HandleFold, ResizeChange, ResizeHandleEdge, ResizeHandleProps };

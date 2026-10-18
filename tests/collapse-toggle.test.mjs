@@ -42,7 +42,7 @@ describe('CollapseToggle', () => {
     expect(sheet('src/composites/SideNav/sub-components/SideNavItem.css')).toMatch(/\.side-nav__icon \{[^}]*inline-size: var\(--text-xl\);/);
     expect(sheet('src/composites/SideNav/sub-components/SideNavSearch.css')).toMatch(/\.side-nav__search-mark \{[^}]*margin-inline: auto;/);
     expect(sheet('src/composites/SideNav/SideNav.css')).toMatch(/\.side-nav--rail \.side-nav__panel \{[^}]*border-inline: var\(--border-width-thin\) solid transparent;/);
-    expect(sheet('src/composites/pane-fold/PaneRail.css')).toMatch(/\.pane-rail--folded \{[^}]*inline-size: var\(--side-nav-w\);/);
+    expect(sheet('src/composites/pane-edge/PaneRail.css')).toMatch(/\.pane-rail--folded \{[^}]*inline-size: var\(--side-nav-w\);/);
   });
 
   it('is the one fold button of SideNav, SidePanel and ListDetailLayout', () => {
@@ -53,7 +53,7 @@ describe('CollapseToggle', () => {
     ].map((html) => html.match(/class="pressable edge-button hit-area collapse-toggle[^"]*"/g) ?? []);
     expect(toggles.map((found) => found.length)).toEqual([1, 1, 2]);
     expect(toggles.flat().every((found) => found.includes('collapse-toggle--to-'))).toBe(true);
-    ['SideNav/SideNav.tsx', 'SidePanel/SidePanel.tsx', 'ListDetailLayout/sub-components/ListDetailLayoutGutter.tsx'].forEach((file) => {
+    ['SideNav/SideNav.tsx', 'SidePanel/SidePanel.tsx', 'pane-edge/EdgeToggle.tsx'].forEach((file) => {
       expect(sheet(`src/composites/${file}`), file).not.toMatch(/IconButton|panel-left|panel-right/);
     });
   });

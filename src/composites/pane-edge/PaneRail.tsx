@@ -6,7 +6,8 @@ import './PaneRail.css';
 
 const PaneRail = (props: PaneRailProps) => {
   const { rail, className, children } = props;
-  const classes = ['pane-rail', rail && `pane-rail--folded pane-rail--${rail.side}`, className].filter(Boolean).join(' ');
+  const across = rail?.orientation === 'vertical' && 'pane-rail--across';
+  const classes = ['pane-rail', rail && `pane-rail--folded pane-rail--${rail.side}`, across, className].filter(Boolean).join(' ');
   return (
     <Box surface={rail ? 'sunken' : undefined} className={classes}>
       {children}

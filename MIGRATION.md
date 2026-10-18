@@ -9644,3 +9644,57 @@ On Windows the concealed or full screen title bar flickered when the pointer mov
 ### What Brock does
 
 Nothing in the API changes. Remove any workaround for the flicker, such as a timer or a pointer guard around the title bar.
+
+## 269. One pane edge: SidePanel, ListDetailLayout and SplitPane draw the same line, fold button and rail, and every pane resizes and folds by drag
+
+RotP's Character Studio showed two pane edges side by side, the divider of ListDetailLayout for the library list and the edge of StudioLayout's SidePanel for the States panel, and they did not match: one had a grip, the other a plain line, the fold button sat on the line in one and over a gutter in the other, the Controls panels could not resize at all, and the gold highlight on hover and drag was far too loud. The owner asked for one standard. There is now exactly one edge, `PaneEdge`, and every draggable or foldable pane edge is drawn through it.
+
+### What changed
+
+- **One edge part.** `PaneEdge` (internal, in `src/composites/pane-edge`, not exported) holds the resize line, the fold button or buttons and nothing else. SidePanel, ListDetailLayout and SplitPane render it; StudioLayout gets it through SidePanel. The old copies are gone: `SidePanelHandle` and `.side-panel__line`, `ListDetailLayoutGutter`, `SplitPaneHandle` with its rail strip and its percent logic, and the grip, line and ghost looks of ResizeHandle. `src/composites/pane-fold` is now `src/composites/pane-edge`.
+- **One folded rail.** A folded pane is a `PaneRail` inside the pane in all three layouts: sunken, `--side-nav-w` wide, its title written sideways, reading up on the left and down on the right. The list and detail panes of ListDetailLayout and both panes of SplitPane used to turn the gutter or the handle into the rail; now the pane shows the rail and the edge stays a line. A vertical SplitPane folds to a rail that lies across, with its title horizontal.
+- **The fold button sits beside the line.** It is no longer on top of it. The edge is the 8 px resize line (`--space-sm`), then a gap of `--space-xs` (4 px), then the 24 px round button, on the side of the line away from the pane it folds. In a two pane edge each pane has its own button, the list one on the detail side of the line and the detail one on the list side. The button stays level with the heading row, as in section 262. In a vertical SplitPane the buttons sit under the line, 4 px below it, with the chevrons pointing up and down. The edge is therefore 36 px wide with a fold button (it was a 12 px column with the button on it) and 8 px without one.
+- **The highlight is a slight brighten.** The line is `--c-border-strong`, 1 px, and goes to `--c-text-muted` on hover, keyboard focus and drag, in every palette. There is no primary colour and no glow: the grip pill, the `box-shadow` and the `--c-primary` colours are gone. A keyboard focus still shows the focus ring.
+- **Every pane resizes.** `SidePanel.resizable` and `ListDetailLayout.resizable` are removed, not kept as an opt-out: the line is always a resize separator. A panel that must keep its width passes the same number to `minWidth` and `maxWidth`, and its line still folds it. SidePanel no longer forces its `width` through the default 224 to 448 range: when `width` is outside it, the range grows to take it, so `width={192}` stays 192.
+- **Drag to fold.** Pulling a pane narrower than its minimum by about 32 px (`--resize-handle-snap`, read from `--space-2xl`) folds it to its rail, and focus moves to its fold button. Dragging the line of a rail outward by the same distance opens the pane at its minimum width, and the line then follows the pointer from there. Once open, the pane folds again only when the pointer goes back more than that distance below the minimum, so a small wobble does not flicker. At the other end of a two pane edge, pulling the list past its largest width by that distance folds the detail when `detailCollapsible` is set, and the mirror opens it. The same distance applies to SplitPane by share. The arrow keys do the same at the end of the range: the key toward the small end at the minimum folds, the key away from the rail opens a folded pane, and Enter on the line folds or opens. Double click on the line resets the width and opens a folded pane.
+- **SplitPane joins the standard.** It folds either pane with the same buttons, the same drag and the same rails, and shares the room with the same columns as ListDetailLayout by ratio. `snapAt` is replaced by `collapsible` (default `true`).
+- **No more Enter-only collapse on ResizeHandle.** `ResizeHandle` takes one `fold` prop in place of `onCollapse`, `look`, `children` and `onClick`.
+
+```ts
+type FoldSide = 'low' | 'high'; // low: the pane whose size is the value; high: the pane across the line
+
+interface HandleFold {
+  sides: readonly FoldSide[]; // which ends can fold
+  folded: FoldSide | null;
+  onFold: (side: FoldSide) => void;
+  onUnfold: (side: FoldSide, to: number) => void; // to: the value to open at
+}
+
+interface ResizeHandleProps {
+  // look, children, onClick and onCollapse are gone
+  fold?: HandleFold;
+}
+
+interface SplitPaneProps {
+  collapsible?: boolean; // default true; replaces snapAt
+}
+```
+
+`FoldSide` and `HandleFold` are exported from the package; `ResizeHandleLook` is removed. While a pane is folded the separator reads a value of zero, and its minimum reads zero when it can fold. `usePaneSize` takes a new `fine` option (no rounding to whole units), which ListDetailLayout by ratio and SplitPane use so that a share does not move in 1 % steps.
+
+### Classes and tokens
+
+`RENAMES.json` lists them under `next`. The ones an app may style: `.side-panel__toggle` and `.list-detail-layout__toggle` are `.pane-edge__toggle` (`--start` and `--end` for the side of the pane it folds); `.side-panel__handle` and `.list-detail-layout__gutter` are `.pane-edge`; `.side-panel__line`, `.resize-handle--grip`, `--line`, `--ghost` and `.resize-handle__grip` are gone, the line is `.resize-handle::after`; `.split-pane__rail*` is `.pane-rail`; `.split-pane__pane--hidden` is `.split-pane__pane--folded`. `--resize-handle-bar` is removed. DockLayout's divider and the DataTable column line are drawn by the same line, so they are now always visible, thin and neutral, in place of the ghost bar that showed only on hover.
+
+### Gallery and tests
+
+SidePanel gains a "drag to fold" example next to the studio, the folded studio and the Controls page, and its Playground loses `resizable`. ListDetailLayout, SplitPane and StudioLayout describe the buttons beside the divider and the drag to fold; the StudioLayout "beside a list" example shows both edges next to each other, as in Character Studio. ResizeHandle's Playground is the arrow key step and its Looks example is gone. Usage files of ResizeHandle, SidePanel, ListDetailLayout, StudioLayout and CollapseToggle are updated. `tests/pane-edge.test.mjs` and `tests/pane-edge-drag.test.mjs` check the one implementation, the button beside the line, the always resizable panels, the drag to fold and the arrow keys, and the subtle highlight; the older SidePanel, StudioLayout, ListDetailLayout, SplitPane and ResizeHandle tests follow the new markup. The widths above come from the CSS, not from a measurement in the browser.
+
+### What RotP does
+
+- **Controls page** (`ControlsProfiles` and `ControlsDevices`): remove `resizable={false}`. The two panels now resize and drag-fold like the studio panels. Keep `width` (240 and 288); pass a `storageKey` if the width should be kept, which they did not have before.
+- **Any other SidePanel or StudioLayout panel** (`start={{ ... resizable: false }}`): remove the key; TypeScript flags it. To keep a width, pass `minWidth` and `maxWidth` equal to `width`.
+- **Character Studio** (a StudioLayout inside a ListDetailLayout): nothing to pass. The library list divider and the States panel edge now look and behave the same. Remove `resizable` from the `ListDetailLayout` if it is set.
+- In code that uses ResizeHandle, drop `look`, `children` and `onClick`; replace `onCollapse={fold}` with `fold={{ sides: ['low'], folded, onFold: fold, onUnfold: unfold }}` or, better, use SidePanel. Import no `ResizeHandleLook`.
+- In code that uses SplitPane, replace `snapAt={0}` with `collapsible={false}` and drop any other `snapAt`.
+- **Stylesheets** that target the removed classes: use the list above.

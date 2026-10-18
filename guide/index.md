@@ -143,7 +143,7 @@ One line per component. 68 of 190 have their usage written; a linked name opens 
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [ResizeHandle](components/ResizeHandle.md): The line between two panels that the user drags, or moves with the keys, to resize the panel beside it, such as the outline and inspector of an editor. Import from `@drizztdourden08/tessera`.
+- [ResizeHandle](components/ResizeHandle.md): The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range. Import from `@drizztdourden08/tessera`.
 - [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
 - [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.
 - [SaveBar](components/SaveBar.md): The bar at the foot of an editor: whether its edits are saved, the reason a save failed, and Save and Discard. Import from `@drizztdourden08/tessera`.
@@ -160,7 +160,7 @@ One line per component. 68 of 190 have their usage written; a linked name opens 
 - `ShortcutTour`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [SidePanel](components/SidePanel.md): The one side panel of Tessera: a sunken panel beside the main view, with a heading, that folds to a rail and that the user may drag wider. Import from `@drizztdourden08/tessera`.
+- [SidePanel](components/SidePanel.md): The one side panel of Tessera: a sunken panel beside the main view, with a heading, that the user drags wider or narrower and that folds to a rail. Import from `@drizztdourden08/tessera`.
 - [SiteFooter](components/SiteFooter.md): The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord. Import from `@drizztdourden08/tessera`.
 - [SiteHeader](components/SiteHeader.md): The band at the top of every page of a website: the logo and the site title as the link home, the main links and the signed-in person. Import from `@drizztdourden08/tessera`.
 - [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.

@@ -259,7 +259,7 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | A hub window whose floating switch already names the page, with no title row | `titleRow={false}` on `ScreenWindow`: a round X on the top right corner |
 | A window the user can unlock, move and resize, and lock back to the centre | `movable` with `titleRow={false}` on `ScreenWindow`, and `storageKey` to remember it |
 | A studio screen: a list, an editor and an inspector, with Save and Export on top | `StudioLayout`, with `bar`, `start`, `end` and `toolbar` |
-| A side panel with a heading that folds to a rail and drags wider, or only folds | `SidePanel`, with `side="end"` for one on the right and `resizable={false}` for one that only folds |
+| A side panel with a heading that drags wider or narrower and folds to a rail, by its button or by dragging it narrower than its minimum | `SidePanel`, with `side="end"` for one on the right and the same `minWidth` and `maxWidth` for one that keeps its width |
 | An editor, a canvas or a log with its tools on its top edge | `ToolFrame`, with `toolbar` |
 | Tools in groups, each under a small label | `ToolGroups` |
 | A toolbar of one row of small tools, the group names hidden | `compact` on `ToolGroups`, `compactToolbar` on `StudioLayout` |

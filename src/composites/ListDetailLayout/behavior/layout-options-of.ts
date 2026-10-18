@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind logic */
 import { DETAIL_COLLAPSED_KEY_SUFFIX } from '../ListDetailLayout.constants';
-import { COLLAPSED_KEY_SUFFIX } from '../../pane-fold/pane-fold.constants';
+import { COLLAPSED_KEY_SUFFIX } from '../../pane-edge/pane-edge.constants';
 import type { ListDetailLayoutProps } from '../ListDetailLayout.type';
-import type { PaneFoldOptions } from '../../pane-fold/pane-fold.type';
+import type { PaneFoldOptions } from '../../pane-edge/pane-fold.type';
 import type { LayoutOptions, ListDetailView } from './layout-options.type';
 import { listWidthOf } from './list-width-of';
 
@@ -40,7 +40,6 @@ const layoutOptionsOf = (props: ListDetailLayoutProps): LayoutOptions => {
     scroll: { list: props.listScroll !== false, detail: props.detailScroll !== false },
     view: viewOf(props.onBack, empty),
     empty,
-    resizable: props.resizable !== false,
   };
 };
 

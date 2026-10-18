@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { DEFAULT_MAX_RATIO, DEFAULT_MIN_RATIO, DEFAULT_RATIO, DEFAULT_SNAP } from '../SplitPane.constants';
+import { DEFAULT_MAX_RATIO, DEFAULT_MIN_RATIO, DEFAULT_RATIO } from '../SplitPane.constants';
 import type { SplitPaneProps } from '../SplitPane.type';
 import type { SplitPaneOptions } from './useSplitPane.type';
 
@@ -9,7 +9,7 @@ const splitOptionsOf = (props: SplitPaneProps): SplitPaneOptions => ({
   defaultCollapsed: props.defaultCollapsed ?? 'none',
   minRatio: props.minRatio ?? DEFAULT_MIN_RATIO,
   maxRatio: props.maxRatio ?? DEFAULT_MAX_RATIO,
-  snapAt: props.snapAt ?? DEFAULT_SNAP,
+  collapsible: props.collapsible !== false,
 });
 
 export { splitOptionsOf };

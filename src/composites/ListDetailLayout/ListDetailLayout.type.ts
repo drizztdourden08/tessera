@@ -7,7 +7,6 @@ interface ListDetailLayoutProps {
   emptyDetail?: ReactNode;
   onBack?: () => void;
   backLabel?: string;
-  resizable?: boolean;
   listWidth?: number;
   minListWidth?: number;
   maxListWidth?: number;

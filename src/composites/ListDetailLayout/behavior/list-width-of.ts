@@ -13,6 +13,7 @@ const listWidthOf = (props: ListDetailLayoutProps): PaneSizeOptions => {
       min: MIN_LIST_SHARE,
       max: MAX_LIST_SHARE,
       storageKey: storageKey === undefined ? undefined : `${storageKey}${RATIO_KEY_SUFFIX}`,
+      fine: true,
     };
   }
   return {

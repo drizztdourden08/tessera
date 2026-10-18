@@ -15,7 +15,6 @@ import './ListDetail.stories.css';
 type ListDetailLayoutArgs = {
   startSelected: boolean;
   emptyMessage: string;
-  resizable: boolean;
   collapsible: boolean;
   startCollapsed: boolean;
   ratio: boolean;
@@ -27,14 +26,14 @@ type ListDetailLayoutArgs = {
 const PICK = 'Pick a session to see who plays in it.';
 
 const ARGS: ListDetailLayoutArgs = {
-  startSelected: true, emptyMessage: PICK, resizable: true, collapsible: true, startCollapsed: false,
+  startSelected: true, emptyMessage: PICK, collapsible: true, startCollapsed: false,
   ratio: false, detailCollapsible: false, startDetailCollapsed: false, narrow: false,
 };
 
 const LIST_RATIO = 0.6;
 
 const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
-  const { startSelected, emptyMessage, resizable, collapsible, startCollapsed, ratio, detailCollapsible, startDetailCollapsed, narrow } = { ...ARGS, ...props };
+  const { startSelected, emptyMessage, collapsible, startCollapsed, ratio, detailCollapsible, startDetailCollapsed, narrow } = { ...ARGS, ...props };
   const [selectedId, setSelectedId] = useState<string | null>(startSelected ? SESSIONS[0].id : null);
   const selected = SESSIONS.find((s) => s.id === selectedId);
   const list = (
@@ -58,7 +57,6 @@ const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
         detail={selected && <SessionDetail session={selected} />}
         emptyDetail={<EmptyState icon={<Icon name={NAV_ICONS.sessions} />} message={emptyMessage} />}
         onBack={() => setSelectedId(null)}
-        resizable={resizable}
         collapsible={collapsible}
         defaultCollapsed={startCollapsed}
         listRatio={ratio ? LIST_RATIO : undefined}
@@ -74,11 +72,10 @@ const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
 const ARG_TYPES: PlaygroundArgTypes<ListDetailLayoutArgs> = {
   emptyMessage: { group: 'Content', control: 'text', description: 'The placeholder while nothing is picked, passed as emptyDetail.' },
   startSelected: { group: 'State', control: 'boolean' },
-  resizable: { group: 'Behaviour', control: 'boolean', description: 'A divider between the panes drags the list width, from 240 to 480 px.' },
-  collapsible: { group: 'Behaviour', control: 'boolean', description: 'A button at the top of the divider folds the list to a rail.' },
+  collapsible: { group: 'Behaviour', control: 'boolean', description: 'A button beside the divider folds the list to a rail; dragging the divider past the minimum width folds it too.' },
   startCollapsed: { group: 'State', control: 'boolean', description: 'The list starts folded, as defaultCollapsed.' },
   ratio: { group: 'Layout', control: 'boolean', description: 'listRatio={0.6}: the list takes 60 % of the room and the divider drags the share.' },
-  detailCollapsible: { group: 'Behaviour', control: 'boolean', description: 'A second button at the top of the divider folds the detail to a rail.' },
+  detailCollapsible: { group: 'Behaviour', control: 'boolean', description: 'A second button on the other side of the divider folds the detail to a rail.' },
   startDetailCollapsed: { group: 'State', control: 'boolean', description: 'The detail starts folded, as defaultDetailCollapsed.' },
   narrow: { group: 'Layout', control: 'boolean', description: 'A 512 px frame: under 768 px the list and the detail stack, with Back in the detail.' },
 };
@@ -96,7 +93,7 @@ const Playground = {
 } satisfies PlaygroundStory<ListDetailLayoutArgs>;
 
 const Resizable = {
-  name: 'Sessions: drag the divider, or fold the list with its button',
+  name: 'Sessions: drag the divider, drag the list narrower to fold it, or use its button',
   render: () => <LayoutDemo />,
 } satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
 
@@ -147,8 +144,8 @@ const Overview = overviewStory({
     'Each pane scrolls on its own surface; `listScroll` or `detailScroll` false leaves the scroll to its content.',
     'No `detail` shows `emptyDetail`, or Pick an item from the list, and a small window shows the list.',
     'Drag the divider between 240 and 480 px, or give `listRatio` a share; `storageKey` keeps it and the folds.',
-    'The button over the divider, or [[Enter]] on it, folds the list to a rail; `collapsed` lets the app hold it.',
-    '`detailCollapsible` folds the detail to a rail the same way; `detailCollapsed` lets the app hold it.',
+    'The button beside the divider, [[Enter]] on it, or a drag past the minimum width folds the list to a rail; dragging the rail outward opens it. `collapsed` lets the app hold it.',
+    '`detailCollapsible` folds the detail to a rail the same way, from the other side of the divider; `detailCollapsed` lets the app hold it.',
     'Under 768 px the panes stack: the list, then the detail with a Back button that calls `onBack`.',
   ],
   instead: '[ListDetail] for an editor that asks before unsaved edits are lost, or [SplitPane] for two equal panes.',

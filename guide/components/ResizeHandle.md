@@ -1,6 +1,6 @@
 # ResizeHandle
 
-The line between two panels that the user drags, or moves with the keys, to resize the panel beside it, such as the outline and inspector of an editor.
+The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -14,7 +14,7 @@ The source is `src/composites/ResizeHandle/ResizeHandle.tsx`. Its gallery page i
 
 What are you placing? Layout. What are you arranging? A side panel the user drags wider.
 
-ResizeHandle is the one resize line of every Tessera layout: drag, keys, value and range, with usePaneSize to keep a width in pixels.
+ResizeHandle is the one resize line of every Tessera layout: drag, keys, value, range and drag to fold, with usePaneSize to keep a width in pixels.
 
 ## Use it when
 
@@ -31,16 +31,19 @@ ResizeHandle is the one resize line of every Tessera layout: drag, keys, value a
 
 - Pair it with usePaneSize and spread its handle: the hook keeps the size, its limits and storageKey, and the handle wires the line.
 - Size the panel from usePaneSize size, as an inline width: the line moves nothing by itself.
+- For a side panel, a list beside its detail or two panes, draw the edge with SidePanel, ListDetailLayout or SplitPane: they put the fold button beside this line for you.
 - Pass edge="end" for a panel after the line, such as an inspector on the right, so dragging toward it shrinks it.
 - Pass orientation="vertical" for panes stacked one above the other; the line then lies across and moves up and down.
-- Pick look grip between two panes, line where room is tight such as a header, and ghost where the panes already show their edges.
-- Pass onCollapse when the panel folds away; Enter then folds it, and onReset still runs on Space and a double click.
+- It draws one line, a thin --c-border-strong that brightens a little to --c-text-muted on hover, focus and drag; there is no other look.
+- Pass fold when the panel can fold: { sides, folded, onFold, onUnfold }. A drag past the end of the range by about 32 px, or an arrow key at the end, calls onFold; dragging out from a folded panel, or the opposite arrow key, calls onUnfold with the value to open at.
+- Enter folds an open panel and opens a folded one, and onReset still runs on Space and a double click.
 
 ## Accessibility
 
 - It is a focusable separator with aria-valuenow, aria-valuemin and aria-valuemax; name the panel in label, such as Resize outline.
 - Pass controls with the id of the panel it resizes, for aria-controls.
-- The arrow keys move it by step, Shift by largeStep, and Home and End jump to the limits.
+- The arrow keys move it by step, Shift by largeStep, and Home and End jump to the limits; at the end of the range an arrow key folds the panel when fold allows it.
+- While a panel is folded the value reads as zero, and the minimum reads as zero when the panel can fold.
 
 ## Example
 
@@ -73,25 +76,22 @@ const EditorRails = ({ outline, canvas, inspector }: { outline: ReactNode; canva
 - `onResizeEnd` (optional): `(value: number) => void`.
 - `onDragChange` (optional): `(dragging: boolean) => void`.
 - `onReset` (optional): `() => void`.
-- `onCollapse` (optional): `() => void`.
+- `fold` (optional): `HandleFold`.
 - `measure` (optional): `() => number`.
 - `pixelsPerUnit` (optional): `(handle: HTMLElement) => number`.
 - `orientation` (optional): `SplitOrientation`, one of `'horizontal'`, `'vertical'`.
 - `edge` (optional): `ResizeHandleEdge`, one of `'start'`, `'end'`.
-- `look` (optional): `ResizeHandleLook`, one of `'grip'`, `'line'`, `'ghost'`. Default `'grip'`.
 - `step` (optional): `number`.
 - `largeStep` (optional): `number`.
 - `controls` (optional): `string`.
 - `title` (optional): `string`.
 - `className` (optional): `string`.
-- `onClick` (optional): `() => void`.
 - `onDragOver` (optional): `(event: DragEvent<HTMLElement>) => void`.
 - `onDrop` (optional): `(event: DragEvent<HTMLElement>) => void`.
-- `children` (optional): `ReactNode`.
 
 ## Tokens
 
-It draws on `--blur-glow`, `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-text-muted`, `--duration-fast`, `--ease-standard`, `--radius-pill`, `--radius-sm`, `--resize-handle-bar`, `--size-32`, `--size-6`, `--space-md`, `--space-sm`, `--space-xs`, `--transition-normal`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-primary`, `--c-text-muted`, `--duration-fast`, `--ease-standard`, `--space-2xl`, `--space-sm`.
 
 ## Also exported from this folder
 

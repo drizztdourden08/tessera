@@ -6,6 +6,7 @@ interface PaneSizeOptions {
   min: number;
   max: number;
   storageKey?: string;
+  fine?: boolean;
 }
 
 type PaneSizeHandle = Required<Pick<ResizeHandleProps, 'value' | 'min' | 'max' | 'onResize' | 'onResizeEnd' | 'onDragChange' | 'onReset'>>;

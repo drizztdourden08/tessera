@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'The one side panel of Tessera: a sunken panel beside the main view, with a heading, that folds to a rail and that the user may drag wider.',
+  job: 'The one side panel of Tessera: a sunken panel beside the main view, with a heading, that the user drags wider or narrower and that folds to a rail.',
   useWhen: [
     'A screen has an outline, a layer list or an inspector beside its main view.',
     'The user needs the room of the panel now and then, so it folds to a rail with its actions, its title and its icons.',
@@ -17,24 +17,26 @@ const usage = {
     'Use it for every panel that folds or resizes beside a main view, other than the navigation of the app; draw no panel of your own.',
     'Put it in a flex row beside the main view, with no bar or frame around it; it keeps its own width, and the main view takes the rest.',
     'Pass side="end" for a panel on the right; its line, its fold button and its rail mirror to its left.',
+    'Every panel resizes: there is no switch to turn it off. To hold a width, pass the same number to minWidth and maxWidth; the line still folds the panel.',
+    'Dragging the line about 32 px narrower than minWidth folds the panel to its rail, and dragging the line of a rail outward opens it; the arrow keys at the end of the range do the same.',
     'Pass actions for buttons in the heading, such as Add or Rescan; the folded rail shows them at its top, level with the fold button.',
     'Pass rail for the icons of the items, such as one IconButton for each profile; the folded rail shows them under the title.',
     'A glow around a rail icon, such as a drop-shadow on a ready device, spreads past the rail; only a rail too long to fit scrolls and clips it.',
     'Put lists, cards, inputs and drag sources in it as they are: the body scrolls, and the content stays mounted while folded.',
-    'Pass width, minWidth and maxWidth in pixels; resizable={false} keeps the line and the fold button, drops the grip and the drag, and takes width as it is.',
+    'Pass width, minWidth and maxWidth in pixels; when width is outside the default 224 to 448 range the range grows to take it, so a width of 192 stays 192.',
     'Pass storageKey to keep the width, and the fold under storageKey:collapsed.',
     'Pass collapsed with onCollapsedChange when the app holds the fold; collapsible={false} drops the fold button.',
   ],
   a11y: [
     'It is an aside named by its title, with the title as a heading, h2 unless level says otherwise.',
-    'The fold button says Hide or Show and the title and reports aria-expanded; focus stays on it when the panel folds or opens.',
+    'The fold button says Hide or Show and the title and reports aria-expanded; focus moves to it when the panel folds, by the button, Enter, an arrow key or a drag, and stays on it when the panel opens.',
     'While folded the heading and the body are hidden from screen readers and the keyboard; the actions and the rail take their place, and the sideways title is hidden from screen readers.',
-    'A resizable line is a separator: the arrow keys resize it, and Enter folds the panel and moves focus to the button that opens it.',
-    'A line that does not resize is hidden from screen readers and the keyboard.',
+    'The line is a separator: the arrow keys resize it, an arrow key at the end of the range folds or opens the panel, and Enter folds or opens it.',
+    'While the panel is folded the separator reads a value of zero.',
   ],
   tree: {
     path: ['layout', 'a side panel with a heading that folds to a rail'],
-    rule: 'SidePanel is the one side panel of a work screen: the sunken surface, the heading, the line with its fold button, the rail and the resize grip.',
+    rule: 'SidePanel is the one side panel of a work screen: the sunken surface, the heading, the edge with its line and fold button, the rail and the drag to resize or fold.',
   },
   example: `import { Box, Flex, SidePanel } from '@drizztdourden08/tessera';
 import type { ReactNode } from 'react';
@@ -47,7 +49,7 @@ const HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: R
   </Flex>
 );
 `,
-  propsHash: '80b8953ccf0d58b1',
+  propsHash: '76bdeea90aaed43d',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -15,7 +15,6 @@ interface SidePanelProps {
   collapsed?: boolean;
   defaultCollapsed?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
-  resizable?: boolean;
   width?: number;
   minWidth?: number;
   maxWidth?: number;

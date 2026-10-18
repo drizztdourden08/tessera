@@ -1407,6 +1407,44 @@
         "side-panel--overhang": "removed; every SidePanel has its edge line, so none keeps extra room for the toggle (see MIGRATION.md section 262)",
         "side-panel__frame": "removed; the toggle, the pane and the line sit straight in the SidePanel grid (see MIGRATION.md section 262)"
       }
+    },
+    {
+      "version": "next",
+      "props": {
+        "SidePanel.resizable": "removed; every SidePanel resizes and folds by drag. To keep a width, pass the same number to minWidth and maxWidth (see MIGRATION.md section 269)",
+        "ListDetailLayout.resizable": "removed; the divider always resizes and folds by drag (see MIGRATION.md section 269)",
+        "ListDetail.resizable": "removed with ListDetailLayout.resizable; the divider always resizes (see MIGRATION.md section 269)",
+        "SplitPane.snapAt": "SplitPane.collapsible, which turns folding on or off; a pane folds when pulled about 32 px past its minimum, whatever the size of the split (see MIGRATION.md section 269)",
+        "ResizeHandle.look": "removed; the handle draws one thin line (see MIGRATION.md section 269)",
+        "ResizeHandle.onCollapse": "ResizeHandle.fold, which also unfolds and takes the drag and the arrow keys (see MIGRATION.md section 269)",
+        "ResizeHandle.children": "removed; the folded rail is drawn by the pane, not by the handle (see MIGRATION.md section 269)",
+        "ResizeHandle.onClick": "removed with ResizeHandle.children (see MIGRATION.md section 269)"
+      },
+      "removedExports": {
+        "ResizeHandleLook": "removed with ResizeHandle.look (see MIGRATION.md section 269)"
+      },
+      "cssClasses": {
+        "resize-handle--grip": "removed; one line is drawn by resize-handle (see MIGRATION.md section 269)",
+        "resize-handle--line": "removed; one line is drawn by resize-handle (see MIGRATION.md section 269)",
+        "resize-handle--ghost": "removed; one line is drawn by resize-handle (see MIGRATION.md section 269)",
+        "resize-handle__grip": "removed; the grip pill is gone (see MIGRATION.md section 269)",
+        "side-panel__toggle": "pane-edge__toggle",
+        "side-panel__handle": "pane-edge (the edge holds the line and the toggle)",
+        "side-panel__line": "removed; the edge always holds a resize line (see MIGRATION.md section 269)",
+        "list-detail-layout__gutter": "pane-edge",
+        "list-detail-layout__toggle": "pane-edge__toggle",
+        "list-detail-layout__toggle--start": "pane-edge__toggle--start",
+        "list-detail-layout__toggle--end": "pane-edge__toggle--end",
+        "list-detail-layout--resizable": "removed; every divider resizes (see MIGRATION.md section 269)",
+        "split-pane__rail": "pane-rail pane-rail--folded",
+        "split-pane__rail--start": "pane-rail--start",
+        "split-pane__rail--end": "pane-rail--end",
+        "split-pane__rail-label": "pane-rail__label",
+        "split-pane__pane--hidden": "split-pane__pane--folded"
+      },
+      "cssCustomProperties": {
+        "--resize-handle-bar": "removed with the ghost look (see MIGRATION.md section 269)"
+      }
     }
   ]
 }

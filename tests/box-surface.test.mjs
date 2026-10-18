@@ -64,9 +64,9 @@ describe('parts drawn on a Box surface', () => {
       ['src/composites/ColorPicker/sub-components/QuickAssign.tsx', 'sunken'],
       ['src/composites/RecordEditor/sub-components/EditorNest.tsx', 'sunken'],
       ['src/composites/RecordEditor/sub-components/ArrayItemFrame.tsx', 'sunken'],
-      ['src/composites/ListDetailLayout/ListDetailLayout.tsx', 'sunken'],
       ['src/composites/ShortcutTour/ShortcutTour.tsx', 'raised'],
     ];
     asks.forEach(([file, surface]) => expect(sheet(file), file).toContain(`surface="${surface}"`));
+    expect(sheet('src/composites/ListDetailLayout/ListDetailLayout.tsx')).toContain("surface={listFold.collapsed ? undefined : 'sunken'}");
   });
 });

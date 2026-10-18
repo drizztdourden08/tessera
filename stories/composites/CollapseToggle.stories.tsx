@@ -55,7 +55,7 @@ const Overview = overviewStory({
     'The chevron points toward the edge of the panel to fold it, and away from it to unfold it.',
     '`side` is the edge the panel sits on; `label` names the panel: Hide profiles, Show profiles.',
     'It reports `aria-expanded` and `aria-controls`; it draws at 24 px and takes clicks on 28 by 28 px.',
-    'Put it on the inner edge of the panel, half over its border, near the top.',
+    'In a pane of a layout it sits beside the edge line, level with the heading, with a 4 px gap; the navigation [SideNav] keeps it half over its border, near the top, as drawn here.',
   ],
   instead: '[SidePanel] for a whole side panel with a heading; [Disclosure] for content under a line.',
   playground: Playground,

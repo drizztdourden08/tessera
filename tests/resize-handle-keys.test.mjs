@@ -60,14 +60,14 @@ describe('ResizeHandle keys, as a window splitter', () => {
 
   it('folds the pane with Enter when it can, and resets it with Enter or Space otherwise', () => {
     const onReset = vi.fn();
-    const onCollapse = vi.fn();
+    const fold = { sides: ['low'], folded: null, onFold: vi.fn(), onUnfold: vi.fn() };
     handleWith({ onReset }).key('Enter');
     handleWith({ onReset }).key(' ');
     expect(onReset).toHaveBeenCalledTimes(2);
-    const folding = handleWith({ onReset, onCollapse });
+    const folding = handleWith({ onReset, fold });
     folding.key('Enter');
     folding.key(' ');
-    expect(onCollapse).toHaveBeenCalledTimes(1);
+    expect(fold.onFold.mock.calls).toEqual([['low']]);
     expect(onReset).toHaveBeenCalledTimes(3);
   });
 

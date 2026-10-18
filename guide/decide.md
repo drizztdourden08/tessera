@@ -111,8 +111,8 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - More content behind a line that shows or hides it: [Disclosure](components/Disclosure.md). Disclosure shows or hides what is under one line with the browser details element, with one look for every app.
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.
-  - A side panel the user drags wider: [ResizeHandle](components/ResizeHandle.md). ResizeHandle is the one resize line of every Tessera layout: drag, keys, value and range, with usePaneSize to keep a width in pixels.
-  - A side panel with a heading that folds to a rail: [SidePanel](components/SidePanel.md). SidePanel is the one side panel of a work screen: the sunken surface, the heading, the line with its fold button, the rail and the resize grip.
+  - A side panel the user drags wider: [ResizeHandle](components/ResizeHandle.md). ResizeHandle is the one resize line of every Tessera layout: drag, keys, value, range and drag to fold, with usePaneSize to keep a width in pixels.
+  - A side panel with a heading that folds to a rail: [SidePanel](components/SidePanel.md). SidePanel is the one side panel of a work screen: the sunken surface, the heading, the edge with its line and fold button, the rail and the drag to resize or fold.
   - The button that folds a panel to its edge: [CollapseToggle](components/CollapseToggle.md). CollapseToggle is the one fold button of every Tessera panel: SideNav, SidePanel, StudioLayout and ListDetailLayout all draw it.
   - One slide at a time from a set: [Carousel](components/Carousel.md). Carousel shows one slide at a time with dots and arrows, and can turn by itself.
   - A list beside an editor, with unsaved edits guarded: [ListDetail](components/ListDetail.md). ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app.

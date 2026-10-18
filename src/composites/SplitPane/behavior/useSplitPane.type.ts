@@ -1,4 +1,7 @@
 /* @layer renderer-components @kind types */
+import type { RefObject } from 'react';
+import type { PaneFold } from '../../pane-edge/pane-fold.type';
+import type { EdgeHandle } from '../../pane-edge/pane-edge.type';
 import type { CollapsedSide, SplitOrientation } from '../SplitPane.type';
 
 interface SplitPaneOptions {
@@ -7,7 +10,16 @@ interface SplitPaneOptions {
   defaultCollapsed: CollapsedSide;
   minRatio: number;
   maxRatio: number;
-  snapAt: number;
+  collapsible: boolean;
 }
 
-export type { SplitPaneOptions };
+interface SplitPaneParts {
+  panesRef: RefObject<HTMLElement | null>;
+  startFold: PaneFold;
+  endFold: PaneFold;
+  dragging: boolean;
+  handle: EdgeHandle;
+  template: string;
+}
+
+export type { SplitPaneOptions, SplitPaneParts };

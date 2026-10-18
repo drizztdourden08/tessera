@@ -54,3 +54,18 @@
   overflow-y: auto;
   scrollbar-width: thin;
 }
+
+.pane-rail--across {
+  flex-direction: row;
+  inline-size: auto;
+  padding: var(--space-xs) var(--space-md);
+}
+
+.pane-rail--across :is(.pane-rail__actions, .pane-rail__items, .pane-rail__list) {
+  flex-direction: row;
+}
+
+.pane-rail--across .pane-rail__label {
+  rotate: none;
+  writing-mode: horizontal-tb;
+}

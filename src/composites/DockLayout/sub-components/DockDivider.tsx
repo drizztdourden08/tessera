@@ -21,7 +21,6 @@ const DockDivider = (props: DockDividerProps) => {
   return (
     <Box className="dock-divider" style={style}>
       <ResizeHandle
-        look="ghost"
         orientation={node.axis === 'row' ? 'horizontal' : 'vertical'}
         label={navigation.resizePanes(navigation.firstPane, navigation.secondPane)}
         {...range}

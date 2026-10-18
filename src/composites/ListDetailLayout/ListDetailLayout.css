@@ -9,17 +9,14 @@
 }
 
 .list-detail-layout__panes {
-  display: grid;
-  grid-template-columns: var(--size-320) auto minmax(0, 1fr);
-  column-gap: var(--space-2xs);
   flex: 1;
-  min-height: 0;
 }
 
 .list-detail-layout__list,
 .list-detail-layout__detail {
   display: flex;
   flex-direction: column;
+  grid-row: 1 / -1;
   overflow-y: auto;
   min-height: 0;
 }
@@ -59,50 +56,6 @@
   font-size: var(--text-sm);
 }
 
-.list-detail-layout__gutter {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
-  min-inline-size: var(--space-md);
-}
-
-.list-detail-layout__gutter > .resize-handle {
-  flex: 1;
-}
-
-.list-detail-layout__toggle {
-  margin-block-start: var(--space-sm);
-}
-
-.list-detail-layout__toggle + .list-detail-layout__toggle {
-  margin-block-start: 0;
-}
-
-.list-detail-layout__gutter.pane-rail--folded {
-  padding-block-start: calc(var(--space-sm) + var(--side-nav-item-h));
-}
-
-.pane-rail--folded > .list-detail-layout__toggle {
-  position: absolute;
-  top: var(--space-sm);
-  z-index: var(--z-base);
-  margin: 0;
-}
-
-.pane-rail--folded > .list-detail-layout__toggle--start {
-  inset-inline-end: calc(var(--collapse-toggle-d) / -2);
-}
-
-.pane-rail--folded > .list-detail-layout__toggle--end {
-  inset-inline-start: calc(var(--collapse-toggle-d) / -2);
-}
-
-:is(.list-detail-layout--collapsed, .list-detail-layout--detail-collapsed) .list-detail-layout__panes {
-  column-gap: calc(var(--collapse-toggle-d) / 2 + var(--space-xs));
-}
-
 .list-detail-layout--dragging {
   cursor: col-resize;
   user-select: none;
@@ -118,21 +71,42 @@
   margin: calc(-1 * var(--space-sm)) 0 var(--space-sm) calc(-1 * var(--space-sm));
 }
 
+.list-detail-layout .list-detail-layout__panes .pane-rail--folded {
+  display: none;
+}
+
 @container list-detail-layout (width >= 768px) {
-  .list-detail-layout--collapsed .list-detail-layout__list,
-  .list-detail-layout--detail-collapsed .list-detail-layout__detail {
+  .list-detail-layout .list-detail-layout__panes .pane-rail--folded {
+    display: flex;
+  }
+
+  .list-detail-layout__list--folded,
+  .list-detail-layout__detail--folded {
+    padding: 0;
+    border: 0;
+    background: none;
+    overflow: visible;
+  }
+
+  .list-detail-layout__list--folded > .pane-rail,
+  .list-detail-layout__detail--folded > .pane-rail {
+    flex: 1;
+  }
+
+  .list-detail-layout__list--folded > :not(.pane-rail),
+  .list-detail-layout__detail--folded > :not(.pane-rail) {
     display: none;
   }
 }
 
 @container list-detail-layout (width < 768px) {
-  .list-detail-layout__panes {
+  .list-detail-layout .list-detail-layout__panes {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
   }
 
-  .list-detail-layout__panes > .list-detail-layout__gutter,
+  .list-detail-layout__panes > .pane-edge,
   .list-detail-layout__panes[data-view='list'] > .list-detail-layout__detail,
   .list-detail-layout__panes[data-view='detail'] > .list-detail-layout__list {
     display: none;

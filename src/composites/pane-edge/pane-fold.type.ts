@@ -14,6 +14,7 @@ interface PaneFold {
   toggleRef: RefObject<HTMLButtonElement | null>;
   toggle: () => void;
   collapse: (() => void) | undefined;
+  expand: (() => void) | undefined;
 }
 
 export type { PaneFold, PaneFoldOptions };

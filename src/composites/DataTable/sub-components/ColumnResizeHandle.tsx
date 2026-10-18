@@ -14,7 +14,6 @@ const ColumnResizeHandle = (props: ColumnResizeHandleProps) => {
 
   return (
     <ResizeHandle
-      look="line"
       className="data-table__resize"
       label={table.resizeNamed(label)}
       value={width}

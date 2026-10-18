@@ -26,7 +26,7 @@ const ControlsPageSample = ({ folded = false }: ControlsPageSampleProps) => {
   const devices = CONTROLS_DEVICES.map((device) => <ControlsDeviceRailButton key={device.id} device={device} onAssign={assign} />);
   return (
     <Box className="controls-story">
-      <SidePanel title={T.profiles} actions={add} rail={rail} defaultCollapsed={folded} resizable={false} width={240}>
+      <SidePanel title={T.profiles} actions={add} rail={rail} defaultCollapsed={folded} width={240}>
         <ListItemList label={T.profiles}>
           {CONTROLS_PROFILES.map((item) => (
             <ListItemRow
@@ -41,7 +41,7 @@ const ControlsPageSample = ({ folded = false }: ControlsPageSampleProps) => {
         </ListItemList>
       </SidePanel>
       <ControlsBindings profile={profile} bindings={bindings} onBind={bind} />
-      <SidePanel side="end" title={T.devices} actions={rescan} rail={devices} defaultCollapsed={folded} resizable={false} width={288}>
+      <SidePanel side="end" title={T.devices} actions={rescan} rail={devices} defaultCollapsed={folded} width={288}>
         {CONTROLS_DEVICES.map((device) => <ControlsDeviceCard key={device.id} device={device} onAssign={assign} />)}
       </SidePanel>
     </Box>

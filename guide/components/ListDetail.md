@@ -90,7 +90,6 @@ const PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Pr
 - `className` (optional): `string`.
 - `emptyDetail` (optional): `ReactNode`.
 - `backLabel` (optional): `string`.
-- `resizable` (optional): `boolean`.
 - `listWidth` (optional): `number`.
 - `minListWidth` (optional): `number`.
 - `maxListWidth` (optional): `number`.

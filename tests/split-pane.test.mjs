@@ -4,42 +4,44 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { FloatingSwitch } from '../src/composites/FloatingSwitch';
 import { SplitPane } from '../src/composites/SplitPane';
-import { settleShare } from '../src/composites/SplitPane/behavior/settle-share';
-import { stepShare } from '../src/composites/SplitPane/behavior/step-share';
-import { valueRangeOf } from '../src/composites/SplitPane/behavior/value-range-of';
 
-const limits = { min: 0.2, max: 0.8, snapAt: 0.14 };
+const draw = (extra = {}) => renderToString(h(SplitPane, { start: 'a', end: 'b', ...extra }));
+const style = (html) => /<div[^>]* class="split-pane [^"]*" style="([^"]*)"/.exec(html)?.[1] ?? '';
 
 describe('SplitPane', () => {
-  it('keeps an open pane within its limits and collapses past the snap point', () => {
-    expect(settleShare(0.5, limits, 0.4)).toEqual({ collapsed: 'none', ratio: 0.5 });
-    expect(settleShare(0.16, limits, 0.4)).toEqual({ collapsed: 'none', ratio: 0.2 });
-    expect(settleShare(0.1, limits, 0.4)).toEqual({ collapsed: 'start', ratio: 0.4 });
-    expect(settleShare(0.9, limits, 0.4)).toEqual({ collapsed: 'end', ratio: 0.4 });
-    expect(settleShare(-1, { ...limits, snapAt: 0 }, 0.4)).toEqual({ collapsed: 'none', ratio: 0.2 });
+  it('shares the room by percent between its limits, and keeps the pane edge between the two panes', () => {
+    expect(style(draw())).toBe('grid-template-columns:minmax(0, 58fr) auto minmax(0, 42fr)');
+    expect(style(draw({ defaultRatio: 0.4 }))).toBe('grid-template-columns:minmax(0, 40fr) auto minmax(0, 60fr)');
+    expect(style(draw({ defaultRatio: 0.95 }))).toContain('minmax(0, 80fr) auto minmax(0, 20fr)');
+    expect(style(draw({ defaultRatio: 0.05 }))).toContain('minmax(0, 20fr) auto minmax(0, 80fr)');
+    expect(draw()).toMatch(/split-pane__pane">a<\/div><div class="pane-edge pane-edge--horizontal">.*<div id="[^"]+" class="split-pane__pane">b<\/div>/);
   });
 
-  it('steps by key, collapses from a limit and comes back at the limit', () => {
-    expect(stepShare({ collapsed: 'none', ratio: 0.5 }, 0.02, limits)).toBeCloseTo(0.52);
-    expect(stepShare({ collapsed: 'none', ratio: 0.2 }, -0.02, limits)).toBe(0);
-    expect(stepShare({ collapsed: 'start', ratio: 0.5 }, 0.02, limits)).toBe(0.2);
-    expect(stepShare({ collapsed: 'end', ratio: 0.5 }, -0.02, limits)).toBe(0.8);
+  it('folds a pane into the auto column and gives the other pane the room, the edge staying in place', () => {
+    expect(style(draw({ defaultCollapsed: 'start' }))).toBe('grid-template-columns:auto auto minmax(0, 1fr)');
+    expect(style(draw({ defaultCollapsed: 'end' }))).toBe('grid-template-columns:minmax(0, 1fr) auto auto');
+    expect(draw({ defaultCollapsed: 'end' })).toMatch(/split-pane__pane split-pane__pane--folded"[^>]*><div class="box--sunken pane-rail pane-rail--folded pane-rail--end">/);
+    expect(draw({ defaultCollapsed: 'start' }).match(/role="separator"/g)).toHaveLength(1);
   });
 
-  it('reports the limits as its range only when nothing collapses', () => {
-    expect(valueRangeOf(limits)).toEqual({ min: 0, max: 100 });
-    expect(valueRangeOf({ ...limits, snapAt: 0 })).toEqual({ min: 20, max: 80 });
+  it('takes the fold away with collapsible false, and keeps the limits as the range of the separator', () => {
+    const html = draw({ collapsible: false, defaultCollapsed: 'start' });
+    expect(html).not.toContain('pane-edge__toggle');
+    expect(html).not.toContain('--folded');
+    expect(html).toMatch(/role="separator"[^>]*aria-valuenow="58" aria-valuemin="20" aria-valuemax="80"/);
+    expect(draw({ minRatio: 0.3, maxRatio: 0.7, collapsible: false })).toMatch(/aria-valuemin="30" aria-valuemax="70"/);
   });
 
-  it('draws a separator across the axis with a grip', () => {
-    const side = renderToString(h(SplitPane, { start: 'a', end: 'b', defaultRatio: 0.4 }));
+  it('draws a separator across the axis, folding at both limits', () => {
+    const side = draw({ defaultRatio: 0.4 });
     expect(side).toContain('role="separator"');
     expect(side).toContain('aria-orientation="vertical"');
-    expect(side).toContain('aria-valuenow="40"');
-    expect(side).toContain('resize-handle__grip');
-    const stacked = renderToString(h(SplitPane, { start: 'a', end: 'b', orientation: 'vertical' }));
+    expect(side).toMatch(/aria-valuenow="40" aria-valuemin="0" aria-valuemax="80"/);
+    expect(side).not.toContain('resize-handle__grip');
+    const stacked = draw({ orientation: 'vertical' });
     expect(stacked).toContain('aria-orientation="horizontal"');
-    expect(stacked).toContain('grid-template-rows');
+    expect(stacked).toContain('pane-edge--vertical');
+    expect(style(stacked)).toBe('grid-template-rows:minmax(0, 58fr) auto minmax(0, 42fr)');
   });
 });
 

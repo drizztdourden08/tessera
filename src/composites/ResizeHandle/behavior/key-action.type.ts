@@ -1,8 +1,13 @@
 /* @layer renderer-components @kind types */
 import type { SplitOrientation } from '../../SplitPane/SplitPane.type';
-import type { ResizeHandleEdge } from '../ResizeHandle.type';
+import type { FoldSide, HandleFold, ResizeHandleEdge } from '../ResizeHandle.type';
 
-type KeyAction = { kind: 'move'; to: number } | { kind: 'reset' } | { kind: 'collapse' } | null;
+type KeyAction =
+  | { kind: 'move'; to: number }
+  | { kind: 'reset' }
+  | { kind: 'fold'; side: FoldSide }
+  | { kind: 'unfold'; side: FoldSide; to: number }
+  | null;
 
 interface KeyRules {
   min: number;
@@ -12,7 +17,7 @@ interface KeyRules {
   orientation: SplitOrientation;
   edge: ResizeHandleEdge;
   canReset: boolean;
-  canCollapse: boolean;
+  fold?: HandleFold;
 }
 
 interface KeyPress {
