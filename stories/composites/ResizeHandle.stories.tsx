@@ -54,10 +54,10 @@ const Overview = overviewStory({
   component: 'ResizeHandle',
   description: 'The line between two panels that the user drags, or moves with the keys, to resize the panel beside it.',
   points: [
-    'It draws one thin line, brightened a little on hover, focus and drag. SidePanel, SplitPane, ListDetailLayout, DockLayout and the DataTable column line all draw it.',
+    'One thin line, brightened a little on hover, focus and drag; every layout and the DataTable draw it.',
     '`usePaneSize` keeps a width in pixels between `min` and `max`, and in storage with `storageKey`.',
     'The arrow keys move it, [[Shift]] for bigger steps; [[Home]] and [[End]] jump to the limits.',
-    '`fold` lets a drag past the end of the range, or an arrow key at the end, fold the pane; [[Enter]] folds and unfolds it, and a double click resets it.',
+    '`fold` lets a drag or an arrow key past the range end fold the pane; [[Enter]] toggles it.',
     '`edge="end"` is for a panel after the line, such as an inspector: dragging toward it shrinks it.',
   ],
   instead: '[SplitPane] when two panes share the room by ratio; [ListDetailLayout] for a list beside its detail.',

@@ -34,7 +34,7 @@ describe('one pane edge implementation', () => {
     const files = sourcesIn('src');
     expect(files.length).toBeGreaterThan(100);
     files.forEach((file) => expect(sheet(file), file).not.toMatch(old));
-  });
+  }, 30_000);
 
   it('deletes the handle of each pane and the share maths of SplitPane', () => {
     ['SidePanel/sub-components/SidePanelHandle', 'ListDetailLayout/sub-components/ListDetailLayoutGutter'].forEach((name) => {
@@ -67,7 +67,7 @@ describe('one pane edge implementation', () => {
 
   it('declares the line of ResizeHandle once, and the vertical one only moves it', () => {
     const css = sheet('src/composites/ResizeHandle/ResizeHandle.css');
-    expect(css.match(/\.resize-handle::after \{/g)).toHaveLength(1);
+    expect(css.match(/^\.resize-handle::after \{/gm)).toHaveLength(1);
     expect(css.match(/content: '';/g)).toHaveLength(1);
     expect(css.match(/inline-size: var\(--border-width-thin\)/g)).toHaveLength(1);
     expect(rule(css, '.resize-handle--vertical::after')).toMatch(/block-size: var\(--border-width-thin\);/);

@@ -62,7 +62,7 @@ const Overview = overviewStory({
   description: 'The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right.',
   points: [
     '`bar` adds a raised top bar: the title, labelled action groups and a [HintLine] for what is under the pointer.',
-    '`start` and `end` are [SidePanel]s: each has a heading, folds to a rail and resizes on the same edge as the list beside it.',
+    '`start` and `end` are [SidePanel]s: each has a heading, folds to a rail and resizes by drag.',
     'The editor sits in a [ToolFrame]; `toolbar` puts [ToolGroups] on its top edge.',
     '`compactToolbar` keeps that toolbar to one row of small controls, 45 px high, with the group names hidden.',
     'The columns stack only when the open panels, the folded rails and `editorMinWidth` (192 px) do not fit.',

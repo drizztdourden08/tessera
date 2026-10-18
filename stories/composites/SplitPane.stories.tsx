@@ -113,7 +113,7 @@ const Overview = overviewStory({
   points: [
     '`orientation` puts the panes side by side or one above the other.',
     '`minRatio` and `maxRatio` keep both panes usable; `defaultRatio` sets the first split.',
-    'Dragging a pane narrower than its minimum, or pressing an arrow key at the end of the range, folds it to a labelled rail; dragging the rail outward opens it.',
+    'A pane pulled under its minimum, or an arrow key at the end, folds to a rail; drag the rail out to open.',
     'A round [CollapseToggle] beside the line folds either pane too; `collapsible={false}` drops folding.',
     'The line takes the arrow keys, [[Home]] and [[End]]; [[Enter]] folds or opens a pane and a double click resets it.',
     '**The parent needs a size:** the split fills it.',

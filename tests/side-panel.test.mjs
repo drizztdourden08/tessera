@@ -66,7 +66,7 @@ describe('SidePanel folded', () => {
 
   it('folds to the shared sunken rail: actions, the title written sideways, then the rail icons, with the content kept mounted', () => {
     const html = draw({ defaultCollapsed: true, actions: add, rail: pick });
-    expect(html).toContain('class="side-panel side-panel--start side-panel--collapsible side-panel--collapsed"');
+    expect(html).toContain('class="side-panel pane-edge-host side-panel--start side-panel--collapsible side-panel--collapsed"');
     expect(html).toMatch(/collapse-toggle--to-end[^"]*" aria-label="Show Sprites" title="Show Sprites" aria-expanded="false"/);
     expect(html).toContain(
       'aria-label="Sprites" class="side-panel__pane"><div class="box--sunken pane-rail pane-rail--folded pane-rail--start"><div class="pane-rail__actions">'

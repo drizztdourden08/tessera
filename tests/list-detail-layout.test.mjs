@@ -86,7 +86,7 @@ describe('ListDetailLayout columns by share', () => {
 
   it('keeps a stored share apart from a stored width', () => {
     const options = layoutOptionsOf({ list: null, storageKey: 'records', listRatio: 0.6 });
-    expect(options.width).toEqual({ initial: 60, min: 20, max: 80, storageKey: 'records:ratio' });
+    expect(options.width).toEqual({ initial: 60, min: 20, max: 80, storageKey: 'records:ratio', fine: true });
     expect(options.ratio).toBe(true);
     expect(layoutOptionsOf({ list: null, storageKey: 'records' }).width.storageKey).toBe('records');
     vi.stubGlobal('localStorage', { getItem: (name) => (name === 'records:ratio' ? '70' : null) });

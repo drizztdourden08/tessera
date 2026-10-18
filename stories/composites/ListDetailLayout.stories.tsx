@@ -143,9 +143,9 @@ const Overview = overviewStory({
   points: [
     'Each pane scrolls on its own surface; `listScroll` or `detailScroll` false leaves the scroll to its content.',
     'No `detail` shows `emptyDetail`, or Pick an item from the list, and a small window shows the list.',
-    'Drag the divider between 240 and 480 px, or give `listRatio` a share; `storageKey` keeps it and the folds.',
-    'The button beside the divider, [[Enter]] on it, or a drag past the minimum width folds the list to a rail; dragging the rail outward opens it. `collapsed` lets the app hold it.',
-    '`detailCollapsible` folds the detail to a rail the same way, from the other side of the divider; `detailCollapsed` lets the app hold it.',
+    'Drag the divider from 240 to 480 px, or give `listRatio` a share; `storageKey` keeps it.',
+    'The button beside the divider, or a drag past the minimum, folds the list; drag the rail out to open it.',
+    '`detailCollapsible` folds the detail the same way, from the other side of the divider.',
     'Under 768 px the panes stack: the list, then the detail with a Back button that calls `onBack`.',
   ],
   instead: '[ListDetail] for an editor that asks before unsaved edits are lost, or [SplitPane] for two equal panes.',
