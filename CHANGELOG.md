@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.43.1
+
+### Patch Changes
+
+- 0512669: ItemList takes `maxRows`: the list shows that many rows, whatever their height (a flush picture included), and scrolls the rest, while the title, count, New and filter stay fixed above. The selected row scrolls into view. Without `maxRows` nothing changes.
+
 ## 0.43.0
 
 ### Minor Changes
