@@ -9596,6 +9596,7 @@ interface ItemListProps<T> {
 ### What apps do
 
 In RotP, pass `maxRows={6}` to the Saves `ItemList` (and to the `list` props of `ListDetail`, which forwards them). Remove any height or overflow your own wrapper put on the list.
+
 ## 267. SpeechBubble: one box that speaks, with a tail, and useReducedMotion exported
 
 The owner wants the mascot to stand beside the Ctrl+K palette with a speech bubble that explains the search. Brock asked for the bubble as a part, and GuidedTour already drew one without a tail, so it now draws it through the same part.
