@@ -1393,7 +1393,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.43.0",
       "cssClasses": {
         "dock-resize--n": "rect-resize--n",
         "dock-resize--s": "rect-resize--s",
