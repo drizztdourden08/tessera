@@ -9574,3 +9574,25 @@ At 1440 px, from the outer edge of the frame to the first icon or text: a md But
 ### What apps do
 
 Nothing to change for the inset or the dropdown. An app that set its own padding on a row should check it, since rows now take `padding-inline` from `.row-inset`. To show a save screenshot flush, return `media` from `render` in place of a thumbnail `icon`; to rename in place, add `renameInline`.
+
+## 266. ItemList takes maxRows to show a set number of rows and scroll the rest
+
+RotP asked for the Saves list to show six rows, whatever their height, and scroll the rest, with the title, count, New and filter staying put.
+
+### What changed
+
+```ts
+interface ItemListProps<T> {
+  maxRows?: number;   // rows shown before the list body scrolls; off by default
+}
+```
+
+- With `maxRows`, the list body is capped at the bottom edge of the Nth row and scrolls inside that height. The head and the filter sit outside the body, so they stay fixed.
+- The height is measured, not guessed: a ResizeObserver on the first row and the body, plus a MutationObserver for rows that come and go, set `--item-list-cap` on the body, and CSS does the rest with `max-block-size`. Nothing runs per frame. Rows with a flush `media` count like any other row (RotP's save rows are 60 px).
+- The selected row scrolls into view inside the body when `selectedId` changes; focus moves already scroll it.
+- A grouped list counts rows, not group headings: the headings between the first N rows sit inside the height.
+- A list with N rows or fewer, and a list without `maxRows`, draws and measures exactly as before.
+
+### What apps do
+
+In RotP, pass `maxRows={6}` to the Saves `ItemList` (and to the `list` props of `ListDetail`, which forwards them). Remove any height or overflow your own wrapper put on the list.

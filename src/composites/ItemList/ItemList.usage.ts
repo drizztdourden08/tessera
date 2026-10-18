@@ -30,6 +30,8 @@ const usage = {
     'Each waiting delete joins the one undo stack of useUndo, so Ctrl+Z in the list undoes it in turn with the toasts that carry undo.',
     'Pass deleteKey to bind the Delete key on a focused row: with undoDelete it deletes at once, without it it opens the Delete question.',
     'Return media from render, such as a save screenshot, to draw it flush on the left of the row at the full row height; mediaWidth or mediaAspect sets its width.',
+    'Pass maxRows, such as 6, to show that many rows and scroll the rest; the title, count, New and filter stay above the scroll area.',
+    'maxRows counts rows, not group headings: a grouped list shows the headings between its first rows inside the height.',
     'Pass renameInline with onRename to rename in place: a pen shows next to the name on hover or focus, and the name turns into a field inside the row in place of the separate rename button.',
     'Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.',
     'Write empty as what to do next, such as Install a game from Games, then make a preset for it.',
@@ -90,7 +92,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
   />
 );
 `,
-  propsHash: 'ea0c1d408922c37e',
+  propsHash: '3e7461d61b1ce577',
 } satisfies ComponentUsage;
 
 export { usage };

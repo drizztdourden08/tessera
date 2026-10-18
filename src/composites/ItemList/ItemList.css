@@ -31,6 +31,13 @@
   gap: var(--space-md);
 }
 
+.item-list__body--capped {
+  max-block-size: var(--item-list-cap);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-border) transparent;
+}
+
 .item-list__loading {
   display: flex;
   align-items: center;

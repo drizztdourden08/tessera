@@ -24,6 +24,7 @@ export default standardsEslint({
     { files: ['src/composites/Widget/Widget.tsx'], why: 'the frame opacity is set per widget and turns solid on hover' },
     { files: ['src/composites/DockLayout/sub-components/**'], why: 'panes, dividers, drop hints and floating widgets sit at rectangles computed from the layout tree and the pointer' },
     { files: ['src/composites/SplitPane/SplitPane.tsx'], why: 'the split share is dragged by the user' },
+    { files: ['src/composites/ItemList/ItemList.tsx'], why: 'the body height is the measured bottom edge of the Nth row, set as one custom property' },
     { files: ['src/composites/ListDetailLayout/ListDetailLayout.tsx'], why: 'the list width is dragged by the user' },
     { files: ['src/composites/SidePanel/SidePanel.tsx'], why: 'the panel width is dragged by the user' },
     { files: ['src/composites/ScreenLayer/ScreenLayer.tsx'], why: 'an unlocked window sits where the user moved and sized it' },

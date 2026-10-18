@@ -264,6 +264,7 @@ Most needs already have a part. Check this table before writing app CSS or a new
 | A toolbar of one row of small tools, the group names hidden | `compact` on `ToolGroups`, `compactToolbar` on `StudioLayout` |
 | Delete a row at once, with an Undo for a few seconds | `undoDelete` on `ItemList`, and `deleteKey` for the Delete key |
 | Buttons of your own on each row of a list, such as Load | `rowActions` on `ItemList` |
+| A list that shows six rows and scrolls the rest, its header fixed | `maxRows` on `ItemList` |
 | Run something when a toast goes, such as the delete behind an Undo | `onClose` on `toast()`, told `expired`, `dismissed`, `action` or `replaced` |
 | A rename box of your own: Enter keeps, Escape cancels, leaving keeps | `useNameEdit` |
 | New that cannot run yet, greyed out with the reason on hover and focus | `newDisabled` on `ItemList`, a string for the reason |

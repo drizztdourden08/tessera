@@ -46,6 +46,8 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - Each waiting delete joins the one undo stack of useUndo, so Ctrl+Z in the list undoes it in turn with the toasts that carry undo.
 - Pass deleteKey to bind the Delete key on a focused row: with undoDelete it deletes at once, without it it opens the Delete question.
 - Return media from render, such as a save screenshot, to draw it flush on the left of the row at the full row height; mediaWidth or mediaAspect sets its width.
+- Pass maxRows, such as 6, to show that many rows and scroll the rest; the title, count, New and filter stay above the scroll area.
+- MaxRows counts rows, not group headings: a grouped list shows the headings between its first rows inside the height.
 - Pass renameInline with onRename to rename in place: a pen shows next to the name on hover or focus, and the name turns into a field inside the row in place of the separate rename button.
 - Keep the meta of each row to one short line, such as 7 changes · edited 2 hours ago.
 - Write empty as what to do next, such as Install a game from Games, then make a preset for it.
@@ -134,6 +136,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 - `deleteKey` (optional): `boolean`.
 - `rowActions` (optional): `ItemListRowActions<T>`.
 - `actionVisibility` (optional): `ListItemRowActionVisibility`, one of `'hover'`, `'always'`.
+- `maxRows` (optional): `number`.
 - `filter` (optional): `ItemListFilter`, one of `'auto'`, `false`, `true`.
 - `filterPlaceholder` (optional): `string`.
 - `loading` (optional): `boolean`.
@@ -145,4 +148,4 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-selected`, `--c-text`, `--control-pad-sm`, `--opacity-muted`, `--radius-md`, `--row-inset`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-medium`.
+It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-selected`, `--c-text`, `--control-pad-sm`, `--item-list-cap`, `--opacity-muted`, `--radius-md`, `--row-inset`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-medium`.

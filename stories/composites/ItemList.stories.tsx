@@ -7,6 +7,7 @@ import { ItemListCreateDemo } from './_samples/ItemListCreateDemo';
 import { ItemListDemo } from './_samples/ItemListDemo';
 import { ItemListNewDisabledDemo } from './_samples/ItemListNewDisabledDemo';
 import { ItemListSaveRowDemo } from './_samples/ItemListSaveRowDemo';
+import { MANY_SHOT_SAVES } from './_samples/save-shot-samples.constants';
 import { ITEM_LIST_CODE } from './_samples/item-list-story.constants';
 import { ItemListSwitchDemo } from './_samples/ItemListSwitchDemo';
 import { ItemListUndoDemo } from './_samples/ItemListUndoDemo';
@@ -100,6 +101,11 @@ const SaveRows = {
   render: () => <ItemListSaveRowDemo />,
 } satisfies StoryLiteStoryDefinition<ItemListArgs>;
 
+const SaveRowsCapped = {
+  name: 'Saves: ten flush rows, six show and the rest scroll',
+  render: () => <ItemListSaveRowDemo saves={MANY_SHOT_SAVES} selectedId="m8" maxRows={6} />,
+} satisfies StoryLiteStoryDefinition<ItemListArgs>;
+
 const Overview = overviewStory({
   component: 'ItemList',
   description: 'The list side of a list and editor screen: a title with its count, New, a filter, groups and rows to rename or delete.',
@@ -113,7 +119,7 @@ const Overview = overviewStory({
   ],
   instead: '[ListDetail] for the same list beside an editor that asks before unsaved edits are lost.',
   playground: Playground,
-  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch, UndoDelete, NeedsGame, UndoStack, SaveRows],
+  variants: [Grouped, EmptyGame, Plain, CreateForm, FirstRun, PickToSwitch, UndoDelete, NeedsGame, UndoStack, SaveRows, SaveRowsCapped],
   states: {
     render: (props: StateProps) => <ItemListDemo {...(props as ItemListDemoProps)} />,
     list: STATES.map((state) => ({ name: state, props: { state, title: state === 'ready' ? 'Presets' : 'Servers' } })),
@@ -122,4 +128,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { CreateForm, EmptyGame, FirstRun, Grouped, NeedsGame, Overview, PickToSwitch, Plain, Playground, SaveRows, UndoDelete, UndoStack };
+export { CreateForm, EmptyGame, FirstRun, Grouped, NeedsGame, Overview, PickToSwitch, Plain, Playground, SaveRows, SaveRowsCapped, UndoDelete, UndoStack };

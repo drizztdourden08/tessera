@@ -7,6 +7,8 @@ const ROW_KEYS: Readonly<Record<string, 'rename' | 'remove'>> = { F2: 'rename', 
 
 const ROW_ID = 'data-item-id';
 
+const ROW_ITEMS = `[${ROW_ID}]`;
+
 const UNDO_SELECTOR = '.item-list__undo button';
 
 const DELETE_SELECTOR = '.item-list__tools > .confirm-icon-btn:last-child button';
@@ -20,4 +22,4 @@ const MOVE_KEYS: Readonly<Record<string, (index: number, last: number) => number
   End: (_index, last) => last,
 };
 
-export { DELETE_SELECTOR, FILTER_FROM, MOVE_KEYS, NO_DELETES, ROW_ID, ROW_KEYS, ROW_SELECTOR, UNDO_SELECTOR };
+export { DELETE_SELECTOR, FILTER_FROM, MOVE_KEYS, NO_DELETES, ROW_ID, ROW_ITEMS, ROW_KEYS, ROW_SELECTOR, UNDO_SELECTOR };

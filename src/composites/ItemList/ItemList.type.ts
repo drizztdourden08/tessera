@@ -55,6 +55,7 @@ interface ItemListProps<T> {
   deleteKey?: boolean;
   rowActions?: ItemListRowActions<T>;
   actionVisibility?: ListItemRowActionVisibility;
+  maxRows?: number;
   filter?: ItemListFilter;
   filterPlaceholder?: string;
   loading?: boolean;

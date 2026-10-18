@@ -12,4 +12,13 @@ const SHOT_SAVES: readonly ShotSave[] = [
   { id: 'q3', name: 'Dark World start, with the moon pearl and a full set of bombs', when: NOW - 1400 * MINUTE, shot: HERO_SAMPLE_URLS.tile },
 ];
 
-export { SHOT_SAVES };
+const SHOTS = [HERO_SAMPLE_URLS.night, HERO_SAMPLE_URLS.dunes, HERO_SAMPLE_URLS.tile];
+
+const MANY_SHOT_SAVES: readonly ShotSave[] = Array.from({ length: 10 }, (_, index) => ({
+  id: `m${index + 1}`,
+  name: `Slot ${index + 1}`,
+  when: NOW - (index + 1) * 90 * MINUTE,
+  shot: SHOTS[index % SHOTS.length] ?? HERO_SAMPLE_URLS.night,
+}));
+
+export { MANY_SHOT_SAVES, SHOT_SAVES };

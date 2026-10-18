@@ -4,14 +4,15 @@ import { DateText, ItemList } from '../../../src/composites';
 import type { ItemListRowState } from '../../../src/composites';
 import { Box, Card, Icon, IconButton, Image, Text } from '../../../src/primitives';
 import { SHOT_SAVES } from './save-shot-samples.constants';
+import type { ItemListSaveRowDemoProps } from './item-list-save-row-demo.type';
 import type { ShotSave } from './save-samples.type';
 
 const idOf = (save: ShotSave) => save.id;
 const nameOf = (save: ShotSave) => save.name;
 
-const ItemListSaveRowDemo = () => {
-  const [saves, setSaves] = useState(SHOT_SAVES);
-  const [selectedId, setSelectedId] = useState<string | null>('q2');
+const ItemListSaveRowDemo = ({ saves: first = SHOT_SAVES, selectedId: picked = 'q2', maxRows }: ItemListSaveRowDemoProps) => {
+  const [saves, setSaves] = useState(first);
+  const [selectedId, setSelectedId] = useState<string | null>(picked);
   const [note, setNote] = useState('Hover a row and press the pen, or press F2, to rename it in place.');
   const rename = (id: string, name: string) => {
     setSaves((list) => list.map((save) => (save.id === id ? { ...save, name } : save)));
@@ -48,6 +49,7 @@ const ItemListSaveRowDemo = () => {
         onSelect={setSelectedId}
         onRename={rename}
         renameInline
+        maxRows={maxRows}
         rowActions={actions}
         actionVisibility="always"
       />
