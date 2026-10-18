@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": patch
+---
+
+WindowTitleBar no longer flickers when it is concealed or full screen. A concealed bar drops its drag region (`data-app-region="no-drag"`), so the pointer on empty bar space is no longer window frame. The peek hides 400 ms (`PEEK_HIDE_MS`) after the pointer leaves the bar and its open menus, not at once. An open menu keeps the concealed bar in place, forced shown, so the page no longer jumps 40 px.

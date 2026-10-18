@@ -9630,3 +9630,17 @@ SpeechBubble sits in Primitives · Feedback with its Overview, a Playground, the
 ### What apps do
 
 Use `SpeechBubble` for a mascot's words instead of a styled `div`. Nothing to change for GuidedTour. An app that styled the `background` or `border` of `.guided-tour__bubble` now sets `--speech-ink` or its own rule on the same class.
+
+## 268. WindowTitleBar's concealed bar stops flickering and stays put while a menu is open
+
+On Windows the concealed or full screen title bar flickered when the pointer moved from a button onto empty bar space. The bar kept its drag region while concealed, and a drag region counts as window frame, outside the page, so the page got mouseleave and no more mousemove. The peek hid the bar, the top-zone check showed it again, and the loop was the flicker.
+
+### What changed
+
+- **A concealed or full screen bar is `data-app-region="no-drag"`.** A peeking bar is an overlay, not a window handle. A bar that is shown normally keeps `drag`.
+- **The peek hides after a delay.** Once revealed, the bar stays while the pointer is over it or its open menus, and hides 400 ms (`PEEK_HIDE_MS`) after the pointer leaves both. The timer is cancelled by a pointer back on the bar, a move inside the bar or the top zone, and unmount. When a menu closes, the timer starts only if the pointer is outside the bar. Alt reveal and the Escape handling from section 264 are unchanged.
+- **An open menu no longer drops the concealed class.** The bar keeps `window-title-bar--concealed` and its absolute position, and is forced shown with `window-title-bar--peek` while any menu is open, so the page below no longer jumps 40 px.
+
+### What Brock does
+
+Nothing in the API changes. Remove any workaround for the flicker, such as a timer or a pointer guard around the title bar.

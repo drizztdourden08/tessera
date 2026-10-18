@@ -5,6 +5,7 @@ interface Peek {
   peeking: boolean;
   focused: boolean;
   handlers: {
+    onMouseEnter: MouseEventHandler<HTMLElement>;
     onMouseLeave: MouseEventHandler<HTMLElement>;
     onFocus: FocusEventHandler<HTMLElement>;
     onBlur: FocusEventHandler<HTMLElement>;

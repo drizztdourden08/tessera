@@ -23,11 +23,11 @@ const WindowTitleBar = (props: WindowTitleBarProps) => {
     menus.report(MAIN_MENU_ID, open);
     onMenuOpenChange?.(open);
   };
-  const tucked = (concealed || fullscreen) && !menus.anyOpen;
-  const { peeking, focused, handlers } = usePeek(tucked, barRef, peek === undefined);
+  const away = concealed || fullscreen;
+  const { peeking, focused, handlers } = usePeek(away, barRef, peek === undefined, menus.anyOpen);
 
   return (
-    <Box ref={barRef} className={titleBarClass(tucked, (peek ?? peeking) || focused, className)} data-app-region="drag" {...handlers}>
+    <Box ref={barRef} className={titleBarClass(away, (peek ?? peeking) || focused || menus.anyOpen, className)} data-app-region={away ? 'no-drag' : 'drag'} {...handlers}>
       <WindowTitleBarStart
         menu={groups}
         menuLabel={menuLabel}
