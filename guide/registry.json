@@ -7432,6 +7432,7 @@
         "--c-surface",
         "--c-text-muted",
         "--radius-lg",
+        "--space-2xs",
         "--space-lg",
         "--space-md",
         "--space-sm",
