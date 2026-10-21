@@ -88,7 +88,7 @@ describe('the shared pieces StudioLayout is drawn from', () => {
     ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/pane-edge/PaneRail.css'].forEach((file) => {
       expect(sheet(file), file).not.toMatch(/background|border:|border-block|box-shadow/);
     });
-    expect(sheet('src/composites/SidePanel/SidePanel.css')).not.toMatch(/background|box-shadow/);
+    expect(sheet('src/composites/SidePanel/SidePanel.css')).toMatch(/\.side-panel__heading > \.card__header \{[^}]*background: var\(--c-surface\);/);
     expect(sheet('src/composites/SidePanel/SidePanel.css')).toMatch(/border-inline-(start|end): var\(--border-width-thin\) dashed/);
     expect(sheet('src/composites/pane-edge/PaneRail.tsx')).toContain("surface={rail ? 'sunken' : undefined}");
     expect(sheet('src/composites/SidePanel/sub-components/SidePanelPane.tsx')).toContain('surface="sunken"');
