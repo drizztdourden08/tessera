@@ -7,6 +7,7 @@ const sidePanelClass = (look: SidePanelLook, className?: string): string => [
   `side-panel--${look.side}`,
   look.collapsible && 'side-panel--collapsible',
   look.collapsed && 'side-panel--collapsed',
+  look.showHeader === false && 'side-panel--header-hidden',
   look.dragging && 'side-panel--dragging',
   className,
 ].filter(Boolean).join(' ');

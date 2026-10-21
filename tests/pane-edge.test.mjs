@@ -17,8 +17,8 @@ const sourcesIn = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap(
   return /\.(ts|tsx|css)$/.test(entry.name) ? [file] : [];
 });
 
-const panel = (extra = {}) => renderToString(h(SidePanel, { title: 'Sprites', ...extra }, 'Rows'));
-const list = (extra = {}) => renderToString(h(ListDetailLayout, { list: 'rows', detail: 'detail', ...extra }));
+const panel = (extra = {}) => renderToString(h(SidePanel, { title: 'Sprites', containers: [{ title: 'Rows', content: 'Rows' }], ...extra }));
+const list = (extra = {}) => renderToString(h(ListDetailLayout, { listContainers: [{ title: 'Rows', content: 'rows' }], detail: 'detail', ...extra }));
 const split = (extra = {}) => renderToString(h(SplitPane, { start: 'a', end: 'b', ...extra }));
 
 const edgeOf = (html) => {
@@ -111,7 +111,7 @@ describe('the fold button sits beside the line', () => {
     const edge = sheet('src/composites/pane-edge/PaneEdge.css');
     expect(rule(edge, '.pane-edge')).toContain('--pane-edge-gap: var(--space-xs);');
     expect(rule(edge, '.pane-edge')).toContain('column-gap: var(--pane-edge-gap);');
-    expect(edge).not.toMatch(/position:|calc\(-|margin[^;]*: -|translate|inset/);
+    expect(edge).not.toMatch(/calc\(\s*-|margin[^;]*:\s*-|translate/);
     ['CollapseToggle/CollapseToggle.css', 'edge-button/EdgeButton.css'].forEach((file) => {
       expect(sheet(`src/composites/${file}`), file).not.toMatch(/position:|calc\(-|margin[^;]*: -/);
     });

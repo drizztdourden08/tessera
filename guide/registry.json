@@ -6371,6 +6371,7 @@
         "Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.",
         "Pass newDisabled when New cannot run yet, with a string that says why, such as Start a game to make a new save; true greys it out with no reason.",
         "Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.",
+        "Pass showTitle={false} when a surrounding PanelContainer supplies the visible section heading; the list keeps its accessible name and any New action.",
         "Pass groups with groupBy to set the order of the groups and keep the empty ones, such as an installed game with no preset yet.",
         "An empty group draws its heading, its empty line and the button of its action, such as New preset; while the filter holds text, it hides.",
         "Each row carries data-item-id with its id, so app search can find the row and scroll to it; rowData adds more data attributes.",
@@ -6412,13 +6413,18 @@
         "rule": "ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app."
       },
       "example": "import { ItemList } from '@drizztdourden08/tessera';\n\ninterface Server {\n  id: string;\n  name: string;\n  host: string;\n}\n\nconst ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, loading, error }: {\n  servers: Server[];\n  selectedId: string | null;\n  onSelect: (id: string) => void;\n  onAdd: () => void;\n  onRename: (id: string, name: string) => void;\n  onDelete: (id: string) => void;\n  loading: boolean;\n  error?: string;\n}) => (\n  <ItemList\n    title=\"Servers\"\n    items={servers}\n    getId={(server) => server.id}\n    getName={(server) => server.name}\n    render={(server) => ({ meta: server.host })}\n    selectedId={selectedId}\n    onSelect={onSelect}\n    onCreate={onAdd}\n    createLabel=\"Add\"\n    onRename={onRename}\n    onDelete={onDelete}\n    loading={loading}\n    error={error}\n    empty=\"Add a server to host sessions on.\"\n  />\n);\n",
-      "propsHash": "3e7461d61b1ce577",
+      "propsHash": "799e6ab1f800fdd1",
       "props": {
         "own": [
           {
             "name": "title",
             "optional": false,
             "text": "string"
+          },
+          {
+            "name": "showTitle",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "items",
@@ -7016,7 +7022,7 @@
         "rule": "ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app."
       },
       "example": "import { ListDetail } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Preset {\n  id: string;\n  name: string;\n  options: Record<string, number>;\n}\n\nconst PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Preset) => Promise<void> }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const [draft, setDraft] = useState<Preset | null>(null);\n  const saved = presets.find((preset) => preset.id === selectedId);\n  return (\n    <ListDetail\n      list={{ title: 'Presets', items: presets, getId: (preset) => preset.id, getName: (preset) => preset.name }}\n      selectedId={selectedId}\n      onSelect={(id) => { setDraft(null); setSelectedId(id); }}\n      detail={saved && <pre>{JSON.stringify(draft ?? saved)}</pre>}\n      dirty={draft !== null}\n      onSave={async () => { if (draft) await save(draft); }}\n      onDiscard={() => setDraft(null)}\n      storageKey=\"presets.list\"\n    />\n  );\n};\n",
-      "propsHash": "4a8dd53038f62150",
+      "propsHash": "0ac489fb4a0fd3d8",
       "props": {
         "own": [
           {
@@ -7163,13 +7169,33 @@
             "name": "detailLabel",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "listShowTitle",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "listAction",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "listRailItems",
+            "optional": true,
+            "text": "ReactNode[]"
+          },
+          {
+            "name": "detailRailItems",
+            "optional": true,
+            "text": "ReactNode[]"
           }
         ],
         "inherited": {
           "count": 0,
           "from": [],
           "extends": [
-            "Omit<ListDetailLayoutProps, 'list' | 'detail' | 'onBack'>"
+            "Omit<ListDetailLayoutProps, 'listContainers' | 'detail' | 'onBack'>"
           ]
         }
       },
@@ -7220,7 +7246,9 @@
         }
       ],
       "rules": [
-        "Pass the list and the detail as content; the layout draws the panes, their surfaces and their scroll.",
+        "Pass listContainers with titled sections and the detail as content; the layout draws the panes, their surfaces and their scroll.",
+        "Each list container keeps its required primary heading. The list pane title comes from listLabel by default; pass listShowTitle={false} when the section title is sufficient.",
+        "Pass listAction and listRailItems for the list pane action and folded rail icons. The detail pane keeps its generic editor content.",
         "Leave detail out, or pass null, while nothing is picked; emptyDetail replaces the default placeholder.",
         "Pass onBack to clear the selection; under 768 px it shows the list again.",
         "Pass storageKey to keep the width and the fold between visits; the fold is kept under storageKey:collapsed.",
@@ -7247,14 +7275,14 @@
         ],
         "rule": "ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way."
       },
-      "example": "import { ListDetailLayout, ListItemList, ListItemRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Session {\n  id: string;\n  name: string;\n}\n\nconst SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; renderSession: (session: Session) => React.ReactNode }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const selected = sessions.find((session) => session.id === selectedId);\n  return (\n    <ListDetailLayout\n      list={(\n        <ListItemList heading=\"Sessions\">\n          {sessions.map((session) => (\n            <ListItemRow key={session.id} name={session.name} selected={session.id === selectedId} onClick={() => setSelectedId(session.id)} />\n          ))}\n        </ListItemList>\n      )}\n      detail={selected && renderSession(selected)}\n      onBack={() => setSelectedId(null)}\n      listLabel=\"sessions\"\n      storageKey=\"sessions.list\"\n    />\n  );\n};\n",
-      "propsHash": "e4beb99c838d8775",
+      "example": "import { ListDetailLayout, ListItemList, ListItemRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\ninterface Session {\n  id: string;\n  name: string;\n}\n\nconst SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; renderSession: (session: Session) => React.ReactNode }) => {\n  const [selectedId, setSelectedId] = useState<string | null>(null);\n  const selected = sessions.find((session) => session.id === selectedId);\n  return (\n    <ListDetailLayout\n      listContainers={[{ title: 'Sessions', content: (\n        <ListItemList>\n          {sessions.map((session) => (\n            <ListItemRow key={session.id} name={session.name} selected={session.id === selectedId} onClick={() => setSelectedId(session.id)} />\n          ))}\n        </ListItemList>\n      ) }]}\n      detail={selected && renderSession(selected)}\n      onBack={() => setSelectedId(null)}\n      listLabel=\"sessions\"\n      listShowTitle={false}\n      storageKey=\"sessions.list\"\n    />\n  );\n};\n",
+      "propsHash": "f0e4741a599c8818",
       "props": {
         "own": [
           {
-            "name": "list",
+            "name": "listContainers",
             "optional": false,
-            "text": "ReactNode"
+            "text": "PanelContainerConfig[]"
           },
           {
             "name": "detail",
@@ -7360,6 +7388,29 @@
             "name": "detailLabel",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "listShowTitle",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "listAction",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "listRailItems",
+            "optional": true,
+            "text": "ReactNode[]",
+            "default": "[]"
+          },
+          {
+            "name": "detailRailItems",
+            "optional": true,
+            "text": "ReactNode[]",
+            "default": "[]"
           },
           {
             "name": "className",
@@ -7955,6 +8006,86 @@
         "route": "#/story/composites-mediaviewer--overview",
         "file": "stories/composites/MediaViewer.stories.tsx"
       },
+      "parts": []
+    },
+    {
+      "name": "PanelContainer",
+      "tier": "composites",
+      "source": "src/composites/PanelContainer/PanelContainer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A stacked section with a primary heading, optional header action and a body.",
+      "useWhen": [
+        "A side pane needs a consistently headed section.",
+        "A list or detail pane needs the shared panel heading and body structure."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Content needs a card surface, outline or interactive state.",
+          "use": "Card"
+        }
+      ],
+      "rules": [
+        "Pass title for the primary-colored header and children for the body.",
+        "The title is always shown as a primary-colored heading above the body.",
+        "Pass action for a control in the header."
+      ],
+      "a11y": [
+        "The title is a heading; the body remains arbitrary content."
+      ],
+      "buildingBlock": true,
+      "example": "import { PanelContainer } from '@drizztdourden08/tessera';\n\n<PanelContainer title=\"Profiles\" action=\"New\">\n  Profiles go here.\n</PanelContainer>",
+      "propsHash": "41de06cfc0b34bd7",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "action",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "level",
+            "optional": true,
+            "text": "HeadingLevel",
+            "literals": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "default": "3"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-border",
+        "--space-md"
+      ],
       "parts": []
     },
     {
@@ -9711,16 +9842,17 @@
         "Pass side=\"end\" for a panel on the right; its line, its fold button and its rail mirror to its left.",
         "Every panel resizes: there is no switch to turn it off. To hold a width, pass the same number to minWidth and maxWidth; the line still folds the panel.",
         "Dragging the line about 32 px narrower than minWidth folds the panel to its rail, and dragging the line of a rail outward opens it; the arrow keys at the end of the range do the same.",
-        "Pass actions for buttons in the heading, such as Add or Rescan; the folded rail shows them at its top, level with the fold button.",
-        "Pass rail for the icons of the items, such as one IconButton for each profile; the folded rail shows them under the title.",
+        "Pass action for a button in the heading, such as Add or Rescan; the folded rail reserves its top slot and shows the button there when present.",
+        "Pass railItems as an array of item icons; the folded rail shows them under the title.",
+        "Pass containers for the expanded body. Each container has a required primary heading and body; use a meaningful section title distinct from the pane title.",
         "A glow around a rail icon, such as a drop-shadow on a ready device, spreads past the rail; only a rail too long to fit scrolls and clips it.",
-        "Put lists, cards, inputs and drag sources in it as they are: the body scrolls, and the content stays mounted while folded.",
+        "Put every expanded section in a container with title and content. The side panel keeps the sections mounted while folded and its body scrolls with the primary slim scrollbar.",
         "Pass width, minWidth and maxWidth in pixels; when width is outside the default 224 to 448 range the range grows to take it, so a width of 192 stays 192.",
         "Pass storageKey to keep the width, and the fold under storageKey:collapsed.",
         "Pass collapsed with onCollapsedChange when the app holds the fold; collapsible={false} drops the fold button."
       ],
       "a11y": [
-        "It is an aside named by its title, with the title as a heading, h2 unless level says otherwise.",
+        "It is an aside named by its title, with the title as a heading, h2 unless level says otherwise; showTitle={false} hides only the pane heading.",
         "The fold button says Hide or Show and the title and reports aria-expanded; focus moves to it when the panel folds, by the button, Enter, an arrow key or a drag, and stays on it when the panel opens.",
         "While folded the heading and the body are hidden from screen readers and the keyboard; the actions and the rail take their place, and the sideways title is hidden from screen readers.",
         "The line is a separator: the arrow keys resize it, an arrow key at the end of the range folds or opens the panel, and Enter folds or opens it.",
@@ -9733,8 +9865,8 @@
         ],
         "rule": "SidePanel is the one side panel of a work screen: the sunken surface, the heading, the edge with its line and fold button, the rail and the drag to resize or fold."
       },
-      "example": "import { Box, Flex, SidePanel } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: ReactNode; inspector: ReactNode }) => (\n  <Flex gap=\"2xs\" align=\"stretch\" className=\"hud-editor\">\n    <SidePanel title=\"Layers\" storageKey=\"hud.layers\">{layers}</SidePanel>\n    <Box className=\"hud-editor__canvas\">{canvas}</Box>\n    <SidePanel side=\"end\" title=\"Inspector\" storageKey=\"hud.inspector\">{inspector}</SidePanel>\n  </Flex>\n);\n",
-      "propsHash": "76bdeea90aaed43d",
+      "example": "import type { ReactNode } from 'react';\nimport { Box, Flex, SidePanel } from '@drizztdourden08/tessera';\n\nconst HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: ReactNode; inspector: ReactNode }) => (\n  <Flex gap=\"2xs\" align=\"stretch\" className=\"hud-editor\">\n    <SidePanel title=\"Layers\" storageKey=\"hud.layers\" containers={[{ title: 'Outline', content: layers }]} />\n    <Box className=\"hud-editor__canvas\">{canvas}</Box>\n    <SidePanel side=\"end\" title=\"Inspector\" storageKey=\"hud.inspector\" containers={[{ title: 'Properties', content: inspector }]} />\n  </Flex>\n);\n",
+      "propsHash": "44c404657a79d5db",
       "props": {
         "own": [
           {
@@ -9743,9 +9875,9 @@
             "text": "string"
           },
           {
-            "name": "children",
+            "name": "containers",
             "optional": false,
-            "text": "ReactNode"
+            "text": "PanelContainerConfig[]"
           },
           {
             "name": "side",
@@ -9772,14 +9904,21 @@
             "default": "2"
           },
           {
-            "name": "actions",
+            "name": "showTitle",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "action",
             "optional": true,
             "text": "ReactNode"
           },
           {
-            "name": "rail",
+            "name": "railItems",
             "optional": true,
-            "text": "ReactNode"
+            "text": "ReactNode[]",
+            "default": "[]"
           },
           {
             "name": "collapsible",
@@ -9834,6 +9973,7 @@
         }
       },
       "tokens": [
+        "--c-border",
         "--radius-lg",
         "--side-panel-width",
         "--space-2xs",

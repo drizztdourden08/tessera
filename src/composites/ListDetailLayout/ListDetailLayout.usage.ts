@@ -14,7 +14,9 @@ const usage = {
     { case: 'The left side is the navigation of the app.', use: 'SideNavLayout' },
   ],
   rules: [
-    'Pass the list and the detail as content; the layout draws the panes, their surfaces and their scroll.',
+    'Pass listContainers with titled sections and the detail as content; the layout draws the panes, their surfaces and their scroll.',
+    'Each list container keeps its required primary heading. The list pane title comes from listLabel by default; pass listShowTitle={false} when the section title is sufficient.',
+    'Pass listAction and listRailItems for the list pane action and folded rail icons. The detail pane keeps its generic editor content.',
     'Leave detail out, or pass null, while nothing is picked; emptyDetail replaces the default placeholder.',
     'Pass onBack to clear the selection; under 768 px it shows the list again.',
     'Pass storageKey to keep the width and the fold between visits; the fold is kept under storageKey:collapsed.',
@@ -51,22 +53,23 @@ const SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; rend
   const selected = sessions.find((session) => session.id === selectedId);
   return (
     <ListDetailLayout
-      list={(
-        <ListItemList heading="Sessions">
+      listContainers={[{ title: 'Sessions', content: (
+        <ListItemList>
           {sessions.map((session) => (
             <ListItemRow key={session.id} name={session.name} selected={session.id === selectedId} onClick={() => setSelectedId(session.id)} />
           ))}
         </ListItemList>
-      )}
+      ) }]}
       detail={selected && renderSession(selected)}
       onBack={() => setSelectedId(null)}
       listLabel="sessions"
+      listShowTitle={false}
       storageKey="sessions.list"
     />
   );
 };
 `,
-  propsHash: 'e4beb99c838d8775',
+  propsHash: 'f0e4741a599c8818',
 } satisfies ComponentUsage;
 
 export { usage };

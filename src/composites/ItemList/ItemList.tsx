@@ -25,6 +25,7 @@ const ItemList = <T,>(props: ItemListProps<T>) => {
     <Box as="section" className={['item-list', className].filter(Boolean).join(' ')} aria-label={title} aria-busy={loading === true ? true : undefined}>
       <ItemListHead
         title={title}
+        showTitle={props.showTitle}
         shown={view.shownCount}
         total={view.total}
         onNew={form.onNew}

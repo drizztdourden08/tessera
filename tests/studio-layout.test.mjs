@@ -72,12 +72,13 @@ describe('the shared pieces StudioLayout is drawn from', () => {
 
   it('LogPanel is a ToolFrame, and ListDetailLayout folds to the same rail and toggle as SidePanel', () => {
     expect(renderToString(h(LogPanel, { rows: [] }))).toMatch(/^<div class="box--sunken tool-frame log-panel"><div class="tool-frame__toolbar"><div class="filter-bar"/);
-    const folded = renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', defaultCollapsed: true, listLabel: 'presets' }));
+    const folded = renderToString(h(ListDetailLayout, { listContainers: [{ title: 'Rows', content: 'Rows' }], detail: 'Detail', defaultCollapsed: true, listLabel: 'presets' }));
     expect(folded).toContain('list-detail-layout__list list-detail-layout__list--folded');
     expect(folded).toContain('class="box--sunken pane-rail pane-rail--folded pane-rail--start"');
-    expect(folded).toMatch(/class="pane-edge pane-edge--horizontal".*class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-end pane-edge__toggle pane-edge__toggle--start"/);
-    expect(folded).toContain('<div class="pane-rail__items"><span class="text-el text-el--span pane-rail__label" aria-hidden="true">presets</span></div>');
-    const detail = renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', detailCollapsible: true, defaultDetailCollapsed: true, detailLabel: 'editor' }));
+    expect(folded).toMatch(/class="pane-edge pane-edge--horizontal pane-edge--edge-start list-detail-layout__edge".*class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-end pane-edge__toggle pane-edge__toggle--start"/);
+    expect(folded).toContain('<div class="pane-rail__items"><span class="text-el text-el--span pane-rail__label" aria-hidden="true">presets</span>');
+    expect(folded).toContain('class="scroll-area pane-rail__content pane-rail__content--empty"');
+    const detail = renderToString(h(ListDetailLayout, { listContainers: [{ title: 'Rows', content: 'Rows' }], detail: 'Detail', detailCollapsible: true, defaultDetailCollapsed: true, detailLabel: 'editor' }));
     expect(detail).toContain('box--sunken pane-rail pane-rail--folded pane-rail--end');
     expect(detail).toContain('pane-edge__toggle pane-edge__toggle--end');
   });

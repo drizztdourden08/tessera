@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ListDetailLayout } from '../src/composites/ListDetailLayout';
 import { layoutOptionsOf } from '../src/composites/ListDetailLayout/behavior/layout-options-of';
 
-const draw = (extra = {}) => renderToString(h(ListDetailLayout, { list: h('p', null, 'Rows'), detail: h('p', null, 'Detail'), ...extra }));
+const draw = (extra = {}) => renderToString(h(ListDetailLayout, { listContainers: [{ title: 'Rows', content: h('p', null, 'Rows') }], detail: h('p', null, 'Detail'), ...extra }));
 
 afterEach(() => vi.unstubAllGlobals());
 
@@ -20,7 +20,7 @@ describe('ListDetailLayout', () => {
   it('draws the list pane, the pane edge with the divider and the fold button, and the detail pane', () => {
     const html = draw();
     expect(html).toContain('grid-template-columns:320px auto minmax(0, 1fr)');
-    expect(html).toMatch(/class="box--sunken list-detail-layout__list".*class="pane-edge pane-edge--horizontal".*class="list-detail-layout__detail"/);
+    expect(html).toMatch(/class="box--sunken list-detail-layout__list".*class="pane-edge pane-edge--horizontal pane-edge--edge-start list-detail-layout__edge".*class="list-detail-layout__detail"/);
     expect(html.match(/role="separator"/g)).toHaveLength(1);
     expect(html).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="0" aria-valuemax="480" aria-controls=/);
     expect(html).toContain('aria-label="Resize list and details"');

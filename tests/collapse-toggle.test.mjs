@@ -48,8 +48,8 @@ describe('CollapseToggle', () => {
   it('is the one fold button of SideNav, SidePanel and ListDetailLayout', () => {
     const toggles = [
       renderToString(h(SideNav, { config: NAV, activeId: 'home', onSelect: () => undefined })),
-      renderToString(h(SidePanel, { title: 'Profiles' }, 'Rows')),
-      renderToString(h(ListDetailLayout, { list: 'Rows', detail: 'Detail', detailCollapsible: true })),
+      renderToString(h(SidePanel, { title: 'Profiles', containers: [{ title: 'Rows', content: 'Rows' }] })),
+      renderToString(h(ListDetailLayout, { listContainers: [{ title: 'Rows', content: 'Rows' }], detail: 'Detail', detailCollapsible: true })),
     ].map((html) => html.match(/class="pressable edge-button hit-area collapse-toggle[^"]*"/g) ?? []);
     expect(toggles.map((found) => found.length)).toEqual([1, 1, 2]);
     expect(toggles.flat().every((found) => found.includes('collapse-toggle--to-'))).toBe(true);

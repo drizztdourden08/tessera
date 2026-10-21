@@ -11,13 +11,13 @@ const SIDE_PANEL_TEXT = {
 const SIDE_PANEL_CODE = `import { Flex, SidePanel } from '@drizztdourden08/tessera';
 
 <Flex gap="2xs" align="stretch" className="controls-page">
-  <SidePanel title="Profiles" storageKey="controls.profiles" actions={<NewProfileButton />} rail={<ProfileIcons />}>
-    <ProfileList />
-  </SidePanel>
+  <SidePanel title="Profiles" storageKey="controls.profiles" action={<NewProfileButton />} railItems={profileIcons} containers={[
+    { title: 'Profiles', content: <ProfileList /> },
+  ]} />
   <BindingsView />
-  <SidePanel side="end" title="Devices" storageKey="controls.devices" actions={<RescanButton />} rail={<DeviceIcons />}>
-    <DeviceCards />
-  </SidePanel>
+  <SidePanel side="end" title="Devices" storageKey="controls.devices" action={<RescanButton />} railItems={deviceIcons} containers={[
+    { title: 'Available devices', content: <DeviceCards /> },
+  ]} />
 </Flex>`;
 
 export { SIDE_PANEL_CODE, SIDE_PANEL_TEXT };

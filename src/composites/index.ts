@@ -22,6 +22,7 @@ export { LogPanel, type LogKindDef, type LogKindTone, type LogPanelProps, type L
 export { ListItemList, ListItemRow } from './ListItemRow';
 export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from './ListItemRow';
 export { ListDetailLayout, type ListDetailLayoutProps } from './ListDetailLayout';
+export { PanelContainer, type PanelContainerConfig, type PanelContainerProps } from './PanelContainer';
 export { CollapseToggle, type CollapseToggleProps, type CollapseToggleSide } from './CollapseToggle';
 export { SidePanel, type SidePanelProps, type SidePanelSide } from './SidePanel';
 export { StudioLayout, type StudioLayoutBar, type StudioLayoutPanel, type StudioLayoutProps } from './StudioLayout';

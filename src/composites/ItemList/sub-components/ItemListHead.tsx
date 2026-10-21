@@ -10,13 +10,13 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import type { ItemListHeadProps } from '../ItemList.type';
 
 const ItemListHead = (props: ItemListHeadProps) => {
-  const { title, shown, total, onNew, newRef, creating, createLabel, createTour, newDisabled } = props;
+  const { title, showTitle = true, shown, total, onNew, newRef, creating, createLabel, createTour, newDisabled } = props;
   const { lists } = useTesseraStrings();
   const off = isDisabled(newDisabled);
   const reason = disabledReason(newDisabled);
   return (
     <Box className="item-list__head">
-      <Text as="h3" variant="body" className="item-list__title">{lists.count(title, shown, total)}</Text>
+      {showTitle && <Text as="h3" variant="body" className="item-list__title">{lists.count(title, shown, total)}</Text>}
       {onNew && !creating && (
         <ReasonTip reason={reason} stop>
           <Button

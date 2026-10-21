@@ -26,7 +26,7 @@ const ControlsPageSample = ({ folded = false }: ControlsPageSampleProps) => {
   const devices = CONTROLS_DEVICES.map((device) => <ControlsDeviceRailButton key={device.id} device={device} onAssign={assign} />);
   return (
     <Box className="controls-story">
-      <SidePanel title={T.profiles} actions={add} rail={rail} defaultCollapsed={folded} width={240}>
+      <SidePanel title={T.profiles} action={add} railItems={rail} containers={[{ title: 'Available profiles', content: (
         <ListItemList label={T.profiles}>
           {CONTROLS_PROFILES.map((item) => (
             <ListItemRow
@@ -39,11 +39,9 @@ const ControlsPageSample = ({ folded = false }: ControlsPageSampleProps) => {
             />
           ))}
         </ListItemList>
-      </SidePanel>
+      ) }]} defaultCollapsed={folded} width={240} />
       <ControlsBindings profile={profile} bindings={bindings} onBind={bind} />
-      <SidePanel side="end" title={T.devices} actions={rescan} rail={devices} defaultCollapsed={folded} width={288}>
-        {CONTROLS_DEVICES.map((device) => <ControlsDeviceCard key={device.id} device={device} onAssign={assign} />)}
-      </SidePanel>
+      <SidePanel side="end" title={T.devices} action={rescan} railItems={devices} containers={[{ title: 'Available devices', content: CONTROLS_DEVICES.map((device) => <ControlsDeviceCard key={device.id} device={device} onAssign={assign} />) }]} defaultCollapsed={folded} width={288} />
     </Box>
   );
 };

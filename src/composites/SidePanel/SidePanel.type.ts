@@ -1,16 +1,18 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { HeadingLevel } from '../../primitives/Title/Title.type';
+import type { PanelContainerConfig } from '../PanelContainer/PanelContainer.type';
 
 type SidePanelSide = 'start' | 'end';
 
 interface SidePanelProps {
   title: string;
-  children: ReactNode;
+  containers: PanelContainerConfig[];
   side?: SidePanelSide;
   level?: HeadingLevel;
-  actions?: ReactNode;
-  rail?: ReactNode;
+  showTitle?: boolean;
+  action?: ReactNode;
+  railItems?: ReactNode[];
   collapsible?: boolean;
   collapsed?: boolean;
   defaultCollapsed?: boolean;

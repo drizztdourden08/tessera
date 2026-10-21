@@ -1,0 +1,56 @@
+# PanelContainer
+
+A stacked section with a primary heading, optional header action and a body.
+
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
+
+```tsx
+import { PanelContainer } from '@drizztdourden08/tessera';
+```
+
+The source is `src/composites/PanelContainer/PanelContainer.tsx`. It has no gallery page yet.
+
+## A building block
+
+No question in [decide.md](../decide.md) leads here. Other components are built on it.
+
+## Use it when
+
+- A side pane needs a consistently headed section.
+- A list or detail pane needs the shared panel heading and body structure.
+
+## Use something else when
+
+- Content needs a card surface, outline or interactive state. Use `Card` instead.
+
+## Rules
+
+- Pass title for the primary-colored header and children for the body.
+- The title is always shown as a primary-colored heading above the body.
+- Pass action for a control in the header.
+
+## Accessibility
+
+- The title is a heading; the body remains arbitrary content.
+
+## Example
+
+```tsx
+import { PanelContainer } from '@drizztdourden08/tessera';
+
+<PanelContainer title="Profiles" action="New">
+  Profiles go here.
+</PanelContainer>
+```
+
+## Props
+
+- `title`: `ReactNode`.
+- `action` (optional): `ReactNode`.
+- `level` (optional): `HeadingLevel`, one of `1`, `2`, `3`, `4`, `5`, `6`. Default `3`.
+- `children`: `ReactNode`.
+- `className` (optional): `string`.
+
+## Tokens
+
+It draws on `--c-border`, `--space-md`.

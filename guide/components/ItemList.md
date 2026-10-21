@@ -35,6 +35,7 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 - Pass createOpen with onCreateOpenChange when the app decides whether the form is open, such as on a first run with no items.
 - Pass newDisabled when New cannot run yet, with a string that says why, such as Start a game to make a new save; true greys it out with no reason.
 - Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.
+- Pass showTitle={false} when a surrounding PanelContainer supplies the visible section heading; the list keeps its accessible name and any New action.
 - Pass groups with groupBy to set the order of the groups and keep the empty ones, such as an installed game with no preset yet.
 - An empty group draws its heading, its empty line and the button of its action, such as New preset; while the filter holds text, it hides.
 - Each row carries data-item-id with its id, so app search can find the row and scroll to it; rowData adds more data attributes.
@@ -112,6 +113,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
 ## Props
 
 - `title`: `string`.
+- `showTitle` (optional): `boolean`.
 - `items`: `readonly T[]`.
 - `getId`: `(item: T) => string`.
 - `getName`: `(item: T) => string`.

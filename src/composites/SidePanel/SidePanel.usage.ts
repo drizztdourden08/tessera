@@ -19,16 +19,17 @@ const usage = {
     'Pass side="end" for a panel on the right; its line, its fold button and its rail mirror to its left.',
     'Every panel resizes: there is no switch to turn it off. To hold a width, pass the same number to minWidth and maxWidth; the line still folds the panel.',
     'Dragging the line about 32 px narrower than minWidth folds the panel to its rail, and dragging the line of a rail outward opens it; the arrow keys at the end of the range do the same.',
-    'Pass actions for buttons in the heading, such as Add or Rescan; the folded rail shows them at its top, level with the fold button.',
-    'Pass rail for the icons of the items, such as one IconButton for each profile; the folded rail shows them under the title.',
+    'Pass action for a button in the heading, such as Add or Rescan; the folded rail reserves its top slot and shows the button there when present.',
+    'Pass railItems as an array of item icons; the folded rail shows them under the title.',
+    'Pass containers for the expanded body. Each container has a required primary heading and body; use a meaningful section title distinct from the pane title.',
     'A glow around a rail icon, such as a drop-shadow on a ready device, spreads past the rail; only a rail too long to fit scrolls and clips it.',
-    'Put lists, cards, inputs and drag sources in it as they are: the body scrolls, and the content stays mounted while folded.',
+    'Put every expanded section in a container with title and content. The side panel keeps the sections mounted while folded and its body scrolls with the primary slim scrollbar.',
     'Pass width, minWidth and maxWidth in pixels; when width is outside the default 224 to 448 range the range grows to take it, so a width of 192 stays 192.',
     'Pass storageKey to keep the width, and the fold under storageKey:collapsed.',
     'Pass collapsed with onCollapsedChange when the app holds the fold; collapsible={false} drops the fold button.',
   ],
   a11y: [
-    'It is an aside named by its title, with the title as a heading, h2 unless level says otherwise.',
+    'It is an aside named by its title, with the title as a heading, h2 unless level says otherwise; showTitle={false} hides only the pane heading.',
     'The fold button says Hide or Show and the title and reports aria-expanded; focus moves to it when the panel folds, by the button, Enter, an arrow key or a drag, and stays on it when the panel opens.',
     'While folded the heading and the body are hidden from screen readers and the keyboard; the actions and the rail take their place, and the sideways title is hidden from screen readers.',
     'The line is a separator: the arrow keys resize it, an arrow key at the end of the range folds or opens the panel, and Enter folds or opens it.',
@@ -38,18 +39,18 @@ const usage = {
     path: ['layout', 'a side panel with a heading that folds to a rail'],
     rule: 'SidePanel is the one side panel of a work screen: the sunken surface, the heading, the edge with its line and fold button, the rail and the drag to resize or fold.',
   },
-  example: `import { Box, Flex, SidePanel } from '@drizztdourden08/tessera';
-import type { ReactNode } from 'react';
+  example: `import type { ReactNode } from 'react';
+import { Box, Flex, SidePanel } from '@drizztdourden08/tessera';
 
 const HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: ReactNode; inspector: ReactNode }) => (
   <Flex gap="2xs" align="stretch" className="hud-editor">
-    <SidePanel title="Layers" storageKey="hud.layers">{layers}</SidePanel>
+    <SidePanel title="Layers" storageKey="hud.layers" containers={[{ title: 'Outline', content: layers }]} />
     <Box className="hud-editor__canvas">{canvas}</Box>
-    <SidePanel side="end" title="Inspector" storageKey="hud.inspector">{inspector}</SidePanel>
+    <SidePanel side="end" title="Inspector" storageKey="hud.inspector" containers={[{ title: 'Properties', content: inspector }]} />
   </Flex>
 );
 `,
-  propsHash: '76bdeea90aaed43d',
+  propsHash: '44c404657a79d5db',
 } satisfies ComponentUsage;
 
 export { usage };

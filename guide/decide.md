@@ -204,6 +204,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 
 No question leads to these parts. Other components are built on them; reach for one only when no component above fits.
 
+- [PanelContainer](components/PanelContainer.md). A stacked section with a primary heading, optional header action and a body.
 - [ScreenLayer](components/ScreenLayer.md). Building block: the overlay and the card of every screen, with one gap around the card that follows the room.
 - [ScreenPage](components/ScreenPage.md). Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.
 - [ScreenWindow](components/ScreenWindow.md). Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container.

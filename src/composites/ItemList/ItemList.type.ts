@@ -31,6 +31,7 @@ interface ItemListGroup {
 
 interface ItemListProps<T> {
   title: string;
+  showTitle?: boolean;
   items: readonly T[];
   getId: (item: T) => string;
   getName: (item: T) => string;
@@ -135,6 +136,7 @@ interface ItemListSettle {
 
 interface ItemListHeadProps {
   title: string;
+  showTitle?: boolean;
   shown: number;
   total: number;
   onNew?: () => void;

@@ -23,6 +23,13 @@
   gap: var(--space-2xs);
 }
 
+.pane-rail__actions {
+  inline-size: var(--collapse-toggle-d);
+  block-size: var(--collapse-toggle-d);
+  flex: none;
+  justify-content: center;
+}
+
 .pane-rail__items {
   gap: var(--space-sm);
   min-block-size: 0;
@@ -50,9 +57,13 @@
   min-block-size: 0;
 }
 
+.pane-rail__content--empty {
+  display: none;
+}
+
 .pane-rail__content--scroll {
-  overflow-y: auto;
-  scrollbar-width: thin;
+  flex: 1;
+  min-block-size: 0;
 }
 
 .pane-rail--across {

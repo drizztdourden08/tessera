@@ -6,7 +6,7 @@
   pointer-events: none;
 }
 
-.overlay.window-guide__scrim {
+.overlay.window-guide__layer {
   display: grid;
   place-items: center;
   padding: var(--space-lg);

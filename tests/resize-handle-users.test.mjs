@@ -61,7 +61,7 @@ describe('the four parts on ResizeHandle', () => {
   });
 
   it('ListDetailLayout draws the line in pixels, controlling the list', () => {
-    const html = renderToString(h(ListDetailLayout, { list: 'rows', detail: 'detail' }));
+    const html = renderToString(h(ListDetailLayout, { listContainers: [{ title: 'Rows', content: 'rows' }], detail: 'detail' }));
     const listId = /id="([^"]+)" class="box--sunken list-detail-layout__list"/.exec(html)?.[1];
     const tag = one(html);
     expect(tag).toContain('resize-handle--horizontal');

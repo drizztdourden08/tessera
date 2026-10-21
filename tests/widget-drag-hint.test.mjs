@@ -28,6 +28,7 @@ describe('the window guide', () => {
     expect(beside).toContain('window-guide__beside');
     expect(beside).not.toContain('window-guide__scrim');
     const centred = renderToString(h(WindowGuideOverlay, { open: true, mode: 'moving', snapping: true }));
-    expect(centred).toContain('window-guide__scrim');
+    expect(centred).toContain('window-guide__layer');
+    expect(centred).toContain('overlay--clear');
   });
 });

@@ -22,7 +22,7 @@ const WindowGuideOverlay = (props: WindowGuideOverlayProps) => {
     <Box className={cls} data-mode={mode}>
       {pointer
         ? <WindowGuideBeside pointer={pointer}>{card}</WindowGuideBeside>
-        : <Overlay visible={open} keepMounted tone="scrim" aria-hidden className="window-guide__scrim">{card}</Overlay>}
+        : <Overlay visible={open} keepMounted tone="clear" aria-hidden className="window-guide__layer">{card}</Overlay>}
       <Span className="window-guide__status" role="status" aria-live="polite">
         {open ? widgets.guideAnnounce(title, snapping) : ''}
       </Span>

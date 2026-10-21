@@ -25,7 +25,8 @@ const ListDetail = <T,>(props: ListDetailProps<T>) => {
       <ListDetailLayout
         {...layout}
         className={className ? `list-detail ${className}` : 'list-detail'}
-        list={<ItemList {...items} />}
+        listContainers={[{ title: items.title, content: <ItemList {...items} showTitle={false} /> }]}
+        listShowTitle={false}
         detail={selectedId !== null && (
           <>
             {look === 'inline' && <ListDetailGuardBar {...guardProps} />}

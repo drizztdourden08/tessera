@@ -9,13 +9,9 @@ const OutlinePanelSample = (props: OutlinePanelSampleProps) => {
   const add = actions ? <IconButton size="sm" variant="ghost" label={T.add}><Icon name="plus" /></IconButton> : undefined;
   return (
     <Box className="side-panel-story">
-      <SidePanel title={T.outline} defaultCollapsed={folded} collapsible={collapsible} actions={add} width={224} minWidth={176} maxWidth={360}>
-        {T.layers.map((layer) => <Text key={layer}>{layer}</Text>)}
-      </SidePanel>
+      <SidePanel title={T.outline} defaultCollapsed={folded} collapsible={collapsible} action={add} width={224} minWidth={176} maxWidth={360} containers={[{ title: 'Layers', content: T.layers.map((layer) => <Text key={layer}>{layer}</Text>) }]} />
       <Box surface="sunken" className="side-panel-story__canvas"><Paragraph tone="dim">{T.canvas}</Paragraph></Box>
-      <SidePanel side="end" title={T.inspector} defaultCollapsed={folded} collapsible={collapsible} width={256} minWidth={192} maxWidth={400}>
-        <Paragraph tone="dim">{T.inspectorLine}</Paragraph>
-      </SidePanel>
+      <SidePanel side="end" title={T.inspector} defaultCollapsed={folded} collapsible={collapsible} width={256} minWidth={192} maxWidth={400} containers={[{ title: 'Properties', content: <Paragraph tone="dim">{T.inspectorLine}</Paragraph> }]} />
     </Box>
   );
 };

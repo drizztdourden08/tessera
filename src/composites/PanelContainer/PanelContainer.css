@@ -1,0 +1,17 @@
+/* @layer renderer-components @kind style */
+.panel-container {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+}
+
+.panel-container__body {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.panel-container > .card__header {
+  border-bottom-color: var(--c-border);
+}
