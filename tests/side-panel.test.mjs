@@ -48,7 +48,7 @@ describe('SidePanel', () => {
     expect(rule(css, '.side-panel')).toContain('grid-template-columns: minmax(0, auto) 0;');
     expect(rule(edge, '.pane-edge-host')).toContain('grid-template-rows: minmax(var(--size-40), auto) minmax(0, 1fr);');
     expect(rule(css, '.side-panel__pane')).toMatch(/grid-row: 1 \/ -1;\s+grid-template-rows: subgrid;/);
-    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle')).toMatch(/grid-column: 1;[\s\S]*grid-row: 1;[\s\S]*justify-self: center;[\s\S]*align-self: center;/);
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle')).toMatch(/grid-column: 1;[\s\S]*grid-row: 1;[\s\S]*place-self: center;/);
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('inline-size: 0;');
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .resize-handle')).toContain('inline-size: var(--space-xl);');
     expect(rule(css, '.side-panel__heading')).toContain('grid-row: 1;');
