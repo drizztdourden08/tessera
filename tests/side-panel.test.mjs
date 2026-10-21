@@ -54,6 +54,7 @@ describe('SidePanel', () => {
     expect(rule(css, '.side-panel__heading')).toContain('grid-row: 1;');
     expect(css).toContain('transition: inline-size var(--transition-normal);');
     expect(css).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(sheet('src/composites/pane-edge/PaneRail.css')).toContain('.pane-rail--edge-fold');
     expect(rule(css, '.side-panel__pane .pane-rail__actions')).toMatch(/grid-row: 1;\s+align-self: center;/);
     expect(css).toMatch(/\.side-panel--start \.side-panel__pane,\n\.side-panel--end \.side-panel__edge \{\s+grid-column: 1;/);
     expect(css).toMatch(/\.side-panel--end \.side-panel__pane,\n\.side-panel--start \.side-panel__edge \{\s+grid-column: 2;/);
@@ -74,7 +75,7 @@ describe('SidePanel folded', () => {
     expect(html).toContain('class="side-panel pane-edge-host side-panel--start side-panel--collapsible side-panel--collapsed"');
     expect(html).toMatch(/collapse-toggle--to-end[^"]*" aria-label="Show Sprites" title="Show Sprites" aria-expanded="false"/);
     expect(html).toContain('aria-hidden="true" inert=""');
-    expect(html).toContain('pane-rail pane-rail--folded pane-rail--start side-panel__rail');
+    expect(html).toContain('pane-rail--edge-fold side-panel__rail');
     expect(html).toContain('<button type="button" class="add">Add</button>');
     expect(html).toContain('<button type="button" class="pick">P</button>');
     expect(html).toContain('class="scroll-area side-panel__body"');

@@ -10,6 +10,32 @@
   border-radius: var(--radius-lg);
 }
 
+.pane-rail--edge-fold {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-base);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+:is(.side-panel--collapsed > .side-panel__pane, .list-detail-layout__list--folded, .list-detail-layout__detail--folded) > .pane-rail--edge-fold {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+:is(.side-panel__pane, .list-detail-layout__list, .list-detail-layout__detail) > :not(.pane-rail) {
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+:is(.side-panel--collapsed > .side-panel__pane, .list-detail-layout__list--folded, .list-detail-layout__detail--folded) > :not(.pane-rail) {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .pane-rail__actions,
 .pane-rail__items,
 .pane-rail__list {

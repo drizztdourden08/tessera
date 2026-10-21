@@ -17,7 +17,7 @@ const ListDetailLayoutListPane = (props: ListDetailLayoutListPaneProps) => {
       surface="sunken"
       className={`${paneClass('list', { scroll, empty: false, folded: collapsed })}${heading ? '' : ' list-detail-layout__list--header-hidden'}`}
     >
-      <PaneRail rail={{ label, side: 'start', onUnfold, action: collapsed ? action : undefined, items: collapsed ? railItems : [] }} aria-hidden={!collapsed} inert={!collapsed} />
+      <PaneRail rail={{ label, side: 'start', onUnfold, action: collapsed ? action : undefined, items: collapsed ? railItems : [] }} className="pane-rail--edge-fold" aria-hidden={!collapsed} inert={!collapsed} />
       {heading && <Box aria-hidden={collapsed} inert={collapsed} className="list-detail-layout__list-heading"><CardHeader title={showTitle ? label : ''} actions={action} level={2} /></Box>}
       {scroll
         ? <ScrollArea aria-hidden={collapsed} inert={collapsed} scrollbar="slim" className="list-detail-layout__list-content">{content}</ScrollArea>
