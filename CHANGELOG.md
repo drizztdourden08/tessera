@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.46.0
+
+### Minor Changes
+
+- 4b43b49: Unify collapsible pane rails, add titled primary panel containers, remove excess small-window ScreenWindow padding, and keep window guides from dimming the app.
+
 ## 0.45.0
 
 ### Minor Changes
