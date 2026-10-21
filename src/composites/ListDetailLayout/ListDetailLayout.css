@@ -10,15 +10,30 @@
 
 .list-detail-layout__panes {
   flex: 1;
+  transition: grid-template-columns var(--transition-normal);
+}
+
+.list-detail-layout__panes--ratio,
+.list-detail-layout--detail-collapsed .list-detail-layout__panes {
+  transition: none;
 }
 
 .list-detail-layout__list,
 .list-detail-layout__detail {
+  position: relative;
   display: flex;
   flex-direction: column;
   grid-row: 1 / -1;
   overflow-y: auto;
   min-height: 0;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+.list-detail-layout__detail-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
 }
 
 .list-detail-layout__list {
@@ -27,8 +42,7 @@
   padding: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border-start-end-radius: 0;
-  border-end-end-radius: 0;
+  border-inline-end: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
 }
 
 .list-detail-layout__list-heading {
@@ -37,6 +51,7 @@
 
 .list-detail-layout__list-heading > .card__header {
   border-bottom-color: var(--c-border);
+  background: var(--c-surface);
 }
 
 .list-detail-layout__list-content {
@@ -60,6 +75,11 @@
 
 .list-detail-layout__list > .pane-rail {
   grid-row: 1 / -1;
+}
+
+.list-detail-layout__list--folded,
+.list-detail-layout__detail--folded {
+  opacity: 1;
 }
 
 .list-detail-layout__detail {
@@ -100,6 +120,10 @@
   pointer-events: none;
 }
 
+.list-detail-layout--dragging .list-detail-layout__panes {
+  transition: none;
+}
+
 .list-detail-layout__back {
   display: none;
   flex-shrink: 0;
@@ -118,19 +142,31 @@
   .list-detail-layout__list--folded,
   .list-detail-layout__detail--folded {
     padding: 0;
-    border: 0;
-    background: none;
     overflow: visible;
   }
 
-  .list-detail-layout__list--folded > .pane-rail,
-  .list-detail-layout__detail--folded > .pane-rail {
+  .list-detail-layout__detail--folded {
+    border-inline-start: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
+  }
+
+  .list-detail-layout__list--folded {
+    border-inline-end: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
+  }
+
+  .list-detail-layout__list--folded > .pane-rail--edge-fold,
+  .list-detail-layout__detail--folded > .pane-rail--edge-fold {
     flex: 1;
   }
 
-  .list-detail-layout__list--folded > :not(.pane-rail),
-  .list-detail-layout__detail--folded > :not(.pane-rail) {
-    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list-detail-layout__panes,
+  .list-detail-layout__list,
+  .list-detail-layout__detail,
+  .list-detail-layout__list > .pane-rail,
+  .list-detail-layout__detail > .pane-rail {
+    transition-duration: 0s;
   }
 }
 

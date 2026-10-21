@@ -138,7 +138,7 @@ One line per component. 69 of 191 have their usage written; a linked name opens 
 - [LogPanel](components/LogPanel.md): A running log, such as a server log or a simulation trace, in one framed box with search, filters, a line count and Copy all. Import from `@drizztdourden08/tessera`.
 - [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
 - [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
-- [PanelContainer](components/PanelContainer.md): A stacked section with a primary heading, optional header action and a body. A building block. Import from `@drizztdourden08/tessera`.
+- [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.

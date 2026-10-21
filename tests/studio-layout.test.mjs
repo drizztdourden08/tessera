@@ -74,7 +74,7 @@ describe('the shared pieces StudioLayout is drawn from', () => {
     expect(renderToString(h(LogPanel, { rows: [] }))).toMatch(/^<div class="box--sunken tool-frame log-panel"><div class="tool-frame__toolbar"><div class="filter-bar"/);
     const folded = renderToString(h(ListDetailLayout, { listContainers: [{ title: 'Rows', content: 'Rows' }], detail: 'Detail', defaultCollapsed: true, listLabel: 'presets' }));
     expect(folded).toContain('list-detail-layout__list list-detail-layout__list--folded');
-    expect(folded).toContain('class="box--sunken pane-rail pane-rail--folded pane-rail--start"');
+    expect(folded).toContain('class="box--sunken pane-rail pane-rail--folded pane-rail--start pane-rail--edge-fold"');
     expect(folded).toMatch(/class="pane-edge pane-edge--horizontal pane-edge--edge-start list-detail-layout__edge".*class="pressable edge-button hit-area collapse-toggle collapse-toggle--to-end pane-edge__toggle pane-edge__toggle--start"/);
     expect(folded).toContain('<div class="pane-rail__items"><span class="text-el text-el--span pane-rail__label" aria-hidden="true">presets</span>');
     expect(folded).toContain('class="scroll-area pane-rail__content pane-rail__content--empty"');
@@ -85,11 +85,13 @@ describe('the shared pieces StudioLayout is drawn from', () => {
 
   it('paints no surface of its own: the fill and the edge come from Box, Card, ToolFrame and the sunken rail', () => {
     expect(sheet('src/composites/ResizeHandle/ResizeHandle.css')).toMatch(/\.resize-handle::after \{[^}]*background: var\(--c-border-strong\);/);
-    ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/SidePanel/SidePanel.css', 'src/composites/pane-edge/PaneRail.css'].forEach((file) => {
+    ['src/composites/StudioLayout/StudioLayout.css', 'src/composites/pane-edge/PaneRail.css'].forEach((file) => {
       expect(sheet(file), file).not.toMatch(/background|border:|border-block|box-shadow/);
     });
+    expect(sheet('src/composites/SidePanel/SidePanel.css')).toMatch(/\.side-panel__heading > \.card__header \{[^}]*background: var\(--c-surface\);/);
+    expect(sheet('src/composites/SidePanel/SidePanel.css')).toMatch(/border-inline-(start|end): var\(--border-width-thin\) dashed/);
     expect(sheet('src/composites/pane-edge/PaneRail.tsx')).toContain("surface={rail ? 'sunken' : undefined}");
-    expect(sheet('src/composites/SidePanel/sub-components/SidePanelPane.tsx')).toContain("surface={collapsed ? undefined : 'sunken'}");
+    expect(sheet('src/composites/SidePanel/sub-components/SidePanelPane.tsx')).toContain('surface="sunken"');
     expect(sheet('src/composites/ListDetailLayout/ListDetailLayout.css')).not.toMatch(/rail-label|c-sunken/);
     expect(sheet('src/composites/LogPanel/LogPanel.css')).not.toMatch(/log-panel__toolbar|radius-md/);
   });

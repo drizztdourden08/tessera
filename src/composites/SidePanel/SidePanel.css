@@ -1,26 +1,26 @@
 /* @layer renderer-components @kind style */
 .side-panel {
-  grid-template-columns: auto auto;
+  grid-template-columns: minmax(0, auto) 0;
 }
 
 .side-panel__pane {
+  position: relative;
   display: grid;
   grid-row: 1 / -1;
   grid-template-rows: subgrid;
   inline-size: var(--side-panel-width);
+  transition: inline-size var(--transition-normal);
   min-block-size: 0;
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .side-panel--start .side-panel__pane {
-  border-start-end-radius: 0;
-  border-end-end-radius: 0;
+  border-inline-end: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
 }
 
 .side-panel--end .side-panel__pane {
-  border-start-start-radius: 0;
-  border-end-start-radius: 0;
+  border-inline-start: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
 }
 
 .side-panel--start .side-panel__pane,
@@ -33,9 +33,17 @@
   grid-column: 2;
 }
 
-.side-panel__pane > .card__header {
+.side-panel--end {
+  grid-template-columns: 0 minmax(0, auto);
+}
+
+.side-panel__heading {
   grid-row: 1;
+}
+
+.side-panel__heading > .card__header {
   border-bottom-color: var(--c-border);
+  background: var(--c-surface);
 }
 
 .side-panel__body {
@@ -56,18 +64,12 @@
 }
 
 .side-panel--collapsed .side-panel__pane {
-  inline-size: auto;
-  overflow: visible;
+  --side-panel-width: var(--side-nav-w);
 }
 
-.side-panel--collapsed .side-panel__pane > :not(.pane-rail) {
-  display: none;
-}
-
-.side-panel__pane > .pane-rail--folded {
+.side-panel__pane > .side-panel__rail {
   display: grid;
-  grid-row: 1 / -1;
-  grid-template-rows: subgrid;
+  grid-template-rows: minmax(var(--size-40), auto) minmax(0, 1fr);
   place-items: start center;
   row-gap: 0;
   padding-block: 0 var(--space-sm);
@@ -97,4 +99,16 @@
 
 .side-panel--dragging .side-panel__body {
   pointer-events: none;
+}
+
+.side-panel--dragging .side-panel__pane {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-panel__pane,
+  .side-panel__pane > :not(.side-panel__rail),
+  .side-panel__rail {
+    transition-duration: 0s;
+  }
 }

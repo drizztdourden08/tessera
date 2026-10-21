@@ -1,6 +1,6 @@
 # PanelContainer
 
-A stacked section with a primary heading, optional header action and a body.
+A plain stacked section with a heading, optional action and a body.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -25,8 +25,8 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 
 ## Rules
 
-- Pass title for the primary-colored header and children for the body.
-- The title is always shown as a primary-colored heading above the body.
+- Pass title for the heading and children for the body.
+- The title is always shown above the body without a card surface or border.
 - Pass action for a control in the header.
 
 ## Accessibility
@@ -53,4 +53,4 @@ import { PanelContainer } from '@drizztdourden08/tessera';
 
 ## Tokens
 
-It draws on `--c-border`, `--space-md`.
+It draws on `--space-md`.

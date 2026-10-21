@@ -43,11 +43,12 @@ ListDetailLayout draws the panes, the resize, the fold and the small window of e
 - Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area.
 - Put a SaveBar last in the detail: it sits flush with the foot of the pane.
 - Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor.
-- A folded pane is the rail of SidePanel, drawn by the same part: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right. The fold buttons sit beside the divider with a 4 px gap, the list button on its detail side and the detail button on its list side.
+- A folded pane is the rail of SidePanel, drawn by the same part: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right. The fold buttons overlap the dashed outside border, with the list button on its detail side and the detail button on its list side.
+- The primary list border stays visible while its rail is folded, and its chevron stays centered on the border at the heading row. When both panes can fold, the detail chevron sits just below the list chevron on that same border so both controls remain usable. Pixel-width list folding animates the pane tracks and rail; ratio layouts and detail folding settle directly to the rail width. Motion is disabled for reduced-motion preferences.
 
 ## Accessibility
 
-- The divider is a separator: the arrow keys resize it, Home and End jump to the limits, Space and a double click reset it.
+- The dashed outside border is also the resize separator: the arrow keys resize it, Home and End jump to the limits, Space and a double click reset it.
 - Enter on the divider, or an arrow key at the end of the range, folds the list and moves focus to the button that brings it back; Enter or the outward arrow key on a folded divider opens it.
 - The fold button is the CollapseToggle: it names the list, Hide presets or Show presets, and reports aria-expanded on the list pane.
 - The detail fold button names the detail the same way, Hide preset editor or Show preset editor, on the detail pane.
@@ -118,4 +119,4 @@ const SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; rend
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--c-text-muted`, `--radius-lg`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--text-sm`, `--z-sticky`.
+It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-surface`, `--c-text-muted`, `--radius-lg`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--text-sm`, `--transition-fast`, `--transition-normal`, `--z-sticky`.

@@ -2,11 +2,11 @@
 import type { ColumnsInput } from './columns-of.type';
 
 const columnsOf = (input: ColumnsInput): string => {
-  const { size, shares, folded } = input;
-  if (folded === 'start') return 'auto auto minmax(0, 1fr)';
-  if (folded === 'end') return 'minmax(0, 1fr) auto auto';
-  if (shares) return `minmax(0, ${size}fr) auto minmax(0, ${100 - size}fr)`;
-  return `${size}px auto minmax(0, 1fr)`;
+  const { size, shares, folded, foldedSize = 'auto', edgeSize = 'auto' } = input;
+  if (folded === 'start') return `${foldedSize} ${edgeSize} minmax(0, 1fr)`;
+  if (folded === 'end') return `minmax(0, 1fr) ${edgeSize} ${foldedSize}`;
+  if (shares) return `minmax(0, ${size}fr) ${edgeSize} minmax(0, ${100 - size}fr)`;
+  return `${size}px ${edgeSize} minmax(0, 1fr)`;
 };
 
 export { columnsOf };

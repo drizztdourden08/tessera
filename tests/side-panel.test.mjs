@@ -21,8 +21,8 @@ describe('SidePanel', () => {
     const html = draw();
     expect(html).toMatch(/^<div class="side-panel pane-edge-host side-panel--start side-panel--collapsible" style="--side-panel-width:288px"><aside/);
     expect(html).toContain('aria-label="Sprites" class="box--sunken side-panel__pane"');
-    expect(html).toMatch(/class="section-header card__header card__header--primary"><div class="section-header__text"><h2[^>]*>Sprites/);
-    expect(html).toContain('class="scroll-area side-panel__body" data-axis="y" data-scrollbar="slim"><section class="panel-container side-panel__container">');
+    expect(html).toMatch(/class="section-header card__header card__header--neutral"><div class="section-header__text"><h2[^>]*>Sprites/);
+    expect(html).toMatch(/class="scroll-area side-panel__body" data-axis="y" data-scrollbar="slim" aria-hidden="false"><section class="panel-container side-panel__container">/);
     expect(html).toContain('<p>Rows</p></div></section></div></aside><div class="pane-edge pane-edge--horizontal pane-edge--edge-start side-panel__edge">');
     expect(html).toMatch(/role="separator"[^>]*aria-label="Resize Sprites"[^>]*aria-valuenow="288" aria-valuemin="0" aria-valuemax="448"/);
   });
@@ -42,14 +42,19 @@ describe('SidePanel', () => {
     expect(html).not.toContain('side-panel__line');
   });
 
-  it('sets the toggle beside the line in the row of the heading, so it lines up whatever the heading height', () => {
+  it('overlays the toggle and resize hit area on the pane border at the heading height', () => {
     const css = sheet('src/composites/SidePanel/SidePanel.css');
     const edge = sheet('src/composites/pane-edge/PaneEdge.css');
-    expect(rule(css, '.side-panel')).toContain('grid-template-columns: auto auto;');
+    expect(rule(css, '.side-panel')).toContain('grid-template-columns: minmax(0, auto) 0;');
     expect(rule(edge, '.pane-edge-host')).toContain('grid-template-rows: minmax(var(--size-40), auto) minmax(0, 1fr);');
     expect(rule(css, '.side-panel__pane')).toMatch(/grid-row: 1 \/ -1;\s+grid-template-rows: subgrid;/);
-    expect(rule(edge, '.pane-edge--horizontal > .pane-edge__toggle')).toMatch(/grid-row: 1;\s+align-self: center;/);
-    expect(rule(css, '.side-panel__pane > .card__header')).toContain('grid-row: 1;');
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle')).toMatch(/grid-column: 1;[\s\S]*grid-row: 1;[\s\S]*place-self: center;/);
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('inline-size: 0;');
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .resize-handle')).toContain('inline-size: var(--space-xl);');
+    expect(rule(css, '.side-panel__heading')).toContain('grid-row: 1;');
+    expect(css).toContain('transition: inline-size var(--transition-normal);');
+    expect(css).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(sheet('src/composites/pane-edge/PaneRail.css')).toContain('.pane-rail--edge-fold');
     expect(rule(css, '.side-panel__pane .pane-rail__actions')).toMatch(/grid-row: 1;\s+align-self: center;/);
     expect(css).toMatch(/\.side-panel--start \.side-panel__pane,\n\.side-panel--end \.side-panel__edge \{\s+grid-column: 1;/);
     expect(css).toMatch(/\.side-panel--end \.side-panel__pane,\n\.side-panel--start \.side-panel__edge \{\s+grid-column: 2;/);
@@ -69,11 +74,10 @@ describe('SidePanel folded', () => {
     const html = draw({ defaultCollapsed: true, action: add, railItems: [pick] });
     expect(html).toContain('class="side-panel pane-edge-host side-panel--start side-panel--collapsible side-panel--collapsed"');
     expect(html).toMatch(/collapse-toggle--to-end[^"]*" aria-label="Show Sprites" title="Show Sprites" aria-expanded="false"/);
-    expect(html).toContain(
-      'aria-label="Sprites" class="side-panel__pane"><div class="box--sunken pane-rail pane-rail--folded pane-rail--start"><div class="pane-rail__actions">'
-      + '<button type="button" class="add">Add</button></div><div class="pane-rail__items"><span class="text-el text-el--span pane-rail__label" aria-hidden="true">Sprites</span>'
-      + '<div class="scroll-area pane-rail__content" data-axis="y" data-scrollbar="slim"><div class="pane-rail__list"><button type="button" class="pick">P</button></div></div></div></div>',
-    );
+    expect(html).toContain('aria-hidden="true" inert=""');
+    expect(html).toContain('pane-rail--edge-fold side-panel__rail');
+    expect(html).toContain('<button type="button" class="add">Add</button>');
+    expect(html).toContain('<button type="button" class="pick">P</button>');
     expect(html).toContain('class="scroll-area side-panel__body"');
     expect(html).toContain('<p>Rows</p>');
     expect(html.match(/role="separator"/g)).toHaveLength(1);
@@ -92,7 +96,7 @@ describe('SidePanel folded', () => {
   it('lets a glow around a rail icon spread past the rail, and scrolls and clips only a rail too long to fit', () => {
     const panel = sheet('src/composites/SidePanel/SidePanel.css');
     const rail = sheet('src/composites/pane-edge/PaneRail.css');
-    expect(rule(panel, '.side-panel--collapsed .side-panel__pane')).toContain('overflow: visible;');
+    expect(rule(panel, '.side-panel--collapsed .side-panel__pane')).toContain('--side-panel-width: var(--side-nav-w);');
     expect(rule(rail, '.pane-rail--folded')).not.toMatch(/overflow/);
     expect(rule(rail, '.pane-rail__items')).not.toMatch(/overflow/);
     expect(rule(rail, '.pane-rail__content')).not.toMatch(/overflow/);

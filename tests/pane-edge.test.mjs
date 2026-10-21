@@ -75,7 +75,7 @@ describe('one pane edge implementation', () => {
   });
 });
 
-describe('the fold button sits beside the line', () => {
+describe('the fold button overlaps the actual pane border', () => {
   const lone = (html) => {
     const edge = edgeOf(html);
     expect(edge.match(/<button /g)).toHaveLength(1);
@@ -107,15 +107,21 @@ describe('the fold button sits beside the line', () => {
     expect(bare(pair)).toMatch(/^(<\/div>)+$/);
   });
 
-  it('spaces them by a gap token, and never overlaps the line or leaves the flow', () => {
+  it('uses a zero-width anchor and an overlaid resize hit area with no pane gap', () => {
     const edge = sheet('src/composites/pane-edge/PaneEdge.css');
     expect(rule(edge, '.pane-edge')).toContain('--pane-edge-gap: var(--space-xs);');
     expect(rule(edge, '.pane-edge')).toContain('column-gap: var(--pane-edge-gap);');
-    expect(edge).not.toMatch(/calc\(\s*-|margin[^;]*:\s*-|translate/);
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('inline-size: 0;');
+    expect(rule(edge, ':is(.side-panel, .list-detail-layout__panes).pane-edge-host')).toContain('column-gap: 0;');
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .resize-handle')).toMatch(/position: absolute;[\s\S]*inline-size: var\(--space-xl\);/);
+    expect(rule(edge, '.pane-edge--horizontal')).toContain('grid-template-rows: subgrid;');
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('grid-template-columns: 0;');
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle')).toMatch(/grid-column: 1;[\s\S]*grid-row: 1;[\s\S]*place-self: center;/);
+    expect(rule(edge, '.list-detail-layout__edge:has(.pane-edge__toggle--start) > .pane-edge__toggle--end')).toContain('inset-block-start: calc(var(--size-40) / 2 + var(--collapse-toggle-d) / 2 + var(--space-xs));');
     ['CollapseToggle/CollapseToggle.css', 'edge-button/EdgeButton.css'].forEach((file) => {
       expect(sheet(`src/composites/${file}`), file).not.toMatch(/position:|calc\(-|margin[^;]*: -/);
     });
-    sourcesIn('src/composites').filter((file) => file.endsWith('.css')).forEach((file) => {
+    sourcesIn('src/composites').filter((file) => file.endsWith('.css') && !file.endsWith(path.join('pane-edge', 'PaneEdge.css'))).forEach((file) => {
       for (const [, selector, body] of sheet(file).matchAll(/([^{}]*pane-edge__toggle[^{}]*)\{([^}]*)\}/g)) {
         expect(body, `${file} ${selector.trim()}`).not.toMatch(/position: (absolute|fixed)|margin[^;]*calc\(-|margin[^;]*: -/);
       }

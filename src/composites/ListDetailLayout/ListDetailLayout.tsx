@@ -30,7 +30,7 @@ const ListDetailLayout = (props: ListDetailLayoutProps) => {
 
   return (
     <Box className={layoutClass(look, className)}>
-      <Box ref={panes.panesRef} className="list-detail-layout__panes pane-edge-host" data-view={view} style={{ gridTemplateColumns: panes.columns }}>
+      <Box ref={panes.panesRef} className={`list-detail-layout__panes pane-edge-host${options.ratio ? ' list-detail-layout__panes--ratio' : ''}`} data-view={view} style={{ gridTemplateColumns: panes.columns }}>
         <ListDetailLayoutListPane
           id={listId}
           collapsed={listFold.collapsed}
@@ -49,9 +49,11 @@ const ListDetailLayout = (props: ListDetailLayoutProps) => {
           className="list-detail-layout__edge"
         />
         <Box id={detailId} className={paneClass('detail', { scroll: scroll.detail, empty, folded: detailFold.collapsed })}>
-          {detailFold.collapsed && <PaneRail rail={{ label: detailLabel, side: 'end', onUnfold: detailFold.toggle, items: detailRailItems }} />}
-          {onBack && !empty && <ListDetailLayoutBack label={labels.back} onBack={onBack} />}
-          {empty ? (emptyDetail ?? <EmptyState message={lists.pickItem} />) : detail}
+          <PaneRail rail={{ label: detailLabel, side: 'end', onUnfold: detailFold.toggle, items: detailFold.collapsed ? detailRailItems : [] }} className="pane-rail--edge-fold" aria-hidden={!detailFold.collapsed} inert={!detailFold.collapsed} />
+          <Box aria-hidden={detailFold.collapsed} inert={detailFold.collapsed} className="list-detail-layout__detail-content">
+            {onBack && !empty && <ListDetailLayoutBack label={labels.back} onBack={onBack} />}
+            {empty ? (emptyDetail ?? <EmptyState message={lists.pickItem} />) : detail}
+          </Box>
         </Box>
       </Box>
     </Box>
