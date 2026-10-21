@@ -140,7 +140,7 @@
   }
 
   .list-detail-layout__panes > .list-detail-layout__detail {
-    margin-inline-start: var(--space-2xs);
+    margin-inline-start: var(--space-md);
   }
 
   .list-detail-layout__list--folded,
