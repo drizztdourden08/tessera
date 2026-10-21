@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.46.3
+
+### Patch Changes
+
+- 081117c: Add the standard small gap between the list pane and the detail pane of ListDetailLayout, from one spacing token, in pixel and ratio layouts. The resize handle and fold buttons stay centered on the list border.
+
 ## 0.46.2
 
 ### Patch Changes
