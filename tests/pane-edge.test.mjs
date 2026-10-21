@@ -114,7 +114,9 @@ describe('the fold button overlaps the actual pane border', () => {
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('inline-size: 0;');
     expect(rule(edge, ':is(.side-panel, .list-detail-layout__panes).pane-edge-host')).toContain('column-gap: 0;');
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .resize-handle')).toMatch(/position: absolute;[\s\S]*inline-size: var\(--space-xl\);/);
-    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle')).toMatch(/position: absolute;[\s\S]*inset-inline-start: 50%;[\s\S]*transform: translate\(-50%, -50%\);/);
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toMatch(/grid-template-rows: subgrid;[\s\S]*grid-template-columns: 0;/);
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle')).toMatch(/grid-column: 1;[\s\S]*grid-row: 1;[\s\S]*justify-self: center;[\s\S]*align-self: center;/);
+    expect(rule(edge, '.list-detail-layout__edge:has(.pane-edge__toggle--start) > .pane-edge__toggle--end')).toContain('inset-block-start: calc(var(--size-40) / 2 + var(--collapse-toggle-d) / 2 + var(--space-xs));');
     ['CollapseToggle/CollapseToggle.css', 'edge-button/EdgeButton.css'].forEach((file) => {
       expect(sheet(`src/composites/${file}`), file).not.toMatch(/position:|calc\(-|margin[^;]*: -/);
     });

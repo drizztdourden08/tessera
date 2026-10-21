@@ -38,8 +38,8 @@ describe('ListDetailLayout', () => {
   it('draws a folded list as a rail in its pane: the one divider stays, the detail takes the room, the button shows the list again', () => {
     for (const html of [draw({ collapsed: true, listLabel: 'presets' }), draw({ defaultCollapsed: true, listLabel: 'presets' })]) {
       expect(html).toContain('class="list-detail-layout list-detail-layout--collapsed"');
-      expect(html).toContain('grid-template-columns:auto 0 minmax(0, 1fr)');
-      expect(html).toMatch(/list-detail-layout__list list-detail-layout__list--folded"[^>]*><div class="box--sunken pane-rail pane-rail--folded pane-rail--start">/);
+      expect(html).toContain('grid-template-columns:var(--side-nav-w) 0 minmax(0, 1fr)');
+      expect(html).toContain('pane-rail pane-rail--folded pane-rail--start');
       expect(html).toContain('aria-label="Show presets"');
       expect(html).toContain('aria-expanded="false"');
       expect(html).toMatch(/pane-rail__label" aria-hidden="true">presets</);
@@ -111,7 +111,7 @@ describe('ListDetailLayout detail fold', () => {
     ];
     for (const html of folded) {
       expect(html).toContain('list-detail-layout--detail-collapsed');
-      expect(html).toContain('grid-template-columns:minmax(0, 1fr) 0 auto');
+      expect(html).toContain('grid-template-columns:minmax(0, 1fr) 0 var(--side-nav-w)');
       expect(html).toContain('aria-label="Show record"');
       expect(html).not.toContain('aria-label="Hide list"');
       expect(html).toMatch(/pane-rail__label" aria-hidden="true">record</);
@@ -127,7 +127,7 @@ describe('ListDetailLayout detail fold', () => {
     const both = draw({ collapsed: true, detailCollapsible: true, detailCollapsed: true });
     expect(both).toContain('list-detail-layout--collapsed');
     expect(both).not.toContain('list-detail-layout--detail-collapsed');
-    expect(both).toContain('grid-template-columns:auto 0 minmax(0, 1fr)');
+    expect(both).toContain('grid-template-columns:var(--side-nav-w) 0 minmax(0, 1fr)');
     expect(layoutOptionsOf({ list: null, storageKey: 'records' }).detailCollapse.storageKey).toBe('records:detail-collapsed');
     vi.stubGlobal('localStorage', { getItem: (name) => (name === 'records:detail-collapsed' ? 'true' : null) });
     expect(draw({ storageKey: 'records', detailCollapsible: true })).toContain('list-detail-layout--detail-collapsed');

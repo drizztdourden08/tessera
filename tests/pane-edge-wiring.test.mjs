@@ -83,6 +83,8 @@ describe('the small rules of the pane edge', () => {
     expect(columnsOf({ size: 60, shares: true, folded: null })).toBe('minmax(0, 60fr) auto minmax(0, 40fr)');
     expect(columnsOf({ size: 320, shares: false, folded: 'start' })).toBe('auto auto minmax(0, 1fr)');
     expect(columnsOf({ size: 60, shares: true, folded: 'end' })).toBe('minmax(0, 1fr) auto auto');
+    expect(columnsOf({ size: 320, shares: false, folded: 'start', foldedSize: 'var(--side-nav-w)', edgeSize: '0' })).toBe('var(--side-nav-w) 0 minmax(0, 1fr)');
+    expect(columnsOf({ size: 320, shares: false, folded: 'end', foldedSize: 'var(--side-nav-w)', edgeSize: '0' })).toBe('minmax(0, 1fr) 0 var(--side-nav-w)');
   });
 
   it('names the folded pane, the start one first, and the sides that can fold', () => {

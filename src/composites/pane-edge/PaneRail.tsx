@@ -5,11 +5,11 @@ import type { PaneRailProps } from './PaneRail.type';
 import './PaneRail.css';
 
 const PaneRail = (props: PaneRailProps) => {
-  const { rail, className, children } = props;
+  const { rail, className, children, ...rest } = props;
   const across = rail?.orientation === 'vertical' && 'pane-rail--across';
   const classes = ['pane-rail', rail && `pane-rail--folded pane-rail--${rail.side}`, across, className].filter(Boolean).join(' ');
   return (
-    <Box surface={rail ? 'sunken' : undefined} className={classes}>
+    <Box {...rest} surface={rail ? 'sunken' : undefined} className={classes}>
       {children}
       {rail && <PaneRailFold rail={rail} />}
     </Box>

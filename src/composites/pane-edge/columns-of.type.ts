@@ -5,6 +5,8 @@ interface ColumnsInput {
   size: number;
   shares: boolean;
   folded: FoldedPane;
+  foldedSize?: string;
+  edgeSize?: string;
 }
 
 export type { ColumnsInput, FoldedPane };

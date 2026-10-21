@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import type { CollapseToggleSide } from '../CollapseToggle/CollapseToggle.type';
 import type { SplitOrientation } from '../SplitPane/SplitPane.type';
 
@@ -12,9 +12,8 @@ interface PaneRailLabel {
   items?: ReactNode[];
 }
 
-interface PaneRailProps {
+interface PaneRailProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
   rail?: PaneRailLabel;
-  className?: string;
   children?: ReactNode;
 }
 

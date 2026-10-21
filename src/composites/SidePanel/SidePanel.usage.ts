@@ -23,6 +23,7 @@ const usage = {
     'Pass railItems as an array of item icons; the folded rail shows them under the title.',
     'Pass containers for the expanded body. Each container has a required heading and body; use a meaningful section title distinct from the pane title.',
     'The dashed primary border is the resize edge; it brightens and glows while hovered, focused or dragged.',
+    'The border stays on the pane while expanded and folded; the chevron straddles it at the center of the actual heading row. Folding animates the pane, heading, body and rail, with motion disabled for reduced-motion preferences.',
     'A glow around a rail icon, such as a drop-shadow on a ready device, spreads past the rail; only a rail too long to fit scrolls and clips it.',
     'Put every expanded section in a container with title and content. The side panel keeps the sections mounted while folded and its body scrolls with the primary slim scrollbar.',
     'Pass width, minWidth and maxWidth in pixels; when width is outside the default 224 to 448 range the range grows to take it, so a width of 192 stays 192.',

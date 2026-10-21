@@ -62,10 +62,10 @@ describe('dragging a pane to nothing folds it', () => {
   it('draws a folded ListDetailLayout list as a rail inside the list pane, with the one separator kept', () => {
     const html = list({ defaultCollapsed: true });
     expect(html).toContain('list-detail-layout__list list-detail-layout__list--folded');
-    expect(html).toMatch(/list-detail-layout__list--folded"[^>]*><div class="box--sunken pane-rail pane-rail--folded pane-rail--start">/);
+    expect(html).toContain('box--sunken pane-rail pane-rail--folded pane-rail--start');
     expect(html.indexOf('pane-rail--folded')).toBeLessThan(html.indexOf('class="pane-edge '));
     expect(html.match(/role="separator"/g)).toHaveLength(1);
-    expect(html).toContain('grid-template-columns:auto auto minmax(0, 1fr)');
+    expect(html).toContain('grid-template-columns:var(--side-nav-w) 0 minmax(0, 1fr)');
   });
 
   it('draws a folded SplitPane pane as a rail inside the first pane, in three columns', () => {

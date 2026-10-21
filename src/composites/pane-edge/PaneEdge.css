@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind style */
 .pane-edge-host {
+  --pane-edge-glow-start: inset calc(-2 * var(--border-width-thin)) 0 var(--space-xs) calc(-2 * var(--border-width-thin)) var(--c-primary-bright), inset calc(-1 * var(--border-width-thin)) 0 var(--space-2xs) calc(-1 * var(--border-width-thin)) var(--p-pure-white);
+  --pane-edge-glow-end: inset calc(2 * var(--border-width-thin)) 0 var(--space-xs) calc(-2 * var(--border-width-thin)) var(--c-primary-bright), inset var(--border-width-thin) 0 var(--space-2xs) calc(-1 * var(--border-width-thin)) var(--p-pure-white);
   display: grid;
   grid-template-rows: minmax(var(--size-40), auto) minmax(0, 1fr);
   column-gap: var(--space-2xs);
@@ -36,6 +38,8 @@
   inline-size: 0;
   overflow: visible;
   z-index: var(--z-base);
+  grid-template-columns: 0;
+  grid-auto-flow: initial;
 }
 
 :is(.side-panel, .list-detail-layout__panes).pane-edge-host {
@@ -59,16 +63,17 @@
 }
 
 :is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle {
-  position: absolute;
-  inset-block-start: calc(var(--size-40) / 2);
-  inset-inline-start: 50%;
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
   z-index: var(--z-sticky);
   margin: 0;
-  transform: translate(-50%, -50%);
 }
 
 .list-detail-layout__edge:has(.pane-edge__toggle--start) > .pane-edge__toggle--end {
-  inset-block-start: calc(var(--size-40) + var(--collapse-toggle-d) / 2 + var(--space-xs));
+  inset-block-start: calc(var(--size-40) / 2 + var(--collapse-toggle-d) / 2 + var(--space-xs));
 }
 
 .pane-edge--vertical {

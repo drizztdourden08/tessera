@@ -18,7 +18,7 @@ const useListDetailPanes = (options: LayoutOptions): ListDetailPanes => {
   const { handle, other } = paneEdgeOf({ edge: 'start', size, fold: listFold, other: ownDetailFold, shares });
   const detailFold = other ?? ownDetailFold;
   const folded = foldedPaneOf(listFold, detailFold);
-  return { panesRef, listFold, detailFold, dragging: size.dragging, handle, columns: columnsOf({ size: size.size, shares: ratio, folded }) };
+  return { panesRef, listFold, detailFold, dragging: size.dragging, handle, columns: columnsOf({ size: size.size, shares: ratio, folded, foldedSize: 'var(--side-nav-w)', edgeSize: '0' }) };
 };
 
 export { useListDetailPanes };

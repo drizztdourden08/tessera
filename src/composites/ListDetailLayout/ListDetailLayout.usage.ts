@@ -28,6 +28,7 @@ const usage = {
     'Put a SaveBar last in the detail: it sits flush with the foot of the pane.',
     'Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor.',
     'A folded pane is the rail of SidePanel, drawn by the same part: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right. The fold buttons overlap the dashed outside border, with the list button on its detail side and the detail button on its list side.',
+    'The primary list border stays visible while its rail is folded, and its chevron stays centered on the border at the heading row. When both panes can fold, the detail chevron sits just below the list chevron on that same border so both controls remain usable. Pixel-width list folding animates the pane tracks and rail; ratio layouts and detail folding settle directly to the rail width. Motion is disabled for reduced-motion preferences.',
   ],
   a11y: [
     'The dashed outside border is also the resize separator: the arrow keys resize it, Home and End jump to the limits, Space and a double click reset it.',

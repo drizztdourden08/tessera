@@ -39,6 +39,7 @@ SidePanel is the one side panel of a work screen: the sunken surface, the neutra
 - Pass railItems as an array of item icons; the folded rail shows them under the title.
 - Pass containers for the expanded body. Each container has a required primary heading and body; use a meaningful section title distinct from the pane title.
 - The primary dashed outside border brightens and glows while the resize handle is hovered, focused or dragged.
+- The border stays on the pane while expanded and folded; the chevron straddles it at the center of the actual heading row. Folding animates the pane, heading, body and rail, with motion disabled for reduced-motion preferences.
 - Put every expanded section in a container with title and content. The side panel keeps the sections mounted while folded and its body scrolls with the primary slim scrollbar.
 - Pass width, minWidth and maxWidth in pixels; when width is outside the default 224 to 448 range the range grows to take it, so a width of 192 stays 192.
 - Pass storageKey to keep the width, and the fold under storageKey:collapsed.
@@ -88,4 +89,4 @@ const HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: R
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-primary-bright`, `--c-surface`, `--side-panel-width`, `--space-md`, `--space-sm`, `--space-xl`.
+It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-primary-bright`, `--c-surface`, `--side-nav-w`, `--side-panel-width`, `--space-md`, `--space-sm`, `--space-xl`, `--transition-fast`, `--transition-normal`.
