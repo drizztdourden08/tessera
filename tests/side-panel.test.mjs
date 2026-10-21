@@ -21,7 +21,7 @@ describe('SidePanel', () => {
     const html = draw();
     expect(html).toMatch(/^<div class="side-panel pane-edge-host side-panel--start side-panel--collapsible" style="--side-panel-width:288px"><aside/);
     expect(html).toContain('aria-label="Sprites" class="box--sunken side-panel__pane"');
-    expect(html).toMatch(/class="section-header card__header card__header--primary"><div class="section-header__text"><h2[^>]*>Sprites/);
+    expect(html).toMatch(/class="section-header card__header card__header--neutral"><div class="section-header__text"><h2[^>]*>Sprites/);
     expect(html).toContain('class="scroll-area side-panel__body" data-axis="y" data-scrollbar="slim"><section class="panel-container side-panel__container">');
     expect(html).toContain('<p>Rows</p></div></section></div></aside><div class="pane-edge pane-edge--horizontal pane-edge--edge-start side-panel__edge">');
     expect(html).toMatch(/role="separator"[^>]*aria-label="Resize Sprites"[^>]*aria-valuenow="288" aria-valuemin="0" aria-valuemax="448"/);
@@ -42,13 +42,15 @@ describe('SidePanel', () => {
     expect(html).not.toContain('side-panel__line');
   });
 
-  it('sets the toggle beside the line in the row of the heading, so it lines up whatever the heading height', () => {
+  it('overlays the toggle and resize hit area on the pane border at the heading height', () => {
     const css = sheet('src/composites/SidePanel/SidePanel.css');
     const edge = sheet('src/composites/pane-edge/PaneEdge.css');
-    expect(rule(css, '.side-panel')).toContain('grid-template-columns: auto auto;');
+    expect(rule(css, '.side-panel')).toContain('grid-template-columns: minmax(0, auto) 0;');
     expect(rule(edge, '.pane-edge-host')).toContain('grid-template-rows: minmax(var(--size-40), auto) minmax(0, 1fr);');
     expect(rule(css, '.side-panel__pane')).toMatch(/grid-row: 1 \/ -1;\s+grid-template-rows: subgrid;/);
-    expect(rule(edge, '.pane-edge--horizontal > .pane-edge__toggle')).toMatch(/grid-row: 1;\s+align-self: center;/);
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle')).toMatch(/position: absolute;[\s\S]*inset-inline-start: 50%;[\s\S]*transform: translate\(-50%, -50%\);/);
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('inline-size: 0;');
+    expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .resize-handle')).toContain('inline-size: var(--space-xl);');
     expect(rule(css, '.side-panel__pane > .card__header')).toContain('grid-row: 1;');
     expect(rule(css, '.side-panel__pane .pane-rail__actions')).toMatch(/grid-row: 1;\s+align-self: center;/);
     expect(css).toMatch(/\.side-panel--start \.side-panel__pane,\n\.side-panel--end \.side-panel__edge \{\s+grid-column: 1;/);

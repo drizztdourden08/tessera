@@ -27,8 +27,7 @@
   padding: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border-start-end-radius: 0;
-  border-end-end-radius: 0;
+  border-inline-end: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
 }
 
 .list-detail-layout__list-heading {
@@ -37,6 +36,16 @@
 
 .list-detail-layout__list-heading > .card__header {
   border-bottom-color: var(--c-border);
+  background: var(--c-surface);
+}
+
+.list-detail-layout__panes:has(.resize-handle:is(:hover, :focus-visible, .resize-handle--dragging)) .list-detail-layout__list {
+  border-inline-end-color: var(--c-primary-bright);
+  box-shadow: inset -2px 0 var(--space-xs) -2px var(--c-primary-bright), inset -1px 0 var(--space-2xs) -1px var(--p-pure-white);
+}
+
+.list-detail-layout__panes:dir(rtl):has(.resize-handle:is(:hover, :focus-visible, .resize-handle--dragging)) .list-detail-layout__list {
+  box-shadow: inset 2px 0 var(--space-xs) -2px var(--c-primary-bright), inset 1px 0 var(--space-2xs) -1px var(--p-pure-white);
 }
 
 .list-detail-layout__list-content {
@@ -121,6 +130,10 @@
     border: 0;
     background: none;
     overflow: visible;
+  }
+
+  .list-detail-layout__list--folded {
+    border-inline-end: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
   }
 
   .list-detail-layout__list--folded > .pane-rail,

@@ -12,14 +12,14 @@ afterEach(() => vi.unstubAllGlobals());
 describe('the ListDetailLayout list width', () => {
   it('starts at a stored width, kept between its limits', () => {
     vi.stubGlobal('localStorage', { getItem: (name) => (name === 'presets.list' ? '999' : null) });
-    expect(draw({ storageKey: 'presets.list' })).toContain('grid-template-columns:480px auto minmax(0, 1fr)');
+    expect(draw({ storageKey: 'presets.list' })).toContain('grid-template-columns:480px 0 minmax(0, 1fr)');
   });
 });
 
 describe('ListDetailLayout', () => {
   it('draws the list pane, the pane edge with the divider and the fold button, and the detail pane', () => {
     const html = draw();
-    expect(html).toContain('grid-template-columns:320px auto minmax(0, 1fr)');
+    expect(html).toContain('grid-template-columns:320px 0 minmax(0, 1fr)');
     expect(html).toMatch(/class="box--sunken list-detail-layout__list".*class="pane-edge pane-edge--horizontal pane-edge--edge-start list-detail-layout__edge".*class="list-detail-layout__detail"/);
     expect(html.match(/role="separator"/g)).toHaveLength(1);
     expect(html).toMatch(/role="separator"[^>]*aria-valuenow="320" aria-valuemin="0" aria-valuemax="480" aria-controls=/);
@@ -38,7 +38,7 @@ describe('ListDetailLayout', () => {
   it('draws a folded list as a rail in its pane: the one divider stays, the detail takes the room, the button shows the list again', () => {
     for (const html of [draw({ collapsed: true, listLabel: 'presets' }), draw({ defaultCollapsed: true, listLabel: 'presets' })]) {
       expect(html).toContain('class="list-detail-layout list-detail-layout--collapsed"');
-      expect(html).toContain('grid-template-columns:auto auto minmax(0, 1fr)');
+      expect(html).toContain('grid-template-columns:auto 0 minmax(0, 1fr)');
       expect(html).toMatch(/list-detail-layout__list list-detail-layout__list--folded"[^>]*><div class="box--sunken pane-rail pane-rail--folded pane-rail--start">/);
       expect(html).toContain('aria-label="Show presets"');
       expect(html).toContain('aria-expanded="false"');
@@ -78,10 +78,10 @@ describe('ListDetailLayout', () => {
 describe('ListDetailLayout columns by share', () => {
   it('gives the list a share of the room, and the divider drags it in percent between 20 and 80', () => {
     const html = draw({ listRatio: 0.6 });
-    expect(html).toContain('grid-template-columns:minmax(0, 60fr) auto minmax(0, 40fr)');
+    expect(html).toContain('grid-template-columns:minmax(0, 60fr) 0 minmax(0, 40fr)');
     expect(html).toMatch(/role="separator"[^>]*aria-valuenow="60" aria-valuemin="0" aria-valuemax="80"/);
     expect(draw({ listRatio: 0.6, collapsible: false })).toMatch(/role="separator"[^>]*aria-valuenow="60" aria-valuemin="20" aria-valuemax="80"/);
-    expect(draw({ listRatio: 0.95 })).toContain('grid-template-columns:minmax(0, 80fr) auto minmax(0, 20fr)');
+    expect(draw({ listRatio: 0.95 })).toContain('grid-template-columns:minmax(0, 80fr) 0 minmax(0, 20fr)');
   });
 
   it('keeps a stored share apart from a stored width', () => {
@@ -90,7 +90,7 @@ describe('ListDetailLayout columns by share', () => {
     expect(options.ratio).toBe(true);
     expect(layoutOptionsOf({ list: null, storageKey: 'records' }).width.storageKey).toBe('records');
     vi.stubGlobal('localStorage', { getItem: (name) => (name === 'records:ratio' ? '70' : null) });
-    expect(draw({ storageKey: 'records', listRatio: 0.6 })).toContain('minmax(0, 70fr) auto minmax(0, 30fr)');
+    expect(draw({ storageKey: 'records', listRatio: 0.6 })).toContain('minmax(0, 70fr) 0 minmax(0, 30fr)');
   });
 });
 
@@ -111,7 +111,7 @@ describe('ListDetailLayout detail fold', () => {
     ];
     for (const html of folded) {
       expect(html).toContain('list-detail-layout--detail-collapsed');
-      expect(html).toContain('grid-template-columns:minmax(0, 1fr) auto auto');
+      expect(html).toContain('grid-template-columns:minmax(0, 1fr) 0 auto');
       expect(html).toContain('aria-label="Show record"');
       expect(html).not.toContain('aria-label="Hide list"');
       expect(html).toMatch(/pane-rail__label" aria-hidden="true">record</);
@@ -127,7 +127,7 @@ describe('ListDetailLayout detail fold', () => {
     const both = draw({ collapsed: true, detailCollapsible: true, detailCollapsed: true });
     expect(both).toContain('list-detail-layout--collapsed');
     expect(both).not.toContain('list-detail-layout--detail-collapsed');
-    expect(both).toContain('grid-template-columns:auto auto minmax(0, 1fr)');
+    expect(both).toContain('grid-template-columns:auto 0 minmax(0, 1fr)');
     expect(layoutOptionsOf({ list: null, storageKey: 'records' }).detailCollapse.storageKey).toBe('records:detail-collapsed');
     vi.stubGlobal('localStorage', { getItem: (name) => (name === 'records:detail-collapsed' ? 'true' : null) });
     expect(draw({ storageKey: 'records', detailCollapsible: true })).toContain('list-detail-layout--detail-collapsed');

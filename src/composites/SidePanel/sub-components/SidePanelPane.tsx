@@ -13,7 +13,7 @@ const SidePanelPane = (props: SidePanelPaneProps) => {
   return (
     <Box as="aside" id={id} surface={collapsed ? undefined : 'sunken'} aria-label={title} className="side-panel__pane">
       {collapsed && <PaneRail rail={{ label: title, side, onUnfold: fold.toggle, action, items: railItems }} />}
-      {(showTitle || action !== undefined) && <CardHeader title={showTitle ? title : ''} level={level} tone="primary" actions={tools} />}
+      {(showTitle || action !== undefined) && <CardHeader title={showTitle ? title : ''} level={level} actions={tools} />}
       <ScrollArea scrollbar="slim" className="side-panel__body">
         {containers.map((container, index) => <PanelContainer key={index} {...container} className="side-panel__container">{container.content}</PanelContainer>)}
       </ScrollArea>
