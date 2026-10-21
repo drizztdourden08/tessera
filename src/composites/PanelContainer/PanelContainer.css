@@ -3,6 +3,7 @@
   display: flex;
   min-inline-size: 0;
   flex-direction: column;
+  gap: var(--space-sm);
 }
 
 .panel-container__body {

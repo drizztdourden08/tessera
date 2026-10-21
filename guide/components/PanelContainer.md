@@ -53,4 +53,4 @@ import { PanelContainer } from '@drizztdourden08/tessera';
 
 ## Tokens
 
-It draws on `--space-md`.
+It draws on `--space-md`, `--space-sm`.
