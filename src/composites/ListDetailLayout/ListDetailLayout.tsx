@@ -11,11 +11,12 @@ import { layoutOptionsOf } from './behavior/layout-options-of';
 import { paneClass } from './behavior/pane-class';
 import { useListDetailPanes } from './behavior/useListDetailPanes';
 import { ListDetailLayoutBack } from './sub-components/ListDetailLayoutBack';
+import { ListDetailLayoutListPane } from './sub-components/ListDetailLayoutListPane';
 import type { ListDetailLayoutProps } from './ListDetailLayout.type';
 import './ListDetailLayout.css';
 
 const ListDetailLayout = (props: ListDetailLayoutProps) => {
-  const { list, detail, emptyDetail, onBack, className } = props;
+  const { listContainers, detail, emptyDetail, onBack, className, listShowTitle = true, listAction, listRailItems = [], detailRailItems = [] } = props;
   const { navigation, lists } = useTesseraStrings();
   const listId = useId();
   const detailId = useId();
@@ -30,21 +31,25 @@ const ListDetailLayout = (props: ListDetailLayoutProps) => {
   return (
     <Box className={layoutClass(look, className)}>
       <Box ref={panes.panesRef} className="list-detail-layout__panes pane-edge-host" data-view={view} style={{ gridTemplateColumns: panes.columns }}>
-        <Box
+        <ListDetailLayoutListPane
           id={listId}
-          surface={listFold.collapsed ? undefined : 'sunken'}
-          className={paneClass('list', { scroll: scroll.list, empty: false, folded: listFold.collapsed })}
-        >
-          {listFold.collapsed && <PaneRail rail={{ label: listLabel, side: 'start', onUnfold: listFold.toggle }} />}
-          {list}
-        </Box>
+          collapsed={listFold.collapsed}
+          label={listLabel}
+          showTitle={listShowTitle}
+          action={listAction}
+          railItems={listRailItems}
+          containers={listContainers}
+          scroll={scroll.list}
+          onUnfold={listFold.toggle}
+        />
         <PaneEdge
           handle={panes.handle}
           start={{ fold: listFold, collapsible: options.collapse.collapsible, id: listId, label: listLabel }}
           end={{ fold: detailFold, collapsible: options.detailCollapse.collapsible, id: detailId, label: detailLabel }}
+          className="list-detail-layout__edge"
         />
         <Box id={detailId} className={paneClass('detail', { scroll: scroll.detail, empty, folded: detailFold.collapsed })}>
-          {detailFold.collapsed && <PaneRail rail={{ label: detailLabel, side: 'end', onUnfold: detailFold.toggle }} />}
+          {detailFold.collapsed && <PaneRail rail={{ label: detailLabel, side: 'end', onUnfold: detailFold.toggle, items: detailRailItems }} />}
           {onBack && !empty && <ListDetailLayoutBack label={labels.back} onBack={onBack} />}
           {empty ? (emptyDetail ?? <EmptyState message={lists.pickItem} />) : detail}
         </Box>

@@ -16,7 +16,7 @@ type ListDetailMove =
   | { kind: 'create' }
   | { kind: 'run'; run: () => void };
 
-interface ListDetailProps<T> extends Omit<ListDetailLayoutProps, 'list' | 'detail' | 'onBack'> {
+interface ListDetailProps<T> extends Omit<ListDetailLayoutProps, 'listContainers' | 'detail' | 'onBack'> {
   list: ListDetailListProps<T>;
   selectedId: string | null;
   onSelect: (id: string | null) => void;

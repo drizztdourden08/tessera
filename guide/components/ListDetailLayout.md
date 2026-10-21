@@ -30,7 +30,9 @@ ListDetailLayout draws the panes, the resize, the fold and the small window of e
 
 ## Rules
 
-- Pass the list and the detail as content; the layout draws the panes, their surfaces and their scroll.
+- Pass listContainers with titled sections and the detail as content; the layout draws the panes, their surfaces and their scroll.
+- Each list container keeps its required primary heading. The list pane title comes from listLabel by default; pass listShowTitle={false} when the section title is sufficient.
+- Pass listAction and listRailItems for the list pane action and folded rail icons. The detail pane keeps its generic editor content.
 - Leave detail out, or pass null, while nothing is picked; emptyDetail replaces the default placeholder.
 - Pass onBack to clear the selection; under 768 px it shows the list again.
 - Pass storageKey to keep the width and the fold between visits; the fold is kept under storageKey:collapsed.
@@ -67,16 +69,17 @@ const SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; rend
   const selected = sessions.find((session) => session.id === selectedId);
   return (
     <ListDetailLayout
-      list={(
-        <ListItemList heading="Sessions">
+      listContainers={[{ title: 'Sessions', content: (
+        <ListItemList>
           {sessions.map((session) => (
             <ListItemRow key={session.id} name={session.name} selected={session.id === selectedId} onClick={() => setSelectedId(session.id)} />
           ))}
         </ListItemList>
-      )}
+      ) }]}
       detail={selected && renderSession(selected)}
       onBack={() => setSelectedId(null)}
       listLabel="sessions"
+      listShowTitle={false}
       storageKey="sessions.list"
     />
   );
@@ -85,7 +88,7 @@ const SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; rend
 
 ## Props
 
-- `list`: `ReactNode`.
+- `listContainers`: `PanelContainerConfig[]`.
 - `detail` (optional): `ReactNode`.
 - `emptyDetail` (optional): `ReactNode`.
 - `onBack` (optional): `() => void`.
@@ -107,6 +110,10 @@ const SessionsScreen = ({ sessions, renderSession }: { sessions: Session[]; rend
 - `storageKey` (optional): `string`.
 - `listLabel` (optional): `string`.
 - `detailLabel` (optional): `string`.
+- `listShowTitle` (optional): `boolean`. Default `true`.
+- `listAction` (optional): `ReactNode`.
+- `listRailItems` (optional): `ReactNode[]`. Default `[]`.
+- `detailRailItems` (optional): `ReactNode[]`. Default `[]`.
 - `className` (optional): `string`.
 
 ## Tokens

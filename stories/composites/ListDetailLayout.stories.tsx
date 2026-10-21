@@ -36,25 +36,15 @@ const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
   const { startSelected, emptyMessage, collapsible, startCollapsed, ratio, detailCollapsible, startDetailCollapsed, narrow } = { ...ARGS, ...props };
   const [selectedId, setSelectedId] = useState<string | null>(startSelected ? SESSIONS[0].id : null);
   const selected = SESSIONS.find((s) => s.id === selectedId);
-  const list = (
-    <ListItemList heading="Sessions" count={SESSIONS.length}>
-      {SESSIONS.map((s) => (
-        <ListItemRow
-          key={s.id}
-          icon={<Icon name={NAV_ICONS.sessions} />}
-          name={s.name}
-          meta={`${s.players} players · ${s.server}`}
-          selected={s.id === selectedId}
-          onClick={() => setSelectedId(s.id)}
-        />
-      ))}
-    </ListItemList>
-  );
   return (
     <Box className={`list-detail-story list-detail-story--tall${narrow ? ' list-detail-story--narrow' : ''}`}>
       <ListDetailLayout
-        list={list}
+        listContainers={[{ title: 'Sessions', content: <ListItemList>{SESSIONS.map((s) => (
+          <ListItemRow key={s.id} icon={<Icon name={NAV_ICONS.sessions} />} name={s.name} meta={`${s.players} players · ${s.server}`} selected={s.id === selectedId} onClick={() => setSelectedId(s.id)} />
+        ))}</ListItemList> }]}
         detail={selected && <SessionDetail session={selected} />}
+        listLabel="sessions"
+        listShowTitle={false}
         emptyDetail={<EmptyState icon={<Icon name={NAV_ICONS.sessions} />} message={emptyMessage} />}
         onBack={() => setSelectedId(null)}
         collapsible={collapsible}
@@ -62,7 +52,6 @@ const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
         listRatio={ratio ? LIST_RATIO : undefined}
         detailCollapsible={detailCollapsible}
         defaultDetailCollapsed={startDetailCollapsed}
-        listLabel="sessions"
         detailLabel="session details"
       />
     </Box>
@@ -125,15 +114,17 @@ const [selectedId, setSelectedId] = useState<string | null>(null);
 const selected = sessions.find((s) => s.id === selectedId);
 
 <ListDetailLayout
-  list={(
-    <ListItemList heading="Sessions">
+  listContainers={[{ title: "Sessions", content: (
+    <ListItemList>
       {sessions.map((s) => (
         <ListItemRow key={s.id} name={s.name} selected={s.id === selectedId} onClick={() => setSelectedId(s.id)} />
       ))}
     </ListItemList>
-  )}
+  ) }]}
   detail={selected && <SessionDetail session={selected} />}
   onBack={() => setSelectedId(null)}
+  listLabel="sessions"
+  listShowTitle={false}
   storageKey="sessions.list"
 />`;
 

@@ -107,6 +107,10 @@ const PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Pr
 - `storageKey` (optional): `string`.
 - `listLabel` (optional): `string`.
 - `detailLabel` (optional): `string`.
+- `listShowTitle` (optional): `boolean`.
+- `listAction` (optional): `ReactNode`.
+- `listRailItems` (optional): `ReactNode[]`.
+- `detailRailItems` (optional): `ReactNode[]`.
 
 ## Tokens
 

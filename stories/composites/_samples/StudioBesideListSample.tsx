@@ -15,7 +15,7 @@ const StudioBesideListSample = () => {
   const [query, setQuery] = useState('');
 
   const list = (
-    <ListItemList heading="Sprites" count={SPRITES.length}>
+    <ListItemList label="Sprites">
       {SPRITES.map((item) => (
         <ListItemRow key={item.id} name={item.name} meta={item.meta} selected={sprite.id === item.id} onClick={() => setPicked(item.id)} />
       ))}
@@ -38,7 +38,7 @@ const StudioBesideListSample = () => {
     </StudioLayout>
   );
 
-  return <ListDetailLayout list={list} detail={studio} listWidth={240} detailScroll={false} listLabel="sprites" detailLabel="sprite studio" />;
+  return <ListDetailLayout listContainers={[{ title: 'Sprites', content: list }]} detail={studio} listWidth={240} detailScroll={false} listLabel="sprites" listShowTitle={false} detailLabel="sprite studio" />;
 };
 
 export { StudioBesideListSample };

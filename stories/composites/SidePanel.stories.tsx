@@ -63,7 +63,7 @@ const Overview = overviewStory({
     'The body sits on the sunken surface; the heading names the panel and holds `actions`.',
     'A thin line runs down its inner edge, with the round [CollapseToggle] beside it, level with the heading.',
     'Every panel resizes by drag or arrow keys; pulled under its minimum it folds, and the rail drags open.',
-    'Folded, it is a 60 px rail: `actions`, the title written sideways, then `rail`, such as icons.',
+    'Folded, it is a 60 px rail: a reserved action slot, the title written sideways, then `railItems`, such as icons.',
     'A glow around a rail icon spreads past the rail; `side="end"` mirrors the line, the toggle and the title.',
     '`width`, `minWidth` and `maxWidth` set the width; `storageKey` keeps it and the fold.',
   ],

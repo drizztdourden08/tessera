@@ -67,6 +67,6 @@ describe('parts drawn on a Box surface', () => {
       ['src/composites/ShortcutTour/ShortcutTour.tsx', 'raised'],
     ];
     asks.forEach(([file, surface]) => expect(sheet(file), file).toContain(`surface="${surface}"`));
-    expect(sheet('src/composites/ListDetailLayout/ListDetailLayout.tsx')).toContain("surface={listFold.collapsed ? undefined : 'sunken'}");
+    expect(sheet('src/composites/ListDetailLayout/sub-components/ListDetailLayoutListPane.tsx')).toContain("surface={collapsed ? undefined : 'sunken'}");
   });
 });

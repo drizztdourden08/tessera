@@ -47,7 +47,7 @@
 @container screen-layer (width < 840px) or (height < 560px) {
   .screen-window {
     gap: var(--space-md);
-    padding: var(--space-md);
+    padding: 0;
   }
 
   .screen-window--header > .content-header { padding-inline: var(--space-md); }
@@ -55,7 +55,7 @@
 
 .platform-mobile .screen-window {
   gap: var(--space-md);
-  padding: var(--space-md);
+  padding: 0;
 }
 
 .platform-mobile .screen-window--header > .content-header {
@@ -86,7 +86,7 @@
 
 @container screen-layer (width < 840px) or (height < 560px) {
   .screen-window.screen-window--bare {
-    padding: calc(var(--collapse-toggle-d) + 2 * var(--space-sm)) var(--space-sm) var(--space-sm);
+    padding: calc(var(--collapse-toggle-d) + 2 * var(--space-sm)) 0 0;
   }
 
   .screen-layer__frame:has(> .screen-layer__floating) .screen-window--bare {
@@ -95,7 +95,7 @@
 }
 
 .platform-mobile .screen-window.screen-window--bare {
-  padding: calc(var(--collapse-toggle-d) + 2 * var(--space-sm)) var(--space-sm) var(--space-sm);
+  padding: calc(var(--collapse-toggle-d) + 2 * var(--space-sm)) 0 0;
 }
 
 .platform-mobile .screen-layer__frame:has(> .screen-layer__floating) .screen-window--bare {

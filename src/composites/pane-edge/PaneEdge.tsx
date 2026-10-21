@@ -11,7 +11,7 @@ const PaneEdge = (props: PaneEdgeProps) => {
   const { handle, start, end, orientation = 'horizontal', className } = props;
   const { navigation } = useTesseraStrings();
   const sized = handle.edge === 'end' ? end : start;
-  const classes = ['pane-edge', `pane-edge--${orientation}`, className].filter(Boolean).join(' ');
+  const classes = ['pane-edge', `pane-edge--${orientation}`, `pane-edge--edge-${handle.edge}`, className].filter(Boolean).join(' ');
   return (
     <Box className={classes}>
       <EdgeToggle pane={end} side="end" across={start} />

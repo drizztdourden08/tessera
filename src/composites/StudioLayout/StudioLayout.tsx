@@ -14,8 +14,8 @@ import './StudioLayout.css';
 
 const sideOf = (side: SidePanelSide, panel: StudioLayoutPanel | undefined) => {
   if (!panel) return null;
-  const { content, ...rest } = panel;
-  return <SidePanel side={side} {...rest}>{content}</SidePanel>;
+  const { content, title, ...rest } = panel;
+  return <SidePanel side={side} title={title} {...rest} containers={[{ title: 'Contents', content }]} />;
 };
 
 const StudioLayout = (props: StudioLayoutProps) => {

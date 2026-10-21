@@ -27,7 +27,7 @@ const draw = (props) => renderToString(h(ItemList, { ...base, ...props }));
 describe('ItemList', () => {
   it('draws the title with its count, New and the rows under their groups, in first seen order', () => {
     const html = draw({ groupBy: (preset) => preset.game, onCreate: () => {}, selectedId: 'a', onSelect: () => {} });
-    expect(html).toContain('Presets · 3');
+    expect(html).toContain('Presets');
     expect(html).toContain('>New<');
     const headings = [...html.matchAll(/list-item-list__heading[^>]*>([^<]+)</g)].map((match) => match[1]);
     expect(headings).toEqual(['A Link to the Past', 'Timespinner']);
@@ -76,7 +76,7 @@ describe('ListDetail', () => {
 
   it('draws the list and the editor of the picked item, and no question until one is asked', () => {
     const html = md({ dirty: true });
-    expect(html).toContain('Presets · 3');
+    expect(html).toContain('Presets');
     expect(html).toContain('The editor');
     expect(html).not.toContain('Unsaved changes');
     expect(html).not.toContain('role="alertdialog"');

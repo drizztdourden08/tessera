@@ -8,8 +8,8 @@ interface PaneRailLabel {
   side: CollapseToggleSide;
   orientation?: SplitOrientation;
   onUnfold: () => void;
-  actions?: ReactNode;
-  content?: ReactNode;
+  action?: ReactNode;
+  items?: ReactNode[];
 }
 
 interface PaneRailProps {

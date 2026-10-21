@@ -14,6 +14,10 @@
   min-block-size: var(--size-32);
 }
 
+.item-list__head:empty {
+  display: none;
+}
+
 .item-list__title {
   min-inline-size: 0;
   margin: 0;

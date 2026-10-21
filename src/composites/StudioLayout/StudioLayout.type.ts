@@ -14,7 +14,7 @@ interface StudioLayoutBar {
   level?: HeadingLevel;
 }
 
-type StudioLayoutPanel = Omit<SidePanelProps, 'side' | 'children' | 'className'> & { content: ReactNode };
+type StudioLayoutPanel = Omit<SidePanelProps, 'side' | 'containers' | 'className'> & { content: ReactNode };
 
 interface StudioLayoutProps {
   editorLabel: string;

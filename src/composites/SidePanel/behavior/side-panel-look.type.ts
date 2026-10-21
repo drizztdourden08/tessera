@@ -6,6 +6,7 @@ interface SidePanelLook {
   collapsible: boolean;
   collapsed: boolean;
   dragging: boolean;
+  showHeader: boolean;
 }
 
 export type { SidePanelLook };

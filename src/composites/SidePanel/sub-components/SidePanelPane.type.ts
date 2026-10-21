@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import type { HeadingLevel } from '../../../primitives/Title/Title.type';
 import type { PaneFold } from '../../pane-edge/pane-fold.type';
+import type { PanelContainerConfig } from '../../PanelContainer/PanelContainer.type';
 import type { SidePanelSide } from '../SidePanel.type';
 
 interface SidePanelPaneProps {
@@ -9,10 +10,11 @@ interface SidePanelPaneProps {
   title: string;
   side: SidePanelSide;
   level: HeadingLevel;
-  actions: ReactNode;
-  rail: ReactNode;
+  showTitle: boolean;
+  action: ReactNode;
+  railItems: ReactNode[];
+  containers: PanelContainerConfig[];
   fold: PaneFold;
-  children: ReactNode;
 }
 
 export type { SidePanelPaneProps };

@@ -9,8 +9,8 @@ import { sidePanelOptionsOf } from '../src/composites/SidePanel/behavior/side-pa
 import { SplitPane } from '../src/composites/SplitPane';
 
 const source = (file) => fs.readFileSync(`src/composites/${file}`, 'utf8');
-const panel = (extra = {}) => renderToString(h(SidePanel, { title: 'Sprites', ...extra }, 'Rows'));
-const list = (extra = {}) => renderToString(h(ListDetailLayout, { list: 'rows', detail: 'detail', ...extra }));
+const panel = (extra = {}) => renderToString(h(SidePanel, { title: 'Sprites', containers: [{ title: 'Rows', content: 'Rows' }], ...extra }));
+const list = (extra = {}) => renderToString(h(ListDetailLayout, { listContainers: [{ title: 'Rows', content: 'rows' }], detail: 'detail', ...extra }));
 const split = (extra = {}) => renderToString(h(SplitPane, { start: 'a', end: 'b', ...extra }));
 const range = (min, max) => new RegExp(`role="separator"[^>]*aria-valuemin="${min}" aria-valuemax="${max}"`);
 

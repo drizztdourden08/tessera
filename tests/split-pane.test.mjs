@@ -14,7 +14,7 @@ describe('SplitPane', () => {
     expect(style(draw({ defaultRatio: 0.4 }))).toBe('grid-template-columns:minmax(0, 40fr) auto minmax(0, 60fr)');
     expect(style(draw({ defaultRatio: 0.95 }))).toContain('minmax(0, 80fr) auto minmax(0, 20fr)');
     expect(style(draw({ defaultRatio: 0.05 }))).toContain('minmax(0, 20fr) auto minmax(0, 80fr)');
-    expect(draw()).toMatch(/split-pane__pane">a<\/div><div class="pane-edge pane-edge--horizontal">.*<div id="[^"]+" class="split-pane__pane">b<\/div>/);
+    expect(draw()).toMatch(/split-pane__pane">a<\/div><div class="pane-edge pane-edge--horizontal pane-edge--edge-start">.*<div id="[^"]+" class="split-pane__pane">b<\/div>/);
   });
 
   it('folds a pane into the auto column and gives the other pane the room, the edge staying in place', () => {

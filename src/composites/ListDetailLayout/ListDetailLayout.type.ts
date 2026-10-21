@@ -1,8 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { PanelContainerConfig } from '../PanelContainer/PanelContainer.type';
 
 interface ListDetailLayoutProps {
-  list: ReactNode;
+  listContainers: PanelContainerConfig[];
   detail?: ReactNode;
   emptyDetail?: ReactNode;
   onBack?: () => void;
@@ -24,7 +25,23 @@ interface ListDetailLayoutProps {
   storageKey?: string;
   listLabel?: string;
   detailLabel?: string;
+  listShowTitle?: boolean;
+  listAction?: ReactNode;
+  listRailItems?: ReactNode[];
+  detailRailItems?: ReactNode[];
   className?: string;
 }
 
-export type { ListDetailLayoutProps };
+interface ListDetailLayoutListPaneProps {
+  id: string;
+  collapsed: boolean;
+  label: string;
+  showTitle: boolean;
+  action?: ReactNode;
+  railItems: ReactNode[];
+  containers: PanelContainerConfig[];
+  scroll: boolean;
+  onUnfold: () => void;
+}
+
+export type { ListDetailLayoutListPaneProps, ListDetailLayoutProps };

@@ -60,7 +60,7 @@ const PresetsScreen = ({ presets, save }: { presets: Preset[]; save: (preset: Pr
   );
 };
 `,
-  propsHash: '4a8dd53038f62150',
+  propsHash: '0ac489fb4a0fd3d8',
 } satisfies ComponentUsage;
 
 export { usage };
