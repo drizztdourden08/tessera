@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind style */
 .pane-edge-host {
-
   display: grid;
   grid-template-rows: minmax(var(--size-40), auto) minmax(0, 1fr);
   column-gap: var(--space-2xs);
