@@ -33,7 +33,7 @@ CollapseToggle is the one fold button of every Tessera panel: SideNav, SidePanel
 - Pass side="start" for a panel on the left and side="end" for one on the right: the chevron points toward that edge to fold and away from it to unfold.
 - Pass label with the name of the panel, such as profiles: the button reads Hide profiles or Show profiles.
 - Pass controls with the id of the panel, and collapsed with onToggle from the state that folds it.
-- In a pane, place it on the dashed outside border at the heading level; SidePanel and ListDetailLayout do this through their shared edge. SplitPane keeps its fold buttons beside the resize handle, and SideNav keeps its button half over the navigation border.
+- In a pane, place it beside the edge line of the panel, level with its heading, with a 4 px gap (--space-xs) between the line and the button; SidePanel, ListDetailLayout and SplitPane do this for you through their edge. Only the navigation panel SideNav keeps it half over its border.
 - Prefer SidePanel; a panel of your own folds to its rail: the sunken surface, --side-nav-w wide, the title written sideways.
 - Use it as it is: it draws at 24 px and takes clicks on 28 by 28 px, and the chevron turns on its own.
 

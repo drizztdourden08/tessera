@@ -14,7 +14,7 @@ The source is `src/composites/SidePanel/SidePanel.tsx`. Its gallery page is Comp
 
 What are you placing? Layout. What are you arranging? A side panel with a heading that folds to a rail.
 
-SidePanel is the one side panel of a work screen: the sunken surface, the neutral heading, the dashed outside border with its overlapping fold button, the rail and the drag to resize or fold.
+SidePanel is the one side panel of a work screen: the sunken surface, neutral heading, dashed outside border with its overlapping fold button, the rail and the drag to resize or fold.
 
 ## Use it when
 
@@ -32,14 +32,15 @@ SidePanel is the one side panel of a work screen: the sunken surface, the neutra
 
 - Use it for every panel that folds or resizes beside a main view, other than the navigation of the app; draw no panel of your own.
 - Put it in a flex row beside the main view, with no bar or frame around it; it keeps its own width, and the main view takes the rest.
-- Pass side="end" for a panel on the right; its outside border, fold button and rail mirror to its left.
+- Pass side="end" for a panel on the right; its dashed outside border, overlapping fold button and rail mirror to its left.
 - Every panel resizes: there is no switch to turn it off. To hold a width, pass the same number to minWidth and maxWidth; the line still folds the panel.
 - Dragging the line about 32 px narrower than minWidth folds the panel to its rail, and dragging the line of a rail outward opens it; the arrow keys at the end of the range do the same.
 - Pass action for a button in the heading, such as Add or Rescan; the folded rail reserves its top slot and shows the button there when present.
 - Pass railItems as an array of item icons; the folded rail shows them under the title.
-- Pass containers for the expanded body. Each container has a required primary heading and body; use a meaningful section title distinct from the pane title.
-- The primary dashed outside border brightens and glows while the resize handle is hovered, focused or dragged.
+- Pass containers for the expanded body. Each container has a required heading and body; use a meaningful section title distinct from the pane title.
+- The dashed primary border is the resize edge; it brightens and glows while hovered, focused or dragged.
 - The border stays on the pane while expanded and folded; the chevron straddles it at the center of the actual heading row. Folding animates the pane, heading, body and rail, with motion disabled for reduced-motion preferences.
+- A glow around a rail icon, such as a drop-shadow on a ready device, spreads past the rail; only a rail too long to fit scrolls and clips it.
 - Put every expanded section in a container with title and content. The side panel keeps the sections mounted while folded and its body scrolls with the primary slim scrollbar.
 - Pass width, minWidth and maxWidth in pixels; when width is outside the default 224 to 448 range the range grows to take it, so a width of 192 stays 192.
 - Pass storageKey to keep the width, and the fold under storageKey:collapsed.
@@ -89,4 +90,4 @@ const HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: R
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-primary-bright`, `--c-surface`, `--side-nav-w`, `--side-panel-width`, `--space-md`, `--space-sm`, `--space-xl`, `--transition-fast`, `--transition-normal`.
+It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-surface`, `--radius-lg`, `--side-nav-w`, `--size-40`, `--space-2xs`, `--space-md`, `--space-sm`, `--transition-normal`.

@@ -112,7 +112,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.
   - A side panel the user drags wider: [ResizeHandle](components/ResizeHandle.md). ResizeHandle is the one resize line of every Tessera layout: drag, keys, value, range and drag to fold, with usePaneSize to keep a width in pixels.
-  - A side panel with a heading that folds to a rail: [SidePanel](components/SidePanel.md). SidePanel is the one side panel of a work screen: the sunken surface, the heading, the edge with its line and fold button, the rail and the drag to resize or fold.
+  - A side panel with a heading that folds to a rail: [SidePanel](components/SidePanel.md). SidePanel is the one side panel of a work screen: the sunken surface, neutral heading, dashed outside border with its overlapping fold button, the rail and the drag to resize or fold.
   - The button that folds a panel to its edge: [CollapseToggle](components/CollapseToggle.md). CollapseToggle is the one fold button of every Tessera panel: SideNav, SidePanel, StudioLayout and ListDetailLayout all draw it.
   - One slide at a time from a set: [Carousel](components/Carousel.md). Carousel shows one slide at a time with dots and arrows, and can turn by itself.
   - A list beside an editor, with unsaved edits guarded: [ListDetail](components/ListDetail.md). ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app.
@@ -204,7 +204,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 
 No question leads to these parts. Other components are built on them; reach for one only when no component above fits.
 
-- [PanelContainer](components/PanelContainer.md). A stacked section with a primary heading, optional header action and a body.
+- [PanelContainer](components/PanelContainer.md). A plain stacked section with a heading, optional action and a body.
 - [ScreenLayer](components/ScreenLayer.md). Building block: the overlay and the card of every screen, with one gap around the card that follows the room.
 - [ScreenPage](components/ScreenPage.md). Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.
 - [ScreenWindow](components/ScreenWindow.md). Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container.
