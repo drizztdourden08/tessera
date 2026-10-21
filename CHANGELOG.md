@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.46.2
+
+### Patch Changes
+
+- 26768c2: Add a small gap between a panel container title and its content, from one spacing token, in SidePanel, ListDetailLayout and StudioLayout.
+
 ## 0.46.1
 
 ### Patch Changes
