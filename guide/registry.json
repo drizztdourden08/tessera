@@ -8087,7 +8087,8 @@
         }
       },
       "tokens": [
-        "--space-md"
+        "--space-md",
+        "--space-sm"
       ],
       "parts": []
     },

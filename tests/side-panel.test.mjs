@@ -124,6 +124,10 @@ describe('SidePanel on either side', () => {
     expect(sheet('src/primitives/ScrollArea/ScrollArea.css')).toContain('overflow: hidden auto;');
   });
 
+  it('spaces every container title from its content with one spacing token', () => {
+    expect(rule(sheet('src/composites/PanelContainer/PanelContainer.css'), '.panel-container')).toContain('gap: var(--space-sm);');
+  });
+
   it('keeps its width under storageKey and its fold under storageKey:collapsed', () => {
     const options = sidePanelOptionsOf({ title: 'Sprites', storageKey: 'studio.sprites', width: 300, minWidth: 200, maxWidth: 400 });
     expect(options.width).toEqual({ initial: 300, min: 200, max: 400, storageKey: 'studio.sprites' });
