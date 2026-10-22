@@ -4,20 +4,19 @@ import { Box } from '../../primitives/Box';
 import { ScreenLayer } from '../ScreenLayer';
 import { useTopOnlyCheck } from './behavior/useTopOnlyCheck';
 import { useWindowLock } from './behavior/useWindowLock';
+import { windowClasses } from './behavior/window-classes';
+import { windowName } from './behavior/window-name';
 import { WindowCorner } from './sub-components/WindowCorner';
 import { WindowTop } from './sub-components/WindowTop';
 import type { ScreenWindowProps } from './ScreenWindow.type';
 import './ScreenWindow.css';
 
 const ScreenWindow = (props: ScreenWindowProps) => {
-  const { title, icon, onClose, children, header, titleRow = true, cornerTitle = true, floating, hidden, size, square, className } = props;
+  const { onClose, children, floating, hidden, size, square } = props;
   const titleId = useId();
   useTopOnlyCheck(props);
-  const bare = !titleRow && header === undefined;
+  const { bare, chip, label, named } = windowName(props, titleId);
   const lock = useWindowLock(props, bare);
-  const chip = bare && cornerTitle ? { title, icon, titleId } : undefined;
-  const label = bare && !chip && typeof title === 'string' ? title : undefined;
-  const classes = ['screen-window', header && 'screen-window--header', bare && 'screen-window--bare', className].filter(Boolean).join(' ');
 
   return (
     <ScreenLayer
@@ -32,8 +31,8 @@ const ScreenWindow = (props: ScreenWindowProps) => {
       label={label}
       labelledBy={label === undefined ? titleId : undefined}
     >
-      <Box className={classes}>
-        <WindowTop {...props} bare={bare} titleId={titleId} named={label !== undefined || chip !== undefined} />
+      <Box className={windowClasses(props, bare)}>
+        <WindowTop {...props} bare={bare} titleId={titleId} named={named} />
         <Box className="screen-window__content">{children}</Box>
       </Box>
     </ScreenLayer>

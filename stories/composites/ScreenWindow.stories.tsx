@@ -1,83 +1,12 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
-import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { ListItemRow, ScreenWindow } from '../../src/composites';
-import { Button, Icon, ScrollArea } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { EscapeLevels } from './_samples/EscapeLevels';
 import { HubWindow } from './_samples/hub-window/HubWindow';
-import { ScreenDemo } from './_samples/ScreenDemo';
-import { PLAYERS, SESSIONS, STATUS_LABEL } from './_samples/sessions';
-import { useWindowSwitch } from './_samples/useWindowSwitch';
+import { WindowDemo } from './_samples/window-demo/WindowDemo';
+import type { WindowArgs } from './_samples/window-demo/window-demo.type';
 import './ScreenWindow.stories.css';
-
-type WindowArgs = {
-  title: string;
-  subtitle: string;
-  withExtra: boolean;
-  withFloating: boolean;
-  withHeader: boolean;
-  withBack: boolean;
-  titleRow: boolean;
-  withIcon: boolean;
-  cornerTitle: boolean;
-  movable: boolean;
-  square: boolean;
-  phone?: boolean;
-};
-
-type WindowTop = { withHeader: boolean; players: boolean; subtitle: string; extra: ReactNode; goBack?: () => void };
-
-const SessionList = ({ padded }: { padded: boolean }) => (
-  <ScrollArea className={`screen-window-story__list${padded ? ' screen-window-story__list--padded' : ''}`}>
-    {SESSIONS.map((s) => <ListItemRow key={s.id} name={s.name} meta={`${STATUS_LABEL[s.status]}, ${s.players} players`} />)}
-  </ScrollArea>
-);
-
-const PlayerList = ({ padded }: { padded: boolean }) => (
-  <ScrollArea className={`screen-window-story__list${padded ? ' screen-window-story__list--padded' : ''}`}>
-    {PLAYERS.map((p) => <ListItemRow key={p.slot} name={p.name} meta={`${p.game}, ${p.checks} checks`} />)}
-  </ScrollArea>
-);
-
-const windowTop = (top: WindowTop) => {
-  const { withHeader, players, subtitle, extra, goBack } = top;
-  const back = goBack && { label: 'Home', onSelect: goBack };
-  if (!withHeader) return { subtitle: subtitle || undefined, extra, back };
-  return { back, header: { icon: <Icon name={players ? 'users' : 'layers'} />, actions: extra } };
-};
-
-const WindowDemo = (props: WindowArgs) => {
-  const { title, subtitle, withExtra, withFloating, withHeader, withBack, titleRow, withIcon, cornerTitle, movable, square, phone } = props;
-  const bare = !titleRow && !withHeader;
-  const [hidden, setHidden] = useState(false);
-  const { view, floating } = useWindowSwitch(withFloating);
-  const players = withFloating && view === 'players';
-  const shownTitle = players ? 'Players' : 'Sessions';
-  const extra = withExtra ? <Button size="sm">New session</Button> : undefined;
-  const goBack = withBack ? () => setHidden(true) : undefined;
-  const top = windowTop({ withHeader, players, subtitle, extra, goBack });
-  return (
-    <ScreenDemo hidden={hidden} onReopen={() => setHidden(false)} note="The close button hides the window" phone={phone}>
-      <ScreenWindow
-        title={withFloating ? shownTitle : title}
-        {...top}
-        floating={floating}
-        titleRow={titleRow}
-        icon={bare && withIcon ? <Icon name={players ? 'users' : 'layers'} /> : undefined}
-        cornerTitle={bare ? cornerTitle : undefined}
-        movable={movable && !titleRow}
-        hidden={hidden}
-        square={square}
-        onClose={() => setHidden(true)}
-      >
-        {players ? <PlayerList padded={withHeader} /> : <SessionList padded={withHeader} />}
-      </ScreenWindow>
-    </ScreenDemo>
-  );
-};
 
 const ARGS: Partial<WindowArgs> = { title: 'Sessions', subtitle: 'Profile: mira', withExtra: true, withFloating: false, withHeader: false, withBack: false, titleRow: true, withIcon: false, cornerTitle: true, movable: false, square: false };
 
@@ -201,9 +130,8 @@ const Overview = overviewStory({
     'The title bar takes a `subtitle`, `extra` controls before the close button and `back` for a back button.',
     '`header` swaps the title bar for a [ContentHeader] at the top edge, with the close button at its end.',
     'The padding is xl, lg under 960 by 600 px, and md once the card fills the layer; `header` drops it.',
-    '`titleRow={false}`: a round X sits on the corner, and `movable` adds a lock beside it.',
-    'With no title row, the title and an optional `icon` sit in a small chip on the top left corner; `cornerTitle={false}` drops it.',
-    'Unlocked, the window moves by its top edge and resizes from any edge; locking snaps it back to the centre.',
+    '`titleRow={false}`: the title and an `icon` sit in a chip top left, and a round X top right.',
+    '`cornerTitle={false}` drops the chip; `movable` adds a lock; unlocked, the window moves and resizes.',
     '`floating`, `hidden`, `size`, `square` go to the [ScreenLayer]; Escape calls `onClose` once nothing is above.',
   ],
   instead: '[WorkspaceScreen], [InfoScreen], [UtilityScreen] or [StageScreen] first; this only when none of them fits.',
