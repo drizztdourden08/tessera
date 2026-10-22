@@ -113,7 +113,7 @@ describe('the fold button overlaps the actual pane border', () => {
     expect(rule(edge, '.pane-edge')).toContain('column-gap: var(--pane-edge-gap);');
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('inline-size: 0;');
     expect(rule(edge, ':is(.side-panel, .list-detail-layout__panes).pane-edge-host')).toContain('column-gap: 0;');
-    expect(rule(sheet('src/composites/ListDetailLayout/ListDetailLayout.css'), '.list-detail-layout__panes > .list-detail-layout__detail')).toContain('margin-inline-start: var(--space-2xs);');
+    expect(rule(sheet('src/composites/ListDetailLayout/ListDetailLayout.css'), '.list-detail-layout__panes > .list-detail-layout__detail')).toContain('margin-inline-start: var(--space-md);');
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .resize-handle')).toMatch(/position: absolute;[\s\S]*inline-size: var\(--space-xl\);/);
     expect(rule(edge, '.pane-edge--horizontal')).toContain('grid-template-rows: subgrid;');
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('grid-template-columns: 0;');
