@@ -5,11 +5,6 @@
   --stepper-line: var(--border-width-thick);
   --stepper-step-w: var(--size-96);
   --stepper-gap: var(--space-xl);
-  --stepper-media-h: var(--size-32);
-  --stepper-label-lines: 2;
-  --stepper-lead-media: calc(var(--stepper-dot) * 0);
-  --stepper-lead-label: calc(var(--stepper-dot) * 0);
-  --stepper-lead: calc(var(--stepper-lead-media) + var(--stepper-lead-label));
   --stepper-tone: var(--c-primary);
   --stepper-on-tone: var(--c-on-primary);
   --stepper-fill: var(--duration-step-fill);
@@ -19,14 +14,6 @@
   --stepper-cycle: var(--duration-step);
 
   min-inline-size: 0;
-}
-
-.stepper[data-media] {
-  --stepper-lead-media: calc(var(--stepper-media-h) + var(--space-sm));
-}
-
-.stepper[data-label-at='above'] {
-  --stepper-lead-label: calc(var(--stepper-label-lines) * var(--text-sm) * var(--leading-tight) + var(--space-sm));
 }
 
 .stepper[data-scroll] {

@@ -36,14 +36,14 @@
   display: grid;
   place-items: center;
   inline-size: 100%;
-  block-size: var(--stepper-media-h);
+  block-size: var(--stepper-media-h, var(--size-32));
 }
 
 .stepper[data-label-at='above'] .stepper__text {
   order: -1;
   justify-content: flex-end;
-  min-block-size: calc(var(--stepper-label-lines) * var(--text-sm) * var(--leading-tight));
-  max-block-size: calc(var(--stepper-label-lines) * var(--text-sm) * var(--leading-tight));
+  min-block-size: calc(var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight));
+  max-block-size: calc(var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight));
   overflow: hidden;
 }
 

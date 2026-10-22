@@ -1,43 +1,18 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
+import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Stepper } from '../../src/primitives';
-import type { StepperOrientation, StepperReserve, StepperTone } from '../../src/primitives';
+import type { StepperProps } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
-import { STEPPER_STEPS, stepIdAt, stepperSteps } from './_samples/stepper-data';
+import { STEPPER_STEPS, ladderSteps, stepIdAt, stepperSteps } from './_samples/stepper-data';
+import { ARGS, ARG_TYPES, flat } from './_samples/stepper-story-args';
+import type { StepperArgs } from './_samples/stepper-story-args';
 import { StepperDriver } from './_samples/StepperDriver';
+import { StepperLadder } from './_samples/StepperLadder';
 import './Stepper.stories.css';
-
-type StepperArgs = {
-  orientation: StepperOrientation;
-  compact: boolean;
-  step: number;
-  summaries: boolean;
-  reserve: StepperReserve;
-  subSteps: boolean;
-  error: boolean;
-  doneIcon: 'check' | 'per step' | 'numbers';
-  colour: StepperTone | 'per step';
-};
-
-const COLOURS: readonly StepperArgs['colour'][] = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'info', 'teal', 'violet', 'per step'];
-
-const ARGS: Partial<StepperArgs> = { orientation: 'horizontal', compact: false, step: 3, summaries: true, reserve: 'summaries', subSteps: true, error: false, doneIcon: 'check', colour: 'primary' };
-
-const ARG_TYPES: PlaygroundArgTypes<StepperArgs> = {
-  summaries: { group: 'Content', control: 'boolean', description: 'What was chosen, under each done step.' },
-  reserve: { group: 'Layout', control: 'select', options: ['summaries', 'none'], description: 'Keeps a summary line under every step, so the Stepper keeps its size as steps fill in.' },
-  subSteps: { group: 'Content', control: 'boolean', description: 'The option tabs of Randomizer options.' },
-  compact: { group: 'Appearance', control: 'boolean', description: 'Step 3 of 6 and a bar.' },
-  doneIcon: { group: 'Appearance', control: 'select', options: ['check', 'per step', 'numbers'], description: 'What a done circle shows. The number flips over to the icon.' },
-  colour: { group: 'Appearance', control: 'select', options: COLOURS, description: 'The fill, border, glow and arriving line of each step.' },
-  orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
-  step: { group: 'State', control: 'select', options: STEPPER_STEPS.map((_, index) => index + 1), description: 'The current step, from 1. Change it to watch the sequence.' },
-  error: { group: 'State', control: 'boolean', description: 'Mode needs attention.' },
-};
 
 const meta = {
   title: 'Primitives · Navigation/Stepper',
@@ -61,6 +36,8 @@ const strip = (args: StepperArgs) => {
       tone={args.colour === 'per step' ? undefined : args.colour}
       doneIcon={args.doneIcon === 'numbers' ? false : 'check'}
       reserve={args.reserve}
+      dotVariant={args.dotVariant}
+      labelPlacement={args.labelPlacement}
       canSelect={before(at)}
       onSelect={() => undefined}
       onSubStepSelect={() => undefined}
@@ -69,8 +46,6 @@ const strip = (args: StepperArgs) => {
   );
   return <Box className={args.orientation === 'vertical' ? 'stepper-story__rail' : 'stepper-story__wide'}>{stepper}</Box>;
 };
-
-const flat: StepperArgs = { orientation: 'horizontal', compact: false, step: 1, summaries: false, reserve: 'summaries', subSteps: false, error: false, doneIcon: 'check', colour: 'primary' };
 
 const Playground = {
   name: 'Playground',
@@ -164,6 +139,46 @@ const IconsAndColours = {
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
+const LADDER_LOOKS = ['Ring dots, steps 1, 3 and 4 lit', 'Filled dots', 'Grey', 'Name below, with pictures', 'Narrow box that scrolls'] as const;
+
+const LIT_SOME: ReadonlySet<string> = new Set(['lamp', 'rupees-25', 'bee']);
+
+const ladderProps = (look: (typeof LADDER_LOOKS)[number]): Partial<StepperProps> => {
+  if (look === 'Filled dots') return { dotVariant: 'filled' };
+  if (look === 'Grey') return { tone: 'neutral' };
+  if (look === 'Name below, with pictures') return { labelPlacement: 'below' };
+  return {};
+};
+
+const ladder = (look: (typeof LADDER_LOOKS)[number]) => {
+  const stepper = (
+    <Stepper
+      steps={ladderSteps(LIT_SOME)}
+      selectMode="toggle"
+      labelPlacement="above"
+      dotVariant="ring"
+      tone="warning"
+      reserve="none"
+      stepWidth="sm"
+      scroll
+      onSelect={() => undefined}
+      label="Steps to keep"
+      {...ladderProps(look)}
+    />
+  );
+  return <Box className={look === 'Narrow box that scrolls' ? 'stepper-story__narrow' : 'stepper-story__wide'}>{stepper}</Box>;
+};
+
+const LadderPick = {
+  name: 'Ladder, pick the steps to keep',
+  render: () => <StepperLadder />,
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const LadderLooks = {
+  name: 'Ladder looks',
+  render: () => <Demonstrator rows={axis(LADDER_LOOKS)} align="stretch" cell={(look) => ladder(look)} />,
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
 const DONE_STEP = '.stepper__item[data-status="done"] .stepper__step';
 
 const CODE = `import { Stepper } from '@drizztdourden08/tessera';
@@ -185,11 +200,14 @@ const Overview = overviewStory({
     'A step can carry a `summary` of what was chosen, sub-steps, an `error` state and its own `tone`.',
     'Every step keeps room for a summary, so the Stepper keeps its size; `reserve="none"` drops it.',
     'Only steps that `canSelect` allows can be clicked.',
+    '`selectMode="toggle"` makes every step a button with `aria-pressed`; `onSelect` is where the app flips the step.',
+    '`labelPlacement="above"` puts the name over the picture and dot; give a step `media`, `state` and `struck` for a ladder.',
+    '`dotVariant="ring"` draws a coloured ring with the number and no fill; a step `state` lights it on its own.',
     '`compact` shows Step 2 of 5 with a [ProgressBar].',
   ],
   instead: '[NumberInput] for a number with plus and minus buttons.',
   playground: Playground,
-  variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact],
+  variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact, LadderPick, LadderLooks],
   states: {
     render: () => strip({ ...flat, step: 3 }),
     list: [
@@ -202,4 +220,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Horizontal, IconsAndColours, Overview, Playground, Room, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical };
+export { Compact, Horizontal, IconsAndColours, LadderLooks, LadderPick, Overview, Playground, Room, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical };

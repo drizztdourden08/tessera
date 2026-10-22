@@ -4,16 +4,15 @@ import { Pressable } from '../../Pressable';
 import { Span } from '../../text-elements';
 import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { itemStyle } from '../behavior/item-style';
-import { stepName } from '../behavior/step-name';
+import { stepAria } from '../behavior/step-aria';
 import { StepperDot } from './StepperDot';
 import { StepperGap } from './StepperGap';
 import type { StepperItemProps } from './StepperItem.type';
 import './StepperItem.css';
 
 const StepperItem = (props: StepperItemProps) => {
-  const { step, number, status, current, last, wave, lineTone, lineLit, doneIcon, reserveSummary, reserveMedia, toggle, selectable, onSelect, activeSubStepId, onSubStepSelect } = props;
+  const { step, number, status, current, last, wave, lineTone, lineLit, doneIcon, reserveSummary, reserveMedia, selectable, onSelect, activeSubStepId, onSubStepSelect } = props;
   const { stepper } = useTesseraStrings();
-  const name = toggle ? stepper.stepName(number, step.label) : stepName(stepper, number, step.label, status);
   return (
     <Box
       as="li"
@@ -27,9 +26,8 @@ const StepperItem = (props: StepperItemProps) => {
     >
       <Pressable
         className="stepper__step"
-        aria-label={name}
+        {...stepAria(stepper, props)}
         aria-current={current ? 'step' : undefined}
-        aria-pressed={toggle ? status === 'done' || status === 'current' : undefined}
         disabled={!selectable || onSelect === undefined}
         onClick={() => onSelect?.(step.id)}
       >

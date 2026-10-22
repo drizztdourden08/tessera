@@ -5,7 +5,7 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-inline-size: var(--size-16);
-  padding-block-start: calc(var(--stepper-lead) + var(--stepper-dot) + var(--space-sm));
+  padding-block-start: calc(var(--stepper-dot) + var(--space-sm));
 }
 
 .stepper__gap:has(.stepper-sub-steps) {
@@ -14,11 +14,35 @@
 
 .stepper__line {
   position: absolute;
-  inset-block-start: calc(var(--stepper-lead) + (var(--stepper-dot) - var(--stepper-line)) / 2);
+  inset-block-start: calc((var(--stepper-dot) - var(--stepper-line)) / 2);
   inset-inline: calc((var(--stepper-dot) - var(--stepper-step-w)) / 2);
   block-size: var(--stepper-line);
   border-radius: var(--radius-pill);
   background: var(--c-border-strong);
+}
+
+.stepper[data-media] .stepper__gap {
+  padding-block-start: calc((var(--stepper-media-h, var(--size-32)) + var(--space-sm)) + var(--stepper-dot) + var(--space-sm));
+}
+
+.stepper[data-label-at='above'] .stepper__gap {
+  padding-block-start: calc((var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight) + var(--space-sm)) + var(--stepper-dot) + var(--space-sm));
+}
+
+.stepper[data-media][data-label-at='above'] .stepper__gap {
+  padding-block-start: calc((var(--stepper-media-h, var(--size-32)) + var(--space-sm)) + (var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight) + var(--space-sm)) + var(--stepper-dot) + var(--space-sm));
+}
+
+.stepper[data-media] .stepper__line {
+  inset-block-start: calc((var(--stepper-media-h, var(--size-32)) + var(--space-sm)) + (var(--stepper-dot) - var(--stepper-line)) / 2);
+}
+
+.stepper[data-label-at='above'] .stepper__line {
+  inset-block-start: calc((var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight) + var(--space-sm)) + (var(--stepper-dot) - var(--stepper-line)) / 2);
+}
+
+.stepper[data-media][data-label-at='above'] .stepper__line {
+  inset-block-start: calc((var(--stepper-media-h, var(--size-32)) + var(--space-sm)) + (var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight) + var(--space-sm)) + (var(--stepper-dot) - var(--stepper-line)) / 2);
 }
 
 .stepper__line::after {

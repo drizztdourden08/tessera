@@ -1,10 +1,14 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../Box';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
+import { currentIndex } from './behavior/current-index';
+import { faceIcon } from './behavior/face-icon';
+import { isSelectable } from './behavior/is-selectable';
 import { lineLit } from './behavior/line-lit';
 import { lineTone } from './behavior/line-tone';
 import { motionKind } from './behavior/motion-kind';
 import { stepStatus } from './behavior/step-status';
+import { rootAttrs } from './behavior/root-attrs';
 import { rootStyle } from './behavior/root-style';
 import { useStepMotion } from './behavior/useStepMotion';
 import { waveOf } from './behavior/wave-of';
@@ -14,30 +18,21 @@ import type { StepperProps } from './Stepper.type';
 import './Stepper.css';
 
 const Stepper = (props: StepperProps) => {
-  const {
-    steps, currentId, complete, orientation = 'horizontal', compact = false, tone, doneIcon = 'check', reserve = 'summaries', selectMode = 'navigate',
-    labelPlacement = 'below', labelLines, dotVariant = 'filled', stepWidth, mediaSize, scroll = false, canSelect, onSelect,
-    activeSubStepId, onSubStepSelect, label, className = '',
-  } = props;
+  const { steps, orientation = 'horizontal', compact = false, tone, reserve = 'summaries', onSelect, activeSubStepId, onSubStepSelect, label, className = '' } = props;
   const { stepper } = useTesseraStrings();
-  const toggle = selectMode === 'toggle';
-  const horizontal = orientation === 'horizontal';
-  const current = toggle ? -1 : complete ? steps.length : Math.max(steps.findIndex((step) => step.id === currentId), 0);
-  const statuses = steps.map((step, index) => stepStatus(step, index, current));
-  const hasMedia = horizontal && steps.some((step) => step.media !== undefined);
+  const current = currentIndex(props);
   const motion = useStepMotion(current);
   const name = label ?? stepper.steps;
-  if (compact) return <StepperCompact steps={steps} current={current} label={name} className={className} />;
+  if (compact) return <StepperCompact steps={steps} current={Math.max(current, 0)} label={name} className={className} />;
+  const statuses = steps.map((step, index) => stepStatus(step, index, current));
+  const hasMedia = orientation === 'horizontal' && steps.some((step) => step.media !== undefined);
   return (
     <Box
       as="nav"
       className={`stepper${className ? ` ${className}` : ''}`}
-      style={rootStyle({ tone, stepWidth, mediaSize, labelLines })}
+      style={rootStyle(props)}
       data-orientation={orientation}
-      data-label-at={horizontal && labelPlacement === 'above' ? 'above' : undefined}
-      data-dot={dotVariant === 'ring' ? 'ring' : undefined}
-      data-media={hasMedia ? '' : undefined}
-      data-scroll={scroll ? '' : undefined}
+      {...rootAttrs(props, hasMedia)}
       data-motion={motionKind(motion, current)}
       aria-label={name}
     >
@@ -55,11 +50,11 @@ const Stepper = (props: StepperProps) => {
               wave={waveOf(index, current, motion)}
               lineTone={lineTone(step, steps[index + 1], tone)}
               lineLit={lineLit(status, steps[index + 1], statuses[index + 1])}
-              doneIcon={dotVariant === 'ring' ? undefined : (step.doneIcon ?? doneIcon) || undefined}
+              doneIcon={faceIcon(step, props)}
               reserveSummary={reserve === 'summaries'}
               reserveMedia={hasMedia}
-              toggle={toggle}
-              selectable={index !== current && (canSelect?.(step.id) ?? toggle)}
+              toggle={props.selectMode === 'toggle'}
+              selectable={isSelectable(props, index, current, step.id)}
               onSelect={onSelect}
               activeSubStepId={activeSubStepId}
               onSubStepSelect={onSubStepSelect}

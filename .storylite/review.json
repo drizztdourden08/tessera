@@ -24,9 +24,6 @@
       "status": "ok",
       "hash": "f3b44026fd1ca36f",
       "at": "2026-10-03"
-    },
-    "Static splash": {
-      "status": "new"
     }
   },
   "Core · Brand": {
@@ -301,11 +298,6 @@
       "hash": "7741b2b2e8ea9e5e",
       "at": "2026-10-03"
     },
-    "CodeBlock": {
-      "status": "ok",
-      "hash": "b7b8887574d9c8b9",
-      "at": "2026-10-01"
-    },
     "Emphasis animation": {
       "status": "ok",
       "hash": "74dba12e8b605042",
@@ -333,15 +325,16 @@
       "hash": "1a457d4fd8c9f356",
       "at": "2026-10-04"
     },
-    "PathIcon": {
-      "status": "ok",
-      "hash": "db1ae767acd0074e",
-      "at": "2026-10-03"
-    },
     "EmojiIcon": {
       "status": "ok",
       "hash": "fa6af972f79e4f35",
       "at": "2026-10-01"
+    },
+    "VolumeIcon": {
+      "status": "new"
+    },
+    "ArmedIcon": {
+      "status": "new"
     }
   },
   "Core · Tokens": {
@@ -417,14 +410,17 @@
       "hash": "04442862a1fc2279",
       "at": "2026-10-01"
     },
-    "Grid": {
-      "status": "ok",
-      "hash": "ffd99c3ed504ff67",
-      "at": "2026-10-01"
+    "Inline": {
+      "status": "new"
     },
     "Center": {
       "status": "ok",
       "hash": "7a74286a73d4b86e",
+      "at": "2026-10-01"
+    },
+    "Grid": {
+      "status": "ok",
+      "hash": "ffd99c3ed504ff67",
       "at": "2026-10-01"
     },
     "Spacer": {
@@ -442,6 +438,9 @@
       "hash": "087df9ae4b357513",
       "at": "2026-10-01"
     },
+    "ToolFrame": {
+      "status": "new"
+    },
     "ScrollArea": {
       "status": "ok",
       "hash": "12dfc94df957c195",
@@ -457,21 +456,14 @@
       "hash": "2e40bd78dded70ff",
       "at": "2026-10-03"
     },
-    "Floating": {
-      "status": "ok",
-      "hash": "d8db8366bdc9b25f",
-      "at": "2026-10-01"
+    "Overlay": {
+      "status": "new"
     }
   },
   "Primitives · Display": {
     "SectionHeader": {
       "status": "ok",
       "hash": "d2a8b73d40fd5141",
-      "at": "2026-10-01"
-    },
-    "TermList": {
-      "status": "ok",
-      "hash": "150d42796ba8a6b5",
       "at": "2026-10-01"
     },
     "StatRow": {
@@ -499,20 +491,13 @@
       "hash": "0c60c0c4c9f32ba1",
       "at": "2026-10-01"
     },
+    "Disclosure": {
+      "status": "new"
+    },
     "Image": {
       "status": "ok",
       "hash": "1793daf13cb5711a",
       "at": "2026-10-01"
-    },
-    "Thumbnail": {
-      "status": "ok",
-      "hash": "dc08cf095534e91e",
-      "at": "2026-10-01"
-    },
-    "Video": {
-      "status": "ok",
-      "hash": "00609ad096b92bdf",
-      "at": "2026-10-03"
     },
     "Canvas": {
       "status": "ok",
@@ -528,15 +513,6 @@
       "status": "ok",
       "hash": "0709973edd7b0633",
       "at": "2026-10-03"
-    },
-    "ShortcutList": {
-      "status": "new"
-    },
-    "CopyValue": {
-      "status": "new"
-    },
-    "StatusOf": {
-      "status": "new"
     }
   },
   "Primitives · Charts": {
@@ -577,6 +553,9 @@
       "hash": "95bc63708a20f19c",
       "at": "2026-10-01"
     },
+    "ToolGroups": {
+      "status": "new"
+    },
     "Pressable": {
       "status": "ok",
       "hash": "b98f15d476900db0",
@@ -586,9 +565,6 @@
       "status": "ok",
       "hash": "14908a536e47eb0b",
       "at": "2026-10-04"
-    },
-    "CopyButton": {
-      "status": "new"
     }
   },
   "Primitives · Inputs": {
@@ -602,11 +578,6 @@
       "hash": "05084b5047defa19",
       "at": "2026-10-03"
     },
-    "PasswordInput": {
-      "status": "ok",
-      "hash": "0fdee324c4cf5875",
-      "at": "2026-10-03"
-    },
     "Textarea": {
       "status": "ok",
       "hash": "38aee1d4f15c3da8",
@@ -615,11 +586,6 @@
     "NumberInput": {
       "status": "ok",
       "hash": "b60c410862a392e7",
-      "at": "2026-10-03"
-    },
-    "NumberStepper": {
-      "status": "ok",
-      "hash": "fd31d7f876d43cea",
       "at": "2026-10-03"
     },
     "Checkbox": {
@@ -662,11 +628,6 @@
       "hash": "4a5f94981f7817c9",
       "at": "2026-10-03"
     },
-    "TagInput": {
-      "status": "ok",
-      "hash": "0b0cff3ef0dc738e",
-      "at": "2026-10-03"
-    },
     "TagPicker": {
       "status": "ok",
       "hash": "6e0724eb1c719011",
@@ -691,6 +652,9 @@
       "status": "ok",
       "hash": "a6b679c9f87ffa44",
       "at": "2026-10-03"
+    },
+    "DensityScope": {
+      "status": "new"
     }
   },
   "Primitives · Feedback": {
@@ -707,11 +671,6 @@
     "ProgressRing": {
       "status": "ok",
       "hash": "a2e1b56b2e28b2b6",
-      "at": "2026-10-01"
-    },
-    "Toast": {
-      "status": "ok",
-      "hash": "005faaee5f94c765",
       "at": "2026-10-01"
     },
     "Tooltip": {
@@ -734,10 +693,8 @@
       "hash": "e0fe7a682f89762f",
       "at": "2026-10-01"
     },
-    "ErrorBoundary": {
-      "status": "ok",
-      "hash": "ed75506c66d3cb82",
-      "at": "2026-10-03"
+    "SpeechBubble": {
+      "status": "new"
     }
   },
   "Primitives · Navigation": {
@@ -750,11 +707,6 @@
       "status": "ok",
       "hash": "247d500d31e0dca4",
       "at": "2026-10-04"
-    },
-    "RouterLink": {
-      "status": "ok",
-      "hash": "5f95b4846a8f38ec",
-      "at": "2026-10-02"
     }
   },
   "Composites · Dialogs": {
@@ -785,14 +737,12 @@
     },
     "JobDialog": {
       "status": "new"
+    },
+    "MediaViewer": {
+      "status": "new"
     }
   },
   "Composites · Overlays": {
-    "Overlay": {
-      "status": "ok",
-      "hash": "4b7720e819fd8099",
-      "at": "2026-10-02"
-    },
     "Drawer": {
       "status": "ok",
       "hash": "1c00a8627a2fb6e3",
@@ -802,6 +752,26 @@
       "status": "ok",
       "hash": "94d3e4665dd0b17b",
       "at": "2026-10-04"
+    },
+    "GuidedTour": {
+      "status": "new"
+    }
+  },
+  "Composites · Feedback": {
+    "Toast": {
+      "status": "new"
+    },
+    "LoadError": {
+      "status": "new"
+    },
+    "ErrorBoundary": {
+      "status": "new"
+    },
+    "Splash": {
+      "status": "new"
+    },
+    "Static splash": {
+      "status": "new"
     }
   },
   "Composites · Wizard": {
@@ -854,10 +824,23 @@
       "hash": "0b37f7c570e8319a",
       "at": "2026-10-03"
     },
-    "MasterDetailLayout": {
-      "status": "ok",
-      "hash": "291e93e74ff9e724",
-      "at": "2026-10-03"
+    "ListDetailLayout": {
+      "status": "new"
+    },
+    "ResizeHandle": {
+      "status": "new"
+    },
+    "SidePanel": {
+      "status": "new"
+    },
+    "CollapseToggle": {
+      "status": "new"
+    },
+    "StudioLayout": {
+      "status": "new"
+    },
+    "ListDetail": {
+      "status": "new"
     },
     "SideNavLayout": {
       "status": "ok",
@@ -868,6 +851,12 @@
       "status": "ok",
       "hash": "3febb1a342a73bc1",
       "at": "2026-10-04"
+    },
+    "SiteHeader": {
+      "status": "new"
+    },
+    "SiteFooter": {
+      "status": "new"
     }
   },
   "Composites · Lists": {
@@ -895,6 +884,12 @@
       "status": "ok",
       "hash": "9f520db6c1a49ca7",
       "at": "2026-10-04"
+    },
+    "ItemList": {
+      "status": "new"
+    },
+    "FileList": {
+      "status": "new"
     }
   },
   "Composites · Settings": {
@@ -941,6 +936,18 @@
       "status": "ok",
       "hash": "25af15ae75425554",
       "at": "2026-10-03"
+    },
+    "ArmedIconButton": {
+      "status": "new"
+    },
+    "ActionBar": {
+      "status": "new"
+    },
+    "CopyButton": {
+      "status": "new"
+    },
+    "RetryButton": {
+      "status": "new"
     }
   },
   "Composites · Inputs": {
@@ -963,6 +970,21 @@
       "status": "ok",
       "hash": "11abd20b86272db5",
       "at": "2026-10-04"
+    },
+    "KeyValueEditor": {
+      "status": "new"
+    },
+    "CommandInput": {
+      "status": "new"
+    },
+    "PasswordInput": {
+      "status": "new"
+    },
+    "TagInput": {
+      "status": "new"
+    },
+    "PathInput": {
+      "status": "new"
     }
   },
   "Composites · Forms": {
@@ -975,6 +997,21 @@
       "status": "ok",
       "hash": "004567f049f66f8d",
       "at": "2026-10-03"
+    },
+    "ValidationSummary": {
+      "status": "new"
+    },
+    "FormRow": {
+      "status": "new"
+    },
+    "FormGroupTabs": {
+      "status": "new"
+    },
+    "RowGrid": {
+      "status": "new"
+    },
+    "SaveBar": {
+      "status": "new"
     }
   },
   "Composites · Data views": {
@@ -1028,6 +1065,39 @@
       "at": "2026-10-03"
     },
     "TaskProgress": {
+      "status": "new"
+    },
+    "CheckList": {
+      "status": "new"
+    },
+    "ItemCard": {
+      "status": "new"
+    },
+    "ActionTile": {
+      "status": "new"
+    },
+    "CopyValue": {
+      "status": "new"
+    },
+    "DateText": {
+      "status": "new"
+    },
+    "Video": {
+      "status": "new"
+    },
+    "ShortcutList": {
+      "status": "new"
+    },
+    "CodeBlock": {
+      "status": "new"
+    },
+    "Markdown": {
+      "status": "new"
+    },
+    "Rating": {
+      "status": "new"
+    },
+    "Carousel": {
       "status": "new"
     }
   },
