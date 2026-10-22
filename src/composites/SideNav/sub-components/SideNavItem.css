@@ -44,9 +44,23 @@
   color: var(--c-text-muted);
 }
 
+.side-nav__badge {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+}
+
 .side-nav--open .side-nav__label,
 .side-nav--open .side-nav__chevron {
   display: block;
+}
+
+.side-nav--open .side-nav__badge {
+  display: inline-flex;
+}
+
+.side-nav--open .side-nav__badge-dot {
+  display: none;
 }
 
 .side-nav__item:hover {

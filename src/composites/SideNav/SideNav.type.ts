@@ -7,6 +7,7 @@ interface SideNavItem {
   id: string;
   label: string;
   icon: ReactNode;
+  badge?: ReactNode;
   disabled?: boolean;
   onHighlight?: () => void;
 }
