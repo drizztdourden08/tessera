@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.46.4
+
+### Patch Changes
+
+- a1ab898: Make the gap between the list pane and the detail pane of ListDetailLayout visible: 12 pixels from the medium spacing token instead of 2. The resize handle and fold buttons stay centered on the list border.
+
 ## 0.46.3
 
 ### Patch Changes
