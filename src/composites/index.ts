@@ -67,6 +67,10 @@ export type {
 } from './UtilityScreen';
 export { StageScreen, type StageScreenDone, type StageScreenProps } from './StageScreen';
 export { FloatingSwitch, type FloatingSwitchItem, type FloatingSwitchProps } from './FloatingSwitch';
+export { ControllerLayout, CONTROLLER_LAYOUT_VARIANTS, CONTROLLER_SLOT_IDS } from './ControllerLayout';
+export type {
+  ControllerExtra, ControllerLayoutProps, ControllerLayoutVariant, ControllerSlotId, ControllerSlotState, ControllerSlots,
+} from './ControllerLayout';
 export { KeyboardLayout, KEYBOARD_SIZES } from './KeyboardLayout';
 export type { KeyboardLayoutProps, KeyboardSize, KeyboardTarget, KeyRect, KeyRects } from './KeyboardLayout';
 export { PressedGrid, type PressedGridItem, type PressedGridProps } from './PressedGrid';

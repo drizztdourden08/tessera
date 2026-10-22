@@ -3,6 +3,7 @@ import { CAROUSEL_STRINGS } from './carousel-strings.constants';
 import { CHART_STRINGS } from './charts-strings.constants';
 import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
 import { COMMON_STRINGS } from './common-strings.constants';
+import { CONTROLLER_STRINGS } from './controller-strings.constants';
 import { DATE_STRINGS } from './dates-strings.constants';
 import { DYNAMIC_INPUT_STRINGS } from './dynamic-input-strings.constants';
 import { FIELD_KIND_STRINGS } from './field-kinds-strings.constants';
@@ -61,6 +62,7 @@ const TESSERA_STRINGS = {
   rating: RATING_STRINGS,
   carousel: CAROUSEL_STRINGS,
   mediaViewer: MEDIA_VIEWER_STRINGS,
+  controller: CONTROLLER_STRINGS,
 };
 
 export { TESSERA_STRINGS };

@@ -164,6 +164,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'PressedGrid', summary: 'A grid of buttons that light up while held.' },
         { name: 'StickPlot', summary: 'Where an analog stick points, with dead zones and calibration marks.' },
+        { name: 'ControllerLayout', summary: 'A plain controller outline with every input lit in its place.' },
         { name: 'KeyboardLayout', summary: 'A full keyboard drawn from data, with keys lit or pressed.' },
         { name: 'ShortcutTour', summary: 'A camera that walks a keyboard through a shortcut, key by key.' },
       ],
