@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { IconName } from '../../Icon';
-import type { StepperStatus, StepperStep, StepperTone } from '../Stepper.type';
+import type { StepperSize, StepperStatus, StepperStep, StepperTone } from '../Stepper.type';
 
 interface StepperItemProps {
   step: StepperStep;
@@ -14,6 +14,8 @@ interface StepperItemProps {
   doneIcon?: IconName;
   reserveSummary: boolean;
   reserveMedia: boolean;
+  hideLabel: boolean;
+  size: StepperSize;
   toggle: boolean;
   selectable: boolean;
   onSelect?: (id: string) => void;

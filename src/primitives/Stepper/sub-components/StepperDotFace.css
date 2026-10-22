@@ -9,7 +9,7 @@
   position: absolute;
   inset: 0;
   font-family: var(--font-mono);
-  font-size: var(--text-base);
+  font-size: var(--stepper-digit);
   font-weight: var(--weight-semi);
   color: var(--c-text-muted);
   transform-style: preserve-3d;

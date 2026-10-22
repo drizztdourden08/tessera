@@ -5,6 +5,8 @@
   --stepper-line: var(--border-width-thick);
   --stepper-step-w: var(--size-96);
   --stepper-gap: var(--space-xl);
+  --stepper-gap-min: var(--size-16);
+  --stepper-digit: var(--text-base);
   --stepper-tone: var(--c-primary);
   --stepper-on-tone: var(--c-on-primary);
   --stepper-fill: var(--duration-step-fill);
