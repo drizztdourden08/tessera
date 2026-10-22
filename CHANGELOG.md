@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.47.0
+
+### Minor Changes
+
+- d20baed: Stepper can draw an editable ladder: a step takes its own `state`, `media` and a struck-through label, and the Stepper takes `selectMode="toggle"`, `labelPlacement`, `labelLines`, `dotVariant="ring"`, `stepWidth`, `mediaSize`, `scroll` and a `neutral` tone, so an app needs no Tessera selectors.
+
 ## 0.46.4
 
 ### Patch Changes
