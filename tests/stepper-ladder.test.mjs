@@ -6,7 +6,7 @@ import { Stepper } from '../src/primitives/Stepper';
 import { lineLit } from '../src/primitives/Stepper/behavior/line-lit';
 import { rootStyle } from '../src/primitives/Stepper/behavior/root-style';
 import { stepStatus } from '../src/primitives/Stepper/behavior/step-status';
-import { STEPPER_MEDIA_SIZES, STEPPER_STEP_WIDTHS } from '../src/primitives/Stepper/behavior/stepper-sizes.constants';
+import { STEPPER_MEDIA_SIZES, STEPPER_SIZES, STEPPER_STEP_WIDTHS } from '../src/primitives/Stepper/behavior/stepper-sizes.constants';
 import { STEPPER_TONES } from '../src/primitives/Stepper/behavior/stepper-tones.constants';
 
 const STEPS = [{ id: 'a', label: 'A' }, { id: 'b', label: 'B' }, { id: 'c', label: 'C' }, { id: 'd', label: 'D' }];
@@ -165,5 +165,54 @@ describe('Stepper root style', () => {
   it('offers a neutral tone', () => {
     expect(STEPPER_TONES.neutral).toBeDefined();
     expect(rootStyle({ tone: 'neutral' })).toEqual({ '--stepper-tone': STEPPER_TONES.neutral.tone, '--stepper-on-tone': STEPPER_TONES.neutral.on });
+  });
+});
+
+describe('Stepper media below, hidden labels and size', () => {
+  const withMedia = STEPS.map((step) => ({ ...step, media: 'x' }));
+  const html = (props) => renderToString(h(Stepper, { steps: withMedia, currentId: 'b', ...props }));
+
+  it('marks media below on the root only when media exists and below is asked', () => {
+    expect(html({ mediaPlacement: 'below' })).toContain('data-media-at="below"');
+    expect(html({ mediaPlacement: 'above' })).not.toContain('data-media-at');
+    expect(html()).not.toContain('data-media-at');
+    expect(html({ steps: STEPS, mediaPlacement: 'below' })).not.toContain('data-media-at');
+  });
+
+  it('hides the label visually, keeps it in the step and leaves no label row', () => {
+    const out = html({ labelPlacement: 'hidden' });
+    expect(out).toContain('data-label-at="hidden"');
+    expect(out.match(/class="[^"]*\bvisually-hidden\b[^"]*"/g)).toHaveLength(4);
+    expect(out).not.toContain('stepper__text');
+    expect(out).not.toContain('stepper__label');
+    expect(out).toContain('aria-label="Step 1, A, done"');
+    expect(html()).not.toContain('visually-hidden');
+  });
+
+  it('hides the label for a vertical stepper too', () => {
+    expect(html({ labelPlacement: 'hidden', orientation: 'vertical' })).toContain('data-label-at="hidden"');
+  });
+
+  it('maps the size to dot, digit and gap custom properties', () => {
+    expect(rootStyle({ size: 'sm' })).toEqual({
+      '--stepper-dot': STEPPER_SIZES.sm.dot,
+      '--stepper-digit': STEPPER_SIZES.sm.digit,
+      '--stepper-gap': STEPPER_SIZES.sm.gap,
+      '--stepper-gap-min': STEPPER_SIZES.sm.gapMin,
+    });
+    expect(STEPPER_SIZES.sm.dot).toBe('var(--size-24)');
+    expect(STEPPER_SIZES.sm.digit).toBe('var(--text-xs)');
+    expect(STEPPER_SIZES.md.digit).toBe('var(--text-base)');
+  });
+
+  it('writes the small size into the rendered root and leaves the default alone', () => {
+    expect(html({ size: 'sm' })).toContain('--stepper-dot:var(--size-24)');
+    expect(html()).not.toContain('--stepper-dot');
+  });
+
+  it('keeps the compact view separate from size', () => {
+    const out = html({ size: 'sm', compact: true });
+    expect(out).not.toContain('--stepper-dot');
+    expect(out).not.toContain('stepper__item');
   });
 });

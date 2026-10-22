@@ -39,6 +39,10 @@
   block-size: var(--stepper-media-h, var(--size-32));
 }
 
+.stepper[data-media-at='below'] .stepper__media {
+  order: 2;
+}
+
 .stepper[data-label-at='above'] .stepper__text {
   order: -1;
   justify-content: flex-end;

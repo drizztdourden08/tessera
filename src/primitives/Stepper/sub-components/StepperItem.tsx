@@ -8,10 +8,11 @@ import { stepAria } from '../behavior/step-aria';
 import { StepperDot } from './StepperDot';
 import { StepperGap } from './StepperGap';
 import type { StepperItemProps } from './StepperItem.type';
+import '../../../theme/visually-hidden.css';
 import './StepperItem.css';
 
 const StepperItem = (props: StepperItemProps) => {
-  const { step, number, status, current, last, wave, lineTone, lineLit, doneIcon, reserveSummary, reserveMedia, selectable, onSelect, activeSubStepId, onSubStepSelect } = props;
+  const { step, number, status, current, last, wave, lineTone, lineLit, doneIcon, reserveSummary, reserveMedia, hideLabel, size, selectable, onSelect, activeSubStepId, onSubStepSelect } = props;
   const { stepper } = useTesseraStrings();
   return (
     <Box
@@ -32,13 +33,15 @@ const StepperItem = (props: StepperItemProps) => {
         onClick={() => onSelect?.(step.id)}
       >
         {reserveMedia && <Span className="stepper__media" aria-hidden>{step.media}</Span>}
-        <StepperDot number={number} icon={doneIcon} />
-        <Span className="stepper__text">
-          <Span className="stepper__label" data-label={step.label} data-struck={step.struck ? '' : undefined}>
-            <Span className="stepper__label-text">{step.label}</Span>
+        <StepperDot number={number} icon={doneIcon} size={size} />
+        {hideLabel ? <Span className="visually-hidden">{step.label}</Span> : (
+          <Span className="stepper__text">
+            <Span className="stepper__label" data-label={step.label} data-struck={step.struck ? '' : undefined}>
+              <Span className="stepper__label-text">{step.label}</Span>
+            </Span>
+            {step.summary ? <Span className="stepper__summary" title={step.summary}>{step.summary}</Span> : reserveSummary && <Span className="stepper__summary" aria-hidden />}
           </Span>
-          {step.summary ? <Span className="stepper__summary" title={step.summary}>{step.summary}</Span> : reserveSummary && <Span className="stepper__summary" aria-hidden />}
-        </Span>
+        )}
       </Pressable>
       <StepperGap step={step} current={current} last={last} selectable={selectable} activeSubStepId={activeSubStepId} onSubStepSelect={onSubStepSelect} />
     </Box>
