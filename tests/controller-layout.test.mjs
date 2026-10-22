@@ -44,14 +44,15 @@ describe('ControllerLayout', () => {
 
   it('fills a trigger sent with value only and reads it as a share', () => {
     const html = render({ slots: { 'trigger.left': { value: 0.6 }, 'trigger.right': { value: 0 } } });
-    expect(html).toContain('transform:scaleY(0.6)');
-    expect(html).toContain('transform:scaleY(0)');
+    const levels = [...html.matchAll(/class="controller-layout__level"[^>]*?height="([\d.]+)"/g)].map((m) => Number(m[1]));
+    expect(levels.filter((level) => level > 0)).toHaveLength(1);
+    expect(levels).toContain(0);
     expect(hiddenList(html)).toEqual(['Left trigger 60%']);
   });
 
   it('moves the stick cap with y up and lights the cap on a click', () => {
     const html = render({ slots: { 'stick.left': { x: 0.5, y: 0.5 }, 'stick.right.click': { pressed: true } } });
-    expect(html).toMatch(/translate\(6\.76\d*px, -6\.76\d*px\)/);
+    expect(html).toMatch(/transform="translate\(6\.76\d* -6\.76\d*\)"/);
     expect(html).toMatch(/class="controller-layout__stick" data-moved=""/);
     expect(html).toMatch(/class="controller-layout__stick" data-clicked=""/);
     expect(hiddenList(html)).toEqual(['Left stick at 0.50, 0.50', 'Right stick click']);
