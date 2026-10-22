@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind data */
-import type { StepperMediaSize, StepperSize, StepperStepWidth } from '../Stepper.type';
-import type { StepperSizeLook } from './stepper-sizes.constants.type';
+import type { StepperMediaSize, StepperSize, StepperSizeLook, StepperStepWidth } from '../Stepper.type';
 
 const STEPPER_STEP_WIDTHS: Readonly<Record<StepperStepWidth, string>> = {
   sm: 'var(--size-80)',

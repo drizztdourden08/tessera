@@ -31,6 +31,14 @@ type StepperDoneIcon = IconName | false;
 
 type StepperReserve = 'summaries' | 'none';
 
+interface StepperSizeLook {
+  dot: string;
+  digit: string;
+  gap: string;
+  gapMin: string;
+  icon: number;
+}
+
 interface StepperSubStep {
   id: string;
   label: string;
@@ -78,5 +86,5 @@ interface StepperProps {
 
 export type {
   StepperDirection, StepperDoneIcon, StepperDotVariant, StepperLabelPlacement, StepperMediaPlacement, StepperMediaSize, StepperOrientation, StepperProps, StepperReserve,
-  StepperSelectMode, StepperSize, StepperStatus, StepperStep, StepperStepState, StepperStepWidth, StepperSubStep, StepperTone,
+  StepperSelectMode, StepperSize, StepperSizeLook, StepperStatus, StepperStep, StepperStepState, StepperStepWidth, StepperSubStep, StepperTone,
 };
