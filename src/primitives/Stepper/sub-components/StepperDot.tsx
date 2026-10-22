@@ -9,14 +9,14 @@ import type { StepperDotProps } from './StepperDot.type';
 import './StepperDot.css';
 
 const StepperDot = (props: StepperDotProps) => {
-  const { number, icon } = props;
+  const { number, icon, size } = props;
   return (
     <Span className="stepper-dot" aria-hidden>
       <Svg className="stepper-dot__art" viewBox={DOT_VIEW_BOX} focusable="false">
         <StepperDotFill />
         <StepperDotRing />
       </Svg>
-      <StepperDotFace number={number} icon={icon} />
+      <StepperDotFace number={number} icon={icon} size={size} />
     </Span>
   );
 };

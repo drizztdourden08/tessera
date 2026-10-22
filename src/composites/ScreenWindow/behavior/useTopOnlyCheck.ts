@@ -7,7 +7,8 @@ import type { ScreenWindowProps } from '../ScreenWindow.type';
 const useTopOnlyCheck = (props: ScreenWindowProps) => {
   const lost = props.header !== undefined && (props.subtitle != null || props.extra != null);
   const titled = props.titleRow !== false || props.header !== undefined;
-  const misplaced = (props.titleRow === false && props.header !== undefined) || (props.movable === true && titled);
+  const bareOnly = props.movable === true || props.icon != null || props.cornerTitle !== undefined;
+  const misplaced = (props.titleRow === false && props.header !== undefined) || (bareOnly && titled);
   useEffect(() => {
     if (lost) devWarn(TOP_ONLY);
   }, [lost]);

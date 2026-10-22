@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind data */
 const TOP_ONLY = 'ScreenWindow shows subtitle and extra only in its default title bar. With header, use header.strip or header.actions.';
 
-const BARE_ONLY = 'ScreenWindow takes titleRow={false} without header, and movable only with titleRow={false}.';
+const BARE_ONLY = 'ScreenWindow takes titleRow={false} without header, and movable, icon and cornerTitle only with titleRow={false}.';
 
 const LOCKED_KEY_SUFFIX = ':locked';
 

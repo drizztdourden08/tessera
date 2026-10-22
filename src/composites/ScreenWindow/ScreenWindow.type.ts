@@ -4,6 +4,7 @@ import type { BackAction } from '../../primitives/action-data';
 import type { ContentHeaderProps } from '../ContentHeader';
 import type { Rect, Size } from '../rect-drag/rect-drag.type';
 import type { ScreenLayerMove, ScreenLayerSize } from '../ScreenLayer';
+import type { WindowCornerTitleProps } from './sub-components/WindowCornerTitle.type';
 
 type ScreenWindowHeader = Pick<ContentHeaderProps, 'icon' | 'backdrop' | 'strip' | 'actions' | 'compact' | 'level' | 'live'>;
 
@@ -14,6 +15,8 @@ interface ScreenWindowProps {
   children: ReactNode;
   header?: ScreenWindowHeader;
   titleRow?: boolean;
+  icon?: ReactNode;
+  cornerTitle?: boolean;
   movable?: boolean;
   locked?: boolean;
   defaultLocked?: boolean;
@@ -31,6 +34,13 @@ interface ScreenWindowProps {
   className?: string;
 }
 
+interface WindowName {
+  bare: boolean;
+  chip: WindowCornerTitleProps | undefined;
+  label: string | undefined;
+  named: boolean;
+}
+
 interface WindowLock {
   shown: boolean;
   locked: boolean;
@@ -38,4 +48,4 @@ interface WindowLock {
   move: ScreenLayerMove | undefined;
 }
 
-export type { ScreenWindowHeader, ScreenWindowProps, WindowLock };
+export type { ScreenWindowHeader, ScreenWindowProps, WindowLock, WindowName };

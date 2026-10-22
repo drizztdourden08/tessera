@@ -30,8 +30,8 @@ export { defineStatuses, Status } from './Status';
 export type { StatusDef, StatusKey, StatusMap, StatusProps, StatusTone, StatusVariant } from './Status';
 export { Stepper } from './Stepper';
 export type {
-  StepperDoneIcon, StepperDotVariant, StepperLabelPlacement, StepperMediaSize, StepperOrientation, StepperProps, StepperReserve, StepperSelectMode, StepperStatus,
-  StepperStep, StepperStepState, StepperStepWidth, StepperSubStep, StepperTone,
+  StepperDoneIcon, StepperDotVariant, StepperLabelPlacement, StepperMediaPlacement, StepperMediaSize, StepperOrientation, StepperProps, StepperReserve, StepperSelectMode,
+  StepperSize, StepperStatus, StepperStep, StepperStepState, StepperStepWidth, StepperSubStep, StepperTone,
 } from './Stepper';
 export { Tag } from './Tag';
 export type {

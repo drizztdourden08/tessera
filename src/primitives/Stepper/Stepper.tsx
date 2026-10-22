@@ -53,6 +53,8 @@ const Stepper = (props: StepperProps) => {
               doneIcon={faceIcon(step, props)}
               reserveSummary={reserve === 'summaries'}
               reserveMedia={hasMedia}
+              hideLabel={props.labelPlacement === 'hidden'}
+              size={props.size ?? 'md'}
               toggle={props.selectMode === 'toggle'}
               selectable={isSelectable(props, index, current, step.id)}
               onSelect={onSelect}

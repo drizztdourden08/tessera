@@ -4,25 +4,25 @@ import { Box } from '../../primitives/Box';
 import { ScreenLayer } from '../ScreenLayer';
 import { useTopOnlyCheck } from './behavior/useTopOnlyCheck';
 import { useWindowLock } from './behavior/useWindowLock';
+import { windowClasses } from './behavior/window-classes';
+import { windowName } from './behavior/window-name';
 import { WindowCorner } from './sub-components/WindowCorner';
 import { WindowTop } from './sub-components/WindowTop';
 import type { ScreenWindowProps } from './ScreenWindow.type';
 import './ScreenWindow.css';
 
 const ScreenWindow = (props: ScreenWindowProps) => {
-  const { title, onClose, children, header, titleRow = true, floating, hidden, size, square, className } = props;
+  const { onClose, children, floating, hidden, size, square } = props;
   const titleId = useId();
   useTopOnlyCheck(props);
-  const bare = !titleRow && header === undefined;
+  const { bare, chip, label, named } = windowName(props, titleId);
   const lock = useWindowLock(props, bare);
-  const label = bare && typeof title === 'string' ? title : undefined;
-  const classes = ['screen-window', header && 'screen-window--header', bare && 'screen-window--bare', className].filter(Boolean).join(' ');
 
   return (
     <ScreenLayer
       onClose={onClose}
       floating={floating}
-      corner={bare ? <WindowCorner lock={lock} onClose={onClose} /> : undefined}
+      corner={bare ? <WindowCorner lock={lock} onClose={onClose} title={chip} /> : undefined}
       move={lock.move}
       tight={bare}
       hidden={hidden}
@@ -31,8 +31,8 @@ const ScreenWindow = (props: ScreenWindowProps) => {
       label={label}
       labelledBy={label === undefined ? titleId : undefined}
     >
-      <Box className={classes}>
-        <WindowTop {...props} bare={bare} titleId={titleId} named={label !== undefined} />
+      <Box className={windowClasses(props, bare)}>
+        <WindowTop {...props} bare={bare} titleId={titleId} named={named} />
         <Box className="screen-window__content">{children}</Box>
       </Box>
     </ScreenLayer>

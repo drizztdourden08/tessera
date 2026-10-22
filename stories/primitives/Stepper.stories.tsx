@@ -2,13 +2,13 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Stepper } from '../../src/primitives';
-import type { StepperProps } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
-import { STEPPER_STEPS, ladderSteps, stepIdAt, stepperSteps } from './_samples/stepper-data';
-import { ARGS, ARG_TYPES, flat } from './_samples/stepper-story-args';
+import { STEPPER_STEPS, stepIdAt, stepperSteps } from './_samples/stepper-data';
+import { HIDDEN_LOOKS, LADDER_LOOKS, MEDIA_PLACES, SIZES, ladder, ladderHidden, ladderMedia, ladderSize } from './_samples/stepper-ladder-views';
+import { ARGS, ARG_TYPES, FACES, ROOMS, flat } from './_samples/stepper-story-args';
 import type { StepperArgs } from './_samples/stepper-story-args';
 import { StepperDriver } from './_samples/StepperDriver';
 import { StepperLadder } from './_samples/StepperLadder';
@@ -37,6 +37,7 @@ const strip = (args: StepperArgs) => {
       doneIcon={args.doneIcon === 'numbers' ? false : 'check'}
       reserve={args.reserve}
       dotVariant={args.dotVariant}
+      size={args.size}
       labelPlacement={args.labelPlacement}
       canSelect={before(at)}
       onSelect={() => undefined}
@@ -86,13 +87,6 @@ const SubStepsOnTop = {
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
-const ROOMS: Readonly<Record<string, Partial<StepperArgs>>> = {
-  'Room kept, step 1': { step: 1 },
-  'Room kept, step 4': { step: 4 },
-  'No room kept, step 1': { step: 1, reserve: 'none' },
-  'No room kept, step 4': { step: 4, reserve: 'none' },
-};
-
 const Room = {
   name: 'Room for summaries',
   render: () => (
@@ -124,50 +118,12 @@ const Compact = {
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
-const FACES: Readonly<Record<string, Partial<StepperArgs>>> = {
-  'A check, the default': {},
-  'An icon per step': { doneIcon: 'per step' },
-  'Numbers kept': { doneIcon: 'numbers' },
-  'A colour per step': { colour: 'per step', doneIcon: 'per step' },
-  'Secondary for every step': { colour: 'secondary' },
-};
-
 const IconsAndColours = {
   name: 'Done icons and colours',
   render: () => (
     <Demonstrator rows={axis(Object.keys(FACES))} align="stretch" cell={(face) => strip({ ...flat, step: 4, ...FACES[face] })} />
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
-
-const LADDER_LOOKS = ['Ring dots, steps 1, 3 and 4 lit', 'Filled dots', 'Grey', 'Name below, with pictures', 'Narrow box that scrolls'] as const;
-
-const LIT_SOME: ReadonlySet<string> = new Set(['lamp', 'rupees-25', 'bee']);
-
-const ladderProps = (look: (typeof LADDER_LOOKS)[number]): Partial<StepperProps> => {
-  if (look === 'Filled dots') return { dotVariant: 'filled' };
-  if (look === 'Grey') return { tone: 'neutral' };
-  if (look === 'Name below, with pictures') return { labelPlacement: 'below' };
-  return {};
-};
-
-const ladder = (look: (typeof LADDER_LOOKS)[number]) => {
-  const stepper = (
-    <Stepper
-      steps={ladderSteps(LIT_SOME)}
-      selectMode="toggle"
-      labelPlacement="above"
-      dotVariant="ring"
-      tone="warning"
-      reserve="none"
-      stepWidth="sm"
-      scroll
-      onSelect={() => undefined}
-      label="Steps to keep"
-      {...ladderProps(look)}
-    />
-  );
-  return <Box className={look === 'Narrow box that scrolls' ? 'stepper-story__narrow' : 'stepper-story__wide'}>{stepper}</Box>;
-};
 
 const LadderPick = {
   name: 'Ladder, pick the steps to keep',
@@ -177,6 +133,21 @@ const LadderPick = {
 const LadderLooks = {
   name: 'Ladder looks',
   render: () => <Demonstrator rows={axis(LADDER_LOOKS)} align="stretch" cell={(look) => ladder(look)} />,
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const LadderPicturesBelow = {
+  name: 'Ladder, pictures below the dots',
+  render: () => <Demonstrator rows={axis(MEDIA_PLACES)} align="stretch" cell={(place) => ladderMedia(place)} />,
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const LadderNameHidden = {
+  name: 'Ladder, name hidden',
+  render: () => <Demonstrator rows={axis(HIDDEN_LOOKS)} align="stretch" cell={(look) => ladderHidden(look)} />,
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const Sizes = {
+  name: 'Small steps',
+  render: () => <Demonstrator rows={axis(SIZES)} align="stretch" cell={(size) => ladderSize(size)} />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
 const DONE_STEP = '.stepper__item[data-status="done"] .stepper__step';
@@ -196,15 +167,15 @@ const Overview = overviewStory({
   description: 'The steps of a task in order, a numbered circle per step joined by lines, that shows where the user is.',
   points: [
     'Pass `steps` and `currentId`; `orientation="vertical"` runs the steps down the left.',
-    'Moving between steps animates the circles and lines; reduced motion shows the end state at once.',
     'A step can carry a `summary`, sub-steps, an `error` state and its own `tone`; `reserve="none"` drops room.',
     '`canSelect` picks the clickable steps; `selectMode="toggle"` makes every step a button with `aria-pressed`.',
-    'A ladder uses step `media`, `state` and `struck` with `labelPlacement="above"` and `dotVariant="ring"`.',
-    '`compact` shows Step 2 of 5 with a [ProgressBar].',
+    'A ladder uses step `media`, `state`, `struck` and `dotVariant="ring"`; `mediaPlacement="below"` moves media.',
+    '`labelPlacement` takes `above`, `below` or `hidden`, which keeps the name for screen readers only.',
+    '`size="sm"` shrinks the dot, digit and gap; `compact` shows Step 2 of 5 with a [ProgressBar].',
   ],
   instead: '[NumberInput] for a number with plus and minus buttons.',
   playground: Playground,
-  variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact, LadderPick, LadderLooks],
+  variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact, LadderPick, LadderLooks, LadderPicturesBelow, LadderNameHidden, Sizes],
   states: {
     render: () => strip({ ...flat, step: 3 }),
     list: [
@@ -217,4 +188,6 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Horizontal, IconsAndColours, LadderLooks, LadderPick, Overview, Playground, Room, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical };
+export {
+  Compact, Horizontal, IconsAndColours, LadderLooks, LadderNameHidden, LadderPick, LadderPicturesBelow, Overview, Playground, Room, Sizes, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical,
+};

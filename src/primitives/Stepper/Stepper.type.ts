@@ -13,7 +13,11 @@ type StepperStepState = Exclude<StepperStatus, 'error'>;
 
 type StepperSelectMode = 'navigate' | 'toggle';
 
-type StepperLabelPlacement = 'above' | 'below';
+type StepperLabelPlacement = 'above' | 'below' | 'hidden';
+
+type StepperMediaPlacement = 'above' | 'below';
+
+type StepperSize = 'sm' | 'md';
 
 type StepperDotVariant = 'filled' | 'ring';
 
@@ -26,6 +30,14 @@ type StepperTone = 'neutral' | 'primary' | 'secondary' | 'tertiary' | 'success' 
 type StepperDoneIcon = IconName | false;
 
 type StepperReserve = 'summaries' | 'none';
+
+interface StepperSizeLook {
+  dot: string;
+  digit: string;
+  gap: string;
+  gapMin: string;
+  icon: number;
+}
 
 interface StepperSubStep {
   id: string;
@@ -58,6 +70,8 @@ interface StepperProps {
   selectMode?: StepperSelectMode;
   labelPlacement?: StepperLabelPlacement;
   labelLines?: 1 | 2 | 3;
+  mediaPlacement?: StepperMediaPlacement;
+  size?: StepperSize;
   dotVariant?: StepperDotVariant;
   stepWidth?: StepperStepWidth;
   mediaSize?: StepperMediaSize;
@@ -71,6 +85,6 @@ interface StepperProps {
 }
 
 export type {
-  StepperDirection, StepperDoneIcon, StepperDotVariant, StepperLabelPlacement, StepperMediaSize, StepperOrientation, StepperProps, StepperReserve, StepperSelectMode,
-  StepperStatus, StepperStep, StepperStepState, StepperStepWidth, StepperSubStep, StepperTone,
+  StepperDirection, StepperDoneIcon, StepperDotVariant, StepperLabelPlacement, StepperMediaPlacement, StepperMediaSize, StepperOrientation, StepperProps, StepperReserve,
+  StepperSelectMode, StepperSize, StepperSizeLook, StepperStatus, StepperStep, StepperStepState, StepperStepWidth, StepperSubStep, StepperTone,
 };
