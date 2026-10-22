@@ -32,6 +32,25 @@
   outline-offset: var(--size-2);
 }
 
+.stepper__media {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  block-size: var(--stepper-media-h, var(--size-32));
+}
+
+.stepper[data-label-at='above'] .stepper__text {
+  order: -1;
+  justify-content: flex-end;
+  min-block-size: calc(var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight));
+  max-block-size: calc(var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight));
+  overflow: hidden;
+}
+
+.stepper[data-label-at='above'] .stepper__summary {
+  display: none;
+}
+
 .stepper__text {
   display: flex;
   flex-direction: column;
@@ -51,6 +70,10 @@
 .stepper__label-text,
 .stepper__label::after {
   grid-area: 1 / 1;
+}
+
+.stepper__label[data-struck] .stepper__label-text {
+  text-decoration: line-through;
 }
 
 .stepper__label::after {
@@ -74,6 +97,11 @@
 }
 
 .stepper__item:is([data-status='current'], [data-status='error']) .stepper__label {
+  color: var(--stepper-tone);
+  font-weight: var(--weight-semi);
+}
+
+.stepper[data-dot='ring'] .stepper__item[data-status='done'] .stepper__label {
   color: var(--stepper-tone);
   font-weight: var(--weight-semi);
 }

@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
 import type { IconName } from '../Icon';
 import type { TagCategoryColor } from '../Tag';
 
@@ -8,7 +9,19 @@ type StepperStatus = 'done' | 'current' | 'upcoming' | 'error';
 
 type StepperDirection = 'still' | 'forward' | 'back';
 
-type StepperTone = 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'info' | TagCategoryColor;
+type StepperStepState = Exclude<StepperStatus, 'error'>;
+
+type StepperSelectMode = 'navigate' | 'toggle';
+
+type StepperLabelPlacement = 'above' | 'below';
+
+type StepperDotVariant = 'filled' | 'ring';
+
+type StepperStepWidth = 'sm' | 'md' | 'lg';
+
+type StepperMediaSize = 'sm' | 'md' | 'lg';
+
+type StepperTone = 'neutral' | 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'info' | TagCategoryColor;
 
 type StepperDoneIcon = IconName | false;
 
@@ -28,17 +41,27 @@ interface StepperStep {
   error?: boolean;
   tone?: StepperTone;
   doneIcon?: StepperDoneIcon;
+  state?: StepperStepState;
+  media?: ReactNode;
+  struck?: boolean;
 }
 
 interface StepperProps {
   steps: readonly StepperStep[];
-  currentId: string;
+  currentId?: string;
   complete?: boolean;
   orientation?: StepperOrientation;
   compact?: boolean;
   tone?: StepperTone;
   doneIcon?: StepperDoneIcon;
   reserve?: StepperReserve;
+  selectMode?: StepperSelectMode;
+  labelPlacement?: StepperLabelPlacement;
+  labelLines?: 1 | 2 | 3;
+  dotVariant?: StepperDotVariant;
+  stepWidth?: StepperStepWidth;
+  mediaSize?: StepperMediaSize;
+  scroll?: boolean;
   canSelect?: (id: string) => boolean;
   onSelect?: (id: string) => void;
   activeSubStepId?: string;
@@ -47,4 +70,7 @@ interface StepperProps {
   className?: string;
 }
 
-export type { StepperDirection, StepperDoneIcon, StepperOrientation, StepperProps, StepperReserve, StepperStatus, StepperStep, StepperSubStep, StepperTone };
+export type {
+  StepperDirection, StepperDoneIcon, StepperDotVariant, StepperLabelPlacement, StepperMediaSize, StepperOrientation, StepperProps, StepperReserve, StepperSelectMode,
+  StepperStatus, StepperStep, StepperStepState, StepperStepWidth, StepperSubStep, StepperTone,
+};

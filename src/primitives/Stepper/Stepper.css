@@ -16,6 +16,11 @@
   min-inline-size: 0;
 }
 
+.stepper[data-scroll] {
+  overflow-x: auto;
+  padding: var(--space-xs);
+}
+
 .stepper[data-motion='skip'] {
   --stepper-fill: var(--duration-step-skip-fill);
   --stepper-run: var(--duration-step-skip-line);
@@ -78,6 +83,6 @@
   transform-origin: center top;
 }
 
-.stepper[data-orientation='vertical'] .stepper__item:is([data-status='done'], [data-status='error']) .stepper__line::after {
+.stepper[data-orientation='vertical'] .stepper__item[data-line='lit'] .stepper__line::after {
   transform: none;
 }

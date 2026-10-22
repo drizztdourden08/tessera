@@ -36,3 +36,39 @@
 .stepper-story__compact {
   inline-size: 20rem;
 }
+
+.stepper-story__ladder {
+  inline-size: 100%;
+  padding: var(--space-sm);
+}
+
+.stepper-story__narrow {
+  inline-size: var(--size-320);
+}
+
+.stepper-story__chip {
+  inline-size: var(--size-32);
+  block-size: var(--size-32);
+  background: var(--c-primary);
+  border-radius: var(--radius-md);
+}
+
+.stepper-story__chip--lamp {
+  background: var(--c-warning);
+}
+
+.stepper-story__chip--rupees-10 {
+  background: var(--c-success);
+}
+
+.stepper-story__chip--rupees-25 {
+  background: var(--c-info);
+}
+
+.stepper-story__chip--bee {
+  background: var(--c-tertiary);
+}
+
+.stepper-story__chip--potion {
+  background: var(--c-danger);
+}

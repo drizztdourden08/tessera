@@ -33,6 +33,10 @@
   color: var(--stepper-on-tone);
 }
 
+.stepper[data-dot='ring'] .stepper__item[data-status='done'] .stepper-dot__card {
+  color: var(--stepper-tone);
+}
+
 .stepper__item[data-status='done'] .stepper-dot__card[data-flip] {
   transform: rotateY(180deg);
 }

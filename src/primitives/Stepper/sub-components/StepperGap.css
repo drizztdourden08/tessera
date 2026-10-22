@@ -21,6 +21,30 @@
   background: var(--c-border-strong);
 }
 
+.stepper[data-media] .stepper__gap {
+  padding-block-start: calc((var(--stepper-media-h, var(--size-32)) + var(--space-sm)) + var(--stepper-dot) + var(--space-sm));
+}
+
+.stepper[data-label-at='above'] .stepper__gap {
+  padding-block-start: calc((var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight) + var(--space-sm)) + var(--stepper-dot) + var(--space-sm));
+}
+
+.stepper[data-media][data-label-at='above'] .stepper__gap {
+  padding-block-start: calc((var(--stepper-media-h, var(--size-32)) + var(--space-sm)) + (var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight) + var(--space-sm)) + var(--stepper-dot) + var(--space-sm));
+}
+
+.stepper[data-media] .stepper__line {
+  inset-block-start: calc((var(--stepper-media-h, var(--size-32)) + var(--space-sm)) + (var(--stepper-dot) - var(--stepper-line)) / 2);
+}
+
+.stepper[data-label-at='above'] .stepper__line {
+  inset-block-start: calc((var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight) + var(--space-sm)) + (var(--stepper-dot) - var(--stepper-line)) / 2);
+}
+
+.stepper[data-media][data-label-at='above'] .stepper__line {
+  inset-block-start: calc((var(--stepper-media-h, var(--size-32)) + var(--space-sm)) + (var(--stepper-label-lines, 2) * var(--text-sm) * var(--leading-tight) + var(--space-sm)) + (var(--stepper-dot) - var(--stepper-line)) / 2);
+}
+
 .stepper__line::after {
   content: '';
   position: absolute;
@@ -33,7 +57,7 @@
   transition: transform var(--duration-step-line) var(--ease-in-out);
 }
 
-.stepper__item:is([data-status='done'], [data-status='error']) .stepper__line::after {
+.stepper__item[data-line='lit'] .stepper__line::after {
   transform: none;
 }
 

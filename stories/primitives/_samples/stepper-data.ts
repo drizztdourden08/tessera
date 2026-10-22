@@ -1,4 +1,6 @@
 /* @layer stories @kind data */
+import { createElement } from 'react';
+import { Box } from '../../../src/primitives';
 import type { IconName, StepperStep, StepperTone } from '../../../src/primitives';
 
 const STEPPER_STEPS: readonly StepperStep[] = [
@@ -47,4 +49,22 @@ const stepperSteps = (look: StepperLook, current: number): readonly StepperStep[
 
 const stepIdAt = (index: number): string => STEPPER_STEPS[Math.min(Math.max(index, 0), STEPPER_STEPS.length - 1)]?.id ?? 'basics';
 
-export { STEPPER_STEPS, stepIdAt, stepperSteps };
+const LADDER_ITEMS: readonly { id: string; label: string }[] = [
+  { id: 'lamp', label: 'Lamp' },
+  { id: 'rupees-10', label: '10 rupees' },
+  { id: 'rupees-25', label: '25 rupees' },
+  { id: 'bee', label: 'Bee' },
+  { id: 'potion', label: 'Potion' },
+];
+
+const LADDER_STEPS: readonly StepperStep[] = LADDER_ITEMS.map((item) => ({
+  ...item,
+  media: createElement(Box, { className: `stepper-story__chip stepper-story__chip--${item.id}` }),
+}));
+
+const LADDER_IDS: readonly string[] = LADDER_ITEMS.map((item) => item.id);
+
+const ladderSteps = (lit: ReadonlySet<string>): readonly StepperStep[] =>
+  LADDER_STEPS.map((step) => ({ ...step, state: lit.has(step.id) ? 'done' : 'upcoming', struck: !lit.has(step.id) }));
+
+export { LADDER_IDS, STEPPER_STEPS, ladderSteps, stepIdAt, stepperSteps };

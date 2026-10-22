@@ -14,6 +14,10 @@
   transform: none;
 }
 
+.stepper[data-dot='ring'] .stepper-dot__fill {
+  display: none;
+}
+
 .stepper:is([data-motion='step'], [data-motion='skip']) .stepper__item[data-wave][data-status='done'] .stepper-dot__fill {
   transition-duration: var(--stepper-fill);
   transition-timing-function: var(--ease-step-fill);
