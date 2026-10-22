@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.49.0
+
+### Minor Changes
+
+- 03d8d3b: ScreenWindow with no title row now shows its title in a small chip on the top left corner, on the same line as the round X. The chip has the height, surface, border and shadow of the corner buttons, small dim text and an ellipsis for a long title. Pass the new icon prop for a 14 px glyph before the title, and cornerTitle={false} to keep the corner bare. The chip text names the dialog.
+- 86a5fed: Add `mediaPlacement`, hidden labels and `size` to Stepper. `mediaPlacement="below"` puts the `media` of each step under its dot, in the column of that step. `labelPlacement="hidden"` hides the name of each step from view and keeps it for screen readers, with no label row. `size="sm"` draws a smaller dot, a smaller number inside it and a tighter gap between steps. `compact` is unchanged.
+
 ## 0.48.1
 
 ### Patch Changes
