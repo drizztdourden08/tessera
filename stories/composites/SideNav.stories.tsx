@@ -1,11 +1,12 @@
 /* @layer stories @kind story */
 import { useMemo, useState } from 'react';
+import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SideNav } from '../../src/composites';
 import type { SideNavConfig, SideNavItem, SideNavVariant } from '../../src/composites';
 import { matchesText } from '../../src/data';
-import { Box, Icon, Text } from '../../src/primitives';
+import { Badge, Box, Icon, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -22,6 +23,7 @@ type SideNavArgs = {
   defaultOpen: boolean;
   withSearch: boolean;
   withHome: boolean;
+  withBadges: boolean;
   searchPlaceholder: string;
 };
 
@@ -39,11 +41,18 @@ const GROUPS: SideNavConfig['groups'] = [
 
 const ALL_ITEMS = [HOME, ...GROUPS.flatMap((g) => g.items)];
 
+const BADGES: Record<string, ReactNode> = { sessions: 3, players: <Badge variant="inline" color="info" value="new" />, logs: '99+' };
+
+const badged = (entry: SideNavItem): SideNavItem => ({ ...entry, badge: BADGES[entry.id] });
+
 const NavDemo = (props: SideNavArgs) => {
-  const { variant, collapsed, defaultOpen, withSearch, withHome, searchPlaceholder } = props;
+  const { variant, collapsed, defaultOpen, withSearch, withHome, withBadges, searchPlaceholder } = props;
   const [active, setActive] = useState('sessions');
   const [query, setQuery] = useState('');
-  const config = useMemo<SideNavConfig>(() => ({ home: withHome ? HOME : undefined, groups: GROUPS }), [withHome]);
+  const config = useMemo<SideNavConfig>(() => ({
+    home: withHome ? HOME : undefined,
+    groups: withBadges ? GROUPS.map((group) => ({ ...group, items: group.items.map(badged) })) : GROUPS,
+  }), [withHome, withBadges]);
   const matches = ALL_ITEMS.filter((i) => matchesText(i.label, query));
   const current = ALL_ITEMS.find((i) => i.id === active);
   return (
@@ -68,11 +77,12 @@ const NavDemo = (props: SideNavArgs) => {
   );
 };
 
-const ARGS: Partial<SideNavArgs> = { variant: 'panel', collapsed: false, defaultOpen: false, withSearch: true, withHome: true, searchPlaceholder: 'Search sessions and presets' };
+const ARGS: Partial<SideNavArgs> = { variant: 'panel', collapsed: false, defaultOpen: false, withSearch: true, withHome: true, withBadges: false, searchPlaceholder: 'Search sessions and presets' };
 
 const ARG_TYPES: PlaygroundArgTypes<SideNavArgs> = {
     withSearch: { group: 'Content', control: 'boolean' },
     withHome: { group: 'Content', control: 'boolean' },
+    withBadges: { group: 'Content', control: 'boolean' },
     searchPlaceholder: { group: 'Content', control: 'text' },
     variant: { group: 'Appearance', control: 'select', options: ['panel', 'rail'] },
     collapsed: { group: 'State', control: 'boolean' },
@@ -103,6 +113,20 @@ const GroupsOnly = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <NavDemo {...args} withSearch={false} withHome={false} />,
+} satisfies PlaygroundStory<SideNavArgs>;
+
+const WithBadges = {
+  name: 'Badges',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <NavDemo {...args} defaultOpen withBadges />,
+} satisfies PlaygroundStory<SideNavArgs>;
+
+const BadgesCollapsed = {
+  name: 'Badges, collapsed to dots',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <NavDemo {...args} defaultOpen={false} withBadges />,
 } satisfies PlaygroundStory<SideNavArgs>;
 
 const FirstRows = {
@@ -178,6 +202,7 @@ const Overview = overviewStory({
   points: [
     'Use it for the top-level sections of a window; `config` lists the groups, their items and an optional `home`.',
     'It starts collapsed unless `defaultOpen`; `open` with `onOpenChange` or `storageKey` keeps the choice.',
+    '`badge` on an item draws a count pill at the end of its row; a number or text becomes the pill, any other node is shown as given. Collapsed to icons, the row shows a dot over its icon instead.',
     '`search` adds a field that grows when the nav opens; the host owns the query and shows the results.',
     '`overlay` slides the open nav over the content; [[Esc]], a click outside or a pick closes it.',
     '`variant="rail"` is the app screen list: flush on the window edge, its labels shown unless `collapsed`.',
@@ -185,7 +210,7 @@ const Overview = overviewStory({
   ],
   instead: '[SideNavLayout] for a nav beside a content pane that shows the page and the search results.',
   playground: Playground,
-  variants: [OpenWithSearch, GroupsOnly, FirstRows, ManyItems, Rail, RailCollapsed],
+  variants: [OpenWithSearch, WithBadges, BadgesCollapsed, GroupsOnly, FirstRows, ManyItems, Rail, RailCollapsed],
   states: {
     render: renderState,
     list: [
@@ -198,4 +223,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { FirstRows, GroupsOnly, ManyItems, OpenWithSearch, Overview, Playground, Rail, RailCollapsed };
+export { BadgesCollapsed, FirstRows, GroupsOnly, ManyItems, OpenWithSearch, Overview, Playground, Rail, RailCollapsed, WithBadges };
