@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { StepperMediaSize, StepperSize, StepperStepWidth } from '../Stepper.type';
+import type { StepperSizeLook } from './stepper-sizes.constants.type';
 
 const STEPPER_STEP_WIDTHS: Readonly<Record<StepperStepWidth, string>> = {
   sm: 'var(--size-80)',
@@ -12,14 +13,6 @@ const STEPPER_MEDIA_SIZES: Readonly<Record<StepperMediaSize, string>> = {
   md: 'var(--size-32)',
   lg: 'var(--size-48)',
 };
-
-interface StepperSizeLook {
-  dot: string;
-  digit: string;
-  gap: string;
-  gapMin: string;
-  icon: number;
-}
 
 const STEPPER_SIZES: Readonly<Record<StepperSize, StepperSizeLook>> = {
   sm: { dot: 'var(--size-24)', digit: 'var(--text-xs)', gap: 'var(--space-md)', gapMin: 'var(--size-8)', icon: 14 },

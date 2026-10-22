@@ -182,7 +182,7 @@ describe('Stepper media below, hidden labels and size', () => {
   it('hides the label visually, keeps it in the step and leaves no label row', () => {
     const out = html({ labelPlacement: 'hidden' });
     expect(out).toContain('data-label-at="hidden"');
-    expect(out.match(/class="visually-hidden"/g)).toHaveLength(4);
+    expect(out.match(/class="[^"]*\bvisually-hidden\b[^"]*"/g)).toHaveLength(4);
     expect(out).not.toContain('stepper__text');
     expect(out).not.toContain('stepper__label');
     expect(out).toContain('aria-label="Step 1, A, done"');

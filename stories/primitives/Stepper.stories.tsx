@@ -2,13 +2,13 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Stepper } from '../../src/primitives';
-import type { StepperProps } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
-import { STEPPER_STEPS, ladderSteps, stepIdAt, stepperSteps } from './_samples/stepper-data';
-import { ARGS, ARG_TYPES, flat } from './_samples/stepper-story-args';
+import { STEPPER_STEPS, stepIdAt, stepperSteps } from './_samples/stepper-data';
+import { HIDDEN_LOOKS, LADDER_LOOKS, MEDIA_PLACES, SIZES, ladder, ladderHidden, ladderMedia, ladderSize } from './_samples/stepper-ladder-views';
+import { ARGS, ARG_TYPES, FACES, ROOMS, flat } from './_samples/stepper-story-args';
 import type { StepperArgs } from './_samples/stepper-story-args';
 import { StepperDriver } from './_samples/StepperDriver';
 import { StepperLadder } from './_samples/StepperLadder';
@@ -87,13 +87,6 @@ const SubStepsOnTop = {
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
-const ROOMS: Readonly<Record<string, Partial<StepperArgs>>> = {
-  'Room kept, step 1': { step: 1 },
-  'Room kept, step 4': { step: 4 },
-  'No room kept, step 1': { step: 1, reserve: 'none' },
-  'No room kept, step 4': { step: 4, reserve: 'none' },
-};
-
 const Room = {
   name: 'Room for summaries',
   render: () => (
@@ -125,52 +118,12 @@ const Compact = {
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
-const FACES: Readonly<Record<string, Partial<StepperArgs>>> = {
-  'A check, the default': {},
-  'An icon per step': { doneIcon: 'per step' },
-  'Numbers kept': { doneIcon: 'numbers' },
-  'A colour per step': { colour: 'per step', doneIcon: 'per step' },
-  'Secondary for every step': { colour: 'secondary' },
-};
-
 const IconsAndColours = {
   name: 'Done icons and colours',
   render: () => (
     <Demonstrator rows={axis(Object.keys(FACES))} align="stretch" cell={(face) => strip({ ...flat, step: 4, ...FACES[face] })} />
   ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
-
-const LADDER_LOOKS = ['Ring dots, steps 1, 3 and 4 lit', 'Filled dots', 'Grey', 'Name below, with pictures', 'Narrow box that scrolls'] as const;
-
-const LIT_SOME: ReadonlySet<string> = new Set(['lamp', 'rupees-25', 'bee']);
-
-const ladderProps = (look: (typeof LADDER_LOOKS)[number]): Partial<StepperProps> => {
-  if (look === 'Filled dots') return { dotVariant: 'filled' };
-  if (look === 'Grey') return { tone: 'neutral' };
-  if (look === 'Name below, with pictures') return { labelPlacement: 'below' };
-  return {};
-};
-
-const ladderWith = (extra: Partial<StepperProps>, narrow = false) => {
-  const stepper = (
-    <Stepper
-      steps={ladderSteps(LIT_SOME)}
-      selectMode="toggle"
-      labelPlacement="above"
-      dotVariant="ring"
-      tone="warning"
-      reserve="none"
-      stepWidth="sm"
-      scroll
-      onSelect={() => undefined}
-      label="Steps to keep"
-      {...extra}
-    />
-  );
-  return <Box className={narrow ? 'stepper-story__narrow' : 'stepper-story__wide'}>{stepper}</Box>;
-};
-
-const ladder = (look: (typeof LADDER_LOOKS)[number]) => ladderWith(ladderProps(look), look === 'Narrow box that scrolls');
 
 const LadderPick = {
   name: 'Ladder, pick the steps to keep',
@@ -182,46 +135,22 @@ const LadderLooks = {
   render: () => <Demonstrator rows={axis(LADDER_LOOKS)} align="stretch" cell={(look) => ladder(look)} />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
-const MEDIA_PLACES = ['Above the dot, the default', 'Below the dot', 'Below the dot, name below'] as const;
-
-const mediaProps = (place: (typeof MEDIA_PLACES)[number]): Partial<StepperProps> => {
-  if (place === 'Below the dot') return { mediaPlacement: 'below' };
-  if (place === 'Below the dot, name below') return { mediaPlacement: 'below', labelPlacement: 'below' };
-  return { mediaPlacement: 'above' };
-};
-
 const LadderPicturesBelow = {
   name: 'Ladder, pictures below the dots',
-  render: () => <Demonstrator rows={axis(MEDIA_PLACES)} align="stretch" cell={(place) => ladderWith(mediaProps(place))} />,
+  render: () => <Demonstrator rows={axis(MEDIA_PLACES)} align="stretch" cell={(place) => ladderMedia(place)} />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
-
-const HIDDEN_LOOKS = ['Name hidden, pictures above', 'Name hidden, pictures below'] as const;
 
 const LadderNameHidden = {
   name: 'Ladder, name hidden',
-  render: () => (
-    <Demonstrator
-      rows={axis(HIDDEN_LOOKS)}
-      align="stretch"
-      cell={(look) => ladderWith({ labelPlacement: 'hidden', mediaPlacement: look === 'Name hidden, pictures below' ? 'below' : 'above' })}
-    />
-  ),
+  render: () => <Demonstrator rows={axis(HIDDEN_LOOKS)} align="stretch" cell={(look) => ladderHidden(look)} />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
-
-const SIZES = ['Medium, the default', 'Small'] as const;
 
 const Sizes = {
   name: 'Small steps',
-  render: () => (
-    <Demonstrator
-      rows={axis(SIZES)}
-      align="stretch"
-      cell={(size) => ladderWith({ size: size === 'Small' ? 'sm' : 'md', dotVariant: 'ring', mediaPlacement: 'below', labelPlacement: 'hidden' })}
-    />
-  ),
+  render: () => <Demonstrator rows={axis(SIZES)} align="stretch" cell={(size) => ladderSize(size)} />,
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
-const DONE_STEP ='.stepper__item[data-status="done"] .stepper__step';
+const DONE_STEP = '.stepper__item[data-status="done"] .stepper__step';
 
 const CODE = `import { Stepper } from '@drizztdourden08/tessera';
 

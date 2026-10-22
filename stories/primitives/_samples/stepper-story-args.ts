@@ -39,5 +39,20 @@ const ARG_TYPES: PlaygroundArgTypes<StepperArgs> = {
 
 const flat: StepperArgs = { orientation: 'horizontal', compact: false, step: 1, summaries: false, reserve: 'summaries', subSteps: false, error: false, doneIcon: 'check', colour: 'primary', dotVariant: 'filled', labelPlacement: 'below', size: 'md' };
 
-export { ARGS, ARG_TYPES, flat };
+const ROOMS: Readonly<Record<string, Partial<StepperArgs>>> = {
+  'Room kept, step 1': { step: 1 },
+  'Room kept, step 4': { step: 4 },
+  'No room kept, step 1': { step: 1, reserve: 'none' },
+  'No room kept, step 4': { step: 4, reserve: 'none' },
+};
+
+const FACES: Readonly<Record<string, Partial<StepperArgs>>> = {
+  'A check, the default': {},
+  'An icon per step': { doneIcon: 'per step' },
+  'Numbers kept': { doneIcon: 'numbers' },
+  'A colour per step': { colour: 'per step', doneIcon: 'per step' },
+  'Secondary for every step': { colour: 'secondary' },
+};
+
+export { ARGS, ARG_TYPES, FACES, ROOMS, flat };
 export type { StepperArgs };
