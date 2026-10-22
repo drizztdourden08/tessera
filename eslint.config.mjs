@@ -46,6 +46,7 @@ export default standardsEslint({
     { files: ['src/composites/SettingsRow/sub-components/SettingsRowDescription.tsx'], why: 'a long description folds to the number of lines the host passes in' },
     { files: ['src/brand/PixelWordmark/PixelWordmark.tsx'], why: 'the aspect ratio comes from the laid out letters' },
     { files: ['src/composites/Emphasis/**'], why: 'the weights, timing and each letter delay are set per instance' },
+    { files: ['src/composites/ControllerLayout/sub-components/ControllerTag.tsx'], why: 'each input tag sits at its share of the stage, from the geometry data' },
     { files: ['src/composites/KeyboardLayout/**'], why: 'each key is placed and sized from the layout data, in key units' },
     { files: ['src/composites/ShortcutTour/**'], why: 'the camera transform and the speed are computed per frame' },
     { files: ['src/composites/GuidedTour/sub-components/**'], why: 'the highlight ring and the mascot follow the measured rectangle of the step target' },

@@ -187,6 +187,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - A tour of shortcuts: no component yet.
     - Which buttons are held: no component yet.
     - Where a stick points: no component yet.
+    - Every input on a controller: [ControllerLayout](components/ControllerLayout.md). ControllerLayout draws every input of a pad in its place, so a test screen reads the same in every app.
 - Icons and brand. **Which mark?**
   - An icon from the set: no component yet.
   - A small stroke glyph: no component yet.

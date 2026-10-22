@@ -9698,3 +9698,17 @@ SidePanel gains a "drag to fold" example next to the studio, the folded studio a
 - In code that uses ResizeHandle, drop `look`, `children` and `onClick`; replace `onCollapse={fold}` with `fold={{ sides: ['low'], folded, onFold: fold, onUnfold: unfold }}` or, better, use SidePanel. Import no `ResizeHandleLook`.
 - In code that uses SplitPane, replace `snapAt={0}` with `collapsible={false}` and drop any other `snapAt`.
 - **Stylesheets** that target the removed classes: use the list above.
+
+## 270. ControllerLayout: every input of a controller in its place
+
+`ControllerLayout` (composites) draws a plain controller outline with each face button, d-pad arm, shoulder, trigger, stick and meta button in its place. Props: `variant` (`'offset' | 'symmetric' | 'nintendo' | 'pad'`), `slots` (`Partial<Record<ControllerSlotId, ControllerSlotState>>`), `extras?` (`ControllerExtra[]`), `label?` and `className?`. The types `ControllerSlotId`, `ControllerSlotState`, `ControllerSlots`, `ControllerExtra`, `ControllerLayoutVariant` and `ControllerLayoutProps` and the lists `CONTROLLER_SLOT_IDS` and `CONTROLLER_LAYOUT_VARIANTS` are exported. A new strings group, `controller`, names every input, and a new token, `--controller-layout-max-w`, caps its width at 640 px.
+
+### What Brock does
+
+- Import `ControllerSlotId` and `ControllerSlotState` from Tessera in place of a local copy.
+- Send triggers and shoulders as `value` from 0 to 1; a trigger with a value above zero lights. Send sticks as `x` and `y` from -1 to 1 with `y` up, and stick clicks as `stick.left.click` and `stick.right.click`.
+- Send paddles and `misc2` to `misc6` as `extras`, one entry per button. They show in a list under the outline, one row each.
+
+### What RotP does
+
+- In the Controllers card, draw the pad with `ControllerLayout` and pick the variant from the pad family. A slot the variant has no place for shows in the list under the outline, so nothing is lost.

@@ -15,4 +15,4 @@ interface CatalogueTier {
   groups: readonly CatalogueGroup[];
 }
 
-export type { CatalogueTier };
+export type { CatalogueGroup, CatalogueTier };

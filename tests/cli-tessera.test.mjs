@@ -87,6 +87,13 @@ describe('what tessera new refuses in Tessera', () => {
     expect(existsSync(join(made.dir, 'src/primitives/RuneSlot'))).toBe(false);
   });
 
+  it('finds a group in the second composites catalogue file and edits that file', async () => {
+    const result = await runNew(made.dir, ['composite', 'RuneDial', '--group', 'Input devices', '--dry-run']);
+    expect(result.status).toBe(0);
+    expect(result.out).toContain('  .storylite/catalogue-composites-shell.constants.ts');
+    expect(result.out).not.toContain('  .storylite/catalogue-composites.constants.ts');
+  });
+
   it('writes nothing on a dry run', async () => {
     const before = made.read('src/primitives/index.ts');
     const result = await runNew(made.dir, ['primitive', 'RuneSlot', '--group', 'Layout', '--dry-run']);
