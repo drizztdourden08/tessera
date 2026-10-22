@@ -6,14 +6,16 @@ import { Tooltip } from '../../../primitives/Tooltip';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { EdgeButton } from '../../edge-button/EdgeButton';
 import { LockGlyph } from './LockGlyph';
+import { WindowCornerTitle } from './WindowCornerTitle';
 import type { WindowCornerProps } from './WindowCorner.type';
 import './WindowCorner.css';
 
-const WindowCorner = ({ lock, onClose }: WindowCornerProps) => {
+const WindowCorner = ({ lock, onClose, title }: WindowCornerProps) => {
   const { common, windows } = useTesseraStrings();
   const closeTip = <Span className="screen-window__tip">{common.close}<Shortcut keys="esc" size="xs" /></Span>;
   return (
     <>
+      {title && <WindowCornerTitle {...title} />}
       {lock.shown && (
         <Tooltip content={lock.locked ? windows.unlockPosition : windows.lockPosition} placement="bottom">
           <EdgeButton label={windows.lockPosition} aria-pressed={lock.locked} className="screen-window__lock" onClick={lock.toggle}>

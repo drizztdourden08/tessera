@@ -14,6 +14,8 @@ interface ScreenWindowProps {
   children: ReactNode;
   header?: ScreenWindowHeader;
   titleRow?: boolean;
+  icon?: ReactNode;
+  cornerTitle?: boolean;
   movable?: boolean;
   locked?: boolean;
   defaultLocked?: boolean;
