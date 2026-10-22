@@ -143,6 +143,10 @@
     margin-inline-start: var(--space-md);
   }
 
+  .list-detail-layout__panes > .list-detail-layout__detail--folded {
+    margin-inline-start: 0;
+  }
+
   .list-detail-layout__list--folded,
   .list-detail-layout__detail--folded {
     padding: 0;
