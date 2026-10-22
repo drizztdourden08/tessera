@@ -17,8 +17,8 @@ const SCHEMA_PATH = './node_modules/@drizztdourden08/tessera/tessera.config.sche
 const CONFIG_HINT = `no tessera.config.json here or above, so the files go to the default folders: src/<kind>s and stories/. To choose the folders, add tessera.config.json at the repo root with { "$schema": "${SCHEMA_PATH}" } and its parts.`;
 
 const CATALOGUE_FILES = {
-  primitive: '.storylite/catalogue-primitives.constants.ts',
-  composite: '.storylite/catalogue-composites.constants.ts',
+  primitive: ['.storylite/catalogue-primitives.constants.ts'],
+  composite: ['.storylite/catalogue-composites.constants.ts', '.storylite/catalogue-composites-shell.constants.ts'],
 };
 
 const APP_TIERS = { primitive: 'Primitives', composite: 'Composites', compound: 'Compounds', view: 'Views' };
