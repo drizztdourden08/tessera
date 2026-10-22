@@ -9504,8 +9504,7 @@
           {
             "name": "titleRow",
             "optional": true,
-            "text": "boolean",
-            "default": "true"
+            "text": "boolean"
           },
           {
             "name": "icon",
@@ -9515,8 +9514,7 @@
           {
             "name": "cornerTitle",
             "optional": true,
-            "text": "boolean",
-            "default": "true"
+            "text": "boolean"
           },
           {
             "name": "movable",

@@ -88,9 +88,9 @@ const DataCard = ({ onClose }: { onClose: () => void }) => (
 - `back` (optional): `BackAction`.
 - `children`: `ReactNode`.
 - `header` (optional): `ScreenWindowHeader`.
-- `titleRow` (optional): `boolean`. Default `true`.
+- `titleRow` (optional): `boolean`.
 - `icon` (optional): `ReactNode`.
-- `cornerTitle` (optional): `boolean`. Default `true`.
+- `cornerTitle` (optional): `boolean`.
 - `movable` (optional): `boolean`.
 - `locked` (optional): `boolean`.
 - `defaultLocked` (optional): `boolean`.
