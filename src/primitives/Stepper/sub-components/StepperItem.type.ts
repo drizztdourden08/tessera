@@ -10,8 +10,11 @@ interface StepperItemProps {
   last: boolean;
   wave?: number;
   lineTone?: StepperTone;
+  lineLit: boolean;
   doneIcon?: IconName;
   reserveSummary: boolean;
+  reserveMedia: boolean;
+  toggle: boolean;
   selectable: boolean;
   onSelect?: (id: string) => void;
   activeSubStepId?: string;

@@ -5,7 +5,7 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-inline-size: var(--size-16);
-  padding-block-start: calc(var(--stepper-dot) + var(--space-sm));
+  padding-block-start: calc(var(--stepper-lead) + var(--stepper-dot) + var(--space-sm));
 }
 
 .stepper__gap:has(.stepper-sub-steps) {
@@ -14,7 +14,7 @@
 
 .stepper__line {
   position: absolute;
-  inset-block-start: calc((var(--stepper-dot) - var(--stepper-line)) / 2);
+  inset-block-start: calc(var(--stepper-lead) + (var(--stepper-dot) - var(--stepper-line)) / 2);
   inset-inline: calc((var(--stepper-dot) - var(--stepper-step-w)) / 2);
   block-size: var(--stepper-line);
   border-radius: var(--radius-pill);
@@ -33,7 +33,7 @@
   transition: transform var(--duration-step-line) var(--ease-in-out);
 }
 
-.stepper__item:is([data-status='done'], [data-status='error']) .stepper__line::after {
+.stepper__item[data-line='lit'] .stepper__line::after {
   transform: none;
 }
 

@@ -5,6 +5,7 @@ import type { StepperToneInk } from './stepper-tone-ink.type';
 const tag = (name: string): StepperToneInk => ({ tone: `var(--c-tag-${name})`, on: 'var(--p-pure-black)' });
 
 const STEPPER_TONES: Readonly<Record<StepperTone, StepperToneInk>> = {
+  neutral: { tone: 'var(--c-text-muted)', on: 'var(--c-bg)' },
   primary: { tone: 'var(--c-primary)', on: 'var(--c-on-primary)' },
   secondary: { tone: 'var(--c-secondary)', on: 'var(--c-on-secondary)' },
   tertiary: { tone: 'var(--c-tertiary)', on: 'var(--c-on-tertiary)' },
