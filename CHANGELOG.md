@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.48.1
+
+### Patch Changes
+
+- 08e8eff: Fix the folded ListDetailLayout detail rail being clipped at the right edge.
+
 ## 0.48.0
 
 ### Minor Changes
