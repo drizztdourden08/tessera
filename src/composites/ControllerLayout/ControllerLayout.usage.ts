@@ -47,7 +47,7 @@ const PadTest = ({ slots }: PadTestProps) => (
   />
 );
 `,
-  propsHash: '0000000000000000',
+  propsHash: '47c71b78de1af48f',
 } satisfies ComponentUsage;
 
 export { usage };
