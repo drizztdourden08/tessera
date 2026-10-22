@@ -25,12 +25,18 @@ const TOP_ROW: ControllerPlace[] = [
   place('shoulder.right', 'fill', rect({ x: 248, y: 42, w: 88, h: 14, r: 7 })),
 ];
 
+const OFFSET_DECOR = [dpadHub(150, 160)];
+
+const OFFSET_CONTROLS: ControllerPlace[] = [
+  ...TOP_ROW, ...face(292, 112), ...dpad(150, 160),
+  stick('left', 108, 112, 26), stick('right', 250, 160, 24),
+];
+
 const OFFSET: ControllerGeometry = {
   body: GRIP_BODY,
-  decor: [dpadHub(150, 160)],
+  decor: OFFSET_DECOR,
   places: [
-    ...TOP_ROW, ...face(292, 112), ...dpad(150, 160),
-    stick('left', 108, 112, 26), stick('right', 250, 160, 24),
+    ...OFFSET_CONTROLS,
     pill('meta.view', 170, 100), pill('meta.menu', 230, 100), dot('meta.guide', 200, 80, 11), square('meta.capture', 200, 124),
   ],
 };
@@ -47,10 +53,9 @@ const SYMMETRIC: ControllerGeometry = {
 
 const NINTENDO: ControllerGeometry = {
   body: GRIP_BODY,
-  decor: [dpadHub(150, 160)],
+  decor: OFFSET_DECOR,
   places: [
-    ...TOP_ROW, ...face(292, 112), ...dpad(150, 160),
-    stick('left', 108, 112, 26), stick('right', 250, 160, 24),
+    ...OFFSET_CONTROLS,
     pill('meta.view', 170, 92), pill('meta.menu', 230, 92), square('meta.capture', 180, 122), dot('meta.guide', 220, 122, 9),
   ],
 };
