@@ -1,12 +1,9 @@
 /* @layer renderer-components @kind logic */
-import { isActive, stickMoved } from './slot-state';
-import { stickClickState } from './stick-click';
 import type { ControllerPlace, ControllerSlotState, ControllerSlots } from '../ControllerLayout.type';
-
-interface TagSource {
-  state: ControllerSlotState | undefined;
-  active: boolean;
-}
+import { isActive } from './is-active';
+import { stickClickState } from './stick-click-state';
+import { stickMoved } from './stick-moved';
+import type { TagSource } from './tag-source.type';
 
 const hasContent = (state: ControllerSlotState | undefined): boolean =>
   state !== undefined && ((state.glyph !== undefined && state.glyph !== null) || (state.label !== undefined && state.label !== ''));

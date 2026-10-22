@@ -141,10 +141,10 @@ const Overview = overviewStory({
   description: 'A plain outline of a controller with every input in its place, lit while it is held, like a console test screen.',
   points: [
     '`variant` picks the body: `offset`, `symmetric`, `nintendo`, or `pad` with no sticks or triggers.',
-    '`slots` takes a state per input by its place, such as `face.south` or `trigger.left`. A slot not given is drawn idle.',
+    '`slots` takes a state per input, keyed by its place such as `face.south`. A slot not given is drawn idle.',
     'Triggers and shoulders fill with `value` from 0 to 1. Sticks move with `x` and `y` from -1 to 1, `y` up.',
     'A `label` or a `glyph` shows on or beside its control.',
-    'A slot the variant has no place for, and every entry of `extras`, shows in a list under the outline, one row each.',
+    'A slot the variant has no place for, and each entry of `extras`, shows as a row in a list under it.',
     'It grows with its card up to 640 px wide.',
   ],
   playground: Playground,

@@ -33,7 +33,7 @@ const labelledSlots = (variant: ControllerLayoutVariant, held: readonly Controll
   const entries = (Object.keys(SDL_IDS) as ControllerSlotId[])
     .map((id) => [id, { glyph: glyphFor(family, id), pressed: down.has(id) }] as const)
     .filter(([, state]) => state.glyph !== undefined);
-  return Object.fromEntries(entries) as ControllerSlots;
+  return Object.fromEntries(entries);
 };
 
 export { BUTTON_IDS, labelledSlots };

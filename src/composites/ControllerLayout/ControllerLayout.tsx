@@ -3,16 +3,17 @@ import { useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { controllerGeometry } from './behavior/controller-geometry';
-import { fallbackRows, heldLines, placedIds } from './behavior/controller-rows';
+import { fallbackRows } from './behavior/fallback-rows';
+import { heldLines } from './behavior/held-lines';
+import { placedIds } from './behavior/placed-ids';
 import { tagSource } from './behavior/tag-source';
 import { ControllerHeld } from './sub-components/ControllerHeld';
 import { ControllerRows } from './sub-components/ControllerRows';
 import { ControllerSilhouette } from './sub-components/ControllerSilhouette';
 import { ControllerTag } from './sub-components/ControllerTag';
-import type { ControllerExtra, ControllerLayoutProps } from './ControllerLayout.type';
+import { NO_EXTRAS } from './ControllerLayout.constants';
+import type { ControllerLayoutProps } from './ControllerLayout.type';
 import './ControllerLayout.css';
-
-const NO_EXTRAS: readonly ControllerExtra[] = [];
 
 const ControllerLayout = (props: ControllerLayoutProps) => {
   const { variant, slots, extras = NO_EXTRAS, label, className = '' } = props;

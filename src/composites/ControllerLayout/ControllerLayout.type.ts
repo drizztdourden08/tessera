@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { TesseraStrings } from '../../primitives/strings';
 import type { CONTROLLER_LAYOUT_VARIANTS, CONTROLLER_SLOT_IDS } from './ControllerLayout.constants';
 
 type ControllerSlotId = (typeof CONTROLLER_SLOT_IDS)[number];
@@ -62,6 +63,13 @@ interface ControllerRow {
   amount?: number;
 }
 
+type ControllerStrings = TesseraStrings['controller'];
+
+interface ControllerAnalog {
+  pressed?: boolean;
+  value?: number;
+}
+
 interface ControllerControlProps {
   place: ControllerPlace;
   state: ControllerSlotState | undefined;
@@ -100,8 +108,8 @@ interface ControllerHeldProps {
 }
 
 export type {
-  ControllerControlKind, ControllerControlProps, ControllerExtra, ControllerGeometry, ControllerHeldProps,
+  ControllerAnalog, ControllerControlKind, ControllerControlProps, ControllerExtra, ControllerGeometry, ControllerHeldProps,
   ControllerLayoutProps, ControllerLayoutVariant, ControllerPlace, ControllerRow, ControllerRowsProps, ControllerShape,
   ControllerShapeProps, ControllerSilhouetteProps, ControllerSlotId, ControllerSlotState, ControllerSlots,
-  ControllerStickProps, ControllerTagAt, ControllerTagProps,
+  ControllerStickProps, ControllerStrings, ControllerTagAt, ControllerTagProps,
 };

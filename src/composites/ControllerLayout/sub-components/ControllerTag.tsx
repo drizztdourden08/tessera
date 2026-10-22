@@ -6,7 +6,7 @@ import type { ControllerTagProps } from '../ControllerLayout.type';
 const ControllerTag = (props: ControllerTagProps) => {
   const { place, state, active } = props;
   const content = state?.glyph ?? state?.label;
-  if (content === undefined || content === null || content === '') return null;
+  if (content === undefined || content === '') return null;
 
   return (
     <Box

@@ -4,7 +4,9 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { CONTROLLER_LAYOUT_VARIANTS, CONTROLLER_SLOT_IDS, ControllerLayout } from '../src/composites/ControllerLayout';
 import { controllerGeometry } from '../src/composites/ControllerLayout/behavior/controller-geometry';
-import { fallbackRows, heldLines, placedIds } from '../src/composites/ControllerLayout/behavior/controller-rows';
+import { fallbackRows } from '../src/composites/ControllerLayout/behavior/fallback-rows';
+import { heldLines } from '../src/composites/ControllerLayout/behavior/held-lines';
+import { placedIds } from '../src/composites/ControllerLayout/behavior/placed-ids';
 import { TESSERA_STRINGS } from '../src/primitives/strings';
 
 const strings = TESSERA_STRINGS.controller;

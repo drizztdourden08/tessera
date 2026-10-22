@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Svg, SvgPath } from '../../../primitives/Svg';
-import { isActive } from '../behavior/slot-state';
-import { stickClickState } from '../behavior/stick-click';
+import { isActive } from '../behavior/is-active';
+import { stickClickState } from '../behavior/stick-click-state';
 import { VIEW_BOX } from '../ControllerLayout.constants';
 import { ControllerFill } from './ControllerFill';
 import { ControllerOutline } from './ControllerOutline';

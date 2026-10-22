@@ -58,9 +58,6 @@
 
 .controller-layout__level {
   fill: var(--c-primary);
-  transform-box: fill-box;
-  transform-origin: bottom;
-  transition: transform var(--transition-fast);
 }
 
 .controller-layout__well {
@@ -212,7 +209,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .controller-layout__control,
-  .controller-layout__level,
   .controller-layout__well,
   .controller-layout__cap,
   .controller-layout__cap-face,

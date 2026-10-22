@@ -13,8 +13,8 @@ interface LiveControllerLayoutProps {
 const LiveControllerLayout = (props: LiveControllerLayoutProps) => {
   const { variant = 'offset', className } = props;
   const t = useAnimationTime();
-  const held = BUTTON_IDS[Math.floor(t * 1.5) % BUTTON_IDS.length];
-  const slots = labelledSlots(variant, [held]);
+  const turn = Math.floor(t * 1.5) % BUTTON_IDS.length;
+  const slots = labelledSlots(variant, BUTTON_IDS.slice(turn, turn + 1));
   const left = stickAt(t, 'free');
   const right = stickAt(t + 1.4, 'roll');
 
