@@ -63,7 +63,7 @@ const DataCard = ({ onClose }: { onClose: () => void }) => (
   </ScreenWindow>
 );
 `,
-  propsHash: '5089fe2100f622e4',
+  propsHash: '6d744128670c8d59',
 } satisfies ComponentUsage;
 
 export { usage };
