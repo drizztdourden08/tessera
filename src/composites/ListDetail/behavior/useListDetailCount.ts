@@ -1,11 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useState } from 'react';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-
-interface ListCount {
-  shown: number;
-  total: number;
-}
+import type { ListCount } from './useListDetailCount.type';
 
 const useListDetailCount = (title: string, size: number) => {
   const { lists } = useTesseraStrings();

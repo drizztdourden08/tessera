@@ -2,9 +2,11 @@
 import { describe, expect, it, vi } from 'vitest';
 import { useItemListCount } from '../src/composites/ItemList/behavior/useItemListCount';
 import { useListDetailCount } from '../src/composites/ListDetail/behavior/useListDetailCount';
+import { TESSERA_STRINGS } from '../src/primitives/strings';
 import { mountHook } from './hook-harness.mjs';
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
+vi.mock('../src/primitives/TesseraProvider/behavior/useTesseraStrings', () => ({ useTesseraStrings: () => TESSERA_STRINGS }));
 
 describe('ListDetail heading count when the filter narrows the list', () => {
   it('reads shown of total once the filter narrows the list', () => {
