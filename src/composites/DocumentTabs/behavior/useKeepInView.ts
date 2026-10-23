@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect } from 'react';
 import type { RefObject } from 'react';
-import { itemOfKey } from '../../ReorderList/behavior/item-of-key';
+import { itemOfKey } from '../../reorder/item-of-key';
 
 const useKeepInView = (trackRef: RefObject<HTMLElement | null>, activeId: string | undefined): void => {
   useEffect(() => {

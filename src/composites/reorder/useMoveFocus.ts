@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import type { MoveFocus } from '../ReorderList.type';
+import type { MoveFocus } from './move-focus.type';
 import { itemOfKey } from './item-of-key';
 import { mainOf } from './main-of';
 

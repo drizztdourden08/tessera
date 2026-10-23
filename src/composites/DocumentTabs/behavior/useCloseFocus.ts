@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useRef } from 'react';
 import type { RefObject } from 'react';
-import { itemOfKey } from '../../ReorderList/behavior/item-of-key';
-import { mainOf } from '../../ReorderList/behavior/main-of';
+import { itemOfKey } from '../../reorder/item-of-key';
+import { mainOf } from '../../reorder/main-of';
 import type { ClosedTab, DocumentTab } from '../DocumentTabs.type';
 
 const useCloseFocus = (trackRef: RefObject<HTMLElement | null>, tabs: readonly DocumentTab[]): ((id: string) => void) => {

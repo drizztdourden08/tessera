@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind util */
 import type { KeyboardEvent, RefObject } from 'react';
 import { isHTMLElement } from '../../../primitives/dom/is-html-element';
-import { mainOf } from '../../ReorderList/behavior/main-of';
-import { ITEM_SELECTOR } from '../../ReorderList/ReorderList.constants';
+import { mainOf } from '../../reorder/main-of';
+import { ITEM_SELECTOR } from '../../reorder/reorder-item.constants';
 import { reorderStep } from '../../reorder/reorder-step';
 import { TAB_ITEM } from '../DocumentTabs.constants';
 import type { TabKeysInput } from '../DocumentTabs.type';

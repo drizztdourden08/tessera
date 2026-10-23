@@ -2,8 +2,8 @@
 import { useRef, useState } from 'react';
 import type { FocusEvent } from 'react';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { useMoveFocus } from '../../ReorderList/behavior/useMoveFocus';
-import { ITEM_SELECTOR } from '../../ReorderList/ReorderList.constants';
+import { ITEM_SELECTOR } from '../../reorder/reorder-item.constants';
+import { useMoveFocus } from '../../reorder/useMoveFocus';
 import { useReorderDrag } from '../../reorder/useReorderDrag';
 import type { DocumentTabsProps } from '../DocumentTabs.type';
 import { tabbableId } from './tabbable-id';
