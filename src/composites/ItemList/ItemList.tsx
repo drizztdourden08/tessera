@@ -6,6 +6,7 @@ import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/use
 import { showsFilter } from './behavior/shows-filter';
 import { useItemListCreate } from './behavior/useItemListCreate';
 import { useItemList } from './behavior/useItemList';
+import { useItemListCount } from './behavior/useItemListCount';
 import { useRowsCap } from './behavior/useRowsCap';
 import { useScrollActiveRow } from './behavior/useScrollActiveRow';
 import type { ItemListProps } from './ItemList.type';
@@ -18,6 +19,7 @@ const ItemList = <T,>(props: ItemListProps<T>) => {
   const { lists } = useTesseraStrings();
   const view = useItemList(props);
   const form = useItemListCreate(props, view);
+  useItemListCount(props.onCount, view.shownCount, view.total);
   const cap = useRowsCap(view.listRef, props.maxRows);
   useScrollActiveRow(view.listRef, props.selectedId, cap);
   const placeholder = filterPlaceholder ?? lists.filterOf(title);

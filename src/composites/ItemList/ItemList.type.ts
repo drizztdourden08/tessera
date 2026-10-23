@@ -60,6 +60,7 @@ interface ItemListProps<T> {
   filter?: ItemListFilter;
   filterPlaceholder?: string;
   loading?: boolean;
+  onCount?: (shown: number, total: number) => void;
   error?: unknown;
   onRetry?: () => void;
   empty?: ReactNode;
