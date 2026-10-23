@@ -20,7 +20,7 @@ const DENSITY: SegmentOption<Density>[] = [
   { value: 'compact', label: 'Compact', hint: { label: 'Compact rows', description: 'One line per row' } },
 ];
 
-const THEMES = [{ value: 'dark', label: 'Dark' }, { value: 'light', label: 'Light' }, { value: 'system', label: 'System' }];
+const THEMES = [{ value: 'dark', label: 'Dark' }, { value: 'system', label: 'System' }];
 
 const ControlMenuDemo = (props: ControlMenuDemoProps) => {
   const { filter, sub, every, align, defaultOpen, label = 'View options' } = props;

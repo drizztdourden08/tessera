@@ -33,12 +33,10 @@
   padding: var(--space-md);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
+  background: var(--c-surface);
 }
 
 .variant-grid__art > * { max-inline-size: 100%; }
-
-.variant-grid__art[data-ground='dark'] { background: var(--c-surface); }
-.variant-grid__art[data-ground='light'] { background: var(--p-white); }
 
 .variant-grid__label,
 .variant-groups__label {

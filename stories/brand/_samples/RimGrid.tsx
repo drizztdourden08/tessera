@@ -9,7 +9,7 @@ const RimGrid = (props: RimGridProps) => {
   const groups = BRAND_APPS.map((app) => ({
     key: app,
     label: app,
-    items: RIM_COLUMNS.map((column) => ({ key: column.key, label: column.label, ground: column.ground, node: draw(app, column.rim) })),
+    items: RIM_COLUMNS.map((column) => ({ key: column.key, label: column.label, node: draw(app, column.rim) })),
   }));
   return <VariantGroups groups={groups} min={min} rowsOf={3} />;
 };
