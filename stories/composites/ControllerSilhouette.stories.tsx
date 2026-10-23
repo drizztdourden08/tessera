@@ -99,7 +99,7 @@ const Overview = overviewStory({
   description: 'The outline of a controller, one stroked line with no fill. The app draws its own marks on top.',
   points: [
     '`variant` picks the outline: `offset`, `symmetric`, `nintendo`, or `pad` with no sticks or triggers.',
-    'Only the outer edge is drawn. Shoulders show where they stick out past the body. Nothing marks a button, stick or trigger.',
+    'Only the outer edge is drawn, shoulders included. Nothing marks a button, stick or trigger.',
     '`children` render inside the SVG, on top of the outline, in viewBox units.',
     'The viewBox is fixed at `0 0 400 260` for every variant, so app coordinates stay valid.',
     '`CONTROLLER_SILHOUETTE_ANCHORS` gives where each control sits per variant. Nothing is drawn for them.',
