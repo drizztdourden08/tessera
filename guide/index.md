@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 76 of 198 have their usage written; a linked name opens its page.
+One line per component. 75 of 197 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -144,7 +144,6 @@ One line per component. 76 of 198 have their usage written; a linked name opens 
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
-- [PixelViewport](components/PixelViewport.md): Shows a pixel image on a canvas that the user zooms and pans, with crisp pixels at any zoom and screen density, a checkerboard behind transparent pixels and a pixel grid when zoomed in. Import from `@drizztdourden08/tessera`.
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.

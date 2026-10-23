@@ -95,9 +95,9 @@
     --c-tertiary-soft:   color-mix(in srgb, var(--p-tertiary) 14%, transparent);
     --c-on-tertiary:     var(--p-on-tertiary);
     --c-controller-line: color-mix(in oklab, var(--c-text-muted) 85%, var(--c-surface));
-    --c-pixel-check-a: var(--p-tertiary-850);
-    --c-pixel-check-b: var(--p-tertiary-800);
-    --c-pixel-grid:    color-mix(in srgb, var(--p-tertiary-500) 55%, transparent);
+    --c-checker-a: var(--p-tertiary-850);
+    --c-checker-b: var(--p-tertiary-800);
+    --c-grid-line: color-mix(in srgb, var(--p-tertiary-500) 55%, transparent);
   }
 
   :root {

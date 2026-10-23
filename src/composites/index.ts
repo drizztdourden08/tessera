@@ -173,7 +173,6 @@ export { Markdown, type MarkdownHeadingOffset, type MarkdownLinkHandler, type Ma
 export { Rating, type RatingProps, type RatingSize } from './Rating';
 export { Carousel, type CarouselProps, type CarouselSlide } from './Carousel';
 export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaViewerProps } from './MediaViewer';
-export { PixelViewport, type PixelDraw, type PixelPoint, type PixelSource, type PixelView, type PixelViewportHandle, type PixelViewportProps, type PixelWheel } from './PixelViewport';
 export { ActionTile } from './ActionTile';
 export type {
   ActionTileAction, ActionTileCopy, ActionTileProps, ActionTileRun, ActionTileSize, ActionTileStatus, ActionTileTool, ActionTileToolCopy,
