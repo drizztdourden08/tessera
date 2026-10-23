@@ -97,6 +97,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - To a search result: no component yet.
   - Through the steps of one task: no component yet.
   - Between a few modes, from a floating switch: no component yet.
+  - Between the open documents of an editor: [DocumentTabs](components/DocumentTabs.md). DocumentTabs is the strip of open documents the user switches, closes and reorders, the same way in every editor.
 - Layout. **What are you arranging?**
   - A plain block: [Box](components/Box.md). Box is the plain element; surface="sunken" makes it a well and surface="raised" a panel, with the fill, edge and corner from the tokens.
   - Items in a row or a column:

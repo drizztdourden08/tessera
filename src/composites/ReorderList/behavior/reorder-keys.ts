@@ -1,11 +1,11 @@
 /* @layer renderer-components @kind util */
 import type { KeyboardEvent, RefObject } from 'react';
 import { isHTMLElement } from '../../../primitives/dom/is-html-element';
+import { mainOf } from '../../reorder/main-of';
+import { ITEM_SELECTOR } from '../../reorder/reorder-item.constants';
 import { reorderStep } from '../../reorder/reorder-step';
-import { ITEM_SELECTOR } from '../ReorderList.constants';
 import type { ReorderKeysInput } from '../ReorderList.type';
 import { focusTarget } from './focus-target';
-import { mainOf } from './main-of';
 
 const rowOf = (target: EventTarget): HTMLElement | null =>
   isHTMLElement(target) ? target.closest<HTMLElement>('[data-reorder-index]') : null;

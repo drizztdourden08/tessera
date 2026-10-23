@@ -95,8 +95,8 @@ const NAVIGATION = {
   question: 'Where does the user go?',
   answers: {
     'between views of one area': null, 'between pages, from the header': null, 'between pages, from a side list': null,
-    'between sections of one long page': null, 'through a nested tree': null, 'to a search result': null,
-    'through the steps of one task': null, 'between a few modes, from a floating switch': null,
+    'between sections of one long page': null, 'through a nested tree': null, 'to a search result': null, 'through the steps of one task': null,
+    'between a few modes, from a floating switch': null, 'between the open documents of an editor': null,
   },
 } as const;
 

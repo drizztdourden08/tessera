@@ -18,6 +18,7 @@ export type {
 } from './Wizard';
 export { GroupTree, type GroupTreeProps, type TreeNode } from './GroupTree';
 export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } from './HeaderAnchorNav';
+export { DocumentTabs, type DocumentTab, type DocumentTabsProps } from './DocumentTabs';
 export { LogPanel, type LogKindDef, type LogKindTone, type LogPanelProps, type LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
 export { ReorderList, type ReorderItem, type ReorderListProps, type ReorderToggle, type ReorderToggleState } from './ReorderList';

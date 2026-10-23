@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { AriaRole, ElementType, ReactNode, Ref, RefObject } from 'react';
+import type { AriaAttributes, AriaRole, ElementType, ReactNode, Ref, RefObject } from 'react';
 
 interface StripMetrics {
   scrollLeft: number;
@@ -38,6 +38,7 @@ interface ScrollStripProps {
   trackClassName?: string;
   trackRole?: AriaRole;
   trackRef?: Ref<HTMLElement>;
+  trackProps?: AriaAttributes;
   'aria-label'?: string;
 }
 
