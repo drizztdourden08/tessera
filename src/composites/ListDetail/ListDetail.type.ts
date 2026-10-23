@@ -4,7 +4,7 @@ import type { UnsavedGuard, UnsavedSave } from '../../primitives/unsaved-guard/u
 import type { ItemListProps } from '../ItemList/ItemList.type';
 import type { ListDetailLayoutProps } from '../ListDetailLayout/ListDetailLayout.type';
 
-type ListDetailListProps<T> = Omit<ItemListProps<T>, 'selectedId' | 'onSelect'>;
+type ListDetailListProps<T> = Omit<ItemListProps<T>, 'selectedId' | 'onSelect' | 'onCount'>;
 
 type ListDetailGuardLook = 'dialog' | 'inline';
 

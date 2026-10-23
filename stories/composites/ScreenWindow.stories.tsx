@@ -18,8 +18,8 @@ const ARG_TYPES: PlaygroundArgTypes<WindowArgs> = {
   withBack: { group: 'Content', control: 'boolean', description: 'back, in the title bar or in the page header: here it goes back to the page behind.' },
   withHeader: { group: 'Appearance', control: 'boolean', description: 'A page header with an icon is the top of the window, in place of the title bar.' },
   titleRow: { group: 'Appearance', control: 'boolean', description: 'Off: no title row; the title names the window, and a round X sits on the top right corner.' },
-  cornerTitle: { group: 'Appearance', control: 'boolean', description: 'With no title row: the title set into the top border, like a legend. Off: the corner keeps only its buttons.' },
-  withIcon: { group: 'Appearance', control: 'boolean', description: 'With no title row: a 14 px icon before the corner title.' },
+  cornerTitle: { group: 'Appearance', control: 'boolean', description: 'With no title row: the title in a small chip on the top left corner. Off: the corner keeps only its buttons.' },
+  withIcon: { group: 'Appearance', control: 'boolean', description: 'With no title row: a 14 px icon before the title in the corner chip.' },
   movable: { group: 'Appearance', control: 'boolean', description: 'With no title row: a lock beside the X; unlocked, the window moves and resizes.' },
   square: { group: 'Appearance', control: 'boolean', description: 'No corner radius and no outer border, for a window shown fullscreen.' },
 };
@@ -72,14 +72,14 @@ const Narrow = {
 } satisfies PlaygroundStory<WindowArgs>;
 
 const CornerTitle = {
-  name: 'No title row: the title and an icon set into the top border',
+  name: 'No title row: the title and an icon in a chip on the corner',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <WindowDemo {...args} titleRow={false} withIcon movable subtitle="" withExtra={false} />,
 } satisfies PlaygroundStory<WindowArgs>;
 
 const CornerTitleLong = {
-  name: 'No title row, long title: it ends in an ellipsis before the buttons',
+  name: 'No title row, long title: the chip ends in an ellipsis',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <WindowDemo {...args} title={LONG_TITLE} titleRow={false} withIcon movable subtitle="" withExtra={false} phone />,
@@ -130,8 +130,8 @@ const Overview = overviewStory({
     'The title bar takes a `subtitle`, `extra` controls before the close button and `back` for a back button.',
     '`header` swaps the title bar for a [ContentHeader] at the top edge, with the close button at its end.',
     'The padding is xl, lg under 960 by 600 px, and md once the card fills the layer; `header` drops it.',
-    '`titleRow={false}`: the title and an `icon` sit in the top border, and a round X top right.',
-    '`cornerTitle={false}` drops that title; `movable` adds a lock; unlocked, the window moves and resizes.',
+    '`titleRow={false}`: the title and an `icon` sit in a chip top left, and a round X top right.',
+    '`cornerTitle={false}` drops the chip; `movable` adds a lock; unlocked, the window moves and resizes.',
     '`floating`, `hidden`, `size`, `square` go to the [ScreenLayer]; Escape calls `onClose` once nothing is above.',
   ],
   instead: '[WorkspaceScreen], [InfoScreen], [UtilityScreen] or [StageScreen] first; this only when none of them fits.',

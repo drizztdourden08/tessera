@@ -4,6 +4,7 @@ import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { Tooltip } from '../../../primitives/Tooltip';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { reorderStep } from '../../reorder/reorder-step';
 import type { RowHandleProps } from '../RowGrid.type';
 import './RowHandle.css';
 
@@ -11,9 +12,8 @@ const RowHandle = ({ name, index, total, drag, onStep }: RowHandleProps) => {
   const { rowGrid } = useTesseraStrings();
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>): void => {
     if (event.key === 'Escape') drag.cancel();
-    if (event.altKey || event.ctrlKey || event.metaKey) return;
-    const to = { ArrowUp: index - 1, ArrowDown: index + 1 }[event.key];
-    if (to === undefined || to < 0 || to >= total) return;
+    const to = reorderStep(event, { axis: 'vertical', chord: 'plain', index, total });
+    if (to === undefined) return;
     event.preventDefault();
     onStep(to);
   };

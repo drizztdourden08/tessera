@@ -1,0 +1,114 @@
+/* @layer renderer-components @kind style */
+.status-bar {
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  block-size: var(--status-bar-h);
+  min-inline-size: 0;
+  padding-inline: var(--space-sm);
+  overflow: hidden;
+  border-block-start: var(--border-width-thin) solid var(--c-border);
+  background-color: var(--c-surface);
+  color: var(--c-text);
+  font-size: var(--text-xs);
+}
+
+.status-bar__list {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: stretch;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.status-bar__list[data-side='end'] {
+  margin-inline-start: auto;
+}
+
+.status-bar__item {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+  padding-inline: var(--space-sm);
+}
+
+.status-bar__item:not(:first-child) {
+  border-inline-start: var(--border-width-thin) solid var(--c-border);
+}
+
+.status-bar__label {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--c-text-muted);
+}
+
+.status-bar__icon {
+  flex: none;
+}
+
+.status-bar__value {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.status-bar__label-text,
+.status-bar__value-text {
+  overflow: hidden;
+  min-inline-size: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-bar__swatch {
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--status-bar-swatch);
+  block-size: var(--status-bar-swatch);
+  border: var(--border-width-thin) solid var(--c-border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.status-bar__value[data-tone='success'] {
+  color: var(--c-success);
+}
+
+.status-bar__value[data-tone='warning'] {
+  color: var(--c-warning);
+}
+
+.status-bar__value[data-tone='danger'] {
+  color: var(--c-danger);
+}
+
+.status-bar__value[data-tone='info'] {
+  color: var(--c-info);
+}
+
+.status-bar__value[data-tone='primary'] {
+  color: var(--c-primary);
+}
+
+.status-bar__value[data-tone='secondary'] {
+  color: var(--c-secondary);
+}
+
+.status-bar__value[data-tone='tertiary'] {
+  color: var(--c-tertiary);
+}
+
+.status-bar__value[data-tone='neutral'] {
+  color: var(--c-text-muted);
+}

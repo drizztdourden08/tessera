@@ -34,9 +34,9 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - With header, subtitle and extra do not show; put such controls in header.strip or header.actions.
 - Pass back to draw a back button before the title, in the title bar or in the page header, for a screen opened from another one. The host wires Alt+Left and the mouse back button to the same call.
 - With the title row, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.
-- Pass titleRow={false} for a card or a hub with no title row: the title row goes, the title is set into the top border on the left, and a round X sits half over the top right corner.
-- The corner title reads like a fieldset legend: small muted capitals in the title font, on the line of the X and the lock. The border breaks around it, with the window surface behind the text and no chip, border or shadow. Pass icon for a 14 px glyph before the title. A long title ends in an ellipsis before it reaches the buttons on the right.
-- The corner title adds no height and never a row inside the content, and it lines up with the left edge of the content. Pass cornerTitle={false} to keep the corner bare, for example when a floating switch already names the screen: the corner title goes and the title only names the dialog.
+- Pass titleRow={false} for a card or a hub with no title row: the title row goes, the title sits in a small chip half over the top left corner of the card, and a round X sits half over the top right corner.
+- The corner chip has the height, surface, border and shadow of the round X, with small dim text. Pass icon for a 14 px glyph before the title. A long title ends in an ellipsis before it reaches the buttons on the right.
+- The chip adds no height and never a row inside the content. Pass cornerTitle={false} to keep the corner bare, for example when a floating switch already names the screen: the chip goes and the title only names the dialog.
 - With titleRow={false}, pass the title as plain text, keep back for windows with a title row, and expect a tighter window: a smaller gap around the card, lg padding on the sides and bottom, and 8 px between the switch and the content.
 - Pass movable with titleRow={false} to add a lock left of the X. Locked, the default, the window sits centred; unlocked, it moves by the top edge of the card and resizes from every edge and corner, inside the screen and down to minSize.
 - Pass storageKey to remember the lock and the moved rect, or keep them in the app with locked, onLockChange, defaultRect and onRectChange. Locking snaps the window back to the centre; unlocking puts it back where it was moved.
@@ -53,7 +53,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - The card is a modal dialog named by the title.
 - The close button carries the Close label from the strings.
 - Escape calls onClose once no menu, popover or dialog is open above the window, so one press closes one thing.
-- With titleRow={false}, the text of the corner title names the dialog. The corner title is not a control: it takes no focus, and its icon is hidden from screen readers. With cornerTitle={false}, the title still names the dialog.
+- With titleRow={false}, the text of the corner chip names the dialog. The chip is not a control: it takes no focus, and its icon is hidden from screen readers. With cornerTitle={false}, the title still names the dialog.
 - With titleRow={false}, the corner X keeps the Close label and shows a tooltip with the Esc key; the lock is a toggle button with aria-pressed, named Lock window position.
 - Unlocked, the top edge is a Move window button after the corner buttons in the Tab order: the arrow keys move the window by 16 px, and by 64 px with Shift.
 
@@ -109,4 +109,4 @@ const DataCard = ({ onClose }: { onClose: () => void }) => (
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-layer`, `--c-primary`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--collapse-toggle-d`, `--control-h-md`, `--duration-slow`, `--ease-in-out`, `--font-title`, `--shadow-lg`, `--size-1`, `--size-14`, `--size-2`, `--size-224`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-xl`, `--text-xs`, `--tracking-caps`, `--weight-medium`.
+It draws on `--border-width-thin`, `--c-border-strong`, `--c-layer`, `--c-primary`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--collapse-toggle-d`, `--control-h-md`, `--duration-slow`, `--ease-in-out`, `--radius-pill`, `--shadow-lg`, `--size-1`, `--size-14`, `--size-2`, `--size-224`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-xl`, `--text-xs`, `--weight-medium`.
