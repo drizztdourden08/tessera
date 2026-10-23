@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.document-tabs-story__frame {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+}
+
+.document-tabs-story__frame--narrow {
+  inline-size: var(--size-384);
+}

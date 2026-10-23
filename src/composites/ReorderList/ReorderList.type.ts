@@ -31,12 +31,6 @@ interface ReorderListProps {
   className?: string;
 }
 
-interface MoveFocus {
-  message: string;
-  announce: (message: string) => void;
-  expect: (id: string) => void;
-}
-
 interface ReorderKeysInput {
   items: readonly ReorderItem[];
   move: (from: number, to: number) => void;
@@ -67,6 +61,6 @@ interface ReorderTogglesProps {
 }
 
 export type {
-  MoveFocus, ReorderGripProps, ReorderItem, ReorderKeysInput, ReorderListProps, ReorderRowProps, ReorderToggle, ReorderToggleState,
+  ReorderGripProps, ReorderItem, ReorderKeysInput, ReorderListProps, ReorderRowProps, ReorderToggle, ReorderToggleState,
   ReorderTogglesProps,
 };

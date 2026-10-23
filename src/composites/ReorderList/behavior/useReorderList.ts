@@ -2,12 +2,12 @@
 import { useRef, useState } from 'react';
 import type { FocusEvent } from 'react';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { ITEM_SELECTOR } from '../../reorder/reorder-item.constants';
+import { useMoveFocus } from '../../reorder/useMoveFocus';
 import { useReorderDrag } from '../../reorder/useReorderDrag';
-import { ITEM_SELECTOR } from '../ReorderList.constants';
 import type { ReorderListProps } from '../ReorderList.type';
 import { reorderKeys } from './reorder-keys';
 import { tabbableId } from './tabbable-id';
-import { useMoveFocus } from './useMoveFocus';
 
 const useReorderList = ({ items, selectedId, onMove }: ReorderListProps) => {
   const { reorderList } = useTesseraStrings();
