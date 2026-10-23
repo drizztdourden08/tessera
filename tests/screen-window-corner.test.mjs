@@ -100,8 +100,10 @@ describe('the corner title of a window with no title row', () => {
     expect(titled).not.toContain('screen-window__corner-title');
     expect(headed).not.toContain('screen-window__corner-title');
   });
+});
 
-  it('reads like a legend: no legend, muted capitals in the title font, the window surface behind the text, 14 px icon', () => {
+describe('the corner title stylesheet', () => {
+  it('reads like a legend: no pill, muted capitals in the title font, the window surface behind the text, 14 px icon', () => {
     const css = sheet('ScreenWindow/sub-components/WindowCorner.css');
     const rule = css.match(/\.screen-window__corner-title \{[^}]*\}/)?.[0] ?? '';
     for (const decl of [
