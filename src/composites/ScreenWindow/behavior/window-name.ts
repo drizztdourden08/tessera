@@ -6,9 +6,9 @@ const isBare = (props: ScreenWindowProps): boolean => props.titleRow === false &
 const windowName = (props: ScreenWindowProps, titleId: string): WindowName => {
   const { title, icon, cornerTitle } = props;
   const bare = isBare(props);
-  const chip = bare && cornerTitle !== false ? { title, icon, titleId } : undefined;
-  const label = bare && !chip && typeof title === 'string' ? title : undefined;
-  return { bare, chip, label, named: chip !== undefined || label !== undefined };
+  const legend = bare && cornerTitle !== false ? { title, icon, titleId } : undefined;
+  const label = bare && !legend && typeof title === 'string' ? title : undefined;
+  return { bare, legend, label, named: legend !== undefined || label !== undefined };
 };
 
 export { windowName };
