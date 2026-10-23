@@ -643,7 +643,7 @@
   --p-gradient-light-to: #c9b4f5;
   --p-gradient-dark-from: #130926;
   --p-gradient-dark-to: #080410;
-  --p-danger: #f0586f;
+  --p-danger: #f6738a;
   --p-warning: #e9b949;
   --p-info: #4fb0e8;
   --p-success: #4cc38a;
@@ -701,10 +701,10 @@
   --c-text-dim: #b3a2e0;
   --c-text-muted: #9688bd;
   --c-text-faint: #47405b;
-  --c-danger: #f0586f;
-  --c-danger-dim: #3b2433;
-  --c-danger-soft: #f0586f24;
-  --c-danger-bright: #f8818d;
+  --c-danger: #f6738a;
+  --c-danger-dim: #3b2736;
+  --c-danger-soft: #f6738a24;
+  --c-danger-bright: #fc94a3;
   --c-warning: #e9b949;
   --c-warning-dim: #383031;
   --c-warning-soft: #e9b94924;
