@@ -225,6 +225,8 @@
   --space-xl: 24px;
   --space-2xl: 32px;
   --titlebar-height: 40px;
+  --status-bar-h: 24px;
+  --status-bar-swatch: 12px;
   --hit-area-min: 24px;
   --scrollbar-size: 6px;
   --scrollbar-slim: calc(3 * 1px);

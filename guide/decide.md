@@ -129,6 +129,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Window chrome. **Which part of the window?**
     - The title bar: [WindowTitleBar](components/WindowTitleBar.md). WindowTitleBar is the one title bar of a frameless window, with the same brand, menu and controls in every app.
     - A header inside the window: no component yet.
+    - The status line at the foot: [StatusBar](components/StatusBar.md). StatusBar is the one thin line of readouts at the foot of an editor window.
   - Website chrome. **Which part of the site?**
     - The band at the top: [SiteHeader](components/SiteHeader.md). SiteHeader is the one site-only part on top of the page; everything under it is an app part.
     - The line at the foot: [SiteFooter](components/SiteFooter.md). SiteFooter is the one line at the foot of a website page, under the app parts.

@@ -126,6 +126,8 @@ export { ContentHeader } from './ContentHeader';
 export type { ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';
 export { StatTile } from './StatTile';
 export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning } from './StatTile';
+export { StatusBar } from './StatusBar';
+export type { StatusBarAlign, StatusBarEntry, StatusBarProps } from './StatusBar';
 export { ControlMenu, ControlMenuGroup, ControlMenuRow, ControlMenuSub } from './ControlMenu';
 export type { ControlMenuGroupProps, ControlMenuProps, ControlMenuRowProps, ControlMenuSubProps } from './ControlMenu';
 export { TaskProgress } from './TaskProgress';

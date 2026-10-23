@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.status-bar-story--wide {
+  width: var(--size-640);
+}
+
+.status-bar-story--medium {
+  width: var(--size-512);
+}
+
+.status-bar-story--narrow {
+  width: var(--size-320);
+}

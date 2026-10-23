@@ -63,6 +63,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       { name: 'ContentHeader', summary: 'The header of a page, card or panel: an icon and a title over a fading backdrop.' },
       { name: 'SiteHeader', summary: 'The band at the top of a website: the logo and the title, the main links and the person.' },
       { name: 'SiteFooter', summary: 'The foot of a website page: a small logo, one line and a few links.' },
+      { name: 'StatusBar', summary: 'The thin bar at the foot of an editor window: labelled readouts such as cursor, zoom and colour.' },
     ] },
     {
       group: 'Lists',
