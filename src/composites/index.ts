@@ -73,7 +73,8 @@ export type {
   ControllerExtra, ControllerLayoutProps, ControllerLayoutVariant, ControllerSlotId, ControllerSlotState, ControllerSlots,
 } from './ControllerLayout';
 export {
-  CONTROLLER_SILHOUETTE_ANCHOR_IDS, CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_VARIANTS, CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
+  CONTROLLER_SILHOUETTE_ANCHOR_IDS, CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS,
+  CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
 } from './ControllerSilhouette';
 export type {
   ControllerSilhouetteAnchor, ControllerSilhouetteAnchorId, ControllerSilhouetteAnchors, ControllerSilhouetteAnchorSet,

@@ -7,11 +7,11 @@ import { PAD_SHAPE } from './pad-shape.constants';
 import { SYMMETRIC_SHAPE } from './symmetric-shape.constants';
 import type { ControllerSilhouetteVariant } from '../ControllerSilhouette.type';
 
-const OUTLINES: Readonly<Record<ControllerSilhouetteVariant, string>> = {
+const CONTROLLER_SILHOUETTE_PATHS: Readonly<Record<ControllerSilhouetteVariant, string>> = {
   offset: outlinePath(mirrorHalf(OFFSET_SHAPE)),
   symmetric: outlinePath(mirrorHalf(SYMMETRIC_SHAPE)),
   nintendo: outlinePath(mirrorHalf(NINTENDO_SHAPE)),
   pad: outlinePath(mirrorHalf(PAD_SHAPE)),
 };
 
-export { OUTLINES };
+export { CONTROLLER_SILHOUETTE_PATHS };

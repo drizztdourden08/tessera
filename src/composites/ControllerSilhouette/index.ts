@@ -2,6 +2,7 @@
 export { ControllerSilhouette } from './ControllerSilhouette';
 export { CONTROLLER_SILHOUETTE_ANCHOR_IDS, CONTROLLER_SILHOUETTE_VARIANTS, CONTROLLER_SILHOUETTE_VIEW_BOX } from './ControllerSilhouette.constants';
 export { CONTROLLER_SILHOUETTE_ANCHORS } from './behavior/anchors.constants';
+export { CONTROLLER_SILHOUETTE_PATHS } from './behavior/outlines.constants';
 export type {
   ControllerSilhouetteAnchor, ControllerSilhouetteAnchorId, ControllerSilhouetteAnchors, ControllerSilhouetteAnchorSet,
   ControllerSilhouetteProps, ControllerSilhouetteVariant,

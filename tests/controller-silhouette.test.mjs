@@ -4,7 +4,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import {
-  CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_VARIANTS, CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
+  CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS, CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
 } from '../src/composites/ControllerSilhouette';
 
 const render = (props, children) => renderToString(h(ControllerSilhouette, { variant: 'offset', ...props }, children));
@@ -45,6 +45,13 @@ describe('ControllerSilhouette', () => {
       expect(svg).toMatch(/<path class="controller-silhouette__outline" d="M [^"]+ Z"/);
       for (const tag of ['<rect', '<circle', '<text', '<linearGradient', '<stop', '<clipPath', '<g']) expect(svg).not.toContain(tag);
       expect(svg).not.toMatch(/fill="url|stroke="url|data-anchor/);
+    }
+  });
+
+  it('exports the path each variant renders', () => {
+    for (const variant of CONTROLLER_SILHOUETTE_VARIANTS) {
+      const d = render({ variant }).match(/class="controller-silhouette__outline" d="([^"]+)"/)[1];
+      expect(CONTROLLER_SILHOUETTE_PATHS[variant]).toBe(d);
     }
   });
 
