@@ -178,7 +178,7 @@ const DATA = {
       question: 'What about the input?',
       answers: {
         'a keyboard with keys marked': null, 'a tour of shortcuts': null, 'which buttons are held': null,
-        'where a stick points': null, 'every input on a controller': null,
+        'where a stick points': null, 'every input on a controller': null, 'a blank controller to draw on': null,
       },
     },
   },

@@ -1,0 +1,92 @@
+/* @layer renderer-components @kind style */
+.controller-silhouette {
+  --controller-silhouette-line: color-mix(in oklab, var(--c-text-muted) 85%, var(--c-surface));
+  --controller-silhouette-body: color-mix(in oklab, var(--c-surface) 88%, var(--c-text));
+  --controller-silhouette-shoulder: color-mix(in oklab, var(--c-surface) 92%, var(--c-text));
+  --controller-silhouette-trigger: color-mix(in oklab, var(--c-sunken) 90%, var(--c-text));
+  --controller-silhouette-lift: color-mix(in srgb, var(--c-lift) 9%, transparent);
+  --controller-silhouette-glint: color-mix(in srgb, var(--c-lift) 24%, transparent);
+  --controller-silhouette-shade: color-mix(in srgb, var(--c-scrim) 40%, transparent);
+  --controller-silhouette-dusk: color-mix(in srgb, var(--c-scrim) 24%, transparent);
+  --controller-silhouette-deep: color-mix(in srgb, var(--c-scrim) 60%, transparent);
+  --controller-silhouette-recess: color-mix(in srgb, var(--c-scrim) 18%, transparent);
+  --controller-silhouette-stroke: var(--border-width-thick);
+  --controller-silhouette-rim: var(--border-width-thin);
+  --controller-silhouette-bevel: var(--size-6);
+
+  inline-size: 100%;
+  margin: 0;
+}
+
+.controller-silhouette__art {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+}
+
+.controller-silhouette__part-fill {
+  stroke: var(--controller-silhouette-line);
+  stroke-width: var(--controller-silhouette-stroke);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.controller-silhouette__part--shoulder .controller-silhouette__part-fill {
+  fill: var(--controller-silhouette-shoulder);
+}
+
+.controller-silhouette__part--trigger .controller-silhouette__part-fill {
+  fill: var(--controller-silhouette-trigger);
+}
+
+.controller-silhouette__body {
+  fill: var(--controller-silhouette-body);
+}
+
+.controller-silhouette__bevel {
+  fill: none;
+  stroke-width: var(--controller-silhouette-bevel);
+}
+
+.controller-silhouette__edge {
+  fill: none;
+  stroke: var(--controller-silhouette-line);
+  stroke-width: var(--controller-silhouette-stroke);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.controller-silhouette__well,
+.controller-silhouette__socket {
+  stroke-width: var(--controller-silhouette-rim);
+  vector-effect: non-scaling-stroke;
+}
+
+.controller-silhouette__stop--lift {
+  stop-color: var(--controller-silhouette-lift);
+}
+
+.controller-silhouette__stop--glint {
+  stop-color: var(--controller-silhouette-glint);
+}
+
+.controller-silhouette__stop--clear {
+  stop-color: transparent;
+}
+
+.controller-silhouette__stop--dusk {
+  stop-color: var(--controller-silhouette-dusk);
+}
+
+.controller-silhouette__stop--shade {
+  stop-color: var(--controller-silhouette-shade);
+}
+
+.controller-silhouette__stop--deep {
+  stop-color: var(--controller-silhouette-deep);
+}
+
+.controller-silhouette__stop--recess {
+  stop-color: var(--controller-silhouette-recess);
+}

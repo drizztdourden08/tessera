@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": minor
+---
+
+`ControllerSilhouette` draws an empty controller body for the app to draw on. It has a smooth outline with shoulders and triggers, soft shading and quiet wells where the controls sit. It has no buttons, glyphs or labels. `variant` picks the body: `offset` for Xbox shapes, `symmetric` for PlayStation shapes, `nintendo` for a rounder Switch Pro shape and `pad` for a pad with no sticks or triggers. `children` render inside the SVG on top of the body, so the app places its own glyphs, labels and leader lines. The viewBox is fixed at `0 0 400 260` for every variant and is exported as `CONTROLLER_SILHOUETTE_VIEW_BOX`. `CONTROLLER_SILHOUETTE_ANCHORS` gives the anchors of each variant in viewBox units, such as `stick.left`, `dpad`, `face`, `shoulder.right` and `meta.guide`, with a radius for each well. The wells are drawn from the same anchors. The figure is named by `label` and the drawing is hidden from screen readers. Two new Svg primitives, `SvgLinearGradient` and `SvgStop`, draw the shading.
