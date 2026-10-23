@@ -6,6 +6,6 @@
 
 ## Attribution
 
-- The `offset` outline is traced from "Xbox Series Controller Gold Shadow Special Edition" by Serhio Magpie, Wikimedia Commons, CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: silhouette traced, mirrored into one symmetric half and refitted as curves.
-- The `symmetric` outline is traced from "Dualshock 4 Layout.svg" by Tokyoship, Wikimedia Commons, CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/). Changes: outer silhouette only, mirrored into one symmetric half and refitted as curves.
+- The `offset` outline is traced from "Xbox Series Controller Gold Shadow Special Edition" by Serhio Magpie, Wikimedia Commons, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Changes: silhouette traced, mirrored into one symmetric half and refitted as curves.
+- The `symmetric` outline is traced from "Dualshock 4 Layout.svg" by Tokyoship, Wikimedia Commons, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Changes: outer silhouette only, mirrored into one symmetric half and refitted as curves.
 - The `nintendo` outline is drawn by hand from the proportions of "Nintendo.Swtich.Pro.Controller.Black.jpg" by Tim Whitehouse, Wikimedia Commons, CC0. The `pad` outline is traced from "SNES-Controller-Flat.jpg" by Evan-Amos, Wikimedia Commons, public domain.
