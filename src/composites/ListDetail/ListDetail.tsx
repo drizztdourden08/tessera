@@ -4,6 +4,7 @@ import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/use
 import { ItemList } from '../ItemList';
 import { ListDetailLayout } from '../ListDetailLayout';
 import { guardMessage } from './behavior/guard-message';
+import { useListDetailCount } from './behavior/useListDetailCount';
 import { useListDetailGuard } from './behavior/useListDetailGuard';
 import type { ListDetailProps } from './ListDetail.type';
 import { ListDetailGuardBar } from './sub-components/ListDetailGuardBar';
@@ -16,6 +17,7 @@ const ListDetail = <T,>(props: ListDetailProps<T>) => {
   const strings = useTesseraStrings();
   const stayRef = useRef<HTMLButtonElement>(null);
   const { guard, items, back } = useListDetailGuard(props);
+  const { heading, onCount } = useListDetailCount(items.title, items.items.length);
   const words = guardMessage(strings, list, selectedId, guard.pending);
   const guardProps = {
     open: guard.pending !== null, ...words, saving: guard.saving, onStay: guard.stay, onDiscard: guard.discard, onSave: guard.save, stayRef,
@@ -25,7 +27,7 @@ const ListDetail = <T,>(props: ListDetailProps<T>) => {
       <ListDetailLayout
         {...layout}
         className={className ? `list-detail ${className}` : 'list-detail'}
-        listContainers={[{ title: items.title, content: <ItemList {...items} showTitle={false} /> }]}
+        listContainers={[{ title: heading, content: <ItemList {...items} showTitle={false} onCount={onCount} /> }]}
         listShowTitle={false}
         detail={selectedId !== null && (
           <>
