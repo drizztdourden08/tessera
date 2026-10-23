@@ -100,7 +100,9 @@ describe('the corner title of a window with no title row', () => {
     expect(titled).not.toContain('screen-window__corner-title');
     expect(headed).not.toContain('screen-window__corner-title');
   });
+});
 
+describe('the corner title stylesheet', () => {
   it('matches the round buttons: same height, surface, border and shadow, dim small text, 14 px icon', () => {
     const css = sheet('ScreenWindow/sub-components/WindowCorner.css');
     const rule = css.match(/\.screen-window__corner-title \{[^}]*\}/)?.[0] ?? '';
@@ -117,7 +119,7 @@ describe('the corner title of a window with no title row', () => {
       'max-inline-size: var(--size-224);',
       'min-inline-size: 0;',
     ]) expect(rule).toContain(decl);
-    expect(css).toMatch(/\.screen-window__corner-icon > svg \{\s+inline-size: var\(--size-14\);\s+block-size: var\(--size-14\);/);
+    expect(css).toMatch(/\.screen-window__corner-icon > svg \{\s+display: block;\s+inline-size: var\(--size-14\);\s+block-size: var\(--size-14\);/);
     expect(css).toMatch(/\.screen-window__corner-text \{[^}]*text-overflow: ellipsis;/);
   });
 

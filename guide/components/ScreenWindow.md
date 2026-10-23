@@ -109,4 +109,4 @@ const DataCard = ({ onClose }: { onClose: () => void }) => (
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border-strong`, `--c-layer`, `--c-primary`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--collapse-toggle-d`, `--control-h-md`, `--duration-slow`, `--ease-in-out`, `--leading-tight`, `--radius-round`, `--shadow-lg`, `--size-1`, `--size-14`, `--size-2`, `--size-224`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-xl`, `--text-xs`, `--weight-medium`.
+It draws on `--border-width-thin`, `--c-border-strong`, `--c-layer`, `--c-primary`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--collapse-toggle-d`, `--control-h-md`, `--duration-slow`, `--ease-in-out`, `--radius-pill`, `--shadow-lg`, `--size-1`, `--size-14`, `--size-2`, `--size-224`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-xl`, `--text-xs`, `--weight-medium`.
