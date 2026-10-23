@@ -37,6 +37,7 @@ export default standardsEslint({
     { files: ['src/composites/ListItemRow/ListItemRow.tsx', 'src/composites/ListItemRow/sub-components/ListItemList.tsx'], why: 'the grid tracks follow the number of columns the rows pass in' },
     { files: ['src/primitives/code-view/CodeView.tsx'], why: 'the highlighter returns each line and token style' },
     { files: ['src/primitives/BackdropLayer/BackdropLayer.tsx'], why: 'the backdrop image, its place and its colour are passed in by the host' },
+    { files: ['src/composites/StatusBar/sub-components/StatusBarSwatch.tsx'], why: 'the colour chip fills with the colour value the host passes in' },
     { files: ['src/primitives/Tag/Tag.tsx'], why: 'a custom tag fills with the colour the host passes in' },
     { files: ['src/composites/LogPanel/LogPanel.tsx'], why: 'a fixed panel height in pixels is passed in by the host' },
     { files: ['src/composites/LogPanel/sub-components/LogLine.tsx'], why: 'a kind in a tag tint or a hex colour from the host sets the ink of its rows' },

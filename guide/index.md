@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 70 of 192 have their usage written; a linked name opens its page.
+One line per component. 71 of 193 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -169,6 +169,7 @@ One line per component. 70 of 192 have their usage written; a linked name opens 
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
 - [StatTile](components/StatTile.md): A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart. Import from `@drizztdourden08/tessera`.
+- [StatusBar](components/StatusBar.md): The thin bar at the foot of an editor window: a row of labelled readouts such as cursor, zoom, colour and frame. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StudioLayout](components/StudioLayout.md): The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right, under an optional bar of actions. Import from `@drizztdourden08/tessera`.
 - `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
