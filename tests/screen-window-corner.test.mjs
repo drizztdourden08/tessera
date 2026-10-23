@@ -107,7 +107,9 @@ describe('the corner title of a window with no title row', () => {
     for (const decl of [
       'block-size: var(--collapse-toggle-d);',
       'border: var(--border-width-thin) solid var(--c-border-strong);',
-      'border-radius: var(--radius-round);',
+      'border-radius: var(--radius-pill);',
+      'padding: 0 calc(var(--collapse-toggle-d) / 2);',
+      'line-height: 1;',
       'background: var(--c-layer);',
       'color: var(--c-text-dim);',
       'box-shadow: var(--shadow-lg);',
