@@ -5,6 +5,9 @@
   --titlebar-height: var(--size-40);
   --status-bar-h: var(--size-24);
   --status-bar-swatch: var(--size-12);
+  --pixel-viewport-check: var(--size-8);
+  --pixel-viewport-margin: var(--size-32);
+  --pixel-viewport-step: var(--size-32);
   --hit-area-min: var(--size-24);
   --scrollbar-size: var(--size-6);
   --scrollbar-slim: calc(3 * var(--size-1));
