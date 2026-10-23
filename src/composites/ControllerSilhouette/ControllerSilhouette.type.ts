@@ -118,7 +118,7 @@ interface SilhouetteWellProps {
 
 export type {
   ArcSpec, BandSpec, ControllerSilhouetteAnchor, ControllerSilhouetteAnchorId, ControllerSilhouetteAnchors, ControllerSilhouetteAnchorSet,
-  ControllerSilhouetteProps, ControllerSilhouetteVariant, Cubic, Outline, Point, ShapePart, SilhouetteArtProps, SilhouetteDrawing,
-  SilhouetteGradient, SilhouetteGradientsProps, SilhouetteIds, SilhouettePaint, SilhouettePart, SilhouettePartKind, SilhouetteShape,
-  SilhouetteStop, SilhouetteTone, SilhouetteWell, SilhouetteWellKind, SilhouetteWellProps, SilhouetteWellsProps,
+  ControllerSilhouetteProps, ControllerSilhouetteVariant, Cubic, Outline, Point, SilhouetteArtProps, SilhouetteDrawing,
+  SilhouetteGradient, SilhouetteGradientsProps, SilhouetteIds, SilhouetteShape,
+  SilhouetteWell, SilhouetteWellKind, SilhouetteWellProps, SilhouetteWellsProps,
 };
