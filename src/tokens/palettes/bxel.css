@@ -4,16 +4,16 @@
   [data-palette="bxel"] {
     --p-primary: #7b3fe4;
     --p-secondary: #e0245e;
-    --p-tertiary: #b02a9c;
+    --p-tertiary: #b3a2e0;
     --p-white: #f4eeff;
     --p-black: #140b26;
     --p-gradient-light-from: #f4eeff;
     --p-gradient-light-to: #c9b4f5;
-    --p-gradient-dark-from: #1f1040;
-    --p-gradient-dark-to: #0e0719;
+    --p-gradient-dark-from: #130926;
+    --p-gradient-dark-to: #080410;
     --p-on-primary: var(--p-pure-white);
     --p-on-secondary: var(--p-pure-white);
-    --p-on-tertiary: var(--p-pure-white);
+    --p-on-tertiary: var(--p-black);
     --p-danger: #f0586f;
     --p-warning: #e9b949;
     --p-info: #4fb0e8;

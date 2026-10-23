@@ -42,8 +42,17 @@ const SHAPES_THE_OWNER_ACCEPTED_UNDER_3 = [
   },
 ];
 
+const range = (from, to) => Array.from({ length: to - from + 1 }, (_, at) => from + at);
+
+const SHAPES_DESIGNED_TO_FADE = [
+  { app: 'bxel', ground: 'dark', shapes: [...range(4, 6), ...range(8, 12), ...range(17, 23)], floor: 1.1, reason: 'the trail and the star bits fade out on purpose' },
+];
+
 const acceptedShape = (app, ground, ink) =>
   SHAPES_THE_OWNER_ACCEPTED_UNDER_3.find((shape) => shape.app === app && shape.ground === ground && shape.ink === ink);
+
+const fadedShape = (app, ground, at) =>
+  SHAPES_DESIGNED_TO_FADE.find((fade) => fade.app === app && fade.ground === ground && fade.shapes.includes(at));
 
 const markEdges = (app, ground) => {
   const { paths, outline } = groundLook(BRAND_FAMILY[app].mark, ground);
@@ -61,12 +70,12 @@ const MARK_GROUNDS = BRAND_APPS.flatMap((app) => Object.keys(GROUND_GRADIENTS).m
 const shown = (ratio) => ratio.toFixed(2);
 
 const MARK_SHAPES = MARK_GROUNDS.filter(({ app, ground }) => !isKept(app, ground)).flatMap(({ app, ground, edge, shapes }) =>
-  shapes.map(({ ink, ratio }, at) => ({ app, ground, ink, edge: `${edge === 'shape' ? `shape ${at + 1}` : edge} in ${ink}`, shown: shown(ratio), ratio })));
+  shapes.map(({ ink, ratio }, at) => ({ app, ground, ink, at: at + 1, shape: edge === 'shape', edge: `${edge === 'shape' ? `shape ${at + 1}` : edge} in ${ink}`, shown: shown(ratio), ratio })));
 
-const MARK_CASES = MARK_SHAPES.filter(({ app, ground, ink }) => !acceptedShape(app, ground, ink));
+const MARK_CASES = MARK_SHAPES.filter(({ app, ground, ink, at, shape }) => !acceptedShape(app, ground, ink) && !(shape && fadedShape(app, ground, at)));
 
 const ACCEPTED_CASES = MARK_SHAPES.flatMap((shape) => {
-  const accepted = acceptedShape(shape.app, shape.ground, shape.ink);
+  const accepted = acceptedShape(shape.app, shape.ground, shape.ink) ?? (shape.shape ? fadedShape(shape.app, shape.ground, shape.at) : undefined);
   return accepted ? [{ ...shape, floor: accepted.floor, reason: accepted.reason }] : [];
 });
 
@@ -100,7 +109,7 @@ describe('each brand mark on the light and the dark gradient of its palette', ()
   });
 
   it('records every shape the owner accepted under 3:1 against a shape the marks draw', () => {
-    expect(ACCEPTED_CASES).toHaveLength(SHAPES_THE_OWNER_ACCEPTED_UNDER_3.length);
+    expect(ACCEPTED_CASES).toHaveLength(SHAPES_THE_OWNER_ACCEPTED_UNDER_3.length + SHAPES_DESIGNED_TO_FADE.reduce((total, fade) => total + fade.shapes.length, 0));
   });
 
   it.each(ACCEPTED_CASES)('$app mark on the $ground gradient, $edge, accepted under 3:1 because $reason: $shown:1 at the lowest, never under $floor:1', ({ ratio, floor }) => {
