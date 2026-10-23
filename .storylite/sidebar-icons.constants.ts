@@ -105,7 +105,6 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     CodeBlock: 'square-code',
     Rating: 'star',
     Carousel: 'gallery-horizontal',
-    PixelViewport: 'grid-3x3',
     Markdown: 'scroll-text',
   },
   'Composites · Inputs': {

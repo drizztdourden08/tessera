@@ -162,7 +162,6 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'Markdown', summary: 'A Markdown text, such as a release note, drawn with Tessera parts, with raw HTML dropped.' },
         { name: 'Rating', summary: 'Stars that show how well something is rated, and let a person rate it.' },
         { name: 'Carousel', summary: 'One slide at a time from a set, with dots, arrows and an optional slow turn.' },
-        { name: 'PixelViewport', summary: 'A pixel image the user zooms and pans, sharp at any zoom, over a checkerboard with a pixel grid.' },
       ],
     },
     ...SHELL_GROUPS,
