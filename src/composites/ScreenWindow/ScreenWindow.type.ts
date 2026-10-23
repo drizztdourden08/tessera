@@ -36,7 +36,7 @@ interface ScreenWindowProps {
 
 interface WindowName {
   bare: boolean;
-  chip: WindowCornerTitleProps | undefined;
+  legend: WindowCornerTitleProps | undefined;
   label: string | undefined;
   named: boolean;
 }
