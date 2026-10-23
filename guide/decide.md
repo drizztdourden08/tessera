@@ -48,6 +48,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - In the page: no component yet.
     - Behind a swatch button: no component yet.
   - A range: no component yet.
+  - A colour from a palette: [SwatchGrid](components/SwatchGrid.md). SwatchGrid is a grid of swatches the user picks one colour from, selects a range of and puts in order, the same way in every app.
   - A file: no component yet.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
