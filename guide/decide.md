@@ -177,6 +177,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A drawing. **How is it drawn?**
     - In pixels: no component yet.
     - In shapes: no component yet.
+    - Pixel art the user zooms and pans: [PixelViewport](components/PixelViewport.md). PixelViewport shows a pixel image the user zooms and pans; the app paints the pixels and the viewport owns the view.
   - A chart. **What should the chart show?**
     - A trend over recent samples: [Sparkline](components/Sparkline.md). Sparkline draws the recent samples of one reading as a line or an area, with no axes.
     - One value against its limit: [Gauge](components/Gauge.md). Gauge shows where one reading sits between its bounds, in the tone of its zone.

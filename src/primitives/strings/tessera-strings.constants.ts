@@ -14,6 +14,7 @@ import { FILTER_STRINGS } from './filters-strings.constants';
 import { ITEM_STRINGS } from './items-strings.constants';
 import { LIST_STRINGS } from './lists-strings.constants';
 import { MEDIA_VIEWER_STRINGS } from './media-viewer-strings.constants';
+import { PIXEL_VIEWPORT_STRINGS } from './pixel-viewport-strings.constants';
 import { NAVIGATION_STRINGS } from './navigation-strings.constants';
 import { OPTION_STRINGS } from './options-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
@@ -68,6 +69,7 @@ const TESSERA_STRINGS = {
   rating: RATING_STRINGS,
   carousel: CAROUSEL_STRINGS,
   mediaViewer: MEDIA_VIEWER_STRINGS,
+  pixelViewport: PIXEL_VIEWPORT_STRINGS,
   controller: CONTROLLER_STRINGS,
 };
 
