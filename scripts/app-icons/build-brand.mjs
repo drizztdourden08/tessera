@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind logic */
 import { rmSync } from 'node:fs';
 import { join } from 'node:path';
-import { GROUNDS, OUTPUT_FOLDERS } from './app-icons.constants.mjs';
+import { OUTPUT_FOLDERS } from './app-icons.constants.mjs';
 import { appArt } from './app-art.mjs';
 import { buildApp, ladder, writer } from './app-files.mjs';
 import { artFile, markArt, sceneArt } from './art.mjs';
@@ -39,9 +39,7 @@ const buildBrand = async (root, id, loaded) => {
     written.push(...await ladder(write, () => art, files, loaded.sizes));
   }
   for (const tone of loaded.rimTones) written.push(...await buildRim({ root, write, loaded }, id, tone));
-  for (const ground of GROUNDS) {
-    written.push(...await buildGround({ root, write, loaded }, id, ground, groundArt(brand, loaded, ground)));
-  }
+  written.push(...await buildGround({ root, write, loaded }, id, 'dark', dark));
   return written;
 };
 

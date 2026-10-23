@@ -73,7 +73,7 @@ const Overview = overviewStory({
     'Each row says what the app is, with its mascot small beside its marks and the import line for its parts.',
     'Mascots shows one mascot at a time: the tabs pick it, and the [Mascot] page shares the pick.',
     '[Logo], [WordMark], [Combined] and [Mascot] show each part on its own, with a playground.',
-    'Rims shows every mark with no rim, a light rim and a dark rim, on a dark and a light ground.',
+    'Rims shows every mark with no rim and with a light rim, on a dark ground.',
     'Each brand\'s gradient is on the [Gradients] page under Colours.',
   ],
   variants: [Family, Mascots, Rims],

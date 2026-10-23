@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-type BrandRim = 'none' | 'light' | 'dark';
+type BrandRim = 'none' | 'light';
 
 type BrandRimTone = Exclude<BrandRim, 'none'>;
 

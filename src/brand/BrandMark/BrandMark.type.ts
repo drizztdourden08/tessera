@@ -1,5 +1,4 @@
 /* @layer renderer-components @kind types */
-import type { Ground } from '../../primitives/ground/ground.type';
 import type { BrandApp } from '../brand.type';
 import type { BrandRim } from '../rim.type';
 
@@ -12,7 +11,6 @@ interface BrandMarkProps {
   size?: BrandMarkSize;
   variant?: BrandMarkVariant;
   rim?: BrandRim;
-  ground?: Ground;
   title?: string;
   className?: string;
 }

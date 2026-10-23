@@ -49,8 +49,8 @@ const SitePhone = {
 } satisfies StoryLiteStoryDefinition<SiteHeaderArgs>;
 
 const SignIn = {
-  name: 'Recipe: sign in on the brand gradient, dark and light',
-  render: () => <Demonstrator columns={axis(['dark', 'light'] as const)} align="start" cell={(_, ground) => <SiteSignIn ground={ground} />} />,
+  name: 'Recipe: sign in on the brand gradient',
+  render: () => <SiteSignIn />,
 } satisfies StoryLiteStoryDefinition<SiteHeaderArgs>;
 
 const PublicPage = {

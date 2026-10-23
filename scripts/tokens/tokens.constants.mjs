@@ -22,8 +22,6 @@ const THEME_COLOURS = {
   warning: '--c-warning',
   danger: '--c-danger',
   info: '--c-info',
-  gradientLightFrom: '--c-gradient-light-from',
-  gradientLightTo: '--c-gradient-light-to',
   gradientDarkFrom: '--c-gradient-dark-from',
   gradientDarkTo: '--c-gradient-dark-to',
 };

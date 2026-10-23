@@ -9,7 +9,7 @@ const VariantGrid = (props: VariantGridProps) => {
     <Box className="variant-grid" data-min={min} data-rows-of={rowsOf}>
       {items.map((item) => (
         <Box key={item.key} className="variant-grid__cell">
-          <Box className="variant-grid__art" data-ground={item.ground}>{item.node}</Box>
+          <Box className="variant-grid__art">{item.node}</Box>
           <Text className="variant-grid__label">{item.label}</Text>
         </Box>
       ))}

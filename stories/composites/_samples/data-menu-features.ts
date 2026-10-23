@@ -75,7 +75,6 @@ const NESTED_MENU: MenuGroup[] = [
         icon: 'sun',
         label: 'Theme',
         children: [
-          { id: 'theme-light', icon: 'sun', label: 'Light', kind: 'radio', checked: false },
           { id: 'theme-dark', icon: 'moon', label: 'Dark', kind: 'radio', checked: true },
           { id: 'theme-system', icon: 'monitor', label: 'Same as the system', kind: 'radio', checked: false },
           { separator: true },
