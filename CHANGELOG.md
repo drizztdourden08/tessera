@@ -1,5 +1,20 @@
 # @drizztdourden08/tessera
 
+## 0.51.0
+
+### Minor Changes
+
+- 4cd13ac: New composite ReorderList. It is a list the user puts in order by dragging the grip or with the keys, with a row of on and off icons on each item, such as visible and locked for the layers of a drawing. Describe the icons once in `toggles`, keep each item's state in its own `toggles`, and flip it in `onToggle`. Each icon is a button named by its label with aria-pressed. Arrow keys, Home and End move focus, Space or Enter selects, and Alt with Up or Down moves the row. Moves are announced. Exports: `ReorderList`, `ReorderItem`, `ReorderListProps`, `ReorderToggle` and `ReorderToggleState`.
+
+  The drag and the keyboard step of RowGrid now come from one shared reorder folder, `src/composites/reorder`, which also handles horizontal lists. RowGrid looks and behaves as before.
+
+- da4fbbe: New composite StatusBar, the thin bar at the foot of an editor window. It shows a row of labelled readouts, such as cursor position, zoom, current colour, sprite size, layer and frame. Each item has a label and a value, and can take an icon, a colour swatch, a tone and a hover title. An item sits at the start or the end of the bar. Numbers use tabular figures, so a cursor position does not jitter, and long text ends in an ellipsis. On a narrow bar, items with a priority from 1 to 3 drop out, 3 first. The bar is a labelled region and not a live region, so a moving cursor is never announced. It adds the tokens status-bar-h and status-bar-swatch.
+
+### Patch Changes
+
+- 8324a77: ListDetail shows the list count in its panel heading again, as it did before 0.46.0.
+- d3e3109: The ScreenWindow corner title is a true pill again, aligned on the line of the close and lock buttons.
+
 ## 0.50.0
 
 ### Minor Changes
