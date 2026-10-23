@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 73 of 195 have their usage written; a linked name opens its page.
+One line per component. 74 of 196 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -112,6 +112,7 @@ One line per component. 73 of 195 have their usage written; a linked name opens 
 - `DialogShell`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DisabledOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DockLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DocumentTabs](components/DocumentTabs.md): The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit. Import from `@drizztdourden08/tessera`.
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
 - `DynamicInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
