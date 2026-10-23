@@ -1,0 +1,22 @@
+/* @layer renderer-design-system @kind style */
+/* stylelint-disable brock/no-token-override -- a brand palette sets the seeds, the way an app theme.css does */
+@layer ds.palette {
+  [data-palette="bxel"] {
+    --p-primary: #7b3fe4;
+    --p-secondary: #e0245e;
+    --p-tertiary: #b02a9c;
+    --p-white: #f4eeff;
+    --p-black: #140b26;
+    --p-gradient-light-from: #f4eeff;
+    --p-gradient-light-to: #c9b4f5;
+    --p-gradient-dark-from: #1f1040;
+    --p-gradient-dark-to: #0e0719;
+    --p-on-primary: var(--p-pure-white);
+    --p-on-secondary: var(--p-pure-white);
+    --p-on-tertiary: var(--p-pure-white);
+    --p-danger: #f0586f;
+    --p-warning: #e9b949;
+    --p-info: #4fb0e8;
+    --p-success: #4cc38a;
+  }
+}

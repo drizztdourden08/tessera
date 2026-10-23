@@ -5,7 +5,7 @@ import type { MascotMotion } from './motion/motion.type';
 import type { Ground } from '../primitives/ground/ground.type';
 import type { BrandRimTone } from './rim.type';
 
-type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp';
+type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp' | 'bxel';
 
 interface BrandMarkPath {
   d: string;

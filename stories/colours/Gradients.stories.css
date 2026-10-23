@@ -47,6 +47,10 @@
   background: var(--brand-brock-gradient);
 }
 
+.brand-gradient--bxel {
+  background: var(--brand-bxel-gradient);
+}
+
 .brand-backdrop--tessera {
   background: var(--brand-tessera-backdrop);
 }
@@ -61,6 +65,10 @@
 
 .brand-backdrop--brock {
   background: var(--brand-brock-backdrop);
+}
+
+.brand-backdrop--bxel {
+  background: var(--brand-bxel-backdrop);
 }
 
 .palette-gradient {

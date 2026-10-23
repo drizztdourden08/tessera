@@ -15,6 +15,7 @@
 .hero[data-brand='rotp'] .hero__backdrop--brand { background: var(--brand-rotp-backdrop); }
 .hero[data-brand='archipelia'] .hero__backdrop--brand { background: var(--brand-archipelia-backdrop); }
 .hero[data-brand='brock'] .hero__backdrop--brand { background: var(--brand-brock-backdrop); }
+.hero[data-brand='bxel'] .hero__backdrop--brand { background: var(--brand-bxel-backdrop); }
 
 .hero__shade {
   z-index: -1;
