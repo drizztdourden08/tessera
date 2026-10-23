@@ -79,7 +79,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
-  'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend' },
+  'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', DocumentTabs: 'file-stack' },
   'Composites · Layout': { SplitPane: 'columns-2', ListDetailLayout: 'layout-list', ResizeHandle: 'grip-vertical', SideNavLayout: 'layout-template', ContentHeader: 'panel-top', SiteHeader: 'panel-top-open', SiteFooter: 'panel-bottom', StatusBar: 'panel-bottom-close', ListDetail: 'panels-left-bottom', SidePanel: 'panel-left', CollapseToggle: 'chevrons-left-right', StudioLayout: 'columns-3' },
   'Composites · Lists': {
     ListItemRow: 'list-start', ReorderList: 'arrow-down-up', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
