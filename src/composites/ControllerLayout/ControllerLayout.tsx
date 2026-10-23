@@ -9,7 +9,7 @@ import { placedIds } from './behavior/placed-ids';
 import { tagSource } from './behavior/tag-source';
 import { ControllerHeld } from './sub-components/ControllerHeld';
 import { ControllerRows } from './sub-components/ControllerRows';
-import { ControllerSilhouette } from './sub-components/ControllerSilhouette';
+import { ControllerLayoutBody } from './sub-components/ControllerLayoutBody';
 import { ControllerTag } from './sub-components/ControllerTag';
 import { NO_EXTRAS } from './ControllerLayout.constants';
 import type { ControllerLayoutProps } from './ControllerLayout.type';
@@ -30,7 +30,7 @@ const ControllerLayout = (props: ControllerLayoutProps) => {
       data-variant={variant}
     >
       <Box className="controller-layout__stage">
-        <ControllerSilhouette geometry={geometry} slots={slots} />
+        <ControllerLayoutBody geometry={geometry} slots={slots} />
         <Box className="controller-layout__tags" aria-hidden="true">
           {geometry.places.map((place) => {
             const source = tagSource(place, slots);

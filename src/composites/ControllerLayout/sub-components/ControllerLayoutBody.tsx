@@ -6,9 +6,9 @@ import { VIEW_BOX } from '../ControllerLayout.constants';
 import { ControllerFill } from './ControllerFill';
 import { ControllerOutline } from './ControllerOutline';
 import { ControllerStick } from './ControllerStick';
-import type { ControllerSilhouetteProps } from '../ControllerLayout.type';
+import type { ControllerLayoutBodyProps } from '../ControllerLayout.type';
 
-const ControllerSilhouette = (props: ControllerSilhouetteProps) => {
+const ControllerLayoutBody = (props: ControllerLayoutBodyProps) => {
   const { geometry, slots } = props;
 
   return (
@@ -25,4 +25,4 @@ const ControllerSilhouette = (props: ControllerSilhouetteProps) => {
   );
 };
 
-export { ControllerSilhouette };
+export { ControllerLayoutBody };
