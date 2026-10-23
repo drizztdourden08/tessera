@@ -9713,7 +9713,27 @@ SidePanel gains a "drag to fold" example next to the studio, the folded studio a
 
 - In the Controllers card, draw the pad with `ControllerLayout` and pick the variant from the pad family. A slot the variant has no place for shows in the list under the outline, so nothing is lost.
 
-## 271. ControllerSilhouette: the outline of a controller for the app to draw on
+## 271. No light variants: the light ground, the dark rim and the light gradient pair are gone
+
+No app in the family has a light theme, so every variant that only existed to sit on a light background is removed. Everything that serves the dark look stays.
+
+### What goes
+
+- **The light ground.** `BrandMark`, `Logo` and `Logo.Combined` lose their `ground` prop, because `'dark'` was its only value left. Inside `Splash` a mark still takes its dark look by itself; anywhere else it is drawn as drawn. In brand data, `grounds` no longer takes `light`.
+- **The dark rim.** `rim` is `'none'` or `'light'`, on `BrandMark`, `Logo`, `Logo.Combined`, `Logo.Wordmark`, `BrandWordmark` and `PixelWordmark`. `BrandRim` and `BrandRimTone` lose `'dark'`, `BRAND_RIM.colours` and `BRAND_RIM_TONES` lose the dark entry, and `grounds.<ground>.outline` takes `'light'` only. The class `.brand-rim--dark` and the token `--brand-rim-dark` are removed.
+- **The light gradient pair.** `--p-gradient-light-from`, `--p-gradient-light-to`, `--c-gradient-light-from` and `--c-gradient-light-to` are removed from every palette. `tokens.json` loses `gradientLightFrom` and `gradientLightTo` in `theme.dark` and in each `palettes.<palette>.dark`, and `splash-tokens.css` loses the same custom properties. The dark pair, `--c-gradient-dark-from` and `-to`, is unchanged.
+- **The files.** `brand/light-ground/` (36 files) and `brand/dark-rim/` (85 files) are deleted. `brand/dark-ground/` and `brand/light-rim/` are unchanged, and so are the files of each brand folder.
+- **The gallery.** The light cells, the light ground option and the dark rim option are gone from the Logo, Combined, WordMark, Brand, Gradients and SiteHeader pages, and the demo menus no longer list a Light theme.
+
+### What an app does
+
+- Remove `ground="light"` and `ground="dark"` from `BrandMark`, `Logo` and `Logo.Combined`; TypeScript flags each one. A mark inside `Splash` needs nothing. A mark on a dark surface of the app's own is drawn as drawn, with `rim="light"` if it needs an outline.
+- Replace `rim="dark"` with `rim="light"` or `rim="none"`; TypeScript flags each one.
+- Read `brand/dark-ground/<app>.svg` for a mark on the dark gradient, as before. A page that read `brand/light-ground/` or `brand/dark-rim/` has no replacement.
+- Stylesheets and code that read `--c-gradient-light-from` and `-to`, or `--brand-rim-dark`, drop them. An app theme that set `--p-gradient-light-from` and `-to` stops setting them.
+- Code that read `gradientLightFrom` or `gradientLightTo` from `tokens.json` drops them.
+
+## 272. ControllerSilhouette: the outline of a controller for the app to draw on
 
 `ControllerSilhouette` (composites) draws only the outline of a controller: one closed, stroked line with no fill, no shading and nothing for a button, stick or trigger. Shoulders show only where they stick out past the body. Props: `variant` (`'offset' | 'symmetric' | 'nintendo' | 'pad'`), `label?`, `className?` and `children`, which render inside the SVG on top of the outline. The viewBox is fixed at `0 0 400 260` for every variant and exported as `CONTROLLER_SILHOUETTE_VIEW_BOX`. `CONTROLLER_SILHOUETTE_ANCHORS` gives each variant's anchors in viewBox units: `stick.left`, `stick.right`, `dpad`, `face`, `shoulder.left`, `shoulder.right`, `trigger.left`, `trigger.right` and the `meta.*` buttons, each with `x`, `y` and a radius `r` for the round controls. Triggers sit above their shoulder, outside the outline. The pad has no sticks, triggers, guide or capture. The lists `CONTROLLER_SILHOUETTE_VARIANTS` and `CONTROLLER_SILHOUETTE_ANCHOR_IDS` and the types `ControllerSilhouetteProps`, `ControllerSilhouetteVariant`, `ControllerSilhouetteAnchorId`, `ControllerSilhouetteAnchor`, `ControllerSilhouetteAnchorSet` and `ControllerSilhouetteAnchors` are exported.
 

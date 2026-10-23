@@ -3,13 +3,10 @@ import type { ReactNode } from 'react';
 
 type VariantGridMin = 'sm' | 'md' | 'lg' | 'xl';
 
-type VariantGround = 'dark' | 'light';
-
 interface VariantGridItem {
   key: string;
   label: string;
   node: ReactNode;
-  ground?: VariantGround;
 }
 
 interface VariantGridProps {
@@ -31,4 +28,4 @@ interface VariantGroupsProps {
   rowsOf?: 3;
 }
 
-export type { VariantGridMin, VariantGridProps, VariantGroupsProps, VariantGround };
+export type { VariantGridMin, VariantGridProps, VariantGroupsProps };

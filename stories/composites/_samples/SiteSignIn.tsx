@@ -1,14 +1,16 @@
 /* @layer stories @kind component */
 import { BRAND_FAMILY, BrandMark, PixelWordmark } from '../../../src/brand';
 import { Box, Button, Card, Paragraph, Stack } from '../../../src/primitives';
+import { GroundContext } from '../../../src/primitives/ground/ground-context';
 import { SITE_TEXT } from './site-samples.constants';
-import type { SignInPageProps } from './site-story.type';
 
-const SiteSignIn = ({ ground }: SignInPageProps) => (
-  <Box className={`site-story__gate site-story__gate--${ground}`} data-palette="rotp">
+const SiteSignIn = () => (
+  <Box className="site-story__gate" data-palette="rotp">
     <Stack gap="sm" align="center">
-      <BrandMark app="rotp" size="xl" ground={ground} />
-      <PixelWordmark text={SITE_TEXT.wordmark} colors={BRAND_FAMILY.rotp.wordmark.colors} size="md" rim={ground === 'light' ? 'dark' : 'none'} />
+      <GroundContext.Provider value="dark">
+        <BrandMark app="rotp" size="xl" />
+      </GroundContext.Provider>
+      <PixelWordmark text={SITE_TEXT.wordmark} colors={BRAND_FAMILY.rotp.wordmark.colors} size="md" />
     </Stack>
     <Card title={SITE_TEXT.signInTitle} className="site-story__gate-card">
       <Stack gap="sm" align="stretch">
