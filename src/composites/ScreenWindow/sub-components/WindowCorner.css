@@ -20,7 +20,7 @@
 }
 
 .screen-layer__corner:has(> .screen-window__corner-title) {
-  left: calc(var(--space-lg) - var(--space-xs));
+  left: calc(var(--collapse-toggle-d) / -2 + var(--space-xs));
   pointer-events: none;
 }
 
@@ -31,21 +31,21 @@
 .screen-window__corner-title {
   display: flex;
   flex: 0 1 auto;
-  align-self: center;
   align-items: center;
   gap: var(--space-xs);
   min-inline-size: 0;
   max-inline-size: var(--size-224);
+  block-size: var(--collapse-toggle-d);
   margin-inline-end: auto;
-  padding-inline: var(--space-xs);
+  padding-inline: var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border-strong);
+  border-radius: var(--radius-round);
   background: var(--c-layer);
-  color: var(--c-text-muted);
-  font-family: var(--font-title);
+  color: var(--c-text-dim);
+  box-shadow: var(--shadow-lg);
   font-size: var(--text-xs);
   font-weight: var(--weight-medium);
-  line-height: 1;
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
+  line-height: var(--leading-tight);
   cursor: default;
   user-select: none;
 }
@@ -98,12 +98,6 @@
 .lock-glyph[data-locked='true'] .lock-glyph__shackle {
   transform: none;
   stroke-dashoffset: 0;
-}
-
-@container screen-layer (width < 960px) or (height < 600px) {
-  .screen-layer__corner:has(> .screen-window__corner-title) {
-    left: calc(var(--space-md) - var(--space-xs));
-  }
 }
 
 @container screen-layer (width < 840px) or (height < 560px) {
