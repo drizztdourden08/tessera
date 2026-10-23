@@ -20,6 +20,7 @@ import { PASSWORD_STRINGS } from './password-strings.constants';
 import { PATH_STRINGS } from './paths-strings.constants';
 import { RATING_STRINGS } from './rating-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
+import { REORDER_LIST_STRINGS } from './reorder-list-strings.constants';
 import { ROW_GRID_STRINGS } from './row-grid-strings.constants';
 import { SAVE_BAR_STRINGS } from './save-bar-strings.constants';
 import { SETTINGS_STRINGS } from './settings-strings.constants';
@@ -58,6 +59,7 @@ const TESSERA_STRINGS = {
   paths: PATH_STRINGS,
   options: OPTION_STRINGS,
   rowGrid: ROW_GRID_STRINGS,
+  reorderList: REORDER_LIST_STRINGS,
   saveBar: SAVE_BAR_STRINGS,
   rating: RATING_STRINGS,
   carousel: CAROUSEL_STRINGS,

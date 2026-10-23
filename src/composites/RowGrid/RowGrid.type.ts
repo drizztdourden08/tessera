@@ -1,12 +1,11 @@
 /* @layer renderer-components @kind types */
-import type { PointerEvent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { MenuItem } from '../DropdownMenu';
+import type { ReorderDrag } from '../reorder/reorder.type';
 
 type RowGridLayout = 'table' | 'fold' | 'cards';
 
 type RowGridDensity = 'comfortable' | 'compact';
-
-type RowGridDrop = 'before' | 'after';
 
 interface RowGridColumn<Row> {
   id: string;
@@ -55,11 +54,6 @@ interface ShapeKey {
   parts: GridParts;
 }
 
-interface DragState {
-  from: number;
-  before: number;
-}
-
 interface GridShape {
   table: number;
   fold: number | null;
@@ -75,20 +69,6 @@ interface RowFocus {
   expect: (pending: PendingFocus) => void;
 }
 
-interface HandleEvents {
-  onPointerDown: (event: PointerEvent<HTMLElement>) => void;
-  onPointerMove: (event: PointerEvent<HTMLElement>) => void;
-  onPointerUp: () => void;
-  onPointerCancel: () => void;
-}
-
-interface RowDrag {
-  dragging: number | null;
-  handlers: (index: number) => HandleEvents;
-  cancel: () => void;
-  dropMark: (index: number, total: number) => RowGridDrop | undefined;
-}
-
 interface RowShared<Row> {
   columns: readonly RowGridColumn<Row>[];
   layout: RowGridLayout;
@@ -100,7 +80,7 @@ interface RowShared<Row> {
   onRemove?: (key: string) => void;
   onMove?: (from: number, to: number) => void;
   rowMenu?: (row: Row, index: number) => readonly MenuItem[];
-  drag: RowDrag;
+  drag: ReorderDrag;
   focus: RowFocus;
 }
 
@@ -122,7 +102,7 @@ interface RowHandleProps {
   name: string;
   index: number;
   total: number;
-  drag: RowDrag;
+  drag: ReorderDrag;
   onStep: (to: number) => void;
 }
 
@@ -155,7 +135,7 @@ interface RowGridEmptyProps {
 }
 
 export type {
-  ColumnSize, DragState, GridParts, GridShape, PendingFocus, RowDrag, RowEndProps, RowFocus, RowGridCellProps, RowGridColumn, RowGridDensity,
+  ColumnSize, GridParts, GridShape, PendingFocus, RowEndProps, RowFocus, RowGridCellProps, RowGridColumn, RowGridDensity,
   RowGridEmptyProps, RowGridFootProps, RowGridHeadProps, RowGridLayout, RowGridProps, RowGridRowProps,
   RowHandleProps, RowShared, ShapeKey,
 };
