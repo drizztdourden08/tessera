@@ -26,6 +26,7 @@ import { REORDER_LIST_STRINGS } from './reorder-list-strings.constants';
 import { ROW_GRID_STRINGS } from './row-grid-strings.constants';
 import { SAVE_BAR_STRINGS } from './save-bar-strings.constants';
 import { SETTINGS_STRINGS } from './settings-strings.constants';
+import { SWATCH_GRID_STRINGS } from './swatch-grid-strings.constants';
 import { STEPPER_STRINGS } from './stepper-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
 import { TOUR_STRINGS } from './tour-strings.constants';
@@ -64,6 +65,7 @@ const TESSERA_STRINGS = {
   rowGrid: ROW_GRID_STRINGS,
   reorderList: REORDER_LIST_STRINGS,
   saveBar: SAVE_BAR_STRINGS,
+  swatchGrid: SWATCH_GRID_STRINGS,
   rating: RATING_STRINGS,
   carousel: CAROUSEL_STRINGS,
   mediaViewer: MEDIA_VIEWER_STRINGS,

@@ -109,7 +109,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Markdown: 'scroll-text',
   },
   'Composites · Inputs': {
-    DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',
+    DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', SwatchGrid: 'grid-3x3', KeyValueEditor: 'list-plus',
     CommandInput: 'square-terminal', PasswordInput: 'lock-keyhole', TagInput: 'tag', PathInput: 'folder-input',
   },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },

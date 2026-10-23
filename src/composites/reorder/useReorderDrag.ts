@@ -3,8 +3,7 @@ import { useState } from 'react';
 import type { PointerEvent } from 'react';
 import { dropMarkOf } from './drop-mark-of';
 import { finalIndex } from './final-index';
-import { insertionAt } from './insertion-at';
-import { AXIS_BOX } from './reorder.constants';
+import { pointerInsertion } from './pointer-insertion';
 import type { ReorderDrag, ReorderDragOptions, ReorderDragState } from './reorder.type';
 
 const useReorderDrag = ({ listRef, selector, axis = 'vertical', onDrop }: ReorderDragOptions): ReorderDrag => {
@@ -16,7 +15,7 @@ const useReorderDrag = ({ listRef, selector, axis = 'vertical', onDrop }: Reorde
       setDrag({ from: index, before: index });
     },
     onPointerMove: (event: PointerEvent<HTMLElement>) => {
-      if (drag) setDrag({ from: drag.from, before: insertionAt(listRef.current, selector, axis, event[AXIS_BOX[axis].pointer]) });
+      if (drag) setDrag({ from: drag.from, before: pointerInsertion(listRef.current, selector, axis, event) });
     },
     onPointerUp: () => {
       if (!drag) return;
