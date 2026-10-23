@@ -28,6 +28,8 @@
     "./tokens.json": "./tokens.json",
     "./splash-tokens.css": "./splash-tokens.css",
     "./splash.css": "./splash.css",
+    "./focus-ring.css": "./src/theme/focus-ring.css",
+    "./visually-hidden.css": "./src/theme/visually-hidden.css",
     "./palettes/*": "./src/tokens/palettes/*",
     "./brand/*": "./brand/*",
     "./fonts/*": "./fonts/*",

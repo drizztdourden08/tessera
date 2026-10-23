@@ -208,6 +208,8 @@ const AppLink = (props: Omit<LinkProps, 'navigate'>) => {
 | `/tokens.css` | every token, imported once |
 | `/tokens.json`, `/splash-tokens.css` | the theme as plain values |
 | `/splash.css` | the static splash kit: plain CSS classes for a page that loads before the app |
+| `/focus-ring.css` | one class, `.focus-ring-inset`, that draws the focus outline inside an element's box on keyboard focus |
+| `/visually-hidden.css` | one class, `.visually-hidden`, that hides an element from sight and keeps it for screen readers |
 | `/brand/*` | the brand files: SVG marks, icons, PNGs and `.ico` |
 | `/fonts/*` | the font files: `.woff2` for pages, and a `.ttf` of the title face for tools that cannot read WOFF2 |
 | `/config` | `loadTesseraConfig` and `findTesseraConfig`, for Node tools that read `tessera.config.json` |
