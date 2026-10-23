@@ -1,8 +1,6 @@
 /* @layer renderer-components @kind style */
 .controller-silhouette {
   --controller-silhouette-stroke: var(--border-width-thick);
-  --controller-silhouette-rim: var(--border-width-thin);
-  --controller-silhouette-bevel: var(--size-6);
 
   inline-size: 100%;
   margin: 0;
@@ -15,68 +13,10 @@
   overflow: visible;
 }
 
-.controller-silhouette__part-fill {
-  stroke: var(--c-controller-line);
-  stroke-width: var(--controller-silhouette-stroke);
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.controller-silhouette__part--shoulder .controller-silhouette__part-fill {
-  fill: var(--c-controller-shoulder);
-}
-
-.controller-silhouette__part--trigger .controller-silhouette__part-fill {
-  fill: var(--c-controller-trigger);
-}
-
-.controller-silhouette__body {
-  fill: var(--c-controller-body);
-}
-
-.controller-silhouette__bevel {
-  fill: none;
-  stroke-width: var(--controller-silhouette-bevel);
-}
-
-.controller-silhouette__edge {
+.controller-silhouette__outline {
   fill: none;
   stroke: var(--c-controller-line);
   stroke-width: var(--controller-silhouette-stroke);
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-}
-
-.controller-silhouette__well,
-.controller-silhouette__socket {
-  stroke-width: var(--controller-silhouette-rim);
-  vector-effect: non-scaling-stroke;
-}
-
-.controller-silhouette__stop--lift {
-  stop-color: var(--c-controller-lift);
-}
-
-.controller-silhouette__stop--glint {
-  stop-color: var(--c-controller-glint);
-}
-
-.controller-silhouette__stop--clear {
-  stop-color: transparent;
-}
-
-.controller-silhouette__stop--dusk {
-  stop-color: var(--c-controller-dusk);
-}
-
-.controller-silhouette__stop--shade {
-  stop-color: var(--c-controller-shade);
-}
-
-.controller-silhouette__stop--deep {
-  stop-color: var(--c-controller-deep);
-}
-
-.controller-silhouette__stop--recess {
-  stop-color: var(--c-controller-recess);
 }

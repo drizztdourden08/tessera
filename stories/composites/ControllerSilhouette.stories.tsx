@@ -51,7 +51,7 @@ const variantStory = (variant: ControllerSilhouetteVariant, name: string) => ({
 
 const Offset = variantStory('offset', 'Offset sticks, an Xbox shape');
 const Symmetric = variantStory('symmetric', 'Sticks side by side, a PlayStation shape');
-const Nintendo = variantStory('nintendo', 'A rounder offset body, a Switch Pro shape');
+const Nintendo = variantStory('nintendo', 'A broad offset body, a Switch Pro shape');
 const Pad = variantStory('pad', 'A pad with no sticks or triggers, an SNES shape');
 
 const WithAnchors = {
@@ -96,13 +96,13 @@ const stick = CONTROLLER_SILHOUETTE_ANCHORS.offset['stick.left'];
 
 const Overview = overviewStory({
   component: 'ControllerSilhouette',
-  description: 'An empty controller body with soft shading and quiet wells. The app draws its own marks on top.',
+  description: 'The outline of a controller, one stroked line with no fill. The app draws its own marks on top.',
   points: [
-    '`variant` picks the body: `offset`, `symmetric`, `nintendo`, or `pad` with no sticks or triggers.',
-    'The drawing has no buttons, glyphs or labels. Wells show where the controls sit.',
-    '`children` render inside the SVG, on top of the body, in viewBox units.',
+    '`variant` picks the outline: `offset`, `symmetric`, `nintendo`, or `pad` with no sticks or triggers.',
+    'Only the outer edge is drawn. Shoulders show where they stick out past the body. Nothing marks a button, stick or trigger.',
+    '`children` render inside the SVG, on top of the outline, in viewBox units.',
     'The viewBox is fixed at `0 0 400 260` for every variant, so app coordinates stay valid.',
-    '`CONTROLLER_SILHOUETTE_ANCHORS` gives the centre and radius of each well per variant.',
+    '`CONTROLLER_SILHOUETTE_ANCHORS` gives where each control sits per variant. Nothing is drawn for them.',
     'It grows with its container. The drawing is hidden from screen readers and `label` names it.',
   ],
   playground: Playground,

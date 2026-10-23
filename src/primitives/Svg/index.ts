@@ -8,5 +8,3 @@ export { SvgText } from './sub-components/SvgText';
 export { SvgPolygon } from './sub-components/SvgPolygon';
 export { SvgGroup } from './sub-components/SvgGroup';
 export { SvgClipPath } from './sub-components/SvgClipPath';
-export { SvgLinearGradient } from './sub-components/SvgLinearGradient';
-export { SvgStop } from './sub-components/SvgStop';

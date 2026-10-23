@@ -96,16 +96,7 @@
     --c-tertiary-dim:    color-mix(in oklab, var(--p-tertiary) 18%, var(--c-bg));
     --c-tertiary-soft:   color-mix(in srgb, var(--p-tertiary) 14%, transparent);
     --c-on-tertiary:     var(--p-on-tertiary);
-    --c-controller-line:     color-mix(in oklab, var(--c-text-muted) 85%, var(--c-surface));
-    --c-controller-body:     color-mix(in oklab, var(--c-surface) 88%, var(--c-text));
-    --c-controller-shoulder: color-mix(in oklab, var(--c-surface) 92%, var(--c-text));
-    --c-controller-trigger:  color-mix(in oklab, var(--c-sunken) 90%, var(--c-text));
-    --c-controller-lift:     color-mix(in srgb, var(--c-lift) 9%, transparent);
-    --c-controller-glint:    color-mix(in srgb, var(--c-lift) 24%, transparent);
-    --c-controller-shade:    color-mix(in srgb, var(--c-scrim) 40%, transparent);
-    --c-controller-dusk:     color-mix(in srgb, var(--c-scrim) 24%, transparent);
-    --c-controller-deep:     color-mix(in srgb, var(--c-scrim) 60%, transparent);
-    --c-controller-recess:   color-mix(in srgb, var(--c-scrim) 18%, transparent);
+    --c-controller-line: color-mix(in oklab, var(--c-text-muted) 85%, var(--c-surface));
   }
 
   :root {

@@ -1,6 +1,6 @@
 # ControllerSilhouette
 
-An empty controller body with soft shading and quiet wells where the controls sit, for the app to draw its own glyphs, labels and lines on.
+The outline of a controller, one stroked line with no fill, for the app to draw its own glyphs, labels and lines on.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -14,7 +14,7 @@ The source is `src/composites/ControllerSilhouette/ControllerSilhouette.tsx`. It
 
 What are you placing? Data. What data are you showing? Controller or keyboard input. What about the input? A blank controller to draw on.
 
-ControllerSilhouette draws only the body of a pad, so each app places its own marks at shared anchors.
+ControllerSilhouette draws only the outline of a pad, so each app places its own marks at shared anchors.
 
 ## Use it when
 
@@ -30,15 +30,16 @@ ControllerSilhouette draws only the body of a pad, so each app places its own ma
 ## Rules
 
 - Pick the variant from the pad family: offset for Xbox shapes, symmetric for PlayStation shapes, nintendo for Switch Pro shapes and pad for a pad with no sticks or triggers.
-- Draw on it with children made of the Svg primitives. They sit inside the SVG on top of the body, in viewBox units.
+- Draw on it with children made of the Svg primitives. They sit inside the SVG on top of the outline, in viewBox units.
 - The viewBox is CONTROLLER_SILHOUETTE_VIEW_BOX, 0 0 400 260, for every variant. It never changes, so coordinates stay valid.
-- Place marks from CONTROLLER_SILHOUETTE_ANCHORS, never from numbers of your own. The wells are drawn from the same anchors.
-- A stick, the d-pad, the face cluster and each meta button have a centre and a radius r. Shoulders and triggers have a centre only.
-- A variant leaves out the anchors its shape has none of: pad has no sticks, no triggers and no capture, symmetric has no capture.
-- Anchors in viewBox units. offset: stick.left 112,112 r23, stick.right 248,166 r23, dpad 152,166 r24, face 288,112 r34, shoulder.left 90,38, shoulder.right 310,38, trigger.left 96,22, trigger.right 304,22, meta.view 172,104 r6, meta.menu 228,104 r6, meta.guide 200,80 r11, meta.capture 200,128 r5.
-- Symmetric: stick.left 154,164 r22, stick.right 246,164 r22, dpad 106,110 r26, face 294,110 r33, shoulder.left 86,44, shoulder.right 314,44, trigger.left 88,22, trigger.right 312,22, meta.view 140,76 r5, meta.menu 260,76 r5, meta.guide 200,164 r8.
-- Nintendo: stick.left 122,112 r21, stick.right 242,160 r21, dpad 158,160 r21, face 278,112 r30, shoulder.left 108,46, shoulder.right 292,46, trigger.left 106,30, trigger.right 294,30, meta.view 172,92 r5, meta.menu 228,92 r5, meta.guide 224,124 r6, meta.capture 176,124 r5.
-- Pad: dpad 112,142 r30, face 288,142 r36, shoulder.left 97,54, shoulder.right 303,54, meta.view 180,150 r6, meta.menu 220,150 r6, meta.guide 200,112 r7.
+- Place marks from CONTROLLER_SILHOUETTE_ANCHORS, never from numbers of your own. Nothing is drawn at an anchor, it only says where the control sits on the real pad.
+- A stick, the d-pad, the face cluster and each meta button have a centre and a radius r. Shoulders sit on the top edge. Triggers sit above their shoulder, outside the outline, since a trigger hides behind it from the front.
+- A variant leaves out the anchors its pad has none of: pad has no sticks, no triggers, no guide and no capture, symmetric has no capture.
+- Anchors in viewBox units. offset: stick.left 117,70 r23, stick.right 242,112 r23, dpad 155,120 r24, face 281,75 r32, shoulder.left 124,34, shoulder.right 276,34, trigger.left 124,14, trigger.right 276,14, meta.view 176,73 r7, meta.menu 222,73 r7, meta.guide 200,48 r13, meta.capture 200,88 r6.
+- Symmetric: stick.left 144,140 r30, stick.right 256,140 r30, dpad 89,90 r37, face 311,90 r39, shoulder.left 89,37, shoulder.right 311,37, trigger.left 89,14, trigger.right 311,14, meta.view 127,56 r6, meta.menu 273,56 r6, meta.guide 200,144 r8.
+- Nintendo: stick.left 105,83 r26, stick.right 250,134 r26, dpad 150,134 r28, face 295,83 r36, shoulder.left 98,40, shoulder.right 302,40, trigger.left 98,14, trigger.right 302,14, meta.view 158,62 r8, meta.menu 242,62 r8, meta.guide 225,86 r9, meta.capture 175,86 r7.
+- Pad: dpad 92,132 r33, face 307,132 r43, shoulder.left 94,51, shoulder.right 306,51, meta.view 165,144 r11, meta.menu 205,144 r11.
+- Sources, all on Wikimedia Commons. offset is traced from the photo Xbox Series Controller Gold Shadow Special Edition by Serhio Magpie, CC BY 4.0. symmetric is traced from Dualshock 4 Layout.svg by Tokyoship, CC BY 3.0. nintendo is drawn by hand from the proportions of Nintendo.Swtich.Pro.Controller.Black.jpg by Tim Whitehouse, CC0, and the published 152 by 106 mm size. pad is traced from SNES-Controller-Flat.jpg by Evan-Amos, public domain. Each trace is mirrored into one symmetric half and refitted, with no brand marks.
 
 ## Accessibility
 
@@ -73,7 +74,7 @@ const JumpHint = () => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-controller-body`, `--c-controller-deep`, `--c-controller-dusk`, `--c-controller-glint`, `--c-controller-lift`, `--c-controller-line`, `--c-controller-recess`, `--c-controller-shade`, `--c-controller-shoulder`, `--c-controller-trigger`, `--size-6`.
+It draws on `--border-width-thick`, `--c-controller-line`.
 
 ## Also exported from this folder
 

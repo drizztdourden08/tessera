@@ -1,23 +1,19 @@
 /* @layer renderer-components @kind constants */
-import { arc } from './arc';
-import { band } from './band';
-import type { SilhouetteShape } from '../ControllerSilhouette.type';
+import type { Outline } from '../ControllerSilhouette.type';
 
-const LOBE_X = 288;
-const LOBE_Y = 142;
-const LOBE_R = 84;
-
-const PAD_SHAPE: SilhouetteShape = {
-  half: {
-    start: [200, 74],
-    curves: [
-      [228, 74, 252, 58, LOBE_X, LOBE_Y - LOBE_R],
-      ...arc({ cx: LOBE_X, cy: LOBE_Y, r: LOBE_R, from: 270, to: 450 }),
-      [252, 226, 228, 210, 200, 210],
-    ],
-  },
-  parts: [
-    { kind: 'shoulder', outline: band({ cx: LOBE_X, cy: LOBE_Y, outer: 95, inner: 73, from: 236, to: 318 }) },
+const PAD_SHAPE: Outline = {
+  start: [200, 52.3],
+  curves: [
+    [220, 52.3, 244.2, 53.9, 263.7, 52.4],
+    [266.8, 52.2, 268.6, 49.4, 271.6, 49],
+    [276.8, 48.4, 282.3, 48.9, 287.5, 48.9],
+    [305.3, 48.9, 326.1, 47.3, 342, 57],
+    [344.8, 58.8, 345.9, 62.2, 348.5, 64.1],
+    [361.4, 73.8, 372.4, 83.8, 379.1, 98.8],
+    [398, 141.2, 376.4, 191.9, 332.3, 207],
+    [314.7, 213, 294.5, 212.6, 277.1, 205.9],
+    [269, 202.7, 262, 196.5, 253.7, 194.2],
+    [243.7, 191.4, 212.2, 193.2, 200, 193.2],
   ],
 };
 

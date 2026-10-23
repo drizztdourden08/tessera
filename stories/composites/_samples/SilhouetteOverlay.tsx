@@ -3,8 +3,8 @@ import { CONTROLLER_SILHOUETTE_ANCHORS, ControllerSilhouette } from '../../../sr
 import { SvgCircle, SvgGroup, SvgLine, SvgText } from '../../../src/primitives';
 
 const ANCHORS = CONTROLLER_SILHOUETTE_ANCHORS.offset;
-const LABEL_X = 352;
-const LABEL_Y = 196;
+const LABEL_X = 300;
+const LABEL_Y = 150;
 const CAP_RATIO = 0.62;
 const TIP_GAP = 4;
 

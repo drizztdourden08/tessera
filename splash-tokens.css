@@ -204,15 +204,6 @@
   --c-tertiary-soft: #9a9aa424;
   --c-on-tertiary: #0e0e12;
   --c-controller-line: #707078;
-  --c-controller-body: #2c2c2f;
-  --c-controller-shoulder: #252528;
-  --c-controller-trigger: #161617;
-  --c-controller-lift: #ffffff17;
-  --c-controller-glint: #ffffff3d;
-  --c-controller-shade: #0000003d;
-  --c-controller-dusk: #00000025;
-  --c-controller-deep: #0000005c;
-  --c-controller-recess: #0000001c;
   --blur: 8px;
   --dialog-w-sm: 384px;
   --dialog-w-md: 640px;
@@ -527,9 +518,6 @@
   --c-tertiary-soft: #a79fc824;
   --c-on-tertiary: #0d0b14;
   --c-controller-line: #797392;
-  --c-controller-body: #2f2d37;
-  --c-controller-shoulder: #28262f;
-  --c-controller-trigger: #17171b;
 }
 
 [data-palette="brock"] {
@@ -646,9 +634,6 @@
   --c-tertiary-soft: #8a8b8d24;
   --c-on-tertiary: #000;
   --c-controller-line: #646466;
-  --c-controller-body: #292929;
-  --c-controller-shoulder: #222222;
-  --c-controller-trigger: #141414;
 }
 
 [data-palette="rotp"] {

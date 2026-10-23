@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import { readFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
@@ -28,21 +29,32 @@ describe('ControllerSilhouette', () => {
     expect(render({ label: 'Pad 1', className: 'extra' })).toMatch(/^<figure aria-label="Pad 1" class="controller-silhouette extra"/);
   });
 
-  it('renders children inside the svg, after the body', () => {
+  it('renders children inside the svg, after the outline', () => {
     const html = render({}, h('circle', { 'data-overlay': 'app', cx: 10, cy: 10, r: 4 }));
-    const svgOpen = html.indexOf('<svg');
     const child = html.indexOf('data-overlay="app"');
-    expect(child).toBeGreaterThan(html.indexOf('controller-silhouette__wells'));
-    expect(child).toBeGreaterThan(svgOpen);
+    expect(child).toBeGreaterThan(html.indexOf('controller-silhouette__outline'));
+    expect(child).toBeGreaterThan(html.indexOf('<svg'));
     expect(child).toBeLessThan(html.indexOf('</svg>'));
   });
 
-  it('draws only body shading, no buttons, glyphs or text', () => {
+  it('draws one closed outline and nothing else', () => {
     for (const variant of CONTROLLER_SILHOUETTE_VARIANTS) {
       const html = render({ variant });
-      expect(html).not.toContain('<text');
-      expect(html).toContain('controller-silhouette__body');
+      const svg = html.slice(html.indexOf('<svg'), html.indexOf('</svg>'));
+      expect(svg.match(/<path/g)).toHaveLength(1);
+      expect(svg).toMatch(/<path class="controller-silhouette__outline" d="M [^"]+ Z"/);
+      for (const tag of ['<rect', '<circle', '<text', '<linearGradient', '<stop', '<clipPath', '<g']) expect(svg).not.toContain(tag);
+      expect(svg).not.toMatch(/fill="url|stroke="url|data-anchor/);
     }
+  });
+
+  it('strokes the outline with no fill', () => {
+    const css = readFileSync(new URL('../src/composites/ControllerSilhouette/ControllerSilhouette.css', import.meta.url), 'utf8');
+    const rule = css.slice(css.indexOf('.controller-silhouette__outline'));
+    expect(rule).toMatch(/fill: none;/);
+    expect(rule).toContain('stroke: var(--c-controller-line);');
+    expect(rule).toContain('stroke-width: var(--controller-silhouette-stroke);');
+    expect(css).not.toMatch(/gradient|stop-color|--c-controller-(body|shade|glint|lift)/);
   });
 });
 
@@ -55,9 +67,9 @@ describe('ControllerSilhouette anchors', () => {
     expect(CONTROLLER_SILHOUETTE_ANCHORS.nintendo['meta.capture']).toBeDefined();
   });
 
-  it('gives a pad no sticks and no triggers', () => {
+  it('gives a pad no sticks, no triggers and no guide or capture', () => {
     const pad = CONTROLLER_SILHOUETTE_ANCHORS.pad;
-    for (const id of ['stick.left', 'stick.right', 'trigger.left', 'trigger.right']) expect(pad[id]).toBeUndefined();
+    for (const id of ['stick.left', 'stick.right', 'trigger.left', 'trigger.right', 'meta.guide', 'meta.capture']) expect(pad[id]).toBeUndefined();
     for (const id of ['dpad', 'face', 'shoulder.left', 'shoulder.right', 'meta.view', 'meta.menu']) expect(pad[id]).toBeDefined();
   });
 
@@ -74,20 +86,29 @@ describe('ControllerSilhouette anchors', () => {
     }
   });
 
-  it('draws each well from its anchor', () => {
-    const html = render({ variant: 'symmetric' });
-    const stick = CONTROLLER_SILHOUETTE_ANCHORS.symmetric['stick.left'];
-    expect(html).toContain(`cx="${stick.x}" cy="${stick.y}" r="${stick.r}"`);
-    const face = CONTROLLER_SILHOUETTE_ANCHORS.symmetric.face;
-    expect(html).toMatch(new RegExp(`cx="${face.x}" cy="${face.y}" r="${face.r}"[^>]*data-anchor="face"`));
+  it('keeps the symmetric pad without a capture button', () => {
+    expect(CONTROLLER_SILHOUETTE_ANCHORS.symmetric['meta.capture']).toBeUndefined();
   });
 
-  it('mirrors the body so the left and right halves match', () => {
-    const html = render({ variant: 'pad' });
-    const body = html.match(/class="controller-silhouette__body" d="([^"]+)"/)[1];
-    const numbers = body.match(/-?[\d.]+/g).map(Number);
-    const xs = numbers.filter((_, index) => index % 2 === 0);
-    const sum = xs.reduce((total, x) => total + (x - 200), 0);
-    expect(Math.abs(sum)).toBeLessThan(0.1);
+  it('places each trigger above its shoulder', () => {
+    for (const variant of ['offset', 'symmetric', 'nintendo']) {
+      const anchors = CONTROLLER_SILHOUETTE_ANCHORS[variant];
+      expect(anchors['trigger.left'].x).toBe(anchors['shoulder.left'].x);
+      expect(anchors['trigger.left'].y).toBeLessThan(anchors['shoulder.left'].y);
+      expect(anchors['shoulder.left'].x + anchors['shoulder.right'].x).toBe(400);
+    }
+  });
+
+  it('mirrors each outline so the left and right halves match', () => {
+    for (const variant of CONTROLLER_SILHOUETTE_VARIANTS) {
+      const d = render({ variant }).match(/class="controller-silhouette__outline" d="([^"]+)"/)[1];
+      const xs = d.match(/-?[\d.]+/g).map(Number).filter((_, index) => index % 2 === 0);
+      const sum = xs.reduce((total, x) => total + (x - 200), 0);
+      expect(Math.abs(sum)).toBeLessThan(0.1);
+      for (const x of xs) {
+        expect(x).toBeGreaterThanOrEqual(0);
+        expect(x).toBeLessThanOrEqual(400);
+      }
+    }
   });
 });
