@@ -857,6 +857,9 @@
     },
     "SiteFooter": {
       "status": "new"
+    },
+    "StatusBar": {
+      "status": "new"
     }
   },
   "Composites · Lists": {
@@ -864,6 +867,9 @@
       "status": "ok",
       "hash": "c103b23dd57deff6",
       "at": "2026-10-04"
+    },
+    "ReorderList": {
+      "status": "new"
     },
     "GroupTree": {
       "status": "ok",
@@ -1111,6 +1117,12 @@
       "status": "ok",
       "hash": "ee58354926ad2f32",
       "at": "2026-10-03"
+    },
+    "ControllerLayout": {
+      "status": "new"
+    },
+    "ControllerSilhouette": {
+      "status": "new"
     },
     "KeyboardLayout": {
       "status": "ok",

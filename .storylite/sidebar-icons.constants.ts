@@ -113,7 +113,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },
   'Composites · Input devices': {
-    PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', ControllerLayout: 'gamepad-2', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
+    PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', ControllerLayout: 'gamepad-2', ControllerSilhouette: 'gamepad', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog', WindowGuideOverlay: 'move' },
   'Composites · Screens': {

@@ -9732,3 +9732,11 @@ No app in the family has a light theme, so every variant that only existed to si
 - Read `brand/dark-ground/<app>.svg` for a mark on the dark gradient, as before. A page that read `brand/light-ground/` or `brand/dark-rim/` has no replacement.
 - Stylesheets and code that read `--c-gradient-light-from` and `-to`, or `--brand-rim-dark`, drop them. An app theme that set `--p-gradient-light-from` and `-to` stops setting them.
 - Code that read `gradientLightFrom` or `gradientLightTo` from `tokens.json` drops them.
+
+## 272. ControllerSilhouette: the outline of a controller for the app to draw on
+
+`ControllerSilhouette` (composites) draws only the outline of a controller: one closed, stroked line with no fill, no shading and nothing for a button, stick or trigger. Shoulders show only where they stick out past the body. Props: `variant` (`'offset' | 'symmetric' | 'nintendo' | 'pad'`), `label?`, `className?` and `children`, which render inside the SVG on top of the outline. The viewBox is fixed at `0 0 400 260` for every variant and exported as `CONTROLLER_SILHOUETTE_VIEW_BOX`. `CONTROLLER_SILHOUETTE_ANCHORS` gives each variant's anchors in viewBox units: `stick.left`, `stick.right`, `dpad`, `face`, `shoulder.left`, `shoulder.right`, `trigger.left`, `trigger.right` and the `meta.*` buttons, each with `x`, `y` and a radius `r` for the round controls. Triggers sit above their shoulder, outside the outline. The pad has no sticks, triggers, guide or capture. The lists `CONTROLLER_SILHOUETTE_VARIANTS` and `CONTROLLER_SILHOUETTE_ANCHOR_IDS` and the types `ControllerSilhouetteProps`, `ControllerSilhouetteVariant`, `ControllerSilhouetteAnchorId`, `ControllerSilhouetteAnchor`, `ControllerSilhouetteAnchorSet` and `ControllerSilhouetteAnchors` are exported.
+
+### What RotP does
+
+- Draw the pad outline with `ControllerSilhouette` and place its own glyphs, labels and leader lines as children, at the coordinates of `CONTROLLER_SILHOUETTE_ANCHORS`.

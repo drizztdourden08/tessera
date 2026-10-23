@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 72 of 194 have their usage written; a linked name opens its page.
+One line per component. 73 of 195 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -100,6 +100,7 @@ One line per component. 72 of 194 have their usage written; a linked name opens 
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ContentHeader](components/ContentHeader.md): The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end. Import from `@drizztdourden08/tessera`.
 - [ControllerLayout](components/ControllerLayout.md): A plain outline of a controller with every button, trigger and stick in its place, lit while it is held, to test a gamepad or show what it sends. Import from `@drizztdourden08/tessera`.
+- [ControllerSilhouette](components/ControllerSilhouette.md): The outline of a controller, one stroked line with no fill, for the app to draw its own glyphs, labels and lines on. Import from `@drizztdourden08/tessera`.
 - [ControlMenu](components/ControlMenu.md): A dropdown of settings behind one button: each row is a label with one compact control, and the panel joins its button like a DropdownMenu. Import from `@drizztdourden08/tessera`.
 - [CopyButton](components/CopyButton.md): A button that copies a text to the clipboard and confirms it with a check and the word Copied. Import from `@drizztdourden08/tessera`.
 - [CopyValue](components/CopyValue.md): A value the user often copies, such as an address, a seed or a key, shown with a copy button at its end. Import from `@drizztdourden08/tessera`.

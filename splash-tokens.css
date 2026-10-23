@@ -199,6 +199,7 @@
   --c-tertiary-dim: #060607;
   --c-tertiary-soft: #9a9aa424;
   --c-on-tertiary: #0e0e12;
+  --c-controller-line: #707078;
   --blur: 8px;
   --dialog-w-sm: 384px;
   --dialog-w-md: 640px;
@@ -507,6 +508,7 @@
   --c-tertiary-dim: #07070b;
   --c-tertiary-soft: #a79fc824;
   --c-on-tertiary: #0d0b14;
+  --c-controller-line: #797392;
 }
 
 [data-palette="brock"] {
@@ -618,6 +620,7 @@
   --c-tertiary-dim: #050505;
   --c-tertiary-soft: #8a8b8d24;
   --c-on-tertiary: #000;
+  --c-controller-line: #646466;
 }
 
 [data-palette="rotp"] {

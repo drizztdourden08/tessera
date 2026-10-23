@@ -91,7 +91,7 @@ interface ControllerShapeProps {
   active?: boolean;
 }
 
-interface ControllerSilhouetteProps {
+interface ControllerLayoutBodyProps {
   geometry: ControllerGeometry;
   slots: ControllerSlots;
 }
@@ -110,6 +110,6 @@ interface ControllerHeldProps {
 export type {
   ControllerAnalog, ControllerControlKind, ControllerControlProps, ControllerExtra, ControllerGeometry, ControllerHeldProps,
   ControllerLayoutProps, ControllerLayoutVariant, ControllerPlace, ControllerRow, ControllerRowsProps, ControllerShape,
-  ControllerShapeProps, ControllerSilhouetteProps, ControllerSlotId, ControllerSlotState, ControllerSlots,
+  ControllerShapeProps, ControllerLayoutBodyProps, ControllerSlotId, ControllerSlotState, ControllerSlots,
   ControllerStickProps, ControllerStrings, ControllerTagAt, ControllerTagProps,
 };
