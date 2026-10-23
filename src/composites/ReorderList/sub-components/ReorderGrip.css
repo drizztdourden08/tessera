@@ -1,0 +1,19 @@
+/* @layer renderer-components @kind style */
+.reorder-list__grip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-24);
+  flex: none;
+  color: var(--c-text-muted);
+  cursor: grab;
+  touch-action: none;
+}
+
+.reorder-list__item:hover .reorder-list__grip {
+  color: var(--c-text-dim);
+}
+
+.reorder-list__item[data-dragging='yes'] .reorder-list__grip {
+  cursor: grabbing;
+}

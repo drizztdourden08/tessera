@@ -158,6 +158,7 @@ const DATA = {
   answers: {
     'rows and columns to sort and filter': null, 'filters over a collection': null,
     'a list the user adds to, renames and deletes from': null,
+    'a list the user reorders, with on and off icons on each row': null,
     'one record, compact and read only': null, 'a row in a list, with its actions': null, 'a stream of log lines': null,
     'items of a catalogue, as cards': null,
     'files, with their size, date, open and reveal': null,

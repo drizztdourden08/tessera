@@ -68,6 +68,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Lists',
       entries: [
         { name: 'ListItemRow', summary: 'One selectable row: icon, name and meta, any number of two-line columns that line up in a list, and an action.' },
+        { name: 'ReorderList', summary: 'A list the user reorders by drag or keys, with a row of on and off icons on each item, such as the layers of a drawing.' },
         { name: 'GroupTree', summary: 'A keyboard tree of groups with guides, icons and counts, and the items as leaves.' },
         { name: 'SearchResults', summary: 'The search pane: a summary with page chips over groups of matches.' },
         { name: 'SearchResultGroup', summary: 'One group of matches: glowing icon, title, count and an open button.' },

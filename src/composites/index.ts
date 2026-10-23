@@ -20,6 +20,7 @@ export { GroupTree, type GroupTreeProps, type TreeNode } from './GroupTree';
 export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } from './HeaderAnchorNav';
 export { LogPanel, type LogKindDef, type LogKindTone, type LogPanelProps, type LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
+export { ReorderList, type ReorderItem, type ReorderListProps, type ReorderToggle, type ReorderToggleState } from './ReorderList';
 export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from './ListItemRow';
 export { ListDetailLayout, type ListDetailLayoutProps } from './ListDetailLayout';
 export { PanelContainer, type PanelContainerConfig, type PanelContainerProps } from './PanelContainer';

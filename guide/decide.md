@@ -164,6 +164,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Rows and columns to sort and filter: no component yet.
   - Filters over a collection: no component yet.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
+  - A list the user reorders, with on and off icons on each row: [ReorderList](components/ReorderList.md). ReorderList is an ordered list the user reorders by drag or keys, with on and off icons on each row, the same way in every app.
   - One record, compact and read only: no component yet.
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 70 of 192 have their usage written; a linked name opens its page.
+One line per component. 71 of 193 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -145,6 +145,7 @@ One line per component. 70 of 192 have their usage written; a linked name opens 
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ReorderList](components/ReorderList.md): A list of named items the user puts in order by drag or by keys, with a row of on and off icons on each item, such as the layers of a drawing. Import from `@drizztdourden08/tessera`.
 - [ResizeHandle](components/ResizeHandle.md): The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range. Import from `@drizztdourden08/tessera`.
 - [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
 - [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.
