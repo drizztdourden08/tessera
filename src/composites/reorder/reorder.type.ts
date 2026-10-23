@@ -1,7 +1,9 @@
 /* @layer renderer-components @kind types */
 import type { PointerEvent, RefObject } from 'react';
 
-type ReorderAxis = 'vertical' | 'horizontal';
+type ReorderAxis = 'vertical' | 'horizontal' | 'grid';
+
+type ReorderLinearAxis = Exclude<ReorderAxis, 'grid'>;
 
 type ReorderChord = 'plain' | 'alt';
 
@@ -45,8 +47,10 @@ interface ReorderStepOptions {
   chord: ReorderChord;
   index: number;
   total: number;
+  columns?: number;
 }
 
 export type {
-  ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDragState, ReorderDrop, ReorderKeyEvent, ReorderStepOptions,
+  ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDragState, ReorderDrop, ReorderKeyEvent, ReorderLinearAxis,
+  ReorderStepOptions,
 };
