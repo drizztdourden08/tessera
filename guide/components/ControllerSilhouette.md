@@ -73,7 +73,7 @@ const JumpHint = () => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-lift`, `--c-scrim`, `--c-sunken`, `--c-surface`, `--c-text`, `--c-text-muted`, `--size-6`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-controller-body`, `--c-controller-deep`, `--c-controller-dusk`, `--c-controller-glint`, `--c-controller-lift`, `--c-controller-line`, `--c-controller-recess`, `--c-controller-shade`, `--c-controller-shoulder`, `--c-controller-trigger`, `--size-6`.
 
 ## Also exported from this folder
 

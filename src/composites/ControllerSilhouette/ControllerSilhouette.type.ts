@@ -32,6 +32,14 @@ interface Outline {
   readonly curves: readonly Cubic[];
 }
 
+interface ArcSpec {
+  readonly cx: number;
+  readonly cy: number;
+  readonly r: number;
+  readonly from: number;
+  readonly to: number;
+}
+
 interface BandSpec {
   readonly cx: number;
   readonly cy: number;
@@ -109,7 +117,7 @@ interface SilhouetteWellProps {
 }
 
 export type {
-  BandSpec, ControllerSilhouetteAnchor, ControllerSilhouetteAnchorId, ControllerSilhouetteAnchors, ControllerSilhouetteAnchorSet,
+  ArcSpec, BandSpec, ControllerSilhouetteAnchor, ControllerSilhouetteAnchorId, ControllerSilhouetteAnchors, ControllerSilhouetteAnchorSet,
   ControllerSilhouetteProps, ControllerSilhouetteVariant, Cubic, Outline, Point, ShapePart, SilhouetteArtProps, SilhouetteDrawing,
   SilhouetteGradient, SilhouetteGradientsProps, SilhouetteIds, SilhouettePaint, SilhouettePart, SilhouettePartKind, SilhouetteShape,
   SilhouetteStop, SilhouetteTone, SilhouetteWell, SilhouetteWellKind, SilhouetteWellProps, SilhouetteWellsProps,

@@ -12,7 +12,7 @@ const PAD_SHAPE: SilhouetteShape = {
     start: [200, 74],
     curves: [
       [228, 74, 252, 58, LOBE_X, LOBE_Y - LOBE_R],
-      ...arc(LOBE_X, LOBE_Y, LOBE_R, 270, 450),
+      ...arc({ cx: LOBE_X, cy: LOBE_Y, r: LOBE_R, from: 270, to: 450 }),
       [252, 226, 228, 210, 200, 210],
     ],
   },
