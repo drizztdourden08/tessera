@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 74 of 196 have their usage written; a linked name opens its page.
+One line per component. 75 of 197 have their usage written; a linked name opens its page.
 
 ## Primitives
 
