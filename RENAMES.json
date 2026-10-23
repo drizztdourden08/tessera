@@ -1447,7 +1447,7 @@
       }
     },
     {
-      "version": "next",
+      "version": "0.52.0",
       "props": {
         "BrandMark.ground": "removed; inside Splash a mark takes its dark look by itself, anywhere else it is drawn as drawn (see MIGRATION.md section 271)",
         "Logo.ground": "removed with BrandMark.ground; Logo.Combined loses it too (see MIGRATION.md section 271)"
