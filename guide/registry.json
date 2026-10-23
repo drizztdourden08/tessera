@@ -494,6 +494,11 @@
               },
               "a header inside the window": {
                 "components": []
+              },
+              "the status line at the foot": {
+                "components": [
+                  "StatusBar"
+                ]
               }
             }
           },
@@ -636,6 +641,11 @@
           "a list the user adds to, renames and deletes from": {
             "components": [
               "ItemList"
+            ]
+          },
+          "a list the user reorders, with on and off icons on each row": {
+            "components": [
+              "ReorderList"
             ]
           },
           "one record, compact and read only": {
@@ -6512,6 +6522,7 @@
         "Pass newDisabled when New cannot run yet, with a string that says why, such as Start a game to make a new save; true greys it out with no reason.",
         "Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.",
         "Pass showTitle={false} when a surrounding PanelContainer supplies the visible section heading; the list keeps its accessible name and any New action.",
+        "Pass onCount to learn the shown and total counts, such as to write the count into that PanelContainer heading; it runs after each change, with the filter and waiting deletes counted.",
         "Pass groups with groupBy to set the order of the groups and keep the empty ones, such as an installed game with no preset yet.",
         "An empty group draws its heading, its empty line and the button of its action, such as New preset; while the filter holds text, it hides.",
         "Each row carries data-item-id with its id, so app search can find the row and scroll to it; rowData adds more data attributes.",
@@ -6553,7 +6564,7 @@
         "rule": "ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app."
       },
       "example": "import { ItemList } from '@drizztdourden08/tessera';\n\ninterface Server {\n  id: string;\n  name: string;\n  host: string;\n}\n\nconst ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, loading, error }: {\n  servers: Server[];\n  selectedId: string | null;\n  onSelect: (id: string) => void;\n  onAdd: () => void;\n  onRename: (id: string, name: string) => void;\n  onDelete: (id: string) => void;\n  loading: boolean;\n  error?: string;\n}) => (\n  <ItemList\n    title=\"Servers\"\n    items={servers}\n    getId={(server) => server.id}\n    getName={(server) => server.name}\n    render={(server) => ({ meta: server.host })}\n    selectedId={selectedId}\n    onSelect={onSelect}\n    onCreate={onAdd}\n    createLabel=\"Add\"\n    onRename={onRename}\n    onDelete={onDelete}\n    loading={loading}\n    error={error}\n    empty=\"Add a server to host sessions on.\"\n  />\n);\n",
-      "propsHash": "799e6ab1f800fdd1",
+      "propsHash": "e09886e8f5231fe0",
       "props": {
         "own": [
           {
@@ -6715,6 +6726,11 @@
             "name": "loading",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "onCount",
+            "optional": true,
+            "text": "(shown: number, total: number) => void"
           },
           {
             "name": "error",
@@ -8571,6 +8587,134 @@
       "usage": false
     },
     {
+      "name": "ReorderList",
+      "tier": "composites",
+      "source": "src/composites/ReorderList/ReorderList.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A list of named items the user puts in order by drag or by keys, with a row of on and off icons on each item, such as the layers of a drawing.",
+      "useWhen": [
+        "The order of the items matters and the user changes it, such as layers, tracks or steps.",
+        "Each item has a few on and off states the user flips from the row, such as visible and locked.",
+        "One item at a time is selected, and the app acts on it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Each row has inputs to edit, and the list is added to and removed from.",
+          "use": "RowGrid"
+        },
+        {
+          "case": "The rows are read only, or the user does not change their order.",
+          "use": "ListItemRow"
+        },
+        {
+          "case": "The user adds, renames and deletes the items of a list beside an editor.",
+          "use": "ItemList"
+        }
+      ],
+      "rules": [
+        "Keep the items in the app and change them in onMove; the list only draws them.",
+        "Describe the toggles once, in toggles: an id, a label and an icon for on and one for off.",
+        "Keep the state of each toggle on its item, in toggles keyed by the toggle id, and flip it in onToggle.",
+        "A toggle with no state reads as off.",
+        "Name each toggle by what it is when it is on, such as Visible or Locked.",
+        "Pass selectedId for the item the app has open; the app keeps it and changes it in onSelect."
+      ],
+      "a11y": [
+        "The list is named by label, and each row is one button that selects the item and carries aria-pressed when selected.",
+        "Up and Down move focus from row to row, and Home and End go to the first and the last. Only one row is a tab stop.",
+        "Alt and Up or Down moves the focused row. Focus stays on the row, and the move is announced.",
+        "Space or Enter selects the row.",
+        "Each toggle is an icon button named by its label, with aria-pressed set to its state, in a group named after the item.",
+        "The drop line follows the pointer while a row is dragged, and the list adds no motion when the user asks for less."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a list the user reorders, with on and off icons on each row"
+        ],
+        "rule": "ReorderList is an ordered list the user reorders by drag or keys, with on and off icons on each row, the same way in every app."
+      },
+      "example": "import { ReorderList } from '@drizztdourden08/tessera';\nimport type { ReorderItem, ReorderToggle } from '@drizztdourden08/tessera';\n\nconst TOGGLES: ReorderToggle[] = [\n  { id: 'visible', label: 'Visible', iconOn: 'eye', iconOff: 'eye-off' },\n  { id: 'locked', label: 'Locked', iconOn: 'lock', iconOff: 'lock-open' },\n];\n\ninterface LayersProps {\n  layers: ReorderItem[];\n  selectedId: string;\n  select: (id: string) => void;\n  move: (from: number, to: number) => void;\n  toggle: (layerId: string, toggleId: string, next: boolean) => void;\n}\n\nconst Layers = ({ layers, selectedId, select, move, toggle }: LayersProps) => (\n  <ReorderList\n    label=\"Layers\"\n    items={layers}\n    toggles={TOGGLES}\n    selectedId={selectedId}\n    onSelect={select}\n    onMove={move}\n    onToggle={toggle}\n  />\n);\n",
+      "propsHash": "0fa7be193eab3290",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly ReorderItem[]"
+          },
+          {
+            "name": "toggles",
+            "optional": true,
+            "text": "readonly ReorderToggle[]",
+            "default": "[]"
+          },
+          {
+            "name": "selectedId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onSelect",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onMove",
+            "optional": false,
+            "text": "(from: number, to: number) => void"
+          },
+          {
+            "name": "onToggle",
+            "optional": true,
+            "text": "(itemId: string, toggleId: string, next: boolean) => void"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-primary-bright",
+        "--c-text",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--opacity-muted",
+        "--size-1",
+        "--size-24",
+        "--space-2xs",
+        "--space-xl",
+        "--transition-fast"
+      ],
+      "gallery": {
+        "title": "Composites · Lists/ReorderList",
+        "route": "#/story/composites-reorderlist--overview",
+        "file": "stories/composites/ReorderList.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "ResizeHandle",
       "tier": "composites",
       "source": "src/composites/ResizeHandle/ResizeHandle.tsx",
@@ -9589,9 +9733,9 @@
         "With header, subtitle and extra do not show; put such controls in header.strip or header.actions.",
         "Pass back to draw a back button before the title, in the title bar or in the page header, for a screen opened from another one. The host wires Alt+Left and the mouse back button to the same call.",
         "With the title row, the padding inside the card is the same on all four sides. Never add padding around the children to make up for it.",
-        "Pass titleRow={false} for a card or a hub with no title row: the title row goes, the title is set into the top border on the left, and a round X sits half over the top right corner.",
-        "The corner title reads like a fieldset legend: small muted capitals in the title font, on the line of the X and the lock. The border breaks around it, with the window surface behind the text and no chip, border or shadow. Pass icon for a 14 px glyph before the title. A long title ends in an ellipsis before it reaches the buttons on the right.",
-        "The corner title adds no height and never a row inside the content, and it lines up with the left edge of the content. Pass cornerTitle={false} to keep the corner bare, for example when a floating switch already names the screen: the corner title goes and the title only names the dialog.",
+        "Pass titleRow={false} for a card or a hub with no title row: the title row goes, the title sits in a small chip half over the top left corner of the card, and a round X sits half over the top right corner.",
+        "The corner chip has the height, surface, border and shadow of the round X, with small dim text. Pass icon for a 14 px glyph before the title. A long title ends in an ellipsis before it reaches the buttons on the right.",
+        "The chip adds no height and never a row inside the content. Pass cornerTitle={false} to keep the corner bare, for example when a floating switch already names the screen: the chip goes and the title only names the dialog.",
         "With titleRow={false}, pass the title as plain text, keep back for windows with a title row, and expect a tighter window: a smaller gap around the card, lg padding on the sides and bottom, and 8 px between the switch and the content.",
         "Pass movable with titleRow={false} to add a lock left of the X. Locked, the default, the window sits centred; unlocked, it moves by the top edge of the card and resizes from every edge and corner, inside the screen and down to minSize.",
         "Pass storageKey to remember the lock and the moved rect, or keep them in the app with locked, onLockChange, defaultRect and onRectChange. Locking snaps the window back to the centre; unlocking puts it back where it was moved.",
@@ -9607,7 +9751,7 @@
         "The card is a modal dialog named by the title.",
         "The close button carries the Close label from the strings.",
         "Escape calls onClose once no menu, popover or dialog is open above the window, so one press closes one thing.",
-        "With titleRow={false}, the text of the corner title names the dialog. The corner title is not a control: it takes no focus, and its icon is hidden from screen readers. With cornerTitle={false}, the title still names the dialog.",
+        "With titleRow={false}, the text of the corner chip names the dialog. The chip is not a control: it takes no focus, and its icon is hidden from screen readers. With cornerTitle={false}, the title still names the dialog.",
         "With titleRow={false}, the corner X keeps the Close label and shows a tooltip with the Esc key; the lock is a toggle button with aria-pressed, named Lock window position.",
         "Unlocked, the top edge is a Move window button after the corner buttons in the Tab order: the arrow keys move the window by 16 px, and by 64 px with Shift."
       ],
@@ -9745,6 +9889,7 @@
       },
       "tokens": [
         "--border-width-thin",
+        "--c-border-strong",
         "--c-layer",
         "--c-primary",
         "--c-text",
@@ -9754,7 +9899,7 @@
         "--control-h-md",
         "--duration-slow",
         "--ease-in-out",
-        "--font-title",
+        "--radius-pill",
         "--shadow-lg",
         "--size-1",
         "--size-14",
@@ -9768,7 +9913,6 @@
         "--space-xs",
         "--text-xl",
         "--text-xs",
-        "--tracking-caps",
         "--weight-medium"
       ],
       "gallery": {
@@ -10874,6 +11018,111 @@
         "title": "Composites · Charts/StatTile",
         "route": "#/story/composites-stattile--overview",
         "file": "stories/composites/StatTile.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "StatusBar",
+      "tier": "composites",
+      "source": "src/composites/StatusBar/StatusBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The thin bar at the foot of an editor window: a row of labelled readouts such as cursor, zoom, colour and frame.",
+      "useWhen": [
+        "An editor or tool window shows live facts about its work, such as the pixel under the pointer and the current zoom.",
+        "A readout needs a small colour chip beside its value, such as the colour you are drawing with."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The save state of a form and its Save and Discard buttons.",
+          "use": "SaveBar"
+        },
+        {
+          "case": "One label and value on a line inside a panel, not a bar.",
+          "use": "StatRow"
+        },
+        {
+          "case": "A headline number with its trend and chart.",
+          "use": "StatTile"
+        }
+      ],
+      "rules": [
+        "Give each item a stable id, a short label and a value; keep the value short, such as 24, 17 or 800%.",
+        "Set align to end for the readouts that describe the document, such as layer and frame, and leave the rest at the start.",
+        "Set priority from 1 to 3 on the readouts that may go when the bar is narrow: 3 goes first, 1 last. An item with no priority never goes.",
+        "Pass swatch as a CSS colour value and put the colour name or hex in the value, so the chip is never the only signal.",
+        "Use tone on a value only when it is past a limit, and title for a longer description on hover.",
+        "Give the bar a label that names the region, such as Editor status."
+      ],
+      "a11y": [
+        "The bar is a labelled region and each readout is a term and its value in a description list.",
+        "It has no live region, so a cursor position that changes on every pointer move is never announced.",
+        "To announce a change, such as a finished export, use a separate live region, not the bar.",
+        "The swatch is hidden from assistive technology; its colour is read from the value beside it."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "window chrome",
+          "the status line at the foot"
+        ],
+        "rule": "StatusBar is the one thin line of readouts at the foot of an editor window."
+      },
+      "example": "import { StatusBar } from '@drizztdourden08/tessera';\n\nconst EditorStatus = ({ x, y, colour }: { x: number; y: number; colour: string }) => (\n  <StatusBar\n    label=\"Editor status\"\n    items={[\n      { id: 'cursor', label: 'Cursor', value: `${x}, ${y}`, icon: 'move' },\n      { id: 'colour', label: 'Colour', value: colour, swatch: colour },\n      { id: 'frame', label: 'Frame', value: '3 / 8', align: 'end', priority: 1 },\n    ]}\n  />\n);\n",
+      "propsHash": "0d473a9c0b7aba37",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly StatusBarEntry[]"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-danger",
+        "--c-info",
+        "--c-primary",
+        "--c-secondary",
+        "--c-success",
+        "--c-surface",
+        "--c-tertiary",
+        "--c-text",
+        "--c-text-muted",
+        "--c-warning",
+        "--radius-sm",
+        "--space-2xs",
+        "--space-sm",
+        "--space-xs",
+        "--status-bar-h",
+        "--status-bar-swatch",
+        "--text-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Layout/StatusBar",
+        "route": "#/story/composites-statusbar--overview",
+        "file": "stories/composites/StatusBar.stories.tsx"
       },
       "parts": []
     },

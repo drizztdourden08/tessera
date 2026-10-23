@@ -27,8 +27,10 @@ const MAX_PROPERTY = '--row-grid-max';
 
 const STEPS: Readonly<Record<string, number>> = { ArrowUp: -1, ArrowDown: 1 };
 
+const ROW_SELECTOR = ':scope > [data-row-index]';
+
 const LABEL_CLASS = { hidden: 'row-grid__label visually-hidden', above: 'row-grid__label', inline: 'row-grid__label row-grid__label--inline' } as const;
 
 export {
-  BUTTON, BUTTON_GAP, BUTTON_TOKEN, COLUMN_MIN, CONTROL_SIZE, FRAME, GAP, HANDLE, LABEL_CLASS, MAX_PROPERTY, NUMBER, PAD, STEPS, TRACKS_PROPERTY,
+  BUTTON, BUTTON_GAP, BUTTON_TOKEN, COLUMN_MIN, CONTROL_SIZE, FRAME, GAP, HANDLE, LABEL_CLASS, MAX_PROPERTY, NUMBER, PAD, ROW_SELECTOR, STEPS, TRACKS_PROPERTY,
 };

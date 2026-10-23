@@ -115,7 +115,7 @@ const LAYOUT = {
       question: 'Which part of it?',
       answers: { 'the whole page': null, 'one section of rows': null, 'a list of groups': null },
     },
-    'window chrome': { question: 'Which part of the window?', answers: { 'the title bar': null, 'a header inside the window': null } },
+    'window chrome': { question: 'Which part of the window?', answers: { 'the title bar': null, 'a header inside the window': null, 'the status line at the foot': null } },
     'website chrome': { question: 'Which part of the site?', answers: { 'the band at the top': null, 'the line at the foot': null } },
     'a ready-made app panel': { question: 'Which panel?', answers: { 'facts in groups': null, 'an opening banner with art': null } },
     'the app root': null,
@@ -158,6 +158,7 @@ const DATA = {
   answers: {
     'rows and columns to sort and filter': null, 'filters over a collection': null,
     'a list the user adds to, renames and deletes from': null,
+    'a list the user reorders, with on and off icons on each row': null,
     'one record, compact and read only': null, 'a row in a list, with its actions': null, 'a stream of log lines': null,
     'items of a catalogue, as cards': null,
     'files, with their size, date, open and reveal': null,

@@ -129,6 +129,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Window chrome. **Which part of the window?**
     - The title bar: [WindowTitleBar](components/WindowTitleBar.md). WindowTitleBar is the one title bar of a frameless window, with the same brand, menu and controls in every app.
     - A header inside the window: no component yet.
+    - The status line at the foot: [StatusBar](components/StatusBar.md). StatusBar is the one thin line of readouts at the foot of an editor window.
   - Website chrome. **Which part of the site?**
     - The band at the top: [SiteHeader](components/SiteHeader.md). SiteHeader is the one site-only part on top of the page; everything under it is an app part.
     - The line at the foot: [SiteFooter](components/SiteFooter.md). SiteFooter is the one line at the foot of a website page, under the app parts.
@@ -164,6 +165,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Rows and columns to sort and filter: no component yet.
   - Filters over a collection: no component yet.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
+  - A list the user reorders, with on and off icons on each row: [ReorderList](components/ReorderList.md). ReorderList is an ordered list the user reorders by drag or keys, with on and off icons on each row, the same way in every app.
   - One record, compact and read only: no component yet.
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.

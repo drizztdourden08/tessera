@@ -63,11 +63,13 @@ const COMPOSITES_TIER: CatalogueTier = {
       { name: 'ContentHeader', summary: 'The header of a page, card or panel: an icon and a title over a fading backdrop.' },
       { name: 'SiteHeader', summary: 'The band at the top of a website: the logo and the title, the main links and the person.' },
       { name: 'SiteFooter', summary: 'The foot of a website page: a small logo, one line and a few links.' },
+      { name: 'StatusBar', summary: 'The thin bar at the foot of an editor window: labelled readouts such as cursor, zoom and colour.' },
     ] },
     {
       group: 'Lists',
       entries: [
         { name: 'ListItemRow', summary: 'One selectable row: icon, name and meta, any number of two-line columns that line up in a list, and an action.' },
+        { name: 'ReorderList', summary: 'A list the user reorders by drag or keys, with a row of on and off icons on each item, such as the layers of a drawing.' },
         { name: 'GroupTree', summary: 'A keyboard tree of groups with guides, icons and counts, and the items as leaves.' },
         { name: 'SearchResults', summary: 'The search pane: a summary with page chips over groups of matches.' },
         { name: 'SearchResultGroup', summary: 'One group of matches: glowing icon, title, count and an open button.' },

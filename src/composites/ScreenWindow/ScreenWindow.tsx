@@ -15,14 +15,14 @@ const ScreenWindow = (props: ScreenWindowProps) => {
   const { onClose, children, floating, hidden, size, square } = props;
   const titleId = useId();
   useTopOnlyCheck(props);
-  const { bare, legend, label, named } = windowName(props, titleId);
+  const { bare, chip, label, named } = windowName(props, titleId);
   const lock = useWindowLock(props, bare);
 
   return (
     <ScreenLayer
       onClose={onClose}
       floating={floating}
-      corner={bare ? <WindowCorner lock={lock} onClose={onClose} title={legend} /> : undefined}
+      corner={bare ? <WindowCorner lock={lock} onClose={onClose} title={chip} /> : undefined}
       move={lock.move}
       tight={bare}
       hidden={hidden}

@@ -20,6 +20,7 @@ const usage = {
     'Pass newDisabled when New cannot run yet, with a string that says why, such as Start a game to make a new save; true greys it out with no reason.',
     'Pass onActivate when picking an item acts at once, such as switching the active profile, and selectedId for the current one.',
     'Pass showTitle={false} when a surrounding PanelContainer supplies the visible section heading; the list keeps its accessible name and any New action.',
+    'Pass onCount to learn the shown and total counts, such as to write the count into that PanelContainer heading; it runs after each change, with the filter and waiting deletes counted.',
     'Pass groups with groupBy to set the order of the groups and keep the empty ones, such as an installed game with no preset yet.',
     'An empty group draws its heading, its empty line and the button of its action, such as New preset; while the filter holds text, it hides.',
     'Each row carries data-item-id with its id, so app search can find the row and scroll to it; rowData adds more data attributes.',
@@ -93,7 +94,7 @@ const ServerList = ({ servers, selectedId, onSelect, onAdd, onRename, onDelete, 
   />
 );
 `,
-  propsHash: '799e6ab1f800fdd1',
+  propsHash: 'e09886e8f5231fe0',
 } satisfies ComponentUsage;
 
 export { usage };
