@@ -57,3 +57,8 @@
   align-items: flex-start;
   gap: var(--space-lg);
 }
+
+.toolbar-story__box[data-layout='list'] {
+  inline-size: var(--size-448);
+  block-size: auto;
+}

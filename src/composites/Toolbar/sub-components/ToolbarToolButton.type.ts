@@ -9,6 +9,7 @@ interface ToolbarToolButtonProps {
   icon: ToolbarIcon;
   label: string;
   caption?: string;
+  description?: string;
   active: boolean;
   disabled?: boolean;
   shortcut?: ToolbarItemBase['shortcut'];

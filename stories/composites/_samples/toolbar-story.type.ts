@@ -1,5 +1,5 @@
 /* @layer stories @kind types */
-import type { ToolbarOrientation } from '../../../src/composites';
+import type { ToolbarShape, ToolbarOpenOn, ToolbarOrientation } from '../../../src/composites';
 
 type ToolId = 'pencil' | 'eraser' | 'bucket' | 'pipette' | 'hand';
 
@@ -8,6 +8,8 @@ type ToolbarArgs = {
   handle: boolean;
   size: 'xs' | 'sm' | 'md';
   extent: string;
+  layout: ToolbarShape;
+  openOn: ToolbarOpenOn;
 };
 
 interface ToolbarDemoProps {
@@ -19,6 +21,15 @@ interface ToolbarDemoProps {
   readout?: boolean;
   pixel?: boolean;
   bitmap?: boolean;
+  layout?: ToolbarShape;
+  openOn?: ToolbarOpenOn;
 }
 
-export type { ToolbarArgs, ToolbarDemoProps, ToolId };
+interface DrawingToolOptions {
+  captions?: boolean;
+  pixel?: boolean;
+  bitmap?: boolean;
+  openOn?: ToolbarOpenOn;
+}
+
+export type { DrawingToolOptions, ToolbarArgs, ToolbarDemoProps, ToolId };

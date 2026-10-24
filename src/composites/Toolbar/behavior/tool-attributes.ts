@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-import { shortcutKeys } from '../../../primitives/Shortcut';
+import { shortcutRows } from '../../../primitives/Shortcut';
 import { ariaKeyShortcuts } from '../../DropdownMenu/behavior/aria-key-shortcuts';
 import { STOP_ATTRIBUTE } from '../Toolbar.constants';
 import type { ToolbarToolButtonProps } from '../sub-components/ToolbarToolButton.type';
@@ -17,7 +17,7 @@ const toolAttributes = (props: ToolbarToolButtonProps, context: ToolbarContextVa
   return {
     tabIndex: quiet || context.stop !== stopId ? -1 : 0,
     [STOP_ATTRIBUTE]: quiet ? undefined : stopId,
-    'aria-keyshortcuts': shortcut === undefined ? undefined : ariaKeyShortcuts(shortcutKeys(shortcut)),
+    'aria-keyshortcuts': shortcut === undefined ? undefined : shortcutRows(shortcut).map((row) => ariaKeyShortcuts(row.keys)).join(' ') || undefined,
     ...menuAttributes(menu, open, popup),
   };
 };

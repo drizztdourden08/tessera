@@ -18,7 +18,7 @@ const Playground = {
   name: 'Playground',
   args: TOOLBAR_ARGS,
   argTypes: TOOLBAR_ARG_TYPES,
-  render: (args) => <ToolbarDemo orientation={args.orientation} handle={args.handle} size={args.size} extent={args.extent} captions={args.orientation === 'horizontal'} />,
+  render: (args) => <ToolbarDemo orientation={args.orientation} handle={args.handle} size={args.size} extent={args.extent} layout={args.layout} openOn={args.openOn} captions={args.orientation === 'horizontal'} />,
 } satisfies PlaygroundStory<ToolbarArgs>;
 
 const Horizontal = {
@@ -72,30 +72,46 @@ const NodeIcon = {
   ),
 } satisfies StoryLiteStoryDefinition<ToolbarArgs>;
 
+const ClickOpen = {
+  name: 'Opens on click: the Pencil shows its menu when pressed, and the arrow key still opens it',
+  render: () => <ToolbarDemo captions openOn="click" readout />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
+const TwoShortcuts = {
+  name: 'Two shortcuts: the Brush size hint lists Smaller and Larger as two rows',
+  render: () => <ToolbarDemo />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
+const List = {
+  name: 'List: a row for each tool with its name, description and shortcut, for a wide panel',
+  render: () => <ToolbarDemo layout="list" handle={false} readout />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
 const Overview = overviewStory({
   component: 'Toolbar',
   description: 'A row or a column of tools: buttons, toggles, groups and a number, with a hint on each and More for the rest.',
   points: [
     '`items` come from data: `button`, `toggle`, `group`, `number` and `separator`, in any order.',
-    'Horizontal shows an optional `caption` beside the icon; vertical shows icons only.',
-    'Every item has a hint with its name, description and [Shortcut]; the shortcut never sits on the button.',
-    '`options` on a button or toggle open a [DropdownMenu] on hover, below a row and beside a column.',
+    'A bar shows an optional `caption` beside the icon; `layout="list"` makes labelled rows for a wide panel.',
+    'Every item has a hint with its name, description and [Shortcut]; `shortcut` can be a list of labelled keys.',
+    '`options` on a button or toggle open a [DropdownMenu] on hover, or on click with `openOn`.',
     'Items that do not fit fold into More. The arrow keys along the toolbar move focus.',
     '`handle` draws a grip for a dock to wire through `handleProps`; the toolbar has no drag logic.',
   ],
   instead: '[ActionBar] for the buttons of one item, or [DropdownMenu] for actions that need no button of their own.',
   playground: Playground,
-  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon],
+  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List],
   states: {
     render: (props: StateProps) => <ToolbarDemo {...props} />,
     list: [
       { name: 'Horizontal', props: {} },
       { name: 'Vertical', props: { orientation: 'vertical' } },
       { name: 'Folded', props: { extent: '240' } },
+      { name: 'List', props: { layout: 'list', handle: false } },
     ],
   },
   code: TOOLBAR_CODE,
 });
 
 export default meta;
-export { Horizontal, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Vertical };
+export { ClickOpen, Horizontal, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, TwoShortcuts, Vertical };

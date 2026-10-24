@@ -9,12 +9,14 @@ interface ToolbarToolProps {
   label: string;
   tip: ReactNode;
   caption?: string;
+  description?: string;
   active?: boolean;
   disabled?: boolean;
   shortcut?: ToolbarItemBase['shortcut'];
   options?: readonly MenuGroup[];
   hoverOpen?: boolean;
   openOnPress?: boolean;
+  clickOpen?: boolean;
   onPress?: () => void;
 }
 

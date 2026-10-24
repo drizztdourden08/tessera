@@ -8,7 +8,7 @@ export * from './window-exports';
 export * from './record-exports';
 export { FloatingPrompt, type FloatingPromptAction, type FloatingPromptProps, type FloatingPromptScope } from './FloatingPrompt';
 export {
-  Toolbar, type ToolbarButton, type ToolbarChoice, type ToolbarChoices, type ToolbarHandleProps, type ToolbarIcon, type ToolbarItem, type ToolbarNumber,
+  Toolbar, type ToolbarButton, type ToolbarChoice, type ToolbarChoices, type ToolbarHandleProps, type ToolbarIcon, type ToolbarItem, type ToolbarShape, type ToolbarNumber, type ToolbarOpenOn,
   type ToolbarOrientation, type ToolbarProps, type ToolbarSeparator, type ToolbarToggle,
 } from './Toolbar';
 export { REORDER_ITEM_SELECTOR, columnsOf, reorderStep, useMoveFocus, useReorderDrag } from './reorder';

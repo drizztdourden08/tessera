@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind util */
 import type { MenuGroup, MenuItem, MenuNode } from '../../DropdownMenu/DropdownMenu.type';
 import { menuIcon } from './menu-icon';
+import { menuShortcut } from './menu-shortcut';
 import type { ToolbarButton, ToolbarChoices, ToolbarItem, ToolbarNumber, ToolbarToggle } from '../Toolbar.type';
 
 const optionNodes = (groups: readonly MenuGroup[]): MenuNode[] =>
@@ -12,11 +13,11 @@ const withOptions = (item: ToolbarButton | ToolbarToggle, own: MenuItem): MenuIt
 };
 
 const buttonEntry = (item: ToolbarButton): MenuItem => withOptions(item, {
-  id: `${item.id}-run`, label: item.label, icon: menuIcon(item.icon), description: item.description, shortcut: item.shortcut, disabled: item.disabled, onSelect: item.onSelect,
+  id: `${item.id}-run`, label: item.label, icon: menuIcon(item.icon), description: item.description, shortcut: menuShortcut(item.shortcut), disabled: item.disabled, onSelect: item.onSelect,
 });
 
 const toggleEntry = (item: ToolbarToggle): MenuItem => withOptions(item, {
-  id: `${item.id}-toggle`, label: item.label, icon: menuIcon(item.icon), description: item.description, shortcut: item.shortcut, disabled: item.disabled,
+  id: `${item.id}-toggle`, label: item.label, icon: menuIcon(item.icon), description: item.description, shortcut: menuShortcut(item.shortcut), disabled: item.disabled,
   kind: 'check', checked: item.pressed, onSelect: () => item.onChange(!item.pressed),
 });
 
@@ -33,7 +34,7 @@ const choiceGroup = (item: ToolbarChoices): MenuGroup => ({
     label: choice.label,
     icon: menuIcon(choice.icon),
     description: choice.description,
-    shortcut: choice.shortcut,
+    shortcut: menuShortcut(choice.shortcut),
     disabled: choice.disabled,
     kind: 'radio' as const,
     checked: item.value === choice.value,
