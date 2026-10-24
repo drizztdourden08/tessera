@@ -9,6 +9,13 @@
   background: var(--c-layer);
 }
 
+.facts-panel--frameless {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+}
+
 .facts-panel__group {
   display: flex;
   flex-wrap: wrap;
