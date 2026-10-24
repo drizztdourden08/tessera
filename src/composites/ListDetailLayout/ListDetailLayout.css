@@ -1,5 +1,8 @@
 /* @layer renderer-components @kind style */
 .list-detail-layout {
+  --list-detail-fold-line: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
+  --list-detail-seam: var(--space-2xl);
+
   container: list-detail-layout / inline-size;
   display: flex;
   flex: 1;
@@ -42,7 +45,7 @@
   padding: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border-inline-end: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
+  border-inline-end: var(--list-detail-fold-line);
 }
 
 .list-detail-layout__list-heading {
@@ -111,6 +114,10 @@
   font-size: var(--text-sm);
 }
 
+.list-detail-layout--detail-collapsed .list-detail-layout__edge.pane-edge--horizontal {
+  z-index: var(--z-sticky);
+}
+
 .list-detail-layout--dragging {
   cursor: col-resize;
   user-select: none;
@@ -147,6 +154,11 @@
     margin-inline-start: 0;
   }
 
+  .list-detail-layout--paired .list-detail-layout__panes > .list-detail-layout__detail {
+    margin-inline-start: var(--list-detail-seam);
+    border-inline-start: var(--list-detail-fold-line);
+  }
+
   .list-detail-layout__list--folded,
   .list-detail-layout__detail--folded {
     padding: 0;
@@ -154,11 +166,11 @@
   }
 
   .list-detail-layout__detail--folded {
-    border-inline-start: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
+    border-inline-start: var(--list-detail-fold-line);
   }
 
   .list-detail-layout__list--folded {
-    border-inline-end: var(--border-width-thin) dashed color-mix(in srgb, var(--c-primary) 58%, transparent);
+    border-inline-end: var(--list-detail-fold-line);
   }
 
   .list-detail-layout__list--folded > .pane-rail--edge-fold,

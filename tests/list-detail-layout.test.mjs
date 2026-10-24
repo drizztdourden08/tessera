@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import fs from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -140,5 +141,25 @@ describe('ListDetailLayout pane scroll', () => {
     const html = draw({ listScroll: false, detailScroll: false });
     expect(html).toContain('class="box--sunken list-detail-layout__list list-detail-layout__list--clip"');
     expect(html).toContain('class="list-detail-layout__detail list-detail-layout__detail--clip"');
+  });
+});
+
+describe('ListDetailLayout seam with both panes foldable', () => {
+  const paired = 'list-detail-layout--paired';
+
+  it('marks the layout paired only while both panes are foldable and open', () => {
+    expect(draw({ detailCollapsible: true })).toContain(paired);
+    expect(draw()).not.toContain(paired);
+    expect(draw({ collapsible: false, detailCollapsible: true })).not.toContain(paired);
+    expect(draw({ detailCollapsible: true, collapsed: true })).not.toContain(paired);
+    expect(draw({ detailCollapsible: true, detailCollapsed: true })).not.toContain(paired);
+  });
+
+  it('puts the detail button and dashed line on the detail edge, one seam space from the list edge', () => {
+    const list = fs.readFileSync('src/composites/ListDetailLayout/ListDetailLayout.css', 'utf8');
+    const edge = fs.readFileSync('src/composites/pane-edge/PaneEdge.css', 'utf8');
+    expect(list).toMatch(/--list-detail-seam: var\(--space-2xl\)/);
+    expect(list).toMatch(/\.list-detail-layout--paired [^{]*\.list-detail-layout__detail \{[^}]*margin-inline-start: var\(--list-detail-seam\);[^}]*border-inline-start: var\(--list-detail-fold-line\)/);
+    expect(edge).toMatch(/\.list-detail-layout--paired [^{]*\.pane-edge__toggle--end \{[^}]*inset-inline-start: var\(--list-detail-seam\)/);
   });
 });

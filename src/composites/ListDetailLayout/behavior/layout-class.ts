@@ -5,6 +5,7 @@ const layoutClass = (look: LayoutLook, className?: string): string => [
   'list-detail-layout',
   look.collapsed && 'list-detail-layout--collapsed',
   look.detailCollapsed && 'list-detail-layout--detail-collapsed',
+  look.paired && 'list-detail-layout--paired',
   look.dragging && 'list-detail-layout--dragging',
   className,
 ].filter(Boolean).join(' ');
