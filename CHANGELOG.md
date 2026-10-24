@@ -1,5 +1,18 @@
 # @drizztdourden08/tessera
 
+## 0.57.0
+
+### Minor Changes
+
+- babeca3: Adds 48 pixel icons for brushes, canvas view, file actions, sheets, tilemaps, sprite transforms, the timeline and frames.
+  Each one is drawn on the 24 by 24 grid like the tool icons.
+- 24acd6a: Toolbar items take an icon name or any node as `icon`, in the bar and in More.
+  `useHoverOpen` and `HoverOpenParams` are now public, for opening a menu on hover from your own buttons.
+
+### Patch Changes
+
+- b9d2699: Uses brock-thread 0.87.1, which accepts the same standards version, so the standards override is gone.
+
 ## 0.56.2
 
 ### Patch Changes
