@@ -27,11 +27,11 @@ const LOBBY_SLOTS: PatternSlotConfigs = { code: { chars: LOBBY_CHARS, aliases: L
 
 const CASES: readonly PatternRulesCase[] = [
   {
-    key: 'host', label: 'Host name', hint: 'Letters, digits, dot and dash. Type a dash first to see the rule.',
+    key: 'host', label: 'Host name', hint: 'Letters, digits, dot and dash. Other keys are ignored. Type a dash first to see the rule.',
     pattern: '[icon:server] {host:text max40 lower "Host name"}', initial: { host: '-play.example.net' }, slots: HOST_SLOTS,
   },
   {
-    key: 'lobby', label: 'Lobby code', hint: 'Six characters, no U. I and L read as 1, O as 0.',
+    key: 'lobby', label: 'Lobby code', hint: 'Six characters, no U. I and L read as 1, O as 0. A short code stays and turns red.',
     pattern: '{code:text len6 upper "Lobby code"}', initial: { code: null }, slots: LOBBY_SLOTS,
   },
   {
