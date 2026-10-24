@@ -18,13 +18,31 @@
   max-width: var(--size-384);
   width: 90%;
   box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  max-block-size: calc(100vh - var(--space-2xl) * 2);
 }
 
 .dialog__header {
+  flex: none;
   margin-bottom: var(--space-md);
 }
 
+.dialog__body {
+  flex: 0 1 auto;
+  min-block-size: 0;
+}
+
+.dialog__body > :first-child {
+  margin-block-start: 0;
+}
+
+.dialog__body > :last-child {
+  margin-block-end: 0;
+}
+
 .dialog__actions {
+  flex: none;
   display: flex;
   justify-content: flex-end;
   gap: var(--space-sm);
@@ -34,15 +52,19 @@
 @keyframes dialog-fade-in {
   from {
     opacity: 0;
-    transform: scale(0.95);
   }
 
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
 .dialog:focus {
   outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog-backdrop {
+    animation: none;
+  }
 }

@@ -12,6 +12,13 @@
   margin-block-end: var(--space-sm);
 }
 
+.dialog.media-viewer > .dialog__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .media-viewer__body {
   position: relative;
   display: flex;
