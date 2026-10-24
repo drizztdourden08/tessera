@@ -1,5 +1,24 @@
 # @drizztdourden08/tessera
 
+## 0.56.0
+
+### Minor Changes
+
+- efb2b0b: SegmentedControl and ToggleGroup options take a `tooltip` with a `description` and a `shortcut`, and the control takes `tooltipPlacement`, so icon-only options get a name on hover.
+
+  The tooltip body moves from Toolbar into the new primitive `TooltipContent`, and the shortcut parser becomes `shortcutKeys` in Shortcut.
+
+- 6853c6c: Add ToolbarDock, a frame that holds toolbars on the four edges of a work area, up to two lanes on each side. It draws the layout from the toolbar model and hands each toolbar its orientation and a handle for its grip. Dragging the grip moves the toolbar to another lane or side with a drop preview, refuses a full side, and hides it when dropped on the basket. Escape puts it back. The keyboard does every move too: Enter or Space on the grip picks the toolbar up and opens the move guide, arrow keys choose a side and then the outer or inner lane, Delete hides, Enter drops and Escape cancels, with each step announced. Dropping a toolbar where it already is does not change the layout.
+
+  Add the pure layout ops (createToolbarLayout, migrateToolbarLayout, moveToolbar, hideToolbar, showToolbar, toggleToolbar, isToolbarShown, canShowToolbar, toolbarOrientation), the useToolbarLayout hook for a controlled layout, and toolbarMenuGroups, which builds the Toolbars menu for a DropdownMenu: one check item per toolbar and a Reset toolbars item.
+
+  WindowGuideOverlay takes an optional title and showSnapping, so the toolbar guide says Moving toolbar and leaves out the snapping line. Its default look is unchanged. DockLayout and widget layouts are unchanged.
+
+### Patch Changes
+
+- 6024133: Pixel icons now render at 24, 48 or 72 px: Icon snaps any other size to the nearest multiple of its 24 px grid, so they stay crisp.
+  IconButton and Button grow to hold a 24 px icon, which keeps the Toolbar tools with pixel icons sharp in both orientations.
+
 ## 0.55.0
 
 ### Minor Changes
