@@ -109,7 +109,7 @@ const LAYOUT = {
     'a side panel the user drags wider': null, 'a side panel with a heading that folds to a rail': null, 'the button that folds a panel to its edge': null,
     'one slide at a time from a set': null,
     'a list beside an editor, with unsaved edits guarded': null, 'a list, an editor and an inspector side by side': null, 'a frame with a toolbar on its top edge': null,
-    'an app frame with its navigation': null, 'panels the user docks and moves': null,
+    'an app frame with its navigation': null, 'panels the user docks and moves': null, 'toolbars the user docks on the edges of a work area': null,
     'a header with an icon and a title over a block': null, 'a picture, a colour or a scene behind a block': null,
     'a settings screen': {
       question: 'Which part of it?',

@@ -30,3 +30,10 @@ export type {
   DividerRect, DockDrop, DockDropKind, DockDropSlot, DockEdge, DockKeys, DockLayoutProps, DockMainGrip, DockTarget, DockTree, DragModifiers, DropTarget, ExternalDrag, FloatingWidget,
   LaidOut, LayoutEdit, LayoutNode, LeafNode, LeafRect, MainNode, MainTarget, PaneNode, Rect, ScreenPoint, Size, SplitAxis, SplitNode, WidgetId,
 } from '../DockLayout';
+export {
+  MAX_PER_SIDE, TOOLBAR_LAYOUT_V, ToolbarDock, canShowToolbar, createToolbarLayout, hideToolbar, isToolbarShown, migrateToolbarLayout, moveToolbar,
+  showToolbar, toggleToolbar, toolbarMenuGroups, toolbarOrientation, useToolbarLayout,
+} from '../ToolbarDock';
+export type {
+  ToolbarDefinition, ToolbarDockHandle, ToolbarDockProps, ToolbarLayout, ToolbarLayoutApi, ToolbarMenuWords, ToolbarSide, ToolbarSlot, ToolbarSpot, UseToolbarLayoutParams,
+} from '../ToolbarDock';

@@ -13,6 +13,8 @@ interface WindowGuideOverlayProps {
   open: boolean;
   mode: WindowGuideMode;
   snapping: boolean;
+  title?: string;
+  showSnapping?: boolean;
   hints?: readonly WindowGuideHint[];
   defaultHints?: boolean;
   pointer?: WindowGuidePointer | null;
@@ -33,6 +35,7 @@ interface WindowGuideCardProps {
   mode: WindowGuideMode;
   title: string;
   snapping: boolean;
+  showSnapping: boolean;
   hints: readonly WindowGuideHint[];
 }
 
