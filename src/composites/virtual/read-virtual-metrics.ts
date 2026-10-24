@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
-import { isHTMLElement } from '../../../primitives/dom/is-html-element';
-import type { VirtualMetrics } from './useVirtualRows.type';
+import { isHTMLElement } from '../../primitives/dom/is-html-element';
+import type { VirtualMetrics } from './virtual.type';
 
 const readVirtualMetrics = (root: HTMLElement, body: HTMLElement, fallbackHeight: number): VirtualMetrics => {
   const measured = body.firstElementChild;

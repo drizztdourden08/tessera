@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 75 of 194 have their usage written; a linked name opens its page.
+One line per component. 77 of 196 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -140,6 +140,7 @@ One line per component. 75 of 194 have their usage written; a linked name opens 
 - [LoadError](components/LoadError.md): What to show when something fails to load: one plain sentence, a Retry button and the raw error behind Details. Import from `@drizztdourden08/tessera`.
 - [LogPanel](components/LogPanel.md): A running log, such as a server log or a simulation trace, in one framed box with search, filters, a line count and Copy all. Import from `@drizztdourden08/tessera`.
 - [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
+- [MarqueeBox](components/MarqueeBox.md): The rectangle that shows an area being dragged over items to pick them, drawn inside the box that scrolls. Import from `@drizztdourden08/tessera`.
 - [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -179,6 +180,7 @@ One line per component. 75 of 194 have their usage written; a linked name opens 
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
 - [Video](components/Video.md): A video player with its own control bar: seek with a time preview, volume, speed, picture in picture, theater mode and full screen. Import from `@drizztdourden08/tessera`.
+- [VirtualList](components/VirtualList.md): A very long list of rows of one height, where only the rows in view are drawn, with the arrow keys to move between them. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Widget](components/Widget.md): The frame of a tool panel, such as a player list or a log, that the user docks, floats or pops out; WidgetManager places a whole dock. Import from `@drizztdourden08/tessera`.
 - `WindowGuideOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -209,4 +211,6 @@ One line per component. 75 of 194 have their usage written; a linked name opens 
 
 Functions for a screen that owns its own markup. Each line is a module; its page lists what it exports.
 
+- [marquee](components/marquee.md): Drag a rectangle over an area to pick the items inside it, as in a file manager, with Shift to add, Ctrl or Cmd to toggle and Escape to cancel. Import `edgeScrollDelta`, `hitKeys`, `MARQUEE_KEY_ATTRIBUTE`, `marqueeItemRects`, `mergeSelection`, `modifiersOf`, `rectFromPoints`, `rectsIntersect`, `useMarqueeSelect` from `@drizztdourden08/tessera`.
 - [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.
+- [virtual](components/virtual.md): The windowing of a long list of equal rows: which rows to draw for the scroll position, and which row to keep while it holds focus. Import `renderedIndices`, `scrollTopToShow`, `useVirtualWindow`, `visibleRange` from `@drizztdourden08/tessera`.

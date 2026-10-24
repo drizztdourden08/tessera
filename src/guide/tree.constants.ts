@@ -162,7 +162,7 @@ const DATA = {
     'one record, compact and read only': null, 'a row in a list, with its actions': null, 'a stream of log lines': null,
     'items of a catalogue, as cards': null,
     'files, with their size, date, open and reveal': null,
-    'a headline number that does one thing': null,
+    'a headline number that does one thing': null, 'a long list drawn only where it is in view': null, 'a rectangle dragged over items to pick them': null,
     'a drawing': { question: 'How is it drawn?', answers: { 'in pixels': null, 'in shapes': null } },
     'a chart': {
       question: 'What should the chart show?',
