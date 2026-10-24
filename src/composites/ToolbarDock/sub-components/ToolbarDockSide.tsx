@@ -5,7 +5,7 @@ import { toolbarHandle } from '../behavior/toolbar-handle';
 import { toolbarOrientation } from '../behavior/toolbar-orientation';
 import type { ToolbarDockSideProps } from './ToolbarDockSide.type';
 
-const ToolbarDockSide = ({ side, ids, definitions, renderToolbar }: ToolbarDockSideProps) => {
+const ToolbarDockSide = ({ side, ids, dragId, definitions, renderToolbar }: ToolbarDockSideProps) => {
   const { toolbars } = useTesseraStrings();
   const orientation = toolbarOrientation(side);
   const lanes = ids.flatMap((id, lane) => {
@@ -17,7 +17,7 @@ const ToolbarDockSide = ({ side, ids, definitions, renderToolbar }: ToolbarDockS
   return (
     <Box className="toolbar-dock__side" data-side={side} data-orientation={orientation}>
       {lanes.map(({ id, lane, label }) => (
-        <Box key={id} className="toolbar-dock__lane" data-lane={lane}>
+        <Box key={id} className="toolbar-dock__lane" data-lane={lane} data-dragging={id === dragId ? '' : undefined}>
           {renderToolbar(id, { orientation, handle: toolbarHandle(id, toolbars.move(label)), side })}
         </Box>
       ))}

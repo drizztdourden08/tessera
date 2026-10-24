@@ -25,6 +25,7 @@ const Overview = overviewStory({
     'Top and bottom lanes span the full width; left and right lanes sit between them.',
     'The first toolbar of a side is the outer lane. A side holds at most two.',
     '`renderToolbar` draws each toolbar with the `orientation` of its side and the `handle` for the grip.',
+    'Drag a grip to move a toolbar: a preview shows the lane, a full side refuses, and the basket hides it.',
     '`children` fills the centre, such as a `WidgetManager` or a [DockLayout].',
   ],
   variants: [Around],

@@ -11,4 +11,12 @@ const TOOLBAR_DRAG_ATTRIBUTE = 'data-drag-toolbar';
 
 const TOOLBAR_SIDES: readonly ToolbarSide[] = ['top', 'left', 'right', 'bottom'];
 
-export { MAX_PER_SIDE, TOOLBAR_DRAG_ATTRIBUTE, TOOLBAR_END, TOOLBAR_LAYOUT_V, TOOLBAR_SIDES };
+const TOOLBAR_OPPOSITE: Record<ToolbarSide, ToolbarSide> = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
+
+const LANE_HIT = 72;
+
+const LANE_FALLBACK = 40;
+
+const BASKET = { width: 192, height: 56, margin: 16 };
+
+export { BASKET, LANE_FALLBACK, LANE_HIT, MAX_PER_SIDE, TOOLBAR_DRAG_ATTRIBUTE, TOOLBAR_END, TOOLBAR_LAYOUT_V, TOOLBAR_OPPOSITE, TOOLBAR_SIDES };

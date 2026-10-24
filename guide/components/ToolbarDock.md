@@ -37,12 +37,17 @@ ToolbarDock is the frame that holds the toolbars on the edges of a work area, up
 - RenderToolbar draws one toolbar and gets its orientation, its side and the handle. Pass the orientation and the handle to Toolbar.
 - The orientation comes from the side: horizontal on top and bottom, vertical on left and right. It is never stored.
 - The handle is the set of props for the grip of a Toolbar. It carries the toolbar id as data-drag-toolbar and a name such as Move Drawing tools.
+- Dragging the grip moves the toolbar. A preview shows the lane it will take, with the thickness of that side, so the switch between horizontal and vertical shows before the drop.
+- A side that already holds two other toolbars refuses the drop. The centre is never a target.
+- Drop on the basket at the bottom of the frame to hide the toolbar. Escape, or a drop anywhere else, puts it back.
+- OnLayoutChange gets the new layout when a drag ends. The dock never changes the layout by itself, so keep it in state.
 - Children fills the centre cell and takes the room the lanes leave. Give the dock a height, as the centre has none of its own.
 
 ## Accessibility
 
 - Each toolbar keeps its own role toolbar, orientation and name from the Toolbar you render.
 - The grip is a button named Move followed by the label of the toolbar from definitions.
+- Focus returns to the grip when a drag ends or is cancelled.
 
 ## Example
 
@@ -83,7 +88,7 @@ const Editor = ({ layout, setLayout, itemsOf, definitions, children }: EditorPro
 
 ## Tokens
 
-It draws on `--space-2xs`.
+It draws on `--opacity-faint`, `--space-2xs`, `--z-modal`.
 
 ## Also exported from this folder
 

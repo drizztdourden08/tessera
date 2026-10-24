@@ -1,0 +1,70 @@
+/* @layer renderer-components @kind types */
+import type { RefObject } from 'react';
+import type { Point, Rect } from '../../rect-drag/rect-drag.type';
+import type { ToolbarDefinition, ToolbarLayout, ToolbarSide } from '../ToolbarDock.type';
+
+interface ToolbarFrame {
+  rect: Rect;
+  thickness: Record<ToolbarSide, number>;
+}
+
+interface ToolbarSlotSpan {
+  side: ToolbarSide;
+  lane: number;
+  count: number;
+}
+
+interface ToolbarZone {
+  side: ToolbarSide;
+  others: number;
+  free: number[];
+  slots: Rect[];
+  band: Rect;
+  held: Rect;
+}
+
+type ToolbarDropTarget =
+  | { kind: 'lane'; side: ToolbarSide; index: number; rect: Rect }
+  | { kind: 'refused'; side: ToolbarSide; rect: Rect }
+  | { kind: 'basket' }
+  | { kind: 'none' };
+
+interface ToolbarDragView {
+  id: string;
+  label: string;
+  pointer: Point;
+  target: ToolbarDropTarget;
+  basket: Rect;
+}
+
+interface ToolbarPress {
+  id: string;
+  pointerId: number;
+  start: Point;
+  live: boolean;
+  frame: ToolbarFrame | null;
+  target: ToolbarDropTarget;
+}
+
+interface ToolbarDragLatest {
+  layout: ToolbarLayout;
+  definitions: readonly ToolbarDefinition[];
+  onLayoutChange: (layout: ToolbarLayout) => void;
+}
+
+interface ToolbarDragParams extends ToolbarDragLatest {
+  rootRef: RefObject<HTMLElement | null>;
+}
+
+interface ToolbarPressWiring {
+  root: HTMLElement;
+  press: RefObject<ToolbarPress | null>;
+  latest: RefObject<ToolbarDragLatest>;
+  drop: () => void;
+  cancel: () => void;
+  show: (view: ToolbarDragView) => void;
+}
+
+export type {
+  ToolbarDragLatest, ToolbarDragParams, ToolbarDragView, ToolbarDropTarget, ToolbarFrame, ToolbarPress, ToolbarPressWiring, ToolbarSlotSpan, ToolbarZone,
+};

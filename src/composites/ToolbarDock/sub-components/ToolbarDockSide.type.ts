@@ -6,6 +6,7 @@ interface ToolbarDockSideProps {
   ids: readonly string[];
   definitions: readonly ToolbarDefinition[];
   renderToolbar: ToolbarDockProps['renderToolbar'];
+  dragId: string | null;
 }
 
 export type { ToolbarDockSideProps };
