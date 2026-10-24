@@ -95,6 +95,11 @@
   .window-title-bar__status { animation: none; }
 }
 
+.window-title-bar__status--disabled {
+  opacity: var(--opacity-disabled);
+  animation: none;
+}
+
 .window-title-bar__status:focus-visible {
   outline: var(--border-width-thick) solid var(--c-primary);
   outline-offset: var(--border-width-thin);

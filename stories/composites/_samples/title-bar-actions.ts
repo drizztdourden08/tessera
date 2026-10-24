@@ -16,4 +16,10 @@ const titleBarActions = (onPick: (label: string) => void, update: string | null 
   },
 ];
 
-export { titleBarActions };
+const historyActions = (onPick: (label: string) => void): WindowTitleBarAction[] => [
+  { id: 'undo', icon: 'arrow-left', label: 'Undo', shortcut: 'Ctrl+Z', disabled: true, disabledReason: 'Nothing to undo', onSelect: () => onPick('Undo') },
+  { id: 'redo', icon: 'arrow-right', label: 'Redo', shortcut: 'Ctrl+Y', disabled: true, onSelect: () => onPick('Redo') },
+  { id: 'search', icon: 'search', label: 'Search', shortcut: 'Ctrl+K', onSelect: () => onPick('Search') },
+];
+
+export { historyActions, titleBarActions };

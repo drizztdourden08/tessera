@@ -1,12 +1,13 @@
 /* @layer tooling-scripts @kind test */
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { fitStep } from '../src/composites/WindowTitleBar/behavior/fit-step';
 import { hideOrder } from '../src/composites/WindowTitleBar/behavior/hide-order';
 import { slideKeyframes } from '../src/composites/WindowTitleBar/behavior/slide-keyframes';
 import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-bar-menu';
+import { TitleBarCommand } from '../src/composites/WindowTitleBar/sub-components/TitleBarCommand';
 
 const ignore = () => undefined;
 const BUG = { id: 'bug', icon: 'bug', label: 'Report a bug', onSelect: ignore };
@@ -38,6 +39,48 @@ describe('WindowTitleBar', () => {
     expect(shown).toContain('emphasis--pulse emphasis--anchor-center');
     const quiet = renderToString(h(WindowTitleBar, { title: 'App', controls, actions: [BUG, { ...UPDATES, status: undefined }], onControl: ignore }));
     expect(quiet).not.toContain('Update available');
+  });
+});
+
+describe('a disabled action', () => {
+  const select = vi.fn();
+  const UNDO = { id: 'undo', icon: 'arrow-left', label: 'Undo', shortcut: 'Ctrl+Z', disabled: true, disabledReason: 'Nothing to undo', onSelect: select };
+  const draw = (action) => TitleBarCommand({ action, away: false });
+  const buttonOf = (action) => draw(action).props.children;
+
+  it('does nothing on click, stays focusable and says why in its tooltip', () => {
+    const element = draw(UNDO);
+    const button = element.props.children;
+    expect(button.props.onClick).toBeUndefined();
+    expect(button.props['aria-disabled']).toBe(true);
+    expect(button.props.disabled).toBeUndefined();
+    expect(button.props['aria-keyshortcuts']).toBeUndefined();
+    expect(button.props['aria-description']).toBe('Nothing to undo');
+    expect(element.props.label).toBe('Nothing to undo');
+    expect(element.props.shortcut).toBeUndefined();
+    expect(select).not.toHaveBeenCalled();
+  });
+
+  it('keeps its label for the tooltip when no reason is given, and runs again once enabled', () => {
+    expect(draw({ ...UNDO, disabledReason: undefined }).props.label).toBe('Undo');
+    const button = buttonOf({ ...UNDO, disabled: false });
+    expect(button.props['aria-disabled']).toBeUndefined();
+    button.props.onClick();
+    expect(select).toHaveBeenCalledTimes(1);
+  });
+
+  it('draws a disabled status action as a disabled button', () => {
+    const html = renderToString(h(WindowTitleBar, { title: 'App', controls: false, actions: [{ ...UPDATES, disabled: true, disabledReason: 'Offline' }], onControl: ignore }));
+    expect(html).toContain('window-title-bar__status--disabled');
+    expect(html).toContain('title="Offline"');
+    expect(html).toMatch(/<button[^>]*disabled/);
+  });
+
+  it('is a disabled item in the main menu', () => {
+    const groups = titleBarMenu({ actions: [UNDO, BUG], menu: [], pin: false, fullscreenButton: false, onControl: ignore, strings: STRINGS });
+    const [undo, bug] = groups[0].items;
+    expect(undo.disabled).toBe(true);
+    expect(bug.disabled).toBeUndefined();
   });
 });
 
