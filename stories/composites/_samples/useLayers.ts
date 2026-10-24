@@ -10,6 +10,7 @@ const useLayers = (initial: readonly ReorderItem[]) => {
     layers,
     selectedId,
     select: setSelectedId,
+    rename: (itemId: string, name: string) => setLayers((list) => list.map((layer) => (layer.id === itemId ? { ...layer, label: name } : layer))),
     move: (from: number, to: number) => setLayers((list) => moveInList(list, from, to)),
     toggle: (itemId: string, toggleId: string, next: boolean) => setLayers((list) => list.map((layer) => (
       layer.id === itemId ? { ...layer, toggles: { ...layer.toggles, [toggleId]: next } } : layer

@@ -6,13 +6,16 @@ import { ITEM_SELECTOR } from '../../reorder/reorder-item.constants';
 import { reorderStep } from '../../reorder/reorder-step';
 import type { ReorderKeysInput } from '../ReorderList.type';
 import { focusTarget } from './focus-target';
+import { rowAction } from './row-action';
+
+const isField = (target: EventTarget): boolean => isHTMLElement(target) && target.tagName === 'INPUT';
 
 const rowOf = (target: EventTarget): HTMLElement | null =>
   isHTMLElement(target) ? target.closest<HTMLElement>('[data-reorder-index]') : null;
 
-const reorderKeys = (listRef: RefObject<HTMLElement | null>, { items, move }: ReorderKeysInput) =>
+const reorderKeys = (listRef: RefObject<HTMLElement | null>, { items, move, rename, activate }: ReorderKeysInput) =>
   (event: KeyboardEvent<HTMLElement>): void => {
-    const row = rowOf(event.target);
+    const row = isField(event.target) ? null : rowOf(event.target);
     if (!row) return;
     const index = Number(row.dataset.reorderIndex);
     const total = items.length;
@@ -23,6 +26,7 @@ const reorderKeys = (listRef: RefObject<HTMLElement | null>, { items, move }: Re
       return;
     }
     if (event.target !== mainOf(row)) return;
+    if (rowAction(event, row.dataset.reorderKey ?? '', { rename, activate })) return;
     const next = focusTarget(event, index, total);
     if (next === undefined) return;
     event.preventDefault();

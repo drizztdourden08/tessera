@@ -186,6 +186,7 @@ interface ItemListNameInputProps {
   edit: NameEdit;
   className: string;
   size?: ControlSize;
+  onBlur?: () => void;
 }
 
 export type {

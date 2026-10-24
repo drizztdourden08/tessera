@@ -1,0 +1,18 @@
+/* @layer renderer-components @kind style */
+.list-item-row.row-rename {
+  padding-block: 0;
+}
+
+.row-rename > :is(.list-item-row__icon, .list-item-row__cell) {
+  padding-block: var(--space-sm);
+}
+
+.row-rename .list-item-row__primary {
+  overflow: visible;
+}
+
+.row-rename__input {
+  inline-size: calc(100% + var(--control-pad-sm) + var(--border-width-thin));
+  margin-block: calc(-1 * var(--space-xs));
+  margin-inline-start: calc(-1 * (var(--control-pad-sm) + var(--border-width-thin)));
+}

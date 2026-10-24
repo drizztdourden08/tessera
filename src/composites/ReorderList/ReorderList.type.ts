@@ -16,6 +16,7 @@ interface ReorderItem {
   id: string;
   label: string;
   icon?: IconName;
+  media?: ReactNode;
   toggles?: ReorderToggleState;
 }
 
@@ -24,7 +25,11 @@ interface ReorderListProps {
   items: readonly ReorderItem[];
   toggles?: readonly ReorderToggle[];
   selectedId?: string;
+  mediaAspect?: number;
+  mediaWidth?: number;
   onSelect?: (id: string) => void;
+  onActivate?: (id: string) => void;
+  onRename?: (id: string, name: string) => void;
   onMove: (from: number, to: number) => void;
   onToggle?: (itemId: string, toggleId: string, next: boolean) => void;
   empty?: ReactNode;
@@ -34,6 +39,33 @@ interface ReorderListProps {
 interface ReorderKeysInput {
   items: readonly ReorderItem[];
   move: (from: number, to: number) => void;
+  rename?: (id: string) => void;
+  activate?: (id: string) => void;
+}
+
+interface ReorderRowCan {
+  rename: boolean;
+  activate: boolean;
+}
+
+type ReorderRowAction = 'rename' | 'activate';
+
+interface ReorderDoubleClickHit {
+  main: boolean;
+  label: boolean;
+}
+
+interface ReorderRowEdit {
+  renaming: boolean;
+  can: ReorderRowCan;
+  onRenameStart: (id: string) => void;
+  onRenameEnd: (id: string, name: string | null) => void;
+  onActivate?: (id: string) => void;
+}
+
+interface ReorderRenameProps {
+  name: string;
+  onEnd: (name: string | null) => void;
 }
 
 interface ReorderRowProps {
@@ -44,6 +76,9 @@ interface ReorderRowProps {
   selected: boolean;
   tabbable: boolean;
   drag: ReorderDrag;
+  edit: ReorderRowEdit;
+  mediaAspect?: number;
+  mediaWidth?: number;
   onSelect?: (id: string) => void;
   onToggle?: (itemId: string, toggleId: string, next: boolean) => void;
 }
@@ -61,6 +96,6 @@ interface ReorderTogglesProps {
 }
 
 export type {
-  ReorderGripProps, ReorderItem, ReorderKeysInput, ReorderListProps, ReorderRowProps, ReorderToggle, ReorderToggleState,
-  ReorderTogglesProps,
+  ReorderDoubleClickHit, ReorderGripProps, ReorderItem, ReorderKeysInput, ReorderListProps, ReorderRenameProps, ReorderRowAction,
+  ReorderRowCan, ReorderRowProps, ReorderToggle, ReorderToggleState, ReorderTogglesProps,
 };

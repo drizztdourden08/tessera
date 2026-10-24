@@ -3,6 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
+import { LayersEditor } from './_samples/LayersEditor';
 import { LayersList } from './_samples/LayersList';
 import { LAYERS_ARG_TYPES, LAYERS_ARGS, LAYERS_CODE } from './_samples/layers-story.constants';
 import type { LayerSet, LayersArgs } from './_samples/layers-story.type';
@@ -30,6 +31,11 @@ const LongList = {
   render: () => <LayersList layers="forty" tall />,
 } satisfies StoryLiteStoryDefinition<LayersArgs>;
 
+const Editable = {
+  name: 'Thumbnails, rename with F2 or a double-click, open with Enter',
+  render: () => <LayersEditor />,
+} satisfies StoryLiteStoryDefinition<LayersArgs>;
+
 const OrderOnly = {
   name: 'Order only, with no toggles',
   render: () => <LayersList toggles={false} />,
@@ -49,10 +55,13 @@ const Overview = overviewStory({
     'Drag the grip, or press [[Alt+Up]] or [[Alt+Down]] on a row. A move is announced and focus stays put.',
     'Arrows, [[Home]] and [[End]] move focus; [[Space]] or [[Enter]] selects. `selectedId` marks the open item.',
     'A toggle is an icon button named by its label, with aria-pressed set to its state.',
+    '`media` on an item draws a thumbnail at the row start, sized by `mediaAspect` or `mediaWidth` like [ListItemRow].',
+    '`onRename` renames in the row: [[F2]] on a row, or a double-click on its label when `onActivate` is not set. [[Enter]] keeps the name, [[Escape]] cancels, leaving the box keeps it.',
+    '`onActivate` fires on [[Enter]] and on a double-click of the row, with the item id.',
   ],
   instead: '[RowGrid] for rows with inputs to edit, or [ListItemRow] for rows whose order is fixed.',
   playground: Playground,
-  variants: [Layers, LongList, OrderOnly],
+  variants: [Layers, Editable, LongList, OrderOnly],
   states: {
     render: (props: StateProps) => <LayersList layers={(props.layers as LayerSet | undefined) ?? 'six'} />,
     list: STATE_SETS.map(({ name, layers }) => ({ name, props: { layers } })),
@@ -61,4 +70,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Layers, LongList, Overview, OrderOnly, Playground };
+export { Editable, Layers, LongList, Overview, OrderOnly, Playground };
