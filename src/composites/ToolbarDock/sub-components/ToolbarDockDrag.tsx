@@ -17,7 +17,7 @@ const ToolbarDockDrag = ({ view }: ToolbarDockDragProps) => {
       <Box className={`toolbar-dock__basket${hot ? ' toolbar-dock__basket--hot' : ''}`} style={rectStyle(basket)}>
         <DropPopZone tone="basket" icon="trash-2" label={toolbars.basket} />
       </Box>
-      <DragGhost pointer={pointer} label={label} swap={false} overlay={false} plain />
+      {pointer && <DragGhost pointer={pointer} label={label} swap={false} overlay={false} plain />}
     </>
   );
 };

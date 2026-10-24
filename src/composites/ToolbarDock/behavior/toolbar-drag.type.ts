@@ -32,7 +32,7 @@ type ToolbarDropTarget =
 interface ToolbarDragView {
   id: string;
   label: string;
-  pointer: Point;
+  pointer: Point | null;
   target: ToolbarDropTarget;
   basket: Rect;
 }
