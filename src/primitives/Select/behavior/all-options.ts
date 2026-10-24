@@ -4,6 +4,6 @@ import type { SelectGroup, SelectOption } from '../Select.type';
 const allOptionsOf = (
   groups: readonly SelectGroup[] | undefined,
   options: readonly SelectOption[] | undefined,
-): readonly SelectOption[] => (groups ? groups.flatMap((group) => group.options) : options ?? []);
+): readonly SelectOption[] => [...(options ?? []), ...(groups?.flatMap((group) => group.options) ?? [])];
 
 export { allOptionsOf };

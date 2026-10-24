@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 73 of 192 have their usage written; a linked name opens its page.
+One line per component. 75 of 192 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -54,7 +54,7 @@ One line per component. 73 of 192 have their usage written; a linked name opens 
 - `SearchInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SectionHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SegmentedControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Select`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Select](components/Select.md): A field that opens a list and picks one option, or several, from plain options, from options in labelled groups, or from your own items. Import from `@drizztdourden08/tessera`.
 - `Shortcut`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Slider`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Spacer`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -92,7 +92,7 @@ One line per component. 73 of 192 have their usage written; a linked name opens 
 - [CheckList](components/CheckList.md): The results of a list of checks, such as a connection test or a diagnostics report, each with its state, what was found and an optional fix. Import from `@drizztdourden08/tessera`.
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [CollapseToggle](components/CollapseToggle.md): The round button on the edge of a panel that folds it to a rail and opens it again, with a chevron that points where the panel goes. Import from `@drizztdourden08/tessera`.
-- `ColorPicker`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker`.
+- [ColorPicker](components/ColorPicker.md): A colour picker panel placed in the page, with a field, a hex box, an alpha slider and swatch groups. Import from `@drizztdourden08/tessera/color-picker`.
 - `ColorPickerPopover`: usage not written yet. Import from `@drizztdourden08/tessera/color-picker-popover`.
 - [CommandInput](components/CommandInput.md): A command line on a free text Combobox: Enter sends the command, Up and Down walk the past commands, Tab completes a known one and Escape clears the line. Import from `@drizztdourden08/tessera`.
 - `CommandPalette`: usage not written yet. Import from `@drizztdourden08/tessera`.
