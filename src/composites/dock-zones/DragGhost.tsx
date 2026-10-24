@@ -1,15 +1,16 @@
 /* @layer renderer-components @kind component */
 import { useRef } from 'react';
-import { Box } from '../../../primitives/Box';
-import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { Span } from '../../../primitives/text-elements';
-import { useBesidePointer } from '../behavior/useBesidePointer';
-import { stageFrame } from '../behavior/stage-frame';
+import { Box } from '../../primitives/Box';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { Span } from '../../primitives/text-elements';
+import { useBesidePointer } from '../DockLayout/behavior/useBesidePointer';
+import { stageFrame } from '../DockLayout/behavior/stage-frame';
 import { DragGhostKey } from './DragGhostKey';
 import type { DragGhostProps } from './DragGhost.type';
+import './DragGhost.css';
 
 const DragGhost = (props: DragGhostProps) => {
-  const { pointer, label, swap, overlay } = props.view;
+  const { pointer, label, swap, overlay } = props;
   const { widgets } = useTesseraStrings();
   const ref = useRef<HTMLDivElement>(null);
   const place = useBesidePointer(ref, pointer, stageFrame);

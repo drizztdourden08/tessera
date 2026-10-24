@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { Rect } from '../DockLayout.type';
+import type { Rect } from '../DockLayout/DockLayout.type';
 
 interface DropPreviewProps {
   rect: Rect;

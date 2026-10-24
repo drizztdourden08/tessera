@@ -7,7 +7,7 @@ import type { DragView } from './drag.type';
 import { handleOf } from './handle-of';
 import { listenPress } from './listen-press';
 import { sourceFrom } from './source-from';
-import { stagePoint } from './stage-point';
+import { stagePoint } from '../../dock-zones/stage-point';
 
 const useDockDrag = (params: DockDragParams) => {
   const { stageRef, context, onEdit, onPopOut } = params;

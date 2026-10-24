@@ -1,8 +1,9 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
-import { Shortcut } from '../../../primitives/Shortcut';
-import { Span } from '../../../primitives/text-elements';
+import { Box } from '../../primitives/Box';
+import { Shortcut } from '../../primitives/Shortcut';
+import { Span } from '../../primitives/text-elements';
 import type { DragGhostKeyProps } from './DragGhostKey.type';
+import './DragGhostKey.css';
 
 const DragGhostKey = (props: DragGhostKeyProps) => {
   const { keys, does, lit } = props;
