@@ -176,6 +176,8 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
   - A headline number that does one thing: [ActionTile](components/ActionTile.md). ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app.
+  - A long list drawn only where it is in view: [VirtualList](components/VirtualList.md). VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly.
+  - A rectangle dragged over items to pick them: [MarqueeBox](components/MarqueeBox.md). MarqueeBox draws the rectangle of a drag to pick, with the border and fill of the theme.
   - A drawing. **How is it drawn?**
     - In pixels: no component yet.
     - In shapes: no component yet.
