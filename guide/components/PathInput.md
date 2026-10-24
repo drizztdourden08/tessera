@@ -88,4 +88,4 @@ const KeyFileSetting = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPa
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-inset`, `--c-primary`, `--c-primary-soft`, `--c-text`, `--c-text-muted`, `--font-mono`, `--font-sans`, `--opacity-disabled`, `--radius-md`, `--size-40`, `--space-2xs`, `--space-sm`, `--text-sm`, `--transition-normal`.
+It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-focus`, `--c-inset`, `--c-primary`, `--c-primary-soft`, `--c-text`, `--c-text-muted`, `--font-mono`, `--font-sans`, `--opacity-disabled`, `--radius-md`, `--size-40`, `--space-2xs`, `--space-sm`, `--text-sm`, `--transition-normal`.

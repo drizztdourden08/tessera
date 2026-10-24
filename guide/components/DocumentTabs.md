@@ -87,4 +87,4 @@ const OpenDrawings = ({ drawings, activeId, open, askToClose, move }: OpenDrawin
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-hover`, `--c-primary`, `--c-primary-bright`, `--c-text`, `--c-text-dim`, `--c-warning`, `--leading-tight`, `--opacity-muted`, `--radius-round`, `--size-1`, `--size-224`, `--size-8`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--transition-fast`, `--transition-normal`, `--weight-medium`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-bright`, `--c-text`, `--c-text-dim`, `--c-warning`, `--leading-tight`, `--opacity-muted`, `--radius-round`, `--size-1`, `--size-224`, `--size-8`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--transition-fast`, `--transition-normal`, `--weight-medium`.

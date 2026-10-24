@@ -5,7 +5,7 @@
 
 .tooltip-anchor:focus-visible {
   border-radius: var(--radius-sm);
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--size-2);
 }
 

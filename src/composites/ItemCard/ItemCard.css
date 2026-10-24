@@ -25,7 +25,7 @@
 }
 
 .card.item-card:has(.item-card__open:focus-visible) {
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--border-width-thin);
 }
 

@@ -91,4 +91,4 @@ const GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) =>
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-danger-dim`, `--c-hover`, `--c-info-dim`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-success-dim`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-warning-dim`, `--font-sans`, `--size-96`, `--space-md`, `--space-sm`, `--space-xs`, `--text-lg`, `--text-xs`, `--tracking-normal`, `--weight-semi`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-danger-dim`, `--c-focus`, `--c-hover`, `--c-info-dim`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-success-dim`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-warning-dim`, `--font-sans`, `--size-96`, `--space-md`, `--space-sm`, `--space-xs`, `--text-lg`, `--text-xs`, `--tracking-normal`, `--weight-semi`.
