@@ -17,8 +17,10 @@ interface SegmentTextOption<T extends string> extends SegmentOptionBase<T> {
   icon?: undefined;
 }
 
+type SegmentIcon = IconName | Exclude<ReactNode, string | undefined>;
+
 interface SegmentIconOption<T extends string> extends SegmentOptionBase<T> {
-  icon: IconName;
+  icon: SegmentIcon;
   hint: Hint;
   label?: undefined;
 }
@@ -67,6 +69,7 @@ export type {
   SegmentButtonProps,
   SegmentKeys,
   SegmentKeysInput,
+  SegmentIcon,
   SegmentIconOption,
   SegmentOption,
   SegmentTextOption,

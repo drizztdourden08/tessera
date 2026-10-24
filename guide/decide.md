@@ -15,7 +15,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Tries a failed step again: [RetryButton](components/RetryButton.md). RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry.
     - A whole area the user presses: no component yet.
   - Several related buttons. **How do the buttons relate?**
-    - Only one can be on: no component yet.
+    - Only one can be on: [SegmentedControl](components/SegmentedControl.md). SegmentedControl is the joined row that picks one of a few values.
     - Each on or off by itself: no component yet.
     - Peer actions on one thing, read as one tool: no component yet.
     - Separate decisions, with space between: no component yet.
@@ -61,6 +61,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Smaller form parts for a whole panel: [DensityScope](components/DensityScope.md). DensityScope makes the form parts of one panel compact at once, with the same small size in every app.
   - One option in a long form, with a reset: [FormRow](components/FormRow.md). FormRow lays out the name, the control, the changed mark and the reset of an option the same way in every app.
   - A long form split into tabs: [FormGroupTabs](components/FormGroupTabs.md). FormGroupTabs shows where the changes are in a long form and how to find an option, the same way in every app.
+  - One of nine anchor points: [AnchorPicker](components/AnchorPicker.md). AnchorPicker picks one of nine anchor points, as an image editor does for canvas resize.
 - A status, a count or a label. **What does it show?**
   - The state something is in: [Status](components/Status.md). Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen.
   - A count, or a dot for news: no component yet.
@@ -84,6 +85,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A long job the user can hide or cancel: [JobDialog](components/JobDialog.md). JobDialog puts TaskProgress in a dialog whose buttons follow the state of the job.
   - A guided tour of the screen, one part at a time: [GuidedTour](components/GuidedTour.md). GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.
   - A picture or a video opened large, with zoom: [MediaViewer](components/MediaViewer.md). MediaViewer opens a picture or a video large in a dialog, with zoom, dragging and arrows through a set.
+  - A menu at the pointer, opened by right-click or long press: [ContextMenu](components/ContextMenu.md). ContextMenu opens a DropdownMenu at the pointer, or under the focused element from the keyboard.
 - A full screen view. **What is the screen for?**
   - Working across pages, picked from a side list: [WorkspaceScreen](components/WorkspaceScreen.md). A side list of pages beside the current page.
   - An informational window with no tools, such as About or credits: [InfoScreen](components/InfoScreen.md). A small dialog sized to its content, one column to read.
@@ -177,6 +179,8 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
   - A headline number that does one thing: [ActionTile](components/ActionTile.md). ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app.
+  - A long list drawn only where it is in view: [VirtualList](components/VirtualList.md). VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly.
+  - A rectangle dragged over items to pick them: [MarqueeBox](components/MarqueeBox.md). MarqueeBox draws the rectangle of a drag to pick, with the border and fill of the theme.
   - A drawing. **How is it drawn?**
     - In pixels: no component yet.
     - In shapes: no component yet.
