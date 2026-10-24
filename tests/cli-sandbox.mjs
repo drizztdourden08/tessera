@@ -104,7 +104,7 @@ const generateParts = (copy, parts) => {
     state.dir = copy();
     for (const part of parts) state.results.push(await runNew(state.dir, [part.kind, part.name, ...part.argv], part));
   }, TIMEOUT);
-  afterAll(() => removeSandbox(state.dir));
+  afterAll(() => removeSandbox(state.dir), TIMEOUT);
   return state;
 };
 
