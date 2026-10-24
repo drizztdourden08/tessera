@@ -25,6 +25,15 @@ describe('the tessera bin', () => {
     expect(tessera('new', '--help').stdout).toContain('--dry-run');
   });
 
+  it('lists the thread commands and forwards them to Brock', () => {
+    expect(tessera('--help').stdout).toContain('launch <wt|main> none --target storylite');
+    const launch = tessera('launch');
+    expect(launch.status).toBe(1);
+    expect(launch.stderr).toContain('Usage: tessera launch <name|main> <state|none>');
+    const worktree = tessera('worktree');
+    expect(worktree.stderr).toContain('tessera worktree');
+  });
+
   it('refuses a command it does not have', () => {
     const result = tessera('add', 'Button');
     expect(result.status).toBe(1);
