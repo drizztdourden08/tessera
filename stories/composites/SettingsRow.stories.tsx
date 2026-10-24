@@ -187,8 +187,7 @@ const Overview = overviewStory({
   description: 'One setting: its title, a line under it, and the input on the right.',
   points: [
     'The input is data: a `kind`, its props, `value` and `onChange`; an option `disabled` with a string says why.',
-    '**It never changes height:** the hint line keeps room for every hint; `hints.atRest` shows On and Off always.',
-    '`hint` is optional: leave it out and the row draws no hint line and keeps no room for one.',
+    '**It never changes height:** the hint line keeps room for every hint. Leave `hint` out and the line is gone.',
     '`changed` adds a dot and, with `onReset`, a reset button; `badge` sits after the title, `problem` under the row.',
     '`actions` puts buttons after the control, or in its place, each `loading` while the app runs it.',
     '`compact` draws one line; `readOnly` draws the value as text; `descriptionLines` folds the description.',
