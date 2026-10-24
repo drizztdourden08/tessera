@@ -11,10 +11,10 @@ import { ReorderRow } from './sub-components/ReorderRow';
 import './ReorderList.css';
 
 const ReorderList = (props: ReorderListProps) => {
-  const { label, items, toggles = [], selectedId, onSelect, onToggle, empty, className } = props;
+  const { label, items, toggles = [], selectedId, mediaAspect, mediaWidth, onSelect, onActivate, onRename, onToggle, empty, className } = props;
   const { reorderList } = useTesseraStrings();
   const hintId = useId();
-  const { listRef, drag, message, tabId, onKeyDown, onFocus } = useReorderList(props);
+  const { listRef, drag, message, tabId, renamingId, startRename, endRename, onKeyDown, onFocus } = useReorderList(props);
   if (items.length === 0) return <EmptyState size="sm" className="reorder-list__empty" message={empty ?? reorderList.empty} />;
   return (
     <Box className={['reorder-list', className].filter(Boolean).join(' ')}>
@@ -38,6 +38,15 @@ const ReorderList = (props: ReorderListProps) => {
             selected={item.id === selectedId}
             tabbable={item.id === tabId}
             drag={drag}
+            edit={{
+              renaming: item.id === renamingId,
+              can: { rename: onRename !== undefined, activate: onActivate !== undefined },
+              onRenameStart: (id) => startRename?.(id),
+              onRenameEnd: endRename,
+              onActivate,
+            }}
+            mediaAspect={mediaAspect}
+            mediaWidth={mediaWidth}
             onSelect={onSelect}
             onToggle={onToggle}
           />

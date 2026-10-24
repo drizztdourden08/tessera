@@ -3,6 +3,7 @@ import { useNameEdit } from '../../../primitives/field-control/useNameEdit';
 import { ListItemRow } from '../../ListItemRow';
 import { rowFacts } from '../behavior/row-facts';
 import type { ItemListRowProps } from '../ItemList.type';
+import '../../../theme/row-rename.css';
 import { ItemListNameInput } from './ItemListNameInput';
 import { ItemListTools } from './ItemListTools';
 
@@ -17,8 +18,8 @@ const ItemListRenameInline = <T,>({ list, view, item }: ItemListRowProps<T>) => 
   return (
     <ListItemRow
       {...list.render?.(item)}
-      className="item-list__rename-inline"
-      name={<ItemListNameInput edit={edit} size="sm" className="item-list__name-input" />}
+      className="row-rename"
+      name={<ItemListNameInput edit={edit} size="sm" className="row-rename__input" />}
       selected={selected}
       action={actions == null ? undefined : <ItemListTools id={id} name={name} actions={actions} undoable={false} tabIndex={-1} />}
       actionVisibility={visibility}

@@ -3,7 +3,13 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { ReorderList } from '../src/composites/ReorderList';
+import { doubleClickAction } from '../src/composites/ReorderList/behavior/double-click-action';
 import { focusTarget } from '../src/composites/ReorderList/behavior/focus-target';
+import { renameResult } from '../src/composites/ReorderList/behavior/rename-result';
+import { rowKeyAction } from '../src/composites/ReorderList/behavior/row-key-action';
+import { ReorderRename } from '../src/composites/ReorderList/sub-components/ReorderRename';
+import { reorderStep } from '../src/composites/reorder/reorder-step';
+import { nameEditKey } from '../src/primitives/field-control/name-edit-key';
 import { tabbableId } from '../src/composites/ReorderList/behavior/tabbable-id';
 
 const ignore = () => undefined;
@@ -104,5 +110,86 @@ describe('ReorderList focus', () => {
     expect(tabbableId(ITEMS, null, 'mid')).toBe('mid');
     expect(tabbableId(ITEMS, 'gone', 'gone')).toBe('top');
     expect(tabbableId([], null, undefined)).toBeUndefined();
+  });
+});
+
+describe('ReorderList media', () => {
+  it('draws the media of an item in the media slot of its row and nowhere else', () => {
+    const items = ITEMS.map((item, index) => (index === 0 ? { ...item, media: h('i', { className: 'thumb' }) } : item));
+    const html = draw({ items, mediaWidth: 40 });
+    expect(html.match(/list-item-row__media/g)).toHaveLength(1);
+    expect(html).toContain('class="thumb"');
+    expect(html).toContain('--list-item-media-w:40px');
+  });
+
+  it('leaves the slot out when no item has media', () => {
+    expect(draw()).not.toContain('list-item-row__media');
+  });
+});
+
+describe('ReorderList rename', () => {
+  it('opens the rename box on the current name', () => {
+    const html = renderToString(h(ReorderRename, { name: 'Outline', onEnd: ignore }));
+    expect(html).toContain('value="Outline"');
+  });
+
+  it('keeps on Enter, cancels on Escape and ignores both while composing', () => {
+    expect(nameEditKey('Enter', false)).toBe('keep');
+    expect(nameEditKey('Escape', false)).toBe('undo');
+    expect(nameEditKey('Enter', true)).toBeNull();
+    expect(nameEditKey('a', false)).toBeNull();
+  });
+
+  it('reports a new name and reports nothing when the name did not change', () => {
+    expect(renameResult('Outline', 'Ink')).toBe('Ink');
+    expect(renameResult('Outline', 'Outline')).toBeNull();
+  });
+
+  it('starts on F2 only when onRename is set', () => {
+    expect(rowKeyAction(keyEvent('F2'), { rename: true, activate: false })).toBe('rename');
+    expect(rowKeyAction(keyEvent('F2'), { rename: false, activate: true })).toBeUndefined();
+  });
+});
+
+describe('ReorderList activate', () => {
+  it('fires on Enter only when onActivate is set', () => {
+    expect(rowKeyAction(keyEvent('Enter'), { rename: true, activate: true })).toBe('activate');
+    expect(rowKeyAction(keyEvent('Enter'), { rename: true, activate: false })).toBeUndefined();
+  });
+
+  it('ignores Enter and F2 with a modifier held', () => {
+    expect(rowKeyAction(keyEvent('Enter', { altKey: true }), { rename: true, activate: true })).toBeUndefined();
+    expect(rowKeyAction(keyEvent('F2', { ctrlKey: true }), { rename: true, activate: true })).toBeUndefined();
+  });
+
+  it('activates on a double-click of the row, and renames on the label only without onActivate', () => {
+    const on = { main: true, label: true };
+    expect(doubleClickAction(on, { rename: true, activate: true })).toBe('activate');
+    expect(doubleClickAction({ main: true, label: false }, { rename: true, activate: true })).toBe('activate');
+    expect(doubleClickAction(on, { rename: true, activate: false })).toBe('rename');
+    expect(doubleClickAction({ main: true, label: false }, { rename: true, activate: false })).toBeUndefined();
+    expect(doubleClickAction(on, { rename: false, activate: false })).toBeUndefined();
+  });
+
+  it('ignores a double-click on the grip or the toggles', () => {
+    expect(doubleClickAction({ main: false, label: false }, { rename: true, activate: true })).toBeUndefined();
+  });
+});
+
+describe('ReorderList keys do not fight', () => {
+  const both = { rename: true, activate: true };
+  const chord = { axis: 'vertical', chord: 'alt', index: 1, total: 3 };
+
+  it('keeps Alt and the arrows for the move and gives them no row action', () => {
+    expect(reorderStep(keyEvent('ArrowDown', { altKey: true }), chord)).toBe(2);
+    expect(rowKeyAction(keyEvent('ArrowDown', { altKey: true }), both)).toBeUndefined();
+    expect(rowKeyAction(keyEvent('ArrowUp'), both)).toBeUndefined();
+  });
+
+  it('gives F2 and Enter no focus move and no reorder step', () => {
+    for (const key of ['F2', 'Enter']) {
+      expect(focusTarget(keyEvent(key), 1, 3)).toBeUndefined();
+      expect(reorderStep(keyEvent(key, { altKey: true }), chord)).toBeUndefined();
+    }
   });
 });

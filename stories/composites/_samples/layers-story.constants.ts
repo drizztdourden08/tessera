@@ -48,4 +48,4 @@ const LAYERS_CODE = `import { ReorderList } from '@drizztdourden08/tessera';
   onToggle={setLayerToggle}
 />`;
 
-export { LAYER_SETS, LAYER_TOGGLES, LAYERS_ARG_TYPES, LAYERS_ARGS, LAYERS_CODE };
+export { LAYER_SETS, LAYER_TOGGLES, LAYERS_ARG_TYPES, LAYERS_ARGS, LAYERS_CODE, SIX_LAYERS };

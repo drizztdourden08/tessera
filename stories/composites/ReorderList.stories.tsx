@@ -3,6 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
+import { LayersEditor } from './_samples/LayersEditor';
 import { LayersList } from './_samples/LayersList';
 import { LAYERS_ARG_TYPES, LAYERS_ARGS, LAYERS_CODE } from './_samples/layers-story.constants';
 import type { LayerSet, LayersArgs } from './_samples/layers-story.type';
@@ -30,6 +31,11 @@ const LongList = {
   render: () => <LayersList layers="forty" tall />,
 } satisfies StoryLiteStoryDefinition<LayersArgs>;
 
+const Editable = {
+  name: 'Thumbnails, rename with F2 or a double-click, open with Enter',
+  render: () => <LayersEditor />,
+} satisfies StoryLiteStoryDefinition<LayersArgs>;
+
 const OrderOnly = {
   name: 'Order only, with no toggles',
   render: () => <LayersList toggles={false} />,
@@ -45,14 +51,15 @@ const Overview = overviewStory({
   description: 'A list the user puts in order by drag or keys, with on and off icons on each row, such as drawing layers.',
   points: [
     'The app keeps the items: `onMove` gets the old and the new index, and the list draws what it is given.',
-    '`toggles` describes the icons once; each item holds its own state in `toggles`, and `onToggle` flips it.',
+    '`toggles` describes the icons once; `onToggle` flips one on an item. Each is a pressed-state icon button.',
     'Drag the grip, or press [[Alt+Up]] or [[Alt+Down]] on a row. A move is announced and focus stays put.',
     'Arrows, [[Home]] and [[End]] move focus; [[Space]] or [[Enter]] selects. `selectedId` marks the open item.',
-    'A toggle is an icon button named by its label, with aria-pressed set to its state.',
+    '`media` on an item draws a thumbnail at the row start, sized by `mediaAspect` or `mediaWidth`.',
+    '[[F2]] renames through `onRename`; [[Enter]] and a double-click call `onActivate` with the item id.',
   ],
   instead: '[RowGrid] for rows with inputs to edit, or [ListItemRow] for rows whose order is fixed.',
   playground: Playground,
-  variants: [Layers, LongList, OrderOnly],
+  variants: [Layers, Editable, LongList, OrderOnly],
   states: {
     render: (props: StateProps) => <LayersList layers={(props.layers as LayerSet | undefined) ?? 'six'} />,
     list: STATE_SETS.map(({ name, layers }) => ({ name, props: { layers } })),
@@ -61,4 +68,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Layers, LongList, Overview, OrderOnly, Playground };
+export { Editable, Layers, LongList, Overview, OrderOnly, Playground };
