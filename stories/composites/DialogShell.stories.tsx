@@ -13,7 +13,7 @@ type DialogShellArgs = {
   withHeaderExtra: boolean;
 };
 
-type ShellDemoProps = DialogShellArgs & { openLabel: string; waiting?: boolean };
+type ShellDemoProps = DialogShellArgs & { openLabel: string; waiting?: boolean; tall?: boolean };
 
 const SessionSummary = () => (
   <Box className="story-column">
@@ -21,6 +21,14 @@ const SessionSummary = () => (
     <StatRow label="Server" value="eu-west-2" mono />
     <StatRow label="Preset" value="Casual" />
     <StatRow label="Players" value="8 of 8 connected" />
+  </Box>
+);
+
+const LONG_ROWS = Array.from({ length: 40 }, (_, index) => `Player ${index + 1}`);
+
+const LongList = () => (
+  <Box className="story-column">
+    {LONG_ROWS.map((name) => <StatRow key={name} label={name} value="Connected" />)}
   </Box>
 );
 
@@ -32,7 +40,7 @@ const Waiting = () => (
 );
 
 const ShellDemo = (props: ShellDemoProps) => {
-  const { title, dismissable, withActions, withHeaderExtra, openLabel, waiting = false } = props;
+  const { title, dismissable, withActions, withHeaderExtra, openLabel, waiting = false, tall = false } = props;
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   const actions = withActions
@@ -43,6 +51,8 @@ const ShellDemo = (props: ShellDemoProps) => {
       </>
     )
     : undefined;
+  const summary = tall ? <LongList /> : <SessionSummary />;
+  const body = waiting ? <Waiting /> : summary;
   return (
     <Box className="story-row">
       <Button variant="secondary" onClick={() => setOpen(true)}>{openLabel}</Button>
@@ -54,7 +64,7 @@ const ShellDemo = (props: ShellDemoProps) => {
         actions={actions}
         headerExtra={withHeaderExtra ? <Status tone="success">Live</Status> : undefined}
       >
-        {waiting ? <Waiting /> : <SessionSummary />}
+        {body}
       </DialogShell>
     </Box>
   );
@@ -97,6 +107,13 @@ const NotDismissable = {
   ),
 } satisfies PlaygroundStory<DialogShellArgs>;
 
+const LongBody = {
+  name: 'Long body',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <ShellDemo {...args} title="All players" withActions tall openLabel="Open long dialog" />,
+} satisfies PlaygroundStory<DialogShellArgs>;
+
 const CODE = `import { Button, DialogShell } from '@drizztdourden08/tessera';
 
 <DialogShell
@@ -121,9 +138,9 @@ const Overview = overviewStory({
   ],
   instead: '[Dialog] for one question with confirm and cancel.',
   playground: Playground,
-  variants: [HeaderStatus, NotDismissable],
+  variants: [HeaderStatus, NotDismissable, LongBody],
   code: CODE,
 });
 
 export default meta;
-export { HeaderStatus, NotDismissable, Overview, Playground };
+export { HeaderStatus, LongBody, NotDismissable, Overview, Playground };
