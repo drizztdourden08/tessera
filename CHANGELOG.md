@@ -1,5 +1,13 @@
 # @drizztdourden08/tessera
 
+## 0.56.1
+
+### Patch Changes
+
+- c56f6cc: ListDetailLayout with both panes collapsible now spaces the two seam buttons apart, each on its own pane edge, and the detail draws the same dashed fold line as the list.
+
+  A folded detail no longer hides half of its unfold button behind the rail.
+
 ## 0.56.0
 
 ### Minor Changes
