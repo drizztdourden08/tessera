@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { MenuGroup } from '../../DropdownMenu';
+import type { MenuGroup, MenuNode } from '../../DropdownMenu';
 import type { WindowControl, WindowTitleBarAction, WindowTitleBarItemId, WindowTitleBarProps, WindowTitleBarTucked } from '../WindowTitleBar.type';
 
 interface TitleBarMenuStrings {
@@ -16,6 +16,7 @@ interface TitleBarMenuInput {
   menu: readonly MenuGroup[];
   actions: readonly WindowTitleBarAction[];
   view?: WindowTitleBarProps['view'];
+  viewItems?: readonly MenuNode[];
   tucked?: readonly WindowTitleBarItemId[];
   tuckedRows?: WindowTitleBarTucked;
   pin: boolean;

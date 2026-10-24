@@ -23,7 +23,7 @@ import { DisabledActions } from './_samples/title-bar-disabled-story';
 import { Morph } from './_samples/title-bar-morph-story';
 import { TuckedRowsPlaced } from './_samples/title-bar-tucked-rows-story';
 import { ViewHiddenNarrow } from './_samples/title-bar-tucked-story';
-import { ViewStates } from './_samples/title-bar-view-states-story';
+import { ViewAppEntries, ViewStates } from './_samples/title-bar-view-states-story';
 import './WindowTitleBar.stories.css';
 
 const LOGO = brandLogoUri('brock');
@@ -195,7 +195,7 @@ const Overview = overviewStory({
   component: 'WindowTitleBar',
   description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
   points: [
-    '`menu` takes [DropdownMenu] groups; `view` hides its View sub-menu or moves it; `onControl` hears the buttons.',
+    '`menu` takes [DropdownMenu] groups; `view` moves View, `viewItems` adds to it; `onControl` hears the buttons.',
     '`actions` are icon buttons; the tooltip shows label and `shortcut`. `tone`, `effect`, `disabled` change one.',
     "`bar: 'dropdown'` opens a menu of its own from `groups`; `bar: 'volume'` draws a [VolumeControl].",
     "A `bar: 'status'` action shows `status` as text with digits of one width; `pulse` adds a beating dot.",
@@ -203,7 +203,7 @@ const Overview = overviewStory({
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, DisabledActions, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed, ViewHidden, ViewMoved, ViewHiddenNarrow, ViewStates, TuckedRowsPlaced],
+  variants: [AppWindow, DisabledActions, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed, ViewHidden, ViewMoved, ViewHiddenNarrow, ViewStates, TuckedRowsPlaced, ViewAppEntries],
   states: {
     render: renderState,
     list: [
@@ -225,5 +225,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AppWindow, Concealed, DisabledActions, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance, TuckedRowsPlaced, ViewHidden, ViewHiddenNarrow, ViewMoved, ViewStates,
+  AppWindow, Concealed, DisabledActions, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance, TuckedRowsPlaced, ViewAppEntries, ViewHidden, ViewHiddenNarrow, ViewMoved, ViewStates,
 };

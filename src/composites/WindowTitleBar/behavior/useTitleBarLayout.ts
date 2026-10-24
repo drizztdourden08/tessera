@@ -17,7 +17,7 @@ const useTitleBarLayout = (
   barRef: RefObject<HTMLElement | null>,
   brandRef: RefObject<HTMLElement | null>,
 ): TitleBarLayout => {
-  const { menu = NO_MENU, actions = NO_ACTIONS, view, tucked, pinned = false, fullscreen = false, onControl, onFitChange } = props;
+  const { menu = NO_MENU, actions = NO_ACTIONS, view, viewItems, tucked, pinned = false, fullscreen = false, onControl, onFitChange } = props;
   const controls = props.controls === false ? NO_CONTROLS : props.controls ?? ALL_CONTROLS;
   const { windows, common } = useTesseraStrings();
   const strings = useMemo(() => titleBarStrings(windows, common), [windows, common]);
@@ -25,7 +25,7 @@ const useTitleBarLayout = (
   const fit = useTitleBarFit(barRef, brandRef, hideOrder(actions, controls), captureSlide);
   useFitChange(fit.hidden, onFitChange);
   const groups = useTitleBarMenu({
-    menu, actions, view, tucked: fit.hidden, tuckedRows: tucked, pin: controls.pin !== false, fullscreenButton: controls.fullscreen !== false, pinned, fullscreen, onControl, strings,
+    menu, actions, view, viewItems, tucked: fit.hidden, tuckedRows: tucked, pin: controls.pin !== false, fullscreenButton: controls.fullscreen !== false, pinned, fullscreen, onControl, strings,
   });
   return { groups, actions, controls, hidden: new Set(fit.hidden), brand: fit.brand };
 };

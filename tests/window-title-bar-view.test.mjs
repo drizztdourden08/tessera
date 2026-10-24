@@ -90,3 +90,37 @@ describe('WindowTitleBar control entries', () => {
     expect(heard).toEqual(['pin', 'fullscreen']);
   });
 });
+
+describe('WindowTitleBar viewItems', () => {
+  const GRID = { id: 'grid', kind: 'check', label: 'Show grid', checked: true, onSelect: ignore };
+  const RULERS = { id: 'rulers', kind: 'check', label: 'Show rulers', checked: false, onSelect: ignore };
+  const viewOf = (state) => ownGroup(titleBarMenu({ ...base, ...state })).items.find((node) => node.id === 'window-title-bar-view');
+  const childIds = (view) => view.children.map((node) => node.id ?? '---');
+
+  it('draws the app entries after the control rows and a separator', () => {
+    expect(childIds(viewOf({ viewItems: [GRID, RULERS] }))).toEqual(['pin', 'fullscreen', '---', 'grid', 'rulers']);
+    expect(viewOf({ viewItems: [GRID] }).children[3]).toBe(GRID);
+  });
+
+  it('draws no separator when the controls are off, and nothing extra for an empty list', () => {
+    expect(childIds(viewOf({ pin: false, fullscreenButton: false, viewItems: [GRID] }))).toEqual(['grid']);
+    expect(childIds(viewOf({ viewItems: [] }))).toEqual(['pin', 'fullscreen']);
+  });
+
+  it('keeps View where view puts it', () => {
+    const groups = titleBarMenu({ ...base, view: { group: 'tools', position: 'end' }, viewItems: [GRID] });
+    expect(ids(groups)[1]).toEqual(['tools', ['tools', '---', 'settings', 'window-title-bar-view']]);
+  });
+
+  it('shows a View with only the app entries when view is false', () => {
+    const groups = titleBarMenu({ ...base, view: false, viewItems: [GRID, RULERS] });
+    expect(ids(groups)[2]).toEqual(['window-title-bar', ['window-title-bar-view', 'bug']]);
+    expect(childIds(ownGroup(groups).items[0])).toEqual(['grid', 'rulers']);
+  });
+
+  it('keeps the tucked rows first beside that View, and draws none without viewItems', () => {
+    const groups = titleBarMenu({ ...base, view: false, tucked: BOTH, viewItems: [GRID] });
+    expect(ownGroup(groups).items.map((node) => node.id)).toEqual(['window-title-bar-pin', 'window-title-bar-fullscreen', 'window-title-bar-view', 'bug']);
+    expect(ownGroup(titleBarMenu({ ...base, view: false, viewItems: [] })).items.map((node) => node.id)).toEqual(['bug']);
+  });
+});
