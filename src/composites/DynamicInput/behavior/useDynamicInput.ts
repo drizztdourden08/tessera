@@ -37,7 +37,7 @@ const useDynamicInput = (props: DynamicInputProps): DynamicInputState => {
   const { focus, setOpen, closeNow, handleFocus, handleBlur } = focusState;
   const errorId = `${useId()}-error`;
   const ruled = invalid === undefined && control.invalid !== true;
-  const message = useMemo(() => (ruled ? ruleMessage(parsed, value, setup) : undefined), [ruled, parsed, value, setup]);
+  const message = useMemo(() => (ruled ? ruleMessage(parsed, value, setup, dynamicInput) : undefined), [ruled, parsed, value, setup, dynamicInput]);
   const describedBy = [control.describedBy, message === undefined ? undefined : errorId].filter(Boolean).join(' ') || undefined;
 
   const field = {

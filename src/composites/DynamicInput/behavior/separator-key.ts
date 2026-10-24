@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind util */
+import { separatorChars } from './separator-chars';
 import type { KeyboardEvent } from 'react';
 import type { TypedKeyContext } from './typed-segment.type';
 
@@ -9,7 +10,8 @@ const separatorKey = (context: TypedKeyContext, event: KeyboardEvent<HTMLInputEl
   const { field, slot, kind, index, draftRef, typedRef } = context;
   if (!isPlainChar(event) || kind.clean(event.key, slot) !== '') return false;
   event.preventDefault();
-  if (typedRef.current && (draftRef.current ?? '') !== '') field.moveTo(index + 1, 'all');
+  const typedSome = typedRef.current && (draftRef.current ?? '') !== '';
+  if (typedSome && separatorChars(field.parsed.parts, index).has(event.key)) field.moveTo(index + 1, 'all');
   return true;
 };
 
