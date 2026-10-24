@@ -1,5 +1,19 @@
 # @drizztdourden08/tessera
 
+## 0.58.0
+
+### Minor Changes
+
+- ae8a29d: Adds file type icons for Bxel's sprite, sheet, palette, tileset, tilemap and project files, written by `pnpm icons` as svg, ico, icns and PNGs.
+  Adds the `pixel-sprite`, `pixel-tilemap` and `pixel-project` icons used as their glyphs.
+- f19e40f: DynamicInput takes a `chars` option per text slot, a string or a set of the allowed characters, that replaces the slot kind and follows its case.
+  It takes an `aliases` map per slot or per pattern that maps typed characters before the check, on typing and on paste.
+  It takes a `validate` function per slot and per pattern that makes the control invalid and shows the message under it, and the `invalid` prop still wins.
+- 382671e: Toolbar items with `options` take `openOn: 'click'` to open their menu on a press instead of on hover.
+  Toolbar and tooltip `shortcut` also takes a list of `{ label, keys }`, shown in the hint as one labelled Shortcut row each.
+  Toolbar takes `layout: 'list'` to draw each item as a row with its icon, name, description and shortcut for a wide panel.
+- 82dc0dd: Adds `VirtualGrid`, a windowed grid of equal square tiles with a `tileSize` token, 2D arrow keys and `items`, `getKey` and `renderItem`; `VirtualList` takes a `rowHeight` size token for a row height of its own, and `Checkbox` takes an optional `tooltip` (a string or a description with a shortcut) and passes `title` to the input.
+
 ## 0.57.0
 
 ### Minor Changes
