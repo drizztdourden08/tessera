@@ -253,6 +253,7 @@
   --control-h-xs: 20px;
   --control-h-sm: 28px;
   --control-h-md: calc(39 * 1px);
+  --control-h-pixel: calc(24px + 2 * 4px);
   --control-pad-sm: 8px;
   --control-pad-md: 12px;
   --row-inset: 12px;
