@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind logic */
-import { pageLink } from './page-link.mjs';
 import { renderProps } from './render-props.mjs';
 import { sentence } from './sentence.mjs';
+import { usageSections } from './usage-sections.mjs';
 
 const code = (text) => `\`${text}\``;
 
@@ -9,8 +9,6 @@ const NOT_EXPORTED = {
   tessera: 'Tessera does not export it; it is used inside other components.\n',
   app: 'Import it by its path from the folder of the part that uses it.\n',
 };
-
-const list = (title, lines) => [`## ${title}\n`, `${lines.map((text) => `- ${sentence(text)}`).join('\n')}\n`];
 
 const importLines = (c, voice) => {
   if (c.imports.length === 0) return [NOT_EXPORTED[voice]];
@@ -30,9 +28,6 @@ const treeLines = (tree, questions) => {
   const steps = tree.path.map((answer, at) => `${questions[at]} ${sentence(answer)}`);
   return ['## Where the questions lead here\n', `${steps.join(' ')}\n`, `${sentence(tree.rule)}\n`];
 };
-
-const avoidLines = (c, byName) =>
-  list('Use something else when', c.usage.avoidWhen.map((entry) => `${sentence(entry.case)} Use ${pageLink(byName.get(entry.use) ?? { name: entry.use }, '')} instead`));
 
 const questionsOn = (tree, path) => {
   const questions = [];
@@ -59,14 +54,7 @@ const renderComponent = (model, c) => {
     ...importLines(c, voice),
     galleryLine(c, voice),
     ...treeLines(usage.tree, questionsOn(model.tree, usage.tree?.path ?? [])),
-    ...list('Use it when', usage.useWhen),
-    ...avoidLines(c, byName),
-    ...list('Rules', usage.rules),
-    ...list('Accessibility', usage.a11y),
-    '## Example\n',
-    '```tsx',
-    usage.example.trim(),
-    '```\n',
+    ...usageSections(usage, byName),
     ...renderProps(c.props),
     ...tailLines(c),
   ].join('\n');

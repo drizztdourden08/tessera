@@ -32,6 +32,7 @@ export default defineConfig({
     './src/tokens/palettes/rotp.css',
     './src/tokens/palettes/archipelia.css',
     './src/tokens/palettes/brock.css',
+    './src/tokens/palettes/bxel.css',
     './stories/storylite.css',
   ],
   renderers: [controlledReact()],

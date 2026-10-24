@@ -5,8 +5,8 @@
 
     --c-lift:          var(--p-pure-white);
     --c-bg:            var(--p-pure-black);
-    --c-surface:       var(--p-tertiary-900);
-    --c-sunken:        var(--p-tertiary-950);
+    --c-surface:       var(--p-surface-900);
+    --c-sunken:        var(--p-surface-950);
     --c-layer:         var(--p-black);
     --c-gradient-dark-from: var(--p-gradient-dark-from);
     --c-gradient-dark-to:   var(--p-gradient-dark-to);
@@ -14,8 +14,8 @@
     --c-panel:         color-mix(in srgb, var(--c-surface) 55%, transparent);
     --c-inset:         color-mix(in srgb, var(--c-sunken) 45%, transparent);
     --c-hairline:      color-mix(in srgb, var(--p-pure-white) 6%, transparent);
-    --c-border:        var(--p-tertiary-850);
-    --c-border-strong: var(--p-tertiary-800);
+    --c-border:        var(--p-surface-850);
+    --c-border-strong: var(--p-surface-800);
     --c-hover:         color-mix(in srgb, var(--p-pure-white) 5%, transparent);
     --c-text:          var(--p-tertiary-100);
     --c-text-dim:      var(--p-tertiary-500);
@@ -81,6 +81,7 @@
     --c-primary-dim:    color-mix(in oklab, var(--p-primary) 18%, var(--c-bg));
     --c-primary-soft:   color-mix(in srgb, var(--p-primary) 14%, transparent);
     --c-on-primary:     var(--p-on-primary);
+    --c-focus:          var(--c-primary);
     --c-selected:       color-mix(in srgb, var(--p-primary) 12%, transparent);
     --c-volume-wave:    var(--c-primary);
     --c-secondary:        var(--p-secondary);

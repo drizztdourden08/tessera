@@ -82,7 +82,7 @@
 }
 
 .toggle__input:focus-visible + .toggle__track {
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--size-2);
 }
 

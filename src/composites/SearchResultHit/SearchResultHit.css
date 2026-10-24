@@ -16,7 +16,7 @@
 }
 
 .search-result-hit:focus-visible {
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: calc(-1 * var(--border-width-thick));
 }
 

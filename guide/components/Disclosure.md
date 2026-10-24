@@ -66,4 +66,4 @@ const ReleaseNotes = ({ notes }: { notes: string }) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-hover`, `--c-primary`, `--c-text`, `--c-text-dim`, `--duration-fast`, `--ease-standard`, `--radius-sm`, `--space-2xs`, `--space-xs`, `--text-sm`, `--text-xs`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-hover`, `--c-text`, `--c-text-dim`, `--duration-fast`, `--ease-standard`, `--radius-sm`, `--space-2xs`, `--space-xs`, `--text-sm`, `--text-xs`.

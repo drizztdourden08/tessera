@@ -50,7 +50,7 @@
 }
 
 .carousel__dot:focus-visible {
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--border-width-thick);
 }
 

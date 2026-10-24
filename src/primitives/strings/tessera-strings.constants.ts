@@ -26,6 +26,7 @@ import { SAVE_BAR_STRINGS } from './save-bar-strings.constants';
 import { SETTINGS_STRINGS } from './settings-strings.constants';
 import { STEPPER_STRINGS } from './stepper-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
+import { TOOLBAR_STRINGS } from './toolbar-strings.constants';
 import { TOUR_STRINGS } from './tour-strings.constants';
 import { VIDEO_STRINGS } from './video-strings.constants';
 import { WIDGET_STRINGS } from './widgets-strings.constants';
@@ -40,6 +41,7 @@ const TESSERA_STRINGS = {
   video: VIDEO_STRINGS,
   colorPicker: COLOR_PICKER_STRINGS,
   documentTabs: DOCUMENT_TABS_STRINGS,
+  toolbar: TOOLBAR_STRINGS,
   dynamicInput: DYNAMIC_INPUT_STRINGS,
   table: TABLE_STRINGS,
   filters: FILTER_STRINGS,

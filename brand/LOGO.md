@@ -12,7 +12,7 @@ import { BrandMark, BrandWordmark, Mascot } from '@drizztdourden08/tessera/brand
 <PixelWordmark text="Hello" colors={['#ffe26e', '#ffd639', '#fcbb28', '#ffa200']} />
 ```
 
-The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`) are the same marks for use outside code. Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows the whole family on the **Brand / Brand** page, and each part on its own on the **Logo**, **WordMark**, **Combined** and **Mascot** pages. The brand gradients are on **Colours / Gradients**.
+The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`, `bxel.svg`) are the same marks for use outside code. Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows the whole family on the **Brand / Brand** page, and each part on its own on the **Logo**, **WordMark**, **Combined** and **Mascot** pages. The brand gradients are on **Colours / Gradients**.
 
 ## Brand gradients
 
@@ -24,10 +24,11 @@ Each brand has one gradient, drawn behind its mark on a splash window or a hero 
 | Relic of the Past | `#3a2e14`, `#1e1810`, `#12100e` | Its gold sunk into its near black tile |
 | Archipelia | `#ece6ff`, `#e2d8ff`, `#c1a8ff` | Its tile into its wordmark lilacs, under a dark purple mark |
 | Brock | `#ffc66e`, `#ffb341`, `#ff9416` | Its wordmark oranges, light enough for the dark ink mark |
+| Bxel | `#2a1560`, `#1a0d38`, `#140b26` | Deep purple into Night, under the crimson and violet pixel mark |
 
 ## App icons
 
-The brand data says how each app shows as an app icon, in its `appIcon` field. Tessera has none: it is a package, not an app. Relic of the Past and Brock are `straight`: the mark alone, with no tile or container. Archipelia is `tile`: its mark on its rounded tile. `<BrandMark variant="app-icon" />` draws what the data says, and draws the mark for a brand with no app icon.
+The brand data says how each app shows as an app icon, in its `appIcon` field. Tessera has none: it is a package, not an app. Relic of the Past and Brock are `straight`: the mark alone, with no tile or container. Archipelia is `tile`: its mark on its rounded tile. Bxel is `tile` too, with its own square icon: `iconMark` holds the crimson pixel B and its trail of bits, drawn on the Night tile in place of the wide mark, which stays for wide spaces. `<BrandMark variant="app-icon" />` draws what the data says, and draws the mark for a brand with no app icon.
 
 ## Icon files
 
@@ -35,7 +36,7 @@ The brand data says how each app shows as an app icon, in its `appIcon` field. T
 
 - `brand/<app>.svg`: the mark as a file.
 - `brand/<app>/mark/mark-<size>.png`: the mark on a transparent square, at 16, 24, 32, 48, 64, 128, 256 and 512 pixels. A brand with no app icon, Tessera, also gets `mark.ico` holding 16 to 256; it is the gallery favicon.
-- `brand/<app>/icon/`, for an app only: the app icon as `icon.svg`, `png/icon-<size>.png` at the same sizes plus `icon-1024.png` for the installer builder, `icon.ico` holding 16 to 256, `maskable-512.png` and the two Android layers. `brand/<app>/splash/` holds the splash. A `tile` app draws the maskable icon and the Android background on its tile colour and the splash on the dark splash ground, with the mark in its dark ground look. A `straight` app draws all of them on transparent ground: the maskable icon and the splash are the mark alone, and the Android background layer is empty.
+- `brand/<app>/icon/`, for an app only: the app icon as `icon.svg`, `png/icon-<size>.png` at the same sizes plus `icon-1024.png` for the installer builder, `icon.ico` holding 16 to 256, `maskable-512.png` and the two Android layers. `brand/<app>/splash/` holds the splash. A `tile` app draws the maskable icon and the Android background on its tile colour and the splash on the dark splash ground, with the mark in its dark ground look. A mark at least twice as wide as it is tall, Bxel's, is drawn at `SPLASH_WIDE_SCALE` on the splash so it does not shrink to a strip; the static kit has `ts-mark--wide` for the same case. A `straight` app draws all of them on transparent ground: the maskable icon and the splash are the mark alone, and the Android background layer is empty.
 - `brand/light-rim/`: every file above except the mascot, with a light rim and no tile. See Rims below.
 - `brand/dark-ground/<app>.svg` and `mark/mark-<size>.png` beside it: the mark in its look for the dark gradient. See The dark ground below.
 - `brand/<app>/mascot/`, for a brand with a mascot: each variant as `<variant>.svg` and as crisp transparent renders at 1, 2 and 4 times, and the mascot itself as a PNG ladder and `<variant>.ico`.
@@ -85,8 +86,9 @@ A mark stands on the dark gradient of its palette, the dark pair of the splash, 
 | Relic of the Past | As drawn: its own black outline is its edge |
 | Archipelia | Its second colours: the ring and its dots turn lilac, `#b9a3ff`; the large purple dot stays |
 | Brock | As drawn, the charcoal stone, with a white outline |
+| Bxel | Its fading trail of bits turn lilac and rose and fade less, so each stays at 3:1; the solid letters and the B stay as drawn |
 
-There is no `ground` prop. Inside `Splash` every mark takes the dark look by itself; anywhere else it is drawn as drawn. A path sets its second colour in `onDark`, beside `ink`; only Archipelia has one, its lilac ring. `grounds.dark.inks` set to `'onDark'` draws the second colours on the dark ground. `grounds.dark.outline`, `'light'`, outlines the mark in the rim colour: half the width of the `rim` prop's, never under 1 pixel. A `rim` prop keeps its own width and wins. An app icon on its tile keeps its colours, since the tile is its ground.
+There is no `ground` prop. Inside `Splash` every mark takes the dark look by itself; anywhere else it is drawn as drawn. A path sets its second colour in `onDark`, beside `ink`, and may set `onDarkOpacity` to fade less there; Archipelia has a lilac ring, and Bxel has its trail of bits. `grounds.dark.inks` set to `'onDark'` draws the second colours on the dark ground. `grounds.dark.outline`, `'light'`, outlines the mark in the rim colour: half the width of the `rim` prop's, never under 1 pixel. A `rim` prop keeps its own width and wins. An app icon on its tile keeps its colours, since the tile is its ground.
 
 `pnpm icons` writes the look as files, for a static page that shows the mark as an image: `brand/dark-ground/<app>.svg`, with `<app>/mark/mark-<size>.png` at the sizes of the mark ladder, and no `.ico`. The static splash page reads `brand/dark-ground/`.
 

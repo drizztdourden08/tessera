@@ -22,6 +22,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Too many, or secondary: [DropdownMenu](components/DropdownMenu.md). DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work.
     - Actions on one item, folding into More when narrow: [ActionBar](components/ActionBar.md). ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and always asks before it.
     - Tools in groups, each under a small label: [ToolGroups](components/ToolGroups.md). ToolGroups names each group of tools with a small label and draws a line between groups; StudioLayout uses it for its bar and its toolbar.
+    - Tools in a row or column, with hints and options: [Toolbar](components/Toolbar.md). Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them.
 - A value the user sets. **What does the user set?**
   - Free text or a number. **What shape is it?**
     - One line of text: no component yet.
@@ -153,6 +154,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A long job with steps, a log or a failure: [TaskProgress](components/TaskProgress.md). TaskProgress draws a bar, the steps, the failure and the log of one job the same way in every app.
   - The app is starting, or starting again: [Splash](components/Splash.md). Splash draws the classes of splash.css, so it looks the same as the static splash page.
   - The results of a list of checks: [CheckList](components/CheckList.md). CheckList gives pass, advice and failure their own icon and colour, so a test result reads the same in every app.
+  - A question that blocks one region until it is answered: [FloatingPrompt](components/FloatingPrompt.md). FloatingPrompt asks the user to answer before going on in one region, with actions from data and the look of a Toast.
   - What blocks a save, with a jump to each field: [ValidationSummary](components/ValidationSummary.md). ValidationSummary lists what blocks a save in one place and takes the user to each field, the same way in every editor.
   - Whether the edits are saved, with Save and Discard: [SaveBar](components/SaveBar.md). SaveBar says whether an editor is saved and holds Save and Discard at its foot, the same way in every app.
 - Text. **What kind of text?**

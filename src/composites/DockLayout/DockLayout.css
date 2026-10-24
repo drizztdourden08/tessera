@@ -94,48 +94,6 @@
   white-space: nowrap;
 }
 
-.dock-hint,
-.dock-layout__preview,
-.dock-layout__swap,
-.dock-ghost {
-  position: absolute;
-  pointer-events: none;
-  z-index: var(--z-modal);
-}
-
-.dock-hint--outer {
-  background: var(--c-primary-soft);
-  border: var(--border-width-thin) dashed var(--c-primary);
-}
-
-.dock-hint--compass {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--c-surface);
-  border: var(--border-width-thin) solid var(--c-border-strong);
-  border-radius: var(--radius-md);
-  color: var(--c-text);
-  box-shadow: var(--shadow-2);
-}
-
-.dock-hint--hot {
-  background: var(--c-primary-dim);
-  border-color: var(--c-primary-bright);
-  color: var(--c-primary-bright);
-}
-
-.dock-layout__preview {
-  background: var(--c-primary-soft);
-  border: var(--border-width-thick) solid var(--c-primary-bright);
-  border-radius: var(--radius-sm);
-}
-
-.dock-layout__preview--refused {
-  background: var(--c-danger-soft);
-  border-color: var(--c-danger);
-}
-
 .dock-snap-guide {
   position: absolute;
   pointer-events: none;
@@ -152,78 +110,15 @@
 }
 
 .dock-layout__swap {
+  position: absolute;
+  pointer-events: none;
+  z-index: var(--z-modal);
   display: flex;
   align-items: center;
   justify-content: center;
   border: var(--border-width-thick) dashed var(--c-primary);
   border-radius: var(--radius-sm);
   background: var(--c-primary-soft);
-}
-
-.dock-layout__swap-label,
-.dock-layout__popzone-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semi);
-  letter-spacing: calc(var(--tracking-caps) * 2);
-  text-transform: uppercase;
-  color: var(--c-primary-bright);
-  text-shadow: var(--shadow-1);
-}
-
-.dock-layout__popzone {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  z-index: var(--z-modal);
-  border: calc(3 * var(--size-1)) dashed var(--c-primary);
-  background: var(--c-scrim);
-}
-
-.dock-layout__popzone--stays {
-  border-color: var(--c-text-muted);
-  border-style: dotted;
-}
-
-.dock-layout__popzone--stays .dock-layout__popzone-label {
-  color: var(--c-text-muted);
-}
-
-.dock-ghost {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-2xs) var(--space-xs);
-  border-radius: var(--radius-sm);
-  background: var(--c-surface);
-  border: var(--border-width-thin) solid var(--c-primary);
-  box-shadow: var(--shadow-2);
-  white-space: nowrap;
-  font-size: var(--text-xs);
-  line-height: var(--leading-tight);
-}
-
-.dock-ghost__label {
-  max-inline-size: var(--size-160);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-family: var(--font-mono);
-  font-weight: var(--weight-semi);
-  color: var(--c-text);
-}
-
-.dock-ghost__key {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2xs);
-  color: var(--c-text-dim);
-}
-
-.dock-ghost__key--lit {
-  color: var(--c-primary-bright);
 }
 
 @media (prefers-reduced-motion: reduce) {

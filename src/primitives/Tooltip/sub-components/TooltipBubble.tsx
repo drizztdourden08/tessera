@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Anchored } from '../../Anchored';
 import { Portal } from '../../Portal';
+import { TOOLTIP_PLACES } from './TooltipBubble.constants';
 import type { TooltipBubbleProps } from './TooltipBubble.type';
 
 const TooltipBubble = (props: TooltipBubbleProps) => {
@@ -20,7 +21,7 @@ const TooltipBubble = (props: TooltipBubbleProps) => {
       id={id}
       role="tooltip"
       anchorRef={anchorRef}
-      placement={placement === 'top' ? 'top-center' : 'bottom-center'}
+      placement={TOOLTIP_PLACES[placement]}
       layer="tooltip"
       className="tooltip"
       data-placement={placement}

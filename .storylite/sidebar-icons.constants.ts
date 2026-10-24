@@ -74,7 +74,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban', GuidedTour: 'signpost' },
   'Composites · Feedback': { Toast: 'bell', LoadError: 'circle-alert', ErrorBoundary: 'bug', Splash: 'rocket', 'Static splash': 'power' },
-  'Composites · Actions': { ConfirmIconButton: 'circle-check', ArmedIconButton: 'hard-drive-upload', ActionBar: 'rectangle-ellipsis', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
+  'Composites · Actions': { ConfirmIconButton: 'circle-check', ArmedIconButton: 'hard-drive-upload', ActionBar: 'rectangle-ellipsis', Toolbar: 'wrench', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',

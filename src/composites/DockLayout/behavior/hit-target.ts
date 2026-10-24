@@ -2,7 +2,7 @@
 import { EDGES } from '../DockLayout.constants';
 import type { DockEdge, Rect } from '../DockLayout.type';
 import type { DragSubject, DropZone, Point } from './drag.type';
-import { inRect } from './in-rect';
+import { inRect } from '../../dock-zones/in-rect';
 import { isOwnEmptyingPane } from './is-own-emptying-pane';
 import type { LaidOut } from './layout-tree.type';
 

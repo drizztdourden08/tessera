@@ -37,6 +37,11 @@
     --p-tertiary-850: color-mix(in oklab, var(--p-tertiary) 40%, var(--p-pure-black));
     --p-tertiary-900: color-mix(in oklab, var(--p-tertiary) 30%, var(--p-pure-black));
     --p-tertiary-950: color-mix(in oklab, var(--p-tertiary) 17%, var(--p-pure-black));
+    --p-surface: var(--p-tertiary);
+    --p-surface-800: color-mix(in oklab, var(--p-surface) 52%, var(--p-pure-black));
+    --p-surface-850: color-mix(in oklab, var(--p-surface) 40%, var(--p-pure-black));
+    --p-surface-900: color-mix(in oklab, var(--p-surface) 30%, var(--p-pure-black));
+    --p-surface-950: color-mix(in oklab, var(--p-surface) 17%, var(--p-pure-black));
     --p-grey-0: color-mix(in oklab, var(--p-pure-white) 100%, var(--p-pure-black));
     --p-grey-50: color-mix(in oklab, var(--p-pure-white) 96%, var(--p-pure-black));
     --p-grey-100: color-mix(in oklab, var(--p-pure-white) 90%, var(--p-pure-black));
