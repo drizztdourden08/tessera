@@ -702,6 +702,11 @@
   --p-tertiary-850: #2f2a3e;
   --p-tertiary-900: #1d1927;
   --p-tertiary-950: #07060c;
+  --p-surface: #b3a2e0;
+  --p-surface-800: #47405b;
+  --p-surface-850: #2f2a3e;
+  --p-surface-900: #1d1927;
+  --p-surface-950: #07060c;
   --c-surface: #1d1927;
   --c-sunken: #07060c;
   --c-layer: #140b26;
@@ -747,6 +752,7 @@
   --c-primary-dim: #04010e;
   --c-primary-soft: #7b3fe424;
   --c-on-primary: #fff;
+  --c-focus: #7b3fe4;
   --c-selected: #7b3fe41f;
   --c-volume-wave: #7b3fe4;
   --c-secondary: #e0245e;
