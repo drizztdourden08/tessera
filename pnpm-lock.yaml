@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@drizztdourden08/standards': ^0.12.0
-
 importers:
 
   .:
@@ -40,8 +37,8 @@ importers:
         specifier: ^2.31.1
         version: 2.31.1(@types/node@24.19.0)
       '@drizztdourden08/brock-thread':
-        specifier: ^0.86.0
-        version: 0.86.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.87.1
+        version: 0.87.1(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)
       '@drizztdourden08/standards':
         specifier: ^0.12.0
         version: 0.12.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)
@@ -281,8 +278,8 @@ packages:
     peerDependencies:
       postcss-selector-parser: ^7.1.1
 
-  '@drizztdourden08/brock-thread@0.86.0':
-    resolution: {integrity: sha512-h7698pqz3Kr/T4gCjZo04UyIHFWFo2m+UAN2DoEJAJy2uV4jI4twJzbqKG7wEa7DkEQipOOLRc1NJd7XHLu8Dg==, tarball: https://npm.pkg.github.com/download/@drizztdourden08/brock-thread/0.86.0/013ddc23662f0839ece27cf72ae752871d100908}
+  '@drizztdourden08/brock-thread@0.87.1':
+    resolution: {integrity: sha512-knS2ZJIkrJFaXQ5Y8UiVxZR7P7a5s5E+rlTEik5FGGbiSG7kEbW83TQo2k6YCMP3768dv2soQ6Y+nSJnEU5TEQ==, tarball: https://npm.pkg.github.com/download/@drizztdourden08/brock-thread/0.87.1/641b0f5e0be774042fb33ed55d9c9fc6c0031338}
     engines: {node: '>=24'}
     hasBin: true
 
@@ -2871,7 +2868,7 @@ snapshots:
     dependencies:
       postcss-selector-parser: 7.1.6
 
-  '@drizztdourden08/brock-thread@0.86.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)':
+  '@drizztdourden08/brock-thread@0.87.1(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
       '@drizztdourden08/standards': 0.12.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)
     transitivePeerDependencies:
