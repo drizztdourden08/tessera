@@ -29,6 +29,7 @@ const BXEL_FILE_TYPES: BrandFileTypes = {
     { kind: 'tileset', ext: 'bxtiles', name: 'Tileset', icon: 'pixel-tileset', small: BXEL_FILE_GLYPHS.tileset },
     { kind: 'tilemap', ext: 'bxmap', name: 'Tilemap', icon: 'pixel-tilemap', small: BXEL_FILE_GLYPHS.tilemap },
     { kind: 'project', ext: 'bxproject', name: 'Project', icon: 'pixel-project', small: BXEL_FILE_GLYPHS.project },
+    { kind: 'legacy', ext: 'bxel', name: 'Legacy', icon: 'pixel-legacy', small: BXEL_FILE_GLYPHS.legacy },
   ],
 };
 

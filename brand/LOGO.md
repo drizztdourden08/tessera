@@ -45,7 +45,7 @@ Every square PNG follows one rule, taken from Relic of the Past. Pixel art that 
 
 ## File type icons
 
-An app that saves its own files lists them in the `fileTypes` field of its brand data. The system then shows each file with its own icon. Each kind has its file extension, a name and a glyph. Bxel has six:
+An app that saves its own files lists them in the `fileTypes` field of its brand data. The system then shows each file with its own icon. Each kind has its file extension, a name and a glyph. Bxel has seven:
 
 | Kind | Extension | Glyph |
 |---|---|---|
@@ -55,6 +55,9 @@ An app that saves its own files lists them in the `fileTypes` field of its brand
 | Tileset | `.bxtiles` | `pixel-tileset` |
 | Tilemap | `.bxmap` | `pixel-tilemap` |
 | Project | `.bxproject` | `pixel-project` |
+| Legacy | `.bxel` | `pixel-legacy` |
+
+The Legacy kind is the older `.bxel` format that Bxel still opens, shown as an archive box.
 
 Each icon is pixel art: a dark page with a folded corner on a transparent ground, the crimson pixel B in the top corner and the glyph large in the middle. The master is drawn on a 32 grid, with the glyph taken from the pixel icon of that name. Smaller grids of 24 and 16 hold simpler glyphs, so the art stays readable at 16 pixels. Each size uses the largest grid that divides it, so every pixel stays square: 16 uses the 16 grid, 24 and 48 the 24 grid, the rest the 32 grid. The code is in `src/brand/file-types/`.
 

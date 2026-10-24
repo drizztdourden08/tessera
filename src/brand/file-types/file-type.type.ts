@@ -3,7 +3,7 @@ import type { PixelGrid } from '../../primitives/Icon/Icon.type';
 import type { PIXEL_GRIDS } from '../../primitives/icon-sets/pixel.constants';
 import type { IconArtFiles } from '../icon-files.type';
 
-type FileTypeKind = 'sprite' | 'sheet' | 'palette' | 'tileset' | 'tilemap' | 'project';
+type FileTypeKind = 'sprite' | 'sheet' | 'palette' | 'tileset' | 'tilemap' | 'project' | 'legacy';
 
 type FileTypeGrid = 16 | 24 | 32;
 
