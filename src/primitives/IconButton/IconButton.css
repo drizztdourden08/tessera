@@ -23,6 +23,12 @@
   font-size: var(--text-lg);
 }
 
+.icon-btn--xs:has(.icon--pixel),
+.icon-btn--sm:has(.icon--pixel) {
+  width: var(--control-h-pixel);
+  height: var(--control-h-pixel);
+}
+
 .icon-btn__spinner {
   display: flex;
 }

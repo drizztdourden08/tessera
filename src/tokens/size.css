@@ -25,6 +25,7 @@
   --control-h-xs: var(--size-20);
   --control-h-sm: var(--size-28);
   --control-h-md: calc(39 * var(--size-1));
+  --control-h-pixel: calc(var(--size-24) + 2 * var(--space-xs));
   --control-pad-sm: var(--space-sm);
   --control-pad-md: var(--space-md);
   --row-inset: var(--control-pad-md);

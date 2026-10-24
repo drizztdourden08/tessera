@@ -10,7 +10,7 @@ const PIXEL_ICON_RULES = [
   'Clean curves: no doubled corners where two runs meet, and no jaggy diagonals. Step diagonals evenly at 1:1, 2:1 or 1:2, and let curve runs grow or shrink one step at a time.',
   'Tools held in the hand, such as the pencil, eraser and eyedropper, lie at 45 degrees with the working end at the bottom left.',
   'It must read as its tool at 24 px. If a detail vanishes there, drop the detail.',
-  'Size it at 24, 48 or 72 px. Other sizes blur the pixel edges.',
+  'Size it at 24, 48 or 72 px. Icon snaps any other size to the nearest multiple of 24, never below 24, and IconButton and Button grow to hold it.',
   'Name it pixel-<name>, and put it in a data file src/primitives/icon-sets/pixel-<group>.constants.ts.',
 ] as const;
 

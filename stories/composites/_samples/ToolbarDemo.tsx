@@ -6,8 +6,8 @@ import type { ToolbarDemoProps } from './toolbar-story.type';
 import { useDrawingTools } from './useDrawingTools';
 
 const ToolbarDemo = (props: ToolbarDemoProps) => {
-  const { orientation = 'horizontal', handle = true, size = 'sm', extent = '640', captions = false, readout = false } = props;
-  const { items, tool, size: brush, shape, last } = useDrawingTools(captions);
+  const { orientation = 'horizontal', handle = true, size = 'sm', extent = '640', captions = false, readout = false, pixel = false } = props;
+  const { items, tool, size: brush, shape, last } = useDrawingTools(captions, pixel);
   return (
     <Box className="toolbar-story" data-orientation={orientation}>
       <Box className="toolbar-story__box" data-orientation={orientation} data-extent={extent}>

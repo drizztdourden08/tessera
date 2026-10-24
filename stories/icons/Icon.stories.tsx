@@ -166,7 +166,7 @@ const Overview = overviewStory({
     '`name` picks from the named set, with short names such as `tree` and `water`; `icon` takes any @iconify icon.',
     '`path` draws an icon of your own: `d` takes path data, `circles` circles, `viewBox` the grid, 16 by default.',
     'It draws in `currentColor`; `size`, `rotate` in quarter turns and `flip` set how it sits.',
-    '`pixel-` names are drawn on a 24 by 24 pixel grid and stay crisp at 24, 48 and 72 px.',
+    '`pixel-` names sit on a 24 pixel grid and render at 24, 48 or 72 px; other sizes snap to the nearest.',
     '**Label it when it stands alone:** without a `label`, assistive tech skips it.',
     '`effect` lands a small pop every few seconds, such as a twinkle; reduced motion turns it off.',
   ],
