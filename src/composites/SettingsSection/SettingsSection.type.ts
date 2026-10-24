@@ -6,7 +6,7 @@ interface SettingsContentFields {
   id: string;
   content: ReactNode;
   title?: string;
-  hint: string;
+  hint?: string;
   keywords?: string;
   lock?: string | null;
 }

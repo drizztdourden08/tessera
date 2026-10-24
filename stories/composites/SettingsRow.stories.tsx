@@ -10,6 +10,7 @@ import type { StateProps } from '../_template/states/states.type';
 import { ChoiceFitDemo } from './_samples/ChoiceFitDemo';
 import { everyKind, KIND_ORDER, rowOfKind } from './_samples/every-kind';
 import { LockedOptionsDemo } from './_samples/LockedOptionsDemo';
+import { OptionalHintDemo } from './_samples/OptionalHintDemo';
 import { RestHintsDemo } from './_samples/RestHintsDemo';
 import { RowMarksDemo } from './_samples/RowMarksDemo';
 import { useSampleSettings } from './_samples/settings-sample-state';
@@ -148,6 +149,11 @@ const RestHints = {
   render: () => <RestHintsDemo />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
+const OptionalHint = {
+  name: 'With and without a hint',
+  render: () => <OptionalHintDemo />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
 const StateRow = (props: StateProps) => {
   const row = rowOfKind(useSampleSettings(), 'segmented');
   if (row === undefined) return null;
@@ -182,13 +188,14 @@ const Overview = overviewStory({
   points: [
     'The input is data: a `kind`, its props, `value` and `onChange`; an option `disabled` with a string says why.',
     '**It never changes height:** the hint line keeps room for every hint; `hints.atRest` shows On and Off always.',
+    '`hint` is optional: leave it out and the row draws no hint line and keeps no room for one.',
     '`changed` adds a dot and, with `onReset`, a reset button; `badge` sits after the title, `problem` under the row.',
     '`actions` puts buttons after the control, or in its place, each `loading` while the app runs it.',
     '`compact` draws one line; `readOnly` draws the value as text; `descriptionLines` folds the description.',
     'Rows sit in a [SettingsSection], which draws the box, counts the changed rows and holds the `lock`.',
   ],
   playground: Playground,
-  variants: [Kinds, Compact, ReadOnly, Marks, MarksCompact, Busy, ChoiceFit, ChoiceFitCompact, LockedOptions, RestHints],
+  variants: [Kinds, Compact, ReadOnly, Marks, MarksCompact, Busy, ChoiceFit, ChoiceFitCompact, LockedOptions, RestHints, OptionalHint],
   states: {
     render: (props) => <StateRow {...props} />,
     list: [
@@ -204,4 +211,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Busy, ChoiceFit, ChoiceFitCompact, Compact, Kinds, LockedOptions, Marks, MarksCompact, Overview, Playground, ReadOnly, RestHints };
+export { Busy, ChoiceFit, ChoiceFitCompact, Compact, Kinds, LockedOptions, Marks, MarksCompact, OptionalHint, Overview, Playground, ReadOnly, RestHints };

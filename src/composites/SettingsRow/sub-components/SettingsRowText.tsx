@@ -13,7 +13,7 @@ const SettingsRowText = (props: SettingsRowTextProps) => {
     <Box className="settings-row__text">
       <SettingsRowHead lead={<Span className="settings-row__title">{title}</Span>} title={title} badge={badge} changed={changed} onReset={onReset} />
       {description !== undefined && <SettingsRowDescription text={description} lines={descriptionLines} />}
-      <SettingsRowLine {...line} quiet={description !== undefined} />
+      {line.resting !== '' && <SettingsRowLine {...line} quiet={description !== undefined} />}
       <SettingsRowRest hints={line.rest} current={current} />
     </Box>
   );
