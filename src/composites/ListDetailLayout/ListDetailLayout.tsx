@@ -6,6 +6,7 @@ import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/use
 import { PaneEdge } from '../pane-edge/PaneEdge';
 import { PaneRail } from '../pane-edge/PaneRail';
 import { layoutClass } from './behavior/layout-class';
+import { isPaired } from './behavior/is-paired';
 import { labelsOf } from './behavior/labels-of';
 import { layoutOptionsOf } from './behavior/layout-options-of';
 import { paneClass } from './behavior/pane-class';
@@ -26,7 +27,7 @@ const ListDetailLayout = (props: ListDetailLayoutProps) => {
   const { listFold, detailFold } = panes;
   const labels = labelsOf(props, { list: navigation.listPane, detail: navigation.detailPane, back: navigation.back });
   const { list: listLabel, detail: detailLabel } = labels;
-  const look = { collapsed: listFold.collapsed, detailCollapsed: detailFold.collapsed, dragging: panes.dragging };
+  const look = { collapsed: listFold.collapsed, detailCollapsed: detailFold.collapsed, dragging: panes.dragging, paired: isPaired(options.collapse, options.detailCollapse, { list: listFold, detail: detailFold }) };
 
   return (
     <Box className={layoutClass(look, className)}>

@@ -3,6 +3,7 @@ interface LayoutLook {
   collapsed: boolean;
   detailCollapsed: boolean;
   dragging: boolean;
+  paired: boolean;
 }
 
 export type { LayoutLook };

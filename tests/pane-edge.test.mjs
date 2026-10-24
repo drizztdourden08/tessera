@@ -118,7 +118,7 @@ describe('the fold button overlaps the actual pane border', () => {
     expect(rule(edge, '.pane-edge--horizontal')).toContain('grid-template-rows: subgrid;');
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal')).toContain('grid-template-columns: 0;');
     expect(rule(edge, ':is(.side-panel__edge, .list-detail-layout__edge).pane-edge--horizontal > .pane-edge__toggle')).toMatch(/grid-column: 1;[\s\S]*grid-row: 1;[\s\S]*place-self: center;/);
-    expect(rule(edge, '.list-detail-layout__edge:has(.pane-edge__toggle--start) > .pane-edge__toggle--end')).toContain('inset-block-start: calc(var(--size-40) / 2 + var(--collapse-toggle-d) / 2 + var(--space-xs));');
+    expect(rule(edge, '.list-detail-layout--paired .list-detail-layout__edge.pane-edge--horizontal > .pane-edge__toggle--end')).toContain('inset-inline-start: var(--list-detail-seam);');
     ['CollapseToggle/CollapseToggle.css', 'edge-button/EdgeButton.css'].forEach((file) => {
       expect(sheet(`src/composites/${file}`), file).not.toMatch(/position:|calc\(-|margin[^;]*: -/);
     });

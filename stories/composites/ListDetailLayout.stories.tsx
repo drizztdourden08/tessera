@@ -96,6 +96,16 @@ const RatioColumns = {
   render: () => <LayoutDemo ratio detailCollapsible />,
 } satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
 
+const BothFoldable = {
+  name: 'Both panes foldable: a button on each pane edge, with room between them',
+  render: () => <LayoutDemo detailCollapsible />,
+} satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
+
+const BothListFolded = {
+  name: 'Both panes foldable, the list folded',
+  render: () => <LayoutDemo detailCollapsible startCollapsed />,
+} satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
+
 const DetailFolded = {
   name: 'The detail folded to a rail',
   render: () => <LayoutDemo ratio detailCollapsible startDetailCollapsed />,
@@ -136,12 +146,12 @@ const Overview = overviewStory({
     'No `detail` shows `emptyDetail`, or Pick an item from the list, and a small window shows the list.',
     'Drag the divider from 240 to 480 px, or give `listRatio` a share; `storageKey` keeps it.',
     'The button beside the divider, or a drag past the minimum, folds the list; drag the rail out to open it.',
-    '`detailCollapsible` folds the detail the same way, from the other side of the divider.',
+    '`detailCollapsible` folds the detail too; each pane keeps its own dashed edge and button.',
     'Under 768 px the panes stack: the list, then the detail with a Back button that calls `onBack`.',
   ],
   instead: '[ListDetail] for an editor that asks before unsaved edits are lost, or [SplitPane] for two equal panes.',
   playground: Playground,
-  variants: [Resizable, Collapsed, RatioColumns, DetailFolded, Stacked],
+  variants: [Resizable, Collapsed, RatioColumns, BothFoldable, BothListFolded, DetailFolded, Stacked],
   states: {
     render: renderState,
     list: [
@@ -153,4 +163,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Collapsed, DetailFolded, Overview, Playground, RatioColumns, Resizable, Stacked };
+export { BothFoldable, BothListFolded, Collapsed, DetailFolded, Overview, Playground, RatioColumns, Resizable, Stacked };

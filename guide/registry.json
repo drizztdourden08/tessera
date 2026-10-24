@@ -9007,6 +9007,7 @@
         "--c-surface",
         "--c-text-muted",
         "--radius-lg",
+        "--space-2xl",
         "--space-lg",
         "--space-md",
         "--space-sm",
