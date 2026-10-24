@@ -1,0 +1,43 @@
+/* @layer renderer-components @kind style */
+.dock-layout__swap-label,
+.dock-layout__popzone-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semi);
+  letter-spacing: calc(var(--tracking-caps) * 2);
+  text-transform: uppercase;
+  color: var(--c-primary-bright);
+  text-shadow: var(--shadow-1);
+}
+
+.dock-layout__popzone {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  pointer-events: none;
+  z-index: var(--z-modal);
+  border: calc(3 * var(--size-1)) dashed var(--c-primary);
+  background: var(--c-scrim);
+}
+
+.dock-layout__popzone--stays {
+  border-color: var(--c-text-muted);
+  border-style: dotted;
+}
+
+.dock-layout__popzone--stays .dock-layout__popzone-label {
+  color: var(--c-text-muted);
+}
+
+.dock-layout__popzone--basket {
+  border-color: var(--c-danger);
+  background: var(--c-danger-soft);
+  color: var(--c-danger-bright);
+}
+
+.dock-layout__popzone--basket .dock-layout__popzone-label {
+  color: var(--c-danger-bright);
+}

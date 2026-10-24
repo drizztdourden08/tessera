@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import type { DockEdge, Rect } from '../DockLayout.type';
+import type { DockEdge, Rect } from '../DockLayout/DockLayout.type';
 
 const edgeBand = (rect: Rect, edge: DockEdge, size: number): Rect => {
   switch (edge) {

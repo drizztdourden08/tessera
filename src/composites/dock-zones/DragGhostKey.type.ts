@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ShortcutKey } from '../../../primitives/Shortcut/Shortcut.type';
+import type { ShortcutKey } from '../../primitives/Shortcut/Shortcut.type';
 
 interface DragGhostKeyProps {
   keys: ShortcutKey;
