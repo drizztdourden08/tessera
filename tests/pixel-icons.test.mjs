@@ -90,7 +90,7 @@ describe('the pixel icons in the named set', () => {
     expect(html).toContain('fill="currentColor"');
   });
 
-  it('draws at 16 pixels by default', () => {
-    expect(renderToString(h(Icon, { name: 'pixel-hand' }))).toContain('width="16"');
+  it('draws at 24 pixels by default, one grid', () => {
+    expect(renderToString(h(Icon, { name: 'pixel-hand' }))).toContain(`width="${SIZE}"`);
   });
 });

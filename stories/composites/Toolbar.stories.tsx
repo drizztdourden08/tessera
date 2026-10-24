@@ -46,6 +46,22 @@ const Plain = {
   render: () => <ToolbarDemo handle={false} size="md" />,
 } satisfies StoryLiteStoryDefinition<ToolbarArgs>;
 
+const PixelIcons = {
+  name: 'Pixel icons beside smooth icons: the buttons grow to hold a 24 px icon',
+  render: () => (
+    <Box className="toolbar-story">
+      <Box className="toolbar-story__row">
+        <ToolbarDemo pixel captions />
+        <ToolbarDemo captions />
+      </Box>
+      <Box className="toolbar-story__row">
+        <ToolbarDemo pixel orientation="vertical" />
+        <ToolbarDemo orientation="vertical" />
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
 const Overview = overviewStory({
   component: 'Toolbar',
   description: 'A row or a column of tools: buttons, toggles, groups and a number, with a hint on each and More for the rest.',
@@ -59,7 +75,7 @@ const Overview = overviewStory({
   ],
   instead: '[ActionBar] for the buttons of one item, or [DropdownMenu] for actions that need no button of their own.',
   playground: Playground,
-  variants: [Horizontal, Vertical, Overflow, Plain],
+  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons],
   states: {
     render: (props: StateProps) => <ToolbarDemo {...props} />,
     list: [
@@ -72,4 +88,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Horizontal, Overflow, Overview, Plain, Playground, Vertical };
+export { Horizontal, Overflow, Overview, PixelIcons, Plain, Playground, Vertical };
