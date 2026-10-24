@@ -7,6 +7,7 @@ import { focusFromSurface } from './behavior/focus-from-surface';
 import { partKey } from './behavior/part-key';
 import { useDynamicInput } from './behavior/useDynamicInput';
 import { PatternCounter } from './sub-components/PatternCounter';
+import { PatternError } from './sub-components/PatternError';
 import { PatternPart } from './sub-components/PatternPart';
 import type { DynamicInputProps } from './DynamicInput.type';
 
@@ -36,6 +37,7 @@ const DynamicInput = (props: DynamicInputProps) => {
           {field.parsed.parts.map((part, at) => <PatternPart key={partKey(part, at)} field={field} part={part} />)}
         </FieldControlBoundary>
       </Box>
+      {field.message !== undefined && <PatternError field={field} message={field.message} />}
       {counter !== undefined && <PatternCounter field={field} name={counter} />}
     </Box>
   );

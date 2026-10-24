@@ -17,4 +17,9 @@ interface PatternCounterProps {
   name: string;
 }
 
-export type { AdornmentProps, PatternCounterProps, PatternPartProps };
+interface PatternErrorProps {
+  field: PatternField;
+  message: string;
+}
+
+export type { AdornmentProps, PatternCounterProps, PatternErrorProps, PatternPartProps };

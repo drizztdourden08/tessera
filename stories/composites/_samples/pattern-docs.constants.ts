@@ -19,7 +19,7 @@ const TYPE_ROWS: readonly PatternDocRow[] = [
   { key: 'hour', cells: ['{hh:hour 12h}', '0 to 23, or 1 to 12', 'Two digits that wrap at the ends.', 'An hour and a minute NumberInput.'] },
   { key: 'minute', cells: ['{mm:minute step5}', '0 to 59', 'Two digits that wrap at the ends.', 'An hour and a minute NumberInput.'] },
   { key: 'choice', cells: ['{ampm:choice AM|PM}', 'The value of an option', 'Letters jump to the matching option, and a single match moves on.', 'The option list, with flags and details when the options have them.'] },
-  { key: 'text', cells: ['{comment:text max100}', 'A string', 'Any characters, or only digits, letters or both. Moves on at lenN.', 'None.'] },
+  { key: 'text', cells: ['{comment:text max100}', 'A string', 'Any characters, only digits, letters or both, or the chars the slot lists. Moves on at lenN.', 'None.'] },
   { key: 'hex', cells: ['{color:hex}', 'A colour such as #e05a47', 'Six hex digits. Three digits grow to six when the slot is left.', 'A ColorPicker.'] },
 ];
 
@@ -47,7 +47,9 @@ const PROP_ROWS: readonly PatternDocRow[] = [
   { key: 'pattern', cells: ['string', 'What the field shows and asks for.'] },
   { key: 'value', cells: ['{ [slot]: number | string | null }', 'The whole field as one object. An empty slot is null.'] },
   { key: 'onChange', cells: ['(next) => void', 'Gets the whole object each time a slot holds a new valid value.'] },
-  { key: 'slots', cells: ['{ [slot]: { label, placeholder } }', 'Per slot wording, so app strings can be translated. It wins over the pattern label.'] },
+  { key: 'slots', cells: ['{ [slot]: { label, placeholder, chars, aliases, validate } }', 'Per slot wording, so app strings can be translated, and the rules of a text slot: chars, aliases and validate. It wins over the pattern label.'] },
+  { key: 'aliases', cells: ['{ [typed]: stored }', 'Typed characters stored as another one, for every text slot. A slot aliases entry wins. Applied on typing and on paste.'] },
+  { key: 'validate', cells: ['(value) => string | undefined', 'A rule for the whole pattern. A message turns the field invalid and shows under it. The invalid prop wins.'] },
   { key: 'lists', cells: ['{ [list]: PatternChoice[] }', 'Options for @list: value, label, short, flag (a region code), detail and any field an echo reads.'] },
   { key: 'actions', cells: ['{ [name]: { label, icon, disabled, onPress } }', 'The buttons of [action:name].'] },
   { key: 'icons', cells: ['{ [name]: IconifyIcon }', 'Icons for [icon:name] beyond the Tessera set.'] },

@@ -38,6 +38,13 @@
   gap: var(--space-xs);
 }
 
+.pattern-story__rules {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
 .pattern-story__playground {
   width: var(--size-512);
   max-width: 100%;

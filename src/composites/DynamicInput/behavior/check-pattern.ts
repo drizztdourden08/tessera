@@ -24,7 +24,20 @@ const counterProblems = (slots: readonly PatternSlotSpec[], counter: string | un
   return counted ? [] : [PATTERN_PROBLEMS.badCounter(counter)];
 };
 
+const ruleProblems = (slots: readonly PatternSlotSpec[], setup: PatternSetup): string[] =>
+  slots.flatMap((slot) => {
+    const config = setup.slots?.[slot.name];
+    if (slot.type !== 'text') {
+      return config?.chars === undefined && config?.aliases === undefined ? [] : [PATTERN_PROBLEMS.rulesNeedText(slot.name)];
+    }
+    const aliases = slot.aliases ?? {};
+    return Object.entries(aliases)
+      .filter(([typed, stored]) => [...stored].some((char) => char !== typed && Object.hasOwn(aliases, char)))
+      .map(([typed]) => PATTERN_PROBLEMS.aliasChain(slot.name, typed));
+  });
+
 const checkPattern = (parsed: ParsedPattern, setup: PatternSetup): string[] => [
+  ...ruleProblems(parsed.slots, setup),
   ...listProblems(parsed.slots, setup),
   ...parsed.parts.map((part) => adornmentProblem(part, setup)).filter((problem) => problem !== null),
   ...counterProblems(parsed.slots, setup.counter),
