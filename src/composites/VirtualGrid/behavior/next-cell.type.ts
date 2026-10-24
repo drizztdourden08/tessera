@@ -1,6 +1,18 @@
 /* @layer renderer-components @kind types */
-import type { GridShape } from '../VirtualGrid.type';
+import type { GridLayout } from './grid-layout.type';
 
-type GridMove = (shape: GridShape, ctrl: boolean) => number;
+interface GridPress {
+  page: number;
+  ctrl: boolean;
+}
 
-export type { GridMove };
+interface GridStep extends GridPress {
+  layout: GridLayout;
+  active: number;
+  row: number;
+  column: number;
+}
+
+type GridMove = (step: GridStep) => number;
+
+export type { GridMove, GridPress, GridStep };

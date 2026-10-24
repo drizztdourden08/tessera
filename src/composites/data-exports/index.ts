@@ -7,11 +7,11 @@ export type {
 export { VirtualList } from '../VirtualList';
 export type { VirtualListProps, VirtualListRowSize } from '../VirtualList';
 export { VirtualGrid } from '../VirtualGrid';
-export type { VirtualGridProps } from '../VirtualGrid';
+export type { VirtualGridBind, VirtualGridHandle, VirtualGridProps, VirtualGridSection } from '../VirtualGrid';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
-export { renderedIndices, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '../virtual';
-export type { RowRange, ShowInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
+export { renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '../virtual';
+export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
 export {
   MARQUEE_KEY_ATTRIBUTE, edgeScrollDelta, hitKeys, marqueeItemRects, mergeSelection, modifiersOf, rectFromPoints, rectsIntersect, useMarqueeSelect,
 } from '../marquee';

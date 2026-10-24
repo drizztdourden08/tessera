@@ -1,11 +1,11 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
-import { scrollTopToShow } from './scroll-top-to-show';
+import { scrollTopForSpan } from './scroll-top-for-span';
 import type { KeyboardEvent } from 'react';
 import type { VirtualFocus, VirtualFocusInput } from './virtual-focus.type';
 
 const useVirtualFocus = (input: VirtualFocusInput): VirtualFocus => {
-  const { rootRef, bodyRef, cellAttribute, metrics, onScroll, resolve, onActiveChange } = input;
+  const { rootRef, bodyRef, cellAttribute, metrics, onScroll, resolve, spanOf, onActiveChange } = input;
   const pending = useRef<number | null>(null);
   const [active, setActive] = useState(0);
 
@@ -35,9 +35,10 @@ const useVirtualFocus = (input: VirtualFocusInput): VirtualFocus => {
     const root = rootRef.current;
     if (!root) return;
     const viewport = root.clientHeight;
-    root.scrollTop = scrollTopToShow({ index: row, rowHeight: metrics.rowHeight, viewport, scrollTop: root.scrollTop });
+    const span = spanOf?.(row) ?? { top: row * metrics.rowHeight, height: metrics.rowHeight };
+    root.scrollTop = scrollTopForSpan({ ...span, viewport, scrollTop: root.scrollTop }, 'nearest');
     onScroll();
-  }, [rootRef, metrics, activate, onScroll]);
+  }, [rootRef, metrics, spanOf, activate, onScroll]);
 
   const navigate = useCallback((event: KeyboardEvent<HTMLElement>, index: number) => {
     if (event.target !== event.currentTarget) return;

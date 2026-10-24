@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, RefObject } from 'react';
-import type { VirtualMetrics } from './virtual.type';
+import type { SpanInput, VirtualMetrics } from './virtual.type';
 
 interface KeyTarget {
   index: number;
@@ -14,6 +14,7 @@ interface VirtualFocusInput {
   metrics: VirtualMetrics;
   onScroll: () => void;
   resolve: (event: KeyboardEvent<HTMLElement>, index: number, page: number) => KeyTarget | undefined;
+  spanOf?: (row: number) => Pick<SpanInput, 'top' | 'height'>;
   onActiveChange?: (index: number) => void;
 }
 

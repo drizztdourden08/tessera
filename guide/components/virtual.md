@@ -7,7 +7,7 @@ A hook module: functions for a screen that owns its own markup, not a component.
 Import from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
-import { renderedIndices, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '@drizztdourden08/tessera';
+import { renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '@drizztdourden08/tessera';
 ```
 
 The source is `src/composites/virtual/index.ts`.
@@ -30,7 +30,8 @@ The source is `src/composites/virtual/index.ts`.
 - Wire onScroll to the scroll of the root, and onFocus and onBlur to the body, so a focused row stays drawn.
 - Keep keyAt stable with useCallback; a new function on every render measures again.
 - Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.
-- Use scrollTopToShow to find the scroll position that brings a row into view.
+- Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.
+- For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height.
 
 ## Accessibility
 
@@ -64,6 +65,7 @@ const Rows = ({ names }: { names: string[] }) => {
 ## What it exports
 
 - `renderedIndices`, a function: `(range: RowRange, pinned: number) => readonly number[]`.
+- `scrollTopForSpan`, a function: `(input: SpanInput, align: ScrollAlign) => number`.
 - `scrollTopToShow`, a function: `(input: ShowInput) => number`.
 - `sizeVariable`, a function: `(token: VirtualSize) => string`.
 - `useVirtualWindow`, a hook: `(input: VirtualWindowInput) => VirtualWindow`.
@@ -77,9 +79,18 @@ interface RowRange {
   end: number;
 }
 
+type ScrollAlign = 'start' | 'center' | 'end' | 'nearest';
+
 interface ShowInput {
   index: number;
   rowHeight: number;
+  viewport: number;
+  scrollTop: number;
+}
+
+interface SpanInput {
+  top: number;
+  height: number;
   viewport: number;
   scrollTop: number;
 }
@@ -107,6 +118,7 @@ interface VirtualMetrics {
   top: number;
   viewport: number;
   rowHeight: number;
+  head?: number;
 }
 
 type VirtualSize =
@@ -130,6 +142,8 @@ interface VirtualWindowInput {
   indexAttribute: string;
   overscan?: number;
   sizeKey?: string;
+  readMetrics?: (root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics;
+  rangeOf?: (metrics: VirtualMetrics, overscan: number) => RowRange;
 }
 
 interface VisibleRangeInput {
