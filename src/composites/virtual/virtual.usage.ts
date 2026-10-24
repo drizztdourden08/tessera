@@ -18,7 +18,8 @@ const usage = {
     'Wire onScroll to the scroll of the root, and onFocus and onBlur to the body, so a focused row stays drawn.',
     'Keep keyAt stable with useCallback; a new function on every render measures again.',
     'Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.',
-    'Use scrollTopToShow to find the scroll position that brings a row into view.',
+    'Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.',
+    'For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height.',
   ],
   a11y: [
     'A row that holds focus stays in the document while it is outside the window, so the keys and the screen reader keep their place.',
@@ -44,7 +45,7 @@ const Rows = ({ names }: { names: string[] }) => {
   );
 };
 `,
-  propsHash: 'f2802695eb92be60',
+  propsHash: 'a8385895b70e5100',
 } satisfies HookUsage;
 
 export { usage };

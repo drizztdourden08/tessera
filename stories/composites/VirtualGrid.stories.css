@@ -14,3 +14,8 @@
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-sm);
 }
+
+.virtual-grid-story__tile--picked {
+  border-color: var(--c-primary);
+  background: var(--c-primary-dim);
+}

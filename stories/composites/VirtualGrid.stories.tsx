@@ -5,7 +5,10 @@ import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { VirtualGridActive } from './_samples/VirtualGridActive';
+import { VirtualGridFolders } from './_samples/VirtualGridFolders';
 import { VirtualGridFrame } from './_samples/VirtualGridFrame';
+import { VirtualGridJump } from './_samples/VirtualGridJump';
+import { VirtualGridMarquee } from './_samples/VirtualGridMarquee';
 import { FILLED_AND_EMPTY } from './_samples/virtual-states.constants';
 import './VirtualGrid.stories.css';
 
@@ -50,6 +53,26 @@ const Few = {
   render: () => <VirtualGridFrame count={3} />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
+const Wide = {
+  name: 'Wide tiles with tileWidth and tileHeight',
+  render: () => <VirtualGridFrame count={600} tileWidth="size-128" tileHeight="size-64" />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
+const Folders = {
+  name: 'Folders: click a header, or use Enter, Space, Left and Right on it',
+  render: () => <VirtualGridFolders folders={6} perFolder={40} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
+const Marquee = {
+  name: 'Marquee: drag over the gaps to pick tiles',
+  render: () => <VirtualGridMarquee count={300} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
+const Jump = {
+  name: 'Scroll to an index with the ref',
+  render: () => <VirtualGridJump count={2000} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
 const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
 
 <VirtualGrid
@@ -58,21 +81,35 @@ const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
   getKey={(frame) => frame.id}
   renderItem={(frame) => frame.name}
   tileSize="size-64"
-/>`;
+/>
+
+<VirtualGrid
+  ref={gridRef}
+  label="Folders"
+  sections={folders}
+  getKey={(frame) => frame.id}
+  renderItem={(frame) => frame.name}
+  tileWidth="size-128"
+  tileHeight="size-64"
+  onToggleSection={(key, collapsed) => remember(key, collapsed)}
+/>
+
+gridRef.current?.scrollToIndex(1200, 'center');`;
 
 const Overview = overviewStory({
   component: 'VirtualGrid',
-  description: 'A very long grid of equal square tiles where only the rows in view are drawn, with the keys to move through it.',
+  description: 'A very long grid of equal tiles, in sections if wanted, where only the rows in view are drawn, with the keys to move through it.',
   points: [
     '`items`, `getKey` and `renderItem` draw the tiles; `getKey` returns a stable id for each item.',
-    '`tileSize` is a size token name; the columns that fit the width are worked out from it.',
-    '`overscan` draws extra rows on each side of the view so a fast scroll shows no gap.',
-    'Arrows move by a tile or a row; Home, End, Page Up and Page Down jump, and Ctrl goes to the ends.',
-    'A tile that holds focus stays drawn when it scrolls out of view.',
+    '`tileSize` sets a square tile; `tileWidth` and `tileHeight` size a tile that is not square.',
+    '`sections` groups the tiles under header rows that collapse by click, Enter, Space or Left and Right.',
+    '`scrollRef`, `bind` and `overlay` let a marquee pick tiles; each tile carries `data-marquee-key`.',
+    'A `ref` gives `scrollToIndex(index, align)`, which scrolls a tile into view.',
+    'The keys move through tiles and headers, and a tile that holds focus stays drawn.',
   ],
   instead: '[VirtualList] for rows in a column, or [ItemCard] for a few cards.',
   playground: Playground,
-  variants: [Long, Small, Few],
+  variants: [Long, Small, Few, Wide, Folders, Marquee, Jump],
   states: {
     render: (props: StateProps) => <VirtualGridFrame count={40} {...props} />,
     list: FILLED_AND_EMPTY,
@@ -81,4 +118,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Few, Long, Overview, Playground, Small };
+export { Few, Folders, Jump, Long, Marquee, Overview, Playground, Small, Wide };

@@ -12,7 +12,7 @@ import type { FocusEvent } from 'react';
 import type { VirtualMetrics, VirtualWindow, VirtualWindowInput } from './virtual.type';
 
 const useVirtualWindow = (input: VirtualWindowInput): VirtualWindow => {
-  const { enabled, count, keyAt, rootRef, indexAttribute, overscan = OVERSCAN, sizeKey } = input;
+  const { enabled, count, keyAt, rootRef, indexAttribute, overscan = OVERSCAN, sizeKey, readMetrics = readVirtualMetrics, rangeOf } = input;
   const bodyRef = useRef<HTMLElement>(null);
   const [metrics, setMetrics] = useState<VirtualMetrics>(INITIAL_METRICS);
   const [focusKey, setFocusKey] = useState<string | null>(null);
@@ -22,10 +22,10 @@ const useVirtualWindow = (input: VirtualWindowInput): VirtualWindow => {
     const body = bodyRef.current;
     if (!root || !body) return;
     setMetrics((before) => {
-      const next = readVirtualMetrics(root, body, before.rowHeight);
+      const next = readMetrics(root, body, before);
       return sameMetrics(before, next) ? before : next;
     });
-  }, [rootRef]);
+  }, [rootRef, readMetrics]);
 
   useEffect(() => {
     if (!enabled) return undefined;
@@ -34,7 +34,7 @@ const useVirtualWindow = (input: VirtualWindowInput): VirtualWindow => {
   }, [enabled, count, sizeKey, measure, rootRef]);
 
   const indices = useMemo(() => {
-    const range = visibleRange({
+    const range = rangeOf ? rangeOf(metrics, overscan) : visibleRange({
       scrollTop: metrics.top, viewport: metrics.viewport, rowHeight: metrics.rowHeight, count, overscan,
     });
     let pinned = -1;
@@ -42,7 +42,7 @@ const useVirtualWindow = (input: VirtualWindowInput): VirtualWindow => {
       for (let at = 0; at < count && pinned < 0; at += 1) if (keyAt(at) === focusKey) pinned = at;
     }
     return renderedIndices(range, pinned);
-  }, [metrics, count, keyAt, focusKey, overscan]);
+  }, [metrics, count, keyAt, focusKey, overscan, rangeOf]);
 
   const onFocus = useCallback((event: FocusEvent<HTMLElement>) => {
     setFocusKey(keyAt(indexOfTarget(event.target, indexAttribute)) ?? null);

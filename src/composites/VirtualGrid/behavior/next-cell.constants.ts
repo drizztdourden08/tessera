@@ -1,17 +1,18 @@
 /* @layer renderer-components @kind constants */
 import { byRows } from './by-rows';
-import { rowStart } from './row-start';
 import type { GridMove } from './next-cell.type';
 
+const rowEnd = (stop: number, size: number): number => stop + size - 1;
+
 const GRID_MOVES = new Map<string, GridMove>([
-  ['ArrowLeft', (shape) => Math.max(shape.active - 1, 0)],
-  ['ArrowRight', (shape) => Math.min(shape.active + 1, shape.count - 1)],
-  ['ArrowUp', (shape) => byRows(shape, -1)],
-  ['ArrowDown', (shape) => byRows(shape, 1)],
-  ['PageUp', (shape) => byRows(shape, -shape.page)],
-  ['PageDown', (shape) => byRows(shape, shape.page)],
-  ['Home', (shape, ctrl) => (ctrl ? 0 : rowStart(shape))],
-  ['End', (shape, ctrl) => (ctrl ? shape.count - 1 : Math.min(rowStart(shape) + shape.columns - 1, shape.count - 1))],
+  ['ArrowLeft', (step) => Math.max(step.active - 1, 0)],
+  ['ArrowRight', (step) => Math.min(step.active + 1, step.layout.stops - 1)],
+  ['ArrowUp', (step) => byRows(step, -1)],
+  ['ArrowDown', (step) => byRows(step, 1)],
+  ['PageUp', (step) => byRows(step, -step.page)],
+  ['PageDown', (step) => byRows(step, step.page)],
+  ['Home', (step) => (step.ctrl ? 0 : step.active - step.column)],
+  ['End', (step) => (step.ctrl ? step.layout.stops - 1 : rowEnd(step.active - step.column, step.layout.rows[step.row]?.size ?? 1))],
 ]);
 
 export { GRID_MOVES };

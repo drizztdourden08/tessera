@@ -3,7 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { gridColumns } from '../src/composites/VirtualGrid/behavior/grid-columns';
-import { gridRows } from '../src/composites/VirtualGrid/behavior/grid-rows';
+import { gridLayout } from '../src/composites/VirtualGrid/behavior/grid-layout';
 import { nextCell } from '../src/composites/VirtualGrid/behavior/next-cell';
 import { visibleRange } from '../src/composites/virtual/visible-range';
 import { sizeVariable } from '../src/composites/virtual/size-variable';
@@ -16,7 +16,9 @@ const draw = (extra) => renderToString(h(VirtualGrid, {
   label: 'Tiles', items: ITEMS, getKey: (item) => item.id, renderItem: (item) => item.text, ...extra,
 }));
 
-const shape = (active, extra) => ({ active, count: 23, columns: 5, page: 2, ...extra });
+const flat = (count, columns = 5) => gridLayout([{ header: false, count, collapsed: false }], columns);
+
+const move = (key, ctrl, active, layout = flat(23)) => nextCell(key, layout, active, { ctrl, page: 2 });
 
 describe('the columns and rows of the grid', () => {
   it('fits as many whole tiles as the width holds', () => {
@@ -32,9 +34,9 @@ describe('the columns and rows of the grid', () => {
   });
 
   it('counts a partly filled last row', () => {
-    expect(gridRows(2000, 5)).toBe(400);
-    expect(gridRows(23, 5)).toBe(5);
-    expect(gridRows(0, 5)).toBe(0);
+    expect(flat(2000).tileRows).toBe(400);
+    expect(flat(23).tileRows).toBe(5);
+    expect(flat(0).tileRows).toBe(0);
   });
 
   it('windows by rows with the same math as the list', () => {
@@ -49,40 +51,40 @@ describe('the columns and rows of the grid', () => {
 
 describe('the keys of VirtualGrid', () => {
   it('moves by a tile left and right and stops at both ends', () => {
-    expect(nextCell('ArrowRight', false, shape(3))).toBe(4);
-    expect(nextCell('ArrowLeft', false, shape(0))).toBe(0);
-    expect(nextCell('ArrowRight', false, shape(22))).toBe(22);
+    expect(move('ArrowRight', false, 3)).toBe(4);
+    expect(move('ArrowLeft', false, 0)).toBe(0);
+    expect(move('ArrowRight', false, 22)).toBe(22);
   });
 
   it('moves by a row up and down in the same column', () => {
-    expect(nextCell('ArrowDown', false, shape(7))).toBe(12);
-    expect(nextCell('ArrowUp', false, shape(7))).toBe(2);
-    expect(nextCell('ArrowUp', false, shape(2))).toBe(2);
+    expect(move('ArrowDown', false, 7)).toBe(12);
+    expect(move('ArrowUp', false, 7)).toBe(2);
+    expect(move('ArrowUp', false, 2)).toBe(2);
   });
 
   it('lands on the last tile when the column is short in the last row', () => {
-    expect(nextCell('ArrowDown', false, shape(19))).toBe(22);
-    expect(nextCell('ArrowDown', false, shape(22))).toBe(22);
+    expect(move('ArrowDown', false, 19)).toBe(22);
+    expect(move('ArrowDown', false, 22)).toBe(22);
   });
 
   it('goes to the ends of the row, or of the grid with Ctrl', () => {
-    expect(nextCell('Home', false, shape(7))).toBe(5);
-    expect(nextCell('End', false, shape(7))).toBe(9);
-    expect(nextCell('End', false, shape(21))).toBe(22);
-    expect(nextCell('Home', true, shape(7))).toBe(0);
-    expect(nextCell('End', true, shape(7))).toBe(22);
+    expect(move('Home', false, 7)).toBe(5);
+    expect(move('End', false, 7)).toBe(9);
+    expect(move('End', false, 21)).toBe(22);
+    expect(move('Home', true, 7)).toBe(0);
+    expect(move('End', true, 7)).toBe(22);
   });
 
   it('moves by a page of rows and keeps the column', () => {
-    expect(nextCell('PageDown', false, shape(1))).toBe(11);
-    expect(nextCell('PageDown', false, shape(11))).toBe(21);
-    expect(nextCell('PageUp', false, shape(11))).toBe(1);
-    expect(nextCell('PageUp', false, shape(3))).toBe(3);
+    expect(move('PageDown', false, 1)).toBe(11);
+    expect(move('PageDown', false, 11)).toBe(21);
+    expect(move('PageUp', false, 11)).toBe(1);
+    expect(move('PageUp', false, 3)).toBe(3);
   });
 
   it('ignores other keys and an empty grid', () => {
-    expect(nextCell('a', false, shape(3))).toBeUndefined();
-    expect(nextCell('ArrowDown', false, shape(0, { count: 0 }))).toBeUndefined();
+    expect(move('a', false, 3)).toBeUndefined();
+    expect(move('ArrowDown', false, 0, flat(0))).toBeUndefined();
   });
 });
 
@@ -104,14 +106,35 @@ describe('VirtualGrid on the server', () => {
 
   it('takes the tile size from a token and sets the row count', () => {
     const html = draw({ tileSize: 'size-64' });
-    expect(html).toContain('--vg-tile:var(--size-64)');
+    expect(html).toContain('--vg-tile-w:var(--size-64)');
+    expect(html).toContain('--vg-tile-h:var(--size-64)');
     expect(html).toContain('--vg-rows:400');
+    expect(html).toContain('--vg-headers:0');
   });
 
   it('draws an empty grid with no row', () => {
     const html = draw({ items: [] });
     expect(html).toContain('role="grid"');
     expect(html).not.toContain('role="row"');
+  });
+});
+
+describe('tiles that are not square', () => {
+  it('fits columns from the width of the tile', () => {
+    expect(gridColumns(500, 125)).toBe(4);
+    expect(gridColumns(500, 50)).toBe(10);
+  });
+
+  it('sets the width and the height of the tile from two tokens', () => {
+    const html = draw({ tileWidth: 'size-128', tileHeight: 'size-64' });
+    expect(html).toContain('--vg-tile-w:var(--size-128)');
+    expect(html).toContain('--vg-tile-h:var(--size-64)');
+  });
+
+  it('takes the square size for the side left out', () => {
+    const html = draw({ tileSize: 'size-48', tileWidth: 'size-160' });
+    expect(html).toContain('--vg-tile-w:var(--size-160)');
+    expect(html).toContain('--vg-tile-h:var(--size-48)');
   });
 });
 

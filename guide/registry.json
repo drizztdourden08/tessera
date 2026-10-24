@@ -13795,10 +13795,11 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "A very long grid of equal square tiles, such as sprite thumbnails, where only the rows in view are drawn, with the arrow keys to move between tiles.",
+      "job": "A very long grid of equal tiles, such as sprite thumbnails, in sections if wanted, where only the rows in view are drawn, with the arrow keys to move between tiles.",
       "useWhen": [
         "The grid has thousands of tiles, such as every frame of a sprite sheet or every image of a folder, and drawing them all would slow the page.",
-        "Every tile is the same square size and the app draws the content of each tile.",
+        "Every tile is the same size and the app draws the content of each tile.",
+        "The tiles fall into groups, such as the folders of a library, each under a header row that collapses.",
         "The user moves through the tiles with the keys and the grid must scroll to follow."
       ],
       "avoidWhen": [
@@ -13819,7 +13820,13 @@
         "Give it items, getKey and renderItem; getKey returns a stable id, never the position.",
         "Give label a name for the grid, since the tiles are drawn without a heading of their own.",
         "Size the grid from its parent: it fills the height of its box and scrolls inside it.",
-        "Pick the tile with tileSize, the name of a size token such as size-96; the columns that fit the width of the box are worked out from it, and a raw pixel number is not accepted.",
+        "Pick a square tile with tileSize, the name of a size token such as size-96; tileWidth and tileHeight size a tile that is not square and win over tileSize; the columns that fit the width of the box are worked out from the width, and a raw pixel number is not accepted.",
+        "Give sections instead of items to group the tiles: each section has a key, a label and its items, and an optional count to show in the header instead of the number of items.",
+        "The index given to renderItem, getKey and onActiveChange runs through all the sections, and onActiveChange is not called for a header.",
+        "A header spans all the columns and takes part in the scroll like a row of its own; its height is fixed by the grid.",
+        "Hold the collapsed sections with collapsed (a list of keys) and onToggleSection(key, collapsed), or leave both out and give defaultCollapsed for the start; keep the list stable between renders.",
+        "Give scrollRef the ref of a marquee container and spread bind of useMarqueeSelect on the grid; every tile carries data-marquee-key set to its getKey, and overlay takes the MarqueeBox that follows the content.",
+        "Give ref a ref and call scrollToIndex(index, align) to scroll a tile into view; align is start, center, end or nearest, and nearest is the default; the index of a tile in a collapsed section scrolls to its header.",
         "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
         "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",
         "Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid."
@@ -13827,7 +13834,9 @@
       "a11y": [
         "The grid is a grid of cells with the row and column of each, so a reader hears where the tile is among thousands.",
         "One tile is in the tab order; the four arrows move by a tile or a row, Home and End go to the start or end of the row, Ctrl with them goes to the first or last tile, and Page Up and Page Down move by a screen of rows.",
-        "A tile that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
+        "A header is a cell that says if it is open; Enter, Space and a click toggle it, Left closes it and Right opens it, and Right on an open header goes to its first tile.",
+        "Up and Down move between the tiles and the headers, and Left and Right step through tiles to the next header and back.",
+        "A tile or a header that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
         "Keys act only when the tile itself has focus, so a field inside a tile keeps its own arrow keys."
       ],
       "tree": {
@@ -13837,14 +13846,19 @@
         ],
         "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
       },
-      "example": "import { VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n",
-      "propsHash": "2a0d7e52b78890f7",
+      "example": "import { VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
+      "propsHash": "560a684fc3d8d53b",
       "props": {
         "own": [
           {
             "name": "items",
-            "optional": false,
-            "text": "readonly T[]"
+            "optional": true,
+            "text": "readonly T[] | undefined"
+          },
+          {
+            "name": "sections",
+            "optional": true,
+            "text": "undefined | readonly VirtualGridSection<T>[]"
           },
           {
             "name": "getKey",
@@ -13868,14 +13882,59 @@
             "default": "'size-96'"
           },
           {
+            "name": "tileWidth",
+            "optional": true,
+            "text": "VirtualSize"
+          },
+          {
+            "name": "tileHeight",
+            "optional": true,
+            "text": "VirtualSize"
+          },
+          {
             "name": "overscan",
             "optional": true,
             "text": "number"
           },
           {
+            "name": "collapsed",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "defaultCollapsed",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "onToggleSection",
+            "optional": true,
+            "text": "(key: string, collapsed: boolean) => void"
+          },
+          {
             "name": "onActiveChange",
             "optional": true,
             "text": "(index: number) => void"
+          },
+          {
+            "name": "scrollRef",
+            "optional": true,
+            "text": "Ref<HTMLElement>"
+          },
+          {
+            "name": "bind",
+            "optional": true,
+            "text": "VirtualGridBind"
+          },
+          {
+            "name": "overlay",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "ref",
+            "optional": true,
+            "text": "Ref<VirtualGridHandle>"
           },
           {
             "name": "className",
@@ -13895,10 +13954,18 @@
         "--c-bg",
         "--c-border",
         "--c-focus",
+        "--c-hairline",
         "--c-hover",
+        "--c-surface",
         "--radius-md",
+        "--size-16",
+        "--size-32",
         "--size-96",
+        "--space-sm",
         "--space-xs",
+        "--text-sm",
+        "--vg-headers",
+        "--vg-heads",
         "--vg-row",
         "--vg-rows"
       ],
@@ -15126,14 +15193,15 @@
         "Wire onScroll to the scroll of the root, and onFocus and onBlur to the body, so a focused row stays drawn.",
         "Keep keyAt stable with useCallback; a new function on every render measures again.",
         "Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.",
-        "Use scrollTopToShow to find the scroll position that brings a row into view."
+        "Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.",
+        "For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height."
       ],
       "a11y": [
         "A row that holds focus stays in the document while it is outside the window, so the keys and the screen reader keep their place.",
         "Give each row its position and the size of the list with aria-posinset and aria-setsize, since the rest are not in the page."
       ],
       "example": "import { useCallback, useRef } from 'react';\nimport { Box, useVirtualWindow } from '@drizztdourden08/tessera';\n\nconst ROW_ATTRIBUTE = 'data-row';\n\nconst Rows = ({ names }: { names: string[] }) => {\n  const rootRef = useRef<HTMLElement>(null);\n  const keyAt = useCallback((index: number) => names[index], [names]);\n  const windowed = useVirtualWindow({ enabled: true, count: names.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE });\n  return (\n    <Box ref={rootRef} onScroll={windowed.onScroll}>\n      <Box ref={windowed.bodyRef} onFocus={windowed.onFocus} onBlur={windowed.onBlur}>\n        {windowed.indices.map((at) => (\n          <Box key={names[at]} {...{ [ROW_ATTRIBUTE]: at }}>{names[at]}</Box>\n        ))}\n      </Box>\n    </Box>\n  );\n};\n",
-      "propsHash": "f2802695eb92be60",
+      "propsHash": "a8385895b70e5100",
       "exports": [
         {
           "name": "renderedIndices",
@@ -15144,6 +15212,16 @@
           "name": "RowRange",
           "kind": "type",
           "text": "interface RowRange {\n  start: number;\n  end: number;\n}"
+        },
+        {
+          "name": "ScrollAlign",
+          "kind": "type",
+          "text": "type ScrollAlign = 'start' | 'center' | 'end' | 'nearest';"
+        },
+        {
+          "name": "scrollTopForSpan",
+          "kind": "function",
+          "text": "(input: SpanInput, align: ScrollAlign) => number"
         },
         {
           "name": "scrollTopToShow",
@@ -15159,6 +15237,11 @@
           "name": "sizeVariable",
           "kind": "function",
           "text": "(token: VirtualSize) => string"
+        },
+        {
+          "name": "SpanInput",
+          "kind": "type",
+          "text": "interface SpanInput {\n  top: number;\n  height: number;\n  viewport: number;\n  scrollTop: number;\n}"
         },
         {
           "name": "useVirtualWindow",
@@ -15178,7 +15261,7 @@
         {
           "name": "VirtualMetrics",
           "kind": "type",
-          "text": "interface VirtualMetrics {\n  top: number;\n  viewport: number;\n  rowHeight: number;\n}"
+          "text": "interface VirtualMetrics {\n  top: number;\n  viewport: number;\n  rowHeight: number;\n  head?: number;\n}"
         },
         {
           "name": "VirtualSize",
@@ -15193,7 +15276,7 @@
         {
           "name": "VirtualWindowInput",
           "kind": "type",
-          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n  sizeKey?: string;\n}"
+          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n  sizeKey?: string;\n  readMetrics?: (root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics;\n  rangeOf?: (metrics: VirtualMetrics, overscan: number) => RowRange;\n}"
         },
         {
           "name": "visibleRange",

@@ -1,12 +1,29 @@
 /* @layer renderer-components @kind types */
-import type { VirtualFocusModel, VirtualItemsInput } from '../../virtual';
+import type { ScrollAlign, VirtualFocusModel } from '../../virtual';
+import type { VirtualGridSection } from '../VirtualGrid.type';
+import type { GridLayout } from './grid-layout.type';
 
-type UseVirtualGridInput<T> = VirtualItemsInput<T>;
+interface UseVirtualGridInput<T> {
+  items?: readonly T[];
+  sections?: readonly VirtualGridSection<T>[];
+  getKey: (item: T, index: number) => string;
+  overscan?: number;
+  sizeKey: string;
+  collapsed?: readonly string[];
+  defaultCollapsed?: readonly string[];
+  onToggleSection?: (key: string, collapsed: boolean) => void;
+  onActiveChange?: (index: number) => void;
+}
 
-interface VirtualGridModel extends VirtualFocusModel {
+interface VirtualGridModel<T> extends VirtualFocusModel {
+  flat: readonly T[];
+  layout: GridLayout;
   rows: readonly number[];
-  rowCount: number;
   columns: number;
+  sectionKeys: readonly string[];
+  collapsed: ReadonlySet<string>;
+  setCollapsed: (key: string, collapsed: boolean) => void;
+  scrollToIndex: (index: number, align?: ScrollAlign) => void;
 }
 
 export type { UseVirtualGridInput, VirtualGridModel };

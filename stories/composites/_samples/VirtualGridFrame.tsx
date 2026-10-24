@@ -9,6 +9,8 @@ import type { TileEntry } from './virtual-grid-samples.constants';
 interface VirtualGridFrameProps {
   count: number;
   tileSize?: VirtualSize;
+  tileWidth?: VirtualSize;
+  tileHeight?: VirtualSize;
   onActiveChange?: (index: number) => void;
 }
 
@@ -19,11 +21,20 @@ const renderTile = (tile: TileEntry) => (
 );
 
 const VirtualGridFrame = (props: VirtualGridFrameProps) => {
-  const { count, tileSize, onActiveChange } = props;
+  const { count, tileSize, tileWidth, tileHeight, onActiveChange } = props;
   const items = useMemo(() => tilesOf(count), [count]);
   return (
     <Box className="virtual-grid-story">
-      <VirtualGrid label="Sprites" items={items} getKey={(tile) => tile.id} renderItem={renderTile} tileSize={tileSize} onActiveChange={onActiveChange} />
+      <VirtualGrid
+        label="Sprites"
+        items={items}
+        getKey={(tile) => tile.id}
+        renderItem={renderTile}
+        tileSize={tileSize}
+        tileWidth={tileWidth}
+        tileHeight={tileHeight}
+        onActiveChange={onActiveChange}
+      />
     </Box>
   );
 };

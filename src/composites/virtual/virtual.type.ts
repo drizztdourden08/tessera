@@ -22,6 +22,16 @@ interface VirtualMetrics {
   top: number;
   viewport: number;
   rowHeight: number;
+  head?: number;
+}
+
+type ScrollAlign = 'start' | 'center' | 'end' | 'nearest';
+
+interface SpanInput {
+  top: number;
+  height: number;
+  viewport: number;
+  scrollTop: number;
 }
 
 interface VirtualWindowInput {
@@ -32,6 +42,8 @@ interface VirtualWindowInput {
   indexAttribute: string;
   overscan?: number;
   sizeKey?: string;
+  readMetrics?: (root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics;
+  rangeOf?: (metrics: VirtualMetrics, overscan: number) => RowRange;
 }
 
 interface VirtualWindow {
@@ -69,4 +81,4 @@ interface ShowInput {
   scrollTop: number;
 }
 
-export type { RowRange, ShowInput, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput };
+export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput };
