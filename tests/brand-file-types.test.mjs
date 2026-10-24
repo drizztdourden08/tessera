@@ -15,8 +15,8 @@ const { fileTypes } = BRAND_FAMILY.bxel;
 const BRAND = path.resolve('brand');
 
 describe('the Bxel file types', () => {
-  it('covers the six kinds Bxel saves, each with its own extension', () => {
-    expect(fileTypes.types.map((type) => type.ext)).toEqual(['bxsprite', 'bxsheet', 'bxpalette', 'bxtiles', 'bxmap', 'bxproject']);
+  it('covers the six kinds Bxel saves and its older format, each with its own extension', () => {
+    expect(fileTypes.types.map((type) => type.ext)).toEqual(['bxsprite', 'bxsheet', 'bxpalette', 'bxtiles', 'bxmap', 'bxproject', 'bxel']);
   });
 
   it('names a pixel icon for every glyph', () => {
