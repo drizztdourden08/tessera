@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": patch
+---
+
+`ControllerSilhouette` redraws its `offset`, `symmetric` and `nintendo` outlines. Each is still one closed line with no fill, mirrored from one half, in the same `0 0 400 260` viewBox. The curves are smoother, with no kinks or wobbles, and the grips, shoulders and the notch between the grips follow the new references more closely. `pad` is unchanged. `CONTROLLER_SILHOUETTE_PATHS` follows the new drawings, and `CONTROLLER_SILHOUETTE_ANCHORS` moves each control of those three variants to where it sits on the reference pad, so an app that places marks from the anchors needs no change. The three outlines are drawn by hand with reference to Noun Project icons: [XBOX Controller](https://thenounproject.com/icon/xbox-controller-5652517/) by Daniel Finnegan, [pro controller](https://thenounproject.com/icon/pro-controller-5602909/) by Eliran Bensadoun and [playstation controller](https://thenounproject.com/icon/playstation-controller-1751312/) by dinnerchief. No path data is taken from them.
