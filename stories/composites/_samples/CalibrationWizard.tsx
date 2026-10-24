@@ -3,36 +3,36 @@ import { useCallback, useState } from 'react';
 import { useWizard, WizardDialog, WizardReview } from '../../../src/composites';
 import type { CreateOutcome, WizardApi, WizardStepDef } from '../../../src/composites';
 import { Box, Button, Icon, P, ProgressBar, Slider, Span } from '../../../src/primitives';
-import { LiveStickPlot } from './LiveStickPlot';
+import { LiveTrigger } from '../../primitives/_samples/LiveTrigger';
 import { useSampler } from './useSampler';
 
-type CalibrationDraft = { centered: boolean; ranged: boolean; inner: number; outer: number };
+type CalibrationDraft = { rested: boolean; pulled: boolean; deadzone: number };
 
 type BodyProps = { wizard: WizardApi<CalibrationDraft> };
 
 const STEPS: readonly WizardStepDef<CalibrationDraft>[] = [
   {
-    id: 'center',
-    label: 'Center',
-    description: 'Leave both sticks at rest. Don\'t touch them. The software will record the idle center position.',
-    validate: (d) => (d.centered ? null : 'Sample the center to continue.'),
+    id: 'rest',
+    label: 'Rest',
+    description: 'Let go of the trigger. Don\'t touch it. The software will record its resting point.',
+    validate: (d) => (d.rested ? null : 'Sample the resting point to continue.'),
   },
   {
-    id: 'range',
-    label: 'Range',
-    description: 'Slowly rotate both sticks in full circles, reaching the physical limits in all directions.',
-    validate: (d) => (d.ranged ? null : 'Rotate both sticks fully to continue.'),
+    id: 'pull',
+    label: 'Pull',
+    description: 'Pull the trigger all the way in and let it out again, a few times.',
+    validate: (d) => (d.pulled ? null : 'Pull the trigger fully to continue.'),
   },
   {
     id: 'review',
     label: 'Review',
-    description: 'Test the calibrated output. Sticks should be centered at rest and reach the edge evenly. Adjust the deadzones where it helps.',
+    description: 'Test the calibrated output. The trigger should read zero at rest and reach one when pulled. Adjust the dead zone where it helps.',
     busyHint: 'Saving...',
     buttons: { next: { label: 'Save Calibration', icon: 'save' } },
   },
 ];
 
-const INITIAL: CalibrationDraft = { centered: false, ranged: false, inner: 8, outer: 92 };
+const INITIAL: CalibrationDraft = { rested: false, pulled: false, deadzone: 5 };
 
 const percent = (value: number) => `${value}%`;
 
@@ -49,25 +49,22 @@ const Sampling = ({ label, action, onDone }: { label: string; action: string; on
 
 const Body = ({ wizard }: BodyProps) => {
   const { values, setValue } = wizard;
-  if (wizard.current.id === 'center') return <Sampling label="Sampling" action="Sample the center" onDone={() => setValue('centered', true)} />;
-  if (wizard.current.id === 'range') {
+  if (wizard.current.id === 'rest') return <Sampling label="Sampling" action="Sample the resting point" onDone={() => setValue('rested', true)} />;
+  if (wizard.current.id === 'pull') {
     return (
-      <Box className="calibration-wizard-story__stick">
-        <LiveStickPlot size="lg" label="Left stick" />
-        <Sampling label="Range covered" action="Start recording the range" onDone={() => setValue('ranged', true)} />
+      <Box className="story-column">
+        <LiveTrigger />
+        <Sampling label="Travel covered" action="Start recording the travel" onDone={() => setValue('pulled', true)} />
       </Box>
     );
   }
   return (
     <>
-      <Box className="calibration-wizard-story__stick">
-        <LiveStickPlot size="lg" label="Left stick" calibrated innerDeadzone={values.inner / 100} outerDeadzone={values.outer / 100} />
-        <Box className="story-column">
-          <Slider label="Inner Deadzone" description="Eliminates stick drift near center" value={values.inner} min={0} max={30} onChange={(v) => setValue('inner', v)} showValue formatValue={percent} />
-          <Slider label="Outer Deadzone" description="Reach full tilt before physical edge" value={values.outer} min={70} max={100} onChange={(v) => setValue('outer', v)} showValue formatValue={percent} />
-        </Box>
+      <Box className="story-column">
+        <LiveTrigger />
+        <Slider label="Dead zone" description="Ignores a light touch near rest" value={values.deadzone} min={0} max={30} onChange={(v) => setValue('deadzone', v)} showValue formatValue={percent} />
       </Box>
-      <WizardReview sections={[{ stepId: 'center', title: 'Calibration', rows: [{ label: 'Center', value: 'Sampled' }, { label: 'Range', value: 'Full circle on both sticks' }] }]} onEdit={wizard.goTo} disabled={wizard.busy} />
+      <WizardReview sections={[{ stepId: 'rest', title: 'Calibration', rows: [{ label: 'Rest', value: 'Sampled' }, { label: 'Travel', value: 'Full pull recorded' }] }]} onEdit={wizard.goTo} disabled={wizard.busy} />
     </>
   );
 };
@@ -77,11 +74,11 @@ const CalibrationFrame = ({ open, onDone }: { open: boolean; onDone: (message: s
     await new Promise((resolve) => {
       setTimeout(resolve, 700);
     });
-    return { success: true, id: 'left-stick' };
+    return { success: true, id: 'right-trigger' };
   }, []);
-  const wizard = useWizard({ steps: STEPS, initialValues: INITIAL, onFinish, onFinished: () => onDone('Calibration saved for the left stick.') });
+  const wizard = useWizard({ steps: STEPS, initialValues: INITIAL, onFinish, onFinished: () => onDone('Calibration saved for the right trigger.') });
   return (
-    <WizardDialog wizard={wizard} open={open} title="Left Stick Calibration" onExit={() => onDone('Left without saving.')}>
+    <WizardDialog wizard={wizard} open={open} title="Right Trigger Calibration" onExit={() => onDone('Left without saving.')}>
       <Body wizard={wizard} />
     </WizardDialog>
   );
@@ -98,9 +95,9 @@ const CalibrationWizard = () => {
   };
   return (
     <Box className="story-column">
-      <P tone="dim">From Advanced, Input Calibration: the stick calibration opens over the screen.</P>
+      <P tone="dim">From Advanced, Input Calibration: the trigger calibration opens over the screen.</P>
       <Box className="story-row">
-        <Button variant="secondary" icon={<Icon name="gamepad-2" />} onClick={() => setOpen(true)}>Calibrate left stick</Button>
+        <Button variant="secondary" icon={<Icon name="gamepad-2" />} onClick={() => setOpen(true)}>Calibrate right trigger</Button>
       </Box>
       <CalibrationFrame key={run} open={open} onDone={close} />
       <Span tone="muted" className="story-label">{note}</Span>

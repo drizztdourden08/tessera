@@ -46,7 +46,7 @@ const CODE = `import { useWizard, WizardDialog } from '@drizztdourden08/tessera'
 
 const wizard = useWizard({ steps: CALIBRATION_STEPS, initialValues: EMPTY, onFinish: saveCalibration, onFinished: close });
 
-<WizardDialog wizard={wizard} open={open} title="Left Stick Calibration" onExit={close}>
+<WizardDialog wizard={wizard} open={open} title="Right Trigger Calibration" onExit={close}>
   <CalibrationStep wizard={wizard} />
 </WizardDialog>`;
 
