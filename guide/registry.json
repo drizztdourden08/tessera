@@ -131,7 +131,9 @@
                 "components": []
               },
               "many, in a list": {
-                "components": []
+                "components": [
+                  "Select"
+                ]
               },
               "many, found by typing": {
                 "components": []
@@ -172,7 +174,9 @@
             "question": "Where does the picker sit?",
             "answers": {
               "in the page": {
-                "components": []
+                "components": [
+                  "ColorPicker"
+                ]
               },
               "behind a swatch button": {
                 "components": []
@@ -2131,7 +2135,315 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A field that opens a list and picks one option, or several, from plain options, from options in labelled groups, or from your own items.",
+      "useWhen": [
+        "The user picks one value from a list too long to show as buttons, such as a country or a sprite size.",
+        "The user picks several values from a fixed list and the list does not need typing to find them: pass values and onValuesChange.",
+        "The options sit under labelled headings, such as warm and cool colours: pass groups."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user finds the option by typing, or may type a value that is not in the list.",
+          "use": "Combobox"
+        },
+        {
+          "case": "The list is short enough to show all at once.",
+          "use": "SegmentedControl"
+        },
+        {
+          "case": "The options are actions, not values for a field.",
+          "use": "DropdownMenu"
+        }
+      ],
+      "rules": [
+        "Pass options for a plain list and groups for options under headings. Pass items for objects of your own, with the field that holds the value.",
+        "When options and groups are both given, the options come first with no heading, then each group under its label. A group never hides the options.",
+        "An option that sits in a group is not repeated in options; put it in one place only.",
+        "The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.",
+        "Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen."
+      ],
+      "a11y": [
+        "The trigger is a combobox with a listbox; options are option rows, and a group heading names its block.",
+        "The arrow keys, Home and End move through the options, Enter picks, Escape closes and returns focus to the trigger."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "one choice",
+          "many, in a list"
+        ],
+        "rule": "Select is the field that opens a list of options, plain or grouped, and picks one or several."
+      },
+      "example": "import { Select } from '@drizztdourden08/tessera';\n\ninterface TintPickerProps {\n  tint: string;\n  onTint: (tint: string) => void;\n}\n\nconst TintPicker = ({ tint, onTint }: TintPickerProps) => (\n  <Select\n    value={tint}\n    onChange={onTint}\n    options={[{ value: 'none', label: 'No tint' }]}\n    groups={[\n      { label: 'Warm', options: [{ value: 'red', label: 'Red' }, { value: 'amber', label: 'Amber' }] },\n      { label: 'Cool', options: [{ value: 'blue', label: 'Blue' }, { value: 'teal', label: 'Teal' }] },\n    ]}\n  />\n);\n",
+      "propsHash": "542d397cacd3e04d",
+      "props": {
+        "own": [
+          {
+            "name": "options",
+            "optional": true,
+            "text": "readonly SelectOption[]"
+          },
+          {
+            "name": "groups",
+            "optional": true,
+            "text": "readonly SelectGroup[]"
+          },
+          {
+            "name": "value",
+            "optional": true,
+            "text": "string | ValueOf<T, F> | null"
+          },
+          {
+            "name": "onChange",
+            "optional": true,
+            "text": "(value: string) => void | (value: ValueOf<T, F> | null) => void"
+          },
+          {
+            "name": "values",
+            "optional": true,
+            "text": "readonly string[] | readonly ValueOf<T, F>[]"
+          },
+          {
+            "name": "onValuesChange",
+            "optional": true,
+            "text": "(values: string[]) => void | (values: ValueOf<T, F>[]) => void"
+          },
+          {
+            "name": "onActiveChange",
+            "optional": true,
+            "text": "(value: string | null) => void | (value: ValueOf<T, F> | null) => void"
+          },
+          {
+            "name": "columns",
+            "optional": true,
+            "text": "readonly ListboxColumn<SelectOption>[] | readonly ListboxColumn<T>[]"
+          },
+          {
+            "name": "valueDisplay",
+            "optional": true,
+            "text": "ValueDisplay",
+            "literals": [
+              "'full'",
+              "'label'"
+            ]
+          },
+          {
+            "name": "renderOption",
+            "optional": true,
+            "text": "(option: SelectOption, isSelected: boolean) => ReactNode"
+          },
+          {
+            "name": "items",
+            "optional": true,
+            "text": "readonly T[]"
+          },
+          {
+            "name": "searchable",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "multiDisplay",
+            "optional": true,
+            "text": "MultiDisplay",
+            "literals": [
+              "'count'",
+              "'tags'"
+            ]
+          },
+          {
+            "name": "loading",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "emptyText",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "min",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "max",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "invalid",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultOpen",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "inline",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "grow",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "id",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-labelledby",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-describedby",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "getKey",
+            "optional": true,
+            "text": "ItemAccessor<T, string | number>"
+          },
+          {
+            "name": "getLabel",
+            "optional": true,
+            "text": "ItemAccessor<T, string>"
+          },
+          {
+            "name": "isItemDisabled",
+            "optional": true,
+            "text": "ItemAccessor<T, boolean>"
+          },
+          {
+            "name": "groupBy",
+            "optional": true,
+            "text": "ItemAccessor<T, string | undefined>"
+          },
+          {
+            "name": "categories",
+            "optional": true,
+            "text": "ListboxCategories"
+          },
+          {
+            "name": "itemComponent",
+            "optional": true,
+            "text": "ComponentType<ListboxItemProps<T>>"
+          },
+          {
+            "name": "valueComponent",
+            "optional": true,
+            "text": "ComponentType<ListboxItemProps<T>>"
+          },
+          {
+            "name": "tagField",
+            "optional": true,
+            "text": "ItemAccessor<T, ReactNode>"
+          },
+          {
+            "name": "valueField",
+            "optional": true,
+            "text": "F"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-danger",
+        "--c-danger-soft",
+        "--c-hover",
+        "--c-inset",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-sunken",
+        "--c-surface",
+        "--c-text",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--control-h-md",
+        "--control-h-sm",
+        "--control-pad-md",
+        "--control-pad-sm",
+        "--field-w-inline",
+        "--field-w-inline-min",
+        "--leading-normal",
+        "--listbox-attach",
+        "--listbox-columns",
+        "--listbox-space",
+        "--opacity-disabled",
+        "--radius-md",
+        "--radius-sm",
+        "--shadow-2",
+        "--size-1",
+        "--size-14",
+        "--size-288",
+        "--size-48",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-wide",
+        "--transition-fast",
+        "--transition-normal",
+        "--weight-medium",
+        "--z-popover",
+        "--z-sticky"
+      ],
+      "gallery": {
+        "title": "Primitives · Inputs/Select",
+        "route": "#/story/primitives-select--overview",
+        "file": "stories/primitives/Select.stories.tsx"
+      },
+      "parts": [
+        "NativeSelect"
+      ]
     },
     {
       "name": "Shortcut",
@@ -4127,7 +4439,142 @@
       "imports": [
         "@drizztdourden08/tessera/color-picker"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A colour picker panel placed in the page, with a field, a hex box, an alpha slider and swatch groups.",
+      "useWhen": [
+        "The user sets a colour and the picker has room in the page, such as a panel in a settings screen.",
+        "The user chooses from your own swatch groups, such as a palette: pass swatchGroups."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The picker should open from a swatch button and close again.",
+          "use": "ColorPickerPopover"
+        },
+        {
+          "case": "The colour is shown, not edited.",
+          "use": "ColorSwatch"
+        }
+      ],
+      "rules": [
+        "Import ColorPicker from @drizztdourden08/tessera/color-picker and ColorPickerPopover from @drizztdourden08/tessera/color-picker-popover. They are not on the main export, so an app that never uses them never loads the colour library.",
+        "The app owns the colour: pass value as a hex string and onChange; add alpha and onAlphaChange for an alpha channel, or disableAlpha to hide it.",
+        "Pass original to show the colour the user started from, and onReset to put it back."
+      ],
+      "a11y": [
+        "The field, the sliders and the hex box are labelled and reachable by keyboard; swatches are buttons with the colour as their name."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a colour",
+          "in the page"
+        ],
+        "rule": "ColorPicker is the colour panel placed in the page; import it from the color-picker subpath."
+      },
+      "example": "import { ColorPicker } from '@drizztdourden08/tessera/color-picker';\n\ninterface BrushColorProps {\n  color: string;\n  onColor: (hex: string) => void;\n}\n\nconst BrushColor = ({ color, onColor }: BrushColorProps) => (\n  <ColorPicker value={color} onChange={onColor} disableAlpha />\n);\n",
+      "propsHash": "9504a8d575b7267a",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(hex: string) => void"
+          },
+          {
+            "name": "alpha",
+            "optional": true,
+            "text": "number",
+            "default": "1"
+          },
+          {
+            "name": "onAlphaChange",
+            "optional": true,
+            "text": "(alpha: number) => void"
+          },
+          {
+            "name": "disableAlpha",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "original",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "word",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "snapped",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "onReset",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "onClose",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "swatchGroups",
+            "optional": true,
+            "text": "readonly SwatchGroup[]"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-sunken",
+        "--c-surface",
+        "--c-text",
+        "--font-mono",
+        "--radius-md",
+        "--radius-sm",
+        "--size-12",
+        "--size-128",
+        "--size-16",
+        "--size-160",
+        "--size-256",
+        "--size-28",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-caps"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/ColorPicker",
+        "route": "#/story/composites-colorpicker--overview",
+        "file": "stories/composites/ColorPicker.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "ColorPickerPopover",

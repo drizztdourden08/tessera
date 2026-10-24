@@ -25,7 +25,7 @@ DropdownMenu keeps rare and secondary actions one click away, and asks before th
 ## Use something else when
 
 - The entries are settings with richer controls, such as a slider or a number. Use [ControlMenu](ControlMenu.md) instead.
-- The user picks one value for a form field. Use `Select` instead.
+- The user picks one value for a form field. Use [Select](Select.md) instead.
 - The actions belong to one item and should show while there is room. Use [ActionBar](ActionBar.md) instead.
 - The user looks for any action in the app by name. Use `CommandPalette` instead.
 

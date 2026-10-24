@@ -35,7 +35,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - A command, with its history: [CommandInput](components/CommandInput.md). CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear.
   - One choice. **How many options are there?**
     - A few, all in view: no component yet.
-    - Many, in a list: no component yet.
+    - Many, in a list: [Select](components/Select.md). Select is the field that opens a list of options, plain or grouped, and picks one or several.
     - Many, found by typing: no component yet.
   - Several choices: no component yet.
   - Several choices from a long list: no component yet.
@@ -46,7 +46,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - At once: no component yet.
     - When the form is sent: no component yet.
   - A colour. **Where does the picker sit?**
-    - In the page: no component yet.
+    - In the page: [ColorPicker](components/ColorPicker.md). ColorPicker is the colour panel placed in the page; import it from the color-picker subpath.
     - Behind a swatch button: no component yet.
   - A range: no component yet.
   - A colour from a palette: no component yet.

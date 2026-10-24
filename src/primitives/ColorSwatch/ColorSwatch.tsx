@@ -1,11 +1,12 @@
 /* @layer renderer-components @kind component */
+import { forwardRef } from 'react';
 import './ColorSwatch.css';
 import { useControlSize } from '../field-control/useControlSize';
 import { Span } from '../text-elements';
 import { captionClass } from './behavior/caption-class';
 import type { ColorSwatchProps } from './ColorSwatch.type';
 
-const ColorSwatch = (props: ColorSwatchProps) => {
+const ColorSwatch = forwardRef<HTMLButtonElement, ColorSwatchProps>((props, ref) => {
   const { color, caption, selected = false, edited = false, transparent = false, size, className = '', ...rest } = props;
   const controlSize = useControlSize(size);
   const classes = [
@@ -18,10 +19,12 @@ const ColorSwatch = (props: ColorSwatchProps) => {
   ].filter(Boolean).join(' ');
 
   return (
-    <button type="button" className={classes} style={transparent ? undefined : { background: color }} {...rest}>
+    <button ref={ref} type="button" className={classes} style={transparent ? undefined : { background: color }} {...rest}>
       {caption !== undefined && <Span className={captionClass(color, transparent)}>{caption}</Span>}
     </button>
   );
-};
+});
+
+ColorSwatch.displayName = 'ColorSwatch';
 
 export { ColorSwatch };
