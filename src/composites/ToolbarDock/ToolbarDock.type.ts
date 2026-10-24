@@ -3,8 +3,6 @@ import type { DockEdge } from '../DockLayout';
 
 type ToolbarSide = DockEdge;
 
-type ToolbarOrientation = 'horizontal' | 'vertical';
-
 interface ToolbarDefinition {
   id: string;
   label: string;
@@ -24,4 +22,4 @@ interface ToolbarLayout {
   last: Record<string, ToolbarSpot>;
 }
 
-export type { ToolbarDefinition, ToolbarLayout, ToolbarOrientation, ToolbarSide, ToolbarSpot };
+export type { ToolbarDefinition, ToolbarLayout, ToolbarSide, ToolbarSpot };
