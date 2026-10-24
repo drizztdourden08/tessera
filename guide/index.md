@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 75 of 196 have their usage written; a linked name opens its page.
+One line per component. 75 of 194 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -99,7 +99,6 @@ One line per component. 75 of 196 have their usage written; a linked name opens 
 - `CompactRecordView`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ContentHeader](components/ContentHeader.md): The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end. Import from `@drizztdourden08/tessera`.
-- [ControllerLayout](components/ControllerLayout.md): A plain outline of a controller with every button, trigger and stick in its place, lit while it is held, to test a gamepad or show what it sends. Import from `@drizztdourden08/tessera`.
 - [ControllerSilhouette](components/ControllerSilhouette.md): The outline of a controller, one stroked line with no fill, for the app to draw its own glyphs, labels and lines on. Import from `@drizztdourden08/tessera`.
 - [ControlMenu](components/ControlMenu.md): A dropdown of settings behind one button: each row is a label with one compact control, and the panel joins its button like a DropdownMenu. Import from `@drizztdourden08/tessera`.
 - [CopyButton](components/CopyButton.md): A button that copies a text to the clipboard and confirms it with a check and the word Copied. Import from `@drizztdourden08/tessera`.
@@ -145,7 +144,6 @@ One line per component. 75 of 196 have their usage written; a linked name opens 
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
-- `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ResizeHandle](components/ResizeHandle.md): The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range. Import from `@drizztdourden08/tessera`.
@@ -173,7 +171,6 @@ One line per component. 75 of 196 have their usage written; a linked name opens 
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
 - [StatTile](components/StatTile.md): A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart. Import from `@drizztdourden08/tessera`.
 - [StatusBar](components/StatusBar.md): The thin bar at the foot of an editor window: a row of labelled readouts such as cursor, zoom, colour and frame. Import from `@drizztdourden08/tessera`.
-- `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StudioLayout](components/StudioLayout.md): The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right, under an optional bar of actions. Import from `@drizztdourden08/tessera`.
 - `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
@@ -207,3 +204,9 @@ One line per component. 75 of 196 have their usage written; a linked name opens 
 - `Mascot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `MascotStage`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
+
+## Hooks
+
+Functions for a screen that owns its own markup. Each line is a module; its page lists what it exports.
+
+- [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.

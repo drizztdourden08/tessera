@@ -17,3 +17,5 @@ export {
   type ToolbarOrientation, type ToolbarProps, type ToolbarSeparator, type ToolbarToggle,
 } from './Toolbar';
 export type { MenuHover } from './DropdownMenu';
+export { REORDER_ITEM_SELECTOR, columnsOf, reorderStep, useMoveFocus, useReorderDrag } from './reorder';
+export type { MoveFocus, ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDrop, ReorderKeyEvent, ReorderStepOptions } from './reorder';
