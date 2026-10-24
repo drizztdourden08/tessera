@@ -6,7 +6,7 @@ import type { GroundLook } from './ground-look.type';
 const groundLook = (mark: BrandMarkData, ground?: Ground): GroundLook => {
   const look = ground === undefined ? {} : (mark.grounds?.[ground] ?? {});
   const onDark = look.inks === 'onDark';
-  const paths = onDark ? mark.paths.map((p) => (p.onDark ? { ...p, ink: p.onDark } : p)) : mark.paths;
+  const paths = onDark ? mark.paths.map((p) => (p.onDark ? { ...p, ink: p.onDark, opacity: p.onDarkOpacity ?? p.opacity } : p)) : mark.paths;
   return look.outline === undefined ? { paths } : { paths, outline: look.outline };
 };
 

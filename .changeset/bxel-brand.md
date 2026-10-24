@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": minor
+---
+
+Bxel, the pixel art editor, joins the family as a brand. The `bxel` palette is new: import `@drizztdourden08/tessera/palettes/bxel.css` and set `data-palette="bxel"`. Violet is the primary colour, crimson the secondary, magenta the tertiary, with Night as the black and Mist as the white. `BrandApp` takes `bxel`, and `BRAND_FAMILY.bxel` carries its wide mark, its square icon, its wordmark, gradient and backdrop. The wide mark is the Merge 1 logo drawn as paths and stays for wide spaces. The square app icon is the crimson pixel B on a Night tile: `BrandInfo` has a new optional `iconMark`, and `BrandMark variant="app-icon"` and `pnpm icons` draw it in place of the mark. On the dark gradient the wide mark takes the light outline. The splash file draws a mark at least twice as wide as it is tall at half the canvas, and the static splash kit has `ts-mark--wide` for it. The icon files are written under `brand/bxel`, `brand/light-rim` and `brand/dark-ground`, and the Bxel gradient and backdrop tokens are in `brand.css`. Bxel appears in the brand pages and in the app switcher of the gallery. It has no mascot yet.

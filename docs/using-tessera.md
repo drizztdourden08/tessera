@@ -98,7 +98,7 @@ The roles are declared on `:root, [data-palette]`, so they derive again inside t
 
 ### Brand palettes
 
-Tessera ships the palette of each family app, so an app can take its brand's look instead of copying the seeds: `@drizztdourden08/tessera/palettes/rotp.css`, `archipelia.css` and `brock.css`. Each one sets the seeds under `[data-palette="<app>"]`. Import it once and put the attribute on the root, or on any part of the page:
+Tessera ships the palette of each family app, so an app can take its brand's look instead of copying the seeds: `@drizztdourden08/tessera/palettes/rotp.css`, `archipelia.css`, `brock.css` and `bxel.css`. Each one sets the seeds under `[data-palette="<app>"]`. Import it once and put the attribute on the root, or on any part of the page:
 
 ```ts
 import '@drizztdourden08/tessera/palettes/brock.css';

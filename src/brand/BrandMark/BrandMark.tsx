@@ -6,6 +6,7 @@ import { markClass } from './behavior/mark-class';
 import { markLabelProps } from './behavior/mark-label-props';
 import { markLook } from './behavior/mark-look';
 import { squareBox } from './behavior/square-box';
+import { tileFace } from './behavior/tile-face';
 import { tileTransform } from './behavior/tile-transform';
 import { useMarkGround } from './behavior/useMarkGround';
 import { TILE_RADIUS } from './BrandMark.constants';
@@ -17,8 +18,9 @@ const BrandMark = (props: BrandMarkProps) => {
   const { app, size = 'md', variant = 'mark', rim = 'none', title, className = '' } = props;
   const brand = BRAND_FAMILY[app];
   const tile = variant === 'app-icon' && brand.appIcon === 'tile';
-  const look = markLook(brand.mark, useMarkGround(tile), rim);
-  const { viewBox, pixelArt } = brand.mark;
+  const { drawn, scale } = tileFace(brand, tile);
+  const look = markLook(drawn, useMarkGround(tile), rim);
+  const { viewBox, pixelArt } = drawn;
   const box = squareBox(viewBox);
   const { x, y, w, h } = box;
 
@@ -31,7 +33,7 @@ const BrandMark = (props: BrandMarkProps) => {
     >
       <BrandMarkRim rim={look.rim} paths={look.paths} box={box} tile={tile} pixelArt={pixelArt} fine={look.fine} />
       {tile && <SvgRect x={x} y={y} width={w} height={h} rx={w * TILE_RADIUS} fill={brand.tile} />}
-      <SvgGroup transform={tile ? tileTransform(box) : undefined}>
+      <SvgGroup transform={tile ? tileTransform(box, scale) : undefined}>
         <BrandPaths paths={look.paths} />
       </SvgGroup>
     </Svg>

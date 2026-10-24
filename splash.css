@@ -76,6 +76,12 @@
   object-fit: contain;
 }
 
+.ts-mark--wide {
+  inline-size: var(--size-256);
+  block-size: auto;
+  max-inline-size: 100%;
+}
+
 .ts-status {
   max-inline-size: var(--size-384);
   min-block-size: calc(var(--text-sm) * var(--leading-normal));
