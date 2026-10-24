@@ -1,6 +1,9 @@
 /* @layer renderer-components @kind barrel */
+export { ToolbarDock } from './ToolbarDock';
 export { MAX_PER_SIDE, TOOLBAR_LAYOUT_V } from './ToolbarDock.constants';
-export type { ToolbarDefinition, ToolbarLayout, ToolbarSide, ToolbarSpot } from './ToolbarDock.type';
+export type {
+  ToolbarDefinition, ToolbarDockHandle, ToolbarDockProps, ToolbarLayout, ToolbarSide, ToolbarSlot, ToolbarSpot,
+} from './ToolbarDock.type';
 export { canShowToolbar } from './behavior/can-show-toolbar';
 export { createToolbarLayout } from './behavior/create-toolbar-layout';
 export { hideToolbar } from './behavior/hide-toolbar';
