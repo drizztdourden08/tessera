@@ -1,14 +1,16 @@
 /* @layer stories @kind data */
-const PIXEL_ICON_SIZES = [16, 32, 48] as const;
+const PIXEL_ICON_SIZES = [24, 48, 72] as const;
 
 const PIXEL_ICON_RULES = [
-  'Grid: 16 by 16, drawn as 16 lines of 16 characters, # for ink and . for empty.',
-  'One colour: ink draws in currentColor, so there are no shading colours.',
-  'Lines are 1 px. A diagonal is never thicker than 1 px.',
-  'Margin: keep 1 px clear, so draw inside 14 by 14, unless the shape needs the edge.',
-  'Light comes from the top left: a lit edge is a line, a shaded side is solid or open, never a second colour.',
-  'It must be recognisable at 16 px. If a detail vanishes there, drop the detail.',
-  'Size it at 16, 32 or 48 px. Other sizes blur the pixel edges.',
+  'Grid: 24 by 24, drawn as 24 lines of 24 characters, # for ink and . for empty.',
+  'Margin: keep 2 px clear on every side, so draw inside 20 by 20.',
+  'One colour: ink draws in currentColor. Shade with a dither pattern, never a second colour.',
+  'Lines are 1 px. Use 2 px only where a shape needs weight to read, such as a lens rim, a handle or an arrow shaft, and use it the same way in every icon.',
+  'No anti-aliasing: a pixel is ink or empty, never half.',
+  'Clean curves: no doubled corners where two runs meet, and no jaggy diagonals. Step diagonals evenly at 1:1, 2:1 or 1:2, and let curve runs grow or shrink one step at a time.',
+  'Tools held in the hand, such as the pencil, eraser and eyedropper, lie at 45 degrees with the working end at the bottom left.',
+  'It must read as its tool at 24 px. If a detail vanishes there, drop the detail.',
+  'Size it at 24, 48 or 72 px. Other sizes blur the pixel edges.',
   'Name it pixel-<name>, and put it in a data file src/primitives/icon-sets/pixel-<group>.constants.ts.',
 ] as const;
 

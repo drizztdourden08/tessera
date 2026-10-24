@@ -150,7 +150,7 @@ import swordsIcon from '@iconify-icons/lucide/swords';
 
 <Icon name="gamepad-2" />
 <Icon name="arrow-right" size={24} rotate={90} />
-<Icon name="pixel-pencil" size={32} />
+<Icon name="pixel-pencil" size={24} />
 <Icon name="trash-2" label="Delete preset" />
 <Icon name="search" effect="twinkle" />
 <Icon name="settings" effect={{ kind: 'ping', every: 2000, color: 'secondary' }} />
@@ -166,7 +166,7 @@ const Overview = overviewStory({
     '`name` picks from the named set, with short names such as `tree` and `water`; `icon` takes any @iconify icon.',
     '`path` draws an icon of your own: `d` takes path data, `circles` circles, `viewBox` the grid, 16 by default.',
     'It draws in `currentColor`; `size`, `rotate` in quarter turns and `flip` set how it sits.',
-    '`pixel-` names are drawn on a 16 by 16 pixel grid and stay crisp at 16, 32 and 48 px.',
+    '`pixel-` names are drawn on a 24 by 24 pixel grid and stay crisp at 24, 48 and 72 px.',
     '**Label it when it stands alone:** without a `label`, assistive tech skips it.',
     '`effect` lands a small pop every few seconds, such as a twinkle; reduced motion turns it off.',
   ],
