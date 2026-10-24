@@ -6,7 +6,6 @@ const GRADIENT_SAMPLES = 32;
 const SPLASH_GRADIENT = { selector: '.ts-splash', from: '--c-gradient-dark-from', to: '--c-gradient-dark-to' };
 
 const GROUND_GRADIENTS = {
-  light: { from: '--c-gradient-light-from', to: '--c-gradient-light-to' },
   dark: SPLASH_GRADIENT,
 };
 

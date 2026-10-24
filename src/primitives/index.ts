@@ -185,3 +185,6 @@ export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from './dom/app-region.con
 export type { DataAttributes } from './dom/data-attributes.type';
 export { REVIEW_MASK_ATTRIBUTE } from './dom/review-mask.constants';
 export { useReducedMotion } from './dom/useReducedMotion';
+export { ownerDocumentOf } from './dom/owner-document';
+export { ownerWindowOf } from './dom/owner-window';
+export { observeResize } from './dom/observe-resize';

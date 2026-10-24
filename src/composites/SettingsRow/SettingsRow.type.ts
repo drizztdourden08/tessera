@@ -105,7 +105,7 @@ type SettingsDescription =
 interface SettingsItemFields {
   id: string;
   title: string;
-  hint: string;
+  hint?: string;
   keywords?: string;
   input?: SettingsInput;
   actions?: readonly SettingsRowAction[];

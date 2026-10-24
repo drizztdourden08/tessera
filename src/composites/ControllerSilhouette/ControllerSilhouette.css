@@ -1,0 +1,22 @@
+/* @layer renderer-components @kind style */
+.controller-silhouette {
+  --controller-silhouette-stroke: var(--border-width-thick);
+
+  inline-size: 100%;
+  margin: 0;
+}
+
+.controller-silhouette__art {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+}
+
+.controller-silhouette__outline {
+  fill: none;
+  stroke: var(--c-controller-line);
+  stroke-width: var(--controller-silhouette-stroke);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}

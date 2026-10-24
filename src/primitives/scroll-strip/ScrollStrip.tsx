@@ -11,7 +11,7 @@ import './ScrollStrip.css';
 const classes = (own: string, extra?: string): string => (extra ? `${own} ${extra}` : own);
 
 const ScrollStrip = (props: ScrollStripProps) => {
-  const { pagerLabels, children, as = 'div', trackAs = 'div', className, trackClassName, trackRole, trackRef, 'aria-label': ariaLabel } = props;
+  const { pagerLabels, children, as = 'div', trackAs = 'div', className, trackClassName, trackRole, trackRef, trackProps, 'aria-label': ariaLabel } = props;
   const strip = useScrollStrip(Children.count(children));
   const track = useMemo(() => mergeRefs(strip.trackRef, trackRef), [strip.trackRef, trackRef]);
 
@@ -25,7 +25,7 @@ const ScrollStrip = (props: ScrollStripProps) => {
       data-forward={strip.canScrollForward || undefined}
     >
       {strip.canScrollBack && <ScrollStripPager side="back" label={pagerLabels.back} onPage={() => strip.pageBy(-1)} />}
-      <Box as={trackAs} ref={track} className={classes(TRACK_CLASS, trackClassName)} role={trackRole} onScroll={strip.handleScroll}>
+      <Box as={trackAs} ref={track} className={classes(TRACK_CLASS, trackClassName)} role={trackRole} {...trackProps} onScroll={strip.handleScroll}>
         {children}
       </Box>
       {strip.canScrollForward && <ScrollStripPager side="forward" label={pagerLabels.forward} onPage={() => strip.pageBy(1)} />}

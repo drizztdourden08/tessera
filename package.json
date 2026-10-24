@@ -1,6 +1,6 @@
 {
   "name": "@drizztdourden08/tessera",
-  "version": "0.50.0",
+  "version": "0.53.0",
   "description": "Tessera design system: tokens, primitives, composites and the headless data engine shared by Relic of the Past, Brock and Archipelia.",
   "type": "module",
   "packageManager": "pnpm@10.17.0",
@@ -28,6 +28,8 @@
     "./tokens.json": "./tokens.json",
     "./splash-tokens.css": "./splash-tokens.css",
     "./splash.css": "./splash.css",
+    "./focus-ring.css": "./src/theme/focus-ring.css",
+    "./visually-hidden.css": "./src/theme/visually-hidden.css",
     "./palettes/*": "./src/tokens/palettes/*",
     "./brand/*": "./brand/*",
     "./fonts/*": "./fonts/*",

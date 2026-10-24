@@ -1445,6 +1445,31 @@
       "cssCustomProperties": {
         "--resize-handle-bar": "removed with the ghost look (see MIGRATION.md section 269)"
       }
+    },
+    {
+      "version": "0.52.0",
+      "props": {
+        "BrandMark.ground": "removed; inside Splash a mark takes its dark look by itself, anywhere else it is drawn as drawn (see MIGRATION.md section 271)",
+        "Logo.ground": "removed with BrandMark.ground; Logo.Combined loses it too (see MIGRATION.md section 271)"
+      },
+      "propValues": {
+        "BrandRim": {
+          "dark": "removed; use 'light' on a dark surface or 'none' (see MIGRATION.md section 271)"
+        },
+        "BrandRimTone": {
+          "dark": "removed with the dark rim (see MIGRATION.md section 271)"
+        }
+      },
+      "cssClasses": {
+        "brand-rim--dark": "removed with the dark rim (see MIGRATION.md section 271)"
+      },
+      "cssCustomProperties": {
+        "--brand-rim-dark": "removed with the dark rim (see MIGRATION.md section 271)",
+        "--p-gradient-light-from": "removed; no app has a light theme (see MIGRATION.md section 271)",
+        "--p-gradient-light-to": "removed; no app has a light theme (see MIGRATION.md section 271)",
+        "--c-gradient-light-from": "removed; no app has a light theme (see MIGRATION.md section 271)",
+        "--c-gradient-light-to": "removed; no app has a light theme (see MIGRATION.md section 271)"
+      }
     }
   ]
 }

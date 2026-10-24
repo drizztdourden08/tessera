@@ -177,6 +177,9 @@
           "a range": {
             "components": []
           },
+          "a colour from a palette": {
+            "components": []
+          },
           "a file": {
             "components": []
           },
@@ -364,6 +367,11 @@
           },
           "between a few modes, from a floating switch": {
             "components": []
+          },
+          "between the open documents of an editor": {
+            "components": [
+              "DocumentTabs"
+            ]
           }
         }
       },
@@ -633,7 +641,9 @@
         "question": "What data are you showing?",
         "answers": {
           "rows and columns to sort and filter": {
-            "components": []
+            "components": [
+              "DataTable"
+            ]
           },
           "filters over a collection": {
             "components": []
@@ -644,9 +654,7 @@
             ]
           },
           "a list the user reorders, with on and off icons on each row": {
-            "components": [
-              "ReorderList"
-            ]
+            "components": []
           },
           "one record, compact and read only": {
             "components": []
@@ -744,6 +752,11 @@
               "every input on a controller": {
                 "components": [
                   "ControllerLayout"
+                ]
+              },
+              "a blank controller to draw on": {
+                "components": [
+                  "ControllerSilhouette"
                 ]
               }
             }
@@ -4622,6 +4635,115 @@
       ]
     },
     {
+      "name": "ControllerSilhouette",
+      "tier": "composites",
+      "source": "src/composites/ControllerSilhouette/ControllerSilhouette.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The outline of a controller, one stroked line with no fill, for the app to draw its own glyphs, labels and lines on.",
+      "useWhen": [
+        "A bindings screen points from each control of a pad to the action it does, with its own glyphs and leader lines.",
+        "A tutorial or a help card shows a pad and marks the few controls it talks about."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A test screen that lights every input of a pad live, from its state.",
+          "use": "ControllerLayout"
+        },
+        {
+          "case": "One button or stick glyph inline, such as a prompt in a sentence.",
+          "use": "InputIcon"
+        },
+        {
+          "case": "A keyboard with keys marked or held.",
+          "use": "KeyboardLayout"
+        }
+      ],
+      "rules": [
+        "Pick the variant from the pad family: offset for Xbox shapes, symmetric for PlayStation shapes, nintendo for Switch Pro shapes and pad for a pad with no sticks or triggers.",
+        "Draw on it with children made of the Svg primitives. They sit inside the SVG on top of the outline, in viewBox units.",
+        "The viewBox is CONTROLLER_SILHOUETTE_VIEW_BOX, 0 0 400 260, for every variant. It never changes, so coordinates stay valid.",
+        "To draw the outline in your own SVG, take its path d from CONTROLLER_SILHOUETTE_PATHS[variant], in the same viewBox.",
+        "Place marks from CONTROLLER_SILHOUETTE_ANCHORS, never from numbers of your own. Nothing is drawn at an anchor, it only says where the control sits on the real pad.",
+        "A stick, the d-pad, the face cluster and each meta button have a centre and a radius r. Shoulders sit on the top edge. Triggers sit above their shoulder, outside the outline, since a trigger hides behind it from the front.",
+        "A variant leaves out the anchors its pad has none of: pad has no sticks, no triggers, no guide and no capture, symmetric has no capture.",
+        "Anchors in viewBox units. offset: stick.left 120,90 r20, stick.right 240,137 r20, dpad 159,141 r24, face 279,92 r31, shoulder.left 128,30, shoulder.right 272,30, trigger.left 128,14, trigger.right 272,14, meta.view 176,88 r6, meta.menu 224,88 r6, meta.guide 200,61 r13, meta.capture 200,106 r5.",
+        "symmetric: stick.left 142,141 r30, stick.right 258,141 r30, dpad 91,96 r30, face 309,96 r39, shoulder.left 95,30, shoulder.right 305,30, trigger.left 95,14, trigger.right 305,14, meta.view 126,58 r8, meta.menu 274,58 r8, meta.guide 200,142 r10.",
+        "nintendo: stick.left 113,94 r22, stick.right 241,139 r22, dpad 152,139 r27, face 282,95 r32, shoulder.left 110,35, shoulder.right 290,35, trigger.left 110,14, trigger.right 290,14, meta.view 160,72 r6, meta.menu 240,72 r6, meta.guide 222,95 r6, meta.capture 178,95 r6.",
+        "pad: dpad 92,132 r33, face 307,132 r43, shoulder.left 94,51, shoulder.right 306,51, meta.view 165,144 r11, meta.menu 205,144 r11.",
+        "Sources. offset, symmetric and nintendo are drawn by hand with reference to Noun Project icons: XBOX Controller (icon 5652517) by Daniel Finnegan, pro controller (icon 5602909) by Eliran Bensadoun and playstation controller (icon 1751312) by dinnerchief. No path data is taken from them. pad is traced from SNES-Controller-Flat.jpg by Evan-Amos, Wikimedia Commons, public domain. Each outline is one mirrored half of smooth curves, with no brand marks."
+      ],
+      "a11y": [
+        "The figure is named by label, Controller by default.",
+        "The SVG is hidden from screen readers, children included. Give what the marks say in text outside it too, such as a list of bindings."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "controller or keyboard input",
+          "a blank controller to draw on"
+        ],
+        "rule": "ControllerSilhouette draws only the outline of a pad, so each app places its own marks at shared anchors."
+      },
+      "example": "import { CONTROLLER_SILHOUETTE_ANCHORS, ControllerSilhouette, SvgCircle, SvgText } from '@drizztdourden08/tessera';\n\nconst anchors = CONTROLLER_SILHOUETTE_ANCHORS.offset;\n\nconst JumpHint = () => {\n  const face = anchors.face;\n  if (!face?.r) return null;\n  return (\n    <ControllerSilhouette variant=\"offset\" label=\"Jump is the bottom face button\">\n      <SvgCircle cx={face.x} cy={face.y + face.r / 2} r={face.r / 3} />\n      <SvgText x={face.x} y={face.y + face.r + 14} textAnchor=\"middle\">Jump</SvgText>\n    </ControllerSilhouette>\n  );\n};\n",
+      "propsHash": "1478dbd854e14e32",
+      "props": {
+        "own": [
+          {
+            "name": "variant",
+            "optional": false,
+            "text": "ControllerSilhouetteVariant",
+            "literals": [
+              "'nintendo'",
+              "'offset'",
+              "'pad'",
+              "'symmetric'"
+            ]
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--c-controller-line"
+      ],
+      "gallery": {
+        "title": "Composites · Input devices/ControllerSilhouette",
+        "route": "#/story/composites-controllersilhouette--overview",
+        "file": "stories/composites/ControllerSilhouette.stories.tsx"
+      },
+      "parts": [
+        "CONTROLLER_SILHOUETTE_ANCHORS",
+        "CONTROLLER_SILHOUETTE_ANCHOR_IDS",
+        "CONTROLLER_SILHOUETTE_PATHS",
+        "CONTROLLER_SILHOUETTE_VARIANTS",
+        "CONTROLLER_SILHOUETTE_VIEW_BOX"
+      ]
+    },
+    {
       "name": "ControlMenu",
       "tier": "composites",
       "source": "src/composites/ControlMenu/ControlMenu.tsx",
@@ -5161,7 +5283,211 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "Records as rows and columns the user sorts, groups and picks from, such as the players of a session, with the columns taken from a schema.",
+      "useWhen": [
+        "The user browses many records and sorts, groups, reorders or resizes the columns.",
+        "A group can hold hundreds of rows, such as every peer the app has seen, and the table must stay fast."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A short list the user edits in place, one input per column.",
+          "use": "RowGrid"
+        },
+        {
+          "case": "A few rich rows with their own actions and no columns to sort.",
+          "use": "ListItemRow"
+        },
+        {
+          "case": "Files with their size, date and open buttons.",
+          "use": "FileList"
+        }
+      ],
+      "rules": [
+        "Give it rows, a schema and getRowId; the columns come from the schema, and viewKey keeps the layout between visits.",
+        "Pass fallbackGroupBy to open grouped, and defaultExpanded, a list of group keys or a function of the key and its field, to choose the groups that start open; leave it out to open them all.",
+        "Keep the rows in the app and pass them whole; from virtualizeFrom rows, 200 by default, the table draws only the rows in view.",
+        "Set virtualizeFrom lower for rows that are costly to draw, or to Infinity to draw every row.",
+        "Pass selectable with selectedIds and onSelectionChange to pick many rows; the app keeps the selection."
+      ],
+      "a11y": [
+        "The table is a grid of rows and cells; a selectable table is multiselectable and each row carries aria-selected.",
+        "Ctrl and Shift click extend the selection and Escape clears it, from the grid or from a checkbox.",
+        "A group header is a button that says whether the group is expanded.",
+        "A checkbox in a row that scrolls out of view stays drawn while it has focus, so the keys keep working."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "rows and columns to sort and filter"
+        ],
+        "rule": "DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long."
+      },
+      "example": "import { DataTable } from '@drizztdourden08/tessera';\nimport type { FieldDescriptor } from '@drizztdourden08/tessera';\n\ninterface Peer {\n  id: string;\n  name: string;\n  state: string;\n}\n\nconst openGroups = ['Connected'];\n\ninterface PeerTableProps {\n  peers: Peer[];\n  schema: FieldDescriptor[];\n}\n\nconst PeerTable = ({ peers, schema }: PeerTableProps) => (\n  <DataTable\n    rows={peers}\n    schema={schema}\n    getRowId={(peer) => peer.id}\n    fallbackGroupBy={['state']}\n    defaultExpanded={openGroups}\n    countLabel={['peer', 'peers']}\n  />\n);\n",
+      "propsHash": "b530ba3e884ee0cf",
+      "props": {
+        "own": [
+          {
+            "name": "rows",
+            "optional": false,
+            "text": "readonly T[]"
+          },
+          {
+            "name": "schema",
+            "optional": false,
+            "text": "readonly FieldDescriptor[]"
+          },
+          {
+            "name": "getRowId",
+            "optional": false,
+            "text": "(row: T) => string"
+          },
+          {
+            "name": "viewKey",
+            "optional": true,
+            "text": "ViewKey"
+          },
+          {
+            "name": "viewStorage",
+            "optional": true,
+            "text": "ViewStorage"
+          },
+          {
+            "name": "fallbackColumns",
+            "optional": true,
+            "text": "readonly TableColumn[]"
+          },
+          {
+            "name": "fallbackGroupBy",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "defaultExpanded",
+            "optional": true,
+            "text": "DefaultExpanded"
+          },
+          {
+            "name": "virtualizeFrom",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "onSelect",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "selectedId",
+            "optional": true,
+            "text": "string | null"
+          },
+          {
+            "name": "selectedIds",
+            "optional": true,
+            "text": "ReadonlySet<string>"
+          },
+          {
+            "name": "onSelectionChange",
+            "optional": true,
+            "text": "(ids: ReadonlySet<string>) => void"
+          },
+          {
+            "name": "selectable",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "countLabel",
+            "optional": true,
+            "text": "readonly [one: string, many: string]"
+          },
+          {
+            "name": "emptyMessage",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "resolveTargetFields",
+            "optional": true,
+            "text": "IdRefTargetFieldResolver"
+          },
+          {
+            "name": "resolveIdRefDisplay",
+            "optional": true,
+            "text": "IdRefDisplayResolver"
+          },
+          {
+            "name": "resolveIdRefDefault",
+            "optional": true,
+            "text": "IdRefDefaultResolver"
+          },
+          {
+            "name": "resolveIdRefHref",
+            "optional": true,
+            "text": "IdRefHrefResolver"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-danger",
+        "--c-danger-dim",
+        "--c-hairline",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-dim",
+        "--c-primary-soft",
+        "--c-secondary-soft",
+        "--c-selected",
+        "--c-surface",
+        "--c-text",
+        "--c-text-muted",
+        "--control-h-xs",
+        "--dt-count",
+        "--dt-group-indent",
+        "--dt-index",
+        "--dt-tracks",
+        "--duration-normal",
+        "--ease-standard",
+        "--radius-lg",
+        "--radius-md",
+        "--radius-sm",
+        "--shadow-2",
+        "--size-1",
+        "--size-128",
+        "--size-16",
+        "--size-192",
+        "--size-2",
+        "--size-40",
+        "--size-80",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xl",
+        "--space-xs",
+        "--table-select-w",
+        "--text-sm",
+        "--text-xs",
+        "--transition-fast",
+        "--z-floating",
+        "--z-sticky"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/DataTable",
+        "route": "#/story/composites-datatable--overview",
+        "file": "stories/composites/DataTable.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "DateText",
@@ -5312,6 +5638,143 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "DocumentTabs",
+      "tier": "composites",
+      "source": "src/composites/DocumentTabs/DocumentTabs.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit.",
+      "useWhen": [
+        "The user has several documents open at once and switches between them, such as the drawings in a pixel art editor.",
+        "The user closes a document from its tab, and the app may need to ask first because of unsaved changes.",
+        "The user puts the open documents in the order they like."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The tabs are fixed views of one area, with no close and no reorder.",
+          "use": "Tabs"
+        },
+        {
+          "case": "The tabs split one long form into groups with counts.",
+          "use": "FormGroupTabs"
+        },
+        {
+          "case": "The items are a short list of rows the user edits and puts in order.",
+          "use": "RowGrid"
+        }
+      ],
+      "rules": [
+        "Keep the tabs and the active id in the app; the strip only draws them and calls onActivate, onClose and onMove.",
+        "onClose only asks to close. The app may refuse, for example to confirm unsaved changes first; the tab stays until the app removes it from tabs.",
+        "onMove gets the old and the new index; change the order of tabs there.",
+        "Set unsaved on a tab to show a dot that turns into the close button on hover or focus.",
+        "title is the text on the tab, cut with an ellipsis; tooltip is the hover text and defaults to the title.",
+        "When the tabs do not fit, the strip scrolls and keeps the active tab in view. Pass overflowMenu to add a menu that lists every tab.",
+        "Show the document of the active tab beside the strip; DocumentTabs draws no panel."
+      ],
+      "a11y": [
+        "The strip is a tablist named by label, and each tab is a button with role tab and aria-selected set on the active one. Only one tab is a tab stop.",
+        "Left and Right move focus from tab to tab and wrap, Home and End go to the first and the last. Enter or Space activates the focused tab.",
+        "Delete or Ctrl and W asks to close the focused tab. The close button of each tab is named Close and the title, and is not a tab stop.",
+        "Alt and Left or Right moves the focused tab. Focus stays on the tab, and the move is announced.",
+        "A tab with unsaved changes says so to screen readers. Middle click closes a tab.",
+        "The drop line follows the pointer while a tab is dragged, and the strip adds no motion when the user asks for less."
+      ],
+      "tree": {
+        "path": [
+          "navigation",
+          "between the open documents of an editor"
+        ],
+        "rule": "DocumentTabs is the strip of open documents the user switches, closes and reorders, the same way in every editor."
+      },
+      "example": "import { DocumentTabs } from '@drizztdourden08/tessera';\nimport type { DocumentTab } from '@drizztdourden08/tessera';\n\ninterface OpenDrawingsProps {\n  drawings: DocumentTab[];\n  activeId: string;\n  open: (id: string) => void;\n  askToClose: (id: string) => void;\n  move: (from: number, to: number) => void;\n}\n\nconst OpenDrawings = ({ drawings, activeId, open, askToClose, move }: OpenDrawingsProps) => (\n  <DocumentTabs\n    label=\"Open drawings\"\n    tabs={drawings}\n    activeId={activeId}\n    onActivate={open}\n    onClose={askToClose}\n    onMove={move}\n    overflowMenu\n  />\n);\n",
+      "propsHash": "82b0f142b383f064",
+      "props": {
+        "own": [
+          {
+            "name": "tabs",
+            "optional": false,
+            "text": "readonly DocumentTab[]"
+          },
+          {
+            "name": "activeId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onActivate",
+            "optional": false,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onMove",
+            "optional": false,
+            "text": "(from: number, to: number) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "overflowMenu",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-text",
+        "--c-text-dim",
+        "--c-warning",
+        "--leading-tight",
+        "--opacity-muted",
+        "--radius-round",
+        "--size-1",
+        "--size-224",
+        "--size-8",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--transition-fast",
+        "--transition-normal",
+        "--weight-medium"
+      ],
+      "gallery": {
+        "title": "Composites · Navigation/DocumentTabs",
+        "route": "#/story/composites-documenttabs--overview",
+        "file": "stories/composites/DocumentTabs.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Drawer",
@@ -8585,134 +9048,6 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
-    },
-    {
-      "name": "ReorderList",
-      "tier": "composites",
-      "source": "src/composites/ReorderList/ReorderList.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": true,
-      "job": "A list of named items the user puts in order by drag or by keys, with a row of on and off icons on each item, such as the layers of a drawing.",
-      "useWhen": [
-        "The order of the items matters and the user changes it, such as layers, tracks or steps.",
-        "Each item has a few on and off states the user flips from the row, such as visible and locked.",
-        "One item at a time is selected, and the app acts on it."
-      ],
-      "avoidWhen": [
-        {
-          "case": "Each row has inputs to edit, and the list is added to and removed from.",
-          "use": "RowGrid"
-        },
-        {
-          "case": "The rows are read only, or the user does not change their order.",
-          "use": "ListItemRow"
-        },
-        {
-          "case": "The user adds, renames and deletes the items of a list beside an editor.",
-          "use": "ItemList"
-        }
-      ],
-      "rules": [
-        "Keep the items in the app and change them in onMove; the list only draws them.",
-        "Describe the toggles once, in toggles: an id, a label and an icon for on and one for off.",
-        "Keep the state of each toggle on its item, in toggles keyed by the toggle id, and flip it in onToggle.",
-        "A toggle with no state reads as off.",
-        "Name each toggle by what it is when it is on, such as Visible or Locked.",
-        "Pass selectedId for the item the app has open; the app keeps it and changes it in onSelect."
-      ],
-      "a11y": [
-        "The list is named by label, and each row is one button that selects the item and carries aria-pressed when selected.",
-        "Up and Down move focus from row to row, and Home and End go to the first and the last. Only one row is a tab stop.",
-        "Alt and Up or Down moves the focused row. Focus stays on the row, and the move is announced.",
-        "Space or Enter selects the row.",
-        "Each toggle is an icon button named by its label, with aria-pressed set to its state, in a group named after the item.",
-        "The drop line follows the pointer while a row is dragged, and the list adds no motion when the user asks for less."
-      ],
-      "tree": {
-        "path": [
-          "data",
-          "a list the user reorders, with on and off icons on each row"
-        ],
-        "rule": "ReorderList is an ordered list the user reorders by drag or keys, with on and off icons on each row, the same way in every app."
-      },
-      "example": "import { ReorderList } from '@drizztdourden08/tessera';\nimport type { ReorderItem, ReorderToggle } from '@drizztdourden08/tessera';\n\nconst TOGGLES: ReorderToggle[] = [\n  { id: 'visible', label: 'Visible', iconOn: 'eye', iconOff: 'eye-off' },\n  { id: 'locked', label: 'Locked', iconOn: 'lock', iconOff: 'lock-open' },\n];\n\ninterface LayersProps {\n  layers: ReorderItem[];\n  selectedId: string;\n  select: (id: string) => void;\n  move: (from: number, to: number) => void;\n  toggle: (layerId: string, toggleId: string, next: boolean) => void;\n}\n\nconst Layers = ({ layers, selectedId, select, move, toggle }: LayersProps) => (\n  <ReorderList\n    label=\"Layers\"\n    items={layers}\n    toggles={TOGGLES}\n    selectedId={selectedId}\n    onSelect={select}\n    onMove={move}\n    onToggle={toggle}\n  />\n);\n",
-      "propsHash": "0fa7be193eab3290",
-      "props": {
-        "own": [
-          {
-            "name": "label",
-            "optional": false,
-            "text": "string"
-          },
-          {
-            "name": "items",
-            "optional": false,
-            "text": "readonly ReorderItem[]"
-          },
-          {
-            "name": "toggles",
-            "optional": true,
-            "text": "readonly ReorderToggle[]",
-            "default": "[]"
-          },
-          {
-            "name": "selectedId",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "onSelect",
-            "optional": true,
-            "text": "(id: string) => void"
-          },
-          {
-            "name": "onMove",
-            "optional": false,
-            "text": "(from: number, to: number) => void"
-          },
-          {
-            "name": "onToggle",
-            "optional": true,
-            "text": "(itemId: string, toggleId: string, next: boolean) => void"
-          },
-          {
-            "name": "empty",
-            "optional": true,
-            "text": "ReactNode"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--c-primary-bright",
-        "--c-text",
-        "--c-text-dim",
-        "--c-text-muted",
-        "--opacity-muted",
-        "--size-1",
-        "--size-24",
-        "--space-2xs",
-        "--space-xl",
-        "--transition-fast"
-      ],
-      "gallery": {
-        "title": "Composites · Lists/ReorderList",
-        "route": "#/story/composites-reorderlist--overview",
-        "file": "stories/composites/ReorderList.stories.tsx"
-      },
-      "parts": []
     },
     {
       "name": "ResizeHandle",
@@ -12283,6 +12618,7 @@
         "The app owns the window state: pass maximized, fullscreen and pinned, and act on each control in onControl.",
         "Hide a control the host lacks in controls, such as close: false; controls={false} hides them all, for a host with no window buttons.",
         "Every action but a volume has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.",
+        "Set disabled on an action that cannot run now, such as Undo with nothing to undo; disabledReason says why in its tooltip.",
         "Use bar volume for a sound level: the bar draws VolumeControl, and the main menu lists a Mute or Unmute row and a slider row named by label.",
         "Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.",
         "Keep the actions few: narrow windows move them into the main menu, then shrink the brand.",
@@ -12296,6 +12632,7 @@
       ],
       "a11y": [
         "Each action is an icon button named by its label, with a tooltip and aria-keyshortcuts for its shortcut.",
+        "A disabled action keeps focus with aria-disabled and describes its reason, so the keyboard reaches the tooltip; its main menu row is disabled.",
         "A dropdown action is a menu button with aria-haspopup; its menu takes the keys of DropdownMenu.",
         "A concealed bar opens on focus and on Alt, so the keyboard always reaches it."
       ],
@@ -12437,6 +12774,7 @@
         "--font-mono",
         "--hamburger-icon-bar",
         "--hamburger-icon-h",
+        "--opacity-disabled",
         "--opacity-glow",
         "--radius-sm",
         "--size-14",

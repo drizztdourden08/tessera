@@ -56,10 +56,6 @@ interface PartTagProps {
   children: ReactNode;
 }
 
-interface SignInPageProps {
-  ground: 'dark' | 'light';
-}
-
 type SiteHeaderArgs = {
   links: boolean;
   signedIn: boolean;
@@ -75,6 +71,6 @@ type SiteFooterArgs = {
 };
 
 export type {
-  PartTagProps, PublicationRow, SignInPageProps, SiteFooterArgs, SiteFrameProps, SiteHeaderArgs, StoreItem, StoreItemsProps, StorePageProps,
+  PartTagProps, PublicationRow, SiteFooterArgs, SiteFrameProps, SiteHeaderArgs, StoreItem, StoreItemsProps, StorePageProps,
   StoreSection,
 };

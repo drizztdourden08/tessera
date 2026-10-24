@@ -1,0 +1,101 @@
+# DataTable
+
+Records as rows and columns the user sorts, groups and picks from, such as the players of a session, with the columns taken from a schema.
+
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
+
+```tsx
+import { DataTable } from '@drizztdourden08/tessera';
+```
+
+The source is `src/composites/DataTable/DataTable.tsx`. Its gallery page is Composites · Data views/DataTable (`#/story/composites-datatable--overview`).
+
+## Where the questions lead here
+
+What are you placing? Data. What data are you showing? Rows and columns to sort and filter.
+
+DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long.
+
+## Use it when
+
+- The user browses many records and sorts, groups, reorders or resizes the columns.
+- A group can hold hundreds of rows, such as every peer the app has seen, and the table must stay fast.
+
+## Use something else when
+
+- A short list the user edits in place, one input per column. Use [RowGrid](RowGrid.md) instead.
+- A few rich rows with their own actions and no columns to sort. Use `ListItemRow` instead.
+- Files with their size, date and open buttons. Use [FileList](FileList.md) instead.
+
+## Rules
+
+- Give it rows, a schema and getRowId; the columns come from the schema, and viewKey keeps the layout between visits.
+- Pass fallbackGroupBy to open grouped, and defaultExpanded, a list of group keys or a function of the key and its field, to choose the groups that start open; leave it out to open them all.
+- Keep the rows in the app and pass them whole; from virtualizeFrom rows, 200 by default, the table draws only the rows in view.
+- Set virtualizeFrom lower for rows that are costly to draw, or to Infinity to draw every row.
+- Pass selectable with selectedIds and onSelectionChange to pick many rows; the app keeps the selection.
+
+## Accessibility
+
+- The table is a grid of rows and cells; a selectable table is multiselectable and each row carries aria-selected.
+- Ctrl and Shift click extend the selection and Escape clears it, from the grid or from a checkbox.
+- A group header is a button that says whether the group is expanded.
+- A checkbox in a row that scrolls out of view stays drawn while it has focus, so the keys keep working.
+
+## Example
+
+```tsx
+import { DataTable } from '@drizztdourden08/tessera';
+import type { FieldDescriptor } from '@drizztdourden08/tessera';
+
+interface Peer {
+  id: string;
+  name: string;
+  state: string;
+}
+
+const openGroups = ['Connected'];
+
+interface PeerTableProps {
+  peers: Peer[];
+  schema: FieldDescriptor[];
+}
+
+const PeerTable = ({ peers, schema }: PeerTableProps) => (
+  <DataTable
+    rows={peers}
+    schema={schema}
+    getRowId={(peer) => peer.id}
+    fallbackGroupBy={['state']}
+    defaultExpanded={openGroups}
+    countLabel={['peer', 'peers']}
+  />
+);
+```
+
+## Props
+
+- `rows`: `readonly T[]`.
+- `schema`: `readonly FieldDescriptor[]`.
+- `getRowId`: `(row: T) => string`.
+- `viewKey` (optional): `ViewKey`.
+- `viewStorage` (optional): `ViewStorage`.
+- `fallbackColumns` (optional): `readonly TableColumn[]`.
+- `fallbackGroupBy` (optional): `readonly string[]`.
+- `defaultExpanded` (optional): `DefaultExpanded`.
+- `virtualizeFrom` (optional): `number`.
+- `onSelect` (optional): `(id: string) => void`.
+- `selectedId` (optional): `string | null`.
+- `selectedIds` (optional): `ReadonlySet<string>`.
+- `onSelectionChange` (optional): `(ids: ReadonlySet<string>) => void`.
+- `selectable` (optional): `boolean`.
+- `countLabel` (optional): `readonly [one: string, many: string]`.
+- `emptyMessage` (optional): `string`.
+- `resolveTargetFields` (optional): `IdRefTargetFieldResolver`.
+- `resolveIdRefDisplay` (optional): `IdRefDisplayResolver`.
+- `resolveIdRefDefault` (optional): `IdRefDefaultResolver`.
+- `resolveIdRefHref` (optional): `IdRefHrefResolver`.
+
+## Tokens
+
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary-soft`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-muted`, `--control-h-xs`, `--dt-count`, `--dt-group-indent`, `--dt-index`, `--dt-tracks`, `--duration-normal`, `--ease-standard`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-128`, `--size-16`, `--size-192`, `--size-2`, `--size-40`, `--size-80`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--table-select-w`, `--text-sm`, `--text-xs`, `--transition-fast`, `--z-floating`, `--z-sticky`.

@@ -10,6 +10,8 @@ import type {
 } from './behavior/display-substitution.type';
 import type { GrowFallback } from './behavior/overflow-probe.type';
 
+type DefaultExpanded = readonly string[] | ((groupKey: string, path: string) => boolean);
+
 interface DataTableProps<T> {
   rows: readonly T[];
   schema: readonly FieldDescriptor[];
@@ -18,6 +20,8 @@ interface DataTableProps<T> {
   viewStorage?: ViewStorage;
   fallbackColumns?: readonly TableColumn[];
   fallbackGroupBy?: readonly string[];
+  defaultExpanded?: DefaultExpanded;
+  virtualizeFrom?: number;
   onSelect?: (id: string) => void;
   selectedId?: string | null;
   selectedIds?: ReadonlySet<string>;
@@ -117,6 +121,6 @@ interface TrackFallbacks {
 
 export type {
   ColumnActions, ColumnDragBinding, ColumnDragStart,
-  DataTableProps, RowRenderContext, RowSelectionBinding, SelectAllState, TableActions,
+  DataTableProps, DefaultExpanded, RowRenderContext, RowSelectionBinding, SelectAllState, TableActions,
   TrackFallbacks, TrackOverride,
 };

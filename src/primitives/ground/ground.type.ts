@@ -1,4 +1,4 @@
 /* @layer renderer-components @kind types */
-type Ground = 'light' | 'dark';
+type Ground = 'dark';
 
 export type { Ground };

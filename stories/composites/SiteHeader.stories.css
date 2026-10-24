@@ -77,14 +77,7 @@
   min-block-size: var(--size-640);
   padding: var(--space-xl) var(--space-lg);
   border-radius: var(--radius-lg);
-}
-
-.site-story__gate--dark {
   background: linear-gradient(160deg, var(--c-gradient-dark-from), var(--c-gradient-dark-to));
-}
-
-.site-story__gate--light {
-  background: linear-gradient(160deg, var(--c-gradient-light-from), var(--c-gradient-light-to));
 }
 
 .site-story__gate-card {

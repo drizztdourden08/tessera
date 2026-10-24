@@ -16,7 +16,6 @@ type LogoArgs = {
   size: BrandMarkSize;
   variant: BrandMarkVariant;
   rim: BrandRim;
-  ground: NonNullable<LogoProps['ground']> | 'none';
 };
 
 const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
@@ -30,8 +29,7 @@ const ARG_TYPES: PlaygroundArgTypes<LogoArgs> = {
   brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
   size: { group: 'Appearance', control: 'select', options: [...SIZES] },
   variant: { group: 'Appearance', control: 'select', options: ['mark', 'app-icon'], description: 'The app icon as the brand data describes it: straight or on its tile. A brand with no app icon draws its mark.' },
-  rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
-  ground: { group: 'Appearance', control: 'select', options: ['none', 'light', 'dark'], description: 'The ground the mark stands on: none draws it as drawn; light or dark gives the colours and outline the brand picks for that gradient. Inside Splash it is dark by itself.' },
+  rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin light outline that follows the silhouette, so a dark mark reads on a dark surface.' },
 };
 
 const meta = {
@@ -41,9 +39,9 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { brand: 'rotp', size: 'xl', variant: 'mark', rim: 'none', ground: 'none' },
+  args: { brand: 'rotp', size: 'xl', variant: 'mark', rim: 'none' },
   argTypes: ARG_TYPES,
-  render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} rim={args.rim} ground={args.ground === 'none' ? undefined : args.ground} />,
+  render: (args) => <Logo brand={args.brand} size={args.size} variant={args.variant} rim={args.rim} />,
 } satisfies PlaygroundStory<LogoArgs>;
 
 const sizeGrid = (apps: readonly BrandApp[], extra: Partial<LogoProps>) => (
@@ -64,18 +62,12 @@ const AppIcon = {
   render: () => sizeGrid(APPS_WITH_ICONS, { variant: 'app-icon' }),
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
 
-const GROUND_COLUMNS = [
-  { key: 'light', label: 'ground="light", on the light gradient' },
-  { key: 'dark', label: 'ground="dark", on the dark gradient of the splash' },
-] as const;
-
 const OnGradients = {
-  name: 'On the light and dark gradients',
+  name: 'On the dark gradient',
   render: () => (
     <Demonstrator
       rows={axis(BRAND_APPS)}
-      columns={GROUND_COLUMNS}
-      cell={(brand, column) => <MarkOnGround brand={brand} ground={column} />}
+      cell={(brand) => <MarkOnGround brand={brand} />}
     />
   ),
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
@@ -94,7 +86,7 @@ const Rims = {
 
 const RimFiles = {
   name: 'Rimmed icon files',
-  render: () => <IconFileRows pick={isBrandFile} rims={['light', 'dark']} />,
+  render: () => <IconFileRows pick={isBrandFile} rims={['light']} />,
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
 
 const Overview = overviewStory({
@@ -103,10 +95,10 @@ const Overview = overviewStory({
   points: [
     '`size` takes `sm`, `md`, `lg` or `xl`; `variant="app-icon"` draws the app icon from the brand data.',
     'Tessera has no app icon, because it is not an app.',
-    '`rim="light"` or `"dark"` outlines the silhouette, so a dark mark reads on a dark title bar.',
+    '`rim="light"` outlines the silhouette, so a dark mark reads on a dark title bar.',
     '`pnpm icons` writes every mark and app icon as PNG files from 16 to 512 and a Windows `.ico`.',
-    'It writes them again with each rim, under `brand/light-rim` and `brand/dark-rim`, always without a tile.',
-    '`ground="light"` or `"dark"` draws each brand look for that gradient; `brand/<ground>-ground` holds its files.',
+    'It writes them again with the light rim, under `brand/light-rim`, always without a tile.',
+    'Inside Splash each mark takes its dark look by itself; `brand/dark-ground` holds its files.',
   ],
   instead: '[Combined] for the mark with the app name.',
   playground: Playground,

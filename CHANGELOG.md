@@ -1,5 +1,56 @@
 # @drizztdourden08/tessera
 
+## 0.53.0
+
+### Minor Changes
+
+- fcb5675: ReorderList and SwatchGrid are removed: a layers list and a palette are the Bxel app's own, and it builds them from Tessera's parts. The drag and keyboard reorder logic they shared is now public: `useReorderDrag`, `useMoveFocus`, `reorderStep`, `columnsOf` and `REORDER_ITEM_SELECTOR`, with their types. Build such lists on those hooks, `ColorSwatch`, `ListItemRow` and `IconButton`.
+- ac388f6: Card takes `fill`, which makes its body take the card height left under the header and scroll when the child is taller. FactsPanel takes `framed`, and `framed={false}` drops the border, background and padding so it sits inside a Card.
+- c801e0b: Adds the checkerboard tokens --c-checker-a, --c-checker-b and --checker-size and the grid line token --c-grid-line, and ColorSwatch uses them for its transparent checkerboard. PixelViewport, merged earlier and never released, is removed; it lives in the Bxel app.
+- 9bfcc94: DataTable takes `defaultExpanded`, a list of group keys or a function, to choose which groups start open. It draws only the rows in view from `virtualizeFrom` rows (200 by default), so a group of hundreds of rows stays fast.
+- 8789b5a: New composite DocumentTabs. It is the strip of open documents above an editor, such as the drawings of a pixel art editor. Each tab has a title cut with an ellipsis, an optional icon, a hover text, an unsaved dot that turns into the close button on hover or focus, and a close button named Close and the title. A middle click closes a tab. The user puts the tabs in order by dragging or with Alt and Left or Right, through the shared `src/composites/reorder` folder. The strip is a tablist: Left and Right move focus, Home and End go to the ends, Enter or Space activates, and Delete or Ctrl and W asks to close the focused tab. The app keeps `tabs` and `activeId` and can refuse a close in `onClose`. When the tabs do not fit, the strip scrolls with the active tab kept in view, and `overflowMenu` adds a DropdownMenu that lists every tab. Exports: `DocumentTabs`, `DocumentTab` and `DocumentTabsProps`.
+
+  ScrollStrip takes a new optional `trackProps`, the ARIA attributes of its track, so a strip can name its tablist.
+
+- ce308bb: Exports ownerWindowOf, ownerDocumentOf and observeResize from the primitives path, and adds the focus-ring.css and visually-hidden.css entry points. Apps no longer copy these helpers locally.
+- 2e314b4: SettingsRow and the content rows of SettingsSection take an optional `hint`. A missing, empty or blank hint draws no hint line, so the row keeps no room for it.
+- 8c6efbc: WindowTitleBar actions take `disabled`, which makes the button and its main menu row inert. `disabledReason` replaces the tooltip text while the action is disabled.
+- de71a72: New icons `eraser`, `paint-bucket`, `pipette` and `hand` for the tools of a drawing editor. They are the Lucide icons of the same names, in the interface set.
+
+### Patch Changes
+
+- 42df5a1: `ControllerSilhouette` redraws its `offset`, `symmetric` and `nintendo` outlines. Each is still one closed line with no fill, mirrored from one half, in the same `0 0 400 260` viewBox. The curves are smoother, with no kinks or wobbles, and the grips, shoulders and the notch between the grips follow the new references more closely. `pad` is unchanged. `CONTROLLER_SILHOUETTE_PATHS` follows the new drawings, and `CONTROLLER_SILHOUETTE_ANCHORS` moves each control of those three variants to where it sits on the reference pad, so an app that places marks from the anchors needs no change. The three outlines are drawn by hand with reference to Noun Project icons: [XBOX Controller](https://thenounproject.com/icon/xbox-controller-5652517/) by Daniel Finnegan, [pro controller](https://thenounproject.com/icon/pro-controller-5602909/) by Eliran Bensadoun and [playstation controller](https://thenounproject.com/icon/playstation-controller-1751312/) by dinnerchief. No path data is taken from them.
+- a2a0629: ColorSwatch captions now use a dark ink on light swatch colours and keep the light ink on dark and transparent ones.
+
+## 0.52.0
+
+### Minor Changes
+
+- 5701fa8: `ControllerSilhouette` draws the outline of a controller for the app to draw on. It is one closed, stroked line with no fill, no shading and nothing drawn for a button, stick or trigger. Shoulders show only where they stick out past the body, as on a real pad seen from the front. `variant` picks the outline: `offset` for Xbox shapes, `symmetric` for PlayStation shapes, `nintendo` for Switch Pro shapes and `pad` for a pad with no sticks or triggers. Each outline is symmetric left to right and follows the proportions of the real pad. `children` render inside the SVG on top of the outline, so the app places its own glyphs, labels and leader lines. The viewBox is fixed at `0 0 400 260` for every variant and is exported as `CONTROLLER_SILHOUETTE_VIEW_BOX`. `CONTROLLER_SILHOUETTE_ANCHORS` gives where each control sits per variant in viewBox units, such as `stick.left`, `dpad`, `face`, `shoulder.right` and `meta.guide`, with a radius for the round controls. Triggers sit above their shoulder, outside the outline. `CONTROLLER_SILHOUETTE_PATHS` gives the SVG path `d` of each variant's outline, the same string the component draws, for an app that draws the outline inside its own SVG. The SVG overflow is visible, so children may draw past the box. The figure is named by `label` and the drawing is hidden from screen readers.
+
+  ## Attribution
+
+  - The `offset` outline is traced from "Xbox Series Controller Gold Shadow Special Edition" by Serhio Magpie, Wikimedia Commons, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Changes: silhouette traced, mirrored into one symmetric half and refitted as curves.
+  - The `symmetric` outline is traced from "Dualshock 4 Layout.svg" by Tokyoship, Wikimedia Commons, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Changes: outer silhouette only, mirrored into one symmetric half and refitted as curves.
+  - The `nintendo` outline is drawn by hand from the proportions of "Nintendo.Swtich.Pro.Controller.Black.jpg" by Tim Whitehouse, Wikimedia Commons, CC0. The `pad` outline is traced from "SNES-Controller-Flat.jpg" by Evan-Amos, Wikimedia Commons, public domain.
+
+- 1fc71ff: No app in the family has a light theme, so every variant made for a light background is removed. BrandMark, Logo and Logo.Combined lose their `ground` prop; inside Splash a mark still takes its dark look by itself. The `rim` prop and BrandRim and BrandRimTone lose the value `'dark'`, so a rim is `'none'` or `'light'`. The token `--brand-rim-dark` and the class `.brand-rim--dark` are removed. The light gradient pair, `--p-gradient-light-from`, `--p-gradient-light-to`, `--c-gradient-light-from` and `--c-gradient-light-to`, is removed from every palette, and `gradientLightFrom` and `gradientLightTo` from `tokens.json` and `splash-tokens.css`. The folders `brand/light-ground` and `brand/dark-rim` are deleted; `brand/dark-ground` and `brand/light-rim` stay as they were. The gallery drops its light cells and options, and its demo menus no longer list a Light theme. See MIGRATION.md section 271 for how an app upgrades.
+
+## 0.51.0
+
+### Minor Changes
+
+- 4cd13ac: New composite ReorderList. It is a list the user puts in order by dragging the grip or with the keys, with a row of on and off icons on each item, such as visible and locked for the layers of a drawing. Describe the icons once in `toggles`, keep each item's state in its own `toggles`, and flip it in `onToggle`. Each icon is a button named by its label with aria-pressed. Arrow keys, Home and End move focus, Space or Enter selects, and Alt with Up or Down moves the row. Moves are announced. Exports: `ReorderList`, `ReorderItem`, `ReorderListProps`, `ReorderToggle` and `ReorderToggleState`.
+
+  The drag and the keyboard step of RowGrid now come from one shared reorder folder, `src/composites/reorder`, which also handles horizontal lists. RowGrid looks and behaves as before.
+
+- da4fbbe: New composite StatusBar, the thin bar at the foot of an editor window. It shows a row of labelled readouts, such as cursor position, zoom, current colour, sprite size, layer and frame. Each item has a label and a value, and can take an icon, a colour swatch, a tone and a hover title. An item sits at the start or the end of the bar. Numbers use tabular figures, so a cursor position does not jitter, and long text ends in an ellipsis. On a narrow bar, items with a priority from 1 to 3 drop out, 3 first. The bar is a labelled region and not a live region, so a moving cursor is never announced. It adds the tokens status-bar-h and status-bar-swatch.
+
+### Patch Changes
+
+- 8324a77: ListDetail shows the list count in its panel heading again, as it did before 0.46.0.
+- d3e3109: The ScreenWindow corner title is a true pill again, aligned on the line of the close and lock buttons.
+
 ## 0.50.0
 
 ### Minor Changes

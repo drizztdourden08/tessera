@@ -79,10 +79,10 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
     WizardReview: 'list-checks', WizardExitGuard: 'shield-alert',
   },
-  'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend' },
+  'Composites · Navigation': { SideNav: 'list', HeaderAnchorNav: 'panel-top', FloatingSwitch: 'blend', DocumentTabs: 'file-stack' },
   'Composites · Layout': { SplitPane: 'columns-2', ListDetailLayout: 'layout-list', ResizeHandle: 'grip-vertical', SideNavLayout: 'layout-template', ContentHeader: 'panel-top', SiteHeader: 'panel-top-open', SiteFooter: 'panel-bottom', StatusBar: 'panel-bottom-close', ListDetail: 'panels-left-bottom', SidePanel: 'panel-left', CollapseToggle: 'chevrons-left-right', StudioLayout: 'columns-3' },
   'Composites · Lists': {
-    ListItemRow: 'list-start', ReorderList: 'arrow-down-up', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
+    ListItemRow: 'list-start', GroupTree: 'folder-tree', SearchResults: 'search-check', SearchResultGroup: 'list-tree',
     SearchResultHit: 'mouse-pointer-click', ItemList: 'list-checks',
     FileList: 'files',
   },
@@ -113,7 +113,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },
   'Composites · Input devices': {
-    PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', ControllerLayout: 'gamepad-2', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
+    PressedGrid: 'grid-2x2-check', StickPlot: 'joystick', ControllerLayout: 'gamepad-2', ControllerSilhouette: 'gamepad', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },
   'Composites · Widgets': { DockLayout: 'layout-dashboard', Widget: 'layout-panel-left', WidgetOptions: 'cog', WindowGuideOverlay: 'move' },
   'Composites · Screens': {

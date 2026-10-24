@@ -58,7 +58,7 @@ const VALUES = {
       question: 'Where does the picker sit?',
       answers: { 'in the page': null, 'behind a swatch button': null },
     },
-    'a range': null,
+    'a range': null, 'a colour from a palette': null,
     'a file': null,
     'a path to a file or folder': null,
     'a whole record': {
@@ -95,8 +95,8 @@ const NAVIGATION = {
   question: 'Where does the user go?',
   answers: {
     'between views of one area': null, 'between pages, from the header': null, 'between pages, from a side list': null,
-    'between sections of one long page': null, 'through a nested tree': null, 'to a search result': null,
-    'through the steps of one task': null, 'between a few modes, from a floating switch': null,
+    'between sections of one long page': null, 'through a nested tree': null, 'to a search result': null, 'through the steps of one task': null,
+    'between a few modes, from a floating switch': null, 'between the open documents of an editor': null,
   },
 } as const;
 
@@ -179,7 +179,7 @@ const DATA = {
       question: 'What about the input?',
       answers: {
         'a keyboard with keys marked': null, 'a tour of shortcuts': null, 'which buttons are held': null,
-        'where a stick points': null, 'every input on a controller': null,
+        'where a stick points': null, 'every input on a controller': null, 'a blank controller to draw on': null,
       },
     },
   },

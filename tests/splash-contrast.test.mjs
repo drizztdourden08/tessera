@@ -24,35 +24,13 @@ const tokensOf = (palette) =>
 const CASES = PALETTES.flatMap((palette) => splashContrast(SPLASH_CSS, tokensOf(palette)).map(({ part, ratio, need }) => ({ palette, part, shown: ratio.toFixed(2), ratio, need })));
 
 const GRAPHIC = 3;
-const GRADIENT_SEEDS = ['--p-gradient-light-from', '--p-gradient-light-to', '--p-gradient-dark-from', '--p-gradient-dark-to'];
+const GRADIENT_SEEDS = ['--p-gradient-dark-from', '--p-gradient-dark-to'];
 
 const OUTLINE_DRAWN_INTO_THE_ART = { rotp: '#000000' };
 
 const KEPT_AS_DRAWN_WITH_ITS_OUTLINE_UNDER_3 = [{ app: 'rotp', ground: 'dark' }];
 
 const isKept = (app, ground) => KEPT_AS_DRAWN_WITH_ITS_OUTLINE_UNDER_3.some((kept) => kept.app === app && kept.ground === ground);
-
-const SHAPES_THE_OWNER_ACCEPTED_UNDER_3 = [
-  {
-    app: 'archipelia',
-    ground: 'light',
-    ink: '#7c4dff',
-    floor: 2.36,
-    reason: 'the owner chose it with no outline',
-  },
-];
-
-const range = (from, to) => Array.from({ length: to - from + 1 }, (_, at) => from + at);
-
-const SHAPES_DESIGNED_TO_FADE = [
-  { app: 'bxel', ground: 'dark', shapes: [...range(4, 6), ...range(8, 12), ...range(17, 23)], floor: 1.1, reason: 'the trail and the star bits fade out on purpose' },
-];
-
-const acceptedShape = (app, ground, ink) =>
-  SHAPES_THE_OWNER_ACCEPTED_UNDER_3.find((shape) => shape.app === app && shape.ground === ground && shape.ink === ink);
-
-const fadedShape = (app, ground, at) =>
-  SHAPES_DESIGNED_TO_FADE.find((fade) => fade.app === app && fade.ground === ground && fade.shapes.includes(at));
 
 const markEdges = (app, ground) => {
   const { paths, outline } = groundLook(BRAND_FAMILY[app].mark, ground);
@@ -69,15 +47,8 @@ const MARK_GROUNDS = BRAND_APPS.flatMap((app) => Object.keys(GROUND_GRADIENTS).m
 
 const shown = (ratio) => ratio.toFixed(2);
 
-const MARK_SHAPES = MARK_GROUNDS.filter(({ app, ground }) => !isKept(app, ground)).flatMap(({ app, ground, edge, shapes }) =>
-  shapes.map(({ ink, ratio }, at) => ({ app, ground, ink, at: at + 1, shape: edge === 'shape', edge: `${edge === 'shape' ? `shape ${at + 1}` : edge} in ${ink}`, shown: shown(ratio), ratio })));
-
-const MARK_CASES = MARK_SHAPES.filter(({ app, ground, ink, at, shape }) => !acceptedShape(app, ground, ink) && !(shape && fadedShape(app, ground, at)));
-
-const ACCEPTED_CASES = MARK_SHAPES.flatMap((shape) => {
-  const accepted = acceptedShape(shape.app, shape.ground, shape.ink) ?? (shape.shape ? fadedShape(shape.app, shape.ground, shape.at) : undefined);
-  return accepted ? [{ ...shape, floor: accepted.floor, reason: accepted.reason }] : [];
-});
+const MARK_CASES = MARK_GROUNDS.filter(({ app, ground }) => !isKept(app, ground)).flatMap(({ app, ground, edge, shapes }) =>
+  shapes.map(({ ink, ratio }, at) => ({ app, ground, ink, edge: `${edge === 'shape' ? `shape ${at + 1}` : edge} in ${ink}`, shown: shown(ratio), ratio })));
 
 const KEPT_CASES = MARK_GROUNDS.filter(({ app, ground }) => isKept(app, ground)).map(({ app, ground, shapes }) => {
   const ratios = shapes.map(({ ratio }) => ratio);
@@ -92,7 +63,7 @@ describe('the splash on its dark gradient', () => {
     expect(background).not.toContain('radial-gradient');
   });
 
-  it.each(['palette.css', ...PALETTE_FILES])('the %s palette sets its own light and dark gradient pairs', (file) => {
+  it.each(['palette.css', ...PALETTE_FILES])('the %s palette sets its own dark gradient pair', (file) => {
     const path = file === 'palette.css' ? 'src/tokens/palette.css' : `${PALETTES_DIR}/${file}`;
     const seeds = new Map(declarationsOf(read(path), (selector) => selector === ':root' || selector.startsWith('[data-palette=')));
     expect(GRADIENT_SEEDS.every((seed) => seeds.has(seed))).toBe(true);
@@ -103,18 +74,9 @@ describe('the splash on its dark gradient', () => {
   });
 });
 
-describe('each brand mark on the light and the dark gradient of its palette', () => {
+describe('each brand mark on the dark gradient of its palette', () => {
   it.each(MARK_CASES)('$app mark on the $ground gradient, $edge: 3:1 on every point, $shown:1 at the lowest', ({ ratio }) => {
     expect(ratio).toBeGreaterThanOrEqual(GRAPHIC);
-  });
-
-  it('records every shape the owner accepted under 3:1 against a shape the marks draw', () => {
-    expect(ACCEPTED_CASES).toHaveLength(SHAPES_THE_OWNER_ACCEPTED_UNDER_3.length + SHAPES_DESIGNED_TO_FADE.reduce((total, fade) => total + fade.shapes.length, 0));
-  });
-
-  it.each(ACCEPTED_CASES)('$app mark on the $ground gradient, $edge, accepted under 3:1 because $reason: $shown:1 at the lowest, never under $floor:1', ({ ratio, floor }) => {
-    expect(ratio).toBeLessThan(GRAPHIC);
-    expect(ratio).toBeGreaterThanOrEqual(floor);
   });
 
   it.each(KEPT_CASES)('$app mark on the $ground gradient, kept as drawn: its fill reads at $shownHighest:1, its lowest shape is $lowest:1', ({ highest }) => {

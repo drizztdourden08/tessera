@@ -18,9 +18,11 @@ export type {
 } from './Wizard';
 export { GroupTree, type GroupTreeProps, type TreeNode } from './GroupTree';
 export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } from './HeaderAnchorNav';
+export { REORDER_ITEM_SELECTOR, columnsOf, reorderStep, useMoveFocus, useReorderDrag } from './reorder';
+export type { MoveFocus, ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDrop, ReorderKeyEvent, ReorderStepOptions } from './reorder';
+export { DocumentTabs,type DocumentTab, type DocumentTabsProps } from './DocumentTabs';
 export { LogPanel, type LogKindDef, type LogKindTone, type LogPanelProps, type LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
-export { ReorderList, type ReorderItem, type ReorderListProps, type ReorderToggle, type ReorderToggleState } from './ReorderList';
 export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from './ListItemRow';
 export { ListDetailLayout, type ListDetailLayoutProps } from './ListDetailLayout';
 export { PanelContainer, type PanelContainerConfig, type PanelContainerProps } from './PanelContainer';
@@ -72,6 +74,14 @@ export { ControllerLayout, CONTROLLER_LAYOUT_VARIANTS, CONTROLLER_SLOT_IDS } fro
 export type {
   ControllerExtra, ControllerLayoutProps, ControllerLayoutVariant, ControllerSlotId, ControllerSlotState, ControllerSlots,
 } from './ControllerLayout';
+export {
+  CONTROLLER_SILHOUETTE_ANCHOR_IDS, CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS,
+  CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
+} from './ControllerSilhouette';
+export type {
+  ControllerSilhouetteAnchor, ControllerSilhouetteAnchorId, ControllerSilhouetteAnchors, ControllerSilhouetteAnchorSet,
+  ControllerSilhouetteProps, ControllerSilhouetteVariant,
+} from './ControllerSilhouette';
 export { KeyboardLayout, KEYBOARD_SIZES } from './KeyboardLayout';
 export type { KeyboardLayoutProps, KeyboardSize, KeyboardTarget, KeyRect, KeyRects } from './KeyboardLayout';
 export { PressedGrid, type PressedGridItem, type PressedGridProps } from './PressedGrid';

@@ -8,8 +8,6 @@
     --c-surface:       var(--p-tertiary-900);
     --c-sunken:        var(--p-tertiary-950);
     --c-layer:         var(--p-black);
-    --c-gradient-light-from: var(--p-gradient-light-from);
-    --c-gradient-light-to:   var(--p-gradient-light-to);
     --c-gradient-dark-from: var(--p-gradient-dark-from);
     --c-gradient-dark-to:   var(--p-gradient-dark-to);
     --c-glass:         color-mix(in srgb, var(--c-layer) 92%, transparent);
@@ -96,6 +94,10 @@
     --c-tertiary-dim:    color-mix(in oklab, var(--p-tertiary) 18%, var(--c-bg));
     --c-tertiary-soft:   color-mix(in srgb, var(--p-tertiary) 14%, transparent);
     --c-on-tertiary:     var(--p-on-tertiary);
+    --c-controller-line: color-mix(in oklab, var(--c-text-muted) 85%, var(--c-surface));
+    --c-checker-a: var(--p-tertiary-850);
+    --c-checker-b: var(--p-tertiary-800);
+    --c-grid-line: color-mix(in srgb, var(--p-tertiary-500) 55%, transparent);
   }
 
   :root {

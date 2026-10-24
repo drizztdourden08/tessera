@@ -48,6 +48,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - In the page: no component yet.
     - Behind a swatch button: no component yet.
   - A range: no component yet.
+  - A colour from a palette: no component yet.
   - A file: no component yet.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
@@ -96,6 +97,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - To a search result: no component yet.
   - Through the steps of one task: no component yet.
   - Between a few modes, from a floating switch: no component yet.
+  - Between the open documents of an editor: [DocumentTabs](components/DocumentTabs.md). DocumentTabs is the strip of open documents the user switches, closes and reorders, the same way in every editor.
 - Layout. **What are you arranging?**
   - A plain block: [Box](components/Box.md). Box is the plain element; surface="sunken" makes it a well and surface="raised" a panel, with the fill, edge and corner from the tokens.
   - Items in a row or a column:
@@ -162,10 +164,10 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Words that draw the eye, animated: no component yet.
   - Formatted text from Markdown, such as release notes: [Markdown](components/Markdown.md). Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped.
 - Data. **What data are you showing?**
-  - Rows and columns to sort and filter: no component yet.
+  - Rows and columns to sort and filter: [DataTable](components/DataTable.md). DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long.
   - Filters over a collection: no component yet.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
-  - A list the user reorders, with on and off icons on each row: [ReorderList](components/ReorderList.md). ReorderList is an ordered list the user reorders by drag or keys, with on and off icons on each row, the same way in every app.
+  - A list the user reorders, with on and off icons on each row: no component yet.
   - One record, compact and read only: no component yet.
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.
@@ -190,6 +192,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Which buttons are held: no component yet.
     - Where a stick points: no component yet.
     - Every input on a controller: [ControllerLayout](components/ControllerLayout.md). ControllerLayout draws every input of a pad in its place, so a test screen reads the same in every app.
+    - A blank controller to draw on: [ControllerSilhouette](components/ControllerSilhouette.md). ControllerSilhouette draws only the outline of a pad, so each app places its own marks at shared anchors.
 - Icons and brand. **Which mark?**
   - An icon from the set: no component yet.
   - A small stroke glyph: no component yet.

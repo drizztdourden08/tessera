@@ -17,8 +17,8 @@ describe('brand rims', () => {
   });
 
   it('rims the mark and the name of Logo.Combined', () => {
-    const html = renderToString(h(Logo.Combined, { brand: 'archipelia', rim: 'dark' }));
-    expect(html.match(/brand-rim--dark/g)).toHaveLength(2);
+    const html = renderToString(h(Logo.Combined, { brand: 'archipelia', rim: 'light' }));
+    expect(html.match(/brand-rim--light/g)).toHaveLength(2);
   });
 
   it('writes the rim colours as tokens', () => {

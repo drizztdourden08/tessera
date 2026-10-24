@@ -50,6 +50,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
       { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
       { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
+      { name: 'DocumentTabs', summary: 'The strip of open documents above an editor: unsaved mark, close, drag or key reorder, and scroll when many.' },
     ] },
     { group: 'Layout', entries: [
       { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
@@ -69,7 +70,6 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Lists',
       entries: [
         { name: 'ListItemRow', summary: 'One selectable row: icon, name and meta, any number of two-line columns that line up in a list, and an action.' },
-        { name: 'ReorderList', summary: 'A list the user reorders by drag or keys, with a row of on and off icons on each item, such as the layers of a drawing.' },
         { name: 'GroupTree', summary: 'A keyboard tree of groups with guides, icons and counts, and the items as leaves.' },
         { name: 'SearchResults', summary: 'The search pane: a summary with page chips over groups of matches.' },
         { name: 'SearchResultGroup', summary: 'One group of matches: glowing icon, title, count and an open button.' },

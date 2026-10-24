@@ -33,6 +33,7 @@ export default standardsEslint({
     { files: ['src/composites/ControlMenu/sub-components/ControlSubPanel.tsx', 'src/composites/ControlMenu/sub-components/ControlSubUnder.tsx'], why: 'a ControlMenu sub-panel joins its row the way a DropdownMenu sub-menu does, from the measured join, or takes the width of its row' },
     { files: ['src/composites/DataTable/DataTable.tsx'], why: 'column widths are sized and resized per table' },
     { files: ['src/composites/DataTable/sub-components/GroupRow.tsx'], why: 'a group row indents by its depth' },
+    { files: ['src/composites/DataTable/sub-components/VirtualRows.tsx'], why: 'the body height follows the number of rows, set as one custom property' },
     { files: ['src/composites/GroupTree/sub-components/GroupTreeRow.tsx', 'src/composites/GroupTree/sub-components/GroupTreeGuides.tsx'], why: 'a tree row indents by its depth and draws a guide per ancestor' },
     { files: ['src/composites/ListItemRow/ListItemRow.tsx', 'src/composites/ListItemRow/sub-components/ListItemList.tsx'], why: 'the grid tracks follow the number of columns the rows pass in' },
     { files: ['src/primitives/code-view/CodeView.tsx'], why: 'the highlighter returns each line and token style' },

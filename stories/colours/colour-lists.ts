@@ -11,7 +11,7 @@ const MAIN_SWATCHES: readonly MainSwatch[] = [
   { group: 'Accents', name: 'Primary', token: '--p-primary', on: '--p-on-primary', use: 'Selection, focus, the main action.' },
   { group: 'Accents', name: 'Secondary', token: '--p-secondary', on: '--p-on-secondary', use: 'Positive states and the second action.' },
   { group: 'Accents', name: 'Tertiary', token: '--p-tertiary', on: '--p-on-tertiary', use: 'The quiet third tier, and every neutral: grounds, borders and text are steps of it.' },
-  { group: 'White and black', name: 'White', token: '--p-white', on: '--p-black', use: 'The white of this app: the light ground.' },
+  { group: 'White and black', name: 'White', token: '--p-white', on: '--p-black', use: 'The white of this app: bright text and fills on the dark ground.' },
   { group: 'White and black', name: 'Black', token: '--p-black', on: '--p-white', use: 'The black of this app: panels and layers on the dark ground.' },
   { group: 'White and black', name: 'Pure white', token: '--p-pure-white', on: '--p-pure-black', use: 'The top of every palette.' },
   { group: 'White and black', name: 'Pure black', token: '--p-pure-black', on: '--p-pure-white', use: 'The bottom of every palette, and the dark ground.' },

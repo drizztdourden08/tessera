@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 72 of 194 have their usage written; a linked name opens its page.
+One line per component. 74 of 195 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -100,17 +100,19 @@ One line per component. 72 of 194 have their usage written; a linked name opens 
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ContentHeader](components/ContentHeader.md): The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end. Import from `@drizztdourden08/tessera`.
 - [ControllerLayout](components/ControllerLayout.md): A plain outline of a controller with every button, trigger and stick in its place, lit while it is held, to test a gamepad or show what it sends. Import from `@drizztdourden08/tessera`.
+- [ControllerSilhouette](components/ControllerSilhouette.md): The outline of a controller, one stroked line with no fill, for the app to draw its own glyphs, labels and lines on. Import from `@drizztdourden08/tessera`.
 - [ControlMenu](components/ControlMenu.md): A dropdown of settings behind one button: each row is a label with one compact control, and the panel joins its button like a DropdownMenu. Import from `@drizztdourden08/tessera`.
 - [CopyButton](components/CopyButton.md): A button that copies a text to the clipboard and confirms it with a check and the word Copied. Import from `@drizztdourden08/tessera`.
 - [CopyValue](components/CopyValue.md): A value the user often copies, such as an address, a seed or a key, shown with a copy button at its end. Import from `@drizztdourden08/tessera`.
 - `CreateRecordDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `DataTable`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DataTable](components/DataTable.md): Records as rows and columns the user sorts, groups and picks from, such as the players of a session, with the columns taken from a schema. Import from `@drizztdourden08/tessera`.
 - [DateText](components/DateText.md): A date or a time in any common format, such as 5 minutes ago, Today, 21:40 or 16 October 2026, with the full date on hover. Import from `@drizztdourden08/tessera`.
 - `DeleteGuardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Dialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DialogShell`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DisabledOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DockLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DocumentTabs](components/DocumentTabs.md): The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit. Import from `@drizztdourden08/tessera`.
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
 - `DynamicInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -145,7 +147,6 @@ One line per component. 72 of 194 have their usage written; a linked name opens 
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [ReorderList](components/ReorderList.md): A list of named items the user puts in order by drag or by keys, with a row of on and off icons on each item, such as the layers of a drawing. Import from `@drizztdourden08/tessera`.
 - [ResizeHandle](components/ResizeHandle.md): The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range. Import from `@drizztdourden08/tessera`.
 - [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
 - [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.

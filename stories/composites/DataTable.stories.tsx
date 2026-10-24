@@ -12,6 +12,7 @@ import {
   HINTS, HINT_SCHEMA, resolveSlotDefault, resolveSlotField, resolveTargetFields,
 } from './_samples/data-hints';
 import type { HintRow } from './_samples/data-hints';
+import { LongGroupsDemo } from './_samples/LongGroupsDemo';
 import { LinkSandbox } from '../primitives/_samples/LinkSandbox';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -117,6 +118,11 @@ const References = {
   render: () => <HintsDemo />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const LongGroups = {
+  name: 'Long groups',
+  render: () => <LongGroupsDemo />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const AllVariants = {
   name: 'All variants',
   render: () => (
@@ -176,6 +182,7 @@ const Overview = overviewStory({
     '`viewKey` keeps that layout between visits.',
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
     'A reference column shows its target by a field the user picks from the column menu.',
+    '`defaultExpanded` picks the groups that start open; `virtualizeFrom` draws only the rows in view.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,
@@ -194,4 +201,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, Overview, Players, References };
+export { AllVariants, LongGroups, Overview, Players, References };

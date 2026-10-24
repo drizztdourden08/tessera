@@ -17,6 +17,7 @@ type FactsPanelLayout = 'rows' | 'inline' | 'boxed' | 'terms';
 interface FactsPanelProps {
   groups: readonly FactsPanelGroup[];
   layout?: FactsPanelLayout;
+  framed?: boolean;
   align?: StatRowAlign;
   label?: string;
   className?: string;

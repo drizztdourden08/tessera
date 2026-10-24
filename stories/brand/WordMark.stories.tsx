@@ -25,7 +25,7 @@ const SIZE_MIN: Record<WordmarkSize, VariantGridMin> = { sm: 'md', md: 'lg', lg:
 const ARG_TYPES: PlaygroundArgTypes<WordMarkArgs> = {
   brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
   size: { group: 'Appearance', control: 'select', options: [...SIZES] },
-  rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin outline in the rim colour that follows the silhouette, so a dark mark reads on a dark surface and a light one on a light surface.' },
+  rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin light outline that follows the silhouette, so a dark mark reads on a dark surface.' },
 };
 
 const meta = {

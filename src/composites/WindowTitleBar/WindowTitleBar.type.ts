@@ -32,6 +32,8 @@ interface WindowTitleBarCommandAction extends WindowTitleBarActionBase {
   onSelect: () => void;
   status?: string;
   pulse?: boolean;
+  disabled?: boolean;
+  disabledReason?: string;
 }
 
 interface WindowTitleBarDropdownAction extends WindowTitleBarActionBase {

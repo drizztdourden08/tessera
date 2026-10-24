@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { createSchemaIndex } from '../../../data/schema/build-schema';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { GHOST_ROW_LIMIT } from '../DataTable.constants';
+import { GHOST_ROW_LIMIT, VIRTUALIZE_FROM } from '../DataTable.constants';
 import { columnLabelsOf } from './column-labels';
 import { buildPickerNodes } from './field-picker-nodes';
 import { ghostRowSample } from './ghost-row-sample';
@@ -12,12 +12,13 @@ import { useExpandedGroups } from './useExpandedGroups';
 import { useRowContext } from './useRowContext';
 import { useRowSelection } from './useRowSelection';
 import { useTableView } from './useTableView';
+import { useVirtualRows } from './useVirtualRows';
 import type { DataTableProps } from '../DataTable.type';
 
 const useTableModel = <T>(props: DataTableProps<T>) => {
   const {
     rows, schema, getRowId, viewKey, viewStorage, fallbackColumns, fallbackGroupBy,
-    onSelect, selectedId, selectedIds, onSelectionChange, selectable = false,
+    defaultExpanded, virtualizeFrom = VIRTUALIZE_FROM, onSelect, selectedId, selectedIds, onSelectionChange, selectable = false,
     resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
   } = props;
 
@@ -30,6 +31,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
   const groups = useExpandedGroups({
     groupedRows: table.groupedRows,
     groupBy: table.groupBy,
+    defaultExpanded,
     sessionView,
     setSessionView,
   });
@@ -39,6 +41,11 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
   });
   const drag = useColumnDrag(table.reorderColumn);
   const sizing = useColumnSizing({ columns: table.columns });
+  const windowed = table.sortedRows.length >= virtualizeFrom;
+  const virtual = useVirtualRows({
+    enabled: windowed,
+    nodes: table.groupedRows, isExpanded: groups.isExpanded, getRowId, rootRef: sizing.rootRef,
+  });
 
   const fieldNodes = useMemo(
     () => buildPickerNodes(schema, table.columns.map((column) => column.path)),
@@ -64,6 +71,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
 
   return {
     table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context,
+    virtual: windowed ? virtual : null,
     checkboxes: selection?.selectable ?? false,
   };
 };

@@ -23,7 +23,7 @@ FileList gives every file the same row, with the size, the date and the two ways
 
 ## Use something else when
 
-- Many files to sort, filter or pick from. Use `DataTable` instead.
+- Many files to sort, filter or pick from. Use [DataTable](DataTable.md) instead.
 - Rows that are not files, with their own columns and action. Use `ListItemRow` instead.
 - One path the user reads or copies. Use [CopyValue](CopyValue.md) instead.
 

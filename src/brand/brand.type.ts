@@ -11,6 +11,7 @@ interface BrandMarkPath {
   d: string;
   ink: string;
   onDark?: string;
+  onDarkOpacity?: number;
   group?: BrandApp;
   evenOdd?: boolean;
   opacity?: number;
@@ -120,6 +121,7 @@ interface BrandInfo {
   summary: string;
   placement: string;
   mark: BrandMarkData;
+  iconMark?: BrandMarkData;
   mascot?: BrandMascot;
   wordmark: BrandWordmarkSpec;
   gradient: BrandGradient;

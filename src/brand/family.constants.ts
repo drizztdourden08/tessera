@@ -3,7 +3,7 @@ import type { BrandApp, BrandInfo } from './brand.type';
 import { ARCHIPELIA_MARK } from './marks/archipelia.constants';
 import { ARCHIPELIA_MASCOT } from './marks/archipelia-mascot.constants';
 import { BROCK_MARK } from './marks/brock.constants';
-import { BXEL_MARK } from './marks/bxel.constants';
+import { BXEL_ICON_MARK, BXEL_MARK } from './marks/bxel.constants';
 import { BROCK_MASCOT } from './marks/brock-mascot.constants';
 import { ROTP_MARK } from './marks/rotp.constants';
 import { ROTP_MASCOT } from './marks/rotp-mascot.constants';
@@ -128,6 +128,7 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
     summary: 'A palette-limited pixel art editor built on Brock and Tessera. Its own look is a seven colour palette that runs from night to mist through red and purple.',
     placement: 'Last in the row, the newest app built on Brock.',
     mark: BXEL_MARK,
+    iconMark: BXEL_ICON_MARK,
     wordmark: { text: 'Bxel', colors: ['#ff7a8a', '#e0245e', '#b02a9c', '#7b3fe4'] },
     gradient: { angle: 160, stops: ['#2a1560', '#1a0d38', '#140b26'] },
     backdrop: {

@@ -12,8 +12,15 @@ const TitleBarStatus = (props: TitleBarCommandProps) => {
   const { action, away } = props;
   const tick = useRepeatTick(STATUS_REPEAT_MS);
   const pulse = action.pulse === true;
+  const disabled = action.disabled === true;
+  const className = disabled ? 'window-title-bar__status window-title-bar__status--disabled' : 'window-title-bar__status';
   return (
-    <Pressable {...barItemProps(actionItem(action.id), away, 'window-title-bar__status')} title={action.label} onClick={action.onSelect}>
+    <Pressable
+      {...barItemProps(actionItem(action.id), away, className)}
+      title={disabled ? action.disabledReason ?? action.label : action.label}
+      disabled={disabled}
+      onClick={action.onSelect}
+    >
       <Status tone={action.tone ?? 'info'} dot={pulse} pulse={pulse}>
         <Emphasis trigger="pulse" anchor="center" stagger={STATUS_STAGGER_MS} pulseKey={`${action.status ?? ''} ${tick}`}>{action.status}</Emphasis>
       </Status>
