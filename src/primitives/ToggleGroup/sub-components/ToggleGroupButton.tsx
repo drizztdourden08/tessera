@@ -1,14 +1,14 @@
 /* @layer renderer-components @kind component */
 import { disabledReason } from '../../field-control/disabled-reason';
 import { isDisabled } from '../../field-control/is-disabled';
-import { ReasonTip } from '../../field-control/ReasonTip';
+import { OptionTip } from '../../field-control/OptionTip';
 import type { ToggleGroupButtonProps } from '../ToggleGroup.type';
 
 const ToggleGroupButton = <T extends string>(props: ToggleGroupButtonProps<T>) => {
-  const { option, active, groupDisabled, first, last, handlers, onToggle } = props;
+  const { option, active, groupDisabled, first, last, handlers, placement, onToggle } = props;
   const reason = disabledReason(option.disabled);
   return (
-    <ReasonTip reason={reason}>
+    <OptionTip reason={reason} name={option.label} tooltip={option.tooltip} placement={placement}>
       <button
         type="button"
         aria-pressed={active}
@@ -22,7 +22,7 @@ const ToggleGroupButton = <T extends string>(props: ToggleGroupButtonProps<T>) =
       >
         {option.label}
       </button>
-    </ReasonTip>
+    </OptionTip>
   );
 };
 

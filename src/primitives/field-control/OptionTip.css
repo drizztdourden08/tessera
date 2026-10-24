@@ -1,0 +1,4 @@
+/* @layer renderer-components @kind style */
+.tooltip-anchor.option-tip {
+  align-self: stretch;
+}

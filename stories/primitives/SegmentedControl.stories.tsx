@@ -4,7 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, Glyph, Icon, SegmentedControl, Text } from '../../src/primitives';
-import type { ControlSize, SegmentOption } from '../../src/primitives';
+import type { ControlSize, SegmentOption, TooltipPlacement } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -48,6 +48,16 @@ const NODE_ICONS: SegmentOption<Align>[] = [
   { value: 'right', icon: <Text as="span" variant="caption">Aa</Text>, hint: { label: 'Text', description: 'Any node works, even text' } },
 ];
 
+const TIPPED_ICONS: SegmentOption<Align>[] = [
+  { value: 'left', icon: 'chevron-left', hint: { label: 'Align left', description: 'Pins the text to the left edge' }, tooltip: { description: 'Pins the text to the left edge.', shortcut: 'Mod+L' } },
+  { value: 'center', icon: 'chevron-right', hint: { label: 'Align center', description: 'Centres the text' }, tooltip: { shortcut: 'Mod+E' } },
+  { value: 'right', icon: 'chevron-right', hint: { label: 'Align right', description: 'Pins the text to the right edge' }, tooltip: { description: 'Pins the text to the right edge.' } },
+];
+
+const TIPPED_TEXT: SegmentOption<Scale>[] = SCALES.map((opt) =>
+  ({ ...opt, tooltip: { description: `Draws the picture at ${opt.value === 'fit' ? 'the window size' : opt.value}.`, shortcut: opt.value === 'fit' ? 'Mod+0' : `Mod+${opt.value.slice(0, 1)}` } }),
+);
+
 const ARGS: Partial<SegmentedControlArgs> = { label: 'Window scale', description: 'How large the game picture is drawn.', disabled: false, deselectable: false, size: 'md' };
 
 const ARG_TYPES: PlaygroundArgTypes<SegmentedControlArgs> = {
@@ -63,10 +73,10 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SegmentedControlArgs>;
 
-type StatefulSegmentsProps<T extends string> = { initial: T; options: SegmentOption<T>[] } & Partial<SegmentedControlArgs>;
+type StatefulSegmentsProps<T extends string> = { initial: T; options: SegmentOption<T>[]; tooltipPlacement?: TooltipPlacement } & Partial<SegmentedControlArgs>;
 
 const StatefulSegments = <T extends string>(props: StatefulSegmentsProps<T>) => {
-  const { initial, options, label, description, disabled, deselectable, size } = props;
+  const { initial, options, label, description, disabled, deselectable, size, tooltipPlacement } = props;
   const [value, setValue] = useState<T | ''>(initial);
   return (
     <Box className="story-column">
@@ -79,6 +89,7 @@ const StatefulSegments = <T extends string>(props: StatefulSegmentsProps<T>) => 
         description={description}
         disabled={disabled}
         size={size}
+        tooltipPlacement={tooltipPlacement}
       />
       <Text className="story-label">Value: {value === '' ? '(unset)' : value}</Text>
     </Box>
@@ -121,6 +132,16 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
 
+const OptionTooltips = {
+  name: 'Option tooltips',
+  render: () => (
+    <Box className="story-column">
+      <StatefulSegments<Align> initial="center" options={TIPPED_ICONS} label="Icon only, tooltip above" />
+      <StatefulSegments<Scale> initial="2x" options={TIPPED_TEXT} label="Text, tooltip to the right" tooltipPlacement="right" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
+
 const HintOutput = {
   name: 'Icon only, with the hint output',
   render: () => <SegmentHintDemo />,
@@ -159,13 +180,13 @@ const Overview = overviewStory({
     'Use it for short settings where every choice fits on one line, such as a scale or an alignment.',
     'Options can be text, or an icon: a name from the set or any node, such as a Glyph, named by its hint.',
     '`onDeselect` lets a second click on the active option clear the value.',
-    'Each option can carry a `hint` that a [HintLine] shows while it is pointed at or focused.',
+    'Each option can carry a `hint` that a [HintLine] shows, or a `tooltip` with a description and a shortcut.',
     'The arrow keys pick; an option `disabled` with a string shows why in a tooltip, and the arrows skip it.',
     'A compact [DensityScope] draws it at `sm` with a tighter gap; `className` lands on its root.',
   ],
   instead: '[ToggleGroup] to switch several options on, or [Tabs] to switch views.',
   playground: Playground,
-  variants: [Kinds, IconNodes, Sizes, HintOutput],
+  variants: [Kinds, IconNodes, Sizes, OptionTooltips, HintOutput],
   states: {
     render: renderState,
     list: [
@@ -180,4 +201,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { HintOutput, IconNodes, Kinds, Overview, Playground, Sizes };
+export { HintOutput, IconNodes, Kinds, OptionTooltips, Overview, Playground, Sizes };
