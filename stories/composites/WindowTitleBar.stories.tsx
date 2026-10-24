@@ -196,7 +196,7 @@ const Overview = overviewStory({
   description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
   points: [
     '`menu` takes [DropdownMenu] groups; `view` hides its View sub-menu or moves it; `onControl` hears the buttons.',
-    '`actions` add icon buttons with a tooltip of their label and `shortcut`; `tone` and `effect` mark the icon; `disabled` makes one inert.',
+    '`actions` are icon buttons; the tooltip shows label and `shortcut`. `tone`, `effect`, `disabled` change one.',
     "`bar: 'dropdown'` opens a menu of its own from `groups`; `bar: 'volume'` draws a [VolumeControl].",
     "A `bar: 'status'` action shows `status` as text with digits of one width; `pulse` adds a beating dot.",
     'Narrow windows move items into the menu, a dropdown as a sub-menu; `controls` hides buttons, `false` all.',
