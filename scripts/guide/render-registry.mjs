@@ -18,11 +18,21 @@ const entryOf = (c) => ({
   ...(c.usage ? { ...c.usage, props: c.props, tokens: c.tokens, gallery: c.gallery, parts: c.parts } : {}),
 });
 
+const moduleOf = (m) => ({
+  name: m.name,
+  tier: m.tier,
+  source: m.file,
+  imports: m.imports,
+  usage: Boolean(m.usage),
+  ...(m.usage ? { ...m.usage, exports: m.exports } : {}),
+});
+
 const renderRegistry = (model) => `${JSON.stringify({
   package: model.packageName,
   entryPoints: model.specifiers,
   tree: treeWithComponents(model.tree, [], model.components),
   components: model.components.map(entryOf),
+  ...(model.modules ? { modules: model.modules.map(moduleOf) } : {}),
 }, null, 2)}\n`;
 
 export { renderRegistry };

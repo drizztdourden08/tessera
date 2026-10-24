@@ -2,6 +2,6 @@
 import { checkUsage } from './check-usage.mjs';
 
 const usageFindings = (components, context) =>
-  components.filter((c) => c.usage).flatMap((c) => checkUsage(c.name, c.usage, { ...context, currentHash: c.propsHash }));
+  components.filter((c) => c.usage).flatMap((c) => checkUsage(c.name, c.usage, { ...context, currentHash: c.propsHash, hooks: c.kind === 'hooks' }));
 
 export { usageFindings };

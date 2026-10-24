@@ -25,11 +25,20 @@ type ComponentName = WithApp<TesseraName, AppPartName<RegisteredApp>>;
 
 type TreePath = WithApp<PathsOf<typeof DECISION_TREE>, AppPath<RegisteredApp>>;
 
+type HookName = {
+  [Name in Extract<keyof PublicValues, string>]: Name extends `use${Capitalize<string>}` ? Name : never;
+}[Extract<keyof PublicValues, string>];
+
 type Lines = readonly [string, ...string[]];
 
 interface UsageAlternative {
   readonly case: string;
   readonly use: ComponentName;
+}
+
+interface HookAlternative {
+  readonly case: string;
+  readonly use: ComponentName | HookName;
 }
 
 interface UsageTree {
@@ -52,4 +61,10 @@ type ComponentUsage = UsageFields & (
   | { readonly buildingBlock: true; readonly tree?: never }
 );
 
-export type { ComponentName, ComponentUsage, TreePath, UsageAlternative, UsageTree };
+type HookUsage = Omit<UsageFields, 'avoidWhen'> & {
+  readonly avoidWhen: readonly [HookAlternative, ...HookAlternative[]];
+  readonly tree?: never;
+  readonly buildingBlock?: never;
+};
+
+export type { ComponentName, ComponentUsage, HookUsage, TreePath, UsageAlternative, UsageTree };
