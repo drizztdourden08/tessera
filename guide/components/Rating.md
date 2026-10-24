@@ -73,4 +73,4 @@ const PackRating = ({ average, count }: { average: number | null; count: number 
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-primary`, `--c-text`, `--c-text-muted`, `--duration-fast`, `--ease-standard`, `--opacity-disabled`, `--opacity-muted`, `--radius-sm`, `--space-2xs`, `--text-lg`, `--text-sm`, `--weight-semi`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary`, `--c-text`, `--c-text-muted`, `--duration-fast`, `--ease-standard`, `--opacity-disabled`, `--opacity-muted`, `--radius-sm`, `--space-2xs`, `--text-lg`, `--text-sm`, `--weight-semi`.

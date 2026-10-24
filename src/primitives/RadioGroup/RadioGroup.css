@@ -100,7 +100,7 @@
 }
 
 .radio-group__input:focus-visible + .radio-group__indicator {
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--size-2);
 }
 

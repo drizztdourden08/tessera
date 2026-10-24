@@ -79,4 +79,4 @@ const KioskScreen = ({ children }: { children: ReactNode }) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-hairline`, `--c-layer`, `--c-primary`, `--collapse-toggle-d`, `--control-h-md`, `--dialog-w-md`, `--radius-xl`, `--screen-layer-h`, `--screen-layer-w`, `--screen-layer-x`, `--screen-layer-y`, `--shadow-3`, `--size-512`, `--space-2xl`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--z-base`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-hairline`, `--c-layer`, `--collapse-toggle-d`, `--control-h-md`, `--dialog-w-md`, `--radius-xl`, `--screen-layer-h`, `--screen-layer-w`, `--screen-layer-x`, `--screen-layer-y`, `--shadow-3`, `--size-512`, `--space-2xl`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--z-base`, `--z-sticky`.
