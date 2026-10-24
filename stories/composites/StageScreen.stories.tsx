@@ -5,9 +5,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { StageScreen } from '../../src/composites';
 import { Box, Button, Icon, Span, Status } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { LivePressedGrid } from './_samples/LivePressedGrid';
 import { ScreenDemo } from './_samples/ScreenDemo';
-import { StickCalibrationDemo } from './_samples/StickCalibrationDemo';
 import { TriggerCalibrationDemo } from './_samples/TriggerCalibrationDemo';
 import './StageScreen.stories.css';
 
@@ -40,9 +38,7 @@ const StageDemo = (props: StageArgs & { phone?: boolean }) => {
         done={withDone ? { onSelect: () => setHidden(true) } : undefined}
       >
         <Box className="stage-screen-story__grid">
-          <StickCalibrationDemo />
           <TriggerCalibrationDemo />
-          <LivePressedGrid family="xbox" />
         </Box>
       </StageScreen>
     </ScreenDemo>
@@ -82,7 +78,7 @@ const Narrow = {
   render: (args) => <StageDemo {...args} phone />,
 } satisfies PlaygroundStory<StageArgs>;
 
-const CODE = `import { Card, Icon, SectionHeader, StageScreen, Status, StickPlot } from '@drizztdourden08/tessera';
+const CODE = `import { Card, Icon, ProgressBar, SectionHeader, StageScreen, Status } from '@drizztdourden08/tessera';
 
 <StageScreen
   title="Input calibration"
@@ -93,8 +89,8 @@ const CODE = `import { Card, Icon, SectionHeader, StageScreen, Status, StickPlot
   done={{ onClick: close }}
 >
   <Card>
-    <SectionHeader title="Calibrate Left stick" subtitle={step.text} />
-    <StickPlot x={x} y={y} size="lg" />
+    <SectionHeader title="Calibrate Right trigger" subtitle={step.text} />
+    <ProgressBar value={value} max={1} live />
   </Card>
 </StageScreen>`;
 

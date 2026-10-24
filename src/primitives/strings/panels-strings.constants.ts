@@ -22,8 +22,6 @@ const PANEL_STRINGS = {
   disabled: 'Disabled',
   openSettings: 'Open Settings',
   overview: 'Overview',
-  stickPosition: 'Stick position',
-  calibrated: 'cal',
   keyboard: 'Keyboard',
   taskProgress: 'Progress',
   taskRunning: 'Running',

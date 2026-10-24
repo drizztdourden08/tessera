@@ -116,10 +116,3 @@
 .rom-import-story--short {
   block-size: 24rem;
 }
-
-.calibration-wizard-story__stick {
-  display: grid;
-  grid-template-columns: auto minmax(14rem, 1fr);
-  align-items: center;
-  gap: var(--space-2xl);
-}
