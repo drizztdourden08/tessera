@@ -2,14 +2,13 @@
 import { useContext } from 'react';
 import { useHighlight } from '../../../primitives/dom/useHighlight';
 import { Pressable } from '../../../primitives/Pressable';
-import { Shortcut } from '../../../primitives/Shortcut';
+import { Shortcut, shortcutKeys } from '../../../primitives/Shortcut';
 import { ariaKeyShortcuts } from '../behavior/aria-key-shortcuts';
 import { closesOnPick } from '../behavior/closes-on-pick';
 import { isChoice } from '../behavior/is-choice';
 import { ITEM_ROLES } from '../behavior/item-role.constants';
 import { itemKind } from '../behavior/item-kind';
 import { MenuContext } from '../behavior/menu-context';
-import { menuShortcutKeys } from '../behavior/menu-shortcut-keys';
 import { useConfirmItem } from '../behavior/useConfirmItem';
 import { MenuItemBody } from './MenuItemBody';
 import type { MenuItemButtonProps } from './MenuItemButton.type';
@@ -18,7 +17,7 @@ const MenuItemButton = (props: MenuItemButtonProps) => {
   const { item, query, path } = props;
   const { close, closeOnSelect } = useContext(MenuContext);
   const kind = itemKind(item);
-  const keys = item.shortcut === undefined ? undefined : menuShortcutKeys(item.shortcut);
+  const keys = item.shortcut === undefined ? undefined : shortcutKeys(item.shortcut);
   const confirm = useConfirmItem(item, kind === 'confirm', () => {
     item.onSelect?.();
     if (closesOnPick(kind, closeOnSelect)) close();

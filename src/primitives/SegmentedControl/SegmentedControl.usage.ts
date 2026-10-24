@@ -17,6 +17,7 @@ const usage = {
     'An icon option takes a hint, and its label reads from it; the icon is a name from the set or any node, such as a pixel icon or a Glyph.',
     'A node passed as icon is drawn as given, so size and colour it yourself; a name is sized by the control.',
     'Pass onDeselect to let a second press on the active option clear the value.',
+    'An option takes a tooltip with an optional description and shortcut, placed by tooltipPlacement; its name is the label or hint.',
     'A disabled option takes a string that says why.',
   ],
   a11y: [
@@ -46,7 +47,7 @@ const ScalePicker = () => {
   );
 };
 `,
-  propsHash: '4e73b45bf2e464c0',
+  propsHash: '95df5651c115595d',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -15,7 +15,7 @@ import { SegmentButton } from './sub-components/SegmentButton';
 import type { SegmentedControlProps } from './SegmentedControl.type';
 
 const SegmentedControl = <T extends string = string>(props: SegmentedControlProps<T>) => {
-  const { value, options, onChange, onDeselect, onHint, label, description, size, disabled = false, className } = props;
+  const { value, options, onChange, onDeselect, onHint, tooltipPlacement = 'top', label, description, size, disabled = false, className } = props;
   const controlSize = useControlSize(size);
   const { trackRef, indicatorStyle } = useSegmentIndicator(value, options);
   const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
@@ -47,6 +47,7 @@ const SegmentedControl = <T extends string = string>(props: SegmentedControlProp
             stop={index === keys.stop}
             size={controlSize}
             handlers={handlersFor(opt.value)}
+            placement={tooltipPlacement}
             onSelect={() => choose(opt.value)}
             onKeyDown={keys.onKeyDown}
           />

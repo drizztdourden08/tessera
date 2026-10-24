@@ -4,7 +4,7 @@ import { Box } from '../../../primitives/Box';
 import { Divider } from '../../../primitives/Divider';
 import { ToolbarContext } from '../behavior/toolbar-context';
 import { ToolbarNumber } from './ToolbarNumber';
-import { ToolbarTip } from './ToolbarTip';
+import { TooltipContent } from '../../../primitives/Tooltip';
 import { ToolbarTool } from './ToolbarTool';
 import type { ToolbarItemViewProps } from './ToolbarItemView.type';
 
@@ -24,7 +24,7 @@ const ToolbarItemView = ({ item }: ToolbarItemViewProps) => {
             icon={choice.icon}
             label={choice.label}
             shortcut={choice.shortcut}
-            tip={<ToolbarTip name={choice.label} description={choice.description} shortcut={choice.shortcut} />}
+            tip={<TooltipContent name={choice.label} description={choice.description} shortcut={choice.shortcut} />}
             active={item.value === choice.value}
             disabled={item.disabled === true || choice.disabled === true}
             onPress={() => item.onChange(choice.value)}
@@ -33,7 +33,7 @@ const ToolbarItemView = ({ item }: ToolbarItemViewProps) => {
       </Box>
     );
   }
-  const tip = <ToolbarTip name={item.label} description={item.description} shortcut={item.shortcut} />;
+  const tip = <TooltipContent name={item.label} description={item.description} shortcut={item.shortcut} />;
   const shared = { stopId: item.id, icon: item.icon, label: item.label, caption: item.caption, shortcut: item.shortcut, disabled: item.disabled, options: item.options, tip, hoverOpen: true };
   if (item.kind === 'toggle') return <ToolbarTool {...shared} active={item.pressed} onPress={() => item.onChange(!item.pressed)} />;
   return <ToolbarTool {...shared} onPress={item.onSelect} />;

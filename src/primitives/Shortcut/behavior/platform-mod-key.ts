@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind util */
-import { MAC_PLATFORM } from './menu-shortcut-keys.constants';
-import type { ShortcutKey } from '../../../primitives/Shortcut';
+import { MAC_PLATFORM } from './shortcut-keys.constants';
+import type { ShortcutKey } from '../Shortcut.type';
 
 const platformModKey = (): ShortcutKey => {
   if (typeof navigator === 'undefined') return 'ctrl';

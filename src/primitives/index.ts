@@ -145,8 +145,8 @@ export type {
   Hint, HintHandlers, HintReport, HintReporter, HintTargetHandlers, HintTargetProps, UseHintReportParams, UseHintTargetParams,
 } from './hint';
 export type { ActionData, BackAction } from './action-data';
-export { Tooltip } from './Tooltip';
-export type { TooltipFollow, TooltipProps } from './Tooltip';
+export { Tooltip, TooltipContent } from './Tooltip';
+export type { OptionTooltip, TooltipContentProps, TooltipFollow, TooltipPlacement, TooltipProps } from './Tooltip';
 export { VolumeIcon } from './VolumeIcon';
 export type { VolumeIconProps, VolumeStep } from './VolumeIcon';
 export { ArmedIcon } from './ArmedIcon';

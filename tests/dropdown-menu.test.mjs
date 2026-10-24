@@ -4,7 +4,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { DropdownMenu } from '../src/composites/DropdownMenu';
-import { menuShortcutKeys } from '../src/composites/DropdownMenu/behavior/menu-shortcut-keys';
+import { shortcutKeys } from '../src/primitives/Shortcut/behavior/shortcut-keys';
 import { closesOnPick } from '../src/composites/DropdownMenu/behavior/closes-on-pick';
 import { menuMatches } from '../src/composites/DropdownMenu/behavior/menu-matches';
 import { nodeRuns } from '../src/composites/DropdownMenu/behavior/node-runs';
@@ -29,25 +29,25 @@ describe('tidyGroups', () => {
   });
 });
 
-describe('menuShortcutKeys', () => {
+describe('shortcutKeys', () => {
   it('splits display text into keys and maps common names', () => {
-    expect(menuShortcutKeys('Ctrl+Shift+P')).toEqual(['ctrl', 'shift', 'P']);
-    expect(menuShortcutKeys('CmdOrCtrl + Q')).toEqual(['ctrl', 'Q']);
-    expect(menuShortcutKeys('Escape')).toEqual(['esc']);
+    expect(shortcutKeys('Ctrl+Shift+P')).toEqual(['ctrl', 'shift', 'P']);
+    expect(shortcutKeys('CmdOrCtrl + Q')).toEqual(['ctrl', 'Q']);
+    expect(shortcutKeys('Escape')).toEqual(['esc']);
   });
 
   it('passes a key list through', () => {
-    expect(menuShortcutKeys(['alt', 'F4'])).toEqual(['alt', 'F4']);
+    expect(shortcutKeys(['alt', 'F4'])).toEqual(['alt', 'F4']);
   });
 
   it('reads Mod by platform, punctuation names and function keys', () => {
-    expect(menuShortcutKeys('Mod+Comma')).toEqual([expect.stringMatching(/^(ctrl|cmd)$/), ',']);
-    expect(menuShortcutKeys('Ctrl+Plus')).toEqual(['ctrl', '+']);
-    expect(menuShortcutKeys('f12')).toEqual(['F12']);
+    expect(shortcutKeys('Mod+Comma')).toEqual([expect.stringMatching(/^(ctrl|cmd)$/), ',']);
+    expect(shortcutKeys('Ctrl+Plus')).toEqual(['ctrl', '+']);
+    expect(shortcutKeys('f12')).toEqual(['F12']);
   });
 
   it('leaves out a part that is not a key', () => {
-    expect(menuShortcutKeys('Ctrl+Banana')).toEqual(['ctrl']);
+    expect(shortcutKeys('Ctrl+Banana')).toEqual(['ctrl']);
   });
 });
 

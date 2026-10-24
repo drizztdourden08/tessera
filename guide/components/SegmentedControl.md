@@ -33,6 +33,7 @@ SegmentedControl is the joined row that picks one of a few values.
 - An icon option takes a hint, and its label reads from it; the icon is a name from the set or any node, such as a pixel icon or a Glyph.
 - A node passed as icon is drawn as given, so size and colour it yourself; a name is sized by the control.
 - Pass onDeselect to let a second press on the active option clear the value.
+- An option takes a tooltip with an optional description and shortcut, placed by tooltipPlacement; its name is the label or hint.
 - A disabled option takes a string that says why.
 
 ## Accessibility
@@ -70,6 +71,7 @@ const ScalePicker = () => {
 - `onChange`: `(value: T) => void`.
 - `onDeselect` (optional): `() => void`.
 - `onHint` (optional): `HintReport`.
+- `tooltipPlacement` (optional): `TooltipPlacement`, one of `'top'`, `'bottom'`, `'right'`, `'left'`. Default `'top'`.
 - `label` (optional): `string`.
 - `description` (optional): `string`.
 - `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
