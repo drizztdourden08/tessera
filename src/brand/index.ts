@@ -30,6 +30,14 @@ export { backdropGradientCss } from './backdrop-gradient-css';
 export type { BackdropGlow, BackdropGradient } from './backdrop-gradient.type';
 export { brandGradientCss } from './brand-gradient-css';
 export { iconFiles } from './icon-files';
+export { fileTypeArt } from './file-types/file-type-art';
+export { fileTypeGlyph } from './file-types/file-type-glyph';
+export { fileTypeFiles } from './file-types/file-type-files';
+export { fileTypeGridFor } from './file-types/file-type-grid-for';
+export { FILE_TYPE_GRIDS, FILE_TYPE_LAYOUTS, FILE_TYPE_MASTER } from './file-types/file-type-layouts.constants';
+export type {
+  BrandFileTypes, FileTypeArtFiles, FileTypeGrid, FileTypeKind, FileTypeLook, FileTypeSpec,
+} from './file-types/file-type.type';
 export { ICON_SIZES } from './icon-sizes.constants';
 export { BRAND_RIM, BRAND_RIM_TONES } from './rim.constants';
 export type { BrandRim, BrandRimSpec, BrandRimTone } from './rim.type';

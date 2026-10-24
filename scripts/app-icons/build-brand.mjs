@@ -5,6 +5,7 @@ import { OUTPUT_FOLDERS } from './app-icons.constants.mjs';
 import { appArt } from './app-art.mjs';
 import { buildApp, ladder, writer } from './app-files.mjs';
 import { artFile, markArt, sceneArt } from './art.mjs';
+import { buildFileTypes } from './build-file-types.mjs';
 import { buildGround } from './build-ground.mjs';
 import { buildRim } from './build-rim.mjs';
 import { groundArt } from './ground-art.mjs';
@@ -39,6 +40,7 @@ const buildBrand = async (root, id, loaded) => {
     const art = artFor[files.kind]();
     written.push(...await ladder(write, () => art, files, loaded.sizes));
   }
+  written.push(...await buildFileTypes(write, id, loaded));
   for (const tone of loaded.rimTones) written.push(...await buildRim({ root, write, loaded }, id, tone));
   written.push(...await buildGround({ root, write, loaded }, id, 'dark', dark));
   return written;

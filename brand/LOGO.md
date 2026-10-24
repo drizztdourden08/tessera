@@ -43,6 +43,29 @@ The brand data says how each app shows as an app icon, in its `appIcon` field. T
 
 Every square PNG follows one rule, taken from Relic of the Past. Pixel art that fits at two or more screen pixels per art pixel is scaled by a whole number and centred, so every pixel stays square. Smaller than that, or for a drawn mark, the art is drawn smooth to fit. The sizes live in `src/brand/icon-sizes.constants.ts` and the file names in `src/brand/icon-files.ts`. The gallery's **Logo / Icon files** story shows each brand's own ladder and .ico as generated, in one row, and **Mascot / Icon files** shows each mascot's.
 
+## File type icons
+
+An app that saves its own files lists them in the `fileTypes` field of its brand data. The system then shows each file with its own icon. Each kind has its file extension, a name and a glyph. Bxel has six:
+
+| Kind | Extension | Glyph |
+|---|---|---|
+| Sprite | `.bxsprite` | `pixel-sprite` |
+| Sheet | `.bxsheet` | `pixel-atlas` |
+| Palette | `.bxpalette` | `pixel-palette` |
+| Tileset | `.bxtiles` | `pixel-tileset` |
+| Tilemap | `.bxmap` | `pixel-tilemap` |
+| Project | `.bxproject` | `pixel-project` |
+
+Each icon is pixel art: a dark page with a folded corner on a transparent ground, the crimson pixel B in the top corner and the glyph large in the middle. The master is drawn on a 32 grid, with the glyph taken from the pixel icon of that name. Smaller grids of 24 and 16 hold simpler glyphs, so the art stays readable at 16 pixels. Each size uses the largest grid that divides it, so every pixel stays square: 16 uses the 16 grid, 24 and 48 the 24 grid, the rest the 32 grid. The code is in `src/brand/file-types/`.
+
+`pnpm icons` writes `brand/<app>/filetypes/<ext>/` for each kind, the folder the Brock packager copies:
+
+- `icon.svg`: the master art.
+- `png/icon-<size>.png` at the sizes of the mark ladder, 16 to 512.
+- `icon.ico` holding 16 to 256, and `icon.icns` holding 16 to 1024.
+
+The gallery shows them on the **Brand / File types** page.
+
 ## Rims
 
 A dark mark such as Brock's nearly disappears on a dark title bar or taskbar. Every logo takes a rim for that: a thin outline in a light colour that follows the silhouette, holes included. It is a stroke on the mark's own paths, drawn behind the mark, so it stays crisp at 16 pixels.
