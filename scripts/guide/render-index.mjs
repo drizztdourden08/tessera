@@ -22,13 +22,21 @@ const heading = (model, written) => (model.app
   ? [`# ${model.app.name} parts\n`, `One line per part of this app. ${written} of ${model.components.length} have their usage written; a linked name opens its page. The Tessera parts are in [Tessera's index](${model.app.tesseraGuide}/index.md).\n`]
   : ['# Tessera components\n', `One line per component. ${written} of ${model.components.length} have their usage written; a linked name opens its page.\n`]);
 
+const hookLine = (m) => `- ${pageLink(m, 'components/')}: ${sentence(m.usage.job)} Import ${m.exports.filter((entry) => entry.kind !== 'type').map((entry) => `\`${entry.name}\``).join(', ')} from \`${m.imports[0]}\`.`;
+
+const hookLines = (modules) => {
+  const written = modules.filter((m) => m.page);
+  if (written.length === 0) return [];
+  return ['## Hooks\n', 'Functions for a screen that owns its own markup. Each line is a module; its page lists what it exports.\n', `${written.map(hookLine).join('\n')}\n`];
+};
+
 const renderIndex = (model) => {
   const written = model.components.filter((c) => c.page).length;
   const sections = tiersOf(model.components, model.app ? APP_TIER_ORDER : TIER_ORDER).flatMap((tier) => [
     `## ${capital(tier)}\n`,
     `${model.components.filter((c) => c.tier === tier).map((c) => line(c, Boolean(model.app))).join('\n')}\n`,
   ]);
-  return [...heading(model, written), ...sections].join('\n');
+  return [...heading(model, written), ...sections, ...hookLines(model.modules ?? [])].join('\n');
 };
 
 export { renderIndex };

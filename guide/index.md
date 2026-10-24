@@ -202,3 +202,9 @@ One line per component. 73 of 192 have their usage written; a linked name opens 
 - `Mascot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `MascotStage`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
+
+## Hooks
+
+Functions for a screen that owns its own markup. Each line is a module; its page lists what it exports.
+
+- [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.

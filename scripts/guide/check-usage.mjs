@@ -21,7 +21,7 @@ const staleProps = (usage, currentHash) => {
 };
 
 const checkUsage = (name, usage, context) => [
-  ...missingFields(usage).map((message) => finding('missing-field', name, message)),
+  ...missingFields(usage, context).map((message) => finding('missing-field', name, message)),
   ...placeholderFields(name, usage).map((message) => ({ ...finding('placeholder', name, message), coverage: true })),
   ...unknownAlternatives(usage, context).map((message) => finding('unknown-alternative', name, message)),
   ...offTree(usage, context).map((message) => finding('off-tree', name, message)),
