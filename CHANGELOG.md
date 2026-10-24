@@ -1,5 +1,14 @@
 # @drizztdourden08/tessera
 
+## 0.56.2
+
+### Patch Changes
+
+- a150820: The tessera command now runs the Brock thread commands in this repo, so tessera launch main none --target storylite starts the catalogue on port 4400.
+- 87f6dc3: A dialog now stays inside the window: its header and actions stay put and only the body scrolls.
+
+  The open animation now fades without scaling, so buttons no longer shift.
+
 ## 0.56.1
 
 ### Patch Changes
