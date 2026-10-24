@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@drizztdourden08/standards': ^0.12.0
+
 importers:
 
   .:
@@ -282,15 +285,6 @@ packages:
     resolution: {integrity: sha512-h7698pqz3Kr/T4gCjZo04UyIHFWFo2m+UAN2DoEJAJy2uV4jI4twJzbqKG7wEa7DkEQipOOLRc1NJd7XHLu8Dg==, tarball: https://npm.pkg.github.com/download/@drizztdourden08/brock-thread/0.86.0/013ddc23662f0839ece27cf72ae752871d100908}
     engines: {node: '>=24'}
     hasBin: true
-
-  '@drizztdourden08/standards@0.11.0':
-    resolution: {integrity: sha512-iGzEU7WsnQPw4JLPLUrjX7IcYzxFzFxWvfnVwqpBh4DDUkcEaieI9Y8vw9Wl3psla70K8JUex9GCOeHSWEpVgQ==, tarball: https://npm.pkg.github.com/download/@drizztdourden08/standards/0.11.0/9609aabbd852d65ce664966133a4384d398d31ce}
-    engines: {node: '>=24'}
-    hasBin: true
-    peerDependencies:
-      eslint: ^10.0.0
-      stylelint: ^17.0.0
-      typescript: ^6.0.0
 
   '@drizztdourden08/standards@0.12.0':
     resolution: {integrity: sha512-kt1F8Jmh8ce5fvVWQvMzSrH52vLBZ/1XJ0ZZtbiOfDgrMned1M8QAvGBGnekWPyqFtHcIUw2AR/QaoD8BY4ckA==, tarball: https://npm.pkg.github.com/download/@drizztdourden08/standards/0.12.0/ea1ea3e9c7f5b24335d0218cd6886c8cf636a929}
@@ -2879,27 +2873,12 @@ snapshots:
 
   '@drizztdourden08/brock-thread@0.86.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
-      '@drizztdourden08/standards': 0.11.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)
+      '@drizztdourden08/standards': 0.12.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)
     transitivePeerDependencies:
       - eslint
       - stylelint
       - supports-color
       - typescript
-
-  '@drizztdourden08/standards@0.11.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)':
-    dependencies:
-      '@eslint/js': 10.0.1(eslint@10.11.0(jiti@2.7.0))
-      eslint: 10.11.0(jiti@2.7.0)
-      eslint-plugin-react-hooks: 7.1.1(eslint@10.11.0(jiti@2.7.0))
-      jscpd: 5.3.2
-      knip: 6.38.0
-      markdownlint-cli2: 0.22.1
-      stylelint: 17.15.0(typescript@6.0.3)
-      stylelint-config-standard: 40.0.0(stylelint@17.15.0(typescript@6.0.3))
-      typescript: 6.0.3
-      typescript-eslint: 8.71.0(eslint@10.11.0(jiti@2.7.0))(typescript@6.0.3)
-    transitivePeerDependencies:
-      - supports-color
 
   '@drizztdourden08/standards@0.12.0(eslint@10.11.0(jiti@2.7.0))(stylelint@17.15.0(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
