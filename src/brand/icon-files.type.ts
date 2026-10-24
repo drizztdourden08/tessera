@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-type IconArtKind = 'icon' | 'mark' | 'mascot';
+type IconArtKind = 'icon' | 'mark' | 'mascot' | 'filetype';
 
 interface IconSizes {
   ladder: readonly number[];

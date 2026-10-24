@@ -2,6 +2,8 @@
 import type { BrandMarkData } from '../brand.type';
 
 const INK = {
+  night: '#140b26',
+  deep: '#2a1560',
   purple: '#4b1fa0',
   lilac: '#b9a4f5',
   rose: '#ff9fb2',
@@ -60,4 +62,4 @@ const BXEL_ICON_MARK: BrandMarkData = {
   ],
 };
 
-export { BXEL_ICON_MARK, BXEL_MARK };
+export { BXEL_ICON_MARK, INK as BXEL_INK, BXEL_MARK };

@@ -5,13 +5,16 @@ const RUNNER = { configFile: false, logLevel: 'silent' };
 
 const loadBrandArt = async (root) => {
   const load = (path) => runnerImport(path, { ...RUNNER, root }).then((loaded) => loaded.module);
-  const [family, markup, files, sizes, rim, ground] = await Promise.all([
+  const [family, markup, files, sizes, rim, ground, fileArt, fileGrid, fileFiles] = await Promise.all([
     load('/src/brand/family.constants.ts'),
     load('/src/brand/scene/scene-markup.ts'),
     load('/src/brand/icon-files.ts'),
     load('/src/brand/icon-sizes.constants.ts'),
     load('/src/brand/rim.constants.ts'),
     load('/src/brand/ground-look.ts'),
+    load('/src/brand/file-types/file-type-art.ts'),
+    load('/src/brand/file-types/file-type-grid-for.ts'),
+    load('/src/brand/file-types/file-type-files.ts'),
   ]);
   return {
     family: family.BRAND_FAMILY,
@@ -22,6 +25,9 @@ const loadBrandArt = async (root) => {
     rim: rim.BRAND_RIM,
     rimTones: rim.BRAND_RIM_TONES,
     groundLook: ground.groundLook,
+    fileTypeArt: fileArt.fileTypeArt,
+    fileTypeGridFor: fileGrid.fileTypeGridFor,
+    fileTypeFiles: fileFiles.fileTypeFiles,
   };
 };
 

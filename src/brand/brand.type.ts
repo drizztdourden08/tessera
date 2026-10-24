@@ -4,6 +4,7 @@ import type { BackdropGradient } from './backdrop-gradient.type';
 import type { MascotMotion } from './motion/motion.type';
 import type { Ground } from '../primitives/ground/ground.type';
 import type { BrandRimTone } from './rim.type';
+import type { BrandFileTypes } from './file-types/file-type.type';
 
 type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp' | 'bxel';
 
@@ -122,6 +123,7 @@ interface BrandInfo {
   placement: string;
   mark: BrandMarkData;
   iconMark?: BrandMarkData;
+  fileTypes?: BrandFileTypes;
   mascot?: BrandMascot;
   wordmark: BrandWordmarkSpec;
   gradient: BrandGradient;
