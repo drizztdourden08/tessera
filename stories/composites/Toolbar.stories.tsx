@@ -62,6 +62,16 @@ const PixelIcons = {
   ),
 } satisfies StoryLiteStoryDefinition<ToolbarArgs>;
 
+const NodeIcon = {
+  name: 'A node as an icon: the Fill tool draws its own bitmap, and keeps it in More',
+  render: () => (
+    <Box className="toolbar-story__row">
+      <ToolbarDemo bitmap captions />
+      <ToolbarDemo bitmap orientation="vertical" extent="240" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
 const Overview = overviewStory({
   component: 'Toolbar',
   description: 'A row or a column of tools: buttons, toggles, groups and a number, with a hint on each and More for the rest.',
@@ -75,7 +85,7 @@ const Overview = overviewStory({
   ],
   instead: '[ActionBar] for the buttons of one item, or [DropdownMenu] for actions that need no button of their own.',
   playground: Playground,
-  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons],
+  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon],
   states: {
     render: (props: StateProps) => <ToolbarDemo {...props} />,
     list: [
@@ -88,4 +98,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Horizontal, Overflow, Overview, PixelIcons, Plain, Playground, Vertical };
+export { Horizontal, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Vertical };

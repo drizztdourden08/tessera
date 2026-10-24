@@ -18,6 +18,7 @@ interface ToolbarDemoProps {
   captions?: boolean;
   readout?: boolean;
   pixel?: boolean;
+  bitmap?: boolean;
 }
 
 export type { ToolbarArgs, ToolbarDemoProps, ToolId };

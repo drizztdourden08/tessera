@@ -1,9 +1,11 @@
 /* @layer renderer-components @kind types */
 import type { HTMLAttributes, Ref } from 'react';
 import type { IconButtonSize } from '../../primitives/IconButton/IconButton.type';
-import type { IconName } from '../../primitives/Icon';
+import type { SegmentIcon } from '../../primitives/SegmentedControl';
 import type { ShortcutKey } from '../../primitives/Shortcut';
 import type { MenuGroup } from '../DropdownMenu/DropdownMenu.type';
+
+type ToolbarIcon = SegmentIcon;
 
 type ToolbarOrientation = 'horizontal' | 'vertical';
 
@@ -17,7 +19,7 @@ interface ToolbarItemBase {
 
 interface ToolbarButton extends ToolbarItemBase {
   kind: 'button';
-  icon: IconName;
+  icon: ToolbarIcon;
   caption?: string;
   options?: readonly MenuGroup[];
   onSelect: () => void;
@@ -25,7 +27,7 @@ interface ToolbarButton extends ToolbarItemBase {
 
 interface ToolbarToggle extends ToolbarItemBase {
   kind: 'toggle';
-  icon: IconName;
+  icon: ToolbarIcon;
   caption?: string;
   pressed: boolean;
   options?: readonly MenuGroup[];
@@ -35,7 +37,7 @@ interface ToolbarToggle extends ToolbarItemBase {
 interface ToolbarChoice {
   value: string;
   label: string;
-  icon: IconName;
+  icon: ToolbarIcon;
   description?: string;
   shortcut?: string | readonly ShortcutKey[];
   disabled?: boolean;
@@ -82,6 +84,6 @@ interface ToolbarSplit {
 }
 
 export type {
-  ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarHandleProps, ToolbarItem, ToolbarItemBase, ToolbarNumber,
+  ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarHandleProps, ToolbarIcon, ToolbarItem, ToolbarItemBase, ToolbarNumber,
   ToolbarOrientation, ToolbarProps, ToolbarSeparator, ToolbarSplit, ToolbarToggle,
 };

@@ -2,6 +2,7 @@
 import { useContext } from 'react';
 import { Button } from '../../../primitives/Button';
 import { Icon } from '../../../primitives/Icon';
+import { isIconName } from '../../../primitives/Icon/behavior/is-icon-name';
 import { IconButton } from '../../../primitives/IconButton';
 import { ToolbarContext } from '../behavior/toolbar-context';
 import { toolAttributes } from '../behavior/tool-attributes';
@@ -12,7 +13,7 @@ const ToolbarToolButton = (props: ToolbarToolButtonProps) => {
   const context = useContext(ToolbarContext);
   const { orientation, size } = context;
   const attributes = { ref: anchorRef, active, disabled, className: 'toolbar__tool', onClick, onKeyDown, ...toolAttributes(props, context), ...hover };
-  const glyph = <Icon name={icon} />;
+  const glyph = typeof icon === 'string' && isIconName(icon) ? <Icon name={icon} /> : icon;
   if (orientation === 'horizontal' && caption !== undefined) {
     return <Button variant="ghost" size={size} icon={glyph} aria-label={label} {...attributes}>{caption}</Button>;
   }

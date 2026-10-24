@@ -1,13 +1,12 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, RefObject } from 'react';
-import type { IconName } from '../../../primitives/Icon';
 import type { MenuHover } from '../../DropdownMenu/DropdownMenu.type';
-import type { ToolbarItemBase } from '../Toolbar.type';
+import type { ToolbarIcon, ToolbarItemBase } from '../Toolbar.type';
 
 interface ToolbarToolButtonProps {
   anchorRef: RefObject<HTMLButtonElement | null>;
   stopId: string;
-  icon: IconName;
+  icon: ToolbarIcon;
   label: string;
   caption?: string;
   active: boolean;

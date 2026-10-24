@@ -1,6 +1,7 @@
 /* @layer stories @kind hook */
-import { useState } from 'react';
+import { createElement, useState } from 'react';
 import type { ToolbarItem } from '../../../src/composites';
+import { BitmapToolIcon } from './BitmapToolIcon';
 import { brushGroups, TOOL_KEYS, TOOL_NAMES, TOOL_NOTES } from './toolbar-story.constants';
 import type { ToolId } from './toolbar-story.type';
 
@@ -10,7 +11,7 @@ const PIXEL_TOOL_ICONS = { pencil: 'pixel-pencil', eraser: 'pixel-eraser', bucke
 
 const TOOL_ORDER: readonly ToolId[] = ['pencil', 'eraser', 'bucket', 'pipette', 'hand'];
 
-const useDrawingTools = (captions: boolean, pixel = false) => {
+const useDrawingTools = (captions: boolean, pixel = false, bitmap = false) => {
   const [tool, setTool] = useState<ToolId>('pencil');
   const [size, setSize] = useState(2);
   const [shape, setShape] = useState('square');
@@ -24,7 +25,7 @@ const useDrawingTools = (captions: boolean, pixel = false) => {
     id,
     label: TOOL_NAMES[id],
     caption: captions ? TOOL_NAMES[id] : undefined,
-    icon: (pixel ? PIXEL_TOOL_ICONS : TOOL_ICONS)[id],
+    icon: bitmap && id === 'bucket' ? createElement(BitmapToolIcon) : (pixel ? PIXEL_TOOL_ICONS : TOOL_ICONS)[id],
     description: TOOL_NOTES[id],
     shortcut: TOOL_KEYS[id],
     pressed: tool === id,
