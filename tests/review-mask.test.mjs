@@ -5,7 +5,6 @@ import { describe, expect, it } from 'vitest';
 import * as tessera from '../src/primitives';
 import { LogPanel } from '../src/composites/LogPanel';
 import { RetryButton } from '../src/composites/RetryButton';
-import { StickPlot } from '../src/composites/StickPlot';
 
 const noop = () => undefined;
 
@@ -33,13 +32,5 @@ describe('the review mask', () => {
     const still = renderToString(h(RetryButton, { onRetry: noop, attempt: 2, attempts: 5 }));
     expect(still).toContain('retry-button__line');
     expect(still).not.toContain('data-review-mask');
-  });
-
-  it('marks the stick dot, its stem and the readout of a StickPlot, and leaves the rings and axes', () => {
-    const html = renderToString(h(StickPlot, { x: 0.4, y: -0.2 }));
-    expect(masked(html, 'stick-plot__dot')).toBe(1);
-    expect(masked(html, 'stick-plot__stem')).toBe(1);
-    expect(masked(html, 'stick-plot__value')).toBe(1);
-    expect(html.match(/data-review-mask/g)).toHaveLength(3);
   });
 });

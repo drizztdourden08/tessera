@@ -750,9 +750,7 @@
                 "components": []
               },
               "every input on a controller": {
-                "components": [
-                  "ControllerLayout"
-                ]
+                "components": []
               },
               "a blank controller to draw on": {
                 "components": [
@@ -4500,141 +4498,6 @@
       "parts": []
     },
     {
-      "name": "ControllerLayout",
-      "tier": "composites",
-      "source": "src/composites/ControllerLayout/ControllerLayout.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": true,
-      "job": "A plain outline of a controller with every button, trigger and stick in its place, lit while it is held, to test a gamepad or show what it sends.",
-      "useWhen": [
-        "A controller test screen shows the whole pad at once, the way a console test screen does.",
-        "A settings card shows which buttons the player is holding and where the sticks point."
-      ],
-      "avoidWhen": [
-        {
-          "case": "A flat set of buttons with no place on a pad, such as a keyboard or a list of switches.",
-          "use": "PressedGrid"
-        },
-        {
-          "case": "One stick alone, with dead zones, a measured range and its numbers.",
-          "use": "StickPlot"
-        },
-        {
-          "case": "A keyboard with keys marked or held.",
-          "use": "KeyboardLayout"
-        }
-      ],
-      "rules": [
-        "Pick the variant from the pad family: offset for Xbox shapes, symmetric for PlayStation shapes, nintendo for Switch shapes and pad for a pad with no sticks.",
-        "Pass only the slots the device has. A slot not given is drawn idle with no label.",
-        "Give the face buttons a label or a glyph from the pad family, such as A, B, X and Y, so the player sees the names printed on the device.",
-        "Send triggers and shoulders as value from 0 to 1, and sticks as x and y from -1 to 1 with y up.",
-        "Put buttons the outline has no place for, such as paddles, in extras. They show in a list under the outline, one row each."
-      ],
-      "a11y": [
-        "The figure is named by label, Controller by default.",
-        "The drawing is hidden from screen readers. A hidden list names what is held now, so moving a stick does not announce anything.",
-        "The list under the outline is a named list, one item per input it holds."
-      ],
-      "tree": {
-        "path": [
-          "data",
-          "controller or keyboard input",
-          "every input on a controller"
-        ],
-        "rule": "ControllerLayout draws every input of a pad in its place, so a test screen reads the same in every app."
-      },
-      "example": "import { ControllerLayout } from '@drizztdourden08/tessera';\nimport type { ControllerSlots } from '@drizztdourden08/tessera';\n\ninterface PadTestProps {\n  slots: ControllerSlots;\n}\n\nconst PadTest = ({ slots }: PadTestProps) => (\n  <ControllerLayout\n    variant=\"offset\"\n    slots={{\n      ...slots,\n      'face.south': { ...slots['face.south'], label: 'A' },\n      'face.east': { ...slots['face.east'], label: 'B' },\n    }}\n    extras={[{ id: 'paddle1', label: 'Upper right paddle' }]}\n  />\n);\n",
-      "propsHash": "47c71b78de1af48f",
-      "props": {
-        "own": [
-          {
-            "name": "variant",
-            "optional": false,
-            "text": "ControllerLayoutVariant",
-            "literals": [
-              "'nintendo'",
-              "'offset'",
-              "'pad'",
-              "'symmetric'"
-            ]
-          },
-          {
-            "name": "slots",
-            "optional": false,
-            "text": "ControllerSlots"
-          },
-          {
-            "name": "extras",
-            "optional": true,
-            "text": "readonly ControllerExtra[]",
-            "default": "NO_EXTRAS"
-          },
-          {
-            "name": "label",
-            "optional": true,
-            "text": "string"
-          },
-          {
-            "name": "className",
-            "optional": true,
-            "text": "string",
-            "default": "''"
-          }
-        ],
-        "inherited": {
-          "count": 0,
-          "from": [],
-          "extends": []
-        }
-      },
-      "tokens": [
-        "--border-width-thick",
-        "--border-width-thin",
-        "--c-border",
-        "--c-border-strong",
-        "--c-hairline",
-        "--c-layer",
-        "--c-on-primary",
-        "--c-primary",
-        "--c-primary-bright",
-        "--c-primary-soft",
-        "--c-sunken",
-        "--c-text",
-        "--c-text-muted",
-        "--control-h-sm",
-        "--controller-layout-max-w",
-        "--controller-tag-x",
-        "--controller-tag-y",
-        "--font-mono",
-        "--leading-tight",
-        "--radius-sm",
-        "--size-1",
-        "--size-16",
-        "--size-20",
-        "--space-2xs",
-        "--space-sm",
-        "--space-xs",
-        "--text-base",
-        "--text-sm",
-        "--text-xs",
-        "--transition-fast",
-        "--weight-semi"
-      ],
-      "gallery": {
-        "title": "Composites · Input devices/ControllerLayout",
-        "route": "#/story/composites-controllerlayout--overview",
-        "file": "stories/composites/ControllerLayout.stories.tsx"
-      },
-      "parts": [
-        "CONTROLLER_LAYOUT_VARIANTS",
-        "CONTROLLER_SLOT_IDS"
-      ]
-    },
-    {
       "name": "ControllerSilhouette",
       "tier": "composites",
       "source": "src/composites/ControllerSilhouette/ControllerSilhouette.tsx",
@@ -4650,10 +4513,6 @@
       ],
       "avoidWhen": [
         {
-          "case": "A test screen that lights every input of a pad live, from its state.",
-          "use": "ControllerLayout"
-        },
-        {
           "case": "One button or stick glyph inline, such as a prompt in a sentence.",
           "use": "InputIcon"
         },
@@ -4663,6 +4522,7 @@
         }
       ],
       "rules": [
+        "A live layout that lights every input of a pad from its state belongs to the app to build: draw it on CONTROLLER_SILHOUETTE_PATHS, place its marks from CONTROLLER_SILHOUETTE_ANCHORS inside CONTROLLER_SILHOUETTE_VIEW_BOX, and use InputIcon for the glyphs.",
         "Pick the variant from the pad family: offset for Xbox shapes, symmetric for PlayStation shapes, nintendo for Switch Pro shapes and pad for a pad with no sticks or triggers.",
         "Draw on it with children made of the Svg primitives. They sit inside the SVG on top of the outline, in viewBox units.",
         "The viewBox is CONTROLLER_SILHOUETTE_VIEW_BOX, 0 0 400 260, for every variant. It never changes, so coordinates stay valid.",
@@ -8894,16 +8754,6 @@
       "parts": []
     },
     {
-      "name": "PressedGrid",
-      "tier": "composites",
-      "source": "src/composites/PressedGrid/PressedGrid.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
-    },
-    {
       "name": "Rating",
       "tier": "composites",
       "source": "src/composites/Rating/Rating.tsx",
@@ -11460,16 +11310,6 @@
         "file": "stories/composites/StatusBar.stories.tsx"
       },
       "parts": []
-    },
-    {
-      "name": "StickPlot",
-      "tier": "composites",
-      "source": "src/composites/StickPlot/StickPlot.tsx",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
-      "usage": false
     },
     {
       "name": "StudioLayout",

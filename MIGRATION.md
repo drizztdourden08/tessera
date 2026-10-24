@@ -9759,3 +9759,22 @@ A drawing's layers list and a pixel editor's palette belong to the Bxel app, so 
 
 - Build layer lists and palettes in the app, on `useReorderDrag` and `useMoveFocus` for the order, `ColorSwatch` for the colours, and `ListItemRow` and `IconButton` for rows and their toggles.
 - Remove imports of `ReorderList`, `SwatchGrid` and their types; TypeScript flags each one.
+
+## 274. ControllerLayout, StickPlot and PressedGrid moved to Brock's controller plugin
+
+The controller feature is a Brock plugin, so the parts that show live controller input left Tessera: `ControllerLayout`, `StickPlot` and `PressedGrid` (composites), with their props types, their guide pages, their stories and the strings they alone used. Tessera keeps the plain parts that the plugin draws on.
+
+### What goes
+
+- **Components.** `ControllerLayout`, `StickPlot` and `PressedGrid`, with `CONTROLLER_LAYOUT_VARIANTS`, `CONTROLLER_SLOT_IDS` and the types `ControllerExtra`, `ControllerLayoutProps`, `ControllerLayoutVariant`, `ControllerSlotId`, `ControllerSlotState`, `ControllerSlots`, `PressedGridItem`, `PressedGridProps`, `StickPlotPoint`, `StickPlotProps`, `StickPlotRange` and `StickPlotSize`.
+- **Strings.** In `TesseraStrings`, the `controller` group keeps only `controller`. `held`, `nothingHeld`, `otherInputs`, `amount`, `stickAt` and `names` go, and `stickPosition` and `calibrated` leave `panels`.
+- **Token.** `--controller-layout-max-w` is removed.
+
+### What stays
+
+- `ControllerSilhouette` with `CONTROLLER_SILHOUETTE_PATHS`, `CONTROLLER_SILHOUETTE_ANCHORS` and `CONTROLLER_SILHOUETTE_VIEW_BOX`, `InputIcon` with the `input-*` icon sets, `KeyboardLayout` and `ShortcutTour`, unchanged.
+
+### What an app does
+
+- Build a live controller layout, a stick plot or a grid of held buttons in Brock's controller plugin, on `ControllerSilhouette`, `InputIcon` and the input icon sets.
+- Remove imports of `ControllerLayout`, `StickPlot`, `PressedGrid` and their types; TypeScript flags each one.

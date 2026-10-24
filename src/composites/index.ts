@@ -70,10 +70,6 @@ export type {
 } from './UtilityScreen';
 export { StageScreen, type StageScreenDone, type StageScreenProps } from './StageScreen';
 export { FloatingSwitch, type FloatingSwitchItem, type FloatingSwitchProps } from './FloatingSwitch';
-export { ControllerLayout, CONTROLLER_LAYOUT_VARIANTS, CONTROLLER_SLOT_IDS } from './ControllerLayout';
-export type {
-  ControllerExtra, ControllerLayoutProps, ControllerLayoutVariant, ControllerSlotId, ControllerSlotState, ControllerSlots,
-} from './ControllerLayout';
 export {
   CONTROLLER_SILHOUETTE_ANCHOR_IDS, CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS,
   CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
@@ -84,8 +80,6 @@ export type {
 } from './ControllerSilhouette';
 export { KeyboardLayout, KEYBOARD_SIZES } from './KeyboardLayout';
 export type { KeyboardLayoutProps, KeyboardSize, KeyboardTarget, KeyRect, KeyRects } from './KeyboardLayout';
-export { PressedGrid, type PressedGridItem, type PressedGridProps } from './PressedGrid';
-export { StickPlot, type StickPlotPoint, type StickPlotProps, type StickPlotRange, type StickPlotSize } from './StickPlot';
 export { ShortcutTour, type ShortcutTourProps } from './ShortcutTour';
 export { SideNav } from './SideNav';
 export type { SideNavConfig, SideNavGroup, SideNavItem, SideNavProps, SideNavSearch, SideNavVariant } from './SideNav';

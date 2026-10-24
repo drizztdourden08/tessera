@@ -4,7 +4,6 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Box } from '../src/primitives/Box';
-import { PressedGrid } from '../src/composites/PressedGrid';
 
 const sheet = (file) => fs.readFileSync(file, 'utf8');
 const ruleOf = (css, selector) => {
@@ -32,18 +31,12 @@ describe('Box surface', () => {
 });
 
 describe('parts drawn on a Box surface', () => {
-  it('a PressedGrid cell is a sunken Box', () => {
-    const html = renderToString(h(PressedGrid, { items: [{ id: 'a', label: 'A' }], pressed: [] }));
-    expect(html).toContain('class="box--sunken pressed-grid__cell"');
-  });
-
   it('their own rules no longer copy the sunken fill or the raised look', () => {
     const moved = [
       ['src/composites/CodeBlock/CodeBlock.css', '.code-block-editor'],
       ['src/primitives/code-view/CodeView.css', '.code-block'],
       ['src/composites/ColorPicker/ColorPicker.css', '.color-picker__hex-box'],
       ['src/composites/ColorPicker/ColorPicker.css', '.color-picker__quick-assign'],
-      ['src/composites/PressedGrid/PressedGrid.css', '.pressed-grid__cell'],
       ['src/theme/record-editor.css', '.record-editor__array-item'],
       ['src/theme/record-editor.css', '.record-editor__fallback'],
       ['src/composites/ListDetailLayout/ListDetailLayout.css', '.list-detail-layout__list'],
