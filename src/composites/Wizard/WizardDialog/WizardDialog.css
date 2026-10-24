@@ -15,7 +15,14 @@
   border-block-end: var(--border-width-thin) solid var(--c-hairline);
 }
 
-.wizard-dialog > .wizard {
+.dialog.wizard-dialog > .dialog__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.wizard-dialog .dialog__body > .wizard {
   flex: 1 1 auto;
   block-size: auto;
 }

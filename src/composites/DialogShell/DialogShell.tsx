@@ -3,6 +3,7 @@ import { useId } from 'react';
 import type { MouseEvent } from 'react';
 import { Portal } from '../../primitives/Portal';
 import { Box } from '../../primitives/Box';
+import { ScrollArea } from '../../primitives/ScrollArea';
 import { WindowHeader } from '../WindowHeader';
 import { useDialogEscape } from './behavior/useDialogEscape';
 import { useDialogFocus } from './behavior/useDialogFocus';
@@ -40,7 +41,7 @@ const DialogShell = (props: DialogShellProps) => {
           onClick={(e) => e.stopPropagation()}
         >
           <WindowHeader title={title} titleWrap={titleWrap} titleId={titleId} extra={headerExtra} onClose={dismissable ? onClose : undefined} className="dialog__header" />
-          {children}
+          <ScrollArea className="dialog__body">{children}</ScrollArea>
           {actions && <Box className="dialog__actions">{actions}</Box>}
         </Box>
       </Box>
