@@ -11,7 +11,8 @@ const listProblem = (usage, field) => {
   return list.every(isEntry) ? undefined : `${field} has an empty entry`;
 };
 
-const treeProblem = (usage) => {
+const treeProblem = (usage, hooks) => {
+  if (hooks) return usage.tree === undefined && usage.buildingBlock === undefined ? undefined : 'a hook module has no tree and is no building block';
   if (usage.buildingBlock === true) return usage.tree === undefined ? undefined : 'a building block has no tree';
   if (usage.tree === undefined) return 'tree is missing (set buildingBlock: true for a part the tree does not reach)';
   const { path, rule } = usage.tree;
@@ -19,11 +20,11 @@ const treeProblem = (usage) => {
   return isText(rule) ? undefined : 'tree.rule is missing or empty';
 };
 
-const missingFields = (usage) => [
+const missingFields = (usage, { hooks = false } = {}) => [
   ...REQUIRED_TEXT.filter((field) => !isText(usage[field])).map((field) => `${field} is missing or empty`),
   ...(isText(usage.job) && usage.job.includes('\n') ? ['job runs over more than one line'] : []),
   ...REQUIRED_LISTS.map((field) => listProblem(usage, field)),
-  treeProblem(usage),
+  treeProblem(usage, hooks),
 ].filter(Boolean);
 
 export { missingFields };

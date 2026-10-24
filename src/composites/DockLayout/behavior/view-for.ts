@@ -4,7 +4,7 @@ import type { DragContext, DragSource, DragSubject, DragView, HeldKeys, Point, P
 import { dropZones } from './drop-zones';
 import { floatPreview } from './float-preview';
 import { hitTarget } from './hit-target';
-import { inRect } from './in-rect';
+import { inRect } from '../../dock-zones/in-rect';
 import { isOutside } from './is-outside';
 import { snapWanted } from './snap-wanted';
 

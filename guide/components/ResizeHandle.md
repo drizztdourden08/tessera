@@ -91,7 +91,7 @@ const EditorRails = ({ outline, canvas, inspector }: { outline: ReactNode; canva
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-primary`, `--c-text-muted`, `--duration-fast`, `--ease-standard`, `--space-2xl`, `--space-sm`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-focus`, `--c-text-muted`, `--duration-fast`, `--ease-standard`, `--space-2xl`, `--space-sm`.
 
 ## Also exported from this folder
 

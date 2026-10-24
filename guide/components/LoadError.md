@@ -68,4 +68,4 @@ const SessionsFailed = ({ error, reloading, reload }: SessionsFailedProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-bright`, `--c-primary`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--font-mono`, `--leading-normal`, `--radius-sm`, `--size-192`, `--size-28`, `--size-512`, `--space-2xs`, `--space-lg`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-bright`, `--c-focus`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--font-mono`, `--leading-normal`, `--radius-sm`, `--size-192`, `--size-28`, `--size-512`, `--space-2xs`, `--space-lg`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`.

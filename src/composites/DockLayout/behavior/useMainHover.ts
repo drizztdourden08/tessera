@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import type { RefObject } from 'react';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import type { Rect } from '../DockLayout.type';
-import { inRect } from './in-rect';
+import { inRect } from '../../dock-zones/in-rect';
 
 const useMainHover = (rect: Rect, stageRef: RefObject<HTMLElement | null>): boolean => {
   const [hovered, setHovered] = useState(false);

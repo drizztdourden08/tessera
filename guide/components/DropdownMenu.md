@@ -42,6 +42,8 @@ DropdownMenu keeps rare and secondary actions one click away, and asks before th
 - The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.
 - Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.
 - Align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.
+- Anchored menus take side: below or above a button, right or left of a tool in a rail. Right and left line up with the top of the anchor and flip to the other side when there is no room.
+- OpenOnHover on a trigger opens the menu after a short delay and closes it a moment after the pointer leaves both; click and the arrow keys still work. An anchored menu takes the same through hover, with focusOnOpen off so a hover does not take focus.
 
 ## Accessibility
 
@@ -90,13 +92,16 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
 - `filterPlaceholder` (optional): `string`.
 - `className` (optional): `string`.
 - `anchorRef` (optional): `RefObject<HTMLElement | null>`.
-- `side` (optional): `MenuSide`, one of `'below'`, `'above'`.
+- `side` (optional): `MenuSide`, one of `'below'`, `'above'`, `'right'`, `'left'`.
 - `inline` (optional): `boolean`.
+- `focusOnOpen` (optional): `boolean`.
+- `hover` (optional): `MenuHover`.
 - `onClose` (optional): `() => void`.
 - `size` (optional): `MenuSize`, one of `'xs'`, `'sm'`, `'md'`.
 - `disabled` (optional): `boolean`.
+- `openOnHover` (optional): `boolean`.
 - `onOpenChange` (optional): `(open: boolean) => void`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-bright`, `--c-danger-soft`, `--c-hairline`, `--c-hover`, `--c-info`, `--c-info-bright`, `--c-info-soft`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-soft`, `--c-success`, `--c-success-bright`, `--c-success-soft`, `--c-surface`, `--c-tertiary`, `--c-tertiary-bright`, `--c-tertiary-soft`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--c-warning`, `--c-warning-bright`, `--c-warning-soft`, `--control-pad-md`, `--control-pad-sm`, `--duration-fast`, `--duration-normal`, `--ease-out`, `--ease-standard`, `--listbox-attach`, `--listbox-space`, `--menu-no-halo`, `--radius-md`, `--radius-pill`, `--shadow-2`, `--shadow-dropdown`, `--size-1`, `--size-12`, `--size-16`, `--size-160`, `--size-2`, `--size-288`, `--size-4`, `--size-48`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--transition-fast`, `--tunnel-fillet`, `--tunnel-lit-height`, `--tunnel-lit-top`, `--tunnel-open`, `--weight-semi`, `--z-modal`, `--z-popover`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-bright`, `--c-danger-soft`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-info`, `--c-info-bright`, `--c-info-soft`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-soft`, `--c-success`, `--c-success-bright`, `--c-success-soft`, `--c-surface`, `--c-tertiary`, `--c-tertiary-bright`, `--c-tertiary-soft`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--c-warning`, `--c-warning-bright`, `--c-warning-soft`, `--control-pad-md`, `--control-pad-sm`, `--duration-fast`, `--duration-normal`, `--ease-out`, `--ease-standard`, `--listbox-attach`, `--listbox-space`, `--menu-no-halo`, `--radius-md`, `--radius-pill`, `--shadow-2`, `--shadow-dropdown`, `--size-1`, `--size-12`, `--size-16`, `--size-160`, `--size-2`, `--size-288`, `--size-4`, `--size-48`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--transition-fast`, `--tunnel-fillet`, `--tunnel-lit-height`, `--tunnel-lit-top`, `--tunnel-open`, `--weight-semi`, `--z-modal`, `--z-popover`.

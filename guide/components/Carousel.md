@@ -78,4 +78,4 @@ const FeaturedPacks = ({ items }: { items: readonly Featured[] }) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--c-primary`, `--c-text-dim`, `--c-text-muted`, `--duration-fast`, `--duration-normal`, `--ease-standard`, `--radius-pill`, `--size-24`, `--size-8`, `--space-sm`, `--space-xs`.
+It draws on `--border-width-thick`, `--c-focus`, `--c-primary`, `--c-text-dim`, `--c-text-muted`, `--duration-fast`, `--duration-normal`, `--ease-standard`, `--radius-pill`, `--size-24`, `--size-8`, `--space-sm`, `--space-xs`.

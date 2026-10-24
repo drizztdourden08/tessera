@@ -9,7 +9,7 @@ import '../../../theme/window-chrome.css';
 import './MenuPanel.css';
 
 const MenuPanel = (props: MenuPanelProps) => {
-  const { id, label, start, columns, onBack, onExit, onTop, onType, children } = props;
+  const { id, label, start, columns, hover, onBack, onExit, onTop, onType, children } = props;
   const ownRef = useRef<HTMLElement>(null);
   const menuRef = props.menuRef ?? ownRef;
   const onKeyDown = useMenuKeys({ menuRef, onBack, onExit, onTop, onType });
@@ -25,6 +25,8 @@ const MenuPanel = (props: MenuPanelProps) => {
       tabIndex={-1}
       className="dropdown__menu window-chrome"
       onKeyDown={onKeyDown}
+      onMouseEnter={hover?.onMouseEnter}
+      onMouseLeave={hover?.onMouseLeave}
     >
       <MenuColumnsContext value={columns}>{children}</MenuColumnsContext>
     </Box>

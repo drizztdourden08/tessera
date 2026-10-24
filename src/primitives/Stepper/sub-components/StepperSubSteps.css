@@ -45,7 +45,7 @@
 
 .stepper-sub-steps__item:focus-visible {
   outline-offset: calc(var(--border-width-thick) * -1);
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
 }
 
 .stepper-sub-steps__item[aria-current='true'] {

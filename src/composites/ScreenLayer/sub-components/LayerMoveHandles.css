@@ -12,7 +12,7 @@
 }
 
 .screen-layer__move:focus-visible {
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: calc(var(--border-width-thick) * -1);
 }
 

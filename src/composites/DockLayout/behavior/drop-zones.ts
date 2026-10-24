@@ -3,7 +3,7 @@ import { COMPASS, COMPASS_STEPS, EDGES, OUTER_STRIP, SHARE } from '../DockLayout
 import type { Rect } from '../DockLayout.type';
 import { alongEdge } from './along-edge';
 import type { DragSubject, DropZone } from './drag.type';
-import { edgeBand } from './edge-band';
+import { edgeBand } from '../../dock-zones/edge-band';
 import { isOwnEmptyingPane } from './is-own-emptying-pane';
 import type { LaidOut, LeafRect } from './layout-tree.type';
 
