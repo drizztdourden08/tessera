@@ -177,6 +177,11 @@
           "a range": {
             "components": []
           },
+          "a colour from a palette": {
+            "components": [
+              "SwatchGrid"
+            ]
+          },
           "a file": {
             "components": []
           },
@@ -364,6 +369,11 @@
           },
           "between a few modes, from a floating switch": {
             "components": []
+          },
+          "between the open documents of an editor": {
+            "components": [
+              "DocumentTabs"
+            ]
           }
         }
       },
@@ -5426,6 +5436,143 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "DocumentTabs",
+      "tier": "composites",
+      "source": "src/composites/DocumentTabs/DocumentTabs.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit.",
+      "useWhen": [
+        "The user has several documents open at once and switches between them, such as the drawings in a pixel art editor.",
+        "The user closes a document from its tab, and the app may need to ask first because of unsaved changes.",
+        "The user puts the open documents in the order they like."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The tabs are fixed views of one area, with no close and no reorder.",
+          "use": "Tabs"
+        },
+        {
+          "case": "The tabs split one long form into groups with counts.",
+          "use": "FormGroupTabs"
+        },
+        {
+          "case": "The items are a vertical list the user reorders, with on and off icons.",
+          "use": "ReorderList"
+        }
+      ],
+      "rules": [
+        "Keep the tabs and the active id in the app; the strip only draws them and calls onActivate, onClose and onMove.",
+        "onClose only asks to close. The app may refuse, for example to confirm unsaved changes first; the tab stays until the app removes it from tabs.",
+        "onMove gets the old and the new index; change the order of tabs there.",
+        "Set unsaved on a tab to show a dot that turns into the close button on hover or focus.",
+        "title is the text on the tab, cut with an ellipsis; tooltip is the hover text and defaults to the title.",
+        "When the tabs do not fit, the strip scrolls and keeps the active tab in view. Pass overflowMenu to add a menu that lists every tab.",
+        "Show the document of the active tab beside the strip; DocumentTabs draws no panel."
+      ],
+      "a11y": [
+        "The strip is a tablist named by label, and each tab is a button with role tab and aria-selected set on the active one. Only one tab is a tab stop.",
+        "Left and Right move focus from tab to tab and wrap, Home and End go to the first and the last. Enter or Space activates the focused tab.",
+        "Delete or Ctrl and W asks to close the focused tab. The close button of each tab is named Close and the title, and is not a tab stop.",
+        "Alt and Left or Right moves the focused tab. Focus stays on the tab, and the move is announced.",
+        "A tab with unsaved changes says so to screen readers. Middle click closes a tab.",
+        "The drop line follows the pointer while a tab is dragged, and the strip adds no motion when the user asks for less."
+      ],
+      "tree": {
+        "path": [
+          "navigation",
+          "between the open documents of an editor"
+        ],
+        "rule": "DocumentTabs is the strip of open documents the user switches, closes and reorders, the same way in every editor."
+      },
+      "example": "import { DocumentTabs } from '@drizztdourden08/tessera';\nimport type { DocumentTab } from '@drizztdourden08/tessera';\n\ninterface OpenDrawingsProps {\n  drawings: DocumentTab[];\n  activeId: string;\n  open: (id: string) => void;\n  askToClose: (id: string) => void;\n  move: (from: number, to: number) => void;\n}\n\nconst OpenDrawings = ({ drawings, activeId, open, askToClose, move }: OpenDrawingsProps) => (\n  <DocumentTabs\n    label=\"Open drawings\"\n    tabs={drawings}\n    activeId={activeId}\n    onActivate={open}\n    onClose={askToClose}\n    onMove={move}\n    overflowMenu\n  />\n);\n",
+      "propsHash": "82b0f142b383f064",
+      "props": {
+        "own": [
+          {
+            "name": "tabs",
+            "optional": false,
+            "text": "readonly DocumentTab[]"
+          },
+          {
+            "name": "activeId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onActivate",
+            "optional": false,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onMove",
+            "optional": false,
+            "text": "(from: number, to: number) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "overflowMenu",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-text",
+        "--c-text-dim",
+        "--c-warning",
+        "--leading-tight",
+        "--opacity-muted",
+        "--radius-round",
+        "--size-1",
+        "--size-224",
+        "--size-8",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--transition-fast",
+        "--transition-normal",
+        "--weight-medium"
+      ],
+      "gallery": {
+        "title": "Composites · Navigation/DocumentTabs",
+        "route": "#/story/composites-documenttabs--overview",
+        "file": "stories/composites/DocumentTabs.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Drawer",
@@ -11377,6 +11524,171 @@
         "title": "Composites · Layout/StudioLayout",
         "route": "#/story/composites-studiolayout--overview",
         "file": "stories/composites/StudioLayout.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "SwatchGrid",
+      "tier": "composites",
+      "source": "src/composites/SwatchGrid/SwatchGrid.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A grid of square colour swatches the user picks from, ranges over and puts in order, such as the palette of a pixel art editor.",
+      "useWhen": [
+        "The user picks one colour out of a fixed set of swatches that wrap into rows.",
+        "The order of the swatches matters, because it is an index the app uses, and the user changes it.",
+        "Some slots are transparent, or the user selects a run of neighbours as a range."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user makes any colour from fields, a spectrum or a hex value.",
+          "use": "ColorPicker"
+        },
+        {
+          "case": "The colour sits behind one swatch that opens a picker.",
+          "use": "ColorPickerPopover"
+        },
+        {
+          "case": "The items are named rows in one column, not squares.",
+          "use": "ReorderList"
+        }
+      ],
+      "rules": [
+        "Keep the colours in the app and change them in onMove; the grid only draws them.",
+        "Give each colour an id that stays the same when it moves. A value of null is a transparent slot, drawn as a checkerboard.",
+        "Pass selectedId for the primary colour, and change it in onSelect. The selected swatch is also the start of a range.",
+        "Pass range as a from and a to index to draw a range, and keep it in onRangeChange. Clear it in onSelect.",
+        "Pass secondaryId and onSecondarySelect for a second colour, such as the background. Ctrl or Cmd with a click picks it.",
+        "Leave onMove out for a palette the user cannot reorder; the grid then drags and moves nothing.",
+        "Delete is not handled. Listen for it in the app, on the grid or around it.",
+        "Set columns for a fixed width, or leave it out and the grid fits as many swatches as the width holds. Put the grid in a scroll box for a long palette.",
+        "showIndex turns the small 0-based index on each swatch on or off. It is on by default."
+      ],
+      "a11y": [
+        "The grid is a listbox named by label, and each swatch is a button with the option role. A swatch is one choice from a flat set, and the wrapped rows are layout, so the grid role, which needs real row elements, does not fit.",
+        "Each swatch is named by its label, or by its colour value, then its index, and by secondary when it is the second colour. A transparent slot is named Transparent.",
+        "aria-selected is true on the selected swatch and on each swatch in the range. The list is multiselectable only when onRangeChange is set.",
+        "Only one swatch is a tab stop. The arrow keys move focus in two dimensions, Home and End go to the first and the last, and Space or Enter selects.",
+        "Shift with an arrow, Home or End extends a range from the selected swatch, and Shift with a click does the same.",
+        "Alt with an arrow moves the swatch, the same chord as ReorderList. Focus follows the swatch, and the move is announced.",
+        "The drop line follows the pointer while a swatch is dragged, and the grid adds no motion when the user asks for less."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a colour from a palette"
+        ],
+        "rule": "SwatchGrid is a grid of swatches the user picks one colour from, selects a range of and puts in order, the same way in every app."
+      },
+      "example": "import { SwatchGrid } from '@drizztdourden08/tessera';\nimport type { SwatchColor } from '@drizztdourden08/tessera';\n\ninterface PaletteProps {\n  colors: SwatchColor[];\n  selectedId: string;\n  backgroundId: string;\n  select: (id: string) => void;\n  selectBackground: (id: string) => void;\n  move: (from: number, to: number) => void;\n}\n\nconst Palette = ({ colors, selectedId, backgroundId, select, selectBackground, move }: PaletteProps) => (\n  <SwatchGrid\n    label=\"Palette\"\n    colors={colors}\n    selectedId={selectedId}\n    secondaryId={backgroundId}\n    onSelect={select}\n    onSecondarySelect={selectBackground}\n    onMove={move}\n    columns={8}\n  />\n);\n",
+      "propsHash": "d71107c5cb6efd05",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "colors",
+            "optional": false,
+            "text": "readonly SwatchColor[]"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "columns",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "showIndex",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "selectedId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "secondaryId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "range",
+            "optional": true,
+            "text": "SwatchRange"
+          },
+          {
+            "name": "onSelect",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onSecondarySelect",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onRangeChange",
+            "optional": true,
+            "text": "(from: number, to: number) => void"
+          },
+          {
+            "name": "onMove",
+            "optional": true,
+            "text": "(from: number, to: number) => void"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-info",
+        "--c-primary-bright",
+        "--c-scrim",
+        "--c-secondary-bright",
+        "--control-h-md",
+        "--control-h-sm",
+        "--opacity-muted",
+        "--size-1",
+        "--size-2",
+        "--size-4",
+        "--size-6",
+        "--space-xl"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/SwatchGrid",
+        "route": "#/story/composites-swatchgrid--overview",
+        "file": "stories/composites/SwatchGrid.stories.tsx"
       },
       "parts": []
     },

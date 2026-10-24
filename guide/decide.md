@@ -48,6 +48,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - In the page: no component yet.
     - Behind a swatch button: no component yet.
   - A range: no component yet.
+  - A colour from a palette: [SwatchGrid](components/SwatchGrid.md). SwatchGrid is a grid of swatches the user picks one colour from, selects a range of and puts in order, the same way in every app.
   - A file: no component yet.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
@@ -96,6 +97,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - To a search result: no component yet.
   - Through the steps of one task: no component yet.
   - Between a few modes, from a floating switch: no component yet.
+  - Between the open documents of an editor: [DocumentTabs](components/DocumentTabs.md). DocumentTabs is the strip of open documents the user switches, closes and reorders, the same way in every editor.
 - Layout. **What are you arranging?**
   - A plain block: [Box](components/Box.md). Box is the plain element; surface="sunken" makes it a well and surface="raised" a panel, with the fill, edge and corner from the tokens.
   - Items in a row or a column:

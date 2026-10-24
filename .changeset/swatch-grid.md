@@ -1,0 +1,7 @@
+---
+"@drizztdourden08/tessera": minor
+---
+
+New composite SwatchGrid. It is a grid of square colour swatches the user picks from, selects a range of and puts in order, such as the palette of a pixel art editor. Each colour is `{ id, value, label? }`, and a `value` of null is a transparent slot drawn as a checkerboard. `selectedId` and `onSelect` are the primary colour, and `secondaryId` with `onSecondarySelect` is a second one, such as the background, picked with Ctrl or Cmd and a click. `range` draws a run of swatches, and `onRangeChange(from, to)` reports one when the user holds Shift with a click, an arrow, Home or End. `onMove(from, to)` reports a drag or an Alt with an arrow. `size` is `sm` or `md`, `columns` fixes the column count and otherwise the grid fits as many swatches as the width holds, and `showIndex` turns the small 0-based index on each swatch on or off. The grid is a listbox of option buttons named by label or colour value and index, with one tab stop. Arrows move focus in two dimensions, Home and End go to the ends, and Space or Enter selects. Delete is left to the app. Moves are announced. Exports: `SwatchGrid`, `SwatchColor`, `SwatchGridProps` and `SwatchRange`.
+
+The shared reorder folder, `src/composites/reorder`, now handles a grid axis. `reorderStep` takes `axis: 'grid'` with `columns` so Up and Down step a row, `useReorderDrag` takes `axis: 'grid'` and finds the drop place from both pointer coordinates, and `columnsOf` counts the columns of a wrapped grid. ReorderList and RowGrid look and behave as before.

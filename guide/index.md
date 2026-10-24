@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 73 of 195 have their usage written; a linked name opens its page.
+One line per component. 75 of 197 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -112,6 +112,7 @@ One line per component. 73 of 195 have their usage written; a linked name opens 
 - `DialogShell`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DisabledOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DockLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DocumentTabs](components/DocumentTabs.md): The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit. Import from `@drizztdourden08/tessera`.
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
 - `DynamicInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -174,6 +175,7 @@ One line per component. 73 of 195 have their usage written; a linked name opens 
 - [StatusBar](components/StatusBar.md): The thin bar at the foot of an editor window: a row of labelled readouts such as cursor, zoom, colour and frame. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StudioLayout](components/StudioLayout.md): The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right, under an optional bar of actions. Import from `@drizztdourden08/tessera`.
+- [SwatchGrid](components/SwatchGrid.md): A grid of square colour swatches the user picks from, ranges over and puts in order, such as the palette of a pixel art editor. Import from `@drizztdourden08/tessera`.
 - `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
 - [Toast](components/Toast.md): A short message in a corner of the window that leaves on its own, raised with toast() from any part of the app and drawn by the one ToastStack. Import from `@drizztdourden08/tessera`.

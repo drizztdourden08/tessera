@@ -1,0 +1,91 @@
+/* @layer renderer-components @kind style */
+.document-tabs__tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  max-inline-size: var(--size-224);
+  padding-inline: var(--space-md) var(--space-xs);
+  border-bottom: var(--border-width-thick) solid transparent;
+  color: var(--c-text-dim);
+  transition: color var(--transition-normal), border-color var(--transition-normal), opacity var(--transition-fast);
+  user-select: none;
+}
+
+.document-tabs__tab:hover {
+  background: var(--c-hover);
+  color: var(--c-text);
+}
+
+.document-tabs__tab[data-active='yes'] {
+  border-bottom-color: var(--c-primary);
+  color: var(--c-primary-bright);
+}
+
+.document-tabs__tab[data-dragging='yes'] {
+  opacity: var(--opacity-muted);
+}
+
+.document-tabs__tab[data-drop='before'] {
+  box-shadow: calc(-1 * var(--space-2xs)) 0 0 calc(-1 * var(--size-1)) var(--c-primary-bright);
+}
+
+.document-tabs__tab[data-drop='after'] {
+  box-shadow: var(--space-2xs) 0 0 calc(-1 * var(--size-1)) var(--c-primary-bright);
+}
+
+.document-tabs__main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+  min-inline-size: 0;
+  padding-block: var(--space-sm);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  touch-action: pan-x;
+}
+
+.document-tabs__icon {
+  flex: none;
+}
+
+.document-tabs__title {
+  min-inline-size: 0;
+  overflow: hidden;
+  line-height: var(--leading-tight);
+  text-overflow: ellipsis;
+}
+
+.document-tabs__end {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.document-tabs__dot {
+  position: absolute;
+  inset: 0;
+  inline-size: var(--size-8);
+  block-size: var(--size-8);
+  margin: auto;
+  border-radius: var(--radius-round);
+  background: var(--c-warning);
+  pointer-events: none;
+}
+
+.document-tabs__tab[data-unsaved='yes']:not(:hover, :focus-within) .document-tabs__close {
+  opacity: 0;
+}
+
+.document-tabs__tab[data-unsaved='yes']:is(:hover, :focus-within) .document-tabs__dot {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .document-tabs__tab {
+    transition: none;
+  }
+}

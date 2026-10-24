@@ -50,6 +50,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
       { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
       { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
+      { name: 'DocumentTabs', summary: 'The strip of open documents above an editor: unsaved mark, close, drag or key reorder, and scroll when many.' },
     ] },
     { group: 'Layout', entries: [
       { name: 'SplitPane', summary: 'Two panes with a draggable, collapsible divider.' },
@@ -112,6 +113,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'VolumeControl', summary: 'A mute button beside a volume slider, with the icon following the level.' },
         { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
         { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
+        { name: 'SwatchGrid', summary: 'A grid of colour swatches to pick from, range over and put in order, with transparent slots and a second colour.' },
         { name: 'KeyValueEditor', summary: 'A map of names to values, row by row, with a duplicate check and an add row.' },
         { name: 'CommandInput', summary: 'A command line with Enter to send, Up and Down through past commands and Escape to clear.' },
         { name: 'PasswordInput', summary: 'A password with a show button, any mask character, a Caps Lock warning and an optional checklist.' },

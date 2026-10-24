@@ -5,6 +5,7 @@ import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
 import { COMMON_STRINGS } from './common-strings.constants';
 import { CONTROLLER_STRINGS } from './controller-strings.constants';
 import { DATE_STRINGS } from './dates-strings.constants';
+import { DOCUMENT_TABS_STRINGS } from './document-tabs-strings.constants';
 import { DYNAMIC_INPUT_STRINGS } from './dynamic-input-strings.constants';
 import { FIELD_KIND_STRINGS } from './field-kinds-strings.constants';
 import { FIELD_STRINGS } from './fields-strings.constants';
@@ -24,6 +25,7 @@ import { REORDER_LIST_STRINGS } from './reorder-list-strings.constants';
 import { ROW_GRID_STRINGS } from './row-grid-strings.constants';
 import { SAVE_BAR_STRINGS } from './save-bar-strings.constants';
 import { SETTINGS_STRINGS } from './settings-strings.constants';
+import { SWATCH_GRID_STRINGS } from './swatch-grid-strings.constants';
 import { STEPPER_STRINGS } from './stepper-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
 import { TOUR_STRINGS } from './tour-strings.constants';
@@ -39,6 +41,7 @@ const TESSERA_STRINGS = {
   password: PASSWORD_STRINGS,
   video: VIDEO_STRINGS,
   colorPicker: COLOR_PICKER_STRINGS,
+  documentTabs: DOCUMENT_TABS_STRINGS,
   dynamicInput: DYNAMIC_INPUT_STRINGS,
   table: TABLE_STRINGS,
   filters: FILTER_STRINGS,
@@ -61,6 +64,7 @@ const TESSERA_STRINGS = {
   rowGrid: ROW_GRID_STRINGS,
   reorderList: REORDER_LIST_STRINGS,
   saveBar: SAVE_BAR_STRINGS,
+  swatchGrid: SWATCH_GRID_STRINGS,
   rating: RATING_STRINGS,
   carousel: CAROUSEL_STRINGS,
   mediaViewer: MEDIA_VIEWER_STRINGS,

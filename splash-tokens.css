@@ -200,6 +200,9 @@
   --c-tertiary-soft: #9a9aa424;
   --c-on-tertiary: #0e0e12;
   --c-controller-line: #707078;
+  --c-checker-a: #27272b;
+  --c-checker-b: #3c3c41;
+  --c-grid-line: #9a9aa48c;
   --blur: 8px;
   --dialog-w-sm: 384px;
   --dialog-w-md: 640px;
@@ -224,6 +227,7 @@
   --titlebar-height: 40px;
   --status-bar-h: 24px;
   --status-bar-swatch: 12px;
+  --checker-size: 8px;
   --hit-area-min: 24px;
   --scrollbar-size: 6px;
   --scrollbar-slim: calc(3 * 1px);
@@ -509,6 +513,9 @@
   --c-tertiary-soft: #a79fc824;
   --c-on-tertiary: #0d0b14;
   --c-controller-line: #797392;
+  --c-checker-a: #2c2936;
+  --c-checker-b: #423e50;
+  --c-grid-line: #a79fc88c;
 }
 
 [data-palette="brock"] {
@@ -621,6 +628,9 @@
   --c-tertiary-soft: #8a8b8d24;
   --c-on-tertiary: #000;
   --c-controller-line: #646466;
+  --c-checker-a: #222323;
+  --c-checker-b: #353636;
+  --c-grid-line: #8a8b8d8c;
 }
 
 [data-palette="rotp"] {

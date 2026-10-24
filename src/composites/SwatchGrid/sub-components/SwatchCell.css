@@ -1,0 +1,36 @@
+/* @layer renderer-components @kind style */
+.swatch-grid__swatch[data-range='yes']:not(.color-swatch--selected) {
+  outline: var(--border-width-thick) solid var(--c-info);
+  outline-offset: var(--size-1);
+}
+
+.swatch-grid__swatch[data-secondary='yes']::after {
+  content: '';
+  position: absolute;
+  inset-block-start: var(--size-2);
+  inset-inline-end: var(--size-2);
+  inline-size: var(--size-6);
+  block-size: var(--size-6);
+  border: var(--border-width-thin) solid var(--c-scrim);
+  background: var(--c-secondary-bright);
+}
+
+.swatch-grid__swatch[data-dragging='yes'] {
+  opacity: var(--opacity-muted);
+}
+
+.swatch-grid__swatch[data-drop]::before {
+  content: '';
+  position: absolute;
+  inset-block: calc(-1 * var(--size-2));
+  inline-size: var(--border-width-thick);
+  background: var(--c-primary-bright);
+}
+
+.swatch-grid__swatch[data-drop='before']::before {
+  inset-inline-start: calc(-1 * var(--size-4));
+}
+
+.swatch-grid__swatch[data-drop='after']::before {
+  inset-inline-end: calc(-1 * var(--size-4));
+}
