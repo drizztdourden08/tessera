@@ -10,6 +10,7 @@ interface GroupRowProps {
   expanded: boolean;
   onToggle: () => void;
   display?: DisplaySubstitution;
+  index?: number;
 }
 
 export type { GroupRowProps };

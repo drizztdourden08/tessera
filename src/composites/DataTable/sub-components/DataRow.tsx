@@ -2,13 +2,14 @@
 import { Box } from '../../../primitives/Box';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { cellContent } from '../behavior/cell-content';
+import { placeProps } from '../behavior/place-props';
 import { DataCell } from './DataCell';
 import { SelectCell } from './SelectCell';
 import type { MouseEvent } from 'react';
 import type { DataRowProps } from './DataRow.type';
 
 const DataRow = <T,>(props: DataRowProps<T>) => {
-  const { row, context } = props;
+  const { row, context, index } = props;
   const {
     columns, schema, draggingPath, getRowId, selectedId, onSelect, selection,
     onCellDragOver, onCellDrop, resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
@@ -22,7 +23,7 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
 
   return (
     <Box
-      className={selected ? 'data-table__row data-table__row--selected' : 'data-table__row'}
+      {...placeProps(selected ? 'data-table__row data-table__row--selected' : 'data-table__row', index, true)}
       role="row"
       aria-selected={selected}
       onClick={handleClick}

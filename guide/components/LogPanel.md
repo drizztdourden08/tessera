@@ -23,7 +23,7 @@ LogPanel shows a running log with search, filters, the newest lines first in vie
 
 ## Use something else when
 
-- The rows have columns to sort and resize. Use `DataTable` instead.
+- The rows have columns to sort and resize. Use [DataTable](DataTable.md) instead.
 - A job shows its steps, with a short log under them. Use [TaskProgress](TaskProgress.md) instead.
 - The text is code or a fixed block to read and copy. Use `CodeBlock` instead.
 

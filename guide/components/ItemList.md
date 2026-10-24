@@ -25,7 +25,7 @@ ItemList draws the count, New, the filter, the groups, rename, delete and every 
 
 - The list sits beside an editor whose edits can be lost when the user picks another item. Use [ListDetail](ListDetail.md) instead.
 - The rows are read only, or each row has its own set of actions. Use `ListItemRow` instead.
-- The items need columns to sort, group and filter. Use `DataTable` instead.
+- The items need columns to sort, group and filter. Use [DataTable](DataTable.md) instead.
 
 ## Rules
 

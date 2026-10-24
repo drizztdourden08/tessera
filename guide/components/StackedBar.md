@@ -24,7 +24,7 @@ StackedBar shows how one total splits into named parts, in a single bar.
 ## Use something else when
 
 - One value toward an end, with nothing to split. Use `ProgressBar` instead.
-- Rows of exact figures the reader sorts and filters. Use `DataTable` instead.
+- Rows of exact figures the reader sorts and filters. Use [DataTable](DataTable.md) instead.
 
 ## Rules
 

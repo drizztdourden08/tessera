@@ -7,19 +7,21 @@ import { Text } from '../../../primitives/Text';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { groupKeyContent } from '../behavior/group-key-content';
+import { placeProps } from '../behavior/place-props';
 import { INDENT_PROPERTY, INDENT_STEP } from './GroupRow.constants';
 import type { CSSProperties } from 'react';
 import type { GroupRowProps } from './GroupRow.type';
 import './GroupRow.css';
 
 const GroupRow = (props: GroupRowProps) => {
-  const { level, groupKey, field, count, expanded, onToggle, display } = props;
+  const { level, groupKey, field, count, expanded, onToggle, display, index } = props;
   const strings = useTesseraStrings();
   const { table } = strings;
   const indent = { [INDENT_PROPERTY]: `calc(${INDENT_STEP} * ${level + 1})` } as CSSProperties;
+  const placed = placeProps('data-table__group', index, false);
 
   return (
-    <Box className="data-table__group" style={indent} role="row">
+    <Box {...placed} style={{ ...indent, ...placed.style }} role="row">
       <Box className="data-table__group-bar" role="gridcell">
         <Pressable
           className="data-table__group-toggle"
