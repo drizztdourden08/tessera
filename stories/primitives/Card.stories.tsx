@@ -8,6 +8,7 @@ import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
+import './_samples/CardFill.css';
 import { PageWithCards, toneCard, TONES } from './_samples/card-headers';
 
 type CardVariant = NonNullable<CardProps['variant']>;
@@ -113,6 +114,21 @@ const OnAPage = {
   render: () => <PageWithCards />,
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
+const FillingBody = {
+  name: 'Body fills the card height',
+  render: () => (
+    <Box className="story-column">
+      <Box className="card-fill-frame">
+        <Card title="Session log" fill>
+          <Box className="card-fill-body">
+            <Text variant="caption">The body grows to the card height and its child stretches with it.</Text>
+          </Box>
+        </Card>
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<CardArgs>;
+
 const SessionPickerDemo = () => {
   const [picked, setPicked] = useState<string | null>(null);
   const current = SESSIONS.find((session) => session.id === picked);
@@ -156,13 +172,14 @@ const Overview = overviewStory({
     '`default` is the plain panel; `danger` frames a destructive choice.',
     '`title` draws a header row in the [SectionHeader] look, with `subtitle`, `count`, `hideZero` and `actions`.',
     '`tone` tints the header row, such as `warning` for a card of problems.',
+    '`fill` makes the body take the card height left under the header, and scroll when its child is taller.',
     '`interactive` is for a card clicked as a whole: it lights its border on hover and shows a focus ring.',
     '**An interactive card needs a `tabIndex` and a `role`** when it acts as a button.',
     'It sets no inner layout: put a [Stack] or [Flex] inside.',
   ],
   instead: '[ContentHeader] for the header of a whole page, or [SectionHeader] for a heading outside a card.',
   playground: Playground,
-  variants: [AllVariants, HeaderTones, OnAPage],
+  variants: [AllVariants, HeaderTones, OnAPage, FillingBody],
   states: {
     render: renderState,
     list: [
@@ -174,4 +191,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, HeaderTones, Interactive, OnAPage, Overview, Playground };
+export { AllVariants, FillingBody, HeaderTones, Interactive, OnAPage, Overview, Playground };

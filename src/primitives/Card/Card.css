@@ -37,3 +37,29 @@
 .card__body {
   padding: var(--space-sm) var(--space-md);
 }
+
+.card--fill {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.card--fill > * {
+  flex: 1 0 auto;
+}
+
+.card--fill > .card__header {
+  flex: 0 0 auto;
+}
+
+.card--fill > .card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+.card--fill > .card__body > * {
+  flex: 1 0 auto;
+}

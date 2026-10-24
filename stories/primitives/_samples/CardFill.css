@@ -1,0 +1,16 @@
+/* @layer stories @kind style */
+.card-fill-frame {
+  display: flex;
+  flex-direction: column;
+  height: var(--size-224);
+}
+
+.card-fill-frame > .card {
+  flex: 1 1 0;
+}
+
+.card-fill-body {
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  background: var(--c-sunken);
+}
