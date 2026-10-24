@@ -69,6 +69,7 @@ export type {
   UtilityScreenAction, UtilityScreenNotes, UtilityScreenProgress, UtilityScreenProps, UtilityScreenReport, UtilityScreenStatus, UtilityScreenTone,
 } from './UtilityScreen';
 export { StageScreen, type StageScreenDone, type StageScreenProps } from './StageScreen';
+export { FloatingPrompt, type FloatingPromptAction, type FloatingPromptProps, type FloatingPromptScope } from './FloatingPrompt';
 export { FloatingSwitch, type FloatingSwitchItem, type FloatingSwitchProps } from './FloatingSwitch';
 export { ControllerLayout, CONTROLLER_LAYOUT_VARIANTS, CONTROLLER_SLOT_IDS } from './ControllerLayout';
 export type {

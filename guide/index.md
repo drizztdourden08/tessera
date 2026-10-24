@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 74 of 195 have their usage written; a linked name opens its page.
+One line per component. 75 of 196 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -120,6 +120,7 @@ One line per component. 74 of 195 have their usage written; a linked name opens 
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FileList](components/FileList.md): The files a job made or an app keeps, one row each with its type icon, name, size and date, and buttons to open it or show it in its folder. Import from `@drizztdourden08/tessera`.
 - `FilterBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [FloatingPrompt](components/FloatingPrompt.md): A bar at the foot of a region that asks a question with actions such as Apply and Cancel, and blocks the region until the user answers. Import from `@drizztdourden08/tessera`.
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FormGroupTabs](components/FormGroupTabs.md): The top of a long form split into groups: a search over the options, Show advanced, and a tab per group with how many options changed. Import from `@drizztdourden08/tessera`.
 - [FormRow](components/FormRow.md): One option of a long form: its name and help on the left, its control in the middle, a changed mark and a reset at the end. Import from `@drizztdourden08/tessera`.

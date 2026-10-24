@@ -153,6 +153,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A long job with steps, a log or a failure: [TaskProgress](components/TaskProgress.md). TaskProgress draws a bar, the steps, the failure and the log of one job the same way in every app.
   - The app is starting, or starting again: [Splash](components/Splash.md). Splash draws the classes of splash.css, so it looks the same as the static splash page.
   - The results of a list of checks: [CheckList](components/CheckList.md). CheckList gives pass, advice and failure their own icon and colour, so a test result reads the same in every app.
+  - A question that blocks one region until it is answered: [FloatingPrompt](components/FloatingPrompt.md). FloatingPrompt asks the user to answer before going on in one region, with actions from data and the look of a Toast.
   - What blocks a save, with a jump to each field: [ValidationSummary](components/ValidationSummary.md). ValidationSummary lists what blocks a save in one place and takes the user to each field, the same way in every editor.
   - Whether the edits are saved, with Save and Discard: [SaveBar](components/SaveBar.md). SaveBar says whether an editor is saved and holds Save and Discard at its foot, the same way in every app.
 - Text. **What kind of text?**
