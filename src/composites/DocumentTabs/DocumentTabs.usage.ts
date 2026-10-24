@@ -11,7 +11,7 @@ const usage = {
   avoidWhen: [
     { case: 'The tabs are fixed views of one area, with no close and no reorder.', use: 'Tabs' },
     { case: 'The tabs split one long form into groups with counts.', use: 'FormGroupTabs' },
-    { case: 'The items are a vertical list the user reorders, with on and off icons.', use: 'ReorderList' },
+    { case: 'The items are a short list of rows the user edits and puts in order.', use: 'RowGrid' },
   ],
   rules: [
     'Keep the tabs and the active id in the app; the strip only draws them and calls onActivate, onClose and onMove.',

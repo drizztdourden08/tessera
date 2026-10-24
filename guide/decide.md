@@ -48,7 +48,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - In the page: no component yet.
     - Behind a swatch button: no component yet.
   - A range: no component yet.
-  - A colour from a palette: [SwatchGrid](components/SwatchGrid.md). SwatchGrid is a grid of swatches the user picks one colour from, selects a range of and puts in order, the same way in every app.
+  - A colour from a palette: no component yet.
   - A file: no component yet.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
@@ -167,7 +167,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Rows and columns to sort and filter: no component yet.
   - Filters over a collection: no component yet.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
-  - A list the user reorders, with on and off icons on each row: [ReorderList](components/ReorderList.md). ReorderList is an ordered list the user reorders by drag or keys, with on and off icons on each row, the same way in every app.
+  - A list the user reorders, with on and off icons on each row: no component yet.
   - One record, compact and read only: no component yet.
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.

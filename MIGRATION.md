@@ -9740,3 +9740,22 @@ No app in the family has a light theme, so every variant that only existed to si
 ### What RotP does
 
 - Draw the pad outline with `ControllerSilhouette` and place its own glyphs, labels and leader lines as children, at the coordinates of `CONTROLLER_SILHOUETTE_ANCHORS`.
+
+## 273. ReorderList and SwatchGrid left Tessera for the Bxel app
+
+A drawing's layers list and a pixel editor's palette belong to the Bxel app, so `ReorderList` and `SwatchGrid` are removed, with their props types (`ReorderItem`, `ReorderListProps`, `ReorderToggle`, `ReorderToggleState`, `SwatchColor`, `SwatchGridProps`, `SwatchRange`), their guide pages, their stories and their `reorderList` and `swatchGrid` strings. The generic parts they were built from stay, and the drag and keyboard reorder logic is now public.
+
+### What goes
+
+- **Components.** `ReorderList` and `SwatchGrid` (composites), with every type above.
+- **Strings.** `reorderList` and `swatchGrid` leave `TesseraStrings`.
+
+### What stays, and is now exported
+
+- `useReorderDrag`, `useMoveFocus`, `reorderStep`, `columnsOf` and `REORDER_ITEM_SELECTOR`, with the types `ReorderAxis`, `ReorderDrag`, `ReorderDragOptions`, `ReorderDrop`, `ReorderKeyEvent`, `ReorderStepOptions` and `MoveFocus`.
+- `ColorSwatch`, `ListItemRow` and `IconButton`, unchanged.
+
+### What an app does
+
+- Build layer lists and palettes in the app, on `useReorderDrag` and `useMoveFocus` for the order, `ColorSwatch` for the colours, and `ListItemRow` and `IconButton` for rows and their toggles.
+- Remove imports of `ReorderList`, `SwatchGrid` and their types; TypeScript flags each one.
