@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 import { Icon } from '../../Icon';
 import { isIconName } from '../../Icon/behavior/is-icon-name';
-import { ReasonTip } from '../../field-control/ReasonTip';
+import { OptionTip } from '../../field-control/OptionTip';
 import type { ControlSize } from '../../field-control/field-control.type';
 import { SEGMENT_ICON_SIZES } from '../SegmentedControl.constants';
 import type { SegmentButtonProps, SegmentIcon } from '../SegmentedControl.type';
@@ -11,17 +11,18 @@ const iconNode = (icon: SegmentIcon, size: ControlSize): ReactNode =>
   (typeof icon === 'string' && isIconName(icon) ? <Icon name={icon} size={SEGMENT_ICON_SIZES[size]} /> : icon);
 
 const SegmentButton = <T extends string>(props: SegmentButtonProps<T>) => {
-  const { option, active, disabled, reason, stop, size, handlers, onSelect, onKeyDown } = props;
+  const { option, active, disabled, reason, stop, size, handlers, placement, onSelect, onKeyDown } = props;
   const name = option.icon === undefined ? option.title : option.title ?? option.hint.label;
+  const shown = option.icon === undefined ? option.label : name;
   return (
-    <ReasonTip reason={reason}>
+    <OptionTip reason={reason} name={shown} tooltip={option.tooltip} placement={placement}>
       <button
         type="button"
         role="radio"
         aria-checked={active}
         aria-label={name}
         aria-description={reason}
-        title={option.title}
+        title={option.tooltip === undefined ? option.title : undefined}
         tabIndex={stop ? 0 : -1}
         className={`segmented__btn focus-ring-inset${active ? ' segmented__btn--active' : ''}`}
         onClick={onSelect}
@@ -31,7 +32,7 @@ const SegmentButton = <T extends string>(props: SegmentButtonProps<T>) => {
       >
         {option.icon === undefined ? option.label : iconNode(option.icon, size)}
       </button>
-    </ReasonTip>
+    </OptionTip>
   );
 };
 

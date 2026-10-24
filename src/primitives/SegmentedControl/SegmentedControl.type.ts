@@ -4,11 +4,13 @@ import type { ControlName } from '../field-control/control-name.type';
 import type { ControlSize } from '../field-control/field-control.type';
 import type { Hint, HintHandlers, HintReport } from '../hint/hint.type';
 import type { IconName } from '../Icon/Icon.type';
+import type { OptionTooltip, TooltipPlacement } from '../Tooltip';
 
 interface SegmentOptionBase<T extends string> {
   value: T;
   title?: string;
   hint?: Hint;
+  tooltip?: OptionTooltip;
   disabled?: boolean | string;
 }
 
@@ -33,6 +35,7 @@ interface SegmentedControlProps<T extends string = string> extends ControlName {
   onChange: (value: T) => void;
   onDeselect?: () => void;
   onHint?: HintReport;
+  tooltipPlacement?: TooltipPlacement;
   label?: string;
   description?: string;
   size?: ControlSize;
@@ -48,6 +51,7 @@ interface SegmentButtonProps<T extends string> {
   stop: boolean;
   size: ControlSize;
   handlers: HintHandlers;
+  placement: TooltipPlacement;
   onSelect: () => void;
   onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
 }

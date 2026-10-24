@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
+import { shortcutKeys } from '../../../primitives/Shortcut';
 import { IconButton } from '../../../primitives/IconButton';
 import { ariaKeyShortcuts } from '../../DropdownMenu/behavior/aria-key-shortcuts';
-import { menuShortcutKeys } from '../../DropdownMenu/behavior/menu-shortcut-keys';
 import { actionItem } from '../behavior/action-item';
 import { barItemProps } from '../behavior/bar-item-props';
 import type { TitleBarCommandProps } from './TitleBarAction.type';
@@ -12,7 +12,7 @@ const TitleBarCommand = (props: TitleBarCommandProps) => {
   const { action, away } = props;
   const disabled = action.disabled === true;
   const shortcut = disabled ? undefined : action.shortcut;
-  const keys = shortcut === undefined ? undefined : menuShortcutKeys(shortcut);
+  const keys = shortcut === undefined ? undefined : shortcutKeys(shortcut);
   const reason = disabled ? action.disabledReason : undefined;
   return (
     <TitleBarTip label={reason ?? action.label} shortcut={shortcut} away={away}>

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-import type { ShortcutKey } from '../../../primitives/Shortcut';
+import type { ShortcutKey } from '../Shortcut.type';
 
 const SHORTCUT_ALIASES: Readonly<Partial<Record<string, ShortcutKey>>> = {
   control: 'ctrl',
