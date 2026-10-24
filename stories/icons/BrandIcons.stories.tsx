@@ -16,7 +16,7 @@ type BrandIconArgs = {
   flip: 'none' | IconFlip;
 };
 
-const BRANDS: readonly BrandIconName[] = ['tessera', 'rotp', 'rotp-mascot', 'archipelia', 'brock'];
+const BRANDS: readonly BrandIconName[] = ['tessera', 'rotp', 'rotp-mascot', 'archipelia', 'brock', 'bxel'];
 const SIZES = [16, 24, 48] as const;
 const TONES = ['colour', 'mono'] as const;
 
@@ -60,7 +60,7 @@ const Overview = overviewStory({
   component: 'Icon.Brand',
   description: 'Every family mark as an icon, `Icon.Brand`, for a toolbar, a menu or a list of projects.',
   points: [
-    '`name` takes `tessera`, `rotp`, `rotp-mascot`, `archipelia` or `brock`.',
+    '`name` takes `tessera`, `rotp`, `rotp-mascot`, `archipelia`, `brock` or `bxel`.',
     'In colour it keeps the brand inks; `tone="mono"` draws in `currentColor` like any other icon.',
     'It is the same [Icon] underneath, so it takes the same `size`, `rotate`, `flip` and `label`.',
   ],

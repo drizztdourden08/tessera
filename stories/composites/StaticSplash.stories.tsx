@@ -9,7 +9,7 @@ import { StaticSplashWordmarks } from './_samples/StaticSplashWordmarks';
 
 type SplashArgs = {
   page: 'starting' | 'failed' | 'parts';
-  palette: 'tessera' | 'archipelia' | 'brock' | 'rotp';
+  palette: 'tessera' | 'archipelia' | 'brock' | 'rotp' | 'bxel';
 };
 
 const PAGES = { starting: STARTING, failed: FAILED, parts: PARTS } as const;
@@ -18,7 +18,7 @@ const ARGS: Partial<SplashArgs> = { page: 'failed', palette: 'archipelia' };
 
 const ARG_TYPES: PlaygroundArgTypes<SplashArgs> = {
   page: { group: 'Content', control: 'select', options: ['starting', 'failed', 'parts'], description: 'The page drawn in the frame.' },
-  palette: { group: 'Appearance', control: 'select', options: ['tessera', 'archipelia', 'brock', 'rotp'], description: 'The data-palette on the root of the page.' },
+  palette: { group: 'Appearance', control: 'select', options: ['tessera', 'archipelia', 'brock', 'rotp', 'bxel'], description: 'The data-palette on the root of the page.' },
 };
 
 const meta = {

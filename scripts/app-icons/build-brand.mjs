@@ -30,10 +30,11 @@ const buildBrand = async (root, id, loaded) => {
   for (const folder of OUTPUT_FOLDERS) rmSync(join(root, 'brand', id, folder), { recursive: true, force: true });
   const mark = markArt(brand.mark);
   const dark = groundArt(brand, loaded, 'dark');
+  const face = brand.iconMark ? markArt(brand.iconMark) : undefined;
   const written = [write(`${id}.svg`, artFile(mark, brand.name))];
-  if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, mark, dark.mark)));
+  if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, mark, dark.mark, face)));
   if (brand.mascot) written.push(...buildMascot(write, id, brand, loaded));
-  const artFor = { icon: () => appArt(brand, mark).icon, mark: () => mark, mascot: () => variantArt(brand.mascot.variants[0], loaded) };
+  const artFor = { icon: () => appArt(brand, mark, mark, face).icon, mark: () => mark, mascot: () => variantArt(brand.mascot.variants[0], loaded) };
   for (const files of loaded.iconFiles(id)) {
     const art = artFor[files.kind]();
     written.push(...await ladder(write, () => art, files, loaded.sizes));

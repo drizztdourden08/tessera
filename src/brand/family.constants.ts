@@ -3,6 +3,7 @@ import type { BrandApp, BrandInfo } from './brand.type';
 import { ARCHIPELIA_MARK } from './marks/archipelia.constants';
 import { ARCHIPELIA_MASCOT } from './marks/archipelia-mascot.constants';
 import { BROCK_MARK } from './marks/brock.constants';
+import { BXEL_ICON_MARK, BXEL_MARK } from './marks/bxel.constants';
 import { BROCK_MASCOT } from './marks/brock-mascot.constants';
 import { ROTP_MARK } from './marks/rotp.constants';
 import { ROTP_MASCOT } from './marks/rotp-mascot.constants';
@@ -116,8 +117,35 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
       ],
     },
   },
+  bxel: {
+    id: 'bxel',
+    name: 'Bxel',
+    kind: 'App · pixel art editor',
+    colour: '#7b3fe4',
+    colourName: 'Violet, its primary purple',
+    tile: '#140b26',
+    appIcon: 'tile',
+    summary: 'A palette-limited pixel art editor built on Brock and Tessera. Its own look is a seven colour palette that runs from night to mist through red and purple.',
+    placement: 'Last in the row, the newest app built on Brock.',
+    mark: BXEL_MARK,
+    iconMark: BXEL_ICON_MARK,
+    wordmark: { text: 'Bxel', colors: ['#ff7a8a', '#e0245e', '#b02a9c', '#7b3fe4'] },
+    gradient: { angle: 160, stops: ['#2a1560', '#1a0d38', '#140b26'] },
+    backdrop: {
+      angle: 160,
+      stops: ['#1c1038', '#140b26'],
+      glows: [
+        { colour: '#7b3fe4', strength: 30, at: [72, 14], size: [44, 110] },
+        { colour: '#e0245e', strength: 20, at: [10, 98], size: [46, 110] },
+        { colour: '#b02a9c', strength: 14, at: [96, 66], size: [26, 85] },
+        { colour: '#ff7a8a', strength: 6, at: [36, 0], size: [34, 55] },
+        { colour: '#4b1fa0', strength: 55, at: [60, 100], size: [52, 90] },
+        { colour: '#4b1fa0', strength: 50, at: [46, 46], size: [90, 140] },
+      ],
+    },
+  },
 };
 
-const BRAND_APPS: readonly BrandApp[] = ['tessera', 'rotp', 'archipelia', 'brock'];
+const BRAND_APPS: readonly BrandApp[] = ['tessera', 'rotp', 'archipelia', 'brock', 'bxel'];
 
 export { BRAND_APPS, BRAND_FAMILY };
