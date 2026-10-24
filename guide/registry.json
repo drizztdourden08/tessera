@@ -55,7 +55,9 @@
             "question": "How do the buttons relate?",
             "answers": {
               "only one can be on": {
-                "components": []
+                "components": [
+                  "SegmentedControl"
+                ]
               },
               "each on or off by itself": {
                 "components": []
@@ -233,6 +235,11 @@
             "components": [
               "FormGroupTabs"
             ]
+          },
+          "one of nine anchor points": {
+            "components": [
+              "AnchorPicker"
+            ]
           }
         }
       },
@@ -321,6 +328,11 @@
           "a picture or a video opened large, with zoom": {
             "components": [
               "MediaViewer"
+            ]
+          },
+          "a menu at the pointer, opened by right-click or long press": {
+            "components": [
+              "ContextMenu"
             ]
           }
         }
@@ -694,6 +706,16 @@
           "a headline number that does one thing": {
             "components": [
               "ActionTile"
+            ]
+          },
+          "a long list drawn only where it is in view": {
+            "components": [
+              "VirtualList"
+            ]
+          },
+          "a rectangle dragged over items to pick them": {
+            "components": [
+              "MarqueeBox"
             ]
           },
           "a drawing": {
@@ -2125,7 +2147,160 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one.",
+      "useWhen": [
+        "A short setting has a few choices that all fit on one line, such as a scale or an alignment.",
+        "The choices are modes of one view, and the user switches between them often."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The choices are many or have long labels.",
+          "use": "Select"
+        },
+        {
+          "case": "Each choice needs a sentence of help.",
+          "use": "RadioGroup"
+        },
+        {
+          "case": "Several choices can be on at once.",
+          "use": "ToggleGroup"
+        }
+      ],
+      "rules": [
+        "Give each option a value and either a label or an icon.",
+        "An icon option takes a hint, and its label reads from it; the icon is a name from the set or any node, such as a pixel icon or a Glyph.",
+        "A node passed as icon is drawn as given, so size and colour it yourself; a name is sized by the control.",
+        "Pass onDeselect to let a second press on the active option clear the value.",
+        "A disabled option takes a string that says why."
+      ],
+      "a11y": [
+        "The track is a radio group named by label, with a radio per option and one Tab stop on the chosen one.",
+        "The arrow keys, Home and End move and choose; an icon option is named by its title or hint."
+      ],
+      "tree": {
+        "path": [
+          "actions",
+          "several related buttons",
+          "only one can be on"
+        ],
+        "rule": "SegmentedControl is the joined row that picks one of a few values."
+      },
+      "example": "import { useState } from 'react';\nimport { SegmentedControl } from '@drizztdourden08/tessera';\n\nconst ScalePicker = () => {\n  const [scale, setScale] = useState('2x');\n  return (\n    <SegmentedControl\n      label=\"Window scale\"\n      value={scale}\n      onChange={setScale}\n      options={[\n        { value: '1x', label: '1x' },\n        { value: '2x', label: '2x' },\n        { value: 'fit', label: 'Fit window' },\n      ]}\n    />\n  );\n};\n",
+      "propsHash": "4e73b45bf2e464c0",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "T"
+          },
+          {
+            "name": "options",
+            "optional": false,
+            "text": "SegmentOption<T>[]"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: T) => void"
+          },
+          {
+            "name": "onDeselect",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "onHint",
+            "optional": true,
+            "text": "HintReport"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "description",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-labelledby",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-focus",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-soft",
+        "--c-surface",
+        "--c-text",
+        "--c-text-dim",
+        "--control-h-md",
+        "--control-h-sm",
+        "--control-pad-md",
+        "--control-pad-sm",
+        "--density-gap",
+        "--opacity-disabled",
+        "--radius-md",
+        "--radius-sm",
+        "--size-24",
+        "--space-2xs",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--transition-fast",
+        "--transition-normal",
+        "--weight-medium",
+        "--z-base"
+      ],
+      "gallery": {
+        "title": "Primitives · Inputs/SegmentedControl",
+        "route": "#/story/primitives-segmentedcontrol--overview",
+        "file": "stories/primitives/SegmentedControl.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Select",
@@ -3913,6 +4088,149 @@
       "parts": []
     },
     {
+      "name": "AnchorPicker",
+      "tier": "composites",
+      "source": "src/composites/AnchorPicker/AnchorPicker.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A three by three grid that picks where something is anchored: a corner, an edge or the centre.",
+      "useWhen": [
+        "A canvas or image is resized and the user says which edge or corner stays put.",
+        "A tool aligns or places something against one of nine points, such as a watermark or a label."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user picks one of a few named options in a row.",
+          "use": "SegmentedControl"
+        },
+        {
+          "case": "The user picks one of a short list as radio buttons.",
+          "use": "RadioGroup"
+        },
+        {
+          "case": "The user picks a position by dragging.",
+          "use": "Slider"
+        }
+      ],
+      "rules": [
+        "The app owns value; the picker calls onChange with one of top-left, top, top-right, left, center, right, bottom-left, bottom or bottom-right.",
+        "The default variant dots shows the chosen cell as a filled dot.",
+        "The variant arrows shows an arrow in every other cell, pointing away from the chosen one: the look of a canvas resize dialog.",
+        "Pass label when the default Anchor does not say what is anchored, such as Keep this edge.",
+        "size sm fits a dense panel; md is the default."
+      ],
+      "a11y": [
+        "The grid is a radio group with a radio per cell, named Top left to Bottom right, and one Tab stop on the chosen cell.",
+        "The arrow keys move in two dimensions and choose; Home and End go to the start and end of the row, and with Control to the first and last cell."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "one of nine anchor points"
+        ],
+        "rule": "AnchorPicker picks one of nine anchor points, as an image editor does for canvas resize."
+      },
+      "example": "import { useState } from 'react';\nimport { AnchorPicker } from '@drizztdourden08/tessera';\nimport type { Anchor } from '@drizztdourden08/tessera';\n\nconst CanvasAnchor = () => {\n  const [anchor, setAnchor] = useState<Anchor>('center');\n  return <AnchorPicker label=\"Anchor\" variant=\"arrows\" value={anchor} onChange={setAnchor} />;\n};\n",
+      "propsHash": "753c64a0dac3d4bb",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "Anchor",
+            "literals": [
+              "'top-left'",
+              "'top'",
+              "'top-right'",
+              "'left'",
+              "'center'",
+              "'right'",
+              "'bottom-left'",
+              "'bottom'",
+              "'bottom-right'"
+            ]
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(anchor: Anchor) => void"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "AnchorPickerVariant",
+            "literals": [
+              "'dots'",
+              "'arrows'"
+            ],
+            "default": "'dots'"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-focus",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-sunken",
+        "--c-text",
+        "--c-text-muted",
+        "--opacity-disabled",
+        "--opacity-muted",
+        "--radius-round",
+        "--radius-sm",
+        "--size-10",
+        "--size-20",
+        "--size-28",
+        "--size-6",
+        "--size-8",
+        "--space-2xs",
+        "--transition-fast"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/AnchorPicker",
+        "route": "#/story/composites-anchorpicker--overview",
+        "file": "stories/composites/AnchorPicker.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "ArmedIconButton",
       "tier": "composites",
       "source": "src/composites/ArmedIconButton/ArmedIconButton.tsx",
@@ -4952,6 +5270,165 @@
         "title": "Composites · Layout/ContentHeader",
         "route": "#/story/composites-contentheader--overview",
         "file": "stories/composites/ContentHeader.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "ContextMenu",
+      "tier": "composites",
+      "source": "src/composites/ContextMenu/ContextMenu.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A menu that opens where the user right-clicks, long presses or presses the menu key, built from the same data as DropdownMenu.",
+      "useWhen": [
+        "A row, a card, a canvas or a tab has actions that belong to it, such as Rename, Duplicate and Delete, and no room for a button each.",
+        "The actions are a shortcut to what a menu button already offers, so a power user reaches them where the pointer is.",
+        "An app opens the menu itself, for example from a gesture on a canvas, and passes the point."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The menu hangs from its own button.",
+          "use": "DropdownMenu"
+        },
+        {
+          "case": "The actions must be visible without a gesture.",
+          "use": "ActionBar"
+        },
+        {
+          "case": "The user looks for any action in the app by name.",
+          "use": "CommandPalette"
+        }
+      ],
+      "rules": [
+        "Wrap the target in ContextMenu and pass groups; the menu opens at the pointer on right-click and on a long press with touch.",
+        "Never make the context menu the only way to an action; repeat each action in a button or a menu button.",
+        "Shift+F10 and the menu key open the menu under the focused element, so the target must hold or contain something focusable.",
+        "Items, groups, kinds and sub-menus are those of DropdownMenu; the menu flips to stay in the window.",
+        "To drive it yourself, pass open, point and onClose; add onOpen to learn where a gesture asked for the menu.",
+        "Set disabled to leave the browser menu in place, and longPress off when a long press already means something on the target."
+      ],
+      "a11y": [
+        "The menu is role menu, with the keyboard of DropdownMenu: arrows, Home, End, typing and Escape.",
+        "Opened with the keyboard, the menu takes focus on its first item and returns it to the element that opened it on close."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a menu at the pointer, opened by right-click or long press"
+        ],
+        "rule": "ContextMenu opens a DropdownMenu at the pointer, or under the focused element from the keyboard."
+      },
+      "example": "import { ContextMenu } from '@drizztdourden08/tessera';\nimport type { MenuGroup } from '@drizztdourden08/tessera';\n\ninterface TabProps {\n  name: string;\n  onRename: () => void;\n  onClose: () => void;\n}\n\nconst Tab = ({ name, onRename, onClose }: TabProps) => {\n  const groups: MenuGroup[] = [{\n    id: 'tab',\n    items: [\n      { id: 'rename', icon: 'pencil', label: 'Rename', onSelect: onRename },\n      { separator: true },\n      { id: 'close', icon: 'x', label: 'Close tab', tone: 'danger', onSelect: onClose },\n    ],\n  }];\n  return <ContextMenu groups={groups} label={name}>{name}</ContextMenu>;\n};\n",
+      "propsHash": "14ade5956c87808a",
+      "props": {
+        "own": [
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "open",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "point",
+            "optional": true,
+            "text": "ContextMenuPoint"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "longPress",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "onOpen",
+            "optional": true,
+            "text": "(point: ContextMenuPoint) => void"
+          },
+          {
+            "name": "onClose",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "groups",
+            "optional": false,
+            "text": "readonly MenuGroup[]"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "MenuVariant",
+            "literals": [
+              "'danger'",
+              "'ghost'",
+              "'info'",
+              "'primary'",
+              "'secondary'",
+              "'success'",
+              "'tertiary'",
+              "'warning'"
+            ]
+          },
+          {
+            "name": "intensity",
+            "optional": true,
+            "text": "MenuIntensity",
+            "literals": [
+              "'strong'",
+              "'medium'",
+              "'subtle'"
+            ]
+          },
+          {
+            "name": "closeOnSelect",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "filter",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "filterPlaceholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Composites · Menus/ContextMenu",
+        "route": "#/story/composites-contextmenu--overview",
+        "file": "stories/composites/ContextMenu.stories.tsx"
       },
       "parts": []
     },
@@ -8966,6 +9443,81 @@
       "parts": []
     },
     {
+      "name": "MarqueeBox",
+      "tier": "composites",
+      "source": "src/composites/MarqueeBox/MarqueeBox.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The rectangle that shows an area being dragged over items to pick them, drawn inside the box that scrolls.",
+      "useWhen": [
+        "The user drags over a grid of tiles, files or marks to pick the ones inside, as in a file manager.",
+        "The rectangle comes from useMarqueeSelect and must follow the pointer while the box scrolls."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user picks rows of a table with checkboxes or clicks.",
+          "use": "DataTable"
+        },
+        {
+          "case": "The user moves an item or resizes a window by dragging.",
+          "use": "ResizeHandle"
+        }
+      ],
+      "rules": [
+        "Pass the rect of useMarqueeSelect; it is null when nobody drags, and then nothing is drawn.",
+        "Place it inside the box that scrolls, and give that box position relative, so the rectangle moves with the content.",
+        "Spread bind of the hook on that same box, and mark each item with data-marquee-key.",
+        "It takes no pointer events, so the items below keep their hover and focus."
+      ],
+      "a11y": [
+        "The rectangle is decoration and hidden from readers; the picked items must show their own selected state.",
+        "Dragging is not the only way to pick: give the items keys or checkboxes for the same choice."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a rectangle dragged over items to pick them"
+        ],
+        "rule": "MarqueeBox draws the rectangle of a drag to pick, with the border and fill of the theme."
+      },
+      "example": "import { useRef, useState } from 'react';\nimport { Box, MarqueeBox, useMarqueeSelect } from '@drizztdourden08/tessera';\n\nconst Tiles = ({ ids }: { ids: string[] }) => {\n  const areaRef = useRef<HTMLElement>(null);\n  const [picked, setPicked] = useState<readonly string[]>([]);\n  const marquee = useMarqueeSelect({ containerRef: areaRef, itemSelector: '[data-marquee-key]', selected: picked, onChange: setPicked });\n  return (\n    <Box ref={areaRef} {...marquee.bind}>\n      {ids.map((id) => (\n        <Box key={id} data-marquee-key={id} aria-selected={picked.includes(id)}>{id}</Box>\n      ))}\n      <MarqueeBox rect={marquee.rect} />\n    </Box>\n  );\n};\n",
+      "propsHash": "c6ee83f7a265d43f",
+      "props": {
+        "own": [
+          {
+            "name": "rect",
+            "optional": false,
+            "text": "Rect | null"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-primary",
+        "--c-primary-soft",
+        "--mq-h",
+        "--mq-w",
+        "--mq-x",
+        "--mq-y",
+        "--radius-sm",
+        "--z-base"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/MarqueeBox",
+        "route": "#/story/composites-marqueebox--overview",
+        "file": "stories/composites/MarqueeBox.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "MediaViewer",
       "tier": "composites",
       "source": "src/composites/MediaViewer/MediaViewer.tsx",
@@ -12860,6 +13412,136 @@
       "parts": []
     },
     {
+      "name": "VirtualList",
+      "tier": "composites",
+      "source": "src/composites/VirtualList/VirtualList.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A very long list of rows of one height, where only the rows in view are drawn, with the arrow keys to move between them.",
+      "useWhen": [
+        "The list has thousands of items, such as a log of events or every file of a folder, and drawing them all would slow the page.",
+        "Every row is the same height and the app draws the content of each row.",
+        "The user moves through the rows with the keys and the list must scroll to follow."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Records with columns the user sorts, groups or resizes.",
+          "use": "DataTable"
+        },
+        {
+          "case": "A short list where every row can be drawn at once.",
+          "use": "ItemList"
+        },
+        {
+          "case": "Files with their size, date and open buttons.",
+          "use": "FileList"
+        }
+      ],
+      "rules": [
+        "Give it items, getKey and renderItem; getKey returns a stable id, never the position.",
+        "Give label a name for the list, since the rows are drawn without a heading of their own.",
+        "Size the list from its parent: it fills the height of its box and scrolls inside it.",
+        "Pick rowSize compact, normal or roomy; the height comes from a token and is measured once from the first row, so keep every row the same height.",
+        "Keep renderItem cheap and free of its own height; the row cuts what does not fit.",
+        "Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.",
+        "Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list."
+      ],
+      "a11y": [
+        "The list is a list of items, each with its position and the size of the list, so a reader hears 41 of 5000.",
+        "One row is in the tab order; the arrow keys, Home, End, Page Up and Page Down move focus and scroll to it.",
+        "A row that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
+        "Keys act only when the row itself has focus, so a field inside a row keeps its own arrow keys."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a long list drawn only where it is in view"
+        ],
+        "rule": "VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly."
+      },
+      "example": "import { VirtualList } from '@drizztdourden08/tessera';\n\ninterface Entry {\n  id: string;\n  text: string;\n}\n\nconst EventLog = ({ entries }: { entries: Entry[] }) => (\n  <VirtualList\n    label=\"Events\"\n    items={entries}\n    getKey={(entry) => entry.id}\n    renderItem={(entry) => entry.text}\n  />\n);\n",
+      "propsHash": "6a848a0abd982464",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly T[]"
+          },
+          {
+            "name": "getKey",
+            "optional": false,
+            "text": "(item: T, index: number) => string"
+          },
+          {
+            "name": "renderItem",
+            "optional": false,
+            "text": "(item: T, index: number) => ReactNode"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "rowSize",
+            "optional": true,
+            "text": "VirtualListRowSize",
+            "literals": [
+              "'compact'",
+              "'normal'",
+              "'roomy'"
+            ],
+            "default": "'normal'"
+          },
+          {
+            "name": "overscan",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "onActiveChange",
+            "optional": true,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-focus",
+        "--c-hover",
+        "--radius-md",
+        "--size-32",
+        "--size-40",
+        "--size-48",
+        "--space-sm",
+        "--vl-count",
+        "--vl-index"
+      ],
+      "gallery": {
+        "title": "Composites · Lists/VirtualList",
+        "route": "#/story/composites-virtuallist--overview",
+        "file": "stories/composites/VirtualList.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "VolumeControl",
       "tier": "composites",
       "source": "src/composites/VolumeControl/VolumeControl.tsx",
@@ -13692,6 +14374,120 @@
   ],
   "modules": [
     {
+      "name": "marquee",
+      "tier": "composites",
+      "source": "src/composites/marquee/index.ts",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Drag a rectangle over an area to pick the items inside it, as in a file manager, with Shift to add, Ctrl or Cmd to toggle and Escape to cancel.",
+      "useWhen": [
+        "An app draws a grid of tiles, files or marks and the user picks many by dragging over them.",
+        "The area scrolls and the drag must keep going when the pointer reaches its edge."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The rectangle itself must be drawn.",
+          "use": "MarqueeBox"
+        },
+        {
+          "case": "The user picks rows of a table.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Pass the containerRef of the box that scrolls, the selected keys and onChange; the app keeps the selection.",
+        "Spread bind on that box and draw rect with MarqueeBox inside it; rect is null when nobody drags.",
+        "Mark each item with data-marquee-key and pass its selector as itemSelector, or pass getRects with rects in the content space of the box.",
+        "A drag that starts on an item does nothing by default; pass canStart to change where a drag may start.",
+        "The drag starts after the pointer moves 4 pixels; pass threshold to change it, and enabled false to turn it off.",
+        "Shift adds to the selection, Ctrl or Cmd toggles the items inside, and Escape puts the selection back as it was.",
+        "Set touch-action none on the box when touch must drag, and pass autoScroll false to stop the scroll near its edges.",
+        "The functions rectFromPoints, rectsIntersect, hitKeys, mergeSelection and edgeScrollDelta are the same math without the hook."
+      ],
+      "a11y": [
+        "Dragging is for pointers only; give the items keys or checkboxes for the same choice.",
+        "Escape cancels a drag and restores the earlier selection.",
+        "The picked items must show their own selected state, since the rectangle is hidden from readers."
+      ],
+      "example": "import { useRef, useState } from 'react';\nimport { Box, MarqueeBox, useMarqueeSelect } from '@drizztdourden08/tessera';\n\nconst Tiles = ({ ids }: { ids: string[] }) => {\n  const areaRef = useRef<HTMLElement>(null);\n  const [picked, setPicked] = useState<readonly string[]>([]);\n  const marquee = useMarqueeSelect({ containerRef: areaRef, itemSelector: '[data-marquee-key]', selected: picked, onChange: setPicked });\n  return (\n    <Box ref={areaRef} {...marquee.bind}>\n      {ids.map((id) => (\n        <Box key={id} data-marquee-key={id} aria-selected={picked.includes(id)}>{id}</Box>\n      ))}\n      <MarqueeBox rect={marquee.rect} />\n    </Box>\n  );\n};\n",
+      "propsHash": "df6d06d50332d67b",
+      "exports": [
+        {
+          "name": "edgeScrollDelta",
+          "kind": "function",
+          "text": "(pointer: Point, bounds: Rect, edge: number, speed: number) => Point"
+        },
+        {
+          "name": "hitKeys",
+          "kind": "function",
+          "text": "(area: Rect, items: readonly MarqueeItem[]) => readonly string[]"
+        },
+        {
+          "name": "MARQUEE_KEY_ATTRIBUTE",
+          "kind": "constant",
+          "text": "\"data-marquee-key\""
+        },
+        {
+          "name": "MarqueeBind",
+          "kind": "type",
+          "text": "interface MarqueeBind {\n  onPointerDown: (event: ReactPointerEvent<HTMLElement>) => void;\n}"
+        },
+        {
+          "name": "MarqueeItem",
+          "kind": "type",
+          "text": "interface MarqueeItem {\n  key: string;\n  rect: Rect;\n}"
+        },
+        {
+          "name": "marqueeItemRects",
+          "kind": "function",
+          "text": "(container: HTMLElement, selector: string) => readonly MarqueeItem[]"
+        },
+        {
+          "name": "MarqueeModifiers",
+          "kind": "type",
+          "text": "interface MarqueeModifiers {\n  add: boolean;\n  toggle: boolean;\n}"
+        },
+        {
+          "name": "MarqueeOptions",
+          "kind": "type",
+          "text": "interface MarqueeOptions {\n  containerRef: RefObject<HTMLElement | null>;\n  selected: readonly string[];\n  onChange: (keys: readonly string[]) => void;\n  itemSelector?: string;\n  getRects?: () => readonly MarqueeItem[];\n  canStart?: (event: ReactPointerEvent<HTMLElement>) => boolean;\n  enabled?: boolean;\n  threshold?: number;\n  autoScroll?: boolean;\n}"
+        },
+        {
+          "name": "MarqueeSelect",
+          "kind": "type",
+          "text": "interface MarqueeSelect {\n  rect: Rect | null;\n  bind: MarqueeBind;\n}"
+        },
+        {
+          "name": "mergeSelection",
+          "kind": "function",
+          "text": "(base: readonly string[], hits: readonly string[], modifiers: MarqueeModifiers) => readonly string[]"
+        },
+        {
+          "name": "modifiersOf",
+          "kind": "function",
+          "text": "(keys: ModifierKeys) => MarqueeModifiers"
+        },
+        {
+          "name": "rectFromPoints",
+          "kind": "function",
+          "text": "(a: Point, b: Point) => Rect"
+        },
+        {
+          "name": "rectsIntersect",
+          "kind": "function",
+          "text": "(a: Rect, b: Rect) => boolean"
+        },
+        {
+          "name": "useMarqueeSelect",
+          "kind": "hook",
+          "text": "(options: MarqueeOptions) => MarqueeSelect"
+        }
+      ]
+    },
+    {
       "name": "reorder",
       "tier": "composites",
       "source": "src/composites/reorder/index.ts",
@@ -13792,6 +14588,97 @@
           "name": "useReorderDrag",
           "kind": "hook",
           "text": "({ listRef, selector, axis, onDrop }: ReorderDragOptions) => ReorderDrag"
+        }
+      ]
+    },
+    {
+      "name": "virtual",
+      "tier": "composites",
+      "source": "src/composites/virtual/index.ts",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The windowing of a long list of equal rows: which rows to draw for the scroll position, and which row to keep while it holds focus.",
+      "useWhen": [
+        "An app builds its own long list or table of rows of one height and draws only the rows in view.",
+        "A focused row must stay drawn when it scrolls out of view, so the keys keep working."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A list of rows the app draws itself, with the keys already handled.",
+          "use": "VirtualList"
+        },
+        {
+          "case": "Records with columns to sort, group or resize.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Pass enabled, the count of rows, keyAt that gives the stable key of a row, the rootRef of the box that scrolls and the attribute that marks a row index.",
+        "Put bodyRef on the element that holds the rows and size it to count times the row height; draw only the indices it returns.",
+        "Place each row by its index with absolute position, and mark it with the index attribute so the focus is found.",
+        "Wire onScroll to the scroll of the root, and onFocus and onBlur to the body, so a focused row stays drawn.",
+        "Keep keyAt stable with useCallback; a new function on every render measures again.",
+        "Use scrollTopToShow to find the scroll position that brings a row into view."
+      ],
+      "a11y": [
+        "A row that holds focus stays in the document while it is outside the window, so the keys and the screen reader keep their place.",
+        "Give each row its position and the size of the list with aria-posinset and aria-setsize, since the rest are not in the page."
+      ],
+      "example": "import { useCallback, useRef } from 'react';\nimport { Box, useVirtualWindow } from '@drizztdourden08/tessera';\n\nconst ROW_ATTRIBUTE = 'data-row';\n\nconst Rows = ({ names }: { names: string[] }) => {\n  const rootRef = useRef<HTMLElement>(null);\n  const keyAt = useCallback((index: number) => names[index], [names]);\n  const windowed = useVirtualWindow({ enabled: true, count: names.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE });\n  return (\n    <Box ref={rootRef} onScroll={windowed.onScroll}>\n      <Box ref={windowed.bodyRef} onFocus={windowed.onFocus} onBlur={windowed.onBlur}>\n        {windowed.indices.map((at) => (\n          <Box key={names[at]} {...{ [ROW_ATTRIBUTE]: at }}>{names[at]}</Box>\n        ))}\n      </Box>\n    </Box>\n  );\n};\n",
+      "propsHash": "d18d9c588bcec6df",
+      "exports": [
+        {
+          "name": "renderedIndices",
+          "kind": "function",
+          "text": "(range: RowRange, pinned: number) => readonly number[]"
+        },
+        {
+          "name": "RowRange",
+          "kind": "type",
+          "text": "interface RowRange {\n  start: number;\n  end: number;\n}"
+        },
+        {
+          "name": "scrollTopToShow",
+          "kind": "function",
+          "text": "(input: ShowInput) => number"
+        },
+        {
+          "name": "ShowInput",
+          "kind": "type",
+          "text": "interface ShowInput {\n  index: number;\n  rowHeight: number;\n  viewport: number;\n  scrollTop: number;\n}"
+        },
+        {
+          "name": "useVirtualWindow",
+          "kind": "hook",
+          "text": "(input: VirtualWindowInput) => VirtualWindow"
+        },
+        {
+          "name": "VirtualMetrics",
+          "kind": "type",
+          "text": "interface VirtualMetrics {\n  top: number;\n  viewport: number;\n  rowHeight: number;\n}"
+        },
+        {
+          "name": "VirtualWindow",
+          "kind": "type",
+          "text": "interface VirtualWindow {\n  indices: readonly number[];\n  metrics: VirtualMetrics;\n  bodyRef: RefObject<HTMLElement | null>;\n  onScroll: () => void;\n  onFocus: (event: FocusEvent<HTMLElement>) => void;\n  onBlur: (event: FocusEvent<HTMLElement>) => void;\n}"
+        },
+        {
+          "name": "VirtualWindowInput",
+          "kind": "type",
+          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n}"
+        },
+        {
+          "name": "visibleRange",
+          "kind": "function",
+          "text": "(input: VisibleRangeInput) => RowRange"
+        },
+        {
+          "name": "VisibleRangeInput",
+          "kind": "type",
+          "text": "interface VisibleRangeInput {\n  scrollTop: number;\n  viewport: number;\n  rowHeight: number;\n  count: number;\n  overscan: number;\n}"
         }
       ]
     }

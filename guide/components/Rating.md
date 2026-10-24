@@ -24,7 +24,7 @@ Rating shows an average in half stars with its count, and with onChange is the s
 ## Use something else when
 
 - The number is picked on a track, such as a volume. Use `Slider` instead.
-- One of a few named options is picked. Use `SegmentedControl` instead.
+- One of a few named options is picked. Use [SegmentedControl](SegmentedControl.md) instead.
 - A label sits beside a value that is not a score. Use `StatRow` instead.
 
 ## Rules

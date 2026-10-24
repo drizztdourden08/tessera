@@ -25,7 +25,7 @@ Select is the field that opens a list of options, plain or grouped, and picks on
 ## Use something else when
 
 - The user finds the option by typing, or may type a value that is not in the list. Use `Combobox` instead.
-- The list is short enough to show all at once. Use `SegmentedControl` instead.
+- The list is short enough to show all at once. Use [SegmentedControl](SegmentedControl.md) instead.
 - The options are actions, not values for a field. Use [DropdownMenu](DropdownMenu.md) instead.
 
 ## Rules

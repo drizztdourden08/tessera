@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind data */
+import { ANCHOR_STRINGS } from './anchor-strings.constants';
 import { CAROUSEL_STRINGS } from './carousel-strings.constants';
 import { CHART_STRINGS } from './charts-strings.constants';
 import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
@@ -35,6 +36,7 @@ import { WIZARD_STRINGS } from './wizard-strings.constants';
 
 const TESSERA_STRINGS = {
   common: COMMON_STRINGS,
+  anchor: ANCHOR_STRINGS,
   dates: DATE_STRINGS,
   fields: FIELD_STRINGS,
   password: PASSWORD_STRINGS,

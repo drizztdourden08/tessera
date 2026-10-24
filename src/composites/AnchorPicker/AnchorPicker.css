@@ -1,0 +1,88 @@
+/* @layer renderer-components @kind style */
+.anchor-picker {
+  display: inline-grid;
+  grid-template-columns: repeat(3, auto);
+  gap: var(--border-width-thin);
+  padding: var(--space-2xs);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-sunken);
+}
+
+.anchor-picker__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-28);
+  block-size: var(--size-28);
+  border-radius: var(--radius-sm);
+  color: var(--c-text-muted);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.anchor-picker--sm .anchor-picker__cell {
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
+}
+
+.anchor-picker__cell:hover:not(:disabled) {
+  background: var(--c-hover);
+  color: var(--c-text);
+}
+
+.anchor-picker__cell[aria-checked='true'] {
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+
+.anchor-picker__cell:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.anchor-picker__dot {
+  inline-size: var(--size-6);
+  block-size: var(--size-6);
+  border-radius: var(--radius-round);
+  background: currentcolor;
+  opacity: var(--opacity-muted);
+}
+
+.anchor-picker__cell[aria-checked='true'] .anchor-picker__dot {
+  inline-size: var(--size-10);
+  block-size: var(--size-10);
+  opacity: 1;
+}
+
+.anchor-picker--sm .anchor-picker__cell[aria-checked='true'] .anchor-picker__dot {
+  inline-size: var(--size-8);
+  block-size: var(--size-8);
+}
+
+.anchor-picker__arrow[data-direction='up-right'] {
+  rotate: 45deg;
+}
+
+.anchor-picker__arrow[data-direction='right'] {
+  rotate: 90deg;
+}
+
+.anchor-picker__arrow[data-direction='down-right'] {
+  rotate: 135deg;
+}
+
+.anchor-picker__arrow[data-direction='down'] {
+  rotate: 180deg;
+}
+
+.anchor-picker__arrow[data-direction='down-left'] {
+  rotate: 225deg;
+}
+
+.anchor-picker__arrow[data-direction='left'] {
+  rotate: 270deg;
+}
+
+.anchor-picker__arrow[data-direction='up-left'] {
+  rotate: 315deg;
+}

@@ -107,6 +107,6 @@ interface TriggerMenuProps extends MenuBaseProps {
 type DropdownMenuProps = AnchoredMenuProps | TriggerMenuProps;
 
 export type {
-  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone,
+  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuBaseProps, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone,
   MenuNode, MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant, TriggerMenuProps,
 };

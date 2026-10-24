@@ -11,12 +11,6 @@ interface UseVirtualRowsInput<T> {
   rootRef: RefObject<HTMLElement | null>;
 }
 
-interface VirtualMetrics {
-  top: number;
-  viewport: number;
-  rowHeight: number;
-}
-
 interface VirtualRows<T> {
   items: readonly FlatItem<T>[];
   indices: readonly number[];
@@ -26,4 +20,4 @@ interface VirtualRows<T> {
   onBlur: (event: FocusEvent<HTMLElement>) => void;
 }
 
-export type { UseVirtualRowsInput, VirtualMetrics, VirtualRows };
+export type { UseVirtualRowsInput, VirtualRows };

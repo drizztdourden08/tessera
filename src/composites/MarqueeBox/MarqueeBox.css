@@ -1,0 +1,14 @@
+/* @layer renderer-components @kind style */
+.marquee-box {
+  position: absolute;
+  left: var(--mq-x);
+  top: var(--mq-y);
+  box-sizing: border-box;
+  inline-size: var(--mq-w);
+  block-size: var(--mq-h);
+  border: var(--border-width-thin) solid var(--c-primary);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-soft);
+  pointer-events: none;
+  z-index: var(--z-base);
+}

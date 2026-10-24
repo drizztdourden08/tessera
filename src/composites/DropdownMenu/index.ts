@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind barrel */
 export { DropdownMenu } from './DropdownMenu';
 export type {
-  DropdownMenuProps, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
+  DropdownMenuProps, MenuAlign, MenuBaseProps, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from './DropdownMenu.type';
