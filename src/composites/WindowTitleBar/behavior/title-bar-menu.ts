@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
 import { createElement } from 'react';
-import type { MenuGroup, MenuItem } from '../../DropdownMenu';
+import type { MenuGroup, MenuItem, MenuNode } from '../../DropdownMenu';
 import { TitleBarActionIcon } from '../sub-components/TitleBarActionIcon';
 import { BAR_GROUP_ID, VIEW_ITEM_ID } from '../WindowTitleBar.constants';
 import type { WindowTitleBarAction } from '../WindowTitleBar.type';
@@ -23,10 +23,17 @@ const actionMenuItem = (action: WindowTitleBarAction, strings: TitleBarMenuInput
   return children.length > 0 ? [{ id, icon, label, shortcut, children }] : [];
 };
 
+const viewChildren = (input: TitleBarMenuInput): MenuNode[] => {
+  const own = input.view === false ? [] : menuControls(input, () => true).map((control) => controlItem(input, control));
+  const app = input.viewItems ?? [];
+  return own.length > 0 && app.length > 0 ? [...own, { separator: true }, ...app] : [...own, ...app];
+};
+
 const placedNodes = (input: TitleBarMenuInput): PlacedNode[] => {
-  if (input.view === false) return tuckedNodes(input);
-  const children = menuControls(input, () => true).map((control) => controlItem(input, control));
-  return children.length > 0 ? [{ node: { id: VIEW_ITEM_ID, icon: 'app-window', label: input.strings.view, children }, place: viewPlace(input.view) }] : [];
+  const children = viewChildren(input);
+  const tucked = input.view === false ? tuckedNodes(input) : [];
+  const view: PlacedNode[] = children.length > 0 ? [{ node: { id: VIEW_ITEM_ID, icon: 'app-window', label: input.strings.view, children }, place: viewPlace(input.view) }] : [];
+  return [...tucked, ...view];
 };
 
 const titleBarMenu = (input: TitleBarMenuInput): MenuGroup[] => {

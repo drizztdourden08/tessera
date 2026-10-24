@@ -37,6 +37,8 @@ WindowTitleBar is the one title bar of a frameless window, with the same brand, 
 - Keep the actions few: narrow windows move them into the main menu, then shrink the brand.
 - The main menu hamburger turns into an X while its menu is open; no other menu button in Tessera does.
 - View moves the View sub-menu to a group and position of menu; view={false} hides it, and the main menu then lists pin and full screen while the bar tucks them away.
+- ViewItems adds your own entries to the View sub-menu, after the pin and full screen rows and a separator; they are DropdownMenu nodes, so check items and sub-menus work.
+- With view={false} and viewItems set, the main menu still draws a View sub-menu holding only the viewItems, at the start of the bar group; without viewItems it draws none.
 - Tucked renames, moves or hides the pin and full screen rows the main menu lists with view={false}; group and position work as in view.
 - A tucked label names its row in both states and activeLabel the pinned or full screen one; the bar buttons and View keep their names.
 - A row hidden with tucked is gone from the menu, so a narrow window that tucks its button leaves that button out of reach.
@@ -96,6 +98,7 @@ const AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }:
 - `menu` (optional): `readonly MenuGroup[]`.
 - `menuLabel` (optional): `string`.
 - `view` (optional): `WindowTitleBarViewPlace | false`.
+- `viewItems` (optional): `readonly MenuNode[]`.
 - `tucked` (optional): `WindowTitleBarTucked`.
 - `onFitChange` (optional): `(tucked: readonly WindowTitleBarItemId[]) => void`.
 - `onMenuOpenChange` (optional): `(open: boolean) => void`.

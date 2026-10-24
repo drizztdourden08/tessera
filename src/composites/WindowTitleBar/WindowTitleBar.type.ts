@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 import type { IconEffect, IconName } from '../../primitives/Icon';
 import type { StatusTone } from '../../primitives/Status';
-import type { MenuGroup, MenuItem } from '../DropdownMenu';
+import type { MenuGroup, MenuItem, MenuNode } from '../DropdownMenu';
 
 interface WindowTitleBarInstance {
   name: string;
@@ -84,6 +84,7 @@ interface WindowTitleBarProps {
   menu?: readonly MenuGroup[];
   menuLabel?: string;
   view?: WindowTitleBarViewPlace | false;
+  viewItems?: readonly MenuNode[];
   tucked?: WindowTitleBarTucked;
   onFitChange?: (tucked: readonly WindowTitleBarItemId[]) => void;
   onMenuOpenChange?: (open: boolean) => void;
