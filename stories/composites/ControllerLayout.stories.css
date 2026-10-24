@@ -1,8 +1,0 @@
-/* @layer stories @kind style */
-.controller-story--sm {
-  max-inline-size: var(--size-448);
-}
-
-.controller-story--lg {
-  max-inline-size: var(--size-896);
-}

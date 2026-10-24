@@ -23,12 +23,12 @@ ControllerSilhouette draws only the outline of a pad, so each app places its own
 
 ## Use something else when
 
-- A test screen that lights every input of a pad live, from its state. Use [ControllerLayout](ControllerLayout.md) instead.
 - One button or stick glyph inline, such as a prompt in a sentence. Use `InputIcon` instead.
 - A keyboard with keys marked or held. Use `KeyboardLayout` instead.
 
 ## Rules
 
+- A live layout that lights every input of a pad from its state belongs to the app to build: draw it on CONTROLLER_SILHOUETTE_PATHS, place its marks from CONTROLLER_SILHOUETTE_ANCHORS inside CONTROLLER_SILHOUETTE_VIEW_BOX, and use InputIcon for the glyphs.
 - Pick the variant from the pad family: offset for Xbox shapes, symmetric for PlayStation shapes, nintendo for Switch Pro shapes and pad for a pad with no sticks or triggers.
 - Draw on it with children made of the Svg primitives. They sit inside the SVG on top of the outline, in viewBox units.
 - The viewBox is CONTROLLER_SILHOUETTE_VIEW_BOX, 0 0 400 260, for every variant. It never changes, so coordinates stay valid.

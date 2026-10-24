@@ -2,7 +2,6 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { PressedGrid } from '../src/composites/PressedGrid';
 import {
   GAMEPAD_INPUT_ICONS, INPUT_ICON_FAMILIES, INPUT_ICON_NAMES, INPUT_ICONS, InputIcon, gamepadInputIcon, inputIconData, isInputIconName,
 } from '../src/primitives/InputIcon';
@@ -117,25 +116,5 @@ describe('matching a device id to a glyph', () => {
     for (const [family, names] of Object.entries(GAMEPAD_INPUT_ICONS)) {
       for (const name of Object.values(names)) expect(Object.hasOwn(INPUT_ICONS[family], name)).toBe(true);
     }
-  });
-});
-
-describe('PressedGrid cells', () => {
-  it('draws the glyph of the family, an item icon over it, and the id when there is none', () => {
-    const html = renderToString(h(PressedGrid, {
-      family: 'playstation',
-      pressed: ['a'],
-      items: [{ id: 'a' }, { id: 'guide' }, { id: 'ok', label: 'OK', icon: { family: 'switch', name: 'a' } }],
-    }));
-    expect(html.match(/input-icon--theme/g)).toHaveLength(2);
-    expect(html).toContain('>guide<');
-    expect(html).toContain('>OK<');
-    expect(html.match(/data-pressed/g)).toHaveLength(1);
-  });
-
-  it('keeps the old text cells without a family', () => {
-    const html = renderToString(h(PressedGrid, { pressed: [], items: [{ id: 'a', label: 'A' }] }));
-    expect(html).not.toContain('input-icon');
-    expect(html).toContain('>A<');
   });
 });
