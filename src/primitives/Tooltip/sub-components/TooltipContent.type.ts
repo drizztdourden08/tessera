@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { ShortcutKey } from '../../Shortcut';
+import type { ShortcutSpec } from '../../Shortcut';
 
 interface OptionTooltip {
   description?: string;
-  shortcut?: string | readonly ShortcutKey[];
+  shortcut?: ShortcutSpec;
 }
 
 interface TooltipContentProps extends OptionTooltip {

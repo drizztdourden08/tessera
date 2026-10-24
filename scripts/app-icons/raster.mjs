@@ -27,4 +27,13 @@ const icon = (art, size) => {
 
 const ico = (artAt, sizes) => pngToIco(sizes.map((size) => icon(artAt(size), size)));
 
-export { crisp, ico, icon, render };
+const chunk = (type, data) => {
+  const head = Buffer.alloc(8);
+  head.write(type, 0, 'ascii');
+  head.writeUInt32BE(data.length + 8, 4);
+  return Buffer.concat([head, data]);
+};
+
+const icns = (artAt, entries) => chunk('icns', Buffer.concat(entries.map(([type, size]) => chunk(type, icon(artAt(size), size)))));
+
+export { crisp, icns, ico, icon, render };

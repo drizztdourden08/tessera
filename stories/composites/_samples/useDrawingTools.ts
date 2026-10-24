@@ -2,8 +2,8 @@
 import { createElement, useState } from 'react';
 import type { ToolbarItem } from '../../../src/composites';
 import { BitmapToolIcon } from './BitmapToolIcon';
-import { brushGroups, TOOL_KEYS, TOOL_NAMES, TOOL_NOTES } from './toolbar-story.constants';
-import type { ToolId } from './toolbar-story.type';
+import { brushGroups, SIZE_KEYS, TOOL_KEYS, TOOL_NAMES, TOOL_NOTES } from './toolbar-story.constants';
+import type { DrawingToolOptions, ToolId } from './toolbar-story.type';
 
 const TOOL_ICONS = { pencil: 'pencil', eraser: 'eraser', bucket: 'paint-bucket', pipette: 'pipette', hand: 'hand' } as const;
 
@@ -11,7 +11,8 @@ const PIXEL_TOOL_ICONS = { pencil: 'pixel-pencil', eraser: 'pixel-eraser', bucke
 
 const TOOL_ORDER: readonly ToolId[] = ['pencil', 'eraser', 'bucket', 'pipette', 'hand'];
 
-const useDrawingTools = (captions: boolean, pixel = false, bitmap = false) => {
+const useDrawingTools = (options: DrawingToolOptions) => {
+  const { captions = false, pixel = false, bitmap = false, openOn = 'hover' } = options;
   const [tool, setTool] = useState<ToolId>('pencil');
   const [size, setSize] = useState(2);
   const [shape, setShape] = useState('square');
@@ -31,12 +32,13 @@ const useDrawingTools = (captions: boolean, pixel = false, bitmap = false) => {
     pressed: tool === id,
     onChange: () => setTool(id),
     options: id === 'pencil' ? brushGroups(size, shape, setSize, setShape) : undefined,
+    openOn,
   }));
 
   const items: ToolbarItem[] = [
     ...tools,
     { kind: 'separator', id: 'after-tools' },
-    { kind: 'number', id: 'size', label: 'Brush size', description: 'Pixels across, from 1 to 16.', shortcut: '[', value: size, min: 1, max: 16, onChange: setSize },
+    { kind: 'number', id: 'size', label: 'Brush size', description: 'Pixels across, from 1 to 16.', shortcut: SIZE_KEYS, value: size, min: 1, max: 16, onChange: setSize },
     {
       kind: 'group',
       id: 'mirror',

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import { PIXEL_ACTION_FILE_GRIDS } from './pixel-actions-file.constants';
+import { PIXEL_DOCUMENT_GRIDS } from './pixel-documents.constants';
 import { PIXEL_FRAME_CEL_GRIDS } from './pixel-frame-cels.constants';
 import { PIXEL_PAINT_BRUSH_GRIDS } from './pixel-paint-brushes.constants';
 import { PIXEL_SHEET_VIEW_GRIDS } from './pixel-sheet-views.constants';
@@ -30,6 +31,7 @@ const PIXEL_GRIDS = {
   ...PIXEL_SPRITE_TRANSFORM_GRIDS,
   ...PIXEL_TIMELINE_PLAYBACK_GRIDS,
   ...PIXEL_FRAME_CEL_GRIDS,
+  ...PIXEL_DOCUMENT_GRIDS,
 } as const;
 
 const PIXEL_ICONS = pixelIconSet(PIXEL_GRIDS);

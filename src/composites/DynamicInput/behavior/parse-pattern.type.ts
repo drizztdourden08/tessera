@@ -28,6 +28,8 @@ interface PatternSlotSpec {
   length?: number;
   chars?: PatternSlotChars;
   letterCase?: PatternSlotCase;
+  allowed?: ReadonlySet<string>;
+  aliases?: Readonly<Record<string, string>>;
   fill?: boolean;
   muted?: boolean;
 }

@@ -7,7 +7,7 @@ A hook module: functions for a screen that owns its own markup, not a component.
 Import from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
-import { renderedIndices, scrollTopToShow, useVirtualWindow, visibleRange } from '@drizztdourden08/tessera';
+import { renderedIndices, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '@drizztdourden08/tessera';
 ```
 
 The source is `src/composites/virtual/index.ts`.
@@ -29,6 +29,7 @@ The source is `src/composites/virtual/index.ts`.
 - Place each row by its index with absolute position, and mark it with the index attribute so the focus is found.
 - Wire onScroll to the scroll of the root, and onFocus and onBlur to the body, so a focused row stays drawn.
 - Keep keyAt stable with useCallback; a new function on every render measures again.
+- Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.
 - Use scrollTopToShow to find the scroll position that brings a row into view.
 
 ## Accessibility
@@ -64,6 +65,7 @@ const Rows = ({ names }: { names: string[] }) => {
 
 - `renderedIndices`, a function: `(range: RowRange, pinned: number) => readonly number[]`.
 - `scrollTopToShow`, a function: `(input: ShowInput) => number`.
+- `sizeVariable`, a function: `(token: VirtualSize) => string`.
 - `useVirtualWindow`, a hook: `(input: VirtualWindowInput) => VirtualWindow`.
 - `visibleRange`, a function: `(input: VisibleRangeInput) => RowRange`.
 
@@ -82,11 +84,34 @@ interface ShowInput {
   scrollTop: number;
 }
 
+interface VirtualFocusModel {
+  rootRef: RefObject<HTMLElement | null>;
+  bodyRef: RefObject<HTMLElement | null>;
+  tabbable: number;
+  onScroll: () => void;
+  onFocus: (event: FocusEvent<HTMLElement>) => void;
+  onBlur: (event: FocusEvent<HTMLElement>) => void;
+  activate: (index: number) => void;
+  navigate: (event: KeyboardEvent<HTMLElement>, index: number) => void;
+}
+
+interface VirtualItemsInput<T> {
+  items: readonly T[];
+  getKey: (item: T, index: number) => string;
+  overscan?: number;
+  sizeKey?: string;
+  onActiveChange?: (index: number) => void;
+}
+
 interface VirtualMetrics {
   top: number;
   viewport: number;
   rowHeight: number;
 }
+
+type VirtualSize =
+  | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'
+  | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';
 
 interface VirtualWindow {
   indices: readonly number[];
@@ -104,6 +129,7 @@ interface VirtualWindowInput {
   rootRef: RefObject<HTMLElement | null>;
   indexAttribute: string;
   overscan?: number;
+  sizeKey?: string;
 }
 
 interface VisibleRangeInput {

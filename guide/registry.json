@@ -111,7 +111,9 @@
                 "components": []
               },
               "text that follows a pattern": {
-                "components": []
+                "components": [
+                  "DynamicInput"
+                ]
               },
               "free words, as tags": {
                 "components": []
@@ -716,6 +718,11 @@
           "a long list drawn only where it is in view": {
             "components": [
               "VirtualList"
+            ]
+          },
+          "a long grid of equal tiles drawn only where it is in view": {
+            "components": [
+              "VirtualGrid"
             ]
           },
           "a rectangle dragged over items to pick them": {
@@ -6895,7 +6902,214 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "One field built from a pattern of typed slots, muted text and icons, such as a time, a price with its currency or a lobby code.",
+      "useWhen": [
+        "Several small values read as one, such as a time, a date, a size, a server address or a phone number with its country.",
+        "A text value follows a fixed shape, such as a host name or a lobby code with its own characters.",
+        "The field has to check itself, by slot or as a whole, and show its own error."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One plain line of text or a single number is asked.",
+          "use": "TextInput"
+        },
+        {
+          "case": "A number is typed on its own, with a stepper or a unit.",
+          "use": "NumberInput"
+        }
+      ],
+      "rules": [
+        "Write the shape in the pattern, such as {hh:hour 12h}:{mm:minute}, and keep the value as one object keyed by slot name.",
+        "Put it in a Field for the label, hint and size.",
+        "A text slot takes digits, letters or alnum in the pattern. For any other set, pass slots with chars, a string or a Set of the allowed characters.",
+        "Pass aliases, from typed to stored, to read a typed character as another, such as I and L as 1. A slot entry wins over the pattern one.",
+        "Do not map an alias to a character that is itself an alias, because the text is cleaned again on every key.",
+        "chars and aliases follow the case of the slot, so write them in either case.",
+        "Pass validate on a slot or on the pattern, from the value to a message or nothing. A message turns the field invalid and shows under it.",
+        "An empty slot reaches validate as null. Return nothing for it unless the slot is required.",
+        "The invalid prop wins over validate, and a Field with an error shows its own message."
+      ],
+      "a11y": [
+        "The field is a group named by the Field label, and each slot is named by its quoted label.",
+        "An invalid field sets aria-invalid on its slots and describes them by the message, which is announced as an alert.",
+        "Tab and Shift+Tab move between slots, and a choice slot opens with the arrow keys."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "text that follows a pattern"
+        ],
+        "rule": "DynamicInput reads a pattern of slots, so a time, an address or a lobby code is one field with its own characters and checks."
+      },
+      "example": "import { useState } from 'react';\nimport { DynamicInput, Field } from '@drizztdourden08/tessera';\nimport type { PatternValue } from '@drizztdourden08/tessera';\n\nconst SLOTS = {\n  code: { chars: 'ABCDEFGHJKLMNOPQRSTVWXYZ0123456789', aliases: { I: '1', L: '1', O: '0' } },\n};\n\nconst LobbyCode = () => {\n  const [value, setValue] = useState<PatternValue>({ code: null });\n  return (\n    <Field label=\"Lobby code\">\n      <DynamicInput pattern=\"{code:text len6 upper}\" value={value} onChange={setValue} slots={SLOTS} />\n    </Field>\n  );\n};\n",
+      "propsHash": "f240339187b37790",
+      "props": {
+        "own": [
+          {
+            "name": "pattern",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "PatternValue"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(next: PatternValue) => void"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "invalid",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "id",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-labelledby",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-describedby",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "slots",
+            "optional": true,
+            "text": "PatternSlotConfigs"
+          },
+          {
+            "name": "lists",
+            "optional": true,
+            "text": "PatternLists"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "PatternActions"
+          },
+          {
+            "name": "icons",
+            "optional": true,
+            "text": "PatternIcons"
+          },
+          {
+            "name": "counter",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aliases",
+            "optional": true,
+            "text": "PatternAliases"
+          },
+          {
+            "name": "validate",
+            "optional": true,
+            "text": "(value: PatternValue) => PatternRuleMessage"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-danger",
+        "--c-danger-soft",
+        "--c-focus",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-selected",
+        "--c-surface",
+        "--c-text",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--control-h-md",
+        "--control-h-sm",
+        "--control-pad-md",
+        "--control-pad-sm",
+        "--leading-normal",
+        "--listbox-attach",
+        "--listbox-columns",
+        "--listbox-space",
+        "--opacity-disabled",
+        "--radius-md",
+        "--radius-sm",
+        "--shadow-2",
+        "--shadow-dropdown",
+        "--size-1",
+        "--size-14",
+        "--size-16",
+        "--size-192",
+        "--size-2",
+        "--size-288",
+        "--size-48",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-wide",
+        "--transition-fast",
+        "--transition-normal",
+        "--weight-medium",
+        "--weight-normal",
+        "--weight-semi",
+        "--z-popover",
+        "--z-sticky"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/DynamicInput",
+        "route": "#/story/composites-dynamicinput--overview",
+        "file": "stories/composites/DynamicInput.stories.tsx"
+      },
+      "parts": [
+        "escapePatternText",
+        "parsePattern"
+      ]
     },
     {
       "name": "ErrorBoundary",
@@ -12896,7 +13110,8 @@
       "useWhen": [
         "An editor has a rail of tools the user picks from, such as pencil, eraser and fill, along an edge of the work area.",
         "A tool has options, such as a brush size, that should open beside it on hover without a dialog.",
-        "The same tools must work in a row and in a column, and fold the ones that do not fit."
+        "The same tools must work in a row and in a column, and fold the ones that do not fit.",
+        "A wide panel lists the same tools as rows with their name, description and shortcut."
       ],
       "avoidWhen": [
         {
@@ -12917,15 +13132,16 @@
         "An item is a button, a toggle, a group of choices, a number or a separator. A tool the user picks is a toggle with pressed set on the current one.",
         "orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.",
         "icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.",
-        "Give shortcut as text such as Ctrl+Z or as keys. The hint and the folded menu draw it with Shortcut; it never sits on the button.",
-        "options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar.",
+        "Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.",
+        "options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.",
+        "layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.",
         "Items that do not fit fold into More, in order; a group becomes a labelled set of choices and a number becomes a slider.",
         "handle draws a grip at the start. A dock wires its own pointer handlers through handleProps; the toolbar has no drag logic.",
         "Give the toolbar a length: a row takes the width of its parent and a column the height of its parent. Without one, nothing folds."
       ],
       "a11y": [
         "The toolbar has role toolbar, aria-orientation and a name from label. Only one item is a tab stop.",
-        "Arrow Right and Left in a row, or Down and Up in a column, move focus and wrap; Home and End go to the ends.",
+        "Arrow Right and Left in a row, or Down and Up in a column or a list, move focus and wrap; Home and End go to the ends.",
         "The arrow key that points away from the toolbar opens the options of the focused tool and moves focus into the menu. Escape closes it and returns focus to the tool.",
         "In a number field the arrow keys edit the value; Escape moves focus back to the item before it.",
         "A toggle reports aria-pressed and a tool with options reports aria-haspopup and aria-expanded. The shortcut is set as aria-keyshortcuts."
@@ -12939,7 +13155,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "26b18d7f7dc99633",
+      "propsHash": "1673dacb4afda2b3",
       "props": {
         "own": [
           {
@@ -12959,8 +13175,16 @@
             "literals": [
               "'horizontal'",
               "'vertical'"
-            ],
-            "default": "'horizontal'"
+            ]
+          },
+          {
+            "name": "layout",
+            "optional": true,
+            "text": "ToolbarShape",
+            "literals": [
+              "'bar'",
+              "'list'"
+            ]
           },
           {
             "name": "size",
@@ -12970,14 +13194,12 @@
               "'xs'",
               "'sm'",
               "'md'"
-            ],
-            "default": "'sm'"
+            ]
           },
           {
             "name": "handle",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "handleProps",
@@ -12999,12 +13221,14 @@
       "tokens": [
         "--border-width-thin",
         "--c-border",
+        "--control-pad-sm",
         "--radius-md",
         "--size-2",
         "--size-4",
         "--size-48",
         "--size-96",
         "--space-2xs",
+        "--space-sm",
         "--space-xs"
       ],
       "gallery": {
@@ -13563,6 +13787,129 @@
       "parts": []
     },
     {
+      "name": "VirtualGrid",
+      "tier": "composites",
+      "source": "src/composites/VirtualGrid/VirtualGrid.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A very long grid of equal square tiles, such as sprite thumbnails, where only the rows in view are drawn, with the arrow keys to move between tiles.",
+      "useWhen": [
+        "The grid has thousands of tiles, such as every frame of a sprite sheet or every image of a folder, and drawing them all would slow the page.",
+        "Every tile is the same square size and the app draws the content of each tile.",
+        "The user moves through the tiles with the keys and the grid must scroll to follow."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A long list of rows, one per line.",
+          "use": "VirtualList"
+        },
+        {
+          "case": "A short set of cards that can all be drawn at once.",
+          "use": "ItemCard"
+        },
+        {
+          "case": "Records with columns the user sorts, groups or resizes.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Give it items, getKey and renderItem; getKey returns a stable id, never the position.",
+        "Give label a name for the grid, since the tiles are drawn without a heading of their own.",
+        "Size the grid from its parent: it fills the height of its box and scrolls inside it.",
+        "Pick the tile with tileSize, the name of a size token such as size-96; the columns that fit the width of the box are worked out from it, and a raw pixel number is not accepted.",
+        "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
+        "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",
+        "Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid."
+      ],
+      "a11y": [
+        "The grid is a grid of cells with the row and column of each, so a reader hears where the tile is among thousands.",
+        "One tile is in the tab order; the four arrows move by a tile or a row, Home and End go to the start or end of the row, Ctrl with them goes to the first or last tile, and Page Up and Page Down move by a screen of rows.",
+        "A tile that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
+        "Keys act only when the tile itself has focus, so a field inside a tile keeps its own arrow keys."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a long grid of equal tiles drawn only where it is in view"
+        ],
+        "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
+      },
+      "example": "import { VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n",
+      "propsHash": "2a0d7e52b78890f7",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly T[]"
+          },
+          {
+            "name": "getKey",
+            "optional": false,
+            "text": "(item: T, index: number) => string"
+          },
+          {
+            "name": "renderItem",
+            "optional": false,
+            "text": "(item: T, index: number) => ReactNode"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "tileSize",
+            "optional": true,
+            "text": "VirtualSize",
+            "default": "'size-96'"
+          },
+          {
+            "name": "overscan",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "onActiveChange",
+            "optional": true,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-focus",
+        "--c-hover",
+        "--radius-md",
+        "--size-96",
+        "--space-xs",
+        "--vg-row",
+        "--vg-rows"
+      ],
+      "gallery": {
+        "title": "Composites · Lists/VirtualGrid",
+        "route": "#/story/composites-virtualgrid--overview",
+        "file": "stories/composites/VirtualGrid.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "VirtualList",
       "tier": "composites",
       "source": "src/composites/VirtualList/VirtualList.tsx",
@@ -13596,6 +13943,7 @@
         "Give label a name for the list, since the rows are drawn without a heading of their own.",
         "Size the list from its parent: it fills the height of its box and scrolls inside it.",
         "Pick rowSize compact, normal or roomy; the height comes from a token and is measured once from the first row, so keep every row the same height.",
+        "For a height of your own pass rowHeight, the name of a size token such as size-64; it wins over rowSize, and a raw pixel number is not accepted.",
         "Keep renderItem cheap and free of its own height; the row cuts what does not fit.",
         "Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.",
         "Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list."
@@ -13614,7 +13962,7 @@
         "rule": "VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly."
       },
       "example": "import { VirtualList } from '@drizztdourden08/tessera';\n\ninterface Entry {\n  id: string;\n  text: string;\n}\n\nconst EventLog = ({ entries }: { entries: Entry[] }) => (\n  <VirtualList\n    label=\"Events\"\n    items={entries}\n    getKey={(entry) => entry.id}\n    renderItem={(entry) => entry.text}\n  />\n);\n",
-      "propsHash": "6a848a0abd982464",
+      "propsHash": "1d3f54f91cc2c59b",
       "props": {
         "own": [
           {
@@ -13647,6 +13995,11 @@
               "'roomy'"
             ],
             "default": "'normal'"
+          },
+          {
+            "name": "rowHeight",
+            "optional": true,
+            "text": "VirtualSize"
           },
           {
             "name": "overscan",
@@ -14772,6 +15125,7 @@
         "Place each row by its index with absolute position, and mark it with the index attribute so the focus is found.",
         "Wire onScroll to the scroll of the root, and onFocus and onBlur to the body, so a focused row stays drawn.",
         "Keep keyAt stable with useCallback; a new function on every render measures again.",
+        "Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.",
         "Use scrollTopToShow to find the scroll position that brings a row into view."
       ],
       "a11y": [
@@ -14779,7 +15133,7 @@
         "Give each row its position and the size of the list with aria-posinset and aria-setsize, since the rest are not in the page."
       ],
       "example": "import { useCallback, useRef } from 'react';\nimport { Box, useVirtualWindow } from '@drizztdourden08/tessera';\n\nconst ROW_ATTRIBUTE = 'data-row';\n\nconst Rows = ({ names }: { names: string[] }) => {\n  const rootRef = useRef<HTMLElement>(null);\n  const keyAt = useCallback((index: number) => names[index], [names]);\n  const windowed = useVirtualWindow({ enabled: true, count: names.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE });\n  return (\n    <Box ref={rootRef} onScroll={windowed.onScroll}>\n      <Box ref={windowed.bodyRef} onFocus={windowed.onFocus} onBlur={windowed.onBlur}>\n        {windowed.indices.map((at) => (\n          <Box key={names[at]} {...{ [ROW_ATTRIBUTE]: at }}>{names[at]}</Box>\n        ))}\n      </Box>\n    </Box>\n  );\n};\n",
-      "propsHash": "d18d9c588bcec6df",
+      "propsHash": "f2802695eb92be60",
       "exports": [
         {
           "name": "renderedIndices",
@@ -14802,14 +15156,34 @@
           "text": "interface ShowInput {\n  index: number;\n  rowHeight: number;\n  viewport: number;\n  scrollTop: number;\n}"
         },
         {
+          "name": "sizeVariable",
+          "kind": "function",
+          "text": "(token: VirtualSize) => string"
+        },
+        {
           "name": "useVirtualWindow",
           "kind": "hook",
           "text": "(input: VirtualWindowInput) => VirtualWindow"
         },
         {
+          "name": "VirtualFocusModel",
+          "kind": "type",
+          "text": "interface VirtualFocusModel {\n  rootRef: RefObject<HTMLElement | null>;\n  bodyRef: RefObject<HTMLElement | null>;\n  tabbable: number;\n  onScroll: () => void;\n  onFocus: (event: FocusEvent<HTMLElement>) => void;\n  onBlur: (event: FocusEvent<HTMLElement>) => void;\n  activate: (index: number) => void;\n  navigate: (event: KeyboardEvent<HTMLElement>, index: number) => void;\n}"
+        },
+        {
+          "name": "VirtualItemsInput",
+          "kind": "type",
+          "text": "interface VirtualItemsInput<T> {\n  items: readonly T[];\n  getKey: (item: T, index: number) => string;\n  overscan?: number;\n  sizeKey?: string;\n  onActiveChange?: (index: number) => void;\n}"
+        },
+        {
           "name": "VirtualMetrics",
           "kind": "type",
           "text": "interface VirtualMetrics {\n  top: number;\n  viewport: number;\n  rowHeight: number;\n}"
+        },
+        {
+          "name": "VirtualSize",
+          "kind": "type",
+          "text": "type VirtualSize =\n  | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'\n  | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';"
         },
         {
           "name": "VirtualWindow",
@@ -14819,7 +15193,7 @@
         {
           "name": "VirtualWindowInput",
           "kind": "type",
-          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n}"
+          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n  sizeKey?: string;\n}"
         },
         {
           "name": "visibleRange",

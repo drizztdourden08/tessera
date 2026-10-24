@@ -29,7 +29,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Several lines of text: no component yet.
     - A number typed in: no component yet.
     - A number stepped up or down: no component yet.
-    - Text that follows a pattern: no component yet.
+    - Text that follows a pattern: [DynamicInput](components/DynamicInput.md). DynamicInput reads a pattern of slots, so a time, an address or a lobby code is one field with its own characters and checks.
     - Free words, as tags: no component yet.
     - Structured data, as JSON: no component yet.
     - A command, with its history: [CommandInput](components/CommandInput.md). CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear.
@@ -180,6 +180,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
   - A headline number that does one thing: [ActionTile](components/ActionTile.md). ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app.
   - A long list drawn only where it is in view: [VirtualList](components/VirtualList.md). VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly.
+  - A long grid of equal tiles drawn only where it is in view: [VirtualGrid](components/VirtualGrid.md). VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly.
   - A rectangle dragged over items to pick them: [MarqueeBox](components/MarqueeBox.md). MarqueeBox draws the rectangle of a drag to pick, with the border and fill of the theme.
   - A drawing. **How is it drawn?**
     - In pixels: no component yet.

@@ -2,18 +2,22 @@
 import type { HTMLAttributes, Ref } from 'react';
 import type { IconButtonSize } from '../../primitives/IconButton/IconButton.type';
 import type { SegmentIcon } from '../../primitives/SegmentedControl';
-import type { ShortcutKey } from '../../primitives/Shortcut';
+import type { ShortcutSpec } from '../../primitives/Shortcut';
 import type { MenuGroup } from '../DropdownMenu/DropdownMenu.type';
 
 type ToolbarIcon = SegmentIcon;
 
 type ToolbarOrientation = 'horizontal' | 'vertical';
 
+type ToolbarShape = 'bar' | 'list';
+
+type ToolbarOpenOn = 'hover' | 'click';
+
 interface ToolbarItemBase {
   id: string;
   label: string;
   description?: string;
-  shortcut?: string | readonly ShortcutKey[];
+  shortcut?: ShortcutSpec;
   disabled?: boolean;
 }
 
@@ -22,6 +26,7 @@ interface ToolbarButton extends ToolbarItemBase {
   icon: ToolbarIcon;
   caption?: string;
   options?: readonly MenuGroup[];
+  openOn?: ToolbarOpenOn;
   onSelect: () => void;
 }
 
@@ -31,6 +36,7 @@ interface ToolbarToggle extends ToolbarItemBase {
   caption?: string;
   pressed: boolean;
   options?: readonly MenuGroup[];
+  openOn?: ToolbarOpenOn;
   onChange: (pressed: boolean) => void;
 }
 
@@ -39,7 +45,7 @@ interface ToolbarChoice {
   label: string;
   icon: ToolbarIcon;
   description?: string;
-  shortcut?: string | readonly ShortcutKey[];
+  shortcut?: ShortcutSpec;
   disabled?: boolean;
 }
 
@@ -72,6 +78,7 @@ interface ToolbarProps {
   items: readonly ToolbarItem[];
   label: string;
   orientation?: ToolbarOrientation;
+  layout?: ToolbarShape;
   size?: IconButtonSize;
   handle?: boolean;
   handleProps?: ToolbarHandleProps;
@@ -84,6 +91,6 @@ interface ToolbarSplit {
 }
 
 export type {
-  ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarHandleProps, ToolbarIcon, ToolbarItem, ToolbarItemBase, ToolbarNumber,
-  ToolbarOrientation, ToolbarProps, ToolbarSeparator, ToolbarSplit, ToolbarToggle,
+  ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarHandleProps, ToolbarIcon, ToolbarItem, ToolbarItemBase, ToolbarShape, ToolbarNumber,
+  ToolbarOpenOn, ToolbarOrientation, ToolbarProps, ToolbarSeparator, ToolbarSplit, ToolbarToggle,
 };

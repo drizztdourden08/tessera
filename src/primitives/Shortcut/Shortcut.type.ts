@@ -72,7 +72,19 @@ type ShortcutInput = { keys: ShortcutKeys; mouse?: MouseButton } | { keys?: Shor
 
 type ShortcutProps = ShortcutBaseProps & ShortcutInput;
 
+interface LabelledShortcut {
+  label: string;
+  keys: string | readonly ShortcutKey[];
+}
+
+type ShortcutSpec = string | readonly ShortcutKey[] | readonly LabelledShortcut[];
+
+interface ShortcutRow {
+  label?: string;
+  keys: readonly ShortcutKey[];
+}
+
 export type {
-  CapWidth, FunctionKey, KeyFace, KeyName, KeySpec, MouseButton, PrintableKey, ShortcutClassParams, ShortcutKey,
-  ShortcutKeys, ShortcutLegend, ShortcutProps, ShortcutSize, ShortcutState,
+  CapWidth, FunctionKey, KeyFace, KeyName, KeySpec, LabelledShortcut, MouseButton, PrintableKey, ShortcutClassParams, ShortcutKey,
+  ShortcutKeys, ShortcutLegend, ShortcutProps, ShortcutRow, ShortcutSize, ShortcutSpec, ShortcutState,
 };

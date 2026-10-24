@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { OptionTooltip } from '../Tooltip';
 import type { ControlSize } from '../field-control/field-control.type';
 import type { ControlLabelSize } from '../field-control/label-size.type';
 
@@ -9,6 +10,8 @@ interface CheckboxProps {
   label?: ReactNode;
   help?: ReactNode;
   ariaLabel?: string;
+  tooltip?: string | OptionTooltip;
+  title?: string;
   disabled?: boolean;
   indeterminate?: boolean;
   size?: ControlSize;

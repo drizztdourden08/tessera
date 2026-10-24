@@ -16,7 +16,7 @@ export { DynamicInput, escapePatternText, parsePattern } from '../DynamicInput';
 export { VolumeControl } from '../VolumeControl';
 export type { VolumeControlProps, VolumeSlider } from '../VolumeControl';
 export type {
-  DynamicInputProps, ParsedPattern, PatternAction, PatternActions, PatternChoice, PatternIcons, PatternLists, PatternPart,
+  DynamicInputProps, ParsedPattern, PatternAction, PatternActions, PatternAliases, PatternChoice, PatternIcons, PatternLists, PatternPart, PatternRuleMessage,
   PatternSetup, PatternSlotCase, PatternSlotChars, PatternSlotConfig, PatternSlotConfigs, PatternSlotControl, PatternSlotSpec,
   PatternSlotType, PatternSlotValue, PatternValue,
 } from '../DynamicInput';

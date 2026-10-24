@@ -10,7 +10,7 @@ import { ToolbarToolMenu } from './ToolbarToolMenu';
 import type { ToolbarToolProps } from './ToolbarTool.type';
 
 const ToolbarTool = (props: ToolbarToolProps) => {
-  const { orientation, measure } = useContext(ToolbarContext);
+  const { orientation, layout, measure } = useContext(ToolbarContext);
   const anchorRef = useRef<HTMLButtonElement>(null);
   const options = props.options ?? [];
   const menu = !measure && options.length > 0;
@@ -19,7 +19,7 @@ const ToolbarTool = (props: ToolbarToolProps) => {
 
   return (
     <>
-      {measure ? button : <Tooltip content={tool.open ? null : props.tip} placement={TIP_SIDE[orientation]}>{button}</Tooltip>}
+      {measure || layout === 'list' ? button : <Tooltip content={tool.open ? null : props.tip} placement={TIP_SIDE[orientation]}>{button}</Tooltip>}
       {tool.open && (
         <ToolbarToolMenu groups={options} anchorRef={anchorRef} tool={tool} label={props.label} hoverOpen={props.hoverOpen === true} popup={props.openOnPress === true} />
       )}

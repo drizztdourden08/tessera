@@ -1,13 +1,16 @@
 /* @layer renderer-components @kind component */
 import { useContext } from 'react';
+import { Box } from '../../../primitives/Box';
 import { NumberInput } from '../../../primitives/NumberInput';
 import { Tooltip, TooltipContent } from '../../../primitives/Tooltip';
 import { ToolbarContext } from '../behavior/toolbar-context';
 import { STOP_ATTRIBUTE, TIP_SIDE } from '../Toolbar.constants';
+import { ToolbarRowKeys } from './ToolbarRowKeys';
+import { ToolbarRowText } from './ToolbarRowText';
 import type { ToolbarNumberProps } from './ToolbarItemView.type';
 
 const ToolbarNumber = ({ item }: ToolbarNumberProps) => {
-  const { orientation, size, stop, measure } = useContext(ToolbarContext);
+  const { orientation, layout, size, stop, measure } = useContext(ToolbarContext);
   const field = (
     <NumberInput
       size={size === 'md' ? 'md' : 'sm'}
@@ -24,6 +27,15 @@ const ToolbarNumber = ({ item }: ToolbarNumberProps) => {
     />
   );
   if (measure) return field;
+  if (layout === 'list') {
+    return (
+      <Box className="toolbar__field-row">
+        <ToolbarRowText label={item.label} description={item.description} />
+        <ToolbarRowKeys shortcut={item.shortcut} />
+        {field}
+      </Box>
+    );
+  }
   const tip = <TooltipContent name={item.label} description={item.description} shortcut={item.shortcut} />;
   return <Tooltip content={tip} placement={TIP_SIDE[orientation]}>{field}</Tooltip>;
 };

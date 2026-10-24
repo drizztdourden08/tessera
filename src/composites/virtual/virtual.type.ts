@@ -1,5 +1,9 @@
 /* @layer renderer-components @kind types */
-import type { FocusEvent, RefObject } from 'react';
+import type { FocusEvent, KeyboardEvent, RefObject } from 'react';
+
+type VirtualSize =
+  | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'
+  | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';
 
 interface VisibleRangeInput {
   scrollTop: number;
@@ -27,6 +31,7 @@ interface VirtualWindowInput {
   rootRef: RefObject<HTMLElement | null>;
   indexAttribute: string;
   overscan?: number;
+  sizeKey?: string;
 }
 
 interface VirtualWindow {
@@ -38,6 +43,25 @@ interface VirtualWindow {
   onBlur: (event: FocusEvent<HTMLElement>) => void;
 }
 
+interface VirtualItemsInput<T> {
+  items: readonly T[];
+  getKey: (item: T, index: number) => string;
+  overscan?: number;
+  sizeKey?: string;
+  onActiveChange?: (index: number) => void;
+}
+
+interface VirtualFocusModel {
+  rootRef: RefObject<HTMLElement | null>;
+  bodyRef: RefObject<HTMLElement | null>;
+  tabbable: number;
+  onScroll: () => void;
+  onFocus: (event: FocusEvent<HTMLElement>) => void;
+  onBlur: (event: FocusEvent<HTMLElement>) => void;
+  activate: (index: number) => void;
+  navigate: (event: KeyboardEvent<HTMLElement>, index: number) => void;
+}
+
 interface ShowInput {
   index: number;
   rowHeight: number;
@@ -45,4 +69,4 @@ interface ShowInput {
   scrollTop: number;
 }
 
-export type { RowRange, ShowInput, VirtualMetrics, VirtualWindow, VirtualWindowInput, VisibleRangeInput };
+export type { RowRange, ShowInput, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput };

@@ -16,9 +16,16 @@ interface PatternChoice {
   readonly [field: string]: string | undefined;
 }
 
+type PatternAliases = Readonly<Record<string, string>>;
+
+type PatternRuleMessage = string | null | undefined;
+
 interface PatternSlotConfig {
   label?: string;
   placeholder?: string;
+  chars?: string | ReadonlySet<string>;
+  aliases?: PatternAliases;
+  validate?: (value: PatternSlotValue) => PatternRuleMessage;
 }
 
 interface PatternAction {
@@ -42,6 +49,8 @@ interface PatternSetup {
   actions?: PatternActions;
   icons?: PatternIcons;
   counter?: string;
+  aliases?: PatternAliases;
+  validate?: (value: PatternValue) => PatternRuleMessage;
 }
 
 interface DynamicInputProps extends PatternSetup {
@@ -59,6 +68,6 @@ interface DynamicInputProps extends PatternSetup {
 }
 
 export type {
-  DynamicInputProps, PatternAction, PatternActions, PatternChoice, PatternIcons, PatternLists, PatternSetup, PatternSlotConfig,
-  PatternSlotConfigs, PatternSlotValue, PatternValue,
+  DynamicInputProps, PatternAction, PatternActions, PatternAliases, PatternChoice, PatternIcons, PatternLists, PatternRuleMessage,
+  PatternSetup, PatternSlotConfig, PatternSlotConfigs, PatternSlotValue, PatternValue,
 };

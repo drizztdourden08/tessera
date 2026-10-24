@@ -16,6 +16,7 @@ import { PatternDocTable } from './_samples/PatternDocTable';
 import { PatternExampleField } from './_samples/PatternExampleField';
 import { PatternKeys } from './_samples/PatternKeys';
 import { PatternPlayground } from './_samples/PatternPlayground';
+import { PatternRulesDemo } from './_samples/PatternRulesDemo';
 import type { PatternPlaygroundArgs } from './_samples/PatternPlayground';
 import type { StateProps } from '../_template/states/states.type';
 import './DynamicInput.stories.css';
@@ -74,6 +75,11 @@ const Sizes = sizesStory<PatternPlaygroundArgs>((size) => {
   return example === undefined ? null : <PatternExampleField example={example} size={size} readout={false} />;
 }, { align: 'stretch' });
 
+const Rules = {
+  name: 'Characters and rules',
+  render: () => <PatternRulesDemo />,
+} satisfies Story;
+
 const Playground = {
   name: 'Playground',
   args: ARGS,
@@ -109,14 +115,14 @@ const Overview = overviewStory({
   description: 'One field built from a pattern of typed slots, muted text and icons, such as a time or a price with its currency.',
   points: [
     'Write slots in braces, such as `{hh:hour 12h}`; the value is one object keyed by slot name.',
-    'Typing fills a slot, and a full slot moves on to the next.',
+    'Typing fills a slot and a full slot moves on; a text slot takes its own `chars` and `aliases`.',
     'The slot in focus opens the control its type calls for, such as a [NumberInput] or a [ColorPicker].',
     '[[Tab]] and [[Shift+Tab]] move between slots, and [[Backspace]] in an empty slot goes back.',
     '**A bad pattern never throws:** the part it cannot read shows as text, with a warning.',
-    'Put it in a [Field] for its label, hint, error and size.',
+    'Put it in a [Field] for its label, hint and size; a `validate` rule shows its own error.',
   ],
   playground: Playground,
-  variants: [Examples, Sizes],
+  variants: [Examples, Rules, Sizes],
   sections: [
     { title: 'Pattern syntax', node: <PatternDocTable corner="Part" columns={['Write', 'Means']} rows={SYNTAX_ROWS} /> },
     { title: 'Slot types', node: <PatternDocTable corner="Type" columns={['Example', 'Value', 'Typing', 'Popover']} rows={TYPE_ROWS} /> },
@@ -138,4 +144,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Examples, Overview, Playground, Sizes };
+export { Examples, Overview, Playground, Rules, Sizes };

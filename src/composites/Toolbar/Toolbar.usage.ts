@@ -7,6 +7,7 @@ const usage = {
     'An editor has a rail of tools the user picks from, such as pencil, eraser and fill, along an edge of the work area.',
     'A tool has options, such as a brush size, that should open beside it on hover without a dialog.',
     'The same tools must work in a row and in a column, and fold the ones that do not fit.',
+    'A wide panel lists the same tools as rows with their name, description and shortcut.',
   ],
   avoidWhen: [
     { case: 'The buttons are the actions of one item and fold into More when narrow.', use: 'ActionBar' },
@@ -18,15 +19,16 @@ const usage = {
     'An item is a button, a toggle, a group of choices, a number or a separator. A tool the user picks is a toggle with pressed set on the current one.',
     'orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.',
     'icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.',
-    'Give shortcut as text such as Ctrl+Z or as keys. The hint and the folded menu draw it with Shortcut; it never sits on the button.',
-    'options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar.',
+    'Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.',
+    'options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.',
+    'layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.',
     'Items that do not fit fold into More, in order; a group becomes a labelled set of choices and a number becomes a slider.',
     'handle draws a grip at the start. A dock wires its own pointer handlers through handleProps; the toolbar has no drag logic.',
     'Give the toolbar a length: a row takes the width of its parent and a column the height of its parent. Without one, nothing folds.',
   ],
   a11y: [
     'The toolbar has role toolbar, aria-orientation and a name from label. Only one item is a tab stop.',
-    'Arrow Right and Left in a row, or Down and Up in a column, move focus and wrap; Home and End go to the ends.',
+    'Arrow Right and Left in a row, or Down and Up in a column or a list, move focus and wrap; Home and End go to the ends.',
     'The arrow key that points away from the toolbar opens the options of the focused tool and moves focus into the menu. Escape closes it and returns focus to the tool.',
     'In a number field the arrow keys edit the value; Escape moves focus back to the item before it.',
     'A toggle reports aria-pressed and a tool with options reports aria-haspopup and aria-expanded. The shortcut is set as aria-keyshortcuts.',
@@ -54,7 +56,7 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
   return <Toolbar label="Drawing tools" orientation="vertical" items={items} />;
 };
 `,
-  propsHash: '26b18d7f7dc99633',
+  propsHash: '1673dacb4afda2b3',
 } satisfies ComponentUsage;
 
 export { usage };
