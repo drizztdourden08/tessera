@@ -1,5 +1,18 @@
 # @drizztdourden08/tessera
 
+## 0.59.0
+
+### Minor Changes
+
+- e341502: VirtualGrid takes `sections` instead of `items` and draws a collapsible header row over each section, with `collapsed`, `defaultCollapsed` and `onToggleSection`, and the keys move between headers and tiles.
+  VirtualGrid takes `scrollRef`, `bind` and `overlay` for a marquee, and every tile carries `data-marquee-key` set to its key.
+  VirtualGrid takes a `ref` with `scrollToIndex(index, align)`, and `scrollTopForSpan` gives the scroll offset of a row of any height.
+  VirtualGrid takes `tileWidth` and `tileHeight` for tiles that are not square, and `useVirtualWindow` takes `readMetrics` and `rangeOf` for rows of more than one height.
+
+### Patch Changes
+
+- 1ab79b6: Bxel gets a file icon for its older `.bxel` format, drawn as an archive box on the usual document page, with the new `pixel-legacy` pixel icon.
+
 ## 0.58.1
 
 ### Patch Changes
