@@ -106,6 +106,22 @@ const LabelSizes = {
   ),
 } satisfies StoryLiteStoryDefinition<CheckboxArgs>;
 
+const WithTooltip = {
+  name: 'Tooltip',
+  render: () => (
+    <Box className="story-column">
+      <Checkbox checked onChange={() => undefined} label="Show hints on the map" tooltip="Draws a hint on every tile of the map." />
+      <Checkbox
+        checked={false}
+        onChange={() => undefined}
+        label="Show the grid"
+        tooltip={{ description: 'Draws the tile grid over the map.', shortcut: 'G' }}
+      />
+      <Checkbox checked onChange={() => undefined} label="Snap to tiles" title="Moves land on whole tiles" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<CheckboxArgs>;
+
 const HintsOption = (props: { initial: boolean; indeterminate?: boolean; disabled?: boolean }) => {
   const { initial, indeterminate, disabled } = props;
   const [checked, setChecked] = useState(initial);
@@ -142,13 +158,13 @@ const Overview = overviewStory({
     'It is controlled: `checked` comes in and `onChange` hands back the new value.',
     '`indeterminate` draws the mixed state, for a box that stands for a partly checked set.',
     '`ariaLabel` names a box whose label is drawn somewhere else.',
-    '`md` sits beside standard controls; `sm` is for dense lists, tables and a compact [DensityScope].',
-    '`labelSize` `sm` or `md` sets the label text apart from `size`, such as a small label in a list.',
+    '`size` `md` sits beside standard controls, `sm` suits dense lists; `labelSize` sets the label apart.',
     '`help` puts a ? after the label that shows its note on hover, focus or click, without checking the box.',
+    '`tooltip` takes a string or a description and shortcut; `title` goes to the input as a native hint.',
   ],
   instead: '[Toggle] for a setting that takes effect at once.',
   playground: Playground,
-  variants: [Labels, Sizes, LabelSizes],
+  variants: [Labels, Sizes, LabelSizes, WithTooltip],
   states: {
     render: renderState,
     list: [
@@ -165,4 +181,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { LabelSizes, Labels, Overview, Playground, SelectAll, Sizes };
+export { LabelSizes, Labels, Overview, Playground, SelectAll, Sizes, WithTooltip };

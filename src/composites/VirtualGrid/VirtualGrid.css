@@ -1,0 +1,35 @@
+/* @layer renderer-components @kind style */
+.virtual-grid {
+  --vg-tile: var(--size-96);
+}
+
+.virtual-grid__body {
+  position: relative;
+  inline-size: 100%;
+  block-size: calc(var(--vg-rows) * var(--vg-tile));
+}
+
+.virtual-grid__row {
+  position: absolute;
+  inset-block-start: calc(var(--vg-row) * var(--vg-tile));
+  inset-inline-start: 0;
+  display: flex;
+  inline-size: 100%;
+  block-size: var(--vg-tile);
+}
+
+.virtual-grid__cell {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--vg-tile);
+  block-size: var(--vg-tile);
+  padding: var(--space-xs);
+  overflow: hidden;
+}
+
+.virtual-grid__cell:hover {
+  background: var(--c-hover);
+}

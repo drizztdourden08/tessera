@@ -18,6 +18,7 @@ const usage = {
     'Give label a name for the list, since the rows are drawn without a heading of their own.',
     'Size the list from its parent: it fills the height of its box and scrolls inside it.',
     'Pick rowSize compact, normal or roomy; the height comes from a token and is measured once from the first row, so keep every row the same height.',
+    'For a height of your own pass rowHeight, the name of a size token such as size-64; it wins over rowSize, and a raw pixel number is not accepted.',
     'Keep renderItem cheap and free of its own height; the row cuts what does not fit.',
     'Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.',
     'Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list.',
@@ -48,7 +49,7 @@ const EventLog = ({ entries }: { entries: Entry[] }) => (
   />
 );
 `,
-  propsHash: '6a848a0abd982464',
+  propsHash: '1d3f54f91cc2c59b',
 } satisfies ComponentUsage;
 
 export { usage };

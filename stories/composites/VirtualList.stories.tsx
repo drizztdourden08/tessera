@@ -5,6 +5,7 @@ import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { VirtualListActive } from './_samples/VirtualListActive';
 import { VirtualListFrame } from './_samples/VirtualListFrame';
+import { FILLED_AND_EMPTY } from './_samples/virtual-states.constants';
 import './VirtualList.stories.css';
 
 type VirtualListArgs = {
@@ -43,6 +44,11 @@ const Compact = {
   render: () => <VirtualListFrame count={5000} rowSize="compact" />,
 } satisfies StoryLiteStoryDefinition<VirtualListArgs>;
 
+const Taller = {
+  name: 'A row height of your own: size-64',
+  render: () => <VirtualListFrame count={5000} rowHeight="size-64" />,
+} satisfies StoryLiteStoryDefinition<VirtualListArgs>;
+
 const Short = {
   name: 'Three items',
   render: () => <VirtualListFrame count={3} />,
@@ -63,22 +69,20 @@ const Overview = overviewStory({
   points: [
     '`items`, `getKey` and `renderItem` draw the rows; `getKey` returns a stable id for each item.',
     '`rowSize` sets one height for every row from a token, measured once from the first row.',
+    '`rowHeight` takes a size token name such as `size-64` for a height of your own; it wins over `rowSize`.',
     '`overscan` draws extra rows on each side of the view so a fast scroll shows no gap.',
     'Arrows, Home, End, Page Up and Page Down move focus and scroll to the row.',
     'A row that holds focus stays drawn when it scrolls out of view.',
   ],
   instead: '[DataTable] for rows with columns to sort, or [ItemList] for a short list.',
   playground: Playground,
-  variants: [Long, Compact, Short],
+  variants: [Long, Compact, Taller, Short],
   states: {
     render: (props: StateProps) => <VirtualListFrame count={40} {...props} />,
-    list: [
-      { name: 'Filled', props: {} },
-      { name: 'Empty', props: { count: 0 } },
-    ],
+    list: FILLED_AND_EMPTY,
   },
   code: CODE,
 });
 
 export default meta;
-export { Compact, Long, Overview, Playground, Short };
+export { Compact, Long, Overview, Playground, Short, Taller };
