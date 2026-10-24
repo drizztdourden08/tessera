@@ -59,6 +59,10 @@ import bracesIcon from '@iconify-icons/lucide/braces';
 import splitIcon from '@iconify-icons/lucide/split';
 import zoomInIcon from '@iconify-icons/lucide/zoom-in';
 import zoomOutIcon from '@iconify-icons/lucide/zoom-out';
+import eraserIcon from '@iconify-icons/lucide/eraser';
+import paintBucketIcon from '@iconify-icons/lucide/paint-bucket';
+import pipetteIcon from '@iconify-icons/lucide/pipette';
+import handIcon from '@iconify-icons/lucide/hand';
 
 const INTERFACE_ICONS = {
   'check': checkIcon,
@@ -121,6 +125,10 @@ const INTERFACE_ICONS = {
   'split': splitIcon,
   'zoom-in': zoomInIcon,
   'zoom-out': zoomOutIcon,
+  'eraser': eraserIcon,
+  'paint-bucket': paintBucketIcon,
+  'pipette': pipetteIcon,
+  'hand': handIcon,
 } as const;
 
 export { INTERFACE_ICONS };

@@ -1,4 +1,8 @@
 /* @layer tooling-scripts @kind test */
+import eraserIcon from '@iconify-icons/lucide/eraser';
+import handIcon from '@iconify-icons/lucide/hand';
+import paintBucketIcon from '@iconify-icons/lucide/paint-bucket';
+import pipetteIcon from '@iconify-icons/lucide/pipette';
 import databaseIcon from '@iconify-icons/lucide/database';
 import saveIcon from '@iconify-icons/lucide/save';
 import shovelIcon from '@iconify-icons/lucide/shovel';
@@ -25,6 +29,13 @@ describe('the named icon set', () => {
   it('names the Lucide zoom icons a viewer zooms with', () => {
     expect(ICONS['zoom-in']).toBe(zoomInIcon);
     expect(ICONS['zoom-out']).toBe(zoomOutIcon);
+  });
+
+  it('names the Lucide icons a drawing tool rail uses', () => {
+    expect(ICONS.eraser).toBe(eraserIcon);
+    expect(ICONS['paint-bucket']).toBe(paintBucketIcon);
+    expect(ICONS.pipette).toBe(pipetteIcon);
+    expect(ICONS.hand).toBe(handIcon);
   });
 
   it('names the Lucide icons a game tracker marks checks and states with, short names beside the Lucide ones', () => {
