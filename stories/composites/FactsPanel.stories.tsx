@@ -3,7 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { FactsPanel } from '../../src/composites';
 import type { FactsPanelLayout, FactsPanelProps } from '../../src/composites';
-import { Box, Text } from '../../src/primitives';
+import { Box, Card, Text } from '../../src/primitives';
 import type { StatRowAlign } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { BUILD_FACTS, PROFILE_FACTS, SERVER_FACTS } from './_samples/data-facts';
@@ -90,6 +90,15 @@ const Terms = {
   render: () => <FactsPanelTermCards />,
 } satisfies StoryLiteStoryDefinition<FactsArgs>;
 
+const FramelessInACard = {
+  name: 'Rows inside a Card, frameless',
+  render: () => (
+    <Card title="Server">
+      <FactsPanel label="Server, frameless" layout="rows" framed={false} groups={SERVER_FACTS} />
+    </Card>
+  ),
+} satisfies StoryLiteStoryDefinition<FactsArgs>;
+
 const CODE = `import { FactsPanel } from '@drizztdourden08/tessera';
 
 <FactsPanel
@@ -114,13 +123,13 @@ const Overview = overviewStory({
     '`layout` lays facts `inline` along a line, as `rows` or `boxed` in sunken rows.',
     '`align="end"` sets each label on the left and its value on the right edge of the panel, one fact per row.',
     '`layout="terms"` drops the box for a list of terms, each label in gold with its colon, then its value.',
+    '`framed={false}` drops border, background and padding, so the panel sits in a [Card] without a second box.',
     '`mono` sets the monospace font; `copyable` draws a [CopyValue]; a cut value shows its `title` in a tooltip.',
-    '[Hero] draws its facts with it, on glass.',
   ],
   playground: Playground,
-  variants: [TwoGroups, OneGroup, Layouts, ValuesAtTheEnd, Terms],
+  variants: [TwoGroups, OneGroup, Layouts, ValuesAtTheEnd, Terms, FramelessInACard],
   code: CODE,
 });
 
 export default meta;
-export { Layouts, OneGroup, Overview, Playground, Terms, TwoGroups, ValuesAtTheEnd };
+export { FramelessInACard, Layouts, OneGroup, Overview, Playground, Terms, TwoGroups, ValuesAtTheEnd };

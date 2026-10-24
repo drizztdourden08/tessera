@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 72 of 192 have their usage written; a linked name opens its page.
+One line per component. 73 of 192 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -104,7 +104,7 @@ One line per component. 72 of 192 have their usage written; a linked name opens 
 - [CopyButton](components/CopyButton.md): A button that copies a text to the clipboard and confirms it with a check and the word Copied. Import from `@drizztdourden08/tessera`.
 - [CopyValue](components/CopyValue.md): A value the user often copies, such as an address, a seed or a key, shown with a copy button at its end. Import from `@drizztdourden08/tessera`.
 - `CreateRecordDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `DataTable`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DataTable](components/DataTable.md): Records as rows and columns the user sorts, groups and picks from, such as the players of a session, with the columns taken from a schema. Import from `@drizztdourden08/tessera`.
 - [DateText](components/DateText.md): A date or a time in any common format, such as 5 minutes ago, Today, 21:40 or 16 October 2026, with the full date on hover. Import from `@drizztdourden08/tessera`.
 - `DeleteGuardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Dialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
