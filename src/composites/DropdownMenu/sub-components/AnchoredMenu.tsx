@@ -5,6 +5,7 @@ import { Floating } from '../../../primitives/Floating';
 import { useDismissListeners } from '../../../primitives/Portal';
 import { closeMenu } from '../behavior/close-menu';
 import { menuLookClass } from '../behavior/menu-look-class';
+import { menuStart } from '../behavior/menu-start';
 import { tidyGroups } from '../behavior/tidy-groups';
 import { useFocusReturn } from '../behavior/useFocusReturn';
 import { useMenuAnchor } from '../behavior/useMenuAnchor';
@@ -15,7 +16,7 @@ const ignore = (): void => undefined;
 
 const AnchoredMenu = (props: AnchoredMenuProps) => {
   const { groups, anchorRef, side, align, inline = false, label, variant = 'primary', intensity = 'strong' } = props;
-  const { closeOnSelect = true, filter = false, filterPlaceholder, onClose = ignore, className } = props;
+  const { closeOnSelect = true, filter = false, filterPlaceholder, focusOnOpen, hover, onClose = ignore, className } = props;
   const menuRef = useRef<HTMLDivElement>(null);
   const look = menuLookClass(variant, intensity);
   const { anchor, placement, fallback } = useMenuAnchor({ anchorRef, side, align, inline, onOutOfView: onClose });
@@ -26,11 +27,12 @@ const AnchoredMenu = (props: AnchoredMenuProps) => {
     <MenuRoot
       groups={tidyGroups(groups)}
       label={label}
-      start={inline ? 'none' : 'first'}
+      start={menuStart(inline, focusOnOpen)}
       closeOnSelect={closeOnSelect}
       look={look}
       filter={filter}
       filterPlaceholder={filterPlaceholder}
+      hover={hover}
       onClose={() => closeMenu(onClose, anchor.current)}
     />
   );

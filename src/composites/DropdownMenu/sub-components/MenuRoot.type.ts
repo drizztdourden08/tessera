@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { MenuGroup } from '../DropdownMenu.type';
+import type { MenuGroup, MenuHover } from '../DropdownMenu.type';
 import type { MenuFocusStart } from '../behavior/menu-context.type';
 
 interface MenuRootProps {
@@ -11,6 +11,7 @@ interface MenuRootProps {
   look: string;
   filter: boolean;
   filterPlaceholder?: string;
+  hover?: MenuHover;
   onClose: () => void;
   onQueryChange?: (query: string) => void;
 }

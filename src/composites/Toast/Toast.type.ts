@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { HTMLAttributes, ReactNode, Ref } from 'react';
+
 type ToastVariant = 'danger' | 'warning' | 'info' | 'success';
 
 type ToastPosition = 'bottom-right' | 'bottom-left';
@@ -28,6 +30,12 @@ interface ToastItem extends ToastInput {
 interface ToastProps {
   item: ToastItem;
   onDismiss: (id: string, reason: ToastCloseReason) => void;
+}
+
+interface ToastSurfaceProps extends HTMLAttributes<HTMLElement> {
+  variant: ToastVariant;
+  ref?: Ref<HTMLElement>;
+  children?: ReactNode;
 }
 
 interface ToastStackProps {
@@ -66,6 +74,7 @@ export type {
   ToastProps,
   ToastQueue,
   ToastStackProps,
+  ToastSurfaceProps,
   ToastStore,
   ToastVariant,
 };

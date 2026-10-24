@@ -10,6 +10,7 @@ interface TriggerSettings {
   disabled: boolean;
   closeOnSelect: boolean;
   filter: boolean;
+  openOnHover: boolean;
 }
 
 export type { TriggerSettings };

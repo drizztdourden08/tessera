@@ -54,7 +54,7 @@
   position-try-order: most-height;
 }
 
-.dropdown-menu[data-anchored]:is([data-anchor-place^='bottom'], [data-anchor-place='right-start']) {
+.dropdown-menu[data-anchored]:is([data-anchor-place^='bottom'], [data-anchor-place='right-start'], [data-anchor-place='left-start']) {
   bottom: var(--space-sm);
   align-self: start;
 }

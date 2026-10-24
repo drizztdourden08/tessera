@@ -16,6 +16,10 @@ const TIMEOUT = 60_000;
 const problemsIn = async (name) =>
   (await collectGuide(ROOT, { usageDir: fixture(name) })).findings.filter((f) => !f.coverage).map(({ kind, name: component }) => ({ kind, component }));
 
+const hookNames = (m) => m.exports.filter((e) => e.kind === 'hook').map((e) => e.name);
+
+const summary = (m) => ({ name: m.name, page: m.page, hooks: hookNames(m) });
+
 const modeOf = (config) => {
   const dir = mkdtempSync(join(tmpdir(), 'tessera-guide-'));
   if (config) writeFileSync(join(dir, 'tessera.config.json'), JSON.stringify(config));
@@ -56,6 +60,36 @@ describe('each usage check', () => {
     const { findings, components, leaves } = await collectGuide(ROOT, { usageDir: fixture('pilot') });
     expect(findings.filter((f) => f.kind === 'missing-usage')).toHaveLength(components.length - 5);
     expect(findings.filter((f) => f.kind === 'unreached-leaf')).toHaveLength(leaves.length - 5);
+  }, TIMEOUT);
+});
+
+describe('a usage file for a hook module', () => {
+  it('is accepted for a lowercase folder that a tier index re-exports, and gets its own page and index section', async () => {
+    const model = await collectGuide(ROOT, { usageDir: fixture('hook-module') });
+    const files = guideFiles(model);
+    expect(model.findings.filter((f) => !f.coverage)).toEqual([]);
+    expect(model.modules.map(summary)).toEqual([
+      { name: 'reorder', page: true, hooks: ['useMoveFocus', 'useReorderDrag'] },
+    ]);
+    expect(files['guide/components/reorder.md']).toContain('## What it exports');
+    expect(files['guide/components/reorder.md']).toContain('Use `useMoveFocus` instead.');
+    expect(files['guide/index.md']).toContain('## Hooks');
+    expect(files['guide/decide.md']).not.toContain('components/reorder.md');
+    expect(JSON.parse(files['guide/registry.json']).modules.map((m) => m.name)).toEqual(['reorder']);
+  }, TIMEOUT);
+
+  it('keeps hook modules out of the component list and the coverage gaps', async () => {
+    const { components, findings } = await collectGuide(ROOT, { usageDir: fixture('hook-module') });
+    expect(components.some((c) => c.name === 'reorder')).toBe(false);
+    expect(findings.filter((f) => f.name === 'reorder')).toEqual([]);
+  }, TIMEOUT);
+
+  it('fails a hook module that sits in the tree', async () => {
+    expect(await problemsIn('hook-with-tree')).toEqual([{ kind: 'missing-field', component: 'reorder' }]);
+  }, TIMEOUT);
+
+  it('still fails a usage file whose folder no tier index re-exports', async () => {
+    expect(await problemsIn('unknown-hook-module')).toEqual([{ kind: 'unknown-usage', component: 'field-kits' }]);
   }, TIMEOUT);
 });
 

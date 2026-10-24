@@ -1,0 +1,28 @@
+/* @layer renderer-components @kind style */
+.dock-hint {
+  position: absolute;
+  pointer-events: none;
+  z-index: var(--z-modal);
+}
+
+.dock-hint--outer {
+  background: var(--c-primary-soft);
+  border: var(--border-width-thin) dashed var(--c-primary);
+}
+
+.dock-hint--compass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border-strong);
+  border-radius: var(--radius-md);
+  color: var(--c-text);
+  box-shadow: var(--shadow-2);
+}
+
+.dock-hint--hot {
+  background: var(--c-primary-dim);
+  border-color: var(--c-primary-bright);
+  color: var(--c-primary-bright);
+}

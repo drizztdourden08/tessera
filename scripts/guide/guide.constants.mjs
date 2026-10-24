@@ -4,6 +4,7 @@ const COMPONENTS_DIR = 'guide/components';
 const SRC_DIR = 'src';
 const SKIPPED_FOLDERS = ['guide', 'sub-components', 'behavior'];
 const TIER_ORDER = ['primitives', 'composites', 'brand'];
+const HOOK_TIERS = ['primitives', 'composites'];
 const APP_TIER_ORDER = ['primitives', 'composites', 'compounds', 'views'];
 const USAGE_SUFFIX = '.usage.ts';
 const TREE_MODULE = '/src/guide/tree.constants.ts';
@@ -31,6 +32,6 @@ const FILES = {
 };
 
 export {
-  APP_TIER_ORDER, APP_TREE_EXPORT, COMPONENTS_DIR, DEFAULT_MODE, EXAMPLE_DIR, FILES, GUIDE_DIR, LITERAL_LIMIT, MODE_KEY, REQUIRED_LISTS,
+  APP_TIER_ORDER, APP_TREE_EXPORT, COMPONENTS_DIR, DEFAULT_MODE, EXAMPLE_DIR, FILES, GUIDE_DIR, HOOK_TIERS, LITERAL_LIMIT, MODE_KEY, REQUIRED_LISTS,
   REQUIRED_TEXT, SKIPPED_FOLDERS, SRC_DIR, STORIES_DIR, TESSERA_WORDS, THEME_DIR, TIER_ORDER, TREE_MODULE, USAGE_SUFFIX,
 };

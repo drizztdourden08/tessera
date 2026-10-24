@@ -7,6 +7,8 @@ type ActionKind = 'primary' | 'default' | 'danger';
 
 type ActionBarAlign = 'start' | 'end';
 
+type FitAxis = 'width' | 'height';
+
 interface ActionConfirm {
   title: string;
   confirmLabel: string;
@@ -21,6 +23,14 @@ interface ActionItem {
   disabled?: boolean;
   confirm?: ActionConfirm;
   onCancel?: () => void;
+}
+
+interface FitParams {
+  barRef: RefObject<HTMLElement | null>;
+  measureRef: RefObject<HTMLElement | null>;
+  restCount: number;
+  contentKey: string;
+  axis: FitAxis;
 }
 
 interface ActionBarProps {
@@ -63,5 +73,5 @@ interface ActionBarMeasureProps {
 
 export type {
   ActionBarAlign, ActionBarButtonProps, ActionBarMeasureProps, ActionBarMoreProps, ActionBarProps, ActionConfirm,
-  ActionItem, ActionKind, ActionSplit,
+  ActionItem, ActionKind, ActionSplit, FitAxis, FitParams,
 };

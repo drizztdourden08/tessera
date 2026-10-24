@@ -12,8 +12,9 @@ const withUsage = async (root, component, file) => {
 const loadUsages = async (root, components, sources) => {
   const { byFolder, stray } = usageSources(root, components, sources);
   const loaded = await Promise.all(components.map((c) => withUsage(root, c, byFolder.get(c.folder))));
-  const strays = stray.map(({ file, name }) => ({ kind: 'unknown-usage', name, at: file, message: `${file} matches no component folder`, coverage: false }));
-  return { components: loaded.map((entry) => entry.component), strays: [...strays, ...loaded.flatMap((entry) => entry.problem ?? [])] };
+  const strays = stray.map(({ file, name }) => ({ kind: 'unknown-usage', name, at: file, message: `${file} matches no component folder or hook module`, coverage: false }));
+  const kept = loaded.filter((entry) => entry.component.kind !== 'hooks' || entry.component.usage);
+  return { components: kept.map((entry) => entry.component), strays: [...strays, ...kept.flatMap((entry) => entry.problem ?? [])] };
 };
 
 export { loadUsages };

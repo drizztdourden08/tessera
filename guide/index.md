@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 73 of 192 have their usage written; a linked name opens its page.
+One line per component. 75 of 194 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -119,6 +119,7 @@ One line per component. 73 of 192 have their usage written; a linked name opens 
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FileList](components/FileList.md): The files a job made or an app keeps, one row each with its type icon, name, size and date, and buttons to open it or show it in its folder. Import from `@drizztdourden08/tessera`.
 - `FilterBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [FloatingPrompt](components/FloatingPrompt.md): A bar at the foot of a region that asks a question with actions such as Apply and Cancel, and blocks the region until the user answers. Import from `@drizztdourden08/tessera`.
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FormGroupTabs](components/FormGroupTabs.md): The top of a long form split into groups: a search over the options, Show advanced, and a tab per group with how many options changed. Import from `@drizztdourden08/tessera`.
 - [FormRow](components/FormRow.md): One option of a long form: its name and help on the left, its control in the middle, a changed mark and a reset at the end. Import from `@drizztdourden08/tessera`.
@@ -174,6 +175,7 @@ One line per component. 73 of 192 have their usage written; a linked name opens 
 - `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
 - [Toast](components/Toast.md): A short message in a corner of the window that leaves on its own, raised with toast() from any part of the app and drawn by the one ToastStack. Import from `@drizztdourden08/tessera`.
+- [Toolbar](components/Toolbar.md): A row or a column of tools, built from data, with a hint on each, a menu beside the tools that have options, and More for the tools that do not fit. Import from `@drizztdourden08/tessera`.
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
 - [Video](components/Video.md): A video player with its own control bar: seek with a time preview, volume, speed, picture in picture, theater mode and full screen. Import from `@drizztdourden08/tessera`.
@@ -202,3 +204,9 @@ One line per component. 73 of 192 have their usage written; a linked name opens 
 - `Mascot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `MascotStage`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `PixelWordmark`: usage not written yet. Import from `@drizztdourden08/tessera`.
+
+## Hooks
+
+Functions for a screen that owns its own markup. Each line is a module; its page lists what it exports.
+
+- [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.

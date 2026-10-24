@@ -42,11 +42,11 @@
 }
 
 .slider__input:focus-visible::-webkit-slider-thumb {
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--space-2xs);
 }
 
 .slider__input:focus-visible::-moz-range-thumb {
-  outline: var(--border-width-thick) solid var(--c-primary);
+  outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--space-2xs);
 }

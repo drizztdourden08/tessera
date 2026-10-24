@@ -101,6 +101,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ConfirmIconButton', summary: 'An icon button that asks once before it acts.' },
         { name: 'ArmedIconButton', summary: 'An icon button pressed twice, whose icon loops while it waits for the second press.' },
         { name: 'ActionBar', summary: 'The actions on one item in a row that folds the rest into More when narrow.' },
+        { name: 'Toolbar', summary: 'A row or column of tools with hints, side menus on hover, and More for what does not fit.' },
         { name: 'CopyButton', summary: 'Copies a text to the clipboard and says Copied.' },
         { name: 'RetryButton', summary: 'Tries a failed step again and counts down to the next automatic try.' },
       ],

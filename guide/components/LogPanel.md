@@ -86,4 +86,4 @@ const ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lin
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-hairline`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-selected`, `--c-text`, `--c-text-muted`, `--font-mono`, `--leading-normal`, `--log-gutter-w`, `--log-ink`, `--log-tag-w`, `--shadow-2`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--weight-semi`, `--z-base`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-inset`, `--c-selected`, `--c-text`, `--c-text-muted`, `--font-mono`, `--leading-normal`, `--log-gutter-w`, `--log-ink`, `--log-tag-w`, `--shadow-2`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--weight-semi`, `--z-base`.

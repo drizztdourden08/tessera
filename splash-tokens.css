@@ -95,6 +95,11 @@
   --p-tertiary-850: #27272b;
   --p-tertiary-900: #17171a;
   --p-tertiary-950: #050506;
+  --p-surface: #9a9aa4;
+  --p-surface-800: #3c3c41;
+  --p-surface-850: #27272b;
+  --p-surface-900: #17171a;
+  --p-surface-950: #050506;
   --p-grey-0: #ffffff;
   --p-grey-50: #f2f2f2;
   --p-grey-100: #dedede;
@@ -186,6 +191,7 @@
   --c-primary-dim: #050506;
   --c-primary-soft: #8a8a9624;
   --c-on-primary: #0e0e12;
+  --c-focus: #8a8a96;
   --c-selected: #8a8a961f;
   --c-volume-wave: #8a8a96;
   --c-secondary: #6e6e7a;
@@ -455,6 +461,11 @@
   --p-tertiary-850: #2c2936;
   --p-tertiary-900: #1a1821;
   --p-tertiary-950: #060609;
+  --p-surface: #a79fc8;
+  --p-surface-800: #423e50;
+  --p-surface-850: #2c2936;
+  --p-surface-900: #1a1821;
+  --p-surface-950: #060609;
   --c-surface: #1a1821;
   --c-sunken: #060609;
   --c-layer: #0d0b14;
@@ -500,6 +511,7 @@
   --c-primary-dim: #040112;
   --c-primary-soft: #7c4dff24;
   --c-on-primary: #fff;
+  --c-focus: #7c4dff;
   --c-selected: #7c4dff1f;
   --c-volume-wave: #7c4dff;
   --c-secondary: #ece6ff;
@@ -570,6 +582,11 @@
   --p-tertiary-850: #222323;
   --p-tertiary-900: #141414;
   --p-tertiary-950: #040404;
+  --p-surface: #8a8b8d;
+  --p-surface-800: #353636;
+  --p-surface-850: #222323;
+  --p-surface-900: #141414;
+  --p-surface-950: #040404;
   --c-surface: #141414;
   --c-sunken: #040404;
   --c-layer: #121314;
@@ -615,6 +632,7 @@
   --c-primary-dim: #100500;
   --c-primary-soft: #f0862b24;
   --c-on-primary: #000;
+  --c-focus: #f0862b;
   --c-selected: #f0862b1f;
   --c-volume-wave: #f0862b;
   --c-secondary: #b9babc;
@@ -684,6 +702,11 @@
   --p-tertiary-850: #2f2a3e;
   --p-tertiary-900: #1d1927;
   --p-tertiary-950: #07060c;
+  --p-surface: #b3a2e0;
+  --p-surface-800: #47405b;
+  --p-surface-850: #2f2a3e;
+  --p-surface-900: #1d1927;
+  --p-surface-950: #07060c;
   --c-surface: #1d1927;
   --c-sunken: #07060c;
   --c-layer: #140b26;
@@ -729,6 +752,7 @@
   --c-primary-dim: #04010e;
   --c-primary-soft: #7b3fe424;
   --c-on-primary: #fff;
+  --c-focus: #7b3fe4;
   --c-selected: #7b3fe41f;
   --c-volume-wave: #7b3fe4;
   --c-secondary: #e0245e;
@@ -800,6 +824,7 @@
   --c-primary-dim: #0b0801;
   --c-primary-soft: #c8a84e24;
   --c-on-primary: #000;
+  --c-focus: #c8a84e;
   --c-selected: #c8a84e1f;
   --c-volume-wave: #c8a84e;
   --c-secondary: #4a9966;

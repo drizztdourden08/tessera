@@ -2,9 +2,9 @@
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { pushEscape } from '../../../primitives/escape-stack/push-escape';
 import type { PressWiring } from './dock-hooks.type';
-import { movedEnough } from './moved-enough';
+import { movedEnough } from '../../dock-zones/moved-enough';
 import { releasePress } from './release-press';
-import { stagePoint } from './stage-point';
+import { stagePoint } from '../../dock-zones/stage-point';
 import { viewFor } from './view-for';
 
 const listenPress = (wiring: PressWiring): (() => void) => {

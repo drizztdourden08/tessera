@@ -5,7 +5,7 @@ import { rectStyle } from '../../rect-drag/rect-style';
 import { DockDivider } from './DockDivider';
 import { DockFloating } from './DockFloating';
 import { DockPanes } from './DockPanes';
-import { DragGhost } from './DragGhost';
+import { DragGhost } from '../../dock-zones/DragGhost';
 import { DropHints } from './DropHints';
 import { MainGrip } from './MainGrip';
 import type { DockSceneProps } from './DockScene.type';
@@ -42,7 +42,7 @@ const DockScene = (props: DockSceneProps) => {
         </>
       )}
       {drag && <DropHints view={drag} laid={laid} />}
-      {ownDrag && <DragGhost view={ownDrag} />}
+      {ownDrag && <DragGhost pointer={ownDrag.pointer} label={ownDrag.label} swap={ownDrag.swap} overlay={ownDrag.overlay} />}
     </>
   );
 };

@@ -28,7 +28,7 @@
 }
 
 .dynamic-input__surface:focus-within {
-  border-color: var(--c-primary);
+  border-color: var(--c-focus);
   box-shadow: 0 0 0 var(--border-width-thick) var(--c-primary-soft);
 }
 
