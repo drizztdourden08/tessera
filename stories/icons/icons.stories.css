@@ -58,3 +58,9 @@
 .volume-icon-demo__slider {
   width: var(--size-256);
 }
+
+.icon-gallery__sizes {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-sm);
+}
