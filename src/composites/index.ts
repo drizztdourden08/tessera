@@ -21,6 +21,10 @@ export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } 
 export { REORDER_ITEM_SELECTOR, columnsOf, reorderStep, useMoveFocus, useReorderDrag } from './reorder';
 export type { MoveFocus, ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDrop, ReorderKeyEvent, ReorderStepOptions } from './reorder';
 export { DocumentTabs,type DocumentTab, type DocumentTabsProps } from './DocumentTabs';
+export {
+  Toolbar, type ToolbarButton, type ToolbarChoice, type ToolbarChoices, type ToolbarHandleProps, type ToolbarItem, type ToolbarNumber,
+  type ToolbarOrientation, type ToolbarProps, type ToolbarSeparator, type ToolbarToggle,
+} from './Toolbar';
 export { LogPanel, type LogKindDef, type LogKindTone, type LogPanelProps, type LogRow } from './LogPanel';
 export { ListItemList, ListItemRow } from './ListItemRow';
 export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from './ListItemRow';
@@ -53,7 +57,7 @@ export type { InlineCreateFormProps } from './InlineCreateForm';
 export { Drawer, type DrawerProps } from './Drawer';
 export { DropdownMenu } from './DropdownMenu';
 export type {
-  DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
+  DropdownMenuProps, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from './DropdownMenu';
 export { ScreenLayer } from './ScreenLayer';

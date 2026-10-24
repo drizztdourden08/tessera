@@ -25,7 +25,7 @@ const ACTIONS = {
         'peer actions on one thing, read as one tool': null,
         'separate decisions, with space between': null,
         'too many, or secondary': null,
-        'actions on one item, folding into More when narrow': null, 'tools in groups, each under a small label': null,
+        'actions on one item, folding into More when narrow': null, 'tools in groups, each under a small label': null, 'tools in a row or column, with hints and options': null,
       },
     },
   },

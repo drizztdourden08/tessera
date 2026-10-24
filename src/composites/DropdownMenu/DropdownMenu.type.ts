@@ -47,9 +47,14 @@ interface MenuGroup {
   items: readonly MenuNode[];
 }
 
-type MenuSide = 'below' | 'above';
+type MenuSide = 'below' | 'above' | 'right' | 'left';
 
 type MenuAlign = 'start' | 'end';
+
+interface MenuHover {
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}
 
 type MenuVariant = ButtonVariant;
 
@@ -85,6 +90,8 @@ interface AnchoredMenuProps extends MenuBaseProps {
   side?: MenuSide;
   align?: MenuAlign;
   inline?: boolean;
+  focusOnOpen?: boolean;
+  hover?: MenuHover;
   onClose?: () => void;
 }
 
@@ -93,12 +100,13 @@ interface TriggerMenuProps extends MenuBaseProps {
   size?: MenuSize;
   align?: DropAlign;
   disabled?: boolean;
+  openOnHover?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
 type DropdownMenuProps = AnchoredMenuProps | TriggerMenuProps;
 
 export type {
-  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone,
+  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone,
   MenuNode, MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant, TriggerMenuProps,
 };

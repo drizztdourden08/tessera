@@ -10,6 +10,7 @@ const triggerSettings = (props: TriggerMenuProps): TriggerSettings => ({
   disabled: props.disabled ?? false,
   closeOnSelect: props.closeOnSelect ?? true,
   filter: props.filter ?? false,
+  openOnHover: props.openOnHover ?? false,
 });
 
 export { triggerSettings };

@@ -1,13 +1,14 @@
 /* @layer renderer-components @kind component */
 import { useId, useMemo, useState } from 'react';
-import type { KeyboardEvent } from 'react';
 import { ListboxPanel } from '../../../primitives/listbox/ListboxPanel';
 import { useListboxDrop } from '../../../primitives/listbox/useListboxDrop';
 import { closeMenu } from '../behavior/close-menu';
+import { useHoverOpen } from '../behavior/useHoverOpen';
 import { menuLookClass } from '../behavior/menu-look-class';
 import { menuPanelSize } from '../behavior/menu-panel-size';
 import { tidyGroups } from '../behavior/tidy-groups';
 import { triggerAttributes } from '../behavior/trigger-attributes';
+import { triggerKeys } from '../behavior/trigger-keys';
 import { triggerSettings } from '../behavior/trigger-settings';
 import { useReport } from '../../../primitives/dom/useReport';
 import { MenuRoot } from './MenuRoot';
@@ -19,7 +20,7 @@ import '../../../theme/dropdown-trigger.css';
 
 const TriggerMenu = (props: TriggerMenuProps) => {
   const { groups, trigger, label, filterPlaceholder, onOpenChange, className } = props;
-  const { variant, intensity, size, align, disabled, closeOnSelect, filter } = triggerSettings(props);
+  const { variant, intensity, size, align, disabled, closeOnSelect, filter, openOnHover } = triggerSettings(props);
   const menuId = useId();
   const [start, setStart] = useState<MenuFocusStart>('first');
   const [query, setQuery] = useState('');
@@ -27,19 +28,14 @@ const TriggerMenu = (props: TriggerMenuProps) => {
   const contentKey = useMemo(() => ({ groups, query }), [groups, query]);
   const drop = useListboxDrop<HTMLButtonElement>({ disabled: disabled || shown.length === 0, contentKey, level: 'menu', fit: true, align });
   useReport(drop.open, onOpenChange);
-  if (shown.length === 0) return null;
-
-  const look = menuLookClass(variant, intensity);
   const openAt = (from: MenuFocusStart): void => {
     setStart(from);
     setQuery('');
     drop.show();
   };
-  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>): void => {
-    if (drop.open || (event.key !== 'ArrowDown' && event.key !== 'ArrowUp')) return;
-    event.preventDefault();
-    openAt(event.key === 'ArrowDown' ? 'first' : 'last');
-  };
+  const hover = useHoverOpen({ open: drop.open, byHover: start === 'none', anchorRef: drop.anchorRef, enabled: openOnHover && !disabled, onOpen: () => openAt('none'), onClose: drop.close });
+  if (shown.length === 0) return null;
+  const look = menuLookClass(variant, intensity);
 
   return (
     <>
@@ -52,7 +48,8 @@ const TriggerMenu = (props: TriggerMenuProps) => {
         className={['dropdown-trigger listbox-anchor', look, className].filter(Boolean).join(' ')}
         {...triggerAttributes(drop, menuId)}
         onClick={() => (drop.open ? drop.close() : openAt('first'))}
-        onKeyDown={onKeyDown}
+        onKeyDown={triggerKeys(drop.open, openAt)}
+        {...(openOnHover ? hover : {})}
       />
       {drop.open && (
         <ListboxPanel drop={drop} invalid={false} size={menuPanelSize(size)} className={`dropdown-drop dropdown-surface ${look}`}>
@@ -65,6 +62,7 @@ const TriggerMenu = (props: TriggerMenuProps) => {
             look={look}
             filter={filter}
             filterPlaceholder={filterPlaceholder}
+            hover={openOnHover ? hover : undefined}
             onClose={() => closeMenu(drop.close, drop.anchorRef.current)}
             onQueryChange={setQuery}
           />

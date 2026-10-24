@@ -10,7 +10,7 @@ import { MenuResults } from './MenuResults';
 import type { MenuRootProps } from './MenuRoot.type';
 
 const MenuRoot = (props: MenuRootProps) => {
-  const { groups, label, start, closeOnSelect, look, filter, filterPlaceholder, onClose, onQueryChange } = props;
+  const { groups, label, start, closeOnSelect, look, filter, filterPlaceholder, hover, onClose, onQueryChange } = props;
   const ownId = useId();
   const id = props.id ?? ownId;
   const [query, setQuery] = useState('');
@@ -40,7 +40,7 @@ const MenuRoot = (props: MenuRootProps) => {
           onExit={onClose}
         />
       )}
-      <MenuPanel id={id} label={label} start={filter ? 'none' : start} columns={columns} menuRef={menuRef} onExit={onClose} onTop={toFilter} onType={toFilter}>
+      <MenuPanel id={id} label={label} start={filter ? 'none' : start} columns={columns} menuRef={menuRef} hover={hover} onExit={onClose} onTop={toFilter} onType={toFilter}>
         {searching ? <MenuResults matches={matches} query={query} /> : <MenuGroups groups={groups} />}
       </MenuPanel>
     </MenuContext>
