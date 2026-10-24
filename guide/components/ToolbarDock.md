@@ -44,6 +44,8 @@ ToolbarDock is the frame that holds the toolbars on the edges of a work area, up
 - While picked up, an arrow key goes to that side, outer lane first. The same arrow again switches between the outer and the inner lane. A full side is skipped and announced.
 - Delete sends the picked toolbar to the basket. Enter drops it and Escape puts it back. The preview shows the target as it does for a pointer drag.
 - OnLayoutChange gets the new layout when a drag or a keyboard move ends. It is not called when the toolbar is dropped where it already was. The dock never changes the layout by itself, so keep it in state.
+- UseToolbarLayout({ value, onChange, definitions }) wraps the pure ops for a controlled layout. It gives move, show, hide, toggle, isShown, canShow and reset, and calls onChange once per edit, never when the edit changes nothing.
+- ToolbarMenuGroups(definitions, layout, toggle, menu) gives DropdownMenu groups for a Toolbars menu: a check item per toolbar, checked when shown and disabled when its side has no free lane, plus a Reset toolbars item when menu.onReset is set. menu is the toolbars group of useTesseraStrings with onReset added.
 - Children fills the centre cell and takes the room the lanes leave. Give the dock a height, as the centre has none of its own.
 
 ## Accessibility
@@ -96,4 +98,4 @@ It draws on `--opacity-faint`, `--space-2xs`, `--z-modal`.
 
 ## Also exported from this folder
 
-`MAX_PER_SIDE`, `TOOLBAR_LAYOUT_V`, `canShowToolbar`, `createToolbarLayout`, `hideToolbar`, `isToolbarShown`, `migrateToolbarLayout`, `moveToolbar`, `showToolbar`, `toggleToolbar`, `toolbarOrientation`.
+`MAX_PER_SIDE`, `TOOLBAR_LAYOUT_V`, `canShowToolbar`, `createToolbarLayout`, `hideToolbar`, `isToolbarShown`, `migrateToolbarLayout`, `moveToolbar`, `showToolbar`, `toggleToolbar`, `toolbarMenuGroups`, `toolbarOrientation`, `useToolbarLayout`.

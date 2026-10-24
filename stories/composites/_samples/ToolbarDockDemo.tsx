@@ -1,8 +1,8 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { Toolbar, ToolbarDock, createToolbarLayout, showToolbar } from '../../../src/composites';
+import { DropdownMenu, Toolbar, ToolbarDock, createToolbarLayout, toolbarMenuGroups, useToolbarLayout } from '../../../src/composites';
 import type { ToolbarDefinition, ToolbarItem } from '../../../src/composites';
-import { Box, Button, Text } from '../../../src/primitives';
+import { Box, Text, useTesseraStrings } from '../../../src/primitives';
 import { DOCK_TOOLBARS } from './toolbar-dock-story.constants';
 
 const DEFINITIONS: ToolbarDefinition[] = DOCK_TOOLBARS.map(({ id, label, side }) => ({ id, label, defaultSide: side }));
@@ -12,12 +12,14 @@ const itemsOf = (id: string): ToolbarItem[] => (DOCK_TOOLBARS.find((spec) => spe
 }));
 
 const ToolbarDockDemo = ({ className }: { className?: string }) => {
-  const [layout, setLayout] = useState(() => createToolbarLayout(DEFINITIONS));
+  const [value, onChange] = useState(() => createToolbarLayout(DEFINITIONS));
+  const { layout, toggle, reset } = useToolbarLayout({ value, onChange, definitions: DEFINITIONS });
+  const { toolbars } = useTesseraStrings();
   return (
     <Box className={['toolbar-dock-story', className].filter(Boolean).join(' ')}>
       <ToolbarDock
         layout={layout}
-        onLayoutChange={setLayout}
+        onLayoutChange={onChange}
         definitions={DEFINITIONS}
         renderToolbar={(id, { orientation, handle }) => (
           <Toolbar
@@ -31,15 +33,12 @@ const ToolbarDockDemo = ({ className }: { className?: string }) => {
       >
         <Box className="toolbar-dock-story__work">
           <Text className="story-label">Work area</Text>
-          {layout.hidden.length > 0 && (
-            <Box className="toolbar-dock-story__hidden">
-              {layout.hidden.map((id) => (
-                <Button key={id} size="xs" variant="secondary" onClick={() => setLayout(showToolbar(layout, id, DEFINITIONS))}>
-                  {`Show ${DEFINITIONS.find((definition) => definition.id === id)?.label ?? id}`}
-                </Button>
-              ))}
-            </Box>
-          )}
+          <DropdownMenu
+            trigger={{ label: toolbars.menu, icon: 'layout-grid' }}
+            groups={toolbarMenuGroups(DEFINITIONS, layout, toggle, { ...toolbars, onReset: reset })}
+            size="sm"
+            closeOnSelect={false}
+          />
         </Box>
       </ToolbarDock>
     </Box>

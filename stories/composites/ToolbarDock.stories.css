@@ -18,10 +18,3 @@
   border: var(--border-width-thin) dashed var(--c-border);
   border-radius: var(--radius-md);
 }
-
-.toolbar-dock-story__hidden {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  justify-content: center;
-}

@@ -12,4 +12,8 @@ export { migrateToolbarLayout } from './behavior/migrate-toolbar-layout';
 export { moveToolbar } from './behavior/move-toolbar';
 export { showToolbar } from './behavior/show-toolbar';
 export { toggleToolbar } from './behavior/toggle-toolbar';
+export { toolbarMenuGroups } from './behavior/toolbar-menu-groups';
+export type { ToolbarMenuWords } from './behavior/toolbar-menu.type';
 export { toolbarOrientation } from './behavior/toolbar-orientation';
+export { useToolbarLayout } from './behavior/useToolbarLayout';
+export type { ToolbarLayoutApi, UseToolbarLayoutParams } from './behavior/useToolbarLayout.type';

@@ -1,5 +1,8 @@
 /* @layer renderer-components @kind data */
 const TOOLBARS_STRINGS = {
+  menu: 'Toolbars',
+  reset: 'Reset toolbars',
+  guideTitle: 'Moving toolbar',
   move: (label: string) => `Move ${label}`,
   basket: 'Release to hide',
   sides: { top: 'top', bottom: 'bottom', left: 'left', right: 'right' },

@@ -9,7 +9,7 @@ import type { WindowGuideCardProps } from '../WindowGuideOverlay.type';
 import '../../../theme/glass-panel.css';
 
 const WindowGuideCard = (props: WindowGuideCardProps) => {
-  const { mode, title, snapping, hints } = props;
+  const { mode, title, snapping, showSnapping, hints } = props;
   const { widgets } = useTesseraStrings();
 
   return (
@@ -18,10 +18,12 @@ const WindowGuideCard = (props: WindowGuideCardProps) => {
         <Icon name={MODE_ICONS[mode]} size={MODE_ICON_SIZE} className="window-guide__mode-icon" />
         <Span className="window-guide__title">{title}</Span>
       </Box>
-      <Span className="window-guide__snap" data-off={snapping ? undefined : true}>
-        <Icon name="magnet" size={SNAP_ICON_SIZE} />
-        {snapping ? widgets.guideSnapping : widgets.guideSnappingOff}
-      </Span>
+      {showSnapping && (
+        <Span className="window-guide__snap" data-off={snapping ? undefined : true}>
+          <Icon name="magnet" size={SNAP_ICON_SIZE} />
+          {snapping ? widgets.guideSnapping : widgets.guideSnappingOff}
+        </Span>
+      )}
       {hints.length > 0 && (
         <ShortcutList items={hints.map((hint) => ({ keys: hint.keys, description: hint.label }))} className="window-guide__hints" />
       )}

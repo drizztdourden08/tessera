@@ -9,7 +9,15 @@ const ToolbarDockGuide = ({ open, message }: ToolbarDockGuideProps) => {
   const { toolbars } = useTesseraStrings();
   return (
     <>
-      <WindowGuideOverlay open={open} mode="moving" snapping defaultHints={false} hints={toolbarKeyHints(toolbars)} />
+      <WindowGuideOverlay
+        open={open}
+        mode="moving"
+        title={toolbars.guideTitle}
+        snapping={false}
+        showSnapping={false}
+        defaultHints={false}
+        hints={toolbarKeyHints(toolbars)}
+      />
       <Box as="span" className="visually-hidden" role="status" aria-live="polite">{message}</Box>
     </>
   );

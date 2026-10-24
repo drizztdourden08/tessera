@@ -13,7 +13,7 @@ const meta = {
 } satisfies StoryLiteMeta<ToolbarDockArgs>;
 
 const Around = {
-  name: 'Two toolbars on top, one on the left and one at the bottom',
+  name: 'Two toolbars on top, one on the left and one at the bottom, with a Toolbars menu',
   render: () => <ToolbarDockDemo />,
 } satisfies StoryLiteStoryDefinition<ToolbarDockArgs>;
 
@@ -24,9 +24,9 @@ const Overview = overviewStory({
     '`layout` says which toolbar sits on which side; the dock draws it and the app keeps it.',
     'Top and bottom lanes span the full width; left and right lanes sit between them, two lanes at most.',
     '`renderToolbar` draws each toolbar with the `orientation` of its side and the `handle` for the grip.',
-    'Drag a grip to move a toolbar: a preview shows the lane, a full side refuses, and the basket hides it.',
-    'Keyboard: Enter on a grip, arrows pick a side or lane, Delete hides, Enter drops, Escape cancels.',
-    '`children` fills the centre, such as a `WidgetManager` or a [DockLayout].',
+    'Drag a grip or press Enter on it: pick a side or lane, a full side refuses, the basket hides.',
+    '`useToolbarLayout` gives `move`, `show`, `hide`, `toggle` and `reset`, and calls `onChange` once per edit.',
+    '`toolbarMenuGroups` builds the Toolbars menu: a check item per toolbar and Reset toolbars.',
   ],
   variants: [Around],
   code: TOOLBAR_DOCK_CODE,

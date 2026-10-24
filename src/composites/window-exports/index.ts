@@ -32,8 +32,8 @@ export type {
 } from '../DockLayout';
 export {
   MAX_PER_SIDE, TOOLBAR_LAYOUT_V, ToolbarDock, canShowToolbar, createToolbarLayout, hideToolbar, isToolbarShown, migrateToolbarLayout, moveToolbar,
-  showToolbar, toggleToolbar, toolbarOrientation,
+  showToolbar, toggleToolbar, toolbarMenuGroups, toolbarOrientation, useToolbarLayout,
 } from '../ToolbarDock';
 export type {
-  ToolbarDefinition, ToolbarDockHandle, ToolbarDockProps, ToolbarLayout, ToolbarSide, ToolbarSlot, ToolbarSpot,
+  ToolbarDefinition, ToolbarDockHandle, ToolbarDockProps, ToolbarLayout, ToolbarLayoutApi, ToolbarMenuWords, ToolbarSide, ToolbarSlot, ToolbarSpot, UseToolbarLayoutParams,
 } from '../ToolbarDock';

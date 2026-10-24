@@ -47,23 +47,30 @@ const DOCK_TOOLBARS: readonly DockToolbarSpec[] = [
   },
 ];
 
-const TOOLBAR_DOCK_CODE = `import { Toolbar, ToolbarDock, createToolbarLayout } from '@drizztdourden08/tessera';
+const TOOLBAR_DOCK_CODE = `import { DropdownMenu, Toolbar, ToolbarDock, createToolbarLayout, toolbarMenuGroups, useToolbarLayout } from '@drizztdourden08/tessera';
 
 const definitions = [
   { id: 'tools', label: 'Drawing tools', defaultSide: 'left' },
   { id: 'shapes', label: 'Shapes', defaultSide: 'top' },
 ];
-const [layout, setLayout] = useState(() => createToolbarLayout(definitions));
+const [value, setValue] = useState(() => createToolbarLayout(definitions));
+const { layout, toggle, reset } = useToolbarLayout({ value, onChange: setValue, definitions });
 
 <ToolbarDock
   layout={layout}
-  onLayoutChange={setLayout}
+  onLayoutChange={setValue}
   definitions={definitions}
   renderToolbar={(id, { orientation, handle }) => (
     <Toolbar label={labelOf(id)} items={itemsOf(id)} orientation={orientation} handle handleProps={handle} />
   )}
 >
   <WidgetManager />
-</ToolbarDock>`;
+</ToolbarDock>
+
+<DropdownMenu
+  trigger={{ label: 'Toolbars', icon: 'layout-grid' }}
+  groups={toolbarMenuGroups(definitions, layout, toggle, { ...toolbars, onReset: reset })}
+  closeOnSelect={false}
+/>`;
 
 export { DOCK_TOOLBARS, TOOLBAR_DOCK_CODE };
