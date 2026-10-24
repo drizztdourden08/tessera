@@ -8,9 +8,9 @@ import { useTableActions } from './behavior/useTableActions';
 import { useTableModel } from './behavior/useTableModel';
 import { ColumnDropTrash } from './sub-components/ColumnDropTrash';
 import { HeaderRow } from './sub-components/HeaderRow';
-import { RowTree } from './sub-components/RowTree';
 import { SelectAllCell } from './sub-components/SelectAllCell';
 import { TableFooter } from './sub-components/TableFooter';
+import { TableRows } from './sub-components/TableRows';
 import type { DataTableProps } from './DataTable.type';
 import './DataTable.css';
 
@@ -19,7 +19,7 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
   const { common } = useTesseraStrings();
 
   const {
-    table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context, checkboxes,
+    table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context, virtual, checkboxes,
   } = useTableModel(props);
   const actions = useColumnActions(table, sizing.previewWidth);
   const tableActions = useTableActions(table);
@@ -35,6 +35,7 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
         tabIndex={selection ? -1 : undefined}
         style={gridStyle}
         onKeyDown={selection?.onKeyDown}
+        onScroll={virtual?.onScroll}
         onDragEnter={drag.onSurfaceHover}
         onDragOver={drag.onSurfaceHover}
         onDrop={drag.onSurfaceDrop}
@@ -52,7 +53,7 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
           rowTotal={table.sortedRows.length}
           lead={selection && checkboxes ? <SelectAllCell selection={selection} /> : undefined}
         />
-        <RowTree nodes={table.groupedRows} parentUid="" context={context} />
+        <TableRows virtual={virtual} nodes={table.groupedRows} context={context} />
         {rows.length === 0 && <EmptyState className="data-table__empty" message={emptyMessage ?? common.nothingToShow} />}
       </Box>
       <ColumnDropTrash

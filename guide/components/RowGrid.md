@@ -23,7 +23,7 @@ RowGrid edits a short list row by row, a table when wide and cards when narrow, 
 
 ## Use something else when
 
-- The user browses, sorts or picks from many records. Use `DataTable` instead.
+- The user browses, sorts or picks from many records. Use [DataTable](DataTable.md) instead.
 - Each item has many fields or a nested shape. Use `RecordEditor` instead.
 - Each row is a name and one value of a map. Use [KeyValueEditor](KeyValueEditor.md) instead.
 - The rows are read only with a few actions. Use `ListItemRow` instead.

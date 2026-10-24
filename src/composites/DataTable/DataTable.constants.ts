@@ -48,8 +48,10 @@ const trackListWith = (
 
 const GHOST_ROW_LIMIT = 6;
 
+const VIRTUALIZE_FROM = 200;
+
 const KEY_RENDERED_KINDS: readonly string[] = ['enum', 'idRef'];
 
 export {
-  GHOST_ROW_LIMIT, KEY_RENDERED_KINDS, trackList, trackListWith,
+  GHOST_ROW_LIMIT, KEY_RENDERED_KINDS, VIRTUALIZE_FROM, trackList, trackListWith,
 };
