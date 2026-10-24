@@ -4,3 +4,5 @@ packages:
   - 'packages/*'
   - 'tooling/*'
 catalog: {}
+overrides:
+  '@drizztdourden08/standards': ^0.12.0

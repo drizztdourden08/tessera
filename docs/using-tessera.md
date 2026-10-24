@@ -509,7 +509,7 @@ brock tessera new primitive HelpWebview --yes
 
 In a repo with its own command, use that one, as in `archipelia tessera new view Inventory --group Game`. Outside Brock, `pnpm exec tessera` runs the same commands.
 
-In the Tessera repo, `pnpm tessera new primitive QuestBanner --group Layout` runs the same command.
+In the Tessera repo, `pnpm tessera new primitive QuestBanner --group Layout` runs the same command. The same `pnpm tessera` runs the Brock thread commands (`launch`, `worktree`, `pr`, `mobile`, `linux`, `release`, `upgrade`), which work only there. `pnpm tessera launch main none --target storylite` serves the catalogue on port 4400, and `pnpm tessera launch <worktree> none --target storylite` serves it on the worktree's own port and prints the URL.
 
 It reads `tessera.config.json` to know where it runs and where each kind goes. Tessera must be installed in the app or at the root of the repo. A view goes to the `parts.views` of the app it runs in. With no `tessera.config.json`, it takes the nearest `package.json` that lists Tessera, writes to the default folders and prints a hint to add the file. The default folders:
 
