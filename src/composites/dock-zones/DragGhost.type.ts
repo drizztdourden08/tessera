@@ -6,6 +6,7 @@ interface DragGhostProps {
   label: string;
   swap: boolean;
   overlay: boolean;
+  plain?: boolean;
 }
 
 export type { DragGhostProps };

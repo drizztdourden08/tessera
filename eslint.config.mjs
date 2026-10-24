@@ -22,7 +22,7 @@ export default standardsEslint({
   ],
   inlineStyle: [
     { files: ['src/composites/Widget/Widget.tsx'], why: 'the frame opacity is set per widget and turns solid on hover' },
-    { files: ['src/composites/DockLayout/sub-components/**', 'src/composites/dock-zones/**'], why: 'panes, dividers, drop hints and floating widgets sit at rectangles computed from the layout tree and the pointer' },
+    { files: ['src/composites/DockLayout/sub-components/**', 'src/composites/dock-zones/**', 'src/composites/ToolbarDock/sub-components/ToolbarDockDrag.tsx'], why: 'panes, dividers, drop hints, toolbar drop previews and floating widgets sit at rectangles computed from the layout tree and the pointer' },
     { files: ['src/composites/SplitPane/SplitPane.tsx'], why: 'the split share is dragged by the user' },
     { files: ['src/composites/ItemList/ItemList.tsx'], why: 'the body height is the measured bottom edge of the Nth row, set as one custom property' },
     { files: ['src/composites/ListDetailLayout/ListDetailLayout.tsx'], why: 'the list width is dragged by the user' },
