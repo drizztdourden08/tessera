@@ -7,12 +7,15 @@ import type { IconEffectColor, IconEffectKind, IconEffectSize, IconFlip, IconNam
 import { APP_ICONS } from '../../src/primitives/icon-sets/app.constants';
 import { STATUS_ICONS } from '../../src/primitives/icon-sets/status.constants';
 import { INTERFACE_ICONS } from '../../src/primitives/icon-sets/interface.constants';
+import { PIXEL_GRIDS } from '../../src/primitives/icon-sets/pixel.constants';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { IconEffectSpecimen } from './IconEffectSpecimen';
 import { IconEffectsGallery } from './IconEffectsGallery';
 import { IconGallery } from './IconGallery';
 import { IconOwnPaths } from './IconOwnPaths';
+import { PixelIconGallery } from './PixelIconGallery';
+import { PixelIconGuide } from './PixelIconGuide';
 import './icons.stories.css';
 
 type IconTone = 'text' | 'primary' | 'secondary' | 'warning' | 'danger' | 'muted';
@@ -100,6 +103,11 @@ const NamedSet = {
   ),
 } satisfies StoryLiteStoryDefinition<IconArgs>;
 
+const PixelSet = {
+  name: 'Pixel set',
+  render: () => <PixelIconGallery names={namesOf(PIXEL_GRIDS)} />,
+} satisfies StoryLiteStoryDefinition<IconArgs>;
+
 const Transforms = {
   name: 'Size, rotation and flip',
   render: () => (
@@ -142,6 +150,7 @@ import swordsIcon from '@iconify-icons/lucide/swords';
 
 <Icon name="gamepad-2" />
 <Icon name="arrow-right" size={24} rotate={90} />
+<Icon name="pixel-pencil" size={32} />
 <Icon name="trash-2" label="Delete preset" />
 <Icon name="search" effect="twinkle" />
 <Icon name="settings" effect={{ kind: 'ping', every: 2000, color: 'secondary' }} />
@@ -156,16 +165,17 @@ const Overview = overviewStory({
   points: [
     '`name` picks from the named set, with short names such as `tree` and `water`; `icon` takes any @iconify icon.',
     '`path` draws an icon of your own: `d` takes path data, `circles` circles, `viewBox` the grid, 16 by default.',
-    'It draws in `currentColor`, so it takes the colour of the text around it.',
-    '`size`, `rotate` in quarter turns and `flip` set how it sits.',
+    'It draws in `currentColor`; `size`, `rotate` in quarter turns and `flip` set how it sits.',
+    '`pixel-` names are drawn on a 16 by 16 pixel grid and stay crisp at 16, 32 and 48 px.',
     '**Label it when it stands alone:** without a `label`, assistive tech skips it.',
     '`effect` lands a small pop every few seconds, such as a twinkle; reduced motion turns it off.',
   ],
   instead: '[EmojiIcon] for a colour emoji.',
   playground: Playground,
-  variants: [NamedSet, Transforms, Effects, AnyIcon, OwnPaths],
+  variants: [NamedSet, PixelSet, Transforms, Effects, AnyIcon, OwnPaths],
+  sections: [{ title: 'Pixel icon style guide', node: <PixelIconGuide /> }],
   code: CODE,
 });
 
 export default meta;
-export { AnyIcon, Effects, NamedSet, Overview, OwnPaths, Playground, Transforms };
+export { AnyIcon, Effects, NamedSet, Overview, OwnPaths, PixelSet, Playground, Transforms };

@@ -160,7 +160,7 @@ export { Glyph, GLYPHS } from './Glyph';
 export type { GlyphName, GlyphProps } from './Glyph';
 export type {
   BrandIconName, BrandIconProps, BrandIconTone, IconEffect, IconEffectColor, IconEffectKind, IconEffectOptions, IconEffectSize,
-  IconFlip, IconName, IconPath, IconPathCircle, IconProps, IconRotation, IconSet,
+  IconFlip, IconName, IconPath, IconPathCircle, IconProps, IconRotation, IconSet, PixelGrid,
 } from './Icon';
 export {
   GAMEPAD_INPUT_ICONS, INPUT_ICON_FAMILIES, INPUT_ICON_NAMES, INPUT_ICONS, InputIcon, gamepadInputIcon, inputIconData, isInputIconName,
