@@ -17,6 +17,7 @@ interface ToolbarDemoProps {
   extent?: string;
   captions?: boolean;
   readout?: boolean;
+  pixel?: boolean;
 }
 
 export type { ToolbarArgs, ToolbarDemoProps, ToolId };

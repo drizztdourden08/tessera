@@ -23,6 +23,11 @@
   font-size: var(--text-xs);
 }
 
+.btn--xs:has(.icon--pixel),
+.btn--sm:has(.icon--pixel) {
+  min-block-size: var(--control-h-pixel);
+}
+
 .btn--full {
   width: 100%;
 }

@@ -6,9 +6,11 @@ import type { ToolId } from './toolbar-story.type';
 
 const TOOL_ICONS = { pencil: 'pencil', eraser: 'eraser', bucket: 'paint-bucket', pipette: 'pipette', hand: 'hand' } as const;
 
+const PIXEL_TOOL_ICONS = { pencil: 'pixel-pencil', eraser: 'pixel-eraser', bucket: 'pixel-fill-bucket', pipette: 'pixel-eyedropper', hand: 'pixel-hand' } as const;
+
 const TOOL_ORDER: readonly ToolId[] = ['pencil', 'eraser', 'bucket', 'pipette', 'hand'];
 
-const useDrawingTools = (captions: boolean) => {
+const useDrawingTools = (captions: boolean, pixel = false) => {
   const [tool, setTool] = useState<ToolId>('pencil');
   const [size, setSize] = useState(2);
   const [shape, setShape] = useState('square');
@@ -22,7 +24,7 @@ const useDrawingTools = (captions: boolean) => {
     id,
     label: TOOL_NAMES[id],
     caption: captions ? TOOL_NAMES[id] : undefined,
-    icon: TOOL_ICONS[id],
+    icon: (pixel ? PIXEL_TOOL_ICONS : TOOL_ICONS)[id],
     description: TOOL_NOTES[id],
     shortcut: TOOL_KEYS[id],
     pressed: tool === id,
