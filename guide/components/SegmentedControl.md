@@ -23,7 +23,7 @@ SegmentedControl is the joined row that picks one of a few values.
 
 ## Use something else when
 
-- The choices are many or have long labels. Use `Select` instead.
+- The choices are many or have long labels. Use [Select](Select.md) instead.
 - Each choice needs a sentence of help. Use `RadioGroup` instead.
 - Several choices can be on at once. Use `ToggleGroup` instead.
 
