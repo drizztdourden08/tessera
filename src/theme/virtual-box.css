@@ -1,0 +1,13 @@
+/* @layer renderer-components @kind style */
+.virtual-box {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-bg);
+}

@@ -17,6 +17,7 @@ const usage = {
     'Place each row by its index with absolute position, and mark it with the index attribute so the focus is found.',
     'Wire onScroll to the scroll of the root, and onFocus and onBlur to the body, so a focused row stays drawn.',
     'Keep keyAt stable with useCallback; a new function on every render measures again.',
+    'Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.',
     'Use scrollTopToShow to find the scroll position that brings a row into view.',
   ],
   a11y: [
@@ -43,7 +44,7 @@ const Rows = ({ names }: { names: string[] }) => {
   );
 };
 `,
-  propsHash: 'd18d9c588bcec6df',
+  propsHash: 'f2802695eb92be60',
 } satisfies HookUsage;
 
 export { usage };

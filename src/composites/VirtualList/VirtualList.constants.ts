@@ -5,4 +5,6 @@ const COUNT_PROPERTY = '--vl-count';
 
 const INDEX_PROPERTY = '--vl-index';
 
-export { COUNT_PROPERTY, INDEX_ATTRIBUTE, INDEX_PROPERTY };
+const ROW_PROPERTY = '--vl-row-h';
+
+export { COUNT_PROPERTY, INDEX_ATTRIBUTE, INDEX_PROPERTY, ROW_PROPERTY };

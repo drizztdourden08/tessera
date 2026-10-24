@@ -12,7 +12,7 @@ import type { FocusEvent } from 'react';
 import type { VirtualMetrics, VirtualWindow, VirtualWindowInput } from './virtual.type';
 
 const useVirtualWindow = (input: VirtualWindowInput): VirtualWindow => {
-  const { enabled, count, keyAt, rootRef, indexAttribute, overscan = OVERSCAN } = input;
+  const { enabled, count, keyAt, rootRef, indexAttribute, overscan = OVERSCAN, sizeKey } = input;
   const bodyRef = useRef<HTMLElement>(null);
   const [metrics, setMetrics] = useState<VirtualMetrics>(INITIAL_METRICS);
   const [focusKey, setFocusKey] = useState<string | null>(null);
@@ -31,7 +31,7 @@ const useVirtualWindow = (input: VirtualWindowInput): VirtualWindow => {
     if (!enabled) return undefined;
     measure();
     return observeResize([rootRef.current], measure);
-  }, [enabled, count, measure, rootRef]);
+  }, [enabled, count, sizeKey, measure, rootRef]);
 
   const indices = useMemo(() => {
     const range = visibleRange({

@@ -718,6 +718,11 @@
               "VirtualList"
             ]
           },
+          "a long grid of equal tiles drawn only where it is in view": {
+            "components": [
+              "VirtualGrid"
+            ]
+          },
           "a rectangle dragged over items to pick them": {
             "components": [
               "MarqueeBox"
@@ -13563,6 +13568,129 @@
       "parts": []
     },
     {
+      "name": "VirtualGrid",
+      "tier": "composites",
+      "source": "src/composites/VirtualGrid/VirtualGrid.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A very long grid of equal square tiles, such as sprite thumbnails, where only the rows in view are drawn, with the arrow keys to move between tiles.",
+      "useWhen": [
+        "The grid has thousands of tiles, such as every frame of a sprite sheet or every image of a folder, and drawing them all would slow the page.",
+        "Every tile is the same square size and the app draws the content of each tile.",
+        "The user moves through the tiles with the keys and the grid must scroll to follow."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A long list of rows, one per line.",
+          "use": "VirtualList"
+        },
+        {
+          "case": "A short set of cards that can all be drawn at once.",
+          "use": "ItemCard"
+        },
+        {
+          "case": "Records with columns the user sorts, groups or resizes.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Give it items, getKey and renderItem; getKey returns a stable id, never the position.",
+        "Give label a name for the grid, since the tiles are drawn without a heading of their own.",
+        "Size the grid from its parent: it fills the height of its box and scrolls inside it.",
+        "Pick the tile with tileSize, the name of a size token such as size-96; the columns that fit the width of the box are worked out from it, and a raw pixel number is not accepted.",
+        "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
+        "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",
+        "Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid."
+      ],
+      "a11y": [
+        "The grid is a grid of cells with the row and column of each, so a reader hears where the tile is among thousands.",
+        "One tile is in the tab order; the four arrows move by a tile or a row, Home and End go to the start or end of the row, Ctrl with them goes to the first or last tile, and Page Up and Page Down move by a screen of rows.",
+        "A tile that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
+        "Keys act only when the tile itself has focus, so a field inside a tile keeps its own arrow keys."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a long grid of equal tiles drawn only where it is in view"
+        ],
+        "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
+      },
+      "example": "import { VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n",
+      "propsHash": "2a0d7e52b78890f7",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly T[]"
+          },
+          {
+            "name": "getKey",
+            "optional": false,
+            "text": "(item: T, index: number) => string"
+          },
+          {
+            "name": "renderItem",
+            "optional": false,
+            "text": "(item: T, index: number) => ReactNode"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "tileSize",
+            "optional": true,
+            "text": "VirtualSize",
+            "default": "'size-96'"
+          },
+          {
+            "name": "overscan",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "onActiveChange",
+            "optional": true,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-focus",
+        "--c-hover",
+        "--radius-md",
+        "--size-96",
+        "--space-xs",
+        "--vg-row",
+        "--vg-rows"
+      ],
+      "gallery": {
+        "title": "Composites · Lists/VirtualGrid",
+        "route": "#/story/composites-virtualgrid--overview",
+        "file": "stories/composites/VirtualGrid.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "VirtualList",
       "tier": "composites",
       "source": "src/composites/VirtualList/VirtualList.tsx",
@@ -13596,6 +13724,7 @@
         "Give label a name for the list, since the rows are drawn without a heading of their own.",
         "Size the list from its parent: it fills the height of its box and scrolls inside it.",
         "Pick rowSize compact, normal or roomy; the height comes from a token and is measured once from the first row, so keep every row the same height.",
+        "For a height of your own pass rowHeight, the name of a size token such as size-64; it wins over rowSize, and a raw pixel number is not accepted.",
         "Keep renderItem cheap and free of its own height; the row cuts what does not fit.",
         "Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.",
         "Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list."
@@ -13614,7 +13743,7 @@
         "rule": "VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly."
       },
       "example": "import { VirtualList } from '@drizztdourden08/tessera';\n\ninterface Entry {\n  id: string;\n  text: string;\n}\n\nconst EventLog = ({ entries }: { entries: Entry[] }) => (\n  <VirtualList\n    label=\"Events\"\n    items={entries}\n    getKey={(entry) => entry.id}\n    renderItem={(entry) => entry.text}\n  />\n);\n",
-      "propsHash": "6a848a0abd982464",
+      "propsHash": "1d3f54f91cc2c59b",
       "props": {
         "own": [
           {
@@ -13647,6 +13776,11 @@
               "'roomy'"
             ],
             "default": "'normal'"
+          },
+          {
+            "name": "rowHeight",
+            "optional": true,
+            "text": "VirtualSize"
           },
           {
             "name": "overscan",
@@ -14772,6 +14906,7 @@
         "Place each row by its index with absolute position, and mark it with the index attribute so the focus is found.",
         "Wire onScroll to the scroll of the root, and onFocus and onBlur to the body, so a focused row stays drawn.",
         "Keep keyAt stable with useCallback; a new function on every render measures again.",
+        "Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.",
         "Use scrollTopToShow to find the scroll position that brings a row into view."
       ],
       "a11y": [
@@ -14779,7 +14914,7 @@
         "Give each row its position and the size of the list with aria-posinset and aria-setsize, since the rest are not in the page."
       ],
       "example": "import { useCallback, useRef } from 'react';\nimport { Box, useVirtualWindow } from '@drizztdourden08/tessera';\n\nconst ROW_ATTRIBUTE = 'data-row';\n\nconst Rows = ({ names }: { names: string[] }) => {\n  const rootRef = useRef<HTMLElement>(null);\n  const keyAt = useCallback((index: number) => names[index], [names]);\n  const windowed = useVirtualWindow({ enabled: true, count: names.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE });\n  return (\n    <Box ref={rootRef} onScroll={windowed.onScroll}>\n      <Box ref={windowed.bodyRef} onFocus={windowed.onFocus} onBlur={windowed.onBlur}>\n        {windowed.indices.map((at) => (\n          <Box key={names[at]} {...{ [ROW_ATTRIBUTE]: at }}>{names[at]}</Box>\n        ))}\n      </Box>\n    </Box>\n  );\n};\n",
-      "propsHash": "d18d9c588bcec6df",
+      "propsHash": "f2802695eb92be60",
       "exports": [
         {
           "name": "renderedIndices",
@@ -14802,14 +14937,34 @@
           "text": "interface ShowInput {\n  index: number;\n  rowHeight: number;\n  viewport: number;\n  scrollTop: number;\n}"
         },
         {
+          "name": "sizeVariable",
+          "kind": "function",
+          "text": "(token: VirtualSize) => string"
+        },
+        {
           "name": "useVirtualWindow",
           "kind": "hook",
           "text": "(input: VirtualWindowInput) => VirtualWindow"
         },
         {
+          "name": "VirtualFocusModel",
+          "kind": "type",
+          "text": "interface VirtualFocusModel {\n  rootRef: RefObject<HTMLElement | null>;\n  bodyRef: RefObject<HTMLElement | null>;\n  tabbable: number;\n  onScroll: () => void;\n  onFocus: (event: FocusEvent<HTMLElement>) => void;\n  onBlur: (event: FocusEvent<HTMLElement>) => void;\n  activate: (index: number) => void;\n  navigate: (event: KeyboardEvent<HTMLElement>, index: number) => void;\n}"
+        },
+        {
+          "name": "VirtualItemsInput",
+          "kind": "type",
+          "text": "interface VirtualItemsInput<T> {\n  items: readonly T[];\n  getKey: (item: T, index: number) => string;\n  overscan?: number;\n  sizeKey?: string;\n  onActiveChange?: (index: number) => void;\n}"
+        },
+        {
           "name": "VirtualMetrics",
           "kind": "type",
           "text": "interface VirtualMetrics {\n  top: number;\n  viewport: number;\n  rowHeight: number;\n}"
+        },
+        {
+          "name": "VirtualSize",
+          "kind": "type",
+          "text": "type VirtualSize =\n  | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'\n  | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';"
         },
         {
           "name": "VirtualWindow",
@@ -14819,7 +14974,7 @@
         {
           "name": "VirtualWindowInput",
           "kind": "type",
-          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n}"
+          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n  sizeKey?: string;\n}"
         },
         {
           "name": "visibleRange",
