@@ -5,6 +5,7 @@ export * from './navigation-exports';
 export * from './layout-exports';
 export * from './input-exports';
 export * from './window-exports';
+export { FloatingPrompt, type FloatingPromptAction, type FloatingPromptProps, type FloatingPromptScope } from './FloatingPrompt';
 export * from './record-exports';
 export { ContentHeader } from './ContentHeader';
 export type { ContentHeaderLevel, ContentHeaderProps } from './ContentHeader';

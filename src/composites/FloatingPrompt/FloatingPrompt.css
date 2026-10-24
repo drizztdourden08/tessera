@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind style */
+.overlay.floating-prompt {
+  align-items: flex-end;
+  justify-content: stretch;
+  padding: var(--space-sm);
+}
+
+.overlay.floating-prompt--window {
+  position: fixed;
+}
+
+.toast.floating-prompt__bar {
+  width: 100%;
+  max-width: none;
+}
+
+.toast.floating-prompt__bar:focus {
+  outline: none;
+}
+
+.floating-prompt__actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-xs);
+}
