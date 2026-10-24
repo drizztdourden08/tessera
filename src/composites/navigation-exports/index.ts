@@ -12,6 +12,7 @@ export type {
   DropdownMenuProps, MenuAlign, MenuGroup, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from '../DropdownMenu';
+export { ContextMenu, type ContextMenuPoint, type ContextMenuProps } from '../ContextMenu';
 export { FloatingSwitch, type FloatingSwitchItem, type FloatingSwitchProps } from '../FloatingSwitch';
 export {
   CONTROLLER_SILHOUETTE_ANCHOR_IDS, CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS,

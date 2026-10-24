@@ -65,7 +65,7 @@ export type { DateFormat, DateFormatOptions, DateLength, DatePreset, DateStrings
 export type { LabelBox, ValueMark, ValueRule, ValueRuleMarks, ValueRuleParse, ValueScale } from './value-rule';
 export { RadioGroup, type RadioOption } from './RadioGroup';
 export { SegmentedControl } from './SegmentedControl';
-export type { SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps } from './SegmentedControl';
+export type { SegmentIcon, SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps } from './SegmentedControl';
 export { ToggleGroup } from './ToggleGroup';
 export type { ToggleOption, ToggleGroupProps } from './ToggleGroup';
 export { Tabs, type TabItem } from './Tabs';

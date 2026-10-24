@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 75 of 194 have their usage written; a linked name opens its page.
+One line per component. 78 of 196 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -53,7 +53,7 @@ One line per component. 75 of 194 have their usage written; a linked name opens 
 - `ScrollArea`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SectionHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `SegmentedControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [SegmentedControl](components/SegmentedControl.md): A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one. Import from `@drizztdourden08/tessera`.
 - `Select`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Shortcut`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Slider`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -87,6 +87,7 @@ One line per component. 75 of 194 have their usage written; a linked name opens 
 
 - [ActionBar](components/ActionBar.md): The actions on one item in a single row: the primary action last, the ones that do not fit folded into a More menu. Import from `@drizztdourden08/tessera`.
 - [ActionTile](components/ActionTile.md): A tile with one headline value that also does one thing: runs an action, copies a text, or leads to the full view. Import from `@drizztdourden08/tessera`.
+- [AnchorPicker](components/AnchorPicker.md): A three by three grid that picks where something is anchored: a corner, an edge or the centre. Import from `@drizztdourden08/tessera`.
 - [ArmedIconButton](components/ArmedIconButton.md): An icon button pressed twice: the first press arms it and its icon loops a short motion, the second press acts. Import from `@drizztdourden08/tessera`.
 - [Carousel](components/Carousel.md): Shows one slide at a time from a set, with dots and arrows to move between them, and can turn to the next slide by itself. Import from `@drizztdourden08/tessera`.
 - [CheckList](components/CheckList.md): The results of a list of checks, such as a connection test or a diagnostics report, each with its state, what was found and an optional fix. Import from `@drizztdourden08/tessera`.
@@ -99,6 +100,7 @@ One line per component. 75 of 194 have their usage written; a linked name opens 
 - `CompactRecordView`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ContentHeader](components/ContentHeader.md): The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end. Import from `@drizztdourden08/tessera`.
+- [ContextMenu](components/ContextMenu.md): A menu that opens where the user right-clicks, long presses or presses the menu key, built from the same data as DropdownMenu. Import from `@drizztdourden08/tessera`.
 - [ControllerSilhouette](components/ControllerSilhouette.md): The outline of a controller, one stroked line with no fill, for the app to draw its own glyphs, labels and lines on. Import from `@drizztdourden08/tessera`.
 - [ControlMenu](components/ControlMenu.md): A dropdown of settings behind one button: each row is a label with one compact control, and the panel joins its button like a DropdownMenu. Import from `@drizztdourden08/tessera`.
 - [CopyButton](components/CopyButton.md): A button that copies a text to the clipboard and confirms it with a check and the word Copied. Import from `@drizztdourden08/tessera`.
