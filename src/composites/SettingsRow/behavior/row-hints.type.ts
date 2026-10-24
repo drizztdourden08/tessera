@@ -7,7 +7,7 @@ type Words = TesseraStrings['settings'];
 interface RowHints {
   resting: string;
   hints: readonly Hint[];
-  whole: Hint;
+  whole?: Hint;
   rest: readonly Hint[];
   current?: Hint;
 }
