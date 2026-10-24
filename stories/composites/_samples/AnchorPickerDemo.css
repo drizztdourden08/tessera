@@ -1,0 +1,49 @@
+/* @layer stories @kind style */
+.anchor-demo {
+  align-items: center;
+}
+
+.anchor-demo__frame {
+  display: grid;
+  inline-size: var(--size-96);
+  block-size: var(--size-96);
+  padding: var(--space-2xs);
+  border: var(--border-width-thin) dashed var(--c-border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.anchor-demo__image {
+  inline-size: var(--size-40);
+  block-size: var(--size-28);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-soft);
+  border: var(--border-width-thin) solid var(--c-primary);
+}
+
+.anchor-demo__frame[data-anchor^='top'] .anchor-demo__image {
+  align-self: start;
+}
+
+.anchor-demo__frame[data-anchor^='bottom'] .anchor-demo__image {
+  align-self: end;
+}
+
+.anchor-demo__frame[data-anchor='left'] .anchor-demo__image,
+.anchor-demo__frame[data-anchor='center'] .anchor-demo__image,
+.anchor-demo__frame[data-anchor='right'] .anchor-demo__image {
+  align-self: center;
+}
+
+.anchor-demo__frame[data-anchor$='left'] .anchor-demo__image {
+  justify-self: start;
+}
+
+.anchor-demo__frame[data-anchor$='right'] .anchor-demo__image {
+  justify-self: end;
+}
+
+.anchor-demo__frame[data-anchor='top'] .anchor-demo__image,
+.anchor-demo__frame[data-anchor='center'] .anchor-demo__image,
+.anchor-demo__frame[data-anchor='bottom'] .anchor-demo__image {
+  justify-self: center;
+}

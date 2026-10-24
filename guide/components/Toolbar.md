@@ -25,7 +25,7 @@ Toolbar is the set of tools of an editor, with a hint on each and options beside
 ## Use something else when
 
 - The buttons are the actions of one item and fold into More when narrow. Use [ActionBar](ActionBar.md) instead.
-- The user picks one value for a form field from a short list. Use `SegmentedControl` instead.
+- The user picks one value for a form field from a short list. Use [SegmentedControl](SegmentedControl.md) instead.
 - The actions are rare or secondary and one button can hold them all. Use [DropdownMenu](DropdownMenu.md) instead.
 
 ## Rules

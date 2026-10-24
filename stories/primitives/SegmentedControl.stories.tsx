@@ -42,6 +42,12 @@ const ALIGN_ICONS: SegmentOption<Align>[] = [
   { value: 'right', label: <Icon name="chevron-right" />, title: 'Align right' },
 ];
 
+const NODE_ICONS: SegmentOption<Align>[] = [
+  { value: 'left', icon: <Glyph name="minus" />, hint: { label: 'Thin', description: 'A custom node as the icon' } },
+  { value: 'center', icon: <Glyph name="widen" />, hint: { label: 'Wide', description: 'Another node as the icon' } },
+  { value: 'right', icon: <Text as="span" variant="caption">Aa</Text>, hint: { label: 'Text', description: 'Any node works, even text' } },
+];
+
 const ARGS: Partial<SegmentedControlArgs> = { label: 'Window scale', description: 'How large the game picture is drawn.', disabled: false, deselectable: false, size: 'md' };
 
 const ARG_TYPES: PlaygroundArgTypes<SegmentedControlArgs> = {
@@ -97,6 +103,11 @@ const Kinds = {
   ),
 } satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
 
+const IconNodes = {
+  name: 'Icon nodes',
+  render: () => <StatefulSegments<Align> initial="center" options={NODE_ICONS} label="Icons from nodes" />,
+} satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
+
 const Sizes = {
   name: 'Sizes',
   render: () => (
@@ -146,7 +157,7 @@ const Overview = overviewStory({
   description: 'A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one.',
   points: [
     'Use it for short settings where every choice fits on one line, such as a scale or an alignment.',
-    'Options can be text, or an icon named by its hint.',
+    'Options can be text, or an icon: a name from the set or any node, such as a Glyph, named by its hint.',
     '`onDeselect` lets a second click on the active option clear the value.',
     'Each option can carry a `hint` that a [HintLine] shows while it is pointed at or focused.',
     'The arrow keys pick; an option `disabled` with a string shows why in a tooltip, and the arrows skip it.',
@@ -154,7 +165,7 @@ const Overview = overviewStory({
   ],
   instead: '[ToggleGroup] to switch several options on, or [Tabs] to switch views.',
   playground: Playground,
-  variants: [Kinds, Sizes, HintOutput],
+  variants: [Kinds, IconNodes, Sizes, HintOutput],
   states: {
     render: renderState,
     list: [
@@ -169,4 +180,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { HintOutput, Kinds, Overview, Playground, Sizes };
+export { HintOutput, IconNodes, Kinds, Overview, Playground, Sizes };
