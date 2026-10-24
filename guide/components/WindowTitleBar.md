@@ -31,6 +31,7 @@ WindowTitleBar is the one title bar of a frameless window, with the same brand, 
 - The app owns the window state: pass maximized, fullscreen and pinned, and act on each control in onControl.
 - Hide a control the host lacks in controls, such as close: false; controls={false} hides them all, for a host with no window buttons.
 - Every action but a volume has a label and an icon; tone and effect mark the icon, the same on a command, a status or a dropdown action.
+- Set disabled on an action that cannot run now, such as Undo with nothing to undo; disabledReason says why in its tooltip.
 - Use bar volume for a sound level: the bar draws VolumeControl, and the main menu lists a Mute or Unmute row and a slider row named by label.
 - Use bar dropdown for an action with a few choices of its own; narrow windows fold it into the main menu as a sub-menu.
 - Keep the actions few: narrow windows move them into the main menu, then shrink the brand.
@@ -45,6 +46,7 @@ WindowTitleBar is the one title bar of a frameless window, with the same brand, 
 ## Accessibility
 
 - Each action is an icon button named by its label, with a tooltip and aria-keyshortcuts for its shortcut.
+- A disabled action keeps focus with aria-disabled and describes its reason, so the keyboard reaches the tooltip; its main menu row is disabled.
 - A dropdown action is a menu button with aria-haspopup; its menu takes the keys of DropdownMenu.
 - A concealed bar opens on focus and on Alt, so the keyboard always reaches it.
 
@@ -109,4 +111,4 @@ const AppTitleBar = ({ menu, grouped, maximized, onGroup, onSearch, onControl }:
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-hover`, `--c-info`, `--c-on-danger`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-surface`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-warning`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-status-breathe`, `--ease-in-out`, `--ease-out`, `--ease-standard`, `--font-mono`, `--hamburger-icon-bar`, `--hamburger-icon-h`, `--opacity-glow`, `--radius-sm`, `--size-14`, `--size-20`, `--size-48`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--titlebar-height`, `--tracking-caps`, `--tracking-wide`, `--transition-normal`, `--weight-medium`, `--z-panel`, `--z-title-bar`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-hover`, `--c-info`, `--c-on-danger`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-surface`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-warning`, `--duration-fast`, `--duration-normal`, `--duration-slow`, `--duration-status-breathe`, `--ease-in-out`, `--ease-out`, `--ease-standard`, `--font-mono`, `--hamburger-icon-bar`, `--hamburger-icon-h`, `--opacity-disabled`, `--opacity-glow`, `--radius-sm`, `--size-14`, `--size-20`, `--size-48`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--titlebar-height`, `--tracking-caps`, `--tracking-wide`, `--transition-normal`, `--weight-medium`, `--z-panel`, `--z-title-bar`.

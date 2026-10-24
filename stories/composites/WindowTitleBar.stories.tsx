@@ -19,6 +19,7 @@ import { TitleBarGroupDemo } from './_samples/TitleBarGroupDemo';
 import { TitleBarViewDemo } from './_samples/TitleBarViewDemo';
 import { TitleBarWidths } from './_samples/TitleBarWidths';
 import { TITLE_BAR_CODE } from './_samples/title-bar-code.constants';
+import { DisabledActions } from './_samples/title-bar-disabled-story';
 import { Morph } from './_samples/title-bar-morph-story';
 import { TuckedRowsPlaced } from './_samples/title-bar-tucked-rows-story';
 import { ViewHiddenNarrow } from './_samples/title-bar-tucked-story';
@@ -33,8 +34,6 @@ const ignore = () => undefined;
 const STATE_MENU = buildTitleMenu(ignore, false);
 
 const STATE_ACTIONS = titleBarActions(ignore);
-
-const PULSE_ACTIONS = titleBarActions(ignore, 'Downloading', true);
 
 const controlsOf = (args: TitleBarArgs): WindowControlsConfig => ({
   fullscreen: args.fullscreenButton,
@@ -197,14 +196,14 @@ const Overview = overviewStory({
   description: 'The title bar of a frameless desktop app window: the brand in the middle, a menu on the left, window buttons on the right.',
   points: [
     '`menu` takes [DropdownMenu] groups; `view` hides its View sub-menu or moves it; `onControl` hears the buttons.',
-    '`actions` add icon buttons with a tooltip of their label and `shortcut`; `tone` and `effect` mark the icon.',
+    '`actions` are icon buttons; the tooltip shows label and `shortcut`. `tone`, `effect`, `disabled` change one.',
     "`bar: 'dropdown'` opens a menu of its own from `groups`; `bar: 'volume'` draws a [VolumeControl].",
     "A `bar: 'status'` action shows `status` as text with digits of one width; `pulse` adds a beating dot.",
     'Narrow windows move items into the menu, a dropdown as a sub-menu; `controls` hides buttons, `false` all.',
     '`concealed` and full screen tuck the bar away until the pointer nears the top, focus enters it or [[Alt]] is tapped.',
   ],
   playground: Playground,
-  variants: [AppWindow, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed, ViewHidden, ViewMoved, ViewHiddenNarrow, ViewStates, TuckedRowsPlaced],
+  variants: [AppWindow, DisabledActions, Morph, Narrow, OwnMenu, FrameRate, MarkedMenu, Resizable, FewerButtons, NoControls, SecondInstance, Maximized, Concealed, ViewHidden, ViewMoved, ViewHiddenNarrow, ViewStates, TuckedRowsPlaced],
   states: {
     render: renderState,
     list: [
@@ -214,7 +213,7 @@ const Overview = overviewStory({
       { ...STATE.hover, name: 'Hover on the menu', target: '.menu-button' },
       { ...STATE.focus, target: '.window-title-bar__control' },
       { name: 'Pinned', props: { pinned: true } },
-      { name: 'Status pulse', props: { actions: PULSE_ACTIONS } },
+      { name: 'Status pulse', props: { actions: titleBarActions(ignore, 'Downloading', true) } },
       { name: 'Instance', props: { instance: { name: 'Dev', logo: DEV_LOGO } } },
       { name: 'Maximized', props: { maximized: true } },
       { name: 'Concealed', props: { concealed: true, peek: false } },
@@ -226,5 +225,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AppWindow, Concealed, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance, TuckedRowsPlaced, ViewHidden, ViewHiddenNarrow, ViewMoved, ViewStates,
+  AppWindow, Concealed, DisabledActions, FewerButtons, FrameRate, MarkedMenu, Maximized, Morph, Narrow, NoControls, Overview, OwnMenu, Playground, Resizable, SecondInstance, TuckedRowsPlaced, ViewHidden, ViewHiddenNarrow, ViewMoved, ViewStates,
 };

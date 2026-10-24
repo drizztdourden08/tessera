@@ -18,7 +18,7 @@ const actionMenuItem = (action: WindowTitleBarAction, strings: TitleBarMenuInput
   if (action.bar === 'volume') return volumeMenuItems(action, strings);
   const { id, label, shortcut } = action;
   const icon = action.tone !== undefined || action.effect !== undefined ? createElement(TitleBarActionIcon, { action }) : action.icon;
-  if (action.bar !== 'dropdown') return [{ id, icon, label, description: action.status, shortcut, onSelect: action.onSelect }];
+  if (action.bar !== 'dropdown') return [{ id, icon, label, description: action.status, shortcut, disabled: action.disabled, onSelect: action.onSelect }];
   const children = dropdownNodes(action.groups);
   return children.length > 0 ? [{ id, icon, label, shortcut, children }] : [];
 };
