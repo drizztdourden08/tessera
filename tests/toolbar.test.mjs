@@ -3,6 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Toolbar } from '../src/composites/Toolbar';
+import { MenuIconGlyph } from '../src/composites/DropdownMenu/sub-components/MenuIconGlyph';
 import { foldedGroups } from '../src/composites/Toolbar/behavior/folded-groups';
 import { nextStop } from '../src/composites/Toolbar/behavior/next-stop';
 import { splitItems } from '../src/composites/Toolbar/behavior/split-items';
@@ -160,5 +161,47 @@ describe('Toolbar', () => {
   it('draws a separator across the way the toolbar runs', () => {
     expect(draw()).toMatch(/divider--vertical/);
     expect(draw({ orientation: 'vertical' })).toMatch(/divider--horizontal/);
+  });
+});
+
+describe('Toolbar icon as a node', () => {
+  const mark = h('i', { 'data-mark': 'bitmap' });
+
+  it('draws a node icon as given, without wrapping it in Icon', () => {
+    const [tool] = tags(draw({ items: [toggle('custom', { icon: mark })] }), /<button[^>]*data-toolbar-stop="custom"[^>]*>.*?<\/button>/g);
+    expect(tool).toContain('<i data-mark="bitmap"></i>');
+    expect(tool).not.toContain('<svg');
+  });
+
+  it('keeps a string icon going through Icon', () => {
+    const [tool] = tags(draw({ items: [button('plain', { icon: 'pencil' })] }), /<button[^>]*data-toolbar-stop="plain"[^>]*>.*?<\/button>/g);
+    expect(tool).toContain('<svg');
+    expect(tool).not.toContain('data-mark');
+  });
+
+  it('draws a node icon of a group choice', () => {
+    const choices = [{ value: 'a', label: 'A', icon: mark }, { value: 'b', label: 'B', icon: 'circle' }];
+    const html = draw({ items: [{ ...group, value: 'a', choices }] });
+    const [first, second] = tags(html, /<button[^>]*data-toolbar-stop="mirror:[ab]"[^>]*>.*?<\/button>/g);
+    expect(first).toContain('data-mark="bitmap"');
+    expect(second).toContain('<svg');
+  });
+
+  it('folds a node icon into a menu item that draws it, and keeps a name as a name', () => {
+    const [custom, plain] = foldedGroups([button('custom', { icon: mark }), button('plain')])[0].items;
+    expect(renderToString(h(MenuIconGlyph, { icon: custom.icon }))).toBe('<i data-mark="bitmap"></i>');
+    expect(plain.icon).toBe('pencil');
+  });
+
+  it('wraps a node that is not an element so the menu can draw it', () => {
+    const [entry] = foldedGroups([button('count', { icon: 3 })])[0].items;
+    expect(renderToString(h(MenuIconGlyph, { icon: entry.icon }))).toBe('3');
+  });
+
+  it('keeps the node icon on the folded tool that has options', () => {
+    const options = [{ id: 'size', items: [{ id: 'one', label: '1 px' }] }];
+    const [entry] = foldedGroups([toggle('custom', { icon: mark, options })])[0].items;
+    expect(renderToString(h(MenuIconGlyph, { icon: entry.icon }))).toBe('<i data-mark="bitmap"></i>');
+    expect(renderToString(h(MenuIconGlyph, { icon: entry.children[0].icon }))).toBe('<i data-mark="bitmap"></i>');
   });
 });

@@ -17,6 +17,7 @@ const usage = {
     'Keep every value in the app; the toolbar draws items and calls onSelect, onChange and the options of each item.',
     'An item is a button, a toggle, a group of choices, a number or a separator. A tool the user picks is a toggle with pressed set on the current one.',
     'orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.',
+    'icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.',
     'Give shortcut as text such as Ctrl+Z or as keys. The hint and the folded menu draw it with Shortcut; it never sits on the button.',
     'options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar.',
     'Items that do not fit fold into More, in order; a group becomes a labelled set of choices and a number becomes a slider.',

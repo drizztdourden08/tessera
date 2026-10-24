@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind util */
 import type { MenuGroup, MenuItem, MenuNode } from '../../DropdownMenu/DropdownMenu.type';
+import { menuIcon } from './menu-icon';
 import type { ToolbarButton, ToolbarChoices, ToolbarItem, ToolbarNumber, ToolbarToggle } from '../Toolbar.type';
 
 const optionNodes = (groups: readonly MenuGroup[]): MenuNode[] =>
@@ -7,15 +8,15 @@ const optionNodes = (groups: readonly MenuGroup[]): MenuNode[] =>
 
 const withOptions = (item: ToolbarButton | ToolbarToggle, own: MenuItem): MenuItem => {
   if (item.options === undefined || item.options.length === 0) return own;
-  return { id: item.id, label: item.label, icon: item.icon, disabled: item.disabled, children: [own, { separator: true }, ...optionNodes(item.options)] };
+  return { id: item.id, label: item.label, icon: menuIcon(item.icon), disabled: item.disabled, children: [own, { separator: true }, ...optionNodes(item.options)] };
 };
 
 const buttonEntry = (item: ToolbarButton): MenuItem => withOptions(item, {
-  id: `${item.id}-run`, label: item.label, icon: item.icon, description: item.description, shortcut: item.shortcut, disabled: item.disabled, onSelect: item.onSelect,
+  id: `${item.id}-run`, label: item.label, icon: menuIcon(item.icon), description: item.description, shortcut: item.shortcut, disabled: item.disabled, onSelect: item.onSelect,
 });
 
 const toggleEntry = (item: ToolbarToggle): MenuItem => withOptions(item, {
-  id: `${item.id}-toggle`, label: item.label, icon: item.icon, description: item.description, shortcut: item.shortcut, disabled: item.disabled,
+  id: `${item.id}-toggle`, label: item.label, icon: menuIcon(item.icon), description: item.description, shortcut: item.shortcut, disabled: item.disabled,
   kind: 'check', checked: item.pressed, onSelect: () => item.onChange(!item.pressed),
 });
 
@@ -30,7 +31,7 @@ const choiceGroup = (item: ToolbarChoices): MenuGroup => ({
   items: item.choices.map((choice) => ({
     id: `${item.id}:${choice.value}`,
     label: choice.label,
-    icon: choice.icon,
+    icon: menuIcon(choice.icon),
     description: choice.description,
     shortcut: choice.shortcut,
     disabled: choice.disabled,

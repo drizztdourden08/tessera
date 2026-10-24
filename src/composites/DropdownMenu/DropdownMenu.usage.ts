@@ -28,6 +28,7 @@ const usage = {
     'align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.',
     'Anchored menus take side: below or above a button, right or left of a tool in a rail. Right and left line up with the top of the anchor and flip to the other side when there is no room.',
     'openOnHover on a trigger opens the menu after a short delay and closes it a moment after the pointer leaves both; click and the arrow keys still work. An anchored menu takes the same through hover, with focusOnOpen off so a hover does not take focus.',
+    'To open a menu from a button of your own on hover, call useHoverOpen({ open, byHover, anchorRef, onOpen, onClose }) and spread the result on the button; pass it as hover to an anchored menu. byHover is true when the hover opened it, so a click or key opening stays open.',
   ],
   a11y: [
     'The menu is role menu named by label; items are menuitem, menuitemcheckbox or menuitemradio, and a confirm item stays a menuitem.',
