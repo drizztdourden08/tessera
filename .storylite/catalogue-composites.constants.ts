@@ -70,7 +70,6 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Lists',
       entries: [
         { name: 'ListItemRow', summary: 'One selectable row: icon, name and meta, any number of two-line columns that line up in a list, and an action.' },
-        { name: 'ReorderList', summary: 'A list the user reorders by drag or keys, with a row of on and off icons on each item, such as the layers of a drawing.' },
         { name: 'GroupTree', summary: 'A keyboard tree of groups with guides, icons and counts, and the items as leaves.' },
         { name: 'SearchResults', summary: 'The search pane: a summary with page chips over groups of matches.' },
         { name: 'SearchResultGroup', summary: 'One group of matches: glowing icon, title, count and an open button.' },
@@ -113,7 +112,6 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'VolumeControl', summary: 'A mute button beside a volume slider, with the icon following the level.' },
         { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
         { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
-        { name: 'SwatchGrid', summary: 'A grid of colour swatches to pick from, range over and put in order, with transparent slots and a second colour.' },
         { name: 'KeyValueEditor', summary: 'A map of names to values, row by row, with a duplicate check and an add row.' },
         { name: 'CommandInput', summary: 'A command line with Enter to send, Up and Down through past commands and Escape to clear.' },
         { name: 'PasswordInput', summary: 'A password with a show button, any mask character, a Caps Lock warning and an optional checklist.' },

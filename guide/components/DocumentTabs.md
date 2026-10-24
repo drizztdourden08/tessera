@@ -26,7 +26,7 @@ DocumentTabs is the strip of open documents the user switches, closes and reorde
 
 - The tabs are fixed views of one area, with no close and no reorder. Use `Tabs` instead.
 - The tabs split one long form into groups with counts. Use [FormGroupTabs](FormGroupTabs.md) instead.
-- The items are a vertical list the user reorders, with on and off icons. Use [ReorderList](ReorderList.md) instead.
+- The items are a short list of rows the user edits and puts in order. Use [RowGrid](RowGrid.md) instead.
 
 ## Rules
 

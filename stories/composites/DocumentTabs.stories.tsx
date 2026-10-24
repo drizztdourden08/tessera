@@ -51,7 +51,7 @@ const Overview = overviewStory({
     'Drag a tab, or press [[Alt+Left]] or [[Alt+Right]]. [[Delete]] or [[Ctrl+W]] closes the focused tab.',
     'Too many tabs scroll with the active one in view; `overflowMenu` adds a menu that lists them all.',
   ],
-  instead: '[Tabs] for fixed views of one area, or [ReorderList] for a vertical list the user reorders.',
+  instead: '[Tabs] for fixed views of one area, or [RowGrid] for a short list of rows the user edits and puts in order.',
   playground: Playground,
   variants: [ThreeDocuments, ManyTabs, Reorder],
   states: {

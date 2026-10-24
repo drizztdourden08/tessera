@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 75 of 197 have their usage written; a linked name opens its page.
+One line per component. 73 of 195 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -147,7 +147,6 @@ One line per component. 75 of 197 have their usage written; a linked name opens 
 - `PressedGrid`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [ReorderList](components/ReorderList.md): A list of named items the user puts in order by drag or by keys, with a row of on and off icons on each item, such as the layers of a drawing. Import from `@drizztdourden08/tessera`.
 - [ResizeHandle](components/ResizeHandle.md): The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range. Import from `@drizztdourden08/tessera`.
 - [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.
 - [RowGrid](components/RowGrid.md): A short list the user edits in place, one row per item and one input per column, such as the players of a session. Import from `@drizztdourden08/tessera`.
@@ -175,7 +174,6 @@ One line per component. 75 of 197 have their usage written; a linked name opens 
 - [StatusBar](components/StatusBar.md): The thin bar at the foot of an editor window: a row of labelled readouts such as cursor, zoom, colour and frame. Import from `@drizztdourden08/tessera`.
 - `StickPlot`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StudioLayout](components/StudioLayout.md): The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right, under an optional bar of actions. Import from `@drizztdourden08/tessera`.
-- [SwatchGrid](components/SwatchGrid.md): A grid of square colour swatches the user picks from, ranges over and puts in order, such as the palette of a pixel art editor. Import from `@drizztdourden08/tessera`.
 - `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
 - [Toast](components/Toast.md): A short message in a corner of the window that leaves on its own, raised with toast() from any part of the app and drawn by the one ToastStack. Import from `@drizztdourden08/tessera`.
