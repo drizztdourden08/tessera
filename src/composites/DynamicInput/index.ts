@@ -6,6 +6,6 @@ export type {
   ParsedPattern, PatternPart, PatternSlotCase, PatternSlotChars, PatternSlotControl, PatternSlotSpec, PatternSlotType,
 } from './behavior/parse-pattern.type';
 export type {
-  DynamicInputProps, PatternAction, PatternActions, PatternChoice, PatternIcons, PatternLists, PatternSetup, PatternSlotConfig,
-  PatternSlotConfigs, PatternSlotValue, PatternValue,
+  DynamicInputProps, PatternAction, PatternActions, PatternAliases, PatternChoice, PatternIcons, PatternLists, PatternRuleMessage,
+  PatternSetup, PatternSlotConfig, PatternSlotConfigs, PatternSlotValue, PatternValue,
 } from './DynamicInput.type';

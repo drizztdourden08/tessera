@@ -43,6 +43,8 @@ interface PatternField extends SegmentFocus {
   size: ControlSize;
   disabled: boolean;
   invalid: boolean;
+  message: string | undefined;
+  errorId: string;
   describedBy: string | undefined;
   firstId: string | undefined;
   focus: PatternFocus;

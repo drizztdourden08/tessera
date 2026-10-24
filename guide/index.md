@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 83 of 199 have their usage written; a linked name opens its page.
+One line per component. 84 of 199 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -116,7 +116,7 @@ One line per component. 83 of 199 have their usage written; a linked name opens 
 - [DocumentTabs](components/DocumentTabs.md): The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit. Import from `@drizztdourden08/tessera`.
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
-- `DynamicInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DynamicInput](components/DynamicInput.md): One field built from a pattern of typed slots, muted text and icons, such as a time, a price with its currency or a lobby code. Import from `@drizztdourden08/tessera`.
 - `ErrorBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FileList](components/FileList.md): The files a job made or an app keeps, one row each with its type icon, name, size and date, and buttons to open it or show it in its folder. Import from `@drizztdourden08/tessera`.

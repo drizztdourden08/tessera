@@ -32,6 +32,10 @@ const PATTERN_PROBLEMS = {
     `DynamicInput: [action:${name}] has no entry in actions, so it is not drawn.`,
   missingIcon: (name: string) =>
     `DynamicInput: [icon:${name}] is neither a Tessera icon nor an entry in icons, so it is not drawn.`,
+  rulesNeedText: (name: string) =>
+    `DynamicInput: slot "${name}" is not a text slot, so its chars and aliases are ignored.`,
+  aliasChain: (name: string, typed: string) =>
+    `DynamicInput: slot "${name}" maps "${typed}" to a character that is also an alias, so it would be mapped again on the next key.`,
   badCounter: (name: string) =>
     `DynamicInput: counter names "${name}", which is not a text slot with a max length.`,
 };

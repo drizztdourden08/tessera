@@ -185,6 +185,10 @@
   margin-inline-end: var(--space-xs);
 }
 
+.dynamic-input__error {
+  font-size: var(--text-xs);
+}
+
 .dynamic-input__counter {
   align-self: flex-end;
   font-size: var(--text-xs);
