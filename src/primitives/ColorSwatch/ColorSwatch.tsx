@@ -2,6 +2,7 @@
 import './ColorSwatch.css';
 import { useControlSize } from '../field-control/useControlSize';
 import { Span } from '../text-elements';
+import { captionClass } from './behavior/caption-class';
 import type { ColorSwatchProps } from './ColorSwatch.type';
 
 const ColorSwatch = (props: ColorSwatchProps) => {
@@ -18,7 +19,7 @@ const ColorSwatch = (props: ColorSwatchProps) => {
 
   return (
     <button type="button" className={classes} style={transparent ? undefined : { background: color }} {...rest}>
-      {caption !== undefined && <Span className="color-swatch__caption">{caption}</Span>}
+      {caption !== undefined && <Span className={captionClass(color, transparent)}>{caption}</Span>}
     </button>
   );
 };

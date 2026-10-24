@@ -52,9 +52,19 @@ describe('SwatchGrid', () => {
 
   it('shows the 0-based index on each swatch and hides it on request', () => {
     const shown = draw();
-    expect(shown.match(/color-swatch__caption/g)).toHaveLength(4);
+    expect(shown.match(/color-swatch__caption(?!-)/g)).toHaveLength(4);
     expect(shown).toMatch(/color-swatch__caption[^>]*>3</);
     expect(draw({ showIndex: false })).not.toContain('color-swatch__caption');
+  });
+
+  it('picks a dark caption ink on light swatches and a light one on dark and clear swatches', () => {
+    const captions = draw().match(/color-swatch__caption--ink-(?:dark|light)/g);
+    expect(captions).toEqual([
+      'color-swatch__caption--ink-light',
+      'color-swatch__caption--ink-dark',
+      'color-swatch__caption--ink-light',
+      'color-swatch__caption--ink-light',
+    ]);
   });
 
   it('marks the selected swatch and keeps one tab stop on it', () => {

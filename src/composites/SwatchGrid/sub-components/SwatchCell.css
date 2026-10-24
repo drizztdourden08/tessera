@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind style */
 .swatch-grid__swatch[data-range='yes']:not(.color-swatch--selected) {
   outline: var(--border-width-thick) solid var(--c-info);
-  outline-offset: var(--size-1);
+  outline-offset: calc(-1 * var(--border-width-thick));
 }
 
 .swatch-grid__swatch[data-secondary='yes']::after {
