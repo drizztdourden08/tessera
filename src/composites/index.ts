@@ -194,3 +194,8 @@ export { PasswordInput, type PasswordInputProps, type PasswordMode, type Passwor
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from './TagInput';
 export { Toast, ToastStack, toast, type ToastAction, type ToastApi, type ToastCloseReason, type ToastInput, type ToastItem, type ToastPosition, type ToastProps, type ToastStackProps, type ToastVariant } from './Toast';
 export { PathInput, type PathBrowse, type PathInputProps, type PathKind } from './PathInput';
+export {
+  MAX_PER_SIDE, TOOLBAR_LAYOUT_V, canShowToolbar, createToolbarLayout, hideToolbar, isToolbarShown, migrateToolbarLayout, moveToolbar,
+  showToolbar, toggleToolbar, toolbarOrientation,
+} from './ToolbarDock';
+export type { ToolbarDefinition, ToolbarLayout, ToolbarOrientation, ToolbarSide, ToolbarSpot } from './ToolbarDock';
