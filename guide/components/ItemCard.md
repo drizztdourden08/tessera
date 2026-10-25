@@ -35,11 +35,15 @@ ItemCard gives every catalogue the same card, with its media, facts and actions 
 - Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list.
 - With href, pass navigate to route a plain click inside the app, as Link and SiteHeader take it.
 - Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover.
+- Set density compact for a long catalogue with no pictures: one row of about 56 px with the media as a 32 px tile, the title, one line and up to three icon actions.
+- Set mediaSize sm to swap the 96 px band for a 32 px tile beside the title; compact does this itself.
+- In a VirtualList row, give the list a rowHeight of about 56 px; the compact card fills the row width and sets no height of its own.
 
 ## Accessibility
 
 - The title is a heading, level 3 by default, so a screen reader can jump from card to card.
 - With onOpen or href the title is the one button or link of the card; a click anywhere on the card goes through it, and the focus ring circles the card.
+- Compact actions are icon buttons whose label is their accessible name and their tooltip; give each action an icon.
 - The selected card marks its title with aria-current; the media is hidden from screen readers.
 
 ## Example
@@ -78,17 +82,19 @@ const GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) =>
 - `tags` (optional): `readonly ReactNode[]`.
 - `details` (optional): `readonly ReactNode[]`.
 - `media` (optional): `ReactNode`.
-- `mediaTone` (optional): `ItemCardMediaTone`, one of `'neutral'`, `'primary'`, `'info'`, `'success'`, `'warning'`, `'danger'`. Default `'primary'`.
-- `mediaHeight` (optional): `ItemCardMediaHeight`, one of `'band'`, `'auto'`. Default `'band'`.
+- `mediaTone` (optional): `ItemCardMediaTone`, one of `'neutral'`, `'primary'`, `'info'`, `'success'`, `'warning'`, `'danger'`.
+- `mediaHeight` (optional): `ItemCardMediaHeight`, one of `'band'`, `'auto'`.
+- `mediaSize` (optional): `ItemCardMediaSize`, one of `'band'`, `'sm'`.
+- `density` (optional): `ItemCardDensity`, one of `'normal'`, `'compact'`.
 - `layout` (optional): `ItemCardLayout`, one of `'top'`, `'left'`. Default `'top'`.
 - `href` (optional): `string`.
 - `navigate` (optional): `(href: string) => void`.
 - `actions` (optional): `readonly ActionItem[]`.
 - `selected` (optional): `boolean`.
 - `onOpen` (optional): `() => void`.
-- `level` (optional): `HeadingLevel`, one of `1`, `2`, `3`, `4`, `5`, `6`. Default `3`.
+- `level` (optional): `HeadingLevel`, one of `1`, `2`, `3`, `4`, `5`, `6`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-danger-dim`, `--c-focus`, `--c-hover`, `--c-info-dim`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-success-dim`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-warning-dim`, `--font-sans`, `--size-96`, `--space-md`, `--space-sm`, `--space-xs`, `--text-lg`, `--text-xs`, `--tracking-normal`, `--weight-semi`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-danger-dim`, `--c-focus`, `--c-hover`, `--c-info-dim`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-success-dim`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-warning-dim`, `--font-sans`, `--radius-sm`, `--size-32`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-lg`, `--text-xs`, `--tracking-normal`, `--weight-semi`.

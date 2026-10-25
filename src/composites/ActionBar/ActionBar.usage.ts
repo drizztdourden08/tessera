@@ -16,6 +16,7 @@ const usage = {
     'List the actions in the order the user reads them; give the main one kind primary and it sits last, never folded.',
     'Give every destructive action kind danger: it takes the danger look and asks first, in the bar or from the menu.',
     'Pass confirm to name the question and the check, such as Delete Keysanity?; the default asks with the label and a question mark.',
+    'Set iconOnly on an action with an icon to draw it as an icon button; its label is the accessible name and the tooltip.',
     'Set keep in a list row, often to one, so every row folds the same way.',
   ],
   a11y: [

@@ -11,6 +11,12 @@
   grid-template-columns: repeat(auto-fill, minmax(var(--size-384), 1fr));
 }
 
+.item-card-story--rows {
+  grid-template-columns: 1fr;
+  inline-size: var(--size-640);
+  gap: var(--space-xs);
+}
+
 .item-card-story--one {
   inline-size: var(--size-320);
 }

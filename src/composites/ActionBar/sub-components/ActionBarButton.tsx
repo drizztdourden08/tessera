@@ -3,9 +3,11 @@ import { Button } from '../../../primitives/Button';
 import { Icon } from '../../../primitives/Icon';
 import { KIND_VARIANT } from '../ActionBar.constants';
 import type { ActionBarButtonProps } from '../ActionBar.type';
+import { ActionBarIconButton } from './ActionBarIconButton';
 
 const ActionBarButton = (props: ActionBarButtonProps) => {
   const { action, size, onPress } = props;
+  if (action.iconOnly && action.icon) return <ActionBarIconButton {...props} />;
   const live = onPress !== undefined;
   return (
     <Button

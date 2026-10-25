@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import fs from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
@@ -58,5 +59,44 @@ describe('ItemCard', () => {
   it('lets the media keep its own height with mediaHeight auto, and keeps the band by default', () => {
     expect(renderToString(h(ItemCard, BASE))).not.toContain('data-height');
     expect(renderToString(h(ItemCard, { ...BASE, mediaHeight: 'auto' }))).toContain('class="item-card__media" data-tone="primary" data-height="auto"');
+  });
+});
+
+describe('ItemCard compact', () => {
+  it('draws a compact card as one row with a 32 px tile, one line and icon actions', () => {
+    const actions = [
+      { id: 'install', label: 'Install', icon: 'download', kind: 'primary', onSelect: noop },
+      { id: 'page', label: 'Open the page', icon: 'external-link', onSelect: noop },
+      { id: 'remove', label: 'Remove', icon: 'trash-2', kind: 'danger', onSelect: noop },
+    ];
+    const html = renderToString(h(ItemCard, { ...BASE, density: 'compact', actions }));
+    expect(html).toContain('data-density="compact"');
+    expect(html).toMatch(/class="item-card__media" data-tone="primary" data-size="sm" aria-hidden="true"/);
+    expect(html.indexOf('item-card__media')).toBeGreaterThan(html.indexOf('item-card__body'));
+    expect(html).not.toContain('item-card__tags');
+    expect(html).not.toContain('item-card__top');
+    expect(html).toMatch(/item-card__line[^>]*>.*status--warning.*item-card__details/);
+    const live = html.split('action-bar__measure')[0];
+    expect([...live.matchAll(/<button[^>]*aria-label="([^"]+)"/g)].map((match) => match[1])).toEqual(['Open the page', 'Remove', 'Install']);
+    expect(live).not.toMatch(/<button[^>]*>[^<]*(Install|Remove)<\/button>/);
+  });
+
+  it('puts the media as a tile beside the title with mediaSize sm, and as a band otherwise', () => {
+    const tile = renderToString(h(ItemCard, { ...BASE, mediaSize: 'sm' }));
+    expect(tile).not.toContain('data-density');
+    expect(tile).toMatch(/item-card__body"><div class="item-card__head"><div class="item-card__media" data-tone="primary" data-size="sm"/);
+    expect(tile).toMatch(/item-card__heading">.*<h3/);
+    const band = renderToString(h(ItemCard, BASE));
+    expect(band.indexOf('item-card__media')).toBeLessThan(band.indexOf('item-card__body'));
+    expect(band).not.toContain('data-size');
+    const wide = renderToString(h(ItemCard, { ...BASE, density: 'compact', mediaSize: 'band' }));
+    expect(wide.indexOf('item-card__media')).toBeLessThan(wide.indexOf('item-card__body'));
+    expect(wide).not.toContain('data-size');
+  });
+
+  it('sets no height on a compact card, so a list row decides it', () => {
+    const css = fs.readFileSync('src/composites/ItemCard/sub-components/ItemCardRow.css', 'utf8');
+    expect(css).not.toMatch(/(?<![a-z-])(block-size|height|min-block-size|min-height):/);
+    expect(css).toContain('inline-size: 100%;');
   });
 });
