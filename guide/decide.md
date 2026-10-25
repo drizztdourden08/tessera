@@ -200,7 +200,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Which buttons are held: no component yet.
     - Where a stick points: no component yet.
     - Every input on a controller: no component yet.
-    - A blank controller to draw on: [ControllerSilhouette](components/ControllerSilhouette.md). ControllerSilhouette draws only the outline of a pad, so each app places its own marks at shared anchors.
+    - A blank controller to draw on: [ControllerSilhouette](components/ControllerSilhouette.md). ControllerSilhouette draws only the outline of a pad, so each app places its own marks from its own anchor data.
 - Icons and brand. **Which mark?**
   - An icon from the set: no component yet.
   - A small stroke glyph: no component yet.

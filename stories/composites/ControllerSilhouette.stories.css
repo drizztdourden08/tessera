@@ -7,42 +7,6 @@
   max-inline-size: var(--size-896);
 }
 
-.silhouette-story__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--size-320), 1fr));
-  gap: var(--space-lg);
-}
-
-.silhouette-dots__dot {
-  fill: var(--c-danger);
-}
-
-.silhouette-dots__ring {
-  fill: none;
-  stroke: var(--c-danger);
-  stroke-width: var(--border-width-thin);
-  stroke-dasharray: var(--size-2) var(--size-2);
-  vector-effect: non-scaling-stroke;
-}
-
-.silhouette-dots__name {
-  fill: var(--c-text);
-  font-family: var(--font-mono);
-  font-size: var(--size-8);
-}
-
-.silhouette-table {
-  display: grid;
-  gap: var(--space-2xs);
-  padding-block-start: var(--space-sm);
-}
-
-.silhouette-table__row {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--c-text-dim);
-}
-
 .silhouette-overlay__cap {
   fill: var(--c-primary-soft);
   stroke: var(--c-primary);
