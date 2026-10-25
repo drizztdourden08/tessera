@@ -190,7 +190,7 @@ const Overview = overviewStory({
     '**It never changes height:** the hint line keeps room for every hint. Leave `hint` out and the line is gone.',
     '`changed` adds a dot and, with `onReset`, a reset button; `badge` sits after the title, `problem` under the row.',
     '`actions` puts buttons after the control, or in its place, each `loading` while the app runs it.',
-    '`compact` draws one line; `readOnly` draws the value as text; `descriptionLines` folds the description.',
+    '`compact` draws one line; `readOnly` draws text; `descriptionLines` folds, `descriptionOverflow` can hint.',
     'Rows sit in a [SettingsSection], which draws the box, counts the changed rows and holds the `lock`.',
   ],
   playground: Playground,

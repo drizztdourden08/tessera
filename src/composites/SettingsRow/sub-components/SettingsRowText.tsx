@@ -8,11 +8,11 @@ import { SettingsRowRest } from './SettingsRowRest';
 import type { SettingsRowTextProps } from './SettingsRowText.type';
 
 const SettingsRowText = (props: SettingsRowTextProps) => {
-  const { title, badge, changed, onReset, description, descriptionLines, current, ...line } = props;
+  const { title, badge, changed, onReset, description, descriptionLines, descriptionOverflow, current, ...line } = props;
   return (
     <Box className="settings-row__text">
       <SettingsRowHead lead={<Span className="settings-row__title">{title}</Span>} title={title} badge={badge} changed={changed} onReset={onReset} />
-      {description !== undefined && <SettingsRowDescription text={description} lines={descriptionLines} />}
+      {description !== undefined && <SettingsRowDescription text={description} lines={descriptionLines} overflow={descriptionOverflow} />}
       {line.resting !== '' && <SettingsRowLine {...line} quiet={description !== undefined} />}
       <SettingsRowRest hints={line.rest} current={current} />
     </Box>

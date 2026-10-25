@@ -1,10 +1,12 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { FoldOverflow } from '../../primitives/fold-text/fold-text.type';
 
 interface FormRowProps {
   label: string;
   description?: ReactNode;
   descriptionLines?: number;
+  descriptionOverflow?: FoldOverflow;
   help?: ReactNode;
   changed?: boolean;
   advanced?: boolean;
@@ -23,6 +25,7 @@ interface FormRowHeadProps {
   help?: ReactNode;
   description?: ReactNode;
   descriptionLines: number;
+  descriptionOverflow?: FoldOverflow;
   descriptionId: string;
   changed: boolean;
   advanced: boolean;
