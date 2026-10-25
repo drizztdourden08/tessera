@@ -15,13 +15,9 @@ export type {
 export { ContextMenu, type ContextMenuPoint, type ContextMenuProps } from '../ContextMenu';
 export { FloatingSwitch, type FloatingSwitchItem, type FloatingSwitchProps } from '../FloatingSwitch';
 export {
-  CONTROLLER_SILHOUETTE_ANCHOR_IDS, CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS,
-  CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
+  CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS, CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
 } from '../ControllerSilhouette';
-export type {
-  ControllerSilhouetteAnchor, ControllerSilhouetteAnchorId, ControllerSilhouetteAnchors, ControllerSilhouetteAnchorSet,
-  ControllerSilhouetteProps, ControllerSilhouetteVariant,
-} from '../ControllerSilhouette';
+export type { ControllerSilhouetteProps, ControllerSilhouetteVariant } from '../ControllerSilhouette';
 export { KeyboardLayout, KEYBOARD_SIZES } from '../KeyboardLayout';
 export type { KeyboardLayoutProps, KeyboardSize, KeyboardTarget, KeyRect, KeyRects } from '../KeyboardLayout';
 export { ShortcutTour, type ShortcutTourProps } from '../ShortcutTour';

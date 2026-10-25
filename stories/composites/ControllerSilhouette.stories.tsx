@@ -5,8 +5,6 @@ import { CONTROLLER_SILHOUETTE_VARIANTS, ControllerSilhouette } from '../../src/
 import type { ControllerSilhouetteVariant } from '../../src/composites';
 import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { SilhouetteAnchorDots } from './_samples/SilhouetteAnchorDots';
-import { SilhouetteAnchorTable } from './_samples/SilhouetteAnchorTable';
 import { SilhouetteOverlay } from './_samples/SilhouetteOverlay';
 import './ControllerSilhouette.stories.css';
 
@@ -14,18 +12,16 @@ type CardWidth = 'small card' | 'large card';
 
 type SilhouetteArgs = {
   variant: ControllerSilhouetteVariant;
-  anchors: boolean;
   width: CardWidth;
 };
 
 const WIDTH_CLASS: Record<CardWidth, string> = { 'small card': 'silhouette-story', 'large card': 'silhouette-story--lg' };
 
-const ARGS: Partial<SilhouetteArgs> = { variant: 'offset', anchors: false, width: 'small card' };
+const ARGS: Partial<SilhouetteArgs> = { variant: 'offset', width: 'small card' };
 
 const ARG_TYPES: PlaygroundArgTypes<SilhouetteArgs> = {
   variant: { group: 'Appearance', control: 'select', options: [...CONTROLLER_SILHOUETTE_VARIANTS] },
   width: { group: 'Appearance', control: 'select', options: ['small card', 'large card'], description: 'The width of the card around it.' },
-  anchors: { group: 'Content', control: 'boolean', description: 'Overlays a dot at every anchor, as children of the drawing.' },
 };
 
 const meta = {
@@ -39,7 +35,7 @@ const Playground = {
   argTypes: ARG_TYPES,
   render: (args) => (
     <Box className={WIDTH_CLASS[args.width]}>
-      <ControllerSilhouette variant={args.variant}>{args.anchors ? <SilhouetteAnchorDots variant={args.variant} /> : null}</ControllerSilhouette>
+      <ControllerSilhouette variant={args.variant} />
     </Box>
   ),
 } satisfies PlaygroundStory<SilhouetteArgs>;
@@ -53,21 +49,6 @@ const Offset = variantStory('offset', 'Offset sticks, an Xbox shape');
 const Symmetric = variantStory('symmetric', 'Sticks side by side, a PlayStation shape');
 const Nintendo = variantStory('nintendo', 'A broad offset body, a Switch Pro shape');
 const Pad = variantStory('pad', 'A pad with no sticks or triggers, an SNES shape');
-
-const WithAnchors = {
-  name: 'With anchors',
-  render: () => (
-    <Box className="silhouette-story__grid">
-      {CONTROLLER_SILHOUETTE_VARIANTS.map((variant) => (
-        <Box key={variant}>
-          <Text className="story-label">{variant}</Text>
-          <ControllerSilhouette variant={variant}><SilhouetteAnchorDots variant={variant} /></ControllerSilhouette>
-          <SilhouetteAnchorTable variant={variant} />
-        </Box>
-      ))}
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<SilhouetteArgs>;
 
 const Overlay = {
   name: 'The app draws on it',
@@ -86,12 +67,10 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<SilhouetteArgs>;
 
-const CODE = `import { CONTROLLER_SILHOUETTE_ANCHORS, ControllerSilhouette, SvgCircle } from '@drizztdourden08/tessera';
-
-const stick = CONTROLLER_SILHOUETTE_ANCHORS.offset['stick.left'];
+const CODE = `import { ControllerSilhouette, SvgCircle } from '@drizztdourden08/tessera';
 
 <ControllerSilhouette variant="offset" label="Pad 1">
-  <SvgCircle cx={stick.x} cy={stick.y} r={stick.r * 0.6} />
+  <SvgCircle cx={121} cy={72} r={14} />
 </ControllerSilhouette>`;
 
 const Overview = overviewStory({
@@ -102,13 +81,13 @@ const Overview = overviewStory({
     'Only the outer edge is drawn, shoulders included. Nothing marks a button, stick or trigger.',
     '`children` render inside the SVG, on top of the outline, in viewBox units.',
     'The viewBox is fixed at `0 0 400 260` for every variant, so app coordinates stay valid.',
-    '`CONTROLLER_SILHOUETTE_ANCHORS` gives where each control sits per variant. Nothing is drawn for them.',
+    'Where each control sits is app data, such as the anchors of Brock. Tessera draws no marks.',
     'It grows with its container. The drawing is hidden from screen readers and `label` names it.',
   ],
   playground: Playground,
-  variants: [Offset, Symmetric, Nintendo, Pad, WithAnchors, Overlay, Sizes],
+  variants: [Offset, Symmetric, Nintendo, Pad, Overlay, Sizes],
   code: CODE,
 });
 
 export default meta;
-export { Nintendo, Offset, Overlay, Overview, Pad, Playground, Sizes, Symmetric, WithAnchors };
+export { Nintendo, Offset, Overlay, Overview, Pad, Playground, Sizes, Symmetric };

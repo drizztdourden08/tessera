@@ -1470,6 +1470,17 @@
         "--c-gradient-light-from": "removed; no app has a light theme (see MIGRATION.md section 271)",
         "--c-gradient-light-to": "removed; no app has a light theme (see MIGRATION.md section 271)"
       }
+    },
+    {
+      "version": "next",
+      "removedExports": {
+        "CONTROLLER_SILHOUETTE_ANCHORS": "moved to @drizztdourden08/brock-input (Brock 0.97.1): import { CONTROLLER_SILHOUETTE_ANCHORS } from '@drizztdourden08/brock-input' (see MIGRATION.md section 276)",
+        "CONTROLLER_SILHOUETTE_ANCHOR_IDS": "moved to @drizztdourden08/brock-input (Brock 0.97.1): import { CONTROLLER_SILHOUETTE_ANCHOR_IDS } from '@drizztdourden08/brock-input' (see MIGRATION.md section 276)",
+        "ControllerSilhouetteAnchor": "moved to @drizztdourden08/brock-input (Brock 0.97.1): import { ControllerSilhouetteAnchor } from '@drizztdourden08/brock-input' (see MIGRATION.md section 276)",
+        "ControllerSilhouetteAnchorId": "moved to @drizztdourden08/brock-input (Brock 0.97.1): import { ControllerSilhouetteAnchorId } from '@drizztdourden08/brock-input' (see MIGRATION.md section 276)",
+        "ControllerSilhouetteAnchorSet": "moved to @drizztdourden08/brock-input (Brock 0.97.1): import { ControllerSilhouetteAnchorSet } from '@drizztdourden08/brock-input' (see MIGRATION.md section 276)",
+        "ControllerSilhouetteAnchors": "moved to @drizztdourden08/brock-input (Brock 0.97.1): import { ControllerSilhouetteAnchors } from '@drizztdourden08/brock-input' (see MIGRATION.md section 276)"
+      }
     }
   ]
 }
