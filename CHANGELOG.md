@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.62.0
+
+### Minor Changes
+
+- 17a6bf8: `useInView` is public. It takes an optional `dwell` (ms the element must stay in view before it counts), `once`, `threshold` and `rootMargin`.
+
 ## 0.61.0
 
 ### Minor Changes
