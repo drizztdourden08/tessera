@@ -7,6 +7,7 @@ interface ToolbarFrame {
   rect: Rect;
   thickness: Record<ToolbarSide, number>;
   spans: Record<ToolbarSide, number[]>;
+  laneThickness: Record<ToolbarSide, number[]>;
 }
 
 interface ToolbarSlotSpan {
