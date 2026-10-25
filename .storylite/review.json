@@ -56,6 +56,9 @@
       "status": "ok",
       "hash": "11613ddfc05d40fa",
       "at": "2026-10-04"
+    },
+    "File types": {
+      "status": "new"
     }
   },
   "Core · Colours": {
@@ -772,6 +775,9 @@
     },
     "Static splash": {
       "status": "new"
+    },
+    "FloatingPrompt": {
+      "status": "new"
     }
   },
   "Composites · Wizard": {
@@ -816,6 +822,9 @@
       "status": "ok",
       "hash": "b43e8603895a6936",
       "at": "2026-10-03"
+    },
+    "DocumentTabs": {
+      "status": "new"
     }
   },
   "Composites · Layout": {
@@ -868,9 +877,6 @@
       "hash": "c103b23dd57deff6",
       "at": "2026-10-04"
     },
-    "ReorderList": {
-      "status": "new"
-    },
     "GroupTree": {
       "status": "ok",
       "hash": "b5eaf98ebbb400b4",
@@ -895,6 +901,12 @@
       "status": "new"
     },
     "FileList": {
+      "status": "new"
+    },
+    "VirtualGrid": {
+      "status": "new"
+    },
+    "VirtualList": {
       "status": "new"
     }
   },
@@ -935,6 +947,9 @@
       "status": "ok",
       "hash": "cd90205b7c170af7",
       "at": "2026-10-04"
+    },
+    "ContextMenu": {
+      "status": "new"
     }
   },
   "Composites · Actions": {
@@ -947,6 +962,9 @@
       "status": "new"
     },
     "ActionBar": {
+      "status": "new"
+    },
+    "Toolbar": {
       "status": "new"
     },
     "CopyButton": {
@@ -990,6 +1008,9 @@
       "status": "new"
     },
     "PathInput": {
+      "status": "new"
+    },
+    "AnchorPicker": {
       "status": "new"
     }
   },
@@ -1040,6 +1061,9 @@
       "status": "ok",
       "hash": "1fe6367f83708390",
       "at": "2026-10-03"
+    },
+    "MarqueeBox": {
+      "status": "new"
     }
   },
   "Composites · Charts": {
@@ -1108,19 +1132,6 @@
     }
   },
   "Composites · Input devices": {
-    "PressedGrid": {
-      "status": "ok",
-      "hash": "d701fbe54d179267",
-      "at": "2026-10-04"
-    },
-    "StickPlot": {
-      "status": "ok",
-      "hash": "ee58354926ad2f32",
-      "at": "2026-10-03"
-    },
-    "ControllerLayout": {
-      "status": "new"
-    },
     "ControllerSilhouette": {
       "status": "new"
     },
@@ -1155,6 +1166,9 @@
       "status": "ok",
       "hash": "e5b8fd0003c7d68d",
       "at": "2026-10-04"
+    },
+    "ToolbarDock": {
+      "status": "new"
     }
   },
   "Composites · Windows": {

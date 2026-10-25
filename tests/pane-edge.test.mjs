@@ -62,7 +62,7 @@ describe('one pane edge implementation', () => {
     const owners = sourcesIn('src/composites').filter((file) => /role=["{']+separator/.test(sheet(file)) && !/DropdownMenu/.test(file));
     expect(owners.map((file) => path.basename(file))).toEqual(['ResizeHandle.tsx']);
     const edges = sourcesIn('src/composites').filter((file) => file.endsWith('.tsx') && sheet(file).includes('<ResizeHandle'));
-    expect(edges.map((file) => path.basename(file)).sort()).toEqual(['ColumnResizeHandle.tsx', 'DockDivider.tsx', 'PaneEdge.tsx']);
+    expect(edges.map((file) => path.basename(file)).sort()).toEqual(['ColumnResizeHandle.tsx', 'DockDivider.tsx', 'PaneEdge.tsx', 'ToolbarDockEnd.tsx']);
   });
 
   it('declares the line of ResizeHandle once, and the vertical one only moves it', () => {
