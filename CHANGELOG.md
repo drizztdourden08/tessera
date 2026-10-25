@@ -1,5 +1,15 @@
 # @drizztdourden08/tessera
 
+## 0.60.0
+
+### Minor Changes
+
+- 373845a: Grid takes `fit` with `minColWidth`: empty column tracks collapse, so a lone child or a short row fills the width instead of one column of it.
+
+### Patch Changes
+
+- b99518f: ControllerSilhouette anchors and sizes now follow measured real pads. Anchor ids are unchanged.
+
 ## 0.59.0
 
 ### Minor Changes
