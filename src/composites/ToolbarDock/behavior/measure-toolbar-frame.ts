@@ -6,7 +6,7 @@ import { toolbarOrientation } from './toolbar-orientation';
 import type { ToolbarFrame } from './toolbar-drag.type';
 
 const laneThickness = (root: HTMLElement, side: ToolbarSide): number | null => {
-  const lane = root.querySelector(`:scope > [data-side="${side}"] [data-lane]`);
+  const lane = root.querySelector(`:scope > [data-side="${side}"][data-lane]`);
   if (!isHTMLElement(lane)) return null;
   const box = lane.getBoundingClientRect();
   return toolbarOrientation(side) === 'horizontal' ? box.height : box.width;

@@ -13416,6 +13416,10 @@
         "--opacity-faint",
         "--radius-md",
         "--space-2xs",
+        "--toolbar-dock-column",
+        "--toolbar-dock-row",
+        "--toolbar-dock-track",
+        "--toolbar-dock-tracks",
         "--z-modal"
       ],
       "gallery": {

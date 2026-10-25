@@ -14,6 +14,7 @@ export { normalizeCorners } from './behavior/normalize-corners';
 export { placeToolbar } from './behavior/place-toolbar';
 export { showToolbar } from './behavior/show-toolbar';
 export { toggleToolbar } from './behavior/toggle-toolbar';
+export { toolbarGridPlacement } from './behavior/toolbar-grid-placement';
 export { toolbarIdsOf } from './behavior/toolbar-ids-of';
 export { toolbarMenuGroups } from './behavior/toolbar-menu-groups';
 export type { ToolbarMenuWords } from './behavior/toolbar-menu.type';
