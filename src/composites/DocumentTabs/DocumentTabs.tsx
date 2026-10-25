@@ -4,10 +4,12 @@ import { Box } from '../../primitives/Box';
 import { ScrollStrip } from '../../primitives/scroll-strip/ScrollStrip';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import '../../theme/visually-hidden.css';
+import { countStyle } from './behavior/count-style';
 import { useDocumentTabs } from './behavior/useDocumentTabs';
 import { TAB_KEYS } from './DocumentTabs.constants';
 import type { DocumentTabsProps } from './DocumentTabs.type';
 import { DocumentTab } from './sub-components/DocumentTab';
+import { DocumentTabCloses } from './sub-components/DocumentTabCloses';
 import { DocumentTabsMenu } from './sub-components/DocumentTabsMenu';
 import './DocumentTabs.css';
 
@@ -17,39 +19,50 @@ const DocumentTabs = (props: DocumentTabsProps) => {
   const hintId = useId();
   const tabIds = useId();
   const idOf = (index: number): string => `${tabIds}-${index}`;
-  const { trackRef, drag, close, message, tabId, onKeyDown, onFocus } = useDocumentTabs(props);
+  const { listRef, drag, close, message, tabId, liveId, hoverId, onKeyDown, onFocus, onBlur, onPointerOver, onPointerLeave } = useDocumentTabs(props);
   if (tabs.length === 0) return null;
   return (
-    <Box className={['document-tabs', className].filter(Boolean).join(' ')} onKeyDown={onKeyDown} onFocus={onFocus}>
-      <Box
-        role="tablist"
-        className="visually-hidden"
-        aria-label={label ?? documentTabs.label}
-        aria-orientation="horizontal"
-        aria-describedby={hintId}
-        aria-keyshortcuts={TAB_KEYS}
-        aria-owns={Array.from(tabs.keys(), idOf).join(' ')}
-      />
+    <Box
+      className={['document-tabs', className].filter(Boolean).join(' ')}
+      onKeyDown={onKeyDown}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      onPointerOver={onPointerOver}
+      onPointerLeave={onPointerLeave}
+    >
       <ScrollStrip
         className="document-tabs__strip"
         trackClassName="document-tabs__track"
-        trackRef={trackRef}
         pagerLabels={{ back: fields.earlierTabs, forward: fields.laterTabs }}
       >
-        {tabs.map((tab, index) => (
-          <DocumentTab
-            key={tab.id}
-            tab={tab}
-            index={index}
-            domId={idOf(index)}
-            total={tabs.length}
-            active={tab.id === activeId}
-            tabbable={tab.id === tabId}
-            drag={drag}
-            onActivate={onActivate}
-            onClose={close}
-          />
-        ))}
+        <Box className="document-tabs__grid" style={countStyle(tabs.length)}>
+          <Box
+            ref={listRef}
+            role="tablist"
+            className="document-tabs__list"
+            aria-label={label ?? documentTabs.label}
+            aria-orientation="horizontal"
+            aria-describedby={hintId}
+            aria-keyshortcuts={TAB_KEYS}
+          >
+            {tabs.map((tab, index) => (
+              <DocumentTab
+                key={tab.id}
+                tab={tab}
+                index={index}
+                domId={idOf(index)}
+                total={tabs.length}
+                active={tab.id === activeId}
+                tabbable={tab.id === tabId}
+                hover={tab.id === hoverId}
+                drag={drag}
+                onActivate={onActivate}
+                onClose={close}
+              />
+            ))}
+          </Box>
+          <DocumentTabCloses tabs={tabs} hoverId={hoverId} liveId={liveId} onClose={close} />
+        </Box>
       </ScrollStrip>
       {overflowMenu && <DocumentTabsMenu tabs={tabs} activeId={activeId} onActivate={onActivate} />}
       <Box id={hintId} className="visually-hidden">{documentTabs.keysHint}</Box>

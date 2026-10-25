@@ -63,7 +63,7 @@ describe('DocumentTabs', () => {
 
   it('marks only the unsaved tab, and says so to screen readers', () => {
     const html = draw();
-    expect(html.match(/data-unsaved="yes"/g)).toHaveLength(1);
+    expect(html.match(/data-unsaved="yes"/g)).toHaveLength(2);
     expect(html.match(/document-tabs__dot/g)).toHaveLength(1);
     expect(html.match(/Unsaved changes/g)).toHaveLength(1);
   });
@@ -85,16 +85,53 @@ describe('DocumentTabs', () => {
   });
 });
 
+const VOID = new Set(['br', 'img', 'input', 'hr', 'meta', 'link']);
+
+const childTags = (html, openTag) => {
+  const start = html.indexOf(openTag) + openTag.length;
+  const found = [];
+  let depth = 0;
+  for (const match of html.slice(start).matchAll(/<(\/?)([a-z0-9]+)([^>]*?)(\/?)>/g)) {
+    const [, closing, name, attrs, selfClosing] = match;
+    if (closing) {
+      if (depth === 0) return found;
+      depth -= 1;
+      continue;
+    }
+    if (depth === 0) found.push({ name, attrs });
+    if (!selfClosing && !VOID.has(name)) depth += 1;
+  }
+  return found;
+};
+
 describe('DocumentTabs tablist', () => {
-  it('keeps the close buttons out of the tablist, which owns only the tabs by id', () => {
+  it('holds only tabs as its direct children', () => {
     const html = draw();
-    const list = /<div[^>]*role="tablist"[^>]*>(.*?)<\/div>/.exec(html);
-    expect(list?.[1]).toBe('');
-    const owned = /aria-owns="([^"]*)"/.exec(list?.[0] ?? '')?.[1].split(' ') ?? [];
-    expect(owned).toHaveLength(3);
-    const ids = tabButtons(html).map((tag) => /id="([^"]*)"/.exec(tag)?.[1]);
-    expect(ids).toEqual(owned);
+    const open = /<div[^>]*role="tablist"[^>]*>/.exec(html)?.[0] ?? '';
+    const kids = childTags(html, open);
+    expect(kids).toHaveLength(3);
+    expect(kids.every((kid) => kid.name === 'button' && kid.attrs.includes('role="tab"'))).toBe(true);
     expect(html.match(/role="tablist"/g)).toHaveLength(1);
+    expect(html).not.toContain('aria-owns');
+  });
+
+  it('keeps every close button out of the tablist, in a layer after it', () => {
+    const html = draw();
+    const list = html.indexOf('role="tablist"');
+    const layer = html.indexOf('document-tabs__closes');
+    expect(layer).toBeGreaterThan(list);
+    const inside = html.slice(list, layer);
+    expect(inside).not.toContain('aria-label="Close');
+    expect(html.slice(layer).match(/aria-label="Close [^"]*"/g)).toHaveLength(3);
+  });
+
+  it('puts the unsaved dot on the close layer and the unsaved wording in the tab', () => {
+    const html = draw();
+    const layer = html.indexOf('document-tabs__closes');
+    expect(html.slice(layer)).toContain('document-tabs__dot');
+    expect(html.slice(0, layer)).not.toContain('document-tabs__dot');
+    expect(html.slice(0, layer)).toContain('Unsaved changes');
+    expect(html.slice(layer).match(/data-close-key="[^"]*"/g)).toEqual(['data-close-key="hero"', 'data-close-key="tiles"', 'data-close-key="logo"']);
   });
 });
 

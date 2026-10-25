@@ -1,20 +1,24 @@
 /* @layer renderer-components @kind util */
 import type { KeyboardEvent, RefObject } from 'react';
 import { isHTMLElement } from '../../../primitives/dom/is-html-element';
-import { mainOf } from '../../reorder/main-of';
+import { itemOfKey } from '../../reorder/item-of-key';
 import { ITEM_SELECTOR } from '../../reorder/reorder-item.constants';
 import { reorderStep } from '../../reorder/reorder-step';
 import { TAB_ITEM } from '../DocumentTabs.constants';
 import type { TabKeysInput } from '../DocumentTabs.type';
 import { closeChord } from './close-chord';
 import { focusStep } from './focus-step';
+import { keyOf } from './key-of';
 
-const tabOf = (target: EventTarget): HTMLElement | null =>
-  isHTMLElement(target) ? target.closest<HTMLElement>(TAB_ITEM) : null;
+const tabOf = (list: HTMLElement | null, target: EventTarget): HTMLElement | null => {
+  if (!isHTMLElement(target)) return null;
+  const key = keyOf(target);
+  return target.closest<HTMLElement>(TAB_ITEM) ?? (key === null ? null : (itemOfKey(list, key) ?? null));
+};
 
-const tabKeys = (trackRef: RefObject<HTMLElement | null>, { total, move, close }: TabKeysInput) =>
+const tabKeys = (listRef: RefObject<HTMLElement | null>, { total, move, close }: TabKeysInput) =>
   (event: KeyboardEvent<HTMLElement>): void => {
-    const tab = tabOf(event.target);
+    const tab = tabOf(listRef.current, event.target);
     if (!tab) return;
     const index = Number(tab.dataset.reorderIndex);
     const to = reorderStep(event, { axis: 'horizontal', chord: 'alt', index, total });
@@ -23,7 +27,7 @@ const tabKeys = (trackRef: RefObject<HTMLElement | null>, { total, move, close }
       move(index, to);
       return;
     }
-    if (event.target !== mainOf(tab)) return;
+    if (event.target !== tab) return;
     if (closeChord(event)) {
       event.preventDefault();
       close(tab.dataset.reorderKey ?? '');
@@ -32,7 +36,7 @@ const tabKeys = (trackRef: RefObject<HTMLElement | null>, { total, move, close }
     const next = focusStep(event, index, total);
     if (next === undefined) return;
     event.preventDefault();
-    mainOf(trackRef.current?.querySelectorAll<HTMLElement>(ITEM_SELECTOR)[next])?.focus();
+    listRef.current?.querySelectorAll<HTMLElement>(ITEM_SELECTOR)[next]?.focus();
   };
 
 export { tabKeys };

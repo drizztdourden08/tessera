@@ -2,9 +2,8 @@
 const STEPPER_STRINGS = {
   steps: 'Steps',
   stepOf: (step: number, total: number) => `Step ${step} of ${total}`,
-  stepName: (step: number, label: string) => `${label}, step ${step}`,
-  stepDone: (step: number, label: string) => `${label}, step ${step}, done`,
-  stepError: (step: number, label: string) => `${label}, step ${step}, needs attention`,
+  done: 'Done',
+  needsAttention: 'Needs attention',
   changedCount: (count: number) => `${count} changed`,
 };
 

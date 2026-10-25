@@ -28,8 +28,22 @@ interface DocumentTabProps {
   total: number;
   active: boolean;
   tabbable: boolean;
+  hover: boolean;
   drag: ReorderDrag;
   onActivate: (id: string) => void;
+  onClose: (id: string) => void;
+}
+
+interface DocumentTabClosesProps {
+  tabs: readonly DocumentTab[];
+  hoverId: string | null;
+  liveId: string | null;
+  onClose: (id: string) => void;
+}
+
+interface DocumentTabCloseProps {
+  tab: DocumentTab;
+  hot: boolean;
   onClose: (id: string) => void;
 }
 
@@ -50,4 +64,4 @@ interface ClosedTab {
   index: number;
 }
 
-export type { ClosedTab, DocumentTab, DocumentTabProps, DocumentTabsMenuProps, DocumentTabsProps, TabKeysInput };
+export type { ClosedTab, DocumentTab, DocumentTabCloseProps, DocumentTabClosesProps, DocumentTabProps, DocumentTabsMenuProps, DocumentTabsProps, TabKeysInput };

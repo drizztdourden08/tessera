@@ -1,0 +1,39 @@
+/* @layer renderer-components @kind style */
+.document-tabs__slot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-block-end: var(--border-width-thick);
+  padding-inline-end: var(--space-xs);
+}
+
+.document-tabs__end {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.document-tabs__close {
+  pointer-events: auto;
+}
+
+.document-tabs__dot {
+  position: absolute;
+  inset: 0;
+  inline-size: var(--size-8);
+  block-size: var(--size-8);
+  margin: auto;
+  border-radius: var(--radius-round);
+  background: var(--c-warning);
+  pointer-events: none;
+}
+
+.document-tabs__slot[data-unsaved='yes']:not([data-hot='yes']) .document-tabs__close {
+  opacity: 0;
+}
+
+.document-tabs__slot[data-unsaved='yes'][data-hot='yes'] .document-tabs__dot {
+  display: none;
+}

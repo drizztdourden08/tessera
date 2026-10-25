@@ -2,21 +2,27 @@
 .document-tabs__tab {
   display: flex;
   align-items: center;
-  gap: var(--space-2xs);
+  gap: var(--space-xs);
+  min-inline-size: 0;
   max-inline-size: var(--size-224);
-  padding-inline: var(--space-md) var(--space-xs);
+  padding-block: var(--space-sm);
+  padding-inline: var(--space-md) calc(var(--space-xs) + var(--space-2xs) + var(--control-h-xs));
   border-bottom: var(--border-width-thick) solid transparent;
   color: var(--c-text-dim);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
   transition: color var(--transition-normal), border-color var(--transition-normal), opacity var(--transition-fast);
+  touch-action: pan-x;
   user-select: none;
 }
 
-.document-tabs__tab:hover {
+.document-tabs__tab:is(:hover, [data-hover='yes']) {
   background: var(--c-hover);
   color: var(--c-text);
 }
 
-.document-tabs__tab[data-active='yes'] {
+.document-tabs__tab[aria-selected='true'] {
   border-bottom-color: var(--c-primary);
   color: var(--c-primary-bright);
 }
@@ -33,19 +39,6 @@
   box-shadow: var(--space-2xs) 0 0 calc(-1 * var(--size-1)) var(--c-primary-bright);
 }
 
-.document-tabs__main {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  flex: 1;
-  min-inline-size: 0;
-  padding-block: var(--space-sm);
-  font-size: var(--text-base);
-  font-weight: var(--weight-medium);
-  white-space: nowrap;
-  touch-action: pan-x;
-}
-
 .document-tabs__icon {
   flex: none;
 }
@@ -55,33 +48,6 @@
   overflow: hidden;
   line-height: var(--leading-tight);
   text-overflow: ellipsis;
-}
-
-.document-tabs__end {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-}
-
-.document-tabs__dot {
-  position: absolute;
-  inset: 0;
-  inline-size: var(--size-8);
-  block-size: var(--size-8);
-  margin: auto;
-  border-radius: var(--radius-round);
-  background: var(--c-warning);
-  pointer-events: none;
-}
-
-.document-tabs__tab[data-unsaved='yes']:not(:hover, :focus-within) .document-tabs__close {
-  opacity: 0;
-}
-
-.document-tabs__tab[data-unsaved='yes']:is(:hover, :focus-within) .document-tabs__dot {
-  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
