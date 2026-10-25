@@ -56,7 +56,7 @@ describe('the text colours', () => {
     expect(contrastOf(textDim, bg)).toBeGreaterThan(contrastOf(textMuted, bg));
   });
 
-  it.each(['tessera', 'rotp', 'archipelia', 'bxel'])('%s keeps faint text readable on the surface too', (palette) => {
+  it.each(Object.keys(palettes))('%s keeps faint text readable on the surface too', (palette) => {
     const { surface, textFaint } = palettes[palette].dark;
     expect(contrastOf(textFaint, surface)).toBeGreaterThanOrEqual(TEXT_MINIMUM);
   });
