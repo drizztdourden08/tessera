@@ -18,7 +18,9 @@ const ToolbarDockSide = ({ side, ids, dragId, definitions, renderToolbar }: Tool
     <Box className="toolbar-dock__side" data-side={side} data-orientation={orientation}>
       {lanes.map(({ id, lane, label }) => (
         <Box key={id} className="toolbar-dock__lane" data-lane={lane} data-dragging={id === dragId ? '' : undefined}>
-          {renderToolbar(id, { orientation, handle: toolbarHandle(id, toolbars.move(label)), side })}
+          <Box className="toolbar-dock__bar">
+            {renderToolbar(id, { orientation, handle: toolbarHandle(id, toolbars.move(label)), side })}
+          </Box>
         </Box>
       ))}
     </Box>

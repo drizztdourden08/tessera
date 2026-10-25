@@ -57,6 +57,14 @@ describe('ToolbarDock lanes', () => {
   });
 });
 
+describe('ToolbarDock bars', () => {
+  it('wraps each shown toolbar in one bar', () => {
+    const html = draw();
+    expect(html.match(/class="toolbar-dock__bar"/g)).toHaveLength(4);
+    expect(html).toMatch(/class="toolbar-dock__bar"[^>]*><[^>]*data-bar="a"/);
+  });
+});
+
 describe('ToolbarDock content', () => {
   it('holds the children in the centre cell', () => {
     const html = draw();
