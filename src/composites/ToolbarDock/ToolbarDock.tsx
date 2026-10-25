@@ -20,7 +20,7 @@ const ToolbarDock = ({ layout, onLayoutChange, definitions, renderToolbar, child
   return (
     <Box ref={rootRef} className={classes} onPointerDown={onPointerDown} onKeyDown={onKeyDown}>
       {TOOLBAR_SIDES.map((side) => (
-        <ToolbarDockSide key={side} side={side} ids={layout.sides[side]} dragId={view?.id ?? null} definitions={definitions} renderToolbar={renderToolbar} />
+        <ToolbarDockSide key={side} side={side} lanes={layout.sides[side]} dragId={view?.id ?? null} definitions={definitions} renderToolbar={renderToolbar} />
       ))}
       <Box className="toolbar-dock__centre">{children}</Box>
       {view && <ToolbarDockDrag view={view} />}

@@ -16,7 +16,9 @@ const usage = {
   rules: [
     'layout says which toolbar sits on which side. The dock draws it and never stores it; the app keeps it and saves it.',
     'Top and bottom lanes span the full width. Left and right lanes sit between them, so the corners belong to top and bottom.',
-    'A side holds at most two lanes. The first id of a side is the outer lane, the one next to the window edge.',
+    'A side holds at most two lanes. The first lane of a side is the outer lane, the one next to the window edge.',
+    'layout.sides[side] is a list of lanes, and a lane is a list of places { id, start, size }. start and size are fractions of the lane, from 0 to 1, so a lane can hold several toolbars with gaps between them. layout.corners says which side claims each corner. Read the ids of a side with toolbarIdsOf(layout, side), never by indexing sides.',
+    'migrateToolbarLayout(saved, definitions) reads a saved layout of any version, upgrades a v1 layout to v2 and cleans a v2 one. Pass every saved layout through it.',
     'definitions names each toolbar. A toolbar in the layout without a definition is not drawn, and a hidden toolbar is not drawn.',
     'renderToolbar draws one toolbar and gets its orientation, its side and the handle. Pass the orientation and the handle to Toolbar.',
     'The orientation comes from the side: horizontal on top and bottom, vertical on left and right. It is never stored.',

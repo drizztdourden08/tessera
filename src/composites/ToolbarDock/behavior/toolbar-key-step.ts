@@ -1,16 +1,17 @@
 /* @layer renderer-components @kind logic */
-import { MAX_PER_SIDE, TOOLBAR_ARROW_SIDES } from '../ToolbarDock.constants';
+import { MAX_LANES, TOOLBAR_ARROW_SIDES } from '../ToolbarDock.constants';
 import type { ToolbarLayout, ToolbarSide } from '../ToolbarDock.type';
 import type { ToolbarKeyPick, ToolbarKeyResult } from './toolbar-key.type';
 import { toolbarKeyStart } from './toolbar-key-start';
+import { toolbarLanesWithout } from './toolbar-lanes-without';
 
 const goToSide = (layout: ToolbarLayout, id: string, pick: ToolbarKeyPick, side: ToolbarSide): ToolbarKeyResult => {
-  const others = layout.sides[side].filter((other) => other !== id).length;
+  const others = toolbarLanesWithout(layout, side, id).length;
   if (pick.kind === 'lane' && pick.side === side) {
     const index = others > 0 && pick.index === 0 ? 1 : 0;
     return { pick: { kind: 'lane', side, index }, note: { kind: 'place', side, index }, end: null };
   }
-  if (others >= MAX_PER_SIDE) return { pick, note: { kind: 'full', side }, end: null };
+  if (others >= MAX_LANES) return { pick, note: { kind: 'full', side }, end: null };
   return { pick: { kind: 'lane', side, index: 0 }, note: { kind: 'place', side, index: 0 }, end: null };
 };
 

@@ -65,6 +65,10 @@
   padding: var(--space-2xs);
 }
 
+.toolbar-dock__side[data-orientation='vertical'] .toolbar-dock__lane {
+  flex-direction: column;
+}
+
 .toolbar-dock__centre {
   position: relative;
   grid-area: centre;
