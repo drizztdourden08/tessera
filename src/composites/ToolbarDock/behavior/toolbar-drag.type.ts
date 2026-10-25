@@ -7,6 +7,7 @@ interface ToolbarFrame {
   rect: Rect;
   thickness: Record<ToolbarSide, number>;
   spans: Record<ToolbarSide, number[]>;
+  starts?: Record<ToolbarSide, number[]>;
   laneThickness: Record<ToolbarSide, number[]>;
 }
 
@@ -19,14 +20,24 @@ interface ToolbarSlotSpan {
 interface ToolbarZone {
   side: ToolbarSide;
   others: number;
-  free: number[];
-  slots: Rect[];
   band: Rect;
   held: Rect;
 }
 
+interface ToolbarLaneTarget {
+  kind: 'lane';
+  side: ToolbarSide;
+  lane: number | 'new';
+  index: number;
+  at: number;
+  start: number;
+  size: number;
+  rect: Rect;
+  next: ToolbarLayout;
+}
+
 type ToolbarDropTarget =
-  | { kind: 'lane'; side: ToolbarSide; index: number; rect: Rect }
+  | ToolbarLaneTarget
   | { kind: 'refused'; side: ToolbarSide; rect: Rect }
   | { kind: 'basket' }
   | { kind: 'none' };
