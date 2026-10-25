@@ -4,6 +4,7 @@ import { Box } from '../../primitives/Box';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ConfirmIconButtonQuestion } from '../ConfirmIconButton/sub-components/ConfirmIconButtonQuestion';
 import { confirmOf } from './behavior/confirm-of';
+import { nameOf } from './behavior/name-of';
 import { restOf } from './behavior/rest-of';
 import { splitActions } from './behavior/split-actions';
 import { useActionFit } from './behavior/useActionFit';
@@ -33,7 +34,7 @@ const ActionBar = (props: ActionBarProps) => {
       <ConfirmIconButtonQuestion
         key={`ask-${action.id}`}
         className="action-bar__ask"
-        label={action.label}
+        label={nameOf(action)}
         question={words.title}
         danger={action.kind === 'danger'}
         confirmLabel={words.confirmLabel}

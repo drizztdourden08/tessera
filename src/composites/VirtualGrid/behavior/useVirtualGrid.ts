@@ -15,6 +15,7 @@ import { rowRange } from './row-range';
 import { scrollOffset } from './scroll-offset';
 import { useGridCollapsed } from './useGridCollapsed';
 import { useGridColumns } from './useGridColumns';
+import { useGridRects } from './useGridRects';
 import type { KeyboardEvent } from 'react';
 import type { ScrollAlign, VirtualMetrics } from '../../virtual';
 import type { UseVirtualGridInput, VirtualGridModel } from './useVirtualGrid.type';
@@ -23,6 +24,7 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
   const { items, sections, getKey, overscan = DEFAULT_OVERSCAN, sizeKey, onActiveChange } = input;
   const rootRef = useRef<HTMLElement>(null);
   const [columns, setColumns] = useState(DEFAULT_COLUMNS);
+  const tileWidth = useRef(0);
   const { set: collapsed, setCollapsed } = useGridCollapsed(input);
   const { flat, shapes, keys } = useMemo(() => gridSections(items, sections, collapsed), [items, sections, collapsed]);
   const layout = useMemo(() => gridLayout(shapes, columns), [shapes, columns]);
@@ -43,7 +45,11 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
   });
   const { bodyRef, indices, metrics, onScroll } = slice;
   const heights = useMemo(() => gridHeights(metrics), [metrics]);
-  useGridColumns({ rootRef, bodyRef, fallbackTile: metrics.rowHeight, refitKey: `${sizeKey}-${layout.tileRows}`, onColumns: setColumns });
+  const fit = useCallback((count: number, tile: number) => {
+    tileWidth.current = tile;
+    setColumns(count);
+  }, []);
+  useGridColumns({ rootRef, bodyRef, fallbackTile: metrics.rowHeight, refitKey: `${sizeKey}-${layout.tileRows}`, onColumns: fit });
 
   const resolve = useCallback((event: KeyboardEvent<HTMLElement>, stop: number, page: number) => {
     const to = nextCell(event.key, layout, stop, { ctrl: event.ctrlKey || event.metaKey, page });
@@ -72,9 +78,11 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
     onScroll();
   }, [layout, heights, onScroll]);
 
+  const getRects = useGridRects({ rootRef, bodyRef, tileWidth, layout, heights, flat, getKey });
+
   return {
     rootRef, bodyRef, flat, layout, rows: indices, columns, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,
-    onFocus: slice.onFocus, onBlur: slice.onBlur, activate, navigate, scrollToIndex,
+    onFocus: slice.onFocus, onBlur: slice.onBlur, activate, navigate, scrollToIndex, getRects,
   };
 };
 

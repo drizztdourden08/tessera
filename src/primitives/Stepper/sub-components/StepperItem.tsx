@@ -2,18 +2,19 @@
 import { Box } from '../../Box';
 import { Pressable } from '../../Pressable';
 import { Span } from '../../text-elements';
-import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { itemStyle } from '../behavior/item-style';
 import { stepAria } from '../behavior/step-aria';
+import { useStepNote } from '../behavior/useStepNote';
 import { StepperDot } from './StepperDot';
 import { StepperGap } from './StepperGap';
+import { StepperNote } from './StepperNote';
 import type { StepperItemProps } from './StepperItem.type';
 import '../../../theme/visually-hidden.css';
 import './StepperItem.css';
 
 const StepperItem = (props: StepperItemProps) => {
   const { step, number, status, current, last, wave, lineTone, lineLit, doneIcon, reserveSummary, reserveMedia, hideLabel, size, selectable, onSelect, activeSubStepId, onSubStepSelect } = props;
-  const { stepper } = useTesseraStrings();
+  const note = useStepNote(status);
   return (
     <Box
       as="li"
@@ -27,22 +28,23 @@ const StepperItem = (props: StepperItemProps) => {
     >
       <Pressable
         className="stepper__step"
-        {...stepAria(stepper, props)}
+        {...stepAria(props, note.id)}
         aria-current={current ? 'step' : undefined}
         disabled={!selectable || onSelect === undefined}
         onClick={() => onSelect?.(step.id)}
       >
         {reserveMedia && <Span className="stepper__media" aria-hidden>{step.media}</Span>}
-        <StepperDot number={number} icon={doneIcon} size={size} />
+        <StepperDot number={number} icon={doneIcon} size={size} />{' '}
         {hideLabel ? <Span className="visually-hidden">{step.label}</Span> : (
           <Span className="stepper__text">
             <Span className="stepper__label" data-label={step.label} data-struck={step.struck ? '' : undefined}>
               <Span className="stepper__label-text">{step.label}</Span>
-            </Span>
+            </Span>{' '}
             {step.summary ? <Span className="stepper__summary" title={step.summary}>{step.summary}</Span> : reserveSummary && <Span className="stepper__summary" aria-hidden />}
           </Span>
         )}
       </Pressable>
+      <StepperNote id={note.id} text={note.text} />
       <StepperGap step={step} current={current} last={last} selectable={selectable} activeSubStepId={activeSubStepId} onSubStepSelect={onSubStepSelect} />
     </Box>
   );

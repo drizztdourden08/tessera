@@ -17,7 +17,7 @@ const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
   const model = useVirtualGrid({ ...props, overscan, sizeKey: `${tileWidth}-${tileHeight}` });
   const { columns, layout } = model;
   const rootRef = useMemo(() => mergeRefs(model.rootRef, scrollRef), [model.rootRef, scrollRef]);
-  useImperativeHandle(ref, () => ({ scrollToIndex: model.scrollToIndex }), [model.scrollToIndex]);
+  useImperativeHandle(ref, () => ({ scrollToIndex: model.scrollToIndex, getRects: model.getRects }), [model.scrollToIndex, model.getRects]);
   const rootStyle = { [TILE_WIDTH_PROPERTY]: sizeVariable(tileWidth), [TILE_HEIGHT_PROPERTY]: sizeVariable(tileHeight) } as CSSProperties;
   const bodyStyle = { [ROWS_PROPERTY]: layout.tileRows, [HEADERS_PROPERTY]: layout.headers } as CSSProperties;
   const classes = ['virtual-box', 'virtual-grid', className].filter(Boolean).join(' ');

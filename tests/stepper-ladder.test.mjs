@@ -80,16 +80,16 @@ describe('Stepper toggle mode', () => {
 
   it('names each step plainly, without the done wording', () => {
     const out = html();
-    expect(out).toContain('aria-label="A, step 1"');
-    expect(out).toContain('aria-label="C, step 3"');
-    expect(out).not.toContain(', done');
+    expect(out).toContain('aria-label="1 A"');
+    expect(out).toContain('aria-label="3 C"');
+    expect(out).not.toMatch(/aria-label="[^"]*done/i);
   });
 
   it('starts the name of a step with its visible label and summary', () => {
     const steps = [{ id: 'a', label: 'Account', summary: 'Name and email' }, { id: 'b', label: 'Plan' }];
     const out = renderToString(h(Stepper, { steps, currentId: 'a', onSelect: () => {} }));
-    expect(out).toContain('aria-label="Account Name and email, step 1"');
-    expect(out).toContain('aria-label="Plan, step 2"');
+    expect(out).toContain('aria-label="1 Account Name and email"');
+    expect(out).toContain('aria-label="2 Plan"');
   });
 
   it('shows no pressed state in the default navigate mode', () => {
@@ -189,11 +189,11 @@ describe('Stepper media below, hidden labels and size', () => {
   it('hides the label visually, keeps it in the step and leaves no label row', () => {
     const out = html({ labelPlacement: 'hidden' });
     expect(out).toContain('data-label-at="hidden"');
-    expect(out.match(/class="[^"]*\bvisually-hidden\b[^"]*"/g)).toHaveLength(4);
+    expect(out.match(/class="[^"]*\bvisually-hidden\b[^"]*"/g)).toHaveLength(5);
     expect(out).not.toContain('stepper__text');
     expect(out).not.toContain('stepper__label');
-    expect(out).toContain('aria-label="A, step 1, done"');
-    expect(html()).not.toContain('visually-hidden');
+    expect(out).toContain('aria-label="1 A"');
+    expect(html()).not.toMatch(/visually-hidden">[A-D]</);
   });
 
   it('hides the label for a vertical stepper too', () => {

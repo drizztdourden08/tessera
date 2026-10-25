@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import type { StatusTone } from '../../primitives/Status';
 import type { HeadingLevel } from '../../primitives/Title';
 import type { ActionItem } from '../ActionBar';
@@ -12,7 +12,7 @@ type ItemCardDensity = 'normal' | 'compact';
 
 type ItemCardMediaSize = 'band' | 'sm';
 
-type ItemCardMediaTone = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
+type ItemCardMediaTone = 'neutral' | 'primary' | 'info' | 'tertiary' | 'success' | 'warning' | 'danger';
 
 interface ItemCardStatus {
   label: string;
@@ -24,8 +24,9 @@ interface ItemCardProps {
   eyebrow?: ReactNode;
   status?: ItemCardStatus;
   tags?: readonly ReactNode[];
-  details?: readonly ReactNode[];
+  details?: ReactNode | readonly ReactNode[];
   media?: ReactNode;
+  mediaLabel?: string;
   mediaTone?: ItemCardMediaTone;
   mediaHeight?: ItemCardMediaHeight;
   mediaSize?: ItemCardMediaSize;
@@ -46,6 +47,16 @@ interface ItemCardDetailsProps {
   details: readonly ReactNode[];
 }
 
+interface ItemCardTagLineProps {
+  tags: readonly ReactNode[];
+}
+
+interface TagLineFitParams {
+  rowRef: RefObject<HTMLElement | null>;
+  measureRef: RefObject<HTMLElement | null>;
+  count: number;
+}
+
 type ItemCardTopProps = Pick<ItemCardProps, 'eyebrow' | 'status'>;
 
 type ItemCardFootProps = Pick<ItemCardProps, 'tags' | 'details' | 'actions'>;
@@ -56,6 +67,7 @@ type ItemCardBodyProps = ItemCardProps & { tile?: ReactNode };
 
 interface ItemCardMediaProps {
   media?: ReactNode;
+  label?: string;
   tone?: ItemCardMediaTone;
   height?: ItemCardMediaHeight;
   tiled: boolean;
@@ -68,5 +80,5 @@ interface ItemCardHeadProps {
 
 export type {
   ItemCardBodyProps, ItemCardDensity, ItemCardDetailsProps, ItemCardFootProps, ItemCardHeadProps, ItemCardLayout, ItemCardMediaHeight, ItemCardMediaProps,
-  ItemCardMediaSize, ItemCardMediaTone, ItemCardProps, ItemCardRowProps, ItemCardStatus, ItemCardTitleProps, ItemCardTopProps,
+  ItemCardMediaSize, ItemCardMediaTone, ItemCardProps, ItemCardRowProps, ItemCardStatus, ItemCardTagLineProps, ItemCardTitleProps, ItemCardTopProps, TagLineFitParams,
 };

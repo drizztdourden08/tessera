@@ -16,17 +16,21 @@ const usage = {
     'List the actions in the order the user reads them; give the main one kind primary and it sits last, never folded.',
     'Give every destructive action kind danger: it takes the danger look and asks first, in the bar or from the menu.',
     'Pass confirm to name the question and the check, such as Delete Keysanity?; the default asks with the label and a question mark.',
+    'Set confirm false on a danger action when the app asks with its own dialog, so the user is not asked twice; true makes any action ask.',
+    'Set loading on an action while its work runs: it shows a spinner and cannot be pressed again.',
+    'Set nameSuffix in rows that repeat an action, such as the item name, so each button has its own accessible name and tooltip.',
     'Set iconOnly on an action with an icon to draw it as an icon button; its label is the accessible name and the tooltip.',
     'Set keep in a list row, often to one, so every row folds the same way.',
   ],
   a11y: [
+    'An action with nameSuffix is named by its label and the suffix, such as Delete Friday run, in the button, its tooltip and its question.',
     'The bar is a group named by label, and More is an icon button named More, as tall as the action buttons, that opens a keyboard menu.',
     'An action that asks shows the question with a green check and a quiet cross, focus on the cross; Escape or the cross puts focus back on the action.',
     'The hidden copies used to measure the row are inert and out of the Tab order.',
   ],
   tree: {
     path: ['actions', 'several related buttons', 'actions on one item, folding into More when narrow'],
-    rule: 'ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and always asks before it.',
+    rule: 'ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and asks before it unless the action opts out.',
   },
   example: `import { ActionBar } from '@drizztdourden08/tessera';
 import type { ActionItem } from '@drizztdourden08/tessera';

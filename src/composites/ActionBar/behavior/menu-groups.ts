@@ -8,7 +8,7 @@ const menuGroups = (source: Pick<ActionBarMoreProps, 'folded' | 'asks' | 'onPres
     id: action.id,
     label: asks(action) ? ellipsis(action.label) : action.label,
     icon: action.icon,
-    disabled: action.disabled,
+    disabled: action.disabled === true || action.loading === true,
     onSelect: () => onPress(action),
   });
   const items = (danger: boolean) => folded.filter((action) => (action.kind === 'danger') === danger).map(itemOf);

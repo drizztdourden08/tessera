@@ -50,6 +50,10 @@
   --item-card-tone: var(--c-info-dim);
 }
 
+.item-card__media[data-tone='tertiary'] {
+  --item-card-tone: var(--c-tertiary-dim);
+}
+
 .item-card__media[data-tone='success'] {
   --item-card-tone: var(--c-success-dim);
 }

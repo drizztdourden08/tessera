@@ -3,19 +3,22 @@ import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { Tooltip } from '../../../primitives/Tooltip';
 import { ICON_KIND_VARIANT } from '../ActionBar.constants';
+import { nameOf } from '../behavior/name-of';
 import type { ActionBarButtonProps } from '../ActionBar.type';
 
 const ActionBarIconButton = (props: ActionBarButtonProps) => {
   const { action, size, onPress } = props;
   const live = onPress !== undefined;
   const kind = action.kind ?? 'default';
+  const name = nameOf(action);
   return (
-    <Tooltip content={action.label}>
+    <Tooltip content={name}>
       <IconButton
         size={size}
         variant={ICON_KIND_VARIANT[kind]}
         tone={kind === 'danger' ? 'danger' : undefined}
-        label={action.label}
+        label={name}
+        loading={action.loading}
         disabled={live ? action.disabled : undefined}
         tabIndex={live ? undefined : -1}
         data-action-id={live ? action.id : undefined}

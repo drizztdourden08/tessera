@@ -84,6 +84,16 @@ const Asks = {
   render: () => <ActionBarDemo />,
 } satisfies StoryLiteStoryDefinition<ActionBarArgs>;
 
+const OWN_DIALOG: readonly ActionItem[] = [
+  { id: 'save', label: 'Save', icon: 'save', kind: 'primary', loading: true, onSelect: () => undefined },
+  { id: 'delete', label: 'Delete', icon: 'trash-2', iconOnly: true, kind: 'danger', nameSuffix: 'Friday run', confirm: false, onSelect: () => undefined },
+];
+
+const Options = {
+  name: 'Loading, a name suffix and no inline ask',
+  render: () => <Box className="action-bar-story"><ActionBar actions={OWN_DIALOG} label="Friday run" /></Box>,
+} satisfies StoryLiteStoryDefinition<ActionBarArgs>;
+
 const SAVE_OFF = PRESET_ACTIONS.map((action) => (action.kind === 'primary' ? { ...action, disabled: true } : action));
 
 const CODE = `import { ActionBar } from '@drizztdourden08/tessera';
@@ -104,14 +114,14 @@ const Overview = overviewStory({
   points: [
     '`actions` keep their order; a `primary` action sits last and never folds.',
     'When the row runs out of width, the last actions move into More, a [DropdownMenu] under the bar.',
-    'More takes the height, look and icon size of the buttons beside it, at `sm` and at `md`.',
     '`keep` caps how many actions show before More, such as one in a list row.',
-    'A `danger` action takes the danger look and always asks first, in place, with a green check and a cross.',
-    '`confirm` sets the question and the name of the check, and makes any other action ask too.',
+    'A `danger` action takes the danger look and asks first, in place, with a green check and a cross.',
+    '`confirm` sets the question and the check, makes any action ask with `true`, or skips the ask with `false`.',
+    '`loading` shows a spinner and blocks the action; `nameSuffix` makes the name unique, such as Delete Friday run.',
   ],
   instead: '[ConfirmIconButton] for one icon action that asks, or [ButtonRow] for buttons that never fold.',
   playground: Playground,
-  variants: [Narrow, Rows, Wide, Asks],
+  variants: [Narrow, Rows, Wide, Asks, Options],
   states: {
     render: (props: StateProps) => <Box className="action-bar-story--wide"><ActionBar actions={PRESET_ACTIONS} label="Keysanity" {...props} /></Box>,
     list: [
@@ -124,4 +134,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Asks, Narrow, Overview, Playground, Rows, Wide };
+export { Asks, Narrow, Options, Overview, Playground, Rows, Wide };

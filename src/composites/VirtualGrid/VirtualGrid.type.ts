@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
+import type { ActionItem } from '../ActionBar';
+import type { MarqueeItem } from '../marquee';
 import type { ScrollAlign, VirtualSize } from '../virtual';
 
 interface VirtualGridSection<T> {
@@ -7,10 +9,13 @@ interface VirtualGridSection<T> {
   label: ReactNode;
   items: readonly T[];
   count?: number;
+  actions?: readonly ActionItem[];
+  depth?: number;
 }
 
 interface VirtualGridHandle {
   scrollToIndex: (index: number, align?: ScrollAlign) => void;
+  getRects: () => readonly MarqueeItem[];
 }
 
 interface VirtualGridBind {

@@ -22,6 +22,8 @@ const GridRows = <T,>(props: GridRowsProps<T>) => {
             columns={columns}
             collapsed={model.collapsed.has(section.key)}
             tabbable={row.stop === model.tabbable}
+            depth={section.depth}
+            actions={section.actions}
             onToggle={(next) => model.setCollapsed(section.key, next)}
             onActivate={model.activate}
             onNavigate={model.navigate}

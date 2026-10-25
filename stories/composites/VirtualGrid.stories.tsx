@@ -59,12 +59,12 @@ const Wide = {
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
 const Folders = {
-  name: 'Folders: click a header, or use Enter, Space, Left and Right on it',
+  name: 'Folders with actions and depth: click a header, or use Enter, Space, Left and Right on it',
   render: () => <VirtualGridFolders folders={6} perFolder={40} />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
 const Marquee = {
-  name: 'Marquee: drag over the gaps to pick tiles',
+  name: 'Marquee: drag over the gaps to pick tiles, even those not drawn',
   render: () => <VirtualGridMarquee count={300} />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
@@ -94,7 +94,9 @@ const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
   onToggleSection={(key, collapsed) => remember(key, collapsed)}
 />
 
-gridRef.current?.scrollToIndex(1200, 'center');`;
+gridRef.current?.scrollToIndex(1200, 'center');
+
+const marquee = useMarqueeSelect({ containerRef, selected, onChange, getRects: () => gridRef.current?.getRects() ?? [] });`;
 
 const Overview = overviewStory({
   component: 'VirtualGrid',
@@ -102,9 +104,9 @@ const Overview = overviewStory({
   points: [
     '`items`, `getKey` and `renderItem` draw the tiles; `getKey` returns a stable id for each item.',
     '`tileSize` sets a square tile; `tileWidth` and `tileHeight` size a tile that is not square.',
-    '`sections` groups the tiles under header rows that collapse by click, Enter, Space or Left and Right.',
+    '`sections` groups the tiles under collapsing headers; a section takes `actions` and `depth`.',
     '`scrollRef`, `bind` and `overlay` let a marquee pick tiles; each tile carries `data-marquee-key`.',
-    'A `ref` gives `scrollToIndex(index, align)`, which scrolls a tile into view.',
+    'A `ref` gives `scrollToIndex(index, align)` and `getRects()`, the rects of all tiles for a marquee.',
     'The keys move through tiles and headers, and a tile that holds focus stays drawn.',
   ],
   instead: '[VirtualList] for rows in a column, or [ItemCard] for a few cards.',

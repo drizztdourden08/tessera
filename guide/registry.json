@@ -3870,10 +3870,14 @@
         "List the actions in the order the user reads them; give the main one kind primary and it sits last, never folded.",
         "Give every destructive action kind danger: it takes the danger look and asks first, in the bar or from the menu.",
         "Pass confirm to name the question and the check, such as Delete Keysanity?; the default asks with the label and a question mark.",
+        "Set confirm false on a danger action when the app asks with its own dialog, so the user is not asked twice; true makes any action ask.",
+        "Set loading on an action while its work runs: it shows a spinner and cannot be pressed again.",
+        "Set nameSuffix in rows that repeat an action, such as the item name, so each button has its own accessible name and tooltip.",
         "Set iconOnly on an action with an icon to draw it as an icon button; its label is the accessible name and the tooltip.",
         "Set keep in a list row, often to one, so every row folds the same way."
       ],
       "a11y": [
+        "An action with nameSuffix is named by its label and the suffix, such as Delete Friday run, in the button, its tooltip and its question.",
         "The bar is a group named by label, and More is an icon button named More, as tall as the action buttons, that opens a keyboard menu.",
         "An action that asks shows the question with a green check and a quiet cross, focus on the cross; Escape or the cross puts focus back on the action.",
         "The hidden copies used to measure the row are inert and out of the Tab order."
@@ -3884,7 +3888,7 @@
           "several related buttons",
           "actions on one item, folding into More when narrow"
         ],
-        "rule": "ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and always asks before it."
+        "rule": "ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and asks before it unless the action opts out."
       },
       "example": "import { ActionBar } from '@drizztdourden08/tessera';\nimport type { ActionItem } from '@drizztdourden08/tessera';\n\ninterface PresetHeaderProps {\n  name: string;\n  onDuplicate: () => void;\n  onDelete: () => void;\n  onSave: () => void;\n}\n\nconst PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps) => {\n  const actions: ActionItem[] = [\n    { id: 'duplicate', label: 'Duplicate', icon: 'copy', onSelect: onDuplicate },\n    { id: 'delete', label: 'Delete', icon: 'trash-2', kind: 'danger', onSelect: onDelete, confirm: { title: `Delete ${name}?`, confirmLabel: `Delete ${name}` } },\n    { id: 'save', label: 'Save', icon: 'save', kind: 'primary', onSelect: onSave },\n  ];\n  return <ActionBar label={name} actions={actions} />;\n};\n",
       "propsHash": "3ea44d39ee726791",
@@ -6583,6 +6587,8 @@
         "--c-text",
         "--c-text-dim",
         "--c-warning",
+        "--control-h-xs",
+        "--document-tabs-count",
         "--leading-tight",
         "--opacity-muted",
         "--radius-round",
@@ -7970,20 +7976,25 @@
       ],
       "rules": [
         "Keep the title to the name of the item, and put the source or the kind in eyebrow, such as Official.",
-        "Write details as short facts, such as World 1.2.0 and For AP 0.6.7; they join with dots and stop at three lines.",
-        "Give the main action kind primary; one other shows and the rest fold under More, danger ones asking first.",
+        "Write details as short facts, such as World 1.2.0 and For AP 0.6.7; they join with dots and stop at three lines. Pass nodes too, such as a Tooltip around a status.",
+        "Give the main action kind primary; one other shows and the rest fold under More, danger ones asking first unless confirm is false.",
         "Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list.",
         "With href, pass navigate to route a plain click inside the app, as Link and SiteHeader take it.",
         "Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover.",
         "Set density compact for a long catalogue with no pictures: one row of about 56 px with the media as a 32 px tile, the title, one line and up to three icon actions.",
+        "Compact shows tags on a line of their own under the details, cut with a +N tag when they do not fit; give that row about 76 px.",
+        "In compact the details stay on one line and cut with an ellipsis, a Tooltip inside them still opens.",
+        "Set nameSuffix on each action of a row, such as the item name, so every Remove button has its own name.",
+        "Set confirm false on a danger action when the app asks with its own dialog; the card then does not ask first.",
         "Set mediaSize sm to swap the 96 px band for a 32 px tile beside the title; compact does this itself.",
-        "In a VirtualList row, give the list a rowHeight of about 56 px; the compact card fills the row width and sets no height of its own."
+        "In a VirtualList row, give the list a rowHeight of about 56 px (76 px with tags); the compact card fills the row width and sets no height of its own."
       ],
       "a11y": [
         "The title is a heading, level 3 by default, so a screen reader can jump from card to card.",
         "With onOpen or href the title is the one button or link of the card; a click anywhere on the card goes through it, and the focus ring circles the card.",
         "Compact actions are icon buttons whose label is their accessible name and their tooltip; give each action an icon.",
-        "The selected card marks its title with aria-current; the media is hidden from screen readers."
+        "The selected card marks its title with aria-current; the media is hidden from screen readers unless mediaLabel names it.",
+        "An action with nameSuffix reads as its label and the suffix, such as Remove Hollow Knight, in the button and its tooltip."
       ],
       "tree": {
         "path": [
@@ -7993,7 +8004,7 @@
         "rule": "ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places."
       },
       "example": "import { ItemCard } from '@drizztdourden08/tessera';\nimport { Icon, Tag } from '@drizztdourden08/tessera';\n\ninterface GameCardProps {\n  name: string;\n  genre: string;\n  version: string;\n  onInstall: () => void;\n  onOpen: () => void;\n}\n\nconst GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) => (\n  <ItemCard\n    media={<Icon name=\"gamepad-2\" size={40} />}\n    eyebrow=\"Official\"\n    title={name}\n    status={{ label: 'stable', tone: 'info' }}\n    tags={[<Tag key=\"genre\" variant=\"category\" color=\"violet\">{genre}</Tag>]}\n    details={[`World ${version}`, 'For AP 0.6.7']}\n    actions={[{ id: 'install', label: 'Install', icon: 'download', kind: 'primary', onSelect: onInstall }]}\n    onOpen={onOpen}\n  />\n);\n",
-      "propsHash": "013de868072c7a71",
+      "propsHash": "ace7c00a9b373d14",
       "props": {
         "own": [
           {
@@ -8019,12 +8030,17 @@
           {
             "name": "details",
             "optional": true,
-            "text": "readonly ReactNode[]"
+            "text": "ReactNode | readonly ReactNode[]"
           },
           {
             "name": "media",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "mediaLabel",
+            "optional": true,
+            "text": "string"
           },
           {
             "name": "mediaTone",
@@ -8034,6 +8050,7 @@
               "'neutral'",
               "'primary'",
               "'info'",
+              "'tertiary'",
               "'success'",
               "'warning'",
               "'danger'"
@@ -8139,6 +8156,7 @@
         "--c-primary-dim",
         "--c-success-dim",
         "--c-sunken",
+        "--c-tertiary-dim",
         "--c-text",
         "--c-text-dim",
         "--c-warning-dim",
@@ -13873,9 +13891,11 @@
         "Give sections instead of items to group the tiles: each section has a key, a label and its items, and an optional count to show in the header instead of the number of items.",
         "The index given to renderItem, getKey and onActiveChange runs through all the sections, and onActiveChange is not called for a header.",
         "A header spans all the columns and takes part in the scroll like a row of its own; its height is fixed by the grid.",
+        "A section takes actions, the same list of actions as an ItemCard, drawn as icon buttons at the end of its header, and depth, a whole number that indents the header by one step per level for nested folders.",
         "Hold the collapsed sections with collapsed (a list of keys) and onToggleSection(key, collapsed), or leave both out and give defaultCollapsed for the start; keep the list stable between renders.",
         "Give scrollRef the ref of a marquee container and spread bind of useMarqueeSelect on the grid; every tile carries data-marquee-key set to its getKey, and overlay takes the MarqueeBox that follows the content.",
         "Give ref a ref and call scrollToIndex(index, align) to scroll a tile into view; align is start, center, end or nearest, and nearest is the default; the index of a tile in a collapsed section scrolls to its header.",
+        "Give a marquee every tile, drawn or not, with getRects on the ref: useMarqueeSelect({ getRects: () => gridRef.current?.getRects() ?? [] }); the rects come from the layout, not the page, and the tiles of a collapsed section are left out.",
         "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
         "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",
         "Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid."
@@ -13886,6 +13906,7 @@
         "A header is a cell that says if it is open; Enter, Space and a click toggle it, Left closes it and Right opens it, and Right on an open header goes to its first tile.",
         "Up and Down move between the tiles and the headers, and Left and Right step through tiles to the next header and back.",
         "A tile or a header that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
+        "The actions of a header are in the tab order after the header; the arrows, Enter, Space, Left and Right act only when the header itself has focus, and a click on an action does not toggle the header.",
         "Keys act only when the tile itself has focus, so a field inside a tile keeps its own arrow keys."
       ],
       "tree": {
@@ -14010,9 +14031,11 @@
         "--size-16",
         "--size-32",
         "--size-96",
+        "--space-lg",
         "--space-sm",
         "--space-xs",
         "--text-sm",
+        "--vg-depth",
         "--vg-headers",
         "--vg-heads",
         "--vg-row",

@@ -48,7 +48,7 @@
   box-sizing: border-box;
   min-inline-size: 0;
   block-size: var(--vg-head);
-  padding-inline: var(--space-sm);
+  padding-inline: calc(var(--space-sm) + var(--vg-depth, 0) * var(--space-lg)) var(--space-sm);
   cursor: pointer;
   background: var(--c-surface);
   border-block-end: var(--border-width-thin) solid var(--c-hairline);
@@ -69,4 +69,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: var(--text-sm);
+}
+
+.virtual-grid__header-actions {
+  display: flex;
+  flex: none;
+  cursor: default;
 }

@@ -1,6 +1,6 @@
 /* @layer stories @kind data */
 import type { ItemCardProps } from '../../../src/composites';
-import { Icon } from '../../../src/primitives';
+import { Icon, Tag, Tooltip } from '../../../src/primitives';
 
 const noop = (): void => undefined;
 
@@ -33,4 +33,22 @@ const COMPACT_ROWS: readonly ItemCardProps[] = [
   },
 ];
 
-export { COMPACT_ROWS };
+const OWN_DIALOG_ACTIONS: ItemCardProps['actions'] = [
+  { id: 'install', label: 'Install', icon: 'download', kind: 'primary', loading: true, nameSuffix: 'Timespinner', onSelect: noop },
+  { id: 'remove', label: 'Remove', icon: 'trash-2', kind: 'danger', confirm: false, nameSuffix: 'Timespinner', onSelect: noop },
+];
+
+const TAG_ROWS: readonly ItemCardProps[] = [
+  {
+    title: 'Timespinner', media: <Icon name="gamepad-2" size={20} />, mediaLabel: 'Game', mediaTone: 'tertiary',
+    details: [<Tooltip key="status" content="Updated on Friday" focusable>update ready</Tooltip>, 'World 1.2.0'],
+    tags: [<Tag key="genre" variant="category" color="violet">Metroidvania</Tag>, <Tag key="mode" color="primary">Co-op</Tag>],
+    actions: OWN_DIALOG_ACTIONS,
+  },
+  {
+    title: 'The Grinch', media: <Icon name="puzzle" size={20} />, mediaLabel: 'Mod', details: ['World 1.5.8'],
+    tags: ['Puzzle', 'Platformer', 'Randomizer', 'Co-op', 'Hard', 'Short'].map((name) => <Tag key={name}>{name}</Tag>), actions: ROW_ACTIONS,
+  },
+];
+
+export { COMPACT_ROWS, TAG_ROWS };

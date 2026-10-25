@@ -14,20 +14,25 @@ const usage = {
   ],
   rules: [
     'Keep the title to the name of the item, and put the source or the kind in eyebrow, such as Official.',
-    'Write details as short facts, such as World 1.2.0 and For AP 0.6.7; they join with dots and stop at three lines.',
-    'Give the main action kind primary; one other shows and the rest fold under More, danger ones asking first.',
+    'Write details as short facts, such as World 1.2.0 and For AP 0.6.7; they join with dots and stop at three lines. Pass nodes too, such as a Tooltip around a status.',
+    'Give the main action kind primary; one other shows and the rest fold under More, danger ones asking first unless confirm is false.',
     'Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list.',
     'With href, pass navigate to route a plain click inside the app, as Link and SiteHeader take it.',
     'Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover.',
     'Set density compact for a long catalogue with no pictures: one row of about 56 px with the media as a 32 px tile, the title, one line and up to three icon actions.',
+    'Compact shows tags on a line of their own under the details, cut with a +N tag when they do not fit; give that row about 76 px.',
+    'In compact the details stay on one line and cut with an ellipsis, a Tooltip inside them still opens.',
+    'Set nameSuffix on each action of a row, such as the item name, so every Remove button has its own name.',
+    'Set confirm false on a danger action when the app asks with its own dialog; the card then does not ask first.',
     'Set mediaSize sm to swap the 96 px band for a 32 px tile beside the title; compact does this itself.',
-    'In a VirtualList row, give the list a rowHeight of about 56 px; the compact card fills the row width and sets no height of its own.',
+    'In a VirtualList row, give the list a rowHeight of about 56 px (76 px with tags); the compact card fills the row width and sets no height of its own.',
   ],
   a11y: [
     'The title is a heading, level 3 by default, so a screen reader can jump from card to card.',
     'With onOpen or href the title is the one button or link of the card; a click anywhere on the card goes through it, and the focus ring circles the card.',
     'Compact actions are icon buttons whose label is their accessible name and their tooltip; give each action an icon.',
-    'The selected card marks its title with aria-current; the media is hidden from screen readers.',
+    'The selected card marks its title with aria-current; the media is hidden from screen readers unless mediaLabel names it.',
+    'An action with nameSuffix reads as its label and the suffix, such as Remove Hollow Knight, in the button and its tooltip.',
   ],
   tree: {
     path: ['data', 'items of a catalogue, as cards'],
@@ -57,7 +62,7 @@ const GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) =>
   />
 );
 `,
-  propsHash: '013de868072c7a71',
+  propsHash: 'ace7c00a9b373d14',
 } satisfies ComponentUsage;
 
 export { usage };
