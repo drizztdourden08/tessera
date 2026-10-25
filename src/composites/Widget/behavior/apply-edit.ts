@@ -12,7 +12,7 @@ import type { SplitEdit } from './widget-layout.type';
 const applySplitEdit = (layout: WidgetLayout, edit: SplitEdit): WidgetLayout => {
   const hit = resolveSplit(layout.dock, edit.node, edit.index);
   if (!hit) return layout;
-  const dock = edit.type === 'resize' ? resizeSplit(layout.dock, hit.node, hit.index, edit.delta) : evenSplit(layout.dock, hit.node, hit.index);
+  const dock = edit.type === 'resize' ? resizeSplit(layout.dock, hit.node, hit.index, { delta: edit.delta, origin: edit.origin }) : evenSplit(layout.dock, hit.node, hit.index);
   return { ...layout, dock };
 };
 

@@ -1,16 +1,16 @@
 /* @layer renderer-components @kind logic */
-import { MIN_SIZE } from '../DockLayout.constants';
 import type { LayoutNode, SplitNode } from '../DockLayout.type';
 import { mapSplit } from './map-split';
+import { pushSizes } from './push-sizes';
+import type { ResizeStep } from './resize-origin.type';
 
-const resizeSplit = (tree: LayoutNode, target: SplitNode, index: number, delta: number): LayoutNode =>
+const resizeSplit = (tree: LayoutNode, target: SplitNode, index: number, step: ResizeStep): LayoutNode =>
   mapSplit(tree, target, (split) => {
-    const a = (split.sizes[index] ?? 0) + delta;
-    const b = (split.sizes[index + 1] ?? 0) - delta;
-    if (a < MIN_SIZE || b < MIN_SIZE) return split;
-    const sizes = [...split.sizes];
-    sizes[index] = a;
-    sizes[index + 1] = b;
+    if (index < 0 || index + 1 >= split.sizes.length) return split;
+    const { delta, origin } = step;
+    const sizes = origin?.sizes.length === split.sizes.length
+      ? pushSizes(origin.sizes, index, origin.delta)
+      : pushSizes(split.sizes, index, delta);
     return { ...split, sizes };
   });
 

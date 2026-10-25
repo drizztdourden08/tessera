@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { Rect, Size } from '../rect-drag/rect-drag.type';
+import type { ResizeOrigin } from './behavior/resize-origin.type';
 
 type WidgetId = string;
 
@@ -71,7 +72,7 @@ type LayoutEdit =
   | { type: 'float-widget'; id: WidgetId; rect: Rect }
   | { type: 'move-main'; target: MainTarget }
   | { type: 'swap-panes'; keyA: string; keyB: string }
-  | { type: 'resize'; node: SplitNode; index: number; delta: number }
+  | { type: 'resize'; node: SplitNode; index: number; delta: number; origin?: ResizeOrigin }
   | { type: 'even'; node: SplitNode; index: number }
   | { type: 'activate-tab'; key: string; id: WidgetId }
   | { type: 'pop-out'; id: WidgetId };
