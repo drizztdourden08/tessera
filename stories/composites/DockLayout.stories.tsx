@@ -7,6 +7,7 @@ import type { StateProps } from '../_template/states/states.type';
 import type { DockMainGrip } from '../../src/composites';
 import { DockDemo } from './_samples/DockDemo';
 import { CHROMES_HINT, DOCK_CHROMES } from './_samples/dock-demo.constants';
+import { CORNER_HINT } from './_samples/dock-corner-layout.constants';
 import { SAVED_HINT } from './_samples/dock-saved-layout.constants';
 import './DockLayout.stories.css';
 
@@ -96,6 +97,11 @@ const Saved = {
   render: () => <DockDemo start="saved" hint={SAVED_HINT} />,
 } satisfies StoryLiteStoryDefinition<DockArgs>;
 
+const Corners = {
+  name: 'Corners the panels can turn',
+  render: () => <DockDemo start="corner" hint={CORNER_HINT} />,
+} satisfies StoryLiteStoryDefinition<DockArgs>;
+
 const renderState = (props: StateProps) => (
   <DockDemo className="dock-story--state" floating={false} peek={props.peek === true} />
 );
@@ -125,11 +131,11 @@ const Overview = overviewStory({
     '**It owns no data:** every change leaves through `onEdit` as a `LayoutEdit` for the host to apply.',
     'Drag a title bar to dock, tab or float the widget, or past the window edge to pop it out through `onPopOut`.',
     'A small hint beside the pointer lists the keys: [[Shift]] swaps panes, [[Ctrl]] overlays, [[Esc]] cancels.',
-    'Drag a divider or a floating edge to resize, double-click to even a divider; `floatSnap` snaps to edges.',
+    'Drag a divider to resize; drag a pane end or press an arrow on it to turn a corner. `floatSnap` snaps.',
     '`canDrop` refuses a drop and its hint; WidgetManager uses it to keep each widget `group` in its own panes.',
   ],
   playground: Playground,
-  variants: [Tiled, Floating, Peek, Kit, Snap, Chromes, Saved],
+  variants: [Tiled, Floating, Peek, Kit, Snap, Chromes, Saved, Corners],
   states: {
     render: renderState,
     list: [
@@ -143,4 +149,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Chromes, Floating, Kit, Overview, Peek, Playground, Saved, Snap, Tiled };
+export { Chromes, Corners, Floating, Kit, Overview, Peek, Playground, Saved, Snap, Tiled };

@@ -82,6 +82,11 @@ const WIDGET_STRINGS = {
   hintStays: 'This widget stays in the app',
   ghostSwap: 'swap',
   ghostOverlay: 'overlay',
+  cornerNames: { 'top-left': 'top left', 'top-right': 'top right', 'bottom-left': 'bottom left', 'bottom-right': 'bottom right' },
+  cornerLabel: (pane: string, corner: string) => `${pane}, ${corner} corner`,
+  cornerHint: 'Drag or press an arrow key to move this corner. Outward takes it, inward gives it back',
+  cornerTaken: (pane: string, corner: string) => `${pane} now holds the ${corner} corner`,
+  cornerGiven: (pane: string, corner: string) => `${pane} gave up the ${corner} corner`,
   ghostCancel: 'cancel',
 };
 

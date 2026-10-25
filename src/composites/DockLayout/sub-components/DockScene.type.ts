@@ -1,11 +1,13 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
-import type { DockLayoutProps, DockMainGrip, LayoutEdit, Rect, Size, WidgetId } from '../DockLayout.type';
+import type { DockLayoutProps, DockMainGrip, LayoutEdit, LayoutNode, Rect, Size, WidgetId } from '../DockLayout.type';
 import type { DragView } from '../behavior/drag.type';
 import type { LaidOut } from '../behavior/layout-tree.type';
 
 type DockSceneProps = Pick<DockLayoutProps, 'renderPane' | 'renderFloating'> & {
   laid: LaidOut;
+  tree: LayoutNode;
+  labelOf: (id: WidgetId) => string;
   mainRect: Rect | null;
   main: ReactNode;
   floating: DockLayoutProps['layout']['floating'];

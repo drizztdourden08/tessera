@@ -2,6 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { rectStyle } from '../../rect-drag/rect-style';
+import { DockCorners } from './DockCorners';
 import { DockDivider } from './DockDivider';
 import { DockFloating } from './DockFloating';
 import { DockPanes } from './DockPanes';
@@ -13,7 +14,7 @@ import type { DockSceneProps } from './DockScene.type';
 const DockScene = (props: DockSceneProps) => {
   const {
     laid, mainRect, main, floating, drag, ownDrag, dragId, stageRef, onEdit, renderPane, renderFloating, mainLabel, gripLabel, mainGrip,
-    floatingMin, floatSnap, stage, peek,
+    floatingMin, floatSnap, stage, peek, tree, labelOf,
   } = props;
   const { widgets } = useTesseraStrings();
   const showGrip = mainGrip === 'always' || (mainGrip === 'dragging' && drag !== null);
@@ -24,6 +25,7 @@ const DockScene = (props: DockSceneProps) => {
       {laid.dividers.map((divider, i) => (
         <DockDivider key={`${divider.node.axis}-${i}`} divider={divider} onEdit={onEdit} />
       ))}
+      <DockCorners laid={laid} tree={tree} labelOf={labelOf} onEdit={onEdit} hidden={peek || drag !== null} />
       {mainRect && (
         <>
           {showGrip && <MainGrip rect={mainRect} stageRef={stageRef} label={gripLabel} hint={widgets.moveMainHint(mainLabel)} />}
