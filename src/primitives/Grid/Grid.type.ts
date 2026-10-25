@@ -5,6 +5,7 @@ import type { SpaceToken } from '../Flex';
 interface GridProps extends HTMLAttributes<HTMLDivElement> {
   columns?: number;
   minColWidth?: number;
+  fit?: boolean;
   gap?: SpaceToken;
   dense?: boolean;
   children?: ReactNode;
