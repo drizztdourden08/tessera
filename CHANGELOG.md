@@ -1,5 +1,18 @@
 # @drizztdourden08/tessera
 
+## 0.65.0
+
+### Minor Changes
+
+- 0742a23: A toolbar end handle dragged past its lane end takes the corner from the lanes it crosses, and dragging back gives it back. The keyboard does the same with one more arrow press at the lane end, and each change is announced.
+- 2f9b55b: A toolbar dropped on a lane now lands at the pointer, snapped to the lane and neighbour ends, and pushes its neighbours along.
+  In keyboard pick mode, PageUp, PageDown, Home and End step through the slots of the lane.
+
+### Patch Changes
+
+- 8878c91: Document ToolbarDock v2 in MIGRATION 277 and add the two-bars-in-a-lane, playground and one-corner panel stories.
+- f13988f: A tooltip detail that comes after a plain detail in a compact ItemCard now shortens with an ellipsis instead of overflowing the row and vanishing.
+
 ## 0.64.0
 
 ### Minor Changes
