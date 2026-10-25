@@ -411,7 +411,7 @@ It also adds four lint rules, in Tessera and in every app that installs it:
 
 | Rule | Tool | What it refuses |
 |---|---|---|
-| `tessera/no-faint-text` | stylelint | `color`, `caret-color` or `-webkit-text-fill-color` set to `--c-text-faint`, about 1.86:1 on the surface; text takes `--c-text-muted` |
+| `tessera/no-disabled-text` | stylelint | `color`, `caret-color` or `-webkit-text-fill-color` set to `--c-text-disabled` outside a disabled selector, under 2:1 on the surface; text takes `--c-text-faint` |
 | `tessera/no-tessera-internals` | stylelint | a selector that names a class of a Tessera part, such as `.log-panel__tag` or `.stat-row__value`, from any stylesheet outside the Tessera package; ask for a prop or a token instead. The list of parts is read from the Tessera stylesheets, so it follows every new part |
 | `tessera/no-icon-button-child` | ESLint | an `<Icon>` written as a child of `<Button>`; pass it as `icon`, or use `IconButton` for a button with only an icon |
 | `tessera/prefer-named-input` | ESLint | `<TextInput type="password">` or `type="search"`; use `PasswordInput` or `SearchInput` |

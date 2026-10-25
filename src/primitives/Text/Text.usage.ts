@@ -14,8 +14,8 @@ const usage = {
   rules: [
     'Pick the role with variant: title, subtitle, body, label, caption, or overline over a group; with no variant it takes the size and colour of its parent.',
     'Colour it with tone, as on Span: muted for quiet captions, danger for an error.',
-    'Use the faint tone for decoration and secondary hints only, such as a keyboard hint beside a field or a watermark; never for text people must read. It measures about 1.6:1 on the surface (1.5:1 to 1.7:1 across the app palettes), under the 4.5:1 that body text needs, so the quietest tone for text is muted.',
-    'The parts of Tessera use muted, never faint; faint is there only for an app that asks for it.',
+    'Use the faint tone for the quietest text, such as a keyboard hint beside a field. It stays at or above 4.5:1 on the main ground, but it is dimmer than muted, so keep it to short secondary hints.',
+    'Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.',
     'Set mono for file names, seeds and addresses, and numeric for times and counts that line up.',
   ],
   a11y: [

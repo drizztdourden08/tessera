@@ -24,6 +24,7 @@ interface DocumentTabsProps {
 interface DocumentTabProps {
   tab: DocumentTab;
   index: number;
+  domId: string;
   total: number;
   active: boolean;
   tabbable: boolean;

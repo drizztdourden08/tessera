@@ -2,10 +2,20 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { Toast } from '../src/composites/Toast';
 
 const noop = () => undefined;
 const render = (variant) => renderToString(h(Toast, { item: { id: 't', message: 'Saved', variant }, onDismiss: noop }));
+
+describe('Toast motion', () => {
+  it('stops the exit animation and the enter one under reduced motion', () => {
+    const exit = readFileSync('src/composites/Toast/Toast.css', 'utf8');
+    const enter = readFileSync('src/composites/Toast/sub-components/ToastSurface.css', 'utf8');
+    expect(exit).toMatch(/prefers-reduced-motion: reduce\) \{\s+\.toast--exiting \{\s+animation: none;/);
+    expect(enter).toMatch(/prefers-reduced-motion: reduce\) \{\s+\.toast \{\s+animation: none;/);
+  });
+});
 
 describe('Toast announcements', () => {
   it('makes a danger toast an alert, read at once', () => {

@@ -19,8 +19,9 @@
     --c-hover:         color-mix(in srgb, var(--p-pure-white) 5%, transparent);
     --c-text:          var(--p-tertiary-100);
     --c-text-dim:      var(--p-tertiary-500);
-    --c-text-muted:    var(--p-tertiary-600);
-    --c-text-faint:    var(--p-tertiary-800);
+    --c-text-muted:    var(--p-tertiary-550);
+    --c-text-faint:    var(--p-tertiary-600);
+    --c-text-disabled: var(--p-tertiary-800);
     --c-danger:        var(--p-danger);
     --c-danger-dim:    color-mix(in oklab, var(--p-danger) 16%, var(--c-surface));
     --c-danger-soft:   color-mix(in srgb, var(--p-danger) 14%, transparent);

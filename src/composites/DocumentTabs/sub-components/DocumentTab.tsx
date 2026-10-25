@@ -12,7 +12,7 @@ import { CLOSE_ICON_SIZE, ICON_SIZE } from '../DocumentTabs.constants';
 import type { DocumentTabProps } from '../DocumentTabs.type';
 import './DocumentTab.css';
 
-const DocumentTab = ({ tab, index, total, active, tabbable, drag, onActivate, onClose }: DocumentTabProps) => {
+const DocumentTab = ({ tab, index, domId, total, active, tabbable, drag, onActivate, onClose }: DocumentTabProps) => {
   const { documentTabs } = useTesseraStrings();
   return (
     <Box
@@ -26,6 +26,7 @@ const DocumentTab = ({ tab, index, total, active, tabbable, drag, onActivate, on
       data-dragging={drag.dragging === index ? 'yes' : undefined}
     >
       <Pressable
+        id={domId}
         role="tab"
         aria-selected={active}
         tabIndex={tabbable ? 0 : -1}

@@ -8,7 +8,7 @@ import { tesseraEslintPlugin } from './eslint/tessera-eslint-plugin.mjs';
 import { ESLINT_RULES, EXTENSION_DESCRIPTION, EXTENSION_ID } from './standards.constants.mjs';
 import { usageFileCheck } from './usage-file-check.mjs';
 
-const STYLELINT_PLUGINS = ['no-faint-text', 'no-tessera-internals'].map((name) => fileURLToPath(new URL(`./stylelint/${name}.mjs`, import.meta.url)));
+const STYLELINT_PLUGINS = ['no-disabled-text', 'no-tessera-internals'].map((name) => fileURLToPath(new URL(`./stylelint/${name}.mjs`, import.meta.url)));
 
 const fromBase = (base, path) => posixPath(relative(base, path)) || '.';
 
@@ -48,7 +48,7 @@ const tesseraExtension = () => ({
   structure: { checks: [usageFileCheck] },
   eslint: { plugins: { tessera: tesseraEslintPlugin }, rules: ESLINT_RULES, options: eslintOptions },
   knip: { compilers: { ts: usageExampleImports }, entry: knipEntries },
-  stylelint: { plugins: STYLELINT_PLUGINS, rules: { 'tessera/no-faint-text': true, 'tessera/no-tessera-internals': true }, options: stylelintOptions },
+  stylelint: { plugins: STYLELINT_PLUGINS, rules: { 'tessera/no-disabled-text': true, 'tessera/no-tessera-internals': true }, options: stylelintOptions },
 });
 
 export { tesseraExtension };
