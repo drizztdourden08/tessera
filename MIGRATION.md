@@ -9779,3 +9779,12 @@ The controller feature is a Brock plugin, so the parts that show live controller
 - Build a live controller layout, a stick plot or a grid of held buttons in Brock's controller plugin, on `ControllerSilhouette`, `InputIcon` and the input icon sets.
 - Remove imports of `ControllerLayout`, `StickPlot`, `PressedGrid` and their types; TypeScript flags each one.
 - From Brock 0.96.0 the plugin no longer exports a `ControllerLayout` either: draw a pad with `ControllerSilhouette` or Brock's `PadOverlay`, and use the Controllers hub for live pads and calibration.
+
+## 275. resizeSplit takes a step object; DockLayout dividers push
+
+DockLayout dividers now push: dragging or keying a divider past the far neighbour's minimum shrinks the next sibling, down the whole chain, and `dividerRange` spans that chain. Saved layouts (`DockTree`, `WidgetLayout` v 2) do not change.
+
+### What an app does
+
+- If you call `resizeSplit` yourself, pass a step object as the fourth argument: `resizeSplit(tree, target, index, { delta })` in place of `resizeSplit(tree, target, index, delta)`. Add `origin` (the sizes at gesture start) to make a drag reversible within one gesture.
+- The `resize` LayoutEdit takes an optional `origin`. Apps that only use DockLayout or WidgetManager need no change.
