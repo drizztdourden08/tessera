@@ -2,6 +2,7 @@
 import { isHTMLElement } from '../../../primitives/dom/is-html-element';
 import { LANE_FALLBACK, TOOLBAR_OPPOSITE } from '../ToolbarDock.constants';
 import type { ToolbarSide } from '../ToolbarDock.type';
+import { measureLaneSpans } from './measure-lane-spans';
 import { toolbarOrientation } from './toolbar-orientation';
 import type { ToolbarFrame } from './toolbar-drag.type';
 
@@ -18,6 +19,7 @@ const measureToolbarFrame = (root: HTMLElement): ToolbarFrame => {
   return {
     rect: { x: 0, y: 0, width: box.width, height: box.height },
     thickness: { top: thicknessOf('top'), bottom: thicknessOf('bottom'), left: thicknessOf('left'), right: thicknessOf('right') },
+    spans: measureLaneSpans(root),
   };
 };
 

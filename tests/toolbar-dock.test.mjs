@@ -114,3 +114,36 @@ describe('ToolbarDock content', () => {
     expect(draw({ className: 'extra' })).toContain('class="toolbar-dock extra"');
   });
 });
+
+describe('ToolbarDock end handles', () => {
+  const separators = (html, id) => {
+    const bar = html.split('class="toolbar-dock__bar"').slice(1).find((part) => part.includes(`data-bar="${id}"`)) ?? '';
+    return bar.match(/<[^>]*role="separator"[^>]*>/g) ?? [];
+  };
+
+  it('draws two separators on each shown bar, one per end', () => {
+    const html = draw();
+    expect(html.match(/role="separator"/g)).toHaveLength(8);
+    for (const id of ['a', 'b', 'c', 'd']) {
+      const [start, end] = separators(html, id);
+      expect(start).toContain('toolbar-dock__end--start');
+      expect(end).toContain('toolbar-dock__end--end');
+    }
+  });
+
+  it('runs the handles across a horizontal bar and along a vertical one', () => {
+    const html = draw();
+    const [top] = separators(html, 'a');
+    const [left] = separators(html, 'c');
+    expect(top).toContain('resize-handle--horizontal');
+    expect(top).toContain('aria-orientation="vertical"');
+    expect(left).toContain('resize-handle--vertical');
+    expect(left).toContain('aria-orientation="horizontal"');
+  });
+
+  it('names each handle after its toolbar and its end', () => {
+    const [start, end] = separators(draw(), 'a');
+    expect(start).toContain('aria-label="Resize the start of Label a"');
+    expect(end).toContain('aria-label="Resize the end of Label a"');
+  });
+});

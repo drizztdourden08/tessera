@@ -19,6 +19,11 @@ const TOOLBARS_STRINGS = {
   hintHide: 'Hide the toolbar',
   hintDrop: 'Drop the toolbar',
   hintCancel: 'Cancel the move',
+  resizeHandle: (label: string, end: string) => `Resize the ${end} of ${label}`,
+  ends: { start: 'start', end: 'end' },
+  resizeStart: (label: string) => `${label}: resizing`,
+  resizeEnd: (label: string) => `${label} resized`,
+  pushed: (label: string, others: string) => `${label} pushes ${others}`,
 };
 
 export { TOOLBARS_STRINGS };

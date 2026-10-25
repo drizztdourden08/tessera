@@ -4,12 +4,14 @@ import { Box } from '../../../primitives/Box';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toolbarHandle } from '../behavior/toolbar-handle';
 import { toolbarOrientation } from '../behavior/toolbar-orientation';
+import { ToolbarDockEnd } from './ToolbarDockEnd';
+import { TOOLBAR_ENDS } from './ToolbarDockSide.constants';
 import type { ToolbarDockSideProps } from './ToolbarDockSide.type';
 
 const laneStyle = (row: string, column: string, tracks: string) =>
   ({ '--toolbar-dock-row': row, '--toolbar-dock-column': column, '--toolbar-dock-tracks': tracks }) as CSSProperties;
 
-const ToolbarDockSide = ({ side, lanes, dragId, definitions, renderToolbar }: ToolbarDockSideProps) => {
+const ToolbarDockSide = ({ side, lanes, dragId, definitions, renderToolbar, resize }: ToolbarDockSideProps) => {
   const { toolbars } = useTesseraStrings();
   const orientation = toolbarOrientation(side);
   const drawn = lanes.flatMap((grid) => {
@@ -35,6 +37,9 @@ const ToolbarDockSide = ({ side, lanes, dragId, definitions, renderToolbar }: To
           {bars.map(({ id, track, label }) => (
             <Box key={id} className="toolbar-dock__bar" style={{ '--toolbar-dock-track': track } as CSSProperties}>
               {renderToolbar(id, { orientation, handle: toolbarHandle(id, toolbars.move(label)), side })}
+              {TOOLBAR_ENDS.map((end) => (
+                <ToolbarDockEnd key={end} id={id} label={label} end={end} side={side} layout={resize.layout} metrics={resize.metrics} handlers={resize.handlersFor(id, end)} />
+              ))}
             </Box>
           ))}
         </Box>

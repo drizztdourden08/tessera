@@ -17,11 +17,10 @@ import { toolbarPickTarget } from './toolbar-pick-target';
 import { toolbarSideOf } from './toolbar-side-of';
 import { useToolbarFocusBack } from './useToolbarFocusBack';
 
-const useToolbarKeys = (params: ToolbarDragParams) => {
+const useToolbarKeys = (params: ToolbarDragParams, setMessage: (message: string) => void) => {
   const { rootRef, layout, definitions, onLayoutChange } = params;
   const { toolbars } = useTesseraStrings();
   const [moving, setMoving] = useState<ToolbarDragView | null>(null);
-  const [message, setMessage] = useState('');
   const session = useRef<ToolbarKeySession | null>(null);
   const detach = useRef<(() => void) | null>(null);
   const restore = useRef<string | null>(null);
@@ -35,7 +34,7 @@ const useToolbarKeys = (params: ToolbarDragParams) => {
     const target = toolbarPickTarget(s.frame, current, s.id, s.pick);
     setMoving({ id: s.id, label: labelOf(s.id), pointer: null, target, basket: toolbarBasket(s.frame) });
     if (note) setMessage(toolbarKeyMessage(words, labelOf(s.id), note));
-  }, [labelOf]);
+  }, [labelOf, setMessage]);
 
   const finish = useCallback((end: ToolbarKeyEnd): void => {
     const s = session.current;
@@ -48,7 +47,7 @@ const useToolbarKeys = (params: ToolbarDragParams) => {
     const done = toolbarKeyFinish(latest.current, s, end, labelOf(s.id));
     if (done.changed) latest.current.onLayoutChange(done.next);
     setMessage(done.message);
-  }, [labelOf]);
+  }, [labelOf, setMessage]);
 
   const cancel = useCallback(() => finish('cancel'), [finish]);
 
@@ -80,9 +79,9 @@ const useToolbarKeys = (params: ToolbarDragParams) => {
     detach.current = listenToolbarKeys({ root, press, cancel });
     show(started, null);
     setMessage(latest.current.words.pickedUp(labelOf(id)));
-  }, [rootRef, press, cancel, show, labelOf]);
+  }, [rootRef, press, cancel, show, labelOf, setMessage]);
 
-  return { moving, message, onKeyDown };
+  return { moving, onKeyDown };
 };
 
 export { useToolbarKeys };

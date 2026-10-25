@@ -6,6 +6,7 @@ import type { ToolbarDefinition, ToolbarLayout, ToolbarSide } from '../ToolbarDo
 interface ToolbarFrame {
   rect: Rect;
   thickness: Record<ToolbarSide, number>;
+  spans: Record<ToolbarSide, number[]>;
 }
 
 interface ToolbarSlotSpan {
