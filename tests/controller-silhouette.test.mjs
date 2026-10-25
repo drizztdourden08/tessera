@@ -6,6 +6,28 @@ import { describe, expect, it } from 'vitest';
 import {
   CONTROLLER_SILHOUETTE_ANCHORS, CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS, CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
 } from '../src/composites/ControllerSilhouette';
+import { usage } from '../src/composites/ControllerSilhouette/ControllerSilhouette.usage';
+
+const outlinePoints = (d) => {
+  const numbers = d.match(/-?[\d.]+/g).map(Number);
+  let [px, py] = numbers;
+  const points = [];
+  for (let i = 2; i + 5 < numbers.length; i += 6) {
+    const [c1x, c1y, c2x, c2y, x, y] = numbers.slice(i, i + 6);
+    for (let step = 0; step <= 100; step += 1) {
+      const t = step / 100;
+      const u = 1 - t;
+      points.push([
+        u * u * u * px + 3 * u * u * t * c1x + 3 * u * t * t * c2x + t * t * t * x,
+        u * u * u * py + 3 * u * u * t * c1y + 3 * u * t * t * c2y + t * t * t * y,
+      ]);
+    }
+    [px, py] = [x, y];
+  }
+  return points;
+};
+
+const topEdge = (points, x) => Math.min(...points.filter(([px]) => Math.abs(px - x) < 1).map(([, y]) => y));
 
 const render = (props, children) => renderToString(h(ControllerSilhouette, { variant: 'offset', ...props }, children));
 
@@ -116,6 +138,57 @@ describe('ControllerSilhouette anchors', () => {
         expect(x).toBeGreaterThanOrEqual(0);
         expect(x).toBeLessThanOrEqual(400);
       }
+    }
+  });
+});
+
+describe('ControllerSilhouette anchors on the real pads', () => {
+  it('keeps every control inside its outline and every shoulder on its top edge', () => {
+    for (const variant of CONTROLLER_SILHOUETTE_VARIANTS) {
+      const points = outlinePoints(CONTROLLER_SILHOUETTE_PATHS[variant]);
+      const xs = points.map(([x]) => x);
+      const ys = points.map(([, y]) => y);
+      const box = { x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) };
+      for (const [id, anchor] of Object.entries(CONTROLLER_SILHOUETTE_ANCHORS[variant])) {
+        if (id.startsWith('trigger')) {
+          expect(anchor.y).toBeLessThan(box.y0);
+          continue;
+        }
+        const r = anchor.r ?? 0;
+        expect(anchor.x - r).toBeGreaterThanOrEqual(box.x0);
+        expect(anchor.x + r).toBeLessThanOrEqual(box.x1);
+        expect(anchor.y - r).toBeGreaterThanOrEqual(box.y0);
+        expect(anchor.y + r).toBeLessThanOrEqual(box.y1);
+        if (id.startsWith('shoulder')) expect(Math.abs(anchor.y - topEdge(points, anchor.x))).toBeLessThanOrEqual(1);
+      }
+    }
+  });
+
+  it('follows the real layout of each pad family', () => {
+    const { offset, symmetric, nintendo, pad } = CONTROLLER_SILHOUETTE_ANCHORS;
+    for (const set of [offset, nintendo]) {
+      expect(set['stick.left'].y).toBeLessThan(set.dpad.y);
+      expect(set['stick.right'].y).toBeGreaterThan(set.face.y);
+      expect(set['stick.left'].x).toBeLessThan(set.dpad.x);
+      expect(set['stick.right'].x).toBeLessThan(set.face.x);
+    }
+    expect(offset['meta.guide']).toMatchObject({ x: 200 });
+    expect(offset['meta.guide'].y).toBeLessThan(offset['meta.view'].y);
+    expect(symmetric.dpad.y).toBeLessThan(symmetric['stick.left'].y);
+    expect(symmetric['stick.left'].x + symmetric['stick.right'].x).toBe(400);
+    expect(symmetric['stick.left'].y).toBe(symmetric['stick.right'].y);
+    expect(symmetric.dpad.x + symmetric.face.x).toBe(400);
+    expect(symmetric['meta.guide']).toMatchObject({ x: 200, y: symmetric['stick.left'].y });
+    expect(pad.dpad.y).toBe(pad.face.y);
+    expect(pad.face.r).toBeGreaterThan(pad.dpad.r);
+  });
+
+  it('lists the same numbers in its usage as in the constants', () => {
+    const text = usage.rules.join(' ');
+    for (const variant of CONTROLLER_SILHOUETTE_VARIANTS) {
+      const list = Object.entries(CONTROLLER_SILHOUETTE_ANCHORS[variant])
+        .map(([id, a]) => `${id} ${a.x},${a.y}${a.r ? ` r${a.r}` : ''}`).join(', ');
+      expect(text).toContain(`${variant}: ${list}.`);
     }
   });
 });
