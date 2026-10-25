@@ -26,6 +26,8 @@ const DockLayout = (props: DockLayoutProps) => {
       {laid && (
         <DockScene
           laid={laid}
+          tree={layout.dock}
+          labelOf={props.labelOf}
           mainRect={mainRect}
           main={main}
           floating={layout.floating}
