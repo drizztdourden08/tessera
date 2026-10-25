@@ -6587,6 +6587,8 @@
         "--c-text",
         "--c-text-dim",
         "--c-warning",
+        "--control-h-xs",
+        "--document-tabs-count",
         "--leading-tight",
         "--opacity-muted",
         "--radius-round",

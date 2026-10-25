@@ -40,6 +40,7 @@ export default standardsEslint({
     { files: ['src/composites/VirtualGrid/sub-components/GridRow.tsx'], why: 'a row of tiles sits at its index, set as one custom property' },
     { files: ['src/composites/MarqueeBox/MarqueeBox.tsx'], why: 'the rectangle sits where the pointer dragged it, set as custom properties' },
     { files: ['src/composites/GroupTree/sub-components/GroupTreeRow.tsx', 'src/composites/GroupTree/sub-components/GroupTreeGuides.tsx'], why: 'a tree row indents by its depth and draws a guide per ancestor' },
+    { files: ['src/composites/DocumentTabs/DocumentTabs.tsx'], why: 'the grid tracks follow the number of open tabs, set as one custom property' },
     { files: ['src/composites/ListItemRow/ListItemRow.tsx', 'src/composites/ListItemRow/sub-components/ListItemList.tsx'], why: 'the grid tracks follow the number of columns the rows pass in' },
     { files: ['src/primitives/code-view/CodeView.tsx'], why: 'the highlighter returns each line and token style' },
     { files: ['src/primitives/BackdropLayer/BackdropLayer.tsx'], why: 'the backdrop image, its place and its colour are passed in by the host' },
