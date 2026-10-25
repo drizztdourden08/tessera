@@ -31,6 +31,7 @@ Grid lays out equal columns from a count or a minimum width, with Grid.Cell span
 
 - Set minColWidth to fit as many columns of at least that width as the box allows; a column never grows wider than the box.
 - Set columns for a fixed count; when both are set, minColWidth wins.
+- Set fit with minColWidth when there may be fewer items than columns, such as a lone child: empty tracks collapse and the items share the row.
 - Wrap an item in Grid.Cell with span={2} to take two columns once two fit, or span="full" for the whole row.
 - Set dense so a later small item fills the hole a wide one left; the reading order then differs from the order on screen.
 - Items in a row share its height, and a Card in a Grid.Cell fills the cell.
@@ -61,6 +62,7 @@ const RunDashboard = ({ activity, players }: { activity: ReactNode; players: Rea
 
 - `columns` (optional): `number`.
 - `minColWidth` (optional): `number`.
+- `fit` (optional): `boolean`.
 - `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
 - `dense` (optional): `boolean`.
 - `children` (optional): `ReactNode`.

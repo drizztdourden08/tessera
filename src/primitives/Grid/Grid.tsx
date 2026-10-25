@@ -5,8 +5,8 @@ import { GridCell } from './sub-components/GridCell';
 import type { GridProps } from './Grid.type';
 
 const GridBase = (props: GridProps) => {
-  const { columns, minColWidth, gap, dense, className = '', style, children, ...rest } = props;
-  const templateStyle = templateFor(columns, minColWidth);
+  const { columns, minColWidth, fit, gap, dense, className = '', style, children, ...rest } = props;
+  const templateStyle = templateFor(columns, minColWidth, fit);
   return (
     <div
       className={`grid${className ? ` ${className}` : ''}`}
