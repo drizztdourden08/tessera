@@ -1,5 +1,22 @@
 # @drizztdourden08/tessera
 
+## 0.64.0
+
+### Minor Changes
+
+- a1bbf7b: Each docked toolbar gets a resize handle at both ends; dragging one pushes the neighbouring toolbars along, with live preview and keyboard steps.
+- 2d7f13b: ToolbarDock draws its lanes on a five by five grid from the stored corners, so bars can take part of a lane and a rail can run under a top bar or the full height.
+- fbe9aa6: ToolbarLayout is now v2: toolbars have an extent (start and size along their lane), lanes hold several toolbars, and corners record which side claims each one. migrateToolbarLayout upgrades v1 layouts, and toolbarIdsOf, normalizeCorners, placeToolbar, MAX_LANES and MIN_SHARE are new. MAX_PER_SIDE stays as a deprecated alias of MAX_LANES.
+- 1a76d85: A DockLayout panel can now take a corner from its neighbour or give it back, by dragging its end handle or with the arrow keys, through the new take-corner edit.
+- 86d1517: Dragging or keying a DockLayout divider now pushes: when the neighbour on the far side reaches its minimum the next sibling in the split shrinks, down the whole chain, and the divider range widens to match.
+- 2540659: The controller anchors and their types moved to `@drizztdourden08/brock-input`. `ControllerSilhouette`, its paths, view box and variants stay.
+
+### Patch Changes
+
+- 137efeb: Docked toolbars now sit in a bar with a surface, a thin border and a small radius.
+- a5cc317: A Tooltip around a detail in a compact ItemCard now shrinks and ends in an ellipsis like a plain detail.
+- 9d811f4: The SNES select and start glyphs now draw just the pill, centred like the other button glyphs.
+
 ## 0.63.0
 
 ### Minor Changes
