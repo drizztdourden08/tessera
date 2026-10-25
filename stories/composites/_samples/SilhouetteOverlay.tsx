@@ -1,18 +1,19 @@
 /* @layer stories @kind component */
-import { CONTROLLER_SILHOUETTE_ANCHORS, ControllerSilhouette } from '../../../src/composites';
+import { ControllerSilhouette } from '../../../src/composites';
 import { SvgCircle, SvgGroup, SvgLine, SvgText } from '../../../src/primitives';
 
-const ANCHORS = CONTROLLER_SILHOUETTE_ANCHORS.offset;
+const LEFT = { x: 121, y: 72, r: 23 };
+const RIGHT = { x: 240, y: 113, r: 23 };
+const FACE = { x: 278, y: 76, r: 32 };
 const LABEL_X = 300;
 const LABEL_Y = 150;
 const CAP_RATIO = 0.62;
 const TIP_GAP = 4;
 
 const SilhouetteOverlay = () => {
-  const left = ANCHORS['stick.left'];
-  const right = ANCHORS['stick.right'];
-  const face = ANCHORS.face;
-  if (!left?.r || !right?.r || !face?.r) return null;
+  const left = LEFT;
+  const right = RIGHT;
+  const face = FACE;
 
   return (
     <ControllerSilhouette variant="offset" label="Move and jump">
