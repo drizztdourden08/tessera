@@ -93,7 +93,7 @@ describe('ItemCard compact', () => {
   it('takes details as one node or as nodes, in the compact line', () => {
     const tip = h('em', { className: 'tip' }, 'Updated');
     const one = renderToString(h(ItemCard, { title: 'Timespinner', density: 'compact', details: tip }));
-    expect(one).toMatch(/item-card__details"><em class="tip">Updated<\/em><\/div>/);
+    expect(one).toMatch(/item-card__details"><span class="text-el text-el--span item-card__detail"><em class="tip">Updated<\/em><\/span><\/div>/);
     const many = renderToString(h(ItemCard, { title: 'Timespinner', density: 'compact', details: [tip, 'World 1.2.0'] }));
     expect(many.match(/item-card__dot/g)).toHaveLength(1);
     expect(many).toContain('class="tip"');
@@ -125,5 +125,14 @@ describe('ItemCard compact', () => {
     const css = fs.readFileSync('src/composites/ItemCard/sub-components/ItemCardRow.css', 'utf8');
     expect(css).not.toMatch(/(?<![a-z-])(block-size|height|min-block-size|min-height):/);
     expect(css).toContain('inline-size: 100%;');
+  });
+});
+
+describe('ItemCard details', () => {
+  it('wraps each detail in its own item-card__detail span', () => {
+    const html = renderToString(h(ItemCard, { title: 'Timespinner', density: 'compact', details: ['5.1.0', h('em', { className: 'tip' }, 'Summary')] }));
+    expect(html.match(/ item-card__detail"/g)).toHaveLength(2);
+    expect(html).toMatch(/<span class="text-el text-el--span item-card__detail">5\.1\.0<\/span><span[^>]*item-card__dot/);
+    expect(html).toContain('<span class="text-el text-el--span item-card__detail"><em class="tip">Summary</em></span>');
   });
 });
