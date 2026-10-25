@@ -13408,7 +13408,11 @@
         }
       },
       "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-surface",
         "--opacity-faint",
+        "--radius-md",
         "--space-2xs",
         "--z-modal"
       ],
