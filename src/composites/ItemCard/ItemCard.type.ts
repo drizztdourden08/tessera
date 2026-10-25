@@ -8,6 +8,10 @@ type ItemCardLayout = 'top' | 'left';
 
 type ItemCardMediaHeight = 'band' | 'auto';
 
+type ItemCardDensity = 'normal' | 'compact';
+
+type ItemCardMediaSize = 'band' | 'sm';
+
 type ItemCardMediaTone = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
 
 interface ItemCardStatus {
@@ -24,6 +28,8 @@ interface ItemCardProps {
   media?: ReactNode;
   mediaTone?: ItemCardMediaTone;
   mediaHeight?: ItemCardMediaHeight;
+  mediaSize?: ItemCardMediaSize;
+  density?: ItemCardDensity;
   layout?: ItemCardLayout;
   href?: string;
   navigate?: (href: string) => void;
@@ -44,6 +50,23 @@ type ItemCardTopProps = Pick<ItemCardProps, 'eyebrow' | 'status'>;
 
 type ItemCardFootProps = Pick<ItemCardProps, 'tags' | 'details' | 'actions'>;
 
+type ItemCardRowProps = ItemCardProps & { tile?: ReactNode };
+
+type ItemCardBodyProps = ItemCardProps & { tile?: ReactNode };
+
+interface ItemCardMediaProps {
+  media?: ReactNode;
+  tone?: ItemCardMediaTone;
+  height?: ItemCardMediaHeight;
+  tiled: boolean;
+}
+
+interface ItemCardHeadProps {
+  tile: ReactNode;
+  children: ReactNode;
+}
+
 export type {
-  ItemCardDetailsProps, ItemCardFootProps, ItemCardLayout, ItemCardMediaHeight, ItemCardMediaTone, ItemCardProps, ItemCardStatus, ItemCardTitleProps, ItemCardTopProps,
+  ItemCardBodyProps, ItemCardDensity, ItemCardDetailsProps, ItemCardFootProps, ItemCardHeadProps, ItemCardLayout, ItemCardMediaHeight, ItemCardMediaProps,
+  ItemCardMediaSize, ItemCardMediaTone, ItemCardProps, ItemCardRowProps, ItemCardStatus, ItemCardTitleProps, ItemCardTopProps,
 };

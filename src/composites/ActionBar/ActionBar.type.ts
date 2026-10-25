@@ -18,6 +18,7 @@ interface ActionItem {
   id: string;
   label: string;
   icon?: IconName;
+  iconOnly?: true;
   onSelect: () => void;
   kind?: ActionKind;
   disabled?: boolean;

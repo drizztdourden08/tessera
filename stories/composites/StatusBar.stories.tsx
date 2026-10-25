@@ -5,7 +5,7 @@ import { axis } from '../_template/axis';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
-import { pixelEditorItems, STATUS_BAR_ARGS } from './_samples/status-bar-sample';
+import { pixelEditorItems, STATUS_BAR_ACTIONS, STATUS_BAR_ARGS } from './_samples/status-bar-sample';
 import type { StatusBarSampleArgs } from './_samples/status-bar-sample.type';
 import './StatusBar.stories.css';
 
@@ -27,12 +27,19 @@ const Playground = {
   name: 'Playground',
   args: STATUS_BAR_ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <StatusBar label="Editor status" items={pixelEditorItems(args)} />,
+  render: (args) => <StatusBar label="Editor status" items={pixelEditorItems(args)} actions={STATUS_BAR_ACTIONS} />,
 } satisfies PlaygroundStory<StatusBarSampleArgs>;
 
 const PixelEditor = {
   name: 'Pixel editor bar',
   render: () => <StatusBar label="Editor status" items={pixelEditorItems(STATUS_BAR_ARGS)} />,
+} satisfies StoryLiteStoryDefinition<StatusBarSampleArgs>;
+
+const WithActions = {
+  name: 'Actions at the end of the bar',
+  render: () => (
+    <StatusBar label="Editor status" items={pixelEditorItems(STATUS_BAR_ARGS)} actions={STATUS_BAR_ACTIONS} />
+  ),
 } satisfies StoryLiteStoryDefinition<StatusBarSampleArgs>;
 
 const Narrow = {
@@ -54,14 +61,14 @@ const Overview = overviewStory({
     '`align` puts an item at the start or the end; a `swatch` is a CSS colour drawn as a small chip.',
     '`priority` 1 to 3 drops an item when the bar is narrow, 3 first; items without it stay.',
     'Values use tabular numbers, so a cursor x,y does not jitter; long text ends in an ellipsis.',
-    'It is a labelled region, not a live region: pointer moves are never announced.',
-    'Put it last in the window column; [SaveBar] holds the save state and its buttons.',
+    '`actions` end the bar as ghost icon buttons with a tooltip; each takes `loading` and `disabled`.',
+    'It is a labelled region, not a live region, so pointer moves are never announced; put it last in the window.',
   ],
   instead: '[StatRow] for one label and value on a line; [SaveBar] for the buttons at the foot of a form.',
   playground: Playground,
-  variants: [PixelEditor, Narrow],
+  variants: [PixelEditor, WithActions, Narrow],
   code: false,
 });
 
 export default meta;
-export { Narrow, Overview, PixelEditor, Playground };
+export { Narrow, Overview, PixelEditor, Playground, WithActions };

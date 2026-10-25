@@ -2,16 +2,18 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { ItemCard } from '../../src/composites';
-import type { ItemCardLayout, ItemCardMediaTone, ItemCardProps } from '../../src/composites';
+import type { ItemCardDensity, ItemCardLayout, ItemCardMediaTone, ItemCardProps } from '../../src/composites';
 import { Box, Icon, Image, Stack, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { STATE } from '../_template/states/states.constants';
+import { COMPACT_ROWS } from './_samples/item-card-compact.constants';
 import { DATA_CARDS, STORE_CARDS } from './_samples/item-card-samples.constants';
 import './ItemCard.stories.css';
 
 type ItemCardArgs = {
+  density: ItemCardDensity;
   layout: ItemCardLayout;
   mediaTone: ItemCardMediaTone;
   media: boolean;
@@ -23,12 +25,13 @@ type ItemCardArgs = {
 const noop = (): void => undefined;
 const SAMPLE: ItemCardProps = STORE_CARDS[0] ?? { title: 'Timespinner' };
 
-const ARGS: Partial<ItemCardArgs> = { layout: 'top', mediaTone: 'primary', media: true, actions: true, selected: false, opens: true };
+const ARGS: Partial<ItemCardArgs> = { density: 'normal', layout: 'top', mediaTone: 'primary', media: true, actions: true, selected: false, opens: true };
 
 const ARG_TYPES: PlaygroundArgTypes<ItemCardArgs> = {
   media: { group: 'Content', control: 'boolean' },
   actions: { group: 'Content', control: 'boolean', description: 'Update, Make a preset and Remove, through an ActionBar.' },
   mediaTone: { group: 'Appearance', control: 'select', options: ['neutral', 'primary', 'info', 'success', 'warning', 'danger'] },
+  density: { group: 'Layout', control: 'select', options: ['normal', 'compact'], description: 'Compact is one row: a 32 px tile, the title, one line and icon actions.' },
   layout: { group: 'Layout', control: 'select', options: ['top', 'left'] },
   selected: { group: 'State', control: 'boolean' },
   opens: { group: 'Behaviour', control: 'boolean', description: 'Passes onOpen, so a click anywhere on the card opens it.' },
@@ -48,10 +51,11 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <Box className={args.layout === 'left' ? 'item-card-story item-card-story--two' : 'item-card-story item-card-story--one'}>
+    <Box className={args.layout === 'left' || args.density === 'compact' ? 'item-card-story item-card-story--two' : 'item-card-story item-card-story--one'}>
       <ItemCard
         {...SAMPLE}
         layout={args.layout}
+        density={args.density}
         mediaTone={args.mediaTone}
         media={args.media ? SAMPLE.media : undefined}
         actions={args.actions ? SAMPLE.actions : undefined}
@@ -78,6 +82,20 @@ const Left = {
       {DATA_CARDS.map((card) => <ItemCard key={String(card.title)} {...card} />)}
     </Box>
   ),
+} satisfies StoryLiteStoryDefinition<ItemCardArgs>;
+
+const Compact = {
+  name: 'Compact rows for a long catalogue',
+  render: () => (
+    <Box className="item-card-story item-card-story--rows">
+      {COMPACT_ROWS.map((row) => <ItemCard key={String(row.title)} {...row} density="compact" onOpen={noop} />)}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ItemCardArgs>;
+
+const Tile = {
+  name: 'A small tile beside the title',
+  render: () => one({ mediaSize: 'sm', media: <Icon name="gamepad-2" size={20} /> }),
 } satisfies StoryLiteStoryDefinition<ItemCardArgs>;
 
 const Linked = {
@@ -127,6 +145,8 @@ const CODE = `import { ItemCard } from '@drizztdourden08/tessera';
   onOpen={() => openGame('timespinner')}
 />
 
+<ItemCard density="compact" title="Timespinner" media={<Icon name="gamepad-2" />} status={{ label: 'update', tone: 'warning' }} details={['World 1.2.0']} actions={[{ id: 'install', label: 'Install', icon: 'download', onSelect: install }]} />
+
 <ItemCard title="Hyrule Symphony" media={<Image src={cover} aspectRatio="16 / 9" />} mediaHeight="auto" href="/store/hyrule-symphony" navigate={navigate} />`;
 
 const Overview = overviewStory({
@@ -137,12 +157,12 @@ const Overview = overviewStory({
     '`details` join with dots and stop at three lines; `tags` take [Tag] nodes.',
     '`actions` go through an [ActionBar] with one action in view, the rest under More.',
     '`onOpen` or `href` makes a click anywhere on the card open it; `navigate` routes `href` in the app.',
-    '`mediaHeight="auto"` lets a picture taller than the 96 px band keep its own height.',
-    '`selected` draws the primary border, such as the item open beside the list.',
+    '`mediaSize="sm"` swaps the 96 px band for a 32 px tile; `mediaHeight="auto"` keeps a tall picture whole.',
+    '`density="compact"` is one row: a tile, the title, one line, and up to three icon actions at the end.',
   ],
   instead: '[Card] for a box with a header row, or [ListItemRow] for one line per item.',
   playground: Playground,
-  variants: [Store, Left, Linked, Routed, Tall],
+  variants: [Store, Left, Compact, Tile, Linked, Routed, Tall],
   states: {
     render: (props: StateProps) => one(props as Partial<ItemCardProps>),
     list: [
@@ -156,4 +176,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Left, Linked, Overview, Playground, Routed, Store, Tall };
+export { Compact, Left, Linked, Overview, Playground, Routed, Store, Tall, Tile };
