@@ -2,10 +2,10 @@
 import type { ToolbarLayout } from '../../../src/composites';
 
 const PARTIAL_SIDES: ToolbarLayout['sides'] = {
-  top: [[{ id: 'shapes', start: 0.02, size: 0.5 }], [{ id: 'select', start: 0.25, size: 0.45 }]],
-  left: [[{ id: 'tools', start: 0.08, size: 0.7 }]],
+  top: [[{ id: 'shapes', start: 0, size: 0.6 }], [{ id: 'select', start: 0, size: 0.55 }]],
+  left: [[{ id: 'tools', start: 0, size: 1 }]],
   right: [],
-  bottom: [[{ id: 'view', start: 0.3, size: 0.4 }]],
+  bottom: [[{ id: 'view', start: 0, size: 0.7 }]],
 };
 
 const TOOLBAR_DOCK_RAIL_UNDER_TOP: ToolbarLayout = {
