@@ -8,7 +8,7 @@ import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { STATE } from '../_template/states/states.constants';
-import { COMPACT_ROWS } from './_samples/item-card-compact.constants';
+import { COMPACT_ROWS, TAG_ROWS } from './_samples/item-card-compact.constants';
 import { DATA_CARDS, STORE_CARDS } from './_samples/item-card-samples.constants';
 import './ItemCard.stories.css';
 
@@ -30,7 +30,7 @@ const ARGS: Partial<ItemCardArgs> = { density: 'normal', layout: 'top', mediaTon
 const ARG_TYPES: PlaygroundArgTypes<ItemCardArgs> = {
   media: { group: 'Content', control: 'boolean' },
   actions: { group: 'Content', control: 'boolean', description: 'Update, Make a preset and Remove, through an ActionBar.' },
-  mediaTone: { group: 'Appearance', control: 'select', options: ['neutral', 'primary', 'info', 'success', 'warning', 'danger'] },
+  mediaTone: { group: 'Appearance', control: 'select', options: ['neutral', 'primary', 'info', 'tertiary', 'success', 'warning', 'danger'] },
   density: { group: 'Layout', control: 'select', options: ['normal', 'compact'], description: 'Compact is one row: a 32 px tile, the title, one line and icon actions.' },
   layout: { group: 'Layout', control: 'select', options: ['top', 'left'] },
   selected: { group: 'State', control: 'boolean' },
@@ -84,13 +84,20 @@ const Left = {
   ),
 } satisfies StoryLiteStoryDefinition<ItemCardArgs>;
 
+const Rows = ({ rows }: { rows: readonly ItemCardProps[] }) => (
+  <Box className="item-card-story item-card-story--rows">
+    {rows.map((row) => <ItemCard key={String(row.title)} {...row} density="compact" onOpen={noop} />)}
+  </Box>
+);
+
 const Compact = {
   name: 'Compact rows for a long catalogue',
-  render: () => (
-    <Box className="item-card-story item-card-story--rows">
-      {COMPACT_ROWS.map((row) => <ItemCard key={String(row.title)} {...row} density="compact" onOpen={noop} />)}
-    </Box>
-  ),
+  render: () => <Rows rows={COMPACT_ROWS} />,
+} satisfies StoryLiteStoryDefinition<ItemCardArgs>;
+
+const CompactExtras = {
+  name: 'Compact with tags, a tooltip, a named tile and a loading action',
+  render: () => <Rows rows={TAG_ROWS} />,
 } satisfies StoryLiteStoryDefinition<ItemCardArgs>;
 
 const Tile = {
@@ -154,15 +161,15 @@ const Overview = overviewStory({
   description: 'One item of a catalogue as a card: media, a small line, a status, the title, tags, details and actions.',
   points: [
     '`layout` puts the `media` on top for a grid of cards, or on the left for a list or an overview.',
-    '`details` join with dots and stop at three lines; `tags` take [Tag] nodes.',
+    '`details` take text or nodes, joined with dots, three lines at most; `tags` take [Tag] nodes.',
     '`actions` go through an [ActionBar] with one action in view, the rest under More.',
     '`onOpen` or `href` makes a click anywhere on the card open it; `navigate` routes `href` in the app.',
-    '`mediaSize="sm"` swaps the 96 px band for a 32 px tile; `mediaHeight="auto"` keeps a tall picture whole.',
-    '`density="compact"` is one row: a tile, the title, one line, and up to three icon actions at the end.',
+    '`mediaSize="sm"` swaps the 96 px band for a 32 px tile; `mediaLabel` names a media that means something.',
+    '`density="compact"` is one row: a tile, the title, one line, a line of tags with +N, and icon actions.',
   ],
   instead: '[Card] for a box with a header row, or [ListItemRow] for one line per item.',
   playground: Playground,
-  variants: [Store, Left, Compact, Tile, Linked, Routed, Tall],
+  variants: [Store, Left, Compact, CompactExtras, Tile, Linked, Routed, Tall],
   states: {
     render: (props: StateProps) => one(props as Partial<ItemCardProps>),
     list: [
@@ -176,4 +183,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Left, Linked, Overview, Playground, Routed, Store, Tall, Tile };
+export { Compact, CompactExtras, Left, Linked, Overview, Playground, Routed, Store, Tall, Tile };

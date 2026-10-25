@@ -2,14 +2,17 @@
 import { Box } from '../../../primitives/Box';
 import { Status } from '../../../primitives/Status';
 import { ActionBar } from '../../ActionBar';
+import { detailList } from '../behavior/detail-list';
 import { ICON_ACTIONS_MAX } from '../ItemCard.constants';
 import type { ItemCardRowProps } from '../ItemCard.type';
 import { ItemCardDetails } from './ItemCardDetails';
+import { ItemCardTagLine } from './ItemCardTagLine';
 import { ItemCardTitle } from './ItemCardTitle';
 import './ItemCardRow.css';
 
 const ItemCardRow = (props: ItemCardRowProps) => {
-  const { tile, title, status, details = [], actions = [], level = 3, href, navigate, onOpen, selected } = props;
+  const { tile, title, status, tags = [], actions = [], level = 3, href, navigate, onOpen, selected } = props;
+  const details = detailList(props.details);
   const icons = actions.map((action) => ({ ...action, iconOnly: true as const }));
   const keep = Math.max(1, ICON_ACTIONS_MAX - actions.filter((action) => action.kind === 'primary').length);
   return (
@@ -23,6 +26,7 @@ const ItemCardRow = (props: ItemCardRowProps) => {
             {details.length > 0 && <ItemCardDetails details={details} />}
           </Box>
         )}
+        {tags.length > 0 && <ItemCardTagLine tags={tags} />}
       </Box>
       {icons.length > 0 && <Box className="item-card__actions"><ActionBar actions={icons} size="sm" keep={keep} /></Box>}
     </Box>

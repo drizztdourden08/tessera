@@ -22,7 +22,9 @@ interface ActionItem {
   onSelect: () => void;
   kind?: ActionKind;
   disabled?: boolean;
-  confirm?: ActionConfirm;
+  confirm?: ActionConfirm | boolean;
+  loading?: boolean;
+  nameSuffix?: string;
   onCancel?: () => void;
 }
 

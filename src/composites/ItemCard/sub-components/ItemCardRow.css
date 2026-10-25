@@ -30,10 +30,11 @@
 }
 
 .item-card__body[data-density='compact'] .item-card__details {
+  display: block;
   min-inline-size: 0;
   flex: 1;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
+  white-space: nowrap;
 }
 
 .item-card__body[data-density='compact'] .item-card__actions {

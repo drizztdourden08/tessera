@@ -75,10 +75,37 @@ describe('ItemCard compact', () => {
     expect(html.indexOf('item-card__media')).toBeGreaterThan(html.indexOf('item-card__body'));
     expect(html).not.toContain('item-card__tags');
     expect(html).not.toContain('item-card__top');
+    expect(html).not.toContain('<p ');
     expect(html).toMatch(/item-card__line[^>]*>.*status--warning.*item-card__details/);
     const live = html.split('action-bar__measure')[0];
     expect([...live.matchAll(/<button[^>]*aria-label="([^"]+)"/g)].map((match) => match[1])).toEqual(['Open the page', 'Remove', 'Install']);
     expect(live).not.toMatch(/<button[^>]*>[^<]*(Install|Remove)<\/button>/);
+  });
+
+  it('shows the tags of a compact card on a line of their own, after the details', () => {
+    const tags = ['A', 'B', 'C'].map((name) => h('span', { key: name }, name));
+    const html = renderToString(h(ItemCard, { ...BASE, tags, density: 'compact' }));
+    expect(html).toMatch(/item-card__details.*item-card__tag-line/);
+    expect(html.split('item-card__tag-measure')[0]).toContain('<span>A</span><span>B</span><span>C</span>');
+    expect(renderToString(h(ItemCard, { ...BASE, tags: undefined, density: 'compact' }))).not.toContain('item-card__tag-line');
+  });
+
+  it('takes details as one node or as nodes, in the compact line', () => {
+    const tip = h('em', { className: 'tip' }, 'Updated');
+    const one = renderToString(h(ItemCard, { title: 'Timespinner', density: 'compact', details: tip }));
+    expect(one).toMatch(/item-card__details"><em class="tip">Updated<\/em><\/div>/);
+    const many = renderToString(h(ItemCard, { title: 'Timespinner', density: 'compact', details: [tip, 'World 1.2.0'] }));
+    expect(many.match(/item-card__dot/g)).toHaveLength(1);
+    expect(many).toContain('class="tip"');
+  });
+
+  it('names the media with mediaLabel and hides it otherwise, and has a tertiary tone', () => {
+    const named = renderToString(h(ItemCard, { ...BASE, density: 'compact', mediaLabel: 'Game', mediaTone: 'tertiary' }));
+    expect(named).toMatch(/class="item-card__media" data-tone="tertiary" data-size="sm" role="img" aria-label="Game"/);
+    expect(named).not.toMatch(/item-card__media[^>]*aria-hidden/);
+    expect(renderToString(h(ItemCard, { ...BASE, density: 'compact' }))).toMatch(/item-card__media[^>]*aria-hidden="true"/);
+    const css = fs.readFileSync('src/composites/ItemCard/ItemCard.css', 'utf8');
+    expect(css).toContain("[data-tone='tertiary']");
   });
 
   it('puts the media as a tile beside the title with mediaSize sm, and as a band otherwise', () => {
