@@ -12,24 +12,23 @@ const zoneOf = (zones, side) => zones.find((zone) => zone.side === side);
 const drop = (id, point) => toolbarDropAt(FRAME, LAYOUT, id, point);
 
 describe('toolbarZones', () => {
-  it('lists the free lane indexes of every side without the dragged toolbar', () => {
+  it('counts the lanes of every side without the dragged toolbar', () => {
     const zones = toolbarZones(FRAME, LAYOUT, 'c');
-    expect(zoneOf(zones, 'left').free).toEqual([0]);
-    expect(zoneOf(zones, 'right').free).toEqual([0]);
-    expect(zoneOf(zones, 'bottom').free).toEqual([0, 1]);
-    expect(zoneOf(zones, 'top').free).toEqual([]);
+    expect(zoneOf(zones, 'left').others).toBe(0);
+    expect(zoneOf(zones, 'right').others).toBe(0);
+    expect(zoneOf(zones, 'bottom').others).toBe(1);
+    expect(zoneOf(zones, 'top').others).toBe(2);
   });
 
   it('keeps the own side open to reorder or stay', () => {
     const zones = toolbarZones(FRAME, LAYOUT, 'a');
     expect(zoneOf(zones, 'top').others).toBe(1);
-    expect(zoneOf(zones, 'top').free).toEqual([0, 1]);
   });
 
-  it('sizes each slot with the thickness of its side', () => {
+  it('sizes each held area with the thickness of its side', () => {
     const zones = toolbarZones(FRAME, LAYOUT, 'a');
-    expect(zoneOf(zones, 'right').slots[0]).toMatchObject({ x: 752, width: 48 });
-    expect(zoneOf(zones, 'bottom').slots[1]).toMatchObject({ y: 520, height: 40 });
+    expect(zoneOf(zones, 'right').held).toMatchObject({ x: 752, width: 48 });
+    expect(zoneOf(zones, 'bottom').held).toMatchObject({ y: 560, height: 40 });
   });
 });
 

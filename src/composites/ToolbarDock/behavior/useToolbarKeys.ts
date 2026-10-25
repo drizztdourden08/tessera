@@ -33,7 +33,8 @@ const useToolbarKeys = (params: ToolbarDragParams, setMessage: (message: string)
     const { layout: current, words } = latest.current;
     const target = toolbarPickTarget(s.frame, current, s.id, s.pick);
     setMoving({ id: s.id, label: labelOf(s.id), pointer: null, target, basket: toolbarBasket(s.frame) });
-    if (note) setMessage(toolbarKeyMessage(words, labelOf(s.id), note));
+    if (target.kind === 'refused') setMessage(words.full(labelOf(s.id), words.sides[target.side]));
+    else if (note) setMessage(toolbarKeyMessage(words, labelOf(s.id), note));
   }, [labelOf, setMessage]);
 
   const finish = useCallback((end: ToolbarKeyEnd): void => {

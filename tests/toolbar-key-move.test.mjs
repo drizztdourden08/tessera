@@ -11,7 +11,9 @@ import { toolbarKeyStep } from '../src/composites/ToolbarDock/behavior/toolbar-k
 import { toolbarPickTarget } from '../src/composites/ToolbarDock/behavior/toolbar-pick-target';
 import { TESSERA_STRINGS } from '../src/primitives/strings/tessera-strings.constants';
 
-const lane = (side, index) => ({ kind: 'lane', side, index });
+const lane = (side, index) => ({ kind: 'lane', side, lane: 'new', index, slot: 0 });
+
+const join = (side, index) => ({ kind: 'lane', side, lane: index, index, slot: 0 });
 
 const step = (id, pick, key) => toolbarKeyStep(LAYOUT, id, pick, key);
 
@@ -24,17 +26,19 @@ describe('toolbarKeyStart', () => {
 });
 
 describe('toolbarKeyStep arrows', () => {
-  it('moves to the outer lane of the side the arrow points to', () => {
+  it('moves to the first stop of the side the arrow points to', () => {
     expect(step('c', lane('left', 0), 'ArrowRight')).toEqual({ pick: lane('right', 0), note: { kind: 'place', side: 'right', index: 0 }, end: null });
     expect(step('c', lane('left', 0), 'ArrowDown').pick).toEqual(lane('bottom', 0));
     expect(step('d', lane('bottom', 0), 'ArrowLeft').pick).toEqual(lane('left', 0));
   });
 
-  it('switches between the outer and inner lane on the same arrow', () => {
-    const once = step('c', lane('left', 0), 'ArrowDown');
-    const twice = step('c', once.pick, 'ArrowDown');
-    expect(twice.pick).toEqual(lane('bottom', 1));
-    expect(step('c', twice.pick, 'ArrowDown').pick).toEqual(lane('bottom', 0));
+  it('cycles new outer lane, new inner lane, then the lane that is there', () => {
+    const first = step('c', lane('left', 0), 'ArrowDown');
+    const second = step('c', first.pick, 'ArrowDown');
+    const third = step('c', second.pick, 'ArrowDown');
+    expect(second.pick).toEqual(lane('bottom', 1));
+    expect(third.pick).toEqual(join('bottom', 0));
+    expect(step('c', third.pick, 'ArrowDown').pick).toEqual(lane('bottom', 0));
   });
 
   it('stays on the outer lane of an empty side', () => {
@@ -42,13 +46,13 @@ describe('toolbarKeyStep arrows', () => {
     expect(step('c', once.pick, 'ArrowRight').pick).toEqual(lane('right', 0));
   });
 
-  it('skips a full side and announces it', () => {
-    const result = step('c', lane('left', 0), 'ArrowUp');
-    expect(result.pick).toEqual(lane('left', 0));
-    expect(result.note).toEqual({ kind: 'full', side: 'top' });
+  it('joins the lanes of a side that already holds two other toolbars', () => {
+    const first = step('c', lane('left', 0), 'ArrowUp');
+    expect(first.pick).toEqual(join('top', 0));
+    expect(step('c', first.pick, 'ArrowUp').pick).toEqual(join('top', 1));
   });
 
-  it('lets a toolbar switch lanes on its own full side', () => {
+  it('lets a toolbar switch lanes on its own side', () => {
     expect(step('a', lane('top', 0), 'ArrowUp').pick).toEqual(lane('top', 1));
   });
 
@@ -113,7 +117,7 @@ describe('announcements', () => {
   it('names the side and the lane', () => {
     expect(toolbarKeyMessage(words, 'Tools', { kind: 'place', side: 'left', index: 0 })).toBe('Tools: left, outer lane');
     expect(toolbarKeyMessage(words, 'Tools', { kind: 'place', side: 'top', index: 1 })).toBe('Tools: top, inner lane');
-    expect(toolbarKeyMessage(words, 'Tools', { kind: 'full', side: 'top' })).toBe('Tools: top is full');
+    expect(toolbarKeyMessage(words, 'Tools', { kind: 'slot', slot: 2, count: 3 })).toBe('Tools: slot 2 of 3');
   });
 });
 

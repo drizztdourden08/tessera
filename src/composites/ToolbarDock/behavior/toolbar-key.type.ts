@@ -4,13 +4,18 @@ import type { ToolbarSide } from '../ToolbarDock.type';
 import type { ToolbarDragLatest, ToolbarFrame } from './toolbar-drag.type';
 
 type ToolbarKeyPick =
-  | { kind: 'lane'; side: ToolbarSide; index: number }
+  | { kind: 'lane'; side: ToolbarSide; lane: number | 'new'; index: number; slot: number }
   | { kind: 'basket' };
 
 type ToolbarKeyNote =
   | { kind: 'place'; side: ToolbarSide; index: number }
-  | { kind: 'full'; side: ToolbarSide }
+  | { kind: 'slot'; slot: number; count: number }
   | { kind: 'hide' };
+
+interface ToolbarStop {
+  lane: number | 'new';
+  index: number;
+}
 
 type ToolbarKeyEnd = 'drop' | 'cancel';
 
@@ -38,4 +43,4 @@ interface ToolbarKeyWiring {
   cancel: () => void;
 }
 
-export type { ToolbarKeyEnd, ToolbarKeyLatest, ToolbarKeyNote, ToolbarKeyPick, ToolbarKeyResult, ToolbarKeySession, ToolbarKeyWiring, ToolbarWords };
+export type { ToolbarKeyEnd, ToolbarKeyLatest, ToolbarKeyNote, ToolbarKeyPick, ToolbarKeyResult, ToolbarKeySession, ToolbarKeyWiring, ToolbarStop, ToolbarWords };

@@ -7,6 +7,8 @@ const toolbarKeyHints = (words: ToolbarWords): WindowGuideHint[] => [
   { keys: ['left'], label: words.hintSide(words.sides.left) },
   { keys: ['right'], label: words.hintSide(words.sides.right) },
   { keys: ['down'], label: words.hintSide(words.sides.bottom) },
+  { keys: ['pageup', 'pagedown'], label: words.hintSlots },
+  { keys: ['home', 'end'], label: words.hintSlotEnds },
   { keys: ['delete'], label: words.hintHide },
   { keys: ['enter'], label: words.hintDrop },
   { keys: ['esc'], label: words.hintCancel },
