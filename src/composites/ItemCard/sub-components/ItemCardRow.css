@@ -30,11 +30,27 @@
 }
 
 .item-card__body[data-density='compact'] .item-card__details {
-  display: block;
+  display: flex;
   min-inline-size: 0;
   flex: 1;
+  overflow: hidden;
+}
+
+.item-card__body[data-density='compact'] .item-card__detail {
+  min-inline-size: 0;
+  flex: 0 1 auto;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.item-card__body[data-density='compact'] .item-card__details:has(.tooltip-anchor) .item-card__detail:not(:has(.tooltip-anchor)) {
+  flex-shrink: 0;
+}
+
+.item-card__body[data-density='compact'] .item-card__dot {
+  flex: none;
+  white-space: pre;
 }
 
 .item-card__body[data-density='compact'] .item-card__details .tooltip-anchor {

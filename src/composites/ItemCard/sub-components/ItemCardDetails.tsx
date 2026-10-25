@@ -11,7 +11,7 @@ const ItemCardDetails = (props: ItemCardDetailsProps) => {
       {details.map((detail, index) => (
         <Fragment key={index}>
           {index > 0 && <Span className="item-card__dot" aria-hidden> · </Span>}
-          {detail}
+          <Span className="item-card__detail">{detail}</Span>
         </Fragment>
       ))}
     </Box>

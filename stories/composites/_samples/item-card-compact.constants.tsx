@@ -54,6 +54,11 @@ const TAG_ROWS: readonly ItemCardProps[] = [
     details: [<Tooltip key="status" content="Updated on Friday, with a long list of fixes" focusable>update ready with a very long note about the changes</Tooltip>, 'World 1.2.0'],
     actions: ROW_ACTIONS,
   },
+  {
+    title: 'Archipelago Launcher', media: <Icon name="package" size={20} />, mediaLabel: 'Tool',
+    details: ['5.1.0', <Tooltip key="summary" content="Runs the multiworld generator and the client from one window" focusable>Runs the multiworld generator and the client from one window, keeps a log of every session, and checks for new worlds each time it starts</Tooltip>],
+    actions: ROW_ACTIONS,
+  },
 ];
 
 export { COMPACT_ROWS, TAG_ROWS };
