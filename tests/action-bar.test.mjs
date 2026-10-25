@@ -46,6 +46,15 @@ describe('ActionBar confirm', () => {
     expect(confirmOf({ ...ACTIONS[0], confirm: words }, question)).toBe(words);
   });
 
+  it('skips the ask with confirm false, and asks any action with confirm true', () => {
+    expect(confirmOf({ ...ACTIONS[4], confirm: false }, question)).toBeUndefined();
+    expect(confirmOf({ ...ACTIONS[0], confirm: true }, question)).toEqual({ title: 'Reset all?', confirmLabel: 'Reset all' });
+  });
+
+  it('asks with the name suffix, and keeps the label as the check', () => {
+    expect(confirmOf({ ...ACTIONS[4], nameSuffix: 'Friday run' }, question)).toEqual({ title: 'Delete Friday run?', confirmLabel: 'Delete' });
+  });
+
   it('puts danger actions in their own menu group, marked as asking', () => {
     const groups = menuGroups({ folded: ACTIONS.slice(2), asks: (action) => action.kind === 'danger', onPress: noop }, (label) => `${label}...`);
     expect(labels(groups)).toEqual([['Duplicate', 'Export yaml'], ['Delete...']]);
@@ -75,6 +84,17 @@ describe('ActionBar render', () => {
     expect(live).toMatch(/<button[^>]*icon-btn--tone-danger[^>]*aria-label="Delete"/);
     expect(live).toMatch(/<button[^>]*data-action-id="export"[^>]*>.*Export yaml<\/span><\/button>/);
     expect(live).not.toMatch(/data-action-id="reset"[^>]*>[^<]*Reset all/);
+  });
+
+  it('names an icon button and its tooltip with the suffix, and marks a loading action busy', () => {
+    const actions = [
+      { id: 'remove', label: 'Remove', icon: 'trash-2', iconOnly: true, nameSuffix: 'Hollow Knight', onSelect: noop },
+      { id: 'save', label: 'Save', loading: true, nameSuffix: 'Hollow Knight', kind: 'primary', onSelect: noop },
+    ];
+    const live = renderToString(h(ActionBar, { actions })).split('action-bar__measure')[0];
+    expect(live).toMatch(/<button[^>]*aria-label="Remove Hollow Knight"[^>]*data-action-id="remove"/);
+    expect(live).toMatch(/<button[^>]*aria-busy="true"[^>]*data-action-id="save"/);
+    expect(live).toContain('aria-label="Save Hollow Knight"');
   });
 
   it('keeps its measuring copies inert and out of the Tab order', () => {

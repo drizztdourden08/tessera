@@ -1,0 +1,26 @@
+/* @layer renderer-components @kind style */
+.item-card__tag-line {
+  position: relative;
+  display: flex;
+  min-inline-size: 0;
+  align-items: center;
+  gap: var(--space-xs);
+  overflow: hidden;
+}
+
+.item-card__tag-measure {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 0;
+  block-size: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.item-card__tag-measure-row {
+  display: flex;
+  inline-size: max-content;
+  gap: var(--space-xs);
+}

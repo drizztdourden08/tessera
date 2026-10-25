@@ -20,7 +20,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Peer actions on one thing, read as one tool: no component yet.
     - Separate decisions, with space between: no component yet.
     - Too many, or secondary: [DropdownMenu](components/DropdownMenu.md). DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work.
-    - Actions on one item, folding into More when narrow: [ActionBar](components/ActionBar.md). ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and always asks before it.
+    - Actions on one item, folding into More when narrow: [ActionBar](components/ActionBar.md). ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and asks before it unless the action opts out.
     - Tools in groups, each under a small label: [ToolGroups](components/ToolGroups.md). ToolGroups names each group of tools with a small label and draws a line between groups; StudioLayout uses it for its bar and its toolbar.
     - Tools in a row or column, with hints and options: [Toolbar](components/Toolbar.md). Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them.
 - A value the user sets. **What does the user set?**

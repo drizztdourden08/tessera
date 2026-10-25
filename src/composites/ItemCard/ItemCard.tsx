@@ -11,10 +11,10 @@ import './ItemCard.css';
 const flag = (on: boolean | undefined): '' | undefined => (on ? '' : undefined);
 
 const ItemCard = (props: ItemCardProps) => {
-  const { media, mediaTone, mediaHeight, layout = 'top', selected, className } = props;
+  const { media, mediaLabel, mediaTone, mediaHeight, layout = 'top', selected, className } = props;
   const compact = props.density === 'compact';
   const tiled = isTiled(props);
-  const picture = <ItemCardMedia media={media} tone={mediaTone} height={mediaHeight} tiled={tiled} />;
+  const picture = <ItemCardMedia media={media} label={mediaLabel} tone={mediaTone} height={mediaHeight} tiled={tiled} />;
   const tile = tiled ? picture : undefined;
   return (
     <Card
