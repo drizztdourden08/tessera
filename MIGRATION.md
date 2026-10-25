@@ -9788,3 +9788,21 @@ DockLayout dividers now push: dragging or keying a divider past the far neighbou
 
 - If you call `resizeSplit` yourself, pass a step object as the fourth argument: `resizeSplit(tree, target, index, { delta })` in place of `resizeSplit(tree, target, index, delta)`. Add `origin` (the sizes at gesture start) to make a drag reversible within one gesture.
 - The `resize` LayoutEdit takes an optional `origin`. Apps that only use DockLayout or WidgetManager need no change.
+
+## 276. The controller anchors moved to Brock's input package
+
+Where each control sits on a pad is input logic, so the anchor data left Tessera for `@drizztdourden08/brock-input` (Brock 0.97.1). Brock imports Tessera's `ControllerSilhouette` and keeps its own anchors.
+
+### What goes
+
+- **Data.** `CONTROLLER_SILHOUETTE_ANCHORS` and `CONTROLLER_SILHOUETTE_ANCHOR_IDS`.
+- **Types.** `ControllerSilhouetteAnchor`, `ControllerSilhouetteAnchorId`, `ControllerSilhouetteAnchorSet` and `ControllerSilhouetteAnchors`.
+
+### What stays
+
+- `ControllerSilhouette`, `CONTROLLER_SILHOUETTE_PATHS`, `CONTROLLER_SILHOUETTE_VIEW_BOX`, `CONTROLLER_SILHOUETTE_VARIANTS` and the types `ControllerSilhouetteProps` and `ControllerSilhouetteVariant`, unchanged.
+
+### What an app does
+
+- Import the anchors and their ids and types from `@drizztdourden08/brock-input` in place of Tessera; TypeScript flags each old import.
+- Apps that only draw the outline need no change.

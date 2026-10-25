@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind logic */
 import { SHARE_EPSILON } from '../ToolbarDock.constants';
 import type { ToolbarLayout, ToolbarPlace } from '../ToolbarDock.type';
-import { mirrorToolbarLane } from './mirror-toolbar-lane';
-import { moveToolbarEnd } from './move-toolbar-end';
+import { moveLaneGrip } from './move-lane-grip';
+import { takeToolbarCorner } from './take-toolbar-corner';
 import { toolbarLaneMetrics } from './toolbar-lane-metrics';
 import type { ToolbarGrip, ToolbarMetrics } from './toolbar-resize.type';
 
@@ -13,11 +13,10 @@ const resizeToolbarEnd = (origin: ToolbarLayout, metrics: ToolbarMetrics, grip: 
   const { id, end } = grip;
   const lane = toolbarLaneMetrics(origin, metrics, id);
   if (!lane) return origin;
+  const taken = takeToolbarCorner(origin, metrics, grip, px);
+  if (taken !== origin) return taken;
   const { side, places, index, span, minShare } = lane;
-  const share = px / span;
-  const next = end === 'end'
-    ? moveToolbarEnd(places, index, share, minShare)
-    : mirrorToolbarLane(moveToolbarEnd(mirrorToolbarLane(places), places.length - 1 - index, 1 - share, minShare));
+  const next = moveLaneGrip(places, { index, end }, px / span, minShare);
   if (same(places, next)) return origin;
   return { ...origin, sides: { ...origin.sides, [side]: origin.sides[side].map((current, at) => (at === lane.lane ? next : current)) } };
 };

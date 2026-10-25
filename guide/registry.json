@@ -5493,19 +5493,13 @@
         }
       ],
       "rules": [
-        "A live layout that lights every input of a pad from its state belongs to the app to build: draw it on CONTROLLER_SILHOUETTE_PATHS, place its marks from CONTROLLER_SILHOUETTE_ANCHORS inside CONTROLLER_SILHOUETTE_VIEW_BOX, and use InputIcon for the glyphs.",
+        "A live layout that lights every input of a pad from its state belongs to the app to build: draw it on CONTROLLER_SILHOUETTE_PATHS, place its marks from anchor data from the app or from Brock (brock-input exports CONTROLLER_SILHOUETTE_ANCHORS) inside CONTROLLER_SILHOUETTE_VIEW_BOX, and use InputIcon for the glyphs.",
         "Pick the variant from the pad family: offset for Xbox shapes, symmetric for PlayStation shapes, nintendo for Switch Pro shapes and pad for a pad with no sticks or triggers.",
         "Draw on it with children made of the Svg primitives. They sit inside the SVG on top of the outline, in viewBox units.",
         "The viewBox is CONTROLLER_SILHOUETTE_VIEW_BOX, 0 0 400 260, for every variant. It never changes, so coordinates stay valid.",
         "To draw the outline in your own SVG, take its path d from CONTROLLER_SILHOUETTE_PATHS[variant], in the same viewBox.",
-        "Place marks from CONTROLLER_SILHOUETTE_ANCHORS, never from numbers of your own. Nothing is drawn at an anchor, it only says where the control sits on the real pad.",
-        "A stick, the d-pad, the face cluster and each meta button have a centre and a radius r. A stick r is its well, the d-pad and face r hold the whole cluster, and a meta r is half the longest side of the button. Shoulders sit on the top edge. Triggers sit above their shoulder, outside the outline, since a trigger hides behind it from the front.",
-        "A variant leaves out the anchors its pad has none of: pad has no sticks, no triggers, no guide and no capture, symmetric has no capture.",
-        "Anchors in viewBox units, measured from front photos of the real pads and scaled by their published sizes. offset: stick.left 121,72 r23, stick.right 240,113 r23, dpad 158,120 r26, face 278,76 r32, shoulder.left 126,31, shoulder.right 274,31, trigger.left 126,14, trigger.right 274,14, meta.view 178,74 r7, meta.menu 222,74 r7, meta.guide 200,48 r12, meta.capture 200,88 r9.",
-        "symmetric: stick.left 145,117 r23, stick.right 255,117 r23, dpad 95,77 r29, face 305,77 r36, shoulder.left 94,30, shoulder.right 306,30, trigger.left 94,14, trigger.right 306,14, meta.view 121,46 r7, meta.menu 279,46 r7, meta.guide 200,117 r11.",
-        "nintendo: stick.left 105,92 r26, stick.right 251,138 r26, dpad 149,138 r27, face 295,92 r39, shoulder.left 108,35, shoulder.right 292,35, trigger.left 108,14, trigger.right 292,14, meta.view 158,68 r8, meta.menu 242,68 r8, meta.guide 225,93 r9, meta.capture 175,93 r7.",
-        "pad: dpad 93,132 r33, face 307,132 r50, shoulder.left 95,49, shoulder.right 305,49, meta.view 165,143 r14, meta.menu 205,143 r14.",
-        "Sources. offset, symmetric and nintendo are drawn by hand with reference to Noun Project icons: XBOX Controller (icon 5652517) by Daniel Finnegan, pro controller (icon 5602909) by Eliran Bensadoun and playstation controller (icon 1751312) by dinnerchief. No path data is taken from them. pad is traced from SNES-Controller-Flat.jpg by Evan-Amos, Wikimedia Commons, public domain. Each outline is one mirrored half of smooth curves, with no brand marks. Anchors are measured on Wikimedia Commons front photos of each pad, aligned to the outline by body width and grip ends; no photo ships."
+        "Marks are placed from the anchor data of an app or of Brock, never from Tessera, which ships no anchors. The package @drizztdourden08/brock-input exports CONTROLLER_SILHOUETTE_ANCHORS and the anchor ids. Nothing is drawn at an anchor, it only says where a control sits on the real pad, in viewBox units.",
+        "Sources. offset, symmetric and nintendo are drawn by hand with reference to Noun Project icons: XBOX Controller (icon 5652517) by Daniel Finnegan, pro controller (icon 5602909) by Eliran Bensadoun and playstation controller (icon 1751312) by dinnerchief. No path data is taken from them. pad is traced from SNES-Controller-Flat.jpg by Evan-Amos, Wikimedia Commons, public domain. Each outline is one mirrored half of smooth curves, with no brand marks."
       ],
       "a11y": [
         "The figure is named by label, Controller by default.",
@@ -5517,9 +5511,9 @@
           "controller or keyboard input",
           "a blank controller to draw on"
         ],
-        "rule": "ControllerSilhouette draws only the outline of a pad, so each app places its own marks at shared anchors."
+        "rule": "ControllerSilhouette draws only the outline of a pad, so each app places its own marks from its own anchor data."
       },
-      "example": "import { CONTROLLER_SILHOUETTE_ANCHORS, ControllerSilhouette, SvgCircle, SvgText } from '@drizztdourden08/tessera';\n\nconst anchors = CONTROLLER_SILHOUETTE_ANCHORS.offset;\n\nconst JumpHint = () => {\n  const face = anchors.face;\n  if (!face?.r) return null;\n  return (\n    <ControllerSilhouette variant=\"offset\" label=\"Jump is the bottom face button\">\n      <SvgCircle cx={face.x} cy={face.y + face.r / 2} r={face.r / 3} />\n      <SvgText x={face.x} y={face.y + face.r + 14} textAnchor=\"middle\">Jump</SvgText>\n    </ControllerSilhouette>\n  );\n};\n",
+      "example": "import { ControllerSilhouette, SvgCircle, SvgText } from '@drizztdourden08/tessera';\n\nconst face = { x: 278, y: 76, r: 32 };\n\nconst JumpHint = () => {\n  return (\n    <ControllerSilhouette variant=\"offset\" label=\"Jump is the bottom face button\">\n      <SvgCircle cx={face.x} cy={face.y + face.r / 2} r={face.r / 3} />\n      <SvgText x={face.x} y={face.y + face.r + 14} textAnchor=\"middle\">Jump</SvgText>\n    </ControllerSilhouette>\n  );\n};\n",
       "propsHash": "1478dbd854e14e32",
       "props": {
         "own": [
@@ -5567,8 +5561,6 @@
         "file": "stories/composites/ControllerSilhouette.stories.tsx"
       },
       "parts": [
-        "CONTROLLER_SILHOUETTE_ANCHORS",
-        "CONTROLLER_SILHOUETTE_ANCHOR_IDS",
         "CONTROLLER_SILHOUETTE_PATHS",
         "CONTROLLER_SILHOUETTE_VARIANTS",
         "CONTROLLER_SILHOUETTE_VIEW_BOX"
@@ -13352,6 +13344,7 @@
         "Delete sends the picked toolbar to the basket. Enter drops it and Escape puts it back. The preview shows the target as it does for a pointer drag.",
         "Each toolbar has a thin handle at both ends, shown on hover or focus. Dragging one moves that end along the lane. A neighbour in the way is pushed along with its size kept, and the chain stops at the lane ends. A bar never gets shorter than MIN_BAR_PX.",
         "The end handles are separators. Arrow keys move the end by 8 px, Shift by 64 px, Home and End go to the ends of its range. The result is announced, with the toolbars it pushed.",
+        "Dragging the first start handle of a lane below 0, or the last end handle past the lane end, takes the corner: each lane of the other side whose half thickness is passed gives it up, and the bars of the yielding lanes keep their pixel position and are pushed along. If they cannot fit, the take stops. Dragging back gives the corner back. At the lane end, one more outward arrow takes the next corner lane and an inward arrow gives it back. The pure op is takeToolbarCorner(origin, metrics, grip, px), and metrics needs laneThickness.",
         "The pure ops are resizeToolbarEnd(origin, metrics, id, end, px), always computed from the layout at the start of the gesture, and toolbarEndRange(layout, metrics, id, end) for the value, min and max of a handle in pixels along the lane.",
         "onLayoutChange gets the new layout when a drag or a keyboard move ends. It is not called when the toolbar is dropped where it already was. The dock never changes the layout by itself, so keep it in state.",
         "useToolbarLayout({ value, onChange, definitions }) wraps the pure ops for a controlled layout. It gives move, show, hide, toggle, isShown, canShow and reset, and calls onChange once per edit, never when the edit changes nothing.",

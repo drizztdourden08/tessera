@@ -27,6 +27,8 @@ const TOOLBARS_STRINGS = {
   resizeStart: (label: string) => `${label}: resizing`,
   resizeEnd: (label: string) => `${label} resized`,
   pushed: (label: string, others: string) => `${label} pushes ${others}`,
+  cornerTaken: (label: string, corner: string) => `${label} takes the ${corner} corner`,
+  cornerGiven: (label: string, corner: string) => `${label} gives back the ${corner} corner`,
 };
 
 export { TOOLBARS_STRINGS };
