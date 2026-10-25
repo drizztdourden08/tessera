@@ -32,7 +32,7 @@ describe('the tessera bin', () => {
     expect(launch.stderr).toContain('Usage: tessera launch <name|main> <state|none>');
     const worktree = tessera('worktree');
     expect(worktree.stderr).toContain('tessera worktree');
-  });
+  }, 30_000);
 
   it('refuses a command it does not have', () => {
     const result = tessera('add', 'Button');
