@@ -96,7 +96,7 @@ const Editor = ({ layout, setLayout, itemsOf, definitions, children }: EditorPro
 
 ## Tokens
 
-It draws on `--opacity-faint`, `--space-2xs`, `--z-modal`.
+It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--opacity-faint`, `--radius-md`, `--space-2xs`, `--z-modal`.
 
 ## Also exported from this folder
 

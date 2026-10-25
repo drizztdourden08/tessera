@@ -21,7 +21,11 @@ const ToolbarDockSide = ({ side, lanes, dragId, definitions, renderToolbar }: To
     <Box className="toolbar-dock__side" data-side={side} data-orientation={orientation}>
       {drawn.map(({ lane, bars }) => (
         <Box key={bars[0]?.id} className="toolbar-dock__lane" data-lane={lane} data-dragging={bars.some(({ id }) => id === dragId) ? '' : undefined}>
-          {bars.map(({ id, label }) => renderToolbar(id, { orientation, handle: toolbarHandle(id, toolbars.move(label)), side }))}
+          {bars.map(({ id, label }) => (
+            <Box key={id} className="toolbar-dock__bar">
+              {renderToolbar(id, { orientation, handle: toolbarHandle(id, toolbars.move(label)), side })}
+            </Box>
+          ))}
         </Box>
       ))}
     </Box>

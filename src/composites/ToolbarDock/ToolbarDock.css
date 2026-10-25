@@ -1,5 +1,10 @@
 /* @layer renderer-components @kind style */
 .toolbar-dock {
+  --toolbar-dock-bar-bg: var(--c-surface);
+  --toolbar-dock-bar-border: var(--c-border);
+  --toolbar-dock-bar-radius: var(--radius-md);
+  --toolbar-dock-gap: var(--space-2xs);
+
   position: relative;
   display: grid;
   grid-template:
@@ -62,7 +67,18 @@
   flex: none;
   min-inline-size: 0;
   min-block-size: 0;
-  padding: var(--space-2xs);
+  gap: var(--toolbar-dock-gap);
+  padding: var(--toolbar-dock-gap);
+}
+
+.toolbar-dock__bar {
+  display: flex;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: hidden;
+  background: var(--toolbar-dock-bar-bg);
+  border: var(--border-width-thin) solid var(--toolbar-dock-bar-border);
+  border-radius: var(--toolbar-dock-bar-radius);
 }
 
 .toolbar-dock__side[data-orientation='vertical'] .toolbar-dock__lane {
