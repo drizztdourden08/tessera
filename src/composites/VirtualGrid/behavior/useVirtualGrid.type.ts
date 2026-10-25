@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { MarqueeItem } from '../../marquee';
 import type { ScrollAlign, VirtualFocusModel } from '../../virtual';
 import type { VirtualGridSection } from '../VirtualGrid.type';
 import type { GridLayout } from './grid-layout.type';
@@ -24,6 +25,7 @@ interface VirtualGridModel<T> extends VirtualFocusModel {
   collapsed: ReadonlySet<string>;
   setCollapsed: (key: string, collapsed: boolean) => void;
   scrollToIndex: (index: number, align?: ScrollAlign) => void;
+  getRects: () => readonly MarqueeItem[];
 }
 
 export type { UseVirtualGridInput, VirtualGridModel };

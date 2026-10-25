@@ -14,7 +14,7 @@ const useGridColumns = (input: GridColumnsInput): void => {
     const fit = () => {
       const first = bodyRef.current?.querySelector(TILE_SELECTOR);
       const tile = isHTMLElement(first) && first.offsetWidth > 0 ? first.offsetWidth : fallbackTile;
-      onColumns(gridColumns(root.clientWidth, tile));
+      onColumns(gridColumns(root.clientWidth, tile), tile);
     };
     fit();
     return observeResize([root], fit);

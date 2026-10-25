@@ -2,6 +2,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { MARQUEE_KEY_ATTRIBUTE, MarqueeBox, VirtualGrid, useMarqueeSelect } from '../../../src/composites';
 import { Box, Text } from '../../../src/primitives';
+import type { VirtualGridHandle } from '../../../src/composites';
 import { ValueReadout } from '../../_template/ValueReadout';
 import { tilesOf } from './virtual-grid-samples.constants';
 import type { TileEntry } from './virtual-grid-samples.constants';
@@ -17,7 +18,10 @@ const VirtualGridMarquee = (props: VirtualGridMarqueeProps) => {
   const areaRef = useRef<HTMLElement>(null);
   const items = useMemo(() => tilesOf(count), [count]);
   const [picked, setPicked] = useState<readonly string[]>([]);
-  const marquee = useMarqueeSelect({ containerRef: areaRef, itemSelector: ITEM_SELECTOR, selected: picked, onChange: setPicked });
+  const gridRef = useRef<VirtualGridHandle>(null);
+  const marquee = useMarqueeSelect({
+    containerRef: areaRef, itemSelector: ITEM_SELECTOR, selected: picked, onChange: setPicked, getRects: () => gridRef.current?.getRects() ?? [],
+  });
   const renderTile = (tile: TileEntry) => (
     <Box className={picked.includes(tile.id) ? 'virtual-grid-story__tile virtual-grid-story__tile--picked' : 'virtual-grid-story__tile'}>
       <Text>{tile.name}</Text>
@@ -27,6 +31,7 @@ const VirtualGridMarquee = (props: VirtualGridMarqueeProps) => {
     <ValueReadout value={`${picked.length} picked`}>
       <Box className="virtual-grid-story">
         <VirtualGrid
+          ref={gridRef}
           label="Sprites"
           items={items}
           getKey={(tile) => tile.id}

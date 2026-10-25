@@ -38,6 +38,7 @@ export default standardsEslint({
     { files: ['src/composites/VirtualList/sub-components/VirtualItem.tsx'], why: 'a row sits at its index, set as one custom property' },
     { files: ['src/composites/VirtualGrid/VirtualGrid.tsx'], why: 'the tile size and the body height follow the tile token and the number of rows, set as custom properties' },
     { files: ['src/composites/VirtualGrid/sub-components/GridRow.tsx'], why: 'a row of tiles sits at its index, set as one custom property' },
+    { files: ['src/composites/VirtualGrid/sub-components/GridHeader.tsx'], why: 'a section header indents by its depth, set as one custom property' },
     { files: ['src/composites/MarqueeBox/MarqueeBox.tsx'], why: 'the rectangle sits where the pointer dragged it, set as custom properties' },
     { files: ['src/composites/GroupTree/sub-components/GroupTreeRow.tsx', 'src/composites/GroupTree/sub-components/GroupTreeGuides.tsx'], why: 'a tree row indents by its depth and draws a guide per ancestor' },
     { files: ['src/composites/ListItemRow/ListItemRow.tsx', 'src/composites/ListItemRow/sub-components/ListItemList.tsx'], why: 'the grid tracks follow the number of columns the rows pass in' },

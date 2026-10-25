@@ -19,11 +19,16 @@ const renderTile = (tile: TileEntry) => (
 
 const VirtualGridFolders = (props: VirtualGridFoldersProps) => {
   const { folders, perFolder } = props;
-  const sections = useMemo(() => foldersOf(folders, perFolder), [folders, perFolder]);
   const [closed, setClosed] = useState<readonly string[]>([]);
+  const [added, setAdded] = useState(0);
+  const sections = useMemo(() => foldersOf(folders, perFolder).map((folder, at) => ({
+    ...folder,
+    depth: at % 3 === 0 ? 0 : 1,
+    actions: [{ id: 'add', label: `Add to ${folder.label}`, icon: 'plus' as const, onSelect: () => setAdded((before) => before + 1) }],
+  })), [folders, perFolder]);
   const toggle = (key: string, collapsed: boolean) => setClosed((before) => (collapsed ? [...before, key] : before.filter((entry) => entry !== key)));
   return (
-    <ValueReadout value={closed}>
+    <ValueReadout value={[`${added} added`, ...closed]}>
       <Box className="virtual-grid-story">
         <VirtualGrid label="Folders" sections={sections} getKey={(tile) => tile.id} renderItem={renderTile} tileSize="size-64" collapsed={closed} onToggleSection={toggle} />
       </Box>
