@@ -6,7 +6,7 @@ interface GridColumnsInput {
   bodyRef: RefObject<HTMLElement | null>;
   fallbackTile: number;
   refitKey: string;
-  onColumns: (columns: number) => void;
+  onColumns: (columns: number, tile: number) => void;
 }
 
 export type { GridColumnsInput };

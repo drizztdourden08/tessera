@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, ReactNode } from 'react';
+import type { ActionItem } from '../../ActionBar';
 
 interface GridHeaderProps {
   stop: number;
@@ -8,6 +9,8 @@ interface GridHeaderProps {
   columns: number;
   collapsed: boolean;
   tabbable: boolean;
+  depth?: number;
+  actions?: readonly ActionItem[];
   onToggle: (collapsed: boolean) => void;
   onActivate: (index: number) => void;
   onNavigate: (event: KeyboardEvent<HTMLElement>, index: number) => void;
