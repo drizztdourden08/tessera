@@ -37,6 +37,16 @@
   white-space: nowrap;
 }
 
+.item-card__body[data-density='compact'] .item-card__details .tooltip-anchor {
+  display: inline-block;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
 .item-card__body[data-density='compact'] .item-card__actions {
   flex: none;
   padding-block-start: 0;
