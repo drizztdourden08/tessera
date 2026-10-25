@@ -5,6 +5,7 @@ type ToolbarEnd = 'start' | 'end';
 
 interface ToolbarMetrics {
   spans: Record<ToolbarSide, number[]>;
+  laneThickness?: Record<ToolbarSide, number[]>;
 }
 
 interface ToolbarEndRange {

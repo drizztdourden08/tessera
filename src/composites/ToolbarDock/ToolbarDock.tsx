@@ -24,7 +24,7 @@ const ToolbarDock = ({ layout, onLayoutChange, definitions, renderToolbar, child
   const shown = draft ?? layout;
   const view = drag ?? moving;
   const grid = toolbarGridPlacement(shown);
-  const resize = { layout: shown, metrics, handlersFor };
+  const resize = { layout, metrics, handlersFor };
   const classes = ['toolbar-dock', drag && 'toolbar-dock--dragging', className].filter(Boolean).join(' ');
   return (
     <Box ref={rootRef} className={classes} onPointerDown={onPointerDown} onKeyDown={onKeyDown}>
