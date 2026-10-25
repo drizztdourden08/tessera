@@ -440,9 +440,9 @@
         "AboutPanelRow": "moved to @drizztdourden08/brock-react with AboutPanel (see MIGRATION.md section 67)",
         "ReleaseNotesPanel": "moved to @drizztdourden08/brock-react: import { ReleaseNotesPanel } from '@drizztdourden08/brock-react' (see MIGRATION.md section 67)",
         "ReleaseNotesPanelProps": "moved to @drizztdourden08/brock-react with ReleaseNotesPanel (see MIGRATION.md section 67)",
-        "CalibrationPanel": "moved to @drizztdourden08/brock-input/renderer: import { CalibrationPanel } from '@drizztdourden08/brock-input/renderer'; it also takes reading and buttons (see MIGRATION.md section 67)",
-        "CalibrationPanelAction": "moved to @drizztdourden08/brock-input/renderer with CalibrationPanel (see MIGRATION.md section 67)",
-        "CalibrationPanelProps": "moved to @drizztdourden08/brock-input/renderer with CalibrationPanel (see MIGRATION.md section 67)",
+        "CalibrationPanel": "retired: moved to @drizztdourden08/brock-input in Tessera 0.6, and Brock 0.96.0 removed it; calibration is in the Controllers hub, Diagnostics page (see MIGRATION.md section 67)",
+        "CalibrationPanelAction": "retired with CalibrationPanel (Brock 0.96.0; see MIGRATION.md section 67)",
+        "CalibrationPanelProps": "retired with CalibrationPanel (Brock 0.96.0; see MIGRATION.md section 67)",
         "ProfilePicker": "removed with no Tessera replacement; Brock has ProfilesPanel: import { ProfilesPanel } from '@drizztdourden08/brock-react' (see MIGRATION.md section 67)",
         "ProfilePickerItem": "removed with ProfilePicker; see ProfilesPanel in @drizztdourden08/brock-react (see MIGRATION.md section 67)",
         "ProfilePickerProps": "removed with ProfilePicker; see ProfilesPanel in @drizztdourden08/brock-react (see MIGRATION.md section 67)"

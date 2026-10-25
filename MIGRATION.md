@@ -1729,7 +1729,7 @@ Four app panels leave Tessera. Brock 0.4.0, built on Tessera 0.6.0, owns them no
 |---|---|
 | `AboutPanel` and its types | `import { AboutPanel } from '@drizztdourden08/brock-react'`, with the same props: `brand`, `heading`, `title`, `rows`, the copy text and `legal` |
 | `ReleaseNotesPanel` and its props type | `import { ReleaseNotesPanel } from '@drizztdourden08/brock-react'`, also used in the Brock updater's `UpdateDialog` |
-| `CalibrationPanel` and its types | `import { CalibrationPanel } from '@drizztdourden08/brock-input/renderer'`. It takes the same props plus `reading` and `buttons` |
+| `CalibrationPanel` and its types | `@drizztdourden08/brock-input` until 0.95. Brock 0.96.0 retired it: the stick and trigger calibration wizards are on the Diagnostics page of the Controllers hub |
 | `ProfilePicker` and its types | nothing in Tessera. Brock has `ProfilesPanel` in `@drizztdourden08/brock-react`: select, create through `InlineCreateForm`, rename, and delete through `ConfirmIconButton` |
 
 Their gallery pages, the answers of the decision tree that led to them and the strings only they used go with them: `panels.copyDebugInfo`, `panels.releaseNotes`, `panels.newProfile`, `panels.deleteNamed` and `common.keep`. The screen examples show the same content from Tessera parts: the About screen of `InfoScreen` puts the logo and the name in `lead` and the build facts in a `FactsPanel`, the update check of `UtilityScreen` shows its notes in a `Card` under a `SectionHeader`, and each calibration step of `StageScreen` is a `Card` with a `SectionHeader`, a `StatRow` reading, the plot and a `ButtonRow`.
@@ -9778,3 +9778,4 @@ The controller feature is a Brock plugin, so the parts that show live controller
 
 - Build a live controller layout, a stick plot or a grid of held buttons in Brock's controller plugin, on `ControllerSilhouette`, `InputIcon` and the input icon sets.
 - Remove imports of `ControllerLayout`, `StickPlot`, `PressedGrid` and their types; TypeScript flags each one.
+- From Brock 0.96.0 the plugin no longer exports a `ControllerLayout` either: draw a pad with `ControllerSilhouette` or Brock's `PadOverlay`, and use the Controllers hub for live pads and calibration.
