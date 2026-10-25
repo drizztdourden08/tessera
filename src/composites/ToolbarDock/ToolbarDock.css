@@ -52,6 +52,7 @@
 }
 
 .toolbar-dock__bar {
+  position: relative;
   display: flex;
   min-inline-size: 0;
   min-block-size: 0;
@@ -67,6 +68,78 @@
 
 .toolbar-dock__lane[data-orientation='vertical'] > .toolbar-dock__bar {
   grid-row: var(--toolbar-dock-track);
+}
+
+.toolbar-dock__bar > .toolbar-dock__end {
+  position: absolute;
+}
+
+.toolbar-dock__bar > .toolbar-dock__end.resize-handle--horizontal {
+  inset-block: 0;
+  inline-size: var(--space-sm);
+}
+
+.toolbar-dock__bar > .toolbar-dock__end.resize-handle--vertical {
+  inset-inline: 0;
+  block-size: var(--space-sm);
+}
+
+.toolbar-dock__end--start.resize-handle--horizontal {
+  inset-inline-start: 0;
+}
+
+.toolbar-dock__end--end.resize-handle--horizontal {
+  inset-inline-end: 0;
+}
+
+.toolbar-dock__end--start.resize-handle--vertical {
+  inset-block-start: 0;
+}
+
+.toolbar-dock__end--end.resize-handle--vertical {
+  inset-block-end: 0;
+}
+
+.toolbar-dock__bar > .toolbar-dock__end::after {
+  background: var(--c-text-muted);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.toolbar-dock__bar > .toolbar-dock__end.resize-handle--horizontal::after {
+  inline-size: var(--space-2xs);
+}
+
+.toolbar-dock__bar > .toolbar-dock__end.resize-handle--vertical::after {
+  block-size: var(--space-2xs);
+}
+
+.toolbar-dock__end--start.resize-handle--horizontal::after {
+  inset-inline-start: 0;
+}
+
+.toolbar-dock__end--end.resize-handle--horizontal::after {
+  inset-inline: auto 0;
+}
+
+.toolbar-dock__end--start.resize-handle--vertical::after {
+  inset-block: 0 auto;
+}
+
+.toolbar-dock__end--end.resize-handle--vertical::after {
+  inset-block: auto 0;
+}
+
+.toolbar-dock__bar > .toolbar-dock__end:hover::after,
+.toolbar-dock__bar > .toolbar-dock__end:focus-visible::after,
+.toolbar-dock__bar > .toolbar-dock__end.resize-handle--dragging::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolbar-dock__bar > .toolbar-dock__end::after {
+    transition: none;
+  }
 }
 
 .toolbar-dock__centre {

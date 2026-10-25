@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind barrel */
 export { ToolbarDock } from './ToolbarDock';
-export { MAX_LANES, MAX_PER_SIDE, MIN_SHARE, TOOLBAR_LAYOUT_V } from './ToolbarDock.constants';
+export { MAX_LANES, MAX_PER_SIDE, MIN_BAR_PX, MIN_SHARE, TOOLBAR_LAYOUT_V } from './ToolbarDock.constants';
 export type {
   ToolbarCorner, ToolbarCornerClaim, ToolbarDefinition, ToolbarDockHandle, ToolbarDockProps, ToolbarLayout, ToolbarPlace, ToolbarSide, ToolbarSlot, ToolbarSpot,
 } from './ToolbarDock.type';
@@ -12,9 +12,11 @@ export { migrateToolbarLayout } from './behavior/migrate-toolbar-layout';
 export { moveToolbar } from './behavior/move-toolbar';
 export { normalizeCorners } from './behavior/normalize-corners';
 export { placeToolbar } from './behavior/place-toolbar';
+export { resizeToolbarEnd } from './behavior/resize-toolbar-end';
 export { showToolbar } from './behavior/show-toolbar';
 export { toggleToolbar } from './behavior/toggle-toolbar';
 export { toolbarGridPlacement } from './behavior/toolbar-grid-placement';
+export { toolbarEndRange } from './behavior/toolbar-end-range';
 export { toolbarIdsOf } from './behavior/toolbar-ids-of';
 export { toolbarMenuGroups } from './behavior/toolbar-menu-groups';
 export type { ToolbarMenuWords } from './behavior/toolbar-menu.type';

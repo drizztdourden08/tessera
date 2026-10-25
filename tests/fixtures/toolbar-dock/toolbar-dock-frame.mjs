@@ -10,6 +10,7 @@ const LAYOUT = createToolbarLayout(DEFS);
 const FRAME = {
   rect: { x: 0, y: 0, width: 800, height: 600 },
   thickness: { top: 40, bottom: 40, left: 48, right: 48 },
+  spans: { top: [800, 800], bottom: [800], left: [600], right: [600] },
 };
 
 export { DEFS, FRAME, LAYOUT };
