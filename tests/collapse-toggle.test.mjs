@@ -37,6 +37,13 @@ describe('CollapseToggle', () => {
     expect(css).toMatch(/prefers-reduced-motion: reduce\) \{\s+\.collapse-toggle svg \{\s+transition: none;/);
   });
 
+  it('never draws the button under the 24 px minimum target, and keeps a larger hit area around it', () => {
+    const css = sheet('src/composites/edge-button/EdgeButton.css');
+    expect(css).toMatch(/min-inline-size: var\(--hit-area-min\);\s+min-block-size: var\(--hit-area-min\);/);
+    expect(css).toContain('--hit-area: var(--collapse-toggle-hit);');
+    expect(sheet('src/tokens/size.css')).toMatch(/--hit-area-min: var\(--size-24\);/);
+  });
+
   it('sizes every folded rail from a SideNav item, its gutters and borders, so the icons sit in the middle', () => {
     expect(sheet('src/tokens/size.css')).toContain('--side-nav-w: calc(var(--side-nav-item-h) + 2 * (var(--space-sm) + 2 * var(--border-width-thin)));');
     expect(sheet('src/composites/SideNav/sub-components/SideNavItem.css')).toMatch(/\.side-nav__icon \{[^}]*inline-size: var\(--text-xl\);/);

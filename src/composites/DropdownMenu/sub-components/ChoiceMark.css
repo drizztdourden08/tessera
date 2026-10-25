@@ -13,7 +13,7 @@
 }
 
 .choice-mark__dot {
-  fill: var(--c-text-faint);
+  fill: var(--c-text-disabled);
   transition:
     transform var(--duration-normal) var(--ease-out),
     fill var(--duration-normal) var(--ease-out),

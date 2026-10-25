@@ -32,14 +32,15 @@ describe('Text', () => {
   });
 });
 
-describe('the faint text rule of the standards extension', () => {
-  it('refuses faint text colour and keeps faint borders', async () => {
-    expect(await lintCss('.a { color: var(--c-text-faint); }')).toEqual(['tessera/no-faint-text']);
-    expect(await lintCss('.a { border-color: var(--c-text-faint); background: var(--c-text-faint); color: var(--c-text-muted); }')).toEqual([]);
+describe('the disabled text rule of the standards extension', () => {
+  it('refuses disabled text colour and keeps disabled borders', async () => {
+    expect(await lintCss('.a { color: var(--c-text-disabled); }')).toEqual(['tessera/no-disabled-text']);
+    expect(await lintCss('.a { border-color: var(--c-text-disabled); background: var(--c-text-disabled); color: var(--c-text-faint); }')).toEqual([]);
   });
 
-  it('lets only the faint tone of Text route faint into the tone ink', async () => {
-    expect(await lintCss('.a { --tone-ink: var(--c-text-faint); }')).toEqual(['tessera/no-faint-text']);
-    expect(await lintCss('.text-el--tone-faint { --tone-ink: var(--c-text-faint); }')).not.toContain('tessera/no-faint-text');
+  it('lets faint text through, and disabled text inside a disabled selector', async () => {
+    expect(await lintCss('.a { --tone-ink: var(--c-text-faint); }')).toEqual([]);
+    expect(await lintCss('.a:disabled { color: var(--c-text-disabled); }')).toEqual([]);
+    expect(await lintCss('.a { --tone-ink: var(--c-text-disabled); }')).toEqual(['tessera/no-disabled-text']);
   });
 });

@@ -28,7 +28,7 @@ describe('ChoiceMark', () => {
   });
 
   it('shows the dot faint when off and draws the line in the item colour when on', () => {
-    expect(rule('.choice-mark__dot')).toContain('fill: var(--c-text-faint)');
+    expect(rule('.choice-mark__dot')).toContain('fill: var(--c-text-disabled)');
     expect(rule('.choice-mark__line')).toContain('stroke: currentcolor');
     expect(rule('.choice-mark__line')).toContain('stroke-dashoffset: 1');
     expect(rule('.choice-mark[data-on] .choice-mark__line')).toContain('stroke-dashoffset: 0');
