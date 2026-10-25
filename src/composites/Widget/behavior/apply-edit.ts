@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import { evenSplit, patchPane, resizeSplit, swapPanes } from '../../DockLayout';
+import { evenSplit, patchPane, resizeSplit, swapPanes, turnCorner } from '../../DockLayout';
 import type { LayoutEdit, Rect } from '../../DockLayout';
 import type { WidgetLayout } from '../Widget.type';
 import { dockWidget } from './dock-widget';
@@ -22,6 +22,7 @@ const applyEdit = (layout: WidgetLayout, edit: LayoutEdit, main: Rect): WidgetLa
     case 'float-widget': return floatWidget(layout, edit.id, edit.rect, main);
     case 'move-main': return moveMain(layout, edit.target);
     case 'swap-panes': return { ...layout, dock: swapPanes(layout.dock, edit.keyA, edit.keyB) };
+    case 'take-corner': return { ...layout, dock: turnCorner(layout.dock, edit.key, edit.end, { along: edit.along, give: edit.give }) };
     case 'resize':
     case 'even': return applySplitEdit(layout, edit);
     case 'activate-tab': return { ...layout, dock: patchPane(layout.dock, edit.key, { active: edit.id }) };
