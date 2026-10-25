@@ -9806,3 +9806,31 @@ Where each control sits on a pad is input logic, so the anchor data left Tessera
 
 - Import the anchors and their ids and types from `@drizztdourden08/brock-input` in place of Tessera; TypeScript flags each old import.
 - Apps that only draw the outline need no change.
+
+## 277. ToolbarDock v2: layout, drop targets and pick shape
+
+ToolbarDock now lays toolbars out in lanes of places, lets a bar cover part of a lane, and lets a side take a corner. `ToolbarLayout` is v2, the drop target and the keyboard pick carry a lane and a place, and DockLayout panels can take a corner too. The new `ToolbarDock` stories show it: a lane with two bars, both rail layouts and a live playground.
+
+### What changes
+
+- **ToolbarLayout.** `v` is `2`. `sides[side]` was a list of toolbar ids (`string[]`); it is now a list of lanes, and a lane is a list of places `{ id, start, size }`, where `start` and `size` are fractions of the lane from 0 to 1. The new `corners` field says which side claims each corner, as a list of `'h'` and `'v'` claims from the outer lane inwards. The new types are `ToolbarPlace`, `ToolbarCorner` and `ToolbarCornerClaim`.
+- **Reading the layout.** Read the ids of a side with `toolbarIdsOf(layout, side)` in place of `layout.sides[side]`. TypeScript flags each old read, as a lane is no longer a string.
+- **Saved layouts.** `migrateToolbarLayout(saved, definitions)` upgrades a saved v1 layout to v2 in memory, with the same look as before, and cleans a v2 one. A store that already passes saved layouts through it needs no script, and the next change saves v2. A build that still reads v1 resets the toolbars to the defaults when it finds v2; widgets are not touched.
+- **ToolbarSpot.** The `last` entry that remembers where a hidden toolbar was is now `{ side, lane, start, size }` in place of `{ side, index }`. Layouts you build by hand or in tests change with it.
+- **MAX_PER_SIDE.** It is deprecated and stays for one release as an alias of `MAX_LANES`, which is `2`. A side still holds two lanes, but a lane now holds many bars, so the old name no longer says what it counts. New exports: `MAX_LANES`, `MIN_SHARE`, `MIN_BAR_PX`, `TOOLBAR_LAYOUT_V`, `normalizeCorners`, `placeToolbar`, `resizeToolbarEnd`, `toolbarEndRange`, `takeToolbarCorner`, `toolbarCornerStep`, `toolbarCornerReach` and `toolbarGridPlacement`.
+- **Drop target.** The target of a drag was `{ kind: 'lane', side, index, rect }`, the index of a bar in the side. It is now `{ kind: 'lane', side, lane, index, at, start, size, rect, next }`: the lane (or `'new'`), the place in that lane, the pointer position along it, the start and size the bar lands with, and the layout the drop produces. A drop lands where the pointer is, snaps to the lane ends and to the ends of its neighbours, and pushes the neighbours along. A drop with no room is a `refused` target, as before. `ToolbarDropTarget` is internal and not exported, so an app that only renders `ToolbarDock` sees no change.
+- **Keyboard pick.** The pick was `{ kind: 'lane', side, index }` with a `full` announcement. It is now `{ kind: 'lane', side, lane, index, slot }`, and the arrow key steps through a new outer lane, a new inner lane and each lane already there. PageUp and PageDown step through the slots of the lane, and Home and End go to the first and last slot. `ToolbarKeyPick` is internal too. New strings under `toolbars` announce slots, end handles, pushes and corners; an app that supplies its own full `TesseraStrings` adds them, and `toolbars.full` now reads "no room on the side".
+- **Look.** Each docked toolbar sits in a bar with a surface, a thin border and a small radius, and has a resize handle at both ends.
+
+### New: the take-corner edit
+
+- **LayoutEdit.** `LayoutEdit` has a new member, `{ type: 'take-corner', key, end, along?, give? }`, which a DockLayout panel sends when its corner handle is dragged or keyed. `applyEdit` handles it, and the saved `WidgetLayout` keeps its v 2 shape. DockLayout also exports `turnCorner`, `cornerEnds` and the types `CornerEnd`, `CornerHandle`, `CornerName`, `CornerOptions` and `CornerTurn`.
+- **Host code.** A host that applies edits with `applyEdit`, as WidgetManager does, needs no change. A host that switches on `edit.type` adds a case for `'take-corner'` or passes it to `applyEdit`.
+
+### What an app does
+
+- Replace reads of `layout.sides` with `toolbarIdsOf`, and rewrite saved or test layouts that hold a v1 shape; pass every saved layout through `migrateToolbarLayout`.
+- Use `MAX_LANES` in place of `MAX_PER_SIDE`.
+- Give a hand-made `last` entry the new `{ side, lane, start, size }` shape.
+- Handle `'take-corner'` if you switch on the `type` of a `LayoutEdit` yourself.
+- Apps that only render `ToolbarDock` with `useToolbarLayout` and `toolbarMenuGroups` need no other change.

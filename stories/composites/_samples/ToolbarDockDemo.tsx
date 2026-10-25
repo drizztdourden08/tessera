@@ -11,7 +11,7 @@ const itemsOf = (id: string): ToolbarItem[] => (DOCK_TOOLBARS.find((spec) => spe
   kind: 'button', id: tool.id, label: tool.label, icon: tool.icon, onSelect: () => undefined,
 }));
 
-const ToolbarDockDemo = ({ className, initial }: { className?: string; initial?: ToolbarLayout }) => {
+const ToolbarDockDemo = ({ className, initial, hint }: { className?: string; initial?: ToolbarLayout; hint?: string }) => {
   const [value, onChange] = useState(() => initial ?? createToolbarLayout(DEFINITIONS));
   const { layout, toggle, reset } = useToolbarLayout({ value, onChange, definitions: DEFINITIONS });
   const { toolbars } = useTesseraStrings();
@@ -33,6 +33,7 @@ const ToolbarDockDemo = ({ className, initial }: { className?: string; initial?:
       >
         <Box className="toolbar-dock-story__work">
           <Text className="story-label">Work area</Text>
+          {hint ? <Text className="toolbar-dock-story__hint">{hint}</Text> : null}
           <DropdownMenu
             trigger={{ label: toolbars.menu, icon: 'layout-grid' }}
             groups={toolbarMenuGroups(DEFINITIONS, layout, toggle, { ...toolbars, onReset: reset })}

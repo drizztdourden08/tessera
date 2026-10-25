@@ -2,7 +2,9 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { overviewStory } from '../_template/overview-story';
 import { ToolbarDockDemo } from './_samples/ToolbarDockDemo';
-import { TOOLBAR_DOCK_RAIL_FULL_HEIGHT, TOOLBAR_DOCK_RAIL_UNDER_TOP } from './_samples/toolbar-dock-layouts.constants';
+import {
+  TOOLBAR_DOCK_HINT, TOOLBAR_DOCK_RAIL_FULL_HEIGHT, TOOLBAR_DOCK_RAIL_UNDER_TOP, TOOLBAR_DOCK_TWO_IN_LANE,
+} from './_samples/toolbar-dock-layouts.constants';
 import { TOOLBAR_DOCK_CODE } from './_samples/toolbar-dock-story.constants';
 import './ToolbarDock.stories.css';
 
@@ -28,6 +30,16 @@ const RailFullHeight = {
   render: () => <ToolbarDockDemo initial={TOOLBAR_DOCK_RAIL_FULL_HEIGHT} />,
 } satisfies StoryLiteStoryDefinition<ToolbarDockArgs>;
 
+const TwoInLane = {
+  name: 'One lane holding two bars, each with its own start and size',
+  render: () => <ToolbarDockDemo initial={TOOLBAR_DOCK_TWO_IN_LANE} />,
+} satisfies StoryLiteStoryDefinition<ToolbarDockArgs>;
+
+const Playground = {
+  name: 'Playground: end handles, corner take and drop all work live',
+  render: () => <ToolbarDockDemo hint={TOOLBAR_DOCK_HINT} />,
+} satisfies StoryLiteStoryDefinition<ToolbarDockArgs>;
+
 const Overview = overviewStory({
   component: 'ToolbarDock',
   description: 'The frame that holds toolbars on the four edges of a work area, up to two lanes on each side.',
@@ -35,13 +47,13 @@ const Overview = overviewStory({
     '`layout` says which toolbar sits on which side; the dock draws it and the app keeps it.',
     'Two lanes per side at most; `start` and `size` set a bar extent, `corners` says who owns each corner.',
     '`renderToolbar` draws each toolbar with the `orientation` of its side and the `handle` for the grip.',
-    'Drag a grip or press Enter on it: pick a side or lane, a full side refuses, the basket hides.',
+    'Drag a grip to drop a bar in a lane, an end handle to push or take a corner; the keys do the same.',
     '`useToolbarLayout` gives `move`, `show`, `hide`, `toggle` and `reset`, and calls `onChange` once per edit.',
     '`toolbarMenuGroups` builds the Toolbars menu: a check item per toolbar and Reset toolbars.',
   ],
-  variants: [Around, RailUnderTop, RailFullHeight],
+  variants: [Around, RailUnderTop, RailFullHeight, TwoInLane, Playground],
   code: TOOLBAR_DOCK_CODE,
 });
 
 export default meta;
-export { Around, Overview, RailFullHeight, RailUnderTop };
+export { Around, Overview, Playground, RailFullHeight, RailUnderTop, TwoInLane };

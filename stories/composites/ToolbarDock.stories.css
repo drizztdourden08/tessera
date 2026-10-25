@@ -18,3 +18,10 @@
   border: var(--border-width-thin) dashed var(--c-border);
   border-radius: var(--radius-md);
 }
+
+.toolbar-dock-story__hint {
+  max-inline-size: var(--size-448);
+  padding-inline: var(--space-md);
+  color: var(--c-text-dim);
+  text-align: center;
+}
