@@ -43,10 +43,10 @@ describe('ToolbarDock lanes', () => {
     expect(html.indexOf('data-bar="a"')).toBeLessThan(html.indexOf('data-bar="b"'));
     expect(html).toContain('data-lane="0"');
     expect(html).toContain('data-lane="1"');
-    expect(html.match(/data-side="top"/g)).toHaveLength(1);
+    expect(html.match(/data-side="top"/g)).toHaveLength(2);
   });
 
-  it('puts the lanes of a side in one element marked with that side', () => {
+  it('marks each lane with its side and orientation', () => {
     const html = draw();
     expect(html).toMatch(/data-side="top"[^>]*data-orientation="horizontal"/);
     expect(html).toMatch(/data-side="left"[^>]*data-orientation="vertical"/);
@@ -54,6 +54,28 @@ describe('ToolbarDock lanes', () => {
 
   it('leaves out a side with no toolbar', () => {
     expect(draw()).not.toContain('data-side="right"');
+  });
+});
+
+describe('ToolbarDock grid', () => {
+  it('places each lane on the root grid through custom properties', () => {
+    const html = draw();
+    expect(html).toMatch(/data-side="top"[^>]*data-lane="0"[^>]*--toolbar-dock-row:1 \/ 2;--toolbar-dock-column:1 \/ 6;--toolbar-dock-tracks:minmax\(0, 1fr\)/);
+    expect(html).toMatch(/data-side="top"[^>]*data-lane="1"[^>]*--toolbar-dock-row:2 \/ 3;--toolbar-dock-column:1 \/ 6/);
+    expect(html).toMatch(/data-side="left"[^>]*--toolbar-dock-row:3 \/ 6;--toolbar-dock-column:1 \/ 2/);
+    expect(html).toMatch(/data-side="bottom"[^>]*--toolbar-dock-row:5 \/ 6;--toolbar-dock-column:2 \/ 6/);
+  });
+
+  it('puts each bar on its own track and gaps on tracks of their own', () => {
+    const layout = createToolbarLayout(DEFS);
+    layout.sides.top[0] = [{ id: 'a', start: 0.2, size: 0.3 }, { id: 'b', start: 0.6, size: 0.2 }];
+    layout.sides.top.length = 1;
+    layout.corners['top-left'] = ['h'];
+    layout.corners['top-right'] = ['h'];
+    const html = draw({ layout });
+    expect(html).toContain('--toolbar-dock-tracks:minmax(0, 0.2fr) minmax(0, 0.3fr) minmax(0, 0.1fr) minmax(0, 0.2fr) minmax(0, 0.2fr)');
+    expect(html).toMatch(/class="toolbar-dock__bar"[^>]*--toolbar-dock-track:2[^>]*><[^>]*data-bar="a"/);
+    expect(html).toMatch(/class="toolbar-dock__bar"[^>]*--toolbar-dock-track:4[^>]*><[^>]*data-bar="b"/);
   });
 });
 

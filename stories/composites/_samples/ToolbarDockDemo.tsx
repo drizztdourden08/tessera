@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { DropdownMenu, Toolbar, ToolbarDock, createToolbarLayout, toolbarMenuGroups, useToolbarLayout } from '../../../src/composites';
-import type { ToolbarDefinition, ToolbarItem } from '../../../src/composites';
+import type { ToolbarDefinition, ToolbarItem, ToolbarLayout } from '../../../src/composites';
 import { Box, Text, useTesseraStrings } from '../../../src/primitives';
 import { DOCK_TOOLBARS } from './toolbar-dock-story.constants';
 
@@ -11,8 +11,8 @@ const itemsOf = (id: string): ToolbarItem[] => (DOCK_TOOLBARS.find((spec) => spe
   kind: 'button', id: tool.id, label: tool.label, icon: tool.icon, onSelect: () => undefined,
 }));
 
-const ToolbarDockDemo = ({ className }: { className?: string }) => {
-  const [value, onChange] = useState(() => createToolbarLayout(DEFINITIONS));
+const ToolbarDockDemo = ({ className, initial }: { className?: string; initial?: ToolbarLayout }) => {
+  const [value, onChange] = useState(() => initial ?? createToolbarLayout(DEFINITIONS));
   const { layout, toggle, reset } = useToolbarLayout({ value, onChange, definitions: DEFINITIONS });
   const { toolbars } = useTesseraStrings();
   return (
