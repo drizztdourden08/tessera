@@ -3433,8 +3433,8 @@
       "rules": [
         "Pick the role with variant: title, subtitle, body, label, caption, or overline over a group; with no variant it takes the size and colour of its parent.",
         "Colour it with tone, as on Span: muted for quiet captions, danger for an error.",
-        "Use the faint tone for decoration and secondary hints only, such as a keyboard hint beside a field or a watermark; never for text people must read. It measures about 1.6:1 on the surface (1.5:1 to 1.7:1 across the app palettes), under the 4.5:1 that body text needs, so the quietest tone for text is muted.",
-        "The parts of Tessera use muted, never faint; faint is there only for an app that asks for it.",
+        "Use the faint tone for the quietest text, such as a keyboard hint beside a field. It stays at or above 4.5:1 on the main ground, but it is dimmer than muted, so keep it to short secondary hints.",
+        "Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.",
         "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
       ],
       "a11y": [
@@ -3870,6 +3870,7 @@
         "List the actions in the order the user reads them; give the main one kind primary and it sits last, never folded.",
         "Give every destructive action kind danger: it takes the danger look and asks first, in the bar or from the menu.",
         "Pass confirm to name the question and the check, such as Delete Keysanity?; the default asks with the label and a question mark.",
+        "Set iconOnly on an action with an icon to draw it as an icon button; its label is the accessible name and the tooltip.",
         "Set keep in a list row, often to one, so every row folds the same way."
       ],
       "a11y": [
@@ -6848,7 +6849,7 @@
         "--c-tertiary-soft",
         "--c-text",
         "--c-text-dim",
-        "--c-text-faint",
+        "--c-text-disabled",
         "--c-text-muted",
         "--c-warning",
         "--c-warning-bright",
@@ -7538,12 +7539,14 @@
         "Write problem as what blocks the save and what to do, such as Not saved: fix the JSON first.",
         "Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs.",
         "Write the whole description: past descriptionLines lines, 2 by default, it folds behind More and Less, so the app needs no fold of its own.",
+        "Pass descriptionOverflow=\"hint\" when rows must keep one fixed height: the description clamps to its lines, there is no More, and an info mark offers the full text in a tip when it is cut.",
         "Pass help for a note only some users need: it sits behind a ? after the name, shown on hover, focus or click, not on the page."
       ],
       "a11y": [
         "The control gets the id, label and notes of the row, as inside a Field, so it is named by the option.",
         "A problem is an alert and marks the control invalid; Reset is named Reset and the option.",
         "More and Less is a button with aria-expanded that controls the folded text.",
+        "In hint mode the full text stays in the page for screen readers, and the info mark is one Tab stop that opens the same text.",
         "The ? of help is one Tab stop named Help, and the note opens on keyboard focus as its description."
       ],
       "tree": {
@@ -7554,7 +7557,7 @@
         "rule": "FormRow lays out the name, the control, the changed mark and the reset of an option the same way in every app."
       },
       "example": "import { FormRow, Slider } from '@drizztdourden08/tessera';\nimport type { ScaleLabelEntry } from '@drizztdourden08/tessera';\n\nconst BALANCING: ScaleLabelEntry[] = [[0, 'Disabled'], [50, 'Normal'], [99, 'Extreme']];\n\nconst BalancingRow = ({ value, onChange }: { value: number; onChange: (value: number) => void }) => (\n  <FormRow label=\"Progression Balancing\" description=\"Moves progression earlier.\" changed={value !== 50} onReset={() => onChange(50)}>\n    <Slider value={value} onChange={onChange} min={0} max={99} labels={BALANCING} input />\n  </FormRow>\n);\n",
-      "propsHash": "a2a151da9f6331a5",
+      "propsHash": "10edd4cc03c63b56",
       "props": {
         "own": [
           {
@@ -7572,6 +7575,15 @@
             "optional": true,
             "text": "number",
             "default": "2"
+          },
+          {
+            "name": "descriptionOverflow",
+            "optional": true,
+            "text": "FoldOverflow",
+            "literals": [
+              "'more'",
+              "'hint'"
+            ]
           },
           {
             "name": "help",
@@ -7962,11 +7974,15 @@
         "Give the main action kind primary; one other shows and the rest fold under More, danger ones asking first.",
         "Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list.",
         "With href, pass navigate to route a plain click inside the app, as Link and SiteHeader take it.",
-        "Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover."
+        "Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover.",
+        "Set density compact for a long catalogue with no pictures: one row of about 56 px with the media as a 32 px tile, the title, one line and up to three icon actions.",
+        "Set mediaSize sm to swap the 96 px band for a 32 px tile beside the title; compact does this itself.",
+        "In a VirtualList row, give the list a rowHeight of about 56 px; the compact card fills the row width and sets no height of its own."
       ],
       "a11y": [
         "The title is a heading, level 3 by default, so a screen reader can jump from card to card.",
         "With onOpen or href the title is the one button or link of the card; a click anywhere on the card goes through it, and the focus ring circles the card.",
+        "Compact actions are icon buttons whose label is their accessible name and their tooltip; give each action an icon.",
         "The selected card marks its title with aria-current; the media is hidden from screen readers."
       ],
       "tree": {
@@ -7977,7 +7993,7 @@
         "rule": "ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places."
       },
       "example": "import { ItemCard } from '@drizztdourden08/tessera';\nimport { Icon, Tag } from '@drizztdourden08/tessera';\n\ninterface GameCardProps {\n  name: string;\n  genre: string;\n  version: string;\n  onInstall: () => void;\n  onOpen: () => void;\n}\n\nconst GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) => (\n  <ItemCard\n    media={<Icon name=\"gamepad-2\" size={40} />}\n    eyebrow=\"Official\"\n    title={name}\n    status={{ label: 'stable', tone: 'info' }}\n    tags={[<Tag key=\"genre\" variant=\"category\" color=\"violet\">{genre}</Tag>]}\n    details={[`World ${version}`, 'For AP 0.6.7']}\n    actions={[{ id: 'install', label: 'Install', icon: 'download', kind: 'primary', onSelect: onInstall }]}\n    onOpen={onOpen}\n  />\n);\n",
-      "propsHash": "fb62d4eece5bd99e",
+      "propsHash": "013de868072c7a71",
       "props": {
         "own": [
           {
@@ -8021,8 +8037,7 @@
               "'success'",
               "'warning'",
               "'danger'"
-            ],
-            "default": "'primary'"
+            ]
           },
           {
             "name": "mediaHeight",
@@ -8031,8 +8046,25 @@
             "literals": [
               "'band'",
               "'auto'"
-            ],
-            "default": "'band'"
+            ]
+          },
+          {
+            "name": "mediaSize",
+            "optional": true,
+            "text": "ItemCardMediaSize",
+            "literals": [
+              "'band'",
+              "'sm'"
+            ]
+          },
+          {
+            "name": "density",
+            "optional": true,
+            "text": "ItemCardDensity",
+            "literals": [
+              "'normal'",
+              "'compact'"
+            ]
           },
           {
             "name": "layout",
@@ -8080,8 +8112,7 @@
               "4",
               "5",
               "6"
-            ],
-            "default": "3"
+            ]
           },
           {
             "name": "className",
@@ -8112,10 +8143,14 @@
         "--c-text-dim",
         "--c-warning-dim",
         "--font-sans",
+        "--radius-sm",
+        "--size-32",
         "--size-96",
+        "--space-2xs",
         "--space-md",
         "--space-sm",
         "--space-xs",
+        "--text-base",
         "--text-lg",
         "--text-xs",
         "--tracking-normal",
@@ -12637,12 +12672,14 @@
         "Set priority from 1 to 3 on the readouts that may go when the bar is narrow: 3 goes first, 1 last. An item with no priority never goes.",
         "Pass swatch as a CSS colour value and put the colour name or hex in the value, so the chip is never the only signal.",
         "Use tone on a value only when it is past a limit, and title for a longer description on hover.",
+        "Pass actions for the few buttons that belong to the bar, such as sync or export; they end the bar as icon buttons with a tooltip.",
         "Give the bar a label that names the region, such as Editor status."
       ],
       "a11y": [
         "The bar is a labelled region and each readout is a term and its value in a description list.",
         "It has no live region, so a cursor position that changes on every pointer move is never announced.",
         "To announce a change, such as a finished export, use a separate live region, not the bar.",
+        "Each action is a button named by its label, shown as a tooltip too; loading marks it busy and disabled takes it out of the Tab order.",
         "The swatch is hidden from assistive technology; its colour is read from the value beside it."
       ],
       "tree": {
@@ -12654,13 +12691,19 @@
         "rule": "StatusBar is the one thin line of readouts at the foot of an editor window."
       },
       "example": "import { StatusBar } from '@drizztdourden08/tessera';\n\nconst EditorStatus = ({ x, y, colour }: { x: number; y: number; colour: string }) => (\n  <StatusBar\n    label=\"Editor status\"\n    items={[\n      { id: 'cursor', label: 'Cursor', value: `${x}, ${y}`, icon: 'move' },\n      { id: 'colour', label: 'Colour', value: colour, swatch: colour },\n      { id: 'frame', label: 'Frame', value: '3 / 8', align: 'end', priority: 1 },\n    ]}\n  />\n);\n",
-      "propsHash": "0d473a9c0b7aba37",
+      "propsHash": "8b629b09a908c7e0",
       "props": {
         "own": [
           {
             "name": "items",
             "optional": false,
             "text": "readonly StatusBarEntry[]"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "readonly StatusBarAction[]",
+            "default": "[]"
           },
           {
             "name": "label",

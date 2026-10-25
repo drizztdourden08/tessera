@@ -31,6 +31,7 @@
     --p-tertiary-300: color-mix(in oklab, var(--p-tertiary) 45%, var(--p-pure-white));
     --p-tertiary-400: color-mix(in oklab, var(--p-tertiary) 76%, var(--p-pure-white));
     --p-tertiary-500: var(--p-tertiary);
+    --p-tertiary-550: color-mix(in oklab, var(--p-tertiary) 94%, var(--p-pure-black));
     --p-tertiary-600: color-mix(in oklab, var(--p-tertiary) 88%, var(--p-pure-black));
     --p-tertiary-700: color-mix(in oklab, var(--p-tertiary) 66%, var(--p-pure-black));
     --p-tertiary-800: color-mix(in oklab, var(--p-tertiary) 52%, var(--p-pure-black));

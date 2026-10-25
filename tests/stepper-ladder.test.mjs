@@ -80,9 +80,16 @@ describe('Stepper toggle mode', () => {
 
   it('names each step plainly, without the done wording', () => {
     const out = html();
-    expect(out).toContain('aria-label="Step 1, A"');
-    expect(out).toContain('aria-label="Step 3, C"');
+    expect(out).toContain('aria-label="A, step 1"');
+    expect(out).toContain('aria-label="C, step 3"');
     expect(out).not.toContain(', done');
+  });
+
+  it('starts the name of a step with its visible label and summary', () => {
+    const steps = [{ id: 'a', label: 'Account', summary: 'Name and email' }, { id: 'b', label: 'Plan' }];
+    const out = renderToString(h(Stepper, { steps, currentId: 'a', onSelect: () => {} }));
+    expect(out).toContain('aria-label="Account Name and email, step 1"');
+    expect(out).toContain('aria-label="Plan, step 2"');
   });
 
   it('shows no pressed state in the default navigate mode', () => {
@@ -185,7 +192,7 @@ describe('Stepper media below, hidden labels and size', () => {
     expect(out.match(/class="[^"]*\bvisually-hidden\b[^"]*"/g)).toHaveLength(4);
     expect(out).not.toContain('stepper__text');
     expect(out).not.toContain('stepper__label');
-    expect(out).toContain('aria-label="Step 1, A, done"');
+    expect(out).toContain('aria-label="A, step 1, done"');
     expect(html()).not.toContain('visually-hidden');
   });
 

@@ -26,7 +26,7 @@ const tabButtons = (html) => tagsOf(html, /<button[^>]*role="tab"[^>]*>/g);
 describe('DocumentTabs', () => {
   it('draws a named tablist with one indexed tab per document', () => {
     const html = draw();
-    expect(html).toMatch(/role="tablist"[^>]*aria-label="Open documents"|aria-label="Open documents"[^>]*role="tablist"/);
+    expect(html).toMatch(/<div[^>]*role="tablist"[^>]*aria-label="Open documents"/);
     expect(html.match(/data-reorder-index="\d"/g)).toHaveLength(3);
     expect(html).toContain('data-reorder-key="logo"');
     expect(tabButtons(html)).toHaveLength(3);
@@ -82,6 +82,19 @@ describe('DocumentTabs', () => {
 
   it('draws nothing without tabs', () => {
     expect(draw({ tabs: [] })).toBe('');
+  });
+});
+
+describe('DocumentTabs tablist', () => {
+  it('keeps the close buttons out of the tablist, which owns only the tabs by id', () => {
+    const html = draw();
+    const list = /<div[^>]*role="tablist"[^>]*>(.*?)<\/div>/.exec(html);
+    expect(list?.[1]).toBe('');
+    const owned = /aria-owns="([^"]*)"/.exec(list?.[0] ?? '')?.[1].split(' ') ?? [];
+    expect(owned).toHaveLength(3);
+    const ids = tabButtons(html).map((tag) => /id="([^"]*)"/.exec(tag)?.[1]);
+    expect(ids).toEqual(owned);
+    expect(html.match(/role="tablist"/g)).toHaveLength(1);
   });
 });
 

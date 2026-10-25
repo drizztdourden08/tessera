@@ -34,6 +34,7 @@ StatusBar is the one thin line of readouts at the foot of an editor window.
 - Set priority from 1 to 3 on the readouts that may go when the bar is narrow: 3 goes first, 1 last. An item with no priority never goes.
 - Pass swatch as a CSS colour value and put the colour name or hex in the value, so the chip is never the only signal.
 - Use tone on a value only when it is past a limit, and title for a longer description on hover.
+- Pass actions for the few buttons that belong to the bar, such as sync or export; they end the bar as icon buttons with a tooltip.
 - Give the bar a label that names the region, such as Editor status.
 
 ## Accessibility
@@ -41,6 +42,7 @@ StatusBar is the one thin line of readouts at the foot of an editor window.
 - The bar is a labelled region and each readout is a term and its value in a description list.
 - It has no live region, so a cursor position that changes on every pointer move is never announced.
 - To announce a change, such as a finished export, use a separate live region, not the bar.
+- Each action is a button named by its label, shown as a tooltip too; loading marks it busy and disabled takes it out of the Tab order.
 - The swatch is hidden from assistive technology; its colour is read from the value beside it.
 
 ## Example
@@ -63,6 +65,7 @@ const EditorStatus = ({ x, y, colour }: { x: number; y: number; colour: string }
 ## Props
 
 - `items`: `readonly StatusBarEntry[]`.
+- `actions` (optional): `readonly StatusBarAction[]`. Default `[]`.
 - `label`: `string`.
 - `className` (optional): `string`.
 

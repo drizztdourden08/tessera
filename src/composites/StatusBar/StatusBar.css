@@ -26,6 +26,20 @@
   margin-inline-start: auto;
 }
 
+.status-bar__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-inline-start: auto;
+  padding-inline-start: var(--space-sm);
+}
+
+.status-bar__list[data-side='end'] + .status-bar__actions {
+  margin-inline-start: 0;
+  border-inline-start: var(--border-width-thin) solid var(--c-border);
+}
+
 .status-bar__item {
   display: flex;
   flex: 0 1 auto;

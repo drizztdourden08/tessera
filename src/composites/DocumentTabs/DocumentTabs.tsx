@@ -15,21 +15,25 @@ const DocumentTabs = (props: DocumentTabsProps) => {
   const { tabs, activeId, onActivate, label, overflowMenu = false, className } = props;
   const { documentTabs, fields } = useTesseraStrings();
   const hintId = useId();
+  const tabIds = useId();
+  const idOf = (index: number): string => `${tabIds}-${index}`;
   const { trackRef, drag, close, message, tabId, onKeyDown, onFocus } = useDocumentTabs(props);
   if (tabs.length === 0) return null;
   return (
     <Box className={['document-tabs', className].filter(Boolean).join(' ')} onKeyDown={onKeyDown} onFocus={onFocus}>
+      <Box
+        role="tablist"
+        className="visually-hidden"
+        aria-label={label ?? documentTabs.label}
+        aria-orientation="horizontal"
+        aria-describedby={hintId}
+        aria-keyshortcuts={TAB_KEYS}
+        aria-owns={Array.from(tabs.keys(), idOf).join(' ')}
+      />
       <ScrollStrip
         className="document-tabs__strip"
         trackClassName="document-tabs__track"
-        trackRole="tablist"
         trackRef={trackRef}
-        trackProps={{
-          'aria-label': label ?? documentTabs.label,
-          'aria-orientation': 'horizontal',
-          'aria-describedby': hintId,
-          'aria-keyshortcuts': TAB_KEYS,
-        }}
         pagerLabels={{ back: fields.earlierTabs, forward: fields.laterTabs }}
       >
         {tabs.map((tab, index) => (
@@ -37,6 +41,7 @@ const DocumentTabs = (props: DocumentTabsProps) => {
             key={tab.id}
             tab={tab}
             index={index}
+            domId={idOf(index)}
             total={tabs.length}
             active={tab.id === activeId}
             tabbable={tab.id === tabId}

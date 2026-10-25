@@ -53,6 +53,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .toast--exiting {
+    animation: none;
+  }
+}
+
 .toast__count {
   flex-shrink: 0;
   padding: 0 var(--space-xs);

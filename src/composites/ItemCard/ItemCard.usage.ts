@@ -19,10 +19,14 @@ const usage = {
     'Pass onOpen or href when the card opens a page of its own, and selected for the item open beside the list.',
     'With href, pass navigate to route a plain click inside the app, as Link and SiteHeader take it.',
     'Set mediaHeight auto when the media is a picture taller than the 96 px band, such as a 16 by 9 cover.',
+    'Set density compact for a long catalogue with no pictures: one row of about 56 px with the media as a 32 px tile, the title, one line and up to three icon actions.',
+    'Set mediaSize sm to swap the 96 px band for a 32 px tile beside the title; compact does this itself.',
+    'In a VirtualList row, give the list a rowHeight of about 56 px; the compact card fills the row width and sets no height of its own.',
   ],
   a11y: [
     'The title is a heading, level 3 by default, so a screen reader can jump from card to card.',
     'With onOpen or href the title is the one button or link of the card; a click anywhere on the card goes through it, and the focus ring circles the card.',
+    'Compact actions are icon buttons whose label is their accessible name and their tooltip; give each action an icon.',
     'The selected card marks its title with aria-current; the media is hidden from screen readers.',
   ],
   tree: {
@@ -53,7 +57,7 @@ const GameCard = ({ name, genre, version, onInstall, onOpen }: GameCardProps) =>
   />
 );
 `,
-  propsHash: 'fb62d4eece5bd99e',
+  propsHash: '013de868072c7a71',
 } satisfies ComponentUsage;
 
 export { usage };

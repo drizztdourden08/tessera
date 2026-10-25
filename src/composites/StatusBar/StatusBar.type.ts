@@ -17,10 +17,20 @@ interface StatusBarEntry {
   priority?: number;
 }
 
+interface StatusBarAction {
+  id: string;
+  label: string;
+  icon: IconName;
+  onSelect: () => void;
+  loading?: boolean;
+  disabled?: boolean;
+}
+
 interface StatusBarProps {
   items: readonly StatusBarEntry[];
+  actions?: readonly StatusBarAction[];
   label: string;
   className?: string;
 }
 
-export type { StatusBarAlign, StatusBarEntry, StatusBarProps };
+export type { StatusBarAction, StatusBarAlign, StatusBarEntry, StatusBarProps };

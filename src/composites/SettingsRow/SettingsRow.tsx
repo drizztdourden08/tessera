@@ -16,7 +16,7 @@ import '../../theme/search-hit.css';
 import './SettingsRow.css';
 
 const SettingsRow = (props: SettingsRowProps) => {
-  const { title, description, descriptionLines, input, disabled = false, compact = false, readOnly = false, badge, changed, problem } = props;
+  const { title, description, descriptionLines, descriptionOverflow, input, disabled = false, compact = false, readOnly = false, badge, changed, problem } = props;
   const { settings } = useTesseraStrings();
   const { pointed, handlers } = useRowPointed();
   const context = { label: title, disabled, compact, strings: settings };
@@ -29,7 +29,7 @@ const SettingsRow = (props: SettingsRowProps) => {
       <Box className={rowClass(props)} {...rowData(props)}>
         {compact
           ? <SettingsRowCompactText {...head} description={description} />
-          : <SettingsRowText {...head} description={description} descriptionLines={descriptionLines} resting={resting} hints={hints} pointed={shown} rest={rest} current={current} />}
+          : <SettingsRowText {...head} description={description} descriptionLines={descriptionLines} descriptionOverflow={descriptionOverflow} resting={resting} hints={hints} pointed={shown} rest={rest} current={current} />}
         <SettingsRowEnd actions={readOnly ? undefined : props.actions} disabled={disabled}>
           <SettingsRowInput input={input} readOnly={readOnly} context={context} handlers={handlers} pointed={shown} />
         </SettingsRowEnd>

@@ -24,7 +24,7 @@ export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRo
 export { StatTile } from '../StatTile';
 export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning } from '../StatTile';
 export { StatusBar } from '../StatusBar';
-export type { StatusBarAlign, StatusBarEntry, StatusBarProps } from '../StatusBar';
+export type { StatusBarAction, StatusBarAlign, StatusBarEntry, StatusBarProps } from '../StatusBar';
 export { CheckList } from '../CheckList';
 export type { Check, CheckListProps, CheckState } from '../CheckList';
 export { ItemList } from '../ItemList';
@@ -34,7 +34,7 @@ export type { ListDetailGuardLook, ListDetailListProps, ListDetailProps, ListDet
 export { FileList } from '../FileList';
 export type { FileEntry, FileListProps } from '../FileList';
 export { ItemCard } from '../ItemCard';
-export type { ItemCardLayout, ItemCardMediaHeight, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from '../ItemCard';
+export type { ItemCardDensity, ItemCardLayout, ItemCardMediaHeight, ItemCardMediaSize, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from '../ItemCard';
 export { CopyButton } from '../CopyButton';
 export type { CopyButtonProps, CopyButtonSize, CopyText } from '../CopyButton';
 export { CopyValue, type CopyValueProps, type CopyValueSize, type CopyValueTruncate } from '../CopyValue';

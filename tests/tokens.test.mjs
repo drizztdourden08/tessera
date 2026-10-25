@@ -7,6 +7,9 @@ import { brandGradientCss } from '../src/brand/brand-gradient-css';
 import { BRAND_APPS, BRAND_FAMILY } from '../src/brand/family.constants';
 import { BRAND_RIM } from '../src/brand/rim.constants';
 import { evaluateColourMix } from '../scripts/tokens/evaluate-colour-mix.mjs';
+import { luminanceRatio } from '../scripts/tokens/luminance-ratio.mjs';
+import { parseColour } from '../scripts/tokens/parse-colour.mjs';
+import { relativeLuminance } from '../scripts/tokens/relative-luminance.mjs';
 import { tokenFiles } from '../scripts/tokens/token-files.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -37,6 +40,31 @@ describe('generated token files', () => {
       expect(brands[app].gradient).toEqual(to === undefined ? [from, via] : [from, to, via]);
       expect(brands[app].gradient.every((stop) => OPAQUE_HEX.test(stop))).toBe(true);
     }
+  });
+});
+
+const contrastOf = (a, b) => luminanceRatio(relativeLuminance(parseColour(a).rgb), relativeLuminance(parseColour(b).rgb));
+const TEXT_MINIMUM = 4.5;
+
+describe('the text colours', () => {
+  const { palettes } = JSON.parse(FILES['tokens.json']);
+
+  it.each(Object.keys(palettes))('%s keeps muted and faint text readable on the main ground, faint under muted under dim', (palette) => {
+    const { bg, textDim, textMuted, textFaint } = palettes[palette].dark;
+    expect(contrastOf(textFaint, bg)).toBeGreaterThanOrEqual(TEXT_MINIMUM);
+    expect(contrastOf(textMuted, bg)).toBeGreaterThan(contrastOf(textFaint, bg));
+    expect(contrastOf(textDim, bg)).toBeGreaterThan(contrastOf(textMuted, bg));
+  });
+
+  it.each(Object.keys(palettes))('%s keeps faint text readable on the surface too', (palette) => {
+    const { surface, textFaint } = palettes[palette].dark;
+    expect(contrastOf(textFaint, surface)).toBeGreaterThanOrEqual(TEXT_MINIMUM);
+  });
+
+  it('keeps the old faint grey as a disabled text colour under the readable ones', () => {
+    const css = committed('src/tokens/canonical.css');
+    expect(css).toContain('--c-text-disabled: var(--p-tertiary-800);');
+    expect(css).toContain('--c-text-faint:    var(--p-tertiary-600);');
   });
 });
 

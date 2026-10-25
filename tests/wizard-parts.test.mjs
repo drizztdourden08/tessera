@@ -48,7 +48,7 @@ describe('Stepper', () => {
     expect(count(html, 'aria-current="step"')).toBe(1);
     expect(html).toContain('data-status="done"');
     expect(count(html, 'stepper__line')).toBe(3);
-    expect(html).toContain('aria-label="Step 1, Basics, done"');
+    expect(html).toContain('aria-label="Basics Speedrun seed, step 1, done"');
   });
 
   it('enables only the steps canSelect allows', () => {
@@ -71,7 +71,7 @@ describe('Stepper', () => {
   it('names a step with a problem', () => {
     const html = renderToString(h(Stepper, { steps: [{ ...STEPS[0], error: true }, ...STEPS.slice(1)], currentId: 'mode' }));
     expect(html).toContain('data-status="error"');
-    expect(html).toContain('aria-label="Step 1, Basics, needs attention"');
+    expect(html).toContain('aria-label="Basics Speedrun seed, step 1, needs attention"');
   });
 
   it('has a compact form with the position and a progress bar', () => {

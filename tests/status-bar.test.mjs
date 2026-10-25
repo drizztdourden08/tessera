@@ -71,6 +71,46 @@ describe('StatusBar', () => {
   });
 });
 
+describe('StatusBar actions', () => {
+  const noop = () => {};
+  const ACTIONS = [
+    { id: 'sync', label: 'Sync the project', icon: 'refresh-cw', onSelect: noop },
+    { id: 'save', label: 'Saving', icon: 'save', onSelect: noop, loading: true },
+    { id: 'export', label: 'Export is off', icon: 'upload', onSelect: noop, disabled: true },
+  ];
+
+  it('draws no actions slot without actions', () => {
+    expect(render()).not.toContain('status-bar__actions');
+    expect(render({ actions: [] })).not.toContain('status-bar__actions');
+  });
+
+  it('ends the bar with ghost icon buttons named by their labels', () => {
+    const html = render({ actions: ACTIONS });
+    const slot = html.slice(html.indexOf('status-bar__actions'));
+    expect(html.indexOf('status-bar__actions')).toBeGreaterThan(html.lastIndexOf('</dl>'));
+    expect([...slot.matchAll(/<button[^>]*aria-label="([^"]+)"/g)].map((match) => match[1])).toEqual(['Sync the project', 'Saving', 'Export is off']);
+    expect(slot.match(/icon-btn--ghost/g)).toHaveLength(3);
+    expect(slot).toContain('icon-btn--xs');
+  });
+
+  it('reuses the IconButton loading and disabled states', () => {
+    const slot = render({ actions: ACTIONS }).split('status-bar__actions')[1];
+    const [sync, save, off] = slot.split('<button').slice(1);
+    expect(sync).not.toMatch(/disabled|aria-busy/);
+    expect(save).toContain('aria-busy="true"');
+    expect(save).toContain('disabled=""');
+    expect(off).toContain('disabled=""');
+    expect(off).not.toContain('aria-busy');
+  });
+
+  it('sits inside the same bar, after both lists', () => {
+    const html = render({ actions: ACTIONS });
+    expect(html).toMatch(/^<section aria-label="Editor status" class="status-bar">/);
+    expect(html.trimEnd().endsWith('</section>')).toBe(true);
+    expect(html.indexOf('data-side="end"')).toBeLessThan(html.indexOf('status-bar__actions'));
+  });
+});
+
 describe('StatusBar priority', () => {
   const idsAt = (width) => visibleItems(ITEMS, width).map((item) => item.id);
 

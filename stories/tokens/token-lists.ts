@@ -4,7 +4,7 @@ type TokenGroup = { title: string; tokens: readonly string[] };
 const COLOUR_GROUPS: readonly TokenGroup[] = [
   { title: 'Grounds', tokens: ['--c-bg', '--c-surface', '--c-sunken', '--c-layer', '--c-glass', '--c-panel', '--c-inset', '--c-hover'] },
   { title: 'Borders', tokens: ['--c-border', '--c-border-strong', '--c-hairline'] },
-  { title: 'Text', tokens: ['--c-text', '--c-text-dim', '--c-text-muted', '--c-text-faint'] },
+  { title: 'Text', tokens: ['--c-text', '--c-text-dim', '--c-text-muted', '--c-text-faint', '--c-text-disabled'] },
   { title: 'Primary', tokens: ['--c-primary', '--c-primary-bright', '--c-primary-dim', '--c-primary-soft', '--c-on-primary', '--c-selected'] },
   { title: 'Secondary', tokens: ['--c-secondary', '--c-secondary-bright', '--c-secondary-dim', '--c-secondary-soft', '--c-secondary-scrim', '--c-on-secondary'] },
   { title: 'Tertiary', tokens: ['--c-tertiary', '--c-tertiary-bright', '--c-tertiary-dim', '--c-tertiary-soft', '--c-on-tertiary'] },

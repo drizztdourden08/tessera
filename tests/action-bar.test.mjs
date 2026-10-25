@@ -64,6 +64,19 @@ describe('ActionBar render', () => {
     expect(live).toMatch(/btn--primary[^>]*data-action-id="save"/);
   });
 
+  it('draws an iconOnly action as an icon button named by its label, a text button when it has no icon', () => {
+    const actions = [
+      { id: 'reset', label: 'Reset all', icon: 'rotate-ccw', iconOnly: true, onSelect: noop },
+      { id: 'export', label: 'Export yaml', iconOnly: true, onSelect: noop },
+      { id: 'delete', label: 'Delete', icon: 'trash-2', iconOnly: true, kind: 'danger', onSelect: noop },
+    ];
+    const live = renderToString(h(ActionBar, { actions })).split('action-bar__measure')[0];
+    expect(live).toMatch(/<button[^>]*icon-btn--ghost[^>]*aria-label="Reset all"[^>]*data-action-id="reset"/);
+    expect(live).toMatch(/<button[^>]*icon-btn--tone-danger[^>]*aria-label="Delete"/);
+    expect(live).toMatch(/<button[^>]*data-action-id="export"[^>]*>.*Export yaml<\/span><\/button>/);
+    expect(live).not.toMatch(/data-action-id="reset"[^>]*>[^<]*Reset all/);
+  });
+
   it('keeps its measuring copies inert and out of the Tab order', () => {
     expect(html).toMatch(/class="action-bar__measure" aria-hidden="true" inert=""/);
     const copies = html.split('action-bar__measure-row')[1];

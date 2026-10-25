@@ -9,7 +9,7 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import type { FormRowHeadProps } from '../FormRow.type';
 
 const FormRowHead = (props: FormRowHeadProps) => {
-  const { label, labelId, controlId, onNameClick, help, description, descriptionLines, descriptionId, changed, advanced } = props;
+  const { label, labelId, controlId, onNameClick, help, description, descriptionLines, descriptionOverflow, descriptionId, changed, advanced } = props;
   const { options } = useTesseraStrings();
   return (
     <Box className="form-row__head">
@@ -20,7 +20,7 @@ const FormRowHead = (props: FormRowHeadProps) => {
         {changed && <Status tone="warning" dot>{options.changed}</Status>}
       </Box>
       {description && (
-        <FoldText lines={descriptionLines}>
+        <FoldText lines={descriptionLines} overflow={descriptionOverflow} hint={description}>
           <Text id={descriptionId} variant="caption" tone="dim" className="form-row__description">{description}</Text>
         </FoldText>
       )}
