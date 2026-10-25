@@ -4,6 +4,7 @@ import { FRAME, LAYOUT } from './fixtures/toolbar-dock/toolbar-dock-frame.mjs';
 import { toolbarBasket } from '../src/composites/ToolbarDock/behavior/toolbar-basket';
 import { toolbarDropAt } from '../src/composites/ToolbarDock/behavior/toolbar-drop-at';
 import { toolbarDropLayout } from '../src/composites/ToolbarDock/behavior/toolbar-drop-layout';
+import { toolbarIdsOf } from '../src/composites/ToolbarDock';
 import { toolbarZones } from '../src/composites/ToolbarDock/behavior/toolbar-zones';
 
 const zoneOf = (zones, side) => zones.find((zone) => zone.side === side);
@@ -49,7 +50,7 @@ describe('toolbarDropAt', () => {
 
   it('reorders on the same side', () => {
     const target = drop('a', { x: 400, y: 30 });
-    expect(toolbarDropLayout(LAYOUT, 'a', target).sides.top).toEqual(['b', 'a']);
+    expect(toolbarIdsOf(toolbarDropLayout(LAYOUT, 'a', target), 'top')).toEqual(['b', 'a']);
   });
 
   it('keeps the sides when the toolbar stays where it is', () => {
@@ -62,8 +63,8 @@ describe('toolbarDropAt', () => {
     expect(target).toMatchObject({ kind: 'lane', side: 'right', index: 0 });
     expect(target.rect).toMatchObject({ x: 752, width: 48 });
     const next = toolbarDropLayout(LAYOUT, 'a', target);
-    expect(next.sides.right).toEqual(['a']);
-    expect(next.sides.top).toEqual(['b']);
+    expect(toolbarIdsOf(next, 'right')).toEqual(['a']);
+    expect(toolbarIdsOf(next, 'top')).toEqual(['b']);
   });
 
   it('lets the corners belong to the nearest edge', () => {
@@ -81,8 +82,8 @@ describe('toolbarDropAt', () => {
     expect(target).toEqual({ kind: 'basket' });
     const next = toolbarDropLayout(LAYOUT, 'a', target);
     expect(next.hidden).toEqual(['a']);
-    expect(next.sides.top).toEqual(['b']);
-    expect(next.last.a).toEqual({ side: 'top', index: 0 });
+    expect(toolbarIdsOf(next, 'top')).toEqual(['b']);
+    expect(next.last.a).toEqual({ side: 'top', lane: 0, start: 0, size: 1 });
   });
 
   it('puts the toolbar back when dropped outside the frame', () => {

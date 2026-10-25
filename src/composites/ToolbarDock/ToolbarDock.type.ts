@@ -5,6 +5,10 @@ import type { ToolbarHandleProps, ToolbarOrientation } from '../Toolbar/Toolbar.
 
 type ToolbarSide = DockEdge;
 
+type ToolbarCorner = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+type ToolbarCornerClaim = 'h' | 'v';
+
 interface ToolbarDefinition {
   id: string;
   label: string;
@@ -12,14 +16,23 @@ interface ToolbarDefinition {
   hiddenByDefault?: boolean;
 }
 
+interface ToolbarPlace {
+  id: string;
+  start: number;
+  size: number;
+}
+
 interface ToolbarSpot {
   side: ToolbarSide;
-  index: number;
+  lane: number;
+  start: number;
+  size: number;
 }
 
 interface ToolbarLayout {
-  v: 1;
-  sides: Record<ToolbarSide, string[]>;
+  v: 2;
+  sides: Record<ToolbarSide, ToolbarPlace[][]>;
+  corners: Record<ToolbarCorner, ToolbarCornerClaim[]>;
   hidden: string[];
   last: Record<string, ToolbarSpot>;
 }
@@ -41,4 +54,6 @@ interface ToolbarDockProps {
   className?: string;
 }
 
-export type { ToolbarDefinition, ToolbarDockHandle, ToolbarDockProps, ToolbarLayout, ToolbarSide, ToolbarSlot, ToolbarSpot };
+export type {
+  ToolbarCorner, ToolbarCornerClaim, ToolbarDefinition, ToolbarDockHandle, ToolbarDockProps, ToolbarLayout, ToolbarPlace, ToolbarSide, ToolbarSlot, ToolbarSpot,
+};

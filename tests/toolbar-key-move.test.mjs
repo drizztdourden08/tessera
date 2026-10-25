@@ -3,7 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { DEFS, FRAME, LAYOUT } from './fixtures/toolbar-dock/toolbar-dock-frame.mjs';
-import { ToolbarDock, moveToolbar } from '../src/composites/ToolbarDock';
+import { ToolbarDock, moveToolbar, toolbarIdsOf } from '../src/composites/ToolbarDock';
 import { toolbarDropLayout } from '../src/composites/ToolbarDock/behavior/toolbar-drop-layout';
 import { toolbarKeyMessage } from '../src/composites/ToolbarDock/behavior/toolbar-key-message';
 import { toolbarKeyStart } from '../src/composites/ToolbarDock/behavior/toolbar-key-start';
@@ -101,9 +101,9 @@ describe('drop layout', () => {
   });
 
   it('moves and hides', () => {
-    expect(drop(LAYOUT, 'c', lane('right', 0)).sides.right).toEqual(['c']);
+    expect(toolbarIdsOf(drop(LAYOUT, 'c', lane('right', 0)), 'right')).toEqual(['c']);
     expect(drop(LAYOUT, 'c', { kind: 'basket' }).hidden).toEqual(['c']);
-    expect(drop(moveToolbar(LAYOUT, 'd', 'left', 0), 'c', lane('left', 1)).sides.left).toEqual(['d', 'c']);
+    expect(toolbarIdsOf(drop(moveToolbar(LAYOUT, 'd', 'left', 0), 'c', lane('left', 1)), 'left')).toEqual(['d', 'c']);
   });
 });
 

@@ -24,7 +24,7 @@ describe('useToolbarLayout', () => {
     expect(onChange).toHaveBeenLastCalledWith(hideToolbar(LAYOUT, 'a'));
     view.current.move('c', 'right', 0);
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange.mock.calls[1][0].sides.right).toEqual(['c']);
+    expect(onChange.mock.calls[1][0].sides.right).toEqual([[{ id: 'c', start: 0, size: 1 }]]);
   });
 
   it('does not call onChange when the op returns the same layout', () => {
@@ -42,7 +42,7 @@ describe('useToolbarLayout', () => {
     view.current.show('b');
     view.current.toggle('b');
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange.mock.calls[0][0].sides.top).toContain('b');
+    expect(onChange.mock.calls[0][0].sides.top.flat().map((place) => place.id)).toContain('b');
   });
 
   it('resets to the layout the definitions create', () => {

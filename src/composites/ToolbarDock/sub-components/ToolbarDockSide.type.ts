@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind types */
-import type { ToolbarDefinition, ToolbarDockProps, ToolbarSide } from '../ToolbarDock.type';
+import type { ToolbarDefinition, ToolbarDockProps, ToolbarPlace, ToolbarSide } from '../ToolbarDock.type';
 
 interface ToolbarDockSideProps {
   side: ToolbarSide;
-  ids: readonly string[];
+  lanes: readonly (readonly ToolbarPlace[])[];
   definitions: readonly ToolbarDefinition[];
   renderToolbar: ToolbarDockProps['renderToolbar'];
   dragId: string | null;

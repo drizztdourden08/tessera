@@ -3,11 +3,12 @@ import type { ToolbarLayout, ToolbarSide } from '../ToolbarDock.type';
 import { hideToolbar } from './hide-toolbar';
 import { moveToolbar } from './move-toolbar';
 import type { ToolbarDropTarget } from './toolbar-drag.type';
-import { toolbarSideOf } from './toolbar-side-of';
+import { toolbarPlaceOf } from './toolbar-place-of';
 
 const sameSpot = (layout: ToolbarLayout, id: string, side: ToolbarSide, index: number): boolean => {
-  const ids = layout.sides[side];
-  return toolbarSideOf(layout, id) === side && ids.indexOf(id) === Math.min(index, ids.length - 1);
+  const found = toolbarPlaceOf(layout, id);
+  const lanes = layout.sides[side];
+  return found !== null && found.side === side && lanes[found.lane]?.length === 1 && found.lane === Math.min(index, lanes.length - 1);
 };
 
 const toolbarDropLayout = (layout: ToolbarLayout, id: string, target: ToolbarDropTarget): ToolbarLayout => {
