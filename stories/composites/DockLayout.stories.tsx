@@ -7,7 +7,7 @@ import type { StateProps } from '../_template/states/states.type';
 import type { DockMainGrip } from '../../src/composites';
 import { DockDemo } from './_samples/DockDemo';
 import { CHROMES_HINT, DOCK_CHROMES } from './_samples/dock-demo.constants';
-import { CORNER_HINT } from './_samples/dock-corner-layout.constants';
+import { CORNER_HINT, CORNER_ONE_HINT } from './_samples/dock-corner-layout.constants';
 import { SAVED_HINT } from './_samples/dock-saved-layout.constants';
 import './DockLayout.stories.css';
 
@@ -102,6 +102,11 @@ const Corners = {
   render: () => <DockDemo start="corner" hint={CORNER_HINT} />,
 } satisfies StoryLiteStoryDefinition<DockArgs>;
 
+const TakenCorner = {
+  name: 'A side panel that took one corner',
+  render: () => <DockDemo start="corner-one" hint={CORNER_ONE_HINT} />,
+} satisfies StoryLiteStoryDefinition<DockArgs>;
+
 const renderState = (props: StateProps) => (
   <DockDemo className="dock-story--state" floating={false} peek={props.peek === true} />
 );
@@ -135,7 +140,7 @@ const Overview = overviewStory({
     '`canDrop` refuses a drop and its hint; WidgetManager uses it to keep each widget `group` in its own panes.',
   ],
   playground: Playground,
-  variants: [Tiled, Floating, Peek, Kit, Snap, Chromes, Saved, Corners],
+  variants: [Tiled, Floating, Peek, Kit, Snap, Chromes, Saved, Corners, TakenCorner],
   states: {
     render: renderState,
     list: [
@@ -149,4 +154,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Chromes, Corners, Floating, Kit, Overview, Peek, Playground, Saved, Snap, Tiled };
+export { Chromes, Corners, Floating, Kit, Overview, Peek, Playground, Saved, Snap, TakenCorner, Tiled };
