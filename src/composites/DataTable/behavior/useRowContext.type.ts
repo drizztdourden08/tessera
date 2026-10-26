@@ -3,7 +3,7 @@ import type { SchemaIndex } from '../../../data/schema/build-schema';
 import type { TableColumn } from '../../../data/table/types';
 import type { IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver } from './display-substitution.type';
 import type { ExpandedGroups } from './useExpandedGroups.type';
-import type { ColumnDragBinding, RowSelectionBinding } from '../DataTable.type';
+import type { ColumnDragBinding, RowRenderContext, RowSelectionBinding } from '../DataTable.type';
 import type { RowFeatureProps, RowReorderBinding } from './row-features.type';
 
 interface UseRowContextInput<T> {
@@ -21,6 +21,12 @@ interface UseRowContextInput<T> {
   reorder?: RowReorderBinding | null;
   rowDragData?: RowFeatureProps<T>['rowDragData'];
   groupActions?: RowFeatureProps<T>['groupActions'];
+  renderCell?: RowRenderContext<T>['renderCell'];
+  rowState?: RowRenderContext<T>['rowState'];
+  detailRowId?: string | null;
+  renderDetail?: RowRenderContext<T>['renderDetail'];
+  onDetailClose?: () => void;
+  onDetailHeight?: (height: number) => void;
 }
 
 export type { UseRowContextInput };

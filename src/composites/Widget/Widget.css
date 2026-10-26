@@ -94,7 +94,7 @@
 }
 
 .widget__tab--active {
-  color: var(--c-primary);
+  color: var(--c-primary-text);
   border-color: var(--c-primary-dim);
   background: var(--c-primary-soft);
 }

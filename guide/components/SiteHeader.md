@@ -85,4 +85,4 @@ const StoreHeader = ({ page, person, account, links, go }: StoreHeaderProps) => 
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-bg`, `--c-border`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-text`, `--c-text-dim`, `--radius-md`, `--size-48`, `--size-56`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--transition-fast`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-bg`, `--c-border`, `--c-hover`, `--c-primary-soft`, `--c-primary-text`, `--c-text`, `--c-text-dim`, `--radius-md`, `--size-48`, `--size-56`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--transition-fast`, `--weight-semi`.

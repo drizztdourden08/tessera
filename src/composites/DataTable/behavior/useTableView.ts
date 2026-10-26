@@ -10,18 +10,18 @@ const signatureOf = (state: TableState): string =>
   JSON.stringify([state.columns, state.sort, state.groupBy]);
 
 const useTableView = <T>(input: UseTableViewInput<T>): TableView<T> => {
-  const { rows, schema, viewKey, viewStorage, fallbackColumns, fallbackGroupBy } = input;
+  const { rows, schema, viewKey, viewStorage, fallbackColumns, fallbackGroupBy, sort, onSortChange } = input;
 
   const initial = useMemo(
     () => fallbackColumns ?? defaultColumns(schema),
     [fallbackColumns, schema],
   );
 
-  const table = useDataTable({ rows, schema, initial, initialGroupBy: fallbackGroupBy });
+  const table = useDataTable({ rows, schema, initial, initialGroupBy: fallbackGroupBy, sort, onSortChange });
   const view = useViewState({ key: viewKey, schema, fallbackColumns: initial, fallbackGroupBy, storage: viewStorage });
 
   const tableSignature = signatureOf(table);
-  const snapshotSignature = signatureOf(view.snapshot);
+  const snapshotSignature = signatureOf(sort ? { ...view.snapshot, sort } : view.snapshot);
   const inSync = tableSignature === snapshotSignature;
 
   const { setState } = table;

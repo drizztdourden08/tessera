@@ -25,6 +25,7 @@ const BXEL_FILE_TYPES: BrandFileTypes = {
   types: [
     { kind: 'sprite', ext: 'bxsprite', name: 'Sprite', icon: 'pixel-sprite', small: BXEL_FILE_GLYPHS.sprite },
     { kind: 'sheet', ext: 'bxsheet', name: 'Sheet', icon: 'pixel-atlas', small: BXEL_FILE_GLYPHS.sheet },
+    { kind: 'animation', ext: 'bxanim', name: 'Animation', icon: 'pixel-animation', small: BXEL_FILE_GLYPHS.animation },
     { kind: 'palette', ext: 'bxpalette', name: 'Palette', icon: 'pixel-palette', small: BXEL_FILE_GLYPHS.palette },
     { kind: 'tileset', ext: 'bxtiles', name: 'Tileset', icon: 'pixel-tileset', small: BXEL_FILE_GLYPHS.tileset },
     { kind: 'tilemap', ext: 'bxmap', name: 'Tilemap', icon: 'pixel-tilemap', small: BXEL_FILE_GLYPHS.tilemap },

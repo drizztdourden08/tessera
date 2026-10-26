@@ -2,15 +2,17 @@
 import { Box, Span, Text } from '../../../primitives';
 import { REVIEW_MASK } from '../../../primitives/dom/review-mask.constants';
 import { logInk } from '../behavior/log-ink';
-import { messageTone } from '../behavior/message-tone';
+import { lineTones } from '../behavior/line-tones';
 import { rowSelectionProps } from '../behavior/row-selection-props';
+import { AnsiText } from './AnsiText';
 import type { LogLineProps } from './LogLine.type';
 
 const LogLine = (props: LogLineProps) => {
-  const { row, kind, selection } = props;
+  const { row, kind, selection, ansi = false } = props;
   const level = row.indent ?? 0;
-  const tag = logInk(kind?.tone, 'muted');
-  const message = logInk(messageTone(kind));
+  const tones = lineTones(row, kind);
+  const tag = logInk(tones.tag, 'muted');
+  const message = logInk(tones.message);
   const msgClass = [
     'log-panel__msg', `log-panel__msg--${row.kind}`,
     kind?.strong === true && 'log-panel__msg--strong',
@@ -25,7 +27,7 @@ const LogLine = (props: LogLineProps) => {
         <Span tone={tag.tone} style={tag.style} className={[`log-panel__tag log-panel__tag--${row.kind}`, tag.className].filter(Boolean).join(' ')}>
           {row.tag}
         </Span>
-        <Span tone={message.tone} style={message.style} className={msgClass}>{row.message}</Span>
+        <Span tone={message.tone} style={message.style} className={msgClass}>{ansi ? <AnsiText text={row.message} /> : row.message}</Span>
       </Box>
     </Box>
   );

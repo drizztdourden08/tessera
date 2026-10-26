@@ -47,12 +47,13 @@ Every square PNG follows one rule, taken from Relic of the Past. Pixel art that 
 
 ## File type icons
 
-An app that saves its own files lists them in the `fileTypes` field of its brand data. The system then shows each file with its own icon. Each kind has its file extension, a name and a glyph. Bxel has seven:
+An app that saves its own files lists them in the `fileTypes` field of its brand data. The system then shows each file with its own icon. Each kind has its file extension, a name and a glyph. Bxel has eight:
 
 | Kind | Extension | Glyph |
 |---|---|---|
 | Sprite | `.bxsprite` | `pixel-sprite` |
 | Sheet | `.bxsheet` | `pixel-atlas` |
+| Animation | `.bxanim` | `pixel-animation` |
 | Palette | `.bxpalette` | `pixel-palette` |
 | Tileset | `.bxtiles` | `pixel-tileset` |
 | Tilemap | `.bxmap` | `pixel-tilemap` |

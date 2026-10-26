@@ -98,7 +98,7 @@ const Overview = overviewStory({
   description: 'A row or a column of tools: buttons, toggles, groups and a number, with a hint on each and More for the rest.',
   points: [
     '`items` come from data: `button`, `toggle`, `group`, `number` and `separator`, in any order.',
-    'A bar shows an optional `caption` beside the icon; `layout="list"` makes labelled rows for a wide panel.',
+    'A bar shows an optional `caption` beside the icon unless `labels` is off; `layout="list"` makes labelled rows.',
     'Every item has a hint with its name, description and [Shortcut]; `shortcut` can be a list of labelled keys.',
     '`options` on a button or toggle open a [DropdownMenu] on hover, or on click with `openOn`.',
     'Items that do not fit fold into More. The arrow keys along the toolbar move focus.',

@@ -2,22 +2,28 @@
 import { useMemo } from 'react';
 import MarkdownTree from 'react-markdown';
 import { Box } from '../../primitives/Box';
-import { dropTitle } from './behavior/drop-title';
 import { MarkdownContext } from './behavior/markdown-context';
+import { classesOf } from './behavior/classes-of';
 import { markdownParts } from './behavior/markdown-parts';
-import { safeHref } from './behavior/safe-href';
+import { remarkPlugins } from './behavior/remark-plugins';
+import { stripUnsafeChars } from './behavior/strip-unsafe-chars';
+import { urlTransformOf } from './behavior/url-transform';
 import { DEFAULT_HEADING_OFFSET } from './Markdown.constants';
 import type { MarkdownProps } from './Markdown.type';
 import './Markdown.css';
 
 const Markdown = (props: MarkdownProps) => {
-  const { children, source, onLink, headingOffset = DEFAULT_HEADING_OFFSET, hideTitle = false, size = 'md', className } = props;
-  const settings = useMemo(() => ({ onLink, headingOffset }), [onLink, headingOffset]);
+  const { children, source, onLink, headingOffset = DEFAULT_HEADING_OFFSET, hideTitle = false, size = 'md', images, onImage, linkIds, className } = props;
+  const settings = useMemo(() => ({ onLink, headingOffset, size, images, onImage }), [onLink, headingOffset, size, images, onImage]);
+  const allowPaths = onLink !== undefined;
+  const plugins = useMemo(() => remarkPlugins({ hideTitle, rules: [linkIds ?? []].flat(), allowPaths }), [hideTitle, linkIds, allowPaths]);
+  const text = children ?? source;
+  const clean = useMemo(() => (text === undefined ? undefined : stripUnsafeChars(text)), [text]);
   return (
     <MarkdownContext value={settings}>
-      <Box className={className ? `markdown ${className}` : 'markdown'} data-size={size}>
-        <MarkdownTree components={markdownParts} skipHtml urlTransform={safeHref} remarkPlugins={hideTitle ? [dropTitle] : undefined}>
-          {children ?? source}
+      <Box className={classesOf(size, className)} data-size={size}>
+        <MarkdownTree components={markdownParts} skipHtml urlTransform={urlTransformOf(allowPaths)} remarkPlugins={plugins}>
+          {clean}
         </MarkdownTree>
       </Box>
     </MarkdownContext>

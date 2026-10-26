@@ -6,7 +6,7 @@ type LinkTone = 'primary' | 'secondary' | 'neutral' | 'danger';
 type LinkVariant = 'inline' | 'subtle';
 
 interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  href: string;
+  href?: string;
   tone?: LinkTone;
   variant?: LinkVariant;
   external?: boolean;

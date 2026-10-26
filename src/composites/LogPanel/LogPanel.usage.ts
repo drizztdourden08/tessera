@@ -15,15 +15,26 @@ const usage = {
   rules: [
     'Give each row a stable id: the window, the new line behaviour and the selection all follow it.',
     'Pass kinds with a tone per type: a text tone, a tag tint such as teal, or an app hex colour, lifted until it reads.',
+    'A line takes the tone of its kind; set tone on one row to colour that line alone, with or without a kind.',
     'Set toneMessage to colour the message in the same tone, as for errors, or to a tone of its own, such as dim.',
     'Set strong on a kind whose messages mark a step, such as a session that starts, and uppercase to set them in capitals.',
     'Pass selectedIds with onSelectionChange to let the user pick rows; the app holds the set and copies or acts on it.',
     'Put the action on the picked rows in toolbarExtra, such as Copy selected or Report these lines, beside the line count.',
+    'Set ansi for lines that carry colour codes, such as a build or process output; other escape codes are stripped, never drawn.',
+    'ansi draws the sixteen colours, bold, dim, italic and underline; 256 and true colour map to the nearest of the sixteen.',
+    'Follow is on: the view stays at the end while lines arrive, and a scroll up stops it until Jump to bottom is pressed.',
+    'Set order="newest-first" to show the latest line at the top; follow then sticks to the top and Jump to top returns to it.',
+    'Set follow={false} to leave the view where the reader put it; set onInput to add a prompt row for a process that reads lines.',
+    'onInput gets each line on Enter; Up and Down walk the lines sent. Echo the line back as a row yourself.',
+    'Return false, or a promise that resolves false or rejects, to keep the text in the field and out of the history; true or nothing clears it.',
+    'While a returned promise is pending a second Enter is ignored, so one line is never sent twice.',
+    'Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.',
     'Pass height="fill" inside a box that sets the height, or a number for a fixed height in pixels.',
   ],
   a11y: [
     'Without a selection the log is one focusable region that the arrow keys scroll.',
     'With selectedIds the rows are options of a listbox: Up and Down move the pick, Shift extends it, and a click with Shift picks the rows between.',
+    'The input row is a labelled text field; the prompt mark is hidden from screen readers.',
     'Each time cell carries the review mask, so screenshots of a running log compare run to run.',
   ],
   tree: {
@@ -49,7 +60,7 @@ const ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lin
   );
 };
 `,
-  propsHash: '51728d1123a811b8',
+  propsHash: '40ec5e2accbaae1b',
 } satisfies ComponentUsage;
 
 export { usage };

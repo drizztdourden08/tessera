@@ -54,7 +54,7 @@
 
 .site-header .site-header__link[aria-current='page'] {
   background: var(--c-primary-soft);
-  color: var(--c-primary);
+  color: var(--c-primary-text);
   font-weight: var(--weight-semi);
 }
 

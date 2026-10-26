@@ -11,7 +11,7 @@ import { isUrgent } from './is-urgent';
 import { nextStep } from './next-step';
 import { startStep } from './start-step';
 import type { StepRunner } from './step-runner.type';
-import { travelActor } from './travel-actor';
+import { travelFor } from './travel-for';
 
 const arrive = (actor: ActorCore, now: number): void => {
   const walking = actor.travel?.walking === true;
@@ -27,7 +27,7 @@ const arrive = (actor: ActorCore, now: number): void => {
 };
 
 const tickSteps = (actor: ActorCore, now: number, dt: number): void => {
-  if (travelActor(actor, dt)) arrive(actor, now);
+  if (travelFor(actor, dt)) arrive(actor, now);
   if (actor.waiting && !isProtected(actor, now)) {
     const waiting = actor.waiting;
     actor.waiting = undefined;

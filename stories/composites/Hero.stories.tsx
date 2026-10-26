@@ -33,6 +33,8 @@ const SHADES = ['fade', 'scrim', 'none'] as const satisfies readonly HeroShade[]
 
 const SIZES = ['compact', 'default', 'tall'] as const satisfies readonly HeroSize[];
 
+const lean = (args: HeroArgs): HeroArgs => ({ ...args, withAside: false, withPanel: false });
+
 const draw = (args: HeroArgs) => (
   <Hero
     brand={args.brand}
@@ -64,7 +66,7 @@ const ARG_TYPES: PlaygroundArgTypes<HeroArgs> = {
   withAside: { group: 'Content', control: 'boolean', description: 'A glass tile on the right of the intro.' },
   withPanel: { group: 'Content', control: 'boolean', description: 'A glass panel beside the facts.' },
   backdrop: { group: 'Appearance', control: 'select', options: HERO_BACKDROP_KEYS, description: 'What fills the hero behind everything.' },
-  size: { group: 'Appearance', control: 'select', options: SIZES, description: 'How tall the hero is: compact fits its content, default, or tall.' },
+  size: { group: 'Appearance', control: 'select', options: [...SIZES, 'full'], description: 'How tall the hero is: compact fits its content, default, tall, or full for the viewport.' },
   shade: { group: 'Appearance', control: 'select', options: SHADES, description: 'The dark fade that keeps the text readable over the backdrop.' },
   brand: { group: 'Appearance', control: 'select', options: [...BRAND_APPS], description: 'The brand whose gradient draws when there is no backdrop. Left out, the nearest data-palette names it, else tessera.' },
 };
@@ -87,14 +89,22 @@ const SceneArt = story('A live scene and node art', { backdrop: 'scene', art: 'n
 const FactsOnly = story('Facts, no art or side tiles', { art: 'none', withAside: false, withPanel: false });
 const TitleOnly = story('Title and action', { withTools: false, withFacts: false, withAside: false, withPanel: false });
 
+const bleed = (name: string, patch: Partial<HeroArgs>) => ({
+  name,
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <Box className="hero-story__bleed">{draw({ ...lean(args), ...patch, size: 'full' })}</Box>,
+} satisfies PlaygroundStory<HeroArgs>);
+
+const FullPan = bleed('Full bleed with an image panning slowly', { art: 'pan', backdrop: 'brand', shade: 'scrim' });
+const FullNode = bleed('Full bleed with node art filling the area', { art: 'particles', backdrop: 'scene' });
+
 const Narrow = {
   name: 'In a narrow column',
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <Box className="hero-story__narrow">{draw({ ...args, backdrop: 'scene' })}</Box>,
 } satisfies PlaygroundStory<HeroArgs>;
-
-const lean = (args: HeroArgs): HeroArgs => ({ ...args, withAside: false, withPanel: false });
 
 const rowsStory = <K extends string>(name: string, keys: readonly K[], patch: (key: K) => Partial<HeroArgs>) => ({
   name,
@@ -165,15 +175,15 @@ const Overview = overviewStory({
   points: [
     '`backdrop` takes a scene `node`, an `image` that covers, contains or tiles, or a `color`, as `BackdropLayer` does.',
     'Leave `backdrop` out for the gradient of `brand`, or of the nearest `data-palette`; `null` draws a plain hero.',
-    '`art` is an `image` URL or any `node` beside the intro; with no art and no `backdrop` the hero fits its content.',
+    "`art` is an `image` (`motion: 'pan'` drifts it) or a `node`; with no art and no `backdrop` the hero fits.",
     '`shade` keeps the text readable: `fade` by default, `scrim` for a busy backdrop, or `none`.',
     '`tools` sit top right, `facts` along the bottom in a [FactsPanel], `aside` and `panel` on the right.',
-    '`size` sets the height: `compact` fits the content, then `default` and `tall`. Under 720 px wide it stacks.',
+    '`size` is `compact`, `default`, `tall` or `full`: edge to edge and a viewport high. Under 720 px it stacks.',
   ],
   playground: Playground,
-  variants: [Profile, Backdrops, SceneArt, Shades, Sizes, Narrow, FactsOnly, TitleOnly, Bare, Brands, FromPalette],
+  variants: [Profile, Backdrops, SceneArt, FullPan, FullNode, Shades, Sizes, Narrow, FactsOnly, TitleOnly, Bare, Brands, FromPalette],
   code: CODE,
 });
 
 export default meta;
-export { Backdrops, Bare, Brands, FactsOnly, FromPalette, Narrow, Overview, Playground, Profile, SceneArt, Shades, Sizes, TitleOnly };
+export { Backdrops, Bare, Brands, FactsOnly, FromPalette, FullNode, FullPan, Narrow, Overview, Playground, Profile, SceneArt, Shades, Sizes, TitleOnly };

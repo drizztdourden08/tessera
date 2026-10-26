@@ -24,7 +24,7 @@ ArmedIconButton shares the one ask of ConfirmIconButton: the same timeout, Escap
 ## Use something else when
 
 - The second press should be a separate check with a cancel beside it. Use `ConfirmIconButton` instead.
-- The action needs a message to explain what it does. Use `Dialog` instead.
+- The action needs a message to explain what it does. Use [Dialog](Dialog.md) instead.
 - Several actions on one item fold into More when narrow. Use [ActionBar](ActionBar.md) instead.
 
 ## Rules

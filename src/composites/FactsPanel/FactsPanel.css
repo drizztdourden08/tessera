@@ -106,7 +106,7 @@
 
 .facts-panel__term-label {
   display: inline;
-  color: var(--c-primary);
+  color: var(--c-primary-text);
   font-weight: var(--weight-semi);
 }
 

@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { RefCallback } from 'react';
 import type { BubblePlace } from '../behavior/tour-internal.type';
-import type { GuidedTourApi, TourStep } from '../GuidedTour.type';
+import type { GuidedTourApi, TourAdvance, TourStep } from '../GuidedTour.type';
 
 interface TourBubbleProps {
   tour: GuidedTourApi;
@@ -17,4 +17,10 @@ interface TourBubbleCardProps {
   id: string;
 }
 
-export type { TourBubbleCardProps, TourBubbleProps };
+interface TourBubbleButtonsProps {
+  tour: GuidedTourApi;
+  step: TourStep;
+  advance: TourAdvance;
+}
+
+export type { TourBubbleButtonsProps, TourBubbleCardProps, TourBubbleProps };

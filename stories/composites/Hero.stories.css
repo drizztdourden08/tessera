@@ -86,3 +86,17 @@
 .hero-crest__shield { fill: color-mix(in srgb, var(--c-primary) 70%, var(--c-bg)); }
 .hero-crest__band { fill: color-mix(in srgb, var(--c-bg) 55%, transparent); }
 .hero-crest__gem { fill: var(--c-secondary-bright); }
+
+.hero-story__bleed {
+  width: 100%;
+  overflow: clip;
+}
+
+.hero-story__bleed .hero--full {
+  width: 100%;
+  margin-inline: 0;
+}
+
+.hero-story__bleed .hero--full .hero__frame {
+  min-height: var(--size-384);
+}

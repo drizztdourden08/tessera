@@ -7,6 +7,11 @@ import { useTopLayer } from '../behavior/useTopLayer';
 import { TourBubbleCard } from './TourBubbleCard';
 import type { TourBubbleProps } from './TourBubble.type';
 
+const classOf = (centred: boolean, intro: boolean): string => {
+  if (intro) return 'guided-tour__bubble guided-tour__bubble--center guided-tour__bubble--intro';
+  return centred ? 'guided-tour__bubble guided-tour__bubble--center' : 'guided-tour__bubble';
+};
+
 const placed = (place: BubblePlace | null, centred: boolean): CSSProperties | undefined => {
   if (place) return { top: place.box.y, left: place.box.x };
   return centred ? undefined : { opacity: 0 };
@@ -29,7 +34,7 @@ const TourBubble = (props: TourBubbleProps) => {
       aria-labelledby={`${id}-title`}
       aria-describedby={`${id}-body`}
       tabIndex={-1}
-      className={centred ? 'guided-tour__bubble guided-tour__bubble--center' : 'guided-tour__bubble'}
+      className={classOf(centred, step.intro === true)}
       data-side={place?.side}
       style={placed(place, centred)}
     >

@@ -51,7 +51,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
-    EmptyState: 'inbox', Disclosure: 'list-collapse', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
+    EmptyState: 'inbox', Disclosure: 'list-collapse', List: 'list', Table: 'table', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', ToolGroups: 'group', Pressable: 'pointer', Link: 'link' },
   'Primitives · Inputs': {
@@ -89,7 +89,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsRow: 'sliders-horizontal' },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search', ControlMenu: 'sliders-horizontal' },
   'Composites · Data views': {
-    'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'Field kits': 'toolbox',
+    'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'KanbanBoard': 'columns-3', 'Field kits': 'toolbox',
   },
   'Composites · Content': {
     LogPanel: 'logs', FactsPanel: 'table-properties', Hero: 'mountain-snow',
@@ -111,7 +111,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',
     CommandInput: 'square-terminal', PasswordInput: 'lock-keyhole', TagInput: 'tag', PathInput: 'folder-input',
   },
-  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },
+  'Composites · Forms': { InlineCreateForm: 'square-pen', InlineEdit: 'pencil-line', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },
   'Composites · Input devices': {
     ControllerSilhouette: 'gamepad', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },

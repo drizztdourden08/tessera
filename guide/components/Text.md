@@ -69,7 +69,7 @@ It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLElement
 
 ## Tokens
 
-It draws on `--c-danger`, `--c-info`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--c-warning`, `--font-mono`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--weight-semi`.
+It draws on `--c-danger`, `--c-info`, `--c-primary-text`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--c-warning`, `--font-mono`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--weight-semi`.
 
 ## Also exported from this folder
 

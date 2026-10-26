@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactElement, RefObject } from 'react';
 import type { IconifyIcon } from '@iconify/types';
+import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { ButtonVariant } from '../../primitives/Button/Button.type';
 import type { IconName, IconPath } from '../../primitives/Icon';
 import type { DropAlign } from '../../primitives/listbox/drop-placement.type';
@@ -17,6 +18,8 @@ interface MenuItem {
   label: string;
   icon?: MenuItemIcon;
   description?: string;
+  ariaDescription?: string;
+  data?: DataAttributes;
   shortcut?: string | readonly ShortcutKey[];
   disabled?: boolean;
   kind?: MenuItemKind;

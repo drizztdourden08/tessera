@@ -1,11 +1,15 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, ReactNode } from 'react';
 
+type TabBadgeTone = 'neutral' | 'warn' | 'danger' | 'success' | 'info';
+
 interface TabItem {
   id: string;
   label: string;
   icon?: ReactNode;
   badge?: string | number;
+  badgeTone?: TabBadgeTone;
+  badgeTitle?: string;
   disabled?: boolean;
   disabledReason?: string;
 }
@@ -19,7 +23,7 @@ interface TabsProps {
 }
 
 interface TabLabels {
-  reason?: string;
+  description?: string;
   title?: string;
   name?: string;
 }
@@ -34,6 +38,7 @@ interface TabsTabProps {
 }
 
 export type {
+  TabBadgeTone,
   TabItem,
   TabLabels,
   TabsProps,

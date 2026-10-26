@@ -63,6 +63,18 @@ import eraserIcon from '@iconify-icons/lucide/eraser';
 import paintBucketIcon from '@iconify-icons/lucide/paint-bucket';
 import pipetteIcon from '@iconify-icons/lucide/pipette';
 import handIcon from '@iconify-icons/lucide/hand';
+import boldIcon from '@iconify-icons/lucide/bold';
+import italicIcon from '@iconify-icons/lucide/italic';
+import listOrderedIcon from '@iconify-icons/lucide/list-ordered';
+import codeIcon from '@iconify-icons/lucide/code';
+import squareCodeIcon from '@iconify-icons/lucide/square-code';
+import quoteIcon from '@iconify-icons/lucide/quote';
+
+const guidesIcon = {
+  width: 24,
+  height: 24,
+  body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M3 3v18M9 3v3m5-3v3M3 9h3m-3 5h3M17 8v2m0 3v2m0 3v2m0 3v1M9 17h2m2 0h1"/>',
+};
 
 const INTERFACE_ICONS = {
   'check': checkIcon,
@@ -123,12 +135,19 @@ const INTERFACE_ICONS = {
   'circle-dot': circleDotIcon,
   'braces': bracesIcon,
   'split': splitIcon,
+  'guides': guidesIcon,
   'zoom-in': zoomInIcon,
   'zoom-out': zoomOutIcon,
   'eraser': eraserIcon,
   'paint-bucket': paintBucketIcon,
   'pipette': pipetteIcon,
   'hand': handIcon,
+  'bold': boldIcon,
+  'italic': italicIcon,
+  'list-ordered': listOrderedIcon,
+  'code': codeIcon,
+  'square-code': squareCodeIcon,
+  'quote': quoteIcon,
 } as const;
 
 export { INTERFACE_ICONS };

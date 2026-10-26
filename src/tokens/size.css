@@ -8,7 +8,7 @@
   --checker-size: var(--size-8);
   --hit-area-min: var(--size-24);
   --scrollbar-size: var(--size-6);
-  --scrollbar-slim: calc(3 * var(--size-1));
+  --scrollbar-slim: var(--size-3);
   --scrollbar-slim-active: calc(5 * var(--size-1));
   --scrollbar-slim-gutter: calc(2 * var(--size-2) + var(--scrollbar-slim-active));
   --scrollbar-slim-rest: calc(0 * var(--size-1));
@@ -28,9 +28,12 @@
   --control-h-xs: var(--size-20);
   --control-h-sm: var(--size-28);
   --control-h-md: calc(39 * var(--size-1));
+  --control-h-lg: var(--size-56);
   --control-h-pixel: calc(var(--size-24) + 2 * var(--space-xs));
   --control-pad-sm: var(--space-sm);
   --control-pad-md: var(--space-md);
+  --control-pad-lg: var(--space-lg);
+  --control-w-wide: var(--size-336);
   --row-inset: var(--control-pad-md);
   --dropzone-inline-w: var(--size-288);
   --table-select-w: var(--size-28);
@@ -55,6 +58,12 @@
   --hero-h-tall: calc(560 * var(--size-1));
   --hero-intro-w: calc(200 * var(--size-1));
   --hero-art-h: var(--size-256);
+  --hero-full-offset: var(--size-64);
+  --hero-pan-w: 125%;
+  --hero-pan-run: -20%;
+  --page-frame-w-sm: var(--size-640);
+  --page-frame-w-md: var(--size-896);
+  --page-frame-w-lg: var(--size-1024);
   --hero-aside-w: calc(360 * var(--size-1));
   --hero-aside-min: var(--size-320);
   --facts-panel-value-max-w: calc(220 * var(--size-1));
@@ -64,6 +73,10 @@
   --field-w-inline: var(--size-256);
   --field-w-inline-min: var(--size-160);
   --stat-row-max-w: var(--size-512);
+  --tour-intro-w: var(--size-640);
+  --tour-intro-art-h: var(--size-96);
+  --tour-intro-mascot: var(--size-256);
+  --tour-mascot-clear: var(--size-8);
   --settings-row-compact-h: var(--size-40);
   --settings-row-compact-control-w: var(--size-160);
 

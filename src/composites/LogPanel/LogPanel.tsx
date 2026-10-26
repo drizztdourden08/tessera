@@ -2,9 +2,11 @@
 import { Box } from '../../primitives/Box';
 import { ToolFrame } from '../../primitives/ToolFrame';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { logAsText } from './behavior/log-as-text';
+import { defaultCopy } from './behavior/default-copy';
+import { hasInputRow } from './behavior/has-input-row';
 import { logPanelClass } from './behavior/log-panel-class';
 import { useLogFilter } from './behavior/useLogFilter';
+import { LogInput } from './sub-components/LogInput';
 import { LogList } from './sub-components/LogList';
 import { LogToolbar } from './sub-components/LogToolbar';
 import type { LogPanelProps } from './LogPanel.type';
@@ -14,10 +16,12 @@ import './LogPanel.css';
 const LogPanel = (props: LogPanelProps) => {
   const { panels } = useTesseraStrings();
   const {
-    rows, kinds, className, toolbar = true, copyText = logAsText,
-    countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height, selectedIds, onSelectionChange,
+    rows, kinds, className, toolbar = true, ansi, onInput, prompt, inputDisabled, inputPlaceholder,
+    countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height, selectedIds, onSelectionChange, follow, order,
   } = props;
+  const copyText = defaultCopy(props);
   const filter = useLogFilter(props);
+  const hasInput = hasInputRow(props);
   const empty = rows.length === 0 ? emptyLabel : panels.logNoMatch;
 
   return (
@@ -30,7 +34,19 @@ const LogPanel = (props: LogPanelProps) => {
     >
       {filter.shown.length === 0
         ? <Box className="log-panel__empty">{empty}</Box>
-        : <LogList rows={filter.shown} kinds={kinds} selectedIds={selectedIds} onSelectionChange={onSelectionChange} />}
+        : (
+          <LogList
+            rows={filter.shown}
+            kinds={kinds}
+            selectedIds={selectedIds}
+            onSelectionChange={onSelectionChange}
+            ansi={ansi}
+            follow={follow}
+            order={order}
+            terminal={ansi === true || hasInput}
+          />
+        )}
+      {hasInput && <LogInput onInput={onInput} prompt={prompt} disabled={inputDisabled} placeholder={inputPlaceholder} />}
     </ToolFrame>
   );
 };

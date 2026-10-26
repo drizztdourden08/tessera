@@ -1,0 +1,21 @@
+/* @layer renderer-components @kind style */
+.data-table__detail {
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--c-surface);
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-primary-dim);
+  cursor: default;
+}
+
+.data-table__body > .data-table__detail {
+  position: absolute;
+  inset-block-start: calc((var(--dt-index) + 1) * var(--dt-row-h));
+  inset-inline-start: 0;
+}
+
+.data-table__detail-cell {
+  min-inline-size: 0;
+  font-size: var(--text-sm);
+}

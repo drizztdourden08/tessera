@@ -92,6 +92,7 @@ interface TargetSeek {
 
 interface StepEntry extends TargetSeek {
   step: TourStep;
+  scroll?: (target: HTMLElement) => void;
   warn?: (message: string) => void;
 }
 
@@ -125,6 +126,12 @@ interface SpotHoles {
   kept: readonly HoleRect[];
 }
 
+interface SettleLoop {
+  readonly kick: () => void;
+  readonly follow: () => void;
+  readonly stop: () => void;
+}
+
 interface SpotlightState extends SpotHoles {
   view: TourSize;
   ringRef: RefObject<HTMLElement | null>;
@@ -132,6 +139,6 @@ interface SpotlightState extends SpotHoles {
 
 export type {
   BubblePlace, TourAlign, TourSide,
-  ClipPoint, EnteredStep, EntryState, HoleRect, MascotCue, MascotPresenting, MascotSpot, MascotStand, SpotHoles, SpotlightState, StepEntry, TargetSeek,
+  ClipPoint, EnteredStep, EntryState, HoleRect, MascotCue, MascotPresenting, MascotSpot, MascotStand, SettleLoop, SpotHoles, SpotlightState, StepEntry, TargetSeek,
   TourBox, TourKeyAction, TourKeyBinding, TourKeyContext, TourMove, TourOutcome, TourPosition, TourReach, TourSize, TourStage,
 };

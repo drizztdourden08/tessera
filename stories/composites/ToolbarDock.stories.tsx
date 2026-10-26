@@ -57,7 +57,7 @@ const Overview = overviewStory({
   points: [
     '`layout` says which toolbar sits on which side; the dock draws it and the app keeps it.',
     'Two lanes per side at most; `start` and `size` set a bar extent, `corners` says who owns each corner.',
-    '`renderToolbar` draws each toolbar with the `orientation` of its side and the `handle` for the grip.',
+    '`renderToolbar` draws each toolbar with the `orientation`, the `handle` and the `labels` flag it stores.',
     'Drag a grip to drop a bar in a lane, an end handle to push or take a corner; the keys do the same.',
     '`useToolbarLayout` gives `move`, `show`, `hide`, `toggle` and `reset`, and calls `onChange` once per edit.',
     '`toolbarMenuGroups` builds the Toolbars menu: a check item per toolbar and Reset toolbars.',

@@ -14,7 +14,10 @@ import { LOG_KINDS, LOG_ROWS, longSession } from './_samples/data-log';
 import { CHANNEL_KINDS, CHANNEL_ROWS } from './_samples/data-log-channels';
 import { SIM_KINDS, SIM_ROWS } from './_samples/data-log-kinds';
 import { LogArrivalDemo } from './_samples/LogArrivalDemo';
+import { LogInputStatesDemo } from './_samples/LogInputStatesDemo';
 import { LogSelectionDemo } from './_samples/LogSelectionDemo';
+import { LogShellDemo } from './_samples/LogShellDemo';
+import { LogTerminalDemo } from './_samples/LogTerminalDemo';
 import './LogPanel.stories.css';
 
 type LogPanelArgs = {
@@ -49,6 +52,13 @@ const LogDemo = (props: LogDemoProps) => {
 const LONG_ROWS = longSession(1500);
 const NO_ROWS: LogRow[] = [];
 const PROBLEMS: readonly FilterClause[] = [createClause('kind', 'anyOf', ['Errors', 'Hints'])];
+
+const TONED_ROWS: readonly LogRow[] = [
+  { id: 'tone-1', gutter: '19:30:01', tag: 'JOIN', kind: 'join', message: 'Wren joined slot 1' },
+  { id: 'tone-2', gutter: '19:30:09', tag: 'ITEM', kind: 'item', message: 'Disk usage is above 80 percent', tone: 'warning' },
+  { id: 'tone-3', gutter: '19:30:15', tag: 'JOIN', kind: 'join', message: 'Tavi joined slot 3, the connection is unstable', tone: 'danger' },
+  { id: 'tone-4', gutter: '19:30:20', tag: 'ITEM', kind: 'item', message: 'Backup finished', tone: 'success' },
+];
 
 const ARGS: Partial<LogPanelArgs> = { toolbar: true, countLabel: 'lines', emptyLabel: 'The server has not said anything yet.' };
 
@@ -95,6 +105,26 @@ const Arriving = {
   ),
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
+const NewestFirst = {
+  name: 'Newest first, following the top',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">A line arrives every 0.7 s and lands at the top; scroll down to stop following, and Jump to top to follow again.</Text>
+      <LogArrivalDemo order="newest-first" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const LineTones = {
+  name: 'A tone on a single line, with or without a kind',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">The warning line has no kind tone of its own; the danger line overrides the tone of its kind.</Text>
+      <LogPanel rows={TONED_ROWS} kinds={LOG_KINDS} height={200} toolbar={false} className="server-log" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
 const Selecting = {
   name: 'Rows you select and copy',
   render: () => (
@@ -104,6 +134,12 @@ const Selecting = {
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const BuildLog = { name: 'Coloured build log, streaming', render: () => <LogTerminalDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const Shell = { name: 'Terminal with an input row', render: () => <LogShellDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const InputStates = { name: 'Input kept on failure, and a disabled row', render: () => <LogInputStatesDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
 const Bare = {
   name: 'Without a toolbar',
@@ -168,15 +204,15 @@ const Overview = overviewStory({
   component: 'LogPanel',
   description: 'A running log, such as a server log or a simulation trace, in one framed box with a filter toolbar.',
   points: [
-    'Each of the `rows` has a gutter, a tag, a `kind` and a message; `indent` nests it under a guide.',
+    'Each row has a gutter, a tag, a `kind` and a message; `indent` nests it and `tone` colours one line.',
     'The toolbar is a [FilterBar]: search, filters on type, tag or message, a line count and Copy all.',
     '`kinds` give each type a `tone`, tint or hex colour; `toneMessage`, `strong` and `uppercase` set the message.',
-    'Only the newest lines are mounted, older ones load on demand, and Newest jumps back to the end.',
+    'Only the newest lines are mounted; `order` picks the end that stays in view, and a button returns to it.',
     '`selectedIds` with `onSelectionChange` picks rows: a click, [[Shift]] and a click, [[Up]] and [[Down]].',
-    '`height="fill"` takes the height of its parent; a number fixes it in pixels.',
+    '`ansi` colours escape codes with tokens; `onInput` adds a prompt row, and [[Up]] and [[Down]] walk its history.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Arriving, Selecting, Bare, Heights, Kinds, Channels],
+  variants: [Filtered, LongSession, Arriving, NewestFirst, LineTones, Selecting, BuildLog, Shell, InputStates, Bare, Heights, Kinds, Channels],
   states: {
     render: renderState,
     list: [
@@ -189,4 +225,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Arriving, Bare, Channels, Filtered, Heights, Kinds, LongSession, Overview, Selecting, ServerLog };
+export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, InputStates, Kinds, LineTones, LongSession, NewestFirst, Overview, Selecting, ServerLog, Shell };

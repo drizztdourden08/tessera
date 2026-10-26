@@ -14,6 +14,9 @@ const usage = {
   ],
   rules: [
     'Write the steps as data and keep them in a memo, since onEnter runs each time its step shows.',
+    'Set intro: true on a welcome step for a wide centred panel; pass a Logo or BrandMark as art, and the mascot grows beside it.',
+    'An intro step shows Start the tour (goes on, holds focus) and Skip (ends the tour) instead of Back and Next; translate them with tour.introStart and tour.introSkip.',
+    'Give a step reveal when its target may not be drawn yet, such as a VirtualGrid item; call scrollToIndex there, and the tour finds the target after a frame.',
     'Mark a target with data-tour and point at it with { tour }, or pass a ref; a step without a target sits in the middle.',
     'Change the state of the app in onEnter, such as opening a panel or a tab, and make it safe to run twice; stop when its signal aborts.',
     "Use advance: 'click' only when the click itself does what the step teaches; add clickTarget when one entry of the lit part goes on.",
@@ -28,8 +31,9 @@ const usage = {
     'The bubble is a dialog named by its title; focus moves to it on each step and goes back where it was on close.',
     'A status line reads each step as Step 2 of 6 and the title.',
     'The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.',
-    'Right or Enter goes on, Left goes back and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.',
+    'Right or Enter goes on, Left goes back (not on an intro step) and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.',
     'A menu or popover opened during a step takes Escape first; the tour closes on the next press, before any dialog or screen.',
+    'The tour scrolls the target to the centre at once, through every scrolling ancestor, or to its top edge when it is taller than the window; then it measures the lit part each frame until it holds still.',
     'With reduced motion the highlight and the mascot move at once and nothing fades.',
   ],
   tree: {
@@ -37,12 +41,12 @@ const usage = {
     rule: 'GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.',
   },
   example: `import { useMemo } from 'react';
-import { Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';
+import { BrandMark, Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';
 import type { TourStep } from '@drizztdourden08/tessera';
 
 const HomeTour = ({ openSettings }: { openSettings: () => void }) => {
   const steps = useMemo<TourStep[]>(() => [
-    { id: 'welcome', title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },
+    { id: 'welcome', intro: true, art: <BrandMark app="archipelia" size="xl" />, title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },
     { id: 'pages', target: { tour: 'pages' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },
     { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear to open the settings.' },
     { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: openSettings },

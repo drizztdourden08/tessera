@@ -40,7 +40,7 @@ const ScreenPage = (props: ScreenPageProps) => {
         className={STACK_CLASSES[stack].join(' ') || undefined}
       />
       {scroll
-        ? <ScrollArea ref={ref} className={classes.body}>{children}</ScrollArea>
+        ? <ScrollArea ref={ref} className={classes.body} gutter="stable">{children}</ScrollArea>
         : <Box ref={ref} className={classes.body}>{children}</Box>}
       {footer != null && <Box className="screen-page__footer">{footer}</Box>}
     </Box>

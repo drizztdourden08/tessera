@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useEffect, useMemo, useRef } from 'react';
 import { createScrollSyncController } from './behavior/create-scroll-sync-controller';
+import { scrollAreaClass } from './behavior/scroll-area-class';
 import { setNodeOnRef } from './behavior/set-node-on-ref';
 import { useScrollEdges } from './behavior/useScrollEdges';
 import { useSlimThumbDrag } from './behavior/useSlimThumbDrag';
@@ -9,7 +10,7 @@ import type { UIEvent } from 'react';
 import './ScrollArea.css';
 
 const ScrollArea = (props: ScrollAreaProps) => {
-  const { axis = 'y', fade = true, scrollbar = 'native', className = '', children, onScroll, scrollTo, ref, ...rest } = props;
+  const { axis = 'y', fade = true, scrollbar = 'native', gutter = 'auto', className = '', children, onScroll, scrollTo, ref, ...rest } = props;
 
   const nodeRef = useRef<HTMLDivElement | null>(null);
   const controller = useMemo(() => createScrollSyncController(() => nodeRef.current), []);
@@ -32,7 +33,7 @@ const ScrollArea = (props: ScrollAreaProps) => {
         nodeRef.current = node;
         setNodeOnRef(ref, node);
       }}
-      className={`scroll-area${className ? ` ${className}` : ''}`}
+      className={scrollAreaClass(gutter, className)}
       data-axis={axis}
       data-scrollbar={slim ? 'slim' : undefined}
       onScroll={onScroll ? handleScroll : undefined}

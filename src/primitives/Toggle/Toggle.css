@@ -41,7 +41,7 @@
 .toggle__link {
   display: inline-flex;
   margin-left: var(--space-xs);
-  color: var(--c-primary);
+  color: var(--c-primary-text);
   text-decoration: none;
   font-size: var(--text-sm);
   opacity: 0.6;

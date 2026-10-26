@@ -34,7 +34,7 @@
 }
 
 .referenced-by__link {
-  color: var(--c-primary);
+  color: var(--c-primary-text);
   cursor: pointer;
 }
 

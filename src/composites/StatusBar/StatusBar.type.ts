@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { MenuEvent } from '../../primitives/dom/menu-event.type';
 import type { IconName } from '../../primitives/Icon/Icon.type';
 import type { StatusTone } from '../../primitives/Status/Status.type';
 
@@ -26,11 +27,14 @@ interface StatusBarAction {
   disabled?: boolean;
 }
 
+type StatusBarMenuHook = (itemId: string, event: MenuEvent) => void;
+
 interface StatusBarProps {
   items: readonly StatusBarEntry[];
   actions?: readonly StatusBarAction[];
+  onItemContextMenu?: StatusBarMenuHook;
   label: string;
   className?: string;
 }
 
-export type { StatusBarAction, StatusBarAlign, StatusBarEntry, StatusBarProps };
+export type { StatusBarAction, StatusBarAlign, StatusBarEntry, StatusBarMenuHook, StatusBarProps };

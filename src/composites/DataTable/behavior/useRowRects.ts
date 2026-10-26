@@ -22,7 +22,7 @@ const useRowRects = <T,>(input: UseRowRectsInput<T>): RowRects<T> => {
     if (!body) return { items, rects: [] };
     const origin = bodyOrigin(root, body);
     const width = Math.max(0, root.scrollWidth - origin.x);
-    return { items, rects: flatRects({ items, rowHeight: virtual.metrics.rowHeight, origin, width }) };
+    return { items, rects: flatRects({ items, rowHeight: virtual.metrics.rowHeight, origin, width, detail: virtual.detail }) };
   }, [rootRef, virtual, nodes, isExpanded, getRowId]);
 
   const getRects = useCallback(() => {

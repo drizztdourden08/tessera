@@ -23,7 +23,7 @@ A status, details and actions in a compact window.
 
 ## Use something else when
 
-- The user answers one question and nothing runs. Use `Dialog` instead.
+- The user answers one question and nothing runs. Use [Dialog](Dialog.md) instead.
 - The screen holds settings or several pages. Use [WorkspaceScreen](WorkspaceScreen.md) instead.
 - The screen is read, such as About or credits. Use [InfoScreen](InfoScreen.md) instead.
 - The screen is one big custom surface. Use [StageScreen](StageScreen.md) instead.
@@ -90,4 +90,4 @@ const UpdateCheck = ({ notes, onClose, onInstall, onReport }: UpdateCheckProps) 
 
 ## Tokens
 
-It draws on `--blur-glow`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-primary`, `--c-primary-soft`, `--c-success`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--leading-normal`, `--radius-md`, `--size-2`, `--size-32`, `--size-320`, `--space-2xl`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-semi`.
+It draws on `--blur-glow`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-success`, `--c-sunken`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--leading-normal`, `--radius-md`, `--size-2`, `--size-32`, `--size-320`, `--space-2xl`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-semi`.

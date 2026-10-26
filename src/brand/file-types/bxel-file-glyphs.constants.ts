@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { PixelGrid } from '../../primitives/Icon/Icon.type';
+import { BXEL_ANIMATION_GLYPH } from './bxel-animation-glyph.constants';
 import type { FileTypeKind, FileTypeSmallGrid } from './file-type.type';
 
 const BXEL_FILE_GLYPHS: Readonly<Record<FileTypeKind, Readonly<Record<FileTypeSmallGrid, PixelGrid>>>> = {
@@ -52,6 +53,7 @@ const BXEL_FILE_GLYPHS: Readonly<Record<FileTypeKind, Readonly<Record<FileTypeSm
       '#########',
     ],
   },
+  animation: BXEL_ANIMATION_GLYPH,
   palette: {
     24: [
       '...######...',

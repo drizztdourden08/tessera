@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind barrel */
-export { DataTable } from '../DataTable';
+export { DataTable, groupUid } from '../DataTable';
 export type {
-  ColumnActions, ColumnDragBinding, DataTableBind, DataTableHandle, DataTableProps, RowMoveTarget, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver,
+  ColumnActions, ColumnDragBinding, DataTableBind, DataTableHandle, DataTableProps, RowMoveTarget, RowState, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver,
   IdRefTargetField, IdRefTargetFieldResolver, PickerNode,
 } from '../DataTable';
 export { VirtualList } from '../VirtualList';
@@ -18,9 +18,9 @@ export {
 export type { MarqueeBind, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect } from '../marquee';
 export { REORDER_ITEM_SELECTOR, columnsOf, reorderStep, useMoveFocus, useReorderDrag } from '../reorder';
 export type { MoveFocus, ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDrop, ReorderKeyEvent, ReorderStepOptions } from '../reorder';
-export { LogPanel, type LogKindDef, type LogKindTone, type LogPanelProps, type LogRow } from '../LogPanel';
+export { LogPanel, type LogKindDef, type LogKindTone, type LogOrder, type LogPanelProps, type LogRow } from '../LogPanel';
 export { ListItemList, ListItemRow } from '../ListItemRow';
-export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from '../ListItemRow';
+export type { ListItemColumn, ListItemColumnAlign, ListItemHeader, ListItemHeaderColumn, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from '../ListItemRow';
 export { StatTile } from '../StatTile';
 export type { StatTileChartPlacement, StatTileProps, StatTileSize, StatTrend, StatTrendMeaning } from '../StatTile';
 export { StatusBar } from '../StatusBar';
@@ -42,8 +42,10 @@ export { DateText, type DateTextProps } from '../DateText';
 export { Video } from '../Video';
 export type { VideoProps } from '../Video';
 export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from '../CodeBlock';
-export { Markdown, type MarkdownHeadingOffset, type MarkdownLinkHandler, type MarkdownProps, type MarkdownSize } from '../Markdown';
+export { Markdown, type MarkdownHeadingOffset, type MarkdownImageHandler, type MarkdownImageResolver, type MarkdownImageTarget, type MarkdownImages, type MarkdownLinkHandler, type MarkdownLinkId, type MarkdownProps, type MarkdownSize } from '../Markdown';
 export { Rating, type RatingProps, type RatingSize } from '../Rating';
 export { Carousel, type CarouselProps, type CarouselSlide } from '../Carousel';
 export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaViewerProps } from '../MediaViewer';
 export { RowGrid, type RowGridColumn, type RowGridDensity, type RowGridProps } from '../RowGrid';
+export { KanbanBoard, moveCard } from '../KanbanBoard';
+export type { KanbanBoardProps, KanbanCardData, KanbanColumn, KanbanMove, KanbanPlace } from '../KanbanBoard';

@@ -6,7 +6,7 @@ import type { SideNavLayoutPaneProps } from './SideNavLayoutPane.type';
 const SideNavLayoutPane = (props: SideNavLayoutPaneProps) => {
   const { scroll, children } = props;
   return scroll
-    ? <ScrollArea className="side-nav-layout__pane">{children}</ScrollArea>
+    ? <ScrollArea className="side-nav-layout__pane" gutter="stable">{children}</ScrollArea>
     : <Box className="side-nav-layout__pane">{children}</Box>;
 };
 

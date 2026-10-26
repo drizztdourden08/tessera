@@ -20,6 +20,7 @@ const usage = {
     'Use tone on a value only when it is past a limit, and title for a longer description on hover.',
     'Pass actions for the few buttons that belong to the bar, such as sync or export; they end the bar as icon buttons with a tooltip.',
     'Give the bar a label that names the region, such as Editor status.',
+    'Pass onItemContextMenu to open the app menu of a readout. It gets the item id and the event, from a right click, the Menu key or Shift+F10.',
   ],
   a11y: [
     'The bar is a labelled region and each readout is a term and its value in a description list.',
@@ -27,6 +28,7 @@ const usage = {
     'To announce a change, such as a finished export, use a separate live region, not the bar.',
     'Each action is a button named by its label, shown as a tooltip too; loading marks it busy and disabled takes it out of the Tab order.',
     'The swatch is hidden from assistive technology; its colour is read from the value beside it.',
+    'With onItemContextMenu each readout is a tab stop with a focus ring, so the Menu key and Shift+F10 reach it.',
   ],
   tree: {
     path: ['layout', 'window chrome', 'the status line at the foot'],
@@ -45,7 +47,7 @@ const EditorStatus = ({ x, y, colour }: { x: number; y: number; colour: string }
   />
 );
 `,
-  propsHash: '8b629b09a908c7e0',
+  propsHash: '9280d8c1089c2e84',
 } satisfies ComponentUsage;
 
 export { usage };

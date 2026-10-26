@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.scrolling-page__sections {
+  display: grid;
+  gap: var(--space-lg);
+  max-width: var(--size-640);
+  margin-inline: auto;
+  padding: var(--space-xl);
+}
