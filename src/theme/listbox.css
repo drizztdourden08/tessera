@@ -70,7 +70,7 @@
 }
 
 .listbox-option[data-picked] {
-  color: var(--c-primary);
+  color: var(--c-primary-text);
 }
 
 .listbox-option[aria-disabled='true'] {

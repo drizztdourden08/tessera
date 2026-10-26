@@ -139,6 +139,7 @@
 }
 
 .btn--toned:active:not(:disabled, [aria-disabled='true']),
+.btn--solid:active:not(:disabled, [aria-disabled='true']),
 .icon-btn--toned:active:not(:disabled, [aria-disabled='true']) {
   background: color-mix(in oklab, var(--tone), var(--c-bg) 22%);
   border-color: var(--tone);

@@ -25,7 +25,7 @@ export { Spacer, type SpacerProps } from './Spacer';
 export { PageRoot, type PageRootProps } from './PageRoot';
 export { PageFrame, type PageFrameProps, type PageFrameWidth } from './PageFrame';
 export { Button } from './Button';
-export type { ButtonLook, ButtonProps, ButtonSize, ButtonVariant } from './Button/Button.type';
+export type { ButtonFill, ButtonLook, ButtonProps, ButtonSize, ButtonVariant } from './Button/Button.type';
 export { IconButton } from './IconButton';
 export type { IconButtonProps, IconButtonSize, IconButtonTone, IconButtonVariant } from './IconButton/IconButton.type';
 export { Pressable } from './Pressable';

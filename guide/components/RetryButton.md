@@ -56,16 +56,18 @@ const Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () =
 - `attempts` (optional): `number`.
 - `retrying` (optional): `boolean`. Default `false`.
 - `label` (optional): `string`.
+- `caption` (optional): `ReactNode`.
 - `hint` (optional): `Hint`.
+- `fill` (optional): `ButtonFill`, one of `'tonal'`, `'solid'`.
 - `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`. Default `'secondary'`.
-- `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`. Default `'sm'`.
+- `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`, `'lg'`. Default `'sm'`.
 - `look` (optional): `ButtonLook`, one of `'flat'`, `'pixel'`.
 - `fullWidth` (optional): `boolean`.
 - `active` (optional): `boolean`.
 - `iconEnd` (optional): `ReactNode`.
 - `onHint` (optional): `HintReport`.
 
-It also takes the 286 attributes it inherits through `Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'>`, `ButtonHTMLAttributes<HTMLButtonElement>`.
+It also takes the 285 attributes it inherits through `Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading' | 'href' | 'target' | 'rel' | 'download'>`, `ButtonHTMLAttributes<HTMLButtonElement>`.
 
 ## Tokens
 

@@ -2,6 +2,7 @@
 :root {
   --size-1: 1px;
   --size-2: 2px;
+  --size-3: 3px;
   --size-4: 4px;
   --size-6: 6px;
   --size-8: 8px;
@@ -214,6 +215,7 @@
   --c-scrim-game: #00000059;
   --c-primary: #8a8a96;
   --c-primary-bright: #a3a3ac;
+  --c-primary-text: #a3a3ac;
   --c-primary-dim: #050506;
   --c-primary-soft: #8a8a9624;
   --c-on-primary: #0e0e12;
@@ -268,7 +270,7 @@
   --checker-size: 8px;
   --hit-area-min: 24px;
   --scrollbar-size: 6px;
-  --scrollbar-slim: calc(3 * 1px);
+  --scrollbar-slim: 3px;
   --scrollbar-slim-active: calc(5 * 1px);
   --scrollbar-slim-gutter: calc(2 * 2px + calc(5 * 1px));
   --scrollbar-slim-rest: calc(0 * 1px);
@@ -286,9 +288,11 @@
   --control-h-xs: 20px;
   --control-h-sm: 28px;
   --control-h-md: calc(39 * 1px);
+  --control-h-lg: 56px;
   --control-h-pixel: calc(24px + 2 * 4px);
   --control-pad-sm: 8px;
   --control-pad-md: 12px;
+  --control-pad-lg: 16px;
   --row-inset: 12px;
   --dropzone-inline-w: 288px;
   --table-select-w: 28px;
@@ -569,6 +573,7 @@
   --c-term-bg-white: #f2f1f752;
   --c-primary: #7c4dff;
   --c-primary-bright: #947cff;
+  --c-primary-text: #947cff;
   --c-primary-dim: #040112;
   --c-primary-soft: #7c4dff24;
   --c-on-primary: #fff;
@@ -704,6 +709,7 @@
   --c-term-bg-white: #f0f1f152;
   --c-primary: #f0862b;
   --c-primary-bright: #f6a265;
+  --c-primary-text: #f6a265;
   --c-primary-dim: #100500;
   --c-primary-soft: #f0862b24;
   --c-on-primary: #000;
@@ -839,6 +845,7 @@
   --c-term-bg-white: #f4f2fb52;
   --c-primary: #7b3fe4;
   --c-primary-bright: #9471ee;
+  --c-primary-text: #9471ee;
   --c-primary-dim: #04010e;
   --c-primary-soft: #7b3fe424;
   --c-on-primary: #fff;
@@ -920,6 +927,7 @@
   --c-term-bg-yellow: #eb9a3a52;
   --c-primary: #c8a84e;
   --c-primary-bright: #d4bb79;
+  --c-primary-text: #d4bb79;
   --c-primary-dim: #0b0801;
   --c-primary-soft: #c8a84e24;
   --c-on-primary: #000;

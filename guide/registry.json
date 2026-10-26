@@ -3050,6 +3050,7 @@
         "--c-inset",
         "--c-primary",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-sunken",
         "--c-surface",
         "--c-text",
@@ -3749,10 +3750,10 @@
         "--c-info-bright",
         "--c-info-dim",
         "--c-info-soft",
-        "--c-primary",
         "--c-primary-bright",
         "--c-primary-dim",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-secondary",
         "--c-secondary-bright",
         "--c-secondary-dim",
@@ -4081,7 +4082,7 @@
       "tokens": [
         "--c-danger",
         "--c-info",
-        "--c-primary",
+        "--c-primary-text",
         "--c-secondary",
         "--c-success",
         "--c-tertiary",
@@ -4434,7 +4435,7 @@
         "rule": "ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and asks before it unless the action opts out."
       },
       "example": "import { ActionBar } from '@drizztdourden08/tessera';\nimport type { ActionItem } from '@drizztdourden08/tessera';\n\ninterface PresetHeaderProps {\n  name: string;\n  onDuplicate: () => void;\n  onDelete: () => void;\n  onSave: () => void;\n}\n\nconst PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps) => {\n  const actions: ActionItem[] = [\n    { id: 'duplicate', label: 'Duplicate', icon: 'copy', onSelect: onDuplicate },\n    { id: 'delete', label: 'Delete', icon: 'trash-2', kind: 'danger', onSelect: onDelete, confirm: { title: `Delete ${name}?`, confirmLabel: `Delete ${name}` } },\n    { id: 'save', label: 'Save', icon: 'save', kind: 'primary', onSelect: onSave },\n  ];\n  return <ActionBar label={name} actions={actions} />;\n};\n",
-      "propsHash": "3ea44d39ee726791",
+      "propsHash": "7b9321fe8de0522f",
       "props": {
         "own": [
           {
@@ -4445,11 +4446,11 @@
           {
             "name": "size",
             "optional": true,
-            "text": "ButtonSize",
+            "text": "ActionBarSize",
             "literals": [
-              "'xs'",
+              "'md'",
               "'sm'",
-              "'md'"
+              "'xs'"
             ],
             "default": "'md'"
           },
@@ -6917,6 +6918,7 @@
         "--c-primary-bright",
         "--c-primary-dim",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-secondary-soft",
         "--c-selected",
         "--c-surface",
@@ -8039,6 +8041,7 @@
         "--c-hover",
         "--c-primary",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-selected",
         "--c-surface",
         "--c-text",
@@ -8684,7 +8687,7 @@
         "The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.",
         "Right or Enter goes on, Left goes back (not on an intro step) and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.",
         "A menu or popover opened during a step takes Escape first; the tour closes on the next press, before any dialog or screen.",
-        "The tour scrolls the target to the centre at once, through every scrolling ancestor, and measures the lit part on the next frame.",
+        "The tour scrolls the target to the centre at once, through every scrolling ancestor, or to its top edge when it is taller than the window; then it measures the lit part each frame until it holds still.",
         "With reduced motion the highlight and the mascot move at once and nothing fades."
       ],
       "tree": {
@@ -12074,7 +12077,7 @@
         "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
       },
       "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
-      "propsHash": "a5926aa187b8d009",
+      "propsHash": "d5c947ec91a888b2",
       "props": {
         "own": [
           {
@@ -12109,9 +12112,23 @@
             "text": "string"
           },
           {
+            "name": "caption",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
             "name": "hint",
             "optional": true,
             "text": "Hint"
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "ButtonFill",
+            "literals": [
+              "'tonal'",
+              "'solid'"
+            ]
           },
           {
             "name": "variant",
@@ -12136,7 +12153,8 @@
             "literals": [
               "'xs'",
               "'sm'",
-              "'md'"
+              "'md'",
+              "'lg'"
             ],
             "default": "'sm'"
           },
@@ -12171,7 +12189,7 @@
           }
         ],
         "inherited": {
-          "count": 286,
+          "count": 285,
           "from": [
             "AriaAttributes",
             "ButtonHTMLAttributes",
@@ -12179,7 +12197,7 @@
             "HTMLAttributes"
           ],
           "extends": [
-            "Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'>",
+            "Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading' | 'href' | 'target' | 'rel' | 'download'>",
             "ButtonHTMLAttributes<HTMLButtonElement>"
           ]
         }
@@ -13822,8 +13840,8 @@
         "--c-bg",
         "--c-border",
         "--c-hover",
-        "--c-primary",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-text",
         "--c-text-dim",
         "--radius-md",
@@ -14306,7 +14324,7 @@
         "--c-danger",
         "--c-info",
         "--c-inset",
-        "--c-primary",
+        "--c-primary-text",
         "--c-secondary",
         "--c-success",
         "--c-tertiary",
@@ -14434,7 +14452,7 @@
         "--c-danger",
         "--c-focus",
         "--c-info",
-        "--c-primary",
+        "--c-primary-text",
         "--c-secondary",
         "--c-success",
         "--c-surface",
@@ -15296,6 +15314,7 @@
         "--c-danger",
         "--c-primary",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-success",
         "--c-sunken",
         "--c-text",
@@ -16137,6 +16156,7 @@
         "--c-primary-bright",
         "--c-primary-dim",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-text",
         "--c-text-dim",
         "--control-h-xs",

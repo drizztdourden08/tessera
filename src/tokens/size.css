@@ -8,7 +8,7 @@
   --checker-size: var(--size-8);
   --hit-area-min: var(--size-24);
   --scrollbar-size: var(--size-6);
-  --scrollbar-slim: calc(3 * var(--size-1));
+  --scrollbar-slim: var(--size-3);
   --scrollbar-slim-active: calc(5 * var(--size-1));
   --scrollbar-slim-gutter: calc(2 * var(--size-2) + var(--scrollbar-slim-active));
   --scrollbar-slim-rest: calc(0 * var(--size-1));
@@ -26,9 +26,11 @@
   --control-h-xs: var(--size-20);
   --control-h-sm: var(--size-28);
   --control-h-md: calc(39 * var(--size-1));
+  --control-h-lg: var(--size-56);
   --control-h-pixel: calc(var(--size-24) + 2 * var(--space-xs));
   --control-pad-sm: var(--space-sm);
   --control-pad-md: var(--space-md);
+  --control-pad-lg: var(--space-lg);
   --row-inset: var(--control-pad-md);
   --dropzone-inline-w: var(--size-288);
   --table-select-w: var(--size-28);

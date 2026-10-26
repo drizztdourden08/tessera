@@ -5,7 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { enterStep } from '../src/composites/GuidedTour/behavior/enter-step';
 import { mascotSpot } from '../src/composites/GuidedTour/behavior/mascot-spot';
-import { scrollToCenter } from '../src/composites/GuidedTour/behavior/scroll-to-center';
+import { scrollToTarget } from '../src/composites/GuidedTour/behavior/scroll-to-target';
 import { INTRO_MASCOT_BOX, INTRO_MASCOT_HEIGHT } from '../src/composites/GuidedTour/GuidedTour.constants';
 import { TourBubble } from '../src/composites/GuidedTour/sub-components/TourBubble';
 import { TourBubbleCard } from '../src/composites/GuidedTour/sub-components/TourBubbleCard';
@@ -81,7 +81,8 @@ describe('scrolling before measuring', () => {
 
   it('centres the target in every scrolling ancestor at once', () => {
     const scrollIntoView = vi.fn();
-    scrollToCenter({ scrollIntoView });
+    const view = { innerWidth: 1280, innerHeight: 720 };
+    scrollToTarget({ scrollIntoView, ownerDocument: { defaultView: view }, getBoundingClientRect: () => ({ width: 420, height: 259 }) });
     expect(scrollIntoView).toHaveBeenCalledWith({ block: 'center', inline: 'center', behavior: 'instant' });
   });
 });

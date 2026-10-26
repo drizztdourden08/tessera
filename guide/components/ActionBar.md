@@ -71,7 +71,7 @@ const PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps
 ## Props
 
 - `actions`: `readonly ActionItem[]`.
-- `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`. Default `'md'`.
+- `size` (optional): `ActionBarSize`, one of `'md'`, `'sm'`, `'xs'`. Default `'md'`.
 - `keep` (optional): `number`. Default `Number.POSITIVE_INFINITY`.
 - `overflowLabel` (optional): `string`.
 - `align` (optional): `ActionBarAlign`, one of `'start'`, `'end'`. Default `'start'`.
