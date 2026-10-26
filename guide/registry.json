@@ -4435,7 +4435,7 @@
         "rule": "ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and asks before it unless the action opts out."
       },
       "example": "import { ActionBar } from '@drizztdourden08/tessera';\nimport type { ActionItem } from '@drizztdourden08/tessera';\n\ninterface PresetHeaderProps {\n  name: string;\n  onDuplicate: () => void;\n  onDelete: () => void;\n  onSave: () => void;\n}\n\nconst PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps) => {\n  const actions: ActionItem[] = [\n    { id: 'duplicate', label: 'Duplicate', icon: 'copy', onSelect: onDuplicate },\n    { id: 'delete', label: 'Delete', icon: 'trash-2', kind: 'danger', onSelect: onDelete, confirm: { title: `Delete ${name}?`, confirmLabel: `Delete ${name}` } },\n    { id: 'save', label: 'Save', icon: 'save', kind: 'primary', onSelect: onSave },\n  ];\n  return <ActionBar label={name} actions={actions} />;\n};\n",
-      "propsHash": "3ea44d39ee726791",
+      "propsHash": "7b9321fe8de0522f",
       "props": {
         "own": [
           {
@@ -4446,11 +4446,11 @@
           {
             "name": "size",
             "optional": true,
-            "text": "ButtonSize",
+            "text": "ActionBarSize",
             "literals": [
-              "'xs'",
+              "'md'",
               "'sm'",
-              "'md'"
+              "'xs'"
             ],
             "default": "'md'"
           },
@@ -12077,7 +12077,7 @@
         "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
       },
       "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
-      "propsHash": "a5926aa187b8d009",
+      "propsHash": "d5c947ec91a888b2",
       "props": {
         "own": [
           {
@@ -12112,9 +12112,23 @@
             "text": "string"
           },
           {
+            "name": "caption",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
             "name": "hint",
             "optional": true,
             "text": "Hint"
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "ButtonFill",
+            "literals": [
+              "'tonal'",
+              "'solid'"
+            ]
           },
           {
             "name": "variant",
@@ -12139,7 +12153,8 @@
             "literals": [
               "'xs'",
               "'sm'",
-              "'md'"
+              "'md'",
+              "'lg'"
             ],
             "default": "'sm'"
           },
@@ -12174,7 +12189,7 @@
           }
         ],
         "inherited": {
-          "count": 286,
+          "count": 285,
           "from": [
             "AriaAttributes",
             "ButtonHTMLAttributes",
@@ -12182,7 +12197,7 @@
             "HTMLAttributes"
           ],
           "extends": [
-            "Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'>",
+            "Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading' | 'href' | 'target' | 'rel' | 'download'>",
             "ButtonHTMLAttributes<HTMLButtonElement>"
           ]
         }

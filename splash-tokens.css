@@ -2,6 +2,7 @@
 :root {
   --size-1: 1px;
   --size-2: 2px;
+  --size-3: 3px;
   --size-4: 4px;
   --size-6: 6px;
   --size-8: 8px;
@@ -269,7 +270,7 @@
   --checker-size: 8px;
   --hit-area-min: 24px;
   --scrollbar-size: 6px;
-  --scrollbar-slim: calc(3 * 1px);
+  --scrollbar-slim: 3px;
   --scrollbar-slim-active: calc(5 * 1px);
   --scrollbar-slim-gutter: calc(2 * 2px + calc(5 * 1px));
   --scrollbar-slim-rest: calc(0 * 1px);
@@ -287,9 +288,11 @@
   --control-h-xs: 20px;
   --control-h-sm: 28px;
   --control-h-md: calc(39 * 1px);
+  --control-h-lg: 56px;
   --control-h-pixel: calc(24px + 2 * 4px);
   --control-pad-sm: 8px;
   --control-pad-md: 12px;
+  --control-pad-lg: 16px;
   --row-inset: 12px;
   --dropzone-inline-w: 288px;
   --table-select-w: 28px;
