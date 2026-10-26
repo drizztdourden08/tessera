@@ -8,6 +8,7 @@ interface TourMascotProps {
   hole: TourBox | null;
   view: TourSize;
   cue: MascotCue;
+  large: boolean;
 }
 
 export type { TourMascotProps };

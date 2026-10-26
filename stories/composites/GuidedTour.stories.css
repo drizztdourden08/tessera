@@ -152,3 +152,39 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
 }
+
+.tour-nested__page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  block-size: var(--size-256);
+  padding: var(--space-md);
+  overflow: auto;
+  border-radius: var(--radius-md);
+  outline: var(--border-width-thin) solid var(--c-border);
+}
+
+.tour-nested__spacer {
+  flex: none;
+  block-size: var(--size-192);
+}
+
+.tour-nested__list {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--space-xs);
+  block-size: var(--size-160);
+  padding: var(--space-sm);
+  overflow: auto;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+}
+
+.tour-nested__row {
+  flex: none;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: var(--c-panel);
+}

@@ -24,6 +24,7 @@ const TourBubbleCard = (props: TourBubbleCardProps) => {
           <Icon name="x" size={ICON_SIZE} />
         </IconButton>
       </Box>
+      {step.intro && step.art && <Box className="guided-tour__art">{step.art}</Box>}
       <H3 id={`${id}-title`} className="guided-tour__title">{step.title}</H3>
       <Box id={`${id}-body`} className="guided-tour__body">{step.body}</Box>
       {advance !== 'next' && (

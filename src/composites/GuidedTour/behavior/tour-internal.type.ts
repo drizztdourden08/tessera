@@ -92,6 +92,7 @@ interface TargetSeek {
 
 interface StepEntry extends TargetSeek {
   step: TourStep;
+  scroll?: (target: HTMLElement) => void;
   warn?: (message: string) => void;
 }
 

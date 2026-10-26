@@ -7857,6 +7857,8 @@
       ],
       "rules": [
         "Write the steps as data and keep them in a memo, since onEnter runs each time its step shows.",
+        "Set intro: true on a welcome step for a wide centred panel; pass a Logo or BrandMark as art, and the mascot grows beside it.",
+        "Give a step reveal when its target may not be drawn yet, such as a VirtualGrid item; call scrollToIndex there, and the tour finds the target after a frame.",
         "Mark a target with data-tour and point at it with { tour }, or pass a ref; a step without a target sits in the middle.",
         "Change the state of the app in onEnter, such as opening a panel or a tab, and make it safe to run twice; stop when its signal aborts.",
         "Use advance: 'click' only when the click itself does what the step teaches; add clickTarget when one entry of the lit part goes on.",
@@ -7873,6 +7875,7 @@
         "The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.",
         "Right or Enter goes on, Left goes back and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.",
         "A menu or popover opened during a step takes Escape first; the tour closes on the next press, before any dialog or screen.",
+        "The tour scrolls the target to the centre at once, through every scrolling ancestor, and measures the lit part on the next frame.",
         "With reduced motion the highlight and the mascot move at once and nothing fades."
       ],
       "tree": {
@@ -7882,7 +7885,7 @@
         ],
         "rule": "GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target."
       },
-      "example": "import { useMemo } from 'react';\nimport { Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';\nimport type { TourStep } from '@drizztdourden08/tessera';\n\nconst HomeTour = ({ openSettings }: { openSettings: () => void }) => {\n  const steps = useMemo<TourStep[]>(() => [\n    { id: 'welcome', title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },\n    { id: 'pages', target: { tour: 'pages' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },\n    { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear to open the settings.' },\n    { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: openSettings },\n  ], [openSettings]);\n  const tour = useGuidedTour({ steps });\n  return (\n    <>\n      <Button onClick={() => tour.start()}>Take the tour</Button>\n      <GuidedTour tour={tour} mascot=\"auto\" keep={[{ tour: 'title-bar' }]} />\n    </>\n  );\n};\n",
+      "example": "import { useMemo } from 'react';\nimport { BrandMark, Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';\nimport type { TourStep } from '@drizztdourden08/tessera';\n\nconst HomeTour = ({ openSettings }: { openSettings: () => void }) => {\n  const steps = useMemo<TourStep[]>(() => [\n    { id: 'welcome', intro: true, art: <BrandMark app=\"archipelia\" size=\"xl\" />, title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },\n    { id: 'pages', target: { tour: 'pages' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },\n    { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear to open the settings.' },\n    { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: openSettings },\n  ], [openSettings]);\n  const tour = useGuidedTour({ steps });\n  return (\n    <>\n      <Button onClick={() => tour.start()}>Take the tour</Button>\n      <GuidedTour tour={tour} mascot=\"auto\" keep={[{ tour: 'title-bar' }]} />\n    </>\n  );\n};\n",
       "propsHash": "589b0666b6230691",
       "props": {
         "own": [
@@ -7944,7 +7947,10 @@
         "--space-xs",
         "--text-base",
         "--text-sm",
+        "--text-xl",
         "--text-xs",
+        "--tour-intro-art-h",
+        "--tour-intro-w",
         "--weight-medium",
         "--z-floating",
         "--z-popover"

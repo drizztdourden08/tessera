@@ -62,6 +62,9 @@
   --field-w-inline: var(--size-256);
   --field-w-inline-min: var(--size-160);
   --stat-row-max-w: var(--size-512);
+  --tour-intro-w: var(--size-640);
+  --tour-intro-art-h: var(--size-96);
+  --tour-intro-mascot: var(--size-256);
   --settings-row-compact-h: var(--size-40);
   --settings-row-compact-control-w: var(--size-160);
 
