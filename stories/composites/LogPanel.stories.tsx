@@ -14,6 +14,7 @@ import { LOG_KINDS, LOG_ROWS, longSession } from './_samples/data-log';
 import { CHANNEL_KINDS, CHANNEL_ROWS } from './_samples/data-log-channels';
 import { SIM_KINDS, SIM_ROWS } from './_samples/data-log-kinds';
 import { LogArrivalDemo } from './_samples/LogArrivalDemo';
+import { LogInputStatesDemo } from './_samples/LogInputStatesDemo';
 import { LogSelectionDemo } from './_samples/LogSelectionDemo';
 import { LogShellDemo } from './_samples/LogShellDemo';
 import { LogTerminalDemo } from './_samples/LogTerminalDemo';
@@ -138,6 +139,8 @@ const BuildLog = { name: 'Coloured build log, streaming', render: () => <LogTerm
 
 const Shell = { name: 'Terminal with an input row', render: () => <LogShellDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
+const InputStates = { name: 'Input kept on failure, and a disabled row', render: () => <LogInputStatesDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
 const Bare = {
   name: 'Without a toolbar',
   render: () => <LogDemo {...(ARGS as LogPanelArgs)} toolbar={false} rows={LOG_ROWS} />,
@@ -209,7 +212,7 @@ const Overview = overviewStory({
     '`ansi` colours escape codes with tokens; `onInput` adds a prompt row, and [[Up]] and [[Down]] walk its history.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Arriving, NewestFirst, LineTones, Selecting, BuildLog, Shell, Bare, Heights, Kinds, Channels],
+  variants: [Filtered, LongSession, Arriving, NewestFirst, LineTones, Selecting, BuildLog, Shell, InputStates, Bare, Heights, Kinds, Channels],
   states: {
     render: renderState,
     list: [
@@ -222,4 +225,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, Kinds, LineTones, LongSession, NewestFirst, Overview, Selecting, ServerLog, Shell };
+export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, InputStates, Kinds, LineTones, LongSession, NewestFirst, Overview, Selecting, ServerLog, Shell };
