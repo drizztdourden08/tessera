@@ -7,6 +7,7 @@ interface ToolbarContextValue {
   menuSide: ToolbarMenuSide;
   layout: ToolbarShape;
   size: IconButtonSize;
+  labels: boolean;
   stop: string | undefined;
   measure: boolean;
 }

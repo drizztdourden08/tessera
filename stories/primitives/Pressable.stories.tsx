@@ -7,6 +7,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { PRESSABLE_SURFACES } from './_samples/pressable-surfaces';
 import { PressableClicks } from './_samples/PressableClicks';
+import { PressableMenu } from './_samples/PressableMenu';
 import './Pressable.stories.css';
 
 type PressableArgs = {
@@ -50,7 +51,12 @@ const Clicks = {
   render: () => <PressableClicks />,
 } satisfies StoryLiteStoryDefinition<PressableArgs>;
 
-const CODE = `import { Pressable } from '@drizztdourden08/tessera';
+const MenuKeys = {
+  name: 'Right click, Menu and Shift+F10 reach the app',
+  render: () => <PressableMenu />,
+} satisfies StoryLiteStoryDefinition<PressableArgs>;
+
+const CODE =`import { Pressable } from '@drizztdourden08/tessera';
 
 <Pressable className="save-row" onClick={() => openSave(save.id)}>
   {save.name}
@@ -63,13 +69,14 @@ const Overview = overviewStory({
     'It has no border, padding or background, and takes the font and colour of its parent.',
     'It keeps what a button does: focus, [[Enter]] and [[Space]], `disabled`, and `type="button"` by default.',
     'Use it for a menu row, a table header or a tile.',
+    '`onContextMenu` and `onKeyDown` reach the button, so right click, [[Menu]] and [[Shift+F10]] open an app menu.',
     '**It has no hover, focus or pressed look:** the class you give it draws them.',
   ],
   instead: '[Button] or [IconButton] for a standard button, or [Link] when the click goes to another page.',
   playground: Playground,
-  variants: [Surfaces, Clicks],
+  variants: [Surfaces, Clicks, MenuKeys],
   code: CODE,
 });
 
 export default meta;
-export { Clicks, Overview, Playground, Surfaces };
+export { Clicks, MenuKeys, Overview, Playground, Surfaces };

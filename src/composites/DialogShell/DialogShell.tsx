@@ -7,6 +7,7 @@ import { ScrollArea } from '../../primitives/ScrollArea';
 import { WindowHeader } from '../WindowHeader';
 import { useDialogEscape } from './behavior/useDialogEscape';
 import { useDialogFocus } from './behavior/useDialogFocus';
+import { dialogClass } from './behavior/dialog-class';
 import './DialogShell.css';
 import { type DialogShellProps } from './DialogShell.type';
 
@@ -16,7 +17,7 @@ const keepFocus = (event: MouseEvent<HTMLElement>): void => {
 
 const DialogShell = (props: DialogShellProps) => {
   const {
-    open, onClose, title, titleWrap, headerExtra, actions, className = '', dismissable = true, initialFocusRef, initialFocus = 'first', id, data, children,
+    open, onClose, title, titleWrap, headerExtra, actions, dismissable = true, initialFocusRef, initialFocus = 'first', id, data, children,
   } = props;
 
   const titleId = useId();
@@ -32,7 +33,7 @@ const DialogShell = (props: DialogShellProps) => {
           {...data}
           ref={focus.ref}
           id={id}
-          className={`dialog${className ? ` ${className}` : ''}`}
+          className={dialogClass(props)}
           role="dialog"
           aria-modal="true"
           aria-labelledby={title ? titleId : undefined}

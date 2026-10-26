@@ -4,8 +4,10 @@ import type { ReactNode } from 'react';
 import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Dialog } from '../../src/composites';
+import type { DialogSize } from '../../src/composites';
 import { Box, Button, Field, TextInput } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { DialogSizeDemo } from './_samples/DialogSizeDemo';
 
 type DialogArgs = {
   title: string;
@@ -13,6 +15,7 @@ type DialogArgs = {
   confirmLabel: string;
   cancelLabel: string;
   variant: 'default' | 'danger';
+  size: DialogSize;
   confirmDisabled: boolean;
   hideCancel: boolean;
 };
@@ -46,6 +49,7 @@ const ARGS: Partial<DialogArgs> = {
     confirmLabel: 'Start session',
     cancelLabel: 'Not yet',
     variant: 'default',
+    size: 'sm',
     confirmDisabled: false,
     hideCancel: false,
   };
@@ -57,6 +61,7 @@ const ARG_TYPES: PlaygroundArgTypes<DialogArgs> = {
     cancelLabel: { group: 'Content', control: 'text' },
     hideCancel: { group: 'Content', control: 'boolean' },
     variant: { group: 'Appearance', control: 'select', options: ['default', 'danger'] },
+    size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg'] },
     confirmDisabled: { group: 'State', control: 'boolean' },
   };
 
@@ -122,6 +127,27 @@ const WithBody = {
   ),
 } satisfies PlaygroundStory<DialogArgs>;
 
+const ShortContent = {
+  name: 'Short content',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <DialogSizeDemo kind="short" size={args.size} openLabel="Short content" title="Start the session?" />,
+} satisfies PlaygroundStory<DialogArgs>;
+
+const LongText = {
+  name: 'Long text',
+  args: { ...ARGS, size: 'md' },
+  argTypes: ARG_TYPES,
+  render: (args) => <DialogSizeDemo kind="long" size={args.size} openLabel="Long text" title="Patch notes" />,
+} satisfies PlaygroundStory<DialogArgs>;
+
+const WideContent = {
+  name: 'Wide content',
+  args: { ...ARGS, size: 'lg' },
+  argTypes: ARG_TYPES,
+  render: (args) => <DialogSizeDemo kind="wide" size={args.size} openLabel="Wide content" title="README" />,
+} satisfies PlaygroundStory<DialogArgs>;
+
 const CODE = `import { Dialog } from '@drizztdourden08/tessera';
 
 <Dialog
@@ -141,13 +167,14 @@ const Overview = overviewStory({
     'Use it to confirm an action, to acknowledge a notice, or to hold a short form in its body.',
     '`variant="danger"` turns confirm red, for an action that cannot be undone.',
     '`confirmDisabled` holds confirm until the body is valid; `hideCancel` leaves confirm alone.',
+    '`size` sm, md or lg sets the width range; the width follows the content and the body scrolls when it is tall.',
     'Focus starts on confirm, or on cancel for `danger`, so [[Enter]] never deletes by accident; [[Esc]] cancels.',
   ],
   instead: '[DialogShell] for a dialog whose body and buttons are your own.',
   playground: Playground,
-  variants: [DangerConfirm, Acknowledge, WithBody],
+  variants: [DangerConfirm, Acknowledge, WithBody, ShortContent, LongText, WideContent],
   code: CODE,
 });
 
 export default meta;
-export { Acknowledge, DangerConfirm, Overview, Playground, WithBody };
+export { Acknowledge, DangerConfirm, LongText, Overview, Playground, ShortContent, WideContent, WithBody };

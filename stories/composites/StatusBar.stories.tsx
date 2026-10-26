@@ -6,6 +6,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { pixelEditorItems, STATUS_BAR_ACTIONS, STATUS_BAR_ARGS } from './_samples/status-bar-sample';
+import { StatusBarMenus } from './_samples/StatusBarMenus';
 import type { StatusBarSampleArgs } from './_samples/status-bar-sample.type';
 import './StatusBar.stories.css';
 
@@ -42,6 +43,11 @@ const WithActions = {
   ),
 } satisfies StoryLiteStoryDefinition<StatusBarSampleArgs>;
 
+const ItemMenus = {
+  name: 'Item menus: right click, Menu or Shift+F10 on a readout gives its id',
+  render: () => <StatusBarMenus />,
+} satisfies StoryLiteStoryDefinition<StatusBarSampleArgs>;
+
 const Narrow = {
   name: 'Narrow: items drop by priority',
   render: () => (
@@ -57,8 +63,8 @@ const Overview = overviewStory({
   component: 'StatusBar',
   description: 'The thin bar at the foot of an editor window: labelled readouts such as cursor, zoom and colour.',
   points: [
-    '`items` are the readouts: a `label`, a `value`, and optionally an `icon`, a `swatch`, a `tone` and a `title`.',
-    '`align` puts an item at the start or the end; a `swatch` is a CSS colour drawn as a small chip.',
+    '`items` take a `label`, a `value`, and optionally `icon`, `tone`, `title`, `align` and `swatch` (a colour chip).',
+    '`onItemContextMenu(id, event)` fires on right click, [[Menu]] or [[Shift+F10]]; items then take focus.',
     '`priority` 1 to 3 drops an item when the bar is narrow, 3 first; items without it stay.',
     'Values use tabular numbers, so a cursor x,y does not jitter; long text ends in an ellipsis.',
     '`actions` end the bar as ghost icon buttons with a tooltip; each takes `loading` and `disabled`.',
@@ -66,9 +72,9 @@ const Overview = overviewStory({
   ],
   instead: '[StatRow] for one label and value on a line; [SaveBar] for the buttons at the foot of a form.',
   playground: Playground,
-  variants: [PixelEditor, WithActions, Narrow],
+  variants: [PixelEditor, WithActions, ItemMenus, Narrow],
   code: false,
 });
 
 export default meta;
-export { Narrow, Overview, PixelEditor, Playground, WithActions };
+export { ItemMenus, Narrow, Overview, PixelEditor, Playground, WithActions };

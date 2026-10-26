@@ -23,6 +23,8 @@ type ColorSwatchArgs = {
 
 const TUNIC_GREEN = '#38a048';
 
+const TRANSLUCENT_GREEN = '#38a04880';
+
 const TUNIC_ROW: readonly string[] = [
   '#000000', '#f8f8f8', '#f0d0a8', '#b86820', '#282828', TUNIC_GREEN, '#58d068', '#e84830',
   '#f89048', '#c02010', '#4870d8', '#88b0f8', '#d0a000', '#f8d840', '#906040', '#584028',
@@ -95,10 +97,12 @@ const Fills = {
   name: 'Fills',
   render: () => (
     <Demonstrator
-      columns={axis(['colour', 'transparent'])}
-      cell={(_row, fill) => (fill === 'transparent'
-        ? <ColorSwatch color={TUNIC_GREEN} caption="0" transparent aria-label="Palette slot 0" />
-        : <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label="Palette slot 5" />)}
+      columns={axis(['colour', 'translucent', 'transparent'])}
+      cell={(_row, fill) => {
+        if (fill === 'transparent') return <ColorSwatch color={TUNIC_GREEN} caption="0" transparent aria-label="Palette slot 0" />;
+        if (fill === 'translucent') return <ColorSwatch color={TRANSLUCENT_GREEN} caption="5" aria-label="Palette slot 5, half clear" />;
+        return <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label="Palette slot 5" />;
+      }}
     />
   ),
 } satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
@@ -119,6 +123,7 @@ const Overview = overviewStory({
     '`caption` writes a small label inside it, usually the palette index.',
     '`selected` draws a ring, and `edited` marks a value changed from its original.',
     '`transparent` swaps the fill for a checkerboard.',
+    'A `color` with alpha below 1, such as `#38a04880`, shows a checkerboard behind it.',
     '`md` and `sm` match the control heights, so a swatch lines up with the field beside it.',
   ],
   playground: Playground,

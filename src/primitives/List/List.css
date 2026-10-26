@@ -1,0 +1,40 @@
+/* @layer renderer-components @kind style */
+.list {
+  --list-indent: var(--space-lg);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin: 0;
+  padding-inline-start: var(--list-indent);
+}
+
+.list--bullets {
+  list-style: disc;
+}
+
+.list--numbers {
+  list-style: decimal;
+}
+
+.list .list--bullets {
+  list-style: circle;
+}
+
+.list-item {
+  display: list-item;
+  margin: 0;
+}
+
+.list-item::marker {
+  color: var(--c-text-dim);
+}
+
+.list-item--bare {
+  margin-inline-start: calc(var(--list-indent) * -1);
+  list-style: none;
+}
+
+.list-item > .list {
+  margin-block-start: var(--space-2xs);
+}

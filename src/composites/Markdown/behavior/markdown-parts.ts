@@ -10,6 +10,11 @@ import { MarkdownListItem } from '../sub-components/MarkdownListItem';
 import { MarkdownParagraph } from '../sub-components/MarkdownParagraph';
 import { MarkdownQuote } from '../sub-components/MarkdownQuote';
 import { MarkdownRule } from '../sub-components/MarkdownRule';
+import { MarkdownTable } from '../sub-components/MarkdownTable';
+import { MarkdownTableCell } from '../sub-components/MarkdownTableCell';
+import { MarkdownTableRow } from '../sub-components/MarkdownTableRow';
+import { MarkdownTableSection } from '../sub-components/MarkdownTableSection';
+import { MarkdownTaskBox } from '../sub-components/MarkdownTaskBox';
 
 const markdownParts: Components = {
   h1: MarkdownHeading,
@@ -25,11 +30,19 @@ const markdownParts: Components = {
   li: MarkdownListItem,
   strong: MarkdownInline,
   em: MarkdownInline,
+  del: MarkdownInline,
   code: MarkdownInline,
   a: MarkdownLink,
   pre: MarkdownCodeBlock,
   hr: MarkdownRule,
   img: MarkdownImage,
+  input: MarkdownTaskBox,
+  table: MarkdownTable,
+  thead: MarkdownTableSection,
+  tbody: MarkdownTableSection,
+  tr: MarkdownTableRow,
+  th: MarkdownTableCell,
+  td: MarkdownTableCell,
 };
 
 export { markdownParts };

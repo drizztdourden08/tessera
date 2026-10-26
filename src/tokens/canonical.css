@@ -106,6 +106,12 @@
     --blur:            var(--size-8);
     --dialog-w-sm: var(--size-384);
     --dialog-w-md: var(--size-640);
+    --dialog-w-lg: var(--size-896);
+    --dialog-min-sm: var(--size-320);
+    --dialog-min-md: var(--size-384);
+    --dialog-min-lg: var(--size-640);
+    --dialog-margin: var(--space-2xl);
+    --dialog-fit: calc(100vw - var(--dialog-margin) * 2);
     --panel-w-sm:  var(--size-224);
     --panel-w-md:  var(--size-288);
     --panel-w-lg:  var(--size-384);

@@ -15,12 +15,32 @@
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  max-width: var(--size-384);
-  width: 90%;
+  inline-size: fit-content;
+  min-inline-size: min(var(--dialog-min), var(--dialog-fit));
+  max-inline-size: min(var(--dialog-max), var(--dialog-fit));
   box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
-  max-block-size: calc(100vh - var(--space-2xl) * 2);
+  max-block-size: calc(100vh - var(--dialog-margin) * 2);
+}
+
+.dialog--sm {
+  --dialog-min: var(--dialog-min-sm);
+  --dialog-max: var(--dialog-w-sm);
+}
+
+.dialog--md {
+  --dialog-min: var(--dialog-min-md);
+  --dialog-max: var(--dialog-w-md);
+}
+
+.dialog--lg {
+  --dialog-min: var(--dialog-min-lg);
+  --dialog-max: var(--dialog-w-lg);
+}
+
+.dialog--steady {
+  inline-size: min(var(--dialog-max), var(--dialog-fit));
 }
 
 .dialog__header {

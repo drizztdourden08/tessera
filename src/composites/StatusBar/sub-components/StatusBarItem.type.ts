@@ -1,8 +1,9 @@
 /* @layer renderer-components @kind types */
-import type { StatusBarEntry } from '../StatusBar.type';
+import type { StatusBarEntry, StatusBarMenuHook } from '../StatusBar.type';
 
 interface StatusBarItemProps {
   item: StatusBarEntry;
+  onContextMenu?: StatusBarMenuHook;
 }
 
 export type { StatusBarItemProps };

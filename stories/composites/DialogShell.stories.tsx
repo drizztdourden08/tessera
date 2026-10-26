@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DialogShell } from '../../src/composites';
+import type { DialogSize } from '../../src/composites';
 import { Box, Button, Spinner, StatRow, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 
@@ -11,6 +12,8 @@ type DialogShellArgs = {
   dismissable: boolean;
   withActions: boolean;
   withHeaderExtra: boolean;
+  size: DialogSize;
+  steady: boolean;
 };
 
 type ShellDemoProps = DialogShellArgs & { openLabel: string; waiting?: boolean; tall?: boolean };
@@ -40,7 +43,7 @@ const Waiting = () => (
 );
 
 const ShellDemo = (props: ShellDemoProps) => {
-  const { title, dismissable, withActions, withHeaderExtra, openLabel, waiting = false, tall = false } = props;
+  const { title, dismissable, withActions, withHeaderExtra, size, steady, openLabel, waiting = false, tall = false } = props;
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   const actions = withActions
@@ -61,6 +64,8 @@ const ShellDemo = (props: ShellDemoProps) => {
         onClose={close}
         title={title}
         dismissable={dismissable}
+        size={size}
+        steady={steady}
         actions={actions}
         headerExtra={withHeaderExtra ? <Status tone="success">Live</Status> : undefined}
       >
@@ -70,12 +75,14 @@ const ShellDemo = (props: ShellDemoProps) => {
   );
 };
 
-const ARGS: Partial<DialogShellArgs> = { title: 'Friday async', dismissable: true, withActions: true, withHeaderExtra: false };
+const ARGS: Partial<DialogShellArgs> = { title: 'Friday async', dismissable: true, withActions: true, withHeaderExtra: false, size: 'sm', steady: false };
 
 const ARG_TYPES: PlaygroundArgTypes<DialogShellArgs> = {
     title: { group: 'Content', control: 'text' },
     withActions: { group: 'Content', control: 'boolean' },
     withHeaderExtra: { group: 'Content', control: 'boolean' },
+    size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg'] },
+    steady: { group: 'Appearance', control: 'boolean' },
     dismissable: { group: 'Behaviour', control: 'boolean' },
   };
 
@@ -129,11 +136,11 @@ const Overview = overviewStory({
   component: 'DialogShell',
   description: 'The frame every modal is built in: a backdrop, a panel with a header and close button, a body and a row of actions.',
   points: [
-    'Pass your own body as children and your buttons as `actions`.',
+    'Pass your own body as `children` and your buttons as `actions`; only the body scrolls.',
     'It closes on [[Esc]], on the close button and on a click on the backdrop.',
-    'Focus moves in on open: `initialFocusRef`, else the first control of the body, or the panel itself.',
+    'Focus moves in on open: `initialFocusRef`, else the first control, or the panel with `initialFocus="dialog"`.',
     '[[Tab]] and [[Shift+Tab]] stay inside, and on close focus returns to the control that opened it.',
-    '`initialFocus="dialog"` starts on the panel; `headerExtra` adds to the header; `titleWrap` wraps a long title.',
+    '`size` (sm, md, lg) sets the width range; `steady` pins the width. `headerExtra` adds to the header.',
     '**Set `dismissable` to false while a save runs:** then only its own `actions` can close it.',
   ],
   instead: '[Dialog] for one question with confirm and cancel.',

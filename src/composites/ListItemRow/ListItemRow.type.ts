@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 
 type ListItemRowRole = 'listitem' | 'row';
@@ -29,6 +29,8 @@ interface ListItemRowProps {
   tabIndex?: number;
   onClick?: () => void;
   onDoubleClick?: () => void;
+  onContextMenu?: (event: MouseEvent<HTMLElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLElement>) => void;
   role?: ListItemRowRole;
   data?: DataAttributes;
   className?: string;

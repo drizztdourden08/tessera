@@ -23,7 +23,7 @@ A status, details and actions in a compact window.
 
 ## Use something else when
 
-- The user answers one question and nothing runs. Use `Dialog` instead.
+- The user answers one question and nothing runs. Use [Dialog](Dialog.md) instead.
 - The screen holds settings or several pages. Use [WorkspaceScreen](WorkspaceScreen.md) instead.
 - The screen is read, such as About or credits. Use [InfoScreen](InfoScreen.md) instead.
 - The screen is one big custom surface. Use [StageScreen](StageScreen.md) instead.
