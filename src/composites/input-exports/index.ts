@@ -18,4 +18,5 @@ export { SaveBar, type SaveBarProps, type SaveBarState } from '../SaveBar';
 export { CommandInput, type CommandEntry, type CommandInputProps, type CommandOption, type CommandSubmit } from '../CommandInput';
 export { PasswordInput, type PasswordInputProps, type PasswordMode, type PasswordRule, type PasswordScore, type PasswordStrength, type PasswordStrengthLevel } from '../PasswordInput';
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from '../TagInput';
-export { PathInput, type PathBrowse, type PathInputProps, type PathKind } from '../PathInput';
+export { MarkdownEditor, type MarkdownEditorActionId, type MarkdownEditorLayout, type MarkdownEditorProps } from '../MarkdownEditor';
+export { PathInput,type PathBrowse, type PathInputProps, type PathKind } from '../PathInput';

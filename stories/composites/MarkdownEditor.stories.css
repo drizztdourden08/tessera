@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.markdown-editor-story__frame {
+  inline-size: 100%;
+  max-inline-size: var(--size-896);
+}
