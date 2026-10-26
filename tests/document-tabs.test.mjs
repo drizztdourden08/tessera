@@ -68,6 +68,14 @@ describe('DocumentTabs', () => {
     expect(html.match(/Unsaved changes/g)).toHaveLength(1);
   });
 
+  it('keeps both the dot and the close button in an unsaved tab', () => {
+    const html = draw({ tabs: [{ id: 'tiles', title: 'tiles.bxl', unsaved: true }] });
+    const slot = html.slice(html.indexOf('document-tabs__closes'));
+    expect(slot).toContain('document-tabs__dot');
+    expect(slot).toContain('aria-label="Close tiles.bxl"');
+    expect(slot.indexOf('document-tabs__dot')).toBeLessThan(slot.indexOf('aria-label="Close tiles.bxl"'));
+  });
+
   it('names the keys on the tablist and describes them for screen readers', () => {
     const html = draw();
     expect(html).toContain('aria-keyshortcuts="Alt+ArrowLeft Alt+ArrowRight Delete Control+W"');
