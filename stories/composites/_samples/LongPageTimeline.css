@@ -1,0 +1,23 @@
+/* @layer stories @kind style */
+.long-page {
+  display: grid;
+  grid-template-columns: var(--size-192) 1fr;
+  gap: var(--space-xl);
+  inline-size: var(--size-768);
+  max-inline-size: 100%;
+  block-size: var(--size-448);
+}
+
+.long-page__timeline {
+  align-self: start;
+  margin-block-start: var(--space-md);
+}
+
+.long-page__scroll {
+  min-block-size: 0;
+}
+
+.long-page__section {
+  min-block-size: var(--size-224);
+  padding-block: var(--space-lg);
+}
