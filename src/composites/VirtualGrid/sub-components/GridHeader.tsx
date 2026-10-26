@@ -4,9 +4,9 @@ import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { Text } from '../../../primitives/Text';
 import { Span } from '../../../primitives/text-elements';
-import { ActionBar } from '../../ActionBar';
+import { IconActions } from '../../ActionBar/sub-components/IconActions';
 import { headerToggle } from '../behavior/header-toggle';
-import { CELL_ATTRIBUTE, DEPTH_PROPERTY, HEADER_ACTIONS_KEEP, KIND_ATTRIBUTE } from '../VirtualGrid.constants';
+import { CELL_ATTRIBUTE, DEPTH_PROPERTY, KIND_ATTRIBUTE } from '../VirtualGrid.constants';
 import type { CSSProperties, KeyboardEvent } from 'react';
 import type { GridHeaderProps } from './GridHeader.type';
 import '../../../theme/focus-ring.css';
@@ -23,7 +23,6 @@ const GridHeader = (props: GridHeaderProps) => {
     onToggle(next);
   };
   const indent = { [DEPTH_PROPERTY]: Math.max(0, depth) } as CSSProperties;
-  const icons =actions.map((action) => ({ ...action, iconOnly: true as const }));
   return (
     <Box
       role="gridcell"
@@ -41,11 +40,7 @@ const GridHeader = (props: GridHeaderProps) => {
       <Span tone="dim" className="virtual-grid__chevron"><Icon name={collapsed ? 'chevron-right' : 'chevron-down'} /></Span>
       <Text className="virtual-grid__header-label">{label}</Text>
       <Badge variant="inline" color="primary" value={count} />
-      {icons.length > 0 && (
-        <Box className="virtual-grid__header-actions" onClick={(event) => event.stopPropagation()}>
-          <ActionBar actions={icons} size="sm" keep={HEADER_ACTIONS_KEEP} align="end" />
-        </Box>
-      )}
+      <IconActions actions={actions} className="virtual-grid__header-actions" />
     </Box>
   );
 };

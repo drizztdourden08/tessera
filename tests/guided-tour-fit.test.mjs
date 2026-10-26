@@ -27,8 +27,8 @@ describe('Anchored on the left and centred beside its anchor', () => {
   it('anchors the native popup to the left edge and flips across first', () => {
     const css = read('../src/primitives/Anchored/Anchored.css');
     expect(css).toContain(".anchored[data-anchor-place^='left'] {\n  right: anchor(left);\n  left: auto;");
-    expect(css).toContain(".anchored[data-flip][data-anchor-place^='left'] {\n  position-try-fallbacks: flip-inline");
-    expect(css).toContain(".anchored-fallback[data-anchor-place='left-center'] {\n  translate: 0 -50%;");
+    expect(css).toContain(".anchored[data-flip][data-anchor-place^='left'] {\n  position-try-fallbacks: flip-inline,");
+    expect(css).toContain(".anchored-fallback[data-anchor-place='left-center'] {\n  translate: var(--anchored-shift-x, 0%) calc(-50% + var(--anchored-shift-y, 0%));");
   });
 });
 

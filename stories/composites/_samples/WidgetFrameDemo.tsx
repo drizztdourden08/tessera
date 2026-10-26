@@ -10,6 +10,7 @@ import { useWidgetOptionsDemo } from './useWidgetOptionsDemo';
 
 type WidgetFrameDemoProps = {
   tabbed: boolean;
+  icons?: boolean;
   mode: 'in' | 'out';
   peek: boolean;
   opacity: number;
@@ -27,13 +28,13 @@ const offOf = (props: WidgetFrameDemoProps): string | boolean | undefined =>
   (props.disabled === true ? props.disabledMessage ?? true : undefined);
 
 const WidgetFrameDemo = (props: WidgetFrameDemoProps) => {
-  const { tabbed, mode, peek, opacity, canPopOut, square = false, titleBarActions = false, dragRegion = false, optionsOpen = false } = props;
+  const { tabbed, icons = false, mode, peek, opacity, canPopOut, square = false, titleBarActions = false, dragRegion = false, optionsOpen = false } = props;
   const [active, setActive] = useState('hints');
   const [settings, setSettings] = useState('');
   const [closed, setClosed] = useState(false);
   const spoilers = useSpoilerAction(titleBarActions);
   const { panel, summary } = useWidgetOptionsDemo(mode === 'out' ? 'popped' : 'docked', opacity);
-  const view = frameTabs(tabbed, active);
+  const view = frameTabs(tabbed, active, icons);
 
   if (closed) {
     return (

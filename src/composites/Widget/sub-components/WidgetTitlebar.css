@@ -71,6 +71,11 @@
   touch-action: none;
 }
 
+.widget__btn {
+  min-inline-size: var(--hit-area-min);
+  min-block-size: var(--hit-area-min);
+}
+
 .widget__grip:active {
   cursor: grabbing;
 }
@@ -79,4 +84,15 @@
   .widget--chrome-none .widget__titlebar {
     transition: none;
   }
+}
+
+.widget__icon {
+  flex-shrink: 0;
+  margin-inline-end: var(--space-2xs);
+  vertical-align: middle;
+}
+
+.widget--chrome-compact .widget__icon {
+  inline-size: var(--widget-title-compact-font);
+  block-size: var(--widget-title-compact-font);
 }

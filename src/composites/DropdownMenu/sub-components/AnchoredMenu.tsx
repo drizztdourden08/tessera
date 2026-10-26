@@ -4,6 +4,7 @@ import { Anchored } from '../../../primitives/Anchored';
 import { Floating } from '../../../primitives/Floating';
 import { useDismissListeners } from '../../../primitives/Portal';
 import { closeMenu } from '../behavior/close-menu';
+import { menuClasses } from '../behavior/menu-classes';
 import { menuLookClass } from '../behavior/menu-look-class';
 import { menuStart } from '../behavior/menu-start';
 import { tidyGroups } from '../behavior/tidy-groups';
@@ -36,8 +37,7 @@ const AnchoredMenu = (props: AnchoredMenuProps) => {
       onClose={() => closeMenu(onClose, anchor.current)}
     />
   );
-  const classes = ['dropdown-menu', 'dropdown-surface', look, inline && 'dropdown-menu--inline', className]
-    .filter(Boolean).join(' ');
+  const classes = menuClasses(look, inline, className);
 
   if (inline) return <Floating ref={menuRef} className={classes}>{body}</Floating>;
   return (

@@ -2,11 +2,11 @@
 import { useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { useHoverOpen } from '../../DropdownMenu/behavior/useHoverOpen';
-import { OPEN_KEY } from '../Toolbar.constants';
+import { toolOpenKey } from './tool-open-key';
 import type { ToolMenu, ToolMenuMode, ToolMenuParams } from './useToolMenu.type';
 
 const useToolMenu = (params: ToolMenuParams): ToolMenu => {
-  const { anchorRef, enabled, hoverOpen, disabled, orientation } = params;
+  const { anchorRef, enabled, hoverOpen, disabled, orientation, menuSide } = params;
   const [mode, setMode] = useState<ToolMenuMode>('closed');
   const open = enabled && mode !== 'closed';
   const close = (): void => setMode('closed');
@@ -19,7 +19,7 @@ const useToolMenu = (params: ToolMenuParams): ToolMenu => {
     onClose: close,
   });
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>): void => {
-    if (!enabled || event.key !== OPEN_KEY[orientation]) return;
+    if (!enabled || event.key !== toolOpenKey(orientation, menuSide)) return;
     event.preventDefault();
     event.stopPropagation();
     setMode('focus');

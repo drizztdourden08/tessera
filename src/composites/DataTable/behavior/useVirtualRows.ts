@@ -17,7 +17,7 @@ const useVirtualRows = <T,>(input: UseVirtualRowsInput<T>): VirtualRows<T> => {
   const keyAt = useCallback((index: number) => items[index]?.key, [items]);
   const slice = useVirtualWindow({ enabled, count: items.length, keyAt, rootRef, indexAttribute: INDEX_ATTRIBUTE });
 
-  return { items, indices: slice.indices, bodyRef: slice.bodyRef, onScroll: slice.onScroll, onFocus: slice.onFocus, onBlur: slice.onBlur };
+  return { items, indices: slice.indices, metrics: slice.metrics, bodyRef: slice.bodyRef, onScroll: slice.onScroll, onFocus: slice.onFocus, onBlur: slice.onBlur };
 };
 
 export { useVirtualRows };

@@ -8,10 +8,10 @@
 }
 
 .document-tabs__end {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-2xs);
   flex: none;
 }
 
@@ -20,11 +20,9 @@
 }
 
 .document-tabs__dot {
-  position: absolute;
-  inset: 0;
+  flex: none;
   inline-size: var(--size-8);
   block-size: var(--size-8);
-  margin: auto;
   border-radius: var(--radius-round);
   background: var(--c-warning);
   pointer-events: none;
@@ -32,8 +30,4 @@
 
 .document-tabs__slot[data-unsaved='yes']:not([data-hot='yes']) .document-tabs__close {
   opacity: 0;
-}
-
-.document-tabs__slot[data-unsaved='yes'][data-hot='yes'] .document-tabs__dot {
-  display: none;
 }

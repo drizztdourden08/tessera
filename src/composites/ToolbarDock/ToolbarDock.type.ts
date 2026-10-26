@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { DockEdge } from '../DockLayout';
-import type { ToolbarHandleProps, ToolbarOrientation } from '../Toolbar/Toolbar.type';
+import type { ToolbarHandleProps, ToolbarMenuSide, ToolbarOrientation } from '../Toolbar/Toolbar.type';
 
 type ToolbarSide = DockEdge;
 
@@ -43,6 +43,7 @@ interface ToolbarSlot {
   orientation: ToolbarOrientation;
   handle: ToolbarDockHandle;
   side: ToolbarSide;
+  menuSide: ToolbarMenuSide;
 }
 
 interface ToolbarDockProps {

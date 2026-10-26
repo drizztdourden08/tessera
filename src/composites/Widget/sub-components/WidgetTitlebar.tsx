@@ -3,9 +3,11 @@ import { Box } from '../../../primitives/Box';
 import { APP_REGION_ATTRIBUTE } from '../../../primitives/dom/app-region.constants';
 import { Span } from '../../../primitives/text-elements';
 import { widgetChrome } from '../behavior/widget-chrome';
+import { widgetIcon } from '../behavior/widget-icon';
 import { widgetName } from '../behavior/widget-name';
 import { WidgetActions } from './WidgetActions';
 import { WidgetGrip } from './WidgetGrip';
+import { WidgetIcon } from './WidgetIcon';
 import { WidgetTabChip } from './WidgetTabChip';
 import type { WidgetTitlebarProps } from './WidgetTitlebar.type';
 import '../../../theme/visually-hidden.css';
@@ -21,7 +23,7 @@ const WidgetTitlebar = (props: WidgetTitlebarProps) => {
       {tabs.map((tab) => <WidgetTabChip key={tab.id} tab={tab} active={tab.id === activeId} onActivate={onActivateTab} />)}
     </Box>
   ) : (
-    <Span id={titleId} className={bare ? 'widget__title visually-hidden' : 'widget__title'}>{label}</Span>
+    <Span id={titleId} className={bare ? 'widget__title visually-hidden' : 'widget__title'}><WidgetIcon name={widgetIcon(props)} />{label}</Span>
   );
 
   return (

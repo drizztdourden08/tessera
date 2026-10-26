@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback } from 'react';
-import { bodyOrigin } from './body-origin';
+import { bodyOrigin } from '../../virtual/body-origin';
 import { gridRects } from './grid-rects';
 import type { MarqueeItem } from '../../marquee';
 import type { GridRectsInput } from './useGridRects.type';

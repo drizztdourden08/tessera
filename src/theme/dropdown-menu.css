@@ -2,6 +2,7 @@
 .dropdown-menu {
   position: fixed;
   min-width: var(--size-160);
+  max-inline-size: min(var(--size-448), 100vw - 2 * var(--space-xs));
   background: var(--c-surface);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
@@ -50,7 +51,7 @@
 
 .dropdown-menu[data-anchored] {
   max-block-size: stretch;
-  overflow-y: auto;
+  overflow: hidden auto;
   position-try-order: most-height;
 }
 

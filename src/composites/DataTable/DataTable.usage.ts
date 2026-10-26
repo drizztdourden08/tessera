@@ -18,11 +18,17 @@ const usage = {
     'Keep the rows in the app and pass them whole; from virtualizeFrom rows, 200 by default, the table draws only the rows in view.',
     'Set virtualizeFrom lower for rows that are costly to draw, or to Infinity to draw every row.',
     'Pass selectable with selectedIds and onSelectionChange to pick many rows; the app keeps the selection.',
+    'Pass groupActions(groupKey, rows) to draw icon buttons at the end of a group header, as the same action list as an ItemCard; rows holds every row of the group, collapsed or not, so select all in this folder needs no lookup.',
+    'Pass onRowMove(fromKey, target) to add a grip cell; the user drags the grip or presses Up or Down on it. target is index, the new place among the rows shown, beforeKey and afterKey, the rows the drop lands before and after, and groupKey, the group it lands in, none when ungrouped; use the keys and groupKey for grouped data, since a shown index does not map to it. A drop in another group arrives even when the order of the rows is unchanged.',
+    'Pass rowDragData(row) to make rows draggable to a drop target of the app; each entry of the record is written to the dataTransfer by type, and the app decides what a drop means.',
+    'Give ref and call getRects() for a rect of every row from the layout, drawn or not, with the rows of collapsed groups left out, for useMarqueeSelect({ getRects }); pass scrollRef, bind and overlay as on VirtualGrid.',
   ],
   a11y: [
     'The table is a grid of rows and cells; a selectable table is multiselectable and each row carries aria-selected.',
     'Ctrl and Shift click extend the selection and Escape clears it, from the grid or from a checkbox.',
     'A group header is a button that says whether the group is expanded.',
+    'A group action is a button named by its label, after the group button in the tab order, and a click on it does not toggle the group.',
+    'The grip of a row is a button; Up and Down move the row by one place, focus stays on the grip, and a polite live region says where the row went.',
     'A checkbox in a row that scrolls out of view stays drawn while it has focus, so the keys keep working.',
   ],
   tree: {
@@ -56,7 +62,7 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
   />
 );
 `,
-  propsHash: 'b530ba3e884ee0cf',
+  propsHash: '2ab8699956391b2f',
 } satisfies ComponentUsage;
 
 export { usage };

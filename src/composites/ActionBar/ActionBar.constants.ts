@@ -17,8 +17,10 @@ const ICON_KIND_VARIANT: Readonly<Record<ActionKind, IconButtonVariant>> = {
 
 const FIT_SLACK = 1;
 
+const ICON_ACTIONS_KEEP = 3;
+
 const MORE_CLASS = 'action-bar__more';
 
 const ACTION_ID_ATTRIBUTE = 'data-action-id';
 
-export { ACTION_ID_ATTRIBUTE, FIT_SLACK, ICON_KIND_VARIANT, KIND_VARIANT, MORE_CLASS };
+export { ACTION_ID_ATTRIBUTE, FIT_SLACK, ICON_ACTIONS_KEEP, ICON_KIND_VARIANT, KIND_VARIANT, MORE_CLASS };

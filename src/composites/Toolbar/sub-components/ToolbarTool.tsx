@@ -10,11 +10,11 @@ import { ToolbarToolMenu } from './ToolbarToolMenu';
 import type { ToolbarToolProps } from './ToolbarTool.type';
 
 const ToolbarTool = (props: ToolbarToolProps) => {
-  const { orientation, layout, measure } = useContext(ToolbarContext);
+  const { orientation, menuSide, layout, measure } = useContext(ToolbarContext);
   const anchorRef = useRef<HTMLButtonElement>(null);
   const options = props.options ?? [];
   const menu = !measure && options.length > 0;
-  const tool = useToolMenu({ anchorRef, enabled: menu, hoverOpen: props.hoverOpen === true, disabled: props.disabled, orientation });
+  const tool = useToolMenu({ anchorRef, enabled: menu, hoverOpen: props.hoverOpen === true, disabled: props.disabled, orientation, menuSide });
   const button = <ToolbarToolButton {...toolButtonProps(props, tool, menu)} anchorRef={anchorRef} />;
 
   return (
