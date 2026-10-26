@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": minor
+---
+
+Markdown now takes `images` to draw http, https or rewritten images and `linkIds` to turn ids such as T-5 into links in text, and it keeps links that start with a slash as app paths when `onLink` is passed. MarkdownEditor now continues, indents and ends lists with Enter, Tab, Shift+Tab and Backspace, and turns `- []` into a task item. Everything stays off or unchanged for existing users.

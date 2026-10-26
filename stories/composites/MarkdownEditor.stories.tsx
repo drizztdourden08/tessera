@@ -5,6 +5,7 @@ import type { MarkdownEditorLayout } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import { LONG_NOTE, RELEASE_NOTE } from './_samples/markdown-notes.constants';
 import { MarkdownEditorDemo } from './_samples/MarkdownEditorDemo';
+import { MarkdownListKeysDemo } from './_samples/MarkdownListKeysDemo';
 import './MarkdownEditor.stories.css';
 
 type MarkdownEditorArgs = {
@@ -58,6 +59,11 @@ const Keys = {
   render: () => <MarkdownEditorDemo initial="" layout="tabs" rows={4} keys />,
 } satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
 
+const ListKeys = {
+  name: 'Enter continues a list, Tab indents it',
+  render: () => <MarkdownListKeysDemo />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
 const CODE = `import { useState } from 'react';
 import { MarkdownEditor } from '@drizztdourden08/tessera';
 
@@ -73,16 +79,16 @@ const Overview = overviewStory({
   points: [
     'The text is controlled with `value` and `onChange`, like any other field, with `label`, `hint` and `error`.',
     'The toolbar wraps the selection or prefixes its lines, and pressing a button again removes the mark.',
-    'Mod+B, Mod+I and Mod+K work in the field and are shown in each tooltip; Undo keeps working.',
+    'Mod+B, Mod+I and Mod+K work in the field; Enter, Tab and Backspace carry a list on; Undo keeps working.',
     '`onSubmit` takes Mod+Enter, and `onEscape` takes Escape unless a menu or popover is open.',
     '`maxLength` limits the text and shows a counter in the last 10 percent of the limit.',
     '`layout` is split or tabs, and `onLink` takes every link click in the preview.',
   ],
   instead: '[Textarea] for plain text, or [Markdown] to only show a Markdown text.',
   playground: Playground,
-  variants: [Split, Tabs, LongDocument, Limited, Keys],
+  variants: [Split, Tabs, LongDocument, Limited, Keys, ListKeys],
   code: CODE,
 });
 
 export default meta;
-export { Keys, Limited, LongDocument, Overview, Playground, Split, Tabs };
+export { Keys, Limited, ListKeys, LongDocument, Overview, Playground, Split, Tabs };
