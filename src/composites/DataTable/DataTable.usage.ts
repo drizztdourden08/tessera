@@ -15,6 +15,7 @@ const usage = {
   rules: [
     'Give it rows, a schema and getRowId; the columns come from the schema, and viewKey keeps the layout between visits.',
     'Pass fallbackGroupBy to open grouped, and defaultExpanded, a list of group keys or a function of the key and its field, to choose the groups that start open; leave it out to open them all.',
+    'Set a unit on a number field, or units in the schema config, to write 12.4 MB in the cell; sort, group and filter still read the number.',
     'Keep the rows in the app and pass them whole; from virtualizeFrom rows, 200 by default, the table draws only the rows in view.',
     'Set virtualizeFrom lower for rows that are costly to draw, or to Infinity to draw every row.',
     'Pass selectable with selectedIds and onSelectionChange to pick many rows; the app keeps the selection.',
@@ -22,6 +23,7 @@ const usage = {
     'Pass onRowMove(fromKey, target) to add a grip cell; the user drags the grip or presses Up or Down on it. target is index, the new place among the rows shown, beforeKey and afterKey, the rows the drop lands before and after, and groupKey, the group it lands in, none when ungrouped; use the keys and groupKey for grouped data, since a shown index does not map to it. A drop in another group arrives even when the order of the rows is unchanged.',
     'Pass rowDragData(row) to make rows draggable to a drop target of the app; each entry of the record is written to the dataTransfer by type, and the app decides what a drop means.',
     'Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.',
+    'A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.',
     'Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.',
     'Pass rowState(row) to mark a row active, pending, error or muted; the row shows it as an edge, a tint or a lower contrast, and a selected row keeps the selection background.',
     'Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.',

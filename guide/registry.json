@@ -6670,6 +6670,7 @@
       "rules": [
         "Give it rows, a schema and getRowId; the columns come from the schema, and viewKey keeps the layout between visits.",
         "Pass fallbackGroupBy to open grouped, and defaultExpanded, a list of group keys or a function of the key and its field, to choose the groups that start open; leave it out to open them all.",
+        "Set a unit on a number field, or units in the schema config, to write 12.4 MB in the cell; sort, group and filter still read the number.",
         "Keep the rows in the app and pass them whole; from virtualizeFrom rows, 200 by default, the table draws only the rows in view.",
         "Set virtualizeFrom lower for rows that are costly to draw, or to Infinity to draw every row.",
         "Pass selectable with selectedIds and onSelectionChange to pick many rows; the app keeps the selection.",
@@ -6677,6 +6678,7 @@
         "Pass onRowMove(fromKey, target) to add a grip cell; the user drags the grip or presses Up or Down on it. target is index, the new place among the rows shown, beforeKey and afterKey, the rows the drop lands before and after, and groupKey, the group it lands in, none when ungrouped; use the keys and groupKey for grouped data, since a shown index does not map to it. A drop in another group arrives even when the order of the rows is unchanged.",
         "Pass rowDragData(row) to make rows draggable to a drop target of the app; each entry of the record is written to the dataTransfer by type, and the app decides what a drop means.",
         "Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.",
+        "A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.",
         "Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.",
         "Pass rowState(row) to mark a row active, pending, error or muted; the row shows it as an edge, a tint or a lower contrast, and a selected row keeps the selection background.",
         "Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.",
@@ -10566,6 +10568,7 @@
       "rules": [
         "Give each row a stable id: the window, the new line behaviour and the selection all follow it.",
         "Pass kinds with a tone per type: a text tone, a tag tint such as teal, or an app hex colour, lifted until it reads.",
+        "A line takes the tone of its kind; set tone on one row to colour that line alone, with or without a kind.",
         "Set toneMessage to colour the message in the same tone, as for errors, or to a tone of its own, such as dim.",
         "Set strong on a kind whose messages mark a step, such as a session that starts, and uppercase to set them in capitals.",
         "Pass selectedIds with onSelectionChange to let the user pick rows; the app holds the set and copies or acts on it.",
@@ -10573,6 +10576,7 @@
         "Set ansi for lines that carry colour codes, such as a build or process output; other escape codes are stripped, never drawn.",
         "ansi draws the sixteen colours, bold, dim, italic and underline; 256 and true colour map to the nearest of the sixteen.",
         "Follow is on: the view stays at the end while lines arrive, and a scroll up stops it until Jump to bottom is pressed.",
+        "Set order=\"newest-first\" to show the latest line at the top; follow then sticks to the top and Jump to top returns to it.",
         "Set follow={false} to leave the view where the reader put it; set onInput to add a prompt row for a process that reads lines.",
         "onInput gets each line on Enter; Up and Down walk the lines sent. Echo the line back as a row yourself.",
         "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels."
@@ -10591,7 +10595,7 @@
         "rule": "LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick."
       },
       "example": "import { Button, LogPanel } from '@drizztdourden08/tessera';\nimport type { LogRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lines: readonly LogRow[]) => void }) => {\n  const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());\n  const picked = rows.filter((row) => selected.has(row.id));\n  return (\n    <LogPanel\n      rows={rows}\n      kinds={[{ id: 'error', label: 'Errors', tone: 'danger', toneMessage: true }]}\n      selectedIds={selected}\n      onSelectionChange={setSelected}\n      toolbarExtra={<Button size=\"sm\" disabled={picked.length === 0} onClick={() => onReport(picked)}>Report these lines</Button>}\n      height=\"fill\"\n    />\n  );\n};\n",
-      "propsHash": "ba48bdccfdf4e5e8",
+      "propsHash": "09e92fb9f65198f5",
       "props": {
         "own": [
           {
@@ -10675,6 +10679,15 @@
             "name": "follow",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "order",
+            "optional": true,
+            "text": "LogOrder",
+            "literals": [
+              "'oldest-first'",
+              "'newest-first'"
+            ]
           },
           {
             "name": "onInput",

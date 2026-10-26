@@ -4,6 +4,11 @@
   max-inline-size: 48rem;
 }
 
+.list-item-row-story__scroll {
+  max-block-size: var(--size-320);
+  overflow-y: auto;
+}
+
 .list-item-row-story__inset {
   display: flex;
   flex-wrap: wrap;

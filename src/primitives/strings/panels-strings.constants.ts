@@ -8,6 +8,7 @@ const PANEL_STRINGS = {
   olderHidden: (count: number) => `${count} earlier rows hidden`,
   newest: 'Newest',
   jumpToBottom: 'Jump to bottom',
+  jumpToTop: 'Jump to top',
   logInput: 'Send a line to the process',
   logKind: 'Type',
   logTag: 'Tag',

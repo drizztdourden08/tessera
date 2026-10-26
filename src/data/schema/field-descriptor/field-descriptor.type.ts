@@ -35,6 +35,7 @@ interface FieldDescriptor {
   group?: string;
   hidden?: boolean;
   format?: NumberFormat;
+  unit?: string;
   date?: DateFormat;
 }
 
@@ -52,6 +53,7 @@ interface SchemaConfig {
   kinds?: Record<string, FieldKind>;
   idPattern?: RegExp;
   formats?: Record<string, NumberFormat>;
+  units?: Record<string, string>;
   dates?: Record<string, DateFormat>;
   options?: Record<string, readonly SchemaOption[]>;
   defaultColumns?: readonly string[];

@@ -52,6 +52,13 @@ const LONG_ROWS = longSession(1500);
 const NO_ROWS: LogRow[] = [];
 const PROBLEMS: readonly FilterClause[] = [createClause('kind', 'anyOf', ['Errors', 'Hints'])];
 
+const TONED_ROWS: readonly LogRow[] = [
+  { id: 'tone-1', gutter: '19:30:01', tag: 'JOIN', kind: 'join', message: 'Wren joined slot 1' },
+  { id: 'tone-2', gutter: '19:30:09', tag: 'ITEM', kind: 'item', message: 'Disk usage is above 80 percent', tone: 'warning' },
+  { id: 'tone-3', gutter: '19:30:15', tag: 'JOIN', kind: 'join', message: 'Tavi joined slot 3, the connection is unstable', tone: 'danger' },
+  { id: 'tone-4', gutter: '19:30:20', tag: 'ITEM', kind: 'item', message: 'Backup finished', tone: 'success' },
+];
+
 const ARGS: Partial<LogPanelArgs> = { toolbar: true, countLabel: 'lines', emptyLabel: 'The server has not said anything yet.' };
 
 const ARG_TYPES: PlaygroundArgTypes<LogPanelArgs> = {
@@ -93,6 +100,26 @@ const Arriving = {
     <Box className="story-column">
       <Text className="story-label">A line arrives every 0.7 s; each one shows below the last, and past 400 the oldest go behind Load older.</Text>
       <LogArrivalDemo />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const NewestFirst = {
+  name: 'Newest first, following the top',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">A line arrives every 0.7 s and lands at the top; scroll down to stop following, and Jump to top to follow again.</Text>
+      <LogArrivalDemo order="newest-first" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const LineTones = {
+  name: 'A tone on a single line, with or without a kind',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">The warning line has no kind tone of its own; the danger line overrides the tone of its kind.</Text>
+      <LogPanel rows={TONED_ROWS} kinds={LOG_KINDS} height={200} toolbar={false} className="server-log" />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
@@ -174,15 +201,15 @@ const Overview = overviewStory({
   component: 'LogPanel',
   description: 'A running log, such as a server log or a simulation trace, in one framed box with a filter toolbar.',
   points: [
-    'Each of the `rows` has a gutter, a tag, a `kind` and a message; `indent` nests it under a guide.',
+    'Each row has a gutter, a tag, a `kind` and a message; `indent` nests it and `tone` colours one line.',
     'The toolbar is a [FilterBar]: search, filters on type, tag or message, a line count and Copy all.',
     '`kinds` give each type a `tone`, tint or hex colour; `toneMessage`, `strong` and `uppercase` set the message.',
-    'Only the newest lines are mounted; the end stays in view until a scroll up, then a button returns to it.',
+    'Only the newest lines are mounted; `order` picks the end that stays in view, and a button returns to it.',
     '`selectedIds` with `onSelectionChange` picks rows: a click, [[Shift]] and a click, [[Up]] and [[Down]].',
     '`ansi` colours escape codes with tokens; `onInput` adds a prompt row, and [[Up]] and [[Down]] walk its history.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Arriving, Selecting, BuildLog, Shell, Bare, Heights, Kinds, Channels],
+  variants: [Filtered, LongSession, Arriving, NewestFirst, LineTones, Selecting, BuildLog, Shell, Bare, Heights, Kinds, Channels],
   states: {
     render: renderState,
     list: [
@@ -195,4 +222,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, Kinds, LongSession, Overview, Selecting, ServerLog, Shell };
+export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, Kinds, LineTones, LongSession, NewestFirst, Overview, Selecting, ServerLog, Shell };

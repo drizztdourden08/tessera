@@ -16,7 +16,7 @@ const LogPanel = (props: LogPanelProps) => {
   const { panels } = useTesseraStrings();
   const {
     rows, kinds, className, toolbar = true, ansi, onInput, prompt,
-    countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height, selectedIds, onSelectionChange, follow,
+    countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height, selectedIds, onSelectionChange, follow, order,
   } = props;
   const copyText = defaultCopy(props);
   const filter = useLogFilter(props);
@@ -40,6 +40,7 @@ const LogPanel = (props: LogPanelProps) => {
             onSelectionChange={onSelectionChange}
             ansi={ansi}
             follow={follow}
+            order={order}
             terminal={ansi === true || onInput !== undefined}
           />
         )}
