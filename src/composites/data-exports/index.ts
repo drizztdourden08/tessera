@@ -47,3 +47,5 @@ export { Rating, type RatingProps, type RatingSize } from '../Rating';
 export { Carousel, type CarouselProps, type CarouselSlide } from '../Carousel';
 export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaViewerProps } from '../MediaViewer';
 export { RowGrid, type RowGridColumn, type RowGridDensity, type RowGridProps } from '../RowGrid';
+export { KanbanBoard, moveCard } from '../KanbanBoard';
+export type { KanbanBoardProps, KanbanCardData, KanbanColumn, KanbanMove, KanbanPlace } from '../KanbanBoard';

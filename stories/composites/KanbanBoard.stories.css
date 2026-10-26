@@ -1,0 +1,22 @@
+/* @layer stories @kind style */
+.kanban-story__frame {
+  block-size: var(--size-448);
+  inline-size: 100%;
+}
+
+.kanban-story__frame--narrow {
+  inline-size: var(--size-512);
+  max-inline-size: 100%;
+}
+
+.kanban-story__task {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.kanban-story__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}

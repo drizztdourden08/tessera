@@ -179,6 +179,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
+  - Cards in columns the user drags between, such as tasks by state: [KanbanBoard](components/KanbanBoard.md). KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
   - A headline number that does one thing: [ActionTile](components/ActionTile.md). ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app.
   - A long list drawn only where it is in view: [VirtualList](components/VirtualList.md). VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly.
