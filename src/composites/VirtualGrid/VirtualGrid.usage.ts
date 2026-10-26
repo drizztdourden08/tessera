@@ -27,6 +27,9 @@ const usage = {
     'Give scrollRef the ref of a marquee container and spread bind of useMarqueeSelect on the grid; every tile carries data-marquee-key set to its getKey, and overlay takes the MarqueeBox that follows the content.',
     'Give ref a ref and call scrollToIndex(index, align) to scroll a tile into view; align is start, center, end or nearest, and nearest is the default; the index of a tile in a collapsed section scrolls to its header.',
     'Give a marquee every tile, drawn or not, with getRects on the ref: useMarqueeSelect({ getRects: () => gridRef.current?.getRects() ?? [] }); the rects come from the layout, not the page, and the tiles of a collapsed section are left out.',
+    'Give renderTile instead of renderItem when a tile is a button or a card with an action: it receives (item, index, cell) and the app spreads cell on the tile, so the tile is the gridcell and the only focus target; a cell with a button inside is two targets, and the smaller inner one fails the target size check.',
+    'The cell props carry the role, tabIndex, aria-colindex, the data attributes the keys and the marquee read, the focus and key handlers, and a className that removes the padding; keep that className when you add your own, and spread them on one element that can take focus.',
+    'Give renderTile or renderItem, not both; renderItem stays the default for tiles that are not interactive, and the grid wraps them in a padded cell as before.',
     'Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.',
     'Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.',
     'Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid.',
@@ -39,12 +42,13 @@ const usage = {
     'A tile or a header that holds focus stays drawn when it scrolls out of view, so the keys keep working.',
     'The actions of a header are in the tab order after the header; the arrows, Enter, Space, Left and Right act only when the header itself has focus, and a click on an action does not toggle the header.',
     'Keys act only when the tile itself has focus, so a field inside a tile keeps its own arrow keys.',
+    'With renderTile the tile is the cell, so a reader meets one control per tile; Enter and Space still press a button tile, and the arrows move between tiles.',
   ],
   tree: {
     path: ['data', 'a long grid of equal tiles drawn only where it is in view'],
     rule: 'VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly.',
   },
-  example: `import { VirtualGrid } from '@drizztdourden08/tessera';
+  example: `import { Button, VirtualGrid } from '@drizztdourden08/tessera';
 
 interface Frame {
   id: string;
@@ -58,6 +62,17 @@ const Thumbnails = ({ frames }: { frames: Frame[] }) => (
     getKey={(frame) => frame.id}
     renderItem={(frame) => frame.name}
     tileSize="size-64"
+  />
+);
+
+const Buttons = ({ frames, open }: { frames: Frame[]; open: (frame: Frame) => void }) => (
+  <VirtualGrid
+    label="Frames"
+    items={frames}
+    getKey={(frame) => frame.id}
+    renderTile={(frame, _index, cell) => (
+      <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>
+    )}
   />
 );
 
@@ -79,7 +94,7 @@ const Library = ({ folders }: { folders: Folder[] }) => (
   />
 );
 `,
-  propsHash: '560a684fc3d8d53b',
+  propsHash: 'd941326a3ed3f000',
 } satisfies ComponentUsage;
 
 export { usage };

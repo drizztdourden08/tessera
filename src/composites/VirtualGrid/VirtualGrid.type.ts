@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
+import type { KeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
 import type { ActionItem } from '../ActionBar';
 import type { MarqueeItem } from '../marquee';
 import type { ScrollAlign, VirtualSize } from '../virtual';
@@ -22,9 +22,30 @@ interface VirtualGridBind {
   onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;
 }
 
+interface VirtualGridCellBind {
+  role: 'gridcell';
+  className: string;
+  tabIndex: 0 | -1;
+  'aria-colindex': number;
+  'data-vg-index': number;
+  'data-vg-kind': 'tile';
+  'data-marquee-key': string;
+  onFocus: () => void;
+  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+}
+
+interface VirtualGridDrawItem<T> {
+  renderItem: (item: T, index: number) => ReactNode;
+  renderTile?: undefined;
+}
+
+interface VirtualGridDrawTile<T> {
+  renderTile: (item: T, index: number, cell: VirtualGridCellBind) => ReactNode;
+  renderItem?: undefined;
+}
+
 interface VirtualGridBase<T> {
   getKey: (item: T, index: number) => string;
-  renderItem: (item: T, index: number) => ReactNode;
   label: string;
   tileSize?: VirtualSize;
   tileWidth?: VirtualSize;
@@ -51,6 +72,6 @@ interface VirtualGridSectioned<T> extends VirtualGridBase<T> {
   items?: undefined;
 }
 
-type VirtualGridProps<T> = VirtualGridFlat<T> | VirtualGridSectioned<T>;
+type VirtualGridProps<T> = (VirtualGridFlat<T> | VirtualGridSectioned<T>) & (VirtualGridDrawItem<T> | VirtualGridDrawTile<T>);
 
-export type { VirtualGridBind, VirtualGridHandle, VirtualGridProps, VirtualGridSection };
+export type { VirtualGridBind, VirtualGridCellBind, VirtualGridHandle, VirtualGridProps, VirtualGridSection };

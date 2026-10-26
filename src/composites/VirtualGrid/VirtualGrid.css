@@ -36,6 +36,10 @@
   overflow: hidden;
 }
 
+.virtual-grid__cell--bare {
+  padding: 0;
+}
+
 .virtual-grid__cell:hover {
   background: var(--c-hover);
 }
