@@ -8,6 +8,7 @@ import { Text } from '../../src/primitives';
 import { PLAYERS, PLAYER_SCHEMA } from './_samples/data-players';
 import type { PlayerRow } from './_samples/data-players';
 import { resolveSlotDefault } from './_samples/data-hints';
+import { DataTableCellControls } from './_samples/DataTableCellControls';
 import { DataTableControlled } from './_samples/DataTableControlled';
 import { DataTableGroupActions } from './_samples/DataTableGroupActions';
 import { DataTableRowDrag } from './_samples/DataTableRowDrag';
@@ -121,6 +122,11 @@ const Thumbnail = {
   render: () => <DataTableThumbnail />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const CellControls = {
+  name: 'Controls in cells: Tags, a Tooltip and an IconButton leave the selection alone',
+  render: () => <DataTableCellControls />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const RowStates = {
   name: 'Row states: active, pending, error and muted',
   render: () => <DataTableRowStates />,
@@ -187,5 +193,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AllVariants, Controlled, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail,
+  AllVariants, CellControls, Controlled, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail,
 };

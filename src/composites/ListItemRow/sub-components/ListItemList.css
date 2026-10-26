@@ -21,3 +21,50 @@
   letter-spacing: normal;
   text-transform: none;
 }
+
+.list-item-list__header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-sticky);
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: end;
+  padding-block: var(--space-xs);
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid transparent;
+  border-block-end-color: var(--c-border);
+}
+
+.list-item-list__head {
+  display: flex;
+  min-width: 0;
+}
+
+.list-item-list__head--icon {
+  grid-column: icon;
+}
+
+.list-item-list__head--main {
+  grid-column: main;
+}
+
+.list-item-list__head--action {
+  grid-column: action;
+}
+
+.list-item-list__head--center {
+  justify-content: center;
+}
+
+.list-item-list__head--end {
+  justify-content: flex-end;
+}
+
+.list-item-list__label {
+  overflow: hidden;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
