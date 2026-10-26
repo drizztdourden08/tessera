@@ -6,7 +6,7 @@ import type { UseRowContextInput } from './useRowContext.type';
 const useRowContext = <T>(input: UseRowContextInput<T>): RowRenderContext<T> => {
   const {
     columns, schema, drag, getRowId, selectedId, onSelect, selection, groups,
-    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
+    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref, reorder, rowDragData, groupActions,
   } = input;
   const { draggingPath, onDragOver, onDrop } = drag;
 
@@ -25,9 +25,13 @@ const useRowContext = <T>(input: UseRowContextInput<T>): RowRenderContext<T> => 
     resolveIdRefDisplay,
     resolveIdRefDefault,
     resolveIdRefHref,
+    reorder,
+    rowDragData,
+    groupActions,
   }), [
     columns, schema, draggingPath, onDragOver, onDrop,
     getRowId, selectedId, onSelect, selection, groups, resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
+    reorder, rowDragData, groupActions,
   ]);
 };
 

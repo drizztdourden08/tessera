@@ -32,6 +32,7 @@ interface ReorderDragOptions {
   listRef: RefObject<HTMLElement | null>;
   selector: string;
   axis?: ReorderAxis;
+  locate?: (point: { clientX: number; clientY: number }) => number;
   onDrop: (from: number, to: number) => void;
 }
 

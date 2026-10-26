@@ -6,7 +6,7 @@ import { finalIndex } from './final-index';
 import { pointerInsertion } from './pointer-insertion';
 import type { ReorderDrag, ReorderDragOptions, ReorderDragState } from './reorder.type';
 
-const useReorderDrag = ({ listRef, selector, axis = 'vertical', onDrop }: ReorderDragOptions): ReorderDrag => {
+const useReorderDrag = ({ listRef, selector, axis = 'vertical', locate, onDrop }: ReorderDragOptions): ReorderDrag => {
   const [drag, setDrag] = useState<ReorderDragState | null>(null);
   const handlers = (index: number) => ({
     onPointerDown: (event: PointerEvent<HTMLElement>) => {
@@ -15,7 +15,7 @@ const useReorderDrag = ({ listRef, selector, axis = 'vertical', onDrop }: Reorde
       setDrag({ from: index, before: index });
     },
     onPointerMove: (event: PointerEvent<HTMLElement>) => {
-      if (drag) setDrag({ from: drag.from, before: pointerInsertion(listRef.current, selector, axis, event) });
+      if (drag) setDrag({ from: drag.from, before: locate ? locate(event) : pointerInsertion(listRef.current, selector, axis, event) });
     },
     onPointerUp: () => {
       if (!drag) return;

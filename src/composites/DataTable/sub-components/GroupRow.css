@@ -54,3 +54,9 @@
   font-size: var(--text-xs);
   text-transform: uppercase;
 }
+
+.data-table__group-actions {
+  display: flex;
+  flex: none;
+  cursor: default;
+}
