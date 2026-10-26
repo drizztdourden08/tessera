@@ -42,6 +42,7 @@ DataTable gives every collection the same columns, menus and grouping, and draws
 - Pass rowState(row) to mark a row active, pending, error or muted; the row shows it as an edge, a tint or a lower contrast, and a selected row keeps the selection background.
 - Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.
 - A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.
+- Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.
 - Give ref and call getRects() for a rect of every row from the layout, drawn or not, with the rows of collapsed groups left out, for useMarqueeSelect({ getRects }); pass scrollRef, bind and overlay as on VirtualGrid.
 
 ## Accessibility
@@ -51,6 +52,7 @@ DataTable gives every collection the same columns, menus and grouping, and draws
 - A group header is a button that says whether the group is expanded.
 - A group action is a button named by its label, after the group button in the tab order, and a click on it does not toggle the group.
 - The grip of a row is a button; Up and Down move the row by one place, focus stays on the grip, and a polite live region says where the row went.
+- The detail is a row with one cell that spans the columns, placed after its row in the tab order; Escape inside it calls onDetailClose unless a field already used the key.
 - A checkbox in a row that scrolls out of view stays drawn while it has focus, so the keys keep working.
 
 ## Example
@@ -113,6 +115,9 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
 - `onSortChange` (optional): `(sort: readonly SortEntry[]) => void`.
 - `expanded` (optional): `ReadonlySet<string>`.
 - `onExpandedChange` (optional): `(ids: ReadonlySet<string>) => void`.
+- `detailRowId` (optional): `string | null`.
+- `renderDetail` (optional): `(row: T) => ReactNode`.
+- `onDetailClose` (optional): `() => void`.
 - `groupActions` (optional): `(groupKey: string, rows: readonly T[]) => readonly ActionItem[]`.
 - `onRowMove` (optional): `(fromKey: string, target: RowMoveTarget) => void`.
 - `rowDragData` (optional): `(row: T) => Record<string, string>`.
@@ -123,7 +128,7 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-danger-soft`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary-soft`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-xs`, `--dt-count`, `--dt-group-indent`, `--dt-index`, `--dt-tracks`, `--duration-normal`, `--ease-standard`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-128`, `--size-16`, `--size-192`, `--size-2`, `--size-40`, `--size-80`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--table-select-w`, `--text-sm`, `--text-xs`, `--transition-fast`, `--z-floating`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-danger-soft`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary-soft`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-xs`, `--dt-count`, `--dt-detail-at`, `--dt-detail-h`, `--dt-group-indent`, `--dt-index`, `--dt-tracks`, `--duration-normal`, `--ease-standard`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-128`, `--size-16`, `--size-192`, `--size-2`, `--size-40`, `--size-80`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--table-select-w`, `--text-sm`, `--text-xs`, `--transition-fast`, `--z-floating`, `--z-sticky`.
 
 ## Also exported from this folder
 
