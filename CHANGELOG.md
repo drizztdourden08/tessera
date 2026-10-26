@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.74.0
+
+### Minor Changes
+
+- 42c795a: Drawer takes `size` (md, lg or xl) for a wider side panel, such as a focus mode; a top drawer keeps its full width.
+- d90f6c9: An intro step of GuidedTour now shows a primary Start the tour button and a ghost Skip button instead of Back and Next, translated through the new `tour.introStart` and `tour.introSkip` strings, and the mascot now stands outside the lit hole whenever a stand outside fits.
+
 ## 0.73.0
 
 ### Minor Changes
