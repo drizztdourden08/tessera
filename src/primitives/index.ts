@@ -25,7 +25,7 @@ export { Spacer, type SpacerProps } from './Spacer';
 export { PageRoot, type PageRootProps } from './PageRoot';
 export { PageFrame, type PageFrameProps, type PageFrameWidth } from './PageFrame';
 export { Button } from './Button';
-export type { ButtonFill, ButtonLook, ButtonProps, ButtonSize, ButtonVariant } from './Button/Button.type';
+export type { ButtonFill, ButtonLook, ButtonProps, ButtonSize, ButtonVariant, ButtonWidth } from './Button/Button.type';
 export { IconButton } from './IconButton';
 export type { IconButtonProps, IconButtonSize, IconButtonTone, IconButtonVariant } from './IconButton/IconButton.type';
 export { Pressable } from './Pressable';
@@ -84,7 +84,7 @@ export type {
   DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult, UseDismissListenersParams,
 } from './Portal';
 export {
-  ScrollArea, createScrollSyncController, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition,
+  ScrollArea, createScrollSyncController, type ScrollAreaGutter, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition,
   type ScrollSyncController, type ScrollSyncNode,
 } from './ScrollArea';
 export type { PortalLayer } from './Portal';

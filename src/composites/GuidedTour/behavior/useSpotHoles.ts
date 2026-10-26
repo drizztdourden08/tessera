@@ -35,7 +35,7 @@ const useSpotHoles = (
     };
     const loop = settleLoop(ownerWindowOf(first), measure);
     loop.kick();
-    const stopWatch = watchSpot(ownerWindowOf(first), nodes, loop.kick);
+    const stopWatch = watchSpot(ownerWindowOf(first), nodes, loop.kick, loop.follow);
     return () => {
       loop.stop();
       stopWatch();

@@ -1,12 +1,12 @@
 /* @layer stories @kind component */
-import { Box, Button, Flex, Icon, Text } from '../../../src/primitives';
+import { Box, Button, Flex, Icon } from '../../../src/primitives';
 import { BUTTON_CTA_PALETTES } from './button-cta.constants';
+import { CtaGround } from './cta-ground';
 
 const ButtonCta = () => (
   <Box className="story-column button-cta-demo">
     {BUTTON_CTA_PALETTES.map((palette) => (
-      <Box key={palette} data-palette={palette} className="button-cta-demo__ground">
-        <Text variant="caption">{palette}</Text>
+      <CtaGround key={palette} palette={palette}>
         <Flex gap="md" align="center" wrap>
           <Button
             look="pixel"
@@ -30,7 +30,7 @@ const ButtonCta = () => (
           <Button look="pixel" size="lg" variant="secondary">Press start</Button>
           <Button fill="solid" variant="primary" size="lg" caption="Free">Play</Button>
         </Flex>
-      </Box>
+      </CtaGround>
     ))}
   </Box>
 );

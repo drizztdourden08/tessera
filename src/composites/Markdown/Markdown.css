@@ -98,3 +98,14 @@
 .markdown .markdown__image {
   max-inline-size: 100%;
 }
+
+.markdown .markdown__image-button {
+  display: inline-block;
+  max-inline-size: 100%;
+  cursor: zoom-in;
+}
+
+.markdown .markdown__image-button:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: var(--border-width-thick);
+}

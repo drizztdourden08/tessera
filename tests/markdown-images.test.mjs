@@ -28,7 +28,7 @@ describe('Markdown images', () => {
   });
 
   it('keeps the alt text for an address that is not http or https', () => {
-    for (const src of ['javascript:alert(1)', 'data:image/png;base64,AAAA', 'file:///C:/a.png', '/files/a.png', 'a.png']) {
+    for (const src of ['javascript:alert(1)', 'data:image/svg+xml;base64,AAAA', 'file:///C:/a.png', '/files/a.png', 'a.png']) {
       const html = draw({ images: true }, `![Alt text](${src})`);
       expect(html).not.toContain('<img');
       expect(html).toContain('Alt text');
@@ -46,7 +46,8 @@ describe('Markdown images', () => {
 
   it('never lets a function return a script or data address', () => {
     expect(imageSource('x.png', () => 'javascript:alert(1)')).toBeUndefined();
-    expect(imageSource('x.png', () => 'data:image/png;base64,AAAA')).toBeUndefined();
+    expect(imageSource('x.png', () => 'data:image/svg+xml;base64,AAAA')).toBeUndefined();
+    expect(imageSource('x.png', () => 'data:text/html;base64,AAAA')).toBeUndefined();
     expect(imageSource('x.png', () => '//evil.example/x.png')).toBeUndefined();
     expect(imageSource('x.png', () => 'https://example.com/x.png')).toBe('https://example.com/x.png');
     expect(imageSource('x.png', () => '/files/x.png')).toBe('/files/x.png');

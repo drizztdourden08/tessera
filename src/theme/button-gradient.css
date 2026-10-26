@@ -1,0 +1,41 @@
+/* @layer renderer-components @kind style */
+.btn.btn--gradient {
+  background: linear-gradient(to bottom, var(--tone-gradient-from), var(--tone-gradient-to));
+  border-color: var(--tone-gradient-to);
+  box-shadow: 0 0 var(--glow-reach) var(--tone-glow);
+  color: var(--tone-ink);
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.btn.btn--gradient:is(:hover, :focus-visible):not(:disabled, [aria-disabled='true']) {
+  border-color: var(--tone-gradient-from);
+  box-shadow: 0 0 var(--glow-reach-strong) var(--tone-glow-strong);
+}
+
+.btn.btn--gradient:active:not(:disabled, [aria-disabled='true']) {
+  background: var(--tone-gradient-to);
+  border-color: var(--tone-gradient-to);
+  box-shadow: 0 0 var(--glow-reach) var(--tone-glow);
+  color: var(--tone-ink);
+}
+
+.btn.btn--gradient:is(:disabled, [aria-disabled='true']) {
+  box-shadow: none;
+}
+
+.btn.btn--gradient.btn--loading > .btn__spinner {
+  color: var(--tone-ink);
+}
+
+.btn--gradient .btn__caption {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn.btn--gradient {
+    transition: none;
+  }
+}

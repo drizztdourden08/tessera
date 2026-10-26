@@ -19,6 +19,10 @@
   --tone-dim: var(--c-primary-dim);
   --tone-bright: var(--c-primary-bright);
   --tone-ink: var(--c-on-primary);
+  --tone-gradient-from: var(--c-primary-gradient-from);
+  --tone-gradient-to: var(--c-primary-gradient-to);
+  --tone-glow: var(--c-primary-glow);
+  --tone-glow-strong: var(--c-primary-glow-strong);
 }
 
 .btn--secondary,
