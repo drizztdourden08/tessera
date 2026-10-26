@@ -55,6 +55,14 @@
   border-top: var(--border-width-thin) solid var(--c-border);
 }
 
+.drawer--lg .drawer__panel {
+  width: min(86vw, var(--size-640));
+}
+
+.drawer--xl .drawer__panel {
+  width: min(92vw, var(--size-1024));
+}
+
 .drawer--right .drawer__panel {
   right: 0;
   transform: translateX(100%);

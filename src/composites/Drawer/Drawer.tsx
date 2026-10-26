@@ -8,10 +8,11 @@ import { useDialogEscape } from '../DialogShell/behavior/useDialogEscape';
 import { useDialogFocus } from '../DialogShell/behavior/useDialogFocus';
 import { WindowHeader } from '../WindowHeader';
 import './Drawer.css';
+import { drawerClass } from './drawer-class';
 import type { DrawerProps } from './Drawer.type';
 
 const Drawer = (props: DrawerProps) => {
-  const { open, onClose, side = 'right', label, title, subtitle, actions, children } = props;
+  const { open, onClose, side = 'right', size, label, title, subtitle, actions, children } = props;
   const titleId = useId();
   const headed = title !== undefined || subtitle !== undefined;
   const labelledBy = label === undefined && title !== undefined ? titleId : undefined;
@@ -19,7 +20,7 @@ const Drawer = (props: DrawerProps) => {
   useDialogEscape(open ? focus.node : null, true, onClose);
 
   return (
-    <Box className={`drawer drawer--${side}${open ? ' drawer--open' : ''}`} aria-hidden={!open} inert={!open}>
+    <Box className={drawerClass(side, size, open)} aria-hidden={!open} inert={!open}>
       <Overlay visible={open} keepMounted tone="scrim" onClick={onClose} className="drawer__scrim" />
       <Box
         ref={focus.ref}
