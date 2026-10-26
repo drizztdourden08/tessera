@@ -16,13 +16,13 @@ import '../../theme/visually-hidden.css';
 import './DataTable.css';
 
 const DataTable = <T,>(props: DataTableProps<T>) => {
-  const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay } = props;
+  const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay, rowHeight } = props;
   const {
     table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context, virtual, checkboxes, rootRef, reorder,
   } = useTableModel(props);
   const actions = useColumnActions(table, sizing.previewWidth);
   const tableActions = useTableActions(table);
-  const gridStyle = useGridStyle(table.columns, sizing);
+  const gridStyle = useGridStyle(table.columns, sizing, rowHeight);
 
   return (
     <Box className={classesOf(checkboxes, reorder !== null)}>
@@ -32,7 +32,7 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
         role="grid"
         aria-multiselectable={selection ? true : undefined}
         tabIndex={selection ? -1 : undefined}
-        style={gridStyle}
+        style={gridStyle} data-row-height={rowHeight}
         onKeyDown={selection?.onKeyDown}
         onScroll={virtual?.onScroll}
         onDragEnter={drag.onSurfaceHover}

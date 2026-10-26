@@ -12,3 +12,22 @@
   max-inline-size: 100%;
   height: 9rem;
 }
+
+.data-table-thumb-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.data-table-thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-40);
+  block-size: var(--size-40);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-bright);
+  font-size: var(--text-sm);
+}
