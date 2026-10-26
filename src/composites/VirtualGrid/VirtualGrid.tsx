@@ -12,7 +12,7 @@ import '../../theme/virtual-box.css';
 import './VirtualGrid.css';
 
 const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
-  const { sections, getKey, renderItem, label, tileSize = 'size-96', overscan, scrollRef, bind, overlay, ref, className } = props;
+  const { sections, getKey, renderItem, renderTile, label, tileSize = 'size-96', overscan, scrollRef, bind, overlay, ref, className } = props;
   const { tileWidth = tileSize, tileHeight = tileSize } = props;
   const model = useVirtualGrid({ ...props, overscan, sizeKey: `${tileWidth}-${tileHeight}` });
   const { columns, layout } = model;
@@ -35,7 +35,7 @@ const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
         onFocus={model.onFocus}
         onBlur={model.onBlur}
       >
-        <GridRows model={model} sections={sections} getKey={getKey} renderItem={renderItem} />
+        <GridRows model={model} sections={sections} getKey={getKey} renderItem={renderItem} renderTile={renderTile} />
       </Box>
       {overlay}
     </Box>

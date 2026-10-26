@@ -7,7 +7,7 @@ export type {
 export { VirtualList } from '../VirtualList';
 export type { VirtualListProps, VirtualListRowSize } from '../VirtualList';
 export { VirtualGrid } from '../VirtualGrid';
-export type { VirtualGridBind, VirtualGridHandle, VirtualGridProps, VirtualGridSection } from '../VirtualGrid';
+export type { VirtualGridBind, VirtualGridCellBind, VirtualGridHandle, VirtualGridProps, VirtualGridSection } from '../VirtualGrid';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
 export { renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '../virtual';

@@ -1,13 +1,9 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import type { VirtualGridCellBind } from '../VirtualGrid.type';
 
 interface GridCellProps {
-  index: number;
-  column: number;
-  itemKey: string;
-  tabbable: boolean;
-  onActivate: (index: number) => void;
-  onNavigate: (event: KeyboardEvent<HTMLElement>, index: number) => void;
+  bind: VirtualGridCellBind;
   children: ReactNode;
 }
 
