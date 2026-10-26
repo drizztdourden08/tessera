@@ -1,5 +1,20 @@
 # @drizztdourden08/tessera
 
+## 0.66.0
+
+### Minor Changes
+
+- e0a5043: WidgetDefinition takes dockWeight and DockPlace takes weight, so a widget that joins an edge sizes its share of the column by weight instead of 1/n, and defaultDockedSize now also resizes the column it joins. The DockLayout corner handles keep a thin line but have a 24 px hit area that starts below the title bar, so they no longer crowd the title bar buttons.
+- b437634: FormRow shows its reset button after the name only when `changed`, leaves no gap otherwise, and end-aligns the control column.
+- af8e747: SideNav: add `config.top` so pages sit under Home in one top block with a single divider after it, and a group with an empty label draws no heading.
+- 38f260b: VirtualGrid takes `renderTile`, which hands the cell props to the app tile so an interactive tile is the gridcell and the only focus target.
+
+### Patch Changes
+
+- aa0b134: PanelContainer takes a fill prop, and ListDetailLayout sets it when listScroll is false, so a DataTable in the list pane fills it and scrolls on its own instead of overflowing.
+- 4dfede6: ScrollArea slim reserves its own end gutter so opaque children such as cards no longer cover the thumb.
+- f153d89: Tooltip no longer opens when content scrolls under a still pointer, and a hover Tooltip closes on any scroll.
+
 ## 0.65.0
 
 ### Minor Changes
