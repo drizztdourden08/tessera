@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.77.0
+
+### Minor Changes
+
+- d12495a: MarkdownEditor has a Quote button that puts or removes a `>` prefix on the selected lines, and an `autoFocus` prop that focuses the text with the caret at the end.
+
 ## 0.76.0
 
 ### Minor Changes
