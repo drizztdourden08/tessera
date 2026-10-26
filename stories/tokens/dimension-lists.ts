@@ -35,6 +35,11 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
     entries: [
       { token: '--dialog-w-sm' },
       { token: '--dialog-w-md' },
+      { token: '--dialog-w-lg' },
+      { token: '--dialog-min-sm' },
+      { token: '--dialog-min-md' },
+      { token: '--dialog-min-lg' },
+      { token: '--dialog-margin' },
       { token: '--panel-w-sm' },
       { token: '--panel-w-md' },
       { token: '--panel-w-lg' },

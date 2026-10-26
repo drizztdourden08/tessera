@@ -4,6 +4,8 @@ import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 
 type DialogInitialFocus = 'first' | 'dialog';
 
+type DialogSize = 'sm' | 'md' | 'lg';
+
 interface DialogShellProps {
   open: boolean;
   onClose: () => void;
@@ -12,6 +14,8 @@ interface DialogShellProps {
   titleWrap?: boolean;
   headerExtra?: ReactNode;
   actions?: ReactNode;
+  size?: DialogSize;
+  steady?: boolean;
   className?: string;
   initialFocusRef?: RefObject<HTMLElement | null>;
   initialFocus?: DialogInitialFocus;
@@ -20,4 +24,4 @@ interface DialogShellProps {
   children?: ReactNode;
 }
 
-export type { DialogInitialFocus, DialogShellProps };
+export type { DialogInitialFocus, DialogShellProps, DialogSize };

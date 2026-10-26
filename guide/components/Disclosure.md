@@ -24,7 +24,7 @@ Disclosure shows or hides what is under one line with the browser details elemen
 ## Use something else when
 
 - The views are peers and only one shows at a time. Use `Tabs` instead.
-- The content needs the whole screen or an answer. Use `Dialog` instead.
+- The content needs the whole screen or an answer. Use [Dialog](Dialog.md) instead.
 - A failed load with its raw error. Use [LoadError](LoadError.md) instead.
 
 ## Rules
