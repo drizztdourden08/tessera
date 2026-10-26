@@ -7,6 +7,10 @@
   height: 26rem;
 }
 
+.data-table-story--units {
+  height: 14rem;
+}
+
 .data-table-story--state {
   inline-size: 52rem;
   max-inline-size: 100%;

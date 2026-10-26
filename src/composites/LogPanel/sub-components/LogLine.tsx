@@ -2,7 +2,7 @@
 import { Box, Span, Text } from '../../../primitives';
 import { REVIEW_MASK } from '../../../primitives/dom/review-mask.constants';
 import { logInk } from '../behavior/log-ink';
-import { messageTone } from '../behavior/message-tone';
+import { lineTones } from '../behavior/line-tones';
 import { rowSelectionProps } from '../behavior/row-selection-props';
 import { AnsiText } from './AnsiText';
 import type { LogLineProps } from './LogLine.type';
@@ -10,8 +10,9 @@ import type { LogLineProps } from './LogLine.type';
 const LogLine = (props: LogLineProps) => {
   const { row, kind, selection, ansi = false } = props;
   const level = row.indent ?? 0;
-  const tag = logInk(kind?.tone, 'muted');
-  const message = logInk(messageTone(kind));
+  const tones = lineTones(row, kind);
+  const tag = logInk(tones.tag, 'muted');
+  const message = logInk(tones.message);
   const msgClass = [
     'log-panel__msg', `log-panel__msg--${row.kind}`,
     kind?.strong === true && 'log-panel__msg--strong',

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { LogKindDef, LogRow } from '../LogPanel.type';
+import type { LogKindDef, LogOrder, LogRow } from '../LogPanel.type';
 
 interface LogListProps {
   rows: readonly LogRow[];
@@ -8,6 +8,7 @@ interface LogListProps {
   onSelectionChange?: (ids: ReadonlySet<string>) => void;
   ansi?: boolean;
   follow?: boolean;
+  order?: LogOrder;
   terminal?: boolean;
 }
 

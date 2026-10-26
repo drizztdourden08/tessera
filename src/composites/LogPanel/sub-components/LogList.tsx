@@ -1,38 +1,32 @@
 /* @layer renderer-components @kind component */
 import { useMemo } from 'react';
 import { Box } from '../../../primitives/Box';
-import { Button } from '../../../primitives/Button';
-import { Icon } from '../../../primitives/Icon';
-import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { shownRows } from '../behavior/shown-rows';
 import { useLogSelection } from '../behavior/useLogSelection';
 import { useLogWindow } from '../behavior/useLogWindow';
-import { OLDER_CHUNK } from '../LogPanel.constants';
+import { LogJump } from './LogJump';
 import { LogLine } from './LogLine';
+import { LogOlder } from './LogOlder';
 import type { LogListProps } from './LogList.type';
 
 const LogList = (props: LogListProps) => {
-  const { rows, kinds, selectedIds, onSelectionChange, ansi, follow = true, terminal = false } = props;
+  const { rows, kinds, selectedIds, onSelectionChange, ansi, follow = true, terminal = false, order = 'oldest-first' } = props;
   const { panels } = useTesseraStrings();
+  const newestFirst = order === 'newest-first';
   const kindById = useMemo(() => new Map(kinds?.map((kind) => [kind.id, kind])), [kinds]);
-  const win = useLogWindow(rows, follow);
-  const first = rows.length - win.shownCount;
-  const order = useMemo(() => rows.map((row) => row.id), [rows]);
-  const mounted = useMemo(() => order.slice(first), [order, first]);
-  const selection = useLogSelection({ order, mounted, selectedIds, onSelectionChange });
-  const lines = rows.slice(first).map((row) => <LogLine key={row.id} row={row} kind={kindById.get(row.kind)} selection={selection} ansi={ansi} />);
+  const win = useLogWindow(rows, follow, order);
+  const shown = useMemo(() => shownRows(rows, win.shownCount, order), [rows, win.shownCount, order]);
+  const ids = useMemo(() => shownRows(rows, rows.length, order).map((row) => row.id), [rows, order]);
+  const mounted = useMemo(() => shown.map((row) => row.id), [shown]);
+  const selection = useLogSelection({ order: ids, mounted, selectedIds, onSelectionChange, newestFirst });
+  const lines = shown.map((row) => <LogLine key={row.id} row={row} kind={kindById.get(row.kind)} selection={selection} ansi={ansi} />);
+  const older = win.hiddenOlder > 0 && <LogOlder hidden={win.hiddenOlder} newestFirst={newestFirst} onLoad={win.loadOlder} />;
 
   return (
     <Box className="log-panel__scroll">
       <Box ref={win.scrollRef} className="log-panel__list focus-ring-inset" role="log" tabIndex={selection ? undefined : 0} onScroll={win.handleScroll}>
-        {win.hiddenOlder > 0 && (
-          <Box className="log-panel__older">
-            <Button variant="ghost" size="sm" icon={<Icon name="arrow-up" />} onClick={win.loadOlder}>
-              {panels.loadOlder(Math.min(OLDER_CHUNK, win.hiddenOlder))}
-            </Button>
-            <Text className="log-panel__older-note">{panels.olderHidden(win.hiddenOlder)}</Text>
-          </Box>
-        )}
+        {!newestFirst && older}
         {selection
           ? (
             <Box ref={selection.listRef} role="listbox" aria-multiselectable="true" aria-label={panels.logLines} onKeyDown={selection.onKeyDown}>
@@ -40,12 +34,9 @@ const LogList = (props: LogListProps) => {
             </Box>
           )
           : lines}
+        {newestFirst && older}
       </Box>
-      {!win.pinned && (
-        <Button variant="secondary" size="sm" className="log-panel__to-bottom" icon={<Icon name="arrow-down" />} onClick={win.jumpToBottom}>
-          {terminal ? panels.jumpToBottom : panels.newest}
-        </Button>
-      )}
+      {!win.pinned && <LogJump newestFirst={newestFirst} terminal={terminal} onJump={win.jumpToNewest} />}
     </Box>
   );
 };

@@ -2,6 +2,7 @@
 import { Badge } from '../../Badge';
 import { Span } from '../../text-elements';
 import { Tooltip } from '../../Tooltip';
+import { tabBadgeColor } from '../behavior/tab-badge-color';
 import { tabLabels } from '../behavior/tab-labels';
 import type { TabsTabProps } from '../Tabs.type';
 
@@ -24,7 +25,7 @@ const TabsTab = (props: TabsTabProps) => {
     >
       {tab.icon && <span className="tabs__icon">{tab.icon}</span>}
       {!iconOnly && <Span className="tabs__label">{tab.label}</Span>}
-      {tab.badge != null && <Badge variant="inline" color={active ? 'primary' : 'tame'} value={tab.badge} hideZero={hideZero} />}
+      {tab.badge != null && <Badge variant="inline" color={tabBadgeColor(tab.badgeTone, active)} value={tab.badge} hideZero={hideZero} />}
     </button>
   );
   return reason ? <Tooltip content={reason} placement="bottom" className="tabs__reason">{button}</Tooltip> : button;

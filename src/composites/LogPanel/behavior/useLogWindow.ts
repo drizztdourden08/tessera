@@ -1,20 +1,22 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import type { LogRow } from '../LogPanel.type';
+import type { LogOrder, LogRow } from '../LogPanel.type';
 import { appendedSince } from './appended-since';
-import { isAtBottom } from './is-at-bottom';
+import { followScrollTop } from './follow-scroll-top';
+import { isAtFollowEdge } from './is-at-follow-edge';
 import { isFollowing } from './is-following';
 import { nextLogWindow } from './next-log-window';
 import { BOTTOM_SLACK, CHUNK } from './useLogWindow.constants';
 
 const newest = (rows: readonly LogRow[]) => ({ id: rows[rows.length - 1]?.id, total: rows.length });
 
-const useLogWindow = (rows: readonly LogRow[], follow = true) => {
+const useLogWindow = (rows: readonly LogRow[], follow = true, order: LogOrder = 'oldest-first') => {
   const total = rows.length;
   const scrollRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(CHUNK);
   const [pinned, setPinned] = useState(true);
-  const atBottom = useRef(true);
+  const atEdge = useRef(true);
+  const newestFirst = order === 'newest-first';
   const pendingAnchor = useRef<number | null>(null);
   const last = useRef(newest(rows));
 
@@ -23,14 +25,14 @@ const useLogWindow = (rows: readonly LogRow[], follow = true) => {
     last.current = newest(rows);
     if (before.id === last.current.id && before.total === total) return;
     const appended = appendedSince(rows, before.id, before.total);
-    setVisible((v) => nextLogWindow(v, appended, total, isFollowing(follow, atBottom.current)));
+    setVisible((v) => nextLogWindow(v, appended, total, isFollowing(follow, atEdge.current)));
   }, [rows, total, follow]);
 
   const loadOlder = useCallback(() => {
     const el = scrollRef.current;
-    pendingAnchor.current = el ? el.scrollHeight - el.scrollTop : null;
+    pendingAnchor.current = el && !newestFirst ? el.scrollHeight - el.scrollTop : null;
     setVisible((v) => Math.min(total, v + CHUNK));
-  }, [total]);
+  }, [total, newestFirst]);
 
   useLayoutEffect(() => {
     const el = scrollRef.current;
@@ -39,27 +41,27 @@ const useLogWindow = (rows: readonly LogRow[], follow = true) => {
     pendingAnchor.current = null;
   }, [visible]);
 
-  const jumpToBottom = useCallback(() => {
+  const jumpToNewest = useCallback(() => {
     const el = scrollRef.current;
-    if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'instant' });
-    atBottom.current = true;
+    if (el) el.scrollTo({ top: followScrollTop(el, order), behavior: 'instant' });
+    atEdge.current = true;
     setPinned(true);
-  }, []);
+  }, [order]);
 
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
-    atBottom.current = isAtBottom(el, BOTTOM_SLACK);
-    setPinned(atBottom.current);
-  }, []);
+    atEdge.current = isAtFollowEdge(el, BOTTOM_SLACK, order);
+    setPinned(atEdge.current);
+  }, [order]);
 
   useEffect(() => {
     const el = scrollRef.current;
-    if (el && isFollowing(follow, atBottom.current) && pendingAnchor.current === null) el.scrollTop = el.scrollHeight;
-  }, [total, visible, follow]);
+    if (el && isFollowing(follow, atEdge.current) && pendingAnchor.current === null) el.scrollTop = followScrollTop(el, order);
+  }, [total, visible, follow, order]);
 
   const shownCount = Math.min(visible, total);
-  return { scrollRef, shownCount, hiddenOlder: total - shownCount, pinned, loadOlder, jumpToBottom, handleScroll };
+  return { scrollRef, shownCount, hiddenOlder: total - shownCount, pinned, loadOlder, jumpToNewest, handleScroll };
 };
 
 export { useLogWindow };

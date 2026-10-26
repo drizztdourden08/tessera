@@ -18,7 +18,7 @@ export {
 export type { MarqueeBind, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect } from '../marquee';
 export { REORDER_ITEM_SELECTOR, columnsOf, reorderStep, useMoveFocus, useReorderDrag } from '../reorder';
 export type { MoveFocus, ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDrop, ReorderKeyEvent, ReorderStepOptions } from '../reorder';
-export { LogPanel, type LogKindDef, type LogKindTone, type LogPanelProps, type LogRow } from '../LogPanel';
+export { LogPanel, type LogKindDef, type LogKindTone, type LogOrder, type LogPanelProps, type LogRow } from '../LogPanel';
 export { ListItemList, ListItemRow } from '../ListItemRow';
 export type { ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from '../ListItemRow';
 export { StatTile } from '../StatTile';
