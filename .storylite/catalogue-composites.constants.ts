@@ -49,6 +49,7 @@ const COMPOSITES_TIER: CatalogueTier = {
     { group: 'Navigation', entries: [
       { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
       { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
+      { name: 'SectionTimeline', summary: 'A vertical anchor list of grouped sections beside a long page, with a progress line.' },
       { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
       { name: 'DocumentTabs', summary: 'The strip of open documents above an editor: unsaved mark, close, drag or key reorder, and scroll when many.' },
     ] },

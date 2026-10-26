@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 96 of 207 have their usage written; a linked name opens its page.
+One line per component. 97 of 208 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -166,6 +166,7 @@ One line per component. 96 of 207 have their usage written; a linked name opens 
 - `SearchResultGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResultHit`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResults`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [SectionTimeline](components/SectionTimeline.md): A vertical list of links to the sections of a long page, in titled groups, beside a line that fills as the reader scrolls. Import from `@drizztdourden08/tessera`.
 - `SettingsPage`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SettingsSection`: usage not written yet. Import from `@drizztdourden08/tessera`.

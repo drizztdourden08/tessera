@@ -97,7 +97,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Between views of one area: no component yet.
   - Between pages, from the header: no component yet.
   - Between pages, from a side list: [SideNav](components/SideNav.md). SideNav is the one side list of a window: icons that open to labels, a top block with Home and pages, then labelled groups.
-  - Between sections of one long page: no component yet.
+  - Between sections of one long page: [SectionTimeline](components/SectionTimeline.md). SectionTimeline is the side list of a long page: grouped section links beside a line that fills as the page scrolls.
   - Through a nested tree: no component yet.
   - To a search result: no component yet.
   - Through the steps of one task: no component yet.
