@@ -64,3 +64,19 @@ describe('FormRow description', () => {
     expect(readFileSync(new URL('../src/composites/SettingsRow/SettingsRow.css', import.meta.url), 'utf8')).not.toContain('data-folded');
   });
 });
+
+describe('FormRow reset', () => {
+  const draw = (extra = {}) => renderToStaticMarkup(h(FormRow, { label: 'Death Link', onReset: ignore, ...extra }, h(Toggle, { checked: false, onChange: ignore })));
+
+  it('is absent when the value is unchanged and leaves no cell behind', () => {
+    const html = draw();
+    expect(html).not.toContain('Reset');
+    expect(html).not.toContain('form-row__reset');
+  });
+
+  it('sits in the title after the name when changed, and not without onReset', () => {
+    const title = draw({ changed: true }).match(/<div class="form-row__title">.*?<\/div>/)?.[0] ?? '';
+    expect(title).toMatch(/form-row__label[^]*aria-label="Reset Death Link"/);
+    expect(draw({ changed: true, onReset: undefined })).not.toContain('Reset');
+  });
+});
