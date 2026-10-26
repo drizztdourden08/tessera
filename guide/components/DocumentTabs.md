@@ -37,6 +37,8 @@ DocumentTabs is the strip of open documents the user switches, closes and reorde
 - Title is the text on the tab, cut with an ellipsis; tooltip is the hover text and defaults to the title.
 - When the tabs do not fit, the strip scrolls and keeps the active tab in view. Pass overflowMenu to add a menu that lists every tab.
 - Show the document of the active tab beside the strip; DocumentTabs draws no panel.
+- Pass onTabContextMenu to open the app menu of a tab. It gets the tab id and the event, from a right click, the Menu key or Shift+F10 on a focused tab. Call preventDefault on a mouse event to hide the browser menu.
+- Pass onAdd to draw a + icon button after the last tab, inside the strip. Its label is translated from the strings, and onAdd only asks: the app adds the document to tabs.
 
 ## Accessibility
 
@@ -45,6 +47,7 @@ DocumentTabs is the strip of open documents the user switches, closes and reorde
 - Delete or Ctrl and W asks to close the focused tab. The close button of each tab is named Close and the title, and is not a tab stop.
 - Alt and Left or Right moves the focused tab. Focus stays on the tab, and the move is announced.
 - A tab with unsaved changes says so to screen readers. Middle click closes a tab.
+- The Menu key and Shift+F10 on a focused tab call onTabContextMenu with the tab id. The add button is a named button and a tab stop of its own.
 - The drop line follows the pointer while a tab is dragged, and the strip adds no motion when the user asks for less.
 
 ## Example
@@ -83,6 +86,8 @@ const OpenDrawings = ({ drawings, activeId, open, askToClose, move }: OpenDrawin
 - `onMove`: `(from: number, to: number) => void`.
 - `label` (optional): `string`.
 - `overflowMenu` (optional): `boolean`. Default `false`.
+- `onTabContextMenu` (optional): `(tabId: string, event: MenuEvent) => void`.
+- `onAdd` (optional): `() => void`.
 - `className` (optional): `string`.
 
 ## Tokens

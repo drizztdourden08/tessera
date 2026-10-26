@@ -41,6 +41,7 @@ ContextMenu opens a DropdownMenu at the pointer, or under the focused element fr
 
 - The menu is role menu, with the keyboard of DropdownMenu: arrows, Home, End, typing and Escape.
 - Opened with the keyboard, the menu takes focus on its first item and returns it to the element that opened it on close.
+- Focus returns the same way when you drive the menu with open: after Escape, a pick or open set to false it goes back to the opener, and it stays put when the user clicked into another focusable element.
 
 ## Example
 

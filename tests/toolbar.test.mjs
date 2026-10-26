@@ -150,6 +150,12 @@ describe('Toolbar', () => {
     expect(draw({ items, orientation: 'vertical' })).not.toMatch(/btn__label">Pencil</);
   });
 
+  it('hides the caption when labels is false', () => {
+    const items = [toggle('pencil', { caption: 'Pencil' })];
+    expect(draw({ items, labels: true })).toMatch(/btn__label">Pencil</);
+    expect(draw({ items, labels: false })).not.toMatch(/btn__label">Pencil</);
+  });
+
   it('marks a tool that has options with a menu and groups choices', () => {
     const options = [{ id: 'size', items: [{ id: 'one', label: '1 px' }] }];
     const html = draw({ items: [toggle('pencil', { options }), group] });

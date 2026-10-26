@@ -214,6 +214,12 @@
   --blur: 8px;
   --dialog-w-sm: 384px;
   --dialog-w-md: 640px;
+  --dialog-w-lg: 896px;
+  --dialog-min-sm: 320px;
+  --dialog-min-md: 384px;
+  --dialog-min-lg: 640px;
+  --dialog-margin: 32px;
+  --dialog-fit: calc(100vw - 32px * 2);
   --panel-w-sm: 224px;
   --panel-w-md: 288px;
   --panel-w-lg: 384px;

@@ -76,8 +76,8 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A date or a time, such as 5 minutes ago: [DateText](components/DateText.md). DateText formats a moment with the browser's Intl, in the app's locale, and keeps relative and calendar text up to date.
 - Something over the page. **What sits over the page?**
   - A hint on hover or focus: no component yet.
-  - A question the user must answer: no component yet.
-  - A dialog with its own layout: no component yet.
+  - A question the user must answer: [Dialog](components/Dialog.md). Dialog holds a message and a confirm and a cancel button, and takes its width from its content within the size.
+  - A dialog with its own layout: [DialogShell](components/DialogShell.md). DialogShell gives the frame, the focus and the scrolling body, and leaves the content and the buttons to you.
   - A panel from the edge of the window: no component yet.
   - A search over every command: no component yet.
   - A cover over a part that is off: no component yet.
@@ -168,8 +168,10 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A block of code: no component yet.
   - Words that draw the eye, animated: no component yet.
   - Formatted text from Markdown, such as release notes: [Markdown](components/Markdown.md). Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped.
+  - A bulleted or numbered list of short items: [List](components/List.md). List is the bulleted or numbered list; ListItem is one item, and a nested List inside it is drawn one step in.
 - Data. **What data are you showing?**
   - Rows and columns to sort and filter: [DataTable](components/DataTable.md). DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long.
+  - A small table of facts that is only read: [Table](components/Table.md). Table draws a static table from TableSection, TableRow and TableCell; DataTable is the table the user sorts and filters.
   - Filters over a collection: no component yet.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
   - A list the user reorders, with on and off icons on each row: no component yet.

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 87 of 200 have their usage written; a linked name opens its page.
+One line per component. 91 of 202 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -41,6 +41,7 @@ One line per component. 87 of 200 have their usage written; a linked name opens 
 - [Inline](components/Inline.md): A row of children side by side with even space between them, such as an icon and its label, a set of tags or a title with its actions. Import from `@drizztdourden08/tessera`.
 - `InputIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Link`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [List](components/List.md): A bulleted or numbered list of short items, with a nested list drawn one step in. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -67,6 +68,7 @@ One line per component. 87 of 200 have their usage written; a linked name opens 
 - [Status](components/Status.md): A read-only word for the state something is in, given as a word and a tone, or as a key of a table of states declared once. Import from `@drizztdourden08/tessera`.
 - `Stepper`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Svg`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Table](components/Table.md): A small static table for facts that are only read: a border, a heavier head, padded cells and optional zebra rows. Import from `@drizztdourden08/tessera`.
 - `Tabs`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Tag`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TagPicker`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -109,8 +111,8 @@ One line per component. 87 of 200 have their usage written; a linked name opens 
 - [DataTable](components/DataTable.md): Records as rows and columns the user sorts, groups and picks from, such as the players of a session, with the columns taken from a schema. Import from `@drizztdourden08/tessera`.
 - [DateText](components/DateText.md): A date or a time in any common format, such as 5 minutes ago, Today, 21:40 or 16 October 2026, with the full date on hover. Import from `@drizztdourden08/tessera`.
 - `DeleteGuardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Dialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `DialogShell`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Dialog](components/Dialog.md): A modal that asks one question, with a message, a confirm button and a cancel button, and room for a short body. Import from `@drizztdourden08/tessera`.
+- [DialogShell](components/DialogShell.md): The frame of a modal: a backdrop, a panel with a header and a close button, a scrolling body and a row of actions. Import from `@drizztdourden08/tessera`.
 - `DisabledOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DockLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DocumentTabs](components/DocumentTabs.md): The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit. Import from `@drizztdourden08/tessera`.
@@ -141,7 +143,7 @@ One line per component. 87 of 200 have their usage written; a linked name opens 
 - `ListItemRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [LoadError](components/LoadError.md): What to show when something fails to load: one plain sentence, a Retry button and the raw error behind Details. Import from `@drizztdourden08/tessera`.
 - [LogPanel](components/LogPanel.md): A running log, such as a server log or a simulation trace, in one framed box with search, filters, a line count and Copy all. Import from `@drizztdourden08/tessera`.
-- [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
+- [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, task lists, tables, bold, italic, strikethrough, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
 - [MarqueeBox](components/MarqueeBox.md): The rectangle that shows an area being dragged over items to pick them, drawn inside the box that scrolls. Import from `@drizztdourden08/tessera`.
 - [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.

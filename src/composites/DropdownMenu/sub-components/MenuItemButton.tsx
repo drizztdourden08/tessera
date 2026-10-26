@@ -26,6 +26,7 @@ const MenuItemButton = (props: MenuItemButtonProps) => {
 
   return (
     <Pressable
+      {...item.data}
       {...confirm.handlers}
       {...highlight}
       onBlur={(event) => {
@@ -34,6 +35,7 @@ const MenuItemButton = (props: MenuItemButtonProps) => {
       }}
       role={ITEM_ROLES[kind]}
       aria-checked={isChoice(kind) ? item.checked === true : undefined}
+      aria-description={item.ariaDescription}
       aria-keyshortcuts={keys && ariaKeyShortcuts(keys)}
       tabIndex={-1}
       className={['dropdown__item', 'focus-ring-inset', item.tone && `dropdown__item--${item.tone}`, confirm.asking && 'dropdown__item--asking'].filter(Boolean).join(' ')}

@@ -10,7 +10,6 @@ interface DocumentTabsDemoProps {
   documents?: DocumentSet;
   menu?: boolean;
   narrow?: boolean;
-  showOrder?: boolean;
-}
+  showOrder?: boolean;}
 
 export type { DocumentSet, DocumentTabsArgs, DocumentTabsDemoProps };
