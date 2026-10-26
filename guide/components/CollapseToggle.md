@@ -25,7 +25,7 @@ CollapseToggle is the one fold button of every Tessera panel: SideNav, SidePanel
 
 - A side panel with a heading folds beside the main view. Use [SidePanel](SidePanel.md) instead.
 - A list sits beside the detail of the picked item. Use [ListDetailLayout](ListDetailLayout.md) instead.
-- The left side is the navigation of the app. Use `SideNav` instead.
+- The left side is the navigation of the app. Use [SideNav](SideNav.md) instead.
 - A block of content shows or hides below its line. Use [Disclosure](Disclosure.md) instead.
 
 ## Rules

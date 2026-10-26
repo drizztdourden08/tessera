@@ -5,6 +5,7 @@ import { POINTER_OFFSET, VIEWPORT_EDGE } from '../src/primitives/Tooltip/behavio
 import { usePointerFollow } from '../src/primitives/Tooltip/behavior/usePointerFollow';
 import { useTooltipOpen } from '../src/primitives/Tooltip/behavior/useTooltipOpen';
 import { mountHook } from './hook-harness.mjs';
+import { fakeAnchor } from './tooltip-document.mjs';
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
 vi.mock('../src/primitives/Portal/behavior/useDismissListeners', () => ({ useDismissListeners: () => undefined }));
@@ -49,19 +50,20 @@ describe('usePointerFollow', () => {
 describe('useTooltipOpen with a pointer', () => {
   it('passes the entering and moving pointer on, and reports the hover', () => {
     const onPointer = vi.fn();
-    const ref = { current: null };
+    const ref = fakeAnchor();
     const view = mountHook(() => useTooltipOpen(ref, ref, true, onPointer));
     const event = { clientX: 5, clientY: 6 };
     view.act((tip) => tip.handlers.onMouseEnter(event));
     expect(view.current.hover).toBe(true);
     expect(view.current.open).toBe(true);
-    expect(view.current.handlers.onMouseMove).toBe(onPointer);
+    view.act((tip) => tip.handlers.onMouseMove(event));
+    expect(onPointer).toHaveBeenCalledTimes(2);
     expect(onPointer).toHaveBeenCalledWith(event);
   });
 
-  it('takes no move handler when the tooltip stays on its anchor', () => {
-    const ref = { current: null };
+  it('takes a move handler that needs no follower when the tooltip stays on its anchor', () => {
+    const ref = fakeAnchor();
     const view = mountHook(() => useTooltipOpen(ref, ref, true));
-    expect(view.current.handlers.onMouseMove).toBeUndefined();
+    expect(() => view.current.handlers.onMouseMove({ clientX: 1, clientY: 2 })).not.toThrow();
   });
 });

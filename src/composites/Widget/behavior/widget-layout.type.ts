@@ -43,6 +43,8 @@ interface FlatWidgetLayout {
 interface DockPlace {
   makeRoom?: boolean;
   size?: number;
+  weight?: number;
+  weightOf?: (id: string) => number | undefined;
 }
 
 export type { DockPlace, FlatWidgetLayout, FlatWidgetState, ResolvedSplit, SplitEdit, WidgetContextActive, WidgetGates };

@@ -10,7 +10,7 @@ import type { ListDetailLayoutListPaneProps } from '../ListDetailLayout.type';
 const ListDetailLayoutListPane = (props: ListDetailLayoutListPaneProps) => {
   const { id, collapsed, label, showTitle, action, railItems, containers, scroll, onUnfold } = props;
   const heading = showTitle || action !== undefined;
-  const content = containers.map((container, index) => <PanelContainer key={index} {...container}>{container.content}</PanelContainer>);
+  const content = containers.map((container, index) => <PanelContainer key={index} fill={!scroll} {...container}>{container.content}</PanelContainer>);
   return (
     <Box
       id={id}

@@ -33,6 +33,7 @@ const SideNav = (props: SideNavProps) => {
 
         <SideNavTop
           home={config.home}
+          pages={config.top}
           search={search}
           open={open}
           onOpen={openPanel}
@@ -42,7 +43,7 @@ const SideNav = (props: SideNavProps) => {
 
         <ScrollArea scrollbar="slim" className="side-nav__groups">
           {config.groups.map((group) => (
-            <Box key={group.id} className="side-nav__group" role="group" aria-label={group.label}>
+            <Box key={group.id} className="side-nav__group" role="group" aria-label={group.label === '' ? undefined : group.label}>
               {group.label ? <Span tone="muted" className="side-nav__group-label">{group.label}</Span> : null}
               {group.items.map((item) => (
                 <SideNavItem key={item.id} item={item} active={item.id === activeId} onSelect={select} />

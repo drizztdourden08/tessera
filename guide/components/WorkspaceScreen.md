@@ -31,6 +31,7 @@ A side list of pages beside the current page.
 ## Rules
 
 - Describe every page in content: its id, title and icon, and either sections of SettingsRow data or content of its own.
+- Set content.home for the Home page at the top of the nav, and content.top for more pages under it in the same block, with no heading and one divider after the block.
 - Every page shows the page header with its icon and title, and nothing turns it off. A screen without it is a custom screen built from ScreenWindow.
 - The nav, the header pills, the rows and the search all come from content; never build them by hand beside it.
 - Give options a hint, toggles hints for on and off and sliders hintOf, so the live hint says what each value does.

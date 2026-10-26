@@ -5,6 +5,7 @@ import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { VirtualGridActive } from './_samples/VirtualGridActive';
+import { VirtualGridButtons } from './_samples/VirtualGridButtons';
 import { VirtualGridFolders } from './_samples/VirtualGridFolders';
 import { VirtualGridFrame } from './_samples/VirtualGridFrame';
 import { VirtualGridJump } from './_samples/VirtualGridJump';
@@ -73,6 +74,11 @@ const Jump = {
   render: () => <VirtualGridJump count={2000} />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
+const Buttons = {
+  name: 'Button tiles: the tile is the cell, one tab stop for the grid',
+  render: () => <VirtualGridButtons count={300} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
 const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
 
 <VirtualGrid
@@ -94,6 +100,13 @@ const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
   onToggleSection={(key, collapsed) => remember(key, collapsed)}
 />
 
+<VirtualGrid
+  label="Frames"
+  items={frames}
+  getKey={(frame) => frame.id}
+  renderTile={(frame, index, cell) => <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>}
+/>
+
 gridRef.current?.scrollToIndex(1200, 'center');
 
 const marquee = useMarqueeSelect({ containerRef, selected, onChange, getRects: () => gridRef.current?.getRects() ?? [] });`;
@@ -107,11 +120,11 @@ const Overview = overviewStory({
     '`sections` groups the tiles under collapsing headers; a section takes `actions` and `depth`.',
     '`scrollRef`, `bind` and `overlay` let a marquee pick tiles; each tile carries `data-marquee-key`.',
     'A `ref` gives `scrollToIndex(index, align)` and `getRects()`, the rects of all tiles for a marquee.',
-    'The keys move through tiles and headers, and a tile that holds focus stays drawn.',
+    '`renderTile` hands the cell props to the app tile, so a button tile is the cell and the one tab stop.',
   ],
   instead: '[VirtualList] for rows in a column, or [ItemCard] for a few cards.',
   playground: Playground,
-  variants: [Long, Small, Few, Wide, Folders, Marquee, Jump],
+  variants: [Long, Small, Few, Wide, Folders, Marquee, Jump, Buttons],
   states: {
     render: (props: StateProps) => <VirtualGridFrame count={40} {...props} />,
     list: FILLED_AND_EMPTY,
@@ -120,4 +133,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Few, Folders, Jump, Long, Marquee, Overview, Playground, Small, Wide };
+export { Buttons, Few, Folders, Jump, Long, Marquee, Overview, Playground, Small, Wide };

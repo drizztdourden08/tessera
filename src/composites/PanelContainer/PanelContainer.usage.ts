@@ -9,6 +9,7 @@ const usage = {
     'Pass title for the heading and children for the body.',
     'The title is always shown above the body without a card surface or border.',
     'Pass action for a control in the header.',
+    'Pass fill to take the room left in a flex column; the body then has a definite height, so a DataTable inside scrolls on its own.',
   ],
   a11y: ['The title is a heading; the body remains arbitrary content.'],
   buildingBlock: true,
@@ -17,7 +18,7 @@ const usage = {
 <PanelContainer title="Profiles" action="New">
   Profiles go here.
 </PanelContainer>`,
-  propsHash: '41de06cfc0b34bd7',
+  propsHash: '754ed87a29956833',
 } satisfies ComponentUsage;
 
 export { usage };

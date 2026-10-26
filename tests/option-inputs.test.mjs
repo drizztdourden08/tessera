@@ -93,13 +93,14 @@ describe('KeyValueEditor', () => {
 });
 
 describe('FormRow and FormGroupTabs', () => {
-  it('names its control, marks a change and holds the reset until something changed', () => {
+  it('names its control, marks a change and shows the reset only once something changed', () => {
     const html = renderToString(h(FormRow, { label: 'Player Name', description: 'The name others see.', id: 'name', onReset: () => {} }, h(TextInput, {})));
     expect(html).toContain('id="name"');
     expect(html).toContain('aria-describedby="name-description"');
-    expect(html).toMatch(/aria-label="Reset Player Name"[^>]*disabled=""|disabled=""[^>]*aria-label="Reset Player Name"/);
+    expect(html).not.toContain('aria-label="Reset Player Name"');
     const changed = renderToString(h(FormRow, { label: 'Player Name', changed: true, advanced: true, problem: 'Too long.', onReset: () => {} }, h(TextInput, {})));
     expect(changed).toContain('>changed<');
+    expect(changed).toContain('aria-label="Reset Player Name"');
     expect(changed).toContain('>advanced<');
     expect(changed).toMatch(/role="alert"[^>]*>Too long\./);
     expect(changed).toContain('aria-invalid="true"');

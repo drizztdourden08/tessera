@@ -106,7 +106,7 @@ const Overview = overviewStory({
   description: 'A short note that appears while the pointer rests on an element or focus is on it, such as a cost or the full text of a label.',
   points: [
     'Wrap any element in it and pass the note as `content`; `focusable` puts plain text in the Tab order.',
-    'Keyboard focus opens it too; leave, blur, [[Esc]] or a click elsewhere closes it, and a click never pins it.',
+    'Focus opens it too; leave, blur, [[Esc]], a scroll or a click elsewhere closes it; a click never pins it.',
     'It opens above by default, or below with `placement="bottom"`.',
     '`follow="pointer"` sets it beside the pointer and keeps it inside the window, for a hint over a wide area.',
     'It draws above the page, so a clipped panel cannot cut it off; it describes the control by `aria-describedby`.',

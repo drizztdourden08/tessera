@@ -3,6 +3,7 @@ import type { SideNavItem as Item, SideNavSearch as Search } from '../SideNav.ty
 
 interface SideNavTopProps {
   home?: Item;
+  pages?: Item[];
   search?: Search;
   open: boolean;
   onOpen: () => void;

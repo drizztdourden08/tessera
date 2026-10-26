@@ -34,6 +34,7 @@ Widget and WidgetManager give every tool panel the same frame, dock and options,
 - Give a log or a chart fill in its definition, and leave the other widgets on the default padding.
 - Give every widget of a kit, such as developer tools, the same group: it then never tabs or splits with a widget outside it.
 - A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.
+- Give a definition dockWeight to size it on an edge: weight 2 takes twice the room of 1, and none counts as 1.
 - Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.
 - Give the widgets of a kit chrome compact or none in their definition, and pass the same chrome to a Widget in its own window.
 - To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest.
@@ -104,7 +105,7 @@ const Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {
 
 ## Tokens
 
-It draws on `--blur`, `--border-width-thin`, `--c-glass`, `--c-hairline`, `--c-hover`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-text`, `--c-text-dim`, `--control-h-xs`, `--duration-fast`, `--duration-normal`, `--ease-standard`, `--font-mono`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--scroll-thumb-edge`, `--scrollbar-slim-active`, `--shadow-overlay`, `--size-1`, `--size-20`, `--size-320`, `--size-4`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`, `--widget-frame-opacity`, `--widget-options-slider-w`, `--widget-options-w`, `--widget-title-compact-font`, `--widget-titlebar-h`, `--z-base`, `--z-panel`.
+It draws on `--blur`, `--border-width-thin`, `--c-glass`, `--c-hairline`, `--c-hover`, `--c-layer`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-text`, `--c-text-dim`, `--control-h-xs`, `--duration-fast`, `--duration-normal`, `--ease-standard`, `--font-mono`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--scrollbar-slim-gutter`, `--shadow-overlay`, `--size-1`, `--size-20`, `--size-320`, `--size-4`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`, `--widget-frame-opacity`, `--widget-options-slider-w`, `--widget-options-w`, `--widget-title-compact-font`, `--widget-titlebar-h`, `--z-base`, `--z-panel`.
 
 ## Also exported from this folder
 

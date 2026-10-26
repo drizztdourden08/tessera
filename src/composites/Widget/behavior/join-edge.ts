@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { insertAt } from '../../DockLayout';
 import type { DockEdge, LayoutNode, PaneNode } from '../../DockLayout';
+import type { JoinOn } from './join-edge.type';
 
 const lastPane = (node: LayoutNode): PaneNode | null => {
   if (node.kind === 'pane') return node;
@@ -13,10 +14,16 @@ const lastPane = (node: LayoutNode): PaneNode | null => {
   return null;
 };
 
-const evenOut = (node: LayoutNode, stack: LayoutNode): LayoutNode => {
+const weightOf = (weight: number | undefined): number => (weight !== undefined && weight > 0 && Number.isFinite(weight) ? weight : 1);
+
+const sizeByWeight = (node: LayoutNode, stack: LayoutNode, weightFor: (child: LayoutNode) => number): LayoutNode => {
   if (node.kind !== 'split') return node;
-  if (node === stack) return { ...node, sizes: node.children.map(() => 1 / node.children.length) };
-  return { ...node, children: node.children.map((child) => evenOut(child, stack)) };
+  if (node === stack) {
+    const weights = node.children.map(weightFor);
+    const total = weights.reduce((sum, w) => sum + w, 0);
+    return { ...node, sizes: weights.map((w) => w / total) };
+  }
+  return { ...node, children: node.children.map((child) => sizeByWeight(child, stack, weightFor)) };
 };
 
 const findStack = (node: LayoutNode, key: string): LayoutNode | null => {
@@ -29,13 +36,17 @@ const findStack = (node: LayoutNode, key: string): LayoutNode | null => {
   return null;
 };
 
-const joinEdge = (tree: LayoutNode, stack: LayoutNode, pane: PaneNode, edge: DockEdge): LayoutNode | null => {
+const joinEdge = (tree: LayoutNode, stack: LayoutNode, pane: PaneNode, on: JoinOn): LayoutNode | null => {
   const last = lastPane(stack);
   if (!last) return null;
-  const along: DockEdge = edge === 'left' || edge === 'right' ? 'bottom' : 'right';
+  const along: DockEdge = on.edge === 'left' || on.edge === 'right' ? 'bottom' : 'right';
   const joined = insertAt(tree, pane, { at: 'leaf', key: last.key, edge: along });
+  const weightFor = (child: LayoutNode): number => {
+    if (child.kind !== 'pane') return 1;
+    return weightOf(child.key === pane.key ? on.weight : on.weightOf?.(child.active));
+  };
   const holder = findStack(joined, pane.key);
-  return holder ? evenOut(joined, holder) : joined;
+  return holder ? sizeByWeight(joined, holder, weightFor) : joined;
 };
 
 export { joinEdge };

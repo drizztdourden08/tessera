@@ -25,6 +25,7 @@ interface WorkspaceGroup {
 
 interface WorkspaceContent {
   home?: WorkspacePage;
+  top?: readonly WorkspacePage[];
   groups: readonly WorkspaceGroup[];
 }
 

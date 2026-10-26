@@ -4,7 +4,7 @@ import type { SideNavLeadRow } from './lead-row.type';
 
 const leadRow = (config: SideNavConfig, search: SideNavSearch | undefined, open: boolean): SideNavLeadRow => {
   if (search !== undefined) return 'search';
-  if (config.home !== undefined) return 'item';
+  if (config.home !== undefined || (config.top?.length ?? 0) > 0) return 'item';
   return open && config.groups[0]?.label ? 'label' : 'item';
 };
 

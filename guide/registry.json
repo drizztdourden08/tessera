@@ -374,7 +374,9 @@
             "components": []
           },
           "between pages, from a side list": {
-            "components": []
+            "components": [
+              "SideNav"
+            ]
           },
           "between sections of one long page": {
             "components": []
@@ -433,7 +435,9 @@
             "components": []
           },
           "content that scrolls": {
-            "components": []
+            "components": [
+              "ScrollArea"
+            ]
           },
           "more content behind a line that shows or hides it": {
             "components": [
@@ -2135,7 +2139,124 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A box that scrolls its content, with a styled scrollbar, such as a changelog, a list of cards or a pane body.",
+      "useWhen": [
+        "Content can grow past a fixed height or width, such as a changelog or a grid of cards.",
+        "Two boxes must scroll together, through scrollTo and onScroll."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The content always fits and nothing needs to scroll.",
+          "use": "Box"
+        },
+        {
+          "case": "The list is long enough that every row must not be drawn at once.",
+          "use": "VirtualGrid"
+        }
+      ],
+      "rules": [
+        "axis picks y, x or both; the other direction is clipped. It defaults to y.",
+        "scrollbar slim draws a thin line along the edge that widens under the pointer; native keeps the browser bar.",
+        "A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.",
+        "Set fade to false when the edges of the content must not melt away.",
+        "Give the box a height, through a class or its parent, or it grows with its content and never scrolls."
+      ],
+      "a11y": [
+        "The box is a plain div and keeps the reading order of its children.",
+        "Pass tabIndex 0 and a label when the content has nothing focusable, so a keyboard can scroll it."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "content that scrolls"
+        ],
+        "rule": "ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content."
+      },
+      "example": "import type { ReactNode } from 'react';\nimport { Grid, ScrollArea } from '@drizztdourden08/tessera';\n\nconst Library = ({ cards }: { cards: ReactNode[] }) => (\n  <ScrollArea scrollbar=\"slim\" className=\"library\">\n    <Grid minColWidth={224} gap=\"sm\">\n      {cards}\n    </Grid>\n  </ScrollArea>\n);\n",
+      "propsHash": "b09c3ee3f79ee26f",
+      "props": {
+        "own": [
+          {
+            "name": "axis",
+            "optional": true,
+            "text": "ScrollAxis",
+            "literals": [
+              "'y'",
+              "'x'",
+              "'both'"
+            ],
+            "default": "'y'"
+          },
+          {
+            "name": "fade",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "scrollbar",
+            "optional": true,
+            "text": "ScrollAreaScrollbar",
+            "literals": [
+              "'native'",
+              "'slim'"
+            ],
+            "default": "'native'"
+          },
+          {
+            "name": "onScroll",
+            "optional": true,
+            "text": "(position: ScrollPosition) => void"
+          },
+          {
+            "name": "scrollTo",
+            "optional": true,
+            "text": "Partial<ScrollPosition>"
+          }
+        ],
+        "inherited": {
+          "count": 279,
+          "from": [
+            "AriaAttributes",
+            "Attributes",
+            "DOMAttributes",
+            "HTMLAttributes",
+            "RefAttributes"
+          ],
+          "extends": [
+            "Omit<ComponentPropsWithRef<'div'>, 'onScroll'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--c-bg",
+        "--c-border",
+        "--c-primary",
+        "--c-text-muted",
+        "--radius-sm",
+        "--scroll-thumb-x-fraction",
+        "--scroll-thumb-x-progress",
+        "--scroll-thumb-y-fraction",
+        "--scroll-thumb-y-progress",
+        "--scrollbar-size",
+        "--scrollbar-slim",
+        "--scrollbar-slim-active",
+        "--scrollbar-slim-gutter",
+        "--size-16",
+        "--size-2",
+        "--size-24",
+        "--size-4",
+        "--transition-fast"
+      ],
+      "gallery": {
+        "title": "Primitives · Layout/ScrollArea",
+        "route": "#/story/primitives-scrollarea--overview",
+        "file": "stories/primitives/ScrollArea.stories.tsx"
+      },
+      "parts": [
+        "createScrollSyncController"
+      ]
     },
     {
       "name": "SearchInput",
@@ -7517,7 +7638,7 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "One option of a long form: its name and help on the left, its control in the middle, a changed mark and a reset at the end.",
+      "job": "One option of a long form: its name and help on the left, its control on the right edge, a changed mark and a reset after the name.",
       "useWhen": [
         "A form lists many options built from a schema, such as the options of a game preset, each with a default to go back to.",
         "The user needs to see at a glance which options differ from their default."
@@ -7533,7 +7654,8 @@
         }
       ],
       "rules": [
-        "Set changed when the value differs from its default, and pass onReset to put the default back.",
+        "Set changed when the value differs from its default, and pass onReset to put the default back; the reset sits after the name and is absent while the value is the default.",
+        "The control column is end-aligned, so every control of a list of rows shares one right edge.",
         "Write problem as what blocks the save and what to do, such as Not saved: fix the JSON first.",
         "Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs.",
         "Write the whole description: past descriptionLines lines, 2 by default, it folds behind More and Less, so the app needs no fold of its own.",
@@ -7635,7 +7757,6 @@
       "tokens": [
         "--border-width-thin",
         "--c-hairline",
-        "--size-32",
         "--space-2xs",
         "--space-md",
         "--space-sm",
@@ -9099,7 +9220,7 @@
         "Pass listRatio, such as 0.6, to give the list a share of the room in place of a width in pixels; the divider then drags the share, from 0.2 to 0.8.",
         "Pass detailCollapsible to let the detail fold to a rail the same way, or detailCollapsed with onDetailCollapsedChange to hold it.",
         "The divider always resizes; pulling the list about 32 px narrower than its minimum folds it to a rail, and dragging the rail outward opens it. With detailCollapsible, pulling the divider past the largest list folds the detail the same way.",
-        "Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area.",
+        "Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area; each list container then fills the pane.",
         "Put a SaveBar last in the detail: it sits flush with the foot of the pane.",
         "Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor.",
         "A folded pane is the rail of SidePanel, drawn by the same part: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right. The fold buttons overlap the dashed outside border, with the list button on its detail side and the detail button on its list side.",
@@ -9954,14 +10075,15 @@
       "rules": [
         "Pass title for the heading and children for the body.",
         "The title is always shown above the body without a card surface or border.",
-        "Pass action for a control in the header."
+        "Pass action for a control in the header.",
+        "Pass fill to take the room left in a flex column; the body then has a definite height, so a DataTable inside scrolls on its own."
       ],
       "a11y": [
         "The title is a heading; the body remains arbitrary content."
       ],
       "buildingBlock": true,
       "example": "import { PanelContainer } from '@drizztdourden08/tessera';\n\n<PanelContainer title=\"Profiles\" action=\"New\">\n  Profiles go here.\n</PanelContainer>",
-      "propsHash": "41de06cfc0b34bd7",
+      "propsHash": "754ed87a29956833",
       "props": {
         "own": [
           {
@@ -9987,6 +10109,12 @@
               "6"
             ],
             "default": "3"
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
           },
           {
             "name": "children",
@@ -11729,7 +11857,185 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "The side list of a window with several sections: a column of icons that a chevron on its edge opens to show the labels.",
+      "useWhen": [
+        "A window has several top-level sections and the user moves between them from a side list.",
+        "The list needs a top block with Home and a few pages under it, then labelled groups below."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The nav sits beside a content pane that shows the page and the search results.",
+          "use": "SideNavLayout"
+        },
+        {
+          "case": "A side panel with a heading folds beside the main view.",
+          "use": "SidePanel"
+        },
+        {
+          "case": "The pages are chosen from the header of a site.",
+          "use": "SiteHeader"
+        }
+      ],
+      "rules": [
+        "Pass config with groups, each with an id, an optional label and its items; an item has an id, a label and an icon.",
+        "Pass config.home for the Home row at the very top.",
+        "Pass config.top for more top-level pages under Home, in the same top block: no heading, and one divider after the whole block.",
+        "The top block is the search field, then Home, then the top pages; nothing else is drawn between them.",
+        "Leave the label of a group out for a group with no heading and no gap; prefer config.top for pages that belong under Home.",
+        "Pass activeId and onSelect; the host owns the active page.",
+        "Pass badge on an item for a count pill, which shows as a dot over the icon when the nav is collapsed.",
+        "Pass search to add a field that grows when the nav opens; the host owns the query and shows the results.",
+        "Pass defaultOpen, open with onOpenChange, or storageKey to set and keep the choice; overlay slides the open nav over the content.",
+        "Pass variant=\"rail\" for the screen list of an app, flush on the window edge."
+      ],
+      "a11y": [
+        "It is a nav named by ariaLabel, and each group is a group named by its label; a group with no label has no name.",
+        "The edge toggle says Show or Hide the navigation pane and reports aria-expanded.",
+        "The active item reports aria-current; a disabled item stays in the list but takes no click."
+      ],
+      "tree": {
+        "path": [
+          "navigation",
+          "between pages, from a side list"
+        ],
+        "rule": "SideNav is the one side list of a window: icons that open to labels, a top block with Home and pages, then labelled groups."
+      },
+      "example": "import { useState } from 'react';\nimport { Icon, SideNav } from '@drizztdourden08/tessera';\n\nconst HOME = { id: 'home', label: 'Home', icon: <Icon name=\"menu\" /> };\nconst PAGES = [{ id: 'inbox', label: 'Inbox', icon: <Icon name=\"list\" /> }];\nconst GROUPS = [{ id: 'play', label: 'Play', items: [{ id: 'sessions', label: 'Sessions', icon: <Icon name=\"map\" /> }] }];\n\nconst AppNav = () => {\n  const [active, setActive] = useState('home');\n  return <SideNav config={{ home: HOME, top: PAGES, groups: GROUPS }} activeId={active} onSelect={setActive} />;\n};\n",
+      "propsHash": "52f4f156ab209696",
+      "props": {
+        "own": [
+          {
+            "name": "config",
+            "optional": false,
+            "text": "SideNavConfig"
+          },
+          {
+            "name": "activeId",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onSelect",
+            "optional": false,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "search",
+            "optional": true,
+            "text": "SideNavSearch"
+          },
+          {
+            "name": "defaultOpen",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "open",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onOpenChange",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "storageKey",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "SideNavVariant",
+            "literals": [
+              "'panel'",
+              "'rail'"
+            ],
+            "default": "'panel'"
+          },
+          {
+            "name": "collapsed",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "overlay",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "ariaLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--blur",
+        "--blur-glow",
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-focus",
+        "--c-glass",
+        "--c-hover",
+        "--c-panel",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-soft",
+        "--c-sunken",
+        "--c-surface",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--collapse-toggle-d",
+        "--leading-normal",
+        "--opacity-disabled",
+        "--radius-lg",
+        "--radius-md",
+        "--radius-xl",
+        "--scrollbar-slim-rest",
+        "--shadow-lg",
+        "--side-nav-item-h",
+        "--side-nav-w",
+        "--side-nav-w-open",
+        "--size-4",
+        "--size-6",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-xl",
+        "--text-xs",
+        "--tracking-caps",
+        "--transition-fast",
+        "--transition-normal",
+        "--weight-semi",
+        "--z-base",
+        "--z-popover"
+      ],
+      "gallery": {
+        "title": "Composites · Navigation/SideNav",
+        "route": "#/story/composites-sidenav--overview",
+        "file": "stories/composites/SideNav.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "SideNavLayout",
@@ -13911,6 +14217,9 @@
         "Give scrollRef the ref of a marquee container and spread bind of useMarqueeSelect on the grid; every tile carries data-marquee-key set to its getKey, and overlay takes the MarqueeBox that follows the content.",
         "Give ref a ref and call scrollToIndex(index, align) to scroll a tile into view; align is start, center, end or nearest, and nearest is the default; the index of a tile in a collapsed section scrolls to its header.",
         "Give a marquee every tile, drawn or not, with getRects on the ref: useMarqueeSelect({ getRects: () => gridRef.current?.getRects() ?? [] }); the rects come from the layout, not the page, and the tiles of a collapsed section are left out.",
+        "Give renderTile instead of renderItem when a tile is a button or a card with an action: it receives (item, index, cell) and the app spreads cell on the tile, so the tile is the gridcell and the only focus target; a cell with a button inside is two targets, and the smaller inner one fails the target size check.",
+        "The cell props carry the role, tabIndex, aria-colindex, the data attributes the keys and the marquee read, the focus and key handlers, and a className that removes the padding; keep that className when you add your own, and spread them on one element that can take focus.",
+        "Give renderTile or renderItem, not both; renderItem stays the default for tiles that are not interactive, and the grid wraps them in a padded cell as before.",
         "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
         "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",
         "Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid."
@@ -13922,7 +14231,8 @@
         "Up and Down move between the tiles and the headers, and Left and Right step through tiles to the next header and back.",
         "A tile or a header that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
         "The actions of a header are in the tab order after the header; the arrows, Enter, Space, Left and Right act only when the header itself has focus, and a click on an action does not toggle the header.",
-        "Keys act only when the tile itself has focus, so a field inside a tile keeps its own arrow keys."
+        "Keys act only when the tile itself has focus, so a field inside a tile keeps its own arrow keys.",
+        "With renderTile the tile is the cell, so a reader meets one control per tile; Enter and Space still press a button tile, and the arrows move between tiles."
       ],
       "tree": {
         "path": [
@@ -13931,8 +14241,8 @@
         ],
         "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
       },
-      "example": "import { VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
-      "propsHash": "560a684fc3d8d53b",
+      "example": "import { Button, VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\nconst Buttons = ({ frames, open }: { frames: Frame[]; open: (frame: Frame) => void }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderTile={(frame, _index, cell) => (\n      <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>\n    )}\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
+      "propsHash": "d941326a3ed3f000",
       "props": {
         "own": [
           {
@@ -13949,11 +14259,6 @@
             "name": "getKey",
             "optional": false,
             "text": "(item: T, index: number) => string"
-          },
-          {
-            "name": "renderItem",
-            "optional": false,
-            "text": "(item: T, index: number) => ReactNode"
           },
           {
             "name": "label",
@@ -14025,6 +14330,16 @@
             "name": "className",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "renderItem",
+            "optional": true,
+            "text": "(item: T, index: number) => ReactNode | undefined"
+          },
+          {
+            "name": "renderTile",
+            "optional": true,
+            "text": "undefined | (item: T, index: number, cell: VirtualGridCellBind) => ReactNode"
           }
         ],
         "inherited": {
@@ -14240,6 +14555,7 @@
         "Give a log or a chart fill in its definition, and leave the other widgets on the default padding.",
         "Give every widget of a kit, such as developer tools, the same group: it then never tabs or splits with a widget outside it.",
         "A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.",
+        "Give a definition dockWeight to size it on an edge: weight 2 takes twice the room of 1, and none counts as 1.",
         "Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.",
         "Give the widgets of a kit chrome compact or none in their definition, and pass the same chrome to a Widget in its own window.",
         "To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest."
@@ -14420,8 +14736,7 @@
         "--radius-lg",
         "--radius-md",
         "--radius-sm",
-        "--scroll-thumb-edge",
-        "--scrollbar-slim-active",
+        "--scrollbar-slim-gutter",
         "--shadow-overlay",
         "--size-1",
         "--size-20",
@@ -14815,6 +15130,7 @@
       ],
       "rules": [
         "Describe every page in content: its id, title and icon, and either sections of SettingsRow data or content of its own.",
+        "Set content.home for the Home page at the top of the nav, and content.top for more pages under it in the same block, with no heading and one divider after the block.",
         "Every page shows the page header with its icon and title, and nothing turns it off. A screen without it is a custom screen built from ScreenWindow.",
         "The nav, the header pills, the rows and the search all come from content; never build them by hand beside it.",
         "Give options a hint, toggles hints for on and off and sliders hintOf, so the live hint says what each value does.",

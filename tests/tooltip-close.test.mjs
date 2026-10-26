@@ -4,6 +4,7 @@ import { nextTooltipState } from '../src/primitives/Tooltip/behavior/next-toolti
 import { TOOLTIP_CLOSED } from '../src/primitives/Tooltip/behavior/tooltip-state.constants';
 import { useTooltipOpen } from '../src/primitives/Tooltip/behavior/useTooltipOpen';
 import { mountHook } from './hook-harness.mjs';
+import { fakeAnchor } from './tooltip-document.mjs';
 
 const dismiss = { params: null };
 
@@ -17,7 +18,7 @@ const MOUSE_FOCUS = { target: { keyboard: false }, relatedTarget: null, currentT
 const AWAY = { relatedTarget: null, currentTarget: { contains: () => false } };
 
 const mount = () => {
-  const ref = { current: null };
+  const ref = fakeAnchor();
   return mountHook(() => useTooltipOpen(ref, ref, true));
 };
 

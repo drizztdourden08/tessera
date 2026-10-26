@@ -10,10 +10,14 @@ const tabbedWith = (layout: WidgetLayout, host: string, id: string): WidgetLayou
   return pane ? dockWidget(layout, id, { at: 'tab', key: pane.key }, true) : layout;
 };
 
+const weighted = (): WidgetLayout => dockOnEdge(dockOnEdge(createDefaultLayout(), 'players', 'left'), 'hints', 'left', { weight: 2 });
+
 const dockDemoLayout = (withFloating: boolean, start?: DockDemoStart): WidgetLayout => {
   if (start === 'saved') return migrateLayout(SAVED_WITHOUT_MAKE_ROOM);
   if (start === 'corner') return migrateLayout(CORNER_LAYOUT);
   if (start === 'corner-one') return migrateLayout(CORNER_ONE_LAYOUT);
+  if (start === 'corner-header') return migrateLayout(CORNER_LAYOUT);
+  if (start === 'weighted') return weighted();
   const left = dockOnEdge(createDefaultLayout(), 'players', 'left');
   if (start === 'snap') {
     const consoleBox = { id: 'console', x: 0.06, y: 0.08, width: 280, height: 170 };
