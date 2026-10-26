@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.73.0
+
+### Minor Changes
+
+- 6ed559c: New icon `guides` for ruler guides on a canvas: an L-shaped ruler with tick marks and two dashed guide lines, drawn on the same 24 grid as the Lucide interface icons.
+- c724f7f: DataTable `rowState` takes `warning`, a needs-a-look bar in the warning tone. Tabs items take `badgeTitle`, shown in a Tooltip on hover and focus and read as the tab description. DateText `length="short"` on `elapsed` gives one unit (5s, 12m, 3h, 2d) and ticks by that unit; the default elapsed text is unchanged.
+
 ## 0.72.0
 
 ### Minor Changes
