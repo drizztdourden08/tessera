@@ -1,5 +1,21 @@
 # @drizztdourden08/tessera
 
+## 0.70.0
+
+### Minor Changes
+
+- a01227e: DataTable takes `detailRowId` with `renderDetail(row)` to open a panel under one row, such as an inline confirm or a small form, and `onDetailClose` for the Escape key.
+- 0fc14fe: DateText gets an elapsed format that counts up as 12s, 4m 03s, 1h 02m or 2d 3h with an optional label such as running, ticking from one shared timer that pauses while the page is hidden.
+- cec0e8a: Hero takes `size="full"` to span the window edge to edge at least one viewport tall minus `--hero-full-offset`, and image art takes `motion: 'pan'` for a slow drift that stops under reduced motion. The new `PageRoot` primitive sets `data-scroll="document"` on the html element so a website page scrolls with the document, and the new `PageFrame` primitive is a padded full-height frame that scrolls on its own for apps that keep the root locked.
+- 8079376: Adds `KanbanBoard`, a board of cards in app named columns that the user drags within a column or to another one, or moves with the arrow keys on a card grip, reporting each move to the app through `onMove`. Each column shows a count and folds to a narrow rail, `renderCard` draws the inside of a card, and `moveCard` applies a move to the columns.
+- bdf53f8: LogPanel takes `ansi` to draw colour and style escape codes in its lines with the new `--c-term-*` tokens, `follow` to keep the end in view until the reader scrolls up, and `onInput` with `prompt` for a stdin row that walks the history of what was sent with Up and Down. The `--c-term-*` colours follow every palette, and escape codes that are not colour or style are stripped.
+- 0a1975d: New MarkdownEditor composite: a controlled field for writing Markdown, with a formatting toolbar (bold, italic, lists, link, inline code, code block), Mod+B, Mod+I and Mod+K shortcuts, and a live preview drawn by Markdown in a split or tabs layout. It adds a markdownEditor string group and the bold, italic, list-ordered, code and square-code icons.
+- 972e485: Button takes `look="pixel"`, a dithered two-tone fill drawn with token colours, a stepped one-pixel frame with square corners and the game font, with hover, pressed, focus, loading and disabled states in every palette; the `ButtonLook` type is exported. The icon set gains `github` and `git-fork`, also named `fork`.
+
+### Patch Changes
+
+- dc9779a: TesseraProvider's `overrides` is optional: without it the provider passes the inherited setup through.
+
 ## 0.69.0
 
 ### Minor Changes
