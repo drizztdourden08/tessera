@@ -112,7 +112,7 @@
 }
 
 .status-bar__value[data-tone='primary'] {
-  color: var(--c-primary);
+  color: var(--c-primary-text);
 }
 
 .status-bar__value[data-tone='secondary'] {

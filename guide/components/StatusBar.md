@@ -74,4 +74,4 @@ const EditorStatus = ({ x, y, colour }: { x: number; y: number; colour: string }
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-focus`, `--c-info`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-surface`, `--c-tertiary`, `--c-text`, `--c-text-muted`, `--c-warning`, `--radius-sm`, `--space-2xs`, `--space-sm`, `--space-xs`, `--status-bar-h`, `--status-bar-swatch`, `--text-xs`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-focus`, `--c-info`, `--c-primary-text`, `--c-secondary`, `--c-success`, `--c-surface`, `--c-tertiary`, `--c-text`, `--c-text-muted`, `--c-warning`, `--radius-sm`, `--space-2xs`, `--space-sm`, `--space-xs`, `--status-bar-h`, `--status-bar-swatch`, `--text-xs`.

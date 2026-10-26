@@ -75,7 +75,7 @@ It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLSpanEle
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-bright`, `--c-danger-dim`, `--c-danger-soft`, `--c-info`, `--c-info-bright`, `--c-info-dim`, `--c-info-soft`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-dim`, `--c-secondary-soft`, `--c-success`, `--c-success-bright`, `--c-success-dim`, `--c-success-soft`, `--c-sunken`, `--c-tertiary`, `--c-tertiary-bright`, `--c-tertiary-dim`, `--c-tertiary-soft`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-bright`, `--c-warning-dim`, `--c-warning-soft`, `--radius-pill`, `--radius-round`, `--size-6`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-bright`, `--c-danger-dim`, `--c-danger-soft`, `--c-info`, `--c-info-bright`, `--c-info-dim`, `--c-info-soft`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-primary-text`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-dim`, `--c-secondary-soft`, `--c-success`, `--c-success-bright`, `--c-success-dim`, `--c-success-soft`, `--c-sunken`, `--c-tertiary`, `--c-tertiary-bright`, `--c-tertiary-dim`, `--c-tertiary-soft`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-bright`, `--c-warning-dim`, `--c-warning-soft`, `--radius-pill`, `--radius-round`, `--size-6`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`.
 
 ## Also exported from this folder
 

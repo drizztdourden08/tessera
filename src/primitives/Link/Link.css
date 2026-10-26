@@ -20,7 +20,7 @@
 
 :where(.link[data-tone="primary"]) {
   --link-ink: var(--c-primary-bright);
-  --link-ink-hover: var(--c-primary);
+  --link-ink-hover: var(--c-primary-text);
 }
 
 :where(.link[data-tone="secondary"]) {
