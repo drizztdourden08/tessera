@@ -8,6 +8,7 @@ import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { DateFormatTable } from './_samples/DateFormatTable';
 import { DateInData } from './_samples/DateInData';
 import { DateLadder } from './_samples/DateLadder';
+import { DateRunning } from './_samples/DateRunning';
 import { DateSaveList } from './_samples/DateSaveList';
 import { DATE_CODE, FRENCH, MINUTE_MS } from './_samples/date-text-samples.constants';
 
@@ -52,6 +53,11 @@ const Live = {
   render: () => <DateLadder />,
 } satisfies StoryLiteStoryDefinition<DateTextArgs>;
 
+const Running = {
+  name: 'Running jobs: elapsed time that ticks, with a label',
+  render: () => <DateRunning />,
+} satisfies StoryLiteStoryDefinition<DateTextArgs>;
+
 const Saves = {
   name: 'RotP\'s save list: ItemList rows with the age as meta',
   render: () => <DateSaveList />,
@@ -67,17 +73,17 @@ const Overview = overviewStory({
   description: 'A date or a time in any common format, such as 5 minutes ago or Today, 21:40, with the full date on hover.',
   points: [
     '`value` takes a Date, an ISO string or epoch ms; `format` takes a preset or Intl date options.',
-    'Presets: relative, calendar, date, time, datetime, weekday, month and iso; `length` is short, medium or long.',
-    'Relative and calendar times redraw from one shared clock every 10 s, and only when their words change.',
-    'The full date shows in a Tooltip, on by default for relative and calendar; set `tooltip` to change it.',
-    'The locale and the words Just now, Today and Yesterday come from the `dates` strings, so apps translate them.',
-    '`formatDate` gives the same text to DataTable columns, Select columns and plain strings.',
+    'Presets: relative, elapsed, calendar, date, time, datetime, weekday, month, iso; `length` is short to long.',
+    'Relative and calendar redraw from one shared 10 s clock; elapsed ticks each second, minute or hour.',
+    '`elapsed` reads 12s, 4m 03s, 1h 02m, 2d 3h; `label` adds a word before it, such as running.',
+    'The full date shows in a Tooltip, on for relative, elapsed and calendar; set `tooltip` to change it.',
+    'The locale, units and words such as Just now come from the `dates` strings; `formatDate` gives the same text.',
   ],
   instead: '[Time] for a date the app has already written as text.',
   playground: Playground,
-  variants: [Formats, Live, Saves, InData],
+  variants: [Formats, Live, Running, Saves, InData],
   code: DATE_CODE,
 });
 
 export default meta;
-export { Formats, InData, Live, Overview, Playground, Saves };
+export { Formats, InData, Live, Overview, Playground, Running, Saves };

@@ -12,7 +12,7 @@ const formatDate = (value: DateValue, format: DateFormat = 'datetime', options: 
   const strings = { ...DATE_STRINGS, ...options.strings, ...(options.locale === undefined ? {} : { locale: options.locale }) };
   if (typeof format !== 'string') return intlFormats.date(strings.locale, format).format(at);
   const length = options.length ?? DEFAULT_LENGTHS[format];
-  return PRESET_TEXT[format]({ at, now: options.now ?? Date.now(), length, strings });
+  return PRESET_TEXT[format]({ at, now: options.now ?? Date.now(), length, strings, label: options.label });
 };
 
 export { formatDate };

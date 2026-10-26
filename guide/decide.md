@@ -74,7 +74,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A list of keys and what they do: [ShortcutList](components/ShortcutList.md). ShortcutList keeps every key in one column and every description at one edge, however long the text runs.
   - A value to copy, such as an address or a key: [CopyValue](components/CopyValue.md). CopyValue keeps the value selectable and puts the copy button at its end, with the same check and announcement as every copy.
   - A score in stars, or a rating to give: [Rating](components/Rating.md). Rating shows an average in half stars with its count, and with onChange is the star picker.
-  - A date or a time, such as 5 minutes ago: [DateText](components/DateText.md). DateText formats a moment with the browser's Intl, in the app's locale, and keeps relative and calendar text up to date.
+  - A date or a time, such as 5 minutes ago: [DateText](components/DateText.md). DateText formats a moment with the browser's Intl, in the app's locale, and keeps relative, calendar and elapsed text up to date from shared timers, paused while the page is hidden.
 - Something over the page. **What sits over the page?**
   - A hint on hover or focus: no component yet.
   - A question the user must answer: [Dialog](components/Dialog.md). Dialog holds a message and a confirm and a cancel button, and takes its width from its content within the size.

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { asDate } from '../../primitives/date-format/as-date';
-import { FULL_DATE } from '../../primitives/date-format/date-format.constants';
+import { FULL_DATE, FULL_DATE_SECONDS } from '../../primitives/date-format/date-format.constants';
 import { formatDate } from '../../primitives/date-format/format-date';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Time } from '../../primitives/text-elements';
@@ -11,15 +11,16 @@ import type { DateTextProps } from './DateText.type';
 import './DateText.css';
 
 const DateText = (props: DateTextProps) => {
-  const { value, format = 'datetime', length, tooltip, focusable = false, className } = props;
+  const { value, format = 'datetime', length, label, tooltip, focusable = false, className } = props;
   const { dates } = useTesseraStrings();
-  const text = useDateText(value, format, { length, strings: dates });
+  const text = useDateText(value, format, { length, label, strings: dates });
   const at = asDate(value);
   if (!at) return null;
   const time = <Time dateTime={at.toISOString()} className={['date-text', className].filter(Boolean).join(' ')}>{text}</Time>;
-  const tip = tooltip ?? (typeof format === 'string' && LIVE_PRESETS.has(format));
+  const tip = tooltip ?? (format === 'elapsed' || (typeof format === 'string' && LIVE_PRESETS.has(format)));
+  const exact = formatDate(at, format === 'elapsed' ? FULL_DATE_SECONDS : FULL_DATE, { strings: dates });
   if (!tip) return time;
-  return <Tooltip content={formatDate(at, FULL_DATE, { strings: dates })} focusable={focusable}>{time}</Tooltip>;
+  return <Tooltip content={exact} focusable={focusable}>{time}</Tooltip>;
 };
 
 export { DateText };
