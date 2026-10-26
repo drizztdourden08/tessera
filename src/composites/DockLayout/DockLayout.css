@@ -93,11 +93,11 @@
 }
 
 .dock-corner--column.dock-corner--start::after {
-  inset-block-start: 0;
+  inset-block-end: 0;
 }
 
 .dock-corner--column.dock-corner--end::after {
-  inset-block-end: 0;
+  inset-block-start: 0;
 }
 
 .dock-corner:hover::after,
