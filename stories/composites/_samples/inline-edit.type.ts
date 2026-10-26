@@ -14,6 +14,7 @@ interface InlineEditDemoProps {
   multiline?: boolean;
   disabled?: boolean;
   validated?: boolean;
+  markdown?: boolean;
 }
 
 export type { InlineEditArgs, InlineEditDemoProps };

@@ -8956,6 +8956,8 @@
         "Click the text, or press Enter or F2 while it has focus, to start editing.",
         "Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.",
         "Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.",
+        "Pass renderValue to draw the text when it is not edited, such as Markdown; the click, Enter and F2, and the name stay the same, and the field is unchanged.",
+        "A link or a control inside the drawn text does not start the edit when clicked; only a click on the rest of the text does.",
         "Pass label to name the text for a screen reader, placeholder to stand in for an empty text, and disabled to show the text only."
       ],
       "a11y": [
@@ -8973,7 +8975,7 @@
         "rule": "InlineEdit starts, commits and cancels an edit in place with the same keys in every app."
       },
       "example": "import { useState } from 'react';\nimport { InlineEdit } from '@drizztdourden08/tessera';\n\nconst CardTitle = () => {\n  const [title, setTitle] = useState('Fix the login redirect');\n  return (\n    <InlineEdit\n      label=\"Title\"\n      value={title}\n      onCommit={setTitle}\n      placeholder=\"Add a title\"\n      validate={(text) => (text.length < 3 ? 'Use at least 3 characters.' : undefined)}\n    />\n  );\n};\n",
-      "propsHash": "4ac7059393375dd5",
+      "propsHash": "16e99e2a183ff159",
       "props": {
         "own": [
           {
@@ -9021,6 +9023,11 @@
               "'sm'",
               "'md'"
             ]
+          },
+          {
+            "name": "renderValue",
+            "optional": true,
+            "text": "(value: string) => ReactNode"
           },
           {
             "name": "className",
@@ -9808,6 +9815,7 @@
         "Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.",
         "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
         "Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.",
+        "Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.",
         "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids."
       ],
       "a11y": [
@@ -10958,6 +10966,7 @@
         "Set headingOffset so the headings sit under the heading of the place: 1, the default, makes # an h2.",
         "Set hideTitle when the frame around the note already names the version, such as the notes box of a UtilityScreen.",
         "Set size sm in a dialog or a notes box.",
+        "Set size inline inside a card or an InlineEdit display: no block margins, paragraphs as runs, tight lists, and headings as bold text at the text size.",
         "Pass onLink in a desktop app to open a link in the system browser; without it a link opens in a new tab.",
         "Only http, https and mailto links are kept. Any other link and raw HTML become plain text or nothing, and an image shows its alt text."
       ],
@@ -10976,7 +10985,7 @@
         "rule": "Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped."
       },
       "example": "import { Markdown } from '@drizztdourden08/tessera';\n\nconst UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (href: string) => void }) => (\n  <Markdown source={source} size=\"sm\" headingOffset={2} hideTitle onLink={openExternal} />\n);\n",
-      "propsHash": "f3abfe3beb0c9304",
+      "propsHash": "62f539ff5b5486fb",
       "props": {
         "own": [
           {
@@ -11020,7 +11029,8 @@
             "text": "MarkdownSize",
             "literals": [
               "'sm'",
-              "'md'"
+              "'md'",
+              "'inline'"
             ],
             "default": "'md'"
           },
@@ -11046,6 +11056,7 @@
         "--text-lg",
         "--text-sm",
         "--text-xl",
+        "--weight-bold",
         "--weight-semi"
       ],
       "gallery": {

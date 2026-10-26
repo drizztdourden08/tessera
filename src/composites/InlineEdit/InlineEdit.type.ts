@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, RefObject } from 'react';
+import type { KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { ControlSize } from '../../primitives/field-control/field-control.type';
 
 interface InlineEditProps {
@@ -11,6 +11,7 @@ interface InlineEditProps {
   validate?: (value: string) => string | undefined;
   multiline?: boolean;
   size?: ControlSize;
+  renderValue?: (value: string) => ReactNode;
   className?: string;
 }
 
@@ -21,6 +22,7 @@ interface InlineEditViewProps {
   placeholder: string | undefined;
   disabled: boolean;
   multiline: boolean;
+  renderValue: ((value: string) => ReactNode) | undefined;
   buttonRef: RefObject<HTMLButtonElement | null>;
   className: string | undefined;
   onStart: () => void;

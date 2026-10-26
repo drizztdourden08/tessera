@@ -1,9 +1,10 @@
 /* @layer tooling-scripts @kind test */
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { InlineEdit } from '../src/composites/InlineEdit';
 import { useInlineEditField } from '../src/composites/InlineEdit/behavior/useInlineEditField';
+import { guardCellControl } from '../src/composites/DataTable/behavior/guard-cell-control';
 import { nameEditKey } from '../src/primitives/field-control/name-edit-key';
 
 const noop = () => undefined;
@@ -47,6 +48,34 @@ describe('InlineEdit view', () => {
     const html = draw({ disabled: true });
     expect(html).toContain('disabled=""');
     expect(html).not.toContain('inline-edit__pen');
+  });
+});
+
+describe('InlineEdit renderValue', () => {
+  const draw = (props) => renderToString(h(InlineEdit, { value: 'one **two**', onCommit: noop, renderValue: (text) => h('em', { className: 'drawn' }, text.toUpperCase()), ...props }));
+
+  it('draws the value with renderValue when it is not edited, under the same name', () => {
+    const html = draw({});
+    expect(html).toContain('<em class="drawn">ONE **TWO**</em>');
+    expect(html).toContain('aria-label="Edit one **two**"');
+    expect(html).toContain('aria-keyshortcuts="F2"');
+  });
+
+  it('keeps the placeholder for an empty value and does not call renderValue', () => {
+    const html = draw({ value: '', placeholder: 'Add notes' });
+    expect(html).toContain('>Add notes<');
+    expect(html).not.toContain('drawn');
+  });
+
+  it('does not start the edit for a click on a link inside the drawn value', () => {
+    const start = vi.fn();
+    const link = { closest: () => link };
+    const row = { contains: (other) => other === link };
+    const handler = guardCellControl(start);
+    handler({ target: link, currentTarget: row });
+    expect(start).not.toHaveBeenCalled();
+    handler({ target: { closest: () => null }, currentTarget: { contains: () => true } });
+    expect(start).toHaveBeenCalledTimes(1);
   });
 });
 

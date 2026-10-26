@@ -81,6 +81,13 @@ describe('Markdown renders the release note subset', () => {
     expect(html).toBe('<div class="markdown notes" data-size="sm"><p class="text-el text-el--p markdown__paragraph">Plain words.</p></div>');
   });
 
+  it('adds the inline class for size inline and not for the others', () => {
+    const inline = renderToString(h(Markdown, { source: 'Plain words.', size: 'inline' }));
+    expect(inline).toContain('class="markdown markdown--inline" data-size="inline"');
+    expect(draw({ size: 'sm' })).not.toContain('markdown--inline');
+    expect(draw({})).not.toContain('markdown--inline');
+  });
+
   it('drops the leading title with hideTitle and keeps later ones', () => {
     const html = draw({ hideTitle: true });
     expect(html).not.toContain('Relic of the Past v0.16.0');
