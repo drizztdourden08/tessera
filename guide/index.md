@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 85 of 200 have their usage written; a linked name opens its page.
+One line per component. 86 of 200 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -164,7 +164,7 @@ One line per component. 85 of 200 have their usage written; a linked name opens 
 - `SettingsSection`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ShortcutList](components/ShortcutList.md): A list of keys, clicks and drags and what each one does, with the keys in one column and the descriptions in the next. Import from `@drizztdourden08/tessera`.
 - `ShortcutTour`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `SideNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [SideNav](components/SideNav.md): The side list of a window with several sections: a column of icons that a chevron on its edge opens to show the labels. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [SidePanel](components/SidePanel.md): The one side panel of Tessera: a sunken panel beside the main view, with a heading, that the user drags wider or narrower and that folds to a rail. Import from `@drizztdourden08/tessera`.
 - [SiteFooter](components/SiteFooter.md): The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord. Import from `@drizztdourden08/tessera`.
