@@ -3,6 +3,10 @@
   --anchored-margin: var(--space-xs);
 }
 
+@position-try --anchored-fill-block {
+  max-block-size: stretch;
+}
+
 @position-try --anchored-pin-inline {
   right: var(--anchored-margin);
   left: var(--anchored-margin);
@@ -74,7 +78,7 @@
 
 .anchored[data-flip][data-anchor-place^='right'],
 .anchored[data-flip][data-anchor-place^='left'] {
-  position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline, --anchored-pin-inline, flip-block --anchored-pin-inline;
+  position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline, --anchored-pin-inline, flip-block --anchored-pin-inline, --anchored-fill-block;
 }
 
 .anchored-fallback {
