@@ -7,7 +7,7 @@ import type { TesseraProviderProps } from './TesseraProvider.type';
 const TesseraProvider = (props: TesseraProviderProps) => {
   const { overrides, children } = props;
   const inherited = useContext(TesseraOverridesContext);
-  const merged = useMemo(() => mergeOverrides(inherited, overrides), [inherited, overrides]);
+  const merged = useMemo(() => (overrides ? mergeOverrides(inherited, overrides) : inherited), [inherited, overrides]);
 
   return <TesseraOverridesContext value={merged}>{children}</TesseraOverridesContext>;
 };
