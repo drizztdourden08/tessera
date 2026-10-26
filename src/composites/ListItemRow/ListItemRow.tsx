@@ -15,7 +15,7 @@ import '../../theme/list-item-slots.css';
 import type { ListItemRowProps } from './ListItemRow.type';
 
 const ListItemRow = (props: ListItemRowProps) => {
-  const { name, meta, icon, media, columns, action, actionVisibility = 'always', nameAction, selected = false, tabIndex, onClick, onDoubleClick, data } = props;
+  const { name, meta, icon, media, columns, action, actionVisibility = 'always', nameAction, selected = false, tabIndex, onClick, onDoubleClick, onContextMenu, onKeyDown, data } = props;
   const list = useContext(ListItemContext);
   const rowRef = useRef<HTMLElement>(null);
   const interactive = onClick !== undefined || onDoubleClick !== undefined;
@@ -28,7 +28,7 @@ const ListItemRow = (props: ListItemRowProps) => {
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => rowActivate({ onClick, onDoubleClick }, event.detail);
 
   return (
-    <Box ref={rowRef} className={frame.className} role={frame.role} style={style} {...data}>
+    <Box ref={rowRef} className={frame.className} role={frame.role} style={style} {...(interactive ? {} : { onContextMenu, onKeyDown })} {...data}>
       {interactive ? (
         <Pressable
           className="list-item-row__main row-inset"
@@ -36,6 +36,8 @@ const ListItemRow = (props: ListItemRowProps) => {
           tabIndex={tabIndex}
           onClick={handleClick}
           onDoubleClick={onDoubleClick}
+          onContextMenu={onContextMenu}
+          onKeyDown={onKeyDown}
         >
           {body}
         </Pressable>

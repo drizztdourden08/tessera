@@ -27,6 +27,12 @@
   pointer-events: none;
 }
 
+.document-tabs__add {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--space-xs);
+}
+
 .document-tabs__menu {
   display: flex;
   align-items: center;

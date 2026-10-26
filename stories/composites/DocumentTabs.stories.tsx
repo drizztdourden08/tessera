@@ -4,6 +4,7 @@ import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { DocumentTabsDemo } from './_samples/DocumentTabsDemo';
+import { DocumentTabsMenuDemo } from './_samples/DocumentTabsMenuDemo';
 import { DOCUMENT_TABS_ARG_TYPES, DOCUMENT_TABS_ARGS, DOCUMENT_TABS_CODE } from './_samples/document-tabs-story.constants';
 import type { DocumentSet, DocumentTabsArgs } from './_samples/document-tabs-story.type';
 import './DocumentTabs.stories.css';
@@ -35,6 +36,11 @@ const Reorder = {
   render: () => <DocumentTabsDemo showOrder />,
 } satisfies StoryLiteStoryDefinition<DocumentTabsArgs>;
 
+const MenuAndAdd = {
+  name: 'Menu hook and add button: right click, Menu or Shift+F10 on a tab, and + after the last tab',
+  render: () => <DocumentTabsMenuDemo />,
+} satisfies StoryLiteStoryDefinition<DocumentTabsArgs>;
+
 const STATE_SETS: readonly { name: string; documents: DocumentSet }[] = [
   { name: 'three', documents: 'three' },
   { name: 'many', documents: 'many' },
@@ -50,10 +56,11 @@ const Overview = overviewStory({
     'An unsaved tab shows a dot that becomes the close button on hover or focus. Middle click closes.',
     'Drag a tab, or press [[Alt+Left]] or [[Alt+Right]]. [[Delete]] or [[Ctrl+W]] closes the focused tab.',
     'Too many tabs scroll with the active one in view; `overflowMenu` adds a menu that lists them all.',
+    '`onTabContextMenu` gets the tab id on right click, [[Menu]] or [[Shift+F10]]; `onAdd` draws a + button.',
   ],
   instead: '[Tabs] for fixed views of one area, or [RowGrid] for a short list of rows the user edits and puts in order.',
   playground: Playground,
-  variants: [ThreeDocuments, ManyTabs, Reorder],
+  variants: [ThreeDocuments, ManyTabs, Reorder, MenuAndAdd],
   states: {
     render: (props: StateProps) => <DocumentTabsDemo documents={(props.documents as DocumentSet | undefined) ?? 'three'} />,
     list: STATE_SETS.map(({ name, documents }) => ({ name, props: { documents } })),
@@ -62,4 +69,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ManyTabs, Overview, Playground, Reorder, ThreeDocuments };
+export { ManyTabs, MenuAndAdd, Overview, Playground, Reorder, ThreeDocuments };

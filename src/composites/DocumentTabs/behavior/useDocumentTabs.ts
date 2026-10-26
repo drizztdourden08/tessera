@@ -7,12 +7,13 @@ import { useMoveFocus } from '../../reorder/useMoveFocus';
 import { useReorderDrag } from '../../reorder/useReorderDrag';
 import type { DocumentTabsProps } from '../DocumentTabs.type';
 import { keyOf } from './key-of';
+import { tabContextMenu } from './tab-context-menu';
 import { tabbableId } from './tabbable-id';
 import { tabKeys } from './tab-keys';
 import { useCloseFocus } from './useCloseFocus';
 import { useKeepInView } from './useKeepInView';
 
-const useDocumentTabs = ({ tabs, activeId, onMove, onClose }: DocumentTabsProps) => {
+const useDocumentTabs = ({ tabs, activeId, onMove, onClose, onTabContextMenu }: DocumentTabsProps) => {
   const { documentTabs } = useTesseraStrings();
   const listRef = useRef<HTMLElement>(null);
   const [focusedId, setFocusedId] = useState<string | null>(null);
@@ -49,7 +50,8 @@ const useDocumentTabs = ({ tabs, activeId, onMove, onClose }: DocumentTabsProps)
     tabId: tabbableId(tabs, focusedId, activeId),
     liveId,
     hoverId,
-    onKeyDown: tabKeys(listRef, { total: tabs.length, move, close }),
+    onKeyDown: tabKeys(listRef, { total: tabs.length, move, close, menu: onTabContextMenu }),
+    onContextMenu: tabContextMenu(listRef, onTabContextMenu),
     onFocus,
     onBlur: (): void => setLiveId(null),
     onPointerOver: (event: PointerEvent<HTMLElement>): void => setHoverId(keyOf(event.target)),
