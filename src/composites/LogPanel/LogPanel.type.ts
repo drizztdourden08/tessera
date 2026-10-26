@@ -11,6 +11,7 @@ interface LogRow {
   kind: string;
   message: string;
   indent?: number;
+  tone?: LogKindTone;
 }
 
 type LogKindTone = TextTone | TagCategoryColor | TagCustomColor;
@@ -23,6 +24,8 @@ interface LogKindDef {
   strong?: boolean;
   uppercase?: boolean;
 }
+
+type LogOrder = 'oldest-first' | 'newest-first';
 
 type LogPanelHeight = 'fill' | number;
 
@@ -43,9 +46,10 @@ interface LogPanelProps {
   onSelectionChange?: (ids: ReadonlySet<string>) => void;
   ansi?: boolean;
   follow?: boolean;
+  order?: LogOrder;
   onInput?: (text: string) => void;
   prompt?: string;
   className?: string;
 }
 
-export type { LogKindDef, LogKindTone, LogPanelHeight, LogPanelProps, LogRow };
+export type { LogKindDef, LogKindTone, LogOrder, LogPanelHeight, LogPanelProps, LogRow };

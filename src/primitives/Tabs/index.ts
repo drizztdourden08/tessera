@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { Tabs } from './Tabs';
-export type { TabItem } from './Tabs.type';
+export type { TabBadgeTone, TabItem } from './Tabs.type';

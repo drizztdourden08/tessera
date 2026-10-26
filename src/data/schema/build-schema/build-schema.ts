@@ -25,19 +25,26 @@ const reorder = (
     .map((entry) => entry.field);
 };
 
+const overlayNumberLooks = (field: FieldDescriptor, config: SchemaConfig | undefined): FieldDescriptor => {
+  const next: FieldDescriptor = { ...field };
+  const format = config?.formats?.[field.path];
+  if (format !== undefined) next.format = format;
+  const unit = config?.units?.[field.path];
+  if (unit !== undefined) next.unit = unit;
+  return next;
+};
+
 const overlayLooks = (field: FieldDescriptor, config: SchemaConfig | undefined): FieldDescriptor => {
   const next: FieldDescriptor = { ...field };
   const label = config?.labels?.[field.path];
   if (label !== undefined) next.label = label;
-  const format = config?.formats?.[field.path];
-  if (format !== undefined) next.format = format;
   const date = config?.dates?.[field.path];
   if (date !== undefined) next.date = date;
   return next;
 };
 
 const overlayConfig = (field: FieldDescriptor, config: SchemaConfig | undefined): FieldDescriptor => {
-  const next = overlayLooks(field, config);
+  const next = overlayLooks(overlayNumberLooks(field, config), config);
   const options = config?.options?.[field.path];
   if (options !== undefined) {
     next.kind = 'enum';

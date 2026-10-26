@@ -6,7 +6,7 @@ import { NumberInput } from '../../primitives/NumberInput';
 import { Text } from '../../primitives/Text';
 import { nullsLast } from './compare';
 import { inputValue } from './input-value';
-import { hexText } from './hex-text';
+import { numberCellText } from './number-cell-text';
 import { registerFieldKit } from './registry';
 import { toNumber } from './to-number';
 import { toPair } from './to-pair';
@@ -50,15 +50,6 @@ const compare = nullsLast((a, b) => {
   return left - right;
 });
 
-const formatCell = (raw: number, format: FieldDescriptor['format']): { text: string; title: string } => {
-  if (!format) {
-    const text = String(raw);
-    return { text, title: text };
-  }
-  const hex = hexText(raw, format);
-  return { text: hex, title: `${hex} (${raw})` };
-};
-
 const FilterControl = (props: FilterControlProps) => {
   const { field, op, value, onChange } = props;
   if (op === 'between') return <NumberRange value={value} onChange={onChange} />;
@@ -77,7 +68,7 @@ const renderCell = (value: unknown, field: FieldDescriptor): ReactNode => {
     const text = toText(value);
     return <Text className="field-kit__num" title={text}>{text}</Text>;
   }
-  const { text, title } = formatCell(raw, field.format);
+  const { text, title } = numberCellText(raw, field);
   return <Text className="field-kit__num" title={title}>{text}</Text>;
 };
 

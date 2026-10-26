@@ -17,6 +17,7 @@ import { DataTableRowDrag } from './_samples/DataTableRowDrag';
 import { DataTableRowMarquee } from './_samples/DataTableRowMarquee';
 import { DataTableRowStates } from './_samples/DataTableRowStates';
 import { DataTableThumbnail } from './_samples/DataTableThumbnail';
+import { DataTableUnits } from './_samples/DataTableUnits';
 import { DataTableHints } from './_samples/DataTableHints';
 import { renderState } from './_samples/data-table-state';
 import { slotHref } from './_samples/slot-href';
@@ -129,6 +130,11 @@ const CellControls = {
   render: () => <DataTableCellControls />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const Units = {
+  name: 'Numbers with a unit: 12.4 MB, sorted as numbers',
+  render: () => <DataTableUnits />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const RowStates = {
   name: 'Row states: active, pending, error and muted',
   render: () => <DataTableRowStates />,
@@ -180,7 +186,7 @@ const Overview = overviewStory({
   component: 'DataTable',
   description: 'A table of records whose columns come from a schema, for any collection the user browses, sorts and picks from.',
   points: [
-    'Give it `rows`, a `schema` and `getRowId`; the columns come from the schema, references included.',
+    'Give it `rows`, a `schema` and `getRowId`; columns follow the schema, and a number can carry a `unit`.',
     'Column menus sort, group, rename, resize and remove columns; `viewKey` keeps the layout between visits.',
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
     '`defaultExpanded` picks the groups that start open; `virtualizeFrom` draws only the rows in view.',
@@ -205,5 +211,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail,
+  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail, Units,
 };

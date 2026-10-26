@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useEffect, useState } from 'react';
 import { LogPanel } from '../../../src/composites';
-import type { LogRow } from '../../../src/composites';
+import type { LogOrder, LogRow } from '../../../src/composites';
 import { Box, Button } from '../../../src/primitives';
 import { LOG_KINDS, LOG_ROWS } from './data-log';
 import { logClock } from './log-clock';
@@ -19,7 +19,7 @@ const lineAt = (n: number): LogRow => {
 
 const arriving = (from: number, count: number): LogRow[] => Array.from({ length: count }, (_, i) => lineAt(from + i));
 
-const LogArrivalDemo = () => {
+const LogArrivalDemo = ({ order }: { order?: LogOrder }) => {
   const [rows, setRows] = useState<readonly LogRow[]>([]);
   const ticking = rows.length < LOG_ROWS.length;
   useEffect(() => {
@@ -35,7 +35,7 @@ const LogArrivalDemo = () => {
   );
   return (
     <Box className="log-panel-story">
-      <LogPanel rows={rows} kinds={LOG_KINDS} className="server-log" countLabel="lines" emptyLabel="Waiting for the server." toolbarExtra={extra} />
+      <LogPanel rows={rows} kinds={LOG_KINDS} className="server-log" countLabel="lines" emptyLabel="Waiting for the server." toolbarExtra={extra} order={order} />
     </Box>
   );
 };
