@@ -9,7 +9,14 @@ type MarkdownHeadingOffset = 0 | 1 | 2 | 3 | 4 | 5;
 
 type MarkdownLinkHandler = (href: string) => void;
 
-type MarkdownImageResolver = (src: string) => string | undefined;
+interface MarkdownImageTarget {
+  src: string;
+  alt: string;
+}
+
+type MarkdownImageHandler = (image: MarkdownImageTarget) => void;
+
+type MarkdownImageResolver =(src: string) => string | undefined;
 
 type MarkdownImages = boolean | MarkdownImageResolver;
 
@@ -26,6 +33,7 @@ interface MarkdownProps {
   hideTitle?: boolean;
   size?: MarkdownSize;
   images?: MarkdownImages;
+  onImage?: MarkdownImageHandler;
   linkIds?: MarkdownLinkId | MarkdownLinkId[];
   className?: string;
 }
@@ -35,6 +43,7 @@ interface MarkdownSettings {
   headingOffset: MarkdownHeadingOffset;
   size: MarkdownSize;
   images?: MarkdownImages;
+  onImage?: MarkdownImageHandler;
 }
 
 interface MarkdownPartProps extends ExtraProps {
@@ -98,7 +107,7 @@ interface RemarkPluginOptions extends LinkIdsOptions {
 }
 
 export type {
-  LinkIdsOptions, MarkdownCellProps, MarkdownChild, MarkdownCode, MarkdownHeadingOffset, MarkdownImageProps, MarkdownImageResolver, MarkdownImages, MarkdownLinkHandler,
+  LinkIdsOptions, MarkdownCellProps, MarkdownChild, MarkdownCode, MarkdownHeadingOffset, MarkdownImageHandler, MarkdownImageProps, MarkdownImageResolver, MarkdownImageTarget, MarkdownImages, MarkdownLinkHandler,
   MarkdownLinkId, MarkdownLinkProps, MarkdownListProps, MarkdownNode, MarkdownPartProps, MarkdownProps, MarkdownSettings, MarkdownSize, MarkdownTextNode, MarkdownTextTree,
   MarkdownTree, RemarkPluginOptions, TaskParts,
 };

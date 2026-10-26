@@ -1,0 +1,12 @@
+/* @layer renderer-components @kind data */
+const STRIPPED_RANGES: readonly (readonly [number, number])[] = [
+  [0x00, 0x08],
+  [0x0b, 0x0c],
+  [0x0e, 0x1f],
+  [0x80, 0x9f],
+  [0xd800, 0xdfff],
+  [0xe000, 0xf8ff],
+  [0xf0000, 0x10ffff],
+];
+
+export { STRIPPED_RANGES };

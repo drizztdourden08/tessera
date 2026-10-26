@@ -42,9 +42,12 @@ Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsaf
 - Only http, https and mailto links are kept. Any other link and raw HTML become plain text or nothing, and an image shows its alt text.
 - Pass images to draw images: true allows http and https addresses, and a function gets each src and returns the address to load, or nothing to drop the image.
 - An image is drawn with Image, with its alt text, lazy loading and no wider than the text; it stays off by default.
+- With images on, base64 data images of type png, jpeg, gif and webp are drawn too, up to 2 million characters; svg and every other data type are always dropped.
+- Pass onImage to make each drawn image a button, focusable and pressed with Enter or Space, named by its alt text; it gets { src, alt }, so the app can open a lightbox. Without it images stay inert.
+- Control characters (except tab and line breaks), private-use characters and lone surrogates are removed from the source before it is parsed; emoji and normal text stay.
 - Pass linkIds, a rule or a list of rules with a pattern and an href function, so plain ids such as T-5 become links; they are made in text only, never in code or inside a link.
 - A link that starts with a slash, such as /files/notes.md, is an app path: it is kept only when onLink is passed, and goes to onLink like any link.
-- Whatever an href function gives still has to be an http, https or mailto address, or an app path with onLink; javascript and data addresses are always dropped.
+- Whatever an href function gives still has to be an http, https or mailto address, or an app path with onLink; javascript addresses are always dropped, and data addresses only pass as the image types above.
 
 ## Accessibility
 
@@ -73,9 +76,10 @@ const UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (
 - `hideTitle` (optional): `boolean`. Default `false`.
 - `size` (optional): `MarkdownSize`, one of `'sm'`, `'md'`, `'inline'`. Default `'md'`.
 - `images` (optional): `MarkdownImages`.
+- `onImage` (optional): `MarkdownImageHandler`.
 - `linkIds` (optional): `MarkdownLinkId | MarkdownLinkId[]`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--c-text`, `--leading-normal`, `--leading-tight`, `--space-sm`, `--space-xs`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xl`, `--weight-bold`, `--weight-semi`.
+It draws on `--border-width-thick`, `--c-focus`, `--c-text`, `--leading-normal`, `--leading-tight`, `--space-sm`, `--space-xs`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xl`, `--weight-bold`, `--weight-semi`.
