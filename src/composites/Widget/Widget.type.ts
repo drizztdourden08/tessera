@@ -61,6 +61,7 @@ interface WidgetDefinition extends WidgetBodyLook {
   defaultVisibility: WidgetVisibility;
   defaultSide: SnapSide;
   defaultDockedSize: number;
+  dockWeight?: number;
   defaultFloatingSize: { width: number; height: number };
   devOnly?: boolean;
   popOut?: boolean;

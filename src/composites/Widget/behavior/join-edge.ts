@@ -13,10 +13,16 @@ const lastPane = (node: LayoutNode): PaneNode | null => {
   return null;
 };
 
-const evenOut = (node: LayoutNode, stack: LayoutNode): LayoutNode => {
+const weightOf = (weight: number | undefined): number => (weight !== undefined && weight > 0 && Number.isFinite(weight) ? weight : 1);
+
+const sizeByWeight = (node: LayoutNode, stack: LayoutNode, key: string, weight: number | undefined): LayoutNode => {
   if (node.kind !== 'split') return node;
-  if (node === stack) return { ...node, sizes: node.children.map(() => 1 / node.children.length) };
-  return { ...node, children: node.children.map((child) => evenOut(child, stack)) };
+  if (node === stack) {
+    const weights = node.children.map((child) => (child.kind === 'pane' && child.key === key ? weightOf(weight) : 1));
+    const total = weights.reduce((sum, w) => sum + w, 0);
+    return { ...node, sizes: weights.map((w) => w / total) };
+  }
+  return { ...node, children: node.children.map((child) => sizeByWeight(child, stack, key, weight)) };
 };
 
 const findStack = (node: LayoutNode, key: string): LayoutNode | null => {
@@ -29,13 +35,13 @@ const findStack = (node: LayoutNode, key: string): LayoutNode | null => {
   return null;
 };
 
-const joinEdge = (tree: LayoutNode, stack: LayoutNode, pane: PaneNode, edge: DockEdge): LayoutNode | null => {
+const joinEdge = (tree: LayoutNode, stack: LayoutNode, pane: PaneNode, on: { edge: DockEdge; weight?: number }): LayoutNode | null => {
   const last = lastPane(stack);
   if (!last) return null;
-  const along: DockEdge = edge === 'left' || edge === 'right' ? 'bottom' : 'right';
+  const along: DockEdge = on.edge === 'left' || on.edge === 'right' ? 'bottom' : 'right';
   const joined = insertAt(tree, pane, { at: 'leaf', key: last.key, edge: along });
   const holder = findStack(joined, pane.key);
-  return holder ? evenOut(joined, holder) : joined;
+  return holder ? sizeByWeight(joined, holder, pane.key, on.weight) : joined;
 };
 
 export { joinEdge };

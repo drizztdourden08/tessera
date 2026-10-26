@@ -3,6 +3,7 @@ import { useMemo, useRef } from 'react';
 import type { KeyboardEvent, PointerEvent } from 'react';
 import { Box } from '../../../primitives/Box';
 import { rectStyle } from '../../rect-drag/rect-style';
+import { cornerHitOf } from '../behavior/corner-hit-of';
 import { turnOfDrag } from '../behavior/turn-of-drag';
 import { turnOfKey } from '../behavior/turn-of-key';
 import type { DockCornerHandleProps } from './DockCornerHandle.type';
@@ -11,7 +12,7 @@ import '../../../theme/focus-ring.css';
 const DockCornerHandle = (props: DockCornerHandleProps) => {
   const { handle, label, hint, onTurn } = props;
   const { along, end, rect } = handle;
-  const style = useMemo(() => rectStyle(rect), [rect]);
+  const style = useMemo(() => rectStyle(cornerHitOf(rect, along, end)), [rect, along, end]);
   const press = useRef<{ from: number; done: boolean } | null>(null);
   const coordOf = (event: PointerEvent<HTMLElement>) => (along === 'row' ? event.clientX : event.clientY);
 
