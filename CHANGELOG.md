@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.79.0
+
+### Minor Changes
+
+- 2517f02: The Archipelia mark is redrawn as a clean vector of true circles and straight bars, with the same look, so its edges stay smooth at any size and every brand file is regenerated from it. BrandMark, Logo, Logo.Combined, Mascot and AnimatedMascot take a new `xxl` size, the 256 px token `--brand-mark-xxl`, for a large mark such as an empty start page.
+- b9ca1bd: New SectionTimeline composite: a vertical, grouped list of section links with `aria-current="location"` on the active one, `onJump`, and a decorative progress line with an idle or hidden `state`. The line fills from a CSS scroll timeline (`timeline="scroll"` or a named view timeline) and jumps to `progress` or the active section without scroll-driven animation or with reduced motion.
+
 ## 0.78.0
 
 ### Minor Changes
