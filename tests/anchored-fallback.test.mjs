@@ -23,6 +23,6 @@ describe('anchoredFallback', () => {
   it('keeps the gap and the centring of the native popup in the CSS of the fallback', () => {
     const css = readFileSync(new URL('../src/primitives/Anchored/Anchored.css', import.meta.url), 'utf8');
     expect(css).toContain(".anchored-fallback[data-anchor-place^='bottom'] {\n  margin-top: var(--anchored-gap, 0);");
-    expect(css).toContain(".anchored-fallback[data-anchor-place$='-center'] {\n  translate: -50% 0;");
+    expect(css).toContain(".anchored-fallback[data-anchor-place$='-center'] {\n  translate: calc(-50% + var(--anchored-shift-x, 0%)) var(--anchored-shift-y, 0%);");
   });
 });

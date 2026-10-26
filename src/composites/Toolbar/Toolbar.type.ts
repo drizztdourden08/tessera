@@ -13,6 +13,8 @@ type ToolbarShape = 'bar' | 'list';
 
 type ToolbarOpenOn = 'hover' | 'click';
 
+type ToolbarMenuSide = 'right' | 'left';
+
 interface ToolbarItemBase {
   id: string;
   label: string;
@@ -82,6 +84,7 @@ interface ToolbarProps {
   size?: IconButtonSize;
   handle?: boolean;
   handleProps?: ToolbarHandleProps;
+  menuSide?: ToolbarMenuSide;
   className?: string;
 }
 
@@ -91,6 +94,6 @@ interface ToolbarSplit {
 }
 
 export type {
-  ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarHandleProps, ToolbarIcon, ToolbarItem, ToolbarItemBase, ToolbarShape, ToolbarNumber,
+  ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarHandleProps, ToolbarIcon, ToolbarItem, ToolbarItemBase, ToolbarMenuSide, ToolbarShape, ToolbarNumber,
   ToolbarOpenOn, ToolbarOrientation, ToolbarProps, ToolbarSeparator, ToolbarSplit, ToolbarToggle,
 };

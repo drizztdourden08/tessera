@@ -9,9 +9,9 @@ import type { ToolbarProps } from '../Toolbar.type';
 import { ToolbarItemView } from './ToolbarItemView';
 
 const ToolbarList = (props: ToolbarProps) => {
-  const { items, label, size = 'sm', className } = props;
+  const { items, label, size = 'sm', menuSide = 'right', className } = props;
   const { stop, onFocus } = useToolbarStop(stopIds(items, false, false));
-  const context = useMemo(() => ({ orientation: 'vertical' as const, layout: 'list' as const, size, stop, measure: false }), [size, stop]);
+  const context = useMemo(() => ({ orientation: 'vertical' as const, menuSide, layout: 'list' as const, size, stop, measure: false }), [menuSide, size, stop]);
 
   return (
     <ToolbarContext value={context}>

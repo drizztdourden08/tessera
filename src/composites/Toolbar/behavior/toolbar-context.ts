@@ -2,6 +2,6 @@
 import { createContext } from 'react';
 import type { ToolbarContextValue } from './toolbar-context.type';
 
-const ToolbarContext = createContext<ToolbarContextValue>({ orientation: 'horizontal', layout: 'bar', size: 'sm', stop: undefined, measure: false });
+const ToolbarContext = createContext<ToolbarContextValue>({ orientation: 'horizontal', menuSide: 'right', layout: 'bar', size: 'sm', stop: undefined, measure: false });
 
 export { ToolbarContext };
