@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.72.0
+
+### Minor Changes
+
+- dd27737: KanbanBoard columns take `badge` after the count and `action` at the header end; a folded column hides the action and keeps the badge. New InlineEdit shows text that turns into a field on click, Enter or F2, with `validate`, `placeholder`, `disabled` and `multiline`. MarkdownEditor takes `onSubmit` on Mod+Enter, `onEscape`, and `maxLength` with a counter in the last 10 percent.
+- 3e0fdc5: LogPanel's `onInput` may return `false` or a promise (resolving `false`, or rejecting) to keep the typed text in the field, a second Enter is ignored while a promise is pending, and `inputDisabled` with `inputPlaceholder` shows a disabled input row.
+
 ## 0.71.0
 
 ### Minor Changes
