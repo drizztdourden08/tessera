@@ -1,5 +1,20 @@
 # @drizztdourden08/tessera
 
+## 0.75.0
+
+### Minor Changes
+
+- 4522a86: Button takes `size="lg"` (56 px, with the pixel look scaled up), `fill="solid"` for a bright call to action, and `caption` for a smaller second line under the label.
+  With `href` (plus `target`, `rel` and `download`) it renders a link that looks the same, and a disabled or loading one drops the href and sets aria-disabled.
+- e0bc764: InlineEdit takes `renderValue` to draw its text when not editing, such as inline Markdown, and a click on a link inside it does not start the edit; Markdown takes `size="inline"` for compact text inside a card. KanbanBoard columns take `top`, a slot above the cards such as an inline add form, hidden when the column is folded.
+- 59abf90: Add the token `--c-primary-text`, the primary colour as used for text. It is the bright primary by default, a palette may set `--p-primary-text` to override it, and it reaches 4.5:1 on the background, panel, surface and sunken grounds of every palette.
+
+  Small text in the primary tone (the Slider value, StatTile and StatusBar values, Status, Link hover, Shortcut, Toggle link, Widget tab, listbox picked option and more) now uses it, so it turns a little lighter where the seed was too dark.
+
+### Patch Changes
+
+- b6808ab: GuidedTour now measures the lit part each frame until it holds still, so a target that moves after its step shows no longer keeps a stale hole, scrolls a target taller than the window to its top edge, and places the mascot on whole pixels with a fixed tie-break.
+
 ## 0.74.0
 
 ### Minor Changes
