@@ -11,7 +11,7 @@ import './_samples/option-editor-story.css';
 type FormRowArgs = {
   label: string;
   description: string;
-  descriptionOverflow: 'more' | 'hint';
+  descriptionOverflow: 'more' | 'hint' | 'clip';
   changed: boolean;
   advanced: boolean;
   problem: string;
@@ -20,7 +20,7 @@ type FormRowArgs = {
 const ARG_TYPES: PlaygroundArgTypes<FormRowArgs> = {
   label: { group: 'Content', control: 'text' },
   description: { group: 'Content', control: 'text' },
-  descriptionOverflow: { group: 'Content', control: 'select', options: ['more', 'hint'], description: 'more folds a long description behind More; hint keeps the row height and offers the full text in a tip.' },
+  descriptionOverflow: { group: 'Content', control: 'select', options: ['more', 'hint', 'clip'], description: 'more folds a long description behind More; hint keeps the row height and offers the full text in a tip; clip only clamps.' },
   changed: { group: 'State', control: 'boolean', description: 'Marks the row as changed and shows its reset button after the name.' },
   advanced: { group: 'Content', control: 'boolean', description: 'An advanced tag after the label.' },
   problem: { group: 'State', control: 'text', description: 'A line under the control in the danger tone.' },

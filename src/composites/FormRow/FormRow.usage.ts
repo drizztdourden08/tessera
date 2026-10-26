@@ -18,6 +18,7 @@ const usage = {
     'Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs.',
     'Write the whole description: past descriptionLines lines, 2 by default, it folds behind More and Less, so the app needs no fold of its own.',
     'Pass descriptionOverflow="hint" when rows must keep one fixed height: the description clamps to its lines, there is no More, and an info mark offers the full text in a tip when it is cut.',
+    'Pass descriptionOverflow="clip" for a plain clamp with no More and no info mark, when the full text is shown elsewhere.',
     'Pass help for a note only some users need: it sits behind a ? after the name, shown on hover, focus or click, not on the page.',
   ],
   a11y: [
@@ -42,7 +43,7 @@ const BalancingRow = ({ value, onChange }: { value: number; onChange: (value: nu
   </FormRow>
 );
 `,
-  propsHash: '10edd4cc03c63b56',
+  propsHash: '60138deb0ec20970',
 } satisfies ComponentUsage;
 
 export { usage };

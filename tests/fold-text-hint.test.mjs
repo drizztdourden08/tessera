@@ -23,6 +23,11 @@ describe('foldState', () => {
     expect(foldState(2, 'hint', true, true)).toEqual({ clamp: 2, more: false, hint: true });
   });
 
+  it('in clip mode always clamps and offers neither More nor a hint', () => {
+    expect(foldState(1, 'clip', false, true)).toEqual({ clamp: 1, more: false, hint: false });
+    expect(foldState(1, 'clip', true, true)).toEqual({ clamp: 1, more: false, hint: false });
+  });
+
   it('does nothing without lines', () => {
     expect(foldState(undefined, 'hint', false, true)).toEqual({ clamp: undefined, more: false, hint: false });
     expect(foldState(0, 'hint', false, true)).toEqual({ clamp: undefined, more: false, hint: false });

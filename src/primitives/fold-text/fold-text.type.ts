@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 
-type FoldOverflow = 'more' | 'hint';
+type FoldOverflow = 'more' | 'hint' | 'clip';
 
 interface FoldTextProps {
   lines?: number;
