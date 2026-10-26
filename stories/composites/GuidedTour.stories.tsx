@@ -64,7 +64,7 @@ const MenuClick = {
 } satisfies PlaygroundStory<TourArgs>;
 
 const IntroStep = {
-  name: 'Intro step with art',
+  name: 'Intro step: Start the tour and Skip',
   args: { mascot: 'archipelia' },
   argTypes: ARG_TYPES,
   render: (args) => <TourIntroDemo mascot={args.mascot === 'none' ? false : args.mascot} />,
@@ -122,7 +122,7 @@ const Overview = overviewStory({
     '`onEnter` runs before its step shows, with a signal that aborts when the step is left; it may be async.',
     "`advance: 'click'` goes on from a click on the lit part, or on its `clickTarget` when one is set.",
     "`advance: 'wait'` hides Next until the app calls `tour.next()`; `hint` says what to do.",
-    '`intro` shows a wide centred panel with an `art` slot; `reveal` brings a target in before it scrolls.',
+    '`intro` shows a wide panel with `art`, Start the tour and Skip; `reveal` brings a target in before it scrolls.',
     '`keep` leaves parts lit and usable; `TourSpot` draws the spotlight alone; `onStepShown` follows each step.',
   ],
   instead: '[ShortcutTour] to teach one shortcut on a drawn keyboard.',

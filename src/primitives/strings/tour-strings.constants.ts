@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind data */
 const TOUR_STRINGS = {
   closeTour: 'Close the tour',
+  introStart: 'Start the tour',
+  introSkip: 'Skip',
   clickToGo: 'Click the highlighted part to go on.',
   waitToGo: 'Do what this step asks to go on.',
   announce: (step: number, total: number, title: string) => `Step ${step} of ${total}: ${title}`,
