@@ -21,6 +21,7 @@ const usage = {
     'Set headingOffset so the headings sit under the heading of the place: 1, the default, makes # an h2.',
     'Set hideTitle when the frame around the note already names the version, such as the notes box of a UtilityScreen.',
     'Set size sm in a dialog or a notes box.',
+    'Set size inline inside a card or an InlineEdit display: no block margins, paragraphs as runs, tight lists, and headings as bold text at the text size.',
     'Pass onLink in a desktop app to open a link in the system browser; without it a link opens in a new tab.',
     'Only http, https and mailto links are kept. Any other link and raw HTML become plain text or nothing, and an image shows its alt text.',
   ],
@@ -41,7 +42,7 @@ const UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (
   <Markdown source={source} size="sm" headingOffset={2} hideTitle onLink={openExternal} />
 );
 `,
-  propsHash: 'f3abfe3beb0c9304',
+  propsHash: '62f539ff5b5486fb',
 } satisfies ComponentUsage;
 
 export { usage };

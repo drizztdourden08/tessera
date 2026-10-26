@@ -1,11 +1,11 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
-import { InlineEdit } from '../../../src/composites';
+import { InlineEdit, Markdown } from '../../../src/composites';
 import { Box, Text } from '../../../src/primitives';
 import { nameRule } from './inline-edit.constants';
 import type { InlineEditDemoProps } from './inline-edit.type';
 
-const InlineEditDemo = ({ initial = '', label, placeholder, multiline, disabled, validated }: InlineEditDemoProps) => {
+const InlineEditDemo = ({ initial = '', label, placeholder, multiline, disabled, validated, markdown }: InlineEditDemoProps) => {
   const [value, setValue] = useState(initial);
   const [commits, setCommits] = useState(0);
   return (
@@ -16,6 +16,7 @@ const InlineEditDemo = ({ initial = '', label, placeholder, multiline, disabled,
         placeholder={placeholder}
         multiline={multiline}
         disabled={disabled}
+        renderValue={markdown ? (text) => <Markdown source={text} size="inline" /> : undefined}
         validate={validated ? nameRule : undefined}
         onCommit={(next) => {
           setValue(next);

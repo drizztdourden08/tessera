@@ -17,7 +17,7 @@ import './KanbanLane.css';
 const KanbanLane = <Item extends KanbanCardData>({ column, index, collapsed, shared }: KanbanColumnProps<Item>) => {
   const { kanbanBoard } = useTesseraStrings();
   const listId = useId();
-  const { id, title, cards, badge, action } = column;
+  const { id, title, cards, badge, action, top } = column;
   const start = slotOf(sizesOf(shared.columns), index, 0);
   const toggle = <KanbanToggle columnId={id} title={title} collapsed={collapsed} controls={collapsed ? undefined : listId} onToggle={shared.onToggle} />;
   const name = kanbanBoard.column(title, cards.length);
@@ -35,6 +35,7 @@ const KanbanLane = <Item extends KanbanCardData>({ column, index, collapsed, sha
   return (
     <Box role="group" aria-label={name} surface="sunken" className="kanban__column">
       <SectionHeader title={title} count={cards.length} badge={badge} action={action == null ? toggle : <Flex gap="xs" align="center">{action}{toggle}</Flex>} className="kanban__head" />
+      {top != null && <Box className="kanban__top">{top}</Box>}
       <Box as="ul" id={listId} aria-label={title} className="kanban__list" data-board-list={id} data-drop={endMark && cards.length === 0 ? 'before' : undefined}>
         {cards.map((card, at) => (
           <KanbanCard key={card.id} card={card} slot={start + at} last={endMark && at === cards.length - 1} shared={shared} />

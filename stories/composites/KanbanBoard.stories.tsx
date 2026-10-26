@@ -18,7 +18,7 @@ const Playground = {
   args: KANBAN_ARGS,
   argTypes: KANBAN_ARG_TYPES,
   render: (args) => (
-    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} />
+    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} />
   ),
 } satisfies PlaygroundStory<KanbanArgs>;
 
@@ -47,6 +47,11 @@ const HeaderSlots = {
   render: () => <KanbanDemo slots folded="todo" />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const AddForm = {
+  name: 'An inline add form above the cards, in top; folding To do hides it',
+  render: () => <KanbanDemo addForm />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const FOLDS: readonly FoldedColumn[] = ['none', 'doing'];
 
 const Overview = overviewStory({
@@ -56,13 +61,13 @@ const Overview = overviewStory({
     'The app names the columns and owns the cards; `onMove` reports the card, where it was and where it went.',
     'Drag the grip, or press [[Up]] and [[Down]] to move within a column and [[Left]] and [[Right]] to change column.',
     'Each move is announced, and focus stays on the card, even in its new column.',
-    'Each header shows the count, an optional `badge` and `action`, and a button that folds it to a rail.',
+    'A header has the count, `badge`, `action` and a fold button; `top` adds a form above the cards.',
     '`renderCard` draws the inside of a card, such as a title and tags, in a standard frame.',
     'Each column scrolls on its own and the board scrolls sideways when it is narrow.',
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, HeaderSlots, Folded, Narrow, Empty],
+  variants: [Live, HeaderSlots, AddForm, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -71,4 +76,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Empty, Folded, HeaderSlots, Live, Narrow, Overview, Playground };
+export { AddForm, Empty, Folded, HeaderSlots, Live, Narrow, Overview, Playground };

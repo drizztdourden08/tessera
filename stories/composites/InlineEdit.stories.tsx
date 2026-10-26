@@ -3,7 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { InlineEditDemo } from './_samples/InlineEditDemo';
-import { INLINE_EDIT_CODE } from './_samples/inline-edit.constants';
+import { CRITERIA, INLINE_EDIT_CODE } from './_samples/inline-edit.constants';
 import type { InlineEditArgs } from './_samples/inline-edit.type';
 import './InlineEdit.stories.css';
 
@@ -49,6 +49,11 @@ const Multiline = {
   render: () => <InlineEditDemo initial={'Check the redirect after login.\nThen check the logout.'} multiline label="Notes" />,
 } satisfies StoryLiteStoryDefinition<InlineEditArgs>;
 
+const Rendered = {
+  name: 'Drawn as inline Markdown: a link opens, the rest of the text starts the edit',
+  render: () => <InlineEditDemo initial={CRITERIA} multiline markdown label="Acceptance criteria" />,
+} satisfies StoryLiteStoryDefinition<InlineEditArgs>;
+
 const Disabled = {
   name: 'Disabled',
   render: () => <InlineEditDemo initial="Fix the login redirect" disabled />,
@@ -63,13 +68,13 @@ const Overview = overviewStory({
     '`validate(value)` returns a message to show under the field and keep the text from being committed.',
     '`multiline` edits in a text area, where Enter adds a line and Mod+Enter commits.',
     '`placeholder` stands in for an empty text, and `disabled` shows the text only.',
-    'Focus goes back to the text after Enter or Escape; text that did not change is not committed.',
+    '`renderValue(value)` draws the text when not edited, such as inline Markdown; its links do not start the edit.',
   ],
   instead: '[InlineCreateForm] to make a new thing from a name, or [TextInput] for a field that is always open.',
   playground: Playground,
-  variants: [Line, Empty, Validated, Multiline, Disabled],
+  variants: [Line, Empty, Validated, Multiline, Rendered, Disabled],
   code: INLINE_EDIT_CODE,
 });
 
 export default meta;
-export { Disabled, Empty, Line, Multiline, Overview, Playground, Validated };
+export { Disabled, Empty, Line, Multiline, Overview, Playground, Rendered, Validated };

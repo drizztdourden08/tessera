@@ -35,6 +35,8 @@ InlineEdit starts, commits and cancels an edit in place with the same keys in ev
 - Click the text, or press Enter or F2 while it has focus, to start editing.
 - Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.
 - Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.
+- Pass renderValue to draw the text when it is not edited, such as Markdown; the click, Enter and F2, and the name stay the same, and the field is unchanged.
+- A link or a control inside the drawn text does not start the edit when clicked; only a click on the rest of the text does.
 - Pass label to name the text for a screen reader, placeholder to stand in for an empty text, and disabled to show the text only.
 
 ## Accessibility
@@ -74,6 +76,7 @@ const CardTitle = () => {
 - `validate` (optional): `(value: string) => string | undefined`.
 - `multiline` (optional): `boolean`. Default `false`.
 - `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
+- `renderValue` (optional): `(value: string) => ReactNode`.
 - `className` (optional): `string`.
 
 ## Tokens

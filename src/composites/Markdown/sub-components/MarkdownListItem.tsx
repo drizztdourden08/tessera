@@ -14,7 +14,7 @@ const MarkdownListItem = ({ node, children }: MarkdownPartProps) => {
   const { label, nested } = splitTask(children);
   return (
     <ListItem bare>
-      <Checkbox checked={checked} disabled onChange={NO_CHANGE} size={size} label={label} />
+      <Checkbox checked={checked} disabled onChange={NO_CHANGE} size={size === 'inline' ? 'sm' : size} label={label} />
       {nested}
     </ListItem>
   );
