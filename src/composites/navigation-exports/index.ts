@@ -21,6 +21,8 @@ export type { ControllerSilhouetteProps, ControllerSilhouetteVariant } from '../
 export { KeyboardLayout, KEYBOARD_SIZES } from '../KeyboardLayout';
 export type { KeyboardLayoutProps, KeyboardSize, KeyboardTarget, KeyRect, KeyRects } from '../KeyboardLayout';
 export { ShortcutTour, type ShortcutTourProps } from '../ShortcutTour';
+export { SectionTimeline } from '../SectionTimeline';
+export type { SectionTimelineDriver, SectionTimelineGroup, SectionTimelineLink, SectionTimelineProps, SectionTimelineState } from '../SectionTimeline';
 export { SideNav } from '../SideNav';
 export type { SideNavConfig, SideNavGroup, SideNavItem, SideNavProps, SideNavSearch, SideNavVariant } from '../SideNav';
 export { CommandPalette, CommandPaletteRow } from '../CommandPalette';
