@@ -16,6 +16,8 @@
 }
 
 .data-table__scroll {
+  --dt-row-h: var(--size-40);
+
   position: relative;
   flex: 1;
   min-height: 0;
@@ -24,8 +26,6 @@
 }
 
 .data-table__body {
-  --dt-row-h: var(--size-40);
-
   position: relative;
   inline-size: 100%;
   block-size: calc(var(--dt-count) * var(--dt-row-h));
@@ -211,6 +211,35 @@
 
 .data-table__row:hover {
   background: var(--c-secondary-soft);
+}
+
+.data-table__scroll[data-row-height] .data-table__row {
+  box-sizing: border-box;
+  min-block-size: var(--dt-row-h);
+}
+
+.data-table__row[data-state='active'] {
+  background: var(--c-primary-soft);
+}
+
+.data-table__row[data-state='active']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-primary);
+}
+
+.data-table__row[data-state='pending'] {
+  opacity: var(--opacity-muted);
+}
+
+.data-table__row[data-state='error'] {
+  background: var(--c-danger-soft);
+}
+
+.data-table__row[data-state='error']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-danger);
+}
+
+.data-table__row[data-state='muted'] .data-table__cell {
+  color: var(--c-text-muted);
 }
 
 .data-table__row.data-table__row--selected {

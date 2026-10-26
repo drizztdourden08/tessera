@@ -10,6 +10,7 @@ interface UseVirtualRowsInput<T> {
   isExpanded: (uid: string) => boolean;
   getRowId: (row: T) => string;
   rootRef: RefObject<HTMLElement | null>;
+  rowHeight?: string;
 }
 
 interface VirtualRows<T> extends VirtualWindow {

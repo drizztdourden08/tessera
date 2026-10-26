@@ -4,8 +4,8 @@ import type { RowRenderContext } from '../DataTable.type';
 import type { RowAttrs } from './row-attrs.type';
 
 const rowAttrs = <T>(row: T, id: string, context: RowRenderContext<T>): RowAttrs => {
-  const { reorder, rowDragData } = context;
-  const attrs: RowAttrs = { 'data-marquee-key': id };
+  const { reorder, rowDragData, rowState } = context;
+  const attrs: RowAttrs = { 'data-marquee-key': id, 'data-state': rowState?.(row) };
   const at = reorder ? reorder.indexOf(id) : -1;
   if (reorder && at >= 0) {
     attrs['data-reorder-index'] = at;

@@ -9,6 +9,8 @@ interface UseExpandedGroupsInput {
   defaultExpanded?: DefaultExpanded;
   sessionView: SessionView;
   setSessionView: (next: SessionView) => void;
+  controlled?: ReadonlySet<string>;
+  onChange?: (ids: ReadonlySet<string>) => void;
 }
 
 interface ExpandedGroups {
