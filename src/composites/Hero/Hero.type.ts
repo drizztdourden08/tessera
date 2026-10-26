@@ -6,13 +6,16 @@ import type { FactsPanelGroup } from '../FactsPanel';
 
 type HeroShade = 'fade' | 'scrim' | 'none';
 
-type HeroSize = 'compact' | 'default' | 'tall';
+type HeroSize = 'compact' | 'default' | 'tall' | 'full';
+
+type HeroArtMotion = 'still' | 'pan';
 
 interface HeroArtImage {
   kind: 'image';
   src: string;
   alt?: string;
   pixelated?: boolean;
+  motion?: HeroArtMotion;
 }
 
 interface HeroArtNode {
@@ -59,6 +62,7 @@ type HeroBottomProps = Pick<HeroProps, 'facts' | 'panel'>;
 
 export type {
   HeroArt,
+  HeroArtMotion,
   HeroArtSlotProps,
   HeroBackdropLayerProps,
   HeroBottomProps,

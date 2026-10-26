@@ -32,6 +32,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Text that follows a pattern: [DynamicInput](components/DynamicInput.md). DynamicInput reads a pattern of slots, so a time, an address or a lobby code is one field with its own characters and checks.
     - Free words, as tags: no component yet.
     - Structured data, as JSON: no component yet.
+    - Markdown text, with a live preview: [MarkdownEditor](components/MarkdownEditor.md). MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app.
     - A command, with its history: [CommandInput](components/CommandInput.md). CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear.
   - One choice. **How many options are there?**
     - A few, all in view: no component yet.
@@ -73,7 +74,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A list of keys and what they do: [ShortcutList](components/ShortcutList.md). ShortcutList keeps every key in one column and every description at one edge, however long the text runs.
   - A value to copy, such as an address or a key: [CopyValue](components/CopyValue.md). CopyValue keeps the value selectable and puts the copy button at its end, with the same check and announcement as every copy.
   - A score in stars, or a rating to give: [Rating](components/Rating.md). Rating shows an average in half stars with its count, and with onChange is the star picker.
-  - A date or a time, such as 5 minutes ago: [DateText](components/DateText.md). DateText formats a moment with the browser's Intl, in the app's locale, and keeps relative and calendar text up to date.
+  - A date or a time, such as 5 minutes ago: [DateText](components/DateText.md). DateText formats a moment with the browser's Intl, in the app's locale, and keeps relative, calendar and elapsed text up to date from shared timers, paused while the page is hidden.
 - Something over the page. **What sits over the page?**
   - A hint on hover or focus: no component yet.
   - A question the user must answer: [Dialog](components/Dialog.md). Dialog holds a message and a confirm and a cancel button, and takes its width from its content within the size.
@@ -113,6 +114,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Empty space: no component yet.
   - A line between sections: no component yet.
   - Content that scrolls: [ScrollArea](components/ScrollArea.md). ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content.
+  - A full-height page that scrolls inside one frame: [PageFrame](components/PageFrame.md). PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document.
   - More content behind a line that shows or hides it: [Disclosure](components/Disclosure.md). Disclosure shows or hides what is under one line with the browser details element, with one look for every app.
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.
@@ -139,6 +141,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Website chrome. **Which part of the site?**
     - The band at the top: [SiteHeader](components/SiteHeader.md). SiteHeader is the one site-only part on top of the page; everything under it is an app part.
     - The line at the foot: [SiteFooter](components/SiteFooter.md). SiteFooter is the one line at the foot of a website page, under the app parts.
+    - The root of the page: [PageRoot](components/PageRoot.md). PageRoot is the one part that turns document scrolling on; everything inside it is built from the usual parts.
   - A ready-made app panel. **Which panel?**
     - Facts in groups: no component yet.
     - An opening banner with art: no component yet.
@@ -179,6 +182,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
+  - Cards in columns the user drags between, such as tasks by state: [KanbanBoard](components/KanbanBoard.md). KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
   - A headline number that does one thing: [ActionTile](components/ActionTile.md). ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app.
   - A long list drawn only where it is in view: [VirtualList](components/VirtualList.md). VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly.

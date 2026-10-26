@@ -5,4 +5,10 @@ const LIVE_PRESETS: ReadonlySet<DatePreset> = new Set<DatePreset>(['relative', '
 
 const LIVE_TICK_MS = 10_000;
 
-export { LIVE_PRESETS, LIVE_TICK_MS };
+const ELAPSED_STEPS: readonly (readonly [limit: number, step: number])[] = [
+  [3600, 1],
+  [86_400, 60],
+  [Infinity, 3600],
+];
+
+export { ELAPSED_STEPS, LIVE_PRESETS, LIVE_TICK_MS };

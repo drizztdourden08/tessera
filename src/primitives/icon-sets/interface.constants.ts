@@ -63,6 +63,11 @@ import eraserIcon from '@iconify-icons/lucide/eraser';
 import paintBucketIcon from '@iconify-icons/lucide/paint-bucket';
 import pipetteIcon from '@iconify-icons/lucide/pipette';
 import handIcon from '@iconify-icons/lucide/hand';
+import boldIcon from '@iconify-icons/lucide/bold';
+import italicIcon from '@iconify-icons/lucide/italic';
+import listOrderedIcon from '@iconify-icons/lucide/list-ordered';
+import codeIcon from '@iconify-icons/lucide/code';
+import squareCodeIcon from '@iconify-icons/lucide/square-code';
 
 const INTERFACE_ICONS = {
   'check': checkIcon,
@@ -129,6 +134,11 @@ const INTERFACE_ICONS = {
   'paint-bucket': paintBucketIcon,
   'pipette': pipetteIcon,
   'hand': handIcon,
+  'bold': boldIcon,
+  'italic': italicIcon,
+  'list-ordered': listOrderedIcon,
+  'code': codeIcon,
+  'square-code': squareCodeIcon,
 } as const;
 
 export { INTERFACE_ICONS };

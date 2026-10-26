@@ -138,6 +138,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'DataTable', summary: 'Sortable, groupable, resizable table with saved layouts.' },
         { name: 'FilterBar', summary: 'A search box and filter chips, each added with + and edited in place.' },
         { name: 'CompactRecordView', summary: 'One record read-only, with differences marked.' },
+        { name: 'KanbanBoard', summary: 'Cards in named columns the user drags between or moves by keys, with a count and a fold per column.' },
         { name: 'Field kits', summary: 'The editor, cell and filter for each field kind.' },
       ],
     },

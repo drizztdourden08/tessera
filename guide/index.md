@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 91 of 202 have their usage written; a linked name opens its page.
+One line per component. 95 of 206 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -44,6 +44,8 @@ One line per component. 91 of 202 have their usage written; a linked name opens 
 - [List](components/List.md): A bulleted or numbered list of short items, with a nested list drawn one step in. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [PageFrame](components/PageFrame.md): A full-height, padded page that scrolls inside its own frame, for a web app whose html and body stay locked. Import from `@drizztdourden08/tessera`.
+- [PageRoot](components/PageRoot.md): The root of a website page: it lets the whole document scroll, which a desktop app screen locks, and puts the page inside one box. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Pressable`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ProgressBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -136,6 +138,7 @@ One line per component. 91 of 202 have their usage written; a linked name opens 
 - [ItemCard](components/ItemCard.md): One item of a catalogue as a card: media, a small line above the title, a status, the title, tags, details and its actions. Import from `@drizztdourden08/tessera`.
 - [ItemList](components/ItemList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.
 - [JobDialog](components/JobDialog.md): A long job in a dialog: its TaskProgress, with Cancel and Hide while it runs and Close once it ends. Import from `@drizztdourden08/tessera`.
+- [KanbanBoard](components/KanbanBoard.md): A board of cards in named columns, such as tasks by state, where the user drags a card within a column or to another one. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [KeyValueEditor](components/KeyValueEditor.md): A map of names to values, row by row: a name, a value control and Remove, then an add row, with a check for names listed twice. Import from `@drizztdourden08/tessera`.
 - [ListDetail](components/ListDetail.md): An ItemList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
@@ -144,6 +147,7 @@ One line per component. 91 of 202 have their usage written; a linked name opens 
 - [LoadError](components/LoadError.md): What to show when something fails to load: one plain sentence, a Retry button and the raw error behind Details. Import from `@drizztdourden08/tessera`.
 - [LogPanel](components/LogPanel.md): A running log, such as a server log or a simulation trace, in one framed box with search, filters, a line count and Copy all. Import from `@drizztdourden08/tessera`.
 - [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, task lists, tables, bold, italic, strikethrough, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
+- [MarkdownEditor](components/MarkdownEditor.md): A multi-line field for writing Markdown, with a toolbar for bold, italic, lists, links and code, and a live preview drawn by Markdown. Import from `@drizztdourden08/tessera`.
 - [MarqueeBox](components/MarqueeBox.md): The rectangle that shows an area being dragged over items to pick them, drawn inside the box that scrolls. Import from `@drizztdourden08/tessera`.
 - [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.

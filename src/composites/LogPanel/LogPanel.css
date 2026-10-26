@@ -155,3 +155,27 @@
 .log-panel__row--selected:hover {
   background: var(--c-selected);
 }
+
+.log-panel__input-row {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  border-block-start: var(--border-width-thin) solid var(--c-border);
+  background: var(--c-surface);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.log-panel__prompt {
+  color: var(--c-text-muted);
+  font-weight: var(--weight-semi);
+  user-select: none;
+}
+
+.log-panel__input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono);
+}

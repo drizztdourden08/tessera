@@ -31,7 +31,7 @@ type TesseraPart = keyof TesseraOverrides;
 type TesseraSetup = Omit<TesseraOverrides, 'strings'> & { strings: TesseraStrings };
 
 interface TesseraProviderProps {
-  overrides: TesseraOverrides;
+  overrides?: TesseraOverrides;
   children?: ReactNode;
 }
 

@@ -5,11 +5,12 @@ import { matchesText } from '../../../data/text/matches-text';
 import type { FilterClause } from '../../../data/filter/clause';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { logSchema } from './log-schema';
+import { stripAnsi } from './strip-ansi';
 import { NO_FILTERS } from './useLogFilter.constants';
 import type { LogFilter, LogFilterInput } from './useLogFilter.type';
 
 const useLogFilter = (input: LogFilterInput): LogFilter => {
-  const { rows, kinds } = input;
+  const { rows, kinds, ansi = false } = input;
   const { panels } = useTesseraStrings();
   const [localSearch, setLocalSearch] = useState('');
   const [localFilters, setLocalFilters] = useState<readonly FilterClause[]>(NO_FILTERS);
@@ -23,8 +24,8 @@ const useLogFilter = (input: LogFilterInput): LogFilter => {
   const shown = useMemo(() => {
     const labelOf = new Map(kinds?.map((kind) => [kind.id, kind.label]));
     const test = compile(filters, schema);
-    return rows.filter((row) => matchesText(`${row.message} ${row.tag}`, search) && test({ ...row, kind: labelOf.get(row.kind) ?? row.kind }));
-  }, [rows, kinds, filters, schema, search]);
+    return rows.filter((row) => matchesText(`${ansi ? stripAnsi(row.message) : row.message} ${row.tag}`, search) && test({ ...row, kind: labelOf.get(row.kind) ?? row.kind }));
+  }, [rows, kinds, filters, schema, search, ansi]);
 
   return {
     schema,

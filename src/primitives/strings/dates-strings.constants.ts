@@ -8,6 +8,8 @@ const DATE_STRINGS: DateStrings = {
   yesterday: 'Yesterday',
   tomorrow: 'Tomorrow',
   dayAt: (day: string, time: string) => `${day}, ${time}`,
+  elapsedUnits: { second: 's', minute: 'm', hour: 'h', day: 'd' },
+  elapsedLabel: (label: string, time: string) => `${label} ${time}`,
 };
 
 export { DATE_STRINGS };

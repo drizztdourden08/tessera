@@ -1,0 +1,10 @@
+/* @layer renderer-components @kind style */
+.kanban {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-md);
+  block-size: 100%;
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: auto hidden;
+}

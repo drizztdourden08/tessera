@@ -2,12 +2,13 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Flex, Icon, Text } from '../../src/primitives';
-import type { ButtonSize, ButtonVariant } from '../../src/primitives/Button/Button.type';
+import type { ButtonLook, ButtonSize, ButtonVariant } from '../../src/primitives/Button/Button.type';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
 import { ButtonHints } from './_samples/ButtonHints';
 import { ButtonLoading } from './_samples/button-loading';
+import { ButtonPixel } from './_samples/button-pixel';
 import { BUTTON_STATES } from './_samples/button-states';
 import { markedStates } from './_samples/marked-states';
 import { axis } from '../_template/axis';
@@ -18,6 +19,7 @@ type ButtonArgs = {
   label: string;
   variant: ButtonVariant;
   size: ButtonSize;
+  look: ButtonLook;
   disabled: boolean;
   loading: boolean;
   active: boolean;
@@ -25,7 +27,7 @@ type ButtonArgs = {
 
 const VARIANTS: readonly ButtonVariant[] = ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'info', 'success', 'ghost'];
 
-const ARGS: Partial<ButtonArgs> = { label: 'Save changes', variant: 'primary', size: 'md', disabled: false, loading: false, active: false };
+const ARGS: Partial<ButtonArgs> = { label: 'Save changes', variant: 'primary', size: 'md', look: 'flat', disabled: false, loading: false, active: false };
 
 const meta = {
   title: 'Primitives · Actions/Button',
@@ -39,12 +41,13 @@ const Playground = {
     label: { group: 'Content', control: 'text' },
     variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
     size: { group: 'Appearance', control: 'select', options: ['xs', 'sm', 'md'] },
+    look: { group: 'Appearance', control: 'select', options: ['flat', 'pixel'], description: 'pixel draws a dithered fill, a stepped frame and the game font; it has no ghost form.' },
     disabled: { group: 'State', control: 'boolean' },
     loading: { group: 'State', control: 'boolean', description: 'Shows the spinner in place of the icon, or over the label, and disables the button.' },
     active: { group: 'State', control: 'boolean' },
   },
   render: (args) => (
-    <Button variant={args.variant} size={args.size} disabled={args.disabled} loading={args.loading} active={args.active}>
+    <Button variant={args.variant} size={args.size} look={args.look} disabled={args.disabled} loading={args.loading} active={args.active}>
       {args.label}
     </Button>
   ),
@@ -111,6 +114,11 @@ const Loading = {
   render: () => <ButtonLoading />,
 } satisfies StoryLiteStoryDefinition<ButtonArgs>;
 
+const PixelLook = {
+  name: 'Pixel look',
+  render: () => <ButtonPixel />,
+} satisfies StoryLiteStoryDefinition<ButtonArgs>;
+
 const TightRow = {
   name: 'In a tight row',
   render: () => (
@@ -146,14 +154,14 @@ const Overview = overviewStory({
     '`danger`, `warning`, `info` and `success` carry an urgency.',
     '`md` is 39 px tall, `sm` 28 px and `xs` 20 px; a compact [DensityScope] makes `sm` the default.',
     '`active` marks a toggle button as on, announced as pressed; `hint` reports to a [HintScope], as on [IconButton].',
-    '`icon` sits before the label, `iconEnd` after it; an [Icon] with no `size` fits the button: 16, 14 or 12 px.',
-    '`loading` shows a [Spinner], keeps the width and ignores clicks; a `disabled` button fades and never spins.',
+    '`look="pixel"` draws a dithered fill, a stepped frame and the game font; ghost keeps its flat look.',
+    '`icon` or `iconEnd` sits beside the label; `loading` swaps in a [Spinner], keeps the width, ignores clicks.',
   ],
   instead: '[IconButton] for an icon alone, or [Pressable] for a clickable surface with a look of its own.',
   playground: Playground,
-  variants: [AllVariants, Icons, EveryIcon, Loading, TightRow, Hints],
+  variants: [AllVariants, Icons, EveryIcon, Loading, PixelLook, TightRow, Hints],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, EveryIcon, Hints, Icons, Loading, Overview, Playground, TightRow };
+export { AllVariants, EveryIcon, Hints, Icons, Loading, Overview, PixelLook, Playground, TightRow };

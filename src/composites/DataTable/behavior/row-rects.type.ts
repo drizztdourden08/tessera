@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { Point } from '../../rect-drag/rect-drag.type';
+import type { DetailSpan } from './detail-span.type';
 import type { FlatItem } from './flatten-rows.type';
 
 interface RowRectsInput<T> {
@@ -8,6 +9,7 @@ interface RowRectsInput<T> {
   origin: Point;
   width: number;
   getRowId: (row: T) => string;
+  detail?: DetailSpan;
 }
 
 export type { RowRectsInput };
