@@ -56,4 +56,12 @@ describe('the named icon set', () => {
     expect(ICONS.fork).toBe(gitForkIcon);
     expect(ICONS.github.body).toMatch(/^<(path|g)/);
   });
+
+  it('draws the guides icon on the Lucide 24 grid with the same stroke, caps and joins', () => {
+    expect(ICONS.guides).toMatchObject({ width: 24, height: 24 });
+    expect(ICONS.guides.body).toContain('stroke-width="2"');
+    expect(ICONS.guides.body).toContain('stroke-linecap="round"');
+    expect(ICONS.guides.body).toContain('stroke-linejoin="round"');
+    expect(ICONS.guides).not.toBe(ICONS.split);
+  });
 });

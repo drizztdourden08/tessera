@@ -69,6 +69,12 @@ import listOrderedIcon from '@iconify-icons/lucide/list-ordered';
 import codeIcon from '@iconify-icons/lucide/code';
 import squareCodeIcon from '@iconify-icons/lucide/square-code';
 
+const guidesIcon = {
+  width: 24,
+  height: 24,
+  body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M3 3v18M9 3v3m5-3v3M3 9h3m-3 5h3M17 8v2m0 3v2m0 3v2m0 3v1M9 17h2m2 0h1"/>',
+};
+
 const INTERFACE_ICONS = {
   'check': checkIcon,
   'x': xIcon,
@@ -128,6 +134,7 @@ const INTERFACE_ICONS = {
   'circle-dot': circleDotIcon,
   'braces': bracesIcon,
   'split': splitIcon,
+  'guides': guidesIcon,
   'zoom-in': zoomInIcon,
   'zoom-out': zoomOutIcon,
   'eraser': eraserIcon,
