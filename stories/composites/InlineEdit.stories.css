@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.inline-edit-story__frame {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  inline-size: var(--size-288);
+  max-inline-size: 100%;
+}

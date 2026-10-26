@@ -1,0 +1,38 @@
+/* @layer renderer-components @kind style */
+.inline-edit__view {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  max-inline-size: 100%;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-md);
+  text-align: start;
+}
+
+.inline-edit__view:hover:not(:disabled) {
+  background: var(--c-surface);
+}
+
+.inline-edit__view:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-focus);
+}
+
+.inline-edit__text {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.inline-edit__view--multiline .inline-edit__text {
+  white-space: pre-wrap;
+}
+
+.inline-edit__pen {
+  flex: none;
+  color: var(--c-text-muted);
+  opacity: 0;
+}
+
+.inline-edit__view:hover .inline-edit__pen,
+.inline-edit__view:focus-visible .inline-edit__pen {
+  opacity: 1;
+}

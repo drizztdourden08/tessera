@@ -3,22 +3,28 @@ import { useRef } from 'react';
 import { Box } from '../../primitives/Box';
 import { Field } from '../../primitives/Field';
 import { Textarea } from '../../primitives/Textarea';
+import { counterShown } from './behavior/counter-shown';
+import { useEditorKeys } from './behavior/useEditorKeys';
 import { useEditorMode } from './behavior/useEditorMode';
 import { useMarkdownActions } from './behavior/useMarkdownActions';
 import { DEFAULT_ROWS } from './MarkdownEditor.constants';
 import type { MarkdownEditorProps } from './MarkdownEditor.type';
+import { MarkdownEditorCounter } from './sub-components/MarkdownEditorCounter';
 import { MarkdownEditorPreview } from './sub-components/MarkdownEditorPreview';
 import { MarkdownEditorTabs } from './sub-components/MarkdownEditorTabs';
 import { MarkdownEditorToolbar } from './sub-components/MarkdownEditorToolbar';
 import './MarkdownEditor.css';
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
-  const { value, onChange, label, hint, error, placeholder, disabled = false, layout, rows = DEFAULT_ROWS, onLink, className } = props;
+  const {
+    value, onChange, label, hint, error, placeholder, disabled = false, layout, rows = DEFAULT_ROWS, onLink, onSubmit, onEscape, maxLength, className,
+  } = props;
   const rootRef = useRef<HTMLElement | null>(null);
   const areaRef = useRef<HTMLTextAreaElement | null>(null);
   const { mode, tabbed, pane, setPane, writing } = useEditorMode(rootRef, layout);
   const off = disabled || !writing;
-  const { run, onKeyDown } = useMarkdownActions(areaRef, off);
+  const { run, onKeyDown: onShortcut } = useMarkdownActions(areaRef, off);
+  const onKeyDown = useEditorKeys({ value, onSubmit, onEscape, onShortcut });
 
   return (
     <Field label={label} hint={hint} error={error} width="full">
@@ -32,11 +38,13 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
               aria-label={props['aria-label']}
               value={value}
               rows={rows}
+              maxLength={maxLength}
               placeholder={placeholder}
               disabled={disabled}
               onChange={(event) => onChange(event.target.value)}
               onKeyDown={onKeyDown}
             />
+            {maxLength !== undefined && counterShown(value.length, maxLength) && <MarkdownEditorCounter count={value.length} max={maxLength} />}
           </Box>
           <MarkdownEditorPreview value={value} onLink={onLink} hidden={tabbed && pane !== 'preview'} />
         </Box>

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { KeyboardEvent, ReactNode } from 'react';
 import type { IconName } from '../../primitives/Icon';
 import type { MarkdownLinkHandler } from '../Markdown/Markdown.type';
 
@@ -22,8 +22,34 @@ interface MarkdownEditorProps {
   layout?: MarkdownEditorLayout;
   rows?: number;
   onLink?: MarkdownLinkHandler;
+  onSubmit?: (value: string) => void;
+  onEscape?: () => void;
+  maxLength?: number;
   className?: string;
   'aria-label'?: string;
+}
+
+type MarkdownEditorKeyIntent = 'submit' | 'escape';
+
+interface MarkdownEditorKeyEvent {
+  key: string;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  altKey: boolean;
+  shiftKey: boolean;
+  defaultPrevented: boolean;
+}
+
+interface MarkdownEditorKeysInput {
+  value: string;
+  onSubmit: ((value: string) => void) | undefined;
+  onEscape: (() => void) | undefined;
+  onShortcut: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
+}
+
+interface MarkdownEditorCounterProps {
+  count: number;
+  max: number;
 }
 
 interface TextEdit {
@@ -72,5 +98,6 @@ interface MarkdownEditorPreviewProps {
 
 export type {
   MarkdownEditorActionButtonProps, MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
-  MarkdownEditorMode, MarkdownEditorPreviewProps, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarProps, TextEdit,
+  MarkdownEditorCounterProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode,
+  MarkdownEditorPreviewProps, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarProps, TextEdit,
 };

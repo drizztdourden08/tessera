@@ -7,6 +7,7 @@ interface NameEditOptions {
   onUndo?: () => void;
   allowEmpty?: boolean;
   canKeep?: boolean;
+  multiline?: boolean;
 }
 
 interface NameEdit {

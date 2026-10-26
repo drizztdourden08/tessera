@@ -10,6 +10,8 @@ export type { SettingsContentRow, SettingsGroupData, SettingsLock, SettingsLockR
 export { SettingsPage, type SettingsPageAnchor, type SettingsPageProps, type SettingsPageTabs } from '../SettingsPage';
 export { InlineCreateForm } from '../InlineCreateForm';
 export type { InlineCreateFormProps } from '../InlineCreateForm';
+export { InlineEdit } from '../InlineEdit';
+export type { InlineEditProps } from '../InlineEdit';
 export { KeyValueEditor } from '../KeyValueEditor';
 export type { KeyValueEditorProps, KeyValueEntry, KeyValueKind, KeyValueRecord } from '../KeyValueEditor';
 export { FormRow } from '../FormRow';
