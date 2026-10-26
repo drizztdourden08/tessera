@@ -1,0 +1,51 @@
+/* @layer renderer-components @kind style */
+.markdown-editor {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--space-sm);
+  container-type: inline-size;
+  container-name: markdown-editor;
+}
+
+.markdown-editor__toolbar {
+  padding-block-end: var(--space-xs);
+}
+
+.markdown-editor__panes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-md);
+}
+
+.markdown-editor[data-layout='split'] .markdown-editor__panes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.markdown-editor__write,
+.markdown-editor__preview {
+  min-inline-size: 0;
+}
+
+.markdown-editor__preview {
+  box-sizing: border-box;
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  min-block-size: var(--size-192);
+  max-block-size: var(--size-384);
+  overflow: auto;
+  padding: var(--space-md);
+}
+
+.markdown-editor__preview[hidden],
+.markdown-editor__write[hidden] {
+  display: none;
+}
+
+@container markdown-editor (max-width: 640px) {
+  .markdown-editor[data-layout='split'] .markdown-editor__panes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

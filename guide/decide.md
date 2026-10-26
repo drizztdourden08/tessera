@@ -32,6 +32,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Text that follows a pattern: [DynamicInput](components/DynamicInput.md). DynamicInput reads a pattern of slots, so a time, an address or a lobby code is one field with its own characters and checks.
     - Free words, as tags: no component yet.
     - Structured data, as JSON: no component yet.
+    - Markdown text, with a live preview: [MarkdownEditor](components/MarkdownEditor.md). MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app.
     - A command, with its history: [CommandInput](components/CommandInput.md). CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear.
   - One choice. **How many options are there?**
     - A few, all in view: no component yet.

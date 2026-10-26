@@ -39,7 +39,7 @@ const VALUES = {
       answers: {
         'one line of text': null, 'several lines of text': null, 'a number typed in': null,
         'a number stepped up or down': null, 'text that follows a pattern': null, 'free words, as tags': null,
-        'structured data, as JSON': null,
+        'structured data, as JSON': null, 'Markdown text, with a live preview': null,
         'a command, with its history': null,
       },
     },
