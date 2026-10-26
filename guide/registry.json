@@ -300,10 +300,14 @@
             "components": []
           },
           "a question the user must answer": {
-            "components": []
+            "components": [
+              "Dialog"
+            ]
           },
           "a dialog with its own layout": {
-            "components": []
+            "components": [
+              "DialogShell"
+            ]
           },
           "a panel from the edge of the window": {
             "components": []
@@ -6793,7 +6797,147 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A modal that asks one question, with a message, a confirm button and a cancel button, and room for a short body.",
+      "useWhen": [
+        "The user must confirm an action, acknowledge a notice or answer a short question before going on.",
+        "A short form or a block of text, such as a README or a list of details, sits under the message."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The dialog has its own layout, its own buttons or no question to answer.",
+          "use": "DialogShell"
+        },
+        {
+          "case": "A long job runs and the user may hide it or cancel it.",
+          "use": "JobDialog"
+        }
+      ],
+      "rules": [
+        "Pick the size from the content: sm for a question, md for a form, lg for a README or a table; the default is sm.",
+        "The width follows the content between the min and the max of the size, and never passes the window minus a margin.",
+        "The height grows with the content up to the window minus a margin; the header and the buttons stay and only the body scrolls.",
+        "Set steady when the width must not move while the content changes, such as an error that appears under a form.",
+        "Use variant danger for an action that cannot be undone; focus then starts on cancel."
+      ],
+      "a11y": [
+        "The dialog is modal and named by its title; Tab stays inside it and Escape cancels.",
+        "Focus starts on confirm, or on cancel for danger, and returns to the opener on close.",
+        "A body that scrolls keeps the header and the buttons in view."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a question the user must answer"
+        ],
+        "rule": "Dialog holds a message and a confirm and a cancel button, and takes its width from its content within the size."
+      },
+      "example": "import { Dialog } from '@drizztdourden08/tessera';\n\nconst ReadmeDialog = ({ open, close }: { open: boolean; close: () => void }) => (\n  <Dialog open={open} title=\"README\" message=\"\" size=\"lg\" confirmLabel=\"Close\" hideCancel onConfirm={close} onCancel={close}>\n    Release notes go here.\n  </Dialog>\n);\n",
+      "propsHash": "58f13098eec70cc5",
+      "props": {
+        "own": [
+          {
+            "name": "open",
+            "optional": false,
+            "text": "boolean"
+          },
+          {
+            "name": "title",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "message",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "confirmLabel",
+            "optional": true,
+            "text": "string",
+            "default": "common.confirm"
+          },
+          {
+            "name": "cancelLabel",
+            "optional": true,
+            "text": "string",
+            "default": "common.cancel"
+          },
+          {
+            "name": "confirmDisabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "hideCancel",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "'danger' | 'default'",
+            "default": "'default'"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "DialogSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ]
+          },
+          {
+            "name": "steady",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onConfirm",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "id",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "data",
+            "optional": true,
+            "text": "DataAttributes"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "React.ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--space-lg",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Dialogs/Dialog",
+        "route": "#/story/composites-dialog--overview",
+        "file": "stories/composites/Dialog.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "DialogShell",
@@ -6803,7 +6947,163 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "The frame of a modal: a backdrop, a panel with a header and a close button, a scrolling body and a row of actions.",
+      "useWhen": [
+        "The dialog has its own body and its own buttons, such as a details view, a form or a README.",
+        "A composite needs a modal frame with focus, Escape and the backdrop handled for it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The dialog asks one question with confirm and cancel.",
+          "use": "Dialog"
+        },
+        {
+          "case": "A long job runs and the user may hide it or cancel it.",
+          "use": "JobDialog"
+        }
+      ],
+      "rules": [
+        "Pass size sm, md or lg; each has a min and a max width from tokens, and the default is sm.",
+        "The width follows the content between the min and the max, and never passes the window minus a margin.",
+        "The height grows with the content up to the window minus a margin; the header and the actions stay and only the body scrolls.",
+        "Set steady to pin the width to the max of the size, for a body whose content changes, such as a wizard step or an error line.",
+        "Set dismissable to false while a save runs, so only your own actions close it."
+      ],
+      "a11y": [
+        "The panel has role dialog and aria-modal, and the title names it.",
+        "Tab and Shift+Tab stay inside; Escape and the close button close it unless it is not dismissable.",
+        "Focus moves in on open and returns to the opener on close."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a dialog with its own layout"
+        ],
+        "rule": "DialogShell gives the frame, the focus and the scrolling body, and leaves the content and the buttons to you."
+      },
+      "example": "import { Button, DialogShell } from '@drizztdourden08/tessera';\n\nconst DetailsDialog = ({ open, close }: { open: boolean; close: () => void }) => (\n  <DialogShell open={open} onClose={close} title=\"Friday async\" size=\"md\" actions={<Button onClick={close}>Close</Button>}>\n    Eight players are connected.\n  </DialogShell>\n);\n",
+      "propsHash": "80113886b20170a4",
+      "props": {
+        "own": [
+          {
+            "name": "open",
+            "optional": false,
+            "text": "boolean"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "dismissable",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "titleWrap",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "headerExtra",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "DialogSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ]
+          },
+          {
+            "name": "steady",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "initialFocusRef",
+            "optional": true,
+            "text": "RefObject<HTMLElement | null>"
+          },
+          {
+            "name": "initialFocus",
+            "optional": true,
+            "text": "DialogInitialFocus",
+            "literals": [
+              "'first'",
+              "'dialog'"
+            ],
+            "default": "'first'"
+          },
+          {
+            "name": "id",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "data",
+            "optional": true,
+            "text": "DataAttributes"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-scrim",
+        "--c-surface",
+        "--dialog-fit",
+        "--dialog-margin",
+        "--dialog-min-lg",
+        "--dialog-min-md",
+        "--dialog-min-sm",
+        "--dialog-w-lg",
+        "--dialog-w-md",
+        "--dialog-w-sm",
+        "--radius-lg",
+        "--shadow-lg",
+        "--space-lg",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Dialogs/DialogShell",
+        "route": "#/story/composites-dialogshell--overview",
+        "file": "stories/composites/DialogShell.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "DisabledOverlay",
@@ -9029,9 +9329,7 @@
           ]
         }
       },
-      "tokens": [
-        "--dialog-w-md"
-      ],
+      "tokens": [],
       "gallery": {
         "title": "Composites · Dialogs/JobDialog",
         "route": "#/story/composites-jobdialog--overview",

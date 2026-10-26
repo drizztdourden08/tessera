@@ -24,7 +24,7 @@ Toast keeps one queue per app: every part raises through toast(), the stack caps
 ## Use something else when
 
 - The note must stay on the page until the user acts. Use `Callout` instead.
-- The user must answer before the app goes on. Use `Dialog` instead.
+- The user must answer before the app goes on. Use [Dialog](Dialog.md) instead.
 
 ## Rules
 

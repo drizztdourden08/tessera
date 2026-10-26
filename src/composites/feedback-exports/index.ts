@@ -3,7 +3,7 @@ export { ConfirmIconButton, type ConfirmIconButtonPlacement, type ConfirmIconBut
 export { ArmedIconButton, type ArmedIconButtonProps, type ArmedIconButtonTone } from '../ArmedIconButton';
 export { Dialog } from '../Dialog';
 export { DialogShell } from '../DialogShell';
-export type { DialogInitialFocus, DialogShellProps } from '../DialogShell';
+export type { DialogInitialFocus, DialogShellProps, DialogSize } from '../DialogShell';
 export {
   Wizard, WizardDialog, WizardExitGuard, WizardNav, WizardReview, WizardStep, useWizard, useWizardExit,
 } from '../Wizard';

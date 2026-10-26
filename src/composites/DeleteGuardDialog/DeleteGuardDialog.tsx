@@ -17,6 +17,7 @@ const DeleteGuardDialog = (props: DeleteGuardDialogProps) => {
       message={records.deleteGuardMessage(subjectLabel)}
       confirmLabel={records.deleteGuardConfirm}
       variant="danger"
+      steady
       onConfirm={onConfirm}
       onCancel={onCancel}
       id={id}
