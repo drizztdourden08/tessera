@@ -2,8 +2,9 @@
 import { useEffect } from 'react';
 import type { RefObject } from 'react';
 import type { MascotStageHandle } from '../../../brand/MascotStage/MascotStage.type';
-import { MASCOT_ID, MASCOT_SPEED } from '../GuidedTour.constants';
+import { MASCOT_ID } from '../GuidedTour.constants';
 import type { MascotPresenting } from './tour-internal.type';
+import { walkSpeed } from './walk-speed';
 
 const useMascotPresenter = (stageRef: RefObject<MascotStageHandle | null>, presenting: MascotPresenting): void => {
   const { brand, spot, clip, walk } = presenting;
@@ -14,7 +15,7 @@ const useMascotPresenter = (stageRef: RefObject<MascotStageHandle | null>, prese
     const actor = stageRef.current?.actor(MASCOT_ID);
     if (!actor || x === null) return undefined;
     let live = true;
-    void actor.moveTo(x, { speed: MASCOT_SPEED, clip: walk }).then((result) => {
+    void actor.moveTo(x, { speed: walkSpeed(actor.state().x, x), clip: walk }).then((result) => {
       if (live && result === 'done') void actor.play(clip, { face });
     });
     return () => { live = false; };

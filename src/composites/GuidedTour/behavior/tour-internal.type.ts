@@ -128,6 +128,7 @@ interface SpotHoles {
 
 interface SettleLoop {
   readonly kick: () => void;
+  readonly follow: () => void;
   readonly stop: () => void;
 }
 

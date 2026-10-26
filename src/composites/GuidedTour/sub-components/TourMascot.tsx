@@ -6,6 +6,7 @@ import { MascotStage } from '../../../brand/MascotStage';
 import type { MascotStageCast, MascotStageHandle } from '../../../brand/MascotStage/MascotStage.type';
 import { Box } from '../../../primitives/Box';
 import { mascotSpot } from '../behavior/mascot-spot';
+import { useHeldSpot } from '../behavior/useHeldSpot';
 import { useMascotPresenter } from '../behavior/useMascotPresenter';
 import { MASCOT_GAP, MASCOT_ID, MASCOT_SIZES } from '../GuidedTour.constants';
 import type { TourMascotProps } from './TourMascot.type';
@@ -17,7 +18,7 @@ const TourMascot = (props: TourMascotProps) => {
   const stageRef = useRef<MascotStageHandle>(null);
   const palette = usePaletteName(ref, choice === 'auto');
   const brand = choice === 'auto' ? mascotBrandOf(palette) : choice;
-  const spot = bubble && view.width > 0 ? mascotSpot({ bubble, hole }, view, box, MASCOT_GAP) : null;
+  const spot = useHeldSpot(bubble && view.width > 0 ? mascotSpot({ bubble, hole }, view, box, MASCOT_GAP) : null);
   const cast = useMemo<MascotStageCast[]>(() => (brand ? [{ id: MASCOT_ID, brand, clip: 'idle' }] : []), [brand]);
   useMascotPresenter(stageRef, { brand, spot, ...cue });
 
