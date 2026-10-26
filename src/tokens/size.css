@@ -10,6 +10,7 @@
   --scrollbar-size: var(--size-6);
   --scrollbar-slim: calc(3 * var(--size-1));
   --scrollbar-slim-active: calc(5 * var(--size-1));
+  --scrollbar-slim-gutter: calc(2 * var(--size-2) + var(--scrollbar-slim-active));
   --scrollbar-slim-rest: calc(0 * var(--size-1));
   --brand-mark-sm: var(--size-16);
   --brand-mark-md: var(--size-24);

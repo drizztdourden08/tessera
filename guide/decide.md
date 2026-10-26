@@ -112,7 +112,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - One raised item: no component yet.
   - Empty space: no component yet.
   - A line between sections: no component yet.
-  - Content that scrolls: no component yet.
+  - Content that scrolls: [ScrollArea](components/ScrollArea.md). ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content.
   - More content behind a line that shows or hides it: [Disclosure](components/Disclosure.md). Disclosure shows or hides what is under one line with the browser details element, with one look for every app.
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.

@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, ScrollArea, Text } from '../../src/primitives';
+import { ItemCard } from '../../src/composites';
+import { Box, Grid, ScrollArea, Text } from '../../src/primitives';
 import type { ScrollAreaScrollbar, ScrollAxis, ScrollPosition } from '../../src/primitives';
+import { STORE_CARDS } from '../composites/_samples/item-card-samples.constants';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import './ScrollArea.stories.css';
@@ -114,6 +116,19 @@ const Horizontal = {
   ),
 } satisfies StoryLiteStoryDefinition<ScrollAreaArgs>;
 
+const noop = (): void => undefined;
+
+const SlimGutter = {
+  name: 'Slim gutter around cards',
+  render: () => (
+    <ScrollArea scrollbar="slim" className="scroll-demo">
+      <Grid minColWidth={224} gap="sm">
+        {[...STORE_CARDS, ...STORE_CARDS].map((card, index) => <ItemCard key={index} {...card} onOpen={noop} />)}
+      </Grid>
+    </ScrollArea>
+  ),
+} satisfies StoryLiteStoryDefinition<ScrollAreaArgs>;
+
 const MirroredPanesDemo = () => {
   const [leftTarget, setLeftTarget] = useState<ScrollPosition | undefined>(undefined);
   const [rightTarget, setRightTarget] = useState<ScrollPosition | undefined>(undefined);
@@ -159,13 +174,13 @@ const Overview = overviewStory({
   points: [
     '`axis` picks `y`, `x` or `both`; the other direction is clipped.',
     '`scrollbar="slim"` draws a thin line along the edge that takes no width and widens under the pointer.',
-    '**Leave some padding on the slim edge:** content painted there covers the line.',
+    'A slim area reserves its own end gutter, so cards and other opaque content never cover the line.',
     '`onScroll` and `scrollTo` let two areas move together, as in a side by side comparison.',
   ],
   playground: Playground,
-  variants: [AllVariants],
+  variants: [AllVariants, SlimGutter],
   code: CODE,
 });
 
 export default meta;
-export { AllVariants, Horizontal, MirroredPanes, Overview, Playground };
+export { AllVariants, Horizontal, MirroredPanes, Overview, Playground, SlimGutter };

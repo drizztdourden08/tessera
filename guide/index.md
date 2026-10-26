@@ -50,7 +50,7 @@ One line per component. 86 of 200 have their usage written; a linked name opens 
 - `Quote`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `RadioGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ScaleLabels`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `ScrollArea`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [ScrollArea](components/ScrollArea.md): A box that scrolls its content, with a styled scrollbar, such as a changelog, a list of cards or a pane body. Import from `@drizztdourden08/tessera`.
 - `SearchInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SectionHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [SegmentedControl](components/SegmentedControl.md): A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one. Import from `@drizztdourden08/tessera`.

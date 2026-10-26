@@ -116,27 +116,28 @@
   flex: 1;
   min-height: 0;
   position: relative;
-  padding-right: calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active));
 }
 
 .widget__content[data-overflow~='x'] {
-  padding-bottom: calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active));
+  padding-bottom: var(--scrollbar-slim-gutter);
 }
 
 .widget__content--pad-sm {
-  padding: var(--space-sm) max(var(--space-sm), calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active))) var(--space-sm) var(--space-sm);
+  padding-block: var(--space-sm);
+  padding-inline: var(--space-sm) max(var(--space-sm), var(--scrollbar-slim-gutter));
 }
 
 .widget__content--pad-md {
-  padding: var(--space-md) max(var(--space-md), calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active))) var(--space-md) var(--space-md);
+  padding-block: var(--space-md);
+  padding-inline: var(--space-md) max(var(--space-md), var(--scrollbar-slim-gutter));
 }
 
 .widget__content--pad-sm[data-overflow~='x'] {
-  padding-bottom: max(var(--space-sm), calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active)));
+  padding-bottom: max(var(--space-sm), var(--scrollbar-slim-gutter));
 }
 
 .widget__content--pad-md[data-overflow~='x'] {
-  padding-bottom: max(var(--space-md), calc(2 * var(--scroll-thumb-edge) + var(--scrollbar-slim-active)));
+  padding-bottom: max(var(--space-md), var(--scrollbar-slim-gutter));
 }
 
 .widget .widget__content[data-fill] {

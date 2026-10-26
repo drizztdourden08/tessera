@@ -78,6 +78,10 @@
   --scroll-thumb-min: var(--size-24);
 }
 
+:where(.scroll-area[data-scrollbar='slim']:not([data-axis='x'])) {
+  padding-inline-end: var(--scrollbar-slim-gutter);
+}
+
 .scroll-area[data-scrollbar='slim'] {
   --scroll-thumb-w: var(--scrollbar-slim);
 
