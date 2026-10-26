@@ -13545,6 +13545,7 @@
         "Keep every value in the app; the toolbar draws items and calls onSelect, onChange and the options of each item.",
         "An item is a button, a toggle, a group of choices, a number or a separator. A tool the user picks is a toggle with pressed set on the current one.",
         "orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.",
+        "labels false hides the caption in a horizontal bar, so it shows icons only. It defaults to true. A ToolbarDock passes its value for the toolbar in the render slot.",
         "icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.",
         "Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.",
         "options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.",
@@ -13570,7 +13571,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "b3a2cebbb6bc30a1",
+      "propsHash": "077b7ef5798119da",
       "props": {
         "own": [
           {
@@ -13610,6 +13611,11 @@
               "'sm'",
               "'md'"
             ]
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "handle",
@@ -13698,7 +13704,9 @@
         "layout.sides[side] is a list of lanes, and a lane is a list of places { id, start, size }. start and size are fractions of the lane, from 0 to 1, so a lane can hold several toolbars with gaps between them. layout.corners says which side claims each corner. Read the ids of a side with toolbarIdsOf(layout, side), never by indexing sides.",
         "migrateToolbarLayout(saved, definitions) reads a saved layout of any version, upgrades a v1 layout to v2 and cleans a v2 one. Pass every saved layout through it.",
         "definitions names each toolbar. A toolbar in the layout without a definition is not drawn, and a hidden toolbar is not drawn.",
-        "renderToolbar draws one toolbar and gets its orientation, its side and the handle. Pass the orientation and the handle to Toolbar.",
+        "renderToolbar draws one toolbar and gets its orientation, its side, menuSide, the handle and labels. Pass the orientation, menuSide, the handle and labels to Toolbar.",
+        "layout.labels is optional and maps a toolbar id to true or false. Missing means the default of the app, and the slot then has no labels. setToolbarLabels(layout, id, on) sets it and returns the same layout when nothing changes. The layout version stays 2, and migrateToolbarLayout keeps valid entries and drops the rest.",
+        "moveToolbarToSide(layout, id, side) moves a shown toolbar to a side, placed as showToolbar places it: its last spot on that side if free, else a new lane, else the largest gap. With no room, or when the toolbar is already on that side, it returns the same layout. last is kept as it was.",
         "The orientation comes from the side: horizontal on top and bottom, vertical on left and right. It is never stored.",
         "The handle is the set of props for the grip of a Toolbar. It carries the toolbar id as data-drag-toolbar and a name such as Move Drawing tools.",
         "Dragging the grip moves the toolbar. A preview shows the lane it will take, with the thickness of that side, so the switch between horizontal and vertical shows before the drop.",
@@ -13729,7 +13737,7 @@
         ],
         "rule": "ToolbarDock is the frame that holds the toolbars on the edges of a work area, up to two lanes on each side."
       },
-      "example": "import { Toolbar, ToolbarDock } from '@drizztdourden08/tessera';\nimport type { ToolbarDefinition, ToolbarItem, ToolbarLayout } from '@drizztdourden08/tessera';\n\ninterface EditorProps {\n  layout: ToolbarLayout;\n  setLayout: (layout: ToolbarLayout) => void;\n  itemsOf: (id: string) => ToolbarItem[];\n  definitions: ToolbarDefinition[];\n  children: React.ReactNode;\n}\n\nconst Editor = ({ layout, setLayout, itemsOf, definitions, children }: EditorProps) => (\n  <ToolbarDock\n    layout={layout}\n    onLayoutChange={setLayout}\n    definitions={definitions}\n    renderToolbar={(id, { orientation, handle }) => (\n      <Toolbar label={id} items={itemsOf(id)} orientation={orientation} handle handleProps={handle} />\n    )}\n  >\n    {children}\n  </ToolbarDock>\n);\n",
+      "example": "import { Toolbar, ToolbarDock } from '@drizztdourden08/tessera';\nimport type { ToolbarDefinition, ToolbarItem, ToolbarLayout } from '@drizztdourden08/tessera';\n\ninterface EditorProps {\n  layout: ToolbarLayout;\n  setLayout: (layout: ToolbarLayout) => void;\n  itemsOf: (id: string) => ToolbarItem[];\n  definitions: ToolbarDefinition[];\n  children: React.ReactNode;\n}\n\nconst Editor = ({ layout, setLayout, itemsOf, definitions, children }: EditorProps) => (\n  <ToolbarDock\n    layout={layout}\n    onLayoutChange={setLayout}\n    definitions={definitions}\n    renderToolbar={(id, { orientation, menuSide, handle, labels }) => (\n      <Toolbar label={id} items={itemsOf(id)} orientation={orientation} menuSide={menuSide} labels={labels} handle handleProps={handle} />\n    )}\n  >\n    {children}\n  </ToolbarDock>\n);\n",
       "propsHash": "f8c1dd7cc368a659",
       "props": {
         "own": [
@@ -13803,8 +13811,10 @@
         "isToolbarShown",
         "migrateToolbarLayout",
         "moveToolbar",
+        "moveToolbarToSide",
         "normalizeCorners",
         "placeToolbar",
+        "setToolbarLabels",
         "showToolbar",
         "toggleToolbar",
         "toolbarIdsOf",

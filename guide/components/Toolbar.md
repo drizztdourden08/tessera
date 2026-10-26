@@ -34,6 +34,7 @@ Toolbar is the set of tools of an editor, with a hint on each and options beside
 - Keep every value in the app; the toolbar draws items and calls onSelect, onChange and the options of each item.
 - An item is a button, a toggle, a group of choices, a number or a separator. A tool the user picks is a toggle with pressed set on the current one.
 - Orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.
+- Labels false hides the caption in a horizontal bar, so it shows icons only. It defaults to true. A ToolbarDock passes its value for the toolbar in the render slot.
 - Icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.
 - Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.
 - Options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.
@@ -81,6 +82,7 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
 - `orientation` (optional): `ToolbarOrientation`, one of `'horizontal'`, `'vertical'`.
 - `layout` (optional): `ToolbarShape`, one of `'bar'`, `'list'`.
 - `size` (optional): `IconButtonSize`, one of `'xs'`, `'sm'`, `'md'`.
+- `labels` (optional): `boolean`.
 - `handle` (optional): `boolean`.
 - `handleProps` (optional): `ToolbarHandleProps`.
 - `menuSide` (optional): `ToolbarMenuSide`, one of `'right'`, `'left'`.
