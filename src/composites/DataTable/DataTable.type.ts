@@ -14,7 +14,7 @@ import type { RowFeatureProps, RowReorderBinding } from './behavior/row-features
 
 type DefaultExpanded = readonly string[] | ((groupKey: string, path: string) => boolean);
 
-type RowState = 'active' | 'pending' | 'error' | 'muted';
+type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted';
 
 interface DataTableProps<T> extends RowFeatureProps<T> {
   rows: readonly T[];

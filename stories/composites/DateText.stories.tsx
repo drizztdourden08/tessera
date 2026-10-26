@@ -75,7 +75,7 @@ const Overview = overviewStory({
     '`value` takes a Date, an ISO string or epoch ms; `format` takes a preset or Intl date options.',
     'Presets: relative, elapsed, calendar, date, time, datetime, weekday, month, iso; `length` is short to long.',
     'Relative and calendar redraw from one shared 10 s clock; elapsed ticks each second, minute or hour.',
-    '`elapsed` reads 12s, 4m 03s, 1h 02m, 2d 3h; `label` adds a word before it, such as running.',
+    '`elapsed` reads 4m 03s or 2d 3h; `length="short"` keeps one unit: 12s, 4m, 3h, 2d; `label` adds a word.',
     'The full date shows in a Tooltip, on for relative, elapsed and calendar; set `tooltip` to change it.',
     'The locale, units and words such as Just now come from the `dates` strings; `formatDate` gives the same text.',
   ],
