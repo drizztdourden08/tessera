@@ -50,9 +50,9 @@ describe('Markdown renders the release note subset', () => {
     expect(html).toMatch(/<strong class="text-el text-el--strong">controllers<\/strong>/);
     expect(html).toMatch(/<em class="text-el text-el--em">one<\/em>/);
     expect(html).toMatch(/<code class="text-el text-el--code">rotp --check<\/code>/);
-    expect(html).toContain('<ul class="markdown__list markdown__list--bullets">');
-    expect(html).toMatch(/<li class="markdown__item">Rumble is adjustable\.(<!-- -->)?\s*<ul class="markdown__list markdown__list--bullets">/);
-    expect(html).toContain('<ol class="markdown__list markdown__list--numbers" start="3">');
+    expect(html).toContain('<ul class="list list--bullets">');
+    expect(html).toMatch(/<li class="list-item">Rumble is adjustable\.(<!-- -->)?\s*<ul class="list list--bullets">/);
+    expect(html).toContain('<ol class="list list--numbers" start="3">');
   });
 
   it('draws a fenced block as a CodeBlock in its language, a quote and a rule', () => {
@@ -103,11 +103,10 @@ describe('Markdown drops what is outside the subset', () => {
     expect(html.match(/<a /g)).toHaveLength(1);
   });
 
-  it('shows an image as its alt text and a table as plain text', () => {
-    const html = draw({}, '![The new card](https://example.com/card.png)\n\n| a | b |\n|---|---|\n| 1 | 2 |');
-    expect(html).not.toMatch(/<img|<link|<table/);
+  it('shows an image as its alt text', () => {
+    const html = draw({}, '![The new card](https://example.com/card.png)');
+    expect(html).not.toMatch(/<img|<link/);
     expect(html).toContain('<span class="text-el text-el--span markdown__image-text">The new card</span>');
-    expect(html).toContain('| a | b |');
   });
 
   it('keeps only http, https and mailto addresses', () => {
@@ -122,5 +121,59 @@ describe('Markdown drops what is outside the subset', () => {
     expect(safeHref('file:///etc/passwd')).toBe('');
     expect(safeHref('/relative')).toBe('');
     expect(safeHref('#top')).toBe('');
+  });
+});
+
+const README = `| Key | Action | Count |
+|:----|:------:|------:|
+| W | Move **up** | 1 |
+| S | Move down | 22 |
+
+- [x] Shipped
+- [ ] Planned
+  - nested point
+
+~~old~~ and https://example.com/auto`;
+
+describe('Markdown draws GitHub tables, task lists and strikethrough with Tessera parts', () => {
+  it('draws a table with the Table primitive classes, a head, a body and alignment', () => {
+    const html = draw({}, README);
+    expect(html).toContain('<div class="table-wrap"><table class="table table--striped">');
+    expect(html).toContain('<thead class="table__head"><tr class="table__row"><th class="table__cell table__cell--head table__cell--left">Key</th>');
+    expect(html).toContain('table__cell--head table__cell--center">Action</th>');
+    expect(html).toContain('table__cell--head table__cell--right">Count</th>');
+    expect(html).toContain('<tbody class="table__body"><tr class="table__row"><td class="table__cell table__cell--left">W</td>');
+    expect(html).toContain('<td class="table__cell table__cell--center">Move <strong');
+    expect(html).not.toMatch(/markdown__table|<th>|<td>/);
+  });
+
+  it('draws a task item as a disabled Checkbox with the item text as its label', () => {
+    const html = draw({}, README);
+    expect(html.match(/<input type="checkbox" class="checkbox__input"/g)).toHaveLength(2);
+    expect(html).toMatch(/<li class="list-item list-item--bare"><label class="checkbox control-size--md checkbox--disabled"><input[^>]*disabled=""[^>]*checked=""/);
+    expect(html).toMatch(/checkbox__label">Shipped<\/span>/);
+    expect(html).toMatch(/<input(?![^>]*checked)[^>]*disabled=""[^>]*\/>[\s\S]*?Planned/);
+    expect(html).toMatch(/Planned<\/span><\/label><ul class="list list--bullets">\s*<li class="list-item">nested point/);
+  });
+
+  it('draws strikethrough with the S part and an autolink with Link', () => {
+    const html = draw({}, README);
+    expect(html).toContain('<s class="text-el text-el--s">old</s>');
+    expect(html).toMatch(/<a target="_blank" rel="noopener noreferrer" href="https:\/\/example.com\/auto" class="link"/);
+  });
+
+  it('sizes the task Checkbox with the size of the note', () => {
+    expect(draw({ size: 'sm' }, '- [x] Done')).toContain('control-size--sm');
+  });
+
+  it('still drops raw HTML inside a table and a task item', () => {
+    const html = draw({}, `| a |
+|---|
+| <i>x</i><b>y</b> |
+
+- [ ] <img src="x" onerror="alert(2)"> task`);
+    expect(html).not.toMatch(/<b>|<i>|<img|onerror/);
+    expect(html).toContain('table__cell');
+    expect(html).toContain('checkbox');
   });
 });
