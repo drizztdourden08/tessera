@@ -20,6 +20,14 @@
   animation: none;
 }
 
+.dropdown-menu[data-anchor-place^='right'] {
+  animation-name: dropdown-in-right;
+}
+
+.dropdown-menu[data-anchor-place^='left'] {
+  animation-name: dropdown-in-left;
+}
+
 .dropdown-menu--sub {
   min-width: var(--size-160);
   animation: dropdown-sub-in 0.1s ease-out;
@@ -34,6 +42,30 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes dropdown-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--size-4)));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dropdown-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(var(--size-4));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
