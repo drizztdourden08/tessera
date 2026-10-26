@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, ReactNode } from 'react';
 import type { IconName } from '../../primitives/Icon';
-import type { MarkdownLinkHandler } from '../Markdown/Markdown.type';
+import type { MarkdownImages, MarkdownLinkHandler, MarkdownLinkId } from '../Markdown/Markdown.type';
 
 type MarkdownEditorLayout = 'split' | 'tabs';
 
@@ -22,6 +22,8 @@ interface MarkdownEditorProps {
   layout?: MarkdownEditorLayout;
   rows?: number;
   onLink?: MarkdownLinkHandler;
+  images?: MarkdownImages;
+  linkIds?: MarkdownLinkId | MarkdownLinkId[];
   onSubmit?: (value: string) => void;
   onEscape?: () => void;
   maxLength?: number;
@@ -93,6 +95,8 @@ interface MarkdownEditorTabsProps {
 interface MarkdownEditorPreviewProps {
   value: string;
   onLink?: MarkdownLinkHandler;
+  images?: MarkdownImages;
+  linkIds?: MarkdownLinkId | MarkdownLinkId[];
   hidden: boolean;
 }
 

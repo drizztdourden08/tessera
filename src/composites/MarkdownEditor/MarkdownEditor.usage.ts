@@ -17,6 +17,7 @@ const usage = {
     'Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.',
     'Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.',
     'Pass onLink in a desktop app so a link in the preview opens in the system browser.',
+    'Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.',
     'Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.',
     'The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.',
     'Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.',
@@ -46,7 +47,7 @@ const NoteField = ({ openExternal }: { openExternal: (href: string) => void }) =
   return <MarkdownEditor label="Note" value={note} onChange={setNote} onLink={openExternal} />;
 };
 `,
-  propsHash: '6c040f6de1314caf',
+  propsHash: 'e657eeb4d330d26c',
 } satisfies ComponentUsage;
 
 export { usage };

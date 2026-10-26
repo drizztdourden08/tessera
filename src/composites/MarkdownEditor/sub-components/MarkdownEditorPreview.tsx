@@ -6,13 +6,13 @@ import { Markdown } from '../../Markdown';
 import type { MarkdownEditorPreviewProps } from '../MarkdownEditor.type';
 
 const MarkdownEditorPreview = (props: MarkdownEditorPreviewProps) => {
-  const { value, onLink, hidden } = props;
+  const { value, onLink, images, linkIds, hidden } = props;
   const { markdownEditor } = useTesseraStrings();
   return (
     <Box className="markdown-editor__preview" role="region" aria-label={markdownEditor.preview} hidden={hidden}>
       {value.trim() === ''
         ? <Text variant="caption" tone="dim">{markdownEditor.nothingToPreview}</Text>
-        : <Markdown source={value} size="sm" headingOffset={1} onLink={onLink} />}
+        : <Markdown source={value} size="sm" headingOffset={1} onLink={onLink} images={images} linkIds={linkIds} />}
     </Box>
   );
 };
